@@ -8,10 +8,10 @@ module.exports = {
   ],
   addons: [
     "@storybook/addon-actions",
+    "@storybook/addon-docs",
     "@storybook/addon-controls",
     "@storybook/addon-viewport",
     "@storybook/addon-a11y",
-    "@storybook/addon-docs",
     "@storybook/addon-google-analytics",
     "@storybook/addon-links",
     "./theme-selector/register",
