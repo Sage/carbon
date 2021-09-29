@@ -12,7 +12,7 @@ import DateHelper from "../../__internal__/date";
 import DatePicker from "./date-picker.component";
 import StyledDateInput from "./date.style";
 import Textbox from "../textbox";
-import withUniqueIdProps from "../../utils/helpers/with-unique-id-props";
+import withUniqueIdProps from "../../__internal__/utils/helpers/with-unique-id-props";
 import { isEdge } from "../../__internal__/utils/helpers/browser-type-check";
 import LocaleContext from "../../__internal__/i18n-context";
 
