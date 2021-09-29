@@ -12,7 +12,7 @@ import {
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import FormField from "../../__internal__/form-field";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import Label from "../../__internal__/label";
 
 describe("NumeralDate", () => {

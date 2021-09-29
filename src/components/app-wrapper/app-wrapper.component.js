@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { validProps } from "../../__internal__/utils/ether";
 import StyledAppWrapper from "./app-wrapper.style";
 

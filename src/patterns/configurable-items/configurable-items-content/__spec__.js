@@ -6,7 +6,7 @@ import {
   ConfigurableItems,
   ConfigurableItemRow,
 } from "./../../../components/configurable-items";
-import { rootTagTest } from "./../../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("ConfigurableItemsContent", () => {
   let wrapper;

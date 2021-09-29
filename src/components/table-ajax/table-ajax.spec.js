@@ -3,7 +3,7 @@ import Immutable from "immutable";
 import { shallow, mount } from "enzyme";
 import Request from "superagent";
 import { TableAjax, TableRow } from ".";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import Pager from "../pager";
 
 jest.mock("superagent");

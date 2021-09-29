@@ -11,7 +11,7 @@ import Button from "../button";
 import StyledDeleteButton from "./delete-button.style";
 import Events from "../../__internal__/utils/helpers/events";
 import { validProps } from "../../__internal__/utils/ether";
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import LocaleContext from "../../__internal__/i18n-context";
 import StyledPod from "./show-edit-pod.style";
 

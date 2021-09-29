@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import PropTypes from "prop-types";
 import Icon from "../icon";
-import tagComponent from "../../utils/helpers/tags/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import {
   ToastStyle,
   TypeIcon,

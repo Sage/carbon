@@ -3,7 +3,7 @@ import TestRenderer from "react-test-renderer";
 import { mount, shallow } from "enzyme";
 import { shade } from "polished";
 
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   testStyledSystemMargin,

@@ -14,7 +14,7 @@ import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-ic
 
 import Icon from "../icon";
 import TextBox from "../textbox";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("Search", () => {
   let wrapper, onBlur, onChange, onClick, onKeyDown;

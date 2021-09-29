@@ -10,7 +10,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import Icon from "../icon";
 import Link from "../link";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledCardFooter from "./card-footer/card-footer.style";
 import { CARD_SIZES } from "./card.config";
 import StyledCard from "./card.style";

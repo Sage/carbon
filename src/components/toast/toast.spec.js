@@ -10,7 +10,7 @@ import ModalManager from "../modal/__internal__/modal-manager";
 import {
   elementsTagTest,
   rootTagTest,
-} from "../../utils/helpers/tags/tags-specs/tags-specs";
+} from "../../__internal__/utils/helpers/tags/tags-specs";
 
 jest.mock("../../utils/helpers/guid");
 

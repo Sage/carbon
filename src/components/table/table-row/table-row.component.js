@@ -8,7 +8,7 @@ import WithDrop from "../../drag-and-drop/with-drop";
 import DraggableTableCell from "../draggable-table-cell";
 import StyledTableRow from "./table-row.style";
 import { validProps } from "../../../__internal__/utils/ether";
-import tagComponent from "../../../utils/helpers/tags";
+import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import { ActionPopover } from "../../action-popover";
 
 /**

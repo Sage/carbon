@@ -3,7 +3,7 @@ import { shallow } from "enzyme";
 import SimpleColor from "./simple-color.component";
 import StyledSimpleColorInput from "../simple-color-input/simple-color-input.style";
 import ColorSampleBox from "../color-sample-box";
-import { rootTagTest } from "../../../utils/helpers/tags/tags-specs/tags-specs";
+import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 
 function render(props) {
   return shallow(

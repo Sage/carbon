@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import tagComponent from "../../../utils/helpers/tags/tags";
+import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import { SlideStyle } from "./slide.style";
 import baseTheme from "../../../style/themes/base";
 

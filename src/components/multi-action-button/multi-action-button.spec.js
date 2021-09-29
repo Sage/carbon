@@ -8,7 +8,7 @@ import {
   StyledButtonChildrenContainer,
 } from "./multi-action-button.style";
 import Button, { ButtonWithForwardRef } from "../button";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   keyboard,

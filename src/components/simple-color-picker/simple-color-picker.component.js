@@ -8,7 +8,7 @@ import React, {
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import Events from "../../__internal__/utils/helpers/events";
-import tagComponent from "../../utils/helpers/tags/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import Fieldset from "../../__internal__/fieldset";
 import SimpleColor from "./simple-color";
 import RadioButtonMapper from "../radio-button/radio-button-mapper.component";

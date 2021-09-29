@@ -4,7 +4,7 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import Event from "../../__internal__/utils/helpers/events";
-import tagComponent from "../../utils/helpers/tags/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import LocaleContext from "../../__internal__/i18n-context";
 import {
   StyledBlock,

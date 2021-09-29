@@ -5,7 +5,7 @@ import Profile from "./profile.component";
 import {
   elementsTagTest,
   rootTagTest,
-} from "../../utils/helpers/tags/tags-specs";
+} from "../../__internal__/utils/helpers/tags/tags-specs";
 import Browser from "../../__internal__/utils/helpers/browser";
 import {
   ProfileNameStyle,

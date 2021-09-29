@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react/headless";
 import StyledTooltip from "./tooltip.style";
 import StyledPointer from "./tooltip-pointer.style";
-import tagComponent from "../../utils/helpers/tags/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
 const TOOLTIP_DELAY = 100;
 

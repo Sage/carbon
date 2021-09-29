@@ -25,7 +25,7 @@ import {
   StyledMenuItem,
 } from "./action-popover.style";
 import Popover from "../../__internal__/popover";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import Icon from "../icon";
 import StyledButton from "../button/button.style";
 import guid from "../../utils/helpers/guid";

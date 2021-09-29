@@ -8,7 +8,7 @@ import React, {
 import PropTypes from "prop-types";
 import { compact } from "lodash";
 import { withTheme } from "styled-components";
-import tagComponent from "../../utils/helpers/tags/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import Slide from "./slide/slide.component";
 import {
   CarouselPreviousButtonWrapperStyle,

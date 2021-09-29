@@ -11,7 +11,7 @@ import {
 import { carbonThemeList } from "../../style/themes";
 import Browser from "../../__internal__/utils/helpers/browser";
 import Portrait from "./portrait.component";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   StyledIcon,
   StyledCustomImg,
