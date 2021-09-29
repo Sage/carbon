@@ -84,6 +84,7 @@ const Help = ({
         tooltipBgColor={tooltipBgColor}
         tooltipFontColor={tooltipFontColor}
         tooltipFlipOverrides={tooltipFlipOverrides}
+        blockFocusBehaviour
       />
     </StyledHelp>
   );

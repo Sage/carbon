@@ -87,6 +87,8 @@ const ValidationIcon = ({
         }
         isPartOfInput={isPartOfInput}
         inputSize={size}
+        aria-hidden="true"
+        focusable={false}
       />
     </ValidationIconStyle>
   );
