@@ -1,11 +1,10 @@
 import moment from "moment";
-
 /**
  * Replaces today date with specified in the argument of the "set" method.
  * Ensures that the UTC time is returned regardless of the local time.
  */
-jest.mock("../utils/helpers/date", () => {
-  const _DateHelper = jest.requireActual("../utils/helpers/date");
+jest.mock("../__internal__/date", () => {
+  const _DateHelper = jest.requireActual("../__internal__/date");
 
   return {
     __esModule: true,

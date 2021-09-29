@@ -8,7 +8,7 @@ import {
   filterOutStyledSystemSpacingProps,
 } from "../../style/utils";
 import Events from "../../utils/helpers/events/events";
-import DateHelper from "../../utils/helpers/date/date";
+import DateHelper from "../../__internal__/date";
 import DatePicker from "./date-picker.component";
 import StyledDateInput from "./date.style";
 import Textbox from "../textbox";

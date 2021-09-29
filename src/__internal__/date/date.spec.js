@@ -1,6 +1,6 @@
 import moment from "moment";
 import DateHelper from "./date";
-import enGB from "../../../locales/en-gb";
+import enGB from "../../locales/en-gb";
 
 const enUS = {
   ...enGB,
