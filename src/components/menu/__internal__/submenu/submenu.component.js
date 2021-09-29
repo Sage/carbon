@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import { StyledSubmenu, StyledSubmenuWrapper } from "./submenu.style";
 import Link from "../../../link";
-import Events from "../../../../utils/helpers/events";
+import Events from "../../../../__internal__/utils/helpers/events";
 import MenuContext from "../../menu.context";
 import MenuItem from "../../menu-item";
 import { characterNavigation } from "../keyboard-navigation";

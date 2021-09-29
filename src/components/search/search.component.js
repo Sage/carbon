@@ -11,7 +11,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import Icon from "../icon";
 import Textbox from "../textbox";
 import Button from "../button";
-import Events from "../../utils/helpers/events";
+import Events from "../../__internal__/utils/helpers/events";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space

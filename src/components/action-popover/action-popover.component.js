@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import { MenuButton, ButtonIcon } from "./action-popover.style";
-import Events from "../../utils/helpers/events";
+import Events from "../../__internal__/utils/helpers/events";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import Popover from "../../__internal__/popover";
 import createGuid from "../../utils/helpers/guid";

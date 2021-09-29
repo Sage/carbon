@@ -10,7 +10,7 @@ import tagComponent from "../../../../utils/helpers/tags/tags";
 import ValidationIcon from "../../../../__internal__/validations/validation-icon.component";
 import createGuid from "../../../../utils/helpers/guid";
 import Icon from "../../../icon";
-import Events from "../../../../utils/helpers/events/events";
+import Events from "../../../../__internal__/utils/helpers/events";
 
 const TabTitle = React.forwardRef(
   (

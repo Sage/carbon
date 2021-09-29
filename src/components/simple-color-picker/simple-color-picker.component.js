@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
-import Events from "../../utils/helpers/events/events";
+import Events from "../../__internal__/utils/helpers/events";
 import tagComponent from "../../utils/helpers/tags/tags";
 import Fieldset from "../../__internal__/fieldset";
 import SimpleColor from "./simple-color";

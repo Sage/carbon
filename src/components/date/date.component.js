@@ -7,7 +7,7 @@ import {
   filterStyledSystemMarginProps,
   filterOutStyledSystemSpacingProps,
 } from "../../style/utils";
-import Events from "../../utils/helpers/events/events";
+import Events from "../../__internal__/utils/helpers/events";
 import DateHelper from "../../__internal__/date";
 import DatePicker from "./date-picker.component";
 import StyledDateInput from "./date.style";

@@ -4,7 +4,7 @@ import { TransitionGroup } from "react-transition-group";
 
 import { StyledPicklist, StyledEmptyContainer } from "./picklist.style";
 import FocusContext from "../duelling-picklist.context";
-import Events from "../../../utils/helpers/events";
+import Events from "../../../__internal__/utils/helpers/events";
 import PicklistGroup from "../picklist-group/picklist-group.component";
 
 export const Picklist = ({ disabled, children, placeholder, index }) => {

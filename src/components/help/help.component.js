@@ -5,7 +5,7 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import Icon from "../icon";
 import tagComponent from "../../utils/helpers/tags";
 import StyledHelp from "./help.style";
-import Events from "../../utils/helpers/events/events";
+import Events from "../../__internal__/utils/helpers/events";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { HELP_POSITIONS } from "./help.config";
 

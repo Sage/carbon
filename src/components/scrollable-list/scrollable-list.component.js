@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import tagComponent from "../../utils/helpers/tags";
-import Events from "../../utils/helpers/events";
+import Events from "../../__internal__/utils/helpers/events";
 import asScrollableListItem from "./as-scrollable-list-item.wrapper";
 import ScrollableListContext from "./scrollable-list.context";
 import ScrollableListContainer from "./scrollable-list.style";

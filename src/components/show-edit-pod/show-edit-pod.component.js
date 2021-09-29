@@ -9,7 +9,7 @@ import Pod from "../pod";
 import Form from "../form";
 import Button from "../button";
 import StyledDeleteButton from "./delete-button.style";
-import Events from "../../utils/helpers/events";
+import Events from "../../__internal__/utils/helpers/events";
 import { validProps } from "../../__internal__/utils/ether";
 import tagComponent from "../../utils/helpers/tags";
 import LocaleContext from "../../__internal__/i18n-context";

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Icon from "../icon";
-import Event from "../../utils/helpers/events";
+import Event from "../../__internal__/utils/helpers/events";
 import { StyledLink, StyledContent } from "./link.style";
 import tagComponent from "../../utils/helpers/tags";
 
