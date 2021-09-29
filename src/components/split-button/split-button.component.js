@@ -1,7 +1,13 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+  useContext,
+} from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
-import { withTheme } from "styled-components";
+import { ThemeContext } from "styled-components";
 import Icon from "../icon";
 import Button, { ButtonWithForwardRef } from "../button";
 import StyledSplitButton from "./split-button.style";
@@ -31,7 +37,6 @@ const SplitButton = ({
   size = "medium",
   subtext,
   text,
-  theme = baseTheme,
   ...rest
 }) => {
   const isToggleButtonFocused = useRef(false);
@@ -44,6 +49,8 @@ const SplitButton = ({
   const userInputType = useRef(
     "ontouchstart" in document.documentElement ? "touchstart" : "click"
   );
+
+  const theme = useContext(ThemeContext) || baseTheme;
 
   const hideButtons = useCallback(() => {
     if (isToggleButtonFocused.current) return;
@@ -294,4 +301,4 @@ SplitButton.propTypes = {
 
 SplitButton.safeProps = ["buttonType", "as", "disabled", "size"];
 
-export default withTheme(SplitButton);
+export default SplitButton;
