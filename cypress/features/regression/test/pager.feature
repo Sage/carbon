@@ -104,13 +104,13 @@ Feature: Pager component
 
   @positive
   Scenario: Pagination input has golden border
-    Given I open "Design System Pager" component page "default"
+    Given I open "Pager" component page "default"
     When I click on pagination input
     Then pagination input has golden border
 
   @positive
   Scenario: Current page displays 0 when zero pages
-    Given I open "Design System Pager" component page "loading state"
+    Given I open "Pager" component page "loading state"
       And I click on pagination input
     When I hit Tab key 1 time
     Then Current page input is set to 0

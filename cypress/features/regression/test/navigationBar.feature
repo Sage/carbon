@@ -1,5 +1,5 @@
-Feature: Design System Navigation Bar Test component
-  I want to test Design System Navigation Bar component property
+Feature: Navigation Bar Test component
+  I want to test Navigation Bar component property
 
   @positive
   Scenario Outline: Change Navigation Bar children to <children>

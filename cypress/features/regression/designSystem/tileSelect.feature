@@ -1,8 +1,8 @@
-Feature: Design System TileSelect component
-  I want to test Design System TileSelect component
+Feature: TileSelect component
+  I want to test TileSelect component
 
-  Background: Open Design System Search component page
-    Given I open "Design System Tile Select" component page "single tile"
+  Background: Open Search component page
+    Given I open "Tile Select" component page "single tile"
 
   @positive
   Scenario: Single tile is checked

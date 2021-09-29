@@ -125,7 +125,7 @@ Your branch should meet the following criteria:
 1. The code follows our existing coding conventions.
 1. It has detailed commit messages and squashed commits. PRs with commit messages like 'WIP' and 'addressed comments', or long lists of commits will likely require amending."
 1. The code does not introduce unnecessary dependencies (no jQuery!).
-1. Storybook is updated to include `Design System` and `Test` examples.
+1. Storybook is updated to include examples.
 1. Theme support is provided.
 1. Typescript `d.ts` files are provided or updated.
 

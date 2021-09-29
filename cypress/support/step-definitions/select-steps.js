@@ -83,7 +83,7 @@ When("I click onto default select using {string} key", (key) => {
   simpleSelect().trigger("keydown", keyCode(key));
 });
 
-Then("Design system Select input has {string} value", (text) => {
+Then("Simple Select input has {string} value", (text) => {
   simpleSelectID().should("have.attr", "value", text);
 });
 

@@ -3,7 +3,7 @@ Feature: Tooltip component
 
   @positive
   Scenario Outline: Set TooltipPosition to <tooltipPosition>
-    When I open default "Design System Tooltip Test" component with "tooltip" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Tooltip Test" component with "tooltip" json from "designSystem" using "<nameOfObject>" object name
     Then tooltipPosition is set to "<tooltipPosition>"
     Examples:
       | tooltipPosition | nameOfObject          |
@@ -14,7 +14,7 @@ Feature: Tooltip component
 
   @positive
   Scenario Outline: Set Tooltip message to <tooltipMessage>
-    When I open default "Design System Tooltip Test" component with "tooltip" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Tooltip Test" component with "tooltip" json from "designSystem" using "<nameOfObject>" object name
     Then tooltip text is set to <tooltipMessage>
     Examples:
       | tooltipMessage               | nameOfObject            |
@@ -23,7 +23,7 @@ Feature: Tooltip component
 
   @positive
   Scenario Outline: Set Tooltip type to <tooltipType>
-    When I open default "Design System Tooltip Test" component with "tooltip" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Tooltip Test" component with "tooltip" json from "designSystem" using "<nameOfObject>" object name
     Then tooltip type is set to "<tooltipType>" and has color "<color>"
     Examples:
       | tooltipType | nameOfObject       | color            |
@@ -33,7 +33,7 @@ Feature: Tooltip component
 
   @positive
   Scenario Outline: Set Tooltip size to <tooltipSize>
-    When I open default "Design System Tooltip Test" component with "tooltip" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Tooltip Test" component with "tooltip" json from "designSystem" using "<nameOfObject>" object name
     Then tooltip size is set to "<tooltipSize>" and has font-size <px>
     Examples:
       | tooltipSize | nameOfObject | px |
