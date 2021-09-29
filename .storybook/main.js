@@ -1,10 +1,21 @@
 const path = require("path");
+const glob = require("glob");
+
+const projectRoot = path.resolve(__dirname, "../");
+const ignoreTests = process.env.IGNORE_TESTS === "true";
+const getStories = () =>
+  glob.sync(`${projectRoot}/src/**/*.stories.@(js|mdx)`, {
+    ...(ignoreTests && {
+      ignore: `${projectRoot}/src/**/*-test.stories.@(js|mdx)`,
+    }),
+  });
 
 module.exports = {
-  stories: [
+  stories: async (list) => [
+    ...list,
     "./welcome-page/welcome.stories.js",
     "../docs/*.stories.mdx",
-    "../src/**/*.stories.@(js|mdx)",
+    ...getStories(),
   ],
   addons: [
     "@storybook/addon-actions",
