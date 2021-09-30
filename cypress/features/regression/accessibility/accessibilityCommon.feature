@@ -13,10 +13,10 @@ Feature: Accessibility tests - Common list
       | Button Toggle Group |
       | Carousel            |
       | Confirm             |
-      | Configurable-items  |
+      | Configurable Items  |
       | Detail              |
       | Dialog              |
-      | Decimal-Input       |
+      | Decimal Input       |
       | GroupedCharacter    |
       | Heading             |
       | Help                |
@@ -30,10 +30,10 @@ Feature: Accessibility tests - Common list
       | Row                 |
       | Showeditpod         |
       | Sidebar             |
-      | Split-button        |
-      | Step-sequence       |
-      | Multi-action-button |
-      | Number-Input        |
+      | Split Button        |
+      | Step Sequence       |
+      | Multi Action Button |
+      | Number Input        |
 
   @accessibility
   Scenario Outline: Component <component> default story with open preview
@@ -53,7 +53,7 @@ Feature: Accessibility tests - Common list
       | component        |
       | DraggableContext |
       | Setting row      |
-      | Table-ajax       |
+      | Table Ajax       |
       | Table            |
 
   @accessibility
@@ -62,9 +62,9 @@ Feature: Accessibility tests - Common list
     Then "<component>" component has no accessibility violations
     Examples:
       | component        |
-      | Decimal-Input    |
+      | Decimal Input    |
       | GroupedCharacter |
-      | Number-Input     |
+      | Number Input     |
 
   @accessibility
   Scenario Outline: Component <component> validations string story page
@@ -72,9 +72,9 @@ Feature: Accessibility tests - Common list
     Then "<component>" component has no accessibility violations
     Examples:
       | component        |
-      | Decimal-Input    |
+      | Decimal Input    |
       | GroupedCharacter |
-      | Number-Input     |
+      | Number Input     |
 
   @accessibility
   Scenario Outline: Component <component> validations string label story page
@@ -82,6 +82,95 @@ Feature: Accessibility tests - Common list
     Then "<component>" component has no accessibility violations
     Examples:
       | component        |
-      | Decimal-Input    |
+      | Decimal Input    |
       | GroupedCharacter |
-      | Number-Input     |
+      | Number Input     |
+
+  @accessibility
+  Scenario Outline: Accordion component <story> page closed state
+    When I open "Accordion" component page "<story>"
+    Then "Accordion <story> page" component has no accessibility violations
+    Examples:
+      | story                |
+      | default story        |
+      | with dynamic content |
+
+  @accessibility
+  Scenario: Accordion component primary page opened state
+    Given I open "Accordion" component page "default story"
+    When I expand default accordionRow via click
+    Then "Accordion default page" component has no accessibility violations
+
+  @accessibility
+  Scenario Outline: <component> default story page
+    When I open "Test <component>" component page "default"
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component        |
+      | Anchornavigation |
+
+  @accessibility
+  Scenario: DuellingPicklist component default story page
+    When I open "DuellingPicklist Test" component page "default"
+    Then "DuellingPicklist" component has no accessibility violations
+
+  @accessibility
+  Scenario Outline: Numeral Date component <story> story page
+    When I open "Numeral Date Test" component page "<story>"
+    Then "Numeral Date <story>" component has no accessibility violations
+    Examples:
+      | story       |
+      | default     |
+      | validations |
+
+  @accessibility
+  Scenario Outline: Button component <story> page
+    When I open "Button" component page "<story>"
+    Then "Button <story> page" component has no accessibility violations
+    Examples:
+      | story                 |
+      | primary               |
+      | primary destructive   |
+      | primary disabled      |
+      | primary full width    |
+      | primary icon          |
+      | secondary             |
+      | secondary destructive |
+      | secondary disabled    |
+      | secondary full width  |
+      | secondary icon        |
+      | tertiary              |
+      | tertiary destructive  |
+      | tertiary disabled     |
+      | tertiary full width   |
+      | tertiary icon         |
+      | dashed                |
+      | dashed disabled       |
+      | dashed full width     |
+      | dashed icon           |
+
+  @accessibility
+  Scenario Outline: Button Bar component <story> page
+    When I open "Button Bar" component page "<story>"
+    Then "Button Bar <story> page" component has no accessibility violations
+    Examples:
+      | story        |
+      | sizes        |
+      | with icons   |
+      | icons only   |
+      | icon buttons |
+      | full width   |
+
+  @accessibility
+  Scenario: Button component as a sibling story page
+    When I open "Button Test" component page "as a sibling"
+    Then "button" component has no accessibility violations
+
+  @accessibility
+  Scenario Outline: <component> component visual page
+    When I open "<component> Test" component page "visual"
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component |
+      | Drawer    |
+      | Grid      |

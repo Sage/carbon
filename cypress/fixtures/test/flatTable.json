@@ -1,7 +1,0 @@
-{ 
-  "default": {
-    "hasHeaderRow": true,
-    "hasStickyHead": true,
-    "hasClickableRows": true
-  }
-}
