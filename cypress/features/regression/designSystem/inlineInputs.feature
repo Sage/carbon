@@ -3,7 +3,7 @@ Feature: InlineInputs component
 
   @positive
   Scenario Outline: Change InlineInputs label to <label>
-    When I open default-story "Inline Inputs" component with "inlineInputs" json from "designSystem" using "<nameOfObject>" object name
+    When I open default-story "Inline Inputs" component with "inlineInputs" json from "commonComponents" using "<nameOfObject>" object name
     Then label is set to <label>
     Examples:
       | label                        | nameOfObject          |

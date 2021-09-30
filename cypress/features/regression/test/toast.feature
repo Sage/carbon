@@ -9,7 +9,7 @@ Feature: Toast component
 
   @positive
   Scenario Outline: Change Toast children to <children>
-    When I open Test default "Toast" component with "toast" json from "test" using "<nameOfObject>" object name
+    When I open Test default "Toast" component with "toast" json from "commonComponents" using "<nameOfObject>" object name
     Then Toast children is set to <children>
     Examples:
       | children                     | nameOfObject             |

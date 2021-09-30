@@ -3,7 +3,7 @@ Feature: Textbox multiple component
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
-    When I open multiple "Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
+    When I open multiple "Textbox Test" component with "textbox" json from "commonComponents" using "<nameOfObject>" object name
     Then Multiple Textbox placeholder is set to <placeholder>
     Examples:
       | placeholder                  | nameOfObject                |
@@ -12,7 +12,7 @@ Feature: Textbox multiple component
 
   @positive
   Scenario Outline: Set <prefix> for multiple component
-    When I open multiple "Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
+    When I open multiple "Textbox Test" component with "textbox" json from "commonComponents" using "<nameOfObject>" object name
     Then Multiple textbox prefix is set to <prefix>
     Examples:
       | prefix                       | nameOfObject           |
@@ -21,7 +21,7 @@ Feature: Textbox multiple component
 
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
-    When I open multiple "Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
+    When I open multiple "Textbox Test" component with "textbox" json from "commonComponents" using "<nameOfObject>" object name
     Then Multiple fieldHelp on preview is set to <fieldHelp>
     Examples:
       | fieldHelp                    | nameOfObject              |
@@ -30,7 +30,7 @@ Feature: Textbox multiple component
 
   @positive
   Scenario Outline: Set label to <label>
-    When I open multiple "Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
+    When I open multiple "Textbox Test" component with "textbox" json from "commonComponents" using "<nameOfObject>" object name
     Then Multiple label is set to <label>
     Examples:
       | label                        | nameOfObject          |
@@ -39,7 +39,7 @@ Feature: Textbox multiple component
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
-    Given I open multiple "Textbox Test" component with "textbox" json from "designSystem" using "<nameOfObject>" object name
+    Given I open multiple "Textbox Test" component with "textbox" json from "commonComponents" using "<nameOfObject>" object name
     When I hover mouse onto "first" help icon
       And I hover mouse onto "second" help icon
     Then Multiple tooltipPreview on preview is set to <labelHelp>

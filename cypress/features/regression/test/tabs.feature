@@ -3,7 +3,7 @@ Feature: Tabs component
 
   @positive
   Scenario Outline: Tab <id> content is set and visible
-    Given I open Test default "Tabs" component with "tabs" json from "test" using "default" object name
+    Given I open Test default "Tabs" component with "tabs" json from "commonComponents" using "default" object name
     When I open Tab <id>
     Then Tab <id> content is visible
     Examples:
