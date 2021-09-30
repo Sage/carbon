@@ -47,7 +47,7 @@ describe("MenuFullscreen", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = render({});
+    wrapper = render({ isOpen: true });
   });
 
   it("should render with correct `data-component`", () => {
@@ -118,7 +118,7 @@ describe("MenuFullscreen", () => {
     });
 
     it("applies the expected styling when `menuType` is 'dark'", () => {
-      wrapper = render({ menuType: "dark" });
+      wrapper = render({ menuType: "dark", isOpen: true });
       assertStyleMatch(
         {
           backgroundColor: baseTheme.colors.slate,

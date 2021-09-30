@@ -25,10 +25,15 @@ const MenuFullscreen = ({
   const menuContentRef = useRef();
   const { menuType } = useContext(MenuContext);
 
+  if (!isOpen) return null;
+
   return (
-    <li aria-label="menu fullscreen" role="menuitem">
+    <li aria-label="menu-fullscreen">
       <Portal>
-        <FocusTrap wrapperRef={menuWrapperRef}>
+        <FocusTrap
+          focusFirstElement={menuContentRef}
+          wrapperRef={menuWrapperRef}
+        >
           <StyledMenuFullscreen
             data-component="menu-fullscreen"
             ref={menuWrapperRef}
@@ -65,8 +70,9 @@ const MenuFullscreen = ({
                 ref={menuContentRef}
                 display="flex"
                 flexDirection="column"
-                role="menu"
+                role="list"
                 inFullscreenView
+                tabIndex={-1}
               >
                 {React.Children.map(children, (child, index) => (
                   <MenuContext.Provider

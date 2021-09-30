@@ -29,6 +29,9 @@ const FocusTrap = ({
   const [firstElement, setFirstElement] = useState();
   const [lastElement, setLastElement] = useState();
   const { isAnimationComplete } = useContext(ModalContext);
+  const animationHasRun =
+    isAnimationComplete || isAnimationComplete === undefined;
+
   const hasNewInputs = useCallback(
     (candidate) => {
       if (!focusableElements || candidate.length !== focusableElements.length) {
@@ -77,7 +80,7 @@ const FocusTrap = ({
     if (
       autoFocus &&
       firstOpen.current &&
-      isAnimationComplete &&
+      animationHasRun &&
       (focusFirstElement || firstElement)
     ) {
       setElementFocus(focusFirstElement || firstElement);
