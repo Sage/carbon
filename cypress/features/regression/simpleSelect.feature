@@ -36,7 +36,7 @@ Feature: Select component
     Given I open "Select" component page "controlled"
       And I click on Select input
     When I select value "Amber"
-    Then Simple Select input has "Amber" value
+    Then Select input has "Amber" value
       And "simple" Select list is closed
 
   @positive
@@ -44,7 +44,7 @@ Feature: Select component
     Given I open "Select" component page "controlled"
       And I click on Select input
     When I type "<selectableValue>" into input
-    Then Simple Select input has "<selectedValue>" value
+    Then Select input has "<selectedValue>" value
       And "<position>" option on the list is hovered over
     Examples:
       | selectableValue | selectedValue | position |

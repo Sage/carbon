@@ -58,7 +58,7 @@ Feature: Filterable Select component
     Given I open "Select filterable" component page "controlled"
       And I type "Amber" into input
     When I click on "first" option on Select list
-    Then Simple Select input has "Amber" value
+    Then Select input has "Amber" value
       And "filterable" Select list is closed
 
   @positive
