@@ -1,0 +1,59 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import ProgressBar from ".";
+import Button from "../button";
+import { PROGRESS_BAR_SIZES } from "./progress-bar.config";
+
+<Meta
+  title="Progress Bar/Test"
+  parameters={{
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  }}
+  argTypes={{
+    size: {
+      options: PROGRESS_BAR_SIZES,
+      control: {
+        type: "select",
+      },
+    },
+    progress: {
+      control: {
+        type: "number",
+      },
+    },
+    value: {
+      options: ["", true, "$100", "100ml"],
+      control: {
+        type: "select",
+      },
+    },
+    maxValue: {
+      options: ["", true, "$200", "200ml"],
+      control: {
+        type: "select",
+      },
+    },
+    colour: {
+      options: ["default", "traffic"],
+      control: {
+        type: "select",
+      },
+    },
+  }}
+/>
+
+export const ProgressStory = ({ ...args }) => {
+  return <ProgressBar {...args} />;
+};
+
+# ProgressBar
+
+### Default
+
+<Preview>
+  <Story name="default" args={{ progress: 20 }}>
+    {ProgressStory.bind({})}
+  </Story>
+</Preview>

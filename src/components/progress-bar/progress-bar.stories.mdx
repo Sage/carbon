@@ -1,0 +1,132 @@
+import { useState } from "react";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import ProgressBar from ".";
+import Button from "../button";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+<Meta
+  title="Progress Bar"
+  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+/>
+
+# ProgressBar
+
+Use the ProgressBar component to let users know a task or loading data is still in progress.
+Showing a ProgressBar helps the user to understand that they should wait, rather than reload the page or abandon a process.
+In general, place a ProgressBar in the centre and middle of the page or container it relates to.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+Import `ProgressBar` into the project.
+
+```javascript
+import ProgressBar from "carbon-react/lib/components/progress-bar";
+```
+
+## Examples
+
+## Default bar
+
+This example of the ProgressBar component demonstrates how it will appear as default.
+
+<Preview>
+  <Story name="default">
+    <ProgressBar mt={2} progress={50} />
+  </Story>
+</Preview>
+
+### Small bar
+
+This is an example of a small ProgressBar component.
+
+<Preview>
+  <Story name="small">
+    <ProgressBar size="small" mt={2} progress={50} />
+  </Story>
+</Preview>
+
+### Large bar
+
+This is an example of a large ProgressBar component.
+
+<Preview>
+  <Story name="large">
+    <ProgressBar size="large" mt={2} progress={50} />
+  </Story>
+</Preview>
+
+### Colour
+
+This is an example of a ProgressBar component with value.
+
+<Preview>
+  <Story name="colour default">
+    <ProgressBar size="large" mt={2} progress={15} colour="default" />
+    <ProgressBar size="large" mt={2} progress={50} colour="default" />
+    <ProgressBar size="large" mt={2} progress={100} colour="default" />
+  </Story>
+</Preview>
+
+This is an example of a ProgressBar component with colour="traffic".
+
+<Preview>
+  <Story name="colour traffic">
+    <ProgressBar size="large" mt={2} progress={15} colour="traffic" />
+    <ProgressBar size="large" mt={2} progress={50} colour="traffic" />
+    <ProgressBar size="large" mt={2} progress={100} colour="traffic" />
+  </Story>
+</Preview>
+
+### Value
+
+This is an example of a ProgressBar component with value and maxValue props.
+
+<Preview>
+  <Story name="value">
+    <ProgressBar size="large" mt={2} progress={15} value maxValue />
+    <ProgressBar size="large" mt={2} progress={50} value maxValue />
+    <ProgressBar size="large" mt={2} progress={100} value maxValue />
+  </Story>
+</Preview>
+
+### Custom Value
+
+This is an example of a ProgressBar component with value and maxValue props.
+
+<Preview>
+  <Story name="custom value">
+    <ProgressBar
+      size="large"
+      mt={2}
+      progress={15}
+      value="$50"
+      maxValue="$200"
+    />
+    <ProgressBar
+      size="large"
+      mt={2}
+      progress={50}
+      value="$100"
+      maxValue="$200"
+    />
+    <ProgressBar
+      size="large"
+      mt={2}
+      progress={100}
+      value="$200"
+      maxValue="$200"
+    />
+  </Story>
+</Preview>
+
+## Props
+
+### ProgressBar
+
+<Props of={ProgressBar} />
