@@ -15,3 +15,14 @@ Feature: Batch selection component
       | 0             | selectedCount0   |
       | 10            | selectedCount10  |
       | 100           | selectedCount100 |
+
+  @positive
+  Scenario Outline: I focus <buttonIndex> inner element for Batch selection component
+    Given I open "Batch selection" component page "default story"
+    When I focus Batch selection "<buttonIndex>" button
+    Then Batch selection component "<buttonIndex>" button is focused
+    Examples:
+      | buttonIndex |
+      | first       |
+      | second      |
+      | third       |
