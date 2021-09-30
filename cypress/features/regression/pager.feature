@@ -3,7 +3,7 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Set totalRecords to <totalRecords>
-    When I open Test default "Pager" component with "pager" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Pager Test" component with "pager" json from "commonComponents" using "<nameOfObject>" object name
     Then totalRecords is set to "<totalRecords>" items
       And I am on 1st of "<maxPages>" pages
     Examples:
@@ -17,13 +17,13 @@ Feature: Pager component
 
   @positive
   Scenario: Set totalRecords to 1 and check spell of item word
-    When I open Test default "Pager" component with "pager" json from "commonComponents" using "totalRecords1" object name
+    When I open default "Pager Test" component with "pager" json from "commonComponents" using "totalRecords1" object name
     Then totalRecords is set to "1" item
       And I am on 1st of "1" pages
 
   @negative
   Scenario Outline: Set totalRecords out of scope to <totalRecords>
-    When I open Test default "Pager" component with "pager" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Pager Test" component with "pager" json from "commonComponents" using "<nameOfObject>" object name
     Then totalRecords is set to "<totalRecords>" items
       And I am on 1st of "1" pages
     Examples:
@@ -34,7 +34,7 @@ Feature: Pager component
 
   @negative
   Scenario Outline: Set totalRecords out of scope to <totalRecords>
-    When I open Test default "Pager" component with "pager" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Pager Test" component with "pager" json from "commonComponents" using "<nameOfObject>" object name
     Then totalRecords is set to "" items
       And I am on 1st of "1" pages
     Examples:
@@ -44,7 +44,7 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Set pageSize to <pageSize> items
-    When I open Test default "Pager" component with "pager" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Pager Test" component with "pager" json from "commonComponents" using "<nameOfObject>" object name
     Then pageSize is set to "<pageSize>" items
       And I am on 1st of "<maxPages>" pages
     Examples:
@@ -56,13 +56,13 @@ Feature: Pager component
 
   @positive
   Scenario: Set pageSize to 1 item
-    When I open Test default "Pager" component with "pager" json from "commonComponents" using "pageSize1" object name
+    When I open default "Pager Test" component with "pager" json from "commonComponents" using "pageSize1" object name
     Then pageSize is set to "1" item
       And I am on 1st of "100" pages
 
   @positive
   Scenario Outline: Pagination <button> button is disabled after clicking on last button
-    Given I open Test default "Pager" component with "pager" json from "commonComponents" using "default" object name
+    Given I open default "Pager Test" component with "pager" json from "commonComponents" using "default" object name
     When I click "last" pagination button
     Then pagination "<button>" button is disabled
     Examples:
@@ -72,7 +72,7 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Pagination <button> button is disabled after clicking on first button
-    Given I open Test default "Pager" component with "pager" json from "commonComponents" using "default" object name
+    Given I open default "Pager Test" component with "pager" json from "commonComponents" using "default" object name
       And I click "last" pagination button
     When I click "first" pagination button
     Then pagination "<button>" button is disabled
@@ -83,7 +83,7 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Pagination <button> button is disabled after previous paginate
-    Given I open Test default "Pager" component with "pager" json from "commonComponents" using "default" object name
+    Given I open default "Pager Test" component with "pager" json from "commonComponents" using "default" object name
       And I type "10" to input pagination
     When I press previous button 9 times
     Then pagination "<button>" button is disabled
@@ -94,7 +94,7 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Pagination <button> button is disabled after clicking next button
-    Given I open Test default "Pager" component with "pager" json from "commonComponents" using "default" object name
+    Given I open default "Pager Test" component with "pager" json from "commonComponents" using "default" object name
     When I press next button 9 times
     Then pagination "<button>" button is disabled
     Examples:

@@ -44,7 +44,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Loader component theme to <theme>
-    When I open Test default "Loader" component with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default "Loader Test" component with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then Loader component css background color is set to "<theme>"
     Examples:
       | theme  | nameOfObject |
@@ -54,7 +54,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Loader Bar component theme to <theme>
-    When I open Test default "Loader Bar" component with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default "Loader Bar Test" component with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then Loader Bar component css background color is set to "<theme>"
     Examples:
       | theme  | nameOfObject |
@@ -116,7 +116,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Tabs component theme to <theme>
-    When I open Test default "Tabs" component with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default "Tabs Test" component with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "tab-selected-indicator" element css "box-shadow" is set to "<theme>" common
     Examples:
       | theme  | nameOfObject |

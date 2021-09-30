@@ -3,7 +3,7 @@ Feature: Navigation Bar Test component
 
   @positive
   Scenario Outline: Change Navigation Bar children to <children>
-    When I open Test default "Navigation Bar" component with "navigationBar" json from "commonComponents" using "<nameOfObject>" object name
+    When I open default "Navigation Bar Test" component with "navigationBar" json from "commonComponents" using "<nameOfObject>" object name
     Then Navigation Bar children on preview is set to <children>
     Examples:
       | children                     | nameOfObject             |

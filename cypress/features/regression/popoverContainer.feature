@@ -3,7 +3,7 @@ Feature: Popover container component
 
   @positive
   Scenario Outline: Change Popover container component title to <title>
-    Given I open Test default "Popover container" component with "popoverContainer" json from "commonComponents" using "<nameOfObject>" object name
+    Given I open default "Popover container Test" component with "popoverContainer" json from "commonComponents" using "<nameOfObject>" object name
     When I open popover container
     Then Popover title on preview is set to <title>
     Examples:

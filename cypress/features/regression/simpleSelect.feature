@@ -101,7 +101,7 @@ Feature: Select component
 
   @positive
   Scenario Outline: Show Select list is at the <position> in <size> viewport
-    Given I open Test default "Select" component with "simpleSelect" json from "commonComponents" using "<size>" object name
+    Given I open default "Select Test" component with "simpleSelect" json from "commonComponents" using "<size>" object name
       And I have a <size> viewport
     When I click on default Select input
     Then "simple" Select list is visible at the <position>
