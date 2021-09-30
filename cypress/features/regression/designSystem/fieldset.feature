@@ -1,9 +1,9 @@
-Feature: Design System Fieldset component
-  I want to check Design System Fieldset component properties
+Feature: Fieldset component
+  I want to check Fieldset component properties
 
   @positive
   Scenario Outline: Change legend in Fieldset to <legend>
-    When I open default "Design System Fieldset Test" component with "fieldset" json from "designSystem" using "<nameOfObject>" object name
+    When I open default "Fieldset Test" component with "fieldset" json from "designSystem" using "<nameOfObject>" object name
     Then legend on preview is <legend>
     Examples:
       | legend                       | nameOfObject           |
@@ -12,5 +12,5 @@ Feature: Design System Fieldset component
 
   @negative
   Scenario: Set legend in Fieldset to empty
-    When I open default "Design System Fieldset Test" component with "fieldset" json from "designSystem" using "legendEmpty" object name
+    When I open default "Fieldset Test" component with "fieldset" json from "designSystem" using "legendEmpty" object name
     Then legend on preview not exists

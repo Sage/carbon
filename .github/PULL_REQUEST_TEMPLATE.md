@@ -38,14 +38,16 @@ If applicable, add screenshots. You can paste these directly into GitHub.
 
 #### QA
 
-- [ ] Tested in sandbox/storybook
+- [ ] Tested in CodeSandbox/storybook
 - [ ] Add new Cypress test coverage if required
 - [ ] Carbon implementation matches Design System/designs
 
 ### Additional context
-
 <!-- Add any other context or links about the pull request here. -->
 
 ### Testing instructions
-
 <!-- How can a reviewer test this PR? -->
+The following CodeSandbox is an example of the broken behaviour.
+You can see the new behaviour by looking at the version in the comment by `codesandbox[bot]`.
+
+<!-- Add CodeSandbox here -->

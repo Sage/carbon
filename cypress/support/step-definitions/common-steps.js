@@ -31,7 +31,7 @@ Given(
     visitComponentUrlWithParameters(
       `${component}-test`,
       type,
-      "design-system-",
+      "",
       json,
       path,
       nameOfObject

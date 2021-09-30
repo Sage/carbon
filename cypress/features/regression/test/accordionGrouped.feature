@@ -2,7 +2,7 @@ Feature: Accordion grouped component
   I want to test Accordion grouped component properties
 
   Background: Open Accordion grouped component page
-    Given I open "Design System Accordion Test" component page "grouped"
+    Given I open "Accordion Test" component page "grouped"
 
   @positive
   Scenario Outline: Navigate through all grouped accordion rows using downarrow key

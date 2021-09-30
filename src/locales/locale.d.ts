@@ -20,7 +20,7 @@ interface Locale {
   };
   date: {
     formats: {
-      inputs: () => [string];
+      inputs: () => string[];
       javascript: () => string;
     };
   };

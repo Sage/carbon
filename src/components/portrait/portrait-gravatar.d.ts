@@ -1,9 +1,8 @@
-import * as React from "react";
 import { PortraitSizes, PortraitShapes } from "./portrait";
 
 export interface PortraitGravatarProps {
   /** The theme to use. */
-  theme?: object;
+  theme?: Record<string, unknown>;
   /** The user's email address for the Gravatar. */
   gravatarEmail: string;
   /** The size of the Gravatar. */

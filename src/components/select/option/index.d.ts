@@ -6,7 +6,7 @@ export interface OptionProps {
   /** Optional: alternative rendered content, displayed within <SelectList> of <Select> (eg: an icon, an image, etc) */
   children?: React.ComponentType;
   /** The option's invisible internal value */
-  value: string | object;
+  value: string | Record<string, unknown>;
   /** MultiSelect only - custom Pill border color - provide any color from palette or any valid css color value. */
   borderColor?: string;
   /** MultiSelect only - fill Pill background with color */

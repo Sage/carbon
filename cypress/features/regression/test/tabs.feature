@@ -16,5 +16,5 @@ Feature: Tabs component
 
   @positive
   Scenario: Check that Tab has link properties
-    Given I open "Design System Tabs" component page "with link as a tab"
+    Given I open "Tabs" component page "with link as a tab"
     Then Second Tab has a link property

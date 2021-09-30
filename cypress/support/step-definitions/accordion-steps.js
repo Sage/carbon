@@ -64,7 +64,7 @@ Then(
   }
 );
 
-When("I expand Design System accordionRow via click", () => {
+When("I expand default accordionRow via click", () => {
   accordionDefaultTitle().click();
 });
 

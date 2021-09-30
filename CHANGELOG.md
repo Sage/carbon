@@ -1,3 +1,35 @@
+### [91.0.2](https://github.com/Sage/carbon/compare/v91.0.1...v91.0.2) (2021-09-28)
+
+
+### Bug Fixes
+
+* **menu:** remove menubar and menuitem roles ([b2f6f0d](https://github.com/Sage/carbon/commit/b2f6f0dba1e089a2ccd9a0d1aa9daad941152410)), closes [#4394](https://github.com/Sage/carbon/issues/4394)
+
+### [91.0.1](https://github.com/Sage/carbon/compare/v91.0.0...v91.0.1) (2021-09-27)
+
+
+### Bug Fixes
+
+* **i18n-provider:** fix type definition ([73b485f](https://github.com/Sage/carbon/commit/73b485f4d718d80387216cf94497fff4b7936a35))
+
+## [91.0.0](https://github.com/Sage/carbon/compare/v90.0.2...v91.0.0) (2021-09-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **split-button:** SplitButton is now a functional component and cannot be extended
+
+### Code Refactoring
+
+* **split-button:** rewrite class component to functional ([c459149](https://github.com/Sage/carbon/commit/c45914901baf38eeeaa72f801664fe95da45c75c))
+
+### [90.0.2](https://github.com/Sage/carbon/compare/v90.0.1...v90.0.2) (2021-09-24)
+
+
+### Bug Fixes
+
+* **simple-select:** change the test story format from mdx to js ([ef617d3](https://github.com/Sage/carbon/commit/ef617d366f41529b05d1766357fb8f222ebd4f4f))
+
 ### [90.0.1](https://github.com/Sage/carbon/compare/v90.0.0...v90.0.1) (2021-09-24)
 
 
@@ -2838,7 +2870,7 @@ cell paddings should depend on FlatTable size prop
 * **select:** Experimental Select component has been removed, please use our new Select component  `import { Select, Option } from "carbon-react/lib/components/select"`
 * **select-async:** SelectAsync component has been removed, please use our new Select component  `import { Select, Option } from "carbon-react/lib/components/select"`
 Also check an example of how to provide data fetching functionality
-https://carbon.sage.com/?path=/docs/design-system-select--with-is-loading-prop
+https://carbon.sage.com/?path=/docs/select--with-is-loading-prop
 * **date:** Date component no longer supports classic theme
 * **textbox:** Textbox no longer supports classic theme
 * **textarea:** Textarea input no longer supports classic theme

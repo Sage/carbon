@@ -8,11 +8,11 @@ export interface TextEditorProps extends MarginProps {
   /** The text for the editor's label */
   labelText: string;
   /** onChange callback to control value updates */
-  onChange: (event: object) => void;
+  onChange: (event: Record<string, unknown>) => void;
   /** Additional elements to be rendered in the Editor Toolbar, e.g. Save and Cancel Button */
   toolbarElements?: React.ReactNode;
   /** The value of the input, this is an EditorState immutable object */
-  value: object;
+  value: Record<string, unknown>;
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** Message to be displayed when there is an error */
@@ -29,7 +29,9 @@ export interface TextEditorProps extends MarginProps {
   onLinkAdded?: (url: string) => void;
 }
 
-declare function TextEditor(props: TextEditorProps & React.RefAttributes<Editor>): JSX.Element;
+declare function TextEditor(
+  props: TextEditorProps & React.RefAttributes<Editor>
+): JSX.Element;
 
 export {
   EditorState as TextEditorState,

@@ -1,8 +1,8 @@
-Feature: Design System Duelling Picklist Component
-  I want to test Design System Duelling Picklist component
+Feature: Duelling Picklist Component
+  I want to test Duelling Picklist component
 
-  Background: Design System Duelling Picklist Component
-    Given I open "Design System DuellingPicklist Test" component page "default"
+  Background: Duelling Picklist Component
+    Given I open "DuellingPicklist Test" component page "default"
 
   @positive
   Scenario: All items are unassigned

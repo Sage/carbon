@@ -13,6 +13,8 @@ export interface StepSequenceItemProps {
   status?: "complete" | "current" | "incomplete";
 }
 
-declare function StepSequenceItem(props: React.PropsWithChildren<StepSequenceItemProps>): JSX.Element;
+declare function StepSequenceItem(
+  props: React.PropsWithChildren<StepSequenceItemProps>
+): JSX.Element;
 
 export default StepSequenceItem;

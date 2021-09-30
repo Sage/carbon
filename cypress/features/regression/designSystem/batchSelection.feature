@@ -1,9 +1,9 @@
-Feature: Design Systems Batch selection component
-  I want to test Design Systems Batch selection component
+Feature: Batch selection component
+  I want to test Batch selection component
 
   @positive
   Scenario Outline: I focus <buttonIndex> inner element for Batch selection component
-    Given I open "Design System Batch selection" component page "default story"
+    Given I open "Batch selection" component page "default story"
     When I focus Batch selection "<buttonIndex>" button
     Then Batch selection component "<buttonIndex>" button is focused
     Examples:

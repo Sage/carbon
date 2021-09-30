@@ -18,7 +18,7 @@ import DialogFullScreen from "../dialog-full-screen";
 import Dialog from "../dialog";
 import AppWrapper from "../app-wrapper";
 
-<Meta title="Design System/Form" parameters={{ info: { disable: true } }} />
+<Meta title="Form" parameters={{ info: { disable: true } }} />
 
 # Form
 
@@ -633,7 +633,11 @@ Please click on "Show code" below to see how to set these components up for alig
           <Option value="3" text="option 3" key="1" />
         </Select>
       </InlineInputs>
-      <InlineInputs label="Inline Inputs with a gutter" gutter="large" labelWidth="30">
+      <InlineInputs
+        label="Inline Inputs with a gutter"
+        gutter="large"
+        labelWidth="30"
+      >
         <Textbox />
         <Textbox />
         <Select>

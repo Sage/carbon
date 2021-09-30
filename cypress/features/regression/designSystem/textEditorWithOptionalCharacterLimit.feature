@@ -1,8 +1,8 @@
-Feature: Design System Text Editor component with optional character limit
-  I want to test Design System Text Editor with optional character limit component
+Feature: Text Editor component with optional character limit
+  I want to test Text Editor with optional character limit component
 
-  Background: Open Design System Text Editor component page
-    Given I open "Design System Text Editor" component page "with optional character limit"
+  Background: Open Text Editor component page
+    Given I open "Text Editor" component page "with optional character limit"
 
   @positive
   Scenario: Verify that input doesn't allow to input more than character limit is set to

@@ -14,7 +14,7 @@ import Icon from "../icon";
 import Box from "../box";
 
 <Meta
-  title="Design System/Card/Test"
+  title="Card/Test"
   parameters={{
     info: { disable: true },
     chromatic: {
@@ -25,11 +25,7 @@ import Box from "../box";
 
 export const CardStory = (args) => {
   return (
-    <Card
-      interactive
-      action={action("action prop triggered")}
-      {...args}
-    >
+    <Card interactive action={action("action prop triggered")} {...args}>
       <CardRow>
         <CardColumn align="left">
           <Heading title="Stripe - [account name]" divider={false} />
@@ -294,5 +290,7 @@ export const Draggable = () => {
 ### Draggable
 
 <Preview>
-  <Story name="draggable" args={{draggable: false}}>{Draggable.bind({})}</Story>
+  <Story name="draggable" args={{ draggable: false }}>
+    {Draggable.bind({})}
+  </Story>
 </Preview>

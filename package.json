@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "90.0.1",
+  "version": "91.0.2",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -17,9 +17,8 @@
     "test-cypress": "cypress open",
     "cypress:ci": "cypress run --record --parallel",
     "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",
-    "format": "prettier --write './src/**/*.js'",
+    "format": "prettier --write './src'",
     "lint": "eslint ./src",
-    "lint-ts": "./node_modules/.bin/tslint 'src/**/*.ts'",
     "precompile": "npm run clean-lib && npm run copy-files && npm run babel",
     "prepublishOnly": "npm run precompile",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
@@ -79,6 +78,8 @@
     "@types/react-dom": "16.0.11",
     "@types/styled-components": "^5.1.9",
     "@types/styled-system": "^5.1.11",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
     "axe-core": "^3.5.5",
     "babel-eslint": "10.0.3",
     "babel-jest": "^26.6.3",
@@ -130,9 +131,7 @@
     "semantic-release": "^17.4.7",
     "semver": "^7.3.5",
     "styled-components": "^4.4.1",
-    "tslint": "5.20.1",
-    "tslint-react": "3.6.0",
-    "typescript": "3.2.4",
+    "typescript": "^3.9.5",
     "xhr-mock": "^2.5.1"
   },
   "dependencies": {
@@ -183,7 +182,7 @@
     }
   },
   "lint-staged": {
-    "./**/*.{js,jsx}": [
+    "./**/*.{js,jsx,ts,tsx}": [
       "prettier --write",
       "eslint"
     ]

@@ -1,7 +1,11 @@
 import * as React from "react";
 import { DraggableItemProps } from "./draggable-item";
 
-type DraggableContainerChild = React.ReactElement<DraggableItemProps> | boolean | null | undefined;
+type DraggableContainerChild =
+  | React.ReactElement<DraggableItemProps>
+  | boolean
+  | null
+  | undefined;
 
 export interface DraggableContainerProps {
   /** Callback fired when order is changed */
@@ -11,9 +15,11 @@ export interface DraggableContainerProps {
    *
    * `<DraggableItem />` is required to make `Draggable` works
    */
-   children?: DraggableContainerChild | DraggableContainerChild[];
+  children?: DraggableContainerChild | DraggableContainerChild[];
 }
 
-declare function DraggableContainer(props: DraggableContainerProps): JSX.Element;
+declare function DraggableContainer(
+  props: DraggableContainerProps
+): JSX.Element;
 
 export default DraggableContainer;

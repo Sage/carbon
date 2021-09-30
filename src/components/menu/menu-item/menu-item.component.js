@@ -140,7 +140,7 @@ const MenuItem = ({
 
     return (
       <StyledMenuItem
-        role="presentation"
+        data-component="menu-item"
         menuType={menuContext.menuType}
         display="inline-block"
         title={getTitle(submenu)}
@@ -170,7 +170,7 @@ const MenuItem = ({
 
   return (
     <StyledMenuItem
-      role="presentation"
+      data-component="menu-item"
       menuType={menuContext.menuType}
       inSubmenu={submenuContext.handleKeyDown !== undefined}
       display="inline-block"
@@ -182,11 +182,9 @@ const MenuItem = ({
     >
       <StyledMenuItemWrapper
         as={isChildSearch.current ? "div" : Link}
-        data-component="menu-item"
         isSearch={isChildSearch.current}
         menuType={menuContext.menuType}
         {...elementProps}
-        role="menuitem"
         ariaLabel={ariaLabel}
         maxWidth={maxWidth}
         inFullscreenView={inFullscreenView}

@@ -24,6 +24,8 @@ export interface FlatTableRowProps {
   subRows?: React.ReactNodeArray;
 }
 
-declare function FlatTableRow(props: FlatTableRowProps & React.RefAttributes<HTMLHRElement>): JSX.Element;
+declare function FlatTableRow(
+  props: FlatTableRowProps & React.RefAttributes<HTMLHRElement>
+): JSX.Element;
 
 export default FlatTableRow;

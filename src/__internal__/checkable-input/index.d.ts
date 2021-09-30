@@ -1,1 +1,5 @@
-export { default, CheckableInputProps, CommonCheckableInputProps } from "./checkable-input";
+export {
+  default,
+  CheckableInputProps,
+  CommonCheckableInputProps,
+} from "./checkable-input";

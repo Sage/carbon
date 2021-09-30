@@ -11,7 +11,7 @@ import {
   FlatTableCell,
   FlatTableCheckbox,
   Sort,
-  FlatTableBodyDraggable
+  FlatTableBodyDraggable,
 } from ".";
 import BatchSelection from "../batch-selection";
 import IconButton from "../icon-button";
@@ -27,7 +27,7 @@ import { DrawerSidebarContext } from "../drawer";
 import Box from "../box";
 
 <Meta
-  title="Design System/Flat Table"
+  title="Flat Table"
   parameters={{ info: { disable: true } }}
 />
 
@@ -601,7 +601,7 @@ Is it possible to combine the `stickyHead` prop along with the `rowSpan` and `co
       style={{
         height: "380px",
         width: "310px",
-        overflowX: "auto"
+        overflowX: "auto",
       }}
     >
       <FlatTable hasStickyHead>
@@ -1043,7 +1043,7 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
 
 <Preview>
   <Story
-    id="design-system-flat-table-test--sortable"
+    id="flat-table-test--sortable"
     name="with sorting headers"
   />
 </Preview>
@@ -1966,7 +1966,6 @@ of the button control.
     }}
   </Story>
 </Preview>
-
 
 ## Props
 

@@ -4,10 +4,11 @@ interface ColorsWithHex {
   [key: string]: string;
 }
 
-type BasePalette = Palette & ColorsWithHex & {
-  blackOpacity: (opacity: number) => string;
-  whiteOpacity: (opacity: number) => string;
-};
+type BasePalette = Palette &
+  ColorsWithHex & {
+    blackOpacity: (opacity: number) => string;
+    whiteOpacity: (opacity: number) => string;
+  };
 
 interface Colors {
   base: string;

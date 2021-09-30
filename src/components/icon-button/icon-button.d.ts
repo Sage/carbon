@@ -9,6 +9,8 @@ export interface IconButtonProps extends MarginProps {
   onAction: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-declare function IconButton(props: IconButtonProps & React.RefAttributes<HTMLButtonElement>): JSX.Element;
+declare function IconButton(
+  props: IconButtonProps & React.RefAttributes<HTMLButtonElement>
+): JSX.Element;
 
 export default IconButton;

@@ -27,4 +27,4 @@ interface CheckboxGroupProps extends ValidationPropTypes, MarginProps {
 
 declare function CheckboxGroup(props: CheckboxGroupProps): JSX.Element;
 
-export { CheckboxGroup };
+export default CheckboxGroup;

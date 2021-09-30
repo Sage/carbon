@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface SlideProps {
-  theme?: object;
+  theme?: Record<string, unknown>;
 }
 
 declare function Slide(props: React.PropsWithChildren<SlideProps>): JSX.Element;

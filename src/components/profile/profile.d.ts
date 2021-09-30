@@ -1,5 +1,3 @@
-import * as React from "react";
-
 export interface ProfileProps {
   /** [Legacy] A custom class name for the component */
   className?: string;

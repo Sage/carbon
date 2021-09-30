@@ -50,7 +50,11 @@ export interface SelectTextboxProps extends FormInputPropTypes {
   /** Value to be displayed in the Textbox */
   formattedValue: string;
   /** Value of the Select Input */
-  selectedValue: string | object | string[] | object[];
+  selectedValue:
+    | string
+    | Record<string, unknown>
+    | string[]
+    | Record<string, unknown>[];
 }
 
 declare function SelectTextbox(props: SelectTextboxProps): JSX.Element;

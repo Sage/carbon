@@ -42,7 +42,6 @@ const Menu = ({ menuType = "light", children, ...rest }) => {
   return (
     <StyledMenuWrapper
       data-component="menu"
-      role="menubar"
       menuType={menuType}
       {...rest}
       ref={ref}

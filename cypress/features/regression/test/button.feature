@@ -21,6 +21,6 @@ Feature: Button component
 
   @positive
   Scenario: Verify the click function for a Button component
-    Given I open "Design System Button Test" component page "default"
+    Given I open "Button Test" component page "default"
     When I click on "button"
     Then click action was called in Actions Tab

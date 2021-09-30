@@ -3,7 +3,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Button component theme to <theme>
-    When I open default "Design System Button Test" component with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default "Button Test" component with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "button" component css "color" is set to "<theme>" common
     Examples:
       | theme  | nameOfObject |
@@ -75,7 +75,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Pill component theme to <theme>
-    When I open default "Design System Pill Test" component with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open default "Pill Test" component with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "pill" component css "border-color" is set to "<theme>" common
     Examples:
       | theme  | nameOfObject |

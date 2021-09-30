@@ -27,6 +27,8 @@ export interface AdvancedColorPickerPropTypes extends MarginProps {
   selectedColor?: string;
 }
 
-declare function AdvancedColorPicker(props: AdvancedColorPickerPropTypes): JSX.Element;
+declare function AdvancedColorPicker(
+  props: AdvancedColorPickerPropTypes
+): JSX.Element;
 
 export default AdvancedColorPicker;

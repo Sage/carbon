@@ -7,31 +7,29 @@ It makes an assumption about the format of the data provided. See an example bel
 
 ### How to use the Configurable Items Pattern:
 
-* In your file:
+- In your file:
 
 ```javascript
-import ConfigurableItemsPattern from 'carbon-react/lib/components/configurable-items-pattern';
+import ConfigurableItemsPattern from "carbon-react/lib/components/configurable-items-pattern";
 ```
 
-* The data format:
+- The data format:
 
 ```javascript
-const data = ImmutableHelper.parseJSON(
-  [
-    { id: 1, name: 'Foo', locked: true, enabled: true },
-    { id: 2, name: 'Bar', locked: false, enabled: true },
-    { id: 3, name: 'Baz', locked: false, enabled: false }
-  ]
-);
+const data = ImmutableHelper.parseJSON([
+  { id: 1, name: "Foo", locked: true, enabled: true },
+  { id: 2, name: "Bar", locked: false, enabled: true },
+  { id: 3, name: "Baz", locked: false, enabled: false },
+]);
 ```
 
-* To render the Pattern:
+- To render the Pattern:
 
 ```javascript
 <ConfigurableItemsPattern
-  itemsData={ this.data }
-  onSave={ Actions.onSave }
-  title='Configure Items'
+  itemsData={this.data}
+  onSave={Actions.onSave}
+  title="Configure Items"
 />
 ```
 

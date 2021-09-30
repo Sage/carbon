@@ -1,8 +1,8 @@
-Feature: Design System Text Editor component
-  I want to test Design System Text Editor component
+Feature: Text Editor component
+  I want to test Text Editor component
 
-  Background: Open Design System Text Editor component page
-    Given I open "Design System Text Editor" component page "default story"
+  Background: Open Text Editor component page
+    Given I open "Text Editor" component page "default story"
 
   @positive
   Scenario: Verify that counter works properly

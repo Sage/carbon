@@ -4,7 +4,7 @@ import specialCharacters from "../../../.storybook/utils/argTypes/specialCharact
 import Content from "./content.component.js";
 
 <Meta
-  title="Design System/Content/Test"
+  title="Content/Test"
   parameters={{
     info: { disable: true },
     chromatic: {
@@ -29,7 +29,13 @@ import Content from "./content.component.js";
   }}
 />
 
-export const ContentStory = ({ children, childrenSpecialCharacters, title, titleSpecialCharacters, ...args }) => (
+export const ContentStory = ({
+  children,
+  childrenSpecialCharacters,
+  title,
+  titleSpecialCharacters,
+  ...args
+}) => (
   <Content
     title={title || titleSpecialCharacters}
     children={children || childrenSpecialCharacters}
