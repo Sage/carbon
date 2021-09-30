@@ -102,9 +102,6 @@ Where functionality is already tested in unit testing, this does not need to be 
 │ ├── features
 │ │   ├── regression
 │ │       ├── accessibility
-│ │       ├── designSystem
-│ │       ├── experimental
-│ │       ├── test
 │ │       ├── themes
 │ │       └── common
 │ ├── locators
