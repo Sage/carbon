@@ -12,7 +12,7 @@ import { MenuButton, ButtonIcon } from "./action-popover.style";
 import Events from "../../__internal__/utils/helpers/events";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import Popover from "../../__internal__/popover";
-import createGuid from "../../utils/helpers/guid";
+import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import ActionPopoverMenu from "./action-popover-menu/action-popover-menu.component";
 import ActionPopoverItem from "./action-popover-item/action-popover-item.component";

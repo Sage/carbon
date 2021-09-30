@@ -23,7 +23,7 @@ import {
   CarouselWrapperStyle,
   CarouselSliderWrapper,
 } from "./carousel.style";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import baseTheme from "../../style/themes/base";
 
 const NEXT = "next";

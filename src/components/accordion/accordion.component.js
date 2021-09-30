@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
-import createGuid from "../../utils/helpers/guid";
+import createGuid from "../../__internal__/utils/helpers/guid";
 import Events from "../../__internal__/utils/helpers/events";
 import {
   StyledAccordionContainer,

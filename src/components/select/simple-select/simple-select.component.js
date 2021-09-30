@@ -18,7 +18,7 @@ import SelectTextbox, {
   formInputPropTypes,
 } from "../select-textbox/select-textbox.component";
 import SelectList from "../select-list/select-list.component";
-import guid from "../../../utils/helpers/guid";
+import guid from "../../../__internal__/utils/helpers/guid";
 import getNextChildByText from "../utils/get-next-child-by-text";
 import isExpectedOption from "../utils/is-expected-option";
 

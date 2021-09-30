@@ -18,9 +18,9 @@ import {
   keyboard,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 const sizes = ["small", "medium", "large"];

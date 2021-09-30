@@ -4,7 +4,7 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
-import createGuid from "../../utils/helpers/guid";
+import createGuid from "../../__internal__/utils/helpers/guid";
 import Button from "../button";
 import Box from "../box";
 import Accordion from "./__internal__/accordion";

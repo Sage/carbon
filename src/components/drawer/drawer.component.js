@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import invariant from "invariant";
 
-import createGuid from "../../utils/helpers/guid/guid";
+import createGuid from "../../__internal__/utils/helpers/guid";
 import Icon from "../icon";
 import {
   StyledSidebarHeader,

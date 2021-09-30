@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import guid from "../../../../utils/helpers/guid/guid";
+import guid from "../guid";
 
 const withUniqueIdProps = (WrappedComponent) => {
   class WithUniqueIdProps extends React.Component {

@@ -28,9 +28,9 @@ import Popover from "../../__internal__/popover";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import Icon from "../icon";
 import StyledButton from "../button/button.style";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 jest.useFakeTimers();
 

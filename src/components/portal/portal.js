@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import Browser from "../../__internal__/utils/helpers/browser";
 
 const Portal = ({ children, className, id, onReposition }) => {
