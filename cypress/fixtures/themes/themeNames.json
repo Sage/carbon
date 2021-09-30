@@ -7,17 +7,5 @@
 	},
 	"themeNone": {
 		"theme": "none"
-	},
-	"iconThemeMint": {
-		"bgTheme": "business",
-		"theme": "mint"
-	},
-	"iconThemeAegean": {
-		"bgTheme": "business",
-		"theme": "aegean"
-	},
-	"iconThemeNone": {
-		"bgTheme": "business",
-		"theme": "none"
 	}
 }
