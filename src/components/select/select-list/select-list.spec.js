@@ -670,6 +670,28 @@ describe("SelectList", () => {
         wrapper
       );
     });
+
+    it.each([
+      "auto",
+      "auto-start",
+      "auto-end",
+      "top",
+      "top-start",
+      "top-end",
+      "bottom",
+      "bottom-start",
+      "bottom-end",
+      "right",
+      "right-start",
+      "right-end",
+      "left",
+      "left-start",
+      "left-end",
+    ])("passes listPlacement prop as a placement prop", (listPlacement) => {
+      const wrapper = renderSelectList({ listPlacement });
+
+      expect(wrapper.find(Popover).prop("placement")).toBe(listPlacement);
+    });
   });
 
   describe("when non option elements are provided as children", () => {

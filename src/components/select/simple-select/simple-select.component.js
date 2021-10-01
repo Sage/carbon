@@ -49,6 +49,8 @@ const SimpleSelect = React.forwardRef(
       "data-component": dataComponent,
       "data-element": dataElement,
       "data-role": dataRole,
+      listPlacement = "bottom-start",
+      flipEnabled = true,
       ...props
     },
     inputRef
@@ -404,6 +406,8 @@ const SimpleSelect = React.forwardRef(
         tableHeader={tableHeader}
         multiColumn={multiColumn}
         loaderDataRole="simple-select-list-loader"
+        listPlacement={listPlacement}
+        flipEnabled={flipEnabled}
       >
         {children}
       </SelectList>
@@ -471,6 +475,26 @@ SimpleSelect.propTypes = {
   onListScrollBottom: PropTypes.func,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Placement of the select list in relation to the input element */
+  listPlacement: PropTypes.oneOf([
+    "auto",
+    "auto-start",
+    "auto-end",
+    "top",
+    "top-start",
+    "top-end",
+    "bottom",
+    "bottom-start",
+    "bottom-end",
+    "right",
+    "right-start",
+    "right-end",
+    "left",
+    "left-start",
+    "left-end",
+  ]),
+  /** Use the opposite list placement if the set placement does not fit */
+  flipEnabled: PropTypes.bool,
 };
 
 SimpleSelect.defaultProps = {
