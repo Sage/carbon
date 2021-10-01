@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useLayoutEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -8,6 +8,7 @@ import {
 import { StyledMenuWrapper } from "../menu.style";
 import MenuContext from "../menu.context";
 import FocusTrap from "../../../__internal__/focus-trap";
+import Events from "../../../utils/helpers/events";
 import Box from "../../box";
 import IconButton from "../../icon-button";
 import Icon from "../../icon";
@@ -23,23 +24,36 @@ const MenuFullscreen = ({
 }) => {
   const menuWrapperRef = useRef();
   const menuContentRef = useRef();
+  const timerRef = useRef();
   const { menuType } = useContext(MenuContext);
 
-  if (!isOpen) return null;
+  const handleKeyDown = (ev) => {
+    /* istanbul ignore else */
+    if (Events.isEscKey(ev)) {
+      onClose(ev);
+    }
+  };
+
+  useLayoutEffect(() => {
+    if (isOpen) {
+      clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => {
+        menuContentRef.current.focus();
+      }, 100);
+    }
+  }, [isOpen]);
 
   return (
     <li aria-label="menu-fullscreen">
       <Portal>
-        <FocusTrap
-          focusFirstElement={menuContentRef}
-          wrapperRef={menuWrapperRef}
-        >
+        <FocusTrap autoFocus={false} wrapperRef={menuWrapperRef}>
           <StyledMenuFullscreen
             data-component="menu-fullscreen"
             ref={menuWrapperRef}
             isOpen={isOpen}
             menuType={menuType}
             startPosition={startPosition}
+            onKeyDown={handleKeyDown}
             {...rest}
           >
             <StyledMenuFullscreenHeader

@@ -12,9 +12,12 @@ import {
   StyledMenuFullscreenHeader,
 } from "./menu-full-screen.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  simulate,
+} from "../../../__spec_helper__/test-utils";
 import { baseTheme } from "../../../style/themes";
-import { StyledMenuItem } from "../menu.style";
+import { StyledMenuItem, StyledMenuWrapper } from "../menu.style";
 
 const onClose = jest.fn();
 
@@ -47,7 +50,7 @@ describe("MenuFullscreen", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = render({ isOpen: true });
+    wrapper = render({});
   });
 
   it("should render with correct `data-component`", () => {
@@ -118,7 +121,7 @@ describe("MenuFullscreen", () => {
     });
 
     it("applies the expected styling when `menuType` is 'dark'", () => {
-      wrapper = render({ menuType: "dark", isOpen: true });
+      wrapper = render({ menuType: "dark" });
       assertStyleMatch(
         {
           backgroundColor: baseTheme.colors.slate,
@@ -177,10 +180,33 @@ describe("MenuFullscreen", () => {
     });
   });
 
-  describe("close icon", () => {
-    it("calls the onClose callback when clicked", () => {
+  describe("onClose", () => {
+    it("calls the onClose callback when close icon button is clicked", () => {
       render({ isOpen: true }).find(IconButton).simulate("click");
       expect(onClose).toHaveBeenCalled();
+    });
+
+    it("calls the onClose callback when close icon button is clicked", () => {
+      simulate.keydown.pressEscape(
+        render({ isOpen: true }).find(StyledMenuFullscreen)
+      );
+      expect(onClose).toHaveBeenCalled();
+    });
+  });
+
+  describe("focus behaviour", () => {
+    it("focuses the content container on open of menu", () => {
+      jest.useFakeTimers();
+      wrapper = render({ isOpen: true });
+      jest.runAllTimers();
+
+      expect(wrapper.find(StyledMenuWrapper)).toBeFocused();
+
+      wrapper.find(IconButton).simulate("click");
+
+      wrapper.update();
+
+      wrapper.setProps({ isOpen: true });
     });
   });
 });
