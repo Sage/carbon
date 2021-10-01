@@ -1,3 +1,10 @@
+### [91.1.1](https://github.com/Sage/carbon/compare/v91.1.0...v91.1.1) (2021-10-01)
+
+
+### Bug Fixes
+
+* **pager:** resolve typing for pageSizeSelectionOptions to be an array of objects ([e92d9bb](https://github.com/Sage/carbon/commit/e92d9bb59b9bfcb7bb7fb644aff84ea76584ed4a))
+
 ## [91.1.0](https://github.com/Sage/carbon/compare/v91.0.2...v91.1.0) (2021-10-01)
 
 
