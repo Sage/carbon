@@ -180,6 +180,7 @@ export type IconType =
   | "refresh"
   | "refresh_clock"
   | "remove"
+  | "sage_coin"
   | "save"
   | "scan"
   | "search"

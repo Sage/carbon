@@ -131,7 +131,11 @@ Icon.propTypes = {
    * Add classes to this component
    * */
   className: PropTypes.string,
-  /** Icon type */
+  /**
+   * Icon type.
+   *
+   * The full list of types can be seen [here](https://github.com/Sage/carbon/blob/master/src/components/icon/icon-config.js).
+   * */
   type: PropTypes.string.isRequired,
   /** Background size */
   bgSize: PropTypes.oneOf([
@@ -179,7 +183,10 @@ Icon.propTypes = {
   tooltipBgColor: PropTypes.string,
   /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipFontColor: PropTypes.string,
-  /** Overrides the default flip behaviour of the Tooltip, must be an array containing some or all of ["top", "bottom", "left", "right"] (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) */
+  /** Overrides the default flip behaviour of the Tooltip, must be an array containing some or all of ["top", "bottom", "left", "right"].
+   *
+   *  See the Popper [documentation](https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) for more information
+   * */
   tooltipFlipOverrides: (props, propName) => {
     const prop = props[propName];
     const isValid =
