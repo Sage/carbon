@@ -236,6 +236,48 @@ describe("FilterableSelect", () => {
         expect(wrapper.find(SelectList).exists()).toBe(true);
       });
 
+      it.each([
+        "auto",
+        "auto-start",
+        "auto-end",
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end",
+        "right",
+        "right-start",
+        "right-end",
+        "left",
+        "left-start",
+        "left-end",
+      ])("the listPlacement prop should be passed", (listPlacement) => {
+        const wrapper = renderSelect({ listPlacement });
+
+        wrapper
+          .find(Textbox)
+          .find('[type="dropdown"]')
+          .first()
+          .simulate("click");
+        expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
+          listPlacement
+        );
+      });
+
+      it("the flipEnabled prop should be passed", () => {
+        const wrapper = renderSelect({ flipEnabled: false });
+
+        wrapper
+          .find(Textbox)
+          .find('[type="dropdown"]')
+          .first()
+          .simulate("click");
+        expect(wrapper.find(SelectList).prop("flipEnabled")).toBe(false);
+        wrapper.setProps({ flipEnabled: true });
+        expect(wrapper.find(SelectList).prop("flipEnabled")).toBe(true);
+      });
+
       describe("twice", () => {
         it("the SelectList should not be rendered", () => {
           const wrapper = renderSelect();
