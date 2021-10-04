@@ -1,22 +1,10 @@
-import {
-  simpleColorPickerDiv,
-  simpleColorPickerLegend,
-} from "../../locators/simple-color-picker";
+import { simpleColorPickerLegend } from "../../locators/simple-color-picker";
 import {
   experimentalSimpleColorPickerInput,
   simpleColorPicker,
 } from "../../locators/advanced-color-picker/index";
 import { commonDataElementInputPreview } from "../../locators";
 import { keyCode } from "../helper";
-
-Then("Simple Color Picker {int} element was picked up", (index) => {
-  cy.wait(500);
-  for (let i = 1; i < index; ++i) {
-    simpleColorPickerDiv(i)
-      .should("have.attr", "data-element", "tick")
-      .and("have.attr", "data-component", "icon");
-  }
-});
 
 When("I pick {int} simple color input", (index) => {
   for (let i = 0; i < index; ++i) {
@@ -44,7 +32,7 @@ When("I press {word} on the {int} color", (key, index) => {
 });
 
 Then("It renders with all colors with {string} json", (json) => {
-  cy.fixture(`designSystem/${json}.json`).then(($json) => {
+  cy.fixture(`commonComponents/${json}.json`).then(($json) => {
     for (let i = 0; i < $json.length; ++i) {
       experimentalSimpleColorPickerInput(i)
         .should("have.value", $json[i].color)

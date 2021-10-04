@@ -25,7 +25,7 @@ import StyledSelectListContainer from "./select-list-container.style";
 import Loader from "../../loader";
 import Option from "../option/option.component";
 
-const popoverModifiers = [
+const fixedPopoverModifiers = [
   {
     name: "offset",
     options: {
@@ -59,6 +59,8 @@ const SelectList = React.forwardRef(
       multiColumn,
       tableHeader,
       loaderDataRole,
+      listPlacement = "bottom-start",
+      flipEnabled = true,
       ...listProps
     },
     listContainerRef
@@ -387,6 +389,14 @@ const SelectList = React.forwardRef(
       }
     }, [children, currentOptionsListIndex, isLoading, lastOptionIndex]);
 
+    const popoverModifiers = [
+      ...fixedPopoverModifiers,
+      {
+        name: "flip",
+        enabled: flipEnabled,
+      },
+    ];
+
     function isNavigationKey(keyEvent) {
       return (
         keyEvent === "ArrowDown" ||
@@ -419,7 +429,7 @@ const SelectList = React.forwardRef(
 
     return (
       <Popover
-        placement="bottom-start"
+        placement={listPlacement}
         disablePortal={disablePortal}
         reference={anchorRef}
         onFirstUpdate={setPlacementCallback}
@@ -497,6 +507,26 @@ SelectList.propTypes = {
   multiColumn: PropTypes.bool,
   /** Data role for loader component */
   loaderDataRole: PropTypes.string,
+  /** Placement of the select list relative to the input element */
+  listPlacement: PropTypes.oneOf([
+    "auto",
+    "auto-start",
+    "auto-end",
+    "top",
+    "top-start",
+    "top-end",
+    "bottom",
+    "bottom-start",
+    "bottom-end",
+    "right",
+    "right-start",
+    "right-end",
+    "left",
+    "left-start",
+    "left-end",
+  ]),
+  /** Use the opposite list placement if the set placement does not fit */
+  flipEnabled: PropTypes.bool,
 };
 
 export default SelectList;

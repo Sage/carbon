@@ -14,6 +14,7 @@ export default {
     chromatic: {
       disable: true,
     },
+    viewMode: "canvas",
   },
 };
 

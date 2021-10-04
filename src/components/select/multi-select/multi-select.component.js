@@ -51,6 +51,8 @@ const MultiSelect = React.forwardRef(
       "data-component": dataComponent,
       "data-element": dataElement,
       "data-role": dataRole,
+      listPlacement = "bottom-start",
+      flipEnabled = true,
       ...textboxProps
     },
     inputRef
@@ -485,6 +487,8 @@ const MultiSelect = React.forwardRef(
         isLoading={isLoading}
         tableHeader={tableHeader}
         multiColumn={multiColumn}
+        listPlacement={listPlacement}
+        flipEnabled={flipEnabled}
         loaderDataRole="multi-select-list-loader"
       >
         {children}
@@ -558,6 +562,26 @@ MultiSelect.propTypes = {
   isLoading: PropTypes.bool,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Placement of the select list in relation to the input element */
+  listPlacement: PropTypes.oneOf([
+    "auto",
+    "auto-start",
+    "auto-end",
+    "top",
+    "top-start",
+    "top-end",
+    "bottom",
+    "bottom-start",
+    "bottom-end",
+    "right",
+    "right-start",
+    "right-end",
+    "left",
+    "left-start",
+    "left-end",
+  ]),
+  /** Use the opposite list placement if the set placement does not fit */
+  flipEnabled: PropTypes.bool,
 };
 
 MultiSelect.defaultProps = {

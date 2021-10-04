@@ -83,10 +83,6 @@ When("I click onto default select using {string} key", (key) => {
   simpleSelect().trigger("keydown", keyCode(key));
 });
 
-Then("Simple Select input has {string} value", (text) => {
-  simpleSelectID().should("have.attr", "value", text);
-});
-
 Then("Multi select input has {string} pill", (text) => {
   multiSelectPill().should("have.attr", "title", text);
 });

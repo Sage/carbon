@@ -20,7 +20,7 @@ export interface PagerPropTypes {
   /** Should the page size selection dropdown be shown */
   showPageSizeSelection?: boolean;
   /** Set of page size options */
-  pageSizeSelectionOptions?: Record<string, unknown>;
+  pageSizeSelectionOptions?: Record<string, unknown>[];
   /** Should the label before the page size selection dropdown be shown */
   showPageSizeLabelBefore?: boolean;
   /** Should the label after the page size selection dropdown be shown */

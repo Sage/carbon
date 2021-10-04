@@ -1,0 +1,13 @@
+{
+  "captionOtherLanguage": {
+    "captionSpecialCharacters": "otherLanguage"
+  },
+  "captionSpecialCharacter": {
+    "captionSpecialCharacters": "specialCharacters"
+  },
+  "default": {
+    "hasHeaderRow": true,
+    "hasStickyHead": true,
+    "hasClickableRows": true
+  }
+}

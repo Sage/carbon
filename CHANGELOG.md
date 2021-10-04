@@ -1,3 +1,17 @@
+### [91.1.1](https://github.com/Sage/carbon/compare/v91.1.0...v91.1.1) (2021-10-01)
+
+
+### Bug Fixes
+
+* **pager:** resolve typing for pageSizeSelectionOptions to be an array of objects ([e92d9bb](https://github.com/Sage/carbon/commit/e92d9bb59b9bfcb7bb7fb644aff84ea76584ed4a))
+
+## [91.1.0](https://github.com/Sage/carbon/compare/v91.0.2...v91.1.0) (2021-10-01)
+
+
+### Features
+
+* **simple-select:** add prop to specify the open direction of a select list ([cf2c928](https://github.com/Sage/carbon/commit/cf2c928cc123a5c8bb0ebae8fc62b274d56246b7))
+
 ### [91.0.2](https://github.com/Sage/carbon/compare/v91.0.1...v91.0.2) (2021-09-28)
 
 
