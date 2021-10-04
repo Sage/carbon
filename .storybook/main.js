@@ -25,6 +25,7 @@ module.exports = {
     "@storybook/addon-a11y",
     "@storybook/addon-google-analytics",
     "@storybook/addon-links",
+    "@storybook/addon-toolbars",
     "./theme-selector/register",
   ],
   webpackFinal: async (config, { configType }) => {
