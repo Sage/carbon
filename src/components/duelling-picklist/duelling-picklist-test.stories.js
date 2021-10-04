@@ -1,5 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import React, { useState, useCallback, useMemo } from "react";
 
 import {
   DuellingPicklist,
@@ -16,17 +15,17 @@ import Box from "../box";
 import Button from "../button";
 import Typography from "../typography";
 
-<Meta
-  title="DuellingPicklist/Test"
-  parameters={{
+export default {
+  title: "DuellingPicklist/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-/>
+  },
+};
 
-export const DuelingPicklistStory = () => {
+export const Default = () => {
   const mockData = useMemo(() => {
     const arr = [];
     for (let i = 0; i < 20; i++) {
@@ -161,7 +160,7 @@ export const DuelingPicklistStory = () => {
   );
 };
 
-export const DuelingPicklistAlternativeSearchStory = () => {
+export const AlternativeSearch = () => {
   const mockData = useMemo(() => {
     const arr = [];
     for (let i = 0; i < 20; i++) {
@@ -297,7 +296,7 @@ export const DuelingPicklistAlternativeSearchStory = () => {
   );
 };
 
-export const DuelingPicklistGroupedStory = () => {
+export const Grouped = () => {
   const mockData = {
     groupA: [
       {
@@ -516,7 +515,7 @@ export const DuelingPicklistGroupedStory = () => {
   );
 };
 
-export const DuelingPicklistInDialogStory = () => {
+export const InDialog = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   return (
     <>
@@ -529,46 +528,44 @@ export const DuelingPicklistInDialogStory = () => {
         title="Duelling Picklist"
         size="large"
       >
-        <DuelingPicklistStory />
+        <Default />
       </Dialog>
     </>
   );
 };
 
-# Duelling picklist
+Default.story = {
+  name: "default",
+  parameters: {
+    chromatic: {
+      disable: false,
+    },
+  },
+};
 
-### Default
+AlternativeSearch.story = {
+  name: "alternative search placement",
+  parameters: {
+    chromatic: {
+      disable: false,
+    },
+  },
+};
 
-<Preview>
-  <Story
-    name="default"
-    parameters={{
-      chromatic: {
-        disable: false,
-      },
-    }}
-  >
-    {DuelingPicklistStory.bind({})}
-  </Story>
-</Preview>
+Grouped.story = {
+  name: "grouped",
+  parameters: {
+    chromatic: {
+      disable: false,
+    },
+  },
+};
 
-### Grouped
-
-<Preview>
-  <Story
-    name="grouped"
-    parameters={{
-      chromatic: {
-        disable: false,
-      },
-    }}
-  >
-    {DuelingPicklistGroupedStory.bind({})}
-  </Story>
-</Preview>
-
-### In dialog
-
-<Preview>
-  <Story name="in dialog">{DuelingPicklistInDialogStory.bind({})}</Story>
-</Preview>
+InDialog.story = {
+  name: "in dialog",
+  parameters: {
+    chromatic: {
+      disable: true,
+    },
+  },
+};

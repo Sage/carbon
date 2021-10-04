@@ -7,11 +7,11 @@ import PicklistPlaceholder from "./picklist-placeholder/picklist-placeholder.com
 import DuellingPicklist from "./duelling-picklist.component";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import {
-  DuelingPicklistStory,
-  DuelingPicklistAlternativeSearchStory,
-  DuelingPicklistGroupedStory,
-  DuelingPicklistInDialogStory,
-} from "./duelling-picklist-test.stories.mdx";
+  Default,
+  AlternativeSearch,
+  Grouped,
+  InDialog,
+} from "./duelling-picklist-test.stories";
 
 <Meta
   title="DuellingPicklist"
@@ -67,7 +67,7 @@ It invokes passed `onChange` method with passed `item` prop as an argument when 
 Example of composed Duelling Picklist components with order preservation and search implemented.
 
 <Preview>
-  <Story name="default">{DuelingPicklistStory.bind({})}</Story>
+  <Story name="default">{Default.bind({})}</Story>
 </Preview>
 
 ### Alternative search placement
@@ -76,7 +76,7 @@ The `Search` component can be placed outside of the picklist controls and positi
 
 <Preview>
   <Story name="alternative search placement">
-    {DuelingPicklistAlternativeSearchStory.bind({})}
+    {AlternativeSearch.bind({})}
   </Story>
 </Preview>
 
@@ -85,7 +85,7 @@ The `Search` component can be placed outside of the picklist controls and positi
 Picklist items can be organised into selectable groups. Whole groups can be moved from one list to another at once, or group items can be moved individually.
 
 <Preview>
-  <Story name="Grouped">{DuelingPicklistGroupedStory.bind({})}</Story>
+  <Story name="grouped">{Grouped.bind({})}</Story>
 </Preview>
 
 ### In Dialog
@@ -93,7 +93,7 @@ Picklist items can be organised into selectable groups. Whole groups can be move
 Same as above but as a children of `Dialog` component.
 
 <Preview>
-  <Story name="InDialog">{DuelingPicklistInDialogStory.bind({})}</Story>
+  <Story name="in dialog">{InDialog.bind({})}</Story>
 </Preview>
 
 ## PicklistItem Examples
