@@ -1,3 +1,10 @@
+## [91.2.0](https://github.com/Sage/carbon/compare/v91.1.1...v91.2.0) (2021-10-04)
+
+
+### Features
+
+* **storybook:** add locale switcher ([38ed6f5](https://github.com/Sage/carbon/commit/38ed6f5db2e83aa4bfbf2933799e7f4dc4c31498))
+
 ### [91.1.1](https://github.com/Sage/carbon/compare/v91.1.0...v91.1.1) (2021-10-01)
 
 
