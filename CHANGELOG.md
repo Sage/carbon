@@ -1,3 +1,10 @@
+### [91.2.1](https://github.com/Sage/carbon/compare/v91.2.0...v91.2.1) (2021-10-04)
+
+
+### Bug Fixes
+
+* **icon:** add missing sage_coin to type definition ([7e68f70](https://github.com/Sage/carbon/commit/7e68f70a711773de8fca2ad1dcfd21a05fda3102))
+
 ## [91.2.0](https://github.com/Sage/carbon/compare/v91.1.1...v91.2.0) (2021-10-04)
 
 
