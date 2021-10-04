@@ -8,6 +8,7 @@ import DuellingPicklist from "./duelling-picklist.component";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import {
   DuelingPicklistStory,
+  DuelingPicklistAlternativeSearchStory,
   DuelingPicklistGroupedStory,
   DuelingPicklistInDialogStory,
 } from "./duelling-picklist-test.stories.mdx";
@@ -52,7 +53,7 @@ To display an overlay over whole `DuellingPicklist` content pass a `disabled` pr
 
 `Picklist` wraps a list of `PicklistItem`'s, applies enter transition animations and provides an extended keyboard navigation (up/down/home/end keys).
 
-`PicklistDivider` as name states is a component meant to visually divide two `PickList`'s
+`PicklistDivider` as name states is a component meant to visually divide two `PickList`'s. It is optional, the spacing between the two picklists will be equal with or without it.
 
 `PicklistItem` is a component meant to visually represent one of the iterable entities. It can be of a type `add` or `remove`.
 It invokes passed `onChange` method with passed `item` prop as an argument when either `add` or `remove` icon is clicked or `space` or `enter` pressed when whole `PicklistItem` is focused.
@@ -67,6 +68,16 @@ Example of composed Duelling Picklist components with order preservation and sea
 
 <Preview>
   <Story name="default">{DuelingPicklistStory.bind({})}</Story>
+</Preview>
+
+### Alternative search placement
+
+The `Search` component can be placed outside of the picklist controls and positioned anywhere as required. This example also shows the option of not using a `PicklistDivider`.
+
+<Preview>
+  <Story name="alternative search placement">
+    {DuelingPicklistAlternativeSearchStory.bind({})}
+  </Story>
 </Preview>
 
 ### Grouped
