@@ -22,7 +22,6 @@ import {
   StyledFlatTable,
   StyledFlatTableWrapper,
   StyledFlatTableFooter,
-  StyledFlatTableBox,
 } from "./flat-table.style";
 import { baseTheme } from "../../style/themes";
 import { DrawerSidebarContext } from "../drawer";
@@ -86,7 +85,7 @@ describe("FlatTable", () => {
     });
 
     it("should have the overflow-y css property set to to auto", () => {
-      expect(wrapper.find(StyledFlatTableBox)).toHaveStyleRule(
+      expect(wrapper.find(StyledFlatTableWrapper)).toHaveStyleRule(
         "overflow-y",
         "auto"
       );
@@ -421,7 +420,7 @@ describe("FlatTable", () => {
     });
   });
 
-  describe("StyledFlatTableBox", () => {
+  describe("StyledFlatTableWrapper", () => {
     let wrapper;
     const Footer = () => <div>foo</div>;
     it("applies correct styles when a div is larger than the FlatTable", () => {
@@ -431,7 +430,7 @@ describe("FlatTable", () => {
           boxShadow: "inset 0px 0px 0px 1px #CCD6DB",
           boxSizing: "border-box",
         },
-        wrapper.find(StyledFlatTableBox)
+        wrapper.find(StyledFlatTableWrapper)
       );
     });
 
@@ -444,7 +443,7 @@ describe("FlatTable", () => {
         {
           maxHeight: "100%",
         },
-        wrapper.find(StyledFlatTableBox)
+        wrapper.find(StyledFlatTableWrapper)
       );
     });
 
@@ -457,7 +456,7 @@ describe("FlatTable", () => {
         {
           maxHeight: undefined,
         },
-        wrapper.find(StyledFlatTableBox)
+        wrapper.find(StyledFlatTableWrapper)
       );
     });
   });
@@ -507,10 +506,20 @@ describe("FlatTable", () => {
       assertStyleMatch(
         {
           position: "sticky",
-          bottom: "-40px",
+          bottom: "0px",
         },
         wrapper.find(StyledFlatTableFooter)
       );
+    });
+
+    it("sets the wrapper flex css props as expected", () => {
+      wrapper = renderFlatTable(
+        { footer: <Footer />, hasStickyFooter: true },
+        mount
+      );
+      expect(
+        wrapper.find(StyledFlatTableWrapper).prop("justifyContent")
+      ).toEqual("space-between");
     });
   });
 

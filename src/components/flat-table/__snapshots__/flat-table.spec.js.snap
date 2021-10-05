@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FlatTable when rendered with proper table data should have expected structure and styles 1`] = `
-.c11 {
+.c9 {
   background-color: transparent;
   border-width: 0;
   box-sizing: border-box;
@@ -19,15 +19,36 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding: 0;
 }
 
-.c11:first-child {
+.c9:first-child {
   padding-left: 1px;
+}
+
+.c9.c9.c9 > div {
+  box-sizing: border-box;
+}
+
+.c11 {
+  background-color: #fff;
+  border-width: 0;
+  border-bottom: 1px solid #CCD6DB;
+  text-align: left;
+  vertical-align: middle;
+  padding: 0;
 }
 
 .c11.c11.c11 > div {
   box-sizing: border-box;
 }
 
-.c13 {
+.c11:first-of-type {
+  border-left: 1px solid #CCD6DB;
+}
+
+.c11:last-of-type {
+  border-right: 1px solid #CCD6DB;
+}
+
+.c12 {
   background-color: #fff;
   border-width: 0;
   border-bottom: 1px solid #CCD6DB;
@@ -36,44 +57,23 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding: 0;
 }
 
-.c13.c13.c13 > div {
+.c12.c12.c12 > div {
   box-sizing: border-box;
 }
 
-.c13:first-of-type {
+.c12:first-of-type {
   border-left: 1px solid #CCD6DB;
 }
 
-.c13:last-of-type {
+.c12:last-of-type {
   border-right: 1px solid #CCD6DB;
 }
 
-.c14 {
-  background-color: #fff;
-  border-width: 0;
-  border-bottom: 1px solid #CCD6DB;
-  text-align: left;
-  vertical-align: middle;
-  padding: 0;
-}
-
-.c14.c14.c14 > div {
-  box-sizing: border-box;
-}
-
-.c14:first-of-type {
+.c12:first-of-type + .c10 {
   border-left: 1px solid #CCD6DB;
 }
 
-.c14:last-of-type {
-  border-right: 1px solid #CCD6DB;
-}
-
-.c14:first-of-type + .c12 {
-  border-left: 1px solid #CCD6DB;
-}
-
-.c9 {
+.c7 {
   background-color: #fff;
   border: 1px solid #CCD6DB;
   border-top: none;
@@ -89,11 +89,11 @@ exports[`FlatTable when rendered with proper table data should have expected str
   z-index: 1000;
 }
 
-.c9.c9.c9.c9 {
+.c7.c7.c7.c7 {
   left: 0px;
 }
 
-.c9.c9.c9.c9 > div {
+.c7.c7.c7.c7 > div {
   box-sizing: border-box;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -101,7 +101,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding-right: 24px;
 }
 
-.c7 {
+.c5 {
   border-collapse: separate;
   border-radius: 0px;
   border-spacing: 0;
@@ -111,16 +111,16 @@ exports[`FlatTable when rendered with proper table data should have expected str
   outline: 2px solid #0000;
 }
 
-.c7 .c10 {
+.c5 .c8 {
   border-bottom: 1px solid #668592;
 }
 
-.c7 .c10:first-child {
+.c5 .c8:first-child {
   border-left: 1px solid #668592;
 }
 
-.c5 .c8,
-.c5 .c15 {
+.c3 .c6,
+.c3 .c13 {
   border-left: none;
   border-right: none;
   font-weight: 700;
@@ -128,11 +128,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
 }
 
 .c1 {
-  box-shadow: inset 0px 0px 0px 1px #CCD6DB;
-  box-sizing: border-box;
-}
-
-.c3 {
   border-collapse: separate;
   border-radius: 0px;
   border-spacing: 0;
@@ -140,30 +135,34 @@ exports[`FlatTable when rendered with proper table data should have expected str
   width: 100%;
 }
 
-.c3 .c6 {
+.c1 .c4 {
   height: 40px;
 }
 
-.c3 .c12 > div,
-.c3 .c10 > div,
-.c3 .c8 > div,
-.c3 .c15 > div {
+.c1 .c10 > div,
+.c1 .c8 > div,
+.c1 .c6 > div,
+.c1 .c13 > div {
   font-size: 14px;
   padding-left: 16px;
   padding-right: 16px;
 }
 
 .c0 {
-  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  box-sizing: border-box;
+  box-shadow: inset 0px 0px 0px 1px #CCD6DB;
 }
 
-.c2 {
-  max-height: 100%;
-}
-
-.c2 .c4 .c15,
-.c2 .c10,
-.c2 .c4 .c8 {
+.c0 .c2 .c13,
+.c0 .c8,
+.c0 .c2 .c6 {
   background-color: #335C6D;
   border-right: 1px solid #668592;
   color: #FFFFFF;
@@ -172,143 +171,136 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 <div
   className="c0"
+  display="flex"
 >
-  <div
+  <table
     className="c1"
+    data-component="flat-table"
+    size="medium"
   >
-    <div
-      className="c2"
+    <thead
+      className="c2 c3"
     >
-      <table
-        className="c3"
-        data-component="flat-table"
+      <tr
+        className="c4 c5"
+        data-element="flat-table-row"
+        onClick={[Function]}
         size="medium"
       >
-        <thead
-          className="c4 c5"
+        <th
+          className="c6 c7"
+          data-element="flat-table-row-header"
         >
-          <tr
-            className="c6 c7"
-            data-element="flat-table-row"
-            onClick={[Function]}
-            size="medium"
+          <div
+            className=""
           >
-            <th
-              className="c8 c9"
-              data-element="flat-table-row-header"
-            >
-              <div
-                className=""
-              >
-                row header
-              </div>
-            </th>
-            <th
-              className="c10 c11"
-              data-element="flat-table-header"
-            >
-              <div>
-                header1
-              </div>
-            </th>
-            <th
-              className="c10 c11"
-              data-element="flat-table-header"
-            >
-              <div>
-                header2
-              </div>
-            </th>
-            <th
-              className="c10 c11"
-              data-element="flat-table-header"
-            >
-              <div>
-                header3
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            className="c6 c7"
-            data-element="flat-table-row"
-            onClick={[Function]}
-            size="medium"
+            row header
+          </div>
+        </th>
+        <th
+          className="c8 c9"
+          data-element="flat-table-header"
+        >
+          <div>
+            header1
+          </div>
+        </th>
+        <th
+          className="c8 c9"
+          data-element="flat-table-header"
+        >
+          <div>
+            header2
+          </div>
+        </th>
+        <th
+          className="c8 c9"
+          data-element="flat-table-header"
+        >
+          <div>
+            header3
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="c4 c5"
+        data-element="flat-table-row"
+        onClick={[Function]}
+        size="medium"
+      >
+        <th
+          className="c6 c7"
+          data-element="flat-table-row-header"
+        >
+          <div
+            className=""
           >
-            <th
-              className="c8 c9"
-              data-element="flat-table-row-header"
-            >
-              <div
-                className=""
-              >
-                row header
-              </div>
-            </th>
-            <td
-              className="c12 c13"
-              data-element="flat-table-cell"
-            >
-              <div
-                className=""
-              >
-                cell1
-              </div>
-            </td>
-            <td
-              className="c12 c13"
-              data-element="flat-table-cell"
-            >
-              <div
-                className=""
-              >
-                cell2
-              </div>
-            </td>
-            <td
-              className="c12 c14"
-              data-element="flat-table-cell"
-              rowSpan="2"
-            >
-              <div
-                className=""
-              >
-                cell3
-              </div>
-            </td>
-          </tr>
-          <tr
-            className="c6 c7"
-            data-element="flat-table-row"
-            onClick={[Function]}
-            size="medium"
+            row header
+          </div>
+        </th>
+        <td
+          className="c10 c11"
+          data-element="flat-table-cell"
+        >
+          <div
+            className=""
           >
-            <th
-              className="c8 c9"
-              data-element="flat-table-row-header"
-            >
-              <div
-                className=""
-              >
-                row header
-              </div>
-            </th>
-            <td
-              className="c12 c13"
-              colSpan="2"
-              data-element="flat-table-cell"
-            >
-              <div
-                className=""
-              >
-                cell1
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+            cell1
+          </div>
+        </td>
+        <td
+          className="c10 c11"
+          data-element="flat-table-cell"
+        >
+          <div
+            className=""
+          >
+            cell2
+          </div>
+        </td>
+        <td
+          className="c10 c12"
+          data-element="flat-table-cell"
+          rowSpan="2"
+        >
+          <div
+            className=""
+          >
+            cell3
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="c4 c5"
+        data-element="flat-table-row"
+        onClick={[Function]}
+        size="medium"
+      >
+        <th
+          className="c6 c7"
+          data-element="flat-table-row-header"
+        >
+          <div
+            className=""
+          >
+            row header
+          </div>
+        </th>
+        <td
+          className="c10 c11"
+          colSpan="2"
+          data-element="flat-table-cell"
+        >
+          <div
+            className=""
+          >
+            cell1
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 `;

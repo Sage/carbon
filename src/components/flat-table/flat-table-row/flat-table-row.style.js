@@ -114,9 +114,13 @@ const StyledFlatTableRow = styled.tr`
 
       ${StyledFlatTableHeader} {
         border-bottom: 1px solid ${borderColor(colorTheme, theme)};
-        :first-child {
-          border-left: 1px solid ${borderColor(colorTheme, theme)};
-        }
+
+        ${!isInSidebar &&
+        `
+          :first-child {
+            border-left: 1px solid ${borderColor(colorTheme, theme)};
+          }
+        `}
       }
 
       ${stickyOffset > 0 &&
