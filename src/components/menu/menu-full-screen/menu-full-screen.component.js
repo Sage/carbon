@@ -14,6 +14,7 @@ import IconButton from "../../icon-button";
 import Icon from "../../icon";
 import Portal from "../../portal";
 import MenuDivider from "../menu-divider/menu-divider.component";
+import { ModalContext } from "../../modal/modal.component";
 
 const MenuFullscreen = ({
   children,
@@ -26,6 +27,7 @@ const MenuFullscreen = ({
   const menuContentRef = useRef();
   const timerRef = useRef();
   const { menuType } = useContext(MenuContext);
+  const [isAnimationComplete, setIsAnimationComplete] = React.useState(false);
 
   const handleKeyDown = (ev) => {
     /* istanbul ignore else */
@@ -38,73 +40,82 @@ const MenuFullscreen = ({
     if (isOpen) {
       clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => {
-        menuContentRef.current.focus();
+        // menuContentRef.current.focus();
+        setIsAnimationComplete(true);
       }, 100);
+    } else {
+      setIsAnimationComplete(false);
     }
   }, [isOpen]);
 
+  console.log(isAnimationComplete);
   return (
     <li aria-label="menu-fullscreen">
       <Portal>
-        <FocusTrap autoFocus={false} wrapperRef={menuWrapperRef}>
-          <StyledMenuFullscreen
-            data-component="menu-fullscreen"
-            ref={menuWrapperRef}
-            isOpen={isOpen}
-            menuType={menuType}
-            startPosition={startPosition}
-            onKeyDown={handleKeyDown}
-            {...rest}
+        <ModalContext.Provider value={{ isAnimationComplete }}>
+          <FocusTrap
+            focusFirstElement={menuContentRef}
+            wrapperRef={menuWrapperRef}
           >
-            <StyledMenuFullscreenHeader
+            <StyledMenuFullscreen
+              data-component="menu-fullscreen"
+              ref={menuWrapperRef}
               isOpen={isOpen}
               menuType={menuType}
               startPosition={startPosition}
+              onKeyDown={handleKeyDown}
+              {...rest}
             >
-              <IconButton
-                aria-label="menu fullscreen close button"
-                onAction={onClose}
-                data-element="close"
-              >
-                <Icon
-                  type="close"
-                  color={menuType === "dark" ? "#FFFFFF" : undefined}
-                />
-              </IconButton>
-            </StyledMenuFullscreenHeader>
-            <Box
-              overflow="auto"
-              scrollVariant={menuType}
-              width="100vw"
-              height="100vh"
-            >
-              <StyledMenuWrapper
-                data-component="menu"
+              <StyledMenuFullscreenHeader
+                isOpen={isOpen}
                 menuType={menuType}
-                ref={menuContentRef}
-                display="flex"
-                flexDirection="column"
-                role="list"
-                inFullscreenView
-                tabIndex={-1}
+                startPosition={startPosition}
               >
-                {React.Children.map(children, (child, index) => (
-                  <MenuContext.Provider
-                    value={{
-                      inFullscreenView: true,
-                      menuType,
-                    }}
-                  >
-                    {child}
-                    {index < React.Children.count(children) - 1 && (
-                      <MenuDivider />
-                    )}
-                  </MenuContext.Provider>
-                ))}
-              </StyledMenuWrapper>
-            </Box>
-          </StyledMenuFullscreen>
-        </FocusTrap>
+                <IconButton
+                  aria-label="menu fullscreen close button"
+                  onAction={onClose}
+                  data-element="close"
+                >
+                  <Icon
+                    type="close"
+                    color={menuType === "dark" ? "#FFFFFF" : undefined}
+                  />
+                </IconButton>
+              </StyledMenuFullscreenHeader>
+              <Box
+                overflow="auto"
+                scrollVariant={menuType}
+                width="100vw"
+                height="100vh"
+              >
+                <StyledMenuWrapper
+                  data-component="menu"
+                  menuType={menuType}
+                  ref={menuContentRef}
+                  display="flex"
+                  flexDirection="column"
+                  role="list"
+                  inFullscreenView
+                  tabIndex={-1}
+                >
+                  {React.Children.map(children, (child, index) => (
+                    <MenuContext.Provider
+                      value={{
+                        inFullscreenView: true,
+                        menuType,
+                      }}
+                    >
+                      {child}
+                      {index < React.Children.count(children) - 1 && (
+                        <MenuDivider />
+                      )}
+                    </MenuContext.Provider>
+                  ))}
+                </StyledMenuWrapper>
+              </Box>
+            </StyledMenuFullscreen>
+          </FocusTrap>
+        </ModalContext.Provider>
       </Portal>
     </li>
   );
