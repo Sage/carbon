@@ -1,3 +1,23 @@
+## [92.0.0](https://github.com/Sage/carbon/compare/v91.2.1...v92.0.0) (2021-10-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **form:** Sticky footers on Form will no longer disappear on
+scrolling to the bottom of the form.
+
+The height prop on Form can be used to set the size of a Form
+with a sticky footer, particularly within a Dialog
+
+### Features
+
+* **form:** add height prop ([3ca7369](https://github.com/Sage/carbon/commit/3ca736973cfb586a92401b25a9d34604879d293d))
+
+
+### Bug Fixes
+
+* **form:** rewrite sticky footer ([e07b956](https://github.com/Sage/carbon/commit/e07b95682d4221e4121fe3fdaff6e6da34781d29))
+
 ### [91.2.1](https://github.com/Sage/carbon/compare/v91.2.0...v91.2.1) (2021-10-04)
 
 
