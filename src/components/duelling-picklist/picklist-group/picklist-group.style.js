@@ -3,7 +3,7 @@ import baseTheme from "../../../style/themes/base";
 import { ButtonWithForwardRef } from "../../button";
 import { StyledButton } from "../picklist-item/picklist-item.style";
 
-const StyledGroupWrapper = styled.div`
+const StyledGroupWrapper = styled.li`
   ${({ highlighted, type, theme }) => css`
     &:not(:first-of-type) {
       margin-top: 16px;
