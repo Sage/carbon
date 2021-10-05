@@ -1,7 +1,11 @@
 import styled, { css } from "styled-components";
 
 import baseTheme from "../../style/themes/base";
-import { StyledForm, StyledFormFooter } from "../form/form.style";
+import {
+  StyledForm,
+  StyledFormFooter,
+  StyledFormContent,
+} from "../form/form.style";
 import {
   StyledHeaderContent,
   StyledHeading,
@@ -55,9 +59,18 @@ const DialogStyle = styled.div`
     `};
 
   ${StyledForm} {
-    height: 100%;
     padding-bottom: 0px;
     box-sizing: border-box;
+  }
+
+  ${StyledFormContent}.sticky {
+    height: calc(100vh - 210px);
+    padding-right: ${HORIZONTAL_PADDING}px;
+    padding-left: ${HORIZONTAL_PADDING}px;
+    padding-top: 20px;
+    margin-right: -${HORIZONTAL_PADDING}px;
+    margin-left: -${HORIZONTAL_PADDING}px;
+    margin-top: -20px;
   }
 
   ${StyledFormFooter}.sticky {
@@ -65,7 +78,6 @@ const DialogStyle = styled.div`
     bottom: -${CONTENT_BOTTOM_PADDING}px;
     margin-bottom: -${CONTENT_BOTTOM_PADDING}px;
     width: calc(100% + ${2 * HORIZONTAL_PADDING}px);
-    position: sticky;
     padding-left: ${HORIZONTAL_PADDING}px;
     padding-right: ${HORIZONTAL_PADDING}px;
   }

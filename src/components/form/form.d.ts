@@ -24,6 +24,8 @@ export interface FormProps extends SpaceProps {
   stickyFooter?: boolean;
   /** The total number of warnings present in the form */
   warningCount?: number;
+  /** Height of the form (any valid CSS value) */
+  height?: string;
 }
 
 declare function Form(props: FormProps): JSX.Element;

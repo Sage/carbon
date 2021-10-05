@@ -1,25 +1,16 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  useContext,
-} from "react";
+import React, { useRef, useContext } from "react";
 import PropTypes from "prop-types";
-import throttle from "lodash/throttle";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import FormSummary from "./__internal__/form-summary.component";
 import {
   StyledForm,
+  StyledFormContent,
   StyledFormFooter,
   StyledLeftButtons,
   StyledRightButtons,
 } from "./form.style";
 import { SidebarContext } from "../sidebar/sidebar.component";
-
-const SCROLL_THROTTLE = 50;
 
 const Form = ({
   children,
@@ -34,78 +25,37 @@ const Form = ({
   dialogRef,
   fieldSpacing = 3,
   noValidate = true,
+  height,
   ...rest
 }) => {
-  const [isFooterSticky, setIsFooterSticky] = useState(false);
   const { isInSidebar } = useContext(SidebarContext);
   const formRef = useRef();
   const formFooterRef = useRef();
-  const stickyListenersAddedRef = useRef(false);
-  const checkStickyFooter = useCallback(
-    throttle(() => {
-      const { bottom } = formRef.current.getBoundingClientRect();
-      let isBottomBelowScreen;
-
-      if (dialogRef) {
-        isBottomBelowScreen =
-          bottom > dialogRef.current.getBoundingClientRect().bottom;
-      } else {
-        isBottomBelowScreen = bottom > window.innerHeight;
-      }
-
-      if (isBottomBelowScreen) {
-        setIsFooterSticky(true);
-      } else {
-        setIsFooterSticky(false);
-      }
-    }, SCROLL_THROTTLE),
-    []
-  );
-
-  useResizeObserver(formRef, checkStickyFooter, !stickyFooter);
-
-  const addStickyFooterListeners = useCallback(() => {
-    window.addEventListener("resize", checkStickyFooter, true);
-    window.addEventListener("scroll", checkStickyFooter, true);
-    stickyListenersAddedRef.current = true;
-  }, [checkStickyFooter]);
-
-  const removeStickyFooterListeners = useCallback(() => {
-    window.removeEventListener("resize", checkStickyFooter, true);
-    window.removeEventListener("scroll", checkStickyFooter, true);
-    stickyListenersAddedRef.current = false;
-  }, [checkStickyFooter]);
-
-  useEffect(() => {
-    if (stickyFooter && !stickyListenersAddedRef.current) {
-      addStickyFooterListeners();
-      checkStickyFooter();
-    }
-    return () => removeStickyFooterListeners();
-  }, [
-    addStickyFooterListeners,
-    checkStickyFooter,
-    removeStickyFooterListeners,
-    stickyFooter,
-  ]);
 
   return (
     <StyledForm
       ref={formRef}
-      stickyFooter={stickyFooter && isFooterSticky}
+      stickyFooter={stickyFooter}
       onSubmit={onSubmit}
       data-component="form"
       fieldSpacing={fieldSpacing}
       noValidate={noValidate}
       isInSidebar={isInSidebar}
+      height={height}
       {...rest}
     >
-      {children}
+      <StyledFormContent
+        data-element="form-content"
+        stickyFooter={stickyFooter}
+        className={stickyFooter ? "sticky" : ""}
+      >
+        {children}
+      </StyledFormContent>
       <StyledFormFooter
         data-element="form-footer"
-        className={isFooterSticky ? "sticky" : ""}
+        className={stickyFooter ? "sticky" : ""}
         ref={formFooterRef}
-        stickyFooter={isFooterSticky}
+        stickyFooter={stickyFooter}
         buttonAlignment={buttonAlignment}
       >
         {leftSideButtons && (
@@ -168,6 +118,9 @@ Form.propTypes = {
    * Used to detect if FormFooter should be sticky when used in Dialog component
    */
   dialogRef: PropTypes.shape({ current: PropTypes.any }),
+
+  /** Height of the form (any valid CSS value) */
+  height: PropTypes.string,
 };
 
 export default Form;
