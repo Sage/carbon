@@ -41,8 +41,14 @@ Storybook must be running before cypress can run.
 
 ### GitHub Actions
 
-1. `npx cypress run --parallel -–record --spec './cypress/features/regression/**/*.feature'` - runs the complete test suite.
-2. The build result can be seen in GitHub in the pull request/branch and the detailed results can be seen in the [Cypress.io dashboard](https://dashboard.cypress.io/projects/8458bb/runs) or in GitHub Actions, both linked from the pull request/branch checks.
+1. `cypress.yml`
+- `npx cypress run --parallel -–record --spec './cypress/features/regression/**/*.feature'` - runs the complete test suite.
+
+   
+1. `cypress-axe-accessibility.yml`
+- `npx cypress run --browser chrome --parallel -–record --config './cypress/features/accessibility' --spec './cypress/features/accessibility/*.test.js'` - runs the `accessibility` test suite only.
+
+The build result can be seen in GitHub in the pull request/branch and the detailed results can be seen in the [Cypress.io dashboard](https://dashboard.cypress.io/projects/8458bb/runs) or in GitHub Actions, both linked from the pull request/branch checks.
 
 NOTE: If the tests failed for a reason such as if there is an issue with GitHub or the Cypress dashboard and we need to re-run the run exactly as it was, select `Cancel workflow` in the `Actions` tab and then select `Re-run jobs` -> `Re-run all jobs` from the `Checks` tab.
 
