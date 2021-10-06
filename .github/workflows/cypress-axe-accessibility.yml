@@ -1,4 +1,4 @@
-name: Cypress
+name: Cypress axe accessibility
 
 on:
   workflow_dispatch:
@@ -8,9 +8,9 @@ on:
         required: true
 
 jobs:
-  cypress:
+  cypress-axe-accessibility:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -18,29 +18,12 @@ jobs:
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
-        # run 20 copies of the current job in parallel
+        # run 3 copies of the current job in parallel
         containers:
           [
             1,
             2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            13,
-            14,
-            15,
-            16,
-            17,
-            18,
-            19,
-            20,
+            3
           ]
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
@@ -84,6 +67,9 @@ jobs:
           npx cypress cache list
           npx cypress verify
           npx cypress info
+      - name: Prepare stories
+        run: |
+          npm run build-storybook && npx sb extract && node ./cypress/moveJsonFile.js
       - name: Cypress run
         uses: cypress-io/github-action@v2.10.2
         with:
@@ -96,7 +82,7 @@ jobs:
           group: ubuntu-regression
           quiet: true
           browser: chrome
-          spec: './cypress/features/regression/common/*', './cypress/features/regression/themes/themes.feature'
+          spec: './cypress/features/regression/accessibility/*.feature'
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
