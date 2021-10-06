@@ -409,7 +409,27 @@ To achieve proper keyboard accessibility as described in `W3` sources it is requ
 `AccordionGroup`.
 
 <Preview>
-  <Story id="accordion-test--grouped" name="grouped"></Story>
+  <Story name="grouped">
+    <AccordionGroup>
+    <Accordion title="First Accordion">
+      <Box p={2}>
+        <Textbox label="Textbox in an Accordion" />
+      </Box>
+    </Accordion>
+    <Accordion title="Second Accordion">
+      <Box p={2}>
+        <Textbox label="Textbox in an Accordion" />
+      </Box>
+    </Accordion>
+    <Accordion title="Third Accordion">
+      <Box p={2}>
+        <div>Content</div>
+        <div>Content</div>
+        <div>Content</div>
+      </Box>
+    </Accordion>
+  </AccordionGroup>
+  </Story>
 </Preview>
 
 ### With validation icon
