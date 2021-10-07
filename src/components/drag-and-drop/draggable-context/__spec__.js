@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import DraggableContext from "./draggable-context";
 import { mount } from "enzyme";
-import ItemTargetHelper from "./../../../utils/helpers/dnd/item-target";
-import Browser from "./../../../utils/helpers/browser";
+import ItemTargetHelper from "../__internal__/item-target";
+import Browser from "./../../../__internal__/utils/helpers/browser";
 import CustomDragLayer from "./../custom-drag-layer";
 
 describe("DraggableContext", () => {

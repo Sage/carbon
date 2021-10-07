@@ -1,12 +1,12 @@
 import React from "react";
 import { shallow } from "enzyme";
-import ImmutableHelper from "./../../../utils/helpers/immutable";
+import ImmutableHelper from "../../../__internal__/utils/helpers/immutable";
 import ConfigurableItemsContent from "./configurable-items-content";
 import {
   ConfigurableItems,
   ConfigurableItemRow,
 } from "./../../../components/configurable-items";
-import { rootTagTest } from "./../../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("ConfigurableItemsContent", () => {
   let wrapper;

@@ -14,7 +14,7 @@ import {
   StyledGroupButton,
 } from "./picklist-group.style";
 import FocusContext from "../duelling-picklist.context";
-import Events from "../../../utils/helpers/events/events";
+import Events from "../../../__internal__/utils/helpers/events";
 
 const PicklistGroup = React.forwardRef(
   (

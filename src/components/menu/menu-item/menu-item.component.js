@@ -11,7 +11,7 @@ import classNames from "classnames";
 
 import StyledMenuItemWrapper from "./menu-item.style";
 import Link from "../../link";
-import Events from "../../../utils/helpers/events";
+import Events from "../../../__internal__/utils/helpers/events";
 import MenuContext from "../menu.context";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext from "../__internal__/submenu/submenu.context";

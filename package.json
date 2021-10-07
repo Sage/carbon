@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "92.0.0",
+  "version": "93.0.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -138,7 +138,6 @@
     "@popperjs/core": "^2.9.0",
     "@styled-system/prop-types": "^5.1.5",
     "@tippyjs/react": "^4.2.5",
-    "axios": "^0.21.1",
     "bignumber.js": "^9.0.1",
     "classnames": "~2.2.6",
     "crypto-js": "~3.3.0",

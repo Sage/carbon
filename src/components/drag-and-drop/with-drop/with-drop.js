@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { DropTarget } from "react-dnd-legacy";
-import ItemTypes from "../../../utils/helpers/dnd/item-types";
-import Text from "../../../utils/helpers/text";
+import ItemTypes from "../__internal__/item-types";
+import Browser from "../../../__internal__/utils/helpers/browser";
 
 class WithDrop extends React.Component {
   state = {
@@ -104,11 +104,17 @@ const ItemTarget = {
   hover(props, monitor, component) {
     if (!monitor.canDrop()) return false;
 
-    Text.clearSelection();
+    clearSelection();
     const hover = props.hover || component.context.dragAndDropHover;
     return hover(props, monitor, component);
   },
 };
+
+function clearSelection() {
+  const window = Browser.getWindow();
+
+  window.getSelection().removeAllRanges();
+}
 
 // eslint-disable-next-line no-class-assign
 WithDrop = DropTarget(

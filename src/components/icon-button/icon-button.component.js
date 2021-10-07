@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
-import Events from "../../utils/helpers/events";
+import Events from "../../__internal__/utils/helpers/events";
 import StyledIconButton from "./icon-button.style";
 import Icon from "../icon";
 import { filterStyledSystemMarginProps } from "../../style/utils";

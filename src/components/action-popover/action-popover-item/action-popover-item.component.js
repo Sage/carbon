@@ -13,8 +13,8 @@ import {
   SubMenuItemIcon,
   StyledMenuItem,
 } from "../action-popover.style";
-import Events from "../../../utils/helpers/events";
-import createGuid from "../../../utils/helpers/guid";
+import Events from "../../../__internal__/utils/helpers/events";
+import createGuid from "../../../__internal__/utils/helpers/guid";
 import ActionPopoverContext from "../action-popover-context";
 import useLocale from "../../../hooks/__internal__/useLocale";
 

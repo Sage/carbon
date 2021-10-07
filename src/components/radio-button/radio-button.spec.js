@@ -8,13 +8,13 @@ import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
 import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import guid from "../../utils/helpers/guid/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import baseTheme from "../../style/themes/base";
 import mintTheme from "../../style/themes/mint";
 import RadioButtonStyle from "./radio-button.style";
 import Tooltip from "../tooltip";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 function render(props = {}, theme = mintTheme, renderer = mount) {

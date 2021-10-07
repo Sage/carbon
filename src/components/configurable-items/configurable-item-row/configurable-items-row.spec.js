@@ -5,7 +5,7 @@ import { Checkbox } from "../../checkbox";
 import Icon from "../../icon";
 import { WithDrag, WithDrop } from "../../drag-and-drop";
 import DraggableContext from "../../drag-and-drop/draggable-context";
-import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 import {
   ConfigurableItemRowStyle,
   ConfigurableItemRowIconStyle,

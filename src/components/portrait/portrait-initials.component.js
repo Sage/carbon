@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withTheme } from "styled-components";
 
 import BaseTheme from "../../style/themes/base";
-import Browser from "../../utils/helpers/browser";
+import Browser from "../../__internal__/utils/helpers/browser";
 import {
   StyledPortraitInitials,
   StyledPortraitInitialsImg,

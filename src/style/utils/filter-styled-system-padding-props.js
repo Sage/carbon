@@ -1,4 +1,4 @@
-import filterObjectProperties from "../../utils/helpers/filter-object-properties";
+import filterObjectProperties from "../../__internal__/filter-object-properties";
 
 const paddingPropertyNames = [
   "padding",

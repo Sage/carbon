@@ -3,7 +3,7 @@ import TestRenderer from "react-test-renderer";
 import { mount, shallow } from "enzyme";
 import { shade } from "polished";
 
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -14,12 +14,12 @@ import iconConfig, { ICON_SHAPES, ICON_SIZES } from "./icon-config";
 import baseTheme from "../../style/themes/base";
 import browserTypeCheck, {
   isSafari,
-} from "../../utils/helpers/browser-type-check";
+} from "../../__internal__/utils/helpers/browser-type-check";
 import styledColor from "../../style/utils/color.js";
 import Tooltip from "../tooltip";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
-jest.mock("../../utils/helpers/browser-type-check");
+jest.mock("../../__internal__/utils/helpers/browser-type-check");
 jest.mock("@tippyjs/react/headless", () => ({
   __esModule: true,
   default: ({ children }) => children,

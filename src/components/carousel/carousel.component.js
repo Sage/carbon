@@ -8,7 +8,7 @@ import React, {
 import PropTypes from "prop-types";
 import { compact } from "lodash";
 import { withTheme } from "styled-components";
-import tagComponent from "../../utils/helpers/tags/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import Slide from "./slide/slide.component";
 import {
   CarouselPreviousButtonWrapperStyle,
@@ -23,7 +23,7 @@ import {
   CarouselWrapperStyle,
   CarouselSliderWrapper,
 } from "./carousel.style";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import baseTheme from "../../style/themes/base";
 
 const NEXT = "next";

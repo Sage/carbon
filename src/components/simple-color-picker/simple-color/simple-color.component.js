@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import tagComponent from "../../../utils/helpers/tags/tags";
+import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import StyledSimpleColor from "./simple-color.style";
 import ColorSampleBox from "../color-sample-box";
 import StyledSimpleColorInput from "../simple-color-input/simple-color-input.style";
