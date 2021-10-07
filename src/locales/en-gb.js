@@ -6,7 +6,6 @@ export default {
   actions: {
     edit: () => "Edit",
     delete: () => "Delete",
-    reset: () => "Reset Columns",
   },
   actionPopover: {
     ariaLabel: () => "actions",

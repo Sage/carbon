@@ -13,7 +13,6 @@ Feature: Accessibility tests - Common list
       | Button Toggle Group |
       | Carousel            |
       | Confirm             |
-      | Configurable Items  |
       | Detail              |
       | Dialog              |
       | Decimal Input       |

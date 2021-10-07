@@ -3,7 +3,6 @@ interface Locale {
   actions: {
     edit: () => string;
     delete: () => string;
-    reset: () => string;
   };
   actionPopover: {
     ariaLabel: () => string;
