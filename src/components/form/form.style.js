@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 
 import { space } from "styled-system";
@@ -12,13 +12,17 @@ import StyledInlineInputs from "../inline-inputs/inline-inputs.style";
 import { FORM_BUTTON_ALIGNMENTS } from "./form.config";
 import StyledSearch from "../search/search.style";
 
-const FormButtonAnimation = keyframes`
-  0%   { transform: translateY(50px); }
-  100% { transform: translateY(0px); }
+export const StyledFormContent = styled.div`
+  ${({ stickyFooter }) => css`
+    ${stickyFooter &&
+    css`
+      overflow-y: auto;
+      height: calc(100vh - 72px);
+    `}
+  `}
 `;
 
 export const StyledFormFooter = styled.div`
-  margin-top: 48px;
   align-items: center;
   display: flex;
 
@@ -29,16 +33,17 @@ export const StyledFormFooter = styled.div`
     `}
 
   ${({ stickyFooter, theme }) => css`
+    ${!stickyFooter &&
+    css`
+      margin-top: 48px;
+    `}
+
     ${stickyFooter &&
     css`
-      animation: ${FormButtonAnimation} 0.25s ease;
       background-color: ${theme.colors.white};
       box-shadow: 0 -4px 12px 0 rgba(0, 0, 0, 0.05);
       box-sizing: border-box;
       padding: 16px 32px;
-      bottom: 0;
-      left: 0;
-      position: fixed;
       width: 100%;
       z-index: 1000;
     `}
@@ -47,6 +52,12 @@ export const StyledFormFooter = styled.div`
 
 export const StyledForm = styled.form`
   ${space}
+
+  ${({ height }) =>
+    height &&
+    css`
+      height: ${height};
+    `}
 
   & ${StyledFormField}, ${StyledFieldset}, ${FieldsetStyle}, > ${StyledButton} {
     margin-top: 0;
@@ -67,18 +78,30 @@ export const StyledForm = styled.form`
     margin-bottom: 0px;
   }
 
-  ${({ stickyFooter, isInSidebar }) =>
+  ${({ stickyFooter, isInSidebar, theme }) =>
     stickyFooter &&
     css`
-      padding-bottom: 88px;
+      display: flex;
+      flex-direction: column;
 
       ${isInSidebar &&
       css`
-        // important keyword is needed because original style is provided in inline style mode
-        position: static !important;
+        ${StyledFormContent}.sticky {
+          height: calc(100vh - 184px);
+          padding-right: ${theme.space[4]}px;
+          padding-left: ${theme.space[4]}px;
+          padding-top: 27px;
+          margin-right: -${theme.space[4]}px;
+          margin-left: -${theme.space[4]}px;
+          margin-top: -27px;
+        }
 
-        ${StyledFormFooter} {
-          position: absolute;
+        ${StyledFormFooter}.sticky {
+          margin-left: -${theme.space[4]}px;
+          margin-bottom: -${theme.space[4]}px;
+          width: calc(100% + ${2 * theme.space[4]}px);
+          padding-left: ${theme.space[4]}px;
+          padding-right: ${theme.space[4]}px;
         }
       `}
     `}

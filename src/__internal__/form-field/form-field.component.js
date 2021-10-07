@@ -6,7 +6,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
 import Label from "../label";
 import FieldHelp from "../field-help";
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../utils/helpers/tags/tags";
 import { TabContext } from "../../components/tabs/tab";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 

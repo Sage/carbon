@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
-import ImmutableHelper from "./../../utils/helpers/immutable";
-import { rootTagTest } from "./../../utils/helpers/tags/tags-specs";
+import ImmutableHelper from "../../__internal__/utils/helpers/immutable";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import Dialog from "./../../components/dialog";
 import ConfigurableItemsStore from "./store";
 import ConfigurableItemsActions from "./actions";

@@ -1,10 +1,7 @@
 import React, { useRef } from "react";
 import { mount, shallow } from "enzyme";
-import { act } from "react-dom/test-utils";
 
 import baseTheme from "../../style/themes/base";
-
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
@@ -15,6 +12,7 @@ import {
   StyledRightButtons,
   StyledFormFooter,
   StyledForm,
+  StyledFormContent,
 } from "./form.style";
 import FormSummary from "./__internal__/form-summary.component";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
@@ -46,19 +44,6 @@ describe("Form", () => {
     expect(wrapper.find(StyledForm).hasClass("foo")).toBeTruthy();
   });
 
-  it("cleans up event listeners after unmounting", () => {
-    wrapper.update();
-    const removeEventListenerSpy = jest.spyOn(window, "removeEventListener");
-
-    wrapper.unmount();
-
-    expect(
-      removeEventListenerSpy.mock.calls.filter(
-        (call) => call[0] === "scroll" || call[0] === "resize"
-      )
-    ).toHaveLength(2);
-  });
-
   describe("when search used in Form component", () => {
     it("should have no addition margin-bottom", () => {
       wrapper = mount(<StyledForm />);
@@ -69,6 +54,19 @@ describe("Form", () => {
         },
         wrapper,
         { modifier: `${StyledSearch} ${StyledFormField}` }
+      );
+    });
+  });
+
+  describe("when height prop is set", () => {
+    it("sets the correct height onto StyledForm", () => {
+      wrapper = mount(<StyledForm height="100px" />);
+
+      assertStyleMatch(
+        {
+          height: "100px",
+        },
+        wrapper.find(StyledForm)
       );
     });
   });
@@ -109,21 +107,9 @@ describe("Form", () => {
   });
 
   describe("when stickyFooter prop is true", () => {
-    const dispatchScrollEvent = () => {
-      act(() => {
-        jest.runAllTimers();
-        window.dispatchEvent(new Event("scroll"));
-      });
-    };
     const assertThatFooterIsSticky = () => {
       wrapper.update();
       expect(wrapper.find(StyledFormFooter).hasClass("sticky")).toBe(true);
-      assertStyleMatch(
-        {
-          paddingBottom: "88px",
-        },
-        wrapper.find(StyledForm)
-      );
 
       assertStyleMatch(
         {
@@ -131,28 +117,8 @@ describe("Form", () => {
           boxShadow: "0 -4px 12px 0 rgba(0,0,0,0.05)",
           boxSizing: "border-box",
           padding: "16px 32px",
-          bottom: "0",
-          left: "0",
-          position: "fixed",
           width: "100%",
-        },
-        wrapper.find(StyledFormFooter)
-      );
-    };
-
-    const assertThatFooterIsNotSticky = () => {
-      wrapper.update();
-      assertStyleMatch(
-        {
-          backgroundColor: undefined,
-          boxShadow: undefined,
-          boxSizing: undefined,
-          padding: undefined,
-          bottom: undefined,
-          left: undefined,
-          position: undefined,
-          width: undefined,
-          zIndex: undefined,
+          zIndex: "1000",
         },
         wrapper.find(StyledFormFooter)
       );
@@ -161,92 +127,10 @@ describe("Form", () => {
     describe("without container", () => {
       beforeEach(() => {
         wrapper = mount(<Form stickyFooter />);
-        window.innerHeight = 1000;
       });
 
-      afterEach(() => {
-        window.innerHeight = 768;
-      });
-
-      it("renders footer with sticky styles if form bottom is below the window", () => {
-        const formNode = wrapper.find(StyledForm).getDOMNode();
-        jest
-          .spyOn(formNode, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            bottom: 1051,
-          }));
-
-        dispatchScrollEvent();
+      it("renders footer with sticky styles", () => {
         assertThatFooterIsSticky();
-      });
-
-      it("renders form footer without sticky styles if form bottom is above the bottom of window", () => {
-        const formNode = wrapper.find(StyledForm).getDOMNode();
-        jest
-          .spyOn(formNode, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            top: 100,
-            bottom: 900,
-          }));
-
-        dispatchScrollEvent();
-        assertThatFooterIsNotSticky();
-      });
-
-      it("does not change stickyFooter state if it does not need to change", () => {
-        const formNode = wrapper.find(StyledForm).getDOMNode();
-        jest
-          .spyOn(formNode, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            bottom: 1100,
-          }));
-
-        dispatchScrollEvent();
-        assertThatFooterIsSticky();
-
-        jest
-          .spyOn(formNode, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            bottom: 1101,
-          }));
-
-        dispatchScrollEvent();
-        assertThatFooterIsSticky();
-      });
-
-      it("render stickyFooter with sticky rules on resize if form bottom is above the bottom of window", () => {
-        const formNode = wrapper.find(StyledForm).getDOMNode();
-        jest
-          .spyOn(formNode, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            bottom: 1051,
-          }));
-
-        act(() => {
-          useResizeObserver.mock.calls[
-            useResizeObserver.mock.calls.length - 1
-          ][1]();
-        });
-
-        assertThatFooterIsSticky();
-      });
-
-      it("renders form footer without sticky styles on resize if form bottom is above the bottom of window", () => {
-        const formNode = wrapper.find(StyledForm).getDOMNode();
-        jest
-          .spyOn(formNode, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            top: 100,
-            bottom: 900,
-          }));
-
-        act(() => {
-          useResizeObserver.mock.calls[
-            useResizeObserver.mock.calls.length - 1
-          ][1]();
-        });
-
-        assertThatFooterIsNotSticky();
       });
     });
 
@@ -266,40 +150,8 @@ describe("Form", () => {
         wrapper = mount(<Component />);
       });
 
-      it("renders footer with sticky styles if form bottom is below the container", () => {
-        const containerNode = wrapper.find("#test-container").getDOMNode();
-        jest
-          .spyOn(containerNode, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            bottom: 1000,
-          }));
-        const formNode = wrapper.find(StyledForm).getDOMNode();
-        jest
-          .spyOn(formNode, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            bottom: 1050,
-          }));
-
-        dispatchScrollEvent();
+      it("renders footer with sticky styles", () => {
         assertThatFooterIsSticky();
-      });
-
-      it("renders form footer without sticky styles if form bottom is above the bottom of window", () => {
-        const containerNode = wrapper.find("#test-container").getDOMNode();
-        jest
-          .spyOn(containerNode, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            bottom: 1100,
-          }));
-        const formNode = wrapper.find(StyledForm).getDOMNode();
-        jest
-          .spyOn(formNode, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            bottom: 1050,
-          }));
-
-        dispatchScrollEvent();
-        assertThatFooterIsNotSticky();
       });
     });
 
@@ -309,17 +161,28 @@ describe("Form", () => {
 
         assertStyleMatch(
           {
-            position: "static !important",
+            height: "calc(100vh - 184px)",
+            paddingRight: "32px",
+            paddingLeft: "32px",
+            paddingTop: "27px",
+            marginRight: "-32px",
+            marginLeft: "-32px",
+            marginTop: "-27px",
           },
-          wrapper
+          wrapper,
+          { modifier: `${StyledFormContent}.sticky` }
         );
 
         assertStyleMatch(
           {
-            position: "absolute",
+            marginLeft: "-32px",
+            marginBottom: "-32px",
+            width: "calc(100% + 64px)",
+            paddingLeft: "32px",
+            paddingRight: "32px",
           },
           wrapper,
-          { modifier: `${StyledFormFooter}` }
+          { modifier: `${StyledFormFooter}.sticky` }
         );
       });
     });

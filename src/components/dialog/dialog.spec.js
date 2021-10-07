@@ -284,7 +284,6 @@ describe("Dialog", () => {
           bottom: "-30px",
           marginBottom: "-30px",
           width: "calc(100% + 70px)",
-          position: "sticky",
           paddingLeft: "35px",
           paddingRight: "35px",
         },

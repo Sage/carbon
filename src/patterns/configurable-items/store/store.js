@@ -1,6 +1,6 @@
 import { Dispatcher } from "carbon-state-management/lib/flux";
 import Store from "carbon-state-management/lib/flux/store";
-import ImmutableHelper from "../../../utils/helpers/immutable";
+import ImmutableHelper from "../../../__internal__/utils/helpers/immutable/immutable";
 import ConfigurableItemsConstants from "../constants";
 
 const data = ImmutableHelper.parseJSON({

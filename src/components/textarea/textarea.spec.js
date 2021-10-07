@@ -12,11 +12,11 @@ import InputPresentation from "../../__internal__/input/input-presentation.compo
 import { Input } from "../../__internal__/input";
 import Label from "../../__internal__/label";
 import ValidationIcon from "../../__internal__/validations/validation-icon.component";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import Tooltip from "../tooltip";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 describe("Textarea", () => {

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { mount } from "enzyme";
 import { DragDropContext } from "react-dnd-legacy";
 import TestBackend from "react-dnd-test-backend";
-import Browser from "../../../utils/helpers/browser";
+import Browser from "../../../__internal__/utils/helpers/browser";
 import WithDrag from "./../with-drag";
 import WithDrop from "./with-drop";
 
@@ -110,6 +110,15 @@ describe("WithDrop", () => {
         backend.simulateEndDrag();
         expect(hoverPropSpy).not.toHaveBeenCalled();
         expect(hoverContextSpy).toHaveBeenCalled();
+      });
+
+      describe("when window.getSelection is defined", () => {
+        it("calls removeAllRanges on the selection", () => {
+          backend.simulateBeginDrag([handlerId]);
+          backend.simulateHover([targetId]);
+
+          expect(mockSelection.removeAllRanges).toHaveBeenCalled();
+        });
       });
     });
   });

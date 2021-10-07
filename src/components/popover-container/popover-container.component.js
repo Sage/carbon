@@ -11,7 +11,7 @@ import {
   PopoverContainerOpenIcon,
 } from "./popover-container.style";
 import Icon from "../icon";
-import createGuid from "../../utils/helpers/guid";
+import createGuid from "../../__internal__/utils/helpers/guid";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
 
 const paddingPropTypes = filterStyledSystemPaddingProps(

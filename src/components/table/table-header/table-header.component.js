@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import StyledTableHeader from "./table-header.style";
 import Icon from "../../icon";
-import { validProps } from "../../../utils/ether/ether";
+import { validProps } from "../../../__internal__/utils/ether";
 
 /**
  * A TableHeader widget.

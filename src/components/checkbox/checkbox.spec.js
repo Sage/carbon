@@ -6,7 +6,7 @@ import { StyledCheckableInput } from "../../__internal__/checkable-input/checkab
 import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
 import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import { baseTheme } from "../../style/themes";
 import {
   assertStyleMatch,
@@ -17,7 +17,7 @@ import {
 import Label from "../../__internal__/label";
 import Tooltip from "../tooltip";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 function render(props, renderer = mount, options = {}) {

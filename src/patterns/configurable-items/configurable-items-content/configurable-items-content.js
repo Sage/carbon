@@ -4,7 +4,7 @@ import {
   ConfigurableItems,
   ConfigurableItemRow,
 } from "../../../components/configurable-items";
-import tagComponent from "../../../utils/helpers/tags";
+import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 
 class ConfigurableItemsContent extends React.Component {
   onChange = (rowId) => {

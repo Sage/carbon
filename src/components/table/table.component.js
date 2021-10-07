@@ -13,7 +13,7 @@ import TableSubheader from "./table-subheader";
 import DraggableTableCell from "./draggable-table-cell";
 import Pager from "../pager";
 import Loader from "../loader";
-import Logger from "../../utils/logger/logger";
+import Logger from "../../__internal__/utils/logger";
 import LocaleContext from "../../__internal__/i18n-context";
 
 let deprecatedWarnTriggered = false;

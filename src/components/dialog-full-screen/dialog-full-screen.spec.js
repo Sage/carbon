@@ -7,7 +7,7 @@ import StyledDialogFullScreen from "./dialog-full-screen.style";
 import DialogFullScreen from "./dialog-full-screen.component";
 import StyledContent from "./content.style";
 import Button from "../button";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import Heading from "../heading";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
@@ -15,7 +15,7 @@ import StyledIconButton from "../icon-button/icon-button.style";
 import { StyledHeader, StyledHeading } from "../heading/heading.style";
 import Help from "../help";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 
 describe("DialogFullScreen", () => {
   guid.mockImplementation(() => "guid-12345");

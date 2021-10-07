@@ -4,7 +4,7 @@ import { mount } from "enzyme";
 import { DragDropContext } from "react-dnd-legacy";
 import TestBackend from "react-dnd-test-backend";
 import WithDrag from "./with-drag";
-import BrowserHelper from "./../../../utils/helpers/browser";
+import BrowserHelper from "./../../../__internal__/utils/helpers/browser";
 
 describe("WithDrag", () => {
   let wrapper,

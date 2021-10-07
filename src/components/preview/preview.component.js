@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import PreviewStyle, { StyledPreview } from "./preview.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 

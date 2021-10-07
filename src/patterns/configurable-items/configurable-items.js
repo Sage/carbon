@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { connect } from "carbon-state-management/lib/flux";
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import Dialog from "../../components/dialog";
 import ConfigurableItemsStore from "./store";
 import ConfigurableItemsActions from "./actions";
