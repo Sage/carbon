@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import throttle from "lodash/throttle";
 import { isFragment } from "react-is";
 
-import Event from "../../utils/helpers/events";
+import Event from "../../__internal__/utils/helpers/events";
 import {
   StyledAnchorNavigation,
   StyledNavigation,

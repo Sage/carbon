@@ -13,7 +13,7 @@ import iconSizeConfig, {
 } from "./icon-config";
 import browserTypeCheck, {
   isSafari,
-} from "../../utils/helpers/browser-type-check";
+} from "../../__internal__/utils/helpers/browser-type-check";
 import styledColor from "../../style/utils/color";
 
 const getBackgroundColor = (theme, bgTheme, disabled, isHover) => {

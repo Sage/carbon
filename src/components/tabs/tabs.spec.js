@@ -6,7 +6,7 @@ import { css } from "styled-components";
 import TabTitle from "./__internal__/tab-title/tab-title.component";
 import { Tabs, Tab } from "./tabs.component";
 import { TabContext } from "./tab/index";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledTabs from "./tabs.style";
 import StyledTab from "./tab/tab.style";
 import {

@@ -6,8 +6,8 @@ import {
   StyledPagerNoSelect,
 } from "../pager.style";
 import NumberInput from "../../number";
-import Events from "../../../utils/helpers/events";
-import createGuid from "../../../utils/helpers/guid";
+import Events from "../../../__internal__/utils/helpers/events";
+import createGuid from "../../../__internal__/utils/helpers/guid";
 import PagerNavigationLink from "./pager-navigation-link.component";
 import Label from "../../../__internal__/label";
 import useLocale from "../../../hooks/__internal__/useLocale";

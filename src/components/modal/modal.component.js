@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-import Events from "../../utils/helpers/events";
+import Events from "../../__internal__/utils/helpers/events";
 import StyledPortal from "../portal/portal.style";
 import ModalManager from "./__internal__/modal-manager";
 import { StyledModal, StyledModalBackground } from "./modal.style";

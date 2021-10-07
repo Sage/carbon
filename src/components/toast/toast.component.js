@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import PropTypes from "prop-types";
 import Icon from "../icon";
-import tagComponent from "../../utils/helpers/tags/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import {
   ToastStyle,
   TypeIcon,
@@ -13,7 +13,7 @@ import {
 } from "./toast.style";
 import IconButton from "../icon-button";
 import ModalManager from "../modal/__internal__/modal-manager";
-import Events from "../../utils/helpers/events/events";
+import Events from "../../__internal__/utils/helpers/events";
 
 class Toast extends React.Component {
   /** Classes to be applied to the component. */

@@ -8,7 +8,7 @@ import {
 import { InputBehaviour } from "../input-behaviour";
 import FormField from "../form-field";
 import HiddenCheckableInput from "./hidden-checkable-input.component";
-import guid from "../../utils/helpers/guid";
+import guid from "../utils/helpers/guid";
 
 const CheckableInput = ({
   autoFocus,

@@ -2,7 +2,7 @@ import React, { useMemo, useCallback } from "react";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import { filterStyledSystemMarginProps } from "../../../style/utils";
-import Events from "../../../utils/helpers/events";
+import Events from "../../../__internal__/utils/helpers/events";
 import Accordion from "../accordion.component.js";
 import { StyledAccordionGroup } from "../accordion.style.js";
 

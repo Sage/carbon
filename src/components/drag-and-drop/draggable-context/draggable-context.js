@@ -3,11 +3,11 @@ import { DragDropContext } from "react-dnd-legacy";
 import PropTypes from "prop-types";
 import TouchBackend from "react-dnd-touch-backend";
 import ReactDOM from "react-dom";
-import ItemTargetHelper from "../../../utils/helpers/dnd/item-target";
+import ItemTargetHelper from "../__internal__/item-target";
 import CustomDragLayer from "../custom-drag-layer";
-import Browser from "../../../utils/helpers/browser";
-import ScrollableParent from "../../../utils/helpers/scrollable-parent";
-import Logger from "../../../utils/logger/logger";
+import Browser from "../../../__internal__/utils/helpers/browser";
+import ScrollableParent from "./__internal__/scrollable-parent";
+import Logger from "../../../__internal__/utils/logger";
 
 let deprecatedWarnTriggered = false;
 

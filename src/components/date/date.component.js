@@ -7,13 +7,13 @@ import {
   filterStyledSystemMarginProps,
   filterOutStyledSystemSpacingProps,
 } from "../../style/utils";
-import Events from "../../utils/helpers/events/events";
-import DateHelper from "../../utils/helpers/date/date";
+import Events from "../../__internal__/utils/helpers/events";
+import DateHelper from "../../__internal__/date";
 import DatePicker from "./date-picker.component";
 import StyledDateInput from "./date.style";
 import Textbox from "../textbox";
-import withUniqueIdProps from "../../utils/helpers/with-unique-id-props";
-import { isEdge } from "../../utils/helpers/browser-type-check";
+import withUniqueIdProps from "../../__internal__/utils/helpers/with-unique-id-props";
+import { isEdge } from "../../__internal__/utils/helpers/browser-type-check";
 import LocaleContext from "../../__internal__/i18n-context";
 
 const defaultDateFormat = "DD/MM/YYYY";

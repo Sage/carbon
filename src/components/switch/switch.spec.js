@@ -10,7 +10,7 @@ import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import StyledSwitchSlider from "./__internal__/switch-slider.style";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import {
   assertStyleMatch,
   carbonThemesJestTable,
@@ -25,7 +25,7 @@ import Label from "../../__internal__/label";
 import I18nProvider from "../i18n-provider";
 import Tooltip from "../tooltip";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 const getLabel = (wrapper) => wrapper.find(SwitchSliderPanel).text();

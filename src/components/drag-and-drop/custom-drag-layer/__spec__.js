@@ -4,7 +4,7 @@ import { UndecoratedCustomDragLayer, collect } from "./custom-drag-layer";
 import StyledDragContainer from "./custom-drag-layer.style";
 import CustomDragLayer from "./custom-drag-layer";
 import DraggableContext from "./../draggable-context";
-import Browser from "./../../../utils/helpers/browser";
+import Browser from "./../../../__internal__/utils/helpers/browser";
 
 describe("CustomDragLayer", () => {
   let wrapper, instance, child;

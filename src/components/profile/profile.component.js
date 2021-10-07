@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import { acronymize } from "../../utils/ether/ether";
-import tagComponent from "../../utils/helpers/tags/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import {
   ProfileStyle,
   ProfileNameStyle,
@@ -16,6 +15,13 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
+
+function acronymize(str) {
+  if (!str) return "";
+  const matches = str.match(/\b\w/g);
+  if (!matches) return "";
+  return matches.join("");
+}
 
 const Profile = ({ src, className, initials, name, size, email, ...props }) => {
   const getInitials = () => {

@@ -12,7 +12,7 @@ import {
   StyledPagerSizeOptionsInner,
   StyledSelectContainer,
 } from "./pager.style";
-import Events from "../../utils/helpers/events/events";
+import Events from "../../__internal__/utils/helpers/events";
 
 const Pager = ({
   currentPage = 1,

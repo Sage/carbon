@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import StyledTableCell from "./table-cell.style";
 import Date from "../../date";
 import TextArea from "../../textarea";
-import { validProps } from "../../../utils/ether";
-import tagComponent from "../../../utils/helpers/tags";
+import { validProps } from "../../../__internal__/utils/ether";
+import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 
 /**
  * A TableCell widget.

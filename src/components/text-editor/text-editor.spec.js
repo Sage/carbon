@@ -21,18 +21,18 @@ import {
 import ToolbarButton from "./__internal__/toolbar/toolbar-button/toolbar-button.component";
 import Counter from "./__internal__/editor-counter";
 import Toolbar from "./__internal__/toolbar";
-import guid from "../../utils/helpers/guid/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import Label from "../../__internal__/label";
 import LabelWrapper from "./__internal__/label-wrapper";
 import EditorLinkPreview from "../link-preview";
 import ValidationIcon from "../../__internal__/validations";
-import { isSafari } from "../../utils/helpers/browser-type-check";
+import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
 import IconButton from "../icon-button";
 
-jest.mock("../../utils/helpers/browser-type-check");
+jest.mock("../../__internal__/utils/helpers/browser-type-check");
 isSafari.mockImplementation(() => false);
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 const createContent = (text) => {

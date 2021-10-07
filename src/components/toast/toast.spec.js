@@ -1,7 +1,7 @@
 import React from "react";
 import TestUtils from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
-import guid from "../../utils/helpers/guid/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import Toast from "./toast.component";
 import { ToastStyle, ToastContentStyle, ToastWrapper } from "./toast.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
@@ -10,9 +10,9 @@ import ModalManager from "../modal/__internal__/modal-manager";
 import {
   elementsTagTest,
   rootTagTest,
-} from "../../utils/helpers/tags/tags-specs/tags-specs";
+} from "../../__internal__/utils/helpers/tags/tags-specs";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 
 describe("Toast", () => {
   guid.mockImplementation(() => "guid-12345");

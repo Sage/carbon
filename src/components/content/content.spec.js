@@ -13,7 +13,7 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import { baseTheme } from "../../style/themes";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("Content", () => {
   let wrapper;

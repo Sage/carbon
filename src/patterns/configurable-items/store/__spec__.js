@@ -1,5 +1,5 @@
 import Constants from "./../constants";
-import ImmutableHelper from "./../../../utils/helpers/immutable";
+import ImmutableHelper from "../../../__internal__/utils/helpers/immutable";
 import Store from "./store";
 
 const setValue = (key, value) => {

@@ -6,7 +6,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import { Input, InputPresentation } from "../../__internal__/input";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import FormField from "../../__internal__/form-field";
-import withUniqueIdProps from "../../utils/helpers/with-unique-id-props";
+import withUniqueIdProps from "../../__internal__/utils/helpers/with-unique-id-props";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";

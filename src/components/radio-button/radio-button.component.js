@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
-
 import RadioButtonStyle from "./radio-button.style";
 import CheckableInput from "../../__internal__/checkable-input/checkable-input.component";
 import RadioButtonSvg from "./radio-button-svg.component";

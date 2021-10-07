@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../utils/helpers/tags/tags";
 import StyledFullScreenHeading, {
   StyledHeaderContainer,
 } from "./full-screen-heading.style";

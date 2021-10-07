@@ -5,7 +5,7 @@ import { shade } from "polished";
 
 import Pill from "./pill.component";
 import styleConfig from "./pill.style.config";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   carbonThemesJestTable,

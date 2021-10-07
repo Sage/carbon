@@ -4,7 +4,7 @@ import ActionToolbar from ".";
 import {
   elementsTagTest,
   rootTagTest,
-} from "../../utils/helpers/tags/tags-specs/tags-specs";
+} from "../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("action toolbar", () => {
   let instance, spy, wrapper;
