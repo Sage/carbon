@@ -50,7 +50,6 @@ Feature: Accessibility tests - Common list
     Then "<component> Test default story" component has no accessibility violations
     Examples:
       | component        |
-      | DraggableContext |
       | Setting row      |
 
   @accessibility
