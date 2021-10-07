@@ -3,7 +3,7 @@ import TestUtils from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
 import { Table, TableRow } from "..";
 import TableHeader from ".";
-import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 import BaseTheme from "../../../style/themes/base";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 

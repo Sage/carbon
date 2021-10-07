@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Row, Column } from "../row";
 import Label from "../../__internal__/label";
 import StyledInlineInputs from "./inline-inputs.style";
-import createGuid from "../../utils/helpers/guid";
+import createGuid from "../../__internal__/utils/helpers/guid";
 
 const columnWrapper = (children) => {
   let inputs = children;

@@ -8,7 +8,7 @@ import {
   StyledSettingsRowInput,
 } from "./settings-row.style";
 import Heading from "../heading";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   testStyledSystemMargin,

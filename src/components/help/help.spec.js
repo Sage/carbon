@@ -3,7 +3,7 @@ import { act } from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
 import Icon from "components/icon";
 import Help from "./help.component";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledHelp from "./help.style";
 import Tooltip from "../tooltip";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";

@@ -2,9 +2,9 @@ import React from "react";
 import { mount } from "enzyme";
 
 import Alert from ".";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 describe("Alert", () => {

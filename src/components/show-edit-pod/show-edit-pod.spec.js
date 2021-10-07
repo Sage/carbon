@@ -8,7 +8,7 @@ import Button from "../button";
 import {
   elementsTagTest,
   rootTagTest,
-} from "../../utils/helpers/tags/tags-specs";
+} from "../../__internal__/utils/helpers/tags/tags-specs";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 import StyledDeleteButton from "./delete-button.style";
 

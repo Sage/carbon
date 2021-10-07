@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 
-import Event from "../../../utils/helpers/events";
+import Event from "../../../__internal__/utils/helpers/events";
 import StyledFlatTableRow from "./flat-table-row.style";
 import { DrawerSidebarContext } from "../../drawer";
 import FlatTableCheckbox from "../flat-table-checkbox";

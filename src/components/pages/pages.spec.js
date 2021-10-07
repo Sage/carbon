@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { shallow, mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 import BasePages, { Page } from "./pages.component";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import mintTheme from "../../style/themes/mint";
 import Button from "../button";
 import Heading from "../heading";

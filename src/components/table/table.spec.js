@@ -9,7 +9,7 @@ import { Table, TableHeader, TableRow, TableCell } from ".";
 import StyledTable, { StyledInternalTableWrapper } from "./table.style";
 import StyledTableHeader from "./table-header/table-header.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import Pager from "../pager";
 import BaseTheme from "../../style/themes/base";
 import mintTheme from "../../style/themes/mint";

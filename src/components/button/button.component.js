@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import Icon from "../icon";
 import StyledButton, { StyledButtonSubtext } from "./button.style";
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
 function renderChildren({
   /* eslint-disable react/prop-types */

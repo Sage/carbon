@@ -5,7 +5,7 @@ import { margin } from "styled-system";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
-import { isSafari } from "../../utils/helpers/browser-type-check";
+import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
 
 const Menu = styled.div`
   ${({ isOpen }) => (isOpen ? "display: block;" : "visibility: hidden;")}

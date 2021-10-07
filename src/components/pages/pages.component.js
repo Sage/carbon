@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { TransitionGroup } from "react-transition-group";
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import Page from "./page/page.component";
 import { PagesWrapperStyle, PagesContent } from "./pages.style";
 

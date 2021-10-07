@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withTheme } from "styled-components";
-import tagComponent from "../../utils/helpers/tags/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { DraggableContext } from "../drag-and-drop";
 import Button from "../button";
 import {
@@ -12,7 +12,7 @@ import {
 } from "./configurable-items.style";
 import Form from "../form";
 import baseTheme from "../../style/themes/base";
-import Logger from "../../utils/logger/logger";
+import Logger from "../../__internal__/utils/logger";
 import LocaleContext from "../../__internal__/i18n-context";
 
 let deprecatedWarnTriggered = false;

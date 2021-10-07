@@ -1,7 +1,7 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { ThemeProvider } from "styled-components";
-import Browser from "../../utils/helpers/browser";
+import Browser from "../../__internal__/utils/helpers/browser";
 import PortraitInitials from "./portrait-initials.component";
 import { carbonThemeList } from "../../style/themes";
 

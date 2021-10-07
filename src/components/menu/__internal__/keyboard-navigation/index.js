@@ -1,4 +1,4 @@
-import Events from "../../../../utils/helpers/events";
+import Events from "../../../../__internal__/utils/helpers/events";
 import MenuItem from "../../menu-item";
 
 function characterNavigation(inputString, focusableItems, currentFocusedIndex) {

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
-import Logger from "../../utils/logger/logger";
+import Logger from "../../__internal__/utils/logger";
 
 let deprecatedWarnTriggered = false;
 

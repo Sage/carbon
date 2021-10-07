@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import { ThemeProvider } from "styled-components";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import { baseTheme, mintTheme } from "../../style/themes";
 import {
   assertStyleMatch,
@@ -18,7 +18,7 @@ import ButtonToggleGroupStyle from "./button-toggle-group.style";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import FormField from "../../__internal__/form-field";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 const formFieldProps = [

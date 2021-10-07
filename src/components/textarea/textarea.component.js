@@ -9,7 +9,7 @@ import Input from "../../__internal__/input/input.component";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
-import guid from "../../utils/helpers/guid/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import StyledTextarea from "./textarea.style";
 import LocaleContext from "../../__internal__/i18n-context";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";

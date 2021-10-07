@@ -6,7 +6,7 @@ import { Table, TableRow } from "..";
 import StyledTableCell from "./table-cell.style";
 import StyledInputPresentation from "../../../__internal__/input/input-presentation.style";
 import StyledInput from "../../../__internal__/input/input.style";
-import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 import BaseTheme from "../../../style/themes/base";
 import mintTheme from "../../../style/themes/mint";
 import Date from "../../date";

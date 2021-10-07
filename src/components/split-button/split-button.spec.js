@@ -10,7 +10,7 @@ import StyledSplitButtonChildrenContainer from "./split-button-children.style";
 import Icon from "../icon";
 import Button, { ButtonWithForwardRef } from "../button";
 import StyledButton from "../button/button.style";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import SmallTheme from "../../style/themes/small";
 import MediumTheme from "../../style/themes/medium";
 import {
@@ -18,9 +18,9 @@ import {
   keyboard,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 const sizes = ["small", "medium", "large"];

@@ -12,7 +12,7 @@ import {
   testStyledSystemSpacing,
   expectError,
 } from "../../__spec_helper__/test-utils";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledIcon from "../icon/icon.style";
 import { BUTTON_VARIANTS } from "./button.config";
 

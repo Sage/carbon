@@ -2,7 +2,7 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import { Table, TableRow } from "..";
 import TableSubheader from ".";
-import { rootTagTest } from "../../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import BaseTheme from "../../../style/themes/base";
 

@@ -8,7 +8,7 @@ import {
   StyledLockIcon,
 } from "./picklist-item.style";
 import FocusContext from "../duelling-picklist.context";
-import Events from "../../../utils/helpers/events";
+import Events from "../../../__internal__/utils/helpers/events";
 
 const PicklistItem = React.forwardRef(
   (
