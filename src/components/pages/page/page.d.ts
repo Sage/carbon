@@ -2,7 +2,7 @@ import * as React from "react";
 
 export interface PageProps {
   /** The title for the page, normally a Heading component. */
-  title: string | Record<string, unknown>;
+  title: React.ReactNode;
   /** This component supports children. */
   children: React.ReactNode;
 }
