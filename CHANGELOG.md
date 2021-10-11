@@ -1,3 +1,17 @@
+### [93.0.2](https://github.com/Sage/carbon/compare/v93.0.1...v93.0.2) (2021-10-07)
+
+
+### Bug Fixes
+
+* **duelling-picklist:** correct dom structure of picklist groups ([f73d26f](https://github.com/Sage/carbon/commit/f73d26fe4153a0acd8646be1e1b8bac4e57c10d5)), closes [#4340](https://github.com/Sage/carbon/issues/4340)
+
+### [93.0.1](https://github.com/Sage/carbon/compare/v93.0.0...v93.0.1) (2021-10-07)
+
+
+### Bug Fixes
+
+* **accordion:** fix group documentation example ([31b9e27](https://github.com/Sage/carbon/commit/31b9e27fbef95bb36a1729e62a556069d95c9973))
+
 ## [93.0.0](https://github.com/Sage/carbon/compare/v92.0.0...v93.0.0) (2021-10-07)
 
 
