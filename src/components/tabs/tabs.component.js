@@ -336,7 +336,10 @@ Tabs.propTypes = {
   /** Allows manual control over the currently selected tab. */
   selectedTabId: PropTypes.string,
   /** The child elements of Tabs need to be Tab components. */
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
   /** Sets the alignment of the tab titles. Possible values include. */
   align: PropTypes.oneOf(["left", "right"]),
   /** A callback for when a tab is changed. You can use this to manually control

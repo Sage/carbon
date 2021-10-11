@@ -185,7 +185,7 @@ Heading.propTypes = {
   /**
    * Defines the title for the heading.
    */
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  title: PropTypes.node,
 
   /**
    * Defines the title id for the heading.
@@ -195,7 +195,7 @@ Heading.propTypes = {
   /**
    * Defines the subheader for the heading.
    */
-  subheader: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  subheader: PropTypes.node,
 
   /**
    * Defines the subtitle id for the heading.
