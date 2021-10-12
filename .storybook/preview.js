@@ -79,7 +79,7 @@ export const parameters = {
   chromatic: { disable: false },
   viewport: { viewports: customViewports },
   actions: { argTypesRegex: "^on.*" },
-  viewMode: "docs",
+  viewMode: process.env.STORYBOOK_VIEW_MODE,
 };
 
 export const globalTypes = {
