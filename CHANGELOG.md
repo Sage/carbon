@@ -1,3 +1,10 @@
+### [93.0.4](https://github.com/Sage/carbon/compare/v93.0.3...v93.0.4) (2021-10-12)
+
+
+### Bug Fixes
+
+* publish to npm ([feae4e3](https://github.com/Sage/carbon/commit/feae4e3e570dd6ae59a74ed9ef3bf6635877810c))
+
 ### [93.0.3](https://github.com/Sage/carbon/compare/v93.0.2...v93.0.3) (2021-10-11)
 
 
