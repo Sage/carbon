@@ -1,3 +1,22 @@
+### [93.0.4](https://github.com/Sage/carbon/compare/v93.0.3...v93.0.4) (2021-10-12)
+
+
+### Bug Fixes
+
+* publish to npm ([feae4e3](https://github.com/Sage/carbon/commit/feae4e3e570dd6ae59a74ed9ef3bf6635877810c))
+
+### [93.0.3](https://github.com/Sage/carbon/compare/v93.0.2...v93.0.3) (2021-10-11)
+
+
+### Bug Fixes
+
+* **dialog:** correct title prop type ([0ce39e1](https://github.com/Sage/carbon/commit/0ce39e1735d7cf9968f930cafb2f84a2a5137fa6)), closes [#4449](https://github.com/Sage/carbon/issues/4449)
+* **dialog-full-screen:** correct title prop type ([50e1716](https://github.com/Sage/carbon/commit/50e17166d679523e9e5faf847c700f732c869a00))
+* **heading:** correct title and subheader prop types ([d6c9f8a](https://github.com/Sage/carbon/commit/d6c9f8af25c4d67bf8b6f02c46ec79fa5cd5a608))
+* **page:** correct title and children prop types ([6a511c1](https://github.com/Sage/carbon/commit/6a511c15f83c1b998d4a866d054bf4ea3e6ba006))
+* **pages:** correct children prop type ([15cadcc](https://github.com/Sage/carbon/commit/15cadcc20c0b9903b2ed02c92c8625ac0d4a4871))
+* **tabs:** correct children prop type ([9be9e66](https://github.com/Sage/carbon/commit/9be9e66f94bfbcab90c4cb677d00bd7757024e3b))
+
 ### [93.0.2](https://github.com/Sage/carbon/compare/v93.0.1...v93.0.2) (2021-10-07)
 
 
