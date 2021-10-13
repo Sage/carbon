@@ -5,7 +5,7 @@ import DayPicker from "react-day-picker";
 import isEqual from "lodash/isEqual";
 
 import Popover from "../../__internal__/popover";
-import DateHelper from "../../utils/helpers/date/date";
+import DateHelper from "../../__internal__/date";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Navbar from "./navbar";
 import Weekday from "./weekday";

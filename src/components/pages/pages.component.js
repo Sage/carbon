@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { TransitionGroup } from "react-transition-group";
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import Page from "./page/page.component";
 import { PagesWrapperStyle, PagesContent } from "./pages.style";
 
@@ -104,7 +104,10 @@ Pages.propTypes = {
   initialpageIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   pageIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Individual tabs */
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   /** Controls which transition to use. */
   transition: PropTypes.string,
 };

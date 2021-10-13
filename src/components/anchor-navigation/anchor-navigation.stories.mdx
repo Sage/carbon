@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 
 import {
@@ -6,6 +7,12 @@ import {
   AnchorSectionDivider,
 } from ".";
 import Textbox from "../textbox";
+
+import {
+  AnchorNavigationStory, 
+  Content, 
+  AnchorNavigationInFullScreenDialogStory
+  } from "./anchor-navigation-test.stories.mdx"
 
 <Meta
   title="Anchor Navigation"
@@ -90,17 +97,14 @@ const MyComponent = () => (
 
 `AnchorNavigation` can be placed anywhere on the page to help with navigating long scrollable sections.
 
-<Story id="test-anchornavigation--default" name="Default" />
+<Story name="default">{AnchorNavigationStory.bind({})}</Story>
 
 ### In DialogFullScreen
 
 `AnchorNavigation` can also be used as the content of `DialogFullScreen` component.
 
 <Preview>
-  <Story
-    id="test-anchornavigation--in-full-screen-dialog"
-    name="InFullScreenDialog"
-  />
+  <Story name="in full screen dialog">{AnchorNavigationInFullScreenDialogStory.bind({})}</Story>
 </Preview>
 
 ## Props:

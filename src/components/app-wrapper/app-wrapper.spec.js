@@ -1,7 +1,7 @@
 import React from "react";
 import TestUtils from "react-dom/test-utils";
 import { shallow } from "enzyme";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import AppWrapper from "./app-wrapper.component";
 
 describe("app wrapper", () => {

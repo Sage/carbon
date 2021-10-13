@@ -6,7 +6,7 @@ import {
   StyledEditorActionControls,
 } from "./toolbar.style";
 import ToolbarButton from "./toolbar-button";
-import Events from "../../../../utils/helpers/events/events";
+import Events from "../../../../__internal__/utils/helpers/events";
 import Icon from "../../../icon";
 import Tooltip from "../../../tooltip";
 import useLocale from "../../../../hooks/__internal__/useLocale";

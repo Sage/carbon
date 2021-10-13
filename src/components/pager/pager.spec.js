@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import baseTheme from "../../style/themes/base";
 import Pager from "./pager.component";
@@ -17,7 +17,7 @@ import NumberInput from "../number";
 import StyledOption from "../select/option/option.style";
 import I18nProvider from "../i18n-provider";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 const isSingular = (count) =>

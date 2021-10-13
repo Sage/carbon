@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import StyledTab from "./tab.style";
-import tagComponent from "../../../utils/helpers/tags/tags";
+import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 
 const TabContext = React.createContext({});

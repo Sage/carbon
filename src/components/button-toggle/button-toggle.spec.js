@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
 import TestRenderer from "react-test-renderer";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import { baseTheme } from "../../style/themes";
 import ButtonToggle from "./button-toggle.component";
 import ButtonToggleInput from "./button-toggle-input.component";
@@ -17,7 +17,7 @@ import {
 } from "./button-toggle.style";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 describe("ButtonToggle", () => {

@@ -14,7 +14,7 @@ import {
   StyledGroupButton,
 } from "./picklist-group.style";
 import FocusContext from "../duelling-picklist.context";
-import Events from "../../../utils/helpers/events/events";
+import Events from "../../../__internal__/utils/helpers/events";
 
 const PicklistGroup = React.forwardRef(
   (
@@ -96,24 +96,26 @@ const PicklistGroup = React.forwardRef(
         {...(type === "add" ? { enter: false } : {})}
       >
         <StyledGroupWrapper highlighted={highlighted} type={type}>
-          <StyledPicklistGroup
-            onKeyDown={handleKeydown}
-            data-element="picklist-group"
-          >
-            {title}
-            <StyledGroupButton
-              buttonType="secondary"
-              destructive={type === "remove"}
-              iconType={type}
-              onClick={handleClick}
-              onMouseEnter={() => setHighlighted(true)}
-              onMouseLeave={() => setHighlighted(false)}
-              onFocus={() => setHighlighted(true)}
-              onBlur={() => setHighlighted(false)}
-              ref={ref}
-            />
-          </StyledPicklistGroup>
-          <TransitionGroup component={null}>{content}</TransitionGroup>
+          <ul>
+            <StyledPicklistGroup
+              onKeyDown={handleKeydown}
+              data-element="picklist-group"
+            >
+              {title}
+              <StyledGroupButton
+                buttonType="secondary"
+                destructive={type === "remove"}
+                iconType={type}
+                onClick={handleClick}
+                onMouseEnter={() => setHighlighted(true)}
+                onMouseLeave={() => setHighlighted(false)}
+                onFocus={() => setHighlighted(true)}
+                onBlur={() => setHighlighted(false)}
+                ref={ref}
+              />
+            </StyledPicklistGroup>
+            <TransitionGroup component={null}>{content}</TransitionGroup>
+          </ul>
         </StyledGroupWrapper>
       </CSSTransition>
     );

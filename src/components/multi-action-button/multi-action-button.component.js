@@ -6,7 +6,7 @@ import {
   StyledButtonChildrenContainer,
 } from "./multi-action-button.style";
 import Button, { ButtonWithForwardRef } from "../button";
-import Events from "../../utils/helpers/events";
+import Events from "../../__internal__/utils/helpers/events";
 import Popover from "../../__internal__/popover";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 

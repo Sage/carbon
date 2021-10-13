@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
-
 import CheckboxStyle from "./checkbox.style";
 import CheckableInput from "../../__internal__/checkable-input/checkable-input.component";
 import CheckboxSvg from "./checkbox-svg.component";

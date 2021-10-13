@@ -3,10 +3,10 @@ import { mount, shallow } from "enzyme";
 import ReactDOM from "react-dom";
 import Portal from "./portal";
 import Icon from "../icon";
-import guid from "../../utils/helpers/guid";
-import Browser from "../../utils/helpers/browser";
+import guid from "../../__internal__/utils/helpers/guid";
+import Browser from "../../__internal__/utils/helpers/browser";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 
 describe("Portal", () => {
   guid.mockImplementation(() => "guid-12345");

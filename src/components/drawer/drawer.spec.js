@@ -6,7 +6,7 @@ import { mount as enzymeMount, shallow } from "enzyme";
 
 import Drawer from "./drawer.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import guid from "../../utils/helpers/guid/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import {
   StyledDrawerSidebar,
   StyledDrawerContent,
@@ -18,7 +18,7 @@ import {
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 import StickyFooter from "../../__internal__/sticky-footer";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-123");
 
 let container = null;

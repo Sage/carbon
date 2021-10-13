@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useContext } from "react";
 import PropTypes from "prop-types";
 import { Menu } from "../action-popover.style";
-import Events from "../../../utils/helpers/events";
+import Events from "../../../__internal__/utils/helpers/events";
 import ActionPopoverItem from "../action-popover-item/action-popover-item.component";
 import ActionPopoverDivider from "../action-popover-divider/action-popover-divider.component";
 import ActionPopoverContext from "../action-popover-context";

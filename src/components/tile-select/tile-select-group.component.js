@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import tagComponent from "../../utils/helpers/tags/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import TileSelect from "./tile-select.component";
 import RadioButtonMapper from "../radio-button/radio-button-mapper.component";
 import {

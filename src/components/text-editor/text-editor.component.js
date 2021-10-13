@@ -31,8 +31,8 @@ import {
 import Counter from "./__internal__/editor-counter";
 import Toolbar from "./__internal__/toolbar";
 import Label from "../../__internal__/label";
-import Events from "../../utils/helpers/events/events";
-import createGuid from "../../utils/helpers/guid";
+import Events from "../../__internal__/utils/helpers/events";
+import createGuid from "../../__internal__/utils/helpers/guid";
 import LabelWrapper from "./__internal__/label-wrapper";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 

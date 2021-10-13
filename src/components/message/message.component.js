@@ -5,7 +5,7 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import MessageStyle from "./message.style";
 import TypeIcon from "./type-icon/type-icon.component";
 import MessageContent from "./message-content/message-content.component";
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import Icon from "../icon";
 import IconButton from "../icon-button";
 import { filterStyledSystemMarginProps } from "../../style/utils";

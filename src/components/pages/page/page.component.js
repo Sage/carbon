@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { CSSTransition } from "react-transition-group";
-import tagComponent from "../../../utils/helpers/tags";
+import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import FullScreenHeading from "../../../__internal__/full-screen-heading";
 import AppWrapper from "../../app-wrapper";
 import { StyledPage, StyledPageContent } from "./page.style";
@@ -33,16 +33,12 @@ Page.propTypes = {
   /**
    * The title for the page, normally a Heading component.
    */
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  title: PropTypes.node.isRequired,
 
   /**
    * This component supports children.
    */
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-    PropTypes.node,
-  ]),
+  children: PropTypes.node.isRequired,
 };
 
 export default Page;

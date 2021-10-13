@@ -232,7 +232,7 @@ Dialog.propTypes = {
   /** Adds Help tooltip to Header */
   help: PropTypes.string,
   /** Title displayed at top of dialog */
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  title: PropTypes.node,
   /** Subtitle displayed at top of dialog */
   subtitle: PropTypes.string,
   /** Size of dialog, default size is 750px */

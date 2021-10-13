@@ -5,7 +5,7 @@ import {
   StyledButtonToggleLabel,
   StyledButtonToggleContentWrapper,
 } from "./button-toggle.style";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import ButtonToggleIcon from "./button-toggle-icon.component";
 import ButtonToggleInput from "./button-toggle-input.component";
 

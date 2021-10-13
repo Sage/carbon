@@ -4,7 +4,7 @@ import { act } from "react-test-renderer";
 import AdvancedColorPicker from "./advanced-color-picker.component";
 import Dialog from "../dialog/dialog.component";
 import { SimpleColor } from "../simple-color-picker";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -12,7 +12,7 @@ import {
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 import { ModalContext } from "../modal/modal.component";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 describe("AdvancedColorPicker", () => {

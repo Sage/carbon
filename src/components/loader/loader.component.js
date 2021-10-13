@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledLoader from "./loader.style";
 import StyledLoaderSquare from "./loader-square.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";

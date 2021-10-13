@@ -5,7 +5,7 @@ import Detail from "./detail.component";
 import {
   elementsTagTest,
   rootTagTest,
-} from "../../utils/helpers/tags/tags-specs";
+} from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
