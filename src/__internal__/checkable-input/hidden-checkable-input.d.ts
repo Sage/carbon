@@ -24,7 +24,7 @@ export interface CommonHiddenCheckableInputProps
   /** Value of the input */
   value?: string;
   /** A callback to retrieve the input reference */
-  inputRef: React.Ref<HTMLInputElement>;
+  inputRef?: React.Ref<HTMLInputElement>;
 }
 
 export interface HiddenCheckableInputProps

@@ -1,3 +1,24 @@
+### [94.0.1](https://github.com/Sage/carbon/compare/v94.0.0...v94.0.1) (2021-10-13)
+
+
+### Bug Fixes
+
+* **hidden-checkable-input:** make inputref prop optional in ts interface ([eeab991](https://github.com/Sage/carbon/commit/eeab991888fb02938662e1d5535c0debbc7454fd)), closes [#4450](https://github.com/Sage/carbon/issues/4450)
+
+## [94.0.0](https://github.com/Sage/carbon/compare/v93.0.4...v94.0.0) (2021-10-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **drag-and-drop:** drag-and-drop has been removed from Carbon.
+Please use the Draggable component instead
+* **configurable-items:** ConfigurableItems has been removed from Carbon
+
+### Code Refactoring
+
+* **configurable-items:** deprecate configurable items and pattern ([c0c1ed5](https://github.com/Sage/carbon/commit/c0c1ed5de8d56752e5d2465d46983b74d4e126b0))
+* **drag-and-drop:** deprecate drag-and-drop ([ba6a8b8](https://github.com/Sage/carbon/commit/ba6a8b846e100df6d5dc47e6d024254a0cc24543))
+
 ### [93.0.4](https://github.com/Sage/carbon/compare/v93.0.3...v93.0.4) (2021-10-12)
 
 
