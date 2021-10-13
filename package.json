@@ -127,8 +127,7 @@
     "semantic-release": "^17.4.7",
     "semver": "^7.3.5",
     "styled-components": "^4.4.1",
-    "typescript": "^3.9.5",
-    "xhr-mock": "^2.5.1"
+    "typescript": "^3.9.5"
   },
   "dependencies": {
     "@popperjs/core": "^2.9.0",
