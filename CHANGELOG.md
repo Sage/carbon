@@ -1,3 +1,10 @@
+### [94.0.1](https://github.com/Sage/carbon/compare/v94.0.0...v94.0.1) (2021-10-13)
+
+
+### Bug Fixes
+
+* **hidden-checkable-input:** make inputref prop optional in ts interface ([eeab991](https://github.com/Sage/carbon/commit/eeab991888fb02938662e1d5535c0debbc7454fd)), closes [#4450](https://github.com/Sage/carbon/issues/4450)
+
 ## [94.0.0](https://github.com/Sage/carbon/compare/v93.0.4...v94.0.0) (2021-10-13)
 
 
