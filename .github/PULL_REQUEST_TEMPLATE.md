@@ -41,12 +41,16 @@ If applicable, add screenshots. You can paste these directly into GitHub.
 - [ ] Tested in CodeSandbox/storybook
 - [ ] Add new Cypress test coverage if required
 - [ ] Carbon implementation matches Design System/designs
+- [ ] UI Tests GitHub check reviewed if required
 
 ### Additional context
+
 <!-- Add any other context or links about the pull request here. -->
 
 ### Testing instructions
+
 <!-- How can a reviewer test this PR? -->
+
 The following CodeSandbox is an example of the broken behaviour.
 You can see the new behaviour by looking at the version in the comment by `codesandbox[bot]`.
 

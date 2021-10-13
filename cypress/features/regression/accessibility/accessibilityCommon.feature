@@ -13,7 +13,6 @@ Feature: Accessibility tests - Common list
       | Button Toggle Group |
       | Carousel            |
       | Confirm             |
-      | Configurable Items  |
       | Detail              |
       | Dialog              |
       | Decimal Input       |
@@ -51,10 +50,7 @@ Feature: Accessibility tests - Common list
     Then "<component> Test default story" component has no accessibility violations
     Examples:
       | component        |
-      | DraggableContext |
       | Setting row      |
-      | Table Ajax       |
-      | Table            |
 
   @accessibility
   Scenario Outline: Component <component> validations boolean story page

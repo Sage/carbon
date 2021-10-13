@@ -139,7 +139,7 @@ DialogFullScreen.propTypes = {
   /** Child elements */
   children: PropTypes.node,
   /** Title displayed at top of dialog */
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  title: PropTypes.node,
   /** Subtitle displayed at top of dialog */
   subtitle: PropTypes.string,
   /** Determines if the close icon is shown */

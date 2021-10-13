@@ -6,13 +6,9 @@ export default {
   actions: {
     edit: () => "Edytuj",
     delete: () => "Usuń",
-    reset: () => "Resetuj Kolumny",
   },
   actionPopover: {
     ariaLabel: () => "akcje",
-  },
-  actionToolbar: {
-    selected: () => "Wybrano",
   },
   batchSelection: {
     selected: (count) => `${count} wybrano`,
@@ -75,9 +71,6 @@ export default {
   switch: {
     on: () => "WŁ",
     off: () => "WYŁ",
-  },
-  table: {
-    noData: () => "Brak wyników",
   },
   textEditor: {
     tooltipMessages: {

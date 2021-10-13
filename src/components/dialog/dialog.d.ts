@@ -21,7 +21,7 @@ export interface DialogProps extends ModalProps {
   /** Subtitle displayed at top of dialog */
   subtitle?: string;
   /** Title displayed at top of dialog */
-  title?: string | Record<string, unknown>;
+  title?: React.ReactNode;
 }
 
 declare class Dialog extends Modal<DialogProps> {}
