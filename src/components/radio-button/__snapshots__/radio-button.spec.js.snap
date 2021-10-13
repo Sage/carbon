@@ -458,7 +458,8 @@ exports[`RadioButton base renders as expected 1`] = `
             >
               <input
                 aria-checked={false}
-                aria-describedby="guid-12345 help"
+                aria-describedby=""
+                aria-labelledby="guid-12345-label"
                 checked={false}
                 className="c10 c11"
                 id="guid-12345"
