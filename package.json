@@ -126,6 +126,7 @@
     "rimraf": "^3.0.2",
     "semantic-release": "^17.4.7",
     "semver": "^7.3.5",
+    "sprintf-js": "^1.1.2",
     "styled-components": "^4.4.1",
     "typescript": "^3.9.5"
   },
@@ -146,7 +147,6 @@
     "react-dnd-html5-backend": "^10.0.2",
     "react-is": "^17.0.2",
     "react-transition-group": "^4.4.1",
-    "sprintf-js": "^1.1.2",
     "styled-system": "^5.1.5",
     "superagent": "~3.8.2",
     "wait-on": "^5.2.1"
