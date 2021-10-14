@@ -24,7 +24,7 @@ export interface CommonHiddenCheckableInputProps
   /** Value of the input */
   value?: string;
   /** A callback to retrieve the input reference */
-  inputRef: React.Ref<HTMLInputElement>;
+  inputRef?: React.Ref<HTMLInputElement>;
 }
 
 export interface HiddenCheckableInputProps
@@ -33,6 +33,10 @@ export interface HiddenCheckableInputProps
   type: string;
   /** Element id for aria-describedby */
   helpId?: string;
+  /** Element id for aria-describedby */
+  fieldHelpId?: string;
+  /** Element id for aria-labelledby */
+  labelId?: string;
 }
 
 declare function HiddenCheckableInput(

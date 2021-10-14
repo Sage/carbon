@@ -6,9 +6,9 @@ Feature: Anchor Navigation component
       And I open component preview
 
   @positive
-  Scenario Outline: Press on <tab> tab and scroll to the the <index> anchor navigation
+  Scenario Outline: Press on <tab> tab and scroll to the <index> anchor navigation
     When I click onto "<tab>" tab
-      And I wait 750
+      And I wait 1000
     Then "<index>" anchor navigation section is visible
     Examples:
       | tab                                  | index          |

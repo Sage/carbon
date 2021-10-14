@@ -1,0 +1,56 @@
+import { ArgsTable } from "@storybook/components";
+import LinkTo from "@storybook/addon-links/react";
+import useMediaQuery from ".";
+
+<Meta
+  title="Documentation/Hooks/useMediaQuery"
+  parameters={{ info: { disable: true } }}
+/>
+
+# useMediaQuery
+
+`useMediaQuery` is a custom React hook and a JavaScript implementation of a CSS media query. Pass in a valid CSS media query as a string, and it returns a boolean depending on the outcome of the query.
+
+This is particularly useful for setting responsive breakpoints on a component by component basis for particular properties, for example padding or margin.
+
+## Contents
+
+- [Import path](#import-path)
+- [Examples](#examples)
+- [Parameters](#parameters)
+
+## Import path
+
+```javascript
+import useMediaQuery from "carbon-react/lib/hooks/useMediaQuery";
+```
+
+## Examples
+
+### Basic usage
+
+```javascript
+const isWideScreen = useMediaQuery("(min-width: 1000px)");
+
+// Returns "true" if the current window width is greater than (or equal to) 1000px
+// Returns "false" if not.
+```
+
+### Setting multiple breakpoints
+
+See this `Menu` <LinkTo kind="Menu" story="responsive composition">example</LinkTo> for an example of using `useMediaQuery` to set responsive breakpoints to determine what content to render.
+
+This `Image` <LinkTo kind="Image" story="custom responsive behaviour">example</LinkTo> changes the image displayed based on the window width.
+
+## Parameters
+
+<ArgsTable
+  rows={[
+    {
+      name: "query",
+      type: { summary: "string" },
+      description: "Any valid CSS media query.",
+      required: true,
+    },
+  ]}
+/>

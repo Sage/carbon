@@ -182,7 +182,8 @@ Array [
           >
             <input
               aria-checked={false}
-              aria-describedby="rId-0 help"
+              aria-describedby=""
+              aria-labelledby="rId-0-label"
               checked={false}
               className="c8 c9"
               id="rId-0"
@@ -404,7 +405,8 @@ Array [
           >
             <input
               aria-checked={false}
-              aria-describedby="rId-1 help"
+              aria-describedby=""
+              aria-labelledby="rId-1-label"
               checked={false}
               className="c8 c9"
               id="rId-1"

@@ -4,10 +4,7 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import { RadioButtonGroup, RadioButton, PrivateRadioButton } from ".";
 import Typography from "../typography";
 
-<Meta
-  title="RadioButton"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="RadioButton" parameters={{ info: { disable: true } }} />
 
 # RadioButton/RadioButtonGroup
 
@@ -397,6 +394,7 @@ Validations can be added to the radio buttons as strings or booleans.
         value="radio1"
         label="Radio Option 1"
         error="message"
+        fieldHelp="Some help text for this input."
       />
       <RadioButton
         id="validations-on-buttons-radio-2"
@@ -486,6 +484,16 @@ It is possible to use the `tooltipPosition` to override the default placement of
         id="validations-on-group-radio-1-tooltip-position-override"
         value="radio1"
         label="Radio Option 1"
+      />
+      <RadioButton
+        id="validations-on-group-radio-2-tooltip-position-override"
+        value="radio2"
+        label="Radio Option 2"
+      />
+      <RadioButton
+        id="validations-on-group-radio-3-tooltip-position-override"
+        value="radio3"
+        label="Radio Option 3"
       />
     </RadioButtonGroup>
   </Story>
