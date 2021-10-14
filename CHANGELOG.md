@@ -1,3 +1,10 @@
+### [94.0.3](https://github.com/Sage/carbon/compare/v94.0.2...v94.0.3) (2021-10-14)
+
+
+### Bug Fixes
+
+* **action-popover:** correct dom structure when rendering custom button ([3f47b85](https://github.com/Sage/carbon/commit/3f47b855e29a30f93ed82354b4d6e83d8fcfcff4)), closes [#4401](https://github.com/Sage/carbon/issues/4401)
+
 ### [94.0.2](https://github.com/Sage/carbon/compare/v94.0.1...v94.0.2) (2021-10-13)
 
 
