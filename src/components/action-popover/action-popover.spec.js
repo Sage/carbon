@@ -23,6 +23,7 @@ import {
   MenuItemIcon,
   SubMenuItemIcon,
   StyledMenuItem,
+  StyledButtonIcon,
 } from "./action-popover.style";
 import Popover from "../../__internal__/popover";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
@@ -180,6 +181,7 @@ describe("ActionPopover", () => {
       return {
         items: cw.find(ActionPopoverItem),
         menubutton: cw.find(MenuButton),
+        buttonIcon: cw.find(StyledButtonIcon),
         menu: cw.find(Menu),
         divider: cw.find(ActionPopoverDivider),
       };
@@ -290,7 +292,7 @@ describe("ActionPopover", () => {
     render();
     openMenu();
     const { menu, divider, menubutton } = getElements();
-    rootTagTest(menubutton, "action-popover-button");
+    rootTagTest(menubutton, "action-popover-wrapper");
     rootTagTest(menu, "action-popover");
     expect(divider.getDOMNode().getAttribute("data-element")).toBe(
       "action-popover-divider"
@@ -299,8 +301,8 @@ describe("ActionPopover", () => {
 
   it("has a default aria-label", () => {
     render();
-    const { menubutton } = getElements();
-    expect(menubutton.prop("aria-label")).toBe("actions");
+    const { buttonIcon } = getElements();
+    expect(buttonIcon.prop("aria-label")).toBe("actions");
   });
 
   it("renders with the menu closed by default", () => {
@@ -372,9 +374,9 @@ describe("ActionPopover", () => {
       });
 
       it(`${prefix} focuses the Menubutton`, () => {
-        const { menubutton } = getElements();
+        const { buttonIcon } = getElements();
 
-        expect(menubutton).toBeFocused();
+        expect(buttonIcon).toBeFocused();
       });
     });
 
@@ -587,13 +589,13 @@ describe("ActionPopover", () => {
 
       it("Pressing Escape focuses the MenuButton", () => {
         render();
-        const { menubutton } = getElements();
+        const { menubutton, buttonIcon } = getElements();
         simulate.keydown.pressDownArrow(menubutton);
         const { items } = getElements();
 
         simulate.keydown.pressEscape(items.first());
 
-        expect(menubutton).toBeFocused();
+        expect(buttonIcon).toBeFocused();
       });
 
       it.each([
@@ -1050,8 +1052,8 @@ describe("ActionPopover", () => {
           submenuItem
             .getDOMNode()
             .dispatchEvent(new MouseEvent("click", { bubbles: true }));
-          const { menubutton } = getElements();
-          expect(menubutton).toBeFocused();
+          const { buttonIcon } = getElements();
+          expect(buttonIcon).toBeFocused();
           jest.runAllTimers(); // needed to trigger coverage
         });
       });
@@ -1265,6 +1267,7 @@ describe("ActionPopover", () => {
       expect(item.find(ActionPopoverMenu).props().style.bottom).toEqual(-8);
     });
   });
+
   describe("Custom Menu Button", () => {
     it("supports being passed an override component to act as the menu button", () => {
       const popover = enzymeMount(
@@ -1289,9 +1292,9 @@ describe("ActionPopover", () => {
 
       const menuButton = popover.find(ActionPopoverMenuButton);
       expect(menuButton.exists()).toBeTruthy();
-      expect(menuButton.props().tabIndex).toEqual(-1);
-      expect(menuButton.props()["data-element"]).toEqual(
-        "action-popover-menu-button"
+      expect(menuButton.props().tabIndex).toEqual("0");
+      expect(menuButton.props()["data-component"]).toEqual(
+        "action-popover-button"
       );
 
       assertStyleMatch(
@@ -1310,6 +1313,34 @@ describe("ActionPopover", () => {
         menuButton,
         { modifier: `${StyledButton}:focus ` }
       );
+    });
+
+    it("sets the tabIndex correctly when opened", () => {
+      wrapper = enzymeMount(
+        <ThemeProvider theme={mintTheme}>
+          <ActionPopover
+            renderButton={(props) => (
+              <ActionPopoverMenuButton
+                buttonType="tertiary"
+                iconType="dropdown"
+                iconPosition="after"
+                size="small"
+                {...props}
+              >
+                Foo
+              </ActionPopoverMenuButton>
+            )}
+          >
+            <ActionPopoverItem onClick={jest.fn()}>foo</ActionPopoverItem>
+          </ActionPopover>
+        </ThemeProvider>
+      );
+
+      openMenu();
+
+      const menuButton = wrapper.find(ActionPopoverMenuButton);
+      expect(menuButton.exists()).toBeTruthy();
+      expect(menuButton.props().tabIndex).toEqual("-1");
     });
   });
 
