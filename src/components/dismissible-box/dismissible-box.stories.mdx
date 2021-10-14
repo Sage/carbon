@@ -1,0 +1,149 @@
+import { useState, useRef } from "react";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import LinkTo from "@storybook/addon-links/react";
+import { action } from "@storybook/addon-actions";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import DismissibleBox from ".";
+import Box from "../box";
+import Typography from "../typography";
+import VerticalDivider from "../vertical-divider";
+import Image from "../image";
+
+<Meta title="Dismissible Box" parameters={{ info: { disable: true } }} />
+
+# DismissibleBox
+
+The component is a dismissible container designed to be used inline within the layout of a page providing in context tips 
+and ‘help’ information.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import DismissibleBox from "carbon-react/lib/components/dismissible-box";
+```
+
+## Examples
+
+### Default - Light variant
+
+<Preview>
+  <Story name="light variant">
+    <Box p={2}>
+      <DismissibleBox onClose={(e) => action("onClose")(e)}>
+        <Box display="flex">
+          <Typography mb={0}>
+            Well, that's certainly good to know. Your head is not an artifact! Maybe if we felt any human loss as keenly 
+            as we feel one of those close to us, human history would be far less bloody. Wouldn't that bring about chaos? 
+            Shields up! Rrrrred alert! Travel time to the nearest starbase? I'm afraid I still don't understand, sir. 
+            You enjoyed that. The Enterprise computer system is controlled by three primary main processor cores, cross-linked 
+            with a redundant melacortz ramistat, fourteen kiloquad interface modules. Well, that's certainly good to know. 
+            Your head is not an artifact! Rrrrred alert! Rrrrred alert! Rrrrred alert!
+          </Typography>
+          <VerticalDivider p={0} px={2} />
+          <Image
+            alt="Example alt text"
+            src={require("../../../.assets/point.svg")}
+            width="120px"
+          />
+        </Box>
+      </DismissibleBox>
+    </Box>
+  </Story>
+</Preview>
+
+### Dark variant
+
+<Preview>
+  <Story name="dark variant">
+    <Box p={2}>
+      <DismissibleBox variant="dark" onClose={(e) => action("onClose")(e)}>
+        <Box display="flex">
+          <Typography mb={0}>
+            Well, that's certainly good to know. Your head is not an artifact! Maybe if we felt any human loss as keenly 
+            as we feel one of those close to us, human history would be far less bloody. Wouldn't that bring about chaos? 
+            Shields up! Rrrrred alert! Travel time to the nearest starbase? I'm afraid I still don't understand, sir. 
+            You enjoyed that. The Enterprise computer system is controlled by three primary main processor cores, cross-linked 
+            with a redundant melacortz ramistat, fourteen kiloquad interface modules. Well, that's certainly good to know. 
+            Your head is not an artifact! Rrrrred alert! Rrrrred alert! Rrrrred alert!
+          </Typography>
+          <VerticalDivider p={0} px={2} />
+          <Image
+            alt="Example alt text"
+            src={require("../../../.assets/point.svg")}
+            width="120px"
+          />
+        </Box>
+      </DismissibleBox>
+    </Box>
+  </Story>
+</Preview>
+
+### With no left border highlight
+
+By default the component will be rendered with a thicker left border highlight, use the `hasBorderLeftHighlight` to opt-out 
+of this functionality.
+
+<Preview>
+  <Story name="with no left border highlight">
+    <Box p={2}>
+      <DismissibleBox mb={2} hasBorderLeftHighlight={false} onClose={(e) => action("onClose")(e)}>
+        <Box display="flex">
+          <Typography mb={0}>
+            Well, that's certainly good to know. Your head is not an artifact! Maybe if we felt any human loss as keenly 
+            as we feel one of those close to us, human history would be far less bloody. Wouldn't that bring about chaos? 
+            Shields up! Rrrrred alert! Travel time to the nearest starbase? I'm afraid I still don't understand, sir. 
+            You enjoyed that. The Enterprise computer system is controlled by three primary main processor cores, cross-linked 
+            with a redundant melacortz ramistat, fourteen kiloquad interface modules. Well, that's certainly good to know. 
+            Your head is not an artifact! Rrrrred alert! Rrrrred alert! Rrrrred alert!
+          </Typography>
+          <VerticalDivider p={0} px={2} />
+          <Image
+            alt="Example alt text"
+            src={require("../../../.assets/point.svg")}
+            width="120px"
+          />
+        </Box>
+      </DismissibleBox>
+    </Box>
+  </Story>
+</Preview>
+
+### Width overridden
+
+It is also possible to override the `width` of the component: by default it will fill any available space.
+
+<Preview>
+  <Story name="width overridden">
+    <Box p={2}>
+      <DismissibleBox width="650px" onClose={(e) => action("onClose")(e)}>
+         <Box display="flex">
+          <Typography mb={0}>
+            Well, that's certainly good to know. Your head is not an artifact! Maybe if we felt any human loss as keenly 
+            as we feel one of those close to us, human history would be far less bloody. Wouldn't that bring about chaos? 
+            Shields up! Rrrrred alert! Travel time to the nearest starbase? I'm afraid I still don't understand, sir. 
+            You enjoyed that. The Enterprise computer system is controlled by three primary main processor cores, cross-linked 
+            with a redundant melacortz ramistat, fourteen kiloquad interface modules. Well, that's certainly good to know. 
+            Your head is not an artifact! Rrrrred alert! Rrrrred alert! Rrrrred alert!
+          </Typography>
+          <VerticalDivider p={0} px={2} />
+          <Image
+            alt="Example alt text"
+            src={require("../../../.assets/point.svg")}
+            width="120px"
+          />
+        </Box>
+      </DismissibleBox>
+    </Box>
+  </Story>
+</Preview>
+
+### Props
+
+<StyledSystemProps spacing noHeader of={DismissibleBox} />
