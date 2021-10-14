@@ -1,3 +1,52 @@
+## [94.1.0](https://github.com/Sage/carbon/compare/v94.0.3...v94.1.0) (2021-10-14)
+
+
+### Features
+
+* **dismissible-box:** add new component ([2b08253](https://github.com/Sage/carbon/commit/2b082539b5d7112122a2a42ee99c0c4b6d8d94b7))
+
+### [94.0.3](https://github.com/Sage/carbon/compare/v94.0.2...v94.0.3) (2021-10-14)
+
+
+### Bug Fixes
+
+* **action-popover:** correct dom structure when rendering custom button ([3f47b85](https://github.com/Sage/carbon/commit/3f47b855e29a30f93ed82354b4d6e83d8fcfcff4)), closes [#4401](https://github.com/Sage/carbon/issues/4401)
+
+### [94.0.2](https://github.com/Sage/carbon/compare/v94.0.1...v94.0.2) (2021-10-13)
+
+
+### Bug Fixes
+
+* **radio-button:** make field help and tooltip content readable for screen readers ([a796cd8](https://github.com/Sage/carbon/commit/a796cd82d20f5aa86a3a042fec6a4799d8292540))
+
+### [94.0.1](https://github.com/Sage/carbon/compare/v94.0.0...v94.0.1) (2021-10-13)
+
+
+### Bug Fixes
+
+* **hidden-checkable-input:** make inputref prop optional in ts interface ([eeab991](https://github.com/Sage/carbon/commit/eeab991888fb02938662e1d5535c0debbc7454fd)), closes [#4450](https://github.com/Sage/carbon/issues/4450)
+
+## [94.0.0](https://github.com/Sage/carbon/compare/v93.0.4...v94.0.0) (2021-10-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **drag-and-drop:** drag-and-drop has been removed from Carbon.
+Please use the Draggable component instead
+* **configurable-items:** ConfigurableItems has been removed from Carbon
+
+### Code Refactoring
+
+* **configurable-items:** deprecate configurable items and pattern ([c0c1ed5](https://github.com/Sage/carbon/commit/c0c1ed5de8d56752e5d2465d46983b74d4e126b0))
+* **drag-and-drop:** deprecate drag-and-drop ([ba6a8b8](https://github.com/Sage/carbon/commit/ba6a8b846e100df6d5dc47e6d024254a0cc24543))
+
+### [93.0.4](https://github.com/Sage/carbon/compare/v93.0.3...v93.0.4) (2021-10-12)
+
+
+### Bug Fixes
+
+* publish to npm ([feae4e3](https://github.com/Sage/carbon/commit/feae4e3e570dd6ae59a74ed9ef3bf6635877810c))
+
 ### [93.0.3](https://github.com/Sage/carbon/compare/v93.0.2...v93.0.3) (2021-10-11)
 
 
