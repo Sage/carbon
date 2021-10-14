@@ -47,7 +47,7 @@ describe("Button", () => {
           Test
         </Button>
       ),
-      { px: "24px" }
+      { px: "24px", m: "0" }
     );
   });
 
@@ -82,7 +82,7 @@ describe("Button", () => {
             Test
           </Button>
         ),
-        { px }
+        { px, m: "0" }
       );
     }
   );
