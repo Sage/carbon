@@ -1,3 +1,10 @@
+## [94.1.0](https://github.com/Sage/carbon/compare/v94.0.3...v94.1.0) (2021-10-14)
+
+
+### Features
+
+* **dismissible-box:** add new component ([2b08253](https://github.com/Sage/carbon/commit/2b082539b5d7112122a2a42ee99c0c4b6d8d94b7))
+
 ### [94.0.3](https://github.com/Sage/carbon/compare/v94.0.2...v94.0.3) (2021-10-14)
 
 
