@@ -26,6 +26,7 @@ const Help = ({
   tooltipBgColor,
   tooltipFontColor,
   tooltipFlipOverrides,
+  ariaLabel,
   ...rest
 }) => {
   const helpElement = useRef(null);
@@ -56,13 +57,10 @@ const Help = ({
 
   return (
     <StyledHelp
-      role="tooltip"
       className={className}
       as={tagType}
       href={href}
       id={helpId}
-      target="_blank"
-      rel="noopener noreferrer"
       ref={helpElement}
       onClick={() => {
         helpElement.current.focus();
@@ -73,6 +71,15 @@ const Help = ({
       onMouseLeave={handleFocusBlur(false)}
       {...tagComponent("help", rest)}
       tabIndex={tabIndex}
+      {...(href
+        ? {
+            target: "_blank",
+            rel: "noopener noreferrer",
+          }
+        : {
+            role: "tooltip",
+            "aria-label": ariaLabel,
+          })}
       {...filterStyledSystemMarginProps(rest)}
       {...rest}
     >
@@ -84,7 +91,12 @@ const Help = ({
         tooltipBgColor={tooltipBgColor}
         tooltipFontColor={tooltipFontColor}
         tooltipFlipOverrides={tooltipFlipOverrides}
-        blockFocusBehaviour
+        focusable={false}
+        aria-hidden="true"
+        {...(href && {
+          role: "tooltip",
+          ariaLabel,
+        })}
       />
     </StyledHelp>
   );
@@ -134,6 +146,8 @@ Help.propTypes = {
       `The \`${propName}\` prop supplied to \`${componentName}\` must be an array containing some or all of ["top", "bottom", "left", "right"].`
     );
   },
+  /** Aria label */
+  ariaLabel: PropTypes.string,
 };
 
 Help.defaultProps = {
