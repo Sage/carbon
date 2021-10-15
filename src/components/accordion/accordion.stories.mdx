@@ -382,23 +382,73 @@ The box component can be used inside the accordion with different paddings
 
 ### Opening button
 
-A button can be passed in to replace the title and opening icon.
+Setting the `buttonHeading` prop will override the default styling for the `Accordion` control to look like Carbon's tertiary 
+`Button`. It is also possible to use the `buttonWidth` prop to set the width of the control and the `headerSpacing` prop 
+can be used to override the spacing styles.
+
 This is not currently designed to be used within a form using validation.
 
 <Preview>
   <Story name="opening button">
-    <Accordion
-      title="More info"
-      openTitle="Less info"
-      scheme="transparent"
-      borders="none"
-      buttonHeading
-      buttonWidth={200}
-    >
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
-    </Accordion>
+    <div style={{ margin: "8px"}}>
+      <Accordion
+        title="More info"
+        openTitle="Less info"
+        scheme="transparent"
+        borders="none"
+        iconAlign="left"
+        buttonHeading
+        buttonWidth={200}
+        error="hello"
+      >
+        <div>Content</div>
+        <div>Content</div>
+        <div>Content</div>
+      </Accordion>
+      <br />
+      <Accordion
+        title="More info"
+        openTitle="Less info"
+        scheme="transparent"
+        borders="none"
+        iconAlign="right"
+        buttonHeading
+        buttonWidth={200}
+      >
+        <div>Content</div>
+        <div>Content</div>
+        <div>Content</div>
+      </Accordion>
+      <br />
+      <Accordion
+        scheme="transparent"
+        borders="none"
+        title="More info"
+        openTitle="Less info"
+        buttonHeading
+        headerSpacing={{ px: 0 }}
+        buttonWidth={96}
+      >
+        <div>Content</div>
+        <div>Content</div>
+        <div>Content</div>
+      </Accordion>
+      <br />
+      <Accordion
+        scheme="transparent"
+        borders="none"
+        title="More info"
+        openTitle="Less info"
+        iconAlign="left"
+        buttonHeading
+        buttonWidth={120}
+        headerSpacing={{ px: 1 }}
+      >
+        <div>Content</div>
+        <div>Content</div>
+        <div>Content</div>
+      </Accordion>
+    </div>
   </Story>
 </Preview>
 

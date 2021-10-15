@@ -15,7 +15,6 @@ import {
   StyledAccordionContentContainer,
   StyledAccordionContent,
 } from "./accordion.style";
-import Button from "../button";
 import ValidationIcon from "../../__internal__/validations";
 
 const Accordion = React.forwardRef(
@@ -72,7 +71,9 @@ const Accordion = React.forwardRef(
 
     const toggleAccordion = useCallback(
       (ev) => {
-        if (!isControlled) setIsExpandedInternal(!isExpanded);
+        if (!isControlled) {
+          setIsExpandedInternal(!isExpanded);
+        }
         if (onChange) onChange(ev, !isExpanded);
       },
       [isControlled, isExpanded, onChange]
@@ -97,6 +98,8 @@ const Accordion = React.forwardRef(
     const contentId = `AccordionContent_${guid.current}`;
     const showValidationIcon = !!(error || warning || info);
 
+    const getTitle = () => (isExpanded ? openTitle || title : title);
+
     return (
       <StyledAccordionContainer
         id={accordionId}
@@ -112,45 +115,33 @@ const Accordion = React.forwardRef(
           id={headerId}
           aria-expanded={isExpanded}
           aria-controls={contentId}
-          onClick={buttonHeading ? undefined : toggleAccordion}
-          onKeyDown={buttonHeading ? undefined : handleKeyDown}
+          onClick={toggleAccordion}
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
           iconAlign={iconAlign}
           ref={ref}
-          tabIndex={buttonHeading ? "-1" : "0"}
           size={size}
           isExpanded={isExpanded}
           buttonHeading={buttonHeading}
           buttonWidth={buttonWidth}
+          hasButtonProps={buttonHeading && headerSpacing}
+          {...(buttonHeading && { role: "button", p: 0 })}
           {...headerSpacing}
         >
-          {buttonHeading && (
-            <Button
-              buttonType="tertiary"
-              iconType="chevron_down"
-              iconPosition="after"
-              onClick={toggleAccordion}
-            >
-              {isExpanded ? openTitle || title : title}
-            </Button>
-          )}
-
-          {!buttonHeading && (
-            <>
-              <StyledAccordionHeadingsContainer
-                data-element="accordion-headings-container"
-                hasValidationIcon={showValidationIcon}
-              >
-                {typeof title === "string" ? (
-                  <StyledAccordionTitle
-                    data-element="accordion-title"
-                    size={size}
-                  >
-                    {title}
-                  </StyledAccordionTitle>
-                ) : (
-                  title
-                )}
-
+          <StyledAccordionHeadingsContainer
+            data-element="accordion-headings-container"
+            hasValidationIcon={showValidationIcon}
+            buttonHeading={buttonHeading}
+          >
+            {!buttonHeading && typeof title === "string" ? (
+              <StyledAccordionTitle data-element="accordion-title" size={size}>
+                {title}
+              </StyledAccordionTitle>
+            ) : (
+              getTitle()
+            )}
+            {!buttonHeading && (
+              <>
                 {showValidationIcon && (
                   <ValidationIcon
                     error={error}
@@ -165,16 +156,16 @@ const Accordion = React.forwardRef(
                 {subTitle && size === "large" && (
                   <StyledAccordionSubTitle>{subTitle}</StyledAccordionSubTitle>
                 )}
-              </StyledAccordionHeadingsContainer>
+              </>
+            )}
+          </StyledAccordionHeadingsContainer>
 
-              <StyledAccordionIcon
-                data-element="accordion-icon"
-                type={iconType}
-                isExpanded={isExpanded}
-                iconAlign={iconAlign}
-              />
-            </>
-          )}
+          <StyledAccordionIcon
+            data-element="accordion-icon"
+            type={iconType}
+            isExpanded={isExpanded}
+            iconAlign={iconAlign}
+          />
         </StyledAccordionTitleContainer>
         <StyledAccordionContentContainer
           isExpanded={isExpanded}
