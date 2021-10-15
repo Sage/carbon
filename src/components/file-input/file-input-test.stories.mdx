@@ -1,11 +1,11 @@
 import { Meta, Story, Preview } from "@storybook/addon-docs";
-import LoaderBar from "../loader-bar";
+
 import FileInput from ".";
-import Button from "../button";
 import { LOADER_BAR_SIZES } from "../loader-bar/loader-bar.config";
+import LoaderBar from "../loader-bar";
 
 <Meta
-  title="Design System/File Inputs/Test"
+  title="File Input/Test"
   parameters={{
     info: { disable: true },
     chromatic: {
@@ -22,9 +22,9 @@ import { LOADER_BAR_SIZES } from "../loader-bar/loader-bar.config";
   }}
 />
 
-export const FileInputStory = ({ size, ...args }) => {
-  return <FileInput fileChooseAction={() => {}} size={size} {...args} />;
-};
+export const FileInputStory = ({ size, ...args }) => (
+  <FileInput fileChooseAction={() => {}} size={size} {...args} />
+);
 
 <Preview>
   <Story

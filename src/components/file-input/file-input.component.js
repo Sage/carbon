@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-import StyledFileInput, {
+import styledSystemPropTypes from "@styled-system/prop-types";
+
+import {
   ErrorBorder,
   ErrorMessage,
   FileDropArea,
@@ -8,33 +10,37 @@ import StyledFileInput, {
   FileInputForm,
   FileInputLabel,
   FileInputTitle,
+  StyledFileInput,
 } from "./file-input.style";
 import Button from "../button";
 import LoaderBar from "../loader-bar";
 import Link from "../link";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
-const FileInputComponent = (props) => {
-  const {
-    label = "File input",
-    fileChooseAction,
-    buttonType = "primary",
-    disabled = false,
-    isUploading = false,
-    error = "",
-    allowMultiple = false,
-    accept,
-    draggable = false,
-    dragPlaceholder = "",
-    size = "medium",
-    cancelAction,
-  } = props;
+const marginPropTypes = filterStyledSystemMarginProps(
+  styledSystemPropTypes.space
+);
 
+const FileInputComponent = ({
+  accept,
+  allowMultiple = false,
+  buttonType = "primary",
+  cancelAction,
+  disabled = false,
+  draggable = false,
+  dragPlaceholder = "",
+  error = "",
+  fileChooseAction,
+  isUploading = false,
+  label = "File input",
+  size = "medium",
+  ...rest
+}) => {
   const [fileName, setFileName] = useState("");
   const [files, setFiles] = useState([]);
   const [isDragged, setIsDragged] = useState(false);
   const [err, setErr] = useState(error);
   const inputFile = useRef(null);
-  const { ...rest } = props;
 
   useEffect(() => {
     setErr(error);
@@ -94,8 +100,7 @@ const FileInputComponent = (props) => {
   };
 
   const renderButton = () => {
-    let buttonTitle;
-    if (!fileName) buttonTitle = "Choose";
+    let buttonTitle = "Choose";
     if (fileName && !isUploading) buttonTitle = "Remove";
     if (fileName && isUploading) buttonTitle = "Cancel";
 
@@ -167,32 +172,32 @@ const FileInputComponent = (props) => {
   );
 
   return (
-    <>
-      <FileInputForm {...rest}>
-        <FileInputTitle>{label}</FileInputTitle>
-        <StyledFileInput>
-          {err && renderError()}
-          <FileInputLabel
-            error={!!err}
-            disabled={disabled}
-            htmlFor="file-upload"
-            onDrop={(e) => handleOnDrop(e)}
-            onDragOver={(e) => handleOnDragOver(e)}
-            draggable={draggable}
-            isSelected={!!fileName}
-          >
-            {renderFileDropArea()}
-            {renderButton()}
-            {renderFileInput()}
-          </FileInputLabel>
-          {isUploading && !disabled && <LoaderBar size="small" />}
-        </StyledFileInput>
-      </FileInputForm>
-    </>
+    <FileInputForm {...rest}>
+      <FileInputTitle>{label}</FileInputTitle>
+      <StyledFileInput>
+        {err && renderError()}
+        <FileInputLabel
+          error={!!err}
+          disabled={disabled}
+          htmlFor="file-upload"
+          onDrop={(e) => handleOnDrop(e)}
+          onDragOver={(e) => handleOnDragOver(e)}
+          draggable={draggable}
+          isSelected={!!fileName}
+        >
+          {renderFileDropArea()}
+          {renderButton()}
+          {renderFileInput()}
+        </FileInputLabel>
+        {isUploading && !disabled && <LoaderBar size="small" />}
+      </StyledFileInput>
+    </FileInputForm>
   );
 };
 
 FileInputComponent.propTypes = {
+  /** Filtered styled system margin props */
+  ...marginPropTypes,
   /** Specify a callback triggered when user chooses the file(s), accepts the files array */
   fileChooseAction: PropTypes.func.isRequired,
   /** Defines the label text. */

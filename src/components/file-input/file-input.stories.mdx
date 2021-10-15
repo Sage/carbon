@@ -1,11 +1,9 @@
 import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
-import FileInput from ".";
-import Textbox from "../textbox";
-import Decimal from "../decimal";
-import { Select, Option } from "../select";
 import { useState } from "react";
 
-<Meta title="Design System/File Inputs" />
+import FileInput from ".";
+
+<Meta title="File Input" />
 
 # File input
 
@@ -29,7 +27,7 @@ import FileInput from "carbon-react/lib/components/file-input";
 
 <Preview>
   <Story name="default">
-    <FileInput m={2} label={"Default"} fileChooseAction={() => {}} />
+    <FileInput m={2} label="Default" fileChooseAction={() => {}} />
   </Story>
 </Preview>
 
@@ -37,7 +35,7 @@ import FileInput from "carbon-react/lib/components/file-input";
 
 <Preview>
   <Story name="disabled">
-    <FileInput disabled m={2} label={"Disabled"} fileChooseAction={() => {}} />
+    <FileInput disabled m={2} label="Disabled" fileChooseAction={() => {}} />
   </Story>
 </Preview>
 
@@ -47,7 +45,7 @@ import FileInput from "carbon-react/lib/components/file-input";
   <Story name="allow multiple">
     <FileInput
       m={2}
-      label={"Allows multiple"}
+      label="Allows multiple"
       allowMultiple
       fileChooseAction={() => {}}
     />
@@ -58,14 +56,9 @@ import FileInput from "carbon-react/lib/components/file-input";
 
 <Preview>
   <Story name="size">
-    <FileInput m={2} label={"Small"} size="small" fileChooseAction={() => {}} />
-    <FileInput
-      m={2}
-      label={"Medium"}
-      size="medium"
-      fileChooseAction={() => {}}
-    />
-    <FileInput m={2} label={"Large"} size="large" fileChooseAction={() => {}} />
+    <FileInput m={2} label="Small" size="small" fileChooseAction={() => {}} />
+    <FileInput m={2} label="Medium" size="medium" fileChooseAction={() => {}} />
+    <FileInput m={2} label="Large" size="large" fileChooseAction={() => {}} />
   </Story>
 </Preview>
 
@@ -75,8 +68,8 @@ import FileInput from "carbon-react/lib/components/file-input";
   <Story name="accept property">
     <FileInput
       m={2}
-      label={"With accept property (png only)"}
-      accept={"image/png"}
+      label="With accept property (png only)"
+      accept="image/png"
       fileChooseAction={() => {}}
     />
   </Story>
@@ -91,7 +84,7 @@ import FileInput from "carbon-react/lib/components/file-input";
       return (
         <FileInput
           m={2}
-          label={"With max size of 10kB"}
+          label="With max size of 10kB"
           fileChooseAction={(files) => {
             const sizeSum = files.reduce((total, file) => total + file.size, 0);
             if (sizeSum > 10000) setError("This file is too big");
@@ -111,7 +104,7 @@ import FileInput from "carbon-react/lib/components/file-input";
   <Story name="isUploading">
     <FileInput
       m={2}
-      label={"With isUploading prop"}
+      label="With isUploading prop"
       isUploading
       fileChooseAction={() => {}}
     />
@@ -124,7 +117,7 @@ import FileInput from "carbon-react/lib/components/file-input";
   <Story name="draggable">
     <FileInput
       m={2}
-      label={"draggable"}
+      label="draggable"
       fileChooseAction={() => {}}
       draggable
       dragPlaceholder="Drop the file here."
@@ -138,7 +131,7 @@ import FileInput from "carbon-react/lib/components/file-input";
   <Story name="draggable disabled">
     <FileInput
       m={2}
-      label={"Draggable disabled"}
+      label="Draggable disabled"
       fileChooseAction={() => {}}
       draggable
       dragPlaceholder="Drop the file here."
@@ -153,7 +146,7 @@ import FileInput from "carbon-react/lib/components/file-input";
   <Story name="draggable multiple">
     <FileInput
       m={2}
-      label={"draggable multiple"}
+      label="draggable multiple"
       fileChooseAction={() => {}}
       draggable
       allowMultiple
@@ -171,7 +164,7 @@ import FileInput from "carbon-react/lib/components/file-input";
       return (
         <FileInput
           m={2}
-          label={"With max size of 10kB"}
+          label="With max size of 10kB"
           fileChooseAction={(files) => {
             const sizeSum = files.reduce((total, file) => total + file.size, 0);
             if (sizeSum > 10000) setError("These files are too big");
@@ -193,11 +186,11 @@ import FileInput from "carbon-react/lib/components/file-input";
   <Story name="draggable accept png only">
     <FileInput
       m={2}
-      label={"PNG files only"}
+      label="PNG files only"
       fileChooseAction={() => {}}
       draggable
       dragPlaceholder="Drop the file here."
-      accept={"image/png"}
+      accept="image/png"
     />
   </Story>
 </Preview>

@@ -1,4 +1,6 @@
-export interface InlineInputsProps {
+import { MarginProps, SpaceProps } from "styled-system";
+
+export interface FileInputProps extends MarginProps, SpaceProps {
   /** Specify a callback triggered when user chooses the file(s), accepts the files array */
   fileChooseAction: (files: File[]) => any;
   /** Defines the label text for the heading. */
@@ -24,12 +26,12 @@ export interface InlineInputsProps {
   accept?: string;
   /** Shows 'Drop the file here." statement */
   draggable?: boolean;
-  /** Secondary placehodler for draggable component */
+  /** Secondary placeholder for draggable component */
   dragPlaceholder?: string;
   /** Assigns a size to the component: "small" | "medium" | "large" */
   size?: "small" | "medium" | "large";
 }
 
-declare function InlineInputs(props: InlineInputsProps): JSX.Element;
+declare function FileInput(props: FileInputProps): JSX.Element;
 
-export default InlineInputs;
+export default FileInput;

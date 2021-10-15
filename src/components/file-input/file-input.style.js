@@ -138,12 +138,12 @@ FileDropArea.defaultProps = {
 };
 
 export {
-  FileInputForm,
-  FileInput,
-  FileInputLabel,
-  FileDropArea,
-  ErrorMessage,
   ErrorBorder,
+  ErrorMessage,
+  FileDropArea,
+  FileInput,
+  FileInputForm,
+  FileInputLabel,
   FileInputTitle,
+  StyledFileInput,
 };
-export default StyledFileInput;
