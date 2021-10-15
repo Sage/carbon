@@ -25,6 +25,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c2 {
   padding-left: 24px;
   padding-right: 24px;
+  margin: 0;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;

@@ -17,12 +17,13 @@ const marginPropTypes = filterStyledSystemMarginProps(
 const FormField = ({
   children,
   disabled,
-  fieldHelp,
+  fieldHelp: fieldHelpContent,
   fieldHelpInline,
   error,
   warning,
   info,
   helpId,
+  fieldHelpId,
   helpTabIndex,
   label,
   labelId,
@@ -57,6 +58,16 @@ const FormField = ({
 
   const marginProps = filterStyledSystemMarginProps(rest);
 
+  const fieldHelp = fieldHelpContent ? (
+    <FieldHelp
+      labelInline={inlineLabel}
+      labelWidth={labelWidth}
+      id={fieldHelpId}
+    >
+      {fieldHelpContent}
+    </FieldHelp>
+  ) : null;
+
   return (
     <FormFieldStyle
       {...tagComponent(rest["data-component"], rest)}
@@ -90,20 +101,12 @@ const FormField = ({
           </Label>
         )}
 
-        {fieldHelp && fieldHelpInline && (
-          <FieldHelp labelInline={inlineLabel} labelWidth={labelWidth}>
-            {fieldHelp}
-          </FieldHelp>
-        )}
+        {fieldHelpInline && fieldHelp}
 
         {!reverse && children}
       </FieldLineStyle>
 
-      {fieldHelp && !fieldHelpInline && (
-        <FieldHelp labelInline={inlineLabel} labelWidth={labelWidth}>
-          {fieldHelp}
-        </FieldHelp>
-      )}
+      {!fieldHelpInline && fieldHelp}
     </FormFieldStyle>
   );
 };
@@ -138,6 +141,7 @@ FormField.propTypes = {
   warning: errorPropType,
   info: errorPropType,
   helpId: PropTypes.string,
+  fieldHelpId: PropTypes.string,
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   id: PropTypes.string.isRequired,
   isOptional: PropTypes.bool,

@@ -104,7 +104,10 @@ Pages.propTypes = {
   initialpageIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   pageIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Individual tabs */
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   /** Controls which transition to use. */
   transition: PropTypes.string,
 };

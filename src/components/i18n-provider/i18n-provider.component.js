@@ -28,9 +28,6 @@ I18nProvider.propTypes = {
     actionPopover: PropTypes.shape({
       ariaLabel: PropTypes.func,
     }),
-    actionToolbar: PropTypes.shape({
-      selected: PropTypes.func,
-    }),
     batchSelection: PropTypes.shape({
       selected: PropTypes.func,
     }),

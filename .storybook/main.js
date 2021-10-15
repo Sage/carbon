@@ -3,6 +3,7 @@ const glob = require("glob");
 
 const projectRoot = path.resolve(__dirname, "../");
 const ignoreTests = process.env.IGNORE_TESTS === "true";
+const isChromatic = !ignoreTests;
 const getStories = () =>
   glob.sync(`${projectRoot}/src/**/*.stories.@(js|mdx)`, {
     ...(ignoreTests && {
@@ -43,4 +44,14 @@ module.exports = {
 
     return config;
   },
+  ...(isChromatic && {
+    previewHead: (head) => `
+      ${head}
+      <meta name="robots" content="noindex">
+  `,
+    managerHead: (head) => `
+      ${head}
+      <meta name="robots" content="noindex">
+  `,
+  }),
 };

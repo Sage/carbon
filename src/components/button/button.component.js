@@ -69,6 +69,7 @@ const renderStyledButton = (buttonProps) => {
     href,
     ref,
     px,
+    m = 0,
     size,
     noWrap,
     tooltipMessage,
@@ -116,6 +117,7 @@ const renderStyledButton = (buttonProps) => {
       iconType={iconType}
       size={size}
       px={px || paddingX}
+      m={m}
       noWrap={noWrap}
       iconOnly={!rest.children && iconType}
       target={target}

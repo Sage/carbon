@@ -33,16 +33,12 @@ Page.propTypes = {
   /**
    * The title for the page, normally a Heading component.
    */
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  title: PropTypes.node.isRequired,
 
   /**
    * This component supports children.
    */
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-    PropTypes.node,
-  ]),
+  children: PropTypes.node.isRequired,
 };
 
 export default Page;

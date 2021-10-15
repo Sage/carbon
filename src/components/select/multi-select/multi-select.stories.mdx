@@ -1,10 +1,9 @@
 import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
-import { action } from "@storybook/addon-actions";
 import LinkTo from "@storybook/addon-links/react";
 import { useState, useRef } from "react";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
-
+import partialAction from "../../../../.storybook/utils/partial-action";
 import Button from "../../button";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 import { MultiSelect, Option, OptionRow } from "../";
@@ -50,13 +49,13 @@ you can filter through the existing options leaving only those that match the te
       id="simple"
       label="label"
       labelInline
-      onOpen={action("onOpen")}
-      onChange={action("onChange")}
-      onClick={action("onClick")}
-      onFilterChange={action("onFilterChange")}
-      onFocus={action("onFocus")}
-      onBlur={action("onBlur")}
-      onKeyDown={action("onKeyDown", { depth: 2 })}
+      onOpen={partialAction("onOpen")}
+      onChange={partialAction("onChange")}
+      onClick={partialAction("onClick")}
+      onFilterChange={partialAction("onFilterChange")}
+      onFocus={partialAction("onFocus")}
+      onBlur={partialAction("onBlur")}
+      onKeyDown={partialAction("onKeyDown")}
     >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
@@ -84,13 +83,6 @@ You can use `listPlacement` prop to set the position of the select list relative
       id="simple"
       label="label"
       labelInline
-      onOpen={action("onOpen")}
-      onChange={action("onChange")}
-      onClick={action("onClick")}
-      onFilterChange={action("onFilterChange")}
-      onFocus={action("onFocus")}
-      onBlur={action("onBlur")}
-      onKeyDown={action("onKeyDown", { depth: 2 })}
       listPlacement="top-start"
     >
       <Option text="Amber" value="1" />
@@ -116,7 +108,7 @@ You can use `listPlacement` prop to set the position of the select list relative
       const [value, setValue] = useState([]);
       function onChangeHandler(event) {
         setValue(event.target.value);
-        action("value set");
+        partialAction("value set");
       }
       return (
         <MultiSelect
@@ -124,11 +116,6 @@ You can use `listPlacement` prop to set the position of the select list relative
           name="controlled"
           value={value}
           onChange={onChangeHandler}
-          onOpen={action("onOpen")}
-          onClick={action("onClick")}
-          onFocus={action("onFocus")}
-          onBlur={action("onBlur")}
-          onKeyDown={action("onKeyDown", { depth: 2 })}
         >
           <Option text="Amber" value="1" />
           <Option text="Black" value="2" />
@@ -172,6 +159,7 @@ You can use `listPlacement` prop to set the position of the select list relative
 <Preview>
   <Story name="disabled">
     <MultiSelect
+      aria-label="disabled"
       name="disabled"
       id="select-disabled"
       defaultValue={["1", "3"]}
@@ -197,6 +185,7 @@ You can use `listPlacement` prop to set the position of the select list relative
 <Preview>
   <Story name="readonly">
     <MultiSelect
+      aria-label="readonly" 
       name="readonly"
       id="readonly"
       defaultValue={["1", "3"]}
@@ -480,7 +469,8 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
 ### Custom colored Pills
 
 It's possible to change the appearance of the selected Pills by using the `borderColor` and `fill` props on `Option` components.
-See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more information on usable colors
+
+See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo> for more information on usable colors
 
 <Preview>
   <Story name="with custom colored pills">
@@ -488,14 +478,7 @@ See <LinkTo kind='Documentation/Colors' name="page">Colors</LinkTo> for more inf
       name="simple"
       id="simple"
       label="label"
-      onOpen={action("onOpen")}
-      onChange={action("onChange")}
-      onClick={action("onClick")}
-      onFilterChange={action("onFilterChange")}
-      onFocus={action("onFocus")}
-      onBlur={action("onBlur")}
-      onKeyDown={action("onKeyDown", { depth: 2 })}
-      value={["1", "3"]}
+      defaultValue={["1", "3"]}
     >
       <Option text="Amber" value="1" borderColor="#FFBF00" fill />
       <Option text="Black" value="2" borderColor="blackOpacity65" fill />

@@ -11,6 +11,8 @@ export interface CommonFormFieldPropTypes
   fieldHelp?: React.ReactNode;
   /** The unique id of the Help component */
   helpId?: string;
+  /** The unique id of the FieldHelp component */
+  fieldHelpId?: string;
   /** Overrides the default tabindex of the Help component */
   helpTabIndex?: number | string;
   /** Label content */

@@ -12,6 +12,7 @@ const StyledMenuWrapper = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+  outline: none;
 
   ${layout}
   ${flexbox}

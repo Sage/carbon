@@ -9,7 +9,7 @@ export interface PagesProps {
   initialpageIndex?: number | string;
   pageIndex?: number | string;
   /** Individual tabs */
-  children?: React.ReactNode | Record<string, unknown>;
+  children?: React.ReactNode[] | React.ReactNode;
   /** Controls which transition to use. */
   transition?: string;
 }

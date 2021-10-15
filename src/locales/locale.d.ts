@@ -3,13 +3,9 @@ interface Locale {
   actions: {
     edit: () => string;
     delete: () => string;
-    reset: () => string;
   };
   actionPopover: {
     ariaLabel: () => string;
-  };
-  actionToolbar: {
-    selected: () => string;
   };
   batchSelection: {
     selected: (count: number | string) => string;
@@ -61,9 +57,6 @@ interface Locale {
   switch: {
     on: () => string;
     off: () => string;
-  };
-  table: {
-    noData: () => string;
   };
   textEditor: {
     tooltipMessages: {

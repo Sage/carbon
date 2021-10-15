@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useLayoutEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -8,6 +8,7 @@ import {
 import { StyledMenuWrapper } from "../menu.style";
 import MenuContext from "../menu.context";
 import FocusTrap from "../../../__internal__/focus-trap";
+import Events from "../../../__internal__/utils/helpers/events";
 import Box from "../../box";
 import IconButton from "../../icon-button";
 import Icon from "../../icon";
@@ -25,16 +26,38 @@ const MenuFullscreen = ({
   const menuContentRef = useRef();
   const { menuType } = useContext(MenuContext);
 
+  const handleKeyDown = (ev) => {
+    /* istanbul ignore else */
+    if (Events.isEscKey(ev)) {
+      onClose(ev);
+    }
+  };
+
+  useLayoutEffect(() => {
+    const checkTransitionEnd = () => {
+      menuContentRef.current.focus();
+    };
+
+    const wrapperRef = menuWrapperRef.current;
+
+    if (isOpen) {
+      wrapperRef.addEventListener("transitionend", checkTransitionEnd);
+    } else {
+      wrapperRef.removeEventListener("transitionend", checkTransitionEnd);
+    }
+  }, [isOpen]);
+
   return (
-    <li aria-label="menu fullscreen" role="menuitem">
+    <li aria-label="menu-fullscreen">
       <Portal>
-        <FocusTrap wrapperRef={menuWrapperRef}>
+        <FocusTrap autoFocus={false} wrapperRef={menuWrapperRef}>
           <StyledMenuFullscreen
             data-component="menu-fullscreen"
             ref={menuWrapperRef}
             isOpen={isOpen}
             menuType={menuType}
             startPosition={startPosition}
+            onKeyDown={handleKeyDown}
             {...rest}
           >
             <StyledMenuFullscreenHeader
@@ -65,8 +88,9 @@ const MenuFullscreen = ({
                 ref={menuContentRef}
                 display="flex"
                 flexDirection="column"
-                role="menu"
+                role="list"
                 inFullscreenView
+                tabIndex={-1}
               >
                 {React.Children.map(children, (child, index) => (
                   <MenuContext.Provider
