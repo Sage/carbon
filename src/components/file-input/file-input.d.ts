@@ -1,8 +1,8 @@
-import { MarginProps, SpaceProps } from "styled-system";
+import { MarginProps } from "styled-system";
 
-export interface FileInputProps extends MarginProps, SpaceProps {
+export interface FileInputProps extends MarginProps {
   /** Specify a callback triggered when user chooses the file(s), accepts the files array */
-  fileChooseAction: (files: File[]) => any;
+  fileChooseAction: (files: File[]) => void;
   /** Defines the label text for the heading. */
   label?: string;
   /** Specify button type */
@@ -15,7 +15,7 @@ export interface FileInputProps extends MarginProps, SpaceProps {
   /** Specify if the input is disabled */
   disabled?: boolean;
   /** Specify a callback triggered when user aborts uploading */
-  cancelAction?: () => any;
+  cancelAction?: () => void;
   /** if 'true' the loading bar will appear */
   isUploading?: boolean;
   /** Shows the error label */

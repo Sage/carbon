@@ -1,12 +1,11 @@
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
-import propTypes from "@styled-system/prop-types";
+import { margin } from "styled-system";
 import PropTypes from "prop-types";
 import StyledButton from "../button/button.style";
 import BaseTheme from "../../style/themes/base";
 
 const FileInputForm = styled.form`
-  ${space}
+  ${margin}
   ${StyledButton} {
     border: none;
   }
@@ -38,7 +37,7 @@ const FileDropArea = styled.div`
     color: ${theme.text.color};`};
     ${draggable && !isSelected && `border-right: none;`};
     ${error && `border: none;`};
-    ${disabled && `border-color: #CCD6DB;`};
+    ${disabled && `border-color: ${theme.disabled.border}`};
     width: 100%;
   `}
 `;
@@ -51,9 +50,9 @@ const FileInputLabel = styled.label`
   margin-top: 8px;
   ${({ theme, disabled, error, draggable, isSelected }) => css`
     border: 1px solid ${theme.colors.border};
-    ${disabled && `background-color: #F2F5F6;`};
+    ${disabled && `background-color: ${theme.disabled.input}`};
     ${disabled && `pointer-events: none;`};
-    ${disabled && `border-color: #CCD6DB;`};
+    ${disabled && `border-color: ${theme.disabled.border}`};
     ${draggable && `border: 2px solid transparent;`};
     ${draggable && isSelected && `border: 2px dashed ${theme.colors.primary};`};
     ${error &&
@@ -90,11 +89,6 @@ const StyledFileInput = styled.div`
 
 StyledFileInput.propTypes = {
   error: PropTypes.string,
-};
-
-FileInputForm.propTypes = {
-  /** Styled system spacing props */
-  ...propTypes.space,
 };
 
 FileInputLabel.propTypes = {
