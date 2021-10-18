@@ -48,9 +48,11 @@ export interface FormInputPropTypes
 
 export interface SelectTextboxProps extends FormInputPropTypes {
   /** Value to be displayed in the Textbox */
-  formattedValue: string;
+  formattedValue?: string;
+  /** If true, the input will be displayed */
+  hasTextCursor?: boolean;
   /** Value of the Select Input */
-  selectedValue:
+  selectedValue?:
     | string
     | Record<string, unknown>
     | string[]

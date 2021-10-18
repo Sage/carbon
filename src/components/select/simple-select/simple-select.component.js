@@ -123,19 +123,8 @@ const SimpleSelect = React.forwardRef(
       [childOptions, createCustomEvent, onChange]
     );
 
-    const handleTextboxChange = useCallback(
-      (event) => {
-        const newValue = event.target.value;
-        const newCharacter = newValue.slice(-1);
-        const isDeleteEvent =
-          event.nativeEvent.inputType === "deleteContentBackward" ||
-          event.nativeEvent.inputType === "deleteContentForward" ||
-          event.nativeEvent.inputType === "delete";
-
-        if (isDeleteEvent) {
-          return;
-        }
-
+    const triggerFilterChange = useCallback(
+      (newCharacter) => {
         if (isTimerCounting.current) {
           const newVal = filterText.current + newCharacter;
 
@@ -180,9 +169,11 @@ const SimpleSelect = React.forwardRef(
 
             return true;
           });
+        } else if (key.length === 1) {
+          triggerFilterChange(key);
         }
       },
-      [onKeyDown, onOpen, readOnly]
+      [triggerFilterChange, onKeyDown, onOpen, readOnly]
     );
 
     const handleGlobalClick = useCallback((event) => {
@@ -195,7 +186,6 @@ const SimpleSelect = React.forwardRef(
 
       if (notInContainer && notInList && !isClickTriggeredBySelect.current) {
         setOpenState(false);
-        filterText.current = "";
       }
 
       isClickTriggeredBySelect.current = false;
@@ -331,7 +321,6 @@ const SimpleSelect = React.forwardRef(
 
       if (selectionType !== "navigationKey") {
         setOpenState(false);
-        filterText.current = text;
       }
 
       if (isClickTriggered) {
@@ -353,7 +342,6 @@ const SimpleSelect = React.forwardRef(
 
     function onSelectListClose() {
       setOpenState(false);
-      filterText.current = "";
     }
 
     function isNavigationKey(key) {
@@ -387,9 +375,9 @@ const SimpleSelect = React.forwardRef(
         onMouseDown: handleTextboxMouseDown,
         onFocus: handleTextboxFocus,
         onKeyDown: handleTextboxKeydown,
-        onChange: handleTextboxChange,
         onBlur: handleTextboxBlur,
         tooltipPosition,
+        transparent,
         ...filterOutStyledSystemSpacingProps(props),
       };
     }
@@ -431,7 +419,6 @@ const SimpleSelect = React.forwardRef(
       >
         <SelectTextbox
           aria-controls={isOpen ? selectListId.current : ""}
-          type="select"
           labelId={labelId.current}
           {...getTextboxProps()}
           positionedChildren={disablePortal && isOpen && selectList}

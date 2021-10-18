@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import Textbox from "../../textbox";
 import useLocale from "../../../hooks/__internal__/useLocale";
+import SelectText from "../__internal__/select-text/select-text.component";
+import guid from "../../../__internal__/utils/helpers/guid/guid";
 
 const SelectTextbox = ({
   value,
@@ -13,11 +15,15 @@ const SelectTextbox = ({
   onClick,
   onFocus,
   onBlur,
+  onChange,
   selectedValue,
   required,
+  hasTextCursor,
+  transparent,
   ...restProps
 }) => {
   const l = useLocale();
+  const textId = useRef(guid());
 
   function handleTextboxClick(event) {
     if (disabled || readOnly) {
@@ -45,7 +51,9 @@ const SelectTextbox = ({
 
   function getTextboxProps() {
     return {
-      placeholder: placeholder || l.select.placeholder(),
+      placeholder: hasTextCursor
+        ? placeholder || l.select.placeholder()
+        : undefined,
       disabled,
       readOnly,
       required,
@@ -53,19 +61,47 @@ const SelectTextbox = ({
       onFocus: handleTextboxFocus,
       onBlur: handleTextboxBlur,
       labelId,
+      type: hasTextCursor ? "text" : "button",
+      tabIndex: hasTextCursor ? undefined : -1,
       ...restProps,
     };
   }
 
+  function renderSelectText() {
+    if (hasTextCursor) {
+      return null;
+    }
+
+    return (
+      <SelectText
+        textId={textId.current}
+        transparent={transparent}
+        onKeyDown={handleSelectTextKeydown}
+        {...getTextboxProps()}
+      />
+    );
+  }
+
+  function handleSelectTextKeydown(event) {
+    if (event.key.length === 1) {
+      onChange({ target: { value: event.key } });
+    }
+  }
+
   return (
     <Textbox
+      aria-haspopup="listbox"
+      aria-labelledby={`${labelId} ${textId.current}`}
       data-element="select-input"
       inputIcon="dropdown"
       autoComplete="off"
       size={size}
+      onChange={onChange}
       value={selectedValue}
       {...getTextboxProps()}
-    />
+    >
+      {renderSelectText()}
+    </Textbox>
   );
 };
 
@@ -124,6 +160,11 @@ SelectTextbox.propTypes = {
    * @ignore
    * Value to be displayed in the Textbox */
   formattedValue: PropTypes.string,
+  /**
+   * @private
+   * @ignore
+   * If true, the input will be displayed */
+  hasTextCursor: PropTypes.bool,
   /**
    * @private
    * @ignore

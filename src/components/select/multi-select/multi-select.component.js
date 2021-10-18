@@ -505,7 +505,7 @@ const MultiSelect = React.forwardRef(
       >
         <SelectTextbox
           aria-controls={isOpen ? selectListId.current : ""}
-          type="text"
+          hasTextCursor
           labelId={labelId.current}
           positionedChildren={disablePortal && isOpen && selectList}
           {...getTextboxProps()}
