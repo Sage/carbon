@@ -16,8 +16,10 @@ export interface FlatTableProps extends MarginProps {
   hasStickyFooter?: boolean;
   /** If true, the header does not scroll with the content */
   hasStickyHead?: boolean;
-  /** Set the height of the table */
+  /** Set the height of the table. String can be any valid CSS string, numbers will be converted to pixels. */
   height?: string | number;
+  /** Set the min-height of the table. String can be any valid CSS string, numbers will be converted to pixels. */
+  minHeight?: string | number;
   /** Toggles the zebra striping for the table rows */
   isZebra?: boolean;
   /** Used to define the tables size Renders as: 'compact', 'small', 'medium', 'large' and 'extraLarge' */

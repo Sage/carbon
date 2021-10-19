@@ -63,20 +63,6 @@ const StyledMenuFullscreenHeader = styled.div`
       background-color: ${theme.menu.dark.submenuBackground};
     `}
   `}
-
-  ${({ isOpen, startPosition }) => css`
-    ${isOpen &&
-    css`
-      ${startPosition}: 0;
-      transition: all 0.3s ease;
-    `}
-
-    ${!isOpen &&
-    css`
-      ${startPosition}: -100vw;
-      transition: all 0.3s ease;
-    `}
-  `}
 `;
 
 StyledMenuFullscreen.defaultProps = {
