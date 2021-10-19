@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import Tooltip from "../tooltip";
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import PortraitGravatar from "./portrait-gravatar.component";
 import PortraitInitials from "./portrait-initials.component";
 import {

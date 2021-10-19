@@ -18,7 +18,7 @@ import I18nProvider from "../i18n-provider";
 import baseTheme from "../../style/themes/base";
 import Tooltip from "../tooltip";
 
-jest.mock("../../utils/helpers/guid", () => () => "mocked-guid");
+jest.mock("../../__internal__/utils/helpers/guid", () => () => "mocked-guid");
 
 describe("Textbox", () => {
   testStyledSystemMargin(

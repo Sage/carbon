@@ -4,7 +4,7 @@ import MockDate from "mockdate";
 import DateRange from "./date-range.component";
 import Textbox from "../textbox/textbox.component";
 import { BaseDateInput } from "../date";
-import { rootTagTest } from "../../utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   testStyledSystemMargin,

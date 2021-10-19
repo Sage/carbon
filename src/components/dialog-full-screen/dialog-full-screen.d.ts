@@ -15,7 +15,7 @@ export interface DialogFullScreenProps extends ModalProps {
   /** Subtitle displayed at top of dialog */
   subtitle?: string;
   /** Title displayed at top of dialog */
-  title?: string | Record<string, unknown>;
+  title?: React.ReactNode;
 }
 
 declare class DialogFullScreen extends Modal<DialogFullScreenProps> {}

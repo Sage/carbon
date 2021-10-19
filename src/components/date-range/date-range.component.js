@@ -4,9 +4,9 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 
 import DateInput from "../date";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledDateRange from "./date-range.style";
-import DateHelper from "../../utils/helpers/date";
+import DateHelper from "../../__internal__/date";
 import LocaleContext from "../../__internal__/i18n-context";
 
 const marginPropTypes = filterStyledSystemMarginProps(

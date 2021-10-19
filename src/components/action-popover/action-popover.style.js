@@ -5,7 +5,7 @@ import { margin } from "styled-system";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
-import { isSafari } from "../../utils/helpers/browser-type-check";
+import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
 
 const Menu = styled.div`
   ${({ isOpen }) => (isOpen ? "display: block;" : "visibility: hidden;")}
@@ -85,12 +85,6 @@ const MenuButton = styled.div`
   margin: auto;
   ${margin}
   ${({ isOpen, theme }) => isOpen && `background-color: ${theme.colors.white}`}
-  &:hover, &:focus {
-    background-color: ${({ theme }) => theme.colors.white};
-  }
-  &:focus {
-    outline: 2px solid ${({ theme }) => theme.colors.focus};
-  }
 `;
 
 /**
@@ -116,6 +110,18 @@ const iconThemeProviderFactory = (Component, themeFn) =>
   });
 
 const ButtonIcon = iconThemeProviderFactory(Icon, (palette) => palette.slate);
+
+const StyledButtonIcon = styled.div`
+  &:hover,
+  &:focus {
+    background-color: ${({ theme }) => theme.colors.white};
+  }
+
+  &:focus {
+    outline: 2px solid ${({ theme }) => theme.colors.focus};
+  }
+`;
+
 const MenuItemIcon = styled(iconThemeProviderFactory(Icon, () => "inherit"))`
   ${({ theme, horizontalAlignment }) => css`
     ${horizontalAlignment === "right"
@@ -148,12 +154,17 @@ const SubMenuItemIcon = styled(ButtonIcon)`
 `;
 
 const MenuButtonOverrideWrapper = styled.div`
-  ${({ theme }) => `
+  ${({ theme }) => css`
     ${StyledButton} {
       padding: 0px ${theme.spacing}px;
       width: 100%;
       &:focus {
         outline-width: 2px;
+      }
+
+      &:hover,
+      &:focus {
+        background-color: ${theme.colors.white};
       }
     }
   `}
@@ -164,6 +175,7 @@ export {
   MenuItemFactory,
   MenuButton,
   ButtonIcon,
+  StyledButtonIcon,
   MenuItemIcon,
   MenuItemDivider,
   SubMenuItemIcon,

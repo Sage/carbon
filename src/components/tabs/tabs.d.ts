@@ -9,7 +9,7 @@ export interface TabsProps extends MarginProps {
   /** Allows manual control over the currently selected tab. */
   selectedTabId?: string;
   /** The child elements of Tabs need to be Tab components. */
-  children: React.ReactNode[] | Record<string, unknown>;
+  children: React.ReactNode[] | React.ReactNode;
   /** Sets the alignment of the tab titles. Possible values include. */
   align?: "left" | "right";
   /** A callback for when a tab is changed. You can use this to manually control

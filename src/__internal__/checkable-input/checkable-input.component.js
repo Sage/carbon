@@ -8,7 +8,7 @@ import {
 import { InputBehaviour } from "../input-behaviour";
 import FormField from "../form-field";
 import HiddenCheckableInput from "./hidden-checkable-input.component";
-import guid from "../../utils/helpers/guid";
+import guid from "../utils/helpers/guid";
 
 const CheckableInput = ({
   autoFocus,
@@ -41,7 +41,13 @@ const CheckableInput = ({
   ...props
 }) => {
   const { current: id } = useRef(inputId || guid());
-  const helpId = `${id} help`;
+  const labelId = `${id}-label`;
+  const helpId = [error, warning, info, labelHelp].filter(
+    (validation) => typeof validation === "string"
+  ).length
+    ? `${id}-help`
+    : undefined;
+  const fieldHelpId = fieldHelp ? `${id}-field-help` : undefined;
   const isRadio = type === "radio";
 
   const formFieldProps = {
@@ -50,12 +56,14 @@ const CheckableInput = ({
     fieldHelp,
     fieldHelpInline,
     helpId,
+    fieldHelpId,
     id,
     info,
     label,
     labelAlign,
     labelHelp,
     labelHelpIcon: "info",
+    labelId,
     labelInline,
     labelSpacing,
     name: id,
@@ -72,10 +80,12 @@ const CheckableInput = ({
     checked,
     disabled,
     helpId,
+    fieldHelpId,
     id,
     inputRef,
     type,
     value,
+    labelId,
     name,
     onBlur,
     onChange,

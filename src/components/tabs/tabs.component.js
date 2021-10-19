@@ -9,8 +9,8 @@ import React, {
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import Tab from "./tab";
-import Event from "../../utils/helpers/events/events";
-import tagComponent from "../../utils/helpers/tags/tags";
+import Event from "../../__internal__/utils/helpers/events";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
@@ -336,7 +336,10 @@ Tabs.propTypes = {
   /** Allows manual control over the currently selected tab. */
   selectedTabId: PropTypes.string,
   /** The child elements of Tabs need to be Tab components. */
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
   /** Sets the alignment of the tab titles. Possible values include. */
   align: PropTypes.oneOf(["left", "right"]),
   /** A callback for when a tab is changed. You can use this to manually control

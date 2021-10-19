@@ -24,7 +24,7 @@ import {
 import {
   elementsTagTest,
   rootTagTest,
-} from "../../utils/helpers/tags/tags-specs/tags-specs";
+} from "../../__internal__/utils/helpers/tags/tags-specs";
 import { baseTheme } from "../../style/themes";
 import LocaleContext from "../../__internal__/i18n-context";
 

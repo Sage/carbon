@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import Icon from "../icon";
 import StyledButton, { StyledButtonSubtext } from "./button.style";
-import tagComponent from "../../utils/helpers/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
 function renderChildren({
   /* eslint-disable react/prop-types */
@@ -69,6 +69,7 @@ const renderStyledButton = (buttonProps) => {
     href,
     ref,
     px,
+    m = 0,
     size,
     noWrap,
     tooltipMessage,
@@ -116,6 +117,7 @@ const renderStyledButton = (buttonProps) => {
       iconType={iconType}
       size={size}
       px={px || paddingX}
+      m={m}
       noWrap={noWrap}
       iconOnly={!rest.children && iconType}
       target={target}

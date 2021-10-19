@@ -7,7 +7,14 @@ import {
   ActionPopoverItem,
   ActionPopoverMenu,
 } from ".";
-import { Table, TableRow, TableCell, TableHeader } from "../table";
+import {
+  FlatTable,
+  FlatTableHead,
+  FlatTableBody,
+  FlatTableRow,
+  FlatTableHeader,
+  FlatTableCell,
+} from "../flat-table";
 
 <Meta
   title="Action Popover/Test"
@@ -58,82 +65,86 @@ import { Table, TableRow, TableCell, TableHeader } from "../table";
       );
       return (
         <div style={{ marginTop: "40px", height: "275px" }}>
-          <Table isZebra>
-            <TableRow>
-              <TableHeader>First Name</TableHeader>
-              <TableHeader>Last Name</TableHeader>
-              <TableHeader>&nbsp;</TableHeader>
-            </TableRow>
-            <TableRow>
-              <TableCell>John</TableCell>
-              <TableCell>Doe</TableCell>
-              <TableCell>
-                <ActionPopover
-                  onOpen={action("popover opened")}
-                  onClose={action("popover closed")}
-                >
-                  <ActionPopoverItem
-                    disabled
-                    icon="graph"
-                    submenu={submenu}
-                    onClick={action("email")}
+          <FlatTable isZebra>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>First Name</FlatTableHeader>
+                <FlatTableHeader>Last Name</FlatTableHeader>
+                <FlatTableHeader>&nbsp;</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow>
+                <FlatTableCell>John</FlatTableCell>
+                <FlatTableCell>Doe</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover
+                    onOpen={action("popover opened")}
+                    onClose={action("popover closed")}
                   >
-                    Business
-                  </ActionPopoverItem>
-                  <ActionPopoverItem icon="email" onClick={action("email")}>
-                    Email Invoice
-                  </ActionPopoverItem>
-                  <ActionPopoverItem
-                    icon="print"
-                    onClick={action("print")}
-                    submenu={submenu}
-                  >
-                    Print Invoice
-                  </ActionPopoverItem>
-                  <ActionPopoverItem
-                    icon="pdf"
-                    submenu={submenu}
-                    onClick={action("pdf")}
-                  >
-                    Download PDF
-                  </ActionPopoverItem>
-                  <ActionPopoverItem icon="csv" onClick={action("csv")}>
-                    Download CSV
-                  </ActionPopoverItem>
-                  <ActionPopoverDivider />
-                  <ActionPopoverItem icon="delete" onClick={action("delete")}>
-                    Delete
-                  </ActionPopoverItem>
-                </ActionPopover>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Jane</TableCell>
-              <TableCell>Smith</TableCell>
-              <TableCell>
-                <ActionPopover>
-                  <ActionPopoverItem icon="csv" onClick={action("csv")}>
-                    Download CSV
-                  </ActionPopoverItem>
-                </ActionPopover>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Bob</TableCell>
-              <TableCell>Jones</TableCell>
-              <TableCell>
-                <ActionPopover>
-                  <ActionPopoverItem
-                    icon="csv"
-                    submenu={submenuWithIcons}
-                    onClick={action("csv")}
-                  >
-                    Download CSV
-                  </ActionPopoverItem>
-                </ActionPopover>
-              </TableCell>
-            </TableRow>
-          </Table>
+                    <ActionPopoverItem
+                      disabled
+                      icon="graph"
+                      submenu={submenu}
+                      onClick={action("email")}
+                    >
+                      Business
+                    </ActionPopoverItem>
+                    <ActionPopoverItem icon="email" onClick={action("email")}>
+                      Email Invoice
+                    </ActionPopoverItem>
+                    <ActionPopoverItem
+                      icon="print"
+                      onClick={action("print")}
+                      submenu={submenu}
+                    >
+                      Print Invoice
+                    </ActionPopoverItem>
+                    <ActionPopoverItem
+                      icon="pdf"
+                      submenu={submenu}
+                      onClick={action("pdf")}
+                    >
+                      Download PDF
+                    </ActionPopoverItem>
+                    <ActionPopoverItem icon="csv" onClick={action("csv")}>
+                      Download CSV
+                    </ActionPopoverItem>
+                    <ActionPopoverDivider />
+                    <ActionPopoverItem icon="delete" onClick={action("delete")}>
+                      Delete
+                    </ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Jane</FlatTableCell>
+                <FlatTableCell>Smith</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover>
+                    <ActionPopoverItem icon="csv" onClick={action("csv")}>
+                      Download CSV
+                    </ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Bob</FlatTableCell>
+                <FlatTableCell>Jones</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover>
+                    <ActionPopoverItem
+                      icon="csv"
+                      submenu={submenuWithIcons}
+                      onClick={action("csv")}
+                    >
+                      Download CSV
+                    </ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
         </div>
       );
     }}

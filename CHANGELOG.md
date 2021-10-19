@@ -1,3 +1,171 @@
+### [94.1.3](https://github.com/Sage/carbon/compare/v94.1.2...v94.1.3) (2021-10-15)
+
+
+### Bug Fixes
+
+* **date:** add onClick handling ([cdb8829](https://github.com/Sage/carbon/commit/cdb8829ea37e8d8482c4a8db511e909f0d01ce8c)), closes [#4421](https://github.com/Sage/carbon/issues/4421)
+
+### [94.1.2](https://github.com/Sage/carbon/compare/v94.1.1...v94.1.2) (2021-10-14)
+
+
+### Bug Fixes
+
+* **menu-fullscreen:** add listener to trigger focus trap on transitionend event ([c06216a](https://github.com/Sage/carbon/commit/c06216a488ee18d806469727555d8f426ca43d78)), closes [#4287](https://github.com/Sage/carbon/issues/4287)
+
+### [94.1.1](https://github.com/Sage/carbon/compare/v94.1.0...v94.1.1) (2021-10-14)
+
+
+### Bug Fixes
+
+* **button:** add default margin 0 ([3d9854c](https://github.com/Sage/carbon/commit/3d9854cdcf6fc22e1d83ff32ef29f7423a46a87a))
+
+## [94.1.0](https://github.com/Sage/carbon/compare/v94.0.3...v94.1.0) (2021-10-14)
+
+
+### Features
+
+* **dismissible-box:** add new component ([2b08253](https://github.com/Sage/carbon/commit/2b082539b5d7112122a2a42ee99c0c4b6d8d94b7))
+
+### [94.0.3](https://github.com/Sage/carbon/compare/v94.0.2...v94.0.3) (2021-10-14)
+
+
+### Bug Fixes
+
+* **action-popover:** correct dom structure when rendering custom button ([3f47b85](https://github.com/Sage/carbon/commit/3f47b855e29a30f93ed82354b4d6e83d8fcfcff4)), closes [#4401](https://github.com/Sage/carbon/issues/4401)
+
+### [94.0.2](https://github.com/Sage/carbon/compare/v94.0.1...v94.0.2) (2021-10-13)
+
+
+### Bug Fixes
+
+* **radio-button:** make field help and tooltip content readable for screen readers ([a796cd8](https://github.com/Sage/carbon/commit/a796cd82d20f5aa86a3a042fec6a4799d8292540))
+
+### [94.0.1](https://github.com/Sage/carbon/compare/v94.0.0...v94.0.1) (2021-10-13)
+
+
+### Bug Fixes
+
+* **hidden-checkable-input:** make inputref prop optional in ts interface ([eeab991](https://github.com/Sage/carbon/commit/eeab991888fb02938662e1d5535c0debbc7454fd)), closes [#4450](https://github.com/Sage/carbon/issues/4450)
+
+## [94.0.0](https://github.com/Sage/carbon/compare/v93.0.4...v94.0.0) (2021-10-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **drag-and-drop:** drag-and-drop has been removed from Carbon.
+Please use the Draggable component instead
+* **configurable-items:** ConfigurableItems has been removed from Carbon
+
+### Code Refactoring
+
+* **configurable-items:** deprecate configurable items and pattern ([c0c1ed5](https://github.com/Sage/carbon/commit/c0c1ed5de8d56752e5d2465d46983b74d4e126b0))
+* **drag-and-drop:** deprecate drag-and-drop ([ba6a8b8](https://github.com/Sage/carbon/commit/ba6a8b846e100df6d5dc47e6d024254a0cc24543))
+
+### [93.0.4](https://github.com/Sage/carbon/compare/v93.0.3...v93.0.4) (2021-10-12)
+
+
+### Bug Fixes
+
+* publish to npm ([feae4e3](https://github.com/Sage/carbon/commit/feae4e3e570dd6ae59a74ed9ef3bf6635877810c))
+
+### [93.0.3](https://github.com/Sage/carbon/compare/v93.0.2...v93.0.3) (2021-10-11)
+
+
+### Bug Fixes
+
+* **dialog:** correct title prop type ([0ce39e1](https://github.com/Sage/carbon/commit/0ce39e1735d7cf9968f930cafb2f84a2a5137fa6)), closes [#4449](https://github.com/Sage/carbon/issues/4449)
+* **dialog-full-screen:** correct title prop type ([50e1716](https://github.com/Sage/carbon/commit/50e17166d679523e9e5faf847c700f732c869a00))
+* **heading:** correct title and subheader prop types ([d6c9f8a](https://github.com/Sage/carbon/commit/d6c9f8af25c4d67bf8b6f02c46ec79fa5cd5a608))
+* **page:** correct title and children prop types ([6a511c1](https://github.com/Sage/carbon/commit/6a511c15f83c1b998d4a866d054bf4ea3e6ba006))
+* **pages:** correct children prop type ([15cadcc](https://github.com/Sage/carbon/commit/15cadcc20c0b9903b2ed02c92c8625ac0d4a4871))
+* **tabs:** correct children prop type ([9be9e66](https://github.com/Sage/carbon/commit/9be9e66f94bfbcab90c4cb677d00bd7757024e3b))
+
+### [93.0.2](https://github.com/Sage/carbon/compare/v93.0.1...v93.0.2) (2021-10-07)
+
+
+### Bug Fixes
+
+* **duelling-picklist:** correct dom structure of picklist groups ([f73d26f](https://github.com/Sage/carbon/commit/f73d26fe4153a0acd8646be1e1b8bac4e57c10d5)), closes [#4340](https://github.com/Sage/carbon/issues/4340)
+
+### [93.0.1](https://github.com/Sage/carbon/compare/v93.0.0...v93.0.1) (2021-10-07)
+
+
+### Bug Fixes
+
+* **accordion:** fix group documentation example ([31b9e27](https://github.com/Sage/carbon/commit/31b9e27fbef95bb36a1729e62a556069d95c9973))
+
+## [93.0.0](https://github.com/Sage/carbon/compare/v92.0.0...v93.0.0) (2021-10-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **utils:** guid helper is now an internal util
+and should not be used outside of Carbon
+* **utils:** tags helper is now an internal util
+and should not be used outside of Carbon
+* **utils:** events helper is now an internal util
+and should not be used outside of Carbon
+* **utils:** filter-object-properties helper is now an internal util
+and should not be used outside of Carbon
+* **utils:** with-unique-id-props helper is now an internal util
+and should not be used outside of Carbon
+* **utils:** date helper is now an internal util
+and should not be used outside of Carbon
+* **utils:** extract-props helper is now an internal util
+and should not be used outside of Carbon
+* **utils:** immutable helper is now an internal util
+and should not be used outside of Carbon
+* **utils:** validations helper has been removed
+* **utils:** serialize helper is now an internal util
+and should not be used outside of Carbon
+* **utils:** dnd helpers are now internal utils
+and should not be used outside of Carbon
+* **utils:** text helper has been removed
+* **utils:** scrollable-parent helper has been changed
+to be draggable-context internal util and should not be used outside of Carbon
+* **utils:** to-array helper has been removed
+* **utils:** poller helper has been removed
+* **utils:** prop-types helper has been removed
+* **utils:** chainFunctions helper has been removed
+* **utils:** browser-type-check helper is now an internal util
+and should not be used outside of Carbon
+* **utils:** browser helper is now an internal util
+and should not be used outside of Carbon
+* **utils:** ether util is now an internal util
+and should not be used outside of Carbon
+* **utils:** base-registry util has been removed
+* **utils:** logger util is now an internal util
+and should not be used outside of Carbon
+* **utils:** service util has been removed
+* **utils:** should-component-update util has been removed
+
+### Code Refactoring
+
+* **utils:** change scrollable-parent helper to be internal ([b4b22df](https://github.com/Sage/carbon/commit/b4b22df6426eb7eab62b3decea8fac83b7d25ba1))
+* **utils:** move browser helper to the internal folder ([68c49b4](https://github.com/Sage/carbon/commit/68c49b49c1c3e0095365cbd7b6002a5a25886d9d))
+* **utils:** move browser-type-check helper to the internal folder ([30ce4fe](https://github.com/Sage/carbon/commit/30ce4fead7f79cd315ea918b2e0efd009b68dd1e))
+* **utils:** move date helper to the internal folder ([53ed827](https://github.com/Sage/carbon/commit/53ed8272794df4adeabc851142530c4380c8f58f))
+* **utils:** move dnd helpers to drag-and-drop internal folder ([266d307](https://github.com/Sage/carbon/commit/266d3075e8d8fe44cabc3cb98067516db073baff))
+* **utils:** move ether utils to the internal folder ([6b0ed28](https://github.com/Sage/carbon/commit/6b0ed284e848d22156bf84ef33cd43e706b5b169))
+* **utils:** move events helper to the internal folder ([d58f85c](https://github.com/Sage/carbon/commit/d58f85c9fbec1d8a9b1ba492ed784262c690cce0))
+* **utils:** move extract-props helper to the internal folder ([f26b9a4](https://github.com/Sage/carbon/commit/f26b9a46f40695419894e819e9139233070b54ff))
+* **utils:** move filter-object-properties helper to the internal folder ([f892094](https://github.com/Sage/carbon/commit/f892094d2b50f758f6fb5088a8816ee9590d5258))
+* **utils:** move guid helper to the internal folder ([7ce9a97](https://github.com/Sage/carbon/commit/7ce9a97372f74a891847fd44c5c426d4c78da599))
+* **utils:** move immutable helper to the internal folder ([90b86e0](https://github.com/Sage/carbon/commit/90b86e0e5715e22fb1b0c68179d103c674413afd))
+* **utils:** move logger util to the internal folder ([52e83f2](https://github.com/Sage/carbon/commit/52e83f20e56c50c5b570a5374ffa71b0789e77d1))
+* **utils:** move serialize helper to table-ajax component internal folder ([8a2e417](https://github.com/Sage/carbon/commit/8a2e41740a92386afc7bdf9c79e83855a0fa5ac3))
+* **utils:** move tags helper to the internal folder ([d94195b](https://github.com/Sage/carbon/commit/d94195bb29b9465915e4ffb7efad753d49d9fab6))
+* **utils:** move with-unique-id-props helper to the internal folder ([b1e13d3](https://github.com/Sage/carbon/commit/b1e13d3d800e395950d88ff01d1818d753c09117))
+* **utils:** remove base-registry util ([aa77ebe](https://github.com/Sage/carbon/commit/aa77ebe06fa89e059c2788d6cf63a6b959d36d61))
+* **utils:** remove chainFunctions helper ([907021d](https://github.com/Sage/carbon/commit/907021dc72b0b62ca6093611b8c362b472af1ab4))
+* **utils:** remove poller helper ([757a68b](https://github.com/Sage/carbon/commit/757a68b39dd403db6090c1db56af512705ec465a))
+* **utils:** remove prop-types helper ([42bd890](https://github.com/Sage/carbon/commit/42bd89085676f2e4d68c987b4adf501dd11b86a6))
+* **utils:** remove service util ([d33590e](https://github.com/Sage/carbon/commit/d33590e6733b1ba0cc06a2db7f61ccb113486b55))
+* **utils:** remove should-component-update util ([1e68f98](https://github.com/Sage/carbon/commit/1e68f98dca6ef85fbf0be14cb657e05a27f71cbd))
+* **utils:** remove text helper ([e2cb375](https://github.com/Sage/carbon/commit/e2cb375cac335223cde3e3b37ece6ca4a3ca7a82))
+* **utils:** remove to-array helper ([e6d6099](https://github.com/Sage/carbon/commit/e6d609975945f23fbfd2afc5fea3e4dd82844a17))
+* **utils:** remove validations helper ([f03086a](https://github.com/Sage/carbon/commit/f03086aea20ad17f6964394f74fd2a3868203cd7))
+
 ## [92.0.0](https://github.com/Sage/carbon/compare/v91.2.1...v92.0.0) (2021-10-05)
 
 

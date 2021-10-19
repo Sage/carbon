@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import Event from "../../../utils/helpers/events/events";
+import Event from "../../../__internal__/utils/helpers/events";
 import Icon from "../../icon";
 import { StyledSort, StyledSpaceHolder } from "./sort.style";
-import guid from "../../../utils/helpers/guid";
+import guid from "../../../__internal__/utils/helpers/guid";
 
 const Sort = ({ children, onClick, sortType }) => {
   const id = useRef(guid());

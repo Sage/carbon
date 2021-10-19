@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import StyledColumn from "./column.style";
-import Logger from "../../../utils/logger/logger";
+import Logger from "../../../__internal__/utils/logger";
 
 let deprecatedWarnTriggered = false;
 

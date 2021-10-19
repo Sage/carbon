@@ -20,9 +20,9 @@ import {
 } from "../../__spec_helper__/test-utils";
 import { baseTheme } from "../../style/themes";
 import Icon from "../icon";
-import guid from "../../utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 
-jest.mock("../../utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-123");
 
 const render = (props, renderMethod = mount) => {

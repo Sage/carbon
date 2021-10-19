@@ -8,7 +8,7 @@ import {
   DialogStyle,
 } from "./advanced-color-picker.style";
 import { SimpleColorPicker, SimpleColor } from "../simple-color-picker";
-import Events from "../../utils/helpers/events";
+import Events from "../../__internal__/utils/helpers/events";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(

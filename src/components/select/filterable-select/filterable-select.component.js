@@ -9,7 +9,7 @@ import {
 import SelectTextbox, {
   formInputPropTypes,
 } from "../select-textbox/select-textbox.component";
-import guid from "../../../utils/helpers/guid";
+import guid from "../../../__internal__/utils/helpers/guid";
 import withFilter from "../utils/with-filter.hoc";
 import StyledSelect from "../select.style";
 import SelectList from "../select-list/select-list.component";

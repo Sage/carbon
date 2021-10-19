@@ -5,8 +5,8 @@ import Profile from "./profile.component";
 import {
   elementsTagTest,
   rootTagTest,
-} from "../../utils/helpers/tags/tags-specs";
-import Browser from "../../utils/helpers/browser";
+} from "../../__internal__/utils/helpers/tags/tags-specs";
+import Browser from "../../__internal__/utils/helpers/browser";
 import {
   ProfileNameStyle,
   ProfileEmailStyle,
@@ -67,6 +67,16 @@ describe("Profile", () => {
         expect(instance.find(ProfileAvatarStyle).props().initials).toEqual(
           "FBB"
         );
+      });
+
+      it("returns empty string when name is an empty string", () => {
+        instance = shallow(<Profile name="" email="foo@bar.com" />);
+        expect(instance.find(ProfileAvatarStyle).props().initials).toEqual("");
+      });
+
+      it("returns empty string when name is a space", () => {
+        instance = shallow(<Profile name=" " email="foo@bar.com" />);
+        expect(instance.find(ProfileAvatarStyle).props().initials).toEqual("");
       });
     });
 

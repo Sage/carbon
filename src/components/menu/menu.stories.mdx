@@ -742,10 +742,10 @@ at the different breakpoints.
     parameters={{ chromatic: { disable: true } }}
   >
     {() => {
-      const isBelowBreakpoint1 = useMediaQuery("(max-width: 1600px)");
-      const isBelowBreakpoint2 = useMediaQuery("(max-width: 1300px)");
-      const isBelowBreakpoint3 = useMediaQuery("(max-width: 1000px)");
-      const isBelowBreakpoint4 = useMediaQuery("(max-width: 850px)");
+      const isBelowBreakpoint1 = useMediaQuery("(max-width: 1200px)");
+      const isBelowBreakpoint2 = useMediaQuery("(max-width: 1000px)");
+      const isBelowBreakpoint3 = useMediaQuery("(max-width: 800px)");
+      const isBelowBreakpoint4 = useMediaQuery("(max-width: 600px)");
       const responsiveMenuItems = () => {
         if (isBelowBreakpoint4) {
           return [

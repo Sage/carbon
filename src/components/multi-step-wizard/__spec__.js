@@ -7,7 +7,7 @@ import Button from "./../button";
 import {
   elementsTagTest,
   rootTagTest,
-} from "../../utils/helpers/tags/tags-specs";
+} from "../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("MultiStepWizard", () => {
   let instance,
