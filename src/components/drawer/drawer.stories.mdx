@@ -23,6 +23,7 @@ import {
 import { Tabs, Tab } from "../tabs";
 import Typography from "../typography";
 import Box from "../box";
+import Pager from "../pager";
 
 <Meta
   title="Drawer"
@@ -517,7 +518,54 @@ Note: parent container background-color is set to red for demonstration purpose.
       animationDuration: "0.5s",
     }}
   >
-    {(args) => (
+    {(args) => {
+      const rows = [
+        <FlatTableRow key="0">
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key="1">
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key="2">
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key="3">
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key="4">
+          <FlatTableCell>Liz Anya</FlatTableCell>
+          <FlatTableCell>Stoke</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+      ];
+      const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+      const [currentPage, setCurrentPage] = useState(1);
+      const renderRows = () => {
+        const { start, end } = recordsRange;
+        if (start < 0) return rows;
+        if (end > rows.length) return rows.slice(start, rows.length);
+        return rows.slice(start, end);
+      };
+      const handlePagination = (newPage, newPageSize) => {
+        const start = (newPage - 1) * newPageSize;
+        const end = start + newPageSize;
+        setRecordsRange({ start, end });
+        setCurrentPage(newPage);
+      };
+      return (
       <div>
         <Drawer
           defaultExpanded
@@ -526,18 +574,18 @@ Note: parent container background-color is set to red for demonstration purpose.
               height="calc(100vh - 70px)"
               hasStickyFooter
               footer={
-                <div
-                  style={{
-                    textAlign: "center",
-                    padding: "8px",
-                    border: "1px solid gray",
-                    width: "102%",
-                    minWidth: "518px",
-                    backgroundColor: "#CCD6DB",
-                  }}
-                >
-                  Here is a footer
-                </div>
+                <Pager
+                  totalRecords={rows.length}
+                  showPageSizeSelection
+                  pageSize={5}
+                  currentPage={currentPage}
+                  onPagination={(next, size) => handlePagination(next, size)}
+                  pageSizeSelectionOptions={[
+                    { id: "1", name: 1 },
+                    { id: "3", name: 3 },
+                    { id: "5", name: 5 },
+                  ]}
+                />
               }
             >
               <FlatTableHead>
@@ -549,42 +597,7 @@ Note: parent container background-color is set to red for demonstration purpose.
                 </FlatTableRow>
               </FlatTableHead>
               <FlatTableBody>
-                <FlatTableRow>
-                  <FlatTableCell>John Doe</FlatTableCell>
-                  <FlatTableCell>London</FlatTableCell>
-                  <FlatTableCell>Single</FlatTableCell>
-                  <FlatTableCell>0</FlatTableCell>
-                </FlatTableRow>
-                <FlatTableRow>
-                  <FlatTableCell>Jane Doe</FlatTableCell>
-                  <FlatTableCell>York</FlatTableCell>
-                  <FlatTableCell>Married</FlatTableCell>
-                  <FlatTableCell>2</FlatTableCell>
-                </FlatTableRow>
-                <FlatTableRow>
-                  <FlatTableCell>John Smith</FlatTableCell>
-                  <FlatTableCell>Edinburgh</FlatTableCell>
-                  <FlatTableCell>Single</FlatTableCell>
-                  <FlatTableCell>1</FlatTableCell>
-                </FlatTableRow>
-                <FlatTableRow>
-                  <FlatTableCell>Jane Smith</FlatTableCell>
-                  <FlatTableCell>Newcastle</FlatTableCell>
-                  <FlatTableCell>Married</FlatTableCell>
-                  <FlatTableCell>5</FlatTableCell>
-                </FlatTableRow>
-                <FlatTableRow>
-                  <FlatTableCell>Liz Anya</FlatTableCell>
-                  <FlatTableCell>Stoke</FlatTableCell>
-                  <FlatTableCell>Single</FlatTableCell>
-                  <FlatTableCell>2</FlatTableCell>
-                </FlatTableRow>
-                <FlatTableRow>
-                  <FlatTableCell>Karl Ickbred</FlatTableCell>
-                  <FlatTableCell>Newcastle</FlatTableCell>
-                  <FlatTableCell>Single</FlatTableCell>
-                  <FlatTableCell>0</FlatTableCell>
-                </FlatTableRow>
+                {renderRows()}
               </FlatTableBody>
             </FlatTable>
           }
@@ -594,7 +607,7 @@ Note: parent container background-color is set to red for demonstration purpose.
           content body content body
         </Drawer>
       </div>
-    )}
+    )}}
   </Story>
 </Preview>
 
