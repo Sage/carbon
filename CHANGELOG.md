@@ -1,3 +1,10 @@
+## [94.3.0](https://github.com/Sage/carbon/compare/v94.2.0...v94.3.0) (2021-10-19)
+
+
+### Features
+
+* **link:** spread any aria props onto the a or button element ([d8ce077](https://github.com/Sage/carbon/commit/d8ce07757d45046224405821cc01cc482ce48ac9)), closes [#4440](https://github.com/Sage/carbon/issues/4440)
+
 ## [94.2.0](https://github.com/Sage/carbon/compare/v94.1.3...v94.2.0) (2021-10-19)
 
 
