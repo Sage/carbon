@@ -65,6 +65,7 @@ const StyledHeadingBackButton = styled(Link)`
 
     ${StyledIcon} {
       margin-right: 0;
+      display: inline-flex;
     }
   }
 `;

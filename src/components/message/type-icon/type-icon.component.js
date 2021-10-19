@@ -6,7 +6,7 @@ import Icon from "../../icon";
 const TypeIcon = ({ variant, transparent }) => {
   return (
     <TypeIconStyle variant={variant} transparent={transparent}>
-      <Icon type={variant} bgTheme="none" />
+      <Icon type={variant} />
     </TypeIconStyle>
   );
 };

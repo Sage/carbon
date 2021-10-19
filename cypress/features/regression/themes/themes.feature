@@ -23,16 +23,6 @@ Feature: Theming addon
       | none   | themeNone    |
 
   @positive
-  Scenario Outline: I set Icon component theme to <theme>
-    When I open default "Icon Test" component with "themeNames" json from "themes" using "<nameOfObject>" object name
-    Then "icon" component css "background-color" is set to "<theme>" common
-    Examples:
-      | theme  | nameOfObject    |
-      | mint   | iconThemeMint   |
-      | aegean | iconThemeAegean |
-      | none   | iconThemeNone   |
-
-  @positive
   Scenario Outline: I set Link component theme to <theme>
     When I open default "Link Test" component with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then Link component css color is set to "<theme>"
