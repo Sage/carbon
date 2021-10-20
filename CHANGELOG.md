@@ -1,3 +1,10 @@
+### [94.4.1](https://github.com/Sage/carbon/compare/v94.4.0...v94.4.1) (2021-10-20)
+
+
+### Bug Fixes
+
+* **button:** ensure values passed in via `px` prop are applied ([208eb65](https://github.com/Sage/carbon/commit/208eb65d5cb7936bb9047d5ee5e6cfd70509c18d))
+
 ## [94.4.0](https://github.com/Sage/carbon/compare/v94.3.0...v94.4.0) (2021-10-20)
 
 
