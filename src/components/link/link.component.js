@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import Icon from "../icon";
 import Event from "../../__internal__/utils/helpers/events";
@@ -24,7 +24,7 @@ const Link = React.forwardRef(
       tooltipPosition,
       tabbable,
       target,
-      ...props
+      ...rest
     },
     ref
   ) => {
@@ -59,6 +59,18 @@ const Link = React.forwardRef(
         />
       ) : null;
     };
+
+    const ariaProps = useMemo(
+      () =>
+        Object.keys(rest)
+          .filter((key) => key.startsWith("aria"))
+          .reduce((obj, key) => {
+            obj[key] = rest[key];
+            return obj;
+          }, {}),
+      [rest]
+    );
+
     const componentProps = {
       onKeyDown: handleOnKeyDown,
       onMouseDown,
@@ -69,6 +81,8 @@ const Link = React.forwardRef(
       ref,
       href,
       rel,
+      "aria-label": ariaLabel,
+      ...ariaProps,
     };
     const createLinkBasedOnType = () => {
       let type = "a";
@@ -79,16 +93,11 @@ const Link = React.forwardRef(
 
       return React.createElement(
         type,
-        { ...componentProps },
+        { ...componentProps, ...(type === "button" && { role: "link" }) },
         <>
           {renderLinkIcon()}
 
-          <StyledContent
-            {...(!children && {
-              "aria-label": ariaLabel,
-              role: "link",
-            })}
-          >
+          <StyledContent>
             {isSkipLink ? "Skip to main content" : children}
           </StyledContent>
 
@@ -104,7 +113,7 @@ const Link = React.forwardRef(
         className={className}
         iconAlign={iconAlign}
         hasContent={Boolean(children)}
-        {...tagComponent("link", props)}
+        {...tagComponent("link", rest)}
         {...(isSkipLink && { "data-element": "skip-link" })}
       >
         {createLinkBasedOnType()}

@@ -2,16 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import {
-  StyledFlatTableRoot,
   StyledFlatTableWrapper,
   StyledFlatTable,
   StyledFlatTableFooter,
-  StyledFlatTableBox,
 } from "./flat-table.style";
 import { DrawerSidebarContext } from "../drawer";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export const FlatTableThemeContext = React.createContext({});
+
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
@@ -28,6 +27,7 @@ const FlatTable = ({
   size,
   hasMaxHeight = false,
   ariaDescribedby,
+  minHeight,
   ...rest
 }) => {
   const addDefaultHeight = !height && (hasStickyHead || hasStickyFooter);
@@ -44,36 +44,37 @@ const FlatTable = ({
   return (
     <DrawerSidebarContext.Consumer>
       {({ isInSidebar }) => (
-        <StyledFlatTableRoot {...filterStyledSystemMarginProps(rest)}>
-          <StyledFlatTableBox
-            {...rest}
-            {...((hasStickyHead || hasStickyFooter) && { overflowY: "auto" })}
-            height={addDefaultHeight && !hasMaxHeight ? "100%" : height}
-            maxHeight={hasMaxHeight ? "100%" : undefined}
-          >
-            <StyledFlatTableWrapper
-              isInSidebar={isInSidebar}
-              hasStickyHead={hasStickyHead}
-              colorTheme={colorTheme}
-              heightDefaulted={addDefaultHeight}
-            >
-              <StyledFlatTable
-                data-component="flat-table"
-                {...tableStylingProps}
-              >
-                {caption ? <caption>{caption}</caption> : null}
-                <FlatTableThemeContext.Provider value={{ colorTheme, size }}>
-                  {children}
-                </FlatTableThemeContext.Provider>
-              </StyledFlatTable>
-            </StyledFlatTableWrapper>
-          </StyledFlatTableBox>
+        <StyledFlatTableWrapper
+          isInSidebar={isInSidebar}
+          hasStickyHead={hasStickyHead}
+          colorTheme={colorTheme}
+          {...rest}
+          minHeight={minHeight}
+          overflowY={
+            !isInSidebar && (hasStickyHead || hasStickyFooter)
+              ? "auto"
+              : undefined
+          }
+          height={addDefaultHeight && !hasMaxHeight ? "99%" : height}
+          maxHeight={hasMaxHeight ? "100%" : undefined}
+          display="flex"
+          flexDirection="column"
+          justifyContent={
+            hasStickyFooter || height ? "space-between" : undefined
+          }
+        >
+          <StyledFlatTable data-component="flat-table" {...tableStylingProps}>
+            {caption ? <caption>{caption}</caption> : null}
+            <FlatTableThemeContext.Provider value={{ colorTheme, size }}>
+              {children}
+            </FlatTableThemeContext.Provider>
+          </StyledFlatTable>
           {footer && (
             <StyledFlatTableFooter hasStickyFooter={hasStickyFooter}>
               {footer}
             </StyledFlatTableFooter>
           )}
-        </StyledFlatTableRoot>
+        </StyledFlatTableWrapper>
       )}
     </DrawerSidebarContext.Consumer>
   );
@@ -100,8 +101,10 @@ FlatTable.propTypes = {
   footer: PropTypes.node,
   /** If true, the header does not scroll with the content */
   hasStickyFooter: PropTypes.bool,
-  /** Set the height of the table */
+  /** Set the height of the table. String can be any valid CSS string, numbers will be converted to pixels. */
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /** Set the min-height of the table. A string can be any valid CSS string, numbers will be converted to pixels. */
+  minHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Toggles the zebra striping for the table rows */
   isZebra: PropTypes.bool,
   /** Used to define the tables size Renders as: 'compact', 'small', 'medium', 'large' and 'extraLarge' */
