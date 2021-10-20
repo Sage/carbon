@@ -3,7 +3,7 @@ import { Meta, Story, Preview } from "@storybook/addon-docs";
 import CarbonProvider from "../../../components/carbon-provider"
 import Button from "../../../components/button"
 import aegeanTheme from "../../themes/aegean"
-import sageTheme from "../../themes/sage"
+import sageTheme from "../../themes"
 
 import CarbonScopedTokensProvider from "./carbon-scoped-tokens-provider.component";
 
@@ -26,28 +26,32 @@ import CarbonScopedTokensProvider from "carbon-react/lib/style/design-tokens/car
 ```
 
 ## Examples
-
 <Preview>
-    <Story name="default">
-        <CarbonProvider>
-            <CarbonScopedTokensProvider>
-                <Button buttonType="primary">Button</Button>
-            </CarbonScopedTokensProvider>
-        </CarbonProvider>
-    </Story>
+  <Story name="default" parameters={{ themeSelector: { disable: true }}}>
+    <CarbonProvider>
+      <CarbonScopedTokensProvider>
+        <Button buttonType="primary">Button</Button>
+      </CarbonScopedTokensProvider>
+    </CarbonProvider>
+  </Story>
 </Preview>
 
 <Preview>
-    <Story name="mixing">
-        <CarbonProvider theme={aegeanTheme}>
-            <CarbonScopedTokensProvider>
-                <Button buttonType="primary">Button</Button>
-            </CarbonScopedTokensProvider>
-        </CarbonProvider>
-        <CarbonProvider theme={sageTheme}>
-            <CarbonScopedTokensProvider>
-                <Button buttonType="primary">Button</Button>
-            </CarbonScopedTokensProvider>
-        </CarbonProvider>
-    </Story>
+  <Story name="mixing" parameters={{ themeSelector: { disable: true }}}>
+    <CarbonProvider>
+      <CarbonScopedTokensProvider>
+        <Button buttonType="primary">Button</Button>
+      </CarbonScopedTokensProvider>
+    </CarbonProvider>
+    <CarbonProvider theme={aegeanTheme}>
+      <CarbonScopedTokensProvider>
+        <Button buttonType="primary">Button</Button>
+      </CarbonScopedTokensProvider>
+    </CarbonProvider>
+    <CarbonProvider theme={sageTheme}>
+      <CarbonScopedTokensProvider>
+        <Button buttonType="primary">Button</Button>
+      </CarbonScopedTokensProvider>
+    </CarbonProvider>
+  </Story>
 </Preview>

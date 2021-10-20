@@ -7,7 +7,7 @@ import {
   sageTheme,
 } from "../../src/style/themes";
 import addons, { makeDecorator } from "@storybook/addons";
-import CarbonGlobalTokensProvider from "../../src/style/design-tokens/carbon-global-tokens-provider/index";
+import CarbonGlobalTokensProvider from "../../src/style/design-tokens/carbon-global-tokens-provider";
 
 export const ADDON_ID = "carbon/theme-selector";
 export const PARAMS_EVENT = `${ADDON_ID}/params`;
