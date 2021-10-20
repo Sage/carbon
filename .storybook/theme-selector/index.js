@@ -53,7 +53,7 @@ export const withThemeSelector = makeDecorator({
     channel.emit(PARAMS_EVENT, parameters);
     return (
       <ThemeProvider theme={theme}>
-        <CarbonGlobalTokensProvider />
+        {!paramaters.disable && <CarbonGlobalTokensProvider />}
         {getStory(context)}
       </ThemeProvider>
     );
