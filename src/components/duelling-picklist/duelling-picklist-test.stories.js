@@ -209,7 +209,7 @@ export const Draggable = () => {
       type={type}
       item={item}
       onChange={onChange}
-      as={draggable && "div"}
+      as="div"
     >
       {draggable && <Icon key={item.key} type="drag" ml={2} />}
       <div style={{ display: "flex", width: "100%" }}>

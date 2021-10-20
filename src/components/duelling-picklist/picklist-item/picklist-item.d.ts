@@ -16,7 +16,7 @@ export interface PicklistItemProps {
   /** Tooltip message for the locked icon (only present when locked prop is true) */
   tooltipMessage?: string;
   /** Overrides the default rendered HTML tag of the PicklistItem component */
-  as?: string;
+  as?: "div";
 }
 
 declare function PicklistItem(

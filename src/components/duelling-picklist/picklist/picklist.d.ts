@@ -7,6 +7,7 @@ export interface PicklistProps {
   placeholder?: React.ReactNode;
   /** Indicate if component is disabled */
   disabled?: boolean;
+  as?: "div";
 }
 
 declare function areEqual(

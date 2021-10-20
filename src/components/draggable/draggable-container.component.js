@@ -101,7 +101,7 @@ DraggableContainer.propTypes = {
   /** Callback fired when order is changed */
   getOrder: PropTypes.func,
   /** Overrides the default rendered HTML tag of the DraggableContainer component */
-  as: PropTypes.string,
+  as: PropTypes.oneOf(["div", "ul"]),
   /**
    * The content of the component
    *

@@ -130,7 +130,7 @@ PicklistItem.propTypes = {
   /** Tooltip message for the locked icon (only present when locked prop is true) */
   tooltipMessage: PropTypes.string,
   /** Overrides the default rendered HTML tag of the PicklistItem component */
-  as: PropTypes.string,
+  as: PropTypes.oneOf(["div", "li"]),
   /** @private @ignore */
   highlighted: PropTypes.bool,
   /** @private @ignore */

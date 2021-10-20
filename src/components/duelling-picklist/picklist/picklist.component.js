@@ -96,7 +96,7 @@ export const Picklist = ({ as, disabled, children, placeholder, index }) => {
 
 Picklist.propTypes = {
   /** Overrides the default rendered HTML tag of the Picklist component */
-  as: PropTypes.string,
+  as: PropTypes.oneOf(["div", "ul"]),
   /** List of PicklistItem elements */
   children: PropTypes.node,
   /** Placeholder to be rendered when list is empty */
