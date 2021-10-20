@@ -1,3 +1,10 @@
+## [94.4.0](https://github.com/Sage/carbon/compare/v94.3.0...v94.4.0) (2021-10-20)
+
+
+### Features
+
+* **switches:** adjust switches to current designs ([6c64089](https://github.com/Sage/carbon/commit/6c64089059909bda228532ed5f3486f5177af86e))
+
 ## [94.3.0](https://github.com/Sage/carbon/compare/v94.2.0...v94.3.0) (2021-10-19)
 
 
