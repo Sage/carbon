@@ -65,7 +65,7 @@ describe("SwitchSlider", () => {
       it("applies the correct base styles", () => {
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.colors.primary,
+            backgroundColor: baseTheme.switch.on,
           },
           wrapper
         );
@@ -107,7 +107,7 @@ describe("SwitchSlider", () => {
       it("applies the correct SwitchSliderPanel styles", () => {
         assertStyleMatch(
           {
-            color: baseTheme.disabled.disabled,
+            color: baseTheme.switch.disabledFontColor,
           },
           wrapper,
           {
@@ -141,11 +141,20 @@ describe("SwitchSlider", () => {
       describe("default", () => {
         const wrapper = render({ size: "large" }).toJSON();
 
+        it("applies the correct border-radius", () => {
+          assertStyleMatch(
+            {
+              borderRadius: "30px",
+            },
+            wrapper
+          );
+        });
+
         it("applies the correct ::before styles", () => {
           assertStyleMatch(
             {
-              height: "36px",
-              width: "36px",
+              height: "32px",
+              width: "32px",
             },
             wrapper,
             { modifier: "::before" }
@@ -201,7 +210,7 @@ describe("SwitchSlider", () => {
         it("applies the correct base styles", () => {
           assertStyleMatch(
             {
-              backgroundColor: theme.colors.primary,
+              backgroundColor: theme.switch.on,
             },
             wrapper
           );
@@ -223,7 +232,7 @@ describe("SwitchSlider", () => {
         it("applies the correct SwitchSliderPanel styles", () => {
           assertStyleMatch(
             {
-              color: theme.disabled.disabled,
+              color: theme.switch.disabledFontColor,
             },
             wrapper,
             {
@@ -244,7 +253,7 @@ describe("SwitchSlider", () => {
         it("applies the correct base styles", () => {
           assertStyleMatch(
             {
-              backgroundColor: theme.colors.disabled,
+              backgroundColor: theme.switch.onDisabled,
             },
             wrapper
           );
