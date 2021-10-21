@@ -97,13 +97,8 @@ context("Tests for Decimal component", () => {
         mount(<Decimal precision={precision} />);
 
         // then run our tests
-        commonDataElementInputPreview()
-          .type(inputValue)
-          .find("input")
-          .blur({ force: true });
-        commonDataElementInputPreview()
-          .find("input")
-          .should("have.value", outputValue);
+        commonDataElementInputPreview().type(inputValue).blur({ force: true });
+        commonDataElementInputPreview().should("have.value", outputValue);
         return this;
       }
     );
@@ -125,7 +120,7 @@ context("Tests for Decimal component", () => {
       ["pt-PT", "111 11,25", "11 111,250"],
 
       ["no-NO", "1 1 11,21", "1 111,210"],
-      ["no-No", "111 1 1,2", "11 111,250"],
+      ["no-No", "111 1 1,25", "11 111,250"],
       ["no-NO", "1  1  1  1  1,25", "1  1  1  1  1,25"],
     ];
 
@@ -136,10 +131,7 @@ context("Tests for Decimal component", () => {
         mount(<Decimal locale={locale} precision={3} />);
 
         // then run our tests
-        commonDataElementInputPreview()
-          .type(inputValue)
-          .find("input")
-          .blur({ force: true });
+        commonDataElementInputPreview().type(inputValue).blur({ force: true });
         commonDataElementInputPreview()
           .invoke("val")
           .then(($el) => {
@@ -161,11 +153,10 @@ context("Tests for Decimal component", () => {
 
       // then run our tests
       commonDataElementInputPreview()
-        .type(inputValue)
-        .find("input")
+        .type(inputValue, { force: true })
         .blur({ force: true });
       commonDataElementInputPreview()
-        .find("input")
+        .parent()
         .should("not.have.value", inputValue)
         .and("have.attr", "readOnly");
     });
@@ -217,7 +208,6 @@ context("Tests for Decimal component", () => {
         // then run our tests
         commonDataElementInputPreview()
           .type(specificValue)
-          .find("input")
           .blur({ force: true });
         commonDataElementInputPreview()
           .invoke("val")
@@ -236,13 +226,8 @@ context("Tests for Decimal component", () => {
       mount(<Decimal />);
 
       // then run our tests
-      commonDataElementInputPreview()
-        .type("   ")
-        .find("input")
-        .blur({ force: true });
-      commonDataElementInputPreview()
-        .find("input")
-        .should("have.attr", "value", "   ");
+      commonDataElementInputPreview().type("   ").blur({ force: true });
+      commonDataElementInputPreview().should("have.attr", "value", "   ");
     });
   });
 
@@ -263,7 +248,6 @@ context("Tests for Decimal component", () => {
       // then run our tests
       commonDataElementInputPreview()
         .type(inputValue)
-        .find("input")
         .blur({ force: true })
 
         .then(() => {
@@ -290,7 +274,6 @@ context("Tests for Decimal component", () => {
       // then run our tests
       commonDataElementInputPreview()
         .type(inputValue)
-        .find("input")
         .blur({ force: true })
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
