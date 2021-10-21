@@ -31,8 +31,8 @@
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpy \"**/\" \"!**/(*.js|*.md|*.mdx|*.stories.*|*.snap)\" ../lib/ --cwd=src --parents",
     "commit": "git-cz",
-    "cypress:react": "npx cypress open-ct --config-file cypress-react.json",
-    "cypress:ci:react": "npx cypress run-ct --config-file cypress-react.json"
+    "cypress:react": "npx cypress open-ct",
+    "cypress:ci:react": "npx cypress run-ct --spec './src/components/**/*.test.js' --record --key --parallel --group 'ubuntu-cypress-react'"
   },
   "repository": {
     "type": "git",
