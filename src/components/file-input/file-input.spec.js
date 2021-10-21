@@ -100,7 +100,7 @@ describe("File Input", () => {
       ).toBe(true);
     });
 
-    it("the number of files is displayed when more than one selected with allowMultuple prop", () => {
+    it("the number of files is displayed when more than one selected with allowMultiple prop", () => {
       wrapper = render({ allowMultiple: true });
       const file1 = new File(["file1"], "photo1.png", { type: "image/png" });
       const file2 = new File(["file2"], "photo2.png", { type: "image/png" });
@@ -111,7 +111,7 @@ describe("File Input", () => {
       expect(wrapper.text().includes("2 files selected.")).toBe(true);
     });
 
-    it("the filename is displayed when one selected with allowMultuple prop", () => {
+    it("the filename is displayed when one selected with allowMultiple prop", () => {
       wrapper = render({ allowMultiple: true });
       const file = new File(["file"], "photo.png", { type: "image/png" });
       wrapper.find(FileInput).simulate("change", { target: { files: [file] } });
