@@ -1,3 +1,17 @@
+## [94.5.0](https://github.com/Sage/carbon/compare/v94.4.1...v94.5.0) (2021-10-21)
+
+
+### Features
+
+* **design-tokens:** added design tokens support ([269684e](https://github.com/Sage/carbon/commit/269684e7c4afd69a1030798b06bbb1f7b1b94190))
+
+
+### Bug Fixes
+
+* **desgin-tokens:** add possibility of switching off token provider in themeSelector ([9b7b24a](https://github.com/Sage/carbon/commit/9b7b24abe8f26eb1a86aeeacf7de371074857ed5))
+* **design-tokens:** fix stories for global and scoped providers ([bfa17da](https://github.com/Sage/carbon/commit/bfa17da007e04adc6d1249c0ea97de2ffc3944f4))
+* **design-tokens:** fix typo in parameters variable in theme selector ([41e1e0c](https://github.com/Sage/carbon/commit/41e1e0cee42042da934ca292eb243976e24afe18))
+
 ### [94.4.1](https://github.com/Sage/carbon/compare/v94.4.0...v94.4.1) (2021-10-20)
 
 
