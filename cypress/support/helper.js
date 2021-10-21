@@ -2,7 +2,7 @@ import DEBUG_FLAG from ".";
 
 const stringToURL = (str) => str.toLowerCase().replace(/ /g, "-");
 
-function prepareUrl(component, suffix) {
+function prepareUrl(component, suffix = "default story") {
   let url = Cypress.config().baseUrl;
   const story = Cypress.env("iframe");
   // eslint-disable-next-line no-unused-expressions
@@ -10,7 +10,7 @@ function prepareUrl(component, suffix) {
   return `${url}${stringToURL(component)}--${stringToURL(suffix)}`;
 }
 
-export function visitComponentUrl(component, suffix = "default") {
+export function visitComponentUrl(component, suffix) {
   cy.visit(prepareUrl(component, suffix));
 }
 
