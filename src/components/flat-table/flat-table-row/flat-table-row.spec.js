@@ -730,6 +730,24 @@ describe("FlatTableRow", () => {
       </FlatTableRow>,
     ];
 
+    it("applies the expected styling to the Icons", () => {
+      const wrapper = renderFlatTableRow({
+        expandable: true,
+        subRows: SubRows,
+      });
+
+      assertStyleMatch(
+        {
+          transition: "transform 0.3s",
+          transform: "rotate(-90deg)",
+        },
+        wrapper.find(FlatTableRow),
+        {
+          modifier: `${StyledFlatTableCell}:first-child > div ${StyledIcon}[type="chevron_down_thick"]:first-of-type`,
+        }
+      );
+    });
+
     it("should have the sub rows closed by default", () => {
       const wrapper = renderFlatTableRow({
         expandable: true,
@@ -1218,6 +1236,7 @@ describe("FlatTableRow", () => {
               expandable
               subRow={subRows}
               expandableArea="firstColumn"
+              id={0}
             >
               <FlatTableHeader>test 1</FlatTableHeader>
               <FlatTableCell>test 2</FlatTableCell>
@@ -1380,6 +1399,7 @@ describe("FlatTableRow", () => {
               expandable
               subRow={subRows}
               expandableArea="firstColumn"
+              id={0}
             >
               <FlatTableHeader>test 1</FlatTableHeader>
               <FlatTableCell>test 2</FlatTableCell>
