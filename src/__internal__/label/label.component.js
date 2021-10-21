@@ -38,10 +38,8 @@ const Label = ({
 }) => {
   const [isFocused, setFocus] = useState(false);
   const { onMouseEnter, onMouseLeave } = useContext(InputContext);
-  const {
-    onMouseEnter: onGroupMouseEnter,
-    onMouseLeave: onGroupMouseLeave,
-  } = useContext(InputGroupContext);
+  const { onMouseEnter: onGroupMouseEnter, onMouseLeave: onGroupMouseLeave } =
+    useContext(InputGroupContext);
 
   const handleMouseEnter = (ev) => {
     if (onMouseEnter) onMouseEnter(ev);

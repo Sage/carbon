@@ -17,9 +17,8 @@ const HiddenCheckableInput = ({
   ariaLabelledBy,
   ...props
 }) => {
-  const { onBlur, onFocus, onMouseEnter, onMouseLeave } = useContext(
-    InputContext
-  );
+  const { onBlur, onFocus, onMouseEnter, onMouseLeave } =
+    useContext(InputContext);
   const {
     onBlur: onBlurGroup,
     onFocus: onFocusGroup,

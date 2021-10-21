@@ -41,9 +41,8 @@ const PillStyle = styled.span`
         pillColor = toColor(theme, borderColor);
         buttonFocusColor = shade(0.2, pillColor);
       } else {
-        const { varietyColor, buttonFocus } = styleConfig(theme)[pillRole][
-          variety
-        ];
+        const { varietyColor, buttonFocus } =
+          styleConfig(theme)[pillRole][variety];
         pillColor = varietyColor;
         buttonFocusColor = buttonFocus;
       }

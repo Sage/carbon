@@ -72,9 +72,10 @@ const SimpleSelect = React.forwardRef(
       value || defaultValue || ""
     );
 
-    const childOptions = useMemo(() => React.Children.toArray(children), [
-      children,
-    ]);
+    const childOptions = useMemo(
+      () => React.Children.toArray(children),
+      [children]
+    );
 
     const createCustomEvent = useCallback(
       (newValue) => {

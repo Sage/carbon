@@ -11,9 +11,10 @@ const marginProptypes = filterStyledSystemMarginProps(
 );
 
 const AccordionGroup = ({ children, ...rest }) => {
-  const filteredChildren = useMemo(() => React.Children.toArray(children), [
-    children,
-  ]);
+  const filteredChildren = useMemo(
+    () => React.Children.toArray(children),
+    [children]
+  );
 
   const refs = useMemo(
     () => filteredChildren.map((child) => child.ref || React.createRef()),

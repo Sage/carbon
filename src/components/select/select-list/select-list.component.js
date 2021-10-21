@@ -88,9 +88,10 @@ const SelectList = React.forwardRef(
       [anchorElement]
     );
 
-    const childrenList = useMemo(() => React.Children.toArray(children), [
-      children,
-    ]);
+    const childrenList = useMemo(
+      () => React.Children.toArray(children),
+      [children]
+    );
 
     const optionRefList = useMemo(
       () =>

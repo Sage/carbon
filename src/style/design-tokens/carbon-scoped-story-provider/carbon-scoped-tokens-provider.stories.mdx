@@ -1,9 +1,9 @@
 import { Meta, Story, Preview } from "@storybook/addon-docs";
 
-import CarbonProvider from "../../../components/carbon-provider"
-import Button from "../../../components/button"
-import aegeanTheme from "../../themes/aegean"
-import sageTheme from "../../themes"
+import CarbonProvider from "../../../components/carbon-provider";
+import Button from "../../../components/button";
+import aegeanTheme from "../../themes/aegean";
+import sageTheme from "../../themes";
 
 import CarbonScopedTokensProvider from "./carbon-scoped-tokens-provider.component";
 
@@ -26,8 +26,9 @@ import CarbonScopedTokensProvider from "carbon-react/lib/style/design-tokens/car
 ```
 
 ## Examples
+
 <Preview>
-  <Story name="default" parameters={{ themeSelector: { disable: true }}}>
+  <Story name="default" parameters={{ themeSelector: { disable: true } }}>
     <CarbonProvider>
       <CarbonScopedTokensProvider>
         <Button buttonType="primary">Button</Button>
@@ -37,7 +38,7 @@ import CarbonScopedTokensProvider from "carbon-react/lib/style/design-tokens/car
 </Preview>
 
 <Preview>
-  <Story name="mixing" parameters={{ themeSelector: { disable: true }}}>
+  <Story name="mixing" parameters={{ themeSelector: { disable: true } }}>
     <CarbonProvider>
       <CarbonScopedTokensProvider>
         <Button buttonType="primary">Button</Button>

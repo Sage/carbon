@@ -10,10 +10,7 @@ import TextEditor, {
 import Button from "../button";
 import EditorLinkPreview from "../link-preview";
 
-<Meta
-  title="Text Editor"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Text Editor" parameters={{ info: { disable: true } }} />
 
 # Text Editor
 
@@ -322,8 +319,9 @@ icon. This example has mocked some functionality: previews will display for any 
       };
       const checkValidDomain = (url) => {
         const domainsWhitelist = [".com", ".co.uk", ".org", ".net"];
-        const result = domainsWhitelist.filter((domain) => url.endsWith(domain))
-          .length;
+        const result = domainsWhitelist.filter((domain) =>
+          url.endsWith(domain)
+        ).length;
         return !!result;
       };
       const addUrl = (reportedUrl) => {

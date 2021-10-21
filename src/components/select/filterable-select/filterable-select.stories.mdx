@@ -9,10 +9,7 @@ import Dialog from "../../dialog";
 import { FilterableSelect, Option, OptionRow } from "../";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 
-<Meta
-  title="Select/Filterable"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Select/Filterable" parameters={{ info: { disable: true } }} />
 
 # Filterable Select
 
@@ -168,7 +165,13 @@ You can use `listPlacement` prop to set the position of the select list relative
 
 <Preview>
   <Story name="disabled">
-    <FilterableSelect aria-label="disabled" name="disabled" id="disabled" defaultValue="3" disabled>
+    <FilterableSelect
+      aria-label="disabled"
+      name="disabled"
+      id="disabled"
+      defaultValue="3"
+      disabled
+    >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -188,7 +191,13 @@ You can use `listPlacement` prop to set the position of the select list relative
 
 <Preview>
   <Story name="readonly">
-    <FilterableSelect aria-label="readonly" name="readonly" id="readonly" defaultValue="4" readOnly>
+    <FilterableSelect
+      aria-label="readonly"
+      name="readonly"
+      id="readonly"
+      defaultValue="4"
+      readOnly
+    >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />

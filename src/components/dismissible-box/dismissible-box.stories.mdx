@@ -14,7 +14,7 @@ import Image from "../image";
 
 # DismissibleBox
 
-The component is a dismissible container designed to be used inline within the layout of a page providing in context tips 
+The component is a dismissible container designed to be used inline within the layout of a page providing in context tips
 and ‘help’ information.
 
 ## Contents
@@ -39,12 +39,16 @@ import DismissibleBox from "carbon-react/lib/components/dismissible-box";
       <DismissibleBox onClose={(e) => action("onClose")(e)}>
         <Box display="flex">
           <Typography mb={0}>
-            Well, that's certainly good to know. Your head is not an artifact! Maybe if we felt any human loss as keenly 
-            as we feel one of those close to us, human history would be far less bloody. Wouldn't that bring about chaos? 
-            Shields up! Rrrrred alert! Travel time to the nearest starbase? I'm afraid I still don't understand, sir. 
-            You enjoyed that. The Enterprise computer system is controlled by three primary main processor cores, cross-linked 
-            with a redundant melacortz ramistat, fourteen kiloquad interface modules. Well, that's certainly good to know. 
-            Your head is not an artifact! Rrrrred alert! Rrrrred alert! Rrrrred alert!
+            Well, that's certainly good to know. Your head is not an artifact!
+            Maybe if we felt any human loss as keenly as we feel one of those
+            close to us, human history would be far less bloody. Wouldn't that
+            bring about chaos? Shields up! Rrrrred alert! Travel time to the
+            nearest starbase? I'm afraid I still don't understand, sir. You
+            enjoyed that. The Enterprise computer system is controlled by three
+            primary main processor cores, cross-linked with a redundant
+            melacortz ramistat, fourteen kiloquad interface modules. Well,
+            that's certainly good to know. Your head is not an artifact! Rrrrred
+            alert! Rrrrred alert! Rrrrred alert!
           </Typography>
           <VerticalDivider p={0} px={2} />
           <Image
@@ -66,12 +70,16 @@ import DismissibleBox from "carbon-react/lib/components/dismissible-box";
       <DismissibleBox variant="dark" onClose={(e) => action("onClose")(e)}>
         <Box display="flex">
           <Typography mb={0}>
-            Well, that's certainly good to know. Your head is not an artifact! Maybe if we felt any human loss as keenly 
-            as we feel one of those close to us, human history would be far less bloody. Wouldn't that bring about chaos? 
-            Shields up! Rrrrred alert! Travel time to the nearest starbase? I'm afraid I still don't understand, sir. 
-            You enjoyed that. The Enterprise computer system is controlled by three primary main processor cores, cross-linked 
-            with a redundant melacortz ramistat, fourteen kiloquad interface modules. Well, that's certainly good to know. 
-            Your head is not an artifact! Rrrrred alert! Rrrrred alert! Rrrrred alert!
+            Well, that's certainly good to know. Your head is not an artifact!
+            Maybe if we felt any human loss as keenly as we feel one of those
+            close to us, human history would be far less bloody. Wouldn't that
+            bring about chaos? Shields up! Rrrrred alert! Travel time to the
+            nearest starbase? I'm afraid I still don't understand, sir. You
+            enjoyed that. The Enterprise computer system is controlled by three
+            primary main processor cores, cross-linked with a redundant
+            melacortz ramistat, fourteen kiloquad interface modules. Well,
+            that's certainly good to know. Your head is not an artifact! Rrrrred
+            alert! Rrrrred alert! Rrrrred alert!
           </Typography>
           <VerticalDivider p={0} px={2} />
           <Image
@@ -87,21 +95,29 @@ import DismissibleBox from "carbon-react/lib/components/dismissible-box";
 
 ### With no left border highlight
 
-By default the component will be rendered with a thicker left border highlight, use the `hasBorderLeftHighlight` to opt-out 
+By default the component will be rendered with a thicker left border highlight, use the `hasBorderLeftHighlight` to opt-out
 of this functionality.
 
 <Preview>
   <Story name="with no left border highlight">
     <Box p={2}>
-      <DismissibleBox mb={2} hasBorderLeftHighlight={false} onClose={(e) => action("onClose")(e)}>
+      <DismissibleBox
+        mb={2}
+        hasBorderLeftHighlight={false}
+        onClose={(e) => action("onClose")(e)}
+      >
         <Box display="flex">
           <Typography mb={0}>
-            Well, that's certainly good to know. Your head is not an artifact! Maybe if we felt any human loss as keenly 
-            as we feel one of those close to us, human history would be far less bloody. Wouldn't that bring about chaos? 
-            Shields up! Rrrrred alert! Travel time to the nearest starbase? I'm afraid I still don't understand, sir. 
-            You enjoyed that. The Enterprise computer system is controlled by three primary main processor cores, cross-linked 
-            with a redundant melacortz ramistat, fourteen kiloquad interface modules. Well, that's certainly good to know. 
-            Your head is not an artifact! Rrrrred alert! Rrrrred alert! Rrrrred alert!
+            Well, that's certainly good to know. Your head is not an artifact!
+            Maybe if we felt any human loss as keenly as we feel one of those
+            close to us, human history would be far less bloody. Wouldn't that
+            bring about chaos? Shields up! Rrrrred alert! Travel time to the
+            nearest starbase? I'm afraid I still don't understand, sir. You
+            enjoyed that. The Enterprise computer system is controlled by three
+            primary main processor cores, cross-linked with a redundant
+            melacortz ramistat, fourteen kiloquad interface modules. Well,
+            that's certainly good to know. Your head is not an artifact! Rrrrred
+            alert! Rrrrred alert! Rrrrred alert!
           </Typography>
           <VerticalDivider p={0} px={2} />
           <Image
@@ -123,14 +139,18 @@ It is also possible to override the `width` of the component: by default it will
   <Story name="width overridden">
     <Box p={2}>
       <DismissibleBox width="650px" onClose={(e) => action("onClose")(e)}>
-         <Box display="flex">
+        <Box display="flex">
           <Typography mb={0}>
-            Well, that's certainly good to know. Your head is not an artifact! Maybe if we felt any human loss as keenly 
-            as we feel one of those close to us, human history would be far less bloody. Wouldn't that bring about chaos? 
-            Shields up! Rrrrred alert! Travel time to the nearest starbase? I'm afraid I still don't understand, sir. 
-            You enjoyed that. The Enterprise computer system is controlled by three primary main processor cores, cross-linked 
-            with a redundant melacortz ramistat, fourteen kiloquad interface modules. Well, that's certainly good to know. 
-            Your head is not an artifact! Rrrrred alert! Rrrrred alert! Rrrrred alert!
+            Well, that's certainly good to know. Your head is not an artifact!
+            Maybe if we felt any human loss as keenly as we feel one of those
+            close to us, human history would be far less bloody. Wouldn't that
+            bring about chaos? Shields up! Rrrrred alert! Travel time to the
+            nearest starbase? I'm afraid I still don't understand, sir. You
+            enjoyed that. The Enterprise computer system is controlled by three
+            primary main processor cores, cross-linked with a redundant
+            melacortz ramistat, fourteen kiloquad interface modules. Well,
+            that's certainly good to know. Your head is not an artifact! Rrrrred
+            alert! Rrrrred alert! Rrrrred alert!
           </Typography>
           <VerticalDivider p={0} px={2} />
           <Image

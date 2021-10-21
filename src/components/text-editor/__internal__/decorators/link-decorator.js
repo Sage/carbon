@@ -21,7 +21,8 @@ function findWithRegex(regex, contentBlock, callback) {
 }
 
 const linkStrategy = (contentBlock, callback) => {
-  const expr = /\s*(https:\/\/|http:\/\/|www\.)\S+(:{0,1}(\w*@)?)(\.{1}(?!\.)\S{2,})|(:[0-9]+)(\/|\/([\w#!:.?+=&%@!-/]))?\s*/g;
+  const expr =
+    /\s*(https:\/\/|http:\/\/|www\.)\S+(:{0,1}(\w*@)?)(\.{1}(?!\.)\S{2,})|(:[0-9]+)(\/|\/([\w#!:.?+=&%@!-/]))?\s*/g;
 
   findWithRegex(RegExp(expr), contentBlock, callback);
 };

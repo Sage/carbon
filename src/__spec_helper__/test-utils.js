@@ -43,7 +43,10 @@ const keyMap = {
   1: "49",
 };
 
-const repeat = (action) => (n = 1) => makeArrayKeys(n).forEach(() => action());
+const repeat =
+  (action) =>
+  (n = 1) =>
+    makeArrayKeys(n).forEach(() => action());
 
 const keyboard = Object.keys(keyMap).reduce((acc, key) => {
   acc[`press${key}`] = () => repeat(dispatchKeyPress(keyMap[key]));
@@ -91,19 +94,20 @@ const selectedItemReducer = (method) => (wrapper) => (acc, i) => {
 const arraysEqual = (arr1, arr2) =>
   arr1.sort().join(",") === arr2.sort().join(",");
 
-const assertCorrectTraversal = (method) => (expect) => ({
-  num,
-  nonSelectables = [],
-}) => (wrapper) => {
-  const array = makeArrayKeys(num);
-  const validIndexes = array.filter(isSelectableGiven(nonSelectables));
+const assertCorrectTraversal =
+  (method) =>
+  (expect) =>
+  ({ num, nonSelectables = [] }) =>
+  (wrapper) => {
+    const array = makeArrayKeys(num);
+    const validIndexes = array.filter(isSelectableGiven(nonSelectables));
 
-  const selectedItem = selectedItemOf(wrapper);
-  const indexesThatWereSelected = array
-    .reduce(selectedItemReducer(method)(wrapper), [selectedItem])
-    .filter(isUnique);
-  expect(arraysEqual(validIndexes, indexesThatWereSelected)).toBeTruthy();
-};
+    const selectedItem = selectedItemOf(wrapper);
+    const indexesThatWereSelected = array
+      .reduce(selectedItemReducer(method)(wrapper), [selectedItem])
+      .filter(isUnique);
+    expect(arraysEqual(validIndexes, indexesThatWereSelected)).toBeTruthy();
+  };
 
 const assertKeyboardTraversal = assertCorrectTraversal(
   () => keyboard.pressDownArrow

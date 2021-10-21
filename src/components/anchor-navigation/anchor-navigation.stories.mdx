@@ -9,10 +9,10 @@ import {
 import Textbox from "../textbox";
 
 import {
-  AnchorNavigationStory, 
-  Content, 
-  AnchorNavigationInFullScreenDialogStory
-  } from "./anchor-navigation-test.stories.mdx"
+  AnchorNavigationStory,
+  Content,
+  AnchorNavigationInFullScreenDialogStory,
+} from "./anchor-navigation-test.stories.mdx";
 
 <Meta
   title="Anchor Navigation"
@@ -104,7 +104,9 @@ const MyComponent = () => (
 `AnchorNavigation` can also be used as the content of `DialogFullScreen` component.
 
 <Preview>
-  <Story name="in full screen dialog">{AnchorNavigationInFullScreenDialogStory.bind({})}</Story>
+  <Story name="in full screen dialog">
+    {AnchorNavigationInFullScreenDialogStory.bind({})}
+  </Story>
 </Preview>
 
 ## Props:
