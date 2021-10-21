@@ -6,10 +6,8 @@ import {
   fieldHelpPreview,
   getDataElementByValue,
   tooltipPreview,
+  commonDataElementInputPreview,
 } from "../../../cypress/locators/index";
-
-// Decimal locator
-const decimalComponent = '[data-component="decimal"]';
 
 context("Tests for Decimal component", () => {
   describe("check props for Decimal component", () => {
@@ -99,11 +97,11 @@ context("Tests for Decimal component", () => {
         mount(<Decimal precision={precision} />);
 
         // then run our tests
-        cy.get(decimalComponent)
+        commonDataElementInputPreview()
           .type(inputValue)
           .find("input")
           .blur({ force: true });
-        cy.get(decimalComponent)
+        commonDataElementInputPreview()
           .find("input")
           .should("have.value", outputValue);
         return this;
@@ -138,11 +136,11 @@ context("Tests for Decimal component", () => {
         mount(<Decimal locale={locale} precision={3} />);
 
         // then run our tests
-        cy.get(decimalComponent)
+        commonDataElementInputPreview()
           .type(inputValue)
           .find("input")
           .blur({ force: true });
-        cy.get(decimalComponent)
+        commonDataElementInputPreview()
           .invoke("val")
           .then(($el) => {
             for (let number = 0; number < $el.length; number++) {
@@ -162,11 +160,11 @@ context("Tests for Decimal component", () => {
       const inputValue = "test";
 
       // then run our tests
-      cy.get(decimalComponent)
+      commonDataElementInputPreview()
         .type(inputValue)
         .find("input")
         .blur({ force: true });
-      cy.get(decimalComponent)
+      commonDataElementInputPreview()
         .find("input")
         .should("not.have.value", inputValue)
         .and("have.attr", "readOnly");
@@ -217,11 +215,11 @@ context("Tests for Decimal component", () => {
         mount(<Decimal />);
 
         // then run our tests
-        cy.get(decimalComponent)
+        commonDataElementInputPreview()
           .type(specificValue)
           .find("input")
           .blur({ force: true });
-        cy.get(decimalComponent)
+        commonDataElementInputPreview()
           .invoke("val")
           .then(($el) => {
             for (let number = 0; number < $el.length; number++) {
@@ -238,8 +236,11 @@ context("Tests for Decimal component", () => {
       mount(<Decimal />);
 
       // then run our tests
-      cy.get(decimalComponent).type("   ").find("input").blur({ force: true });
-      cy.get(decimalComponent)
+      commonDataElementInputPreview()
+        .type("   ")
+        .find("input")
+        .blur({ force: true });
+      commonDataElementInputPreview()
         .find("input")
         .should("have.attr", "value", "   ");
     });
@@ -260,7 +261,7 @@ context("Tests for Decimal component", () => {
       mount(<Decimal onChange={callback} />);
 
       // then run our tests
-      cy.get(decimalComponent)
+      commonDataElementInputPreview()
         .type(inputValue)
         .find("input")
         .blur({ force: true })
@@ -287,7 +288,7 @@ context("Tests for Decimal component", () => {
       mount(<Decimal onBlur={callback} />);
 
       // then run our tests
-      cy.get(decimalComponent)
+      commonDataElementInputPreview()
         .type(inputValue)
         .find("input")
         .blur({ force: true })
