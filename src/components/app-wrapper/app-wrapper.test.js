@@ -1,8 +1,8 @@
 import * as React from "react";
 import { mount } from "@cypress/react";
 import AppWrapper from "./app-wrapper.component";
+import APP_WRAPPER_PREVIEW from "../../../cypress/locators/app-wrapper/locators";
 
-const appWrapperComponent = '[data-component="app-wrapper"]';
 const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 
 context("Testing App Wrapper component", () => {
@@ -17,11 +17,11 @@ context("Testing App Wrapper component", () => {
       );
 
       // then run our tests
-      cy.get(appWrapperComponent).should(
+      cy.get(APP_WRAPPER_PREVIEW).should(
         "have.text",
         "This component will wrap its children within the width constraints of your application."
       );
-      cy.get(appWrapperComponent).should("have.class", "cypressTest");
+      cy.get(APP_WRAPPER_PREVIEW).should("have.class", "cypressTest");
     });
 
     it.each(testData)(
@@ -31,7 +31,7 @@ context("Testing App Wrapper component", () => {
         mount(<AppWrapper>{specialCharacters}</AppWrapper>);
 
         // then run our tests
-        cy.get(appWrapperComponent).should("have.text", specialCharacters);
+        cy.get(APP_WRAPPER_PREVIEW).should("have.text", specialCharacters);
       }
     );
   });
