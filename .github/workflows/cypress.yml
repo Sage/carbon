@@ -192,7 +192,7 @@ jobs:
           CI: "true"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Cypress React tests
-        run: npx cypress run-ct --spec './src/components/**/*.test.js' --record --parallel --group "ubuntu-cypress-react" 
+        run: npm run cypress:ci:react 
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
