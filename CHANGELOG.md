@@ -1,3 +1,15 @@
+## [94.6.0](https://github.com/Sage/carbon/compare/v94.5.0...v94.6.0) (2021-10-21)
+
+
+### Features
+
+* **duelling-picklist:** update picklist spacings ([b3389e3](https://github.com/Sage/carbon/commit/b3389e3d6bafca88346cb02a09c90106e3497602))
+
+
+### Bug Fixes
+
+* **duelling-picklist:** correct padding on group ([f1e5958](https://github.com/Sage/carbon/commit/f1e5958b5c322e9458a058d3408c735cce8b6f52))
+
 ## [94.5.0](https://github.com/Sage/carbon/compare/v94.4.1...v94.5.0) (2021-10-21)
 
 
