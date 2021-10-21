@@ -2,23 +2,22 @@ name: Storybook
 on:
   push:
     # These are the branches that we expect to publish from
-    branches:    
+    branches:
       - master
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '>=14.16.0 14'
-    - run: npm ci
-    - run: NODE_ENV=production IGNORE_TESTS=true STORYBOOK_VIEW_MODE=docs npm run build-storybook
-    - uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-    - run: aws s3 sync ./storybook-static/ s3://carbon.sage.com --delete
-        
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ">=14.18.1 14"
+      - run: npm ci
+      - run: NODE_ENV=production IGNORE_TESTS=true STORYBOOK_VIEW_MODE=docs npm run build-storybook
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - run: aws s3 sync ./storybook-static/ s3://carbon.sage.com --delete
