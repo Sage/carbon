@@ -30,7 +30,7 @@ export function visitComponentUrlWithParameters(
       if (prop === "theme") {
         url += `&theme=${encodeURIComponent(el[prop])}`;
       } else {
-        if (prop === "minDate" || prop === "minDate") {
+        if (prop === "minDate" || prop === "maxDate") {
           el[prop] = today;
         }
         url += `${prop}:${encodeURIComponent(el[prop])};`;
