@@ -127,4 +127,28 @@ describe("HiddenCheckableInput", () => {
     inputProps.onMouseEnter();
     inputProps.onMouseLeave();
   });
+
+  describe("aria", () => {
+    it("describedby contains fieldHelpId and helpId", () => {
+      const fieldHelpId = "test-field-help-id";
+      const helpId = "test-help-id";
+
+      wrapper = render({
+        fieldHelpId,
+        helpId,
+      });
+      const inputProps = wrapper.find(HiddenCheckableInputStyle).props();
+      expect(inputProps["aria-describedby"]).toBe(`${fieldHelpId} ${helpId}`);
+    });
+
+    it("labelledby contains labelId", () => {
+      const labelId = "test-labelId-id";
+
+      wrapper = render({
+        labelId,
+      });
+      const inputProps = wrapper.find(HiddenCheckableInputStyle).props();
+      expect(inputProps["aria-labelledby"]).toBe(labelId);
+    });
+  });
 });

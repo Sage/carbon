@@ -253,4 +253,37 @@ describe("Link", () => {
       });
     });
   });
+
+  describe("onClick prop", () => {
+    it("should render a button element", () => {
+      wrapper = renderLink({ onClick: () => {} });
+      expect(wrapper.find("button")).toBeTruthy();
+    });
+
+    it("should add a role of 'link' to the button", () => {
+      wrapper = renderLink({ onClick: () => {} });
+      const anchor = wrapper.find("button").getDOMNode();
+      expect(anchor.getAttribute("role")).toEqual("link");
+    });
+  });
+
+  describe("aria props", () => {
+    describe("when rendered as an a element", () => {
+      it("should set the aria attributes on the a", () => {
+        wrapper = renderLink({ "aria-label": "test" });
+        const anchor = wrapper.find("a").getDOMNode();
+
+        expect(anchor.getAttribute("aria-label")).toEqual("test");
+      });
+    });
+
+    describe("when rendered as an button element", () => {
+      it("should set the aria attributes on the button", () => {
+        wrapper = renderLink({ onClick: () => {}, "aria-label": "test" });
+        const anchor = wrapper.find("button").getDOMNode();
+
+        expect(anchor.getAttribute("aria-label")).toEqual("test");
+      });
+    });
+  });
 });

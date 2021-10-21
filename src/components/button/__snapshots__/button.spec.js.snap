@@ -706,6 +706,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c0 {
   padding-left: 24px;
   padding-right: 24px;
+  margin: 0;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -817,6 +818,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c0 {
   padding-left: 24px;
   padding-right: 24px;
+  margin: 0;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;

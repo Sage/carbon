@@ -68,6 +68,7 @@ const renderStyledButton = (buttonProps) => {
     theme,
     href,
     ref,
+    m = 0,
     px,
     size,
     noWrap,
@@ -90,6 +91,7 @@ const renderStyledButton = (buttonProps) => {
   if (href) {
     rest.href = href;
   }
+
   switch (size) {
     case "small":
       paddingX = 2;
@@ -115,7 +117,8 @@ const renderStyledButton = (buttonProps) => {
       type={href ? undefined : "button"}
       iconType={iconType}
       size={size}
-      px={px || paddingX}
+      px={px ?? paddingX}
+      m={m}
       noWrap={noWrap}
       iconOnly={!rest.children && iconType}
       target={target}

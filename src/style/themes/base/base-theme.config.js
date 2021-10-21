@@ -346,7 +346,12 @@ export default (palette) => {
 
     switch: {
       off: palette.slateTint(80),
+      offDisabled: palette.slateTint(90),
       offHover: palette.slateTint(60),
+      on: palette.slateTint(20),
+      onDisabled: palette.slateTint(60),
+      onHover: palette.slateTint(0),
+      disabledFontColor: "rgba(0,0,0,0.30)",
     },
 
     tile: {

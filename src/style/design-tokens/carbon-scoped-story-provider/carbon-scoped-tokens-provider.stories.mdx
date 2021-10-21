@@ -1,0 +1,57 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+
+import CarbonProvider from "../../../components/carbon-provider"
+import Button from "../../../components/button"
+import aegeanTheme from "../../themes/aegean"
+import sageTheme from "../../themes"
+
+import CarbonScopedTokensProvider from "./carbon-scoped-tokens-provider.component";
+
+<Meta title="Carbon Scoped Tokens Provider" />
+
+# Carbon Scoped Tokens Provider
+
+This is temporary compatibility solution that provides Theme properties mapped to Design Tokens in form of CSS Variables in scope wrapped by the provider. This tokens provider requires `CarbonProvider` to provide theme.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+
+## Quick start
+
+```javascript
+import CarbonProvider from "carbon-react/lib/components/carbon-provider";
+import CarbonScopedTokensProvider from "carbon-react/lib/style/design-tokens/carbon-scoped-tokens-provider";
+```
+
+## Examples
+<Preview>
+  <Story name="default" parameters={{ themeSelector: { disable: true }}}>
+    <CarbonProvider>
+      <CarbonScopedTokensProvider>
+        <Button buttonType="primary">Button</Button>
+      </CarbonScopedTokensProvider>
+    </CarbonProvider>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="mixing" parameters={{ themeSelector: { disable: true }}}>
+    <CarbonProvider>
+      <CarbonScopedTokensProvider>
+        <Button buttonType="primary">Button</Button>
+      </CarbonScopedTokensProvider>
+    </CarbonProvider>
+    <CarbonProvider theme={aegeanTheme}>
+      <CarbonScopedTokensProvider>
+        <Button buttonType="primary">Button</Button>
+      </CarbonScopedTokensProvider>
+    </CarbonProvider>
+    <CarbonProvider theme={sageTheme}>
+      <CarbonScopedTokensProvider>
+        <Button buttonType="primary">Button</Button>
+      </CarbonScopedTokensProvider>
+    </CarbonProvider>
+  </Story>
+</Preview>

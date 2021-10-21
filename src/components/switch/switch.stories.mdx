@@ -90,6 +90,7 @@ The switch component uses `switch.on` and `switch.off` to retrieve the translati
 <Preview>
   <Story name="disabled">
     <Switch label="Disabled switch" disabled />
+    <Switch label="Disabled switch" disabled checked mt={2} />
   </Story>
 </Preview>
 
@@ -128,6 +129,25 @@ You can use the `required` prop to indicate if the field is mandatory.
         />
       );
     }}
+  </Story>
+</Preview>
+
+### Loading
+
+<Preview>
+  <Story name="loading">
+    {['small.on', 'small.off', 'large.on', 'large.off'].map(variant => {
+      const [setIsChecked] = useState(false);
+      const [size, checked] = variant.split('.');
+      return (
+        <Switch
+          label={variant.replace('.', ' ')}
+          size={size}
+          loading="loading"
+          checked={checked === 'on' ? 'checked' : ''}
+          onChange={(e) => setIsChecked((state) => !state)}
+        />);
+    })};
   </Story>
 </Preview>
 

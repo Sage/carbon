@@ -1,3 +1,127 @@
+## [94.5.0](https://github.com/Sage/carbon/compare/v94.4.1...v94.5.0) (2021-10-21)
+
+
+### Features
+
+* **design-tokens:** added design tokens support ([269684e](https://github.com/Sage/carbon/commit/269684e7c4afd69a1030798b06bbb1f7b1b94190))
+
+
+### Bug Fixes
+
+* **desgin-tokens:** add possibility of switching off token provider in themeSelector ([9b7b24a](https://github.com/Sage/carbon/commit/9b7b24abe8f26eb1a86aeeacf7de371074857ed5))
+* **design-tokens:** fix stories for global and scoped providers ([bfa17da](https://github.com/Sage/carbon/commit/bfa17da007e04adc6d1249c0ea97de2ffc3944f4))
+* **design-tokens:** fix typo in parameters variable in theme selector ([41e1e0c](https://github.com/Sage/carbon/commit/41e1e0cee42042da934ca292eb243976e24afe18))
+
+### [94.4.1](https://github.com/Sage/carbon/compare/v94.4.0...v94.4.1) (2021-10-20)
+
+
+### Bug Fixes
+
+* **button:** ensure values passed in via `px` prop are applied ([208eb65](https://github.com/Sage/carbon/commit/208eb65d5cb7936bb9047d5ee5e6cfd70509c18d))
+
+## [94.4.0](https://github.com/Sage/carbon/compare/v94.3.0...v94.4.0) (2021-10-20)
+
+
+### Features
+
+* **switches:** adjust switches to current designs ([6c64089](https://github.com/Sage/carbon/commit/6c64089059909bda228532ed5f3486f5177af86e))
+
+## [94.3.0](https://github.com/Sage/carbon/compare/v94.2.0...v94.3.0) (2021-10-19)
+
+
+### Features
+
+* **link:** spread any aria props onto the a or button element ([d8ce077](https://github.com/Sage/carbon/commit/d8ce07757d45046224405821cc01cc482ce48ac9)), closes [#4440](https://github.com/Sage/carbon/issues/4440)
+
+## [94.2.0](https://github.com/Sage/carbon/compare/v94.1.3...v94.2.0) (2021-10-19)
+
+
+### Features
+
+* **flat-table:** expose minHeight prop and move footer to be direct sibling of table ([7239a0d](https://github.com/Sage/carbon/commit/7239a0de3ea808ffc0e8d21e1c5a9ff4c7e8c1a9)), closes [#4273](https://github.com/Sage/carbon/issues/4273)
+
+### [94.1.3](https://github.com/Sage/carbon/compare/v94.1.2...v94.1.3) (2021-10-15)
+
+
+### Bug Fixes
+
+* **date:** add onClick handling ([cdb8829](https://github.com/Sage/carbon/commit/cdb8829ea37e8d8482c4a8db511e909f0d01ce8c)), closes [#4421](https://github.com/Sage/carbon/issues/4421)
+
+### [94.1.2](https://github.com/Sage/carbon/compare/v94.1.1...v94.1.2) (2021-10-14)
+
+
+### Bug Fixes
+
+* **menu-fullscreen:** add listener to trigger focus trap on transitionend event ([c06216a](https://github.com/Sage/carbon/commit/c06216a488ee18d806469727555d8f426ca43d78)), closes [#4287](https://github.com/Sage/carbon/issues/4287)
+
+### [94.1.1](https://github.com/Sage/carbon/compare/v94.1.0...v94.1.1) (2021-10-14)
+
+
+### Bug Fixes
+
+* **button:** add default margin 0 ([3d9854c](https://github.com/Sage/carbon/commit/3d9854cdcf6fc22e1d83ff32ef29f7423a46a87a))
+
+## [94.1.0](https://github.com/Sage/carbon/compare/v94.0.3...v94.1.0) (2021-10-14)
+
+
+### Features
+
+* **dismissible-box:** add new component ([2b08253](https://github.com/Sage/carbon/commit/2b082539b5d7112122a2a42ee99c0c4b6d8d94b7))
+
+### [94.0.3](https://github.com/Sage/carbon/compare/v94.0.2...v94.0.3) (2021-10-14)
+
+
+### Bug Fixes
+
+* **action-popover:** correct dom structure when rendering custom button ([3f47b85](https://github.com/Sage/carbon/commit/3f47b855e29a30f93ed82354b4d6e83d8fcfcff4)), closes [#4401](https://github.com/Sage/carbon/issues/4401)
+
+### [94.0.2](https://github.com/Sage/carbon/compare/v94.0.1...v94.0.2) (2021-10-13)
+
+
+### Bug Fixes
+
+* **radio-button:** make field help and tooltip content readable for screen readers ([a796cd8](https://github.com/Sage/carbon/commit/a796cd82d20f5aa86a3a042fec6a4799d8292540))
+
+### [94.0.1](https://github.com/Sage/carbon/compare/v94.0.0...v94.0.1) (2021-10-13)
+
+
+### Bug Fixes
+
+* **hidden-checkable-input:** make inputref prop optional in ts interface ([eeab991](https://github.com/Sage/carbon/commit/eeab991888fb02938662e1d5535c0debbc7454fd)), closes [#4450](https://github.com/Sage/carbon/issues/4450)
+
+## [94.0.0](https://github.com/Sage/carbon/compare/v93.0.4...v94.0.0) (2021-10-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **drag-and-drop:** drag-and-drop has been removed from Carbon.
+Please use the Draggable component instead
+* **configurable-items:** ConfigurableItems has been removed from Carbon
+
+### Code Refactoring
+
+* **configurable-items:** deprecate configurable items and pattern ([c0c1ed5](https://github.com/Sage/carbon/commit/c0c1ed5de8d56752e5d2465d46983b74d4e126b0))
+* **drag-and-drop:** deprecate drag-and-drop ([ba6a8b8](https://github.com/Sage/carbon/commit/ba6a8b846e100df6d5dc47e6d024254a0cc24543))
+
+### [93.0.4](https://github.com/Sage/carbon/compare/v93.0.3...v93.0.4) (2021-10-12)
+
+
+### Bug Fixes
+
+* publish to npm ([feae4e3](https://github.com/Sage/carbon/commit/feae4e3e570dd6ae59a74ed9ef3bf6635877810c))
+
+### [93.0.3](https://github.com/Sage/carbon/compare/v93.0.2...v93.0.3) (2021-10-11)
+
+
+### Bug Fixes
+
+* **dialog:** correct title prop type ([0ce39e1](https://github.com/Sage/carbon/commit/0ce39e1735d7cf9968f930cafb2f84a2a5137fa6)), closes [#4449](https://github.com/Sage/carbon/issues/4449)
+* **dialog-full-screen:** correct title prop type ([50e1716](https://github.com/Sage/carbon/commit/50e17166d679523e9e5faf847c700f732c869a00))
+* **heading:** correct title and subheader prop types ([d6c9f8a](https://github.com/Sage/carbon/commit/d6c9f8af25c4d67bf8b6f02c46ec79fa5cd5a608))
+* **page:** correct title and children prop types ([6a511c1](https://github.com/Sage/carbon/commit/6a511c15f83c1b998d4a866d054bf4ea3e6ba006))
+* **pages:** correct children prop type ([15cadcc](https://github.com/Sage/carbon/commit/15cadcc20c0b9903b2ed02c92c8625ac0d4a4871))
+* **tabs:** correct children prop type ([9be9e66](https://github.com/Sage/carbon/commit/9be9e66f94bfbcab90c4cb677d00bd7757024e3b))
+
 ### [93.0.2](https://github.com/Sage/carbon/compare/v93.0.1...v93.0.2) (2021-10-07)
 
 

@@ -1,5 +1,5 @@
 import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
-import { useState, useRef } from "react";
+import { useEffect, useLayoutEffect, useState, useRef } from "react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import {
   FlatTable,
@@ -25,6 +25,7 @@ import {
 } from "../action-popover";
 import { DrawerSidebarContext } from "../drawer";
 import Box from "../box";
+import Button from "../button";
 
 <Meta
   title="Flat Table"
@@ -769,7 +770,7 @@ Is it possible to combine the `stickyHead` prop along with the `rowSpan` and `co
         setCurrentPage(newPage);
       };
       return (
-        <div style={{ height: "180px", marginBottom: "16px" }}>
+        <div style={{ height: "220px", marginBottom: "16px" }}>
           <FlatTable
             hasStickyHead
             hasStickyFooter
@@ -804,7 +805,7 @@ Is it possible to combine the `stickyHead` prop along with the `rowSpan` and `co
 </Preview>
 
 In this example of FlatTable with `stickyFooter`, FlatTable has been placed inside of a `div` with a height
-of `180px`. There is not enough data to fill the flatTable but the style remains consistent and the footer
+of `220px`. There is not enough data to fill the flatTable but the style remains consistent and the footer
 remains sticky.
 
 <Preview>
@@ -842,7 +843,7 @@ remains sticky.
         setCurrentPage(newPage);
       };
       return (
-        <div style={{ height: "180px", marginBottom: "16px" }}>
+        <div style={{ height: "220px", marginBottom: "16px" }}>
           <FlatTable
             hasStickyHead
             hasStickyFooter
@@ -882,7 +883,7 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
 
 <Preview>
   <Story
-    name="with sticky footer and hasMaxHeight"
+    name="with hasMaxHeight"
     parameters={{ chromatic: { disable: true } }}
   >
     {() => {
@@ -917,8 +918,6 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
       return (
         <div style={{ height: "180px", marginBottom: "16px" }}>
           <FlatTable
-            hasStickyHead
-            hasStickyFooter
             hasMaxHeight
             footer={
               <Pager

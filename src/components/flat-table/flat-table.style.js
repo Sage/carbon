@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { margin } from "styled-system";
 import StyledFlatTableHeader from "./flat-table-header/flat-table-header.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import { StyledFlatTableRowHeader } from "./flat-table-row-header/flat-table-row-header.style";
@@ -9,18 +8,6 @@ import { baseTheme } from "../../style/themes";
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import cellSizes from "./cell-sizes.style";
 import Box from "../box";
-
-const StyledFlatTableBox = styled(Box)`
-  ${({ theme }) =>
-    css`
-      box-shadow: inset 0px 0px 0px 1px ${theme.table.secondary};
-      box-sizing: border-box;
-    `}
-`;
-
-StyledFlatTableBox.defaultProps = {
-  theme: baseTheme,
-};
 
 const StyledFlatTable = styled.table`
   border-collapse: separate;
@@ -86,20 +73,14 @@ StyledFlatTable.defaultProps = {
   size: "medium",
 };
 
-const StyledFlatTableRoot = styled.div`
-  ${margin};
-  height: 100%;
-`;
-
-StyledFlatTableRoot.defaultProps = {
-  theme: baseTheme,
-};
-
-const StyledFlatTableWrapper = styled.div`
-  ${({ heightDefaulted }) =>
-    !heightDefaulted &&
+const StyledFlatTableWrapper = styled(Box)`
+  ${({ isInSidebar, theme }) =>
     css`
-      max-height: 100%;
+      box-sizing: border-box;
+
+      ${isInSidebar
+        ? "min-width: fit-content"
+        : `box-shadow: inset 0px 0px 0px 1px ${theme.table.secondary}`};
     `}
 
   ${({ colorTheme, theme }) => {
@@ -192,7 +173,7 @@ const StyledFlatTableFooter = styled.div`
     hasStickyFooter &&
     css`
       position: sticky;
-      bottom: -40px;
+      bottom: 0px;
     `}
 `;
 
@@ -200,10 +181,4 @@ StyledFlatTableFooter.defaultProps = {
   theme: baseTheme,
 };
 
-export {
-  StyledFlatTableRoot,
-  StyledFlatTableWrapper,
-  StyledFlatTable,
-  StyledFlatTableFooter,
-  StyledFlatTableBox,
-};
+export { StyledFlatTableWrapper, StyledFlatTable, StyledFlatTableFooter };
