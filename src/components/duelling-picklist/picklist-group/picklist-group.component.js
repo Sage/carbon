@@ -10,6 +10,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import {
   StyledGroupWrapper,
+  StyledPicklistGroupUl,
   StyledPicklistGroup,
   StyledGroupButton,
 } from "./picklist-group.style";
@@ -96,7 +97,7 @@ const PicklistGroup = React.forwardRef(
         {...(type === "add" ? { enter: false } : {})}
       >
         <StyledGroupWrapper highlighted={highlighted} type={type}>
-          <ul>
+          <StyledPicklistGroupUl>
             <StyledPicklistGroup
               onKeyDown={handleKeydown}
               data-element="picklist-group"
@@ -115,7 +116,7 @@ const PicklistGroup = React.forwardRef(
               />
             </StyledPicklistGroup>
             <TransitionGroup component={null}>{content}</TransitionGroup>
-          </ul>
+          </StyledPicklistGroupUl>
         </StyledGroupWrapper>
       </CSSTransition>
     );

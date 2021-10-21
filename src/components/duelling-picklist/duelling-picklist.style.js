@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import { baseTheme } from "../../style/themes";
-import { StyledPicklist } from "./picklist/picklist.style";
 
 const StyledDuellingPicklistOverlay = styled.div`
   ${margin}
@@ -22,21 +21,13 @@ const StyledDuellingPicklist = styled.div`
   justify-content: space-between;
   align-items: stretch;
   position: relative;
-
-  ${StyledPicklist}:first-of-type {
-    padding-right: 36px;
-  }
-
-  ${StyledPicklist}:last-of-type {
-    padding-left: 36px;
-  }
 `;
 
 const StyledLabelContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  margin-top: 36px;
-  margin-bottom: 24px;
+  margin-top: 40px;
+  margin-bottom: 16px;
 `;
 
 const StyledLabel = styled.p`
