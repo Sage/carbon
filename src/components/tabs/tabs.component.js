@@ -3,8 +3,12 @@ import React, {
   useContext,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
+  createRef,
+  cloneElement,
+  Children,
 } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
@@ -37,7 +41,19 @@ const Tabs = ({
   headerWidth,
   ...rest
 }) => {
-  const tabRefs = useRef([]);
+  /** The children nodes converted into an Array */
+  const filteredChildren = useMemo(
+    () => Children.toArray(children).filter((child) => child),
+    [children]
+  );
+
+  /** Array of refs to the TabTitle nodes */
+  const tabRefs = useMemo(
+    () =>
+      Array.from({ length: filteredChildren.length }).map(() => createRef()),
+    [filteredChildren.length]
+  );
+
   const previousSelectedTabId = useRef(selectedTabId);
   const [selectedTabIdState, setSelectedTabIdState] = useState();
   const { isInSidebar } = useContext(DrawerSidebarContext);
@@ -47,7 +63,7 @@ const Tabs = ({
 
   useLayoutEffect(() => {
     const selectedTab =
-      selectedTabId || React.Children.toArray(children)[0].props.tabId;
+      selectedTabId || Children.toArray(children)[0].props.tabId;
 
     setSelectedTabIdState(selectedTab);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -106,13 +122,7 @@ const Tabs = ({
   };
 
   /** Focuses the tab for the reference specified */
-  const focusTab = (ref) => ref.focus();
-
-  /** The children nodes converted into an Array */
-  const filteredChildren = React.useMemo(
-    () => React.Children.toArray(children).filter((child) => child),
-    [children]
-  );
+  const focusTab = (ref) => ref.current.focus();
 
   /** Array of the tabIds for the child nodes */
   const tabIds = () => {
@@ -132,7 +142,7 @@ const Tabs = ({
       newIndex = 0;
     }
     const nextTabId = ids[newIndex];
-    const nextRef = tabRefs.current[newIndex];
+    const nextRef = tabRefs[newIndex];
     updateVisibleTab(nextTabId);
     focusTab(nextRef);
   };
@@ -155,12 +165,6 @@ const Tabs = ({
 
   /** Returns true/false for if the given tab id is selected. */
   const isTabSelected = (tabId) => tabId === selectedTabIdState;
-
-  const addRef = (ref) => {
-    if (ref && !tabRefs.current.includes(ref)) {
-      tabRefs.current.push(ref);
-    }
-  };
 
   /** Build the headers for the tab component */
   const renderTabHeaders = () => {
@@ -218,7 +222,7 @@ const Tabs = ({
           key={tabId}
           onClick={handleTabClick}
           onKeyDown={handleKeyDown(index)}
-          ref={(node) => addRef(node)}
+          ref={tabRefs[index]}
           tabIndex={isTabSelected(tabId) ? "0" : "-1"}
           title={title}
           href={href}
@@ -270,7 +274,7 @@ const Tabs = ({
     });
 
     return tab
-      ? React.cloneElement(tab, {
+      ? cloneElement(tab, {
           isTabSelected: isTabSelected(tab.props.tabId),
         })
       : null;
@@ -285,7 +289,7 @@ const Tabs = ({
     }
 
     const tabs = filteredChildren.map((child) => {
-      return React.cloneElement(child, {
+      return cloneElement(child, {
         ...child.props,
         role: "tabpanel",
         position,
