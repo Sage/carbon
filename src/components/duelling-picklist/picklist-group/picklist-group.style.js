@@ -20,6 +20,10 @@ const StyledGroupWrapper = styled.li`
   `}
 `;
 
+const StyledPicklistGroupUl = styled.ul`
+  padding: 0;
+`;
+
 const StyledPicklistGroup = styled.li`
   display: flex;
   align-items: center;
@@ -50,4 +54,9 @@ const StyledGroupButton = styled(ButtonWithForwardRef)`
 StyledGroupWrapper.defaultProps = { theme: baseTheme };
 StyledGroupButton.defaultProps = { theme: baseTheme };
 
-export { StyledGroupWrapper, StyledPicklistGroup, StyledGroupButton };
+export {
+  StyledGroupWrapper,
+  StyledPicklistGroupUl,
+  StyledPicklistGroup,
+  StyledGroupButton,
+};

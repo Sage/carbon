@@ -1,5 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import React, { useState, useCallback, useMemo } from "react";
 
 import {
   DuellingPicklist,
@@ -12,20 +11,21 @@ import {
 import Dialog from "../dialog/dialog.component";
 import Search from "../search";
 import { Checkbox } from "../checkbox";
+import Box from "../box";
 import Button from "../button";
 import Typography from "../typography";
 
-<Meta
-  title="DuellingPicklist/Test"
-  parameters={{
+export default {
+  title: "DuellingPicklist/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-/>
+  },
+};
 
-export const DuelingPicklistStory = () => {
+export const Default = () => {
   const mockData = useMemo(() => {
     const arr = [];
     for (let i = 0; i < 20; i++) {
@@ -160,7 +160,143 @@ export const DuelingPicklistStory = () => {
   );
 };
 
-export const DuelingPicklistGroupedStory = () => {
+export const AlternativeSearch = () => {
+  const mockData = useMemo(() => {
+    const arr = [];
+    for (let i = 0; i < 20; i++) {
+      const data = {
+        key: i.toString(),
+        title: `Content ${i + 1}`,
+        description: `Description ${i + 1}`,
+      };
+      arr.push(data);
+    }
+    return arr;
+  }, []);
+  const allItems = useMemo(() => {
+    return mockData.reduce((obj, item) => {
+      obj[item.key] = item;
+      return obj;
+    }, {});
+  }, [mockData]);
+  const [isEachItemSelected, setIsEachItemSelected] = useState(false);
+  const [order] = useState(mockData.map(({ key }) => key));
+  const [notSelectedItems, setNotSelectedItems] = useState(allItems);
+  const [notSelectedSearch, setNotSelectedSearch] = useState({});
+  const [selectedItems, setSelectedItems] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
+  const isSearchMode = Boolean(searchQuery.length);
+  const onAdd = useCallback(
+    (item) => {
+      const { [item.key]: removed, ...rest } = notSelectedItems;
+      setNotSelectedItems(rest);
+      setSelectedItems({ ...selectedItems, [item.key]: item });
+      const { [item.key]: removed2, ...rest2 } = notSelectedSearch;
+      setNotSelectedSearch(rest2);
+    },
+    [notSelectedItems, notSelectedSearch, selectedItems]
+  );
+  const onRemove = useCallback(
+    (item) => {
+      const { [item.key]: removed, ...rest } = selectedItems;
+      setSelectedItems(rest);
+      setNotSelectedItems({ ...notSelectedItems, [item.key]: item });
+      if (isSearchMode && item.title.includes(searchQuery)) {
+        setNotSelectedSearch({ ...notSelectedSearch, [item.key]: item });
+      }
+    },
+    [
+      isSearchMode,
+      notSelectedItems,
+      notSelectedSearch,
+      searchQuery,
+      selectedItems,
+    ]
+  );
+  const handleSearch = useCallback(
+    (ev) => {
+      setSearchQuery(ev.target.value);
+      const tempNotSelectedItems = Object.keys(notSelectedItems).reduce(
+        (items, key) => {
+          const item = notSelectedItems[key];
+          if (item.title.includes(ev.target.value)) {
+            items[item.key] = item;
+          }
+          return items;
+        },
+        {}
+      );
+      setNotSelectedSearch(tempNotSelectedItems);
+    },
+    [notSelectedItems]
+  );
+  const renderItems = (list, type, handler) =>
+    order.reduce((items, key) => {
+      const item = list[key];
+      if (item) {
+        items.push(
+          <PicklistItem key={key} type={type} item={item} onChange={handler}>
+            <div style={{ display: "flex", width: "100%" }}>
+              <div style={{ width: "50%" }}>
+                <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+                  {item.title}
+                </p>
+              </div>
+              <div style={{ width: "50%" }}>
+                <p style={{ margin: 0 }}>{item.description}</p>
+              </div>
+            </div>
+          </PicklistItem>
+        );
+      }
+      return items;
+    }, []);
+  return (
+    <>
+      <Box display="flex" alignItems="center" justifyContent="space-between">
+        <Checkbox
+          onChange={() => setIsEachItemSelected(!isEachItemSelected)}
+          checked={isEachItemSelected}
+          label="Example checkbox"
+        />
+        <Box width="calc(50% + 80px)">
+          <Search
+            tabIndex={isEachItemSelected ? -1 : 0}
+            placeholder="Search"
+            name="search_name"
+            onChange={handleSearch}
+            value={searchQuery}
+            id="search_id"
+          />
+        </Box>
+      </Box>
+      <DuellingPicklist
+        leftLabel={`List 1 (${Object.keys(notSelectedItems).length})`}
+        rightLabel={`List 2 (${Object.keys(selectedItems).length})`}
+        disabled={isEachItemSelected}
+      >
+        <Picklist
+          disabled={isEachItemSelected}
+          placeholder={<div>Your own placeholder</div>}
+        >
+          {renderItems(
+            isSearchMode ? notSelectedSearch : notSelectedItems,
+            "add",
+            onAdd
+          )}
+        </Picklist>
+        <Picklist
+          disabled={isEachItemSelected}
+          placeholder={<PicklistPlaceholder text="Nothing to see here" />}
+        >
+          {renderItems(selectedItems, "remove", onRemove)}
+        </Picklist>
+      </DuellingPicklist>
+    </>
+  );
+};
+
+export const Grouped = () => {
   const mockData = {
     groupA: [
       {
@@ -379,7 +515,7 @@ export const DuelingPicklistGroupedStory = () => {
   );
 };
 
-export const DuelingPicklistInDialogStory = () => {
+export const InDialog = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   return (
     <>
@@ -389,7 +525,7 @@ export const DuelingPicklistInDialogStory = () => {
       <Dialog
         open={isDialogOpen}
         onCancel={() => setIsDialogOpen(false)}
-        title="Dueling Picklist"
+        title="Duelling Picklist"
         size="large"
       >
         <Default />
@@ -398,40 +534,38 @@ export const DuelingPicklistInDialogStory = () => {
   );
 };
 
-# Duelling picklist
+Default.story = {
+  name: "default",
+  parameters: {
+    chromatic: {
+      disable: false,
+    },
+  },
+};
 
-### Default
+AlternativeSearch.story = {
+  name: "alternative search placement",
+  parameters: {
+    chromatic: {
+      disable: false,
+    },
+  },
+};
 
-<Preview>
-  <Story
-    name="default"
-    parameters={{
-      chromatic: {
-        disable: false,
-      },
-    }}
-  >
-    {DuelingPicklistStory.bind({})}
-  </Story>
-</Preview>
+Grouped.story = {
+  name: "grouped",
+  parameters: {
+    chromatic: {
+      disable: false,
+    },
+  },
+};
 
-### Grouped
-
-<Preview>
-  <Story
-    name="grouped"
-    parameters={{
-      chromatic: {
-        disable: false,
-      },
-    }}
-  >
-    {DuelingPicklistGroupedStory.bind({})}
-  </Story>
-</Preview>
-
-### In dialog
-
-<Preview>
-  <Story name="in dialog">{DuelingPicklistInDialogStory.bind({})}</Story>
-</Preview>
+InDialog.story = {
+  name: "in dialog",
+  parameters: {
+    chromatic: {
+      disable: true,
+    },
+  },
+};

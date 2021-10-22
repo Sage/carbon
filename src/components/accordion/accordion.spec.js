@@ -88,7 +88,7 @@ describe("Accordion", () => {
     render();
   });
 
-  it("renders content without paddings if `diableCustomPadding` is applied", () => {
+  it("renders content without paddings if `disableCustomPadding` is applied", () => {
     render({ disableContentPadding: true });
 
     assertStyleMatch(
@@ -471,22 +471,100 @@ describe("Accordion", () => {
   });
 
   describe("when buttonHeading set", () => {
-    it("should render a button in the header", () => {
-      wrapper = mount(<Accordion title="Title" buttonHeading />);
+    it("should apply the expected styling", () => {
+      wrapper = mount(<Accordion title="Title" buttonHeading />).find(
+        StyledAccordionTitleContainer
+      );
 
-      expect(
-        wrapper.find(StyledAccordionTitleContainer).find("button").exists()
-      ).toBe(true);
+      assertStyleMatch(
+        {
+          boxSizing: "border-box",
+          fontWeight: "600",
+          textDecoration: "none",
+          fontSize: baseTheme.text.size,
+          minHeight: `${baseTheme.spacing * 5}px`,
+          color: baseTheme.colors.primary,
+          width: "150px",
+        },
+        wrapper
+      );
+
+      assertStyleMatch(
+        {
+          color: baseTheme.colors.primary,
+        },
+        wrapper,
+        { modifier: `${StyledAccordionIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: baseTheme.colors.secondary,
+        },
+        wrapper,
+        { modifier: "&:hover" }
+      );
+
+      assertStyleMatch(
+        {
+          color: baseTheme.colors.secondary,
+        },
+        wrapper,
+        { modifier: `&:hover ${StyledAccordionIcon}` }
+      );
     });
+
+    it.each([
+      ["left", "32px"],
+      ["right", "64px"],
+    ])(
+      "should set the icon position of the button correctly",
+      (iconPosition, marginValue) => {
+        wrapper = mount(
+          <Accordion title="Title" buttonHeading iconAlign={iconPosition} />
+        ).find(StyledAccordionTitleContainer);
+
+        assertStyleMatch(
+          {
+            marginLeft: marginValue,
+          },
+          wrapper,
+          { modifier: `${StyledAccordionHeadingsContainer}` }
+        );
+
+        assertStyleMatch(
+          {
+            position: "relative",
+            [iconPosition]: "16px",
+          },
+          wrapper,
+          { modifier: `${StyledAccordionIcon}` }
+        );
+      }
+    );
+
+    it.each(Array.from({ length: 10 }).map((_, i) => 100 + i))(
+      "sets the width of the button to the value passed in via the buttonWidth prop",
+      (buttonWidth) => {
+        wrapper = mount(
+          <Accordion title="Title" buttonHeading buttonWidth={buttonWidth} />
+        ).find(StyledAccordionTitleContainer);
+
+        assertStyleMatch(
+          {
+            width: `${buttonWidth}px`,
+          },
+          wrapper
+        );
+      }
+    );
 
     describe("when openTitle prop set", () => {
       it("should display the title when closed", () => {
         wrapper = mount(
           <Accordion title="Title" buttonHeading openTitle="Less info" />
-        );
-        expect(wrapper.find('[data-element="main-text"]').text()).toEqual(
-          "Title"
-        );
+        ).find(StyledAccordionTitleContainer);
+        expect(wrapper.text()).toEqual("Title");
       });
 
       it("should display the openTitle when open", () => {
@@ -497,19 +575,17 @@ describe("Accordion", () => {
             openTitle="Less info"
             expanded
           />
-        );
-        expect(wrapper.find('[data-element="main-text"]').text()).toEqual(
-          "Less info"
-        );
+        ).find(StyledAccordionTitleContainer);
+        expect(wrapper.text()).toEqual("Less info");
       });
     });
 
     describe("when openTitle prop false", () => {
       it("should display the title when open", () => {
-        wrapper = mount(<Accordion title="Title" buttonHeading expanded />);
-        expect(wrapper.find('[data-element="main-text"]').text()).toEqual(
-          "Title"
-        );
+        wrapper = mount(
+          <Accordion title="Title" buttonHeading expanded />
+        ).find(StyledAccordionTitleContainer);
+        expect(wrapper.text()).toEqual("Title");
       });
     });
   });

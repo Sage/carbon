@@ -36,54 +36,40 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   top: 0;
   width: 60px;
   z-index: 2;
+  border-radius: 90px;
 }
 
 .c0::before {
   background-color: #FFFFFF;
-  bottom: 2px;
+  bottom: 4px;
   box-shadow: 0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15);
   content: "";
-  height: 20px;
+  height: 16px;
   position: absolute;
-  left: 2px;
+  left: 4px;
   -webkit-transition: -webkit-transform 0.4s;
   -webkit-transition: transform 0.4s;
   transition: transform 0.4s;
-  width: 20px;
+  width: 16px;
   z-index: 1;
+  border-radius: 50%;
 }
 
-.c0 .c7 {
+.c0 .c5 {
   position: absolute;
   right: -30px;
   height: 100%;
 }
 
 .c3 .c1 {
-  color: rgba(0,0,0,0.55);
+  color: rgba(0,0,0,0.30);
 }
 
 .c4 .c1 {
-  color: rgba(0,0,0,0.55);
+  color: rgba(0,0,0,0.30);
 }
 
 .c4 .c1 {
-  color: #FFFFFF;
-}
-
-.c5 .c1 {
-  color: rgba(0,0,0,0.55);
-}
-
-.c5 .c1 {
-  color: #FFFFFF;
-}
-
-.c6 .c1 {
-  color: rgba(0,0,0,0.55);
-}
-
-.c6 .c1 {
   color: #FFFFFF;
 }
 

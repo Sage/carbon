@@ -28,14 +28,7 @@ const TEXT_ALIGN = "justify-content";
 Given(
   "I open {word} {string} component with {string} json from {string} using {string} object name",
   (type, component, json, path, nameOfObject) => {
-    visitComponentUrlWithParameters(
-      component,
-      type,
-      "",
-      json,
-      path,
-      nameOfObject
-    );
+    visitComponentUrlWithParameters(component, type, json, path, nameOfObject);
   }
 );
 

@@ -14,7 +14,7 @@ import LinkTo from "@storybook/addon-links/react";
 
 - [Fonts](#fonts)
 - [React and React DOM](#react-and-react-dom)
-- [Theming](#theming)
+- [Theming and Design Tokens](#theming-and-design-tokens)
 - [AppWrapper](#appwrapper)
 - [Quickstart](#quickstart)
 
@@ -58,7 +58,6 @@ then the `GlobalStyle` component could be placed next to the content of the app:
     .
   </App>
 ```
-
 #### Fonts
 
 ##### CDN
@@ -174,8 +173,50 @@ import React from "react";
 import ReactDOM from "react-dom";
 ```
 
-#### Theming
 
+### Theming and Design Tokens
+
+Currently we are implementing Design Tokens into our components. Implementing Design Tokens implies migration from ThemeProvider to CSS Variables. Because of this we temporary support two theming systems.
+
+There are multiple theming systems available in Carbon, different themes use different systems:
+- sage - uses Design Tokens applied with css-variables. This theme fallbacks to the mint theme.
+- mint, aegean and none - uses old theme properties consumed by ThemeProvider.
+- sage-debug - available in theme debug mode (accessible by running `npm run start:debug-theme` locally). This theme uses Design Tokens mixed with old theme properties mapped to bright colours. This theme allows you to spot non-migrated properties more easily.
+
+#### Design Tokens providers
+
+During the time of Design Tokens implementation, using Design Tokens themes require providing Design Tokens Providers. Please note, that for compatibility reasons it still requires `ThemeProvider`. There are two Design Token providers:
+- **<LinkTo kind="Carbon Global Tokens Provider" story="default">Global Tokens Provider</LinkTo>** -
+Provides Design Tokens in form of CSS variables definitions globally.
+```js
+import CarbonProvider from "carbon-react/lib/components/carbon-provider";
+import CarbonGlobalTokensProvider from 'carbon-react/lib/style/design-tokens/carbon-global-tokens-provider/';
+```
+
+```jsx
+<CarbonProvider theme={theme}>
+    <CarbonGlobalTokensProvider />
+    [...]
+</CarbonProvider>
+```
+
+- **<LinkTo kind="Carbon Scoped Tokens Provider" story="default">Scoped Tokens Provider</LinkTo>**
+Provides Design Tokens for given scope, for example to use with micro-frontends.
+
+```js
+import CarbonProvider from "carbon-react/lib/components/carbon-provider";
+import CarbonScopedTokensProvider from 'carbon-react/lib/style/design-tokens/carbon-scoped-tokens-provider/';
+```
+
+```jsx
+<CarbonProvider theme={theme}>
+    <CarbonScopedTokensProvider>
+        [...]
+    </CarbonScopedTokensProvider>
+</CarbonProvider>
+```
+
+#### Old theme providers
 Carbon provides the <LinkTo kind="Carbon Provider" story="default">Carbon Provider</LinkTo> component that uses the `ThemeProvider` from the [styled-components library](https://styled-components.com/docs/advanced#theming) to supply theme styles to your components. Themes are define within the Carbon library. `mintTheme` is provided by default.
 
 ```js
@@ -185,13 +226,13 @@ import aegeanTheme from "carbon-react/lib/style/themes/aegean";
 
 Default `mintTheme`:
 
-```html
+```jsx
 <CarbonProvider>Children</CarbonProvider>
 ```
 
 Provided `aegeanTheme`:
 
-```html
+```jsx
 <CarbonProvider theme={aegeanTheme}>Children</CarbonProvider>
 ```
 
@@ -199,7 +240,7 @@ Provided `aegeanTheme`:
 
 This component wraps all components within the width constrains of your application.
 
-```html
+```jsx
 <AppWrapper>Children</AppWrapper>
 ```
 
@@ -209,7 +250,7 @@ You should refer to our [Storybook documentation](https://carbon.sage.com/?path=
 
 A basic project `index.js` file would resemble this example.
 
-```js
+```jsx
 import React from "react";
 import ReactDOM from "react-dom";
 import { ThemeProvider } from "styled-components";

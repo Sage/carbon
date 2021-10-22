@@ -19,42 +19,41 @@ const StyledSwitchSlider = styled.span`
     top: 0;
     width: 60px;
     z-index: 2;
+    border-radius: 90px;
 
     ${info &&
     !disabled &&
     css`
-      box-shadow: inset 1px 1px 0 ${theme.colors.info},
-        inset -1px -1px 0 ${theme.colors.info};
+      box-shadow: inset 0px 0px 0px 1px ${theme.colors.info};
     `}
     ${warning &&
     !disabled &&
     css`
-      box-shadow: inset 1px 1px 0 ${theme.colors.warning},
-        inset -1px -1px 0 ${theme.colors.warning};
+      box-shadow: inset 0px 0px 0px 1px ${theme.colors.warning};
     `}
       ${error &&
     !disabled &&
     css`
-      box-shadow: inset 2px 2px 0 ${theme.colors.error},
-        inset -2px -2px 0 ${theme.colors.error};
+      box-shadow: inset 0px 0px 0px 2px ${theme.colors.error};
     `}
 
     &::before {
       background-color: ${theme.colors.white};
-      bottom: 2px;
+      bottom: 4px;
       box-shadow: ${theme.shadows.cards};
       content: "";
-      height: 20px;
+      height: 16px;
       position: absolute;
-      left: 2px;
+      left: 4px;
       transition: transform 0.4s;
-      width: 20px;
+      width: 16px;
       z-index: 1;
+      border-radius: 50%;
     }
 
     ${checked &&
     `
-      background-color: ${theme.colors.primary};
+      background-color: ${theme.switch.on};
 
       &::before {
         transform: translateX(36px);
@@ -63,19 +62,19 @@ const StyledSwitchSlider = styled.span`
 
     ${disabled &&
     css`
-      background-color: ${theme.disabled.background};
+      background-color: ${theme.switch.offDisabled};
 
       &::before {
         opacity: 0.8;
       }
 
       ${SwitchSliderPanel} {
-        color: ${theme.disabled.disabled};
+        color: ${theme.switch.disabledFontColor};
       }
 
       ${checked &&
       `
-        background-color: ${theme.colors.disabled};
+        background-color: ${theme.switch.onDisabled};
 
         ${SwitchSliderPanel} { color: ${theme.colors.white}; }
       `}
@@ -83,9 +82,10 @@ const StyledSwitchSlider = styled.span`
 
     ${size === "large" &&
     css`
+      border-radius: 30px;
       &::before {
-        height: 36px;
-        width: 36px;
+        height: 32px;
+        width: 32px;
 
         ${checked &&
         `
