@@ -1,3 +1,10 @@
+### [94.6.2](https://github.com/Sage/carbon/compare/v94.6.1...v94.6.2) (2021-10-22)
+
+
+### Bug Fixes
+
+* **flat-table-row:** increase specificity of styles targeting chevron icon when row is expandable ([00e47dc](https://github.com/Sage/carbon/commit/00e47dc1f9f9090fdeb52f801258c8bd9fc7b38f)), closes [#4497](https://github.com/Sage/carbon/issues/4497)
+
 ### [94.6.1](https://github.com/Sage/carbon/compare/v94.6.0...v94.6.1) (2021-10-22)
 
 
