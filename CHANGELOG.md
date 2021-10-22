@@ -1,3 +1,10 @@
+### [94.6.1](https://github.com/Sage/carbon/compare/v94.6.0...v94.6.1) (2021-10-22)
+
+
+### Bug Fixes
+
+* **accordion:** ensure iconAlign prop works when buttonHeading prop is true ([1bcbd18](https://github.com/Sage/carbon/commit/1bcbd187845644715669aaed9337f6d9970246dd))
+
 ## [94.6.0](https://github.com/Sage/carbon/compare/v94.5.0...v94.6.0) (2021-10-21)
 
 
