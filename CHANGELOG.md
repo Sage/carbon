@@ -1,3 +1,10 @@
+## [94.7.0](https://github.com/Sage/carbon/compare/v94.6.2...v94.7.0) (2021-10-22)
+
+
+### Features
+
+* **popover-container:** surface aria label props for buttons and container ([1c0f9db](https://github.com/Sage/carbon/commit/1c0f9db41749159be2adeda4863c433517e04b38)), closes [#4436](https://github.com/Sage/carbon/issues/4436)
+
 ### [94.6.2](https://github.com/Sage/carbon/compare/v94.6.1...v94.6.2) (2021-10-22)
 
 
