@@ -394,10 +394,6 @@ const StyledTabTitle = styled.li`
       `
     }
 
-    &:focus {
-      outline: ${isInSidebar ? "none;" : `2px solid ${theme.colors.focus};`}
-    }
-
     &:hover {
       background-color: ${theme.colors.white};
       border-bottom-color: ${
@@ -407,6 +403,13 @@ const StyledTabTitle = styled.li`
       }
       color: ${theme.text.color};
       cursor: default;
+    }
+  `}
+
+  ${({ theme, isInSidebar }) => `
+    &:focus {
+      outline: ${isInSidebar ? "none;" : `2px solid ${theme.colors.focus};`}
+      z-index: 1;
     }
   `}
   

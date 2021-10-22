@@ -47,6 +47,11 @@ const Tabs = ({
     [children]
   );
 
+  /** Array of the tabIds for the child nodes */
+  const tabIds = () => {
+    return filteredChildren.map((child) => child.props.tabId);
+  };
+
   /** Array of refs to the TabTitle nodes */
   const tabRefs = useMemo(
     () =>
@@ -56,6 +61,7 @@ const Tabs = ({
 
   const previousSelectedTabId = useRef(selectedTabId);
   const [selectedTabIdState, setSelectedTabIdState] = useState();
+  const [tabStopId, setTabStopId] = useState();
   const { isInSidebar } = useContext(DrawerSidebarContext);
   const [tabsErrors, setTabsErrors] = useState({});
   const [tabsWarnings, setTabsWarnings] = useState({});
@@ -64,6 +70,12 @@ const Tabs = ({
   useLayoutEffect(() => {
     const selectedTab =
       selectedTabId || Children.toArray(children)[0].props.tabId;
+
+    if (!tabIds().includes(selectedTabId)) {
+      setTabStopId(React.Children.toArray(children)[0].props.tabId);
+    } else {
+      setTabStopId(selectedTab);
+    }
 
     setSelectedTabIdState(selectedTab);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,16 +108,27 @@ const Tabs = ({
     [tabsInfos]
   );
 
+  /** Returns true/false for if the given tab id is selected. */
+  const isTabSelected = useCallback((tabId) => tabId === selectedTabIdState, [
+    selectedTabIdState,
+  ]);
+
+  const hasTabStop = useCallback((tabId) => tabId === tabStopId, [tabStopId]);
+
   /** Updates the currently visible tab */
   const updateVisibleTab = useCallback(
     (tabid) => {
-      setSelectedTabIdState(tabid);
-
+      if (!isTabSelected(tabid)) {
+        setSelectedTabIdState(tabid);
+      }
+      if (!hasTabStop(tabid)) {
+        setTabStopId(tabid);
+      }
       if (onTabChange) {
         onTabChange(tabid);
       }
     },
-    [onTabChange]
+    [onTabChange, isTabSelected, hasTabStop]
   );
 
   /** Determines if the tab titles are in a vertical format. */
@@ -123,11 +146,6 @@ const Tabs = ({
 
   /** Focuses the tab for the reference specified */
   const focusTab = (ref) => ref.current.focus();
-
-  /** Array of the tabIds for the child nodes */
-  const tabIds = () => {
-    return filteredChildren.map((child) => child.props.tabId);
-  };
 
   /** Will trigger the tab at the given index. */
   const goToTab = (event, index) => {
@@ -162,9 +180,6 @@ const Tabs = ({
       }
     };
   };
-
-  /** Returns true/false for if the given tab id is selected. */
-  const isTabSelected = (tabId) => tabId === selectedTabIdState;
 
   /** Build the headers for the tab component */
   const renderTabHeaders = () => {
@@ -223,7 +238,7 @@ const Tabs = ({
           onClick={handleTabClick}
           onKeyDown={handleKeyDown(index)}
           ref={tabRefs[index]}
-          tabIndex={isTabSelected(tabId) ? "0" : "-1"}
+          tabIndex={isTabSelected(tabId) || hasTabStop(tabId) ? "0" : "-1"}
           title={title}
           href={href}
           isTabSelected={isTabSelected(tabId)}
@@ -242,6 +257,14 @@ const Tabs = ({
           noRightBorder={["no right side", "no sides"].includes(borders)}
           customLayout={customLayout}
           isInSidebar={isInSidebar}
+          onFocus={() => {
+            if (!hasTabStop(tabId)) {
+              setTabStopId(tabId);
+            }
+            if (!isTabSelected(tabId)) {
+              updateVisibleTab(tabId);
+            }
+          }}
         />
       );
 
