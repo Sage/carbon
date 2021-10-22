@@ -6,11 +6,11 @@ import { baseTheme } from "../../style/themes";
 import ValidationIconStyle from "../../__internal__/validations/validation-icon.style";
 
 const StyledAccordionGroup = styled.div`
-  ${margin};
+  ${margin}
 `;
 
 const StyledAccordionContainer = styled.div`
-  ${space};
+  ${space}
   display: flex;
   align-items: ${({ buttonHeading }) =>
     buttonHeading ? "flex-start" : "stretch"};
@@ -24,18 +24,18 @@ const StyledAccordionContainer = styled.div`
   ${({ theme }) =>
     css`
       border: 1px solid ${theme.accordion.border};
-    `};
+    `}
   ${({ borders }) =>
     borders === "default" &&
     css`
       border-left: none;
       border-right: none;
-    `};
+    `}
   ${({ borders }) =>
     borders === "none" &&
     css`
       border: none;
-    `};
+    `}
 
   & + & {
     margin-top: -1px;
@@ -71,35 +71,43 @@ const StyledAccordionIcon = styled(Icon)`
 `;
 
 const StyledAccordionHeadingsContainer = styled.div`
-  display: grid;
-  ${({ hasValidationIcon }) =>
-    hasValidationIcon &&
+  ${({ buttonHeading, hasValidationIcon }) =>
+    !buttonHeading &&
     css`
-      grid-template-columns: min-content auto;
+      display: grid;
+      ${hasValidationIcon &&
+      css`
+        grid-template-columns: min-content auto;
 
-      ${StyledAccordionSubTitle} {
-        grid-column: span 3;
+        ${StyledAccordionSubTitle} {
+          grid-column: span 3;
+        }
+      `}
+
+      ${!hasValidationIcon &&
+      css`
+        grid-template-rows: auto auto;
+      `}
+
+    ${ValidationIconStyle} {
+        height: 20px;
+        position: relative;
+        top: 2px;
       }
     `}
-
-  ${({ hasValidationIcon }) =>
-    !hasValidationIcon &&
-    css`
-      grid-template-rows: auto auto;
-    `}
-
-  ${ValidationIconStyle} {
-    height: 20px;
-    position: relative;
-    top: 2px;
-  }
 `;
 
 const StyledAccordionTitleContainer = styled.div`
-  ${({ buttonHeading, buttonWidth, iconAlign, isExpanded, size, theme }) => css`
+  ${({
+    buttonHeading,
+    buttonWidth,
+    iconAlign,
+    size,
+    theme,
+    hasButtonProps,
+  }) => css`
     padding: ${size === "small" ? theme.spacing * 2 : theme.spacing * 3}px;
-    ${space};
-    ${buttonHeading && "padding: 0"}
+    ${space}
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -114,7 +122,7 @@ const StyledAccordionTitleContainer = styled.div`
     z-index: 1;
 
     &:focus {
-      outline: ${buttonHeading ? "none" : `2px solid ${theme.colors.focus}`};
+      outline: ${buttonHeading ? "3px" : "2px"} solid ${theme.colors.focus};
     }
 
     ${!buttonHeading &&
@@ -124,25 +132,44 @@ const StyledAccordionTitleContainer = styled.div`
       }
     `}
 
-    button {
-      position: relative;
+    ${buttonHeading &&
+    css`
+      box-sizing: border-box;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: ${theme.text.size};
+      min-height: ${theme.spacing * 5}px;
+
+      color: ${theme.colors.primary};
+
+      ${!hasButtonProps &&
+      css`
+        ${StyledAccordionHeadingsContainer} {
+          margin-left: ${iconAlign === "right" ? "64px" : "32px"};
+        }
+      `}
+
+      ${StyledAccordionIcon} {
+        color: ${theme.colors.primary};
+        ${!hasButtonProps &&
+        css`
+          position: relative;
+          ${iconAlign}: 16px;
+        `}
+      }
+
+      &:hover {
+        color: ${theme.colors.secondary};
+        ${StyledAccordionIcon} {
+          color: ${theme.colors.secondary};
+        }
+      }
+
       ${buttonWidth &&
       css`
         width: ${buttonWidth}px;
       `}
-    }
-
-    button > span:first-child {
-      position: absolute;
-      margin-left: -16px;
-    }
-
-    button > span[data-component="icon"] {
-      position: absolute;
-      right: 16px;
-      transition: transform 0.3s;
-      ${!isExpanded && "transform: rotate(90deg)"};
-    }
+    `}
   `}
 `;
 
