@@ -54,6 +54,10 @@ const StyledDrawerSidebar = styled(Box)`
         }
       `}
     `}
+
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
 `;
 
 const sidebarVisible = () => keyframes`

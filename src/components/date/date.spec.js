@@ -267,6 +267,16 @@ describe("Date", () => {
     });
   });
 
+  describe('when the "click" event is triggered on the input', () => {
+    const onClickFn = jest.fn();
+
+    it('then the "DatePicker" should not be closed', () => {
+      wrapper = render({ onClick: onClickFn, value: "" });
+      simulateClickOnInput(wrapper);
+      expect(onClickFn).toHaveBeenCalled();
+    });
+  });
+
   describe("when the Component is updated", () => {
     const firstDate = "12/08/2019";
     const secondDate = "17/08/2019";

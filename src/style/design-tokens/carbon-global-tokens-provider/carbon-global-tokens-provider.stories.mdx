@@ -1,0 +1,49 @@
+import { Meta, Story, Preview } from "@storybook/addon-docs";
+import LinkTo from "@storybook/addon-links/react";
+
+import CarbonProvider from "../../../components/carbon-provider"
+import Button from "../../../components/button"
+import sageTheme from "../../themes/sage"
+import aegeanTheme from "../../themes/aegean"
+
+import CarbonGlobalTokensProvider from "./carbon-global-tokens-provider.component"
+
+<Meta title="Carbon Global Tokens Provider" />
+
+# Carbon Global Tokens Provider
+
+This is temporary compatibility solution that provides Theme properties mapped to Design Tokens in form of CSS Variables in global `:root {}` scope. This tokens provider requires `CarbonProvider` to provide theme.
+
+If you want to narrow scope of tokens, you use <LinkTo kind="Carbon Scoped Tokens Provider">CarbonScopedTokensProvider</LinkTo>.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+
+## Quick start
+
+```javascript
+import CarbonProvider from "carbon-react/lib/components/carbon-provider";
+import CarbonGlobalTokensProvider from "carbon-react/lib/style/design-tokens/carbon-global-tokens-provider";
+```
+
+## Examples
+
+<Preview>
+  <Story name="default" parameters={{ themeSelector: { disable: true }}}>
+    <CarbonProvider>
+      <CarbonGlobalTokensProvider />
+      <Button buttonType="primary">Button</Button>
+    </CarbonProvider>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="theming" parameters={{ themeSelector: { disable: true }}}>
+    <CarbonProvider theme={sageTheme}>
+      <CarbonGlobalTokensProvider />
+      <Button buttonType="primary">Button</Button>
+    </CarbonProvider>
+  </Story>
+</Preview>

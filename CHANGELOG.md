@@ -1,3 +1,64 @@
+## [94.6.0](https://github.com/Sage/carbon/compare/v94.5.0...v94.6.0) (2021-10-21)
+
+
+### Features
+
+* **duelling-picklist:** update picklist spacings ([b3389e3](https://github.com/Sage/carbon/commit/b3389e3d6bafca88346cb02a09c90106e3497602))
+
+
+### Bug Fixes
+
+* **duelling-picklist:** correct padding on group ([f1e5958](https://github.com/Sage/carbon/commit/f1e5958b5c322e9458a058d3408c735cce8b6f52))
+
+## [94.5.0](https://github.com/Sage/carbon/compare/v94.4.1...v94.5.0) (2021-10-21)
+
+
+### Features
+
+* **design-tokens:** added design tokens support ([269684e](https://github.com/Sage/carbon/commit/269684e7c4afd69a1030798b06bbb1f7b1b94190))
+
+
+### Bug Fixes
+
+* **desgin-tokens:** add possibility of switching off token provider in themeSelector ([9b7b24a](https://github.com/Sage/carbon/commit/9b7b24abe8f26eb1a86aeeacf7de371074857ed5))
+* **design-tokens:** fix stories for global and scoped providers ([bfa17da](https://github.com/Sage/carbon/commit/bfa17da007e04adc6d1249c0ea97de2ffc3944f4))
+* **design-tokens:** fix typo in parameters variable in theme selector ([41e1e0c](https://github.com/Sage/carbon/commit/41e1e0cee42042da934ca292eb243976e24afe18))
+
+### [94.4.1](https://github.com/Sage/carbon/compare/v94.4.0...v94.4.1) (2021-10-20)
+
+
+### Bug Fixes
+
+* **button:** ensure values passed in via `px` prop are applied ([208eb65](https://github.com/Sage/carbon/commit/208eb65d5cb7936bb9047d5ee5e6cfd70509c18d))
+
+## [94.4.0](https://github.com/Sage/carbon/compare/v94.3.0...v94.4.0) (2021-10-20)
+
+
+### Features
+
+* **switches:** adjust switches to current designs ([6c64089](https://github.com/Sage/carbon/commit/6c64089059909bda228532ed5f3486f5177af86e))
+
+## [94.3.0](https://github.com/Sage/carbon/compare/v94.2.0...v94.3.0) (2021-10-19)
+
+
+### Features
+
+* **link:** spread any aria props onto the a or button element ([d8ce077](https://github.com/Sage/carbon/commit/d8ce07757d45046224405821cc01cc482ce48ac9)), closes [#4440](https://github.com/Sage/carbon/issues/4440)
+
+## [94.2.0](https://github.com/Sage/carbon/compare/v94.1.3...v94.2.0) (2021-10-19)
+
+
+### Features
+
+* **flat-table:** expose minHeight prop and move footer to be direct sibling of table ([7239a0d](https://github.com/Sage/carbon/commit/7239a0de3ea808ffc0e8d21e1c5a9ff4c7e8c1a9)), closes [#4273](https://github.com/Sage/carbon/issues/4273)
+
+### [94.1.3](https://github.com/Sage/carbon/compare/v94.1.2...v94.1.3) (2021-10-15)
+
+
+### Bug Fixes
+
+* **date:** add onClick handling ([cdb8829](https://github.com/Sage/carbon/commit/cdb8829ea37e8d8482c4a8db511e909f0d01ce8c)), closes [#4421](https://github.com/Sage/carbon/issues/4421)
+
 ### [94.1.2](https://github.com/Sage/carbon/compare/v94.1.1...v94.1.2) (2021-10-14)
 
 

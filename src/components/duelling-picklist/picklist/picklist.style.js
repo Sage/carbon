@@ -4,15 +4,15 @@ import Box from "../../box";
 const StyledPicklist = styled(Box).attrs({ as: "ul" })`
   position: relative;
   list-style: none;
-  margin: 0 -4px;
-  padding: 4px 4px;
+  margin: 0;
+  padding: 4px 8px 8px 8px;
   width: 100%;
   box-sizing: border-box;
   overflow-y: auto;
   height: 400px;
 
   & + & {
-    margin-left: 80px;
+    margin-left: 32px;
   }
 
   .picklist-item-enter {
