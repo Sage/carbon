@@ -29,6 +29,9 @@ const PopoverContainer = ({
   renderCloseComponent,
   shouldCoverButton,
   ariaDescribedBy,
+  openButtonAriaLabel,
+  closeButtonAriaLabel = "close",
+  containerAriaLabel,
   ...rest
 }) => {
   const isControlled = open !== undefined;
@@ -37,7 +40,9 @@ const PopoverContainer = ({
   const closeButtonRef = useRef();
   const openButtonRef = useRef();
   const guid = useRef(createGuid());
-  const popoverContainerId = `PopoverContainer_${guid.current}`;
+  const popoverContainerId = title
+    ? `PopoverContainer_${guid.current}`
+    : undefined;
 
   const isOpen = isControlled ? open : isOpenInternal;
 
@@ -66,7 +71,7 @@ const PopoverContainer = ({
     dataElement: "popover-container-open-component",
     onClick: handleOpenButtonClick,
     ref: openButtonRef,
-    ariaLabel: title,
+    ariaLabel: openButtonAriaLabel || title,
   };
 
   const renderCloseComponentProps = {
@@ -74,13 +79,14 @@ const PopoverContainer = ({
     tabIndex: 0,
     onClick: handleCloseButtonClick,
     ref: closeButtonRef,
-    ariaLabel: "close",
+    ariaLabel: closeButtonAriaLabel,
   };
 
   return (
     <PopoverContainerWrapperStyle
       data-component="popover-container"
-      aria-labelledby={popoverContainerId}
+      role="region"
+      aria-labelledby={isOpen ? popoverContainerId : undefined}
     >
       {renderOpenComponent(renderOpenComponentProps)}
       <Transition
@@ -98,6 +104,7 @@ const PopoverContainer = ({
             position={position}
             shouldCoverButton={shouldCoverButton}
             aria-labelledby={popoverContainerId}
+            aria-label={containerAriaLabel}
             aria-describedby={ariaDescribedBy}
             p="16px 24px"
             {...filterStyledSystemPaddingProps(rest)}
@@ -149,18 +156,25 @@ PopoverContainer.propTypes = {
   children: PropTypes.node,
   /** The id of the element that describes the dialog */
   ariaDescribedBy: PropTypes.string,
+  /** Open button aria label */
+  openButtonAriaLabel: PropTypes.string,
+  /** Close button aria label */
+  closeButtonAriaLabel: PropTypes.string,
+  /** Container aria label */
+  containerAriaLabel: PropTypes.string,
 };
 
 PopoverContainer.defaultProps = {
   position: "right",
   shouldCoverButton: false,
   renderOpenComponent: ({
-    // eslint-disable-next-line react/prop-types
+    /* eslint-disable react/prop-types */
     tabIndex,
     onClick,
     dataElement,
     ref,
     ariaLabel,
+    /* eslint-enable react/prop-types */
   }) => (
     <PopoverContainerOpenIcon
       tabIndex={tabIndex}
@@ -174,12 +188,13 @@ PopoverContainer.defaultProps = {
     </PopoverContainerOpenIcon>
   ),
   renderCloseComponent: ({
-    // eslint-disable-next-line react/prop-types
+    /* eslint-disable react/prop-types */
     dataElement,
     tabIndex,
     onClick,
     ref,
     ariaLabel,
+    /* eslint-enable react/prop-types */
   }) => (
     <PopoverContainerCloseIcon
       data-element={dataElement}
