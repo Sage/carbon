@@ -5,6 +5,8 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Icon from "./";
 import Box from "../box";
 
+import { ICONS } from "./icon-config";
+
 <Meta
   title="Icon"
   parameters={{ info: { disable: true }, chromatic: { disable: true } }}
@@ -12,7 +14,7 @@ import Box from "../box";
 
 # Icon
 
-Carbon comes with more than 100 standard icons to choose from. See the Icons page in the Style section.
+Carbon comes with more than 100 standard icons to choose from. See [list of icons](#list-of-icons) for full reference.
 
 A tooltip option is available within this component.
 
@@ -22,6 +24,7 @@ Many other components allow you to specify one of the standard Carbon icons to a
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [List of icons](#list-of-icons)
 - [Props](#props)
 
 ## Quick Start
@@ -180,6 +183,29 @@ See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo>
         <Icon type="add" color="white" bg="rgb(0, 123, 10)" />
       </Box>
     </>
+  </Story>
+</Preview>
+
+## List of icons
+
+Below is a comprehensive list of all the available icons in Carbon and their corresponding ``type``.
+It's **required** that the `type` prop is specified (even if it's `"none"`).
+
+<Preview>
+  <Story
+    name="list of icons"
+    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+  >
+    <Box m={2}>
+      {ICONS.sort().map(type => {
+        return (
+          <Box m={2} key={`icon-${type}`}>
+            <Icon m={2} type={type} fontSize="large"/>
+            {type}
+          </Box>
+        )
+      })}
+    </Box>
   </Story>
 </Preview>
 
