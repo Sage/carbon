@@ -1,14 +1,10 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import PropTypes from "prop-types";
-import StyledButton from "../button/button.style";
 import BaseTheme from "../../style/themes/base";
 
 const FileInputForm = styled.form`
   ${margin}
-  ${StyledButton} {
-    border: none;
-  }
 `;
 
 const FileInput = styled.input`
@@ -58,9 +54,10 @@ const FileInputLabel = styled.label`
     ${error &&
     `border: 2px ${draggable ? "dashed" : "solid"} ${theme.colors.error};`};
   `}
-  width: 254px;
+  width: 256px;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 const ErrorMessage = styled.span`
@@ -85,6 +82,12 @@ const StyledFileInput = styled.div`
   position: relative;
   align-items: center;
   width: 256px;
+`;
+
+const FileInputContentWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  z-index: 1;
 `;
 
 StyledFileInput.propTypes = {
@@ -136,6 +139,7 @@ export {
   ErrorMessage,
   FileDropArea,
   FileInput,
+  FileInputContentWrapper,
   FileInputForm,
   FileInputLabel,
   FileInputTitle,

@@ -64,12 +64,21 @@ import FileInput from "carbon-react/lib/components/file-input";
 
 ### With accept prop
 
+You can use the `accept` prop to indicate which file types are allowed. You must specify the format of the file type in the form of a MIME types.
+Common MIME types available at the link: <a target="_blank" href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>MIME types.</a>
+
 <Preview>
   <Story name="accept property">
     <FileInput
       m={2}
       label="With accept property (png only)"
       accept="image/png"
+      fileChooseAction={() => {}}
+    />
+    <FileInput
+      m={2}
+      label="With accept property (png or pdf only)"
+      accept={["image/png", "application/pdf"]}
       fileChooseAction={() => {}}
     />
   </Story>
@@ -182,6 +191,9 @@ import FileInput from "carbon-react/lib/components/file-input";
 
 ### Draggable with accept property
 
+You can use the `accept` prop to indicate which file types are allowed. You must specify the format of the file type in the form of a MIME types.
+Common MIME types available at the link: <a target="_blank" href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>MIME types.</a>
+
 <Preview>
   <Story name="draggable accept png only">
     <FileInput
@@ -191,6 +203,14 @@ import FileInput from "carbon-react/lib/components/file-input";
       draggable
       dragPlaceholder="Drop the file here."
       accept="image/png"
+    />
+    <FileInput
+      m={2}
+      label="PNG or PDF files only"
+      fileChooseAction={() => {}}
+      draggable
+      dragPlaceholder="Drop the file here."
+      accept={["image/png", "application/pdf"]}
     />
   </Story>
 </Preview>

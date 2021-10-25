@@ -22,8 +22,8 @@ export interface FileInputProps extends MarginProps {
   error?: string;
   /** Allows to upload multiple files */
   allowMultiple?: boolean;
-  /** File type specifiers describing file types to allow. Accepts all types if not specified */
-  accept?: string;
+  /** MIME types specifying the files to be allowed. Accepts all types if not specified. */
+  accept?: string | Array<string>;
   /** Shows 'Drop the file here." statement */
   draggable?: boolean;
   /** Secondary placeholder for draggable component */

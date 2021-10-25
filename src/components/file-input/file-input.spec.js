@@ -128,11 +128,20 @@ describe("File Input", () => {
     });
 
     describe("accept prop", () => {
-      beforeEach(() => {
+      it("accepts the correct type if it is a string", () => {
         wrapper = render({ accept: "image/png" });
+        const file = new File(["file"], "photo.png", { type: "image/png" });
+        wrapper
+          .find(FileInput)
+          .simulate("change", { target: { files: [file] } });
+        wrapper.update();
+        expect(wrapper.containsMatchingElement(<span>photo.png</span>)).toBe(
+          true
+        );
       });
 
-      it("accepts the proper type", () => {
+      it("accepts the correct type if it is an array of strings", () => {
+        wrapper = render({ accept: ["application/pdf", "image/png"] });
         const file = new File(["file"], "photo.png", { type: "image/png" });
         wrapper
           .find(FileInput)
@@ -144,6 +153,7 @@ describe("File Input", () => {
       });
 
       it("declines the invalid type", () => {
+        wrapper = render({ accept: "image/png" });
         const file = new File(["file"], "photo.png", { type: "image/jpg" });
         wrapper
           .find(FileInput)

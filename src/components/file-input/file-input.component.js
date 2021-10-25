@@ -7,6 +7,7 @@ import {
   ErrorMessage,
   FileDropArea,
   FileInput,
+  FileInputContentWrapper,
   FileInputForm,
   FileInputLabel,
   FileInputTitle,
@@ -48,6 +49,11 @@ const FileInputComponent = ({
 
   const handleFileChoose = useCallback(
     (filesArr) => {
+      const selectedFile = filesArr[0];
+      const name = selectedFile?.name;
+      const shortenedFileName =
+        name.length < 21 ? name : `${name.substr(0, 10)}...${name.substr(-8)}`;
+
       setIsDragged(false);
       if (accept) {
         let isWrongFileType = false;
@@ -56,7 +62,7 @@ const FileInputComponent = ({
         });
         if (isWrongFileType) {
           inputFile.current.value = "";
-          setFileName("");
+          setFileName(shortenedFileName);
           setErr("Invalid file type!");
           return;
         }
@@ -75,10 +81,6 @@ const FileInputComponent = ({
         if (filesArr.length > 1) setErr("Only one file is allowed.");
       }
 
-      const selectedFile = filesArr[0];
-      const name = selectedFile?.name;
-      const shortenedFileName =
-        name.length < 21 ? name : `${name.substr(0, 10)}...${name.substr(-8)}`;
       setFileName(shortenedFileName);
     },
     [accept, allowMultiple, fileChooseAction]
@@ -99,6 +101,23 @@ const FileInputComponent = ({
     }
   };
 
+  const handleClick = (buttonTitle) => {
+    setErr("");
+    if (buttonTitle === "Choose") inputFile.current.click();
+    if (buttonTitle === "Remove") {
+      inputFile.current.value = "";
+      setFileName("");
+      setFiles([]);
+      setErr("");
+    }
+    if (buttonTitle === "Cancel") {
+      inputFile.current.value = "";
+      setFileName("");
+      setFiles([]);
+      if (cancelAction) cancelAction();
+    }
+  };
+
   const renderButton = () => {
     let buttonTitle = "Choose";
     if (fileName && !isUploading) buttonTitle = "Remove";
@@ -110,21 +129,7 @@ const FileInputComponent = ({
         disabled={disabled}
         px={1}
         buttonType={fileName ? "tertiary" : buttonType}
-        onClick={() => {
-          if (buttonTitle === "Choose") inputFile.current.click();
-          if (buttonTitle === "Remove") {
-            inputFile.current.value = "";
-            setFileName("");
-            setFiles([]);
-            setErr("");
-          }
-          if (buttonTitle === "Cancel") {
-            inputFile.current.value = "";
-            setFileName("");
-            setFiles([]);
-            if (cancelAction) cancelAction();
-          }
-        }}
+        onClick={() => handleClick(buttonTitle)}
       >
         {buttonTitle}
       </Button>
@@ -185,11 +190,13 @@ const FileInputComponent = ({
           draggable={draggable}
           isSelected={!!fileName}
         >
-          {renderFileDropArea()}
-          {renderButton()}
-          {renderFileInput()}
+          <FileInputContentWrapper>
+            {renderFileDropArea()}
+            {renderFileInput()}
+            {renderButton()}
+          </FileInputContentWrapper>
+          {isUploading && !disabled && <LoaderBar size="small" />}
         </FileInputLabel>
-        {isUploading && !disabled && <LoaderBar size="small" />}
       </StyledFileInput>
     </FileInputForm>
   );
@@ -220,8 +227,11 @@ FileInputComponent.propTypes = {
   error: PropTypes.string,
   /** Allows to upload multiple files */
   allowMultiple: PropTypes.bool,
-  /** File type specifiers describing file types to allow. Accepts all types if not specified */
-  accept: PropTypes.string,
+  /** MIME types specifying the files to be allowed. Accepts all types if not specified. */
+  accept: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
   /** Allows to drag and drop files */
   draggable: PropTypes.bool,
   /** Secondary placehodler for draggable component */
