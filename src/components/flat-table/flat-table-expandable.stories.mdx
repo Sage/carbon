@@ -614,13 +614,14 @@ By writing your own selectable logic, both parent and child rows can be made sel
         return [
           <FlatTableRow selected={selectedRows[row].subOne}>
             <FlatTableCheckbox
+              ariaLabelledBy={`ft-row-${row}-sub-row-1-cell-1 ft-row-${row}-sub-row-1-cell-2 ft-row-${row}-sub-row-1-cell-3`}
               onClick={(e) => e.stopPropagation()}
               checked={selectedRows[row].subOne}
               onChange={() => handleSelectRow(row, "subOne")}
             />
-            <FlatTableCell>Child one</FlatTableCell>
-            <FlatTableCell>York</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-1`}>Child one</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-2`}>York</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-3`}>Married</FlatTableCell>
             <FlatTableCell>
               <ActionPopover>
                 <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
@@ -629,13 +630,14 @@ By writing your own selectable logic, both parent and child rows can be made sel
           </FlatTableRow>,
           <FlatTableRow selected={selectedRows[row].subTwo}>
             <FlatTableCheckbox
+              ariaLabelledBy={`ft-row-${row}-sub-row-2-cell-1 ft-row-${row}-sub-row-2-cell-2 ft-row-${row}-sub-row-2-cell-3`}
               onClick={(e) => e.stopPropagation()}
               checked={selectedRows[row].subTwo}
               onChange={() => handleSelectRow(row, "subTwo")}
             />
-            <FlatTableCell>Child two</FlatTableCell>
-            <FlatTableCell>Edinburgh</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-1`}>Child two</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-2`}>Edinburgh</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-3`}>Single</FlatTableCell>
             <FlatTableCell>
               <ActionPopover>
                 <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
@@ -663,16 +665,17 @@ By writing your own selectable logic, both parent and child rows can be made sel
           <FlatTable>
             <FlatTableHead>
               <FlatTableRow>
-                <FlatTableCheckbox
-                  onClick={(e) => e.stopPropagation()}
-                  as="th"
-                  checked={selectAll}
-                  onChange={() => handleSelectAllRows()}
-                />
-                <FlatTableHeader>Name</FlatTableHeader>
-                <FlatTableHeader>Location</FlatTableHeader>
-                <FlatTableHeader>Relationship Status</FlatTableHeader>
-                <FlatTableHeader>Dependents</FlatTableHeader>
+                 <FlatTableCheckbox
+                    ariaLabelledBy="ft-header-1 ft-header-2 ft-header-3 ft-header-4"
+                    onClick={(e) => e.stopPropagation()}
+                    as="th"
+                    checked={selectAll}
+                    onChange={() => handleSelectAllRows()}
+                  />
+                  <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
@@ -682,13 +685,14 @@ By writing your own selectable logic, both parent and child rows can be made sel
                 subRows={subRows("one")}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.one.parent}
                   onChange={() => handleSelectRow("one", "parent")}
                 />
-                <FlatTableCell>John Doe</FlatTableCell>
-                <FlatTableCell>London</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
                 <FlatTableCell>
                   <ActionPopover>
                     <ActionPopoverItem onClick={() => {}}>
@@ -703,13 +707,14 @@ By writing your own selectable logic, both parent and child rows can be made sel
                 subRows={subRows("two")}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.two.parent}
                   onChange={() => handleSelectRow("two", "parent")}
                 />
-                <FlatTableCell>Jane Doe</FlatTableCell>
-                <FlatTableCell>York</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-3">Married</FlatTableCell>
                 <FlatTableCell>
                   <ActionPopover>
                     <ActionPopoverItem onClick={() => {}}>
@@ -724,13 +729,14 @@ By writing your own selectable logic, both parent and child rows can be made sel
                 subRows={subRows("three")}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.three.parent}
                   onChange={() => handleSelectRow("three", "parent")}
                 />
-                <FlatTableCell>John Smith</FlatTableCell>
-                <FlatTableCell>Edinburgh</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
+                 <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
                 <FlatTableCell>
                   <ActionPopover>
                     <ActionPopoverItem onClick={() => {}}>
@@ -745,13 +751,14 @@ By writing your own selectable logic, both parent and child rows can be made sel
                 subRows={subRows("four")}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-4-cell-1 ft-row-4-cell-2 ft-row-4-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.four.parent}
                   onChange={() => handleSelectRow("four", "parent")}
                 />
-                <FlatTableCell>Jane Smith</FlatTableCell>
-                <FlatTableCell>Newcastle</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
+                 <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
                 <FlatTableCell>
                   <ActionPopover>
                     <ActionPopoverItem onClick={() => {}}>
@@ -813,26 +820,28 @@ By writing your own selectable logic, the parent rows only can be made selectabl
       const SubRows = [
         <FlatTableRow>
           <FlatTableCheckbox
+            ariaLabelledBy={`ft-row--sub-row-1-cell-1 ft-row--sub-row-1-cell-2 ft-row--sub-row-1-cell-3`}
             onClick={(e) => e.stopPropagation()}
             selectable={false}
             checked={selectedRows.one}
             onChange={() => handleSelectRow("one")}
           />
-          <FlatTableCell>Child one</FlatTableCell>
-          <FlatTableCell>York</FlatTableCell>
-          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell id={`ft-row--sub-row-1-cell-1`}>Child one</FlatTableCell>
+          <FlatTableCell id={`ft-row--sub-row-1-cell-2`}>York</FlatTableCell>
+          <FlatTableCell id={`ft-row--sub-row-1-cell-3`}>Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>,
         <FlatTableRow>
           <FlatTableCheckbox
+            ariaLabelledBy={`ft-row--sub-row-2-cell-1 ft-row--sub-row-2-cell-2 ft-row--sub-row-2-cell-3`}
             onClick={(e) => e.stopPropagation()}
             selectable={false}
             checked={selectedRows.one}
             onChange={() => handleSelectRow("one")}
           />
-          <FlatTableCell>Child two</FlatTableCell>
-          <FlatTableCell>Edinburgh</FlatTableCell>
-          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell id={`ft-row--sub-row-2-cell-1`}>Child two</FlatTableCell>
+          <FlatTableCell id={`ft-row--sub-row-2-cell-2`}>Edinburgh</FlatTableCell>
+          <FlatTableCell id={`ft-row--sub-row-2-cell-3`}>Single</FlatTableCell>
           <FlatTableCell>1</FlatTableCell>
         </FlatTableRow>,
       ];
@@ -856,15 +865,16 @@ By writing your own selectable logic, the parent rows only can be made selectabl
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-header-1 ft-header-2 ft-header-3 ft-header-4"
                   onClick={(e) => e.stopPropagation()}
                   as="th"
                   checked={selectAll}
                   onChange={() => handleSelectAllRows()}
                 />
-                <FlatTableHeader>Name</FlatTableHeader>
-                <FlatTableHeader>Location</FlatTableHeader>
-                <FlatTableHeader>Relationship Status</FlatTableHeader>
-                <FlatTableHeader>Dependents</FlatTableHeader>
+                <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
@@ -876,13 +886,14 @@ By writing your own selectable logic, the parent rows only can be made selectabl
                 subRows={SubRows}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.one}
                   onChange={() => handleSelectRow("one")}
                 />
-                <FlatTableCell>John Doe</FlatTableCell>
-                <FlatTableCell>London</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
                 <FlatTableCell>0</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow
@@ -893,13 +904,14 @@ By writing your own selectable logic, the parent rows only can be made selectabl
                 subRows={SubRows}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.two}
                   onChange={() => handleSelectRow("two")}
                 />
-                <FlatTableCell>Jane Doe</FlatTableCell>
-                <FlatTableCell>York</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-3">Married</FlatTableCell>
                 <FlatTableCell>2</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow
@@ -910,13 +922,14 @@ By writing your own selectable logic, the parent rows only can be made selectabl
                 subRows={SubRows}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.three}
                   onChange={() => handleSelectRow("three")}
                 />
-                <FlatTableCell>John Smith</FlatTableCell>
-                <FlatTableCell>Edinburgh</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
                 <FlatTableCell>1</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow
@@ -927,13 +940,14 @@ By writing your own selectable logic, the parent rows only can be made selectabl
                 subRows={SubRows}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-4-cell-1 ft-row-4-cell-2 ft-row-4-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.four}
                   onChange={() => handleSelectRow("four")}
                 />
-                <FlatTableCell>Jane Smith</FlatTableCell>
-                <FlatTableCell>Newcastle</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
                 <FlatTableCell>5</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
@@ -1018,13 +1032,14 @@ By writing your own selectable logic, the child rows only can be made selectable
             highlighted={highlightedRow === `${row}.subOne`}
           >
             <FlatTableCheckbox
+              ariaLabelledBy={`ft-row-${row}-sub-row-1-cell-1 ft-row-${row}-sub-row-1-cell-2 ft-row-${row}-sub-row-1-cell-3`}
               onClick={(e) => e.stopPropagation()}
               checked={selectedRows[row].subOne}
               onChange={() => handleSelectRow(row, "subOne")}
             />
-            <FlatTableCell>Child one</FlatTableCell>
-            <FlatTableCell>York</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-1`}>Child one</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-2`}>York</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-3`}>Married</FlatTableCell>
             <FlatTableCell>2</FlatTableCell>
           </FlatTableRow>,
           <FlatTableRow
@@ -1033,13 +1048,14 @@ By writing your own selectable logic, the child rows only can be made selectable
             highlighted={highlightedRow === `${row}.subTwo`}
           >
             <FlatTableCheckbox
+              ariaLabelledBy={`ft-row-${row}-sub-row-2-cell-1 ft-row-${row}-sub-row-2-cell-2 ft-row-${row}-sub-row-2-cell-3`}
               onClick={(e) => e.stopPropagation()}
               checked={selectedRows[row].subTwo}
               onChange={() => handleSelectRow(row, "subTwo")}
             />
-            <FlatTableCell>Child two</FlatTableCell>
-            <FlatTableCell>Edinburgh</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-1`}>Child two</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-2`}>Edinburgh</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-3`}>Single</FlatTableCell>
             <FlatTableCell>1</FlatTableCell>
           </FlatTableRow>,
         ];
@@ -1064,15 +1080,16 @@ By writing your own selectable logic, the child rows only can be made selectable
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-header-1 ft-header-2 ft-header-3 ft-header-4"
                   onClick={(e) => e.stopPropagation()}
                   as="th"
                   checked={selectAll}
                   onChange={() => handleSelectAllRows()}
                 />
-                <FlatTableHeader>Name</FlatTableHeader>
-                <FlatTableHeader>Location</FlatTableHeader>
-                <FlatTableHeader>Relationship Status</FlatTableHeader>
-                <FlatTableHeader>Dependents</FlatTableHeader>
+                <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
@@ -1083,12 +1100,13 @@ By writing your own selectable logic, the child rows only can be made selectable
                 subRows={subRows("one")}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   selectable={false}
                 />
-                <FlatTableCell>John Doe</FlatTableCell>
-                <FlatTableCell>London</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
                 <FlatTableCell>0</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow
@@ -1098,12 +1116,13 @@ By writing your own selectable logic, the child rows only can be made selectable
                 subRows={subRows("two")}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   selectable={false}
                 />
-                <FlatTableCell>Jane Doe</FlatTableCell>
-                <FlatTableCell>York</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-3">Married</FlatTableCell>
                 <FlatTableCell>2</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow
@@ -1113,12 +1132,13 @@ By writing your own selectable logic, the child rows only can be made selectable
                 subRows={subRows("three")}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   selectable={false}
                 />
-                <FlatTableCell>John Smith</FlatTableCell>
-                <FlatTableCell>Edinburgh</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
                 <FlatTableCell>1</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow
@@ -1128,12 +1148,13 @@ By writing your own selectable logic, the child rows only can be made selectable
                 subRows={subRows("four")}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-4-cell-1 ft-row-4-cell-2 ft-row-4-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   selectable={false}
                 />
-                <FlatTableCell>Jane Smith</FlatTableCell>
-                <FlatTableCell>Newcastle</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
                 <FlatTableCell>5</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
