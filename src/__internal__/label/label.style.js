@@ -26,6 +26,7 @@ const LabelStyle = styled.label`
 
 LabelStyle.propTypes = {
   disabled: PropTypes.bool,
+  isRequired: PropTypes.bool,
 };
 
 export const StyledLabelContainer = styled.div`
@@ -70,7 +71,6 @@ StyledLabelContainer.propTypes = {
   align: PropTypes.oneOf(["left", "right"]),
   inline: PropTypes.bool,
   width: PropTypes.number,
-  readOnly: PropTypes.bool,
   pr: PropTypes.number,
   pl: PropTypes.number,
 };

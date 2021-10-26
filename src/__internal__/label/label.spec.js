@@ -173,19 +173,7 @@ describe("Label", () => {
     });
   });
 
-  describe("with readonly", () => {
-    it("applies disabled color", () => {
-      const wrapper = render({ error: true, readOnly: true });
-      assertStyleMatch(
-        {
-          color: "var(--colorsYin090)",
-        },
-        wrapper.find(StyledLabel)
-      );
-    });
-  });
-
-  describe("with disabled", () => {
+  describe("with disabled and error", () => {
     it("applies disabled color", () => {
       const wrapper = render({ error: true, disabled: true });
 
