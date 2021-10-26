@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
@@ -6,6 +6,7 @@ import Icon from "../icon";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledHelp from "./help.style";
 import Events from "../../__internal__/utils/helpers/events";
+import { TooltipContext } from "../../__internal__/tooltip-provider";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { HELP_POSITIONS } from "./help.config";
 
@@ -31,6 +32,7 @@ const Help = ({
 }) => {
   const helpElement = useRef(null);
   const [isTooltipVisible, updateTooltipVisible] = useState(false);
+  const { helpAriaLabel } = useContext(TooltipContext);
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyPress);
@@ -78,7 +80,7 @@ const Help = ({
           }
         : {
             role: "tooltip",
-            "aria-label": ariaLabel,
+            "aria-label": ariaLabel || helpAriaLabel,
           })}
       {...filterStyledSystemMarginProps(rest)}
       {...rest}
@@ -95,7 +97,7 @@ const Help = ({
         aria-hidden="true"
         {...(href && {
           role: "tooltip",
-          ariaLabel,
+          ariaLabel: ariaLabel || helpAriaLabel,
         })}
       />
     </StyledHelp>
