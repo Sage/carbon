@@ -17,6 +17,7 @@ import CharacterCount from "../../__internal__/character-count";
 import I18nProvider from "../i18n-provider";
 import baseTheme from "../../style/themes/base";
 import Tooltip from "../tooltip";
+import StyledHelp from "../help/help.style";
 
 jest.mock("../../__internal__/utils/helpers/guid", () => () => "mocked-guid");
 
@@ -45,7 +46,7 @@ describe("Textbox", () => {
     expect(wrapper.find(CharacterCount).text()).toBe("11/100");
   });
 
-  it("renders a counter with an overlimit warning", () => {
+  it("renders a counter with an over limit warning", () => {
     const wrapper = mount(
       <Textbox
         value="test string"
@@ -209,6 +210,17 @@ describe("Textbox", () => {
       });
 
       expect(wrapper.find(CharacterCount).text()).toBe(limit);
+    });
+  });
+
+  describe("label help", () => {
+    it("passes the expected values to the help component", () => {
+      const text = "foo";
+      const wrapper = mount(
+        <Textbox value="" label={text} labelHelp={text} helpAriaLabel={text} />
+      );
+
+      expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual(text);
     });
   });
 });
