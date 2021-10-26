@@ -17,6 +17,7 @@ import ButtonToggle from "../button-toggle/button-toggle.component";
 import ButtonToggleGroupStyle from "./button-toggle-group.style";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import FormField from "../../__internal__/form-field";
+import StyledHelp from "../help/help.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -239,6 +240,33 @@ describe("ButtonToggleGroup", () => {
         });
       }
     );
+  });
+
+  describe("helpAriaLabel", () => {
+    it("should set the aria-label on the Help component", () => {
+      const text = "foo";
+
+      const { "aria-label": ariaLabel } = mount(
+        <ButtonToggleGroup
+          id="button-toggle-group-id"
+          name="button-toggle-group"
+          label={text}
+          labelHelp={text}
+          helpAriaLabel={text}
+        >
+          <ButtonToggle id="foo" value="foo">
+            Foo
+          </ButtonToggle>
+          <ButtonToggle id="bar" value="bar">
+            Bar
+          </ButtonToggle>
+        </ButtonToggleGroup>
+      )
+        .find(StyledHelp)
+        .props();
+
+      expect(ariaLabel).toEqual(text);
+    });
   });
 });
 
