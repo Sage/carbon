@@ -17,6 +17,10 @@ export default (theme) => ({
   metaName: "Base Theme",
   metaPublic: "true",
   colorsLogo: "#00D639",
+  colorsYin030: "rgba(0,0,0,0.3)",
+  colorsYin055: "rgba(0,0,0,0.55)",
+  colorsYin065: "rgba(0,0,0,0.65)",
+  colorsYin090: "rgba(0,0,0,0.9)",
   colorsComponentsNavigation500: "#008146",
   colorsComponentsNavigation600: "#006738",
   colorsComponentsNavigation700: "#004D2A",
@@ -120,22 +124,22 @@ export default (theme) => ({
   sizing050: "4px",
   sizing075: "6px",
   sizingLogowidth: "40px",
-  spacing000: theme.space[0], // 0px
+  spacing000: `${theme.space[0]}px`, // 0px
   spacing025: "2px",
   spacing050: "4px",
   spacing075: "6px",
-  spacing100: theme.space[1], // 8px
+  spacing100: `${theme.space[1]}px`, // 8px
   spacing125: "10px",
   spacing150: "12px",
-  spacing200: theme.space[2], // 16px
+  spacing200: `${theme.space[2]}px`, // 16px
   spacing250: "20px",
-  spacing300: theme.space[3], // 24px
-  spacing400: theme.space[4], // 32px
-  spacing500: theme.space[5], // 40px
-  spacing600: theme.space[6], // 48px
-  spacing700: theme.space[7], // 56px
-  spacing800: theme.space[8], // 64px
-  spacing900: theme.space[9], // 72px
+  spacing300: `${theme.space[3]}px`, // 24px
+  spacing400: `${theme.space[4]}px`, // 32px
+  spacing500: `${theme.space[5]}px`, // 40px
+  spacing600: `${theme.space[6]}px`, // 48px
+  spacing700: `${theme.space[7]}px`, // 56px
+  spacing800: `${theme.space[8]}px`, // 64px
+  spacing900: `${theme.space[9]}px`, // 72px
   borderWidth100: "1px",
   borderWidth200: "2px",
   borderWidth300: "3px",
