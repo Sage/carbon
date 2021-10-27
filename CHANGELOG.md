@@ -1,3 +1,11 @@
+### [95.0.1](https://github.com/Sage/carbon/compare/v95.0.0...v95.0.1) (2021-10-27)
+
+
+### Bug Fixes
+
+* **tabs:** memoize `tabRef` array so it regenerate when children change ([eef4267](https://github.com/Sage/carbon/commit/eef4267a3075c4aac1601bbb40c1ed69b3beadee)), closes [#4498](https://github.com/Sage/carbon/issues/4498)
+* **tabs:** set tab stop when no tab is selected to support keyboard navigation ([5b39c0c](https://github.com/Sage/carbon/commit/5b39c0c9471d49a18bcb9c3aa97ab0188d531479)), closes [#4478](https://github.com/Sage/carbon/issues/4478)
+
 ## [95.0.0](https://github.com/Sage/carbon/compare/v94.8.0...v95.0.0) (2021-10-27)
 
 
