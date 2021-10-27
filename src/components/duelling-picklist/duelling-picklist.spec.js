@@ -30,6 +30,7 @@ import {
 } from "./picklist-group/picklist-group.style";
 import { StyledPicklist } from "./picklist/picklist.style";
 import { areEqual } from "./picklist/picklist.component";
+import StyledPicklistDivider from "./picklist-divider/picklist-divider.style";
 
 const EmptyComponent = () => <div />;
 
@@ -75,6 +76,7 @@ describe("DuellingPicklist", () => {
     leftLabel,
     rightLabel,
     placeholder,
+    divider = true,
   }) => {
     wrapper = mount(
       <DuellingPicklist
@@ -96,7 +98,7 @@ describe("DuellingPicklist", () => {
             </PicklistItem>
           ))}
         </Picklist>
-        <PicklistDivider />
+        {divider && <PicklistDivider />}
         <Picklist disabled={disabled} placeholder={placeholder}>
           {selected.map((item) => (
             <PicklistItem
@@ -353,6 +355,7 @@ describe("DuellingPicklist", () => {
       onRemove = jest.fn();
       render({});
     });
+
     it("renders overlay if DuellingPicklistOverlay has disabled prop set", () => {
       render({ disabled: true });
 
@@ -387,6 +390,48 @@ describe("DuellingPicklist", () => {
       expect(
         wrapper.find(Picklist).at(1).find(CSSTransition).at(0).props().enter
       ).toBe(undefined);
+    });
+
+    it("adds the correct margins to the divider", () => {
+      assertStyleMatch(
+        {
+          marginRight: "16px",
+          marginLeft: "16px",
+        },
+        wrapper.find(StyledPicklistDivider)
+      );
+    });
+
+    describe("without a divider", () => {
+      it("adds the correct spacings around the picklists", () => {
+        render({ divider: false });
+
+        assertStyleMatch(
+          {
+            padding: "4px 8px 8px 8px",
+            margin: "0",
+          },
+          wrapper.find(StyledPicklist).at(0)
+        );
+
+        assertStyleMatch(
+          {
+            padding: "4px 8px 8px 8px",
+            margin: "0",
+          },
+          wrapper.find(StyledPicklist).at(1)
+        );
+
+        assertStyleMatch(
+          {
+            marginLeft: "32px",
+          },
+          wrapper.find(StyledPicklist).at(1),
+          {
+            modifier: `& + ${StyledPicklist}`,
+          }
+        );
+      });
     });
   });
 

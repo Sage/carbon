@@ -251,7 +251,7 @@ class BaseDateInput extends React.Component {
     });
   };
 
-  handleIconClick = () => {
+  handleClick = (event) => {
     if (this.props.disabled || this.props.readOnly) return;
     this.isOpening = true;
     this.setState(
@@ -270,6 +270,10 @@ class BaseDateInput extends React.Component {
         }
       }
     );
+
+    if (this.props.onClick) {
+      this.props.onClick(event);
+    }
   };
 
   handleDateSelect = (selectedDate) => {
@@ -494,8 +498,8 @@ class BaseDateInput extends React.Component {
       onChange: this.handleVisibleInputChange,
       onFocus: this.handleFocus,
       onKeyDown: this.handleKeyDown,
-      onClick: this.handleIconClick,
-      iconOnClick: this.handleIconClick,
+      onClick: this.handleClick,
+      iconOnClick: this.handleClick,
     };
 
     return (

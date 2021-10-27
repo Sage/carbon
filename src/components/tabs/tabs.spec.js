@@ -9,6 +9,7 @@ import { TabContext } from "./tab/index";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledTabs from "./tabs.style";
 import StyledTab from "./tab/tab.style";
+import { StyledTabTitle } from "./__internal__/tab-title/tab-title.style";
 import {
   assertStyleMatch,
   simulate,
@@ -732,6 +733,96 @@ describe("Tabs", () => {
 
         expect(tabTitle.at(0).props().info).toEqual(true);
         expect(tabTitle.at(1).props().info).toEqual(false);
+      });
+    });
+
+    describe("Keyboard behaviour", () => {
+      let container;
+      let wrapper;
+      const tabTitles = ["tab-1", "tab-2", "tab-3"];
+
+      const ConditionalChildrenMock = () => {
+        const [showAllTabs, setShowAllTabs] = React.useState(true);
+
+        const generateTab = (tabTitle) => (
+          <Tab title={tabTitle} tabId={tabTitle} key={tabTitle}>
+            {tabTitle}
+          </Tab>
+        );
+
+        return (
+          <>
+            <button
+              id="foo"
+              type="button"
+              onClick={() => setShowAllTabs((prev) => !prev)}
+            >
+              Toggle children
+            </button>
+            <Tabs>
+              {!showAllTabs && generateTab(tabTitles[0])}
+              {showAllTabs &&
+                tabTitles.map((tabTitle) => generateTab(tabTitle))}
+            </Tabs>
+          </>
+        );
+      };
+
+      beforeEach(() => {
+        container = document.createElement("div");
+        container.id = "enzymeContainer";
+        document.body.appendChild(container);
+
+        wrapper = mount(<ConditionalChildrenMock />, {
+          attachTo: document.getElementById("enzymeContainer"),
+        });
+      });
+
+      afterEach(() => {
+        if (container?.parentNode) {
+          container.parentNode.removeChild(container);
+        }
+
+        container = null;
+      });
+
+      const runFocusExpectations = (keyDown, array) =>
+        array.forEach((index) => {
+          const child = wrapper.update().find(StyledTabTitle).at(index);
+          expect(child.getDOMNode()).toBeFocused();
+          simulate.keydown[keyDown](child);
+        });
+
+      const toggleChildren = () => {
+        act(() => {
+          wrapper.find("#foo").prop("onClick")();
+        });
+
+        expect(wrapper.update().find(StyledTabTitle).length).toEqual(1);
+
+        act(() => {
+          wrapper.find("#foo").prop("onClick")();
+        });
+
+        expect(wrapper.update().find(StyledTabTitle).length).toEqual(3);
+      };
+
+      it("is consistent when navigating with the arrow keys and the composition of the children changes", () => {
+        wrapper.find(StyledTabTitle).first().getDOMNode().focus();
+
+        runFocusExpectations("pressLeftArrow", [0, 2, 1, 0, 2]);
+
+        toggleChildren();
+
+        wrapper.find(StyledTabTitle).first().getDOMNode().focus();
+
+        runFocusExpectations("pressLeftArrow", [0, 2, 1, 0, 2]);
+
+        toggleChildren();
+
+        wrapper.find(StyledTabTitle).first().getDOMNode().focus();
+
+        runFocusExpectations("pressRightArrow", [0, 1, 2, 0]);
       });
     });
   });

@@ -2,11 +2,24 @@
 
 exports[`Option renders properly 1`] = `
 .c4 {
-  display: inline-block;
   position: relative;
   color: #008200;
   background-color: transparent;
   vertical-align: middle;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 16px;
+  width: 16px;
 }
 
 .c4::before {
@@ -25,6 +38,7 @@ exports[`Option renders properly 1`] = `
 .c2 {
   padding-left: 24px;
   padding-right: 24px;
+  margin: 0;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -138,6 +152,7 @@ exports[`Option renders properly 1`] = `
     </span>
     <span
       className="c3 c4"
+      color="#008200"
       data-component="icon"
       data-element="add"
       disabled={false}

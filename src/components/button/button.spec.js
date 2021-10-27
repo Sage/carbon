@@ -47,7 +47,7 @@ describe("Button", () => {
           Test
         </Button>
       ),
-      { px: "24px" }
+      { px: "24px", m: "0" }
     );
   });
 
@@ -82,7 +82,7 @@ describe("Button", () => {
             Test
           </Button>
         ),
-        { px }
+        { px, m: "0" }
       );
     }
   );
@@ -684,5 +684,25 @@ describe("Button", () => {
         );
       });
     });
+  });
+
+  describe("overriding size based padding", () => {
+    const paddingValues = Array.from({ length: 9 }).map((_, px) => [
+      px === 0 ? String(px) : `${px * 8}px`,
+      px,
+    ]);
+    it.each(paddingValues)(
+      "sets the padding to %s when px prop is %d",
+      (result, px) => {
+        const wrapper = render({ px }, mount);
+
+        assertStyleMatch(
+          {
+            paddingLeft: result,
+          },
+          wrapper
+        );
+      }
+    );
   });
 });

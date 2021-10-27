@@ -11,6 +11,8 @@ export interface FlatTableCheckboxProps {
   selectable?: boolean;
   /** Callback function to be called when click event received */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
+  /** The id of the element that labels the input */
+  ariaLabelledBy?: string;
 }
 
 declare function FlatTableCheckbox(props: FlatTableCheckboxProps): JSX.Element;

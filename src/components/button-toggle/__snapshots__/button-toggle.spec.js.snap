@@ -341,3 +341,101 @@ input:not(:checked):not(:disabled) ~ .c2:hover .c4 {
   </label>
 </div>
 `;
+
+exports[`ButtonToggle when the sage theme is set renders correct styles 1`] = `
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.c2 {
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  height: 40px;
+  padding: 0 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #668592;
+  background-color: #FFFFFF;
+}
+
+.c2 .c4 {
+  color: #000000;
+}
+
+input:checked ~ .c2.c2 {
+  background-color: #E6F6F1;
+  border-color: #006046;
+  cursor: auto;
+}
+
+input:focus ~ .c2 {
+  outline: 3px solid #FFB500;
+  z-index: 100;
+}
+
+input:not(:checked):not(:disabled) ~ .c2:hover {
+  background-color: #006046;
+  border-color: #006046;
+  color: #FFFFFF;
+}
+
+input:not(:checked):not(:disabled) ~ .c2:hover .c4 {
+  color: #FFFFFF;
+}
+
+.c0 {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.c0:not(:first-of-type) {
+  margin-left: 8px;
+}
+
+.c1 {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+<div
+  className="c0"
+  data-component="button-toggle"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    id="guid-12345"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    type="radio"
+  />
+  <label
+    className="c2"
+    htmlFor="guid-12345"
+    size="medium"
+  >
+    <div
+      className="c3"
+    >
+      Button
+    </div>
+  </label>
+</div>
+`;

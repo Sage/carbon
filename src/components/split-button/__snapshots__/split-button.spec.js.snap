@@ -2,11 +2,24 @@
 
 exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c5 {
-  display: inline-block;
   position: relative;
   color: #008200;
   background-color: transparent;
   vertical-align: middle;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 16px;
+  width: 16px;
 }
 
 .c5::before {
@@ -25,6 +38,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c2 {
   padding-left: 24px;
   padding-right: 24px;
+  margin: 0;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -400,6 +414,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   >
     <span
       className="c4 c5"
+      color="#008200"
       data-component="icon"
       data-element="dropdown"
       disabled={false}

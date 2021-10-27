@@ -1,5 +1,5 @@
 import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
-import { useState, useRef } from "react";
+import { useEffect, useLayoutEffect, useState, useRef } from "react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import {
   FlatTable,
@@ -25,11 +25,9 @@ import {
 } from "../action-popover";
 import { DrawerSidebarContext } from "../drawer";
 import Box from "../box";
+import Button from "../button";
 
-<Meta
-  title="Flat Table"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Flat Table" parameters={{ info: { disable: true } }} />
 
 # Flat Table
 
@@ -207,7 +205,7 @@ Column width can be set by passing number as a `width` prop to the column header
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader width={200}>Notes</FlatTableHeader>
           <FlatTableHeader width={40} px={1}>
-            <Icon iconColor="on-dark-background" type="settings" />
+            <Icon color="white" type="settings" />
           </FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
@@ -217,7 +215,7 @@ Column width can be set by passing number as a `width` prop to the column header
             <FlatTableCell>John Doe</FlatTableCell>
             <FlatTableCell>London</FlatTableCell>
             <FlatTableCell>
-              <Textbox size="small" />
+              <Textbox placeholder="Notes for John Doe" size="small" />
             </FlatTableCell>
             <FlatTableCell px={1}>
               <ActionPopover>
@@ -256,34 +254,34 @@ Setting a custom background color will also override hover, highlight and row se
       <FlatTableBody>
         <FlatTableRow bgColor="#B1D345">
           <FlatTableRowHeader>1</FlatTableRowHeader>
-          <FlatTableCheckbox />
-          <FlatTableCell>John Doe</FlatTableCell>
-          <FlatTableCell>London</FlatTableCell>
-          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCheckbox ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3" />
+          <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
+          <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
+          <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
           <FlatTableCell>0</FlatTableCell>
         </FlatTableRow>
         <FlatTableRow>
           <FlatTableRowHeader>2</FlatTableRowHeader>
-          <FlatTableCheckbox />
-          <FlatTableCell>Jane Doe</FlatTableCell>
-          <FlatTableCell>York</FlatTableCell>
-          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCheckbox ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3" />
+          <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
+          <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
+          <FlatTableCell id="ft-row-2-cell-3">Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>
         <FlatTableRow bgColor="#B1D345">
           <FlatTableRowHeader>3</FlatTableRowHeader>
-          <FlatTableCheckbox />
-          <FlatTableCell>John Smith</FlatTableCell>
-          <FlatTableCell>Edinburgh</FlatTableCell>
-          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCheckbox ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3" />
+          <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
+          <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
+          <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
           <FlatTableCell>1</FlatTableCell>
         </FlatTableRow>
         <FlatTableRow>
           <FlatTableRowHeader>4</FlatTableRowHeader>
-          <FlatTableCheckbox />
-          <FlatTableCell>Jane Smith</FlatTableCell>
-          <FlatTableCell>Newcastle</FlatTableCell>
-          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCheckbox ariaLabelledBy="ft-row-4-cell-1 ft-row-4-cell-2 ft-row-4-cell-3" />
+          <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
+          <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
+          <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
           <FlatTableCell>5</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
@@ -769,7 +767,7 @@ Is it possible to combine the `stickyHead` prop along with the `rowSpan` and `co
         setCurrentPage(newPage);
       };
       return (
-        <div style={{ height: "180px", marginBottom: "16px" }}>
+        <div style={{ height: "220px", marginBottom: "16px" }}>
           <FlatTable
             hasStickyHead
             hasStickyFooter
@@ -804,7 +802,7 @@ Is it possible to combine the `stickyHead` prop along with the `rowSpan` and `co
 </Preview>
 
 In this example of FlatTable with `stickyFooter`, FlatTable has been placed inside of a `div` with a height
-of `180px`. There is not enough data to fill the flatTable but the style remains consistent and the footer
+of `220px`. There is not enough data to fill the flatTable but the style remains consistent and the footer
 remains sticky.
 
 <Preview>
@@ -842,7 +840,7 @@ remains sticky.
         setCurrentPage(newPage);
       };
       return (
-        <div style={{ height: "180px", marginBottom: "16px" }}>
+        <div style={{ height: "220px", marginBottom: "16px" }}>
           <FlatTable
             hasStickyHead
             hasStickyFooter
@@ -882,7 +880,7 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
 
 <Preview>
   <Story
-    name="with sticky footer and hasMaxHeight"
+    name="with hasMaxHeight"
     parameters={{ chromatic: { disable: true } }}
   >
     {() => {
@@ -917,8 +915,6 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
       return (
         <div style={{ height: "180px", marginBottom: "16px" }}>
           <FlatTable
-            hasStickyHead
-            hasStickyFooter
             hasMaxHeight
             footer={
               <Pager
@@ -1042,10 +1038,7 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
 ### With sorting headers
 
 <Preview>
-  <Story
-    id="flat-table-test--sortable"
-    name="with sorting headers"
-  />
+  <Story id="flat-table-test--sortable" name="with sorting headers" />
 </Preview>
 
 ### With a cell spanning the whole row
@@ -1162,60 +1155,65 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-header-1 ft-header-2 ft-header-3 ft-header-4"
                   onClick={(e) => e.stopPropagation()}
                   as="th"
                   checked={selectAll}
                   onChange={() => handleSelectAllRows()}
                 />
-                <FlatTableHeader>Name</FlatTableHeader>
-                <FlatTableHeader>Location</FlatTableHeader>
-                <FlatTableHeader>Relationship Status</FlatTableHeader>
-                <FlatTableHeader>Dependents</FlatTableHeader>
+                <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
+                <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
+                <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
+                <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
               <FlatTableRow selected={selectedRows.one}>
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.one}
                   onChange={() => handleSelectRow("one")}
                 />
-                <FlatTableCell>John Doe</FlatTableCell>
-                <FlatTableCell>London</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
                 <FlatTableCell>0</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow selected={selectedRows.two}>
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.two}
                   onChange={() => handleSelectRow("two")}
                 />
-                <FlatTableCell>Jane Doe</FlatTableCell>
-                <FlatTableCell>York</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-3">Married</FlatTableCell>
                 <FlatTableCell>2</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow selected={selectedRows.three}>
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.three}
                   onChange={() => handleSelectRow("three")}
                 />
-                <FlatTableCell>John Smith</FlatTableCell>
-                <FlatTableCell>Edinburgh</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
                 <FlatTableCell>1</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow selected={selectedRows.four}>
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.four}
                   onChange={() => handleSelectRow("four")}
                 />
-                <FlatTableCell>Jane Smith</FlatTableCell>
-                <FlatTableCell>Newcastle</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
                 <FlatTableCell>5</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
@@ -1360,15 +1358,16 @@ It is also possible to integrate selection of multiple rows and the highlighting
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-header-1 ft-header-2 ft-header-3 ft-header-4"
                   onClick={(e) => e.stopPropagation()}
                   as="th"
                   checked={selectAll}
                   onChange={() => handleSelectAllRows()}
                 />
-                <FlatTableHeader>Name</FlatTableHeader>
-                <FlatTableHeader>Location</FlatTableHeader>
-                <FlatTableHeader>Relationship Status</FlatTableHeader>
-                <FlatTableHeader>Dependents</FlatTableHeader>
+                <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
+                <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
+                <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
+                <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
@@ -1378,13 +1377,14 @@ It is also possible to integrate selection of multiple rows and the highlighting
                 highlighted={highlightedRow === "one"}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.one}
                   onChange={() => handleSelectRow("one")}
                 />
-                <FlatTableCell>John Doe</FlatTableCell>
-                <FlatTableCell>London</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
+                <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
                 <FlatTableCell>0</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow
@@ -1393,13 +1393,14 @@ It is also possible to integrate selection of multiple rows and the highlighting
                 highlighted={highlightedRow === "two"}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.two}
                   onChange={() => handleSelectRow("two")}
                 />
-                <FlatTableCell>Jane Doe</FlatTableCell>
-                <FlatTableCell>York</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
+                <FlatTableCell id="ft-row-2-cell-3">Married</FlatTableCell>
                 <FlatTableCell>2</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow
@@ -1407,14 +1408,15 @@ It is also possible to integrate selection of multiple rows and the highlighting
                 selected={selectedRows.three}
                 highlighted={highlightedRow === "three"}
               >
-                <FlatTableCheckbox
+               <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.three}
                   onChange={() => handleSelectRow("three")}
                 />
-                <FlatTableCell>John Smith</FlatTableCell>
-                <FlatTableCell>Edinburgh</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
                 <FlatTableCell>1</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow
@@ -1423,13 +1425,14 @@ It is also possible to integrate selection of multiple rows and the highlighting
                 highlighted={highlightedRow === "four"}
               >
                 <FlatTableCheckbox
+                  ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.four}
                   onChange={() => handleSelectRow("four")}
                 />
-                <FlatTableCell>Jane Smith</FlatTableCell>
-                <FlatTableCell>Newcastle</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
                 <FlatTableCell>5</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
@@ -1793,15 +1796,16 @@ of the button control.
               <FlatTableHead>
                 <FlatTableRow>
                   <FlatTableCheckbox
+                    ariaLabelledBy="ft-header-1 ft-header-2 ft-header-3 ft-header-4"
                     onClick={(e) => e.stopPropagation()}
                     as="th"
                     checked={selectAll}
                     onChange={() => handleSelectAllRows()}
                   />
-                  <FlatTableHeader>Name</FlatTableHeader>
-                  <FlatTableHeader>Location</FlatTableHeader>
-                  <FlatTableHeader>Relationship Status</FlatTableHeader>
-                  <FlatTableHeader>Dependents</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
                 </FlatTableRow>
               </FlatTableHead>
               <FlatTableBody>
@@ -1811,13 +1815,14 @@ of the button control.
                   highlighted={highlightedRow === "one"}
                 >
                   <FlatTableCheckbox
+                    ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3"
                     onClick={(e) => e.stopPropagation()}
                     checked={selectedRows.one}
                     onChange={() => handleSelectRow("one")}
                   />
-                  <FlatTableCell>John Doe</FlatTableCell>
-                  <FlatTableCell>London</FlatTableCell>
-                  <FlatTableCell>Single</FlatTableCell>
+                  <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
+                  <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
+                  <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
                   <FlatTableCell>0</FlatTableCell>
                 </FlatTableRow>
                 <FlatTableRow
@@ -1826,13 +1831,14 @@ of the button control.
                   highlighted={highlightedRow === "two"}
                 >
                   <FlatTableCheckbox
+                    ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3"
                     onClick={(e) => e.stopPropagation()}
                     checked={selectedRows.two}
                     onChange={() => handleSelectRow("two")}
                   />
-                  <FlatTableCell>Jane Doe</FlatTableCell>
-                  <FlatTableCell>York</FlatTableCell>
-                  <FlatTableCell>Married</FlatTableCell>
+                  <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
+                  <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
+                  <FlatTableCell id="ft-row-2-cell-3">Married</FlatTableCell>
                   <FlatTableCell>2</FlatTableCell>
                 </FlatTableRow>
                 <FlatTableRow
@@ -1840,14 +1846,15 @@ of the button control.
                   selected={selectedRows.three}
                   highlighted={highlightedRow === "three"}
                 >
-                  <FlatTableCheckbox
+                <FlatTableCheckbox
+                    ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
                     onClick={(e) => e.stopPropagation()}
                     checked={selectedRows.three}
                     onChange={() => handleSelectRow("three")}
                   />
-                  <FlatTableCell>John Smith</FlatTableCell>
-                  <FlatTableCell>Edinburgh</FlatTableCell>
-                  <FlatTableCell>Single</FlatTableCell>
+                  <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
+                  <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
+                  <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
                   <FlatTableCell>1</FlatTableCell>
                 </FlatTableRow>
                 <FlatTableRow
@@ -1856,13 +1863,14 @@ of the button control.
                   highlighted={highlightedRow === "four"}
                 >
                   <FlatTableCheckbox
+                    ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
                     onClick={(e) => e.stopPropagation()}
                     checked={selectedRows.four}
                     onChange={() => handleSelectRow("four")}
                   />
-                  <FlatTableCell>Jane Smith</FlatTableCell>
-                  <FlatTableCell>Newcastle</FlatTableCell>
-                  <FlatTableCell>Married</FlatTableCell>
+                  <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
+                  <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
+                  <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
                   <FlatTableCell>5</FlatTableCell>
                 </FlatTableRow>
               </FlatTableBody>

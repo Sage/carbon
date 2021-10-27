@@ -12,9 +12,12 @@ import {
   StyledMenuFullscreenHeader,
 } from "./menu-full-screen.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  simulate,
+} from "../../../__spec_helper__/test-utils";
 import { baseTheme } from "../../../style/themes";
-import { StyledMenuItem } from "../menu.style";
+import { StyledMenuItem, StyledMenuWrapper } from "../menu.style";
 
 const onClose = jest.fn();
 
@@ -89,16 +92,6 @@ describe("MenuFullscreen", () => {
 
       assertStyleMatch(
         {
-          height: "40px",
-          backgroundColor: baseTheme.colors.white,
-          left: "-100vw",
-          transition: "all 0.3s ease",
-        },
-        wrapper.find(StyledMenuFullscreenHeader)
-      );
-
-      assertStyleMatch(
-        {
           position: "absolute",
           zIndex: "1",
           right: "16px",
@@ -146,14 +139,6 @@ describe("MenuFullscreen", () => {
         },
         wrapper
       );
-
-      assertStyleMatch(
-        {
-          left: "0",
-          transition: "all 0.3s ease",
-        },
-        wrapper.find(StyledMenuFullscreenHeader)
-      );
     });
 
     it("applies the expected styling when `startPosition` is 'right'", () => {
@@ -166,21 +151,35 @@ describe("MenuFullscreen", () => {
         },
         wrapper
       );
-
-      assertStyleMatch(
-        {
-          right: "0",
-          transition: "all 0.3s ease",
-        },
-        wrapper.find(StyledMenuFullscreenHeader)
-      );
     });
   });
 
-  describe("close icon", () => {
-    it("calls the onClose callback when clicked", () => {
+  describe("onClose", () => {
+    it("calls the onClose callback when close icon button is clicked", () => {
       render({ isOpen: true }).find(IconButton).simulate("click");
       expect(onClose).toHaveBeenCalled();
+    });
+
+    it("calls the onClose callback when escape key pressed", () => {
+      simulate.keydown.pressEscape(
+        render({ isOpen: true }).find(StyledMenuFullscreen)
+      );
+      expect(onClose).toHaveBeenCalled();
+    });
+  });
+
+  describe("focus behaviour", () => {
+    it("focuses the content container on open of menu", () => {
+      wrapper = render({ isOpen: true });
+
+      const element = wrapper.find(StyledMenuFullscreen).getDOMNode();
+      const event = new Event("transitionend", {
+        bubbles: true,
+        cancellable: true,
+      });
+      element.dispatchEvent(event);
+
+      expect(wrapper.find(StyledMenuWrapper)).toBeFocused();
     });
   });
 });

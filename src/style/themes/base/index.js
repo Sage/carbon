@@ -4,6 +4,7 @@ import atOpacity from "../../utils/at-opacity";
 import { mergeDeep } from "../../utils/merge-deep";
 import generatePalette from "../../palette";
 import addHexSymbols from "../../utils/add-hex-symbols";
+import compatibility from "../../design-tokens/theme-compatibility.util";
 
 const colors = generatePalette(baseColors);
 const colorsWithHex = addHexSymbols(baseColors);
@@ -23,8 +24,14 @@ export default baseTheme;
 
 export const mergeWithBase = (configureTheme) => {
   const themeToMergeWithBase = configureTheme(palette);
-  return {
+  const mergedThemes = {
     ...mergeDeep(baseTheme, themeToMergeWithBase),
     palette,
+  };
+
+  return {
+    ...mergedThemes,
+    ...compatibility(mergedThemes),
+    name: mergedThemes.name,
   };
 };

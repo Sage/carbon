@@ -12,7 +12,7 @@ const marginPropTypes = filterStyledSystemMarginProps(
 );
 const renderCloseIcon = (onDelete) => (
   <IconButton onAction={onDelete} data-element="close" aria-label="close">
-    <Icon type="cross" bgSize="small" bgTheme="none" />
+    <Icon type="cross" />
   </IconButton>
 );
 

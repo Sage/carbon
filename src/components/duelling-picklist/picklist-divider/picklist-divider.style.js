@@ -7,8 +7,8 @@ const StyledPicklistDivider = styled.div`
     #bfcbd1 0%,
     rgba(191, 203, 209, 0) 99.9%
   );
-  margin-left: 4px;
-  margin-right: 4px;
+  margin-left: 16px;
+  margin-right: 16px;
 `;
 
 export default StyledPicklistDivider;

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext, useMemo } from "react";
+import { ThemeContext } from "styled-components";
 import PropTypes from "prop-types";
 import Icon from "../icon";
 import Event from "../../__internal__/utils/helpers/events";
 import { StyledLink, StyledContent } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import { baseTheme } from "../../style/themes";
 
 const Link = React.forwardRef(
   (
@@ -24,10 +26,11 @@ const Link = React.forwardRef(
       tooltipPosition,
       tabbable,
       target,
-      ...props
+      ...rest
     },
     ref
   ) => {
+    const theme = useContext(ThemeContext) || baseTheme;
     const tabIndex = tabbable && !disabled ? "0" : "-1";
     const handleOnKeyDown = (ev) => {
       if (onKeyDown) {
@@ -50,8 +53,8 @@ const Link = React.forwardRef(
       return hasProperAlignment ? (
         <Icon
           type={icon}
-          bgTheme="none"
-          iconColor="business-color"
+          bgSize="extra-small"
+          color={theme.colors.primary}
           disabled={disabled}
           ariaLabel={ariaLabel}
           tooltipMessage={tooltipMessage}
@@ -59,6 +62,18 @@ const Link = React.forwardRef(
         />
       ) : null;
     };
+
+    const ariaProps = useMemo(
+      () =>
+        Object.keys(rest)
+          .filter((key) => key.startsWith("aria"))
+          .reduce((obj, key) => {
+            obj[key] = rest[key];
+            return obj;
+          }, {}),
+      [rest]
+    );
+
     const componentProps = {
       onKeyDown: handleOnKeyDown,
       onMouseDown,
@@ -69,6 +84,8 @@ const Link = React.forwardRef(
       ref,
       href,
       rel,
+      "aria-label": ariaLabel,
+      ...ariaProps,
     };
     const createLinkBasedOnType = () => {
       let type = "a";
@@ -79,16 +96,11 @@ const Link = React.forwardRef(
 
       return React.createElement(
         type,
-        { ...componentProps },
+        { ...componentProps, ...(type === "button" && { role: "link" }) },
         <>
           {renderLinkIcon()}
 
-          <StyledContent
-            {...(!children && {
-              "aria-label": ariaLabel,
-              role: "link",
-            })}
-          >
+          <StyledContent>
             {isSkipLink ? "Skip to main content" : children}
           </StyledContent>
 
@@ -104,7 +116,7 @@ const Link = React.forwardRef(
         className={className}
         iconAlign={iconAlign}
         hasContent={Boolean(children)}
-        {...tagComponent("link", props)}
+        {...tagComponent("link", rest)}
         {...(isSkipLink && { "data-element": "skip-link" })}
       >
         {createLinkBasedOnType()}

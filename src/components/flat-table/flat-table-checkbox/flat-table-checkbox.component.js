@@ -12,6 +12,7 @@ const FlatTableCheckbox = ({
   leftPosition,
   cellIndex,
   reportCellWidth,
+  ariaLabelledBy,
 }) => {
   const ref = useRef(null);
 
@@ -38,6 +39,7 @@ const FlatTableCheckbox = ({
           onChange={onChange}
           name="flat-table-checkbox"
           mb={0}
+          ariaLabelledBy={ariaLabelledBy}
         />
       )}
     </StyledFlatTableCheckbox>
@@ -55,6 +57,8 @@ FlatTableCheckbox.propTypes = {
   onClick: PropTypes.func,
   /** Whether to render the checkbox or not, defaults to true */
   selectable: PropTypes.bool,
+  /** The id of the element that labels the input */
+  ariaLabelledBy: PropTypes.string,
   /**
    * @private
    * @ignore

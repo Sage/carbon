@@ -2,11 +2,24 @@
 
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon after children 1`] = `
 .c2 {
-  display: inline-block;
   position: relative;
   color: #008200;
   background-color: transparent;
   vertical-align: middle;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 16px;
+  width: 16px;
 }
 
 .c2::before {
@@ -706,6 +719,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c0 {
   padding-left: 24px;
   padding-right: 24px;
+  margin: 0;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -783,6 +797,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   </span>
   <span
     className="c1 c2"
+    color="#008200"
     data-component="icon"
     data-element="filter"
     disabled={false}
@@ -794,11 +809,24 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon before children 1`] = `
 .c2 {
-  display: inline-block;
   position: relative;
   color: #008200;
   background-color: transparent;
   vertical-align: middle;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 16px;
+  width: 16px;
 }
 
 .c2::before {
@@ -817,6 +845,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c0 {
   padding-left: 24px;
   padding-right: 24px;
+  margin: 0;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1553,6 +1582,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 >
   <span
     className="c1 c2"
+    color="#008200"
     data-component="icon"
     data-element="filter"
     disabled={false}

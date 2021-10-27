@@ -146,11 +146,11 @@ describe("SplitButton", () => {
         toggle.contains(
           <Icon
             type="dropdown"
-            bgTheme="none"
-            iconColor="business-color"
+            color="#008200"
             disabled={false}
-            bgSize="small"
+            bgSize="extra-small"
             fontSize="small"
+            bg="transparent"
           />
         )
       ).toBeTruthy();

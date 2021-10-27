@@ -81,7 +81,7 @@ describe("PopoverContainer", () => {
 
   it("should render correct children", () => {
     wrapper = mount(
-      <PopoverContainer open>
+      <PopoverContainer title="foo" open>
         <div id="myChildren">children</div>
       </PopoverContainer>
     );
@@ -94,7 +94,7 @@ describe("PopoverContainer", () => {
     expect(wrapper.find(Transition).props().mountOnEnter).toBe(true);
   });
 
-  it("should unount after 300ms when the component closes", () => {
+  it("should unmount after 300ms when the component closes", () => {
     expect(wrapper.find(Transition).props().timeout).toEqual({ exit: 300 });
     expect(wrapper.find(Transition).props().unmountOnExit).toBe(true);
   });
@@ -131,7 +131,7 @@ describe("PopoverContainer", () => {
     ).toBe("popover-container");
   });
 
-  it("should render the same id for `aria-labelledby` and `PopoverContainerTitleStyle`", () => {
+  it("should set the id for `PopoverContainerTitleStyle` when title has a value", () => {
     wrapper = render({ open: true });
     expect(wrapper.find(PopoverContainerTitleStyle).props().id).toBe(
       "PopoverContainer_guid-123"
@@ -139,6 +139,16 @@ describe("PopoverContainer", () => {
     expect(
       wrapper.find(PopoverContainerWrapperStyle).prop("aria-labelledby")
     ).toBe("PopoverContainer_guid-123");
+  });
+
+  it("should not set the id for `PopoverContainerTitleStyle` when title has no value", () => {
+    wrapper = render({
+      open: true,
+      title: undefined,
+      openButtonAriaLabel: "foo",
+      containerAriaLabel: "bar",
+    });
+    expect(wrapper.find(PopoverContainerTitleStyle).props().id).toBe(undefined);
   });
 
   it("should let opening button to be focusable if popover is closed", () => {
@@ -501,6 +511,22 @@ describe("PopoverContainerContentStyle", () => {
     expect(
       wrapper.find(PopoverContainerContentStyle).props().animationState
     ).toBe("entering");
+  });
+
+  it("should set the correct aria attributes when no title is passed", () => {
+    const wrapper = render({
+      open: true,
+      title: undefined,
+      openButtonAriaLabel: "foo",
+      containerAriaLabel: "bar",
+    });
+
+    expect(
+      wrapper.find(PopoverContainerContentStyle).prop("aria-labelledby")
+    ).toBe(undefined);
+    expect(wrapper.find(PopoverContainerContentStyle).prop("aria-label")).toBe(
+      "bar"
+    );
   });
 
   it("should render to the right by default", () => {

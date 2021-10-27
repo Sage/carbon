@@ -2,7 +2,6 @@
 
 exports[`ActionButtons StyledDeleteButton when isHovered prop is set should match expected styles 1`] = `
 .c3 {
-  display: inline-block;
   position: relative;
   color: rgba(0,0,0,0.65);
   background-color: transparent;
@@ -38,6 +37,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
 
 .c4 a .c2,
 .c4 button .c2 {
+  display: inline-block;
   position: relative;
   vertical-align: middle;
   margin-right: 5px;
@@ -45,6 +45,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
 
 .c5 a .c2,
 .c5 button .c2 {
+  display: inline-block;
   position: relative;
   vertical-align: middle;
   margin-right: 0;
@@ -349,6 +350,7 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
 
 .c0 a .c9,
 .c0 button .c9 {
+  display: inline-block;
   position: relative;
   vertical-align: middle;
   margin-right: 0;
@@ -453,7 +455,6 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
   >
     <span
       className="c2 "
-      role="link"
     />
   </a>
 </span>
@@ -461,7 +462,6 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
 
 exports[`ActionButtons StyledUndoButton when isHovered prop is set should match expected styles 1`] = `
 .c3 {
-  display: inline-block;
   position: relative;
   color: rgba(0,0,0,0.65);
   background-color: transparent;
@@ -497,6 +497,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
 
 .c4 a .c2,
 .c4 button .c2 {
+  display: inline-block;
   position: relative;
   vertical-align: middle;
   margin-right: 5px;
@@ -504,6 +505,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
 
 .c5 a .c2,
 .c5 button .c2 {
+  display: inline-block;
   position: relative;
   vertical-align: middle;
   margin-right: 0;
