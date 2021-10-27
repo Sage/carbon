@@ -41,9 +41,8 @@ const FocusTrap = ({
   );
 
   const updateFocusableElements = useCallback(() => {
-    if (wrapperRef) {
-      const ref = wrapperRef.current;
-
+    const ref = wrapperRef?.current;
+    if (ref) {
       const elements = Array.from(
         ref.querySelectorAll(defaultFocusableSelectors)
       ).filter((el) => Number(el.tabIndex) !== -1);
