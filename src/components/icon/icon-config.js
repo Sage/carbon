@@ -28,20 +28,6 @@ export const ICON_SIZES = [
   "large",
   "extra-large",
 ];
-export const ICON_BACKGROUNDS = [
-  "info",
-  "error",
-  "success",
-  "warning",
-  "business",
-  "none",
-];
-export const ICON_COLORS = [
-  "default",
-  "on-light-background",
-  "on-dark-background",
-  "business-color",
-];
 export const ICONS = [
   "add",
   "alert",

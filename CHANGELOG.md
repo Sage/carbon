@@ -1,3 +1,30 @@
+## [95.0.0](https://github.com/Sage/carbon/compare/v94.8.0...v95.0.0) (2021-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **icon:** bgTheme and iconColor props have been removed
+from Icon. Please use bg and color props instead.
+
+### Code Refactoring
+
+* **icon:** remove bgTheme and iconColor props ([c2e6863](https://github.com/Sage/carbon/commit/c2e686390020ef1d62dc1c690593e73082b8f479))
+
+## [94.8.0](https://github.com/Sage/carbon/compare/v94.7.1...v94.8.0) (2021-10-26)
+
+
+### Features
+
+* **checkable-input:** surface ariaLabelledBy prop and prevent setting labeId when no label is set ([37a4632](https://github.com/Sage/carbon/commit/37a4632272860e84ac7dc24dd3cde6d67d911980))
+* **flat-table-checkbox:** surface ariaLabelledBy prop for accessibility when in a selectable table ([ab82739](https://github.com/Sage/carbon/commit/ab8273986a32c48d6f19d206fbe78a6f449b644d))
+
+### [94.7.1](https://github.com/Sage/carbon/compare/v94.7.0...v94.7.1) (2021-10-26)
+
+
+### Bug Fixes
+
+* **design-tokens:** improve values of tokens using theme.space, add tokens containing opacity ([0a3289c](https://github.com/Sage/carbon/commit/0a3289c3aca47477acb1bab8b480e128f501f37a))
+
 ## [94.7.0](https://github.com/Sage/carbon/compare/v94.6.2...v94.7.0) (2021-10-22)
 
 

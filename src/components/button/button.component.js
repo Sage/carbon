@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
+import { ThemeContext } from "styled-components";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import Icon from "../icon";
 import StyledButton, { StyledButtonSubtext } from "./button.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import baseTheme from "../../style/themes/base";
 
 function renderChildren({
   /* eslint-disable react/prop-types */
@@ -16,20 +18,22 @@ function renderChildren({
   buttonType,
   iconTooltipMessage,
   iconTooltipPosition,
+  theme,
   /* eslint-enable */
 }) {
   const iconColorMap = {
-    primary: "on-dark-background",
-    secondary: "business-color",
-    tertiary: "business-color",
-    darkBackground: "business-color",
+    primary: theme.colors.white,
+    secondary: theme.colors.primary,
+    tertiary: theme.colors.primary,
+    darkBackground: theme.colors.primary,
   };
 
   const iconProps = {
     type: iconType,
     disabled,
-    bgTheme: "none",
-    iconColor: iconColorMap[buttonType],
+    bgSize: "extra-small",
+    color: iconColorMap[buttonType],
+    bg: "transparent",
   };
 
   return (
@@ -133,6 +137,7 @@ const renderStyledButton = (buttonProps) => {
 };
 
 const Button = (props) => {
+  const theme = useContext(ThemeContext) || baseTheme;
   const { size, subtext } = props;
   const linkRef = useRef(null);
   const { as, buttonType, forwardRef, ...rest } = props;
@@ -140,6 +145,7 @@ const Button = (props) => {
     ...rest,
     buttonType: buttonType || as,
     ref: forwardRef || linkRef,
+    theme,
   };
 
   if (subtext.length > 0 && size !== "large") {

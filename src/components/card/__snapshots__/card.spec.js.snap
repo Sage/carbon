@@ -35,11 +35,24 @@ exports[`Card CardFooter styling should match the expected styling when it has i
 
 exports[`Card CardFooter styling should match the expected styling when it has non-interactive content 1`] = `
 .c3 {
-  display: inline-block;
   position: relative;
   color: #008200;
   background-color: transparent;
   vertical-align: middle;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 16px;
+  width: 16px;
 }
 
 .c3::before {
@@ -89,6 +102,7 @@ exports[`Card CardFooter styling should match the expected styling when it has n
 
 .c1 a .c2,
 .c1 button .c2 {
+  display: inline-block;
   position: relative;
   vertical-align: middle;
   margin-right: 5px;
@@ -130,6 +144,7 @@ exports[`Card CardFooter styling should match the expected styling when it has n
     >
       <span
         className="c2 c3"
+        color="#008200"
         data-component="icon"
         data-element="link"
         disabled={false}
