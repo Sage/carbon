@@ -1,3 +1,10 @@
+### [95.0.2](https://github.com/Sage/carbon/compare/v95.0.1...v95.0.2) (2021-10-27)
+
+
+### Bug Fixes
+
+* **focus-trap:** add null check to focus-trap ref ([7e4cf21](https://github.com/Sage/carbon/commit/7e4cf214000e784b84fb5fa7bd760d05c82c8b3b))
+
 ### [95.0.1](https://github.com/Sage/carbon/compare/v95.0.0...v95.0.1) (2021-10-27)
 
 
