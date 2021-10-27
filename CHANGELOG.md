@@ -1,3 +1,15 @@
+## [95.0.0](https://github.com/Sage/carbon/compare/v94.8.0...v95.0.0) (2021-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **icon:** bgTheme and iconColor props have been removed
+from Icon. Please use bg and color props instead.
+
+### Code Refactoring
+
+* **icon:** remove bgTheme and iconColor props ([c2e6863](https://github.com/Sage/carbon/commit/c2e686390020ef1d62dc1c690593e73082b8f479))
+
 ## [94.8.0](https://github.com/Sage/carbon/compare/v94.7.1...v94.8.0) (2021-10-26)
 
 
