@@ -1,4 +1,11 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
+import React, {
+  useRef,
+  useState,
+  useContext,
+  useCallback,
+  useEffect,
+} from "react";
+import { ThemeContext } from "styled-components";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import Icon from "../icon";
@@ -10,6 +17,7 @@ import Events from "../../__internal__/utils/helpers/events";
 import guid from "../../__internal__/utils/helpers/guid";
 import Popover from "../../__internal__/popover";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { baseTheme } from "../../style/themes";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -31,6 +39,7 @@ const SplitButton = ({
   text,
   ...rest
 }) => {
+  const theme = useContext(ThemeContext) || baseTheme;
   const isToggleButtonFocused = useRef(false);
   const buttonLabelId = useRef(guid());
   const additionalButtons = useRef([]);
@@ -154,8 +163,8 @@ const SplitButton = ({
 
   function getIconColor() {
     const colorsMap = {
-      primary: "on-dark-background",
-      secondary: "business-color",
+      primary: theme.colors.white,
+      secondary: theme.colors.primary,
     };
     return colorsMap[buttonType || as];
   }
@@ -180,8 +189,9 @@ const SplitButton = ({
       >
         <Icon
           type="dropdown"
-          bgTheme="none"
-          iconColor={getIconColor()}
+          bgSize="extra-small"
+          color={getIconColor()}
+          bg="transparent"
           disabled={disabled}
         />
       </StyledSplitButtonToggle>,

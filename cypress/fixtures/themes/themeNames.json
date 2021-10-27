@@ -1,23 +1,11 @@
 {
-	"themeMint": {
-		"theme": "mint"
-	},
-	"themeAegean": {
-		"theme": "aegean"
-	},
-	"themeNone": {
-		"theme": "none"
-	},
-	"iconThemeMint": {
-		"bgTheme": "business",
-		"theme": "mint"
-	},
-	"iconThemeAegean": {
-		"bgTheme": "business",
-		"theme": "aegean"
-	},
-	"iconThemeNone": {
-		"bgTheme": "business",
-		"theme": "none"
-	}
+  "themeMint": {
+    "theme": "mint"
+  },
+  "themeAegean": {
+    "theme": "aegean"
+  },
+  "themeNone": {
+    "theme": "none"
+  }
 }

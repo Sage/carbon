@@ -27,10 +27,7 @@ import { DrawerSidebarContext } from "../drawer";
 import Box from "../box";
 import Button from "../button";
 
-<Meta
-  title="Flat Table"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Flat Table" parameters={{ info: { disable: true } }} />
 
 # Flat Table
 
@@ -208,7 +205,7 @@ Column width can be set by passing number as a `width` prop to the column header
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader width={200}>Notes</FlatTableHeader>
           <FlatTableHeader width={40} px={1}>
-            <Icon iconColor="on-dark-background" type="settings" />
+            <Icon color="white" type="settings" />
           </FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
@@ -1041,10 +1038,7 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
 ### With sorting headers
 
 <Preview>
-  <Story
-    id="flat-table-test--sortable"
-    name="with sorting headers"
-  />
+  <Story id="flat-table-test--sortable" name="with sorting headers" />
 </Preview>
 
 ### With a cell spanning the whole row
