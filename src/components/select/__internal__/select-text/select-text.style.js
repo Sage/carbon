@@ -13,6 +13,7 @@ const StyledSelectText = styled.span`
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 30px;
+    z-index: 1;
 
     ${transparent &&
     css`

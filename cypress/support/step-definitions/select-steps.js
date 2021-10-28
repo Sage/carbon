@@ -1,20 +1,17 @@
 import {
-  simpleSelectID,
   selectOption,
   dropdownButton,
   selectList,
-  simpleSelect,
-  selectDataComponent,
+  selectInput,
   multiSelectDataComponent,
-  openOnFocusID,
   multiSelectPill,
   multiSelectPillByPosition,
-  isLoading,
   selectListText,
   multiColumnsSelectListHeader,
   multiColumnsSelectListBody,
   boldedAndUnderlinedValue,
   selectListPosition,
+  selectText,
 } from "../../locators/select";
 import { positionOfElement, keyCode } from "../helper";
 import {
@@ -25,48 +22,30 @@ import {
 import { dataComponentButtonByText } from "../../locators/pages";
 import { loader } from "../../locators/loader";
 
-When("I focus select input", () => {
-  simpleSelectID().focus();
-});
-
-When("I focus default Select input", () => {
-  simpleSelect().focus();
-});
-
-When("I focus openOnFocus Select input", () => {
-  openOnFocusID().focus();
-});
-
-When("I click openOnFocus Select input", () => {
-  openOnFocusID().click({ force: true });
-});
-
-Then("{string} Select list is opened", (name) => {
-  selectDataComponent(name).should("have.attr", "aria-expanded", "true");
+Then("{string} list is open", () => {
+  selectInput().should("have.attr", "aria-expanded", "true");
   selectList().should("be.visible");
 });
 
-Then("{string} Select list is closed", (name) => {
-  selectDataComponent(name).should("have.attr", "aria-expanded", "false");
-  selectList().should("not.exist");
-});
-
-Then("multi Select list is opened", () => {
-  multiSelectDataComponent().should("have.attr", "aria-expanded", "true");
-  selectList().should("be.visible");
-});
-
-Then("multi Select list is closed", () => {
-  multiSelectDataComponent().should("have.attr", "aria-expanded", "false");
+Then("{string} list is closed", () => {
+  selectInput().should("have.attr", "aria-expanded", "false");
   selectList().should("not.exist");
 });
 
 When("I click on Select input", () => {
-  simpleSelectID().click();
+  selectInput().click();
 });
 
-When("I click on default Select input", () => {
-  simpleSelect().click();
+When("I click on Select text", () => {
+  selectText().click();
+});
+
+When("I click on controlled Select input", () => {
+  commonDataElementInputPreview().realClick();
+});
+
+When("I focus on controlled Select input", () => {
+  commonDataElementInputPreview().focus();
 });
 
 When("{string} option on the list is hovered over", (position) => {
@@ -84,11 +63,11 @@ When("{string} option on the list is highlighted", (position) => {
 });
 
 When("I click onto controlled select using {string} key", (key) => {
-  simpleSelectID().trigger("keydown", keyCode(key));
+  commonDataElementInputPreview().trigger("keydown", keyCode(key));
 });
 
-When("I click onto default select using {string} key", (key) => {
-  simpleSelect().trigger("keydown", keyCode(key));
+When("I press the {string} key, when focused on the input", (key) => {
+  selectInput().trigger("keydown", { ...keyCode(key), force: true });
 });
 
 Then("Multi select input has {string} pill", (text) => {
@@ -111,23 +90,23 @@ When("I click on dropdown button", () => {
   dropdownButton().click();
 });
 
-When("I select value {string}", (text) => {
-  simpleSelectID().type(`${text}{enter}`);
+When("I select the {string} Option", (text) => {
+  selectListText(text).click();
 });
 
 When("I type {string} into input", (text) => {
-  simpleSelectID().type(text);
+  commonDataElementInputPreview().type(text);
 });
 
 When(
   "Type {string} text into multi select input and select the value",
   (text) => {
-    simpleSelectID().type(`${text}{downarrow}{enter}`);
+    commonDataElementInputPreview().type(`${text}{downarrow}{enter}`);
   }
 );
 
 When("I type {string} into default input", (text) => {
-  simpleSelect().type(text);
+  commonDataElementInputPreview().type(text);
 });
 
 When("{string} option on Select list is {string}", (position, text) => {
@@ -144,10 +123,6 @@ When("I click on Select label", () => {
 
 When("I click onto {string} button", (buttonName) => {
   dataComponentButtonByText(buttonName).click();
-});
-
-When("I click on Select input with lazy loading", () => {
-  isLoading().click();
 });
 
 Then("Lazy loading is visible", () => {
