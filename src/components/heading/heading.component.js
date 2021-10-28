@@ -39,6 +39,7 @@ class Heading extends React.Component {
         data-element="help"
         tooltipPosition="right"
         href={this.props.helpLink}
+        ariaLabel={this.props.helpAriaLabel}
       >
         {this.props.help}
       </StyledHeaderHelp>
@@ -231,6 +232,11 @@ Heading.propTypes = {
    * Pills that will be added after the title.
    */
   pills: PropTypes.node,
+
+  /**
+   * Aria label for rendered help component
+   */
+  helpAriaLabel: PropTypes.string,
 };
 
 Heading.defaultProps = {

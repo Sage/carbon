@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
@@ -6,6 +6,7 @@ import Icon from "../icon";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledHelp from "./help.style";
 import Events from "../../__internal__/utils/helpers/events";
+import { TooltipContext } from "../../__internal__/tooltip-provider";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { HELP_POSITIONS } from "./help.config";
 
@@ -26,10 +27,12 @@ const Help = ({
   tooltipBgColor,
   tooltipFontColor,
   tooltipFlipOverrides,
+  ariaLabel,
   ...rest
 }) => {
   const helpElement = useRef(null);
   const [isTooltipVisible, updateTooltipVisible] = useState(false);
+  const { helpAriaLabel } = useContext(TooltipContext);
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyPress);
@@ -56,13 +59,10 @@ const Help = ({
 
   return (
     <StyledHelp
-      role="tooltip"
       className={className}
       as={tagType}
       href={href}
       id={helpId}
-      target="_blank"
-      rel="noopener noreferrer"
       ref={helpElement}
       onClick={() => {
         helpElement.current.focus();
@@ -73,6 +73,15 @@ const Help = ({
       onMouseLeave={handleFocusBlur(false)}
       {...tagComponent("help", rest)}
       tabIndex={tabIndex}
+      {...(href
+        ? {
+            target: "_blank",
+            rel: "noopener noreferrer",
+          }
+        : {
+            role: "tooltip",
+            "aria-label": ariaLabel || helpAriaLabel,
+          })}
       {...filterStyledSystemMarginProps(rest)}
       {...rest}
     >
@@ -84,6 +93,12 @@ const Help = ({
         tooltipBgColor={tooltipBgColor}
         tooltipFontColor={tooltipFontColor}
         tooltipFlipOverrides={tooltipFlipOverrides}
+        focusable={false}
+        aria-hidden="true"
+        {...(href && {
+          role: "tooltip",
+          ariaLabel: ariaLabel || helpAriaLabel,
+        })}
       />
     </StyledHelp>
   );
@@ -133,6 +148,8 @@ Help.propTypes = {
       `The \`${propName}\` prop supplied to \`${componentName}\` must be an array containing some or all of ["top", "bottom", "left", "right"].`
     );
   },
+  /** Aria label */
+  ariaLabel: PropTypes.string,
 };
 
 Help.defaultProps = {
