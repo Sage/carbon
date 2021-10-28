@@ -97,6 +97,7 @@
     "cypress-axe": "^0.13.0",
     "cypress-cucumber-preprocessor": "^4.3.0",
     "cypress-each": "^1.5.0",
+    "cypress-file-upload": "^5.0.8",
     "cypress-plugin-tab": "^1.0.5",
     "cypress-real-events": "^1.5.1",
     "cypress-storybook": "^0.5.1",

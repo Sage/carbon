@@ -2,6 +2,7 @@ import "cypress-axe";
 import "cypress-real-events/support";
 import "cypress-storybook/cypress";
 import "cypress-each";
+import "cypress-file-upload";
 
 require("cypress-plugin-tab");
 
