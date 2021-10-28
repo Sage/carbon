@@ -1037,8 +1037,121 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
 
 ### With sorting headers
 
+export const FlatTableSortableStory = (args) => {
+  const headDataItems = [
+    { name: "client", isActive: false },
+    { name: "total", isActive: false },
+  ];
+  const bodyDataItems = [
+    { client: "Jason Atkinson", total: 1349 },
+    { client: "Monty Parker", total: 849 },
+    { client: "Blake Sutton", total: 3840 },
+    { client: "Tyler Webb", total: 280 },
+  ];
+  const [headData, setHeadData] = useState(headDataItems);
+  const [sortType, setSortType] = useState("ascending");
+  const [sortValue, setSortValue] = useState();
+  const sortByNumber = (dataToSort, sortByValue, type) => {
+    const sortedData = dataToSort.sort((a, b) => {
+      if (type === "ascending") {
+        return a[sortByValue] - b[sortByValue];
+      }
+      if (type === "descending") {
+        return b[sortByValue] - a[sortByValue];
+      }
+      return 0;
+    });
+    return sortedData;
+  };
+  const sortByString = (dataToSort, sortByValue, type) => {
+    const sortedData = dataToSort.sort((a, b) => {
+      const nameA = a[sortByValue].toUpperCase();
+      const nameB = b[sortByValue].toUpperCase();
+      if (type === "ascending") {
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+      }
+      if (type === "descending") {
+        if (nameA > nameB) {
+          return -1;
+        }
+        if (nameA < nameB) {
+          return 1;
+        }
+      }
+      return 0;
+    });
+    return sortedData;
+  };
+  const handleClick = (value) => {
+    const tempHeadData = headData;
+    tempHeadData.forEach((item) => {
+      item.isActive = false;
+      if (item.name === value) {
+        item.isActive = !item.isActive;
+      }
+    });
+    setSortValue(value);
+    setSortType(sortType === "ascending" ? "descending" : "ascending");
+    setHeadData([...tempHeadData]);
+  };
+  const renderSortedData = (sortByValue) => {
+    let sortedData = bodyDataItems;
+    if (typeof bodyDataItems[0][sortByValue] === "string") {
+      sortedData = sortByString(sortedData, sortByValue, sortType);
+    }
+    if (typeof bodyDataItems[0][sortByValue] === "number") {
+      sortedData = sortByNumber(sortedData, sortByValue, sortType);
+    }
+    return sortedData.map((dataItem) => {
+      return (
+        <FlatTableRow key={dataItem.client}>
+          <FlatTableCell>{dataItem.client}</FlatTableCell>
+          <FlatTableCell>{dataItem.total}</FlatTableCell>
+        </FlatTableRow>
+      );
+    });
+  };
+  return (
+    <FlatTable {...args}>
+      <FlatTableHead>
+        <FlatTableRow>
+          {headData.map((dataItem) => {
+            return (
+              <FlatTableHeader key={dataItem.name}>
+                <Sort
+                  onClick={() => handleClick(dataItem.name)}
+                  sortType={dataItem.isActive && sortType}
+                >
+                  {dataItem.name}
+                </Sort>
+              </FlatTableHeader>
+            );
+          })}
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>{renderSortedData(sortValue)}</FlatTableBody>
+    </FlatTable>
+  );
+};
+
 <Preview>
-  <Story id="flat-table-test--sortable" name="with sorting headers" />
+  <Story 
+    name="with sorting headers"
+    parameters={{
+      docs: {
+        source: {
+          type: "code",
+        },
+      },
+    }}
+  >
+    {FlatTableSortableStory.bind({})}
+  </Story>
 </Preview>
 
 ### With a cell spanning the whole row
