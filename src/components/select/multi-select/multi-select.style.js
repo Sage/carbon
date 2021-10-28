@@ -30,8 +30,16 @@ const StyledSelectMultiSelect = styled(StyledSelect)`
   }
 `;
 
+const StyledAccessibilityLabelContainer = styled.div`
+  display: none;
+`;
+
 StyledSelectPillContainer.defaultProps = {
   theme: baseTheme,
 };
 
-export { StyledSelectPillContainer, StyledSelectMultiSelect };
+export {
+  StyledSelectPillContainer,
+  StyledSelectMultiSelect,
+  StyledAccessibilityLabelContainer,
+};
