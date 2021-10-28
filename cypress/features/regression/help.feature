@@ -20,3 +20,8 @@ Feature: Help component
       | href                         | nameOfObject         |
       | mp150ú¿¡üßä                  | hrefOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | hrefSpecialCharacter |
+
+  @positive
+  Scenario: Help component should have focus 
+    Given I open "Help Test" component page "default story"
+    When I hit Tab key 1 time
