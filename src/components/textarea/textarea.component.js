@@ -126,11 +126,15 @@ class Textarea extends React.Component {
       "data-component": dataComponent,
       "data-element": dataElement,
       "data-role": dataRole,
+      helpAriaLabel,
       ...props
     } = this.props;
 
     return (
-      <TooltipProvider tooltipPosition={tooltipPosition}>
+      <TooltipProvider
+        helpAriaLabel={helpAriaLabel}
+        tooltipPosition={tooltipPosition}
+      >
         <InputBehaviour>
           <StyledTextarea
             labelInline={labelInline}
@@ -295,6 +299,8 @@ Textarea.propTypes = {
   required: PropTypes.bool,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Aria label for rendered help component */
+  helpAriaLabel: PropTypes.string,
 };
 
 Textarea.defaultProps = {

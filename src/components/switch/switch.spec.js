@@ -24,6 +24,7 @@ import SwitchStyle from "./switch.style";
 import Label from "../../__internal__/label";
 import I18nProvider from "../i18n-provider";
 import Tooltip from "../tooltip";
+import StyledHelp from "../help/help.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -536,6 +537,19 @@ describe("Switch", () => {
         .props();
 
       expect(position).toEqual("top");
+    });
+  });
+
+  describe("helpAriaLabel", () => {
+    it("should set the aria-label on the Help component", () => {
+      const text = "foo";
+      const wrapper = render(
+        { label: "foo", labelHelp: text, helpAriaLabel: text },
+        mount
+      );
+      const help = wrapper.find(StyledHelp);
+
+      expect(help.prop("aria-label")).toEqual(text);
     });
   });
 

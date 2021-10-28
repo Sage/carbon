@@ -56,7 +56,12 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColo
 <Preview>
   <Story name="with tooltip" parameters={{ chromatic: { disable: true } }}>
     <div style={{ margin: 60, display: "inline" }}>
-      <Icon mr={8} type="add" tooltipMessage="Hey I'm a default tooltip!" />
+      <Icon
+        mr={8}
+        type="add"
+        tooltipMessage="Hey I'm a default tooltip!"
+        ariaLabel="Icon with tooltip"
+      />
       <Icon
         mr={8}
         type="add"
@@ -65,12 +70,14 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColo
             Hey I'm a <em>custom</em> tooltip!
           </>
         }
+        ariaLabel="Icon with tooltip"
       />
       <Icon
         mr={8}
         type="add"
         tooltipMessage="Hey I'm a tooltip with a different position!"
         tooltipPosition="bottom"
+        ariaLabel="Icon with tooltip"
       />
       <Icon
         mr={8}
@@ -78,11 +85,13 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColo
         tooltipMessage="Hey I'm a tooltip with a different color!"
         tooltipBgColor="lightblue"
         tooltipFontColor="black"
+        ariaLabel="Icon with tooltip"
       />
       <Icon
         type="add"
         tooltipMessage="Hey I'm a tooltip with flip behaviour overrides!"
         tooltipFlipOverrides={["right", "left"]}
+        ariaLabel="Icon with tooltip"
       />
     </div>
   </Story>

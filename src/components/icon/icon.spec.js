@@ -408,6 +408,54 @@ describe("Icon component", () => {
       expect(wrapper.find(Tooltip).props().isVisible).toEqual(false);
     });
 
+    it("sets the tabIndex, ariaLabel and role", () => {
+      const wrapper = mount(
+        <Icon
+          type="home"
+          ariaLabel="home"
+          tooltipMessage="foo"
+          tooltipVisible
+        />
+      );
+
+      expect(wrapper.find(StyledIcon).props()).toEqual(
+        expect.objectContaining({
+          "aria-label": "home",
+          role: "tooltip",
+          tabIndex: 0,
+        })
+      );
+    });
+
+    it("does not set the tabIndex and role when the disabled prop is set", () => {
+      const wrapper = mount(
+        <Icon type="home" tooltipMessage="foo" tooltipVisible disabled />
+      );
+
+      expect(wrapper.find(StyledIcon).props()).toEqual(
+        expect.objectContaining({
+          role: undefined,
+          tabIndex: undefined,
+        })
+      );
+    });
+
+    it("supports overriding the tabIndex and role", () => {
+      const wrapper = mount(
+        <Icon
+          type="home"
+          ariaLabel="home"
+          tooltipMessage="foo"
+          tooltipVisible
+          role="region"
+          tabIndex={-1}
+        />
+      );
+
+      expect(wrapper.find(StyledIcon).prop("role")).toEqual("region");
+      expect(wrapper.find(StyledIcon).prop("tabIndex")).toEqual(-1);
+    });
+
     describe("tooltipFlipOverrides", () => {
       it("does not throw an error if a valid array is passed", () => {
         global.console.error.mockReset();

@@ -136,6 +136,8 @@ GroupedCharacter.propTypes = {
   onBlur: PropTypes.func,
   /** Flag to configure component as mandatory */
   required: PropTypes.bool,
+  /** Aria label for rendered help component */
+  helpAriaLabel: PropTypes.string,
 };
 
 export default GroupedCharacter;

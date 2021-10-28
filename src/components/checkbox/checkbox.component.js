@@ -42,6 +42,7 @@ const Checkbox = ({
   "data-component": dataComponent,
   "data-element": dataElement,
   "data-role": dataRole,
+  helpAriaLabel,
   ...props
 }) => {
   const largeScreen = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
@@ -79,7 +80,10 @@ const Checkbox = ({
   };
 
   return (
-    <TooltipProvider tooltipPosition={tooltipPosition}>
+    <TooltipProvider
+      helpAriaLabel={helpAriaLabel}
+      tooltipPosition={tooltipPosition}
+    >
       <CheckboxStyle
         data-component={dataComponent}
         data-role={dataRole}
@@ -172,6 +176,8 @@ Checkbox.propTypes = {
   required: PropTypes.bool,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Aria label for rendered help component */
+  helpAriaLabel: PropTypes.string,
 };
 
 Checkbox.defaultProps = {
