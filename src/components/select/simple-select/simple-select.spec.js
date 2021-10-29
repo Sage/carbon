@@ -790,7 +790,39 @@ describe("SimpleSelect", () => {
       it("then the textbox value should be cleared", () => {
         expect(wrapper.find(Textbox).props().value).toBe("opt1");
         wrapper.setProps({ value: "" });
-        expect(wrapper.update().find(Textbox).props().value).toBe(undefined);
+        expect(wrapper.update().find(Textbox).props().value).toBe("");
+      });
+    });
+
+    describe("when parent re-renders", () => {
+      const WrapperComponent = (props) => {
+        const mockRef = useRef();
+
+        return (
+          <span change={props.change}>
+            <SimpleSelect name="testSelect" id="testSelect" ref={mockRef}>
+              <Option value="opt1" text="red" />
+              <Option value="opt2" text="green" />
+              <Option value="opt3" text="blue" />
+              <Option value="opt4" text="black" />
+            </SimpleSelect>
+          </span>
+        );
+      };
+
+      it("should persist the input value", () => {
+        wrapper = mount(<WrapperComponent />);
+        wrapper.find("input").simulate("click");
+        act(() => {
+          wrapper.find(Option).first().simulate("click");
+        });
+        expect(wrapper.update().find(Textbox).props().formattedValue).toBe(
+          "red"
+        );
+        wrapper.setProps({ change: "bar" });
+        expect(wrapper.update().find(Textbox).props().formattedValue).toBe(
+          "red"
+        );
       });
     });
   });
