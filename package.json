@@ -142,6 +142,7 @@
     "@tippyjs/react": "^4.2.5",
     "classnames": "~2.2.6",
     "crypto-js": "~3.3.0",
+    "dotenv": "^10.0.0",
     "immutable": "~3.8.2",
     "invariant": "^2.2.4",
     "lodash": "^4.17.20",

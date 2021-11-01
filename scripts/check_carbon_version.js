@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
 const fetch = require("node-fetch");
+const dotenv = require("dotenv");
 const chalk = require("chalk");
 const { version } = require("../package.json");
 
+dotenv.config();
 const majorVersion = version.split(".")[0];
 
 const checkCarbonVersion = () => {
@@ -25,4 +27,4 @@ const checkCarbonVersion = () => {
     .catch((err) => console.log(err));
 };
 
-checkCarbonVersion();
+if (!process.env.CARBON_INSTALL) checkCarbonVersion();

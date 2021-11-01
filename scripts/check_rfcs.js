@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
 const { Octokit } = require("@octokit/rest");
+const dotenv = require("dotenv");
 const chalk = require("chalk");
 
+dotenv.config();
 const octokit = new Octokit({
   baseUrl: "https://api.github.com",
 });
@@ -44,4 +46,4 @@ const checkRfcs = async () => {
   }
 };
 
-checkRfcs();
+if (!process.env.CARBON_INSTALL) checkRfcs();
