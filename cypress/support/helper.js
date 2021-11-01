@@ -23,16 +23,12 @@ export function visitComponentUrlWithParameters(
   nameOfObject = ""
 ) {
   cy.fixture(`${path}/${json}`).then(($json) => {
-    const today = Cypress.dayjs().format("YYYY-MM-DD");
     const el = $json[nameOfObject];
     let url = "&args=";
     for (const prop in el) {
       if (prop === "theme") {
         url += `&theme=${encodeURIComponent(el[prop])}`;
       } else {
-        if (prop === "minDate" || prop === "maxDate") {
-          el[prop] = today;
-        }
         url += `${prop}:${encodeURIComponent(el[prop])};`;
       }
     }

@@ -31,15 +31,13 @@ Feature: Date Input component
   @positive
   Scenario: Change Date Input component minDate
     Given I open default "Date Input Test" component with "dateInput" json from "commonComponents" using "minDate" object name
-      And I set dateInput to today
-    When I choose date yesterday via DayPicker
+    When I set dateInput to minimum date
     Then the date before minDate is not available
 
   @positive
   Scenario: Change Date Input component maxDate
     Given I open default "Date Input Test" component with "dateInput" json from "commonComponents" using "maxDate" object name
-      And I set dateInput to today
-    When I choose date tomorrow via DayPicker
+    When I set dateInput to maximum date
     Then the date after maxDate is not available
 
   @positive

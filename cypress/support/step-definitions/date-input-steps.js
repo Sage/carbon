@@ -23,25 +23,36 @@ const NEXT_MONTH = Cypress.dayjs().add(1, "months").format("MMMM YYYY");
 const PREVIOUS_MONTH = Cypress.dayjs()
   .subtract(1, "months")
   .format("MMMM YYYY");
+const MIN_DATE = "04/04/2030";
+const DAY_BEFORE_MIN_DATE = "Wed 3 Apr 2030";
+const DAY_AFTER_MIN_DATE = "Fri 5 Apr 2030";
 
 When("I set dateInput to today", () => {
   dateInput().clear().type(TODAY_DATE_INPUT);
 });
 
+When("I set dateInput to minimum date", () => {
+  dateInput().clear().type(MIN_DATE);
+});
+
+When("I set dateInput to maximum date", () => {
+  dateInput().clear().type(MIN_DATE);
+});
+
 Then("the date before minDate is not available", () => {
-  dayPickerDay(YESTERDAY_CALENDAR)
+  dayPickerDay(DAY_BEFORE_MIN_DATE)
     .should("have.attr", "aria-disabled")
     .and("contains", "true");
-  dayPickerDay(YESTERDAY_CALENDAR)
+  dayPickerDay(DAY_BEFORE_MIN_DATE)
     .should("have.attr", "aria-selected")
     .and("contains", "false");
 });
 
 Then("the date after maxDate is not available", () => {
-  dayPickerDay(TOMORROW_CALENDAR)
+  dayPickerDay(DAY_AFTER_MIN_DATE)
     .should("have.attr", "aria-disabled")
     .and("contains", "true");
-  dayPickerDay(TOMORROW_CALENDAR)
+  dayPickerDay(DAY_AFTER_MIN_DATE)
     .should("have.attr", "aria-selected")
     .and("contains", "false");
 });
