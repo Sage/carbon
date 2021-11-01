@@ -41,6 +41,7 @@ const Switch = ({
   "data-component": dataComponent,
   "data-element": dataElement,
   "data-role": dataRole,
+  helpAriaLabel,
   ...rest
 }) => {
   const isControlled = checked !== undefined;
@@ -115,7 +116,10 @@ const Switch = ({
   };
 
   return (
-    <TooltipProvider tooltipPosition={tooltipPosition}>
+    <TooltipProvider
+      helpAriaLabel={helpAriaLabel}
+      tooltipPosition={tooltipPosition}
+    >
       <SwitchStyle {...switchStyleProps}>
         <CheckableInput {...inputProps}>
           <SwitchSlider {...switchSliderProps} />
@@ -205,6 +209,8 @@ Switch.propTypes = {
   required: PropTypes.bool,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Aria label for rendered help component */
+  helpAriaLabel: PropTypes.string,
 };
 
 Switch.defaultProps = {

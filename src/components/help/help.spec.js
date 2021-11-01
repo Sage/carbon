@@ -72,6 +72,21 @@ describe("Help", () => {
       wrapper.unmount();
     });
 
+    it("sets the appropriate props when href set", () => {
+      const mockHref = "href";
+      wrapper = renderHelp({ href: mockHref, ariaLabel: "foo" }, mount);
+
+      expect(wrapper.find(StyledHelp).prop("target")).toEqual("_blank");
+      expect(wrapper.find(StyledHelp).prop("rel")).toEqual(
+        "noopener noreferrer"
+      );
+      expect(wrapper.find(StyledHelp).prop("role")).toEqual(undefined);
+      expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual(undefined);
+      expect(wrapper.find(Icon).prop("role")).toEqual("tooltip");
+      expect(wrapper.find(Icon).prop("ariaLabel")).toEqual("foo");
+      wrapper.unmount();
+    });
+
     it("does not render a tooltip if no children are passed", () => {
       wrapper = shallow(<Help />);
       icon = wrapper.find(Icon);
