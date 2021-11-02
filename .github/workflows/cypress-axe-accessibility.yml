@@ -71,7 +71,6 @@ jobs:
         run: |
           npm run build-storybook
           npx sb extract
-          node ./cypress/moveJsonFile.js
       - name: Cypress run
         uses: cypress-io/github-action@v2.10.2
         with:
@@ -84,7 +83,8 @@ jobs:
           group: ubuntu-accessibility
           quiet: true
           browser: chrome
-          spec: cypress/features/regression/accessibility/*.feature
+          config: integrationFolder='./cypress/accessibility'
+          spec: cypress/features/accessibility/*.test.js
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
