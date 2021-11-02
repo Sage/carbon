@@ -6,13 +6,6 @@ import generateCssVariables from "../generate-css-variables.util";
  * Converts theme properties to css variables form and set them locally for
  * given scope
  *
- * @example
- * <CarbonProvider>
- *   <CarbonScopedTokensProvider>
- *     <Button buttonType="primary">Button</Button>
- *   </CarbonScopedTokensProvider>
- * </CarbonProvider>
- *
  */
 
 const CarbonScopedTokensProvider = styled.div`
