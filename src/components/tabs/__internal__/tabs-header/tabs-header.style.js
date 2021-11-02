@@ -52,11 +52,11 @@ const StyledTabsHeaderList = styled.ul`
       text-align: right;
     `}
 
-  ${({ position, noRightBorder, theme }) =>
+  ${({ position, noRightBorder }) =>
     position === "left" &&
     css`
       flex-direction: column;
-      box-shadow: inset ${computeLineWidth} 0px 0px 0px ${theme.tab.background};
+      box-shadow: none;
 
       ${noRightBorder &&
       css`
