@@ -1,3 +1,10 @@
+### [95.1.1](https://github.com/Sage/carbon/compare/v95.1.0...v95.1.1) (2021-11-02)
+
+
+### Bug Fixes
+
+* **tabs:** remove extra grey border on warning and info ([bb0ffed](https://github.com/Sage/carbon/commit/bb0ffed36fddea5390b58be46776dc411847a24d)), closes [#4254](https://github.com/Sage/carbon/issues/4254)
+
 ## [95.1.0](https://github.com/Sage/carbon/compare/v95.0.2...v95.1.0) (2021-10-28)
 
 
