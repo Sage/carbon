@@ -128,6 +128,15 @@ describe("Label", () => {
       );
     });
 
+    it("applies styling when pl prop set", () => {
+      assertStyleMatch(
+        {
+          paddingLeft: "var(--spacing200)",
+        },
+        render({ inline: true, pl: 2 })
+      );
+    });
+
     it('applies styling for an inline "isRequired" label', () => {
       const wrapper = render({
         inline: true,
