@@ -24,6 +24,7 @@ import {
   FlatTableCell,
 } from "../flat-table";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import styled from "styled-components";
 
 <Meta
   title="VerticalDivider"
@@ -54,26 +55,32 @@ import VerticalDivider from "carbon-react/lib/components/vertical-divider";
 
 By default the VerticalDivider has a height of `100%` and padding of `24px`.
 
+export const Square = styled.div`
+height: ${({size}) => size || '56px'};
+width: ${({size}) => size || '56px'};
+background-color: ${({theme}) => theme.colors.primary};
+`
+
 <Preview>
   <Story name="default">
     <div style={{ display: "inline-flex" }}>
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
       <VerticalDivider />
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
       <VerticalDivider />
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
       <VerticalDivider />
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
       <VerticalDivider />
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
       <VerticalDivider />
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
       <VerticalDivider />
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
       <VerticalDivider />
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
       <VerticalDivider />
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
     </div>
   </Story>
 </Preview>
@@ -163,45 +170,45 @@ theme spacing which is `8px`, or any valid CSS string. The default for the `p` p
   <Story name="with custom spacing and height">
     <div style={{ display: "inline-flex" }}>
       <div>
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
         <VerticalDivider h="100px" pt={1} pb={1} />
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
       </div>
       <VerticalDivider pl={1} pr={1} h={185} />
       <div>
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
         <VerticalDivider h="100px" pt={2} pb={2} />
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
       </div>
       <VerticalDivider pl={2} pr={2} h={200} />
       <div>
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
         <VerticalDivider h="100px" pt={3} pb={3} />
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
       </div>
       <VerticalDivider pl={3} pr={3} h={215} />
       <div>
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
         <VerticalDivider h="100px" pt={4} pb={4} />
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
       </div>
       <VerticalDivider pl={4} pr={4} h={230} />
       <div>
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
         <VerticalDivider h="100px" pt={5} pb={5} />
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
       </div>
       <VerticalDivider pl={5} pr={5} h={245} />
       <div>
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
         <VerticalDivider h="100px" pt={6} pb={6} />
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
       </div>
       <VerticalDivider pl={6} pr={6} h={260} />
       <div>
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
         <VerticalDivider h="100px" pt={7} pb={7} />
-        <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+        <Square />
       </div>
     </div>
   </Story>
@@ -215,15 +222,15 @@ applied to the slate.
 <Preview>
   <Story name="with custom tint">
     <div style={{ display: "inline-flex" }}>
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
       <VerticalDivider tint={20} />
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
       <VerticalDivider tint={75} />
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
       <VerticalDivider tint={80} />
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
       <VerticalDivider tint={90} />
-      <div style={{ height: 56, width: 56, backgroundColor: "#00815D" }} />
+      <Square />
     </div>
   </Story>
 </Preview>
@@ -239,33 +246,19 @@ applied to the slate.
           <Button onClick={() => setIsOpen(true)}>Click Me</Button>
           <Dialog title="Title" open={isOpen} onCancel={() => setIsOpen(false)}>
             <div style={{ display: "inline-flex" }}>
-              <div
-                style={{ height: 56, width: 56, backgroundColor: "#00815D" }}
-              />
+              <Square />
               <VerticalDivider />
-              <div
-                style={{ height: 56, width: 56, backgroundColor: "#00815D" }}
-              />
+              <Square />
               <VerticalDivider />
-              <div
-                style={{ height: 56, width: 56, backgroundColor: "#00815D" }}
-              />
+              <Square />
               <VerticalDivider />
-              <div
-                style={{ height: 56, width: 56, backgroundColor: "#00815D" }}
-              />
+              <Square />
               <VerticalDivider />
-              <div
-                style={{ height: 56, width: 56, backgroundColor: "#00815D" }}
-              />
+              <Square />
               <VerticalDivider />
-              <div
-                style={{ height: 56, width: 56, backgroundColor: "#00815D" }}
-              />
+              <Square />
               <VerticalDivider />
-              <div
-                style={{ height: 56, width: 56, backgroundColor: "#00815D" }}
-              />
+              <Square />
             </div>
           </Dialog>
         </>
@@ -281,23 +274,23 @@ applied to the slate.
     <Tile width={800} orientation="vertical">
       <Content title="Test Title One">Test Body One</Content>
       <div style={{ display: "inline-flex", height: 40 }}>
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
       </div>
     </Tile>
   </Story>
@@ -317,9 +310,9 @@ This example is best viewed in the Canvas tab using full-screen mode with device
         gridColumn="1 / 2"
         gridRow="1 / 2"
       >
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
         <VerticalDivider h={100} />
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
       </GridItem>
       <GridItem
         alignSelf="stretch"
@@ -335,9 +328,9 @@ This example is best viewed in the Canvas tab using full-screen mode with device
         gridColumn="5 / 6"
         gridRow="1 / 2"
       >
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
         <VerticalDivider h={100} />
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
       </GridItem>
       <GridItem
         alignSelf="stretch"
@@ -353,9 +346,9 @@ This example is best viewed in the Canvas tab using full-screen mode with device
         gridColumn="9 / 10"
         gridRow="1 / 2"
       >
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
         <VerticalDivider h={100} />
-        <div style={{ height: 40, width: 40, backgroundColor: "#00815D" }} />
+        <Square size="40px"/>
       </GridItem>
     </GridContainer>
   </Story>
