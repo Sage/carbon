@@ -132,12 +132,20 @@ StyledButton.propTypes = {
   buttonType: PropTypes.oneOf(BUTTON_VARIANTS),
   /** The text the button displays */
   children: PropTypes.node.isRequired,
+  /** Apply destructive style to the button */
+  destructive: PropTypes.bool,
   /** Apply disabled state to the button */
   disabled: PropTypes.bool,
+  /** Apply fullWidth style to the button */
+  fullWidth: PropTypes.bool,
+  /** Apply iconOnly to display button with the icon only  */
+  iconOnly: PropTypes.bool,
   /** Defines an Icon position within the button */
   iconPosition: PropTypes.oneOf([...BUTTON_ICON_POSITIONS, ""]),
   /** Defines an Icon type within the button (see Icon for options) */
   iconType: PropTypes.oneOf([...ICONS, ""]),
+  /** If provided, the text inside a button will not wrap */
+  noWrap: PropTypes.bool,
   /** Assigns a size to the button */
   size: PropTypes.oneOf(BUTTON_SIZES),
   /** Second text child, renders under main text, only when size is "large" */
