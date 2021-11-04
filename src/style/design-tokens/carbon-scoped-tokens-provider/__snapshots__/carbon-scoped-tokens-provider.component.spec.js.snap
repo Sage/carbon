@@ -1,0 +1,313 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CarbonScopedTokensProvider should render css variables for aegean theme 1`] = `
+.c0 {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  display: inline;
+  --colorsActionMajor500: #0073C2;
+  --colorsActionMajor600: #005C9A;
+  --colorsActionDisabled500: #E6EBED;
+  --colorsSemanticFocus500: #FFB500;
+  --colorsSemanticPositive500: #00B000;
+  --colorsSemanticNegative500: #C7384F;
+  --colorsSemanticNegative600: #9F2D3F;
+  --colorsSemanticCaution500: #E96400;
+  --colorsSemanticInfo500: #0073C2;
+  --spacing000: 0px;
+  --spacing025: 2px;
+  --spacing050: 4px;
+  --spacing075: 6px;
+  --spacing100: 8px;
+  --spacing125: 10px;
+  --spacing150: 12px;
+  --spacing200: 16px;
+  --spacing250: 20px;
+  --spacing300: 24px;
+  --spacing400: 32px;
+  --spacing500: 40px;
+  --spacing600: 48px;
+  --spacing700: 56px;
+  --spacing800: 64px;
+  --spacing900: 72px;
+  --fontSizes100: 14px;
+}
+
+<styled.div
+  theme="[ theme object ]"
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-bdVaJa",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "
+  margin: 0;
+  padding: 0;
+  width: auto;
+  display: inline;
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "displayName": "styled.div",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-bdVaJa",
+        "target": "div",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    theme="[ theme object ]"
+  >
+    <div
+      className="c0"
+    />
+  </StyledComponent>
+</styled.div>
+`;
+
+exports[`CarbonScopedTokensProvider should render css variables for mint theme 1`] = `
+.c0 {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  display: inline;
+  --colorsActionMajor500: #00815D;
+  --colorsActionMajor600: #006046;
+  --colorsActionDisabled500: #E6EBED;
+  --colorsSemanticFocus500: #FFB500;
+  --colorsSemanticPositive500: #00B000;
+  --colorsSemanticNegative500: #C7384F;
+  --colorsSemanticNegative600: #9F2D3F;
+  --colorsSemanticCaution500: #E96400;
+  --colorsSemanticInfo500: #0073C2;
+  --spacing000: 0px;
+  --spacing025: 2px;
+  --spacing050: 4px;
+  --spacing075: 6px;
+  --spacing100: 8px;
+  --spacing125: 10px;
+  --spacing150: 12px;
+  --spacing200: 16px;
+  --spacing250: 20px;
+  --spacing300: 24px;
+  --spacing400: 32px;
+  --spacing500: 40px;
+  --spacing600: 48px;
+  --spacing700: 56px;
+  --spacing800: 64px;
+  --spacing900: 72px;
+  --fontSizes100: 14px;
+}
+
+<styled.div
+  theme="[ theme object ]"
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-bdVaJa",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "
+  margin: 0;
+  padding: 0;
+  width: auto;
+  display: inline;
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "displayName": "styled.div",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-bdVaJa",
+        "target": "div",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    theme="[ theme object ]"
+  >
+    <div
+      className="c0"
+    />
+  </StyledComponent>
+</styled.div>
+`;
+
+exports[`CarbonScopedTokensProvider should render css variables for none theme 1`] = `
+.c0 {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  display: inline;
+  --colorsActionMajor500: #008200;
+  --colorsActionMajor600: #006300;
+  --colorsActionDisabled500: #E6EBED;
+  --colorsSemanticFocus500: #FFB500;
+  --colorsSemanticPositive500: #00B000;
+  --colorsSemanticNegative500: #C7384F;
+  --colorsSemanticNegative600: #9F2D3F;
+  --colorsSemanticCaution500: #E96400;
+  --colorsSemanticInfo500: #0073C2;
+  --spacing000: 0px;
+  --spacing025: 2px;
+  --spacing050: 4px;
+  --spacing075: 6px;
+  --spacing100: 8px;
+  --spacing125: 10px;
+  --spacing150: 12px;
+  --spacing200: 16px;
+  --spacing250: 20px;
+  --spacing300: 24px;
+  --spacing400: 32px;
+  --spacing500: 40px;
+  --spacing600: 48px;
+  --spacing700: 56px;
+  --spacing800: 64px;
+  --spacing900: 72px;
+  --fontSizes100: 14px;
+}
+
+<styled.div
+  theme="[ theme object ]"
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-bdVaJa",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "
+  margin: 0;
+  padding: 0;
+  width: auto;
+  display: inline;
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "displayName": "styled.div",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-bdVaJa",
+        "target": "div",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    theme="[ theme object ]"
+  >
+    <div
+      className="c0"
+    />
+  </StyledComponent>
+</styled.div>
+`;
+
+exports[`CarbonScopedTokensProvider should render css variables for sage (experimental) theme 1`] = `
+.c0 {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  display: inline;
+  --colorsActionMajor500: #00815D;
+  --colorsActionMajor600: #006046;
+  --colorsActionDisabled500: #E6EBED;
+  --colorsSemanticFocus500: #FFB500;
+  --colorsSemanticPositive500: #00B000;
+  --colorsSemanticNegative500: #C7384F;
+  --colorsSemanticNegative600: #9F2D3F;
+  --colorsSemanticCaution500: #E96400;
+  --colorsSemanticInfo500: #0073C2;
+  --spacing000: 0px;
+  --spacing025: 2px;
+  --spacing050: 4px;
+  --spacing075: 6px;
+  --spacing100: 8px;
+  --spacing125: 10px;
+  --spacing150: 12px;
+  --spacing200: 16px;
+  --spacing250: 20px;
+  --spacing300: 24px;
+  --spacing400: 32px;
+  --spacing500: 40px;
+  --spacing600: 48px;
+  --spacing700: 56px;
+  --spacing800: 64px;
+  --spacing900: 72px;
+  --fontSizes100: 14px;
+}
+
+<styled.div
+  theme="[ theme object ]"
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-bdVaJa",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "
+  margin: 0;
+  padding: 0;
+  width: auto;
+  display: inline;
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "displayName": "styled.div",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-bdVaJa",
+        "target": "div",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    theme="[ theme object ]"
+  >
+    <div
+      className="c0"
+    />
+  </StyledComponent>
+</styled.div>
+`;

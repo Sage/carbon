@@ -1,3 +1,47 @@
+### [100.1.1](https://github.com/Sage/carbon/compare/v100.1.0...v100.1.1) (2021-11-19)
+
+
+### Bug Fixes
+
+* **page:** export page correctly from pages interface ([e315b92](https://github.com/Sage/carbon/commit/e315b92e3bbd11a10aa55a5764b09f282505159a)), closes [#4562](https://github.com/Sage/carbon/issues/4562)
+
+## [100.1.0](https://github.com/Sage/carbon/compare/v100.0.0...v100.1.0) (2021-11-18)
+
+
+### Features
+
+* **focus-trap:** add flag to trigger refocus of either last focused element first element ([5ae3922](https://github.com/Sage/carbon/commit/5ae39226b4102106f08e997129aa7cef49548ecd))
+
+
+### Bug Fixes
+
+* **modal, modal-manager:** modal and manager now set a refocus flag when stacked modals are closed ([5b9c5f7](https://github.com/Sage/carbon/commit/5b9c5f75465ccd0145322710ef112e213961083e)), closes [#4502](https://github.com/Sage/carbon/issues/4502)
+
+## [100.0.0](https://github.com/Sage/carbon/compare/v99.1.0...v100.0.0) (2021-11-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **date-range:** The component can no longer be extended as it is not a class anymore
+
+### Code Refactoring
+
+* **date-range:** convert component from class-based to functional ([ec69281](https://github.com/Sage/carbon/commit/ec692814f8783d183359500c659ab66767be9b44))
+
+## [99.1.0](https://github.com/Sage/carbon/compare/v99.0.1...v99.1.0) (2021-11-18)
+
+
+### Features
+
+* **progress-tracker:** create new component ([49b8454](https://github.com/Sage/carbon/commit/49b84545ecb9b5dcd05d80f0f000b7764b389350))
+
+### [99.0.1](https://github.com/Sage/carbon/compare/v99.0.0...v99.0.1) (2021-11-18)
+
+
+### Bug Fixes
+
+* **loader-bar:** change width of loader ([a16a51e](https://github.com/Sage/carbon/commit/a16a51ef9c02d84c1153974e4ef4e37e618aedcf))
+
 ## [99.0.0](https://github.com/Sage/carbon/compare/v98.0.1...v99.0.0) (2021-11-15)
 
 

@@ -23,7 +23,7 @@ addons.register("sage/theme-switcher", (api) => {
 const IconButtonWithLabel = styled(IconButton)`
   display: inline-flex;
   align-items: center;
-  width: 70px;
+  width: auto;
   cursor: ${({ disabled }) =>
     disabled ? "not-allowed" : "pointer"} !important;
   && {

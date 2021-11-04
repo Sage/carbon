@@ -1,6 +1,10 @@
 {
   "notify": false,
-  "setupFiles": ["raf/polyfill", "./src/__spec_helper__/index.js", "jest-canvas-mock"],
+  "setupFiles": [
+    "raf/polyfill",
+    "./src/__spec_helper__/index.js",
+    "jest-canvas-mock"
+  ],
   "setupFilesAfterEnv": ["./src/__spec_helper__/expect.js"],
   "snapshotSerializers": ["enzyme-to-json/serializer"],
   "testMatch": ["**/__spec__.js", "**/*.spec.js"],
@@ -17,13 +21,12 @@
       "statements": 100
     }
   },
-  "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "mjs"],
   "transform": {
-    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
+    "^.+\\.(js|mjs|jsx|ts|tsx)$": "babel-jest",
     "^.+\\.svg$": "<rootDir>/svgTransform.js"
   },
   "moduleNameMapper": {
     "\\.(png)$": "<rootDir>/__mocks__/imageMock.js"
   }
-
 }
