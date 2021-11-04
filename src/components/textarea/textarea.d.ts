@@ -72,7 +72,7 @@ export interface TextareaProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
-declare class Textarea extends React.Component<TextareaProps> {}
+declare function Textarea(props: TextareaProps): JSX.Element;
 
 export { Textarea as OriginalTextarea };
 export default Textarea;
