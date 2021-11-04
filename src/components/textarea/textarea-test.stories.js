@@ -125,6 +125,7 @@ export const Default = ({
       placeholder={placeholder || placeholderSpecialCharacters}
       label={label || labelSpecialCharacters}
       labelHelp={labelHelp || labelHelpSpecialCharacters}
+      helpAriaLabel={labelHelp || labelHelpSpecialCharacters}
       characterLimit={characterLimit || characterLimitSpecialCharacters}
       fieldHelp={fieldHelp || fieldHelpSpecialCharacters}
     />

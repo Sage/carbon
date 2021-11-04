@@ -15,6 +15,7 @@ import ValidationIcon from "../../__internal__/validations/validation-icon.compo
 import guid from "../../__internal__/utils/helpers/guid";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import Tooltip from "../tooltip";
+import StyledHelp from "../help/help.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -114,6 +115,19 @@ describe("Textarea", () => {
     }
   );
 
+  describe("helpAriaLabel", () => {
+    it("should set the aria-label on the Help component", () => {
+      const text = "foo";
+      wrapper = renderTextarea(
+        { label: "foo", labelHelp: text, helpAriaLabel: text },
+        mount
+      );
+      const help = wrapper.find(StyledHelp);
+
+      expect(help.prop("aria-label")).toEqual(text);
+    });
+  });
+
   describe('when the "expandable" prop is set to "true"', () => {
     let textarea, textareaInstance;
 
@@ -202,7 +216,7 @@ describe("Textarea", () => {
   });
 
   describe("when labelInline prop is set", () => {
-    it("then the input label should accomodate for input internal padding", () => {
+    it("then the input label should accommodate for input internal padding", () => {
       wrapper = renderTextarea({ label: "foo", labelInline: true });
 
       assertStyleMatch(

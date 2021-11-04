@@ -56,6 +56,7 @@ const Textarea = ({
   "data-component": dataComponent,
   "data-element": dataElement,
   "data-role": dataRole,
+  helpAriaLabel,
   ...props
 }) => {
   const locale = useContext(LocaleContext);
@@ -119,7 +120,10 @@ const Textarea = ({
   };
 
   return (
-    <TooltipProvider tooltipPosition={tooltipPosition}>
+    <TooltipProvider
+      tooltipPosition={tooltipPosition}
+      helpAriaLabel={helpAriaLabel}
+    >
       <InputBehaviour>
         <StyledTextarea
           labelInline={labelInline}
@@ -281,6 +285,8 @@ Textarea.propTypes = {
   required: PropTypes.bool,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Aria label for rendered help component */
+  helpAriaLabel: PropTypes.string,
 };
 
 export { Textarea as OriginalTextarea };

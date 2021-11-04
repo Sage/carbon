@@ -28,6 +28,7 @@ export const ICON_SIZES = [
   "large",
   "extra-large",
 ];
+export const ICON_FONT_SIZES = ["small", "medium", "large", "extra-large"];
 export const ICONS = [
   "add",
   "alert",

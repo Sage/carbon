@@ -9,6 +9,8 @@ export interface TooltipProviderProps {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Control whether the tooltip is visible */
   children: React.ReactNode;
+  /** Aria label for rendered help component */
+  helpAriaLabel?: string;
 }
 
 declare const ToolbarContext: React.Context<ToolbarContextProps>;

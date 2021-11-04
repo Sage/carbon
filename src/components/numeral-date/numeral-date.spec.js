@@ -14,6 +14,7 @@ import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import FormField from "../../__internal__/form-field";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import Label from "../../__internal__/label";
+import StyledHelp from "../help/help.style";
 
 describe("NumeralDate", () => {
   let wrapper;
@@ -453,6 +454,25 @@ describe("NumeralDate", () => {
     it("the isRequired prop is passed to the label", () => {
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
+    });
+  });
+
+  describe("helpAriaLabel", () => {
+    it("should set the aria-label on the Help component", () => {
+      const text = "foo";
+
+      const { "aria-label": ariaLabel } = mount(
+        <NumeralDate
+          value={{ dd: "02" }}
+          label={text}
+          labelHelp={text}
+          helpAriaLabel={text}
+        />
+      )
+        .find(StyledHelp)
+        .props();
+
+      expect(ariaLabel).toEqual(text);
     });
   });
 });
