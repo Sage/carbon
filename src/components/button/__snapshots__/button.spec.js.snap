@@ -3,8 +3,7 @@
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon after children 1`] = `
 .c2 {
   position: relative;
-  color: #008200;
-  background-color: transparent;
+  color: var(--colorsActionMajor500);
   vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -35,13 +34,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   display: block;
 }
 
+.c3 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c3:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c3 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -50,13 +53,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c4 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c4:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c4 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -65,13 +72,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c5 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c5:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c5 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -80,13 +91,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c6 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c6:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c6 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -95,13 +110,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c7 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c7:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c7 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -110,13 +129,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c8 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c8:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c8 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -125,13 +148,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c9 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c9:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c9 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -140,13 +167,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c10 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c10:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c10 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -155,13 +186,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c11 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c11:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c11 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -170,13 +205,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c12 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c12:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c12 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -185,13 +224,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c13 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c13:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c13 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -200,13 +243,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c14 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c14:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c14 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -215,13 +262,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c15 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c15:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c15 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -230,13 +281,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c16 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c16:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c16 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -245,13 +300,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c17 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c17:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c17 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -260,13 +319,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c18 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c18:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c18 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -275,13 +338,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c19 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c19:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c19 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -290,8 +357,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c20 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c20:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c20 .c1 {
@@ -307,8 +378,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c21 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c21:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c21 .c1 {
@@ -324,8 +399,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c22 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c22:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c22 .c1 {
@@ -341,13 +420,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c23 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c23:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c23 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -356,13 +439,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c24 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c24:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c24 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -371,13 +458,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c25 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c25:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c25 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -386,13 +477,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c26 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c26:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c26 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -401,13 +496,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c27 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c27:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c27 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -416,13 +515,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c28 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c28:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c28 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -431,13 +534,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c29 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c29:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c29 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -446,13 +553,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c30 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c30:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c30 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -461,13 +572,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c31 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c31:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c31 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -476,13 +591,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c32 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c32:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c32 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -491,13 +610,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c33 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c33:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c33 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -506,13 +629,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c34 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c34:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c34 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -521,13 +648,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c35 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c35:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c35 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -536,13 +667,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c36 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c36:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c36 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -551,13 +686,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c37 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c37:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c37 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -566,13 +705,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c38 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c38:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c38 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -581,13 +724,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c39 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c39:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c39 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -596,13 +743,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c40 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c40:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c40 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -611,13 +762,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c41 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c41:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c41 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -626,13 +781,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c42 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c42:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c42 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -641,13 +800,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c43 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c43:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c43 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -656,13 +819,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c44 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c44:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c44 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -671,13 +838,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c45 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c45:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c45 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -686,13 +857,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c46 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c46:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c46 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -701,13 +876,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c47 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c47:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c47 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -748,28 +927,32 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   -webkit-text-decoration: none;
   text-decoration: none;
   background: transparent;
-  border-color: #008200;
-  color: #008200;
-  font-size: 14px;
+  border-color: var(--colorsActionMajor500);
+  color: var(--colorsActionMajor500);
+  font-size: var(--fontSizes100);
   min-height: 40px;
 }
 
 .c0:focus {
-  outline: solid 3px #FFB500;
-}
-
-.c0:hover {
-  background: #006300;
-  border-color: #006300;
-  color: #FFFFFF;
-}
-
-.c0:hover .c1 {
-  color: #FFFFFF;
+  outline: solid 3px var(--colorsSemanticFocus500);
 }
 
 .c0 .c1 {
-  margin-left: 8px;
+  color: var(--colorsActionMajor500);
+}
+
+.c0:hover {
+  background: var(--colorsActionMajor600);
+  border-color: var(--colorsActionMajorTransparent);
+  color: var(--colorsActionMajor000);
+}
+
+.c0:hover .c1 {
+  color: var(--colorsActionMajor000);
+}
+
+.c0 .c1 {
+  margin-left: var(--spacing100);
   margin-right: 0px;
   margin-bottom: 0px;
   height: 16px;
@@ -797,7 +980,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   </span>
   <span
     className="c1 c2"
-    color="#008200"
+    color="var(--colorsActionMajor500)"
     data-component="icon"
     data-element="filter"
     disabled={false}
@@ -810,8 +993,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon before children 1`] = `
 .c2 {
   position: relative;
-  color: #008200;
-  background-color: transparent;
+  color: var(--colorsActionMajor500);
   vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -874,29 +1056,33 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   -webkit-text-decoration: none;
   text-decoration: none;
   background: transparent;
-  border-color: #008200;
-  color: #008200;
-  font-size: 14px;
+  border-color: var(--colorsActionMajor500);
+  color: var(--colorsActionMajor500);
+  font-size: var(--fontSizes100);
   min-height: 40px;
 }
 
 .c0:focus {
-  outline: solid 3px #FFB500;
+  outline: solid 3px var(--colorsSemanticFocus500);
+}
+
+.c0 .c1 {
+  color: var(--colorsActionMajor500);
 }
 
 .c0:hover {
-  background: #006300;
-  border-color: #006300;
-  color: #FFFFFF;
+  background: var(--colorsActionMajor600);
+  border-color: var(--colorsActionMajorTransparent);
+  color: var(--colorsActionMajor000);
 }
 
 .c0:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c0 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -905,13 +1091,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c3 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c3:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c3 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -920,13 +1110,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c4 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c4:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c4 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -935,13 +1129,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c5 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c5:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c5 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -950,13 +1148,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c6 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c6:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c6 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -965,13 +1167,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c7 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c7:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c7 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -980,13 +1186,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c8 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c8:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c8 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -995,13 +1205,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c9 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c9:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c9 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1010,13 +1224,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c10 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c10:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c10 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1025,13 +1243,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c11 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c11:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c11 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1040,13 +1262,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c12 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c12:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c12 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1055,13 +1281,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c13 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c13:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c13 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1070,13 +1300,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c14 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c14:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c14 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1085,13 +1319,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c15 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c15:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c15 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1100,13 +1338,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c16 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c16:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c16 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1115,13 +1357,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c17 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c17:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c17 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1130,13 +1376,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c18 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c18:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c18 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1145,8 +1395,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c19 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c19:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c19 .c1 {
@@ -1162,8 +1416,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c20 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c20:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c20 .c1 {
@@ -1179,8 +1437,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c21 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c21:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c21 .c1 {
@@ -1196,13 +1458,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c22 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c22:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c22 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1211,13 +1477,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c23 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c23:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c23 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1226,13 +1496,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c24 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c24:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c24 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1241,13 +1515,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c25 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c25:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c25 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1256,13 +1534,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c26 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c26:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c26 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1271,13 +1553,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c27 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c27:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c27 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1286,13 +1572,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c28 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c28:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c28 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1301,13 +1591,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c29 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c29:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c29 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1316,13 +1610,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c30 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c30:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c30 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1331,13 +1629,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c31 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c31:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c31 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1346,13 +1648,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c32 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c32:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c32 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1361,13 +1667,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c33 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c33:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c33 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1376,13 +1686,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c34 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c34:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c34 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1391,13 +1705,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c35 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c35:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c35 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1406,13 +1724,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c36 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c36:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c36 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1421,13 +1743,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c37 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c37:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c37 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1436,13 +1762,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c38 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c38:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c38 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1451,13 +1781,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c39 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c39:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c39 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1466,13 +1800,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c40 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c40:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c40 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1481,13 +1819,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c41 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c41:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c41 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1496,13 +1838,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c42 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c42:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c42 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1511,13 +1857,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c43 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c43:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c43 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1526,13 +1876,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c44 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c44:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c44 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1541,13 +1895,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c45 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c45:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c45 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1556,13 +1914,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
+.c46 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
 .c46:hover .c1 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajor000);
 }
 
 .c46 .c1 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -1582,7 +1944,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 >
   <span
     className="c1 c2"
-    color="#008200"
+    color="var(--colorsActionMajor500)"
     data-component="icon"
     data-element="filter"
     disabled={false}

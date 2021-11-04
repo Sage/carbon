@@ -190,7 +190,7 @@ describe("PicklistGroup component", () => {
 
           assertStyleMatch(
             {
-              background: "#008200",
+              background: "var(--colorsActionMajor500)",
             },
             wrapper.find(PicklistItem).at(0).find(StyledButton)
           );
@@ -230,7 +230,7 @@ describe("PicklistGroup component", () => {
 
           assertStyleMatch(
             {
-              background: "#C7384F",
+              background: "var(--colorsSemanticNegative500)",
             },
             wrapper.find(PicklistItem).at(0).find(StyledButton)
           );
@@ -272,7 +272,7 @@ describe("PicklistGroup component", () => {
 
           assertStyleMatch(
             {
-              background: "#008200",
+              background: "var(--colorsActionMajor500)",
             },
             wrapper.find(PicklistItem).at(0).find(StyledButton)
           );
@@ -312,7 +312,7 @@ describe("PicklistGroup component", () => {
 
           assertStyleMatch(
             {
-              background: "#C7384F",
+              background: "var(--colorsSemanticNegative500)",
             },
             wrapper.find(PicklistItem).at(0).find(StyledButton)
           );
