@@ -11,5 +11,14 @@ export default function isExpectedOption(element, expectedValue) {
     return false;
   }
 
+  const { length } =
+    typeof expectedValue === "string"
+      ? expectedValue
+      : Object.keys(expectedValue);
+
+  if (!length) {
+    return false;
+  }
+
   return isExpectedValue(element.props.value, expectedValue);
 }
