@@ -58,7 +58,7 @@ describe("TabsHeader", () => {
       assertStyleMatch(
         {
           flexDirection: "column",
-          boxShadow: `inset -2px 0px 0px 0px ${baseTheme.tab.background}`,
+          boxShadow: `none`,
         },
         wrapper.find(StyledTabsHeaderList)
       );
@@ -128,7 +128,7 @@ describe("TabsHeader", () => {
     it("applies proper styles when position left", () => {
       assertStyleMatch(
         {
-          boxShadow: `inset -1px 0px 0px 0px ${baseTheme.tab.background}`,
+          boxShadow: `none`,
         },
         renderStyles({ alternateStyling: true, position: "left" })
       );

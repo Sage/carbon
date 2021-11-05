@@ -33,13 +33,11 @@
   "large": {
     "mt": "400"
   },
-  "default": {
-    
-  },
+  "default": {},
   "minDate": {
-    "minDate": "2019-04-04"
+    "minDate": "2030-04-04"
   },
   "maxDate": {
-    "maxDate": "2019-04-04"
+    "maxDate": "2030-04-04"
   }
 }
