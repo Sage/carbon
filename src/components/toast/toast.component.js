@@ -15,20 +15,26 @@ import IconButton from "../icon-button";
 import ModalManager from "../modal/__internal__/modal-manager";
 import Events from "../../__internal__/utils/helpers/events";
 
-const Toast = (props) => {
-  const {
-    isCenter = true,
-    onDismiss,
-    open = true,
-    targetPortalId,
-    timeout,
-  } = props;
+const Toast = ({
+  as = "warning",
+  children,
+  className,
+  id,
+  isCenter = true,
+  maxWidth,
+  onDismiss,
+  open = true,
+  targetPortalId,
+  timeout,
+  variant,
+  ...restProps
+}) => {
   const toastRef = useRef();
   const timer = useRef();
 
   const componentClasses = useMemo(() => {
-    return classNames(props.className);
-  }, [props.className]);
+    return classNames(className);
+  }, [className]);
 
   const dismissToast = useCallback(
     (ev) => {
@@ -75,9 +81,7 @@ const Toast = (props) => {
   }
 
   function renderToastContent() {
-    if (!props.open) return null;
-
-    const { variant, id, as = "warning", children, maxWidth } = props;
+    if (!open) return null;
 
     const toastProps = {
       isCenter,
@@ -94,7 +98,7 @@ const Toast = (props) => {
       >
         <ToastStyle
           className={componentClasses}
-          {...tagComponent(props["data-component"] || "toast", props)}
+          {...tagComponent(restProps["data-component"] || "toast", restProps)}
           {...toastProps}
         >
           <TypeIcon variant={toastProps.variant}>
