@@ -780,6 +780,39 @@ describe("MultiSelect", () => {
     );
   });
 
+  describe("when parent re-renders", () => {
+    const WrapperComponent = (props) => {
+      const mockRef = useRef();
+
+      return (
+        <span change={props.change}>
+          <MultiSelect
+            openOnFocus
+            name="testSelect"
+            id="testSelect"
+            ref={mockRef}
+          >
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </MultiSelect>
+        </span>
+      );
+    };
+
+    it("should persist the input value", () => {
+      const wrapper = mount(<WrapperComponent change="foo" />);
+      wrapper.find("input").simulate("focus");
+      act(() => {
+        wrapper.find(Option).first().simulate("click");
+      });
+      expect(wrapper.update().find(Textbox).props().value).toEqual(["opt1"]);
+      wrapper.setProps({ change: "bar" });
+      expect(wrapper.update().find(Textbox).props().value).toEqual(["opt1"]);
+    });
+  });
+
   describe("required", () => {
     let wrapper;
 

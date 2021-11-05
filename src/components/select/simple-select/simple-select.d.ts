@@ -55,7 +55,7 @@ export interface SimpleSelectProps
     | "left-start"
     | "left-end";
   /** Use the opposite list placement if the set placement does not fit */
-  flipEnabled?: bool;
+  flipEnabled?: boolean;
 }
 
 declare function SimpleSelect(
