@@ -298,7 +298,15 @@ const Tabs = ({
 
     return tab
       ? cloneElement(tab, {
+          ...tab.props,
+          role: "tabpanel",
+          position,
           isTabSelected: isTabSelected(tab.props.tabId),
+          key: `${tab.props.tabId}-tab`,
+          ariaLabelledby: `${tab.props.tabId}-tab`,
+          updateErrors,
+          updateWarnings,
+          updateInfos,
         })
       : null;
   };
