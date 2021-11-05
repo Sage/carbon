@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-import ShowEditPod, { BaseShowEditPod } from "./show-edit-pod.component";
+import ShowEditPod from "./show-edit-pod.component";
 import Content from "../content";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
@@ -12,15 +12,16 @@ import {
   SHOW_EDIT_POD_THEMES,
 } from "./show-edit-pod.config";
 
-<Meta
-  title="ShowEditPod/Test"
-  parameters={{
+export default {
+  component: ShowEditPod,
+  title: "ShowEditPod/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     buttonAlign: {
       options: SHOW_EDIT_POD_ALIGNMENTS,
       control: {
@@ -37,10 +38,26 @@ import {
     deleteTextSpecialCharacters: specialCharacters,
     saveTextSpecialCharacters: specialCharacters,
     titleSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+  args: {
+    border: false,
+    buttonAlign: "right",
+    cancel: true,
+    cancelText: "Cancel",
+    cancelTextSpecialCharacters: undefined,
+    deleteText: "Delete",
+    deleteTextSpecialCharacters: undefined,
+    saveText: "Save",
+    saveTextSpecialCharacters: undefined,
+    saving: false,
+    title: "Person",
+    titleSpecialCharacters: undefined,
+    transitionName: "carbon-show-edit-pod__transition",
+    variant: "transparent",
+  },
+};
 
-export const ShowEditPodStory = ({
+const ShowEditPodStory = ({
   cancelTextSpecialCharacters,
   cancelText,
   deleteTextSpecialCharacters,
@@ -92,6 +109,7 @@ export const ShowEditPodStory = ({
   };
   return (
     <ShowEditPod
+      {...args}
       editing={isEditing}
       onDelete={onDelete}
       onCancel={onCancel}
@@ -111,11 +129,10 @@ export const ShowEditPodStory = ({
         </Fieldset>
       }
       onSave={onSave}
-      cancelText={cancelText || cancelTextSpecialCharacters}
-      deleteText={deleteText || deleteTextSpecialCharacters}
-      saveText={saveText || saveTextSpecialCharacters}
-      title={title || titleSpecialCharacters}
-      {...args}
+      cancelText={cancelTextSpecialCharacters || cancelText}
+      deleteText={deleteTextSpecialCharacters || deleteText}
+      saveText={saveTextSpecialCharacters || saveText}
+      title={titleSpecialCharacters || title}
     >
       {fieldProps.map(({ key, label }) => (
         <Content key={key} title={label}>
@@ -126,30 +143,4 @@ export const ShowEditPodStory = ({
   );
 };
 
-# ShowEditPod
-
-### Default
-
-<Preview>
-  <Story
-    name="default"
-    args={{
-      border: BaseShowEditPod.defaultProps.border,
-      buttonAlign: BaseShowEditPod.defaultProps.buttonAlign,
-      cancel: BaseShowEditPod.defaultProps.cancel,
-      cancelText: "Cancel",
-      cancelTextSpecialCharacters: undefined,
-      deleteText: "Delete",
-      deleteTextSpecialCharacters: undefined,
-      saveText: "Save",
-      saveTextSpecialCharacters: undefined,
-      saving: BaseShowEditPod.defaultProps.saving,
-      title: "Person",
-      titleSpecialCharacters: undefined,
-      transitionName: BaseShowEditPod.defaultProps.transitionName,
-      variant: BaseShowEditPod.defaultProps.variant,
-    }}
-  >
-    {ShowEditPodStory.bind({})}
-  </Story>
-</Preview>
+export const Default = ShowEditPodStory.bind({});
