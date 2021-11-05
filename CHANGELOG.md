@@ -1,3 +1,15 @@
+## [96.0.0](https://github.com/Sage/carbon/compare/v95.1.3...v96.0.0) (2021-11-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **show-edit-pod:** ShowEditPod is no longer a class component.
+That means that it is not possible to extend it and its methods are now private
+
+### Code Refactoring
+
+* **show-edit-pod:** refactor from class based to a functional component ([f8875d2](https://github.com/Sage/carbon/commit/f8875d29e70f4670dc38a526fec142a39726f1e2))
+
 ### [95.1.3](https://github.com/Sage/carbon/compare/v95.1.2...v95.1.3) (2021-11-05)
 
 
