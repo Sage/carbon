@@ -1,3 +1,12 @@
+### [95.1.3](https://github.com/Sage/carbon/compare/v95.1.2...v95.1.3) (2021-11-05)
+
+
+### Bug Fixes
+
+* **filterable-select:** prevent re-renders from setting selectedValue to undefined ([cdf72fd](https://github.com/Sage/carbon/commit/cdf72fde8f24708163307188f945a95a7624d2b3))
+* **multi-select:** prevent re-renders from setting selectedValue to undefined ([70c7ecc](https://github.com/Sage/carbon/commit/70c7eccbf78d77859065e8621ef405d905ccf68e)), closes [#4482](https://github.com/Sage/carbon/issues/4482)
+* **simple-select:** prevent re-renders from setting selectedValue to undefined ([d5c0669](https://github.com/Sage/carbon/commit/d5c0669b369bf28fe836ddf0fee85dcfa05b3e4d))
+
 ### [95.1.2](https://github.com/Sage/carbon/compare/v95.1.1...v95.1.2) (2021-11-05)
 
 
