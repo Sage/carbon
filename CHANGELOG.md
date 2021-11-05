@@ -1,3 +1,10 @@
+### [95.1.2](https://github.com/Sage/carbon/compare/v95.1.1...v95.1.2) (2021-11-05)
+
+
+### Bug Fixes
+
+* **tabs:** enable validations when renderHiddenTabs set ([09874f5](https://github.com/Sage/carbon/commit/09874f566663ba296c0cf3300bb4ad69432e3f69)), closes [#4501](https://github.com/Sage/carbon/issues/4501)
+
 ### [95.1.1](https://github.com/Sage/carbon/compare/v95.1.0...v95.1.1) (2021-11-02)
 
 
