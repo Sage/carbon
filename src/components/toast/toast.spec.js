@@ -70,7 +70,7 @@ describe("Toast", () => {
       });
     });
 
-    it("does not renders close icon", () => {
+    it("does not render close icon", () => {
       const wrapper = mount(
         <Toast open as="info" className="custom">
           foobar
