@@ -1,3 +1,31 @@
+## [96.0.0](https://github.com/Sage/carbon/compare/v95.1.3...v96.0.0) (2021-11-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **show-edit-pod:** ShowEditPod is no longer a class component.
+That means that it is not possible to extend it and its methods are now private
+
+### Code Refactoring
+
+* **show-edit-pod:** refactor from class based to a functional component ([f8875d2](https://github.com/Sage/carbon/commit/f8875d29e70f4670dc38a526fec142a39726f1e2))
+
+### [95.1.3](https://github.com/Sage/carbon/compare/v95.1.2...v95.1.3) (2021-11-05)
+
+
+### Bug Fixes
+
+* **filterable-select:** prevent re-renders from setting selectedValue to undefined ([cdf72fd](https://github.com/Sage/carbon/commit/cdf72fde8f24708163307188f945a95a7624d2b3))
+* **multi-select:** prevent re-renders from setting selectedValue to undefined ([70c7ecc](https://github.com/Sage/carbon/commit/70c7eccbf78d77859065e8621ef405d905ccf68e)), closes [#4482](https://github.com/Sage/carbon/issues/4482)
+* **simple-select:** prevent re-renders from setting selectedValue to undefined ([d5c0669](https://github.com/Sage/carbon/commit/d5c0669b369bf28fe836ddf0fee85dcfa05b3e4d))
+
+### [95.1.2](https://github.com/Sage/carbon/compare/v95.1.1...v95.1.2) (2021-11-05)
+
+
+### Bug Fixes
+
+* **tabs:** enable validations when renderHiddenTabs set ([09874f5](https://github.com/Sage/carbon/commit/09874f566663ba296c0cf3300bb4ad69432e3f69)), closes [#4501](https://github.com/Sage/carbon/issues/4501)
+
 ### [95.1.1](https://github.com/Sage/carbon/compare/v95.1.0...v95.1.1) (2021-11-02)
 
 

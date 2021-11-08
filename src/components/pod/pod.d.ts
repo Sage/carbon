@@ -48,6 +48,8 @@ export interface PodProps {
   height?: string | number;
 }
 
-declare class Pod extends React.Component<PodProps> {}
+declare function Pod(
+  props: PodProps & React.RefAttributes<HTMLElement>
+): JSX.Element;
 
 export default Pod;

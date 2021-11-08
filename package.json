@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "95.1.1",
+  "version": "96.0.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -8,10 +8,12 @@
     "node": ">=14.16.0"
   },
   "files": [
-    "lib"
+    "lib",
+    "scripts/check_carbon_version.js",
+    "scripts/check_rfcs.js"
   ],
   "scripts": {
-    "start": "node ./check_version.js && start-storybook -p 9001 -s .assets -c .storybook",
+    "start": "node ./scripts/check_node_version.js && start-storybook -p 9001 -s .assets -c .storybook",
     "start:debug-theme": "cross-env STORYBOOK_DEBUG_THEME=true npm run start",
     "test": "jest --config=./jest.conf.json",
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
@@ -22,6 +24,7 @@
     "lint": "eslint ./src",
     "precompile": "npm run clean-lib && npm run copy-files && npm run babel",
     "prepublishOnly": "npm run precompile",
+    "postinstall": "node ./scripts/check_carbon_version.js && node ./scripts/check_rfcs.js",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
     "build-storybook": "build-storybook -c .storybook -s .assets",
     "start:static": "npx http-server -p 9001 ./storybook-static",
@@ -132,16 +135,19 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "@octokit/rest": "^18.12.0",
     "@popperjs/core": "^2.9.0",
     "@sage/design-tokens": "^1.73.0",
     "@styled-system/prop-types": "^5.1.5",
     "@tippyjs/react": "^4.2.5",
     "classnames": "~2.2.6",
     "crypto-js": "~3.3.0",
+    "dotenv": "^10.0.0",
     "immutable": "~3.8.2",
     "invariant": "^2.2.4",
     "lodash": "^4.17.20",
     "moment": "~2.20.1",
+    "node-fetch": "^2.6.1",
     "polished": "^4.0.5",
     "prop-types": "^15.7.2",
     "react-day-picker": "~6.1.1",

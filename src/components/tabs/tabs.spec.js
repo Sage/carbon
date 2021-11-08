@@ -77,9 +77,13 @@ const MockWrapper = ({
   warnings = {},
   infos = {},
   validationStatusOverride = undefined,
+  renderHiddenTabs = true,
 }) => {
   return (
-    <Tabs validationStatusOverride={validationStatusOverride}>
+    <Tabs
+      validationStatusOverride={validationStatusOverride}
+      renderHiddenTabs={renderHiddenTabs}
+    >
       <Tab
         title="Tab Title 1"
         tabId="uniqueid1"
@@ -284,6 +288,21 @@ describe("Tabs", () => {
         expect(tab.props().title).toEqual("Tab Title 1");
         expect(tab.props().tabId).toEqual("uniqueid1");
       });
+
+      it.each(["error", "warning", "info"])(
+        "adds the correct %s state to the tab header",
+        (validation) => {
+          const validationProp = {
+            [`${validation}s`]: { one: true },
+          };
+          const tabTitle = mount(
+            <MockWrapper {...validationProp} renderHiddenTabs={false} />
+          ).find(TabTitle);
+
+          expect(tabTitle.at(0).props()[validation]).toEqual(true);
+          expect(tabTitle.at(1).props()[validation]).toEqual(false);
+        }
+      );
     });
 
     describe("is true", () => {
