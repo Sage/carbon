@@ -1,5 +1,5 @@
 import React from "react";
-import { ThemeProvider } from "styled-components";
+import CarbonProvider from "../../src/components/carbon-provider";
 import {
   mintTheme,
   aegeanTheme,
@@ -8,6 +8,8 @@ import {
 } from "../../src/style/themes";
 import addons, { makeDecorator } from "@storybook/addons";
 import CarbonGlobalTokensProvider from "../../src/style/design-tokens/carbon-global-tokens-provider";
+import isChromatic from "chromatic/isChromatic";
+import styled from "styled-components";
 
 export const ADDON_ID = "carbon/theme-selector";
 export const PARAMS_EVENT = `${ADDON_ID}/params`;
@@ -42,20 +44,57 @@ export function setThemeName(themeName) {
   return window.localStorage.setItem(LOCAL_STORAGE_KEY, themeName);
 }
 
+const render = (Story, themeName) => (
+  <CarbonProvider theme={modernThemes[themeName]}>
+    <CarbonGlobalTokensProvider />
+    <Story themeName={themeName} />
+  </CarbonProvider>
+);
+
+const FourColumnLayout = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+`;
+
 export const withThemeSelector = makeDecorator({
   name: "withThemeSelector",
   parameterName: "themeSelector",
   skipIfNoParametersOrOptions: false,
   allowDeprecatedUsage: false,
-  wrapper: (getStory, context, { parameters = {} }) => {
-    const theme = modernThemes[getThemeName()];
+  wrapper: (
+    Story,
+    context,
+    {
+      parameters = {
+        chromaticTheme: null,
+        fourColumnLayout: false,
+      },
+    }
+  ) => {
     const channel = addons.getChannel();
     channel.emit(PARAMS_EVENT, parameters);
-    return (
-      <ThemeProvider theme={theme}>
-        {!parameters.disable && <CarbonGlobalTokensProvider />}
-        {getStory(context)}
-      </ThemeProvider>
-    );
+    const themeName = parameters.chromaticTheme || getThemeName();
+    if (
+      themeName === "all" ||
+      (isChromatic() &&
+        window.origin !== process.env.STORYBOOK_CHROMATIC_ORIGIN &&
+        !parameters.chromaticTheme)
+    ) {
+      const Wrapper = parameters.fourColumnLayout
+        ? FourColumnLayout
+        : React.Fragment;
+      return (
+        <Wrapper>
+          {Object.keys(modernThemes).map((themeName) => (
+            <div key={themeName}>
+              <h3>{themeName}</h3>
+              {render(Story, themeName)}
+            </div>
+          ))}
+        </Wrapper>
+      );
+    }
+
+    return render(Story, themeName);
   },
 });

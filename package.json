@@ -31,8 +31,7 @@
     "babel": "cross-env NODE_ENV=production babel ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --quiet",
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpy \"**/\" \"!**/(*.js|*.md|*.mdx|*.stories.*|*.snap)\" ../lib/ --cwd=src --parents",
-    "commit": "git-cz",
-    "chromatic": "chromatic"
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -89,6 +88,7 @@
     "babel-jest": "^26.6.3",
     "browserslist": "^4.16.6",
     "chalk": "^4.1.1",
+    "chromatic": "^6.0.5",
     "commitizen": "^4.2.4",
     "conventional-changelog-conventionalcommits": "^4.5.0",
     "core-js": "^3.1.4",
