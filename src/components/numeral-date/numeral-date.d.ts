@@ -88,6 +88,8 @@ export interface NumeralDateProps extends ValidationPropTypes, MarginProps {
   validationOnLabel?: boolean;
   /** Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /** Aria label for rendered help component */
+  helpAriaLabel?: string;
 }
 
 declare function NumeralDate(props: NumeralDateProps): JSX.Element;

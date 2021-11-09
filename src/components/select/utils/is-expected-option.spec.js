@@ -57,4 +57,17 @@ describe("isExpectedOption", () => {
       });
     });
   });
+
+  describe.each([
+    ["`null`", null],
+    ["`undefined`", undefined],
+    ["`empty string`", ""],
+    ["`empty object`", {}],
+  ])("when expectedValue is %s", (_, expectedValue) => {
+    it("then it should return false", () => {
+      const element = <Option text="bar" value={{ id: "foo", value: "foo" }} />;
+
+      expect(isExpectedOption(element, expectedValue)).toBe(false);
+    });
+  });
 });

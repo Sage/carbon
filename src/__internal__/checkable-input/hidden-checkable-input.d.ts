@@ -37,6 +37,8 @@ export interface HiddenCheckableInputProps
   fieldHelpId?: string;
   /** Element id for aria-labelledby */
   labelId?: string;
+  /** The id of the element that labels the input */
+  ariaLabelledBy?: string;
 }
 
 declare function HiddenCheckableInput(

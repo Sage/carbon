@@ -18,6 +18,8 @@ export interface RadioButtonProps
   value: string;
   /** Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /** Aria label for rendered help component */
+  helpAriaLabel?: string;
 }
 
 declare function RadioButton(

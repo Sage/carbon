@@ -428,6 +428,19 @@ describe("FocusTrap", () => {
         );
       }).not.toThrow();
     });
+
+    it("should not update focusable elements if wrapper ref isn't found", () => {
+      const wrapperRef = { current: null };
+      expect(() => {
+        mount(
+          <ModalContext.Provider value={{ isAnimationComplete: true }}>
+            <FocusTrap wrapperRef={wrapperRef}>
+              <div id="myComponent">Content</div>
+            </FocusTrap>
+          </ModalContext.Provider>
+        );
+      }).not.toThrow();
+    });
   });
 
   describe("when content in the children tree changes", () => {

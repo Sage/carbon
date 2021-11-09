@@ -60,7 +60,28 @@ describe("CheckableInput", () => {
     });
   });
 
+  describe("when label prop is not present", () => {
+    it("it does not set the aria-labelledby prop on the hidden input", () => {
+      const labelWrapper = mountInput({
+        id: "foo",
+      }).find(HiddenCheckableInputStyle);
+
+      expect(labelWrapper.prop("aria-labelledby")).toBe(undefined);
+    });
+  });
+
   describe("aria", () => {
+    describe("when ariaLabelledBy is present", () => {
+      it("it overrides the labelId value on the hidden input", () => {
+        const labelWrapper = mountInput({
+          id: "foo",
+          label: "bar",
+          ariaLabelledBy: "override-bar",
+        }).find(HiddenCheckableInputStyle);
+
+        expect(labelWrapper.prop("aria-labelledby")).toBe("override-bar");
+      });
+    });
     describe("when id", () => {
       describe("is present", () => {
         const commonProps = {
@@ -83,7 +104,7 @@ describe("CheckableInput", () => {
         );
 
         describe("and fieldHelp props are present", () => {
-          it("should render a vailid 'aria-describedby'", () => {
+          it("should render a valid 'aria-describedby'", () => {
             const hiddenCheckableInputStyle = mountInput({
               ...commonProps,
               fieldHelp: "baz",
@@ -120,7 +141,7 @@ describe("CheckableInput", () => {
           label: "bar",
         };
         describe("and fieldHelp props are present", () => {
-          it("should render a vailid 'aria-describedby'", () => {
+          it("should render a valid 'aria-describedby'", () => {
             const hiddenCheckableInputStyle = mountInput({
               ...commonProps,
               fieldHelp: "baz",

@@ -160,6 +160,8 @@ const PillStyle = styled.span`
           ${StyledIcon} {
             font-size: 12px;
             padding: 0 4px;
+            height: unset;
+            width: unset;
 
             &:hover,
             &:focus {

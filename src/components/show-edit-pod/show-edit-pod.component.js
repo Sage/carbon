@@ -1,16 +1,13 @@
-import React from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
-import ReactDOM from "react-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import Pod from "../pod";
 import Form from "../form";
 import Button from "../button";
 import StyledDeleteButton from "./delete-button.style";
 import Events from "../../__internal__/utils/helpers/events";
-import { validProps } from "../../__internal__/utils/ether";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import LocaleContext from "../../__internal__/i18n-context";
 import StyledPod from "./show-edit-pod.style";
@@ -19,182 +16,184 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-class ShowEditPod extends React.Component {
-  state = {
-    editing: false,
+const ShowEditPod = ({
+  border = false,
+  className,
+  children,
+  saving = false,
+  editFields,
+  editing,
+  onEdit,
+  onSave,
+  onCancel,
+  onUndo,
+  cancel = true,
+  cancelText,
+  saveText,
+  onDelete,
+  deleteText,
+  softDelete,
+  buttonAlign = "right",
+  transitionName = "carbon-show-edit-pod__transition",
+  title,
+  hideDeleteButtonInViewMode = false,
+  variant = "transparent",
+  ...rest
+}) => {
+  const locale = useContext(LocaleContext);
+
+  const ref = useRef();
+
+  const [isEditing, setIsEditingState] = useState(false);
+
+  const isControlled = editing !== undefined;
+
+  const focusPod = () => {
+    ref.current.focus();
   };
 
-  isControlled = this.props.editing !== undefined;
-
-  componentDidMount() {
-    if (this.props.editing) {
-      this.__focusOnPod();
+  useEffect(() => {
+    if (editing) {
+      focusPod();
     }
-  }
+  }, [editing]);
 
-  isEditing() {
-    return this.isControlled ? this.props.editing : this.state.editing;
-  }
+  const isInEditMode = isControlled ? editing : isEditing;
 
-  onEdit = (ev) => {
-    this.props.onEdit(ev);
-    this.toggleEditingState(true);
-    this.__focusOnPod();
+  const toggleEditingState = (newState) => {
+    if (!isControlled) {
+      setIsEditingState(newState);
+    }
   };
 
-  onSaveEditForm = (ev) => {
+  const handleEdit = (ev) => {
+    onEdit(ev);
+    toggleEditingState(true);
+    focusPod();
+  };
+
+  const onSaveEditForm = (ev) => {
     ev.preventDefault();
-    this.props.onSave(ev);
-    this.toggleEditingState(false);
+    onSave(ev);
+    toggleEditingState(false);
   };
 
-  onCancelEditForm = (ev) => {
-    if (this.props.onCancel) {
-      this.props.onCancel(ev);
+  const onCancelEditForm = (ev) => {
+    if (onCancel) {
+      onCancel(ev);
     }
 
-    this.toggleEditingState(false);
+    toggleEditingState(false);
   };
 
-  toggleEditingState = (newState) => {
-    if (!this.isControlled) {
-      this.setState({ editing: newState });
-    }
-  };
-
-  onKeyDown = (ev) => {
+  const onKeyDown = (ev) => {
     if (Events.isEscKey(ev)) {
-      this.onCancelEditForm(ev);
+      onCancelEditForm(ev);
     }
   };
 
-  deleteButton() {
-    const label = this.props.deleteText || this.context.actions.delete();
+  const deleteButton = () => {
+    const label = deleteText || locale.actions.delete();
 
     return (
       <StyledDeleteButton
         buttonType="tertiary"
         data-element="delete-button"
         size="small"
-        onClick={this.props.onDelete}
+        onClick={onDelete}
       >
         {label}
       </StyledDeleteButton>
     );
-  }
+  };
 
-  editContent() {
-    return (
-      <Form
-        onSubmit={this.onSaveEditForm}
-        buttonAlignment={this.props.buttonAlign}
-        data-element="edit-form"
-        leftSideButtons={
-          this.props.cancel && (
-            <Button
-              data-element="cancel-button"
-              onClick={this.onCancelEditForm}
-              size="small"
-            >
-              {this.props.cancelText}
-            </Button>
-          )
-        }
-        saveButton={
+  const editContent = () => (
+    <Form
+      onSubmit={onSaveEditForm}
+      buttonAlignment={buttonAlign}
+      data-element="edit-form"
+      leftSideButtons={
+        cancel && (
           <Button
-            disabled={this.props.saving}
-            data-element="submit-button"
-            buttonType="primary"
-            type="submit"
+            data-element="cancel-button"
+            onClick={onCancelEditForm}
             size="small"
           >
-            {this.props.saveText}
+            {cancelText}
           </Button>
-        }
-        rightSideButtons={this.props.onDelete ? this.deleteButton() : null}
-        saving={this.props.saving}
-      >
-        {this.props.editFields}
-      </Form>
-    );
-  }
+        )
+      }
+      saveButton={
+        <Button
+          disabled={saving}
+          data-element="submit-button"
+          buttonType="primary"
+          type="submit"
+          size="small"
+        >
+          {saveText}
+        </Button>
+      }
+      rightSideButtons={onDelete ? deleteButton() : null}
+      saving={saving}
+    >
+      {editFields}
+    </Form>
+  );
 
-  content() {
-    if (this.isEditing()) {
+  const content = () => {
+    if (isInEditMode) {
       return (
         <CSSTransition
           key="1"
-          classNames={this.props.transitionName}
+          classNames={transitionName}
           timeout={{ enter: 300, exit: 50 }}
         >
-          <div key="edit">{this.editContent()}</div>
+          <div key="edit">{editContent()}</div>
         </CSSTransition>
       );
     }
     return (
       <CSSTransition
         key="2"
-        classNames={this.props.transitionName}
+        classNames={transitionName}
         timeout={{ enter: 300, exit: 50 }}
       >
-        <div key="show">{this.props.children}</div>
+        <div key="show">{children}</div>
       </CSSTransition>
     );
-  }
-
-  universalProps() {
-    const { onEdit, onDelete, className, ...props } = validProps(
-      this,
-      Object.keys(Pod.propTypes)
-    );
-
-    return props;
-  }
-
-  contentProps() {
-    const { onEdit, onDelete, hideDeleteButtonInViewMode } = this.props;
-    const props = this.universalProps();
-
-    if (onEdit) {
-      props.onEdit = this.onEdit;
-    }
-
-    return { ...props, onDelete: !hideDeleteButtonInViewMode && onDelete };
-  }
-
-  editingProps() {
-    const props = this.universalProps();
-    props.onKeyDown = this.onKeyDown;
-    return props;
-  }
-
-  podProps() {
-    return this.isEditing() ? this.editingProps() : this.contentProps();
-  }
-
-  __focusOnPod = () => {
-    ReactDOM.findDOMNode(this.pod).focus(); // eslint-disable-line react/no-find-dom-node
   };
 
-  render() {
-    return (
-      <StyledPod
-        className={this.props.className}
-        size="small"
-        {...this.podProps()}
-        ref={(node) => {
-          this.pod = node;
-        }}
-        tabIndex="-1"
-        {...tagComponent("show-edit-pod", this.props)}
-      >
-        <TransitionGroup>{this.content()}</TransitionGroup>
-      </StyledPod>
-    );
-  }
-}
+  const universalProps = () => ({
+    size: "small",
+    tabIndex: "-1",
+    title,
+    ref,
+    className,
+    border,
+    onUndo,
+    softDelete,
+    variant,
+    ...rest,
+    ...tagComponent("show-edit-pod", rest),
+  });
 
-ShowEditPod.contextType = LocaleContext;
+  const contentProps = () => ({
+    ...universalProps(),
+    ...(!hideDeleteButtonInViewMode && { onDelete }),
+    ...(onEdit && { onEdit: handleEdit }),
+  });
+
+  const editingProps = () => ({ ...universalProps(), onKeyDown });
+
+  const podProps = () => (isInEditMode ? editingProps() : contentProps());
+
+  return (
+    <StyledPod {...podProps()}>
+      <TransitionGroup>{content()}</TransitionGroup>
+    </StyledPod>
+  );
+};
 
 ShowEditPod.propTypes = {
   ...marginPropTypes,
@@ -245,16 +244,8 @@ ShowEditPod.propTypes = {
   deleteText: PropTypes.string,
   /** Can inform if the form is in a saving state (disables the save button) */
   saving: PropTypes.bool,
-};
-
-ShowEditPod.defaultProps = {
-  variant: "transparent",
-  border: false,
-  buttonAlign: "right",
-  transitionName: "carbon-show-edit-pod__transition",
-  cancel: true,
-  saving: false,
-  hideDeleteButtonInViewMode: false,
+  /** Title to be displayed */
+  title: PropTypes.node,
 };
 
 export default ShowEditPod;
