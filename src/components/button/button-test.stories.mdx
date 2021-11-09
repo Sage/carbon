@@ -502,7 +502,7 @@ export const FullWidthButtonsStory = () => {
 ### Primary buttons icons before
 
 <Preview>
-  <Story name="primary buttons icons before">
+  <Story name="primary buttons icons before" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
     {generateButtons("primary", "before")}
   </Story>
 </Preview>
@@ -510,7 +510,7 @@ export const FullWidthButtonsStory = () => {
 ### Primary buttons icons after
 
 <Preview>
-  <Story name="primary buttons icons after">
+  <Story name="primary buttons icons after" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
     {generateButtons("primary", "after")}
   </Story>
 </Preview>
@@ -518,7 +518,7 @@ export const FullWidthButtonsStory = () => {
 ### Secondary buttons icons before
 
 <Preview>
-  <Story name="secondary buttons icons before">
+  <Story name="secondary buttons icons before" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
     {generateButtons("secondary", "before")}
   </Story>
 </Preview>
@@ -526,7 +526,7 @@ export const FullWidthButtonsStory = () => {
 ### Secondary buttons icons after
 
 <Preview>
-  <Story name="secondary buttons icons after">
+  <Story name="secondary buttons icons after" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
     {generateButtons("secondary", "after")}
   </Story>
 </Preview>
@@ -534,7 +534,7 @@ export const FullWidthButtonsStory = () => {
 ### Tertiary buttons icons before
 
 <Preview>
-  <Story name="tertiary buttons icons before">
+  <Story name="tertiary buttons icons before" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
     {generateButtons("tertiary", "before")}
   </Story>
 </Preview>
@@ -542,7 +542,7 @@ export const FullWidthButtonsStory = () => {
 ### Tertiary buttons icons after
 
 <Preview>
-  <Story name="tertiary buttons icons after">
+  <Story name="tertiary buttons icons after" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
     {generateButtons("tertiary", "after")}
   </Story>
 </Preview>
@@ -550,7 +550,7 @@ export const FullWidthButtonsStory = () => {
 ### Dashed buttons icons before
 
 <Preview>
-  <Story name="dashed buttons icons before">
+  <Story name="dashed buttons icons before" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
     {generateButtons("dashed", "before")}
   </Story>
 </Preview>
@@ -558,7 +558,7 @@ export const FullWidthButtonsStory = () => {
 ### Dashed buttons icons after
 
 <Preview>
-  <Story name="dashed buttons icons after">
+  <Story name="dashed buttons icons after" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
     {generateButtons("dashed", "after")}
   </Story>
 </Preview>
@@ -566,7 +566,7 @@ export const FullWidthButtonsStory = () => {
 ### Dark background buttons icons before
 
 <Preview>
-  <Story name="dark background buttons icons before">
+  <Story name="dark background buttons icons before" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
     {generateButtons("darkBackground", "before")}
   </Story>
 </Preview>
@@ -574,7 +574,7 @@ export const FullWidthButtonsStory = () => {
 ### Dark background buttons icons after
 
 <Preview>
-  <Story name="dark background buttons icons after">
+  <Story name="dark background buttons icons after" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
     {generateButtons("darkBackground", "after")}
   </Story>
 </Preview>
@@ -582,7 +582,9 @@ export const FullWidthButtonsStory = () => {
 ### Full width buttons
 
 <Preview>
-  <Story name="full width buttons">{FullWidthButtonsStory.bind({})}</Story>
+  <Story name="full width buttons" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
+    {FullWidthButtonsStory.bind({})}
+    </Story>
 </Preview>
 
 ### No wrap buttons
