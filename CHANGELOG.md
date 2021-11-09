@@ -1,3 +1,10 @@
+## [96.1.0](https://github.com/Sage/carbon/compare/v96.0.0...v96.1.0) (2021-11-09)
+
+
+### Features
+
+* **multi-action-button:** add support for tertiary buttonType ([ee12f79](https://github.com/Sage/carbon/commit/ee12f79ab2efedc085f7821c0107522b3e471b5f))
+
 ## [96.0.0](https://github.com/Sage/carbon/compare/v95.1.3...v96.0.0) (2021-11-05)
 
 
