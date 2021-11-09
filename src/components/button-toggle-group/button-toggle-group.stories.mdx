@@ -65,7 +65,7 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
 
 <Preview>
   <Story name="controlled" parameters={{ info: { disable: true } }}>
-    {() => {
+    {(args, {themeName}) => {
       const [value, setValue] = useState("bar");
       function onChangeHandler(event) {
         setValue(event.target.value);
@@ -73,8 +73,8 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       }
       return (
         <ButtonToggleGroup
-          id="button-toggle-group-controlled-id"
-          name="button-toggle-group-controlled"
+          id={`button-toggle-group-controlled-id-${themeName}`}
+          name={`button-toggle-group-controlled-${themeName}`}
           label="Controlled example"
           labelHelp="help message"
           helpAriaLabel="Help"
