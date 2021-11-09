@@ -28,7 +28,7 @@ describe("SimpleSelect", () => {
 
     describe("and that element is an Option of the Select List", () => {
       it("then the SelectList should be closed", () => {
-        wrapper.find("[data-element='select-text']").first().simulate("click");
+        simulateSelectTextEvent(wrapper, "click");
         expect(wrapper.find(SelectList).exists()).toBe(true);
         act(() => {
           wrapper
@@ -46,7 +46,7 @@ describe("SimpleSelect", () => {
         act(() => {
           document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
-        wrapper.find("[data-element='select-text']").first().simulate("click");
+        simulateSelectTextEvent(wrapper, "click");
         expect(wrapper.find(SelectList).exists()).toBe(true);
         act(() => {
           document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
@@ -64,7 +64,7 @@ describe("SimpleSelect", () => {
     it("renders SelectList as a content of positionedChildren prop on Textbox when disablePortal is true", () => {
       const wrapper = renderSelect({ disablePortal: true });
 
-      wrapper.find("[data-element='select-text']").first().simulate("click");
+      simulateSelectTextEvent(wrapper, "click");
       const positionedChildren = mount(
         wrapper.find(SelectTextbox).props().positionedChildren
       );
@@ -74,7 +74,7 @@ describe("SimpleSelect", () => {
     it("renders SelectList as a direct children of StyledSimpleSelect by default", () => {
       const wrapper = renderSelect();
 
-      wrapper.find("[data-element='select-text']").first().simulate("click");
+      simulateSelectTextEvent(wrapper, "click");
       expect(wrapper.find(SelectTextbox).props().positionedChildren).toBe(
         false
       );
@@ -160,7 +160,7 @@ describe("SimpleSelect", () => {
       it("the SelectList should be rendered", () => {
         const wrapper = renderSelect({ openOnFocus: true });
 
-        wrapper.find("[data-element='select-text']").first().simulate("focus");
+        simulateSelectTextEvent(wrapper, "focus");
         expect(wrapper.find(SelectList).exists()).toBe(true);
       });
 
@@ -171,10 +171,7 @@ describe("SimpleSelect", () => {
             const obj = { [prop]: true, openOnFocus: true };
             const wrapper = renderSelect(obj);
 
-            wrapper
-              .find("[data-element='select-text']")
-              .first()
-              .simulate("focus");
+            simulateSelectTextEvent(wrapper, "focus");
             expect(wrapper.find(SelectList).exists()).toBe(false);
           });
         }
@@ -188,10 +185,7 @@ describe("SimpleSelect", () => {
             openOnFocus: true,
           });
 
-          wrapper
-            .find("[data-element='select-text']")
-            .first()
-            .simulate("focus");
+          simulateSelectTextEvent(wrapper, "focus");
           expect(onFocusFn).toHaveBeenCalled();
         });
       });
@@ -206,40 +200,25 @@ describe("SimpleSelect", () => {
         });
 
         it("then that prop should be called", () => {
-          wrapper
-            .find("[data-element='select-text']")
-            .first()
-            .simulate("focus");
+          simulateSelectTextEvent(wrapper, "focus");
 
           expect(onOpenFn).toHaveBeenCalled();
         });
 
         describe("and the SelectList already open", () => {
           it("then that prop should not be called", () => {
-            wrapper
-              .find("[data-element='select-text']")
-              .first()
-              .simulate("click");
+            simulateSelectTextEvent(wrapper, "click");
             onOpenFn.mockReset();
             expect(wrapper.find(SelectList).exists()).toBe(true);
-            wrapper
-              .find("[data-element='select-text']")
-              .first()
-              .simulate("focus");
+            simulateSelectTextEvent(wrapper, "focus");
             expect(onOpenFn).not.toHaveBeenCalled();
           });
         });
 
         describe("and the focus triggered by mouseDown", () => {
           it("then that prop should not be called", () => {
-            wrapper
-              .find("[data-element='select-text']")
-              .first()
-              .simulate("mouseDown");
-            wrapper
-              .find("[data-element='select-text']")
-              .first()
-              .simulate("focus");
+            simulateSelectTextEvent(wrapper, "mousedown");
+            simulateSelectTextEvent(wrapper, "focus");
             expect(onOpenFn).not.toHaveBeenCalled();
           });
         });
@@ -257,7 +236,7 @@ describe("SimpleSelect", () => {
     });
 
     it("the SelectList should not be rendered", () => {
-      wrapper.find("[data-element='select-text']").first().simulate("focus");
+      simulateSelectTextEvent(wrapper, "focus");
       expect(wrapper.find(SelectList).exists()).toBe(false);
     });
 
@@ -270,33 +249,21 @@ describe("SimpleSelect", () => {
       " ", // spacebar
     ])('and the "%s" key is pressed', (key) => {
       it("the SelectList should be rendered", () => {
-        wrapper
-          .find("[data-element='select-text']")
-          .first()
-          .simulate("keydown", { key });
+        simulateKeyDown(wrapper, key);
         expect(wrapper.find(SelectList).exists()).toBe(true);
       });
 
       it("the onOpen prop should be called", () => {
-        wrapper
-          .find("[data-element='select-text']")
-          .first()
-          .simulate("keydown", { key });
+        simulateKeyDown(wrapper, key);
         expect(onOpenFn).toHaveBeenCalled();
       });
 
       describe("with the SelectList already open", () => {
         it("the onOpen prop should not be called", () => {
-          wrapper
-            .find("[data-element='select-text']")
-            .first()
-            .simulate("click");
+          simulateSelectTextEvent(wrapper, "click");
           onOpenFn.mockReset();
           expect(wrapper.find(SelectList).exists()).toBe(true);
-          wrapper
-            .find("[data-element='select-text']")
-            .first()
-            .simulate("keydown", { key });
+          simulateKeyDown(wrapper, key);
           expect(onOpenFn).not.toHaveBeenCalled();
         });
       });
@@ -304,11 +271,7 @@ describe("SimpleSelect", () => {
       describe("with readOnly prop set to true", () => {
         it("then the SelectList should not be rendered", () => {
           wrapper.setProps({ readOnly: true });
-          wrapper
-            .update()
-            .find("[data-element='select-text']")
-            .first()
-            .simulate("keydown", { key });
+          simulateKeyDown(wrapper, key);
           expect(wrapper.find(SelectList).exists()).toBe(false);
         });
       });
@@ -316,21 +279,15 @@ describe("SimpleSelect", () => {
 
     describe("and a key other than Enter, Up or Down is pressed", () => {
       it("the SelectList should not be rendered", () => {
-        wrapper
-          .find("[data-element='select-text']")
-          .first()
-          .simulate("keydown", { key: "b" });
+        simulateKeyDown(wrapper, "b");
         expect(wrapper.find(SelectList).exists()).toBe(false);
       });
 
       describe("with readOnly prop set to true", () => {
         it("then the SelectList should not be rendered", () => {
           wrapper.setProps({ readOnly: true });
-          wrapper
-            .update()
-            .find("[data-element='select-text']")
-            .first()
-            .simulate("keydown", { key: "Enter" });
+          wrapper.update();
+          simulateKeyDown(wrapper, "b");
           expect(wrapper.find(SelectList).exists()).toBe(false);
         });
       });
@@ -341,7 +298,7 @@ describe("SimpleSelect", () => {
     it("the SelectList should be rendered", () => {
       const wrapper = renderSelect();
 
-      wrapper.find("[data-element='select-text']").first().simulate("click");
+      simulateSelectTextEvent(wrapper, "click");
       expect(wrapper.find(SelectList).exists()).toBe(true);
     });
 
@@ -352,20 +309,14 @@ describe("SimpleSelect", () => {
           const onClickFn = jest.fn();
           const wrapper = renderSelect({ onClick: onClickFn, [prop]: true });
 
-          wrapper
-            .find("[data-element='select-text']")
-            .first()
-            .simulate("click");
+          simulateSelectTextEvent(wrapper, "click");
           expect(onClickFn).not.toHaveBeenCalled();
         });
 
         it("then the SelectList should not be rendered", () => {
           const wrapper = renderSelect({ [prop]: true });
 
-          wrapper
-            .find("[data-element='select-text']")
-            .first()
-            .simulate("click");
+          simulateSelectTextEvent(wrapper, "click");
           expect(wrapper.find(SelectList).exists()).toBe(false);
         });
       }
@@ -376,7 +327,7 @@ describe("SimpleSelect", () => {
         const onClickFn = jest.fn();
         const wrapper = renderSelect({ onClick: onClickFn });
 
-        wrapper.find("[data-element='select-text']").first().simulate("click");
+        simulateSelectTextEvent(wrapper, "click");
         expect(onClickFn).toHaveBeenCalled();
       });
     });
@@ -386,7 +337,7 @@ describe("SimpleSelect", () => {
         const onOpenFn = jest.fn();
         const wrapper = renderSelect({ onOpen: onOpenFn });
 
-        wrapper.find("[data-element='select-text']").first().simulate("click");
+        simulateSelectTextEvent(wrapper, "click");
         expect(onOpenFn).toHaveBeenCalled();
       });
     });
@@ -395,9 +346,9 @@ describe("SimpleSelect", () => {
       it("then the SelectList should be closed", () => {
         const wrapper = renderSelect();
 
-        wrapper.find("[data-element='select-text']").first().simulate("click");
+        simulateSelectTextEvent(wrapper, "click");
         expect(wrapper.find(SelectList).exists()).toBe(true);
-        wrapper.find("[data-element='select-text']").first().simulate("click");
+        simulateSelectTextEvent(wrapper, "click");
         expect(wrapper.find(SelectList).exists()).toBe(false);
       });
     });
@@ -421,7 +372,7 @@ describe("SimpleSelect", () => {
     ])("the listPlacement prop should be passed", (listPlacement) => {
       const wrapper = renderSelect({ listPlacement });
 
-      wrapper.find("[data-element='select-text']").first().simulate("click");
+      simulateSelectTextEvent(wrapper, "click");
       expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
         listPlacement
       );
@@ -430,7 +381,7 @@ describe("SimpleSelect", () => {
     it("the flipEnabled prop should be passed", () => {
       const wrapper = renderSelect({ flipEnabled: false });
 
-      wrapper.find("[data-element='select-text']").first().simulate("click");
+      simulateSelectTextEvent(wrapper, "click");
       expect(wrapper.find(SelectList).prop("flipEnabled")).toBe(false);
       wrapper.setProps({ flipEnabled: true });
       expect(wrapper.find(SelectList).prop("flipEnabled")).toBe(true);
@@ -469,10 +420,7 @@ describe("SimpleSelect", () => {
     it("then the first option with text starting with that character should be selected", () => {
       const wrapper = renderSelect();
 
-      wrapper
-        .find("[data-element='select-text']")
-        .first()
-        .simulate("keydown", { key: "b" });
+      simulateKeyDown(wrapper, "b");
       wrapper.update();
       expect(wrapper.find(Textbox).prop("value")).toBe("opt3");
       wrapper.unmount();
@@ -482,14 +430,8 @@ describe("SimpleSelect", () => {
       it("then the second option with text starting with that character should be selected", () => {
         const wrapper = renderSelect();
 
-        wrapper
-          .find("[data-element='select-text']")
-          .first()
-          .simulate("keydown", { key: "b" });
-        wrapper
-          .find("[data-element='select-text']")
-          .first()
-          .simulate("keydown", { key: "b" });
+        simulateKeyDown(wrapper, "b");
+        simulateKeyDown(wrapper, "b");
         wrapper.update();
         expect(wrapper.find(Textbox).prop("value")).toBe("opt4");
         wrapper.unmount();
@@ -500,14 +442,8 @@ describe("SimpleSelect", () => {
       it("then the option starting with previous character should remain selected", () => {
         const wrapper = renderSelect();
 
-        wrapper
-          .find("[data-element='select-text']")
-          .first()
-          .simulate("keydown", { key: "b" });
-        wrapper
-          .find("[data-element='select-text']")
-          .first()
-          .simulate("keydown", { key: "x" });
+        simulateKeyDown(wrapper, "b");
+        simulateKeyDown(wrapper, "x");
         wrapper.update();
         expect(wrapper.find(Textbox).prop("value")).toBe("opt3");
         wrapper.unmount();
@@ -518,19 +454,10 @@ describe("SimpleSelect", () => {
       it("then an option with matching text should be selected", () => {
         const wrapper = renderSelect({ openOnFocus: true });
 
-        wrapper.find("[data-element='select-text']").first().simulate("focus");
-        wrapper
-          .find("[data-element='select-text']")
-          .first()
-          .simulate("keydown", { key: "b" });
-        wrapper
-          .find("[data-element='select-text']")
-          .first()
-          .simulate("keydown", { key: "l" });
-        wrapper
-          .find("[data-element='select-text']")
-          .first()
-          .simulate("keydown", { key: "a" });
+        simulateSelectTextEvent(wrapper, "focus");
+        simulateKeyDown(wrapper, "b");
+        simulateKeyDown(wrapper, "l");
+        simulateKeyDown(wrapper, "a");
         wrapper.update();
         expect(wrapper.find(Textbox).prop("value")).toBe("opt4");
         wrapper.unmount();
@@ -543,23 +470,11 @@ describe("SimpleSelect", () => {
         const wrapper = renderSelect();
 
         act(() => {
-          wrapper
-            .find("[data-element='select-text']")
-            .first()
-            .simulate("focus");
-          wrapper
-            .find("[data-element='select-text']")
-            .first()
-            .simulate("keydown", { key: "b" });
-          wrapper
-            .find("[data-element='select-text']")
-            .first()
-            .simulate("keydown", { key: "l" });
+          simulateSelectTextEvent(wrapper, "focus");
+          simulateKeyDown(wrapper, "b");
+          simulateKeyDown(wrapper, "l");
           jest.runAllTimers();
-          wrapper
-            .find("[data-element='select-text']")
-            .first()
-            .simulate("keydown", { key: "g" });
+          simulateKeyDown(wrapper, "g");
         });
 
         expect(wrapper.update().find(Textbox).prop("value")).toBe("opt2");
@@ -581,11 +496,8 @@ describe("SimpleSelect", () => {
         const onChangeFn = jest.fn();
         const wrapper = renderSelect({ ...textboxProps, onChange: onChangeFn });
 
-        wrapper.find("[data-element='select-text']").first().simulate("focus");
-        wrapper
-          .find("[data-element='select-text']")
-          .first()
-          .simulate("keydown", { key: "b" });
+        simulateSelectTextEvent(wrapper, "focus");
+        simulateKeyDown(wrapper, "b");
         expect(onChangeFn).toHaveBeenCalledWith(mockEventObject);
       });
     });
@@ -617,7 +529,7 @@ describe("SimpleSelect", () => {
       it("the SelectList should be closed", () => {
         const wrapper = renderSelect();
 
-        wrapper.find("[data-element='select-text']").first().simulate("click");
+        simulateSelectTextEvent(wrapper, "click");
         expect(wrapper.find(SelectList).exists()).toBe(true);
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
@@ -630,7 +542,7 @@ describe("SimpleSelect", () => {
       const wrapper = renderSelect();
 
       beforeAll(() => {
-        wrapper.find("[data-element='select-text']").first().simulate("click");
+        simulateSelectTextEvent(wrapper, "click");
         expect(wrapper.find(SelectList).exists()).toBe(true);
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(navigationKeyOptionObject);
@@ -660,7 +572,7 @@ describe("SimpleSelect", () => {
         const onChangeFn = jest.fn();
         const wrapper = renderSelect({ ...textboxProps, onChange: onChangeFn });
 
-        wrapper.find("[data-element='select-text']").first().simulate("click");
+        simulateSelectTextEvent(wrapper, "click");
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
@@ -672,12 +584,12 @@ describe("SimpleSelect", () => {
       it("then the SelectList should be closed", () => {
         const wrapper = renderSelect();
 
-        wrapper.find("[data-element='select-text']").first().simulate("click");
+        simulateSelectTextEvent(wrapper, "click");
         expect(wrapper.find(SelectList).exists()).toBe(true);
         act(() => {
           wrapper.find(Option).first().simulate("click");
         });
-        wrapper.find("[data-element='select-text']").first().simulate("focus");
+        simulateSelectTextEvent(wrapper, "focus");
         expect(wrapper.update().find(SelectList).exists()).toBe(false);
       });
     });
@@ -687,7 +599,7 @@ describe("SimpleSelect", () => {
     it("the SelectList should be closed", () => {
       const wrapper = renderSelect();
 
-      wrapper.find("[data-element='select-text']").first().simulate("click");
+      simulateSelectTextEvent(wrapper, "click");
       expect(wrapper.find(SelectList).exists()).toBe(true);
       act(() => {
         wrapper.find(SelectList).prop("onSelectListClose")();
@@ -699,7 +611,6 @@ describe("SimpleSelect", () => {
   describe("when the onKeyDown prop is passed", () => {
     const expectedEventObject = {
       key: "ArrowDown",
-      which: 40,
     };
 
     it("then when a key is pressed, that prop should be called with expected values", () => {
@@ -724,7 +635,7 @@ describe("SimpleSelect", () => {
       const onBlurFn = jest.fn();
       const wrapper = renderSelect({ onBlur: onBlurFn });
 
-      wrapper.find("[data-element='select-text']").first().simulate("blur");
+      simulateSelectTextEvent(wrapper, "blur");
       expect(onBlurFn).toHaveBeenCalled();
     });
 
@@ -733,16 +644,16 @@ describe("SimpleSelect", () => {
         const onBlurFn = jest.fn();
         const wrapper = renderSelect({ onBlur: onBlurFn, openOnFocus: true });
 
-        wrapper.find("[data-element='select-text']").first().simulate("focus");
+        simulateSelectTextEvent(wrapper, "focus");
         wrapper.find(Option).first().simulate("mousedown");
-        wrapper.find("[data-element='select-text']").first().simulate("blur");
+        simulateSelectTextEvent(wrapper, "blur");
         expect(onBlurFn).not.toHaveBeenCalled();
       });
     });
 
     it("coverage filler for else path", () => {
       const wrapper = renderSelect();
-      wrapper.find("[data-element='select-text']").first().simulate("blur");
+      simulateSelectTextEvent(wrapper, "blur");
     });
   });
 
@@ -770,7 +681,7 @@ describe("SimpleSelect", () => {
 
     describe("and an option is selected", () => {
       it("then the onChange prop should be called with expected value", () => {
-        wrapper.find("[data-element='select-text']").first().simulate("click");
+        simulateSelectTextEvent(wrapper, "click");
         expect(wrapper.find(SelectList).exists()).toBe(true);
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
@@ -781,10 +692,7 @@ describe("SimpleSelect", () => {
 
     describe("and a printable character has been typed in the Textbox", () => {
       beforeEach(() => {
-        wrapper
-          .find("[data-element='select-text']")
-          .first()
-          .simulate("keydown", { key: "b" });
+        simulateKeyDown(wrapper, "b");
         wrapper.update();
       });
 
@@ -862,6 +770,23 @@ describe("SimpleSelect", () => {
     });
   });
 });
+
+describe("coverage filler for else path", () => {
+  const wrapper = renderSelect();
+  simulateKeyDown(wrapper, "F1");
+});
+
+function simulateKeyDown(container, key) {
+  const selectText = container.find("[data-element='select-text']").first();
+
+  selectText.simulate("keydown", { key });
+}
+
+function simulateSelectTextEvent(container, eventType) {
+  const selectText = container.find("[data-element='select-text']").first();
+
+  selectText.simulate(eventType);
+}
 
 function renderSelect(props = {}, renderer = mount) {
   return renderer(getSelect(props));
