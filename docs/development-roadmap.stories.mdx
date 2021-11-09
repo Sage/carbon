@@ -1,33 +1,44 @@
-<Meta
-  title="Documentation/Development Roadmap"
-/>
+<Meta title="Documentation/Development Roadmap" />
 
 # Sage Carbon public roadmap
 
 > **Disclaimer**: We operate in a dynamic commercial environment, and things are subject to change. The information provided is intended to outline the general direction of the library. It's intended for informational purposes only. We may decide to add/remove new items at any time depending on our capability to deliver while meeting our quality standards. The development, releases, and timing of any features or functionality of Carbon remain at the sole discretion of Sage. The roadmap does not represent a commitment, obligation, or promise to deliver at any time.
 
 ## Upcoming activity
-Listed below is the activity we have on our backlog. 
-### Move experimental folder
-Move the experimental components into the main components folder and remove the experimental folder.
-### Internationalisation 
-Implement the proposal in the [i18n RFC](https://github.com/Sage/carbon/blob/master/rfcs/text/i18n.md).
-### TypeScript Support 
- At a minimum we should support type definitions for every component.
-We will also review if we should convert our existing code to TypeScript.
-### Accessibility audit
-Review current components against accessibility guidelines and plug any gaps we may have to meet those requirements, in particular: 
 
-1. Keyboard accessibility of navigation components such as Menu. 
-1. Keyboard accessibility of Tables - particularly tables with inputs. 
-1. Focus behaviour in Dialog and Sidebar. 
-1. Date picker popover. 
+Listed below is the activity we have on our backlog.
+
+### Move experimental folder
+
+Move the experimental components into the main components folder and remove the experimental folder.
+
+### Internationalisation
+
+Implement the proposal in the [i18n RFC](https://github.com/Sage/carbon/blob/master/rfcs/text/i18n.md).
+
+### TypeScript Support
+
+At a minimum we should support type definitions for every component.
+We will also review if we should convert our existing code to TypeScript.
+
+### Accessibility audit
+
+Review current components against accessibility guidelines and plug any gaps we may have to meet those requirements, in particular:
+
+1. Keyboard accessibility of navigation components such as Menu.
+1. Keyboard accessibility of Tables - particularly tables with inputs.
+1. Focus behaviour in Dialog and Sidebar.
+1. Date picker popover.
 
 Review our automation/testing/linting to ensure that accessibility is part of the CI process to prevent any regressions.
+
 ### Design System congruence
+
 Review our Design System documentation and ensure our components are congruent with those described in [brand.sage.com](https://brand.sage.com).
+
 ### Deprecations
+
 Deprecation of components that are no longer actively maintained.
 
 1. Multi Step Wizard
-1. shouldComponentUpdate decorator
+1. Row and Column
