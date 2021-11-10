@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
@@ -20,200 +20,186 @@ const getFormatNumber = (value, locale) =>
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
-class Textarea extends React.Component {
-  // Minimum height of the textarea
-  minHeight = 0;
 
-  id = this.props.id || guid();
+const Textarea = ({
+  autoFocus,
+  fieldHelp,
+  label,
+  size,
+  children,
+  characterLimit,
+  enforceCharacterLimit = true,
+  warnOverLimit = false,
+  onChange,
+  disabled = false,
+  labelInline,
+  labelAlign,
+  labelHelp,
+  labelSpacing,
+  inputIcon,
+  id: idProp,
+  error,
+  warning,
+  info,
+  name,
+  readOnly = false,
+  placeholder,
+  expandable = false,
+  rows,
+  cols,
+  validationOnLabel = false,
+  adaptiveLabelBreakpoint,
+  inputWidth,
+  labelWidth = 30,
+  tooltipPosition,
+  value,
+  "data-component": dataComponent,
+  "data-element": dataElement,
+  "data-role": dataRole,
+  helpAriaLabel,
+  ...props
+}) => {
+  const locale = useContext(LocaleContext);
 
-  _input = React.createRef();
+  const { current: id } = useRef(idProp || guid());
 
-  /**
-   * A lifecycle method that is called after initial render.
-   * Allows access to refs and DOM to set expandable variables
-   */
-  componentDidMount() {
-    if (this.props.expandable) {
-      window.addEventListener("resize", this.expandTextarea);
-      // Set the min height to the initially rendered height.
-      // Without minHeight expandable textareas will only have
-      // one line when no content is present.
-      this.minHeight = this._input.current.clientHeight;
+  const inputRef = useRef();
 
-      this.expandTextarea();
-    }
-  }
+  const minHeight = useRef(0);
 
-  componentWillUnmount() {
-    if (this.props.expandable) {
-      window.removeEventListener("resize", this.expandTextarea);
-    }
-  }
+  const expandTextarea = () => {
+    const textarea = inputRef.current;
 
-  componentDidUpdate() {
-    const { expandable } = this.props;
-
-    if (expandable) {
-      this.expandTextarea();
-    }
-  }
-
-  expandTextarea = () => {
-    const textarea = this._input.current;
-
-    if (textarea.scrollHeight > this.minHeight) {
+    if (textarea.scrollHeight > minHeight.current) {
       // Reset height to zero - IE specific
       textarea.style.height = "0px";
       // Set the height so all content is shown
       textarea.style.height = `${Math.max(
         textarea.scrollHeight,
-        this.minHeight
+        minHeight.current
       )}px`;
     }
   };
 
-  get overLimit() {
-    const value = this.props.value || "";
-    return value.length > parseInt(this.props.characterLimit, 10);
-  }
+  useEffect(() => {
+    if (expandable) {
+      expandTextarea();
+    }
+  });
 
-  get characterCount() {
-    const value = this.props.value || "";
-    const { characterLimit, warnOverLimit } = this.props;
+  useEffect(() => {
+    if (expandable) {
+      window.addEventListener("resize", expandTextarea);
+      minHeight.current = inputRef.current.clientHeight;
+    }
+
+    return () => {
+      if (expandable) {
+        window.removeEventListener("resize", expandTextarea);
+      }
+    };
+  }, [expandable]);
+
+  const isOverLimit = () => {
+    return (value || "").length > parseInt(characterLimit, 10);
+  };
+
+  const characterCount = () => {
     if (!characterLimit) {
       return null;
     }
 
     return (
       <CharacterCount
-        isOverLimit={this.overLimit && warnOverLimit}
-        value={getFormatNumber(value.length, this.context.locale())}
-        limit={getFormatNumber(characterLimit, this.context.locale())}
+        isOverLimit={isOverLimit() && warnOverLimit}
+        value={getFormatNumber((value || "").length, locale.locale())}
+        limit={getFormatNumber(characterLimit, locale.locale())}
         data-element="character-limit"
       />
     );
-  }
+  };
 
-  render() {
-    const {
-      autoFocus,
-      fieldHelp,
-      label,
-      size,
-      children,
-      characterLimit,
-      enforceCharacterLimit,
-      onChange,
-      disabled,
-      labelInline,
-      labelAlign,
-      labelHelp,
-      labelSpacing,
-      inputIcon,
-      error,
-      warning,
-      info,
-      name,
-      readOnly,
-      placeholder,
-      rows,
-      cols,
-      validationOnLabel,
-      adaptiveLabelBreakpoint,
-      inputWidth,
-      labelWidth,
-      tooltipPosition,
-      "data-component": dataComponent,
-      "data-element": dataElement,
-      "data-role": dataRole,
-      helpAriaLabel,
-      ...props
-    } = this.props;
-
-    return (
-      <TooltipProvider
-        helpAriaLabel={helpAriaLabel}
-        tooltipPosition={tooltipPosition}
-      >
-        <InputBehaviour>
-          <StyledTextarea
+  return (
+    <TooltipProvider
+      tooltipPosition={tooltipPosition}
+      helpAriaLabel={helpAriaLabel}
+    >
+      <InputBehaviour>
+        <StyledTextarea
+          labelInline={labelInline}
+          data-component={dataComponent}
+          data-role={dataRole}
+          data-element={dataElement}
+          {...filterStyledSystemMarginProps(props)}
+        >
+          <FormField
+            fieldHelp={fieldHelp}
+            error={error}
+            warning={warning}
+            info={info}
+            label={label}
+            disabled={disabled}
+            id={id}
             labelInline={labelInline}
-            data-component={dataComponent}
-            data-role={dataRole}
-            data-element={dataElement}
-            {...filterStyledSystemMarginProps(props)}
+            labelAlign={labelAlign}
+            labelWidth={labelWidth}
+            labelHelp={labelHelp}
+            labelSpacing={labelSpacing}
+            isRequired={props.required}
+            useValidationIcon={validationOnLabel}
+            adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
           >
-            <FormField
-              fieldHelp={fieldHelp}
+            <InputPresentation
+              size={size}
+              disabled={disabled}
+              readOnly={readOnly}
+              inputWidth={
+                typeof inputWidth === "number" ? inputWidth : 100 - labelWidth
+              }
               error={error}
               warning={warning}
               info={info}
-              label={label}
-              disabled={disabled}
-              id={this.id}
-              labelInline={labelInline}
-              labelAlign={labelAlign}
-              labelWidth={labelWidth}
-              labelHelp={labelHelp}
-              labelSpacing={labelSpacing}
-              isRequired={props.required}
-              useValidationIcon={validationOnLabel}
-              adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
             >
-              <InputPresentation
-                size={size}
+              <Input
+                autoFocus={autoFocus}
+                name={name}
+                aria-invalid={!!error}
+                ref={inputRef}
+                maxLength={
+                  enforceCharacterLimit && characterLimit
+                    ? characterLimit
+                    : undefined
+                }
+                onChange={onChange}
                 disabled={disabled}
                 readOnly={readOnly}
-                inputWidth={
-                  typeof inputWidth === "number" ? inputWidth : 100 - labelWidth
-                }
+                labelInline={labelInline}
+                placeholder={disabled ? "" : placeholder}
+                rows={rows}
+                cols={cols}
+                id={id}
+                as="textarea"
+                {...props}
+              />
+              {children}
+              <InputIconToggle
+                disabled={disabled}
+                readOnly={readOnly}
+                inputIcon={inputIcon}
+                size={size}
                 error={error}
                 warning={warning}
                 info={info}
-              >
-                <Input
-                  autoFocus={autoFocus}
-                  name={name}
-                  aria-invalid={!!error}
-                  ref={this._input}
-                  maxLength={
-                    enforceCharacterLimit && characterLimit
-                      ? characterLimit
-                      : undefined
-                  }
-                  onChange={onChange}
-                  disabled={disabled}
-                  readOnly={readOnly}
-                  labelInline={labelInline}
-                  placeholder={disabled ? "" : placeholder}
-                  rows={rows}
-                  cols={cols}
-                  id={this.id}
-                  as="textarea"
-                  {...props}
-                />
-                {children}
-                <InputIconToggle
-                  disabled={disabled}
-                  readOnly={readOnly}
-                  inputIcon={inputIcon}
-                  size={size}
-                  error={error}
-                  warning={warning}
-                  info={info}
-                  useValidationIcon={!validationOnLabel}
-                />
-              </InputPresentation>
-            </FormField>
-            {this.characterCount}
-          </StyledTextarea>
-        </InputBehaviour>
-      </TooltipProvider>
-    );
-  }
-}
-
-Textarea.contextType = LocaleContext;
+                useValidationIcon={!validationOnLabel}
+              />
+            </InputPresentation>
+          </FormField>
+          {characterCount()}
+        </StyledTextarea>
+      </InputBehaviour>
+    </TooltipProvider>
+  );
+};
 
 Textarea.propTypes = {
   ...marginPropTypes,
@@ -301,16 +287,6 @@ Textarea.propTypes = {
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
   /** Aria label for rendered help component */
   helpAriaLabel: PropTypes.string,
-};
-
-Textarea.defaultProps = {
-  labelWidth: 30,
-  disabled: false,
-  expandable: false,
-  enforceCharacterLimit: true,
-  readOnly: false,
-  warnOverLimit: false,
-  validationOnLabel: false,
 };
 
 export { Textarea as OriginalTextarea };

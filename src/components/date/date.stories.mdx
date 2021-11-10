@@ -76,8 +76,10 @@ import DateInput from "carbon-react/lib/components/date";
 ### AutoFocus
 
 <Preview>
-  <Story name="autoFocus">
-    <DateInput label="Date" value="2016-10-01" autoFocus />
+    <Story name="autoFocus" parameters={{themeSelector: {fourColumnLayout: true}, chromatic: {viewports: [1800]}}}>
+    <div style={{height: 450, width: 450}}>
+      <DateInput label="Date" value="2016-10-01" autoFocus />
+    </div>
   </Story>
 </Preview>
 

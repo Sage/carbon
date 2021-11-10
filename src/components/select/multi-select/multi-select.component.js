@@ -69,7 +69,9 @@ const MultiSelect = React.forwardRef(
     const [textboxRef, setTextboxRef] = useState();
     const [isOpen, setOpenState] = useState(false);
     const [textValue, setTextValue] = useState("");
-    const [selectedValue, setSelectedValue] = useState([]);
+    const [selectedValue, setSelectedValue] = useState(
+      value || defaultValue || []
+    );
     const [highlightedValue, setHighlightedValue] = useState("");
     const [filterText, setFilterText] = useState("");
     const [placeholderOverride, setPlaceholderOverride] = useState();
@@ -119,7 +121,7 @@ const MultiSelect = React.forwardRef(
       (index) => {
         setSelectedValue((previousValue) => {
           isClickTriggeredBySelect.current = true;
-          if (previousValue.length === 0) {
+          if (!previousValue.length) {
             return previousValue;
           }
           const newValue = [...previousValue];
@@ -189,7 +191,7 @@ const MultiSelect = React.forwardRef(
     const mapValuesToPills = useCallback(() => {
       const canDelete = !disabled && !readOnly;
 
-      if (selectedValue.length === 0) {
+      if (!selectedValue.length) {
         return "";
       }
 
@@ -209,9 +211,10 @@ const MultiSelect = React.forwardRef(
         }
 
         const { title } = pillProps;
+        const key = title + (matchingOption?.props.value || index);
 
         return (
-          <StyledSelectPillContainer key={title}>
+          <StyledSelectPillContainer key={key}>
             <Pill
               onDelete={
                 canDelete ? () => removeSelectedValue(index) : undefined
@@ -227,11 +230,10 @@ const MultiSelect = React.forwardRef(
     }, [children, disabled, readOnly, selectedValue]);
 
     useEffect(() => {
-      const newValue = value || defaultValue;
       const modeSwitchedMessage =
         "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
         "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
-      const onChageMissingMessage =
+      const onChangeMissingMessage =
         "onChange prop required when using a controlled input element";
 
       invariant(
@@ -240,21 +242,17 @@ const MultiSelect = React.forwardRef(
       );
       invariant(
         !isControlled.current || (isControlled.current && onChange),
-        onChageMissingMessage
+        onChangeMissingMessage
       );
-      setSelectedValue((previousValue) => {
-        if (!newValue && previousValue.length === 0) {
-          return previousValue;
-        }
-
-        return newValue;
-      });
-    }, [value, defaultValue, onChange]);
+      if (isControlled.current) {
+        setSelectedValue(value);
+      }
+    }, [value, onChange]);
 
     // removes placeholder when a value is present
     useEffect(() => {
-      const hasValue = value && value.length > 0;
-      const hasSelectedValue = selectedValue && selectedValue.length > 0;
+      const hasValue = value?.length;
+      const hasSelectedValue = selectedValue?.length;
 
       if (hasValue || hasSelectedValue) {
         setPlaceholderOverride(" ");
