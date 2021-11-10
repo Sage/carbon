@@ -1,7 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import PropTypes from "prop-types";
 import { margin } from "styled-system";
-import baseTheme from "../../style/themes/base";
 import { LOADER_BAR_SIZES } from "./loader-bar.config";
 
 const INNER_BAR_LENGTH = "128px";
@@ -24,20 +23,20 @@ const innerBarAnimation = keyframes`
 `;
 
 const StyledLoaderBar = styled.div`
-  ${({ size, theme }) => css`
+  ${({ size }) => css`
     display: inline-block;
     height: ${getHeight(size)};
     width: 100%;
-    background-color: ${theme.colors.loadingBarBackground};
+    background-color: var(--colorsActionMajor150);
     overflow: hidden;
     position: relative;
   `}
 `;
 
 const InnerBar = styled.div`
-  ${({ theme, size }) => css`
+  ${({ size }) => css`
     position: absolute;
-    background-color: ${theme.colors.primary};
+    background-color: var(--colorsActionMajor500);
     width: ${INNER_BAR_LENGTH};
     height: ${getHeight(size)};
     animation: 2s ${innerBarAnimation} linear 0s infinite normal none running;
@@ -55,17 +54,11 @@ function getHeight(size) {
   }
 }
 
-StyledLoader.defaultProps = {
-  theme: baseTheme,
-};
-
 StyledLoaderBar.defaultProps = {
-  theme: baseTheme,
   size: "medium",
 };
 
 InnerBar.defaultProps = {
-  theme: baseTheme,
   size: "medium",
 };
 
