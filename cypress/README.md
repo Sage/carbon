@@ -22,13 +22,11 @@ We use the [Cypress.io](https://www.cypress.io) testing framework for functional
 
 Storybook must be running before Cypress tests can be run:
 
-1. Run `npm run build-storybook` to build the static-storybook folder.
-2. Run `npx sb extract` to generate the `stories.js` file.
-3. Run Storybook `npm start`.
-4. Open a new terminal in the root path of the project.
-5. Run Cypress using the runner with `npx cypress open` or `npm run test-cypress`, then select the required feature file. Test results can be seen directly in the Cypress Test Runner UI.
-6. To run specific Cypress tests at the command line (headless browser for continuous integration) use: `npx cypress run --spec 'cypress/features/[tests-type]/[featureFileName].feature'`. Test results can be seen in the console run summary.
-7. To run in the Chrome/Firefox browser add `--browser chrome` or `--browser firefox` to the above command.
+1. Run Storybook `npm start`.
+2. Open a new terminal in the root path of the project.
+3. Run Cypress using the runner with `npx cypress open` or `npm run test-cypress`, then select the required feature file. Test results can be seen directly in the Cypress Test Runner UI.
+4. To run specific Cypress tests at the command line (headless browser for continuous integration) use: `npx cypress run --spec 'cypress/features/[tests-type]/[featureFileName].feature'`. Test results can be seen in the console run summary.
+5. To run in the Chrome/Firefox browser add `--browser chrome` or `--browser firefox` to the above command.
 
 ## Continuous Integration (CI)
 
@@ -54,7 +52,8 @@ Storybook must be running before cypress can run.
 
 2. `cypress-axe-accessibility.yml`
 - `npx cypress run --browser chrome --parallel -–record --config './cypress/features/accessibility' --spec './cypress/features/regression/accessibility/*.test.js'` - runs the `accessibility` test suite only.
-1. The build result can be seen in GitHub in the pull request/branch and the detailed results can be seen in the [Cypress.io dashboard](https://dashboard.cypress.io/projects/8458bb/runs) or in GitHub Actions, both linked from the pull request/branch checks.
+
+The build result can be seen in GitHub in the pull request/branch and the detailed results can be seen in the [Cypress.io dashboard](https://dashboard.cypress.io/projects/8458bb/runs) or in GitHub Actions, both linked from the pull request/branch checks.
 
 NOTE: If the tests failed for a reason such as if there is an issue with GitHub or the Cypress dashboard and we need to re-run the run exactly as it was, select `Cancel workflow` in the `Actions` tab and then select `Re-run jobs` -> `Re-run all jobs` from the `Checks` tab.
 
