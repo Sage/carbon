@@ -1,3 +1,15 @@
+## [98.0.0](https://github.com/Sage/carbon/compare/v97.0.0...v98.0.0) (2021-11-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* **toast:** Toast is no longer a class component.
+That means that it is not possible to extend it and its methods are now private
+
+### Code Refactoring
+
+* **toast:** refactor from class based to a functional component ([cc8ee89](https://github.com/Sage/carbon/commit/cc8ee893f3606b7b36cda75fe047238852970075))
+
 ## [97.0.0](https://github.com/Sage/carbon/compare/v96.1.0...v97.0.0) (2021-11-10)
 
 
