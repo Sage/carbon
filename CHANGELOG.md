@@ -1,3 +1,15 @@
+## [97.0.0](https://github.com/Sage/carbon/compare/v96.1.0...v97.0.0) (2021-11-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* **textarea:** Textarea is no longer a class component.
+That means that it is not possible to extend it and its methods are now private
+
+### Code Refactoring
+
+* **textarea:** refactor from class based to a functional component ([2b91f34](https://github.com/Sage/carbon/commit/2b91f34637a20de056ebd82417151556b240929e))
+
 ## [96.1.0](https://github.com/Sage/carbon/compare/v96.0.0...v96.1.0) (2021-11-09)
 
 
