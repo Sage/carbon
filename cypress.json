@@ -12,7 +12,7 @@
   "failOnStatusCode": false,
   "ignoreTestFiles": [
     "**/examples/*",
-    "**/!(*.spec).js"
+    "**/*.spec.js"
   ],
   "integrationFolder": "cypress/features",
   "numTestsKeptInMemory": 1,
