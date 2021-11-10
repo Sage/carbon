@@ -191,7 +191,12 @@ const Search = ({
           {Boolean(
             isFocused || (!isControlled ? searchValue.length : value.length)
           ) && (
-            <Button size="medium" px="16px" {...buttonProps}>
+            <Button
+              tabIndex={iconTabIndex}
+              size="medium"
+              px="16px"
+              {...buttonProps}
+            >
               <StyledButtonIcon>
                 <Icon type="search" />
               </StyledButtonIcon>
