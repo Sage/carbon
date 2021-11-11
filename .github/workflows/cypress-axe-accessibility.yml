@@ -84,7 +84,7 @@ jobs:
           quiet: true
           browser: chrome
           config: integrationFolder='./cypress/accessibility'
-          spec: cypress/features/accessibility/*.test.js
+          spec: cypress/accessibility/*.test.js
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

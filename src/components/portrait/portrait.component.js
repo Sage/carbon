@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import Tooltip from "../tooltip";
@@ -17,52 +17,35 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-class Portrait extends React.Component {
-  state = {
-    externalError: false,
-  };
+const Portrait = ({
+  alt,
+  darkBackground,
+  gravatar,
+  iconType,
+  initials,
+  shape,
+  size,
+  src,
+  onClick,
+  tooltipMessage,
+  tooltipId,
+  tooltipIsVisible,
+  tooltipPosition,
+  tooltipType,
+  tooltipSize,
+  tooltipBgColor,
+  tooltipFontColor,
+  ...rest
+}) => {
+  const [externalError, setExternalError] = useState(false);
 
-  componentDidUpdate(prevProps) {
-    const relevantPropsChanged =
-      this.props.gravatar !== prevProps.gravatar ||
-      this.props.src !== prevProps.src;
+  useEffect(() => {
+    setExternalError(false);
+  }, [gravatar, src]);
 
-    if (relevantPropsChanged) {
-      this.setState({ externalError: false }); // eslint-disable-line react/no-did-update-set-state
-    }
-  }
+  const tagProps = tagComponent("portrait", rest);
 
-  getMarginProps() {
-    return filterStyledSystemMarginProps(this.props);
-  }
-
-  externalImageLoadFailed() {
-    this.setState({ externalError: true });
-  }
-
-  render() {
-    const {
-      alt,
-      darkBackground,
-      gravatar,
-      iconType,
-      initials,
-      shape,
-      size,
-      src,
-      onClick,
-      tooltipMessage,
-      tooltipId,
-      tooltipIsVisible,
-      tooltipPosition,
-      tooltipType,
-      tooltipSize,
-      tooltipBgColor,
-      tooltipFontColor,
-    } = this.props;
-
-    const tagProps = tagComponent("portrait", this.props);
-
+  const renderComponent = () => {
     let portrait = (
       <StyledIcon
         type={iconType}
@@ -84,7 +67,7 @@ class Portrait extends React.Component {
       );
     }
 
-    if (src && !this.state.externalError) {
+    if (src && !externalError) {
       portrait = (
         <StyledCustomImg
           src={src}
@@ -92,19 +75,19 @@ class Portrait extends React.Component {
           size={size}
           shape={shape}
           data-element="user-image"
-          onError={() => this.externalImageLoadFailed()}
+          onError={() => setExternalError(true)}
         />
       );
     }
 
-    if (gravatar && !this.state.externalError) {
+    if (gravatar && !externalError) {
       portrait = (
         <PortraitGravatar
           gravatarEmail={gravatar}
           shape={shape}
           size={size}
           alt={alt}
-          errorCallback={() => this.externalImageLoadFailed()}
+          errorCallback={() => setExternalError(true)}
         />
       );
     }
@@ -122,7 +105,7 @@ class Portrait extends React.Component {
           fontColor={tooltipFontColor}
         >
           <StyledPortraitContainer
-            {...this.getMarginProps()}
+            {...filterStyledSystemMarginProps(rest)}
             onClick={onClick}
             {...tagProps}
           >
@@ -134,15 +117,17 @@ class Portrait extends React.Component {
 
     return (
       <StyledPortraitContainer
-        {...this.getMarginProps()}
+        {...filterStyledSystemMarginProps(rest)}
         onClick={onClick}
         {...tagProps}
       >
         {portrait}
       </StyledPortraitContainer>
     );
-  }
-}
+  };
+
+  return renderComponent();
+};
 
 Portrait.propTypes = {
   ...marginPropTypes,
