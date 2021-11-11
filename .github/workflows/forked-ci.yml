@@ -35,3 +35,18 @@ jobs:
           inputs: '{"number": "${{ github.event.inputs.number }}"}'
         env:
           GITHUB_TOKEN: ${{ secrets.CYPRESS_WORKFLOW_TOKEN }}
+
+  trigger-cypress-axe-accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: octokit/request-action@v2.x
+        id: dispatch_cypress
+        with:
+          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
+          owner: ${{ github.event.repository.owner.login }}
+          repo: ${{ github.event.repository.name }}
+          workflow_id: "cypress-axe-accessibility.yml"
+          ref: "master"
+          inputs: '{"number": "${{ github.event.inputs.number }}"}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.CYPRESS_WORKFLOW_TOKEN }}
