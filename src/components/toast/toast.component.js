@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import classNames from "classnames";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import PropTypes from "prop-types";
@@ -15,49 +15,62 @@ import IconButton from "../icon-button";
 import ModalManager from "../modal/__internal__/modal-manager";
 import Events from "../../__internal__/utils/helpers/events";
 
-class Toast extends React.Component {
-  /** Classes to be applied to the component. */
-  get componentClasses() {
-    return classNames(this.props.className);
-  }
+const Toast = ({
+  as = "warning",
+  children,
+  className,
+  id,
+  isCenter = true,
+  maxWidth,
+  onDismiss,
+  open = true,
+  targetPortalId,
+  timeout,
+  variant,
+  ...restProps
+}) => {
+  const toastRef = useRef();
+  const timer = useRef();
 
-  constructor(props) {
-    super(props);
-    this.toastRef = React.createRef();
-    this.timer = React.createRef();
-  }
+  const componentClasses = useMemo(() => {
+    return classNames(className);
+  }, [className]);
 
-  componentDidMount() {
-    ModalManager.addModal(this.toastRef.current);
-    document.addEventListener("keyup", this.dismissToast);
-  }
+  const dismissToast = useCallback(
+    (ev) => {
+      const isTopmost = ModalManager.isTopmost(toastRef.current);
 
-  componentWillUnmount() {
-    ModalManager.removeModal(this.toastRef.current);
-    document.removeEventListener("keyup", this.dismissToast);
-  }
+      if (onDismiss && Events.isEscKey(ev) && isTopmost) {
+        ev.stopImmediatePropagation();
+        onDismiss(ev);
+      }
+    },
+    [onDismiss]
+  );
 
-  componentDidUpdate() {
-    const { timeout, open, onDismiss } = this.props;
-    clearTimeout(this.timer.current);
+  useEffect(() => {
+    const currentElement = toastRef.current;
 
-    if (!timeout || !open) {
+    ModalManager.addModal(currentElement);
+    document.addEventListener("keyup", dismissToast);
+
+    return () => {
+      ModalManager.removeModal(currentElement);
+      document.removeEventListener("keyup", dismissToast);
+    };
+  }, [dismissToast]);
+
+  useEffect(() => {
+    clearTimeout(timer.current);
+
+    if (!timeout || !open || !onDismiss) {
       return;
     }
 
-    this.timer.current = setTimeout(() => onDismiss(), timeout);
-  }
+    timer.current = setTimeout(() => onDismiss(), timeout);
+  }, [onDismiss, open, timeout]);
 
-  dismissToast = (ev) => {
-    const isTopmost = ModalManager.isTopmost(this.toastRef.current);
-    if (this.props.onDismiss && Events.isEscKey(ev) && isTopmost) {
-      ev.stopImmediatePropagation();
-      this.props.onDismiss(ev);
-    }
-  };
-
-  closeIcon() {
-    const { onDismiss } = this.props;
+  function renderCloseIcon() {
     if (!onDismiss) return null;
 
     return (
@@ -67,19 +80,8 @@ class Toast extends React.Component {
     );
   }
 
-  /** Content rendered for the toast. */
-  toastContent() {
-    if (!this.props.open) return null;
-
-    const {
-      isCenter,
-      variant,
-      id,
-      as,
-      onDismiss,
-      children,
-      maxWidth,
-    } = this.props;
+  function renderToastContent() {
+    if (!open) return null;
 
     const toastProps = {
       isCenter,
@@ -95,8 +97,8 @@ class Toast extends React.Component {
         timeout={{ appear: 1600, enter: 1500, exit: 500 }}
       >
         <ToastStyle
-          className={this.componentClasses}
-          {...tagComponent(this.props["data-component"] || "toast", this.props)}
+          className={componentClasses}
+          {...tagComponent(restProps["data-component"] || "toast", restProps)}
           {...toastProps}
         >
           <TypeIcon variant={toastProps.variant}>
@@ -105,24 +107,20 @@ class Toast extends React.Component {
           <ToastContentStyle variant={toastProps.variant} isDismiss={onDismiss}>
             {children}
           </ToastContentStyle>
-          {this.closeIcon()}
+          {renderCloseIcon()}
         </ToastStyle>
       </CSSTransition>
     );
   }
 
-  render() {
-    const { targetPortalId, isCenter } = this.props;
-
-    return (
-      <StyledPortal id={targetPortalId} isCenter={isCenter}>
-        <ToastWrapper isCenter={isCenter} ref={this.toastRef}>
-          <TransitionGroup>{this.toastContent()}</TransitionGroup>
-        </ToastWrapper>
-      </StyledPortal>
-    );
-  }
-}
+  return (
+    <StyledPortal id={targetPortalId} isCenter={isCenter}>
+      <ToastWrapper isCenter={isCenter} ref={toastRef}>
+        <TransitionGroup>{renderToastContent()}</TransitionGroup>
+      </ToastWrapper>
+    </StyledPortal>
+  );
+};
 
 Toast.propTypes = {
   /** Customizes the appearance in the DLS theme */
@@ -167,13 +165,6 @@ Toast.propTypes = {
   targetPortalId: PropTypes.string,
   /** Maximum toast width */
   maxWidth: PropTypes.string,
-};
-
-Toast.defaultProps = {
-  as: "warning",
-  onDismiss: null,
-  open: true,
-  isCenter: true,
 };
 
 export default Toast;
