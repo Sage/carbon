@@ -1,6 +1,6 @@
 {
   "notify": false,
-  "setupFiles": ["raf/polyfill", "./src/__spec_helper__/index.js"],
+  "setupFiles": ["raf/polyfill", "./src/__spec_helper__/index.js", "jest-canvas-mock"],
   "setupFilesAfterEnv": ["./src/__spec_helper__/expect.js"],
   "snapshotSerializers": ["enzyme-to-json/serializer"],
   "testMatch": ["**/__spec__.js", "**/*.spec.js"],
