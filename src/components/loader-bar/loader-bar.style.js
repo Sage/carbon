@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import PropTypes from "prop-types";
 import { margin } from "styled-system";
+import baseTheme from "../../style/themes/base";
 import { LOADER_BAR_SIZES } from "./loader-bar.config";
 
 const INNER_BAR_LENGTH = "128px";
@@ -53,6 +54,10 @@ function getHeight(size) {
       return "8px";
   }
 }
+
+StyledLoader.defaultProps = {
+  theme: baseTheme,
+};
 
 StyledLoaderBar.defaultProps = {
   size: "medium",
