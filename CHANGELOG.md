@@ -1,3 +1,10 @@
+### [98.0.1](https://github.com/Sage/carbon/compare/v98.0.0...v98.0.1) (2021-11-12)
+
+
+### Bug Fixes
+
+* **search:** correct tabbing order when searchButton true and no search value ([38e4bf0](https://github.com/Sage/carbon/commit/38e4bf0d8e9599d946b232c4d5ae370b33598e55)), closes [#4480](https://github.com/Sage/carbon/issues/4480)
+
 ## [98.0.0](https://github.com/Sage/carbon/compare/v97.0.0...v98.0.0) (2021-11-10)
 
 
