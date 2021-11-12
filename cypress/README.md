@@ -49,9 +49,7 @@ Storybook must be running before cypress can run.
 ### GitHub Actions
 1. `cypress.yml`
 - `npx cypress run --browser chrome --parallel -–record --spec './cypress/features/regression/**/*.feature'` - runs the complete test suite (except `accessibility`).
-
-2. `cypress-axe-accessibility.yml`
-- `npx cypress run --browser chrome --parallel -–record --config './cypress/accessibility' --spec './cypress/features/regression/accessibility/*.test.js'` - runs the `accessibility` test suite only.
+- `npx cypress run --browser chrome --parallel -–record --spec './cypress/accessibility/*.test.js'` - runs the `accessibility` test suite only.
 
 The build result can be seen in GitHub in the pull request/branch and the detailed results can be seen in the [Cypress.io dashboard](https://dashboard.cypress.io/projects/8458bb/runs) or in GitHub Actions, both linked from the pull request/branch checks.
 
