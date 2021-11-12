@@ -1,7 +1,7 @@
 # Carbon [![npm](https://img.shields.io/npm/v/carbon-react.svg)](https://www.npmjs.com/package/carbon-react)
 
 Carbon is a [React](https://facebook.github.io/react/) component library developed by Sage.
-
+Test 2
 ## Getting started
 
 Our [getting started guide](docs/getting-started.stories.mdx) provides instructions on how to install and use the Carbon library.
