@@ -6,7 +6,7 @@ import {
 } from "../../locators/action-popover";
 import { popoverSettingsIcon } from "../../locators/popover-container";
 import { visitComponentUrl } from "../helper";
-import storiesJSON from "../../../../storybook-static/stories.json";
+import storiesJSON from "../../../storybook-static/stories.json";
 
 const A11YOptions = {
   runOnly: {

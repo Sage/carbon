@@ -14,7 +14,7 @@
     "**/examples/*",
     "**/*.spec.js"
   ],
-  "integrationFolder": "cypress/features",
+  "integrationFolder": "cypress",
   "numTestsKeptInMemory": 1,
   "video": false,
   "viewportWidth": 1366,
