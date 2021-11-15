@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "97.0.0",
+  "version": "98.0.1",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -97,6 +97,7 @@
     "cypress": "^8.3.1",
     "cypress-axe": "^0.13.0",
     "cypress-cucumber-preprocessor": "^4.2.0",
+    "cypress-each": "^1.5.0",
     "cypress-plugin-tab": "^1.0.5",
     "cypress-real-events": "^1.5.1",
     "cypress-storybook": "^0.5.1",
@@ -119,6 +120,7 @@
     "events": "~1.1.1",
     "husky": "^4.3.6",
     "jest": "^26.6.3",
+    "jest-canvas-mock": "^2.3.1",
     "jest-styled-components": "^6.3.1",
     "lint-staged": "^10.5.3",
     "mockdate": "^2.0.2",
@@ -137,7 +139,7 @@
   "dependencies": {
     "@octokit/rest": "^18.12.0",
     "@popperjs/core": "^2.9.0",
-    "@sage/design-tokens": "^1.73.0",
+    "@sage/design-tokens": "^1.80.0",
     "@styled-system/prop-types": "^5.1.5",
     "@tippyjs/react": "^4.2.5",
     "classnames": "~2.2.6",

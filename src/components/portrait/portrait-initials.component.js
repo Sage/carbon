@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { withTheme } from "styled-components";
 
@@ -11,34 +11,30 @@ import {
 } from "./portrait.style";
 import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
 
-class PortraitInitials extends React.Component {
-  /** Cache of the initials graphic. */
-  cachedImageDataUrl = null;
+const PortraitInitials = ({
+  theme,
+  initials,
+  size,
+  shape,
+  darkBackground,
+  alt,
+  ...rest
+}) => {
+  const [cachedImageDataUrl, setCachedImageDataUrl] = useState();
 
-  /** Invoked before a mounted component receives new props. */
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const shouldClearCache =
-      this.props.theme !== nextProps.theme ||
-      this.props.initials !== nextProps.initials ||
-      this.props.size !== nextProps.size ||
-      this.props.darkBackground !== nextProps.darkBackground;
+  useEffect(() => {
+    setCachedImageDataUrl(null);
+  }, [theme, initials, size, darkBackground]);
 
-    if (shouldClearCache) {
-      this.cachedImageDataUrl = null;
-    }
-  }
-
-  /** Generates a graphic with initials. */
-  generateDataUrl() {
-    if (this.cachedImageDataUrl) {
-      return this.cachedImageDataUrl;
+  const generateDataUrl = () => {
+    if (cachedImageDataUrl) {
+      return cachedImageDataUrl;
     }
 
-    const { theme, size, darkBackground } = this.props;
     const { textColor, bgColor } = getColorsForInitials(theme, darkBackground);
 
     let canvas = Browser.getDocument().createElement("canvas");
-    let context = canvas.getContext("2d");
+    const context = canvas.getContext("2d");
 
     let { dimensions } = PORTRAIT_SIZE_PARAMS[size];
 
@@ -54,8 +50,14 @@ class PortraitInitials extends React.Component {
     context.textAlign = "center";
 
     // Setup background and front color
-    context = this.applyBackground(context, dimensions, bgColor);
-    context = this.applyText(context, dimensions, textColor);
+    context.fillStyle = bgColor;
+    context.fillRect(0, 0, dimensions, dimensions);
+    context.fillStyle = textColor;
+    context.fillText(
+      initials.slice(0, 3).toUpperCase(),
+      dimensions / 2,
+      dimensions / 1.5
+    );
 
     // Set image representation in default format (png)
     const dataURI = canvas.toDataURL();
@@ -63,52 +65,23 @@ class PortraitInitials extends React.Component {
     // Dispose canvas element
     canvas = null;
 
-    this.cachedImageDataUrl = dataURI;
+    setCachedImageDataUrl(dataURI);
 
-    return this.cachedImageDataUrl;
-  }
+    return dataURI;
+  };
 
-  /** Applies the background colour to the canvas. */
-  applyBackground(canvasContext, dimensions, bgColor) {
-    canvasContext.fillStyle = bgColor;
-    canvasContext.fillRect(0, 0, dimensions, dimensions);
-
-    return canvasContext;
-  }
-
-  /** Applies the initials text to the canvas. */
-  applyText(canvasContext, dimensions, textColor) {
-    const letters = this.props.initials.slice(0, 3);
-
-    canvasContext.fillStyle = textColor;
-    canvasContext.fillText(
-      letters.toUpperCase(),
-      dimensions / 2,
-      dimensions / 1.5
-    );
-
-    return canvasContext;
-  }
-
-  /** Renders the component. */
-  render() {
-    const { size, shape, theme, ...otherProps } = this.props;
-    return (
-      <StyledPortraitInitials
-        data-element="initials"
-        size={size}
-        shape={shape}
-        theme={theme}
-        {...otherProps}
-      >
-        <StyledPortraitInitialsImg
-          src={this.generateDataUrl()}
-          alt={this.props.alt}
-        />
-      </StyledPortraitInitials>
-    );
-  }
-}
+  return (
+    <StyledPortraitInitials
+      data-element="initials"
+      size={size}
+      shape={shape}
+      theme={theme}
+      {...rest}
+    >
+      <StyledPortraitInitialsImg src={generateDataUrl()} alt={alt} />
+    </StyledPortraitInitials>
+  );
+};
 
 PortraitInitials.propTypes = {
   /** The theme to use. */

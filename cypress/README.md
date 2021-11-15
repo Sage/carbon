@@ -32,6 +32,13 @@ Storybook must be running before Cypress tests can be run:
 
 Every commit/pull request in the repository initiates a Cypress test run using GitHub Actions.
 
+### Build Storybook (only accessibility tests)
+
+Storybook must be built and running before cypress can run.
+
+1. Run `npm run build-storybook` to build the static-storybook folder.
+2. Run `npx sb extract` to generate the `stories.js` file.
+
 ### Start Storybook
 
 Storybook must be running before cypress can run.
@@ -40,9 +47,11 @@ Storybook must be running before cypress can run.
 2. `wait-on http://localhost:9001` - waits until Storybook is up and running and is ready to run tests.
 
 ### GitHub Actions
+1. `cypress.yml`
+- `npx cypress run --browser chrome --parallel -–record --spec './cypress/features/regression/**/*.feature'` - runs the complete test suite (except `accessibility`).
+- `npx cypress run --browser chrome --parallel -–record --spec './cypress/accessibility/*.test.js'` - runs the `accessibility` test suite only.
 
-1. `npx cypress run --parallel -–record --spec './cypress/features/regression/**/*.feature'` - runs the complete test suite.
-2. The build result can be seen in GitHub in the pull request/branch and the detailed results can be seen in the [Cypress.io dashboard](https://dashboard.cypress.io/projects/8458bb/runs) or in GitHub Actions, both linked from the pull request/branch checks.
+The build result can be seen in GitHub in the pull request/branch and the detailed results can be seen in the [Cypress.io dashboard](https://dashboard.cypress.io/projects/8458bb/runs) or in GitHub Actions, both linked from the pull request/branch checks.
 
 NOTE: If the tests failed for a reason such as if there is an issue with GitHub or the Cypress dashboard and we need to re-run the run exactly as it was, select `Cancel workflow` in the `Actions` tab and then select `Re-run jobs` -> `Re-run all jobs` from the `Checks` tab.
 
