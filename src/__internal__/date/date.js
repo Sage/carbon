@@ -1,4 +1,5 @@
 import moment from "moment";
+import "moment/min/locales";
 import { merge } from "lodash";
 
 const isoDateFormat = "YYYY-MM-DD";
