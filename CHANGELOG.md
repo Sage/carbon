@@ -1,3 +1,15 @@
+## [99.0.0](https://github.com/Sage/carbon/compare/v98.0.1...v99.0.0) (2021-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **detail:** Class methods will be removed
+and Detail will no longer be extendable.
+
+### Code Refactoring
+
+* **detail:** refactor to a functional component ([788a6b9](https://github.com/Sage/carbon/commit/788a6b97df01f07228d3623f37a327f6ed476216))
+
 ### [98.0.1](https://github.com/Sage/carbon/compare/v98.0.0...v98.0.1) (2021-11-12)
 
 
