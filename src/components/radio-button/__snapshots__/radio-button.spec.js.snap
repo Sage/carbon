@@ -108,15 +108,15 @@ exports[`RadioButton base renders as expected 1`] = `
 
 .c15 .c10:not([disabled]):focus + .c12,
 .c15 .c10:not([disabled]):hover + .c12 {
-  box-shadow: 0 0 0 3px #FFB500;
+  box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
 }
 
 .c15 .c10:checked ~ .c12 svg path {
-  fill: rgba(0,0,0,0.90);
+  fill: var(--colorsUtilityYin090);
 }
 
 .c15 .c10:checked ~ .c12 svg path {
-  fill: #CCD6DB;
+  fill: var(--colorsUtilityYin030);
 }
 
 .c15 .c12:hover,
@@ -180,7 +180,7 @@ exports[`RadioButton base renders as expected 1`] = `
 
 .c16 .c10:not([disabled]):focus + .c12,
 .c16 .c10:not([disabled]):hover + .c12 {
-  box-shadow: 0 0 0 3px #FFB500;
+  box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
 }
 
 .c16 .c12 {
@@ -196,7 +196,7 @@ exports[`RadioButton base renders as expected 1`] = `
 }
 
 .c16 .c10:checked ~ .c12 svg path {
-  fill: rgba(0,0,0,0.90);
+  fill: var(--colorsUtilityYin090);
 }
 
 .c16.c16 .c4 {
@@ -258,7 +258,7 @@ exports[`RadioButton base renders as expected 1`] = `
 
 .c17 .c10:not([disabled]):focus + .c12,
 .c17 .c10:not([disabled]):hover + .c12 {
-  box-shadow: 0 0 0 3px #FFB500;
+  box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
 }
 
 .c17 .c12 {
@@ -274,7 +274,7 @@ exports[`RadioButton base renders as expected 1`] = `
 }
 
 .c17 .c10:checked ~ .c12 svg path {
-  fill: rgba(0,0,0,0.90);
+  fill: var(--colorsUtilityYin090);
 }
 
 .c17.c17 .c4 {
@@ -323,8 +323,8 @@ exports[`RadioButton base renders as expected 1`] = `
 }
 
 .c2 svg {
-  background-color: #FFFFFF;
-  border: 1px solid #668592;
+  background-color: var(--colorsUtilityYang100);
+  border: 1px solid var(--colorsUtilityMajor300);
 }
 
 .c2 .c10,
@@ -345,7 +345,7 @@ exports[`RadioButton base renders as expected 1`] = `
 
 .c2 .c10:not([disabled]):focus + .c12,
 .c2 .c10:not([disabled]):hover + .c12 {
-  box-shadow: 0 0 0 3px #FFB500;
+  box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
 }
 
 .c2 .c19 {
@@ -358,7 +358,7 @@ exports[`RadioButton base renders as expected 1`] = `
 .c2 .c18 {
   margin-left: 16px;
   margin-top: 0;
-  padding-left: 8px;
+  padding-left: var(--spacing100);
 }
 
 .c2 .c21 {
@@ -367,7 +367,7 @@ exports[`RadioButton base renders as expected 1`] = `
 }
 
 .c2 .c10:checked ~ .c12 svg path {
-  fill: rgba(0,0,0,0.90);
+  fill: var(--colorsUtilityYin090);
 }
 
 .c2:last-of-type {

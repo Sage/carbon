@@ -27,7 +27,6 @@ const CheckboxStyle = styled.div`
     reverse,
     size,
     adaptiveSpacingSmallScreen,
-    theme,
   }) => css`
     ${adaptiveSpacingSmallScreen && "margin-left: 0;"}
 
@@ -40,14 +39,14 @@ const CheckboxStyle = styled.div`
     }
 
     svg {
-      background-color: ${theme.colors.white};
+      background-color: var(--colorsUtilityYang100);
       ${!disabled &&
       css`
-        border: 1px solid ${theme.colors.border};
+        border: 1px solid var(--colorsUtilityMajor300);
 
-        ${info && `border: 1px solid ${theme.colors.info};`}
-        ${warning && `border: 1px solid ${theme.colors.warning};`}
-        ${error && `border: 2px solid ${theme.colors.error};`}
+        ${info && `border: 1px solid var(--colorsSemanticInfo500);`}
+        ${warning && `border: 1px solid var(--colorsSemanticCaution500);`}
+        ${error && `border: 2px solid var(--colorsSemanticNegative500);`}
       `}
     }
 
@@ -71,7 +70,7 @@ const CheckboxStyle = styled.div`
     ${StyledHiddenCheckableInput}:not([disabled]) {
       &:focus + ${StyledCheckableInputSvgWrapper},
       &:hover + ${StyledCheckableInputSvgWrapper} {
-        box-shadow: 0 0 0 3px ${theme.colors.focus};
+        box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
       }
     }
 
@@ -83,7 +82,9 @@ const CheckboxStyle = styled.div`
     ${StyledFieldHelp} {
       margin-left: 16px;
       margin-top: 0;
-      padding-left: ${labelSpacing * theme.spacing}px;
+      padding-left: ${labelSpacing === 1
+        ? "var(--spacing100)"
+        : "var(--spacing200)"};
     }
 
     ${StyledValidationIcon} {
@@ -107,7 +108,9 @@ const CheckboxStyle = styled.div`
 
       ${StyledFieldHelp} {
         margin-left: 24px;
-        padding-left: ${labelSpacing * theme.spacing}px;
+        padding-left: ${labelSpacing === 1
+          ? "var(--spacing100)"
+          : "var(--spacing200)"};
       }
 
       ${fieldHelpInline &&
@@ -119,22 +122,22 @@ const CheckboxStyle = styled.div`
     `}
 
     ${StyledHiddenCheckableInput}:checked ~ ${StyledCheckableInputSvgWrapper} svg path {
-      fill: ${theme.checkable.checked};
+      fill: var(--colorsUtilityYin090);
     }
 
     ${disabled &&
     css`
       svg {
-        background-color: ${theme.disabled.input};
-        border: 1px solid ${theme.disabled.border};
+        background-color: var(--colorsUtilityDisabled400);
+        border: 1px solid var(--colorsUtilityDisabled600);
       }
 
       svg path {
-        fill: ${theme.disabled.input};
+        fill: var(--colorsUtilityDisabled400);
       }
 
       ${StyledHiddenCheckableInput}:checked ~ ${StyledCheckableInputSvgWrapper} svg path {
-        fill: ${theme.disabled.border};
+        fill: var(--colorsUtilityYin030);
       }
 
       ${StyledCheckableInputSvgWrapper} {
@@ -235,10 +238,6 @@ const StyledCheckboxGroup = styled.div`
       }
     `}
 `;
-
-StyledCheckboxGroup.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledCheckboxGroup };
 

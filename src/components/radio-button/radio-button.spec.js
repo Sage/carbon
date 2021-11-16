@@ -38,6 +38,11 @@ function render(props = {}, theme = mintTheme, renderer = mount) {
 const getRadioButton = (wrapper) => wrapper.find(RadioButton);
 
 const validationTypes = ["error", "warning", "info"];
+const borderColorsByValidationTypes = {
+  error: "var(--colorsSemanticNegative500)",
+  warning: "var(--colorsSemanticCaution500)",
+  info: "var(--colorsSemanticInfo500)",
+};
 
 describe("RadioButton", () => {
   describe("propTypes", () => {
@@ -171,7 +176,7 @@ describe("RadioButton", () => {
         const borderWidth = type === "error" ? 2 : 1;
         assertStyleMatch(
           {
-            border: `${borderWidth}px solid ${baseTheme.colors[type]}`,
+            border: `${borderWidth}px solid ${borderColorsByValidationTypes[type]}`,
           },
           wrapper.find(RadioButton).at(0),
           { modifier: "svg" }
@@ -185,7 +190,7 @@ describe("RadioButton", () => {
         const borderWidth = type === "error" ? 2 : 1;
         assertStyleMatch(
           {
-            border: `${borderWidth}px solid ${baseTheme.colors[type]}`,
+            border: `${borderWidth}px solid ${borderColorsByValidationTypes[type]}`,
           },
           wrapper.find(RadioButton).at(0),
           { modifier: "svg" }
