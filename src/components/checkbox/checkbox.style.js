@@ -205,6 +205,9 @@ CheckboxStyle.propTypes = {
   fieldHelpInline: PropTypes.bool,
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   size: PropTypes.string,
+  labelSpacing: PropTypes.oneOf([1, 2]),
+  reverse: PropTypes.bool,
+  adaptiveSpacingSmallScreen: PropTypes.bool,
 };
 
 const StyledCheckboxGroup = styled.div`
@@ -238,6 +241,10 @@ const StyledCheckboxGroup = styled.div`
       }
     `}
 `;
+
+StyledCheckboxGroup.propTypes = {
+  legendInline: PropTypes.bool,
+};
 
 export { StyledCheckboxGroup };
 
