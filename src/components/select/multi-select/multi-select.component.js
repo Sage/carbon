@@ -375,8 +375,7 @@ const MultiSelect = React.forwardRef(
         const { value: newValue, selectionType } = optionData;
 
         if (selectionType === "navigationKey") {
-          setHighlightedValue("");
-
+          setHighlightedValue(newValue);
           return;
         }
 
@@ -385,30 +384,27 @@ const MultiSelect = React.forwardRef(
         }
 
         setTextValue("");
+
+        const isAlreadySelected =
+          selectedValue.findIndex((val) => isExpectedValue(val, newValue)) !==
+          -1;
+
+        if (!isAlreadySelected && isControlled.current && onChange) {
+          onChange(createCustomEvent([...selectedValue, newValue]));
+        }
+
         setSelectedValue((previousValue) => {
           textboxRef.focus();
           isMouseDownReported.current = false;
-          const isAlreadySelected =
-            previousValue.findIndex((val) => isExpectedValue(val, newValue)) !==
-            -1;
 
           if (isAlreadySelected) {
             return previousValue;
           }
 
-          const valueList = [...previousValue, newValue];
-
-          if (isControlled.current && onChange) {
-            onChange(createCustomEvent(valueList));
-
-            return previousValue;
-          }
-
-          return valueList;
+          return [...previousValue, newValue];
         });
       },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [createCustomEvent, onChange, textboxRef]
+      [createCustomEvent, onChange, textboxRef, selectedValue]
     );
 
     function onSelectListClose() {

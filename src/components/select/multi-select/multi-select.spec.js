@@ -624,6 +624,28 @@ describe("MultiSelect", () => {
       });
 
       describe('with the "selectionType" set to "navigationKey"', () => {
+        it("sets correct highlighted element", () => {
+          const onChangeFn = jest.fn();
+          const wrapper = renderSelect({
+            ...textboxProps,
+            onChange: onChangeFn,
+            openOnFocus: true,
+          });
+
+          wrapper.find("input").simulate("focus");
+          onChangeFn.mockReset();
+          act(() => {
+            wrapper.find(SelectList).prop("onSelect")(
+              mockNavigationKeyOptionObject
+            );
+          });
+
+          wrapper.update();
+          expect(wrapper.find(SelectList).prop("highlightedValue")).toBe(
+            mockNavigationKeyOptionObject.value
+          );
+        });
+
         it("then that prop should not be called", () => {
           const onChangeFn = jest.fn();
           const wrapper = renderSelect({

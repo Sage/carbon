@@ -8,7 +8,6 @@ Feature: Select component
     Then "simple" Select list is opened
     Examples:
       | key   |
-      | Enter |
       | Space |
 
   @positive
