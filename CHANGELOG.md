@@ -1,3 +1,15 @@
+## [100.1.0](https://github.com/Sage/carbon/compare/v100.0.0...v100.1.0) (2021-11-18)
+
+
+### Features
+
+* **focus-trap:** add flag to trigger refocus of either last focused element first element ([5ae3922](https://github.com/Sage/carbon/commit/5ae39226b4102106f08e997129aa7cef49548ecd))
+
+
+### Bug Fixes
+
+* **modal, modal-manager:** modal and manager now set a refocus flag when stacked modals are closed ([5b9c5f7](https://github.com/Sage/carbon/commit/5b9c5f75465ccd0145322710ef112e213961083e)), closes [#4502](https://github.com/Sage/carbon/issues/4502)
+
 ## [100.0.0](https://github.com/Sage/carbon/compare/v99.1.0...v100.0.0) (2021-11-18)
 
 
