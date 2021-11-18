@@ -28,7 +28,9 @@ const FocusTrap = ({
   const [focusableElements, setFocusableElements] = useState();
   const [firstElement, setFirstElement] = useState();
   const [lastElement, setLastElement] = useState();
-  const { isAnimationComplete } = useContext(ModalContext);
+  const [currentFocusedElement, setCurrentFocusedElement] = useState();
+  const { isAnimationComplete, triggerRefocusFlag } = useContext(ModalContext);
+
   const hasNewInputs = useCallback(
     (candidate) => {
       if (!focusableElements || candidate.length !== focusableElements.length) {
@@ -128,6 +130,43 @@ const FocusTrap = ({
       document.removeEventListener("keydown", trapFn);
     };
   }, [firstElement, lastElement, focusableElements, bespokeTrap]);
+
+  const updateCurrentFocusedElement = useCallback(() => {
+    const element = focusableElements?.find(
+      (el) => el === document.activeElement
+    );
+
+    if (element) {
+      setCurrentFocusedElement(element);
+    }
+  }, [focusableElements]);
+
+  useEffect(() => {
+    document.addEventListener("focusin", updateCurrentFocusedElement);
+
+    return () => {
+      document.removeEventListener("focusin", updateCurrentFocusedElement);
+    };
+  }, [updateCurrentFocusedElement]);
+
+  const refocusTrap = useCallback(() => {
+    /* istanbul ignore else */
+    if (
+      currentFocusedElement &&
+      !currentFocusedElement.hasAttribute("disabled")
+    ) {
+      // the trap breaks if it tries to refocus a disabled element
+      setElementFocus(currentFocusedElement);
+    } else if (firstElement) {
+      setElementFocus(firstElement);
+    }
+  }, [currentFocusedElement, firstElement]);
+
+  useEffect(() => {
+    if (triggerRefocusFlag) {
+      refocusTrap();
+    }
+  }, [triggerRefocusFlag, refocusTrap]);
 
   return <div ref={trapRef}>{children}</div>;
 };
