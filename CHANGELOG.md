@@ -1,3 +1,14 @@
+## [100.0.0](https://github.com/Sage/carbon/compare/v99.1.0...v100.0.0) (2021-11-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **date-range:** The component can no longer be extended as it is not a class anymore
+
+### Code Refactoring
+
+* **date-range:** convert component from class-based to functional ([ec69281](https://github.com/Sage/carbon/commit/ec692814f8783d183359500c659ab66767be9b44))
+
 ## [99.1.0](https://github.com/Sage/carbon/compare/v99.0.1...v99.1.0) (2021-11-18)
 
 
