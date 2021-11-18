@@ -37,6 +37,11 @@ describe("DateHelper", () => {
       expect(DateHelper.sanitizeDateInput(".")).toEqual("/");
       expect(DateHelper.sanitizeDateInput(" ")).toEqual("/");
     });
+
+    it("returns an empty string when the value is undefined or empty", () => {
+      expect(DateHelper.sanitizeDateInput(undefined)).toEqual("");
+      expect(DateHelper.sanitizeDateInput("")).toEqual("");
+    });
   });
 
   describe("isValidDate", () => {
@@ -164,8 +169,8 @@ describe("DateHelper", () => {
 
   describe("todayFormatted", () => {
     it("returns todays date in a in a set format", () => {
-      expect(DateHelper.todayFormatted("DD-MM-YYYY")).toEqual(
-        moment().format("DD-MM-YYYY")
+      expect(DateHelper.todayFormatted("YYYY-MM-DD")).toEqual(
+        moment().format("YYYY-MM-DD")
       );
     });
   });
@@ -186,7 +191,7 @@ describe("DateHelper", () => {
 
   describe("withinRange", () => {
     it("returns true if the date is today", () => {
-      const testDate = moment().format("DD-MM-YYYY");
+      const testDate = moment().format("YYYY-MM-DD");
       expect(
         DateHelper.withinRange({
           value: testDate,
@@ -198,7 +203,7 @@ describe("DateHelper", () => {
     });
 
     it("returns true if the date is within range", () => {
-      const testDate = moment().add(29, "days").format("DD-MM-YYYY");
+      const testDate = moment().add(29, "days").format("YYYY-MM-DD");
       expect(
         DateHelper.withinRange({
           value: testDate,
@@ -210,7 +215,7 @@ describe("DateHelper", () => {
     });
 
     it("returns true if the date is equal to the given range", () => {
-      const testDate = moment().add(30, "days").format("DD-MM-YYYY");
+      const testDate = moment().add(30, "days").format("YYYY-MM-DD");
       expect(
         DateHelper.withinRange({
           value: testDate,
@@ -222,7 +227,7 @@ describe("DateHelper", () => {
     });
 
     it("returns false if the date is beyond the given range", () => {
-      const testDate = moment().add(31, "days").format("DD-MM-YYYY");
+      const testDate = moment().add(31, "days").format("YYYY-MM-DD");
       expect(
         DateHelper.withinRange({
           value: testDate,
@@ -234,7 +239,7 @@ describe("DateHelper", () => {
     });
 
     it("returns false if the date is many years in the past", () => {
-      const testDate = moment().add(100, "years").format("DD-MM-YYYY");
+      const testDate = moment().add(100, "years").format("YYYY-MM-DD");
       expect(
         DateHelper.withinRange({
           value: testDate,
