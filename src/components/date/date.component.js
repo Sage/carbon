@@ -382,7 +382,6 @@ class BaseDateInput extends React.Component {
   };
 
   buildCustomEvent = (ev, isoFormattedValue) => {
-    const { type } = ev;
     const { id, name, value } = ev.target;
     const { lastValidEventValues } = this.state;
     const validRawValue = DateHelper.isValidDate({
@@ -404,7 +403,7 @@ class BaseDateInput extends React.Component {
           }),
         }),
         ...(validRawValue && { rawValue: isoFormattedValue }),
-        ...(type === "blur" && { formattedValue: value, rawValue: value }),
+        ...(!validRawValue && { formattedValue: value, rawValue: value }),
       },
     };
     return ev;
