@@ -1,3 +1,17 @@
+## [99.1.0](https://github.com/Sage/carbon/compare/v99.0.1...v99.1.0) (2021-11-18)
+
+
+### Features
+
+* **progress-tracker:** create new component ([49b8454](https://github.com/Sage/carbon/commit/49b84545ecb9b5dcd05d80f0f000b7764b389350))
+
+### [99.0.1](https://github.com/Sage/carbon/compare/v99.0.0...v99.0.1) (2021-11-18)
+
+
+### Bug Fixes
+
+* **loader-bar:** change width of loader ([a16a51e](https://github.com/Sage/carbon/commit/a16a51ef9c02d84c1153974e4ef4e37e618aedcf))
+
 ## [99.0.0](https://github.com/Sage/carbon/compare/v98.0.1...v99.0.0) (2021-11-15)
 
 

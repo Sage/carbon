@@ -51,6 +51,12 @@ export default (palette) => {
       asterisk: palette.errorRed,
     },
 
+    progressTracker: {
+      background: palette.slateTint(90),
+      innerBackground: palette.slateTint(40),
+      trafficNeutral: palette.productBlueShade(3),
+    },
+
     anchorNavigation: {
       divider: palette.slateTint(80),
       navItemHoverBackground: palette.slateTint(90),
