@@ -1,20 +1,21 @@
-import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
 
 import specialCharacters, {
   number,
 } from "../../../.storybook/utils/argTypes/specialCharacters";
 import Textarea from ".";
 
-<Meta
-  title="Textarea/Test"
-  parameters={{
+export default {
+  component: Textarea,
+  title: "Textarea/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     labelAlign: {
       options: ["left", "right"],
       control: {
@@ -69,10 +70,36 @@ import Textarea from ".";
       },
     },
     fieldHelpSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+  args: {
+    expandable: false,
+    cols: 0,
+    rows: 0,
+    disabled: false,
+    autoFocus: false,
+    readOnly: false,
+    placeholder: "",
+    fieldHelp: "",
+    characterLimit: "",
+    inputWidth: 100,
+    warnOverLimit: false,
+    enforceCharacterLimit: true,
+    label: "",
+    labelHelp: "",
+    labelInline: false,
+    labelWidth: 30,
+    labelAlign: undefined,
+    adaptiveLabelBreakpoint: undefined,
+    required: false,
+    placeholderSpecialCharacters: undefined,
+    labelSpecialCharacters: undefined,
+    labelHelpSpecialCharacters: undefined,
+    characterLimitSpecialCharacters: undefined,
+    fieldHelpSpecialCharacters: undefined,
+  },
+};
 
-export const TextareaStory = ({
+export const Default = ({
   placeholder,
   placeholderSpecialCharacters,
   label,
@@ -91,6 +118,7 @@ export const TextareaStory = ({
   };
   return (
     <Textarea
+      {...args}
       name="textarea"
       onChange={handleChange}
       value={state}
@@ -100,45 +128,6 @@ export const TextareaStory = ({
       helpAriaLabel={labelHelp || labelHelpSpecialCharacters}
       characterLimit={characterLimit || characterLimitSpecialCharacters}
       fieldHelp={fieldHelp || fieldHelpSpecialCharacters}
-      {...args}
     />
   );
 };
-
-# Textarea
-
-### Default
-
-<Preview>
-  <Story
-    name="default"
-    args={{
-      expandable: Textarea.defaultProps.expandable,
-      cols: 0,
-      rows: 0,
-      disabled: false,
-      autoFocus: false,
-      readOnly: false,
-      placeholder: "",
-      fieldHelp: "",
-      characterLimit: "",
-      inputWidth: 100,
-      warnOverLimit: Textarea.defaultProps.warnOverLimit,
-      enforceCharacterLimit: Textarea.defaultProps.enforceCharacterLimit,
-      label: "",
-      labelHelp: "",
-      labelInline: false,
-      labelWidth: 30,
-      labelAlign: undefined,
-      adaptiveLabelBreakpoint: undefined,
-      required: false,
-      placeholderSpecialCharacters: undefined,
-      labelSpecialCharacters: undefined,
-      labelHelpSpecialCharacters: undefined,
-      characterLimitSpecialCharacters: undefined,
-      fieldHelpSpecialCharacters: undefined,
-    }}
-  >
-    {TextareaStory.bind({})}
-  </Story>
-</Preview>

@@ -74,7 +74,7 @@ export interface TextareaProps
   helpAriaLabel?: string;
 }
 
-declare class Textarea extends React.Component<TextareaProps> {}
+declare function Textarea(props: TextareaProps): JSX.Element;
 
 export { Textarea as OriginalTextarea };
 export default Textarea;

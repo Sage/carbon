@@ -48,8 +48,10 @@ export interface ShowEditPodProps {
   saveText?: string;
   /** Can inform if the form is in a saving state (disables the save button) */
   saving?: boolean;
+  /** Title to be displayed */
+  title?: React.ReactNode;
 }
 
-declare class ShowEditPod extends React.Component<ShowEditPodProps> {}
+declare function ShowEditPod(props: ShowEditPodProps): JSX.Element;
 
 export default ShowEditPod;
