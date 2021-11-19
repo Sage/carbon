@@ -3,10 +3,21 @@ import ModalManager from "./modal-manager";
 describe("ModalManager", () => {
   describe("when the addModal method has been called", () => {
     it("then the element passed in an attribute should be the topmost element", () => {
-      const mockModal = { foo: "bar" };
+      const cb1 = jest.fn();
+      const cb2 = jest.fn();
 
-      ModalManager.addModal(mockModal);
-      expect(ModalManager.isTopmost(mockModal)).toBe(true);
+      const mockModal1 = { foo: "foo" };
+      const mockModal2 = { bar: "bar" };
+
+      ModalManager.addModal(mockModal1, cb1);
+      expect(ModalManager.isTopmost(mockModal1)).toBe(true);
+      expect(cb1).not.toHaveBeenCalled();
+
+      ModalManager.addModal(mockModal2, cb2);
+      expect(ModalManager.isTopmost(mockModal1)).toBe(false);
+      expect(ModalManager.isTopmost(mockModal2)).toBe(true);
+      expect(cb1).toHaveBeenCalledWith(false);
+      expect(cb2).not.toHaveBeenCalled();
     });
   });
 
@@ -23,13 +34,22 @@ describe("ModalManager", () => {
 
   describe("when the removeModal method has been called", () => {
     it("then the element passed in an attribute should not be the topmost element", () => {
-      const mockModal = { foo: "bar" };
+      const cb1 = jest.fn();
+      const cb2 = jest.fn();
+
+      const mockModal1 = { foo: "foo" };
+      const mockModal2 = { bar: "bar" };
 
       ModalManager.clearList();
-      ModalManager.addModal(mockModal);
-      ModalManager.removeModal(mockModal);
+      ModalManager.addModal(mockModal1, cb1);
+      ModalManager.addModal(mockModal2, cb2);
+      ModalManager.removeModal(mockModal2);
+      expect(ModalManager.isTopmost(mockModal2)).toBe(false);
+      expect(cb1).toHaveBeenCalledWith(true);
 
-      expect(ModalManager.isTopmost(mockModal)).toBe(false);
+      ModalManager.removeModal(mockModal1);
+
+      expect(ModalManager.isTopmost(mockModal1)).toBe(false);
     });
 
     it("then nothing happens if removed modal is not found", () => {
@@ -38,6 +58,16 @@ describe("ModalManager", () => {
       ModalManager.clearList();
       ModalManager.addModal(mockModal);
       ModalManager.removeModal({ some: "value" });
+    });
+
+    it("does not trigger refocus if no callback is found for passed modal", () => {
+      const mockModal1 = { foo: "foo" };
+      const mockModal2 = { bar: "bar" };
+
+      ModalManager.clearList();
+      ModalManager.addModal(mockModal1);
+      ModalManager.addModal(mockModal2);
+      ModalManager.removeModal(mockModal2);
     });
   });
 });
