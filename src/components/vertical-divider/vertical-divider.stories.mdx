@@ -53,10 +53,10 @@ import VerticalDivider from "carbon-react/lib/components/vertical-divider";
 By default the VerticalDivider has a height of `100%` and padding of `24px`.
 
 export const Square = styled.div`
-height: ${({size}) => size || '56px'};
-width: ${({size}) => size || '56px'};
-background-color: ${({theme}) => theme.colors.primary};
-`
+  height: ${({ size }) => size || "56px"};
+  width: ${({ size }) => size || "56px"};
+  background-color: ${({ theme }) => theme.colors.primary};
+`;
 
 <Preview>
   <Story name="default">
@@ -271,23 +271,23 @@ applied to the slate.
     <Tile width={800} orientation="vertical">
       <Content title="Test Title One">Test Body One</Content>
       <div style={{ display: "inline-flex", height: 40 }}>
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
       </div>
     </Tile>
   </Story>
@@ -307,9 +307,9 @@ This example is best viewed in the Canvas tab using full-screen mode with device
         gridColumn="1 / 2"
         gridRow="1 / 2"
       >
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider h={100} />
-        <Square size="40px"/>
+        <Square size="40px" />
       </GridItem>
       <GridItem
         alignSelf="stretch"
@@ -325,9 +325,9 @@ This example is best viewed in the Canvas tab using full-screen mode with device
         gridColumn="5 / 6"
         gridRow="1 / 2"
       >
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider h={100} />
-        <Square size="40px"/>
+        <Square size="40px" />
       </GridItem>
       <GridItem
         alignSelf="stretch"
@@ -343,9 +343,9 @@ This example is best viewed in the Canvas tab using full-screen mode with device
         gridColumn="9 / 10"
         gridRow="1 / 2"
       >
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider h={100} />
-        <Square size="40px"/>
+        <Square size="40px" />
       </GridItem>
     </GridContainer>
   </Story>

@@ -1137,7 +1137,7 @@ export const FlatTableSortableStory = (args) => {
 };
 
 <Preview>
-  <Story 
+  <Story
     name="with sorting headers"
     parameters={{
       docs: {
@@ -1273,7 +1273,9 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
                 />
                 <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
                 <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-                <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
+                <FlatTableHeader id="ft-header-3">
+                  Relationship Status
+                </FlatTableHeader>
                 <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
@@ -1476,7 +1478,9 @@ It is also possible to integrate selection of multiple rows and the highlighting
                 />
                 <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
                 <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-                <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
+                <FlatTableHeader id="ft-header-3">
+                  Relationship Status
+                </FlatTableHeader>
                 <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
@@ -1518,7 +1522,7 @@ It is also possible to integrate selection of multiple rows and the highlighting
                 selected={selectedRows.three}
                 highlighted={highlightedRow === "three"}
               >
-               <FlatTableCheckbox
+                <FlatTableCheckbox
                   ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.three}
@@ -1914,7 +1918,9 @@ of the button control.
                   />
                   <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
                   <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-3">
+                    Relationship Status
+                  </FlatTableHeader>
                   <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
                 </FlatTableRow>
               </FlatTableHead>
@@ -1956,7 +1962,7 @@ of the button control.
                   selected={selectedRows.three}
                   highlighted={highlightedRow === "three"}
                 >
-                <FlatTableCheckbox
+                  <FlatTableCheckbox
                     ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
                     onClick={(e) => e.stopPropagation()}
                     checked={selectedRows.three}
