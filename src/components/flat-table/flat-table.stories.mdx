@@ -108,49 +108,99 @@ Any cells preceding the `FlatTableRowHeader`s will automatically also be made st
 
 <Preview>
   <Story name="with row header" parameters={{ chromatic: { disable: true } }}>
-    <div style={{ width: "380px", overflowX: "auto" }}>
-      <FlatTable>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>ID Number</FlatTableHeader>
-            <FlatTableRowHeader>Name</FlatTableRowHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>000001</FlatTableCell>
-            <FlatTableRowHeader>John Doe</FlatTableRowHeader>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>000002</FlatTableCell>
-            <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
-            <FlatTableCell>York</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
-            <FlatTableCell>2</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>000003</FlatTableCell>
-            <FlatTableRowHeader>John Smith</FlatTableRowHeader>
-            <FlatTableCell>Edinburgh</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>1</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>000004</FlatTableCell>
-            <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
-            <FlatTableCell>Newcastle</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
-            <FlatTableCell>5</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
-    </div>
+    <FlatTable width="380px" overflowX="auto">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>ID Number</FlatTableHeader>
+          <FlatTableRowHeader>Name</FlatTableRowHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>000001</FlatTableCell>
+          <FlatTableRowHeader>John Doe</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>000002</FlatTableCell>
+          <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>000003</FlatTableCell>
+          <FlatTableRowHeader>John Smith</FlatTableRowHeader>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>000004</FlatTableCell>
+          <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
+### Horizontal scrolling
+
+To allow horizontal scrolling, set the `width` and `overflowX` props as shown below. An `aria-label` should be added to give the table an accessible name.
+
+<Preview>
+  <Story
+    name="with horizontal scrolling"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <FlatTable
+      width="380px"
+      overflowX="auto"
+      aria-label="Horizontal scroll table"
+    >
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
   </Story>
 </Preview>
 
@@ -595,114 +645,106 @@ Is it possible to combine the `stickyHead` prop along with the `rowSpan` and `co
 
 <Preview>
   <Story name="with stickyHead rowSpan and colspan">
-    <div
-      style={{
-        height: "380px",
-        width: "310px",
-        overflowX: "auto",
-      }}
-    >
-      <FlatTable hasStickyHead>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader rowSpan={2}>Name</FlatTableHeader>
-            <FlatTableRowHeader rowSpan={2}>Code</FlatTableRowHeader>
-            <FlatTableHeader colspan={2}>Jun 21</FlatTableHeader>
-            <FlatTableHeader rowSpan={2}></FlatTableHeader>
-            <FlatTableHeader colspan={2}>YTD</FlatTableHeader>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableHeader>Debit</FlatTableHeader>
-            <FlatTableHeader>Credit</FlatTableHeader>
-            <FlatTableHeader>Debit</FlatTableHeader>
-            <FlatTableHeader>Credit</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableRowHeader>000001</FlatTableRowHeader>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableRowHeader>000001</FlatTableRowHeader>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableRowHeader>000001</FlatTableRowHeader>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableRowHeader>000001</FlatTableRowHeader>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableRowHeader>000001</FlatTableRowHeader>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableRowHeader>000001</FlatTableRowHeader>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableRowHeader>000001</FlatTableRowHeader>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableRowHeader>000001</FlatTableRowHeader>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableRowHeader>000001</FlatTableRowHeader>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
-    </div>
+    <FlatTable hasStickyHead height="380px" width="310px" overflowX="auto">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader rowSpan={2}>Name</FlatTableHeader>
+          <FlatTableRowHeader rowSpan={2}>Code</FlatTableRowHeader>
+          <FlatTableHeader colspan={2}>Jun 21</FlatTableHeader>
+          <FlatTableHeader rowSpan={2}></FlatTableHeader>
+          <FlatTableHeader colspan={2}>YTD</FlatTableHeader>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableHeader>Debit</FlatTableHeader>
+          <FlatTableHeader>Credit</FlatTableHeader>
+          <FlatTableHeader>Debit</FlatTableHeader>
+          <FlatTableHeader>Credit</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
   </Story>
 </Preview>
 
@@ -879,10 +921,7 @@ remains sticky.
 By using the `hasMaxHeight` prop you can automatically apply a max-height of 100% to the FlatTable.
 
 <Preview>
-  <Story
-    name="with hasMaxHeight"
-    parameters={{ chromatic: { disable: true } }}
-  >
+  <Story name="with hasMaxHeight" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const rows = [
         <FlatTableRow key="0">
@@ -1140,7 +1179,7 @@ export const FlatTableSortableStory = (args) => {
 };
 
 <Preview>
-  <Story 
+  <Story
     name="with sorting headers"
     parameters={{
       docs: {
@@ -1276,7 +1315,9 @@ Where icons are used for batch actions, they have text labels too, or tooltips t
                 />
                 <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
                 <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-                <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
+                <FlatTableHeader id="ft-header-3">
+                  Relationship Status
+                </FlatTableHeader>
                 <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
@@ -1479,7 +1520,9 @@ It is also possible to integrate selection of multiple rows and the highlighting
                 />
                 <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
                 <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-                <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
+                <FlatTableHeader id="ft-header-3">
+                  Relationship Status
+                </FlatTableHeader>
                 <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
@@ -1521,7 +1564,7 @@ It is also possible to integrate selection of multiple rows and the highlighting
                 selected={selectedRows.three}
                 highlighted={highlightedRow === "three"}
               >
-               <FlatTableCheckbox
+                <FlatTableCheckbox
                   ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
                   onClick={(e) => e.stopPropagation()}
                   checked={selectedRows.three}
@@ -1917,7 +1960,9 @@ of the button control.
                   />
                   <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
                   <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
+                  <FlatTableHeader id="ft-header-3">
+                    Relationship Status
+                  </FlatTableHeader>
                   <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
                 </FlatTableRow>
               </FlatTableHead>
@@ -1959,7 +2004,7 @@ of the button control.
                   selected={selectedRows.three}
                   highlighted={highlightedRow === "three"}
                 >
-                <FlatTableCheckbox
+                  <FlatTableCheckbox
                     ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
                     onClick={(e) => e.stopPropagation()}
                     checked={selectedRows.three}
@@ -2002,7 +2047,7 @@ of the button control.
     <div>
       {["compact", "small", "medium", "large", "extraLarge"].map((size) => (
         <Box mb={3}>
-          <FlatTable size={size}>
+          <FlatTable size={size} aria-label={`flat-table-${size}`}>
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableHeader>Name</FlatTableHeader>
