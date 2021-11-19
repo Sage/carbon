@@ -62,6 +62,8 @@ const FlatTable = ({
           justifyContent={
             hasStickyFooter || height ? "space-between" : undefined
           }
+          tabIndex="0"
+          role="region"
         >
           <StyledFlatTable data-component="flat-table" {...tableStylingProps}>
             {caption ? <caption>{caption}</caption> : null}
