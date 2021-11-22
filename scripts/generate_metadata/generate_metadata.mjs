@@ -1,8 +1,11 @@
 /* eslint-disable no-console */
 import fs from "fs";
 import fetch from "node-fetch";
+import semver from "semver";
 
-const MIN_VERSION = "100.2.1";
+const { gt } = semver;
+
+const MIN_VERSION = "100.1.1";
 
 const fetchVersions = async () => {
   const response = await fetch("https://registry.npmjs.com/carbon-react");
@@ -20,7 +23,7 @@ const fetchVersions = async () => {
 
 const formatVersions = (versions) => {
   const filteredVersions = versions
-    .slice(versions.indexOf(MIN_VERSION))
+    .filter((ver) => gt(ver, MIN_VERSION))
     .reverse();
   const versionsJson = {
     versions: {},
