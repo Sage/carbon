@@ -139,7 +139,7 @@
     "semver": "^7.3.5",
     "sprintf-js": "^1.1.2",
     "styled-components": "^4.4.1",
-    "typescript": "^3.9.5",
+    "typescript": "^4.3.5",
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
