@@ -1,3 +1,16 @@
+## [101.0.0](https://github.com/Sage/carbon/compare/v100.1.1...v101.0.0) (2021-11-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **design-tokens:** CarbonScopedTokensProvider is a part of CarbonProvider
+
+Design tokens in form of CSS variables will be provided without need of using additional elements.
+
+### Bug Fixes
+
+* **design-tokens:** fix design tokens provider implementation ([a62f953](https://github.com/Sage/carbon/commit/a62f95333bea396654c55e932c26c21b6b372502))
+
 ### [100.1.1](https://github.com/Sage/carbon/compare/v100.1.0...v100.1.1) (2021-11-19)
 
 
