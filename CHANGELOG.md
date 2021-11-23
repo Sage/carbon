@@ -1,3 +1,10 @@
+### [100.1.1](https://github.com/Sage/carbon/compare/v100.1.0...v100.1.1) (2021-11-19)
+
+
+### Bug Fixes
+
+* **page:** export page correctly from pages interface ([e315b92](https://github.com/Sage/carbon/commit/e315b92e3bbd11a10aa55a5764b09f282505159a)), closes [#4562](https://github.com/Sage/carbon/issues/4562)
+
 ## [100.1.0](https://github.com/Sage/carbon/compare/v100.0.0...v100.1.0) (2021-11-18)
 
 
