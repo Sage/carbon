@@ -25,35 +25,34 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
   height: 40px;
   padding: 0 24px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  border: 1px solid #668592;
-  background-color: #FFFFFF;
+  border: 1px solid var(--colorsActionMinor500);
 }
 
 .c2 .c8 {
-  color: #000000;
+  color: var(--colorsActionMinor500);
 }
 
 input:checked ~ .c2.c2 {
-  background-color: #E6F5E6;
-  border-color: #006300;
+  background-color: var(--colorsActionMinor300);
+  color: var(--colorsActionMinor600);
   cursor: auto;
 }
 
 input:focus ~ .c2 {
-  outline: 3px solid #FFB500;
+  outline: 3px solid var(--colorsSemanticFocus500);
   z-index: 100;
 }
 
 input:not(:checked):not(:disabled) ~ .c2:hover {
-  background-color: #006300;
-  border-color: #006300;
-  color: #FFFFFF;
+  background-color: var(--colorsWhiteMixTheme,var(--colorsActionMinor200));
+  border-color: var(--colorsActionMinor500);
+  color: var(--colorsActionMinor500);
 }
 
 input:not(:checked):not(:disabled) ~ .c2:hover .c8 {
-  color: #FFFFFF;
+  color: var(--colorsActionMinor500);
 }
 
 .c5 .c3 {
@@ -173,35 +172,34 @@ exports[`ButtonToggle when the aegean theme is set renders correct styles 1`] = 
   height: 40px;
   padding: 0 24px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  border: 1px solid #668592;
-  background-color: #FFFFFF;
+  border: 1px solid var(--colorsActionMinor500);
 }
 
 .c2 .c4 {
-  color: #000000;
+  color: var(--colorsActionMinor500);
 }
 
 input:checked ~ .c2.c2 {
-  background-color: #E6F1FA;
-  border-color: #005C9A;
+  background-color: var(--colorsActionMinor300);
+  color: var(--colorsActionMinor600);
   cursor: auto;
 }
 
 input:focus ~ .c2 {
-  outline: 3px solid #FFB500;
+  outline: 3px solid var(--colorsSemanticFocus500);
   z-index: 100;
 }
 
 input:not(:checked):not(:disabled) ~ .c2:hover {
-  background-color: #005C9A;
-  border-color: #005C9A;
-  color: #FFFFFF;
+  background-color: var(--colorsWhiteMixTheme,var(--colorsActionMinor200));
+  border-color: var(--colorsActionMinor500);
+  color: var(--colorsActionMinor500);
 }
 
 input:not(:checked):not(:disabled) ~ .c2:hover .c4 {
-  color: #FFFFFF;
+  color: var(--colorsActionMinor500);
 }
 
 .c0 {
@@ -272,35 +270,34 @@ exports[`ButtonToggle when the mint theme is set renders correct styles 1`] = `
   height: 40px;
   padding: 0 24px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  border: 1px solid #668592;
-  background-color: #FFFFFF;
+  border: 1px solid var(--colorsActionMinor500);
 }
 
 .c2 .c4 {
-  color: #000000;
+  color: var(--colorsActionMinor500);
 }
 
 input:checked ~ .c2.c2 {
-  background-color: #E6F6F1;
-  border-color: #006046;
+  background-color: var(--colorsActionMinor300);
+  color: var(--colorsActionMinor600);
   cursor: auto;
 }
 
 input:focus ~ .c2 {
-  outline: 3px solid #FFB500;
+  outline: 3px solid var(--colorsSemanticFocus500);
   z-index: 100;
 }
 
 input:not(:checked):not(:disabled) ~ .c2:hover {
-  background-color: #006046;
-  border-color: #006046;
-  color: #FFFFFF;
+  background-color: var(--colorsWhiteMixTheme,var(--colorsActionMinor200));
+  border-color: var(--colorsActionMinor500);
+  color: var(--colorsActionMinor500);
 }
 
 input:not(:checked):not(:disabled) ~ .c2:hover .c4 {
-  color: #FFFFFF;
+  color: var(--colorsActionMinor500);
 }
 
 .c0 {
@@ -371,35 +368,34 @@ exports[`ButtonToggle when the sage (experimental) theme is set renders correct 
   height: 40px;
   padding: 0 24px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  border: 1px solid #668592;
-  background-color: #FFFFFF;
+  border: 1px solid var(--colorsActionMinor500);
 }
 
 .c2 .c4 {
-  color: #000000;
+  color: var(--colorsActionMinor500);
 }
 
 input:checked ~ .c2.c2 {
-  background-color: #E6F6F1;
-  border-color: #006046;
+  background-color: var(--colorsActionMinor300);
+  color: var(--colorsActionMinor600);
   cursor: auto;
 }
 
 input:focus ~ .c2 {
-  outline: 3px solid #FFB500;
+  outline: 3px solid var(--colorsSemanticFocus500);
   z-index: 100;
 }
 
 input:not(:checked):not(:disabled) ~ .c2:hover {
-  background-color: #006046;
-  border-color: #006046;
-  color: #FFFFFF;
+  background-color: var(--colorsWhiteMixTheme,var(--colorsActionMinor200));
+  border-color: var(--colorsActionMinor500);
+  color: var(--colorsActionMinor500);
 }
 
 input:not(:checked):not(:disabled) ~ .c2:hover .c4 {
-  color: #FFFFFF;
+  color: var(--colorsActionMinor500);
 }
 
 .c0 {

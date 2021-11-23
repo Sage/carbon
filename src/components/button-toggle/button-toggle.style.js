@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
-import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 
 const heightConfig = {
@@ -50,39 +49,35 @@ const StyledButtonToggleLabel = styled.label`
     padding: 0 ${paddingConfig[size]}px;
     font-size: ${fontSizeConfig[size]}px;
   `}
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
 
-  ${({ theme }) => css`
-    border: 1px solid ${theme.colors.border};
-    background-color: ${theme.colors.white};
+  border: 1px solid var(--colorsActionMinor500);
+
+  ${StyledIcon} {
+    color: var(--colorsActionMinor500);
+  }
+
+  input:checked ~ && {
+    background-color: var(--colorsActionMinor300);
+    color: var(--colorsActionMinor600);
+    cursor: auto;
+  }
+
+  input:focus ~ & {
+    outline: 3px solid var(--colorsSemanticFocus500);
+    z-index: 100;
+  }
+
+  input:not(:checked):not(:disabled) ~ &:hover {
+    background-color: var(--colorsWhiteMixTheme, var(--colorsActionMinor200));
+    border-color: var(--colorsActionMinor500);
+    color: var(--colorsActionMinor500);
 
     ${StyledIcon} {
-      color: ${theme.colors.black};
+      color: var(--colorsActionMinor500);
     }
-
-    input:checked ~ && {
-      background-color: ${theme.colors.whiteMix};
-      border-color: ${theme.colors.secondary};
-      color: ${theme.colors.text};
-      cursor: auto;
-    }
-
-    input:focus ~ & {
-      outline: 3px solid ${theme.colors.focus};
-      z-index: 100;
-    }
-
-    input:not(:checked):not(:disabled) ~ &:hover {
-      background-color: ${theme.colors.secondary};
-      border-color: ${theme.colors.secondary};
-      color: ${theme.colors.white};
-
-      ${StyledIcon} {
-        color: ${theme.colors.white};
-      }
-    }
-  `};
+  }
 
   ${({ buttonIcon, buttonIconSize, size }) =>
     buttonIcon &&
@@ -96,16 +91,15 @@ const StyledButtonToggleLabel = styled.label`
       }
     `}
 
-  ${({ disabled, theme }) =>
+  ${({ disabled }) =>
     disabled &&
     css`
       & {
-        background-color: ${theme.disabled.button};
-        border-color: ${theme.disabled.button};
-        color: ${theme.disabled.buttonText};
+        border-color: var(--colorsActionDisabled500);
+        color: var(--colorsActionMinorYin030);
 
         ${StyledIcon} {
-          color: ${theme.disabled.buttonText};
+          color: var(--colorsActionMinorYin030);
         }
       }
       cursor: not-allowed;
@@ -173,14 +167,6 @@ const StyledButtonToggleInput = styled.input`
 
 StyledButtonToggleIcon.propTypes = {
   buttonIconSize: PropTypes.string,
-};
-
-StyledButtonToggleLabel.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledButtonToggleLabel.defaultProps = {
-  theme: baseTheme,
 };
 
 export {
