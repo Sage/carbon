@@ -1,3 +1,10 @@
+### [101.0.1](https://github.com/Sage/carbon/compare/v101.0.0...v101.0.1) (2021-11-23)
+
+
+### Bug Fixes
+
+* **select:** render wrapped text correctly in SelectList ([0b18685](https://github.com/Sage/carbon/commit/0b1868577375ae4be2407f07da0dbe14fb6fbd65)), closes [#4489](https://github.com/Sage/carbon/issues/4489)
+
 ## [101.0.0](https://github.com/Sage/carbon/compare/v100.1.1...v101.0.0) (2021-11-23)
 
 
