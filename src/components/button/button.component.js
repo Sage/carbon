@@ -19,7 +19,7 @@ function renderChildren({
   /* eslint-enable */
 }) {
   const iconColorMap = {
-    primary: "var(--colorsActionMajor000)",
+    primary: "var(--colorsActionMajorYang100)",
     secondary: "var(--colorsActionMajor500)",
     tertiary: "var(--colorsActionMajor500)",
     darkBackground: "var(--colorsActionMajor500)",

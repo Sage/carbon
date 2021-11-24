@@ -39,7 +39,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c3:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c3 .c1 {
@@ -58,7 +58,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c4:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c4 .c1 {
@@ -77,7 +77,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c5:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c5 .c1 {
@@ -96,7 +96,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c6:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c6 .c1 {
@@ -115,7 +115,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c7:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c7 .c1 {
@@ -134,7 +134,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c8:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c8 .c1 {
@@ -153,7 +153,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c9:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c9 .c1 {
@@ -172,7 +172,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c10:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c10 .c1 {
@@ -191,7 +191,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c11:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c11 .c1 {
@@ -210,7 +210,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c12:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c12 .c1 {
@@ -229,7 +229,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c13:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c13 .c1 {
@@ -248,7 +248,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c14:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c14 .c1 {
@@ -267,7 +267,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c15:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c15 .c1 {
@@ -286,7 +286,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c16:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c16 .c1 {
@@ -305,7 +305,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c17:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c17 .c1 {
@@ -324,7 +324,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c18:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c18 .c1 {
@@ -343,7 +343,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c19:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c19 .c1 {
@@ -362,7 +362,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c20:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c20 .c1 {
@@ -383,7 +383,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c21:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c21 .c1 {
@@ -404,7 +404,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c22:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c22 .c1 {
@@ -425,7 +425,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c23:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c23 .c1 {
@@ -444,7 +444,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c24:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c24 .c1 {
@@ -463,7 +463,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c25:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c25 .c1 {
@@ -482,7 +482,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c26:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c26 .c1 {
@@ -501,7 +501,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c27:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c27 .c1 {
@@ -520,7 +520,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c28:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c28 .c1 {
@@ -539,7 +539,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c29:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c29 .c1 {
@@ -558,7 +558,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c30:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c30 .c1 {
@@ -577,7 +577,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c31:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c31 .c1 {
@@ -596,7 +596,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c32:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c32 .c1 {
@@ -615,7 +615,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c33:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c33 .c1 {
@@ -634,7 +634,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c34:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c34 .c1 {
@@ -653,7 +653,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c35:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c35 .c1 {
@@ -672,7 +672,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c36:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c36 .c1 {
@@ -691,7 +691,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c37:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c37 .c1 {
@@ -710,7 +710,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c38:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c38 .c1 {
@@ -729,7 +729,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c39:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c39 .c1 {
@@ -748,7 +748,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c40:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c40 .c1 {
@@ -767,7 +767,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c41:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c41 .c1 {
@@ -786,7 +786,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c42:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c42 .c1 {
@@ -805,7 +805,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c43:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c43 .c1 {
@@ -824,7 +824,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c44:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c44 .c1 {
@@ -843,7 +843,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c45:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c45 .c1 {
@@ -862,7 +862,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c46:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c46 .c1 {
@@ -881,7 +881,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c47:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c47 .c1 {
@@ -944,11 +944,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c0:hover {
   background: var(--colorsActionMajor600);
   border-color: var(--colorsActionMajorTransparent);
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c0:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c0 .c1 {
@@ -1073,11 +1073,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c0:hover {
   background: var(--colorsActionMajor600);
   border-color: var(--colorsActionMajorTransparent);
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c0:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c0 .c1 {
@@ -1096,7 +1096,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c3:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c3 .c1 {
@@ -1115,7 +1115,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c4:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c4 .c1 {
@@ -1134,7 +1134,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c5:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c5 .c1 {
@@ -1153,7 +1153,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c6:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c6 .c1 {
@@ -1172,7 +1172,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c7:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c7 .c1 {
@@ -1191,7 +1191,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c8:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c8 .c1 {
@@ -1210,7 +1210,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c9:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c9 .c1 {
@@ -1229,7 +1229,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c10:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c10 .c1 {
@@ -1248,7 +1248,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c11:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c11 .c1 {
@@ -1267,7 +1267,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c12:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c12 .c1 {
@@ -1286,7 +1286,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c13:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c13 .c1 {
@@ -1305,7 +1305,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c14:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c14 .c1 {
@@ -1324,7 +1324,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c15:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c15 .c1 {
@@ -1343,7 +1343,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c16:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c16 .c1 {
@@ -1362,7 +1362,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c17:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c17 .c1 {
@@ -1381,7 +1381,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c18:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c18 .c1 {
@@ -1400,7 +1400,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c19:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c19 .c1 {
@@ -1421,7 +1421,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c20:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c20 .c1 {
@@ -1442,7 +1442,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c21:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c21 .c1 {
@@ -1463,7 +1463,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c22:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c22 .c1 {
@@ -1482,7 +1482,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c23:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c23 .c1 {
@@ -1501,7 +1501,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c24:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c24 .c1 {
@@ -1520,7 +1520,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c25:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c25 .c1 {
@@ -1539,7 +1539,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c26:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c26 .c1 {
@@ -1558,7 +1558,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c27:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c27 .c1 {
@@ -1577,7 +1577,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c28:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c28 .c1 {
@@ -1596,7 +1596,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c29:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c29 .c1 {
@@ -1615,7 +1615,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c30:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c30 .c1 {
@@ -1634,7 +1634,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c31:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c31 .c1 {
@@ -1653,7 +1653,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c32:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c32 .c1 {
@@ -1672,7 +1672,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c33:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c33 .c1 {
@@ -1691,7 +1691,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c34:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c34 .c1 {
@@ -1710,7 +1710,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c35:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c35 .c1 {
@@ -1729,7 +1729,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c36:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c36 .c1 {
@@ -1748,7 +1748,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c37:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c37 .c1 {
@@ -1767,7 +1767,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c38:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c38 .c1 {
@@ -1786,7 +1786,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c39:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c39 .c1 {
@@ -1805,7 +1805,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c40:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c40 .c1 {
@@ -1824,7 +1824,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c41:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c41 .c1 {
@@ -1843,7 +1843,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c42:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c42 .c1 {
@@ -1862,7 +1862,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c43:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c43 .c1 {
@@ -1881,7 +1881,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c44:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c44 .c1 {
@@ -1900,7 +1900,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c45:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c45 .c1 {
@@ -1919,7 +1919,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c46:hover .c1 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c46 .c1 {

@@ -84,11 +84,11 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c2:hover {
   background: var(--colorsActionMajor600);
   border-color: var(--colorsActionMajorTransparent);
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c2:hover .c4 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c2 .c4 {
@@ -107,7 +107,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 }
 
 .c6:hover .c4 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c6 .c4 {
@@ -254,11 +254,11 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c3:hover {
   background: var(--colorsActionMajor600);
   border-color: var(--colorsActionMajorTransparent);
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c3:hover .c4 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c3 .c4 {
@@ -289,7 +289,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 }
 
 .c14:hover .c4 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c14 .c4 {

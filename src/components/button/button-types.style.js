@@ -13,7 +13,7 @@ export default (isDisabled, destructive) => ({
   primary: `
     background: var(--colorsActionMajor500);
     border-color: transparent;
-    ${makeColors("var(--colorsActionMajor000)")};
+    ${makeColors("var(--colorsActionMajorYang100)")};
     &:hover {
       background: var(--colorsActionMajor600);
     }
@@ -33,7 +33,7 @@ export default (isDisabled, destructive) => ({
     ${
       destructive
         ? `background: var(--colorsSemanticNegative500);
-    ${makeColors("var(--colorsSemanticNegative000)")};
+    ${makeColors("var(--colorsSemanticNegativeYang100)")};
     &:hover {
       background: var(--colorsSemanticNegative600);
     }
@@ -59,7 +59,7 @@ export default (isDisabled, destructive) => ({
       &:hover {
         background: var(--colorsActionMajor600);
         border-color: var(--colorsActionMajorTransparent);
-        ${makeColors("var(--colorsActionMajor000)")};
+        ${makeColors("var(--colorsActionMajorYang100)")};
       }
 
       ${
@@ -70,7 +70,7 @@ export default (isDisabled, destructive) => ({
         &:hover {
           background: var(--colorsSemanticNegative600);
           border-color: var(--colorsSemanticNegativeTransparent);
-          ${makeColors("var(--colorsSemanticNegative000)")};
+          ${makeColors("var(--colorsSemanticNegativeYang100)")};
         }
       `
           : ""
@@ -96,7 +96,7 @@ export default (isDisabled, destructive) => ({
     ${makeColors("var(--colorsActionMajor500)")};
     &:hover {
       background: var(--colorsActionMajor600);
-      ${makeColors("var(--colorsActionMajor000)")};
+      ${makeColors("var(--colorsActionMajorYang100)")};
     }
 
     ${
@@ -105,7 +105,7 @@ export default (isDisabled, destructive) => ({
       ${makeColors("var(--colorsSemanticNegative500)")};
       &:hover {
         background: var(--colorsSemanticNegative600);
-        ${makeColors("var(--colorsSemanticNegative000)")};
+        ${makeColors("var(--colorsSemanticNegativeYang100)")};
       }
       `
         : ""
@@ -152,12 +152,12 @@ export default (isDisabled, destructive) => ({
     }
   `,
   darkBackground: `
-    background: var(--colorsActionMajor000);
+    background: var(--colorsActionMajorYang100);
     border-color: transparent;
     ${makeColors("var(--colorsActionMajor500)")};
     &:hover {
       background: var(--colorsActionMajor600);
-      ${makeColors("var(--colorsActionMajor000)")}
+      ${makeColors("var(--colorsActionMajorYang100)")}
     }
 
     ${

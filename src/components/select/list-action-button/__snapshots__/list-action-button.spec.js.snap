@@ -83,11 +83,11 @@ exports[`Option renders properly 1`] = `
 .c2:hover {
   background: var(--colorsActionMajor600);
   border-color: var(--colorsActionMajorTransparent);
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c2:hover .c3 {
-  color: var(--colorsActionMajor000);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c2 .c3 {

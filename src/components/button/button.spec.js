@@ -226,7 +226,7 @@ describe("Button", () => {
       assertStyleMatch(
         {
           background: "var(--colorsSemanticNegative500)",
-          color: "var(--colorsSemanticNegative000)",
+          color: "var(--colorsSemanticNegativeYang100)",
         },
         wrapper
       );
@@ -270,7 +270,7 @@ describe("Button", () => {
         {
           background: "var(--colorsSemanticNegative600)",
           borderColor: "var(--colorsSemanticNegativeTransparent)",
-          color: "var(--colorsSemanticNegative000)",
+          color: "var(--colorsSemanticNegativeYang100)",
         },
         wrapper,
         { modifier: ":hover" }
@@ -278,7 +278,7 @@ describe("Button", () => {
 
       assertStyleMatch(
         {
-          color: "var(--colorsSemanticNegative000)",
+          color: "var(--colorsSemanticNegativeYang100)",
         },
         wrapper,
         { modifier: `:hover ${StyledIcon}` }
@@ -315,7 +315,7 @@ describe("Button", () => {
 
     assertStyleMatch(
       {
-        color: "var(--colorsSemanticNegative000)",
+        color: "var(--colorsSemanticNegativeYang100)",
         background: "var(--colorsSemanticNegative600)",
       },
       wrapper,
@@ -324,7 +324,7 @@ describe("Button", () => {
 
     assertStyleMatch(
       {
-        color: "var(--colorsSemanticNegative000)",
+        color: "var(--colorsSemanticNegativeYang100)",
       },
       wrapper,
       { modifier: `:hover ${StyledIcon}` }
