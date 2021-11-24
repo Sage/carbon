@@ -1,3 +1,4 @@
+import tokens from "@sage/design-tokens/js/base/common";
 import atOpacity from "../../utils/at-opacity";
 
 export default (palette) => {
@@ -395,6 +396,8 @@ export default (palette) => {
 
     get compatibility() {
       return {
+        ...tokens,
+
         colorsActionMajor500: this.colors.primary,
         colorsActionMajor600: this.colors.secondary,
 
