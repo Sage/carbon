@@ -1,3 +1,10 @@
+### [101.0.2](https://github.com/Sage/carbon/compare/v101.0.1...v101.0.2) (2021-11-24)
+
+
+### Bug Fixes
+
+* **textbox:** change fieldHelp sizing to match input width ([6c517c9](https://github.com/Sage/carbon/commit/6c517c9cd55d0f37071d615bb44ffbadbb5ce781)), closes [#4543](https://github.com/Sage/carbon/issues/4543)
+
 ### [101.0.1](https://github.com/Sage/carbon/compare/v101.0.0...v101.0.1) (2021-11-23)
 
 
