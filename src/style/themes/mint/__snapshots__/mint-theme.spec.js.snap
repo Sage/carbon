@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mintTheme has no accidentally modified tokens in compatibility section 1`] = `
+Object {
+  "colorsActionDisabled500": "#E6EBED",
+  "colorsActionMajor500": "#00815D",
+  "colorsActionMajor600": "#006046",
+  "colorsSemanticCaution500": "#E96400",
+  "colorsSemanticFocus500": "#FFB500",
+  "colorsSemanticInfo500": "#0073C2",
+  "colorsSemanticNegative500": "#C7384F",
+  "colorsSemanticNegative600": "#9F2D3F",
+  "colorsSemanticPositive500": "#00B000",
+  "fontSizes100": "14px",
+  "spacing000": "0px",
+  "spacing025": "2px",
+  "spacing050": "4px",
+  "spacing075": "6px",
+  "spacing100": "8px",
+  "spacing125": "10px",
+  "spacing150": "12px",
+  "spacing200": "16px",
+  "spacing250": "20px",
+  "spacing300": "24px",
+  "spacing400": "32px",
+  "spacing500": "40px",
+  "spacing600": "48px",
+  "spacing700": "56px",
+  "spacing800": "64px",
+  "spacing900": "72px",
+}
+`;

@@ -7,7 +7,6 @@ import {
   sageTheme,
 } from "../../src/style/themes";
 import addons, { makeDecorator } from "@storybook/addons";
-import CarbonGlobalTokensProvider from "../../src/style/design-tokens/carbon-global-tokens-provider";
 import isChromatic from "chromatic/isChromatic";
 import styled from "styled-components";
 
@@ -46,7 +45,6 @@ export function setThemeName(themeName) {
 
 const render = (Story, themeName) => (
   <CarbonProvider theme={modernThemes[themeName]}>
-    <CarbonGlobalTokensProvider />
     <Story themeName={themeName} />
   </CarbonProvider>
 );

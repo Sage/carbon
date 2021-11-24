@@ -13,7 +13,7 @@ const CarbonScopedTokensProvider = styled.div`
   padding: 0;
   width: auto;
   display: inline;
-  ${({ theme }) => generateCssVariables(theme)}
+  ${({ theme }) => generateCssVariables(theme.compatibility)}
 `;
 
 export default CarbonScopedTokensProvider;
