@@ -38,7 +38,9 @@ const debugTheme = (themeProperties) =>
       }
 
       if (typeof value === "object") {
-        return [key, debugTheme(value)];
+        return key === "compatibility"
+          ? [key, value]
+          : [key, debugTheme(value)];
       }
 
       return [key, ""];
@@ -47,6 +49,8 @@ const debugTheme = (themeProperties) =>
 
 export default {
   ...debugTheme(mint),
-  ...tokens,
+  compatibility: {
+    ...tokens,
+  },
   name: "sage-debug",
 };
