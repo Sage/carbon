@@ -1,3 +1,10 @@
+### [101.0.4](https://github.com/Sage/carbon/compare/v101.0.3...v101.0.4) (2021-11-24)
+
+
+### Bug Fixes
+
+* **text-editor:** replace regex used to format web links ([5d53668](https://github.com/Sage/carbon/commit/5d53668598fdfe394ba5b00a2352b6a5c11f8bfe))
+
 ### [101.0.3](https://github.com/Sage/carbon/compare/v101.0.2...v101.0.3) (2021-11-24)
 
 
