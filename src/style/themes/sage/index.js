@@ -4,5 +4,5 @@ import mint from "../mint/index";
 export default {
   ...mint,
   ...tokens,
-  name: "sage",
+  name: "sage (experimental)",
 };

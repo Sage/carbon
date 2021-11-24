@@ -1,3 +1,30 @@
+### [101.0.1](https://github.com/Sage/carbon/compare/v101.0.0...v101.0.1) (2021-11-23)
+
+
+### Bug Fixes
+
+* **select:** render wrapped text correctly in SelectList ([0b18685](https://github.com/Sage/carbon/commit/0b1868577375ae4be2407f07da0dbe14fb6fbd65)), closes [#4489](https://github.com/Sage/carbon/issues/4489)
+
+## [101.0.0](https://github.com/Sage/carbon/compare/v100.1.1...v101.0.0) (2021-11-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **design-tokens:** CarbonScopedTokensProvider is a part of CarbonProvider
+
+Design tokens in form of CSS variables will be provided without need of using additional elements.
+
+### Bug Fixes
+
+* **design-tokens:** fix design tokens provider implementation ([a62f953](https://github.com/Sage/carbon/commit/a62f95333bea396654c55e932c26c21b6b372502))
+
+### [100.1.1](https://github.com/Sage/carbon/compare/v100.1.0...v100.1.1) (2021-11-19)
+
+
+### Bug Fixes
+
+* **page:** export page correctly from pages interface ([e315b92](https://github.com/Sage/carbon/commit/e315b92e3bbd11a10aa55a5764b09f282505159a)), closes [#4562](https://github.com/Sage/carbon/issues/4562)
+
 ## [100.1.0](https://github.com/Sage/carbon/compare/v100.0.0...v100.1.0) (2021-11-18)
 
 

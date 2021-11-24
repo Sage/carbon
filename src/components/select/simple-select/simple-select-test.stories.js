@@ -63,14 +63,17 @@ const Default = (args) => {
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
+      <Option text="White" value="4" />
       <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
+      <Option
+        text="Like a lot of intelligent animals, most crows are quite social. 
+        For instance, American crows spend most of the year living in pairs or small family groups.
+        During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night"
+        value="6"
+      />
       <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
+      <Option text="Red" value="8" />
+      <Option text="Yellow" value="9" />
     </Select>
   );
 };

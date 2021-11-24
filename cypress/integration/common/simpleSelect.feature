@@ -63,6 +63,16 @@ Feature: Select component
       | uparrow   | eleventh | Yellow |
 
   @positive
+  Scenario: An Option that is more than one line is rendered correctly
+    Given I open "Select Test" component page "default"
+    When I click on dropdown button
+      And I scroll to the "bottom" of Select List
+    Then Select list "Like a lot of intelligent animals, most crows are quite social. For instance, American crows spend most of the year living in pairs or small family groups. During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night" option is visible
+      And Select list "Pink" option is visible
+      And Select list "Red" option is visible
+      And Select list "Yellow" option is visible
+
+  @positive
   Scenario: Lazy loading is visible after open the Simple Select
     Given I open "Select" component page "with is loading prop"
     When I click on Select input with lazy loading
