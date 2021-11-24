@@ -408,6 +408,99 @@ describe("DialogFullScreen", () => {
       );
     });
   });
+
+  describe("ARIA attributes", () => {
+    describe("when a title is specified as string", () => {
+      it("then the container should have aria-labeledby attribute set to it's header's id", () => {
+        wrapper = mount(
+          <DialogFullScreen
+            open
+            onCancel={() => {}}
+            onConfirm={() => {}}
+            data-role="baz"
+            data-element="bar"
+            title="Test"
+          />
+        );
+
+        expect(
+          wrapper
+            .find("[data-element='dialog-full-screen']")
+            .first()
+            .prop("aria-labelledby")
+        ).toBe("carbon-dialog-title");
+      });
+    });
+
+    describe("when the aria-labelledby prop is specified", () => {
+      it("then the container should have the same aria-labeledby attribute", () => {
+        const titleId = "foo";
+
+        wrapper = mount(
+          <DialogFullScreen
+            aria-labelledby={titleId}
+            open
+            onCancel={() => {}}
+            onConfirm={() => {}}
+            data-role="baz"
+            data-element="bar"
+            title={<div id={titleId}>Foo</div>}
+          />
+        );
+
+        expect(
+          wrapper
+            .find("[data-element='dialog-full-screen']")
+            .first()
+            .prop("aria-labelledby")
+        ).toBe(titleId);
+      });
+    });
+
+    describe("when the role prop is specified", () => {
+      it("then the container should have the same role attribute", () => {
+        const dialogRole = "foo";
+        wrapper = mount(
+          <DialogFullScreen
+            open
+            onCancel={() => {}}
+            onConfirm={() => {}}
+            data-role="baz"
+            data-element="bar"
+            role={dialogRole}
+          />
+        );
+        expect(
+          wrapper
+            .find("[data-element='dialog-full-screen']")
+            .first()
+            .prop("role")
+        ).toBe(dialogRole);
+      });
+    });
+
+    describe("when the aria-label prop is specified", () => {
+      it("then the container should have the same aria-label attribute", () => {
+        const label = "foo";
+        wrapper = mount(
+          <DialogFullScreen
+            open
+            onCancel={() => {}}
+            onConfirm={() => {}}
+            data-role="baz"
+            data-element="bar"
+            aria-label={label}
+          />
+        );
+        expect(
+          wrapper
+            .find("[data-element='dialog-full-screen']")
+            .first()
+            .prop("aria-label")
+        ).toBe(label);
+      });
+    });
+  });
 });
 
 describe("closeIcon", () => {
