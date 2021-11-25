@@ -79,13 +79,28 @@ Feature: Multi Select component
     Given I open "Select multiselect" component page "controlled"
       And I focus select input
       And I click onto controlled select using "<key>" key
-    When I click onto controlled select using "<key>" key
     Then multi Select list is opened
       And Multi select input has not any value
+      And "<position>" option on the list is highlighted
     Examples:
       | key       | position |
       | downarrow | first    |
       | uparrow   | eleventh |
+
+  @positive
+  Scenario Outline: Verify options can be accessed by keyboard
+    Given I open "Select multiselect" component page "controlled"
+      And I focus select input
+      And I click onto controlled select using "<key>" key
+      And I click onto controlled select using "<key>" key
+      And I click onto controlled select using "<key>" key
+    Then multi Select list is opened
+      And Multi select input has not any value
+      And "<position>" option on the list is highlighted
+    Examples:
+      | key       | position |
+      | downarrow | third    |
+      | uparrow   | ninth    |
 
   @positive
   Scenario: Verify the inner context of Select Multiple component
