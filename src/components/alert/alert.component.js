@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Dialog from "../dialog";
 
 const Alert = ({ children, ...rest }) => (
-  <Dialog data-component="alert" ariaRole="alertdialog" {...rest}>
+  <Dialog data-component="alert" role="alertdialog" {...rest}>
     {children}
   </Dialog>
 );
