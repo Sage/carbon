@@ -1,3 +1,10 @@
+## [101.1.0](https://github.com/Sage/carbon/compare/v101.0.4...v101.1.0) (2021-11-25)
+
+
+### Features
+
+* **multi-select:** add keyboard accessibility ([7335a5e](https://github.com/Sage/carbon/commit/7335a5e1fb43007ea4649f7ae18909b50eaf8142))
+
 ### [101.0.4](https://github.com/Sage/carbon/compare/v101.0.3...v101.0.4) (2021-11-24)
 
 
