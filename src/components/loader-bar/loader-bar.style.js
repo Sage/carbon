@@ -5,7 +5,6 @@ import baseTheme from "../../style/themes/base";
 import { LOADER_BAR_SIZES } from "./loader-bar.config";
 
 const INNER_BAR_LENGTH = "128px";
-const OUTER_BAR_LENGTH = "256px";
 
 const StyledLoader = styled.div`
   ${margin}
@@ -17,10 +16,10 @@ const StyledLoader = styled.div`
 
 const innerBarAnimation = keyframes`
   0% {
-    left: -${INNER_BAR_LENGTH}
+    left: -${INNER_BAR_LENGTH};
   }
   100% {
-    left: ${OUTER_BAR_LENGTH}
+    left: 100%;
   }
 `;
 
@@ -28,7 +27,7 @@ const StyledLoaderBar = styled.div`
   ${({ size, theme }) => css`
     display: inline-block;
     height: ${getHeight(size)};
-    width: ${OUTER_BAR_LENGTH};
+    width: 100%;
     background-color: ${theme.colors.loadingBarBackground};
     overflow: hidden;
     position: relative;

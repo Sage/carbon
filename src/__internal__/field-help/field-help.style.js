@@ -4,9 +4,9 @@ import BaseTheme from "../../style/themes/base";
 
 const FieldHelpStyle = styled.span`
   display: block;
+  flex: 1;
   margin-top: 8px;
   white-space: pre-wrap;
-  width: 100%;
 
   ${({ labelInline, labelWidth }) =>
     labelInline &&

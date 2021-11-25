@@ -3,6 +3,8 @@ import mint from "../mint/index";
 
 export default {
   ...mint,
-  ...tokens,
-  name: "sage",
+  compatibility: {
+    ...tokens,
+  },
+  name: "sage (experimental)",
 };

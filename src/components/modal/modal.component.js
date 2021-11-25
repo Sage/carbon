@@ -24,6 +24,7 @@ const Modal = ({
   const modalRegistered = useRef(false);
   const originalOverflow = useRef(undefined);
   const [isAnimationComplete, setAnimationComplete] = useState(false);
+  const [triggerRefocusFlag, setTriggerRefocusFlag] = useState(false);
 
   const setOverflow = useCallback(() => {
     if (
@@ -113,7 +114,7 @@ const Modal = ({
   const registerModal = useCallback(() => {
     /* istanbul ignore else */
     if (!modalRegistered.current) {
-      ModalManager.addModal(ref.current);
+      ModalManager.addModal(ref.current, setTriggerRefocusFlag);
 
       modalRegistered.current = true;
     }
@@ -181,7 +182,12 @@ const Modal = ({
         <TransitionGroup>
           {content && (
             <CSSTransition appear classNames="modal" timeout={timeout}>
-              <ModalContext.Provider value={{ isAnimationComplete }}>
+              <ModalContext.Provider
+                value={{
+                  isAnimationComplete,
+                  triggerRefocusFlag,
+                }}
+              >
                 {content}
               </ModalContext.Provider>
             </CSSTransition>

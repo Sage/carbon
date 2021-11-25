@@ -3,7 +3,8 @@ import { shallow, mount } from "enzyme";
 import MockDate from "mockdate";
 import DateRange from "./date-range.component";
 import Textbox from "../textbox/textbox.component";
-import { BaseDateInput } from "../date";
+import DateInput, { BaseDateInput } from "../date";
+import DatePicker from "../date/date-picker.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
@@ -16,16 +17,15 @@ import Tooltip from "../tooltip";
 jest.useFakeTimers();
 
 describe("DateRange", () => {
-  let wrapper,
-    startInput,
-    endInput,
-    customOnChange,
-    customOnBlur,
-    wrapperInstance;
+  let wrapper;
+  let startInput;
+  let endInput;
+  let customOnChange;
+  let customOnBlur;
 
   beforeEach(() => {
-    customOnChange = jasmine.createSpy();
-    customOnBlur = jasmine.createSpy();
+    customOnChange = jest.fn();
+    customOnBlur = jest.fn();
 
     wrapper = renderDateRange(
       {
@@ -41,11 +41,6 @@ describe("DateRange", () => {
     );
     startInput = wrapper.find(BaseDateInput).at(0);
     endInput = wrapper.find(BaseDateInput).at(1);
-
-    wrapperInstance = wrapper.instance();
-
-    spyOn(startInput.instance(), "handleBlur");
-    spyOn(endInput.instance(), "handleBlur");
   });
 
   testStyledSystemMargin((props) => (
@@ -98,38 +93,33 @@ describe("DateRange", () => {
       describe("when no onChange prop is passed in", () => {
         it("it does not call the passed in onChange function", () => {
           wrapper.setProps({ onChange: undefined });
-          const spy = spyOn(wrapperInstance, "buildCustomEvent");
           wrapper
             .find(BaseDateInput)
             .at(0)
             .find("input")
             .findWhere((n) => n.props().type !== "hidden")
             .simulate("change", { target: { value: "2016-11-16" } });
-
-          expect(spy).not.toHaveBeenCalled();
         });
       });
 
       describe("when no onBlur prop is passed in", () => {
         it("it does not call the passed in onChange function", () => {
           wrapper.setProps({ onBlur: undefined });
-          const spy = spyOn(wrapperInstance, "buildCustomEvent");
-          wrapperInstance._onBlur();
-          expect(spy).not.toHaveBeenCalled();
+          wrapper.find(DateInput).first().props().onBlur();
         });
       });
     });
 
     describe("when the user interacts with a date input", () => {
       it("does not fire an onBlur event when the startDate is focused", () => {
-        wrapper.instance().focusStart();
-        wrapper.instance()._onBlur();
+        wrapper.find(DateInput).first().props().onFocus();
+        wrapper.find(DateInput).first().props().onBlur();
         expect(customOnBlur).not.toHaveBeenCalled();
       });
 
       it("does not fire an onBlur event when the endDate is focused", () => {
-        wrapper.instance().focusEnd();
-        wrapper.instance()._onBlur();
+        wrapper.find(DateInput).last().props().onFocus();
+        wrapper.find(DateInput).last().props().onBlur();
         expect(customOnBlur).not.toHaveBeenCalled();
       });
     });
@@ -161,37 +151,53 @@ describe("DateRange", () => {
     });
   });
 
-  describe("startDate getter", () => {
-    it("returns the start date", () => {
-      expect(wrapperInstance.startDate).toEqual("2016-10-10");
+  describe("startValue", () => {
+    it("sets the value prop on the first input", () => {
+      expect(wrapper.find(DateInput).first().prop("value")).toEqual(
+        "2016-10-10"
+      );
     });
   });
 
-  describe("endDate getter", () => {
-    it("returns the end date", () => {
-      expect(wrapperInstance.endDate).toEqual("2016-11-11");
+  describe("endValue", () => {
+    it("sets the value prop on the last input", () => {
+      expect(wrapper.find(DateInput).last().prop("value")).toEqual(
+        "2016-11-11"
+      );
     });
   });
 
   describe("focusStart", () => {
     it("closes the other datepicker", () => {
-      const spy = spyOn(endInput.instance(), "closeDatePicker");
-      wrapperInstance.focusStart();
-      expect(spy).toHaveBeenCalled();
+      simulateFocusOnInput(wrapper.find(DateInput).last());
+      expect(
+        wrapper.update().find(DateInput).last().find(DatePicker).exists()
+      ).toBeTruthy();
+
+      wrapper.find(DateInput).first().props().onFocus();
+      expect(
+        wrapper.update().find(DateInput).last().find(DatePicker).exists()
+      ).toBeFalsy();
     });
   });
 
   describe("endDate", () => {
     it("closes the other datepicker", () => {
-      const spy = spyOn(startInput.instance(), "closeDatePicker");
-      wrapperInstance.focusEnd();
-      expect(spy).toHaveBeenCalled();
+      simulateFocusOnInput(wrapper.find(DateInput).first());
+      expect(
+        wrapper.update().find(DateInput).first().find(DatePicker).exists()
+      ).toBeTruthy();
+
+      wrapper.find(DateInput).last().props().onFocus();
+      expect(
+        wrapper.update().find(DateInput).first().find(DatePicker).exists()
+      ).toBeFalsy();
     });
   });
 
   describe("render", () => {
     beforeEach(() => {
-      customOnChange = jasmine.createSpy();
+      customOnChange = jest.fn();
       wrapper = renderDateRange(
         {
           onChange: customOnChange,
@@ -348,16 +354,15 @@ describe("DateRange", () => {
     });
 
     describe("on internal elements", () => {
-      customOnChange = jasmine.createSpy();
-      wrapper = renderDateRange({ onChange: customOnChange }, mount);
+      customOnChange = jest.fn();
+      wrapper = renderDateRange({ onChange: customOnChange }, shallow);
 
-      // FIXME: FE-4221
-      // elementsTagTest(wrapper, ["start-date", "end-date"]);
       it(`include 'data-element="start-date"'`, () => {
         expect(
           wrapper.find('DateInput[data-element="start-date"]').exists()
         ).toBeTruthy();
       });
+
       it(`include 'data-element="start-date"'`, () => {
         expect(
           wrapper.find('DateInput[data-element="end-date"]').exists()
@@ -468,4 +473,12 @@ function renderDateRange(props, renderer = shallow) {
   return renderer(
     <DateRange value={["2016-10-10", "2016-11-11"]} {...props} />
   );
+}
+
+function simulateFocusOnInput(container) {
+  const input = container
+    .find("input")
+    .findWhere((n) => n.props().type !== "hidden");
+
+  input.simulate("focus");
 }
