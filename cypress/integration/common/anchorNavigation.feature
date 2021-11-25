@@ -2,13 +2,12 @@ Feature: Anchor Navigation component
   I want to test Anchor Navigation component properties
 
   Background: Open Anchor Navigation component page
-    Given I open "Test AnchorNavigation" component page "in full screen dialog"
-      And I open component preview
+    Given I open "Test AnchorNavigation" component page "default"
 
   @positive
   Scenario Outline: Press on <tab> tab and scroll to the <index> anchor navigation
     When I click onto "<tab>" tab
-      And I wait 1000
+      And I wait 250
     Then "<index>" anchor navigation section is visible
     Examples:
       | tab                                  | index          |
