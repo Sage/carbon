@@ -1,3 +1,4 @@
+import tokens from "@sage/design-tokens/js/base/common";
 import atOpacity from "../../utils/at-opacity";
 
 export default (palette) => {
@@ -391,6 +392,47 @@ export default (palette) => {
       fullScreenModal: 5000,
       notification: 6000,
       aboveAll: 9999,
+    },
+
+    get compatibility() {
+      return {
+        ...tokens,
+
+        colorsActionMajor500: this.colors.primary,
+        colorsActionMajor600: this.colors.secondary,
+
+        colorsActionDisabled500: this.disabled.background,
+
+        colorsSemanticFocus500: this.colors.focus,
+
+        colorsSemanticPositive500: this.colors.success,
+
+        colorsSemanticNegative500: this.colors.error,
+        colorsSemanticNegative600: this.colors.destructive.hover,
+
+        colorsSemanticCaution500: this.colors.warning,
+
+        colorsSemanticInfo500: this.colors.info,
+
+        spacing000: `${this.space[0]}px`, // 0px
+        spacing025: "2px",
+        spacing050: "4px",
+        spacing075: "6px",
+        spacing100: `${this.space[1]}px`, // 8px
+        spacing125: "10px",
+        spacing150: "12px",
+        spacing200: `${this.space[2]}px`, // 16px
+        spacing250: "20px",
+        spacing300: `${this.space[3]}px`, // 24px
+        spacing400: `${this.space[4]}px`, // 32px
+        spacing500: `${this.space[5]}px`, // 40px
+        spacing600: `${this.space[6]}px`, // 48px
+        spacing700: `${this.space[7]}px`, // 56px
+        spacing800: `${this.space[8]}px`, // 64px
+        spacing900: `${this.space[9]}px`, // 72px
+
+        fontSizes100: this.text.size,
+      };
     },
   };
 };
