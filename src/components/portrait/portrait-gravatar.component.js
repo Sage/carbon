@@ -5,10 +5,15 @@ import MD5 from "crypto-js/md5";
 import { StyledPortraitGravatar } from "./portrait.style";
 import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
 
-class PortraitGravatar extends React.Component {
-  /** Generates the Gravatar URL for the specified email address and dimensions. */
-  gravatarSrc() {
-    const { gravatarEmail, size } = this.props;
+const PortraitGravatar = ({
+  gravatarEmail,
+  size,
+  alt,
+  shape,
+  errorCallback,
+  ...rest
+}) => {
+  const gravatarSrc = () => {
     const { dimensions } = PORTRAIT_SIZE_PARAMS[size];
     const base = "https://www.gravatar.com/avatar/";
     const hash = MD5(gravatarEmail.toLowerCase());
@@ -16,24 +21,20 @@ class PortraitGravatar extends React.Component {
 
     /** @see https://en.gravatar.com/site/implement/images/#default-image */
     return `${base}${hash}?s=${dimensions}&d=${fallbackOption}`;
-  }
+  };
 
-  /** Renders the component. */
-  render() {
-    const { alt, size, shape, errorCallback, ...otherProps } = this.props;
-    return (
-      <StyledPortraitGravatar
-        src={this.gravatarSrc()}
-        alt={alt}
-        size={size}
-        shape={shape}
-        onError={errorCallback}
-        data-element="user-image"
-        {...otherProps}
-      />
-    );
-  }
-}
+  return (
+    <StyledPortraitGravatar
+      src={gravatarSrc()}
+      alt={alt}
+      size={size}
+      shape={shape}
+      onError={errorCallback}
+      data-element="user-image"
+      {...rest}
+    />
+  );
+};
 
 PortraitGravatar.propTypes = {
   /** The theme to use. */

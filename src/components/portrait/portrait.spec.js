@@ -1,5 +1,4 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
 import ReactTestUtils from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
@@ -39,19 +38,17 @@ const mockDocumentWithCanvas = {
 };
 
 function renderDLS(element) {
-  return TestRenderer.create(
+  return mount(
     <ThemeProvider theme={carbonThemeList[0]}>{element}</ThemeProvider>
   );
 }
 
 function renderFindTypeSuccess(element, type, expectedProps) {
-  expect(renderDLS(element).root.findByType(type).props).toMatchObject(
-    expectedProps
-  );
+  expect(renderDLS(element).find(type).props()).toMatchObject(expectedProps);
 }
 
 function renderFindTypeFail(element, type) {
-  expect(renderDLS(element).root.findAllByType(type)).toHaveLength(0);
+  expect(renderDLS(element).find(type)).toHaveLength(0);
 }
 
 describe("PortraitComponent", () => {
@@ -136,39 +133,28 @@ describe("PortraitComponent", () => {
   });
 
   describe("render icon", () => {
-    const expectedProps = {
-      type: "individual",
-      size: "XXL",
-      shape: "square",
-      darkBackground: false,
-    };
-    const expectedCustomIconProps = {
-      type: "image",
-      size: "XXL",
-      shape: "square",
-      darkBackground: false,
-    };
-
-    const testSuccess = (element) =>
-      renderFindTypeSuccess(element, StyledIcon, expectedProps);
-    const testCustomIconSuccess = (element) =>
-      renderFindTypeSuccess(element, StyledIcon, expectedCustomIconProps);
     const testFail = (element) => renderFindTypeFail(element, StyledIcon);
 
     it("renders icon when not supplied with Gravatar or src or initials", () => {
-      testSuccess(
+      const wrapper = mount(
         <Portrait size="XXL" shape="square" darkBackground={false} />
+      );
+      expect(wrapper.find(StyledIcon).props()).toEqual(
+        expect.objectContaining({ type: "individual", size: "XXL" })
       );
     });
 
     it("renders specified icon when not supplied with Gravatar, src or initials", () => {
-      testCustomIconSuccess(
+      const wrapper = mount(
         <Portrait
           size="XXL"
           shape="square"
           darkBackground={false}
           iconType="image"
         />
+      );
+      expect(wrapper.find(StyledIcon).props()).toEqual(
+        expect.objectContaining({ type: "image", size: "XXL" })
       );
     });
 
@@ -419,45 +405,21 @@ describe("PortraitComponent", () => {
 
   describe("external images", () => {
     it("can handle an error when the Gravatar doesn't exist", () => {
-      const rendered = ReactTestUtils.renderIntoDocument(
-        <Portrait gravatar="example@example.com" />
-      );
-      const img = ReactTestUtils.findRenderedDOMComponentWithTag(
-        rendered,
-        "img"
-      ); // Finds <StyledPortraitGravatar>
-      expect(rendered.state.externalError).toBe(false);
-      ReactTestUtils.Simulate.error(img); // Triggers `onError` of <StyledPortraitGravatar>
-      expect(rendered.state.externalError).toBe(true);
+      const wrapper = mount(<Portrait gravatar="example@example.com" />);
+      expect(wrapper.find(PortraitGravatar).exists()).toBeTruthy();
+      ReactTestUtils.Simulate.error(
+        wrapper.find(PortraitGravatar).getDOMNode()
+      ); // Triggers `onError` of <StyledPortraitGravatar>
+      wrapper.update();
+      expect(wrapper.find(PortraitGravatar).exists()).toBeFalsy();
     });
 
     it("can handle an error when the custom image doesn't exist", () => {
-      const rendered = ReactTestUtils.renderIntoDocument(
-        <Portrait src="https://example.com/example.jpg" />
-      );
-      const img = ReactTestUtils.findRenderedDOMComponentWithTag(
-        rendered,
-        "img"
-      ); // Finds <StyledCustomImg>
-      expect(rendered.state.externalError).toBe(false);
-      ReactTestUtils.Simulate.error(img); // Triggers `onError` of <StyledCustomImg>
-      expect(rendered.state.externalError).toBe(true);
-    });
-
-    it("resets the error state when the Gravatar is changed", () => {
-      const wrapper = shallow(<Portrait gravatar="example@example.com" />);
-      wrapper.setState({ externalError: true });
-      wrapper.setProps({ gravatar: "test@test.com" });
-      expect(wrapper.state().externalError).toBe(false);
-    });
-
-    it("resets the error state when the custom image src is changed", () => {
-      const wrapper = shallow(
-        <Portrait src="https://example.com/example.jpg" />
-      );
-      wrapper.setState({ externalError: true });
-      wrapper.setProps({ src: "https://test.com/test.jpg" });
-      expect(wrapper.state().externalError).toBe(false);
+      const wrapper = mount(<Portrait src="https://example.com/example.jpg" />);
+      expect(wrapper.find(StyledCustomImg).exists()).toBeTruthy();
+      ReactTestUtils.Simulate.error(wrapper.find(StyledCustomImg).getDOMNode()); // Triggers `onError` of <StyledCustomImg>
+      wrapper.update();
+      expect(wrapper.find(StyledCustomImg).exists()).toBeFalsy();
     });
   });
 
@@ -475,7 +437,7 @@ describe("PortraitComponent", () => {
     describe("includes user-image tag on internal elements when there is an image", () => {
       const rendered = renderDLS(<Portrait src={imageUrl} />);
       expect(
-        rendered.root.findAllByProps({ "data-element": "user-image" }).length
+        rendered.find({ "data-element": "user-image" }).length
       ).toBeGreaterThan(0);
     });
   });

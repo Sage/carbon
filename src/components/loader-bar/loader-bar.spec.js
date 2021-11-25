@@ -21,7 +21,7 @@ describe("LoaderBar", () => {
       assertStyleMatch(
         {
           backgroundColor: baseTheme.colors.loadingBarBackground,
-          width: "256px",
+          width: "100%",
           height: "8px",
         },
         wrapper.find(StyledLoaderBar)
@@ -45,7 +45,7 @@ describe("LoaderBar", () => {
     });
     it("applies proper width and height to outer bar", () => {
       assertStyleMatch(
-        { width: "256px", height: "4px" },
+        { width: "100%", height: "4px" },
         wrapper.find(StyledLoaderBar)
       );
     });
@@ -63,7 +63,7 @@ describe("LoaderBar", () => {
     });
     it("applies proper width and height to outer bar", () => {
       assertStyleMatch(
-        { width: "256px", height: "16px" },
+        { width: "100%", height: "16px" },
         wrapper.find(StyledLoaderBar)
       );
     });

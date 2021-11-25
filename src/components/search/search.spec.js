@@ -531,6 +531,40 @@ describe("Search", () => {
     });
   });
 
+  describe("tab index should be set on search button", () => {
+    it("when input field is not empty", () => {
+      wrapper = renderWrapper(
+        {
+          defaultValue: "Bar",
+          id: "Search",
+          name: "Search",
+          searchButton: true,
+        },
+        mount
+      );
+      const searchButton = wrapper.find(Button);
+      expect(searchButton.prop("tabIndex")).toEqual(0);
+    });
+  });
+
+  describe("tab index should not be set on search button", () => {
+    it("when input field has focus and is empty", () => {
+      wrapper = renderWrapper(
+        {
+          defaultValue: "",
+          id: "Search",
+          name: "Search",
+          searchButton: true,
+        },
+        mount
+      );
+      const input = wrapper.find("input");
+      input.simulate("focus");
+      const searchButton = wrapper.find(Button);
+      expect(searchButton.prop("tabIndex")).toEqual(-1);
+    });
+  });
+
   describe("when typing into the input", () => {
     const stopPropagationFn = jest.fn();
 

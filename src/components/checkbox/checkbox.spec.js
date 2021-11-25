@@ -16,13 +16,19 @@ import {
 } from "../../__spec_helper__/test-utils";
 import Label from "../../__internal__/label";
 import Tooltip from "../tooltip";
+import StyledHelp from "../help/help.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
 function render(props, renderer = mount, options = {}) {
   return renderer(
-    <Checkbox name="my-checkbox" value="test" {...props} />,
+    <Checkbox
+      onChange={props.checked !== undefined ? () => {} : undefined}
+      name="my-checkbox"
+      value="test"
+      {...props}
+    />,
     options
   );
 }
@@ -505,6 +511,19 @@ describe("Checkbox", () => {
       const tooltip = wrapper.find(Tooltip);
 
       expect(tooltip.prop("message")).toEqual(text);
+    });
+  });
+
+  describe("helpAriaLabel", () => {
+    it("should set the aria-label on the Help component", () => {
+      const text = "foo";
+      const wrapper = render(
+        { label: "foo", labelHelp: text, helpAriaLabel: text },
+        mount
+      );
+      const help = wrapper.find(StyledHelp);
+
+      expect(help.prop("aria-label")).toEqual(text);
     });
   });
 

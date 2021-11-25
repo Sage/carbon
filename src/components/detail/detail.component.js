@@ -14,67 +14,29 @@ import {
 
 const marginPropTypes = filterStyledSystemMarginProps(styledSystemPropTypes);
 
-class Detail extends React.Component {
-  /**
-   * Returns the markup for the icon if one if specified.
-   *
-   * @method icon
-   * @return {Object} JSX
-   */
-  icon = () => {
-    if (!this.props.icon) {
-      return null;
-    }
+const Detail = ({ className, icon, footnote, children, ...rest }) => {
+  const marginProps = filterStyledSystemMarginProps(rest);
 
-    return <StyledDetailIcon type={this.props.icon} data-element="icon" />;
-  };
+  return (
+    <StyledDetail
+      className={classNames("carbon-detail", className)}
+      hasIcon={icon}
+      {...tagComponent("detail", rest)}
+      {...marginProps}
+    >
+      {icon && <StyledDetailIcon type={icon} data-element="icon" />}
+      <StyledDetailContent data-element="detail-content" hasIcon={icon}>
+        {children}
+      </StyledDetailContent>
 
-  /**
-   * Returns the markup for the footnote if one if specified.
-   *
-   * @method footnote
-   * @return {Object} JSX
-   */
-  footnote = () => {
-    if (!this.props.footnote) {
-      return null;
-    }
-
-    return (
-      <StyledDetailFootnote data-element="footnote" hasIcon={this.props.icon}>
-        {this.props.footnote}
-      </StyledDetailFootnote>
-    );
-  };
-
-  /**
-   * @method render
-   * @return {Object} JSX
-   */
-  render() {
-    const marginProps = filterStyledSystemMarginProps(this.props);
-
-    return (
-      <StyledDetail
-        className={classNames("carbon-detail", this.props.className)}
-        hasIcon={this.props.icon}
-        {...tagComponent("detail", this.props)}
-        {...marginProps}
-      >
-        {this.icon()}
-
-        <StyledDetailContent
-          data-element="detail-content"
-          hasIcon={this.props.icon}
-        >
-          {this.props.children}
-        </StyledDetailContent>
-
-        {this.footnote()}
-      </StyledDetail>
-    );
-  }
-}
+      {footnote && (
+        <StyledDetailFootnote data-element="footnote" hasIcon={icon}>
+          {footnote}
+        </StyledDetailFootnote>
+      )}
+    </StyledDetail>
+  );
+};
 
 Detail.propTypes = {
   ...marginPropTypes,
@@ -84,7 +46,7 @@ Detail.propTypes = {
   className: PropTypes.string,
 
   /**
-   * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
+   * <a href="https://carbon.sage.com/?path=/docs/icon--list-of-icons#list-of-icons" target="_blank">List of supported icons</a>
    *
    * The type of icon to use.
    */

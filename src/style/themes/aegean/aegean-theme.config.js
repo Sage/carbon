@@ -21,5 +21,12 @@ export default (palette) => {
     stepSequence: {
       completedText: palette.productBlueShade(23),
     },
+
+    get compatibility() {
+      return {
+        colorsActionMajor500: this.colors.primary,
+        colorsActionMajor600: this.colors.secondary,
+      };
+    },
   };
 };

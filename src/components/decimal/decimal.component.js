@@ -325,6 +325,8 @@ Decimal.propTypes = {
    * Override the locale string, default from I18nProvider
    */
   locale: PropTypes.string,
+  /** Aria label for rendered help component */
+  helpAriaLabel: PropTypes.string,
 };
 
 Decimal.defaultProps = {

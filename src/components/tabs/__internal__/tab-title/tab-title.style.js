@@ -86,10 +86,7 @@ const StyledTitleContent = styled.div`
     css`
       font-size: 16px;
       padding: 22px 24px;
-      ${!isTabSelected &&
-      !alternateStyling &&
-      (error || warning || info) &&
-      `margin-right: -2px;`}
+      ${!isTabSelected && !alternateStyling && error && `margin-right: -2px;`}
     `}
 
     ${size === "default" &&
@@ -105,7 +102,7 @@ const StyledTitleContent = styled.div`
       ${position === "left" &&
       !isTabSelected &&
       !alternateStyling &&
-      (error || warning || info) &&
+      error &&
       `margin-right: -2px;`}
     `}
   `}
@@ -394,10 +391,6 @@ const StyledTabTitle = styled.li`
       `
     }
 
-    &:focus {
-      outline: ${isInSidebar ? "none;" : `2px solid ${theme.colors.focus};`}
-    }
-
     &:hover {
       background-color: ${theme.colors.white};
       border-bottom-color: ${
@@ -407,6 +400,13 @@ const StyledTabTitle = styled.li`
       }
       color: ${theme.text.color};
       cursor: default;
+    }
+  `}
+
+  ${({ theme, isInSidebar }) => `
+    &:focus {
+      outline: ${isInSidebar ? "none;" : `2px solid ${theme.colors.focus};`}
+      z-index: 1;
     }
   `}
   
@@ -419,22 +419,24 @@ const StyledTabTitle = styled.li`
     error,
     warning,
     info,
+    isInSidebar,
   }) =>
     position === "left" &&
     css`
       background-color: transparent;
       border-bottom: 0px;
 
+      ${!isInSidebar &&
+      css`
+        border-right: ${alternateStyling ? "1px" : "2px"} solid
+          ${theme.tab.background};
+      `}
+
       ${!borders &&
       css`
         ${StyledTitleContent} {
           border-bottom: none;
         }
-      `}
-
-      ${!alternateStyling &&
-      css`
-        border-right: 2px solid ${theme.tab.background};
       `}
 
       display: block;
@@ -448,6 +450,11 @@ const StyledTabTitle = styled.li`
       &:hover {
         ${alternateStyling && `border-right-color: ${theme.tab.background};`}
       }
+
+      ${(warning || info) &&
+      css`
+        border-right: none;
+      `}
 
       ${({ isTabSelected }) =>
         isTabSelected &&

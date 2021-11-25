@@ -13,6 +13,7 @@ import baseTheme from "../../style/themes/base";
 import mintTheme from "../../style/themes/mint";
 import RadioButtonStyle from "./radio-button.style";
 import Tooltip from "../tooltip";
+import StyledHelp from "../help/help.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -218,5 +219,24 @@ describe("RadioButton", () => {
       mount(<RadioButtonStyle inline />),
       { modifier: "&:not(:first-of-type)" }
     );
+  });
+
+  describe("helpAriaLabel", () => {
+    it("should set the aria-label on the Help component", () => {
+      const text = "foo";
+
+      const { "aria-label": ariaLabel } = mount(
+        <RadioButton
+          value="foo"
+          label={text}
+          labelHelp={text}
+          helpAriaLabel={text}
+        />
+      )
+        .find(StyledHelp)
+        .props();
+
+      expect(ariaLabel).toEqual(text);
+    });
   });
 });

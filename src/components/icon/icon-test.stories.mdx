@@ -2,11 +2,10 @@ import { Meta, Story, Preview } from "@storybook/addon-docs";
 
 import {
   ICONS,
-  ICON_BACKGROUNDS,
-  ICON_COLORS,
   ICON_SHAPES,
   ICON_SIZES,
   ICON_TOOLTIP_POSITIONS,
+  ICON_FONT_SIZES,
 } from "./icon-config";
 import Icon from ".";
 
@@ -37,14 +36,8 @@ import Icon from ".";
         type: "select",
       },
     },
-    bgTheme: {
-      options: ICON_BACKGROUNDS,
-      control: {
-        type: "select",
-      },
-    },
     fontSize: {
-      options: ICON_SIZES,
+      options: ICON_FONT_SIZES,
       control: {
         type: "select",
       },
@@ -57,12 +50,6 @@ import Icon from ".";
     },
     bgShape: {
       options: ICON_SHAPES,
-      control: {
-        type: "select",
-      },
-    },
-    iconColor: {
-      options: ICON_BACKGROUNDS,
       control: {
         type: "select",
       },
@@ -89,34 +76,20 @@ export const IconAllStory = () => (
       ))
     )}
     {[true, false].map((disabled) =>
-      ICON_SIZES.map((fontSize) =>
-        ICON_BACKGROUNDS.map((bgTheme) => {
-          if (bgTheme !== "none") {
-            return ICON_SHAPES.map((bgShape) => {
-              return ICON_SIZES.map((bgSize) => (
-                <Icon
-                  type="add"
-                  disabled={disabled}
-                  key={`${fontSize}_${disabled}_${bgTheme}_${bgShape}_${bgSize}`}
-                  fontSize={fontSize}
-                  bgTheme={bgTheme}
-                  bgShape={bgShape}
-                  bgSize={bgSize}
-                />
-              ));
-            });
-          }
-          return ICON_COLORS.map((iconColor) => (
+      ICON_SIZES.map((fontSize) => {
+        return ICON_SHAPES.map((bgShape) => {
+          return ICON_SIZES.map((bgSize) => (
             <Icon
               type="add"
               disabled={disabled}
-              key={`${fontSize}_${disabled}_${bgTheme}_${iconColor}`}
-              bgTheme={iconColor === "on-dark-background" ? "info" : bgTheme}
-              iconColor={iconColor}
+              key={`${fontSize}_${disabled}_${bgShape}_${bgSize}`}
+              fontSize={fontSize}
+              bgShape={bgShape}
+              bgSize={bgSize}
             />
           ));
-        })
-      )
+        });
+      })
     )}
     {/* Custom colors */}
     <Icon type="add" color="blackOpacity65" />
@@ -147,7 +120,6 @@ export const IconAllStory = () => (
       tooltipBgColor: "",
       tooltipFontColor: "",
       tooltipFlipOverrides: "right",
-      bgTheme: "none",
       fontSize: Icon.defaultProps.fontSize,
       ml: 0,
       mr: 0,
@@ -155,7 +127,6 @@ export const IconAllStory = () => (
       bg: "",
       bgSize: Icon.defaultProps.bgSize,
       bgShape: "circle",
-      iconColor: "default",
       disabled: Icon.defaultProps.disabled,
     }}
   >

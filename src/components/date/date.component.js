@@ -524,6 +524,7 @@ class BaseDateInput extends React.Component {
           inputRef={this.assignInput}
           adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
           tooltipPosition={tooltipPosition}
+          helpAriaLabel={this.props.helpAriaLabel}
           {...events}
         />
         {this.renderHiddenInput()}

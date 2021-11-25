@@ -5,11 +5,8 @@ import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledIcon from "./icon.style";
 import Tooltip from "../tooltip";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import Logger from "../../__internal__/utils/logger";
 import { ICON_TOOLTIP_POSITIONS } from "./icon-config";
 import { TooltipContext } from "../../__internal__/tooltip-provider";
-
-let deprecatedWarnTriggered = false;
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -21,12 +18,10 @@ const Icon = React.forwardRef(
       bg,
       bgShape,
       bgSize,
-      bgTheme,
       className,
       color,
       disabled,
       fontSize,
-      iconColor,
       type,
       tooltipMessage,
       tooltipPosition,
@@ -37,16 +32,13 @@ const Icon = React.forwardRef(
       tabIndex,
       isPartOfInput,
       inputSize,
+      role,
+      ariaLabel,
+      focusable = true,
       ...rest
     },
     ref
   ) => {
-    if (!deprecatedWarnTriggered && (iconColor || bgTheme)) {
-      deprecatedWarnTriggered = true;
-      Logger.deprecate(
-        "`iconColor` and `bgTheme` props are deprecated and will soon be removed"
-      );
-    }
     const isInteractive = !!tooltipMessage && !disabled;
 
     /** Return Icon type with overrides */
@@ -69,18 +61,18 @@ const Icon = React.forwardRef(
       }
     };
 
+    const hasTooltip = !disabled && tooltipMessage && focusable;
+
     const styleProps = {
       bg,
-      bgTheme,
       bgSize,
       bgShape,
       color,
       disabled,
       fontSize,
       isInteractive,
-      iconColor,
-      tabIndex,
       type: iconType(),
+      tabIndex: hasTooltip && tabIndex === undefined ? 0 : tabIndex,
       ...filterStyledSystemMarginProps(rest),
     };
 
@@ -92,6 +84,9 @@ const Icon = React.forwardRef(
         data-element={iconType()}
         {...tagComponent("icon", rest)}
         {...styleProps}
+        hasTooltip={hasTooltip}
+        aria-label={ariaLabel}
+        role={hasTooltip && role === undefined ? "tooltip" : role}
       />
     );
 
@@ -147,27 +142,11 @@ Icon.propTypes = {
   ]),
   /** Background shape */
   bgShape: PropTypes.oneOf(["circle", "rounded-rect", "square"]),
-  /** Background color theme */
-  bgTheme: PropTypes.oneOf([
-    "info",
-    "error",
-    "success",
-    "warning",
-    "business",
-    "none",
-  ]),
   /** Icon font size */
   fontSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
-  /** Icon color */
-  iconColor: PropTypes.oneOf([
-    "default",
-    "on-light-background",
-    "on-dark-background",
-    "business-color",
-  ]),
-  /** Override iconColor, provide any color from palette or any valid css color value. */
+  /** Icon colour, provide any color from palette or any valid css color value. */
   color: PropTypes.string,
-  /** Override bgTheme, provide any color from palette or any valid css color value. */
+  /** Background colour, provide any color from palette or any valid css color value. */
   bg: PropTypes.string,
   /** Sets the icon in the disabled state */
   disabled: PropTypes.bool,
@@ -207,7 +186,9 @@ Icon.propTypes = {
   /** @ignore @private */
   inputSize: PropTypes.oneOf(["small", "medium", "large"]),
   /** @ignore @private */
-  tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.number]),
+  tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** @ignore @private */
+  focusable: PropTypes.bool,
 };
 
 Icon.defaultProps = {

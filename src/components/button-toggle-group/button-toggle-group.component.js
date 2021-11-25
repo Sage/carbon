@@ -9,6 +9,7 @@ import RadioButtonMapper from "../radio-button/radio-button-mapper.component";
 import ValidationIcon from "../../__internal__/validations/validation-icon.component";
 import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -36,6 +37,7 @@ const ButtonToggleGroup = ({
   "data-component": dataComponent,
   "data-element": dataElement,
   "data-role": dataRole,
+  helpAriaLabel,
   ...props
 }) => {
   const validationProps = {
@@ -45,46 +47,48 @@ const ButtonToggleGroup = ({
   };
 
   return (
-    <InputGroupBehaviour>
-      <FormField
-        useValidationIcon={validationOnLabel}
-        label={label}
-        labelHelp={labelHelp}
-        labelSpacing={labelSpacing}
-        fieldHelp={fieldHelp}
-        fieldHelpInline={fieldHelpInline}
-        labelInline={labelInline}
-        labelWidth={labelWidth}
-        labelAlign={labelAlign}
-        data-component={dataComponent}
-        data-role={dataRole}
-        data-element={dataElement}
-        {...validationProps}
-        {...filterStyledSystemMarginProps(props)}
-      >
-        <ButtonToggleGroupStyle
-          aria-label={label}
-          role="group"
-          inputWidth={inputWidth}
+    <TooltipProvider helpAriaLabel={helpAriaLabel}>
+      <InputGroupBehaviour>
+        <FormField
+          useValidationIcon={validationOnLabel}
+          label={label}
+          labelHelp={labelHelp}
+          labelSpacing={labelSpacing}
+          fieldHelp={fieldHelp}
+          fieldHelpInline={fieldHelpInline}
+          labelInline={labelInline}
+          labelWidth={labelWidth}
+          labelAlign={labelAlign}
+          data-component={dataComponent}
+          data-role={dataRole}
+          data-element={dataElement}
           {...validationProps}
+          {...filterStyledSystemMarginProps(props)}
         >
-          <RadioButtonMapper
-            name={name}
-            onBlur={onBlur}
-            onChange={onChange}
-            value={value}
+          <ButtonToggleGroupStyle
+            aria-label={label}
+            role="group"
+            inputWidth={inputWidth}
+            {...validationProps}
           >
-            {children}
-          </RadioButtonMapper>
-          {!validationOnLabel && (
-            <ValidationIcon
-              {...validationProps}
-              tooltipFlipOverrides={["top", "bottom"]}
-            />
-          )}
-        </ButtonToggleGroupStyle>
-      </FormField>
-    </InputGroupBehaviour>
+            <RadioButtonMapper
+              name={name}
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+            >
+              {children}
+            </RadioButtonMapper>
+            {!validationOnLabel && (
+              <ValidationIcon
+                {...validationProps}
+                tooltipFlipOverrides={["top", "bottom"]}
+              />
+            )}
+          </ButtonToggleGroupStyle>
+        </FormField>
+      </InputGroupBehaviour>
+    </TooltipProvider>
   );
 };
 
@@ -155,6 +159,8 @@ ButtonToggleGroup.propTypes = {
   onBlur: PropTypes.func,
   /** The value of the Button Toggle Group */
   value: PropTypes.string,
+  /** Aria label for rendered help component */
+  helpAriaLabel: PropTypes.string,
 };
 
 ButtonToggleGroup.defaultProps = {

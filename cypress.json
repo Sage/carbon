@@ -12,9 +12,8 @@
   "failOnStatusCode": false,
   "ignoreTestFiles": [
     "**/examples/*",
-    "**/!(*.spec).js"
+    "**/!(*.test.js|*.feature)"
   ],
-  "integrationFolder": "cypress/features",
   "numTestsKeptInMemory": 1,
   "video": false,
   "viewportWidth": 1366,
