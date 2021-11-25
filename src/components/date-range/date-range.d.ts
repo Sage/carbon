@@ -81,6 +81,6 @@ export interface DateRangeProps extends MarginProps {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
-declare class DateRange extends React.Component<DateRangeProps> {}
+declare function DateRange(props: DateRangeProps): JSX.Element;
 
 export default DateRange;

@@ -78,6 +78,7 @@ const FlatTableBodyDraggable = ({ children, getOrder }) => {
               moveItem,
               findItem,
               draggable: true,
+              key: `${item.props.id}`,
             },
             [
               <FlatTableCell key={item.props.id}>

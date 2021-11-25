@@ -67,6 +67,7 @@ const Textbox = ({
   enforceCharacterLimit = true,
   characterLimit,
   warnOverLimit = false,
+  helpAriaLabel,
   ...props
 }) => {
   const [maxLength, characterCount] = useCharacterCount(
@@ -77,7 +78,10 @@ const Textbox = ({
   );
 
   return (
-    <TooltipProvider tooltipPosition={tooltipPosition}>
+    <TooltipProvider
+      helpAriaLabel={helpAriaLabel}
+      tooltipPosition={tooltipPosition}
+    >
       <InputBehaviour>
         <FormField
           disabled={disabled}
@@ -207,9 +211,9 @@ Textbox.propTypes = {
   onBlur: PropTypes.func,
   /** Event handler for the mouse down event */
   onMouseDown: PropTypes.func,
-  /** Defered callback called after the onChange event */
+  /** Deferred callback called after the onChange event */
   onChangeDeferred: PropTypes.func,
-  /** Integer to determine timeout for defered callback */
+  /** Integer to determine timeout for deferred callback */
   deferTimeout: PropTypes.number,
   /** Unique identifier for the input. Will use a randomly generated GUID if none is provided */
   id: PropTypes.string,
@@ -301,6 +305,8 @@ Textbox.propTypes = {
   characterLimit: PropTypes.string,
   /** Whether to display the character count message in red */
   warnOverLimit: PropTypes.bool,
+  /** Aria label for rendered help component */
+  helpAriaLabel: PropTypes.string,
 };
 
 Textbox.defaultProps = {

@@ -57,7 +57,7 @@ export interface CommonTextboxProps
   labelWidth?: number;
   /** Specify a callback triggered on change */
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
-  /** Defered callback to be called after the onChange event */
+  /** Deferred callback to be called after the onChange event */
   onChangeDeferred?: () => void;
   /** Specify a callback triggered on click */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
@@ -95,6 +95,8 @@ export interface CommonTextboxProps
   inputRef?: (input: React.RefObject<HTMLInputElement>) => void;
   /** Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /** Aria label for rendered help component */
+  helpAriaLabel?: string;
 }
 
 export interface TextboxProps extends CommonTextboxProps {

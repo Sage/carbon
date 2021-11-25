@@ -12,7 +12,7 @@ const PopoverContainerWrapperStyle = styled.div`
 const PopoverContainerIcon = styled(IconButton)`
   ${StyledIcon} {
     color: ${({ theme }) => theme.popoverContainer.iconColor};
-  } ;
+  }
 `;
 
 const PopoverContainerHeaderStyle = styled.div`
@@ -73,7 +73,7 @@ const PopoverContainerCloseIcon = styled(IconButton)`
 
   ${StyledIcon} {
     color: ${({ theme }) => theme.popoverContainer.iconColor};
-  } ;
+  }
 `;
 
 const PopoverContainerTitleStyle = styled.div`

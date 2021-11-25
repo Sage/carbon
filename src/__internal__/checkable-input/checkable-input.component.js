@@ -41,7 +41,7 @@ const CheckableInput = ({
   ...props
 }) => {
   const { current: id } = useRef(inputId || guid());
-  const labelId = `${id}-label`;
+  const labelId = label ? `${id}-label` : undefined;
   const helpId = [error, warning, info, labelHelp].filter(
     (validation) => typeof validation === "string"
   ).length

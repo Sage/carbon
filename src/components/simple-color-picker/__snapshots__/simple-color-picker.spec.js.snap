@@ -36,7 +36,6 @@ exports[`SimpleColorPicker renders as expected 1`] = `
 }
 
 .c11 {
-  display: inline-block;
   position: relative;
   color: #0073C1;
   background-color: transparent;

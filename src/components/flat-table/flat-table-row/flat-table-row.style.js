@@ -244,7 +244,7 @@ const StyledFlatTableRow = styled.tr`
         ${StyledFlatTableCell}:first-child > div,
         ${StyledFlatTableRowHeader}:first-child > div,
         ${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div {
-          ${StyledIcon} {
+          ${StyledIcon}[type="chevron_down_thick"]:first-of-type {
             transition: transform 0.3s;
             ${!isExpanded &&
             css`

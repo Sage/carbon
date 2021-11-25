@@ -70,9 +70,11 @@ export interface TextareaProps
   warnOverLimit?: boolean;
   /** Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /** Aria label for rendered help component */
+  helpAriaLabel?: string;
 }
 
-declare class Textarea extends React.Component<TextareaProps> {}
+declare function Textarea(props: TextareaProps): JSX.Element;
 
 export { Textarea as OriginalTextarea };
 export default Textarea;

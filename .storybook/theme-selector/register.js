@@ -23,7 +23,7 @@ addons.register("sage/theme-switcher", (api) => {
 const IconButtonWithLabel = styled(IconButton)`
   display: inline-flex;
   align-items: center;
-  width: 70px;
+  width: auto;
   cursor: ${({ disabled }) =>
     disabled ? "not-allowed" : "pointer"} !important;
   && {
@@ -47,6 +47,15 @@ export const ThemeSwitcher = memo(
   withTheme(({ api }) => {
     const [activeTheme, setTheme] = useState(getThemeName());
     const [expanded, setExpanded] = useState(false);
+
+    if (process.env.STORYBOOK_DEBUG_ALL_THEMES) {
+      modernThemes.all = {
+        colors: {
+          primary:
+            "linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet, red)",
+        },
+      };
+    }
 
     const themeList = Object.keys(modernThemes).map((themeName) => ({
       id: themeName,

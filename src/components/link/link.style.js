@@ -33,6 +33,7 @@ const StyledLink = styled.span`
       color: ${isSkipLink ? theme.text.color : theme.colors.primary};
       display: inline-block;
       ${StyledIcon} {
+        display: inline-block;
         position: relative;
         vertical-align: middle;
         ${iconAlign === "left" &&

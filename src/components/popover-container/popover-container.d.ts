@@ -22,6 +22,12 @@ export interface PopoverContainerProps extends PaddingProps {
   shouldCoverButton?: boolean;
   /** The id of the element that describe the dialog. */
   ariaDescribedBy?: string;
+  /** Open button aria label */
+  openButtonAriaLabel?: string;
+  /** Close button aria label */
+  closeButtonAriaLabel?: string;
+  /** Container aria label */
+  containerAriaLabel?: string;
 }
 
 declare function PopoverContainer(props: PopoverContainerProps): JSX.Element;

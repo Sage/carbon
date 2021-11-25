@@ -88,9 +88,10 @@ const SelectList = React.forwardRef(
       [anchorElement]
     );
 
-    const childrenList = useMemo(() => React.Children.toArray(children), [
-      children,
-    ]);
+    const childrenList = useMemo(
+      () => React.Children.toArray(children),
+      [children]
+    );
 
     const optionRefList = useMemo(
       () =>
@@ -309,7 +310,7 @@ const SelectList = React.forwardRef(
       }
 
       setListHeight(`${newHeight}px`);
-    }, [children]);
+    }, [children, listRef.current]);
 
     useEffect(() => {
       const keyboardEvent = "keydown";

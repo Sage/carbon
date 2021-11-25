@@ -34,9 +34,8 @@ const MultiActionButton = ({
   const listening = useRef(false);
   const isMainButtonFocused = useRef(false);
   const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
-  const [removeHandleClickOutside, setRemoveHandleClickOutside] = useState(
-    false
-  );
+  const [removeHandleClickOutside, setRemoveHandleClickOutside] =
+    useState(false);
   const [removeHandleKeyDown, setRemoveHandleKeyDown] = useState(false);
   const [minWidth, setMinWidth] = useState(0);
 
@@ -228,8 +227,8 @@ const MultiActionButton = ({
 
 MultiActionButton.propTypes = {
   ...marginPropTypes,
-  /** Button type: "primary" | "secondary". */
-  buttonType: PropTypes.oneOf(["primary", "secondary"]),
+  /** Button type: "primary" | "secondary" | "tertiary" */
+  buttonType: PropTypes.oneOf(["primary", "secondary", "tertiary"]),
 
   /** The additional button to display. */
   children: PropTypes.node.isRequired,
