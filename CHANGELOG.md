@@ -1,3 +1,16 @@
+## [101.2.0](https://github.com/Sage/carbon/compare/v101.1.0...v101.2.0) (2021-11-25)
+
+
+### Features
+
+* **icon-button:** add TooltipProvider and event handles to toggle Tooltip if child has one ([a242e97](https://github.com/Sage/carbon/commit/a242e976fd8c244fa1328f4b8ae44fa23ef16877)), closes [#4542](https://github.com/Sage/carbon/issues/4542)
+* **tooltip-provider:** add additional props to control tooltip behaviours of wrapped children ([90f0ec6](https://github.com/Sage/carbon/commit/90f0ec635cd619aa3d0c72028cf5dc1bb0eaa8a7))
+
+
+### Bug Fixes
+
+* **icon-button:** add missing aria-label to story ([6d5f1b5](https://github.com/Sage/carbon/commit/6d5f1b52b19177615ddaf266620264ffede4284c)), closes [#4552](https://github.com/Sage/carbon/issues/4552)
+
 ## [101.1.0](https://github.com/Sage/carbon/compare/v101.0.4...v101.1.0) (2021-11-25)
 
 
