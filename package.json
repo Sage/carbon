@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "101.0.4",
+  "version": "101.1.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -153,6 +153,7 @@
     "create-cypress-tests": "^1.1.1",
     "crypto-js": "~3.3.0",
     "dotenv": "^10.0.0",
+    "har-validator": "^5.1.5",
     "immutable": "~3.8.2",
     "invariant": "^2.2.4",
     "lodash": "^4.17.20",
