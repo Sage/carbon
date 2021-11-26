@@ -1,4 +1,7 @@
 {
-  "sandboxes": ["carbon-quickstart-xi5jc"],
+  "sandboxes": [
+    "carbon-quickstart-xi5jc",
+    "carbon-quickstart-typescript-2gt5y"
+  ],
   "buildCommand": "precompile"
 }
