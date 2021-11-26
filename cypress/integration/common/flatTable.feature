@@ -166,19 +166,19 @@ Feature: FlatTable component
   @positive
   Scenario: There is the correct tab order through the expandable rows
     Given I open "Flat Table Expandable" component page "default story"
-    When I hit Tab key 3 times
+    When I hit Tab key 4 times
     Then The third content row has focus
 
   @positive
   Scenario: There is the correct tab order when the row is expandable by first column only
     Given I open "Flat Table Expandable" component page "expandable by first column only"
-    When I hit Tab key 3 times
+    When I hit Tab key 4 times
     Then The first cell in the third content row has focus
 
   @positive
   Scenario Outline: You can open the row using the <key> key
     Given I open "Flat Table Expandable" component page "default story"
-    When I hit Tab key 1 time
+    When I hit Tab key 2 times
       And I press keyboard "<key>" key times 1
     Then The subrows are visible
     Examples:
@@ -189,7 +189,7 @@ Feature: FlatTable component
   @positive
   Scenario Outline: You can open and close the row using the <key> key
     Given I open "Flat Table Expandable" component page "default story"
-    When I hit Tab key 1 time
+    When I hit Tab key 2 times
       And I press keyboard "<key>" key times 2
     Then The subrows are not visible
     Examples:
@@ -200,7 +200,7 @@ Feature: FlatTable component
   @positive
   Scenario Outline: You can open the row using the <key> key when the table is set to expandable by first column only
     Given I open "Flat Table Expandable" component page "expandable by first column only"
-    When I hit Tab key 1 time
+    When I hit Tab key 2 times
       And I press keyboard "<key>" key times 1
     Then The subrows are visible
     Examples:
@@ -211,7 +211,7 @@ Feature: FlatTable component
   @positive
   Scenario Outline: You can open and close the row using the <key> key when the table is set to expandable by first column only
     Given I open "Flat Table Expandable" component page "expandable by first column only"
-    When I hit Tab key 1 time
+    When I hit Tab key 2 times
       And I press keyboard "<key>" key times 2
     Then The subrows are not visible
     Examples:
@@ -222,7 +222,7 @@ Feature: FlatTable component
   @positive
   Scenario: There is the correct tab order when there are multiple tabbable elements in a row
     Given I open "Flat Table Expandable" component page "both parent and children selectable"
-    When I hit Tab key 8 times
+    When I hit Tab key 9 times
     Then The second content row has focus
 
   @positive
@@ -234,7 +234,7 @@ Feature: FlatTable component
   @positive
   Scenario Outline: You can not navigate through the rows using the <key> arrow key
     Given I open "Flat Table Expandable" component page "both parent and children selectable"
-    When I hit Tab key 5 times
+    When I hit Tab key 6 times
       And I press keyboard "<key>" key times 1
     Then The first content row has focus
     Examples:
@@ -247,7 +247,7 @@ Feature: FlatTable component
   @positive
   Scenario: You can enter the sub rows using the keyboard
     Given I open "Flat Table Expandable" component page "both parent and children selectable"
-    When I hit Tab key 5 times
+    When I hit Tab key 6 times
       And I press keyboard "Enter" key times 1
       And I continue to hit Tab key 4 times
     Then The first subrow action popover has focus
@@ -255,7 +255,7 @@ Feature: FlatTable component
   @positive
   Scenario: You leave the subrows when pressing tab at the end of the subrows tabbable content
     Given I open "Flat Table Expandable" component page "both parent and children selectable"
-    When I hit Tab key 5 times
+    When I hit Tab key 6 times
       And I press keyboard "Enter" key times 1
       And I continue to hit Tab key 7 times
     Then The fourth content row has focus
