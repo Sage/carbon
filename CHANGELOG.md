@@ -1,3 +1,15 @@
+## [101.3.0](https://github.com/Sage/carbon/compare/v101.2.0...v101.3.0) (2021-11-26)
+
+
+### Features
+
+* **flat-table:** add overflow x prop and story ([faddf0f](https://github.com/Sage/carbon/commit/faddf0f582b6abe9881a0c1a70e2d01e0b0aafd6))
+
+
+### Bug Fixes
+
+* **flat-table:** make scrollable content accessible via keyboard ([ca44a6f](https://github.com/Sage/carbon/commit/ca44a6f13d9b6c3f0ceaeac6fef037e29faa563e)), closes [#4259](https://github.com/Sage/carbon/issues/4259)
+
 ## [101.2.0](https://github.com/Sage/carbon/compare/v101.1.0...v101.2.0) (2021-11-25)
 
 
