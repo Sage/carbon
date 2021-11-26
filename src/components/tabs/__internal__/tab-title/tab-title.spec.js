@@ -28,7 +28,7 @@ describe("TabTitle", () => {
         backgroundColor: "transparent",
         display: "inline-block",
         fontWeight: "bold",
-        height: "100%",
+        height: "40px",
       },
       render({}, mount).find(StyledTabTitle)
     );
@@ -131,7 +131,7 @@ describe("TabTitle", () => {
             marginLeft: "-1px",
           },
           wrapper.find(StyledTabTitle),
-          { modifier: ":not(:first-of-type)" }
+          { modifier: ":nth-of-type(n + 1)" }
         );
       });
 
@@ -148,7 +148,7 @@ describe("TabTitle", () => {
         );
 
         assertStyleMatch(
-          { paddingBottom: "6px" },
+          { paddingBottom: "9px" },
           wrapper.find(StyledTitleContent)
         );
 
@@ -203,7 +203,7 @@ describe("TabTitle", () => {
           backgroundColor: "transparent",
           borderBottom: "0px",
           borderRight: `2px solid ${baseTheme.tab.background}`,
-          display: "block",
+          display: "flex",
           height: "auto",
           marginLeft: "0px",
         },
@@ -224,6 +224,24 @@ describe("TabTitle", () => {
         },
         wrapper.find(StyledTabTitle),
         { modifier: ":first-child" }
+      );
+    });
+
+    it("renders as expected when `align='left'`", () => {
+      assertStyleMatch(
+        { justifyContent: "flex-start", textAlign: "left" },
+        render({ position: "left", align: "left" }, mount).find(
+          StyledTitleContent
+        )
+      );
+    });
+
+    it("renders as expected when `align='right'`", () => {
+      assertStyleMatch(
+        { justifyContent: "flex-end", textAlign: "right" },
+        render({ align: "right", position: "left" }, mount).find(
+          StyledTitleContent
+        )
       );
     });
 
@@ -261,7 +279,7 @@ describe("TabTitle", () => {
               marginTop: "-1px",
             },
             wrapper.find(StyledTabTitle),
-            { modifier: ":not(:first-of-type)" }
+            { modifier: ":nth-of-type(n + 1)" }
           );
 
           assertStyleMatch(
@@ -305,15 +323,6 @@ describe("TabTitle", () => {
         },
         wrapper.find(StyledTabTitle),
         { modifier: ":hover" }
-      );
-    });
-
-    it("applies proper styling when size is large", () => {
-      wrapper = render({ isTabSelected: true, size: "large" }, mount);
-
-      assertStyleMatch(
-        { paddingBottom: "6px" },
-        wrapper.find(StyledTitleContent)
       );
     });
 
@@ -420,29 +429,6 @@ describe("TabTitle", () => {
           paddingTop: "10px",
           paddingBottom: "10px",
         },
-        wrapper.find(StyledTitleContent)
-      );
-    });
-
-    it('adjusts padding when isTabSelected is true and position is "top"', () => {
-      wrapper = render(
-        {
-          title: "Tab 1",
-          siblings: [<span>foo</span>, <span>bar</span>],
-          titlePosition: "before",
-          isTabSelected: true,
-        },
-        mount
-      );
-
-      expect(wrapper.find(StyledTitleContent).props().hasSiblings).toEqual(
-        true
-      );
-      expect(
-        wrapper.find(StyledTitleContent).props().children[0][0].props.children
-      ).toEqual("Tab 1");
-      assertStyleMatch(
-        { paddingBottom: "8px" },
         wrapper.find(StyledTitleContent)
       );
     });
@@ -1077,7 +1063,10 @@ describe("TabTitle", () => {
         stopPropagation,
         target: { dataset: { tabid: "uniqueid1" } },
       };
-      wrapper = render({ onClick }, mount);
+      wrapper = render(
+        { onClick, ref: { current: { focus: jest.fn() } } },
+        mount
+      );
 
       wrapper
         .find(StyledTitleContent)
