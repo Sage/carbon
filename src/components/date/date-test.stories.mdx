@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import DateInput from "./date.component";
@@ -43,7 +43,7 @@ export const DateStory = (args) => {
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -56,4 +56,4 @@ export const DateStory = (args) => {
   >
     {DateStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

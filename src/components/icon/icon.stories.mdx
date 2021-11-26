@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -34,26 +34,26 @@ import Icon from "carbon-react/lib/components/icon";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Icon type="add" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     <Icon type="add" disabled />
   </Story>
-</Preview>
+</Canvas>
 
 ### With tooltip
 
 The Icon supports rendering tooltips internally, just pass a node to `tooltipMessage` to enable this feature. Other props,
 such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColor` and `tooltipFlipOverrides` are also surfaced.
 
-<Preview>
+<Canvas>
   <Story name="with tooltip" parameters={{ chromatic: { disable: true } }}>
     <div style={{ margin: 60, display: "inline" }}>
       <Icon
@@ -95,44 +95,44 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColo
       />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Various fontSizes
 
-<Preview>
+<Canvas>
   <Story name="various fontSizes">
     {["small", "medium", "large", "extra-large"].map((fontSize) => (
       <Icon type="add" fontSize={fontSize} key={fontSize} />
     ))}
   </Story>
-</Preview>
+</Canvas>
 
 ### Various bgShapes
 
-<Preview>
+<Canvas>
   <Story name="various bgShapes">
     {["circle", "rounded-rect", "square"].map((bgShape) => (
       <Icon type="add" bgShape={bgShape} bg="#00b000" mr={1} key={bgShape} />
     ))}
   </Story>
-</Preview>
+</Canvas>
 
 ### Various bgSizes
 
-<Preview>
+<Canvas>
   <Story name="various bgSizes">
     {["small", "medium", "large", "extra-large"].map((bgSize) => (
       <Icon type="add" bg="#00b000" bgSize={bgSize} mr={1} key={bgSize} />
     ))}
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom colors
 
 It's possible to change the color of the Icon by using the `color` prop or background color by `bg` prop.
 See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo> for more information.
 
-<Preview>
+<Canvas>
   <Story
     name="custom colors"
     parameters={{ info: { disable: true }, chromatic: { disable: true } }}
@@ -156,14 +156,14 @@ See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo>
       </Box>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ## List of icons
 
 Below is a comprehensive list of all the available icons in Carbon and their corresponding `type`.
 It's **required** that the `type` prop is specified (even if it's `"none"`).
 
-<Preview>
+<Canvas>
   <Story
     name="list of icons"
     parameters={{ info: { disable: true }, chromatic: { disable: true } }}
@@ -179,7 +179,7 @@ It's **required** that the `type` prop is specified (even if it's `"none"`).
       })}
     </Box>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

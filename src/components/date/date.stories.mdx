@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, ArgsTable } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -33,7 +33,7 @@ import DateInput from "carbon-react/lib/components/date";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [state, setState] = useState("2019-04-04");
@@ -50,11 +50,11 @@ import DateInput from "carbon-react/lib/components/date";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Sizes
 
-<Preview>
+<Canvas>
   <Story name="sizes">
     {() =>
       ["small", "medium", "large"].map((size) => (
@@ -68,11 +68,11 @@ import DateInput from "carbon-react/lib/components/date";
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### AutoFocus
 
-<Preview>
+<Canvas>
   <Story
     name="autoFocus"
     parameters={{
@@ -84,27 +84,27 @@ import DateInput from "carbon-react/lib/components/date";
       <DateInput label="Date" value="2016-10-01" autoFocus />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     <DateInput label="Date" value="2016-10-01" disabled />
   </Story>
-</Preview>
+</Canvas>
 
 ### ReadOnly
 
-<Preview>
+<Canvas>
   <Story name="readOnly">
     <DateInput label="Date" value="2016-10-01" readOnly />
   </Story>
-</Preview>
+</Canvas>
 
 ### Empty
 
-<Preview>
+<Canvas>
   <Story name="empty">
     {() => {
       const [date, setDate] = useState("");
@@ -130,27 +130,27 @@ import DateInput from "carbon-react/lib/components/date";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With labelInline
 
-<Preview>
+<Canvas>
   <Story name="with labelInline">
     <DateInput label="Date" value="2016-10-01" labelInline name="dateinput" />
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom labelWidth
 
-<Preview>
+<Canvas>
   <Story name="with custom labelWidth">
     <DateInput label="Date" value="2016-10-01" labelInline labelWidth={10} />
   </Story>
-</Preview>
+</Canvas>
 
 ### With fieldHelp
 
-<Preview>
+<Canvas>
   <Story name="with fieldHelp">
     <DateInput
       label="Date"
@@ -159,11 +159,11 @@ import DateInput from "carbon-react/lib/components/date";
       name="dateinput"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With labelHelp
 
-<Preview>
+<Canvas>
   <Story name="with labelHelp">
     <DateInput
       label="Date"
@@ -173,28 +173,28 @@ import DateInput from "carbon-react/lib/components/date";
       helpAriaLabel="Help"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With disabled portal
 
-<Preview>
+<Canvas>
   <Story
     name="with disabled portal"
     parameters={{ chromatic: { disable: true } }}
   >
     <DateInput label="Date" value="2016-10-01" disablePortal />
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="required">
     <DateInput label="Date" value="2016-10-01" required />
   </Story>
-</Preview>
+</Canvas>
 
 ### Validations
 
@@ -208,7 +208,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 #### As a string
 
-<Preview>
+<Canvas>
   <Story name="validations - string - component">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
@@ -230,11 +230,11 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
     parameters={{ chromatic: { disable: true } }}
@@ -253,11 +253,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 #### As a string, displayed on label
 
-<Preview>
+<Canvas>
   <Story name="validations - string - label">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
@@ -281,11 +281,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
     parameters={{ chromatic: { disable: true } }}
@@ -305,11 +305,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 #### As a boolean
 
-<Preview>
+<Canvas>
   <Story name="validations - boolean">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
@@ -329,7 +329,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

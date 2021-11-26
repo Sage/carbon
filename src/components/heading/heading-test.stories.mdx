@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
 import Heading from "./heading.component";
@@ -65,7 +65,7 @@ export const HeadingStory = ({
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -87,4 +87,4 @@ export const HeadingStory = ({
   >
     {HeadingStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

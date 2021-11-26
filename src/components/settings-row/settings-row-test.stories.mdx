@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
 import SettingsRow from ".";
@@ -39,7 +39,7 @@ export const SettingsRowStory = ({
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -55,4 +55,4 @@ export const SettingsRowStory = ({
   >
     {SettingsRowStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

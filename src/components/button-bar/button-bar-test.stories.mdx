@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 import Button from "../button";
 import ButtonBar from "./";
@@ -116,7 +116,7 @@ export const generateButtonBarsWithDifferentIconPositionsAndSizes = () => {
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     argTypes={commonArgTypesButtonBar}
@@ -124,11 +124,11 @@ export const generateButtonBarsWithDifferentIconPositionsAndSizes = () => {
   >
     {ButtonBarStory.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ### Visual
 
-<Preview>
+<Canvas>
   <Story
     name="visual"
     parameters={{
@@ -137,4 +137,4 @@ export const generateButtonBarsWithDifferentIconPositionsAndSizes = () => {
   >
     {generateButtonBarsWithDifferentIconPositionsAndSizes.bind({})}
   </Story>
-</Preview>
+</Canvas>

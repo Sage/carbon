@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, ArgsTable } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import { SimpleColorPicker, SimpleColor } from ".";
 import Box from "../box";
@@ -26,7 +26,7 @@ import SimpleColorPicker from "carbon-react/lib/components/simple-color-picker";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [state, setState] = useState("transparent");
@@ -64,11 +64,11 @@ import SimpleColorPicker from "carbon-react/lib/components/simple-color-picker";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     {() => {
       const [state, setState] = useState("transparent");
@@ -99,13 +99,13 @@ import SimpleColorPicker from "carbon-react/lib/components/simple-color-picker";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="required">
     {() => {
       const [state, setState] = useState("transparent");
@@ -136,7 +136,7 @@ You can use the `required` prop to indicate if the field is mandatory.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Validations
 
@@ -150,7 +150,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 #### As a string
 
-<Preview>
+<Canvas>
   <Story name="validations - string - component">
     {() => {
       const [state, setState] = useState("transparent");
@@ -183,11 +183,11 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### As a string, displayed on legend
 
-<Preview>
+<Canvas>
   <Story name="validations - string - label">
     {() => {
       const [state, setState] = useState("transparent");
@@ -221,11 +221,11 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### As a boolean
 
-<Preview>
+<Canvas>
   <Story name="validations - boolean">
     {() => {
       const [state, setState] = useState("transparent");
@@ -258,11 +258,11 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### With margin
 
-<Preview>
+<Canvas>
   <Story name="with margin">
     {() => {
       const [state, setState] = useState("transparent");
@@ -296,7 +296,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

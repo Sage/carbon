@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { useState } from "react";
 
 import VerticalDivider from ".";
@@ -58,7 +58,7 @@ export const Square = styled.div`
   background-color: ${({ theme }) => theme.colors.primary};
 `;
 
-<Preview>
+<Canvas>
   <Story name="default">
     <div style={{ display: "inline-flex" }}>
       <Square />
@@ -80,14 +80,14 @@ export const Square = styled.div`
       <Square />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### In a flex container
 
 It is possible to set a custom height for the component by passing a value to the `h` prop as either a number or a string:
 if passing a number the height will be set in pixels; if passing a string you will need to ensure you provide the measurement unit.
 
-<Preview>
+<Canvas>
   <Story name="in a flex container">
     <div
       style={{
@@ -116,14 +116,14 @@ if passing a number the height will be set in pixels; if passing a string you wi
       <Icon type="edit" />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### In a non-flex container
 
 When using the component in a non-flex container you can set the `displayInline` prop to true (default is false). This will
 add the css attribute `display: inline;` to the component.
 
-<Preview>
+<Canvas>
   <Story
     name="in a non-flex container"
     parameters={{ chromatic: { disable: true } }}
@@ -155,7 +155,7 @@ add the css attribute `display: inline;` to the component.
       <Icon type="edit" />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom spacing and height
 
@@ -163,7 +163,7 @@ The `p` prop allows for the spacing on all sides to be customised. The `pt` and 
 the `pr` and `pr` props set the horizontal spacing. These props can be number mulitipliers of the base
 theme spacing which is `8px`, or any valid CSS string. The default for the `p` prop is `3` and therefore `24px`.
 
-<Preview>
+<Canvas>
   <Story name="with custom spacing and height">
     <div style={{ display: "inline-flex" }}>
       <div>
@@ -209,14 +209,14 @@ theme spacing which is `8px`, or any valid CSS string. The default for the `p` p
       </div>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Tint variants
 
 It is possible to pass a value (any value between `1` and `100`) to the `tint` prop (default is `80`) to adjust the tint
 applied to the slate.
 
-<Preview>
+<Canvas>
   <Story name="with custom tint">
     <div style={{ display: "inline-flex" }}>
       <Square />
@@ -230,11 +230,11 @@ applied to the slate.
       <Square />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### In a Dialog
 
-<Preview>
+<Canvas>
   <Story name="in a dialog" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -262,11 +262,11 @@ applied to the slate.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### In a Tile
 
-<Preview>
+<Canvas>
   <Story name="in a tile">
     <Tile width={800} orientation="vertical">
       <Content title="Test Title One">Test Body One</Content>
@@ -291,13 +291,13 @@ applied to the slate.
       </div>
     </Tile>
   </Story>
-</Preview>
+</Canvas>
 
 ### In a grid container
 
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
-<Preview>
+<Canvas>
   <Story name="in grid container" parameters={{ info: { disable: true } }}>
     <GridContainer>
       <GridItem
@@ -349,11 +349,11 @@ This example is best viewed in the Canvas tab using full-screen mode with device
       </GridItem>
     </GridContainer>
   </Story>
-</Preview>
+</Canvas>
 
 ### In a table
 
-<Preview>
+<Canvas>
   <Story name="in a table">
     <FlatTable>
       <FlatTableHead>
@@ -380,11 +380,11 @@ This example is best viewed in the Canvas tab using full-screen mode with device
       </FlatTableBody>
     </FlatTable>
   </Story>
-</Preview>
+</Canvas>
 
 ### In a Menu
 
-<Preview>
+<Canvas>
   <Story name="in a menu">
     <div style={{ minHeight: 120 }}>
       <Menu menuType="dark">
@@ -397,7 +397,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
