@@ -95,6 +95,14 @@ describe("ValidationIcon", () => {
     expect(wrapper.find(Tooltip).props().isVisible).toEqual(false);
   });
 
+  it("passes tooltipId to the Tooltip component", () => {
+    const tooltipId = "tooltip-id";
+    const wrapper = mount(
+      <ValidationIcon tooltipId={tooltipId} error="Message" />
+    );
+    expect(wrapper.find(Tooltip).props().id).toEqual(tooltipId);
+  });
+
   describe("event handlers", () => {
     describe("validation", () => {
       it("onFocus", () => {

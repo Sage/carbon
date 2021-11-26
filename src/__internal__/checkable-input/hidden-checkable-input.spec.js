@@ -129,26 +129,20 @@ describe("HiddenCheckableInput", () => {
   });
 
   describe("aria", () => {
-    it("describedby contains fieldHelpId and helpId", () => {
-      const fieldHelpId = "test-field-help-id";
-      const helpId = "test-help-id";
+    it("passes aria props to the input element", () => {
+      const ariaDescribedBy = "test-aria-described-id";
+      const ariaLabelledBy = "test-aria-labelled-id";
+      const ariaInvalid = true;
 
       wrapper = render({
-        fieldHelpId,
-        helpId,
+        "aria-describedby": ariaDescribedBy,
+        "aria-labelledby": ariaLabelledBy,
+        "aria-invalid": ariaInvalid,
       });
       const inputProps = wrapper.find(HiddenCheckableInputStyle).props();
-      expect(inputProps["aria-describedby"]).toBe(`${fieldHelpId} ${helpId}`);
-    });
-
-    it("labelledby contains labelId", () => {
-      const labelId = "test-labelId-id";
-
-      wrapper = render({
-        labelId,
-      });
-      const inputProps = wrapper.find(HiddenCheckableInputStyle).props();
-      expect(inputProps["aria-labelledby"]).toBe(labelId);
+      expect(inputProps["aria-describedby"]).toBe(ariaDescribedBy);
+      expect(inputProps["aria-labelledby"]).toBe(ariaLabelledBy);
+      expect(inputProps["aria-invalid"]).toBe(ariaInvalid);
     });
   });
 });

@@ -22,7 +22,7 @@ const FormField = ({
   error,
   warning,
   info,
-  helpId,
+  tooltipId,
   fieldHelpId,
   helpTabIndex,
   label,
@@ -85,7 +85,7 @@ const FormField = ({
             warning={warning}
             info={info}
             help={labelHelp}
-            helpId={helpId}
+            tooltipId={tooltipId}
             helpTabIndex={helpTabIndex}
             htmlFor={id}
             helpIcon={labelHelpIcon}
@@ -140,7 +140,7 @@ FormField.propTypes = {
   error: errorPropType,
   warning: errorPropType,
   info: errorPropType,
-  helpId: PropTypes.string,
+  tooltipId: PropTypes.string,
   fieldHelpId: PropTypes.string,
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   id: PropTypes.string.isRequired,

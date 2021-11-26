@@ -29,6 +29,7 @@ const Icon = React.forwardRef(
       tooltipBgColor,
       tooltipFontColor,
       tooltipFlipOverrides,
+      tooltipId,
       tabIndex,
       isPartOfInput,
       inputSize,
@@ -102,6 +103,7 @@ const Icon = React.forwardRef(
           message={tooltipMessage}
           position={tooltipPositionFromContext || tooltipPosition}
           type={type}
+          id={tooltipId}
           isVisible={visible}
           isPartOfInput={isPartOfInput}
           inputSize={inputSize}
@@ -162,6 +164,8 @@ Icon.propTypes = {
   tooltipBgColor: PropTypes.string,
   /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipFontColor: PropTypes.string,
+  /** Id passed to the tooltip container, used for accessibility purposes. */
+  tooltipId: PropTypes.string,
   /** Overrides the default flip behaviour of the Tooltip, must be an array containing some or all of ["top", "bottom", "left", "right"].
    *
    *  See the Popper [documentation](https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) for more information
