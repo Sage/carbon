@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ArgsTable } from "@storybook/components";
-import { Props } from "@storybook/addon-docs";
+import { ArgsTable as Props } from "@storybook/addon-docs";
 
 const generateStyledSystemMarginProps = (defaults) => {
   return [

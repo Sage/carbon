@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Preview, ArgsTable } from "@storybook/addon-docs";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import GroupedCharacter from ".";
@@ -537,6 +537,6 @@ It is possible to use the `tooltipPosition` to override the default placement of
 
 Due to the `Textbox` component being used internally by the `GroupedCharacter` component most of the `Textbox` props can be applied to `GroupedCharacter`
 
-<Props of={OriginalTextbox} />
+<ArgsTable of={OriginalTextbox} />
 
 **Any other supplied props will be provided to the underlying HTML input element**

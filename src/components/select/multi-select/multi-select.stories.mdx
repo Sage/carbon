@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Preview, Story } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
 import { useState, useRef } from "react";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
@@ -8,10 +8,7 @@ import Button from "../../button";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 import { MultiSelect, Option, OptionRow } from "../";
 
-<Meta
-  title="Select/MultiSelect"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Select/MultiSelect" parameters={{ info: { disable: true } }} />
 
 # MultiSelect
 
@@ -185,7 +182,7 @@ You can use `listPlacement` prop to set the position of the select list relative
 <Preview>
   <Story name="readonly">
     <MultiSelect
-      aria-label="readonly" 
+      aria-label="readonly"
       name="readonly"
       id="readonly"
       defaultValue={["1", "3"]}
@@ -503,13 +500,13 @@ See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo>
 
 Due to the `Textbox` component being used internally by the `MultiSelect` component, most of the `Textbox` props are applicable to `MultiSelect`
 
-<Props of={SelectTextbox} />
+<ArgsTable of={SelectTextbox} />
 
 **Any other supplied props will be provided to the underlying HTML input element**
 
 ### Props of the Option Component
 
-<Props of={Option} />
+<ArgsTable of={Option} />
 
 ## Translation keys
 

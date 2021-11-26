@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback, useContext } from "react";
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Preview, Story } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 import styled from "styled-components";
 
@@ -566,48 +566,47 @@ Note: parent container background-color is set to red for demonstration purpose.
         setCurrentPage(newPage);
       };
       return (
-      <div>
-        <Drawer
-          defaultExpanded
-          sidebar={
-            <FlatTable
-              height="calc(100vh - 70px)"
-              hasStickyFooter
-              footer={
-                <Pager
-                  totalRecords={rows.length}
-                  showPageSizeSelection
-                  pageSize={5}
-                  currentPage={currentPage}
-                  onPagination={(next, size) => handlePagination(next, size)}
-                  pageSizeSelectionOptions={[
-                    { id: "1", name: 1 },
-                    { id: "3", name: 3 },
-                    { id: "5", name: 5 },
-                  ]}
-                />
-              }
-            >
-              <FlatTableHead>
-                <FlatTableRow>
-                  <FlatTableHeader>Name</FlatTableHeader>
-                  <FlatTableHeader>Location</FlatTableHeader>
-                  <FlatTableHeader>Relationship Status</FlatTableHeader>
-                  <FlatTableHeader>Dependents</FlatTableHeader>
-                </FlatTableRow>
-              </FlatTableHead>
-              <FlatTableBody>
-                {renderRows()}
-              </FlatTableBody>
-            </FlatTable>
-          }
-          {...args}
-        >
-          content body content body content body content body content body
-          content body content body
-        </Drawer>
-      </div>
-    )}}
+        <div>
+          <Drawer
+            defaultExpanded
+            sidebar={
+              <FlatTable
+                height="calc(100vh - 70px)"
+                hasStickyFooter
+                footer={
+                  <Pager
+                    totalRecords={rows.length}
+                    showPageSizeSelection
+                    pageSize={5}
+                    currentPage={currentPage}
+                    onPagination={(next, size) => handlePagination(next, size)}
+                    pageSizeSelectionOptions={[
+                      { id: "1", name: 1 },
+                      { id: "3", name: 3 },
+                      { id: "5", name: 5 },
+                    ]}
+                  />
+                }
+              >
+                <FlatTableHead>
+                  <FlatTableRow>
+                    <FlatTableHeader>Name</FlatTableHeader>
+                    <FlatTableHeader>Location</FlatTableHeader>
+                    <FlatTableHeader>Relationship Status</FlatTableHeader>
+                    <FlatTableHeader>Dependents</FlatTableHeader>
+                  </FlatTableRow>
+                </FlatTableHead>
+                <FlatTableBody>{renderRows()}</FlatTableBody>
+              </FlatTable>
+            }
+            {...args}
+          >
+            content body content body content body content body content body
+            content body content body
+          </Drawer>
+        </div>
+      );
+    }}
   </Story>
 </Preview>
 
@@ -1397,4 +1396,4 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
 
 ### Drawer
 
-<Props of={Drawer} />
+<ArgsTable of={Drawer} />

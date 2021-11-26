@@ -1,4 +1,4 @@
-import { Meta, Preview, Story } from "@storybook/addon-docs/blocks";
+import { Meta, Preview, Story } from "@storybook/addon-docs";
 import { useState, useRef } from "react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeys from "../../../.storybook/utils/translation-keys-table";
@@ -10,10 +10,7 @@ import TextEditor, {
 import Button from "../button";
 import EditorLinkPreview from "../link-preview";
 
-<Meta
-  title="Text Editor"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Text Editor" parameters={{ info: { disable: true } }} />
 
 # Text Editor
 

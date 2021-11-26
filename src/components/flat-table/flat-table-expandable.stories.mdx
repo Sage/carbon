@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Preview, Story } from "@storybook/addon-docs";
 import { useState } from "react";
 import styled from "styled-components";
 import {
@@ -24,10 +24,7 @@ import {
   ActionPopoverMenu,
 } from "../action-popover";
 
-<Meta
-  title="Flat Table/Expandable"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Flat Table/Expandable" parameters={{ info: { disable: true } }} />
 
 # Flat Table expandable options
 
@@ -619,9 +616,15 @@ By writing your own selectable logic, both parent and child rows can be made sel
               checked={selectedRows[row].subOne}
               onChange={() => handleSelectRow(row, "subOne")}
             />
-            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-1`}>Child one</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-2`}>York</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-3`}>Married</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-1`}>
+              Child one
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-2`}>
+              York
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-3`}>
+              Married
+            </FlatTableCell>
             <FlatTableCell>
               <ActionPopover>
                 <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
@@ -635,9 +638,15 @@ By writing your own selectable logic, both parent and child rows can be made sel
               checked={selectedRows[row].subTwo}
               onChange={() => handleSelectRow(row, "subTwo")}
             />
-            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-1`}>Child two</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-2`}>Edinburgh</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-3`}>Single</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-1`}>
+              Child two
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-2`}>
+              Edinburgh
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-3`}>
+              Single
+            </FlatTableCell>
             <FlatTableCell>
               <ActionPopover>
                 <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
@@ -665,17 +674,19 @@ By writing your own selectable logic, both parent and child rows can be made sel
           <FlatTable>
             <FlatTableHead>
               <FlatTableRow>
-                 <FlatTableCheckbox
-                    ariaLabelledBy="ft-header-1 ft-header-2 ft-header-3 ft-header-4"
-                    onClick={(e) => e.stopPropagation()}
-                    as="th"
-                    checked={selectAll}
-                    onChange={() => handleSelectAllRows()}
-                  />
-                  <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+                <FlatTableCheckbox
+                  ariaLabelledBy="ft-header-1 ft-header-2 ft-header-3 ft-header-4"
+                  onClick={(e) => e.stopPropagation()}
+                  as="th"
+                  checked={selectAll}
+                  onChange={() => handleSelectAllRows()}
+                />
+                <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
+                <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
+                <FlatTableHeader id="ft-header-3">
+                  Relationship Status
+                </FlatTableHeader>
+                <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
@@ -734,7 +745,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
                   checked={selectedRows.three.parent}
                   onChange={() => handleSelectRow("three", "parent")}
                 />
-                 <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
                 <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
                 <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
                 <FlatTableCell>
@@ -756,7 +767,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
                   checked={selectedRows.four.parent}
                   onChange={() => handleSelectRow("four", "parent")}
                 />
-                 <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
                 <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
                 <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
                 <FlatTableCell>
@@ -826,7 +837,9 @@ By writing your own selectable logic, the parent rows only can be made selectabl
             checked={selectedRows.one}
             onChange={() => handleSelectRow("one")}
           />
-          <FlatTableCell id={`ft-row--sub-row-1-cell-1`}>Child one</FlatTableCell>
+          <FlatTableCell id={`ft-row--sub-row-1-cell-1`}>
+            Child one
+          </FlatTableCell>
           <FlatTableCell id={`ft-row--sub-row-1-cell-2`}>York</FlatTableCell>
           <FlatTableCell id={`ft-row--sub-row-1-cell-3`}>Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
@@ -839,8 +852,12 @@ By writing your own selectable logic, the parent rows only can be made selectabl
             checked={selectedRows.one}
             onChange={() => handleSelectRow("one")}
           />
-          <FlatTableCell id={`ft-row--sub-row-2-cell-1`}>Child two</FlatTableCell>
-          <FlatTableCell id={`ft-row--sub-row-2-cell-2`}>Edinburgh</FlatTableCell>
+          <FlatTableCell id={`ft-row--sub-row-2-cell-1`}>
+            Child two
+          </FlatTableCell>
+          <FlatTableCell id={`ft-row--sub-row-2-cell-2`}>
+            Edinburgh
+          </FlatTableCell>
           <FlatTableCell id={`ft-row--sub-row-2-cell-3`}>Single</FlatTableCell>
           <FlatTableCell>1</FlatTableCell>
         </FlatTableRow>,
@@ -872,9 +889,11 @@ By writing your own selectable logic, the parent rows only can be made selectabl
                   onChange={() => handleSelectAllRows()}
                 />
                 <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+                <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
+                <FlatTableHeader id="ft-header-3">
+                  Relationship Status
+                </FlatTableHeader>
+                <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
@@ -1037,9 +1056,15 @@ By writing your own selectable logic, the child rows only can be made selectable
               checked={selectedRows[row].subOne}
               onChange={() => handleSelectRow(row, "subOne")}
             />
-            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-1`}>Child one</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-2`}>York</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-3`}>Married</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-1`}>
+              Child one
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-2`}>
+              York
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-3`}>
+              Married
+            </FlatTableCell>
             <FlatTableCell>2</FlatTableCell>
           </FlatTableRow>,
           <FlatTableRow
@@ -1053,9 +1078,15 @@ By writing your own selectable logic, the child rows only can be made selectable
               checked={selectedRows[row].subTwo}
               onChange={() => handleSelectRow(row, "subTwo")}
             />
-            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-1`}>Child two</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-2`}>Edinburgh</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-3`}>Single</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-1`}>
+              Child two
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-2`}>
+              Edinburgh
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-3`}>
+              Single
+            </FlatTableCell>
             <FlatTableCell>1</FlatTableCell>
           </FlatTableRow>,
         ];
@@ -1087,9 +1118,11 @@ By writing your own selectable logic, the child rows only can be made selectable
                   onChange={() => handleSelectAllRows()}
                 />
                 <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+                <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
+                <FlatTableHeader id="ft-header-3">
+                  Relationship Status
+                </FlatTableHeader>
+                <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
@@ -1482,4 +1515,4 @@ truncated styling applied, this is because of the caret icon that is rendered wi
 
 ### FlatTableRow
 
-<Props of={FlatTableRow} />
+<ArgsTable of={FlatTableRow} />

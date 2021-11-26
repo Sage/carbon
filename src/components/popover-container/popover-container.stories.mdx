@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Preview } from "@storybook/addon-docs";
 import PopoverContainer from "./popover-container.component";
 import { DraggableContainer, DraggableItem } from "../draggable";
 import { Checkbox } from "../checkbox";
@@ -33,7 +33,12 @@ import PopoverContainer from "carbon-react/lib/components/popover-container";
 <Preview>
   <Story name="default" parameters={{ info: { disable: true } }}>
     <div style={{ height: 100 }}>
-      <PopoverContainer containerAriaLabel="popover-container" openButtonAriaLabel="open">Contents</PopoverContainer>
+      <PopoverContainer
+        containerAriaLabel="popover-container"
+        openButtonAriaLabel="open"
+      >
+        Contents
+      </PopoverContainer>
     </div>
   </Story>
 </Preview>

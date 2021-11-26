@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Preview, Story } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
@@ -453,7 +453,13 @@ This prop will be called every time a user scrolls to the bottom of the list.
 
 <Preview>
   <Story name="disabled">
-    <Select aria-label="disabled" name="disabled" id="disabled" defaultValue="3" disabled>
+    <Select
+      aria-label="disabled"
+      name="disabled"
+      id="disabled"
+      defaultValue="3"
+      disabled
+    >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -473,7 +479,13 @@ This prop will be called every time a user scrolls to the bottom of the list.
 
 <Preview>
   <Story name="readonly">
-    <Select aria-label="readonly" name="readonly" id="readonly" defaultValue="4" readOnly>
+    <Select
+      aria-label="readonly"
+      name="readonly"
+      id="readonly"
+      defaultValue="4"
+      readOnly
+    >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -648,13 +660,13 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
 
 Due to the `Textbox` component being used internally by the `SimpleSelect` component, most of the `Textbox` props are applicable to `SimpleSelect`
 
-<Props of={SelectTextbox} />
+<ArgsTable of={SelectTextbox} />
 
 **Any other supplied props will be provided to the underlying HTML input element**
 
 ### Props of the Option Component
 
-<Props of={Option} />
+<ArgsTable of={Option} />
 
 ## Translation keys
 

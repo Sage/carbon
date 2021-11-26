@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Preview, ArgsTable } from "@storybook/addon-docs";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -8,10 +8,7 @@ import { OriginalTextbox } from "../textbox";
 import Button from "../button";
 import Box from "../box";
 
-<Meta
-  title="Date Input"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Date Input" parameters={{ info: { disable: true } }} />
 
 # Date
 
@@ -76,8 +73,14 @@ import DateInput from "carbon-react/lib/components/date";
 ### AutoFocus
 
 <Preview>
-    <Story name="autoFocus" parameters={{themeSelector: {fourColumnLayout: true}, chromatic: {viewports: [1800]}}}>
-    <div style={{height: 450, width: 450}}>
+  <Story
+    name="autoFocus"
+    parameters={{
+      themeSelector: { fourColumnLayout: true },
+      chromatic: { viewports: [1800] },
+    }}
+  >
+    <div style={{ height: 450, width: 450 }}>
       <DateInput label="Date" value="2016-10-01" autoFocus />
     </div>
   </Story>
@@ -336,7 +339,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
 
 Due to the `Textbox` component being used internally by the `Date` component most of the `Textbox` props are applicable to `Date`
 
-<Props of={OriginalTextbox} exclude={["prefix", "inputIcon"]} />
+<ArgsTable of={OriginalTextbox} exclude={["prefix", "inputIcon"]} />
 
 **Any other supplied props will be provided to the underlying HTML input element**
 

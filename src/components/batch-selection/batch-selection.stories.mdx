@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Preview, Story } from "@storybook/addon-docs";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import BatchSelection from ".";
@@ -6,10 +6,7 @@ import IconButton from "../icon-button";
 import Icon from "../icon";
 import Link from "../link";
 
-<Meta
-  title="Batch Selection"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Batch Selection" parameters={{ info: { disable: true } }} />
 
 # Batch Selection
 
@@ -130,11 +127,11 @@ import IconButton from "carbon-react/lib/components/icon-button";
 
 ### Batch Selection
 
-<Props of={BatchSelection} />
+<ArgsTable of={BatchSelection} />
 
 ### Icon Button
 
-<Props of={IconButton} />
+<ArgsTable of={IconButton} />
 
 ## Translation keys
 

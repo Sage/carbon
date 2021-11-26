@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Preview, Story } from "@storybook/addon-docs";
 import { useState, useRef } from "react";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
@@ -9,10 +9,7 @@ import Dialog from "../../dialog";
 import { FilterableSelect, Option, OptionRow } from "../";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 
-<Meta
-  title="Select/Filterable"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Select/Filterable" parameters={{ info: { disable: true } }} />
 
 # Filterable Select
 
@@ -168,7 +165,13 @@ You can use `listPlacement` prop to set the position of the select list relative
 
 <Preview>
   <Story name="disabled">
-    <FilterableSelect aria-label="disabled" name="disabled" id="disabled" defaultValue="3" disabled>
+    <FilterableSelect
+      aria-label="disabled"
+      name="disabled"
+      id="disabled"
+      defaultValue="3"
+      disabled
+    >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -188,7 +191,13 @@ You can use `listPlacement` prop to set the position of the select list relative
 
 <Preview>
   <Story name="readonly">
-    <FilterableSelect aria-label="readonly" name="readonly" id="readonly" defaultValue="4" readOnly>
+    <FilterableSelect
+      aria-label="readonly"
+      name="readonly"
+      id="readonly"
+      defaultValue="4"
+      readOnly
+    >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -636,13 +645,13 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 
 Due to the `Textbox` component being used internally by the `FilterableSelect` component, most of the `Textbox` props are applicable to `FilterableSelect`
 
-<Props of={SelectTextbox} />
+<ArgsTable of={SelectTextbox} />
 
 **Any other supplied props will be provided to the underlying HTML input element**
 
 ### Props of the Option Component
 
-<Props of={Option} />
+<ArgsTable of={Option} />
 
 ## Translation keys
 

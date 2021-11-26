@@ -1,11 +1,8 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Preview, ArgsTable } from "@storybook/addon-docs";
 
 import LinkPreview from ".";
 
-<Meta
-  title="Link Preview"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Link Preview" parameters={{ info: { disable: true } }} />
 
 # LinkPreview
 
@@ -72,4 +69,4 @@ via pressing enter or space when focused.
 
 ### LinkPreview
 
-<Props of={LinkPreview} />
+<ArgsTable of={LinkPreview} />
