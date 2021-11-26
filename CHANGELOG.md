@@ -1,3 +1,10 @@
+### [101.3.1](https://github.com/Sage/carbon/compare/v101.3.0...v101.3.1) (2021-11-26)
+
+
+### Bug Fixes
+
+* **tab-header, tab-title:** refactor components to no longer render ul and li elements ([42be1eb](https://github.com/Sage/carbon/commit/42be1eb2fc122aad7b737de212a20e42867b28f3)), closes [#4517](https://github.com/Sage/carbon/issues/4517)
+
 ## [101.3.0](https://github.com/Sage/carbon/compare/v101.2.0...v101.3.0) (2021-11-26)
 
 
