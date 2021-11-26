@@ -10,13 +10,15 @@ addons.setConfig({
   showPanel: true,
 });
 
-addons.register(ADDON_ID, () => {
-  addons.add(TOOL_ID, {
-    type: types.TOOL,
-    title: "Version picker",
-    match: ({ viewMode }) => !!(viewMode && viewMode.match(/^(story|docs)$/)),
-    render: VersionPicker,
+if (process.env.NODE_ENV === "production") {
+  addons.register(ADDON_ID, () => {
+    addons.add(TOOL_ID, {
+      type: types.TOOL,
+      title: "Version picker",
+      match: ({ viewMode }) => !!(viewMode && viewMode.match(/^(story|docs)$/)),
+      render: VersionPicker,
+    });
   });
-});
+}
 
 window.STORYBOOK_GA_ID = "UA-77028225-13";
