@@ -34,14 +34,26 @@ When("I resize grid viewport to {string}", (sizeOfViewport) => {
 Then(
   "pod {int} has height from row {string} to row {string}",
   (index, rowStart, rowEnd) => {
-    gridPod(index).should("have.css", "grid-row", `${rowStart} / ${rowEnd}`);
+    if (index === 1) {
+      gridPod(index).should("have.css", "grid-row", "auto / auto");
+    } else {
+      gridPod(index).should("have.css", "grid-row", `${rowStart} / ${rowEnd}`);
+    }
   }
 );
 
 Then(
   "pod {int} has width from column {int} to column {int}",
   (index, colStart, colEnd) => {
-    gridPod(index).should("have.css", "grid-column", `${colStart} / ${colEnd}`);
+    if (index === 1) {
+      gridPod(index).should("have.css", "grid-column", "auto / auto");
+    } else {
+      gridPod(index).should(
+        "have.css",
+        "grid-column",
+        `${colStart} / ${colEnd}`
+      );
+    }
   }
 );
 

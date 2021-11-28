@@ -342,7 +342,7 @@ input:not(:checked):not(:disabled) ~ .c2:hover .c4 {
 </div>
 `;
 
-exports[`ButtonToggle when the sage theme is set renders correct styles 1`] = `
+exports[`ButtonToggle when the sage (experimental) theme is set renders correct styles 1`] = `
 .c3 {
   display: -webkit-box;
   display: -webkit-flex;

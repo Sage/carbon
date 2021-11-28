@@ -11,6 +11,9 @@ export interface TooltipProviderProps {
   children: React.ReactNode;
   /** Aria label for rendered help component */
   helpAriaLabel?: string;
+  focusable?: boolean;
+  tooltipVisible?: boolean;
+  disabled?: boolean;
 }
 
 declare const ToolbarContext: React.Context<ToolbarContextProps>;

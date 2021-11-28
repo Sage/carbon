@@ -1,4 +1,11 @@
-import React from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
@@ -13,232 +20,247 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-class DateRange extends React.Component {
-  localeData = {
-    locale: this.context.locale(),
-    formats: this.context.date.formats.inputs(),
-    format: this.context.date.formats.javascript(),
-  };
+const DateRange = ({
+  defaultValue,
+  endDateProps = {},
+  id,
+  labelsInline,
+  name,
+  onBlur,
+  onChange,
+  startDateProps = {},
+  tooltipPosition,
+  validationOnLabel,
+  value,
+  ...rest
+}) => {
+  const { locale, date } = useContext(LocaleContext);
+  const format = date.formats.javascript();
+  const formats = date.formats.inputs();
+  const localeData = useMemo(() => ({ locale: locale(), formats, format }), [
+    format,
+    formats,
+    locale,
+  ]);
+  const inlineLabelWidth = 40;
+  const today = DateHelper.todayFormatted();
+  const isControlled = value !== undefined;
+  const startDateInputRef = useRef();
+  const endDateInputRef = useRef();
 
-  today = DateHelper.todayFormatted();
+  /** The startDate value */
+  const getStartDate = useCallback(() => {
+    const { value: startValue } = startDateProps;
+    const computedValue = isControlled ? value : defaultValue;
 
-  isControlled = this.props.value !== undefined;
+    return startValue || computedValue ? computedValue[0] : undefined;
+  }, [defaultValue, isControlled, startDateProps, value]);
 
-  startDateInputRef = React.createRef();
+  /** The endDate value */
+  const getEndDate = useCallback(() => {
+    const { value: endValue } = endDateProps;
+    const computedValue = isControlled ? value : defaultValue;
 
-  endDateInputRef = React.createRef();
+    return endValue || computedValue ? computedValue[1] : undefined;
+  }, [defaultValue, isControlled, endDateProps, value]);
 
-  isBlurBlocked = true;
+  const [startDateValue, setStartDateValue] = useState({
+    formattedValue: DateHelper.formatDateToCurrentLocale({
+      value: getStartDate(),
+      ...localeData,
+    }),
+    rawValue: DateHelper.formatValue({
+      value: getStartDate() || (!isControlled ? today : ""),
+      ...localeData,
+    }),
+  });
 
-  inlineLabelWidth = 40;
+  const [endDateValue, setEndDateValue] = useState({
+    formattedValue: DateHelper.formatDateToCurrentLocale({
+      value: getEndDate(),
+      ...localeData,
+    }),
+    rawValue: DateHelper.formatValue({
+      value: getEndDate() || (!isControlled ? today : ""),
+      ...localeData,
+    }),
+  });
 
-  state = {
-    startDateValue: {
+  const updateValues = useCallback(() => {
+    setStartDateValue({
       formattedValue: DateHelper.formatDateToCurrentLocale({
-        value: this.startDate,
-        ...this.localeData,
+        value: getStartDate(),
+        ...localeData,
       }),
       rawValue: DateHelper.formatValue({
-        value: this.startDate || (!this.isControlled ? this.today : ""),
-        ...this.localeData,
+        value: getStartDate() || today,
+        ...localeData,
       }),
-    },
-    endDateValue: {
+    });
+
+    setEndDateValue({
       formattedValue: DateHelper.formatDateToCurrentLocale({
-        value: this.endDate,
-        ...this.localeData,
+        value: getEndDate(),
+        ...localeData,
       }),
       rawValue: DateHelper.formatValue({
-        value: this.endDate || (!this.isControlled ? this.today : ""),
-        ...this.localeData,
+        value: getEndDate() || today,
+        ...localeData,
       }),
+    });
+  }, [getEndDate, getStartDate, localeData, today]);
+
+  function usePrevious(arg) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = arg;
+    });
+    return ref.current;
+  }
+
+  const previousValue = usePrevious(value);
+
+  useEffect(() => {
+    const hasPreviousValues = previousValue?.length;
+    const hasUpdated =
+      isControlled &&
+      hasPreviousValues &&
+      (value[0] !== previousValue[0] || value[1] !== previousValue[1]);
+
+    if (hasUpdated) {
+      updateValues();
+    }
+  }, [value, previousValue, updateValues, isControlled]);
+
+  const buildCustomEvent = useCallback(
+    (changedDate, newValue) => {
+      const startValue =
+        changedDate === "startDate" && newValue ? newValue : startDateValue;
+      const endValue =
+        changedDate === "endDate" && newValue ? newValue : endDateValue;
+
+      return {
+        target: {
+          ...(name && { name }),
+          ...(id && { id }),
+          value: [startValue, endValue],
+        },
+      };
     },
-  };
+    [endDateValue, id, name, startDateValue]
+  );
 
-  componentDidUpdate(prevProps) {
-    if (this.hasUpdated(prevProps)) {
-      this.updateValues(this.props.value);
-    }
-  }
-
-  hasUpdated(prevProps) {
-    return (
-      this.isControlled &&
-      (this.props.value[0] !== prevProps.value[0] ||
-        this.props.value[1] !== prevProps.value[1])
-    );
-  }
-
-  updateValues() {
-    this.setState({
-      startDateValue: {
-        formattedValue: DateHelper.formatDateToCurrentLocale({
-          value: this.startDate,
-          ...this.localeData,
-        }),
-        rawValue: DateHelper.formatValue({
-          value: this.startDate || this.today,
-          ...this.localeData,
-        }),
-      },
-      endDateValue: {
-        formattedValue: DateHelper.formatDateToCurrentLocale({
-          value: this.endDate,
-          ...this.localeData,
-        }),
-        rawValue: DateHelper.formatValue({
-          value: this.endDate || this.today,
-          ...this.localeData,
-        }),
-      },
-    });
-  }
-
-  startDateOnChange = (ev) => {
-    this._onChange("startDate", ev);
-  };
-
-  endDateOnChange = (ev) => {
-    this._onChange("endDate", ev);
-  };
-
-  /** onChange function -triggers validations on both fields and updates opposing field when one changed. */
-  _onChange = (changedDate, ev) => {
-    this.setState({ [`${changedDate}Value`]: { ...ev.target.value } }, () => {
-      if (this.props.onChange) {
-        const event = this.buildCustomEvent();
-        this.props.onChange(event);
-      }
-    });
-  };
-
-  _onBlur = () => {
-    if (this.isBlurBlocked()) {
-      return;
+  const handleOnChange = (changedDate, ev) => {
+    if (changedDate === "startDate") {
+      setStartDateValue({ ...ev.target.value });
+    } else {
+      setEndDateValue({ ...ev.target.value });
     }
 
-    if (this.props.onBlur) {
-      const event = this.buildCustomEvent();
-      this.props.onBlur(event);
+    if (onChange) {
+      const event = buildCustomEvent(changedDate, ev.target.value);
+      onChange(event);
     }
   };
 
-  isBlurBlocked = () => {
+  const startDateOnChange = (ev) => {
+    handleOnChange("startDate", ev);
+  };
+
+  const endDateOnChange = (ev) => {
+    handleOnChange("endDate", ev);
+  };
+
+  const isBlurBlocked = () => {
     const startBlocked =
-      this.startDateInputRef?.current?.isBlurBlocked ||
-      this.startDateInputRef?.current?.inputFocusedViaPicker;
+      startDateInputRef?.current?.isBlurBlocked ||
+      startDateInputRef?.current?.inputFocusedViaPicker;
     const endBlocked =
-      this.endDateInputRef?.current?.isBlurBlocked ||
-      this.endDateInputRef?.current?.inputFocusedViaPicker;
+      endDateInputRef?.current?.isBlurBlocked ||
+      endDateInputRef?.current?.inputFocusedViaPicker;
+
     return startBlocked || endBlocked;
   };
 
-  buildCustomEvent = () => {
-    const { startDateValue, endDateValue } = this.state;
-    const { name, id } = this.props;
-
-    return {
-      target: {
-        ...(name && { name }),
-        ...(id && { id }),
-        value: [startDateValue, endDateValue],
-      },
-    };
-  };
-
-  /** The startDate value */
-  get startDate() {
-    const value = this.isControlled
-      ? this.props.value
-      : this.props.defaultValue;
-
-    if (this.props.startDateProps && this.props.startDateProps.value) {
-      return this.props.startDateProps.value;
+  const handleOnBlur = () => {
+    if (isBlurBlocked()) {
+      return;
     }
 
-    return value ? value[0] : undefined;
-  }
-
-  /** The endDate value */
-  get endDate() {
-    const value = this.isControlled
-      ? this.props.value
-      : this.props.defaultValue;
-
-    if (this.props.endDateProps && this.props.endDateProps.value) {
-      return this.props.endDateProps.value;
+    if (onBlur) {
+      const event = buildCustomEvent();
+      onBlur(event);
     }
-    return value ? value[1] : undefined;
-  }
-
-  /** Handle focus on start date field */
-  focusStart = () => {
-    this.blockBlur("start");
-    this.endDateInputRef.current.closeDatePicker();
   };
 
-  /** Handle focus on end date field */
-  focusEnd = () => {
-    this.blockBlur("end");
-    this.startDateInputRef.current.closeDatePicker();
-  };
-
-  blockBlur = (id) => {
-    if (id === "start") {
-      this.startDateInputRef.current.isBlurBlocked = true;
-      this.startDateInputRef.current.inputFocusedViaPicker = true;
+  const blockBlur = (blockId) => {
+    if (blockId === "start") {
+      startDateInputRef.current.isBlurBlocked = true;
+      startDateInputRef.current.inputFocusedViaPicker = true;
     } else {
-      this.endDateInputRef.current.isBlurBlocked = true;
-      this.endDateInputRef.current.inputFocusedViaPicker = true;
+      endDateInputRef.current.isBlurBlocked = true;
+      endDateInputRef.current.inputFocusedViaPicker = true;
     }
   };
 
-  dateProps(propsKey) {
-    const dateProps = this.props[`${propsKey}DateProps`] || {};
+  const focusStart = () => {
+    blockBlur("start");
+
+    endDateInputRef.current.closeDatePicker();
+  };
+
+  const focusEnd = () => {
+    blockBlur("end");
+
+    startDateInputRef.current.closeDatePicker();
+  };
+
+  const dateProps = (propsKey) => {
+    const props = propsKey === "start" ? startDateProps : endDateProps;
+
+    const { rawValue } = propsKey === "start" ? startDateValue : endDateValue;
+    const onChangeCallback =
+      propsKey === "start" ? startDateOnChange : endDateOnChange;
 
     return {
-      label: this.props[`${propsKey}Label`],
-      labelInline: this.props.labelsInline,
-      value: this.state[`${propsKey}DateValue`].rawValue,
-      error: this.props[`${propsKey}Error`],
-      warning: this.props[`${propsKey}Warning`],
-      info: this.props[`${propsKey}Info`],
-      validationOnLabel: this.props.validationOnLabel,
-      onBlur: this._onBlur,
-      onChange: this[`${propsKey}DateOnChange`],
-      ...dateProps,
+      label: rest[`${propsKey}Label`],
+      labelInline: labelsInline,
+      value: rawValue,
+      error: rest[`${propsKey}Error`],
+      warning: rest[`${propsKey}Warning`],
+      info: rest[`${propsKey}Info`],
+      validationOnLabel,
+      onBlur: handleOnBlur,
+      onChange: onChangeCallback,
+      ...props,
     };
-  }
+  };
 
-  render() {
-    return (
-      <StyledDateRange
-        {...tagComponent("date-range", this.props)}
-        labelsInline={this.props.labelsInline}
-        {...filterStyledSystemMarginProps(this.props)}
-      >
-        <DateInput
-          {...this.dateProps("start")}
-          onFocus={this.focusStart}
-          data-element="start-date"
-          ref={this.startDateInputRef}
-          labelWidth={this.inlineLabelWidth} // Textbox only applies this when labelsInLine prop is true
-          tooltipPosition={this.props.tooltipPosition}
-        />
-        <DateInput
-          {...this.dateProps("end")}
-          onFocus={this.focusEnd}
-          data-element="end-date"
-          ref={this.endDateInputRef}
-          labelWidth={this.inlineLabelWidth} // Textbox only applies this when labelsInLine prop is true
-          tooltipPosition={this.props.tooltipPosition}
-        />
-      </StyledDateRange>
-    );
-  }
-}
-
-DateRange.contextType = LocaleContext;
+  return (
+    <StyledDateRange
+      {...tagComponent("date-range", rest)}
+      labelsInline={labelsInline}
+      {...filterStyledSystemMarginProps(rest)}
+    >
+      <DateInput
+        {...dateProps("start")}
+        onFocus={focusStart}
+        data-element="start-date"
+        ref={startDateInputRef}
+        labelWidth={inlineLabelWidth} // Textbox only applies this when labelsInLine prop is true
+        tooltipPosition={tooltipPosition}
+      />
+      <DateInput
+        {...dateProps("end")}
+        onFocus={focusEnd}
+        data-element="end-date"
+        ref={endDateInputRef}
+        labelWidth={inlineLabelWidth} // Textbox only applies this when labelsInLine prop is true
+        tooltipPosition={tooltipPosition}
+      />
+    </StyledDateRange>
+  );
+};
 
 DateRange.propTypes = {
   /** Filtered styled system margin props */

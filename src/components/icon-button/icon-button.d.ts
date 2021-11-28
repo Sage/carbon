@@ -7,6 +7,8 @@ export interface IconButtonProps extends MarginProps {
   children: React.ReactElement<IconProps>;
   /** Callback */
   onAction: React.MouseEventHandler<HTMLButtonElement>;
+  /** Set the button to disabled */
+  disabled?: boolean;
 }
 
 declare function IconButton(
