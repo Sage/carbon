@@ -1,5 +1,7 @@
-import styled from "styled-components";
+import React from "react";
+import styled, { createGlobalStyle } from "styled-components";
 import generateCssVariables from "../generate-css-variables.util";
+import createGuid from "../../../__internal__/utils/helpers/guid";
 
 /**
  *
@@ -8,12 +10,26 @@ import generateCssVariables from "../generate-css-variables.util";
  *
  */
 
-const CarbonScopedTokensProvider = styled.div`
+export const tokensClassName = `sageDesignTokens-${createGuid()}`;
+
+export const GlobalTokens = createGlobalStyle`
+  .${tokensClassName} {
+    ${({ theme }) => generateCssVariables(theme.compatibility)}
+  }
+`;
+
+const TokensProviderWrapper = styled.div`
   margin: 0;
   padding: 0;
   width: auto;
   display: inline;
-  ${({ theme }) => generateCssVariables(theme.compatibility)}
 `;
+
+const CarbonScopedTokensProvider = ({ children, theme, ...props }) => (
+  <TokensProviderWrapper {...props} className={tokensClassName}>
+    <GlobalTokens theme={theme} />
+    {children}
+  </TokensProviderWrapper>
+);
 
 export default CarbonScopedTokensProvider;
