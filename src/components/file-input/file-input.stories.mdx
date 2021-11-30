@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
+import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs/blocks";
 import { useState, useEffect, useRef } from "react";
 
 import FileInput from ".";
@@ -25,7 +25,7 @@ import FileInput from "carbon-react/lib/components/file-input";
 
 - Use the primary or secondary button depending on how important it is to enter the file on the screen.
 - The file name is displayed as a Link. Users can open it and check if it is correct.
-  When more than one file is uploaded, text will be displayed with the number of files selected. Preview in this case is not possible.
+  When more than one file is uploaded, text will be displayed with the number of files selected. Canvas in this case is not possible.
 - If the file name is too long, it will appear in a shortened form. The last 8 characters are always displayed.
 
 ## Related Components
@@ -41,7 +41,7 @@ import FileInput from "carbon-react/lib/components/file-input";
 
 The type of button depends on how important the file input is in the screen. Use one of the `buttonType` variants: primary or secondary.
 
-<Preview>
+<Canvas>
   <Story name="default with primary button type">
     <FileInput
       m={2}
@@ -50,9 +50,9 @@ The type of button depends on how important the file input is in the screen. Use
       buttonType="primary"
     />
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="default with secondary button type">
     <FileInput
       m={2}
@@ -61,11 +61,11 @@ The type of button depends on how important the file input is in the screen. Use
       buttonType="secondary"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     <FileInput
       disabled
@@ -74,13 +74,13 @@ The type of button depends on how important the file input is in the screen. Use
       fileChooseAction={() => {}}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With hint text
 
 The `hintText` is optional. You can use it to describe what needs to be uploaded, the supported file types and the maximum file size that can be added.
 
-<Preview>
+<Canvas>
   <Story name="with hint text">
     <FileInput
       m={2}
@@ -89,13 +89,13 @@ The `hintText` is optional. You can use it to describe what needs to be uploaded
       hintText="Hint text (optional)"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### ReadOnly
 
 Use the `readOnly` prop when the data is to be read-only. The `readOnly` property is visible when the file has been uploaded.
 
-<Preview>
+<Canvas>
   <Story name="readOnly">
     <FileInput
       m={2}
@@ -104,11 +104,11 @@ Use the `readOnly` prop when the data is to be read-only. The `readOnly` propert
       readOnly
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Sizes
 
-<Preview>
+<Canvas>
   <Story name="size">
     <FileInput
       m={2}
@@ -129,13 +129,13 @@ Use the `readOnly` prop when the data is to be read-only. The `readOnly` propert
       fileChooseAction={() => {}}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Allow multiple files
 
-Use `allowMultiple` prop if you want to be able to add and upload more than one file. Preview of selected files will not be possible.
+Use `allowMultiple` prop if you want to be able to add and upload more than one file. Canvas of selected files will not be possible.
 
-<Preview>
+<Canvas>
   <Story name="allow multiple" parameters={{ chromatic: { disable: true } }}>
     <FileInput
       m={2}
@@ -144,14 +144,14 @@ Use `allowMultiple` prop if you want to be able to add and upload more than one 
       fileChooseAction={() => {}}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With accept prop
 
 You can use the `accept` prop to indicate which file types are allowed. You must specify the format of the file type in the form of a MIME types.
 Common MIME types available at the link: <a target="_blank" href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>MIME types.</a>
 
-<Preview>
+<Canvas>
   <Story name="accept property" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [errorForOneFile, setErrorForOneFile] = useState("");
@@ -182,7 +182,7 @@ Common MIME types available at the link: <a target="_blank" href='https://develo
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With file validation
 
@@ -192,7 +192,7 @@ Set `warning` only for empty file input. Once the file is loaded, the warning me
 
 For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page.
 
-<Preview>
+<Canvas>
   <Story name="with validation" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [error, setError] = useState("");
@@ -223,14 +223,14 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With isUploading prop
 
 You will see upload tracking when you upload files and set the `isUploading` property. You have the option to set two types of upload tracking: "untracked" or "tracked".
 The default setting `loaderType` has been assigned the value `untracked`.
 
-<Preview>
+<Canvas>
   <Story name="isUploading" parameters={{ chromatic: { disable: true } }}>
     <FileInput
       m={2}
@@ -239,14 +239,14 @@ The default setting `loaderType` has been assigned the value `untracked`.
       fileChooseAction={() => {}}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With tracked progress bar
 
 Set `loaderType` as `tracked` and `progress` properties if you want to see the progress of uploading file.
 If the upload is successful, the progress tracker will be green. When the validation status is set to `error` the progress tracker will be red.
 
-<Preview>
+<Canvas>
   <Story
     name="with tracked progress bar"
     parameters={{ chromatic: { disable: true } }}
@@ -286,14 +286,14 @@ If the upload is successful, the progress tracker will be green. When the valida
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Draggable
 
 Use `draggable` if you want to be able to use drag and drop in browsers.
 The type of button depends on how important the file input is in the screen. Use one of the `buttonType` variants: primary or secondary.
 
-<Preview>
+<Canvas>
   <Story name="draggable">
     {() => {
       const [error, setError] = useState("");
@@ -327,11 +327,11 @@ The type of button depends on how important the file input is in the screen. Use
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Draggable disabled
 
-<Preview>
+<Canvas>
   <Story name="draggable disabled">
     <FileInput
       m={2}
@@ -342,13 +342,13 @@ The type of button depends on how important the file input is in the screen. Use
       disabled
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Draggable with hint text
 
 The `hintText` is optional. You can use it to describe what needs to be uploaded, the supported file types and the maximum file size that can be added.
 
-<Preview>
+<Canvas>
   <Story name="draggable with hint text">
     <FileInput
       m={2}
@@ -359,13 +359,13 @@ The `hintText` is optional. You can use it to describe what needs to be uploaded
       dragPlaceholder="Drop the file here."
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Draggable readOnly
 
 Use the `readOnly` prop when the data is to be read-only. The `readOnly` property is visible when the file has been uploaded.
 
-<Preview>
+<Canvas>
   <Story name="draggable readOnly">
     <FileInput
       m={2}
@@ -376,13 +376,13 @@ Use the `readOnly` prop when the data is to be read-only. The `readOnly` propert
       readOnly
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Draggable allow multiple
 
-Use `allowMultiple` prop if you want to be able to add and upload more than one file. Preview of selected files will not be possible.
+Use `allowMultiple` prop if you want to be able to add and upload more than one file. Canvas of selected files will not be possible.
 
-<Preview>
+<Canvas>
   <Story
     name="draggable multiple"
     parameters={{ chromatic: { disable: true } }}
@@ -396,7 +396,7 @@ Use `allowMultiple` prop if you want to be able to add and upload more than one 
       dragPlaceholder="Drop the files here."
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Draggable with file validation
 
@@ -406,7 +406,7 @@ Set `warning` only for empty file input. Once the file is loaded, the warning me
 
 For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page.
 
-<Preview>
+<Canvas>
   <Story
     name="draggable with validation"
     parameters={{ chromatic: { disable: true } }}
@@ -448,14 +448,14 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Draggable with accept property
 
 You can use the `accept` prop to indicate which file types are allowed. You must specify the format of the file type in the form of a MIME types.
 Common MIME types available at the link: <a target="_blank" href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>MIME types.</a>
 
-<Preview>
+<Canvas>
   <Story
     name="draggable accept png only"
     parameters={{ chromatic: { disable: true } }}
@@ -493,14 +493,14 @@ Common MIME types available at the link: <a target="_blank" href='https://develo
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Draggable with tracked progress bar
 
 Set `loaderType` as `tracked` and `progress` properties if you want to see the progress of uploading file.
 If the upload is successful, the progress tracker will be green. When the validation status is set to `error` the progress tracker will be red.
 
-<Preview>
+<Canvas>
   <Story
     name="draggable with tracked progress bar"
     parameters={{ chromatic: { disable: true } }}
@@ -542,10 +542,10 @@ If the upload is successful, the progress tracker will be green. When the valida
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### FileInput
 
-<Props of={FileInput} />
+<ArgsTable of={FileInput} />
