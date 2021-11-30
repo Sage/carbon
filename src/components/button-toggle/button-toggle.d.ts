@@ -6,6 +6,12 @@ export interface ButtonToggleProps {
   buttonIcon?: string;
   /** Sets the size of the buttonIcon (eg. large) */
   buttonIconSize?: ButtonToggleIconSizes;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role"?: string;
   /** ButtonToggle size */
   size?: "small" | "medium" | "large";
   /** Set the checked value of the radio button */
