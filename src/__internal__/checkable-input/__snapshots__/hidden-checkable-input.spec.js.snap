@@ -3,8 +3,8 @@
 exports[`HiddenCheckableInput renders as expected 1`] = `
 <styled.input
   aria-checked={true}
-  aria-describedby="test-help"
   checked={true}
+  helpId="test-help"
   name="test-name"
   onBlur={[Function]}
   onFocus={[Function]}

@@ -14,6 +14,7 @@ exports[`Textbox renders with InputPresentation and Input and correct props pass
       >
         southpaw children
         <ForwardRef
+          aria-describedby=""
           aria-invalid={false}
           id="mocked-guid"
           name="mocked-guid"

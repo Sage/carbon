@@ -233,6 +233,8 @@ export interface IconProps extends MarginProps {
   tooltipFontColor?: string;
   /** Overrides the default flip behaviour of the Tooltip */
   tooltipFlipOverrides?: TooltipPositions[];
+  /** Id passed to the tooltip container, used for accessibility purposes */
+  tooltipId?: string;
 }
 
 declare function Icon(
