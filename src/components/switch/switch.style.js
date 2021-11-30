@@ -11,15 +11,7 @@ import StyledValidationIcon from "../../__internal__/validations/validation-icon
 import { FieldLineStyle } from "../../__internal__/form-field/form-field.style";
 
 const StyledSwitch = styled.div`
-  ${({
-    checked,
-    fieldHelpInline,
-    labelInline,
-    labelSpacing,
-    reverse,
-    size,
-    theme,
-  }) => css`
+  ${({ fieldHelpInline, labelInline, reverse, size }) => css`
     ${margin}
     ${FieldLineStyle} {
       display: flex;
@@ -37,13 +29,7 @@ const StyledSwitch = styled.div`
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
       &:focus + ${StyledSwitchSlider} {
-        outline: solid 3px ${theme.colors.focus};
-      }
-
-      &:hover + ${StyledSwitchSlider} {
-        background-color: ${checked
-          ? theme.switch.onHover
-          : theme.switch.offHover};
+        outline: solid 3px var(--colorsSemanticFocus500);
       }
     }
 
@@ -115,10 +101,9 @@ const StyledSwitch = styled.div`
         }
 
         ${!fieldHelpInline &&
-        `
+        css`
           ${FieldHelpStyle} {
             margin-left: 60px;
-            padding-left: ${labelSpacing * theme.spacing}px;
           }
         `}
       `}
@@ -169,10 +154,9 @@ const StyledSwitch = styled.div`
 
         ${!fieldHelpInline &&
         reverse &&
-        `
+        css`
           ${FieldHelpStyle} {
             margin-left: 78px;
-            padding-left: ${labelSpacing * theme.spacing}px;
           }
         `}
       `}
@@ -186,7 +170,6 @@ StyledSwitch.propTypes = {
   labelInline: PropTypes.bool,
   reverse: PropTypes.bool,
   size: PropTypes.string,
-  theme: PropTypes.object,
 };
 
 StyledSwitch.defaultProps = {
