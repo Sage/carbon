@@ -2,6 +2,10 @@ import * as React from "react";
 import { ButtonToggleIconSizes } from "./button-toggle-types";
 
 export interface ButtonToggleProps {
+  /** Prop to specify the aria-label of the component */
+  "aria-label"?: string;
+  /** Prop to specify the aria-labelledby property of the component */
+  "aria-labelledby"?: string;
   /** buttonIcon to render. */
   buttonIcon?: string;
   /** Sets the size of the buttonIcon (eg. large) */
