@@ -37,6 +37,7 @@ const TabTitle = React.forwardRef(
       isInSidebar,
       href,
       onKeyDown,
+      align,
       ...tabTitleProps
     },
     ref
@@ -72,6 +73,9 @@ const TabTitle = React.forwardRef(
         onClick(customEvent);
         return window.open(href, "_blank");
       }
+
+      // safari does not focus buttons by default
+      ref.current?.focus();
 
       return onClick(customEvent);
     };
@@ -121,17 +125,16 @@ const TabTitle = React.forwardRef(
         error={error}
         warning={warning}
         info={info}
-        size={size}
         noRightBorder={noRightBorder}
         alternateStyling={alternateStyling || isInSidebar}
         borders={borders}
         isInSidebar={isInSidebar}
         {...tabTitleProps}
+        {...(isHref && { href, target: "_blank", as: "a" })}
         {...tagComponent("tab-header", tabTitleProps)}
         onKeyDown={handleKeyDown}
       >
         <StyledTitleContent
-          {...(isHref && { href, target: "_blank", as: "a" })}
           error={error}
           warning={warning}
           info={info}
@@ -145,35 +148,45 @@ const TabTitle = React.forwardRef(
           isTabSelected={isTabSelected}
           hasCustomLayout={!!customLayout}
           alternateStyling={hasAlternateStyling}
+          align={align}
+          hasHref={!!href}
         >
           {renderContent()}
           {isHref && <Icon type="link" />}
 
-          <StyledLayoutWrapper hasCustomSibling={!!customLayout}>
-            {error && (
-              <ValidationIcon
-                onClick={handleClick}
-                tooltipPosition="top"
-                error={errorMessage}
-              />
-            )}
+          {hasFailedValidation && (
+            <StyledLayoutWrapper
+              position={position}
+              hasCustomSibling={!!customLayout}
+            >
+              {error && (
+                <ValidationIcon
+                  onClick={handleClick}
+                  tooltipPosition="top"
+                  error={errorMessage}
+                  tabIndex={null}
+                />
+              )}
 
-            {!error && warning && (
-              <ValidationIcon
-                onClick={handleClick}
-                tooltipPosition="top"
-                warning={warningMessage}
-              />
-            )}
+              {!error && warning && (
+                <ValidationIcon
+                  onClick={handleClick}
+                  tooltipPosition="top"
+                  warning={warningMessage}
+                  tabIndex={null}
+                />
+              )}
 
-            {!warning && !error && info && (
-              <ValidationIcon
-                onClick={handleClick}
-                tooltipPosition="top"
-                info={infoMessage}
-              />
-            )}
-          </StyledLayoutWrapper>
+              {!warning && !error && info && (
+                <ValidationIcon
+                  onClick={handleClick}
+                  tooltipPosition="top"
+                  info={infoMessage}
+                  tabIndex={null}
+                />
+              )}
+            </StyledLayoutWrapper>
+          )}
         </StyledTitleContent>
         {!(hasFailedValidation || hasAlternateStyling) && isTabSelected && (
           <StyledSelectedIndicator
@@ -213,6 +226,7 @@ TabTitle.propTypes = {
   customLayout: PropTypes.node,
   isInSidebar: PropTypes.bool,
   href: PropTypes.string,
+  align: PropTypes.oneOf(["left", "right"]),
 };
 
 export default TabTitle;

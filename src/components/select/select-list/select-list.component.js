@@ -309,7 +309,7 @@ const SelectList = React.forwardRef(
       }
 
       setListHeight(`${newHeight}px`);
-    }, [children]);
+    }, [children, listRef.current]);
 
     useEffect(() => {
       const keyboardEvent = "keydown";

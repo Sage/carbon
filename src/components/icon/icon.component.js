@@ -41,6 +41,12 @@ const Icon = React.forwardRef(
     ref
   ) => {
     const isInteractive = !!tooltipMessage && !disabled;
+    const {
+      tooltipPosition: tooltipPositionFromContext,
+      focusable: focusableFromContext,
+      tooltipVisible: tooltipVisibleFromContext,
+      disabled: disabledFromContext,
+    } = useContext(TooltipContext);
 
     /** Return Icon type with overrides */
     const iconType = () => {
@@ -62,14 +68,17 @@ const Icon = React.forwardRef(
       }
     };
 
-    const hasTooltip = !disabled && tooltipMessage && focusable;
+    const isFocusable =
+      focusableFromContext !== undefined ? focusableFromContext : focusable;
+    const hasTooltip =
+      !disabled && !disabledFromContext && tooltipMessage && isFocusable;
 
     const styleProps = {
       bg,
       bgSize,
       bgShape,
       color,
-      disabled,
+      disabled: disabledFromContext || disabled,
       fontSize,
       isInteractive,
       type: iconType(),
@@ -91,12 +100,12 @@ const Icon = React.forwardRef(
       />
     );
 
-    const { tooltipPosition: tooltipPositionFromContext } = useContext(
-      TooltipContext
-    );
-
     if (tooltipMessage) {
-      const visible = disabled ? false : tooltipVisible;
+      const showTooltip =
+        tooltipVisibleFromContext !== undefined
+          ? tooltipVisibleFromContext
+          : tooltipVisible;
+      const visible = disabled ? false : showTooltip;
 
       return (
         <Tooltip

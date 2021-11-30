@@ -28,6 +28,7 @@ const FlatTable = ({
   hasMaxHeight = false,
   ariaDescribedby,
   minHeight,
+  overflowX,
   ...rest
 }) => {
   const addDefaultHeight = !height && (hasStickyHead || hasStickyFooter);
@@ -48,7 +49,6 @@ const FlatTable = ({
           isInSidebar={isInSidebar}
           hasStickyHead={hasStickyHead}
           colorTheme={colorTheme}
-          {...rest}
           minHeight={minHeight}
           overflowY={
             !isInSidebar && (hasStickyHead || hasStickyFooter)
@@ -62,6 +62,10 @@ const FlatTable = ({
           justifyContent={
             hasStickyFooter || height ? "space-between" : undefined
           }
+          tabIndex="0"
+          role="region"
+          overflowX={overflowX}
+          {...rest}
         >
           <StyledFlatTable data-component="flat-table" {...tableStylingProps}>
             {caption ? <caption>{caption}</caption> : null}
@@ -111,6 +115,8 @@ FlatTable.propTypes = {
   size: PropTypes.oneOf(["compact", "small", "medium", "large", "extraLarge"]),
   /** Applies max-height of 100% to FlatTable if true */
   hasMaxHeight: PropTypes.bool,
+  /** Set the overflow X of the table wrapper. Any valid CSS string */
+  overflowX: PropTypes.string,
 };
 
 FlatTable.defaultProps = {

@@ -1,3 +1,83 @@
+### [101.3.1](https://github.com/Sage/carbon/compare/v101.3.0...v101.3.1) (2021-11-26)
+
+
+### Bug Fixes
+
+* **tab-header, tab-title:** refactor components to no longer render ul and li elements ([42be1eb](https://github.com/Sage/carbon/commit/42be1eb2fc122aad7b737de212a20e42867b28f3)), closes [#4517](https://github.com/Sage/carbon/issues/4517)
+
+## [101.3.0](https://github.com/Sage/carbon/compare/v101.2.0...v101.3.0) (2021-11-26)
+
+
+### Features
+
+* **flat-table:** add overflow x prop and story ([faddf0f](https://github.com/Sage/carbon/commit/faddf0f582b6abe9881a0c1a70e2d01e0b0aafd6))
+
+
+### Bug Fixes
+
+* **flat-table:** make scrollable content accessible via keyboard ([ca44a6f](https://github.com/Sage/carbon/commit/ca44a6f13d9b6c3f0ceaeac6fef037e29faa563e)), closes [#4259](https://github.com/Sage/carbon/issues/4259)
+
+## [101.2.0](https://github.com/Sage/carbon/compare/v101.1.0...v101.2.0) (2021-11-25)
+
+
+### Features
+
+* **icon-button:** add TooltipProvider and event handles to toggle Tooltip if child has one ([a242e97](https://github.com/Sage/carbon/commit/a242e976fd8c244fa1328f4b8ae44fa23ef16877)), closes [#4542](https://github.com/Sage/carbon/issues/4542)
+* **tooltip-provider:** add additional props to control tooltip behaviours of wrapped children ([90f0ec6](https://github.com/Sage/carbon/commit/90f0ec635cd619aa3d0c72028cf5dc1bb0eaa8a7))
+
+
+### Bug Fixes
+
+* **icon-button:** add missing aria-label to story ([6d5f1b5](https://github.com/Sage/carbon/commit/6d5f1b52b19177615ddaf266620264ffede4284c)), closes [#4552](https://github.com/Sage/carbon/issues/4552)
+
+## [101.1.0](https://github.com/Sage/carbon/compare/v101.0.4...v101.1.0) (2021-11-25)
+
+
+### Features
+
+* **multi-select:** add keyboard accessibility ([7335a5e](https://github.com/Sage/carbon/commit/7335a5e1fb43007ea4649f7ae18909b50eaf8142))
+
+### [101.0.4](https://github.com/Sage/carbon/compare/v101.0.3...v101.0.4) (2021-11-24)
+
+
+### Bug Fixes
+
+* **text-editor:** replace regex used to format web links ([5d53668](https://github.com/Sage/carbon/commit/5d53668598fdfe394ba5b00a2352b6a5c11f8bfe))
+
+### [101.0.3](https://github.com/Sage/carbon/compare/v101.0.2...v101.0.3) (2021-11-24)
+
+
+### Bug Fixes
+
+* **design-tokens:** fix providing transparency design tokens ([94b56d0](https://github.com/Sage/carbon/commit/94b56d03115485b1a8193cb37e46e25eb94f9600))
+
+### [101.0.2](https://github.com/Sage/carbon/compare/v101.0.1...v101.0.2) (2021-11-24)
+
+
+### Bug Fixes
+
+* **textbox:** change fieldHelp sizing to match input width ([6c517c9](https://github.com/Sage/carbon/commit/6c517c9cd55d0f37071d615bb44ffbadbb5ce781)), closes [#4543](https://github.com/Sage/carbon/issues/4543)
+
+### [101.0.1](https://github.com/Sage/carbon/compare/v101.0.0...v101.0.1) (2021-11-23)
+
+
+### Bug Fixes
+
+* **select:** render wrapped text correctly in SelectList ([0b18685](https://github.com/Sage/carbon/commit/0b1868577375ae4be2407f07da0dbe14fb6fbd65)), closes [#4489](https://github.com/Sage/carbon/issues/4489)
+
+## [101.0.0](https://github.com/Sage/carbon/compare/v100.1.1...v101.0.0) (2021-11-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **design-tokens:** CarbonScopedTokensProvider is a part of CarbonProvider
+
+Design tokens in form of CSS variables will be provided without need of using additional elements.
+
+### Bug Fixes
+
+* **design-tokens:** fix design tokens provider implementation ([a62f953](https://github.com/Sage/carbon/commit/a62f95333bea396654c55e932c26c21b6b372502))
+
 ### [100.1.1](https://github.com/Sage/carbon/compare/v100.1.0...v100.1.1) (2021-11-19)
 
 

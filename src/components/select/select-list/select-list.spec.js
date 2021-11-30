@@ -646,6 +646,34 @@ describe("SelectList", () => {
     });
   });
 
+  describe("When SelectList has an option with wrapped text", () => {
+    it("should correctly calculate the height of the SelectList", () => {
+      const testWrapper = document.createElement("div");
+      const wrapper = mount(getSelectList({}), { attachTo: testWrapper });
+      const listElement = wrapper.find(StyledSelectList).getDOMNode();
+      jest
+        .spyOn(listElement, "clientHeight", "get")
+        .mockImplementation(() => 60);
+
+      wrapper
+        .setProps({
+          children: [
+            <Option
+              value="opt1"
+              text="This is to mimic a long piece of text that could be used in the Select Component and the text could be wrapped
+            but this is a virtual DOM so that will not happen"
+            />,
+          ],
+        })
+        .update();
+
+      assertStyleMatch(
+        { height: "60px" },
+        wrapper.find(StyledSelectListContainer)
+      );
+    });
+  });
+
   describe("popover", () => {
     it("renders SelectList as a child of Popover with disablePortal=undefined by default", () => {
       const wrapper = renderSelectList();

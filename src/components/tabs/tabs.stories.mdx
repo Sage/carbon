@@ -5,7 +5,6 @@ import { Tabs, Tab } from "./tabs.component";
 import { Checkbox } from "../checkbox";
 import Icon from "../icon";
 import Pill from "../pill";
-import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Tabs" parameters={{ info: { disable: true } }} />
@@ -1484,11 +1483,7 @@ prop to the `Tab` component.
                     <Icon type="settings" />
                   </div>
                   <div style={{ gridColumn: "11 / 13" }}>
-                    <ActionPopover>
-                      <ActionPopoverItem onClick={() => {}}>
-                        Edit
-                      </ActionPopoverItem>
-                    </ActionPopover>
+                    <Icon type="home" />
                   </div>
                   <div style={{ gridColumn: "1 / 6" }}>Tab 1</div>
                 </div>
@@ -1513,11 +1508,7 @@ prop to the `Tab` component.
                     <Icon type="settings" />
                   </div>
                   <div style={{ gridColumn: "11 / 13" }}>
-                    <ActionPopover>
-                      <ActionPopoverItem onClick={() => {}}>
-                        Edit
-                      </ActionPopoverItem>
-                    </ActionPopover>
+                    <Icon type="home" />
                   </div>
                   <div style={{ gridColumn: "1 / 6" }}>Tab 2</div>
                 </div>
@@ -1542,11 +1533,7 @@ prop to the `Tab` component.
                     <Icon type="settings" />
                   </div>
                   <div style={{ gridColumn: "11 / 13" }}>
-                    <ActionPopover>
-                      <ActionPopoverItem onClick={() => {}}>
-                        Edit
-                      </ActionPopoverItem>
-                    </ActionPopover>
+                    <Icon type="home" />
                   </div>
                   <div style={{ gridColumn: "1 / 6" }}>Tab 3</div>
                 </div>
@@ -1643,9 +1630,9 @@ The `headerWidth` prop works only if prop `position` is set to `left`.
               errorMessage="error"
               warningMessage="warning"
               infoMessage="info"
-              tabId="tab-1"
+              tabId="tabs-1-tab-1"
               title="Very long title for Tab 1 without with prop it would be not well aligned with the second Tabs group"
-              key="tab-1"
+              key="tabs-1-tab-1"
             >
               Content for tab 1
             </Tab>
@@ -1653,9 +1640,9 @@ The `headerWidth` prop works only if prop `position` is set to `left`.
               errorMessage="error"
               warningMessage="warning"
               infoMessage="info"
-              tabId="tab-2"
+              tabId="tabs-1-tab-2"
               title="Tab 2"
-              key="tab-2"
+              key="tabs-1-tab-2"
             >
               Content for tab 2
             </Tab>
@@ -1665,9 +1652,9 @@ The `headerWidth` prop works only if prop `position` is set to `left`.
               errorMessage="error"
               warningMessage="warning"
               infoMessage="info"
-              tabId="tab-1"
+              tabId="tabs-2-tab-1"
               title="Tab 1"
-              key="tab-1"
+              key="tabs-2-tab-1"
             >
               Content for tab 1
             </Tab>
@@ -1675,9 +1662,9 @@ The `headerWidth` prop works only if prop `position` is set to `left`.
               errorMessage="error"
               warningMessage="warning"
               infoMessage="info"
-              tabId="tab-2"
+              tabId="tabs-2-tab-2"
               title="Tab 2"
-              key="tab-2"
+              key="tabs-2-tab-2"
             >
               Content for tab 2
             </Tab>
