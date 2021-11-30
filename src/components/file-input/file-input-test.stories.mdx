@@ -17,6 +17,12 @@ import FileInput from ".";
         type: "select",
       },
     },
+    loaderType: {
+      options: ["untracked", "tracked"],
+      control: {
+        type: "select",
+      },
+    },
   }}
 />
 
@@ -31,11 +37,16 @@ export const FileInputStory = ({ size, ...args }) => (
       size: "medium",
       disabled: false,
       error: "",
+      warning: "",
       isUploading: false,
       allowMultiple: false,
       draggable: false,
       dragPlaceholder: "",
       label: "File input",
+      hintText: "",
+      loaderType: "untracked",
+      progress: 0,
+      readOnly: false,
     }}
   >
     {FileInputStory.bind({})}

@@ -1,5 +1,5 @@
 import { Meta, Props, Preview, Story } from "@storybook/addon-docs/blocks";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import FileInput from ".";
 
@@ -7,7 +7,7 @@ import FileInput from ".";
 
 # File input
 
-File input allows the user to upload files(s).
+File input allows the user choose and upload one or more files.
 
 ## Contents
 
@@ -21,13 +21,45 @@ File input allows the user to upload files(s).
 import FileInput from "carbon-react/lib/components/file-input";
 ```
 
+## Designer Notes
+
+- Use the primary or secondary button depending on how important it is to enter the file on the screen.
+- The file name is displayed as a Link. Users can open it and check if it is correct.
+  When more than one file is uploaded, text will be displayed with the number of files selected. Preview in this case is not possible.
+- If the file name is too long, it will appear in a shortened form. The last 8 characters are always displayed.
+
+## Related Components
+
+- [Button](/docs/button--primary "Button")
+- [Link](/docs/link--default-story "Link")
+- [Loader Bar](/docs/loader-bar--default-story "Loader Bar")
+- [Progress Tracker](/docs/progress-tracker--default-story "Progress Tracker")
+
 ## Examples
 
 ### Default
 
+The type of button depends on how important the file input is in the screen. Use one of the `buttonType` variants: primary or secondary.
+
 <Preview>
-  <Story name="default">
-    <FileInput m={2} label="Default" fileChooseAction={() => {}} />
+  <Story name="default with primary button type">
+    <FileInput
+      m={2}
+      label="File input - default with primary button type"
+      fileChooseAction={() => {}}
+      buttonType="primary"
+    />
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="default with secondary button type">
+    <FileInput
+      m={2}
+      label="File input - default with secondary button type"
+      fileChooseAction={() => {}}
+      buttonType="secondary"
+    />
   </Story>
 </Preview>
 
@@ -35,19 +67,41 @@ import FileInput from "carbon-react/lib/components/file-input";
 
 <Preview>
   <Story name="disabled">
-    <FileInput disabled m={2} label="Disabled" fileChooseAction={() => {}} />
+    <FileInput
+      disabled
+      m={2}
+      label="File input - disabled"
+      fileChooseAction={() => {}}
+    />
   </Story>
 </Preview>
 
-### Allow multiple files
+### With hint text
+
+The `hintText` is optional. You can use it to describe what needs to be uploaded, the supported file types and the maximum file size that can be added.
 
 <Preview>
-  <Story name="allow multiple">
+  <Story name="with hint text">
     <FileInput
       m={2}
-      label="Allows multiple"
-      allowMultiple
+      label="File input - with hint text"
       fileChooseAction={() => {}}
+      hintText="Hint text (optional)"
+    />
+  </Story>
+</Preview>
+
+### ReadOnly
+
+Use the `readOnly` prop when the data is to be read-only. The `readOnly` property is visible when the file has been uploaded.
+
+<Preview>
+  <Story name="readOnly">
+    <FileInput
+      m={2}
+      label="File input - readOnly"
+      fileChooseAction={() => {}}
+      readOnly
     />
   </Story>
 </Preview>
@@ -56,9 +110,39 @@ import FileInput from "carbon-react/lib/components/file-input";
 
 <Preview>
   <Story name="size">
-    <FileInput m={2} label="Small" size="small" fileChooseAction={() => {}} />
-    <FileInput m={2} label="Medium" size="medium" fileChooseAction={() => {}} />
-    <FileInput m={2} label="Large" size="large" fileChooseAction={() => {}} />
+    <FileInput
+      m={2}
+      label="File input - small"
+      size="small"
+      fileChooseAction={() => {}}
+    />
+    <FileInput
+      m={2}
+      label="File input - medium"
+      size="medium"
+      fileChooseAction={() => {}}
+    />
+    <FileInput
+      m={2}
+      label="File input - large"
+      size="large"
+      fileChooseAction={() => {}}
+    />
+  </Story>
+</Preview>
+
+### Allow multiple files
+
+Use `allowMultiple` prop if you want to be able to add and upload more than one file. Preview of selected files will not be possible.
+
+<Preview>
+  <Story name="allow multiple" parameters={{ chromatic: { disable: true } }}>
+    <FileInput
+      m={2}
+      label="File input - allow multiple"
+      allowMultiple
+      fileChooseAction={() => {}}
+    />
   </Story>
 </Preview>
 
@@ -68,40 +152,74 @@ You can use the `accept` prop to indicate which file types are allowed. You must
 Common MIME types available at the link: <a target="_blank" href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>MIME types.</a>
 
 <Preview>
-  <Story name="accept property">
-    <FileInput
-      m={2}
-      label="With accept property (png only)"
-      accept="image/png"
-      fileChooseAction={() => {}}
-    />
-    <FileInput
-      m={2}
-      label="With accept property (png or pdf only)"
-      accept={["image/png", "application/pdf"]}
-      fileChooseAction={() => {}}
-    />
+  <Story name="accept property" parameters={{ chromatic: { disable: true } }}>
+    {() => {
+      const [errorForOneFile, setErrorForOneFile] = useState("");
+      const [error, setError] = useState("");
+      const reasons = {
+        INVALID_FILE_TYPE: "The file type is invalid!",
+        MULTIPLE_FILES: "Only one file is allowed.",
+      };
+      return (
+        <>
+          <FileInput
+            m={2}
+            label="File input - with accept property (png only)"
+            accept="image/png"
+            fileChooseAction={() => setErrorForOneFile("")}
+            onFileRejected={(_, reason) => setErrorForOneFile(reasons[reason])}
+            error={errorForOneFile}
+          />
+          <FileInput
+            m={2}
+            label="File input - with accept property (png or pdf only)"
+            accept={["image/png", "application/pdf"]}
+            fileChooseAction={() => setError("")}
+            onFileRejected={(_, reason) => setError(reasons[reason])}
+            error={error}
+          />
+        </>
+      );
+    }}
   </Story>
 </Preview>
 
 ### With file validation
 
+Validation status can be set by passing `error` or `warning` prop to the component.
+Passing a string to these props will display a properly colored border along with a validation message.
+Set `warning` only for empty file input. Once the file is loaded, the warning message will not be visible.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page.
+
 <Preview>
-  <Story name="with validation">
+  <Story name="with validation" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [error, setError] = useState("");
       return (
-        <FileInput
-          m={2}
-          label="With max size of 10kB"
-          fileChooseAction={(files) => {
-            const sizeSum = files.reduce((total, file) => total + file.size, 0);
-            if (sizeSum > 10000) setError("This file is too big");
-            else setError("");
-          }}
-          allowMultiple
-          error={error}
-        />
+        <>
+          <FileInput
+            m={2}
+            label="File input - with error message"
+            hintText="Maximum size: 10kB"
+            fileChooseAction={(files) => {
+              const sizeSum = files.reduce(
+                (total, file) => total + file.size,
+                0
+              );
+              if (sizeSum > 10000) setError("This file is too big");
+              else setError("");
+            }}
+            allowMultiple
+            error={error}
+          />
+          <FileInput
+            m={2}
+            label="File input - with caution message"
+            fileChooseAction={() => {}}
+            warning="Caution message (optional)"
+          />
+        </>
       );
     }}
   </Story>
@@ -109,28 +227,105 @@ Common MIME types available at the link: <a target="_blank" href='https://develo
 
 ### With isUploading prop
 
+You will see upload tracking when you upload files and set the `isUploading` property. You have the option to set two types of upload tracking: "untracked" or "tracked".
+The default setting `loaderType` has been assigned the value `untracked`.
+
 <Preview>
-  <Story name="isUploading">
+  <Story name="isUploading" parameters={{ chromatic: { disable: true } }}>
     <FileInput
       m={2}
-      label="With isUploading prop"
+      label="File input - with isUploading prop"
       isUploading
       fileChooseAction={() => {}}
     />
   </Story>
 </Preview>
 
+### With tracked progress bar
+
+Set `loaderType` as `tracked` and `progress` properties if you want to see the progress of uploading file.
+If the upload is successful, the progress tracker will be green. When the validation status is set to `error` the progress tracker will be red.
+
+<Preview>
+  <Story
+    name="with tracked progress bar"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const [progress, setProgress] = useState(0);
+      const intervalRef = useRef(0);
+      const clearProgress = () => {
+        clearInterval(intervalRef.current);
+      };
+      useEffect(() => clearProgress, []);
+      const handleChoose = (file) => {
+        if (!file) return setProgress(0);
+        intervalRef.current = setInterval(
+          () =>
+            setProgress((oldProgress) => {
+              if (oldProgress < 100) return oldProgress + 10;
+              clearProgress();
+              return oldProgress;
+            }),
+          100
+        );
+      };
+      return (
+        <FileInput
+          m={2}
+          label="File input - with tracked progress bar"
+          fileChooseAction={handleChoose}
+          loaderType="tracked"
+          progress={progress}
+          isUploading={!!progress}
+          cancelAction={() => {
+            clearProgress();
+            setProgress(0);
+          }}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
 ### Draggable
+
+Use `draggable` if you want to be able to use drag and drop in browsers.
+The type of button depends on how important the file input is in the screen. Use one of the `buttonType` variants: primary or secondary.
 
 <Preview>
   <Story name="draggable">
-    <FileInput
-      m={2}
-      label="draggable"
-      fileChooseAction={() => {}}
-      draggable
-      dragPlaceholder="Drop the file here."
-    />
+    {() => {
+      const [error, setError] = useState("");
+      const reasons = {
+        INVALID_FILE_TYPE: "The file type is invalid!",
+        MULTIPLE_FILES: "Only one file is allowed.",
+      };
+      return (
+        <>
+          <FileInput
+            m={2}
+            label="File input - draggable with primary button type"
+            fileChooseAction={() => setError("")}
+            onFileRejected={(_, reason) => setError(reasons[reason])}
+            draggable
+            dragPlaceholder="Drop the file here."
+            error={error}
+            buttonType="primary"
+          />
+          <FileInput
+            m={2}
+            label="File input - draggable with secondary button type"
+            fileChooseAction={() => setError("")}
+            onFileRejected={(_, reason) => setError(reasons[reason])}
+            draggable
+            dragPlaceholder="Drop the file here."
+            error={error}
+            buttonType="secondary"
+          />
+        </>
+      );
+    }}
   </Story>
 </Preview>
 
@@ -140,7 +335,7 @@ Common MIME types available at the link: <a target="_blank" href='https://develo
   <Story name="draggable disabled">
     <FileInput
       m={2}
-      label="Draggable disabled"
+      label="File input - draggable disabled"
       fileChooseAction={() => {}}
       draggable
       dragPlaceholder="Drop the file here."
@@ -149,41 +344,107 @@ Common MIME types available at the link: <a target="_blank" href='https://develo
   </Story>
 </Preview>
 
-### Draggable allow multiple
+### Draggable with hint text
+
+The `hintText` is optional. You can use it to describe what needs to be uploaded, the supported file types and the maximum file size that can be added.
 
 <Preview>
-  <Story name="draggable multiple">
+  <Story name="draggable with hint text">
     <FileInput
       m={2}
-      label="draggable multiple"
+      label="File input - draggable with hint text"
+      fileChooseAction={() => {}}
+      hintText="Hint text (optional)"
+      draggable
+      dragPlaceholder="Drop the file here."
+    />
+  </Story>
+</Preview>
+
+### Draggable readOnly
+
+Use the `readOnly` prop when the data is to be read-only. The `readOnly` property is visible when the file has been uploaded.
+
+<Preview>
+  <Story name="draggable readOnly">
+    <FileInput
+      m={2}
+      label="File input - draggable readOnly"
+      fileChooseAction={() => {}}
+      draggable
+      dragPlaceholder="Drop the file here."
+      readOnly
+    />
+  </Story>
+</Preview>
+
+### Draggable allow multiple
+
+Use `allowMultiple` prop if you want to be able to add and upload more than one file. Preview of selected files will not be possible.
+
+<Preview>
+  <Story
+    name="draggable multiple"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <FileInput
+      m={2}
+      label="File input - draggable multiple"
       fileChooseAction={() => {}}
       draggable
       allowMultiple
-      dragPlaceholder="Drop the file here."
+      dragPlaceholder="Drop the files here."
     />
   </Story>
 </Preview>
 
 ### Draggable with file validation
 
+Validation status can be set by passing `error` or `warning` prop to the component.
+Passing a string to these props will display a properly colored border along with a validation message.
+Set `warning` only for empty file input. Once the file is loaded, the warning message will not be visible.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page.
+
 <Preview>
-  <Story name="draggable with validation">
+  <Story
+    name="draggable with validation"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [error, setError] = useState("");
       return (
-        <FileInput
-          m={2}
-          label="With max size of 10kB"
-          fileChooseAction={(files) => {
-            const sizeSum = files.reduce((total, file) => total + file.size, 0);
-            if (sizeSum > 10000) setError("These files are too big");
-            else setError("");
-          }}
-          allowMultiple
-          error={error}
-          draggable
-          dragPlaceholder="Drop the file here."
-        />
+        <>
+          <FileInput
+            m={2}
+            label="File input - draggable with error message"
+            hintText="Maximum size: 10kB"
+            fileChooseAction={(files) => {
+              const sizeSum = files.reduce(
+                (total, file) => total + file.size,
+                0
+              );
+              if (sizeSum > 10000)
+                files.length > 1
+                  ? setError("These files are too big")
+                  : setError("This file is too big");
+              else setError("");
+            }}
+            allowMultiple
+            error={error}
+            draggable
+            dragPlaceholder="Drop the files here."
+          />
+          <FileInput
+            m={2}
+            label="File input - draggable with caution message"
+            fileChooseAction={() => {}}
+            warning="Caution message (optional)"
+            allowMultiple
+            draggable
+            dragPlaceholder="Drop the files here."
+          />
+        </>
       );
     }}
   </Story>
@@ -195,23 +456,91 @@ You can use the `accept` prop to indicate which file types are allowed. You must
 Common MIME types available at the link: <a target="_blank" href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'>MIME types.</a>
 
 <Preview>
-  <Story name="draggable accept png only">
-    <FileInput
-      m={2}
-      label="PNG files only"
-      fileChooseAction={() => {}}
-      draggable
-      dragPlaceholder="Drop the file here."
-      accept="image/png"
-    />
-    <FileInput
-      m={2}
-      label="PNG or PDF files only"
-      fileChooseAction={() => {}}
-      draggable
-      dragPlaceholder="Drop the file here."
-      accept={["image/png", "application/pdf"]}
-    />
+  <Story
+    name="draggable accept png only"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const [errorForOneFile, setErrorForOneFile] = useState("");
+      const [error, setError] = useState("");
+      const reasons = {
+        INVALID_FILE_TYPE: "The file type is invalid!",
+        MULTIPLE_FILES: "Only one file is allowed.",
+      };
+      return (
+        <>
+          <FileInput
+            m={2}
+            label="File input - draggable with accept property (png only)"
+            accept="image/png"
+            fileChooseAction={() => setErrorForOneFile("")}
+            onFileRejected={(_, reason) => setErrorForOneFile(reasons[reason])}
+            error={errorForOneFile}
+            draggable
+            dragPlaceholder="Drop the file here."
+          />
+          <FileInput
+            m={2}
+            label="File input - draggable with accept property (png or pdf only)"
+            accept={["image/png", "application/pdf"]}
+            fileChooseAction={() => setError("")}
+            onFileRejected={(_, reason) => setError(reasons[reason])}
+            error={error}
+            draggable
+            dragPlaceholder="Drop the file here."
+          />
+        </>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Draggable with tracked progress bar
+
+Set `loaderType` as `tracked` and `progress` properties if you want to see the progress of uploading file.
+If the upload is successful, the progress tracker will be green. When the validation status is set to `error` the progress tracker will be red.
+
+<Preview>
+  <Story
+    name="draggable with tracked progress bar"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const [progress, setProgress] = useState(0);
+      const intervalRef = useRef(0);
+      const clearProgress = () => {
+        clearInterval(intervalRef.current);
+      };
+      useEffect(() => clearProgress, []);
+      const handleChoose = (file) => {
+        if (!file) return setProgress(0);
+        intervalRef.current = setInterval(
+          () =>
+            setProgress((oldProgress) => {
+              if (oldProgress < 100) return oldProgress + 10;
+              clearProgress();
+              return oldProgress;
+            }),
+          100
+        );
+      };
+      return (
+        <FileInput
+          m={2}
+          label="File input - draggable with tracked progress bar"
+          fileChooseAction={handleChoose}
+          loaderType="tracked"
+          progress={progress}
+          isUploading={!!progress}
+          cancelAction={() => {
+            clearProgress();
+            setProgress(0);
+          }}
+          draggable
+          dragPlaceholder="Drop the file here."
+        />
+      );
+    }}
   </Story>
 </Preview>
 

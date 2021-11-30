@@ -1,10 +1,67 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import PropTypes from "prop-types";
-import BaseTheme from "../../style/themes/base";
 
-const FileInputForm = styled.form`
-  ${margin}
+import BaseTheme from "../../style/themes/base";
+import Button from "../button";
+import Link from "../link";
+import { BUTTON_VARIANTS } from "../button/button.config";
+import ProgressTracker from "../progress-tracker/progress-tracker.component";
+import { InnerBar as InnerProgressBar } from "../progress-tracker/progress-tracker.style";
+import LoaderBar from "../loader-bar";
+import StyledLoaderBar, {
+  InnerBar as InnerLoaderBar,
+} from "../loader-bar/loader-bar.style";
+
+const HintText = styled.span`
+  color: ${({ theme }) => theme.fileInput.hintText};
+`;
+
+const FileDropArea = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-weight: 400;
+  overflow: hidden;
+  width: 100%;
+
+  ${({
+    theme,
+    disabled,
+    isSelected,
+    draggable,
+    isDragged,
+    error,
+    warning,
+  }) => css`
+    border: 1px solid ${theme.fileInput.border};
+    border-right: none;
+
+    ${draggable &&
+    css`
+      border: 1px dashed ${theme.fileInput.border};
+      border-right: none;
+      ${(error || warning || isSelected) && "border: none;"};
+
+      ${disabled &&
+      !isSelected &&
+      `border-color:${theme.disabled.border}; background: ${theme.disabled.input};`};
+
+      ${isDragged &&
+      `border-width: 2px; border-color:${theme.fileInput.border};`}
+    `}
+
+    ${!draggable &&
+    css`
+      border: 1px solid ${theme.fileInput.border};
+      border-right: none;
+
+      ${disabled &&
+      `border-color: ${theme.disabled.border};  background: ${theme.disabled.input};`}
+
+      ${(isSelected || warning || error) && "border: none;"}
+    `}
+  `}
 `;
 
 const FileInput = styled.input`
@@ -13,135 +70,349 @@ const FileInput = styled.input`
   }
 `;
 
-const FileDropArea = styled.div`
-  ${({ theme, disabled, error, draggable, isSelected, isDragged }) => css`
-    display: flex;
-    align-items: center;
-    padding-left: 12px;
-    font-weight: 600;
-    overflow: hidden;
-    ${draggable &&
-    !isSelected &&
-    `border: 2px dashed ${theme.colors.primary};
-    color: ${theme.text.placeholder};
-    font-weight: 600`};
-    ${draggable &&
-    !isSelected &&
-    isDragged &&
-    `background-color: ${theme.menu.light.divider};
-    border: 2px dashed ${theme.colors.slate};
-    color: ${theme.text.color};`};
-    ${draggable && !isSelected && `border-right: none;`};
-    ${error && `border: none;`};
-    ${disabled && `border-color: ${theme.disabled.border}`};
-    width: 100%;
-  `}
-`;
+const FileInputContent = styled.div`
+  display: flex;
+  width: 100%;
+  z-index: 1;
 
-const FileInputTitle = styled.div`
-  font-weight: bold;
-`;
+  ${({
+    theme,
+    disabled,
+    error,
+    draggable,
+    isDragged,
+    isSelected,
+    isUploadingAndDisabled,
+    readOnly,
+    warning,
+  }) => css`
+    ${draggable &&
+    css`
+      border: 1px dashed ${theme.fileInput.border};
 
-const FileInputLabel = styled.label`
-  margin-top: 8px;
-  ${({ theme, disabled, error, draggable, isSelected }) => css`
-    border: 1px solid ${theme.colors.border};
-    ${disabled && `background-color: ${theme.disabled.input}`};
-    ${disabled && `pointer-events: none;`};
-    ${disabled && `border-color: ${theme.disabled.border}`};
-    ${draggable && `border: 2px solid transparent;`};
-    ${draggable && isSelected && `border: 2px dashed ${theme.colors.primary};`};
+      ${!isSelected && !warning && "border: none;"};
+
+      ${(disabled || isUploadingAndDisabled) &&
+      `border-color: ${theme.disabled.border}; background: ${theme.disabled.input};`};
+
+      ${isDragged &&
+      css`
+        border-width: 2px;
+        background-color: ${theme.colors.dashedHoverBackground};
+      `}
+    `}
+
+    ${!draggable &&
+    css`
+      ${(isSelected || warning) &&
+      `border: 1px solid ${theme.fileInput.border};`};
+
+      ${(isUploadingAndDisabled || disabled) &&
+      `border-color: ${theme.disabled.border}; background: ${theme.disabled.input};`};
+    `}
+
     ${error &&
-    `border: 2px ${draggable ? "dashed" : "solid"} ${theme.colors.error};`};
+    css`
+      border: 2px solid ${theme.colors.error};
+      :focus {
+        outline: 3px solid ${theme.colors.focus};
+      }
+      ${draggable && `border-style: dashed;`}
+    `}
+
+    ${readOnly &&
+    `height: 40px; background: ${theme.disabled.input}; border: 1px solid ${theme.disabled.border};`};
   `}
-  width: 256px;
+`;
+
+const FileInputContentWrapper = styled.div`
+  margin-top: 8px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 `;
 
-const ErrorMessage = styled.span`
-  ${({ theme }) => css`
-    color: ${theme.colors.error};
-    font-weight: bold;
+const FileInputContainer = styled.div`
+  position: relative;
+  align-items: center;
+  margin-top: 4px;
+`;
+
+const FileInputForm = styled.form`
+  ${margin}
+`;
+
+const FirstSegment = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+`;
+
+const FormattedText = styled.span`
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+`;
+
+const Placeholder = styled.span`
+  display: block;
+  overflow: hidden;
+  ${({ theme, dragPlaceholder, isSelected, isDragged }) => css`
+    color: ${theme.text.color};
+    ${!isDragged &&
+    dragPlaceholder &&
+    !isSelected &&
+    `color: ${theme.text.placeholder};`};
   `}
 `;
 
-const ErrorBorder = styled.div`
-  ${({ theme }) =>
+// TODO: remove after adding "minor" prop for Button component
+function stylingForType({ theme, buttonType, disabled, destructive }) {
+  return css`
+    ${buttonType === "primary" &&
     css`
-      position: absolute;
-      width: 2px;
-      height: 100%;
-      background-color: ${theme.colors.error};
-      left: -12px;
+      background: ${theme.fileInput.minorButton.primary};
+      &:hover {
+        background: ${theme.fileInput.minorButton.hover};
+        border-color: ${theme.fileInput.minorButton.hover};
+      }
+      ${disabled
+        ? `
+        background: ${theme.disabled.background};
+        color: ${theme.disabled.text};
+        &:hover {
+          background: ${theme.disabled.background};
+          color: ${theme.disabled.text};
+          border-color: ${theme.disabled.background};
+        }
+      `
+        : ""}
     `}
+
+    ${buttonType === "secondary" &&
+    css`
+      border: 2px solid ${theme.fileInput.minorButton.primary};
+      color: ${theme.fileInput.minorButton.primary};
+      &:hover {
+        background: ${theme.fileInput.minorButton.hover};
+        border-color: ${theme.fileInput.minorButton.hover};
+      }
+      ${disabled
+        ? `
+        background: ${theme.disabled.background};
+        border: 2px solid ${theme.disabled.background};
+        color: ${theme.disabled.text};
+        &:hover {
+          background: ${theme.disabled.background};
+          color: ${theme.disabled.text};
+          border-color: ${theme.disabled.background};
+        }
+      `
+        : ""}
+    `}
+
+    ${buttonType === "tertiary" &&
+    css`
+      color: ${theme.fileInput.minorButton.primary};
+      &:hover {
+        background: ${theme.fileInput.minorButton.hover};
+        color: ${theme.colors.white};
+        border-color: ${theme.fileInput.minorButton.hover};
+      }
+
+      ${disabled
+        ? `
+        color: ${theme.disabled.text};
+        &:hover {
+          background: ${theme.disabled.background};
+          color: ${theme.disabled.text};
+          border-color: ${theme.disabled.background};
+        }
+      `
+        : ""}
+
+      ${destructive
+        ? `
+          color: ${theme.fileInput.minorButton.destructive};
+          &:hover {
+            background: ${theme.fileInput.minorButton.destructiveHover};
+            color: ${theme.colors.white};
+            border-color: ${theme.fileInput.minorButton.destructiveHover};
+          }
+        `
+        : ""}
+    `}
+  `;
+}
+
+const StyledButton = styled(Button)`
+  ${stylingForType}
 `;
 
-const StyledFileInput = styled.div`
-  position: relative;
-  align-items: center;
-  width: 256px;
+const StyledLink = styled(Link)`
+  display: block;
+  overflow: hidden;
+
+  a {
+    display: block;
+    ${({ theme, readOnly, isUploading }) => css`
+      ${(readOnly || isUploading) && `color: ${theme.text.color};`}
+    `}
+  }
 `;
 
-const FileInputContentWrapper = styled.div`
-  display: flex;
+const ValidationBorder = styled.div`
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  left: -10px;
+
+  ${({ theme, error, warning }) => css`
+    ${warning && `background-color: ${theme.colors.warning};`}
+    ${error && `background-color: ${theme.colors.error};`}
+  `}
+`;
+
+const ValidationMessage = styled.span`
+  ${({ theme, error, warning }) => css`
+    ${warning && `color: ${theme.colors.warning};`}
+    ${error && `color: ${theme.colors.error}; font-weight: bold;`}
+  `}
+`;
+
+// TODO: remove after adding neutral variant for Loader Bar
+const NeutralLoaderBar = styled(LoaderBar)`
+  ${StyledLoaderBar} {
+    background-color: ${({ theme }) => theme.fileInput.loaderBar.background};
+  }
+  ${InnerLoaderBar} {
+    background-color: ${({ theme }) =>
+      theme.fileInput.loaderBar.innerBackground};
+  }
+`;
+
+const StyledProgressTracker = styled(ProgressTracker)`
   width: 100%;
-  z-index: 1;
+  ${InnerProgressBar} {
+    width: ${({ progress }) => `calc(100% * ${progress / 100})`};
+    ${({ theme, error }) => css`
+      ${error && `background-color: ${theme.colors.error};`}
+    `}
+  }
 `;
 
-StyledFileInput.propTypes = {
-  error: PropTypes.string,
+HintText.defaultProps = {
+  theme: BaseTheme,
 };
 
-FileInputLabel.propTypes = {
-  error: PropTypes.bool,
-  disabled: PropTypes.bool,
-  draggable: PropTypes.bool,
-  isSelected: PropTypes.bool,
-};
-
-FileInputLabel.defaultProps = {
-  error: false,
-  disabled: false,
-  draggable: false,
-  isSelected: false,
+FileDropArea.defaultProps = {
   theme: BaseTheme,
 };
 
 FileDropArea.propTypes = {
   disabled: PropTypes.bool,
-  error: PropTypes.bool,
-  draggable: PropTypes.bool,
   isSelected: PropTypes.bool,
+  draggable: PropTypes.bool,
   isDragged: PropTypes.bool,
+  error: PropTypes.bool,
+  warning: PropTypes.bool,
 };
 
-ErrorBorder.defaultProps = {
+FileInputContent.defaultProps = {
   theme: BaseTheme,
 };
 
-ErrorMessage.defaultProps = {
+FileInputContent.propTypes = {
+  disabled: PropTypes.bool,
+  isSelected: PropTypes.bool,
+  draggable: PropTypes.bool,
+  isDragged: PropTypes.bool,
+  isUploadingAndDisabled: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  error: PropTypes.bool,
+  warning: PropTypes.bool,
+};
+
+FileInputForm.defaultProps = {
   theme: BaseTheme,
 };
 
-FileDropArea.defaultProps = {
-  disabled: false,
-  error: false,
-  draggable: false,
-  isSelected: false,
-  isDragged: false,
+Placeholder.defaultProps = {
   theme: BaseTheme,
+};
+
+Placeholder.propTypes = {
+  dragPlaceholder: PropTypes.string,
+  isSelected: PropTypes.bool,
+};
+
+StyledLink.defaultProps = {
+  theme: BaseTheme,
+};
+
+StyledLink.propTypes = {
+  readOnly: PropTypes.bool,
+  isUploading: PropTypes.bool,
+};
+
+StyledButton.defaultProps = {
+  theme: BaseTheme,
+};
+
+StyledButton.propTypes = {
+  destructive: PropTypes.bool,
+  disabled: PropTypes.bool,
+  buttonType: PropTypes.oneOf(BUTTON_VARIANTS),
+};
+
+NeutralLoaderBar.defaultProps = {
+  theme: BaseTheme,
+};
+
+StyledProgressTracker.defaultProps = {
+  theme: BaseTheme,
+  progress: 0,
+};
+
+StyledProgressTracker.propTypes = {
+  progress: PropTypes.number,
+  error: PropTypes.bool,
+};
+
+ValidationBorder.defaultProps = {
+  theme: BaseTheme,
+};
+
+ValidationMessage.defaultProps = {
+  theme: BaseTheme,
+};
+
+ValidationBorder.propTypes = {
+  error: PropTypes.bool,
+  warning: PropTypes.bool,
+};
+
+ValidationMessage.propTypes = {
+  error: PropTypes.bool,
+  warning: PropTypes.bool,
 };
 
 export {
-  ErrorBorder,
-  ErrorMessage,
+  HintText,
   FileDropArea,
   FileInput,
+  FileInputContent,
   FileInputContentWrapper,
+  FileInputContainer,
   FileInputForm,
-  FileInputLabel,
-  FileInputTitle,
-  StyledFileInput,
+  FirstSegment,
+  FormattedText,
+  NeutralLoaderBar,
+  Placeholder,
+  StyledButton,
+  StyledLink,
+  StyledProgressTracker,
+  ValidationBorder,
+  ValidationMessage,
 };

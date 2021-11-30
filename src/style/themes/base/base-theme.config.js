@@ -225,6 +225,21 @@ export default (palette) => {
       border: palette.slateTint(90),
     },
 
+    fileInput: {
+      border: "#668494",
+      hintText: palette.blackOpacity(0.55),
+      minorButton: {
+        primary: "#335b70",
+        hover: "#00324c",
+        destructive: "#CD384B",
+        destructiveHover: "#A42D3C",
+      },
+      loaderBar: {
+        background: palette.slateTint(80),
+        innerBackground: "#335b70",
+      },
+    },
+
     checkable: {
       checked: "rgba(0,0,0,0.90)",
     },

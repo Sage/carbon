@@ -98,4 +98,12 @@ export default {
       },
     },
   },
+  fileInput: {
+    buttonTitle: {
+      choose: () => "Wybierz",
+      remove: () => "Usuń",
+      cancel: () => "Anuluj",
+    },
+    fileName: (numberOfFiles) => `Ilość wybranych plików: ${numberOfFiles}`,
+  },
 };

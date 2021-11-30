@@ -166,4 +166,12 @@ export default {
       },
     },
   },
+  fileInput: {
+    buttonTitle: {
+      choose: () => "Choose",
+      remove: () => "Remove",
+      cancel: () => "Cancel",
+    },
+    fileName: (numberOfFiles) => `${numberOfFiles} files selected`,
+  },
 };
