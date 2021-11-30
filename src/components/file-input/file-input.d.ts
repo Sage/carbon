@@ -42,7 +42,7 @@ export interface FileInputProps extends MarginProps {
   /** Assigns a size to the component: "small" | "medium" | "large". */
   size?: "small" | "medium" | "large";
   /** Specify type of upload tracking. */
-  loaderType: "untracked" | "tracked";
+  loaderType?: "untracked" | "tracked";
   /** Defines the value of the progress tracker, renders only when loaderType is "tracked". */
   progress?: number;
   /** If true, the component will be read-only. */

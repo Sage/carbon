@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import PropTypes, { oneOf } from "prop-types";
+import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import {
@@ -327,7 +327,7 @@ FileInputComponent.propTypes = {
   /** Assigns a size to the component: "small" | "medium" | "large". */
   size: PropTypes.oneOf(["small", "medium", "large"]),
   /** Specify type of upload tracking. */
-  loaderType: oneOf(["untracked", "tracked"]),
+  loaderType: PropTypes.oneOf(["untracked", "tracked"]),
   /** Defines the value of the progress tracker, renders only when loaderType is "tracked". */
   progress: PropTypes.number,
   /** If true, the component will be read-only. */
