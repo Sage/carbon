@@ -1,3 +1,10 @@
+### [101.3.2](https://github.com/Sage/carbon/compare/v101.3.1...v101.3.2) (2021-11-30)
+
+
+### Bug Fixes
+
+* **inputs:** make validation messages readable by voiceover ([89312f1](https://github.com/Sage/carbon/commit/89312f18a984758888346f0c2a2c31967586c0f8))
+
 ### [101.3.1](https://github.com/Sage/carbon/compare/v101.3.0...v101.3.1) (2021-11-26)
 
 
