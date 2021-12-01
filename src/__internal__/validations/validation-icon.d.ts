@@ -15,6 +15,8 @@ export interface ValidationIconProps extends ValidationPropTypes {
    * (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements)
    */
   tooltipFlipOverrides?: ["top" | "bottom" | "left" | "right"];
+  /** Id passed to the tooltip container, used for accessibility purposes */
+  tooltipId?: string;
   /** An onClick handler */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
   /** An onBlur handler */

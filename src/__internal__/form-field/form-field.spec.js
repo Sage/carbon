@@ -58,7 +58,7 @@ describe("FormField", () => {
           labelInline: true,
           labelWidth: 20,
           size: "small",
-          helpId: "test-help-id",
+          tooltipId: "test-help-id",
         }).children()
       ).toMatchSnapshot();
     });
@@ -72,11 +72,11 @@ describe("FormField", () => {
       expect(comp.find(Label).props().htmlFor).toEqual("foo");
     });
 
-    it("passes the helpId to the Label id prop", () => {
-      const helpId = "test-help-id";
+    it("passes the tooltipId to the Label id prop", () => {
+      const tooltipId = "test-help-id";
       expect(
-        render({ helpId, label: "test label" }).find(Label).prop("helpId")
-      ).toBe(helpId);
+        render({ tooltipId, label: "test label" }).find(Label).prop("tooltipId")
+      ).toBe(tooltipId);
     });
 
     describe("when adaptiveLabelBreakpoint prop is set", () => {

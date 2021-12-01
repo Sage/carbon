@@ -34,6 +34,7 @@ const Search = ({
   variant = "default",
   "aria-label": ariaLabel = "search",
   inputRef,
+  tabIndex,
   ...rest
 }) => {
   const isControlled = value !== undefined;
@@ -185,6 +186,7 @@ const Search = ({
         onChange={onChange}
         onKeyDown={onKeyDown}
         inputRef={assignInput}
+        tabIndex={tabIndex}
       />
       {searchButton && (
         <StyledSearchButton>
@@ -259,6 +261,8 @@ Search.propTypes = {
    * A callback to retrieve the input reference
    */
   inputRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  /** Input tabindex */
+  tabIndex: PropTypes.number,
 };
 
 export default Search;
