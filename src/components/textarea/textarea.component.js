@@ -13,6 +13,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import StyledTextarea from "./textarea.style";
 import LocaleContext from "../../__internal__/i18n-context";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 
 const getFormatNumber = (value, locale) =>
   new Intl.NumberFormat(locale).format(value);
@@ -81,6 +82,22 @@ const Textarea = ({
     }
   };
 
+  const {
+    labelId,
+    tooltipId,
+    fieldHelpId,
+    ariaDescribedBy,
+    ariaLabelledBy,
+  } = useInputAccessibility({
+    id,
+    error,
+    warning,
+    info,
+    label,
+    labelHelp,
+    fieldHelp,
+  });
+
   useEffect(() => {
     if (expandable) {
       expandTextarea();
@@ -134,10 +151,12 @@ const Textarea = ({
         >
           <FormField
             fieldHelp={fieldHelp}
+            fieldHelpId={fieldHelpId}
             error={error}
             warning={warning}
             info={info}
             label={label}
+            labelId={labelId}
             disabled={disabled}
             id={id}
             labelInline={labelInline}
@@ -145,6 +164,7 @@ const Textarea = ({
             labelWidth={labelWidth}
             labelHelp={labelHelp}
             labelSpacing={labelSpacing}
+            tooltipId={tooltipId}
             isRequired={props.required}
             useValidationIcon={validationOnLabel}
             adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
@@ -161,9 +181,11 @@ const Textarea = ({
               info={info}
             >
               <Input
+                aria-invalid={!!error}
+                aria-labelledby={ariaLabelledBy}
+                aria-describedby={ariaDescribedBy}
                 autoFocus={autoFocus}
                 name={name}
-                aria-invalid={!!error}
                 ref={inputRef}
                 maxLength={
                   enforceCharacterLimit && characterLimit
