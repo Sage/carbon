@@ -15,6 +15,7 @@ export interface InputIconToggleProps {
   align?: "left" | "right";
   useValidationIcon?: boolean;
   iconTabIndex?: number;
+  tooltipId?: string;
 }
 declare function InputIconToggle(props: InputIconToggleProps): JSX.Element;
 

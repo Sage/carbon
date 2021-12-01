@@ -9,8 +9,10 @@ import { InputBehaviour } from "../input-behaviour";
 import FormField from "../form-field";
 import HiddenCheckableInput from "./hidden-checkable-input.component";
 import guid from "../utils/helpers/guid";
+import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 
 const CheckableInput = ({
+  ariaLabelledBy: externalAriaLabelledBy,
   autoFocus,
   checked,
   children,
@@ -41,13 +43,23 @@ const CheckableInput = ({
   ...props
 }) => {
   const { current: id } = useRef(inputId || guid());
-  const labelId = label ? `${id}-label` : undefined;
-  const helpId = [error, warning, info, labelHelp].filter(
-    (validation) => typeof validation === "string"
-  ).length
-    ? `${id}-help`
-    : undefined;
-  const fieldHelpId = fieldHelp ? `${id}-field-help` : undefined;
+
+  const {
+    labelId,
+    tooltipId,
+    fieldHelpId,
+    ariaDescribedBy,
+    ariaLabelledBy,
+  } = useInputAccessibility({
+    id,
+    error,
+    warning,
+    info,
+    label,
+    labelHelp,
+    fieldHelp,
+  });
+
   const isRadio = type === "radio";
 
   const formFieldProps = {
@@ -55,7 +67,7 @@ const CheckableInput = ({
     error,
     fieldHelp,
     fieldHelpInline,
-    helpId,
+    tooltipId,
     fieldHelpId,
     id,
     info,
@@ -76,16 +88,16 @@ const CheckableInput = ({
   };
 
   const inputProps = {
+    "aria-describedby": ariaDescribedBy,
+    "aria-labelledby": externalAriaLabelledBy || ariaLabelledBy,
+    "aria-invalid": !!error,
     autoFocus,
     checked,
     disabled,
-    helpId,
-    fieldHelpId,
     id,
     inputRef,
     type,
     value,
-    labelId,
     name,
     onBlur,
     onChange,
@@ -179,6 +191,8 @@ CheckableInput.propTypes = {
   ]),
   /** When true, displays validation icon on label */
   validationOnLabel: PropTypes.bool,
+  /** The id of the element that labels the input */
+  ariaLabelledBy: PropTypes.string,
 };
 
 CheckableInput.defaultProps = {
