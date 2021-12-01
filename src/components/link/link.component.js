@@ -1,11 +1,13 @@
 import React, { useContext, useMemo } from "react";
 import { ThemeContext } from "styled-components";
 import PropTypes from "prop-types";
+
 import Icon from "../icon";
 import Event from "../../__internal__/utils/helpers/events";
 import { StyledLink, StyledContent } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { baseTheme } from "../../style/themes";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 const Link = React.forwardRef(
   (
@@ -30,6 +32,7 @@ const Link = React.forwardRef(
     },
     ref
   ) => {
+    const l = useLocale();
     const theme = useContext(ThemeContext) || baseTheme;
     const tabIndex = tabbable && !disabled ? "0" : "-1";
     const handleOnKeyDown = (ev) => {
@@ -101,7 +104,7 @@ const Link = React.forwardRef(
           {renderLinkIcon()}
 
           <StyledContent>
-            {isSkipLink ? "Skip to main content" : children}
+            {isSkipLink ? l.link.skipLinkLabel() : children}
           </StyledContent>
 
           {renderLinkIcon("right")}
