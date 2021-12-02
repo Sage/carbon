@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import ButtonToggle from "../button-toggle";
 import ButtonToggleGroup from "./button-toggle-group.component";
 
@@ -8,7 +8,7 @@ import ButtonToggleGroup from "./button-toggle-group.component";
 
 ## Error
 
-<Preview>
+<Canvas>
   <Story name="error" parameters={{ info: { disable: true } }}>
     <React.Fragment>
       <ButtonToggleGroup
@@ -90,11 +90,11 @@ import ButtonToggleGroup from "./button-toggle-group.component";
       </ButtonToggleGroup>
     </React.Fragment>
   </Story>
-</Preview>
+</Canvas>
 
 ## Warning
 
-<Preview>
+<Canvas>
   <Story name="warning" parameters={{ info: { disable: true } }}>
     <React.Fragment>
       <ButtonToggleGroup
@@ -176,11 +176,11 @@ import ButtonToggleGroup from "./button-toggle-group.component";
       </ButtonToggleGroup>
     </React.Fragment>
   </Story>
-</Preview>
+</Canvas>
 
 ## Info
 
-<Preview>
+<Canvas>
   <Story name="info" parameters={{ info: { disable: true } }}>
     <React.Fragment>
       <ButtonToggleGroup
@@ -262,4 +262,4 @@ import ButtonToggleGroup from "./button-toggle-group.component";
       </ButtonToggleGroup>
     </React.Fragment>
   </Story>
-</Preview>
+</Canvas>

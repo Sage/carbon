@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, Canvas, Story } from "@storybook/addon-docs";
 import AdvancedColorPicker from ".";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import { useState } from "react";
@@ -29,7 +29,7 @@ import AdvancedColorPicker from "carbon-react/lib/components/advanced-color-pick
 
 Shows how the color picker can be used to select a color from a predefined set.
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ info: { disable: true } }}>
     {() => {
       const [open, setOpen] = useState(true);
@@ -69,7 +69,7 @@ Shows how the color picker can be used to select a color from a predefined set.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

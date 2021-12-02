@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import {
   ICONS,
@@ -109,7 +109,7 @@ export const IconAllStory = () => (
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -132,11 +132,11 @@ export const IconAllStory = () => (
   >
     {IconStory.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ### All
 
-<Preview>
+<Canvas>
   <Story
     name="all"
     parameters={{
@@ -147,4 +147,4 @@ export const IconAllStory = () => (
   >
     {IconAllStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

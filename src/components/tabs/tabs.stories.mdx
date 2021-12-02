@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, Canvas, Story } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
 import { useState, useRef } from "react";
 import { Tabs, Tab } from "./tabs.component";
@@ -51,7 +51,7 @@ import { Tabs, Tab } from "carbon-react/lib/components/tabs";
 
 The tabs widget also allows you to select a tab on page load. By default this is set to the first tab.
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       return (
@@ -112,11 +112,11 @@ The tabs widget also allows you to select a tab on page load. By default this is
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Positioned top and aligned right
 
-<Preview>
+<Canvas>
   <Story name="positioned top aligned right">
     {() => {
       return (
@@ -177,11 +177,11 @@ The tabs widget also allows you to select a tab on page load. By default this is
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Positoned left and aligned left
 
-<Preview>
+<Canvas>
   <Story name="positioned left and aligned left">
     {() => {
       return (
@@ -242,11 +242,11 @@ The tabs widget also allows you to select a tab on page load. By default this is
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Positoned left and aligned right
 
-<Preview>
+<Canvas>
   <Story name="positioned left and aligned right">
     {() => {
       return (
@@ -307,13 +307,13 @@ The tabs widget also allows you to select a tab on page load. By default this is
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With Link as a Tab
 
 To set a different tab on page load pass a `tabId` to the `selectedTabId` prop as shown in the example below.
 
-<Preview>
+<Canvas>
   <Story name="with link as a tab">
     {() => {
       return (
@@ -355,13 +355,13 @@ To set a different tab on page load pass a `tabId` to the `selectedTabId` prop a
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With specified tab visible
 
 To set a different tab on page load pass a `tabId` to the `selectedTabId` prop as shown in the example below.
 
-<Preview>
+<Canvas>
   <Story name="with specified tab visible">
     {() => {
       return (
@@ -422,14 +422,14 @@ To set a different tab on page load pass a `tabId` to the `selectedTabId` prop a
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Without extended dividing line
 
 By setting the `extendedLine` prop to "false" it is possible to trim the excess line from the `TabHeading`, by default this
 is set to "true".
 
-<Preview>
+<Canvas>
   <Story name="without extended dividing line">
     <div style={{ padding: "4px" }}>
       <Tabs extendedLine={false} align="left" position="top">
@@ -486,7 +486,7 @@ is set to "true".
       </Tabs>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Large tabs
 
@@ -494,7 +494,7 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
 
 #### Positioned top
 
-<Preview>
+<Canvas>
   <Story name="with large tabs positioned top">
     <div style={{ padding: "4px" }}>
       <Tabs size="large" align="left" position="top">
@@ -551,11 +551,11 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
       </Tabs>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 #### Positioned left
 
-<Preview>
+<Canvas>
   <Story name="with large tabs positioned left">
     <div style={{ padding: "4px" }}>
       <Tabs size="large" align="left" position="left">
@@ -612,7 +612,7 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
       </Tabs>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With borders
 
@@ -621,7 +621,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 
 #### Positioned top, borders on
 
-<Preview>
+<Canvas>
   <Story name="with borders positioned top">
     <div style={{ padding: "4px" }}>
       <Tabs borders="on" align="left">
@@ -678,11 +678,11 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
       </Tabs>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 #### Positioned top, borders with no sides
 
-<Preview>
+<Canvas>
   <Story name="with no sides positioned top">
     <div style={{ padding: "4px" }}>
       <Tabs borders="no sides" align="left">
@@ -739,11 +739,11 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
       </Tabs>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 #### Positioned left, borders on
 
-<Preview>
+<Canvas>
   <Story name="with borders positioned left">
     <div style={{ padding: "4px" }}>
       <Tabs borders="on" align="left" position="left">
@@ -800,11 +800,11 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
       </Tabs>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 #### Positioned left, borders with no sides
 
-<Preview>
+<Canvas>
   <Story name="with no sides positioned left">
     <div style={{ padding: "4px" }}>
       <Tabs borders="no sides" align="left" position="left">
@@ -861,11 +861,11 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
       </Tabs>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With validations
 
-<Preview>
+<Canvas>
   <Story name="with validations positioned top">
     {() => {
       const [errors, setErrors] = useState({
@@ -971,9 +971,9 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="with validations sized large positioned top">
     {() => {
       const [errors, setErrors] = useState({
@@ -1079,9 +1079,9 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="with validations positioned left">
     {() => {
       const [errors, setErrors] = useState({
@@ -1187,9 +1187,9 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="with validations sized large positioned left">
     {() => {
       const [errors, setErrors] = useState({
@@ -1295,14 +1295,14 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With additional title siblings
 
 It is possible to add additional elements to the a TabTitle by using the `siblings` prop. The `titlePosition` prop
 can be used to render the `title` "before" (default) or "after" the additional elements.
 
-<Preview>
+<Canvas>
   <Story name="with additional title siblings">
     {() => {
       const [errors, setErrors] = useState({
@@ -1376,9 +1376,9 @@ can be used to render the `title` "before" (default) or "after" the additional e
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="with additional title siblings size large">
     {() => {
       const [errors, setErrors] = useState({
@@ -1452,14 +1452,14 @@ can be used to render the `title` "before" (default) or "after" the additional e
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom layout
 
 It is possible to override the static layout of the `TabTitle` by passing in your own custom layouts to the `customLayout`
 prop to the `Tab` component.
 
-<Preview>
+<Canvas>
   <Story name="with custom layout">
     {() => {
       const [errors, setErrors] = useState({
@@ -1550,13 +1550,13 @@ prop to the `Tab` component.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With alternate styling
 
 By setting the `variant` prop to "alternate" it is possible to apply some additional styling variants as seen below.
 
-<Preview>
+<Canvas>
   <Story name="with alternate styling">
     {() => {
       const [errors, setErrors] = useState({
@@ -1614,13 +1614,13 @@ By setting the `variant` prop to "alternate" it is possible to apply some additi
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With headerWidth
 
 The `headerWidth` prop works only if prop `position` is set to `left`.
 
-<Preview>
+<Canvas>
   <Story name="with headerWidth">
     {() => {
       return (
@@ -1673,7 +1673,7 @@ The `headerWidth` prop works only if prop `position` is set to `left`.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom spacing
 
@@ -1681,7 +1681,7 @@ The `Tabs`component also allows you to pass custom margin spacing, whilst `Tab` 
 The spacing modifiers support being passed either a number between 1 and 8 that is then multiplied by `8px` or any valid
 CSS string.
 
-<Preview>
+<Canvas>
   <Story name="with custom spacing">
     {() => {
       return (
@@ -1743,7 +1743,7 @@ CSS string.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Integrating with an external history
 

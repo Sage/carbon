@@ -250,6 +250,25 @@ describe("InputIconToggle", () => {
         expect(mockOnBlur).toHaveBeenCalled();
       });
     });
+
+    describe("tooltipId", () => {
+      it("passes tooltipId to Icon", () => {
+        const tooltipId = "tooltip-id";
+        const wrapper = render({ inputIcon: "dropdown", tooltipId }, mount);
+
+        expect(wrapper.find(Icon).props().tooltipId).toBe(tooltipId);
+      });
+
+      it("passes tooltipId to ValidationIcon", () => {
+        const tooltipId = "tooltip-id";
+        const wrapper = render(
+          { error: "Error", tooltipId, useValidationIcon: true },
+          mount
+        );
+
+        expect(wrapper.find(ValidationIcon).props().tooltipId).toBe(tooltipId);
+      });
+    });
   });
 });
 

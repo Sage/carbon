@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import Sidebar from ".";
 import Button from "../button";
@@ -49,7 +49,7 @@ with all the UI pass `enableBackgroundUI={ true }` to the component
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
@@ -69,11 +69,11 @@ with all the UI pass `enableBackgroundUI={ true }` to the component
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With header
 
-<Preview>
+<Canvas>
   <Story name="with header" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -97,13 +97,13 @@ with all the UI pass `enableBackgroundUI={ true }` to the component
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With scroll
 
 If sidebar content does not fit the sidebar, scroll will appear. Default scroll theme is "light".
 
-<Preview>
+<Canvas>
   <Story name="with scroll" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -127,11 +127,11 @@ If sidebar content does not fit the sidebar, scroll will appear. Default scroll 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With `<Typography />`
 
-<Preview>
+<Canvas>
   <Story name="with typography">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
@@ -221,10 +221,10 @@ If sidebar content does not fit the sidebar, scroll will appear. Default scroll 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Sidebar
 
-<Props of={Sidebar} />
+<ArgsTable of={Sidebar} />

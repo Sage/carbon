@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
@@ -15,7 +15,7 @@ import {
 } from ".";
 import guid from "../../__internal__/utils/helpers/guid";
 import { FLAT_TABLE_SIZES, FLAT_TABLE_THEMES } from "./flat-table.config";
-import { FlatTableSortableStory } from "./flat-table.stories.mdx"
+import { FlatTableSortableStory } from "./flat-table.stories.mdx";
 
 <Meta
   title="Flat Table/Test"
@@ -278,7 +278,7 @@ export const FlatTableStory = ({
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     argTypes={{
@@ -323,11 +323,11 @@ export const FlatTableStory = ({
   >
     {FlatTableStory.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ### Sortable
 
-<Preview>
+<Canvas>
   <Story
     name="sortable"
     args={{
@@ -336,4 +336,4 @@ export const FlatTableStory = ({
   >
     {FlatTableSortableStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

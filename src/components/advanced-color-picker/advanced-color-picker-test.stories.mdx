@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import AdvancedColorPicker from ".";
@@ -61,7 +61,7 @@ export const AdvancedColorPickerStory = (args) => {
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -83,4 +83,4 @@ export const AdvancedColorPickerStory = (args) => {
   >
     {AdvancedColorPickerStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

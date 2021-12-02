@@ -363,6 +363,14 @@ describe("Icon component", () => {
       expect(wrapper.find(Tooltip).props().message).toEqual("foo");
     });
 
+    it("passes id to Tooltip when tooltipId prop is provided", () => {
+      const tooltipId = "tooltip-id";
+      const wrapper = mount(
+        <Icon type="home" tooltipId={tooltipId} tooltipMessage="foo" />
+      );
+      expect(wrapper.find(Tooltip).props().id).toEqual(tooltipId);
+    });
+
     it("renders when a custom tooltipMessage is passed", () => {
       const customMessage = <span>foo</span>;
       const wrapper = mount(

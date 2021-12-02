@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import Tile from ".";
 import Content from "../content";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -41,7 +41,7 @@ import TileFooter from "carbon-react/lib/components/tile/tile-footer";
 
 By default, the Tile component will have a horizontal layout.
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Tile>
       <Content title="Test Title One">Test Body One</Content>
@@ -49,13 +49,13 @@ By default, the Tile component will have a horizontal layout.
       <Content title="Test Title Three">Test Body Three</Content>
     </Tile>
   </Story>
-</Preview>
+</Canvas>
 
 ### Vertical
 
 The Tile component can be also have a vertical layout.
 
-<Preview>
+<Canvas>
   <Story name="vertical">
     <Tile orientation="vertical">
       <Content title="Test Title One">Test Body One</Content>
@@ -63,11 +63,11 @@ The Tile component can be also have a vertical layout.
       <Content title="Test Title Three">Test Body Three</Content>
     </Tile>
   </Story>
-</Preview>
+</Canvas>
 
 ### With TileFooter
 
-<Preview>
+<Canvas>
   <Story name="with TileFooter">
     <div>
       <Tile orientation="vertical" width={400}>
@@ -163,7 +163,7 @@ The Tile component can be also have a vertical layout.
       </Tile>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom widths
 
@@ -172,7 +172,7 @@ will be converted into a percentage, any number grater will be be treated as pix
 Any child wrapped by a Tile component can be passed an optional `width` prop.
 Please note that it will not have any effect if the Tile orientation is set to `vertical`.
 
-<Preview>
+<Canvas>
   <Story name="custom Widths">
     <Tile as="tile" orientation="horizontal" width="75%">
       <Content
@@ -207,13 +207,13 @@ Please note that it will not have any effect if the Tile orientation is set to `
       </Content>
     </Tile>
   </Story>
-</Preview>
+</Canvas>
 
 ### With inline styling
 
 The Tile component can also have inline styling applied to the content.
 
-<Preview>
+<Canvas>
   <Story name="with Inline">
     <Tile as="tile" orientation="horizontal" width={0}>
       <Content
@@ -248,11 +248,11 @@ The Tile component can also have inline styling applied to the content.
       </Content>
     </Tile>
   </Story>
-</Preview>
+</Canvas>
 
 ### With different padding and margin
 
-<Preview>
+<Canvas>
   <Story name="with different padding and margin">
     <>
       <Tile p={0} m={0} as="tile" orientation="horizontal">
@@ -275,7 +275,7 @@ The Tile component can also have inline styling applied to the content.
       </Tile>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### With Definition List
 
@@ -284,7 +284,7 @@ the same tags used in HTML5 but instead they are React elements.
 
 Please note that Dl, Dd and Dt use our common spacing props.
 
-<Preview>
+<Canvas>
   <Story name="with Definition List - default">
     <Tile width="95%">
       <Dl>
@@ -320,13 +320,13 @@ Please note that Dl, Dd and Dt use our common spacing props.
       </Dl>
     </Tile>
   </Story>
-</Preview>
+</Canvas>
 
 ### With Definition List and custom `StyledDtDiv` width
 
 Providing a number value to the `w` prop, sets the width of the `<Dt />` element as a percentage. The remaining percentage is then assigned to `<Dd />` to occupy the available space.
 
-<Preview>
+<Canvas>
   <Story name="with Definition List and custom width">
     <Tile width="95%">
       <Dl w={40}>
@@ -362,13 +362,13 @@ Providing a number value to the `w` prop, sets the width of the `<Dt />` element
       </Dl>
     </Tile>
   </Story>
-</Preview>
+</Canvas>
 
 ### With Definition List with custom text alignment
 
 In this example `dtTextAlign` has been provided the string 'left' and `ddTextAlign` has been provided the string 'right'.
 
-<Preview>
+<Canvas>
   <Story name="with Definition and custom text alignment">
     <Tile width="40%">
       <Dl w={40} dtTextAlign="left" ddTextAlign="right">
@@ -389,11 +389,11 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
       </Dl>
     </Tile>
   </Story>
-</Preview>
+</Canvas>
 
 ## With Definition List and ActionPopover and Icon support
 
-<Preview>
+<Canvas>
   <Story name="with Definition List and ActionPopover and Icon support">
     <Tile width="60%">
       <Dl>
@@ -445,11 +445,11 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
       </Dl>
     </Tile>
   </Story>
-</Preview>
+</Canvas>
 
 ### With Accordion and Definition List
 
-<Preview>
+<Canvas>
   <Story parameters={{ chromatic: { disable: true } }} name="with Accordion">
     <Tile p={0} orientation="horizontal">
       <Accordion p={0} headerSpace={{ p: 3 }} borders="none" title="Accordion">
@@ -472,11 +472,11 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
       </Accordion>
     </Tile>
   </Story>
-</Preview>
+</Canvas>
 
 ### With Accordion and TileFooter
 
-<Preview>
+<Canvas>
   <Story
     parameters={{ chromatic: { disable: true } }}
     name="with Accordion and TileFooter"
@@ -508,7 +508,7 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
       </TileFooter>
     </Tile>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

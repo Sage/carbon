@@ -136,6 +136,9 @@ export default {
     placeholder: () => "Please Select...",
     noResultsForTerm: (term) => `No results for "${term}"`,
   },
+  link: {
+    skipLinkLabel: () => "Skip to main content",
+  },
   switch: {
     on: () => "ON",
     off: () => "OFF",

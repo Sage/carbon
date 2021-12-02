@@ -1,4 +1,4 @@
-import { Meta, Preview, Story, Props } from "@storybook/addon-docs";
+import { Meta, Canvas, Story } from "@storybook/addon-docs";
 import { ArgsTable } from "@storybook/components";
 import styled from "styled-components";
 import Pod from "../pod";
@@ -7,10 +7,7 @@ import { Dl, Dt, Dd } from "../definition-list";
 import Button from "../button";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta
-  title="Grid"
-  parameters={{ chromatic: { disable: true } }}
-/>
+<Meta title="Grid" parameters={{ chromatic: { disable: true } }} />
 
 # Grid
 
@@ -84,7 +81,7 @@ Gutters for the `GridItem` are set automatically in the CSS, following the value
 
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ info: { disable: true } }}>
     <GridContainer>
       <GridItem alignSelf="stretch" justifySelf="stretch">
@@ -104,13 +101,13 @@ This example is best viewed in the Canvas tab using full-screen mode with device
       </GridItem>
     </GridContainer>
   </Story>
-</Preview>
+</Canvas>
 
 ### Justify
 
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
-<Preview>
+<Canvas>
   <Story name="justify" parameters={{ info: { disable: true } }}>
     <div id="grid-justify">
       <GridContainer>
@@ -132,13 +129,13 @@ This example is best viewed in the Canvas tab using full-screen mode with device
       </GridContainer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Align
 
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
-<Preview>
+<Canvas>
   <Story name="align" parameters={{ info: { disable: true } }}>
     <div id="grid-align">
       <GridContainer>
@@ -171,13 +168,13 @@ This example is best viewed in the Canvas tab using full-screen mode with device
       </GridContainer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom
 
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
-<Preview>
+<Canvas>
   <Story
     name="custom spacings"
     parameters={{ info: { disable: true }, chromatic: { disable: false } }}
@@ -259,13 +256,13 @@ This example is best viewed in the Canvas tab using full-screen mode with device
       </GridItem>
     </GridContainer>
   </Story>
-</Preview>
+</Canvas>
 
 ### Responsive Settings
 
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation. Note how the order and position of each `GridItem`, responds according to an array of `responsiveSettings` allowing reordering and respositioning as required.
 
-<Preview>
+<Canvas>
   <Story name="responsive-settings" parameters={{ info: { disable: true } }}>
     <GridContainer>
       <GridItem
@@ -357,13 +354,13 @@ This example is best viewed in the Canvas tab using full-screen mode with device
       </GridItem>
     </GridContainer>
   </Story>
-</Preview>
+</Canvas>
 
 ### With a subgrid
 
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
-<Preview>
+<Canvas>
   <Story
     name="subgrid"
     parameters={{ info: { disable: true }, chromatic: { disable: true } }}
@@ -428,7 +425,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
       </GridContainer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

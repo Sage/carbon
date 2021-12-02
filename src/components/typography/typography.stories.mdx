@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { ArgsTable } from "@storybook/components";
 import Typography, { List, ListItem } from ".";
 import LinkTo from "@storybook/addon-links/react";
@@ -33,7 +33,7 @@ It's possible to change the text position, using the spacing props. See the prop
 
 It's also possible to create ordered and unordered lists using the `List`, `ListItem` helpers. These components are syntactic sugar around the `Typography` component and accept the same props.
 
-<Preview>
+<Canvas>
   <Story name="variants" parameters={{ info: { disable: true } }}>
     <>
       <Typography variant="h1-large">Heading Level 1 Large</Typography>
@@ -125,13 +125,13 @@ It's also possible to create ordered and unordered lists using the `List`, `List
       </List>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ## Example of truncate
 
 The `truncate` prop is a boolean prop that automatically applies the styles required to trunacte a piece of text.
 
-<Preview>
+<Canvas>
   <Story name="truncate" parameters={{ info: { disable: true } }}>
     <div style={{ height: "80px", width: "80px", backgroundColor: "yellow" }}>
       <Typography truncate>
@@ -140,7 +140,7 @@ The `truncate` prop is a boolean prop that automatically applies the styles requ
       </Typography>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## Reccomended body text colors
 

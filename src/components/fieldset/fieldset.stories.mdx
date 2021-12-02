@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import Fieldset from "./";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
@@ -31,7 +31,7 @@ import Fieldset from "carbon-react/lib/components/fieldset";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Fieldset legend="Fieldset">
       <Textbox
@@ -64,11 +64,11 @@ import Fieldset from "carbon-react/lib/components/fieldset";
       />
     </Fieldset>
   </Story>
-</Preview>
+</Canvas>
 
 ### Fieldset in Form
 
-<Preview>
+<Canvas>
   <Story name="in form - default">
     <Form>
       <Textbox label="Separate Field" labelInline />
@@ -83,13 +83,13 @@ import Fieldset from "carbon-react/lib/components/fieldset";
       <Textbox label="Separate Field" labelInline />
     </Form>
   </Story>
-</Preview>
+</Canvas>
 
 ### `fieldSpacing`
 
 You can manipulate the spacings beetwen `Fieldset` components by passing `fieldSpacing` prop into `Form` component
 
-<Preview>
+<Canvas>
   <Story name="in form - fieldSpacing">
     <Form fieldSpacing={1}>
       <Textbox label="Separate Field" labelInline />
@@ -104,13 +104,13 @@ You can manipulate the spacings beetwen `Fieldset` components by passing `fieldS
       <Textbox label="Separate Field" labelInline />
     </Form>
   </Story>
-</Preview>
+</Canvas>
 
 ### Validations
 
 #### As a string
 
-<Preview>
+<Canvas>
   <Story name="validations - string - component">
     <>
       {["error", "warning", "info"].map((type) => (
@@ -145,11 +145,11 @@ You can manipulate the spacings beetwen `Fieldset` components by passing `fieldS
       ))}
     </>
   </Story>
-</Preview>
+</Canvas>
 
 #### As a string, displayed on label
 
-<Preview>
+<Canvas>
   <Story name="validations - string - label">
     <>
       {["error", "warning", "info"].map((type) => (
@@ -186,11 +186,11 @@ You can manipulate the spacings beetwen `Fieldset` components by passing `fieldS
       ))}
     </>
   </Story>
-</Preview>
+</Canvas>
 
 #### As a boolean
 
-<Preview>
+<Canvas>
   <Story name="validations - boolean">
     <>
       {["error", "warning", "info"].map((type) => (
@@ -225,7 +225,7 @@ You can manipulate the spacings beetwen `Fieldset` components by passing `fieldS
       ))}
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
