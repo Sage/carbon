@@ -114,9 +114,6 @@ const FileInputContent = styled.div`
     ${error &&
     css`
       border: 2px solid ${theme.colors.error};
-      :focus {
-        outline: 3px solid ${theme.colors.focus};
-      }
       ${draggable && `border-style: dashed;`}
     `}
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
@@ -59,19 +59,12 @@ const FileInputComponent = ({
   const [files, setFiles] = useState([]);
   const [isDragged, setIsDragged] = useState(false);
   const inputFile = useRef(null);
-  const fileInputContent = useRef(null);
   const l = useLocale();
 
   const cancelButtonText = l.fileInput.buttonTitle.cancel();
   const removeButtonText = l.fileInput.buttonTitle.remove();
   const chooseButtonText = l.fileInput.buttonTitle.choose();
   const fileInputId = id || `file-upload-${label}`;
-
-  useEffect(() => {
-    if (error) {
-      fileInputContent.current.focus();
-    }
-  }, [error]);
 
   const handleFileChoose = useCallback(
     (filesArr) => {
@@ -192,6 +185,7 @@ const FileInputComponent = ({
 
   const renderFileDropArea = () => (
     <FileDropArea
+      data-element="draggable"
       onDragLeave={() => setIsDragged(false)}
       onDragOver={() => {
         if (draggable && !isDragged && !isUploading) setIsDragged(true);
@@ -260,8 +254,7 @@ const FileInputComponent = ({
           onDragOver={handleOnDragOver}
         >
           <FileInputContent
-            ref={fileInputContent}
-            tabIndex={-1}
+            data-component="file-input"
             disabled={disabled && !isUploading}
             error={!!error}
             draggable={draggable}
