@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
@@ -90,7 +90,7 @@ export const ConfirmStory = ({
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -119,4 +119,4 @@ export const ConfirmStory = ({
   >
     {ConfirmStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

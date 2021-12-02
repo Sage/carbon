@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import { Preview as MyPreview } from "@storybook/components";
 import LinkTo from "@storybook/addon-links/react";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
@@ -86,15 +86,15 @@ import {
 
 Story showing most of the functionality of the action popover and what can be achieved by using it
 
-<Preview>
+<Canvas>
   <Story id="action-popover-test--default" />
-</Preview>
+</Canvas>
 
 ### With icons
 
 Each item is clickable and represents an action to be taken on a given row.
 
-<Preview>
+<Canvas>
   <Story name="with icons">
     <div style={{ height: "250px" }}>
       <FlatTable>
@@ -125,13 +125,13 @@ Each item is clickable and represents an action to be taken on a given row.
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With disabled item
 
 ActionPopoverItem&apos;s can be disabled and will not dispatch an action but can still be navigated with the keyboard.
 
-<Preview>
+<Canvas>
   <Story name="with disabled item">
     <div style={{ height: "250px" }}>
       <FlatTable>
@@ -162,13 +162,13 @@ ActionPopoverItem&apos;s can be disabled and will not dispatch an action but can
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With menu right aligned
 
 It is possible to align the Menu to the right of the MenuButton by passing the &quot;rightAlignMenu&quot; to ActionPopover
 
-<Preview>
+<Canvas>
   <Story name="with menu right aligned">
     <div style={{ height: "250px" }}>
       <FlatTable>
@@ -199,11 +199,11 @@ It is possible to align the Menu to the right of the MenuButton by passing the &
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With item content aligned to right
 
-<Preview>
+<Canvas>
   <Story name="with item content aligned to right">
     <div style={{ height: "250px" }}>
       <FlatTable>
@@ -232,13 +232,13 @@ It is possible to align the Menu to the right of the MenuButton by passing the &
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With no icons
 
 Menu items can also be displayed without icons.
 
-<Preview>
+<Canvas>
   <Story name="with no icons">
     <div style={{ height: "250px" }}>
       <FlatTable>
@@ -267,14 +267,14 @@ Menu items can also be displayed without icons.
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom menu button
 
 It is possible to use the `renderButton` prop to override the default button used to trigger the opening and closing of
 ActionPopoverMenu. Expand the code example below for how to use this.
 
-<Preview>
+<Canvas>
   <Story name="with custom menu button">
     <div style={{ height: "250px" }}>
       <FlatTable>
@@ -352,7 +352,7 @@ ActionPopoverMenu. Expand the code example below for how to use this.
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With submenu
 
@@ -363,7 +363,7 @@ Hovering the mouse cursor over an item will open the sub-menu if it has one and 
 close it. No action is dispatched on click of the item and the sub-menu is opened by mouse enter and closed on mouse
 leave.
 
-<Preview>
+<Canvas>
   <Story name="with submenu">
     <div style={{ height: "250px" }}>
       <FlatTable>
@@ -407,13 +407,13 @@ leave.
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With disabled submenu
 
 A sub-menu will not open if the item is in a disabled state.
 
-<Preview>
+<Canvas>
   <Story name="with disabled submenu">
     <div style={{ height: "250px" }}>
       <FlatTable>
@@ -458,7 +458,7 @@ A sub-menu will not open if the item is in a disabled state.
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With submenu aligned right
 
@@ -522,7 +522,7 @@ The sub-menu will open to the right side when there is no space to render the su
 
 The menu can also be rendered above the button control by setting using `placement="top"`.
 
-<Preview>
+<Canvas>
   <Story name="with menu opening above">
     <div style={{ paddingTop: "120px", height: "250px" }}>
       <FlatTable>
@@ -566,7 +566,7 @@ The menu can also be rendered above the button control by setting using `placeme
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Keyboard navigation
 
@@ -583,7 +583,7 @@ Pressing the "enter" key will trigger the action associated with the currently f
 or "tab" key will close the menu with no action being triggered and focus the next focusable element. Pressing
 "shift + tab" will close the menu and focus the previously focused element.
 
-<Preview>
+<Canvas>
   <Story name="keyboard navigation">
     <div style={{ height: "250px" }}>
       <FlatTable>
@@ -620,7 +620,7 @@ or "tab" key will close the menu with no action being triggered and focus the ne
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Keyboard navigation left aligned submenu
 
@@ -629,7 +629,7 @@ the parent item and pressing the "left" key. The same accessible shortcuts descr
 the sub-menu. Pressing the "right" key will return focus back to the main menu and close the sub-menu without
 triggering an action.
 
-<Preview>
+<Canvas>
   <Story name="keyboard navigation left aligned submenu">
     <div style={{ height: "250px" }}>
       <FlatTable>
@@ -689,7 +689,7 @@ triggering an action.
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Keyboard navigation right aligned submenu
 
@@ -771,7 +771,7 @@ is on a item will open a sub-menu if it has one and pressing the "left" key will
 When a row has many actions you may choose to incldue the primary actions with a dedicated action to for less frequently
 used actions, in this example "manage devices".
 
-<Preview>
+<Canvas>
   <Story name="with additional options">
     <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
       <FlatTable isZebra>
@@ -803,11 +803,11 @@ used actions, in this example "manage devices".
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## with download button
 
-<Preview>
+<Canvas>
   <Story name="with download button">
     <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
       <FlatTable isZebra>
@@ -846,11 +846,11 @@ used actions, in this example "manage devices".
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## in overflow hidden container
 
-<Preview>
+<Canvas>
   <Story name="in overflow hidden container">
     <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
       <Accordion title="Heading">
@@ -920,13 +920,13 @@ used actions, in this example "manage devices".
       </Accordion>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## In FlatTable with highlightable rows
 
 It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
 
-<Preview>
+<Canvas>
   <Story name="in FlatTable" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [highlightedRow, setHighlightedRow] = useState("");
@@ -1021,7 +1021,7 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
@@ -1031,11 +1031,11 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
 
 ### ActionPopoverMenu Props
 
-<Props of={ActionPopoverMenu} />
+<ArgsTable of={ActionPopoverMenu} />
 
 ### ActionPopoverItem Props
 
-<Props of={MenuItem} />
+<ArgsTable of={MenuItem} />
 
 ## Translation keys
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import DefaultPages from "./pages.component";
 import Page from "./page/page.component";
 import DialogFullScreen from "../dialog-full-screen";
@@ -31,7 +31,7 @@ import Pages, { Page } from "carbon-react/lib/components/pages";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -95,11 +95,11 @@ import Pages, { Page } from "carbon-react/lib/components/pages";
     }}
     ;
   </Story>
-</Preview>
+</Canvas>
 
 ### Pages with Initial Page Index
 
-<Preview>
+<Canvas>
   <Story name="with Initial Page Index">
     {() => {
       let initialpageIndex = 1;
@@ -171,11 +171,11 @@ import Pages, { Page } from "carbon-react/lib/components/pages";
     }}
     ;
   </Story>
-</Preview>
+</Canvas>
 
 ## Inside DialogFullScreen
 
-<Preview>
+<Canvas>
   <Story name="inside DialogFullScreen">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -239,14 +239,14 @@ import Pages, { Page } from "carbon-react/lib/components/pages";
     }}
     ;
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Props for Pages
 
-<Props of={DefaultPages} />
+<ArgsTable of={DefaultPages} />
 
 ### Props for Page
 
-<Props of={Page} />
+<ArgsTable of={Page} />

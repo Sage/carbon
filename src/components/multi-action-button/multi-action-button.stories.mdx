@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import MultiActionButton from ".";
 import Button from "../button";
@@ -36,7 +36,7 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ chromatic: { disable: true } }}>
     <MultiActionButton text="Multi Action Button">
       <Button>Button 1</Button>
@@ -44,11 +44,11 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
       <Button>Button 3</Button>
     </MultiActionButton>
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     <MultiActionButton disabled text="Multi Action Button">
       <Button>Button 1</Button>
@@ -56,11 +56,11 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
       <Button>Button 3</Button>
     </MultiActionButton>
   </Story>
-</Preview>
+</Canvas>
 
 ### Button types
 
-<Preview>
+<Canvas>
   <Story name="button types">
     {["primary", "secondary", "tertiary"].map((buttonType) => (
       <Box key={buttonType} mb={3}>
@@ -75,11 +75,11 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
       </Box>
     ))}
   </Story>
-</Preview>
+</Canvas>
 
 ### Sizes
 
-<Preview>
+<Canvas>
   <Story name="sizes">
     {["small", "medium", "large"].map((size) => (
       <Box key={size} mb={3}>
@@ -91,11 +91,11 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
       </Box>
     ))}
   </Story>
-</Preview>
+</Canvas>
 
 ### Alignment
 
-<Preview>
+<Canvas>
   <Story name="align" parameters={{ chromatic: { disable: true } }}>
     {["left", "right"].map((align) => (
       <Box key={align} mb={3}>
@@ -110,13 +110,13 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
       </Box>
     ))}
   </Story>
-</Preview>
+</Canvas>
 
 ### Subtext
 
 Subtext only works when `size` is `large`
 
-<Preview>
+<Canvas>
   <Story name="subtext">
     <MultiActionButton
       size="large"
@@ -128,11 +128,11 @@ Subtext only works when `size` is `large`
       <Button size="large">Button 3</Button>
     </MultiActionButton>
   </Story>
-</Preview>
+</Canvas>
 
 ## In overflow: hidden container
 
-<Preview>
+<Canvas>
   <Story
     name="in overflow hidden container"
     parameters={{ chromatic: { disable: true } }}
@@ -151,7 +151,7 @@ Subtext only works when `size` is `large`
       </Box>
     </Accordion>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
@@ -161,4 +161,4 @@ Subtext only works when `size` is `large`
 
 ### Button
 
-<Props of={Button} />
+<ArgsTable of={Button} />

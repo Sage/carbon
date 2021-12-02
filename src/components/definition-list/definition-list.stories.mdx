@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { Dl, Dt, Dd } from "./";
 import Icon from "../icon";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -7,10 +7,7 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Hr from "../hr";
 import Typography from "../typography";
 
-<Meta
-  title="Definition List"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Definition List" parameters={{ info: { disable: true } }} />
 
 # Definition List
 
@@ -38,7 +35,7 @@ Definition List most of the time is in use with other components. Look at the ex
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Dl>
       <Dt>First</Dt>
@@ -49,11 +46,11 @@ Definition List most of the time is in use with other components. Look at the ex
       <Dd>Description</Dd>
     </Dl>
   </Story>
-</Preview>
+</Canvas>
 
 ### Action popover and icon support
 
-<Preview>
+<Canvas>
   <Story name="action popover and icon support">
     <Dl>
       <Dt>
@@ -80,13 +77,13 @@ Definition List most of the time is in use with other components. Look at the ex
       </Dd>
     </Dl>
   </Story>
-</Preview>
+</Canvas>
 
 ### Conditional rendering with `<React.Fragment />`
 
 _CAUTION: Direct children of `Dl` can only be `<React.Fragment />`, `Dt` or `Dd`_
 
-<Preview>
+<Canvas>
   <Story
     name="with conditional rendering"
     parameters={{ chromatic: { disable: true } }}
@@ -104,14 +101,14 @@ _CAUTION: Direct children of `Dl` can only be `<React.Fragment />`, `Dt` or `Dd`
       )}
     </Dl>
   </Story>
-</Preview>
+</Canvas>
 
 ### As a single column
 
 Setting the `asSingleColumn` prop will render the `DefinitionList` as a single column. Please note that the default alignment
 for `Dt` components is `right` so you will likely need to set `dtTextAlign` to `left` to achieve the layout below.
 
-<Preview>
+<Canvas>
   <Story name="as a single column">
     <Dl w="200px" dtTextAlign="left" asSingleColumn>
       <Dt>First</Dt>
@@ -127,12 +124,12 @@ for `Dt` components is `right` so you will likely need to set `dtTextAlign` to `
       <Dd>Description</Dd>
     </Dl>
   </Story>
-</Preview>
+</Canvas>
 
 It is also possible to create more complex layouts, like below, using single column `DefinitionList`s with other components
 such as `Typography` and `Hr`.
 
-<Preview>
+<Canvas>
   <Story
     name="multiple single columns with segments"
     parameters={{ chromatic: { disable: true } }}
@@ -219,7 +216,7 @@ such as `Typography` and `Hr`.
       </Box>
     </Box>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

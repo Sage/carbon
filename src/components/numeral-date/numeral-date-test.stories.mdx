@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import NumeralDate from ".";
@@ -87,7 +87,7 @@ export const NumeralDateValidationsStory = (args) => {
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -101,11 +101,11 @@ export const NumeralDateValidationsStory = (args) => {
   >
     {NumeralDateStory.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ### Validations
 
-<Preview>
+<Canvas>
   <Story
     name="validations"
     args={{
@@ -119,4 +119,4 @@ export const NumeralDateValidationsStory = (args) => {
   >
     {NumeralDateValidationsStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

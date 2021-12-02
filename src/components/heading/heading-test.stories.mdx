@@ -1,8 +1,7 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
 import Heading from "./heading.component";
-import Pill from "../pill";
 
 <Meta
   title="Heading/Test"
@@ -39,17 +38,6 @@ export const HeadingStory = ({
 }) => {
   return (
     <Heading
-      pills={[
-        <Pill mr={2} key="1">
-          test pill 1
-        </Pill>,
-        <Pill mr={2} key="2" size="L">
-          test pill 2
-        </Pill>,
-        <Pill mr={2} key="3" size="XL">
-          test pill 3
-        </Pill>,
-      ]}
       title={title || titleSpecialCharacters}
       children={children || childrenSpecialCharacters}
       subheader={subheader || subheaderSpecialCharacters}
@@ -65,7 +53,7 @@ export const HeadingStory = ({
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -87,4 +75,4 @@ export const HeadingStory = ({
   >
     {HeadingStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

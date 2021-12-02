@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
 import { HELP_POSITIONS } from "./help.config";
@@ -66,7 +66,7 @@ export const HelpStory = ({
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -83,4 +83,4 @@ export const HelpStory = ({
   >
     {HelpStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

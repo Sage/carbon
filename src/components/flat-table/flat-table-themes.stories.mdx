@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, Canvas, Story } from "@storybook/addon-docs";
 import {
   FlatTable,
   FlatTableHead,
@@ -21,7 +21,7 @@ import {
 
 To create a transparent effect for the header, the background-color is set to match a white background
 
-<Preview>
+<Canvas>
   <Story name="transparent-white theme">
     <div>
       <FlatTable colorTheme="transparent-white">
@@ -62,13 +62,13 @@ To create a transparent effect for the header, the background-color is set to ma
       </FlatTable>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With transparent-base theme
 
 To create a transparent effect for the header, the background-color is set to match the base app background
 
-<Preview>
+<Canvas>
   <Story name="transparent-base theme">
     <FlatTable colorTheme="transparent-base">
       <FlatTableHead>
@@ -107,11 +107,11 @@ To create a transparent effect for the header, the background-color is set to ma
       </FlatTableBody>
     </FlatTable>
   </Story>
-</Preview>
+</Canvas>
 
 ### With light theme
 
-<Preview>
+<Canvas>
   <Story name="light theme">
     <FlatTable colorTheme="light">
       <FlatTableHead>
@@ -150,4 +150,4 @@ To create a transparent effect for the header, the background-color is set to ma
       </FlatTableBody>
     </FlatTable>
   </Story>
-</Preview>
+</Canvas>
