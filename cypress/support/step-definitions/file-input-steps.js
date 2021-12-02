@@ -1,3 +1,4 @@
+import { getComponent, getDataElementByValue } from "../../locators";
 import {
   buttonType,
   fewFilesSelected,
@@ -46,14 +47,11 @@ When("I drag&drop few files to the {string} input", (indexOfInput) => {
 
 Then("{string} file should be attached to the File Input", (file) => {
   fileTitle(file).should("be.visible");
-  fileTitle(file)
-    .parent()
+  getDataElementByValue("action")
+    .children()
     .should("have.attr", "tabindex", "0")
     .and("have.attr", "target", "_blank");
-  fileTitle(file)
-    .parent()
-    .parent()
-    .should("have.attr", "data-component", "link");
+  getComponent("link").should("be.visible");
 });
 
 Then("{int} files should be attached to the File Input", (amount) => {
@@ -68,6 +66,10 @@ Then("{string} button is visible", (buttonName) => {
 
 Then("Loader bar is visible when isUploading", () => {
   loaderBarComponent().should("be.visible");
+});
+
+Then("Loader bar should not exist", () => {
+  loaderBarComponent().should("not.exist");
 });
 
 When("I click {string} button", (buttonName) => {

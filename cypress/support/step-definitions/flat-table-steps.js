@@ -251,12 +251,16 @@ Then("The {word} subrow action popover has focus", (position) => {
     .and("have.css", "outline", `${gold} solid 2px`);
 });
 
-When("I have a large viewport", () => {
-  cy.viewport(700, 345);
-});
-
-When("I have a small viewport", () => {
-  cy.viewport(700, 240);
+When("I have a {word} viewport", (size) => {
+  if (size === "large") {
+    cy.viewport(700, 345);
+  } else if (size === "small") {
+    cy.viewport(700, 240);
+  } else if (size === "extra-small") {
+    cy.viewport(250, 240);
+  } else {
+    throw new Error("no size defined");
+  }
 });
 
 When("pageSize select list is opened", () => {

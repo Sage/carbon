@@ -13,11 +13,16 @@ Feature: File Input component
       | file.mov |
 
   @positive
-  Scenario: Attach file with very long title in File Input - the file name should be formatted
+  Scenario Outline: Attach file with very long title in File Input - the file name should be formatted
     Given I open "File Input" component page "default"
+      And I have a <size> viewport
     When I attach the file "file_with_very_long_title.png" to the "first" input
-    Then "file_with_...itle.png" file should be attached to the File Input
+    Then "<fileName>" file should be attached to the File Input
       And "Remove" button is visible
+    Examples:
+      | fileName                  | size        |
+      | file_with_very_long_title | large       |
+      | itle.png                  | extra-small |
 
   @positive
   Scenario: Delete attached file
@@ -27,7 +32,7 @@ Feature: File Input component
     When I click "Remove" button
     Then File Input should be empty
       And "Choose" button is visible
-      
+
   @positive
   Scenario: Attach few files in File Input
     Given I open "File Input" component page "allow multiple"
@@ -48,22 +53,28 @@ Feature: File Input component
       | file.mov |
 
   @positive
-  Scenario: Attach file with very long title in File Input when isUploading - the file name should be formatted
+  Scenario Outline: Attach file with very long title in File Input when isUploading - the file name should be formatted
     Given I open "File Input" component page "is uploading"
+      And I have a <size> viewport
     When I attach the file "file_with_very_long_title.png" to the "first" input
-    Then "file_with_...itle.png" file should be attached to the File Input
+    Then "<fileName>" file should be attached to the File Input
       And Loader bar is visible when isUploading
       And "Cancel" button is visible
+    Examples:
+      | fileName                  | size        |
+      | file_with_very_long_title | large       |
+      | itle.png                  | extra-small |
 
   @positive
   Scenario: Delete attached file when isUploading
     Given I open "File Input" component page "is uploading"
       And I attach the file "file.png" to the "first" input
       And "file.png" file should be attached to the File Input
+      And Loader bar is visible when isUploading
     When I click "Cancel" button
     Then File Input should be empty
       And "Choose" button is visible
-      And Loader bar is visible when isUploading
+      And Loader bar should not exist
 
   @positive
   Scenario Outline: Attach <file> in File Input using Drag&Drop
@@ -77,19 +88,25 @@ Feature: File Input component
       | file.mov |
 
   @positive
-  Scenario: Attach file with very long title in File Input using Drag&Drop - the file name should be formatted
+  Scenario Outline: Attach file with very long title in File Input using Drag&Drop - the file name should be formatted
     Given I open "File Input" component page "draggable"
+      And I have a <size> viewport
     When I drag&drop the file "file_with_very_long_title.png" to the "first" input
-    Then "file_with_...itle.png" file should be attached to the File Input
+    Then "<fileName>" file should be attached to the File Input
       And "Remove" button is visible
+    Examples:
+      | fileName                  | size        |
+      | file_with_very_long_title | large       |
+      | itle.png                  | extra-small |
 
-   @positive
+  @positive
   Scenario: Delete attached file when File Input is draggable
     Given I open "File Input" component page "draggable"
       And I drag&drop the file "file.png" to the "first" input
       And "file.png" file should be attached to the File Input
     When I click "Remove" button
     Then File Input should be empty
+      And Loader bar should not exist
       And "Choose" button is visible
 
   @positive
@@ -118,5 +135,5 @@ Feature: File Input component
   Scenario: Attach file in File Input - with wrong extension
     Given I open "File Input" component page "accept property"
     When I attach the file "file.mov" to the "first" input
-    Then validation "Invalid file type!" info is presented
+    Then validation "The file type is invalid!" info is presented
       And "Remove" button is visible
