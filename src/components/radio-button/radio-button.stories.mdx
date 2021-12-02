@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import { RadioButtonGroup, RadioButton, PrivateRadioButton } from ".";
@@ -47,7 +47,7 @@ Disabled or read-only radio buttons might be difficult for a user to distinguish
 
 A legend can be set for the group, and each radio button can have a label.
 
-<Preview>
+<Canvas>
   <Story name="with legend and labels">
     <RadioButtonGroup
       name="legend-and-labels-group"
@@ -71,13 +71,13 @@ A legend can be set for the group, and each radio button can have a label.
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="required">
     <RadioButtonGroup
       name="required-group"
@@ -90,7 +90,7 @@ You can use the `required` prop to indicate if the field is mandatory.
       <RadioButton value="d" label="Debts only" />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### With inline legend
 
@@ -98,7 +98,7 @@ The legend can be made inline. Its width can be changed with the `legendWidth` p
 
 The spacing between the legend and the radio buttons can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, so therefore `8px` or `16px`. The default is `2` for this prop.
 
-<Preview>
+<Canvas>
   <Story name="with inline legend">
     <RadioButtonGroup
       name="inline-legend-group"
@@ -124,13 +124,13 @@ The spacing between the legend and the radio buttons can be changed with the `le
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### With left margin
 
 A `ml` prop can be supplied to align the `RadioButtonGroup` with above and below components. This prop is a CSS string.
 
-<Preview>
+<Canvas>
   <Story name="with left margin">
     <RadioButtonGroup
       name="left-margin-group"
@@ -155,13 +155,13 @@ A `ml` prop can be supplied to align the `RadioButtonGroup` with above and below
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### Enable adaptive behaviour
 
 Passing in the `adaptiveLegendBreakpoint` and `adaptiveSpacingBreakpoint` props will enable the adaptive behaviour.
 
-<Preview>
+<Canvas>
   <Story
     name="enable adaptive behaviour"
     parameters={{ chromatic: { disable: true } }}
@@ -191,13 +191,13 @@ Passing in the `adaptiveLegendBreakpoint` and `adaptiveSpacingBreakpoint` props 
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### Different label spacing
 
 The spacing between radio buttons and their labels can be changed with the `labelSpacing` prop. Similarly to the `legendSpacing` prop, this is a number which is multiplied by the base theme spacing constant. It defaults to `1` which is therefore `8px`.
 
-<Preview>
+<Canvas>
   <Story name="different label spacing">
     <RadioButtonGroup
       name="different-label-spacing-group"
@@ -222,13 +222,13 @@ The spacing between radio buttons and their labels can be changed with the `labe
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### Inline radio buttons
 
 The radio buttons can be made inline with the `inline` prop.
 
-<Preview>
+<Canvas>
   <Story name="inline radio buttons">
     <RadioButtonGroup
       name="inline-group"
@@ -241,13 +241,13 @@ The radio buttons can be made inline with the `inline` prop.
       <RadioButton id="inline-radio-3" value="radio3" label="Radio Option 3" />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### Reverse radio buttons
 
 The radio buttons and labels can be flipped around using the `reverse` prop on each radio button. The same spacing options between the label and radio button as above apply.
 
-<Preview>
+<Canvas>
   <Story name="reverse radio buttons">
     <RadioButtonGroup
       name="reverse-group"
@@ -274,13 +274,13 @@ The radio buttons and labels can be flipped around using the `reverse` prop on e
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### Disable radio buttons
 
 The radio buttons and labels can be disabled using the `disabled` prop on each radio button.
 
-<Preview>
+<Canvas>
   <Story name="disable radio buttons">
     <RadioButtonGroup
       name="disable-group"
@@ -307,13 +307,13 @@ The radio buttons and labels can be disabled using the `disabled` prop on each r
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### With field help
 
 Help text for each input can be added with the `fieldHelp` prop on `RadioButton`. This can be made inline with the `fieldHelpInline` prop.
 
-<Preview>
+<Canvas>
   <Story name="with field help">
     <RadioButtonGroup
       name="field-help-group"
@@ -340,13 +340,13 @@ Help text for each input can be added with the `fieldHelp` prop on `RadioButton`
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### With large radio buttons
 
 Passing in `large` for the `size` prop on each radio button will increase the size of the button.
 
-<Preview>
+<Canvas>
   <Story name="with large radio buttons">
     <RadioButtonGroup
       name="large-group"
@@ -376,13 +376,13 @@ Passing in `large` for the `size` prop on each radio button will increase the si
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### With validations on radio buttons
 
 Validations can be added to the radio buttons as strings or booleans.
 
-<Preview>
+<Canvas>
   <Story name="with validations on buttons">
     <RadioButtonGroup
       name="validations-on-buttons-group"
@@ -410,11 +410,11 @@ Validations can be added to the radio buttons as strings or booleans.
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="with validations on buttons - tooltipPosition overriden"
     parameters={{ chromatic: { disable: true } }}
@@ -433,13 +433,13 @@ It is possible to use the `tooltipPosition` to override the default placement of
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### With validations on radio group
 
 Validations can be added to the radio group as a string or boolean.
 
-<Preview>
+<Canvas>
   <Story name="with validations on group">
     <RadioButtonGroup
       name="validations-on-group-group"
@@ -464,11 +464,11 @@ Validations can be added to the radio group as a string or boolean.
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="with validations on group - tooltipPosition overriden"
     parameters={{ chromatic: { disable: true } }}
@@ -497,13 +497,13 @@ It is possible to use the `tooltipPosition` to override the default placement of
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom styled labels
 
 Labels could be customized using the Typography Component
 
-<Preview>
+<Canvas>
   <Story name="with custom styled label">
     <RadioButtonGroup
       name="custom-styled-label-group"
@@ -545,7 +545,7 @@ Labels could be customized using the Typography Component
       />
     </RadioButtonGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

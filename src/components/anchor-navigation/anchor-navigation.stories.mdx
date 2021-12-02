@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import {
   AnchorNavigation,
@@ -9,10 +9,10 @@ import {
 import Textbox from "../textbox";
 
 import {
-  AnchorNavigationStory, 
-  Content, 
-  AnchorNavigationInFullScreenDialogStory
-  } from "./anchor-navigation-test.stories.mdx"
+  AnchorNavigationStory,
+  Content,
+  AnchorNavigationInFullScreenDialogStory,
+} from "./anchor-navigation-test.stories.mdx";
 
 <Meta
   title="Anchor Navigation"
@@ -103,20 +103,22 @@ const MyComponent = () => (
 
 `AnchorNavigation` can also be used as the content of `DialogFullScreen` component.
 
-<Preview>
-  <Story name="in full screen dialog">{AnchorNavigationInFullScreenDialogStory.bind({})}</Story>
-</Preview>
+<Canvas>
+  <Story name="in full screen dialog">
+    {AnchorNavigationInFullScreenDialogStory.bind({})}
+  </Story>
+</Canvas>
 
 ## Props:
 
 ### AnchorNavigation
 
-<Props of={AnchorNavigation} />
+<ArgsTable of={AnchorNavigation} />
 
 ### AnchorNavigationItem
 
-<Props of={AnchorNavigationItem} />
+<ArgsTable of={AnchorNavigationItem} />
 
 ### AnchorSectionDivider
 
-<Props of={AnchorSectionDivider} />
+<ArgsTable of={AnchorSectionDivider} />

@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
@@ -34,7 +34,7 @@ import Pager from "carbon-react/lib/components/pager";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -62,18 +62,18 @@ import Pager from "carbon-react/lib/components/pager";
       return <Pager onPagination={() => {}} {...args} />;
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With disabled Page Size Selection
 
-<Preview>
+<Canvas>
   <Story
     name="disabled page size"
     parameters={{ chromatic: { disable: true } }}
   >
     <Pager totalRecords={100} onPagination={() => {}} />
   </Story>
-</Preview>
+</Canvas>
 
 ### Hiding Pager elements
 
@@ -82,7 +82,7 @@ default: in order for them to be hidden you must pass `false` to the correspondi
 In the example below the `First` and `Last` buttons and `totalRecords` label have been hidden by setting the
 `showFirstAndLastButtons` and `showTotalRecords` props to false.
 
-<Preview>
+<Canvas>
   <Story name="hiding pager elements">
     <Pager
       totalRecords={100}
@@ -92,7 +92,7 @@ In the example below the `First` and `Last` buttons and `totalRecords` label hav
       showPageSizeSelection={true}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Smart elements
 
@@ -100,7 +100,7 @@ The examples below demonstrate the `Pager`'s smart functionality. In the first t
 and as such the navigation buttons are not neccessary and therefore not rendered. In the second example there are only enough
 records for two pages, the `First` and `Last` buttons are not needed and as a result will not render.
 
-<Preview>
+<Canvas>
   <Story name="smart functionality">
     <>
       <Pager totalRecords={10} onPagination={() => {}} />
@@ -108,23 +108,23 @@ records for two pages, the `First` and `Last` buttons are not needed and as a re
       <Pager totalRecords={20} onPagination={() => {}} />
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### Loading state
 
 When no totalRecords provided.
 
-<Preview>
+<Canvas>
   <Story name="loading state">
     <Pager onPagination={() => {}} />
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom pageSizeSelectionOptions
 
 Shows 1, 2 or 5 items per page.
 
-<Preview>
+<Canvas>
   <Story
     name="page size selection options"
     parameters={{ chromatic: { disable: true } }}
@@ -141,13 +141,13 @@ Shows 1, 2 or 5 items per page.
       pageSize={1}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With currentPage pre-set to last page
 
 Due to the fact that it is last page, next and last links are disabled.
 
-<Preview>
+<Canvas>
   <Story
     name="current page last page"
     parameters={{ chromatic: { disable: true } }}
@@ -159,11 +159,11 @@ Due to the fact that it is last page, next and last links are disabled.
       currentPage={10}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With currentPage pre-set to page 5
 
-<Preview>
+<Canvas>
   <Story name="current page" parameters={{ chromatic: { disable: true } }}>
     <Pager
       onPagination={() => {}}
@@ -172,7 +172,7 @@ Due to the fact that it is last page, next and last links are disabled.
       currentPage={5}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom responsive example
 
@@ -180,7 +180,7 @@ The`show...` props can also be used to implement responsive behaviour in the `Pa
 conditionally render the interanl elements as the screen size is adjusted. This example is best viewed in the Canvas tab
 using full-screen mode with device or viewport emulation.
 
-<Preview>
+<Canvas>
   <Story
     name="using custom responsive settings"
     parameters={{ chromatic: { disable: true } }}
@@ -249,13 +249,13 @@ using full-screen mode with device or viewport emulation.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Pager
 
-<Props of={Pager} />
+<ArgsTable of={Pager} />
 
 ## Translation keys
 

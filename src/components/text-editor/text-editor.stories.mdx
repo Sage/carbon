@@ -1,4 +1,4 @@
-import { Meta, Preview, Story } from "@storybook/addon-docs/blocks";
+import { Meta, Canvas, Story } from "@storybook/addon-docs";
 import { useState, useRef } from "react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeys from "../../../.storybook/utils/translation-keys-table";
@@ -10,10 +10,7 @@ import TextEditor, {
 import Button from "../button";
 import EditorLinkPreview from "../link-preview";
 
-<Meta
-  title="Text Editor"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Text Editor" parameters={{ info: { disable: true } }} />
 
 # Text Editor
 
@@ -57,7 +54,7 @@ toggles `bold`; `cmd/ctrl+i` toggles `italic`; and inputting a `*` or `1.` on a 
 `unordered-list` or `ordered-list` respectively.
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [value, setValue] = useState(EditorState.createEmpty());
@@ -74,7 +71,7 @@ You can use the `required` prop to indicate if the field is mandatory.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With content
 
@@ -86,7 +83,7 @@ other packages; using the methods for data conversion provided by `draftjs`
 (https://draftjs.org/docs/api-reference-data-conversion/), enables the parsing of these formats into something the
 editor can expects.
 
-<Preview>
+<Canvas>
   <Story name="with content">
     {() => {
       const [value, setValue] = useState(
@@ -108,7 +105,7 @@ editor can expects.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With optional Save/ Cancel buttons
 
@@ -116,7 +113,7 @@ By passing the `onSave` callback prop it is possible to render the form control 
 will be executed when the `Save` button is clicked and there is content in the editor input, the button is disabled
 otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` button is clicked.
 
-<Preview>
+<Canvas>
   <Story name="with optional buttons">
     {() => {
       const [value, setValue] = useState(EditorState.createEmpty());
@@ -153,14 +150,14 @@ otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With user defined character limit
 
 It is possible to override the default value for the character limit via the `characterLimit` prop. Setting this prop
 will prevent any input that would cause the content length to exceed it.
 
-<Preview>
+<Canvas>
   <Story
     name="with optional character limit"
     parameters={{ chromatic: { disable: true } }}
@@ -185,7 +182,7 @@ will prevent any input that would cause the content length to exceed it.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With validation
 
@@ -193,7 +190,7 @@ It is possible apply validation to the `TextEditor` component by passing the des
 `warning` or `info` props. When an `error` message is provided the border styling of the editor is updated to indicate
 this status.
 
-<Preview>
+<Canvas>
   <Story name="with validation">
     {() => {
       const [value, setValue] = useState(
@@ -224,11 +221,11 @@ this status.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 With use of `template strings` it is possible to pass multiline validation messages to the component.
 
-<Preview>
+<Canvas>
   <Story
     name="with multiline validation"
     parameters={{ chromatic: { disable: true } }}
@@ -264,14 +261,14 @@ Maybe try writing a little bit less?`
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom row height
 
 The `rows` prop allows for overriding the default min-height of the `TextEditor`. It accepts any number greater than 2
 which is multiplied by the line-height (21px).
 
-<Preview>
+<Canvas>
   <Story name="with custom row height">
     {() => {
       const [value, setValue] = useState(EditorState.createEmpty());
@@ -289,7 +286,7 @@ which is multiplied by the line-height (21px).
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With link previews
 
@@ -299,7 +296,7 @@ Whilst in the `Editor`, these previews can be deleted by clicking or pressing th
 icon. This example has mocked some functionality: previews will display for any link that has a url ending in `.com`,
 `.co.uk`, `.org` or `.net`. See the prop table below for the available props for the `EditorLinkPreview` component.
 
-<Preview>
+<Canvas>
   <Story name="with link previews">
     {() => {
       const [value, setValue] = useState(
@@ -366,7 +363,7 @@ icon. This example has mocked some functionality: previews will display for any 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

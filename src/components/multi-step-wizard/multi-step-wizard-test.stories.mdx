@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import DeprecationWarning from "../../__internal__/DeprecationWarning";
 import LinkTo from "@storybook/addon-links/react";
 import MultiStepWizard from "./multi-step-wizard";
@@ -19,11 +19,11 @@ import MultiStepWizard from "./multi-step-wizard";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <MultiStepWizard
       steps={[<div>Step 1</div>, <div>Step 2</div>]}
       onSubmit={() => console.log("Submit the wizard!")}
     />
   </Story>
-</Preview>
+</Canvas>

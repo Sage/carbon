@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters, {
@@ -51,7 +51,7 @@ export const ProfileStory = ({
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -66,4 +66,4 @@ export const ProfileStory = ({
   >
     {ProfileStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

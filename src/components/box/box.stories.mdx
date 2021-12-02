@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { ArgsTable } from "@storybook/components";
 
 import Box from ".";
@@ -30,17 +30,17 @@ import Box from "carbon-react/lib/components/box";
 
 ### Spacing
 
-<Preview>
+<Canvas>
   <Story name="spacing" parameters={{ info: { disable: true } }}>
     <Box m={3} p={3} bg="secondary">
       <Box height="100px" bg="primary"></Box>
     </Box>
   </Story>
-</Preview>
+</Canvas>
 
 ### Color
 
-<Preview>
+<Canvas>
   <Story name="color" parameters={{ info: { disable: true } }}>
     <Box m={3} p={3} bg="secondary">
       <Box width="100px" height="100px" bg="primary" color="yellow">
@@ -48,11 +48,11 @@ import Box from "carbon-react/lib/components/box";
       </Box>
     </Box>
   </Story>
-</Preview>
+</Canvas>
 
 ### Flex
 
-<Preview>
+<Canvas>
   <Story name="flex" parameters={{ info: { disable: true } }}>
     <div>
       <Box
@@ -80,11 +80,11 @@ import Box from "carbon-react/lib/components/box";
       </Box>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Layout
 
-<Preview>
+<Canvas>
   <Story name="layout" parameters={{ info: { disable: true } }}>
     <Box display="block" size="150px" overflow="hidden">
       <Box
@@ -110,13 +110,13 @@ import Box from "carbon-react/lib/components/box";
       ></Box>
     </Box>
   </Story>
-</Preview>
+</Canvas>
 
 ## OverflowWrap
 
 Use the `overflowWrap` prop to apply `overflow-wrap: break-word` to the content within the `Box` wrapper.
 
-<Preview>
+<Canvas>
   <Story
     name="overflow wrap"
     parameters={{ info: { disable: true }, chromatic: { disable: true } }}
@@ -140,14 +140,14 @@ Use the `overflowWrap` prop to apply `overflow-wrap: break-word` to the content 
       </div>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Scroll
 
 Use the `scrollVariant` prop to indicate which theme scrollbar you would like to display. Use `light` or `dark` values to display as below. This will still require the use of the `overflow` prop and only displays in Chrome or Safari.
 If no `scrollVariant` prop is set then the scroll bar will resort to the browser default.
 
-<Preview>
+<Canvas>
   <Story
     name="scroll"
     parameters={{ info: { disable: true }, chromatic: { disable: true } }}
@@ -216,7 +216,7 @@ If no `scrollVariant` prop is set then the scroll bar will resort to the browser
       </div>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
