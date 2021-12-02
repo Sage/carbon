@@ -46,6 +46,7 @@ export default (palette) => {
       info: palette.productBlueShade(3),
       success: palette.brilliantGreenShade(20),
       warning: palette.carrotOrange,
+      warningMessage: "#BF5200",
       destructive: {
         hover: palette.errorRedShade(20),
       },

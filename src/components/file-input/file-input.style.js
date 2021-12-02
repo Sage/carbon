@@ -276,7 +276,7 @@ const ValidationBorder = styled.div`
 
 const ValidationMessage = styled.span`
   ${({ theme, error, warning }) => css`
-    ${warning && `color: ${theme.colors.warning};`}
+    ${warning && `color: ${theme.colors.warningMessage};`}
     ${error && `color: ${theme.colors.error}; font-weight: bold;`}
   `}
 `;

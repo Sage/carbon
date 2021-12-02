@@ -716,7 +716,7 @@ describe("File Input", () => {
         wrapper.find(ValidationBorder)
       );
       assertStyleMatch(
-        { color: baseTheme.colors.warning },
+        { color: baseTheme.colors.warningMessage },
         wrapper.find(ValidationMessage)
       );
     });
