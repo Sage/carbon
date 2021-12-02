@@ -189,7 +189,8 @@ describe("TileSelect", () => {
     });
 
     it("renders component with proper background and proper text color when disabled", () => {
-      render({ disabled: true });
+      const MyComp = () => <div />;
+      render({ disabled: true, prefixAdornment: <MyComp /> });
       assertStyleMatch(
         {
           background: baseTheme.tileSelect.disabledBackground,
@@ -215,6 +216,14 @@ describe("TileSelect", () => {
         },
         wrapper.find(StyledTileSelect),
         { modifier: ` ${StyledAdornment} *` }
+      );
+
+      assertStyleMatch(
+        {
+          opacity: "0.3",
+        },
+        wrapper.find(`[data-element="prefix-adornment"]`),
+        {}
       );
     });
 
