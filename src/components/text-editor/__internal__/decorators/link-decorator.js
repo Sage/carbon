@@ -21,9 +21,19 @@ function findWithRegex(regex, contentBlock, callback) {
 }
 
 const linkStrategy = (contentBlock, callback) => {
-  const expr = /\s*(https:\/\/|http:\/\/|www\.)\S+(:{0,1}(\w*@)?)(\.{1}(?!\.)\S{2,})|(:[0-9]+)(\/|\/([\w#!:.?+=&%@!-/]))?\s*/g;
+  const combineRegex = (...regex) =>
+    new RegExp(regex.map((r) => r.source).join(""), "g");
+  const urlRegex = combineRegex(
+    /\b/,
+    /(http:\/\/|https:\/\/|www\.)/, // prefix
+    /([\w-]+:([\w-]+@))?/, // userinfo
+    /([\w-]+\.)+\w+/, // domain
+    /(:\d+)?/, // port
+    /(\/[\w#!:.?+=&%@!-/]+)?/, // paths, queries, fragments
+    /\b/
+  );
 
-  findWithRegex(RegExp(expr), contentBlock, callback);
+  findWithRegex(urlRegex, contentBlock, callback);
 };
 
 export default {

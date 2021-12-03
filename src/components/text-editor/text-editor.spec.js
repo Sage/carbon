@@ -732,7 +732,18 @@ describe("TextEditor", () => {
     });
 
     describe("Decorators", () => {
-      it.each(["http://foo.com ", "https://bar.co.uk/ ", "www.wiz.org "])(
+      it.each([
+        "http://foo.com ",
+        "https://bar.co.uk/ ",
+        "www.wiz.org ",
+        "https://user:pwd@foo.com",
+        "https://foo.com:3000",
+        "https://foo.com/path/file-name.suffix",
+        "https://foo.com",
+        "https://foo.com/file.suffix?query=value&query2=value2",
+        "https://foo.com/file.suffix#hash",
+        "https://user:pwd@foo.com:3000/path/file-name.suffix?query-string#hash",
+      ])(
         "renders an EditorLink when the regex pattern is matched by %s",
         (url) => {
           wrapper = render();
@@ -776,6 +787,8 @@ describe("TextEditor", () => {
         "http://f..o",
         ".ca",
         " _ ",
+        ":1rrr",
+        "https://user@foo.com",
       ])(
         "does not render an EditorLink when the regex pattern is not matched by %s",
         (url) => {

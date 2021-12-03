@@ -77,6 +77,48 @@ describe("FlatTable", () => {
     });
   });
 
+  describe("when the table wrapper is focused", () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = renderFlatTable({}, mount);
+    });
+
+    it("should add the correct focus styling", () => {
+      wrapper.find(StyledFlatTableWrapper).getDOMNode().focus();
+
+      assertStyleMatch(
+        {
+          outline: `2px solid ${baseTheme.colors.focus}`,
+        },
+        wrapper.find(StyledFlatTableWrapper),
+        {
+          modifier: ":focus",
+        }
+      );
+
+      assertStyleMatch(
+        {
+          outline: "none",
+        },
+        wrapper.find(StyledFlatTableWrapper),
+        {
+          modifier: ":focus:not(:focus-visible)",
+        }
+      );
+
+      assertStyleMatch(
+        {
+          outline: `2px solid ${baseTheme.colors.focus}`,
+        },
+        wrapper.find(StyledFlatTableWrapper),
+        {
+          modifier: ":focus:focus-visible",
+        }
+      );
+    });
+  });
+
   describe('when rendered with proper table data and "hasStickyHead" prop set to true', () => {
     let wrapper;
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -30,57 +30,57 @@ import Portrait from "carbon-react/lib/components/portrait";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Portrait />
   </Story>
-</Preview>
+</Canvas>
 
 ### Initials
 
 Basic way of using the `Portrait` component is to simply pass your initials as `initials` prop.
 
-<Preview>
+<Canvas>
   <Story name="initials">
     <Portrait initials="MK" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Src
 
 To use an image, simply pass any valid image URL as a `src` prop.
 
-<Preview>
+<Canvas>
   <Story name="src">
     <Portrait src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Gravatar
 
 Portrait also supports `gravatar`, to use it simply pass your email address registered with Gravatar as a `gravatar` prop.
 
-<Preview>
+<Canvas>
   <Story name="gravatar">
     <Portrait gravatar="andrew.tait@sage.com" />
   </Story>
-</Preview>
+</Canvas>
 
 ### IconType
 
 Portrait also supports the declaration of a icon to fallback on when `src`, `gravatar` and `initials` are falsy.
 
-<Preview>
+<Canvas>
   <Story name="iconType">
     <Portrait iconType="image" />
   </Story>
-</Preview>
+</Canvas>
 
 ### With tooltip
 
 By providing a node element to the `tooltipMessage` prop, a tooltip can be displayed when hovering over the Portrait.
 
-<Preview>
+<Canvas>
   <Story name="with tooltip">
     <Box margin={8}>
       <Portrait
@@ -91,11 +91,11 @@ By providing a node element to the `tooltipMessage` prop, a tooltip can be displ
       />
     </Box>
   </Story>
-</Preview>
+</Canvas>
 
 ### Sizes
 
-<Preview>
+<Canvas>
   <Story name="sizes">
     {() =>
       ["XS", "S", "M", "ML", "L", "XL", "XXL"].map((size) => (
@@ -103,11 +103,11 @@ By providing a node element to the `tooltipMessage` prop, a tooltip can be displ
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### Shapes
 
-<Preview>
+<Canvas>
   <Story name="shapes">
     {() =>
       ["circle", "square"].map((shape) => (
@@ -115,15 +115,15 @@ By providing a node element to the `tooltipMessage` prop, a tooltip can be displ
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### Dark background
 
-<Preview>
+<Canvas>
   <Story name="dark background">
     <Portrait darkBackground />
   </Story>
-</Preview>
+</Canvas>
 
 ### With margin
 
@@ -132,14 +132,14 @@ To see a full list of available margin props, please visit the props table at th
 
 [Vist Props Table](#props)
 
-<Preview>
+<Canvas>
   <Story name="with margin">
     <Portrait m={3} />
     <Portrait darkBackground m={2} />
     <Portrait shape="circle" m="25px" />
     <Portrait size="L" m="30px" />
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

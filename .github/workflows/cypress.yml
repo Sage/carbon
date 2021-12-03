@@ -98,12 +98,15 @@ jobs:
           group: ubuntu-regression
           quiet: true
           browser: chrome
-          spec: cypress/features/**/*
+          spec: |
+            cypress/integration/common/*
+            cypress/integration/themes/*
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CI: "true"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   cypress-axe-accessibility:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -114,12 +117,15 @@ jobs:
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
-        # run 3 copies of the current job in parallel
+        # run 6 copies of the current job in parallel
         containers:
           [
             1,
             2,
-            3
+            3,
+            4,
+            5,
+            6
           ]
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
@@ -179,7 +185,7 @@ jobs:
           group: ubuntu-accessibility
           quiet: true
           browser: chrome
-          spec: cypress/accessibility/*.test.js
+          spec: cypress/integration/accessibility/*.test.js
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

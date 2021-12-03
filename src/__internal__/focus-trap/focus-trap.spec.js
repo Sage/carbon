@@ -9,14 +9,25 @@ import { ModalContext } from "../../components/modal/modal.component";
 jest.useFakeTimers();
 
 // eslint-disable-next-line
-const MockComponent = ({ children, ...rest }) => {
+const MockComponent = ({ children, triggerRefocusFlag, ...rest }) => {
   const ref = useRef();
-
+  const [isDisabled, setIsDisabled] = useState(false);
   return (
-    <ModalContext.Provider value={{ isAnimationComplete: true }}>
+    <ModalContext.Provider
+      value={{ isAnimationComplete: true, triggerRefocusFlag }}
+    >
       <FocusTrap wrapperRef={ref} {...rest}>
         <div ref={ref} id="myComponent">
-          {children}
+          {React.Children.map(children, (child) => {
+            if (child?.props?.id === "disable-on-focus") {
+              return React.cloneElement(child, {
+                onFocus: () => setIsDisabled(true),
+                disabled: isDisabled,
+              });
+            }
+
+            return child;
+          })}
         </div>
       </FocusTrap>
     </ModalContext.Provider>
@@ -24,6 +35,7 @@ const MockComponent = ({ children, ...rest }) => {
 };
 
 describe("FocusTrap", () => {
+  let wrapper;
   const element = document.createElement("div");
   const htmlElement = document.body.appendChild(element);
   const tabKey = new KeyboardEvent("keydown", { key: "Tab" });
@@ -34,10 +46,71 @@ describe("FocusTrap", () => {
   });
   const otherKey = new KeyboardEvent("keydown", { keyCode: 32 });
 
-  describe("when autoFocus is false", () => {
-    let wrapper;
+  describe("triggerRefocusFlag", () => {
+    afterEach(() => {
+      wrapper.unmount();
+    });
 
-    beforeEach(() => {
+    it("refocuses the last element that had focus within the trap when flag is set", () => {
+      wrapper = mount(
+        <MockComponent autoFocus={false} triggerRefocusFlag={false}>
+          <button type="button">Test button One</button>
+          <input type="text" />
+        </MockComponent>,
+        { attachTo: htmlElement }
+      );
+      act(() => {
+        document.querySelectorAll("input")[0].focus();
+      });
+      expect(wrapper.update().find("input").at(0)).toBeFocused();
+      act(() => {
+        document.querySelectorAll("input")[0].blur();
+      });
+      expect(wrapper.update().find("input").at(0)).not.toBeFocused();
+      act(() => {
+        wrapper.setProps({ triggerRefocusFlag: true });
+      });
+      wrapper.update();
+      expect(wrapper.update().find("input").at(0)).toBeFocused();
+    });
+
+    it("refocuses the first element within the trap when flag is set", () => {
+      wrapper = mount(
+        <MockComponent autoFocus={false} triggerRefocusFlag={false}>
+          <button type="button">Test button One</button>
+          <input type="text" />
+        </MockComponent>,
+        { attachTo: htmlElement }
+      );
+      act(() => {
+        wrapper.setProps({ triggerRefocusFlag: true });
+      });
+      wrapper.update();
+      expect(wrapper.update().find("button").at(0)).toBeFocused();
+    });
+
+    it("refocuses the first element if last element that had focus becomes disabled", () => {
+      wrapper = mount(
+        <MockComponent autoFocus={false} triggerRefocusFlag={false}>
+          <button type="button">Test button One</button>
+          <input type="text" id="disable-on-focus" />
+        </MockComponent>,
+        { attachTo: htmlElement }
+      );
+      act(() => {
+        document.querySelectorAll("input")[0].focus();
+      });
+      expect(wrapper.update().find("input").at(0)).toBeFocused();
+      act(() => {
+        wrapper.setProps({ triggerRefocusFlag: true });
+      });
+      wrapper.update();
+      expect(wrapper.update().find("button").at(0)).toBeFocused();
+    });
+  });
+
+  describe("when autoFocus is false", () => {
+    it("should not focus the first focusable element by default", () => {
       wrapper = mount(
         <MockComponent autoFocus={false}>
           <button type="button">Test button One</button>
@@ -45,13 +118,7 @@ describe("FocusTrap", () => {
         </MockComponent>,
         { attachTo: htmlElement }
       );
-    });
 
-    afterEach(() => {
-      wrapper.unmount();
-    });
-
-    it("should not focus the first focusable element by default", () => {
       expect(document.activeElement).toMatchObject(
         document.querySelectorAll("body")[0]
       );
@@ -59,7 +126,7 @@ describe("FocusTrap", () => {
   });
 
   describe("when a focusFirstElement callback is provided", () => {
-    let wrapper, onFocus;
+    let onFocus;
 
     beforeEach(() => {
       onFocus = jest
@@ -81,8 +148,10 @@ describe("FocusTrap", () => {
       expect(document.activeElement).toMatchObject(
         wrapper.find("button").at(0)
       );
-      document.dispatchEvent(shiftTabKey);
-      document.dispatchEvent(shiftTabKey);
+      act(() => {
+        document.dispatchEvent(shiftTabKey);
+        document.dispatchEvent(shiftTabKey);
+      });
       expect(document.activeElement).toMatchObject(
         wrapper.find("button").at(0)
       );
@@ -92,7 +161,9 @@ describe("FocusTrap", () => {
       expect(document.activeElement).toMatchObject(
         wrapper.find("button").at(0)
       );
-      document.dispatchEvent(shiftTabKey);
+      act(() => {
+        document.dispatchEvent(shiftTabKey);
+      });
       expect(document.activeElement).toMatchObject(
         wrapper.find("button").at(1)
       );
@@ -102,18 +173,24 @@ describe("FocusTrap", () => {
       expect(document.activeElement).toMatchObject(
         wrapper.find("button").at(0)
       );
-      document.dispatchEvent(shiftTabKey);
+      act(() => {
+        document.dispatchEvent(shiftTabKey);
+      });
       expect(document.activeElement).toMatchObject(
         wrapper.find("button").at(1)
       );
     });
 
     it("should move to the first focusable item if TAB pressed on last focusable item", () => {
-      document.querySelectorAll("button")[1].focus();
+      act(() => {
+        document.querySelectorAll("button")[1].focus();
+      });
       expect(document.activeElement).toMatchObject(
         wrapper.find("button").at(1)
       );
-      document.dispatchEvent(tabKey);
+      act(() => {
+        document.dispatchEvent(tabKey);
+      });
       expect(document.activeElement).toMatchObject(
         wrapper.find("button").at(0)
       );
@@ -135,7 +212,9 @@ describe("FocusTrap", () => {
     });
 
     it("calls the function with expected arguments on TAB press", () => {
-      document.dispatchEvent(tabKey);
+      act(() => {
+        document.dispatchEvent(tabKey);
+      });
       expect(bespokeFn).toHaveBeenCalledWith(
         tabKey,
         document.querySelectorAll("button")[0],
@@ -144,7 +223,9 @@ describe("FocusTrap", () => {
     });
 
     it("calls the function with expected arguments on SHIFT + TAB press", () => {
-      document.dispatchEvent(shiftTabKey);
+      act(() => {
+        document.dispatchEvent(shiftTabKey);
+      });
       expect(bespokeFn).toHaveBeenCalledWith(
         shiftTabKey,
         document.querySelectorAll("button")[0],
@@ -155,8 +236,6 @@ describe("FocusTrap", () => {
 
   describe("when FocusTrap wraps an element", () => {
     describe("and element has focusable items inside", () => {
-      let wrapper;
-
       beforeEach(() => {
         wrapper = mount(
           <MockComponent>
@@ -174,7 +253,9 @@ describe("FocusTrap", () => {
       });
 
       it("should not move if different key than TAB is pressed", () => {
-        document.querySelectorAll("button")[1].focus();
+        act(() => {
+          document.querySelectorAll("button")[1].focus();
+        });
         document.dispatchEvent(otherKey);
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(1)
@@ -182,19 +263,27 @@ describe("FocusTrap", () => {
       });
 
       it("should back to the last item when use `shift + tab` on first focusable item", () => {
-        document.querySelectorAll("button")[0].focus();
+        act(() => {
+          document.querySelectorAll("button")[0].focus();
+        });
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(0)
         );
-        document.dispatchEvent(shiftTabKey);
+        act(() => {
+          document.dispatchEvent(shiftTabKey);
+        });
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(1)
         );
       });
 
       it("should back to the first item when use `shift + tab`", () => {
-        document.querySelectorAll("button")[1].focus();
-        document.dispatchEvent(shiftTabKey);
+        act(() => {
+          document.querySelectorAll("button")[1].focus();
+        });
+        act(() => {
+          document.dispatchEvent(shiftTabKey);
+        });
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(0)
         );
@@ -204,18 +293,24 @@ describe("FocusTrap", () => {
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(0)
         );
-        document.dispatchEvent(tabKey);
+        act(() => {
+          document.dispatchEvent(tabKey);
+        });
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(1)
         );
       });
 
       it("should move to the first focusable item if TAB pressed on last focusable item", () => {
-        document.querySelectorAll("button")[1].focus();
+        act(() => {
+          document.querySelectorAll("button")[1].focus();
+        });
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(1)
         );
-        document.dispatchEvent(tabKey);
+        act(() => {
+          document.dispatchEvent(tabKey);
+        });
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(0)
         );
@@ -223,8 +318,6 @@ describe("FocusTrap", () => {
     });
 
     describe("and element does not have focusable items", () => {
-      let wrapper;
-
       beforeEach(() => {
         wrapper = mount(
           <MockComponent>
@@ -236,7 +329,9 @@ describe("FocusTrap", () => {
 
       it("should block tabbing if `tab` pressed", () => {
         document.getElementById("myComponent").focus();
-        document.dispatchEvent(tabKey);
+        act(() => {
+          document.dispatchEvent(tabKey);
+        });
         expect(document.activeElement).toMatchObject(wrapper);
       });
 
@@ -248,8 +343,6 @@ describe("FocusTrap", () => {
     });
 
     describe("and some children elements are disabled", () => {
-      let wrapper;
-
       beforeEach(() => {
         wrapper = mount(
           <MockComponent>
@@ -267,12 +360,18 @@ describe("FocusTrap", () => {
       });
 
       it("only focuses those that are not", () => {
-        document.querySelectorAll("button")[0].focus();
-        document.dispatchEvent(tabKey);
+        act(() => {
+          document.querySelectorAll("button")[0].focus();
+        });
+        act(() => {
+          document.dispatchEvent(tabKey);
+        });
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(2)
         );
-        document.dispatchEvent(tabKey);
+        act(() => {
+          document.dispatchEvent(tabKey);
+        });
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(0)
         );
@@ -281,8 +380,6 @@ describe("FocusTrap", () => {
   });
 
   describe("when first focusable elements are radio buttons", () => {
-    let wrapper;
-
     beforeEach(() => {
       wrapper = mount(
         <MockComponent>
@@ -310,13 +407,17 @@ describe("FocusTrap", () => {
 
     describe("when focus on the first button and shift-tab pressed", () => {
       it("should loop focus to the last focusable element", () => {
-        document.dispatchEvent(tabKey);
+        act(() => {
+          document.dispatchEvent(tabKey);
+        });
 
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(0)
         );
 
-        document.dispatchEvent(shiftTabKey);
+        act(() => {
+          document.dispatchEvent(shiftTabKey);
+        });
 
         expect(document.activeElement).toMatchObject(
           wrapper.find('input[type="radio"]').at(0)
@@ -330,7 +431,9 @@ describe("FocusTrap", () => {
           wrapper.find('input[type="radio"]').at(0)
         );
 
-        document.dispatchEvent(shiftTabKey);
+        act(() => {
+          document.dispatchEvent(shiftTabKey);
+        });
 
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(1)
@@ -340,13 +443,16 @@ describe("FocusTrap", () => {
 
     describe("when focus on second radio button shift-tab pressed", () => {
       it("should loop focus to the last focusable element", () => {
-        document.querySelectorAll('input[type="radio"]')[1].focus();
-
+        act(() => {
+          document.querySelectorAll('input[type="radio"]')[1].focus();
+        });
         expect(document.activeElement).toMatchObject(
           wrapper.find('input[type="radio"]').at(1)
         );
 
-        document.dispatchEvent(shiftTabKey);
+        act(() => {
+          document.dispatchEvent(shiftTabKey);
+        });
 
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(1)
@@ -356,8 +462,6 @@ describe("FocusTrap", () => {
   });
 
   describe("when trap contains radio buttons", () => {
-    let wrapper;
-
     beforeEach(() => {
       wrapper = mount(
         <MockComponent>
@@ -385,13 +489,17 @@ describe("FocusTrap", () => {
 
     describe("when focus on first radio button shift-tab pressed", () => {
       it("should loop focus to the last focusable element", () => {
-        document.dispatchEvent(tabKey);
+        act(() => {
+          document.dispatchEvent(tabKey);
+        });
 
         expect(document.activeElement).toMatchObject(
           wrapper.find('input[type="radio"]').at(0)
         );
 
-        document.dispatchEvent(shiftTabKey);
+        act(() => {
+          document.dispatchEvent(shiftTabKey);
+        });
 
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(0)
@@ -401,13 +509,16 @@ describe("FocusTrap", () => {
 
     describe("when focus on second radio button shift-tab pressed", () => {
       it("should loop focus to the last focusable element", () => {
-        document.querySelectorAll('input[type="radio"]')[1].focus();
-
+        act(() => {
+          document.querySelectorAll('input[type="radio"]')[1].focus();
+        });
         expect(document.activeElement).toMatchObject(
           wrapper.find('input[type="radio"]').at(1)
         );
 
-        document.dispatchEvent(shiftTabKey);
+        act(() => {
+          document.dispatchEvent(shiftTabKey);
+        });
 
         expect(document.activeElement).toMatchObject(
           wrapper.find("button").at(0)
@@ -476,7 +587,7 @@ describe("FocusTrap", () => {
         );
       };
 
-      const wrapper = mount(
+      wrapper = mount(
         <MockComponent>
           <ChangingChild />
         </MockComponent>,

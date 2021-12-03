@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
@@ -467,7 +467,7 @@ export const FullWidthButtonsStory = () => {
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     argTypes={commonArgTypes}
@@ -480,11 +480,11 @@ export const FullWidthButtonsStory = () => {
   >
     {ButtonStory.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ### As a sibling
 
-<Preview>
+<Canvas>
   <Story
     name="as a sibling"
     args={commonArgs}
@@ -497,107 +497,140 @@ export const FullWidthButtonsStory = () => {
   >
     {ButtonAsASiblingStory.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ### Primary buttons icons before
 
-<Preview>
-  <Story name="primary buttons icons before" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
+<Canvas>
+  <Story
+    name="primary buttons icons before"
+    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+  >
     {generateButtons("primary", "before")}
   </Story>
-</Preview>
+</Canvas>
 
 ### Primary buttons icons after
 
-<Preview>
-  <Story name="primary buttons icons after" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
+<Canvas>
+  <Story
+    name="primary buttons icons after"
+    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+  >
     {generateButtons("primary", "after")}
   </Story>
-</Preview>
+</Canvas>
 
 ### Secondary buttons icons before
 
-<Preview>
-  <Story name="secondary buttons icons before" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
+<Canvas>
+  <Story
+    name="secondary buttons icons before"
+    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+  >
     {generateButtons("secondary", "before")}
   </Story>
-</Preview>
+</Canvas>
 
 ### Secondary buttons icons after
 
-<Preview>
-  <Story name="secondary buttons icons after" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
+<Canvas>
+  <Story
+    name="secondary buttons icons after"
+    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+  >
     {generateButtons("secondary", "after")}
   </Story>
-</Preview>
+</Canvas>
 
 ### Tertiary buttons icons before
 
-<Preview>
-  <Story name="tertiary buttons icons before" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
+<Canvas>
+  <Story
+    name="tertiary buttons icons before"
+    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+  >
     {generateButtons("tertiary", "before")}
   </Story>
-</Preview>
+</Canvas>
 
 ### Tertiary buttons icons after
 
-<Preview>
-  <Story name="tertiary buttons icons after" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
+<Canvas>
+  <Story
+    name="tertiary buttons icons after"
+    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+  >
     {generateButtons("tertiary", "after")}
   </Story>
-</Preview>
+</Canvas>
 
 ### Dashed buttons icons before
 
-<Preview>
-  <Story name="dashed buttons icons before" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
+<Canvas>
+  <Story
+    name="dashed buttons icons before"
+    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+  >
     {generateButtons("dashed", "before")}
   </Story>
-</Preview>
+</Canvas>
 
 ### Dashed buttons icons after
 
-<Preview>
-  <Story name="dashed buttons icons after" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
+<Canvas>
+  <Story
+    name="dashed buttons icons after"
+    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+  >
     {generateButtons("dashed", "after")}
   </Story>
-</Preview>
+</Canvas>
 
 ### Dark background buttons icons before
 
-<Preview>
-  <Story name="dark background buttons icons before" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
+<Canvas>
+  <Story
+    name="dark background buttons icons before"
+    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+  >
     {generateButtons("darkBackground", "before")}
   </Story>
-</Preview>
+</Canvas>
 
 ### Dark background buttons icons after
 
-<Preview>
-  <Story name="dark background buttons icons after" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
+<Canvas>
+  <Story
+    name="dark background buttons icons after"
+    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+  >
     {generateButtons("darkBackground", "after")}
   </Story>
-</Preview>
+</Canvas>
 
 ### Full width buttons
 
-<Preview>
-  <Story name="full width buttons" parameters={{ themeSelector: { chromaticTheme : "sage"}}}>
+<Canvas>
+  <Story
+    name="full width buttons"
+    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+  >
     {FullWidthButtonsStory.bind({})}
-    </Story>
-</Preview>
+  </Story>
+</Canvas>
 
 ### No wrap buttons
 
-<Preview>
+<Canvas>
   <Story name="no wrap buttons" args={{ noWrap: true }}>
     {NoWrapButtonsStory.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ### Icon only buttons
 
-<Preview>
+<Canvas>
   <Story
     name="icon only buttons"
     parameters={{
@@ -608,4 +641,4 @@ export const FullWidthButtonsStory = () => {
   >
     {IconOnlyButtonsStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

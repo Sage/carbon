@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import { useState, useRef } from "react";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
@@ -9,10 +9,7 @@ import Dialog from "../../dialog";
 import { FilterableSelect, Option, OptionRow } from "../";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 
-<Meta
-  title="Select/Filterable"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Select/Filterable" parameters={{ info: { disable: true } }} />
 
 # Filterable Select
 
@@ -44,7 +41,7 @@ you can filter through the existing options leaving only those that match the te
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <FilterableSelect
       name="simple"
@@ -72,13 +69,13 @@ you can filter through the existing options leaving only those that match the te
       <Option text="Yellow" value="11" />
     </FilterableSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### List placement
 
 You can use `listPlacement` prop to set the position of the select list relative to the input element.
 
-<Preview>
+<Canvas>
   <Story name="list placement">
     <FilterableSelect
       name="simple"
@@ -100,11 +97,11 @@ You can use `listPlacement` prop to set the position of the select list relative
       <Option text="Yellow" value="11" />
     </FilterableSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### Controlled Usage
 
-<Preview>
+<Canvas>
   <Story name="controlled" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [value, setValue] = useState("");
@@ -142,11 +139,11 @@ You can use `listPlacement` prop to set the position of the select list relative
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Open on focus
 
-<Preview>
+<Canvas>
   <Story name="openOnFocus" parameters={{ chromatic: { disable: true } }}>
     <FilterableSelect name="openOnFocus" id="openOnFocus" openOnFocus>
       <Option text="Amber" value="1" />
@@ -162,13 +159,19 @@ You can use `listPlacement` prop to set the position of the select list relative
       <Option text="Yellow" value="11" />
     </FilterableSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
-    <FilterableSelect aria-label="disabled" name="disabled" id="disabled" defaultValue="3" disabled>
+    <FilterableSelect
+      aria-label="disabled"
+      name="disabled"
+      id="disabled"
+      defaultValue="3"
+      disabled
+    >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -182,13 +185,19 @@ You can use `listPlacement` prop to set the position of the select list relative
       <Option text="Yellow" value="11" />
     </FilterableSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### Read Only
 
-<Preview>
+<Canvas>
   <Story name="readonly">
-    <FilterableSelect aria-label="readonly" name="readonly" id="readonly" defaultValue="4" readOnly>
+    <FilterableSelect
+      aria-label="readonly"
+      name="readonly"
+      id="readonly"
+      defaultValue="4"
+      readOnly
+    >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -202,11 +211,11 @@ You can use `listPlacement` prop to set the position of the select list relative
       <Option text="Yellow" value="11" />
     </FilterableSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### With disabled portal
 
-<Preview>
+<Canvas>
   <Story
     name="withDisabledPortal"
     parameters={{ chromatic: { disable: true } }}
@@ -230,11 +239,11 @@ You can use `listPlacement` prop to set the position of the select list relative
       <Option text="Yellow" value="11" />
     </FilterableSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### With multiple columns
 
-<Preview>
+<Canvas>
   <Story
     name="with multiple columns"
     parameters={{ chromatic: { disable: true } }}
@@ -279,7 +288,7 @@ You can use `listPlacement` prop to set the position of the select list relative
       </OptionRow>
     </FilterableSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### With Action Button
 
@@ -287,7 +296,7 @@ Default Action Button will be rendered when the `listActionButton` prop is set t
 
 A custom `Button` Component could be passed as the `listActionButton` value.
 
-<Preview>
+<Canvas>
   <Story
     name="with action button"
     parameters={{ chromatic: { disable: true } }}
@@ -343,13 +352,13 @@ A custom `Button` Component could be passed as the `listActionButton` value.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With isLoading prop
 
 When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
 
-<Preview>
+<Canvas>
   <Story
     name="with isLoading prop"
     parameters={{ chromatic: { disable: true } }}
@@ -403,14 +412,14 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Infinite scroll example
 
 The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
 This prop will be called every time a user scrolls to the bottom of the list.
 
-<Preview>
+<Canvas>
   <Story
     name="with infinite scroll"
     parameters={{ chromatic: { disable: true } }}
@@ -500,13 +509,13 @@ This prop will be called every time a user scrolls to the bottom of the list.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="required">
     <FilterableSelect
       name="required-select"
@@ -527,7 +536,7 @@ You can use the `required` prop to indicate if the field is mandatory.
       <Option text="Yellow" value="11" />
     </FilterableSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### With object as value
 
@@ -535,7 +544,7 @@ Option values could be passed as objects, useful when custom data is associated 
 When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
 If there is no `id` prop specified on an object, then the exact objects will be compared.
 
-<Preview>
+<Canvas>
   <Story
     name="with object as value"
     parameters={{ chromatic: { disable: true } }}
@@ -626,7 +635,7 @@ If there is no `id` prop specified on an object, then the exact objects will be 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
@@ -636,13 +645,13 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 
 Due to the `Textbox` component being used internally by the `FilterableSelect` component, most of the `Textbox` props are applicable to `FilterableSelect`
 
-<Props of={SelectTextbox} />
+<ArgsTable of={SelectTextbox} />
 
 **Any other supplied props will be provided to the underlying HTML input element**
 
 ### Props of the Option Component
 
-<Props of={Option} />
+<ArgsTable of={Option} />
 
 ## Translation keys
 

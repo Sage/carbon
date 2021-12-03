@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
@@ -185,7 +185,7 @@ export const ToastVisualStory = ({
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -206,11 +206,11 @@ export const ToastVisualStory = ({
   >
     {ToastStory.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ### Visual
 
-<Preview>
+<Canvas>
   <Story
     name="visual"
     args={{
@@ -225,4 +225,4 @@ export const ToastVisualStory = ({
   >
     {ToastVisualStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

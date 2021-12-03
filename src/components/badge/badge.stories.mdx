@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import Badge from ".";
 import Button from "../button";
@@ -27,7 +27,7 @@ import Badge from "carbon-react/lib/components/badge";
 
 ### Default Badge
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Badge counter={9}>
       <Button style={{ marginRight: 0 }} buttonType="tertiary">
@@ -35,13 +35,13 @@ import Badge from "carbon-react/lib/components/badge";
       </Button>
     </Badge>
   </Story>
-</Preview>
+</Canvas>
 
 ### Badge with counter 100
 
 Badge doesn't support more than 2 digits
 
-<Preview>
+<Canvas>
   <Story name="with 3 digits">
     <Badge counter={130}>
       <Button style={{ marginRight: 0 }} buttonType="tertiary">
@@ -49,22 +49,22 @@ Badge doesn't support more than 2 digits
       </Button>
     </Badge>
   </Story>
-</Preview>
+</Canvas>
 
 ### Badge with counter 0
 
 If the counter is less than 1 badge will not show itself
 
-<Preview>
+<Canvas>
   <Story name="with counter 0">
     <Badge counter={0}>
       <Button buttonType="tertiary">Filter</Button>
     </Badge>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Badge
 
-<Props of={Badge} />
+<ArgsTable of={Badge} />

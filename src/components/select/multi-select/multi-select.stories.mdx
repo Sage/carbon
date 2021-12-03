@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
 import { useState, useRef } from "react";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
@@ -8,10 +8,7 @@ import Button from "../../button";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 import { MultiSelect, Option, OptionRow } from "../";
 
-<Meta
-  title="Select/MultiSelect"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Select/MultiSelect" parameters={{ info: { disable: true } }} />
 
 # MultiSelect
 
@@ -42,7 +39,7 @@ you can filter through the existing options leaving only those that match the te
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <MultiSelect
       name="simple"
@@ -70,13 +67,13 @@ you can filter through the existing options leaving only those that match the te
       <Option text="Yellow" value="11" />
     </MultiSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### List placement
 
 You can use `listPlacement` prop to set the position of the select list relative to the input element.
 
-<Preview>
+<Canvas>
   <Story name="list placement">
     <MultiSelect
       name="simple"
@@ -98,11 +95,11 @@ You can use `listPlacement` prop to set the position of the select list relative
       <Option text="Yellow" value="11" />
     </MultiSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### Controlled Usage
 
-<Preview>
+<Canvas>
   <Story name="controlled" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [value, setValue] = useState([]);
@@ -132,11 +129,11 @@ You can use `listPlacement` prop to set the position of the select list relative
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Open on focus
 
-<Preview>
+<Canvas>
   <Story name="openOnFocus" parameters={{ chromatic: { disable: true } }}>
     <MultiSelect name="openOnFocus" id="openOnFocus" openOnFocus>
       <Option text="Amber" value="1" />
@@ -152,11 +149,11 @@ You can use `listPlacement` prop to set the position of the select list relative
       <Option text="Yellow" value="11" />
     </MultiSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     <MultiSelect
       aria-label="disabled"
@@ -178,14 +175,14 @@ You can use `listPlacement` prop to set the position of the select list relative
       <Option text="Yellow" value="11" />
     </MultiSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### Read Only
 
-<Preview>
+<Canvas>
   <Story name="readonly">
     <MultiSelect
-      aria-label="readonly" 
+      aria-label="readonly"
       name="readonly"
       id="readonly"
       defaultValue={["1", "3"]}
@@ -204,11 +201,11 @@ You can use `listPlacement` prop to set the position of the select list relative
       <Option text="Yellow" value="11" />
     </MultiSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### With disabled portal
 
-<Preview>
+<Canvas>
   <Story
     name="withDisabledPortal"
     parameters={{ chromatic: { disable: true } }}
@@ -232,11 +229,11 @@ You can use `listPlacement` prop to set the position of the select list relative
       <Option text="Yellow" value="11" />
     </MultiSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### With multiple columns:
 
-<Preview>
+<Canvas>
   <Story
     name="with multiple columns"
     parameters={{ chromatic: { disable: true } }}
@@ -280,13 +277,13 @@ You can use `listPlacement` prop to set the position of the select list relative
       </OptionRow>
     </MultiSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="required">
     <MultiSelect
       name="required-select"
@@ -307,7 +304,7 @@ You can use the `required` prop to indicate if the field is mandatory.
       <Option text="Yellow" value="11" />
     </MultiSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ### With object as value
 
@@ -315,7 +312,7 @@ Option values could be passed as objects, useful when custom data is associated 
 When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
 If there is no `id` prop specified on an object, then the exact objects will be compared.
 
-<Preview>
+<Canvas>
   <Story
     name="with object as value"
     parameters={{ chromatic: { disable: true } }}
@@ -404,13 +401,13 @@ If there is no `id` prop specified on an object, then the exact objects will be 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With isLoading prop
 
 When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
 
-<Preview>
+<Canvas>
   <Story
     name="with isLoading prop"
     parameters={{ chromatic: { disable: true } }}
@@ -464,7 +461,7 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom colored Pills
 
@@ -472,7 +469,7 @@ It's possible to change the appearance of the selected Pills by using the `borde
 
 See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo> for more information on usable colors
 
-<Preview>
+<Canvas>
   <Story name="with custom colored pills">
     <MultiSelect
       name="simple"
@@ -493,7 +490,7 @@ See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo>
       <Option text="Yellow" value="11" borderColor="yellow" fill />
     </MultiSelect>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
@@ -503,13 +500,13 @@ See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo>
 
 Due to the `Textbox` component being used internally by the `MultiSelect` component, most of the `Textbox` props are applicable to `MultiSelect`
 
-<Props of={SelectTextbox} />
+<ArgsTable of={SelectTextbox} />
 
 **Any other supplied props will be provided to the underlying HTML input element**
 
 ### Props of the Option Component
 
-<Props of={Option} />
+<ArgsTable of={Option} />
 
 ## Translation keys
 

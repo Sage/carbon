@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, Props } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -37,7 +37,7 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ info: { disable: true } }}>
     <ButtonToggleGroup
       id="button-toggle-group-default-id"
@@ -59,13 +59,13 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       </ButtonToggle>
     </ButtonToggleGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### Controlled
 
-<Preview>
+<Canvas>
   <Story name="controlled" parameters={{ info: { disable: true } }}>
-    {(args, {themeName}) => {
+    {(args, { themeName }) => {
       const [value, setValue] = useState("bar");
       function onChangeHandler(event) {
         setValue(event.target.value);
@@ -95,11 +95,11 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Grouped
 
-<Preview>
+<Canvas>
   <Story name="grouped" parameters={{ info: { disable: true } }}>
     <ButtonToggleGroup
       id="button-toggle-group-grouped-id"
@@ -121,11 +121,11 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       </ButtonToggle>
     </ButtonToggleGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### With field help inline
 
-<Preview>
+<Canvas>
   <Story name="fieldhelp inline" parameters={{ info: { disable: true } }}>
     <ButtonToggleGroup
       id="button-toggle-group-help-inline-id"
@@ -148,11 +148,11 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       </ButtonToggle>
     </ButtonToggleGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### With label inline
 
-<Preview>
+<Canvas>
   <Story name="label inline" parameters={{ info: { disable: true } }}>
     <ButtonToggleGroup
       id="button-toggle-group-label-inline-id"
@@ -175,7 +175,7 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       </ButtonToggle>
     </ButtonToggleGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

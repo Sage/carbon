@@ -1,13 +1,10 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import { DraggableContainer, DraggableItem } from ".";
 import { Checkbox } from "../checkbox";
 
-<Meta
-  title="Draggable"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Draggable" parameters={{ info: { disable: true } }} />
 
 # Draggable
 
@@ -45,7 +42,7 @@ import {
 
 ### Simple text as a content
 
-<Preview>
+<Canvas>
   <Story name="default">
     <DraggableContainer>
       <DraggableItem key="1" id={1}>
@@ -62,11 +59,11 @@ import {
       </DraggableItem>
     </DraggableContainer>
   </Story>
-</Preview>
+</Canvas>
 
 ### Other components as children
 
-<Preview>
+<Canvas>
   <Story name="components as children">
     <DraggableContainer>
       <DraggableItem key="1" id={1}>
@@ -83,16 +80,13 @@ import {
       </DraggableItem>
     </DraggableContainer>
   </Story>
-</Preview>
+</Canvas>
 
 ### With getOrder callback
 
-<Preview>
-  <Story
-    name="with getOrder callback"
-    id="draggable-test--default"
-  />
-</Preview>
+<Canvas>
+  <Story name="with getOrder callback" id="draggable-test--default" />
+</Canvas>
 
 ## Props
 

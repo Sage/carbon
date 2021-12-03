@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
 import Fieldset from "./fieldset.component";
@@ -50,7 +50,7 @@ export const FieldsetStory = ({ legend, legendSpecialCharacters }) => {
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -59,4 +59,4 @@ export const FieldsetStory = ({ legend, legendSpecialCharacters }) => {
   >
     {FieldsetStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

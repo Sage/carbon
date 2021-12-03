@@ -78,6 +78,18 @@ const StyledFlatTableWrapper = styled(Box)`
     css`
       box-sizing: border-box;
 
+      :focus {
+        outline: 2px solid ${theme.colors.focus};
+
+        :not(:focus-visible) {
+          outline: none;
+        }
+
+        :focus-visible {
+          outline: 2px solid ${theme.colors.focus};
+        }
+      }
+
       ${isInSidebar
         ? "min-width: fit-content"
         : `box-shadow: inset 0px 0px 0px 1px ${theme.table.secondary}`};

@@ -4,8 +4,9 @@ import BaseTheme from "../../../../style/themes/base";
 import StyledIcon from "../../../icon/icon.style";
 import StyledValidationIcon from "../../../../__internal__/validations/validation-icon.style";
 
-const StyledTitleContent = styled.div`
+const StyledTitleContent = styled.span`
   outline: none;
+  display: inline-block;
 
   ${({
     theme,
@@ -15,17 +16,23 @@ const StyledTitleContent = styled.div`
     noLeftBorder,
     noRightBorder,
     isTabSelected,
-    hasSiblings,
-    href,
+    hasHref,
     error,
-    warning,
-    info,
     alternateStyling,
+    align,
   }) => css`
     line-height: 20px;
     margin: 0;
+    text-align: ${align};
 
-    ${href &&
+    ${position === "left" &&
+    css`
+      display: flex;
+      width: 100%;
+      justify-content: ${align === "right" ? "flex-end" : "flex-start"};
+    `}
+
+    ${hasHref &&
     css`
       color: ${theme.text.color};
       display: block;
@@ -72,13 +79,8 @@ const StyledTitleContent = styled.div`
     position === "top" &&
     css`
       padding: 10px 24px;
+      ${borders && `padding-bottom: 9px;`}
       font-size: 16px;
-      ${isTabSelected &&
-      !hasSiblings &&
-      !(error || warning || info) &&
-      css`
-        padding-bottom: 6px;
-      `}
     `}
 
     ${size === "large" &&
@@ -92,18 +94,16 @@ const StyledTitleContent = styled.div`
     ${size === "default" &&
     css`
       padding: 10px 16px;
-      ${isTabSelected &&
-      !(error || warning || info) &&
-      position === "top" &&
-      css`
-        padding-bottom: 8px;
-      `}
+
+      ${borders && `padding-bottom: 9px;`}
 
       ${position === "left" &&
       !isTabSelected &&
       !alternateStyling &&
       error &&
-      `margin-right: -2px;`}
+      `
+        margin-right: -2px;
+      `}
     `}
   `}
 
@@ -135,7 +135,7 @@ const StyledTitleContent = styled.div`
         padding-right: ${size === "large" ? "26px;" : "18px;"};
       `}
       
-    &:hover {
+      &:hover {
         outline: 1px solid;
         outline-offset: -1px;
 
@@ -182,10 +182,10 @@ const StyledTitleContent = styled.div`
       ${position === "left" &&
       css`
         border-right-color: transparent;
-        padding-right: ${size === "large" ? "26px;" : "18px;"};
+        padding-right: ${size === "large" ? "26px" : "18px"};
       `}
     
-    &:hover {
+      &:hover {
         outline: 2px solid ${theme.colors.error};
         outline-offset: -2px;
         ${position === "top" &&
@@ -201,7 +201,7 @@ const StyledTitleContent = styled.div`
         ${position === "left" &&
         css`
           border-right-color: transparent;
-          padding-right: ${size === "large" ? "26px;" : "18px;"};
+          padding-right: ${size === "large" ? "26px" : "18px"};
         `}
       }
     `}
@@ -221,29 +221,14 @@ const StyledTitleContent = styled.div`
     position === "top" &&
     css`
       height: 20px;
-
-      ${size === "default" &&
-      css`
-        padding-top: 10px;
-        padding-bottom: 10px;
-
-        ${!(error || warning || info) &&
-        isTabSelected &&
-        css`
-          padding-bottom: 8px;
-        `}
-      `}
+      padding-top: 10px;
+      padding-bottom: 10px;
 
       ${size === "large" &&
+      !(error || warning || info) &&
+      isTabSelected &&
       css`
-        padding-top: 10px;
-        padding-bottom: 10px;
-
-        ${!(error || warning || info) &&
-        isTabSelected &&
-        css`
-          padding-bottom: 6px;
-        `}
+        padding-bottom: 6px;
       `}
     `}
 
@@ -262,15 +247,15 @@ const StyledTitleContent = styled.div`
 
       ${position === "left" &&
       css`
-        padding: ${size === "large" ? "2px;" : "0px;"}
-          ${isTabSelected &&
-          css`
-            padding-right: 0px;
-          `}
-          ${(error || warning || info) &&
-          css`
-            padding-right: ${size === "large" ? "26px" : "18px"};
-          `};
+        padding: ${size === "large" ? "2px" : "0px"};
+        ${isTabSelected &&
+        css`
+          padding-right: 0px;
+        `}
+        ${(error || warning || info) &&
+        css`
+          padding-right: ${size === "large" ? "26px" : "18px"};
+        `}
       `}
 
       ${position === "top" &&
@@ -282,53 +267,63 @@ const StyledTitleContent = styled.div`
           `}
           ${(error || warning || info) &&
           css`
-        padding-bottom: ${size === "large" ? "4px;" : "2px;"}
-        padding-right: ${size === "large" ? "18px;" : "14px;"}
-
-        &:hover {
           padding-bottom: ${size === "large" ? "4px;" : "2px;"}
-        }
-      `};
+          padding-right: ${size === "large" ? "18px;" : "14px;"}
+
+          &:hover {
+            padding-bottom: ${size === "large" ? "4px;" : "2px;"}
+          }
+        `};
       `}
     `}
 `;
 
-const StyledTabTitle = styled.li`
+const StyledTabTitle = styled.button`
   background-color: transparent;
   display: inline-block;
   font-weight: bold;
-  height: 100%;
   position: relative;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0px;
+  text-decoration: none;
+  outline-offset: 0px;
+  margin: 0;
 
-  ${({ position, borders, noRightBorder, noLeftBorder }) => `
-      ${
-        position === "top" &&
-        css`
-          ${borders &&
-          !(noRightBorder || noLeftBorder) &&
-          css`
-            &:not(:first-of-type) {
-              margin-left: -1px;
-            }
-          `}
-        `
-      }
-      ${
-        position === "left" &&
-        css`
-          ${borders &&
-          css`
-            &:not(:first-of-type) {
-              margin-top: -1px;
-            }
-          `}
-        `
-      }
-    `}
-
-  &:first-child {
-    margin-left: 0;
+  a:visited {
+    color: inherit;
   }
+
+  ${({ position, borders, noRightBorder, noLeftBorder }) => css`
+    ${position === "top" &&
+    css`
+      height: 40px;
+
+      ${borders &&
+      !(noRightBorder || noLeftBorder) &&
+      css`
+        &:nth-of-type(n + 1) {
+          margin-left: -1px;
+        }
+        &:first-child {
+          margin-left: 0;
+        }
+      `}
+    `}
+    ${position === "left" &&
+    css`
+      ${borders &&
+      css`
+        &:nth-of-type(n + 1) {
+          margin-top: -1px;
+        }
+        &:first-child {
+          margin-top: 0;
+        }
+      `}
+    `}
+  `}
 
   ${({ isTabSelected, theme }) =>
     !isTabSelected &&
@@ -351,9 +346,7 @@ const StyledTabTitle = styled.li`
     error,
     warning,
     info,
-    size,
     isInSidebar,
-    position,
   }) =>
     isTabSelected &&
     css`
@@ -361,29 +354,6 @@ const StyledTabTitle = styled.li`
     color: ${theme.text.color};
     background-color: ${theme.colors.white};
 
-    ${
-      alternateStyling &&
-      css`
-        border-bottom: 2px solid ${theme.tab.background};
-      `
-    }
-
-    ${
-      !alternateStyling &&
-      css`
-        padding-bottom: 2px;
-      `
-    }
-
-    ${
-      size === "large" &&
-      css`
-        ${position === "top" &&
-        `
-          padding-bottom: ${alternateStyling ? "3px" : "4px"};
-          `}
-      `
-    }
     ${
       (error || warning || info) &&
       css`
@@ -412,7 +382,6 @@ const StyledTabTitle = styled.li`
   
   ${({
     position,
-    size,
     borders,
     theme,
     alternateStyling,
@@ -439,7 +408,7 @@ const StyledTabTitle = styled.li`
         }
       `}
 
-      display: block;
+      display: flex;
       height: auto;
       margin-left: 0px;
 
@@ -476,13 +445,6 @@ const StyledTabTitle = styled.li`
           `}
     
           background-color: ${theme.colors.white};
-
-          ${size === "large" &&
-          css`
-            & ${StyledTitleContent} {
-              padding-right: 22px;
-            }
-          `}
 
           &:hover {
             ${alternateStyling &&
@@ -529,7 +491,7 @@ const StyledLayoutWrapper = styled.div`
       min-width: 100px;
     `}
 
-  ${({ hasCustomLayout, titlePosition, hasCustomSibling }) =>
+  ${({ hasCustomLayout, titlePosition, hasCustomSibling, position }) =>
     !hasCustomLayout &&
     css`
       display: inline-flex;
@@ -559,7 +521,7 @@ const StyledLayoutWrapper = styled.div`
         ${StyledIcon} {
           height: 16px;
           left: -2px;
-          top: 3px;
+          top: ${position === "left" ? "1px" : "3px"};
         }
       }
     `}

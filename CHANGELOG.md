@@ -1,3 +1,148 @@
+## [101.4.0](https://github.com/Sage/carbon/compare/v101.3.3...v101.4.0) (2021-12-01)
+
+
+### Features
+
+* **link:** make skip link possible to be translated ([ce8bab7](https://github.com/Sage/carbon/commit/ce8bab70391dd6b00e2c1b2469c00c35d6f68279))
+
+### [101.3.3](https://github.com/Sage/carbon/compare/v101.3.2...v101.3.3) (2021-12-01)
+
+
+### Bug Fixes
+
+* **search:** fix incorrect tabindex behaviour ([18fe998](https://github.com/Sage/carbon/commit/18fe9985cf395fd269032af3e323c34011d364dd))
+
+### [101.3.2](https://github.com/Sage/carbon/compare/v101.3.1...v101.3.2) (2021-11-30)
+
+
+### Bug Fixes
+
+* **inputs:** make validation messages readable by voiceover ([89312f1](https://github.com/Sage/carbon/commit/89312f18a984758888346f0c2a2c31967586c0f8))
+
+### [101.3.1](https://github.com/Sage/carbon/compare/v101.3.0...v101.3.1) (2021-11-26)
+
+
+### Bug Fixes
+
+* **tab-header, tab-title:** refactor components to no longer render ul and li elements ([42be1eb](https://github.com/Sage/carbon/commit/42be1eb2fc122aad7b737de212a20e42867b28f3)), closes [#4517](https://github.com/Sage/carbon/issues/4517)
+
+## [101.3.0](https://github.com/Sage/carbon/compare/v101.2.0...v101.3.0) (2021-11-26)
+
+
+### Features
+
+* **flat-table:** add overflow x prop and story ([faddf0f](https://github.com/Sage/carbon/commit/faddf0f582b6abe9881a0c1a70e2d01e0b0aafd6))
+
+
+### Bug Fixes
+
+* **flat-table:** make scrollable content accessible via keyboard ([ca44a6f](https://github.com/Sage/carbon/commit/ca44a6f13d9b6c3f0ceaeac6fef037e29faa563e)), closes [#4259](https://github.com/Sage/carbon/issues/4259)
+
+## [101.2.0](https://github.com/Sage/carbon/compare/v101.1.0...v101.2.0) (2021-11-25)
+
+
+### Features
+
+* **icon-button:** add TooltipProvider and event handles to toggle Tooltip if child has one ([a242e97](https://github.com/Sage/carbon/commit/a242e976fd8c244fa1328f4b8ae44fa23ef16877)), closes [#4542](https://github.com/Sage/carbon/issues/4542)
+* **tooltip-provider:** add additional props to control tooltip behaviours of wrapped children ([90f0ec6](https://github.com/Sage/carbon/commit/90f0ec635cd619aa3d0c72028cf5dc1bb0eaa8a7))
+
+
+### Bug Fixes
+
+* **icon-button:** add missing aria-label to story ([6d5f1b5](https://github.com/Sage/carbon/commit/6d5f1b52b19177615ddaf266620264ffede4284c)), closes [#4552](https://github.com/Sage/carbon/issues/4552)
+
+## [101.1.0](https://github.com/Sage/carbon/compare/v101.0.4...v101.1.0) (2021-11-25)
+
+
+### Features
+
+* **multi-select:** add keyboard accessibility ([7335a5e](https://github.com/Sage/carbon/commit/7335a5e1fb43007ea4649f7ae18909b50eaf8142))
+
+### [101.0.4](https://github.com/Sage/carbon/compare/v101.0.3...v101.0.4) (2021-11-24)
+
+
+### Bug Fixes
+
+* **text-editor:** replace regex used to format web links ([5d53668](https://github.com/Sage/carbon/commit/5d53668598fdfe394ba5b00a2352b6a5c11f8bfe))
+
+### [101.0.3](https://github.com/Sage/carbon/compare/v101.0.2...v101.0.3) (2021-11-24)
+
+
+### Bug Fixes
+
+* **design-tokens:** fix providing transparency design tokens ([94b56d0](https://github.com/Sage/carbon/commit/94b56d03115485b1a8193cb37e46e25eb94f9600))
+
+### [101.0.2](https://github.com/Sage/carbon/compare/v101.0.1...v101.0.2) (2021-11-24)
+
+
+### Bug Fixes
+
+* **textbox:** change fieldHelp sizing to match input width ([6c517c9](https://github.com/Sage/carbon/commit/6c517c9cd55d0f37071d615bb44ffbadbb5ce781)), closes [#4543](https://github.com/Sage/carbon/issues/4543)
+
+### [101.0.1](https://github.com/Sage/carbon/compare/v101.0.0...v101.0.1) (2021-11-23)
+
+
+### Bug Fixes
+
+* **select:** render wrapped text correctly in SelectList ([0b18685](https://github.com/Sage/carbon/commit/0b1868577375ae4be2407f07da0dbe14fb6fbd65)), closes [#4489](https://github.com/Sage/carbon/issues/4489)
+
+## [101.0.0](https://github.com/Sage/carbon/compare/v100.1.1...v101.0.0) (2021-11-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **design-tokens:** CarbonScopedTokensProvider is a part of CarbonProvider
+
+Design tokens in form of CSS variables will be provided without need of using additional elements.
+
+### Bug Fixes
+
+* **design-tokens:** fix design tokens provider implementation ([a62f953](https://github.com/Sage/carbon/commit/a62f95333bea396654c55e932c26c21b6b372502))
+
+### [100.1.1](https://github.com/Sage/carbon/compare/v100.1.0...v100.1.1) (2021-11-19)
+
+
+### Bug Fixes
+
+* **page:** export page correctly from pages interface ([e315b92](https://github.com/Sage/carbon/commit/e315b92e3bbd11a10aa55a5764b09f282505159a)), closes [#4562](https://github.com/Sage/carbon/issues/4562)
+
+## [100.1.0](https://github.com/Sage/carbon/compare/v100.0.0...v100.1.0) (2021-11-18)
+
+
+### Features
+
+* **focus-trap:** add flag to trigger refocus of either last focused element first element ([5ae3922](https://github.com/Sage/carbon/commit/5ae39226b4102106f08e997129aa7cef49548ecd))
+
+
+### Bug Fixes
+
+* **modal, modal-manager:** modal and manager now set a refocus flag when stacked modals are closed ([5b9c5f7](https://github.com/Sage/carbon/commit/5b9c5f75465ccd0145322710ef112e213961083e)), closes [#4502](https://github.com/Sage/carbon/issues/4502)
+
+## [100.0.0](https://github.com/Sage/carbon/compare/v99.1.0...v100.0.0) (2021-11-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **date-range:** The component can no longer be extended as it is not a class anymore
+
+### Code Refactoring
+
+* **date-range:** convert component from class-based to functional ([ec69281](https://github.com/Sage/carbon/commit/ec692814f8783d183359500c659ab66767be9b44))
+
+## [99.1.0](https://github.com/Sage/carbon/compare/v99.0.1...v99.1.0) (2021-11-18)
+
+
+### Features
+
+* **progress-tracker:** create new component ([49b8454](https://github.com/Sage/carbon/commit/49b84545ecb9b5dcd05d80f0f000b7764b389350))
+
+### [99.0.1](https://github.com/Sage/carbon/compare/v99.0.0...v99.0.1) (2021-11-18)
+
+
+### Bug Fixes
+
+* **loader-bar:** change width of loader ([a16a51e](https://github.com/Sage/carbon/commit/a16a51ef9c02d84c1153974e4ef4e37e618aedcf))
+
 ## [99.0.0](https://github.com/Sage/carbon/compare/v98.0.1...v99.0.0) (2021-11-15)
 
 

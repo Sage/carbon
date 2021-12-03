@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import Content from "./content.component.js";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Typography from "../typography";
@@ -28,27 +28,27 @@ import Content from "carbon-react/lib/components/content";
 
 ### Default content
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Content title="Title" variant="primary">
       This is an example of some content
     </Content>
   </Story>
-</Preview>
+</Canvas>
 
 ### Inline content
 
-<Preview>
+<Canvas>
   <Story name="inline">
     <Content title="Title" inline>
       This is an example of some content
     </Content>
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom title
 
-<Preview>
+<Canvas>
   <Story name="custom title">
     <Content
       title={<Typography color="primary">Title</Typography>}
@@ -57,17 +57,17 @@ import Content from "carbon-react/lib/components/content";
       This is an example of some content
     </Content>
   </Story>
-</Preview>
+</Canvas>
 
 ### Secondary styling
 
-<Preview>
+<Canvas>
   <Story name="secondary styling">
     <Content title="Title" variant="secondary">
       This is an example of some content
     </Content>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

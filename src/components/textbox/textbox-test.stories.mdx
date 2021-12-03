@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
@@ -148,16 +148,16 @@ export const MultipleTextboxStory = (args) => (
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default" args={getCommonTextboxArgs()}>
     {TextboxStory.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ### Multiple
 
-<Preview>
+<Canvas>
   <Story name="multiple" args={getCommonTextboxArgs()}>
     {MultipleTextboxStory.bind({})}
   </Story>
-</Preview>
+</Canvas>
