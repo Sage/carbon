@@ -43,6 +43,7 @@ const ButtonToggle = (props) => {
         aria-hidden
         buttonIcon={buttonIcon}
         buttonIconSize={buttonIconSize}
+        hasNoContent={!children}
         disabled={disabled}
       />
     );
