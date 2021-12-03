@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { useState } from "react";
 
 import VerticalDivider from ".";
@@ -26,10 +26,7 @@ import {
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import styled from "styled-components";
 
-<Meta
-  title="VerticalDivider"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="VerticalDivider" parameters={{ info: { disable: true } }} />
 
 # VerticalDivider
 
@@ -56,12 +53,12 @@ import VerticalDivider from "carbon-react/lib/components/vertical-divider";
 By default the VerticalDivider has a height of `100%` and padding of `24px`.
 
 export const Square = styled.div`
-height: ${({size}) => size || '56px'};
-width: ${({size}) => size || '56px'};
-background-color: ${({theme}) => theme.colors.primary};
-`
+  height: ${({ size }) => size || "56px"};
+  width: ${({ size }) => size || "56px"};
+  background-color: ${({ theme }) => theme.colors.primary};
+`;
 
-<Preview>
+<Canvas>
   <Story name="default">
     <div style={{ display: "inline-flex" }}>
       <Square />
@@ -83,14 +80,14 @@ background-color: ${({theme}) => theme.colors.primary};
       <Square />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### In a flex container
 
 It is possible to set a custom height for the component by passing a value to the `h` prop as either a number or a string:
 if passing a number the height will be set in pixels; if passing a string you will need to ensure you provide the measurement unit.
 
-<Preview>
+<Canvas>
   <Story name="in a flex container">
     <div
       style={{
@@ -119,14 +116,14 @@ if passing a number the height will be set in pixels; if passing a string you wi
       <Icon type="edit" />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### In a non-flex container
 
 When using the component in a non-flex container you can set the `displayInline` prop to true (default is false). This will
 add the css attribute `display: inline;` to the component.
 
-<Preview>
+<Canvas>
   <Story
     name="in a non-flex container"
     parameters={{ chromatic: { disable: true } }}
@@ -158,7 +155,7 @@ add the css attribute `display: inline;` to the component.
       <Icon type="edit" />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom spacing and height
 
@@ -166,7 +163,7 @@ The `p` prop allows for the spacing on all sides to be customised. The `pt` and 
 the `pr` and `pr` props set the horizontal spacing. These props can be number mulitipliers of the base
 theme spacing which is `8px`, or any valid CSS string. The default for the `p` prop is `3` and therefore `24px`.
 
-<Preview>
+<Canvas>
   <Story name="with custom spacing and height">
     <div style={{ display: "inline-flex" }}>
       <div>
@@ -212,14 +209,14 @@ theme spacing which is `8px`, or any valid CSS string. The default for the `p` p
       </div>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Tint variants
 
 It is possible to pass a value (any value between `1` and `100`) to the `tint` prop (default is `80`) to adjust the tint
 applied to the slate.
 
-<Preview>
+<Canvas>
   <Story name="with custom tint">
     <div style={{ display: "inline-flex" }}>
       <Square />
@@ -233,11 +230,11 @@ applied to the slate.
       <Square />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### In a Dialog
 
-<Preview>
+<Canvas>
   <Story name="in a dialog" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -265,42 +262,42 @@ applied to the slate.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### In a Tile
 
-<Preview>
+<Canvas>
   <Story name="in a tile">
     <Tile width={800} orientation="vertical">
       <Content title="Test Title One">Test Body One</Content>
       <div style={{ display: "inline-flex", height: 40 }}>
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px"/>
+        <Square size="40px" />
       </div>
     </Tile>
   </Story>
-</Preview>
+</Canvas>
 
 ### In a grid container
 
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
-<Preview>
+<Canvas>
   <Story name="in grid container" parameters={{ info: { disable: true } }}>
     <GridContainer>
       <GridItem
@@ -310,9 +307,9 @@ This example is best viewed in the Canvas tab using full-screen mode with device
         gridColumn="1 / 2"
         gridRow="1 / 2"
       >
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider h={100} />
-        <Square size="40px"/>
+        <Square size="40px" />
       </GridItem>
       <GridItem
         alignSelf="stretch"
@@ -328,9 +325,9 @@ This example is best viewed in the Canvas tab using full-screen mode with device
         gridColumn="5 / 6"
         gridRow="1 / 2"
       >
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider h={100} />
-        <Square size="40px"/>
+        <Square size="40px" />
       </GridItem>
       <GridItem
         alignSelf="stretch"
@@ -346,17 +343,17 @@ This example is best viewed in the Canvas tab using full-screen mode with device
         gridColumn="9 / 10"
         gridRow="1 / 2"
       >
-        <Square size="40px"/>
+        <Square size="40px" />
         <VerticalDivider h={100} />
-        <Square size="40px"/>
+        <Square size="40px" />
       </GridItem>
     </GridContainer>
   </Story>
-</Preview>
+</Canvas>
 
 ### In a table
 
-<Preview>
+<Canvas>
   <Story name="in a table">
     <FlatTable>
       <FlatTableHead>
@@ -383,11 +380,11 @@ This example is best viewed in the Canvas tab using full-screen mode with device
       </FlatTableBody>
     </FlatTable>
   </Story>
-</Preview>
+</Canvas>
 
 ### In a Menu
 
-<Preview>
+<Canvas>
   <Story name="in a menu">
     <div style={{ minHeight: 120 }}>
       <Menu menuType="dark">
@@ -400,7 +397,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

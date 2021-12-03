@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
 import InlineInputs from ".";
@@ -44,7 +44,7 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -89,10 +89,10 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### InlineInputs
 
-<Props of={InlineInputs} />
+<ArgsTable of={InlineInputs} />

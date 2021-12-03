@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Detail from "./detail.component";
 import Card from "../card";
@@ -33,35 +33,35 @@ import Detail from "carbon-react/lib/components/detail";
 
 This is an example of how the Detail component will look in its default format.
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Detail>This is where the children will live.</Detail>
   </Story>
-</Preview>
+</Canvas>
 
 ### Detail with a Footnote
 
 Detail can also have a footnote by using the `footnote` prop.
 
-<Preview>
+<Canvas>
   <Story name="with Footnote">
     <Detail footnote="This is a footnote.">
       This is where the children will live.
     </Detail>
   </Story>
-</Preview>
+</Canvas>
 
 ### Default with Icon
 
 Detail can also have an icon that renders to the left.
 
-<Preview>
+<Canvas>
   <Story name="with icon">
     <Detail icon="bin" footnote="This is a footnote">
       This is where the children will live.
     </Detail>
   </Story>
-</Preview>
+</Canvas>
 
 ### Inside of Components
 
@@ -69,7 +69,7 @@ Detail can also have an icon that renders to the left.
 
 Detail can be nested inside of components. Inside of this example it is nested inside of the `Card` component.
 
-<Preview>
+<Canvas>
   <Story name="inside of card">
     <Card width="300px">
       <div style={{ paddingTop: "16px" }}>
@@ -89,13 +89,13 @@ Detail can be nested inside of components. Inside of this example it is nested i
       </div>
     </Card>
   </Story>
-</Preview>
+</Canvas>
 
 #### Inside of Tile
 
 In this example, Detail is nested inside of the `Tile` component.
 
-<Preview>
+<Canvas>
   <Story name="inside of tile">
     <Tile width="60%">
       <div style={{ paddingTop: "16px" }}>
@@ -113,7 +113,7 @@ In this example, Detail is nested inside of the `Tile` component.
       </div>
     </Tile>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

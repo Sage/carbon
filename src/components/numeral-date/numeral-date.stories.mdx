@@ -1,14 +1,11 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import NumeralDate from ".";
 
-<Meta
-  title="Numeral Date"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Numeral Date" parameters={{ info: { disable: true } }} />
 
 # Numeral Date
 
@@ -34,7 +31,7 @@ import NumeralDate from "carbon-react/lib/components/numeral-date";
 
 ### Controlled
 
-<Preview>
+<Canvas>
   <Story name="controlled">
     {() => {
       const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
@@ -47,11 +44,11 @@ import NumeralDate from "carbon-react/lib/components/numeral-date";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Uncontrolled
 
-<Preview>
+<Canvas>
   <Story name="uncontrolled">
     {() => {
       const [value, setValue] = useState();
@@ -65,11 +62,11 @@ import NumeralDate from "carbon-react/lib/components/numeral-date";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Allowed date formats
 
-<Preview>
+<Canvas>
   <Story name="allowed date formats">
     <>
       <NumeralDate
@@ -82,13 +79,13 @@ import NumeralDate from "carbon-react/lib/components/numeral-date";
       <NumeralDate label="MM/YYYY" dateFormat={["mm", "yyyy"]} />
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### Validations
 
 #### Error
 
-<Preview>
+<Canvas>
   <Story
     name="date Component has Error"
     parameters={{ chromatic: { disable: true } }}
@@ -112,11 +109,11 @@ import NumeralDate from "carbon-react/lib/components/numeral-date";
       />
     </>
   </Story>
-</Preview>
+</Canvas>
 
 #### Warning
 
-<Preview>
+<Canvas>
   <Story
     name="date Component has Warning"
     parameters={{ chromatic: { disable: true } }}
@@ -140,11 +137,11 @@ import NumeralDate from "carbon-react/lib/components/numeral-date";
       />
     </>
   </Story>
-</Preview>
+</Canvas>
 
 #### Info
 
-<Preview>
+<Canvas>
   <Story
     name="date Component has Info"
     parameters={{ chromatic: { disable: true } }}
@@ -168,7 +165,7 @@ import NumeralDate from "carbon-react/lib/components/numeral-date";
       />
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### Internal validation
 
@@ -180,7 +177,7 @@ To override default messages translations can be provided with following keys: `
 
 When using the internal validations as error it is necessary to also provide an external validation to avoid situations where it is possible to submit a form while `NumeralDate` clearly indicates that the date is incorrect.
 
-<Preview>
+<Canvas>
   <Story
     name="internal validation - error"
     parameters={{ chromatic: { disable: true } }}
@@ -199,13 +196,13 @@ When using the internal validations as error it is necessary to also provide an 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### As warning
 
 When using the internal validations as warning the external validation is not necessary, in this case internal warnings can be treated as feedback.
 
-<Preview>
+<Canvas>
   <Story
     name="internal validation - warning"
     parameters={{ chromatic: { disable: true } }}
@@ -223,11 +220,11 @@ When using the internal validations as warning the external validation is not ne
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With inline label
 
-<Preview>
+<Canvas>
   <Story name="inline label">
     <NumeralDate
       dateFormat={["dd", "mm", "yyyy"]}
@@ -237,13 +234,13 @@ When using the internal validations as warning the external validation is not ne
       labelWidth={30}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Enabling the adaptive behaviour
 
 The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
 
-<Preview>
+<Canvas>
   <Story
     name="enabling adaptive behaviour"
     parameters={{ chromatic: { disable: true } }}
@@ -256,11 +253,11 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
       adaptiveLabelBreakpoint={960}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With label help
 
-<Preview>
+<Canvas>
   <Story name="with label help">
     <NumeralDate
       dateFormat={["dd", "mm", "yyyy"]}
@@ -269,11 +266,11 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
       helpAriaLabel="Help"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With field help
 
-<Preview>
+<Canvas>
   <Story name="with field help">
     <NumeralDate
       dateFormat={["dd", "mm", "yyyy"]}
@@ -281,13 +278,13 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
       fieldHelp="Field help"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="required">
     <>
       <NumeralDate
@@ -297,13 +294,13 @@ You can use the `required` prop to indicate if the field is mandatory.
       />
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### Size
 
 You can use the `size` prop to set the size of the field.
 
-<Preview>
+<Canvas>
   <Story name="size">
     <>
       <NumeralDate
@@ -323,13 +320,13 @@ You can use the `size` prop to set the size of the field.
       />
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### Overriding tooltip position
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="overriding tooltip position"
     parameters={{ chromatic: { disable: true } }}
@@ -350,7 +347,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
       />
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
