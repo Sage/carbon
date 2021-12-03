@@ -1,3 +1,12 @@
+### [101.4.1](https://github.com/Sage/carbon/compare/v101.4.0...v101.4.1) (2021-12-03)
+
+
+### Bug Fixes
+
+* **date:** enforce ISO date in value prop ([643c263](https://github.com/Sage/carbon/commit/643c26320749bcf7de93277c0917044118582922)), closes [#3945](https://github.com/Sage/carbon/issues/3945) [#4453](https://github.com/Sage/carbon/issues/4453)
+* **date:** include moment locales ([a9016f2](https://github.com/Sage/carbon/commit/a9016f24baea94506e26ab33448192d4401ab0ac)), closes [#4479](https://github.com/Sage/carbon/issues/4479)
+* **date:** modify custom event in onBlur to return correct values ([e87836f](https://github.com/Sage/carbon/commit/e87836f7cede8c53434f48aca8d3aba3980b42bd))
+
 ## [101.4.0](https://github.com/Sage/carbon/compare/v101.3.3...v101.4.0) (2021-12-01)
 
 
