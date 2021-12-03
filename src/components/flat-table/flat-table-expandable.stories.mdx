@@ -1400,27 +1400,41 @@ truncated styling applied, this is because of the caret icon that is rendered wi
           },
         });
       };
-      const subRows = (row) => {
+      const subRows = (row, size) => {
         return [
           <FlatTableRow selected={selectedRows[row].subOne}>
             <FlatTableCheckbox
+              ariaLabelledBy={`${size}-row-${row}-sub-row-1-cell-1 ${size}-row-${row}-sub-row-1-cell-2 ${size}-row-${row}-sub-row-1-cell-3`}
               onClick={(e) => e.stopPropagation()}
               checked={selectedRows[row].subOne}
               onChange={() => handleSelectRow(row, "subOne")}
             />
-            <FlatTableCell>Child one</FlatTableCell>
-            <FlatTableCell>York</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
+            <FlatTableCell id={`${size}-row-${row}-sub-row-1-cell-1`}>
+              Child one
+            </FlatTableCell>
+            <FlatTableCell id={`${size}-row-${row}-sub-row-1-cell-2`}>
+              York
+            </FlatTableCell>
+            <FlatTableCell id={`${size}-row-${row}-sub-row-1-cell-3`}>
+              Married
+            </FlatTableCell>
           </FlatTableRow>,
           <FlatTableRow selected={selectedRows[row].subTwo}>
             <FlatTableCheckbox
+              ariaLabelledBy={`${size}-row-${row}-sub-row-2-cell-1 ${size}-row-${row}-sub-row-2-cell-2 ${size}-row-${row}-sub-row-2-cell-3`}
               onClick={(e) => e.stopPropagation()}
               checked={selectedRows[row].subTwo}
               onChange={() => handleSelectRow(row, "subTwo")}
             />
-            <FlatTableCell>Child two</FlatTableCell>
-            <FlatTableCell>Edinburgh</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell id={`${size}-row-${row}-sub-row-2-cell-1`}>
+              Child two
+            </FlatTableCell>
+            <FlatTableCell id={`${size}-row-${row}-sub-row-2-cell-2`}>
+              Edinburgh
+            </FlatTableCell>
+            <FlatTableCell id={`${size}-row-${row}-sub-row-2-cell-3`}>
+              Single
+            </FlatTableCell>
           </FlatTableRow>,
         ];
       };
@@ -1429,76 +1443,111 @@ truncated styling applied, this is because of the caret icon that is rendered wi
           {["compact", "small", "medium", "large", "extraLarge"].map(
             (size, index) => (
               <Box mb={3} key={index}>
-                <FlatTable size={size}>
+                <FlatTable size={size} aria-label={`flat-table-${size}`}>
                   <FlatTableHead>
                     <FlatTableRow>
                       <FlatTableCheckbox
+                        ariaLabelledBy={`${size}-row-1-cell-1 ${size}-row-1-cell-2 ${size}-row-1-cell-3`}
                         onClick={(e) => e.stopPropagation()}
                         as="th"
                         checked={selectAll}
                         onChange={() => handleSelectAllRows()}
                       />
-                      <FlatTableHeader>Name</FlatTableHeader>
-                      <FlatTableHeader>Location</FlatTableHeader>
-                      <FlatTableHeader>Relationship Status</FlatTableHeader>
+                      <FlatTableHeader id={`${size}-row-1-cell-1`}>
+                        Name
+                      </FlatTableHeader>
+                      <FlatTableHeader id={`${size}-row-1-cell-2`}>
+                        Location
+                      </FlatTableHeader>
+                      <FlatTableHeader id={`${size}-row-1-cell-3`}>
+                        Relationship Status
+                      </FlatTableHeader>
                     </FlatTableRow>
                   </FlatTableHead>
                   <FlatTableBody>
                     <FlatTableRow
                       selected={selectedRows.one.parent}
                       expandable
-                      subRows={subRows("one")}
+                      subRows={subRows("one", size)}
                     >
                       <FlatTableCheckbox
+                        ariaLabelledBy={`${size}-row-2-cell-1 ${size}-row-2-cell-2 ${size}-row-2-cell-3`}
                         onClick={(e) => e.stopPropagation()}
                         checked={selectedRows.one.parent}
                         onChange={() => handleSelectRow("one", "parent")}
                       />
-                      <FlatTableCell>John Doe</FlatTableCell>
-                      <FlatTableCell>London</FlatTableCell>
-                      <FlatTableCell>Single</FlatTableCell>
+                      <FlatTableCell id={`${size}-row-2-cell-1`}>
+                        John Doe
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-2-cell-2`}>
+                        London
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-2-cell-3`}>
+                        Single
+                      </FlatTableCell>
                     </FlatTableRow>
                     <FlatTableRow
                       selected={selectedRows.two.parent}
                       expandable
-                      subRows={subRows("two")}
+                      subRows={subRows("two", size)}
                     >
                       <FlatTableCheckbox
+                        ariaLabelledBy={`${size}-row-3-cell-1 ${size}-row-3-cell-2 ${size}-row-3-cell-3`}
                         onClick={(e) => e.stopPropagation()}
                         checked={selectedRows.two.parent}
                         onChange={() => handleSelectRow("two", "parent")}
                       />
-                      <FlatTableCell>Jane Doe</FlatTableCell>
-                      <FlatTableCell>York</FlatTableCell>
-                      <FlatTableCell>Married</FlatTableCell>
+                      <FlatTableCell id={`${size}-row-3-cell-1`}>
+                        Jane Doe
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-3-cell-2`}>
+                        York
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-3-cell-3`}>
+                        Married
+                      </FlatTableCell>
                     </FlatTableRow>
                     <FlatTableRow
                       selected={selectedRows.three.parent}
                       expandable
-                      subRows={subRows("three")}
+                      subRows={subRows("three", size)}
                     >
                       <FlatTableCheckbox
+                        ariaLabelledBy={`${size}-row-4-cell-1 ${size}-row-4-cell-2 ${size}-row-4-cell-3`}
                         onClick={(e) => e.stopPropagation()}
                         checked={selectedRows.three.parent}
                         onChange={() => handleSelectRow("three", "parent")}
                       />
-                      <FlatTableCell>John Smith</FlatTableCell>
-                      <FlatTableCell>Edinburgh</FlatTableCell>
-                      <FlatTableCell>Single</FlatTableCell>
+                      <FlatTableCell id={`${size}-row-4-cell-1`}>
+                        John Smith
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-4-cell-2`}>
+                        Edinburgh
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-4-cell-3`}>
+                        Single
+                      </FlatTableCell>
                     </FlatTableRow>
                     <FlatTableRow
                       selected={selectedRows.four.parent}
                       expandable
-                      subRows={subRows("four")}
+                      subRows={subRows("four", size)}
                     >
                       <FlatTableCheckbox
+                        ariaLabelledBy={`${size}-row-5-cell-1 ${size}-row-5-cell-2 ${size}-row-5-cell-3`}
                         onClick={(e) => e.stopPropagation()}
                         checked={selectedRows.four.parent}
                         onChange={() => handleSelectRow("four", "parent")}
                       />
-                      <FlatTableCell>Jane Smith</FlatTableCell>
-                      <FlatTableCell>Newcastle</FlatTableCell>
-                      <FlatTableCell>Married</FlatTableCell>
+                      <FlatTableCell id={`${size}-row-5-cell-1`}>
+                        Jane Smith
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-5-cell-2`}>
+                        Newcastle
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-5-cell-3`}>
+                        Married
+                      </FlatTableCell>
                     </FlatTableRow>
                   </FlatTableBody>
                 </FlatTable>
