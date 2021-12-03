@@ -1,3 +1,10 @@
+### [101.4.2](https://github.com/Sage/carbon/compare/v101.4.1...v101.4.2) (2021-12-03)
+
+
+### Bug Fixes
+
+* **tile select:** apply opacity to prefixAdornment when component is disabled ([f08f183](https://github.com/Sage/carbon/commit/f08f1839d6a7a781c325c1e8b66d4c981d1b7947)), closes [#4606](https://github.com/Sage/carbon/issues/4606)
+
 ### [101.4.1](https://github.com/Sage/carbon/compare/v101.4.0...v101.4.1) (2021-12-03)
 
 
