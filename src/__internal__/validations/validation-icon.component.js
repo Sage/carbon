@@ -66,6 +66,7 @@ const ValidationIcon = ({
         setTriggeredByIcon(false);
         if (onBlur) onBlur(e);
       }}
+      isPartOfInput={isPartOfInput}
       {...filterStyledSystemMarginProps(rest)}
     >
       <Icon

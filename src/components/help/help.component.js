@@ -122,7 +122,7 @@ Help.propTypes = {
   tooltipPosition: PropTypes.oneOf(["bottom", "left", "right", "top"]),
   /** A path for the anchor */
   href: PropTypes.string,
-  /** A boolean received from IconWrapper */
+  /** Overrides the visibility of the Tooltip if true */
   isFocused: PropTypes.bool,
   /** <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
    *
