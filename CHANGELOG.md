@@ -1,3 +1,11 @@
+### [101.4.3](https://github.com/Sage/carbon/compare/v101.4.2...v101.4.3) (2021-12-06)
+
+
+### Bug Fixes
+
+* **radio-button, label:** when help prop is provided, pass input context values to children ([095a27b](https://github.com/Sage/carbon/commit/095a27b0f2b28c1900504f65e77a76c8f7736fac))
+* **validation-icon:** add conditional styling for displaying pointer cursor ([3366053](https://github.com/Sage/carbon/commit/3366053304bf56d29833bad0d9ddb124ff654bf0))
+
 ### [101.4.2](https://github.com/Sage/carbon/compare/v101.4.1...v101.4.2) (2021-12-03)
 
 
