@@ -77,6 +77,12 @@ describe("Label", () => {
       const wrapper = render({ help: "Help me!" }, shallow);
       expect(wrapper.find(Help).contains("Help me!")).toBe(true);
     });
+
+    it("passes tooltipId prop if provided", () => {
+      const tooltipId = "tooltip-test";
+      const wrapper = render({ help: "Help me!", tooltipId }, shallow);
+      expect(wrapper.find(Help).props().tooltipId).toBe(tooltipId);
+    });
   });
 
   describe("when inline", () => {
@@ -228,6 +234,15 @@ describe("Label", () => {
         const icon = wrapper.find(ValidationIcon);
 
         expect(icon.exists()).toEqual(true);
+      });
+
+      it("passes tooltipId prop if provided", () => {
+        const tooltipId = "tooltip-test";
+        const wrapper = render(
+          { [vType]: "Message", useValidationIcon: true, tooltipId },
+          mount
+        );
+        expect(wrapper.find(ValidationIcon).props().tooltipId).toBe(tooltipId);
       });
     }
   );

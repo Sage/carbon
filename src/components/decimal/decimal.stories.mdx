@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
@@ -39,7 +39,7 @@ import Decimal from "carbon-react/lib/components/decimal";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [state, setState] = useState("0.01");
@@ -49,11 +49,11 @@ import Decimal from "carbon-react/lib/components/decimal";
       return <Decimal label="Decimal" value={state} onChange={setValue} />;
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Sizes
 
-<Preview>
+<Canvas>
   <Story name="sizes">
     {() => {
       const [state, setState] = useState({
@@ -76,19 +76,19 @@ import Decimal from "carbon-react/lib/components/decimal";
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     <Decimal label="Decimal" value="0.01" disabled />
   </Story>
-</Preview>
+</Canvas>
 
 ### LabelAlign
 
-<Preview>
+<Canvas>
   <Story name="labelAlign">
     {() => {
       const [state, setState] = useState({
@@ -111,27 +111,27 @@ import Decimal from "carbon-react/lib/components/decimal";
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### ReadOnly
 
-<Preview>
+<Canvas>
   <Story name="readOnly">
     <Decimal label="Decimal" value="0.01" readOnly />
   </Story>
-</Preview>
+</Canvas>
 
 ### Empty
 
-<Preview>
+<Canvas>
   <Story name="empty">
     <Decimal label="Decimal" allowEmptyValue />
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom precision
 
-<Preview>
+<Canvas>
   <Story name="with custom precision">
     {() => {
       const [state, setState] = useState("0.0001");
@@ -148,11 +148,11 @@ import Decimal from "carbon-react/lib/components/decimal";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With labelInline
 
-<Preview>
+<Canvas>
   <Story name="with labelInline" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [state, setState] = useState("0.01");
@@ -169,11 +169,11 @@ import Decimal from "carbon-react/lib/components/decimal";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom labelWidth and inputWidth
 
-<Preview>
+<Canvas>
   <Story name="with custom labelWidth and inputWidth">
     {() => {
       const [state, setState] = useState("0.01");
@@ -192,11 +192,11 @@ import Decimal from "carbon-react/lib/components/decimal";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With fieldHelp
 
-<Preview>
+<Canvas>
   <Story name="with fieldHelp">
     {() => {
       const [state, setState] = useState("0.01");
@@ -213,11 +213,11 @@ import Decimal from "carbon-react/lib/components/decimal";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With labelHelp
 
-<Preview>
+<Canvas>
   <Story name="with labelHelp">
     {() => {
       const [state, setState] = useState("0.01");
@@ -235,13 +235,13 @@ import Decimal from "carbon-react/lib/components/decimal";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="required">
     {() => {
       const [state, setState] = useState("0.01");
@@ -253,14 +253,14 @@ You can use the `required` prop to indicate if the field is mandatory.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Left aligned
 
 You can use the `align` prop to choose how the the characters inside the component align.
 In this example, `align` has been assigned the value `left`.
 
-<Preview>
+<Canvas>
   <Story name="left aligned">
     {() => {
       const [state, setState] = useState("0.01");
@@ -277,7 +277,7 @@ In this example, `align` has been assigned the value `left`.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Validations
 
@@ -291,7 +291,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 #### As a string
 
-<Preview>
+<Canvas>
   <Story name="validations - string - component">
     {() => {
       const [state, setState] = useState({
@@ -322,11 +322,11 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
     parameters={{ chromatic: { disable: true } }}
@@ -354,11 +354,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### As a string, displayed on label
 
-<Preview>
+<Canvas>
   <Story name="validations - string - label">
     {() => {
       const [state, setState] = useState({
@@ -391,11 +391,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
     parameters={{ chromatic: { disable: true } }}
@@ -424,11 +424,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### As a boolean
 
-<Preview>
+<Canvas>
   <Story name="validations - boolean">
     {() => {
       const [state, setState] = useState({
@@ -459,7 +459,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
@@ -469,7 +469,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
 
 Due to the `Textbox` component being used internally by the `Decimal` component, most of the `Textbox` props are applicable to `Decimal`
 
-<Props of={OriginalTextbox} />
+<ArgsTable of={OriginalTextbox} />
 
 **Any other supplied props will be provided to the underlying HTML input element**
 

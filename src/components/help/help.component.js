@@ -24,6 +24,7 @@ const Help = ({
   tooltipPosition,
   isFocused,
   type,
+  tooltipId,
   tooltipBgColor,
   tooltipFontColor,
   tooltipFlipOverrides,
@@ -94,6 +95,7 @@ const Help = ({
         tooltipFontColor={tooltipFontColor}
         tooltipFlipOverrides={tooltipFlipOverrides}
         focusable={false}
+        tooltipId={tooltipId}
         aria-hidden="true"
         {...(href && {
           role: "tooltip",
@@ -110,7 +112,7 @@ Help.propTypes = {
   className: PropTypes.string,
   /** Message to display in tooltip */
   children: PropTypes.node,
-  /** The unique id of the component (used with aria-describedby for accessibility) */
+  /** The unique id of the component */
   helpId: PropTypes.string,
   /** Overrides the default tabindex of the component */
   tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -148,6 +150,8 @@ Help.propTypes = {
       `The \`${propName}\` prop supplied to \`${componentName}\` must be an array containing some or all of ["top", "bottom", "left", "right"].`
     );
   },
+  /** Id passed to the tooltip container, used for accessibility purposes. */
+  tooltipId: PropTypes.string,
   /** Aria label */
   ariaLabel: PropTypes.string,
 };

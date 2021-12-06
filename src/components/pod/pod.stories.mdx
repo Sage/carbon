@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
@@ -53,15 +53,15 @@ Set the pod to flex to the width of its content, or take up the full width of it
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Pod title="Title">Content</Pod>
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom height
 
-<Preview>
+<Canvas>
   <Story name="with custom height">
     <Pod
       title="Title"
@@ -73,14 +73,14 @@ Set the pod to flex to the width of its content, or take up the full width of it
       Content
     </Pod>
   </Story>
-</Preview>
+</Canvas>
 
 ### Even height
 
 If you want to have the same height of the Pods based on the highest one, use `Grid` component to position `Pods`
 and then set `height` prop to `100%` on each `Pod` so that it fills the entire height of `GridItem`
 
-<Preview>
+<Canvas>
   <Story name="even height multiple Pods">
     <GridContainer>
       <GridItem gridColumn="1/5">
@@ -130,41 +130,41 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       </GridItem>
     </GridContainer>
   </Story>
-</Preview>
+</Canvas>
 
 ### With subtitle and footer
 
-<Preview>
+<Canvas>
   <Story name="with subtitle and footer">
     <Pod title="Title" subtitle="Subtitle" footer="Footer">
       Content
     </Pod>
   </Story>
-</Preview>
+</Canvas>
 
 ### Without border
 
-<Preview>
+<Canvas>
   <Story name="without border">
     <Pod title="Title" subtitle="Subtitle" footer="Footer" border={false}>
       Content
     </Pod>
   </Story>
-</Preview>
+</Canvas>
 
 ### With edit button
 
-<Preview>
+<Canvas>
   <Story name="with edit button" parameters={{ chromatic: { disable: true } }}>
     <Pod title="Title" subtitle="Subtitle" footer="Footer" onEdit={() => {}}>
       Content
     </Pod>
   </Story>
-</Preview>
+</Canvas>
 
 ### With delete button
 
-<Preview>
+<Canvas>
   <Story
     name="with delete button"
     parameters={{ chromatic: { disable: true } }}
@@ -181,11 +181,11 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       Content
     </Pod>
   </Story>
-</Preview>
+</Canvas>
 
 ### Soft delete state
 
-<Preview>
+<Canvas>
   <Story name="soft delete state" parameters={{ chromatic: { disable: true } }}>
     <Pod
       title="Title"
@@ -198,11 +198,11 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       <Typography color="blackOpacity30">Soft delete state</Typography>
     </Pod>
   </Story>
-</Preview>
+</Canvas>
 
 ### With edit button and displayEditButtonOnHover
 
-<Preview>
+<Canvas>
   <Story
     parameters={{ chromatic: { disable: true } }}
     name="with displayEditButtonOnHover"
@@ -218,11 +218,11 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       Content
     </Pod>
   </Story>
-</Preview>
+</Canvas>
 
 ### With edit button and editContentFullWidth
 
-<Preview>
+<Canvas>
   <Story name="with editContentFullWidth">
     <Pod
       title="Title"
@@ -235,11 +235,11 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       Content
     </Pod>
   </Story>
-</Preview>
+</Canvas>
 
 ### With internal edit button
 
-<Preview>
+<Canvas>
   <Story name="with internal edit button">
     <Pod
       title="Title"
@@ -252,11 +252,11 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       Content
     </Pod>
   </Story>
-</Preview>
+</Canvas>
 
 ### With different variants
 
-<Preview>
+<Canvas>
   <Story name="with different variants">
     {() =>
       ["primary", "secondary", "tertiary", "tile", "transparent"].map(
@@ -277,11 +277,11 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       )
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### With different sizes
 
-<Preview>
+<Canvas>
   <Story name="with different sizes">
     {() =>
       ["extra-small", "small", "medium", "large", "extra-large"].map((size) => (
@@ -300,11 +300,11 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### With different title alignments
 
-<Preview>
+<Canvas>
   <Story name="with different title alignments">
     {() =>
       ["left", "center", "right"].map((alignment) => (
@@ -322,11 +322,11 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### Address pod
 
-<Preview>
+<Canvas>
   <Story name="address example">
     <Pod internalEditButton variant="tertiary">
       <h5 style={{ margin: 0 }}>Unit 1</h5>
@@ -358,7 +358,7 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       </div>
     </Pod>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

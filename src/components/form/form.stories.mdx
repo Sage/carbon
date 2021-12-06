@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { useState } from "react";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -46,7 +46,7 @@ import Form from "carbon-react/lib/components/form";
 
 When `stickyFooter` prop is set as true, footer becomes stickied to the bottom of the screen when necessary - this also works in `Dialog` and `DialogFullScreen`
 
-<Preview>
+<Canvas>
   <Story name="default with sticky footer">
     <Form
       onSubmit={() => console.log("submit")}
@@ -69,13 +69,13 @@ When `stickyFooter` prop is set as true, footer becomes stickied to the bottom o
       <Textbox label="Textbox" />
     </Form>
   </Story>
-</Preview>
+</Canvas>
 
 ### With different spacing
 
 When `fieldSpacing` prop is given a value, the vertical spacing between the form fields is changed (margin bottom on each field), the value of the prop multiplied by the base theme `8px` spacing value. The default is value `3` which is therefore `24px`. This can be overriden on a specific field if needed.
 
-<Preview>
+<Canvas>
   <Story name="with different spacing">
     <Form
       onSubmit={() => console.log("submit")}
@@ -95,13 +95,13 @@ When `fieldSpacing` prop is given a value, the vertical spacing between the form
       <Textbox label="Textbox" />
     </Form>
   </Story>
-</Preview>
+</Canvas>
 
 ### Override spacing on one field
 
 A child component (which uses `FormField`) can be given a `mb` prop which overrides the bottom margin for that particular field. This uses the same base theme `8px` multiplier as the Form `fieldSpacing` prop.
 
-<Preview>
+<Canvas>
   <Story name="override field spacing">
     <Form
       onSubmit={() => console.log("submit")}
@@ -120,13 +120,13 @@ A child component (which uses `FormField`) can be given a `mb` prop which overri
       <Textbox label="Textbox" />
     </Form>
   </Story>
-</Preview>
+</Canvas>
 
 ### Validations
 
 When either `errorCount` or `warningCount` or both are provided, summary with the number of errors and/or warnings is rendered wrapping the save button.
 
-<Preview>
+<Canvas>
   <Story name="with errors summary">
     <Form
       onSubmit={() => console.log("submit")}
@@ -143,9 +143,9 @@ When either `errorCount` or `warningCount` or both are provided, summary with th
       <Textbox label="Textbox" />
     </Form>
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="with warnings summary">
     <Form
       onSubmit={() => console.log("submit")}
@@ -162,9 +162,9 @@ When either `errorCount` or `warningCount` or both are provided, summary with th
       <Textbox label="Textbox" />
     </Form>
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="with both errors and warnings summary">
     <Form
       onSubmit={() => console.log("submit")}
@@ -182,13 +182,13 @@ When either `errorCount` or `warningCount` or both are provided, summary with th
       <Textbox label="Textbox" />
     </Form>
   </Story>
-</Preview>
+</Canvas>
 
 ### Buttons variations
 
 Additional buttons can be passed using `leftSideButtons` and `rightSideButtons` props.
 
-<Preview>
+<Canvas>
   <Story name="with additional buttons">
     <Form
       onSubmit={() => console.log("submit")}
@@ -217,11 +217,11 @@ Additional buttons can be passed using `leftSideButtons` and `rightSideButtons` 
       <Textbox label="Textbox" />
     </Form>
   </Story>
-</Preview>
+</Canvas>
 
 When `buttonAlignment` prop is set as `left`, buttons are aligned to the left side.
 
-<Preview>
+<Canvas>
   <Story name="with buttons aligned to the left">
     <Form
       onSubmit={() => console.log("submit")}
@@ -251,13 +251,13 @@ When `buttonAlignment` prop is set as `left`, buttons are aligned to the left si
       <Textbox label="Textbox" />
     </Form>
   </Story>
-</Preview>
+</Canvas>
 
 ### In Dialog
 
 It is possible to render `Form` as a content of `Dialog` component.
 
-<Preview>
+<Canvas>
   <Story name="in Dialog" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -290,11 +290,11 @@ It is possible to render `Form` as a content of `Dialog` component.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### With sticky footer
 
-<Preview>
+<Canvas>
   <Story
     name="in Dialog with sticky footer"
     parameters={{ chromatic: { disable: true } }}
@@ -355,13 +355,13 @@ It is possible to render `Form` as a content of `Dialog` component.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### In DialogFullScreen
 
 It is possible to render `Form` as a content of `DialogFullScreen` component.
 
-<Preview>
+<Canvas>
   <Story
     name="in DialogFullScreen"
     parameters={{ chromatic: { disable: true } }}
@@ -399,11 +399,11 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### With sticky footer
 
-<Preview>
+<Canvas>
   <Story
     name="in DialogFullScreen with sticky footer"
     parameters={{ chromatic: { disable: true } }}
@@ -459,7 +459,7 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Form alignment
 
@@ -471,7 +471,7 @@ If a component doesn't have an inline labels on the left (see the Checkboxes bel
 
 Please click on "Show code" below to see how to set these components up for alignment.
 
-<Preview>
+<Canvas>
   <Story name="form alignment example">
     <Form
       onSubmit={() => console.log("submit")}
@@ -533,7 +533,7 @@ Please click on "Show code" below to see how to set these components up for alig
         label="Date picker"
         labelInline
         labelWidth={10}
-        value="01-09-2020"
+        value="2020-09-01"
       />
       <RadioButtonGroup
         name="nolegend"
@@ -609,11 +609,11 @@ Please click on "Show code" below to see how to set these components up for alig
       />
     </Form>
   </Story>
-</Preview>
+</Canvas>
 
 ### With labels inline
 
-<Preview>
+<Canvas>
   <Story name="with labels inline">
     <Form
       saveButton={
@@ -647,7 +647,7 @@ Please click on "Show code" below to see how to set these components up for alig
       </InlineInputs>
     </Form>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

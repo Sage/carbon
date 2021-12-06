@@ -9,8 +9,8 @@ export interface CommonFormFieldPropTypes
   disabled?: boolean;
   /** Help content to be displayed under an input */
   fieldHelp?: React.ReactNode;
-  /** The unique id of the Help component */
-  helpId?: string;
+  /** The unique id of the Help component tooltip, used for accessibility */
+  tooltipId?: string;
   /** The unique id of the FieldHelp component */
   fieldHelpId?: string;
   /** Overrides the default tabindex of the Help component */

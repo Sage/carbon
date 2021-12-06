@@ -28,6 +28,8 @@ export interface HelpProps extends MarginProps {
   tooltipFlipOverrides?: ["top" | "bottom" | "left" | "right"];
   /** Position of tooltip relative to target */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /** Id passed to the tooltip container, used for accessibility purposes */
+  tooltipId?: string;
   /** Help Icon type */
   type?: IconType;
   /** Aria label */

@@ -26,6 +26,7 @@ const ValidationIcon = ({
   onFocus,
   onBlur,
   iconId,
+  tooltipId,
   isPartOfInput,
   tabIndex,
   onClick,
@@ -72,6 +73,7 @@ const ValidationIcon = ({
         key={`${validationType}-icon`}
         type={validationType}
         tabIndex={tabIndex}
+        tooltipId={tooltipId}
         tooltipMessage={validationMessage}
         tooltipPosition={tooltipPosition}
         tooltipVisible={
@@ -121,6 +123,8 @@ ValidationIcon.propTypes = {
       `The \`${propName}\` prop supplied to \`${componentName}\` must be an array containing some or all of ["top", "bottom", "left", "right"].`
     );
   },
+  /** Id passed to the tooltip container, used for accessibility purposes. */
+  tooltipId: PropTypes.string,
   /** An onClick handler */
   onClick: PropTypes.func,
   /** An onFocus handler */

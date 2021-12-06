@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
@@ -44,7 +44,7 @@ The switch component uses `switch.on` and `switch.off` to retrieve the translati
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
@@ -58,11 +58,11 @@ The switch component uses `switch.on` and `switch.off` to retrieve the translati
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Sizes
 
-<Preview>
+<Canvas>
   <Story name="sizes">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
@@ -83,22 +83,22 @@ The switch component uses `switch.on` and `switch.off` to retrieve the translati
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     <Switch label="Disabled switch" disabled />
     <Switch label="Disabled switch" disabled checked mt={2} />
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="Required">
     {() => {
       const [checked, setState] = useState(false);
@@ -113,11 +113,11 @@ You can use the `required` prop to indicate if the field is mandatory.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Reversed
 
-<Preview>
+<Canvas>
   <Story name="reversed">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
@@ -130,30 +130,32 @@ You can use the `required` prop to indicate if the field is mandatory.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Loading
 
-<Preview>
+<Canvas>
   <Story name="loading">
-    {['small.on', 'small.off', 'large.on', 'large.off'].map(variant => {
+    {["small.on", "small.off", "large.on", "large.off"].map((variant) => {
       const [setIsChecked] = useState(false);
-      const [size, checked] = variant.split('.');
+      const [size, checked] = variant.split(".");
       return (
         <Switch
-          label={variant.replace('.', ' ')}
+          label={variant.replace(".", " ")}
           size={size}
           loading="loading"
-          checked={checked === 'on' ? 'checked' : ''}
+          checked={checked === "on" ? "checked" : ""}
           onChange={(e) => setIsChecked((state) => !state)}
-        />);
-    })};
+        />
+      );
+    })}
+    ;
   </Story>
-</Preview>
+</Canvas>
 
 ### With labelInline
 
-<Preview>
+<Canvas>
   <Story name="With labelInline">
     {() => {
       const [isCheckedOne, setIsCheckedOne] = useState(false);
@@ -175,11 +177,11 @@ You can use the `required` prop to indicate if the field is mandatory.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With fieldHelp
 
-<Preview>
+<Canvas>
   <Story name="with fieldHelp">
     {() => {
       const [isCheckedOne, setIsCheckedOne] = useState(false);
@@ -201,11 +203,11 @@ You can use the `required` prop to indicate if the field is mandatory.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With labelHelp
 
-<Preview>
+<Canvas>
   <Story name="with labelHelp">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
@@ -219,7 +221,7 @@ You can use the `required` prop to indicate if the field is mandatory.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With margin
 
@@ -228,7 +230,7 @@ please visit the props table at the bottom of this page.
 
 [Visit Props Table](#props)
 
-<Preview>
+<Canvas>
   <Story name="with margin">
     {() => {
       const [isCheckedOne, setIsCheckedOne] = useState(false);
@@ -258,7 +260,7 @@ please visit the props table at the bottom of this page.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Validations
 
@@ -272,7 +274,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 #### As a string
 
-<Preview>
+<Canvas>
   <Story name="single switch - string validation">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
@@ -288,11 +290,11 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="single switch - string validation - tooltipPosition overriden"
     parameters={{ chromatic: { disable: true } }}
@@ -312,11 +314,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### As a string with validationOnLabel
 
-<Preview>
+<Canvas>
   <Story name="single switch - string validation - validationOnLabel">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
@@ -333,11 +335,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="single switch - string validation - validationOnLabel - tooltipPosition overriden"
     parameters={{ chromatic: { disable: true } }}
@@ -358,11 +360,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### As a boolean
 
-<Preview>
+<Canvas>
   <Story name="single switch - boolean validation">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
@@ -378,7 +380,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

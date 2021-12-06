@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import Number from ".";
 import { OriginalTextbox } from "../textbox";
@@ -27,7 +27,7 @@ import Number from "carbon-react/lib/components/number";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [state, setState] = useState("123456");
@@ -38,11 +38,11 @@ import Number from "carbon-react/lib/components/number";
       return <Number label="Number" value={state} onChange={setValue} />;
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Sizes
 
-<Preview>
+<Canvas>
   <Story name="sizes">
     {() =>
       ["small", "medium", "large"].map((size) => (
@@ -56,43 +56,43 @@ import Number from "carbon-react/lib/components/number";
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     <Number label="Number" value="123456" disabled />
   </Story>
-</Preview>
+</Canvas>
 
 ### ReadOnly
 
-<Preview>
+<Canvas>
   <Story name="readOnly">
     <Number label="Number" value="123456" readOnly />
   </Story>
-</Preview>
+</Canvas>
 
 ### AutoFocus
 
-<Preview>
+<Canvas>
   <Story name="autoFocus" parameters={{ chromatic: { disable: true } }}>
     <Number label="Number" value="123456" autoFocus />
   </Story>
-</Preview>
+</Canvas>
 
 ### With labelInline
 
-<Preview>
+<Canvas>
   <Story name="with labelInline" parameters={{ chromatic: { disable: true } }}>
     <Number label="Number" value="123456" labelInline />
   </Story>
-</Preview>
+</Canvas>
 
 ### With label Align
 
-<Preview>
+<Canvas>
   <Story name="with labelAlign">
     {() =>
       ["right", "left"].map((alignment) => (
@@ -107,11 +107,11 @@ import Number from "carbon-react/lib/components/number";
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom labelWidth and inputWidth
 
-<Preview>
+<Canvas>
   <Story name="with custom labelWidth and inputWidth">
     <Number
       label="Number"
@@ -121,33 +121,38 @@ import Number from "carbon-react/lib/components/number";
       inputWidth={50}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With fieldHelp
 
-<Preview>
+<Canvas>
   <Story name="with fieldHelp">
     <Number label="Number" value="123456" fieldHelp="Help" />
   </Story>
-</Preview>
+</Canvas>
 
 ### With labelHelp
 
-<Preview>
+<Canvas>
   <Story name="with labelHelp">
-    <Number label="Number" value="123456" labelHelp="Help" helpAriaLabel="Help" />
+    <Number
+      label="Number"
+      value="123456"
+      labelHelp="Help"
+      helpAriaLabel="Help"
+    />
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="required">
     <Number label="Number" value="123456" required />
   </Story>
-</Preview>
+</Canvas>
 
 ### Validations
 
@@ -161,7 +166,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 #### As a string
 
-<Preview>
+<Canvas>
   <Story name="validations - string - component">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
@@ -183,11 +188,11 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
     parameters={{ chromatic: { disable: true } }}
@@ -206,11 +211,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 #### As a string, displayed on label
 
-<Preview>
+<Canvas>
   <Story name="validations - string - label">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
@@ -234,11 +239,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
     parameters={{ chromatic: { disable: true } }}
@@ -258,11 +263,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 #### As a boolean
 
-<Preview>
+<Canvas>
   <Story name="validations - boolean">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
@@ -284,7 +289,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
@@ -292,6 +297,6 @@ It is possible to use the `tooltipPosition` to override the default placement of
 
 Due to the `Textbox` component being used internally by the `Number` component all the props of `Textbox` can be applied to `Number` as well.
 
-<Props of={OriginalTextbox} />
+<ArgsTable of={OriginalTextbox} />
 
 **Any other supplied props will be provided to the underlying HTML input element**

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import AppWrapper from ".";
 
 <Meta title="AppWrapper" parameters={{ info: { disable: true } }} />
@@ -24,7 +24,7 @@ import AppWrapper from "carbon-react/lib/components/app-wrapper";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <AppWrapper>
       <div>
@@ -47,11 +47,11 @@ import AppWrapper from "carbon-react/lib/components/app-wrapper";
       </div>
     </AppWrapper>
   </Story>
-</Preview>
+</Canvas>
 
 ### Default without AppWrapper
 
-<Preview>
+<Canvas>
   <Story name="without AppWrapper">
     <div>
       Far far away, behind the word mountains, far from the countries Vokalia
@@ -71,14 +71,14 @@ import AppWrapper from "carbon-react/lib/components/app-wrapper";
       Alphabet Village and the subline of her own road, the Line Lane.
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Default with Background Colour
 
 For the purposes of this demonstration, the AppWrapper has been given a colour to stand out so you
 can clearly see the component.
 
-<Preview>
+<Canvas>
   <Story name="with Background Colour">
     <AppWrapper style={{ backgroundColor: "rgba(0,0,0,0.25)" }}>
       <div style={{ marginBottom: "16px" }}>The Story of Carbon</div>
@@ -102,10 +102,10 @@ can clearly see the component.
       </div>
     </AppWrapper>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### AppWrapper
 
-<Props of={AppWrapper} />
+<ArgsTable of={AppWrapper} />

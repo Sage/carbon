@@ -14,9 +14,9 @@ describe("FieldHelp", () => {
     assertStyleMatch(
       {
         display: "block",
+        flex: "1",
         marginTop: "8px",
         whiteSpace: "pre-wrap",
-        width: "100%",
       },
       wrapper
     );

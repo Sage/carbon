@@ -16,8 +16,8 @@ export interface LabelPropTypes extends ValidationPropTypes {
   optional?: boolean;
   /** The unique id of the label element */
   labelId?: string;
-  /** The unique id of the Help component */
-  helpId?: string;
+  /** The unique id of the Help component tooltip, used for accessibility */
+  tooltipId?: string;
   /** Children elements */
   children?: React.ReactNode;
   /** A message that the Help component will display */

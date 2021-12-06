@@ -183,6 +183,7 @@ Array [
             <input
               aria-checked={false}
               aria-describedby=""
+              aria-invalid={false}
               checked={false}
               className="c8 c9"
               id="rId-0"
@@ -405,6 +406,7 @@ Array [
             <input
               aria-checked={false}
               aria-describedby=""
+              aria-invalid={false}
               checked={false}
               className="c8 c9"
               id="rId-1"

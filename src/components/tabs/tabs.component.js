@@ -257,6 +257,7 @@ const Tabs = ({
           noRightBorder={["no right side", "no sides"].includes(borders)}
           customLayout={customLayout}
           isInSidebar={isInSidebar}
+          align={align}
           onFocus={() => {
             if (!hasTabStop(tabId)) {
               setTabStopId(tabId);

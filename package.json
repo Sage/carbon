@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "99.0.1",
+  "version": "101.4.2",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -18,7 +18,6 @@
     "test": "jest --config=./jest.conf.json",
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
     "test-cypress": "cypress open",
-    "cypress:ci": "cypress run --record --parallel",
     "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",
     "format": "prettier --write './src'",
     "lint": "eslint ./src",
@@ -31,7 +30,8 @@
     "babel": "cross-env NODE_ENV=production babel ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --quiet",
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpy \"**/\" \"!**/(*.js|*.md|*.mdx|*.stories.*|*.snap)\" ../lib/ --cwd=src --parents",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "generate-metadata": "node ./scripts/generate_metadata/index.mjs"
   },
   "repository": {
     "type": "git",
@@ -59,20 +59,21 @@
     "@babel/preset-typescript": "7.12.7",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@semantic-release/changelog": "^5.0.1",
-    "@semantic-release/git": "^9.0.0",
-    "@storybook/addon-a11y": "^6.3.6",
-    "@storybook/addon-actions": "^6.3.6",
-    "@storybook/addon-controls": "^6.3.7",
-    "@storybook/addon-docs": "^6.3.6",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/exec": "^6.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@storybook/addon-a11y": "^6.3.12",
+    "@storybook/addon-actions": "^6.3.12",
+    "@storybook/addon-controls": "^6.3.12",
+    "@storybook/addon-docs": "^6.3.12",
     "@storybook/addon-google-analytics": "^6.2.9",
-    "@storybook/addon-links": "^6.3.6",
-    "@storybook/addon-toolbars": "^6.3.8",
-    "@storybook/addon-viewport": "^6.3.6",
-    "@storybook/addons": "^6.3.6",
-    "@storybook/components": "^6.3.6",
-    "@storybook/react": "^6.3.6",
-    "@storybook/theming": "^6.3.6",
+    "@storybook/addon-links": "^6.3.12",
+    "@storybook/addon-toolbars": "^6.3.12",
+    "@storybook/addon-viewport": "^6.3.12",
+    "@storybook/addons": "^6.3.12",
+    "@storybook/components": "^6.3.12",
+    "@storybook/react": "^6.3.12",
+    "@storybook/theming": "^6.3.12",
     "@types/enzyme": "^3.10.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/jest": "^26.0.19",
@@ -94,9 +95,9 @@
     "core-js": "^3.1.4",
     "cpy-cli": "^3.1.1",
     "cross-env": "^5.2.0",
-    "cypress": "^8.3.1",
+    "cypress": "^9.0.0",
     "cypress-axe": "^0.13.0",
-    "cypress-cucumber-preprocessor": "^4.2.0",
+    "cypress-cucumber-preprocessor": "^4.3.0",
     "cypress-each": "^1.5.0",
     "cypress-plugin-tab": "^1.0.5",
     "cypress-real-events": "^1.5.1",
@@ -121,6 +122,7 @@
     "husky": "^4.3.6",
     "jest": "^26.6.3",
     "jest-canvas-mock": "^2.3.1",
+    "jest-fetch-mock": "^3.0.3",
     "jest-styled-components": "^6.3.1",
     "lint-staged": "^10.5.3",
     "mockdate": "^2.0.2",
@@ -130,7 +132,7 @@
     "react-dom": "^16.12.0",
     "react-test-renderer": "^16.12.0",
     "rimraf": "^3.0.2",
-    "semantic-release": "^17.4.7",
+    "semantic-release": "^18.0.1",
     "semver": "^7.3.5",
     "sprintf-js": "^1.1.2",
     "styled-components": "^4.4.1",
@@ -202,6 +204,12 @@
         "@semantic-release/git",
         {
           "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+        }
+      ],
+      [
+        "@semantic-release/exec",
+        {
+          "successCmd": "echo \"SEMVER_VERSION=${nextRelease.version}\" >> $GITHUB_ENV"
         }
       ],
       "@semantic-release/github"

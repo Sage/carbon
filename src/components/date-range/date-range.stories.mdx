@@ -1,14 +1,11 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import DateRange from ".";
 
-<Meta
-  title="Date Range"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Date Range" parameters={{ info: { disable: true } }} />
 
 # Date Range
 
@@ -31,7 +28,7 @@ import DateRange from "carbon-react/lib/components/date-range";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [state, setState] = useState(["2016-10-01", "2016-10-30"]);
@@ -49,11 +46,11 @@ import DateRange from "carbon-react/lib/components/date-range";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### LabelsInline
 
-<Preview>
+<Canvas>
   <Story name="labelsInline">
     {() => {
       const [state, setState] = useState(["2016-10-01", "2016-10-30"]);
@@ -72,7 +69,7 @@ import DateRange from "carbon-react/lib/components/date-range";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Validations
 
@@ -86,7 +83,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 #### As a string
 
-<Preview>
+<Canvas>
   <Story name="validations - string - component">
     {() =>
       [
@@ -104,11 +101,11 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
     parameters={{ chromatic: { disable: true } }}
@@ -130,11 +127,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 #### As a string, displayed on label
 
-<Preview>
+<Canvas>
   <Story name="validations - string - label">
     {() =>
       [
@@ -153,11 +150,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
     parameters={{ chromatic: { disable: true } }}
@@ -180,11 +177,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 #### As a boolean
 
-<Preview>
+<Canvas>
   <Story name="validations - boolean">
     {() =>
       [
@@ -202,15 +199,17 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### Allow Empty Value
 
 You can pass prop `allowEmptyValue` to start and end `DateInput` using `startDateProps` and `endDateProps`.
 
-<Preview>
+<Canvas>
   <Story name="allowEmptyValue">
     <DateRange
+      startLabel="Start"
+      endLabel="End"
       value={["", ""]}
       startDateProps={{
         allowEmptyValue: true,
@@ -220,7 +219,7 @@ You can pass prop `allowEmptyValue` to start and end `DateInput` using `startDat
       }}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

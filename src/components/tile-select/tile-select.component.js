@@ -167,7 +167,15 @@ const TileSelect = ({
                 </StyledAccordionFooterWrapper>
               )}
             </Box>
-            {prefixAdornment && <Box mr={3}>{prefixAdornment}</Box>}
+            {prefixAdornment && (
+              <Box
+                data-element="prefix-adornment"
+                mr={3}
+                opacity={disabled ? "0.3" : undefined}
+              >
+                {prefixAdornment}
+              </Box>
+            )}
           </Box>
         </StyledTileSelect>
         {accordionContent && (

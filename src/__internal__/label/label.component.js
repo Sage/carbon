@@ -22,7 +22,7 @@ const Label = ({
   width,
   optional,
   labelId,
-  helpId,
+  tooltipId,
   children,
   error,
   warning,
@@ -73,7 +73,7 @@ const Label = ({
       return (
         <IconWrapperStyle>
           <ValidationIcon
-            iconId={helpId}
+            tooltipId={tooltipId}
             error={error}
             warning={warning}
             info={info}
@@ -88,7 +88,7 @@ const Label = ({
       help && (
         <IconWrapperStyle>
           <Help
-            helpId={helpId}
+            tooltipId={tooltipId}
             tabIndex={helpTabIndex}
             type={helpIcon}
             isFocused={hasFocus || hasMouseOver}
@@ -138,8 +138,8 @@ Label.propTypes = {
   optional: PropTypes.bool,
   /** The unique id of the label element */
   labelId: PropTypes.string,
-  /** The unique id of the Help component */
-  helpId: PropTypes.string,
+  /** The unique id of the Help component tooltip, used for accessibility */
+  tooltipId: PropTypes.string,
   /** Children elements */
   children: PropTypes.node,
   /** Status of error validations */
