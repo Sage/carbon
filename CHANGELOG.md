@@ -1,3 +1,10 @@
+### [101.4.5](https://github.com/Sage/carbon/compare/v101.4.4...v101.4.5) (2021-12-06)
+
+
+### Bug Fixes
+
+* **character count:** allow screen reader to read character count ([6724f29](https://github.com/Sage/carbon/commit/6724f2932c8175d7b1b7cde850986b0050aae393))
+
 ### [101.4.4](https://github.com/Sage/carbon/compare/v101.4.3...v101.4.4) (2021-12-06)
 
 
