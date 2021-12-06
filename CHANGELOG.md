@@ -1,3 +1,17 @@
+## [102.0.0](https://github.com/Sage/carbon/compare/v101.4.5...v102.0.0) (2021-12-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **decimal:** Decimal has been refactored to be a functional component from a class based
+component. This means that you are no longer able to extend this component.
+
+fixes FE-3640
+
+### Code Refactoring
+
+* **decimal:** convert class to functional component ([5eb2d32](https://github.com/Sage/carbon/commit/5eb2d32b31788fa3774d1c7ae5e4834b1bd39e0c))
+
 ### [101.4.5](https://github.com/Sage/carbon/compare/v101.4.4...v101.4.5) (2021-12-06)
 
 
