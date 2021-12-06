@@ -1,11 +1,8 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import LinkPreview from ".";
 
-<Meta
-  title="Link Preview"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Link Preview" parameters={{ info: { disable: true } }} />
 
 # LinkPreview
 
@@ -29,7 +26,7 @@ By default the component will render an anchor element if it is not in a loading
 be focused via tabbing and pressing enter or clicking will open the target in a new tab. The component surfaces a range of
 props which can be seen in the table below. If no `image` props are passed a placeholder will be used.
 
-<Preview>
+<Canvas>
   <Story name="default">
     <LinkPreview
       title="This is an example of a title"
@@ -37,18 +34,18 @@ props which can be seen in the table below. If no `image` props are passed a pla
       description="Captain, why are we out here chasing comets? I'd like to think that I haven't changed those things, sir. Computer, lights up! Not if I weaken first. Damage report! Yesterday I did not know how to eat gagh. The Federation's gone; the Borg is everywhere! We know you're dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Our neural pathways have become accustomed to your sensory input patterns. Wouldn't that bring about chaos?"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With loading state
 
 If no `url` is passed or the `isLoading` prop is true the component will display in a loading state. When in this state, it
 renders as a `div` element: it cannot be focused via tabbing and clicking will not trigger anything.
 
-<Preview>
+<Canvas>
   <Story name="with loading state">
     <LinkPreview isLoading />
   </Story>
-</Preview>
+</Canvas>
 
 ### With close icon
 
@@ -56,7 +53,7 @@ If the component is rendered in edit mode as a `div` element, it is possible to 
 a close icon and pass the callback to it. The icon can be focused via tabbing and the callback will be triggered via click or
 via pressing enter or space when focused.
 
-<Preview>
+<Canvas>
   <Story name="with close icon">
     <LinkPreview
       as="div"
@@ -66,10 +63,10 @@ via pressing enter or space when focused.
       description="Captain, why are we out here chasing comets? I'd like to think that I haven't changed those things, sir. Computer, lights up! Not if I weaken first. Damage report! Yesterday I did not know how to eat gagh. The Federation's gone; the Borg is everywhere! We know you're dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Our neural pathways have become accustomed to your sensory input patterns. Wouldn't that bring about chaos?"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### LinkPreview
 
-<Props of={LinkPreview} />
+<ArgsTable of={LinkPreview} />

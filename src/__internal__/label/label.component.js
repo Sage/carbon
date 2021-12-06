@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import Help from "../../components/help";
 import StyledLabel, { StyledLabelContainer } from "./label.style";
@@ -22,7 +22,7 @@ const Label = ({
   width,
   optional,
   labelId,
-  helpId,
+  tooltipId,
   children,
   error,
   warning,
@@ -36,8 +36,9 @@ const Label = ({
   pl,
   isRequired,
 }) => {
-  const [isFocused, setFocus] = useState(false);
-  const { onMouseEnter, onMouseLeave } = useContext(InputContext);
+  const { hasFocus, hasMouseOver, onMouseEnter, onMouseLeave } = useContext(
+    InputContext
+  );
   const {
     onMouseEnter: onGroupMouseEnter,
     onMouseLeave: onGroupMouseLeave,
@@ -54,11 +55,6 @@ const Label = ({
   };
 
   const icon = () => {
-    const wrapperProps = {
-      onFocus: () => setFocus(true),
-      onBlur: () => setFocus(false),
-    };
-
     if (
       useValidationIcon &&
       shouldDisplayValidationIcon({
@@ -77,7 +73,7 @@ const Label = ({
       return (
         <IconWrapperStyle>
           <ValidationIcon
-            iconId={helpId}
+            tooltipId={tooltipId}
             error={error}
             warning={warning}
             info={info}
@@ -90,12 +86,12 @@ const Label = ({
 
     return (
       help && (
-        <IconWrapperStyle {...wrapperProps}>
+        <IconWrapperStyle>
           <Help
-            helpId={helpId}
+            tooltipId={tooltipId}
             tabIndex={helpTabIndex}
             type={helpIcon}
-            isFocused={isFocused}
+            isFocused={hasFocus || hasMouseOver}
           >
             {help}
           </Help>
@@ -142,8 +138,8 @@ Label.propTypes = {
   optional: PropTypes.bool,
   /** The unique id of the label element */
   labelId: PropTypes.string,
-  /** The unique id of the Help component */
-  helpId: PropTypes.string,
+  /** The unique id of the Help component tooltip, used for accessibility */
+  tooltipId: PropTypes.string,
   /** Children elements */
   children: PropTypes.node,
   /** Status of error validations */

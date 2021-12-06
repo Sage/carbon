@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import { Checkbox, CheckboxGroup } from ".";
 
-<Meta
-  title="Checkbox/Validations"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Checkbox/Validations" parameters={{ info: { disable: true } }} />
 
 ## Validations
 
@@ -20,7 +17,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 ### As a string applied to single Checkbox
 
-<Preview>
+<Canvas>
   <Story name="single checkbox - string validation">
     {() =>
       ["error", "warning", "info"].map((type) => (
@@ -34,11 +31,11 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="single checkbox - with tooltipPosition overriden - string validation"
     parameters={{ chromatic: { disable: true } }}
@@ -56,11 +53,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### As a boolean applied to single Checkbox
 
-<Preview>
+<Canvas>
   <Story name="single checkbox - boolean validation">
     {() =>
       ["error", "warning", "info"].map((type) => (
@@ -74,11 +71,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### As a string applied to CheckboxGroup
 
-<Preview>
+<Canvas>
   <Story name="group checkbox - string validation">
     {() =>
       ["error", "warning", "info"].map((type) => (
@@ -103,11 +100,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="group checkbox - with tooltipPosition overriden - string validation"
     parameters={{ chromatic: { disable: true } }}
@@ -136,11 +133,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### As a boolean applied to CheckboxGroup
 
-<Preview>
+<Canvas>
   <Story name="group checkbox - boolean validation">
     {() =>
       ["error", "warning", "info"].map((type) => (
@@ -169,13 +166,13 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="required">
     {() => {
       const [checked, setChecked] = useState(false);
@@ -190,4 +187,4 @@ You can use the `required` prop to indicate if the field is mandatory.
       );
     }}
   </Story>
-</Preview>
+</Canvas>

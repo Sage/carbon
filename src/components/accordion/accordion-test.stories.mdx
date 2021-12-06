@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import Accordion from "./accordion.component";
@@ -85,7 +85,7 @@ export const AccordionGroupedStory = () => (
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -102,10 +102,10 @@ export const AccordionGroupedStory = () => (
   >
     {AccordionStory.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ### Grouped
 
-<Preview>
+<Canvas>
   <Story name="grouped">{AccordionGroupedStory.bind({})}</Story>
-</Preview>
+</Canvas>

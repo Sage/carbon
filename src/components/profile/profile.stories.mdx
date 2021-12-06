@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Profile from ".";
@@ -28,17 +28,17 @@ import Profile from "carbon-react/lib/components/profile";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Profile email="email@email.com" initials="JD" name="John Doe" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Src
 
 To use an image, simply pass any valid image URL as a `src` prop.
 
-<Preview>
+<Canvas>
   <Story name="src">
     <Profile
       email="email@email.com"
@@ -47,11 +47,11 @@ To use an image, simply pass any valid image URL as a `src` prop.
       src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Sizes
 
-<Preview>
+<Canvas>
   <Story name="sizes">
     {() =>
       ["XS", "S", "M", "ML", "L", "XL", "XXL"].map((size) => (
@@ -64,7 +64,7 @@ To use an image, simply pass any valid image URL as a `src` prop.
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

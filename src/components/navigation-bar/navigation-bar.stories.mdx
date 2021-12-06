@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import NavigationBar from "./navigation-bar.component";
 import { Menu, MenuItem } from "../menu";
 import Box from "../box";
@@ -28,17 +28,17 @@ import NavigationBar from "carbon-react/lib/components/navigation-bar";
 
 ### Light Theme
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ info: { disable: true } }}>
     <NavigationBar>Example content</NavigationBar>
   </Story>
-</Preview>
+</Canvas>
 
 ### Light Theme Loading State
 
 If `isLoading={true}` the children will not be visible
 
-<Preview>
+<Canvas>
   <Story name="isLoading" parameters={{ info: { disable: true } }}>
     <NavigationBar isLoading>
       <Menu>
@@ -47,21 +47,21 @@ If `isLoading={true}` the children will not be visible
       </Menu>
     </NavigationBar>
   </Story>
-</Preview>
+</Canvas>
 
 ### Dark Theme
 
-<Preview>
+<Canvas>
   <Story name="dark theme" parameters={{ info: { disable: true } }}>
     <NavigationBar navigationType="dark">Example content</NavigationBar>
   </Story>
-</Preview>
+</Canvas>
 
 ### Dark Theme Loading State
 
 If `isLoading={true}` the children will not be visible
 
-<Preview>
+<Canvas>
   <Story name="dark theme isLoading" parameters={{ info: { disable: true } }}>
     <NavigationBar navigationType="dark" isLoading>
       <Menu>
@@ -70,14 +70,14 @@ If `isLoading={true}` the children will not be visible
       </Menu>
     </NavigationBar>
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom spacing
 
 The spacing props (see prop table below) accept either a number between 1 and 8 that is then multiplied by `8px` or any
 valid CSS string.
 
-<Preview>
+<Canvas>
   <Story name="with custom spacing" parameters={{ info: { disable: true } }}>
     <NavigationBar py={2} px={7}>
       <Menu>
@@ -86,11 +86,11 @@ valid CSS string.
       </Menu>
     </NavigationBar>
   </Story>
-</Preview>
+</Canvas>
 
 ### Set content max width using Box
 
-<Preview>
+<Canvas>
   <Story
     name="content max width using Box"
     parameters={{ info: { disable: true } }}
@@ -125,13 +125,13 @@ valid CSS string.
       </Box>
     </NavigationBar>
   </Story>
-</Preview>
+</Canvas>
 
 ### Sticky
 
 The `stickyPosition` prop can be used to make the navigation bar stick to the top or bottom of it's nearest scrolling ancestor. Then the position relative to the top/bottom can be offset using the `stickyOffset` prop.
 
-<Preview>
+<Canvas>
   <Story name="sticky" parameters={{ info: { disable: true } }}>
     <div style={{ overflow: "scroll" }}>
       <div
@@ -215,7 +215,7 @@ The `stickyPosition` prop can be used to make the navigation bar stick to the to
       </div>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

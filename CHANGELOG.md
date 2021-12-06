@@ -1,3 +1,115 @@
+### [101.4.4](https://github.com/Sage/carbon/compare/v101.4.3...v101.4.4) (2021-12-06)
+
+
+### Bug Fixes
+
+* **design-tokens:** provide tokens outside root ([73fbd06](https://github.com/Sage/carbon/commit/73fbd065f1fc762de19589c0548eeb9c2610fc9d))
+
+### [101.4.3](https://github.com/Sage/carbon/compare/v101.4.2...v101.4.3) (2021-12-06)
+
+
+### Bug Fixes
+
+* **radio-button, label:** when help prop is provided, pass input context values to children ([095a27b](https://github.com/Sage/carbon/commit/095a27b0f2b28c1900504f65e77a76c8f7736fac))
+* **validation-icon:** add conditional styling for displaying pointer cursor ([3366053](https://github.com/Sage/carbon/commit/3366053304bf56d29833bad0d9ddb124ff654bf0))
+
+### [101.4.2](https://github.com/Sage/carbon/compare/v101.4.1...v101.4.2) (2021-12-03)
+
+
+### Bug Fixes
+
+* **tile select:** apply opacity to prefixAdornment when component is disabled ([f08f183](https://github.com/Sage/carbon/commit/f08f1839d6a7a781c325c1e8b66d4c981d1b7947)), closes [#4606](https://github.com/Sage/carbon/issues/4606)
+
+### [101.4.1](https://github.com/Sage/carbon/compare/v101.4.0...v101.4.1) (2021-12-03)
+
+
+### Bug Fixes
+
+* **date:** enforce ISO date in value prop ([643c263](https://github.com/Sage/carbon/commit/643c26320749bcf7de93277c0917044118582922)), closes [#3945](https://github.com/Sage/carbon/issues/3945) [#4453](https://github.com/Sage/carbon/issues/4453)
+* **date:** include moment locales ([a9016f2](https://github.com/Sage/carbon/commit/a9016f24baea94506e26ab33448192d4401ab0ac)), closes [#4479](https://github.com/Sage/carbon/issues/4479)
+* **date:** modify custom event in onBlur to return correct values ([e87836f](https://github.com/Sage/carbon/commit/e87836f7cede8c53434f48aca8d3aba3980b42bd))
+
+## [101.4.0](https://github.com/Sage/carbon/compare/v101.3.3...v101.4.0) (2021-12-01)
+
+
+### Features
+
+* **link:** make skip link possible to be translated ([ce8bab7](https://github.com/Sage/carbon/commit/ce8bab70391dd6b00e2c1b2469c00c35d6f68279))
+
+### [101.3.3](https://github.com/Sage/carbon/compare/v101.3.2...v101.3.3) (2021-12-01)
+
+
+### Bug Fixes
+
+* **search:** fix incorrect tabindex behaviour ([18fe998](https://github.com/Sage/carbon/commit/18fe9985cf395fd269032af3e323c34011d364dd))
+
+### [101.3.2](https://github.com/Sage/carbon/compare/v101.3.1...v101.3.2) (2021-11-30)
+
+
+### Bug Fixes
+
+* **inputs:** make validation messages readable by voiceover ([89312f1](https://github.com/Sage/carbon/commit/89312f18a984758888346f0c2a2c31967586c0f8))
+
+### [101.3.1](https://github.com/Sage/carbon/compare/v101.3.0...v101.3.1) (2021-11-26)
+
+
+### Bug Fixes
+
+* **tab-header, tab-title:** refactor components to no longer render ul and li elements ([42be1eb](https://github.com/Sage/carbon/commit/42be1eb2fc122aad7b737de212a20e42867b28f3)), closes [#4517](https://github.com/Sage/carbon/issues/4517)
+
+## [101.3.0](https://github.com/Sage/carbon/compare/v101.2.0...v101.3.0) (2021-11-26)
+
+
+### Features
+
+* **flat-table:** add overflow x prop and story ([faddf0f](https://github.com/Sage/carbon/commit/faddf0f582b6abe9881a0c1a70e2d01e0b0aafd6))
+
+
+### Bug Fixes
+
+* **flat-table:** make scrollable content accessible via keyboard ([ca44a6f](https://github.com/Sage/carbon/commit/ca44a6f13d9b6c3f0ceaeac6fef037e29faa563e)), closes [#4259](https://github.com/Sage/carbon/issues/4259)
+
+## [101.2.0](https://github.com/Sage/carbon/compare/v101.1.0...v101.2.0) (2021-11-25)
+
+
+### Features
+
+* **icon-button:** add TooltipProvider and event handles to toggle Tooltip if child has one ([a242e97](https://github.com/Sage/carbon/commit/a242e976fd8c244fa1328f4b8ae44fa23ef16877)), closes [#4542](https://github.com/Sage/carbon/issues/4542)
+* **tooltip-provider:** add additional props to control tooltip behaviours of wrapped children ([90f0ec6](https://github.com/Sage/carbon/commit/90f0ec635cd619aa3d0c72028cf5dc1bb0eaa8a7))
+
+
+### Bug Fixes
+
+* **icon-button:** add missing aria-label to story ([6d5f1b5](https://github.com/Sage/carbon/commit/6d5f1b52b19177615ddaf266620264ffede4284c)), closes [#4552](https://github.com/Sage/carbon/issues/4552)
+
+## [101.1.0](https://github.com/Sage/carbon/compare/v101.0.4...v101.1.0) (2021-11-25)
+
+
+### Features
+
+* **multi-select:** add keyboard accessibility ([7335a5e](https://github.com/Sage/carbon/commit/7335a5e1fb43007ea4649f7ae18909b50eaf8142))
+
+### [101.0.4](https://github.com/Sage/carbon/compare/v101.0.3...v101.0.4) (2021-11-24)
+
+
+### Bug Fixes
+
+* **text-editor:** replace regex used to format web links ([5d53668](https://github.com/Sage/carbon/commit/5d53668598fdfe394ba5b00a2352b6a5c11f8bfe))
+
+### [101.0.3](https://github.com/Sage/carbon/compare/v101.0.2...v101.0.3) (2021-11-24)
+
+
+### Bug Fixes
+
+* **design-tokens:** fix providing transparency design tokens ([94b56d0](https://github.com/Sage/carbon/commit/94b56d03115485b1a8193cb37e46e25eb94f9600))
+
+### [101.0.2](https://github.com/Sage/carbon/compare/v101.0.1...v101.0.2) (2021-11-24)
+
+
+### Bug Fixes
+
+* **textbox:** change fieldHelp sizing to match input width ([6c517c9](https://github.com/Sage/carbon/commit/6c517c9cd55d0f37071d615bb44ffbadbb5ce781)), closes [#4543](https://github.com/Sage/carbon/issues/4543)
+
 ### [101.0.1](https://github.com/Sage/carbon/compare/v101.0.0...v101.0.1) (2021-11-23)
 
 

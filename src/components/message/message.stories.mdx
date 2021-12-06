@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
@@ -53,7 +53,7 @@ Various types are available:
 
 Message variant is `info` by default
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
@@ -69,11 +69,11 @@ Message variant is `info` by default
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Error
 
-<Preview>
+<Canvas>
   <Story name="error">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
@@ -93,11 +93,11 @@ Message variant is `info` by default
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Success
 
-<Preview>
+<Canvas>
   <Story name="success">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
@@ -117,11 +117,11 @@ Message variant is `info` by default
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Warning
 
-<Preview>
+<Canvas>
   <Story name="warning">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
@@ -141,13 +141,13 @@ Message variant is `info` by default
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With rich content
 
 It is also possible to use the `List`, `ListItem` and `Typography` components to render content other than plain text in a `Message`.
 
-<Preview>
+<Canvas>
   <Story name="with rich content">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
@@ -187,7 +187,7 @@ It is also possible to use the `List`, `ListItem` and `Typography` components to
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With margin
 
@@ -196,7 +196,7 @@ To see a full list of available margin props, please visit the props table at th
 
 [Visit Props Table](#props)
 
-<Preview>
+<Canvas>
   <Story name="with margin">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
@@ -233,7 +233,7 @@ To see a full list of available margin props, please visit the props table at th
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

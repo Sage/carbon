@@ -14,7 +14,6 @@ Then("Tab {int} content is visible", (id) => {
 
 Then("Second Tab has a link property", () => {
   tabById(2)
-    .find("a")
     .should("have.attr", "href", "https://carbon.sage.com/")
     .and("have.attr", "target", "_blank");
 });

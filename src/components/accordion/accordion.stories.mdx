@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import { AccordionGroup, Accordion } from ".";
@@ -9,10 +9,7 @@ import { Dl, Dt, Dd } from "../definition-list";
 import { Checkbox } from "../checkbox";
 import Box from "../box";
 
-<Meta
-  title="Accordion"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Accordion" parameters={{ info: { disable: true } }} />
 
 # Accordion
 
@@ -79,7 +76,7 @@ const MyComponent = () => (
 
 Default version of accordion has white background and no side borders.
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Accordion title="Heading">
       <div>Content</div>
@@ -87,13 +84,13 @@ Default version of accordion has white background and no side borders.
       <div>Content</div>
     </Accordion>
   </Story>
-</Preview>
+</Canvas>
 
 ### With disableContentPadding
 
 Accordion without padding inside of the content.
 
-<Preview>
+<Canvas>
   <Story
     parameters={{ chromatic: { disable: true } }}
     name="with disableContentPadding"
@@ -104,13 +101,13 @@ Accordion without padding inside of the content.
       <div>Content</div>
     </Accordion>
   </Story>
-</Preview>
+</Canvas>
 
 ### Transparent
 
 Transparent scheme has transparent background.
 
-<Preview>
+<Canvas>
   <Story name="transparent" parameters={{ chromatic: { disable: true } }}>
     <Accordion scheme="transparent" title="Heading">
       <div>Content</div>
@@ -118,13 +115,13 @@ Transparent scheme has transparent background.
       <div>Content</div>
     </Accordion>
   </Story>
-</Preview>
+</Canvas>
 
 ### Small
 
 Small version has a smaller heading and less padding.
 
-<Preview>
+<Canvas>
   <Story name="small">
     <Accordion size="small" title="Heading">
       <div>Content</div>
@@ -132,13 +129,13 @@ Small version has a smaller heading and less padding.
       <div>Content</div>
     </Accordion>
   </Story>
-</Preview>
+</Canvas>
 
 ### Sub title
 
 A sub title can be added when the size is large (default).
 
-<Preview>
+<Canvas>
   <Story name="sub title">
     <Accordion subTitle="Sub title" title="Heading">
       <div>Content</div>
@@ -146,13 +143,13 @@ A sub title can be added when the size is large (default).
       <div>Content</div>
     </Accordion>
   </Story>
-</Preview>
+</Canvas>
 
 ### Full border
 
 The accordion can have side borders along with the default top and bottom.
 
-<Preview>
+<Canvas>
   <Story name="full border">
     <Accordion borders="full" title="Heading">
       <div>Content</div>
@@ -160,13 +157,13 @@ The accordion can have side borders along with the default top and bottom.
       <div>Content</div>
     </Accordion>
   </Story>
-</Preview>
+</Canvas>
 
 ### Left aligned icon
 
 The accordion icon can be left aligned.
 
-<Preview>
+<Canvas>
   <Story name="icon left">
     <Accordion iconAlign="left" title="Heading">
       <div>Content</div>
@@ -174,13 +171,13 @@ The accordion icon can be left aligned.
       <div>Content</div>
     </Accordion>
   </Story>
-</Preview>
+</Canvas>
 
 ### Different width
 
 The default width of 100% can be overriden.
 
-<Preview>
+<Canvas>
   <Story name="different width">
     <Accordion width="500px" title="Heading">
       <div>Content</div>
@@ -188,13 +185,13 @@ The default width of 100% can be overriden.
       <div>Content</div>
     </Accordion>
   </Story>
-</Preview>
+</Canvas>
 
 ### With different padding and margin
 
 Showing the different paddings and margins
 
-<Preview>
+<Canvas>
   <Story name="with different padding and margin">
     <>
       <Accordion m={0} p={0} title="Accordion">
@@ -220,13 +217,13 @@ Showing the different paddings and margins
       </Accordion>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### With different padding and margin in Accordion title
 
 Showing the different paddings and margins within the accordion title
 
-<Preview>
+<Canvas>
   <Story name="with different padding and margin in Accordion title">
     <>
       <Accordion headerSpacing={{ p: 0 }} title="Accordion">
@@ -252,13 +249,13 @@ Showing the different paddings and margins within the accordion title
       </Accordion>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### With Box component and different paddings
 
 The box component can be used inside the accordion with different paddings
 
-<Preview>
+<Canvas>
   <Story
     name="with Box component and different paddings"
     parameters={{ chromatic: { disable: true } }}
@@ -378,19 +375,19 @@ The box component can be used inside the accordion with different paddings
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Opening button
 
-Setting the `buttonHeading` prop will override the default styling for the `Accordion` control to look like Carbon's tertiary 
-`Button`. It is also possible to use the `buttonWidth` prop to set the width of the control and the `headerSpacing` prop 
+Setting the `buttonHeading` prop will override the default styling for the `Accordion` control to look like Carbon's tertiary
+`Button`. It is also possible to use the `buttonWidth` prop to set the width of the control and the `headerSpacing` prop
 can be used to override the spacing styles.
 
 This is not currently designed to be used within a form using validation.
 
-<Preview>
+<Canvas>
   <Story name="opening button">
-    <div style={{ margin: "8px"}}>
+    <div style={{ margin: "8px" }}>
       <Accordion
         title="More info"
         openTitle="Less info"
@@ -450,7 +447,7 @@ This is not currently designed to be used within a form using validation.
       </Accordion>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Grouped
 
@@ -458,36 +455,36 @@ To group accordions import `AccordionGroup`. Accordions borders collapse when po
 To achieve proper keyboard accessibility as described in `W3` sources it is required to wrap neighbouring accordions in
 `AccordionGroup`.
 
-<Preview>
+<Canvas>
   <Story name="grouped">
     <AccordionGroup>
-    <Accordion title="First Accordion">
-      <Box p={2}>
-        <Textbox label="Textbox in an Accordion" />
-      </Box>
-    </Accordion>
-    <Accordion title="Second Accordion">
-      <Box p={2}>
-        <Textbox label="Textbox in an Accordion" />
-      </Box>
-    </Accordion>
-    <Accordion title="Third Accordion">
-      <Box p={2}>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-      </Box>
-    </Accordion>
-  </AccordionGroup>
+      <Accordion title="First Accordion">
+        <Box p={2}>
+          <Textbox label="Textbox in an Accordion" />
+        </Box>
+      </Accordion>
+      <Accordion title="Second Accordion">
+        <Box p={2}>
+          <Textbox label="Textbox in an Accordion" />
+        </Box>
+      </Accordion>
+      <Accordion title="Third Accordion">
+        <Box p={2}>
+          <div>Content</div>
+          <div>Content</div>
+          <div>Content</div>
+        </Box>
+      </Accordion>
+    </AccordionGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### With validation icon
 
 The `ValidationIcon` can be displayed in the `Accordion` header by passing in a string via one of the `error`,
 `warning` or `info` props. This message will be displayed as in the tooltip.
 
-<Preview>
+<Canvas>
   <Story name="validation icon">
     {() => {
       const [errors, setErrors] = useState({
@@ -626,13 +623,13 @@ The `ValidationIcon` can be displayed in the `Accordion` header by passing in a 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With dynamic content
 
 Accordion adjust it's height properly when it's content is being dynamically changed
 
-<Preview>
+<Canvas>
   <Story name="with dynamic content">
     {() => {
       const [contentCount, setContentCount] = useState(3);
@@ -659,13 +656,13 @@ Accordion adjust it's height properly when it's content is being dynamically cha
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With a definition list
 
 Accordion with a definiton list
 
-<Preview>
+<Canvas>
   <Story
     name="with a definition list"
     parameters={{ chromatic: { disable: true } }}
@@ -704,7 +701,7 @@ Accordion with a definiton list
       </Dl>
     </Accordion>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

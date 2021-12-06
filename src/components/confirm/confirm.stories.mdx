@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import Confirm from ".";
 import Button from "../button";
@@ -50,7 +50,7 @@ A good example could be confirming deletion of a large number of records.
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -71,11 +71,11 @@ A good example could be confirming deletion of a large number of records.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Single action
 
-<Preview>
+<Canvas>
   <Story name="single action">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -94,11 +94,11 @@ A good example could be confirming deletion of a large number of records.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Destructive buttons
 
-<Preview>
+<Canvas>
   <Story name="destructive">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -120,11 +120,11 @@ A good example could be confirming deletion of a large number of records.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Destructive cancel button
 
-<Preview>
+<Canvas>
   <Story name="cancelButtonDestructive">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -145,11 +145,11 @@ A good example could be confirming deletion of a large number of records.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Destructive confirm button
 
-<Preview>
+<Canvas>
   <Story name="confirmButtonDestructive">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -170,11 +170,11 @@ A good example could be confirming deletion of a large number of records.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Disable confirm button
 
-<Preview>
+<Canvas>
   <Story name="disableConfirm">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -197,11 +197,11 @@ A good example could be confirming deletion of a large number of records.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Disable cancel button
 
-<Preview>
+<Canvas>
   <Story name="disableCancel">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -223,13 +223,13 @@ A good example could be confirming deletion of a large number of records.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Change cancel button type
 
 Allows to set variant which is supported in `<Button />` and it will be applied to the `cancel` button
 
-<Preview>
+<Canvas>
   <Story name="cancelButtonType">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -250,13 +250,13 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Change confirm button type
 
 Allows to set variant which is supported in `<Button />` and it will be applied to the `confirm` button
 
-<Preview>
+<Canvas>
   <Story name="confirmButtonType">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -277,11 +277,11 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Change buttons icons
 
-<Preview>
+<Canvas>
   <Story name="buttonsIcons">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -304,11 +304,11 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Confirm button loading
 
-<Preview>
+<Canvas>
   <Story name="isLoadingConfirm">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -329,10 +329,10 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Confirm
 
-<Props of={Confirm} />
+<ArgsTable of={Confirm} />

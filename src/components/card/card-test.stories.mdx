@@ -2,7 +2,7 @@ import { useState, useRef, useCallback } from "react";
 import { action } from "@storybook/addon-actions";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import Card from "./card.component";
 import CardRow from "./card-row";
 import CardColumn from "./card-column";
@@ -283,14 +283,14 @@ export const Draggable = () => {
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">{CardStory.bind({})}</Story>
-</Preview>
+</Canvas>
 
 ### Draggable
 
-<Preview>
+<Canvas>
   <Story name="draggable" args={{ draggable: false }}>
     {Draggable.bind({})}
   </Story>
-</Preview>
+</Canvas>

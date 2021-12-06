@@ -1,9 +1,9 @@
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
 
 import Help from "../../components/help";
+import Tooltip from "../../components/tooltip/tooltip.component";
 import Label from ".";
 import StyledLabel, { StyledLabelContainer } from "./label.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
@@ -76,6 +76,12 @@ describe("Label", () => {
     it("contains Help component with the content specified in that prop", () => {
       const wrapper = render({ help: "Help me!" }, shallow);
       expect(wrapper.find(Help).contains("Help me!")).toBe(true);
+    });
+
+    it("passes tooltipId prop if provided", () => {
+      const tooltipId = "tooltip-test";
+      const wrapper = render({ help: "Help me!", tooltipId }, shallow);
+      expect(wrapper.find(Help).props().tooltipId).toBe(tooltipId);
     });
   });
 
@@ -217,44 +223,6 @@ describe("Label", () => {
     });
   });
 
-  describe("when attached to child of form", () => {
-    describe("when IconWrapperStyle", () => {
-      let wrapper;
-
-      beforeEach(() => {
-        wrapper = render(
-          {
-            help: "Message",
-          },
-          mount
-        );
-      });
-
-      describe("will run `onFocus` event", () => {
-        it("should change `isFocused` to be true", () => {
-          act(() => {
-            wrapper.find(IconWrapperStyle).simulate("focus");
-          });
-          wrapper.update();
-
-          expect(wrapper.find(Help).props().isFocused).toBe(true);
-        });
-      });
-
-      describe("will run `onBlur` event", () => {
-        it("should change `isFocused` to be false", () => {
-          act(() => {
-            wrapper.find(IconWrapperStyle).simulate("blur");
-          });
-
-          wrapper.update();
-
-          expect(wrapper.find(Help).props().isFocused).toBe(false);
-        });
-      });
-    });
-  });
-
   describe.each(validationTypes)(
     "when %s prop is passed as string",
     (vType) => {
@@ -266,6 +234,15 @@ describe("Label", () => {
         const icon = wrapper.find(ValidationIcon);
 
         expect(icon.exists()).toEqual(true);
+      });
+
+      it("passes tooltipId prop if provided", () => {
+        const tooltipId = "tooltip-test";
+        const wrapper = render(
+          { [vType]: "Message", useValidationIcon: true, tooltipId },
+          mount
+        );
+        expect(wrapper.find(ValidationIcon).props().tooltipId).toBe(tooltipId);
       });
     }
   );
@@ -312,6 +289,46 @@ describe("Label", () => {
       });
     }
   );
+
+  describe("when help prop is passed", () => {
+    const help = "help me!";
+
+    it("consumed focus flag controls visibility prop of Tooltip", () => {
+      const hasFocus = true;
+      const wrapper = renderWithContext(
+        { help },
+        {},
+        {
+          hasFocus,
+        }
+      );
+
+      const tooltipProps = wrapper.find(Tooltip).props();
+      const desiredTooltipProps = {
+        message: help,
+        isVisible: hasFocus,
+      };
+      expect(tooltipProps).toMatchObject(desiredTooltipProps);
+    });
+
+    it("consumed mouse over flag controls visibility prop of Tooltip", () => {
+      const hasMouseOver = true;
+      const wrapper = renderWithContext(
+        { help },
+        {},
+        {
+          hasMouseOver,
+        }
+      );
+
+      const tooltipProps = wrapper.find(Tooltip).props();
+      const desiredTooltipProps = {
+        message: help,
+        isVisible: hasMouseOver,
+      };
+      expect(tooltipProps).toMatchObject(desiredTooltipProps);
+    });
+  });
 });
 
 function render(props, renderer = mount) {
