@@ -5,8 +5,8 @@ import baseTheme from "../../style/themes/base";
 import StyledCharacterCount from "./character-count.style";
 
 const CharacterCount = ({ value, limit, theme, ...props }) => (
-  <StyledCharacterCount theme={theme} {...props}>
-    {value}/{limit}
+  <StyledCharacterCount theme={theme} aria-live="polite" {...props}>
+    {`${value}/${limit}`}
   </StyledCharacterCount>
 );
 
