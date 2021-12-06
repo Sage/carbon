@@ -1,3 +1,10 @@
+### [101.4.4](https://github.com/Sage/carbon/compare/v101.4.3...v101.4.4) (2021-12-06)
+
+
+### Bug Fixes
+
+* **design-tokens:** provide tokens outside root ([73fbd06](https://github.com/Sage/carbon/commit/73fbd065f1fc762de19589c0548eeb9c2610fc9d))
+
 ### [101.4.3](https://github.com/Sage/carbon/compare/v101.4.2...v101.4.3) (2021-12-06)
 
 
