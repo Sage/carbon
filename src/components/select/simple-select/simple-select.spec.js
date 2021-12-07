@@ -14,7 +14,6 @@ import SelectTextbox from "../select-textbox/select-textbox.component";
 import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import StyledInput from "../../../__internal__/input/input.style";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
-import { baseTheme } from "../../../style/themes";
 import Label from "../../../__internal__/label";
 
 describe("SimpleSelect", () => {
@@ -143,7 +142,7 @@ describe("SimpleSelect", () => {
     assertStyleMatch(
       {
         cursor: "not-allowed",
-        color: baseTheme.disabled.disabled,
+        color: "var(--colorsUtilityYin030)",
         textShadow: "none",
       },
       wrapper,
@@ -157,7 +156,7 @@ describe("SimpleSelect", () => {
     assertStyleMatch(
       {
         cursor: "default",
-        color: baseTheme.readOnly.textboxText,
+        color: "var(--colorsYin065)",
         textShadow: "none",
       },
       wrapper,

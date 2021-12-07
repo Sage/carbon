@@ -1,7 +1,5 @@
 import styled from "styled-components";
-import propTypes from "prop-types";
 import StyledIcon from "../../icon/icon.style";
-import baseTheme from "../../../style/themes/base";
 
 const StyledOptionGroupHeader = styled.div`
   box-sizing: border-box;
@@ -18,26 +16,18 @@ const StyledOptionGroupHeader = styled.div`
     line-height: 18px;
     text-align: left;
     margin: 0;
-    color: ${({ theme }) => theme.select.optionHeader};
+    color: var(--colorsYin055);
   }
 
   ${StyledIcon} {
     margin-right: 4px;
     margin-left: -5px;
-    color: ${({ theme }) => theme.select.optionHeader};
+    color: var(--colorsYin055);
 
     &:hover {
-      color: ${({ theme }) => theme.select.optionHeader};
+      color: var(--colorsYin055);
     }
   }
 `;
-
-StyledOptionGroupHeader.propTypes = {
-  theme: propTypes.object,
-};
-
-StyledOptionGroupHeader.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledOptionGroupHeader;
