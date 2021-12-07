@@ -39,7 +39,7 @@ Storybook must be running before Cypress tests can be run:
 
 1. Run Storybook `npm start`.
 2. Open a new terminal in the root path of the project.
-3. Run Cypress using the runner with `npx cypress open` or `npm run test-cypress`, then select the required feature file. Test results can be seen directly in the Cypress Test Runner UI.
+3. Run Cypress using the runner with `npx cypress open` or `npm run test:cypress`, then select the required feature file. Test results can be seen directly in the Cypress Test Runner UI.
 4. To run specific Cypress tests at the command line (headless browser for continuous integration) use: `npx cypress run --spec 'cypress/integration/[tests-type]/[fileName](.feature|.test.js)'`. Test results can be seen in the console run summary.
 5. To run in the Chrome/Firefox browser add `--browser chrome` or `--browser firefox` to the above command.
 
