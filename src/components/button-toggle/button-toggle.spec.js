@@ -277,6 +277,10 @@ describe("ButtonToggle", () => {
       expect(wrapper).toMatchSnapshot();
     });
   });
+
+  describe("coverage filler for else path", () => {
+    mount(<ButtonToggle buttonIcon="add" />);
+  });
 });
 
 function render(props = {}, renderer = mount) {
