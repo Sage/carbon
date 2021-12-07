@@ -7,6 +7,7 @@ import DateInput, { BaseDateInput } from ".";
 import { OriginalTextbox } from "../textbox";
 import Button from "../button";
 import Box from "../box";
+import I18nProvider from "../i18n-provider";
 
 <Meta title="Date Input" parameters={{ info: { disable: true } }} />
 
@@ -330,6 +331,42 @@ It is possible to use the `tooltipPosition` to override the default placement of
     }
   </Story>
 </Canvas>
+
+### With custom date format
+
+<Preview>
+  <Story name="with custom date format" parameters={{ chromatic: { disable: true } }}>
+    {() => {
+      const [state, setState] = useState("2019-04-04");
+      const setValue = ({ target }) => {
+        setState(target.value.rawValue);
+      };
+      return (
+        <I18nProvider
+          locale={{
+            locale: () => "en-GB",
+            date: {
+              formats: {
+                inputs: () => [
+                  "DD.MM.YYYY",
+                  "YYYY.MM.DD",
+                ],
+                javascript: () => "DD.MM.YYYY",
+              },
+            }
+          }}
+        >
+          <DateInput
+            label="Date"
+            name="date-input"
+            value={state}
+            onChange={setValue}
+          />
+        </I18nProvider>
+  );
+    }}
+  </Story>
+</Preview>
 
 ## Props
 
