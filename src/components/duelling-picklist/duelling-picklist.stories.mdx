@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import { Picklist } from "./picklist/picklist.component";
 import PicklistItem from "./picklist-item/picklist-item.component";
@@ -66,41 +66,41 @@ It invokes passed `onChange` method with passed `item` prop as an argument when 
 
 Example of composed Duelling Picklist components with order preservation and search implemented.
 
-<Preview>
+<Canvas>
   <Story name="default">{Default.bind({})}</Story>
-</Preview>
+</Canvas>
 
 ### Alternative search placement
 
 The `Search` component can be placed outside of the picklist controls and positioned anywhere as required. This example also shows the option of not using a `PicklistDivider`.
 
-<Preview>
+<Canvas>
   <Story name="alternative search placement">
     {AlternativeSearch.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ### Grouped
 
 Picklist items can be organised into selectable groups. Whole groups can be moved from one list to another at once, or group items can be moved individually.
 
-<Preview>
+<Canvas>
   <Story name="grouped">{Grouped.bind({})}</Story>
-</Preview>
+</Canvas>
 
 ### In Dialog
 
 Same as above but as a children of `Dialog` component.
 
-<Preview>
+<Canvas>
   <Story name="in dialog">{InDialog.bind({})}</Story>
-</Preview>
+</Canvas>
 
 ## PicklistItem Examples
 
 ### Add item
 
-<Preview>
+<Canvas>
   <Story name="add item">
     <PicklistItem type="add" item={1} onChange={() => null}>
       <div style={{ display: "flex", width: "100%" }}>
@@ -112,11 +112,11 @@ Same as above but as a children of `Dialog` component.
       </div>
     </PicklistItem>
   </Story>
-</Preview>
+</Canvas>
 
 ### Remove item
 
-<Preview>
+<Canvas>
   <Story name="remove item">
     <PicklistItem type="remove" item={1} onChange={() => null}>
       <div style={{ display: "flex", width: "100%" }}>
@@ -128,11 +128,11 @@ Same as above but as a children of `Dialog` component.
       </div>
     </PicklistItem>
   </Story>
-</Preview>
+</Canvas>
 
 ### Locked
 
-<Preview>
+<Canvas>
   <Story name="locked">
     <PicklistItem type="add" item={1} onChange={() => null} locked>
       <div style={{ display: "flex", width: "100%" }}>
@@ -144,11 +144,11 @@ Same as above but as a children of `Dialog` component.
       </div>
     </PicklistItem>
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom tooltip message
 
-<Preview>
+<Canvas>
   <Story name="custom tooltip message">
     <PicklistItem
       type="add"
@@ -166,17 +166,17 @@ Same as above but as a children of `Dialog` component.
       </div>
     </PicklistItem>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props:
 
 ### Picklist
 
-<Props of={Picklist} />
+<ArgsTable of={Picklist} />
 
 ### PicklistItem
 
-<Props of={PicklistItem} />
+<ArgsTable of={PicklistItem} />
 
 ### DuellingPicklist
 
@@ -188,4 +188,4 @@ Same as above but as a children of `Dialog` component.
 
 ### PicklistPlaceholder
 
-<Props of={PicklistPlaceholder} />
+<ArgsTable of={PicklistPlaceholder} />

@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { useState } from "react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Search from ".";
@@ -29,15 +29,15 @@ import Search from "carbon-react/lib/components/search";
 
 ### Search without Search Button and default width
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ info: { disable: true } }}>
     <Search placeholder="Search..." defaultValue="" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Search can be controlled
 
-<Preview>
+<Canvas>
   <Story name="controlled" parameters={{ info: { disable: true } }}>
     {() => {
       const [value, setValue] = useState("");
@@ -59,30 +59,30 @@ import Search from "carbon-react/lib/components/search";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Search with Search Button and default width
 
-<Preview>
+<Canvas>
   <Story name="with SearchButton" parameters={{ info: { disable: true } }}>
     <Search defaultValue="Here is some text" searchButton />
   </Story>
-</Preview>
+</Canvas>
 
 ### Search without Search Button, default width and colour background
 
-<Preview style={{ backgroundColor: "#e6ebed" }}>
+<Canvas style={{ backgroundColor: "#e6ebed" }}>
   <Story
     name="default with colour background"
     parameters={{ info: { disable: true }, chromatic: { disable: true } }}
   >
     <Search placeholder="Search..." defaultValue="" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Search with Search Button, default width and colour background
 
-<Preview style={{ backgroundColor: "#e6ebed" }}>
+<Canvas style={{ backgroundColor: "#e6ebed" }}>
   <Story
     name="with SearchButton and colour background"
     parameters={{ info: { disable: true }, chromatic: { disable: true } }}
@@ -93,59 +93,59 @@ import Search from "carbon-react/lib/components/search";
       searchButton
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Search without Search Button and custom width
 
 In this example the `searchWidth` prop is 375px.
 
-<Preview>
+<Canvas>
   <Story name="custom Width using px" parameters={{ info: { disable: true } }}>
     <Search placeholder="Search..." defaultValue="" searchWidth="375px" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Search with Search Button and custom width
 
 In this example the `searchWidth` prop is 375px.
 
-<Preview>
+<Canvas>
   <Story
     name="with SearchButton and Custom Width using px"
     parameters={{ info: { disable: true } }}
   >
     <Search defaultValue="Here is some text" searchButton searchWidth="375px" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Search without Search Button and custom width
 
 In this example the `searchWidth` prop is 70%.
 
-<Preview>
+<Canvas>
   <Story name="custom Width using %" parameters={{ info: { disable: true } }}>
     <Search placeholder="Search..." defaultValue="" searchWidth="70%" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Search with Search Button and custom width
 
 In this example the `searchWidth` prop is 70%.
 
-<Preview>
+<Canvas>
   <Story
     name="with SearchButton and Custom Width using %"
     parameters={{ info: { disable: true } }}
   >
     <Search defaultValue="Here is some text" searchButton searchWidth="70%" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Search with Alternative Styling
 
 In this example the `variant` prop is "dark" and `searchButton` is true.
 
-<Preview>
+<Canvas>
   <Story name="with Alt Styling" parameters={{ info: { disable: true } }}>
     <Box width="700px" height="108px">
       <div style={{ padding: "32px", backgroundColor: "#003349" }}>
@@ -158,13 +158,13 @@ In this example the `variant` prop is "dark" and `searchButton` is true.
       </div>
     </Box>
   </Story>
-</Preview>
+</Canvas>
 
 ### Search with Alternative Styling and No Button
 
 In this example the `variant` prop is "dark" and no search button is present.
 
-<Preview>
+<Canvas>
   <Story
     name="with Alt Styling and no button"
     parameters={{ info: { disable: true } }}
@@ -175,7 +175,7 @@ In this example the `variant` prop is "dark" and no search button is present.
       </div>
     </Box>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

@@ -11,7 +11,10 @@ function prepareUrl(component, suffix = "default story") {
 }
 
 export function visitComponentUrl(component, suffix) {
-  cy.visit(prepareUrl(component, suffix));
+  const onBeforeLoad = cy.spy();
+  cy.visit(prepareUrl(component, suffix), {
+    onBeforeLoad,
+  });
 }
 
 // eslint-disable-next-line max-params
@@ -22,6 +25,7 @@ export function visitComponentUrlWithParameters(
   path = "",
   nameOfObject = ""
 ) {
+  const onBeforeLoad = cy.spy();
   cy.fixture(`${path}/${json}`).then(($json) => {
     const el = $json[nameOfObject];
     let url = "&args=";
@@ -32,7 +36,9 @@ export function visitComponentUrlWithParameters(
         url += `${prop}:${encodeURIComponent(el[prop])};`;
       }
     }
-    cy.visit(`${prepareUrl(component, story)}${url}`);
+    cy.visit(`${prepareUrl(component, story)}${url}`, {
+      onBeforeLoad,
+    });
   });
 }
 

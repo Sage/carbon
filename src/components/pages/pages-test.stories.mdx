@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import Pages from ".";
@@ -107,7 +107,7 @@ export const PagesStory = ({ initialPageIndex }) => {
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -116,4 +116,4 @@ export const PagesStory = ({ initialPageIndex }) => {
   >
     {PagesStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
 import Box from "../box";
 import Button from "../button";
@@ -50,7 +50,7 @@ A configuration shows a close icon at the top right of the Dialog. Sometimes use
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
@@ -90,13 +90,13 @@ A configuration shows a close icon at the top right of the Dialog. Sometimes use
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Editable
 
 When mixing editable and non-editable content, you can use the <LinkTo kind="Box" story="page">Box</LinkTo> component to highlight the fields that can be changed.
 
-<Preview>
+<Canvas>
   <Story name="editable" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -165,11 +165,11 @@ When mixing editable and non-editable content, you can use the <LinkTo kind="Box
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With help
 
-<Preview>
+<Canvas>
   <Story name="with help">
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -210,11 +210,11 @@ When mixing editable and non-editable content, you can use the <LinkTo kind="Box
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With dynamic content
 
-<Preview>
+<Canvas>
   <Story name="dynamic content" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isLoading, setIsLoading] = useState(false);
@@ -268,7 +268,7 @@ When mixing editable and non-editable content, you can use the <LinkTo kind="Box
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Overriding the first focused element
 
@@ -278,7 +278,7 @@ to the element you wish to focus on open (an example of this can be seen by clic
 you want to focus supports `autoFocus` then the you can override the default behaviour by using the `disableAutoFocus` prop
 and setting the `autoFocus` on the element you wish to be focused instead (click the second button to see an example).
 
-<Preview>
+<Canvas>
   <Story
     name="focusing a different first element"
     parameters={{ chromatic: { disable: true } }}
@@ -339,10 +339,10 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Dialog
 
-<Props of={Dialog} />
+<ArgsTable of={Dialog} />

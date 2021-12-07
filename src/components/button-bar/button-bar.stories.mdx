@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import ButtonBar from ".";
 import Button from "../button";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -34,7 +34,7 @@ import ButtonBar from "carbon-react/lib/components/button-bar";
 
 Button bars of different sizes.
 
-<Preview>
+<Canvas>
   <Story name="sizes">
     <ButtonBar size="small" ml={2} mt={2}>
       <Button>Small</Button>
@@ -57,11 +57,11 @@ Button bars of different sizes.
       <Button subtext="subtext 3">Large</Button>
     </ButtonBar>
   </Story>
-</Preview>
+</Canvas>
 
 Button bars with different icon positions.
 
-<Preview>
+<Canvas>
   <Story name="with icons">
     {BUTTON_BAR_ICON_POSITIONS.map((iconPosition) =>
       BUTTON_BAR_SIZES.map((size) => (
@@ -79,9 +79,9 @@ Button bars with different icon positions.
       ))
     )}
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="icons only">
     {BUTTON_BAR_SIZES.map((size) => (
       <ButtonBar size={size} key={size} ml={2} mt={2}>
@@ -91,11 +91,11 @@ Button bars with different icon positions.
       </ButtonBar>
     ))}
   </Story>
-</Preview>
+</Canvas>
 
 `IconButton` components on a button bar.
 
-<Preview>
+<Canvas>
   <Story name="icon buttons">
     <ButtonBar ml={2} mt={2}>
       <IconButton onAction={() => {}}>
@@ -109,11 +109,11 @@ Button bars with different icon positions.
       </IconButton>
     </ButtonBar>
   </Story>
-</Preview>
+</Canvas>
 
 Button bars can be `fullWidth`.
 
-<Preview>
+<Canvas>
   <Story name="fullWidth">
     <ButtonBar fullWidth size="small" ml={2} mt={2}>
       <Button fullWidth>Small full width</Button>
@@ -131,7 +131,7 @@ Button bars can be `fullWidth`.
       <Button>Large full width</Button>
     </ButtonBar>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

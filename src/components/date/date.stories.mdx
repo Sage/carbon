@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -7,11 +7,9 @@ import DateInput, { BaseDateInput } from ".";
 import { OriginalTextbox } from "../textbox";
 import Button from "../button";
 import Box from "../box";
+import I18nProvider from "../i18n-provider";
 
-<Meta
-  title="Date Input"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Date Input" parameters={{ info: { disable: true } }} />
 
 # Date
 
@@ -36,7 +34,7 @@ import DateInput from "carbon-react/lib/components/date";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [state, setState] = useState("2019-04-04");
@@ -53,11 +51,11 @@ import DateInput from "carbon-react/lib/components/date";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Sizes
 
-<Preview>
+<Canvas>
   <Story name="sizes">
     {() =>
       ["small", "medium", "large"].map((size) => (
@@ -71,37 +69,43 @@ import DateInput from "carbon-react/lib/components/date";
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### AutoFocus
 
-<Preview>
-    <Story name="autoFocus" parameters={{themeSelector: {fourColumnLayout: true}, chromatic: {viewports: [1800]}}}>
-    <div style={{height: 450, width: 450}}>
+<Canvas>
+  <Story
+    name="autoFocus"
+    parameters={{
+      themeSelector: { fourColumnLayout: true },
+      chromatic: { viewports: [1800] },
+    }}
+  >
+    <div style={{ height: 450, width: 450 }}>
       <DateInput label="Date" value="2016-10-01" autoFocus />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     <DateInput label="Date" value="2016-10-01" disabled />
   </Story>
-</Preview>
+</Canvas>
 
 ### ReadOnly
 
-<Preview>
+<Canvas>
   <Story name="readOnly">
     <DateInput label="Date" value="2016-10-01" readOnly />
   </Story>
-</Preview>
+</Canvas>
 
 ### Empty
 
-<Preview>
+<Canvas>
   <Story name="empty">
     {() => {
       const [date, setDate] = useState("");
@@ -127,27 +131,27 @@ import DateInput from "carbon-react/lib/components/date";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With labelInline
 
-<Preview>
+<Canvas>
   <Story name="with labelInline">
     <DateInput label="Date" value="2016-10-01" labelInline name="dateinput" />
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom labelWidth
 
-<Preview>
+<Canvas>
   <Story name="with custom labelWidth">
     <DateInput label="Date" value="2016-10-01" labelInline labelWidth={10} />
   </Story>
-</Preview>
+</Canvas>
 
 ### With fieldHelp
 
-<Preview>
+<Canvas>
   <Story name="with fieldHelp">
     <DateInput
       label="Date"
@@ -156,11 +160,11 @@ import DateInput from "carbon-react/lib/components/date";
       name="dateinput"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With labelHelp
 
-<Preview>
+<Canvas>
   <Story name="with labelHelp">
     <DateInput
       label="Date"
@@ -170,28 +174,28 @@ import DateInput from "carbon-react/lib/components/date";
       helpAriaLabel="Help"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With disabled portal
 
-<Preview>
+<Canvas>
   <Story
     name="with disabled portal"
     parameters={{ chromatic: { disable: true } }}
   >
     <DateInput label="Date" value="2016-10-01" disablePortal />
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="required">
     <DateInput label="Date" value="2016-10-01" required />
   </Story>
-</Preview>
+</Canvas>
 
 ### Validations
 
@@ -205,7 +209,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 #### As a string
 
-<Preview>
+<Canvas>
   <Story name="validations - string - component">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
@@ -227,11 +231,11 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
     parameters={{ chromatic: { disable: true } }}
@@ -250,11 +254,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 #### As a string, displayed on label
 
-<Preview>
+<Canvas>
   <Story name="validations - string - label">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
@@ -278,11 +282,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
     parameters={{ chromatic: { disable: true } }}
@@ -302,11 +306,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 #### As a boolean
 
-<Preview>
+<Canvas>
   <Story name="validations - boolean">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
@@ -326,6 +330,42 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
+</Canvas>
+
+### With custom date format
+
+<Preview>
+  <Story name="with custom date format" parameters={{ chromatic: { disable: true } }}>
+    {() => {
+      const [state, setState] = useState("2019-04-04");
+      const setValue = ({ target }) => {
+        setState(target.value.rawValue);
+      };
+      return (
+        <I18nProvider
+          locale={{
+            locale: () => "en-GB",
+            date: {
+              formats: {
+                inputs: () => [
+                  "DD.MM.YYYY",
+                  "YYYY.MM.DD",
+                ],
+                javascript: () => "DD.MM.YYYY",
+              },
+            }
+          }}
+        >
+          <DateInput
+            label="Date"
+            name="date-input"
+            value={state}
+            onChange={setValue}
+          />
+        </I18nProvider>
+  );
+    }}
+  </Story>
 </Preview>
 
 ## Props
@@ -336,7 +376,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
 
 Due to the `Textbox` component being used internally by the `Date` component most of the `Textbox` props are applicable to `Date`
 
-<Props of={OriginalTextbox} exclude={["prefix", "inputIcon"]} />
+<ArgsTable of={OriginalTextbox} exclude={["prefix", "inputIcon"]} />
 
 **Any other supplied props will be provided to the underlying HTML input element**
 

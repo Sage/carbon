@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import { useState } from "react";
 import styled from "styled-components";
 import {
@@ -24,10 +24,7 @@ import {
   ActionPopoverMenu,
 } from "../action-popover";
 
-<Meta
-  title="Flat Table/Expandable"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Flat Table/Expandable" parameters={{ info: { disable: true } }} />
 
 # Flat Table expandable options
 
@@ -37,7 +34,7 @@ import {
 
 Flat table rows can be made expandable, with any number of sub rows.
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const SubRows = [
@@ -94,14 +91,14 @@ Flat table rows can be made expandable, with any number of sub rows.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Keyboard accessible subrows
 
 In order to make the subrows keyboard accessible you will need to pass a callback to the `onClick` prop as in the example
 below.
 
-<Preview>
+<Canvas>
   <Story
     name="keyboard accessible subrows"
     parameters={{ chromatic: { disable: true } }}
@@ -161,13 +158,13 @@ below.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Expandable by first column only
 
 Only clicking on the first column can expand the row with this option set.
 
-<Preview>
+<Canvas>
   <Story
     name="expandable by first column only"
     parameters={{ chromatic: { disable: true } }}
@@ -243,13 +240,13 @@ Only clicking on the first column can expand the row with this option set.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With initially expanded rows
 
 Set the rows to be open by default.
 
-<Preview>
+<Canvas>
   <Story name="initially expanded">
     {() => {
       const SubRows = [
@@ -306,13 +303,13 @@ Set the rows to be open by default.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With row headers
 
 Rows with row headers can also be made expandable.
 
-<Preview>
+<Canvas>
   <Story name="row headers">
     {() => {
       const SubRows = [
@@ -371,14 +368,14 @@ Rows with row headers can also be made expandable.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With row headers with custom paddings
 
 Rows with row headers can also be made expandable and can also have custom paddings.
 In this example `Child one` has `pl={8}` and `Child two` has `pl={5}` as well as having an icon.
 
-<Preview>
+<Canvas>
   <Story name="row headers with custom paddings">
     {() => {
       const SubRows = [
@@ -439,13 +436,13 @@ In this example `Child one` has `pl={8}` and `Child two` has `pl={5}` as well as
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With pagination
 
 Tables with pagination can have expandable rows.
 
-<Preview>
+<Canvas>
   <Story name="paginated">
     {() => {
       const SubRows = [
@@ -545,13 +542,13 @@ Tables with pagination can have expandable rows.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With parent and children selectable
 
 By writing your own selectable logic, both parent and child rows can be made selectable.
 
-<Preview>
+<Canvas>
   <Story name="both parent and children selectable">
     {() => {
       const [selectAll, setSelectAll] = useState(false);
@@ -619,9 +616,15 @@ By writing your own selectable logic, both parent and child rows can be made sel
               checked={selectedRows[row].subOne}
               onChange={() => handleSelectRow(row, "subOne")}
             />
-            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-1`}>Child one</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-2`}>York</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-3`}>Married</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-1`}>
+              Child one
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-2`}>
+              York
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-3`}>
+              Married
+            </FlatTableCell>
             <FlatTableCell>
               <ActionPopover>
                 <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
@@ -635,9 +638,15 @@ By writing your own selectable logic, both parent and child rows can be made sel
               checked={selectedRows[row].subTwo}
               onChange={() => handleSelectRow(row, "subTwo")}
             />
-            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-1`}>Child two</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-2`}>Edinburgh</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-3`}>Single</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-1`}>
+              Child two
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-2`}>
+              Edinburgh
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-3`}>
+              Single
+            </FlatTableCell>
             <FlatTableCell>
               <ActionPopover>
                 <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
@@ -665,17 +674,19 @@ By writing your own selectable logic, both parent and child rows can be made sel
           <FlatTable>
             <FlatTableHead>
               <FlatTableRow>
-                 <FlatTableCheckbox
-                    ariaLabelledBy="ft-header-1 ft-header-2 ft-header-3 ft-header-4"
-                    onClick={(e) => e.stopPropagation()}
-                    as="th"
-                    checked={selectAll}
-                    onChange={() => handleSelectAllRows()}
-                  />
-                  <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+                <FlatTableCheckbox
+                  ariaLabelledBy="ft-header-1 ft-header-2 ft-header-3 ft-header-4"
+                  onClick={(e) => e.stopPropagation()}
+                  as="th"
+                  checked={selectAll}
+                  onChange={() => handleSelectAllRows()}
+                />
+                <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
+                <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
+                <FlatTableHeader id="ft-header-3">
+                  Relationship Status
+                </FlatTableHeader>
+                <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
@@ -734,7 +745,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
                   checked={selectedRows.three.parent}
                   onChange={() => handleSelectRow("three", "parent")}
                 />
-                 <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
                 <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
                 <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
                 <FlatTableCell>
@@ -756,7 +767,7 @@ By writing your own selectable logic, both parent and child rows can be made sel
                   checked={selectedRows.four.parent}
                   onChange={() => handleSelectRow("four", "parent")}
                 />
-                 <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
+                <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
                 <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
                 <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
                 <FlatTableCell>
@@ -773,13 +784,13 @@ By writing your own selectable logic, both parent and child rows can be made sel
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Parent only selectable
 
 By writing your own selectable logic, the parent rows only can be made selectable.
 
-<Preview>
+<Canvas>
   <Story
     name="parent only selectable"
     parameters={{ chromatic: { disable: true } }}
@@ -826,7 +837,9 @@ By writing your own selectable logic, the parent rows only can be made selectabl
             checked={selectedRows.one}
             onChange={() => handleSelectRow("one")}
           />
-          <FlatTableCell id={`ft-row--sub-row-1-cell-1`}>Child one</FlatTableCell>
+          <FlatTableCell id={`ft-row--sub-row-1-cell-1`}>
+            Child one
+          </FlatTableCell>
           <FlatTableCell id={`ft-row--sub-row-1-cell-2`}>York</FlatTableCell>
           <FlatTableCell id={`ft-row--sub-row-1-cell-3`}>Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
@@ -839,8 +852,12 @@ By writing your own selectable logic, the parent rows only can be made selectabl
             checked={selectedRows.one}
             onChange={() => handleSelectRow("one")}
           />
-          <FlatTableCell id={`ft-row--sub-row-2-cell-1`}>Child two</FlatTableCell>
-          <FlatTableCell id={`ft-row--sub-row-2-cell-2`}>Edinburgh</FlatTableCell>
+          <FlatTableCell id={`ft-row--sub-row-2-cell-1`}>
+            Child two
+          </FlatTableCell>
+          <FlatTableCell id={`ft-row--sub-row-2-cell-2`}>
+            Edinburgh
+          </FlatTableCell>
           <FlatTableCell id={`ft-row--sub-row-2-cell-3`}>Single</FlatTableCell>
           <FlatTableCell>1</FlatTableCell>
         </FlatTableRow>,
@@ -872,9 +889,11 @@ By writing your own selectable logic, the parent rows only can be made selectabl
                   onChange={() => handleSelectAllRows()}
                 />
                 <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+                <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
+                <FlatTableHeader id="ft-header-3">
+                  Relationship Status
+                </FlatTableHeader>
+                <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
@@ -956,13 +975,13 @@ By writing your own selectable logic, the parent rows only can be made selectabl
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Children only selectable
 
 By writing your own selectable logic, the child rows only can be made selectable.
 
-<Preview>
+<Canvas>
   <Story name="children only selectable">
     {() => {
       const [selectAll, setSelectAll] = useState(false);
@@ -1037,9 +1056,15 @@ By writing your own selectable logic, the child rows only can be made selectable
               checked={selectedRows[row].subOne}
               onChange={() => handleSelectRow(row, "subOne")}
             />
-            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-1`}>Child one</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-2`}>York</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-3`}>Married</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-1`}>
+              Child one
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-2`}>
+              York
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-1-cell-3`}>
+              Married
+            </FlatTableCell>
             <FlatTableCell>2</FlatTableCell>
           </FlatTableRow>,
           <FlatTableRow
@@ -1053,9 +1078,15 @@ By writing your own selectable logic, the child rows only can be made selectable
               checked={selectedRows[row].subTwo}
               onChange={() => handleSelectRow(row, "subTwo")}
             />
-            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-1`}>Child two</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-2`}>Edinburgh</FlatTableCell>
-            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-3`}>Single</FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-1`}>
+              Child two
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-2`}>
+              Edinburgh
+            </FlatTableCell>
+            <FlatTableCell id={`ft-row-${row}-sub-row-2-cell-3`}>
+              Single
+            </FlatTableCell>
             <FlatTableCell>1</FlatTableCell>
           </FlatTableRow>,
         ];
@@ -1087,9 +1118,11 @@ By writing your own selectable logic, the child rows only can be made selectable
                   onChange={() => handleSelectAllRows()}
                 />
                 <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-3">Relationship Status</FlatTableHeader>
-                  <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+                <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
+                <FlatTableHeader id="ft-header-3">
+                  Relationship Status
+                </FlatTableHeader>
+                <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
@@ -1163,14 +1196,14 @@ By writing your own selectable logic, the child rows only can be made selectable
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Truncated cell content
 
 In order to achieve the content truncation when using the `expandable` feature you will need to pass in a node with the
 truncated styling applied, this is because of the caret icon that is rendered within the cell.
 
-<Preview>
+<Canvas>
   <Story name="truncated cell content">
     {() => {
       const SubRows = [
@@ -1246,11 +1279,11 @@ truncated styling applied, this is because of the caret icon that is rendered wi
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Controlled
 
-<Preview>
+<Canvas>
   <Story name="controlled" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [expanded, setExpanded] = useState(true);
@@ -1313,11 +1346,11 @@ truncated styling applied, this is because of the caret icon that is rendered wi
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Table Sizes
 
-<Preview>
+<Canvas>
   <Story name="sizes">
     {() => {
       const [selectAll, setSelectAll] = useState(false);
@@ -1367,27 +1400,41 @@ truncated styling applied, this is because of the caret icon that is rendered wi
           },
         });
       };
-      const subRows = (row) => {
+      const subRows = (row, size) => {
         return [
           <FlatTableRow selected={selectedRows[row].subOne}>
             <FlatTableCheckbox
+              ariaLabelledBy={`${size}-row-${row}-sub-row-1-cell-1 ${size}-row-${row}-sub-row-1-cell-2 ${size}-row-${row}-sub-row-1-cell-3`}
               onClick={(e) => e.stopPropagation()}
               checked={selectedRows[row].subOne}
               onChange={() => handleSelectRow(row, "subOne")}
             />
-            <FlatTableCell>Child one</FlatTableCell>
-            <FlatTableCell>York</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
+            <FlatTableCell id={`${size}-row-${row}-sub-row-1-cell-1`}>
+              Child one
+            </FlatTableCell>
+            <FlatTableCell id={`${size}-row-${row}-sub-row-1-cell-2`}>
+              York
+            </FlatTableCell>
+            <FlatTableCell id={`${size}-row-${row}-sub-row-1-cell-3`}>
+              Married
+            </FlatTableCell>
           </FlatTableRow>,
           <FlatTableRow selected={selectedRows[row].subTwo}>
             <FlatTableCheckbox
+              ariaLabelledBy={`${size}-row-${row}-sub-row-2-cell-1 ${size}-row-${row}-sub-row-2-cell-2 ${size}-row-${row}-sub-row-2-cell-3`}
               onClick={(e) => e.stopPropagation()}
               checked={selectedRows[row].subTwo}
               onChange={() => handleSelectRow(row, "subTwo")}
             />
-            <FlatTableCell>Child two</FlatTableCell>
-            <FlatTableCell>Edinburgh</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell id={`${size}-row-${row}-sub-row-2-cell-1`}>
+              Child two
+            </FlatTableCell>
+            <FlatTableCell id={`${size}-row-${row}-sub-row-2-cell-2`}>
+              Edinburgh
+            </FlatTableCell>
+            <FlatTableCell id={`${size}-row-${row}-sub-row-2-cell-3`}>
+              Single
+            </FlatTableCell>
           </FlatTableRow>,
         ];
       };
@@ -1396,76 +1443,111 @@ truncated styling applied, this is because of the caret icon that is rendered wi
           {["compact", "small", "medium", "large", "extraLarge"].map(
             (size, index) => (
               <Box mb={3} key={index}>
-                <FlatTable size={size}>
+                <FlatTable size={size} aria-label={`flat-table-${size}`}>
                   <FlatTableHead>
                     <FlatTableRow>
                       <FlatTableCheckbox
+                        ariaLabelledBy={`${size}-row-1-cell-1 ${size}-row-1-cell-2 ${size}-row-1-cell-3`}
                         onClick={(e) => e.stopPropagation()}
                         as="th"
                         checked={selectAll}
                         onChange={() => handleSelectAllRows()}
                       />
-                      <FlatTableHeader>Name</FlatTableHeader>
-                      <FlatTableHeader>Location</FlatTableHeader>
-                      <FlatTableHeader>Relationship Status</FlatTableHeader>
+                      <FlatTableHeader id={`${size}-row-1-cell-1`}>
+                        Name
+                      </FlatTableHeader>
+                      <FlatTableHeader id={`${size}-row-1-cell-2`}>
+                        Location
+                      </FlatTableHeader>
+                      <FlatTableHeader id={`${size}-row-1-cell-3`}>
+                        Relationship Status
+                      </FlatTableHeader>
                     </FlatTableRow>
                   </FlatTableHead>
                   <FlatTableBody>
                     <FlatTableRow
                       selected={selectedRows.one.parent}
                       expandable
-                      subRows={subRows("one")}
+                      subRows={subRows("one", size)}
                     >
                       <FlatTableCheckbox
+                        ariaLabelledBy={`${size}-row-2-cell-1 ${size}-row-2-cell-2 ${size}-row-2-cell-3`}
                         onClick={(e) => e.stopPropagation()}
                         checked={selectedRows.one.parent}
                         onChange={() => handleSelectRow("one", "parent")}
                       />
-                      <FlatTableCell>John Doe</FlatTableCell>
-                      <FlatTableCell>London</FlatTableCell>
-                      <FlatTableCell>Single</FlatTableCell>
+                      <FlatTableCell id={`${size}-row-2-cell-1`}>
+                        John Doe
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-2-cell-2`}>
+                        London
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-2-cell-3`}>
+                        Single
+                      </FlatTableCell>
                     </FlatTableRow>
                     <FlatTableRow
                       selected={selectedRows.two.parent}
                       expandable
-                      subRows={subRows("two")}
+                      subRows={subRows("two", size)}
                     >
                       <FlatTableCheckbox
+                        ariaLabelledBy={`${size}-row-3-cell-1 ${size}-row-3-cell-2 ${size}-row-3-cell-3`}
                         onClick={(e) => e.stopPropagation()}
                         checked={selectedRows.two.parent}
                         onChange={() => handleSelectRow("two", "parent")}
                       />
-                      <FlatTableCell>Jane Doe</FlatTableCell>
-                      <FlatTableCell>York</FlatTableCell>
-                      <FlatTableCell>Married</FlatTableCell>
+                      <FlatTableCell id={`${size}-row-3-cell-1`}>
+                        Jane Doe
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-3-cell-2`}>
+                        York
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-3-cell-3`}>
+                        Married
+                      </FlatTableCell>
                     </FlatTableRow>
                     <FlatTableRow
                       selected={selectedRows.three.parent}
                       expandable
-                      subRows={subRows("three")}
+                      subRows={subRows("three", size)}
                     >
                       <FlatTableCheckbox
+                        ariaLabelledBy={`${size}-row-4-cell-1 ${size}-row-4-cell-2 ${size}-row-4-cell-3`}
                         onClick={(e) => e.stopPropagation()}
                         checked={selectedRows.three.parent}
                         onChange={() => handleSelectRow("three", "parent")}
                       />
-                      <FlatTableCell>John Smith</FlatTableCell>
-                      <FlatTableCell>Edinburgh</FlatTableCell>
-                      <FlatTableCell>Single</FlatTableCell>
+                      <FlatTableCell id={`${size}-row-4-cell-1`}>
+                        John Smith
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-4-cell-2`}>
+                        Edinburgh
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-4-cell-3`}>
+                        Single
+                      </FlatTableCell>
                     </FlatTableRow>
                     <FlatTableRow
                       selected={selectedRows.four.parent}
                       expandable
-                      subRows={subRows("four")}
+                      subRows={subRows("four", size)}
                     >
                       <FlatTableCheckbox
+                        ariaLabelledBy={`${size}-row-5-cell-1 ${size}-row-5-cell-2 ${size}-row-5-cell-3`}
                         onClick={(e) => e.stopPropagation()}
                         checked={selectedRows.four.parent}
                         onChange={() => handleSelectRow("four", "parent")}
                       />
-                      <FlatTableCell>Jane Smith</FlatTableCell>
-                      <FlatTableCell>Newcastle</FlatTableCell>
-                      <FlatTableCell>Married</FlatTableCell>
+                      <FlatTableCell id={`${size}-row-5-cell-1`}>
+                        Jane Smith
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-5-cell-2`}>
+                        Newcastle
+                      </FlatTableCell>
+                      <FlatTableCell id={`${size}-row-5-cell-3`}>
+                        Married
+                      </FlatTableCell>
                     </FlatTableRow>
                   </FlatTableBody>
                 </FlatTable>
@@ -1476,10 +1558,10 @@ truncated styling applied, this is because of the caret icon that is rendered wi
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### FlatTableRow
 
-<Props of={FlatTableRow} />
+<ArgsTable of={FlatTableRow} />

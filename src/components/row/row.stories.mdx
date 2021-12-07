@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import Typography from "../typography";
 import Box from "../box";
@@ -39,7 +39,7 @@ import { Row, Column } from "carbon-react/lib/components/row";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Row>
       <Column>Content</Column>
@@ -50,11 +50,11 @@ import { Row, Column } from "carbon-react/lib/components/row";
       <Column>Content</Column>
     </Row>
   </Story>
-</Preview>
+</Canvas>
 
 ### With separators
 
-<Preview>
+<Canvas>
   <Story name="with separators">
     <Row columnDivide>
       <Column>Content</Column>
@@ -65,11 +65,11 @@ import { Row, Column } from "carbon-react/lib/components/row";
       <Column>Content</Column>
     </Row>
   </Story>
-</Preview>
+</Canvas>
 
 ### Gutter sizes
 
-<Preview>
+<Canvas>
   <Story name="gutter sizes">
     {() =>
       [
@@ -98,11 +98,11 @@ import { Row, Column } from "carbon-react/lib/components/row";
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### Column alignment
 
-<Preview>
+<Canvas>
   <Story name="column alignment">
     {() =>
       ["left", "center", "right"].map((columnAlign) => (
@@ -123,13 +123,13 @@ import { Row, Column } from "carbon-react/lib/components/row";
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### With offset columns
 
 To offset a column besides passing a `columnOffset` prop on wanted `Column` it is also necessary to provide `columns` prop to `Row` component with a number of resulting columns.
 
-<Preview>
+<Canvas>
   <Story name="with offset columns">
     <Row columns={7}>
       <Column>
@@ -164,13 +164,13 @@ To offset a column besides passing a `columnOffset` prop on wanted `Column` it i
       </Column>
     </Row>
   </Story>
-</Preview>
+</Canvas>
 
 ### With columns spanning over more than one column
 
 To span a `Column` over more than one column besides passing a `columnSpan` prop on wanted `Column` it is also necessary to provide `columns` prop to `Row` component with a number of resulting columns.
 
-<Preview>
+<Canvas>
   <Story name="with columns span">
     <Row columns={7}>
       <Column>
@@ -205,14 +205,14 @@ To span a `Column` over more than one column besides passing a `columnSpan` prop
       </Column>
     </Row>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Row
 
-<Props of={Row} />
+<ArgsTable of={Row} />
 
 ### Column
 
-<Props of={Column} />
+<ArgsTable of={Column} />

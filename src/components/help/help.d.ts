@@ -13,7 +13,7 @@ export interface HelpProps extends MarginProps {
   helpId?: string;
   /** A path for the anchor */
   href?: string;
-  /** A boolean received from IconWrapper */
+  /** Overrides the visibility of the Tooltip if true */
   isFocused?: boolean;
   /** Overrides the default tabindex of the component */
   tabIndex?: number | string;

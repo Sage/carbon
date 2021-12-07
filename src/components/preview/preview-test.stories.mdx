@@ -1,9 +1,4 @@
-import {
-  Meta,
-  Story,
-  Preview as PreviewStorybook,
-} from "@storybook/addon-docs";
-
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
 import Preview from "./preview.component";
 
@@ -30,7 +25,7 @@ export const PreviewStory = ({
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -44,4 +39,4 @@ export const PreviewStory = ({
   >
     {PreviewStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

@@ -23,5 +23,10 @@
   "retries": {
     "runMode": 1,
     "openMode": 1
+  },
+   "component": {
+     "componentFolder": "src",
+     "testFiles": "**/*.test.js",
+     "watchForFileChanges": true
   }
 }
