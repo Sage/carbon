@@ -19,7 +19,6 @@
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
     "test:cypress": "cypress open",
     "cypress:react": "npx cypress open-ct",
-    "cypress:ci:react": "npx cypress run-ct --spec './src/components/**/*.test.js' --record --key --parallel --group 'ubuntu-cypress-react' --browser=chrome",
     "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",
     "format": "prettier --write './src'",
     "lint": "eslint ./src",
