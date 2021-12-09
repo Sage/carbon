@@ -23,5 +23,5 @@
     "target": "es6"
   },
   "include": ["src/**/*"],
-  "exclude": ["src/**/*.stories.js"]
+  "exclude": ["src/**/*.stories.js", "src/**/*.test.js"]
 }
