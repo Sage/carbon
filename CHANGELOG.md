@@ -1,3 +1,12 @@
+### [102.0.1](https://github.com/Sage/carbon/compare/v102.0.0...v102.0.1) (2021-12-07)
+
+
+### Bug Fixes
+
+* **button-toggle:** add missing ARIA props ([912c59f](https://github.com/Sage/carbon/commit/912c59f667826fc0404bade4f71d8a8a8f9cf5c5))
+* **button-toggle:** add missing data props ([2d950a5](https://github.com/Sage/carbon/commit/2d950a5c89f1fd8f4fd2f10bb01307fa54e39a6c))
+* **button-toggle:** remove icon margin when content is not defined ([22985cd](https://github.com/Sage/carbon/commit/22985cda656eea520bee42059804c5d8c71375cf))
+
 ## [102.0.0](https://github.com/Sage/carbon/compare/v101.4.5...v102.0.0) (2021-12-06)
 
 
