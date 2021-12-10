@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
@@ -6,6 +6,7 @@ import Icon from "../icon";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledHelp from "./help.style";
 import Events from "../../__internal__/utils/helpers/events";
+import { TooltipContext } from "../../__internal__/tooltip-provider";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { HELP_POSITIONS } from "./help.config";
 
@@ -23,13 +24,16 @@ const Help = ({
   tooltipPosition,
   isFocused,
   type,
+  tooltipId,
   tooltipBgColor,
   tooltipFontColor,
   tooltipFlipOverrides,
+  ariaLabel,
   ...rest
 }) => {
   const helpElement = useRef(null);
   const [isTooltipVisible, updateTooltipVisible] = useState(false);
+  const { helpAriaLabel } = useContext(TooltipContext);
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyPress);
@@ -56,13 +60,10 @@ const Help = ({
 
   return (
     <StyledHelp
-      role="tooltip"
       className={className}
       as={tagType}
       href={href}
       id={helpId}
-      target="_blank"
-      rel="noopener noreferrer"
       ref={helpElement}
       onClick={() => {
         helpElement.current.focus();
@@ -73,6 +74,15 @@ const Help = ({
       onMouseLeave={handleFocusBlur(false)}
       {...tagComponent("help", rest)}
       tabIndex={tabIndex}
+      {...(href
+        ? {
+            target: "_blank",
+            rel: "noopener noreferrer",
+          }
+        : {
+            role: "tooltip",
+            "aria-label": ariaLabel || helpAriaLabel,
+          })}
       {...filterStyledSystemMarginProps(rest)}
       {...rest}
     >
@@ -84,6 +94,13 @@ const Help = ({
         tooltipBgColor={tooltipBgColor}
         tooltipFontColor={tooltipFontColor}
         tooltipFlipOverrides={tooltipFlipOverrides}
+        focusable={false}
+        tooltipId={tooltipId}
+        aria-hidden="true"
+        {...(href && {
+          role: "tooltip",
+          ariaLabel: ariaLabel || helpAriaLabel,
+        })}
       />
     </StyledHelp>
   );
@@ -95,7 +112,7 @@ Help.propTypes = {
   className: PropTypes.string,
   /** Message to display in tooltip */
   children: PropTypes.node,
-  /** The unique id of the component (used with aria-describedby for accessibility) */
+  /** The unique id of the component */
   helpId: PropTypes.string,
   /** Overrides the default tabindex of the component */
   tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -105,7 +122,7 @@ Help.propTypes = {
   tooltipPosition: PropTypes.oneOf(["bottom", "left", "right", "top"]),
   /** A path for the anchor */
   href: PropTypes.string,
-  /** A boolean received from IconWrapper */
+  /** Overrides the visibility of the Tooltip if true */
   isFocused: PropTypes.bool,
   /** <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
    *
@@ -133,6 +150,10 @@ Help.propTypes = {
       `The \`${propName}\` prop supplied to \`${componentName}\` must be an array containing some or all of ["top", "bottom", "left", "right"].`
     );
   },
+  /** Id passed to the tooltip container, used for accessibility purposes. */
+  tooltipId: PropTypes.string,
+  /** Aria label */
+  ariaLabel: PropTypes.string,
 };
 
 Help.defaultProps = {

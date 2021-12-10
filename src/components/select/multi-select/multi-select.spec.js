@@ -624,6 +624,28 @@ describe("MultiSelect", () => {
       });
 
       describe('with the "selectionType" set to "navigationKey"', () => {
+        it("sets correct highlighted element", () => {
+          const onChangeFn = jest.fn();
+          const wrapper = renderSelect({
+            ...textboxProps,
+            onChange: onChangeFn,
+            openOnFocus: true,
+          });
+
+          wrapper.find("input").simulate("focus");
+          onChangeFn.mockReset();
+          act(() => {
+            wrapper.find(SelectList).prop("onSelect")(
+              mockNavigationKeyOptionObject
+            );
+          });
+
+          wrapper.update();
+          expect(wrapper.find(SelectList).prop("highlightedValue")).toBe(
+            mockNavigationKeyOptionObject.value
+          );
+        });
+
         it("then that prop should not be called", () => {
           const onChangeFn = jest.fn();
           const wrapper = renderSelect({
@@ -778,6 +800,39 @@ describe("MultiSelect", () => {
         });
       }
     );
+  });
+
+  describe("when parent re-renders", () => {
+    const WrapperComponent = (props) => {
+      const mockRef = useRef();
+
+      return (
+        <span change={props.change}>
+          <MultiSelect
+            openOnFocus
+            name="testSelect"
+            id="testSelect"
+            ref={mockRef}
+          >
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </MultiSelect>
+        </span>
+      );
+    };
+
+    it("should persist the input value", () => {
+      const wrapper = mount(<WrapperComponent change="foo" />);
+      wrapper.find("input").simulate("focus");
+      act(() => {
+        wrapper.find(Option).first().simulate("click");
+      });
+      expect(wrapper.update().find(Textbox).props().value).toEqual(["opt1"]);
+      wrapper.setProps({ change: "bar" });
+      expect(wrapper.update().find(Textbox).props().value).toEqual(["opt1"]);
+    });
   });
 
   describe("required", () => {

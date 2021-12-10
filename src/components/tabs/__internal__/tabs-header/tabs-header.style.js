@@ -31,7 +31,7 @@ const StyledTabsHeaderWrapper = styled.div`
     `}
 `;
 
-const StyledTabsHeaderList = styled.ul`
+const StyledTabsHeaderList = styled.div`
   display: flex;
   box-shadow: inset 0px ${computeLineWidth} 0px 0px
     ${({ theme }) => theme.tab.background};
@@ -52,11 +52,11 @@ const StyledTabsHeaderList = styled.ul`
       text-align: right;
     `}
 
-  ${({ position, noRightBorder, theme }) =>
+  ${({ position, noRightBorder }) =>
     position === "left" &&
     css`
       flex-direction: column;
-      box-shadow: inset ${computeLineWidth} 0px 0px 0px ${theme.tab.background};
+      box-shadow: none;
 
       ${noRightBorder &&
       css`

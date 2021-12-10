@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
@@ -83,7 +83,7 @@ export const SwitchStory = ({
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -91,6 +91,7 @@ export const SwitchStory = ({
       fieldHelpInline: false,
       label: "Switch on this component?",
       labelHelp: "Switch off and on this component.",
+      helpAriaLabel: "Help",
       labelInline: false,
       loading: false,
       inputWidth: 0,
@@ -107,4 +108,4 @@ export const SwitchStory = ({
   >
     {SwitchStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

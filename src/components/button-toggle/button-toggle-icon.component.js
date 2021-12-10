@@ -8,8 +8,8 @@ const ButtonToggleIcon = (props) => (
     <Icon
       type={props.buttonIcon}
       fontSize={props.buttonIconSize}
+      bgSize="extra-small"
       {...props}
-      bgTheme="none"
     />
   </StyledButtonToggleIcon>
 );

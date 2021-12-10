@@ -102,6 +102,7 @@ input:not(:checked):not(:disabled) ~ .c2:hover .c8 {
   >
     <input
       className="c1"
+      data-element="button-toggle-input"
       id="guid-12345"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -126,6 +127,7 @@ input:not(:checked):not(:disabled) ~ .c2:hover .c8 {
   >
     <input
       className="c1"
+      data-element="button-toggle-input"
       id="guid-12345"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -225,6 +227,7 @@ input:not(:checked):not(:disabled) ~ .c2:hover .c4 {
 >
   <input
     className="c1"
+    data-element="button-toggle-input"
     id="guid-12345"
     onBlur={[Function]}
     onFocus={[Function]}
@@ -323,6 +326,7 @@ input:not(:checked):not(:disabled) ~ .c2:hover .c4 {
 >
   <input
     className="c1"
+    data-element="button-toggle-input"
     id="guid-12345"
     onBlur={[Function]}
     onFocus={[Function]}
@@ -342,7 +346,7 @@ input:not(:checked):not(:disabled) ~ .c2:hover .c4 {
 </div>
 `;
 
-exports[`ButtonToggle when the sage theme is set renders correct styles 1`] = `
+exports[`ButtonToggle when the sage (experimental) theme is set renders correct styles 1`] = `
 .c3 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -421,6 +425,7 @@ input:not(:checked):not(:disabled) ~ .c2:hover .c4 {
 >
   <input
     className="c1"
+    data-element="button-toggle-input"
     id="guid-12345"
     onBlur={[Function]}
     onFocus={[Function]}

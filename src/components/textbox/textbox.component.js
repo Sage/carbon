@@ -11,6 +11,7 @@ import { InputBehaviour } from "../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
+import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -23,7 +24,7 @@ const Textbox = ({
   disabled,
   inputIcon,
   leftChildren,
-  labelId,
+  labelId: externalLabelId,
   label,
   labelAlign,
   labelHelp,
@@ -67,6 +68,7 @@ const Textbox = ({
   enforceCharacterLimit = true,
   characterLimit,
   warnOverLimit = false,
+  helpAriaLabel,
   ...props
 }) => {
   const [maxLength, characterCount] = useCharacterCount(
@@ -76,12 +78,34 @@ const Textbox = ({
     enforceCharacterLimit
   );
 
+  const {
+    labelId: internalLabelId,
+    tooltipId,
+    fieldHelpId,
+    ariaDescribedBy,
+  } = useInputAccessibility({
+    id,
+    error,
+    warning,
+    info,
+    label,
+    labelHelp,
+    fieldHelp,
+  });
+
+  const labelId = externalLabelId || internalLabelId;
+
   return (
-    <TooltipProvider tooltipPosition={tooltipPosition}>
+    <TooltipProvider
+      helpAriaLabel={helpAriaLabel}
+      tooltipPosition={tooltipPosition}
+    >
       <InputBehaviour>
         <FormField
+          tooltipId={tooltipId}
           disabled={disabled}
           fieldHelp={fieldHelp}
+          fieldHelpId={fieldHelpId}
           error={error}
           warning={warning}
           info={info}
@@ -124,6 +148,8 @@ const Textbox = ({
               {...(required && { required })}
               align={align}
               aria-invalid={!!error}
+              aria-labelledby={labelId}
+              aria-describedby={ariaDescribedBy}
               autoFocus={autoFocus}
               deferTimeout={deferTimeout}
               disabled={disabled}
@@ -156,6 +182,7 @@ const Textbox = ({
               size={size}
               useValidationIcon={!validationOnLabel}
               warning={warning}
+              tooltipId={tooltipId}
             />
           </InputPresentation>
         </FormField>
@@ -207,9 +234,9 @@ Textbox.propTypes = {
   onBlur: PropTypes.func,
   /** Event handler for the mouse down event */
   onMouseDown: PropTypes.func,
-  /** Defered callback called after the onChange event */
+  /** Deferred callback called after the onChange event */
   onChangeDeferred: PropTypes.func,
-  /** Integer to determine timeout for defered callback */
+  /** Integer to determine timeout for deferred callback */
   deferTimeout: PropTypes.number,
   /** Unique identifier for the input. Will use a randomly generated GUID if none is provided */
   id: PropTypes.string,
@@ -301,6 +328,8 @@ Textbox.propTypes = {
   characterLimit: PropTypes.string,
   /** Whether to display the character count message in red */
   warnOverLimit: PropTypes.bool,
+  /** Aria label for rendered help component */
+  helpAriaLabel: PropTypes.string,
 };
 
 Textbox.defaultProps = {

@@ -49,6 +49,8 @@ export interface ButtonToggleGroupProps
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** The value of the Button Toggle Group */
   value?: string;
+  /** Aria label for rendered help component */
+  helpAriaLabel?: string;
 }
 
 declare function ButtonToggleGroup(props: ButtonToggleGroupProps): JSX.Element;

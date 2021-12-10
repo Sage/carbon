@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Note from "./note.component";
 import {
@@ -48,7 +48,7 @@ methods provided by the `draft-js` (see the import above) framework https://draf
 In its default form, the component can render plain text content by passing a value via the `noteContent` prop using
 `EditorState.createWithContent(ContentState.createFromText(''))` to ensure the value is in the correct format.
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ info: { disable: true } }}>
     {() => {
       const noteContent = EditorState.createWithContent(
@@ -65,7 +65,7 @@ In its default form, the component can render plain text content by passing a va
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With rich text content
 
@@ -74,7 +74,7 @@ content but there is a range of supporting packages that will support converting
 content to a format you prefer and back into one that `draft-js` supports, again utilising the `createWithContent`
 static method.
 
-<Preview>
+<Canvas>
   <Story name="with rich text" parameters={{ info: { disable: true } }}>
     {() => {
       const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
@@ -99,13 +99,13 @@ static method.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With title
 
 An optional title can be provided using the `title` prop.
 
-<Preview>
+<Canvas>
   <Story name="with title" parameters={{ info: { disable: true } }}>
     {() => {
       const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
@@ -131,13 +131,13 @@ An optional title can be provided using the `title` prop.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With inline controls
 
 Optional inline controls can be provided using the `inlineControl` prop. This should be an `ActionPopover`.
 
-<Preview>
+<Canvas>
   <Story name="with inline controls" parameters={{ info: { disable: true } }}>
     {() => {
       const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
@@ -171,13 +171,13 @@ Optional inline controls can be provided using the `inlineControl` prop. This sh
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With status
 
 An optional status can be provided using the `status` prop.
 
-<Preview>
+<Canvas>
   <Story name="with status" parameters={{ info: { disable: true } }}>
     {() => {
       const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
@@ -212,7 +212,7 @@ An optional status can be provided using the `status` prop.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With previews
 
@@ -221,7 +221,7 @@ rendered as anchor elements and will behave as links, opening the page in a new 
 and the enter key is pressed. Similarly to the `TextEditor` component, a `onLinkAdded` prop is surfaced to allow for a link
 preview's url to be reported and calls to an api can be made here as well if needed.
 
-<Preview>
+<Canvas>
   <Story name="with previews" parameters={{ info: { disable: true } }}>
     {() => {
       const json = JSON.stringify({
@@ -283,7 +283,7 @@ preview's url to be reported and calls to an api can be made here as well if nee
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With margin
 
@@ -292,7 +292,7 @@ the props table at the bottom of this page.
 
 [Visit Props Table](#props)
 
-<Preview>
+<Canvas>
   <Story name="with margin" parameters={{ info: { disable: true } }}>
     {() => {
       const noteContent = EditorState.createWithContent(
@@ -334,7 +334,7 @@ the props table at the bottom of this page.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

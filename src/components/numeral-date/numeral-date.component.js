@@ -11,6 +11,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import FormField from "../../__internal__/form-field";
 import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -66,6 +67,7 @@ const NumeralDate = ({
   enableInternalError,
   enableInternalWarning,
   tooltipPosition,
+  helpAriaLabel,
   ...rest
 }) => {
   const l = useLocale();
@@ -170,79 +172,81 @@ const NumeralDate = ({
     : warning;
 
   return (
-    <InputGroupBehaviour>
-      <FormField
-        data-component={dataComponent}
-        data-element={dataElement}
-        data-role={dataRole}
-        disabled={disabled}
-        useValidationIcon={validationOnLabel}
-        id={uniqueId}
-        error={internalError}
-        warning={internalWarning}
-        info={info}
-        label={label}
-        labelInline={labelInline}
-        labelWidth={labelWidth}
-        labelAlign={labelAlign}
-        labelHelp={labelHelp}
-        labelSpacing={labelSpacing}
-        fieldHelp={fieldHelp}
-        adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-        isRequired={required}
-        {...filterStyledSystemMarginProps(rest)}
-      >
-        <StyledNumeralDate
-          name={name}
-          onKeyPress={onKeyPress}
-          data-component="numeral-date"
+    <TooltipProvider helpAriaLabel={helpAriaLabel}>
+      <InputGroupBehaviour>
+        <FormField
+          data-component={dataComponent}
+          data-element={dataElement}
+          data-role={dataRole}
+          disabled={disabled}
+          useValidationIcon={validationOnLabel}
+          id={uniqueId}
+          error={internalError}
+          warning={internalWarning}
+          info={info}
+          label={label}
+          labelInline={labelInline}
+          labelWidth={labelWidth}
+          labelAlign={labelAlign}
+          labelHelp={labelHelp}
+          labelSpacing={labelSpacing}
+          fieldHelp={fieldHelp}
+          adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+          isRequired={required}
+          {...filterStyledSystemMarginProps(rest)}
         >
-          {dateFormat.map((datePart, index) => {
-            const isEnd = index === dateFormat.length - 1;
-            const isMiddle = index === 1;
+          <StyledNumeralDate
+            name={name}
+            onKeyPress={onKeyPress}
+            data-component="numeral-date"
+          >
+            {dateFormat.map((datePart, index) => {
+              const isEnd = index === dateFormat.length - 1;
+              const isMiddle = index === 1;
 
-            const validation = error || warning || info;
-            const isStringValidation = typeof validation === "string";
-            const hasValidationIcon = isStringValidation && validation.length;
+              const validation = error || warning || info;
+              const isStringValidation = typeof validation === "string";
+              const hasValidationIcon = isStringValidation && validation.length;
 
-            return (
-              <StyledDateField
-                key={datePart}
-                isYearInput={datePart.length === 4}
-                isMiddle={isMiddle}
-                isEnd={isEnd}
-                hasValidationIcon={hasValidationIcon}
-              >
-                <Textbox
-                  {...(index === 0 && { id: uniqueId })}
-                  disabled={disabled}
-                  readOnly={readOnly}
-                  placeholder={datePart}
-                  value={dateValue[datePart]}
-                  onChange={(e) => handleChange(e, datePart)}
-                  inputRef={(ref) => {
-                    refs.current[index] = ref;
-                  }}
-                  onBlur={() => handleBlur(datePart)}
-                  error={!!internalError}
-                  warning={!!internalWarning}
-                  info={!!info}
-                  {...(required && { required })}
-                  {...(isEnd &&
-                    !validationOnLabel && {
-                      error: internalError,
-                      warning: internalWarning,
-                      info,
-                    })}
-                  size={size}
-                  tooltipPosition={tooltipPosition}
-                />
-              </StyledDateField>
-            );
-          })}
-        </StyledNumeralDate>
-      </FormField>
-    </InputGroupBehaviour>
+              return (
+                <StyledDateField
+                  key={datePart}
+                  isYearInput={datePart.length === 4}
+                  isMiddle={isMiddle}
+                  isEnd={isEnd}
+                  hasValidationIcon={hasValidationIcon}
+                >
+                  <Textbox
+                    {...(index === 0 && { id: uniqueId })}
+                    disabled={disabled}
+                    readOnly={readOnly}
+                    placeholder={datePart}
+                    value={dateValue[datePart]}
+                    onChange={(e) => handleChange(e, datePart)}
+                    inputRef={(ref) => {
+                      refs.current[index] = ref;
+                    }}
+                    onBlur={() => handleBlur(datePart)}
+                    error={!!internalError}
+                    warning={!!internalWarning}
+                    info={!!info}
+                    {...(required && { required })}
+                    {...(isEnd &&
+                      !validationOnLabel && {
+                        error: internalError,
+                        warning: internalWarning,
+                        info,
+                      })}
+                    size={size}
+                    tooltipPosition={tooltipPosition}
+                  />
+                </StyledDateField>
+              );
+            })}
+          </StyledNumeralDate>
+        </FormField>
+      </InputGroupBehaviour>
+    </TooltipProvider>
   );
 };
 
@@ -339,6 +343,8 @@ NumeralDate.propTypes = {
   size: PropTypes.oneOf(["small", "medium", "large"]),
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Aria label for rendered help component */
+  helpAriaLabel: PropTypes.string,
 };
 
 export default NumeralDate;

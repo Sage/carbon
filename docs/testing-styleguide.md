@@ -82,7 +82,7 @@ Where the stories in the main documentation directory do not cover all scenarios
 To clarify the purpose of each directory,
 
 | Directory     | Usage                                                                    |
-|---------------|--------------------------------------------------------------------------|
+| ------------- | ------------------------------------------------------------------------ |
 | Design System | User facing documentation, Cypress regression tests                      |
 | Test          | Additional stories for Cypress regression tests, visual regression tests |
 
@@ -92,6 +92,14 @@ All regression, accessibility and theme tests are written using the [Cypress.io]
 Where functionality is already tested in unit testing, this does not need to be repeated in assertions in Cypress tests, with the exception of events tests which should be repeated here in order to test actions in a manner more closely resembling that of a user in a browser.
 
 [Chromatic](https://www.chromatic.com/builds?appId=5ecf782fe724630022d27d7d) is used to test for visual regressions during each build by comparing snapshots of the storybook canvas with previous baseline snapshots. Chromatic automatically snapshots every story canvas. You should not need to run Chromatic locally.
+
+Chromatic is configured to display each theme side-by-side, you can do this locally by using `STORYBOOK_DEBUG_ALL_THEMES=true npm start`. It is possible to display the components in a column layout by passing `fourColumnLayout` param.
+
+```
+<Story name="Example Layout" parameters={{themeSelector: { fourColumnLayout: true }}
+  <Component />
+</Story>
+```
 
 ##### Cypress File Structure
 ```

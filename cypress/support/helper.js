@@ -11,7 +11,10 @@ function prepareUrl(component, suffix = "default story") {
 }
 
 export function visitComponentUrl(component, suffix) {
-  cy.visit(prepareUrl(component, suffix));
+  const onBeforeLoad = cy.spy();
+  cy.visit(prepareUrl(component, suffix), {
+    onBeforeLoad,
+  });
 }
 
 // eslint-disable-next-line max-params
@@ -22,21 +25,20 @@ export function visitComponentUrlWithParameters(
   path = "",
   nameOfObject = ""
 ) {
+  const onBeforeLoad = cy.spy();
   cy.fixture(`${path}/${json}`).then(($json) => {
-    const today = Cypress.dayjs().format("YYYY-MM-DD");
     const el = $json[nameOfObject];
     let url = "&args=";
     for (const prop in el) {
       if (prop === "theme") {
         url += `&theme=${encodeURIComponent(el[prop])}`;
       } else {
-        if (prop === "minDate" || prop === "maxDate") {
-          el[prop] = today;
-        }
         url += `${prop}:${encodeURIComponent(el[prop])};`;
       }
     }
-    cy.visit(`${prepareUrl(component, story)}${url}`);
+    cy.visit(`${prepareUrl(component, story)}${url}`, {
+      onBeforeLoad,
+    });
   });
 }
 
@@ -144,15 +146,15 @@ export function tableHeaderSize(type) {
 
 export function keyCode(type) {
   return {
-    downarrow: { keyCode: 40, which: 40 },
-    uparrow: { keyCode: 38, which: 38 },
-    leftarrow: { keyCode: 37, which: 37 },
-    rightarrow: { keyCode: 39, which: 39 },
-    Enter: { keyCode: 13, which: 13 },
-    Space: { keyCode: 32, which: 32 },
+    downarrow: { key: "ArrowDown", keyCode: 40, which: 40 },
+    uparrow: { key: "ArrowUp", keyCode: 38, which: 38 },
+    leftarrow: { key: "ArrowLeft", keyCode: 37, which: 37 },
+    rightarrow: { key: "ArrowRight", keyCode: 39, which: 39 },
+    Enter: { key: "Enter", keyCode: 13, which: 13 },
+    Space: { key: " ", keyCode: 32, which: 32 },
     Tab: { key: "Tab", keyCode: 9, which: 9 },
-    Home: { keyCode: 36, which: 36 },
-    End: { keyCode: 35, which: 35 },
-    Esc: { keyCode: 27, which: 27 },
+    Home: { key: "Home", keyCode: 36, which: 36 },
+    End: { key: "End", keyCode: 35, which: 35 },
+    Esc: { key: "Escape", keyCode: 27, which: 27 },
   }[type];
 }

@@ -64,7 +64,9 @@ const FilterableSelect = React.forwardRef(
     const [textboxRef, setTextboxRef] = useState();
     const [isOpen, setOpen] = useState(false);
     const [textValue, setTextValue] = useState("");
-    const [selectedValue, setSelectedValue] = useState("");
+    const [selectedValue, setSelectedValue] = useState(
+      value || defaultValue || ""
+    );
     const [highlightedValue, setHighlightedValue] = useState("");
     const [filterText, setFilterText] = useState("");
 
@@ -226,7 +228,6 @@ const FilterableSelect = React.forwardRef(
     );
 
     useEffect(() => {
-      const newValue = value || defaultValue;
       const modeSwitchedMessage =
         "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
         "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
@@ -241,19 +242,27 @@ const FilterableSelect = React.forwardRef(
         !isControlled.current || (isControlled.current && onChange),
         onChangeMissingMessage
       );
+      if (isControlled.current) {
+        setSelectedValue((prevValue) => {
+          if (value && prevValue !== value) {
+            setMatchingText(value);
+          }
 
-      setSelectedValue((prevValue) => {
-        if (value && isControlled.current && prevValue !== newValue) {
-          setMatchingText(newValue);
+          return value;
+        });
+        setHighlightedValue(value);
+      } else {
+        if (textValue !== selectedValue) {
+          setMatchingText(selectedValue);
         }
-
-        return newValue;
-      });
-
-      setHighlightedValue(newValue);
+        if (highlightedValue !== selectedValue) {
+          setHighlightedValue(selectedValue);
+        }
+      }
       // prevent value update on filter change
+      // selectedValue and highlightedValue omitted from deps, only want uncontrolled change if onChange/children update
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [value, defaultValue, onChange, children]);
+    }, [value, onChange, children]);
 
     useEffect(() => {
       if (!isOpen) {
@@ -275,7 +284,9 @@ const FilterableSelect = React.forwardRef(
     }, [listActionButton, onListAction]);
 
     useEffect(() => {
-      setMatchingText(value || defaultValue);
+      if (isControlled.current) {
+        setMatchingText(value);
+      }
       // update text value only when children are changing
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value, children]);

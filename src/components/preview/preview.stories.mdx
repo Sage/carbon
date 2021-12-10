@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { ArgsTable } from "@storybook/components";
 import PreviewComponent from "./preview.component";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -25,45 +25,45 @@ import Preview from "carbon-react/lib/components/preview";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <PreviewComponent loading />
   </Story>
-</Preview>
+</Canvas>
 
 ### Preview with Lines
 
-<Preview>
+<Canvas>
   <Story name="with Lines">
     <PreviewComponent loading lines={6} />
   </Story>
-</Preview>
+</Canvas>
 
 ### Preview with Children
 
-<Preview>
+<Canvas>
   <Story name="with Children">
     <PreviewComponent>
       This the where the children are rendered
     </PreviewComponent>
   </Story>
-</Preview>
+</Canvas>
 
 ### Preview with Custom Width
 
-<Preview>
+<Canvas>
   <Story name="with Width">
     <PreviewComponent loading width={"256px"} />
   </Story>
-</Preview>
+</Canvas>
 
 ### Preview with Custom Height
 
-<Preview>
+<Canvas>
   <Story name="with Height">
     <PreviewComponent loading height={"256px"} />
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

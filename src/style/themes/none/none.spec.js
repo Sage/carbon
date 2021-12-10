@@ -6,4 +6,8 @@ describe("noneTheme", () => {
   it("contains the base theme", () => {
     assertIsSubset(baseTheme, noneTheme);
   });
+
+  it("has no accidentally modified tokens in compatibility section", () => {
+    expect(noneTheme.compatibility).toMatchSnapshot();
+  });
 });

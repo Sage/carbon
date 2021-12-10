@@ -1,5 +1,4 @@
 import React from "react";
-import TestUtils from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
 import guid from "../../__internal__/utils/helpers/guid";
 import Toast from "./toast.component";
@@ -17,8 +16,6 @@ jest.mock("../../__internal__/utils/helpers/guid");
 describe("Toast", () => {
   guid.mockImplementation(() => "guid-12345");
 
-  let instance, onDismissSpy;
-
   describe("modal manager", () => {
     jest.spyOn(ModalManager, "addModal");
     jest.spyOn(ModalManager, "removeModal");
@@ -30,7 +27,7 @@ describe("Toast", () => {
             foobar
           </Toast>
         );
-        const toast = wrapper.instance().toastRef.current;
+        const toast = wrapper.find(ToastWrapper).getDOMNode();
         expect(ModalManager.addModal).toHaveBeenCalledWith(toast);
       });
     });
@@ -38,7 +35,7 @@ describe("Toast", () => {
     describe("when component unmounts", () => {
       it("it is removed from modal manager", () => {
         const wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
-        const toast = wrapper.instance().toastRef.current;
+        const toast = wrapper.find(ToastWrapper).getDOMNode();
         wrapper.unmount();
         expect(ModalManager.removeModal).toHaveBeenCalledWith(toast);
       });
@@ -57,16 +54,7 @@ describe("Toast", () => {
     });
   });
 
-  describe("when toast is open with onDismiss prop", () => {
-    beforeEach(() => {
-      onDismissSpy = jasmine.createSpy();
-      instance = TestUtils.renderIntoDocument(
-        <Toast open as="info" className="custom" onDismiss={onDismissSpy}>
-          foobar
-        </Toast>
-      );
-    });
-
+  describe("when toast is open", () => {
     describe("with prop isCenter", () => {
       it("should render Toast in the center of the document", () => {
         assertStyleMatch(
@@ -82,6 +70,17 @@ describe("Toast", () => {
       });
     });
 
+    it("does not render close icon", () => {
+      const wrapper = mount(
+        <Toast open as="info" className="custom">
+          foobar
+        </Toast>
+      );
+      const icon = wrapper.find("[data-element='close']");
+
+      expect(icon.exists()).toBe(false);
+    });
+
     it("renders the component with correct classes", () => {
       const wrapper = shallow(<Toast open className="exampleClass" />);
       expect(wrapper.find(".exampleClass")).toHaveLength(1);
@@ -95,20 +94,21 @@ describe("Toast", () => {
 
     it("renders child content", () => {
       const wrapper = shallow(<Toast>children</Toast>);
-      expect(wrapper.contains("children")).toBeTruthy();
+      expect(wrapper.contains("children")).toBe(true);
     });
 
-    it("renders close icon", () => {
-      const wrapper = shallow(<Toast open onDismiss={() => {}} />);
-      expect(wrapper.find(IconButton).exists).toBeTruthy();
-    });
-
-    describe("onDismiss", () => {
+    describe("with onDismiss prop", () => {
       let wrapper, onDismiss;
 
       beforeEach(() => {
         onDismiss = jest.fn();
         wrapper = mount(<Toast open onDismiss={onDismiss} />);
+      });
+
+      it("renders close icon", () => {
+        const icon = wrapper.find("[data-element='close']");
+
+        expect(icon.exists()).toBe(true);
       });
 
       describe("calls onDismiss method when", () => {
@@ -147,25 +147,6 @@ describe("Toast", () => {
           expect(mockFn).not.toHaveBeenCalled();
         });
       });
-    });
-  });
-
-  describe("when toast is open without onDismiss prop", () => {
-    beforeEach(() => {
-      onDismissSpy = jasmine.createSpy();
-      instance = TestUtils.renderIntoDocument(
-        <Toast open as="info" className="custom">
-          foobar
-        </Toast>
-      );
-    });
-
-    it("does not renders close icon", () => {
-      const icon = TestUtils.scryRenderedDOMComponentsWithClass(
-        instance,
-        "carbon-toast__close"
-      );
-      expect(icon.length).toEqual(0);
     });
   });
 

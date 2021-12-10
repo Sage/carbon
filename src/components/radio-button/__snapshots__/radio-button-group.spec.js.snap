@@ -244,7 +244,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
               <input
                 aria-checked={false}
                 aria-describedby=""
-                aria-labelledby="rId-0-label"
+                aria-invalid={false}
                 checked={false}
                 className="c12 c13"
                 id="rId-0"
@@ -305,7 +305,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
               <input
                 aria-checked={false}
                 aria-describedby=""
-                aria-labelledby="rId-1-label"
+                aria-invalid={false}
                 checked={false}
                 className="c12 c13"
                 id="rId-1"

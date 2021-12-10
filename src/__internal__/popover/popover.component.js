@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { createPopper } from "@popperjs/core";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+import { tokensClassName } from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 const Popover = ({
   children,
@@ -16,6 +17,7 @@ const Popover = ({
   const elementDOM = useRef();
   if (!elementDOM.current && !disablePortal) {
     elementDOM.current = document.createElement("div");
+    elementDOM.current.classList.add(tokensClassName);
     document.body.appendChild(elementDOM.current);
   }
   const popperInstance = useRef();

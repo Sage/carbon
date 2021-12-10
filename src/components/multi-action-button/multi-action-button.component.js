@@ -228,8 +228,8 @@ const MultiActionButton = ({
 
 MultiActionButton.propTypes = {
   ...marginPropTypes,
-  /** Button type: "primary" | "secondary". */
-  buttonType: PropTypes.oneOf(["primary", "secondary"]),
+  /** Button type: "primary" | "secondary" | "tertiary" */
+  buttonType: PropTypes.oneOf(["primary", "secondary", "tertiary"]),
 
   /** The additional button to display. */
   children: PropTypes.node.isRequired,

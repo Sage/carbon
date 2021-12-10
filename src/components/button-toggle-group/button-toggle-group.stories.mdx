@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, Props } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -37,13 +37,14 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ info: { disable: true } }}>
     <ButtonToggleGroup
       id="button-toggle-group-default-id"
       name="button-toggle-group-default"
       label="Default example"
       labelHelp="help message"
+      helpAriaLabel="Help"
       fieldHelp="field help message"
       onChange={action("onChange")}
     >
@@ -58,13 +59,13 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       </ButtonToggle>
     </ButtonToggleGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### Controlled
 
-<Preview>
+<Canvas>
   <Story name="controlled" parameters={{ info: { disable: true } }}>
-    {() => {
+    {(args, { themeName }) => {
       const [value, setValue] = useState("bar");
       function onChangeHandler(event) {
         setValue(event.target.value);
@@ -72,10 +73,11 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       }
       return (
         <ButtonToggleGroup
-          id="button-toggle-group-controlled-id"
-          name="button-toggle-group-controlled"
+          id={`button-toggle-group-controlled-id-${themeName}`}
+          name={`button-toggle-group-controlled-${themeName}`}
           label="Controlled example"
           labelHelp="help message"
+          helpAriaLabel="Help"
           fieldHelp="field help mesage"
           onChange={onChangeHandler}
           value={value}
@@ -93,17 +95,18 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Grouped
 
-<Preview>
+<Canvas>
   <Story name="grouped" parameters={{ info: { disable: true } }}>
     <ButtonToggleGroup
       id="button-toggle-group-grouped-id"
       name="button-toggle-group-grouped"
       label="Grouped example"
       labelHelp="help message"
+      helpAriaLabel="Help"
       fieldHelp="field help mesage"
       onChange={() => {}}
     >
@@ -118,17 +121,18 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       </ButtonToggle>
     </ButtonToggleGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### With field help inline
 
-<Preview>
+<Canvas>
   <Story name="fieldhelp inline" parameters={{ info: { disable: true } }}>
     <ButtonToggleGroup
       id="button-toggle-group-help-inline-id"
       name="button-toggle-group-help-inline"
       label="FieldHelp inline example"
       labelHelp="help message"
+      helpAriaLabel="Help"
       fieldHelp="field help mesage"
       fieldHelpInline
       onChange={() => {}}
@@ -144,17 +148,18 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       </ButtonToggle>
     </ButtonToggleGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### With label inline
 
-<Preview>
+<Canvas>
   <Story name="label inline" parameters={{ info: { disable: true } }}>
     <ButtonToggleGroup
       id="button-toggle-group-label-inline-id"
       name="button-toggle-group-label-inline"
       label="Label inline example"
       labelHelp="help message"
+      helpAriaLabel="Help"
       fieldHelp="field help mesage"
       labelInline
       onChange={() => {}}
@@ -170,7 +175,7 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       </ButtonToggle>
     </ButtonToggleGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

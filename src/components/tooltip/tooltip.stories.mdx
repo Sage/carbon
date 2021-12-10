@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import { useState, forwardRef } from "react";
 import Tooltip from ".";
 import Icon from "../icon";
@@ -36,7 +36,7 @@ must support `forwardRef`. By default the Tooltip does not need to be controlled
 is focused or hovered. The default `position` is "top" and `size` is "M". The `message` prop is the text displayed in the
 tooltip and it and the `children` prop are required.
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const Component = forwardRef(({ children }, ref) => (
@@ -63,13 +63,13 @@ tooltip and it and the `children` prop are required.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Controlled
 
 The Tooltip can also be controlled via the `isVisible` prop.
 
-<Preview>
+<Canvas>
   <Story name="controlled">
     {() => {
       const [isVisible, setIsVisible] = useState(false);
@@ -104,7 +104,7 @@ The Tooltip can also be controlled via the `isVisible` prop.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Positioning
 
@@ -113,7 +113,7 @@ in this position it will attempt to flip and dynamically place itself in the opp
 the target element when a user scrolls. The flipping and tracking features can be seen by adjusting the window size
 (ideally in the canvas tab) and scrolling.
 
-<Preview>
+<Canvas>
   <Story name="positioning">
     {() => {
       const [position, setPosition] = useState("top");
@@ -151,7 +151,7 @@ the target element when a user scrolls. The flipping and tracking features can b
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Overriding the default flip behaviour
 
@@ -162,7 +162,7 @@ can be seen by adjusting the window size (ideally in the canvas tab) and scrolli
 Tooltip "bottom" intitially, then flip to "right" when there is not enough room below, and finally to the "left" position
 when there is no space to render to the right anymore.
 
-<Preview>
+<Canvas>
   <Story name="flip behaviour overrides">
     {() => {
       const Component = forwardRef(({ children }, ref) => (
@@ -194,11 +194,11 @@ when there is no space to render to the right anymore.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Large tooltip
 
-<Preview>
+<Canvas>
   <Story name="large tooltip">
     {() => {
       const Component = forwardRef(({ children }, ref) => (
@@ -225,14 +225,14 @@ when there is no space to render to the right anymore.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Types
 
 The `Tooltip` can be rendered as two different `type`s which will alter the colour of the background: "error"
 or if no value is passed it will default to a black background.
 
-<Preview>
+<Canvas>
   <Story name="types">
     {() => {
       const [type, setType] = useState(undefined);
@@ -266,14 +266,14 @@ or if no value is passed it will default to a black background.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Color overrides
 
 The `Tooltip` background and font color can be overridden via the `bgColor` and `fontColor` props and accept any valid
 css value. Any values passed to the `bgColor` prop will override the color applied by the `type`
 
-<Preview>
+<Canvas>
   <Story name="color overrides">
     {() => {
       const Component = forwardRef(({ children }, ref) => (
@@ -304,10 +304,10 @@ css value. Any values passed to the `bgColor` prop will override the color appli
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Tooltip
 
-<Props of={Tooltip} />
+<ArgsTable of={Tooltip} />

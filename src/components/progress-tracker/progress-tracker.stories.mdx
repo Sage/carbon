@@ -1,0 +1,409 @@
+import { useState } from "react";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import ProgressTracker from ".";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+<Meta title="Progress Tracker" parameters={{ info: { disable: true } }} />
+
+# ProgressTracker
+
+Use the `ProgressTracker` component to let users know a task or loading data is still in progress.
+Showing a `ProgressTracker` helps the user to understand that they should wait, rather than reload the page or abandon a process.
+In general, place a `ProgressTracker` in the centre and middle of the page or container it relates to.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import ProgressTracker from "carbon-react/lib/components/progress-tracker";
+```
+
+## Examples
+
+### Default
+
+This example of the `ProgressTracker` component demonstrates how it will appear as default. Please note by default the
+`progress` is set to `0`, but for the purpose of the demo it has been set to `50`.
+
+<Canvas>
+  <Story name="default">
+    <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <ProgressTracker progress={50} />
+    </div>
+  </Story>
+</Canvas>
+
+### Small bar size
+
+This is an example of a small `ProgressTracker` component.
+
+<Canvas>
+  <Story name="size - small">
+    <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <ProgressTracker size="small" progress={50} />
+    </div>
+  </Story>
+</Canvas>
+
+### Large bar size
+
+This is an example of a large `ProgressTracker` component.
+
+<Canvas>
+  <Story name="size - large">
+    <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <ProgressTracker size="large" progress={50} />
+    </div>
+  </Story>
+</Canvas>
+
+### Variants
+
+This is an example of a `ProgressTracker` component with the `"default"` `variant`.
+
+<Canvas>
+  <Story name="variant - default">
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <ProgressTracker size="large" progress={15} variant="default" />
+      <ProgressTracker size="large" mt={2} progress={50} variant="default" />
+      <ProgressTracker size="large" mt={2} progress={100} variant="default" />
+    </div>
+  </Story>
+</Canvas>
+
+This is an example of a `ProgressTracker` component with the `"traffic"` `variant`.
+
+<Canvas>
+  <Story name="variant - traffic">
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <ProgressTracker size="large" progress={15} variant="traffic" />
+      <ProgressTracker size="large" mt={2} progress={50} variant="traffic" />
+      <ProgressTracker size="large" mt={2} progress={100} variant="traffic" />
+    </div>
+  </Story>
+</Canvas>
+
+### Default label values
+
+This is an example of a `ProgressTracker` component with `showDefaultLabels` set to `true`, which will render the labels as
+percentages.
+
+<Canvas>
+  <Story name="default label value">
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <ProgressTracker progress={15} showDefaultLabels />
+      <ProgressTracker mt={2} progress={50} showDefaultLabels />
+      <ProgressTracker mt={2} progress={100} showDefaultLabels />
+    </div>
+  </Story>
+</Canvas>
+
+It is possible to override the default `labelsPosition` to `"bottom"` when in a `"horizontal"` `orientation`
+
+<Canvas>
+  <Story name="default label value - labelsPosition bottom">
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <ProgressTracker
+        labelsPosition="bottom"
+        progress={15}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        mt={2}
+        labelsPosition="bottom"
+        progress={50}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        mt={2}
+        labelsPosition="bottom"
+        progress={100}
+        showDefaultLabels
+      />
+    </div>
+  </Story>
+</Canvas>
+
+### Custom label values
+
+This is an example of a `ProgressTracker` component with `currentProgressLabel` and `maxProgressLabel` props.
+
+<Canvas>
+  <Story name="custom label values">
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <ProgressTracker
+        progress={15}
+        currentProgressLabel="$50"
+        maxProgressLabel="$200"
+      />
+      <ProgressTracker
+        mt={2}
+        progress={50}
+        currentProgressLabel="$100"
+        maxProgressLabel="$200"
+      />
+      <ProgressTracker
+        mt={2}
+        progress={100}
+        currentProgressLabel="$200"
+        maxProgressLabel="$200"
+      />
+    </div>
+  </Story>
+</Canvas>
+
+It also possible to render the component with a mix of default and custom labels by only setting one of the `currentProgressLabel`
+and `maxProgressLabel` props and optionally setting the `showDefaultLabels` prop.
+
+<Canvas>
+  <Story name="default and custom label values">
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <ProgressTracker progress={15} currentProgressLabel="$50" />
+      <ProgressTracker mt={2} progress={50} maxProgressLabel="$200" />
+      <ProgressTracker
+        mt={2}
+        progress={15}
+        showDefaultLabels
+        currentProgressLabel="$50"
+      />
+      <ProgressTracker
+        mt={2}
+        progress={50}
+        showDefaultLabels
+        maxProgressLabel="$200"
+      />
+    </div>
+  </Story>
+</Canvas>
+
+### Orientation
+
+This is an example of a `ProgressTracker` component with the `"vertical"` `orientation`.
+
+<Canvas>
+  <Story name="orientation vertical">
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <ProgressTracker
+        orientation="vertical"
+        size="small"
+        progress={15}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        orientation="vertical"
+        size="small"
+        progress={50}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        orientation="vertical"
+        size="small"
+        progress={100}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        orientation="vertical"
+        size="medium"
+        progress={15}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        orientation="vertical"
+        size="medium"
+        progress={50}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        orientation="vertical"
+        size="medium"
+        progress={100}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        orientation="vertical"
+        size="large"
+        progress={15}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        orientation="vertical"
+        size="large"
+        progress={50}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        orientation="vertical"
+        size="large"
+        progress={100}
+        showDefaultLabels
+      />
+    </div>
+  </Story>
+</Canvas>
+
+It is possible to override the `direction` the inner progress bar moves to `"down"`.
+
+<Canvas>
+  <Story name="orientation vertical - direction down">
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <ProgressTracker
+        direction="down"
+        orientation="vertical"
+        size="small"
+        progress={15}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        direction="down"
+        orientation="vertical"
+        size="small"
+        progress={50}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        direction="down"
+        orientation="vertical"
+        size="small"
+        progress={100}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        direction="down"
+        orientation="vertical"
+        size="medium"
+        progress={15}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        direction="down"
+        orientation="vertical"
+        size="medium"
+        progress={50}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        direction="down"
+        orientation="vertical"
+        size="medium"
+        progress={100}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        direction="down"
+        orientation="vertical"
+        size="large"
+        progress={15}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        direction="down"
+        orientation="vertical"
+        size="large"
+        progress={50}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        direction="down"
+        orientation="vertical"
+        size="large"
+        progress={100}
+        showDefaultLabels
+      />
+    </div>
+  </Story>
+</Canvas>
+
+It is possible to override the `labelsPosition` to `"left"` when in a `"vertical"` `orientation`.
+
+<Canvas>
+  <Story name="orientation vertical - labelsPosition left">
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <ProgressTracker
+        labelsPosition="left"
+        orientation="vertical"
+        size="small"
+        progress={15}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        labelsPosition="left"
+        orientation="vertical"
+        size="small"
+        progress={50}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        labelsPosition="left"
+        orientation="vertical"
+        size="small"
+        progress={100}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        labelsPosition="left"
+        orientation="vertical"
+        size="medium"
+        progress={15}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        labelsPosition="left"
+        orientation="vertical"
+        size="medium"
+        progress={50}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        labelsPosition="left"
+        orientation="vertical"
+        size="medium"
+        progress={100}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        labelsPosition="left"
+        orientation="vertical"
+        size="large"
+        progress={15}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        labelsPosition="left"
+        orientation="vertical"
+        size="large"
+        progress={50}
+        showDefaultLabels
+      />
+      <ProgressTracker
+        labelsPosition="left"
+        orientation="vertical"
+        size="large"
+        progress={100}
+        showDefaultLabels
+      />
+    </div>
+  </Story>
+</Canvas>
+
+## Props
+
+### ProgressTracker
+
+<StyledSystemProps of={ProgressTracker} noHeader margin />

@@ -81,6 +81,22 @@ describe("MultiActionButton", () => {
         expect(element.exists()).toBe(true);
       });
 
+      describe("buttonType", () => {
+        it.each(["primary", "secondary", "tertiary"])(
+          "sets the parent button type as expected when buttonType is %s",
+          (type) => {
+            wrapper = mount(
+              <MultiActionButton buttonType={type} text="Test">
+                <span className="span-element" />
+              </MultiActionButton>
+            );
+            expect(wrapper.find(Button).first().prop("buttonType")).toEqual(
+              type
+            );
+          }
+        );
+      });
+
       afterEach(() => {
         wrapper.unmount();
       });

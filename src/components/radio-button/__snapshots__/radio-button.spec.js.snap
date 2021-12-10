@@ -459,7 +459,7 @@ exports[`RadioButton base renders as expected 1`] = `
               <input
                 aria-checked={false}
                 aria-describedby=""
-                aria-labelledby="guid-12345-label"
+                aria-invalid={false}
                 checked={false}
                 className="c10 c11"
                 id="guid-12345"

@@ -4,9 +4,6 @@ import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 
 const HiddenCheckableInput = ({
-  helpId,
-  fieldHelpId,
-  labelId,
   name,
   checked,
   type,
@@ -50,15 +47,11 @@ const HiddenCheckableInput = ({
     if (onMouseLeaveGroup) onMouseLeaveGroup(ev);
   };
 
-  const ariaDescribedBy = [fieldHelpId, helpId].filter(Boolean).join(" ");
-
   return (
     <HiddenCheckableInputStyle
       autoFocus={autoFocus}
       aria-checked={checked}
       checked={checked}
-      aria-labelledby={labelId}
-      aria-describedby={ariaDescribedBy}
       name={name}
       role={type}
       type={type}
@@ -79,10 +72,6 @@ HiddenCheckableInput.propTypes = {
   autoFocus: PropTypes.bool,
   /** Checked state of the input */
   checked: PropTypes.bool,
-  /** Element id for aria-describedby */
-  helpId: PropTypes.string,
-  /** Element id for aria-describedby */
-  fieldHelpId: PropTypes.string,
   /** Input name */
   name: PropTypes.string,
   /** OnChange event handler */
@@ -95,8 +84,6 @@ HiddenCheckableInput.propTypes = {
   onMouseLeave: PropTypes.func,
   /** OnMouseEnter event handler */
   onMouseEnter: PropTypes.func,
-  /** Element id for aria-labelledby */
-  labelId: PropTypes.string,
   /** HTML type attribute of the input */
   type: PropTypes.string.isRequired,
   /** Value of the input */

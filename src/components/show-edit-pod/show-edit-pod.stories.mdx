@@ -1,5 +1,5 @@
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import styled from "styled-components";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
@@ -62,7 +62,7 @@ More guidance is available for each of the individual inputs you might place ins
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <ShowEditPod
       title="Title"
@@ -76,11 +76,11 @@ More guidance is available for each of the individual inputs you might place ins
       <Content title="Content title">Content</Content>
     </ShowEditPod>
   </Story>
-</Preview>
+</Canvas>
 
 ### Buttons alignment
 
-<Preview>
+<Canvas>
   <Story name="buttons alignment">
     {() =>
       ["left", "right"].map((buttonAlign) => (
@@ -101,11 +101,11 @@ More guidance is available for each of the individual inputs you might place ins
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### With borders
 
-<Preview>
+<Canvas>
   <Story name="with borders">
     <ShowEditPod
       title="With borders"
@@ -120,11 +120,11 @@ More guidance is available for each of the individual inputs you might place ins
       <Content title="Content title">Content</Content>
     </ShowEditPod>
   </Story>
-</Preview>
+</Canvas>
 
 ### With hidden delete button in view mode
 
-<Preview>
+<Canvas>
   <Story name="with hidden delete button in view mode">
     <ShowEditPod
       title="With hidden delete button in view mode"
@@ -139,11 +139,11 @@ More guidance is available for each of the individual inputs you might place ins
       <Content title="Content title">Content</Content>
     </ShowEditPod>
   </Story>
-</Preview>
+</Canvas>
 
 ### Various variants
 
-<Preview>
+<Canvas>
   <Story name="various variants">
     {() =>
       ["primary", "secondary", "tertiary", "tile", "transparent"].map(
@@ -168,11 +168,11 @@ More guidance is available for each of the individual inputs you might place ins
       )
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### Soft delete
 
-<Preview>
+<Canvas>
   <Story name="soft delete">
     <ShowEditPod
       title="With borders"
@@ -189,11 +189,11 @@ More guidance is available for each of the individual inputs you might place ins
       <Content title="Content title">Content</Content>
     </ShowEditPod>
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom transition
 
-<Preview>
+<Canvas>
   <Story name="custom transition" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const StyledContainer = styled.div`
@@ -236,7 +236,7 @@ More guidance is available for each of the individual inputs you might place ins
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

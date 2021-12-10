@@ -58,6 +58,13 @@ describe("Help", () => {
       expect(icon.props().type).toBe(mockType);
     });
 
+    it("passes the tooltipId if provided", () => {
+      const tooltipId = "tooltip-id";
+      wrapper = renderHelp({ tooltipId });
+      icon = wrapper.find(Icon);
+      expect(icon.props().tooltipId).toBe(tooltipId);
+    });
+
     it("checks the default type if not provided", () => {
       const mockType = "help";
       wrapper = renderHelp();
@@ -69,6 +76,21 @@ describe("Help", () => {
       const mockHref = "href";
       wrapper = renderHelp({ href: mockHref }, mount);
       expect(wrapper.find("a").exists()).toBe(true);
+      wrapper.unmount();
+    });
+
+    it("sets the appropriate props when href set", () => {
+      const mockHref = "href";
+      wrapper = renderHelp({ href: mockHref, ariaLabel: "foo" }, mount);
+
+      expect(wrapper.find(StyledHelp).prop("target")).toEqual("_blank");
+      expect(wrapper.find(StyledHelp).prop("rel")).toEqual(
+        "noopener noreferrer"
+      );
+      expect(wrapper.find(StyledHelp).prop("role")).toEqual(undefined);
+      expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual(undefined);
+      expect(wrapper.find(Icon).prop("role")).toEqual("tooltip");
+      expect(wrapper.find(Icon).prop("ariaLabel")).toEqual("foo");
       wrapper.unmount();
     });
 

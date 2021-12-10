@@ -633,7 +633,7 @@ describe("FilterableSelect", () => {
     });
 
     describe("and onListAction has been called in the SelectList", () => {
-      it("then the onlistAction prop should have been called", () => {
+      it("then the onListAction prop should have been called", () => {
         onListActionFn.mockClear();
         act(() => {
           wrapper.find(SelectList).props().onListAction();
@@ -732,9 +732,7 @@ describe("FilterableSelect", () => {
           it("then the textbox value should be cleared", () => {
             expect(wrapper.find(Textbox).props().value).toBe("opt1");
             wrapper.setProps({ value: "" });
-            expect(wrapper.update().find(Textbox).props().value).toBe(
-              undefined
-            );
+            expect(wrapper.update().find(Textbox).props().value).toBe("");
           });
         });
       });
@@ -762,6 +760,34 @@ describe("FilterableSelect", () => {
           });
         });
       });
+    });
+  });
+
+  describe("when parent re-renders", () => {
+    const WrapperComponent = (props) => {
+      const mockRef = useRef();
+
+      return (
+        <span change={props.change}>
+          <FilterableSelect name="testSelect" id="testSelect" ref={mockRef}>
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </FilterableSelect>
+        </span>
+      );
+    };
+
+    it("should persist the input value", () => {
+      const wrapper = mount(<WrapperComponent change="foo" />);
+      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
+      act(() => {
+        wrapper.find(Option).first().simulate("click");
+      });
+      expect(wrapper.update().find(Textbox).props().formattedValue).toBe("red");
+      wrapper.setProps({ change: "bar" });
+      expect(wrapper.update().find(Textbox).props().formattedValue).toBe("red");
     });
   });
 

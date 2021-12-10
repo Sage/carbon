@@ -68,7 +68,9 @@ const SimpleSelect = React.forwardRef(
     const [textboxRef, setTextboxRef] = useState();
     const [isOpen, setOpenState] = useState(false);
     const [textValue, setTextValue] = useState("");
-    const [selectedValue, setSelectedValue] = useState("");
+    const [selectedValue, setSelectedValue] = useState(
+      value || defaultValue || ""
+    );
 
     const childOptions = useMemo(() => React.Children.toArray(children), [
       children,
@@ -200,7 +202,6 @@ const SimpleSelect = React.forwardRef(
     }, []);
 
     useEffect(() => {
-      const newValue = value || defaultValue;
       const modeSwitchedMessage =
         "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
         "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
@@ -216,8 +217,10 @@ const SimpleSelect = React.forwardRef(
         onChangeMissingMessage
       );
 
-      setSelectedValue(newValue);
-    }, [value, defaultValue, onChange]);
+      if (isControlled.current) {
+        setSelectedValue(value);
+      }
+    }, [value, onChange]);
 
     useEffect(() => {
       const matchingOption = childOptions.find((child) =>

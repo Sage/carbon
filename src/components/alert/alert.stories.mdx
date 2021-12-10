@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import Alert from ".";
 import Modal from "../modal";
@@ -44,7 +44,7 @@ import Alert from "carbon-react/lib/components/alert";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
@@ -63,10 +63,10 @@ import Alert from "carbon-react/lib/components/alert";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Alert
 
-<Props of={Alert} />
+<ArgsTable of={Alert} />

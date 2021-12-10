@@ -1,4 +1,4 @@
-import { Meta, Preview, Story } from "@storybook/addon-docs";
+import { Meta, Canvas, Story } from "@storybook/addon-docs";
 import { Select, Option } from "../";
 
 <Meta title="Select/Sizes" />
@@ -9,7 +9,7 @@ import { Select, Option } from "../";
 
 ### Small
 
-<Preview>
+<Canvas>
   <Story name="small" parameters={{ info: { disable: true } }}>
     <div style={{ height: "250px" }}>
       <Select name="small" id="small" defaultValue="3" size="small">
@@ -27,11 +27,11 @@ import { Select, Option } from "../";
       </Select>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Medium
 
-<Preview>
+<Canvas>
   <Story name="medium" parameters={{ info: { disable: true } }}>
     <div style={{ height: "250px" }}>
       <Select name="medium" id="medium" defaultValue="3" size="medium">
@@ -49,11 +49,11 @@ import { Select, Option } from "../";
       </Select>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Large
 
-<Preview>
+<Canvas>
   <Story name="large" parameters={{ info: { disable: true } }}>
     <div style={{ height: "250px" }}>
       <Select name="large" id="large" defaultValue="3" size="large">
@@ -71,4 +71,4 @@ import { Select, Option } from "../";
       </Select>
     </div>
   </Story>
-</Preview>
+</Canvas>

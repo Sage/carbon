@@ -118,8 +118,12 @@ const iconFontSizes = {
 };
 
 const StyledButtonToggleIcon = styled.div`
-  margin-right: 8px;
-
+  ${({ hasNoContent }) =>
+    hasNoContent
+      ? ""
+      : css`
+          margin-right: 8px;
+        `}
   ${({ buttonIconSize }) =>
     buttonIconSize === "large" &&
     css`
@@ -128,6 +132,8 @@ const StyledButtonToggleIcon = styled.div`
       ${StyledIcon} {
         margin-right: 0;
         margin-bottom: 8px;
+        height: ${`${iconFontSizes.largeIcon}px`};
+        width: ${`${iconFontSizes.largeIcon}px`};
       }
 
       ${StyledIcon}::before {

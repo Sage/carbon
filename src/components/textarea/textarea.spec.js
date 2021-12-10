@@ -10,14 +10,17 @@ import Textarea from ".";
 import baseTheme from "../../style/themes/base";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
 import { Input } from "../../__internal__/input";
+import FormField from "../../__internal__/form-field";
 import Label from "../../__internal__/label";
 import ValidationIcon from "../../__internal__/validations/validation-icon.component";
 import guid from "../../__internal__/utils/helpers/guid";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import Tooltip from "../tooltip";
+import StyledHelp from "../help/help.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
-guid.mockImplementation(() => "guid-12345");
+const mockedGuid = "guid-12345";
+guid.mockImplementation(() => mockedGuid);
 
 describe("Textarea", () => {
   let wrapper;
@@ -114,6 +117,117 @@ describe("Textarea", () => {
     }
   );
 
+  describe("helpAriaLabel", () => {
+    it("should set the aria-label on the Help component", () => {
+      const text = "foo";
+      wrapper = renderTextarea(
+        { label: "foo", labelHelp: text, helpAriaLabel: text },
+        mount
+      );
+      const help = wrapper.find(StyledHelp);
+
+      expect(help.prop("aria-label")).toEqual(text);
+    });
+  });
+
+  describe("aria attributes", () => {
+    describe("label help", () => {
+      it("passes the expected values to the help component", () => {
+        const text = "foo";
+        wrapper = mount(
+          <Textarea
+            value=""
+            label={text}
+            labelHelp={text}
+            helpAriaLabel={text}
+          />
+        );
+
+        expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual(text);
+      });
+    });
+
+    describe("when id", () => {
+      describe.each([
+        ["is present", true, "foo"],
+        ["is not present", false, mockedGuid],
+      ])("%s", (_, isPresent, id) => {
+        const commonProps = {
+          label: "bar",
+          ...(isPresent && { id: "foo" }),
+        };
+
+        describe("and label is present", () => {
+          it("passes aria-labelledby", () => {
+            wrapper = mount(<Textarea {...commonProps} />);
+            expect(wrapper.find(Input).prop("aria-labelledby")).toBe(
+              `${id}-label`
+            );
+          });
+        });
+
+        describe.each(["info", "warning", "error", "labelHelp"])(
+          "and %s are present",
+          (validationType) => {
+            const textarea = mount(
+              <Textarea {...commonProps} {...{ [validationType]: "test" }} />
+            );
+
+            it('should render a valid "aria-describedby"', () => {
+              expect(textarea.find(Input).prop("aria-describedby")).toBe(
+                `${id}-tooltip`
+              );
+            });
+
+            it("should pass tooltipId to FormField", () => {
+              expect(textarea.find(FormField).prop("tooltipId")).toBe(
+                `${id}-tooltip`
+              );
+            });
+          }
+        );
+
+        describe("and fieldHelp props are present", () => {
+          it("should render a valid 'aria-describedby'", () => {
+            const textarea = mount(
+              <Textarea {...commonProps} fieldHelp="baz" />
+            );
+
+            expect(textarea.find(Input).prop("aria-describedby")).toBe(
+              `${id}-field-help`
+            );
+          });
+
+          it("should pass fieldHelpId to FormField", () => {
+            const textarea = mount(
+              <Textarea {...commonProps} fieldHelp="baz" />
+            );
+            expect(textarea.find(FormField).prop("fieldHelpId")).toBe(
+              `${id}-field-help`
+            );
+          });
+
+          describe.each(["info", "warning", "error"])(
+            "and %s is present too",
+            (validationType) => {
+              const textarea = mount(
+                <Textarea
+                  {...commonProps}
+                  fieldHelp="baz"
+                  {...{ [validationType]: "test" }}
+                />
+              );
+
+              expect(textarea.find(Input).prop("aria-describedby")).toBe(
+                `${id}-field-help ${id}-tooltip`
+              );
+            }
+          );
+        });
+      });
+    });
+  });
+
   describe('when the "expandable" prop is set to "true"', () => {
     let textarea, textareaInstance;
 
@@ -202,7 +316,7 @@ describe("Textarea", () => {
   });
 
   describe("when labelInline prop is set", () => {
-    it("then the input label should accomodate for input internal padding", () => {
+    it("then the input label should accommodate for input internal padding", () => {
       wrapper = renderTextarea({ label: "foo", labelInline: true });
 
       assertStyleMatch(

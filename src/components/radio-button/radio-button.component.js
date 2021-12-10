@@ -51,6 +51,7 @@ const RadioButton = React.forwardRef(
       "data-component": dataComponent,
       "data-element": dataElement,
       "data-role": dataRole,
+      helpAriaLabel,
       ...props
     },
     ref
@@ -104,7 +105,10 @@ const RadioButton = React.forwardRef(
     };
 
     return (
-      <TooltipProvider tooltipPosition={tooltipPosition}>
+      <TooltipProvider
+        helpAriaLabel={helpAriaLabel}
+        tooltipPosition={tooltipPosition}
+      >
         <RadioButtonStyle
           data-component={dataComponent}
           data-role={dataRole}
@@ -189,6 +193,8 @@ RadioButton.propTypes = {
   },
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Aria label for rendered help component */
+  helpAriaLabel: PropTypes.string,
   ...radioButtonGroupPassedProps,
 };
 
