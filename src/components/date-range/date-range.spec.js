@@ -305,29 +305,61 @@ describe("DateRange", () => {
         },
         mount
       );
-      wrapper.setProps({ value: ["2016-10-10", "2016-11-11"] });
+      wrapper.setProps({ value: ["2021-12-12", "2021-12-12"] });
       wrapper.update();
+
       startInput = wrapper.find(BaseDateInput).at(0);
       endInput = wrapper.find(BaseDateInput).at(1);
-      expect(startInput.props().value).toEqual("2016-10-10");
-      expect(endInput.props().value).toEqual("2016-11-11");
+
+      expect(startInput.props().value).toEqual("2021-12-12");
+      expect(endInput.props().value).toEqual("2021-12-12");
     });
 
-    it("supports value update dynamically at runtime and defaults to today if new value is undefined", () => {
-      MockDate.set("2020-01-21");
+    it.each([
+      { updatedValue: ["2021-12-12", ""] },
+      { updatedValue: ["", "2021-12-12"] },
+    ])(
+      "when allowEmptyValue is true for both date props, updating one value dynamically doesn't change other",
+      ({ updatedValue }) => {
+        wrapper = renderDateRange(
+          {
+            onChange: customOnChange,
+            value: ["", ""],
+            startDateProps: { allowEmptyValue: true },
+            endDateProps: { allowEmptyValue: true },
+          },
+          mount
+        );
+
+        wrapper.setProps({ value: updatedValue });
+        wrapper.update();
+
+        startInput = wrapper.find(BaseDateInput).at(0);
+        endInput = wrapper.find(BaseDateInput).at(1);
+        expect(startInput.props().value).toEqual(updatedValue[0]);
+        expect(endInput.props().value).toEqual(updatedValue[1]);
+      }
+    );
+
+    it("when allowEmptyValue is false for both date props, empty values default to today's date", () => {
+      MockDate.set("2021-12-12");
       wrapper = renderDateRange(
         {
           onChange: customOnChange,
-          value: ["2012-12-12", "2012-12-13"],
+          value: ["1999-01-01", "1999-01-01"],
+          startDateProps: { allowEmptyValue: false },
+          endDateProps: { allowEmptyValue: false },
         },
         mount
       );
-      wrapper.setProps({ value: [] });
+
+      wrapper.setProps({ value: ["", ""] });
       wrapper.update();
+
       startInput = wrapper.find(BaseDateInput).at(0);
       endInput = wrapper.find(BaseDateInput).at(1);
-      expect(startInput.props().value).toEqual("2020-01-21");
-      expect(endInput.props().value).toEqual("2020-01-21");
+      expect(startInput.props().value).toEqual("2021-12-12");
+      expect(endInput.props().value).toEqual("2021-12-12");
     });
 
     it("class names can be added to dates by passing startDateProps and endDateProps to DateRange", () => {
