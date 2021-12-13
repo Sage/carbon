@@ -168,7 +168,10 @@ jobs:
           npx cypress info
 
       - name: Cypress React tests
-        run: npm run cypress:ci:react 
+        uses: cypress-io/github-action@v2.10.2
+        with:
+          install: false
+          command: npx cypress run-ct --parallel --record --group 'ubuntu-cypress-react' --browser chrome
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
