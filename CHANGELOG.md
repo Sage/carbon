@@ -1,3 +1,10 @@
+## [102.1.0](https://github.com/Sage/carbon/compare/v102.0.1...v102.1.0) (2021-12-13)
+
+
+### Features
+
+* **label:** describe label using design tokens, remove theme in css files ([cc8ea45](https://github.com/Sage/carbon/commit/cc8ea454251824ab2b85c90f948072792a4a91f8))
+
 ### [102.0.1](https://github.com/Sage/carbon/compare/v102.0.0...v102.0.1) (2021-12-07)
 
 
