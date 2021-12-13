@@ -9,7 +9,6 @@ import { StyledCheckableInput } from "../../__internal__/checkable-input/checkab
 import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
-import baseTheme from "../../style/themes/base";
 import mintTheme from "../../style/themes/mint";
 import RadioButtonStyle from "./radio-button.style";
 import Tooltip from "../tooltip";
