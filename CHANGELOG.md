@@ -1,3 +1,10 @@
+## [102.2.0](https://github.com/Sage/carbon/compare/v102.1.0...v102.2.0) (2021-12-13)
+
+
+### Features
+
+* **radio-button:** describe RadioButton component using design tokens ([f235a2f](https://github.com/Sage/carbon/commit/f235a2f7712654bde2765a8655ecd4d81f574c83))
+
 ## [102.1.0](https://github.com/Sage/carbon/compare/v102.0.1...v102.1.0) (2021-12-13)
 
 
