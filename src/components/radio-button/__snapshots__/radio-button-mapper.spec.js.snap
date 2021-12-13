@@ -62,7 +62,7 @@ Array [
 }
 
 .c0 {
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing150);
 }
 
 .c0 .c6 {
@@ -161,7 +161,7 @@ Array [
 }
 
 .c0 .c8:checked + .c10 circle {
-  fill: rgba(0,0,0,0.9);
+  fill: var(--colorsUtilityYin090);
 }
 
 <div
@@ -285,7 +285,7 @@ Array [
 }
 
 .c0 {
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing150);
 }
 
 .c0 .c6 {
@@ -384,7 +384,7 @@ Array [
 }
 
 .c0 .c8:checked + .c10 circle {
-  fill: rgba(0,0,0,0.9);
+  fill: var(--colorsUtilityYin090);
 }
 
 <div
