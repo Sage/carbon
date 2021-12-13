@@ -40,6 +40,8 @@ export interface SearchProps extends MarginProps {
   variant?: string;
   /** A callback to retrieve the input reference */
   inputRef?: React.RefObject<HTMLInputElement>;
+  /** Input tabindex */
+  tabIndex?: number;
 }
 
 declare function Search(props: SearchProps): JSX.Element;

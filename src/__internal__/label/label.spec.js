@@ -1,15 +1,13 @@
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
-import { ThemeProvider } from "styled-components";
 
 import Help from "../../components/help";
+import Tooltip from "../../components/tooltip/tooltip.component";
 import Label from ".";
 import StyledLabel, { StyledLabelContainer } from "./label.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 import ValidationIcon from "../validations/validation-icon.component";
-import baseTheme from "../../style/themes/base";
 import mintTheme from "../../style/themes/mint";
 import IconWrapperStyle from "./icon-wrapper.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
@@ -77,6 +75,12 @@ describe("Label", () => {
       const wrapper = render({ help: "Help me!" }, shallow);
       expect(wrapper.find(Help).contains("Help me!")).toBe(true);
     });
+
+    it("passes tooltipId prop if provided", () => {
+      const tooltipId = "tooltip-test";
+      const wrapper = render({ help: "Help me!", tooltipId }, shallow);
+      expect(wrapper.find(Help).props().tooltipId).toBe(tooltipId);
+    });
   });
 
   describe("when inline", () => {
@@ -124,9 +128,18 @@ describe("Label", () => {
     it("applies styling when pr prop set", () => {
       assertStyleMatch(
         {
-          paddingRight: "16px",
+          paddingRight: "var(--spacing200)",
         },
         render({ inline: true, pr: 2 })
+      );
+    });
+
+    it("applies styling when pl prop set", () => {
+      assertStyleMatch(
+        {
+          paddingLeft: "var(--spacing200)",
+        },
+        render({ inline: true, pl: 2 })
       );
     });
 
@@ -140,9 +153,9 @@ describe("Label", () => {
       assertStyleMatch(
         {
           content: '"*"',
-          color: "#C7384F",
+          color: "var(--colorsSemanticNegative500)",
           fontWeight: "700",
-          marginLeft: "8px",
+          marginLeft: "var(--spacing100)",
         },
         wrapper.find(StyledLabel),
         { modifier: "::after" }
@@ -168,32 +181,20 @@ describe("Label", () => {
 
       assertStyleMatch(
         {
-          color: baseTheme.disabled.disabled,
+          color: "var(--colorsYin030)",
         },
         wrapper.find(StyledLabel)
       );
     });
   });
 
-  describe("with readonly", () => {
-    it("applies disabled color", () => {
-      const wrapper = render({ error: true, readOnly: true });
-      assertStyleMatch(
-        {
-          color: baseTheme.text.color,
-        },
-        wrapper.find(StyledLabel)
-      );
-    });
-  });
-
-  describe("with disabled", () => {
+  describe("with disabled and error", () => {
     it("applies disabled color", () => {
       const wrapper = render({ error: true, disabled: true });
 
       assertStyleMatch(
         {
-          color: baseTheme.disabled.disabled,
+          color: "var(--colorsYin030)",
         },
         wrapper.find(StyledLabel)
       );
@@ -202,56 +203,16 @@ describe("Label", () => {
 
   describe("when the help icon is focused", () => {
     it("then the IconWrapper outline should have the expected value", () => {
-      const wrapper = renderWithTheme({ help: "help message" }, baseTheme).find(
-        IconWrapperStyle
-      );
+      const wrapper = render({ help: "help message" }).find(IconWrapperStyle);
       wrapper.simulate("focus");
 
       assertStyleMatch(
         {
-          outline: `2px solid ${baseTheme.colors.focus}`,
+          outline: `2px solid var(--colorsSemanticFocus500)`,
         },
         wrapper,
         { modifier: ":focus" }
       );
-    });
-  });
-
-  describe("when attached to child of form", () => {
-    describe("when IconWrapperStyle", () => {
-      let wrapper;
-
-      beforeEach(() => {
-        wrapper = render(
-          {
-            help: "Message",
-          },
-          mount
-        );
-      });
-
-      describe("will run `onFocus` event", () => {
-        it("should change `isFocused` to be true", () => {
-          act(() => {
-            wrapper.find(IconWrapperStyle).simulate("focus");
-          });
-          wrapper.update();
-
-          expect(wrapper.find(Help).props().isFocused).toBe(true);
-        });
-      });
-
-      describe("will run `onBlur` event", () => {
-        it("should change `isFocused` to be false", () => {
-          act(() => {
-            wrapper.find(IconWrapperStyle).simulate("blur");
-          });
-
-          wrapper.update();
-
-          expect(wrapper.find(Help).props().isFocused).toBe(false);
-        });
-      });
     });
   });
 
@@ -266,6 +227,15 @@ describe("Label", () => {
         const icon = wrapper.find(ValidationIcon);
 
         expect(icon.exists()).toEqual(true);
+      });
+
+      it("passes tooltipId prop if provided", () => {
+        const tooltipId = "tooltip-test";
+        const wrapper = render(
+          { [vType]: "Message", useValidationIcon: true, tooltipId },
+          mount
+        );
+        expect(wrapper.find(ValidationIcon).props().tooltipId).toBe(tooltipId);
       });
     }
   );
@@ -312,6 +282,46 @@ describe("Label", () => {
       });
     }
   );
+
+  describe("when help prop is passed", () => {
+    const help = "help me!";
+
+    it("consumed focus flag controls visibility prop of Tooltip", () => {
+      const hasFocus = true;
+      const wrapper = renderWithContext(
+        { help },
+        {},
+        {
+          hasFocus,
+        }
+      );
+
+      const tooltipProps = wrapper.find(Tooltip).props();
+      const desiredTooltipProps = {
+        message: help,
+        isVisible: hasFocus,
+      };
+      expect(tooltipProps).toMatchObject(desiredTooltipProps);
+    });
+
+    it("consumed mouse over flag controls visibility prop of Tooltip", () => {
+      const hasMouseOver = true;
+      const wrapper = renderWithContext(
+        { help },
+        {},
+        {
+          hasMouseOver,
+        }
+      );
+
+      const tooltipProps = wrapper.find(Tooltip).props();
+      const desiredTooltipProps = {
+        message: help,
+        isVisible: hasMouseOver,
+      };
+      expect(tooltipProps).toMatchObject(desiredTooltipProps);
+    });
+  });
 });
 
 function render(props, renderer = mount) {
@@ -329,13 +339,5 @@ function renderWithContext(
         <Label {...props}>Name:</Label>
       </InputContext.Provider>
     </InputGroupContext.Provider>
-  );
-}
-
-function renderWithTheme(props = {}, theme, renderer = mount) {
-  return renderer(
-    <ThemeProvider theme={theme}>
-      <Label {...props}>Name:</Label>
-    </ThemeProvider>
   );
 }

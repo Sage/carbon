@@ -24,6 +24,7 @@ const InputIconToggle = ({
   useValidationIcon,
   align,
   iconTabIndex,
+  tooltipId,
 }) => {
   if (
     useValidationIcon &&
@@ -42,6 +43,7 @@ const InputIconToggle = ({
           onBlur={onBlur}
           isPartOfInput
           tabIndex={iconTabIndex}
+          tooltipId={tooltipId}
           tooltipPosition={align === "right" ? "left" : "right"}
         />
       </InputIconToggleStyle>
@@ -58,7 +60,7 @@ const InputIconToggle = ({
         onMouseDown={onMouseDown}
         tabIndex={iconTabIndex}
       >
-        <Icon type={type} />
+        <Icon type={type} tooltipId={tooltipId} />
       </InputIconToggleStyle>
     );
   }
@@ -80,6 +82,7 @@ InputIconToggle.propTypes = {
   align: PropTypes.oneOf(["left", "right"]),
   useValidationIcon: PropTypes.bool,
   iconTabIndex: PropTypes.number,
+  tooltipId: PropTypes.string,
 };
 
 export default InputIconToggle;

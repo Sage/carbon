@@ -33,6 +33,8 @@ export interface CommonCheckableInputProps
   reverse?: boolean;
   /** Size of the component */
   size?: "small" | "large";
+  /** The id of the element that labels the input */
+  ariaLabelledBy?: string;
 }
 
 export interface CheckableInputProps extends CommonCheckableInputProps {

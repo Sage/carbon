@@ -1,3 +1,92 @@
+## [102.1.0](https://github.com/Sage/carbon/compare/v102.0.1...v102.1.0) (2021-12-13)
+
+
+### Features
+
+* **label:** describe label using design tokens, remove theme in css files ([cc8ea45](https://github.com/Sage/carbon/commit/cc8ea454251824ab2b85c90f948072792a4a91f8))
+
+### [102.0.1](https://github.com/Sage/carbon/compare/v102.0.0...v102.0.1) (2021-12-07)
+
+
+### Bug Fixes
+
+* **button-toggle:** add missing ARIA props ([912c59f](https://github.com/Sage/carbon/commit/912c59f667826fc0404bade4f71d8a8a8f9cf5c5))
+* **button-toggle:** add missing data props ([2d950a5](https://github.com/Sage/carbon/commit/2d950a5c89f1fd8f4fd2f10bb01307fa54e39a6c))
+* **button-toggle:** remove icon margin when content is not defined ([22985cd](https://github.com/Sage/carbon/commit/22985cda656eea520bee42059804c5d8c71375cf))
+
+## [102.0.0](https://github.com/Sage/carbon/compare/v101.4.5...v102.0.0) (2021-12-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **decimal:** Decimal has been refactored to be a functional component from a class based
+component. This means that you are no longer able to extend this component.
+
+fixes FE-3640
+
+### Code Refactoring
+
+* **decimal:** convert class to functional component ([5eb2d32](https://github.com/Sage/carbon/commit/5eb2d32b31788fa3774d1c7ae5e4834b1bd39e0c))
+
+### [101.4.5](https://github.com/Sage/carbon/compare/v101.4.4...v101.4.5) (2021-12-06)
+
+
+### Bug Fixes
+
+* **character count:** allow screen reader to read character count ([6724f29](https://github.com/Sage/carbon/commit/6724f2932c8175d7b1b7cde850986b0050aae393))
+
+### [101.4.4](https://github.com/Sage/carbon/compare/v101.4.3...v101.4.4) (2021-12-06)
+
+
+### Bug Fixes
+
+* **design-tokens:** provide tokens outside root ([73fbd06](https://github.com/Sage/carbon/commit/73fbd065f1fc762de19589c0548eeb9c2610fc9d))
+
+### [101.4.3](https://github.com/Sage/carbon/compare/v101.4.2...v101.4.3) (2021-12-06)
+
+
+### Bug Fixes
+
+* **radio-button, label:** when help prop is provided, pass input context values to children ([095a27b](https://github.com/Sage/carbon/commit/095a27b0f2b28c1900504f65e77a76c8f7736fac))
+* **validation-icon:** add conditional styling for displaying pointer cursor ([3366053](https://github.com/Sage/carbon/commit/3366053304bf56d29833bad0d9ddb124ff654bf0))
+
+### [101.4.2](https://github.com/Sage/carbon/compare/v101.4.1...v101.4.2) (2021-12-03)
+
+
+### Bug Fixes
+
+* **tile select:** apply opacity to prefixAdornment when component is disabled ([f08f183](https://github.com/Sage/carbon/commit/f08f1839d6a7a781c325c1e8b66d4c981d1b7947)), closes [#4606](https://github.com/Sage/carbon/issues/4606)
+
+### [101.4.1](https://github.com/Sage/carbon/compare/v101.4.0...v101.4.1) (2021-12-03)
+
+
+### Bug Fixes
+
+* **date:** enforce ISO date in value prop ([643c263](https://github.com/Sage/carbon/commit/643c26320749bcf7de93277c0917044118582922)), closes [#3945](https://github.com/Sage/carbon/issues/3945) [#4453](https://github.com/Sage/carbon/issues/4453)
+* **date:** include moment locales ([a9016f2](https://github.com/Sage/carbon/commit/a9016f24baea94506e26ab33448192d4401ab0ac)), closes [#4479](https://github.com/Sage/carbon/issues/4479)
+* **date:** modify custom event in onBlur to return correct values ([e87836f](https://github.com/Sage/carbon/commit/e87836f7cede8c53434f48aca8d3aba3980b42bd))
+
+## [101.4.0](https://github.com/Sage/carbon/compare/v101.3.3...v101.4.0) (2021-12-01)
+
+
+### Features
+
+* **link:** make skip link possible to be translated ([ce8bab7](https://github.com/Sage/carbon/commit/ce8bab70391dd6b00e2c1b2469c00c35d6f68279))
+
+### [101.3.3](https://github.com/Sage/carbon/compare/v101.3.2...v101.3.3) (2021-12-01)
+
+
+### Bug Fixes
+
+* **search:** fix incorrect tabindex behaviour ([18fe998](https://github.com/Sage/carbon/commit/18fe9985cf395fd269032af3e323c34011d364dd))
+
+### [101.3.2](https://github.com/Sage/carbon/compare/v101.3.1...v101.3.2) (2021-11-30)
+
+
+### Bug Fixes
+
+* **inputs:** make validation messages readable by voiceover ([89312f1](https://github.com/Sage/carbon/commit/89312f18a984758888346f0c2a2c31967586c0f8))
+
 ### [101.3.1](https://github.com/Sage/carbon/compare/v101.3.0...v101.3.1) (2021-11-26)
 
 

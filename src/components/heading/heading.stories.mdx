@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Heading from "./heading.component";
@@ -36,39 +36,39 @@ import Heading from "carbon-react/lib/components/heading";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Heading title="This is a Title" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Heading without Divider
 
-<Preview>
+<Canvas>
   <Story name="without Divider">
     <Heading title="This is a Title" divider={false} />
   </Story>
-</Preview>
+</Canvas>
 
 ### Heading with Subheader
 
-<Preview>
+<Canvas>
   <Story name="with subheader">
     <Heading title="This is a Title" subheader="This is a subheader" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Heading with Pill
 
-<Preview>
+<Canvas>
   <Story name="with pill">
     <Heading title="This is a Title" pills={<Pill>Pill</Pill>} />
   </Story>
-</Preview>
+</Canvas>
 
 ### Heading with multiple Pills
 
-<Preview>
+<Canvas>
   <Story name="with multiple pills">
     <Heading
       title="This is a Title"
@@ -85,11 +85,11 @@ import Heading from "carbon-react/lib/components/heading";
       ]}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Heading with Pill and Subheader
 
-<Preview>
+<Canvas>
   <Story name="with pill and subheader">
     <Heading
       title="This is a Title"
@@ -97,11 +97,11 @@ import Heading from "carbon-react/lib/components/heading";
       subheader="This is a subheader"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Heading with Subheader and Separator
 
-<Preview>
+<Canvas>
   <Story name="with subheader and separator">
     <Heading
       title="This is a Title"
@@ -109,11 +109,11 @@ import Heading from "carbon-react/lib/components/heading";
       separator
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Heading with Pill, Subheader and Separator
 
-<Preview>
+<Canvas>
   <Story name="with pill, subheader and separator">
     <Heading
       title="This is a Title"
@@ -122,23 +122,23 @@ import Heading from "carbon-react/lib/components/heading";
       separator
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Heading with Subheader and Children
 
-<Preview>
+<Canvas>
   <Story name="with subheader and children">
     <Heading title="This is a Title" subheader="This is a subheader">
       This is content beneath a heading
     </Heading>
   </Story>
-</Preview>
+</Canvas>
 
 ### Heading with Children as a Component
 
 In this example, the Heading component has the Tile component and the Definition List component rendered inside.
 
-<Preview>
+<Canvas>
   <Story name="with children as component">
     <Heading title="This is a Title" subheader="This is a subheader">
       <Tile width="95%">
@@ -168,11 +168,11 @@ In this example, the Heading component has the Tile component and the Definition
       </Tile>
     </Heading>
   </Story>
-</Preview>
+</Canvas>
 
 ### Heading with Help
 
-<Preview>
+<Canvas>
   <Story name="with help">
     <div style={{ margin: "16px" }}>
       <Heading
@@ -182,11 +182,11 @@ In this example, the Heading component has the Tile component and the Definition
       />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Heading with Help and Pill
 
-<Preview>
+<Canvas>
   <Story name="with help and pill">
     <div style={{ margin: "16px" }}>
       <Heading
@@ -197,11 +197,11 @@ In this example, the Heading component has the Tile component and the Definition
       />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Heading with Help and Help Link
 
-<Preview>
+<Canvas>
   <Story name="with help link" parameters={{ chromatic: { disable: true } }}>
     <div style={{ margin: "16px" }}>
       <Heading
@@ -212,11 +212,11 @@ In this example, the Heading component has the Tile component and the Definition
       />
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Heading with Back Link
 
-<Preview>
+<Canvas>
   <Story name="with back link">
     <Heading
       title="This is a Title"
@@ -224,7 +224,7 @@ In this example, the Heading component has the Tile component and the Definition
       backLink="https://carbon.sage.com"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

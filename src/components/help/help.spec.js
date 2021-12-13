@@ -58,6 +58,13 @@ describe("Help", () => {
       expect(icon.props().type).toBe(mockType);
     });
 
+    it("passes the tooltipId if provided", () => {
+      const tooltipId = "tooltip-id";
+      wrapper = renderHelp({ tooltipId });
+      icon = wrapper.find(Icon);
+      expect(icon.props().tooltipId).toBe(tooltipId);
+    });
+
     it("checks the default type if not provided", () => {
       const mockType = "help";
       wrapper = renderHelp();

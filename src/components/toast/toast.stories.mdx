@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import styled from "styled-components";
 import Toast from ".";
 import { useState } from "react";
@@ -68,7 +68,7 @@ Please note, by clicking a `toggle preview` button it will open example toast at
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ info: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -100,11 +100,11 @@ Please note, by clicking a `toggle preview` button it will open example toast at
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Variant Info
 
-<Preview>
+<Canvas>
   <Story name="variant-info" parameters={{ info: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -140,11 +140,11 @@ Please note, by clicking a `toggle preview` button it will open example toast at
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Variant Error
 
-<Preview>
+<Canvas>
   <Story name="variant-error" parameters={{ info: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -180,11 +180,11 @@ Please note, by clicking a `toggle preview` button it will open example toast at
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Variant Warning
 
-<Preview>
+<Canvas>
   <Story name="variant-warning" parameters={{ info: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -220,11 +220,11 @@ Please note, by clicking a `toggle preview` button it will open example toast at
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Variant Success
 
-<Preview>
+<Canvas>
   <Story name="variant-success" parameters={{ info: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -260,11 +260,11 @@ Please note, by clicking a `toggle preview` button it will open example toast at
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Variant Left Aligned
 
-<Preview>
+<Canvas>
   <Story name="left aligned" parameters={{ info: { disable: true } }}>
     {() => {
       const onDismissClick = (evt) => {
@@ -310,11 +310,11 @@ Please note, by clicking a `toggle preview` button it will open example toast at
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom max width
 
-<Preview>
+<Canvas>
   <Story name="custom-max-width" parameters={{ info: { disable: true } }}>
     {() => {
       const onDismissClick = (evt) => {
@@ -364,11 +364,11 @@ Please note, by clicking a `toggle preview` button it will open example toast at
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Dismissible
 
-<Preview>
+<Canvas>
   <Story name="dismissible" parameters={{ info: { disable: true } }}>
     {() => {
       const onDismissClick = (evt) => {
@@ -417,11 +417,11 @@ Please note, by clicking a `toggle preview` button it will open example toast at
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Dismissible with timeout
 
-<Preview>
+<Canvas>
   <Story
     name="dismissible-with-timeout"
     parameters={{ info: { disable: true } }}
@@ -474,13 +474,13 @@ Please note, by clicking a `toggle preview` button it will open example toast at
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Grouped Delayed (stacking)
 
 One second delay
 
-<Preview>
+<Canvas>
   <Story name="stacked-delayed" parameters={{ info: { disable: true } }}>
     {() => {
       const onDismissClickA = (evt) => {
@@ -558,13 +558,13 @@ One second delay
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Grouped (stacking)
 
 Please use `targetPortalId` prop to group multiple toasts so that they stack.
 
-<Preview>
+<Canvas>
   <Story name="stacked" parameters={{ info: { disable: true } }}>
     {() => {
       const onDismissClickA = (evt) => {
@@ -628,10 +628,10 @@ Please use `targetPortalId` prop to group multiple toasts so that they stack.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Toast
 
-<Props of={Toast} />
+<ArgsTable of={Toast} />

@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
@@ -39,7 +39,7 @@ Always insert `Option` Components inside the `Select`, analogous to the original
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Select
       name="simple"
@@ -66,13 +66,13 @@ Always insert `Option` Components inside the `Select`, analogous to the original
       <Option text="Yellow" value="11" />
     </Select>
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="required">
     <Select
       name="required-select"
@@ -93,13 +93,13 @@ You can use the `required` prop to indicate if the field is mandatory.
       <Option text="Yellow" value="11" />
     </Select>
   </Story>
-</Preview>
+</Canvas>
 
 ### List placement
 
 You can use `listPlacement` prop to set the position of the select list relative to the input element.
 
-<Preview>
+<Canvas>
   <Story name="list placement">
     <Select
       name="simple"
@@ -127,11 +127,11 @@ You can use `listPlacement` prop to set the position of the select list relative
       <Option text="Yellow" value="11" />
     </Select>
   </Story>
-</Preview>
+</Canvas>
 
 ### Controlled usage
 
-<Preview>
+<Canvas>
   <Story name="controlled" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [value, setValue] = useState("");
@@ -169,7 +169,7 @@ You can use `listPlacement` prop to set the position of the select list relative
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With object as value
 
@@ -177,7 +177,7 @@ Option values could be passed as objects, useful when custom data is associated 
 When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
 If there is no `id` prop specified on an object, then the exact objects will be compared.
 
-<Preview>
+<Canvas>
   <Story
     name="with object as value"
     parameters={{ chromatic: { disable: true } }}
@@ -268,13 +268,13 @@ If there is no `id` prop specified on an object, then the exact objects will be 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With isLoading prop
 
 When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
 
-<Preview>
+<Canvas>
   <Story
     name="with isLoading prop"
     parameters={{ chromatic: { disable: true } }}
@@ -330,14 +330,14 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Infinite scroll example
 
 The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
 This prop will be called every time a user scrolls to the bottom of the list.
 
-<Preview>
+<Canvas>
   <Story
     name="with infinite scroll"
     parameters={{ chromatic: { disable: true } }}
@@ -427,11 +427,11 @@ This prop will be called every time a user scrolls to the bottom of the list.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Open on focus
 
-<Preview>
+<Canvas>
   <Story name="openOnFocus" parameters={{ chromatic: { disable: true } }}>
     <Select name="openOnFocus" id="openOnFocus" openOnFocus>
       <Option text="Amber" value="1" />
@@ -447,13 +447,19 @@ This prop will be called every time a user scrolls to the bottom of the list.
       <Option text="Yellow" value="11" />
     </Select>
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
-    <Select aria-label="disabled" name="disabled" id="disabled" defaultValue="3" disabled>
+    <Select
+      aria-label="disabled"
+      name="disabled"
+      id="disabled"
+      defaultValue="3"
+      disabled
+    >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -467,13 +473,19 @@ This prop will be called every time a user scrolls to the bottom of the list.
       <Option text="Yellow" value="11" />
     </Select>
   </Story>
-</Preview>
+</Canvas>
 
 ### Read Only
 
-<Preview>
+<Canvas>
   <Story name="readonly">
-    <Select aria-label="readonly" name="readonly" id="readonly" defaultValue="4" readOnly>
+    <Select
+      aria-label="readonly"
+      name="readonly"
+      id="readonly"
+      defaultValue="4"
+      readOnly
+    >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -487,11 +499,11 @@ This prop will be called every time a user scrolls to the bottom of the list.
       <Option text="Yellow" value="11" />
     </Select>
   </Story>
-</Preview>
+</Canvas>
 
 ### Transparent
 
-<Preview>
+<Canvas>
   <Story name="transparent">
     <Select name="transparent" id="transparent" defaultValue="4" transparent>
       <Option text="Amber" value="1" />
@@ -507,11 +519,11 @@ This prop will be called every time a user scrolls to the bottom of the list.
       <Option text="Yellow" value="11" />
     </Select>
   </Story>
-</Preview>
+</Canvas>
 
 ### With disabled portal
 
-<Preview>
+<Canvas>
   <Story
     name="withDisabledPortal"
     parameters={{ chromatic: { disable: true } }}
@@ -535,11 +547,11 @@ This prop will be called every time a user scrolls to the bottom of the list.
       <Option text="Yellow" value="11" />
     </Select>
   </Story>
-</Preview>
+</Canvas>
 
 ### With multiple columns
 
-<Preview>
+<Canvas>
   <Story
     name="with multiple columns"
     parameters={{ chromatic: { disable: true } }}
@@ -584,11 +596,11 @@ This prop will be called every time a user scrolls to the bottom of the list.
       </OptionRow>
     </Select>
   </Story>
-</Preview>
+</Canvas>
 
 ### Option groups
 
-<Preview>
+<Canvas>
   <Story name="option groups" parameters={{ chromatic: { disable: true } }}>
     <Select name="optGroups" id="optGroups">
       <OptionGroupHeader label="Group one" icon="individual" />
@@ -607,13 +619,13 @@ This prop will be called every time a user scrolls to the bottom of the list.
       <Option text="Yellow" value="11" />
     </Select>
   </Story>
-</Preview>
+</Canvas>
 
 ### Enabling the adaptive behaviour
 
 The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
 
-<Preview>
+<Canvas>
   <Story
     name="enabling adaptive behaviour"
     parameters={{ chromatic: { disable: true } }}
@@ -638,7 +650,7 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
       <Option text="Yellow" value="11" />
     </Select>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
@@ -648,13 +660,13 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
 
 Due to the `Textbox` component being used internally by the `SimpleSelect` component, most of the `Textbox` props are applicable to `SimpleSelect`
 
-<Props of={SelectTextbox} />
+<ArgsTable of={SelectTextbox} />
 
 **Any other supplied props will be provided to the underlying HTML input element**
 
 ### Props of the Option Component
 
-<Props of={Option} />
+<ArgsTable of={Option} />
 
 ## Translation keys
 

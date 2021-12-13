@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import LoaderBar from ".";
 import Button from "../button";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -35,34 +35,34 @@ import LoaderBar from "carbon-react/lib/components/loader-bar";
 
 This example of the LoaderBar component demonstrates how it will appear as default.
 
-<Preview>
+<Canvas>
   <Story name="default">
     <LoaderBar mt={2} />
   </Story>
-</Preview>
+</Canvas>
 
 ### Small bar
 
 This is an example of a small LoaderBar component.
 
-<Preview>
+<Canvas>
   <Story name="small">
     <LoaderBar size="small" mt={2} />
   </Story>
-</Preview>
+</Canvas>
 
 ### Large bar
 
 This is an example of a large LoaderBar component.
 
-<Preview>
+<Canvas>
   <Story name="large">
     <LoaderBar size="large" mt={2} />
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### LoaderBar
 
-<Props of={LoaderBar} />
+<ArgsTable of={LoaderBar} />

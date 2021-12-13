@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { useState } from "react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
@@ -11,10 +11,7 @@ import Box from "../box";
 import Image from "../image";
 import Typography from "../typography";
 
-<Meta
-  title="Tile Select"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Tile Select" parameters={{ info: { disable: true } }} />
 
 # TileSelect
 
@@ -47,7 +44,7 @@ By default, when grouped with the `TileSelectGroup`, this component operates in 
 In this mode all input props like `onChange`, `onBlur`, `name` and currently selected `value` are meant to be passed on the `TileSelectGroup`.
 These props are then internally distributed on each of the `TileSelects` making the whole composed group act like a single form field.
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [value, setValue] = useState(null);
@@ -110,14 +107,14 @@ These props are then internally distributed on each of the `TileSelects` making 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### Custom action button
 
 It is possible to overide the default action button via the `customActionButton` prop. It is a render prop which allows
 access to the `onClick` functionality.
 
-<Preview>
+<Canvas>
   <Story name="with custom action button">
     {() => {
       const [value, setValue] = useState(null);
@@ -195,13 +192,13 @@ access to the `onClick` functionality.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### Action button adornment
 
 It is possible to render an additional adornment next to the action button through the `actionButtonAdornment` prop.
 
-<Preview>
+<Canvas>
   <Story name="with action button adornment">
     {() => {
       const [value, setValue] = useState(null);
@@ -281,7 +278,7 @@ It is possible to render an additional adornment next to the action button throu
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Multi select
 
@@ -291,7 +288,7 @@ In multi select mode all input props like `onChange`, `onBlur`, `name`, `value` 
 
 In this mode `TileSelectGroup` serves only a visual purpose - it only renders `legend` and `description` props and applies spacing to each of the `TileSelects`
 
-<Preview>
+<Canvas>
   <Story name="multi Select">
     {() => {
       const [value1, setValue1] = useState(false);
@@ -366,7 +363,7 @@ In this mode `TileSelectGroup` serves only a visual purpose - it only renders `l
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Single tile
 
@@ -374,7 +371,7 @@ In this mode `TileSelectGroup` serves only a visual purpose - it only renders `l
 
 Same as in multi select example grouped by `TileSelectGroup`, `onChange`, `onBlur`, `name`, `value` and `checked` are meant to be passed directly on the `TileSelect`.
 
-<Preview>
+<Canvas>
   <Story name="single tile">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
@@ -397,13 +394,13 @@ Same as in multi select example grouped by `TileSelectGroup`, `onChange`, `onBlu
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With a footer
 
 To render a `footer` pass anything renderable to the prop like in the example below.
 
-<Preview>
+<Canvas>
   <Story name="with a footer">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
@@ -440,13 +437,13 @@ To render a `footer` pass anything renderable to the prop like in the example be
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With a prefix adornment
 
 To render a prefixed adornment in the top left corner of the `TileSelect` you can pass any node in via the `prefixAdornment` prop.
 
-<Preview>
+<Canvas>
   <Story name="with a prefix adornment">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
@@ -477,14 +474,14 @@ To render a prefixed adornment in the top left corner of the `TileSelect` you ca
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With additional information
 
 It is possible to render an additional row of information or content between the `title` and the `description` by passing in
 any node to the `additionalInformation` prop.
 
-<Preview>
+<Canvas>
   <Story name="with additional information">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
@@ -521,7 +518,7 @@ any node to the `additionalInformation` prop.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With accordion footer
 
@@ -529,7 +526,7 @@ It is possible to render an `Accordion` footer for the `TileSelect`. Pass a desi
 and a use the `accordionControl` render prop to supply the control for the expanded state of the accordion by toggling the
 `accordionExpanded` prop.
 
-<Preview>
+<Canvas>
   <Story name="with accordion footer">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
@@ -597,14 +594,14 @@ and a use the `accordionControl` render prop to supply the control for the expan
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom spacing
 
 The `TileSelect` and `TileSelectGroup` components support the custom margin spacing (see prop table below). The modifiers
 support being passed either a number between 1 and 8 that is then multiplied by `8px` or any valid CSS string.
 
-<Preview>
+<Canvas>
   <Story name="with custom spacing">
     {() => {
       const [value, setValue] = useState(null);
@@ -671,7 +668,7 @@ support being passed either a number between 1 and 8 that is then multiplied by 
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

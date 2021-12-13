@@ -13,7 +13,7 @@ export interface HelpProps extends MarginProps {
   helpId?: string;
   /** A path for the anchor */
   href?: string;
-  /** A boolean received from IconWrapper */
+  /** Overrides the visibility of the Tooltip if true */
   isFocused?: boolean;
   /** Overrides the default tabindex of the component */
   tabIndex?: number | string;
@@ -28,6 +28,8 @@ export interface HelpProps extends MarginProps {
   tooltipFlipOverrides?: ["top" | "bottom" | "left" | "right"];
   /** Position of tooltip relative to target */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /** Id passed to the tooltip container, used for accessibility purposes */
+  tooltipId?: string;
   /** Help Icon type */
   type?: IconType;
   /** Aria label */
