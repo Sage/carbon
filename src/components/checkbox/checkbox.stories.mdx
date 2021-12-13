@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import { Checkbox, CheckboxGroup } from ".";
@@ -40,7 +40,7 @@ import { Checkbox } from "carbon-react/lib/components/checkbox";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [isChecked, setIsChecked] = useState(false);
@@ -54,11 +54,11 @@ import { Checkbox } from "carbon-react/lib/components/checkbox";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Sizes
 
-<Preview>
+<Canvas>
   <Story name="sizes">
     {() => {
       return ["small", "large"].map((size) => (
@@ -71,27 +71,27 @@ import { Checkbox } from "carbon-react/lib/components/checkbox";
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     <Checkbox label="Disabled checkbox" disabled />
   </Story>
-</Preview>
+</Canvas>
 
 ### Reversed
 
-<Preview>
+<Canvas>
   <Story name="reversed">
     <Checkbox label="Reversed checkbox" reverse />
   </Story>
-</Preview>
+</Canvas>
 
 ### With fieldHelp
 
-<Preview>
+<Canvas>
   <Story name="with fieldHelp">
     <>
       <Checkbox
@@ -105,11 +105,11 @@ import { Checkbox } from "carbon-react/lib/components/checkbox";
       />
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### With labelHelp
 
-<Preview>
+<Canvas>
   <Story name="with labelHelp">
     <Checkbox
       label="With labelHelp"
@@ -117,11 +117,11 @@ import { Checkbox } from "carbon-react/lib/components/checkbox";
       helpAriaLabel="This text provides more information for the label."
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom labelWidth
 
-<Preview>
+<Canvas>
   <Story name="with custom labelWidth">
     <>
       <Checkbox label="With custom labelWidth" labelWidth={100} />
@@ -132,11 +132,11 @@ import { Checkbox } from "carbon-react/lib/components/checkbox";
       />
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### Checkbox Group
 
-<Preview>
+<Canvas>
   <Story name="checkbox group">
     <CheckboxGroup
       id="checkbox-group"
@@ -154,7 +154,7 @@ import { Checkbox } from "carbon-react/lib/components/checkbox";
       ))}
     </CheckboxGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ### With inline legend
 
@@ -162,7 +162,7 @@ The legend can be made inline. Its width can be changed with the `legendWidth` p
 
 The spacing between the legend and the checkboxes can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, so therefore `8px` or `16px`. The default is `2` for this prop.
 
-<Preview>
+<Canvas>
   <Story name="checkbox group with inline legend">
     <CheckboxGroup
       id="checkbox-group-inline"
@@ -183,7 +183,7 @@ The spacing between the legend and the checkboxes can be changed with the `legen
       ))}
     </CheckboxGroup>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

@@ -1,36 +1,32 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import BaseTheme from "../../style/themes/base";
 
 const LabelStyle = styled.label`
-  color: ${({ theme }) => theme.text.color};
+  color: var(--colorsYin090);
   display: block;
-  font-weight: 600;
+  font-weight: 600; //TODO: (tokens) use token var(--fontWeights500)
 
-  ${({ isRequired, theme }) =>
+  ${({ isRequired }) =>
     isRequired &&
     css`
       ::after {
         content: "*";
-        color: ${theme.colors.asterisk};
+        color: var(--colorsSemanticNegative500);
         font-weight: 700;
-        margin-left: ${theme.spacing}px;
+        margin-left: var(--spacing100);
       }
     `}
 
-  ${({ disabled, theme }) =>
+  ${({ disabled }) =>
     disabled &&
     css`
-      color: ${theme.disabled.disabled};
+      color: var(--colorsYin030);
     `}
 `;
 
-LabelStyle.defaultProps = {
-  theme: BaseTheme,
-};
-
 LabelStyle.propTypes = {
   disabled: PropTypes.bool,
+  isRequired: PropTypes.bool,
 };
 
 export const StyledLabelContainer = styled.div`
@@ -38,18 +34,18 @@ export const StyledLabelContainer = styled.div`
   align-items: center;
   margin-bottom: 8px;
 
-  ${({ align, inline, pr, pl, width, theme }) =>
+  ${({ align, inline, pr, pl, width }) =>
     inline &&
     css`
       box-sizing: border-box;
       margin-bottom: 0;
       ${pr &&
       css`
-        padding-right: ${pr * theme.spacing}px;
+        padding-right: var(${pr === 1 ? "--spacing100" : "--spacing200"});
       `};
       ${pl &&
       css`
-        padding-left: ${pl * theme.spacing}px;
+        padding-left: var(${pl === 1 ? "--spacing100" : "--spacing200"});
       `};
       justify-content: ${align === "right" ? "flex-end" : "flex-start"};
       width: ${width === 0 ? StyledLabelContainer.defaultProps.width : width}%;
@@ -60,7 +56,7 @@ export const StyledLabelContainer = styled.div`
     css`
       ::after {
         content: "(optional)";
-        font-weight: 350;
+        font-weight: 350; //TODO: (tokens) use token var(--fontWeights400)
         margin-left: 4px;
       }
     `}
@@ -68,7 +64,6 @@ export const StyledLabelContainer = styled.div`
 
 StyledLabelContainer.defaultProps = {
   align: "right",
-  theme: BaseTheme,
   width: 30,
 };
 
@@ -76,7 +71,6 @@ StyledLabelContainer.propTypes = {
   align: PropTypes.oneOf(["left", "right"]),
   inline: PropTypes.bool,
   width: PropTypes.number,
-  readOnly: PropTypes.bool,
   pr: PropTypes.number,
   pl: PropTypes.number,
 };

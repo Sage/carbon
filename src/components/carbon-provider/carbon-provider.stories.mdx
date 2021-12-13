@@ -1,7 +1,8 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import aegeanTheme from "../../style/themes/aegean";
 import baseTheme from "../../style/themes/base";
+import sageTheme from "../../style/themes/sage";
 import Button from "../button";
 import CarbonProvider from ".";
 
@@ -10,6 +11,10 @@ import CarbonProvider from ".";
 # Carbon Provider
 
 A Carbon Provider uses the `ThemeProvider` from the [styled-components library](https://styled-components.com/docs/advanced#theming) to supply theme styles to your components. Themes are defined within the Carbon library.
+
+# Design Tokens
+
+Carbon Provider also provides design tokens in the form of CSS variables. It includes utilities that map ThemeProvider themes to design token css variables.
 
 ## Contents
 
@@ -29,27 +34,27 @@ import CarbonProvider from "carbon-react/lib/components/carbon-provider";
 
 This is an example of `mintTheme` provided by default.
 
-<Preview>
+<Canvas>
   <Story name="default">
     <CarbonProvider>
       <Button buttonType="primary">Button</Button>
     </CarbonProvider>
   </Story>
-</Preview>
+</Canvas>
 
 ### Theming
 
-<Preview>
+<Canvas>
   <Story name="theming">
     <CarbonProvider theme={aegeanTheme}>
       <Button buttonType="primary">Button</Button>
     </CarbonProvider>
   </Story>
-</Preview>
+</Canvas>
 
 ### Mixing
 
-<Preview>
+<Canvas>
   <Story name="mixing">
     <CarbonProvider>
       <Button buttonType="primary">Button</Button>
@@ -60,11 +65,14 @@ This is an example of `mintTheme` provided by default.
         <Button buttonType="primary">Button</Button>
       </CarbonProvider>
     </CarbonProvider>
+    <CarbonProvider theme={sageTheme}>
+      <Button buttonType="primary">Button</Button>
+    </CarbonProvider>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Carbon Provider
 
-<Props of={CarbonProvider} />
+<ArgsTable of={CarbonProvider} />

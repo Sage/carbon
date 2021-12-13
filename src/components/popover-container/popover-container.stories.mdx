@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import PopoverContainer from "./popover-container.component";
 import { DraggableContainer, DraggableItem } from "../draggable";
 import { Checkbox } from "../checkbox";
@@ -30,19 +30,24 @@ import PopoverContainer from "carbon-react/lib/components/popover-container";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ info: { disable: true } }}>
     <div style={{ height: 100 }}>
-      <PopoverContainer containerAriaLabel="popover-container" openButtonAriaLabel="open">Contents</PopoverContainer>
+      <PopoverContainer
+        containerAriaLabel="popover-container"
+        openButtonAriaLabel="open"
+      >
+        Contents
+      </PopoverContainer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With title
 
 Use the `title` prop to set a title within the `PopoverContainer`.
 
-<Preview>
+<Canvas>
   <Story name="title" parameters={{ info: { disable: true } }}>
     <div style={{ height: 100 }}>
       <PopoverContainer title="With a title" open={true}>
@@ -50,14 +55,14 @@ Use the `title` prop to set a title within the `PopoverContainer`.
       </PopoverContainer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Right Aligned/Open Left
 
 Use the `position` prop to open the `PopoverContainer` to the left, this is useful if your open button is to the right
 of the screen.
 
-<Preview>
+<Canvas>
   <Story name="position" parameters={{ info: { disable: true } }}>
     <div style={{ height: 150, float: "right", clear: "right" }}>
       <PopoverContainer title="Right Aligned" position="left" open={true}>
@@ -65,13 +70,13 @@ of the screen.
       </PopoverContainer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Cover Button
 
 Use the `shouldCoverButton` prop to hide the open button when the `PopoverContainer` is open.
 
-<Preview>
+<Canvas>
   <Story name="cover button" parameters={{ info: { disable: true } }}>
     <div style={{ height: 100 }}>
       <PopoverContainer title="Cover Button" shouldCoverButton open={true}>
@@ -79,13 +84,13 @@ Use the `shouldCoverButton` prop to hide the open button when the `PopoverContai
       </PopoverContainer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom Open/Close Button
 
 Use the `renderOpenComponent` and `renderCloseComponent` to render your own open or close buttons.
 
-<Preview>
+<Canvas>
   <Story name="render props" parameters={{ info: { disable: true } }}>
     <div style={{ height: 250 }}>
       <PopoverContainer
@@ -107,13 +112,13 @@ Use the `renderOpenComponent` and `renderCloseComponent` to render your own open
       </PopoverContainer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Controlled
 
 You can use the `open`, `onOpen` and `onClose` props to control the open state of the `PopoverContainer`.
 
-<Preview>
+<Canvas>
   <Story name="controlled" parameters={{ info: { disable: true } }}>
     {() => {
       const [open, setOpen] = useState(false);
@@ -138,13 +143,13 @@ You can use the `open`, `onOpen` and `onClose` props to control the open state o
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Complex content
 
 You can easily use many different components to create your own composition.
 
-<Preview>
+<Canvas>
   <Story name="complex" parameters={{ info: { disable: true } }}>
     <div style={{ height: 330 }}>
       <PopoverContainer title="Popover Container Title" open={true}>
@@ -170,14 +175,14 @@ You can easily use many different components to create your own composition.
       </PopoverContainer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Filter component
 
 If you want to use the `PopoverContainer` to create for example `Filter` component.
 You can do it easly in this way:
 
-<Preview>
+<Canvas>
   <Story name="filter" parameters={{ info: { disable: true } }}>
     {() => {
       const initValues = [
@@ -285,7 +290,7 @@ You can do it easly in this way:
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

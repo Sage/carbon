@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
@@ -36,7 +36,7 @@ import Textbox from "carbon-react/lib/components/textbox";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     {() => {
       const [state, setState] = useState("Textbox");
@@ -46,11 +46,11 @@ import Textbox from "carbon-react/lib/components/textbox";
       return <Textbox label="Textbox" value={state} onChange={setValue} />;
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Character counter
 
-<Preview>
+<Canvas>
   <Story name="character counter">
     {() => {
       const [state, setState] = useState("Textbox");
@@ -69,11 +69,11 @@ import Textbox from "carbon-react/lib/components/textbox";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Sizes
 
-<Preview>
+<Canvas>
   <Story name="sizes">
     {() =>
       ["small", "medium", "large"].map((size) => (
@@ -87,11 +87,11 @@ import Textbox from "carbon-react/lib/components/textbox";
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### Margins
 
-<Preview>
+<Canvas>
   <Story name="margins">
     {() => {
       const [state, setState] = useState("Textbox");
@@ -103,46 +103,46 @@ import Textbox from "carbon-react/lib/components/textbox";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### AutoFocus
 
-<Preview>
+<Canvas>
   <Story name="autoFocus" parameters={{ chromatic: { disable: true } }}>
     <>
       <Textbox label="Textbox" value="Textbox" autoFocus />
       <Textbox label="Textbox" value="Textbox" autoFocus />
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     <Textbox label="Textbox" value="Textbox" disabled />
   </Story>
-</Preview>
+</Canvas>
 
 ### ReadOnly
 
-<Preview>
+<Canvas>
   <Story name="readOnly">
     <Textbox label="Textbox" value="Textbox" readOnly />
   </Story>
-</Preview>
+</Canvas>
 
 ### With labelInline
 
-<Preview>
+<Canvas>
   <Story name="with labelInline" parameters={{ chromatic: { disable: true } }}>
     <Textbox label="Textbox" value="Textbox" labelInline />
   </Story>
-</Preview>
+</Canvas>
 
 ### With custom labelWidth and inputWidth
 
-<Preview>
+<Canvas>
   <Story name="with custom labelWidth and inputWidth">
     <Textbox
       label="Textbox"
@@ -152,37 +152,42 @@ import Textbox from "carbon-react/lib/components/textbox";
       inputWidth={50}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### With fieldHelp
 
-<Preview>
+<Canvas>
   <Story name="with fieldHelp">
     <Textbox label="Textbox" value="Textbox" fieldHelp="Help" />
   </Story>
-</Preview>
+</Canvas>
 
 ### With labelHelp
 
-<Preview>
+<Canvas>
   <Story name="with labelHelp">
-    <Textbox label="Textbox" value="Textbox" labelHelp="Help" helpAriaLabel="Help" />
+    <Textbox
+      label="Textbox"
+      value="Textbox"
+      labelHelp="Help"
+      helpAriaLabel="Help"
+    />
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-<Preview>
+<Canvas>
   <Story name="required">
     <Textbox label="Textbox" value="Textbox" required />
   </Story>
-</Preview>
+</Canvas>
 
 ### LabelAlign
 
-<Preview>
+<Canvas>
   <Story name="labelAlign">
     {() =>
       ["right", "left"].map((alignment) => (
@@ -197,7 +202,7 @@ You can use the `required` prop to indicate if the field is mandatory.
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### Validations
 
@@ -211,7 +216,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 #### As a string
 
-<Preview>
+<Canvas>
   <Story name="validations - string - component">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
@@ -233,11 +238,11 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
     parameters={{ chromatic: { disable: true } }}
@@ -256,11 +261,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 #### As a string, displayed on label
 
-<Preview>
+<Canvas>
   <Story name="validations - string - label">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
@@ -284,11 +289,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
-<Preview>
+<Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
     parameters={{ chromatic: { disable: true } }}
@@ -308,11 +313,11 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 #### As a boolean
 
-<Preview>
+<Canvas>
   <Story name="validations - boolean">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
@@ -334,7 +339,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
       ))
     }
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

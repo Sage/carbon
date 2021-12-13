@@ -13,10 +13,15 @@ import { InputGroupContext } from "../../__internal__/input-behaviour";
 
 const ButtonToggle = (props) => {
   const {
+    "aria-label": ariaLabel,
+    "aria-labelledby": ariaLabelledBy,
     buttonIcon,
     buttonIconSize,
     checked,
     children,
+    "data-component": dataComponent,
+    "data-element": dataElement,
+    "data-role": dataRole,
     disabled,
     grouped,
     name,
@@ -35,8 +40,10 @@ const ButtonToggle = (props) => {
   if (buttonIcon) {
     icon = (
       <ButtonToggleIcon
+        aria-hidden
         buttonIcon={buttonIcon}
         buttonIconSize={buttonIconSize}
+        hasNoContent={!children}
         disabled={disabled}
       />
     );
@@ -48,11 +55,16 @@ const ButtonToggle = (props) => {
 
   return (
     <StyledButtonToggle
-      data-component="button-toggle"
+      data-component={dataComponent || "button-toggle"}
+      data-element={dataElement}
+      data-role={dataRole}
       grouped={grouped}
       onClick={handleClick}
     >
       <ButtonToggleInput
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        data-element="button-toggle-input"
         name={name}
         checked={checked}
         disabled={disabled}
@@ -82,8 +94,18 @@ const ButtonToggle = (props) => {
 };
 
 ButtonToggle.propTypes = {
+  /** Prop to specify the aria-label of the component */
+  "aria-label": PropTypes.string,
+  /** Prop to specify the aria-labelledby property of the component */
+  "aria-labelledby": PropTypes.string,
   /** Set the checked value of the radio button */
   checked: PropTypes.bool,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element": PropTypes.string,
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role": PropTypes.string,
   /** Name used on the hidden radio button. */
   name: PropTypes.string,
   /** Callback triggered by change event on the input. */

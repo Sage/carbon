@@ -75,6 +75,14 @@ When("{string} option on the list is hovered over", (position) => {
     .and("have.css", "background-color", "rgb(242, 245, 246)");
 });
 
+When("{string} option on the list is highlighted", (position) => {
+  selectOption(positionOfElement(position)).should(
+    "have.css",
+    "background-color",
+    "rgb(242, 245, 246)"
+  );
+});
+
 When("I click onto controlled select using {string} key", (key) => {
   simpleSelectID().trigger("keydown", keyCode(key));
 });

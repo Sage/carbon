@@ -3,14 +3,12 @@
 exports[`Label renders the label 1`] = `
 <styled.div
   align="right"
-  theme="[ theme object ]"
   width={30}
 >
   <styled.label
     data-element="label"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
-    theme="[ theme object ]"
   >
     Name:
   </styled.label>

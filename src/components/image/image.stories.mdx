@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { ArgsTable } from "@storybook/components";
 
 import Image from "./image.component";
@@ -35,7 +35,7 @@ import Image from "carbon-react/lib/components/image";
 By default the component will render as a `div` element and use the `backgroundImage` to set the `background-image`
 css attribute.
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ info: { disable: true } }}>
     <Image
       m={3}
@@ -54,14 +54,14 @@ css attribute.
       </Box>
     </Image>
   </Story>
-</Preview>
+</Canvas>
 
 ### As an img element
 
 If you want to render an `img` element pass in a value to the `src` prop. The component will not accept `children` when
 rendered in this way.
 
-<Preview>
+<Canvas>
   <Story name="as an img" parameters={{ info: { disable: true } }}>
     <Image
       m={3}
@@ -83,14 +83,14 @@ rendered in this way.
       src={require("../../../.assets/collaborate.svg")}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom responsive behaviour
 
 It is possible to conditionally change the props based on defined breakpoints in the example below. This example is best
 viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
-<Preview>
+<Canvas>
   <Story
     name="custom responsive behaviour"
     parameters={{ chromatic: { disable: true }, info: { disable: true } }}
@@ -142,7 +142,7 @@ viewed in the Canvas tab using full-screen mode with device or viewport emulatio
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

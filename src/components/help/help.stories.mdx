@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Icon from "../icon";
 import Help from ".";
@@ -29,17 +29,19 @@ import Help from "carbon-react/lib/components/help";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ chromatic: { disable: true } }}>
     <div style={{ margin: "64px" }}>
-      <Help ariaLabel="Some helpful text goes here">Some helpful text goes here</Help>
+      <Help ariaLabel="Some helpful text goes here">
+        Some helpful text goes here
+      </Help>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Help with Tooltip custom message
 
-<Preview>
+<Canvas>
   <Story
     name="with Tooltip custom message"
     parameters={{ chromatic: { disable: true } }}
@@ -52,76 +54,90 @@ import Help from "carbon-react/lib/components/help";
       </Help>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Help with Tooltip Position
 
 The tooltip can be position `right`, `left`, `top` or `bottom`.
 Hover over the help component to see the different positions.
 
-<Preview>
+<Canvas>
   <Story name="with Tooltip Position">
     {() => {
       return ["right", "left", "top", "bottom"].map((position) => (
         <div style={{ margin: "64px 300px" }}>
-          <Help tooltipPosition={position} isFocused={true} ariaLabel={`This tooltip is positioned ${position}`}>
+          <Help
+            tooltipPosition={position}
+            isFocused={true}
+            ariaLabel={`This tooltip is positioned ${position}`}
+          >
             {`This tooltip is positioned ${position}`}
           </Help>
         </div>
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Help with Tooltip color overrides
 
 The tooltip background and font colors can be overridden using the `tooltipBgColor` and `tooltipFontColor` props. These
 props accept and valid css color value.
 
-<Preview>
+<Canvas>
   <Story
     name="with Tooltip color overrides"
     parameters={{ chromatic: { disable: true } }}
   >
     <div style={{ margin: "64px 300px" }}>
-      <Help tooltipBgColor="lightblue" tooltipFontColor="black" ariaLabel="The background and font color are overridden">
+      <Help
+        tooltipBgColor="lightblue"
+        tooltipFontColor="black"
+        ariaLabel="The background and font color are overridden"
+      >
         The background and font color are overridden
       </Help>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## Help with Icons
 
 Using the `type` prop, different icons can be specified. In this example type has been assigned `error`, `add`, `minus` and `settings`
 
-<Preview>
+<Canvas>
   <Story name="with Icons" parameters={{ chromatic: { disable: true } }}>
     {() => {
       return ["error", "add", "minus", "settings"].map((icon) => (
         <div style={{ margin: "64px" }}>
-          <Help type={`${icon}`} ariaLabel={`This is the Help component with the ${icon} icon`}>
+          <Help
+            type={`${icon}`}
+            ariaLabel={`This is the Help component with the ${icon} icon`}
+          >
             {`This is the Help component with the ${icon} icon`}
           </Help>
         </div>
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Help with href
 
 Using the `href` prop, a link can be specified.
 
-<Preview>
+<Canvas>
   <Story name="with href" parameters={{ chromatic: { disable: true } }}>
     <div style={{ margin: "64px" }}>
-      <Help href="https://carbon.sage.com" ariaLabel="This is the Help component with a href.">
+      <Help
+        href="https://carbon.sage.com"
+        ariaLabel="This is the Help component with a href."
+      >
         This is the Help component with a href.
       </Help>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

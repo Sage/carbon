@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
 import Tooltip from ".";
@@ -106,7 +106,7 @@ export const TooltipStory = ({
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -123,4 +123,4 @@ export const TooltipStory = ({
   >
     {TooltipStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

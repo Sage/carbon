@@ -11,6 +11,7 @@ import { InputBehaviour } from "../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
+import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -23,7 +24,7 @@ const Textbox = ({
   disabled,
   inputIcon,
   leftChildren,
-  labelId,
+  labelId: externalLabelId,
   label,
   labelAlign,
   labelHelp,
@@ -77,6 +78,23 @@ const Textbox = ({
     enforceCharacterLimit
   );
 
+  const {
+    labelId: internalLabelId,
+    tooltipId,
+    fieldHelpId,
+    ariaDescribedBy,
+  } = useInputAccessibility({
+    id,
+    error,
+    warning,
+    info,
+    label,
+    labelHelp,
+    fieldHelp,
+  });
+
+  const labelId = externalLabelId || internalLabelId;
+
   return (
     <TooltipProvider
       helpAriaLabel={helpAriaLabel}
@@ -84,8 +102,10 @@ const Textbox = ({
     >
       <InputBehaviour>
         <FormField
+          tooltipId={tooltipId}
           disabled={disabled}
           fieldHelp={fieldHelp}
+          fieldHelpId={fieldHelpId}
           error={error}
           warning={warning}
           info={info}
@@ -128,6 +148,8 @@ const Textbox = ({
               {...(required && { required })}
               align={align}
               aria-invalid={!!error}
+              aria-labelledby={labelId}
+              aria-describedby={ariaDescribedBy}
               autoFocus={autoFocus}
               deferTimeout={deferTimeout}
               disabled={disabled}
@@ -160,6 +182,7 @@ const Textbox = ({
               size={size}
               useValidationIcon={!validationOnLabel}
               warning={warning}
+              tooltipId={tooltipId}
             />
           </InputPresentation>
         </FormField>

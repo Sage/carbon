@@ -3,13 +3,11 @@ import { mount, shallow } from "enzyme";
 import ReactDOM from "react-dom";
 import Portal from "./portal";
 import Icon from "../icon";
-import guid from "../../__internal__/utils/helpers/guid";
 import Browser from "../../__internal__/utils/helpers/browser";
 
-jest.mock("../../__internal__/utils/helpers/guid");
+jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
 
 describe("Portal", () => {
-  guid.mockImplementation(() => "guid-12345");
   let wrapper;
 
   describe("when an element with id 'root' exists", () => {

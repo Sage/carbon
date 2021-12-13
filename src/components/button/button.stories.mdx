@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import Button from ".";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -27,7 +27,7 @@ import Button from "carbon-react/lib/components/button";
 
 For the single most prominent call to action on the page (e.g. Save, Submit, Continue).
 
-<Preview>
+<Canvas>
   <Story name="primary">
     <>
       <Button buttonType="primary" size="small">
@@ -41,11 +41,11 @@ For the single most prominent call to action on the page (e.g. Save, Submit, Con
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Primary buttons can be destructive.
 
-<Preview>
+<Canvas>
   <Story name="primary/destructive">
     <>
       <Button buttonType="primary" destructive size="small">
@@ -59,11 +59,11 @@ Primary buttons can be destructive.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Primary buttons can be disabled.
 
-<Preview>
+<Canvas>
   <Story name="primary/disabled">
     <>
       <Button buttonType="primary" disabled size="small">
@@ -77,11 +77,11 @@ Primary buttons can be disabled.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Primary buttons can have an icon positioned before or after the text.
 
-<Preview>
+<Canvas>
   <Story name="primary/icon">
     <>
       <Button buttonType="primary" iconType="print">
@@ -107,11 +107,11 @@ Primary buttons can have an icon positioned before or after the text.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Primary buttons can be `fullWidth`.
 
-<Preview>
+<Canvas>
   <Story name="primary/full-width">
     <>
       <Button buttonType="primary" fullWidth>
@@ -119,24 +119,24 @@ Primary buttons can be `fullWidth`.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Primary buttons can be set into `noWrap` mode to prevent text wrapping.
 
-<Preview>
+<Canvas>
   <Story name="primary/noWrap">
     <Button buttonType="primary" noWrap>
       Long button text
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
 ### Secondary Buttons
 
 Less prominent, there can be multiple secondary buttons on a page.
 Secondary buttons are transparent, rather than white.
 
-<Preview>
+<Canvas>
   <Story name="secondary">
     <>
       <Button size="small">Small</Button>
@@ -146,11 +146,11 @@ Secondary buttons are transparent, rather than white.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Secondary buttons can be destructive.
 
-<Preview>
+<Canvas>
   <Story name="secondary/destructive">
     <>
       <Button destructive size="small">
@@ -164,11 +164,11 @@ Secondary buttons can be destructive.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Secondary buttons can be disabled.
 
-<Preview>
+<Canvas>
   <Story name="secondary/disabled">
     <>
       <Button size="small" disabled>
@@ -182,11 +182,11 @@ Secondary buttons can be disabled.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Secondary buttons can have an icon positioned before or after the text.
 
-<Preview>
+<Canvas>
   <Story name="secondary/icon">
     <>
       <Button iconType="print">Medium</Button>
@@ -198,11 +198,11 @@ Secondary buttons can have an icon positioned before or after the text.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Secondary buttons can be `fullWidth`.
 
-<Preview>
+<Canvas>
   <Story name="secondary/full-width">
     <>
       <Button buttonType="secondary" fullWidth>
@@ -210,23 +210,23 @@ Secondary buttons can be `fullWidth`.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Secondary buttons can be set into `noWrap` mode to prevent text wrapping.
 
-<Preview>
+<Canvas>
   <Story name="secondary/noWrap" parameters={{ chromatic: { disable: true } }}>
     <Button buttonType="secondary" noWrap>
       Long button text
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
 ### Tertiary Buttons
 
 Tertiary or ‘ghost’ buttons are used for reversing actions, like ‘Cancel’ or ‘Back’.
 
-<Preview>
+<Canvas>
   <Story name="tertiary">
     <>
       <Button buttonType="tertiary" size="small">
@@ -240,11 +240,11 @@ Tertiary or ‘ghost’ buttons are used for reversing actions, like ‘Cancel�
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Tertiary buttons can be destructive.
 
-<Preview>
+<Canvas>
   <Story name="tertiary/destructive">
     <>
       <Button buttonType="tertiary" destructive size="small">
@@ -258,11 +258,11 @@ Tertiary buttons can be destructive.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Tertiary buttons can be disabled.
 
-<Preview>
+<Canvas>
   <Story name="tertiary/disabled">
     <>
       <Button buttonType="tertiary" disabled size="small">
@@ -276,11 +276,11 @@ Tertiary buttons can be disabled.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Tertiary buttons can have an icon positioned before or after the text.
 
-<Preview>
+<Canvas>
   <Story name="tertiary/icon">
     <>
       <Button buttonType="tertiary" iconType="print">
@@ -306,11 +306,11 @@ Tertiary buttons can have an icon positioned before or after the text.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Tertiary buttons can be `fullWidth`.
 
-<Preview>
+<Canvas>
   <Story name="tertiary/full-width">
     <>
       <Button buttonType="tertiary" fullWidth>
@@ -318,23 +318,23 @@ Tertiary buttons can be `fullWidth`.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Tertiary buttons can be set to `noWrap` mode to prevent text wrapping.
 
-<Preview>
+<Canvas>
   <Story name="tertiary/noWrap" parameters={{ chromatic: { disable: true } }}>
     <Button buttonType="tertiary" noWrap>
       Long button text
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
 ### Dashed Buttons
 
 Dashed buttons are used for adding new content that replaces empty states.
 
-<Preview>
+<Canvas>
   <Story name="dashed">
     <>
       <Button buttonType="dashed" size="small">
@@ -348,11 +348,11 @@ Dashed buttons are used for adding new content that replaces empty states.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Dashed buttons can be disabled.
 
-<Preview>
+<Canvas>
   <Story name="dashed/disabled">
     <>
       <Button buttonType="dashed" disabled size="small">
@@ -366,11 +366,11 @@ Dashed buttons can be disabled.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Dashed buttons can have an icon positioned before or after the text.
 
-<Preview>
+<Canvas>
   <Story name="dashed/icon">
     <>
       <Button buttonType="dashed" iconType="add" size="small">
@@ -393,33 +393,33 @@ Dashed buttons can have an icon positioned before or after the text.
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Dashed buttons can be `fullWidth`.
 
-<Preview>
+<Canvas>
   <Story name="dashed/full-width">
     <Button buttonType="dashed" fullWidth>
       Full Width
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
 Dashed buttons can be set to `noWrap` mode to prevent text wrapping.
 
-<Preview>
+<Canvas>
   <Story name="dashed/noWrap" parameters={{ chromatic: { disable: true } }}>
     <Button buttonType="dashed" noWrap>
       Long button text
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
 ### Button as a link
 
 Passing in the `href` prop will render an anchor with `role="button"` and the Button styles. The `target` and `rel` props are also available.
 
-<Preview>
+<Canvas>
   <Story name="as a link">
     <Button buttonType="primary" href="/">
       I'm a link
@@ -434,13 +434,13 @@ Passing in the `href` prop will render an anchor with `role="button"` and the Bu
       Open in new tab
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
 ### Icon Only Button
 
 Buttons can be rendered with just an icon.
 
-<Preview>
+<Canvas>
   <Story name="icon only button">
     <>
       <Button
@@ -459,11 +459,11 @@ Buttons can be rendered with just an icon.
       />
     </>
   </Story>
-</Preview>
+</Canvas>
 
 Icon only buttons can also display a tooltip message when the icon is hovered over. This can be acheived by passing a string to the `iconTooltipMessage` prop.
 
-<Preview>
+<Canvas>
   <Story
     name="icon only button with tooltip"
     parameters={{ chromatic: { disable: true } }}
@@ -493,7 +493,7 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
       />
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

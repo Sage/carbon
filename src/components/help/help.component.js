@@ -24,6 +24,7 @@ const Help = ({
   tooltipPosition,
   isFocused,
   type,
+  tooltipId,
   tooltipBgColor,
   tooltipFontColor,
   tooltipFlipOverrides,
@@ -94,6 +95,7 @@ const Help = ({
         tooltipFontColor={tooltipFontColor}
         tooltipFlipOverrides={tooltipFlipOverrides}
         focusable={false}
+        tooltipId={tooltipId}
         aria-hidden="true"
         {...(href && {
           role: "tooltip",
@@ -110,7 +112,7 @@ Help.propTypes = {
   className: PropTypes.string,
   /** Message to display in tooltip */
   children: PropTypes.node,
-  /** The unique id of the component (used with aria-describedby for accessibility) */
+  /** The unique id of the component */
   helpId: PropTypes.string,
   /** Overrides the default tabindex of the component */
   tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -120,7 +122,7 @@ Help.propTypes = {
   tooltipPosition: PropTypes.oneOf(["bottom", "left", "right", "top"]),
   /** A path for the anchor */
   href: PropTypes.string,
-  /** A boolean received from IconWrapper */
+  /** Overrides the visibility of the Tooltip if true */
   isFocused: PropTypes.bool,
   /** <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
    *
@@ -148,6 +150,8 @@ Help.propTypes = {
       `The \`${propName}\` prop supplied to \`${componentName}\` must be an array containing some or all of ["top", "bottom", "left", "right"].`
     );
   },
+  /** Id passed to the tooltip container, used for accessibility purposes. */
+  tooltipId: PropTypes.string,
   /** Aria label */
   ariaLabel: PropTypes.string,
 };
