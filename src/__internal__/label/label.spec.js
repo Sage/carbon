@@ -1,6 +1,5 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import { ThemeProvider } from "styled-components";
 
 import Help from "../../components/help";
 import Tooltip from "../../components/tooltip/tooltip.component";
@@ -9,7 +8,6 @@ import StyledLabel, { StyledLabelContainer } from "./label.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 import ValidationIcon from "../validations/validation-icon.component";
-import baseTheme from "../../style/themes/base";
 import mintTheme from "../../style/themes/mint";
 import IconWrapperStyle from "./icon-wrapper.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
@@ -130,9 +128,18 @@ describe("Label", () => {
     it("applies styling when pr prop set", () => {
       assertStyleMatch(
         {
-          paddingRight: "16px",
+          paddingRight: "var(--spacing200)",
         },
         render({ inline: true, pr: 2 })
+      );
+    });
+
+    it("applies styling when pl prop set", () => {
+      assertStyleMatch(
+        {
+          paddingLeft: "var(--spacing200)",
+        },
+        render({ inline: true, pl: 2 })
       );
     });
 
@@ -146,9 +153,9 @@ describe("Label", () => {
       assertStyleMatch(
         {
           content: '"*"',
-          color: "#C7384F",
+          color: "var(--colorsSemanticNegative500)",
           fontWeight: "700",
-          marginLeft: "8px",
+          marginLeft: "var(--spacing100)",
         },
         wrapper.find(StyledLabel),
         { modifier: "::after" }
@@ -174,32 +181,20 @@ describe("Label", () => {
 
       assertStyleMatch(
         {
-          color: baseTheme.disabled.disabled,
+          color: "var(--colorsYin030)",
         },
         wrapper.find(StyledLabel)
       );
     });
   });
 
-  describe("with readonly", () => {
-    it("applies disabled color", () => {
-      const wrapper = render({ error: true, readOnly: true });
-      assertStyleMatch(
-        {
-          color: baseTheme.text.color,
-        },
-        wrapper.find(StyledLabel)
-      );
-    });
-  });
-
-  describe("with disabled", () => {
+  describe("with disabled and error", () => {
     it("applies disabled color", () => {
       const wrapper = render({ error: true, disabled: true });
 
       assertStyleMatch(
         {
-          color: baseTheme.disabled.disabled,
+          color: "var(--colorsYin030)",
         },
         wrapper.find(StyledLabel)
       );
@@ -208,14 +203,12 @@ describe("Label", () => {
 
   describe("when the help icon is focused", () => {
     it("then the IconWrapper outline should have the expected value", () => {
-      const wrapper = renderWithTheme({ help: "help message" }, baseTheme).find(
-        IconWrapperStyle
-      );
+      const wrapper = render({ help: "help message" }).find(IconWrapperStyle);
       wrapper.simulate("focus");
 
       assertStyleMatch(
         {
-          outline: `2px solid ${baseTheme.colors.focus}`,
+          outline: `2px solid var(--colorsSemanticFocus500)`,
         },
         wrapper,
         { modifier: ":focus" }
@@ -346,13 +339,5 @@ function renderWithContext(
         <Label {...props}>Name:</Label>
       </InputContext.Provider>
     </InputGroupContext.Provider>
-  );
-}
-
-function renderWithTheme(props = {}, theme, renderer = mount) {
-  return renderer(
-    <ThemeProvider theme={theme}>
-      <Label {...props}>Name:</Label>
-    </ThemeProvider>
   );
 }
