@@ -147,11 +147,11 @@ exports[`RadioButton base renders as expected 1`] = `
 }
 
 .c15 .c10:checked + .c12 circle {
-  fill: rgba(0,0,0,0.9);
+  fill: var(--colorsUtilityYin090);
 }
 
 .c15 .c10:checked + .c12 circle {
-  fill: #CCD6DB;
+  fill: var(--colorsUtilityDisabled600);
 }
 
 .c16 .c8 {
@@ -221,7 +221,7 @@ exports[`RadioButton base renders as expected 1`] = `
 }
 
 .c16 .c10:checked + .c12 circle {
-  fill: rgba(0,0,0,0.9);
+  fill: var(--colorsUtilityYin090);
 }
 
 .c16 .c8,
@@ -299,7 +299,7 @@ exports[`RadioButton base renders as expected 1`] = `
 }
 
 .c17 .c10:checked + .c12 circle {
-  fill: rgba(0,0,0,0.9);
+  fill: var(--colorsUtilityYin090);
 }
 
 .c17 .c8,
@@ -311,7 +311,7 @@ exports[`RadioButton base renders as expected 1`] = `
 }
 
 .c2 {
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing150);
 }
 
 .c2 .c8 {
@@ -410,7 +410,7 @@ exports[`RadioButton base renders as expected 1`] = `
 }
 
 .c2 .c10:checked + .c12 circle {
-  fill: rgba(0,0,0,0.9);
+  fill: var(--colorsUtilityYin090);
 }
 
 .c0 {
