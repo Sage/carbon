@@ -4,15 +4,15 @@ import StyledButton from "../button/button.style";
 
 const StyledSplitButtonChildrenContainer = styled.div`
   ${({ theme, align }) => css`
-    background-color: ${theme.colors.secondary};
+    background-color: var(--colorsActionMajorYang100);
     min-width: ${({ minWidth }) => minWidth}px;
     white-space: nowrap;
     z-index: ${theme.zIndex.popover};
 
     ${StyledButton} {
-      background-color: ${theme.colors.secondary};
-      border: 1px solid ${theme.colors.secondary};
-      color: ${theme.colors.white};
+      background-color: var(--colorsActionMajorYang100);
+      border: 1px solid var(--colorsActionMajorTransparent);
+      color: var(--colorsActionMajor500);
       display: block;
       margin-left: 0;
       margin-top: 3px;
@@ -23,7 +23,8 @@ const StyledSplitButtonChildrenContainer = styled.div`
 
       &:focus,
       &:hover {
-        background-color: ${theme.colors.tertiary};
+        color: var(--colorsActionMajorYang100);
+        background-color: var(--colorsActionMajor600);
       }
 
       & + & {
