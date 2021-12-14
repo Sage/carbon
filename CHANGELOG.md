@@ -1,3 +1,10 @@
+## [102.3.0](https://github.com/Sage/carbon/compare/v102.2.0...v102.3.0) (2021-12-14)
+
+
+### Features
+
+* **link:** describe link component using design tokens ([545980b](https://github.com/Sage/carbon/commit/545980b3b2ae1dbc90ee94d1c66ce15538146841))
+
 ## [102.2.0](https://github.com/Sage/carbon/compare/v102.1.0...v102.2.0) (2021-12-13)
 
 
