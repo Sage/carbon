@@ -10,8 +10,8 @@ import baseTheme from "../../style/themes/base";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 
 const RadioButtonStyle = styled(CheckboxStyle)`
-  ${({ disabled, fieldHelpInline, reverse, size, theme, inline }) => css`
-    margin-bottom: ${theme.space[2]}px;
+  ${({ disabled, fieldHelpInline, reverse, size, inline }) => css`
+    margin-bottom: var(--spacing150);
 
     :last-of-type {
       margin-bottom: 0;
@@ -50,17 +50,17 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     }
 
     ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
-      fill: ${theme.text.color};
+      fill: var(--colorsUtilityYin090);
     }
 
     ${disabled &&
     css`
       circle {
-        fill: ${theme.disabled.input};
+        fill: var(--colorsCtilityDisabled400);
       }
 
       ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
-        fill: ${theme.disabled.border};
+        fill: var(--colorsUtilityDisabled600);
       }
     `}
 
