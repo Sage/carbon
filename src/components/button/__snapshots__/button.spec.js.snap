@@ -4,6 +4,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c2 {
   position: relative;
   color: var(--colorsActionMajor500);
+  background-color: transparent;
   vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -994,6 +995,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c2 {
   position: relative;
   color: var(--colorsActionMajor500);
+  background-color: transparent;
   vertical-align: middle;
   -webkit-align-items: center;
   -webkit-box-align: center;

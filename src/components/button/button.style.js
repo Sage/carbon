@@ -139,7 +139,7 @@ StyledButton.propTypes = {
   /** Apply fullWidth style to the button */
   fullWidth: PropTypes.bool,
   /** Apply iconOnly to display button with the icon only  */
-  iconOnly: PropTypes.bool,
+  iconOnly: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Defines an Icon position within the button */
   iconPosition: PropTypes.oneOf([...BUTTON_ICON_POSITIONS, ""]),
   /** Defines an Icon type within the button (see Icon for options) */
