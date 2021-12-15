@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FormField with a label renders the label component above the childen 1`] = `
+exports[`FormField with a label renders the label component above the children 1`] = `
 <styled.div
   inline={true}
 >
@@ -19,7 +19,7 @@ exports[`FormField with a label renders the label component above the childen 1`
 </styled.div>
 `;
 
-exports[`FormField with fieldHelp and fieldHelpInline=true renders the FieldHelp component below the childen 1`] = `
+exports[`FormField with fieldHelp and fieldHelpInline=true renders the FieldHelp component below the children 1`] = `
 <styled.div
   inline={true}
 >
@@ -33,7 +33,7 @@ exports[`FormField with fieldHelp and fieldHelpInline=true renders the FieldHelp
 </styled.div>
 `;
 
-exports[`FormField with fieldHelp default renders the FieldHelp component below the childen 1`] = `
+exports[`FormField with fieldHelp default renders the FieldHelp component below the children 1`] = `
 Array [
   <styled.div
     inline={true}

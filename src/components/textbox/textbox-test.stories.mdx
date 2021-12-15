@@ -4,17 +4,12 @@ import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
 import Textbox from ".";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ICONS } from "../icon/icon-config";
 
-export const commonTextboxArgTypes = {
-  labelAlign: {
-    options: ["left", "right"],
-    control: {
-      type: "select",
-    },
-  },
+export const commonTextboxArgTypes = (isNewValidation)  => ({
   size: {
-    options: ["small", "medium", "large"],
+    options: ["extra-small", "small", "medium", "large"],
     control: {
       type: "select",
     },
@@ -25,33 +20,41 @@ export const commonTextboxArgTypes = {
       type: "select",
     },
   },
-  labelWidth: {
-    control: {
-      type: "range",
-      min: 0,
-      max: 100,
-      step: 1,
+  ...(!isNewValidation && {
+    labelAlign: {
+      options: ["left", "right"],
+      control: {
+        type: "select",
+      },
     },
-  },
-  inputWidth: {
-    control: {
-      type: "range",
-      min: 0,
-      max: 100,
-      step: 1,
+    labelWidth: {
+      control: {
+        type: "range",
+        min: 0,
+        max: 100,
+        step: 1,
+      },
     },
-  },
+    inputWidth: {
+      control: {
+        type: "range",
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+    },
+    fieldHelpSpecialCharacters: specialCharacters,
+  }),
   adaptiveLabelBreakpoint: {
     control: {
       type: "number",
     },
   },
   prefixSpecialCharacters: specialCharacters,
-  fieldHelpSpecialCharacters: specialCharacters,
   labelSpecialCharacters: specialCharacters,
   labelHelpSpecialCharacters: specialCharacters,
   placeholderSpecialCharacters: specialCharacters,
-};
+});
 
 <Meta
   title="Textbox/Test"
@@ -61,10 +64,10 @@ export const commonTextboxArgTypes = {
       disable: true,
     },
   }}
-  argTypes={commonTextboxArgTypes}
 />
 
 export const getCommonTextboxArgs = (
+  isNewValidation = false,
   autoFocusDefault = false,
   disabledDefault = false,
   readOnlyDefault = false
@@ -75,25 +78,29 @@ export const getCommonTextboxArgs = (
     autoFocus: autoFocusDefault,
     prefix: "",
     prefixSpecialCharacters: undefined,
-    fieldHelp: "",
-    fieldHelpSpecialCharacters: undefined,
-    label: "Label",
+    label: isNewValidation ? "Label - new validation" : "Label",
     labelSpecialCharacters: undefined,
     labelHelp: "",
     labelHelpSpecialCharacters: undefined,
     placeholder: "",
     placeholderSpecialCharacters: undefined,
-    labelInline: false,
     adaptiveLabelBreakpoint: undefined,
-    labelWidth: 30,
-    inputWidth: 70,
-    labelAlign: undefined,
+    ...(!isNewValidation && {
+      fieldHelp: "",
+      fieldHelpSpecialCharacters: undefined,
+      labelInline: false,
+      labelWidth: 30,
+      inputWidth: 70,
+      labelAlign: undefined,
+    }),
     size: "medium",
     inputIcon: undefined,
     required: false,
     enforceCharacterLimit: false,
     characterLimit: "",
     warnOverLimit: false,
+    error: "",
+    warning: "",
   };
 };
 
@@ -127,29 +134,46 @@ export const TextboxStory = (args) => {
     setState(value);
   };
   return (
-    <Textbox
-      onClick={action("onClick")}
-      iconOnClick={action("iconOnClick")}
-      value={state}
-      onChange={setValue}
-      {...getCommonTextboxArgsWithSpecialCaracters(args)}
-    />
+    <div style={{ width: "296px" }}>
+      <Textbox
+        m={2}
+        onClick={action("onClick")}
+        iconOnClick={action("iconOnClick")}
+        value={state}
+        onChange={setValue}
+        {...getCommonTextboxArgsWithSpecialCaracters(args)}
+      />
+    </div>
   );
 };
 
 export const MultipleTextboxStory = (args) => (
-  <>
-    <Textbox {...getCommonTextboxArgsWithSpecialCaracters(args)} />
-    <Textbox {...getCommonTextboxArgsWithSpecialCaracters(args)} />
-  </>
+  <div style={{ width: "296px" }}>
+    <Textbox m={2} {...getCommonTextboxArgsWithSpecialCaracters(args)} />
+    <Textbox m={2} {...getCommonTextboxArgsWithSpecialCaracters(args)} />
+  </div>
 );
+
+export const NewValidationStory = (args) => {
+  const [state, setState] = useState("");
+  const setValue = ({ target: { value } }) => {
+    setState(value);
+  };
+  return (
+    <div style={{ width: "296px" }}>
+      <CarbonProvider validationRedesignOptIn>
+        <Textbox m={2} {...getCommonTextboxArgsWithSpecialCaracters(args)} value={state} onChange={setValue} />
+      </CarbonProvider>
+    </div>
+  );
+};
 
 # Textbox
 
 ### Default
 
 <Canvas>
-  <Story name="default" args={getCommonTextboxArgs()}>
+  <Story argTypes={commonTextboxArgTypes()} name="default" args={getCommonTextboxArgs()}>
     {TextboxStory.bind({})}
   </Story>
 </Canvas>
@@ -157,7 +181,15 @@ export const MultipleTextboxStory = (args) => (
 ### Multiple
 
 <Canvas>
-  <Story name="multiple" args={getCommonTextboxArgs()}>
+  <Story argTypes={commonTextboxArgTypes()} name="multiple" args={getCommonTextboxArgs()}>
     {MultipleTextboxStory.bind({})}
+  </Story>
+</Canvas>
+
+### New Validation
+
+<Canvas>
+  <Story argTypes={commonTextboxArgTypes(true)} name="new validation" args={getCommonTextboxArgs(true)}>
+    {NewValidationStory.bind({})}
   </Story>
 </Canvas>
