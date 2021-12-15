@@ -45,6 +45,8 @@ export interface Colors {
     hover: string;
   };
   asterisk: string;
+  warningText: string;
+  placeholder: string;
 }
 
 export interface ThemeObject {

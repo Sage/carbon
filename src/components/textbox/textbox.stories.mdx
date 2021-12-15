@@ -4,6 +4,7 @@ import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import Textbox, { OriginalTextbox } from ".";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 <Meta title="Textbox" parameters={{ info: { disable: true } }} />
 
@@ -77,13 +78,21 @@ import Textbox from "carbon-react/lib/components/textbox";
   <Story name="sizes">
     {() =>
       ["small", "medium", "large"].map((size) => (
-        <Textbox
-          key={`Textbox - ${size}`}
-          label={`Textbox - ${size}`}
-          value="Textbox"
-          size={size}
-          mb={2}
-        />
+        <div style={{ width: "296px" }} key={size}>
+          <Textbox
+            label={`Textbox - ${size}`}
+            defaultValue="Textbox"
+            size={size}
+            mb={2}
+          />
+          <Textbox
+            label={`Textbox - ${size} - with icon`}
+            defaultValue="Textbox"
+            size={size}
+            inputIcon="search"
+            mb={2}
+          />
+        </div>
       ))
     }
   </Story>
@@ -116,11 +125,27 @@ import Textbox from "carbon-react/lib/components/textbox";
   </Story>
 </Canvas>
 
+### Prefix
+
+<Preview>
+  <Story name="prefix">
+    <Textbox label="Textbox" value="Textbox" prefix="pre" />;
+  </Story>
+</Preview>
+
 ### Disabled
 
 <Canvas>
   <Story name="disabled">
-    <Textbox label="Textbox" value="Textbox" disabled />
+    <div style={{ width: "296px" }}>
+      <Textbox label="Textbox" value="Textbox" disabled />
+      <Textbox
+        label="Textbox with icon"
+        value="Textbox"
+        disabled
+        inputIcon="search"
+      />
+    </div>
   </Story>
 </Canvas>
 
@@ -128,7 +153,15 @@ import Textbox from "carbon-react/lib/components/textbox";
 
 <Canvas>
   <Story name="readOnly">
-    <Textbox label="Textbox" value="Textbox" readOnly />
+    <div style={{ width: "296px" }}>
+      <Textbox label="Textbox" value="Textbox" readOnly />
+      <Textbox
+        label="Textbox with icon"
+        value="Textbox"
+        readOnly
+        inputIcon="search"
+      />
+    </div>
   </Story>
 </Canvas>
 
@@ -290,6 +323,42 @@ It is possible to use the `tooltipPosition` to override the default placement of
     }
   </Story>
 </Canvas>
+
+#### New designs validation
+
+<Preview>
+  <Story name="validations - string - new design">
+    {() =>
+      <>
+        <CarbonProvider validationRedesignOptIn>
+          {["error", "warning"].map((validationType) => (
+            ["small", "medium", "large"].map((size) => (
+              <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+                <Textbox
+                  m={4}
+                  label={`${size} - ${validationType}`} 
+                  defaultValue="Textbox"
+                  labelHelp="Hint text (optional)"
+                  size={size}
+                  {...{ [validationType]: "Message" }}
+                />
+                <Textbox
+                  m={4}
+                  label={`readOnly - ${size} - ${validationType}`} 
+                  defaultValue="Textbox"
+                  size={size}
+                  labelHelp="Hint text (optional)"
+                  readOnly
+                  {...{ [validationType]: "Message" }}
+                />
+              </div>
+            ))
+          ))}
+        </CarbonProvider>
+      </>
+    }
+  </Story>
+</Preview>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 

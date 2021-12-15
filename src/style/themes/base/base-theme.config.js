@@ -46,10 +46,12 @@ export default (palette) => {
       info: palette.productBlueShade(3),
       success: palette.brilliantGreenShade(20),
       warning: palette.carrotOrange,
+      warningText: palette.carrotOrangeShade(20),
       destructive: {
         hover: palette.errorRedShade(20),
       },
       asterisk: palette.errorRed,
+      placeholder: palette.blackOpacity(0.55),
     },
 
     progressTracker: {
