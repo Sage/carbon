@@ -217,7 +217,7 @@ Dialog.propTypes = {
   ariaRole: PropTypes.string,
   /** Dialog content */
   children: PropTypes.node,
-  /** Custom classname  */
+  /** Custom class name  */
   className: PropTypes.string,
   /** Controls the open state of the component */
   open: PropTypes.bool.isRequired,
