@@ -76,7 +76,7 @@ Then("search icon has golden border", () => {
 });
 
 Then("search icon has proper inner color", () => {
-  const mintColor = "rgb(0, 129, 93)";
+  const mintColor = "rgb(0, 122, 89)";
   searchIcon()
     .should("have.css", "background-color", mintColor)
     .and("have.css", "border-color", mintColor);

@@ -5,12 +5,12 @@
         "none": "rgb(230, 245, 230)"
     },
     "common": {
-        "mint": "rgb(0, 129, 93)",
+        "mint": "rgb(0, 122, 89)",
         "aegean": "rgb(0, 115, 194)",
         "none": "rgb(0, 130, 0)"
     },
     "step-sequence-item": {
-        "mint": "rgb(0, 126, 91)",
+        "mint": "rgb(0, 122, 89)",
         "aegean": "rgb(0, 92, 154)",
         "none": "rgb(0, 130, 0)"
     },

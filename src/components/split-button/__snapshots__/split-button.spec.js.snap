@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SplitButton for business themes renders styles correctly 1`] = `
+exports[`SplitButton for themes renders styles correctly 1`] = `
 .c5 {
   position: relative;
   color: #008200;
@@ -327,8 +327,8 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 }
 
 .c16 .c1 {
-  background-color: #006046;
-  border: 1px solid #006046;
+  background-color: #005A41;
+  border: 1px solid #005A41;
   color: #FFFFFF;
   display: block;
   margin-left: 0;
@@ -340,7 +340,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 
 .c16 .c1:focus,
 .c16 .c1:hover {
-  background-color: #00402E;
+  background-color: #003929;
 }
 
 .c16 .c1 + .c18 .c1 {

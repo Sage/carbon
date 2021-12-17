@@ -48,7 +48,7 @@ exports[`StepSequenceItem renders correctly 1`] = `
 
 .c0 .c3 {
   margin-right: 8px;
-  color: #00815D;
+  color: #007A59;
 }
 
 .c0:first-child {

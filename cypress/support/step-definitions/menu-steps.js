@@ -194,7 +194,7 @@ Then("{string} inner menu element is focused", (position) => {
     .children()
     .children()
     .should("have.css", "background-color")
-    .and("contain", "rgb(0, 129, 93)");
+    .and("contain", "rgb(0, 122, 89)");
   menuComponent(positionOfElement(position))
     .find("ul > li")
     .eq(1)

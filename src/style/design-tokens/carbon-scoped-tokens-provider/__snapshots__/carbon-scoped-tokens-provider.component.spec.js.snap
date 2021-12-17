@@ -361,8 +361,8 @@ exports[`CarbonScopedTokensProvider should render css variables for mint theme 1
   --colorsUtilityReadOnly500: #E6EBED;
   --colorsUtilityReadOnly600: #CCD6DB;
   --colorsActionMajor150: #B3D9C8;
-  --colorsActionMajor500: #00815D;
-  --colorsActionMajor600: #006046;
+  --colorsActionMajor500: #007A59;
+  --colorsActionMajor600: #005A41;
   --colorsActionMajor700: #004D2A;
   --colorsActionMajorTransparent: rgba(0,0,0,0);
   --colorsActionMajorYin030: rgba(0,0,0,0.3);

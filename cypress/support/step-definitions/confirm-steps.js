@@ -72,7 +72,7 @@ Then("confirm button type is set to {string}", (buttonType) => {
       .should("have.attr", "data-component", "loader")
       .and("be.visible");
   } else {
-    confirmButton().should("have.css", "background-color", "rgb(0, 129, 93)");
+    confirmButton().should("have.css", "background-color", "rgb(0, 122, 89)");
   }
 });
 
@@ -89,7 +89,7 @@ Then("{word} icon is displayed on the header", (iconType) => {
 Then("cancel button type is set to {string}", (cancelButtonType) => {
   if (cancelButtonType === "tertiary") {
     cancelButton()
-      .should("have.css", "color", "rgb(0, 129, 93)")
+      .should("have.css", "color", "rgb(0, 126, 91)")
       .and("have.css", "border-color", "rgba(0, 0, 0, 0)");
   } else if (cancelButtonType === "destructive") {
     cancelButton()

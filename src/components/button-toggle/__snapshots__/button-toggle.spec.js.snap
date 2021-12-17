@@ -281,7 +281,7 @@ exports[`ButtonToggle when the mint theme is set renders correct styles 1`] = `
 
 input:checked ~ .c2.c2 {
   background-color: #E6F6F1;
-  border-color: #006046;
+  border-color: #005A41;
   cursor: auto;
 }
 
@@ -291,8 +291,8 @@ input:focus ~ .c2 {
 }
 
 input:not(:checked):not(:disabled) ~ .c2:hover {
-  background-color: #006046;
-  border-color: #006046;
+  background-color: #005A41;
+  border-color: #005A41;
   color: #FFFFFF;
 }
 
@@ -379,7 +379,7 @@ exports[`ButtonToggle when the sage (experimental) theme is set renders correct 
 
 input:checked ~ .c2.c2 {
   background-color: #E6F6F1;
-  border-color: #006046;
+  border-color: #005A41;
   cursor: auto;
 }
 
@@ -389,8 +389,8 @@ input:focus ~ .c2 {
 }
 
 input:not(:checked):not(:disabled) ~ .c2:hover {
-  background-color: #006046;
-  border-color: #006046;
+  background-color: #005A41;
+  border-color: #005A41;
   color: #FFFFFF;
 }
 

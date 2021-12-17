@@ -458,7 +458,7 @@ describe("Typography", () => {
       it("uses theme.colors", () => {
         assert(
           {
-            [css]: "#00815D",
+            [css]: "#007A59",
           },
           { variant: "p", [prop]: "primary" }
         );

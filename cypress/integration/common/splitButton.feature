@@ -40,7 +40,7 @@ Feature: Split Button component
       And Split Button additional buttons have proper background-color "<color>" and border "<color>" color and has border-width 1 px
     Examples:
       | color          |
-      | rgb(0, 96, 70) |
+      | rgb(0, 90, 65) |
 
   @positive
   Scenario Outline: Verify hover color and golden border for <element> element of Split Button component

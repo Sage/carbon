@@ -37,7 +37,7 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
 
 input:checked ~ .c6.c6 {
   background-color: #E6F6F1;
-  border-color: #006046;
+  border-color: #005A41;
   cursor: auto;
 }
 
@@ -47,8 +47,8 @@ input:focus ~ .c6 {
 }
 
 input:not(:checked):not(:disabled) ~ .c6:hover {
-  background-color: #006046;
-  border-color: #006046;
+  background-color: #005A41;
+  border-color: #005A41;
   color: #FFFFFF;
 }
 
