@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import { baseTheme } from "../../style/themes";
+import { StyledPicklist } from "./picklist/picklist.style";
 
 const StyledDuellingPicklistOverlay = styled.div`
   ${margin}
