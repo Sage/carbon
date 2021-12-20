@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import { useState } from "react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import {
@@ -45,7 +45,7 @@ import {
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ chromatic: { disable: true } }}>
     <div style={{ minHeight: "150px" }}>
       <Menu>
@@ -67,11 +67,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Default selected
 
-<Preview>
+<Canvas>
   <Story name="default selected">
     <div style={{ minHeight: "150px" }}>
       <Menu>
@@ -86,11 +86,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Default divider
 
-<Preview>
+<Canvas>
   <Story name="default divider" parameters={{ chromatic: { disable: true } }}>
     <div style={{ minHeight: "150px" }}>
       <Menu>
@@ -105,11 +105,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Default large divider
 
-<Preview>
+<Canvas>
   <Story
     name="default large divider"
     parameters={{ chromatic: { disable: true } }}
@@ -127,11 +127,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Default segment title
 
-<Preview>
+<Canvas>
   <Story
     name="default segment title"
     parameters={{ chromatic: { disable: true } }}
@@ -149,11 +149,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Default theme with alternate colour variant
 
-<Preview>
+<Canvas>
   <Story
     name="default theme alternate colour"
     parameters={{ chromatic: { disable: true } }}
@@ -176,11 +176,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Submenu options
 
-<Preview>
+<Canvas>
   <Story name="submenu options" parameters={{ chromatic: { disable: true } }}>
     <div style={{ minHeight: "150px" }}>
       <Menu>
@@ -229,11 +229,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Submenu direction left
 
-<Preview>
+<Canvas>
   <Story
     name="submenu direction left"
     parameters={{ chromatic: { disable: true } }}
@@ -254,11 +254,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Default icon
 
-<Preview>
+<Canvas>
   <Story name="default icon">
     <div style={{ minHeight: "250px" }}>
       <Menu>
@@ -280,11 +280,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Dark theme
 
-<Preview>
+<Canvas>
   <Story name="dark theme" parameters={{ chromatic: { disable: true } }}>
     <div style={{ minHeight: "150px" }}>
       <Menu menuType="dark">
@@ -297,11 +297,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Dark theme selected
 
-<Preview>
+<Canvas>
   <Story name="dark theme selected">
     <div style={{ minHeight: "150px" }}>
       <Menu menuType="dark">
@@ -316,11 +316,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Dark theme divider
 
-<Preview>
+<Canvas>
   <Story
     name="dark theme divider"
     parameters={{ chromatic: { disable: true } }}
@@ -338,11 +338,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Dark theme large divider
 
-<Preview>
+<Canvas>
   <Story
     name="dark theme large divider"
     parameters={{ chromatic: { disable: true } }}
@@ -360,11 +360,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Dark theme segment title
 
-<Preview>
+<Canvas>
   <Story
     name="dark theme segment title"
     parameters={{ chromatic: { disable: true } }}
@@ -382,11 +382,11 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Dark theme with alternate colour variant
 
-<Preview>
+<Canvas>
   <Story
     name="dark theme alternate colour"
     parameters={{ chromatic: { disable: true } }}
@@ -409,14 +409,14 @@ import {
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### No dropdown arrow on submenu
 
 The example below has set the `showDropdownArrow` to false for the MenuItem with a submenu which means no dropdown arrow
 is rendered.
 
-<Preview>
+<Canvas>
   <Story name="no submenu dropdown arrow">
     <div style={{ minHeight: "150px" }}>
       <Menu>
@@ -429,11 +429,11 @@ is rendered.
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Dark icon
 
-<Preview>
+<Canvas>
   <Story name="dark icon">
     <div style={{ minHeight: "250px" }}>
       <Menu menuType="dark">
@@ -455,11 +455,11 @@ is rendered.
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Full navbar alignment example
 
-<Preview>
+<Canvas>
   <Story name="full navbar alignment example">
     {() => {
       const isBelowBreakpoint = (value) =>
@@ -520,13 +520,13 @@ is rendered.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Split submenu into separate component
 
 If you need to split out a submenu into a separate component, it must be done as shown below in order for the keyboard navigation to work as intended.
 
-<Preview>
+<Canvas>
   <Story
     name="submenu separate component"
     parameters={{ chromatic: { disable: true } }}
@@ -549,13 +549,13 @@ If you need to split out a submenu into a separate component, it must be done as
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Submenu icon and text alignment
 
 In order to align text and icons within a submenu a `Box` component will need to be used to adjust the margin of the content.
 
-<Preview>
+<Canvas>
   <Story name="button icon" parameters={{ chromatic: { disable: true } }}>
     <div style={{ minHeight: "250px" }}>
       <Menu menuType="dark">
@@ -577,14 +577,14 @@ In order to align text and icons within a submenu a `Box` component will need to
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Scrollable submenu
 
 A scrollable submenu can be added using the `ScrollableBlock` component. This can be used for all of the submenu items, or just a selection, as shown in `Menu Itme Four` below.
 Note that only one `ScrollableBlock` can be used within a single submenu.
 
-<Preview>
+<Canvas>
   <Story
     name="scrollable submenu"
     parameters={{ chromatic: { disable: true } }}
@@ -628,11 +628,11 @@ Note that only one `ScrollableBlock` can be used within a single submenu.
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Scrollable submenu dark
 
-<Preview>
+<Canvas>
   <Story
     name="scrollable submenu dark"
     parameters={{ chromatic: { disable: true } }}
@@ -676,11 +676,11 @@ Note that only one `ScrollableBlock` can be used within a single submenu.
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Submenu with search
 
-<Preview>
+<Canvas>
   <Story
     name="submenu with search"
     parameters={{ chromatic: { disable: true } }}
@@ -704,14 +704,14 @@ Note that only one `ScrollableBlock` can be used within a single submenu.
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Truncated titles
 
 Menu items can be given a maximum width using the `maxWidth` prop. Text overflowing this width will be truncated.
 A title attribute is added to the item when using this prop, containing the full menu item text.
 
-<Preview>
+<Canvas>
   <Story name="truncated titles">
     <div style={{ minHeight: "150px" }}>
       <Menu>
@@ -729,14 +729,14 @@ A title attribute is added to the item when using this prop, containing the full
       </Menu>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Responsive composition
 
 This story is best viewed in the `canvas` view and by adjusting the size of the window to see the various Menu compositions
 at the different breakpoints.
 
-<Preview>
+<Canvas>
   <Story
     name="responsive composition"
     parameters={{ chromatic: { disable: true } }}
@@ -803,14 +803,14 @@ at the different breakpoints.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Fullscreen view
 
 This story is best viewed in the `canvas` view and by adjusting the size of the window. The fullscreen menu behaviour will
 trigger when the screen size is smaller than `1200px`
 
-<Preview>
+<Canvas>
   <Story name="fullscreen view" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [menuOpen1, setMenuOpen1] = useState(false);
@@ -889,7 +889,7 @@ trigger when the screen size is smaller than `1200px`
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
@@ -903,20 +903,20 @@ trigger when the screen size is smaller than `1200px`
 
 ### ScrollableBlock
 
-<Props of={ScrollableBlock} />
+<ArgsTable of={ScrollableBlock} />
 
 ### SubmenuBlock
 
-<Props of={SubmenuBlock} />
+<ArgsTable of={SubmenuBlock} />
 
 ### MenuDivider
 
-<Props of={MenuDivider} />
+<ArgsTable of={MenuDivider} />
 
 ### MenuSegmentTitle
 
-<Props of={MenuSegmentTitle} />
+<ArgsTable of={MenuSegmentTitle} />
 
 ### MenuFullscreen
 
-<Props of={MenuFullscreen} />
+<ArgsTable of={MenuFullscreen} />

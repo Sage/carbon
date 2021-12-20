@@ -61,7 +61,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c4 {
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing150);
 }
 
 .c4 .c10 {
@@ -160,7 +160,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c4 .c12:checked + .c14 circle {
-  fill: rgba(0,0,0,0.9);
+  fill: var(--colorsUtilityYin090);
 }
 
 .c0 {
@@ -244,6 +244,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
               <input
                 aria-checked={false}
                 aria-describedby=""
+                aria-invalid={false}
                 checked={false}
                 className="c12 c13"
                 id="rId-0"
@@ -304,6 +305,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
               <input
                 aria-checked={false}
                 aria-describedby=""
+                aria-invalid={false}
                 checked={false}
                 className="c12 c13"
                 id="rId-1"

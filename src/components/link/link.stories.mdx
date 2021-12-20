@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
+
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import Link from "./link.component";
 import Box from "../box";
 import { Menu, MenuItem } from "../menu";
@@ -41,21 +43,21 @@ WCAG guidelines recommend that Color is not used as the only visual means of con
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Link>This is a link</Link>
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
 Setting the `disabled` prop to true disables the link.
 
-<Preview>
+<Canvas>
   <Story name="with Disabled">
     <Link disabled>This is a link</Link>
   </Story>
-</Preview>
+</Canvas>
 
 ### isSkipLink
 
@@ -64,7 +66,7 @@ The `Skip Link` has been created to allow users to use keyboard controls to skip
 It allows a user to jump into the main content without going through the whole `Menu` component, button by button.
 To show how it works, press the TAB key and you will be able to see how `Skip Link` will displays.
 
-<Preview>
+<Canvas>
   <Story name="isSkipLink" parameters={{ chromatic: { disable: true } }}>
     <Link href="#main-content" isSkipLink>
       This is a link
@@ -97,27 +99,27 @@ To show how it works, press the TAB key and you will be able to see how `Skip Li
         laboris dolor ut. Lorem ullamco adipisicing duis aute non minim.
         Adipisicing consequat labore non aliquip anim.
       </Typography>
-      <Link href="www.carbon.sage.com">Carbon Page</Link>
+      <Link href="https://carbon.sage.com">Carbon Page</Link>
     </Box>
   </Story>
-</Preview>
+</Canvas>
 
 ### href
 
 The `href` prop provides the ability for the Link to take the user to a different webpage or another part of the DOM.
 
-<Preview>
+<Canvas>
   <Story name="with href" parameters={{ chromatic: { disable: true } }}>
     <Link href="https://carbon.sage.com">This is a link</Link>
   </Story>
-</Preview>
+</Canvas>
 
 ### rel
 
 The `rel` prop provides the ability for the Link to set relationship between the current document
 and the linked document
 
-<Preview>
+<Canvas>
   <Story name="with rel" parameters={{ chromatic: { disable: true } }}>
     <Link
       href="https://carbon.sage.com/"
@@ -127,23 +129,23 @@ and the linked document
       This is a link
     </Link>
   </Story>
-</Preview>
+</Canvas>
 
 ### Icon
 
 The `icon` prop allows you to render an icon.
 
-<Preview>
+<Canvas>
   <Story name="with Icon" parameters={{ chromatic: { disable: true } }}>
     <Link icon="settings">This is a link</Link>
   </Story>
-</Preview>
+</Canvas>
 
 ### Icon Align
 
 The `iconAlign` prop allows you to control if the icon renders to left or right of the Link.
 
-<Preview>
+<Canvas>
   <Story name="with IconAlign">
     {() => {
       return ["left", "right"].map((align) => (
@@ -155,13 +157,13 @@ The `iconAlign` prop allows you to control if the icon renders to left or right 
       ));
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Tooltip
 
 By rendering an icon and providing a string to the `tooltipMessage` prop, a tooltip message can be displayed when hovering over the icon.
 
-<Preview>
+<Canvas>
   <Story name="with Tooltip" parameters={{ chromatic: { disable: true } }}>
     <div style={{ margin: "64px" }}>
       <Link icon="settings" tooltipMessage="This is a tooltip message">
@@ -169,32 +171,48 @@ By rendering an icon and providing a string to the `tooltipMessage` prop, a tool
       </Link>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### OnClick
 
 A custom `onClick` function can be passed to the Link component to render it as a button instead of an anchor.
 
-<Preview>
+<Canvas>
   <Story name="with onClick" parameters={{ chromatic: { disable: true } }}>
     <Link onClick={() => {}}>This is a link</Link>
   </Story>
-</Preview>
+</Canvas>
 
 ### Target
 
 Use the `target` prop to modify the behaviour when the Link component is clicked. In this example, target has been assigned `_blank`.
 
-<Preview>
+<Canvas>
   <Story name="with Target" parameters={{ chromatic: { disable: true } }}>
     <Link href="https://carbon.sage.com" target="_blank">
       This is a link
     </Link>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Link
 
-<Props of={Link} />
+<ArgsTable of={Link} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object
+to the [i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "link.skipLinkLabel",
+      description: "The text to be displayed in skip link",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

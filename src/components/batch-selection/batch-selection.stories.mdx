@@ -1,4 +1,4 @@
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import BatchSelection from ".";
@@ -6,10 +6,7 @@ import IconButton from "../icon-button";
 import Icon from "../icon";
 import Link from "../link";
 
-<Meta
-  title="Batch Selection"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Batch Selection" parameters={{ info: { disable: true } }} />
 
 # Batch Selection
 
@@ -35,7 +32,7 @@ import IconButton from "carbon-react/lib/components/icon-button";
 
 ### Basic usage
 
-<Preview>
+<Canvas>
   <Story name="default">
     <BatchSelection selectedCount={0}>
       <span style={{ paddingRight: "5px" }}>
@@ -52,11 +49,11 @@ import IconButton from "carbon-react/lib/components/icon-button";
       </IconButton>
     </BatchSelection>
   </Story>
-</Preview>
+</Canvas>
 
 ### On dark background
 
-<Preview>
+<Canvas>
   <Story name="dark">
     <BatchSelection selectedCount={1} colorTheme="dark">
       <IconButton onAction={() => {}}>
@@ -70,11 +67,11 @@ import IconButton from "carbon-react/lib/components/icon-button";
       </IconButton>
     </BatchSelection>
   </Story>
-</Preview>
+</Canvas>
 
 ### On light background
 
-<Preview>
+<Canvas>
   <Story name="light">
     <BatchSelection selectedCount={2} colorTheme="light">
       <IconButton onAction={() => {}}>
@@ -88,11 +85,11 @@ import IconButton from "carbon-react/lib/components/icon-button";
       </IconButton>
     </BatchSelection>
   </Story>
-</Preview>
+</Canvas>
 
 ### On white background
 
-<Preview>
+<Canvas>
   <Story name="white">
     <BatchSelection selectedCount={3} colorTheme="white">
       <IconButton onAction={() => {}}>
@@ -106,11 +103,11 @@ import IconButton from "carbon-react/lib/components/icon-button";
       </IconButton>
     </BatchSelection>
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     <BatchSelection selectedCount={4} disabled>
       <IconButton onAction={() => {}}>
@@ -124,17 +121,17 @@ import IconButton from "carbon-react/lib/components/icon-button";
       </IconButton>
     </BatchSelection>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Batch Selection
 
-<Props of={BatchSelection} />
+<ArgsTable of={BatchSelection} />
 
 ### Icon Button
 
-<Props of={IconButton} />
+<ArgsTable of={IconButton} />
 
 ## Translation keys
 

@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import DialogFullScreen from ".";
 import { Accordion } from "../accordion";
@@ -56,7 +56,7 @@ A good example could be importing a large volume of data, and checking for error
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -98,14 +98,14 @@ A good example could be importing a large volume of data, and checking for error
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With complex example
 
 If you want to use more than one group of `Tabs` remember to put `selectedTabId` prop in every `Tabs` component
 to have a possibility to manage active `Tabs` group
 
-<Preview>
+<Canvas>
   <Story name="with complex example">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
@@ -549,11 +549,11 @@ to have a possibility to manage active `Tabs` group
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With disableContentPadding
 
-<Preview>
+<Canvas>
   <Story
     name="with disableContentPadding"
     parameters={{ chromatic: { disable: true } }}
@@ -599,11 +599,11 @@ to have a possibility to manage active `Tabs` group
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With header children
 
-<Preview>
+<Canvas>
   <Story name="with header children" parameters={{ viewports: [500, 1400] }}>
     {() => {
       const [isOpen, setIsOpen] = useState(true);
@@ -658,11 +658,11 @@ to have a possibility to manage active `Tabs` group
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With help
 
-<Preview>
+<Canvas>
   <Story name="with help">
     {() => {
       const [isOpen, setIsOpen] = useState(true);
@@ -705,11 +705,11 @@ to have a possibility to manage active `Tabs` group
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With hidable header children
 
-<Preview>
+<Canvas>
   <Story
     name="with hidable header children"
     parameters={{ chromatic: { disable: true } }}
@@ -792,11 +792,11 @@ to have a possibility to manage active `Tabs` group
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With AppWrapper
 
-<Preview>
+<Canvas>
   <Story name="with app wrapper" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
@@ -840,7 +840,7 @@ to have a possibility to manage active `Tabs` group
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Overriding the first focused element
 
@@ -850,7 +850,7 @@ to the element you wish to focus on open (an example of this can be seen by clic
 you want to focus supports `autoFocus` then the you can override the default behaviour by using the `disableAutoFocus` prop
 and setting the `autoFocus` on the element you wish to be focused instead (click the second button to see an example).
 
-<Preview>
+<Canvas>
   <Story
     name="focusing a different first element"
     parameters={{ chromatic: { disable: true } }}
@@ -915,10 +915,10 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### DialogFullScreen
 
-<Props of={DialogFullScreen} />
+<ArgsTable of={DialogFullScreen} />

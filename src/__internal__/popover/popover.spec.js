@@ -5,6 +5,7 @@ import { createPopper } from "@popperjs/core";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Popover from "./popover.component";
+import { tokensClassName } from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 jest.mock("@popperjs/core");
 jest.mock("../../hooks/__internal__/useResizeObserver");
@@ -36,6 +37,7 @@ describe("Popover", () => {
       expect(createElementSpy).toHaveBeenCalledWith("div");
 
       const child = document.createElement("div");
+      child.classList.add(tokensClassName);
       const grandchild = document.createElement("div");
       grandchild.id = "popover-children";
       child.appendChild(grandchild);
@@ -54,6 +56,7 @@ describe("Popover", () => {
       mount(<Component />);
 
       const child = document.createElement("div");
+      child.classList.add(tokensClassName);
       const grandchild = document.createElement("div");
       grandchild.id = "popover-children";
       child.appendChild(grandchild);
@@ -71,6 +74,7 @@ describe("Popover", () => {
       wrapper.unmount();
 
       const child = document.createElement("div");
+      child.classList.add(tokensClassName);
 
       expect(removeChildSpy).toHaveBeenCalledWith(child);
     });

@@ -31,14 +31,6 @@ export interface HiddenCheckableInputProps
   extends CommonHiddenCheckableInputProps {
   /** HTML type attribute of the input */
   type: string;
-  /** Element id for aria-describedby */
-  helpId?: string;
-  /** Element id for aria-describedby */
-  fieldHelpId?: string;
-  /** Element id for aria-labelledby */
-  labelId?: string;
-  /** The id of the element that labels the input */
-  ariaLabelledBy?: string;
 }
 
 declare function HiddenCheckableInput(

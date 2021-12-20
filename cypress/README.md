@@ -6,6 +6,8 @@
 
 [Running Tests](#running-tests)
 
+- [Run cypress react tests](#run-cypress-react-tests)
+
 [Continuous Integration (CI)](#continuous-integration-ci)
 
 - [Build Storybook (only accessibility tests)](#build-storybook-only-accessibility-tests)
@@ -39,9 +41,16 @@ Storybook must be running before Cypress tests can be run:
 
 1. Run Storybook `npm start`.
 2. Open a new terminal in the root path of the project.
-3. Run Cypress using the runner with `npx cypress open` or `npm run test-cypress`, then select the required feature file. Test results can be seen directly in the Cypress Test Runner UI.
+3. Run Cypress using the runner with `npx cypress open` or `npm run test:cypress`, then select the required feature file. Test results can be seen directly in the Cypress Test Runner UI.
 4. To run specific Cypress tests at the command line (headless browser for continuous integration) use: `npx cypress run --spec 'cypress/integration/[tests-type]/[fileName](.feature|.test.js)'`. Test results can be seen in the console run summary.
 5. To run in the Chrome/Firefox browser add `--browser chrome` or `--browser firefox` to the above command.
+
+### Run cypress react tests
+
+We have implemented new approach for cypress tests, using cypress-react framework. There is no need to start storybook for this kind of integration tests.
+
+1. Run `npx cypress open-ct` to open `cypress` runner or
+   run `npx cypress run-ct` to run `tests` in `CI` mode.
 
 ## Continuous Integration (CI)
 
@@ -64,6 +73,7 @@ Storybook must be running before cypress can run.
 ### GitHub Actions
 1. `cypress.yml`
 - `npx cypress run --browser chrome --parallel -–record --spec './cypress/integration/**/*.feature'` - runs the complete test suite (except `accessibility`).
+- `npx cypress run-ct --browser chrome --parallel -–record --spec './src/components/**/*.test.js' --group ubuntu-cypress-react` - runs the `cypress react` suite.
 - `npx cypress run --browser chrome --parallel -–record --spec './cypress/integration/accessibility/*.test.js'` - runs the `accessibility` test suite only.
 
 The build result can be seen in GitHub in the pull request/branch and the detailed results can be seen in the [Cypress.io dashboard](https://dashboard.cypress.io/projects/8458bb/runs) or in GitHub Actions, both linked from the pull request/branch checks.

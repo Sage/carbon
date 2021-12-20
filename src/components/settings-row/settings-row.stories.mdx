@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import SettingsRow from ".";
@@ -36,13 +36,13 @@ The default `divider` line at the bottom of the row may be disabled by setting `
 
 All `children` are rendered in the input column to the right of the header column.
 
-<Preview>
+<Canvas>
   <Story name="default">
     <SettingsRow description="Description" title="Title">
       Content for settings
     </SettingsRow>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 import ButtonToggle from "../button-toggle";
 
@@ -33,7 +33,7 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <div>
       <ButtonToggle name="default" key="foo">
@@ -47,11 +47,23 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       </ButtonToggle>
     </div>
   </Story>
+</Canvas>
+
+### Icon only
+
+<Preview>
+  <Story name="icon only">
+    <div>
+      <ButtonToggle name="sizes" key="foo" buttonIcon="add" aria-label="add"/>
+      <ButtonToggle name="sizes" key="bar" buttonIcon="share" aria-label="share"/>
+      <ButtonToggle name="sizes" key="baz" buttonIcon="tick" aria-label="tick"/>
+    </div>
+  </Story>
 </Preview>
 
 ### Default with small icon
 
-<Preview>
+<Canvas>
   <Story name="default with small icon">
     <div>
       <ButtonToggle name="sizes" key="foo" buttonIcon="add">
@@ -65,11 +77,11 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       </ButtonToggle>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Default with large icon
 
-<Preview>
+<Canvas>
   <Story name="default with large icon">
     <div>
       <ButtonToggle
@@ -98,11 +110,11 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       </ButtonToggle>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Small
 
-<Preview>
+<Canvas>
   <Story name="small">
     <div>
       <ButtonToggle size="small" name="sizes" key="foo">
@@ -116,11 +128,11 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       </ButtonToggle>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Small with small icon
 
-<Preview>
+<Canvas>
   <Story name="small with small icon">
     <div>
       <ButtonToggle size="small" name="sizes" key="foo" buttonIcon="add">
@@ -134,11 +146,11 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       </ButtonToggle>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Small with large icon
 
-<Preview>
+<Canvas>
   <Story name="small with large icon">
     <div>
       <ButtonToggle
@@ -170,11 +182,11 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       </ButtonToggle>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Large
 
-<Preview>
+<Canvas>
   <Story name="large">
     <div>
       <ButtonToggle size="large" name="sizes" key="foo">
@@ -188,11 +200,11 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       </ButtonToggle>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Large with small icon
 
-<Preview>
+<Canvas>
   <Story name="large with small icon">
     <div>
       <ButtonToggle size="large" name="sizes" key="foo" buttonIcon="add">
@@ -206,11 +218,11 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       </ButtonToggle>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Large with large icon
 
-<Preview>
+<Canvas>
   <Story name="large with large icon">
     <div>
       <ButtonToggle
@@ -242,11 +254,11 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       </ButtonToggle>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="disabled">
     <div>
       <ButtonToggle name="disabled" key="foo" disabled>
@@ -260,11 +272,11 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       </ButtonToggle>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Grouped
 
-<Preview>
+<Canvas>
   <Story name="grouped">
     <div>
       <ButtonToggle name="grouped" key="foo" grouped>
@@ -278,10 +290,10 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       </ButtonToggle>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Button Toggle
 
-<Props of={ButtonToggle} />
+<ArgsTable of={ButtonToggle} />

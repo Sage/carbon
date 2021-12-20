@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import ValidationIconStyle from "../validations/validation-icon.style";
 import StyledHelp from "../../components/help/help.style";
-import baseTheme from "../../style/themes/base";
 
 const IconWrapperStyle = styled.div`
   display: inline-block;
@@ -15,16 +14,12 @@ const IconWrapperStyle = styled.div`
   vertical-align: top;
 
   :focus {
-    outline: ${({ theme }) => `2px solid ${theme.colors.focus}`};
+    outline: 2px solid var(--colorsSemanticFocus500);
   }
 
   ${ValidationIconStyle}, ${StyledHelp} {
     position: static;
   }
 `;
-
-IconWrapperStyle.defaultProps = {
-  theme: baseTheme,
-};
 
 export default IconWrapperStyle;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import Loader from ".";
 import Button from "../button";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -36,31 +36,31 @@ import Loader from "carbon-react/lib/components/loader";
 
 This example of the Loader component demonstrates how it will appear as default.
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Loader />
   </Story>
-</Preview>
+</Canvas>
 
 ### Small
 
 This is an example of a small Loader component.
 
-<Preview>
+<Canvas>
   <Story name="small">
     <Loader size="small" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Large
 
 This is an example of the large Loader component. The larger size is only used when a whole page is loading.
 
-<Preview>
+<Canvas>
   <Story name="large">
     <Loader size="large" />
   </Story>
-</Preview>
+</Canvas>
 
 ### Inside Buttons
 
@@ -68,13 +68,13 @@ This is an example of the Loader nested inside of a Button component. When used 
 To ensure that the correct styling is applied to the `Loader` component when it is nested inside of the `Button` component,
 please remember to pass the `isInsideButton` prop to the `Loader` component.
 
-<Preview>
+<Canvas>
   <Story name="inside Buttons">
     <Button buttonType="primary">
       <Loader isInsideButton />
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

@@ -67,7 +67,7 @@ const ButtonToggleGroup = ({
         >
           <ButtonToggleGroupStyle
             aria-label={label}
-            role="group"
+            role="radiogroup"
             inputWidth={inputWidth}
             {...validationProps}
           >

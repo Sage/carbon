@@ -100,7 +100,7 @@ input:not(:checked):not(:disabled) ~ .c6:hover .c8 {
   >
     <div
       className="c3"
-      role="group"
+      role="radiogroup"
     >
       <div
         className="c4"
@@ -110,6 +110,7 @@ input:not(:checked):not(:disabled) ~ .c6:hover .c8 {
         <input
           checked={false}
           className="c5"
+          data-element="button-toggle-input"
           id="guid-12345"
           name="button-toggle-group"
           onBlur={[Function]}
@@ -140,6 +141,7 @@ input:not(:checked):not(:disabled) ~ .c6:hover .c8 {
         <input
           checked={false}
           className="c5"
+          data-element="button-toggle-input"
           id="guid-12345"
           name="button-toggle-group"
           onBlur={[Function]}

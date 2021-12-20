@@ -23,15 +23,11 @@ const ButtonToggleInput = React.forwardRef((props, forwardRef) => {
 
   return (
     <StyledButtonToggleInput
+      {...props}
       type="radio"
-      name={props.name}
       id={props.guid}
-      disabled={props.disabled}
-      checked={props.checked}
-      onChange={props.onChange}
       onBlur={handleBlur}
       onFocus={handleFocus}
-      value={props.value}
       ref={forwardRef}
     />
   );

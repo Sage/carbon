@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import { Menu } from ".";
@@ -72,7 +72,7 @@ export const MenuStory = ({ menuType, startPosition }) => {
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -82,4 +82,4 @@ export const MenuStory = ({ menuType, startPosition }) => {
   >
     {MenuStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

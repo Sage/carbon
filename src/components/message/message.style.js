@@ -4,13 +4,20 @@ import { margin } from "styled-system";
 import BaseTheme from "../../style/themes/base";
 import StyledIconButton from "../icon-button/icon-button.style";
 
+const messageVariants = {
+  error: "var(--colorsSemanticNegative500)",
+  info: "var(--colorsSemanticNeutral500)",
+  success: "var(--colorsSemanticPositive500)",
+  warning: "var(--colorsSemanticCaution500)",
+};
+
 const MessageStyle = styled.div`
   position: relative;
   display: flex;
   justify-content: flex-start;
   align-content: center;
-  border: 1px solid ${({ theme, variant }) => theme.colors[variant]};
-  background-color: ${({ theme }) => theme.colors.white};
+  border: 1px solid ${({ variant }) => messageVariants[variant]};
+  background-color: var(--colorsUtilityYang100);
   min-height: 38px;
 
   ${({ transparent }) =>

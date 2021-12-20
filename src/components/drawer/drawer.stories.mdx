@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback, useContext } from "react";
-import { Meta, Props, Preview, Story } from "@storybook/addon-docs";
+import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 import styled from "styled-components";
 
@@ -52,7 +52,7 @@ import Drawer from "carbon-react/lib/components/drawer";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <div style={{ height: "200px" }}>
       <Drawer
@@ -71,11 +71,11 @@ import Drawer from "carbon-react/lib/components/drawer";
       </Drawer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom height
 
-<Preview>
+<Canvas>
   <Story
     name="custom height"
     args={{
@@ -101,11 +101,11 @@ import Drawer from "carbon-react/lib/components/drawer";
       </Drawer>
     )}
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom Background Color (Red)
 
-<Preview>
+<Canvas>
   <Story
     name="background color red"
     args={{
@@ -133,13 +133,13 @@ import Drawer from "carbon-react/lib/components/drawer";
       </div>
     )}
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom Background Color (White)
 
 Note: parent container background-color is set to red for demonstration purpose.
 
-<Preview>
+<Canvas>
   <Story
     name="background color white"
     args={{
@@ -166,13 +166,13 @@ Note: parent container background-color is set to red for demonstration purpose.
       </div>
     )}
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom Background Color (Transparent)
 
 Note: parent container background-color is set to red for demonstration purpose.
 
-<Preview>
+<Canvas>
   <Story
     name="background color transparent"
     args={{
@@ -199,11 +199,11 @@ Note: parent container background-color is set to red for demonstration purpose.
       </div>
     )}
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom Title
 
-<Preview>
+<Canvas>
   <Story name="title">
     <div style={{ height: "200px" }}>
       <Drawer
@@ -223,11 +223,11 @@ Note: parent container background-color is set to red for demonstration purpose.
       </Drawer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With Controls usage
 
-<Preview>
+<Canvas>
   <Story
     name="with controls"
     args={{
@@ -255,11 +255,11 @@ Note: parent container background-color is set to red for demonstration purpose.
       </div>
     )}
   </Story>
-</Preview>
+</Canvas>
 
 ### With sticky header
 
-<Preview>
+<Canvas>
   <Story name="with sticky header">
     <div style={{ height: "400px" }}>
       <Drawer
@@ -333,11 +333,11 @@ Note: parent container background-color is set to red for demonstration purpose.
       </Drawer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With footer
 
-<Preview>
+<Canvas>
   <Story name="with footer">
     <div style={{ height: "400px" }}>
       <Drawer
@@ -419,11 +419,11 @@ Note: parent container background-color is set to red for demonstration purpose.
       </Drawer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### With sticky footer
 
-<Preview>
+<Canvas>
   <Story name="with sticky footer">
     <div style={{ height: "400px" }}>
       <Drawer
@@ -506,11 +506,11 @@ Note: parent container background-color is set to red for demonstration purpose.
       </Drawer>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom Sidebar - FlatTable component as sidebar content
 
-<Preview>
+<Canvas>
   <Story
     name="custom sidebar"
     args={{
@@ -566,54 +566,53 @@ Note: parent container background-color is set to red for demonstration purpose.
         setCurrentPage(newPage);
       };
       return (
-      <div>
-        <Drawer
-          defaultExpanded
-          sidebar={
-            <FlatTable
-              height="calc(100vh - 70px)"
-              hasStickyFooter
-              footer={
-                <Pager
-                  totalRecords={rows.length}
-                  showPageSizeSelection
-                  pageSize={5}
-                  currentPage={currentPage}
-                  onPagination={(next, size) => handlePagination(next, size)}
-                  pageSizeSelectionOptions={[
-                    { id: "1", name: 1 },
-                    { id: "3", name: 3 },
-                    { id: "5", name: 5 },
-                  ]}
-                />
-              }
-            >
-              <FlatTableHead>
-                <FlatTableRow>
-                  <FlatTableHeader>Name</FlatTableHeader>
-                  <FlatTableHeader>Location</FlatTableHeader>
-                  <FlatTableHeader>Relationship Status</FlatTableHeader>
-                  <FlatTableHeader>Dependents</FlatTableHeader>
-                </FlatTableRow>
-              </FlatTableHead>
-              <FlatTableBody>
-                {renderRows()}
-              </FlatTableBody>
-            </FlatTable>
-          }
-          {...args}
-        >
-          content body content body content body content body content body
-          content body content body
-        </Drawer>
-      </div>
-    )}}
+        <div>
+          <Drawer
+            defaultExpanded
+            sidebar={
+              <FlatTable
+                height="calc(100vh - 70px)"
+                hasStickyFooter
+                footer={
+                  <Pager
+                    totalRecords={rows.length}
+                    showPageSizeSelection
+                    pageSize={5}
+                    currentPage={currentPage}
+                    onPagination={(next, size) => handlePagination(next, size)}
+                    pageSizeSelectionOptions={[
+                      { id: "1", name: 1 },
+                      { id: "3", name: 3 },
+                      { id: "5", name: 5 },
+                    ]}
+                  />
+                }
+              >
+                <FlatTableHead>
+                  <FlatTableRow>
+                    <FlatTableHeader>Name</FlatTableHeader>
+                    <FlatTableHeader>Location</FlatTableHeader>
+                    <FlatTableHeader>Relationship Status</FlatTableHeader>
+                    <FlatTableHeader>Dependents</FlatTableHeader>
+                  </FlatTableRow>
+                </FlatTableHead>
+                <FlatTableBody>{renderRows()}</FlatTableBody>
+              </FlatTable>
+            }
+            {...args}
+          >
+            content body content body content body content body content body
+            content body content body
+          </Drawer>
+        </div>
+      );
+    }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Custom Content - FlatTable component as drawer content
 
-<Preview>
+<Canvas>
   <Story
     name="custom content"
     args={{
@@ -723,13 +722,13 @@ Note: parent container background-color is set to red for demonstration purpose.
       </div>
     )}
   </Story>
-</Preview>
+</Canvas>
 
 ### Different expanded width
 
 Use the `expandedWidth` prop to alter the width of the open `Drawer`.
 
-<Preview>
+<Canvas>
   <Story name="different expanded width">
     {() => {
       const [isExpanded, setIsExpanded] = useState(false);
@@ -767,13 +766,13 @@ Use the `expandedWidth` prop to alter the width of the open `Drawer`.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Different Animation Speed
 
 Use the `animationDuration` prop to alter the speed of the `Drawer` opening/closing.
 
-<Preview>
+<Canvas>
   <Story name="different animation speed">
     {() => {
       const [isExpanded, setIsExpanded] = useState(false);
@@ -812,11 +811,11 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Controlled Usage
 
-<Preview>
+<Canvas>
   <Story
     name="controlled"
     args={{
@@ -861,11 +860,11 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Side View Navigation
 
-<Preview>
+<Canvas>
   <Story name="side view navigation">
     {() => {
       const bodyDataItems = [
@@ -1060,7 +1059,7 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With Tab controls
 
@@ -1068,7 +1067,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
 `onTabChange` callback. If you also need to override the validation statuses, this can be done using the
 `validationStatusOverride` prop.
 
-<Preview>
+<Canvas>
   <Story name="with tab controls">
     {() => {
       const [active, setAcitve] = useState("tab-1");
@@ -1391,10 +1390,10 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Drawer
 
-<Props of={Drawer} />
+<ArgsTable of={Drawer} />
