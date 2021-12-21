@@ -9,5 +9,17 @@
     "hasHeaderRow": true,
     "hasStickyHead": true,
     "hasClickableRows": true
+  },
+  "pl1": {
+    "pl": 1
+  },
+  "pl4": {
+    "pl": 4
+  },
+  "pl25px": {
+    "pl": "25px"
+  },
+  "pl6em": {
+    "pl": "6em"
   }
 }

@@ -12,6 +12,7 @@ import {
   flatTablePageSizeSelect,
   flatTablePageSelectListPosition,
   pageSelectDataComponent,
+  flatTableSubrowFirstCell,
 } from "../../locators/flat-table";
 
 import DEBUG_FLAG from "..";
@@ -280,3 +281,14 @@ Then("I type {int} in pagination input", (value) => {
 Then("Pagination input should have {int} value", (value) => {
   pageSelectDataComponent().find("input").should("have.value", value);
 });
+
+Then(
+  "The first table cell of {string} subrow should have {word} padding left value",
+  (position, value) => {
+    flatTableSubrowFirstCell(positionOfElement(position)).should(
+      "have.css",
+      "padding-left",
+      value
+    );
+  }
+);
