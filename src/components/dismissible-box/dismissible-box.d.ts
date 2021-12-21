@@ -1,9 +1,8 @@
 import * as React from "react";
-import { SpaceProps } from "styled-system";
+import { BoxProps } from "components/box/box";
 
-type BorderOptions = "top" | "bottom" | "right" | "none";
-
-export interface DismissibleBoxProps extends SpaceProps {
+export interface DismissibleBoxProps
+  extends Omit<BoxProps, "display" | "justifyContent"> {
   /** Flag to control whether the thicker left border highlight should be rendered */
   hasBorderLeftHighlight?: boolean;
   /** The content to render in the component */
