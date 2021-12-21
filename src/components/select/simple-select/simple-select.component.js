@@ -67,6 +67,7 @@ const SimpleSelect = React.forwardRef(
     const filterText = useRef();
     const [textboxRef, setTextboxRef] = useState();
     const [isOpen, setOpenState] = useState(false);
+    const [activeDescendantId, setActiveDescendantId] = useState();
     const [textValue, setTextValue] = useState("");
     const [selectedValue, setSelectedValue] = useState(
       value || defaultValue || ""
@@ -314,10 +315,16 @@ const SimpleSelect = React.forwardRef(
     }
 
     function onSelectOption(optionData) {
-      const { text, value: newValue, selectionType } = optionData;
+      const {
+        text,
+        value: newValue,
+        selectionType,
+        id: selectedOptionId,
+      } = optionData;
       const isClickTriggered = selectionType === "click";
 
       updateValue(newValue, text);
+      setActiveDescendantId(selectedOptionId);
 
       if (selectionType !== "navigationKey") {
         setOpenState(false);
@@ -409,8 +416,6 @@ const SimpleSelect = React.forwardRef(
         transparent={transparent}
         disabled={disabled}
         readOnly={readOnly}
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
         ref={containerRef}
         data-component={dataComponent}
         data-role={dataRole}
@@ -418,8 +423,10 @@ const SimpleSelect = React.forwardRef(
         {...filterStyledSystemMarginProps(props)}
       >
         <SelectTextbox
-          aria-controls={isOpen ? selectListId.current : ""}
+          isOpen={isOpen}
           labelId={labelId.current}
+          activeDescendantId={activeDescendantId}
+          aria-controls={isOpen ? selectListId.current : undefined}
           {...getTextboxProps()}
           positionedChildren={disablePortal && isOpen && selectList}
         />

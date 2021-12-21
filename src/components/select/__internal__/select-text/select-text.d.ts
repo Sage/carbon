@@ -7,6 +7,8 @@ export interface SelectTextProps {
   formattedValue?: string;
   /** Label id passed from Select component  */
   labelId?: string;
+  /** If true, the list is displayed */
+  isOpen?: boolean;
   /** Callback function for when the Select Textbox loses it's focus. */
   onBlur?: (ev: React.FocusEvent<HTMLElement>) => void;
   /** Callback function for when the component is clicked. */

@@ -47,10 +47,14 @@ export interface FormInputPropTypes
 }
 
 export interface SelectTextboxProps extends FormInputPropTypes {
+  /** Id attribute of the select list */
+  "aria-controls"?: string;
   /** Value to be displayed in the Textbox */
   formattedValue?: string;
   /** If true, the input will be displayed */
   hasTextCursor?: boolean;
+  /** If true, the list is displayed */
+  isOpen?: boolean;
   /** Value of the Select Input */
   selectedValue?:
     | string

@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 import StyledOptionRow from "./option-row.style";
 
 const OptionRow = React.forwardRef(
-  ({ text, children, onSelect, value, isHighlighted, hidden }, ref) => {
+  ({ id, text, children, onSelect, value, isHighlighted, hidden }, ref) => {
     const handleClick = () => {
-      onSelect({ text, value });
+      onSelect({ id, text, value });
     };
 
     return (
       <StyledOptionRow
+        id={id}
         ref={ref}
         aria-selected={isHighlighted}
         data-component="option-row"
@@ -31,6 +32,12 @@ OptionRow.propTypes = {
   children: PropTypes.node.isRequired,
   /** The option's invisible internal value */
   value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
+  /**
+   * @private
+   * @ignore
+   * Component id (prop added by the SelectList component)
+   */
+  id: PropTypes.string.isRequired,
   /**
    * @private
    * @ignore

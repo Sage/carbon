@@ -14,7 +14,7 @@ describe("SelectTextbox", () => {
       expect(wrapper.find(Textbox).props().placeholder).toBe(undefined);
       expect(wrapper.find(Textbox).props().inputIcon).toBe("dropdown");
       expect(wrapper.find(Textbox).props().autoComplete).toBe("off");
-      expect(wrapper.find(Textbox).props().type).toBe("button");
+      expect(wrapper.find(Textbox).props().type).toBe("text");
     });
   });
 
