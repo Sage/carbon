@@ -1,3 +1,26 @@
+### [102.4.3](https://github.com/Sage/carbon/compare/v102.4.2...v102.4.3) (2021-12-21)
+
+
+### Bug Fixes
+
+* **flat-table-cell:** ensure that pl prop is correctly applied to a sub row ([28c7ffa](https://github.com/Sage/carbon/commit/28c7ffaf84da80587c36dc1284b4b710b9778d5f)), closes [#4348](https://github.com/Sage/carbon/issues/4348)
+
+### [102.4.2](https://github.com/Sage/carbon/compare/v102.4.1...v102.4.2) (2021-12-21)
+
+
+### Bug Fixes
+
+* **dismissible-box:** remove minWidth from component ([e5b78d6](https://github.com/Sage/carbon/commit/e5b78d68291c2ea345d8b2d435a52dcacb354742)), closes [#4627](https://github.com/Sage/carbon/issues/4627)
+
+### [102.4.1](https://github.com/Sage/carbon/compare/v102.4.0...v102.4.1) (2021-12-21)
+
+
+### Bug Fixes
+
+* **alert:** fix incorrect prop type for title prop ([fb82edb](https://github.com/Sage/carbon/commit/fb82edba788e880bde42bd77c4b83fd61ecfcc20)), closes [#4600](https://github.com/Sage/carbon/issues/4600)
+* **dialog:** add missing prop types to ts definition file ([a4ba3ce](https://github.com/Sage/carbon/commit/a4ba3ce8b4a02c66a032fac8928397d77c63181b))
+* **modal:** add missing prop types to ts definition file ([fbe0b27](https://github.com/Sage/carbon/commit/fbe0b278524a7454ee5521222d04cdb3a6d8754d))
+
 ## [102.4.0](https://github.com/Sage/carbon/compare/v102.3.0...v102.4.0) (2021-12-14)
 
 

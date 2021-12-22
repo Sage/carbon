@@ -35,7 +35,7 @@ const StyledFlatTableCell = styled.td`
       width: ${colWidth}px;
     `}
 
-    &&& {
+    &&&& {
       > div {
         box-sizing: border-box;
 
