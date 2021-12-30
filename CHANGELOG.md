@@ -1,3 +1,10 @@
+### [102.4.4](https://github.com/Sage/carbon/compare/v102.4.3...v102.4.4) (2021-12-23)
+
+
+### Bug Fixes
+
+* **checkbox-group:** remove incorrect margin in form ([4a061e7](https://github.com/Sage/carbon/commit/4a061e70e9b0982e8d45af6790547b75d9440e9e)), closes [#4641](https://github.com/Sage/carbon/issues/4641)
+
 ### [102.4.3](https://github.com/Sage/carbon/compare/v102.4.2...v102.4.3) (2021-12-21)
 
 
