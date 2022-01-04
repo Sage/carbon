@@ -29,6 +29,7 @@ function renderChildren({
   };
 
   const iconProps = {
+    "aria-hidden": true,
     type: iconType,
     disabled,
     bgSize: "extra-small",

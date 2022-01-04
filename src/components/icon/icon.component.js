@@ -35,6 +35,7 @@ const Icon = React.forwardRef(
       inputSize,
       role,
       ariaLabel,
+      "aria-hidden": ariaHidden,
       focusable = true,
       ...rest
     },
@@ -96,6 +97,7 @@ const Icon = React.forwardRef(
         {...styleProps}
         hasTooltip={hasTooltip}
         aria-label={ariaLabel}
+        aria-hidden={ariaHidden}
         role={hasTooltip && role === undefined ? "tooltip" : role}
       />
     );
@@ -163,6 +165,8 @@ Icon.propTypes = {
   disabled: PropTypes.bool,
   /** Aria label for accessibility purposes */
   ariaLabel: PropTypes.string,
+  /** Set whether icon should be recognised by assistive technologies */
+  "aria-hidden": PropTypes.bool,
   /** The message to be displayed within the tooltip */
   tooltipMessage: PropTypes.node,
   /** The position to display the tooltip */
