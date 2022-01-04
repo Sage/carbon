@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import MountInApp from ".";
 
 <Meta title="Mount In App" parameters={{ info: { disable: true } }} />
@@ -23,7 +23,7 @@ import MountInApp from "carbon-react/lib/components/mount-in-app";
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default">
     <div>
       <div id="carbon-demo">Some content to be replaced.</div>
@@ -32,10 +32,10 @@ import MountInApp from "carbon-react/lib/components/mount-in-app";
       </MountInApp>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
 ### Mount In App
 
-<Props of={MountInApp} />
+<ArgsTable of={MountInApp} />

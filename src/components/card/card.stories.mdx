@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import { Card, CardRow, CardFooter, CardColumn } from ".";
 import Heading from "../heading";
 import Link from "../link";
@@ -54,7 +54,7 @@ import {
 
 ### Default - medium spacing
 
-<Preview>
+<Canvas>
   <Story name="default">
     <Card>
       <CardRow>
@@ -84,11 +84,11 @@ import {
       </CardFooter>
     </Card>
   </Story>
-</Preview>
+</Canvas>
 
 ### Small spacing
 
-<Preview>
+<Canvas>
   <Story name="small spacing">
     <Card spacing="small">
       <CardRow>
@@ -118,11 +118,11 @@ import {
       </CardFooter>
     </Card>
   </Story>
-</Preview>
+</Canvas>
 
 ### Large spacing
 
-<Preview>
+<Canvas>
   <Story name="large spacing">
     <Card spacing="large">
       <CardRow>
@@ -152,11 +152,11 @@ import {
       </CardFooter>
     </Card>
   </Story>
-</Preview>
+</Canvas>
 
 ### With cardWidth provided
 
-<Preview>
+<Canvas>
   <Story name="with cardWidth provided">
     <Card cardWidth="300px">
       <CardRow>
@@ -186,13 +186,13 @@ import {
       </CardFooter>
     </Card>
   </Story>
-</Preview>
+</Canvas>
 
 ### Interactive
 
 Click on the card to see the effect
 
-<Preview>
+<Canvas>
   <Story name="interactive" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [clickCounter, setClickCounter] = useState(0);
@@ -235,11 +235,11 @@ Click on the card to see the effect
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Different `<CardRow />` padding
 
-<Preview>
+<Canvas>
   <Story
     name="different CardRow padding"
     parameters={{ chromatic: { disable: true } }}
@@ -281,11 +281,11 @@ Click on the card to see the effect
       </CardFooter>
     </Card>
   </Story>
-</Preview>
+</Canvas>
 
 ### Different `<CardFooter />` padding
 
-<Preview>
+<Canvas>
   <Story
     name="different CardFooter padding"
     parameters={{ chromatic: { disable: true } }}
@@ -383,11 +383,11 @@ Click on the card to see the effect
       </Card>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### More `<CardFooter />` examples
 
-<Preview>
+<Canvas>
   <Story name="more examples of CardFooter">
     <div>
       <Card>
@@ -511,11 +511,11 @@ Click on the card to see the effect
       </Card>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## With string as child
 
-<Preview>
+<Canvas>
   <Story
     name="with string as child"
     parameters={{ chromatic: { disable: true } }}
@@ -524,7 +524,7 @@ Click on the card to see the effect
       <Card>String passed as child</Card>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ## With draggable
 
@@ -539,7 +539,7 @@ import { DndProvider, useDrag, useDrop } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 ```
 
-<Preview>
+<Canvas>
   <Story name="with draggable" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const columnNames = {
@@ -749,7 +749,7 @@ import Backend from "react-dnd-html5-backend";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 
@@ -763,7 +763,7 @@ import Backend from "react-dnd-html5-backend";
 
 ### CardColumn
 
-<Props of={CardColumn} />
+<ArgsTable of={CardColumn} />
 
 ### CardFooter
 

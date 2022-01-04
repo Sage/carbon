@@ -1,4 +1,4 @@
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import Pod from "../pod";
 import { GridContainer, GridItem } from ".";
@@ -221,7 +221,7 @@ export const GridVisualStory = () => {
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story
     name="default"
     args={{
@@ -292,10 +292,10 @@ export const GridVisualStory = () => {
   >
     {GridStory.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ### Visual
 
-<Preview>
+<Canvas>
   <Story name="visual">{GridVisualStory.bind({})}</Story>
-</Preview>
+</Canvas>

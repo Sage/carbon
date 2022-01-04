@@ -291,3 +291,15 @@ Feature: FlatTable component
       And I wait 100
     When I click "Expand All" button on preview
     Then The subrows are visible
+  
+  @positive
+  Scenario Outline: Correct padding left value of <nameOfObject> is applied to a sub row
+    Given I open default "Flat Table Expandable" component with "flatTable" json from "commonComponents" using "<nameOfObject>" object name
+    When I click on the first cell
+    Then The first table cell of "first" subrow should have <expectedPadding> padding left value
+    Examples:
+      | nameOfObject | expectedPadding  |
+      | pl1          | 8px              | 
+      | pl4          | 32px             |
+      | pl25px       | 25px             |
+      | pl6em        | 84px             |

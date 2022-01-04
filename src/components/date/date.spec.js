@@ -220,7 +220,7 @@ describe("Date", () => {
       it('does not update the "lastValidEventValues"', () => {
         const instance = wrapper.find(BaseDateInput).instance();
         instance.hasMounted = false;
-        simulateChangeOnInput(wrapper, "21-12-2019");
+        simulateChangeOnInput(wrapper, "2019-12-11");
         simulateBlurOnInput(wrapper);
         jest.runAllTimers();
         expect(instance.state.lastValidEventValues.rawValue).toEqual(
@@ -279,8 +279,8 @@ describe("Date", () => {
   });
 
   describe("when the Component is updated", () => {
-    const firstDate = "12/08/2019";
-    const secondDate = "17/08/2019";
+    const firstDate = "2019-08-12";
+    const secondDate = "2019-08-17";
     let onBlurFn;
 
     beforeEach(() => {
@@ -314,45 +314,6 @@ describe("Date", () => {
           wrapper.setProps({ value: secondDate });
           expect(wrapper.find(DatePicker).exists()).toBe(true);
           expect(onBlurFn).not.toHaveBeenCalled();
-        });
-      });
-
-      describe("and the rawValue is invalid", () => {
-        it("then it should return the previous valid date values if not triggered by blur", () => {
-          simulateFocusOnInput(wrapper);
-          const event = {
-            target: {
-              name: "foo",
-              id: "foo",
-              value: "21/12/122",
-            },
-          };
-          expect(
-            wrapper
-              .find(BaseDateInput)
-              .instance()
-              .buildCustomEvent(event, "foo").target.value
-          ).toEqual({ formattedValue: firstDate, rawValue: "2019-08-12" });
-        });
-
-        it("then it should return input invalid value if triggered by blur", () => {
-          const event = {
-            type: "blur",
-            target: {
-              name: "foo",
-              id: "foo",
-              value: "invalid_value",
-            },
-          };
-          expect(
-            wrapper
-              .find(BaseDateInput)
-              .instance()
-              .buildCustomEvent(event, "foo").target.value
-          ).toEqual({
-            formattedValue: "invalid_value",
-            rawValue: "invalid_value",
-          });
         });
       });
     });
@@ -648,7 +609,7 @@ describe("Date", () => {
 
   describe("hidden input", () => {
     beforeEach(() => {
-      wrapper = render({ value: "28/07/1987" });
+      wrapper = render({ value: "1987-07-28" });
     });
 
     it("stores the raw/ unformatted value", () => {
@@ -661,7 +622,7 @@ describe("Date", () => {
     });
 
     it("updates the hidden value when the new date is valid", () => {
-      wrapper = render({ value: "28/07/1987" });
+      wrapper = render({ value: "1987-07-28" });
       wrapper.find(BaseDateInput).setState({ visibleValue: "29/07/2007" });
       simulateBlurOnInput(wrapper);
       jest.runAllTimers();
@@ -782,20 +743,6 @@ describe("Date", () => {
 
       afterEach(() => {
         document.body.removeChild(domNode);
-      });
-    });
-
-    // To be removed after the DateRange component is refactored
-    describe('when the "closeDatePicker" method has been called', () => {
-      it("then the visible value should not change", () => {
-        const mockDate = getFormattedDate(moment("2012-02-01"));
-        wrapper = mount(<DateInput value={mockDate} />);
-        wrapper.find(BaseDateInput).instance().closeDatePicker();
-        const input = wrapper
-          .find("input")
-          .findWhere((n) => n.props().type !== "hidden");
-
-        expect(input.instance().value).toBe(mockDate);
       });
     });
 

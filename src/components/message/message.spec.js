@@ -9,7 +9,6 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import I18nProvider from "../i18n-provider";
-import { baseTheme } from "../../style/themes";
 import IconButton from "../icon-button";
 
 const wrappingComponent = (props) => (
@@ -23,6 +22,13 @@ const wrappingComponent = (props) => (
     }}
   />
 );
+
+const messageVariants = {
+  error: "var(--colorsSemanticNegative500)",
+  info: "var(--colorsSemanticNeutral500)",
+  success: "var(--colorsSemanticPositive500)",
+  warning: "var(--colorsSemanticCaution500)",
+};
 
 function render(props) {
   return TestRenderer.create(<MessageStyle {...props}>Message</MessageStyle>);
@@ -94,7 +100,7 @@ describe("Message", () => {
       ["info", "error", "success", "warning"].forEach((messageType) => {
         assertStyleMatch(
           {
-            border: `1px solid ${baseTheme.colors[messageType]}`,
+            border: `1px solid ${messageVariants[messageType]}`,
           },
           mount(<Message variant={messageType}>Message</Message>)
         );

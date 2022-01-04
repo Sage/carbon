@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, Story, Preview } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
 import Decimal from "./decimal.component";
@@ -37,15 +37,15 @@ import {
 />
 
 export const commonArgs = {
-  align: Decimal.defaultProps.align,
-  precision: Decimal.defaultProps.precision,
+  align: "right",
+  precision: 2,
   autoFocus: false,
   allowEmptyValue: false,
   ...getCommonTextboxArgs(),
 };
 
 export const DecimalStory = (args) => {
-  const [state, setState] = useState("0.00");
+  const [state, setState] = useState("0.05");
   const handleChange = (ev) => {
     action("onChange")(ev);
     setState(ev.target.value.rawValue);
@@ -53,6 +53,21 @@ export const DecimalStory = (args) => {
   return (
     <Decimal
       value={state}
+      onChange={handleChange}
+      onBlur={action("onBlur")}
+      {...getCommonTextboxArgsWithSpecialCaracters(args)}
+    />
+  );
+};
+
+export const UncontrolledDecimalStory = (args) => {
+  const [state, setState] = useState("0.03");
+  const handleChange = (ev) => {
+    action("onChange")(ev);
+  };
+  return (
+    <Decimal
+      defaultValue={state}
       onChange={handleChange}
       onBlur={action("onBlur")}
       {...getCommonTextboxArgsWithSpecialCaracters(args)}
@@ -88,20 +103,28 @@ export const PostStory = ({ action: actionArg, ...args }) => {
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="default" args={commonArgs}>
     {DecimalStory.bind({})}
+  </Story>
+</Canvas>
+
+### Default Uncontrolled
+
+<Preview>
+  <Story name="uncontrolled default" args={commonArgs}>
+    {UncontrolledDecimalStory.bind({})}
   </Story>
 </Preview>
 
 ### Locale
 
-<Preview>
+<Canvas>
   <Story
     name="locale"
     argTypes={{
       locale: {
-        options: ["en", "fr", "no", "es-ES", "pt-PT"],
+        options: ["en", "fr", "no", "es-ES", "pt-PT", "it"],
         control: { type: "select" },
       },
     }}
@@ -109,12 +132,12 @@ export const PostStory = ({ action: actionArg, ...args }) => {
   >
     {DecimalStory.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ### Post
 
-<Preview>
+<Canvas>
   <Story name="post" args={{ ...commonArgs, action: "" }}>
     {PostStory.bind({})}
   </Story>
-</Preview>
+</Canvas>

@@ -36,7 +36,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding: 0;
 }
 
-.c11.c11.c11 > div {
+.c11.c11.c11.c11 > div {
   box-sizing: border-box;
 }
 
@@ -57,7 +57,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   padding: 0;
 }
 
-.c12.c12.c12 > div {
+.c12.c12.c12.c12 > div {
   box-sizing: border-box;
 }
 

@@ -40,7 +40,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   display: inline-block;
   position: relative;
   vertical-align: middle;
-  margin-right: 5px;
+  margin-right: var(--spacing100);
 }
 
 .c5 a .c2,
@@ -344,7 +344,7 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #008200;
+  color: var(--colorsActionMajor500);
   display: inline-block;
 }
 
@@ -359,13 +359,13 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
 .c0 a:hover,
 .c0 button:hover {
   cursor: pointer;
-  color: #006300;
+  color: var(--colorsActionMajor600);
 }
 
 .c0 a:focus,
 .c0 button:focus {
-  color: rgba(0,0,0,0.9);
-  background-color: #FFDA80;
+  color: var(--colorsYin090);
+  background-color: var(--colorsSemanticFocus250);
   outline: none;
 }
 
@@ -500,7 +500,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   display: inline-block;
   position: relative;
   vertical-align: middle;
-  margin-right: 5px;
+  margin-right: var(--spacing100);
 }
 
 .c5 a .c2,

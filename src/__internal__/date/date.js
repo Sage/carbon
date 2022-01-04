@@ -1,4 +1,5 @@
 import moment from "moment";
+import "moment/min/locales";
 import { merge } from "lodash";
 
 const isoDateFormat = "YYYY-MM-DD";
@@ -64,6 +65,7 @@ const DateHelper = {
       formats,
       format,
     });
+
     return date.isValid() ? date.format(formatTo) : value;
   },
 
@@ -124,8 +126,8 @@ const DateHelper = {
         format,
       }),
       today = moment();
-
     const difference = Math.abs(today.diff(momentValue, units));
+
     return difference < limit;
   },
 
@@ -136,14 +138,12 @@ const DateHelper = {
    * formats - given accepted formats
    * locale - current locale
    * strict - moment js strict mode
-   * sanitize - should value be sanitized before parsing
    */
   _defaultMomentOptions: (locale, formats) => {
     return {
       locale,
       formats,
       strict: true,
-      sanitize: true,
     };
   },
 
@@ -156,7 +156,7 @@ const DateHelper = {
    * @param {Object} options Override Moment JS options
    * @return {Moment}
    */
-  _parseDate({ value, options, locale, formats, format }) {
+  _parseDate({ value, options, locale, formats = [], format }) {
     const opts = merge(
       DateHelper._defaultMomentOptions(locale, formats),
       options,
@@ -166,17 +166,19 @@ const DateHelper = {
         format,
       }
     );
-    const val = opts.sanitize ? DateHelper.sanitizeDateInput(value) : value;
-    return moment(val, [format, ...opts.formats], opts.locale, opts.strict);
+
+    return moment(
+      value,
+      [format, isoDateFormat, ...opts.formats],
+      opts.locale,
+      opts.strict
+    );
   },
 
   formatDateToCurrentLocale({ value, locale, formats, format }) {
     return DateHelper.formatValue({
       value,
       formatTo: format,
-      options: {
-        formats: [format],
-      },
       locale,
       formats,
       format,
