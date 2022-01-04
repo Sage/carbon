@@ -1,3 +1,10 @@
+### [102.4.5](https://github.com/Sage/carbon/compare/v102.4.4...v102.4.5) (2022-01-04)
+
+
+### Bug Fixes
+
+* **button:** pass `aria-hidden=true` to button icon ([95146b5](https://github.com/Sage/carbon/commit/95146b53f8c723b13d351a6fc692f75c65c1e08d))
+
 ### [102.4.4](https://github.com/Sage/carbon/compare/v102.4.3...v102.4.4) (2021-12-23)
 
 
