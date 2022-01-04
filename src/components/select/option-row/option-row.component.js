@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import StyledOptionRow from "./option-row.style";
+import SelectListContext from "../__internal__/select-list-context";
 
 const OptionRow = React.forwardRef(
-  ({ id, text, children, onSelect, value, isHighlighted, hidden }, ref) => {
+  ({ id, text, children, onSelect, value, index, hidden }, ref) => {
     const handleClick = () => {
       onSelect({ id, text, value });
     };
+    const selectListContext = useContext(SelectListContext);
 
     return (
       <StyledOptionRow
         id={id}
         ref={ref}
-        aria-selected={isHighlighted}
+        aria-selected={selectListContext.currentOptionsListIndex === index}
         data-component="option-row"
         onClick={handleClick}
-        isHighlighted={isHighlighted}
+        isHighlighted={selectListContext.currentOptionsListIndex === index}
         role="option"
         hidden={hidden}
       >
@@ -46,8 +48,8 @@ OptionRow.propTypes = {
   /**
    * @private
    * @ignore
-   * True if the option is highlighted (prop added by the SelectList component) */
-  isHighlighted: PropTypes.bool,
+   * Position of the element in the list */
+  index: PropTypes.number,
   /**
    * @private
    * @ignore

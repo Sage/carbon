@@ -13,6 +13,8 @@ import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledSelectListContainer from "./select-list-container.style";
 import Popover from "../../../__internal__/popover";
 import guid from "../../../__internal__/utils/helpers/guid";
+import StyledOption from "../option/option.style";
+import StyledOptionRow from "../option-row/option-row.style";
 
 jest.mock("../../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
@@ -238,8 +240,8 @@ describe("SelectList", () => {
   );
 
   describe.each([
-    ["Option", renderSelectList, Option],
-    ["OptionRow", renderOptionRowSelectList, OptionRow],
+    ["Option", renderSelectList, StyledOption],
+    ["OptionRow", renderOptionRowSelectList, StyledOptionRow],
   ])("when %s is rendered", (component, listRenderer, optionType) => {
     it('then Options should have additional "isHighlighted" prop', () => {
       const onSelect = jest.fn();
@@ -267,8 +269,8 @@ describe("SelectList", () => {
   });
 
   describe.each([
-    ["Option", renderSelectList, Option],
-    ["OptionRow", renderOptionRowSelectList, OptionRow],
+    ["Option", renderSelectList, StyledOption],
+    ["OptionRow", renderOptionRowSelectList, StyledOptionRow],
   ])(
     "when the filterText is provided in a list of %s components",
     (component, listRenderer, optionType) => {

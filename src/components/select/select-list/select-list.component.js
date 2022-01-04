@@ -25,6 +25,7 @@ import StyledSelectListContainer from "./select-list-container.style";
 import Loader from "../../loader";
 import Option from "../option/option.component";
 import guid from "../../../__internal__/utils/helpers/guid/guid";
+import SelectListContext from "../__internal__/select-list-context";
 
 const fixedPopoverModifiers = [
   {
@@ -115,9 +116,9 @@ const SelectList = React.forwardRef(
           }
 
           const newProps = {
+            index,
             id: guid(),
             onSelect: handleSelect,
-            isHighlighted: currentOptionsListIndex === index,
             hidden: isLoading && React.Children.count(children) === 1,
             ref: optionRefList[index],
           };
@@ -125,13 +126,7 @@ const SelectList = React.forwardRef(
           return React.cloneElement(child, newProps);
         }),
 
-      [
-        children,
-        currentOptionsListIndex,
-        handleSelect,
-        isLoading,
-        optionRefList,
-      ]
+      [children, handleSelect, isLoading, optionRefList]
     );
 
     const childrenList = useMemo(
@@ -443,34 +438,40 @@ const SelectList = React.forwardRef(
           width={listWidth}
           ref={listContainerRef}
         >
-          <StyledSelectListContainer
-            data-element="select-list-wrapper"
-            height={listHeight}
-            placement={placement.current}
-            {...listProps}
+          <SelectListContext.Provider
+            value={{
+              currentOptionsListIndex,
+            }}
           >
-            <StyledSelectList
-              id={id}
-              as={multiColumn ? "div" : "ul"}
-              aria-labelledby={labelId}
-              data-element="select-list"
-              role="listbox"
-              ref={listRef}
-              tabIndex="-1"
-              isLoading={isLoading}
-              multiColumn={multiColumn}
+            <StyledSelectListContainer
+              data-element="select-list-wrapper"
+              height={listHeight}
+              placement={placement.current}
+              {...listProps}
             >
-              {selectListContent}
-              {isLoading && loader()}
-            </StyledSelectList>
-            {listActionButton && (
-              <ListActionButton
-                ref={listActionButtonRef}
-                listActionButton={listActionButton}
-                onListAction={onListAction}
-              />
-            )}
-          </StyledSelectListContainer>
+              <StyledSelectList
+                id={id}
+                as={multiColumn ? "div" : "ul"}
+                aria-labelledby={labelId}
+                data-element="select-list"
+                role="listbox"
+                ref={listRef}
+                tabIndex="-1"
+                isLoading={isLoading}
+                multiColumn={multiColumn}
+              >
+                {selectListContent}
+                {isLoading && loader()}
+              </StyledSelectList>
+              {listActionButton && (
+                <ListActionButton
+                  ref={listActionButtonRef}
+                  listActionButton={listActionButton}
+                  onListAction={onListAction}
+                />
+              )}
+            </StyledSelectListContainer>
+          </SelectListContext.Provider>
         </StyledPopoverContainer>
       </Popover>
     );
