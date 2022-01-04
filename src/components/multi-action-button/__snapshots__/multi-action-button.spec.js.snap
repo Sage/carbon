@@ -255,6 +255,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
       </span>
     </span>
     <span
+      aria-hidden={true}
       className="c3 c4"
       color="#008200"
       data-component="icon"

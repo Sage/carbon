@@ -334,7 +334,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
 
 ### With custom date format
 
-<Preview>
+<Canvas>
   <Story name="with custom date format" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [state, setState] = useState("2019-04-04");
@@ -363,10 +363,10 @@ It is possible to use the `tooltipPosition` to override the default placement of
             onChange={setValue}
           />
         </I18nProvider>
-  );
+      );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## Props
 

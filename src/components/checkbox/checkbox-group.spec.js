@@ -9,6 +9,7 @@ import {
 import CheckboxStyle, { StyledCheckboxGroup } from "./checkbox.style";
 import Fieldset from "../../__internal__/fieldset";
 import Tooltip from "../tooltip";
+import StyledFormField from "../../__internal__/form-field/form-field.style";
 
 const checkboxValues = ["required", "optional"];
 const groupName = "my-checkbox-group";
@@ -72,6 +73,18 @@ describe("CheckboxGroup", () => {
           .prop(expectedPropName || propName)
       ).toBe(propValue);
     });
+  });
+
+  it("should have a margin set to 0 on every Checkbox FormField", () => {
+    const wrapper = render({});
+
+    assertStyleMatch(
+      {
+        margin: "0",
+      },
+      wrapper.find(StyledCheckboxGroup),
+      { modifier: `&& ${StyledFormField}` }
+    );
   });
 
   it("should render correct styles if `legendInline` is provided", () => {

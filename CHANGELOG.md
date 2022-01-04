@@ -1,3 +1,17 @@
+### [102.4.5](https://github.com/Sage/carbon/compare/v102.4.4...v102.4.5) (2022-01-04)
+
+
+### Bug Fixes
+
+* **button:** pass `aria-hidden=true` to button icon ([95146b5](https://github.com/Sage/carbon/commit/95146b53f8c723b13d351a6fc692f75c65c1e08d))
+
+### [102.4.4](https://github.com/Sage/carbon/compare/v102.4.3...v102.4.4) (2021-12-23)
+
+
+### Bug Fixes
+
+* **checkbox-group:** remove incorrect margin in form ([4a061e7](https://github.com/Sage/carbon/commit/4a061e70e9b0982e8d45af6790547b75d9440e9e)), closes [#4641](https://github.com/Sage/carbon/issues/4641)
+
 ### [102.4.3](https://github.com/Sage/carbon/compare/v102.4.2...v102.4.3) (2021-12-21)
 
 
