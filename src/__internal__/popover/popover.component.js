@@ -1,7 +1,8 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { createPopper } from "@popperjs/core";
+import { ThemeContext } from "styled-components";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import { tokensClassName } from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
@@ -15,9 +16,10 @@ const Popover = ({
   modifiers,
 }) => {
   const elementDOM = useRef();
+  const theme = useContext(ThemeContext);
   if (!elementDOM.current && !disablePortal) {
     elementDOM.current = document.createElement("div");
-    elementDOM.current.classList.add(tokensClassName);
+    elementDOM.current.classList.add(tokensClassName(theme?.name));
     document.body.appendChild(elementDOM.current);
   }
   const popperInstance = useRef();
