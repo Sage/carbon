@@ -1,3 +1,10 @@
+### [102.4.6](https://github.com/Sage/carbon/compare/v102.4.5...v102.4.6) (2022-01-04)
+
+
+### Bug Fixes
+
+* **design-tokens:** add support for multiple instances of carbon provider ([923049b](https://github.com/Sage/carbon/commit/923049bb9db38fa81e2a9ec2b57f17211f5f82e0))
+
 ### [102.4.5](https://github.com/Sage/carbon/compare/v102.4.4...v102.4.5) (2022-01-04)
 
 
