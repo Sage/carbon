@@ -23,17 +23,17 @@ import {
 export const DateStory = (args) => {
   const [state, setState] = useState("2019-04-04");
   const setValue = (ev) => {
-    action("onChange")(ev);
-    setState(ev.target.value.rawValue);
+    action("onChange")(ev.target.value);
+    setState(ev.target.value.formattedValue);
   };
   return (
     <DateInput
       name="dateinput"
       value={state}
       onChange={setValue}
-      onBlur={action("onBlur")}
-      onKeyDown={action("onKeyDown")}
-      onClick={action("onClick")}
+      onBlur={(ev) => {action("onBlur")(ev.target.value)}}
+      onKeyDown={(ev) => action("onKeyDown")(ev.target.value)}
+      onClick={(ev) => action("onClick")(ev.target.value)}
       {...getCommonTextboxArgsWithSpecialCaracters(args)}
     />
   );

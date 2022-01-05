@@ -94,6 +94,11 @@ exports[`StyledDayPicker renders presentational div and context provider for its
   display: table-cell;
 }
 
+.c0 .DayPicker-Weekday abbr {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
 .c0 .DayPicker-Body {
   display: table-row-group;
 }
@@ -306,6 +311,5 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 
 <div
   className="c0"
-  value="2019-04-01"
 />
 `;
