@@ -9,24 +9,22 @@ export function makeColors(color) {
   `;
 }
 
-export default ({ colors, disabled }, isDisabled, destructive) => ({
+export default (isDisabled, destructive) => ({
   primary: `
-    background: ${colors.primary};
+    background: var(--colorsActionMajor500);
     border-color: transparent;
-    color: ${colors.white};
+    ${makeColors("var(--colorsActionMajorYang100)")};
     &:hover {
-      background: ${colors.secondary};
+      background: var(--colorsActionMajor600);
     }
 
     ${
       isDisabled
         ? `
-    background: ${disabled.button};
-    color: ${disabled.text};
+    background: var(--colorsActionDisabled500);
+    ${makeColors("var(--colorsYin030)")};
     &:hover {
-      background: ${disabled.button};
-      border-color: ${disabled.button};
-      color: ${disabled.text};
+      background: var(--colorsActionDisabled500);
     }
   `
         : ""
@@ -34,21 +32,19 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
 
     ${
       destructive
-        ? `background: ${colors.error};
-    border-color: transparent;
-    color: ${colors.white};
+        ? `background: var(--colorsSemanticNegative500);
+    ${makeColors("var(--colorsSemanticNegativeYang100)")};
     &:hover {
-      background: ${colors.destructive.hover};
+      background: var(--colorsSemanticNegative600);
     }
 
     ${
       isDisabled
         ? `
-      background: ${disabled.button};
-      color: ${disabled.text};
+      background: var(--colorsActionDisabled500);
+      ${makeColors("var(--colorsYin030)")};
       &:hover {
-        background: ${disabled.button};
-        color: ${disabled.text};
+        background: var(--colorsActionDisabled500);
       }
     `
         : ""
@@ -58,27 +54,23 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
   `,
   secondary: `
       background: transparent;
-      border-color: ${colors.primary};
-      color: ${colors.primary};
+      border-color: var(--colorsActionMajor500);
+      ${makeColors("var(--colorsActionMajor500)")};
       &:hover {
-        background: ${colors.secondary};
-        border-color: ${colors.secondary};
-       ${makeColors(colors.white)}
+        background: var(--colorsActionMajor600);
+        border-color: var(--colorsActionMajorTransparent);
+        ${makeColors("var(--colorsActionMajorYang100)")};
       }
 
       ${
         destructive
           ? `
-        border-color: ${colors.error};
-        ${makeColors(colors.error)}
-        &:focus {
-          ${makeColors(colors.white)}
-          background: ${colors.destructive.hover};
-        }
+        border-color: var(--colorsSemanticNegative500);
+        ${makeColors("var(--colorsSemanticNegative500)")}
         &:hover {
-          ${makeColors(colors.white)}
-          border-color: ${colors.destructive.hover};
-          background: ${colors.destructive.hover};
+          background: var(--colorsSemanticNegative600);
+          border-color: var(--colorsSemanticNegativeTransparent);
+          ${makeColors("var(--colorsSemanticNegativeYang100)")};
         }
       `
           : ""
@@ -87,12 +79,12 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
       ${
         isDisabled
           ? `
-        border-color: ${disabled.button};
-        color: ${disabled.text};
+        border-color: var(--colorsActionDisabled500);
+        ${makeColors("var(--colorsYin030)")};
         &:hover {
-          background: transparent
-          border-color: ${disabled.button};
-          ${makeColors(disabled.text)}
+          background: transparent;
+          border-color: var(--colorsActionDisabled500);
+          ${makeColors("var(--colorsYin030)")};
         }
     `
           : ""
@@ -101,17 +93,19 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
   tertiary: `
     background: transparent;
     border-color: transparent;
-    color: ${colors.primary};
+    ${makeColors("var(--colorsActionMajor500)")};
     &:hover {
-      ${makeColors(colors.secondary)}
+      background: var(--colorsActionMajor600);
+      ${makeColors("var(--colorsActionMajorYang100)")};
     }
 
     ${
       destructive
         ? `
-      ${makeColors(colors.error)}
+      ${makeColors("var(--colorsSemanticNegative500)")};
       &:hover {
-        ${makeColors(colors.destructive.hover)}
+        background: var(--colorsSemanticNegative600);
+        ${makeColors("var(--colorsSemanticNegativeYang100)")};
       }
       `
         : ""
@@ -120,9 +114,10 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
     ${
       isDisabled
         ? `
-      color: ${disabled.text};
+      ${makeColors("var(--colorsYin030)")};
       &:hover {
-        ${makeColors(disabled.text)}
+        background: var(--colorsActionMajorTransparent);
+        ${makeColors("var(--colorsYin030)")};
       }
     `
         : ""
@@ -130,20 +125,16 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
   `,
   dashed: `
     background: transparent;
-    border: 2px solid ${colors.dashedBorder}
-    border-style: dashed;
-    color: ${colors.dashedButtonText};
+    border: 2px dashed var(--colorsActionMinor500);
+    ${makeColors("var(--colorsActionMinor500)")};
     &:hover {
-      background-color: ${colors.dashedHoverBackground}
+      background-color: var(--colorsActionMinor200);
     }
 
     ${
       destructive
         ? `
-      ${makeColors(colors.error)}
-      &:hover {
-        ${makeColors(colors.destructive.hover)}
-      }
+      border-color: var(--colorsSemanticNegative500);
       `
         : ""
     }
@@ -151,33 +142,32 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
     ${
       isDisabled
         ? `
-      border-color: ${disabled.button};
-      color: ${disabled.text};
+      border-color: var(--colorsActionDisabled500);
+      ${makeColors("var(--colorsYin030)")};
       &:hover {
         background-color: transparent;
-        ${makeColors(disabled.text)}
       }
     `
         : ""
     }
   `,
   darkBackground: `
-    background: ${colors.white};
+    background: var(--colorsActionMajorYang100);
     border-color: transparent;
-    color: ${colors.primary};
+    ${makeColors("var(--colorsActionMajor500)")};
     &:hover {
-      background: ${colors.secondary};
-      ${makeColors(colors.white)}
+      background: var(--colorsActionMajor600);
+      ${makeColors("var(--colorsActionMajorYang100)")}
     }
 
     ${
       isDisabled
         ? `
-      background: ${disabled.button};
-      color: ${disabled.text};
+      background: var(--colorsActionDisabled500);
+      ${makeColors("var(--colorsYin030)")};
       &:hover {
-        background: ${disabled.button};
-        ${makeColors(disabled.text)}
+        background: var(--colorsActionDisabled500);
+        ${makeColors("var(--colorsYin030)")};
       }
     `
         : ""
