@@ -1,3 +1,12 @@
+## [102.7.0](https://github.com/Sage/carbon/compare/v102.6.1...v102.7.0) (2022-01-05)
+
+
+### Features
+
+* **loader-bar:** describe loader-bar using design tokens, update of tests after changes ([73a5a25](https://github.com/Sage/carbon/commit/73a5a2507e4df65458ede88ed9bb752099b07130))
+* **loader-square:** describe loader-square using design tokens, update of tests after changes ([811484d](https://github.com/Sage/carbon/commit/811484d7acbb47e47d1c25b6a720140d18f61f79))
+* **loader, loader-bar:** add missing tokens in base-theme ([396d941](https://github.com/Sage/carbon/commit/396d94139d4f0f96acd692c6fb2769134391be73))
+
 ### [102.6.1](https://github.com/Sage/carbon/compare/v102.6.0...v102.6.1) (2022-01-05)
 
 
