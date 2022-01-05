@@ -34,62 +34,81 @@ import {
 
 Flat table rows can be made expandable, with any number of sub rows.
 
-<Canvas>
-  <Story name="default">
-    {() => {
-      const SubRows = [
+export const FlatTableExpandableDefault = (args) => {
+  const SubRows = [
+    <FlatTableRow>
+      <FlatTableCell {...args}>Child one</FlatTableCell>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow>
+      <FlatTableCell {...args}>Child two</FlatTableCell>
+      <FlatTableCell>Edinburgh</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>1</FlatTableCell>
+    </FlatTableRow>,
+  ];
+  return (
+    <FlatTable>
+      <FlatTableHead>
         <FlatTableRow>
-          <FlatTableCell>Child one</FlatTableCell>
-          <FlatTableCell>York</FlatTableCell>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow expandable subRows={SubRows}>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow expandable subRows={SubRows}>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
-        </FlatTableRow>,
-        <FlatTableRow>
-          <FlatTableCell>Child two</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow expandable subRows={SubRows}>
+          <FlatTableCell>John Smith</FlatTableCell>
           <FlatTableCell>Edinburgh</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>1</FlatTableCell>
-        </FlatTableRow>,
-      ];
-      return (
-        <FlatTable>
-          <FlatTableHead>
-            <FlatTableRow>
-              <FlatTableHeader>Name</FlatTableHeader>
-              <FlatTableHeader>Location</FlatTableHeader>
-              <FlatTableHeader>Relationship Status</FlatTableHeader>
-              <FlatTableHeader>Dependents</FlatTableHeader>
-            </FlatTableRow>
-          </FlatTableHead>
-          <FlatTableBody>
-            <FlatTableRow expandable subRows={SubRows}>
-              <FlatTableCell>John Doe</FlatTableCell>
-              <FlatTableCell>London</FlatTableCell>
-              <FlatTableCell>Single</FlatTableCell>
-              <FlatTableCell>0</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow expandable subRows={SubRows}>
-              <FlatTableCell>Jane Doe</FlatTableCell>
-              <FlatTableCell>York</FlatTableCell>
-              <FlatTableCell>Married</FlatTableCell>
-              <FlatTableCell>2</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow expandable subRows={SubRows}>
-              <FlatTableCell>John Smith</FlatTableCell>
-              <FlatTableCell>Edinburgh</FlatTableCell>
-              <FlatTableCell>Single</FlatTableCell>
-              <FlatTableCell>1</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow expandable subRows={SubRows}>
-              <FlatTableCell>Jane Smith</FlatTableCell>
-              <FlatTableCell>Newcastle</FlatTableCell>
-              <FlatTableCell>Married</FlatTableCell>
-              <FlatTableCell>5</FlatTableCell>
-            </FlatTableRow>
-          </FlatTableBody>
-        </FlatTable>
-      );
+        </FlatTableRow>
+        <FlatTableRow expandable subRows={SubRows}>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+}
+
+<Canvas>
+  <Story
+    name="default"
+    parameters={{
+      docs: {
+        source: {
+          type: "code",
+        },
+      },
     }}
+    argTypes={{
+      pl: {
+        options: [0,1,2,3,4,5,6,7,8,"25px","4em","69px","6em"],
+        control: {
+          type: "select",
+        },
+      },
+    }}
+  >
+    {FlatTableExpandableDefault.bind({})}
   </Story>
 </Canvas>
 

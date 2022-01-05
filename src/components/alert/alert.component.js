@@ -21,7 +21,7 @@ Alert.propTypes = {
   /** Allows developers to specify a specific height for the dialog. */
   height: PropTypes.string,
   /** Title displayed at top of Alert */
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  title: PropTypes.node,
   /** Subtitle displayed at top of Alert */
   subtitle: PropTypes.string,
   /** Size of Alert */

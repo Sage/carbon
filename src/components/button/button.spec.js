@@ -575,6 +575,19 @@ describe("Button", () => {
     });
   });
 
+  describe("when specified with an icon", () => {
+    it.each([
+      { iconType: "bin", "aria-label": "Message" },
+      { iconType: "bin", children: "Message" },
+    ])("hide icon from assistive technologies", (props) => {
+      const wrapper = render(props);
+
+      const iconProps = wrapper.find(Icon).props();
+
+      expect(iconProps["aria-hidden"]).toBe(true);
+    });
+  });
+
   describe('when the iconType is "services"', () => {
     it("applies the expected style to the icon", () => {
       const buttonWithServiceIcon = render(
