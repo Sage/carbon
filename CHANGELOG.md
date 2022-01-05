@@ -1,3 +1,10 @@
+## [102.5.0](https://github.com/Sage/carbon/compare/v102.4.6...v102.5.0) (2022-01-05)
+
+
+### Features
+
+* **button:** describe button using design tokens, update of tests after changes ([04f01cf](https://github.com/Sage/carbon/commit/04f01cf473de7de3a3c64614c8fc21a804e8e19f))
+
 ### [102.4.6](https://github.com/Sage/carbon/compare/v102.4.5...v102.4.6) (2022-01-04)
 
 
