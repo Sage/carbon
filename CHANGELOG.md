@@ -1,3 +1,10 @@
+### [102.6.1](https://github.com/Sage/carbon/compare/v102.6.0...v102.6.1) (2022-01-05)
+
+
+### Bug Fixes
+
+* **page:** ensure that children are constrained inside of component ([598edfd](https://github.com/Sage/carbon/commit/598edfd5ae09c8818a27e8bff841d7e2e7adde93)), closes [#4616](https://github.com/Sage/carbon/issues/4616)
+
 ## [102.6.0](https://github.com/Sage/carbon/compare/v102.5.0...v102.6.0) (2022-01-05)
 
 
