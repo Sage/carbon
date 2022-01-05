@@ -1,3 +1,10 @@
+## [102.6.0](https://github.com/Sage/carbon/compare/v102.5.0...v102.6.0) (2022-01-05)
+
+
+### Features
+
+* **inline-input:** remove row and column dependency ([b7d5227](https://github.com/Sage/carbon/commit/b7d52275933be4a66c30487e87874d697a607513))
+
 ## [102.5.0](https://github.com/Sage/carbon/compare/v102.4.6...v102.5.0) (2022-01-05)
 
 
