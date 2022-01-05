@@ -62,7 +62,7 @@ Then("Confirm dialog size property on preview is {int}", (size) => {
 
 Then("confirm button type is set to {string}", (buttonType) => {
   if (buttonType === "destructive") {
-    confirmButton().should("have.css", "background-color", "rgb(199, 56, 79)");
+    confirmButton().should("have.css", "background-color", "rgb(205, 56, 75)");
   } else if (buttonType === "isLoadingConfirm") {
     confirmButton().should("be.disabled").and("have.attr", "disabled");
     confirmButton()
@@ -72,7 +72,7 @@ Then("confirm button type is set to {string}", (buttonType) => {
       .should("have.attr", "data-component", "loader")
       .and("be.visible");
   } else {
-    confirmButton().should("have.css", "background-color", "rgb(0, 129, 93)");
+    confirmButton().should("have.css", "background-color", "rgb(0, 129, 70)");
   }
 });
 
@@ -89,11 +89,11 @@ Then("{word} icon is displayed on the header", (iconType) => {
 Then("cancel button type is set to {string}", (cancelButtonType) => {
   if (cancelButtonType === "tertiary") {
     cancelButton()
-      .should("have.css", "color", "rgb(0, 129, 93)")
+      .should("have.css", "color", "rgb(0, 129, 70)")
       .and("have.css", "border-color", "rgba(0, 0, 0, 0)");
   } else if (cancelButtonType === "destructive") {
     cancelButton()
-      .should("have.css", "color", "rgb(199, 56, 79)")
+      .should("have.css", "color", "rgb(205, 56, 75)")
       .and("have.css", "border-color", "rgba(0, 0, 0, 0)");
   } else {
     throw new Error(`cancelButtonType couldn't be set to ${cancelButtonType}`);

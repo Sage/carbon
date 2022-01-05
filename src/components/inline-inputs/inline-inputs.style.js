@@ -1,6 +1,4 @@
 import styled, { css } from "styled-components";
-import StyledRow from "../row/row.style";
-import StyledColumn from "../row/column/column.style";
 import InputPresentation from "../../__internal__/input/input-presentation.style";
 
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
@@ -17,20 +15,43 @@ const spacings = {
   "extra-large": 40,
 };
 
+const StyledInlineInput = styled.div`
+  flex: 1;
+
+  ${({ gutter }) =>
+    css`
+      margin-bottom: 0;
+      padding-left: ${spacings[gutter]}px;
+    `}
+`;
+
+const StyledContentContainer = styled.div`
+  display: flex;
+  flex: ${({ inputWidth }) => (inputWidth ? `0 0 ${inputWidth}%` : 1)};
+
+  ${({ gutter }) =>
+    css`
+      margin-bottom: 0;
+      margin-left: -${spacings[gutter]}px;
+
+      ${gutter === "none" &&
+      css`
+        ${StyledInlineInput} + ${StyledInlineInput} ${InputPresentation} {
+          border-left: none;
+        }
+      `}
+    `}
+`;
+
 const StyledInlineInputs = styled.div`
   display: flex;
   align-items: center;
 
-  ${({ inputWidth }) =>
-    inputWidth &&
-    `
-    flex: 0 0 ${inputWidth}%;
-  `}
-
   ${StyledLabelContainer} {
+    width: auto;
     margin-bottom: 0;
     padding-right: 16px;
-    width: ${({ labelWidth }) => (labelWidth ? `${labelWidth}%` : "auto")};
+    flex: 0 0 ${({ labelWidth }) => (labelWidth ? `${labelWidth}%` : "auto")};
   }
 
   input {
@@ -40,34 +61,11 @@ const StyledInlineInputs = styled.div`
   [data-component="carbon-select"] input {
     width: 30px;
   }
-
-  ${StyledRow} {
-    flex-grow: 1;
-  }
-
-  ${({ gutter }) =>
-    css`
-      ${StyledRow} {
-        margin-bottom: 0;
-        margin-left: -${spacings[gutter]}px;
-
-        > ${StyledColumn} {
-          margin-bottom: 0;
-          padding-left: ${spacings[gutter]}px;
-        }
-      }
-
-      ${gutter === "none" &&
-      css`
-        ${StyledColumn} + ${StyledColumn} ${InputPresentation} {
-          border-left: none;
-        }
-      `}
-    `}
 `;
 
 StyledInlineInputs.defaultProps = {
   theme: baseTheme,
 };
 
+export { StyledContentContainer, StyledInlineInput };
 export default StyledInlineInputs;
