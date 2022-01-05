@@ -11,8 +11,8 @@ import Icon from "../icon";
 import Button, { ButtonWithForwardRef } from "../button";
 import StyledButton from "../button/button.style";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
-import SmallTheme from "../../style/themes/small";
-import MediumTheme from "../../style/themes/medium";
+import mintTheme from "../../style/themes/mint";
+import aegeanTheme from "../../style/themes/aegean";
 import {
   assertStyleMatch,
   keyboard,
@@ -26,8 +26,8 @@ guid.mockImplementation(() => "guid-12345");
 const sizes = ["small", "medium", "large"];
 
 const themes = [
-  ["small", SmallTheme],
-  ["medium", MediumTheme],
+  ["mint", mintTheme],
+  ["aegean", aegeanTheme],
 ];
 
 const singleButton = <Button key="testKey">Single Button</Button>;
@@ -206,8 +206,8 @@ describe("SplitButton", () => {
 
     it("has the expected style", () => {
       const themeColors = {
-        small: "#006046",
-        medium: "#005C9A",
+        mint: "#006046",
+        aegean: "#005C9A",
       };
 
       assertStyleMatch(
@@ -222,8 +222,8 @@ describe("SplitButton", () => {
 
     it('matches the expected style for the focused "additional button"', () => {
       const themeColors = {
-        small: "#00402E",
-        medium: "#004472",
+        mint: "#00402E",
+        aegean: "#004472",
       };
 
       themedWrapper.find("button").simulate("focus");
@@ -241,7 +241,7 @@ describe("SplitButton", () => {
     });
   });
 
-  describe("for business themes", () => {
+  describe("for mint and aegean themes", () => {
     it("renders styles correctly", () => {
       wrapper = render({}, singleButton, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
