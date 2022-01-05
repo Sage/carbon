@@ -46,10 +46,10 @@ describe("Link", () => {
           lineHeight: "36px",
           fontSize: "16px",
           left: "-999em",
-          textColor: baseTheme.colors.text,
+          color: "var(--colorsYin090)",
           zIndex: `${baseTheme.zIndex.aboveAll}`,
-          boxShadow: `inset 0 0 0 2px ${baseTheme.colors.primary}`,
-          border: `2px solid ${baseTheme.colors.white}`,
+          boxShadow: `inset 0 0 0 2px var(--colorsActionMajor500)`,
+          border: `2px solid var(--colorsYang100)`,
         },
         skipLinkWrapper,
         { modifier: "a" }
@@ -59,7 +59,7 @@ describe("Link", () => {
         {
           top: "8px",
           left: "8px",
-          textColors: baseTheme.colors.text,
+          color: "var(--colorsYin090)",
         },
         skipLinkWrapper,
         { modifier: "a:focus" }
@@ -144,7 +144,7 @@ describe("Link", () => {
     it("should render an `Icon` on the left side of the component by default", () => {
       assertStyleMatch(
         {
-          marginRight: "5px",
+          marginRight: "var(--spacing100)",
           position: "relative",
         },
         wrapper.find(StyledLink),
@@ -157,7 +157,7 @@ describe("Link", () => {
       assertStyleMatch(
         {
           marginRight: "0",
-          marginLeft: "5px",
+          marginLeft: "var(--spacing100)",
           position: "relative",
         },
         wrapper.find(StyledLink),

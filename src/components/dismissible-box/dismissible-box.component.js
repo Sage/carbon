@@ -27,7 +27,6 @@ const DismissibleBox = ({
     p="20px 24px 20px 20px"
     hasBorderLeftHighlight={hasBorderLeftHighlight}
     {...rest}
-    minWidth="600px"
     display="flex"
     justifyContent="space-between"
   >

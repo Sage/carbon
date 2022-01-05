@@ -1,23 +1,30 @@
 import React from "react";
 import { mount } from "enzyme";
+import { ThemeProvider } from "styled-components";
 import { aegeanTheme, mintTheme, noTheme, sageTheme } from "../../themes";
 import CarbonScopedTokensProvider from "./carbon-scoped-tokens-provider.component";
 
-const render = (theme) => mount(<CarbonScopedTokensProvider theme={theme} />);
+jest.mock("../../../__internal__/utils/helpers/guid", () => () => "guid");
 
 describe("CarbonScopedTokensProvider", () => {
-  it.each([
-    [aegeanTheme.name, aegeanTheme],
-    [mintTheme.name, mintTheme],
-    [noTheme.name, noTheme],
-    [sageTheme.name, sageTheme],
-  ])("should render css variables for %s theme", (themeName, theme) => {
-    render(theme);
+  it("should render css variables for all themes", () => {
+    mount(
+      <>
+        <ThemeProvider theme={aegeanTheme}>
+          <CarbonScopedTokensProvider />
+        </ThemeProvider>
+        <ThemeProvider theme={mintTheme}>
+          <CarbonScopedTokensProvider />
+        </ThemeProvider>
+        <ThemeProvider theme={noTheme}>
+          <CarbonScopedTokensProvider />
+        </ThemeProvider>
+        <ThemeProvider theme={sageTheme}>
+          <CarbonScopedTokensProvider />
+        </ThemeProvider>
+      </>
+    );
 
-    const cssRules = document.styleSheets[0].cssRules[0];
-    const selector = cssRules.selectorText;
-    const designTokensCssDefinition = cssRules.cssText.replace(selector, "");
-
-    expect(designTokensCssDefinition).toMatchSnapshot();
+    expect(document.styleSheets[0].cssRules).toMatchSnapshot();
   });
 });

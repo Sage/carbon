@@ -25,6 +25,9 @@ export const flatTableSubrows = () => cy.get(FLAT_TABLE_SUBROW);
 export const flatTableSubrowByPosition = (index) =>
   flatTableSubrows().eq(index);
 
+export const flatTableSubrowFirstCell = (index) =>
+  flatTableSubrows().eq(index).find("td div");
+
 export const flatTableCaption = () => flatTable().find("caption");
 
 export const flatTablePageSizeSelect = () =>

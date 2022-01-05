@@ -1,3 +1,76 @@
+## [102.5.0](https://github.com/Sage/carbon/compare/v102.4.6...v102.5.0) (2022-01-05)
+
+
+### Features
+
+* **button:** describe button using design tokens, update of tests after changes ([04f01cf](https://github.com/Sage/carbon/commit/04f01cf473de7de3a3c64614c8fc21a804e8e19f))
+
+### [102.4.6](https://github.com/Sage/carbon/compare/v102.4.5...v102.4.6) (2022-01-04)
+
+
+### Bug Fixes
+
+* **design-tokens:** add support for multiple instances of carbon provider ([923049b](https://github.com/Sage/carbon/commit/923049bb9db38fa81e2a9ec2b57f17211f5f82e0))
+
+### [102.4.5](https://github.com/Sage/carbon/compare/v102.4.4...v102.4.5) (2022-01-04)
+
+
+### Bug Fixes
+
+* **button:** pass `aria-hidden=true` to button icon ([95146b5](https://github.com/Sage/carbon/commit/95146b53f8c723b13d351a6fc692f75c65c1e08d))
+
+### [102.4.4](https://github.com/Sage/carbon/compare/v102.4.3...v102.4.4) (2021-12-23)
+
+
+### Bug Fixes
+
+* **checkbox-group:** remove incorrect margin in form ([4a061e7](https://github.com/Sage/carbon/commit/4a061e70e9b0982e8d45af6790547b75d9440e9e)), closes [#4641](https://github.com/Sage/carbon/issues/4641)
+
+### [102.4.3](https://github.com/Sage/carbon/compare/v102.4.2...v102.4.3) (2021-12-21)
+
+
+### Bug Fixes
+
+* **flat-table-cell:** ensure that pl prop is correctly applied to a sub row ([28c7ffa](https://github.com/Sage/carbon/commit/28c7ffaf84da80587c36dc1284b4b710b9778d5f)), closes [#4348](https://github.com/Sage/carbon/issues/4348)
+
+### [102.4.2](https://github.com/Sage/carbon/compare/v102.4.1...v102.4.2) (2021-12-21)
+
+
+### Bug Fixes
+
+* **dismissible-box:** remove minWidth from component ([e5b78d6](https://github.com/Sage/carbon/commit/e5b78d68291c2ea345d8b2d435a52dcacb354742)), closes [#4627](https://github.com/Sage/carbon/issues/4627)
+
+### [102.4.1](https://github.com/Sage/carbon/compare/v102.4.0...v102.4.1) (2021-12-21)
+
+
+### Bug Fixes
+
+* **alert:** fix incorrect prop type for title prop ([fb82edb](https://github.com/Sage/carbon/commit/fb82edba788e880bde42bd77c4b83fd61ecfcc20)), closes [#4600](https://github.com/Sage/carbon/issues/4600)
+* **dialog:** add missing prop types to ts definition file ([a4ba3ce](https://github.com/Sage/carbon/commit/a4ba3ce8b4a02c66a032fac8928397d77c63181b))
+* **modal:** add missing prop types to ts definition file ([fbe0b27](https://github.com/Sage/carbon/commit/fbe0b278524a7454ee5521222d04cdb3a6d8754d))
+
+## [102.4.0](https://github.com/Sage/carbon/compare/v102.3.0...v102.4.0) (2021-12-14)
+
+
+### Features
+
+* **message:** describe Message component using design tokens ([d3b7c0b](https://github.com/Sage/carbon/commit/d3b7c0b9d9e56b843fa7a17c578763e414819d09))
+* **message:** describe type-icon with design tokens, fix snapshots ([5da258a](https://github.com/Sage/carbon/commit/5da258a3fcff856bd4c7ab8396c8f7866cc4f7e2))
+
+## [102.3.0](https://github.com/Sage/carbon/compare/v102.2.0...v102.3.0) (2021-12-14)
+
+
+### Features
+
+* **link:** describe link component using design tokens ([545980b](https://github.com/Sage/carbon/commit/545980b3b2ae1dbc90ee94d1c66ce15538146841))
+
+## [102.2.0](https://github.com/Sage/carbon/compare/v102.1.0...v102.2.0) (2021-12-13)
+
+
+### Features
+
+* **radio-button:** describe RadioButton component using design tokens ([f235a2f](https://github.com/Sage/carbon/commit/f235a2f7712654bde2765a8655ecd4d81f574c83))
+
 ## [102.1.0](https://github.com/Sage/carbon/compare/v102.0.1...v102.1.0) (2021-12-13)
 
 

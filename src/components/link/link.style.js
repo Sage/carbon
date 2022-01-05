@@ -16,8 +16,8 @@ const StyledLink = styled.span`
         line-height: 36px;
         left: -999em;
         z-index: ${theme.zIndex.aboveAll};
-        box-shadow: inset 0 0 0 2px ${theme.colors.primary};
-        border: 2px solid ${theme.colors.white};
+        box-shadow: inset 0 0 0 2px var(--colorsActionMajor500);
+        border: 2px solid var(--colorsYang100);
       }
 
       a:focus {
@@ -30,7 +30,9 @@ const StyledLink = styled.span`
   button {
       font-size: ${isSkipLink ? "16px" : "14px"};
       text-decoration: underline;
-      color: ${isSkipLink ? theme.text.color : theme.colors.primary};
+      color: ${isSkipLink
+        ? "var(--colorsYin090)"
+        : "var(--colorsActionMajor500)"};
       display: inline-block;
       ${StyledIcon} {
         display: inline-block;
@@ -38,35 +40,37 @@ const StyledLink = styled.span`
         vertical-align: middle;
         ${iconAlign === "left" &&
         css`
-          margin-right: ${hasContent ? "5px" : 0};
+          margin-right: ${hasContent ? "var(--spacing100)" : 0};
         `}
         ${iconAlign === "right" &&
         css`
           margin-right: 0;
-          margin-left: ${hasContent ? "5px" : 0};
+          margin-left: ${hasContent ? "var(--spacing100)" : 0};
         `}
       }
 
       &:hover {
         cursor: pointer;
-        color: ${isSkipLink ? theme.text.color : theme.colors.secondary};
+        color: ${isSkipLink
+          ? "var(--colorsYin090)"
+          : "var(--colorsActionMajor600)"};
       }
 
       &:focus {
-        color: ${theme.text.color};
+        color: var(--colorsYin090);
         background-color: ${isSkipLink
-          ? theme.colors.white
-          : theme.colors.focusedLinkBackground};
+          ? "var(--colorsYang100)"
+          : "var(--colorsSemanticFocus250)"};
         outline: none;
       }
 
       ${disabled &&
       css`
-        color: ${theme.disabled.text};
+        color: var(--colorsYin065);
         &:hover,
         &:focus {
           cursor: not-allowed;
-          color: ${theme.disabled.text};
+          color: var(--colorsYin065);
         }
       `}
     }

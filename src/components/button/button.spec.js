@@ -6,7 +6,6 @@ import TestRenderer from "react-test-renderer";
 import Icon from "components/icon";
 import Button from "./button.component";
 import StyledButton from "./button.style";
-import BaseTheme from "../../style/themes/base";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
@@ -160,9 +159,9 @@ describe("Button", () => {
       assertStyleMatch(
         {
           background: "transparent",
-          borderColor: BaseTheme.colors.primary,
-          color: BaseTheme.colors.primary,
-          fontSize: "14px",
+          borderColor: "var(--colorsActionMajor500)",
+          color: "var(--colorsActionMajor500)",
+          fontSize: "var(--fontSizes100)",
           minHeight: sizesHeights.medium,
         },
         wrapper
@@ -200,12 +199,12 @@ describe("Button", () => {
               variant === "tertiary" ||
               variant === "dashed"
                 ? "transparent"
-                : BaseTheme.disabled.button,
+                : "var(--colorsActionDisabled500)",
             borderColor:
               variant === "secondary" || variant === "dashed"
-                ? BaseTheme.disabled.button
+                ? "var(--colorsActionDisabled500)"
                 : "transparent",
-            color: BaseTheme.disabled.text,
+            color: "var(--colorsYin030)",
           },
           wrapper
         );
@@ -226,11 +225,18 @@ describe("Button", () => {
 
       assertStyleMatch(
         {
-          background: BaseTheme.colors.error,
-          borderColor: "transparent",
-          color: BaseTheme.colors.white,
+          background: "var(--colorsSemanticNegative500)",
+          color: "var(--colorsSemanticNegativeYang100)",
         },
         wrapper
+      );
+
+      assertStyleMatch(
+        {
+          background: "var(--colorsSemanticNegative600)",
+        },
+        wrapper,
+        { modifier: ":hover" }
       );
     });
 
@@ -246,15 +252,15 @@ describe("Button", () => {
       assertStyleMatch(
         {
           background: "transparent",
-          borderColor: BaseTheme.colors.error,
-          color: BaseTheme.colors.error,
+          borderColor: "var(--colorsSemanticNegative500)",
+          color: "var(--colorsSemanticNegative500)",
         },
         wrapper
       );
 
       assertStyleMatch(
         {
-          color: BaseTheme.colors.error,
+          color: "var(--colorsSemanticNegative500)",
         },
         wrapper,
         { modifier: `${StyledIcon}` }
@@ -262,26 +268,9 @@ describe("Button", () => {
 
       assertStyleMatch(
         {
-          background: BaseTheme.colors.destructive.hover,
-          color: BaseTheme.colors.white,
-        },
-        wrapper,
-        { modifier: ":focus" }
-      );
-
-      assertStyleMatch(
-        {
-          color: BaseTheme.colors.white,
-        },
-        wrapper,
-        { modifier: `:focus ${StyledIcon}` }
-      );
-
-      assertStyleMatch(
-        {
-          background: BaseTheme.colors.destructive.hover,
-          borderColor: BaseTheme.colors.destructive.hover,
-          color: BaseTheme.colors.white,
+          background: "var(--colorsSemanticNegative600)",
+          borderColor: "var(--colorsSemanticNegativeTransparent)",
+          color: "var(--colorsSemanticNegativeYang100)",
         },
         wrapper,
         { modifier: ":hover" }
@@ -289,7 +278,7 @@ describe("Button", () => {
 
       assertStyleMatch(
         {
-          color: BaseTheme.colors.white,
+          color: "var(--colorsSemanticNegativeYang100)",
         },
         wrapper,
         { modifier: `:hover ${StyledIcon}` }
@@ -311,14 +300,14 @@ describe("Button", () => {
       {
         background: "transparent",
         borderColor: "transparent",
-        color: BaseTheme.colors.error,
+        color: "var(--colorsSemanticNegative500)",
       },
       wrapper
     );
 
     assertStyleMatch(
       {
-        color: BaseTheme.colors.error,
+        color: "var(--colorsSemanticNegative500)",
       },
       wrapper,
       { modifier: `${StyledIcon}` }
@@ -326,7 +315,8 @@ describe("Button", () => {
 
     assertStyleMatch(
       {
-        color: BaseTheme.colors.destructive.hover,
+        color: "var(--colorsSemanticNegativeYang100)",
+        background: "var(--colorsSemanticNegative600)",
       },
       wrapper,
       { modifier: ":hover" }
@@ -334,7 +324,7 @@ describe("Button", () => {
 
     assertStyleMatch(
       {
-        color: BaseTheme.colors.destructive.hover,
+        color: "var(--colorsSemanticNegativeYang100)",
       },
       wrapper,
       { modifier: `:hover ${StyledIcon}` }
@@ -357,9 +347,9 @@ describe("Button", () => {
       assertStyleMatch(
         {
           background: "transparent",
-          borderColor: BaseTheme.disabled.button,
-          color: BaseTheme.disabled.text,
-          fontSize: "14px",
+          borderColor: "var(--colorsActionDisabled500)",
+          color: "var(--colorsYin030)",
+          fontSize: "var(--fontSizes100)",
           minHeight: sizesHeights.medium,
         },
         wrapper
@@ -388,13 +378,13 @@ describe("Button", () => {
                   variant === "tertiary" ||
                   variant === "dashed"
                     ? "transparent"
-                    : BaseTheme.disabled.button,
+                    : "var(--colorsActionDisabled500)",
                 borderColor:
                   variant === "secondary" || variant === "dashed"
-                    ? BaseTheme.disabled.button
+                    ? "var(--colorsActionDisabled500)"
                     : "transparent",
-                color: BaseTheme.disabled.text,
-                fontSize: size === "large" ? "16px" : "14px",
+                color: "var(--colorsYin030)",
+                fontSize: size === "large" ? "16px" : "var(--fontSizes100)",
                 minHeight: height,
               },
               wrapper
@@ -420,13 +410,13 @@ describe("Button", () => {
                   variant === "tertiary" ||
                   variant === "dashed"
                     ? "transparent"
-                    : BaseTheme.disabled.button,
+                    : "var(--colorsActionDisabled500)",
                 borderColor:
                   variant === "secondary" || variant === "dashed"
-                    ? BaseTheme.disabled.button
+                    ? "var(--colorsActionDisabled500)"
                     : "transparent",
-                color: BaseTheme.disabled.text,
-                fontSize: size === "large" ? "16px" : "14px",
+                color: "var(--colorsYin030)",
+                fontSize: size === "large" ? "16px" : "var(--fontSizes100)",
                 minHeight: height,
               },
               wrapper
@@ -582,6 +572,19 @@ describe("Button", () => {
 
       const ariaLink = wrapper.find('[aria-label="Bin"]');
       expect(ariaLink.exists()).toBe(true);
+    });
+  });
+
+  describe("when specified with an icon", () => {
+    it.each([
+      { iconType: "bin", "aria-label": "Message" },
+      { iconType: "bin", children: "Message" },
+    ])("hide icon from assistive technologies", (props) => {
+      const wrapper = render(props);
+
+      const iconProps = wrapper.find(Icon).props();
+
+      expect(iconProps["aria-hidden"]).toBe(true);
     });
   });
 
