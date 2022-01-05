@@ -7,7 +7,7 @@ const StyledPage = styled.article`
 `;
 
 const StyledPageContent = styled.div`
-  box-sizing: content-box;
+  box-sizing: border-box;
   padding: 30px 40px;
   width: 100%;
   height: 100%;
