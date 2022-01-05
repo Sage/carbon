@@ -58,6 +58,12 @@ const StyledIcon = styled.span`
       if (disabled) {
         finalColor = theme.icon.disabled;
         finalHoverColor = theme.icon.disabled;
+      } else if (typeof color === "string" && color.startsWith("var")) {
+        finalColor = color;
+        finalHoverColor = shade(
+          0.2,
+          theme.compatibility[color.replace("var(--", "").replace(")", "")]
+        );
       } else if (color) {
         const { color: renderedColor } = styledColor({ color, theme });
         finalColor = renderedColor;

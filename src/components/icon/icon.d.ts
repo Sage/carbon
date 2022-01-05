@@ -221,6 +221,8 @@ export interface IconProps extends MarginProps {
   disabled?: boolean;
   /** Aria label for accessibility purposes */
   ariaLabel?: string;
+  /** Set whether icon should be recognised by assistive technologies */
+  "aria-hidden"?: boolean;
   /** The message to be displayed within the tooltip */
   tooltipMessage?: React.ReactNode;
   /** The position to display the tooltip */
