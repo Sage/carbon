@@ -1,3 +1,10 @@
+### [102.7.1](https://github.com/Sage/carbon/compare/v102.7.0...v102.7.1) (2022-01-06)
+
+
+### Bug Fixes
+
+* **textarea:** pass value down to input ([423bc75](https://github.com/Sage/carbon/commit/423bc757076e760dd74c12023fd321a1f5a10cd6)), closes [#4645](https://github.com/Sage/carbon/issues/4645)
+
 ## [102.7.0](https://github.com/Sage/carbon/compare/v102.6.1...v102.7.0) (2022-01-05)
 
 
