@@ -7,6 +7,8 @@ const StyledMenuFullscreen = styled.div`
   position: fixed;
   top: 0;
   bottom: 0;
+  height: 100vh;
+  width: 100%;
 
   a,
   button,
@@ -28,7 +30,7 @@ const StyledMenuFullscreen = styled.div`
     ${!isOpen &&
     css`
       visibility: hidden;
-      ${startPosition}: -100vw;
+      ${startPosition}: -100%;
       transition: all 0.3s ease;
     `}
   `}
