@@ -1,3 +1,10 @@
+### [102.7.2](https://github.com/Sage/carbon/compare/v102.7.1...v102.7.2) (2022-01-07)
+
+
+### Bug Fixes
+
+* **message:** incorrect content width ([828df96](https://github.com/Sage/carbon/commit/828df96cd1feda923470ab3b58bdde45c2cd18ee))
+
 ### [102.7.1](https://github.com/Sage/carbon/compare/v102.7.0...v102.7.1) (2022-01-06)
 
 
