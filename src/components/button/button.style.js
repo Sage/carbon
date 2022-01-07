@@ -33,27 +33,19 @@ const StyledButton = styled.button`
     ${stylingForType}
   `}
 
-  &&& {
-    ${({ mb, theme }) =>
-      (mb || mb === 0) &&
-      css`
-        margin-bottom: ${mb * theme.spacing}px;
-      `}
-  }
-
   ${({ fullWidth }) =>
     fullWidth &&
     css`
       width: 100%;
     `}
 
-  ${({ iconOnly, iconPosition, theme }) => css`
+  ${({ iconOnly, iconPosition }) => css`
     ${StyledIcon} {
       margin-left: ${!iconOnly && iconPosition === "after"
-        ? `${theme.spacing}px`
+        ? "var(--spacing100)"
         : "0px"};
       margin-right: ${!iconOnly && iconPosition === "before"
-        ? `${theme.spacing}px`
+        ? "var(--spacing100)"
         : "0px"};
       margin-bottom: ${iconOnly ? "1px" : "0px"};
       height: ${additionalIconStyle};
@@ -94,34 +86,27 @@ function stylingForIconOnly(size) {
   min-height: ${dimension}`;
 }
 
-function stylingForType({
-  iconOnly,
-  disabled,
-  buttonType,
-  theme,
-  size,
-  destructive,
-}) {
+function stylingForType({ iconOnly, disabled, buttonType, size, destructive }) {
   return css`
     border: 2px solid transparent;
     box-sizing: border-box;
     font-weight: 600;
     text-decoration: none;
     &:focus {
-      outline: solid 3px ${theme.colors.focus};
+      outline: solid 3px var(--colorsSemanticFocus500);
     }
 
-    ${buttonTypes(theme, disabled, destructive)[buttonType]};
+    ${buttonTypes(disabled, destructive)[buttonType]};
 
     ${size === "small" &&
     css`
-      font-size: ${theme.text.size};
+      font-size: var(--fontSizes100);
       min-height: 32px;
     `}
 
     ${size === "medium" &&
     css`
-      font-size: ${theme.text.size};
+      font-size: var(--fontSizes100);
       min-height: 40px;
     `}
     
@@ -147,12 +132,20 @@ StyledButton.propTypes = {
   buttonType: PropTypes.oneOf(BUTTON_VARIANTS),
   /** The text the button displays */
   children: PropTypes.node.isRequired,
+  /** Apply destructive style to the button */
+  destructive: PropTypes.bool,
   /** Apply disabled state to the button */
   disabled: PropTypes.bool,
+  /** Apply fullWidth style to the button */
+  fullWidth: PropTypes.bool,
+  /** Apply iconOnly to display button with the icon only  */
+  iconOnly: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Defines an Icon position within the button */
   iconPosition: PropTypes.oneOf([...BUTTON_ICON_POSITIONS, ""]),
   /** Defines an Icon type within the button (see Icon for options) */
   iconType: PropTypes.oneOf([...ICONS, ""]),
+  /** If provided, the text inside a button will not wrap */
+  noWrap: PropTypes.bool,
   /** Assigns a size to the button */
   size: PropTypes.oneOf(BUTTON_SIZES),
   /** Second text child, renders under main text, only when size is "large" */

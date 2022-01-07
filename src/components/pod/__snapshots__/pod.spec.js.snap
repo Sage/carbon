@@ -302,13 +302,17 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   color: #FFFFFF;
 }
 
+.c27 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
 .c27:hover .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c27 .c2 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
@@ -822,13 +826,17 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   color: #FFFFFF;
 }
 
+.c35 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
 .c35:hover .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c35 .c2 {
   margin-left: 0px;
-  margin-right: 8px;
+  margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }

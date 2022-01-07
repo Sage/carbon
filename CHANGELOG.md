@@ -1,3 +1,47 @@
+### [102.7.1](https://github.com/Sage/carbon/compare/v102.7.0...v102.7.1) (2022-01-06)
+
+
+### Bug Fixes
+
+* **textarea:** pass value down to input ([423bc75](https://github.com/Sage/carbon/commit/423bc757076e760dd74c12023fd321a1f5a10cd6)), closes [#4645](https://github.com/Sage/carbon/issues/4645)
+
+## [102.7.0](https://github.com/Sage/carbon/compare/v102.6.1...v102.7.0) (2022-01-05)
+
+
+### Features
+
+* **loader-bar:** describe loader-bar using design tokens, update of tests after changes ([73a5a25](https://github.com/Sage/carbon/commit/73a5a2507e4df65458ede88ed9bb752099b07130))
+* **loader-square:** describe loader-square using design tokens, update of tests after changes ([811484d](https://github.com/Sage/carbon/commit/811484d7acbb47e47d1c25b6a720140d18f61f79))
+* **loader, loader-bar:** add missing tokens in base-theme ([396d941](https://github.com/Sage/carbon/commit/396d94139d4f0f96acd692c6fb2769134391be73))
+
+### [102.6.1](https://github.com/Sage/carbon/compare/v102.6.0...v102.6.1) (2022-01-05)
+
+
+### Bug Fixes
+
+* **page:** ensure that children are constrained inside of component ([598edfd](https://github.com/Sage/carbon/commit/598edfd5ae09c8818a27e8bff841d7e2e7adde93)), closes [#4616](https://github.com/Sage/carbon/issues/4616)
+
+## [102.6.0](https://github.com/Sage/carbon/compare/v102.5.0...v102.6.0) (2022-01-05)
+
+
+### Features
+
+* **inline-input:** remove row and column dependency ([b7d5227](https://github.com/Sage/carbon/commit/b7d52275933be4a66c30487e87874d697a607513))
+
+## [102.5.0](https://github.com/Sage/carbon/compare/v102.4.6...v102.5.0) (2022-01-05)
+
+
+### Features
+
+* **button:** describe button using design tokens, update of tests after changes ([04f01cf](https://github.com/Sage/carbon/commit/04f01cf473de7de3a3c64614c8fc21a804e8e19f))
+
+### [102.4.6](https://github.com/Sage/carbon/compare/v102.4.5...v102.4.6) (2022-01-04)
+
+
+### Bug Fixes
+
+* **design-tokens:** add support for multiple instances of carbon provider ([923049b](https://github.com/Sage/carbon/commit/923049bb9db38fa81e2a9ec2b57f17211f5f82e0))
+
 ### [102.4.5](https://github.com/Sage/carbon/compare/v102.4.4...v102.4.5) (2022-01-04)
 
 
