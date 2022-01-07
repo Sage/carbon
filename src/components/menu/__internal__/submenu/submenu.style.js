@@ -106,7 +106,7 @@ const StyledSubmenu = styled.ul`
         margin-right: 5px;
       }
 
-      ${StyledSearch} [data-component="icon"] {
+      ${StyledSearch} span > [data-component="icon"] {
         color: ${theme.menu[menuType].searchIcon};
 
         &:hover {

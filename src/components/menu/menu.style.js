@@ -58,7 +58,9 @@ const StyledMenuItem = styled.li`
       ${StyledLink} a,
       button,
       ${StyledLink} button,
-      span {
+      > span,
+      > div,
+      [data-component="submenu-wrapper"] > ${StyledLink} {
         width: 100%;
         box-sizing: border-box;
       }

@@ -5,6 +5,7 @@ import { action } from "@storybook/addon-actions";
 import { Menu } from ".";
 import MenuItem from "./menu-item";
 import MenuFullscreen from "./menu-full-screen";
+import Search from "../search";
 
 <Meta
   title="Menu/Test"
@@ -30,7 +31,11 @@ import MenuFullscreen from "./menu-full-screen";
   }}
 />
 
-export const MenuStory = ({ menuType, startPosition }) => {
+export const MenuFullScreenStory = ({
+  menuType,
+  startPosition,
+  searchVariant,
+}) => {
   const [isOpen, setIsOpen] = useState(true);
   const onClose = (evt) => {
     setIsOpen(false);
@@ -56,6 +61,13 @@ export const MenuStory = ({ menuType, startPosition }) => {
           <MenuItem href="#">Submenu Item One</MenuItem>
           <MenuItem href="#">Submenu Item Two</MenuItem>
         </MenuItem>
+        <MenuItem variant="alternate">
+          <Search
+            placeholder="Search..."
+            variant={searchVariant}
+            defaultValue=""
+          />
+        </MenuItem>
         <MenuItem href="#">Menu Item Three</MenuItem>
         <MenuItem href="#">Menu Item Four</MenuItem>
         <MenuItem submenu="Menu Item Five">
@@ -70,16 +82,32 @@ export const MenuStory = ({ menuType, startPosition }) => {
 
 # Menu
 
-### Default
+### Full screen light menu
 
 <Canvas>
   <Story
-    name="default"
+    name="light fullscreen menu"
     args={{
       menuType: "light",
       startPosition: "left",
+      searchVariant: "default",
     }}
   >
-    {MenuStory.bind({})}
+    {MenuFullScreenStory.bind({})}
+  </Story>
+</Canvas>
+
+### Full screen dark menu
+
+<Canvas>
+  <Story
+    name="dark fullscreen menu"
+    args={{
+      menuType: "dark",
+      startPosition: "left",
+      searchVariant: "dark",
+    }}
+  >
+    {MenuFullScreenStory.bind({})}
   </Story>
 </Canvas>
