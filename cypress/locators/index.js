@@ -41,3 +41,6 @@ export const tooltipPreview = () => cy.get(TOOLTIP_PREVIEW);
 export const tooltipPreviewByPosition = (position) =>
   cy.get(TOOLTIP_PREVIEW).eq(position);
 export const link = () => cy.get(LINK);
+export const pressESCKeyOntoFocusedElement = () => {
+  cy.focused().type("{esc}");
+};

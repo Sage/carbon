@@ -10,24 +10,41 @@ import createGuid from "../../../__internal__/utils/helpers/guid";
  *
  */
 
-export const tokensClassName = `sageDesignTokens-${createGuid()}`;
+const activeThemes = {};
+
+const carbonInstanceId = createGuid();
+
+const kebabCase = (input) =>
+  input &&
+  input.toString().toLowerCase().match(/\w*/gm).filter(Boolean).join("-");
+
+export const tokensClassName = (theme) =>
+  `sage-design-tokens-${kebabCase(theme)}-${carbonInstanceId}`;
 
 export const GlobalTokens = createGlobalStyle`
-  .${tokensClassName} {
-    ${({ theme }) => generateCssVariables(theme.compatibility)}
-  }
-`;
+  ${({ theme }) => {
+    const className = tokensClassName(theme.name);
+    activeThemes[className] =
+      activeThemes[className] || generateCssVariables(theme.compatibility);
 
-const TokensProviderWrapper = styled.div`
+    return Object.entries(activeThemes).reduce(
+      (acc, [name, definitions]) => `${acc} .${name} { ${definitions} }`,
+      ""
+    );
+  }}`;
+
+const TokensProviderWrapper = styled.div.attrs(({ theme }) => ({
+  className: tokensClassName(theme.name),
+}))`
   margin: 0;
   padding: 0;
   width: auto;
   display: inline;
 `;
 
-const CarbonScopedTokensProvider = ({ children, theme, ...props }) => (
-  <TokensProviderWrapper {...props} className={tokensClassName}>
-    <GlobalTokens theme={theme} />
+const CarbonScopedTokensProvider = ({ children }) => (
+  <TokensProviderWrapper>
+    <GlobalTokens />
     {children}
   </TokensProviderWrapper>
 );

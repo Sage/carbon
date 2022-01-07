@@ -1,10 +1,16 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import BaseTheme from "../../../style/themes/base";
+
+const messageVariants = {
+  error: "var(--colorsSemanticNegative500)",
+  info: "var(--colorsSemanticNeutral500)",
+  success: "var(--colorsSemanticPositive500)",
+  warning: "var(--colorsSemanticCaution500)",
+};
 
 const TypeIconStyle = styled.div`
   align-items: center;
-  background-color: ${({ theme, variant }) => theme.colors[variant]};
+  background-color: ${({ variant }) => messageVariants[variant]};
   display: flex;
   justify-content: center;
   line-height: 100%;
@@ -12,17 +18,17 @@ const TypeIconStyle = styled.div`
   text-align: center;
   span {
     &:before {
-      color: ${({ theme }) => theme.colors.white};
+      color: var(--colorsUtilityYang100);
     }
   }
 
-  ${({ theme, transparent, variant }) =>
+  ${({ transparent, variant }) =>
     transparent &&
     css`
       background-color: transparent;
       span {
         &:before {
-          color: ${theme.colors[variant]};
+          color: ${messageVariants[variant]};
         }
       }
     `}
@@ -30,7 +36,6 @@ const TypeIconStyle = styled.div`
 
 TypeIconStyle.defaultProps = {
   variant: "info",
-  theme: BaseTheme,
   transparent: false,
 };
 

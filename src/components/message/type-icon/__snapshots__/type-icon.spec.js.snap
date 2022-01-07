@@ -6,7 +6,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #C7384F;
+  background-color: var(--colorsSemanticNegative500);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -21,7 +21,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
 }
 
 .c0 span:before {
-  color: #FFFFFF;
+  color: var(--colorsUtilityYang100);
 }
 
 <div
@@ -35,7 +35,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #0073C2;
+  background-color: var(--colorsSemanticNeutral500);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -50,7 +50,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
 }
 
 .c0 span:before {
-  color: #FFFFFF;
+  color: var(--colorsUtilityYang100);
 }
 
 <div
@@ -64,7 +64,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #00B000;
+  background-color: var(--colorsSemanticPositive500);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -79,7 +79,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
 }
 
 .c0 span:before {
-  color: #FFFFFF;
+  color: var(--colorsUtilityYang100);
 }
 
 <div
@@ -93,7 +93,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #E96400;
+  background-color: var(--colorsSemanticCaution500);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -108,7 +108,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
 }
 
 .c0 span:before {
-  color: #FFFFFF;
+  color: var(--colorsUtilityYang100);
 }
 
 <div
@@ -122,7 +122,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #0073C2;
+  background-color: var(--colorsSemanticNeutral500);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -138,11 +138,11 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
 }
 
 .c0 span:before {
-  color: #FFFFFF;
+  color: var(--colorsUtilityYang100);
 }
 
 .c0 span:before {
-  color: #0073C2;
+  color: var(--colorsSemanticNeutral500);
 }
 
 <div
@@ -156,7 +156,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #C7384F;
+  background-color: var(--colorsSemanticNegative500);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -172,11 +172,11 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
 }
 
 .c0 span:before {
-  color: #FFFFFF;
+  color: var(--colorsUtilityYang100);
 }
 
 .c0 span:before {
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 <div
@@ -190,7 +190,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #00B000;
+  background-color: var(--colorsSemanticPositive500);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -206,11 +206,11 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
 }
 
 .c0 span:before {
-  color: #FFFFFF;
+  color: var(--colorsUtilityYang100);
 }
 
 .c0 span:before {
-  color: #00B000;
+  color: var(--colorsSemanticPositive500);
 }
 
 <div
@@ -224,7 +224,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #E96400;
+  background-color: var(--colorsSemanticCaution500);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -240,11 +240,11 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
 }
 
 .c0 span:before {
-  color: #FFFFFF;
+  color: var(--colorsUtilityYang100);
 }
 
 .c0 span:before {
-  color: #E96400;
+  color: var(--colorsSemanticCaution500);
 }
 
 <div

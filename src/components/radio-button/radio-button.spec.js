@@ -86,7 +86,7 @@ describe("RadioButton", () => {
 
       it("applies the correct circle styles", () => {
         assertStyleMatch(
-          { fill: baseTheme.disabled.input },
+          { fill: "var(--colorsCtilityDisabled400)" },
           getRadioButton(wrapper),
           { modifier: "circle" }
         );
@@ -94,7 +94,7 @@ describe("RadioButton", () => {
 
       it("renders the correct checked colour", () => {
         assertStyleMatch(
-          { fill: baseTheme.disabled.border },
+          { fill: "var(--colorsUtilityDisabled600)" },
           getRadioButton(wrapper),
           {
             modifier: `${`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle`}`,

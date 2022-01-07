@@ -1,6 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
 import PropTypes from "prop-types";
-import baseTheme from "../../style/themes/base";
 import { LOADER_SIZES } from "./loader.config";
 
 const loaderAnimation = keyframes`
@@ -38,15 +37,17 @@ const getDimentions = (size) => {
 };
 
 const StyledLoaderSquare = styled.div`
-  ${({ theme, size, isInsideButton, isActive }) => css`
+  ${({ size, isInsideButton, isActive }) => css`
     animation: ${loaderAnimation} 1s infinite ease-in-out both;
-    background-color: ${theme.colors.primary};
+    background-color: var(--colorsActionMajor500);
     display: inline-block;
     ${getDimentions(size)}
 
     ${isInsideButton &&
     css`
-      background-color: ${isActive ? theme.colors.white : theme.colors.border};
+      background-color: ${isActive
+        ? "var(--colorsYang100)"
+        : "var(--colorsSemanticNeutral500)"};
     `}
 
     &:nth-of-type(1) {
@@ -65,7 +66,6 @@ const StyledLoaderSquare = styled.div`
 `;
 
 StyledLoaderSquare.defaultProps = {
-  theme: baseTheme,
   size: "small",
   isInsideButton: false,
   isActive: true,
