@@ -119,8 +119,27 @@ describe("Form", () => {
           padding: "16px 32px",
           width: "100%",
           zIndex: "1000",
+          position: "sticky",
+          bottom: "0",
         },
         wrapper.find(StyledFormFooter)
+      );
+
+      assertStyleMatch(
+        {
+          overflowY: "auto",
+          flex: "1",
+        },
+        wrapper.find(StyledFormContent)
+      );
+
+      assertStyleMatch(
+        {
+          display: "flex",
+          flexDirection: "column",
+          position: "relative",
+        },
+        wrapper.find(StyledForm)
       );
     };
 
@@ -161,7 +180,6 @@ describe("Form", () => {
 
         assertStyleMatch(
           {
-            height: "calc(100vh - 184px)",
             paddingRight: "32px",
             paddingLeft: "32px",
             paddingTop: "27px",
