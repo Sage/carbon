@@ -6,35 +6,31 @@ const StyledContent = styled.div`
   padding: 0 16px;
   flex: 1;
 
-  ${({ headingHeight }) => css`
-    ${StyledFormContent}.sticky {
-      height: calc(100vh - ${headingHeight + 72}px);
+  ${StyledFormContent}.sticky {
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-right: -16px;
+    margin-left: -16px;
 
-      padding-right: 16px;
-      padding-left: 16px;
-      margin-right: -16px;
-      margin-left: -16px;
-
-      @media screen and (min-width: 600px) {
-        padding-right: 24px;
-        padding-left: 24px;
-        margin-right: -24px;
-        margin-left: -24px;
-      }
-      @media screen and (min-width: 960px) {
-        padding-right: 32px;
-        padding-left: 32px;
-        margin-right: -32px;
-        margin-left: -32px;
-      }
-      @media screen and (min-width: 1260px) {
-        padding-right: 40px;
-        padding-left: 40px;
-        margin-right: -40px;
-        margin-left: -40px;
-      }
+    @media screen and (min-width: 600px) {
+      padding-right: 24px;
+      padding-left: 24px;
+      margin-right: -24px;
+      margin-left: -24px;
     }
-  `}
+    @media screen and (min-width: 960px) {
+      padding-right: 32px;
+      padding-left: 32px;
+      margin-right: -32px;
+      margin-left: -32px;
+    }
+    @media screen and (min-width: 1260px) {
+      padding-right: 40px;
+      padding-left: 40px;
+      margin-right: -40px;
+      margin-left: -40px;
+    }
+  }
 
   ${StyledFormFooter}.sticky {
     padding: 16px;

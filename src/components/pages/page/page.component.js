@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { CSSTransition } from "react-transition-group";
 import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import FullScreenHeading from "../../../__internal__/full-screen-heading";
-import AppWrapper from "../../app-wrapper";
+import Box from "../../box";
 import { StyledPage, StyledPageContent } from "./page.style";
 
 const Page = ({ title, children, ...props }) => {
@@ -22,7 +22,15 @@ const Page = ({ title, children, ...props }) => {
       <StyledPage {...tagComponent("page", props)}>
         <FullScreenHeading hasContent={title}>{title}</FullScreenHeading>
         <StyledPageContent data-element="carbon-page-content">
-          <AppWrapper>{children}</AppWrapper>
+          <Box
+            boxSizing="border-box"
+            maxWidth="100%"
+            minWidth="auto"
+            margin="0 auto"
+            padding="4px 0px"
+          >
+            {children}
+          </Box>
         </StyledPageContent>
       </StyledPage>
     </CSSTransition>
