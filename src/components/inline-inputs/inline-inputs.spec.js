@@ -1,13 +1,14 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import { Row, Column } from "../row";
-import StyledRow from "../row/row.style";
-import StyledColumn from "../row/column/column.style";
 import Label from "../../__internal__/label";
 import Textbox from "../textbox";
 import InlineInputs from "./inline-inputs.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
+import {
+  StyledContentContainer,
+  StyledInlineInput,
+} from "./inline-inputs.style";
 import InputPresentation from "../../__internal__/input/input-presentation.style";
 
 describe("Inline Inputs", () => {
@@ -37,7 +38,7 @@ describe("Inline Inputs", () => {
       assertStyleMatch(
         {
           paddingRight: "16px",
-          width: "auto",
+          flex: "0 0 auto",
         },
         wrapper,
         { modifier: `${StyledLabelContainer}` }
@@ -64,16 +65,6 @@ describe("Inline Inputs", () => {
       wrapper = render({ label: labelText }, mount);
     });
 
-    it("then the carbon-row CSS class styled elements should have flex-grow set to 1", () => {
-      assertStyleMatch(
-        {
-          flexGrow: "1",
-        },
-        wrapper,
-        { modifier: `${StyledRow}` }
-      );
-    });
-
     it("then all inputs should have 1px width", () => {
       assertStyleMatch(
         {
@@ -82,18 +73,6 @@ describe("Inline Inputs", () => {
         wrapper,
         { modifier: "input" }
       );
-    });
-  });
-
-  describe("when a gutter prop is passed in", () => {
-    const gutterValue = "medium";
-
-    beforeEach(() => {
-      wrapper = render({ gutter: gutterValue }, mount);
-    });
-
-    it("then the gutter prop should be passed down to the row component", () => {
-      expect(wrapper.find("Row").props().gutter).toEqual(gutterValue);
     });
   });
 
@@ -109,19 +88,11 @@ describe("Inline Inputs", () => {
         {
           borderLeft: "none",
         },
-        wrapper,
-        { modifier: `${StyledColumn} + ${StyledColumn} ${InputPresentation}` }
+        wrapper.find(StyledContentContainer),
+        {
+          modifier: `${StyledInlineInput} + ${StyledInlineInput} ${InputPresentation}`,
+        }
       );
-    });
-  });
-
-  describe("when no gutter prop is passed in", () => {
-    beforeEach(() => {
-      wrapper = render();
-    });
-
-    it('then the gutter prop on the row component should be "none"', () => {
-      expect(wrapper.find("Row").props().gutter).toEqual("none");
     });
   });
 
@@ -135,24 +106,30 @@ describe("Inline Inputs", () => {
     it("then the label should have percentage width of this prop value", () => {
       assertStyleMatch(
         {
-          width: `${labelWidth}%`,
+          flex: `0 0 ${labelWidth}%`,
         },
         wrapper,
         { modifier: `${StyledLabelContainer}` }
       );
     });
+  });
 
-    it("then the inline input container width should cover the rest of the percentage", () => {
+  describe("when the inputWidth prop is not passed in", () => {
+    beforeEach(() => {
+      wrapper = render({}, mount);
+    });
+
+    it("then the inline input container should have it's flex property set to 1", () => {
       assertStyleMatch(
         {
-          flex: `0 0 ${100 - labelWidth}%`,
+          flex: "1",
         },
-        wrapper
+        wrapper.find(StyledContentContainer)
       );
     });
   });
 
-  describe("when a inputWidth prop is passed in", () => {
+  describe("when the inputWidth prop is passed in", () => {
     const inputWidth = 70;
 
     beforeEach(() => {
@@ -164,15 +141,9 @@ describe("Inline Inputs", () => {
         {
           flex: `0 0 ${inputWidth}%`,
         },
-        wrapper
+        wrapper.find(StyledContentContainer)
       );
     });
-  });
-
-  it("contains a row", () => {
-    wrapper = render();
-    const row = wrapper.find(Row);
-    expect(row.exists()).toBe(true);
   });
 
   describe("children", () => {
@@ -184,10 +155,6 @@ describe("Inline Inputs", () => {
       it("renders its children", () => {
         expect(wrapper.find(Textbox).length).toEqual(2);
       });
-
-      it("wraps all its children in a Column", () => {
-        expect(wrapper.find(Column).length).toEqual(2);
-      });
     });
 
     describe("when there is one child", () => {
@@ -197,10 +164,6 @@ describe("Inline Inputs", () => {
 
       it("renders the child", () => {
         expect(wrapper.find(Textbox).length).toEqual(1);
-      });
-
-      it("wraps the child in a Column", () => {
-        expect(wrapper.find(Column).length).toEqual(1);
       });
     });
   });

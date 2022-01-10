@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 
 import Modal from "../modal";
@@ -9,7 +9,6 @@ import StyledContent from "./content.style";
 import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 
 const DialogFullScreen = ({
   disableAutoFocus,
@@ -30,19 +29,6 @@ const DialogFullScreen = ({
 }) => {
   const dialogRef = useRef();
   const headingRef = useRef();
-  const [headingHeight, setHeadingHeight] = useState(101);
-
-  const updateheadingHeight = () => {
-    setHeadingHeight(headingRef.current.offsetHeight);
-  };
-
-  useEffect(() => {
-    if (open && headingRef.current) {
-      updateheadingHeight();
-    }
-  }, [open]);
-
-  useResizeObserver(headingRef, updateheadingHeight, !headingRef.current);
 
   const closeIcon = () => {
     if (!showCloseIcon || !onCancel) return null;
@@ -105,7 +91,6 @@ const DialogFullScreen = ({
             data-element="content"
             ref={contentRef}
             disableContentPadding={disableContentPadding}
-            headingHeight={headingHeight}
           >
             {children}
           </StyledContent>

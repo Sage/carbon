@@ -2,7 +2,6 @@ import React from "react";
 import { mount } from "enzyme";
 import StyledLoaderBar, { InnerBar } from "./loader-bar.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import baseTheme from "../../style/themes/base";
 import LoaderBar from "./loader-bar.component";
 
 describe("LoaderBar", () => {
@@ -20,7 +19,7 @@ describe("LoaderBar", () => {
     it("renders outer bar as expected", () => {
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.colors.loadingBarBackground,
+          backgroundColor: "var(--colorsActionMajor150)",
           width: "100%",
           height: "8px",
         },
@@ -30,7 +29,7 @@ describe("LoaderBar", () => {
     it("renders inner bar as expected", () => {
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.colors.primary,
+          backgroundColor: "var(--colorsActionMajor500)",
           width: "128px",
           height: "8px",
         },
