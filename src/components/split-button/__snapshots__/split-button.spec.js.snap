@@ -427,6 +427,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
     onMouseEnter={[Function]}
     onTouchStart={[Function]}
     size="medium"
+    type="button"
   >
     <span
       className="c4 c5"

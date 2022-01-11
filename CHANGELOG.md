@@ -1,3 +1,10 @@
+### [102.7.4](https://github.com/Sage/carbon/compare/v102.7.3...v102.7.4) (2022-01-11)
+
+
+### Bug Fixes
+
+* **split-button:** apply type of button to split button toggle ([c2bbd74](https://github.com/Sage/carbon/commit/c2bbd74cd8b6b8c352a90a3a2881285a4db3e060)), closes [#4651](https://github.com/Sage/carbon/issues/4651)
+
 ### [102.7.3](https://github.com/Sage/carbon/compare/v102.7.2...v102.7.3) (2022-01-07)
 
 
