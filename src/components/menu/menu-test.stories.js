@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import { Menu } from ".";
@@ -7,15 +7,15 @@ import MenuItem from "./menu-item";
 import MenuFullscreen from "./menu-full-screen";
 import Search from "../search";
 
-<Meta
-  title="Menu/Test"
-  parameters={{
+export default {
+  title: "Menu/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: false,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     menuType: {
       options: ["light", "dark"],
       control: {
@@ -28,13 +28,26 @@ import Search from "../search";
         type: "select",
       },
     },
-  }}
-/>
+    searchVariant: {
+      options: ["default", "dark"],
+      control: {
+        type: "select",
+      },
+    },
+    searchButton: {
+      options: [true, false],
+      control: {
+        type: "boolean",
+      },
+    },
+  },
+};
 
 export const MenuFullScreenStory = ({
   menuType,
   startPosition,
   searchVariant,
+  searchButton,
 }) => {
   const [isOpen, setIsOpen] = useState(true);
   const onClose = (evt) => {
@@ -66,6 +79,7 @@ export const MenuFullScreenStory = ({
             placeholder="Search..."
             variant={searchVariant}
             defaultValue=""
+            searchButton={searchButton}
           />
         </MenuItem>
         <MenuItem href="#">Menu Item Three</MenuItem>
@@ -80,34 +94,12 @@ export const MenuFullScreenStory = ({
   );
 };
 
-# Menu
-
-### Full screen light menu
-
-<Canvas>
-  <Story
-    name="light fullscreen menu"
-    args={{
-      menuType: "light",
-      startPosition: "left",
-      searchVariant: "default",
-    }}
-  >
-    {MenuFullScreenStory.bind({})}
-  </Story>
-</Canvas>
-
-### Full screen dark menu
-
-<Canvas>
-  <Story
-    name="dark fullscreen menu"
-    args={{
-      menuType: "dark",
-      startPosition: "left",
-      searchVariant: "dark",
-    }}
-  >
-    {MenuFullScreenStory.bind({})}
-  </Story>
-</Canvas>
+MenuFullScreenStory.story = {
+  name: "fullscreen menu",
+  args: {
+    menuType: "light",
+    startPosition: "left",
+    searchVariant: "default",
+    searchButton: true,
+  },
+};
