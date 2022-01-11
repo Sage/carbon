@@ -1,3 +1,10 @@
+### [102.8.1](https://github.com/Sage/carbon/compare/v102.8.0...v102.8.1) (2022-01-11)
+
+
+### Bug Fixes
+
+* **date-range:** prevent both fields becoming populated when one value passed ([5143311](https://github.com/Sage/carbon/commit/51433119c0456cf42f98ad3fd1dfb9c2541394bf)), closes [#4615](https://github.com/Sage/carbon/issues/4615)
+
 ## [102.8.0](https://github.com/Sage/carbon/compare/v102.7.4...v102.8.0) (2022-01-11)
 
 
