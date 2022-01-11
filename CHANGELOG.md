@@ -1,3 +1,15 @@
+## [102.8.0](https://github.com/Sage/carbon/compare/v102.7.4...v102.8.0) (2022-01-11)
+
+
+### Features
+
+* **checkbox:** describe checkbox using tokens, update of tests after changes ([d8fc6e6](https://github.com/Sage/carbon/commit/d8fc6e66b6ffa8615669452c2de9c826d21ee38f))
+
+
+### Bug Fixes
+
+* **radio-button:** remove not used baseTheme ([c2aae7e](https://github.com/Sage/carbon/commit/c2aae7e3d65ac9829cf07b42f0703a34f5b2347f))
+
 ### [102.7.4](https://github.com/Sage/carbon/compare/v102.7.3...v102.7.4) (2022-01-11)
 
 
