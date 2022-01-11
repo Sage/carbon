@@ -140,7 +140,7 @@
     "sprintf-js": "^1.1.2",
     "styled-components": "^4.4.1",
     "typescript": "^3.9.5",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^4.7.2"
   },
   "dependencies": {
     "@octokit/rest": "^18.12.0",
