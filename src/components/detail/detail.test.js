@@ -16,10 +16,8 @@ context("Tests for Detail component", () => {
     it.each(testData)(
       "check Detail children on preview is %s children value",
       (childrenValue) => {
-        // and mount the story using @cypress/react library
         mount(<Detail>{childrenValue}</Detail>);
 
-        // then run our tests
         childrenPreview().should("have.text", childrenValue);
       }
     );
@@ -27,10 +25,8 @@ context("Tests for Detail component", () => {
     it.each(testData)(
       "check Detail footnote on preview is %s footnote value",
       (footnoteValue) => {
-        // and mount the story using @cypress/react library
-        mount(<Detail footnote={footnoteValue}> </Detail>);
+        mount(<Detail footnote={footnoteValue} />);
 
-        // then run our tests
         footnotePreview().should("have.text", footnoteValue);
       }
     );
@@ -38,10 +34,8 @@ context("Tests for Detail component", () => {
 
   describe("check icon in Detail component is chevron_up", () => {
     it("should set Detail icon on preview to chevron_up", () => {
-      // and mount the story using @cypress/react library
-      mount(<Detail icon="chevron_up"> </Detail>);
+      mount(<Detail icon="chevron_up" />);
 
-      // then run our tests
       icon().should("have.attr", "type", "chevron_up").and("be.visible");
     });
   });
