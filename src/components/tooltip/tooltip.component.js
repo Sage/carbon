@@ -22,6 +22,7 @@ const Tooltip = React.forwardRef(
       bgColor,
       fontColor,
       flipOverrides,
+      target,
       ...rest
     },
     ref
@@ -68,6 +69,7 @@ const Tooltip = React.forwardRef(
         delay={TOOLTIP_DELAY}
         {...(isVisible !== undefined && { visible: isVisible })}
         render={(attrs) => tooltip(attrs, message)}
+        reference={target}
         popperOptions={{
           modifiers: [
             ...(flipOverrides
@@ -112,6 +114,8 @@ Tooltip.propTypes = {
   children: PropTypes.node.isRequired,
   /** Defines the size of the tooltip content */
   size: PropTypes.oneOf(["medium", "large"]),
+  // Reference element, tooltip will be positioned in relation to this element
+  target: PropTypes.instanceOf(Element),
   /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
   bgColor: PropTypes.string,
   /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
