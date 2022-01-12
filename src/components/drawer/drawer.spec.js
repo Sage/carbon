@@ -17,6 +17,7 @@ import {
 } from "./drawer.style";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 import StickyFooter from "../../__internal__/sticky-footer";
+import Button from "../button";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-123");
@@ -349,8 +350,8 @@ describe("Drawer", () => {
       );
     });
 
-    it("is collapsed when defaultExpanded prop is provided and is false", () => {
-      const wrapper = render({ defaultExpanded: false });
+    it("is collapsed when expanded prop is provided and is false", () => {
+      const wrapper = render({ expanded: false });
       const { content } = getElements(wrapper);
       expect(content.prop("aria-expanded")).toBe("false");
     });
@@ -511,6 +512,60 @@ describe("Drawer", () => {
       const wrapper = render({ title: heading });
       const { title } = getElements(wrapper);
       expect(title.text()).toBe(heading);
+    });
+
+    describe("by an external control", () => {
+      // eslint-disable-next-line react/prop-types
+      const MockComponent = ({ expanded = false }) => {
+        const [isExpanded, setIsExpanded] = React.useState(expanded);
+        return (
+          <>
+            <Button onClick={() => setIsExpanded((p) => !p)}>Expand</Button>
+            <Drawer sidebar="foo" expanded={isExpanded}>
+              content body content body content body content body content body
+              content body content body
+            </Drawer>
+          </>
+        );
+      };
+
+      it("expands the sidebar", () => {
+        const wrapper = mount(<MockComponent />);
+        act(() => {
+          wrapper.find(Button).prop("onClick")();
+          jest.runAllTimers();
+        });
+        expect(
+          wrapper.update().find(StyledDrawerSidebar).prop("isExpanded")
+        ).toEqual(true);
+      });
+
+      it("toggles the opening animation and sets the expected class name", () => {
+        const wrapper = mount(<MockComponent />);
+        const button = wrapper.find(Button);
+        button.simulate("click");
+        const { content } = getElements(wrapper);
+        expect(content.childAt(0).hasClass("opening")).toBeTruthy();
+      });
+
+      it("contracts the sidebar and toggles the closing animation", () => {
+        const wrapper = mount(<MockComponent expanded />);
+        act(() => {
+          wrapper.find(Button).prop("onClick")();
+          jest.runAllTimers();
+        });
+        expect(
+          wrapper.update().find(StyledDrawerSidebar).prop("isExpanded")
+        ).toEqual(false);
+      });
+
+      it("toggles the closing animation and sets the expected class name", () => {
+        const wrapper = mount(<MockComponent expanded />);
+        const button = wrapper.find(Button);
+        button.simulate("click");
+        const { content } = getElements(wrapper);
+        expect(content.childAt(0).hasClass("closing")).toBeTruthy();
+      });
     });
 
     describe("invariant", () => {
