@@ -8,6 +8,7 @@ import {
   StyledHeaderContent,
   StyledHeading,
 } from "../heading/heading.style";
+import { StyledForm } from "../form/form.style";
 
 const StyledDialogFullScreen = styled.div`
   background-color: ${({ theme }) => theme.disabled.input};
@@ -19,6 +20,10 @@ const StyledDialogFullScreen = styled.div`
   z-index: ${({ theme }) => theme.zIndex.fullScreenModal};
   display: flex;
   flex-direction: column;
+
+  ${StyledForm} {
+    min-height: 100%;
+  }
 
   ${StyledHeaderContent} {
     align-items: baseline;

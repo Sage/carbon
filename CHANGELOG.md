@@ -1,3 +1,50 @@
+## [102.9.0](https://github.com/Sage/carbon/compare/v102.8.1...v102.9.0) (2022-01-12)
+
+
+### Features
+
+* **icon:** use design tokens to describe icon component ([e7356f0](https://github.com/Sage/carbon/commit/e7356f0fb22aa3c7ae09539eaa2ab7a429d93367))
+
+### [102.8.1](https://github.com/Sage/carbon/compare/v102.8.0...v102.8.1) (2022-01-11)
+
+
+### Bug Fixes
+
+* **date-range:** prevent both fields becoming populated when one value passed ([5143311](https://github.com/Sage/carbon/commit/51433119c0456cf42f98ad3fd1dfb9c2541394bf)), closes [#4615](https://github.com/Sage/carbon/issues/4615)
+
+## [102.8.0](https://github.com/Sage/carbon/compare/v102.7.4...v102.8.0) (2022-01-11)
+
+
+### Features
+
+* **checkbox:** describe checkbox using tokens, update of tests after changes ([d8fc6e6](https://github.com/Sage/carbon/commit/d8fc6e66b6ffa8615669452c2de9c826d21ee38f))
+
+
+### Bug Fixes
+
+* **radio-button:** remove not used baseTheme ([c2aae7e](https://github.com/Sage/carbon/commit/c2aae7e3d65ac9829cf07b42f0703a34f5b2347f))
+
+### [102.7.4](https://github.com/Sage/carbon/compare/v102.7.3...v102.7.4) (2022-01-11)
+
+
+### Bug Fixes
+
+* **split-button:** apply type of button to split button toggle ([c2bbd74](https://github.com/Sage/carbon/commit/c2bbd74cd8b6b8c352a90a3a2881285a4db3e060)), closes [#4651](https://github.com/Sage/carbon/issues/4651)
+
+### [102.7.3](https://github.com/Sage/carbon/compare/v102.7.2...v102.7.3) (2022-01-07)
+
+
+### Bug Fixes
+
+* **form:** fix sticky footer ([f5ec1c7](https://github.com/Sage/carbon/commit/f5ec1c71655ff4ecd8150f167130ebe38ae25efc))
+
+### [102.7.2](https://github.com/Sage/carbon/compare/v102.7.1...v102.7.2) (2022-01-07)
+
+
+### Bug Fixes
+
+* **message:** incorrect content width ([828df96](https://github.com/Sage/carbon/commit/828df96cd1feda923470ab3b58bdde45c2cd18ee))
+
 ### [102.7.1](https://github.com/Sage/carbon/compare/v102.7.0...v102.7.1) (2022-01-06)
 
 

@@ -74,8 +74,8 @@ Array [
 }
 
 .c0 svg {
-  background-color: #FFFFFF;
-  border: 1px solid #668592;
+  background-color: var(--colorsUtilityYang100);
+  border: 1px solid var(--colorsUtilityMajor300);
 }
 
 .c0 .c8,
@@ -96,7 +96,7 @@ Array [
 
 .c0 .c8:not([disabled]):focus + .c10,
 .c0 .c8:not([disabled]):hover + .c10 {
-  box-shadow: 0 0 0 3px #FFB500;
+  box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
 }
 
 .c0 .c12 {
@@ -109,7 +109,7 @@ Array [
 .c0 .c11 {
   margin-left: 16px;
   margin-top: 0;
-  padding-left: 8px;
+  padding-left: var(--spacing100);
 }
 
 .c0 .c14 {
@@ -118,7 +118,7 @@ Array [
 }
 
 .c0 .c8:checked ~ .c10 svg path {
-  fill: rgba(0,0,0,0.90);
+  fill: var(--colorsUtilityYin090);
 }
 
 .c0:last-of-type {
@@ -297,8 +297,8 @@ Array [
 }
 
 .c0 svg {
-  background-color: #FFFFFF;
-  border: 1px solid #668592;
+  background-color: var(--colorsUtilityYang100);
+  border: 1px solid var(--colorsUtilityMajor300);
 }
 
 .c0 .c8,
@@ -319,7 +319,7 @@ Array [
 
 .c0 .c8:not([disabled]):focus + .c10,
 .c0 .c8:not([disabled]):hover + .c10 {
-  box-shadow: 0 0 0 3px #FFB500;
+  box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
 }
 
 .c0 .c12 {
@@ -332,7 +332,7 @@ Array [
 .c0 .c11 {
   margin-left: 16px;
   margin-top: 0;
-  padding-left: 8px;
+  padding-left: var(--spacing100);
 }
 
 .c0 .c14 {
@@ -341,7 +341,7 @@ Array [
 }
 
 .c0 .c8:checked ~ .c10 svg path {
-  fill: rgba(0,0,0,0.90);
+  fill: var(--colorsUtilityYin090);
 }
 
 .c0:last-of-type {

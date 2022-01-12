@@ -106,7 +106,7 @@ const renderWithNoChildren = (mainProps = {}, renderer = shallow) => {
 
 const buildSizeConfig = (name, size) => {
   const sizeObj = {};
-  sizeObj.fontSizze = size === "large" ? "16px" : "14px";
+  sizeObj.fontSize = size === "large" ? "16px" : "14px";
   if (size === "small") {
     sizeObj.height = "32px";
     sizeObj.padding = "16px";
@@ -177,7 +177,7 @@ describe("SplitButton", () => {
   });
 
   describe("when children are not Button Components", () => {
-    it("then child elements should be redered as they are", () => {
+    it("then child elements should be rendered as they are", () => {
       const spanElement = <span className="span-element" />;
       wrapper = render({}, spanElement, mount);
       simulateFocusOnToggle(wrapper);
@@ -570,7 +570,7 @@ describe("SplitButton", () => {
     });
 
     describe('when "up" key is pressed', () => {
-      it("the additonal buttons should be stepped through in sequence", () => {
+      it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
           .find(ButtonWithForwardRef);
@@ -591,7 +591,7 @@ describe("SplitButton", () => {
     });
 
     describe('when "down" key is pressed', () => {
-      it("the additonal buttons should be stepped through in sequence", () => {
+      it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
           .find(ButtonWithForwardRef);
@@ -623,7 +623,7 @@ describe("SplitButton", () => {
         expect(timeoutSpy).toHaveBeenCalled();
       });
 
-      it("it does not pass focus to the first additonal button", () => {
+      it("it does not pass focus to the first additional button", () => {
         toggle.simulate("keydown", { which: 9 });
         const firstButton = wrapper
           .find(additionalButtonsSelector)
