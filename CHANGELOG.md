@@ -1,3 +1,15 @@
+### [102.9.2](https://github.com/Sage/carbon/compare/v102.9.1...v102.9.2) (2022-01-13)
+
+
+### Bug Fixes
+
+* **advanced-color-picker:** add missing ARIA propTypes ([2977902](https://github.com/Sage/carbon/commit/29779023048186dee4fa0102fe58dc19f3740e4d))
+* **alert:** add missing ARIA propTypes ([cb1e5b8](https://github.com/Sage/carbon/commit/cb1e5b84aab009f8e4453088b2f1d9452d1b0576))
+* **confirm:** add missing ARIA propTypes ([c6cd900](https://github.com/Sage/carbon/commit/c6cd90094f01d95e827dc14468321802388ea973))
+* **dialog-fullscreen:** add missing ARIA attributes ([b9b0e7a](https://github.com/Sage/carbon/commit/b9b0e7a6d5ff53056f10bfe9ba5d49b93c18c3e3)), closes [#4537](https://github.com/Sage/carbon/issues/4537) [#4669](https://github.com/Sage/carbon/issues/4669)
+* **dialog:** add missing ARIA attributes ([f804fda](https://github.com/Sage/carbon/commit/f804fdac14599ef9865eecdbc1a3876842f8f915))
+* **sidebar:** add missing ARIA propTypes ([0cf3243](https://github.com/Sage/carbon/commit/0cf32430564573da48ccf954314c6ad9585f2a06))
+
 ### [102.9.1](https://github.com/Sage/carbon/compare/v102.9.0...v102.9.1) (2022-01-13)
 
 
