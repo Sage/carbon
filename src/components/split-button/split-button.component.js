@@ -185,6 +185,7 @@ const SplitButton = ({
         aria-label="Show more"
         data-element="toggle-button"
         key="toggle-button"
+        type="button"
         {...toggleButtonProps()}
       >
         <Icon

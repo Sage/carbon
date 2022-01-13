@@ -70,7 +70,7 @@ const DateRange = ({
       ...localeData,
     }),
     rawValue: DateHelper.formatValue({
-      value: getStartDate() || (!isControlled ? today : ""),
+      value: getStartDate() || (startDateProps.allowEmptyValue ? "" : today),
       ...localeData,
     }),
   });
@@ -81,7 +81,7 @@ const DateRange = ({
       ...localeData,
     }),
     rawValue: DateHelper.formatValue({
-      value: getEndDate() || (!isControlled ? today : ""),
+      value: getEndDate() || (endDateProps.allowEmptyValue ? "" : today),
       ...localeData,
     }),
   });
@@ -93,7 +93,7 @@ const DateRange = ({
         ...localeData,
       }),
       rawValue: DateHelper.formatValue({
-        value: getStartDate() || today,
+        value: getStartDate() || (startDateProps.allowEmptyValue ? "" : today),
         ...localeData,
       }),
     });
@@ -104,11 +104,18 @@ const DateRange = ({
         ...localeData,
       }),
       rawValue: DateHelper.formatValue({
-        value: getEndDate() || today,
+        value: getEndDate() || (endDateProps.allowEmptyValue ? "" : today),
         ...localeData,
       }),
     });
-  }, [getEndDate, getStartDate, localeData, today]);
+  }, [
+    getEndDate,
+    getStartDate,
+    endDateProps,
+    startDateProps,
+    localeData,
+    today,
+  ]);
 
   function usePrevious(arg) {
     const ref = useRef();

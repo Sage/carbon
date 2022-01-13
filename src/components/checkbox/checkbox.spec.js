@@ -7,7 +7,6 @@ import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
 import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import guid from "../../__internal__/utils/helpers/guid";
-import { baseTheme } from "../../style/themes";
 import {
   assertStyleMatch,
   carbonThemesJestTable,
@@ -32,6 +31,13 @@ function render(props, renderer = mount, options = {}) {
     options
   );
 }
+
+const validationTypes = ["error", "warning", "info"];
+const borderColorsByValidationTypes = {
+  error: "var(--colorsSemanticNegative500)",
+  warning: "var(--colorsSemanticCaution500)",
+  info: "var(--colorsSemanticInfo500)",
+};
 
 describe("Checkbox", () => {
   testStyledSystemMargin((props) => (
@@ -112,7 +118,7 @@ describe("Checkbox", () => {
           wrapper = render({ labelSpacing: 2, size: "large" });
           assertStyleMatch(
             {
-              paddingLeft: "16px",
+              paddingLeft: "var(--spacing200)",
               marginLeft: "24px",
             },
             wrapper,
@@ -150,7 +156,7 @@ describe("Checkbox", () => {
 
         assertStyleMatch(
           {
-            fill: baseTheme.checkable.checked,
+            fill: "var(--colorsUtilityYin090)",
           },
           wrapper,
           {
@@ -167,7 +173,7 @@ describe("Checkbox", () => {
         it("renders the correct check colour", () => {
           assertStyleMatch(
             {
-              fill: baseTheme.disabled.border,
+              fill: "var(--colorsUtilityYin030)",
             },
             wrapper,
             {
@@ -186,8 +192,8 @@ describe("Checkbox", () => {
       it("applies the appropriate svg wrapper styles", () => {
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.disabled.input,
-            border: `1px solid ${baseTheme.disabled.border}`,
+            backgroundColor: "var(--colorsUtilityDisabled400)",
+            border: `1px solid var(--colorsUtilityDisabled600)`,
           },
           wrapper,
           { modifier: "svg" }
@@ -197,7 +203,7 @@ describe("Checkbox", () => {
       it("applies the appropriate check styles", () => {
         assertStyleMatch(
           {
-            fill: baseTheme.disabled.input,
+            fill: "var(--colorsUtilityDisabled400)",
           },
           wrapper,
           { modifier: "svg path" }
@@ -277,13 +283,13 @@ describe("Checkbox", () => {
         wrapper = mount(<Checkbox name="checkbox-warning" value="my-value" />);
       });
 
-      describe.each(["error", "warning", "info"])("when %s is true", (type) => {
+      describe.each(validationTypes)("when %s is true", (type) => {
         it("show correct border on radio", () => {
           wrapper.setProps({ [type]: true });
           const borderWidth = type === "error" ? 2 : 1;
           assertStyleMatch(
             {
-              border: `${borderWidth}px solid ${baseTheme.colors[type]}`,
+              border: `${borderWidth}px solid ${borderColorsByValidationTypes[type]}`,
             },
             wrapper,
             { modifier: "svg" }
@@ -291,22 +297,19 @@ describe("Checkbox", () => {
         });
       });
 
-      describe.each(["error", "warning", "info"])(
-        'when %s is "string',
-        (type) => {
-          it("show correct border on radio", () => {
-            wrapper.setProps({ [type]: "Message" });
-            const borderWidth = type === "error" ? 2 : 1;
-            assertStyleMatch(
-              {
-                border: `${borderWidth}px solid ${baseTheme.colors[type]}`,
-              },
-              wrapper,
-              { modifier: "svg" }
-            );
-          });
-        }
-      );
+      describe.each(validationTypes)('when %s is "string', (type) => {
+        it("show correct border on radio", () => {
+          wrapper.setProps({ [type]: "Message" });
+          const borderWidth = type === "error" ? 2 : 1;
+          assertStyleMatch(
+            {
+              border: `${borderWidth}px solid ${borderColorsByValidationTypes[type]}`,
+            },
+            wrapper,
+            { modifier: "svg" }
+          );
+        });
+      });
 
       describe("when error is true", () => {
         it("render correct color for errors", () => {
@@ -316,7 +319,7 @@ describe("Checkbox", () => {
 
           assertStyleMatch(
             {
-              border: `2px solid ${baseTheme.colors.error}`,
+              border: `2px solid var(--colorsSemanticNegative500)`,
             },
             wrapper,
             { modifier: "svg" }
@@ -332,7 +335,7 @@ describe("Checkbox", () => {
 
           assertStyleMatch(
             {
-              border: `1px solid ${baseTheme.colors.warning}`,
+              border: `1px solid var(--colorsSemanticCaution500)`,
             },
             wrapper,
             { modifier: "svg" }
@@ -348,7 +351,7 @@ describe("Checkbox", () => {
 
           assertStyleMatch(
             {
-              border: `1px solid ${baseTheme.colors.info}`,
+              border: `1px solid var(--colorsSemanticInfo500)`,
             },
             wrapper,
             { modifier: "svg" }
@@ -452,7 +455,7 @@ describe("Checkbox", () => {
       const wrapper = render({ labelSpacing: 2 });
       assertStyleMatch(
         {
-          paddingLeft: "16px",
+          paddingLeft: "var(--spacing200)",
           marginLeft: "16px",
         },
         wrapper,
@@ -465,26 +468,23 @@ describe("Checkbox", () => {
     });
   });
 
-  describe.each(carbonThemesJestTable)(
-    "when the theme is set to %s",
-    (themeName, theme) => {
-      it("sets the appropriate check colour", () => {
-        const wrapper = render({ theme, checked: true });
+  describe.each(carbonThemesJestTable)("when the theme is set to %s", () => {
+    it("sets the appropriate check colour", () => {
+      const wrapper = render({ checked: true });
 
-        assertStyleMatch(
-          {
-            fill: theme.checkable.checked,
-          },
-          wrapper,
-          {
-            modifier: css`
-              ${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path
-            `,
-          }
-        );
-      });
-    }
-  );
+      assertStyleMatch(
+        {
+          fill: "var(--colorsUtilityYin090)",
+        },
+        wrapper,
+        {
+          modifier: css`
+            ${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path
+          `,
+        }
+      );
+    });
+  });
 
   describe("required", () => {
     let wrapper;

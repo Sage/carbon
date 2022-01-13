@@ -61,6 +61,7 @@ const Sidebar = React.forwardRef(
           pt="27px"
           scrollVariant="light"
           overflow="auto"
+          flex="1"
         >
           <SidebarContext.Provider value={{ isInSidebar: true }}>
             {children}
