@@ -47,7 +47,10 @@ import Form from "carbon-react/lib/components/form";
 When `stickyFooter` prop is set as true, footer becomes stickied to the bottom of the screen when necessary - this also works in `Dialog` and `DialogFullScreen`
 
 <Canvas>
-  <Story name="default with sticky footer">
+  <Story
+    name="default with sticky footer"
+    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+  >
     <Form
       onSubmit={() => console.log("submit")}
       leftSideButtons={
