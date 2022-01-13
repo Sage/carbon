@@ -42,7 +42,7 @@ export const SidebarStory = (args) => {
   return (
     <>
       <Button onClick={openSidebar}>Open sidebar</Button>
-      <Sidebar open={isOpen} onCancel={onCancel} {...args}>
+      <Sidebar aria-label="sidebar" open={isOpen} onCancel={onCancel} {...args}>
         <div>
           <Button as="primary">Test</Button>
           <Button as="secondary" ml={2}>
