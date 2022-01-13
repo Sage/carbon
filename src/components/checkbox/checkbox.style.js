@@ -223,7 +223,11 @@ const StyledCheckboxGroup = styled.div`
   }
 
   & ${CheckboxStyle} {
-    padding-top: 12px;
+    margin-bottom: var(--spacing150);
+
+    :last-of-type {
+      margin-bottom: 0;
+    }
   }
 
   & > ${StyledFormField} {
