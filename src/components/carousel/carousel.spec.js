@@ -272,7 +272,7 @@ describe("CarouselStyledIcon", () => {
     const wrapper = mount(<CarouselStyledIcon type="home" theme={mintTheme} />);
     assertStyleMatch(
       {
-        color: "rgba(0,0,0,0.65)",
+        color: "var(--colorsYin065)",
       },
       wrapper
     );

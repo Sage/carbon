@@ -1,3 +1,10 @@
+## [102.9.0](https://github.com/Sage/carbon/compare/v102.8.1...v102.9.0) (2022-01-12)
+
+
+### Features
+
+* **icon:** use design tokens to describe icon component ([e7356f0](https://github.com/Sage/carbon/commit/e7356f0fb22aa3c7ae09539eaa2ab7a429d93367))
+
 ### [102.8.1](https://github.com/Sage/carbon/compare/v102.8.0...v102.8.1) (2022-01-11)
 
 
