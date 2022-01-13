@@ -1,3 +1,10 @@
+### [102.9.1](https://github.com/Sage/carbon/compare/v102.9.0...v102.9.1) (2022-01-13)
+
+
+### Bug Fixes
+
+* **pager:** relax height restrictions to prevent overflow ([ff285af](https://github.com/Sage/carbon/commit/ff285af46a5a1711d087ac2ee7aa1ea0968c5067))
+
 ## [102.9.0](https://github.com/Sage/carbon/compare/v102.8.1...v102.9.0) (2022-01-12)
 
 
