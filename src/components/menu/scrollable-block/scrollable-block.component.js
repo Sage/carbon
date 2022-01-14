@@ -16,6 +16,13 @@ const ScrollableBlock = ({
   const submenuContext = useContext(SubmenuContext);
   const { blockIndex, focusIndex, handleKeyDown } = submenuContext;
 
+  const scrollVariants = {
+    light: "light",
+    dark: "dark",
+    white: "light",
+    black: "dark",
+  };
+
   return (
     <StyledScrollableBlock
       data-component="submenu-scrollable-block"
@@ -25,7 +32,7 @@ const ScrollableBlock = ({
     >
       <Box
         overflowY="scroll"
-        scrollVariant={menuContext.menuType}
+        scrollVariant={scrollVariants[menuContext.menuType]}
         height={height}
         p={0}
       >

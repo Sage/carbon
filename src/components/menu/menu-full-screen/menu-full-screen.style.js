@@ -15,13 +15,8 @@ const StyledMenuFullscreen = styled.div`
   }
 
   ${({ isOpen, menuType, startPosition, theme }) => css`
-    background-color: ${theme.menu.light.background};
+    background-color: ${theme.menu[menuType].background};
     z-index: ${theme.zIndex.fullScreenModal};
-
-    ${menuType === "dark" &&
-    css`
-      background-color: ${theme.colors.slate};
-    `}
 
     ${isOpen &&
     css`
@@ -56,12 +51,7 @@ const StyledMenuFullscreenHeader = styled.div`
   }
 
   ${({ menuType, theme }) => css`
-    background-color: ${theme.colors.white};
-
-    ${menuType === "dark" &&
-    css`
-      background-color: ${theme.menu.dark.submenuBackground};
-    `}
+    background-color: ${theme.menu[menuType].submenuBackground};
   `}
 `;
 
