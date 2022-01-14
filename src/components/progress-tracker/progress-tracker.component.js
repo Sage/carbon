@@ -21,7 +21,6 @@ const ProgressTracker = ({
   showDefaultLabels = false,
   currentProgressLabel,
   maxProgressLabel,
-  variant = "default",
   orientation = "horizontal",
   direction = "up",
   labelsPosition,
@@ -83,12 +82,7 @@ const ProgressTracker = ({
         isVertical={isVertical}
         size={size}
       >
-        <InnerBar
-          isVertical={isVertical}
-          size={size}
-          progress={progress}
-          variant={variant}
-        />
+        <InnerBar isVertical={isVertical} size={size} progress={progress} />
       </StyledProgressBar>
       {!prefixLabels && renderValueLabels()}
     </StyledProgressTracker>
@@ -107,11 +101,6 @@ ProgressTracker.propTypes = {
   currentProgressLabel: PropTypes.string,
   /** Value to display as the maximum progress limit. */
   maxProgressLabel: PropTypes.string,
-  /**
-   * Sets the colour of the bar that shows the current progress.
-   * The "traffic" variant changes the colour of status bar depending on current progress.
-   */
-  variant: PropTypes.oneOf(["default", "traffic"]),
   /** The orientation of the component. */
   orientation: PropTypes.oneOf(["horizontal", "vertical"]),
   /** The direction the bar should move as progress increases, only applies in vertical orientation. */
