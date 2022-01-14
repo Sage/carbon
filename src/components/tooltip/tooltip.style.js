@@ -15,7 +15,9 @@ const fadeIn = keyframes`
 
 const tooltipColor = (type, theme, bgColor) => {
   if (bgColor) return toColor(theme, bgColor);
-  return type === "error" ? theme.colors.error : theme.colors.black;
+  return type === "error"
+    ? "var(--colorsSemanticNegative500)"
+    : "var(--colorsSemanticNeutral500)";
 };
 
 const tooltipOffset = (position, inputSize, isPartOfInput) => {
@@ -64,9 +66,12 @@ const StyledTooltipWrapper = styled.div`
     max-width: 300px;
     position: relative;
     animation: ${fadeIn} 0.2s linear;
-    z-index: ${theme.zIndex.popover};
+    z-index: ${theme.zIndex
+      .popover}; // TODO (tokens): implement elevation tokens - FE-4437
     text-align: left;
-    color: ${fontColor ? toColor(theme, fontColor) : theme.colors.white};
+    color: ${fontColor
+      ? toColor(theme, fontColor)
+      : "var(--colorsSemanticNeutralYang100)"};
     display: inline-block;
     padding: 8px 12px;
     word-break: break-word;
@@ -80,8 +85,14 @@ const StyledTooltipWrapper = styled.div`
 `;
 
 StyledTooltipWrapper.propTypes = {
-  type: PropTypes.string,
+  position: PropTypes.oneOf(["top", "bottom", "left", "right"]),
   size: PropTypes.oneOf(["medium", "large"]),
+  theme: PropTypes.object,
+  type: PropTypes.string,
+  isPartOfInput: PropTypes.bool,
+  inputSize: PropTypes.oneOf(["small", "medium", "large"]),
+  bgColor: PropTypes.string,
+  fontColor: PropTypes.string,
 };
 
 StyledTooltipWrapper.defaultProps = {
