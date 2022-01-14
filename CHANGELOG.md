@@ -1,3 +1,10 @@
+## [102.10.0](https://github.com/Sage/carbon/compare/v102.9.2...v102.10.0) (2022-01-14)
+
+
+### Features
+
+* **tooltip:** describe tooltip using design tokens ([50d140d](https://github.com/Sage/carbon/commit/50d140d5f856829901982aed4727048183b5d9eb))
+
 ### [102.9.2](https://github.com/Sage/carbon/compare/v102.9.1...v102.9.2) (2022-01-13)
 
 
