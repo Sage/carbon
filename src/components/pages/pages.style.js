@@ -6,12 +6,6 @@ import { StyledDivider, StyledHeading } from "../heading/heading.style";
 const PagesContent = styled.div`
   border: none;
 
-  .carbon-app-wrapper {
-    min-width: auto;
-    max-width: 100%;
-    padding: 4px 0 0 0;
-  }
-
   ${StyledHeading} {
     padding-left: 45px;
     margin-bottom: 34px;

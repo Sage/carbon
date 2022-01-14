@@ -292,7 +292,7 @@ describe("Icon component", () => {
       const wrapper = renderStyles({ disabled: true });
       assertStyleMatch(
         {
-          color: baseTheme.icon.disabled,
+          color: "var(--colorsYin030)",
         },
         wrapper.toJSON()
       );
@@ -305,7 +305,7 @@ describe("Icon component", () => {
         const wrapper = renderStyles({ disabled: true });
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.icon.disabled,
+            backgroundColor: "var(--colorsYin030)",
           },
           wrapper.toJSON()
         );

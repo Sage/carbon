@@ -73,8 +73,8 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c4 svg {
-  background-color: #FFFFFF;
-  border: 1px solid #668592;
+  background-color: var(--colorsUtilityYang100);
+  border: 1px solid var(--colorsUtilityMajor300);
 }
 
 .c4 .c12,
@@ -95,7 +95,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 
 .c4 .c12:not([disabled]):focus + .c14,
 .c4 .c12:not([disabled]):hover + .c14 {
-  box-shadow: 0 0 0 3px #FFB500;
+  box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
 }
 
 .c4 .c16 {
@@ -108,7 +108,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 .c4 .c15 {
   margin-left: 16px;
   margin-top: 0;
-  padding-left: 8px;
+  padding-left: var(--spacing100);
 }
 
 .c4 .c18 {
@@ -117,7 +117,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c4 .c12:checked ~ .c14 svg path {
-  fill: rgba(0,0,0,0.90);
+  fill: var(--colorsUtilityYin090);
 }
 
 .c4:last-of-type {
