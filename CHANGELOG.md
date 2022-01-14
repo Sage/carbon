@@ -1,3 +1,10 @@
+### [102.10.1](https://github.com/Sage/carbon/compare/v102.10.0...v102.10.1) (2022-01-14)
+
+
+### Bug Fixes
+
+* **mint-theme:** modify primary colour to be more accessible ([30b1b7b](https://github.com/Sage/carbon/commit/30b1b7be18f85cd8e4891eb6cc811b9f45d3339d))
+
 ## [102.10.0](https://github.com/Sage/carbon/compare/v102.9.2...v102.10.0) (2022-01-14)
 
 
