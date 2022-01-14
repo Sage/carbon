@@ -1,3 +1,10 @@
+### [102.10.2](https://github.com/Sage/carbon/compare/v102.10.1...v102.10.2) (2022-01-14)
+
+
+### Bug Fixes
+
+* **tabs, tab-title:** remove onFocus to stop firing callback twice and tabs activate onmouseup ([56d54da](https://github.com/Sage/carbon/commit/56d54da056f93dafec33ae252584d96fe824bddf)), closes [#4640](https://github.com/Sage/carbon/issues/4640) [#4611](https://github.com/Sage/carbon/issues/4611)
+
 ### [102.10.1](https://github.com/Sage/carbon/compare/v102.10.0...v102.10.1) (2022-01-14)
 
 
