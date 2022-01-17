@@ -20,6 +20,7 @@ import DateRange from "./date-range.component";
 />
 
 export const DateRangeStory = ({
+  initialDates,
   allowEmptyValueOnStartDate,
   allowEmptyValueOnEndDate,
   startLabel,
@@ -28,7 +29,7 @@ export const DateRangeStory = ({
   endLabelSpecialCharacters,
   ...args
 }) => {
-  const [state, setState] = useState(["2016-10-01", "2016-10-30"]);
+  const [state, setState] = useState(initialDates);
   const handleChange = (evt) => {
     const newValue = [
       evt.target.value[0].rawValue,
@@ -39,7 +40,7 @@ export const DateRangeStory = ({
   };
   return (
     <DateRange
-      onChange={handleChange}
+      onChange={(evt) => handleChange(evt)}
       value={state}
       onBlur={action("blur")}
       startDateProps={{
@@ -63,8 +64,27 @@ export const DateRangeStory = ({
   <Story
     name="default"
     args={{
+      initialDates: ["2016-10-01", "2016-10-30"],
       startLabel: "",
       endLabel: "",
+      allowEmptyValueOnStartDate: undefined,
+      allowEmptyValueOnEndDate: undefined,
+      labelsInline: false,
+      startLabelSpecialCharacters: undefined,
+      endLabelSpecialCharacters: undefined,
+    }}
+  >
+    {DateRangeStory.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="is controlled with dates initially empty"
+    args={{
+      initialDates: ["", ""],
+      startLabel: "Start",
+      endLabel: "End",
       allowEmptyValueOnStartDate: true,
       allowEmptyValueOnEndDate: true,
       labelsInline: false,

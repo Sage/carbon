@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "102.7.4",
+  "version": "102.10.2",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -156,7 +156,7 @@
   "dependencies": {
     "@octokit/rest": "^18.12.0",
     "@popperjs/core": "^2.9.0",
-    "@sage/design-tokens": "^1.80.0",
+    "@sage/design-tokens": "^1.87.1",
     "@styled-system/prop-types": "^5.1.5",
     "@tippyjs/react": "^4.2.5",
     "classnames": "~2.2.6",
