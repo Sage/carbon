@@ -10,7 +10,6 @@ import {
   testStyledSystemSpacing,
   testStyledSystemWidth,
 } from "../../__spec_helper__/test-utils";
-import { baseTheme } from "../../style/themes";
 
 function render(props, renderer = TestRenderer.create) {
   return renderer(
@@ -75,7 +74,10 @@ describe("Tile", () => {
       it('renders a white background when as === "tile"', () => {
         const wrapper = render({ as: "tile" }).toJSON();
 
-        assertStyleMatch({ backgroundColor: "#FFFFFF" }, wrapper);
+        assertStyleMatch(
+          { backgroundColor: "var(--colorsUtilityYang100)" },
+          wrapper
+        );
       });
 
       it('renders a transparent background when as === "transparent"', () => {
@@ -140,7 +142,7 @@ describe("Tile", () => {
           assertStyleMatch(
             {
               marginTop: "0",
-              borderLeft: `solid 1px ${baseTheme.tile.separator}`,
+              borderLeft: "solid 1px var(--colorsUtilityMajor050)",
             },
             wrapper,
             {
@@ -179,7 +181,7 @@ describe("Tile", () => {
           assertStyleMatch(
             {
               marginTop: "0",
-              borderTop: `solid 1px ${baseTheme.tile.separator}`,
+              borderTop: "solid 1px var(--colorsUtilityMajor050)",
             },
             wrapper,
             {
@@ -217,7 +219,7 @@ describe("Tile", () => {
         assertStyleMatch(
           {
             marginTop: "0",
-            borderTop: `solid 1px ${baseTheme.tile.separator}`,
+            borderTop: "solid 1px var(--colorsUtilityMajor050)",
           },
           wrapper,
           {
