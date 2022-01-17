@@ -1,3 +1,10 @@
+## [102.11.0](https://github.com/Sage/carbon/compare/v102.10.2...v102.11.0) (2022-01-17)
+
+
+### Features
+
+* **tile:** describe tile and tile-footer components with design tokens ([78dac46](https://github.com/Sage/carbon/commit/78dac465abf477d9ee60d6afe382e4d888a1f446))
+
 ### [102.10.2](https://github.com/Sage/carbon/compare/v102.10.1...v102.10.2) (2022-01-14)
 
 
