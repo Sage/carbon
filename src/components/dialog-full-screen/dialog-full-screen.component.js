@@ -86,6 +86,7 @@ const DialogFullScreen = ({
         wrapperRef={dialogRef}
       >
         <StyledDialogFullScreen
+          aria-modal
           aria-describedby={ariaDescribedBy}
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy || "carbon-dialog-title"}
