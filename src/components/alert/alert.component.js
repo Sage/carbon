@@ -4,12 +4,25 @@ import PropTypes from "prop-types";
 import Dialog from "../dialog";
 
 const Alert = ({ children, ...rest }) => (
-  <Dialog data-component="alert" ariaRole="alertdialog" {...rest}>
+  <Dialog data-component="alert" role="alertdialog" {...rest}>
     {children}
   </Dialog>
 );
 
 Alert.propTypes = {
+  /** Prop to specify the aria-describedby property of the component */
+  "aria-describedby": PropTypes.string,
+  /**
+   * Prop to specify the aria-label of the component.
+   * To be used only when the title prop is not defined, and the component is not labelled by any internal element.
+   */
+  "aria-label": PropTypes.string,
+  /**
+   * Prop to specify the aria-labeledby property of the component
+   * To be used when the title prop is a custom React Node,
+   * or the component is labelled by an internal element other than the title.
+   */
+  "aria-labelledby": PropTypes.string,
   /** Alert content */
   children: PropTypes.node,
   /** Controls the open state of the component */
@@ -21,7 +34,7 @@ Alert.propTypes = {
   /** Allows developers to specify a specific height for the dialog. */
   height: PropTypes.string,
   /** Title displayed at top of Alert */
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  title: PropTypes.node,
   /** Subtitle displayed at top of Alert */
   subtitle: PropTypes.string,
   /** Size of Alert */

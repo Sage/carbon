@@ -1,11 +1,13 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import { Row, Column } from "../row";
 import Label from "../../__internal__/label";
-import StyledInlineInputs from "./inline-inputs.style";
+import StyledInlineInputs, {
+  StyledContentContainer,
+  StyledInlineInput,
+} from "./inline-inputs.style";
 import createGuid from "../../__internal__/utils/helpers/guid";
 
-const columnWrapper = (children) => {
+const columnWrapper = (children, gutter) => {
   let inputs = children;
 
   if (!Array.isArray(inputs)) {
@@ -15,7 +17,15 @@ const columnWrapper = (children) => {
   return inputs.map((input, index) => {
     // Input is never going to be re-ordered so we don't require a defined key
     /* eslint-disable react/no-array-index-key */
-    return <Column key={index}>{input}</Column>;
+    return (
+      <StyledInlineInput
+        key={index}
+        gutter={gutter}
+        data-element="inline-input"
+      >
+        {input}
+      </StyledInlineInput>
+    );
   });
 };
 
@@ -31,12 +41,6 @@ const InlineInputs = (props) => {
   } = props;
 
   const labelId = useRef(createGuid());
-  const widthProps = { inputWidth };
-
-  if (labelWidth) {
-    widthProps.labelWidth = labelWidth;
-    widthProps.inputWidth = inputWidth || 100 - labelWidth;
-  }
 
   function renderLabel() {
     if (!label) return null;
@@ -61,10 +65,16 @@ const InlineInputs = (props) => {
       gutter={gutter}
       data-component="inline-inputs"
       className={className}
-      {...widthProps}
+      labelWidth={labelWidth}
     >
       {renderLabel()}
-      <Row gutter={gutter}>{columnWrapper(renderChildren())}</Row>
+      <StyledContentContainer
+        gutter={gutter}
+        data-element="inline-inputs-container"
+        inputWidth={inputWidth}
+      >
+        {columnWrapper(renderChildren(), gutter)}
+      </StyledContentContainer>
     </StyledInlineInputs>
   );
 };

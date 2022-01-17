@@ -56,15 +56,21 @@ const StyledIcon = styled.span`
 
     try {
       if (disabled) {
-        finalColor = theme.icon.disabled;
-        finalHoverColor = theme.icon.disabled;
+        finalColor = "var(--colorsYin030)";
+        finalHoverColor = "var(--colorsYin030)";
+      } else if (typeof color === "string" && color.startsWith("var")) {
+        finalColor = color;
+        finalHoverColor = shade(
+          0.2,
+          theme.compatibility[color.replace("var(--", "").replace(")", "")]
+        );
       } else if (color) {
         const { color: renderedColor } = styledColor({ color, theme });
         finalColor = renderedColor;
         finalHoverColor = shade(0.2, renderedColor);
       } else {
-        finalColor = theme.icon.default;
-        finalHoverColor = theme.icon.defaultHover;
+        finalColor = "var(--colorsYin065)";
+        finalHoverColor = "var(--colorsYin090)";
       }
 
       if (bg) {
@@ -72,8 +78,8 @@ const StyledIcon = styled.span`
         bgColor = backgroundColor;
         bgHoverColor = shade(0.2, backgroundColor);
       } else if (disabled) {
-        bgColor = theme.icon.disabled;
-        bgHoverColor = theme.icon.disabled;
+        bgColor = "var(--colorsYin030)";
+        bgHoverColor = "var(--colorsYin030)";
       } else {
         bgColor = "transparent";
         bgHoverColor = "transparent";
@@ -133,7 +139,7 @@ const StyledIcon = styled.span`
       ${hasTooltip &&
       `
         :focus {
-          outline: 2px solid ${theme.colors.focus};
+          outline: 2px solid var(--colorsSemanticFocus500);
         }
       `}
 

@@ -19,8 +19,6 @@ const StyledPagerContainer = styled.div`
   align-items: center;
   border-top-width: 0;
   font-size: 13px;
-  height: 39px;
-  max-height: 39px;
   border-top: none;
 
   ${({ theme, variant }) =>

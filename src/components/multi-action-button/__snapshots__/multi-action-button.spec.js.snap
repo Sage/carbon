@@ -3,7 +3,7 @@
 exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 .c4 {
   position: relative;
-  color: #008200;
+  color: var(--colorsActionMajor500);
   background-color: transparent;
   vertical-align: middle;
   -webkit-align-items: center;
@@ -67,28 +67,32 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   background: transparent;
-  border-color: #008200;
-  color: #008200;
-  font-size: 14px;
+  border-color: var(--colorsActionMajor500);
+  color: var(--colorsActionMajor500);
+  font-size: var(--fontSizes100);
   min-height: 40px;
 }
 
 .c2:focus {
-  outline: solid 3px #FFB500;
-}
-
-.c2:hover {
-  background: #006300;
-  border-color: #006300;
-  color: #FFFFFF;
-}
-
-.c2:hover .c3 {
-  color: #FFFFFF;
+  outline: solid 3px var(--colorsSemanticFocus500);
 }
 
 .c2 .c3 {
-  margin-left: 8px;
+  color: var(--colorsActionMajor500);
+}
+
+.c2:hover {
+  background: var(--colorsActionMajor600);
+  border-color: var(--colorsActionMajorTransparent);
+  color: var(--colorsActionMajorYang100);
+}
+
+.c2:hover .c3 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c2 .c3 {
+  margin-left: var(--spacing100);
   margin-right: 0px;
   margin-bottom: 0px;
   height: 16px;
@@ -255,8 +259,9 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
       </span>
     </span>
     <span
+      aria-hidden={true}
       className="c3 c4"
-      color="#008200"
+      color="var(--colorsActionMajor500)"
       data-component="icon"
       data-element="dropdown"
       disabled={false}

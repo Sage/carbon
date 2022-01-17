@@ -17,7 +17,7 @@ export const StyledFormContent = styled.div`
     ${stickyFooter &&
     css`
       overflow-y: auto;
-      height: calc(100vh - 72px);
+      flex: 1;
     `}
   `}
 `;
@@ -46,6 +46,8 @@ export const StyledFormFooter = styled.div`
       padding: 16px 32px;
       width: 100%;
       z-index: 1000;
+      position: sticky;
+      bottom: 0;
     `}
   `}
 `;
@@ -83,11 +85,12 @@ export const StyledForm = styled.form`
     css`
       display: flex;
       flex-direction: column;
+      position: relative;
 
       ${isInSidebar &&
       css`
+        min-height: 100%;
         ${StyledFormContent}.sticky {
-          height: calc(100vh - 184px);
           padding-right: ${theme.space[4]}px;
           padding-left: ${theme.space[4]}px;
           padding-top: 27px;
@@ -102,6 +105,7 @@ export const StyledForm = styled.form`
           width: calc(100% + ${2 * theme.space[4]}px);
           padding-left: ${theme.space[4]}px;
           padding-right: ${theme.space[4]}px;
+          bottom: -32px;
         }
       `}
     `}

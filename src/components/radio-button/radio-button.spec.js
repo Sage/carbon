@@ -9,7 +9,6 @@ import { StyledCheckableInput } from "../../__internal__/checkable-input/checkab
 import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
-import baseTheme from "../../style/themes/base";
 import mintTheme from "../../style/themes/mint";
 import RadioButtonStyle from "./radio-button.style";
 import Tooltip from "../tooltip";
@@ -38,6 +37,11 @@ function render(props = {}, theme = mintTheme, renderer = mount) {
 const getRadioButton = (wrapper) => wrapper.find(RadioButton);
 
 const validationTypes = ["error", "warning", "info"];
+const borderColorsByValidationTypes = {
+  error: "var(--colorsSemanticNegative500)",
+  warning: "var(--colorsSemanticCaution500)",
+  info: "var(--colorsSemanticInfo500)",
+};
 
 describe("RadioButton", () => {
   describe("propTypes", () => {
@@ -171,7 +175,7 @@ describe("RadioButton", () => {
         const borderWidth = type === "error" ? 2 : 1;
         assertStyleMatch(
           {
-            border: `${borderWidth}px solid ${baseTheme.colors[type]}`,
+            border: `${borderWidth}px solid ${borderColorsByValidationTypes[type]}`,
           },
           wrapper.find(RadioButton).at(0),
           { modifier: "svg" }
@@ -185,7 +189,7 @@ describe("RadioButton", () => {
         const borderWidth = type === "error" ? 2 : 1;
         assertStyleMatch(
           {
-            border: `${borderWidth}px solid ${baseTheme.colors[type]}`,
+            border: `${borderWidth}px solid ${borderColorsByValidationTypes[type]}`,
           },
           wrapper.find(RadioButton).at(0),
           { modifier: "svg" }

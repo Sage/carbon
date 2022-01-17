@@ -31,7 +31,7 @@ describe("FlatTableRowCell", () => {
         width: "40px",
       },
       wrapper.find(StyledFlatTableCell),
-      { modifier: "&&& > div" }
+      { modifier: "&&&& > div" }
     );
   });
 
@@ -57,7 +57,7 @@ describe("FlatTableRowCell", () => {
           whiteSpace: "nowrap",
         },
         wrapper.find(StyledFlatTableCell),
-        { modifier: "&&& > div" }
+        { modifier: "&&&& > div" }
       );
     });
 
@@ -99,7 +99,7 @@ describe("FlatTableRowCell", () => {
             borderRight: expectedValue,
           },
           wrapper,
-          { modifier: "&&&" }
+          { modifier: "&&&&" }
         );
       });
     }
@@ -122,7 +122,7 @@ describe("FlatTableRowCell", () => {
             borderRightColor: expectedValue,
           },
           wrapper,
-          { modifier: "&&&" }
+          { modifier: "&&&&" }
         );
       });
     }
@@ -141,7 +141,7 @@ describe("FlatTableRowCell", () => {
       ),
       {},
       null,
-      { modifier: "&&& > div" }
+      { modifier: "&&&& > div" }
     );
   });
 });

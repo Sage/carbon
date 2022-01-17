@@ -11,8 +11,8 @@ import Icon from "../icon";
 import Button, { ButtonWithForwardRef } from "../button";
 import StyledButton from "../button/button.style";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
-import SmallTheme from "../../style/themes/small";
-import MediumTheme from "../../style/themes/medium";
+import mintTheme from "../../style/themes/mint";
+import aegeanTheme from "../../style/themes/aegean";
 import {
   assertStyleMatch,
   keyboard,
@@ -26,8 +26,8 @@ guid.mockImplementation(() => "guid-12345");
 const sizes = ["small", "medium", "large"];
 
 const themes = [
-  ["small", SmallTheme],
-  ["medium", MediumTheme],
+  ["mint", mintTheme],
+  ["aegean", aegeanTheme],
 ];
 
 const singleButton = <Button key="testKey">Single Button</Button>;
@@ -106,7 +106,7 @@ const renderWithNoChildren = (mainProps = {}, renderer = shallow) => {
 
 const buildSizeConfig = (name, size) => {
   const sizeObj = {};
-  sizeObj.fontSizze = size === "large" ? "16px" : "14px";
+  sizeObj.fontSize = size === "large" ? "16px" : "14px";
   if (size === "small") {
     sizeObj.height = "32px";
     sizeObj.padding = "16px";
@@ -177,7 +177,7 @@ describe("SplitButton", () => {
   });
 
   describe("when children are not Button Components", () => {
-    it("then child elements should be redered as they are", () => {
+    it("then child elements should be rendered as they are", () => {
       const spanElement = <span className="span-element" />;
       wrapper = render({}, spanElement, mount);
       simulateFocusOnToggle(wrapper);
@@ -206,8 +206,8 @@ describe("SplitButton", () => {
 
     it("has the expected style", () => {
       const themeColors = {
-        small: "#006046",
-        medium: "#005C9A",
+        mint: "#006046",
+        aegean: "#005C9A",
       };
 
       assertStyleMatch(
@@ -222,8 +222,8 @@ describe("SplitButton", () => {
 
     it('matches the expected style for the focused "additional button"', () => {
       const themeColors = {
-        small: "#00402E",
-        medium: "#004472",
+        mint: "#00402E",
+        aegean: "#004472",
       };
 
       themedWrapper.find("button").simulate("focus");
@@ -241,7 +241,7 @@ describe("SplitButton", () => {
     });
   });
 
-  describe("for business themes", () => {
+  describe("for mint and aegean themes", () => {
     it("renders styles correctly", () => {
       wrapper = render({}, singleButton, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
@@ -339,7 +339,7 @@ describe("SplitButton", () => {
         assertStyleMatch(
           {
             background: "transparent",
-            color: "rgba(0,0,0,0.3)",
+            color: "var(--colorsYin030)",
           },
           toggle
         );
@@ -570,7 +570,7 @@ describe("SplitButton", () => {
     });
 
     describe('when "up" key is pressed', () => {
-      it("the additonal buttons should be stepped through in sequence", () => {
+      it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
           .find(ButtonWithForwardRef);
@@ -591,7 +591,7 @@ describe("SplitButton", () => {
     });
 
     describe('when "down" key is pressed', () => {
-      it("the additonal buttons should be stepped through in sequence", () => {
+      it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
           .find(ButtonWithForwardRef);
@@ -623,7 +623,7 @@ describe("SplitButton", () => {
         expect(timeoutSpy).toHaveBeenCalled();
       });
 
-      it("it does not pass focus to the first additonal button", () => {
+      it("it does not pass focus to the first additional button", () => {
         toggle.simulate("keydown", { which: 9 });
         const firstButton = wrapper
           .find(additionalButtonsSelector)
