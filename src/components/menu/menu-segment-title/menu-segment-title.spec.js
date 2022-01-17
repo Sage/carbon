@@ -41,58 +41,38 @@ describe("Title", () => {
     expect(wrapper.find(StyledTitle).prop("menuType")).toBe("light");
   });
 
-  it("should have correct styles as default", () => {
-    wrapper = render("light");
-    openSubmenu(wrapper);
+  describe.each(["light", "white", "dark", "black"])(
+    "when menuType is %s",
+    (menuType) => {
+      it("should have correct styles as default", () => {
+        wrapper = render(menuType);
+        openSubmenu(wrapper);
 
-    assertStyleMatch(
-      {
-        padding: "16px 16px 8px",
-        fontSize: "12px",
-        fontWeight: "700",
-        textTransform: "uppercase",
-        lineHeight: "12px",
-        cursor: "default",
-      },
-      wrapper.find(StyledTitle)
-    );
-  });
+        assertStyleMatch(
+          {
+            padding: "16px 16px 8px",
+            fontSize: "12px",
+            fontWeight: "700",
+            textTransform: "uppercase",
+            lineHeight: "12px",
+            cursor: "default",
+            color: baseTheme.menu[menuType].title,
+          },
+          wrapper.find(StyledTitle)
+        );
+      });
 
-  it('should have correct styles if menuType="light" and "alternate" variant', () => {
-    wrapper = render("light", "alternate");
-    openSubmenu(wrapper);
+      it('should have correct styles in an "alternate" variant', () => {
+        wrapper = render(menuType, "alternate");
+        openSubmenu(wrapper);
 
-    assertStyleMatch(
-      {
-        color: baseTheme.menu.light.title,
-        background: baseTheme.menu.light.background,
-      },
-      wrapper.find(StyledTitle)
-    );
-  });
-
-  it('should have correct styles if menuType="dark"', () => {
-    wrapper = render("dark");
-    openSubmenu(wrapper);
-
-    assertStyleMatch(
-      {
-        color: baseTheme.menu.dark.title,
-      },
-      wrapper.find(StyledTitle)
-    );
-  });
-
-  it('should have correct styles if menuType="dark"  and "alternate" variant', () => {
-    wrapper = render("dark", "alternate");
-    openSubmenu(wrapper);
-
-    assertStyleMatch(
-      {
-        color: baseTheme.menu.dark.title,
-        background: baseTheme.colors.slate,
-      },
-      wrapper.find(StyledTitle)
-    );
-  });
+        assertStyleMatch(
+          {
+            background: baseTheme.menu[menuType].alternate,
+          },
+          wrapper.find(StyledTitle)
+        );
+      });
+    }
+  );
 });

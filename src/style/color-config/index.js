@@ -11,4 +11,5 @@ export default {
   amethyst: "582C83",
   plum: "8246AF",
   slate: "003349",
+  black: "000000",
 };

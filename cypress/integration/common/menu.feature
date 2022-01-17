@@ -14,32 +14,32 @@ Feature: Menu component
 
   @positive
   Scenario: Check the size of the second expandable element of Menu
-    Given I open "Menu" component page "default divider"
-    When I hover over third expandable Menu component
+    Given I open "Menu" component page "divider"
+    When I hover over "first" expandable Menu component
     Then Menu third expandable element has inner elements
 
   @positive
   Scenario: Check that menu search has an alternate background colour
     Given I open "Menu" component page "submenu with search"
-    When I hover over third expandable Menu component
+    When I hover over "third" expandable Menu component
     Then Inner menu search input has alternate "rgb(0, 51, 73)" background colour
 
   @positive
   Scenario: Check the size of divider is a large
-    Given I open "Menu" component page "default large divider"
-    When I hover over third expandable Menu component
+    Given I open "Menu" component page "large divider"
+    When I hover over "first" expandable Menu component
     Then Menu divider has 4 px size
 
   @positive
   Scenario: Check the segment title is visible within a submenu
-    Given I open "Menu" component page "default segment title"
-    When I hover over third expandable Menu component
+    Given I open "Menu" component page "segment title"
+    When I hover over "first" expandable Menu component
     Then "segment title" is visible
 
   @positive
   Scenario: Check alternate colour theme for submenu
-    Given I open "Menu" component page "default theme alternate colour"
-    When I hover over third expandable Menu component
+    Given I open "Menu" component page "alternate colour"
+    When I hover over "second" expandable Menu component
     Then "fourth" submenu has alternate colour theme
       And "fifth" submenu has alternate colour theme
       And "sixth" submenu has alternate colour theme
@@ -118,7 +118,7 @@ Feature: Menu component
     Given I open "Menu Test" component page "default"
     When I click closeIcon
     Then Menu is in fullscreen mode is not visible
-  
+
   @positive
   Scenario: Check that close icon is focused in Fullscreen Menu
     Given I open "Menu Test" component page "default"
@@ -130,7 +130,7 @@ Feature: Menu component
     Given I open "Menu Test" component page "default"
     When I hit Tab key 5 times
     Then "fourth" inner menu element is focused
-  
+
   @positive
   Scenario: Check that previous inner Menu is available with shift tabbing in Fullscreen Menu
     Given I open "Menu Test" component page "default"

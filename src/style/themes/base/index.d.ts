@@ -1,6 +1,6 @@
 import { Palette } from "../../palette";
 
-interface ColorsWithHex {
+export interface ColorsWithHex {
   [key: string]: string;
 }
 
@@ -10,7 +10,7 @@ type BasePalette = Palette &
     whiteOpacity: (opacity: number) => string;
   };
 
-interface Colors {
+export interface Colors {
   base: string;
   primary: string;
   secondary: string;

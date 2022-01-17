@@ -23,7 +23,6 @@ const Dialog = ({
   open,
   height,
   size,
-  ariaRole,
   title,
   disableEscKey,
   subtitle,
@@ -34,6 +33,7 @@ const Dialog = ({
   bespokeFocusTrap,
   disableClose,
   help,
+  role = "dialog",
   ...rest
 }) => {
   const dialogRef = useRef();
@@ -128,6 +128,7 @@ const Dialog = ({
       >
         {typeof title === "string" ? (
           <Heading
+            data-element="dialog-title"
             title={title}
             titleId="carbon-dialog-title"
             subheader={subtitle}
@@ -151,13 +152,16 @@ const Dialog = ({
   const dialogProps = {
     size,
     dialogHeight,
+    "aria-labelledby": rest["aria-labelledby"],
+    "aria-describedby": subtitle
+      ? "carbon-dialog-subtitle"
+      : rest["aria-describedby"],
+    "aria-label": rest["aria-label"],
   };
 
-  if (ariaRole) dialogProps.role = ariaRole;
-
-  if (title) dialogProps["aria-labelledby"] = "carbon-dialog-title";
-
-  if (subtitle) dialogProps["aria-describedby"] = "carbon-dialog-subtitle";
+  if (title && typeof title === "string") {
+    dialogProps["aria-labelledby"] = "carbon-dialog-title";
+  }
 
   const componentTags = {
     "data-component": rest["data-component"] || "dialog",
@@ -181,12 +185,14 @@ const Dialog = ({
         wrapperRef={dialogRef}
       >
         <DialogStyle
+          aria-modal
           ref={dialogRef}
           topMargin={TOP_MARGIN}
           {...dialogProps}
           data-component="dialog"
           data-element="dialog"
           data-role={rest["data-role"]}
+          role={role}
         >
           {dialogTitle()}
           <DialogContentStyle>
@@ -209,12 +215,19 @@ const Dialog = ({
 };
 
 Dialog.propTypes = {
+  /** Prop to specify the aria-describedby property of the Dialog component */
+  "aria-describedby": PropTypes.string,
   /**
-   * The ARIA role to be applied to the Dialog
-   * @ignore
-   * @private
+   * Prop to specify the aria-label of the Dialog component.
+   * To be used only when the title prop is not defined, and the component is not labelled by any internal element.
    */
-  ariaRole: PropTypes.string,
+  "aria-label": PropTypes.string,
+  /**
+   * Prop to specify the aria-labeledby property of the Dialog component
+   * To be used when the title prop is a custom React Node,
+   * or the component is labelled by an internal element other than the title.
+   */
+  "aria-labelledby": PropTypes.string,
   /** Dialog content */
   children: PropTypes.node,
   /** Custom class name  */
@@ -258,12 +271,13 @@ Dialog.propTypes = {
    * @private
    */
   bespokeFocusTrap: PropTypes.func,
+  /** The ARIA role to be applied to the Dialog container */
+  role: PropTypes.string,
 };
 
 Dialog.defaultProps = {
   size: "medium",
   showCloseIcon: true,
-  ariaRole: "dialog",
   disableAutoFocus: false,
 };
 

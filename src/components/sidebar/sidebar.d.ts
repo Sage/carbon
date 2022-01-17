@@ -4,6 +4,19 @@ export interface SidebarContextProps {
   isInSidebar: boolean;
 }
 export interface SidebarProps {
+  /** Prop to specify the aria-describedby property of the component */
+  "aria-describedby"?: string;
+  /**
+   * Prop to specify the aria-label of the component.
+   * To be used only when the title prop is not defined, and the component is not labelled by any internal element.
+   */
+  "aria-label"?: string;
+  /**
+   * Prop to specify the aria-labeledby property of the component
+   * To be used when the title prop is a custom React Node,
+   * or the component is labelled by an internal element other than the title.
+   */
+  "aria-labelledby"?: string;
   /** Modal content */
   children?: React.ReactNode;
   /** Determines if the Esc Key closes the modal */
@@ -18,6 +31,8 @@ export interface SidebarProps {
   open: boolean;
   /** Sets the position of sidebar, either left or right. */
   position?: "left" | "right";
+  /** The ARIA role to be applied to the component container */
+  role?: string;
   /** Sets the size of the sidebar when open. */
   size?:
     | "extra-small"

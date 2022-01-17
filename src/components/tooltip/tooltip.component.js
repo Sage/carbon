@@ -1,9 +1,12 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react/headless";
+import { ThemeContext } from "styled-components";
+
 import StyledTooltip from "./tooltip.style";
 import StyledPointer from "./tooltip-pointer.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import { tokensClassName } from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 const TOOLTIP_DELAY = 100;
 
@@ -27,12 +30,13 @@ const Tooltip = React.forwardRef(
     ref
   ) => {
     const tooltipRef = useRef(ref || null);
-
+    const theme = useContext(ThemeContext);
     const tooltip = (attrs, content) => {
       const currentPosition = attrs["data-placement"] || position;
 
       return (
         <StyledTooltip
+          className={tokensClassName(theme?.name)}
           data-element="tooltip"
           role="tooltip"
           tabIndex="-1"
