@@ -39,6 +39,15 @@ describe("DialogFullScreen", () => {
     );
   });
 
+  it("should have aria-modal attribute on the dialog container", () => {
+    expect(
+      wrapper
+        .find(StyledDialogFullScreen)
+        .getDOMNode()
+        .getAttribute("aria-modal")
+    ).toBe("true");
+  });
+
   describe("contentRef", () => {
     it("the content ref should be forwarded", () => {
       let mockRef;
