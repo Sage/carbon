@@ -1,3 +1,11 @@
+## [102.12.0](https://github.com/Sage/carbon/compare/v102.11.0...v102.12.0) (2022-01-17)
+
+
+### Features
+
+* **menu:** add white and black themes ([cd6b276](https://github.com/Sage/carbon/commit/cd6b276e25235566472738a9de7d45db70dbec04))
+* **navigation-bar:** add white and black themes ([1663dfd](https://github.com/Sage/carbon/commit/1663dfdb7feaf27bfaae7be3fe15472efd30dba0))
+
 ## [102.11.0](https://github.com/Sage/carbon/compare/v102.10.2...v102.11.0) (2022-01-17)
 
 
