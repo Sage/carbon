@@ -1,3 +1,10 @@
+## [102.13.0](https://github.com/Sage/carbon/compare/v102.12.0...v102.13.0) (2022-01-17)
+
+
+### Features
+
+* **checkbox:** change spacing to match radio button group ([50a6ab4](https://github.com/Sage/carbon/commit/50a6ab4fb9c3036d9d192abbff5d300d3854dc12)), closes [#4670](https://github.com/Sage/carbon/issues/4670)
+
 ## [102.12.0](https://github.com/Sage/carbon/compare/v102.11.0...v102.12.0) (2022-01-17)
 
 
