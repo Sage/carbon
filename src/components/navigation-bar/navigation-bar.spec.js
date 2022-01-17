@@ -75,7 +75,7 @@ describe("NavigationBar", () => {
 
   it("should render correct styles in `light` scheme", () => {
     wrapper = mount(
-      <StyledNavigationBar>
+      <StyledNavigationBar navigationType="light">
         <div>test content</div>
       </StyledNavigationBar>
     );
@@ -100,6 +100,38 @@ describe("NavigationBar", () => {
     assertStyleMatch(
       {
         backgroundColor: baseTheme.navigationBar.dark.background,
+        color: baseTheme.colors.white,
+      },
+      wrapper
+    );
+  });
+
+  it("should render correct styles in `white` scheme", () => {
+    wrapper = mount(
+      <StyledNavigationBar navigationType="white">
+        <div>test content</div>
+      </StyledNavigationBar>
+    );
+
+    assertStyleMatch(
+      {
+        backgroundColor: baseTheme.colors.white,
+        borderBottom: `1px solid ${baseTheme.navigationBar.white.borderBottom}`,
+      },
+      wrapper
+    );
+  });
+
+  it("should render correct styles in `black` scheme", () => {
+    wrapper = mount(
+      <StyledNavigationBar navigationType="black">
+        <div>test content</div>
+      </StyledNavigationBar>
+    );
+
+    assertStyleMatch(
+      {
+        backgroundColor: baseTheme.navigationBar.black.background,
         color: baseTheme.colors.white,
       },
       wrapper

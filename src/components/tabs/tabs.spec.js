@@ -397,6 +397,7 @@ describe("Tabs", () => {
           });
       });
       wrapper.update();
+      expect(onTabChange).toHaveBeenCalledTimes(1);
       expect(onTabChange).toHaveBeenCalledWith("uniqueid2");
     });
 

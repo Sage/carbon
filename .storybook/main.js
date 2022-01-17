@@ -34,7 +34,7 @@ module.exports = {
       alias: {
         helpers: path.resolve(__dirname, "__helpers__/"),
       },
-      extensions: [".js"],
+      extensions: [".js", ".tsx", ".ts"],
     };
 
     // Workaround to stop hashes being added to font filenames, so we can pre-load them

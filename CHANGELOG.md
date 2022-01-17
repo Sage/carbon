@@ -1,3 +1,39 @@
+## [102.12.0](https://github.com/Sage/carbon/compare/v102.11.0...v102.12.0) (2022-01-17)
+
+
+### Features
+
+* **menu:** add white and black themes ([cd6b276](https://github.com/Sage/carbon/commit/cd6b276e25235566472738a9de7d45db70dbec04))
+* **navigation-bar:** add white and black themes ([1663dfd](https://github.com/Sage/carbon/commit/1663dfdb7feaf27bfaae7be3fe15472efd30dba0))
+
+## [102.11.0](https://github.com/Sage/carbon/compare/v102.10.2...v102.11.0) (2022-01-17)
+
+
+### Features
+
+* **tile:** describe tile and tile-footer components with design tokens ([78dac46](https://github.com/Sage/carbon/commit/78dac465abf477d9ee60d6afe382e4d888a1f446))
+
+### [102.10.2](https://github.com/Sage/carbon/compare/v102.10.1...v102.10.2) (2022-01-14)
+
+
+### Bug Fixes
+
+* **tabs, tab-title:** remove onFocus to stop firing callback twice and tabs activate onmouseup ([56d54da](https://github.com/Sage/carbon/commit/56d54da056f93dafec33ae252584d96fe824bddf)), closes [#4640](https://github.com/Sage/carbon/issues/4640) [#4611](https://github.com/Sage/carbon/issues/4611)
+
+### [102.10.1](https://github.com/Sage/carbon/compare/v102.10.0...v102.10.1) (2022-01-14)
+
+
+### Bug Fixes
+
+* **mint-theme:** modify primary colour to be more accessible ([30b1b7b](https://github.com/Sage/carbon/commit/30b1b7be18f85cd8e4891eb6cc811b9f45d3339d))
+
+## [102.10.0](https://github.com/Sage/carbon/compare/v102.9.2...v102.10.0) (2022-01-14)
+
+
+### Features
+
+* **tooltip:** describe tooltip using design tokens ([50d140d](https://github.com/Sage/carbon/commit/50d140d5f856829901982aed4727048183b5d9eb))
+
 ### [102.9.2](https://github.com/Sage/carbon/compare/v102.9.1...v102.9.2) (2022-01-13)
 
 

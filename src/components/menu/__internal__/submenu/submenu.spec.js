@@ -417,6 +417,27 @@ describe("Submenu component", () => {
         expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
       });
     });
+
+    it('should render correct styles if `submenuDirection="left"`', () => {
+      const tempWrapper = mount(
+        <MenuContext.Provider value={menuContextValues("light")}>
+          <StyledSubmenu submenuDirection="left" menuType="light">
+            <MenuItem>Apple</MenuItem>
+            <MenuItem>Banana</MenuItem>
+            <MenuDivider />
+            <MenuItem>Carrot</MenuItem>
+            <MenuItem>Broccoli</MenuItem>
+          </StyledSubmenu>
+        </MenuContext.Provider>
+      );
+
+      assertStyleMatch(
+        {
+          right: "0",
+        },
+        tempWrapper.find(StyledSubmenu)
+      );
+    });
   });
 
   describe("keyboard navigation", () => {
@@ -1001,36 +1022,50 @@ describe("Submenu component", () => {
     });
   });
 
-  describe("when variant prop is set to alternate", () => {
-    let submenuItem;
+  describe.each(["light", "white", "dark", "black"])(
+    "when menuType=%s",
+    (menuType) => {
+      let submenuItem;
 
-    beforeEach(() => {
-      wrapper = render("dark", { variant: "alternate" });
-      submenuItem = wrapper
-        .find('[data-component="submenu-wrapper"]')
-        .find("a");
-      submenuItem.getDOMNode().focus();
+      const renderWrapper = (variant) => {
+        wrapper = render(menuType, { variant });
+        submenuItem = wrapper
+          .find('[data-component="submenu-wrapper"]')
+          .find("a");
+        submenuItem.getDOMNode().focus();
 
-      act(() => {
-        wrapper
-          .find(StyledMenuItemWrapper)
-          .at(0)
-          .props()
-          .onKeyDown(events.enter);
+        act(() => {
+          wrapper
+            .find(StyledMenuItemWrapper)
+            .at(0)
+            .props()
+            .onKeyDown(events.enter);
+        });
+
+        wrapper.update();
+      };
+
+      it("should set the correct background color by default", () => {
+        renderWrapper("default");
+        assertStyleMatch(
+          {
+            background: baseTheme.menu[menuType].submenuBackground,
+          },
+          wrapper.find(StyledSubmenu)
+        );
       });
 
-      wrapper.update();
-    });
-
-    it("should set the correct background colour", () => {
-      assertStyleMatch(
-        {
-          background: baseTheme.colors.slate,
-        },
-        wrapper.find(StyledSubmenu)
-      );
-    });
-  });
+      it("should set the correct background colour for alternate variant", () => {
+        renderWrapper("alternate");
+        assertStyleMatch(
+          {
+            background: baseTheme.menu[menuType].background,
+          },
+          wrapper.find(StyledSubmenu)
+        );
+      });
+    }
+  );
 
   describe("when it has a ScrollableBlock as a child", () => {
     const renderScrollableBlock = (menuType, props) => {
@@ -1129,33 +1164,36 @@ describe("Submenu component", () => {
       expect(searchInput).toBeFocused();
     });
 
-    it("should render with correct styles for search icon", () => {
-      wrapper = renderWithSearch("dark");
-      openSubmenu(wrapper);
+    it.each(["dark", "black", "light", "white"])(
+      "should render with correct styles for search icon for menuType=%s",
+      (menuType) => {
+        wrapper = renderWithSearch(menuType);
+        openSubmenu(wrapper);
 
-      assertStyleMatch(
-        {
-          color: baseTheme.menu.dark.searchIcon,
-        },
-        wrapper.find(StyledSubmenu),
-        {
-          modifier: css`
-            ${StyledMenuItemWrapper} ${StyledSearch} [data-component="icon"]
-          `,
-        }
-      );
-      assertStyleMatch(
-        {
-          color: baseTheme.menu.dark.searchIconHover,
-        },
-        wrapper.find(StyledSubmenu),
-        {
-          modifier: css`
-            ${StyledMenuItemWrapper} ${StyledSearch} [data-component="icon"]:hover
-          `,
-        }
-      );
-    });
+        assertStyleMatch(
+          {
+            color: baseTheme.menu[menuType].searchIcon,
+          },
+          wrapper.find(StyledSubmenu),
+          {
+            modifier: css`
+              ${StyledMenuItemWrapper} ${StyledSearch} [data-component="icon"]
+            `,
+          }
+        );
+        assertStyleMatch(
+          {
+            color: baseTheme.menu[menuType].searchIconHover,
+          },
+          wrapper.find(StyledSubmenu),
+          {
+            modifier: css`
+              ${StyledMenuItemWrapper} ${StyledSearch} [data-component="icon"]:hover
+            `,
+          }
+        );
+      }
+    );
 
     it("should be focusable by using down arrow key", () => {
       wrapper = renderWithSearch("dark");

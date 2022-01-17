@@ -13,6 +13,7 @@ jobs:
       - run: npm ci
       - run: npx prettier --check './src/**/*.js'
       - run: npm run lint
+      - run: npm run type-check
   test:
     runs-on: ubuntu-latest
     steps:
