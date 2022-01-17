@@ -339,18 +339,9 @@ const StyledTabTitle = styled.button`
       }
     `}
 
-  ${({
-    isTabSelected,
-    theme,
-    alternateStyling,
-    error,
-    warning,
-    info,
-    isInSidebar,
-  }) =>
+  ${({ isTabSelected, theme, alternateStyling, error, warning, info }) =>
     isTabSelected &&
     css`
-    ${!isInSidebar && "z-index: 1;"}
     color: ${theme.text.color};
     background-color: ${theme.colors.white};
 
@@ -376,7 +367,7 @@ const StyledTabTitle = styled.button`
   ${({ theme, isInSidebar }) => `
     &:focus {
       outline: ${isInSidebar ? "none;" : `2px solid ${theme.colors.focus};`}
-      z-index: 1;
+      z-index: 2;
     }
   `}
   
@@ -529,7 +520,7 @@ const StyledLayoutWrapper = styled.div`
 
 const StyledSelectedIndicator = styled.div`
   position: absolute;
-  z-index: 5;
+  z-index: 1;
 
   ${({ position, size, theme }) =>
     position === "top" &&
