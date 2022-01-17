@@ -31,8 +31,9 @@ const InputPresentationStyle = styled.div`
       cursor: not-allowed;
     `}
 
-  ${({ hasFocus, theme }) =>
+  ${({ hasFocus, theme, disabled }) =>
     hasFocus &&
+    !disabled &&
     css`
       && {
         outline: 3px solid ${theme.colors.focus};

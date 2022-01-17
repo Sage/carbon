@@ -103,17 +103,49 @@ export default (palette) => {
       itemColorDisabled: palette.blackOpacity(0.3),
 
       light: {
+        text: "#000000",
         background: palette.slateTint(90),
         selected: palette.slateTint(85),
         divider: palette.slateTint(80),
+        alternate: palette.slateTint(90),
         title: palette.slateTint(25),
+        submenuBackground: "#FFFFFF",
+        searchIcon: palette.slateTint(55),
+        searchIconHover: palette.slateTint(75),
       },
 
       dark: {
+        text: "#FFFFFF",
+        background: palette.slate,
         divider: palette.slateTint(10),
         submenuBackground: palette.slateShade(50),
         selected: palette.slateTint(10),
+        alternate: palette.slate,
         title: palette.slateTint(60),
+        searchIcon: palette.slateTint(55),
+        searchIconHover: palette.slateTint(75),
+      },
+
+      black: {
+        text: "#FFFFFF",
+        background: palette.black,
+        submenuBackground: palette.black,
+        selected: palette.blackTint(15),
+        divider: palette.blackTint(15),
+        alternate: palette.blackTint(10),
+        title: palette.slateTint(60),
+        searchIcon: palette.slateTint(55),
+        searchIconHover: palette.slateTint(75),
+      },
+
+      white: {
+        text: "#000000",
+        background: "#FFFFFF",
+        selected: palette.slateTint(95),
+        divider: palette.slateTint(70),
+        alternate: palette.slateTint(80),
+        submenuBackground: palette.slateTint(90),
+        title: palette.slateTint(25),
         searchIcon: palette.slateTint(55),
         searchIconHover: palette.slateTint(75),
       },
@@ -272,6 +304,14 @@ export default (palette) => {
       dark: {
         background: "#003349",
         borderBottom: "#003349",
+      },
+
+      black: {
+        background: palette.blackOpacity(1),
+      },
+
+      white: {
+        borderBottom: palette.slateTint(85),
       },
     },
 

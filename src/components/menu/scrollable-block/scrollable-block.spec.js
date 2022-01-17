@@ -57,61 +57,36 @@ describe("ScrollableBlock", () => {
     }
   });
 
-  describe("when MenuType is light", () => {
-    it("should add the correct styles", () => {
-      wrapper = render("light", { variant: "default" });
-
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.colors.white,
-        },
-        wrapper,
-        { modifier: `&& ${StyledMenuItemWrapper}` }
-      );
-    });
-
-    describe("when variant prop set to alternate", () => {
+  describe.each(["white", "light", "dark", "black"])(
+    "when MenuType is %s",
+    (menuType) => {
       it("should add the correct styles", () => {
-        wrapper = render("light", { variant: "alternate" });
+        wrapper = render(menuType, { variant: "default" });
 
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.menu.light.background,
+            backgroundColor: baseTheme.menu[menuType].submenuBackground,
           },
           wrapper,
           { modifier: `&& ${StyledMenuItemWrapper}` }
         );
       });
-    });
-  });
 
-  describe("when MenuType is dark", () => {
-    it("should add the correct styles", () => {
-      wrapper = render("dark");
+      describe("when variant prop set to alternate", () => {
+        it("should add the correct styles", () => {
+          wrapper = render(menuType, { variant: "alternate" });
 
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.menu.dark.submenuBackground,
-        },
-        wrapper,
-        { modifier: `&& ${StyledMenuItemWrapper}` }
-      );
-    });
-
-    describe("when variant prop set to alternate", () => {
-      it("should add the correct styles", () => {
-        wrapper = render("dark", { variant: "alternate" });
-
-        assertStyleMatch(
-          {
-            backgroundColor: baseTheme.colors.slate,
-          },
-          wrapper,
-          { modifier: `&& ${StyledMenuItemWrapper}` }
-        );
+          assertStyleMatch(
+            {
+              backgroundColor: baseTheme.menu[menuType].background,
+            },
+            wrapper,
+            { modifier: `&& ${StyledMenuItemWrapper}` }
+          );
+        });
       });
-    });
-  });
+    }
+  );
 
   describe("when a block child focused by submenu context", () => {
     it("should focus the underlying MenuItem", () => {

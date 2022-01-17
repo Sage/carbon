@@ -25,7 +25,7 @@ const StyledMenuItemWrapper = styled.a`
     height: 40px;
     position: relative;
     cursor: pointer;
-    background-color: ${theme.menu.light.background};
+    background-color: ${theme.menu[menuType].background};
 
     ${!inFullscreenView &&
     css`
@@ -82,7 +82,7 @@ const StyledMenuItemWrapper = styled.a`
     ${StyledLink} [data-component="icon"] {
       font-weight: 700;
       text-decoration: none;
-      color: ${theme.colors.black};
+      color: ${theme.menu[menuType].text};
     }
 
     a:hover,
@@ -121,84 +121,21 @@ const StyledMenuItemWrapper = styled.a`
     ${variant === "alternate" &&
     css`
       &&& {
-        background-color: ${theme.menu.light.background};
+        background-color: ${theme.menu[menuType].alternate};
       }
     `}
 
     ${selected &&
     css`
-      background-color: ${theme.menu.light.selected};
+      background-color: ${theme.menu[menuType].selected};
     `}
 
-    ${menuType === "dark" &&
+    ${isOpen &&
     css`
-      background-color: ${theme.colors.slate};
+      background-color: ${theme.menu[menuType].submenuBackground};
       color: ${theme.colors.white};
-
-      a,
-      a:hover,
-      a:focus,
-      button,
-      button:hover,
-      [data-component="icon"],
-      ${StyledLink} [data-component="icon"] {
-        font-weight: 700;
-        text-decoration: none;
-        color: ${theme.colors.white};
-        background-color: transparent;
-      }
-
-      ${selected &&
-      css`
-        background-color: ${theme.menu.dark.selected};
-      `}
-
-      [data-component='icon'] {
-        color: ${theme.colors.white};
-      }
-
-      ${hasSubmenu &&
-      css`
-        ${!href &&
-        css`
-          && a:hover,
-          && button:hover {
-            background-color: ${theme.menu.dark.submenuBackground};
-            color: ${theme.colors.white};
-
-            [data-component="icon"] {
-              color: ${theme.colors.white};
-            }
-          }
-
-          && a:focus,
-          && button:focus {
-            background-color: ${theme.menu.dark.submenuBackground};
-            color: ${theme.colors.white};
-
-            a,
-            button,
-            [data-component="icon"] {
-              color: ${theme.colors.white};
-            }
-          }
-        `}
-
-        ${isOpen &&
-        css`
-          background-color: ${theme.menu.dark.submenuBackground};
-          color: ${theme.colors.white};
-        `}
-      `}
-
-      ${variant === "alternate" &&
-      css`
-        &&& {
-          background-color: ${theme.colors.slate};
-        }
-      `}
-    `}
-
+    `} 
+    
     ${hasSubmenu &&
     css`
       a:hover,
@@ -209,38 +146,29 @@ const StyledMenuItemWrapper = styled.a`
         `}
       }
 
-      ${menuType === "light" &&
+      ${!href &&
       css`
-        ${!href &&
-        css`
-          && a:hover,
-          && b:hover {
-            background-color: ${theme.colors.white};
-            color: ${theme.colors.black};
+        && a:hover,
+        && button:hover {
+          background-color: ${theme.menu[menuType].submenuBackground};
+          color: ${theme.menu[menuType].text};
 
-            [data-component="icon"] {
-              color: ${theme.colors.black};
-            }
+          [data-component="icon"] {
+            color: ${theme.menu[menuType].text};
           }
+        }
 
-          && a:focus,
-          && button:focus {
-            background-color: ${theme.colors.white};
-            color: ${theme.colors.black};
+        && a:focus,
+        && button:focus {
+          background-color: ${theme.menu[menuType].submenuBackground};
+          color: ${theme.menu[menuType].text};
 
-            a,
-            button,
-            [data-component="icon"] {
-              color: ${theme.colors.black};
-            }
+          a,
+          button,
+          [data-component="icon"] {
+            color: ${theme.menu[menuType].text};
           }
-        `}
-
-        ${isOpen &&
-        css`
-          background-color: ${theme.colors.white};
-          color: ${theme.colors.black};
-        `}
+        }
       `}
 
       ${showDropdownArrow &&
@@ -270,8 +198,7 @@ const StyledMenuItemWrapper = styled.a`
           content: "";
           width: 0;
           height: 0;
-          border-top: 5px solid
-            ${menuType !== "dark" ? theme.colors.slate : theme.colors.white};
+          border-top: 5px solid ${theme.menu[menuType].text};
           border-right: 4px solid transparent;
           border-bottom: 4px solid transparent;
           border-left: 4px solid transparent;
