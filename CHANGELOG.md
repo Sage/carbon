@@ -1,3 +1,10 @@
+### [102.13.2](https://github.com/Sage/carbon/compare/v102.13.1...v102.13.2) (2022-01-17)
+
+
+### Bug Fixes
+
+* **dialog-fullscreen:** add missing aria-modal attribute ([d07dce4](https://github.com/Sage/carbon/commit/d07dce4a59b621785e888b91cecfc3c38c1f4143)), closes [#4687](https://github.com/Sage/carbon/issues/4687)
+
 ### [102.13.1](https://github.com/Sage/carbon/compare/v102.13.0...v102.13.1) (2022-01-17)
 
 
