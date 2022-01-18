@@ -11,11 +11,11 @@ const paddingSizes = {
 };
 
 const StyledCard = styled.div`
-  ${({ cardWidth, interactive, draggable, spacing, theme }) => css`
-    background-color: ${theme.colors.white};
+  ${({ cardWidth, interactive, draggable, spacing }) => css`
+    background-color: var(--colorsUtilityYang100);
     border: none;
-    box-shadow: ${theme.shadows.cards};
-    color: ${theme.text.color};
+    box-shadow: var(--boxShadow050);
+    color: var(--colorsUtilityYin090);
     margin: 25px;
     padding: ${paddingSizes[spacing]};
     transition: all 0.3s ease-in-out;
@@ -30,7 +30,7 @@ const StyledCard = styled.div`
 
       :hover,
       :focus {
-        box-shadow: ${theme.shadows.depth1};
+        box-shadow: var(--boxShadow100);
       }
     `}
 
@@ -38,11 +38,6 @@ const StyledCard = styled.div`
     css`
       cursor: move;
     `}
-
-    /* Fix for IE specific box-shadow display */
-    @media all and (-ms-high-contrast: none) {
-      box-shadow: ${theme.shadows.cardsIE};
-    }
 
     ::-moz-focus-inner {
       border: 0;
@@ -57,7 +52,6 @@ StyledCard.defaultProps = {
 };
 
 StyledCard.propTypes = {
-  border: PropTypes.bool,
   cardWidth: PropTypes.string,
   interactive: PropTypes.bool,
   draggable: PropTypes.bool,
