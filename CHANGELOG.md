@@ -1,3 +1,10 @@
+## [102.16.0](https://github.com/Sage/carbon/compare/v102.15.0...v102.16.0) (2022-01-18)
+
+
+### Features
+
+* **pill:** describe pill using tokens, update of tests after changes ([e57f8a2](https://github.com/Sage/carbon/commit/e57f8a284ffb27b16ed537a6a9b32101e62b3f16))
+
 ## [102.15.0](https://github.com/Sage/carbon/compare/v102.14.0...v102.15.0) (2022-01-18)
 
 
