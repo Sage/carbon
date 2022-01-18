@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import Fieldset from "../fieldset";
 import { Input } from "../../__internal__/input";
-import tint from "../../style/utils/tint";
 import { LegendContainerStyle } from "../fieldset/fieldset.style";
 import StyledIcon from "../icon/icon.style";
 import { baseTheme } from "../../style/themes";
@@ -13,6 +12,7 @@ const StyledTitle = styled.h3`
   margin: 0;
   margin-right: 16px;
   margin-bottom: 8px;
+  color: var(--colorsActionMinorYin090);
 `;
 
 const StyledSubtitle = styled.h4`
@@ -21,6 +21,7 @@ const StyledSubtitle = styled.h4`
   margin: 0;
   margin-right: 16px;
   margin-bottom: 8px;
+  color: var(--colorsActionMinorYin090);
 `;
 
 const StyledAdornment = styled.div`
@@ -30,48 +31,48 @@ const StyledAdornment = styled.div`
 `;
 
 const StyledDescription = styled.p`
-  color: ${({ theme }) => theme.tileSelect.descriptionColor};
+  color: var(--colorsActionMinorYin055);
   font-size: 14px;
   margin: 0;
 `;
 
 const StyledTileSelect = styled.div`
-  background-color: ${({ theme }) => theme.colors.white};
+  background: var(--colorsActionMinorYang100);
   padding: 24px;
-  ${({ checked, theme }) =>
+  ${({ checked }) =>
     checked &&
     css`
-      background: ${tint(theme.colors.primary)(95)};
+      background: var(--colorsActionMajor025);
     `}
 
-  ${({ disabled, theme }) =>
+  ${({ disabled }) =>
     disabled &&
     css`
-      background: ${theme.tileSelect.disabledBackground};
+      background: var(--colorsActionMinorYang100);
       ${StyledTitle}, ${StyledSubtitle}, ${StyledDescription} {
-        color: ${theme.tileSelect.disabledText};
+        color: var(--colorsActionMinorYin030);
       }
       ${StyledAdornment} * {
-        color: ${theme.colors.black};
-        fill: ${theme.colors.black};
+        color: var(--colorsActionMinorYin030);
+        fill: var(--colorsActionMinorYin030);
         opacity: 0.3;
       }
     `}
 `;
 
 const StyledFocusWrapper = styled.div`
-  ${({ checked, theme, hasFocus }) => css`
+  ${({ checked, hasFocus }) => css`
     position: relative;
-    border: 1px solid ${theme.tileSelect.border};
+    border: 1px solid var(--colorsActionMinor250);
     ${checked &&
     css`
-      border-color: ${theme.colors.primary};
+      border-color: var(--colorsActionMajor500);
       z-index: 10;
     `}
 
     ${hasFocus &&
     css`
-      outline: 3px solid ${theme.colors.focus};
+      outline: 3px solid var(--colorsSemanticFocus500);
       z-index: 15;
     `}
   `}
@@ -85,12 +86,12 @@ const StyledTileSelectContainer = styled.div`
   & + & ${StyledFocusWrapper} {
     margin-top: -1px;
   }
-  ${({ checked, disabled, theme }) =>
+  ${({ checked, disabled }) =>
     !checked &&
     !disabled &&
     css`
       &:hover ${StyledTileSelect} {
-        background: ${theme.tileSelect.hoverBackground};
+        background: var(--colorsActionMinor050);
       }
     `}
 `;
@@ -136,7 +137,7 @@ const StyledTitleContainer = styled.div`
 `;
 
 const StyledDeselectWrapper = styled.div`
-  ${({ hasActionAdornment, theme }) => css`
+  ${({ hasActionAdornment }) => css`
     z-index: 200;
     position: relative;
     top: -4px;
@@ -145,10 +146,10 @@ const StyledDeselectWrapper = styled.div`
 
     ${hasActionAdornment &&
     `
-      margin-right: ${2 * theme.spacing}px;
+      margin-right: var(--sizing200);
       display: flex;
       align-items: baseline;
-      min-height: ${4 * theme.spacing}px;
+      min-height: var(--sizing400);
 
       ${StyledIcon} {
         top: 2px;
@@ -178,7 +179,7 @@ const StyledTileSelectFieldset = styled(Fieldset)`
 `;
 
 const StyledGroupDescription = styled.p`
-  color: ${({ theme }) => theme.tileSelect.descriptionColor};
+  color: var(--colorsActionMinorYin055);
   margin: 0;
   margin-bottom: 16px;
 `;
@@ -187,31 +188,7 @@ StyledTileSelectFieldset.defaultProps = {
   theme: baseTheme,
 };
 
-StyledTileSelect.defaultProps = {
-  theme: baseTheme,
-};
-
 StyledTileSelectContainer.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledGroupDescription.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledTileSelectInput.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledDescription.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledDeselectWrapper.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledFocusWrapper.defaultProps = {
   theme: baseTheme,
 };
 
