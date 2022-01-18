@@ -1,31 +1,32 @@
-import baseTheme from "../../style/themes/base";
-
-const { colors, pill } = baseTheme;
-
-export default (theme) => {
+export default () => {
   return {
     status: {
       neutral: {
-        varietyColor: pill.neutral,
-        buttonFocus: pill.neutralBackgroundFocus,
+        varietyColor: "var(--colorsSemanticNeutral500)",
+        buttonFocus: "var(--colorsSemanticNeutral600)",
+        content: "var(--colorsSemanticNeutralYang100)",
       },
       negative: {
-        varietyColor: colors.error,
-        buttonFocus: pill.errorButtonFocus,
+        varietyColor: "var(--colorsSemanticNegative500)",
+        buttonFocus: "var(--colorsSemanticNegative600)",
+        content: "var(--colorsSemanticNegativeYang100)",
       },
       warning: {
-        varietyColor: pill.warning,
-        buttonFocus: pill.warningButtonFocus,
+        varietyColor: "var(--colorsSemanticCaution400)",
+        buttonFocus: "var(--colorsSemanticCaution600)",
+        content: "var(--colorsSemanticCautionYin090)",
       },
       positive: {
-        varietyColor: colors.secondary,
-        buttonFocus: colors.tertiary,
+        varietyColor: "var(--colorsSemanticPositive500)",
+        buttonFocus: "var(--colorsSemanticPositive600)",
+        content: "var(--colorsSemanticPositiveYang100)",
       },
     },
     tag: {
       primary: {
-        varietyColor: theme.colors.primary,
-        buttonFocus: theme.colors.secondary,
+        varietyColor: "var(--colorsActionMajor500)",
+        buttonFocus: "var(--colorsActionMajor600)",
+        content: "var(--colorsActionMajorYang100)",
       },
     },
   };
