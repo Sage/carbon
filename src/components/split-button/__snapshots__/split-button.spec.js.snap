@@ -326,8 +326,6 @@ exports[`SplitButton for mint and aegean themes renders styles correctly 1`] = `
   color: var(--colorsActionMajor500);
   display: block;
   margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
   min-width: 100%;
   text-align: left;
   z-index: 1000;
@@ -349,8 +347,6 @@ exports[`SplitButton for mint and aegean themes renders styles correctly 1`] = `
   color: var(--colorsActionMajor500);
   display: block;
   margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
   min-width: 100%;
   z-index: 1000;
 }

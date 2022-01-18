@@ -8,6 +8,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
     min-width: ${({ minWidth }) => minWidth}px;
     white-space: nowrap;
     z-index: ${theme.zIndex.popover};
+    box-shadow: var(--boxShadow100);
 
     ${StyledButton} {
       background-color: var(--colorsActionMajorYang100);
@@ -15,8 +16,6 @@ const StyledSplitButtonChildrenContainer = styled.div`
       color: var(--colorsActionMajor500);
       display: block;
       margin-left: 0;
-      margin-top: 3px;
-      margin-bottom: 3px;
       min-width: 100%;
       text-align: ${align};
       z-index: ${theme.zIndex.overlay};
