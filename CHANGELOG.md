@@ -1,3 +1,10 @@
+## [102.15.0](https://github.com/Sage/carbon/compare/v102.14.0...v102.15.0) (2022-01-18)
+
+
+### Features
+
+* **card:** describe card using design tokens, update of tests after changes ([824c240](https://github.com/Sage/carbon/commit/824c2402f7318f2bfd69f3c37d44e2950462f74d))
+
 ## [102.14.0](https://github.com/Sage/carbon/compare/v102.13.2...v102.14.0) (2022-01-18)
 
 
