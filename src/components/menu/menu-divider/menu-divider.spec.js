@@ -41,30 +41,21 @@ describe("MenuDivider", () => {
     expect(wrapper.find(StyledDivider).props().menuType).toBe("light");
   });
 
-  it('should have correct styles if menuType="light"', () => {
-    wrapper = render("light");
-    openSubmenu(wrapper);
+  it.each(["light", "white", "dark", "black"])(
+    "should have correct styles for %s menuType",
+    (menuType) => {
+      wrapper = render(menuType);
+      openSubmenu(wrapper);
 
-    assertStyleMatch(
-      {
-        background: baseTheme.menu.light.divider,
-        cursor: "default",
-      },
-      wrapper.find(StyledDivider)
-    );
-  });
-
-  it('should have correct styles if menuType="dark"', () => {
-    wrapper = render("dark");
-    openSubmenu(wrapper);
-
-    assertStyleMatch(
-      {
-        background: baseTheme.menu.dark.divider,
-      },
-      wrapper.find(StyledDivider)
-    );
-  });
+      assertStyleMatch(
+        {
+          background: baseTheme.menu[menuType].divider,
+          cursor: "default",
+        },
+        wrapper.find(StyledDivider)
+      );
+    }
+  );
 
   it('should have correct styles for "default" size', () => {
     wrapper = mount(<MenuDivider />);

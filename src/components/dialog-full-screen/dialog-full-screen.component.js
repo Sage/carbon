@@ -11,6 +11,9 @@ import IconButton from "../icon-button";
 import Icon from "../icon";
 
 const DialogFullScreen = ({
+  "aria-describedby": ariaDescribedBy,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
   disableAutoFocus,
   focusFirstElement,
   open,
@@ -25,6 +28,7 @@ const DialogFullScreen = ({
   onCancel,
   contentRef,
   help,
+  role = "region",
   ...rest
 }) => {
   const dialogRef = useRef();
@@ -48,6 +52,7 @@ const DialogFullScreen = ({
     <FullScreenHeading hasContent={title} ref={headingRef}>
       {typeof title === "string" ? (
         <Heading
+          data-element="dialog-title"
           title={title}
           titleId="carbon-dialog-title"
           subheader={subtitle}
@@ -81,9 +86,14 @@ const DialogFullScreen = ({
         wrapperRef={dialogRef}
       >
         <StyledDialogFullScreen
+          aria-modal
+          aria-describedby={ariaDescribedBy}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy || "carbon-dialog-title"}
           ref={dialogRef}
           data-element="dialog-full-screen"
           pagesStyling={pagesStyling}
+          role={role}
         >
           {dialogTitle()}
           <StyledContent
@@ -107,6 +117,19 @@ DialogFullScreen.defaultProps = {
 };
 
 DialogFullScreen.propTypes = {
+  /** Prop to specify the aria-describedby property of the DialogFullscreen component */
+  "aria-describedby": PropTypes.string,
+  /**
+   * Prop to specify the aria-label of the DialogFullscreen component.
+   * To be used only when the title prop is not defined, and the component is not labelled by any internal element.
+   */
+  "aria-label": PropTypes.string,
+  /**
+   * Prop to specify the aria-labeledby property of the DialogFullscreen component
+   * To be used when the title prop is a custom React Node,
+   * or the component is labelled by an internal element other than the title.
+   */
+  "aria-labelledby": PropTypes.string,
   /** Controls the open state of the component */
   open: PropTypes.bool.isRequired,
   /** A custom close event handler */
@@ -138,6 +161,8 @@ DialogFullScreen.propTypes = {
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]),
+  /** The ARIA role to be applied to the DialogFulscreen container */
+  role: PropTypes.string,
 };
 
 export default DialogFullScreen;

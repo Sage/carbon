@@ -6,7 +6,7 @@ import VerticalDivider from "../vertical-divider";
 import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.js";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta title="Navigation Bar" />
+<Meta title="Navigation Bar" parameters={{ info: { disable: true } }} />
 
 # Navigation Bar
 
@@ -26,44 +26,45 @@ import NavigationBar from "carbon-react/lib/components/navigation-bar";
 
 ## Examples
 
-### Light Theme
+### Default - Light Theme
 
 <Canvas>
-  <Story name="default" parameters={{ info: { disable: true } }}>
+  <Story name="default">
     <NavigationBar>Example content</NavigationBar>
-  </Story>
-</Canvas>
-
-### Light Theme Loading State
-
-If `isLoading={true}` the children will not be visible
-
-<Canvas>
-  <Story name="isLoading" parameters={{ info: { disable: true } }}>
-    <NavigationBar isLoading>
-      <Menu>
-        <MenuItem>menu item one</MenuItem>
-        <MenuItem>menu item two</MenuItem>
-      </Menu>
-    </NavigationBar>
   </Story>
 </Canvas>
 
 ### Dark Theme
 
 <Canvas>
-  <Story name="dark theme" parameters={{ info: { disable: true } }}>
+  <Story name="dark theme">
     <NavigationBar navigationType="dark">Example content</NavigationBar>
   </Story>
 </Canvas>
 
-### Dark Theme Loading State
+### White Theme
+
+<Canvas>
+  <Story name="white theme">
+    <NavigationBar navigationType="white">Example content</NavigationBar>
+  </Story>
+</Canvas>
+
+### Black Theme
+
+<Canvas>
+  <Story name="black theme">
+    <NavigationBar navigationType="black">Example content</NavigationBar>
+  </Story>
+</Canvas>
+
+### Loading State
 
 If `isLoading={true}` the children will not be visible
 
 <Canvas>
-  <Story name="dark theme isLoading" parameters={{ info: { disable: true } }}>
-    <NavigationBar navigationType="dark" isLoading>
+  <Story name="isLoading">
+    <NavigationBar isLoading>
       <Menu>
         <MenuItem>menu item one</MenuItem>
         <MenuItem>menu item two</MenuItem>
@@ -78,7 +79,7 @@ The spacing props (see prop table below) accept either a number between 1 and 8 
 valid CSS string.
 
 <Canvas>
-  <Story name="with custom spacing" parameters={{ info: { disable: true } }}>
+  <Story name="with custom spacing">
     <NavigationBar py={2} px={7}>
       <Menu>
         <MenuItem>menu item one</MenuItem>
@@ -91,10 +92,7 @@ valid CSS string.
 ### Set content max width using Box
 
 <Canvas>
-  <Story
-    name="content max width using Box"
-    parameters={{ info: { disable: true } }}
-  >
+  <Story name="content max width using Box">
     <NavigationBar>
       <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
         <SageIcon style={{ alignSelf: "center" }} />
@@ -132,7 +130,7 @@ valid CSS string.
 The `stickyPosition` prop can be used to make the navigation bar stick to the top or bottom of it's nearest scrolling ancestor. Then the position relative to the top/bottom can be offset using the `stickyOffset` prop.
 
 <Canvas>
-  <Story name="sticky" parameters={{ info: { disable: true } }}>
+  <Story name="sticky">
     <div style={{ overflow: "scroll" }}>
       <div
         style={{

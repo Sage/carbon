@@ -123,7 +123,7 @@ describe("Dialog", () => {
           open
           subtitle="Test"
           title="Test"
-          ariaRole="dialog"
+          role="dialog"
         >
           {undefined}
           Hello world
@@ -375,7 +375,7 @@ describe("Dialog", () => {
             onCancel={onCancel}
             onConfirm={() => {}}
             height="500"
-            ariaRole="dialog"
+            role="dialog"
             data-element="bar"
             data-role="baz"
           >
@@ -429,17 +429,16 @@ describe("Dialog", () => {
           open
           subtitle="Test"
           title="Test"
-          ariaRole="dialog"
+          role="dialog"
         />
       );
     });
 
-    describe("when title, subtitle, and ariaRole are not set", () => {
-      it(`does not render a role attribute from the ariaRole prop,
-      aria-labelledby pointing at the title element or
+    describe("when title or subtitle are not set", () => {
+      it(`does not render aria-labelledby pointing at the title element or
       an aria-describedby attribute pointing at the subtitle element`, () => {
         wrapper = mount(
-          <Dialog onCancel={() => {}} onConfirm={() => {}} open ariaRole="" />
+          <Dialog onCancel={() => {}} onConfirm={() => {}} open />
         );
 
         expect(
@@ -499,6 +498,62 @@ describe("Dialog", () => {
 
       const firstFocusableElement = document.querySelector("input");
       expect(document.activeElement).not.toBe(firstFocusableElement);
+    });
+  });
+
+  describe("ARIA attributes", () => {
+    describe("when a title is specified as string", () => {
+      it("then the container should have aria-labeledby attribute set to it's title id", () => {
+        wrapper = mount(<Dialog open title="Test" />);
+
+        expect(
+          wrapper
+            .find("[data-element='dialog']")
+            .first()
+            .prop("aria-labelledby")
+        ).toBe("carbon-dialog-title");
+      });
+    });
+
+    describe("when the aria-labelledby prop is specified", () => {
+      it("then the container should have the same aria-labeledby attribute", () => {
+        const titleId = "foo";
+
+        wrapper = mount(
+          <Dialog
+            aria-labelledby={titleId}
+            open
+            title={<div id={titleId}>Foo</div>}
+          />
+        );
+
+        expect(
+          wrapper
+            .find("[data-element='dialog']")
+            .first()
+            .prop("aria-labelledby")
+        ).toBe(titleId);
+      });
+    });
+
+    describe("when the role prop is specified", () => {
+      it("then the container should have the same role attribute", () => {
+        const dialogRole = "foo";
+        wrapper = mount(<Dialog open role={dialogRole} />);
+        expect(
+          wrapper.find("[data-element='dialog']").first().prop("role")
+        ).toBe(dialogRole);
+      });
+    });
+
+    describe("when the aria-label prop is specified", () => {
+      it("then the container should have the same aria-label attribute", () => {
+        const label = "foo";
+        wrapper = mount(<Dialog open aria-label={label} />);
+        expect(
+          wrapper.find("[data-element='dialog']").first().prop("aria-label")
+        ).toBe(label);
+      });
     });
   });
 });

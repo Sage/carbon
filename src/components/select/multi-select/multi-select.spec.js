@@ -135,9 +135,9 @@ describe("MultiSelect", () => {
   });
 
   it.each([
-    ["small", "32px"],
-    ["medium", "40px"],
-    ["large", "48px"],
+    ["small", "var(--sizing400)"],
+    ["medium", "var(--sizing500)"],
+    ["large", "var(--sizing600)"],
   ])("the input toggle icon should have proper left margin", (a, expected) => {
     const wrapper = renderSelect({ size: a });
     assertStyleMatch(

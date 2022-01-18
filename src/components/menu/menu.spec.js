@@ -53,21 +53,24 @@ describe("Menu", () => {
   });
 
   describe("VerticalDivider in Menu", () => {
-    it("applies the expected styling by default", () => {
-      wrapper = mount(
-        <Menu>
-          <VerticalDivider />
-        </Menu>
-      );
+    it.each(["light", "white", "dark", "black"])(
+      "applies the expected styling for %s menuType",
+      (menuType) => {
+        wrapper = mount(
+          <Menu menuType={menuType}>
+            <VerticalDivider />
+          </Menu>
+        );
 
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.menu.light.background,
-        },
-        wrapper.find(StyledMenuWrapper),
-        { modifier: `${StyledVerticalWrapper}` }
-      );
-    });
+        assertStyleMatch(
+          {
+            backgroundColor: baseTheme.menu[menuType].background,
+          },
+          wrapper.find(StyledMenuWrapper),
+          { modifier: `${StyledVerticalWrapper}` }
+        );
+      }
+    );
 
     it('applies the expected styling when menuType is "dark"', () => {
       wrapper = mount(
