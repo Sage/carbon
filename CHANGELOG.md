@@ -1,3 +1,10 @@
+## [102.14.0](https://github.com/Sage/carbon/compare/v102.13.2...v102.14.0) (2022-01-18)
+
+
+### Features
+
+* **textbox:** describe textbox component using design-tokens ([04100c1](https://github.com/Sage/carbon/commit/04100c1a497ae746ec806a53159d93855a987564))
+
 ### [102.13.2](https://github.com/Sage/carbon/compare/v102.13.1...v102.13.2) (2022-01-17)
 
 
