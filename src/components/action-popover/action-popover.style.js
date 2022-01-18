@@ -1,5 +1,4 @@
-import React from "react";
-import styled, { ThemeProvider, css, withTheme } from "styled-components";
+import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
 import Icon from "../icon";
@@ -10,11 +9,12 @@ import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
 const Menu = styled.div`
   ${({ isOpen }) => (isOpen ? "display: block;" : "visibility: hidden;")}
   margin: 0;
-  padding: ${({ theme }) => `${theme.spacing}px 0`};
-  box-shadow: ${({ theme }) => theme.shadows.depth1};
+  padding: var(--spacing100) 0;
+  box-shadow: var(--boxShadow100);
   position: absolute;
-  background-color: ${({ theme }) => theme.colors.white};
-  z-index: ${({ theme }) => `${theme.zIndex.popover}`};
+  background-color: var(--colorsUtilityYang100);
+  z-index: ${({ theme }) =>
+    `${theme.zIndex.popover}`}; // TODO (tokens): implement elevation tokens - FE-4437
 `;
 
 const StyledMenuItem = styled.div`
@@ -24,7 +24,7 @@ const StyledMenuItem = styled.div`
 const MenuItemFactory = (button) => styled(button)`
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   box-sizing: border-box;
-  ${({ theme }) => `padding: 0 ${theme.spacing * 3}px;`}
+  padding: 0 var(--spacing150);
   position: relative;
   line-height: 40px;
   white-space: nowrap;
@@ -33,8 +33,8 @@ const MenuItemFactory = (button) => styled(button)`
   align-items: center;
   border: none;
   width: 100%;
-  color: ${({ disabled, theme }) =>
-    disabled ? theme.menu.itemColorDisabled : theme.menu.itemColor};
+  color: ${({ disabled }) =>
+    disabled ? "var(--colorsUtilityYin030)" : "var(--colorsUtilityYin090)"};
   font-size: 14px;
   font-weight: 700;
   justify-content: ${({ horizontalAlignment }) =>
@@ -44,12 +44,12 @@ const MenuItemFactory = (button) => styled(button)`
     ${({ disabled }) =>
       !disabled &&
       css`
-        background-color: ${({ theme }) => theme.menu.focus};
+        background-color: var(--colorsUtilityMajor025);
       `}
   }
   &:focus {
-    outline: none;
-    box-shadow: inset 0px 0px 0px 2px ${({ theme }) => theme.colors.focus};
+    outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+    z-index: 1;
   }
   ${({ disabled }) =>
     !disabled &&
@@ -63,7 +63,7 @@ const MenuItemFactory = (button) => styled(button)`
     css`
       && ${StyledIcon} {
         cursor: not-allowed;
-        color: inherit;
+        color: var(--colorsUtilityYin030);
       }
     `}
 `;
@@ -71,9 +71,9 @@ const MenuItemFactory = (button) => styled(button)`
 const MenuItemDivider = styled.div.attrs({
   "data-element": "action-popover-divider",
 })`
-  background-color: ${({ theme }) => theme.menu.divider};
-  height: 1px;
-  margin: 9px;
+  background-color: var(--colorsUtilityMajor050);
+  height: var(--borderWidth100);
+  margin: var(--spacing100) var(--spacing150);
 `;
 
 const MenuButton = styled.div`
@@ -84,90 +84,61 @@ const MenuButton = styled.div`
   width: fit-content;
   margin: auto;
   ${margin}
-  ${({ isOpen, theme }) => isOpen && `background-color: ${theme.colors.white}`}
 `;
 
-/**
- * Creates a factory that returns a styled component with a custom
- * theme provider wrapped around it
- * @param {*} themeFn
- */
-const iconThemeProviderFactory = (Component, themeFn) =>
-  withTheme(({ theme, ...props }) => {
-    const color = themeFn(theme.palette);
-    const customTheme = {
-      ...theme,
-      icon: {
-        default: color,
-        defaultHover: color,
-      },
-    };
-    return (
-      <ThemeProvider theme={customTheme}>
-        <Component {...props} />
-      </ThemeProvider>
-    );
-  });
+const ButtonIcon = styled(Icon)`
+  color: var(--colorsActionMinor500);
 
-const ButtonIcon = iconThemeProviderFactory(Icon, (palette) => palette.slate);
+  :hover {
+    color: var(--colorsActionMinor600);
+  }
+`;
 
 const StyledButtonIcon = styled.div`
-  &:hover,
   &:focus {
-    background-color: ${({ theme }) => theme.colors.white};
-  }
-
-  &:focus {
-    outline: 2px solid ${({ theme }) => theme.colors.focus};
+    outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
   }
 `;
 
-const MenuItemIcon = styled(iconThemeProviderFactory(Icon, () => "inherit"))`
-  ${({ theme, horizontalAlignment }) => css`
-    ${horizontalAlignment === "right"
-      ? "padding-left"
-      : "padding-right"}: ${theme.spacing}px;
-  `}
+const MenuItemIcon = styled(Icon)`
+  padding: var(--spacing100);
+  color: var(--colorsUtilityYin065);
 `;
 
 const SubMenuItemIcon = styled(ButtonIcon)`
-  ${({ theme, type }) => css`
+  ${({ type }) => css`
     position: absolute;
-    &,
-    :hover {
-      color: ${theme.colors.border};
-    }
     ${type === "chevron_left" &&
     css`
-      left: 0px;
+      left: -2px;
     `}
 
     ${type === "chevron_right" &&
     css`
-      right: 0px;
+      right: -5px;
       ${isSafari(navigator) &&
       css`
-        top: ${theme.spacing}px;
+        top: var(--sizing100);
       `}
     `}
   `}
 `;
 
 const MenuButtonOverrideWrapper = styled.div`
-  ${({ theme }) => css`
-    ${StyledButton} {
-      padding: 0px ${theme.spacing}px;
-      width: 100%;
-      &:focus {
-        outline-width: 2px;
-      }
+  ${StyledButton} {
+    padding: 0px var(--sizing100);
+    width: 100%;
 
-      &:hover,
-      &:focus {
-        background-color: ${theme.colors.white};
+    &:hover,
+    &:focus {
+      background-color: var(--colorsActionMajorTransparent);
+      color: var(--colorsActionMajor600);
+
+      span[color] {
+        color: var(--colorsActionMajor600);
       }
     }
-  `}
+  }
 `;
 
 export {
