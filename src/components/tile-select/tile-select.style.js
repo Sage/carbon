@@ -53,8 +53,6 @@ const StyledTileSelect = styled.div`
         color: var(--colorsActionMinorYin030);
       }
       ${StyledAdornment} * {
-        color: var(--colorsActionMinorYin030);
-        fill: var(--colorsActionMinorYin030);
         opacity: 0.3;
       }
     `}
