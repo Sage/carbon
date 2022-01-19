@@ -7,7 +7,7 @@ If applicable, add screenshots of a codesandbox to help explain your request. Yo
 
 Please DO NOT share screenshots or the source code of your project.
 
-You can create a codesandbox to show the behaviour before/after this pull request by forking this template https://codesandbox.io/s/carbon-quickstart-xi5jc
+You can create a codesandbox to show the behaviour before/after this pull request by forking this template https://codesandbox.io/s/carbon-quickstart-j5pb2
 
 If you include a CodeSandbox link, the bot will fork it with the new built version of carbon.
 If you have a commit that includes fixes #123 and issue #123 has a CodeSandbox link in the body, the bot will fork
