@@ -7,7 +7,6 @@ import StyledInput from "./input.style";
 import { InputContext } from "../input-behaviour";
 
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import baseTheme from "../../style/themes/base";
 
 describe("Input", () => {
   let container;
@@ -61,7 +60,7 @@ describe("Input", () => {
 
     assertStyleMatch(
       {
-        color: baseTheme.readOnly.textboxText,
+        color: "var(--colorsActionMinorYin090)",
       },
       wrapper
     );

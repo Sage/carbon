@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import baseTheme from "../../style/themes/base";
 import sizes from "./input-sizes.style";
 
 export const StyledInputPresentationContainer = styled.div`
@@ -12,7 +11,7 @@ export const StyledInputPresentationContainer = styled.div`
 const InputPresentationStyle = styled.div`
   align-items: stretch;
   background: #fff;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid var(--colorsUtilityMajor300);
   box-sizing: border-box;
   cursor: text;
   display: flex;
@@ -23,31 +22,31 @@ const InputPresentationStyle = styled.div`
   padding-left: ${({ size }) => sizes[size].horizontalPadding};
   padding-right: ${({ size }) => sizes[size].horizontalPadding};
 
-  ${({ disabled, theme }) =>
+  ${({ disabled }) =>
     disabled &&
     css`
-      background: ${theme.disabled.input};
-      border-color: ${theme.disabled.border};
+      background: var(--colorsUtilityDisabled400);
+      border-color: var(--colorsUtilityDisabled600);
       cursor: not-allowed;
     `}
 
-  ${({ hasFocus, theme, disabled }) =>
+  ${({ hasFocus, disabled }) =>
     hasFocus &&
     !disabled &&
     css`
-      && {
-        outline: 3px solid ${theme.colors.focus};
+      & {
+        outline: 3px solid var(--colorsSemanticFocus500);
         z-index: 2;
       }
     `}
 
   ${stylingForValidations}
 
-  ${({ readOnly, theme }) =>
+  ${({ readOnly }) =>
     readOnly &&
     css`
-      background-color: ${theme.readOnly.textboxBackground};
-      border-color: ${theme.readOnly.textboxBorder};
+      background-color: var(--colorsUtilityReadOnly400);
+      border-color: var(--colorsUtilityReadOnly600);
     `}
 
   ${({ align }) => align === "right" && "flex-direction: row-reverse"}
@@ -60,7 +59,7 @@ const InputPresentationStyle = styled.div`
   }
 `;
 
-function stylingForValidations({ theme, error, warning, info, disabled }) {
+function stylingForValidations({ error, warning, info, disabled }) {
   let validationColor;
 
   if (disabled) {
@@ -68,11 +67,11 @@ function stylingForValidations({ theme, error, warning, info, disabled }) {
   }
 
   if (error) {
-    validationColor = theme.colors.error;
+    validationColor = "var(--colorsSemanticNegative500)";
   } else if (warning) {
-    validationColor = theme.colors.warning;
+    validationColor = "var(--colorsSemanticCaution500)";
   } else if (info) {
-    validationColor = theme.colors.info;
+    validationColor = "var(--colorsSemanticInfo500)";
   } else {
     return "";
   }
@@ -87,7 +86,6 @@ function stylingForValidations({ theme, error, warning, info, disabled }) {
 
 InputPresentationStyle.defaultProps = {
   size: "medium",
-  theme: baseTheme,
 };
 
 InputPresentationStyle.propTypes = {
