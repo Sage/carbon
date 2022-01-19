@@ -208,8 +208,6 @@ describe("TileSelect", () => {
 
       assertStyleMatch(
         {
-          color: "var(--colorsActionMinorYin030)",
-          fill: "var(--colorsActionMinorYin030)",
           opacity: "0.3",
         },
         wrapper.find(StyledTileSelect),
