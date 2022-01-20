@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import Help from "../../components/help";
 import StyledLabel, { StyledLabelContainer } from "./label.style";
@@ -36,9 +36,8 @@ const Label = ({
   pl,
   isRequired,
 }) => {
-  const { hasFocus, hasMouseOver, onMouseEnter, onMouseLeave } = useContext(
-    InputContext
-  );
+  const [isFocused, setFocus] = useState(false);
+  const { onMouseEnter, onMouseLeave } = useContext(InputContext);
   const {
     onMouseEnter: onGroupMouseEnter,
     onMouseLeave: onGroupMouseLeave,
@@ -55,6 +54,11 @@ const Label = ({
   };
 
   const icon = () => {
+    const wrapperProps = {
+      onFocus: () => setFocus(true),
+      onBlur: () => setFocus(false),
+    };
+
     if (
       useValidationIcon &&
       shouldDisplayValidationIcon({
@@ -86,12 +90,12 @@ const Label = ({
 
     return (
       help && (
-        <IconWrapperStyle>
+        <IconWrapperStyle {...wrapperProps}>
           <Help
             tooltipId={tooltipId}
             tabIndex={helpTabIndex}
             type={helpIcon}
-            isFocused={hasFocus || hasMouseOver}
+            isFocused={isFocused}
           >
             {help}
           </Help>
