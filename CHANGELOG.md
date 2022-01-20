@@ -1,3 +1,10 @@
+## [102.18.0](https://github.com/Sage/carbon/compare/v102.17.0...v102.18.0) (2022-01-20)
+
+
+### Features
+
+* **select:** describe select component using tokens ([5223f36](https://github.com/Sage/carbon/commit/5223f36b879623a88ee2a73dc61d34f3cd98d2e2))
+
 ## [102.17.0](https://github.com/Sage/carbon/compare/v102.16.1...v102.17.0) (2022-01-20)
 
 
