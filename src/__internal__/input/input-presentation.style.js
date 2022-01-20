@@ -69,7 +69,7 @@ function stylingForValidations({ error, warning, info, disabled }) {
   if (error) {
     validationColor = "var(--colorsSemanticNegative500)";
   } else if (warning) {
-    validationColor = "var(--colorsSemanticCaution500)";
+    validationColor = "var(--colorsUtilityMajor300)";
   } else if (info) {
     validationColor = "var(--colorsSemanticInfo500)";
   } else {
