@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import baseTheme from "../../style/themes/base";
 
 interface StyledValidationMessageProps {
   isWarning?: boolean;
@@ -15,9 +14,5 @@ const StyledValidationMessage = styled.p<StyledValidationMessageProps>`
     margin-bottom: 8px;
   `}
 `;
-
-StyledValidationMessage.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledValidationMessage;

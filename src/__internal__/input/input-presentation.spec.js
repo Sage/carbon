@@ -51,7 +51,7 @@ describe("InputPresentation", () => {
 
     describe.each([
       ["error", "var(--colorsSemanticNegative500)"],
-      ["warning", "var(--colorsSemanticCaution500)"],
+      ["warning", "var(--colorsUtilityMajor300)"],
       ["info", "var(--colorsSemanticInfo500)"],
     ])("when %s prop is set to true", (state, token) => {
       it("has the right style", () => {
@@ -69,7 +69,7 @@ describe("InputPresentation", () => {
 
     describe.each([
       ["error", "var(--colorsSemanticNegative500)"],
-      ["warning", "var(--colorsSemanticCaution500)"],
+      ["warning", "var(--colorsUtilityMajor300)"],
       ["info", "var(--colorsSemanticInfo500)"],
     ])("when %s prop is a string", (state, token) => {
       it("has the right style", () => {

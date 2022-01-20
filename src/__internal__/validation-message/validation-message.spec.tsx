@@ -27,13 +27,14 @@ describe("ValidationMessage component", () => {
 
   it.each(addColorId(validationWithStrings))(
     "applies the expected styling when passed error string equals `%s` and warning string equals `%s`",
-    (error, warning, colorId) => {
+    (error, warning) => {
       wrapper = render({ error, warning });
-      const color = baseTheme.colors[colorId];
 
       assertStyleMatch(
         {
-          color,
+          color: error
+            ? "var(--colorsSemanticNegative500)"
+            : "var(--colorsSemanticCaution600)",
           fontWeight: error ? "bold" : "regular",
           marginTop: "0px",
           marginBottom: "8px",
