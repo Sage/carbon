@@ -1,3 +1,10 @@
+## [102.17.0](https://github.com/Sage/carbon/compare/v102.16.1...v102.17.0) (2022-01-20)
+
+
+### Features
+
+* **carousel:** describe Carousel using design tokens (FE-4721) ([dee97ea](https://github.com/Sage/carbon/commit/dee97eabb265e73c777269ba9f6c4ed0e0f78a80))
+
 ### [102.16.1](https://github.com/Sage/carbon/compare/v102.16.0...v102.16.1) (2022-01-19)
 
 
