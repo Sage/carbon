@@ -9,6 +9,7 @@ import FocusTrap from "../../__internal__/focus-trap";
 import SidebarHeader from "./__internal__/sidebar-header";
 import Box from "../box";
 import { SIDEBAR_SIZES, SIDEBAR_ALIGNMENTS } from "./sidebar.config";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 export const SidebarContext = React.createContext({});
 
@@ -31,12 +32,18 @@ const Sidebar = React.forwardRef(
     },
     ref
   ) => {
+    const locale = useLocale();
+
     let sidebarRef = useRef();
     if (ref) sidebarRef = ref;
     const closeIcon = () => {
       if (!onCancel) return null;
       return (
-        <IconButton aria-label="close" onAction={onCancel} data-element="close">
+        <IconButton
+          aria-label={locale.sidebar.ariaLabels.close()}
+          onAction={onCancel}
+          data-element="close"
+        >
           <Icon type="close" />
         </IconButton>
       );
