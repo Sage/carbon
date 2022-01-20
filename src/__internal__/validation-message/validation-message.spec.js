@@ -3,7 +3,6 @@ import { mount } from "enzyme";
 import ValidationMessage from ".";
 import StyledValidationMessage from "./validation-message.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import { baseTheme } from "../../style/themes";
 
 const render = (props) => mount(<ValidationMessage {...props} />);
 
@@ -26,13 +25,14 @@ describe("ValidationMessage component", () => {
 
   it.each(addColorId(validationWithStrings))(
     "applies the expected styling when passed error string equals `%s` and warning string equals `%s`",
-    (error, warning, colorId) => {
+    (error, warning) => {
       wrapper = render({ error, warning });
-      const color = baseTheme.colors[colorId];
 
       assertStyleMatch(
         {
-          color,
+          color: error
+            ? "var(--colorsSemanticNegative500)"
+            : "var(--colorsSemanticCaution600)",
           fontWeight: error ? "bold" : "regular",
           marginTop: "0px",
           marginBottom: "8px",

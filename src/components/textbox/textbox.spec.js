@@ -353,7 +353,7 @@ describe("Textbox", () => {
             fontSize: "14px",
             marginTop: "0px",
             marginBottom: "8px",
-            color: baseTheme.colors.placeholder,
+            color: "var(--colorsUtilityYin055)",
           },
           wrapper.find(StyledHintText)
         );
