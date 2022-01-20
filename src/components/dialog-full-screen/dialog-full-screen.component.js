@@ -10,6 +10,7 @@ import StyledContent from "./content.style";
 import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 const DialogFullScreen = ({
   "aria-describedby": ariaDescribedBy,
@@ -32,6 +33,8 @@ const DialogFullScreen = ({
   role = "dialog",
   ...rest
 }) => {
+  const locale = useLocale();
+
   const dialogRef = useRef();
   const headingRef = useRef();
   const { current: titleId } = useRef(createGuid());
@@ -43,7 +46,7 @@ const DialogFullScreen = ({
     return (
       <IconButton
         data-element="close"
-        aria-label="Close button"
+        aria-label={locale.dialogFullScreen.ariaLabels.close()}
         onAction={onCancel}
       >
         <Icon type="close" />
