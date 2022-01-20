@@ -4,7 +4,6 @@ import BaseCarousel, { Carousel, Slide } from "./carousel.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   CarouselPreviousButtonWrapperStyle,
-  CarouselStyledIcon,
   CarouselButtonStyle,
   CarouselSliderWrapper,
   CarouselSelectorWrapperStyle,
@@ -12,7 +11,6 @@ import {
   CarouselSelectorInputWrapperStyle,
   CarouselNextButtonWrapperStyle,
 } from "./carousel.style";
-import mintTheme from "../../style/themes/mint";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
 describe("Carousel", () => {
@@ -267,30 +265,8 @@ describe("CarouselPreviousButtonWrapperStyle", () => {
   });
 });
 
-describe("CarouselStyledIcon", () => {
-  it("should render matched style when modern themed", () => {
-    const wrapper = mount(<CarouselStyledIcon type="home" theme={mintTheme} />);
-    assertStyleMatch(
-      {
-        color: "var(--colorsYin065)",
-      },
-      wrapper
-    );
-  });
-});
-
 describe("CarouselButtonStyle", () => {
   let wrapper;
-
-  it("should render matched style when it is disabled", () => {
-    wrapper = mount(<CarouselButtonStyle disabled />);
-    assertStyleMatch(
-      {
-        opacity: "0.1",
-      },
-      wrapper
-    );
-  });
 
   it("should render matched style", () => {
     wrapper = mount(<CarouselButtonStyle />);
@@ -298,7 +274,6 @@ describe("CarouselButtonStyle", () => {
       {
         width: "40px",
         height: "64px",
-        color: "#FFFFFF",
       },
       wrapper
     );
@@ -358,7 +333,7 @@ describe("CarouselSelectorLabelStyle", () => {
 
     assertStyleMatch(
       {
-        background: "#CCD6DB",
+        background: "var(--colorsActionMinor200)",
         width: "10px",
         height: "10px",
         margin: "0px 4px",
