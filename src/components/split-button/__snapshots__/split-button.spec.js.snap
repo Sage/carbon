@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SplitButton for business themes renders styles correctly 1`] = `
+exports[`SplitButton for mint and aegean themes renders styles correctly 1`] = `
 .c5 {
   position: relative;
   color: #008200;

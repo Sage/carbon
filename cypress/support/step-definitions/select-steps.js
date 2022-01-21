@@ -72,14 +72,14 @@ When("I click on default Select input", () => {
 When("{string} option on the list is hovered over", (position) => {
   selectOption(positionOfElement(position))
     .should("have.attr", "aria-selected", "true")
-    .and("have.css", "background-color", "rgb(242, 245, 246)");
+    .and("have.css", "background-color", "rgb(153, 173, 183)");
 });
 
 When("{string} option on the list is highlighted", (position) => {
   selectOption(positionOfElement(position)).should(
     "have.css",
     "background-color",
-    "rgb(242, 245, 246)"
+    "rgb(153, 173, 183)"
   );
 });
 

@@ -4,16 +4,13 @@ import StyledMenuItemWrapper from "../menu-item/menu-item.style";
 
 const StyledSubmenuBlock = styled.div`
   ${({ menuType, theme, variant }) => css`
-    ${menuType === "dark" &&
-    css`
-      background-color: ${theme.menu.dark.submenuBackground};
+    background-color: ${theme.menu[menuType].submenuBackground};
 
-      ${StyledMenuItemWrapper} {
-        background-color: ${variant === "default"
-          ? "transparent"
-          : theme.menu.dark.alternate};
-      }
-    `}
+    ${StyledMenuItemWrapper} {
+      background-color: ${variant === "default"
+        ? "transparent"
+        : theme.menu[menuType].alternate};
+    }
   `}
 `;
 

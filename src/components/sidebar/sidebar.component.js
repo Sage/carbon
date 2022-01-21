@@ -15,6 +15,9 @@ export const SidebarContext = React.createContext({});
 const Sidebar = React.forwardRef(
   (
     {
+      "aria-describedby": ariaDescribedBy,
+      "aria-label": ariaLabel,
+      "aria-labelledby": ariaLabelledBy,
       open,
       disableEscKey,
       enableBackgroundUI,
@@ -23,6 +26,7 @@ const Sidebar = React.forwardRef(
       size,
       children,
       onCancel,
+      role = "dialog",
       ...rest
     },
     ref
@@ -46,12 +50,16 @@ const Sidebar = React.forwardRef(
 
     const sidebar = (
       <SidebarStyle
+        aria-modal={!enableBackgroundUI}
+        aria-describedby={ariaDescribedBy}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
         ref={sidebarRef}
         position={position}
         size={size}
         data-element="sidebar"
-        role="complementary"
         onCancel={onCancel}
+        role={role}
       >
         {closeIcon()}
         {header && <SidebarHeader>{header}</SidebarHeader>}
@@ -90,6 +98,12 @@ const Sidebar = React.forwardRef(
 );
 
 Sidebar.propTypes = {
+  /** Prop to specify the aria-describedby property of the component */
+  "aria-describedby": PropTypes.string,
+  /** Prop to specify the aria-label of the component */
+  "aria-label": PropTypes.string,
+  /** Prop to specify the aria-labeledby property of the component */
+  "aria-labelledby": PropTypes.string,
   /** Modal content */
   children: PropTypes.node,
   /** A custom close event handler */
@@ -106,6 +120,8 @@ Sidebar.propTypes = {
   size: PropTypes.oneOf(SIDEBAR_SIZES),
   /** Node that will be used as sidebar header. */
   header: PropTypes.node,
+  /** The ARIA role to be applied to the container */
+  role: PropTypes.string,
 };
 
 Sidebar.defaultProps = {

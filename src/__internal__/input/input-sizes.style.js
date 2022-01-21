@@ -1,23 +1,14 @@
 export default {
   small: {
-    height: "32px",
-    verticalPadding: "7px",
-    horizontalPadding: "8px",
-    tooltipVerticalOffset: 3,
-    tooltipHorizontalOffset: 1,
+    height: "var(--sizing400)",
+    horizontalPadding: "var(--spacing100)",
   },
   medium: {
-    height: "40px",
-    verticalPadding: "12px",
-    horizontalPadding: "11px",
-    tooltipVerticalOffset: 6,
-    tooltipHorizontalOffset: 4,
+    height: "var(--sizing500)",
+    horizontalPadding: "var(--spacing150)",
   },
   large: {
-    height: "48px",
-    verticalPadding: "15px",
-    horizontalPadding: "13px",
-    tooltipVerticalOffset: 10,
-    tooltipHorizontalOffset: 6,
+    height: "var(--sizing600)",
+    horizontalPadding: "var(--spacing200)",
   },
 };

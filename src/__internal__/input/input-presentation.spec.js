@@ -5,7 +5,6 @@ import { InputPresentation } from ".";
 import InputPresentationStyle, {
   StyledInputPresentationContainer,
 } from "./input-presentation.style";
-import baseTheme from "../../style/themes/base";
 import sizes from "./input-sizes.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { InputContext, InputGroupContext } from "../input-behaviour";
@@ -50,43 +49,41 @@ describe("InputPresentation", () => {
       });
     });
 
-    describe.each([["error"], ["warning"], ["info"]])(
-      "when %s prop is set to true",
-      (validation) => {
-        it("has the right style", () => {
-          const boxShadow =
-            `inset 1px 1px 0 ${baseTheme.colors[validation]},` +
-            `inset -1px -1px 0 ${baseTheme.colors[validation]}`;
+    describe.each([
+      ["error", "var(--colorsSemanticNegative500)"],
+      ["warning", "var(--colorsSemanticCaution500)"],
+      ["info", "var(--colorsSemanticInfo500)"],
+    ])("when %s prop is set to true", (state, token) => {
+      it("has the right style", () => {
+        const boxShadow = `inset 1px 1px 0 ${token},inset -1px -1px 0 ${token}`;
 
-          assertStyleMatch(
-            {
-              borderColor: `${baseTheme.colors[validation]} !important`,
-              boxShadow: validation === "error" ? boxShadow : undefined,
-            },
-            render({ [validation]: true }).find(InputPresentationStyle)
-          );
-        });
-      }
-    );
+        assertStyleMatch(
+          {
+            borderColor: `${token} !important`,
+            boxShadow: state === "error" ? boxShadow : undefined,
+          },
+          render({ [state]: true }).find(InputPresentationStyle)
+        );
+      });
+    });
 
-    describe.each([["error"], ["warning"], ["info"]])(
-      "when %s prop is a string",
-      (validation) => {
-        it("has the right style", () => {
-          const boxShadow =
-            `inset 1px 1px 0 ${baseTheme.colors[validation]},` +
-            `inset -1px -1px 0 ${baseTheme.colors[validation]}`;
+    describe.each([
+      ["error", "var(--colorsSemanticNegative500)"],
+      ["warning", "var(--colorsSemanticCaution500)"],
+      ["info", "var(--colorsSemanticInfo500)"],
+    ])("when %s prop is a string", (state, token) => {
+      it("has the right style", () => {
+        const boxShadow = `inset 1px 1px 0 ${token},inset -1px -1px 0 ${token}`;
 
-          assertStyleMatch(
-            {
-              borderColor: `${baseTheme.colors[validation]} !important`,
-              boxShadow: validation === "error" ? boxShadow : undefined,
-            },
-            render({ [validation]: "Message" }).find(InputPresentationStyle)
-          );
-        });
-      }
-    );
+        assertStyleMatch(
+          {
+            borderColor: `${token} !important`,
+            boxShadow: state === "error" ? boxShadow : undefined,
+          },
+          renderWithContext({ [state]: "Message" }).find(InputPresentationStyle)
+        );
+      });
+    });
 
     describe('when align prop is passed as "right"', () => {
       it("has the correct style rules", () => {
@@ -101,8 +98,8 @@ describe("InputPresentation", () => {
       it("has the correct style rules", () => {
         assertStyleMatch(
           {
-            background: baseTheme.disabled.input,
-            borderColor: baseTheme.disabled.border,
+            background: "var(--colorsUtilityDisabled400)",
+            borderColor: "var(--colorsUtilityDisabled600)",
             cursor: "not-allowed",
           },
           render({ disabled: true }).find(InputPresentationStyle)
@@ -114,8 +111,8 @@ describe("InputPresentation", () => {
       it("has the correct style rules", () => {
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.readOnly.textboxBackground,
-            borderColor: baseTheme.readOnly.textboxBorder,
+            backgroundColor: "var(--colorsUtilityReadOnly400)",
+            borderColor: "var(--colorsUtilityReadOnly600)",
           },
           render({ readOnly: true }).find(InputPresentationStyle)
         );
@@ -126,9 +123,11 @@ describe("InputPresentation", () => {
       it("has the correct style rules", () => {
         assertStyleMatch(
           {
-            border: "1px solid #668592",
+            outline: "3px solid var(--colorsSemanticFocus500)",
           },
-          render({ readOnly: true }).find(InputPresentationStyle)
+          renderWithContext({}, {}, { hasFocus: true }).find(
+            InputPresentationStyle
+          )
         );
       });
     });

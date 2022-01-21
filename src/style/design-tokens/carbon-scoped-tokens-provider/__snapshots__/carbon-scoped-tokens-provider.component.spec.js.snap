@@ -3,7 +3,7 @@
 exports[`CarbonScopedTokensProvider should render css variables for all themes 1`] = `
 Array [
   CSSStyleRule {
-    "__ends": 10567,
+    "__ends": 10569,
     "__starts": 45,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
@@ -112,7 +112,7 @@ Array [
       "--colorsSemanticNeutralYin055": "#0000008c",
       "--colorsSemanticNeutralYin065": "#000000a6",
       "--colorsSemanticNeutralYin090": "#000000e6",
-      "--colorsSemanticPositive500": "#00B000",
+      "--colorsSemanticPositive500": "#008a21ff",
       "--colorsSemanticPositive600": "#006e1aff",
       "--colorsSemanticPositiveTransparent": "#00000000",
       "--colorsSemanticPositiveYang100": "#ffffffff",
@@ -905,8 +905,8 @@ Array [
     },
   },
   CSSStyleRule {
-    "__ends": 21088,
-    "__starts": 10568,
+    "__ends": 21092,
+    "__starts": 10570,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
@@ -930,7 +930,7 @@ Array [
       "--colorsActionDisabled600": "#ccd6dbff",
       "--colorsActionMajor025": "#f2f9f6ff",
       "--colorsActionMajor150": "#B3E3D6",
-      "--colorsActionMajor500": "#00815D",
+      "--colorsActionMajor500": "#007D5A",
       "--colorsActionMajor600": "#006046",
       "--colorsActionMajor700": "#004d2aff",
       "--colorsActionMajorTransparent": "#00000000",
@@ -1014,7 +1014,7 @@ Array [
       "--colorsSemanticNeutralYin055": "#0000008c",
       "--colorsSemanticNeutralYin065": "#000000a6",
       "--colorsSemanticNeutralYin090": "#000000e6",
-      "--colorsSemanticPositive500": "#00B000",
+      "--colorsSemanticPositive500": "#008a21ff",
       "--colorsSemanticPositive600": "#006e1aff",
       "--colorsSemanticPositiveTransparent": "#00000000",
       "--colorsSemanticPositiveYang100": "#ffffffff",
@@ -1504,7 +1504,7 @@ Array [
       "97": "--colorsSemanticPositiveYin055",
       "98": "--colorsSemanticPositiveYin065",
       "99": "--colorsSemanticPositiveYin090",
-      "__starts": 10597,
+      "__starts": 10599,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",
@@ -1807,8 +1807,8 @@ Array [
     },
   },
   CSSStyleRule {
-    "__ends": 31609,
-    "__starts": 21089,
+    "__ends": 31615,
+    "__starts": 21093,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
@@ -1916,7 +1916,7 @@ Array [
       "--colorsSemanticNeutralYin055": "#0000008c",
       "--colorsSemanticNeutralYin065": "#000000a6",
       "--colorsSemanticNeutralYin090": "#000000e6",
-      "--colorsSemanticPositive500": "#00B000",
+      "--colorsSemanticPositive500": "#008a21ff",
       "--colorsSemanticPositive600": "#006e1aff",
       "--colorsSemanticPositiveTransparent": "#00000000",
       "--colorsSemanticPositiveYang100": "#ffffffff",
@@ -2406,7 +2406,7 @@ Array [
       "97": "--colorsSemanticPositiveYin055",
       "98": "--colorsSemanticPositiveYin065",
       "99": "--colorsSemanticPositiveYin090",
-      "__starts": 21118,
+      "__starts": 21122,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",
@@ -2709,8 +2709,8 @@ Array [
     },
   },
   CSSStyleRule {
-    "__ends": 42161,
-    "__starts": 31610,
+    "__ends": 42167,
+    "__starts": 31616,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
@@ -3308,7 +3308,7 @@ Array [
       "97": "--colorsSemanticPositiveYin055",
       "98": "--colorsSemanticPositiveYin065",
       "99": "--colorsSemanticPositiveYin090",
-      "__starts": 31652,
+      "__starts": 31658,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",
@@ -3611,8 +3611,8 @@ Array [
     },
   },
   CSSStyleRule {
-    "__ends": 42249,
-    "__starts": 42195,
+    "__ends": 42255,
+    "__starts": 42201,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
@@ -3624,7 +3624,7 @@ Array [
       "1": "padding",
       "2": "width",
       "3": "display",
-      "__starts": 42202,
+      "__starts": 42208,
       "_importants": Object {
         "display": "",
         "margin": "",

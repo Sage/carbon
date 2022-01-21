@@ -35,7 +35,7 @@ NavigationBar.propTypes = {
   children: PropTypes.node,
   ariaLabel: PropTypes.string,
   /** Color scheme of navigation component */
-  navigationType: PropTypes.oneOf(["light", "dark"]),
+  navigationType: PropTypes.oneOf(["light", "dark", "white", "black"]),
   /** If 'true' the children will not be visible */
   isLoading: PropTypes.bool,
   /** Defines the position of sticky navigation bar */
