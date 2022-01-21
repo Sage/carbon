@@ -1,13 +1,11 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 
-import baseTheme from "../../../style/themes/base";
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import StyledValidationIcon from "../../../__internal__/validations/validation-icon.style";
 
 const StyledSwitchSlider = styled.span`
-  ${({ checked, disabled, size, theme, error, warning, info }) => css`
-    background-color: ${theme.switch.off};
+  ${({ checked, isLoading, disabled, size, error, warning }) => css`
     display: flex;
     font-size: 12px;
     font-weight: bold;
@@ -20,27 +18,13 @@ const StyledSwitchSlider = styled.span`
     width: 60px;
     z-index: 2;
     border-radius: 90px;
-
-    ${info &&
-    !disabled &&
-    css`
-      box-shadow: inset 0px 0px 0px 1px ${theme.colors.info};
-    `}
-    ${warning &&
-    !disabled &&
-    css`
-      box-shadow: inset 0px 0px 0px 1px ${theme.colors.warning};
-    `}
-      ${error &&
-    !disabled &&
-    css`
-      box-shadow: inset 0px 0px 0px 2px ${theme.colors.error};
-    `}
+    border-style: solid;
+    border-color: var(--colorsActionMinor400);
+    border-width: var(--borderWidth200);
 
     &::before {
-      background-color: ${theme.colors.white};
+      background-color: var(--colorsActionMinor400);
       bottom: 4px;
-      box-shadow: ${theme.shadows.cards};
       content: "";
       height: 16px;
       position: absolute;
@@ -53,30 +37,39 @@ const StyledSwitchSlider = styled.span`
 
     ${checked &&
     `
-      background-color: ${theme.switch.on};
+      background-color: var(--colorsActionMinor500);
+      border-color: var(--colorsActionMinorTransparent);
 
       &::before {
         transform: translateX(36px);
+        background-color: var(--colorsActionMinorYang100);
       }
+
     `}
 
     ${disabled &&
+    !isLoading &&
     css`
-      background-color: ${theme.switch.offDisabled};
+      border-color: var(--colorsActionDisabled600);
 
       &::before {
-        opacity: 0.8;
+        background-color: var(--colorsActionDisabled600);
       }
 
       ${SwitchSliderPanel} {
-        color: ${theme.switch.disabledFontColor};
+        color: var(--colorsUtilityYin030);
       }
 
       ${checked &&
       `
-        background-color: ${theme.switch.onDisabled};
+        background-color: var(--colorsActionDisabled500);
+        border-color: var(--colorsActionMinorTransparent);
 
-        ${SwitchSliderPanel} { color: ${theme.colors.white}; }
+        &::before {
+          background-color: var(--colorsActionMinorYang100);
+        }
+
+        ${SwitchSliderPanel} { color: var(--colorsUtilityYin030); }
       `}
     `}
 
@@ -94,6 +87,25 @@ const StyledSwitchSlider = styled.span`
       }
     `}
 
+    ${isLoading &&
+    css`
+      &::before {
+        display: none;
+      }
+    `}
+
+    ${warning &&
+    !disabled &&
+    css`
+      border-color: var(--colorsSemanticCaution500);
+    `}
+
+    ${error &&
+    !disabled &&
+    css`
+      border-color: var(--colorsSemanticNegative500);
+    `}
+
     ${StyledValidationIcon} {
       position: absolute;
       right: -30px;
@@ -106,11 +118,9 @@ StyledSwitchSlider.propTypes = {
   checked: PropTypes.bool,
   disabled: PropTypes.bool,
   size: PropTypes.string,
-  theme: PropTypes.object,
-};
-
-StyledSwitchSlider.defaultProps = {
-  theme: baseTheme,
+  isLoading: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  warning: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };
 
 export default StyledSwitchSlider;

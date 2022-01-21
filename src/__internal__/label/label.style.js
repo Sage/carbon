@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 
 const LabelStyle = styled.label`
-  color: var(--colorsYin090);
+  color: var(--colorsUtilityYin090);
   display: block;
   font-weight: 600; //TODO: (tokens) use token var(--fontWeights500)
 
@@ -20,7 +20,7 @@ const LabelStyle = styled.label`
   ${({ disabled }) =>
     disabled &&
     css`
-      color: var(--colorsYin030);
+      color: var(--colorsUtilityYin030);
     `}
 `;
 
