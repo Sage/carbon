@@ -20,11 +20,11 @@ const paddingSizes = {
 const StyledCardFooter = styled.div`
   ${space}
 
-  ${({ spacing, theme, variant }) => css`
+  ${({ spacing, variant }) => css`
     background-color: ${variant === "transparent"
       ? "transparent"
-      : theme.card.footerBackground};
-    border-top: ${theme.card.footerBorder};
+      : "var(--colorsUtilityMajor025)"};
+    border-top: var(--colorsUtilityMajor100);
     border-top-width: 1px;
     border-top-style: solid;
     font-size: 14px;

@@ -47,6 +47,20 @@ const MenuFullscreen = ({
     }
   }, [isOpen]);
 
+  const scrollVariants = {
+    light: "light",
+    dark: "dark",
+    white: "light",
+    black: "dark",
+  };
+
+  const iconColors = {
+    light: undefined,
+    dark: "#FFFFFF",
+    white: undefined,
+    black: "#FFFFFF",
+  };
+
   return (
     <li aria-label="menu-fullscreen">
       <Portal>
@@ -70,15 +84,12 @@ const MenuFullscreen = ({
                 onAction={onClose}
                 data-element="close"
               >
-                <Icon
-                  type="close"
-                  color={menuType === "dark" ? "#FFFFFF" : undefined}
-                />
+                <Icon type="close" color={iconColors[menuType]} />
               </IconButton>
             </StyledMenuFullscreenHeader>
             <Box
               overflow="auto"
-              scrollVariant={menuType}
+              scrollVariant={scrollVariants[menuType]}
               width="100vw"
               height="100vh"
             >

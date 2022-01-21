@@ -53,7 +53,7 @@ describe("Tooltip", () => {
               maxWidth: "300px",
               zIndex: "2000",
               textAlign: "left",
-              color: "#FFFFFF",
+              color: "var(--colorsSemanticNeutralYang100)",
               display: "inline-block",
               padding: "8px 12px",
               wordBreak: "break-word",
@@ -61,7 +61,7 @@ describe("Tooltip", () => {
               fontSize: "14px",
               lineHeight: "1.5rem",
               fontWeight: "400",
-              backgroundColor: "#000000",
+              backgroundColor: "var(--colorsSemanticNeutral500)",
             },
             render().find(StyledTooltipWrapper)
           );
@@ -76,7 +76,7 @@ describe("Tooltip", () => {
 
         it("applies the correct styles  type === 'error'", () => {
           assertStyleMatch(
-            { backgroundColor: "#C7384F" },
+            { backgroundColor: "var(--colorsSemanticNegative500)" },
             render({ type: "error" }).find(StyledTooltipWrapper)
           );
         });
@@ -165,8 +165,8 @@ describe("Tooltip", () => {
               height: "0",
               borderLeft: "8px solid transparent",
               borderRight: "8px solid transparent",
-              borderTop: "8px solid #000000",
-              bottom: "-8px",
+              borderTop: "8px solid var(--colorsSemanticNeutral500)",
+              bottom: "calc(-1 * var(--spacing100))",
             },
             render().find(StyledTooltipPointer)
           );
@@ -175,7 +175,7 @@ describe("Tooltip", () => {
 
       it("applies the correct styles when type === 'error'", () => {
         assertStyleMatch(
-          { borderTop: "8px solid #C7384F" },
+          { borderTop: "8px solid var(--colorsSemanticNegative500)" },
           render({ type: "error" }).find(StyledTooltipPointer)
         );
       });
@@ -186,8 +186,8 @@ describe("Tooltip", () => {
             {
               borderLeft: "8px solid transparent",
               borderRight: "8px solid transparent",
-              borderBottom: "8px solid #000000",
-              top: "-8px",
+              borderBottom: "8px solid var(--colorsSemanticNeutral500)",
+              top: "calc(-1 * var(--spacing100))",
             },
             render({ position: "bottom" }).find(StyledTooltipPointer)
           );
@@ -195,7 +195,7 @@ describe("Tooltip", () => {
 
         it("applies the correct styles when type === 'error'", () => {
           assertStyleMatch(
-            { borderBottom: "8px solid #C7384F" },
+            { borderBottom: "8px solid var(--colorsSemanticNegative500)" },
             render({ position: "bottom", type: "error" }).find(
               StyledTooltipPointer
             )
@@ -209,8 +209,8 @@ describe("Tooltip", () => {
             {
               borderTop: "8px solid transparent",
               borderBottom: "8px solid transparent",
-              borderLeft: "8px solid #000000",
-              right: "-8px",
+              borderLeft: "8px solid var(--colorsSemanticNeutral500)",
+              right: "calc(-1 * var(--spacing100))",
             },
             render({ position: "left" }).find(StyledTooltipPointer)
           );
@@ -218,7 +218,7 @@ describe("Tooltip", () => {
 
         it("applies the correct styles when type === 'error'", () => {
           assertStyleMatch(
-            { borderLeft: "8px solid #C7384F" },
+            { borderLeft: "8px solid var(--colorsSemanticNegative500)" },
             render({ position: "left", type: "error" }).find(
               StyledTooltipPointer
             )
@@ -232,8 +232,8 @@ describe("Tooltip", () => {
             {
               borderTop: "8px solid transparent",
               borderBottom: "8px solid transparent",
-              borderRight: "8px solid #000000",
-              left: "-8px",
+              borderRight: "8px solid var(--colorsSemanticNeutral500)",
+              left: "calc(-1 * var(--spacing100))",
             },
             render({ position: "right" }).find(StyledTooltipPointer)
           );
@@ -241,7 +241,7 @@ describe("Tooltip", () => {
 
         it("applies the correct styles when type === 'error'", () => {
           assertStyleMatch(
-            { borderRight: "8px solid #C7384F" },
+            { borderRight: "8px solid var(--colorsSemanticNegative500)" },
             render({ position: "right", type: "error" }).find(
               StyledTooltipPointer
             )

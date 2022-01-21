@@ -71,7 +71,7 @@ Menu.propTypes = {
   /** Styled system layout props */
   ...propTypes.layout,
   /** Defines the color scheme of the component */
-  menuType: PropTypes.oneOf(["light", "dark"]),
+  menuType: PropTypes.oneOf(["light", "dark", "white", "black"]),
   /** Children elements */
   children: PropTypes.node.isRequired,
 };

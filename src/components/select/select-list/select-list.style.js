@@ -3,6 +3,7 @@ import { baseTheme } from "../../../style/themes";
 
 const overhang = 4;
 
+// TODO (design-tokens): no elovation/zindex tokens yet
 const StyledPopoverContainer = styled.div`
   position: absolute;
   z-index: ${({ theme }) => theme.zIndex.popover};
@@ -56,7 +57,7 @@ const StyledSelectLoaderContainer = styled.li`
 `;
 
 const StyledSelectListTable = styled.table`
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: var(--colorsUtilityYang100);
   border-collapse: collapse;
   border-radius: 0px;
   border-spacing: 0;
@@ -72,22 +73,19 @@ const StyledSelectListTable = styled.table`
   }
 `;
 
-StyledSelectListTable.defaultProps = {
-  theme: baseTheme,
-};
-
+// TODO (design-tokens): to match current style for border bottom colorsUtilityMajor100
 const StyledSelectListTableHeader = styled.thead`
   th {
     position: sticky;
     top: 0;
-    padding: ${({ theme }) => 2 * theme.spacing}px;
-    border-bottom: 1px solid ${({ theme }) => theme.select.tableHeaderBorder};
+    padding: var(--spacing200);
+    border-bottom: 1px solid var(--colorsUtilityMajor050);
     background-color: white;
     text-align: left;
     font-weight: 900;
     font-size: 12px;
     text-transform: uppercase;
-    color: ${({ theme }) => theme.tileSelect.descriptionColor};
+    color: var(--colorsYin055);
     :after {
       content: "";
       display: block;
@@ -95,8 +93,8 @@ const StyledSelectListTableHeader = styled.thead`
       bottom: -8px;
       left: 0px;
       background-image: linear-gradient(
-        ${({ theme }) => theme.colors.black},
-        ${({ theme }) => theme.colors.white}
+        var(--colorsComponentsNavigationYin100),
+        var(--colorsYang100)
       );
       opacity: 0.03;
       height: 8px;
@@ -112,10 +110,6 @@ const StyledSelectListTableBody = styled.tbody`
   table-layout: fixed;
   max-height: 132px;
 `;
-
-StyledSelectListTableHeader.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledPopoverContainer,

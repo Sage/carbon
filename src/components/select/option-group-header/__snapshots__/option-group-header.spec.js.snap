@@ -23,17 +23,17 @@ exports[`OptionGroupHeader renders properly 1`] = `
   line-height: 18px;
   text-align: left;
   margin: 0;
-  color: rgba(0,0,0,0.55);
+  color: var(--colorsYin055);
 }
 
 .c0 .c1 {
   margin-right: 4px;
   margin-left: -5px;
-  color: rgba(0,0,0,0.55);
+  color: var(--colorsYin055);
 }
 
 .c0 .c1:hover {
-  color: rgba(0,0,0,0.55);
+  color: var(--colorsYin055);
 }
 
 <div
@@ -48,7 +48,7 @@ exports[`OptionGroupHeader renders properly 1`] = `
 exports[`OptionGroupHeader when icon prop is set then it should display the icon 1`] = `
 .c2 {
   position: relative;
-  color: rgba(0,0,0,0.65);
+  color: var(--colorsYin065);
   background-color: transparent;
   vertical-align: middle;
   -webkit-align-items: center;
@@ -102,17 +102,17 @@ exports[`OptionGroupHeader when icon prop is set then it should display the icon
   line-height: 18px;
   text-align: left;
   margin: 0;
-  color: rgba(0,0,0,0.55);
+  color: var(--colorsYin055);
 }
 
 .c0 .c1 {
   margin-right: 4px;
   margin-left: -5px;
-  color: rgba(0,0,0,0.55);
+  color: var(--colorsYin055);
 }
 
 .c0 .c1:hover {
-  color: rgba(0,0,0,0.55);
+  color: var(--colorsYin055);
 }
 
 <div
