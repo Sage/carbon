@@ -40,7 +40,7 @@ const StyledTabsHeaderList = styled.div`
     css`
       width: fit-content;
     `}
-  cursor: pointer;
+  cursor: default;
   list-style: none;
   margin: 0;
   padding: 0;

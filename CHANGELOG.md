@@ -1,3 +1,45 @@
+### [102.19.1](https://github.com/Sage/carbon/compare/v102.19.0...v102.19.1) (2022-01-21)
+
+
+### Bug Fixes
+
+* **tabs-header:** set cursor to default in adjacent blank areas (FE-4715) ([4d4a6c1](https://github.com/Sage/carbon/commit/4d4a6c1cc0d86aad0c3595907e00e98ef978e273))
+
+## [102.19.0](https://github.com/Sage/carbon/compare/v102.18.0...v102.19.0) (2022-01-21)
+
+
+### Features
+
+* **switch:** describe switch using design tokens ([aeb011b](https://github.com/Sage/carbon/commit/aeb011bbb7f338caf4f84b1da5df1b58860254d0))
+
+## [102.18.0](https://github.com/Sage/carbon/compare/v102.17.0...v102.18.0) (2022-01-20)
+
+
+### Features
+
+* **select:** describe select component using tokens ([5223f36](https://github.com/Sage/carbon/commit/5223f36b879623a88ee2a73dc61d34f3cd98d2e2))
+
+## [102.17.0](https://github.com/Sage/carbon/compare/v102.16.1...v102.17.0) (2022-01-20)
+
+
+### Features
+
+* **carousel:** describe Carousel using design tokens (FE-4721) ([dee97ea](https://github.com/Sage/carbon/commit/dee97eabb265e73c777269ba9f6c4ed0e0f78a80))
+
+### [102.16.1](https://github.com/Sage/carbon/compare/v102.16.0...v102.16.1) (2022-01-19)
+
+
+### Bug Fixes
+
+* **drawer:** add toggleAnimation call to useEffect listening for changes to expanded prop ([e478562](https://github.com/Sage/carbon/commit/e478562a7724a9d38b0500ba00afd43cd91b9e17)), closes [#4688](https://github.com/Sage/carbon/issues/4688)
+
+## [102.16.0](https://github.com/Sage/carbon/compare/v102.15.0...v102.16.0) (2022-01-18)
+
+
+### Features
+
+* **pill:** describe pill using tokens, update of tests after changes ([e57f8a2](https://github.com/Sage/carbon/commit/e57f8a284ffb27b16ed537a6a9b32101e62b3f16))
+
 ## [102.15.0](https://github.com/Sage/carbon/compare/v102.14.0...v102.15.0) (2022-01-18)
 
 
