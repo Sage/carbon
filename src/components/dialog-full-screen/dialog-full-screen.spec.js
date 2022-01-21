@@ -218,12 +218,21 @@ describe("DialogFullScreen", () => {
 
   describe("dialogTitle", () => {
     describe("is a string", () => {
+      let mockIds;
+
+      beforeAll(() => {
+        mockIds = ["foo", "baz"];
+        guid
+          .mockImplementationOnce(() => mockIds[0])
+          .mockImplementationOnce(() => mockIds[1]);
+      });
+
       it("renders the title within a heading", () => {
         const heading = wrapper.find(Heading);
         expect(heading.props().title).toEqual("my title");
         expect(heading.props().subheader).toEqual("my subtitle");
-        expect(heading.props().titleId).toEqual("carbon-dialog-title");
-        expect(heading.props().subtitleId).toEqual("carbon-dialog-subtitle");
+        expect(mockIds).toContain(heading.props().titleId);
+        expect(mockIds).toContain(heading.props().subtitleId);
       });
     });
 
@@ -437,7 +446,29 @@ describe("DialogFullScreen", () => {
             .find("[data-element='dialog-full-screen']")
             .first()
             .prop("aria-labelledby")
-        ).toBe("carbon-dialog-title");
+        ).toBe("guid-12345");
+      });
+    });
+
+    describe("when a subtitle is specified", () => {
+      it("then the container should have aria-describedBy attribute set to it's subtitle id", () => {
+        wrapper = mount(
+          <DialogFullScreen
+            open
+            onCancel={() => {}}
+            onConfirm={() => {}}
+            data-role="baz"
+            data-element="bar"
+            subtitle="Subtitle"
+          />
+        );
+
+        expect(
+          wrapper
+            .find("[data-element='dialog-full-screen']")
+            .first()
+            .prop("aria-describedby")
+        ).toBe("guid-12345");
       });
     });
 

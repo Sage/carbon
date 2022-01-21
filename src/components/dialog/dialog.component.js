@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useLayoutEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 
+import createGuid from "../../__internal__/utils/helpers/guid/guid.js";
 import Modal from "../modal";
 import Heading from "../heading";
 
@@ -40,6 +41,8 @@ const Dialog = ({
   const innerContentRef = useRef();
   const titleRef = useRef();
   const listenersAdded = useRef(false);
+  const { current: titleId } = useRef(createGuid());
+  const { current: subtitleId } = useRef(createGuid());
 
   const centerDialog = useCallback(() => {
     const {
@@ -130,9 +133,9 @@ const Dialog = ({
           <Heading
             data-element="dialog-title"
             title={title}
-            titleId="carbon-dialog-title"
+            titleId={titleId}
             subheader={subtitle}
-            subtitleId="carbon-dialog-subtitle"
+            subtitleId={subtitleId}
             divider={false}
             help={help}
           />
@@ -152,16 +155,11 @@ const Dialog = ({
   const dialogProps = {
     size,
     dialogHeight,
-    "aria-labelledby": rest["aria-labelledby"],
-    "aria-describedby": subtitle
-      ? "carbon-dialog-subtitle"
-      : rest["aria-describedby"],
+    "aria-labelledby":
+      title && typeof title === "string" ? titleId : rest["aria-labelledby"],
+    "aria-describedby": subtitle ? subtitleId : rest["aria-describedby"],
     "aria-label": rest["aria-label"],
   };
-
-  if (title && typeof title === "string") {
-    dialogProps["aria-labelledby"] = "carbon-dialog-title";
-  }
 
   const componentTags = {
     "data-component": rest["data-component"] || "dialog",
