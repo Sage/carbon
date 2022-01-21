@@ -1,3 +1,10 @@
+### [102.20.1](https://github.com/Sage/carbon/compare/v102.20.0...v102.20.1) (2022-01-21)
+
+
+### Bug Fixes
+
+* **confirm:** fix incorrect button margin ([bae20b3](https://github.com/Sage/carbon/commit/bae20b34fd183f64759c61efd77ea59ecae0c022))
+
 ## [102.20.0](https://github.com/Sage/carbon/compare/v102.19.1...v102.20.0) (2022-01-21)
 
 
