@@ -3,7 +3,7 @@
 exports[`SwitchSlider base theme renders as expected 1`] = `
 .c2 {
   border: 0;
-  color: #FFFFFF;
+  color: var(--colorsActionMinorYang100);
   margin: auto;
   margin-top: 5px;
 }
@@ -13,12 +13,11 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
 }
 
 .c2[type="off"] {
-  color: rgba(0,0,0,0.9);
+  color: var(--colorsActionMinor500);
   margin-right: 6px;
 }
 
 .c0 {
-  background-color: #CCD6DB;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -37,12 +36,14 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   width: 60px;
   z-index: 2;
   border-radius: 90px;
+  border-style: solid;
+  border-color: var(--colorsActionMinor400);
+  border-width: var(--borderWidth200);
 }
 
 .c0::before {
-  background-color: #FFFFFF;
+  background-color: var(--colorsActionMinor400);
   bottom: 4px;
-  box-shadow: 0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15);
   content: "";
   height: 16px;
   position: absolute;
@@ -62,15 +63,15 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
 }
 
 .c3 .c1 {
-  color: rgba(0,0,0,0.30);
+  color: var(--colorsUtilityYin030);
 }
 
 .c4 .c1 {
-  color: rgba(0,0,0,0.30);
+  color: var(--colorsUtilityYin030);
 }
 
 .c4 .c1 {
-  color: #FFFFFF;
+  color: var(--colorsUtilityYin030);
 }
 
 <span
