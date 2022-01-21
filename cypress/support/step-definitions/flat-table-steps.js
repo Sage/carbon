@@ -249,7 +249,7 @@ Then("The {word} subrow action popover has focus", (position) => {
   flatTableSubrowByPosition(positionOfElement(position))
     .find('[data-component="action-popover-button"]')
     .should("have.focus")
-    .and("have.css", "outline", `${gold} solid 2px`);
+    .and("have.css", "outline", `${gold} solid 3px`);
 });
 
 When("I have a large viewport", () => {

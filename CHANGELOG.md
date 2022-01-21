@@ -1,3 +1,24 @@
+### [102.20.1](https://github.com/Sage/carbon/compare/v102.20.0...v102.20.1) (2022-01-21)
+
+
+### Bug Fixes
+
+* **confirm:** fix incorrect button margin ([bae20b3](https://github.com/Sage/carbon/commit/bae20b34fd183f64759c61efd77ea59ecae0c022))
+
+## [102.20.0](https://github.com/Sage/carbon/compare/v102.19.1...v102.20.0) (2022-01-21)
+
+
+### Features
+
+* **action-popover:** describe action popover using design tokens, update of the tests after changes ([2b3457a](https://github.com/Sage/carbon/commit/2b3457a96848e9431f87507a93a2424fec23ae05))
+
+### [102.19.1](https://github.com/Sage/carbon/compare/v102.19.0...v102.19.1) (2022-01-21)
+
+
+### Bug Fixes
+
+* **tabs-header:** set cursor to default in adjacent blank areas (FE-4715) ([4d4a6c1](https://github.com/Sage/carbon/commit/4d4a6c1cc0d86aad0c3595907e00e98ef978e273))
+
 ## [102.19.0](https://github.com/Sage/carbon/compare/v102.18.0...v102.19.0) (2022-01-21)
 
 

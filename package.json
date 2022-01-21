@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "102.19.0",
+  "version": "102.20.1",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -90,7 +90,6 @@
     "@types/react": "16.9.31",
     "@types/react-dom": "16.0.11",
     "@types/styled-components": "^5.1.9",
-    "@types/styled-system": "^5.1.11",
     "@types/uuid": "^8.3.3",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
@@ -159,6 +158,7 @@
     "@sage/design-tokens": "^1.87.1",
     "@styled-system/prop-types": "^5.1.5",
     "@tippyjs/react": "^4.2.5",
+    "@types/styled-system": "^5.1.11",
     "classnames": "~2.2.6",
     "crypto-js": "~3.3.0",
     "dotenv": "^10.0.0",

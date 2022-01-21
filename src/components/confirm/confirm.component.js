@@ -69,7 +69,7 @@ const Confirm = ({
       buttonType={confirmButtonType}
       destructive={destructive || confirmButtonDestructive}
       disabled={isLoadingConfirm || disableConfirm}
-      ml={cancelButtonType === "tertiary" ? "3px" : 2}
+      ml={2}
       iconType={confirmButtonIconType}
       iconPosition={confirmButtonIconPosition}
     >
