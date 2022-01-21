@@ -1,3 +1,10 @@
+## [102.19.0](https://github.com/Sage/carbon/compare/v102.18.0...v102.19.0) (2022-01-21)
+
+
+### Features
+
+* **switch:** describe switch using design tokens ([aeb011b](https://github.com/Sage/carbon/commit/aeb011bbb7f338caf4f84b1da5df1b58860254d0))
+
 ## [102.18.0](https://github.com/Sage/carbon/compare/v102.17.0...v102.18.0) (2022-01-20)
 
 
