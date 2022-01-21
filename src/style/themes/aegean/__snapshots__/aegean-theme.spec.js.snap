@@ -50,6 +50,7 @@ Object {
   "colorsActionReadOnly400": "#f2f5f6ff",
   "colorsActionReadOnly500": "#e6ebedff",
   "colorsActionReadOnly600": "#ccd6dbff",
+  "colorsBaseTheme": "#0073C2",
   "colorsComponentsMenuAutumnChild400": "#19475eff",
   "colorsComponentsMenuAutumnChild500": "#001926ff",
   "colorsComponentsMenuAutumnChild600": "#007e45ff",
