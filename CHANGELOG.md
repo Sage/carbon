@@ -1,3 +1,10 @@
+### [102.19.1](https://github.com/Sage/carbon/compare/v102.19.0...v102.19.1) (2022-01-21)
+
+
+### Bug Fixes
+
+* **tabs-header:** set cursor to default in adjacent blank areas (FE-4715) ([4d4a6c1](https://github.com/Sage/carbon/commit/4d4a6c1cc0d86aad0c3595907e00e98ef978e273))
+
 ## [102.19.0](https://github.com/Sage/carbon/compare/v102.18.0...v102.19.0) (2022-01-21)
 
 
