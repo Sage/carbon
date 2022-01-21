@@ -296,6 +296,7 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
             focusFirstElement={ref}
             open={isOpenOne}
             onCancel={() => setIsOpenOne(false)}
+            aria-label={"Demo using focusFirstElement"}
           >
             <p>Focus an element that doesnt support autofocus</p>
             <div
@@ -320,6 +321,7 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
             disableAutoFocus
             open={isOpenTwo}
             onCancel={() => setIsOpenTwo(false)}
+            aria-label={"Demo using autoFocus"}
           >
             <p>Focus an element that supports autoFocus</p>
             <div
