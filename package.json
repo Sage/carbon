@@ -166,7 +166,7 @@
     "invariant": "^2.2.4",
     "lodash": "^4.17.20",
     "moment": "~2.20.1",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.1.1",
     "polished": "^4.0.5",
     "prop-types": "^15.7.2",
     "react-day-picker": "~6.1.1",
