@@ -1,3 +1,14 @@
+## [103.0.0](https://github.com/Sage/carbon/compare/v102.22.1...v103.0.0) (2022-01-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **progress-tracker:** Variant prop has been deprecated from the component.
+
+### Features
+
+* **progress-tracker:** describe progress-tracker using design tokens, remove variant prop ([d29dc79](https://github.com/Sage/carbon/commit/d29dc799d9f5115f7679459b2b5c591c22a1f172))
+
 ### [102.22.1](https://github.com/Sage/carbon/compare/v102.22.0...v102.22.1) (2022-01-24)
 
 
