@@ -1,3 +1,10 @@
+### [102.22.1](https://github.com/Sage/carbon/compare/v102.22.0...v102.22.1) (2022-01-24)
+
+
+### Bug Fixes
+
+* **loader:** give loader the correct role and aria-label prop ([41f76e1](https://github.com/Sage/carbon/commit/41f76e15d09f66cb193d4a0c084a4a7bc1073f0a)), closes [#4644](https://github.com/Sage/carbon/issues/4644)
+
 ## [102.22.0](https://github.com/Sage/carbon/compare/v102.21.0...v102.22.0) (2022-01-24)
 
 
