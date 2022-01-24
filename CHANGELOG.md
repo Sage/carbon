@@ -1,3 +1,10 @@
+## [102.21.0](https://github.com/Sage/carbon/compare/v102.20.1...v102.21.0) (2022-01-24)
+
+
+### Features
+
+* **multi-action-button:** describe multi action button using design tokens ([078be83](https://github.com/Sage/carbon/commit/078be833e956bf682d0432c007150569d9f05c84))
+
 ### [102.20.1](https://github.com/Sage/carbon/compare/v102.20.0...v102.20.1) (2022-01-21)
 
 
