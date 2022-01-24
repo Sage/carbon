@@ -1,3 +1,11 @@
+## [102.22.0](https://github.com/Sage/carbon/compare/v102.21.0...v102.22.0) (2022-01-24)
+
+
+### Features
+
+* **split-button:** describe split button using design tokens ([34137ed](https://github.com/Sage/carbon/commit/34137ed3935769b185b95bd291becbe6076cd6f0))
+* **split-button:** remove margin on buttons within container, add box-shadow to container ([88dc3cb](https://github.com/Sage/carbon/commit/88dc3cb9715d4db2f68cc85a8ba0ac5c11b7219d))
+
 ## [102.21.0](https://github.com/Sage/carbon/compare/v102.20.1...v102.21.0) (2022-01-24)
 
 
