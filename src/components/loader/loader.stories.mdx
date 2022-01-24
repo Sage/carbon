@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import Loader from ".";
-import Button from "../button";
+import Button from "../button/button.component";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta
@@ -70,7 +70,7 @@ please remember to pass the `isInsideButton` prop to the `Loader` component.
 
 <Canvas>
   <Story name="inside Buttons">
-    <Button buttonType="primary">
+    <Button buttonType="primary" aria-label="Loading">
       <Loader isInsideButton />
     </Button>
   </Story>
