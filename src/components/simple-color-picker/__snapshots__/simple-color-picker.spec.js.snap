@@ -159,12 +159,12 @@ exports[`SimpleColorPicker renders as expected 1`] = `
 .c6 {
   background: transparent;
   border: none;
-  color: rgba(0,0,0,0.9);
+  color: var(--colorsUtilityYin090);
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
-  font-size: 14px;
+  font-size: var(--fontSizes100);
   outline: none;
   padding: 0;
   margin: 0;
@@ -177,19 +177,19 @@ exports[`SimpleColorPicker renders as expected 1`] = `
 }
 
 .c6::-webkit-input-placeholder {
-  color: rgba(0,0,0,0.55);
+  color: var(--colorsUtilityYin030);
 }
 
 .c6::-moz-placeholder {
-  color: rgba(0,0,0,0.55);
+  color: var(--colorsUtilityYin030);
 }
 
 .c6:-ms-input-placeholder {
-  color: rgba(0,0,0,0.55);
+  color: var(--colorsUtilityYin030);
 }
 
 .c6::placeholder {
-  color: rgba(0,0,0,0.55);
+  color: var(--colorsUtilityYin030);
 }
 
 .c7 {

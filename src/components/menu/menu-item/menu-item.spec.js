@@ -153,115 +153,75 @@ describe("MenuItem", () => {
       expect(wrapper.find(Submenu).props().submenuDirection).toBe("right");
     });
 
-    describe('`menuType="light"`', () => {
-      it("should render correct styles", () => {
-        wrapper = mount(
-          <MenuContext.Provider value={{ menuType: "light" }}>
-            <MenuItem>Item one</MenuItem>
-          </MenuContext.Provider>
-        );
+    describe.each(["light", "white", "dark", "black"])(
+      '`menuType="%s"`',
+      (menuType) => {
+        it("should render correct styles", () => {
+          wrapper = mount(
+            <MenuContext.Provider value={{ menuType }}>
+              <MenuItem>Item one</MenuItem>
+            </MenuContext.Provider>
+          );
 
-        assertStyleMatch(
-          {
-            backgroundColor: baseTheme.menu.light.background,
-          },
-          wrapper.find(StyledMenuItemWrapper)
-        );
-      });
+          assertStyleMatch(
+            {
+              backgroundColor: baseTheme.menu[menuType].background,
+            },
+            wrapper.find(StyledMenuItemWrapper)
+          );
+        });
 
-      it("should render correct styles if is `selected` in a `light` scheme", () => {
-        wrapper = mount(
-          <MenuContext.Provider value={{ menuType: "light" }}>
-            <MenuItem selected>Item one</MenuItem>
-          </MenuContext.Provider>
-        );
+        it("should render correct styles if is `selected`", () => {
+          wrapper = mount(
+            <MenuContext.Provider value={{ menuType }}>
+              <MenuItem selected>Item one</MenuItem>
+            </MenuContext.Provider>
+          );
 
-        assertStyleMatch(
-          {
-            backgroundColor: baseTheme.menu.light.selected,
-          },
-          wrapper.find(StyledMenuItemWrapper)
-        );
-      });
+          assertStyleMatch(
+            {
+              backgroundColor: baseTheme.menu[menuType].selected,
+            },
+            wrapper.find(StyledMenuItemWrapper)
+          );
+        });
 
-      it("should render correct styles if is `selected` in a `dark` scheme", () => {
-        wrapper = mount(
-          <MenuContext.Provider value={{ menuType: "dark" }}>
-            <MenuItem selected>Item one</MenuItem>
-          </MenuContext.Provider>
-        );
+        it("should render correct styles for alternate variant", () => {
+          wrapper = mount(
+            <MenuContext.Provider value={{ menuType }}>
+              <MenuItem variant="alternate">Item one</MenuItem>
+            </MenuContext.Provider>
+          );
 
-        assertStyleMatch(
-          {
-            backgroundColor: baseTheme.menu.dark.selected,
-          },
-          wrapper.find(StyledMenuItemWrapper)
-        );
-      });
+          assertStyleMatch(
+            {
+              backgroundColor: baseTheme.menu[menuType].alternate,
+            },
+            wrapper.find(StyledMenuItemWrapper),
+            { modifier: `&&&` }
+          );
+        });
 
-      it("should render correct styles for alternate variant", () => {
-        wrapper = mount(<MenuItem variant="alternate">Item one</MenuItem>);
+        it("should render correct styles if an onClick is provided", () => {
+          wrapper = mount(
+            <MenuContext.Provider value={{ menuType: "dark" }}>
+              <MenuItem onClick={() => {}}>Item one</MenuItem>
+            </MenuContext.Provider>
+          );
 
-        assertStyleMatch(
-          {
-            backgroundColor: `${baseTheme.menu.light.background}`,
-          },
-          wrapper.find(StyledMenuItemWrapper)
-        );
-      });
-
-      it("should render correct styles if an onClick is provided", () => {
-        wrapper = mount(
-          <MenuContext.Provider value={{ menuType: "dark" }}>
-            <MenuItem onClick={() => {}}>Item one</MenuItem>
-          </MenuContext.Provider>
-        );
-
-        assertStyleMatch(
-          {
-            padding: "0 16px",
-            height: "40px",
-            lineHeight: "40px",
-            margin: "0px",
-          },
-          wrapper.find(StyledMenuItemWrapper),
-          { modifier: "button" }
-        );
-      });
-    });
-
-    describe('`menuType="dark"`', () => {
-      it("should render correct styles", () => {
-        wrapper = mount(
-          <MenuContext.Provider value={{ menuType: "dark" }}>
-            <MenuItem>Item one</MenuItem>
-          </MenuContext.Provider>
-        );
-
-        assertStyleMatch(
-          {
-            backgroundColor: baseTheme.colors.slate,
-          },
-          wrapper.find(StyledMenuItemWrapper)
-        );
-      });
-
-      it("should render correct styles for alternate variant", () => {
-        wrapper = mount(
-          <MenuContext.Provider value={{ menuType: "dark" }}>
-            <MenuItem variant="alternate">Item one</MenuItem>
-          </MenuContext.Provider>
-        );
-
-        assertStyleMatch(
-          {
-            backgroundColor: `${baseTheme.colors.slate}`,
-            color: `${baseTheme.colors.white}`,
-          },
-          wrapper.find(StyledMenuItemWrapper)
-        );
-      });
-    });
+          assertStyleMatch(
+            {
+              padding: "0 16px",
+              height: "40px",
+              lineHeight: "40px",
+              margin: "0px",
+            },
+            wrapper.find(StyledMenuItemWrapper),
+            { modifier: "button" }
+          );
+        });
+      }
+    );
 
     describe("with onSubmenuOpen prop set", () => {
       it("should pass the onSubmenuOpen prop to Submenu", () => {

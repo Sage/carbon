@@ -1,3 +1,138 @@
+### [102.22.1](https://github.com/Sage/carbon/compare/v102.22.0...v102.22.1) (2022-01-24)
+
+
+### Bug Fixes
+
+* **loader:** give loader the correct role and aria-label prop ([41f76e1](https://github.com/Sage/carbon/commit/41f76e15d09f66cb193d4a0c084a4a7bc1073f0a)), closes [#4644](https://github.com/Sage/carbon/issues/4644)
+
+## [102.22.0](https://github.com/Sage/carbon/compare/v102.21.0...v102.22.0) (2022-01-24)
+
+
+### Features
+
+* **split-button:** describe split button using design tokens ([34137ed](https://github.com/Sage/carbon/commit/34137ed3935769b185b95bd291becbe6076cd6f0))
+* **split-button:** remove margin on buttons within container, add box-shadow to container ([88dc3cb](https://github.com/Sage/carbon/commit/88dc3cb9715d4db2f68cc85a8ba0ac5c11b7219d))
+
+## [102.21.0](https://github.com/Sage/carbon/compare/v102.20.1...v102.21.0) (2022-01-24)
+
+
+### Features
+
+* **multi-action-button:** describe multi action button using design tokens ([078be83](https://github.com/Sage/carbon/commit/078be833e956bf682d0432c007150569d9f05c84))
+
+### [102.20.1](https://github.com/Sage/carbon/compare/v102.20.0...v102.20.1) (2022-01-21)
+
+
+### Bug Fixes
+
+* **confirm:** fix incorrect button margin ([bae20b3](https://github.com/Sage/carbon/commit/bae20b34fd183f64759c61efd77ea59ecae0c022))
+
+## [102.20.0](https://github.com/Sage/carbon/compare/v102.19.1...v102.20.0) (2022-01-21)
+
+
+### Features
+
+* **action-popover:** describe action popover using design tokens, update of the tests after changes ([2b3457a](https://github.com/Sage/carbon/commit/2b3457a96848e9431f87507a93a2424fec23ae05))
+
+### [102.19.1](https://github.com/Sage/carbon/compare/v102.19.0...v102.19.1) (2022-01-21)
+
+
+### Bug Fixes
+
+* **tabs-header:** set cursor to default in adjacent blank areas (FE-4715) ([4d4a6c1](https://github.com/Sage/carbon/commit/4d4a6c1cc0d86aad0c3595907e00e98ef978e273))
+
+## [102.19.0](https://github.com/Sage/carbon/compare/v102.18.0...v102.19.0) (2022-01-21)
+
+
+### Features
+
+* **switch:** describe switch using design tokens ([aeb011b](https://github.com/Sage/carbon/commit/aeb011bbb7f338caf4f84b1da5df1b58860254d0))
+
+## [102.18.0](https://github.com/Sage/carbon/compare/v102.17.0...v102.18.0) (2022-01-20)
+
+
+### Features
+
+* **select:** describe select component using tokens ([5223f36](https://github.com/Sage/carbon/commit/5223f36b879623a88ee2a73dc61d34f3cd98d2e2))
+
+## [102.17.0](https://github.com/Sage/carbon/compare/v102.16.1...v102.17.0) (2022-01-20)
+
+
+### Features
+
+* **carousel:** describe Carousel using design tokens (FE-4721) ([dee97ea](https://github.com/Sage/carbon/commit/dee97eabb265e73c777269ba9f6c4ed0e0f78a80))
+
+### [102.16.1](https://github.com/Sage/carbon/compare/v102.16.0...v102.16.1) (2022-01-19)
+
+
+### Bug Fixes
+
+* **drawer:** add toggleAnimation call to useEffect listening for changes to expanded prop ([e478562](https://github.com/Sage/carbon/commit/e478562a7724a9d38b0500ba00afd43cd91b9e17)), closes [#4688](https://github.com/Sage/carbon/issues/4688)
+
+## [102.16.0](https://github.com/Sage/carbon/compare/v102.15.0...v102.16.0) (2022-01-18)
+
+
+### Features
+
+* **pill:** describe pill using tokens, update of tests after changes ([e57f8a2](https://github.com/Sage/carbon/commit/e57f8a284ffb27b16ed537a6a9b32101e62b3f16))
+
+## [102.15.0](https://github.com/Sage/carbon/compare/v102.14.0...v102.15.0) (2022-01-18)
+
+
+### Features
+
+* **card:** describe card using design tokens, update of tests after changes ([824c240](https://github.com/Sage/carbon/commit/824c2402f7318f2bfd69f3c37d44e2950462f74d))
+
+## [102.14.0](https://github.com/Sage/carbon/compare/v102.13.2...v102.14.0) (2022-01-18)
+
+
+### Features
+
+* **textbox:** describe textbox component using design-tokens ([04100c1](https://github.com/Sage/carbon/commit/04100c1a497ae746ec806a53159d93855a987564))
+
+### [102.13.2](https://github.com/Sage/carbon/compare/v102.13.1...v102.13.2) (2022-01-17)
+
+
+### Bug Fixes
+
+* **dialog-fullscreen:** add missing aria-modal attribute ([d07dce4](https://github.com/Sage/carbon/commit/d07dce4a59b621785e888b91cecfc3c38c1f4143)), closes [#4687](https://github.com/Sage/carbon/issues/4687)
+
+### [102.13.1](https://github.com/Sage/carbon/compare/v102.13.0...v102.13.1) (2022-01-17)
+
+
+### Bug Fixes
+
+* remove border style when the input is disabled ([98658dc](https://github.com/Sage/carbon/commit/98658dca0ae1aca13c767f44d117272fa79eeaa4)), closes [#4631](https://github.com/Sage/carbon/issues/4631)
+
+## [102.13.0](https://github.com/Sage/carbon/compare/v102.12.0...v102.13.0) (2022-01-17)
+
+
+### Features
+
+* **checkbox:** change spacing to match radio button group ([50a6ab4](https://github.com/Sage/carbon/commit/50a6ab4fb9c3036d9d192abbff5d300d3854dc12)), closes [#4670](https://github.com/Sage/carbon/issues/4670)
+
+## [102.12.0](https://github.com/Sage/carbon/compare/v102.11.0...v102.12.0) (2022-01-17)
+
+
+### Features
+
+* **menu:** add white and black themes ([cd6b276](https://github.com/Sage/carbon/commit/cd6b276e25235566472738a9de7d45db70dbec04))
+* **navigation-bar:** add white and black themes ([1663dfd](https://github.com/Sage/carbon/commit/1663dfdb7feaf27bfaae7be3fe15472efd30dba0))
+
+## [102.11.0](https://github.com/Sage/carbon/compare/v102.10.2...v102.11.0) (2022-01-17)
+
+
+### Features
+
+* **tile:** describe tile and tile-footer components with design tokens ([78dac46](https://github.com/Sage/carbon/commit/78dac465abf477d9ee60d6afe382e4d888a1f446))
+
+### [102.10.2](https://github.com/Sage/carbon/compare/v102.10.1...v102.10.2) (2022-01-14)
+
+
+### Bug Fixes
+
+* **tabs, tab-title:** remove onFocus to stop firing callback twice and tabs activate onmouseup ([56d54da](https://github.com/Sage/carbon/commit/56d54da056f93dafec33ae252584d96fe824bddf)), closes [#4640](https://github.com/Sage/carbon/issues/4640) [#4611](https://github.com/Sage/carbon/issues/4611)
+
 ### [102.10.1](https://github.com/Sage/carbon/compare/v102.10.0...v102.10.1) (2022-01-14)
 
 

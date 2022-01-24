@@ -1,6 +1,9 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import NavigationBar from "./navigation-bar.component";
+import NavigationBar, {
+  NavigationBarProps,
+  StickyPosition,
+} from "./navigation-bar.component";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
@@ -13,13 +16,15 @@ describe("NavigationBar", () => {
   let wrapper;
 
   testStyledSystemPadding(
-    (props) => <NavigationBar {...props}>test content</NavigationBar>,
+    (props: NavigationBarProps) => (
+      <NavigationBar {...props}>test content</NavigationBar>
+    ),
     undefined,
     undefined,
     { modifier: "&&" }
   );
 
-  testStyledSystemFlexBox((props) => (
+  testStyledSystemFlexBox((props: NavigationBarProps) => (
     <NavigationBar {...props}>test content</NavigationBar>
   ));
 
@@ -75,7 +80,7 @@ describe("NavigationBar", () => {
 
   it("should render correct styles in `light` scheme", () => {
     wrapper = mount(
-      <StyledNavigationBar>
+      <StyledNavigationBar navigationType="light">
         <div>test content</div>
       </StyledNavigationBar>
     );
@@ -106,6 +111,38 @@ describe("NavigationBar", () => {
     );
   });
 
+  it("should render correct styles in `white` scheme", () => {
+    wrapper = mount(
+      <StyledNavigationBar navigationType="white">
+        <div>test content</div>
+      </StyledNavigationBar>
+    );
+
+    assertStyleMatch(
+      {
+        backgroundColor: baseTheme.colors.white,
+        borderBottom: `1px solid ${baseTheme.navigationBar.white.borderBottom}`,
+      },
+      wrapper
+    );
+  });
+
+  it("should render correct styles in `black` scheme", () => {
+    wrapper = mount(
+      <StyledNavigationBar navigationType="black">
+        <div>test content</div>
+      </StyledNavigationBar>
+    );
+
+    assertStyleMatch(
+      {
+        backgroundColor: baseTheme.navigationBar.black.background,
+        color: baseTheme.colors.white,
+      },
+      wrapper
+    );
+  });
+
   it.each([
     ["only screen and (max-width: 599px)", "0 16px"],
     ["only screen and (max-width: 959px)", "0 24px"],
@@ -126,7 +163,7 @@ describe("NavigationBar", () => {
     );
   });
 
-  it.each([
+  it.each<[StickyPosition, string | undefined]>([
     ["top", undefined],
     ["top", "10px"],
     ["bottom", undefined],

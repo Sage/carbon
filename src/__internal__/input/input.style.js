@@ -1,13 +1,12 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import baseTheme from "../../style/themes/base";
 
 const StyledInput = styled.input`
   background: transparent;
   border: none;
-  color: ${({ theme }) => theme.text.color};
+  color: var(--colorsUtilityYin090);
   flex-grow: 1;
-  font-size: ${({ theme }) => theme.text.size};
+  font-size: var(--fontSizes100);
   outline: none;
   padding: 0;
   margin: 0;
@@ -25,26 +24,22 @@ const StyledInput = styled.input`
     `}
 
   &::placeholder {
-    color: ${({ theme }) => theme.text.placeholder};
+    color: var(--colorsUtilityYin030);
   }
 
-  ${({ disabled, theme }) =>
+  ${({ disabled }) =>
     disabled &&
     css`
-      color: ${theme.disabled.disabled};
+      color: var(--colorsUtilityYin030);
       cursor: not-allowed;
     `}
 
-  ${({ readOnly, theme }) =>
+  ${({ readOnly }) =>
     readOnly &&
     css`
-      color: ${theme.readOnly.textboxText};
+      color: var(--colorsActionMinorYin090);
     `}
 `;
-
-StyledInput.defaultProps = {
-  theme: baseTheme,
-};
 
 StyledInput.propTypes = {
   disabled: PropTypes.bool,

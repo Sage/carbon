@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import Icon from "../icon";
 import { slideAnimation, fadeAnimation } from "./slide.config";
-import baseTheme from "../../style/themes/base";
 
 const CarouselNavigationStyle = styled.div`
   margin-top: -32.5px;
@@ -20,7 +19,8 @@ const CarouselNextButtonWrapperStyle = styled(CarouselNavigationStyle)`
 
 const CarouselStyledIcon = styled(Icon)`
   cursor: pointer;
-  &&::before {
+  color: var(--colorsActionMajorYang100);
+  &::before {
     font-size: 16px;
   }
 `;
@@ -34,21 +34,30 @@ const CarouselStyledIconRight = styled(CarouselStyledIcon)`
 `;
 
 const CarouselButtonStyle = styled.button.attrs({ type: "button" })`
-  ${({ theme, disabled }) => css`
+  ${({ disabled }) => css`
     border: none;
     width: 40px;
     height: 64px;
-    background: ${theme.colors.primary};
-    color: ${theme.colors.white};
-    opacity: ${disabled ? "0.1" : "1"};
+    border-width: var(--borderWidth200);
+    border-color: var(--colorsActionMajorTransparent);
+    background-color: ${disabled
+      ? "var(--colorsActionDisabled500)"
+      : "var(--colorsActionMajor500)"};
+
+    ${disabled &&
+    css`
+      ${CarouselStyledIcon} {
+        color: var(--colorsActionMajorYin030);
+      }
+    `}
 
     &:hover {
-      background-color: ${theme.colors.secondary};
+      background-color: var(--colorsActionMajor600);
       cursor: ${disabled ? "default" : "pointer"};
 
       ${disabled &&
       css`
-        background-color: ${theme.colors.primary};
+        background-color: var(--colorsActionDisabled500);
         cursor: default;
 
         ${CarouselStyledIcon} {
@@ -62,7 +71,7 @@ const CarouselButtonStyle = styled.button.attrs({ type: "button" })`
     }
 
     &:focus {
-      outline: 2px solid ${theme.colors.focus};
+      outline: 2px solid var(--colorsSemanticFocus500);
 
       ::-moz-focus-inner {
         border: 0;
@@ -84,7 +93,7 @@ const CarouselSelectorLabelStyle = styled.label`
   display: inline-block;
   width: 10px;
   height: 10px;
-  background: ${({ theme }) => theme.carousel.inactiveSelectorBackground};
+  background: var(--colorsActionMinor200);
   margin: 0px 4px;
 
   &:hover {
@@ -93,18 +102,18 @@ const CarouselSelectorLabelStyle = styled.label`
 `;
 
 const CarouselSelectorWrapperStyle = styled.div`
-  ${({ theme }) => css`
+  ${css`
     height: 20px;
     margin-top: 25px;
     text-align: center;
 
     ${CarouselSelectorInputStyle}:checked {
       + ${CarouselSelectorLabelStyle} {
-        background: ${theme.carousel.activeSelectorBackground};
-        border-color: transparent;
-        height: 10px;
-        position: relative;
         width: 10px;
+        height: 10px;
+        background: var(--colorsActionMinor400);
+        border-color: transparent;
+        position: relative;
       }
     }
   `}
@@ -132,42 +141,6 @@ const CarouselWrapperStyle = styled.div`
   ${slideAnimation};
   ${fadeAnimation};
 `;
-
-CarouselNavigationStyle.defaultProps = {
-  theme: baseTheme,
-};
-
-CarouselButtonStyle.defaultProps = {
-  theme: baseTheme,
-};
-
-CarouselStyledIcon.defaultProps = {
-  theme: baseTheme,
-};
-
-CarouselSelectorWrapperStyle.defaultProps = {
-  theme: baseTheme,
-};
-
-CarouselSelectorLabelStyle.defaultProps = {
-  theme: baseTheme,
-};
-
-CarouselStyledIconLeft.defaultProps = {
-  theme: baseTheme,
-};
-
-CarouselStyledIconRight.defaultProps = {
-  theme: baseTheme,
-};
-
-CarouselPreviousButtonWrapperStyle.defaultProps = {
-  theme: baseTheme,
-};
-
-CarouselNextButtonWrapperStyle.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   CarouselNavigationStyle,

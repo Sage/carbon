@@ -110,24 +110,34 @@ describe("MenuFullscreen", () => {
       );
     });
 
-    it("applies the expected styling when `menuType` is 'dark'", () => {
-      wrapper = render({ menuType: "dark" });
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.colors.slate,
-        },
-        wrapper
-      );
+    it.each(["light", "white", "dark", "black"])(
+      "applies the expected styling when `menuType` is %s",
+      (menuType) => {
+        wrapper = render({ menuType });
+        assertStyleMatch(
+          {
+            backgroundColor: baseTheme.menu[menuType].background,
+          },
+          wrapper
+        );
 
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.menu.dark.submenuBackground,
-        },
-        wrapper.find(StyledMenuFullscreenHeader)
-      );
+        assertStyleMatch(
+          {
+            backgroundColor: baseTheme.menu[menuType].submenuBackground,
+          },
+          wrapper.find(StyledMenuFullscreenHeader)
+        );
 
-      expect(wrapper.find(Icon).prop("color")).toEqual("#FFFFFF");
-    });
+        const iconColors = {
+          light: undefined,
+          dark: "#FFFFFF",
+          white: undefined,
+          black: "#FFFFFF",
+        };
+
+        expect(wrapper.find(Icon).prop("color")).toEqual(iconColors[menuType]);
+      }
+    );
 
     it("applies the expected styling when `isOpen` is true", () => {
       wrapper = render({ isOpen: true });

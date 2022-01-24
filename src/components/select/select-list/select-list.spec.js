@@ -4,7 +4,6 @@ import { mount } from "enzyme";
 
 import SelectList from "./select-list.component";
 import { StyledSelectList, StyledPopoverContainer } from "./select-list.style";
-import { baseTheme } from "../../../style/themes";
 import Option from "../option/option.component";
 import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
@@ -263,7 +262,7 @@ describe("SelectList", () => {
 
       expect(wrapper.find(optionType).at(1)).toHaveStyleRule(
         "background-color",
-        baseTheme.select.selected
+        "var(--colorsUtilityMajor200)"
       );
     });
 

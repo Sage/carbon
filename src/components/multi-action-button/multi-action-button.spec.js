@@ -16,7 +16,6 @@ import {
 } from "../../__spec_helper__/test-utils";
 import StyledButton from "../button/button.style";
 import StyledIcon from "../icon/icon.style";
-import baseTheme from "../../style/themes/base";
 
 describe("MultiActionButton", () => {
   let wrapper;
@@ -111,8 +110,8 @@ describe("MultiActionButton", () => {
       it("should have expected colors for the main Button", () => {
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.colors.secondary,
-            borderColor: baseTheme.colors.secondary,
+            backgroundColor: "var(--colorsActionMajor700)",
+            borderColor: "var(--colorsActionMajor700)",
           },
           wrapper,
           { modifier: `& > ${StyledButton}` }
@@ -122,7 +121,7 @@ describe("MultiActionButton", () => {
       it("should have expected border color and margin for the main Button when focused", () => {
         assertStyleMatch(
           {
-            borderColor: baseTheme.colors.focus,
+            borderColor: "var(--colorsSemanticFocus500)",
             margin: "0 -1px",
           },
           wrapper,
@@ -133,7 +132,7 @@ describe("MultiActionButton", () => {
       it("should have expected colors for the Button Icon", () => {
         assertStyleMatch(
           {
-            color: baseTheme.colors.white,
+            color: "var(--colorsActionMajorYang100)",
           },
           wrapper,
           { modifier: `& > ${StyledButton} ${StyledIcon}` }

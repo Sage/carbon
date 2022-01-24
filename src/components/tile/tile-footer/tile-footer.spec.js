@@ -6,7 +6,6 @@ import {
   testStyledSystemPadding,
 } from "../../../__spec_helper__/test-utils";
 import StyledTileFooter from "./tile-footer.style";
-import { baseTheme } from "../../../style/themes";
 
 const renderWrapper = (props, renderType = mount) => {
   return renderType(<TileFooter {...props}>content</TileFooter>);
@@ -28,7 +27,7 @@ describe("TileFooter", () => {
   it("should render correct background as default", () => {
     assertStyleMatch(
       {
-        background: baseTheme.tile.footerBackground,
+        background: "var(--colorsUtilityMajor025)",
       },
       wrapper.find(StyledTileFooter)
     );
@@ -39,7 +38,7 @@ describe("TileFooter", () => {
 
     assertStyleMatch(
       {
-        background: baseTheme.tile.footerBackground,
+        background: "var(--colorsUtilityMajor025)",
       },
       wrapper.find(StyledTileFooter)
     );

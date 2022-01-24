@@ -11,7 +11,7 @@ Then("Card component has non-interactive shadow", () => {
     .and(
       "have.css",
       "box-shadow",
-      "rgba(0, 20, 29, 0.2) 0px 3px 3px 0px, rgba(0, 20, 29, 0.15) 0px 2px 4px 0px"
+      "rgba(0, 20, 30, 0.2) 0px 3px 3px 0px, rgba(0, 20, 30, 0.15) 0px 2px 4px 0px"
     );
 });
 
@@ -21,7 +21,7 @@ Then("Card component has interactive shadow", () => {
     .and(
       "have.css",
       "box-shadow",
-      "rgba(0, 20, 29, 0.2) 0px 5px 5px 0px, rgba(0, 20, 29, 0.1) 0px 10px 10px 0px"
+      "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px"
     );
 });
 

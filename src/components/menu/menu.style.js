@@ -19,13 +19,12 @@ const StyledMenuWrapper = styled.ul`
 
   ${StyledVerticalWrapper} {
     ${({ menuType, theme }) => css`
-      background-color: ${theme.menu.light.background};
       display: inline-block;
       vertical-align: bottom;
+      background-color: ${theme.menu[menuType].background};
 
       ${menuType === "dark" &&
       css`
-        background-color: ${theme.colors.slate};
         color: ${theme.colors.white};
       `}
     `}

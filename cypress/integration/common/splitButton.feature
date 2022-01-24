@@ -37,10 +37,10 @@ Feature: Split Button component
     Given I open default "Split Button Test" component with "splitButton" json from "commonComponents" using "default" object name
     When I hover mouse onto "dropdown" icon
     Then Split Button second element has proper background-color "<color>" and border "<color>" color and has border-width 2 px
-      And Split Button additional buttons have proper background-color "<color>" and border "<color>" color and has border-width 1 px
+      And Split Button additional buttons have proper background-color "<backgroundColor>" and border "<borderColor>" color and has border-width 1 px
     Examples:
-      | color          |
-      | rgb(0, 96, 70) |
+      | color           | borderColor      | backgroundColor    |
+      | rgb(0, 129, 70) | rgba(0, 0, 0, 0) | rgb(255, 255, 255) |
 
   @positive
   Scenario Outline: Verify hover color and golden border for <element> element of Split Button component

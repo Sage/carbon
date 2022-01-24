@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import propTypes from "prop-types";
-import baseTheme from "../../../style/themes/base";
 
 const StyledOption = styled.li`
   cursor: pointer;
@@ -10,30 +9,22 @@ const StyledOption = styled.li`
   width: 100%;
   user-select: none;
 
-  ${({ isHighlighted, theme }) =>
+  ${({ isHighlighted }) =>
     isHighlighted &&
     css`
-      background-color: ${theme.select.selected};
+      background-color: var(--colorsUtilityMajor200);
     `}
 
   ${({ hidden }) => hidden && "display: none;"}
 
   :hover {
-    ${({ theme }) =>
-      css`
-        background-color: ${theme.select.selected};
-      `}
+    background-color: var(--colorsUtilityMajor200);
   }
 `;
 
 StyledOption.propTypes = {
   id: propTypes.any,
   isHighlighted: propTypes.bool,
-  theme: propTypes.object,
-};
-
-StyledOption.defaultProps = {
-  theme: baseTheme,
 };
 
 export default StyledOption;
