@@ -446,8 +446,6 @@ export default (palette) => {
 
         colorsSemanticFocus500: this.colors.focus,
 
-        colorsSemanticPositive500: this.colors.success,
-
         colorsSemanticNegative500: this.colors.error,
         colorsSemanticNegative600: this.colors.destructive.hover,
 

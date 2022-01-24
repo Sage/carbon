@@ -2,7 +2,6 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
 import OptionRow from "./option-row.component";
-import { baseTheme } from "../../../style/themes";
 
 describe("OptionRow", () => {
   it("renders properly", () => {
@@ -15,7 +14,7 @@ describe("OptionRow", () => {
       const props = { value: "1", text: "foo", isHighlighted: true };
       expect(renderOptionRow(props, mount)).toHaveStyleRule(
         "background-color",
-        baseTheme.select.selected
+        "var(--colorsUtilityMajor200)"
       );
     });
   });
@@ -32,7 +31,7 @@ describe("OptionRow", () => {
       const props = { value: "1", text: "foo" };
       expect(renderOptionRow(props, mount)).toHaveStyleRule(
         "background-color",
-        baseTheme.select.selected,
+        "var(--colorsUtilityMajor200)",
         { modifier: ":hover" }
       );
     });

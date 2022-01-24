@@ -2,8 +2,8 @@
 
 exports[`Card CardFooter styling should match the expected styling when it has interactive styling 1`] = `
 .c0 {
-  background-color: #F2F5F6;
-  border-top: #CCD6DB;
+  background-color: var(--colorsUtilityMajor025);
+  border-top: var(--colorsUtilityMajor100);
   border-top-width: 1px;
   border-top-style: solid;
   font-size: 14px;
@@ -69,8 +69,8 @@ exports[`Card CardFooter styling should match the expected styling when it has n
 }
 
 .c0 {
-  background-color: #F2F5F6;
-  border-top: #CCD6DB;
+  background-color: var(--colorsUtilityMajor025);
+  border-top: var(--colorsUtilityMajor100);
   border-top-width: 1px;
   border-top-style: solid;
   font-size: 14px;

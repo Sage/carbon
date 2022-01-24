@@ -1,13 +1,12 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import baseTheme from "../../../style/themes/base";
 import StyledLoader from "../../loader/loader.style";
 import StyledLoaderSquare from "../../loader/loader-square.style";
 
 const SwitchSliderPanel = styled.div`
-  ${({ isLoading, size, theme }) => css`
+  ${({ isLoading, size }) => css`
     border: 0;
-    color: ${theme.colors.white};
+    color: var(--colorsActionMinorYang100);
     margin: auto;
     margin-top: ${size === "large" ? "12px" : "5px"};
 
@@ -16,21 +15,47 @@ const SwitchSliderPanel = styled.div`
     }
 
     &[type="off"] {
-      color: ${theme.text.color};
+      color: var(--colorsActionMinor500);
       margin-right: 6px;
     }
 
     ${isLoading &&
     css`
+      &[type="off"],
+      &[type="on"] {
+        margin: 0;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 2px 8px;
+      }
+
+      &[type="off"] {
+        ${StyledLoaderSquare} {
+          background-color: var(--colorsSemanticNeutral500);
+        }
+      }
+
+      &[type="on"] {
+        ${StyledLoaderSquare} {
+          background-color: var(--colorsActionMinorYang100);
+        }
+      }
+
       ${StyledLoader} {
          {
-          padding: 0 3px 3px 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
 
           ${StyledLoaderSquare} {
-            height: 5px;
-            margin-bottom: 2px;
-            margin-right: 2px;
-            width: 5px;
+            height: ${size === "large"
+              ? "var(--sizing200)"
+              : "var(--sizing150)"};
+            width: ${size === "large"
+              ? "var(--sizing200)"
+              : "var(--sizing150)"};
           }
         }
       }
@@ -41,11 +66,6 @@ const SwitchSliderPanel = styled.div`
 SwitchSliderPanel.propTypes = {
   isLoading: PropTypes.bool,
   size: PropTypes.string,
-  theme: PropTypes.object,
-};
-
-SwitchSliderPanel.defaultProps = {
-  theme: baseTheme,
 };
 
 export default SwitchSliderPanel;

@@ -24,7 +24,6 @@ import {
   CarouselSliderWrapper,
 } from "./carousel.style";
 import guid from "../../__internal__/utils/helpers/guid";
-import baseTheme from "../../style/themes/base";
 
 const NEXT = "next";
 const PREVIOUS = "previous";
@@ -38,7 +37,6 @@ const BaseCarousel = ({
   initialSlideIndex = 0,
   onSlideChange,
   slideIndex,
-  theme = baseTheme,
   ...props
 }) => {
   const [selectedSlideIndex, setSelectedSlideIndex] = useState(
@@ -107,7 +105,6 @@ const BaseCarousel = ({
         key: `slide-${guid()}`,
         id: key,
         selectedIndex: selectedSlideIndex,
-        theme,
         ...element.props,
       });
     });
@@ -220,8 +217,6 @@ BaseCarousel.propTypes = {
   enableNextButton: PropTypes.bool,
   /** Action to be called on slide change */
   onSlideChange: PropTypes.func,
-  /** theme is used only to support legacy code */
-  theme: PropTypes.object,
 };
 
 const Carousel = withTheme(BaseCarousel);
