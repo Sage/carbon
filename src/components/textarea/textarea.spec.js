@@ -53,6 +53,16 @@ describe("Textarea", () => {
 
   const validationTypes = ["error", "warning", "info"];
 
+  describe("when value prop set initially", () => {
+    it("should display the correct value", () => {
+      wrapper = renderTextarea({
+        value: "Initial content",
+      });
+
+      expect(wrapper.find(Input).text()).toEqual("Initial content");
+    });
+  });
+
   describe.each(validationTypes)(
     "when %s validation prop is string",
     (validationProp) => {

@@ -28,7 +28,7 @@ describe("TabsHeader", () => {
       {
         display: "flex",
         boxShadow: `inset 0px -2px 0px 0px ${baseTheme.tab.background}`,
-        cursor: "pointer",
+        cursor: "default",
         listStyle: "none",
         margin: "0",
         padding: "0",

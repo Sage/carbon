@@ -16,6 +16,9 @@ const marginPropTypes = filterStyledSystemMarginProps(
 );
 
 const AdvancedColorPicker = ({
+  "aria-describedby": ariaDescribedBy,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
   name,
   open,
   onOpen,
@@ -25,6 +28,7 @@ const AdvancedColorPicker = ({
   availableColors,
   defaultColor,
   selectedColor,
+  role,
   ...props
 }) => {
   const isOpen = open || false;
@@ -151,11 +155,15 @@ const AdvancedColorPicker = ({
         tabIndex="0"
       />
       <DialogStyle
+        aria-describedby={ariaDescribedBy}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
         open={dialogOpen || isOpen}
         size="auto"
         onCancel={handleOnClose}
         bespokeFocusTrap={handleFocus}
         focusFirstElement={selectedColorRef}
+        role={role}
       >
         <StyledAdvancedColorPickerPreview
           data-element="color-picker-preview"
@@ -189,6 +197,19 @@ const AdvancedColorPicker = ({
 AdvancedColorPicker.propTypes = {
   /** Filtered styled system margin props */
   ...marginPropTypes,
+  /** Prop to specify the aria-describedby property of the component */
+  "aria-describedby": PropTypes.string,
+  /**
+   * Prop to specify the aria-label of the component.
+   * To be used only when the title prop is not defined, and the component is not labelled by any internal element.
+   */
+  "aria-label": PropTypes.string,
+  /**
+   * Prop to specify the aria-labeledby property of the component
+   * To be used when the title prop is a custom React Node,
+   * or the component is labelled by an internal element other than the title.
+   */
+  "aria-labelledby": PropTypes.string,
   /** Specifies the name prop to be applied to each color in the group */
   name: PropTypes.string.isRequired,
   /** Prop for `availableColors` containing array of objects of colors */
@@ -207,6 +228,8 @@ AdvancedColorPicker.propTypes = {
   open: PropTypes.bool,
   /** Prop for `onBlur` event */
   onBlur: PropTypes.func,
+  /** The ARIA role to be applied to the container */
+  role: PropTypes.string,
 };
 
 export default AdvancedColorPicker;

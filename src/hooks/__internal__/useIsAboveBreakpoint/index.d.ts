@@ -1,1 +1,1 @@
-export default function useIsAboveBreakpoint(breakpoint: number): boolean;
+export default function useIsAboveBreakpoint(breakpoint?: number): boolean;

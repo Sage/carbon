@@ -41,26 +41,10 @@ const Drawer = ({
   const isControlled = useRef(expanded !== undefined);
   const [isOpening, setIsOpening] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+  const [isExpanded, setIsExpanded] = useState(
+    isControlled.current ? expanded : defaultExpanded
+  );
   const timer = useRef();
-
-  useEffect(() => {
-    const message =
-      "Drawer should not switch from uncontrolled to controlled" +
-      " (or vice versa). Decide between using a controlled or uncontrolled Drawer element" +
-      " for the lifetime of the component";
-    invariant(isControlled.current === (expanded !== undefined), message);
-
-    if (expanded !== undefined) {
-      setIsExpanded(expanded);
-    }
-  }, [expanded]);
-
-  useEffect(() => {
-    return function cleanup() {
-      clearTimeout(timer.current);
-    };
-  }, []);
 
   const getAnimationDuration = useCallback(() => {
     if (animationDuration.indexOf("ms") !== -1) {
@@ -102,6 +86,38 @@ const Drawer = ({
       }, timeout);
     }
   }, [getAnimationDuration, isExpanded]);
+
+  function usePrevious(arg) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = arg;
+    });
+    return ref.current;
+  }
+
+  const previousValue = usePrevious(expanded);
+
+  useEffect(() => {
+    const message =
+      "Drawer should not switch from uncontrolled to controlled" +
+      " (or vice versa). Decide between using a controlled or uncontrolled Drawer element" +
+      " for the lifetime of the component";
+    invariant(isControlled.current === (expanded !== undefined), message);
+
+    if (isControlled.current && previousValue !== expanded) {
+      setIsExpanded(expanded);
+
+      if (!showControls && ![expanded, previousValue].includes(undefined)) {
+        toggleAnimation();
+      }
+    }
+  }, [expanded, toggleAnimation, previousValue, showControls]);
+
+  useEffect(() => {
+    return function cleanup() {
+      clearTimeout(timer.current);
+    };
+  }, []);
 
   const toggleDrawer = useCallback(
     (ev) => {

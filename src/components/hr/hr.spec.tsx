@@ -6,10 +6,10 @@ import {
   mockMatchMedia,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import Hr from "./hr.component";
+import Hr, { HrProps } from "./hr.component";
 import StyledHr from "./hr.style";
 
-function render(props, renderer = mount) {
+function render(props: HrProps, renderer = mount) {
   return renderer(<Hr {...props} />);
 }
 
@@ -17,10 +17,10 @@ describe("Hr", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = render();
+    wrapper = render({});
   });
 
-  testStyledSystemMargin((props) => <Hr {...props} />, {
+  testStyledSystemMargin((props: HrProps) => <Hr {...props} />, {
     mt: "24px",
     mb: "24px",
   });

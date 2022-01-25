@@ -258,14 +258,6 @@ const Tabs = ({
           customLayout={customLayout}
           isInSidebar={isInSidebar}
           align={align}
-          onFocus={() => {
-            if (!hasTabStop(tabId)) {
-              setTabStopId(tabId);
-            }
-            if (!isTabSelected(tabId)) {
-              updateVisibleTab(tabId);
-            }
-          }}
         />
       );
 

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { mount } from "@cypress/react";
 import GroupedCharacter from "./grouped-character.component";
+import CarbonProvider from "../carbon-provider";
 
 import {
   fieldHelpPreview,
@@ -22,14 +23,16 @@ const GroupedCharacterComponent = ({ onChange, ...props }) => {
   };
 
   return (
-    <GroupedCharacter
-      label="GroupedCharacter"
-      value={state}
-      onChange={setValue}
-      groups={[2, 2, 3]}
-      separator="-"
-      {...props}
-    />
+    <CarbonProvider>
+      <GroupedCharacter
+        label="GroupedCharacter"
+        value={state}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        {...props}
+      />
+    </CarbonProvider>
   );
 };
 

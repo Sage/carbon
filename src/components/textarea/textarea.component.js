@@ -186,6 +186,7 @@ const Textarea = ({
                 aria-describedby={ariaDescribedBy}
                 autoFocus={autoFocus}
                 name={name}
+                value={value}
                 ref={inputRef}
                 maxLength={
                   enforceCharacterLimit && characterLimit

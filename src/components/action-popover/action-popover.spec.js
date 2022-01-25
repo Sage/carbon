@@ -759,23 +759,6 @@ describe("ActionPopover", () => {
     });
   });
 
-  describe("styles", () => {
-    it("renders the button with a white background when the menu is open", () => {
-      render();
-
-      const { menubutton } = getElements();
-
-      expect(menubutton).not.toHaveStyleRule("background-color");
-
-      simulate.keydown.pressDownArrow(menubutton);
-
-      expect(getElements().menubutton).toHaveStyleRule(
-        "background-color",
-        mintTheme.colors.white
-      );
-    });
-  });
-
   it("validates the children prop", () => {
     jest.spyOn(global.console, "error").mockImplementation(() => {});
     const tempWrapper = enzymeMount(
@@ -807,7 +790,7 @@ describe("ActionPopover", () => {
         const submenuIcon = item.find(SubMenuItemIcon);
         assertStyleMatch(
           {
-            left: "0px",
+            left: "-2px",
           },
           submenuIcon
         );
@@ -1144,7 +1127,7 @@ describe("ActionPopover", () => {
         const submenuIcon = item.find(SubMenuItemIcon);
         assertStyleMatch(
           {
-            right: "0px",
+            right: "-5px",
           },
           submenuIcon
         );
@@ -1299,19 +1282,11 @@ describe("ActionPopover", () => {
 
       assertStyleMatch(
         {
-          padding: "0px 8px",
+          padding: "0px var(--sizing100)",
           width: "100%",
         },
         menuButton,
         { modifier: `${StyledButton}` }
-      );
-
-      assertStyleMatch(
-        {
-          outlineWidth: "2px",
-        },
-        menuButton,
-        { modifier: `${StyledButton}:focus ` }
       );
     });
 
@@ -1371,7 +1346,7 @@ describe("ActionPopover", () => {
       openMenu();
       assertStyleMatch(
         {
-          paddingLeft: "8px",
+          padding: "var(--spacing100)",
         },
         wrapper.find(MenuItemIcon)
       );
