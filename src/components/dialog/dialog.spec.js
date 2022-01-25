@@ -19,7 +19,6 @@ import {
 } from "./dialog.config";
 import Button from "../button";
 import Heading from "../heading";
-import { Row, Column } from "../row";
 import {
   assertStyleMatch,
   getDefaultValue,
@@ -321,10 +320,10 @@ describe("Dialog", () => {
     describe("when jsx is passed as title prop value", () => {
       it("Heading component is not used", () => {
         const TitleComponent = () => (
-          <Row>
-            <Column>Row1</Column>
-            <Column>Row2</Column>
-          </Row>
+          <div>
+            <span>Row1</span>
+            <span>Row2</span>
+          </div>
         );
 
         wrapper = mount(
