@@ -35,6 +35,7 @@ const Label = ({
   pr,
   pl,
   isRequired,
+  validationIconId,
 }) => {
   const [isFocused, setFocus] = useState(false);
   const { onMouseEnter, onMouseLeave } = useContext(InputContext);
@@ -77,6 +78,7 @@ const Label = ({
       return (
         <IconWrapperStyle>
           <ValidationIcon
+            iconId={validationIconId}
             tooltipId={tooltipId}
             error={error}
             warning={warning}
@@ -168,6 +170,8 @@ Label.propTypes = {
   pl: PropTypes.oneOf([1, 2]),
   /** Flag to configure component as mandatory */
   isRequired: PropTypes.bool,
+  /** Id of the validation icon */
+  validationIconId: PropTypes.string,
 };
 
 export default React.memo(Label);
