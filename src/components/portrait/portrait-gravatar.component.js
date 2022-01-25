@@ -37,8 +37,6 @@ const PortraitGravatar = ({
 };
 
 PortraitGravatar.propTypes = {
-  /** The theme to use. */
-  theme: PropTypes.object,
   /** The user's email address for the Gravatar. */
   gravatarEmail: PropTypes.string.isRequired,
   /** The size of the Gravatar. */
