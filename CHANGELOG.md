@@ -1,3 +1,10 @@
+## [103.1.0](https://github.com/Sage/carbon/compare/v103.0.0...v103.1.0) (2022-01-25)
+
+
+### Features
+
+* **progress tracker:** add accessibility props to component ([cf52243](https://github.com/Sage/carbon/commit/cf5224323479232e0d5d58cfe85c3b76c4de8615)), closes [#FE-4699](https://github.com/Sage/carbon/issues/FE-4699)
+
 ## [103.0.0](https://github.com/Sage/carbon/compare/v102.22.1...v103.0.0) (2022-01-24)
 
 
