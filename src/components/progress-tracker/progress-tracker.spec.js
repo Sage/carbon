@@ -399,4 +399,37 @@ describe("ProgressBar", () => {
       );
     });
   });
+
+  describe("Accessibility", () => {
+    beforeEach(() => {
+      wrapper = mount(
+        <ProgressBar
+          progress={10}
+          aria-label="FooBar"
+          aria-describedby="Foo"
+          aria-valuemin={0}
+          aria-valuenow={10}
+          aria-valuemax={100}
+          aria-valuetext="Bar"
+        />
+      );
+    });
+
+    it("should allow an aria-label prop to be passed to the component", () => {
+      expect(wrapper.prop("aria-label")).toBe("FooBar");
+    });
+
+    it("should allow an aria-describedby prop to be passed to the component", () => {
+      expect(wrapper.prop("aria-describedby")).toBe("Foo");
+    });
+
+    it.each([
+      ["aria-valuemin", 0],
+      ["aria-valuenow", 10],
+      ["aria-valuemax", 100],
+      ["aria-valuetext", "Bar"],
+    ])("should allow a value to be passed to %s ", (prop, value) => {
+      expect(wrapper.prop(prop)).toBe(value);
+    });
+  });
 });

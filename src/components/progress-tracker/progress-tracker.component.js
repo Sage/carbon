@@ -16,6 +16,12 @@ const marginPropTypes = filterStyledSystemMarginProps(
 );
 
 const ProgressTracker = ({
+  "aria-label": ariaLabel = "progress tracker",
+  "aria-describedby": ariaDescribedBy,
+  "aria-valuenow": ariaValueNow,
+  "aria-valuemin": ariaValueMin,
+  "aria-valuemax": ariaValueMax,
+  "aria-valuetext": ariaValueText,
   size = "medium",
   progress = 0,
   showDefaultLabels = false,
@@ -75,6 +81,13 @@ const ProgressTracker = ({
       isVertical={isVertical}
       {...rest}
       {...tagComponent("progress-bar", rest)}
+      role="progressbar"
+      aria-label={ariaLabel}
+      aria-describedby={ariaDescribedBy}
+      aria-valuenow={ariaValueNow}
+      aria-valuemin={ariaValueMin}
+      aria-valuemax={ariaValueMax}
+      aria-valuetext={ariaValueText}
     >
       {prefixLabels && renderValueLabels()}
       <StyledProgressBar
@@ -91,6 +104,20 @@ const ProgressTracker = ({
 
 ProgressTracker.propTypes = {
   ...marginPropTypes,
+  /** Specifies an aria label to the component */
+  "aria-label": PropTypes.string,
+  /** Specifies the aria describedby for the component */
+  "aria-describedby": PropTypes.string,
+  /** The value of progress to be read out to the user. */
+  "aria-valuenow": PropTypes.number,
+  /** The minimum value of the progress tracker */
+  "aria-valuemin": PropTypes.number,
+  /** The maximum value of the progress tracker */
+  "aria-valuemax": PropTypes.number,
+  /** Prop to define the human readable text alternative of aria-valuenow
+   * if aria-valuenow is not a number
+   */
+  "aria-valuetext": PropTypes.string,
   /** Size of the progress bar. */
   size: PropTypes.oneOf(["small", "medium", "large"]),
   /** Current progress (percentage). */
