@@ -3,7 +3,6 @@ import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import DialogFullScreen from ".";
 import { Accordion } from "../accordion";
-import AppWrapper from "../app-wrapper";
 import Box from "../box";
 import Button from "../button";
 import Form from "../form";
@@ -794,10 +793,10 @@ to have a possibility to manage active `Tabs` group
   </Story>
 </Canvas>
 
-### With AppWrapper
+### With `Box`
 
 <Canvas>
-  <Story name="with app wrapper" parameters={{ chromatic: { disable: true } }}>
+  <Story name="with box" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (
@@ -811,7 +810,7 @@ to have a possibility to manage active `Tabs` group
             title="Title"
             subtitle="Subtitle"
           >
-            <AppWrapper>
+            <Box p="0px 40px">
               <Form
                 stickyFooter={true}
                 leftSideButtons={
@@ -834,7 +833,7 @@ to have a possibility to manage active `Tabs` group
                 <Textbox label="Favourite Colour" />
                 <Textbox label="Address" />
               </Form>
-            </AppWrapper>
+            </Box>
           </DialogFullScreen>
         </>
       );

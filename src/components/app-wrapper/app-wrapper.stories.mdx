@@ -1,8 +1,19 @@
 import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import AppWrapper from ".";
+import Box from "../box";
+import DeprecationWarning from "../../__internal__/DeprecationWarning";
+import LinkTo from "@storybook/addon-links/react";
 
 <Meta title="AppWrapper" parameters={{ info: { disable: true } }} />
+
+<DeprecationWarning>
+  AppWrapper is now deprecated. Please use the{" "}
+  <LinkTo kind="Box" story="spacing">
+    Box
+  </LinkTo>{" "}
+  component in place of AppWrapper.
+</DeprecationWarning>
 
 # AppWrapper
 
