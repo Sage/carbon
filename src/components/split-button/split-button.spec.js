@@ -329,7 +329,7 @@ describe("SplitButton", () => {
         assertStyleMatch(
           {
             background: "transparent",
-            color: "var(--colorsYin030)",
+            color: "var(--colorsActionMajorYin030)",
           },
           toggle
         );

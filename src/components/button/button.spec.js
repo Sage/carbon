@@ -204,7 +204,10 @@ describe("Button", () => {
               variant === "secondary" || variant === "dashed"
                 ? "var(--colorsActionDisabled500)"
                 : "transparent",
-            color: "var(--colorsYin030)",
+            color:
+              variant === "dashed"
+                ? "var(--colorsActionMinorYin030)"
+                : "var(--colorsActionMajorYin030)",
           },
           wrapper
         );
@@ -348,7 +351,7 @@ describe("Button", () => {
         {
           background: "transparent",
           borderColor: "var(--colorsActionDisabled500)",
-          color: "var(--colorsYin030)",
+          color: "var(--colorsActionMajorYin030)",
           fontSize: "var(--fontSizes100)",
           minHeight: sizesHeights.medium,
         },
@@ -383,7 +386,10 @@ describe("Button", () => {
                   variant === "secondary" || variant === "dashed"
                     ? "var(--colorsActionDisabled500)"
                     : "transparent",
-                color: "var(--colorsYin030)",
+                color:
+                  variant === "dashed"
+                    ? "var(--colorsActionMinorYin030)"
+                    : "var(--colorsActionMajorYin030)",
                 fontSize: size === "large" ? "16px" : "var(--fontSizes100)",
                 minHeight: height,
               },
@@ -415,7 +421,10 @@ describe("Button", () => {
                   variant === "secondary" || variant === "dashed"
                     ? "var(--colorsActionDisabled500)"
                     : "transparent",
-                color: "var(--colorsYin030)",
+                color:
+                  variant === "dashed"
+                    ? "var(--colorsActionMinorYin030)"
+                    : "var(--colorsActionMajorYin030)",
                 fontSize: size === "large" ? "16px" : "var(--fontSizes100)",
                 minHeight: height,
               },
