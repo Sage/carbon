@@ -23,6 +23,7 @@ import { TOAST_COLORS } from "./toast.config";
 export const ToastStory = ({
   children,
   childrenSpecialCharacters,
+  scrollablePage,
   ...args
 }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -33,6 +34,20 @@ export const ToastStory = ({
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
+  if (scrollablePage) {
+    return (
+      <div style={{ height: "150vh", overflow: "auto" }}>
+        <Button onClick={handleOpen}>Open Toast</Button>
+        <Toast
+          id="toast-dismissible"
+          open={isOpen}
+          onDismiss={onDismissClick}
+          children={children || childrenSpecialCharacters}
+          {...args}
+        />
+      </div>
+    );
+  }
   return (
     <>
       <Button onClick={handleOpen}>Open Toast</Button>
@@ -194,6 +209,7 @@ export const ToastVisualStory = ({
       timeout: 0,
       variant: "warning",
       isCenter: true,
+      scrollablePage: false,
     }}
     argTypes={{
       variant: {
