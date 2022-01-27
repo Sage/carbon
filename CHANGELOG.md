@@ -1,3 +1,19 @@
+## [104.0.0](https://github.com/Sage/carbon/compare/v103.2.0...v104.0.0) (2022-01-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **date, date-range:** Date component is no longer class based so any previous extension of it will no
+longer work. It also now only works as a controlled component and requires both `value` and
+`onChange` props to work: the `onChange` handler should also use the `formattedValue` to set the
+value state and `rawValue` for validation and storing in the backend. The `DateRange` can now only
+be used as a controlled component, `value` and `onChange` are required and `formattedValue` should
+be used to update the state.
+
+### Features
+
+* **date, date-range:** rewrite Date component using date-fns and remove uncontrolled support ([b9f3a5f](https://github.com/Sage/carbon/commit/b9f3a5f6ca44264bb6a1b0e7b7b5106f1b4ce51d)), closes [#2996](https://github.com/Sage/carbon/issues/2996) [#4458](https://github.com/Sage/carbon/issues/4458)
+
 ## [103.2.0](https://github.com/Sage/carbon/compare/v103.1.0...v103.2.0) (2022-01-27)
 
 
