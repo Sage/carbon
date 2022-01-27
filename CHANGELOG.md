@@ -1,3 +1,10 @@
+## [103.2.0](https://github.com/Sage/carbon/compare/v103.1.0...v103.2.0) (2022-01-27)
+
+
+### Features
+
+* **badge:** describe component using design tokens ([16664f5](https://github.com/Sage/carbon/commit/16664f59788e386ae3deba511a2d31cf8d532d3c))
+
 ## [103.1.0](https://github.com/Sage/carbon/compare/v103.0.0...v103.1.0) (2022-01-25)
 
 
