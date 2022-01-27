@@ -24,6 +24,6 @@ Then("Badge component cross icon has proper color", () => {
   badge()
     .should("have.css", "background")
     .then(($el) => {
-      expect($el).contains("rgb(0, 125, 90)");
+      expect($el).contains("rgb(0, 129, 70)");
     });
 });
