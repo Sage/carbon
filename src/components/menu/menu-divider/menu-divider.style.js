@@ -6,9 +6,7 @@ const StyledDivider = styled.div`
   ${({ menuType, theme, size }) => css`
     margin: 0px ${size === "large" ? "" : "16px"};
     height: ${size === "large" ? "4px" : "1px"};
-    background: ${menuType !== "dark"
-      ? theme.menu.light.divider
-      : theme.menu.dark.divider};
+    background: ${theme.menu[menuType].divider};
   `}
 `;
 

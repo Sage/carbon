@@ -9,20 +9,10 @@ const StyledTitle = styled.div`
     text-transform: uppercase;
     line-height: 12px;
     cursor: default;
-
-    ${menuType === "light" &&
-    css`
-      ${variant === "alternate"
-        ? `background: ${theme.menu.light.background};`
-        : ""}
-      color: ${theme.menu.light.title};
-    `}
-
-    ${menuType === "dark" &&
-    css`
-      ${variant === "alternate" ? `background: ${theme.colors.slate};` : ""}
-      color: ${theme.menu.dark.title};
-    `}
+    color: ${theme.menu[menuType].title};
+    ${variant === "alternate"
+      ? `background: ${theme.menu[menuType].alternate};`
+      : ""};
   `}
 `;
 

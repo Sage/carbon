@@ -117,7 +117,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c0 > .c1:focus {
-  border: 3px solid #FFB500;
+  border: 3px solid var(--colorsSemanticFocus500);
   outline: none;
   margin: -1px;
 }
@@ -132,7 +132,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c5 > .c1:focus {
-  border: 3px solid #FFB500;
+  border: 3px solid var(--colorsSemanticFocus500);
   outline: none;
   margin: -1px;
 }
@@ -147,7 +147,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c6 > .c1:focus {
-  border: 3px solid #FFB500;
+  border: 3px solid var(--colorsSemanticFocus500);
   outline: none;
   margin: -1px;
 }
@@ -162,7 +162,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c7 > .c1:focus {
-  border: 3px solid #FFB500;
+  border: 3px solid var(--colorsSemanticFocus500);
   outline: none;
   margin: -1px;
 }
@@ -177,7 +177,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c8 > .c1:focus {
-  border: 3px solid #FFB500;
+  border: 3px solid var(--colorsSemanticFocus500);
   outline: none;
   margin: -1px;
 }
@@ -192,7 +192,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c9 > .c1:focus {
-  border: 3px solid #FFB500;
+  border: 3px solid var(--colorsSemanticFocus500);
   outline: none;
   margin: -1px;
 }
@@ -207,7 +207,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c10 > .c1:focus {
-  border: 3px solid #FFB500;
+  border: 3px solid var(--colorsSemanticFocus500);
   outline: none;
   margin: -1px;
 }
@@ -222,7 +222,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c11 > .c1:focus {
-  border: 3px solid #FFB500;
+  border: 3px solid var(--colorsSemanticFocus500);
   outline: none;
   margin: -1px;
 }

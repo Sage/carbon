@@ -5,7 +5,6 @@ import baseTheme from "../../style/themes/base";
 import {
   OUTER_TRACKER_LENGTH,
   PROGRESS_TRACKER_SIZES,
-  PROGRESS_TRACKER_VARIANTS,
 } from "./progress-tracker.config";
 
 const StyledProgressTracker = styled.div`
@@ -27,10 +26,10 @@ const StyledProgressTracker = styled.div`
 `;
 
 const StyledProgressBar = styled.span`
-  ${({ direction, isVertical, size, theme }) => css`
+  ${({ direction, isVertical, size }) => css`
     display: flex;
     position: relative;
-    background-color: ${theme.progressTracker.background};
+    background-color: var(--colorsSemanticNeutral200);
 
     ${!isVertical &&
     css`
@@ -53,15 +52,10 @@ const StyledProgressBar = styled.span`
 `;
 
 const StyledValue = styled.span`
-  ${({ isMaxValue, theme }) => css`
-    ${isMaxValue &&
-    `
-      color: ${theme.text.placeholder};
-    `}
-    ${!isMaxValue &&
-    `
-      font-weight: bold;
-    `}
+  color: var(--colorsUtilityYin090);
+  ${({ isMaxValue }) => css`
+    ${isMaxValue && `color: var(--colorsUtilityYin055);`}
+    ${!isMaxValue && `font-weight: bold;`}
   `}
 `;
 
@@ -105,10 +99,10 @@ const StyledValuesLabel = styled.span`
 `;
 
 const InnerBar = styled.span`
-  ${({ isVertical, progress, size, theme, variant }) => css`
+  ${({ isVertical, progress, size }) => css`
     position: absolute;
     left: 0;
-    background-color: ${getInnerBarColour(variant, progress, theme)};
+    background-color: ${getInnerBarColour(progress)};
 
     ${!isVertical &&
     css`
@@ -128,19 +122,17 @@ const InnerBar = styled.span`
 function getHeight(size) {
   switch (size) {
     case "small":
-      return "4px";
+      return "var(--sizing050)";
     case "large":
-      return "16px";
+      return "var(--sizing200)";
     default:
-      return "8px";
+      return "var(--sizing100)";
   }
 }
 
-function getInnerBarColour(variant, progress, theme) {
-  if (progress >= 100) return theme.colors.success;
-  if (variant === "default") return theme.progressTracker.innerBackground;
-  if (progress < 20) return theme.colors.error;
-  return theme.progressTracker.trafficNeutral;
+function getInnerBarColour(progress) {
+  if (progress >= 100) return "var(--colorsSemanticPositive500)";
+  return "var(--colorsSemanticNeutral500)";
 }
 
 StyledProgressTracker.defaultProps = {
@@ -148,28 +140,37 @@ StyledProgressTracker.defaultProps = {
 };
 
 StyledProgressBar.defaultProps = {
-  theme: baseTheme,
+  size: "medium",
+};
+
+InnerBar.defaultProps = {
+  progress: 0,
   size: "medium",
 };
 
 InnerBar.propTypes = {
   size: PropTypes.oneOf(PROGRESS_TRACKER_SIZES),
   progress: PropTypes.number,
-  variant: PropTypes.oneOf(PROGRESS_TRACKER_VARIANTS),
+  isVertical: PropTypes.bool,
 };
 
-InnerBar.defaultProps = {
-  progress: 0,
-  theme: baseTheme,
-  size: "medium",
-  variant: "default",
+StyledProgressTracker.propTypes = {
+  theme: PropTypes.object,
+  isVertical: PropTypes.bool,
 };
 
-StyledValue.defaultProps = {
-  theme: baseTheme,
+StyledValuesLabel.propTypes = {
+  isVertical: PropTypes.bool,
+  position: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+};
+
+StyledValue.propTypes = {
+  isMaxValue: PropTypes.bool,
 };
 
 StyledProgressBar.propTypes = {
+  direction: PropTypes.oneOf(["up", "down"]),
+  isVertical: PropTypes.bool,
   size: PropTypes.oneOf(PROGRESS_TRACKER_SIZES),
 };
 

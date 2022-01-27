@@ -15,7 +15,7 @@ Feature: Pill component
     Given I open default "Pill Test" component with "pill" json from "commonComponents" using "onDelete" object name
     When I focus Pill close icon
     Then Pill close icon has golden border outline
-      And Pill close icon has "rgb(0, 96, 70)" backgroundColor
+      And Pill close icon has "rgb(0, 103, 56)" backgroundColor
 
   @positive
   Scenario: Enable onDelete checkbox and check the delete event
