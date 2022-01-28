@@ -15,8 +15,8 @@ import {
   testStyledSystemFlexBox,
   assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
-import baseTheme from "../../style/themes/base";
 import StyledMenuItemWrapper from "./menu-item/menu-item.style";
+import menuConfigVariants from "./menu.config";
 
 const events = {
   end: {
@@ -64,7 +64,7 @@ describe("Menu", () => {
 
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.menu[menuType].background,
+            backgroundColor: menuConfigVariants[menuType].background,
           },
           wrapper.find(StyledMenuWrapper),
           { modifier: `${StyledVerticalWrapper}` }
@@ -81,8 +81,8 @@ describe("Menu", () => {
 
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.colors.slate,
-          color: baseTheme.colors.white,
+          backgroundColor: "var(--colorsComponentsMenuAutumnStandard500)",
+          color: "var(--colorsComponentsMenuYang100)",
           display: "inline-block",
           verticalAlign: "bottom",
         },
