@@ -3,7 +3,7 @@
 exports[`CarbonScopedTokensProvider should render css variables for all themes 1`] = `
 Array [
   CSSStyleRule {
-    "__ends": 14582,
+    "__ends": 14608,
     "__starts": 45,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
@@ -60,6 +60,7 @@ Array [
       "--colorsActionReadOnly400": "#f2f5f6ff",
       "--colorsActionReadOnly500": "#e6ebedff",
       "--colorsActionReadOnly600": "#ccd6dbff",
+      "--colorsBaseTheme": "#0073C2",
       "--colorsComponentsMenuAutumnChild400": "#19475eff",
       "--colorsComponentsMenuAutumnChild500": "#001926ff",
       "--colorsComponentsMenuAutumnChild600": "#007e45ff",
@@ -673,6 +674,7 @@ Array [
       "362": "--opacity300",
       "363": "--opacity600",
       "364": "--opacity800",
+      "365": "--colorsBaseTheme",
       "37": "--colorsComponentsMenuSummerParent700",
       "38": "--colorsComponentsMenuSummerChild400",
       "39": "--colorsComponentsMenuSummerChild500",
@@ -792,6 +794,7 @@ Array [
         "--colorsActionReadOnly400": "",
         "--colorsActionReadOnly500": "",
         "--colorsActionReadOnly600": "",
+        "--colorsBaseTheme": "",
         "--colorsComponentsMenuAutumnChild400": "",
         "--colorsComponentsMenuAutumnChild500": "",
         "--colorsComponentsMenuAutumnChild600": "",
@@ -1110,13 +1113,13 @@ Array [
         "--typographyTooltipTextL": "",
         "--typographyTooltipTextM": "",
       },
-      "length": 365,
+      "length": 366,
       "parentRule": [Circular],
     },
   },
   CSSStyleRule {
-    "__ends": 29118,
-    "__starts": 14583,
+    "__ends": 29170,
+    "__starts": 14609,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
@@ -1172,6 +1175,7 @@ Array [
       "--colorsActionReadOnly400": "#f2f5f6ff",
       "--colorsActionReadOnly500": "#e6ebedff",
       "--colorsActionReadOnly600": "#ccd6dbff",
+      "--colorsBaseTheme": "#007D5A",
       "--colorsComponentsMenuAutumnChild400": "#19475eff",
       "--colorsComponentsMenuAutumnChild500": "#001926ff",
       "--colorsComponentsMenuAutumnChild600": "#007e45ff",
@@ -1785,6 +1789,7 @@ Array [
       "362": "--opacity300",
       "363": "--opacity600",
       "364": "--opacity800",
+      "365": "--colorsBaseTheme",
       "37": "--colorsComponentsMenuSummerParent700",
       "38": "--colorsComponentsMenuSummerChild400",
       "39": "--colorsComponentsMenuSummerChild500",
@@ -1854,7 +1859,7 @@ Array [
       "97": "--colorsUtilityDisabled400",
       "98": "--colorsUtilityDisabled500",
       "99": "--colorsUtilityDisabled600",
-      "__starts": 14612,
+      "__starts": 14638,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",
@@ -1904,6 +1909,7 @@ Array [
         "--colorsActionReadOnly400": "",
         "--colorsActionReadOnly500": "",
         "--colorsActionReadOnly600": "",
+        "--colorsBaseTheme": "",
         "--colorsComponentsMenuAutumnChild400": "",
         "--colorsComponentsMenuAutumnChild500": "",
         "--colorsComponentsMenuAutumnChild600": "",
@@ -2222,13 +2228,13 @@ Array [
         "--typographyTooltipTextL": "",
         "--typographyTooltipTextM": "",
       },
-      "length": 365,
+      "length": 366,
       "parentRule": [Circular],
     },
   },
   CSSStyleRule {
-    "__ends": 43654,
-    "__starts": 29119,
+    "__ends": 43706,
+    "__starts": 29171,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
@@ -2966,7 +2972,7 @@ Array [
       "97": "--colorsUtilityDisabled400",
       "98": "--colorsUtilityDisabled500",
       "99": "--colorsUtilityDisabled600",
-      "__starts": 29148,
+      "__starts": 29200,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",
@@ -3339,8 +3345,8 @@ Array [
     },
   },
   CSSStyleRule {
-    "__ends": 58219,
-    "__starts": 43655,
+    "__ends": 58271,
+    "__starts": 43707,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
@@ -4078,7 +4084,7 @@ Array [
       "97": "--colorsUtilityDisabled400",
       "98": "--colorsUtilityDisabled500",
       "99": "--colorsUtilityDisabled600",
-      "__starts": 43697,
+      "__starts": 43749,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",
@@ -4451,8 +4457,8 @@ Array [
     },
   },
   CSSStyleRule {
-    "__ends": 58307,
-    "__starts": 58253,
+    "__ends": 58359,
+    "__starts": 58305,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
@@ -4464,7 +4470,7 @@ Array [
       "1": "padding",
       "2": "width",
       "3": "display",
-      "__starts": 58260,
+      "__starts": 58312,
       "_importants": Object {
         "display": "",
         "margin": "",
