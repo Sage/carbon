@@ -1,3 +1,10 @@
+## [104.1.0](https://github.com/Sage/carbon/compare/v104.0.0...v104.1.0) (2022-01-28)
+
+
+### Features
+
+* **step-sequence:** describe step sequence using design tokens, update tests ([97be3fe](https://github.com/Sage/carbon/commit/97be3fe4fb291c60dd5dfdfe85fc41e9f3643d44))
+
 ## [104.0.0](https://github.com/Sage/carbon/compare/v103.2.0...v104.0.0) (2022-01-27)
 
 
