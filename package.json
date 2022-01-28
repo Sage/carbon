@@ -15,8 +15,8 @@
   "scripts": {
     "start": "node ./scripts/check_node_version.js && start-storybook -p 9001 -s .assets -c .storybook",
     "start:debug-theme": "cross-env STORYBOOK_DEBUG_THEME=true npm run start",
-    "test": "jest --config=./jest.conf.json",
-    "test-update": "jest --config=./jest.conf.json --updateSnapshot",
+    "test": "TZ=UTC jest --config=./jest.conf.json",
+    "test-update": "TZ=UTC jest --config=./jest.conf.json --updateSnapshot",
     "test:cypress": "cypress open",
     "cypress:react": "npx cypress open-ct",
     "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",
