@@ -1,3 +1,5 @@
+import { pl } from "./date-fns-locales";
+
 const isSingular = (count) =>
   (typeof count === "string" ? parseInt(count) : count) === 1;
 
@@ -16,6 +18,9 @@ export default {
   confirm: {
     no: () => "Nie",
     yes: () => "Tak",
+  },
+  date: {
+    dateFnsLocale: () => pl,
   },
   errors: {
     messages: {
