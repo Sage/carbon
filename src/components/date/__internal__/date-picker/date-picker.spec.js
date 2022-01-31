@@ -3,6 +3,7 @@ import TestRenderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 import DayPicker from "react-day-picker";
+import { zonedTimeToUtc } from "date-fns-tz";
 import {
   // eslint-disable-next-line import/named
   de as deLocale,
@@ -27,6 +28,41 @@ import StyledDayPicker from "./day-picker.style";
 import Popover from "../../../../__internal__/popover";
 import I18nProvider from "../../../i18n-provider";
 import Weekday from "../weekday/weekday.component";
+import { getDisabledDays } from "../utils";
+
+jest.mock("../utils");
+
+getDisabledDays.mockImplementation((min, max) => {
+  const timeZone = "Europe/London";
+  const days = [];
+
+  function checkISOFormatAndLength(value = "") {
+    if (value.length !== 10 || new Date(value).toString() === "Invalid Date") {
+      return false;
+    }
+    const array = value.split("-");
+    return (
+      array.length === 3 &&
+      array[0].length === 4 &&
+      array[1].length === 2 &&
+      array[2].length === 2
+    );
+  }
+
+  if (!min && !max) {
+    return null;
+  }
+
+  if (checkISOFormatAndLength(min)) {
+    days.push({ before: zonedTimeToUtc(min, timeZone) });
+  }
+
+  if (checkISOFormatAndLength(max)) {
+    days.push({ after: zonedTimeToUtc(max, timeZone) });
+  }
+
+  return days;
+});
 
 const inputElement = {
   getBoundingClientRect: () => ({ left: 0, bottom: 0 }),
