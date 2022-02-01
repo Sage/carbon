@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react/headless";
+import { sticky } from "tippy.js";
 import { ThemeContext } from "styled-components";
 
 import StyledTooltip from "./tooltip.style";
@@ -71,6 +72,8 @@ const Tooltip = React.forwardRef(
         placement={position}
         delay={TOOLTIP_DELAY}
         {...(isVisible !== undefined && { visible: isVisible })}
+        plugins={[sticky]}
+        sticky
         render={(attrs) => tooltip(attrs, message)}
         popperOptions={{
           modifiers: [
