@@ -42,6 +42,22 @@ Then("Multi Action Button is expanded and contains three items", () => {
   multiActionButtonList().eq(2).should("have.text", "Short").and("be.visible");
 });
 
+When("I click multi action button toggle", () => {
+  multiActionButton().eq(0).click();
+});
+
+When("I focus second additional button", () => {
+  multiActionButtonList().eq(1).focus();
+});
+
+When("I press tab key on Multi Action Button", () => {
+  multiActionButton().eq(0).tab();
+});
+
+Then("Second Multi Action Button component is focused", () => {
+  multiActionButton().eq(1).should("be.focused");
+});
+
 Then(
   "Multi Action Button in a hidden container is expanded and contains three items",
   () => {

@@ -49,3 +49,11 @@ Feature: Multi Action Button default component
       And I expand accordionRow using "Enter" key
     When I hover on Multi Action Button
     Then Multi Action Button in a hidden container is expanded and contains three items
+
+  @positive
+  Scenario: I press tab key while Multi Action Button is open
+    Given I open "Multi Action Button" component page "button types"
+      And I click multi action button toggle
+      And I focus second additional button
+    When I press tab key on Multi Action Button
+    Then Second Multi Action Button component is focused
