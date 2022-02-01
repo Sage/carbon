@@ -179,7 +179,7 @@ to have a possibility to manage active `Tabs` group
                       <Typography variant="b">Example text</Typography>
                       <Typography mb={0}>Example text without bold</Typography>
                     </Box>
-                    <IconButton>
+                    <IconButton aria-label="flag-button">
                       <Icon type="flag" />
                     </IconButton>
                     <ActionPopover>
@@ -204,7 +204,7 @@ to have a possibility to manage active `Tabs` group
                       <Typography variant="b">Example text</Typography>
                       <Typography mb={0}>Example text without bold</Typography>
                     </Box>
-                    <IconButton>
+                    <IconButton aria-label="flag-button">
                       <Icon type="flag" />
                     </IconButton>
                     <ActionPopover>
@@ -229,7 +229,7 @@ to have a possibility to manage active `Tabs` group
                       <Typography variant="b">Example text</Typography>
                       <Typography mb={0}>Example text without bold</Typography>
                     </Box>
-                    <IconButton>
+                    <IconButton aria-label="flag-button">
                       <Icon type="flag" />
                     </IconButton>
                     <ActionPopover>
@@ -286,7 +286,7 @@ to have a possibility to manage active `Tabs` group
                         Primary
                       </Pill>
                     </Box>
-                    <IconButton>
+                    <IconButton aria-label="flag-button">
                       <Icon type="flag" />
                     </IconButton>
                     <ActionPopover>
@@ -310,7 +310,7 @@ to have a possibility to manage active `Tabs` group
                     <div style={{ "flex-grow": "1" }}>
                       <Typography variant="b">Example text</Typography>
                     </div>
-                    <IconButton>
+                    <IconButton aria-label="flag-button">
                       <Icon type="flag" />
                     </IconButton>
                     <ActionPopover>
@@ -352,7 +352,7 @@ to have a possibility to manage active `Tabs` group
       );
       const ContentOne = (
         <div>
-          <Accordion borders="none" title="Example one details">
+          <Accordion borders="none" title={<Typography variant="h2">Example one details</Typography>}>
             <Dl dtTextAlign="right" ddTextAlign="left">
               <Dt>Type</Dt>
               <Dd>Example Type Text</Dd>
@@ -388,7 +388,7 @@ to have a possibility to manage active `Tabs` group
               </Dd>
             </Dl>
           </Accordion>
-          <Accordion borders="none" title="Example one products">
+          <Accordion borders="none" title={<Typography variant="h2">Example one products</Typography>}>
             <div>Example Product Content</div>
             <div>Example Product Content</div>
             <div>Example Product Content</div>
@@ -403,7 +403,7 @@ to have a possibility to manage active `Tabs` group
       );
       const ContentTwo = (
         <div>
-          <Accordion borders="none" title="Example two details">
+          <Accordion borders="none" title={<Typography variant="h2">Example two details</Typography>}>
             <Dl dtTextAlign="right" ddTextAlign="left">
               <Dt>Type</Dt>
               <Dd>Example Type Text</Dd>
@@ -439,7 +439,7 @@ to have a possibility to manage active `Tabs` group
               </Dd>
             </Dl>
           </Accordion>
-          <Accordion borders="none" title="Example two products">
+          <Accordion borders="none" title={<Typography variant="h2">Example two products</Typography>}>
             <div>Example Product Content</div>
             <div>Example Product Content</div>
             <div>Example Product Content</div>
@@ -454,7 +454,7 @@ to have a possibility to manage active `Tabs` group
       );
       const ContentThree = (
         <div>
-          <Accordion borders="none" title="Example three details">
+          <Accordion borders="none" title={<Typography variant="h2">Example three details</Typography>}>
             <Dl dtTextAlign="right" ddTextAlign="left">
               <Dt>Type</Dt>
               <Dd>Example Type Text</Dd>
@@ -490,7 +490,7 @@ to have a possibility to manage active `Tabs` group
               </Dd>
             </Dl>
           </Accordion>
-          <Accordion borders="none" title="Example three products">
+          <Accordion borders="none" title={<Typography variant="h2">Example three products</Typography>}>
             <div>Example Product Content</div>
             <div>Example Product Content</div>
             <div>Example Product Content</div>
@@ -707,11 +707,11 @@ to have a possibility to manage active `Tabs` group
   </Story>
 </Canvas>
 
-### With hidable header children
+### With hideable header children
 
 <Canvas>
   <Story
-    name="with hidable header children"
+    name="with hideable header children"
     parameters={{ chromatic: { disable: true } }}
   >
     {() => {
