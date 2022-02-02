@@ -29,7 +29,7 @@ const DialogFullScreen = ({
   onCancel,
   contentRef,
   help,
-  role = "region",
+  role = "dialog",
   ...rest
 }) => {
   const dialogRef = useRef();

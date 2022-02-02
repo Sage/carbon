@@ -428,6 +428,23 @@ describe("DialogFullScreen", () => {
   });
 
   describe("ARIA attributes", () => {
+    it("by default, set role to `dialog` and aria-modal to true", () => {
+      wrapper = mount(
+        <DialogFullScreen open onCancel={() => {}} onConfirm={() => {}} />
+      );
+
+      expect(
+        wrapper
+          .find("[data-element='dialog-full-screen']")
+          .first()
+          .prop("aria-modal")
+      ).toBe(true);
+
+      expect(
+        wrapper.find("[data-element='dialog-full-screen']").first().prop("role")
+      ).toBe("dialog");
+    });
+
     describe("when a title is specified as string", () => {
       it("then the container should have aria-labeledby attribute set to it's header's id", () => {
         wrapper = mount(
