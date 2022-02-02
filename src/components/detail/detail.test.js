@@ -1,6 +1,6 @@
 import * as React from "react";
-import { mount } from "@cypress/react";
 import Detail from "./detail.component";
+import CypressMountWithProviders from "../../__spec_helper__/cypress-mount";
 
 import {
   childrenPreview,
@@ -16,7 +16,7 @@ context("Tests for Detail component", () => {
     it.each(testData)(
       "check Detail children on preview is %s children value",
       (childrenValue) => {
-        mount(<Detail>{childrenValue}</Detail>);
+        CypressMountWithProviders(<Detail>{childrenValue}</Detail>);
 
         childrenPreview().should("have.text", childrenValue);
       }
@@ -25,7 +25,7 @@ context("Tests for Detail component", () => {
     it.each(testData)(
       "check Detail footnote on preview is %s footnote value",
       (footnoteValue) => {
-        mount(<Detail footnote={footnoteValue} />);
+        CypressMountWithProviders(<Detail footnote={footnoteValue} />);
 
         footnotePreview().should("have.text", footnoteValue);
       }
@@ -34,7 +34,7 @@ context("Tests for Detail component", () => {
 
   describe("check icon in Detail component is chevron_up", () => {
     it("should set Detail icon on preview to chevron_up", () => {
-      mount(<Detail icon="chevron_up" />);
+      CypressMountWithProviders(<Detail icon="chevron_up" />);
 
       icon().should("have.attr", "type", "chevron_up").and("be.visible");
     });

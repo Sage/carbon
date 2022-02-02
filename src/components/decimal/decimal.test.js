@@ -1,6 +1,6 @@
 import * as React from "react";
-import { mount } from "@cypress/react";
 import Decimal from "./decimal.component";
+import CypressMountWithProviders from "../../__spec_helper__/cypress-mount";
 
 import {
   fieldHelpPreview,
@@ -94,9 +94,8 @@ context("Tests for Decimal component", () => {
     it.each(input)(
       "should use %s as precision and %s as input value to produce %s output value",
       (precision, inputValue, outputValue) => {
-        mount(<Decimal precision={precision} />);
+        CypressMountWithProviders(<Decimal precision={precision} />);
 
-        // then run our tests
         commonDataElementInputPreview().type(inputValue).blur({ force: true });
         commonDataElementInputPreview().should("have.value", outputValue);
       }
@@ -126,10 +125,8 @@ context("Tests for Decimal component", () => {
     it.each(inputLocale)(
       "should use %s locale and %s input value to produce %s output value",
       (locale, inputValue, outputValue) => {
-        // and mount the story using @cypress/react library
-        mount(<Decimal locale={locale} precision={3} />);
+        CypressMountWithProviders(<Decimal locale={locale} precision={3} />);
 
-        // then run our tests
         commonDataElementInputPreview().type(inputValue).blur({ force: true });
         commonDataElementInputPreview()
           .invoke("val")
@@ -144,12 +141,10 @@ context("Tests for Decimal component", () => {
     );
 
     it("should render Decimal with readOnly prop", () => {
-      // and mount the story using @cypress/react library
-      mount(<Decimal readOnly />);
+      CypressMountWithProviders(<Decimal readOnly />);
 
       const inputValue = "test";
 
-      // then run our tests
       commonDataElementInputPreview()
         .type(inputValue, { force: true })
         .blur({ force: true });
@@ -166,10 +161,8 @@ context("Tests for Decimal component", () => {
     it.each(testData)(
       "check label renders properly with %s as specific value",
       (specificValue) => {
-        // and mount the story using @cypress/react library
-        mount(<Decimal fieldHelp={specificValue} />);
+        CypressMountWithProviders(<Decimal fieldHelp={specificValue} />);
 
-        // then run our tests
         fieldHelpPreview().should("have.text", specificValue);
       }
     );
@@ -177,10 +170,8 @@ context("Tests for Decimal component", () => {
     it.each(testData)(
       "check fieldHelp renders properly with %s specific value",
       (specificValue) => {
-        // and mount the story using @cypress/react library
-        mount(<Decimal label={specificValue} />);
+        CypressMountWithProviders(<Decimal label={specificValue} />);
 
-        // then run our tests
         getDataElementByValue("label").should("have.text", specificValue);
       }
     );
@@ -188,10 +179,10 @@ context("Tests for Decimal component", () => {
     it.each(testData)(
       "check tooltip renders properly with %s specific values",
       (specificValue) => {
-        // and mount the story using @cypress/react library
-        mount(<Decimal label="Label" labelHelp={specificValue} />);
+        CypressMountWithProviders(
+          <Decimal label="Label" labelHelp={specificValue} />
+        );
 
-        // then run our tests
         getDataElementByValue("question").trigger("mouseover");
         tooltipPreview().should("have.text", specificValue);
       }
@@ -200,10 +191,8 @@ context("Tests for Decimal component", () => {
     it.each(testData)(
       "check Decimal component accepts %s as specific value",
       (specificValue) => {
-        // and mount the story using @cypress/react library
-        mount(<Decimal />);
+        CypressMountWithProviders(<Decimal />);
 
-        // then run our tests
         commonDataElementInputPreview()
           .type(specificValue)
           .blur({ force: true });
@@ -220,10 +209,8 @@ context("Tests for Decimal component", () => {
     );
 
     it("check Decimal component accepts white spaces", () => {
-      // and mount the story using @cypress/react library
-      mount(<Decimal />);
+      CypressMountWithProviders(<Decimal />);
 
-      // then run our tests
       commonDataElementInputPreview().type("   ").blur({ force: true });
       commonDataElementInputPreview().should("have.attr", "value", "   ");
     });
@@ -238,12 +225,9 @@ context("Tests for Decimal component", () => {
     ];
 
     it("should return onChange event for %s value", () => {
-      // use cy.stub for mock the onChange callback
       const callback = cy.stub();
-      // and mount the story using @cypress/react library
-      mount(<Decimal onChange={callback} />);
+      CypressMountWithProviders(<Decimal onChange={callback} />);
 
-      // then run our tests
       commonDataElementInputPreview()
         .type(inputValue)
         .blur({ force: true })
@@ -264,12 +248,9 @@ context("Tests for Decimal component", () => {
     });
 
     it("should return onBlur event", () => {
-      // use cy.stub for mock the onChange callback
       const callback = cy.stub();
-      // and mount the story using @cypress/react library
-      mount(<Decimal onBlur={callback} />);
+      CypressMountWithProviders(<Decimal onBlur={callback} />);
 
-      // then run our tests
       commonDataElementInputPreview()
         .type(inputValue)
         .blur({ force: true })
