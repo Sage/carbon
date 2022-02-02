@@ -3,6 +3,7 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { mount as enzymeMount, shallow } from "enzyme";
+import TestRenderer from "react-test-renderer";
 
 import Drawer from "./drawer.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
@@ -141,16 +142,51 @@ describe("Drawer", () => {
       );
     });
 
-    it("Drawer Content should render as expected", () => {
-      const wrapper = render();
-      const { children } = getElements(wrapper);
-      assertStyleMatch(
-        {
-          flex: "1",
-          overflow: "auto",
-        },
-        children
-      );
+    describe("Drawer Content", () => {
+      it("should render with correct styles", () => {
+        const wrapper = render();
+        const { content } = getElements(wrapper);
+        assertStyleMatch(
+          {
+            minWidth: "var(--sizing500)",
+            width: "var(--sizing500)",
+          },
+          content
+        );
+      });
+
+      describe("when background color is not provided as a prop", () => {
+        it("renders with default background color and border", () => {
+          const wrapper = render();
+          const { content } = getElements(wrapper);
+          assertStyleMatch(
+            {
+              backgroundColor: "var(--colorsUtilityMajor040)",
+              borderRight: "1px solid var(--colorsUtilityMajor050)",
+            },
+            content
+          );
+        });
+      });
+
+      it("children are rendered as expected", () => {
+        const wrapper = render();
+        const { children } = getElements(wrapper);
+        assertStyleMatch(
+          {
+            flex: "1",
+            overflow: "auto",
+          },
+          children
+        );
+      });
+    });
+
+    describe("Control Button", () => {
+      it("renders with correct styles", () => {
+        const snapshot = TestRenderer.create(<StyledButton />).toJSON();
+        expect(snapshot).toMatchSnapshot();
+      });
     });
 
     it("opens sidebar to specific width matching expandedWidth prop", () => {
@@ -190,6 +226,27 @@ describe("Drawer", () => {
             height: "50%",
           },
           wrapper
+        );
+      });
+    });
+
+    describe("when title prop is provided", () => {
+      it("Sidebar sets it as heading", () => {
+        const heading = "My custom title";
+        const wrapper = render({ title: heading });
+        const { title } = getElements(wrapper);
+        expect(title.text()).toBe(heading);
+      });
+
+      it("Sidebar renders heading with correct styles", () => {
+        const heading = "My custom title";
+        const wrapper = render({ title: heading });
+        const { title } = getElements(wrapper);
+        assertStyleMatch(
+          {
+            padding: "var(--spacing300) var(--spacing500)",
+          },
+          title
         );
       });
     });
@@ -265,16 +322,7 @@ describe("Drawer", () => {
             {
               position: "sticky",
               top: "0",
-              borderBottom: "1px solid #ccd6db",
-            },
-            wrapper.find(StyledSidebarHeader)
-          );
-
-          assertStyleMatch(
-            {
-              position: "sticky",
-              top: "0",
-              borderBottom: "1px solid #ccd6db",
+              borderBottom: "var(--sizing010) solid #ccd6db",
             },
             wrapper.find(StyledSidebarHeader)
           );
@@ -519,13 +567,6 @@ describe("Drawer", () => {
       const wrapper = render({ backgroundColor: color });
       const { content } = getElements(wrapper);
       assertStyleMatch({}, content.childAt(0));
-    });
-
-    it("sets drawer sidebar heading when title prop is provided", () => {
-      const heading = "My custom title";
-      const wrapper = render({ title: heading });
-      const { title } = getElements(wrapper);
-      expect(title.text()).toBe(heading);
     });
 
     describe("by an external control", () => {

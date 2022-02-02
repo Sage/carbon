@@ -1,8 +1,9 @@
 import styled, { css, keyframes } from "styled-components";
-import baseTheme from "../../style/themes/base";
 import StyledTabs from "../tabs/tabs.style";
 import Box from "../box";
 import StyledStickyFooter from "../../__internal__/sticky-footer/sticky-footer.style";
+
+const defaultExpandedWidth = "var(--sizing500)";
 
 const StyledSidebarHeader = styled.div`
   ${({ isExpanded }) => css`
@@ -11,14 +12,14 @@ const StyledSidebarHeader = styled.div`
 
     ${isExpanded &&
     css`
-      border-bottom: 1px solid #ccd6db;
+      border-bottom: var(--sizing010) solid #ccd6db;
     `}
   `}
 `;
 
 const StyledSidebarTitle = styled.div`
   white-space: nowrap;
-  padding: 24px 36px 24px 40px;
+  padding: var(--spacing300) var(--spacing500);
 `;
 
 const StyledDrawerChildren = styled.div`
@@ -73,9 +74,9 @@ const sidebarHidden = () => keyframes`
 
 const drawerOpen = (expandedWidth) => keyframes`
   0% {
-    width: 40px;
+    width: ${defaultExpandedWidth};
     overflow: hidden;
-    min-width: 40px;
+    min-width: ${defaultExpandedWidth};
   }
   100% {
     width: ${expandedWidth};
@@ -85,7 +86,7 @@ const drawerOpen = (expandedWidth) => keyframes`
 
 const drawerClose = (expandedWidth) => keyframes`
   0% {width: ${expandedWidth};}
-  100% {width: 40px;}
+  100% {width: ${defaultExpandedWidth};}
 `;
 
 const buttonOpen = () => keyframes`
@@ -102,15 +103,17 @@ const buttonClose = () => keyframes`
 const StyledDrawerContent = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: 40px;
-  width: 40px;
+  min-width: ${defaultExpandedWidth};
+  width: ${defaultExpandedWidth};
   min-height: 40px;
   height: auto;
   position: relative;
   overflow: auto;
-  border-right: 1px solid ${({ theme }) => theme.drawer.divider};
-  background-color: ${({ backgroundColor, theme }) =>
-    backgroundColor || theme.drawer.background}};
+
+  ${({ backgroundColor }) => css`
+    background-color: ${backgroundColor || "var(--colorsUtilityMajor040)"};
+    border-right: 1px solid ${backgroundColor || "var(--colorsUtilityMajor050)"};
+  `};
 
   &.open {
     min-width: 52px;
@@ -124,12 +127,13 @@ const StyledDrawerContent = styled.div`
 
   &.opening {
     animation: ${({ animationDuration, expandedWidth }) => css`
-      ${drawerOpen(expandedWidth)} ${animationDuration}
-    `} ease-in-out;
+        ${drawerOpen(expandedWidth)} ${animationDuration}
+      `}
+      ease-in-out;
 
     ${StyledDrawerSidebar}, ${StyledSidebarTitle} {
-      animation: ${sidebarVisible} ${({ animationDuration }) =>
-  animationDuration} ease-in-out;
+      animation: ${sidebarVisible}
+        ${({ animationDuration }) => animationDuration} ease-in-out;
     }
   }
 
@@ -143,24 +147,28 @@ const StyledDrawerContent = styled.div`
 
   &.closing {
     animation: ${({ animationDuration, expandedWidth }) => css`
-      ${drawerClose(expandedWidth)} ${animationDuration}
-    `} ease-in-out;
+        ${drawerClose(expandedWidth)} ${animationDuration}
+      `}
+      ease-in-out;
 
     ${StyledDrawerSidebar}, ${StyledSidebarTitle}, ${StyledStickyFooter} {
-      animation: ${sidebarHidden} ${({ animationDuration }) =>
-  animationDuration} ease-in-out;
+      animation: ${sidebarHidden}
+        ${({ animationDuration }) => animationDuration} ease-in-out;
     }
   }
 `;
 
 const StyledButton = styled.button.attrs({ type: "button" })`
-  ${({ animationDuration, isExpanded, theme }) => css`
+  ${({ animationDuration, isExpanded }) => css`
     position: absolute;
-    top: 24px;
+    top: var(--spacing300);
     right: 8px;
-    padding: 0;
-    width: 24px;
-    height: 24px;
+    padding: var(--spacing100);
+    width: var(--spacing300);
+    height: var(--spacing300);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: margin-right ${animationDuration} ease-in-out;
     background-color: transparent;
     border: none;
@@ -168,7 +176,7 @@ const StyledButton = styled.button.attrs({ type: "button" })`
     animation: ${buttonClose} ${animationDuration} ease-in-out;
 
     &:focus {
-      outline: 3px solid ${theme.colors.focus};
+      outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
     }
 
     &:hover {
@@ -187,14 +195,6 @@ const StyledDrawerWrapper = styled.div`
   display: flex;
   height: ${({ height }) => height};
 `;
-
-StyledDrawerContent.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledButton.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledSidebarHeader,
