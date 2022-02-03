@@ -2,7 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import Alert from ".";
 import Button from "../button/button.component";
-import CypressMountWithProviders from "../../__spec_helper__/cypress-mount";
+import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 import {
   alertChildren,

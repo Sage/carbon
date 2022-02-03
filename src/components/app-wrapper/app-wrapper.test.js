@@ -1,6 +1,6 @@
 import * as React from "react";
 import AppWrapper from "./app-wrapper.component";
-import CypressMountWithProviders from "../../__spec_helper__/cypress-mount";
+import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import APP_WRAPPER_PREVIEW from "../../../cypress/locators/app-wrapper/locators";
 
 const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];

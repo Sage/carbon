@@ -1,6 +1,6 @@
 import * as React from "react";
 import GroupedCharacter from "./grouped-character.component";
-import CypressMountWithProviders from "../../__spec_helper__/cypress-mount";
+import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 import {
   fieldHelpPreview,
