@@ -27,6 +27,7 @@ const StyledIconButton = styled.button.attrs({ type: "button" })`
 
     ${StyledIcon} {
       ${disabled && `color: ${theme.icon.disabled}`};
+      ${disabled && `background-color: transparent`};
       position: relative;
 
       &:focus {

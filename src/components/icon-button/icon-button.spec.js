@@ -242,6 +242,16 @@ describe("IconButton component", () => {
         );
       });
 
+      it("should have the correct background color applied to the icon button", () => {
+        assertStyleMatch(
+          {
+            backgroundColor: "transparent",
+          },
+          wrapper,
+          { modifier: `${StyledIcon}` }
+        );
+      });
+
       it("should not set the onFocus prop and not show the tooltip on focus of the button", () => {
         expect(wrapper.find(StyledIconButton).prop("onFocus")).toEqual(
           undefined
