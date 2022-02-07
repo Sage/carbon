@@ -305,7 +305,7 @@ describe("Icon component", () => {
         const wrapper = renderStyles({ disabled: true });
         assertStyleMatch(
           {
-            backgroundColor: "var(--colorsYin030)",
+            backgroundColor: "transparent",
           },
           wrapper.toJSON()
         );
