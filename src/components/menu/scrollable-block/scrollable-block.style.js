@@ -6,18 +6,9 @@ const StyledScrollableBlock = styled.div`
   ${({ menuType, variant, theme }) => css`
     && ${StyledMenuItemWrapper} {
       background-color: ${variant === "default"
-        ? theme.colors.white
-        : theme.menu.light.background};
+        ? theme.menu[menuType].submenuBackground
+        : theme.menu[menuType].background};
     }
-
-    ${menuType === "dark" &&
-    css`
-      && ${StyledMenuItemWrapper} {
-        background-color: ${variant === "default"
-          ? theme.menu.dark.submenuBackground
-          : theme.colors.slate};
-      }
-    `}
   `}
 `;
 

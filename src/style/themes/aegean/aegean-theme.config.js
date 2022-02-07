@@ -27,6 +27,8 @@ export default (palette) => {
         colorsActionMajor500: this.colors.primary,
         colorsActionMajor600: this.colors.secondary,
         colorsActionMajor150: this.colors.loadingBarBackground,
+
+        colorsBaseTheme: this.colors.primary,
       };
     },
   };

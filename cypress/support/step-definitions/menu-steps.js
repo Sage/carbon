@@ -19,8 +19,8 @@ import { positionOfElement, keyCode } from "../helper";
 const span = "span";
 const div = "div";
 
-When("I hover over third expandable Menu component", () => {
-  submenu().trigger("mouseover");
+When("I hover over {string} expandable Menu component", (position) => {
+  submenu().eq(positionOfElement(position)).trigger("mouseover");
 });
 
 Then("Menu third expandable element has inner elements", () => {
@@ -194,7 +194,7 @@ Then("{string} inner menu element is focused", (position) => {
     .children()
     .children()
     .should("have.css", "background-color")
-    .and("contain", "rgb(0, 129, 93)");
+    .and("contain", "rgb(0, 125, 90)");
   menuComponent(positionOfElement(position))
     .find("ul > li")
     .eq(1)

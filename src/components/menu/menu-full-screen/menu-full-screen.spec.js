@@ -77,7 +77,7 @@ describe("MenuFullscreen", () => {
           left: "-100vw",
           transition: "all 0.3s ease",
         },
-        wrapper
+        wrapper.find(StyledMenuFullscreen)
       );
 
       ["a", "button", "div"].forEach((el) => {
@@ -85,7 +85,7 @@ describe("MenuFullscreen", () => {
           {
             fontSize: "16px",
           },
-          wrapper,
+          wrapper.find(StyledMenuFullscreen),
           { modifier: el }
         );
       });
@@ -110,24 +110,34 @@ describe("MenuFullscreen", () => {
       );
     });
 
-    it("applies the expected styling when `menuType` is 'dark'", () => {
-      wrapper = render({ menuType: "dark" });
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.colors.slate,
-        },
-        wrapper
-      );
+    it.each(["light", "white", "dark", "black"])(
+      "applies the expected styling when `menuType` is %s",
+      (menuType) => {
+        wrapper = render({ menuType });
+        assertStyleMatch(
+          {
+            backgroundColor: baseTheme.menu[menuType].background,
+          },
+          wrapper.find(StyledMenuFullscreen)
+        );
 
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.menu.dark.submenuBackground,
-        },
-        wrapper.find(StyledMenuFullscreenHeader)
-      );
+        assertStyleMatch(
+          {
+            backgroundColor: baseTheme.menu[menuType].submenuBackground,
+          },
+          wrapper.find(StyledMenuFullscreenHeader)
+        );
 
-      expect(wrapper.find(Icon).prop("color")).toEqual("#FFFFFF");
-    });
+        const iconColors = {
+          light: undefined,
+          dark: "#FFFFFF",
+          white: undefined,
+          black: "#FFFFFF",
+        };
+
+        expect(wrapper.find(Icon).prop("color")).toEqual(iconColors[menuType]);
+      }
+    );
 
     it("applies the expected styling when `isOpen` is true", () => {
       wrapper = render({ isOpen: true });
@@ -137,7 +147,7 @@ describe("MenuFullscreen", () => {
           left: "0",
           transition: "all 0.3s ease",
         },
-        wrapper
+        wrapper.find(StyledMenuFullscreen)
       );
     });
 
@@ -149,7 +159,7 @@ describe("MenuFullscreen", () => {
           right: "0",
           transition: "all 0.3s ease",
         },
-        wrapper
+        wrapper.find(StyledMenuFullscreen)
       );
     });
   });

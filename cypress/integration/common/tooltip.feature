@@ -27,9 +27,9 @@ Feature: Tooltip component
     Then tooltip type is set to "<tooltipType>" and has color "<color>"
     Examples:
       | tooltipType | nameOfObject       | color            |
-      | info        | tooltipTypeInfo    | rgb(0, 0, 0)     |
-      | warning     | tooltipTypeWarning | rgb(0, 0, 0)     |
-      | error       | tooltipTypeError   | rgb(199, 56, 79) |
+      | info        | tooltipTypeInfo    | rgb(51, 91, 112) |
+      | warning     | tooltipTypeWarning | rgb(51, 91, 112) |
+      | error       | tooltipTypeError   | rgb(205, 56, 75) |
 
   @positive
   Scenario Outline: Set Tooltip size to <tooltipSize>

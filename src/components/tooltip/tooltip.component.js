@@ -1,9 +1,11 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react/headless";
+
 import StyledTooltip from "./tooltip.style";
 import StyledPointer from "./tooltip-pointer.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 const TOOLTIP_DELAY = 100;
 
@@ -28,38 +30,39 @@ const Tooltip = React.forwardRef(
     ref
   ) => {
     const tooltipRef = useRef(ref || null);
-
     const tooltip = (attrs, content) => {
       const currentPosition = attrs["data-placement"] || position;
 
       return (
-        <StyledTooltip
-          data-element="tooltip"
-          role="tooltip"
-          tabIndex="-1"
-          type={type}
-          size={size}
-          id={id}
-          {...tagComponent("tooltip", rest)}
-          isPartOfInput={isPartOfInput}
-          inputSize={inputSize}
-          {...attrs}
-          position={currentPosition}
-          ref={tooltipRef}
-          bgColor={bgColor}
-          fontColor={fontColor}
-        >
-          <StyledPointer
-            key="pointer"
+        <CarbonScopedTokensProvider>
+          <StyledTooltip
+            data-element="tooltip"
+            role="tooltip"
+            tabIndex="-1"
             type={type}
+            size={size}
+            id={id}
+            {...tagComponent("tooltip", rest)}
+            isPartOfInput={isPartOfInput}
+            inputSize={inputSize}
             {...attrs}
             position={currentPosition}
-            data-popper-arrow=""
-            data-element="tooltip-pointer"
+            ref={tooltipRef}
             bgColor={bgColor}
-          />
-          <div>{content}</div>
-        </StyledTooltip>
+            fontColor={fontColor}
+          >
+            <StyledPointer
+              key="pointer"
+              type={type}
+              {...attrs}
+              position={currentPosition}
+              data-popper-arrow=""
+              data-element="tooltip-pointer"
+              bgColor={bgColor}
+            />
+            <div>{content}</div>
+          </StyledTooltip>
+        </CarbonScopedTokensProvider>
       );
     };
 

@@ -7,7 +7,12 @@
   ],
   "setupFilesAfterEnv": ["./src/__spec_helper__/expect.js"],
   "snapshotSerializers": ["enzyme-to-json/serializer"],
-  "testMatch": ["**/__spec__.js", "**/*.spec.js"],
+  "testMatch": [
+    "**/__spec__.js",
+    "**/*.spec.js",
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
+  ],
   "moduleDirectories": ["src", "node_modules"],
   "collectCoverage": true,
   "coveragePathIgnorePatterns": ["node_modules", "src/__spec_helper__"],

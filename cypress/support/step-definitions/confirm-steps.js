@@ -89,7 +89,7 @@ Then("{word} icon is displayed on the header", (iconType) => {
 Then("cancel button type is set to {string}", (cancelButtonType) => {
   if (cancelButtonType === "tertiary") {
     cancelButton()
-      .should("have.css", "color", "rgb(0, 129, 70)")
+      .should("have.css", "color", "rgb(0, 126, 69)")
       .and("have.css", "border-color", "rgba(0, 0, 0, 0)");
   } else if (cancelButtonType === "destructive") {
     cancelButton()

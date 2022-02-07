@@ -23,29 +23,29 @@ exports[`Tile renders base styles 1`] = `
 
 .c2 + .c1 {
   margin-top: 0;
-  border-left: solid 1px #E6EBED;
+  border-left: solid 1px var(--colorsUtilityMajor050);
 }
 
 .c7 + .c1 {
   margin-top: 0;
-  border-top: solid 1px #E6EBED;
+  border-top: solid 1px var(--colorsUtilityMajor050);
 }
 
 .c8 + .c1 {
   margin-top: 0;
-  border-left: solid 1px #E6EBED;
+  border-left: solid 1px var(--colorsUtilityMajor050);
 }
 
 .c9 + .c1 {
   margin-top: 0;
-  border-top: solid 1px #E6EBED;
+  border-top: solid 1px var(--colorsUtilityMajor050);
 }
 
 .c0 {
   padding: 24px;
   box-sizing: border-box;
-  background-color: #FFFFFF;
-  border: 1px solid #CCD6DB;
+  background-color: var(--colorsUtilityYang100);
+  border: 1px solid var(--colorsUtilityMajor100);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

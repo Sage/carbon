@@ -5,8 +5,9 @@ import baseTheme from "../../style/themes/base";
 import computeWidth from "../../style/utils/width";
 
 const TileContent = styled.div`
-  ${({ isHorizontal, isVertical, theme, width }) => css`
+  ${({ isHorizontal, isVertical, width }) => css`
     ${space}
+
     box-sizing: border-box;
     position: relative;
     flex-grow: 1;
@@ -25,7 +26,7 @@ const TileContent = styled.div`
 
       & + & {
         margin-top: 0;
-        border-left: solid 1px ${theme.tile.separator};
+        border-left: solid 1px var(--colorsUtilityMajor050);
       }
     `}
 
@@ -43,7 +44,7 @@ const TileContent = styled.div`
 
       & + & {
         margin-top: 0;
-        border-top: solid 1px ${theme.tile.separator};
+        border-top: solid 1px var(--colorsUtilityMajor050);
       }
     `}
 
@@ -56,13 +57,14 @@ const TileContent = styled.div`
 `;
 
 const StyledTile = styled.div`
-  ${({ isHorizontal, tileTheme, theme, width }) => css`
+  ${({ isHorizontal, tileTheme, width }) => css`
     ${space}
+
     box-sizing: border-box;
     background-color: ${tileTheme === "tile"
-      ? theme.colors.white
+      ? "var(--colorsUtilityYang100)"
       : "transparent"};
-    border: 1px solid ${theme.tile.border};
+    border: 1px solid var(--colorsUtilityMajor100);
     display: flex;
     flex-direction: ${isHorizontal ? "row" : "column"};
     position: relative;

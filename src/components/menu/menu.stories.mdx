@@ -17,6 +17,7 @@ import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.j
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Search from "../search";
 import Icon from "../icon";
+import Typography from "../typography";
 
 <Meta title="Menu" parameters={{ info: { disable: true } }} />
 
@@ -47,134 +48,169 @@ import {
 
 <Canvas>
   <Story name="default" parameters={{ chromatic: { disable: true } }}>
-    <div style={{ minHeight: "150px" }}>
-      <Menu>
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuDivider />
-          <MenuItem icon="settings" href="#">
-            Item Submenu Three
-          </MenuItem>
-          <MenuItem href="#">Item Submenu Four</MenuItem>
-        </MenuItem>
-        <MenuItem submenu="Menu Item Four">
-          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
+    <Box mb={150}>
+      {["white", "light", "dark", "black"].map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem href="#">Menu Item One</MenuItem>
+            <MenuItem href="#">Menu Item Two</MenuItem>
+            <MenuItem submenu="Menu Item Three">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuDivider />
+              <MenuItem icon="settings" href="#">
+                Item Submenu Three
+              </MenuItem>
+              <MenuItem href="#">Item Submenu Four</MenuItem>
+            </MenuItem>
+            <MenuItem submenu="Menu Item Four">
+              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+            </MenuItem>
+          </Menu>
+        </div>
+      ))}
+    </Box>
   </Story>
 </Canvas>
 
-### Default selected
+### Selected
 
 <Canvas>
-  <Story name="default selected">
-    <div style={{ minHeight: "150px" }}>
-      <Menu>
-        <MenuItem selected href="#">
-          Menu Item One
-        </MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
+  <Story name="selected">
+    <Box mb={150}>
+      {["white", "light", "dark", "black"].map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem selected href="#">
+              Menu Item One
+            </MenuItem>
+            <MenuItem href="#">Menu Item Two</MenuItem>
+            <MenuItem submenu="Menu Item Three">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+            </MenuItem>
+          </Menu>
+        </div>
+      ))}
+    </Box>
   </Story>
 </Canvas>
 
-### Default divider
+### Divider
 
 <Canvas>
-  <Story name="default divider" parameters={{ chromatic: { disable: true } }}>
-    <div style={{ minHeight: "150px" }}>
-      <Menu>
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuDivider />
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuItem href="#">Item Submenu Three</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
+  <Story name="divider" parameters={{ chromatic: { disable: true } }}>
+    <Box mb={150}>
+      {["white", "light", "dark", "black"].map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem href="#">Menu Item One</MenuItem>
+            <MenuItem href="#">Menu Item Two</MenuItem>
+            <MenuItem submenu="Menu Item Three">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuDivider />
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuItem href="#">Item Submenu Three</MenuItem>
+            </MenuItem>
+          </Menu>
+        </div>
+      ))}
+    </Box>
   </Story>
 </Canvas>
 
-### Default large divider
+### Large divider
 
 <Canvas>
-  <Story
-    name="default large divider"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <div style={{ minHeight: "150px" }}>
-      <Menu>
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuDivider size="large" />
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuItem href="#">Item Submenu Three</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
+  <Story name="large divider" parameters={{ chromatic: { disable: true } }}>
+    <Box mb={150}>
+      {["white", "light", "dark", "black"].map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem href="#">Menu Item One</MenuItem>
+            <MenuItem href="#">Menu Item Two</MenuItem>
+            <MenuItem submenu="Menu Item Three">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuDivider size="large" />
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuItem href="#">Item Submenu Three</MenuItem>
+            </MenuItem>
+          </Menu>
+        </div>
+      ))}
+    </Box>
   </Story>
 </Canvas>
 
-### Default segment title
+### Segment title
 
 <Canvas>
-  <Story
-    name="default segment title"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <div style={{ minHeight: "200px" }}>
-      <Menu>
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuSegmentTitle>segment title</MenuSegmentTitle>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuItem href="#">Item Submenu Three</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
+  <Story name="segment title" parameters={{ chromatic: { disable: true } }}>
+    <Box mb={150}>
+      {["white", "light", "dark", "black"].map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem href="#">Menu Item One</MenuItem>
+            <MenuItem href="#">Menu Item Two</MenuItem>
+            <MenuItem submenu="Menu Item Three">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuSegmentTitle>segment title</MenuSegmentTitle>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuItem href="#">Item Submenu Three</MenuItem>
+            </MenuItem>
+          </Menu>
+        </div>
+      ))}
+    </Box>
   </Story>
 </Canvas>
 
-### Default theme with alternate colour variant
+### With alternate colour variant
 
 <Canvas>
-  <Story
-    name="default theme alternate colour"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <div style={{ minHeight: "150px" }}>
-      <Menu>
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuDivider variant="alternate" size="large" />
-          <MenuSegmentTitle variant="alternate">segment title</MenuSegmentTitle>
-          <MenuItem variant="alternate" href="#">
-            Item Submenu Two
-          </MenuItem>
-          <MenuItem variant="alternate" href="#">
-            Item Submenu Three
-          </MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
+  <Story name="alternate colour" parameters={{ chromatic: { disable: true } }}>
+    <Box mb={150}>
+      {["white", "light", "dark", "black"].map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem href="#">Menu Item One</MenuItem>
+            <MenuItem href="#">Menu Item Two</MenuItem>
+            <MenuItem submenu="Menu Item Three">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuDivider variant="alternate" size="large" />
+              <MenuSegmentTitle variant="alternate">
+                segment title
+              </MenuSegmentTitle>
+              <MenuItem variant="alternate" href="#">
+                Item Submenu Two
+              </MenuItem>
+              <MenuItem variant="alternate" href="#">
+                Item Submenu Three
+              </MenuItem>
+            </MenuItem>
+          </Menu>
+        </div>
+      ))}
+    </Box>
   </Story>
 </Canvas>
 
@@ -182,52 +218,36 @@ import {
 
 <Canvas>
   <Story name="submenu options" parameters={{ chromatic: { disable: true } }}>
-    <div style={{ minHeight: "150px" }}>
-      <Menu>
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="No action or link">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuDivider />
-          <MenuItem icon="settings" href="#">
-            Item Submenu Three
-          </MenuItem>
-          <MenuItem href="#">Item Submenu Four</MenuItem>
-        </MenuItem>
-        <MenuItem submenu="With href" href="#">
-          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-        <MenuItem submenu="With clickToOpen prop" clickToOpen>
-          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
-    <div style={{ minHeight: "150px", marginTop: "50px" }}>
-      <Menu menuType="dark">
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="No action or link">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuDivider />
-          <MenuItem icon="settings" href="#">
-            Item Submenu Three
-          </MenuItem>
-          <MenuItem href="#">Item Submenu Four</MenuItem>
-        </MenuItem>
-        <MenuItem submenu="With href" href="#">
-          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-        <MenuItem submenu="With clickToOpen prop" clickToOpen>
-          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
+    <Box mb={150}>
+      {["white", "light", "dark", "black"].map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem href="#">Menu Item One</MenuItem>
+            <MenuItem href="#">Menu Item Two</MenuItem>
+            <MenuItem submenu="No action or link">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuDivider />
+              <MenuItem icon="settings" href="#">
+                Item Submenu Three
+              </MenuItem>
+              <MenuItem href="#">Item Submenu Four</MenuItem>
+            </MenuItem>
+            <MenuItem submenu="With href" href="#">
+              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+            </MenuItem>
+            <MenuItem submenu="With clickToOpen prop" clickToOpen>
+              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+            </MenuItem>
+          </Menu>
+        </div>
+      ))}
+    </Box>
   </Story>
 </Canvas>
 
@@ -256,158 +276,36 @@ import {
   </Story>
 </Canvas>
 
-### Default icon
+### With icon
 
 <Canvas>
-  <Story name="default icon">
-    <div style={{ minHeight: "250px" }}>
-      <Menu>
-        <MenuItem icon="home" href="#">
-          Home
-        </MenuItem>
-        <MenuItem icon="person" href="#" ariaLabel="Account" />
-        <MenuItem icon="settings" submenu="Settings">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuDivider />
-          <MenuItem icon="settings" href="#" ariaLabel="settings" />
-          <MenuItem href="#">Item Submenu Four</MenuItem>
-        </MenuItem>
-        <MenuItem icon="arrow_right" submenu ariaLabel="Actions">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
-  </Story>
-</Canvas>
-
-### Dark theme
-
-<Canvas>
-  <Story name="dark theme" parameters={{ chromatic: { disable: true } }}>
-    <div style={{ minHeight: "150px" }}>
-      <Menu menuType="dark">
-        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
-  </Story>
-</Canvas>
-
-### Dark theme selected
-
-<Canvas>
-  <Story name="dark theme selected">
-    <div style={{ minHeight: "150px" }}>
-      <Menu menuType="dark">
-        <MenuItem selected href="#">
-          Menu Item One
-        </MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
-  </Story>
-</Canvas>
-
-### Dark theme divider
-
-<Canvas>
-  <Story
-    name="dark theme divider"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <div style={{ minHeight: "150px" }}>
-      <Menu menuType="dark">
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuDivider />
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuItem href="#">Item Submenu Three</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
-  </Story>
-</Canvas>
-
-### Dark theme large divider
-
-<Canvas>
-  <Story
-    name="dark theme large divider"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <div style={{ minHeight: "150px" }}>
-      <Menu menuType="dark">
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuDivider size="large" />
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuItem href="#">Item Submenu Three</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
-  </Story>
-</Canvas>
-
-### Dark theme segment title
-
-<Canvas>
-  <Story
-    name="dark theme segment title"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <div style={{ minHeight: "200px" }}>
-      <Menu menuType="dark">
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuSegmentTitle>segment title</MenuSegmentTitle>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuItem href="#">Item Submenu Three</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
-  </Story>
-</Canvas>
-
-### Dark theme with alternate colour variant
-
-<Canvas>
-  <Story
-    name="dark theme alternate colour"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <div style={{ minHeight: "250px" }}>
-      <Menu menuType="dark">
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuDivider variant="alternate" size="large" />
-          <MenuSegmentTitle variant="alternate">segment title</MenuSegmentTitle>
-          <MenuItem variant="alternate" href="#">
-            Item Submenu Two
-          </MenuItem>
-          <MenuItem variant="alternate" href="#">
-            Item Submenu Three
-          </MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
+  <Story name="with icon">
+    <Box mb={150}>
+      {["white", "light", "dark", "black"].map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem icon="home" href="#">
+              Home
+            </MenuItem>
+            <MenuItem icon="person" href="#" ariaLabel="Account" />
+            <MenuItem icon="settings" submenu="Settings">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuDivider />
+              <MenuItem icon="settings" href="#" ariaLabel="settings" />
+              <MenuItem href="#">Item Submenu Four</MenuItem>
+            </MenuItem>
+            <MenuItem icon="arrow_right" submenu ariaLabel="Actions">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+            </MenuItem>
+          </Menu>
+        </div>
+      ))}
+    </Box>
   </Story>
 </Canvas>
 
@@ -431,32 +329,6 @@ is rendered.
   </Story>
 </Canvas>
 
-### Dark icon
-
-<Canvas>
-  <Story name="dark icon">
-    <div style={{ minHeight: "250px" }}>
-      <Menu menuType="dark">
-        <MenuItem icon="home" href="#">
-          Home
-        </MenuItem>
-        <MenuItem icon="person" href="#" ariaLabel="Account" />
-        <MenuItem icon="settings" submenu="Settings">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuDivider />
-          <MenuItem icon="settings" href="#" ariaLabel="settings" />
-          <MenuItem href="#">Item Submenu Four</MenuItem>
-        </MenuItem>
-        <MenuItem icon="arrow_right" submenu ariaLabel="Actions">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
-  </Story>
-</Canvas>
-
 ### Full navbar alignment example
 
 <Canvas>
@@ -465,58 +337,68 @@ is rendered.
       const isBelowBreakpoint = (value) =>
         useMediaQuery(`(max-width: ${value})`);
       return (
-        <div style={{ minHeight: "250px" }}>
-          <NavigationBar>
-            <SageIcon style={{ alignSelf: "center" }} />
-            <Box>
-              <VerticalDivider displayInline pr={0} />
-            </Box>
-            <Menu display="flex" flex="1">
-              <MenuItem
-                flex="1"
-                onClick={() => {}}
-                maxWidth={isBelowBreakpoint("850px") ? "130px" : undefined}
-                submenu="Menu Item One"
+        <Box mb={150}>
+          {["white", "light", "dark", "black"].map((menuType) => (
+            <div key={menuType}>
+              <Typography variant="h4" textTransform="capitalize" my={2}>
+                {menuType}
+              </Typography>
+              <NavigationBar
+                navigationType={menuType}
+                aria-label={`Navbar ${menuType}`}
               >
-                <MenuItem href="#">Item Submenu One</MenuItem>
-                <MenuItem href="#">Item Submenu Two</MenuItem>
-                <MenuDivider />
-                <MenuItem icon="settings" href="#">
-                  Item Submenu Three
-                </MenuItem>
-                <MenuItem href="#">Item Submenu Four</MenuItem>
-              </MenuItem>
-              <MenuItem
-                flex="0 0 auto"
-                href="#"
-                maxWidth={isBelowBreakpoint("800px") ? "120px" : undefined}
-              >
-                Menu Item Two
-              </MenuItem>
-              <MenuItem
-                flex="0 0 auto"
-                maxWidth={isBelowBreakpoint("770px") ? "130px" : undefined}
-                submenu="Menu Item Three"
-              >
-                <MenuItem href="#">Item Submenu One</MenuItem>
-                <MenuItem href="#">Item Submenu Two</MenuItem>
-                <MenuDivider />
-                <MenuItem icon="settings" href="#">
-                  Item Submenu Three
-                </MenuItem>
-                <MenuItem href="#">Item Submenu Four</MenuItem>
-              </MenuItem>
-              <MenuItem
-                flex="0 0 auto"
-                maxWidth={isBelowBreakpoint("750px") ? "130px" : undefined}
-                submenu="Menu Item Four"
-              >
-                <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-                <MenuItem href="#">Item Submenu Two</MenuItem>
-              </MenuItem>
-            </Menu>
-          </NavigationBar>
-        </div>
+                <SageIcon style={{ alignSelf: "center" }} />
+                <Box>
+                  <VerticalDivider displayInline pr={0} />
+                </Box>
+                <Menu display="flex" flex="1" menuType={menuType}>
+                  <MenuItem
+                    flex="1"
+                    onClick={() => {}}
+                    maxWidth={isBelowBreakpoint("850px") ? "130px" : undefined}
+                    submenu="Menu Item One"
+                  >
+                    <MenuItem href="#">Item Submenu One</MenuItem>
+                    <MenuItem href="#">Item Submenu Two</MenuItem>
+                    <MenuDivider />
+                    <MenuItem icon="settings" href="#">
+                      Item Submenu Three
+                    </MenuItem>
+                    <MenuItem href="#">Item Submenu Four</MenuItem>
+                  </MenuItem>
+                  <MenuItem
+                    flex="0 0 auto"
+                    href="#"
+                    maxWidth={isBelowBreakpoint("800px") ? "120px" : undefined}
+                  >
+                    Menu Item Two
+                  </MenuItem>
+                  <MenuItem
+                    flex="0 0 auto"
+                    maxWidth={isBelowBreakpoint("770px") ? "130px" : undefined}
+                    submenu="Menu Item Three"
+                  >
+                    <MenuItem href="#">Item Submenu One</MenuItem>
+                    <MenuItem href="#">Item Submenu Two</MenuItem>
+                    <MenuDivider />
+                    <MenuItem icon="settings" href="#">
+                      Item Submenu Three
+                    </MenuItem>
+                    <MenuItem href="#">Item Submenu Four</MenuItem>
+                  </MenuItem>
+                  <MenuItem
+                    flex="0 0 auto"
+                    maxWidth={isBelowBreakpoint("750px") ? "130px" : undefined}
+                    submenu="Menu Item Four"
+                  >
+                    <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+                    <MenuItem href="#">Item Submenu Two</MenuItem>
+                  </MenuItem>
+                </Menu>
+              </NavigationBar>
+            </div>
+          ))}
+        </Box>
       );
     }}
   </Story>
@@ -589,92 +471,51 @@ Note that only one `ScrollableBlock` can be used within a single submenu.
     name="scrollable submenu"
     parameters={{ chromatic: { disable: true } }}
   >
-    <div style={{ minHeight: "150px" }}>
-      <Menu>
-        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <ScrollableBlock height="200px">
-            <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-            <MenuItem href="#">Item Submenu Three</MenuItem>
-            <MenuItem href="#">Item Submenu Four</MenuItem>
-            <MenuItem href="#">Item Submenu Five</MenuItem>
-            <MenuItem href="#">Item Submenu Six</MenuItem>
-            <MenuItem href="#">Item Submenu Seven</MenuItem>
-            <MenuItem href="#">Item Submenu Eight</MenuItem>
-            <MenuItem href="#">Item Submenu Nine</MenuItem>
-            <MenuItem href="#">Item Submenu Ten</MenuItem>
-            <MenuItem href="#">Item Submenu Eleven</MenuItem>
-            <MenuItem href="#">Item Submenu Twelve</MenuItem>
-          </ScrollableBlock>
-        </MenuItem>
-        <MenuItem submenu="Menu Item Four">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <ScrollableBlock variant="alternate" height="200px">
-            <MenuItem href="#">Item Submenu Three</MenuItem>
-            <MenuItem href="#">Item Submenu Four</MenuItem>
-            <MenuItem href="#">Item Submenu Five</MenuItem>
-            <MenuItem href="#">Item Submenu Six</MenuItem>
-            <MenuItem href="#">Item Submenu Seven</MenuItem>
-            <MenuItem href="#">Item Submenu Eight</MenuItem>
-            <MenuItem href="#">Item Submenu Nine</MenuItem>
-            <MenuItem href="#">Item Submenu Ten</MenuItem>
-            <MenuItem href="#">Item Submenu Eleven</MenuItem>
-            <MenuItem href="#">Item Submenu Twelve</MenuItem>
-          </ScrollableBlock>
-        </MenuItem>
-      </Menu>
-    </div>
-  </Story>
-</Canvas>
-
-### Scrollable submenu dark
-
-<Canvas>
-  <Story
-    name="scrollable submenu dark"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <div style={{ minHeight: "150px" }}>
-      <Menu menuType="dark">
-        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <ScrollableBlock height="200px">
-            <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-            <MenuItem href="#">Item Submenu Three</MenuItem>
-            <MenuItem href="#">Item Submenu Four</MenuItem>
-            <MenuItem href="#">Item Submenu Five</MenuItem>
-            <MenuItem href="#">Item Submenu Six</MenuItem>
-            <MenuItem href="#">Item Submenu Seven</MenuItem>
-            <MenuItem href="#">Item Submenu Eight</MenuItem>
-            <MenuItem href="#">Item Submenu Nine</MenuItem>
-            <MenuItem href="#">Item Submenu Ten</MenuItem>
-            <MenuItem href="#">Item Submenu Eleven</MenuItem>
-            <MenuItem href="#">Item Submenu Twelve</MenuItem>
-          </ScrollableBlock>
-        </MenuItem>
-        <MenuItem submenu="Menu Item Four">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <ScrollableBlock variant="alternate" height="200px">
-            <MenuItem href="#">Item Submenu Three</MenuItem>
-            <MenuItem href="#">Item Submenu Four</MenuItem>
-            <MenuItem href="#">Item Submenu Five</MenuItem>
-            <MenuItem href="#">Item Submenu Six</MenuItem>
-            <MenuItem href="#">Item Submenu Seven</MenuItem>
-            <MenuItem href="#">Item Submenu Eight</MenuItem>
-            <MenuItem href="#">Item Submenu Nine</MenuItem>
-            <MenuItem href="#">Item Submenu Ten</MenuItem>
-            <MenuItem href="#">Item Submenu Eleven</MenuItem>
-            <MenuItem href="#">Item Submenu Twelve</MenuItem>
-          </ScrollableBlock>
-        </MenuItem>
-      </Menu>
-    </div>
+    <Box mb={150}>
+      {["white", "light", "dark", "black"].map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+            <MenuItem href="#">Menu Item Two</MenuItem>
+            <MenuItem submenu="Menu Item Three">
+              <ScrollableBlock height="200px">
+                <MenuItem href="#">Item Submenu One</MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+                <MenuItem href="#">Item Submenu Three</MenuItem>
+                <MenuItem href="#">Item Submenu Four</MenuItem>
+                <MenuItem href="#">Item Submenu Five</MenuItem>
+                <MenuItem href="#">Item Submenu Six</MenuItem>
+                <MenuItem href="#">Item Submenu Seven</MenuItem>
+                <MenuItem href="#">Item Submenu Eight</MenuItem>
+                <MenuItem href="#">Item Submenu Nine</MenuItem>
+                <MenuItem href="#">Item Submenu Ten</MenuItem>
+                <MenuItem href="#">Item Submenu Eleven</MenuItem>
+                <MenuItem href="#">Item Submenu Twelve</MenuItem>
+              </ScrollableBlock>
+            </MenuItem>
+            <MenuItem submenu="Menu Item Four">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <ScrollableBlock variant="alternate" height="200px">
+                <MenuItem href="#">Item Submenu Three</MenuItem>
+                <MenuItem href="#">Item Submenu Four</MenuItem>
+                <MenuItem href="#">Item Submenu Five</MenuItem>
+                <MenuItem href="#">Item Submenu Six</MenuItem>
+                <MenuItem href="#">Item Submenu Seven</MenuItem>
+                <MenuItem href="#">Item Submenu Eight</MenuItem>
+                <MenuItem href="#">Item Submenu Nine</MenuItem>
+                <MenuItem href="#">Item Submenu Ten</MenuItem>
+                <MenuItem href="#">Item Submenu Eleven</MenuItem>
+                <MenuItem href="#">Item Submenu Twelve</MenuItem>
+              </ScrollableBlock>
+            </MenuItem>
+          </Menu>
+        </div>
+      ))}
+    </Box>
   </Story>
 </Canvas>
 
@@ -685,24 +526,37 @@ Note that only one `ScrollableBlock` can be used within a single submenu.
     name="submenu with search"
     parameters={{ chromatic: { disable: true } }}
   >
-    <div style={{ minHeight: 300 }}>
-      <Menu menuType="dark">
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuDivider variant="alternate" size="large" />
-          <MenuSegmentTitle variant="alternate">segment title</MenuSegmentTitle>
-          <MenuItem variant="alternate">
-            <Search placeholder="Dark variant" variant="dark" defaultValue="" />
-          </MenuItem>
-          <MenuItem variant="alternate" href="#">
-            Item Submenu Two
-          </MenuItem>
-          <MenuItem variant="alternate" href="#">
-            Item Submenu Three
-          </MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
+    <Box mb={150}>
+      {["white", "light", "dark", "black"].map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem submenu="Menu Item Three">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuDivider variant="alternate" size="large" />
+              <MenuSegmentTitle variant="alternate">
+                segment title
+              </MenuSegmentTitle>
+              <MenuItem variant="alternate">
+                <Search
+                  placeholder="Dark variant"
+                  variant="dark"
+                  defaultValue=""
+                />
+              </MenuItem>
+              <MenuItem variant="alternate" href="#">
+                Item Submenu Two
+              </MenuItem>
+              <MenuItem variant="alternate" href="#">
+                Item Submenu Three
+              </MenuItem>
+            </MenuItem>
+          </Menu>
+        </div>
+      ))}
+    </Box>
   </Story>
 </Canvas>
 
@@ -813,28 +667,28 @@ trigger when the screen size is smaller than `1200px`
 <Canvas>
   <Story name="fullscreen view" parameters={{ chromatic: { disable: true } }}>
     {() => {
-      const [menuOpen1, setMenuOpen1] = useState(false);
-      const [menuOpen2, setMenuOpen2] = useState(false);
+      const [menuOpen, setMenuOpen] = useState({
+        light: false,
+        dark: false,
+        white: false,
+        black: false,
+      });
       const fullscreenViewBreakPoint = useMediaQuery("(max-width: 1200px)");
       const responsiveMenuItems = (startPosition, menu) => {
         if (fullscreenViewBreakPoint) {
           return [
             <MenuItem
-              onClick={
-                menu === "1"
-                  ? () => setMenuOpen1(true)
-                  : () => setMenuOpen2(true)
+              onClick={() =>
+                setMenuOpen((state) => ({ ...state, [menu]: true }))
               }
             >
               Menu
             </MenuItem>,
             <MenuFullscreen
               startPosition={startPosition}
-              isOpen={menu === "1" ? menuOpen1 : menuOpen2}
-              onClose={
-                menu === "1"
-                  ? () => setMenuOpen1(false)
-                  : () => setMenuOpen2(false)
+              isOpen={menuOpen[menu]}
+              onClick={() =>
+                setMenuOpen((state) => ({ ...state, [menu]: false }))
               }
             >
               <MenuItem href="#">Menu Item One</MenuItem>
@@ -868,24 +722,21 @@ trigger when the screen size is smaller than `1200px`
         ];
       };
       return (
-        <>
-          <div style={{ minHeight: "150px" }}>
-            <Menu>
-              {React.Children.map(
-                responsiveMenuItems("left", "1"),
-                (items) => items
-              )}
-            </Menu>
-          </div>
-          <div style={{ minHeight: "150px" }}>
-            <Menu menuType="dark">
-              {React.Children.map(
-                responsiveMenuItems("right", "2"),
-                (items) => items
-              )}
-            </Menu>
-          </div>
-        </>
+        <Box>
+          {["white", "light", "dark", "black"].map((menuType) => (
+            <div key={menuType}>
+              <Typography variant="h4" textTransform="capitalize" my={2}>
+                {menuType}
+              </Typography>
+              <Menu menuType={menuType}>
+                {React.Children.map(
+                  responsiveMenuItems("left", menuType),
+                  (items) => items
+                )}
+              </Menu>
+            </div>
+          ))}
+        </Box>
       );
     }}
   </Story>

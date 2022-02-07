@@ -170,8 +170,8 @@ describe("Pill", () => {
     });
 
     describe("content color", () => {
-      const darkColor = baseTheme.text.color;
-      const lightColor = baseTheme.colors.white;
+      const darkColor = "var(--colorsUtilityYin090)";
+      const lightColor = "var(--colorsUtilityYang100)";
 
       it.each([
         ["black", lightColor],
@@ -341,7 +341,7 @@ describe("Pill", () => {
                     assertStyleMatch(
                       {
                         backgroundColor: styleSet[style].varietyColor,
-                        color: theme.colors.white,
+                        color: styleSet[style].content,
                       },
                       fillWrapper
                     );
@@ -363,7 +363,7 @@ describe("Pill", () => {
                     assertStyleMatch(
                       {
                         backgroundColor: styleSet[style].varietyColor,
-                        color: theme.text.color,
+                        color: styleSet[style].content,
                       },
                       fillWrapper
                     );

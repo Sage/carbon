@@ -2,15 +2,15 @@ import * as React from "react";
 import { MarginProps } from "styled-system";
 import { DateInputProps } from "../date/date";
 
-export interface DateRangeChangeEvent {
+interface DateRangeChangeEvent {
   target: {
     value: [
       {
-        formattedValue: number;
+        formattedValue: string;
         rawValue: string;
       },
       {
-        formattedValue: number;
+        formattedValue: string;
         rawValue: string;
       }
     ];
@@ -18,8 +18,6 @@ export interface DateRangeChangeEvent {
 }
 
 export interface DateRangeProps extends MarginProps {
-  /* The default value of the input if it's meant to be used as an uncontrolled component */
-  defaultValue?: string[];
   /** Props for the child end Date component */
   endDateProps?: DateInputProps;
   /** Optional label for endDate field */
@@ -49,7 +47,7 @@ export interface DateRangeProps extends MarginProps {
   /** An optional string prop to provide a name to the component */
   name?: string;
   /** Specify a callback triggered on change */
-  onChange?: (ev: DateRangeChangeEvent) => void;
+  onChange: (ev: DateRangeChangeEvent) => void;
   /** Specify a callback triggered on blur */
   onBlur?: (ev: DateRangeChangeEvent) => void;
   /** Props for the child start Date component */
@@ -74,7 +72,7 @@ export interface DateRangeProps extends MarginProps {
    */
   startInfo?: boolean | string;
   /** An array containing the value of startDate and endDate */
-  value?: string[];
+  value: string[];
   /** When true, validation icons will be placed on labels instead of being placed on the inputs */
   validationOnLabel?: boolean;
   /** Overrides the default tooltip position */

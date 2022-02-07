@@ -125,7 +125,7 @@
         "ecmaFeatures": {
           "jsx": true
         },
-        "project": "./tsconfig.json"
+        "project": ["./tsconfig.json", "./scripts/tsconfig.json"]
       },
       "plugins": ["@typescript-eslint", "jest"],
       "extends": [
@@ -145,7 +145,10 @@
       },
       "rules": {
         "import/named": "off",
-        "react/prefer-stateless-function": "off"
+        "jest/expect-expect": "off",
+        "react/prefer-stateless-function": "off",
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": ["error"]
       }
     }
   ]

@@ -24,9 +24,7 @@ const StyledSubmenuWrapper = styled.div`
     css`
       ${StyledMenuItemWrapper} {
         outline: none;
-        color: ${menuType === "light"
-          ? theme.menu.light.title
-          : theme.menu.dark.title};
+        color: ${theme.menu[menuType].title};
       }
     `}
 `;
@@ -38,8 +36,9 @@ const StyledSubmenu = styled.ul`
       box-shadow: 0 5px 5px 0 rgba(0, 20, 29, 0.2),
         0 10px 10px 0 rgba(0, 20, 29, 0.1);
       position: absolute;
-      background-color: ${theme.colors.white};
-
+      background: ${variant === "default"
+        ? theme.menu[menuType].submenuBackground
+        : theme.menu[menuType].background};
       a,
       button,
       ${StyledLink} a,
@@ -84,11 +83,8 @@ const StyledSubmenu = styled.ul`
       white-space: nowrap;
       cursor: pointer;
 
-      ${menuType === "light" &&
-      css`
-        ${!inFullscreenView && `background-color: ${theme.colors.white};`}
-        color: ${theme.colors.black};
-      `}
+      ${!inFullscreenView &&
+      `background-color: ${theme.menu[menuType].submenuBackground};`}
 
       &:hover,
       &:hover a,
@@ -105,47 +101,15 @@ const StyledSubmenu = styled.ul`
         height: 16px;
         margin-right: 5px;
       }
+
+      ${StyledSearch} [data-component="icon"] {
+        color: ${theme.menu[menuType].searchIcon};
+
+        &:hover {
+          color: ${theme.menu[menuType].searchIconHover};
+        }
+      }
     }
-
-    ${menuType === "dark" &&
-    css`
-      background: ${variant === "default"
-        ? theme.menu.dark.submenuBackground
-        : theme.colors.slate};
-
-      ${StyledMenuItemWrapper} {
-        ${!inFullscreenView &&
-        `background-color: ${theme.menu.dark.submenuBackground};`}
-        color: ${theme.colors.white};
-
-        a,
-        button,
-        [data-component="icon"] {
-          color: ${theme.colors.white};
-        }
-
-        .carbon-menu-item--has-link button {
-          color: ${theme.colors.white};
-        }
-
-        ${StyledSearch} [data-component="icon"] {
-          color: ${theme.menu.dark.searchIcon};
-
-          &:hover {
-            color: ${theme.menu.dark.searchIconHover};
-          }
-        }
-      }
-
-      .carbon-menu-item--has-link:hover {
-        background-color: ${theme.colors.primary};
-        text-decoration: none;
-
-        [data-component="icon"] {
-          color: ${theme.colors.white};
-        }
-      }
-    `}
 
     [data-component="icon"] {
       line-height: 16px;

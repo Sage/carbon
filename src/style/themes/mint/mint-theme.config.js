@@ -4,7 +4,7 @@ export default (palette) => {
 
     colors: {
       base: palette.productGreen,
-      primary: palette.productGreenShade(21),
+      primary: palette.productGreenShade(23.5),
       secondary: palette.productGreenShade(41),
       tertiary: palette.productGreenShade(61),
       whiteMix: palette.productGreenTint(90),
@@ -22,6 +22,8 @@ export default (palette) => {
         colorsActionMajor500: this.colors.primary,
         colorsActionMajor600: this.colors.secondary,
         colorsActionMajor150: this.colors.loadingBarBackground,
+
+        colorsBaseTheme: this.colors.primary,
       };
     },
   };

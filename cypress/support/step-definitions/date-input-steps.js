@@ -90,23 +90,17 @@ Then("dayPickerDay is not visible", () => {
 });
 
 When("I click onto date icon", () => {
-  dateIcon().click({ force: true });
+  dateIcon().trigger("mousedown");
 });
 
 When("I click onto date icon twice", () => {
-  dateIcon()
-    .click()
-    .then(($el) => {
-      $el.click();
-    });
+  dateIcon().trigger("mousedown");
+  dateIcon().trigger("mousedown");
 });
 
 When("I click dateInput twice", () => {
-  dateInputParent()
-    .click({ force: true })
-    .then(($el) => {
-      $el.click();
-    });
+  dateInputParent().trigger("mousedown");
+  dateInputParent().trigger("mousedown");
 });
 
 Then("Date input is visible at the {word}", (position) => {
