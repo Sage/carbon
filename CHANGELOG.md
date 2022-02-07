@@ -1,3 +1,16 @@
+## [104.2.0](https://github.com/Sage/carbon/compare/v104.1.1...v104.2.0) (2022-02-07)
+
+
+### Features
+
+* **tooltip:** add target prop ([f1a868b](https://github.com/Sage/carbon/commit/f1a868bb9ad934baf282c56d1f8240b8880a2792))
+
+
+### Bug Fixes
+
+* **button:** fix tooltip accessibility issue ([7ff2229](https://github.com/Sage/carbon/commit/7ff2229e699ac81a968c50152124e1f17be33e53))
+* **icon-button:** fix tooltip accessibility issue ([4d14ef0](https://github.com/Sage/carbon/commit/4d14ef06820287f03249fbe4983ba187fc1e6f5f))
+
 ### [104.1.1](https://github.com/Sage/carbon/compare/v104.1.0...v104.1.1) (2022-02-07)
 
 
