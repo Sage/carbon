@@ -10,6 +10,7 @@ export const TooltipProvider = ({
   focusable = true,
   tooltipVisible,
   disabled = false,
+  target,
 }) => (
   <TooltipContext.Provider
     value={{
@@ -18,6 +19,7 @@ export const TooltipProvider = ({
       focusable,
       tooltipVisible,
       disabled,
+      target,
     }}
   >
     {children}
@@ -31,4 +33,5 @@ TooltipProvider.propTypes = {
   focusable: PropTypes.bool,
   tooltipVisible: PropTypes.bool,
   disabled: PropTypes.bool,
+  target: PropTypes.instanceOf(Element),
 };
