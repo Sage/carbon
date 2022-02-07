@@ -5,15 +5,10 @@ import { createPopper } from "@popperjs/core";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Popover from "./popover.component";
-import { tokensClassName } from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
+import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 jest.mock("@popperjs/core");
 jest.mock("../../hooks/__internal__/useResizeObserver");
-
-jest.mock(
-  "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component",
-  () => ({ tokensClassName: () => "tokens" })
-);
 
 const Component = (props) => {
   const [ref, setRef] = useState({});
@@ -37,18 +32,16 @@ describe("Popover", () => {
       const createElementSpy = jest.spyOn(document, "createElement");
       const appendChildSpy = jest.spyOn(document.body, "appendChild");
 
-      mount(<Component />);
+      const wrapper = mount(<Component />);
 
       expect(createElementSpy).toHaveBeenCalledWith("div");
 
-      const child = document.createElement("div");
+      const provider = wrapper.find(CarbonScopedTokensProvider).getDOMNode();
 
-      child.classList.add(tokensClassName());
       const grandchild = document.createElement("div");
       grandchild.id = "popover-children";
-      child.appendChild(grandchild);
-
-      expect(appendChildSpy).toHaveBeenCalledWith(child);
+      provider.appendChild(grandchild);
+      expect(appendChildSpy.mock.calls[0][0].childNodes[0]).toEqual(provider);
     });
     it("does not render children in portal when disablePortal passed", () => {
       const createPortalSpy = jest.spyOn(ReactDOM, "createPortal");
@@ -59,17 +52,18 @@ describe("Popover", () => {
 
     it("renders children in portal", () => {
       const createPortalSpy = jest.spyOn(ReactDOM, "createPortal");
-      mount(<Component />);
+      const wrapper = mount(<Component />);
 
-      const child = document.createElement("div");
-      child.classList.add(tokensClassName());
+      const provider = wrapper.find(CarbonScopedTokensProvider).getDOMNode();
+
       const grandchild = document.createElement("div");
       grandchild.id = "popover-children";
-      child.appendChild(grandchild);
-      expect(createPortalSpy.mock.calls[0][0].props.id).toBe(
+      provider.appendChild(grandchild);
+
+      expect(createPortalSpy.mock.calls[0][0].props.children.props.id).toBe(
         "popover-children"
       );
-      expect(createPortalSpy.mock.calls[0][1]).toEqual(child);
+      expect(createPortalSpy.mock.calls[0][1].childNodes[0]).toEqual(provider);
     });
 
     it("removes created div from the body on unmount", () => {
@@ -80,7 +74,6 @@ describe("Popover", () => {
       wrapper.unmount();
 
       const child = document.createElement("div");
-      child.classList.add(tokensClassName());
 
       expect(removeChildSpy).toHaveBeenCalledWith(child);
     });
