@@ -1,6 +1,9 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import NavigationBar from "./navigation-bar.component";
+import NavigationBar, {
+  NavigationBarProps,
+  StickyPosition,
+} from "./navigation-bar.component";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
@@ -13,13 +16,15 @@ describe("NavigationBar", () => {
   let wrapper;
 
   testStyledSystemPadding(
-    (props) => <NavigationBar {...props}>test content</NavigationBar>,
+    (props: NavigationBarProps) => (
+      <NavigationBar {...props}>test content</NavigationBar>
+    ),
     undefined,
     undefined,
     { modifier: "&&" }
   );
 
-  testStyledSystemFlexBox((props) => (
+  testStyledSystemFlexBox((props: NavigationBarProps) => (
     <NavigationBar {...props}>test content</NavigationBar>
   ));
 
@@ -158,7 +163,7 @@ describe("NavigationBar", () => {
     );
   });
 
-  it.each([
+  it.each<[StickyPosition, string | undefined]>([
     ["top", undefined],
     ["top", "10px"],
     ["bottom", undefined],

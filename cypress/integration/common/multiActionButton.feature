@@ -35,7 +35,7 @@ Feature: Multi Action Button default component
   Scenario: Verify background-color after hovering
     Given I open default "Multi Action Button Test" component with "multiActionButton" json from "commonComponents" using "default" object name
     When I hover on Multi Action Button
-    Then Multi Action Button has "rgb(0, 96, 70)" background-color
+    Then Multi Action Button has "rgb(0, 77, 42)" background-color
 
   @positive
   Scenario: Check click event

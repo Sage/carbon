@@ -16,12 +16,17 @@ const marginPropTypes = filterStyledSystemMarginProps(
 );
 
 const ProgressTracker = ({
+  "aria-label": ariaLabel = "progress tracker",
+  "aria-describedby": ariaDescribedBy,
+  "aria-valuenow": ariaValueNow,
+  "aria-valuemin": ariaValueMin,
+  "aria-valuemax": ariaValueMax,
+  "aria-valuetext": ariaValueText,
   size = "medium",
   progress = 0,
   showDefaultLabels = false,
   currentProgressLabel,
   maxProgressLabel,
-  variant = "default",
   orientation = "horizontal",
   direction = "up",
   labelsPosition,
@@ -76,6 +81,13 @@ const ProgressTracker = ({
       isVertical={isVertical}
       {...rest}
       {...tagComponent("progress-bar", rest)}
+      role="progressbar"
+      aria-label={ariaLabel}
+      aria-describedby={ariaDescribedBy}
+      aria-valuenow={ariaValueNow}
+      aria-valuemin={ariaValueMin}
+      aria-valuemax={ariaValueMax}
+      aria-valuetext={ariaValueText}
     >
       {prefixLabels && renderValueLabels()}
       <StyledProgressBar
@@ -83,12 +95,7 @@ const ProgressTracker = ({
         isVertical={isVertical}
         size={size}
       >
-        <InnerBar
-          isVertical={isVertical}
-          size={size}
-          progress={progress}
-          variant={variant}
-        />
+        <InnerBar isVertical={isVertical} size={size} progress={progress} />
       </StyledProgressBar>
       {!prefixLabels && renderValueLabels()}
     </StyledProgressTracker>
@@ -97,6 +104,20 @@ const ProgressTracker = ({
 
 ProgressTracker.propTypes = {
   ...marginPropTypes,
+  /** Specifies an aria label to the component */
+  "aria-label": PropTypes.string,
+  /** Specifies the aria describedby for the component */
+  "aria-describedby": PropTypes.string,
+  /** The value of progress to be read out to the user. */
+  "aria-valuenow": PropTypes.number,
+  /** The minimum value of the progress tracker */
+  "aria-valuemin": PropTypes.number,
+  /** The maximum value of the progress tracker */
+  "aria-valuemax": PropTypes.number,
+  /** Prop to define the human readable text alternative of aria-valuenow
+   * if aria-valuenow is not a number
+   */
+  "aria-valuetext": PropTypes.string,
   /** Size of the progress bar. */
   size: PropTypes.oneOf(["small", "medium", "large"]),
   /** Current progress (percentage). */
@@ -107,11 +128,6 @@ ProgressTracker.propTypes = {
   currentProgressLabel: PropTypes.string,
   /** Value to display as the maximum progress limit. */
   maxProgressLabel: PropTypes.string,
-  /**
-   * Sets the colour of the bar that shows the current progress.
-   * The "traffic" variant changes the colour of status bar depending on current progress.
-   */
-  variant: PropTypes.oneOf(["default", "traffic"]),
   /** The orientation of the component. */
   orientation: PropTypes.oneOf(["horizontal", "vertical"]),
   /** The direction the bar should move as progress increases, only applies in vertical orientation. */

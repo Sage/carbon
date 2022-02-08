@@ -10,7 +10,7 @@ import {
 import StyledIconButton from "./icon-button.style";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
-import Tooltip from "../tooltip";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 jest.mock("@tippyjs/react/headless", () => ({
   __esModule: true,
@@ -19,6 +19,53 @@ jest.mock("@tippyjs/react/headless", () => ({
 
 describe("IconButton component", () => {
   let wrapper, onDismiss, onBlur;
+
+  describe("refs", () => {
+    it("accepts ref as a ref object", () => {
+      const ref = { current: undefined };
+
+      wrapper = mount(
+        <IconButton onAction={() => {}} ref={ref}>
+          <Icon type="home" tooltipMessage="foo" />
+        </IconButton>
+      );
+
+      wrapper.update();
+
+      expect(ref.current).toBe(wrapper.find(StyledIconButton).getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      wrapper = mount(
+        <IconButton onAction={() => {}} ref={ref}>
+          <Icon type="home" tooltipMessage="foo" />
+        </IconButton>
+      );
+
+      wrapper.update();
+
+      expect(ref).toHaveBeenCalledWith(
+        wrapper.find(StyledIconButton).getDOMNode()
+      );
+    });
+  });
+
+  describe("tooltip", () => {
+    it("renders TooltipProvider with correct props", () => {
+      wrapper = mount(
+        <IconButton onAction={() => {}} disabled>
+          <Icon type="home" tooltipMessage="foo" />
+        </IconButton>
+      );
+
+      const props = wrapper.find(TooltipProvider).props();
+
+      expect(props.disabled).toBe(true);
+      expect(props.focusable).toBe(false);
+      expect(props.target).toBe(wrapper.find(StyledIconButton).getDOMNode());
+    });
+  });
 
   describe("when onDismiss is provided", () => {
     beforeEach(() => {
@@ -137,44 +184,6 @@ describe("IconButton component", () => {
 
     it("should block the focus behaviour", () => {
       expect(wrapper.find(StyledIcon).prop("hasTooltip")).toEqual(false);
-    });
-
-    it("should show the tooltip on focus of the button", () => {
-      act(() => {
-        wrapper.find(StyledIconButton).prop("onFocus")();
-      });
-      expect(wrapper.update().find(Tooltip).prop("isVisible")).toEqual(true);
-    });
-
-    it("should show the tooltip on mouse enter the button", () => {
-      act(() => {
-        wrapper.find(StyledIconButton).prop("onMouseEnter")();
-      });
-      expect(wrapper.update().find(Tooltip).prop("isVisible")).toEqual(true);
-    });
-
-    it("should hide the tooltip on blur of the button", () => {
-      act(() => {
-        wrapper.find(StyledIconButton).prop("onFocus")();
-      });
-      wrapper.update();
-
-      act(() => {
-        wrapper.find(StyledIconButton).prop("onBlur")();
-      });
-      expect(wrapper.update().find(Tooltip).prop("isVisible")).toEqual(false);
-    });
-
-    it("should hide the tooltip on mouse leaving the button", () => {
-      act(() => {
-        wrapper.find(StyledIconButton).prop("onMouseEnter")();
-      });
-      wrapper.update();
-
-      act(() => {
-        wrapper.find(StyledIconButton).prop("onMouseLeave")();
-      });
-      expect(wrapper.update().find(Tooltip).prop("isVisible")).toEqual(false);
     });
 
     describe("when event props are passed", () => {

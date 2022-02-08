@@ -1,3 +1,5 @@
+import { Locale as DateFnsLocale } from "date-fns";
+
 interface Locale {
   locale: () => string;
   actions: {
@@ -15,10 +17,7 @@ interface Locale {
     yes: () => string;
   };
   date: {
-    formats: {
-      inputs: () => string[];
-      javascript: () => string;
-    };
+    dateFnsLocale: () => DateFnsLocale;
   };
   errors: {
     messages: {

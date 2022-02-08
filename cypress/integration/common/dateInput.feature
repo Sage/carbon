@@ -53,10 +53,10 @@ Feature: Date Input component
     Then dayPickerDay is visible
 
   @positive
-  Scenario: Close dayPickerDay via click on input
+  Scenario: Does not close dayPickerDay via click on input
     Given I open default "Date Input Test" component with "dateInput" json from "commonComponents" using "default" object name
     When I click dateInput twice
-    Then dayPickerDay is not visible
+    Then dayPickerDay is visible
 
   @positive
   Scenario: Open dayPickerDay via click on icon

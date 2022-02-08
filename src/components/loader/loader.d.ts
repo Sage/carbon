@@ -1,6 +1,8 @@
 import { MarginProps } from "styled-system";
 
 export interface LoaderProps extends MarginProps {
+  /** Specify an aria-label for the Loader component */
+  "aria-label"?: string;
   /** Size of the loader. */
   size?: "small" | "medium" | "large";
   /** Applies white color. */

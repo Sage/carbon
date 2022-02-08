@@ -9,25 +9,35 @@ const horizontalPaddingSizes = {
 };
 
 const StyledSplitButtonToggle = styled(StyledButton)`
-  ${({ buttonType, disabled, displayed, size, theme }) => css`
+  ${({ buttonType, disabled, displayed, size }) => css`
     ${!disabled && displayed
       ? css`
-          background-color: ${theme.colors.secondary};
-          border-color: ${theme.colors.secondary};
+          background-color: var(--colorsActionMajor500);
+          border-color: var(--colorsActionMajor500);
 
           &,
           ${StyledIcon} {
-            color: ${theme.colors.white};
+            color: var(--colorsActionMajorYang100);
           }
 
           &:focus {
-            border-left-color: ${theme.colors.secondary};
+            border-left-color: var(--colorsSemanticFocus500);
           }
         `
       : ""}
     ${!disabled &&
     buttonType === "primary" &&
-    `border-left-color: ${theme.colors.secondary};`}
+    `position: relative;
+      &::before {
+        content: '';
+        width: 2px;
+        height: 100%;
+        background: var(--colorsActionMajorYang100);
+        position: absolute;
+        left: -2px;
+        z-index: 2;
+      }  
+    `}
     ${buttonType === "secondary" && "border-left-width: 0;"}
     padding: 0 ${horizontalPaddingSizes[size]}px;
 
