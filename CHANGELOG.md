@@ -1,3 +1,11 @@
+## [104.5.0](https://github.com/Sage/carbon/compare/v104.4.0...v104.5.0) (2022-02-08)
+
+
+### Features
+
+* **tile-select:** describe tile select using design tokens ([6b563f6](https://github.com/Sage/carbon/commit/6b563f6f605c5cebeba26584046fa632680953b8))
+* **tile-select:** remove color and fill on disabled ([d8ce33d](https://github.com/Sage/carbon/commit/d8ce33dfc00e47eb311e583524f220f1c2cee5ed))
+
 ## [104.4.0](https://github.com/Sage/carbon/compare/v104.3.0...v104.4.0) (2022-02-08)
 
 
