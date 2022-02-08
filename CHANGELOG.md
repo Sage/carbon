@@ -1,3 +1,10 @@
+## [104.6.0](https://github.com/Sage/carbon/compare/v104.5.0...v104.6.0) (2022-02-08)
+
+
+### Features
+
+* **sidebar:** use design tokens to describe sidebar ([d8445d6](https://github.com/Sage/carbon/commit/d8445d6c3959c97e8421dae3beb3723eac0513bf))
+
 ## [104.5.0](https://github.com/Sage/carbon/compare/v104.4.0...v104.5.0) (2022-02-08)
 
 
