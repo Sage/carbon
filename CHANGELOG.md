@@ -1,3 +1,10 @@
+## [104.10.0](https://github.com/Sage/carbon/compare/v104.9.0...v104.10.0) (2022-02-08)
+
+
+### Features
+
+* **dialog:** surface contentPadding prop to allow overriding default padding values dialog content ([a6f0d7c](https://github.com/Sage/carbon/commit/a6f0d7ce82c734ac8e2ad79802f4acf8189d8535))
+
 ## [104.9.0](https://github.com/Sage/carbon/compare/v104.8.0...v104.9.0) (2022-02-08)
 
 
