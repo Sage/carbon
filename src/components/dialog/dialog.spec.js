@@ -2,6 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
+import guid from "../../__internal__/utils/helpers/guid/guid.js";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Dialog from "./dialog.component";
 import { DialogStyle, DialogTitleStyle } from "./dialog.style";
@@ -15,6 +16,7 @@ import IconButton from "../icon-button";
 import Help from "../help";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
+jest.mock("../../__internal__/utils/helpers/guid/guid.js");
 
 describe("Dialog", () => {
   let onCancel;
@@ -504,6 +506,7 @@ describe("Dialog", () => {
   describe("ARIA attributes", () => {
     describe("when a title is specified as string", () => {
       it("then the container should have aria-labeledby attribute set to it's title id", () => {
+        guid.mockImplementation(() => "foo");
         wrapper = mount(<Dialog open title="Test" />);
 
         expect(
@@ -511,7 +514,21 @@ describe("Dialog", () => {
             .find("[data-element='dialog']")
             .first()
             .prop("aria-labelledby")
-        ).toBe("carbon-dialog-title");
+        ).toBe("foo");
+      });
+    });
+
+    describe("when a subtitle is specified", () => {
+      it("then the container should have aria-describedby attribute set to it's subtitle id", () => {
+        guid.mockImplementation(() => "baz");
+        wrapper = mount(<Dialog open subtitle="Test" />);
+
+        expect(
+          wrapper
+            .find("[data-element='dialog']")
+            .first()
+            .prop("aria-describedby")
+        ).toBe("baz");
       });
     });
 

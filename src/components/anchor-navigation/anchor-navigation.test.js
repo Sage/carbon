@@ -1,11 +1,11 @@
 import * as React from "react";
-import { mount } from "@cypress/react";
 import {
   AnchorNavigation,
   AnchorNavigationItem,
   AnchorSectionDivider,
 } from ".";
 import Textbox from "../textbox";
+import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 import {
   anchorNavigationStickyNavigation,
@@ -81,7 +81,7 @@ context("Testing AnchorNavigation component", () => {
     ])(
       "should scrolldown to the %s AnchorNavigation section after pressing Tab on the %s",
       (sectionIndex, sectionName) => {
-        mount(<AnchorNavigationComponent />);
+        CypressMountWithProviders(<AnchorNavigationComponent />);
 
         anchorNavigationStickyNavigation(sectionIndex).click();
         anchorNavigationStickyMainPage(sectionName).should("be.visible");
@@ -94,7 +94,7 @@ context("Testing AnchorNavigation component", () => {
     ])(
       "should scroll to the %s and verify that proper %s AnchorNavigation row is visible",
       (sectionIndex, sectionName) => {
-        mount(<AnchorNavigationComponent />);
+        CypressMountWithProviders(<AnchorNavigationComponent />);
 
         anchorNavigationStickyNavigation(sectionIndex).click();
         anchorNavigationStickyMainPage(sectionName).scrollIntoView();

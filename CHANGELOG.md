@@ -1,3 +1,42 @@
+## [104.4.0](https://github.com/Sage/carbon/compare/v104.3.0...v104.4.0) (2022-02-08)
+
+
+### Features
+
+* **dialog, dialog-full-screen, confirm:** generate IDs dynamically ([d5e07d9](https://github.com/Sage/carbon/commit/d5e07d978236711ef010d7ae2e050e2a734bc5f6))
+
+
+### Bug Fixes
+
+* **dialog, dialog-full-screen:** address axe violations ([53167d8](https://github.com/Sage/carbon/commit/53167d8007ec5a8c6e2fa020acbb7dc16cec713e))
+
+## [104.3.0](https://github.com/Sage/carbon/compare/v104.2.0...v104.3.0) (2022-02-08)
+
+
+### Features
+
+* **accordion:** describe accordion using design tokens, update of tests after changes ([03f30d0](https://github.com/Sage/carbon/commit/03f30d041614d66738b20b6e8e72ce52a38ecb23))
+
+## [104.2.0](https://github.com/Sage/carbon/compare/v104.1.1...v104.2.0) (2022-02-07)
+
+
+### Features
+
+* **tooltip:** add target prop ([f1a868b](https://github.com/Sage/carbon/commit/f1a868bb9ad934baf282c56d1f8240b8880a2792))
+
+
+### Bug Fixes
+
+* **button:** fix tooltip accessibility issue ([7ff2229](https://github.com/Sage/carbon/commit/7ff2229e699ac81a968c50152124e1f17be33e53))
+* **icon-button:** fix tooltip accessibility issue ([4d14ef0](https://github.com/Sage/carbon/commit/4d14ef06820287f03249fbe4983ba187fc1e6f5f))
+
+### [104.1.1](https://github.com/Sage/carbon/compare/v104.1.0...v104.1.1) (2022-02-07)
+
+
+### Bug Fixes
+
+* **design-tokens:** fix scoped tokens in mfe ([5d2788e](https://github.com/Sage/carbon/commit/5d2788e554ea4c610cc8c07c8245a80f2d04bb5a))
+
 ## [104.1.0](https://github.com/Sage/carbon/compare/v104.0.0...v104.1.0) (2022-01-28)
 
 

@@ -4,6 +4,7 @@ import Tooltip from ".";
 import StyledTooltipWrapper from "./tooltip.style";
 import StyledTooltipPointer from "./tooltip-pointer.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 const positions = ["top", "bottom", "left", "right"];
 
@@ -268,6 +269,20 @@ describe("Tooltip", () => {
       // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalled();
       global.console.error.mockReset();
+    });
+  });
+
+  describe("Design tokens", () => {
+    it("wraps content with CarbonScopedTokensProvider", () => {
+      const wrapper = render();
+
+      const carbonScopedTokensProvider = wrapper.find(
+        CarbonScopedTokensProvider
+      );
+
+      expect(
+        carbonScopedTokensProvider.find(StyledTooltipWrapper).exists()
+      ).toBe(true);
     });
   });
 });
