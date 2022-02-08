@@ -1,3 +1,10 @@
+## [104.7.0](https://github.com/Sage/carbon/compare/v104.6.0...v104.7.0) (2022-02-08)
+
+
+### Features
+
+* **dialog:** describe dialog and dialog full screen with design tokens ([ad1171f](https://github.com/Sage/carbon/commit/ad1171f6ff9067282c16c66d9542bcb3ccbda464))
+
 ## [104.6.0](https://github.com/Sage/carbon/compare/v104.5.0...v104.6.0) (2022-02-08)
 
 
