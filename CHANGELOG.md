@@ -1,3 +1,10 @@
+## [104.9.0](https://github.com/Sage/carbon/compare/v104.8.0...v104.9.0) (2022-02-08)
+
+
+### Features
+
+* **anchor-navigation:** describe anchor navigation using design tokens, update tests ([eb78718](https://github.com/Sage/carbon/commit/eb7871881d18dd14d8165153e349b0a3b1484e06))
+
 ## [104.8.0](https://github.com/Sage/carbon/compare/v104.7.3...v104.8.0) (2022-02-08)
 
 
