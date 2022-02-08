@@ -54,9 +54,9 @@ Then(
 
 Then(
   "Split Button additional buttons have proper background-color {string} and border {string} color and has border-width {int} px",
-  (color, borderColor, px) => {
+  (backgroundColor, borderColor, px) => {
     additionalButton(positionOfElement("first"))
-      .should("have.css", "background-color", color)
+      .should("have.css", "background-color", backgroundColor)
       .and("have.css", "border-bottom-color", borderColor)
       .and("have.css", "border-left-color", borderColor)
       .and("have.css", "border-right-color", borderColor)
@@ -70,7 +70,7 @@ Then(
       .and("have.css", "border-right-width", `${px}px`)
       .and("have.css", "border-top-width", `${px}px`);
     additionalButton(positionOfElement("second"))
-      .should("have.css", "background-color", color)
+      .should("have.css", "background-color", backgroundColor)
       .and("have.css", "border-bottom-color", borderColor)
       .and("have.css", "border-left-color", borderColor)
       .and("have.css", "border-right-color", borderColor)
@@ -84,7 +84,7 @@ Then(
       .and("have.css", "border-right-width", `${px}px`)
       .and("have.css", "border-top-width", `${px}px`);
     additionalButton(positionOfElement("third"))
-      .should("have.css", "background-color", color)
+      .should("have.css", "background-color", backgroundColor)
       .and("have.css", "border-bottom-color", borderColor)
       .and("have.css", "border-left-color", borderColor)
       .and("have.css", "border-right-color", borderColor)
@@ -118,7 +118,7 @@ Then(
   "Split Button expandable {string} element has golden border on focus",
   (element) => {
     additionalButton(positionOfElement(element))
-      .should("have.css", "background-color", "rgb(0, 64, 46)")
+      .should("have.css", "background-color", "rgb(0, 103, 56)")
       .and("have.css", "outline", "rgb(255, 181, 0) solid 3px");
   }
 );

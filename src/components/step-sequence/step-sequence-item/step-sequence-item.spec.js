@@ -58,7 +58,7 @@ describe("StepSequenceItem", () => {
       });
       assertStyleMatch(
         {
-          color: mintTheme.text.color,
+          color: "var(--colorsUtilityYin090)",
         },
         wrapper
       );

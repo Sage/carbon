@@ -14,6 +14,7 @@ export interface TooltipProviderProps {
   focusable?: boolean;
   tooltipVisible?: boolean;
   disabled?: boolean;
+  target?: Element;
 }
 
 declare const ToolbarContext: React.Context<ToolbarContextProps>;

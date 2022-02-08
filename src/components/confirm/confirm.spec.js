@@ -149,21 +149,6 @@ describe("Confirm", () => {
       });
     });
 
-    describe("if `cancelButtonType` is tertiary", () => {
-      it("should render confirm button with left margin 3px", () => {
-        wrapper = mount(
-          <Confirm cancelButtonType="tertiary" onConfirm={() => {}} open />
-        );
-
-        assertStyleMatch(
-          {
-            marginLeft: "3px",
-          },
-          wrapper.find('[data-element="confirm"]')
-        );
-      });
-    });
-
     it("should not render IconButton if `disableCancel` is provided", () => {
       wrapper = mount(
         <Confirm

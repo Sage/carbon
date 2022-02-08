@@ -7,7 +7,7 @@ import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-ico
 import { baseTheme } from "../../style/themes";
 
 const StyledSelect = styled.div`
-  ${({ hasTextCursor, disabled, theme, readOnly, transparent }) => css`
+  ${({ hasTextCursor, disabled, readOnly, transparent }) => css`
     ${margin}
 
     position: relative;
@@ -18,14 +18,14 @@ const StyledSelect = styled.div`
       ${disabled &&
       css`
         cursor: not-allowed;
-        color: ${theme.disabled.disabled};
+        color: var(--colorsUtilityYin030);
         text-shadow: none;
       `}
 
       ${readOnly &&
       css`
         cursor: ${hasTextCursor ? "text" : "default"};
-        color: ${theme.readOnly.textboxText};
+        color: var(--colorsYin065);
         text-shadow: none;
       `}
     }

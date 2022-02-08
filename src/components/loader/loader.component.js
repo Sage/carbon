@@ -10,9 +10,20 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-const Loader = ({ isInsideButton, isActive, size, ...rest }) => {
+const Loader = ({
+  "aria-label": ariaLabel,
+  isInsideButton,
+  isActive,
+  size,
+  ...rest
+}) => {
   return (
-    <StyledLoader {...rest} {...tagComponent("loader", rest)}>
+    <StyledLoader
+      aria-label={ariaLabel}
+      role="progressbar"
+      {...tagComponent("loader", rest)}
+      {...rest}
+    >
       <StyledLoaderSquare
         isInsideButton={isInsideButton}
         isActive={isActive}
@@ -36,10 +47,13 @@ Loader.defaultProps = {
   size: "medium",
   isInsideButton: false,
   isActive: true,
+  "aria-label": "loader",
 };
 
 Loader.propTypes = {
   ...marginPropTypes,
+  /** Specify an aria-label for the Loader component */
+  "aria-label": PropTypes.string,
   /** Size of the loader. */
   size: PropTypes.oneOf(["small", "medium", "large"]),
   /** Applies white color. */

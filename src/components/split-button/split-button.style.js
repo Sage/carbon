@@ -13,7 +13,7 @@ const StyledSplitButton = styled.div`
     margin: 0;
 
     &:focus {
-      border: 3px solid ${({ theme }) => theme.colors.focus};
+      border: 3px solid var(--colorsSemanticFocus500);
       outline: none;
       margin: -1px;
     }

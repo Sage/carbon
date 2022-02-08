@@ -14,7 +14,6 @@
     "**/examples/*",
     "**/!(*.test.js|*.feature)"
   ],
-  "numTestsKeptInMemory": 1,
   "video": false,
   "viewportWidth": 1366,
   "viewportHeight": 768,

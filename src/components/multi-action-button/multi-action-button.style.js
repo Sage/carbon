@@ -19,24 +19,24 @@ const StyledMultiActionButton = styled.div`
     }
 
     &:focus {
-      border: 3px solid ${({ theme }) => theme.colors.focus};
+      border: 3px solid var(--colorsSemanticFocus500);
       outline: none;
       margin: -1px;
     }
 
-    ${({ displayed, theme }) =>
+    ${({ displayed }) =>
       displayed &&
       css`
-        background-color: ${theme.colors.secondary};
-        border-color: ${theme.colors.secondary};
+        background-color: var(--colorsActionMajor700);
+        border-color: var(--colorsActionMajor700);
 
         &,
         ${StyledIcon} {
-          color: ${theme.colors.white};
+          color: var(--colorsActionMajorYang100);
         }
 
         &:focus {
-          border-color: ${theme.colors.focus};
+          border-color: var(--colorsSemanticFocus500);
           margin: 0 -1px;
         }
       `}
@@ -45,10 +45,11 @@ const StyledMultiActionButton = styled.div`
 
 const StyledButtonChildrenContainer = styled.div`
   ${({ theme, align }) => css`
-    background-color: ${theme.colors.secondary};
+    background-color: var(--colorsActionMajorYang100);
     min-width: ${({ minWidth }) => minWidth}px;
     white-space: nowrap;
     z-index: ${theme.zIndex.popover};
+    box-shadow: var(--boxShadow100);
 
     ${StyledIcon} {
       margin-left: 0;
@@ -56,20 +57,18 @@ const StyledButtonChildrenContainer = styled.div`
     }
 
     ${StyledButton} {
-      background-color: ${theme.colors.secondary};
-      border: 1px solid ${theme.colors.secondary};
-      color: ${theme.colors.white};
+      border: 1px solid var(--colorsActionMajorTransparent);
+      color: var(--colorsActionMajor500);
       display: block;
       margin-left: 0;
-      margin-top: 3px;
-      margin-bottom: 3px;
       min-width: 100%;
       text-align: ${align};
       z-index: ${theme.zIndex.overlay};
 
       &:focus,
       &:hover {
-        background-color: ${theme.colors.tertiary};
+        background-color: var(--colorsActionMajor600);
+        color: var(--colorsActionMajorYang100);
       }
 
       & + & {

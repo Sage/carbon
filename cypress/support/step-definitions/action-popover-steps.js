@@ -29,11 +29,7 @@ When(
 );
 
 Then("Action Popover element has golden border on focus", () => {
-  cy.focused().should(
-    "have.css",
-    "box-shadow",
-    "rgb(255, 181, 0) 0px 0px 0px 2px inset"
-  );
+  cy.focused().should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
 });
 
 When("I click {int} actionPopoverInnerItem", (element) => {
