@@ -22,6 +22,16 @@ export default {
   date: {
     dateFnsLocale: () => pl,
   },
+  dialog: {
+    ariaLabels: {
+      close: () => "Zamknij",
+    },
+  },
+  dialogFullScreen: {
+    ariaLabels: {
+      close: () => "Zamknij",
+    },
+  },
   errors: {
     messages: {
       formSummary:
@@ -76,6 +86,11 @@ export default {
   link: {
     skipLinkLabel: () => "Przejdź do treści",
   },
+  sidebar: {
+    ariaLabels: {
+      close: () => "Zamknij",
+    },
+  },
   switch: {
     on: () => "WŁ",
     off: () => "WYŁ",
@@ -96,6 +111,11 @@ export default {
   },
   tileSelect: {
     deselect: () => "Odznacz",
+  },
+  toast: {
+    ariaLabels: {
+      close: () => "Zamknij",
+    },
   },
   wizards: {
     multiStep: {

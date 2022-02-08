@@ -10,6 +10,7 @@ import Textbox from "../textbox";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import Fieldset from "../fieldset";
 import Loader from "../loader";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 <Meta title="Dialog" parameters={{ info: { disable: true } }} />
 
@@ -348,3 +349,19 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
 ### Dialog
 
 <ArgsTable of={Dialog} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "dialog.ariaLabels.close",
+      description: "The text for close button aria-label attribute",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>
