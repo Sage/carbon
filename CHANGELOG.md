@@ -1,3 +1,15 @@
+## [104.4.0](https://github.com/Sage/carbon/compare/v104.3.0...v104.4.0) (2022-02-08)
+
+
+### Features
+
+* **dialog, dialog-full-screen, confirm:** generate IDs dynamically ([d5e07d9](https://github.com/Sage/carbon/commit/d5e07d978236711ef010d7ae2e050e2a734bc5f6))
+
+
+### Bug Fixes
+
+* **dialog, dialog-full-screen:** address axe violations ([53167d8](https://github.com/Sage/carbon/commit/53167d8007ec5a8c6e2fa020acbb7dc16cec713e))
+
 ## [104.3.0](https://github.com/Sage/carbon/compare/v104.2.0...v104.3.0) (2022-02-08)
 
 
