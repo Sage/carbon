@@ -1,3 +1,10 @@
+## [104.3.0](https://github.com/Sage/carbon/compare/v104.2.0...v104.3.0) (2022-02-08)
+
+
+### Features
+
+* **accordion:** describe accordion using design tokens, update of tests after changes ([03f30d0](https://github.com/Sage/carbon/commit/03f30d041614d66738b20b6e8e72ce52a38ecb23))
+
 ## [104.2.0](https://github.com/Sage/carbon/compare/v104.1.1...v104.2.0) (2022-02-07)
 
 
