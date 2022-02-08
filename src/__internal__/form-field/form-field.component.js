@@ -39,6 +39,7 @@ const FormField = ({
   useValidationIcon,
   adaptiveLabelBreakpoint,
   isRequired,
+  validationIconId,
   ...rest
 }) => {
   const context = useContext(TabContext);
@@ -96,6 +97,7 @@ const FormField = ({
             pr={!reverse ? labelSpacing : undefined}
             pl={reverse ? labelSpacing : undefined}
             isRequired={isRequired}
+            validationIconId={validationIconId}
           >
             {label}
           </Label>
@@ -160,6 +162,8 @@ FormField.propTypes = {
   adaptiveLabelBreakpoint: PropTypes.number,
   /** Flag to configure component as mandatory */
   isRequired: PropTypes.bool,
+  /** Id of the validation icon */
+  validationIconId: PropTypes.string,
 };
 
 export default FormField;

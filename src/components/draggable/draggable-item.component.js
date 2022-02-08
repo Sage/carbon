@@ -18,7 +18,8 @@ const DraggableItem = ({
 }) => {
   const originalIndex = findItem(id).index;
   const [{ isDragging }, drag] = useDrag({
-    item: { type: "draggableItem", id, originalIndex },
+    type: "draggableItem",
+    item: { id, originalIndex },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),

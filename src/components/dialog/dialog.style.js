@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 
-import baseTheme from "../../style/themes/base";
 import {
   StyledForm,
   StyledFormFooter,
@@ -28,8 +27,8 @@ const HORIZONTAL_PADDING = 35;
 const CONTENT_BOTTOM_PADDING = 30;
 
 const DialogStyle = styled.div`
-  background-color: #f2f5f6;
-  box-shadow: ${({ theme }) => theme.shadows.depth3};
+  background-color: var(--colorsUtilityMajor025);
+  box-shadow: var(--boxShadow300);
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -107,7 +106,7 @@ const DialogTitleStyle = styled.div`
     margin-bottom: 20px;
 
     ${StyledHeadingTitle} {
-      color: ${({ theme }) => theme.text.color};
+      color: var(--colorsUtilityYin090);
       display: block;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -131,14 +130,6 @@ const DialogInnerContentStyle = styled.div`
   position: relative;
   flex: 1;
 `;
-
-DialogTitleStyle.defaultProps = {
-  theme: baseTheme,
-};
-
-DialogStyle.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   DialogStyle,

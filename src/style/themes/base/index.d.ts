@@ -365,6 +365,7 @@ export interface ThemeObject {
     smallOverlay: number;
     overlay: number;
     popover: number;
+    nav: number;
     modal: number;
     header: number;
     fullScreenModal: number;

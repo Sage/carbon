@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
+import guid from "../utils/helpers/guid/guid";
 
 export const TooltipContext = React.createContext({});
 
@@ -9,22 +10,27 @@ export const TooltipProvider = ({
   helpAriaLabel,
   focusable = true,
   tooltipVisible,
-  disabled = false,
+  disabled,
   target,
-}) => (
-  <TooltipContext.Provider
-    value={{
-      tooltipPosition,
-      helpAriaLabel,
-      focusable,
-      tooltipVisible,
-      disabled,
-      target,
-    }}
-  >
-    {children}
-  </TooltipContext.Provider>
-);
+}) => {
+  const tooltipId = useRef(guid());
+
+  return (
+    <TooltipContext.Provider
+      value={{
+        tooltipPosition,
+        helpAriaLabel,
+        focusable,
+        tooltipVisible,
+        disabled,
+        tooltipId,
+        target,
+      }}
+    >
+      {children}
+    </TooltipContext.Provider>
+  );
+};
 
 TooltipProvider.propTypes = {
   children: PropTypes.node.isRequired,

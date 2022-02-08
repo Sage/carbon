@@ -144,8 +144,7 @@ describe("SidebarStyle", () => {
       assertStyleMatch(
         {
           width: "214px",
-          boxShadow:
-            "0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1)",
+          boxShadow: "var(--boxShadow300)",
           right: "0",
           display: "flex",
           flexDirection: "column",
@@ -163,8 +162,7 @@ describe("SidebarStyle", () => {
     it("should render correct style", () => {
       assertStyleMatch(
         {
-          boxShadow:
-            "0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1)",
+          boxShadow: "var(--boxShadow300)",
           left: "0",
         },
         wrapper

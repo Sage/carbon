@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "104.4.0",
+  "version": "104.8.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -171,8 +171,8 @@
     "polished": "^4.0.5",
     "prop-types": "^15.7.2",
     "react-day-picker": "~7.4.10",
-    "react-dnd": "^10.0.2",
-    "react-dnd-html5-backend": "^10.0.2",
+    "react-dnd": "^14.0.5",
+    "react-dnd-html5-backend": "^14.1.0",
     "react-is": "^17.0.2",
     "react-transition-group": "^4.4.1",
     "styled-system": "^5.1.5",

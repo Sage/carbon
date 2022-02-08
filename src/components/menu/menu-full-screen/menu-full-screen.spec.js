@@ -74,7 +74,7 @@ describe("MenuFullscreen", () => {
           backgroundColor: baseTheme.menu.light.background,
           zIndex: `${baseTheme.zIndex.fullScreenModal}`,
           visibility: "hidden",
-          left: "-100vw",
+          left: "-100%",
           transition: "all 0.3s ease",
         },
         wrapper.find(StyledMenuFullscreen)

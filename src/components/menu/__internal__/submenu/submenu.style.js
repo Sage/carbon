@@ -20,12 +20,16 @@ const StyledSubmenuWrapper = styled.div`
 
   ${({ inFullscreenView, menuType, asPassiveItem, theme }) =>
     inFullscreenView &&
-    asPassiveItem &&
     css`
-      ${StyledMenuItemWrapper} {
-        outline: none;
-        color: ${theme.menu[menuType].title};
-      }
+      width: 100%;
+
+      ${asPassiveItem &&
+      css`
+        ${StyledMenuItemWrapper} {
+          outline: none;
+          color: ${theme.menu[menuType].title};
+        }
+      `}
     `}
 `;
 
@@ -50,7 +54,7 @@ const StyledSubmenu = styled.ul`
     ${inFullscreenView &&
     css`
       ${StyledMenuItem} {
-        width: 100vw;
+        width: 100%;
       }
     `}
 
@@ -102,7 +106,7 @@ const StyledSubmenu = styled.ul`
         margin-right: 5px;
       }
 
-      ${StyledSearch} [data-component="icon"] {
+      ${StyledSearch} span > [data-component="icon"] {
         color: ${theme.menu[menuType].searchIcon};
 
         &:hover {

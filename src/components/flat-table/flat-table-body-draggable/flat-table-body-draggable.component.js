@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDrop, DndProvider } from "react-dnd";
-import Backend from "react-dnd-html5-backend";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import PropTypes from "prop-types";
-import StyledIcon from "../../icon/icon.style";
 
+import StyledIcon from "../../icon/icon.style";
 import FlatTableBody from "../flat-table-body/flat-table-body.component";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 
@@ -22,11 +22,17 @@ const DropTarget = ({ children, getOrder, ...rest }) => {
   );
 };
 
+DropTarget.propTypes = {
+  children: PropTypes.node.isRequired,
+  getOrder: PropTypes.func,
+};
+
 const FlatTableBodyDraggable = ({ children, getOrder }) => {
   const [draggableItems, setDraggableItems] = useState(
     React.Children.toArray(children)
   );
   const isFirstRender = useRef(true);
+
   useEffect(() => {
     if (!isFirstRender.current) {
       setDraggableItems(React.Children.toArray(children));
@@ -68,7 +74,7 @@ const FlatTableBodyDraggable = ({ children, getOrder }) => {
   };
 
   return (
-    <DndProvider backend={Backend}>
+    <DndProvider backend={HTML5Backend}>
       <DropTarget getOrder={getItemsId}>
         {draggableItems.map((item) =>
           React.cloneElement(
@@ -78,7 +84,6 @@ const FlatTableBodyDraggable = ({ children, getOrder }) => {
               moveItem,
               findItem,
               draggable: true,
-              key: `${item.props.id}`,
             },
             [
               <FlatTableCell key={item.props.id}>
@@ -96,11 +101,6 @@ const FlatTableBodyDraggable = ({ children, getOrder }) => {
 FlatTableBodyDraggable.propTypes = {
   getOrder: PropTypes.func,
   children: PropTypes.node.isRequired,
-};
-
-DropTarget.propTypes = {
-  children: PropTypes.node.isRequired,
-  getOrder: PropTypes.func,
 };
 
 export default FlatTableBodyDraggable;
