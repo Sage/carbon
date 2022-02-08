@@ -36,10 +36,7 @@ I18nProvider.propTypes = {
       yes: PropTypes.func,
     }),
     date: PropTypes.shape({
-      formats: PropTypes.shape({
-        inputs: PropTypes.func,
-        javascript: PropTypes.func,
-      }),
+      dateFnsLocale: PropTypes.func,
     }),
     errors: PropTypes.shape({
       messages: PropTypes.shape({

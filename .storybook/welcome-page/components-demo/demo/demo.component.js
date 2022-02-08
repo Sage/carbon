@@ -17,6 +17,14 @@ import Heading from "../component-heading";
 
 const Demo = () => {
   const [numberValue, setNumberValue] = useState("0");
+  const [dateValue, setDateValue] = useState(["01/01/2020", "14/02/2020"]);
+  const handleDateChange = ({ target }) => {
+    const newValue = [
+      target.value[0].formattedValue,
+      target.value[1].formattedValue,
+    ];
+    setDateValue(newValue);
+  };
   return (
     <ComponentShowcaseWrapper>
       <ContentWrapper>
@@ -70,7 +78,7 @@ const Demo = () => {
               <StyledComponentWrapper
                 styling={{ width: "100%", padding: "1.5%" }}
               >
-                <DateRange defaultValue={["2020-01-01", "2020-02-14"]} />
+                <DateRange value={dateValue} onChange={handleDateChange} />
               </StyledComponentWrapper>
             </StyledDemoRow>
             <StyledDemoRow styling={{ display: "flex" }}>

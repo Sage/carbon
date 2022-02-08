@@ -18,13 +18,12 @@ const StyledAccordionContainer = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   width: ${({ width }) => width || "100%"};
-  color: ${({ theme }) => theme.text.color};
-  background-color: ${({ scheme, theme }) =>
-    scheme === "white" ? theme.colors.white : "transparent"};
-  ${({ theme }) =>
-    css`
-      border: 1px solid ${theme.accordion.border};
-    `}
+  color: var(--colorsUtilityYin090);
+  background-color: ${({ scheme }) =>
+    scheme === "white"
+      ? "var(--colorsUtilityYang100)"
+      : "var(--colorsUtilityMajorTransparent)"};
+  border: 1px solid var(--colorsUtilityMajor100);
   ${({ borders }) =>
     borders === "default" &&
     css`
@@ -39,8 +38,8 @@ const StyledAccordionContainer = styled.div`
 
   & + & {
     margin-top: -1px;
-    border-top: 1px solid ${({ theme }) => theme.accordion.border};
-    border-bottom: 1px solid ${({ theme }) => theme.accordion.border};
+    border-top: 1px solid var(--colorsUtilityMajor100);
+    border-bottom: 1px solid var(--colorsUtilityMajor100);
   }
 `;
 
@@ -58,8 +57,8 @@ const StyledAccordionSubTitle = styled.span`
 
 const StyledAccordionIcon = styled(Icon)`
   transition: transform 0.3s;
-  margin-right: ${({ iconAlign, theme }) =>
-    iconAlign === "left" ? theme.spacing * 2 : 0}px;
+  margin-right: ${({ iconAlign }) =>
+    iconAlign === "left" ? "var(--spacing200)" : "var(--spacing000)"};
   ${({ isExpanded, iconAlign }) => {
     return (
       !isExpanded &&
@@ -68,6 +67,7 @@ const StyledAccordionIcon = styled(Icon)`
         : "transform: rotate(-90deg)")
     );
   }};
+  color: var(--colorsActionMinor500);
 `;
 
 const StyledAccordionHeadingsContainer = styled.div`
@@ -98,15 +98,8 @@ const StyledAccordionHeadingsContainer = styled.div`
 `;
 
 const StyledAccordionTitleContainer = styled.div`
-  ${({
-    buttonHeading,
-    buttonWidth,
-    iconAlign,
-    size,
-    theme,
-    hasButtonProps,
-  }) => css`
-    padding: ${size === "small" ? theme.spacing * 2 : theme.spacing * 3}px;
+  ${({ buttonHeading, buttonWidth, iconAlign, size, hasButtonProps }) => css`
+    padding: ${size === "small" ? "var(--spacing200)" : "var(--spacing300)"};
     ${space}
     display: flex;
     align-items: center;
@@ -122,13 +115,13 @@ const StyledAccordionTitleContainer = styled.div`
     z-index: 1;
 
     &:focus {
-      outline: ${buttonHeading ? "3px" : "2px"} solid ${theme.colors.focus};
+      outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
     }
 
     ${!buttonHeading &&
     css`
       &:hover {
-        background-color: ${theme.accordion.background};
+        background-color: var(--colorsUtilityMajor050);
       }
     `}
 
@@ -137,10 +130,10 @@ const StyledAccordionTitleContainer = styled.div`
       box-sizing: border-box;
       font-weight: 600;
       text-decoration: none;
-      font-size: ${theme.text.size};
-      min-height: ${theme.spacing * 5}px;
+      font-size: var(--fontSizes100);
+      min-height: var(--spacing500);
 
-      color: ${theme.colors.primary};
+      color: var(--colorsActionMajor500);
 
       ${!hasButtonProps &&
       css`
@@ -150,7 +143,7 @@ const StyledAccordionTitleContainer = styled.div`
       `}
 
       ${StyledAccordionIcon} {
-        color: ${theme.colors.primary};
+        color: var(--colorsActionMajor500);
         ${!hasButtonProps &&
         css`
           position: relative;
@@ -159,9 +152,9 @@ const StyledAccordionTitleContainer = styled.div`
       }
 
       &:hover {
-        color: ${theme.colors.secondary};
+        color: var(--colorsActionMajor600);
         ${StyledAccordionIcon} {
-          color: ${theme.colors.secondary};
+          color: var(--colorsActionMajor600);
         }
       }
 
@@ -190,7 +183,8 @@ const StyledAccordionContentContainer = styled.div`
 `;
 
 const StyledAccordionContent = styled.div`
-  padding: 0 ${({ theme }) => theme.spacing * 3}px;
+  padding: var(--spacing300);
+  padding-top: 0;
   overflow: hidden;
 
   ${({ disableContentPadding }) =>
@@ -207,18 +201,6 @@ StyledAccordionContainer.defaultProps = {
   theme: baseTheme,
 };
 StyledAccordionTitleContainer.defaultProps = {
-  theme: baseTheme,
-};
-StyledAccordionTitle.defaultProps = {
-  theme: baseTheme,
-};
-StyledAccordionIcon.defaultProps = {
-  theme: baseTheme,
-};
-StyledAccordionContent.defaultProps = {
-  theme: baseTheme,
-};
-StyledAccordionContentContainer.defaultProps = {
   theme: baseTheme,
 };
 

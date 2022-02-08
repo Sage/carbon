@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import baseTheme from "../../style/themes/base";
+import baseTheme from "../../../../style/themes/base";
 
 // Styles copied from https://github.com/gpbl/react-day-picker/blob/v6.1.1/src/style.css
 const addReactDayPickerStyles = () => `
@@ -71,6 +71,10 @@ const addReactDayPickerStyles = () => `
 
   .DayPicker-Weekday {
     display: table-cell;
+
+    abbr {
+      text-decoration: none;
+    }
   }
 
   .DayPicker-Body {

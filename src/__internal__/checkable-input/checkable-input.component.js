@@ -46,8 +46,8 @@ const CheckableInput = ({
 
   const {
     labelId,
-    tooltipId,
     fieldHelpId,
+    validationIconId,
     ariaDescribedBy,
     ariaLabelledBy,
   } = useInputAccessibility({
@@ -56,7 +56,6 @@ const CheckableInput = ({
     warning,
     info,
     label,
-    labelHelp,
     fieldHelp,
   });
 
@@ -67,7 +66,6 @@ const CheckableInput = ({
     error,
     fieldHelp,
     fieldHelpInline,
-    tooltipId,
     fieldHelpId,
     id,
     info,
@@ -81,6 +79,7 @@ const CheckableInput = ({
     name: id,
     reverse,
     warning,
+    validationIconId,
     // We don't want an asterisk on each radio control, only the legend
     // However, we still want the input element to receive the required prop
     isRequired: isRadio ? undefined : required,

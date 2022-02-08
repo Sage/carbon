@@ -33,6 +33,8 @@ export interface CommonFormFieldPropTypes
   labelWidth?: number;
   /** If true the label switches position with the input */
   reverse?: boolean;
+  /** Id of the validation icon */
+  validationIconId?: string;
 }
 
 export interface FormFieldPropTypes extends CommonFormFieldPropTypes {

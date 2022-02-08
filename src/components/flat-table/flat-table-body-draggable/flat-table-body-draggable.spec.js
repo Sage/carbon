@@ -68,13 +68,13 @@ describe("Draggable Table with sub rows", () => {
     const component = (
       <FlatTable>
         <FlatTableBodyDraggable>
-          <FlatTableRow expandable subRow={subRows} key={0} id={0} index={0}>
+          <FlatTableRow expandable subRow={subRows} key="0" id={0}>
             <FlatTableCell>UK</FlatTableCell>
           </FlatTableRow>
-          <FlatTableRow expandable subRow={subRows} key={1} id={1} index={1}>
+          <FlatTableRow expandable subRow={subRows} key="1" id={1}>
             <FlatTableCell>Germany</FlatTableCell>
           </FlatTableRow>
-          <FlatTableRow expandable subRow={subRows} key={2} id={2} index={2}>
+          <FlatTableRow expandable subRow={subRows} key="2" id={2}>
             <FlatTableCell>Finland</FlatTableCell>
           </FlatTableRow>
         </FlatTableBodyDraggable>
@@ -107,6 +107,7 @@ describe("Draggable Table with sub rows", () => {
       const tableCells1 = getTableCells();
       const startingNode1 = tableCells1[0];
       const endingNode1 = tableCells1[2];
+
       act(() => {
         startingNode1.dispatchEvent(
           createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })

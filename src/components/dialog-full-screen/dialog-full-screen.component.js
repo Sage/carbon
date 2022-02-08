@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 
+import createGuid from "../../__internal__/utils/helpers/guid/guid.js";
 import Modal from "../modal";
 import Heading from "../heading";
 import FullScreenHeading from "../../__internal__/full-screen-heading";
@@ -28,11 +29,13 @@ const DialogFullScreen = ({
   onCancel,
   contentRef,
   help,
-  role = "region",
+  role = "dialog",
   ...rest
 }) => {
   const dialogRef = useRef();
   const headingRef = useRef();
+  const { current: titleId } = useRef(createGuid());
+  const { current: subtitleId } = useRef(createGuid());
 
   const closeIcon = () => {
     if (!showCloseIcon || !onCancel) return null;
@@ -54,9 +57,9 @@ const DialogFullScreen = ({
         <Heading
           data-element="dialog-title"
           title={title}
-          titleId="carbon-dialog-title"
+          titleId={titleId}
           subheader={subtitle}
-          subtitleId="carbon-dialog-subtitle"
+          subtitleId={subtitleId}
           divider={false}
           help={help}
         />
@@ -66,6 +69,13 @@ const DialogFullScreen = ({
       {headerChildren}
     </FullScreenHeading>
   );
+
+  const ariaProps = {
+    "aria-labelledby":
+      title && typeof title === "string" ? titleId : ariaLabelledBy,
+    "aria-describedby": subtitle ? subtitleId : ariaDescribedBy,
+    "aria-label": ariaLabel,
+  };
 
   const componentTags = {
     "data-component": "dialog-full-screen",
@@ -87,9 +97,7 @@ const DialogFullScreen = ({
       >
         <StyledDialogFullScreen
           aria-modal
-          aria-describedby={ariaDescribedBy}
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabelledBy || "carbon-dialog-title"}
+          {...ariaProps}
           ref={dialogRef}
           data-element="dialog-full-screen"
           pagesStyling={pagesStyling}

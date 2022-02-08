@@ -16,6 +16,8 @@ export interface InputIconToggleProps {
   useValidationIcon?: boolean;
   iconTabIndex?: number;
   tooltipId?: string;
+  /** Id of the validation icon */
+  validationIconId?: string;
 }
 declare function InputIconToggle(props: InputIconToggleProps): JSX.Element;
 

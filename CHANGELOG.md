@@ -1,3 +1,120 @@
+### [104.7.2](https://github.com/Sage/carbon/compare/v104.7.1...v104.7.2) (2022-02-08)
+
+
+### Bug Fixes
+
+* **accessibility:** fix incorrect aria-describedby on input ([c03fdef](https://github.com/Sage/carbon/commit/c03fdef9e9bc224c924d132a1be1f827c7cf0611)), closes [#4689](https://github.com/Sage/carbon/issues/4689)
+
+
+### Reverts
+
+* Revert "fix(radio-button, label): when help prop is provided, pass input context values to children" ([b7a9064](https://github.com/Sage/carbon/commit/b7a90647d6479d72c9eb0463dbcf6cc5c246fff1)), closes [#4725](https://github.com/Sage/carbon/issues/4725)
+
+### [104.7.1](https://github.com/Sage/carbon/compare/v104.7.0...v104.7.1) (2022-02-08)
+
+
+### Bug Fixes
+
+* **navigation-bar:** add z-index so NavigationBar stacks just below Modals ([ef5c465](https://github.com/Sage/carbon/commit/ef5c465468f486bd4525e86756b8bc55d59102b1)), closes [#4690](https://github.com/Sage/carbon/issues/4690)
+
+## [104.7.0](https://github.com/Sage/carbon/compare/v104.6.0...v104.7.0) (2022-02-08)
+
+
+### Features
+
+* **dialog:** describe dialog and dialog full screen with design tokens ([ad1171f](https://github.com/Sage/carbon/commit/ad1171f6ff9067282c16c66d9542bcb3ccbda464))
+
+## [104.6.0](https://github.com/Sage/carbon/compare/v104.5.0...v104.6.0) (2022-02-08)
+
+
+### Features
+
+* **sidebar:** use design tokens to describe sidebar ([d8445d6](https://github.com/Sage/carbon/commit/d8445d6c3959c97e8421dae3beb3723eac0513bf))
+
+## [104.5.0](https://github.com/Sage/carbon/compare/v104.4.0...v104.5.0) (2022-02-08)
+
+
+### Features
+
+* **tile-select:** describe tile select using design tokens ([6b563f6](https://github.com/Sage/carbon/commit/6b563f6f605c5cebeba26584046fa632680953b8))
+* **tile-select:** remove color and fill on disabled ([d8ce33d](https://github.com/Sage/carbon/commit/d8ce33dfc00e47eb311e583524f220f1c2cee5ed))
+
+## [104.4.0](https://github.com/Sage/carbon/compare/v104.3.0...v104.4.0) (2022-02-08)
+
+
+### Features
+
+* **dialog, dialog-full-screen, confirm:** generate IDs dynamically ([d5e07d9](https://github.com/Sage/carbon/commit/d5e07d978236711ef010d7ae2e050e2a734bc5f6))
+
+
+### Bug Fixes
+
+* **dialog, dialog-full-screen:** address axe violations ([53167d8](https://github.com/Sage/carbon/commit/53167d8007ec5a8c6e2fa020acbb7dc16cec713e))
+
+## [104.3.0](https://github.com/Sage/carbon/compare/v104.2.0...v104.3.0) (2022-02-08)
+
+
+### Features
+
+* **accordion:** describe accordion using design tokens, update of tests after changes ([03f30d0](https://github.com/Sage/carbon/commit/03f30d041614d66738b20b6e8e72ce52a38ecb23))
+
+## [104.2.0](https://github.com/Sage/carbon/compare/v104.1.1...v104.2.0) (2022-02-07)
+
+
+### Features
+
+* **tooltip:** add target prop ([f1a868b](https://github.com/Sage/carbon/commit/f1a868bb9ad934baf282c56d1f8240b8880a2792))
+
+
+### Bug Fixes
+
+* **button:** fix tooltip accessibility issue ([7ff2229](https://github.com/Sage/carbon/commit/7ff2229e699ac81a968c50152124e1f17be33e53))
+* **icon-button:** fix tooltip accessibility issue ([4d14ef0](https://github.com/Sage/carbon/commit/4d14ef06820287f03249fbe4983ba187fc1e6f5f))
+
+### [104.1.1](https://github.com/Sage/carbon/compare/v104.1.0...v104.1.1) (2022-02-07)
+
+
+### Bug Fixes
+
+* **design-tokens:** fix scoped tokens in mfe ([5d2788e](https://github.com/Sage/carbon/commit/5d2788e554ea4c610cc8c07c8245a80f2d04bb5a))
+
+## [104.1.0](https://github.com/Sage/carbon/compare/v104.0.0...v104.1.0) (2022-01-28)
+
+
+### Features
+
+* **step-sequence:** describe step sequence using design tokens, update tests ([97be3fe](https://github.com/Sage/carbon/commit/97be3fe4fb291c60dd5dfdfe85fc41e9f3643d44))
+
+## [104.0.0](https://github.com/Sage/carbon/compare/v103.2.0...v104.0.0) (2022-01-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **date, date-range:** Date component is no longer class based so any previous extension of it will no
+longer work. It also now only works as a controlled component and requires both `value` and
+`onChange` props to work: the `onChange` handler should also use the `formattedValue` to set the
+value state and `rawValue` for validation and storing in the backend. The `DateRange` can now only
+be used as a controlled component, `value` and `onChange` are required and `formattedValue` should
+be used to update the state.
+
+### Features
+
+* **date, date-range:** rewrite Date component using date-fns and remove uncontrolled support ([b9f3a5f](https://github.com/Sage/carbon/commit/b9f3a5f6ca44264bb6a1b0e7b7b5106f1b4ce51d)), closes [#2996](https://github.com/Sage/carbon/issues/2996) [#4458](https://github.com/Sage/carbon/issues/4458)
+
+## [103.2.0](https://github.com/Sage/carbon/compare/v103.1.0...v103.2.0) (2022-01-27)
+
+
+### Features
+
+* **badge:** describe component using design tokens ([16664f5](https://github.com/Sage/carbon/commit/16664f59788e386ae3deba511a2d31cf8d532d3c))
+
+## [103.1.0](https://github.com/Sage/carbon/compare/v103.0.0...v103.1.0) (2022-01-25)
+
+
+### Features
+
+* **progress tracker:** add accessibility props to component ([cf52243](https://github.com/Sage/carbon/commit/cf5224323479232e0d5d58cfe85c3b76c4de8615)), closes [#FE-4699](https://github.com/Sage/carbon/issues/FE-4699)
+
 ## [103.0.0](https://github.com/Sage/carbon/compare/v102.22.1...v103.0.0) (2022-01-24)
 
 

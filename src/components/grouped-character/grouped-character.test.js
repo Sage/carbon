@@ -1,7 +1,6 @@
 import * as React from "react";
-import { mount } from "@cypress/react";
 import GroupedCharacter from "./grouped-character.component";
-import CarbonProvider from "../carbon-provider";
+import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 import {
   fieldHelpPreview,
@@ -23,16 +22,14 @@ const GroupedCharacterComponent = ({ onChange, ...props }) => {
   };
 
   return (
-    <CarbonProvider>
-      <GroupedCharacter
-        label="GroupedCharacter"
-        value={state}
-        onChange={setValue}
-        groups={[2, 2, 3]}
-        separator="-"
-        {...props}
-      />
-    </CarbonProvider>
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value={state}
+      onChange={setValue}
+      groups={[2, 2, 3]}
+      separator="-"
+      {...props}
+    />
   );
 };
 
@@ -45,7 +42,7 @@ context("Tests for GroupedCharacter component", () => {
     ])(
       "should use %s as size and render it with %s as height",
       (size, height) => {
-        mount(<GroupedCharacterComponent size={size} />);
+        CypressMountWithProviders(<GroupedCharacterComponent size={size} />);
 
         commonDataElementInputPreview()
           .parent()
@@ -60,7 +57,7 @@ context("Tests for GroupedCharacter component", () => {
     ])(
       "should use %s as a group and use %s as input value to produce %s output value",
       (group, inputValue, outputValue) => {
-        mount(<GroupedCharacterComponent groups={group} />);
+        CypressMountWithProviders(<GroupedCharacterComponent groups={group} />);
 
         commonDataElementInputPreview().type(inputValue).blur({ force: true });
         commonDataElementInputPreview()
@@ -84,7 +81,9 @@ context("Tests for GroupedCharacter component", () => {
     ])(
       "should use %s as a separator and use %s as input value to produce %s output value",
       (separator, inputValue, outputValue) => {
-        mount(<GroupedCharacterComponent separator={separator} />);
+        CypressMountWithProviders(
+          <GroupedCharacterComponent separator={separator} />
+        );
 
         commonDataElementInputPreview().type(inputValue).blur({ force: true });
         commonDataElementInputPreview()
@@ -100,7 +99,9 @@ context("Tests for GroupedCharacter component", () => {
     it.each(specialCharacters)(
       "should check label renders properly with %s as specific value",
       (specificValue) => {
-        mount(<GroupedCharacterComponent label={specificValue} />);
+        CypressMountWithProviders(
+          <GroupedCharacterComponent label={specificValue} />
+        );
 
         getDataElementByValue("label").should("have.text", specificValue);
       }
@@ -109,7 +110,9 @@ context("Tests for GroupedCharacter component", () => {
     it.each(specialCharacters)(
       "should check fieldHelp renders properly with %s specific value",
       (specificValue) => {
-        mount(<GroupedCharacterComponent fieldHelp={specificValue} />);
+        CypressMountWithProviders(
+          <GroupedCharacterComponent fieldHelp={specificValue} />
+        );
 
         fieldHelpPreview().should("have.text", specificValue);
       }
@@ -118,7 +121,9 @@ context("Tests for GroupedCharacter component", () => {
     it.each(specialCharacters)(
       "should check tooltip renders properly with %s specific values",
       (specificValue) => {
-        mount(<GroupedCharacterComponent labelHelp={specificValue} />);
+        CypressMountWithProviders(
+          <GroupedCharacterComponent labelHelp={specificValue} />
+        );
 
         getDataElementByValue("question").trigger("mouseover");
         tooltipPreview().should("have.text", specificValue);
@@ -126,20 +131,20 @@ context("Tests for GroupedCharacter component", () => {
     );
 
     it("should check add icon inside of the GroupedCharacter component renders", () => {
-      mount(<GroupedCharacterComponent inputIcon="add" />);
+      CypressMountWithProviders(<GroupedCharacterComponent inputIcon="add" />);
 
       getDataElementByValue("add").should("be.visible");
     });
 
     it("should check the GroupedCharacter component is disabled", () => {
-      mount(<GroupedCharacterComponent disabled />);
+      CypressMountWithProviders(<GroupedCharacterComponent disabled />);
 
       commonDataElementInputPreview().parent().should("have.attr", "disabled");
       commonDataElementInputPreview().should("be.disabled");
     });
 
     it("should check the GroupedCharacter component is required", () => {
-      mount(<GroupedCharacterComponent required />);
+      CypressMountWithProviders(<GroupedCharacterComponent required />);
 
       getDataElementByValue("label").then(($els) => {
         // get Window reference from element
@@ -154,7 +159,7 @@ context("Tests for GroupedCharacter component", () => {
     });
 
     it("should check the GroupedCharacter component has autofocus", () => {
-      mount(<GroupedCharacterComponent autoFocus />);
+      CypressMountWithProviders(<GroupedCharacterComponent autoFocus />);
 
       commonDataElementInputPreview().should("be.focused");
     });
@@ -165,7 +170,9 @@ context("Tests for GroupedCharacter component", () => {
     ])(
       "should use %s as labelAligment and render it with %s as css properties",
       (alignment, cssProp) => {
-        mount(<GroupedCharacterComponent labelInline labelAlign={alignment} />);
+        CypressMountWithProviders(
+          <GroupedCharacterComponent labelInline labelAlign={alignment} />
+        );
 
         getDataElementByValue("label")
           .parent()
@@ -188,7 +195,7 @@ context("Tests for GroupedCharacter component", () => {
       (groups, inputValue, rawValue, formattedValue, callbackIndex) => {
         const callback = cy.stub();
 
-        mount(
+        CypressMountWithProviders(
           <GroupedCharacterComponent onChange={callback} groups={groups} />
         );
 
@@ -211,7 +218,9 @@ context("Tests for GroupedCharacter component", () => {
     it("should return onBlur event", () => {
       const callback = cy.stub();
 
-      mount(<GroupedCharacterComponent onBlur={callback} />);
+      CypressMountWithProviders(
+        <GroupedCharacterComponent onBlur={callback} />
+      );
 
       commonDataElementInputPreview()
         .type("1")
