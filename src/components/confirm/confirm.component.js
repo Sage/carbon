@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
-
+import createGuid from "../../__internal__/utils/helpers/guid/guid.js";
 import Logger from "../../__internal__/utils/logger";
 import Heading from "../heading";
 import Dialog from "../dialog";
@@ -13,6 +13,9 @@ import useLocale from "../../hooks/__internal__/useLocale";
 let deprecatedWarnTriggered = false;
 
 const Confirm = ({
+  "aria-labelledby": ariaLabelledBy,
+  "aria-describedby": ariaDescribedBy,
+  "aria-label": ariaLabel,
   open,
   children,
   destructive,
@@ -44,6 +47,21 @@ const Confirm = ({
   }
 
   const l = useLocale();
+
+  const { current: titleId } = useRef(createGuid());
+  const { current: subtitleId } = useRef(createGuid());
+  const ariaProps = {
+    "aria-labelledby": ariaLabelledBy,
+    "aria-describedby": ariaDescribedBy,
+    "aria-label": ariaLabel,
+  };
+  if (title && iconType) {
+    ariaProps["aria-labelledby"] = titleId;
+  }
+  if (subtitle && iconType) {
+    ariaProps["aria-describedby"] = subtitleId;
+  }
+
   const renderCancelButton = () => {
     if (!onCancel) return null;
 
@@ -69,7 +87,7 @@ const Confirm = ({
       buttonType={confirmButtonType}
       destructive={destructive || confirmButtonDestructive}
       disabled={isLoadingConfirm || disableConfirm}
-      ml={cancelButtonType === "tertiary" ? "3px" : 2}
+      ml={2}
       iconType={confirmButtonIconType}
       iconPosition={confirmButtonIconPosition}
     >
@@ -88,9 +106,9 @@ const Confirm = ({
           <Icon type={iconType} fontSize="medium" />
           <Heading
             title={title}
-            titleId="carbon-dialog-title"
+            titleId={titleId}
             subheader={subtitle}
-            subtitleId="carbon-dialog-subtitle"
+            subtitleId={subtitleId}
             divider={false}
           />
         </StyledConfirmHeading>
@@ -108,6 +126,7 @@ const Confirm = ({
       title={getTitle()}
       data-component="confirm"
       role="alertdialog"
+      {...ariaProps}
       {...rest}
     >
       {children}

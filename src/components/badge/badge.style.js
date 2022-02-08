@@ -25,7 +25,7 @@ const StyledButton = styled(Button)`
   top: -11px;
   right: -11px;
   margin-right: 0;
-  background: ${({ theme }) => theme.colors.white};
+  background: var(--colorsActionMajorYang100);
 
   ::-moz-focus-inner {
     border: none;
@@ -33,7 +33,7 @@ const StyledButton = styled(Button)`
 
   &:hover,
   &:focus {
-    background: ${({ theme }) => theme.colors.primary};
+    background: var(--colorsActionMajor500);
     border: none;
     ${StyledCounter} {
       display: none;
@@ -47,7 +47,7 @@ const StyledButton = styled(Button)`
 
       :before {
         font-size: 16px;
-        color: ${({ theme }) => theme.colors.white};
+        color: var(--colorsActionMajorYang100);
       }
     }
   }
