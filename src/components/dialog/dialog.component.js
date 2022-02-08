@@ -36,6 +36,7 @@ const Dialog = ({
   disableClose,
   help,
   role = "dialog",
+  contentPadding = {},
   ...rest
 }) => {
   const locale = useLocale();
@@ -194,10 +195,11 @@ const Dialog = ({
           data-element="dialog"
           data-role={rest["data-role"]}
           role={role}
+          {...contentPadding}
         >
           {dialogTitle()}
-          <DialogContentStyle>
-            <DialogInnerContentStyle ref={innerContentRef}>
+          <DialogContentStyle {...contentPadding}>
+            <DialogInnerContentStyle ref={innerContentRef} {...contentPadding}>
               {React.Children.map(children, (child) => {
                 if (child?.type === Form) {
                   return React.cloneElement(child, {
@@ -224,7 +226,7 @@ Dialog.propTypes = {
    */
   "aria-label": PropTypes.string,
   /**
-   * Prop to specify the aria-labeledby property of the Dialog component
+   * Prop to specify the aria-labelledby property of the Dialog component
    * To be used when the title prop is a custom React Node,
    * or the component is labelled by an internal element other than the title.
    */
@@ -274,6 +276,12 @@ Dialog.propTypes = {
   bespokeFocusTrap: PropTypes.func,
   /** The ARIA role to be applied to the Dialog container */
   role: PropTypes.string,
+  /** Padding to be set on the Dialog content */
+  contentPadding: PropTypes.shape({
+    p: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7, 8]),
+    px: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7, 8]),
+    py: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7, 8]),
+  }),
 };
 
 Dialog.defaultProps = {
