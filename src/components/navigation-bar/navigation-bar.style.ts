@@ -56,6 +56,7 @@ const StyledNavigationBar = styled.nav<StyledNavigationBarProps>`
 
   ${({ navigationType, theme }) => css`
     min-height: 40px;
+    z-index: ${theme.zIndex.nav};
 
     ${navigationType === "light" &&
     css`

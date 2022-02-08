@@ -90,6 +90,7 @@ describe("NavigationBar", () => {
         minHeight: "40px",
         backgroundColor: baseTheme.navigationBar.light.background,
         borderBottom: `1px solid ${baseTheme.navigationBar.light.borderBottom}`,
+        zIndex: "2999",
       },
       wrapper
     );
@@ -106,6 +107,7 @@ describe("NavigationBar", () => {
       {
         backgroundColor: baseTheme.navigationBar.dark.background,
         color: baseTheme.colors.white,
+        zIndex: "2999",
       },
       wrapper
     );
@@ -122,6 +124,7 @@ describe("NavigationBar", () => {
       {
         backgroundColor: baseTheme.colors.white,
         borderBottom: `1px solid ${baseTheme.navigationBar.white.borderBottom}`,
+        zIndex: "2999",
       },
       wrapper
     );
@@ -138,6 +141,7 @@ describe("NavigationBar", () => {
       {
         backgroundColor: baseTheme.navigationBar.black.background,
         color: baseTheme.colors.white,
+        zIndex: "2999",
       },
       wrapper
     );
