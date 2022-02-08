@@ -1,3 +1,11 @@
+### [104.7.3](https://github.com/Sage/carbon/compare/v104.7.2...v104.7.3) (2022-02-08)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** fix heights and widths and remove horizontal scroll bar ([8a73083](https://github.com/Sage/carbon/commit/8a73083689b26e690d28f6b3fdcfd4f2c3623161)), closes [#4473](https://github.com/Sage/carbon/issues/4473) [#4674](https://github.com/Sage/carbon/issues/4674)
+* **menu-full-screen:** fix search styling within full screen menu ([19b609e](https://github.com/Sage/carbon/commit/19b609ed58763567f8a01676f5f4de26829be908)), closes [#4675](https://github.com/Sage/carbon/issues/4675)
+
 ### [104.7.2](https://github.com/Sage/carbon/compare/v104.7.1...v104.7.2) (2022-02-08)
 
 
