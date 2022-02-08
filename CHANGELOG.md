@@ -1,3 +1,13 @@
+## [104.8.0](https://github.com/Sage/carbon/compare/v104.7.3...v104.8.0) (2022-02-08)
+
+
+### Features
+
+* **dialog-full-screen:** add close button aria label translation ([3e312db](https://github.com/Sage/carbon/commit/3e312db132b7d26dcb22cc67ca0580a9134da9be))
+* **dialog:** add close button aria label translation ([aacca1b](https://github.com/Sage/carbon/commit/aacca1b8d1cbd5d506ddd7e9f4e3381c91f73072))
+* **sidebar:** add close button aria label translation ([8f09f74](https://github.com/Sage/carbon/commit/8f09f745fdc32f105bd14bb16d839a746e9cc38b))
+* **toast:** add close button aria label translation ([6eebf87](https://github.com/Sage/carbon/commit/6eebf87e699266e36a13f880595eb85ee89b7306))
+
 ### [104.7.3](https://github.com/Sage/carbon/compare/v104.7.2...v104.7.3) (2022-02-08)
 
 
