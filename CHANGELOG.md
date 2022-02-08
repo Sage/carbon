@@ -1,3 +1,10 @@
+### [104.7.1](https://github.com/Sage/carbon/compare/v104.7.0...v104.7.1) (2022-02-08)
+
+
+### Bug Fixes
+
+* **navigation-bar:** add z-index so NavigationBar stacks just below Modals ([ef5c465](https://github.com/Sage/carbon/commit/ef5c465468f486bd4525e86756b8bc55d59102b1)), closes [#4690](https://github.com/Sage/carbon/issues/4690)
+
 ## [104.7.0](https://github.com/Sage/carbon/compare/v104.6.0...v104.7.0) (2022-02-08)
 
 
