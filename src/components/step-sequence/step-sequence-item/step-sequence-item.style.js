@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import baseTheme from "../../../style/themes/base";
 import StyledIcon from "../../icon/icon.style";
 
 const StepSequenceItemStyle = styled.li`
@@ -8,15 +7,15 @@ const StepSequenceItemStyle = styled.li`
   flex-grow: 1;
   text-align: right;
   list-style-type: none;
-  color: ${({ theme }) => theme.disabled.disabled};
+  color: var(--colorsUtilityYin055);
 
   &::before {
     content: "";
     flex-grow: 1;
     display: block;
-    height: 1px;
+    height: var(--sizing025);
     margin: 0 16px;
-    background-color: ${({ theme }) => theme.disabled.disabled};
+    background-color: var(--colorsUtilityYin055);
   }
 
   & span {
@@ -27,7 +26,7 @@ const StepSequenceItemStyle = styled.li`
 
   ${StyledIcon} {
     margin-right: 8px;
-    color: ${({ theme }) => theme.colors.primary};
+    color: var(--colorsBaseTheme, var(--colorsSemanticPositive500));
   }
 
   &:first-child {
@@ -38,23 +37,26 @@ const StepSequenceItemStyle = styled.li`
     }
   }
 
-  ${({ theme, status }) =>
+  ${({ status }) =>
     status === "current" &&
     css`
-      color: ${theme.text.color};
+      color: var(--colorsUtilityYin090);
 
       &::before {
-        background-color: ${theme.colors.primary};
+        background-color: var(--colorsUtilityYin090);
       }
     `}
 
-  ${({ theme, status }) =>
+  ${({ status }) =>
     status === "complete" &&
     css`
-      color: ${theme.stepSequence.completedText};
+      color: var(--colorsBaseTheme, var(--colorsSemanticPositive500));
 
       &::before {
-        background-color: ${theme.colors.primary};
+        background-color: var(
+          --colorsBaseTheme,
+          var(--colorsSemanticPositive500)
+        );
       }
     `}
 
@@ -66,15 +68,11 @@ const StepSequenceItemStyle = styled.li`
 
       &::before {
         flex-grow: 0;
-        width: 1px;
-        height: 24px;
+        width: var(--sizing025);
+        height: var(--sizing300);
         margin: 12px 8px;
       }
     `}
 `;
-
-StepSequenceItemStyle.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StepSequenceItemStyle;

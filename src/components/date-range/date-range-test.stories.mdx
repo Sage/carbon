@@ -32,17 +32,17 @@ export const DateRangeStory = ({
   const [state, setState] = useState(initialDates);
   const handleChange = (evt) => {
     const newValue = [
-      evt.target.value[0].rawValue,
-      evt.target.value[1].rawValue,
+      evt.target.value[0].formattedValue,
+      evt.target.value[1].formattedValue,
     ];
     setState(newValue);
-    action("changed")(evt.target.value);
+    action("change")(evt.target.value)
   };
   return (
     <DateRange
       onChange={(evt) => handleChange(evt)}
       value={state}
-      onBlur={action("blur")}
+      onBlur={(evt) => action("blur")(evt.target.value)}
       startDateProps={{
         allowEmptyValue: allowEmptyValueOnStartDate,
       }}

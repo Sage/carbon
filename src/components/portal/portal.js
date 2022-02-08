@@ -1,15 +1,13 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
-import { ThemeContext } from "styled-components";
 import guid from "../../__internal__/utils/helpers/guid";
 import Browser from "../../__internal__/utils/helpers/browser";
-import { tokensClassName } from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
+import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 const Portal = ({ children, className, id, onReposition }) => {
   const [portalNode, setPortalNode] = useState(null);
   const uniqueId = useMemo(() => guid(), []);
-  const theme = useContext(ThemeContext);
 
   useEffect(() => {
     if (onReposition) {
@@ -48,7 +46,7 @@ const Portal = ({ children, className, id, onReposition }) => {
       setPortalNode(node);
     } else if (!node) {
       node = document.createElement("div");
-      node.classList.add(portalClassName, tokensClassName(theme?.name || ""));
+      node.classList.add(portalClassName);
       node.setAttribute("data-portal-exit", uniqueId);
       if (id !== undefined) {
         node.setAttribute("id", id);
@@ -79,7 +77,10 @@ const Portal = ({ children, className, id, onReposition }) => {
 
   return (
     <span data-portal-entrance={uniqueId}>
-      {ReactDOM.createPortal(children, getPortalContainer())}
+      {ReactDOM.createPortal(
+        <CarbonScopedTokensProvider>{children}</CarbonScopedTokensProvider>,
+        getPortalContainer()
+      )}
     </span>
   );
 };

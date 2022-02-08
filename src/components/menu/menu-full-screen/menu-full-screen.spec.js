@@ -77,7 +77,7 @@ describe("MenuFullscreen", () => {
           left: "-100vw",
           transition: "all 0.3s ease",
         },
-        wrapper
+        wrapper.find(StyledMenuFullscreen)
       );
 
       ["a", "button", "div"].forEach((el) => {
@@ -85,7 +85,7 @@ describe("MenuFullscreen", () => {
           {
             fontSize: "16px",
           },
-          wrapper,
+          wrapper.find(StyledMenuFullscreen),
           { modifier: el }
         );
       });
@@ -118,7 +118,7 @@ describe("MenuFullscreen", () => {
           {
             backgroundColor: baseTheme.menu[menuType].background,
           },
-          wrapper
+          wrapper.find(StyledMenuFullscreen)
         );
 
         assertStyleMatch(
@@ -147,7 +147,7 @@ describe("MenuFullscreen", () => {
           left: "0",
           transition: "all 0.3s ease",
         },
-        wrapper
+        wrapper.find(StyledMenuFullscreen)
       );
     });
 
@@ -159,7 +159,7 @@ describe("MenuFullscreen", () => {
           right: "0",
           transition: "all 0.3s ease",
         },
-        wrapper
+        wrapper.find(StyledMenuFullscreen)
       );
     });
   });

@@ -1,22 +1,22 @@
 {
-    "button-toggle": {
-        "mint": "rgb(230, 246, 241)",
-        "aegean": "rgb(230, 241, 250)",
-        "none": "rgb(230, 245, 230)"
-    },
-    "common": {
-        "mint": "rgb(0, 125, 90)",
-        "aegean": "rgb(0, 115, 194)",
-        "none": "rgb(0, 130, 0)"
-    },
-    "step-sequence-item": {
-        "mint": "rgb(0, 126, 91)",
-        "aegean": "rgb(0, 92, 154)",
-        "none": "rgb(0, 130, 0)"
-    },
-    "loader-bar": {
-        "mint": "rgb(179, 227, 214)",
-        "aegean": "rgb(179, 214, 239)",
-        "none": "rgb(179, 224, 179)"
-    }
+  "button-toggle": {
+    "mint": "rgb(230, 246, 241)",
+    "aegean": "rgb(230, 241, 250)",
+    "none": "rgb(230, 245, 230)"
+  },
+  "common": {
+    "mint": "rgb(0, 125, 90)",
+    "aegean": "rgb(0, 115, 194)",
+    "none": "rgb(0, 130, 0)"
+  },
+  "step-sequence-item": {
+    "mint": "rgb(0, 125, 90)",
+    "aegean": "rgb(0, 115, 194)",
+    "none": "rgb(0, 138, 33)"
+  },
+  "loader-bar": {
+    "mint": "rgb(179, 227, 214)",
+    "aegean": "rgb(179, 214, 239)",
+    "none": "rgb(179, 224, 179)"
+  }
 }
