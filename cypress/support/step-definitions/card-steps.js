@@ -29,7 +29,8 @@ When(
   "I drag {string} Card from the column to {string} column",
   (draggableCardItem, destinationColumn) => {
     draggableCard(draggableCardItem).trigger("dragstart");
-    draggableContainer(destinationColumn).trigger("drop").trigger("dragend");
+    draggableContainer(destinationColumn).trigger("drop");
+    draggableContainer(destinationColumn).trigger("dragend");
   }
 );
 

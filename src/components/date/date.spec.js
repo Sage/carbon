@@ -1,106 +1,130 @@
-import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
 import { mount } from "enzyme";
+import { act } from "react-dom/test-utils";
+import { parse } from "date-fns/fp";
 
+import DayPicker from "react-day-picker";
 import {
   testStyledSystemMargin,
   assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
-import DateInput, { defaultDateFormat, BaseDateInput } from "./date.component";
+import DateInput from "./date.component";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
-import DatePicker from "./date-picker.component";
+import DatePicker from "./__internal__/date-picker";
+import StyledDayPicker from "./__internal__/date-picker/day-picker.style";
 import Textbox from "../textbox";
 import StyledDateInput from "./date.style";
-import DateHelper from "../../__internal__/date";
-import { isEdge } from "../../__internal__/utils/helpers/browser-type-check";
+import I18nProvider from "../i18n-provider";
 import Label from "../../__internal__/label";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
-import enGB from "../../locales/en-gb";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
+import ValidationIcon from "../../__internal__/validations";
+import {
+  // eslint-disable-next-line import/named
+  de as deLocale,
+  // eslint-disable-next-line import/named
+  es as esLocale,
+  // eslint-disable-next-line import/named
+  enCA as enCALocale,
+  // eslint-disable-next-line import/named
+  enGB as enGBLocale,
+  // eslint-disable-next-line import/named
+  enZA as enZALocale,
+  // eslint-disable-next-line import/named
+  fr as frLocale,
+  // eslint-disable-next-line import/named
+  frCA as frCALocale,
+  // eslint-disable-next-line import/named
+  enUS as enUSLocale,
+} from "../../locales/date-fns-locales";
 
-moment.suppressDeprecationWarnings = true;
-jest.useFakeTimers();
-jest.mock("../../__internal__/utils/helpers/browser-type-check");
-
-describe("StyledDateInput", () => {
-  it("renders correctly for default theme", () => {
-    assertStyleMatch(
-      { flex: "none", width: "140px" },
-      mount(<StyledDateInput size="large" />),
-      { modifier: `& ${StyledInputPresentation}` }
-    );
-  });
-});
+const locales = {
+  "en-GB": {
+    locale: () => "en-GB",
+    date: { dateFnsLocale: () => enGBLocale },
+    separator: "/",
+  },
+  de: {
+    locale: () => "de",
+    date: { dateFnsLocale: () => deLocale },
+    separator: ".",
+  },
+  es: {
+    locale: () => "es",
+    date: { dateFnsLocale: () => esLocale },
+    separator: "/",
+  },
+  "en-ZA": {
+    locale: () => "en-ZA",
+    date: { dateFnsLocale: () => enZALocale },
+    separator: "/",
+  },
+  "fr-FR": {
+    locale: () => "fr-FR",
+    date: { dateFnsLocale: () => frLocale },
+    separator: "/",
+  },
+  "fr-CA": {
+    locale: () => "fr-CA",
+    date: { dateFnsLocale: () => frCALocale },
+    separator: "/",
+  },
+  "en-US": {
+    locale: () => "en-US",
+    date: { dateFnsLocale: () => enUSLocale },
+    separator: "/",
+  },
+  "en-CA": {
+    locale: () => "en-CA",
+    date: { dateFnsLocale: () => enCALocale },
+    separator: "/",
+  },
+};
 
 describe("Date", () => {
-  let wrapper;
   let container;
+  let wrapper;
+  let onFocusFn;
 
-  testStyledSystemMargin((props) => <DateInput {...props} />);
-
-  describe("external validations", () => {
-    it.each([["error"], ["warning"], ["info"]])(
-      "should pass validation prop to the Textbox component",
-      (validation) => {
-        wrapper = render({ [validation]: true });
-        expect(wrapper.find(Textbox).props()[validation]).toBe(true);
-      }
+  // eslint-disable-next-line react/prop-types
+  const MockComponent = ({ emptyValue, eventValues = () => {} }) => {
+    const [val, setVal] = useState(emptyValue ? "" : "02/02/2022");
+    return (
+      <DateInput
+        value={val}
+        onChange={(ev) => {
+          setVal(ev.target.value.formattedValue);
+          eventValues(ev.target.value);
+        }}
+        onFocus={onFocusFn}
+        onBlur={(ev) => {
+          eventValues(ev.target.value);
+        }}
+        allowEmptyValue={emptyValue}
+      />
     );
+  };
 
-    it("should render calendar icon when no validationProps provided", () => {
-      wrapper = render();
-      expect(wrapper.find(Textbox).props().inputIcon).toBe("calendar");
+  testStyledSystemMargin((props) => (
+    <DateInput onChange={jest.fn} value="" {...props} />
+  ));
+
+  describe("styles", () => {
+    it.each([
+      ["small", "120px"],
+      ["medium", "135px"],
+      ["large", "140px"],
+    ])("render correctly for %s size", (size, width) => {
+      assertStyleMatch(
+        { flex: "none", width },
+        mount(<StyledDateInput size={size} />),
+        { modifier: `& ${StyledInputPresentation}` }
+      );
     });
   });
 
-  describe("when the Component is rendered", () => {
-    it("should have the Textbox component rendered as it's descendant", () => {
-      wrapper = render({});
-      expect(wrapper.find(Textbox).exists()).toBe(true);
-    });
-
-    it('should render with "allowEmptyValue" property and null value', () => {
-      wrapper = render({ value: null, allowEmptyValue: true });
-      expect(wrapper.find(Textbox).exists()).toBe(true);
-    });
-
-    it('should render with "allowEmptyValue" property and empty string value', () => {
-      wrapper = render({ value: "", allowEmptyValue: true });
-      expect(wrapper.find(Textbox).exists()).toBe(true);
-    });
-  });
-
-  describe.each(["value", "defaultValue"])(
-    "when the %s is an empty string",
-    (prop) => {
-      const currentDate = getFormattedDate(moment());
-
-      it('then the input element value should be set to today if the "allowEmptyValue" prop is falsy', () => {
-        wrapper = render({ [prop]: "" });
-        simulateBlurOnInput(wrapper);
-        expect(
-          wrapper
-            .find("input")
-            .findWhere((n) => n.props().type !== "hidden")
-            .prop("value")
-        ).toBe(currentDate);
-      });
-
-      it('then the input element value should be an empty string if "allowEmptyValue" prop is truthy', () => {
-        wrapper = render({ [prop]: "", allowEmptyValue: true });
-        simulateBlurOnInput(wrapper);
-        expect(
-          wrapper
-            .find("input")
-            .findWhere((n) => n.props().type !== "hidden")
-            .prop("value")
-        ).toBe("");
-      });
-    }
-  );
-
-  describe('when "autoFocus" prop is defined', () => {
+  describe("autoFocus", () => {
     beforeEach(() => {
       container = document.createElement("div");
       container.id = "enzymeContainer";
@@ -115,122 +139,101 @@ describe("Date", () => {
       container = null;
     });
 
-    it("then component's input should be focused after render", () => {
+    it("the component's input should be focused and picker should exist when prop is true", () => {
       wrapper = render({ autoFocus: true });
-      const input = wrapper
-        .find("input")
-        .findWhere((n) => n.props().type !== "hidden");
+      const input = wrapper.find("input");
       const focusedElement = document.activeElement;
-      expect(input.instance()).toBe(focusedElement);
-    });
-  });
 
-  describe("when autoFocus prop is not defined", () => {
-    it("does not sets focus on the input", () => {
+      expect(input.getDOMNode()).toBe(focusedElement);
+      expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+    });
+
+    it("the component's input should not be focused and picker should not exist when prop is falsy", () => {
       wrapper = render({});
-      const input = wrapper
-        .find("input")
-        .findWhere((n) => n.props().type !== "hidden");
+      const input = wrapper.find("input");
       const focusedElement = document.activeElement;
-      expect(input.instance()).not.toBe(focusedElement);
+
+      expect(input.getDOMNode()).not.toBe(focusedElement);
+      expect(wrapper.update().find(DatePicker).exists()).not.toBe(true);
     });
   });
 
-  describe('when the "focus" event is triggered on the input', () => {
-    let onFocusFn;
-
+  describe("when the focus event is triggered on the input", () => {
     beforeEach(() => {
       onFocusFn = jest.fn();
     });
 
-    it("then onFocus prop should have been called", () => {
+    it("then onFocus prop should have been called and the picker should exist", () => {
       wrapper = render({ onFocus: onFocusFn });
       simulateFocusOnInput(wrapper);
       expect(onFocusFn).toHaveBeenCalled();
+      expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+
+      simulateBlurOnInput(wrapper); // for coverage
     });
 
-    describe("with autoFocus property on the component", () => {
-      it("should render a DatePicker component", () => {
-        wrapper = render({ autoFocus: true });
-        simulateFocusOnInput(wrapper);
-        expect(wrapper.find(DatePicker).exists()).toBe(true);
-      });
-    });
+    it.each(["disabled", "readOnly"])(
+      "the onFocus prop should not be called and the picker should not exist if the %s prop is true",
+      (param) => {
+        wrapper = render({ onFocus: onFocusFn, [param]: true });
 
-    describe("without autoFocus property on the component", () => {
-      it("should render a DatePicker component", () => {
-        wrapper = render({ onFocus: onFocusFn });
         simulateFocusOnInput(wrapper);
-        expect(wrapper.find(DatePicker).exists()).toBe(true);
-      });
-    });
+        expect(onFocusFn).not.toHaveBeenCalled();
+        expect(wrapper.update().find(DatePicker).exists()).not.toBe(true);
+      }
+    );
   });
 
-  describe('when the "blur" event is triggered on the input', () => {
+  describe("when the blur event is triggered on the input", () => {
     let onBlurFn;
+    let onChangeFn;
 
     beforeEach(() => {
       onBlurFn = jest.fn();
-      wrapper = render({ onBlur: onBlurFn, value: "2019-12-11" });
+      onChangeFn = jest.fn();
     });
 
-    describe("and with DatePicker opened", () => {
-      it("then onBlur prop should not have been called", () => {
-        simulateFocusOnInput(wrapper);
+    describe("and the input value matches an allowed format", () => {
+      it("then onBlur and onChange props should have been called", () => {
+        wrapper = render({
+          onChange: onChangeFn,
+          onBlur: onBlurFn,
+          value: "010121",
+        });
         simulateBlurOnInput(wrapper);
-        expect(wrapper.find(DatePicker).exists()).toBe(true);
+
+        expect(onBlurFn).toHaveBeenCalled();
+        expect(onChangeFn).toHaveBeenCalled();
+      });
+    });
+
+    describe("and the input value does not match an allowed format", () => {
+      it("then onBlur should have been called but onChange should not have been called", () => {
+        wrapper = render({
+          onChange: onChangeFn,
+          onBlur: onBlurFn,
+          value: "foo",
+        });
+        simulateBlurOnInput(wrapper);
+
+        expect(onBlurFn).toHaveBeenCalled();
+        expect(onChangeFn).not.toHaveBeenCalled();
+      });
+    });
+
+    it.each(["disabled", "readOnly"])(
+      "the onBlur and onChange props should not have been called if the %s prop is true",
+      (param) => {
+        wrapper = render({
+          onChange: onChangeFn,
+          onBlur: onBlurFn,
+          [param]: true,
+        });
+        simulateBlurOnInput(wrapper);
         expect(onBlurFn).not.toHaveBeenCalled();
-      });
-    });
-
-    describe("and with DatePicker closed", () => {
-      it("then onBlur prop should have been called", () => {
-        simulateBlurOnInput(wrapper);
-        expect(wrapper.find(DatePicker).exists()).toBe(false);
-        jest.runAllTimers();
-        expect(onBlurFn).toHaveBeenCalled();
-      });
-    });
-
-    describe("and browser is Edge", () => {
-      it("should blur when inputFocusedViaPicker flag is not set or falsy", () => {
-        simulateBlurOnInput(wrapper);
-        jest.runAllTimers();
-        expect(onBlurFn).toHaveBeenCalled();
-      });
-
-      it("should not blur when inputFocusedViaPicker flag is truthy", () => {
-        wrapper.find(BaseDateInput).instance().inputFocusedViaPicker = true;
-        simulateFocusOnInput(wrapper);
-        simulateBlurOnInput(wrapper);
-        jest.runAllTimers();
-        expect(onBlurFn).not.toHaveBeenCalled();
-      });
-
-      it('should not blur when "allowBlur" returns true', () => {
-        isEdge.mockImplementation(() => true);
-        wrapper.find(BaseDateInput).instance().inputFocusedViaPicker = true;
-        simulateBlurOnInput(wrapper);
-        jest.runAllTimers();
-        expect(onBlurFn).toHaveBeenCalled();
-      });
-    });
-
-    describe('when the "hasMounted" flag is falsy', () => {
-      it('does not update the "lastValidEventValues"', () => {
-        const instance = wrapper.find(BaseDateInput).instance();
-        instance.hasMounted = false;
-        simulateChangeOnInput(wrapper, "2019-12-11");
-        simulateBlurOnInput(wrapper);
-        jest.runAllTimers();
-        expect(instance.state.lastValidEventValues.rawValue).toEqual(
-          "2019-12-11"
-        );
-        expect(instance.state.lastValidEventValues.formattedValue).toEqual(
-          "11/12/2019"
-        );
-      });
-    });
+        expect(onChangeFn).not.toHaveBeenCalled();
+      }
+    );
   });
 
   describe('when the "keyDown" event is triggered on the input', () => {
@@ -238,7 +241,7 @@ describe("Date", () => {
     const enterKeyCode = 13;
 
     beforeEach(() => {
-      wrapper = render({ value: "" });
+      wrapper = render();
       simulateFocusOnInput(wrapper);
     });
 
@@ -253,535 +256,377 @@ describe("Date", () => {
 
     describe('and with the "Tab" key', () => {
       it('then the "DatePicker" should be closed', () => {
-        expect(wrapper.find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
         simulateOnKeyDown(wrapper, tabKeyCode);
-        expect(wrapper.find(DatePicker).exists()).toBe(false);
+        expect(wrapper.update().find(DatePicker).exists()).toBe(false);
       });
     });
 
     describe('and with the key other that "Tab"', () => {
       it('then the "DatePicker" should not be closed', () => {
-        expect(wrapper.find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
         simulateOnKeyDown(wrapper, enterKeyCode);
-        expect(wrapper.find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
       });
     });
   });
 
-  describe('when the "click" event is triggered on the input', () => {
-    const onClickFn = jest.fn();
-
-    it('then the "DatePicker" should not be closed', () => {
-      wrapper = render({ onClick: onClickFn, value: "" });
-      simulateClickOnInput(wrapper);
-      expect(onClickFn).toHaveBeenCalled();
-    });
-  });
-
-  describe("when the Component is updated", () => {
-    const firstDate = "2019-08-12";
-    const secondDate = "2019-08-17";
-    let onBlurFn;
-
+  describe("when a mousedown or click event is triggered", () => {
+    let onClickFn;
     beforeEach(() => {
-      onBlurFn = jest.fn();
+      onClickFn = jest.fn();
     });
 
-    describe("with the same value", () => {
-      it("then onBlur prop should not have been called", () => {
-        wrapper = render({ onBlur: onBlurFn, value: firstDate });
-        wrapper.setProps({ value: firstDate });
+    describe("on the input", () => {
+      it("then the onClick callback should be called if one is passed", () => {
+        wrapper = render({ onClick: onClickFn });
+        simulateClickOnInput(wrapper);
+        expect(onClickFn).toHaveBeenCalled();
+      });
+
+      it("then the onClick callback should not be called if one is not passed", () => {
+        wrapper = render();
+        simulateClickOnInput(wrapper);
+        expect(onClickFn).not.toHaveBeenCalled();
+      });
+
+      it("then the 'DatePicker' should open on first click and further clicks should not close the picker", () => {
+        wrapper = render();
+        simulateMouseDownOnInput(wrapper);
+        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        simulateMouseDownOnInput(wrapper);
+        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+      });
+
+      it.each(["disabled", "readOnly"])(
+        "then the 'DatePicker' should not open if the %s prop is true",
+        (param) => {
+          wrapper = render({ [param]: true });
+          simulateMouseDownOnInput(wrapper);
+          expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+        }
+      );
+
+      it.each(["disabled", "readOnly"])(
+        "then the 'DatePicker' should not open and onClick should not be called if the %s prop is true",
+        (param) => {
+          wrapper = render({ [param]: true, onClick: onClickFn });
+          simulateClickOnInput(wrapper);
+          expect(onClickFn).not.toHaveBeenCalled();
+          expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+        }
+      );
+    });
+
+    describe("on the input icon", () => {
+      it("then the onClick callback should be called if one is passed", () => {
+        wrapper = render({ onClick: onClickFn });
+        simulateClickOnInputIcon(wrapper);
+        expect(onClickFn).toHaveBeenCalled();
+      });
+
+      it("it does not call the onBlur prop", () => {
+        const onBlurFn = jest.fn();
+        wrapper = render({ onBlur: onBlurFn });
+        simulateClickOnInputIcon(wrapper);
+        expect(onBlurFn).not.toHaveBeenCalled();
+        simulateClickOnInputIcon(wrapper);
+        expect(onBlurFn).not.toHaveBeenCalled();
+      });
+
+      it("then the 'DatePicker' should toggle open or closed", () => {
+        wrapper = render();
+        simulateMouseDownOnInputIcon(wrapper);
+        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        simulateMouseDownOnInputIcon(wrapper);
+        expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+        simulateMouseDownOnInputIcon(wrapper);
+        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        simulateFocusOnInput(wrapper);
+      });
+
+      it.each(["disabled", "readOnly"])(
+        "then the 'DatePicker' should not open and onClick should not be called if the %s prop is true",
+        (param) => {
+          wrapper = render({ [param]: true, onClick: onClickFn });
+          simulateClickOnInput(wrapper);
+          expect(onClickFn).not.toHaveBeenCalled();
+          expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+        }
+      );
+    });
+
+    describe("outside of the component", () => {
+      it("the 'DatePicker' should close if it is open", () => {
+        wrapper = render();
+        simulateFocusOnInput(wrapper);
+        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+
+        act(() => {
+          document.dispatchEvent(
+            new MouseEvent("mousedown", { bubbles: true })
+          );
+        });
+
+        expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+        wrapper.unmount();
+      });
+
+      it("the 'DatePicker' should close if it is open", () => {
+        wrapper = render();
+        simulateFocusOnInput(wrapper);
+        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+
+        simulateMouseDownOnPicker(wrapper);
+
+        wrapper.update();
+
+        act(() => {
+          document.dispatchEvent(
+            new MouseEvent("mousedown", { bubbles: true })
+          );
+        });
+
+        expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+        wrapper.unmount();
+      });
+    });
+
+    describe("on the picker container", () => {
+      it("does not trigger blur", () => {
+        const onBlurFn = jest.fn();
+        wrapper = render({ onBlur: onBlurFn });
+        simulateMouseDownOnInput(wrapper);
+        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        simulateMouseDownOnPicker(wrapper);
+        wrapper.update();
+        simulateBlurOnInput(wrapper);
         expect(onBlurFn).not.toHaveBeenCalled();
       });
     });
 
-    describe("with a different value", () => {
-      beforeEach(() => {
-        wrapper = render({ onBlur: onBlurFn, value: firstDate });
-      });
+    describe("within the component", () => {
+      it("the 'DatePicker' should remain open", () => {
+        wrapper = render();
+        simulateFocusOnInput(wrapper);
+        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
 
-      describe("and with DatePicker closed", () => {
-        it("then onBlur prop should not have been called", () => {
-          wrapper.setProps({ value: secondDate });
-          expect(wrapper.find(DatePicker).exists()).toBe(false);
-          expect(onBlurFn).not.toHaveBeenCalled();
+        act(() => {
+          document.dispatchEvent(
+            new CustomEvent("mousedown", {
+              detail: {
+                enzymeTestingTarget: wrapper
+                  .find(StyledInputPresentation)
+                  .getDOMNode(),
+              },
+            })
+          );
         });
-      });
 
-      describe("and with DatePicker opened", () => {
-        it("then onBlur prop should not have been called", () => {
-          simulateFocusOnInput(wrapper);
-          wrapper.setProps({ value: secondDate });
-          expect(wrapper.find(DatePicker).exists()).toBe(true);
-          expect(onBlurFn).not.toHaveBeenCalled();
-        });
+        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
       });
     });
   });
 
-  describe("when the input value is changed with the DatePicker open with invalid date", () => {
-    it.each(["12/42/3213", "foo", "39"])(
-      "should pass an empty value to the DatePicker",
-      (mockValue) => {
+  describe("initial value as ISO format", () => {
+    describe.each(
+      Object.keys(locales).filter((l) => !["en-CA", "en-US"].includes(l))
+    )("for %s locale", (localeKey) => {
+      it("formats to the expected", () => {
+        wrapper = mount(
+          <I18nProvider locale={locales[localeKey]}>
+            <DateInput value="2012-03-01" onChange={jest.fn} />
+          </I18nProvider>
+        );
+        const output = localeKey === "de" ? "01.03.2012" : "01/03/2012";
+
+        expect(wrapper.find("input").prop("value")).toEqual(output);
+      });
+    });
+
+    describe.each(
+      Object.keys(locales).filter((l) => ["en-CA", "en-US"].includes(l))
+    )("for %s locale", (localeKey) => {
+      it("formats to the expected", () => {
+        wrapper = mount(
+          <I18nProvider locale={locales[localeKey]}>
+            <DateInput value="2012-03-01" onChange={jest.fn} />
+          </I18nProvider>
+        );
+        const output = "03/01/2012";
+
+        expect(wrapper.find("input").prop("value")).toEqual(output);
+      });
+    });
+  });
+
+  describe("when the input value changes", () => {
+    beforeEach(() => {
+      onFocusFn = jest.fn();
+    });
+
+    describe.each([
+      "321",
+      "42/13",
+      "0.0/21",
+      "01/01/-22",
+      "12/42/3213",
+      "foo",
+      "1/01.11",
+    ])("with the DatePicker open and a invalid date of %s", (mockValue) => {
+      it("should pass no value to the DatePicker", () => {
+        wrapper = mount(<MockComponent />);
         simulateFocusOnInput(wrapper);
+        expect(wrapper.update().find(DatePicker).props().selectedDays).toEqual(
+          new Date("02/02/2022")
+        );
+
         wrapper
-          .find("input[data-element='input']")
+          .find("input")
           .simulate("change", { target: { value: mockValue } });
-        const picker = wrapper.find(DatePicker);
-        expect(picker.exists()).toBe(true);
-        expect(picker.props().inputDate).toBe("");
+        expect(wrapper.update().find(DatePicker).props().selectedDays).toBe(
+          undefined
+        );
+      });
+    });
+
+    describe('when the "onDayClick" prop is called on the opened "DatePicker"', () => {
+      const mockDate = parse(new Date(), "dd/MM/yy", "01/01/21");
+
+      beforeEach(() => {
+        container = document.createElement("div");
+        container.id = "enzymeContainer";
+        document.body.appendChild(container);
+        wrapper = mount(<MockComponent />);
+        simulateFocusOnInput(wrapper);
+        act(() => {
+          wrapper
+            .update()
+            .find(DatePicker)
+            .props()
+            .onDayClick(mockDate, {}, { target: {} });
+        });
+      });
+
+      afterEach(() => {
+        jest.clearAllMocks();
+
+        if (container && container.parentNode) {
+          container.parentNode.removeChild(container);
+        }
+
+        container = null;
+      });
+
+      it("should return focus to the date input and close the DatePicker", () => {
+        expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+        expect(onFocusFn).toHaveBeenCalled();
+      });
+
+      it("should update the input element to reflect the passed date", () => {
+        expect(wrapper.update().find("input").prop("value")).toBe("01/01/2021");
+      });
+
+      describe("when the disabled modifier is set", () => {
+        let onChangeFn;
+
+        beforeEach(() => {
+          onChangeFn = jest.fn();
+          onFocusFn = jest.fn();
+          wrapper = render({ onChange: onChangeFn, onFocus: onFocusFn });
+          simulateFocusOnInput(wrapper);
+          jest.clearAllMocks();
+          act(() => {
+            wrapper
+              .update()
+              .find(DayPicker)
+              .props()
+              .onDayClick(mockDate, { disabled: true }, { target: {} });
+          });
+        });
+
+        it("does not call onChange, focus the input or close the picker", () => {
+          expect(onChangeFn).not.toHaveBeenCalled();
+          expect(onFocusFn).not.toHaveBeenCalled();
+          expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        });
+      });
+    });
+
+    describe.each(Object.keys(locales))(
+      "when the locale is %s",
+      (localeKey) => {
+        const values = [
+          "01 01 2021",
+          "1 01 2021",
+          "01 1 2021",
+          "1 1 2021",
+          "1 1 21",
+          "01 1 21",
+          "1 01 21",
+          "01 01 21",
+        ];
+
+        const validValues = getValidInputValues(values);
+
+        beforeEach(() => {
+          wrapper = mount(
+            <I18nProvider locale={locales[localeKey]}>
+              <MockComponent />
+            </I18nProvider>
+          );
+        });
+
+        it.each(validValues)(
+          "it updates the input value from %s to the expected format on blur",
+          (value) => {
+            wrapper.find("input").simulate("change", { target: { value } });
+            expect(wrapper.update().find("input").prop("value")).toEqual(value);
+            simulateBlurOnInput(wrapper);
+            const { separator } = locales[localeKey];
+            const expectedValue = `01${separator}01${separator}2021`;
+
+            expect(wrapper.update().find("input").prop("value")).toEqual(
+              expectedValue
+            );
+          }
+        );
+
+        it.each([
+          "1170",
+          "01180",
+          "10190",
+          "010199",
+          "1.1.70",
+          "01/1/80",
+          "1-01-90",
+          "01,01,99",
+        ])("adds the expected years when the value is %s", (value) => {
+          wrapper.find("input").simulate("change", { target: { value } });
+          expect(wrapper.update().find("input").prop("value")).toEqual(value);
+          simulateBlurOnInput(wrapper);
+          const { separator } = locales[localeKey];
+          const expectedValue = `01${separator}01${separator}19${value.substr(
+            -2
+          )}`;
+
+          expect(wrapper.update().find("input").prop("value")).toEqual(
+            expectedValue
+          );
+        });
       }
     );
   });
 
-  describe('when the "handleDateSelect" prop is called on the opened "DatePicker"', () => {
-    const mockDate = moment("2012-02-01");
+  describe("when allowEmptyValue prop is set", () => {
+    it("emits rawValue as an empty string onBlur", () => {
+      const eventValuesFn = jest.fn();
+      wrapper = mount(<MockComponent eventValues={eventValuesFn} emptyValue />);
 
-    beforeEach(() => {
-      container = document.createElement("div");
-      container.id = "enzymeContainer";
-      document.body.appendChild(container);
-      wrapper = render({ value: "" });
-      simulateFocusOnInput(wrapper);
-      wrapper.find(DatePicker).props().handleDateSelect(mockDate);
-    });
-
-    afterEach(() => {
-      if (container && container.parentNode) {
-        container.parentNode.removeChild(container);
-      }
-
-      container = null;
-    });
-
-    it("should not contain the DatePicker component", () => {
-      expect(wrapper.update().find(DatePicker).exists()).toBe(false);
-    });
-
-    it("should update the input element to reflect the passed date", () => {
-      expect(
-        wrapper
-          .update()
-          .find("input")
-          .findWhere((n) => n.props().type !== "hidden")
-          .prop("value")
-      ).toBe(getFormattedDate(mockDate));
-    });
-
-    it("should return focus to the date input and the picker should not open", () => {
-      const instance = wrapper.find(BaseDateInput).instance();
-      expect(instance.inputFocusedViaPicker).toEqual(true);
-      instance.openDatePicker();
-      expect(wrapper.update().find(DatePicker).exists()).toBe(false);
-    });
-  });
-
-  describe("when the input value is changed", () => {
-    let onChangeFn;
-    const mockTodayDate = "2019-04-11";
-    const componentName = "abc";
-
-    beforeEach(() => {
-      jest
-        .spyOn(DateHelper, "todayFormatted")
-        .mockImplementation(() => mockTodayDate);
-      onChangeFn = jest.fn();
-      wrapper = render({
-        onChange: onChangeFn,
-        name: componentName,
-        value: "2019-04-11",
-      });
-    });
-
-    describe("to a valid date", () => {
-      const validDate = "2019-04-01";
-      const isoDate = "2019-04-01";
-      const visibleDate = "01/04/2019";
-      const jsDateObject = new Date(isoDate);
-      let mockedStringToDate;
-
-      beforeAll(() => {
-        mockedStringToDate = jest
-          .spyOn(DateHelper, "stringToDate")
-          .mockImplementation(() => jsDateObject);
-      });
-
-      it('then the "onChange" prop should have been called', () => {
-        simulateChangeOnInput(wrapper, validDate);
-        expect(onChangeFn).toHaveBeenCalled();
-      });
-
-      it('then the "selectedDate" prop with proper Date Object should be passed to the DatePicker component', () => {
-        simulateFocusOnInput(wrapper);
-        simulateChangeOnInput(wrapper, validDate);
-        expect(wrapper.find(DatePicker).props().selectedDate).toBe(
-          jsDateObject
-        );
-      });
-
-      it("then the value of it's input should be changed to a locally formatted date", () => {
-        simulateChangeOnInput(wrapper, validDate);
-        simulateBlurOnInput(wrapper);
-        jest.runAllTimers();
-        wrapper.update();
-        expect(
-          wrapper
-            .find("input")
-            .findWhere((n) => n.props().type !== "hidden")
-            .props().value
-        ).toBe(visibleDate);
-      });
-
-      afterAll(() => {
-        mockedStringToDate.mockRestore();
-      });
-    });
-
-    describe("to an invalid date", () => {
-      const invalidDate = "abcde";
-
-      it('then the "onChange" prop should not have been called', () => {
-        simulateChangeOnInput(wrapper, invalidDate);
-        expect(onChangeFn).not.toHaveBeenCalled();
-      });
-
-      it('then the "selectedDate" prop with JS Date set to today should be passed to the DatePicker component', () => {
-        wrapper.setProps({ value: invalidDate });
-        simulateFocusOnInput(wrapper);
-        expect(wrapper.find(DatePicker).props().selectedDate).toEqual(
-          DateHelper.stringToDate(mockTodayDate)
-        );
-      });
-
-      it("then the value of it's input should not be changed", () => {
-        simulateChangeOnInput(wrapper, invalidDate);
-        simulateBlurOnInput(wrapper);
-        wrapper.update();
-        expect(
-          wrapper
-            .find("input")
-            .findWhere((n) => n.props().type !== "hidden")
-            .props().value
-        ).toBe(invalidDate);
-      });
-    });
-
-    describe("to an empty date", () => {
-      it('reformats the "visibleValue" when it is an empty string and "allowEmptyValue" is falsy', () => {
-        const initialDate = "2019-04-01";
-        const formattedDate = "01/04/2019";
-        const emptyDate = "";
-
-        wrapper = render({
-          onChange: onChangeFn,
-          name: componentName,
-          value: initialDate,
-        });
-
-        simulateChangeOnInput(wrapper, emptyDate);
-        simulateBlurOnInput(wrapper);
-        jest.runAllTimers();
-        wrapper.update();
-        expect(
-          wrapper
-            .find("input")
-            .findWhere((n) => n.props().type !== "hidden")
-            .props().value
-        ).toBe(formattedDate);
-      });
-
-      it('does not reformat the "visibleValue" when it is an empty string and "allowEmptyValue" is truthy', () => {
-        const initialDate = "2019-04-01";
-        const emptyDate = "";
-
-        wrapper = render({
-          onChange: onChangeFn,
-          name: componentName,
-          value: initialDate,
-          allowEmptyValue: true,
-        });
-
-        simulateChangeOnInput(wrapper, emptyDate);
-        simulateBlurOnInput(wrapper);
-        jest.runAllTimers();
-        wrapper.update();
-        expect(
-          wrapper
-            .find("input")
-            .findWhere((n) => n.props().type !== "hidden")
-            .props().value
-        ).toBe(emptyDate);
-      });
-    });
-  });
-
-  describe("when value prop is changed to an empty string", () => {
-    describe('and "allowEmptyValue" is false', () => {
-      const initialDate = "2019-04-01";
-      const formattedDate = "01/04/2019";
-      const emptyDate = "";
-
-      it('reformats the "visibleValue" back to the previous valid date', () => {
-        wrapper = render({
-          onChange: jest.fn(),
-          name: "Date input",
-          value: initialDate,
-        });
-        wrapper.setProps({ value: emptyDate });
-
-        simulateFocusOnInput(wrapper);
-        jest.runAllTimers();
-        wrapper.update();
-        expect(
-          wrapper
-            .find("input")
-            .findWhere((n) => n.props().type !== "hidden")
-            .props().value
-        ).toBe(formattedDate);
-      });
-
-      it('reformats the "selectedDate" back to the previous valid date', () => {
-        wrapper = render({
-          onChange: jest.fn(),
-          name: "Date input",
-          value: initialDate,
-        });
-        wrapper.setProps({ value: emptyDate });
-
-        simulateFocusOnInput(wrapper);
-        jest.runAllTimers();
-        wrapper.update();
-        expect(wrapper.find(DatePicker).props().selectedDate).toEqual(
-          DateHelper.stringToDate(
-            DateHelper.formatValue({
-              value: initialDate,
-              locale: enGB.locale(),
-              formats: enGB.date.formats.inputs(),
-              format: enGB.date.formats.javascript(),
-            })
-          )
-        );
-      });
-    });
-
-    describe('and "allowEmptyValue" is true', () => {
-      const initialDate = "2019-04-01";
-      const emptyDate = "";
-
-      it('sets an empty string as the "visibleValue"', () => {
-        wrapper = render({
-          onChange: jest.fn(),
-          name: "Date input",
-          value: initialDate,
-          allowEmptyValue: true,
-        });
-
-        wrapper.setProps({ value: emptyDate });
-        simulateFocusOnInput(wrapper);
-        jest.runAllTimers();
-        wrapper.update();
-
-        expect(
-          wrapper
-            .find("input")
-            .findWhere((n) => n.props().type !== "hidden")
-            .props().value
-        ).toBe(emptyDate);
-      });
-
-      it('sets an empty string as the "selectedDate"', () => {
-        wrapper = render({
-          onChange: jest.fn(),
-          name: "Date input",
-          value: initialDate,
-          allowEmptyValue: true,
-        });
-
-        wrapper.setProps({ value: emptyDate });
-        simulateFocusOnInput(wrapper);
-        jest.runAllTimers();
-        wrapper.update();
-
-        expect(wrapper.find(DatePicker).props().selectedDate).toBe(emptyDate);
-      });
-    });
-  });
-
-  describe("hidden input", () => {
-    beforeEach(() => {
-      wrapper = render({ value: "1987-07-28" });
-    });
-
-    it("stores the raw/ unformatted value", () => {
-      expect(
-        wrapper
-          .find("input")
-          .findWhere((n) => n.props().type === "hidden")
-          .prop("value")
-      ).toEqual("1987-07-28");
-    });
-
-    it("updates the hidden value when the new date is valid", () => {
-      wrapper = render({ value: "1987-07-28" });
-      wrapper.find(BaseDateInput).setState({ visibleValue: "29/07/2007" });
       simulateBlurOnInput(wrapper);
-      jest.runAllTimers();
-      expect(
-        wrapper
-          .find("input")
-          .findWhere((n) => n.props().type === "hidden")
-          .prop("value")
-      ).toEqual("2007-07-29");
-    });
-
-    it("does not update the hidden value if the new date is not valid", () => {
-      wrapper.find(BaseDateInput).setState({ visibleValue: "foo" });
-      expect(
-        wrapper
-          .find("input")
-          .findWhere((n) => n.props().type === "hidden")
-          .prop("value")
-      ).toEqual("1987-07-28");
-    });
-  });
-
-  describe.each(["disabled", "readOnly"])(
-    'when the "%s" prop is set',
-    (prop) => {
-      const validDate = "2019-04-01";
-      let onChangeFn;
-      let onFocusFn;
-      let onBlurFn;
-
-      beforeEach(() => {
-        onChangeFn = jest.fn();
-        onFocusFn = jest.fn();
-        onBlurFn = jest.fn();
-        wrapper = render({
-          [prop]: true,
-          onChange: onChangeFn,
-          onFocus: onFocusFn,
-          onBlur: onBlurFn,
-        });
-      });
-
-      afterEach(() => wrapper.unmount());
-
-      it("then onBlur prop should not have been called", () => {
-        simulateBlurOnInput(wrapper);
-        expect(onBlurFn).not.toHaveBeenCalled();
-      });
-
-      it("then onFocus prop should not have been called", () => {
-        simulateFocusOnInput(wrapper);
-        expect(onFocusFn).not.toHaveBeenCalled();
-      });
-
-      it('then the "onChange" prop should not have been called', () => {
-        simulateChangeOnInput(wrapper, validDate);
-        expect(onChangeFn).not.toHaveBeenCalled();
-      });
-
-      it("then the date picker should not open on click", () => {
-        simulateClickOnInput(wrapper);
-        expect(wrapper.find(DatePicker).exists()).toBe(false);
-        expect(onBlurFn).not.toHaveBeenCalled();
-      });
-    }
-  );
-
-  describe('when the "click" event is triggered with the DatePicker open', () => {
-    describe("on the component's input element", () => {
-      it("then the Datepicker should not be closed", () => {
-        wrapper = render({});
-        simulateFocusOnInput(wrapper);
-        expect(wrapper.find(DatePicker).exists()).toBe(true);
-        simulateClickOnInput(wrapper);
-        expect(wrapper.find(DatePicker).exists()).toBe(true);
-      });
-    });
-
-    describe.each([
-      { disabled: true, readOnly: false },
-      { disabled: false, readOnly: true },
-      { disabled: true, readOnly: true },
-    ])("The date picker", (props) => {
-      it(`does not call "openDatePicker" when disabled is ${props.disabled} and readOnly is ${props.readOnly}`, () => {
-        wrapper = render({});
-        wrapper.find(InputIconToggle).props().onClick();
-        wrapper.setProps({ ...props });
-        wrapper.update();
-        wrapper.find(DatePicker).parent().props().onClick();
-        wrapper.update();
-        expect(
-          spyOn(wrapper.find(BaseDateInput).instance(), "openDatePicker")
-        ).not.toBeCalled();
-      });
-    });
-
-    describe("on an external element", () => {
-      const nativeClickEvent = new Event("click", {
-        bubbles: true,
-        cancelable: true,
-      });
-      let domNode;
-
-      it("then the Datepicker should be closed", () => {
-        wrapper = mount(
-          <div>
-            <DateInput value="2012-12-11" />
-            <span id="external" />
-          </div>
-        );
-        domNode = wrapper.getDOMNode();
-        document.body.appendChild(domNode);
-        simulateFocusOnInput(wrapper.find(DateInput));
-        expect(wrapper.find(DatePicker).exists()).toBe(true);
-        wrapper.find("#external").getDOMNode().dispatchEvent(nativeClickEvent);
-        expect(wrapper.update().find(DatePicker).exists()).toBe(false);
-      });
-
-      afterEach(() => {
-        document.body.removeChild(domNode);
-      });
-    });
-
-    describe("controlled vs uncontrolled input", () => {
-      it("supports being used as an controlled input via passing of a value prop", () => {
-        wrapper = render({ value: "2001-02-27" });
-        expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(
-          true
-        );
-        expect(
-          wrapper.find(BaseDateInput).instance().initialVisibleValue
-        ).toEqual("27/02/2001");
-      });
-
-      it("supports being used as an uncontrolled input via passing of a defaultValue prop", () => {
-        wrapper = render({ defaultValue: "2009-02-23" });
-        expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(
-          false
-        );
-        expect(
-          wrapper.find(BaseDateInput).instance().initialVisibleValue
-        ).toEqual("23/02/2009");
-      });
-
-      it("acts as a controlled input when value and default are passed and does not throw", () => {
-        wrapper = render({ defaultValue: "2009-02-23", value: "2001-02-27" });
-        expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(
-          true
-        );
-        expect(
-          wrapper.find(BaseDateInput).instance().initialVisibleValue
-        ).toEqual("27/02/2001");
-      });
-
-      it("supports being used as an controlled input allows the value to dynamically updated at runtime", () => {
-        wrapper = render({ value: "2001-02-27" });
-        wrapper.setProps({ value: "2012-12-12" });
-        wrapper.update();
-        expect(wrapper.find(Textbox).props().value).toEqual("12/12/2012");
+      expect(eventValuesFn).toBeCalledWith({
+        formattedValue: "",
+        rawValue: "",
       });
     });
   });
@@ -823,127 +668,219 @@ describe("Date", () => {
       expect(ariaLabel).toEqual(text);
     });
   });
-});
 
-describe("disablePortal", () => {
-  it("renders DatePicker as a direct children of StyledDateInput by default", () => {
-    const wrapper = render({});
-    wrapper.find(InputIconToggle).props().onClick();
-    wrapper.update();
-    expect(wrapper.find(DatePicker).exists()).toBe(true);
-  });
-});
+  describe("validation", () => {
+    it.each(["error", "warning", "info"])(
+      "renders the icon inside the textbox if %s is passed a string value",
+      (validation) => {
+        wrapper = render({ [validation]: "foo" });
+        const validationIcon = wrapper.find(Textbox).find(ValidationIcon);
+        const { [validation]: validationProp } = validationIcon.props();
 
-describe("when the calendar icon is clicked", () => {
-  it("opens the picker, if it is not already open, and closes it on the next click", () => {
-    const wrapper = render({});
-    wrapper.find(InputIconToggle).props().onClick();
-    wrapper.update();
-    expect(wrapper.find(DatePicker).exists()).toBe(true);
-    wrapper.find(InputIconToggle).props().onClick();
-    wrapper.update();
-    expect(wrapper.find(DatePicker).exists()).toBe(false);
-  });
+        expect(validationIcon.exists()).toBe(true);
+        expect(validationProp).toEqual("foo");
+      }
+    );
 
-  it("does not close the picker when the picker onClick is called", () => {
-    const wrapper = render({});
-    wrapper.find(InputIconToggle).props().onClick();
-    wrapper.update();
-    wrapper.find(DatePicker).parent().props().onClick();
-    wrapper.update();
-    expect(wrapper.find(DatePicker).exists()).toBe(true);
-  });
-});
+    it.each(["error", "warning", "info"])(
+      "renders the icon on the label and applies border if %s if string value and validationOnLabel",
+      (validation) => {
+        wrapper = render({ [validation]: "foo" });
+        const validationIcon = wrapper.find(ValidationIcon);
+        const { [validation]: validationProp } = validationIcon.props();
 
-describe("datepicker container", () => {
-  it("should be the InputPresentationStyle element", () => {
-    const wrapper = render({});
-    wrapper.find(InputIconToggle).props().onClick();
-    wrapper.update();
-    expect(wrapper.find(DatePicker).exists()).toBe(true);
+        expect(validationIcon.exists()).toBe(true);
 
-    expect(wrapper.find(DatePicker).props().inputElement.current).toBe(
-      wrapper.find(StyledInputPresentation).getDOMNode()
+        const matchedStyle = {
+          error: "var(--colorsSemanticNegative500) !important",
+          warning: "var(--colorsSemanticCaution500) !important",
+          info: "var(--colorsSemanticInfo500) !important",
+        };
+
+        assertStyleMatch(
+          {
+            borderColor: matchedStyle[validation],
+          },
+          wrapper.find(StyledInputPresentation)
+        );
+        expect(validationProp).toEqual("foo");
+        expect(wrapper.find(Textbox).props().inputIcon).toBe("calendar");
+      }
+    );
+
+    it.each(["error", "warning", "info"])(
+      "does not render the icon if %s is passed a boolean value",
+      (validation) => {
+        wrapper = render({ [validation]: true });
+        const validationIcon = wrapper.find(ValidationIcon);
+
+        const matchedStyle = {
+          error: "var(--colorsSemanticNegative500) !important",
+          warning: "var(--colorsSemanticCaution500) !important",
+          info: "var(--colorsSemanticInfo500) !important",
+        };
+
+        expect(validationIcon.exists()).toBe(false);
+        expect(wrapper.find(Textbox).props().inputIcon).toBe("calendar");
+        assertStyleMatch(
+          {
+            borderColor: matchedStyle[validation],
+          },
+          wrapper.find(StyledInputPresentation)
+        );
+      }
     );
   });
-});
 
-describe("required", () => {
-  let wrapper;
-  let inputs;
+  describe("disablePortal", () => {
+    it("renders DatePicker as a direct children of StyledDateInput by default", () => {
+      wrapper = render();
+      act(() => {
+        wrapper.find(InputIconToggle).props().onMouseDown({ target: {} });
+      });
 
-  beforeAll(() => {
-    wrapper = render({ label: "required", required: true });
-    inputs = wrapper.find("input");
+      expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+    });
   });
 
-  it("the required prop is passed to the input", () => {
-    expect(inputs.at(0).prop("required")).toBe(true);
+  describe("datepicker container", () => {
+    it("should be the InputPresentationStyle element", () => {
+      wrapper = render();
+      act(() => {
+        wrapper.find(InputIconToggle).props().onMouseDown({ target: {} });
+      });
+
+      expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+      expect(wrapper.find(DatePicker).props().inputElement.current).toBe(
+        wrapper.find(StyledInputPresentation).getDOMNode()
+      );
+    });
   });
 
-  it("the required prop not passed to the hidden input", () => {
-    expect(inputs.at(1).prop("required")).toBe(undefined);
-  });
+  describe("required", () => {
+    let input;
+    let label;
 
-  it("the isRequired prop is passed to the label", () => {
-    const label = wrapper.find(Label);
-    expect(label.prop("isRequired")).toBe(true);
+    beforeAll(() => {
+      wrapper = render({ label: "required", required: true });
+      input = wrapper.find("input");
+      label = wrapper.find(Label);
+    });
+
+    it("the required prop is passed to the input", () => {
+      expect(input.prop("required")).toBe(true);
+    });
+
+    it("the isRequired prop is passed to the label", () => {
+      expect(label.prop("isRequired")).toBe(true);
+    });
   });
 });
 
 function render(props = {}) {
-  return mount(<DateInput {...props} />, {
+  return mount(<DateInput value="" onChange={() => {}} {...props} />, {
     attachTo: document.getElementById("enzymeContainer"),
   });
 }
 
-function getFormattedDate(date) {
-  return date.format(defaultDateFormat);
+function simulateFocusOnInput(wrapper) {
+  const input = wrapper.find("input");
+
+  act(() => {
+    input.simulate("focus");
+  });
 }
 
-function simulateFocusOnInput(container) {
-  const input = container
-    .find("input")
-    .findWhere((n) => n.props().type !== "hidden");
+function simulateBlurOnInput(wrapper) {
+  const input = wrapper.find("input");
 
-  input.simulate("focus");
+  act(() => {
+    input.simulate("blur");
+  });
 }
 
-function simulateBlurOnInput(container) {
-  const input = container
-    .find("input")
-    .findWhere((n) => n.props().type !== "hidden");
-
-  input.simulate("blur");
-}
-
-function simulateChangeOnInput(container, value) {
-  const input = container
-    .find("input")
-    .findWhere((n) => n.props().type !== "hidden");
-
-  input.instance().value = value;
-  input.simulate("change");
-}
-
-function simulateClickOnInput(container) {
-  const input = container
-    .find("input")
-    .findWhere((n) => n.props().type !== "hidden");
+function simulateClickOnInput(wrapper) {
+  const input = wrapper.find("input");
   const mockEvent = {
     nativeEvent: {
       stopImmediatePropagation: () => {},
     },
   };
 
-  input.simulate("click", mockEvent);
+  act(() => {
+    input.simulate("click", mockEvent);
+  });
 }
 
-function simulateOnKeyDown(container, key) {
-  const keyDownParams = { which: key };
-  const input = container
-    .find("input")
-    .findWhere((n) => n.props().type !== "hidden");
+function simulateMouseDownOnInput(wrapper) {
+  const input = wrapper.find("input");
+  const mockEvent = {
+    nativeEvent: {
+      stopImmediatePropagation: () => {},
+    },
+  };
 
-  input.simulate("keyDown", keyDownParams);
+  act(() => {
+    input.simulate("mousedown", mockEvent);
+  });
+}
+
+function simulateMouseDownOnPicker(wrapper) {
+  const input = wrapper.find(StyledDayPicker);
+  const mockEvent = {
+    nativeEvent: {
+      stopImmediatePropagation: () => {},
+    },
+  };
+
+  act(() => {
+    input.simulate("mousedown", mockEvent);
+  });
+}
+
+function simulateOnKeyDown(wrapper, key) {
+  const keyDownParams = { which: key };
+  const input = wrapper.find("input");
+
+  act(() => {
+    input.simulate("keyDown", keyDownParams);
+  });
+}
+
+function simulateClickOnInputIcon(wrapper) {
+  const input = wrapper.find(InputIconToggle);
+  const mockEvent = {
+    nativeEvent: {
+      stopImmediatePropagation: () => {},
+    },
+  };
+
+  act(() => {
+    input.simulate("click", mockEvent);
+  });
+}
+
+function simulateMouseDownOnInputIcon(wrapper) {
+  const input = wrapper.find(InputIconToggle);
+  const mockEvent = {
+    nativeEvent: {
+      stopImmediatePropagation: () => {},
+    },
+  };
+
+  act(() => {
+    input.simulate("mousedown", mockEvent);
+  });
+}
+
+function getValidInputValues(values) {
+  return values.reduce(
+    (arr, formatString) => [
+      ...arr,
+      ...["", ".", ",", "-", "/"].map((char) =>
+        formatString.replace(/ /g, char)
+      ),
+    ],
+    []
+  );
 }

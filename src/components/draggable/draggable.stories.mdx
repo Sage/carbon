@@ -1,4 +1,5 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import { DraggableContainer, DraggableItem } from ".";
@@ -85,7 +86,29 @@ import {
 ### With getOrder callback
 
 <Canvas>
-  <Story name="with getOrder callback" id="draggable-test--default" />
+  <Story name="with getOrder callback">
+    {() => {
+      const handleUpdate = (items) => {
+        action("onUpdate")(items);
+      };
+      return (
+        <DraggableContainer getOrder={handleUpdate}>
+          <DraggableItem key="1" id={1}>
+            <Checkbox label="Draggable Label One" />
+          </DraggableItem>
+          <DraggableItem key="2" id={2}>
+            <Checkbox label="Draggable Label Two" />
+          </DraggableItem>
+          <DraggableItem key="3" id={3}>
+            <Checkbox label="Draggable Label Three" />
+          </DraggableItem>
+          <DraggableItem key="4" id={4}>
+            <Checkbox label="Draggable Label Four" />
+          </DraggableItem>
+        </DraggableContainer>
+      );
+    }}
+  </Story>
 </Canvas>
 
 ## Props

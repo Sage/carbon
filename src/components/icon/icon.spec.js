@@ -400,6 +400,16 @@ describe("Icon component", () => {
       expect(wrapper.find(Tooltip).props().position).toBe("top");
     });
 
+    it("tooltips visibility can be overriden by context", () => {
+      const wrapper = mount(
+        <TooltipProvider tooltipVisible>
+          <Icon tooltipMessage="foo" type="home" tooltipVisible={false} />
+        </TooltipProvider>
+      );
+
+      expect(wrapper.find(Tooltip).props().isVisible).toBe(true);
+    });
+
     it("supports being controlled via tooltipVisible prop", () => {
       const wrapper = mount(
         <Icon type="home" tooltipMessage="foo" tooltipVisible />

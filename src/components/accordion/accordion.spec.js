@@ -8,7 +8,6 @@ import {
   testStyledSystemSpacing,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import baseTheme from "../../style/themes/base";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Textbox from "../textbox";
 import { Accordion } from ".";
@@ -300,8 +299,8 @@ describe("Accordion", () => {
     it("renders accordion with white background and top/bottom borders by default", () => {
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.colors.white,
-          border: `1px solid ${baseTheme.accordion.border}`,
+          backgroundColor: "var(--colorsUtilityYang100)",
+          border: "1px solid var(--colorsUtilityMajor100)",
           borderLeft: "none",
           borderRight: "none",
         },
@@ -313,8 +312,8 @@ describe("Accordion", () => {
       render({ scheme: "transparent" });
       assertStyleMatch(
         {
-          backgroundColor: "transparent",
-          border: `1px solid ${baseTheme.accordion.border}`,
+          backgroundColor: "var(--colorsUtilityMajorTransparent)",
+          border: "1px solid var(--colorsUtilityMajor100)",
           borderLeft: "none",
           borderRight: "none",
         },
@@ -326,7 +325,7 @@ describe("Accordion", () => {
       render({ borders: "full" });
       assertStyleMatch(
         {
-          border: `1px solid ${baseTheme.accordion.border}`,
+          border: "1px solid var(--colorsUtilityMajor100)",
         },
         wrapper.find(StyledAccordionContainer)
       );
@@ -392,7 +391,7 @@ describe("Accordion", () => {
       render({ size: "large" });
       assertStyleMatch(
         {
-          padding: "24px",
+          padding: "var(--spacing300)",
         },
         wrapper.find(StyledAccordionTitleContainer)
       );
@@ -481,9 +480,9 @@ describe("Accordion", () => {
           boxSizing: "border-box",
           fontWeight: "600",
           textDecoration: "none",
-          fontSize: baseTheme.text.size,
-          minHeight: `${baseTheme.spacing * 5}px`,
-          color: baseTheme.colors.primary,
+          fontSize: "var(--fontSizes100)",
+          minHeight: "var(--spacing500)",
+          color: "var(--colorsActionMajor500)",
           width: "150px",
         },
         wrapper
@@ -491,7 +490,7 @@ describe("Accordion", () => {
 
       assertStyleMatch(
         {
-          color: baseTheme.colors.primary,
+          color: "var(--colorsActionMajor500)",
         },
         wrapper,
         { modifier: `${StyledAccordionIcon}` }
@@ -499,7 +498,7 @@ describe("Accordion", () => {
 
       assertStyleMatch(
         {
-          color: baseTheme.colors.secondary,
+          color: "var(--colorsActionMajor600)",
         },
         wrapper,
         { modifier: "&:hover" }
@@ -507,7 +506,7 @@ describe("Accordion", () => {
 
       assertStyleMatch(
         {
-          color: baseTheme.colors.secondary,
+          color: "var(--colorsActionMajor600)",
         },
         wrapper,
         { modifier: `&:hover ${StyledAccordionIcon}` }
