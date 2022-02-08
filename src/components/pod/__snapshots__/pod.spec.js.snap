@@ -85,7 +85,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c7.c7 > a .c2,
@@ -93,7 +93,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c8.c8 > a .c2,
@@ -101,12 +101,12 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c8.c8 > a .c2,
 .c8.c8 button .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c9.c9 > a .c2,
@@ -114,12 +114,12 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c9.c9 > a .c2,
 .c9.c9 button .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c10.c10 > a .c2,
@@ -127,7 +127,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c11.c11 > a .c2,
@@ -135,7 +135,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c12.c12 > a .c2,
@@ -143,12 +143,12 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c12.c12 > a .c2,
 .c12.c12 button .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c13.c13 > a .c2,
@@ -156,7 +156,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c14.c14 > a .c2,
@@ -164,7 +164,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c15.c15 > a .c2,
@@ -172,7 +172,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c16.c16 > a .c2,
@@ -180,7 +180,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c17.c17 > a .c2,
@@ -188,7 +188,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c18.c18 > a .c2,
@@ -196,7 +196,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c19.c19 > a .c2,
@@ -204,7 +204,7 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c20.c20 > a .c2,
@@ -212,94 +212,94 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c20.c20 > a .c2,
 .c20.c20 button .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c21.c21 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c22.c22 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c22.c22 .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c23.c23 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c23.c23 .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c1.c1 {
   cursor: pointer;
-  border: 1px solid #CCD6DB;
+  border: 1px solid var(--colorsActionMinor200);
   margin-left: 8px;
   margin-bottom: 8px;
   box-sizing: content-box;
   width: 16px;
   height: 16px;
   padding: px;
-  background-color: #9F2D3F;
-  color: #FFFFFF;
+  background-color: var(--colorsSemanticNegative600);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c1.c1 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c1.c1 .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c24.c24 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c25.c25 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c25.c25 .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c26.c26 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c26.c26 .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c27 .c2 {
@@ -418,15 +418,15 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
 .c1.c1 > a,
 .c1.c1 button {
   cursor: pointer;
-  border: 1px solid #CCD6DB;
+  border: 1px solid var(--colorsActionMinor200);
   margin-left: 8px;
   margin-bottom: 8px;
   box-sizing: content-box;
   width: 16px;
   height: 16px;
   padding: px;
-  background-color: #006300;
-  color: #FFFFFF;
+  background-color: var(--colorsActionMajor600);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c1.c1 > a .c9,
@@ -434,12 +434,12 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c1.c1 > a .c9,
 .c1.c1 button .c9 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c1 .c2 {
@@ -549,7 +549,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c7.c7 > a .c2,
@@ -557,7 +557,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c8.c8 > a .c2,
@@ -565,12 +565,12 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c8.c8 > a .c2,
 .c8.c8 button .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c9.c9 > a .c2,
@@ -578,12 +578,12 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c9.c9 > a .c2,
 .c9.c9 button .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c10.c10 > a .c2,
@@ -591,7 +591,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c11.c11 > a .c2,
@@ -599,7 +599,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c12.c12 > a .c2,
@@ -607,12 +607,12 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c12.c12 > a .c2,
 .c12.c12 button .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c13.c13 > a .c2,
@@ -620,7 +620,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c14.c14 > a .c2,
@@ -628,7 +628,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c15.c15 > a .c2,
@@ -636,7 +636,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c16.c16 > a .c2,
@@ -644,7 +644,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c17.c17 > a .c2,
@@ -652,7 +652,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c18.c18 > a .c2,
@@ -660,7 +660,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c19.c19 > a .c2,
@@ -668,7 +668,7 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c20.c20 > a .c2,
@@ -676,154 +676,154 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c20.c20 > a .c2,
 .c20.c20 button .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c21.c21 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c22.c22 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c22.c22 .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c23.c23 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c23.c23 .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c24.c24 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c24.c24 .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c25.c25 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c26.c26 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c27.c27 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c28.c28 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c29.c29 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c30.c30 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c31.c31 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #C7384F;
+  color: var(--colorsSemanticNegative500);
 }
 
 .c32.c32 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c33.c33 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c33.c33 .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c34.c34 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c34.c34 .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c1.c1 {
   cursor: pointer;
-  border: 1px solid #CCD6DB;
+  border: 1px solid var(--colorsActionMinor200);
   margin-left: 8px;
   margin-bottom: 8px;
   box-sizing: content-box;
   width: 16px;
   height: 16px;
   padding: px;
-  background-color: #006300;
-  color: #FFFFFF;
+  background-color: var(--colorsActionMajor600);
+  color: var(--colorsActionMajorYang100);
 }
 
 .c1.c1 .c2 {
   top: -2px;
   height: 16px;
   width: 16px;
-  color: #008200;
+  color: var(--colorsActionMajor500);
 }
 
 .c1.c1 .c2 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c35 .c2 {
@@ -894,7 +894,7 @@ exports[`StyledBlock should match expected styles 1`] = `
   flex-direction: column;
   width: 100%;
   height: 100%;
-  border: 1px solid #CCD6DB;
+  border: 1px solid var(--colorsUtilityMajor100);
   outline: none;
 }
 
@@ -905,9 +905,9 @@ exports[`StyledBlock should match expected styles 1`] = `
 
 exports[`StyledFooter should match expected styles 1`] = `
 .c0 {
-  background-color: #F2F5F6;
+  background-color: var(--colorsUtilityMajor025);
   box-shadow: inset 0px 1px 1px 0 rgba(0,0,0,0.1);
-  color: rgba(0,0,0,0.9);
+  color: var(--colorsUtilityYin090);
 }
 
 <div
