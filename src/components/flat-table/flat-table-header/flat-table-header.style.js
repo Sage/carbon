@@ -1,8 +1,6 @@
 import styled, { css } from "styled-components";
 import { padding } from "styled-system";
 
-import baseTheme from "../../../style/themes/base";
-
 const verticalBorderSizes = {
   small: "1px",
   medium: "2px",
@@ -13,7 +11,6 @@ const StyledFlatTableHeader = styled.th`
   ${({
     align,
     alternativeBgColor,
-    theme,
     colWidth,
     leftPosition,
     makeCellSticky,
@@ -60,9 +57,13 @@ const StyledFlatTableHeader = styled.th`
     ${
       alternativeBgColor &&
       css`
-      &&& {
-        background-color: ${theme.flatTable.headerAlternativeBackground}`
-    }
+        &&&:first-child {
+          border-left: 1px solid var(--colorsActionMinor550);
+        }
+        &&& {
+          background-color: var(--colorsActionMinor550);
+        }
+      `
     };
 
     ${
@@ -104,9 +105,5 @@ const StyledFlatTableHeader = styled.th`
     }
   `}
 `;
-
-StyledFlatTableHeader.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledFlatTableHeader;
