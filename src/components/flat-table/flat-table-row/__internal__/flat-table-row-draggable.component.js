@@ -4,8 +4,10 @@ import PropTypes from "prop-types";
 
 const FlatTableRowDraggable = ({ children, id, findItem, moveItem }) => {
   const originalIndex = findItem(id).index;
+
   const [{ isDragging }, drag] = useDrag({
-    item: { type: "flatTableRow", id, originalIndex },
+    type: "flatTableRow",
+    item: { id, originalIndex },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -30,6 +32,7 @@ const FlatTableRowDraggable = ({ children, id, findItem, moveItem }) => {
   });
 
   return React.cloneElement(children, {
+    key: originalIndex,
     id,
     isDragging,
     ref: (node) => drag(drop(node)),
