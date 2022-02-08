@@ -10,7 +10,6 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import baseTheme from "../../style/themes/base";
 import ProgressBar from "./progress-tracker.component";
 
 describe("ProgressBar", () => {
@@ -43,9 +42,9 @@ describe("ProgressBar", () => {
     it("renders inner bar as expected", () => {
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.progressTracker.innerBackground,
+          backgroundColor: "var(--colorsSemanticNeutral500)",
           width: "calc(256px * 0.5)",
-          height: "8px",
+          height: "var(--sizing100)",
         },
         wrapper.find(InnerBar)
       );
@@ -70,9 +69,9 @@ describe("ProgressBar", () => {
       it("renders inner bar as expected", () => {
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.progressTracker.innerBackground,
+            backgroundColor: "var(--colorsSemanticNeutral500)",
             height: "calc(256px * 0.5)",
-            width: "8px",
+            width: "var(--sizing100)",
           },
           wrapper.find(InnerBar)
         );
@@ -93,7 +92,7 @@ describe("ProgressBar", () => {
       assertStyleMatch(
         {
           width: "calc(256px * 0.5)",
-          height: "4px",
+          height: "var(--sizing050)",
         },
         wrapper.find(InnerBar)
       );
@@ -118,9 +117,9 @@ describe("ProgressBar", () => {
       it("renders inner bar as expected", () => {
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.progressTracker.innerBackground,
+            backgroundColor: "var(--colorsSemanticNeutral500)",
             height: "calc(256px * 0.5)",
-            width: "4px",
+            width: "var(--sizing050)",
           },
           wrapper.find(InnerBar)
         );
@@ -137,7 +136,7 @@ describe("ProgressBar", () => {
       assertStyleMatch(
         {
           width: "100%",
-          height: "16px",
+          height: "var(--sizing200)",
         },
         wrapper.find(StyledProgressBar)
       );
@@ -147,7 +146,7 @@ describe("ProgressBar", () => {
       assertStyleMatch(
         {
           width: "calc(256px * 0.5)",
-          height: "16px",
+          height: "var(--sizing200)",
         },
         wrapper.find(InnerBar)
       );
@@ -172,9 +171,9 @@ describe("ProgressBar", () => {
       it("renders inner bar as expected", () => {
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.progressTracker.innerBackground,
+            backgroundColor: "var(--colorsSemanticNeutral500)",
             height: "calc(256px * 0.5)",
-            width: "16px",
+            width: "var(--sizing200)",
           },
           wrapper.find(InnerBar)
         );
@@ -242,7 +241,7 @@ describe("ProgressBar", () => {
             assertStyleMatch(
               {
                 overflowY: "hidden",
-                width: "8px",
+                width: "var(--sizing100)",
                 height: "100%",
                 alignItems: direction === "up" ? "flex-end" : undefined,
               },
@@ -379,53 +378,58 @@ describe("ProgressBar", () => {
     );
   });
 
-  describe.each(["horizontal", "vertical"])("variant prop", (orientation) => {
-    it("applies proper background color when progress < 20 when orientation is %s", () => {
+  describe.each(["horizontal", "vertical"])("progress color", (orientation) => {
+    it("applies the correct background colour when it is in progress", () => {
+      wrapper = mount(<ProgressBar orientation={orientation} progress={50} />);
+      assertStyleMatch(
+        {
+          backgroundColor: "var(--colorsSemanticNeutral500)",
+        },
+        wrapper.find(InnerBar)
+      );
+    });
+
+    it("applies proper background color when the progress is equal to 100", () => {
+      wrapper = mount(<ProgressBar orientation={orientation} progress={100} />);
+      assertStyleMatch(
+        {
+          backgroundColor: "var(--colorsSemanticPositive500)",
+        },
+        wrapper.find(InnerBar)
+      );
+    });
+  });
+
+  describe("Accessibility", () => {
+    beforeEach(() => {
       wrapper = mount(
         <ProgressBar
-          orientation={orientation}
           progress={10}
-          variant="traffic"
+          aria-label="FooBar"
+          aria-describedby="Foo"
+          aria-valuemin={0}
+          aria-valuenow={10}
+          aria-valuemax={100}
+          aria-valuetext="Bar"
         />
-      );
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.colors.error,
-        },
-        wrapper.find(InnerBar)
       );
     });
 
-    it("applies proper background color when 20 < progress < 100", () => {
-      wrapper = mount(
-        <ProgressBar
-          orientation={orientation}
-          progress={50}
-          variant="traffic"
-        />
-      );
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.progressTracker.trafficNeutral,
-        },
-        wrapper.find(InnerBar)
-      );
+    it("should allow an aria-label prop to be passed to the component", () => {
+      expect(wrapper.prop("aria-label")).toBe("FooBar");
     });
 
-    it("applies proper background color when 20 < progress < 100", () => {
-      wrapper = mount(
-        <ProgressBar
-          orientation={orientation}
-          progress={100}
-          variant="traffic"
-        />
-      );
-      assertStyleMatch(
-        {
-          backgroundColor: baseTheme.colors.success,
-        },
-        wrapper.find(InnerBar)
-      );
+    it("should allow an aria-describedby prop to be passed to the component", () => {
+      expect(wrapper.prop("aria-describedby")).toBe("Foo");
+    });
+
+    it.each([
+      ["aria-valuemin", 0],
+      ["aria-valuenow", 10],
+      ["aria-valuemax", 100],
+      ["aria-valuetext", "Bar"],
+    ])("should allow a value to be passed to %s ", (prop, value) => {
+      expect(wrapper.prop(prop)).toBe(value);
     });
   });
 });

@@ -181,7 +181,7 @@ describe("Label", () => {
 
       assertStyleMatch(
         {
-          color: "var(--colorsYin030)",
+          color: "var(--colorsUtilityYin030)",
         },
         wrapper.find(StyledLabel)
       );
@@ -194,7 +194,7 @@ describe("Label", () => {
 
       assertStyleMatch(
         {
-          color: "var(--colorsYin030)",
+          color: "var(--colorsUtilityYin030)",
         },
         wrapper.find(StyledLabel)
       );

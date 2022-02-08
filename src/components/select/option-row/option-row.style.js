@@ -1,19 +1,18 @@
 import styled, { css } from "styled-components";
-import baseTheme from "../../../style/themes/base";
 
 const StyledOptionRow = styled.tr`
   cursor: pointer;
 
   ${({ hidden }) => hidden && "display: none;"}
 
-  ${({ isHighlighted, theme }) =>
+  ${({ isHighlighted }) =>
     isHighlighted &&
     css`
-      background-color: ${theme.select.selected};
+      background-color: var(--colorsUtilityMajor200);
     `}
 
   :hover {
-    background-color: ${({ theme }) => theme.select.selected};
+    background-color: var(--colorsUtilityMajor200);
   }
 
   td {
@@ -25,9 +24,5 @@ const StyledOptionRow = styled.tr`
     }
   }
 `;
-
-StyledOptionRow.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledOptionRow;

@@ -1,9 +1,6 @@
 import React from "react";
 import ProgressTracker from ".";
-import {
-  PROGRESS_TRACKER_SIZES,
-  PROGRESS_TRACKER_VARIANTS,
-} from "./progress-tracker.config";
+import { PROGRESS_TRACKER_SIZES } from "./progress-tracker.config";
 
 export default {
   component: ProgressTracker,
@@ -34,12 +31,6 @@ export default {
     },
     maxProgressLabel: {
       options: ["", "$200", "200ml"],
-      control: {
-        type: "select",
-      },
-    },
-    variant: {
-      options: PROGRESS_TRACKER_VARIANTS,
       control: {
         type: "select",
       },

@@ -14,6 +14,7 @@ import {
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledIcon from "../icon/icon.style";
 import { BUTTON_VARIANTS } from "./button.config";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 const render = (props, renderer = shallow) => {
   return renderer(<Button {...props} />);
@@ -29,6 +30,45 @@ const variants = [
 const sizesPadding = { small: "16px", medium: "24px", large: "32px" };
 const sizesHeights = { small: "32px", medium: "40px", large: "48px" };
 describe("Button", () => {
+  describe("refs", () => {
+    it("accepts ref as a ref object", () => {
+      const ref = { current: undefined };
+
+      const wrapper = mount(<Button forwardRef={ref}>Button</Button>);
+
+      wrapper.update();
+
+      expect(ref.current).toBe(wrapper.find(StyledButton).getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      const wrapper = mount(<Button forwardRef={ref}>Button</Button>);
+
+      wrapper.update();
+
+      expect(ref).toHaveBeenCalledWith(wrapper.find(StyledButton).getDOMNode());
+    });
+  });
+
+  describe("tooltip", () => {
+    it("renders TooltipProvider with correct props", () => {
+      const wrapper = mount(
+        <Button
+          iconType="bin"
+          iconTooltipMessage="This is a tooltip"
+          aria-label="Delete"
+        />
+      );
+
+      const props = wrapper.find(TooltipProvider).props();
+
+      expect(props.disabled).toBe(false);
+      expect(props.focusable).toBe(false);
+      expect(props.target).toBe(wrapper.find(StyledButton).getDOMNode());
+    });
+  });
+
   describe("when no props other than children are passed into the component", () => {
     it("renders the default props and children", () => {
       const wrapper = render({ children: "foo" });

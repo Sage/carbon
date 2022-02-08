@@ -263,9 +263,14 @@ export interface ThemeObject {
       background: string;
       borderBottom: string;
     };
-
     dark: {
       background: string;
+      borderBottom: string;
+    };
+    black: {
+      background: string;
+    };
+    white: {
       borderBottom: string;
     };
   };

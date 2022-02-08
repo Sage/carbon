@@ -1,5 +1,5 @@
 import Locale from ".";
 
-declare const PlPl: Omit<Locale, "date">;
+declare const PlPl: Locale;
 
 export default PlPl;

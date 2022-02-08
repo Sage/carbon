@@ -205,15 +205,10 @@ describe("SplitButton", () => {
     });
 
     it("has the expected style", () => {
-      const themeColors = {
-        mint: "#006046",
-        aegean: "#005C9A",
-      };
-
       assertStyleMatch(
         {
-          backgroundColor: themeColors[name],
-          border: `1px solid ${themeColors[name]}`,
+          backgroundColor: "var(--colorsActionMajorYang100)",
+          border: `1px solid var(--colorsActionMajorTransparent)`,
         },
         themedWrapper,
         { modifier: `${StyledButton}` }
@@ -221,15 +216,10 @@ describe("SplitButton", () => {
     });
 
     it('matches the expected style for the focused "additional button"', () => {
-      const themeColors = {
-        mint: "#00402E",
-        aegean: "#004472",
-      };
-
       themedWrapper.find("button").simulate("focus");
       assertStyleMatch(
         {
-          backgroundColor: themeColors[name],
+          backgroundColor: "var(--colorsActionMajor600)",
         },
         themedWrapper,
         { modifier: `${StyledButton}:focus` }
@@ -254,7 +244,7 @@ describe("SplitButton", () => {
         wrapper = renderWithTheme(mockProps, singleButton, mount);
         assertStyleMatch(
           {
-            borderLeftColor: theme.colors.secondary,
+            position: "relative",
           },
           wrapper.find(StyledSplitButtonToggle)
         );

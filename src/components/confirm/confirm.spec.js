@@ -1,15 +1,20 @@
 import React from "react";
 import { mount } from "enzyme";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import guid from "../../__internal__/utils/helpers/guid/guid.js";
 import Confirm from "./confirm.component";
 import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";
 import Button from "../button/button.component";
 import { baseTheme, mintTheme } from "../../style/themes";
 import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
+import Heading from "../heading";
 import Loader from "../loader";
 import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
+
+jest.mock("../../__internal__/utils/helpers/guid/guid.js");
+guid.mockImplementation(() => "guid-123");
 
 const buttonTypes = [
   "primary",
@@ -149,21 +154,6 @@ describe("Confirm", () => {
       });
     });
 
-    describe("if `cancelButtonType` is tertiary", () => {
-      it("should render confirm button with left margin 3px", () => {
-        wrapper = mount(
-          <Confirm cancelButtonType="tertiary" onConfirm={() => {}} open />
-        );
-
-        assertStyleMatch(
-          {
-            marginLeft: "3px",
-          },
-          wrapper.find('[data-element="confirm"]')
-        );
-      });
-    });
-
     it("should not render IconButton if `disableCancel` is provided", () => {
       wrapper = mount(
         <Confirm
@@ -224,6 +214,56 @@ describe("Confirm", () => {
 
         expect(deleteButton.hostNodes().text()).toEqual("Delete");
         expect(cancelButton.hostNodes().text()).toEqual("Cancel");
+      });
+    });
+  });
+
+  describe("when iconType is supplied", () => {
+    describe("when title is supplied", () => {
+      it("then container's aria-labelledby attribute is set with title's id", () => {
+        wrapper = mount(
+          <Confirm
+            open
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+            iconType="warning"
+            title="foo"
+          />
+        );
+
+        const titleId = wrapper.find(Heading).prop("titleId");
+        expect(titleId).toBe("guid-123");
+
+        expect(
+          wrapper
+            .find("[data-element='dialog']")
+            .first()
+            .prop("aria-labelledby")
+        ).toBe("guid-123");
+      });
+    });
+
+    describe("when subtitle is supplied", () => {
+      it("then container's aria-describedby attribute is set with subtitle's id", () => {
+        wrapper = mount(
+          <Confirm
+            open
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+            iconType="warning"
+            subtitle="baz"
+          />
+        );
+
+        const subtitleId = wrapper.find(Heading).prop("subtitleId");
+        expect(subtitleId).toBe("guid-123");
+
+        expect(
+          wrapper
+            .find("[data-element='dialog']")
+            .first()
+            .prop("aria-describedby")
+        ).toBe("guid-123");
       });
     });
   });
