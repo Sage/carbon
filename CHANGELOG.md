@@ -1,3 +1,15 @@
+### [104.7.2](https://github.com/Sage/carbon/compare/v104.7.1...v104.7.2) (2022-02-08)
+
+
+### Bug Fixes
+
+* **accessibility:** fix incorrect aria-describedby on input ([c03fdef](https://github.com/Sage/carbon/commit/c03fdef9e9bc224c924d132a1be1f827c7cf0611)), closes [#4689](https://github.com/Sage/carbon/issues/4689)
+
+
+### Reverts
+
+* Revert "fix(radio-button, label): when help prop is provided, pass input context values to children" ([b7a9064](https://github.com/Sage/carbon/commit/b7a90647d6479d72c9eb0463dbcf6cc5c246fff1)), closes [#4725](https://github.com/Sage/carbon/issues/4725)
+
 ### [104.7.1](https://github.com/Sage/carbon/compare/v104.7.0...v104.7.1) (2022-02-08)
 
 
