@@ -84,7 +84,7 @@ const Textarea = ({
 
   const {
     labelId,
-    tooltipId,
+    validationIconId,
     fieldHelpId,
     ariaDescribedBy,
     ariaLabelledBy,
@@ -94,7 +94,6 @@ const Textarea = ({
     warning,
     info,
     label,
-    labelHelp,
     fieldHelp,
   });
 
@@ -164,7 +163,6 @@ const Textarea = ({
             labelWidth={labelWidth}
             labelHelp={labelHelp}
             labelSpacing={labelSpacing}
-            tooltipId={tooltipId}
             isRequired={props.required}
             useValidationIcon={validationOnLabel}
             adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
@@ -213,6 +211,7 @@ const Textarea = ({
                 error={error}
                 warning={warning}
                 info={info}
+                validationIconId={validationIconId}
                 useValidationIcon={!validationOnLabel}
               />
             </InputPresentation>
