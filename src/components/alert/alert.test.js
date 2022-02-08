@@ -1,8 +1,8 @@
 import * as React from "react";
-import { mount } from "@cypress/react";
 import PropTypes from "prop-types";
 import Alert from ".";
 import Button from "../button/button.component";
+import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 import {
   alertChildren,
@@ -59,7 +59,9 @@ context("Testing Alert component", () => {
     it.each(specialCharacters)(
       "should render Alert component with %s as a title",
       (titleValue) => {
-        mount(<AlertComponent title={titleValue}>Alert</AlertComponent>);
+        CypressMountWithProviders(
+          <AlertComponent title={titleValue}>Alert</AlertComponent>
+        );
 
         dialogTitle().should("have.text", titleValue);
       }
@@ -68,7 +70,7 @@ context("Testing Alert component", () => {
     it.each(specialCharacters)(
       "should render Alert component with %s as a subtitle",
       (subtitleValue) => {
-        mount(
+        CypressMountWithProviders(
           <AlertComponent title="title" subtitle={subtitleValue}>
             Alert
           </AlertComponent>
@@ -81,14 +83,16 @@ context("Testing Alert component", () => {
     it.each(specialCharacters)(
       "should render Alert component with %s as a children",
       (childrenValue) => {
-        mount(<AlertComponent title="title">{childrenValue}</AlertComponent>);
+        CypressMountWithProviders(
+          <AlertComponent title="title">{childrenValue}</AlertComponent>
+        );
 
         alertChildren().should("have.text", childrenValue);
       }
     );
 
     it("should render Alert with disabledEscKey prop and not be closed after click on close button", () => {
-      mount(
+      CypressMountWithProviders(
         <AlertComponent title="title" disableEscKey>
           Alert
         </AlertComponent>
@@ -100,7 +104,9 @@ context("Testing Alert component", () => {
     });
 
     it("should render Alert and could be closed after click on close button", () => {
-      mount(<AlertComponent title="title">Alert</AlertComponent>);
+      CypressMountWithProviders(
+        <AlertComponent title="title">Alert</AlertComponent>
+      );
 
       closeIconButton().click();
       alertDataComponent().should("have.attr", "data-state", "closed");
@@ -110,7 +116,7 @@ context("Testing Alert component", () => {
     it.each([250, 500, 650])(
       "should render Alert component with %s as a height parameter",
       (height) => {
-        mount(
+        CypressMountWithProviders(
           <AlertComponent title="title" height={`${height}px`}>
             Alert
           </AlertComponent>
@@ -134,7 +140,7 @@ context("Testing Alert component", () => {
     it.each(sizes)(
       "should render Alert component with %s as a size and has width property set to %s",
       (size, width) => {
-        mount(
+        CypressMountWithProviders(
           <AlertComponent title="title" size={size}>
             Alert
           </AlertComponent>
@@ -149,7 +155,9 @@ context("Testing Alert component", () => {
     it("should call cancel event", () => {
       const callback = cy.stub();
 
-      mount(<AlertComponent title="title" onCancel={callback} />);
+      CypressMountWithProviders(
+        <AlertComponent title="title" onCancel={callback} />
+      );
 
       closeIconButton()
         .click()

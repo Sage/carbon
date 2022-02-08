@@ -1,12 +1,10 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
-import { ThemeProvider } from "styled-components";
 import ReactDOM from "react-dom";
 import Portal from "./portal";
 import Icon from "../icon";
 import Browser from "../../__internal__/utils/helpers/browser";
-import * as TokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
-import { mintTheme } from "../../style/themes";
+import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
 
@@ -270,7 +268,7 @@ describe("Portal", () => {
     });
 
     it("created one portal", () => {
-      expect(document.body.querySelectorAll("div").length).toBe(1);
+      expect(document.body.querySelectorAll("div#abc").length).toBe(1);
     });
 
     it("created two spans", () => {
@@ -279,46 +277,18 @@ describe("Portal", () => {
   });
 
   describe("Design tokens", () => {
-    const tokenClass = "tokenClass";
-    let spy;
-
-    beforeEach(() => {
-      spy = spyOn(TokensProvider, "tokensClassName").and.returnValue(
-        tokenClass
-      );
-    });
-
-    it("will have proper tokens className", () => {
-      mount(
+    it("wraps content with CarbonScopedTokensProvider", () => {
+      wrapper = mount(
         <Portal>
-          <span>Hello there</span>
-        </Portal>
-      );
-      const portalElement = document.body.querySelector(`.carbon-portal`);
-
-      expect(portalElement.classList.contains(tokenClass)).toBe(true);
-    });
-
-    it("will use theme name if theme is set", () => {
-      mount(
-        <ThemeProvider theme={mintTheme}>
-          <Portal>
-            <span>Hello there</span>
-          </Portal>
-        </ThemeProvider>
-      );
-
-      expect(spy).toBeCalledWith("mint");
-    });
-
-    it("will not use empty string if theme is not set", () => {
-      mount(
-        <Portal>
-          <span>Hello there</span>
+          <div id="test" />
         </Portal>
       );
 
-      expect(spy).toBeCalledWith("");
+      const carbonScopedTokensProvider = wrapper.find(
+        CarbonScopedTokensProvider
+      );
+
+      expect(carbonScopedTokensProvider.find("#test").exists()).toBe(true);
     });
   });
 });

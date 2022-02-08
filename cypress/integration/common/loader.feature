@@ -24,7 +24,7 @@ Feature: Loader default component
   @positive
   Scenario: Loader isInsideButton
     When I open default "Loader Test" component with "loader" json from "commonComponents" using "isInsideButton" object name
-    Then Loader isInsideButton and backgroundColor is "rgb(0, 129, 70)"
+    Then Loader isInsideButton and backgroundColor is "rgb(0, 126, 69)"
 
   @positive
   Scenario: Disabled loader button

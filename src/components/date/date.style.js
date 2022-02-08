@@ -16,7 +16,7 @@ const StyledDateInput = styled.div`
 
   & ${StyledInputPresentation} {
     flex: none;
-    width: ${({ size }) => (size ? datePickerWidth[size] : "135px")};
+    width: ${({ size }) => datePickerWidth[size]};
   }
 `;
 
@@ -26,6 +26,7 @@ StyledDateInput.propTypes = {
 
 StyledDateInput.defaultProps = {
   theme: baseTheme,
+  size: "medium",
 };
 
 export default StyledDateInput;

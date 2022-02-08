@@ -27,7 +27,7 @@ describe("Loader square", () => {
       wrapper = render({ isInsideButton: true });
       assertStyleMatch(
         {
-          backgroundColor: "var(--colorsYang100)",
+          backgroundColor: "var(--colorsUtilityYang100)",
         },
         wrapper.toJSON()
       );

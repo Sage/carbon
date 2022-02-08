@@ -884,7 +884,7 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
                 This should be focused first now
               </Button>
             </div>
-            <Textbox value="Not Focused" />
+            <Textbox label="Not Focused" />
           </DialogFullScreen>
           <Button ml={2} onClick={() => setIsOpenTwo(true)}>
             Open Demo using autoFocus
@@ -908,7 +908,7 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
               <Button onClick={() => setisOpenTwo(false)}>Not focused</Button>
               <Button onClick={() => setisOpenTwo(false)}>Not focused</Button>
             </div>
-            <Textbox autoFocus value="This should be focused first now" />
+            <Textbox label="This should be focused first now" autoFocus />
           </DialogFullScreen>
         </>
       );

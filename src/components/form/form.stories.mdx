@@ -304,6 +304,7 @@ It is possible to render `Form` as a content of `Dialog` component.
   >
     {() => {
       const [isOpen, setIsOpen] = useState(false);
+      const [date, setDate] = useState("04/04/2019");
       return (
         <>
           <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
@@ -333,7 +334,8 @@ It is possible to render `Form` as a content of `Dialog` component.
               <DateInput
                 label="Date"
                 name="dateinput"
-                value="2019-04-04"
+                value={date}
+                onChange={(ev) => setDate(ev.target.value.formattedValue)}
                 disablePortal
               />
               <Select name="simple" id="simple" label="label" disablePortal>
@@ -413,6 +415,7 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
   >
     {() => {
       const [isOpen, setIsOpen] = useState(false);
+      const [date, setDate] = useState("04/04/2019");
       return (
         <>
           <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
@@ -439,7 +442,12 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
               {Array.from({ length: 15 }).map((_, index) => (
                 <Textbox key={index} label="Textbox" />
               ))}
-              <DateInput label="Date" name="dateinput" value="2019-04-04" />
+              <DateInput
+                label="Date"
+                name="dateinput"
+                value={date}
+                onChange={(ev) => setDate(ev.target.value.formattedValue)}
+              />
               <Select name="simple" id="simple" label="label">
                 <Option text="Amber" value="1" />
                 <Option text="Black" value="2" />
@@ -476,141 +484,147 @@ Please click on "Show code" below to see how to set these components up for alig
 
 <Canvas>
   <Story name="form alignment example">
-    <Form
-      onSubmit={() => console.log("submit")}
-      leftSideButtons={
-        <Button onClick={() => console.log("cancel")}>Cancel</Button>
-      }
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      fieldSpacing={4}
-    >
-      <Textbox
-        key="input-one"
-        label="Field 1"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        fieldHelp="This is some help text"
-        isOptional={false}
-      />
-      <Textbox
-        key="input-two"
-        label="Field 2"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        labelSpacing={2}
-      />
-      <RadioButtonGroup
-        name="legend"
-        onChange={() => console.log("RADIO CHANGE")}
-        legend="Legend"
-        legendInline
-        legendWidth={10}
-        legendSpacing={2}
-        mb={2}
-      >
-        <RadioButton
-          id="group-1-input-1"
-          value="group-1-input-1"
-          label="Radio Option 1"
-          labelWidth={10}
-        />
-        <RadioButton
-          id="group-1-input-2"
-          value="group-1-input-2"
-          label="Radio Option 2"
-          labelWidth={10}
-        />
-      </RadioButtonGroup>
-      <DateInput
-        name="date"
-        label="Date picker"
-        labelInline
-        labelWidth={10}
-        value="2020-09-01"
-      />
-      <RadioButtonGroup
-        name="nolegend"
-        onChange={() => console.log("RADIO CHANGE")}
-        legend="Legend above"
-        ml="10%"
-        mb={2}
-      >
-        <RadioButton
-          id="group-2-input-1"
-          value="group-2-input-1"
-          label="Radio Option 1"
-          labelWidth={10}
-        />
-        <RadioButton
-          id="group-2-input-2"
-          value="group-2-input-2"
-          label="Radio Option 2"
-          labelWidth={10}
-        />
-      </RadioButtonGroup>
-      <Textarea
-        key="input-three"
-        label="Field 3"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-      />
-      <Checkbox
-        name="checkbox1"
-        onChange={() => console.log("CHECKBOX 1")}
-        label="Checkbox 1"
-        ml="10%"
-      />
-      <Checkbox
-        name="checkbox2"
-        onChange={() => console.log("CHECKBOX 2")}
-        label="Checkbox 2"
-        ml="10%"
-      />
-      <Hr ml="10%" mr="60%" mb={7} />
-      <Button buttonType="tertiary" ml="calc(10% - 24px)">
-        Tertiary
-      </Button>
-      <Textbox
-        key="input-four"
-        label="Field 4"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-      />
-      <Switch
-        name="switch"
-        label="Switch"
-        labelInline
-        onChange={() => console.log("SWITCH")}
-        labelWidth={10}
-        labelSpacing={2}
-        mb={4}
-      />
-      <Textbox
-        key="input-five"
-        label="Field 5"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-      />
-    </Form>
+    {() => {
+      const [date, setDate] = useState("04/04/2019");
+      return (
+        <Form
+          onSubmit={() => console.log("submit")}
+          leftSideButtons={
+            <Button onClick={() => console.log("cancel")}>Cancel</Button>
+          }
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+          fieldSpacing={4}
+        >
+          <Textbox
+            key="input-one"
+            label="Field 1"
+            placeholder="placeholder"
+            name="textbox"
+            labelInline
+            labelWidth={10}
+            inputWidth={30}
+            fieldHelp="This is some help text"
+            isOptional={false}
+          />
+          <Textbox
+            key="input-two"
+            label="Field 2"
+            placeholder="placeholder"
+            name="textbox"
+            labelInline
+            labelWidth={10}
+            inputWidth={30}
+            labelSpacing={2}
+          />
+          <RadioButtonGroup
+            name="legend"
+            onChange={() => console.log("RADIO CHANGE")}
+            legend="Legend"
+            legendInline
+            legendWidth={10}
+            legendSpacing={2}
+            mb={2}
+          >
+            <RadioButton
+              id="group-1-input-1"
+              value="group-1-input-1"
+              label="Radio Option 1"
+              labelWidth={10}
+            />
+            <RadioButton
+              id="group-1-input-2"
+              value="group-1-input-2"
+              label="Radio Option 2"
+              labelWidth={10}
+            />
+          </RadioButtonGroup>
+          <DateInput
+            name="date"
+            label="Date picker"
+            labelInline
+            labelWidth={10}
+            value={date}
+            onChange={(ev) => setDate(ev.target.value.formattedValue)}
+          />
+          <RadioButtonGroup
+            name="nolegend"
+            onChange={() => console.log("RADIO CHANGE")}
+            legend="Legend above"
+            ml="10%"
+            mb={2}
+          >
+            <RadioButton
+              id="group-2-input-1"
+              value="group-2-input-1"
+              label="Radio Option 1"
+              labelWidth={10}
+            />
+            <RadioButton
+              id="group-2-input-2"
+              value="group-2-input-2"
+              label="Radio Option 2"
+              labelWidth={10}
+            />
+          </RadioButtonGroup>
+          <Textarea
+            key="input-three"
+            label="Field 3"
+            placeholder="placeholder"
+            name="textbox"
+            labelInline
+            labelWidth={10}
+            inputWidth={30}
+          />
+          <Checkbox
+            name="checkbox1"
+            onChange={() => console.log("CHECKBOX 1")}
+            label="Checkbox 1"
+            ml="10%"
+          />
+          <Checkbox
+            name="checkbox2"
+            onChange={() => console.log("CHECKBOX 2")}
+            label="Checkbox 2"
+            ml="10%"
+          />
+          <Hr ml="10%" mr="60%" mb={7} />
+          <Button buttonType="tertiary" ml="calc(10% - 24px)">
+            Tertiary
+          </Button>
+          <Textbox
+            key="input-four"
+            label="Field 4"
+            placeholder="placeholder"
+            name="textbox"
+            labelInline
+            labelWidth={10}
+            inputWidth={30}
+          />
+          <Switch
+            name="switch"
+            label="Switch"
+            labelInline
+            onChange={() => console.log("SWITCH")}
+            labelWidth={10}
+            labelSpacing={2}
+            mb={4}
+          />
+          <Textbox
+            key="input-five"
+            label="Field 5"
+            placeholder="placeholder"
+            name="textbox"
+            labelInline
+            labelWidth={10}
+            inputWidth={30}
+          />
+        </Form>
+      )}
+    }
   </Story>
 </Canvas>
 

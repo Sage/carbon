@@ -251,22 +251,17 @@ describe("InputIconToggle", () => {
       });
     });
 
-    describe("tooltipId", () => {
-      it("passes tooltipId to Icon", () => {
-        const tooltipId = "tooltip-id";
-        const wrapper = render({ inputIcon: "dropdown", tooltipId }, mount);
-
-        expect(wrapper.find(Icon).props().tooltipId).toBe(tooltipId);
-      });
-
-      it("passes tooltipId to ValidationIcon", () => {
-        const tooltipId = "tooltip-id";
+    describe("validationIconId", () => {
+      it("passes iconId to ValidationIcon", () => {
+        const validationIconId = "validation-id";
         const wrapper = render(
-          { error: "Error", tooltipId, useValidationIcon: true },
+          { error: "Error", validationIconId, useValidationIcon: true },
           mount
         );
 
-        expect(wrapper.find(ValidationIcon).props().tooltipId).toBe(tooltipId);
+        expect(wrapper.find(ValidationIcon).props().iconId).toBe(
+          validationIconId
+        );
       });
     });
   });

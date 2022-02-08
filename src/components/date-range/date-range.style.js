@@ -7,6 +7,7 @@ import baseTheme from "../../style/themes/base";
 
 const StyledDateRange = styled.div`
   ${margin}
+
   & ${StyledDateInput} {
     width: auto;
     display: inline-block;
