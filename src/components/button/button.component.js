@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import Icon from "../icon";
 import StyledButton, { StyledButtonSubtext } from "./button.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 function renderChildren({
   /* eslint-disable react/prop-types */
@@ -16,6 +17,7 @@ function renderChildren({
   buttonType,
   iconTooltipMessage,
   iconTooltipPosition,
+  tooltipTarget,
   /* eslint-enable */
 }) {
   const iconColorMap = {
@@ -48,11 +50,17 @@ function renderChildren({
         )}
       </span>
       {iconType && !children && (
-        <Icon
-          {...iconProps}
-          tooltipMessage={iconTooltipMessage}
-          tooltipPosition={iconTooltipPosition}
-        />
+        <TooltipProvider
+          disabled={disabled}
+          focusable={false}
+          target={tooltipTarget}
+        >
+          <Icon
+            {...iconProps}
+            tooltipMessage={iconTooltipMessage}
+            tooltipPosition={iconTooltipPosition}
+          />
+        </TooltipProvider>
       )}
       {iconType && iconPosition === "after" && children && (
         <Icon {...iconProps} />
@@ -61,23 +69,34 @@ function renderChildren({
   );
 }
 
-const renderStyledButton = (buttonProps) => {
-  const {
-    "aria-label": ariaLabel,
-    disabled,
-    buttonType,
-    iconType,
-    href,
-    ref,
-    m = 0,
-    px,
-    size,
-    noWrap,
-    tooltipMessage,
-    target,
-    rel,
-    ...rest
-  } = buttonProps;
+const Button = ({
+  size,
+  subtext,
+  as,
+  children,
+  forwardRef,
+  "aria-label": ariaLabel,
+  disabled,
+  buttonType: buttonTypeProp,
+  iconType,
+  iconPosition,
+  href,
+  m = 0,
+  px,
+  noWrap,
+  target,
+  rel,
+  iconTooltipMessage,
+  iconTooltipPosition,
+  ...rest
+}) => {
+  const [internalRef, setInternalRef] = useState(null);
+
+  const buttonType = buttonTypeProp || as;
+
+  if (subtext.length > 0 && size !== "large") {
+    throw new Error("subtext prop has no effect unless the button is large");
+  }
 
   let paddingX;
 
@@ -85,13 +104,9 @@ const renderStyledButton = (buttonProps) => {
     // If space key click link
     if (event.key === " ") {
       event.preventDefault();
-      ref.current.click();
+      internalRef.click();
     }
   };
-
-  if (href) {
-    rest.href = href;
-  }
 
   switch (size) {
     case "small":
@@ -106,9 +121,7 @@ const renderStyledButton = (buttonProps) => {
 
   return (
     <StyledButton
-      aria-label={
-        !rest.children && iconType ? ariaLabel || iconType : undefined
-      }
+      aria-label={!children && iconType ? ariaLabel || iconType : undefined}
       as={!disabled && href ? "a" : "button"}
       onKeyDown={href && handleLinkKeyDown}
       draggable={false}
@@ -121,32 +134,36 @@ const renderStyledButton = (buttonProps) => {
       px={px ?? paddingX}
       m={m}
       noWrap={noWrap}
-      iconOnly={!rest.children && iconType}
+      iconOnly={!children && iconType}
+      iconPosition={iconPosition}
       target={target}
       rel={rel}
-      {...tagComponent("button", buttonProps)}
+      {...tagComponent("button", rest)}
       {...rest}
-      ref={ref}
+      {...(href && { href })}
+      ref={(reference) => {
+        if (reference) {
+          setInternalRef(reference);
+          if (!forwardRef) return;
+          if (typeof forwardRef === "object") forwardRef.current = reference;
+          if (typeof forwardRef === "function") forwardRef(reference);
+        }
+      }}
     >
-      {renderChildren(buttonProps)}
+      {renderChildren({
+        iconType,
+        iconPosition,
+        size,
+        subtext,
+        children,
+        disabled,
+        buttonType,
+        iconTooltipMessage,
+        iconTooltipPosition,
+        tooltipTarget: internalRef,
+      })}
     </StyledButton>
   );
-};
-
-const Button = (props) => {
-  const { size, subtext } = props;
-  const linkRef = useRef(null);
-  const { as, buttonType, forwardRef, ...rest } = props;
-  const propsWithoutAs = {
-    ...rest,
-    buttonType: buttonType || as,
-    ref: forwardRef || linkRef,
-  };
-
-  if (subtext.length > 0 && size !== "large") {
-    throw new Error("subtext prop has no effect unless the button is large");
-  }
-  return renderStyledButton(propsWithoutAs);
 };
 
 Button.propTypes = {

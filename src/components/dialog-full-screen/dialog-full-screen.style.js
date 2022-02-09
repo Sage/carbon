@@ -11,13 +11,15 @@ import {
 import { StyledForm } from "../form/form.style";
 
 const StyledDialogFullScreen = styled.div`
-  background-color: ${({ theme }) => theme.disabled.input};
+  background-color: var(--colorsUtilityMajor025);
   height: 100%;
   left: 0;
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: ${({ theme }) => theme.zIndex.fullScreenModal};
+  z-index: ${({ theme }) =>
+    theme.zIndex
+      .fullScreenModal}; // TODO (tokens): implement elevation tokens - FE-4437
   display: flex;
   flex-direction: column;
 

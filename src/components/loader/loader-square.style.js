@@ -46,7 +46,7 @@ const StyledLoaderSquare = styled.div`
     ${isInsideButton &&
     css`
       background-color: ${isActive
-        ? "var(--colorsYang100)"
+        ? "var(--colorsUtilityYang100)"
         : "var(--colorsSemanticNeutral500)"};
     `}
 

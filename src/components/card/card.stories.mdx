@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
-import Backend from "react-dnd-html5-backend";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import { Card, CardRow, CardFooter, CardColumn } from ".";
 import Heading from "../heading";
@@ -12,7 +12,6 @@ import Box from "../box";
 import IconButton from "../icon-button";
 import VerticalDivider from "../vertical-divider";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import { DraggableContainer, DraggableItem } from "../../components/draggable";
 
 <Meta title="Card" parameters={{ info: { disable: true } }} />
 
@@ -399,16 +398,16 @@ Click on the card to see the effect
             justifyContent="space-around"
           >
             <Box flexGrow={1}>
-              <IconButton>
+              <IconButton aria-label="Phone icon button" onAction={() => {}}>
                 <Icon bgSize="medium" type="phone" />
               </IconButton>
-              <IconButton>
+              <IconButton aria-label="Phone icon button" onAction={() => {}}>
                 <Icon bgSize="medium" type="phone" />
               </IconButton>
-              <IconButton>
+              <IconButton aria-label="Phone icon button" onAction={() => {}}>
                 <Icon bgSize="medium" type="phone" />
               </IconButton>
-              <IconButton>
+              <IconButton aria-label="Phone icon button" onAction={() => {}}>
                 <Icon bgSize="medium" type="phone" />
               </IconButton>
             </Box>
@@ -528,15 +527,13 @@ Click on the card to see the effect
 
 ## With draggable
 
-Please note that you will need to visit the `Canvas` tab to be able to see the draggable behaviour in this example.
-
 By using the `draggable` prop, Cards can be implemented to be draggable.
 
 This example uses the `react-dnd` and `react-dnd-html5-backend` packages.
 
 ```javascript
 import { DndProvider, useDrag, useDrop } from "react-dnd";
-import Backend from "react-dnd-html5-backend";
+import { HTML5Backend } from "react-dnd-html5-backend";
 ```
 
 <Canvas>
@@ -596,11 +593,11 @@ import Backend from "react-dnd-html5-backend";
           },
         });
         const [{ isDragging }, drag] = useDrag({
+          type: "Card",
           item: {
             index,
             name,
             currentColumnName,
-            type: "Card",
           },
           end: (item, monitor) => {
             const dropResult = monitor.getDropResult();
@@ -626,7 +623,7 @@ import Backend from "react-dnd-html5-backend";
         const opacity = isDragging ? 0.4 : 1;
         drag(drop(ref));
         return (
-          <div
+          <Box
             ref={ref}
             style={{
               opacity,
@@ -652,7 +649,7 @@ import Backend from "react-dnd-html5-backend";
                 </CardColumn>
               </CardRow>
             </Card>
-          </div>
+          </Box>
         );
       };
       const Column = ({ children, title, dataElement }) => {
@@ -736,7 +733,7 @@ import Backend from "react-dnd-html5-backend";
               justifyContent: "space-around",
             }}
           >
-            <DndProvider backend={Backend}>
+            <DndProvider backend={HTML5Backend}>
               <Column title={productOne} dataElement="draggable-container-1">
                 {returnItemsForColumn(productOne)}
               </Column>

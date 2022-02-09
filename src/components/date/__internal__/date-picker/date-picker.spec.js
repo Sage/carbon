@@ -3,6 +3,7 @@ import TestRenderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 import DayPicker from "react-day-picker";
+import { utcToZonedTime } from "date-fns-tz";
 import {
   // eslint-disable-next-line import/named
   de as deLocale,
@@ -27,6 +28,10 @@ import StyledDayPicker from "./day-picker.style";
 import Popover from "../../../../__internal__/popover";
 import I18nProvider from "../../../i18n-provider";
 import Weekday from "../weekday/weekday.component";
+
+const timeZone = "Europe/London";
+
+const getZonedDate = (date) => utcToZonedTime(new Date(date), timeZone);
 
 const inputElement = {
   getBoundingClientRect: () => ({ left: 0, bottom: 0 }),
@@ -65,7 +70,7 @@ describe("DatePicker", () => {
 
     it(`should pass to the "DayPicker" component the "disabledDays"
         prop containing an object with "before" property`, () => {
-      const disabledDays = [{ before: new Date(firstDate) }];
+      const disabledDays = [{ before: getZonedDate(firstDate) }];
       expect(wrapper.find(DayPicker).props().disabledDays).toEqual(
         disabledDays
       );
@@ -101,7 +106,7 @@ describe("DatePicker", () => {
 
     it(`should pass to the "DayPicker" component the "disabledDays"
         prop containing an object with "after" property`, () => {
-      const disabledDays = [{ after: new Date(secondDate) }];
+      const disabledDays = [{ after: getZonedDate(secondDate) }];
       expect(wrapper.find(DayPicker).props().disabledDays).toEqual(
         disabledDays
       );
@@ -116,8 +121,8 @@ describe("DatePicker", () => {
     it(`should pass to the "DayPicker" component the "disabledDays"
         prop containing an object with both "before" and "after" properties`, () => {
       const disabledDays = [
-        { before: new Date(firstDate) },
-        { after: new Date(secondDate) },
+        { before: getZonedDate(firstDate) },
+        { after: getZonedDate(secondDate) },
       ];
       expect(wrapper.find(DayPicker).props().disabledDays).toEqual(
         disabledDays

@@ -1,21 +1,21 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React from "react";
 import { action } from "@storybook/addon-actions";
 
 import DraggableContainer from "./draggable-container.component";
 import DraggableItem from "./draggable-item.component";
 import { Checkbox } from "../checkbox";
 
-<Meta
-  title="Draggable/Test"
-  parameters={{
+export default {
+  title: "Draggable/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-/>
+  },
+};
 
-export const DraggableStory = () => {
+export const Default = () => {
   const handleUpdate = (items) => {
     action("onUpdate")(items);
   };
@@ -37,10 +37,6 @@ export const DraggableStory = () => {
   );
 };
 
-# Draggable
-
-### Default
-
-<Canvas>
-  <Story name="default">{DraggableStory.bind({})}</Story>
-</Canvas>
+Default.story = {
+  name: "default",
+};

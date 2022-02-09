@@ -84,14 +84,14 @@ Then("accordionRow is expanded", () => {
 
 Then("accordionRow has golden border outline", () => {
   accordionDefaultTitle()
-    .should("have.css", "outline", "rgb(255, 181, 0) solid 2px")
+    .should("have.css", "outline", "rgb(255, 181, 0) solid 3px")
     .and("be.visible");
 });
 
 Then("Accordion {int} row is focused", (index) => {
   accordionTitleContainerByPosition(index)
     .parent()
-    .should("have.css", "outline", "rgb(255, 181, 0) solid 2px")
+    .should("have.css", "outline", "rgb(255, 181, 0) solid 3px")
     .and("be.visible");
 });
 
