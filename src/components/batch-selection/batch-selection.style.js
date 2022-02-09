@@ -1,34 +1,37 @@
 import styled, { css } from "styled-components";
-import baseTheme from "../../style/themes/base";
 import StyledIconButton from "../icon-button/icon-button.style";
 import StyledIcon from "../icon/icon.style";
 
 const StyledBatchSelection = styled.div`
-  ${({ disabled, colorTheme, theme, hidden }) => css`
+  ${({ disabled, colorTheme, hidden }) => css`
     align-items: center;
     display: inline-flex;
 
     ${hidden && "opacity: 0;"}
 
+    ${StyledIcon} {
+      color: var(--colorsActionMajorYin065);
+    }
+
     ${colorTheme === "dark" &&
     css`
-      background-color: ${theme.colors.slate};
-      color: ${theme.colors.white};
+      background-color: var(--colorsUtilityMajor500);
+      color: var(--colorsUtilityYang100);
 
       ${StyledIcon} {
-        color: ${theme.colors.white};
+        color: var(--colorsActionMajorYang100);
       }
     `}
 
     ${colorTheme === "light" &&
     css`
-      background-color: ${theme.batchSelection.lightTheme};
+      background-color: var(--colorsUtilityMajor150);
     `}
 
     ${colorTheme === "white" &&
     css`
-      background-color: ${theme.white};
-      box-shadow: ${theme.shadows.depth1};
+      background-color: var(--colorsUtilityYang100);
+      box-shadow: var(--boxShadow100);
     `}
 
     ${StyledIconButton} {
@@ -38,17 +41,17 @@ const StyledBatchSelection = styled.div`
     }
 
     ${StyledIconButton}:hover {
-      background-color: ${theme.colors.base};
+      background-color: var(--colorsActionMajor500);
 
       ${StyledIcon} {
-        color: ${theme.colors.white};
+        color: var(--colorsActionMajorYang100);
       }
     }
 
     ${disabled &&
     css`
       background: transparent;
-      color: ${theme.disabled.disabled};
+      color: var(--colorsUtilityYin030);
       cursor: not-allowed;
 
       ${StyledIconButton} {
@@ -56,16 +59,12 @@ const StyledBatchSelection = styled.div`
         pointer-events: none;
 
         ${StyledIcon} {
-          color: ${theme.icon.disabled};
+          color: var(--colorsActionMajorYin030);
         }
       }
     `}
   `}
 `;
-
-StyledBatchSelection.defaultProps = {
-  theme: baseTheme,
-};
 
 const StyledSelectionCount = styled.span`
   display: inline-block;
