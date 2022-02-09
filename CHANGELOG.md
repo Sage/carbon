@@ -1,3 +1,10 @@
+### [104.10.1](https://github.com/Sage/carbon/compare/v104.10.0...v104.10.1) (2022-02-09)
+
+
+### Bug Fixes
+
+* **icon:** fix tooltip visible logic when disabled ([0a1fdb4](https://github.com/Sage/carbon/commit/0a1fdb4fd091fdde782c1787e8b3ba179abfb6d1)), closes [#4745](https://github.com/Sage/carbon/issues/4745)
+
 ## [104.10.0](https://github.com/Sage/carbon/compare/v104.9.0...v104.10.0) (2022-02-08)
 
 
