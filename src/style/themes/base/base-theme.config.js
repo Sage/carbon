@@ -151,10 +151,6 @@ export default (palette) => {
       },
     },
 
-    form: {
-      invalid: palette.slateTint(95),
-    },
-
     card: {
       footerBackground: palette.slateTint(95),
       footerBorder: palette.slateTint(80),
