@@ -167,7 +167,7 @@
     "immutable": "~3.8.2",
     "invariant": "^2.2.4",
     "lodash": "^4.17.20",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "polished": "^4.0.5",
     "prop-types": "^15.7.2",
     "react-day-picker": "~7.4.10",
