@@ -1,3 +1,10 @@
+### [102.22.2](https://github.com/Sage/carbon/compare/v102.22.1...v102.22.2) (2022-02-10)
+
+
+### Bug Fixes
+
+* **design-tokens:** fix scoped tokens in mfe ([f2d84b2](https://github.com/Sage/carbon/commit/f2d84b2db940b3716eb332598fef5f108dcfffef))
+
 ### [102.22.1](https://github.com/Sage/carbon/compare/v102.22.0...v102.22.1) (2022-01-24)
 
 
