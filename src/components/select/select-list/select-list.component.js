@@ -24,6 +24,8 @@ import ListActionButton from "../list-action-button/list-action-button.component
 import StyledSelectListContainer from "./select-list-container.style";
 import Loader from "../../loader";
 import Option from "../option/option.component";
+import guid from "../../../__internal__/utils/helpers/guid/guid";
+import SelectListContext from "../__internal__/select-list-context";
 
 const fixedPopoverModifiers = [
   {
@@ -88,10 +90,6 @@ const SelectList = React.forwardRef(
       [anchorElement]
     );
 
-    const childrenList = useMemo(() => React.Children.toArray(children), [
-      children,
-    ]);
-
     const optionRefList = useMemo(
       () =>
         React.Children.map(children, (child) => {
@@ -101,6 +99,39 @@ const SelectList = React.forwardRef(
           return null;
         }).filter((child) => child),
       [children]
+    );
+
+    const handleSelect = useCallback(
+      (optionData) => {
+        onSelect({ ...optionData, selectionType: "click" });
+      },
+      [onSelect]
+    );
+
+    const childrenWithListProps = useMemo(
+      () =>
+        React.Children.map(children, (child, index) => {
+          if (!child || (child.type !== Option && child.type !== OptionRow)) {
+            return child;
+          }
+
+          const newProps = {
+            index,
+            id: guid(),
+            onSelect: handleSelect,
+            hidden: isLoading && React.Children.count(children) === 1,
+            ref: optionRefList[index],
+          };
+
+          return React.cloneElement(child, newProps);
+        }),
+
+      [children, handleSelect, isLoading, optionRefList]
+    );
+
+    const childrenList = useMemo(
+      () => React.Children.toArray(childrenWithListProps),
+      [childrenWithListProps]
     );
 
     const lastOptionIndex = useMemo(() => {
@@ -164,9 +195,9 @@ const SelectList = React.forwardRef(
           return;
         }
 
-        const { text, value } = childrenList[nextIndex].props;
+        const { text, value, id: itemId } = childrenList[nextIndex].props;
 
-        onSelect({ text, value, selectionType: "navigationKey" });
+        onSelect({ text, value, selectionType: "navigationKey", id: itemId });
       },
       [
         childrenList,
@@ -216,9 +247,9 @@ const SelectList = React.forwardRef(
             return;
           }
 
-          const { text, value } = currentOption.props;
+          const { id: itemId, text, value } = currentOption.props;
 
-          onSelect({ text, value, selectionType: "enterKey" });
+          onSelect({ id: itemId, text, value, selectionType: "enterKey" });
         } else if (isNavigationKey(key)) {
           focusOnAnchor();
           highlightNextItem(key);
@@ -248,39 +279,6 @@ const SelectList = React.forwardRef(
         }
       },
       [onListScrollBottom]
-    );
-
-    const handleSelect = useCallback(
-      (optionData) => {
-        onSelect({ ...optionData, selectionType: "click" });
-      },
-      [onSelect]
-    );
-
-    const childrenWithListProps = useMemo(
-      () =>
-        React.Children.map(children, (child, index) => {
-          if (!child || (child.type !== Option && child.type !== OptionRow)) {
-            return child;
-          }
-
-          const newProps = {
-            onSelect: handleSelect,
-            isHighlighted: currentOptionsListIndex === index,
-            hidden: isLoading && React.Children.count(children) === 1,
-            ref: optionRefList[index],
-          };
-
-          return React.cloneElement(child, newProps);
-        }),
-
-      [
-        children,
-        currentOptionsListIndex,
-        handleSelect,
-        isLoading,
-        optionRefList,
-      ]
     );
 
     const assignListWidth = useCallback(() => {
@@ -440,34 +438,40 @@ const SelectList = React.forwardRef(
           width={listWidth}
           ref={listContainerRef}
         >
-          <StyledSelectListContainer
-            data-element="select-list-wrapper"
-            height={listHeight}
-            placement={placement.current}
-            {...listProps}
+          <SelectListContext.Provider
+            value={{
+              currentOptionsListIndex,
+            }}
           >
-            <StyledSelectList
-              id={id}
-              as={multiColumn ? "div" : "ul"}
-              aria-labelledby={labelId}
-              data-element="select-list"
-              role="listbox"
-              ref={listRef}
-              tabIndex="0"
-              isLoading={isLoading}
-              multiColumn={multiColumn}
+            <StyledSelectListContainer
+              data-element="select-list-wrapper"
+              height={listHeight}
+              placement={placement.current}
+              {...listProps}
             >
-              {selectListContent}
-              {isLoading && loader()}
-            </StyledSelectList>
-            {listActionButton && (
-              <ListActionButton
-                ref={listActionButtonRef}
-                listActionButton={listActionButton}
-                onListAction={onListAction}
-              />
-            )}
-          </StyledSelectListContainer>
+              <StyledSelectList
+                id={id}
+                as={multiColumn ? "div" : "ul"}
+                aria-labelledby={labelId}
+                data-element="select-list"
+                role="listbox"
+                ref={listRef}
+                tabIndex="-1"
+                isLoading={isLoading}
+                multiColumn={multiColumn}
+              >
+                {selectListContent}
+                {isLoading && loader()}
+              </StyledSelectList>
+              {listActionButton && (
+                <ListActionButton
+                  ref={listActionButtonRef}
+                  listActionButton={listActionButton}
+                  onListAction={onListAction}
+                />
+              )}
+            </StyledSelectListContainer>
+          </SelectListContext.Provider>
         </StyledPopoverContainer>
       </Popover>
     );
