@@ -99,7 +99,9 @@ const FlatTableBodyDraggable = ({ children, getOrder }) => {
 };
 
 FlatTableBodyDraggable.propTypes = {
+  /** Callback fired when order is changed */
   getOrder: PropTypes.func,
+  /** Array of FlatTableRow. */
   children: PropTypes.node.isRequired,
 };
 

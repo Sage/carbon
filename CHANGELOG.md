@@ -1,3 +1,25 @@
+## [104.11.0](https://github.com/Sage/carbon/compare/v104.10.2...v104.11.0) (2022-02-10)
+
+
+### Features
+
+* **search:** describe search component using design tokens ([4d7c6e5](https://github.com/Sage/carbon/commit/4d7c6e506692c78d535b4db89aa565ff063e3620))
+
+### [104.10.2](https://github.com/Sage/carbon/compare/v104.10.1...v104.10.2) (2022-02-10)
+
+
+### Bug Fixes
+
+* **filterable-select:** add missing aria attributes ([64d15d8](https://github.com/Sage/carbon/commit/64d15d881b2c8cbb7e829fa2d6995e5f6e4b18e7))
+* **multi-select:** add missing aria attributes ([2d9d11a](https://github.com/Sage/carbon/commit/2d9d11a6b8e153e7266a155425249166845f9160))
+
+### [104.10.1](https://github.com/Sage/carbon/compare/v104.10.0...v104.10.1) (2022-02-09)
+
+
+### Bug Fixes
+
+* **icon:** fix tooltip visible logic when disabled ([0a1fdb4](https://github.com/Sage/carbon/commit/0a1fdb4fd091fdde782c1787e8b3ba179abfb6d1)), closes [#4745](https://github.com/Sage/carbon/issues/4745)
+
 ## [104.10.0](https://github.com/Sage/carbon/compare/v104.9.0...v104.10.0) (2022-02-08)
 
 

@@ -274,7 +274,9 @@ Feature: FlatTable component
     Given I open "Flat Table" component page "paginated"
       And 5 rows are visible
     When I type 1 in pagination input
-      And I press "Enter" onto focused element
+      And I hit Tab key 1 time
+      And I press downarrow onto pagination select list
+      And I click onto pagination select list option
     Then 1 row is visible
       And Pagination input should have 1 value
 

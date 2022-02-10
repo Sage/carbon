@@ -11,13 +11,14 @@ import {
   flatTableSubrows,
   flatTablePageSizeSelect,
   flatTablePageSelectListPosition,
-  pageSelectDataComponent,
   flatTableSubrowFirstCell,
+  pageSelectInput,
 } from "../../locators/flat-table";
 
 import DEBUG_FLAG from "..";
-import { positionOfElement } from "../helper";
+import { keyCode, positionOfElement } from "../helper";
 import { icon } from "../../locators";
+import { selectOption } from "../../locators/select";
 
 const gold = "rgb(255, 181, 0)";
 
@@ -275,11 +276,22 @@ Then("{int} row/rows is/are visible", (int) => {
 });
 
 Then("I type {int} in pagination input", (value) => {
-  pageSelectDataComponent().find("input").type(value);
+  pageSelectInput().type(value, { force: true });
 });
 
 Then("Pagination input should have {int} value", (value) => {
-  pageSelectDataComponent().find("input").should("have.value", value);
+  pageSelectInput().should("have.value", value);
+});
+
+When("I press downarrow onto pagination select list", () => {
+  pageSelectInput().trigger("keydown", {
+    ...keyCode("downarrow"),
+    force: true,
+  });
+});
+
+When("I click onto pagination select list option", () => {
+  selectOption(0).click();
 });
 
 Then(
