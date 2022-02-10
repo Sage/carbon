@@ -1,3 +1,17 @@
+## [104.12.0](https://github.com/Sage/carbon/compare/v104.11.0...v104.12.0) (2022-02-10)
+
+
+### Features
+
+* **navigation bar:** describe navigation bar using design tokens, update tests ([168301c](https://github.com/Sage/carbon/commit/168301cf53559a5a08f437a3e04409fb2463f14f))
+
+## [104.11.0](https://github.com/Sage/carbon/compare/v104.10.2...v104.11.0) (2022-02-10)
+
+
+### Features
+
+* **search:** describe search component using design tokens ([4d7c6e5](https://github.com/Sage/carbon/commit/4d7c6e506692c78d535b4db89aa565ff063e3620))
+
 ### [104.10.2](https://github.com/Sage/carbon/compare/v104.10.1...v104.10.2) (2022-02-10)
 
 
