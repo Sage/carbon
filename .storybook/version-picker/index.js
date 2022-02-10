@@ -4,9 +4,12 @@ import {
   WithTooltip,
   TooltipLinkList,
 } from "@storybook/components";
+import compareBuild from "semver/functions/compare-build";
 
 import { TOOL_ID } from "./constants";
 import fetchData from "./fetch-data";
+
+const semverSort = (list) => list.sort((a, b) => compareBuild(b.id, a.id));
 
 const getDisplayedItems = (versions, onClick) => {
   let formattedVersions = [];
@@ -22,6 +25,7 @@ const getDisplayedItems = (versions, onClick) => {
     });
   }
 
+  semverSort(formattedVersions);
   formattedVersions[0].title = `${formattedVersions[0].title} (latest)`;
 
   return formattedVersions;
