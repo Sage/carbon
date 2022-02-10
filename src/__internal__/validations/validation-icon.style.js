@@ -3,6 +3,13 @@ import { margin } from "styled-system";
 import BaseTheme from "../../style/themes/base";
 import StyledIcon from "../../components/icon/icon.style";
 
+const validationIconTypes = {
+  error: "var(--colorsSemanticNegative500)",
+  info: "var(--colorsSemanticInfo500)",
+  success: "var(--colorsSemanticPositive500)",
+  warning: "var(--colorsSemanticCaution500)",
+};
+
 const ValidationIconStyle = styled.span`
   background: none;
   cursor: default;
@@ -20,11 +27,11 @@ const ValidationIconStyle = styled.span`
     `}
 
   ${StyledIcon}:before {
-    color: ${({ validationType, theme }) => theme.colors[validationType]};
+    color: ${({ validationType }) => validationIconTypes[validationType]};
   }
 
   ${StyledIcon}:focus {
-    outline: solid 2px ${({ theme }) => theme.colors.focus};
+    outline: solid 2px var(--colorsSemanticFocus500);
   }
 
   ${margin}
