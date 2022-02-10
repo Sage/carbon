@@ -1,3 +1,11 @@
+### [104.10.2](https://github.com/Sage/carbon/compare/v104.10.1...v104.10.2) (2022-02-10)
+
+
+### Bug Fixes
+
+* **filterable-select:** add missing aria attributes ([64d15d8](https://github.com/Sage/carbon/commit/64d15d881b2c8cbb7e829fa2d6995e5f6e4b18e7))
+* **multi-select:** add missing aria attributes ([2d9d11a](https://github.com/Sage/carbon/commit/2d9d11a6b8e153e7266a155425249166845f9160))
+
 ### [104.10.1](https://github.com/Sage/carbon/compare/v104.10.0...v104.10.1) (2022-02-09)
 
 
