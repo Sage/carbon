@@ -17,6 +17,7 @@ import Icon from "../icon";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Typography from "../typography";
 import { Dl, Dt, Dd } from "../definition-list";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 <Meta title="Dialog Full Screen" parameters={{ info: { disable: true } }} />
 
@@ -921,3 +922,19 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
 ### DialogFullScreen
 
 <ArgsTable of={DialogFullScreen} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "dialogFullScreen.ariaLabels.close",
+      description: "The text for close button aria-label attribute",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

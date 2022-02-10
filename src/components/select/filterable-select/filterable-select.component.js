@@ -53,6 +53,7 @@ const FilterableSelect = React.forwardRef(
     },
     inputRef
   ) => {
+    const [activeDescendantId, setActiveDescendantId] = useState();
     const selectListId = useRef(guid());
     const labelId = useRef(guid());
     const containerRef = useRef();
@@ -326,7 +327,12 @@ const FilterableSelect = React.forwardRef(
 
     const onSelectOption = useCallback(
       (optionData) => {
-        const { text, value: newValue, selectionType } = optionData;
+        const {
+          id: selectedOptionId,
+          text,
+          value: newValue,
+          selectionType,
+        } = optionData;
 
         if (selectionType === "tab") {
           setOpen(false);
@@ -342,6 +348,7 @@ const FilterableSelect = React.forwardRef(
 
         setTextValue(text);
         triggerChange(newValue);
+        setActiveDescendantId(selectedOptionId);
 
         if (selectionType !== "navigationKey") {
           setOpen(false);
@@ -518,8 +525,6 @@ const FilterableSelect = React.forwardRef(
 
     return (
       <StyledSelect
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
         ref={containerRef}
         hasTextCursor
         readOnly={readOnly}
@@ -530,8 +535,10 @@ const FilterableSelect = React.forwardRef(
         {...filterStyledSystemMarginProps(textboxProps)}
       >
         <SelectTextbox
-          aria-controls={isOpen ? selectListId.current : ""}
-          type="text"
+          activeDescendantId={activeDescendantId}
+          aria-controls={isOpen ? selectListId.current : undefined}
+          isOpen={isOpen}
+          hasTextCursor
           labelId={labelId.current}
           positionedChildren={disablePortal && isOpen && selectList}
           {...getTextboxProps()}

@@ -108,7 +108,7 @@ const Icon = React.forwardRef(
         tooltipVisibleFromContext !== undefined
           ? tooltipVisibleFromContext
           : tooltipVisible;
-      const visible = disabled ? false : showTooltip;
+      const visible = disabled ? undefined : showTooltip;
 
       return (
         <Tooltip

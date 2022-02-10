@@ -46,7 +46,7 @@ you can filter through the existing options leaving only those that match the te
     <FilterableSelect
       name="simple"
       id="simple"
-      label="label"
+      label="color"
       labelInline
       onOpen={partialAction("onOpen")}
       onChange={partialAction("onChange")}
@@ -80,7 +80,7 @@ You can use `listPlacement` prop to set the position of the select list relative
     <FilterableSelect
       name="simple"
       id="simple"
-      label="label"
+      label="color"
       labelInline
       listPlacement="top-start"
     >
@@ -329,7 +329,7 @@ A custom `Button` Component could be passed as the `listActionButton` value.
           <FilterableSelect
             name="action"
             id="action"
-            label="label"
+            label="color"
             value={value}
             onChange={(event) => setValue(event.target.value)}
             listActionButton={
@@ -400,7 +400,7 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
           <FilterableSelect
             name="isLoading"
             id="isLoading"
-            label="label"
+            label="color"
             value={value}
             onChange={(event) => setValue(event.target.value)}
             onOpen={() => loadList()}
@@ -496,7 +496,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
           <FilterableSelect
             name="infiniteScroll"
             id="infiniteScroll"
-            label="label"
+            label="color"
             value={value}
             onChange={(event) => setValue(event.target.value)}
             onOpen={() => loadList()}

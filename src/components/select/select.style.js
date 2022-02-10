@@ -13,7 +13,7 @@ const StyledSelect = styled.div`
     position: relative;
 
     ${StyledInput} {
-      cursor: ${hasTextCursor ? "text" : "pointer"};
+      cursor: "text";
 
       ${disabled &&
       css`
@@ -24,7 +24,7 @@ const StyledSelect = styled.div`
 
       ${readOnly &&
       css`
-        cursor: ${hasTextCursor ? "text" : "default"};
+        cursor: "text";
         color: var(--colorsYin065);
         text-shadow: none;
       `}
@@ -56,13 +56,17 @@ const StyledSelect = styled.div`
         border: none;
       }
 
-      ${StyledInput} {
-        font-weight: 900;
-        text-align: right;
-      }
-
       ${InputIconToggleStyle} {
         margin-left: 0;
+      }
+    `}
+
+    ${!hasTextCursor &&
+    css`
+      ${StyledInput} {
+        position: absolute;
+        width: auto;
+        opacity: 0;
       }
     `}
   `}

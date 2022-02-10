@@ -1,3 +1,50 @@
+### [104.10.2](https://github.com/Sage/carbon/compare/v104.10.1...v104.10.2) (2022-02-10)
+
+
+### Bug Fixes
+
+* **filterable-select:** add missing aria attributes ([64d15d8](https://github.com/Sage/carbon/commit/64d15d881b2c8cbb7e829fa2d6995e5f6e4b18e7))
+* **multi-select:** add missing aria attributes ([2d9d11a](https://github.com/Sage/carbon/commit/2d9d11a6b8e153e7266a155425249166845f9160))
+
+### [104.10.1](https://github.com/Sage/carbon/compare/v104.10.0...v104.10.1) (2022-02-09)
+
+
+### Bug Fixes
+
+* **icon:** fix tooltip visible logic when disabled ([0a1fdb4](https://github.com/Sage/carbon/commit/0a1fdb4fd091fdde782c1787e8b3ba179abfb6d1)), closes [#4745](https://github.com/Sage/carbon/issues/4745)
+
+## [104.10.0](https://github.com/Sage/carbon/compare/v104.9.0...v104.10.0) (2022-02-08)
+
+
+### Features
+
+* **dialog:** surface contentPadding prop to allow overriding default padding values dialog content ([a6f0d7c](https://github.com/Sage/carbon/commit/a6f0d7ce82c734ac8e2ad79802f4acf8189d8535))
+
+## [104.9.0](https://github.com/Sage/carbon/compare/v104.8.0...v104.9.0) (2022-02-08)
+
+
+### Features
+
+* **anchor-navigation:** describe anchor navigation using design tokens, update tests ([eb78718](https://github.com/Sage/carbon/commit/eb7871881d18dd14d8165153e349b0a3b1484e06))
+
+## [104.8.0](https://github.com/Sage/carbon/compare/v104.7.3...v104.8.0) (2022-02-08)
+
+
+### Features
+
+* **dialog-full-screen:** add close button aria label translation ([3e312db](https://github.com/Sage/carbon/commit/3e312db132b7d26dcb22cc67ca0580a9134da9be))
+* **dialog:** add close button aria label translation ([aacca1b](https://github.com/Sage/carbon/commit/aacca1b8d1cbd5d506ddd7e9f4e3381c91f73072))
+* **sidebar:** add close button aria label translation ([8f09f74](https://github.com/Sage/carbon/commit/8f09f745fdc32f105bd14bb16d839a746e9cc38b))
+* **toast:** add close button aria label translation ([6eebf87](https://github.com/Sage/carbon/commit/6eebf87e699266e36a13f880595eb85ee89b7306))
+
+### [104.7.3](https://github.com/Sage/carbon/compare/v104.7.2...v104.7.3) (2022-02-08)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** fix heights and widths and remove horizontal scroll bar ([8a73083](https://github.com/Sage/carbon/commit/8a73083689b26e690d28f6b3fdcfd4f2c3623161)), closes [#4473](https://github.com/Sage/carbon/issues/4473) [#4674](https://github.com/Sage/carbon/issues/4674)
+* **menu-full-screen:** fix search styling within full screen menu ([19b609e](https://github.com/Sage/carbon/commit/19b609ed58763567f8a01676f5f4de26829be908)), closes [#4675](https://github.com/Sage/carbon/issues/4675)
+
 ### [104.7.2](https://github.com/Sage/carbon/compare/v104.7.1...v104.7.2) (2022-02-08)
 
 
