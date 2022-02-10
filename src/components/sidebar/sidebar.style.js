@@ -5,7 +5,7 @@ import { SIDEBAR_SIZES_CSS } from "./sidebar.config";
 
 const SidebarStyle = styled.div`
   ${({ onCancel, position, size, theme }) => css`
-    background-color: ${theme.disabled.input};
+    background: var(--colorsUtilityMajor025);
     border-radius: 1px;
     bottom: 0;
     position: fixed;
@@ -21,7 +21,7 @@ const SidebarStyle = styled.div`
 
     ${position &&
     css`
-      box-shadow: ${theme.shadows.depth3};
+      box-shadow: var(--boxShadow300);
       ${position}: 0;
     `}
 

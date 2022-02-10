@@ -2,19 +2,31 @@ import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
+import guid from "../../__internal__/utils/helpers/guid/guid.js";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Dialog from "./dialog.component";
-import { DialogStyle, DialogTitleStyle } from "./dialog.style";
+import {
+  DialogStyle,
+  DialogTitleStyle,
+  DialogContentStyle,
+  DialogInnerContentStyle,
+} from "./dialog.style";
+import {
+  HORIZONTAL_PADDING,
+  CONTENT_TOP_PADDING,
+  CONTENT_BOTTOM_PADDING,
+} from "./dialog.config";
 import Button from "../button";
 import Heading from "../heading";
 import { Row, Column } from "../row";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import Form from "../form";
-import { StyledFormFooter } from "../form/form.style";
+import { StyledFormContent, StyledFormFooter } from "../form/form.style";
 import IconButton from "../icon-button";
 import Help from "../help";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
+jest.mock("../../__internal__/utils/helpers/guid/guid.js");
 
 describe("Dialog", () => {
   let onCancel;
@@ -270,28 +282,7 @@ describe("Dialog", () => {
     });
   });
 
-  describe("form styles", () => {
-    it("applies proper styles to sticky form footer", () => {
-      wrapper = mount(
-        <Dialog open>
-          <Form />
-        </Dialog>
-      );
-
-      assertStyleMatch(
-        {
-          marginLeft: "-35px",
-          bottom: "-30px",
-          marginBottom: "-30px",
-          width: "calc(100% + 70px)",
-          paddingLeft: "35px",
-          paddingRight: "35px",
-        },
-        wrapper.find(DialogStyle),
-        { modifier: `${StyledFormFooter}.sticky` }
-      );
-    });
-
+  describe("when a form is passed adds children", () => {
     it("passes Dialog ref to the Form component when it is a children", () => {
       wrapper = mount(
         <Dialog open>
@@ -503,7 +494,8 @@ describe("Dialog", () => {
 
   describe("ARIA attributes", () => {
     describe("when a title is specified as string", () => {
-      it("then the container should have aria-labeledby attribute set to it's title id", () => {
+      it("then the container should have aria-labelledby attribute set to it's title id", () => {
+        guid.mockImplementation(() => "foo");
         wrapper = mount(<Dialog open title="Test" />);
 
         expect(
@@ -511,12 +503,26 @@ describe("Dialog", () => {
             .find("[data-element='dialog']")
             .first()
             .prop("aria-labelledby")
-        ).toBe("carbon-dialog-title");
+        ).toBe("foo");
+      });
+    });
+
+    describe("when a subtitle is specified", () => {
+      it("then the container should have aria-describedby attribute set to it's subtitle id", () => {
+        guid.mockImplementation(() => "baz");
+        wrapper = mount(<Dialog open subtitle="Test" />);
+
+        expect(
+          wrapper
+            .find("[data-element='dialog']")
+            .first()
+            .prop("aria-describedby")
+        ).toBe("baz");
       });
     });
 
     describe("when the aria-labelledby prop is specified", () => {
-      it("then the container should have the same aria-labeledby attribute", () => {
+      it("then the container should have the same aria-labelledby attribute", () => {
         const titleId = "foo";
 
         wrapper = mount(
@@ -555,5 +561,115 @@ describe("Dialog", () => {
         ).toBe(label);
       });
     });
+  });
+
+  describe("contentPadding", () => {
+    const defaultPaddingValues = {
+      left: HORIZONTAL_PADDING,
+      right: HORIZONTAL_PADDING,
+      top: CONTENT_TOP_PADDING,
+      bottom: CONTENT_BOTTOM_PADDING,
+    };
+
+    const getValue = (value, isMargin) => {
+      if (!value) {
+        return "0";
+      }
+
+      return `${isMargin ? "-" : ""}${value * 8}px`;
+    };
+
+    const getFormSpacing = (value, position, prop, isMargin) => {
+      if (
+        value === undefined ||
+        (["top", "bottom"].includes(position) && !["p", "py"].includes(prop)) ||
+        (["left", "right"].includes(position) && !["p", "px"].includes(prop))
+      ) {
+        return `${isMargin ? "-" : ""}${defaultPaddingValues[position]}px`;
+      }
+
+      return getValue(value, isMargin);
+    };
+
+    const getDialogContentPadding = (value, isMatch, allSides) => {
+      if (value === undefined || !isMatch) {
+        return allSides
+          ? `0px ${HORIZONTAL_PADDING}px ${CONTENT_BOTTOM_PADDING}px`
+          : undefined;
+      }
+
+      return getValue(value);
+    };
+
+    describe.each([undefined, 0, 1, 2, 3, 4, 5, 6, 7, 8])(
+      "when `%s` is passed",
+      (value) => {
+        describe.each(["p", "py", "px"])("to the `%s` property", (prop) => {
+          beforeEach(() => {
+            wrapper = mount(
+              <Dialog open contentPadding={{ [prop]: value }}>
+                <Form />
+              </Dialog>
+            );
+          });
+
+          it("applies the expected values to the DialogStyle and Form elements", () => {
+            assertStyleMatch(
+              {
+                marginLeft: getFormSpacing(value, "left", prop, true),
+                marginRight: getFormSpacing(value, "right", prop, true),
+                marginTop: getFormSpacing(value, "top", prop, true),
+                paddingTop: getFormSpacing(value, "top", prop),
+                paddingBottom: getFormSpacing(value, "bottom", prop),
+                paddingLeft: getFormSpacing(value, "left", prop),
+                paddingRight: getFormSpacing(value, "right", prop),
+              },
+              wrapper.find(DialogStyle),
+              { modifier: `${StyledFormContent}.sticky` }
+            );
+
+            const width =
+              value === undefined || !["p", "px"].includes(prop)
+                ? HORIZONTAL_PADDING
+                : value * 8;
+
+            assertStyleMatch(
+              {
+                marginLeft: getFormSpacing(value, "left", prop, true),
+                marginRight: getFormSpacing(value, "right", prop, true),
+                marginBottom: getFormSpacing(value, "bottom", prop, true),
+                bottom: getFormSpacing(value, "bottom", prop, true),
+                width: `calc(100% + ${width * 2}px)`,
+              },
+              wrapper.find(DialogStyle),
+              { modifier: `${StyledFormFooter}.sticky` }
+            );
+          });
+
+          it("applies the expected values to the DialogContentStyle and DialogInnerContentStyle elements", () => {
+            assertStyleMatch(
+              {
+                padding: getDialogContentPadding(value, prop === "p", true),
+                paddingLeft: getDialogContentPadding(value, prop === "px"),
+                paddingRight: getDialogContentPadding(value, prop === "px"),
+                paddingTop: getDialogContentPadding(value, prop === "py"),
+                paddingBottom: getDialogContentPadding(value, prop === "py"),
+              },
+              wrapper.find(DialogContentStyle)
+            );
+
+            assertStyleMatch(
+              {
+                paddingTop:
+                  ["py", "p"].includes(prop) && value !== undefined
+                    ? "0"
+                    : `${CONTENT_TOP_PADDING}px`,
+              },
+              wrapper.find(DialogInnerContentStyle)
+            );
+          });
+        });
+      }
+    );
   });
 });

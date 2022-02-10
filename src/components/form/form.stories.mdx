@@ -16,7 +16,7 @@ import Switch from "../switch";
 import Button from "../button";
 import DialogFullScreen from "../dialog-full-screen";
 import Dialog from "../dialog";
-import AppWrapper from "../app-wrapper";
+import Box from "../box";
 
 <Meta title="Form" parameters={{ info: { disable: true } }} />
 
@@ -382,7 +382,7 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
             title="Form in Dialog"
             subtitle="Subtitle"
           >
-            <AppWrapper>
+            <Box p="0px 40px">
               <Form
                 leftSideButtons={
                   <Button onClick={() => setIsOpen(false)}>Cancel</Button>
@@ -398,7 +398,7 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
               >
                 <Textbox label="Textbox" />
               </Form>
-            </AppWrapper>
+            </Box>
           </DialogFullScreen>
         </>
       );

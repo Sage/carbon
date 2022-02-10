@@ -171,7 +171,7 @@ Then("Menu is in fullscreen mode", () => {
     .should("be.visible");
   fullscreenMenu(positionOfElement("second"))
     .find("ul > li")
-    .should("have.length", 15);
+    .should("have.length", 17);
 });
 
 Then("Menu is in fullscreen mode is not visible", () => {

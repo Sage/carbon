@@ -13,11 +13,8 @@ const marginPropTypes = filterStyledSystemMarginProps(
 
 const IconButton = React.forwardRef(
   ({ "aria-label": ariaLabel, onAction, children, disabled, ...rest }, ref) => {
+    const [internalRef, setInternalRef] = useState(null);
     const marginProps = filterStyledSystemMarginProps(rest);
-    const hasIconWithTooltip = !!React.Children.toArray(children).find(
-      (child) => child?.props?.tooltipMessage
-    );
-    const [tooltipVisible, setTooltipVisible] = useState(undefined);
 
     const onKeyDown = (e) => {
       if (Events.isEnterKey(e) || Events.isSpaceKey(e)) {
@@ -32,32 +29,27 @@ const IconButton = React.forwardRef(
       onAction(e);
     };
 
-    const handleTooltipVisibility = (ev, callbackName) => {
-      setTooltipVisible(["onFocus", "onMouseEnter"].includes(callbackName));
-      if (rest[callbackName]) rest[callbackName](ev);
-    };
-
     return (
       <StyledIconButton
         {...rest}
         aria-label={ariaLabel}
         onKeyDown={onKeyDown}
         onClick={handleOnAction}
-        ref={ref}
+        ref={(reference) => {
+          if (reference) {
+            setInternalRef(reference);
+            if (!ref) return;
+            if (typeof ref === "object") ref.current = reference;
+            if (typeof ref === "function") ref(reference);
+          }
+        }}
         disabled={disabled}
-        {...(!disabled &&
-          hasIconWithTooltip && {
-            onFocus: (ev) => handleTooltipVisibility(ev, "onFocus"),
-            onBlur: (ev) => handleTooltipVisibility(ev, "onBlur"),
-            onMouseEnter: (ev) => handleTooltipVisibility(ev, "onMouseEnter"),
-            onMouseLeave: (ev) => handleTooltipVisibility(ev, "onMouseLeave"),
-          })}
         {...marginProps}
       >
         <TooltipProvider
           disabled={disabled}
-          tooltipVisible={tooltipVisible}
           focusable={false}
+          target={internalRef}
         >
           {children}
         </TooltipProvider>

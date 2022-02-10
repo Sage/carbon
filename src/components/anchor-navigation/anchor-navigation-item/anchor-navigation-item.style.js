@@ -1,6 +1,5 @@
+import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
-
-import { baseTheme } from "../../../style/themes";
 
 const StyledNavigationItem = styled.li`
   width: 100%;
@@ -9,44 +8,32 @@ const StyledNavigationItem = styled.li`
     cursor: pointer;
     display: block;
     text-decoration: none;
-    color: ${({ theme }) => theme.text.color};
+    color: var(--colorsUtilityYin090);
     background-color: transparent;
-    border-left: 3px solid ${({ theme }) => theme.disabled.background};
+    border-left: var(--sizing050) solid var(--colorsActionMinor100);
     font-weight: 700;
     padding: 12px 24px;
 
     &:focus {
-      outline: none;
-      position: relative;
-
-      &:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: -3px;
-        right: 0;
-        z-index: 1;
-        box-shadow: 0 0 6px ${({ theme }) => theme.colors.focus};
-      }
+      outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
     }
 
     &:hover {
-      background-color: ${({ isSelected, theme }) =>
-        !isSelected && theme.anchorNavigation.navItemHoverBackground};
+      background-color: ${({ isSelected }) =>
+        !isSelected && "var(--colorsActionMinor100)"};
     }
 
-    ${({ isSelected, theme }) =>
+    ${({ isSelected }) =>
       isSelected &&
       css`
-        background-color: ${theme.colors.white};
-        border-left-color: ${theme.colors.primary};
+        background-color: var(--colorsActionMinorYang100);
+        border-left-color: var(--colorsActionMajor500);
       `}
   }
 `;
 
-StyledNavigationItem.defaultProps = {
-  theme: baseTheme,
+StyledNavigationItem.propTypes = {
+  isSelected: PropTypes.bool,
 };
 
 export default StyledNavigationItem;

@@ -5,6 +5,7 @@ import Sidebar from ".";
 import Button from "../button";
 import Typography from "../typography";
 import Form from "../form";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 <Meta title="Sidebar" parameters={{ info: { disable: true } }} />
 
@@ -56,7 +57,11 @@ with all the UI pass `enableBackgroundUI={ true }` to the component
       return (
         <>
           <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
-          <Sidebar aria-label="sidebar" open={isOpen} onCancel={() => setIsOpen(false)}>
+          <Sidebar
+            aria-label="sidebar"
+            open={isOpen}
+            onCancel={() => setIsOpen(false)}
+          >
             <div>
               <Button as="primary">Test</Button>
               <Button as="secondary" ml={2}>
@@ -229,3 +234,19 @@ If sidebar content does not fit the sidebar, scroll will appear. Default scroll 
 ### Sidebar
 
 <ArgsTable of={Sidebar} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "sidebar.ariaLabels.close",
+      description: "The text for close button aria-label attribute",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

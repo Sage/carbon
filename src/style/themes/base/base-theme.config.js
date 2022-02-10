@@ -427,6 +427,7 @@ export default (palette) => {
       smallOverlay: 10,
       overlay: 1000,
       popover: 2000,
+      nav: 2999,
       modal: 3000,
       header: 4000,
       fullScreenModal: 5000,

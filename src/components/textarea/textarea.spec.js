@@ -176,7 +176,7 @@ describe("Textarea", () => {
           });
         });
 
-        describe.each(["info", "warning", "error", "labelHelp"])(
+        describe.each(["info", "warning", "error"])(
           "and %s are present",
           (validationType) => {
             const textarea = mount(
@@ -185,13 +185,7 @@ describe("Textarea", () => {
 
             it('should render a valid "aria-describedby"', () => {
               expect(textarea.find(Input).prop("aria-describedby")).toBe(
-                `${id}-tooltip`
-              );
-            });
-
-            it("should pass tooltipId to FormField", () => {
-              expect(textarea.find(FormField).prop("tooltipId")).toBe(
-                `${id}-tooltip`
+                `${id}-validation-icon`
               );
             });
           }
@@ -229,7 +223,7 @@ describe("Textarea", () => {
               );
 
               expect(textarea.find(Input).prop("aria-describedby")).toBe(
-                `${id}-field-help ${id}-tooltip`
+                `${id}-field-help ${id}-validation-icon`
               );
             }
           );

@@ -14,6 +14,7 @@ import {
 import IconButton from "../icon-button";
 import ModalManager from "../modal/__internal__/modal-manager";
 import Events from "../../__internal__/utils/helpers/events";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 const Toast = ({
   as = "warning",
@@ -29,6 +30,8 @@ const Toast = ({
   variant,
   ...restProps
 }) => {
+  const locale = useLocale();
+
   const toastRef = useRef();
   const timer = useRef();
 
@@ -74,7 +77,11 @@ const Toast = ({
     if (!onDismiss) return null;
 
     return (
-      <IconButton data-element="close" onAction={onDismiss}>
+      <IconButton
+        aria-label={locale.toast.ariaLabels.close()}
+        data-element="close"
+        onAction={onDismiss}
+      >
         <Icon type="close" />
       </IconButton>
     );
