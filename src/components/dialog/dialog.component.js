@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useLayoutEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 
+import createGuid from "../../__internal__/utils/helpers/guid/guid.js";
 import Modal from "../modal";
 import Heading from "../heading";
 
@@ -16,6 +17,7 @@ import IconButton from "../icon-button";
 import Icon from "../icon";
 import Form from "../form";
 import { TOP_MARGIN } from "./dialog.config";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 const Dialog = ({
   className,
@@ -34,12 +36,17 @@ const Dialog = ({
   disableClose,
   help,
   role = "dialog",
+  contentPadding = {},
   ...rest
 }) => {
+  const locale = useLocale();
+
   const dialogRef = useRef();
   const innerContentRef = useRef();
   const titleRef = useRef();
   const listenersAdded = useRef(false);
+  const { current: titleId } = useRef(createGuid());
+  const { current: subtitleId } = useRef(createGuid());
 
   const centerDialog = useCallback(() => {
     const {
@@ -108,7 +115,7 @@ const Dialog = ({
     return (
       <IconButton
         data-element="close"
-        aria-label="Close button"
+        aria-label={locale.dialog.ariaLabels.close()}
         onAction={onCancel}
         disabled={disableClose}
       >
@@ -130,9 +137,9 @@ const Dialog = ({
           <Heading
             data-element="dialog-title"
             title={title}
-            titleId="carbon-dialog-title"
+            titleId={titleId}
             subheader={subtitle}
-            subtitleId="carbon-dialog-subtitle"
+            subtitleId={subtitleId}
             divider={false}
             help={help}
           />
@@ -152,16 +159,11 @@ const Dialog = ({
   const dialogProps = {
     size,
     dialogHeight,
-    "aria-labelledby": rest["aria-labelledby"],
-    "aria-describedby": subtitle
-      ? "carbon-dialog-subtitle"
-      : rest["aria-describedby"],
+    "aria-labelledby":
+      title && typeof title === "string" ? titleId : rest["aria-labelledby"],
+    "aria-describedby": subtitle ? subtitleId : rest["aria-describedby"],
     "aria-label": rest["aria-label"],
   };
-
-  if (title && typeof title === "string") {
-    dialogProps["aria-labelledby"] = "carbon-dialog-title";
-  }
 
   const componentTags = {
     "data-component": rest["data-component"] || "dialog",
@@ -193,10 +195,11 @@ const Dialog = ({
           data-element="dialog"
           data-role={rest["data-role"]}
           role={role}
+          {...contentPadding}
         >
           {dialogTitle()}
-          <DialogContentStyle>
-            <DialogInnerContentStyle ref={innerContentRef}>
+          <DialogContentStyle {...contentPadding}>
+            <DialogInnerContentStyle ref={innerContentRef} {...contentPadding}>
               {React.Children.map(children, (child) => {
                 if (child?.type === Form) {
                   return React.cloneElement(child, {
@@ -223,7 +226,7 @@ Dialog.propTypes = {
    */
   "aria-label": PropTypes.string,
   /**
-   * Prop to specify the aria-labeledby property of the Dialog component
+   * Prop to specify the aria-labelledby property of the Dialog component
    * To be used when the title prop is a custom React Node,
    * or the component is labelled by an internal element other than the title.
    */
@@ -273,6 +276,12 @@ Dialog.propTypes = {
   bespokeFocusTrap: PropTypes.func,
   /** The ARIA role to be applied to the Dialog container */
   role: PropTypes.string,
+  /** Padding to be set on the Dialog content */
+  contentPadding: PropTypes.shape({
+    p: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7, 8]),
+    px: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7, 8]),
+    py: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7, 8]),
+  }),
 };
 
 Dialog.defaultProps = {

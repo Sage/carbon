@@ -1,28 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import StyledOption from "./option.style";
+import SelectListContext from "../__internal__/select-list-context";
 
 const Option = React.forwardRef(
-  (
-    { text, children, onSelect, value, isHighlighted, hidden, onClick },
-    ref
-  ) => {
+  ({ text, children, onSelect, value, id, index, hidden, onClick }, ref) => {
+    const selectListContext = useContext(SelectListContext);
+    let isSelected = selectListContext.currentOptionsListIndex === index;
+
+    if (selectListContext.multiselectValues) {
+      isSelected = selectListContext.multiselectValues.includes(value);
+    }
+
     function handleClick() {
       if (!onClick) {
-        onSelect({ text, value });
+        onSelect({ text, value, id });
       } else {
         onSelect();
-        onClick({ target: { text, value } });
+        onClick({ target: { text, value, id } });
       }
     }
 
     return (
       <StyledOption
+        id={id}
         ref={ref}
-        aria-selected={isHighlighted}
+        aria-selected={isSelected}
         data-component="option"
         onClick={handleClick}
-        isHighlighted={isHighlighted}
+        isHighlighted={selectListContext.currentOptionsListIndex === index}
         role="option"
         hidden={hidden}
       >
@@ -42,6 +48,12 @@ Option.propTypes = {
   /**
    * @private
    * @ignore
+   * Component id (prop added by the SelectList component)
+   */
+  id: PropTypes.string,
+  /**
+   * @private
+   * @ignore
    * Callback to return value when the element is clicked (prop added by the SelectList component) */
   onClick: PropTypes.func,
   /**
@@ -52,8 +64,8 @@ Option.propTypes = {
   /**
    * @private
    * @ignore
-   * True if the option is highlighted (prop added by the SelectList component) */
-  isHighlighted: PropTypes.bool,
+   * Position of the element in the list */
+  index: PropTypes.number,
   /**
    * @private
    * @ignore

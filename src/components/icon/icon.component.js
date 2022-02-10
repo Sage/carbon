@@ -47,6 +47,7 @@ const Icon = React.forwardRef(
       focusable: focusableFromContext,
       tooltipVisible: tooltipVisibleFromContext,
       disabled: disabledFromContext,
+      target,
     } = useContext(TooltipContext);
 
     /** Return Icon type with overrides */
@@ -107,7 +108,7 @@ const Icon = React.forwardRef(
         tooltipVisibleFromContext !== undefined
           ? tooltipVisibleFromContext
           : tooltipVisible;
-      const visible = disabled ? false : showTooltip;
+      const visible = disabled ? undefined : showTooltip;
 
       return (
         <Tooltip
@@ -121,6 +122,7 @@ const Icon = React.forwardRef(
           bgColor={tooltipBgColor}
           fontColor={tooltipFontColor}
           flipOverrides={tooltipFlipOverrides}
+          target={target}
         >
           {icon}
         </Tooltip>

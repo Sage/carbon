@@ -25,6 +25,7 @@ export interface TooltipProps {
    * (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements)
    */
   flipOverrides?: ["top" | "bottom" | "left" | "right"];
+  target?: Element;
 }
 
 export interface TooltipInternalProps extends TooltipProps {

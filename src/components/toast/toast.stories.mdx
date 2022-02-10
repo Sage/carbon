@@ -1,9 +1,11 @@
 import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import styled from "styled-components";
+
 import Toast from ".";
 import { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import Button from "../button";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 <Meta
   title="Toast"
@@ -635,3 +637,19 @@ Please use `targetPortalId` prop to group multiple toasts so that they stack.
 ### Toast
 
 <ArgsTable of={Toast} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "toast.ariaLabels.close",
+      description: "The text for close button aria-label attribute",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

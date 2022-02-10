@@ -88,10 +88,10 @@ const MenuFullscreen = ({
               </IconButton>
             </StyledMenuFullscreenHeader>
             <Box
-              overflow="auto"
+              overflowY="auto"
               scrollVariant={scrollVariants[menuType]}
-              width="100vw"
-              height="100vh"
+              width="100%"
+              height="calc(100% - 40px)"
             >
               <StyledMenuWrapper
                 data-component="menu"

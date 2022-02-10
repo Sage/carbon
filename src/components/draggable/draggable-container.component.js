@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { DndProvider, useDrop } from "react-dnd";
-import Backend from "react-dnd-html5-backend";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
@@ -74,7 +74,7 @@ const DraggableContainer = ({ children, getOrder, ...rest }) => {
   const marginProps = filterStyledSystemMarginProps(rest);
 
   return (
-    <DndProvider backend={Backend}>
+    <DndProvider backend={HTML5Backend}>
       <DropTarget getOrder={getItemsId} {...marginProps}>
         {draggableItems.map((item) =>
           React.cloneElement(
