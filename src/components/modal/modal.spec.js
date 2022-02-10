@@ -1,6 +1,18 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { mount } from "enzyme";
+
 import Modal from "./modal.component";
+import { StyledModalBackground } from "./modal.style";
+import useScrollBlock from "../../hooks/__internal__/useScrollBlock";
+
+jest.mock("../../hooks/__internal__/useScrollBlock");
+const allowScroll = jest.fn();
+const blockScroll = jest.fn();
+
+useScrollBlock.mockReturnValue({
+  allowScroll,
+  blockScroll,
+});
 
 describe("Modal", () => {
   let wrapper;
@@ -53,45 +65,41 @@ describe("Modal", () => {
 
   describe("enableBackgroundUI", () => {
     describe("when enableBackgroundUI is false", () => {
-      it("renders children", () => {
-        wrapper = shallow(
+      it("renders background overlay", () => {
+        wrapper = mount(
           <Modal onCancel={() => {}} open enableBackgroundUI={false} />
         );
-        expect(wrapper).toMatchSnapshot();
+        expect(wrapper.find(StyledModalBackground).exists()).toBe(true);
       });
 
-      it("sets overflow hidden style on the document element on open", () => {
+      it("blocks scroll on open", () => {
+        jest.resetAllMocks();
+        useScrollBlock.mockReturnValue({ allowScroll, blockScroll });
         wrapper = mount(<Modal open />);
-        expect(window.document.documentElement.style.overflow).toBe("hidden");
+        expect(blockScroll).toHaveBeenCalled();
       });
 
-      it("recovers an original overflow on close", () => {
-        wrapper = mount(<Modal open={false} />);
-        window.document.documentElement.style.overflow = "auto";
-        expect(window.document.documentElement.style.overflow).toBe("auto");
-        wrapper.setProps({ open: true });
-        expect(window.document.documentElement.style.overflow).toBe("hidden");
+      it("unblocks scroll on close", () => {
+        jest.resetAllMocks();
+        useScrollBlock.mockReturnValue({ allowScroll, blockScroll });
+        wrapper = mount(<Modal open />);
         wrapper.setProps({ open: false });
-        expect(window.document.documentElement.style.overflow).toBe("auto");
+        expect(allowScroll).toHaveBeenCalled();
       });
     });
 
     describe("when enableBackgroundUI is true", () => {
-      it("renders children", () => {
-        wrapper = shallow(
-          <Modal onCancel={() => {}} open enableBackgroundUI />
-        );
-        expect(wrapper).toMatchSnapshot();
+      it("does not render background overlay", () => {
+        wrapper = mount(<Modal onCancel={() => {}} open enableBackgroundUI />);
+        expect(wrapper.find(StyledModalBackground).exists()).toBe(false);
       });
 
-      it("does not modify overflow style on document", () => {
-        wrapper = mount(<Modal open={false} enableBackgroundUI />);
-        window.document.documentElement.style.overflow = "auto";
-        expect(window.document.documentElement.style.overflow).toBe("auto");
-        wrapper.setProps({ open: true });
-        expect(window.document.documentElement.style.overflow).toBe("auto");
-        wrapper.setProps({ open: false });
-        expect(window.document.documentElement.style.overflow).toBe("auto");
+      it("does not block scroll", () => {
+        jest.resetAllMocks();
+        useScrollBlock.mockReturnValue({ allowScroll, blockScroll });
+        wrapper = mount(<Modal open enableBackgroundUI />);
+        expect(blockScroll).not.toHaveBeenCalled();
+        wrapper.unmount();
       });
     });
   });
