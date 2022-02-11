@@ -1,3 +1,17 @@
+## [104.13.0](https://github.com/Sage/carbon/compare/v104.12.2...v104.13.0) (2022-02-11)
+
+
+### Features
+
+* **button-toggle:** describe ButtonToggle and ButtonToggleGroup components usign design tokens ([683f607](https://github.com/Sage/carbon/commit/683f607a896924f8099ddaafffa16632cfb7ee45))
+
+### [104.12.2](https://github.com/Sage/carbon/compare/v104.12.1...v104.12.2) (2022-02-11)
+
+
+### Bug Fixes
+
+* **toast:** make toast position fixed to top of viewport ([ca8a778](https://github.com/Sage/carbon/commit/ca8a778244bf43062ff0d8b281f1ef25e9e1e472)), closes [#4730](https://github.com/Sage/carbon/issues/4730)
+
 ### [104.12.1](https://github.com/Sage/carbon/compare/v104.12.0...v104.12.1) (2022-02-10)
 
 
