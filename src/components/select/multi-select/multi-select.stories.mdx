@@ -44,7 +44,7 @@ you can filter through the existing options leaving only those that match the te
     <MultiSelect
       name="simple"
       id="simple"
-      label="label"
+      label="color"
       labelInline
       onOpen={partialAction("onOpen")}
       onChange={partialAction("onChange")}
@@ -78,7 +78,7 @@ You can use `listPlacement` prop to set the position of the select list relative
     <MultiSelect
       name="simple"
       id="simple"
-      label="label"
+      label="color"
       labelInline
       listPlacement="top-start"
     >
@@ -449,7 +449,7 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
           <MultiSelect
             name="isLoading"
             id="isLoading"
-            label="label"
+            label="color"
             value={value}
             onChange={(event) => setValue(event.target.value)}
             onOpen={() => loadList()}
@@ -474,7 +474,7 @@ See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo>
     <MultiSelect
       name="simple"
       id="simple"
-      label="label"
+      label="color"
       defaultValue={["1", "3"]}
     >
       <Option text="Amber" value="1" borderColor="#FFBF00" fill />

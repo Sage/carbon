@@ -4,26 +4,27 @@ export default function useInputAccessibility({
   warning,
   info,
   label,
-  labelHelp,
   fieldHelp,
 }) {
   const labelId = label ? `${id}-label` : undefined;
 
-  const tooltipId = [error, warning, info, labelHelp].filter(
+  const validationIconId = [error, warning, info].filter(
     (validation) => typeof validation === "string"
   ).length
-    ? `${id}-tooltip`
+    ? `${id}-validation-icon`
     : undefined;
 
   const fieldHelpId = fieldHelp ? `${id}-field-help` : undefined;
 
-  const ariaDescribedBy = [fieldHelpId, tooltipId].filter(Boolean).join(" ");
+  const ariaDescribedBy = [fieldHelpId, validationIconId]
+    .filter(Boolean)
+    .join(" ");
 
   const ariaLabelledBy = labelId;
 
   return {
     labelId,
-    tooltipId,
+    validationIconId,
     fieldHelpId,
     ariaDescribedBy,
     ariaLabelledBy,
