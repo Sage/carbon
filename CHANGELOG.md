@@ -1,3 +1,10 @@
+### [104.12.1](https://github.com/Sage/carbon/compare/v104.12.0...v104.12.1) (2022-02-10)
+
+
+### Bug Fixes
+
+* **docs:** sort versions by semver in picker ([a9cbf95](https://github.com/Sage/carbon/commit/a9cbf9542c9e1a7af7bcae6055951f7c121c1d9f))
+
 ## [104.12.0](https://github.com/Sage/carbon/compare/v104.11.0...v104.12.0) (2022-02-10)
 
 
