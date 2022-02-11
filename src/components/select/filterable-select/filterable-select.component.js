@@ -525,6 +525,8 @@ const FilterableSelect = React.forwardRef(
 
     return (
       <StyledSelect
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
         ref={containerRef}
         hasTextCursor
         readOnly={readOnly}
@@ -532,18 +534,21 @@ const FilterableSelect = React.forwardRef(
         data-component={dataComponent}
         data-role={dataRole}
         data-element={dataElement}
+        isOpen={isOpen}
         {...filterStyledSystemMarginProps(textboxProps)}
       >
-        <SelectTextbox
-          activeDescendantId={activeDescendantId}
-          aria-controls={isOpen ? selectListId.current : undefined}
-          isOpen={isOpen}
-          hasTextCursor
-          labelId={labelId.current}
-          positionedChildren={disablePortal && isOpen && selectList}
-          {...getTextboxProps()}
-        />
-        {!disablePortal && isOpen && selectList}
+        <div ref={containerRef}>
+          <SelectTextbox
+            activeDescendantId={activeDescendantId}
+            aria-controls={isOpen ? selectListId.current : undefined}
+            isOpen={isOpen}
+            hasTextCursor
+            labelId={labelId.current}
+            textboxRef={textboxRef}
+            {...getTextboxProps()}
+          />
+        </div>
+        {isOpen && selectList}
       </StyledSelect>
     );
   }

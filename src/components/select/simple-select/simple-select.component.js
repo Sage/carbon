@@ -416,21 +416,25 @@ const SimpleSelect = React.forwardRef(
         transparent={transparent}
         disabled={disabled}
         readOnly={readOnly}
-        ref={containerRef}
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
         data-component={dataComponent}
         data-role={dataRole}
         data-element={dataElement}
+        isOpen={isOpen}
         {...filterStyledSystemMarginProps(props)}
       >
-        <SelectTextbox
-          isOpen={isOpen}
-          labelId={labelId.current}
-          activeDescendantId={activeDescendantId}
-          aria-controls={isOpen ? selectListId.current : undefined}
-          {...getTextboxProps()}
-          positionedChildren={disablePortal && isOpen && selectList}
-        />
-        {!disablePortal && isOpen && selectList}
+        <div ref={containerRef}>
+          <SelectTextbox
+            aria-controls={isOpen ? selectListId.current : undefined}
+            activeDescendantId={activeDescendantId}
+            labelId={labelId.current}
+            isOpen={isOpen}
+            textboxRef={textboxRef}
+            {...getTextboxProps()}
+          />
+        </div>
+        {isOpen && selectList}
       </StyledSelect>
     );
   }
