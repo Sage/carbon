@@ -31,6 +31,12 @@ const formFieldProps = [
   ["labelAlign", "right"],
 ];
 
+const buttonToggleGroupVariants = {
+  error: "var(--colorsSemanticNegative500)",
+  warning: "var(--colorsSemanticCaution500)",
+  info: "var(--colorsActionMinor500)",
+};
+
 describe("ButtonToggleGroup", () => {
   it("wraps ButtonToggle components in a FormField", () => {
     const wrapper = renderWithTheme({ theme: baseTheme }, mount);
@@ -158,7 +164,7 @@ describe("ButtonToggleGroup", () => {
           // eslint-disable-next-line max-len
           const boxShadow =
             type === "error"
-              ? `inset 1px 1px 0 ${baseTheme.colors.error}, inset -1px -1px 0 ${baseTheme.colors.error}`
+              ? `inset 1px 1px 0 var(--colorsSemanticNegative500), inset -1px -1px 0 var(--colorsSemanticNegative500)`
               : undefined;
           const wrapper = renderWithTheme(
             { theme: baseTheme, [type]: "Message" },
@@ -167,7 +173,7 @@ describe("ButtonToggleGroup", () => {
           assertStyleMatch(
             {
               boxShadow,
-              borderColor: baseTheme.colors[type],
+              borderColor: buttonToggleGroupVariants[type],
             },
             wrapper.find(ButtonToggleGroupStyle),
             { modifier: `${StyledButtonToggleLabel}` }
@@ -215,7 +221,7 @@ describe("ButtonToggleGroup", () => {
           // eslint-disable-next-line max-len
           const boxShadow =
             type === "error"
-              ? `inset 1px 1px 0 ${baseTheme.colors.error}, inset -1px -1px 0 ${baseTheme.colors.error}`
+              ? `inset 1px 1px 0 var(--colorsSemanticNegative500), inset -1px -1px 0 var(--colorsSemanticNegative500)`
               : undefined;
           const wrapper = renderWithTheme(
             { theme: baseTheme, [type]: true },
@@ -224,7 +230,7 @@ describe("ButtonToggleGroup", () => {
           assertStyleMatch(
             {
               boxShadow,
-              borderColor: baseTheme.colors[type],
+              borderColor: buttonToggleGroupVariants[type],
             },
             wrapper.find(ButtonToggleGroupStyle),
             { modifier: `${StyledButtonToggleLabel}` }
