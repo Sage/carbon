@@ -1,3 +1,10 @@
+## [104.14.0](https://github.com/Sage/carbon/compare/v104.13.0...v104.14.0) (2022-02-11)
+
+
+### Features
+
+* **select:** block scroll while select is open ([362c7ef](https://github.com/Sage/carbon/commit/362c7efbe6146c0dc9f7a08dbf267fdf9bcd0975))
+
 ## [104.13.0](https://github.com/Sage/carbon/compare/v104.12.2...v104.13.0) (2022-02-11)
 
 
