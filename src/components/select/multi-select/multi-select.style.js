@@ -27,6 +27,7 @@ const StyledSelectMultiSelect = styled(StyledSelect)`
 
   ${InputPresentationStyle} {
     padding-right: ${({ size }) => sizes[size].height};
+    position: relative;
   }
 `;
 

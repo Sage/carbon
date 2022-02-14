@@ -608,9 +608,6 @@ exports[`Portal when using default node to match snapshot  1`] = `
               "borderBottom": "#D9E0E4",
             },
           },
-          "note": Object {
-            "timeStamp": "rgba(0,0,0,0.65)",
-          },
           "numeralDate": Object {
             "error": "#C7384F",
             "passive": "#668592",
@@ -799,9 +796,9 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "header": 4000,
             "modal": 3000,
             "nav": 2999,
-            "notification": 6000,
+            "notification": 7000,
             "overlay": 1000,
-            "popover": 2000,
+            "popover": 6000,
             "smallOverlay": 10,
           },
         }

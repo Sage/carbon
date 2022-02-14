@@ -40,3 +40,12 @@ Feature: Toast component
     Given I open "Toast" component page "default story"
     When I click on "button-default" Toggle Preview
     Then Toast is centred
+
+  @positive
+  Scenario Outline: Confirm Toast stays visible when page is scrolled down
+    Given I open default "Toast Test" component with "toast" json from "commonComponents" using "<nameOfObject>" object name
+    When I scroll down the page
+    Then Toast is still visible
+    Examples:
+      | nameOfObject   |
+      | scrollablePage |

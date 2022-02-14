@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
+import useScrollBlock from "../../hooks/__internal__/useScrollBlock";
+import Portal from "../portal";
 import Events from "../../__internal__/utils/helpers/events";
-import StyledPortal from "../portal/portal.style";
 import ModalManager from "./__internal__/modal-manager";
 import { StyledModal, StyledModalBackground } from "./modal.style";
 
@@ -22,44 +23,30 @@ const Modal = ({
   const ref = useRef();
   const listenerAdded = useRef(false);
   const modalRegistered = useRef(false);
-  const originalOverflow = useRef(undefined);
   const [isAnimationComplete, setAnimationComplete] = useState(false);
   const [triggerRefocusFlag, setTriggerRefocusFlag] = useState(false);
 
-  const setOverflow = useCallback(() => {
-    if (
-      typeof originalOverflow.current === "undefined" &&
-      !enableBackgroundUI
-    ) {
-      originalOverflow.current = document.documentElement.style.overflow;
-      document.documentElement.style.overflow = "hidden";
-    }
-  }, [enableBackgroundUI]);
-
-  const unsetOverflow = useCallback(() => {
-    if (
-      typeof originalOverflow.current !== "undefined" &&
-      !enableBackgroundUI
-    ) {
-      document.documentElement.style.overflow = originalOverflow.current;
-      originalOverflow.current = undefined;
-    }
-  }, [enableBackgroundUI]);
+  const { blockScroll, allowScroll } = useScrollBlock();
 
   useEffect(() => {
+    if (enableBackgroundUI) {
+      return;
+    }
+
     if (open) {
-      setOverflow();
+      blockScroll();
+    } else {
+      allowScroll();
     }
-    if (!open) {
-      unsetOverflow();
-    }
-  }, [open, setOverflow, unsetOverflow]);
+  }, [allowScroll, blockScroll, enableBackgroundUI, open]);
 
   useEffect(() => {
     return () => {
-      unsetOverflow();
+      if (!enableBackgroundUI) {
+        allowScroll();
+      }
     };
-  }, [unsetOverflow]);
+  }, [allowScroll, enableBackgroundUI]);
 
   const closeModal = useCallback(
     (ev) => {
@@ -151,6 +138,7 @@ const Modal = ({
       <StyledModalBackground
         data-element="modal-background"
         transitionName="modal-background"
+        transitionTime={timeout}
       />
     ) : null;
 
@@ -158,10 +146,11 @@ const Modal = ({
   }
 
   return (
-    <StyledPortal>
+    <Portal>
       <StyledModal
         data-state={open ? "open" : "closed"}
         transitionName="modal"
+        transitionTime={timeout}
         ref={ref}
         {...rest}
       >
@@ -194,7 +183,7 @@ const Modal = ({
           )}
         </TransitionGroup>
       </StyledModal>
-    </StyledPortal>
+    </Portal>
   );
 };
 
@@ -219,7 +208,7 @@ Modal.defaultProps = {
   onCancel: null,
   enableBackgroundUI: false,
   disableEscKey: false,
-  timeout: 500,
+  timeout: 300,
 };
 
 export default Modal;
