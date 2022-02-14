@@ -20,22 +20,24 @@ const StyledLegendContent = styled.span`
   align-items: center;
   line-height: 24px;
 
-  ${({ isRequired, theme }) =>
+  ${({ isRequired }) =>
     isRequired &&
     css`
       ::after {
         content: "*";
         line-height: 24px;
-        color: ${theme.colors.asterisk};
+        color: var(--colorsSemanticNegative500);
         font-weight: 700;
-        margin-left: ${theme.spacing}px;
+        margin-left: var(--spacing100);
       }
     `}
 `;
 
-StyledLegendContent.defaultProps = {
-  theme: BaseTheme,
-};
+const legendRightPaddings = (rightPadding) =>
+  ({
+    1: "var(--spacing100)",
+    2: "var(--spacing200)",
+  }[rightPadding]);
 
 const StyledLegend = styled.legend`
   display: flex;
@@ -44,7 +46,7 @@ const StyledLegend = styled.legend`
   padding: 0;
   font-weight: 600;
 
-  ${({ inline, width, align, rightPadding, theme }) =>
+  ${({ inline, width, align, rightPadding }) =>
     inline &&
     css`
       float: left;
@@ -52,13 +54,12 @@ const StyledLegend = styled.legend`
       margin: 0;
       ${width && `width: ${width}%`};
       justify-content: ${align === "right" ? "flex-end" : "flex-start"};
-      padding-right: ${rightPadding * theme.spacing}px;
+      padding-right: ${legendRightPaddings(rightPadding)};
     `}
 `;
 
 StyledLegend.defaultProps = {
   align: "right",
-  theme: BaseTheme,
 };
 
 StyledLegend.propTypes = {
