@@ -8,7 +8,7 @@ const StyledNoteContent = styled.div`
   position: relative;
   width: 100%;
 
-  ${({ theme, hasPreview }) => css`
+  ${({ hasPreview }) => css`
     &:not(:last-of-type) {
       padding-bottom: 24px;
     }
@@ -22,17 +22,17 @@ const StyledNoteContent = styled.div`
     div.public-DraftEditor-content {
       min-height: inherit;
       height: 100%;
-      background-color: ${theme.colors.white};
+      background-color: var(--colorsUtilityYang100);
       line-height: 21px;
     }
 
     &:last-of-type:not(:first-of-type) {
-      border-top: solid 1px ${theme.tile.separator};
+      border-top: solid 1px var(--colorsUtilityMajor050);
     }
 
     ${hasPreview &&
     `
-      margin-top: ${2 * theme.spacing}px;
+      margin-top: var(--spacing200);
     `}
   `}
 `;
@@ -56,8 +56,8 @@ const StyledFooterContent = styled.div`
   align-items: baseline;
   font-weight: bold;
 
-  ${({ theme, hasName }) => css`
-    margin-top: ${2 * theme.spacing}px;
+  ${({ hasName }) => css`
+    margin-top: var(--spacing200);
 
     ${hasName &&
     css`
@@ -67,15 +67,15 @@ const StyledFooterContent = styled.div`
 
       &:nth-of-type(2) {
         font-size: 12px;
-        color: ${theme.note.timeStamp};
-        margin-left: ${2 * theme.spacing}px;
+        color: var(--colorsUtilityYin065);
+        margin-left: var(--spacing200);
       }
 
       &:last-of-type:not(:nth-of-type(2)) {
         font-size: 12px;
-        color: ${theme.note.timeStamp};
+        color: var(--colorsUtilityYin065);
         cursor: pointer;
-        margin-left: ${3 * theme.spacing}px;
+        margin-left: var(--spacing300);
       }
     `}
 
@@ -83,14 +83,14 @@ const StyledFooterContent = styled.div`
     css`
       &:first-of-type {
         font-size: 12px;
-        color: ${theme.note.timeStamp};
+        color: var(--colorsUtilityYin065);
       }
 
       &:last-of-type:not(:first-of-type) {
         font-size: 12px;
-        color: ${theme.note.timeStamp};
+        color: var(--colorsUtilityYin065);
         cursor: pointer;
-        margin-left: ${3 * theme.spacing}px;
+        margin-left: var(--spacing300);
       }
     `}
   `}
@@ -98,14 +98,14 @@ const StyledFooterContent = styled.div`
 
 const StyledFooter = styled.div`
   display: flex;
-  margin-bottom: ${({ theme }) => `${-theme.spacing}px;`}
+  margin-bottom: calc(-1 * var(--spacing100));
   flex-wrap: wrap;
 `;
 
 const StyledNote = styled.div`
-  ${({ theme, width }) => css`
-    background-color: ${theme.colors.white};
-    border: 1px solid ${theme.tile.border};
+  ${({ width }) => css`
+    background-color: var(--colorsUtilityYang100);
+    border: 1px solid var(--colorsUtilityMajor100);
     display: flex;
     flex-direction: column;
     padding: 24px;
@@ -130,24 +130,12 @@ const StyledNote = styled.div`
   ${margin}
 `;
 
-StyledNoteContent.defaultProps = {
-  theme: baseTheme,
-};
-
 StyledNote.propTypes = {
   padding: PropTypes.string,
   width: PropTypes.number,
 };
 
 StyledNote.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledFooter.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledFooterContent.defaultProps = {
   theme: baseTheme,
 };
 

@@ -1,3 +1,10 @@
+## [104.15.0](https://github.com/Sage/carbon/compare/v104.14.0...v104.15.0) (2022-02-14)
+
+
+### Features
+
+* **note:** describe note using design tokens, update tests ([1626581](https://github.com/Sage/carbon/commit/162658126b496bc6886261cd3908759b9d4963f5))
+
 ## [104.14.0](https://github.com/Sage/carbon/compare/v104.13.0...v104.14.0) (2022-02-11)
 
 

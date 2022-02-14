@@ -412,10 +412,6 @@ export default (palette) => {
       altHover: palette.slateTint(85),
     },
 
-    note: {
-      timeStamp: "rgba(0,0,0,0.65)",
-    },
-
     editorLinkPreview: {
       background: palette.slateTint(95),
       hoverBackground: palette.slateTint(80),
