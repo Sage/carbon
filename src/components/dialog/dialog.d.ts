@@ -1,6 +1,14 @@
 import * as React from "react";
 import { ModalProps } from "../modal/modal";
 
+type PaddingValues = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
+interface ContentPaddingInterface {
+  p?: PaddingValues;
+  py?: PaddingValues;
+  px?: PaddingValues;
+}
+
 export type DialogSizes =
   | "auto"
   | "extra-small"
@@ -20,7 +28,7 @@ export interface DialogProps extends ModalProps {
    */
   "aria-label"?: string;
   /**
-   * Prop to specify the aria-labeledby property of the Dialog component
+   * Prop to specify the aria-labelledby property of the Dialog component
    * To be used when the title prop is a custom React Node,
    * or the component is labelled by an internal element other than the title.
    */
@@ -49,6 +57,8 @@ export interface DialogProps extends ModalProps {
   title?: React.ReactNode;
   /** The ARIA role to be applied to the Dialog container */
   role?: string;
+  /** Padding to be set on the Dialog content */
+  contentPadding?: ContentPaddingInterface;
 }
 
 declare function Dialog(props: DialogProps): JSX.Element;

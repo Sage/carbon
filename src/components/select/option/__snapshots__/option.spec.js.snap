@@ -11,6 +11,7 @@ exports[`Option renders properly 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  background-color: var(--colorsUtilityMajor200);
 }
 
 .c0:hover {
@@ -18,6 +19,7 @@ exports[`Option renders properly 1`] = `
 }
 
 <li
+  aria-selected={true}
   className="c0"
   data-component="option"
   onClick={[Function]}
@@ -38,6 +40,7 @@ exports[`Option when no children are provided renders with the text prop as chil
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  background-color: var(--colorsUtilityMajor200);
 }
 
 .c0:hover {
@@ -45,6 +48,7 @@ exports[`Option when no children are provided renders with the text prop as chil
 }
 
 <li
+  aria-selected={true}
   className="c0"
   data-component="option"
   onClick={[Function]}

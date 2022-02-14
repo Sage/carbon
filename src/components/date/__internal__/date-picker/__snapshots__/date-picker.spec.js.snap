@@ -5,7 +5,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
   position: absolute;
   height: 352px;
   width: 352px;
-  z-index: 2000;
+  z-index: 6000;
 }
 
 .c0 .DayPicker {

@@ -3,6 +3,7 @@ import StyledInput from "../../__internal__/input/input.style";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import baseTheme from "../../style/themes/base";
+import StyledSelectText from "../select/__internal__/select-text/select-text.style";
 
 const StyledSelectContainer = styled.div`
   height: 26px;
@@ -92,7 +93,7 @@ const StyledPagerSizeOptions = styled.div`
     min-width: 10px;
     margin: 0px 4px;
 
-    ${StyledInput} {
+    ${StyledSelectText} {
       font-size: 14px;
       padding-right: 0px;
       padding-left: 8px;
