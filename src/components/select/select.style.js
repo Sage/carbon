@@ -24,8 +24,8 @@ const StyledSelect = styled.div`
 
       ${readOnly &&
       css`
-        cursor: "text";
-        color: var(--colorsYin065);
+        cursor: ${hasTextCursor ? "text" : "default"};
+        color: var(--colorsActionMinorYin090);
         text-shadow: none;
       `}
     }
