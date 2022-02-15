@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa eWXMYD\\"><p>john</p></div></div>"`;
+exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa gXbfZT\\"><p>john</p></div></div>"`;
 
-exports[`Portal when an element with id 'root' exists will mount on that element 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa eWXMYD\\"><p>Test</p></div></div></div>"`;
+exports[`Portal when an element with id 'root' exists will mount on that element 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa gXbfZT\\"><p>Test</p></div></div></div>"`;
 
-exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa eWXMYD\\"><span>a1</span></div><div class=\\"sc-bdVaJa eWXMYD\\"><span>a2</span></div></div>"`;
+exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa gXbfZT\\"><span>a1</span></div><div class=\\"sc-bdVaJa gXbfZT\\"><span>a2</span></div></div>"`;
 
 exports[`Portal when using default node to match snapshot  1`] = `
 <span
@@ -82,6 +82,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "borderWidth300": "3px",
             "borderWidth400": "4px",
             "boxShadow050": "0 3px 3px 0 #00141e33, 0 2px 4px 0 #00141e26",
+            "boxShadow075": "inset 0 6px 4px -4px #00141e0d",
             "boxShadow100": "0 5px 5px 0 #00141e33, 0 10px 10px 0 #00141e1a",
             "boxShadow150": "0 -4px 12px 0 #00141e0d",
             "boxShadow200": "0 10px 20px 0 #00141e33, 0 20px 40px 0 #00141e1a",
@@ -196,6 +197,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "colorsSemanticCaution400": "#f28533ff",
             "colorsSemanticCaution500": "#E96400",
             "colorsSemanticCaution600": "#bf5200ff",
+            "colorsSemanticCaution650": "#a74800ff",
             "colorsSemanticCautionTransparent": "#00000000",
             "colorsSemanticCautionYang100": "#ffffffff",
             "colorsSemanticCautionYin030": "#0000004d",
@@ -243,6 +245,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "colorsUtilityDisabled400": "#f2f5f6ff",
             "colorsUtilityDisabled500": "#e6ebedff",
             "colorsUtilityDisabled600": "#ccd6dbff",
+            "colorsUtilityMajor010": "#fafbfbff",
             "colorsUtilityMajor025": "#f2f5f6ff",
             "colorsUtilityMajor040": "#edf1f2ff",
             "colorsUtilityMajor050": "#e6ebedff",
@@ -316,6 +319,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "sizing350": "28px",
             "sizing375": "30px",
             "sizing400": "32px",
+            "sizing450": "36px",
             "sizing500": "40px",
             "sizing600": "48px",
             "sizing700": "56px",
@@ -347,6 +351,9 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "typographyButtonLabelL": "Bold 16px/150% Sage UI",
             "typographyButtonLabelM": "Bold 14px/150% Sage UI",
             "typographyButtonLabelS": "Bold 14px/150% Sage UI",
+            "typographyDatePickerCalendarDateM": "Bold 14px/150% Sage UI",
+            "typographyDatePickerCalendarDayM": "Bold 14px/150% Sage UI",
+            "typographyDatePickerCalendarMonthM": "Bold 16px/125% Sage UI",
             "typographyDialogParagraphS": "Bold 14px/150% Sage UI",
             "typographyDialogParagraphXs": "Bold 14px/150% Sage UI",
             "typographyDialogTitleL": "Bold 20px/125% Sage UI",
@@ -399,6 +406,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "typographyMessageHeadingM": "Bold 14px/150% Sage UI",
             "typographyMessageTextL": "Regular 16px/150% Sage UI",
             "typographyMessageTextM": "Regular 14px/150% Sage UI",
+            "typographyPaginationLabelM": "Regular 13px/150% Sage UI",
             "typographyPillLabelL": "Medium 14px/150% Sage UI",
             "typographyPillLabelM": "Medium 12px/150% Sage UI",
             "typographyPillLabelS": "Medium 10px/150% Sage UI",
@@ -600,9 +608,6 @@ exports[`Portal when using default node to match snapshot  1`] = `
               "borderBottom": "#D9E0E4",
             },
           },
-          "note": Object {
-            "timeStamp": "rgba(0,0,0,0.65)",
-          },
           "numeralDate": Object {
             "error": "#C7384F",
             "passive": "#668592",
@@ -790,9 +795,10 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "fullScreenModal": 5000,
             "header": 4000,
             "modal": 3000,
-            "notification": 6000,
+            "nav": 2999,
+            "notification": 7000,
             "overlay": 1000,
-            "popover": 2000,
+            "popover": 6000,
             "smallOverlay": 10,
           },
         }
@@ -811,4 +817,4 @@ exports[`Portal when using default node to match snapshot  1`] = `
 </span>
 `;
 
-exports[`Portal when using default node when an element with id 'root' does not exist will mount on body 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa eWXMYD\\"><span class=\\"sc-bwzfXH gplFmG\\" data-element=\\"tick\\" data-component=\\"icon\\" font-size=\\"small\\" type=\\"tick\\" tabindex=\\"0\\" role=\\"tooltip\\"></span></div></div></div>"`;
+exports[`Portal when using default node when an element with id 'root' does not exist will mount on body 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa gXbfZT\\"><span class=\\"sc-bwzfXH gplFmG\\" data-element=\\"tick\\" data-component=\\"icon\\" font-size=\\"small\\" type=\\"tick\\" tabindex=\\"0\\" role=\\"tooltip\\"></span></div></div></div>"`;

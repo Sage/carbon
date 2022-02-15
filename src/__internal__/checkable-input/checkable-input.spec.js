@@ -106,7 +106,7 @@ describe("CheckableInput", () => {
           });
         });
 
-        describe.each(["info", "warning", "error", "labelHelp"])(
+        describe.each(["info", "warning", "error"])(
           "and %s are present",
           (validationType) => {
             const wrapper = mountInput({
@@ -117,12 +117,12 @@ describe("CheckableInput", () => {
             it('should render a valid "aria-describedby"', () => {
               expect(
                 wrapper.find(HiddenCheckableInputStyle).prop("aria-describedby")
-              ).toBe(`${id}-tooltip`);
+              ).toBe(`${id}-validation-icon`);
             });
 
-            it("should pass tooltipId prop to FormField", () => {
-              expect(wrapper.find(FormField).prop("tooltipId")).toBe(
-                `${id}-tooltip`
+            it("should pass validationIconId prop to FormField", () => {
+              expect(wrapper.find(FormField).prop("validationIconId")).toBe(
+                `${id}-validation-icon`
               );
             });
           }
@@ -164,7 +164,7 @@ describe("CheckableInput", () => {
                 hiddenCheckableInputStyle
                   .find(HiddenCheckableInputStyle)
                   .prop("aria-describedby")
-              ).toBe(`${id}-field-help ${id}-tooltip`);
+              ).toBe(`${id}-field-help ${id}-validation-icon`);
             }
           );
         });

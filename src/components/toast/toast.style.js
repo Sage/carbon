@@ -9,7 +9,7 @@ import baseTheme from "../../style/themes/base";
 
 const StyledPortal = styled(Portal)`
   ${({ theme }) => css`
-    position: absolute;
+    position: fixed;
     top: 0;
 
     z-index: ${theme.zIndex.notification};

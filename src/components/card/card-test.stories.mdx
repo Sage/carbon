@@ -1,15 +1,12 @@
 import { useState, useRef, useCallback } from "react";
 import { action } from "@storybook/addon-actions";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
-import Backend from "react-dnd-html5-backend";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import Card from "./card.component";
-import CardRow from "./card-row";
-import CardColumn from "./card-column";
-import CardFooter from "./card-footer";
+import { Card, CardRow, CardFooter, CardColumn } from ".";
 import Link from "../link";
 import Heading from "../heading";
-import Typography from "../typography/typography.component";
+import Typography from "../typography";
 import Icon from "../icon";
 import Box from "../box";
 
@@ -110,16 +107,15 @@ export const Draggable = () => {
       },
     });
     const [{ isDragging }, drag] = useDrag({
+      type: "Card",
       item: {
         index,
         name,
         currentColumnName,
-        type: "Card",
       },
       end: (item, monitor) => {
         const dropResult = monitor.getDropResult();
         if (dropResult) {
-          // eslint-disable-next-line no-shadow
           const { name } = dropResult;
           const { productOne, productTwo } = columnNames;
           switch (name) {
@@ -132,20 +128,16 @@ export const Draggable = () => {
             default:
               break;
           }
-          action(dropResult)();
         }
       },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
     });
-    if (isDragging) {
-      action("drag")();
-    }
     const opacity = isDragging ? 0.4 : 1;
     drag(drop(ref));
     return (
-      <div
+      <Box
         ref={ref}
         style={{
           opacity,
@@ -161,7 +153,7 @@ export const Draggable = () => {
         }}
       >
         <Card id={name} draggable data-element={dataElement}>
-          <CardRow>
+          <CardRow pt={0}>
             <CardColumn align="left">
               <Heading title={name} divider={false} />
               <Typography>user.name@sage.com</Typography>
@@ -171,7 +163,7 @@ export const Draggable = () => {
             </CardColumn>
           </CardRow>
         </Card>
-      </div>
+      </Box>
     );
   };
   const Column = ({ children, title, dataElement }) => {
@@ -187,20 +179,12 @@ export const Draggable = () => {
       if (isOver && canDrop) {
         return "rgb(0, 129, 93)";
       }
-      return null;
     };
     const getTextColor = () => {
       if (isOver && canDrop) {
         return "#FFFFFF";
       }
-      return null;
     };
-    if (isOver) {
-      action("isOver")();
-    }
-    if (canDrop) {
-      action("canDrop")();
-    }
     return (
       <Box
         ref={drop}
@@ -227,20 +211,17 @@ export const Draggable = () => {
     );
   };
   const [items, setItems] = useState(cards);
-  const moveCardHandler = useCallback(
-    (dragIndex, hoverIndex) => {
-      const dragItem = items[dragIndex];
-      if (dragItem) {
-        setItems((prevState) => {
-          const copiedStateArray = [...prevState];
-          const prevItem = copiedStateArray.splice(hoverIndex, 1, dragItem);
-          copiedStateArray.splice(dragIndex, 1, prevItem[0]);
-          return copiedStateArray;
-        });
-      }
-    },
-    [items]
-  );
+  const moveCardHandler = (dragIndex, hoverIndex) => {
+    const dragItem = items[dragIndex];
+    if (dragItem) {
+      setItems((prevState) => {
+        const copiedStateArray = [...prevState];
+        const prevItem = copiedStateArray.splice(hoverIndex, 1, dragItem);
+        copiedStateArray.splice(dragIndex, 1, prevItem[0]);
+        return copiedStateArray;
+      });
+    }
+  };
   const returnItemsForColumn = (columnName) => {
     return items
       .filter((item) => item.column === columnName)
@@ -266,11 +247,11 @@ export const Draggable = () => {
           justifyContent: "space-around",
         }}
       >
-        <DndProvider backend={Backend}>
-          <Column dataElement="draggable-container-1" title={productOne}>
+        <DndProvider backend={HTML5Backend}>
+          <Column title={productOne} dataElement="draggable-container-1">
             {returnItemsForColumn(productOne)}
           </Column>
-          <Column dataElement="draggable-container-2" title={productTwo}>
+          <Column title={productTwo} dataElement="draggable-container-2">
             {returnItemsForColumn(productTwo)}
           </Column>
         </DndProvider>
@@ -290,7 +271,5 @@ export const Draggable = () => {
 ### Draggable
 
 <Canvas>
-  <Story name="draggable" args={{ draggable: false }}>
-    {Draggable.bind({})}
-  </Story>
+  <Story name="draggable">{Draggable.bind({})}</Story>
 </Canvas>

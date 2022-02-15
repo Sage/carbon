@@ -2,8 +2,6 @@ import React from "react";
 import { mount } from "enzyme";
 import RadioButtonMapper from "../radio-button/radio-button-mapper.component";
 import { TileSelect, TileSelectGroup } from ".";
-import { baseTheme } from "../../style/themes";
-import tint from "../../style/utils/tint";
 
 import {
   StyledTileSelectFieldset,
@@ -174,14 +172,14 @@ describe("TileSelect", () => {
       render({ checked: true });
       assertStyleMatch(
         {
-          background: tint(baseTheme.colors.primary)(95),
+          background: "var(--colorsActionMajor025)",
         },
         wrapper.find(StyledTileSelect)
       );
 
       assertStyleMatch(
         {
-          borderColor: baseTheme.colors.primary,
+          borderColor: "var(--colorsActionMajor500)",
           zIndex: "10",
         },
         wrapper.find(StyledFocusWrapper)
@@ -193,7 +191,7 @@ describe("TileSelect", () => {
       render({ disabled: true, prefixAdornment: <MyComp /> });
       assertStyleMatch(
         {
-          background: baseTheme.tileSelect.disabledBackground,
+          background: "var(--colorsActionMinorYang100)",
         },
         wrapper.find(StyledTileSelect)
       );
@@ -201,7 +199,7 @@ describe("TileSelect", () => {
       [StyledTitle, StyledSubtitle, StyledDescription].forEach((Component) => {
         assertStyleMatch(
           {
-            color: baseTheme.tileSelect.disabledText,
+            color: "var(--colorsActionMinorYin030)",
           },
           wrapper.find(StyledTileSelect),
           { modifier: ` ${Component}` }
@@ -210,8 +208,6 @@ describe("TileSelect", () => {
 
       assertStyleMatch(
         {
-          color: baseTheme.colors.black,
-          fill: baseTheme.colors.black,
           opacity: "0.3",
         },
         wrapper.find(StyledTileSelect),
@@ -230,7 +226,7 @@ describe("TileSelect", () => {
     it("renders proper background when hovered", () => {
       assertStyleMatch(
         {
-          background: baseTheme.tileSelect.hoverBackground,
+          background: "var(--colorsActionMinor050)",
         },
         wrapper.find(StyledTileSelectContainer),
         { modifier: `&:hover ${StyledTileSelect}` }
@@ -242,7 +238,7 @@ describe("TileSelect", () => {
 
       assertStyleMatch(
         {
-          outline: `3px solid ${baseTheme.colors.focus}`,
+          outline: `3px solid var(--colorsSemanticFocus500)`,
           zIndex: "15",
         },
         wrapper.find(StyledFocusWrapper)
@@ -311,10 +307,10 @@ describe("TileSelect", () => {
 
       assertStyleMatch(
         {
-          marginRight: "16px",
+          marginRight: "var(--sizing200)",
           display: "flex",
           alignItems: "baseline",
-          minHeight: "32px",
+          minHeight: "var(--sizing400)",
         },
         wrapper.find(StyledDeselectWrapper)
       );

@@ -22,7 +22,7 @@ export default (isDisabled, destructive) => ({
       isDisabled
         ? `
     background: var(--colorsActionDisabled500);
-    ${makeColors("var(--colorsYin030)")};
+    ${makeColors("var(--colorsActionMajorYin030)")};
     &:hover {
       background: var(--colorsActionDisabled500);
     }
@@ -42,7 +42,7 @@ export default (isDisabled, destructive) => ({
       isDisabled
         ? `
       background: var(--colorsActionDisabled500);
-      ${makeColors("var(--colorsYin030)")};
+      ${makeColors("var(--colorsActionMajorYin030)")};
       &:hover {
         background: var(--colorsActionDisabled500);
       }
@@ -80,11 +80,11 @@ export default (isDisabled, destructive) => ({
         isDisabled
           ? `
         border-color: var(--colorsActionDisabled500);
-        ${makeColors("var(--colorsYin030)")};
+        ${makeColors("var(--colorsActionMajorYin030)")};
         &:hover {
           background: transparent;
           border-color: var(--colorsActionDisabled500);
-          ${makeColors("var(--colorsYin030)")};
+          ${makeColors("var(--colorsActionMajorYin030)")};
         }
     `
           : ""
@@ -114,10 +114,10 @@ export default (isDisabled, destructive) => ({
     ${
       isDisabled
         ? `
-      ${makeColors("var(--colorsYin030)")};
+      ${makeColors("var(--colorsActionMajorYin030)")};
       &:hover {
         background: var(--colorsActionMajorTransparent);
-        ${makeColors("var(--colorsYin030)")};
+        ${makeColors("var(--colorsActionMajorYin030)")};
       }
     `
         : ""
@@ -143,7 +143,7 @@ export default (isDisabled, destructive) => ({
       isDisabled
         ? `
       border-color: var(--colorsActionDisabled500);
-      ${makeColors("var(--colorsYin030)")};
+      ${makeColors("var(--colorsActionMinorYin030)")};
       &:hover {
         background-color: transparent;
       }
@@ -164,10 +164,10 @@ export default (isDisabled, destructive) => ({
       isDisabled
         ? `
       background: var(--colorsActionDisabled500);
-      ${makeColors("var(--colorsYin030)")};
+      ${makeColors("var(--colorsActionMajorYin030)")};
       &:hover {
         background: var(--colorsActionDisabled500);
-        ${makeColors("var(--colorsYin030)")};
+        ${makeColors("var(--colorsActionMajorYin030)")};
       }
     `
         : ""

@@ -16,16 +16,16 @@ const StyledOptionGroupHeader = styled.div`
     line-height: 18px;
     text-align: left;
     margin: 0;
-    color: var(--colorsYin055);
+    color: var(--colorsUtilityYin055);
   }
 
   ${StyledIcon} {
     margin-right: 4px;
     margin-left: -5px;
-    color: var(--colorsYin055);
+    color: var(--colorsUtilityYin055);
 
     &:hover {
-      color: var(--colorsYin055);
+      color: var(--colorsUtilityYin055);
     }
   }
 `;

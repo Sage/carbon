@@ -412,10 +412,6 @@ export default (palette) => {
       altHover: palette.slateTint(85),
     },
 
-    note: {
-      timeStamp: "rgba(0,0,0,0.65)",
-    },
-
     editorLinkPreview: {
       background: palette.slateTint(95),
       hoverBackground: palette.slateTint(80),
@@ -426,11 +422,12 @@ export default (palette) => {
     zIndex: {
       smallOverlay: 10,
       overlay: 1000,
-      popover: 2000,
+      nav: 2999,
       modal: 3000,
       header: 4000,
       fullScreenModal: 5000,
-      notification: 6000,
+      popover: 6000,
+      notification: 7000,
       aboveAll: 9999,
     },
 

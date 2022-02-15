@@ -34,6 +34,8 @@ export interface LabelPropTypes extends ValidationPropTypes {
   pr?: 1 | 2;
   /** Padding left, integer multiplied by base spacing constant (8) */
   pl?: 1 | 2;
+  /** Id of the validation icon */
+  validationIconId?: string;
 }
 
 declare function Label(props: LabelPropTypes): JSX.Element;

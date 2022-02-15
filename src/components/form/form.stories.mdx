@@ -8,7 +8,7 @@ import Textbox from "../textbox";
 import Textarea from "../textarea";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import DateInput from "../date";
-import { Select, Option } from "../select";
+import { Select, MultiSelect, Option } from "../select";
 import { Checkbox } from "../checkbox";
 import InlineInputs from "../inline-inputs";
 import Hr from "../../components/hr";
@@ -16,7 +16,7 @@ import Switch from "../switch";
 import Button from "../button";
 import DialogFullScreen from "../dialog-full-screen";
 import Dialog from "../dialog";
-import AppWrapper from "../app-wrapper";
+import Box from "../box";
 
 <Meta title="Form" parameters={{ info: { disable: true } }} />
 
@@ -328,7 +328,7 @@ It is possible to render `Form` as a content of `Dialog` component.
               }
               stickyFooter
             >
-              {Array.from({ length: 15 }).map((_, index) => (
+              {Array.from({ length: 10 }).map((_, index) => (
                 <Textbox key={index} label="Textbox" />
               ))}
               <DateInput
@@ -338,7 +338,12 @@ It is possible to render `Form` as a content of `Dialog` component.
                 onChange={(ev) => setDate(ev.target.value.formattedValue)}
                 disablePortal
               />
-              <Select name="simple" id="simple" label="label" disablePortal>
+              <Select
+                name="simple-disabled-portal"
+                id="simple-disabled-portal"
+                label="Simple Select - disabled portal"
+                disablePortal
+              >
                 <Option text="Amber" value="1" />
                 <Option text="Black" value="2" />
                 <Option text="Blue" value="3" />
@@ -351,7 +356,51 @@ It is possible to render `Form` as a content of `Dialog` component.
                 <Option text="White" value="10" />
                 <Option text="Yellow" value="11" />
               </Select>
-              {Array.from({ length: 15 }).map((_, index) => (
+              <MultiSelect
+                name="multi-disabled-portal"
+                id="multi-disabled-portal"
+                label="Multi Select - disabled portal"
+                disablePortal
+              >
+                <Option text="Amber" value="1" />
+                <Option text="Black" value="2" />
+                <Option text="Blue" value="3" />
+                <Option text="Brown" value="4" />
+                <Option text="Green" value="5" />
+                <Option text="Orange" value="6" />
+                <Option text="Pink" value="7" />
+                <Option text="Purple" value="8" />
+                <Option text="Red" value="9" />
+                <Option text="White" value="10" />
+                <Option text="Yellow" value="11" />
+              </MultiSelect>
+              <Select name="simple" id="simple" label="Simple Select">
+                <Option text="Amber" value="1" />
+                <Option text="Black" value="2" />
+                <Option text="Blue" value="3" />
+                <Option text="Brown" value="4" />
+                <Option text="Green" value="5" />
+                <Option text="Orange" value="6" />
+                <Option text="Pink" value="7" />
+                <Option text="Purple" value="8" />
+                <Option text="Red" value="9" />
+                <Option text="White" value="10" />
+                <Option text="Yellow" value="11" />
+              </Select>
+              <MultiSelect name="multi" id="multi" label="Multi Select">
+                <Option text="Amber" value="1" />
+                <Option text="Black" value="2" />
+                <Option text="Blue" value="3" />
+                <Option text="Brown" value="4" />
+                <Option text="Green" value="5" />
+                <Option text="Orange" value="6" />
+                <Option text="Pink" value="7" />
+                <Option text="Purple" value="8" />
+                <Option text="Red" value="9" />
+                <Option text="White" value="10" />
+                <Option text="Yellow" value="11" />
+              </MultiSelect>
+              {Array.from({ length: 10 }).map((_, index) => (
                 <Textbox key={index} label="Textbox" />
               ))}
             </Form>
@@ -382,7 +431,7 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
             title="Form in Dialog"
             subtitle="Subtitle"
           >
-            <AppWrapper>
+            <Box p="0px 40px">
               <Form
                 leftSideButtons={
                   <Button onClick={() => setIsOpen(false)}>Cancel</Button>
@@ -398,7 +447,7 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
               >
                 <Textbox label="Textbox" />
               </Form>
-            </AppWrapper>
+            </Box>
           </DialogFullScreen>
         </>
       );

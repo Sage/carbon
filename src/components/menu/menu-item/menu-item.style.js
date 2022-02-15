@@ -215,7 +215,6 @@ const StyledMenuItemWrapper = styled.a`
     css`
       ${as === "div" &&
       css`
-        width: 100vw;
         cursor: default;
         padding: 0 16px;
 
@@ -223,14 +222,6 @@ const StyledMenuItemWrapper = styled.a`
           background: transparent;
         }
       `}
-
-      a,
-      ${StyledLink} a,
-      button,
-      ${StyledLink} button {
-        width: 100vw;
-        box-sizing: border-box;
-      }
     `}
   `}
 `;

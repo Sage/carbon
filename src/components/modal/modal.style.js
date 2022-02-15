@@ -1,9 +1,7 @@
 import styled, { css } from "styled-components";
+import baseTheme from "../../style/themes/base";
 
 const backgroundOpacity = "0.6";
-const backgroundAnimationLength = "300ms";
-const initialPosition = "50px";
-const animationLength = "300ms";
 
 const StyledModalBackground = styled.div`
   background-color: rgba(0, 20, 29, 0.6);
@@ -14,7 +12,7 @@ const StyledModalBackground = styled.div`
   right: 0;
   top: 0;
 
-  ${({ transitionName }) => css`
+  ${({ transitionName, transitionTime }) => css`
     &.${transitionName}-enter, .${transitionName}-appear {
       opacity: 0;
     }
@@ -22,7 +20,7 @@ const StyledModalBackground = styled.div`
     &.${transitionName}-enter.${transitionName}-enter-active,
       &.${transitionName}-appear.${transitionName}-appear-active {
       opacity: ${backgroundOpacity};
-      transition: opacity ${backgroundAnimationLength} ease-out;
+      transition: opacity ${transitionTime}ms ease-out;
     }
 
     &.${transitionName}-exit {
@@ -31,36 +29,38 @@ const StyledModalBackground = styled.div`
 
     &.${transitionName}-exit.${transitionName}-exit-active {
       opacity: 0;
-      transition: opacity ${backgroundAnimationLength} 100ms ease-out;
+      transition: opacity ${transitionTime}ms 100ms ease-out;
     }
-  `}
+  `};
 `;
 
 const StyledModal = styled.div`
-  ${({ transitionName }) => css`
+  position: absolute;
+  z-index: ${({ theme }) => theme.zIndex.modal};
+
+  ${({ transitionName, transitionTime }) => css`
     .${transitionName}-enter, .${transitionName}-appear {
       opacity: 0;
-      margin-top: ${initialPosition};
     }
 
     .${transitionName}-enter.${transitionName}-enter-active,
       .${transitionName}-appear.${transitionName}-appear-active {
       opacity: 1;
-      margin-top: 0;
-      transition: all ${animationLength} 100ms ease-out;
+      transition: all ${transitionTime}ms 100ms ease-out;
     }
 
     .${transitionName}-exit {
       opacity: 1;
-      margin-top: 0;
     }
 
     .${transitionName}-exit.${transitionName}-exit-active {
       opacity: 0;
-      margin-top: ${initialPosition};
-      transition: all ${animationLength} ease-out;
+      transition: all ${transitionTime}ms ease-out;
     }
   `}
 `;
 
+StyledModal.defaultProps = {
+  theme: baseTheme,
+};
 export { StyledModal, StyledModalBackground };

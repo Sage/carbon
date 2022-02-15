@@ -27,11 +27,20 @@ const StyledSelectMultiSelect = styled(StyledSelect)`
 
   ${InputPresentationStyle} {
     padding-right: ${({ size }) => sizes[size].height};
+    position: relative;
   }
+`;
+
+const StyledAccessibilityLabelContainer = styled.div`
+  display: none;
 `;
 
 StyledSelectPillContainer.defaultProps = {
   theme: baseTheme,
 };
 
-export { StyledSelectPillContainer, StyledSelectMultiSelect };
+export {
+  StyledSelectPillContainer,
+  StyledSelectMultiSelect,
+  StyledAccessibilityLabelContainer,
+};
