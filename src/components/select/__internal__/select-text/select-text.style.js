@@ -14,28 +14,24 @@ const StyledSelectText = styled.span`
     white-space: nowrap;
     width: 30px;
     z-index: 1;
-
     ${transparent &&
     css`
       font-weight: 900;
       text-align: right;
       flex-direction: row-reverse;
     `}
-
     ${hasPlaceholder &&
     css`
       color: ${theme.text.placeholder};
       font-weight: normal;
       user-select: none;
     `}
-
     ${disabled &&
     css`
       cursor: not-allowed;
       color: var(--colorsUtilityYin030);
       text-shadow: none;
     `}
-
     ${readOnly &&
     css`
       cursor: default;

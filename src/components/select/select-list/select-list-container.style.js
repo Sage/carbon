@@ -11,7 +11,6 @@ const StyledSelectListContainer = styled.div`
   height: ${({ height }) => height};
   overflow: hidden;
   animation: fadeIn 250ms ease-out;
-
   @keyframes fadeIn {
     0% {
       opacity: 0;

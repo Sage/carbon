@@ -236,12 +236,6 @@ export default (palette) => {
       secondaryColor: palette.slateTint(40),
     },
 
-    definitionList: {
-      dtTextDark: palette.blackOpacity(0.9),
-      dtTextLight: palette.blackOpacity(0.65),
-      ddText: palette.blackOpacity(0.65),
-    },
-
     disabled: {
       border: palette.slateTint(80),
       button: palette.slateTint(90),
