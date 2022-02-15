@@ -112,7 +112,7 @@ const StyledDrawerContent = styled.div`
 
   ${({ backgroundColor }) => css`
     background-color: ${backgroundColor || "var(--colorsUtilityMajor040)"};
-    border-right: 1px solid ${backgroundColor || "var(--colorsUtilityMajor050)"};
+    border-right: 1px solid ${backgroundColor || "var(--colorsUtilityMajor075)"};
   `};
 
   &.open {

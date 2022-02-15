@@ -162,7 +162,7 @@ describe("Drawer", () => {
           assertStyleMatch(
             {
               backgroundColor: "var(--colorsUtilityMajor040)",
-              borderRight: "1px solid var(--colorsUtilityMajor050)",
+              borderRight: "1px solid var(--colorsUtilityMajor075)",
             },
             content
           );
