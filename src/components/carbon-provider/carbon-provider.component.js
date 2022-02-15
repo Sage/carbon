@@ -10,7 +10,7 @@ export const NewValidationContext = createContext({});
 const CarbonProvider = ({
   children,
   theme = mintTheme,
-  validationRedesignOptIn = false,
+  validationRedesignOptIn = true,
 }) => (
   <ThemeProvider theme={theme}>
     <CarbonScopedTokensProvider>
