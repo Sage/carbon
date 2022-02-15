@@ -8,6 +8,7 @@ import InputPresentationStyle, {
 import sizes from "./input-sizes.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { InputContext, InputGroupContext } from "../input-behaviour";
+import { NewValidationContext } from "../../components/carbon-provider/carbon-provider.component";
 
 describe("InputPresentation", () => {
   it("renders presentational div and context provider for its children", () => {
@@ -51,7 +52,7 @@ describe("InputPresentation", () => {
 
     describe.each([
       ["error", "var(--colorsSemanticNegative500)"],
-      ["warning", "var(--colorsUtilityMajor300)"],
+      ["warning", "var(--colorsSemanticCaution500)"],
       ["info", "var(--colorsSemanticInfo500)"],
     ])("when %s prop is set to true", (state, token) => {
       it("has the right style", () => {
@@ -69,7 +70,7 @@ describe("InputPresentation", () => {
 
     describe.each([
       ["error", "var(--colorsSemanticNegative500)"],
-      ["warning", "var(--colorsUtilityMajor300)"],
+      ["warning", "var(--colorsSemanticCaution500)"],
       ["info", "var(--colorsSemanticInfo500)"],
     ])("when %s prop is a string", (state, token) => {
       it("has the right style", () => {
@@ -82,6 +83,48 @@ describe("InputPresentation", () => {
           },
           renderWithContext({ [state]: "Message" }).find(InputPresentationStyle)
         );
+      });
+    });
+
+    describe("when new validation is set by context", () => {
+      describe.each([
+        ["error", "var(--colorsSemanticNegative500)"],
+        ["warning", "var(--colorsUtilityMajor300)"],
+        ["info", "var(--colorsSemanticInfo500)"],
+      ])("when %s prop is set to true", (state, token) => {
+        it("has the right style", () => {
+          const boxShadow = `inset 1px 1px 0 ${token},inset -1px -1px 0 ${token}`;
+
+          assertStyleMatch(
+            {
+              borderColor: `${token} !important`,
+              boxShadow: state === "error" ? boxShadow : undefined,
+            },
+            renderWithContext({ [state]: true }, {}, {}, true).find(
+              InputPresentationStyle
+            )
+          );
+        });
+      });
+
+      describe.each([
+        ["error", "var(--colorsSemanticNegative500)"],
+        ["warning", "var(--colorsUtilityMajor300)"],
+        ["info", "var(--colorsSemanticInfo500)"],
+      ])("when %s prop is a string", (state, token) => {
+        it("has the right style", () => {
+          const boxShadow = `inset 1px 1px 0 ${token},inset -1px -1px 0 ${token}`;
+
+          assertStyleMatch(
+            {
+              borderColor: `${token} !important`,
+              boxShadow: state === "error" ? boxShadow : undefined,
+            },
+            renderWithContext({ [state]: "Message" }, {}, {}, true).find(
+              InputPresentationStyle
+            )
+          );
+        });
       });
     });
 
@@ -192,13 +235,16 @@ function render(props, renderer = mount) {
 function renderWithContext(
   props = {},
   inputGroupContextValue = {},
-  inputContextValue = {}
+  inputContextValue = {},
+  validationRedesignOptIn
 ) {
   return mount(
-    <InputGroupContext.Provider value={inputGroupContextValue}>
-      <InputContext.Provider value={inputContextValue}>
-        <InputPresentation {...props}>sample children</InputPresentation>
-      </InputContext.Provider>
-    </InputGroupContext.Provider>
+    <NewValidationContext.Provider value={{ validationRedesignOptIn }}>
+      <InputGroupContext.Provider value={inputGroupContextValue}>
+        <InputContext.Provider value={inputContextValue}>
+          <InputPresentation {...props}>sample children</InputPresentation>
+        </InputContext.Provider>
+      </InputGroupContext.Provider>
+    </NewValidationContext.Provider>
   );
 }
