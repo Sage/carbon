@@ -1,3 +1,10 @@
+## [104.16.0](https://github.com/Sage/carbon/compare/v104.15.0...v104.16.0) (2022-02-15)
+
+
+### Features
+
+* **button-bar:** describe Button Bar component using design tokens ([8425dba](https://github.com/Sage/carbon/commit/8425dbad3d908ba05dcba5934e3f1d718047328f))
+
 ## [104.15.0](https://github.com/Sage/carbon/compare/v104.14.0...v104.15.0) (2022-02-14)
 
 
