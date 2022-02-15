@@ -1,3 +1,10 @@
+### [104.16.1](https://github.com/Sage/carbon/compare/v104.16.0...v104.16.1) (2022-02-15)
+
+
+### Bug Fixes
+
+* **decimal:** fix precision console error firing when no precision prop specified ([dc8f454](https://github.com/Sage/carbon/commit/dc8f454f74f81b0a7d481e8c4a8dadff96dd7f72)), closes [#4826](https://github.com/Sage/carbon/issues/4826)
+
 ## [104.16.0](https://github.com/Sage/carbon/compare/v104.15.0...v104.16.0) (2022-02-15)
 
 
