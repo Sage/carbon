@@ -59,7 +59,13 @@ const InputPresentationStyle = styled.div`
   }
 `;
 
-function stylingForValidations({ error, warning, info, disabled }) {
+function stylingForValidations({
+  error,
+  warning,
+  info,
+  disabled,
+  validationRedesignOptIn,
+}) {
   let validationColor;
 
   if (disabled) {
@@ -69,7 +75,9 @@ function stylingForValidations({ error, warning, info, disabled }) {
   if (error) {
     validationColor = "var(--colorsSemanticNegative500)";
   } else if (warning) {
-    validationColor = "var(--colorsUtilityMajor300)";
+    validationColor = validationRedesignOptIn
+      ? "var(--colorsUtilityMajor300)"
+      : "var(--colorsSemanticCaution500)";
   } else if (info) {
     validationColor = "var(--colorsSemanticInfo500)";
   } else {
