@@ -8,6 +8,7 @@ import {
   getCommonTextboxArgs,
   getCommonTextboxArgsWithSpecialCaracters,
 } from "../textbox/textbox-test.stories.mdx";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 <Meta
   title="Date Input/Test"
@@ -31,11 +32,37 @@ export const DateStory = (args) => {
       name="dateinput"
       value={state}
       onChange={setValue}
-      onBlur={(ev) => {action("onBlur")(ev.target.value)}}
+      onBlur={(ev) => {
+        action("onBlur")(ev.target.value);
+      }}
       onKeyDown={(ev) => action("onKeyDown")(ev.target.value)}
       onClick={(ev) => action("onClick")(ev.target.value)}
       {...getCommonTextboxArgsWithSpecialCaracters(args)}
     />
+  );
+};
+
+export const NewValidationStory = (args) => {
+  const [state, setState] = useState("2019-04-04");
+  const setValue = (ev) => {
+    action("onChange")(ev.target.value);
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <DateInput
+        name="dateinput"
+        m={2}
+        value={state}
+        onChange={setValue}
+        onBlur={(ev) => {
+          action("onBlur")(ev.target.value);
+        }}
+        onKeyDown={(ev) => action("onKeyDown")(ev.target.value)}
+        onClick={(ev) => action("onClick")(ev.target.value)}
+        {...getCommonTextboxArgsWithSpecialCaracters(args)}
+      />
+    </CarbonProvider>
   );
 };
 
@@ -55,5 +82,22 @@ export const DateStory = (args) => {
     }}
   >
     {DateStory.bind({})}
+  </Story>
+</Canvas>
+
+### New Validation
+
+<Canvas>
+  <Story
+    name="new validation"
+    args={{
+      minDate: "",
+      maxDate: "",
+      allowEmptyValue: false,
+      mt: 0,
+      ...getCommonTextboxArgs(),
+    }}
+  >
+    {NewValidationStory.bind({})}
   </Story>
 </Canvas>
