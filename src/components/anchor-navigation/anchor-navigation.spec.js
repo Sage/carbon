@@ -3,7 +3,6 @@ import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
 import { simulate, assertStyleMatch } from "../../__spec_helper__/test-utils";
-import baseTheme from "../../style/themes/base";
 
 import Textbox from "../textbox";
 import {
@@ -20,8 +19,8 @@ import StyledNavigationItem from "./anchor-navigation-item/anchor-navigation-ite
 const expectNavigationItemToBeSelected = (index, wrapper) =>
   assertStyleMatch(
     {
-      backgroundColor: baseTheme.colors.white,
-      borderLeftColor: baseTheme.colors.primary,
+      backgroundColor: "var(--colorsActionMinorYang100)",
+      borderLeftColor: "var(--colorsActionMajor500)",
     },
     wrapper.find(StyledNavigationItem).at(index),
     { modifier: "a" }
@@ -345,7 +344,7 @@ describe("AnchorNavigation", () => {
   it("renders not selected navigation item with proper background when hovered", () => {
     assertStyleMatch(
       {
-        backgroundColor: baseTheme.anchorNavigation.navItemHoverBackground,
+        backgroundColor: "var(--colorsActionMinor100)",
       },
       wrapper.find(StyledNavigationItem).at(1),
       { modifier: "a:hover" }

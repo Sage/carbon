@@ -44,7 +44,7 @@ Always insert `Option` Components inside the `Select`, analogous to the original
     <Select
       name="simple"
       id="simple"
-      label="label"
+      label="color"
       labelInline
       onOpen={action("onOpen")}
       onChange={action("onChange", { depth: 2 })}
@@ -104,7 +104,7 @@ You can use `listPlacement` prop to set the position of the select list relative
     <Select
       name="simple"
       id="simple"
-      label="label"
+      label="color"
       labelInline
       onOpen={action("onOpen")}
       onChange={action("onChange", { depth: 2 })}
@@ -318,7 +318,7 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
           <Select
             name="isLoading"
             id="isLoading"
-            label="label"
+            label="color"
             value={value}
             onChange={(event) => setValue(event.target.value)}
             onOpen={() => loadList()}
@@ -414,7 +414,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
           <Select
             name="infiniteScroll"
             id="infiniteScroll"
-            label="label"
+            label="color"
             value={value}
             onChange={(event) => setValue(event.target.value)}
             onOpen={() => loadList()}
@@ -633,7 +633,7 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
     <Select
       name="adaptive"
       id="adaptive"
-      label="label"
+      label="color"
       defaultValue="4"
       adaptiveLabelBreakpoint={960}
     >

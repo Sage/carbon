@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
+import { padding as paddingFn } from "styled-system";
 
+import baseTheme from "../../style/themes/base";
 import {
   StyledForm,
   StyledFormFooter,
@@ -11,6 +13,11 @@ import {
   StyledHeadingTitle,
 } from "../heading/heading.style";
 import StyledIconButton from "../icon-button/icon-button.style";
+import {
+  HORIZONTAL_PADDING,
+  CONTENT_TOP_PADDING,
+  CONTENT_BOTTOM_PADDING,
+} from "./dialog.config";
 
 const dialogSizes = {
   auto: "auto",
@@ -23,8 +30,56 @@ const dialogSizes = {
   "extra-large": "1080px",
 };
 
-const HORIZONTAL_PADDING = 35;
-const CONTENT_BOTTOM_PADDING = 30;
+const calculateWidthValue = (props) => {
+  const { paddingLeft, paddingRight, padding } = paddingFn(props);
+  const paddingValue = paddingLeft ?? paddingRight ?? padding;
+
+  return paddingValue === undefined ? HORIZONTAL_PADDING * 2 : paddingValue * 2;
+};
+
+const calculateFormSpacingValues = (props, isFormContent) => {
+  const {
+    paddingTop,
+    paddingBottom,
+    paddingLeft,
+    paddingRight,
+    padding,
+  } = paddingFn(props);
+
+  const spacingTopValue = paddingTop ?? padding ?? CONTENT_TOP_PADDING;
+  const spacingRightValue = paddingRight ?? padding ?? HORIZONTAL_PADDING;
+  const spacingBottomValue = paddingBottom ?? padding ?? CONTENT_BOTTOM_PADDING;
+  const spacingLeftValue = paddingLeft ?? padding ?? HORIZONTAL_PADDING;
+
+  return {
+    "margin-left": spacingLeftValue
+      ? `-${spacingLeftValue}px`
+      : spacingLeftValue,
+    "margin-right": spacingRightValue
+      ? `-${spacingRightValue}px`
+      : spacingRightValue,
+    ...(isFormContent && {
+      "margin-top": spacingTopValue ? `-${spacingTopValue}px` : spacingTopValue,
+      "padding-top": spacingTopValue,
+      "padding-bottom": spacingBottomValue,
+      "padding-left": spacingLeftValue,
+      "padding-right": spacingRightValue,
+    }),
+    ...(!isFormContent && {
+      "margin-bottom": spacingBottomValue
+        ? `-${spacingBottomValue}px`
+        : spacingBottomValue,
+      bottom: spacingBottomValue
+        ? `-${spacingBottomValue}px`
+        : spacingBottomValue,
+    }),
+  };
+};
+
+const calculatePaddingTopInnerContent = ({ py, p }) =>
+  [py, p].some((padding) => padding !== undefined)
+    ? 0
+    : `${CONTENT_TOP_PADDING}px`;
 
 const DialogStyle = styled.div`
   background-color: var(--colorsUtilityMajor025);
@@ -33,6 +88,7 @@ const DialogStyle = styled.div`
   flex-direction: column;
   position: fixed;
   top: 50%;
+  z-index: ${({ theme }) => theme.zIndex.modal};
   max-height: ${({ topMargin }) => `calc(100vh - ${topMargin}px)`};
 
   &:focus {
@@ -55,7 +111,7 @@ const DialogStyle = styled.div`
     dialogHeight &&
     css`
       height: ${dialogHeight}px;
-    `};
+    `}
 
   ${StyledForm} {
     padding-bottom: 0px;
@@ -63,21 +119,12 @@ const DialogStyle = styled.div`
   }
 
   ${StyledFormContent}.sticky {
-    padding-right: ${HORIZONTAL_PADDING}px;
-    padding-left: ${HORIZONTAL_PADDING}px;
-    padding-top: 20px;
-    margin-right: -${HORIZONTAL_PADDING}px;
-    margin-left: -${HORIZONTAL_PADDING}px;
-    margin-top: -20px;
+    ${(props) => calculateFormSpacingValues(props, true)}
   }
 
   ${StyledFormFooter}.sticky {
-    margin-left: -${HORIZONTAL_PADDING}px;
-    bottom: -${CONTENT_BOTTOM_PADDING}px;
-    margin-bottom: -${CONTENT_BOTTOM_PADDING}px;
-    width: calc(100% + ${2 * HORIZONTAL_PADDING}px);
-    padding-left: ${HORIZONTAL_PADDING}px;
-    padding-right: ${HORIZONTAL_PADDING}px;
+    width: calc(100% + ${calculateWidthValue}px);
+    ${(props) => calculateFormSpacingValues(props, false)}
   }
 
   > ${StyledIconButton} {
@@ -123,13 +170,22 @@ const DialogContentStyle = styled.div`
   width: 100%;
   flex: 1;
   padding: 0px ${HORIZONTAL_PADDING}px ${CONTENT_BOTTOM_PADDING}px;
+  ${paddingFn}
 `;
 
 const DialogInnerContentStyle = styled.div`
-  padding-top: 20px;
   position: relative;
   flex: 1;
+  padding-top: ${calculatePaddingTopInnerContent};
 `;
+
+DialogStyle.defaultProps = {
+  theme: baseTheme,
+};
+
+DialogContentStyle.defaultProps = {
+  theme: baseTheme,
+};
 
 export {
   DialogStyle,

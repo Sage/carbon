@@ -4,8 +4,8 @@ Feature: Select component
   @positive
   Scenario Outline: Open Select list using <key>
     Given I open "Select" component page "controlled"
-    When I click onto controlled select using "<key>" key
-    Then "simple" Select list is opened
+    When I press the "<key>" key, when focused on the input
+    Then "SimpleSelect" list is open
     Examples:
       | key   |
       | Space |
@@ -13,49 +13,37 @@ Feature: Select component
   @positive
   Scenario: Open Select list by mouse click on text input
     Given I open "Select" component page "controlled"
-    When I click on Select input
-    Then "simple" Select list is opened
+    When I click on Select text
+    Then "SimpleSelect" list is open
 
   @positive
   Scenario: Close Select list using Tab keyboard
     Given I open "Select" component page "controlled"
-      And I focus select input
-    When I press Tab onto focused element
-    Then "simple" Select list is closed
+      And I click on Select text
+    When I press the "Tab" key, when focused on the input
+    Then "SimpleSelect" list is closed
 
   @positive
   Scenario: Close Select list by clicking out of component
     Given I open "Select" component page "controlled"
       And I click on dropdown button
     When I click onto root in Test directory
-    Then "simple" Select list is closed
+    Then "SimpleSelect" list is closed
 
   @positive
-  Scenario: Choose option from Select list by mouse clicking
+  Scenario: Click on an option from Select list
     Given I open "Select" component page "controlled"
-      And I click on Select input
-    When I select value "Amber"
+      And I click on Select text
+    When I select the "Amber" Option
     Then Select input has "Amber" value
-      And "simple" Select list is closed
-
-  @positive
-  Scenario Outline: Choose <selectedValue> option from Select list by typing <selectableValue> value in input
-    Given I open "Select" component page "controlled"
-      And I click on Select input
-    When I type "<selectableValue>" into input
-    Then Select input has "<selectedValue>" value
-      And "<position>" option on the list is hovered over
-    Examples:
-      | selectableValue | selectedValue | position |
-      | Amb             | Amber         | first    |
-      | Bla             | Black         | second   |
+      And "SimpleSelect" list is closed
 
   @positive
   Scenario Outline: Open select list using arrow key
     Given I open "Select" component page "controlled"
-      And I focus select input
-    When I click onto controlled select using "<key>" key
-    Then "simple" Select list is opened
+      And I click on Select text
+    When I press the "<key>" key, when focused on the input
+    Then "SimpleSelect" list is open
     Examples:
       | key       | position | value  |
       | downarrow | first    | Amber  |
@@ -74,11 +62,11 @@ Feature: Select component
   @positive
   Scenario: Lazy loading is visible after open the Simple Select
     Given I open "Select" component page "with is loading prop"
-    When I click on Select input with lazy loading
+    When I click on Select text
     Then Lazy loading is visible
 
   @positive
-  Scenario: Lazy loading is visible after open and scroll to the botton of the Simple Select
+  Scenario: Lazy loading is visible after open and scroll to the bottom of the Simple Select
     Given I open "Select" component page "with infinite scroll"
       And I click on dropdown button
       And Lazy loading is visible
@@ -104,7 +92,7 @@ Feature: Select component
   Scenario: Check that Select has multiColumns in option list
     Given I open "Select" component page "with multiple columns"
     When I click on dropdown button
-    Then "simple" Select list is opened
+    Then "SimpleSelect" list is open
       And Option list has multiColumns header
       And Option list has multiColumns body
 
@@ -112,7 +100,7 @@ Feature: Select component
   Scenario Outline: Show Select list is at the <position> in <size> viewport
     Given I open default "Select Test" component with "simpleSelect" json from "commonComponents" using "<size>" object name
       And I have a <size> viewport
-    When I click on default Select input
+    When I click on Select text
     Then "simple" Select list is visible at the <position>
     Examples:
       | position | size  |
@@ -120,9 +108,9 @@ Feature: Select component
       | top      | small |
 
   @positive
-  Scenario: Check the onOpen, onClick, onFocus after clicking on the input
+  Scenario: Check the onOpen, onClick, onFocus after clicking on the Select Textbox
     Given I open "Select" component page "default story"
-    When I click on default Select input
+    When I click on Select text
     Then onOpen action was called in Actions Tab
       And onFocus action was called in Actions Tab
       And onClick action was called in Actions Tab
@@ -130,15 +118,15 @@ Feature: Select component
   @positive
   Scenario: Check the onChange event by clicking mouse on the select list option
     Given I open "Select" component page "default story"
-      And I click on default Select input
+      And I click on Select text
     When I click on "first" option on Select list
     Then onChange action was called in Actions Tab
 
   @positive
-  Scenario: Check the onKeyDown event after clicking arrow
+  Scenario: Check the onKeyDown event after pressing the downarrow key
     Given I open "Select" component page "default story"
-      And I focus default Select input
-    When I click onto default select using "downarrow" key
+      And I click on Select text
+    When I press the "downarrow" key, when focused on the input
       And I wait 500
     Then onKeyDown action was called in Actions Tab
       And onFocus action was called in Actions Tab
@@ -146,8 +134,8 @@ Feature: Select component
   @positive
   Scenario Outline: Check the onKeyDown event after press <key>
     Given I open "Select" component page "default story"
-      And I focus default Select input
-    When I click onto default select using "<key>" key
+      And I click on Select text
+    When I press the "<key>" key, when focused on the input
       And I wait 500
     Then onOpen action was called in Actions Tab
       And onKeyDown action was called in Actions Tab
@@ -160,13 +148,13 @@ Feature: Select component
   @positive
   Scenario: Check the onBlur event
     Given I open "Select" component page "default story"
-      And I focus default Select input
+      And I click on Select text
     When I click on Select label
     Then onBlur action was called in Actions Tab
 
   @positive
   Scenario: Close Select list using Esc keyboard
     Given I open "Select" component page "default story"
-      And I click on default Select input
+      And I click on Select text
     When I hit ESC key
-    Then "simple" Select list is closed
+    Then "SimpleSelect" list is closed

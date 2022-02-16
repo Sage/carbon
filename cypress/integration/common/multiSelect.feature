@@ -4,15 +4,15 @@ Feature: Multi Select component
   @positive
   Scenario: Multi Select list is not open when has a focus
     Given I open "Select multiselect" component page "controlled"
-    When I focus select input
-    Then multi Select list is closed
+    When I click on controlled Select input
+    Then "Multiselect" list is closed
 
   @positive
   Scenario Outline: Multi Select list is not open using keyboard <key>
     Given I open "Select multiselect" component page "controlled"
-      And I focus select input
+      And I click on controlled Select input
     When I click onto controlled select using "<key>" key
-    Then multi Select list is closed
+    Then "Multiselect" list is closed
     Examples:
       | key   |
       | Enter |
@@ -21,40 +21,40 @@ Feature: Multi Select component
   @positive
   Scenario: Multi Select list is not opened by clicking mouse in the text input
     Given I open "Select multiselect" component page "controlled"
-    When I click on Select input
-    Then multi Select list is closed
+    When I click on controlled Select input
+    Then "Multiselect" list is closed
 
   @positive
   Scenario: Open Multi Select list by clicking mouse on the dropdown button
     Given I open "Select multiselect" component page "controlled"
     When I click on dropdown button
-    Then multi Select list is opened
+    Then "Multiselect" list is open
 
   @positive
   Scenario: Close Multi Select list by double clicking mouse on the dropdown button
     Given I open "Select multiselect" component page "controlled"
       And I click on dropdown button
     When I click on dropdown button
-    Then multi Select list is closed
+    Then "Multiselect" list is closed
 
   @positive
   Scenario: Close Multi Select list by clicking out of component
     Given I open "Select multiselect" component page "controlled"
       And I click on dropdown button
     When I click onto root in Test directory
-    Then multi Select list is closed
+    Then "Multiselect" list is closed
 
   @positive
   Scenario: Open on focus multi Select component is opened when has a focus
     Given I open "Select multiselect" component page "open on focus"
-    When I focus openOnFocus Select input
-    Then multi Select list is opened
+    When I focus on controlled Select input
+    Then "Multiselect" list is open
 
   @positive
   Scenario: Open on focus Multi Select list by clicking mouse on the dropdown button
     Given I open "Select multiselect" component page "open on focus"
     When I click on dropdown button
-    Then multi Select list is opened
+    Then "Multiselect" list is open
 
   @positive
   Scenario: Choose option from the Select list via clicking an option
@@ -62,13 +62,13 @@ Feature: Multi Select component
       And I click on dropdown button
     When I click on "first" option on Select list
     Then Multi select input has "Amber" pill
-      And multi Select list is opened
+      And "Multiselect" list is open
 
   @positive
   Scenario: Filter by typed character
     Given I open "Select multiselect" component page "controlled"
     When I type "A" into input
-    Then multi Select list is opened
+    Then "Multiselect" list is open
       And "first" option on Select list is "Amber"
       And "first" option on the list is hovered over
       And "second" option on Select list is "Black"
@@ -77,9 +77,9 @@ Feature: Multi Select component
   @positive
   Scenario Outline: Open multi select list using arrow key
     Given I open "Select multiselect" component page "controlled"
-      And I focus select input
+      And I click on controlled Select input
       And I click onto controlled select using "<key>" key
-    Then multi Select list is opened
+    Then "Multiselect" list is open
       And Multi select input has not any value
       And "<position>" option on the list is highlighted
     Examples:
@@ -90,11 +90,11 @@ Feature: Multi Select component
   @positive
   Scenario Outline: Verify options can be accessed by keyboard
     Given I open "Select multiselect" component page "controlled"
-      And I focus select input
+      And I focus on controlled Select input
       And I click onto controlled select using "<key>" key
       And I click onto controlled select using "<key>" key
       And I click onto controlled select using "<key>" key
-    Then multi Select list is opened
+    Then "Multiselect" list is open
       And Multi select input has not any value
       And "<position>" option on the list is highlighted
     Examples:
@@ -122,7 +122,7 @@ Feature: Multi Select component
   Scenario: Check that Multi Select has multiColumns in option list
     Given I open "Select multiselect" component page "with multiple columns"
     When I click on dropdown button
-    Then multi Select list is opened
+    Then "Multiselect" list is open
       And Option list has multiColumns header
       And Option list has multiColumns body
 
@@ -135,14 +135,14 @@ Feature: Multi Select component
   @positive
   Scenario: Check the onChange events after typed string into the input
     Given I open "Select multiselect" component page "default story"
-      And I focus default Select input
+      And I click on controlled Select input
     When I type "A" into default input
     Then onKeyDown action was called in Actions Tab
 
   @positive
   Scenario: Check the onClick, onFocus events after clicking on the input
     Given I open "Select multiselect" component page "default story"
-    When I click on default Select input
+    When I click on controlled Select input
     Then onFocus action was called in Actions Tab
       And onClick action was called in Actions Tab
 
@@ -158,8 +158,8 @@ Feature: Multi Select component
   @positive
   Scenario: Check the onKeyDown event after clicking arrow
     Given I open "Select multiselect" component page "default story"
-    When I focus default Select input
-      And I click onto default select using "downarrow" key
+    When I click on controlled Select input
+      And I click onto controlled select using "downarrow" key
       And I wait 500
     Then onOpen action was called in Actions Tab
       And onFocus action was called in Actions Tab
@@ -168,7 +168,7 @@ Feature: Multi Select component
   @positive
   Scenario: Check the onBlur event
     Given I open "Select multiselect" component page "default story"
-      And I focus default Select input
+      And I click on controlled Select input
     When I click on Select label
     Then onBlur action was called in Actions Tab
 
@@ -177,11 +177,11 @@ Feature: Multi Select component
     Given I open "Select multiselect" component page "default story"
       And I click on dropdown button
     When I hit ESC key
-    Then multi Select list is closed
+    Then "Multiselect" list is closed
 
   @positive
   Scenario: Check the onFilterChange events after typed string into the input
     Given I open "Select multiselect" component page "default story"
-      And I focus default Select input
+      And I click on controlled Select input
     When I type "b" into default input
     Then onFilterChange action was called in Actions Tab

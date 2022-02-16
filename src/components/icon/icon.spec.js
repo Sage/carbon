@@ -423,7 +423,7 @@ describe("Icon component", () => {
         <Icon type="home" tooltipMessage="foo" tooltipVisible disabled />
       );
 
-      expect(wrapper.find(Tooltip).props().isVisible).toEqual(false);
+      expect(wrapper.find(Tooltip).props().isVisible).toEqual(undefined);
     });
 
     it("sets the tabIndex, ariaLabel and role", () => {
