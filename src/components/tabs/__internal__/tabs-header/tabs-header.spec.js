@@ -6,7 +6,6 @@ import {
   StyledTabsHeaderList,
 } from "./tabs-header.style";
 import TabTitle from "../tab-title/tab-title.component";
-import baseTheme from "../../../../style/themes/base";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 
 function render(props, renderer = shallow) {
@@ -27,7 +26,7 @@ describe("TabsHeader", () => {
     assertStyleMatch(
       {
         display: "flex",
-        boxShadow: `inset 0px -2px 0px 0px ${baseTheme.tab.background}`,
+        boxShadow: "inset 0px -2px 0px 0px var(--colorsActionMinor100)",
         cursor: "default",
         listStyle: "none",
         margin: "0",
@@ -67,7 +66,7 @@ describe("TabsHeader", () => {
         {
           minWidth: "20%",
           overflowY: "auto",
-          padding: "2px",
+          padding: "3px",
         },
         wrapper.find(StyledTabsHeaderWrapper)
       );
@@ -119,7 +118,7 @@ describe("TabsHeader", () => {
     it("applies proper styles", () => {
       assertStyleMatch(
         {
-          boxShadow: `inset 0px -1px 0px 0px ${baseTheme.tab.background}`,
+          boxShadow: "inset 0px -1px 0px 0px var(--colorsActionMinor100)",
         },
         renderStyles({ alternateStyling: true })
       );
@@ -128,7 +127,7 @@ describe("TabsHeader", () => {
     it("applies proper styles when position left", () => {
       assertStyleMatch(
         {
-          boxShadow: `none`,
+          boxShadow: "none",
         },
         renderStyles({ alternateStyling: true, position: "left" })
       );
