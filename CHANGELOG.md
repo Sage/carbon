@@ -1,3 +1,11 @@
+## [104.17.0](https://github.com/Sage/carbon/compare/v104.16.1...v104.17.0) (2022-02-16)
+
+
+### Features
+
+* **tabs:** describe tabs using design tokens, update tests ([9bea1df](https://github.com/Sage/carbon/commit/9bea1df85f84e3341d661a8d3e8457ffb1d36c81))
+* **validation-icon:** describe validation-icon using design tokens ([4cc893d](https://github.com/Sage/carbon/commit/4cc893d74ef9e2db5f90dd53ba62ee5b1c54fa22))
+
 ### [104.16.1](https://github.com/Sage/carbon/compare/v104.16.0...v104.16.1) (2022-02-15)
 
 
