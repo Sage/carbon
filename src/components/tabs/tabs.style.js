@@ -6,8 +6,8 @@ import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.
 import StyledTab from "./tab/tab.style";
 
 const StyledTabs = styled.div`
-  ${({ position, inSidebar, theme, headerWidth }) => css`
-    color: ${theme.text.color};
+  ${({ position, inSidebar, headerWidth }) => css`
+    color: var(--colorsActionMinorYin090);
 
     ${position === "left" &&
     css`
