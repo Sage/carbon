@@ -42,13 +42,13 @@ const modifiers = [
 
 const SelectTextbox = ({
   accessibilityLabelId = "",
+  labelId = "",
   "aria-controls": ariaControls,
   value,
   disabled,
   isOpen,
   readOnly,
   placeholder,
-  labelId,
   size,
   onClick,
   onFocus,
@@ -144,11 +144,14 @@ const SelectTextbox = ({
   }
 
   function getInputAriaAttributes() {
+    const joinIds = (...ids) => ids.filter((str) => str.length > 0).join(" ");
+    const ariaLabelledby = hasTextCursor
+      ? joinIds(labelId, accessibilityLabelId)
+      : joinIds(labelId, textId.current);
+
     return {
       "aria-expanded": isOpen,
-      "aria-labelledby": hasTextCursor
-        ? `${labelId} ${accessibilityLabelId}`
-        : `${labelId} ${textId.current}`,
+      "aria-labelledby": ariaLabelledby || undefined,
       "aria-activedescendant": activeDescendantId,
       "aria-controls": ariaControls,
       "aria-autocomplete": hasTextCursor ? "both" : undefined,
