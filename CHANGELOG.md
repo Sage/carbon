@@ -1,3 +1,10 @@
+### [104.18.1](https://github.com/Sage/carbon/compare/v104.18.0...v104.18.1) (2022-02-16)
+
+
+### Bug Fixes
+
+* **icon-button:** fix background color when component is disabled ([7e0572e](https://github.com/Sage/carbon/commit/7e0572e6352722fcd14e1e7c7366e4736b4f6367))
+
 ## [104.18.0](https://github.com/Sage/carbon/compare/v104.17.0...v104.18.0) (2022-02-16)
 
 
