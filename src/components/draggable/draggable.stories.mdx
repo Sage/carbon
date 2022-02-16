@@ -1,5 +1,6 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
+import { ArgsTable } from "@storybook/components";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import { DraggableContainer, DraggableItem } from ".";
@@ -120,8 +121,25 @@ import {
 ### DraggableItem
 
 <StyledSystemProps
-  of={DraggableItem}
   noHeader
   padding
   defaults={{ py: "8px" }}
 />
+
+<ArgsTable
+  rows={[
+    {
+      name: "id",
+      type: { summary: "string | number" },
+      description:
+        'The id of the `DraggableItem`. Use this prop to make `Draggable` work. This prop is required.',
+      required: true,
+    },
+    {
+      name: "children",
+      type: { summary: "node" },
+      description:
+        'The content of the component. This prop is required.',
+      required: true,
+    },
+  ]} />
