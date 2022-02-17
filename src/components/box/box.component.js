@@ -5,6 +5,18 @@ import { space, layout, flexbox } from "styled-system";
 import BaseTheme from "../../style/themes/base";
 import color from "../../style/utils/color";
 
+export const boxColors = {
+  light: {
+    thumb: "var(--colorsUtilityMajor300)",
+    track: "var(--colorsUtilityMajor025)",
+  },
+
+  dark: {
+    thumb: "var(--colorsUtilityMajor200)",
+    track: "var(--colorsUtilityMajor400)",
+  },
+};
+
 const Box = styled.div`
   ${space}
   ${layout}
@@ -17,20 +29,20 @@ const Box = styled.div`
       overflow-wrap: ${overflowWrap};
     `}
 
-  ${({ scrollVariant, theme }) =>
+  ${({ scrollVariant }) =>
     scrollVariant &&
     css`
-      scrollbar-color: ${theme.scrollbar[scrollVariant].thumb}
-        ${theme.scrollbar[scrollVariant].track};
+      scrollbar-color: ${boxColors[scrollVariant].thumb}
+        ${boxColors[scrollVariant].track};
 
       &::-webkit-scrollbar {
         width: 8px;
       }
       &::-webkit-scrollbar-track {
-        background-color: ${theme.scrollbar[scrollVariant].track};
+        background-color: ${boxColors[scrollVariant].track};
       }
       &::-webkit-scrollbar-thumb {
-        background-color: ${theme.scrollbar[scrollVariant].thumb};
+        background-color: ${boxColors[scrollVariant].thumb};
       }
     `}
 `;
