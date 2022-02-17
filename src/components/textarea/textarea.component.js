@@ -14,6 +14,9 @@ import StyledTextarea from "./textarea.style";
 import LocaleContext from "../../__internal__/i18n-context";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
+import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
+import ValidationMessage from "../../__internal__/validation-message";
 
 const getFormatNumber = (value, locale) =>
   new Intl.NumberFormat(locale).format(value);
@@ -61,6 +64,9 @@ const Textarea = ({
   ...props
 }) => {
   const locale = useContext(LocaleContext);
+  const { validationRedesignOptIn } = useContext(NewValidationContext);
+  const computeLabelPropValues = (prop) =>
+    validationRedesignOptIn ? undefined : prop;
 
   const { current: id } = useRef(idProp || guid());
 
@@ -149,7 +155,7 @@ const Textarea = ({
           {...filterStyledSystemMarginProps(props)}
         >
           <FormField
-            fieldHelp={fieldHelp}
+            fieldHelp={computeLabelPropValues(fieldHelp)}
             fieldHelpId={fieldHelpId}
             error={error}
             warning={warning}
@@ -158,15 +164,22 @@ const Textarea = ({
             labelId={labelId}
             disabled={disabled}
             id={id}
-            labelInline={labelInline}
-            labelAlign={labelAlign}
-            labelWidth={labelWidth}
-            labelHelp={labelHelp}
+            labelInline={computeLabelPropValues(labelInline)}
+            labelAlign={computeLabelPropValues(labelAlign)}
+            labelWidth={computeLabelPropValues(labelWidth)}
+            labelHelp={computeLabelPropValues(labelHelp)}
             labelSpacing={labelSpacing}
             isRequired={props.required}
-            useValidationIcon={validationOnLabel}
+            useValidationIcon={computeLabelPropValues(validationOnLabel)}
             adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+            validationRedesignOptIn={validationRedesignOptIn}
           >
+            {validationRedesignOptIn && labelHelp && (
+              <StyledHintText>{labelHelp}</StyledHintText>
+            )}
+            {validationRedesignOptIn && (
+              <ValidationMessage error={error} warning={warning} />
+            )}
             <InputPresentation
               size={size}
               disabled={disabled}
@@ -178,6 +191,9 @@ const Textarea = ({
               warning={warning}
               info={info}
             >
+              {validationRedesignOptIn && (error || warning) && (
+                <ErrorBorder warning={!!(!error && warning)} />
+              )}
               <Input
                 aria-invalid={!!error}
                 aria-labelledby={ariaLabelledBy}
@@ -212,7 +228,9 @@ const Textarea = ({
                 warning={warning}
                 info={info}
                 validationIconId={validationIconId}
-                useValidationIcon={!validationOnLabel}
+                useValidationIcon={
+                  !(validationRedesignOptIn || validationOnLabel)
+                }
               />
             </InputPresentation>
           </FormField>
