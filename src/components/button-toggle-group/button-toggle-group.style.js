@@ -15,7 +15,7 @@ const ButtonToggleGroupStyle = styled.div`
     ${({ info }) =>
       info &&
       css`
-        border-color: var(--colorsActionMinor500);
+        border-color: var(--colorsSemanticInfo500);
       `};
     ${({ warning }) =>
       warning &&
