@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { baseTheme } from "../../style/themes";
 import PreviewBars, { StyledPreview } from "../preview/preview.style";
 
 const StyledLinkPreview = styled.a`
@@ -8,21 +7,21 @@ const StyledLinkPreview = styled.a`
   text-decoration: none;
   outline: none;
 
-  ${({ theme, as }) => css`
-    border: 1px solid ${theme.editorLinkPreview.border};
-    background-color: ${theme.editorLinkPreview.background};
-    color: ${theme.text.color};
+  ${({ as }) => css`
+    border: 1px solid var(--colorsUtilityMajor050);
+    background-color: var(--colorsUtilityMajor025);
+    color: var(--colorsUtilityYin090);
 
     ${as !== "div" &&
     css`
       :focus {
-        outline: 2px solid ${theme.colors.focus};
+        outline: 2px solid var(--colorsSemanticFocus500);
         outline-offset: -1px;
       }
 
       :hover {
         cursor: pointer;
-        background-color: ${theme.editorLinkPreview.hoverBackground};
+        background-color: var(--colorsUtilityMajor100);
       }
     `}
   `}
@@ -85,16 +84,8 @@ const StyledUrl = styled.div`
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
-  color: ${({ theme }) => theme.editorLinkPreview.url};
+  color: var(--colorsUtilityMajor400);
 `;
-
-StyledLinkPreview.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledUrl.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledLinkPreview,
