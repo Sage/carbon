@@ -4,6 +4,7 @@ import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import Number from ".";
 import { OriginalTextbox } from "../textbox";
 import Box from "../box";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 <Meta title="Number Input" parameters={{ info: { disable: true } }} />
 
@@ -262,6 +263,39 @@ It is possible to use the `tooltipPosition` to override the default placement of
         </div>
       ))
     }
+  </Story>
+</Canvas>
+
+#### New designs validation
+
+<Canvas>
+  <Story name="validations - string - new design">
+    <CarbonProvider validationRedesignOptIn>
+      {["error", "warning"].map((validationType) =>
+        ["small", "medium", "large"].map((size) => (
+          <div
+            style={{ width: "296px" }}
+            key={`${validationType}-string-component`}
+          >
+            <Number
+              label={`${size} - ${validationType}`}
+              value="123456"
+              size={size}
+              {...{ [validationType]: "Message" }}
+              m={4}
+            />
+            <Number
+              label={`readOnly - ${size} - ${validationType}`}
+              value="123456"
+              readOnly
+              size={size}
+              {...{ [validationType]: "Message" }}
+              m={4}
+            />
+          </div>
+        ))
+      )}
+    </CarbonProvider>
   </Story>
 </Canvas>
 
