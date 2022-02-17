@@ -696,16 +696,6 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "textboxBorder": "#CCD6DB",
             "textboxText": "rgba(0,0,0,0.74)",
           },
-          "scrollbar": Object {
-            "dark": Object {
-              "thumb": "#99ADB6",
-              "track": "#335C6D",
-            },
-            "light": Object {
-              "thumb": "#668592",
-              "track": "#F2F5F6",
-            },
-          },
           "search": Object {
             "active": "#FFB500",
             "button": "#255BC7",
