@@ -7,6 +7,7 @@ import { useState, useRef } from "react";
 import { Select, Option, OptionRow, OptionGroupHeader } from "../";
 import Button from "../../button";
 import SelectTextbox from "../select-textbox/select-textbox.component";
+import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 
 <Meta title="Select" parameters={{ info: { disable: true } }} />
 
@@ -651,6 +652,76 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
     </Select>
   </Story>
 </Canvas>
+
+#### New designs validation
+
+<Preview>
+  <Story name="validations - string - new design">
+    <CarbonProvider validationRedesignOptIn>
+      {["error", "warning"].map((validationType) =>
+        ["small", "medium", "large"].map((size) => (
+          <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+            <Select
+              name="simple"
+              id="simple"
+              label={`${size} - ${validationType}`}
+              labelInline
+              onOpen={action("onOpen")}
+              onChange={action("onChange", { depth: 2 })}
+              onClick={action("onClick", { depth: 2 })}
+              onFocus={action("onFocus", { depth: 2 })}
+              onBlur={action("onBlur", { depth: 2 })}
+              onKeyDown={action("onKeyDown", { depth: 2 })}
+              size={size}
+              {...{ [validationType]: "Message" }}
+              m={4}
+            >
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+              <Option text="Blue" value="3" />
+              <Option text="Brown" value="4" />
+              <Option text="Green" value="5" />
+              <Option text="Orange" value="6" />
+              <Option text="Pink" value="7" />
+              <Option text="Purple" value="8" />
+              <Option text="Red" value="9" />
+              <Option text="White" value="10" />
+              <Option text="Yellow" value="11" />
+            </Select>
+            <Select
+              name="simple"
+              id="simple"
+              label={`readOnly - ${size} - ${validationType}`}
+              labelInline
+              onOpen={action("onOpen")}
+              onChange={action("onChange", { depth: 2 })}
+              onClick={action("onClick", { depth: 2 })}
+              onFocus={action("onFocus", { depth: 2 })}
+              onBlur={action("onBlur", { depth: 2 })}
+              onKeyDown={action("onKeyDown", { depth: 2 })}
+              size={size}
+              {...{ [validationType]: "Message" }}
+              readOnly
+              m={4}
+            >
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+              <Option text="Blue" value="3" />
+              <Option text="Brown" value="4" />
+              <Option text="Green" value="5" />
+              <Option text="Orange" value="6" />
+              <Option text="Pink" value="7" />
+              <Option text="Purple" value="8" />
+              <Option text="Red" value="9" />
+              <Option text="White" value="10" />
+              <Option text="Yellow" value="11" />
+            </Select>
+          </div>
+        ))
+      )}
+    </CarbonProvider>
+  </Story>
+</Preview>
 
 ## Props
 
