@@ -8,6 +8,7 @@ import Button from "../../button";
 import Dialog from "../../dialog";
 import { FilterableSelect, Option, OptionRow } from "../";
 import SelectTextbox from "../select-textbox/select-textbox.component";
+import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 
 <Meta title="Select/Filterable" parameters={{ info: { disable: true } }} />
 
@@ -636,6 +637,76 @@ If there is no `id` prop specified on an object, then the exact objects will be 
     }}
   </Story>
 </Canvas>
+
+#### New designs validation
+
+<Preview>
+  <Story name="validations - string - new design">
+    <CarbonProvider validationRedesignOptIn>
+      {["error", "warning"].map((validationType) =>
+        ["small", "medium", "large"].map((size) => (
+          <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+            <FilterableSelect
+              name="filterable"
+              id="filterable"
+              label={`${size} - ${validationType}`}
+              labelInline
+              onOpen={partialAction("onOpen")}
+              onChange={partialAction("onChange", { depth: 2 })}
+              onClick={partialAction("onClick", { depth: 2 })}
+              onFocus={partialAction("onFocus", { depth: 2 })}
+              onBlur={partialAction("onBlur", { depth: 2 })}
+              onKeyDown={partialAction("onKeyDown", { depth: 2 })}
+              size={size}
+              {...{ [validationType]: "Message" }}
+              m={4}
+            >
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+              <Option text="Blue" value="3" />
+              <Option text="Brown" value="4" />
+              <Option text="Green" value="5" />
+              <Option text="Orange" value="6" />
+              <Option text="Pink" value="7" />
+              <Option text="Purple" value="8" />
+              <Option text="Red" value="9" />
+              <Option text="White" value="10" />
+              <Option text="Yellow" value="11" />
+            </FilterableSelect>
+            <FilterableSelect
+              name="filterable - readOnly"
+              id="filterable - readOnly"
+              label={`readOnly - ${size} - ${validationType}`}
+              labelInline
+              onOpen={partialAction("onOpen")}
+              onChange={partialAction("onChange", { depth: 2 })}
+              onClick={partialAction("onClick", { depth: 2 })}
+              onFocus={partialAction("onFocus", { depth: 2 })}
+              onBlur={partialAction("onBlur", { depth: 2 })}
+              onKeyDown={partialAction("onKeyDown", { depth: 2 })}
+              size={size}
+              {...{ [validationType]: "Message" }}
+              readOnly
+              m={4}
+            >
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+              <Option text="Blue" value="3" />
+              <Option text="Brown" value="4" />
+              <Option text="Green" value="5" />
+              <Option text="Orange" value="6" />
+              <Option text="Pink" value="7" />
+              <Option text="Purple" value="8" />
+              <Option text="Red" value="9" />
+              <Option text="White" value="10" />
+              <Option text="Yellow" value="11" />
+            </FilterableSelect>
+          </div>
+        ))
+      )}
+    </CarbonProvider>
+  </Story>
+</Preview>
 
 ## Props
 
