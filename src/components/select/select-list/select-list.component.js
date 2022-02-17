@@ -7,6 +7,8 @@ import React, {
   useMemo,
 } from "react";
 import PropTypes from "prop-types";
+
+import useScrollBlock from "../../../hooks/__internal__/useScrollBlock";
 import {
   StyledSelectList,
   StyledSelectLoaderContainer,
@@ -75,6 +77,15 @@ const SelectList = React.forwardRef(
     const listRef = useRef();
     const tableRef = useRef();
     const listActionButtonRef = useRef();
+    const { blockScroll, allowScroll } = useScrollBlock();
+
+    useEffect(() => {
+      blockScroll();
+
+      return () => {
+        allowScroll();
+      };
+    }, [allowScroll, blockScroll]);
 
     const setPlacementCallback = useCallback(
       (popper) => {
@@ -282,12 +293,12 @@ const SelectList = React.forwardRef(
     );
 
     const assignListWidth = useCallback(() => {
-      if (!disablePortal && anchorElement) {
+      if (anchorElement) {
         const inputBoundingRect = anchorElement.getBoundingClientRect();
         const width = `${inputBoundingRect.width}px`;
         setListWidth(width);
       }
-    }, [anchorElement, disablePortal]);
+    }, [anchorElement]);
 
     useLayoutEffect(() => {
       assignListWidth();
@@ -387,13 +398,16 @@ const SelectList = React.forwardRef(
       }
     }, [children, currentOptionsListIndex, isLoading, lastOptionIndex]);
 
-    const popoverModifiers = [
-      ...fixedPopoverModifiers,
-      {
-        name: "flip",
-        enabled: flipEnabled,
-      },
-    ];
+    const popoverModifiers = useMemo(
+      () => [
+        ...fixedPopoverModifiers,
+        {
+          name: "flip",
+          enabled: flipEnabled,
+        },
+      ],
+      [flipEnabled]
+    );
 
     function isNavigationKey(keyEvent) {
       return (
@@ -432,6 +446,7 @@ const SelectList = React.forwardRef(
         reference={anchorRef}
         onFirstUpdate={setPlacementCallback}
         modifiers={popoverModifiers}
+        disableBackgroundUI
       >
         <StyledPopoverContainer
           height={listHeight}

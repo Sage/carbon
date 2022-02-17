@@ -18,9 +18,9 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 const Decimal = ({
-  align = "right",
+  align,
   defaultValue,
-  precision = 2,
+  precision,
   inputWidth,
   readOnly,
   onChange,
@@ -28,7 +28,7 @@ const Decimal = ({
   onKeyPress,
   id,
   name,
-  allowEmptyValue = false,
+  allowEmptyValue,
   required,
   locale,
   value,
@@ -335,6 +335,12 @@ Decimal.propTypes = {
   locale: PropTypes.string,
   /** Aria label for rendered help component */
   helpAriaLabel: PropTypes.string,
+};
+
+Decimal.defaultProps = {
+  precision: 2,
+  allowEmptyValue: false,
+  align: "right",
 };
 
 export default Decimal;

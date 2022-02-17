@@ -1,4 +1,4 @@
-{ 
+{
   "childrenOtherLanguage": {
     "children": "",
     "childrenSpecialCharacters": "otherLanguage"
@@ -6,5 +6,8 @@
   "childrenSpecialCharacter": {
     "children": "",
     "childrenSpecialCharacters": "specialCharacters"
+  },
+  "scrollablePage": {
+    "scrollablePage": true
   }
 }
