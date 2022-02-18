@@ -10,7 +10,7 @@ const StyledAdvancedColorPickerCell = styled.button.attrs({ type: "button" })`
   display: block;
   width: 25px;
   height: 25px;
-  border: 1px solid #516562;
+  border: 1px solid var(--colorsUtilityYin090);
   ${({ color }) =>
     color &&
     css`
@@ -29,7 +29,7 @@ const StyledAdvancedColorPickerCell = styled.button.attrs({ type: "button" })`
   }
 
   &:focus {
-    outline: solid 3px #ffb500;
+    outline: solid 3px var(--colorsSemanticFocus500);
   }
 
   &::-moz-focus-inner {
