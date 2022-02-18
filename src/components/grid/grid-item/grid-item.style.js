@@ -3,10 +3,9 @@ import { grid, flexbox } from "styled-system";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import { padding } from "@styled-system/space";
 import PropTypes from "prop-types";
-import { baseTheme } from "../../../style/themes";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 
-function responsiveGridItem(responsiveSettings, theme) {
+function responsiveGridItem(responsiveSettings) {
   return responsiveSettings.map((setting) => {
     const {
       alignSelf,
@@ -20,26 +19,50 @@ function responsiveGridItem(responsiveSettings, theme) {
       pt,
       pb,
     } = setting;
-
     return css`
       @media screen and (max-width: ${maxWidth}) {
         align-self: ${alignSelf || "stretch"};
         justify-self: ${justifySelf || "stretch"};
         grid-column: ${gridColumn};
         grid-row: ${gridRow};
-        padding: ${getSpacing(p, theme)};
-        padding-left: ${getSpacing(pl, theme)};
-        padding-right: ${getSpacing(pr, theme)};
-        padding-top: ${getSpacing(pt, theme)};
-        padding-bottom: ${getSpacing(pb, theme)};
+        padding: ${getSpacing(p)};
+        padding-left: ${getSpacing(pl)};
+        padding-right: ${getSpacing(pr)};
+        padding-top: ${getSpacing(pt)};
+        padding-bottom: ${getSpacing(pb)};
       }
     `;
   });
 }
 
-function getSpacing(prop, theme) {
-  if (prop && typeof prop === "number") {
-    return `${theme.space[prop]}px`;
+export function getSpacing(prop) {
+  if (typeof prop === "number") {
+    switch (prop) {
+      case 0:
+        return "var(--spacing000)";
+      case 1:
+        return "var(--spacing100)";
+      case 2:
+        return "var(--spacing200)";
+      case 3:
+        return "var(--spacing300)";
+      case 4:
+        return "var(--spacing400)";
+      case 5:
+        return "var(--spacing500)";
+      case 6:
+        return "var(--spacing600)";
+      case 7:
+        return "var(--spacing700)";
+      case 8:
+        return "var(--spacing800)";
+      case 9:
+        return "var(--spacing900)";
+      case 10:
+        return "var(--spacing1000)";
+      default:
+        return "var(--spacing100)";
+    }
   }
 
   return prop;
@@ -57,10 +80,10 @@ const GridItemStyle = styled.div`
   ${padding}
   ${({ gridRow }) => grid({ gridRow })}
   ${({ gridColumn }) => grid({ gridColumn })}
-  ${({ responsiveSettings, theme }) =>
+  ${({ responsiveSettings }) =>
     responsiveSettings &&
     css`
-      ${responsiveGridItem(responsiveSettings, theme)};
+      ${responsiveGridItem(responsiveSettings)};
     `}
 `;
 
@@ -85,7 +108,6 @@ GridItemStyle.propTypes = {
 GridItemStyle.defaultProps = {
   gridColumn: "1 / 13",
   gridRow: "auto",
-  theme: baseTheme,
 };
 
 export default GridItemStyle;
