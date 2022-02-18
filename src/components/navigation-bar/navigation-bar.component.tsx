@@ -1,6 +1,7 @@
 import React from "react";
 import { PaddingProps, FlexboxProps } from "styled-system";
 import StyledNavigationBar from "./navigation-bar.style";
+import Logger from "../../__internal__/utils/logger";
 
 export type Position = "sticky" | "fixed";
 export type Orientation = "top" | "bottom";
@@ -28,6 +29,8 @@ export interface NavigationBarProps extends PaddingProps, FlexboxProps {
   orientation?: Orientation;
 }
 
+let deprecatedWarnTriggered = false;
+
 export const NavigationBar = ({
   navigationType = "light",
   isLoading = false,
@@ -40,6 +43,14 @@ export const NavigationBar = ({
   orientation,
   ...props
 }: NavigationBarProps): JSX.Element => {
+  if (!deprecatedWarnTriggered && stickyPosition) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate(
+      // eslint-disable-next-line max-len
+      "The `stickyPosition` and `stickyOffset` props are deprecated and will soon be removed. You should use the `position`, `offset` and `orientation` props to achieve the same layout. The following codemods are available to help with updating your code: https://github.com/Sage/carbon-codemod/tree/master/transforms/remove-prop and https://github.com/Sage/carbon-codemod/tree/master/transforms/add-prop"
+    );
+  }
+
   return (
     <StyledNavigationBar
       role="navigation"
