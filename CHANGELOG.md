@@ -1,3 +1,17 @@
+### [104.19.1](https://github.com/Sage/carbon/compare/v104.19.0...v104.19.1) (2022-02-18)
+
+
+### Bug Fixes
+
+* **date:** ensure day value is validated against format with the month value included ([61b429e](https://github.com/Sage/carbon/commit/61b429eb59a585f612b9e754d994e2b577c5d996)), closes [#4853](https://github.com/Sage/carbon/issues/4853)
+
+## [104.19.0](https://github.com/Sage/carbon/compare/v104.18.1...v104.19.0) (2022-02-18)
+
+
+### Features
+
+* **batch-selection:** describe batch-selection component using design tokens ([a493a72](https://github.com/Sage/carbon/commit/a493a72e2d6a101b52e327d5b7ddeb600f8fbf98))
+
 ### [104.18.1](https://github.com/Sage/carbon/compare/v104.18.0...v104.18.1) (2022-02-16)
 
 
