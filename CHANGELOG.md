@@ -1,3 +1,12 @@
+## [104.20.0](https://github.com/Sage/carbon/compare/v104.19.2...v104.20.0) (2022-02-18)
+
+
+### Features
+
+* **date-navbar:** describe using design tokens ([1183494](https://github.com/Sage/carbon/commit/118349459b8fdc5a877105ad8223a462ab74e05a))
+* **date-picker:** describe using design tokens ([1cec2ae](https://github.com/Sage/carbon/commit/1cec2aebb28a3ccfad8aafcd27dfd73b1c16d5e9))
+* **date-weekday:** describe using design tokens ([a3f2b60](https://github.com/Sage/carbon/commit/a3f2b60c88bc43b273199ecef9c5896179c14000))
+
 ### [104.19.2](https://github.com/Sage/carbon/compare/v104.19.1...v104.19.2) (2022-02-18)
 
 
