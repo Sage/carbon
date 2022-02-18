@@ -1,3 +1,10 @@
+### [103.2.3](https://github.com/Sage/carbon/compare/v103.2.2...v103.2.3) (2022-02-18)
+
+
+### Bug Fixes
+
+* trigger build ([b164cea](https://github.com/Sage/carbon/commit/b164ceab0651fadacd7e95333159ea6b048984bb))
+
 ### [103.2.2](https://github.com/Sage/carbon/compare/v103.2.1...v103.2.2) (2022-02-18)
 
 
