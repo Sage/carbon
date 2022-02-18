@@ -46,10 +46,10 @@ describe("Link", () => {
           lineHeight: "36px",
           fontSize: "16px",
           left: "-999em",
-          color: "var(--colorsYin090)",
+          color: "var(--colorsUtilityYin090)",
           zIndex: `${baseTheme.zIndex.aboveAll}`,
           boxShadow: `inset 0 0 0 2px var(--colorsActionMajor500)`,
-          border: `2px solid var(--colorsYang100)`,
+          border: `2px solid var(--colorsUtilityYang100)`,
         },
         skipLinkWrapper,
         { modifier: "a" }
@@ -59,7 +59,7 @@ describe("Link", () => {
         {
           top: "8px",
           left: "8px",
-          color: "var(--colorsYin090)",
+          color: "var(--colorsActionMajorYin090)",
         },
         skipLinkWrapper,
         { modifier: "a:focus" }
