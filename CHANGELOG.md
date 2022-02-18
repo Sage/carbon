@@ -1,3 +1,10 @@
+## [104.19.0](https://github.com/Sage/carbon/compare/v104.18.1...v104.19.0) (2022-02-18)
+
+
+### Features
+
+* **batch-selection:** describe batch-selection component using design tokens ([a493a72](https://github.com/Sage/carbon/commit/a493a72e2d6a101b52e327d5b7ddeb600f8fbf98))
+
 ### [104.18.1](https://github.com/Sage/carbon/compare/v104.18.0...v104.18.1) (2022-02-16)
 
 
