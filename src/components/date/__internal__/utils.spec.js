@@ -319,6 +319,9 @@ describe("utils", () => {
       ["ddMyyyy", "0112022", "dd.M.yyyy", "01.1.2022"],
       ["dMyyyy", "112022", "d.M.yyyy", "1.1.2022"],
       ["dMMyyyy", "1012022", "d.MM.yyyy", "1.01.2022"],
+      ["ddMMyyyy", "31012022", "dd.MM.yyyy", "31.01.2022"],
+      ["ddMMyy", "300122", "dd.MM.yy", "30.01.22"],
+      ["ddMyy", "28222", "dd.M.yy", "28.2.22"],
     ])(
       "should match the un-separated %s format and %s value and return the expected [%s, %s]",
       (format, value, formatResult, valueResult) => {
@@ -340,6 +343,10 @@ describe("utils", () => {
       ["dd/M/yyyy", "01/1/2022", "dd/M/yyyy", "01/1/2022"],
       ["d/M/yyyy", "1/1/2022", "d/M/yyyy", "1/1/2022"],
       ["d/MM/yyyy", "1/01/2022", "d/MM/yyyy", "1/01/2022"],
+      ["dd/MM/yyyy", "31/01/2022", "dd/MM/yyyy", "31/01/2022"],
+      ["dd/MM/yy", "30/01/22", "dd/MM/yy", "30/01/22"],
+      ["dd/M/yy", "29/1/22", "dd/M/yy", "29/1/22"],
+      ["dd/M/yyyy", "28/2/2022", "dd/M/yyyy", "28/2/2022"],
     ])(
       "should match the `/` separated %s format and %s value and return the expected [%s, %s]",
       (format, value, formatResult, valueResult) => {

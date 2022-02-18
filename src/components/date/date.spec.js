@@ -473,6 +473,8 @@ describe("Date", () => {
       "12/42/3213",
       "foo",
       "1/01.11",
+      "29/02/2019",
+      "31/04/2019",
     ])("with the DatePicker open and a invalid date of %s", (mockValue) => {
       it("should pass no value to the DatePicker", () => {
         wrapper = mount(<MockComponent />);
@@ -606,12 +608,50 @@ describe("Date", () => {
           expect(wrapper.update().find("input").prop("value")).toEqual(value);
           simulateBlurOnInput(wrapper);
           const { separator } = locales[localeKey];
-          const expectedValue = `01${separator}01${separator}19${value.substr(
-            -2
+          const expectedValue = `01${separator}01${separator}19${value.substring(
+            value.length - 2,
+            value.length
           )}`;
 
           expect(wrapper.update().find("input").prop("value")).toEqual(
             expectedValue
+          );
+        });
+
+        describe("when the day value is greater than 28 and month is not February", () => {
+          it("it parses the date as expected", () => {
+            const value = ["en-US", "en-CA"].includes(localeKey)
+              ? "01/31/2021"
+              : "31/01/2021";
+            const result = localeKey === "de" ? "31.01.2021" : value;
+            wrapper.find("input").simulate("change", { target: { value } });
+            expect(wrapper.update().find("input").prop("value")).toEqual(value);
+            simulateBlurOnInput(wrapper);
+
+            expect(wrapper.update().find("input").prop("value")).toEqual(
+              result
+            );
+          });
+        });
+
+        describe("when it is a leap year, the day value is 29 and month is February", () => {
+          it.each(["2012", "2016", "2020", "2024"])(
+            "it parses the date as expected",
+            (year) => {
+              const value = ["en-US", "en-CA"].includes(localeKey)
+                ? `02/29/${year}`
+                : `29/02/${year}`;
+              const result = localeKey === "de" ? `29.02.${year}` : value;
+              wrapper.find("input").simulate("change", { target: { value } });
+              expect(wrapper.update().find("input").prop("value")).toEqual(
+                value
+              );
+              simulateBlurOnInput(wrapper);
+
+              expect(wrapper.update().find("input").prop("value")).toEqual(
+                result
+              );
+            }
           );
         });
       }
