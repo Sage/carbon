@@ -33,7 +33,7 @@ function render(props = {}, renderer = mount) {
     ...props,
   };
 
-  renderer(<Decimal precision={2} {...defaultProps} />);
+  renderer(<Decimal {...defaultProps} />);
 }
 
 describe("Decimal", () => {
@@ -131,7 +131,7 @@ describe("Decimal", () => {
   });
 
   testStyledSystemMargin(
-    (props) => <Decimal precision={2} {...props} />,
+    (props) => <Decimal {...props} />,
     undefined,
     (component) => component.find(FormFieldStyle),
     { modifier: "&&&" }
@@ -246,16 +246,6 @@ describe("Decimal", () => {
         render({ defaultValue: "12345.654", precision: 3 });
         expect(value()).toBe("12,345.654");
         expect(hiddenValue()).toBe("12345.654");
-      });
-
-      it("triggers an error message if the precision value is greater than 15", () => {
-        jest.spyOn(global.console, "error").mockImplementation(() => {});
-        mount(<Decimal defaultValue="12345.654" precision={16} />);
-        // eslint-disable-next-line no-console
-        expect(console.error).toHaveBeenCalledWith(
-          "Warning: Failed prop type: Precision prop must be a number greater than 0 or equal to or less than 15.\n    in Decimal"
-        );
-        global.console.error.mockReset();
       });
 
       it.each([
@@ -810,6 +800,7 @@ describe("Decimal", () => {
           expect(value()).toBe("-1.234,56");
           expect(hiddenValue()).toBe("-1234.56");
         });
+
         describe("precision", () => {
           it("fires a console error when precision is changed once component is loaded.", () => {
             jest.spyOn(global.console, "error").mockImplementation(() => {});
@@ -818,6 +809,7 @@ describe("Decimal", () => {
             expect(console.error).toHaveBeenCalledWith(
               "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect."
             );
+            global.console.error.mockReset();
           });
 
           it("supports a precision of 0", () => {
@@ -1386,6 +1378,30 @@ describe("Decimal", () => {
         expect(value()).toBe("0.00");
       });
     });
+  });
+});
+
+describe("Precision prop console errors", () => {
+  beforeEach(() => {
+    jest.spyOn(global.console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    global.console.error.mockReset();
+  });
+
+  it("does not trigger an error message if the precision value is not specified", () => {
+    mount(<Decimal defaultValue="12345.654" />);
+    // eslint-disable-next-line no-console
+    expect(console.error).not.toHaveBeenCalled();
+  });
+
+  it("triggers an error message if the precision value is greater than 15", () => {
+    mount(<Decimal defaultValue="12345.654" precision={16} />);
+    // eslint-disable-next-line no-console
+    expect(console.error).toHaveBeenCalledWith(
+      "Warning: Failed prop type: Precision prop must be a number greater than 0 or equal to or less than 15.\n    in Decimal"
+    );
   });
 });
 
