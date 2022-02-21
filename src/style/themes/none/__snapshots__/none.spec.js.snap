@@ -124,6 +124,7 @@ Object {
   "colorsSemanticCaution400": "#f28533ff",
   "colorsSemanticCaution500": "#E96400",
   "colorsSemanticCaution600": "#bf5200ff",
+  "colorsSemanticCaution650": "#a74800ff",
   "colorsSemanticCautionTransparent": "#00000000",
   "colorsSemanticCautionYang100": "#ffffffff",
   "colorsSemanticCautionYin030": "#0000004d",

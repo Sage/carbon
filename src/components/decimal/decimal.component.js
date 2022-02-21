@@ -1,9 +1,9 @@
 import React, {
   useState,
   useEffect,
+  useRef,
   useCallback,
   useContext,
-  useRef,
 } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
@@ -12,14 +12,15 @@ import invariant from "invariant";
 import Textbox from "../textbox";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import LocaleContext from "../../__internal__/i18n-context";
+import usePrevious from "../../hooks/__internal__/usePrevious";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 const Decimal = ({
-  align = "right",
+  align,
   defaultValue,
-  precision = 2,
+  precision,
   inputWidth,
   readOnly,
   onChange,
@@ -27,7 +28,7 @@ const Decimal = ({
   onKeyPress,
   id,
   name,
-  allowEmptyValue = false,
+  allowEmptyValue,
   required,
   locale,
   value,
@@ -106,15 +107,6 @@ const Decimal = ({
     [getSeparator, isNaN, l, locale, precision]
   );
 
-  // Return previous value before state is changed. Used to compare prevState and newState.
-  function usePrevious(arg) {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = arg;
-    });
-    return ref.current;
-  }
-
   /**
    * Determine if the precision value has changed from the previous ref value for precision
    */
@@ -127,7 +119,7 @@ const Decimal = ({
         "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect."
       );
     }
-  }, [precision]);
+  }, [precision, prevPrecisionValue]);
 
   const removeDelimiters = useCallback(
     (valueToFormat) => {
@@ -222,22 +214,23 @@ const Decimal = ({
     if (onBlur) onBlur(event);
   };
 
-  const isComponentControlled = value !== undefined;
-
-  const prevControlledState = usePrevious(isComponentControlled);
+  const isControlled = value !== undefined;
+  const prevControlledRef = useRef();
 
   useEffect(() => {
     const message =
       "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
       "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
 
-    invariant(prevControlledState !== isComponentControlled, message);
-  }, [isComponentControlled]);
+    invariant(prevControlledRef.current !== isControlled, message);
+
+    prevControlledRef.current = isControlled;
+  }, [isControlled]);
 
   useEffect(() => {
     const unformattedValue = toStandardDecimal(stateValue);
 
-    if (isComponentControlled) {
+    if (isControlled) {
       const valueProp = getSafeValueProp(value);
       if (unformattedValue !== valueProp) {
         setStateValue(formatValue(value));
@@ -342,6 +335,12 @@ Decimal.propTypes = {
   locale: PropTypes.string,
   /** Aria label for rendered help component */
   helpAriaLabel: PropTypes.string,
+};
+
+Decimal.defaultProps = {
+  precision: 2,
+  allowEmptyValue: false,
+  align: "right",
 };
 
 export default Decimal;

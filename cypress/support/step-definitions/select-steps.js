@@ -118,7 +118,7 @@ When("I click on {string} option on Select list", (position) => {
 });
 
 When("I click on Select label", () => {
-  label().click();
+  label().click({ force: true });
 });
 
 When("I click onto {string} button", (buttonName) => {
