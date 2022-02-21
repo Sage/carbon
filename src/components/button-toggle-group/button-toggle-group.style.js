@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { StyledButtonToggleLabel } from "../button-toggle/button-toggle.style";
 import ValidationIconStyle from "../../__internal__/validations/validation-icon.style";
-import baseTheme from "../../style/themes/base";
 
 const ButtonToggleGroupStyle = styled.div`
   display: flex;
@@ -13,22 +12,22 @@ const ButtonToggleGroupStyle = styled.div`
     `};
 
   ${StyledButtonToggleLabel} {
-    ${({ theme, info }) =>
+    ${({ info }) =>
       info &&
       css`
-        border-color: ${theme.colors.info};
+        border-color: var(--colorsSemanticInfo500);
       `};
-    ${({ theme, warning }) =>
+    ${({ warning }) =>
       warning &&
       css`
-        border-color: ${theme.colors.warning};
+        border-color: var(--colorsSemanticCaution500);
       `}
-    ${({ theme, error }) =>
+    ${({ error }) =>
       error &&
       css`
-        box-shadow: inset 1px 1px 0 ${theme.colors.error},
-          inset -1px -1px 0 ${theme.colors.error};
-        border-color: ${theme.colors.error};
+        box-shadow: inset 1px 1px 0 var(--colorsSemanticNegative500),
+          inset -1px -1px 0 var(--colorsSemanticNegative500);
+        border-color: var(--colorsSemanticNegative500);
       `}
   }
 
@@ -36,9 +35,5 @@ const ButtonToggleGroupStyle = styled.div`
     margin-left: 4px;
   }
 `;
-
-ButtonToggleGroupStyle.defaultProps = {
-  theme: baseTheme,
-};
 
 export default ButtonToggleGroupStyle;

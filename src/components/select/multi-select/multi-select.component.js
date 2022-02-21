@@ -520,7 +520,8 @@ const MultiSelect = React.forwardRef(
 
     return (
       <StyledSelectMultiSelect
-        ref={containerRef}
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
         disabled={disabled}
         readOnly={readOnly}
         hasTextCursor
@@ -528,25 +529,28 @@ const MultiSelect = React.forwardRef(
         data-component={dataComponent}
         data-role={dataRole}
         data-element={dataElement}
+        isOpen={isOpen}
         {...filterStyledSystemMarginProps(textboxProps)}
       >
-        <StyledAccessibilityLabelContainer
-          data-element="accessibility-label"
-          id={accessibilityLabelId.current}
-        >
-          {accessibilityLabel}
-        </StyledAccessibilityLabelContainer>
-        <SelectTextbox
-          accessibilityLabelId={accessibilityLabelId.current}
-          activeDescendantId={activeDescendantId}
-          aria-controls={isOpen ? selectListId.current : undefined}
-          hasTextCursor
-          isOpen={isOpen}
-          labelId={labelId.current}
-          positionedChildren={disablePortal && isOpen && selectList}
-          {...getTextboxProps()}
-        />
-        {!disablePortal && isOpen && selectList}
+        <div ref={containerRef}>
+          <StyledAccessibilityLabelContainer
+            data-element="accessibility-label"
+            id={accessibilityLabelId.current}
+          >
+            {accessibilityLabel}
+          </StyledAccessibilityLabelContainer>
+          <SelectTextbox
+            accessibilityLabelId={accessibilityLabelId.current}
+            activeDescendantId={activeDescendantId}
+            aria-controls={isOpen ? selectListId.current : undefined}
+            hasTextCursor
+            isOpen={isOpen}
+            labelId={labelId.current}
+            textboxRef={textboxRef}
+            {...getTextboxProps()}
+          />
+        </div>
+        {isOpen && selectList}
       </StyledSelectMultiSelect>
     );
   }

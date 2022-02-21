@@ -7,7 +7,6 @@ import Icon from "../icon";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
 import StyledIconButton from "../icon-button/icon-button.style";
-import { baseTheme } from "../../style/themes";
 
 describe("BatchSelection component", () => {
   let wrapper;
@@ -25,8 +24,8 @@ describe("BatchSelection component", () => {
     it("should have expected styles", () => {
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.colors.slate,
-          color: baseTheme.colors.white,
+          backgroundColor: "var(--colorsUtilityMajor500)",
+          color: "var(--colorsUtilityYang100)",
         },
         wrapper
       );
@@ -35,7 +34,7 @@ describe("BatchSelection component", () => {
     it("should have expected Icon color", () => {
       assertStyleMatch(
         {
-          color: baseTheme.colors.white,
+          color: "var(--colorsActionMajorYang100)",
         },
         wrapper,
         { modifier: `${StyledIcon}` }
@@ -51,7 +50,7 @@ describe("BatchSelection component", () => {
     it("should have expected background color", () => {
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.batchSelection.lightTheme,
+          backgroundColor: "var(--colorsUtilityMajor150)",
         },
         wrapper
       );
@@ -66,9 +65,8 @@ describe("BatchSelection component", () => {
     it("should have expected background color and shadow", () => {
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.white,
-          boxShadow:
-            "0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1)",
+          backgroundColor: "var(--colorsUtilityYang100)",
+          boxShadow: "var(--boxShadow100)",
         },
         wrapper
       );
@@ -83,7 +81,7 @@ describe("BatchSelection component", () => {
     it("should have expected styles", () => {
       assertStyleMatch(
         {
-          color: baseTheme.disabled.disabled,
+          color: "var(--colorsUtilityYin030)",
           cursor: "not-allowed",
         },
         wrapper
@@ -104,7 +102,7 @@ describe("BatchSelection component", () => {
     it("then IconButton should have expected Icon color", () => {
       assertStyleMatch(
         {
-          color: baseTheme.icon.disabled,
+          color: "var(--colorsActionMajorYin030)",
         },
         wrapper,
         { modifier: `${StyledIconButton} ${StyledIcon}` }

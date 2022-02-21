@@ -25,7 +25,7 @@ export const selectListText = (text) => cy.get(SELECT_LIST).contains(text);
 export const multiColumnsSelectListHeader = () =>
   selectList().find("thead > tr > th");
 export const multiColumnsSelectListBody = () =>
-  selectList().find("tbody > tr:nth-child(1) > td");
+  selectList().find("tbody > tr:nth-child(3) > td");
 export const boldedAndUnderlinedValue = (text) =>
   selectList()
     .find("tbody > tr:nth-child(1) > td:nth-child(2) > span")

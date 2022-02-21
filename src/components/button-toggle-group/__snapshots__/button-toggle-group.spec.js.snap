@@ -25,35 +25,34 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
   height: 40px;
   padding: 0 24px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  border: 1px solid #668592;
-  background-color: #FFFFFF;
+  border: 1px solid var(--colorsActionMinor500);
 }
 
 .c6 .c8 {
-  color: #000000;
+  color: var(--colorsActionMinor500);
 }
 
 input:checked ~ .c6.c6 {
-  background-color: #E6F6F1;
-  border-color: #006046;
+  background-color: var(--colorsActionMinor300);
+  color: var(--colorsActionMinor600);
   cursor: auto;
 }
 
 input:focus ~ .c6 {
-  outline: 3px solid #FFB500;
+  outline: 3px solid var(--colorsSemanticFocus500);
   z-index: 100;
 }
 
 input:not(:checked):not(:disabled) ~ .c6:hover {
-  background-color: #006046;
-  border-color: #006046;
-  color: #FFFFFF;
+  background-color: var(--colorsActionMinor200);
+  border-color: var(--colorsActionMinor500);
+  color: var(--colorsActionMinor500);
 }
 
 input:not(:checked):not(:disabled) ~ .c6:hover .c8 {
-  color: #FFFFFF;
+  color: var(--colorsActionMinor500);
 }
 
 .c4 {

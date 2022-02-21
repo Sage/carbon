@@ -52,7 +52,7 @@ describe("Tooltip", () => {
               right: "auto",
               position: "relative",
               maxWidth: "300px",
-              zIndex: "2000",
+              zIndex: "6000",
               textAlign: "left",
               color: "var(--colorsSemanticNeutralYang100)",
               display: "inline-block",
