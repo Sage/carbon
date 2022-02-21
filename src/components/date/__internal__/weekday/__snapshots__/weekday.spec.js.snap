@@ -4,13 +4,15 @@ exports[`Weekday renders presentational div and context provider for its childre
 .c0,
 .c0.DayPicker-Weekday {
   border: none;
-  min-width: 40px;
+  height: var(--sizing500);
+  min-width: var(--sizing500);
   font-weight: 800;
-  color: #668592;
+  color: var(--colorsActionMinor400);
   text-transform: uppercase;
   font-size: 12px;
   text-align: center;
   padding: 20px 0 5px;
+  box-sizing: border-box;
 }
 
 .c1 {

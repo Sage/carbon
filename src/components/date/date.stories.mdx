@@ -39,9 +39,9 @@ import DateInput from "carbon-react/lib/components/date";
 ### Default
 
 The `value` and `onChange` props are required as this component must be controlled. The `onChange` will receive a event 
-with a target value containing a `formattedValue` and `rawvalue`. The `formattedValue` should be used to set the input 
-value like in the example below, although the component will also work if you use the `rawValue`. The `rawValue` should be 
-used for storing the value in the backend and for running validations: it will either return a valid ISO string or null.
+with a target value containing a `formattedValue` and `rawValue`.  The `rawValue` should be used for storing the value 
+in the backend and for running validations: it will either return a valid ISO string or null. The `formattedValue` should 
+be used to set the input value like in the example below, although the component can be initialised with an ISO formatted string.
 
 <Canvas>
   <Story name="default" parameters={{ chromatic: { disable: true } }}>

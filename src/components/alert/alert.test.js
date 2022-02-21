@@ -110,7 +110,7 @@ context("Testing Alert component", () => {
 
       closeIconButton().click();
       alertDataComponent().should("have.attr", "data-state", "closed");
-      alertDialogPreview().should("not.be.visible");
+      alertDialogPreview().should("not.exist");
     });
 
     it.each([250, 500, 650])(

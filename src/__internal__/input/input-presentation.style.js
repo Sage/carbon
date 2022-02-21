@@ -30,9 +30,8 @@ const InputPresentationStyle = styled.div`
       cursor: not-allowed;
     `}
 
-  ${({ hasFocus, disabled }) =>
+  ${({ hasFocus }) =>
     hasFocus &&
-    !disabled &&
     css`
       & {
         outline: 3px solid var(--colorsSemanticFocus500);

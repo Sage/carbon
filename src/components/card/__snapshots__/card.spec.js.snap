@@ -116,7 +116,7 @@ exports[`Card CardFooter styling should match the expected styling when it has n
 
 .c1 a:focus,
 .c1 button:focus {
-  color: var(--colorsYin090);
+  color: var(--colorsActionMajorYin090);
   background-color: var(--colorsSemanticFocus250);
   outline: none;
 }

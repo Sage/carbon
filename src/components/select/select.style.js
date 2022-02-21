@@ -7,7 +7,7 @@ import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-ico
 import { baseTheme } from "../../style/themes";
 
 const StyledSelect = styled.div`
-  ${({ hasTextCursor, disabled, readOnly, transparent }) => css`
+  ${({ hasTextCursor, disabled, readOnly, theme, transparent, isOpen }) => css`
     ${margin}
 
     position: relative;
@@ -24,8 +24,8 @@ const StyledSelect = styled.div`
 
       ${readOnly &&
       css`
-        cursor: "text";
-        color: var(--colorsYin065);
+        cursor: ${hasTextCursor ? "text" : "default"};
+        color: var(--colorsActionMinorYin090);
         text-shadow: none;
       `}
     }
@@ -33,6 +33,11 @@ const StyledSelect = styled.div`
     ${InputPresentationStyle} {
       cursor: ${hasTextCursor ? "text" : "pointer"};
       padding-right: 0;
+
+      ${isOpen &&
+      css`
+        z-index: ${theme.zIndex.aboveAll};
+      `}
 
       ${disabled &&
       css`

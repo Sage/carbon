@@ -1,3 +1,97 @@
+### [104.21.1](https://github.com/Sage/carbon/compare/v104.21.0...v104.21.1) (2022-02-21)
+
+
+### Bug Fixes
+
+* remove border style from input when disabled ([737eaaf](https://github.com/Sage/carbon/commit/737eaaf3ad9f4812ed4c6987368abd094f7a4541)), closes [#4769](https://github.com/Sage/carbon/issues/4769)
+
+## [104.21.0](https://github.com/Sage/carbon/compare/v104.20.0...v104.21.0) (2022-02-21)
+
+
+### Features
+
+* **pager:** describe pager using design tokens, update tests ([fce8144](https://github.com/Sage/carbon/commit/fce81440e1662974c88f7a66ed0560ed6d894807))
+
+## [104.20.0](https://github.com/Sage/carbon/compare/v104.19.2...v104.20.0) (2022-02-18)
+
+
+### Features
+
+* **date-navbar:** describe using design tokens ([1183494](https://github.com/Sage/carbon/commit/118349459b8fdc5a877105ad8223a462ab74e05a))
+* **date-picker:** describe using design tokens ([1cec2ae](https://github.com/Sage/carbon/commit/1cec2aebb28a3ccfad8aafcd27dfd73b1c16d5e9))
+* **date-weekday:** describe using design tokens ([a3f2b60](https://github.com/Sage/carbon/commit/a3f2b60c88bc43b273199ecef9c5896179c14000))
+
+### [104.19.2](https://github.com/Sage/carbon/compare/v104.19.1...v104.19.2) (2022-02-18)
+
+
+### Bug Fixes
+
+* **button-toggle-group:** proper style for info variant ([4ee2305](https://github.com/Sage/carbon/commit/4ee2305f51fce41a2abc6299ce245a94192034f6))
+
+### [104.19.1](https://github.com/Sage/carbon/compare/v104.19.0...v104.19.1) (2022-02-18)
+
+
+### Bug Fixes
+
+* **date:** ensure day value is validated against format with the month value included ([61b429e](https://github.com/Sage/carbon/commit/61b429eb59a585f612b9e754d994e2b577c5d996)), closes [#4853](https://github.com/Sage/carbon/issues/4853)
+
+## [104.19.0](https://github.com/Sage/carbon/compare/v104.18.1...v104.19.0) (2022-02-18)
+
+
+### Features
+
+* **batch-selection:** describe batch-selection component using design tokens ([a493a72](https://github.com/Sage/carbon/commit/a493a72e2d6a101b52e327d5b7ddeb600f8fbf98))
+
+### [104.18.1](https://github.com/Sage/carbon/compare/v104.18.0...v104.18.1) (2022-02-16)
+
+
+### Bug Fixes
+
+* **icon-button:** fix background color when component is disabled ([7e0572e](https://github.com/Sage/carbon/commit/7e0572e6352722fcd14e1e7c7366e4736b4f6367))
+
+## [104.18.0](https://github.com/Sage/carbon/compare/v104.17.0...v104.18.0) (2022-02-16)
+
+
+### Features
+
+* **portrait, profile:** describe portrait and profile using design tokens, update tests ([1d5730d](https://github.com/Sage/carbon/commit/1d5730d26fa1b47e317c45efcd714f85b032e2dc))
+
+## [104.17.0](https://github.com/Sage/carbon/compare/v104.16.1...v104.17.0) (2022-02-16)
+
+
+### Features
+
+* **tabs:** describe tabs using design tokens, update tests ([9bea1df](https://github.com/Sage/carbon/commit/9bea1df85f84e3341d661a8d3e8457ffb1d36c81))
+* **validation-icon:** describe validation-icon using design tokens ([4cc893d](https://github.com/Sage/carbon/commit/4cc893d74ef9e2db5f90dd53ba62ee5b1c54fa22))
+
+### [104.16.1](https://github.com/Sage/carbon/compare/v104.16.0...v104.16.1) (2022-02-15)
+
+
+### Bug Fixes
+
+* **decimal:** fix precision console error firing when no precision prop specified ([dc8f454](https://github.com/Sage/carbon/commit/dc8f454f74f81b0a7d481e8c4a8dadff96dd7f72)), closes [#4826](https://github.com/Sage/carbon/issues/4826)
+
+## [104.16.0](https://github.com/Sage/carbon/compare/v104.15.0...v104.16.0) (2022-02-15)
+
+
+### Features
+
+* **button-bar:** describe Button Bar component using design tokens ([8425dba](https://github.com/Sage/carbon/commit/8425dbad3d908ba05dcba5934e3f1d718047328f))
+
+## [104.15.0](https://github.com/Sage/carbon/compare/v104.14.0...v104.15.0) (2022-02-14)
+
+
+### Features
+
+* **note:** describe note using design tokens, update tests ([1626581](https://github.com/Sage/carbon/commit/162658126b496bc6886261cd3908759b9d4963f5))
+
+## [104.14.0](https://github.com/Sage/carbon/compare/v104.13.0...v104.14.0) (2022-02-11)
+
+
+### Features
+
+* **select:** block scroll while select is open ([362c7ef](https://github.com/Sage/carbon/commit/362c7efbe6146c0dc9f7a08dbf267fdf9bcd0975))
+
 ## [104.13.0](https://github.com/Sage/carbon/compare/v104.12.2...v104.13.0) (2022-02-11)
 
 
