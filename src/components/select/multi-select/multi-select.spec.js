@@ -8,7 +8,6 @@ import {
 } from "../../../__spec_helper__/test-utils";
 import MultiSelect from "./multi-select.component";
 import Textbox from "../../textbox";
-import SelectTextbox from "../select-textbox/select-textbox.component";
 import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
 import { StyledSelectList } from "../select-list/select-list.style";
@@ -81,24 +80,11 @@ describe("MultiSelect", () => {
   });
 
   describe("disablePortal", () => {
-    it("renders SelectList as a content of positionedChildren prop on Textbox when disablePortal is true", () => {
+    it("renders SelectList with a disablePortal prop assigned", () => {
       const wrapper = renderSelect({ disablePortal: true });
 
       wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
-      const positionedChildren = mount(
-        wrapper.find(SelectTextbox).props().positionedChildren
-      );
-      expect(positionedChildren.find(SelectList).exists()).toBe(true);
-    });
-
-    it("renders SelectList as a direct children of StyledSimpleSelect by default", () => {
-      const wrapper = renderSelect();
-
-      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
-      expect(wrapper.find(SelectTextbox).props().positionedChildren).toBe(
-        undefined
-      );
-      expect(wrapper.find(SelectList).exists()).toBe(true);
+      expect(wrapper.find(SelectList).props().disablePortal).toBe(true);
     });
   });
 
@@ -143,6 +129,7 @@ describe("MultiSelect", () => {
     assertStyleMatch(
       {
         paddingRight: expected,
+        position: "relative",
       },
       wrapper,
       { modifier: `${InputPresentationStyle}` }

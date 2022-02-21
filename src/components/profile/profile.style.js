@@ -1,5 +1,6 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { margin } from "styled-system";
+
 import Portrait from "../portrait";
 import baseTheme from "../../style/themes/base";
 import profileConfigSizes from "./profile.config";
@@ -16,11 +17,7 @@ const ProfileEmailStyle = styled.span`
 
 const ProfileStyle = styled.div`
   white-space: nowrap;
-  ${({ theme }) =>
-    css`
-      color: ${theme.text.color};
-    `};
-
+  color: var(--colorsUtilityYin090);
   display: ${({ hasSrc }) => (hasSrc ? "flex" : "")};
 
   ${margin}
@@ -45,17 +42,14 @@ ProfileStyle.defaultProps = {
 
 ProfileNameStyle.defaultProps = {
   size: "M",
-  theme: baseTheme,
 };
 
 ProfileEmailStyle.defaultProps = {
   size: "M",
-  theme: baseTheme,
 };
 
 ProfileDetailsStyle.defaultProps = {
   size: "M",
-  theme: baseTheme,
 };
 
 export {

@@ -133,6 +133,7 @@ const TabTitle = React.forwardRef(
         {...(isHref && { href, target: "_blank", as: "a" })}
         {...tagComponent("tab-header", tabTitleProps)}
         onKeyDown={handleKeyDown}
+        size={size}
       >
         <StyledTitleContent
           error={error}
@@ -192,7 +193,6 @@ const TabTitle = React.forwardRef(
           <StyledSelectedIndicator
             data-element="tab-selected-indicator"
             position={position}
-            size={size}
           />
         )}
       </StyledTabTitle>

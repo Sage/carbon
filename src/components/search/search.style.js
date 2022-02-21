@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
 import { margin } from "styled-system";
+import styled, { css } from "styled-components";
 
 import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
@@ -21,8 +21,9 @@ const StyledSearch = styled.div`
   }) => {
     const darkVariant = variant === "dark";
     const variantColor = darkVariant
-      ? `${theme.search.darkVariantBorder}`
-      : `${theme.search.passive}`;
+      ? "var(--colorsUtilityMajor200)"
+      : "var(--colorsUtilityMajor300)";
+
     const iconColor =
       darkVariant &&
       ((searchHasValue && isFocused) ||
@@ -38,14 +39,15 @@ const StyledSearch = styled.div`
       font-size: 14px;
       font-weight: 700;
       :hover {
-        border-bottom-color: ${theme.search.active};
+        border-bottom-color: ${darkVariant
+          ? "var(--colorsUtilityMajor100)"
+          : "var(--colorsUtilityMajor400)"};
         cursor: pointer;
       }
       ${(isFocused || searchHasValue) &&
       css`
         border-color: transparent;
         transition: background 0.2s ease;
-        color: ${theme.icon.defaultHover};
         :hover {
           border-color: transparent;
         }
@@ -54,7 +56,6 @@ const StyledSearch = styled.div`
       !searchIsActive &&
       css`
         border-color: transparent;
-        color: ${theme.icon.defaultHover};
       `}
       ${!isFocused &&
       searchHasValue &&
@@ -62,43 +63,44 @@ const StyledSearch = styled.div`
       css`
         border-bottom: 2px solid ${variantColor};
         :hover {
-          border-bottom-color: ${theme.search.active};
+          border-bottom-color: var(--colorsUtilityMajor400);
           cursor: pointer;
         }
       `}
 
       ${StyledInput} {
+        ::-moz-placeholder {
+          color: var(--colorsUtilityYin055);
+          opacity: 1;
+        }
+        ::placeholder {
+          color: var(--colorsUtilityYin055);
+        }
+
         ${darkVariant &&
         !isFocused &&
         css`
           ::-moz-placeholder {
-            color: ${theme.search.darkVariantPlaceholder};
+            color: var(--colorsUtilityMajor200);
             opacity: 1;
           }
           ::placeholder {
-            color: ${theme.search.darkVariantPlaceholder};
+            color: var(--colorsUtilityMajor200);
           }
         `}
 
         ${darkVariant &&
+        !isFocused &&
+        searchHasValue &&
+        !showSearchButton &&
         css`
-          ${!isFocused &&
-          searchHasValue &&
-          !showSearchButton &&
-          css`
-            color: ${theme.search.darkVariantText};
-          `}
-          ${!isFocused &&
-          !searchHasValue &&
-          css`
-            color: ${theme.search.darkVariantPlaceholder};
-          `}
+          color: var(--colorsUtilityYang100);
         `}
       }
 
       ${StyledInputPresentation} {
         background-color: ${searchHasValue || isFocused
-          ? `${theme.colors.white}`
+          ? "var(--colorsUtilityYang100)"
           : "transparent"};
         flex: 1;
         font-size: 14px;
@@ -110,7 +112,6 @@ const StyledSearch = styled.div`
         !searchHasValue &&
         css`
           border: 1px solid transparent;
-          color: ${theme.icon.default};
         `}
         ${!isFocused &&
         searchHasValue &&
@@ -119,7 +120,7 @@ const StyledSearch = styled.div`
           border: 1px solid transparent;
           background-color: ${darkVariant
             ? "transparent"
-            : `${theme.colors.white}`};
+            : "var(--colorsUtilityYang100)"};
         `}
       }
 
@@ -127,18 +128,13 @@ const StyledSearch = styled.div`
         flex: 1;
         z-index: ${theme.zIndex.smallOverlay};
       }
-      ${StyledButton} {
-        background-color: ${theme.search.button};
-        cursor: pointer;
-        color: ${theme.colors.white};
-      }
       ${StyledIcon} {
         color: ${iconColor
-          ? `${theme.search.icon}`
-          : `${theme.search.iconDarkVariant}`};
+          ? "var(--colorsUtilityMajor400)"
+          : "var(--colorsUtilityMajor200)"};
         ${!darkVariant &&
         css`
-          color: ${theme.search.icon};
+          color: var(--colorsUtilityMajor400);
         `}
 
         width: 20px;
@@ -146,11 +142,11 @@ const StyledSearch = styled.div`
         cursor: pointer;
         :hover {
           color: ${iconColor
-            ? `${theme.search.iconHover}`
-            : `${theme.search.iconDarkVariantHover}`};
+            ? "var(--colorsUtilityMajor500)"
+            : "var(--colorsUtilityMajor100)"};
           ${!darkVariant &&
           css`
-            color: ${theme.search.iconHover};
+            color: var(--colorsUtilityMajor500);
           `}
         }
       }
@@ -171,15 +167,13 @@ export default StyledSearch;
 export const StyledSearchButton = styled.div`
   display: inline-flex;
   border-bottom: none;
-  &&& ${StyledButton} {
-    ${({ theme }) => css`
-      background-color: ${theme.colors.primary};
-      border-color: ${theme.colors.primary};
-      :hover {
-        background: ${theme.colors.secondary};
-        border-color: ${theme.colors.secondary};
-      }
-    `}
+  & ${StyledButton} {
+    background-color: var(--colorsActionMajor500);
+    border-color: var(--colorsActionMajorTransparent);
+    :hover {
+      background: var(--colorsActionMajor600);
+      border-color: var(--colorsActionMajorTransparent);
+    }
 
     width: 40px;
     margin: 0px 0px;
@@ -192,7 +186,7 @@ export const StyledSearchButton = styled.div`
 
 export const StyledButtonIcon = styled.div`
   &&& ${StyledIcon} {
-    color: white;
+    color: var(--colorsActionMajorYang100);
     margin-right: 0px;
   }
 `;
