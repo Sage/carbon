@@ -1,3 +1,10 @@
+### [104.21.1](https://github.com/Sage/carbon/compare/v104.21.0...v104.21.1) (2022-02-21)
+
+
+### Bug Fixes
+
+* remove border style from input when disabled ([737eaaf](https://github.com/Sage/carbon/commit/737eaaf3ad9f4812ed4c6987368abd094f7a4541)), closes [#4769](https://github.com/Sage/carbon/issues/4769)
+
 ## [104.21.0](https://github.com/Sage/carbon/compare/v104.20.0...v104.21.0) (2022-02-21)
 
 
