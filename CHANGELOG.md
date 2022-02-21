@@ -1,3 +1,10 @@
+## [104.21.0](https://github.com/Sage/carbon/compare/v104.20.0...v104.21.0) (2022-02-21)
+
+
+### Features
+
+* **pager:** describe pager using design tokens, update tests ([fce8144](https://github.com/Sage/carbon/commit/fce81440e1662974c88f7a66ed0560ed6d894807))
+
 ## [104.20.0](https://github.com/Sage/carbon/compare/v104.19.2...v104.20.0) (2022-02-18)
 
 
