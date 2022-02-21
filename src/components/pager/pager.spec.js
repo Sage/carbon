@@ -1,9 +1,9 @@
 import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
+
 import guid from "../../__internal__/utils/helpers/guid";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import baseTheme from "../../style/themes/base";
 import Pager from "./pager.component";
 import Select from "../select/simple-select/simple-select.component";
 import SelectList from "../select/select-list/select-list.component";
@@ -144,7 +144,7 @@ describe("Pager", () => {
       wrapper = getWrapper({ currentPage: 10 });
       const navLinks = wrapper.find(StyledPagerLinkStyles);
       const first = navLinks.first();
-      first.simulate("click");
+      first.find("button").simulate("click");
       expect(onFirst).toHaveBeenCalledTimes(1);
     });
 
@@ -152,7 +152,7 @@ describe("Pager", () => {
       wrapper = getWrapper({ currentPage: 3 });
       const navLinks = wrapper.find(StyledPagerLinkStyles);
       const prev = navLinks.at(1);
-      prev.simulate("click");
+      prev.find("button").simulate("click");
       expect(onPrevious).toHaveBeenCalledTimes(1);
     });
 
@@ -160,7 +160,7 @@ describe("Pager", () => {
       wrapper = getWrapper({ currentPage: 3 });
       const navLinks = wrapper.find(StyledPagerLinkStyles);
       const next = navLinks.at(2);
-      next.simulate("click");
+      next.find("button").simulate("click");
       expect(onNext).toHaveBeenCalledTimes(1);
     });
 
@@ -168,19 +168,15 @@ describe("Pager", () => {
       wrapper = getWrapper({ currentPage: 10 });
       const navLinks = wrapper.find(StyledPagerLinkStyles);
       const next = navLinks.at(2);
-      assertStyleMatch(
-        {
-          cursor: "not-allowed",
-        },
-        next
-      );
+      next.find("button").simulate("click");
+      expect(onNext).toHaveBeenCalledTimes(0);
     });
 
     it("changes page correctly on clicking last link", () => {
       wrapper = getWrapper({ currentPage: 3 });
       const navLinks = wrapper.find(StyledPagerLinkStyles);
       const last = navLinks.last();
-      last.simulate("click");
+      last.find("button").simulate("click");
       expect(onLast).toHaveBeenCalledTimes(1);
     });
 
@@ -454,11 +450,12 @@ describe("Pager", () => {
           {
             padding: "0px 24px",
             fontSize: "13px",
-            backgroundColor: baseTheme.table.zebra,
+            backgroundColor: "var(--colorsUtilityMajor010)",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             borderTopWidth: "0",
+            color: "var(--colorsUtilityYin090)",
           },
           wrapper
         );
@@ -469,7 +466,7 @@ describe("Pager", () => {
 
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.pager.alternate,
+            backgroundColor: "var(--colorsUtilityMajor040)",
           },
           wrapper
         );

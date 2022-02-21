@@ -38,9 +38,9 @@ context("Tests for BatchSelection component", () => {
     });
 
     it.each([
-      ["dark", "rgb(0, 51, 73)"],
-      ["light", "rgb(179, 194, 200)"],
-      ["white", "rgba(0, 0, 0, 0)"],
+      ["dark", "rgb(0, 50, 76)"],
+      ["light", "rgb(179, 194, 201)"],
+      ["white", "rgb(255, 255, 255)"],
       ["transparent", ""],
     ])(
       "check BatchSelection component %s colorTheme and it uses %s as a background color",

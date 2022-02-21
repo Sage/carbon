@@ -4,6 +4,7 @@ import classNames from "classnames";
 import invariant from "invariant";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
+import usePrevious from "../../hooks/__internal__/usePrevious";
 import Icon from "../icon";
 import {
   StyledSidebarHeader,
@@ -86,14 +87,6 @@ const Drawer = ({
       }, timeout);
     }
   }, [getAnimationDuration, isExpanded]);
-
-  function usePrevious(arg) {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = arg;
-    });
-    return ref.current;
-  }
 
   const previousValue = usePrevious(expanded);
 

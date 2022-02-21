@@ -75,6 +75,10 @@ exports[`BatchSelection component should render correctly 1`] = `
   display: inline-flex;
 }
 
+.c0 .c4 {
+  color: var(--colorsActionMajorYin065);
+}
+
 .c0 .c2 {
   margin: 0;
   position: static;
@@ -82,11 +86,11 @@ exports[`BatchSelection component should render correctly 1`] = `
 }
 
 .c0 .c2:hover {
-  background-color: #00A376;
+  background-color: var(--colorsActionMajor500);
 }
 
 .c0 .c2:hover .c4 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c1 {
