@@ -10,6 +10,7 @@ import {
   LegendContainerStyle,
   FieldsetContentStyle,
 } from "./fieldset.style";
+import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -32,20 +33,22 @@ const Fieldset = (props) => {
   });
 
   return (
-    <FieldsetStyle
-      {...tagComponent("fieldset", props)}
-      {...safeProps}
-      m={0}
-      {...filterStyledSystemMarginProps(props)}
-    >
-      <FieldsetContentStyle
-        data-component="fieldset-style"
-        inline={props.inline}
+    <NewValidationContext.Provider value={{ validationRedesignOptIn: false }}>
+      <FieldsetStyle
+        {...tagComponent("fieldset", props)}
+        {...safeProps}
+        m={0}
+        {...filterStyledSystemMarginProps(props)}
       >
-        {legend()}
-        {props.children}
-      </FieldsetContentStyle>
-    </FieldsetStyle>
+        <FieldsetContentStyle
+          data-component="fieldset-style"
+          inline={props.inline}
+        >
+          {legend()}
+          {props.children}
+        </FieldsetContentStyle>
+      </FieldsetStyle>
+    </NewValidationContext.Provider>
   );
 };
 
