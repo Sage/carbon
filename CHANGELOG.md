@@ -1,3 +1,10 @@
+### [104.26.1](https://github.com/Sage/carbon/compare/v104.26.0...v104.26.1) (2022-02-22)
+
+
+### Bug Fixes
+
+* **search:** fix onchange callback fired twice ([f25602f](https://github.com/Sage/carbon/commit/f25602f197ccf8575b0e27441af7871dd37ec19e))
+
 ## [104.26.0](https://github.com/Sage/carbon/compare/v104.25.0...v104.26.0) (2022-02-22)
 
 
