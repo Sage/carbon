@@ -1,3 +1,10 @@
+## [104.25.0](https://github.com/Sage/carbon/compare/v104.24.1...v104.25.0) (2022-02-22)
+
+
+### Features
+
+* **flat-table:** describe table using design tokens, update tests ([ac5331f](https://github.com/Sage/carbon/commit/ac5331f2a9b600038ebcac1afd38dba348693349))
+
 ### [104.24.1](https://github.com/Sage/carbon/compare/v104.24.0...v104.24.1) (2022-02-22)
 
 
