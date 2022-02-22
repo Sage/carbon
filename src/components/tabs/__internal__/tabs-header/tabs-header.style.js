@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import baseTheme from "../../../../style/themes/base";
 
 const computeLineWidth = ({ alternateStyling, isInSidebar, position }) => {
   if (isInSidebar && position === "left") {
@@ -15,7 +14,7 @@ const StyledTabsHeaderWrapper = styled.div`
     css`
       overflow-y: auto;
       box-sizing: border-box;
-      padding: 2px;
+      padding: 3px;
 
       ${!isInSidebar &&
       css`
@@ -33,8 +32,7 @@ const StyledTabsHeaderWrapper = styled.div`
 
 const StyledTabsHeaderList = styled.div`
   display: flex;
-  box-shadow: inset 0px ${computeLineWidth} 0px 0px
-    ${({ theme }) => theme.tab.background};
+  box-shadow: inset 0px ${computeLineWidth} 0px 0px var(--colorsActionMinor100);
   ${({ extendedLine }) =>
     !extendedLine &&
     css`
@@ -84,7 +82,6 @@ StyledTabsHeaderList.defaultProps = {
   align: "left",
   position: "top",
   extendedLine: true,
-  theme: baseTheme,
 };
 
 StyledTabsHeaderList.propTypes = {

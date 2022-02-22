@@ -14,7 +14,7 @@ StyledEditorWrapper.defaultProps = {
 };
 
 const StyledEditorContainer = styled.div`
-  ${({ theme, hasError, rows, hasPreview }) => css`
+  ${({ hasError, rows, hasPreview }) => css`
     min-height: ${rows
       ? `${rows * lineHeight}`
       : `${hasPreview ? 125 : 220}`}px;
@@ -33,7 +33,7 @@ const StyledEditorContainer = styled.div`
       min-height: inherit;
       height: 100%;
       min-width: 290px;
-      background-color: ${theme.colors.white};
+      background-color: var(--colorsUtilityYang100);
       line-height: ${lineHeight}px;
 
       ${!isSafari(navigator) &&
@@ -54,32 +54,24 @@ const StyledEditorContainer = styled.div`
       padding: 14px 8px;
     }
 
-    background-color: ${theme.colors.white};
+    background-color: var(--colorsUtilityYang100);
     outline: ${hasError
-      ? `2px solid ${theme.colors.error};`
-      : `1px solid ${theme.editor.border};`};
+      ? "2px solid var(--colorsSemanticNegative500)"
+      : "1px solid var(--colorsUtilityMajor200)"};
   `}
 `;
 
-StyledEditorContainer.defaultProps = {
-  theme: baseTheme,
-};
-
 const StyledEditorOutline = styled.div`
-  ${({ theme, isFocused, hasError }) => css`
+  ${({ isFocused, hasError }) => css`
     outline: none;
     min-width: 320px;
 
     ${isFocused &&
     css`
-      outline: 3px solid ${theme.colors.focus};
+      outline: 3px solid var(--colorsSemanticFocus500);
       outline-offset: ${hasError ? "2px;" : "1px;"};
     `}
   `}
 `;
-
-StyledEditorOutline.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledEditorWrapper, StyledEditorContainer, StyledEditorOutline };

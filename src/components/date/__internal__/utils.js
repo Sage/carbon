@@ -24,7 +24,14 @@ export function isDateValid(date) {
   return date && date.toString() !== "Invalid Date";
 }
 
-function hasMatchedFormat(formatString, valueString) {
+function hasMatchedFormat(formatString, valueString, fullFormat, fullValue) {
+  if (formatString.includes("d")) {
+    return (
+      formatString.length === valueString.length &&
+      isMatch(fullFormat.join("."), fullValue.join(".")) // need to check day value with month value
+    );
+  }
+
   return (
     formatString.length === valueString.length &&
     isMatch(formatString, valueString)
@@ -58,7 +65,7 @@ function makeSeparatedValues(arr, str) {
 
 function checkForCompleteMatch(formatArray, valueArray) {
   return formatArray.every((formatString, i) =>
-    hasMatchedFormat(formatString, valueArray[i])
+    hasMatchedFormat(formatString, valueArray[i], formatArray, valueArray)
   );
 }
 

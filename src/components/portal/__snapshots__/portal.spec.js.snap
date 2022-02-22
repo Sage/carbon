@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa iVulhq\\"><p>john</p></div></div>"`;
+exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa gXbfZT\\"><p>john</p></div></div>"`;
 
-exports[`Portal when an element with id 'root' exists will mount on that element 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa iVulhq\\"><p>Test</p></div></div></div>"`;
+exports[`Portal when an element with id 'root' exists will mount on that element 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa gXbfZT\\"><p>Test</p></div></div></div>"`;
 
-exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa iVulhq\\"><span>a1</span></div><div class=\\"sc-bdVaJa iVulhq\\"><span>a2</span></div></div>"`;
+exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa gXbfZT\\"><span>a1</span></div><div class=\\"sc-bdVaJa gXbfZT\\"><span>a2</span></div></div>"`;
 
 exports[`Portal when using default node to match snapshot  1`] = `
 <span
@@ -197,6 +197,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "colorsSemanticCaution400": "#f28533ff",
             "colorsSemanticCaution500": "#E96400",
             "colorsSemanticCaution600": "#bf5200ff",
+            "colorsSemanticCaution650": "#a74800ff",
             "colorsSemanticCautionTransparent": "#00000000",
             "colorsSemanticCautionYang100": "#ffffffff",
             "colorsSemanticCautionYin030": "#0000004d",
@@ -607,9 +608,6 @@ exports[`Portal when using default node to match snapshot  1`] = `
               "borderBottom": "#D9E0E4",
             },
           },
-          "note": Object {
-            "timeStamp": "rgba(0,0,0,0.65)",
-          },
           "numeralDate": Object {
             "error": "#C7384F",
             "passive": "#668592",
@@ -819,4 +817,4 @@ exports[`Portal when using default node to match snapshot  1`] = `
 </span>
 `;
 
-exports[`Portal when using default node when an element with id 'root' does not exist will mount on body 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa iVulhq\\"><span class=\\"sc-bwzfXH gplFmG\\" data-element=\\"tick\\" data-component=\\"icon\\" font-size=\\"small\\" type=\\"tick\\" tabindex=\\"0\\" role=\\"tooltip\\"></span></div></div></div>"`;
+exports[`Portal when using default node when an element with id 'root' does not exist will mount on body 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa gXbfZT\\"><span class=\\"sc-bwzfXH gplFmG\\" data-element=\\"tick\\" data-component=\\"icon\\" font-size=\\"small\\" type=\\"tick\\" tabindex=\\"0\\" role=\\"tooltip\\"></span></div></div></div>"`;

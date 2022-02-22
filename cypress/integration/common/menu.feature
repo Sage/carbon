@@ -22,7 +22,7 @@ Feature: Menu component
   Scenario: Check that menu search has an alternate background colour
     Given I open "Menu" component page "submenu with search"
     When I hover over "third" expandable Menu component
-    Then Inner menu search input has alternate "rgb(0, 51, 73)" background colour
+    Then Inner menu search input has alternate "rgb(0, 50, 76)" background colour
 
   @positive
   Scenario: Check the size of divider is a large

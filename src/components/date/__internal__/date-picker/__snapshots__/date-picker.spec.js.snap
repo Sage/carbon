@@ -195,14 +195,11 @@ exports[`StyledDayPicker renders presentational div and context provider for its
   z-index: 1000;
   top: calc(100% + 1px);
   left: 0;
-  background-color: #FFFFFF;
-  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
-  color: rgba(0,0,0,0.9);
+  background-color: var(--colorsUtilityYang100);
+  box-shadow: var(--boxShadow100);
   display: block;
-  font-size: 14px;
-  font-weight: 800;
   overflow: hidden;
-  padding: 24px;
+  padding: var(--spacing300);
   text-align: center;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -228,7 +225,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 }
 
 .c0 .DayPicker-wrapper:focus {
-  outline: 3px solid #FFB500;
+  outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
 }
 
 .c0 .DayPicker-Month {
@@ -241,8 +238,9 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 }
 
 .c0 .DayPicker-Caption {
-  line-height: 40px;
-  height: 40px;
+  color: var(--colorsActionMajorYin090);
+  line-height: var(--sizing500);
+  height: var(--sizing500);
   font-size: 16px;
   font-weight: 800;
 }
@@ -253,21 +251,24 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 }
 
 .c0 .DayPicker-Day {
-  min-width: 40px;
-  background-color: #FFFFFF;
+  min-width: var(--sizing500);
+  height: 36px;
+  padding: 0;
+  background-color: var(--colorsUtilityYang100);
   cursor: pointer;
   border: none;
-  font-weight: 800;
-  padding: 10px 0;
+  font-weight: var(--fontWeights700);
+  font-size: var(--fontSizes100);
+  line-height: var(--lineHeights500);
 }
 
 .c0 .DayPicker-Day:hover {
-  background-color: #F2F5F6;
-  color: rgba(0,0,0,0.9);
+  background-color: var(--colorsActionMinor050);
+  color: var(--colorsActionMajorYin090);
 }
 
 .c0 .DayPicker-Day:focus {
-  outline: 3px solid #FFB500;
+  outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
 }
 
 .c0 .DayPicker-Day + * {
@@ -281,32 +282,30 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 
 .c0 .DayPicker-Day--today,
 .c0 .DayPicker-Day--today.DayPicker-Day--outside {
-  font-weight: 800;
-  color: rgba(0,0,0,0.9);
-  background-color: #CCD6DB;
+  color: var(--colorsActionMajorYin090);
+  background-color: var(--colorsActionMinor200);
 }
 
 .c0 .DayPicker-Day--outside {
-  color: rgba(0,0,0,0.55);
-  background-color: #FFFFFF;
+  color: var(--colorsActionMajorYin055);
+  background-color: var(--colorsUtilityYang100);
 }
 
 .c0 .DayPicker-Day--disabled,
 .c0 .DayPicker-Day--disabled:hover {
-  color: rgba(0,0,0,0.55);
-  background-color: #FFFFFF;
+  color: var(colorsActionMajorYin030);
+  background-color: var(--colorsUtilityYang100);
   cursor: default;
 }
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: #008200;
-  color: #FFFFFF;
-  font-weight: 800;
+  background-color: var(--colorsActionMajor500);
+  color: var(--colorsUtilityYang100);
 }
 
 .c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
-  background-color: #008200;
-  color: #FFFFFF;
+  background-color: var(--colorsActionMajor500);
+  color: var(--colorsUtilityYang100);
 }
 
 <div
