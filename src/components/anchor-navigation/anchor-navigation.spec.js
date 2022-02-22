@@ -19,7 +19,7 @@ import StyledNavigationItem from "./anchor-navigation-item/anchor-navigation-ite
 const expectNavigationItemToBeSelected = (index, wrapper) =>
   assertStyleMatch(
     {
-      backgroundColor: "var(--colorsActionMinorYang100)",
+      backgroundColor: "var(--colorsActionMajorYang100)",
       borderLeftColor: "var(--colorsActionMajor500)",
     },
     wrapper.find(StyledNavigationItem).at(index),
