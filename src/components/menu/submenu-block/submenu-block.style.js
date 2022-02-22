@@ -1,21 +1,17 @@
 import styled, { css } from "styled-components";
-import { baseTheme } from "../../../style/themes";
 import StyledMenuItemWrapper from "../menu-item/menu-item.style";
+import menuConfigVariants from "../menu.config";
 
 const StyledSubmenuBlock = styled.div`
-  ${({ menuType, theme, variant }) => css`
-    background-color: ${theme.menu[menuType].submenuBackground};
+  ${({ menuType, variant }) => css`
+    background-color: ${menuConfigVariants[menuType].submenuItemBackground};
 
     ${StyledMenuItemWrapper} {
       background-color: ${variant === "default"
         ? "transparent"
-        : theme.menu[menuType].alternate};
+        : menuConfigVariants[menuType].alternate};
     }
   `}
 `;
-
-StyledSubmenuBlock.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledSubmenuBlock;

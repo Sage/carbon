@@ -3,10 +3,10 @@ import { shallow, mount } from "enzyme";
 
 import { MenuItem, SubmenuBlock } from "..";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import { baseTheme } from "../../../style/themes";
 import MenuContext from "../menu.context";
 import StyledSubmenuBlock from "./submenu-block.style";
 import StyledMenuItemWrapper from "../menu-item/menu-item.style";
+import menuConfigVariants from "../menu.config";
 
 const menuContextValues = (menuType) => ({
   menuType,
@@ -49,7 +49,7 @@ describe("SubmenuBlock", () => {
 
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.menu[menuType].submenuBackground,
+          backgroundColor: menuConfigVariants[menuType].submenuItemBackground,
         },
         wrapper.find(StyledSubmenuBlock)
       );
@@ -63,7 +63,7 @@ describe("SubmenuBlock", () => {
 
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.menu[menuType].alternate,
+          backgroundColor: menuConfigVariants[menuType].alternate,
         },
         wrapper.find(StyledSubmenuBlock),
         {
