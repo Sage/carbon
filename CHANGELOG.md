@@ -1,3 +1,43 @@
+### [104.24.1](https://github.com/Sage/carbon/compare/v104.24.0...v104.24.1) (2022-02-22)
+
+
+### Bug Fixes
+
+* **accordion:** add role button to control to ensure aria-expanded use is valid ([37f7230](https://github.com/Sage/carbon/commit/37f7230f1c98c6050c24cf146313b8f19f2eabbd))
+* **dialog-full-screen:** aria-modal only set if role is dialog and set dialog as default role value ([28d5263](https://github.com/Sage/carbon/commit/28d526340aad2e30733c1366683944bfbb9b6905))
+* **drawer:** prevent overflow-y being set on sidebar container unless expanded ([79ac06b](https://github.com/Sage/carbon/commit/79ac06b08e7783c7d2b5d315a7c548e1ff7d7e66))
+* **popover-container:** set id on the control if render prop is used and container is closed ([2b77d56](https://github.com/Sage/carbon/commit/2b77d5634d3ff758a3164942f8866f475dba7a84))
+* **textbox:** prevent setting labelId when no label value passed in ([be510cb](https://github.com/Sage/carbon/commit/be510cbf1bbe034c241fbceb33dbbc9ceef37c0f))
+
+## [104.24.0](https://github.com/Sage/carbon/compare/v104.23.1...v104.24.0) (2022-02-22)
+
+
+### Features
+
+* **text-editor:** describe text-editor using design tokens ([eb4aa90](https://github.com/Sage/carbon/commit/eb4aa906614ebf1ae0ea42ad5db0d87900feee8a))
+
+### [104.23.1](https://github.com/Sage/carbon/compare/v104.23.0...v104.23.1) (2022-02-22)
+
+
+### Bug Fixes
+
+* **flat-table-checkbox:** fix incorrect event propagation ([816f8d8](https://github.com/Sage/carbon/commit/816f8d8b44dbe2e1ca8a9be40050bc81ce856155))
+
+## [104.23.0](https://github.com/Sage/carbon/compare/v104.22.0...v104.23.0) (2022-02-22)
+
+
+### Features
+
+* **menu:** describe menu using design-tokens, update tests ([9392569](https://github.com/Sage/carbon/commit/9392569e254a7d01874d3279a0ed792023a08671))
+
+## [104.22.0](https://github.com/Sage/carbon/compare/v104.21.1...v104.22.0) (2022-02-21)
+
+
+### Features
+
+* **full-screen-heading:** describe FullScreenHeading using design tokens ([68236f3](https://github.com/Sage/carbon/commit/68236f37122ba062b783e0ade49d060cf98c62fb))
+* **heading:** describe heading component using design tokens ([1b2329e](https://github.com/Sage/carbon/commit/1b2329ef7a3a1a490bf9bf1a2271b09bd3710af6))
+
 ### [104.21.1](https://github.com/Sage/carbon/compare/v104.21.0...v104.21.1) (2022-02-21)
 
 

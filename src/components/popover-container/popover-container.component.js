@@ -72,6 +72,7 @@ const PopoverContainer = ({
     onClick: handleOpenButtonClick,
     ref: openButtonRef,
     ariaLabel: openButtonAriaLabel || title,
+    id: isOpen ? undefined : popoverContainerId,
   };
 
   const renderCloseComponentProps = {
@@ -86,7 +87,7 @@ const PopoverContainer = ({
     <PopoverContainerWrapperStyle
       data-component="popover-container"
       role="region"
-      aria-labelledby={isOpen ? popoverContainerId : undefined}
+      aria-labelledby={popoverContainerId}
     >
       {renderOpenComponent(renderOpenComponentProps)}
       <Transition
@@ -174,6 +175,7 @@ PopoverContainer.defaultProps = {
     dataElement,
     ref,
     ariaLabel,
+    id,
     /* eslint-enable react/prop-types */
   }) => (
     <PopoverContainerOpenIcon
@@ -183,6 +185,7 @@ PopoverContainer.defaultProps = {
       ref={ref}
       aria-label={ariaLabel}
       aria-haspopup
+      id={id}
     >
       <Icon type="settings" />
     </PopoverContainerOpenIcon>

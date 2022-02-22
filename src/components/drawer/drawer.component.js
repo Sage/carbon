@@ -161,7 +161,6 @@ const Drawer = ({
         expandedWidth={expandedWidth}
         animationDuration={animationDuration}
         className={getClassNames()}
-        aria-expanded={isExpanded ? "true" : "false"}
         ref={drawerSidebarContentRef}
         backgroundColor={backgroundColor}
       >
@@ -182,7 +181,7 @@ const Drawer = ({
           id={sidebarId}
           isExpanded={isExpanded}
           role="navigation"
-          overflowY="auto"
+          overflowY={isExpanded ? "auto" : undefined}
           scrollVariant="light"
           ref={scrollableContentRef}
         >

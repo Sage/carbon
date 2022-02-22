@@ -99,7 +99,7 @@ const DialogFullScreen = ({
         wrapperRef={dialogRef}
       >
         <StyledDialogFullScreen
-          aria-modal
+          aria-modal={role === "dialog" ? true : undefined}
           {...ariaProps}
           ref={dialogRef}
           data-element="dialog-full-screen"
@@ -136,7 +136,7 @@ DialogFullScreen.propTypes = {
    */
   "aria-label": PropTypes.string,
   /**
-   * Prop to specify the aria-labeledby property of the DialogFullscreen component
+   * Prop to specify the aria-labelledby property of the DialogFullscreen component
    * To be used when the title prop is a custom React Node,
    * or the component is labelled by an internal element other than the title.
    */
@@ -172,7 +172,7 @@ DialogFullScreen.propTypes = {
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]),
-  /** The ARIA role to be applied to the DialogFulscreen container */
+  /** The ARIA role to be applied to the DialogFullscreen container */
   role: PropTypes.string,
 };
 
