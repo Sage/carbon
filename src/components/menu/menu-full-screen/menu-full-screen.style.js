@@ -5,6 +5,7 @@ import Box from "../../box";
 import StyledSearch from "../../search/search.style";
 import StyledIcon from "../../icon/icon.style";
 import StyledButton from "../../button/button.style";
+import menuConfigVariants from "../menu.config";
 
 const StyledMenuFullscreen = styled.div`
   position: fixed;
@@ -20,16 +21,16 @@ const StyledMenuFullscreen = styled.div`
   }
 
   ${({ isOpen, menuType, startPosition, theme }) => css`
-    background-color: ${theme.menu[menuType].background};
+    background-color: ${menuConfigVariants[menuType].background};
     z-index: ${theme.zIndex.fullScreenModal};
 
     ${menuType === "dark" &&
     css`
       ${StyledSearch} span > [data-component="icon"] {
-        color: ${theme.menu.dark.searchIcon};
+        color: var(--colorsUtilityMajor200);
 
         &:hover {
-          color: ${theme.menu.dark.searchIconHover};
+          color: var(--colorsUtilityMajor150);
         }
       }
     `}
@@ -37,10 +38,10 @@ const StyledMenuFullscreen = styled.div`
     ${menuType === "light" &&
     css`
       ${StyledSearch} span > [data-component="icon"] {
-        color: ${theme.search.icon};
+        color: var(--colorsUtilityMajor200);
 
         &:hover {
-          color: ${theme.search.iconHover};
+          color: var(--colorsUtilityMajor400);
         }
       }
     `}
@@ -96,16 +97,12 @@ const StyledMenuFullscreenHeader = styled.div`
     top: 8px;
   }
 
-  ${({ menuType, theme }) => css`
-    background-color: ${theme.menu[menuType].submenuBackground};
+  ${({ menuType }) => css`
+    background-color: ${menuConfigVariants[menuType].submenuItemBackground};
   `}
 `;
 
 StyledMenuFullscreen.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledMenuFullscreenHeader.defaultProps = {
   theme: baseTheme,
 };
 

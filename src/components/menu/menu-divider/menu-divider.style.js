@@ -1,17 +1,13 @@
 import styled, { css } from "styled-components";
-import { baseTheme } from "../../../style/themes";
+import menuConfigVariants from "../menu.config";
 
 const StyledDivider = styled.div`
   cursor: default;
-  ${({ menuType, theme, size }) => css`
+  ${({ menuType, size }) => css`
     margin: 0px ${size === "large" ? "" : "16px"};
     height: ${size === "large" ? "4px" : "1px"};
-    background: ${theme.menu[menuType].divider};
+    background-color: ${menuConfigVariants[menuType].divider};
   `}
 `;
-
-StyledDivider.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledDivider;

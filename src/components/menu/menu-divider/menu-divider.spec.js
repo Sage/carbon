@@ -5,9 +5,9 @@ import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import MenuDivider from "./menu-divider.component";
 import MenuContext from "../menu.context";
 import { MenuItem } from "..";
-import { baseTheme } from "../../../style/themes";
 import StyledDivider from "./menu-divider.style";
 import openSubmenu from "../__internal__/spec-helper";
+import menuConfigVariants from "../menu.config";
 
 const menuContextValues = (menuType) => ({
   menuType,
@@ -49,7 +49,7 @@ describe("MenuDivider", () => {
 
       assertStyleMatch(
         {
-          background: baseTheme.menu[menuType].divider,
+          backgroundColor: menuConfigVariants[menuType].divider,
           cursor: "default",
         },
         wrapper.find(StyledDivider)

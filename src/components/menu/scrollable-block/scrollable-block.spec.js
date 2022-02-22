@@ -4,12 +4,11 @@ import { mount } from "enzyme";
 import ScrollableBlock from ".";
 import MenuItem from "../menu-item";
 import MenuContext from "../menu.context";
+import menuConfigVariants from "../menu.config";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
-
 import StyledMenuItemWrapper from "../menu-item/menu-item.style";
 import MenuDivider from "../menu-divider/menu-divider.component";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import { baseTheme } from "../../../style/themes";
 
 const handleKeyDownFn = jest.fn();
 
@@ -65,7 +64,7 @@ describe("ScrollableBlock", () => {
 
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.menu[menuType].submenuBackground,
+            backgroundColor: menuConfigVariants[menuType].submenuItemBackground,
           },
           wrapper,
           { modifier: `&& ${StyledMenuItemWrapper}` }
@@ -78,7 +77,7 @@ describe("ScrollableBlock", () => {
 
           assertStyleMatch(
             {
-              backgroundColor: baseTheme.menu[menuType].background,
+              backgroundColor: menuConfigVariants[menuType].background,
             },
             wrapper,
             { modifier: `&& ${StyledMenuItemWrapper}` }

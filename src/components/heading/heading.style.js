@@ -60,7 +60,7 @@ const StyledHeadingBackButton = styled(Link)`
 
     &:focus {
       background-color: transparent;
-      outline: 3px solid ${({ theme }) => theme.colors.focus};
+      outline: 3px solid var(--colorsSemanticFocus500);
     }
 
     ${StyledIcon} {
@@ -69,10 +69,6 @@ const StyledHeadingBackButton = styled(Link)`
     }
   }
 `;
-
-StyledHeadingBackButton.defaultProps = {
-  theme: baseTheme,
-};
 
 const StyledHeadingTitle = styled(Typography)`
   line-height: 32px;
@@ -109,7 +105,7 @@ const StyledSubHeader = styled.div`
 `;
 
 const StyledHeadingIcon = styled(Icon)`
-  color: ${({ theme }) => theme.colors.border};
+  color: var(--colorsActionMinor500);
   height: 30px;
 
   &:before,
@@ -118,16 +114,12 @@ const StyledHeadingIcon = styled(Icon)`
   }
 
   &:hover {
-    color: ${({ theme }) => theme.icon.focus};
+    color: var(--colorsActionMinor600);
   }
 `;
 
-StyledHeadingIcon.defaultProps = {
-  theme: baseTheme,
-};
-
 const StyledSeparator = styled.hr`
-  border-top: 2px solid ${({ theme }) => theme.palette.slateTint(80)};
+  border-top: 2px solid var(--colorsUtilityMajor100);
   margin: 10px 0 8px;
   text-align: left;
   width: 50px;
@@ -136,10 +128,6 @@ const StyledSeparator = styled.hr`
 const StyledDivider = styled(Hr)`
   margin: 15px 0 20px;
 `;
-
-StyledSeparator.defaultProps = {
-  theme: baseTheme,
-};
 
 const StyledHeaderHelp = styled(Help)`
   display: inline-block;
