@@ -1,3 +1,10 @@
+## [104.23.0](https://github.com/Sage/carbon/compare/v104.22.0...v104.23.0) (2022-02-22)
+
+
+### Features
+
+* **menu:** describe menu using design-tokens, update tests ([9392569](https://github.com/Sage/carbon/commit/9392569e254a7d01874d3279a0ed792023a08671))
+
 ## [104.22.0](https://github.com/Sage/carbon/compare/v104.21.1...v104.22.0) (2022-02-21)
 
 
