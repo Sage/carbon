@@ -17,7 +17,12 @@ import TextBox from "../textbox";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("Search", () => {
-  let wrapper, onBlur, onChange, onClick, onKeyDown;
+  let wrapper;
+  let onBlur;
+  let onFocus;
+  let onChange;
+  let onClick;
+  let onKeyDown;
 
   testStyledSystemMargin((props) => <Search value="" {...props} />);
 
@@ -283,6 +288,16 @@ describe("Search", () => {
         const input = wrapper.find("input");
         input.simulate("blur");
         expect(onBlur).toHaveBeenCalled();
+      });
+    });
+
+    describe("focusing the component", () => {
+      it("calls onFocus", () => {
+        onFocus = jest.fn();
+        wrapper = renderWrapper({ defaultValue: "Bar", onFocus }, mount);
+        const input = wrapper.find("input");
+        input.simulate("focus");
+        expect(onFocus).toHaveBeenCalled();
       });
     });
   });
