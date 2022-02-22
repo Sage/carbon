@@ -15,6 +15,7 @@ import useInputAccessibility from "../../hooks/__internal__/useInputAccessibilit
 import { ErrorBorder, StyledHintText } from "./textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import NumeralDateContext from "../numeral-date/numeral-date-context";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -81,6 +82,7 @@ const Textbox = ({
     enforceCharacterLimit
   );
   const { validationRedesignOptIn } = useContext(NewValidationContext);
+  const { disableErrorBorder } = useContext(NumeralDateContext);
   const computeLabelPropValues = (prop) =>
     validationRedesignOptIn ? undefined : prop;
 
@@ -161,9 +163,11 @@ const Textbox = ({
                 {prefix}
               </StyledPrefix>
             )}
-            {validationRedesignOptIn && (error || warning) && (
-              <ErrorBorder warning={!!(!error && warning)} />
-            )}
+            {validationRedesignOptIn &&
+              !disableErrorBorder &&
+              (error || warning) && (
+                <ErrorBorder warning={!!(!error && warning)} />
+              )}
             <Input
               {...(required && { required })}
               align={align}
