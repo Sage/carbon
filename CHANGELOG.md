@@ -1,3 +1,11 @@
+## [104.22.0](https://github.com/Sage/carbon/compare/v104.21.1...v104.22.0) (2022-02-21)
+
+
+### Features
+
+* **full-screen-heading:** describe FullScreenHeading using design tokens ([68236f3](https://github.com/Sage/carbon/commit/68236f37122ba062b783e0ade49d060cf98c62fb))
+* **heading:** describe heading component using design tokens ([1b2329e](https://github.com/Sage/carbon/commit/1b2329ef7a3a1a490bf9bf1a2271b09bd3710af6))
+
 ### [104.21.1](https://github.com/Sage/carbon/compare/v104.21.0...v104.21.1) (2022-02-21)
 
 

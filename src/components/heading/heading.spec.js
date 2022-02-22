@@ -20,7 +20,6 @@ import {
 } from "../../__spec_helper__/test-utils";
 import DefaultPages from "../pages/pages.component";
 import Page from "../pages/page/page.component";
-import mintTheme from "../../style/themes/mint";
 import Hr from "../hr";
 import Pill from "../pill";
 
@@ -96,7 +95,7 @@ describe("Heading", () => {
 
     assertStyleMatch(
       {
-        outline: `3px solid ${mintTheme.colors.focus}`,
+        outline: `3px solid var(--colorsSemanticFocus500)`,
       },
       link,
       { modifier: `button:focus` }
