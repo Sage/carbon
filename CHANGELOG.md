@@ -1,3 +1,46 @@
+## [104.24.0](https://github.com/Sage/carbon/compare/v104.23.1...v104.24.0) (2022-02-22)
+
+
+### Features
+
+* **text-editor:** describe text-editor using design tokens ([eb4aa90](https://github.com/Sage/carbon/commit/eb4aa906614ebf1ae0ea42ad5db0d87900feee8a))
+
+### [104.23.1](https://github.com/Sage/carbon/compare/v104.23.0...v104.23.1) (2022-02-22)
+
+
+### Bug Fixes
+
+* **flat-table-checkbox:** fix incorrect event propagation ([816f8d8](https://github.com/Sage/carbon/commit/816f8d8b44dbe2e1ca8a9be40050bc81ce856155))
+
+## [104.23.0](https://github.com/Sage/carbon/compare/v104.22.0...v104.23.0) (2022-02-22)
+
+
+### Features
+
+* **menu:** describe menu using design-tokens, update tests ([9392569](https://github.com/Sage/carbon/commit/9392569e254a7d01874d3279a0ed792023a08671))
+
+## [104.22.0](https://github.com/Sage/carbon/compare/v104.21.1...v104.22.0) (2022-02-21)
+
+
+### Features
+
+* **full-screen-heading:** describe FullScreenHeading using design tokens ([68236f3](https://github.com/Sage/carbon/commit/68236f37122ba062b783e0ade49d060cf98c62fb))
+* **heading:** describe heading component using design tokens ([1b2329e](https://github.com/Sage/carbon/commit/1b2329ef7a3a1a490bf9bf1a2271b09bd3710af6))
+
+### [104.21.1](https://github.com/Sage/carbon/compare/v104.21.0...v104.21.1) (2022-02-21)
+
+
+### Bug Fixes
+
+* remove border style from input when disabled ([737eaaf](https://github.com/Sage/carbon/commit/737eaaf3ad9f4812ed4c6987368abd094f7a4541)), closes [#4769](https://github.com/Sage/carbon/issues/4769)
+
+## [104.21.0](https://github.com/Sage/carbon/compare/v104.20.0...v104.21.0) (2022-02-21)
+
+
+### Features
+
+* **pager:** describe pager using design tokens, update tests ([fce8144](https://github.com/Sage/carbon/commit/fce81440e1662974c88f7a66ed0560ed6d894807))
+
 ## [104.20.0](https://github.com/Sage/carbon/compare/v104.19.2...v104.20.0) (2022-02-18)
 
 
