@@ -18,6 +18,7 @@ import {
 } from "../../../__spec_helper__/test-utils";
 import { baseTheme } from "../../../style/themes";
 import { StyledMenuItem, StyledMenuWrapper } from "../menu.style";
+import menuConfigVariants from "../menu.config";
 
 const onClose = jest.fn();
 
@@ -65,77 +66,84 @@ describe("MenuFullscreen", () => {
   });
 
   describe("styling", () => {
-    it("matches the expected as default", () => {
-      assertStyleMatch(
-        {
-          position: "fixed",
-          top: "0",
-          bottom: "0",
-          backgroundColor: baseTheme.menu.light.background,
-          zIndex: `${baseTheme.zIndex.fullScreenModal}`,
-          visibility: "hidden",
-          left: "-100%",
-          transition: "all 0.3s ease",
-        },
-        wrapper.find(StyledMenuFullscreen)
-      );
-
-      ["a", "button", "div"].forEach((el) => {
-        assertStyleMatch(
-          {
-            fontSize: "16px",
-          },
-          wrapper.find(StyledMenuFullscreen),
-          { modifier: el }
-        );
-      });
-
-      assertStyleMatch(
-        {
-          position: "absolute",
-          zIndex: "1",
-          right: "16px",
-          top: "8px",
-        },
-        wrapper.find(StyledMenuFullscreenHeader),
-        { modifier: `${StyledIconButton}` }
-      );
-
-      assertStyleMatch(
-        {
-          paddingTop: "16px",
-          paddingBottom: "16px",
-        },
-        wrapper.find(StyledMenuItem)
-      );
-    });
-
     it.each(["light", "white", "dark", "black"])(
-      "applies the expected styling when `menuType` is %s",
+      "matches the expected as default",
       (menuType) => {
         wrapper = render({ menuType });
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.menu[menuType].background,
+            position: "fixed",
+            top: "0",
+            bottom: "0",
+            backgroundColor: menuConfigVariants[menuType].background,
+            zIndex: `${baseTheme.zIndex.fullScreenModal}`,
+            visibility: "hidden",
+            left: "-100%",
+            transition: "all 0.3s ease",
           },
           wrapper.find(StyledMenuFullscreen)
         );
 
+        ["a", "button", "div"].forEach((el) => {
+          assertStyleMatch(
+            {
+              fontSize: "16px",
+            },
+            wrapper.find(StyledMenuFullscreen),
+            { modifier: el }
+          );
+        });
+
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.menu[menuType].submenuBackground,
+            position: "absolute",
+            zIndex: "1",
+            right: "16px",
+            top: "8px",
           },
-          wrapper.find(StyledMenuFullscreenHeader)
+          wrapper.find(StyledMenuFullscreenHeader),
+          { modifier: `${StyledIconButton}` }
         );
 
-        const iconColors = {
-          light: undefined,
-          dark: "#FFFFFF",
-          white: undefined,
-          black: "#FFFFFF",
-        };
+        assertStyleMatch(
+          {
+            paddingTop: "16px",
+            paddingBottom: "16px",
+          },
+          wrapper.find(StyledMenuItem)
+        );
+      }
+    );
 
-        expect(wrapper.find(Icon).prop("color")).toEqual(iconColors[menuType]);
+    describe.each(["light", "white", "dark", "black"])(
+      "applies the expected styling when `menuType` is %s",
+      (menuType) => {
+        beforeEach(() => {
+          wrapper = render({ menuType });
+        });
+
+        it("it renders a correct item background", () => {
+          assertStyleMatch(
+            {
+              backgroundColor:
+                menuConfigVariants[menuType].submenuItemBackground,
+            },
+            wrapper.find(StyledMenuFullscreenHeader)
+          );
+        });
+
+        it("it renders a correct icon color", () => {
+          const iconColors = {
+            light: undefined,
+            dark: "#FFFFFF",
+            white: undefined,
+            black: "#FFFFFF",
+          };
+
+          expect(wrapper.find(Icon).prop("color")).toEqual(
+            iconColors[menuType]
+          );
+        });
       }
     );
 
