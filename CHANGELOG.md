@@ -1,3 +1,10 @@
+## [104.24.0](https://github.com/Sage/carbon/compare/v104.23.1...v104.24.0) (2022-02-22)
+
+
+### Features
+
+* **text-editor:** describe text-editor using design tokens ([eb4aa90](https://github.com/Sage/carbon/commit/eb4aa906614ebf1ae0ea42ad5db0d87900feee8a))
+
 ### [104.23.1](https://github.com/Sage/carbon/compare/v104.23.0...v104.23.1) (2022-02-22)
 
 
