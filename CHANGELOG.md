@@ -1,3 +1,10 @@
+## [104.26.0](https://github.com/Sage/carbon/compare/v104.25.0...v104.26.0) (2022-02-22)
+
+
+### Features
+
+* **duelling-picklist:** describe duelling picklist component using design tokens ([4dd37c0](https://github.com/Sage/carbon/commit/4dd37c0b68bc0bd89f0100876b6052ea6b8eb285))
+
 ## [104.25.0](https://github.com/Sage/carbon/compare/v104.24.1...v104.25.0) (2022-02-22)
 
 
