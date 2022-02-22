@@ -290,6 +290,7 @@ describe("PopoverContainer", () => {
             ariaLabel,
             ref,
             onClick,
+            id,
           }) => (
             <MyOpenButton
               tabIndex={tabIndex}
@@ -297,6 +298,7 @@ describe("PopoverContainer", () => {
               aria-label={ariaLabel}
               ref={ref}
               onClick={onClick}
+              id={id}
             >
               button
             </MyOpenButton>
@@ -375,6 +377,19 @@ describe("PopoverContainer", () => {
 
         expect(wrapper.find(MyOpenButton).text()).toBe("isOpen is false");
         expect(wrapper.find(MyOpenButton)).not.toBeFocused();
+      });
+
+      it("should set the id on the control when popover is closed", () => {
+        expect(wrapper.find(MyOpenButton).prop("id")).toBe(
+          "PopoverContainer_guid-123"
+        );
+      });
+
+      it("should not set the id on the control when popover is open", () => {
+        act(() => {
+          wrapper.find(MyOpenButton).props().onClick();
+        });
+        expect(wrapper.update().find(MyOpenButton).prop("id")).toBe(undefined);
       });
     });
 

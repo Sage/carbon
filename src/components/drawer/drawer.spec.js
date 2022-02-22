@@ -91,7 +91,7 @@ describe("Drawer", () => {
     it("is expanded by default", () => {
       const wrapper = render();
       const { content } = getElements(wrapper);
-      expect(content.prop("aria-expanded")).toBe("true");
+      expect(content.prop("className").includes("open")).toEqual(true);
     });
 
     it("cleans ups timers on unmount", () => {
@@ -114,14 +114,28 @@ describe("Drawer", () => {
       expect(drawer.prop("data-component")).toBe(dataAttr);
     });
 
-    it("Drawer Sidebar should render as expected", () => {
-      const wrapper = render();
+    it("Drawer Sidebar should render as expected when not expanded", () => {
+      const wrapper = render({ expanded: false });
+      const { sidebar } = getElements(wrapper);
+      assertStyleMatch(
+        {
+          display: "none",
+          opacity: "0",
+          overflowY: undefined,
+        },
+        sidebar
+      );
+    });
+
+    it("Drawer Sidebar should render as expected when expanded", () => {
+      const wrapper = render({ expanded: true });
       const { sidebar } = getElements(wrapper);
       assertStyleMatch(
         {
           display: "flex",
           flexDirection: "column",
           flex: "1 1 0%",
+          overflowY: "auto",
         },
         sidebar
       );
@@ -353,7 +367,7 @@ describe("Drawer", () => {
     it("is collapsed when expanded prop is provided and is false", () => {
       const wrapper = render({ expanded: false });
       const { content } = getElements(wrapper);
-      expect(content.prop("aria-expanded")).toBe("false");
+      expect(content.prop("className").includes("closed")).toEqual(true);
     });
 
     it("drawer changes to closed when button is clicked", () => {

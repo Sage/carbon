@@ -234,15 +234,33 @@ describe("Textbox", () => {
       });
     });
 
-    describe("when labelId is present", () => {
-      it("it overrides the labelId value on the input", () => {
-        const wrapper = mount(
-          <Textbox id="foo" label="bar" labelId="override-bar" />
-        );
+    describe("label", () => {
+      describe("when no value is passed in", () => {
+        it("does not set the labelId", () => {
+          const wrapper = mount(<Textbox id="foo" />);
 
-        expect(wrapper.find(Input).prop("aria-labelledby")).toBe(
-          "override-bar"
-        );
+          expect(wrapper.find(Input).prop("aria-labelledby")).toBe("");
+        });
+      });
+
+      describe("when labelId is not set", () => {
+        it("uses the label to create a labelId value on the input", () => {
+          const wrapper = mount(<Textbox id="foo" label="bar" />);
+
+          expect(wrapper.find(Input).prop("aria-labelledby")).toBe("foo-label");
+        });
+      });
+
+      describe("when labelId is set", () => {
+        it("overrides the labelId value on the input", () => {
+          const wrapper = mount(
+            <Textbox id="foo" label="bar" labelId="override-bar" />
+          );
+
+          expect(wrapper.find(Input).prop("aria-labelledby")).toBe(
+            "override-bar"
+          );
+        });
       });
     });
 
