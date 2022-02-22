@@ -1,3 +1,10 @@
+### [104.23.1](https://github.com/Sage/carbon/compare/v104.23.0...v104.23.1) (2022-02-22)
+
+
+### Bug Fixes
+
+* **flat-table-checkbox:** fix incorrect event propagation ([816f8d8](https://github.com/Sage/carbon/commit/816f8d8b44dbe2e1ca8a9be40050bc81ce856155))
+
 ## [104.23.0](https://github.com/Sage/carbon/compare/v104.22.0...v104.23.0) (2022-02-22)
 
 
