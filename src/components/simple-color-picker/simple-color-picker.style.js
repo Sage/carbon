@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 
-import StyledValidationicon from "../../__internal__/validations/validation-icon.style";
-import baseTheme from "../../style/themes/base";
+import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 
 const BORDER_WIDTH = 2;
 const getRoundedMaxWidth = (maxWidth, childWidth) =>
@@ -11,7 +10,7 @@ const StyledContent = styled.div`
   display: flex;
   align-items: center;
 
-  ${StyledValidationicon} {
+  ${StyledValidationIcon} {
     margin-left: 4px;
   }
 `;
@@ -26,22 +25,21 @@ const StyledColorOptions = styled.div`
   border-left: ${BORDER_WIDTH}px solid transparent;
   border-top: ${BORDER_WIDTH}px solid transparent;
 
-  ${({ theme, error, info, warning }) => {
+  ${({ error, info, warning }) => {
     if (error)
       return css`
-        outline: 2px solid ${theme.colors.error};
+        outline: var(--borderWidth200) solid var(--colorsSemanticNegative500);
       `;
     if (warning)
       return css`
-        outline: 1px solid ${theme.colors.warning};
+        outline: var(--borderWidth200) solid var(--colorsSemanticCaution500);
       `;
     if (info)
       return css`
-        outline: 1px solid ${theme.colors.info};
+        outline: var(--borderWidth200) solid var(--colorsSemanticInfo500);
       `;
     return "";
   }}
 `;
-StyledColorOptions.defaultProps = { theme: baseTheme };
 
 export { StyledContent, StyledColorOptions };
