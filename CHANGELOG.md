@@ -1,3 +1,11 @@
+## [104.29.0](https://github.com/Sage/carbon/compare/v104.28.0...v104.29.0) (2022-02-23)
+
+
+### Features
+
+* **drawer:** add padding to sticky footer ([c662801](https://github.com/Sage/carbon/commit/c6628018340169589b632b726491d4575608c51b))
+* **drawer:** describe using design tokens ([9a9d6f4](https://github.com/Sage/carbon/commit/9a9d6f47dc47d80c4d5e434592e21769de81887d))
+
 ## [104.28.0](https://github.com/Sage/carbon/compare/v104.27.0...v104.28.0) (2022-02-23)
 
 
