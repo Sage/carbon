@@ -2,7 +2,6 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledTickIcon from "./tick-icon.style";
-import baseTheme from "../../../style/themes/base";
 
 function render(props) {
   return TestRenderer.create(<StyledTickIcon {...props} type="tick" />);
@@ -26,7 +25,7 @@ describe("StyledTickIcon", () => {
       wrapper = render({ checked: true, color: "#000000" });
       assertStyleMatch(
         {
-          color: baseTheme.colors.white,
+          color: "var(--colorsActionMajorYang100)",
         },
         wrapper.toJSON(),
         { modifier: "::before" }
@@ -37,7 +36,7 @@ describe("StyledTickIcon", () => {
       wrapper = render({ checked: true, color: "#ffffff" });
       assertStyleMatch(
         {
-          color: baseTheme.text.color,
+          color: "var(--colorsActionMajorYin090)",
         },
         wrapper.toJSON(),
         { modifier: "::before" }

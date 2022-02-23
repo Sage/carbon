@@ -80,7 +80,7 @@ const Textbox = ({
 
   const {
     labelId: internalLabelId,
-    tooltipId,
+    validationIconId,
     fieldHelpId,
     ariaDescribedBy,
   } = useInputAccessibility({
@@ -93,7 +93,7 @@ const Textbox = ({
     fieldHelp,
   });
 
-  const labelId = externalLabelId || internalLabelId;
+  const labelId = label ? externalLabelId || internalLabelId : "";
 
   return (
     <TooltipProvider
@@ -102,7 +102,6 @@ const Textbox = ({
     >
       <InputBehaviour>
         <FormField
-          tooltipId={tooltipId}
           disabled={disabled}
           fieldHelp={fieldHelp}
           fieldHelpId={fieldHelpId}
@@ -125,6 +124,7 @@ const Textbox = ({
           data-component={dataComponent}
           data-role={dataRole}
           data-element={dataElement}
+          validationIconId={validationIconId}
           {...filterStyledSystemMarginProps(props)}
         >
           <InputPresentation
@@ -182,7 +182,7 @@ const Textbox = ({
               size={size}
               useValidationIcon={!validationOnLabel}
               warning={warning}
-              tooltipId={tooltipId}
+              validationIconId={validationIconId}
             />
           </InputPresentation>
         </FormField>

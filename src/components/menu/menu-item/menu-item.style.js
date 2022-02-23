@@ -1,12 +1,11 @@
 import styled, { css } from "styled-components";
-import { baseTheme } from "../../../style/themes";
 import { StyledLink } from "../../link/link.style";
 import IconStyle from "../../icon/icon.style";
+import menuConfigVariants from "../menu.config";
 
 const StyledMenuItemWrapper = styled.a`
   ${({
     menuType,
-    theme,
     selected,
     hasSubmenu,
     isOpen,
@@ -25,7 +24,7 @@ const StyledMenuItemWrapper = styled.a`
     height: 40px;
     position: relative;
     cursor: pointer;
-    background-color: ${theme.menu[menuType].background};
+    background-color: ${menuConfigVariants[menuType].background};
 
     ${!inFullscreenView &&
     css`
@@ -43,21 +42,27 @@ const StyledMenuItemWrapper = styled.a`
           vertical-align: bottom;
         `}
       }
-    `}
 
-    && a:focus,
-    && button:focus {
-      outline: none;
-      box-shadow: inset 0 0 0 2px ${theme.colors.focus};
-      background: ${theme.colors.primary};
-      color: ${theme.colors.white};
-      z-index: 1;
-      position: relative;
-
-      [data-component="icon"] {
-        color: ${theme.colors.white};
+      a:focus,
+      button:focus {
+        box-shadow: inset 0 0 0 var(--borderWidth300)
+          var(--colorsSemanticFocus500);
+        background-color: ${menuConfigVariants[menuType].background};
+        color: ${menuConfigVariants[menuType].color};
+        z-index: 1;
+        position: relative;
       }
-    }
+
+      a:hover,
+      button:hover {
+        background-color: var(--colorsComponentsMenuAutumnStandard600);
+        color: var(--colorsComponentsMenuYang100);
+
+        [data-component="icon"] {
+          color: var(--colorsComponentsMenuYang100);
+        }
+      }
+    `}
 
     a,
     ${StyledLink} a,
@@ -82,92 +87,105 @@ const StyledMenuItemWrapper = styled.a`
     ${StyledLink} [data-component="icon"] {
       font-weight: 700;
       text-decoration: none;
-      color: ${theme.menu[menuType].text};
-    }
-
-    a:hover,
-    a:focus,
-    button:hover,
-    button:focus {
-      color: ${theme.colors.white};
-      background: transparent;
-    }
-
-    a:focus,
-    button:focus,
-    ${StyledLink} a:focus,
-    ${StyledLink} button:focus {
-      color: ${theme.colors.white};
-      box-shadow: inset 0 0 0 2px ${theme.colors.focus};
-      background: ${theme.colors.primary};
-      z-index: 1;
-      position: relative;
+      color: ${menuConfigVariants[menuType].color};
     }
 
     ${IconStyle} {
       bottom: 1px;
     }
 
-    :hover {
-      background: ${theme.colors.primary};
-
-      a,
-      button,
-      [data-component="icon"] {
-        color: ${theme.colors.white};
-      }
-    }
-
-    ${variant === "alternate" &&
+    ${selected &&
     css`
-      &&& {
-        background-color: ${theme.menu[menuType].alternate};
+      background-color: ${menuConfigVariants[menuType].selected};
+
+      a:focus,
+      button:focus {
+        background-color: ${menuConfigVariants[menuType].selected};
+      }
+
+      a:hover,
+      button:hover {
+        background-color: var(--colorsComponentsMenuAutumnStandard600);
       }
     `}
 
-    ${selected &&
+    ${variant === "alternate" &&
+    !inFullscreenView &&
     css`
-      background-color: ${theme.menu[menuType].selected};
+      &&& {
+        background-color: ${menuConfigVariants[menuType].alternate};
+      }
+
+      &&& a:focus,
+      &&& button:focus {
+        background-color: ${menuConfigVariants[menuType].alternate};
+      }
+
+      &&& a:hover,
+      &&& button:hover {
+        background-color: ${menuConfigVariants[menuType].alternateHover};
+      }
     `}
 
     ${isOpen &&
     css`
-      background-color: ${theme.menu[menuType].submenuBackground};
-      color: ${theme.colors.white};
+      a,
+      button {
+        background-color: ${menuConfigVariants[menuType]
+          .submenuOpenedBackground};
+        color: ${menuConfigVariants[menuType].color};
+      }
     `} 
     
     ${hasSubmenu &&
     css`
+      background-color: ${menuConfigVariants[menuType].submenuBackground};
+
+      a:focus,
+      button:focus {
+        background-color: ${menuConfigVariants[menuType].submenuBackground};
+        color: ${menuConfigVariants[menuType].color};
+
+        [data-component="icon"] {
+          color: ${menuConfigVariants[menuType].color};
+        }
+
+        ${clickToOpen &&
+        isOpen &&
+        css`
+          background-color: ${menuConfigVariants[menuType]
+            .submenuOpenedBackground};
+        `}
+      }
+
       a:hover,
       button:hover {
         ${!(href || clickToOpen) &&
         css`
           cursor: default;
         `}
+        background-color: ${menuConfigVariants[menuType]
+          .submenuOpenedBackground};
+        color: ${menuConfigVariants[menuType].color};
+
+        [data-component="icon"] {
+          color: ${menuConfigVariants[menuType].color};
+        }
       }
 
-      ${!href &&
+      ${selected &&
       css`
-        && a:hover,
-        && button:hover {
-          background-color: ${theme.menu[menuType].submenuBackground};
-          color: ${theme.menu[menuType].text};
+        background-color: ${menuConfigVariants[menuType].submenuSelected};
 
-          [data-component="icon"] {
-            color: ${theme.menu[menuType].text};
-          }
+        a:focus,
+        button:focus {
+          background-color: ${menuConfigVariants[menuType].submenuSelected};
         }
 
-        && a:focus,
-        && button:focus {
-          background-color: ${theme.menu[menuType].submenuBackground};
-          color: ${theme.menu[menuType].text};
-
-          a,
-          button,
-          [data-component="icon"] {
-            color: ${theme.menu[menuType].text};
-          }
+        a:hover,
+        button:hover {
+          background-color: var(--colorsComponentsMenuAutumnStandard600);
+          color: var(--colorsComponentsMenuYang100);
         }
       `}
 
@@ -176,14 +194,6 @@ const StyledMenuItemWrapper = styled.a`
         > a,
         > button {
           padding-right: 32px;
-
-          ${href &&
-          css`
-            &:hover::before,
-            &:focus::before {
-              border-top-color: ${theme.colors.white};
-            }
-          `}
         }
 
         a::before,
@@ -198,7 +208,7 @@ const StyledMenuItemWrapper = styled.a`
           content: "";
           width: 0;
           height: 0;
-          border-top: 5px solid ${theme.menu[menuType].text};
+          border-top: 5px solid ${menuConfigVariants[menuType].text};
           border-right: 4px solid transparent;
           border-bottom: 4px solid transparent;
           border-left: 4px solid transparent;
@@ -215,7 +225,6 @@ const StyledMenuItemWrapper = styled.a`
     css`
       ${as === "div" &&
       css`
-        width: 100vw;
         cursor: default;
         padding: 0 16px;
 
@@ -231,12 +240,28 @@ const StyledMenuItemWrapper = styled.a`
         width: 100vw;
         box-sizing: border-box;
       }
+
+      a:focus,
+      button:focus {
+        box-shadow: inset 0 0 0 var(--borderWidth300)
+          var(--colorsSemanticFocus500);
+        z-index: 1;
+        position: relative;
+      }
+
+      a:focus,
+      a:hover,
+      button:focus,
+      button:hover {
+        background-color: var(--colorsComponentsMenuAutumnStandard600);
+        color: var(--colorsComponentsMenuYang100);
+
+        [data-component="icon"] {
+          color: var(--colorsComponentsMenuYang100);
+        }
+      }
     `}
   `}
 `;
-
-StyledMenuItemWrapper.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledMenuItemWrapper;

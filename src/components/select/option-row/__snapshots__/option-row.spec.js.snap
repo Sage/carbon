@@ -3,6 +3,7 @@
 exports[`OptionRow renders properly 1`] = `
 .c0 {
   cursor: pointer;
+  background-color: var(--colorsUtilityMajor200);
 }
 
 .c0:hover {
@@ -21,6 +22,7 @@ exports[`OptionRow renders properly 1`] = `
 <table>
   <tbody>
     <tr
+      aria-selected={true}
       className="c0"
       data-component="option-row"
       onClick={[Function]}

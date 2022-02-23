@@ -16,14 +16,18 @@ const stickyColumnFocusStyling = (index, theme) => {
   return `
     border-bottom: 1px solid transparent;
     border-left: 1px solid
-      ${index === 0 ? theme.colors.focus : theme.table.secondary};
+      ${
+        index === 0
+          ? "var(--colorsSemanticFocus500)"
+          : "var(--colorsUtilityMajor100)"
+      };
     background-clip: padding-box;
     z-index: ${theme.zIndex.overlay + 2};
 
     :before {
       content: "";
-      border-top: 2px solid ${theme.colors.focus};
-      border-bottom: 2px solid ${theme.colors.focus};
+      border-top: 2px solid var(--colorsSemanticFocus500);
+      border-bottom: 2px solid var(--colorsSemanticFocus500);
       display: block;
       left: 0px;
       top: -1px;
@@ -35,20 +39,20 @@ const stickyColumnFocusStyling = (index, theme) => {
   `;
 };
 
-const borderColor = (colorTheme, theme) => {
+const borderColor = (colorTheme) => {
   switch (colorTheme) {
     case "light":
-      return theme.flatTable.light.border;
+      return "var(--colorsUtilityMajor100)";
 
     case "transparent-base":
-      return theme.flatTable.transparentBase.border;
+      return "var(--colorsUtilityMajor025)";
 
     case "transparent-white":
-      return theme.flatTable.transparentWhite.border;
+      return "var(--colorsUtilityYang100)";
 
     // default theme is "dark"
     default:
-      return theme.flatTable.dark.border;
+      return "var(--colorsUtilityMajor400)";
   }
 };
 
@@ -81,11 +85,11 @@ const StyledFlatTableRow = styled.tr`
       ? toColor(theme, horizontalBorderColor)
       : undefined;
     const colorOfSelected = isInSidebar
-      ? theme.flatTable.drawerSidebar.selected
-      : theme.flatTable.selected;
+      ? "var(--colorsUtilityMajor150)"
+      : "var(--colorsUtilityMajor075)";
     const colorOfHighlighted = isInSidebar
-      ? theme.flatTable.drawerSidebar.highlighted
-      : theme.flatTable.highlighted;
+      ? "var(--colorsUtilityMajor100)"
+      : "var(--colorsUtilityMajor050)";
     const allCellTypes = `${StyledFlatTableRowHeader}, ${StyledFlatTableCell}, ${StyledFlatTableCheckbox}`;
 
     return css`
@@ -97,13 +101,17 @@ const StyledFlatTableRow = styled.tr`
       width: auto;
       outline: 2px solid #0000;
 
+      [data-component="icon"] {
+        color: var(--colorsActionMinor500);
+      }
+
       ${allCellTypes} {
         ${backgroundColor && `background-color: ${backgroundColor};`}
 
         ${horizontalBorderSize !== "small" &&
         css`
           border-bottom: ${horizontalBorderSizes[horizontalBorderSize]} solid
-            ${theme.table.secondary};
+            var(--colorsUtilityMajor100);
         `}
 
         ${customBorderColor &&
@@ -113,12 +121,12 @@ const StyledFlatTableRow = styled.tr`
       }
 
       ${StyledFlatTableHeader} {
-        border-bottom: 1px solid ${borderColor(colorTheme, theme)};
+        border-bottom: 1px solid ${borderColor(colorTheme)};
 
         ${!isInSidebar &&
         `
           :first-child {
-            border-left: 1px solid ${borderColor(colorTheme, theme)};
+            border-left: 1px solid ${borderColor(colorTheme)};
           }
         `}
       }
@@ -135,7 +143,7 @@ const StyledFlatTableRow = styled.tr`
         cursor: pointer;
 
         :focus {
-          outline: 2px solid ${theme.colors.focus};
+          outline: 2px solid var(--colorsSemanticFocus500);
           outline-offset: -1px;
 
           ${StyledFlatTableRowHeader} {
@@ -156,7 +164,8 @@ const StyledFlatTableRow = styled.tr`
 
         :hover {
           ${allCellTypes} {
-            background-color: ${backgroundColor || theme.flatTable.hover};
+            background-color: ${backgroundColor ||
+            "var(--colorsUtilityMajor025)"};
           }
         }
       `}
@@ -168,12 +177,13 @@ const StyledFlatTableRow = styled.tr`
           cursor: pointer;
 
           :focus {
-            outline: 2px solid ${theme.colors.focus};
+            outline: 2px solid var(--colorsSemanticFocus500);
             outline-offset: -1px;
           }
 
           :hover {
-            background-color: ${backgroundColor || theme.flatTable.hover};
+            background-color: ${backgroundColor ||
+            "var(colorsUtilityMajor025)"};
           }
         }
       `}
@@ -181,35 +191,32 @@ const StyledFlatTableRow = styled.tr`
       ${![-1, 0].includes(rowHeaderIndex) &&
       css`
         td:nth-of-type(${rowHeaderIndex + 1}) {
-          border-left: 1px solid ${customBorderColor || theme.table.secondary};
+          border-left: 1px solid
+            ${customBorderColor || "var(--colorsUtilityMajor100)"};
         }
 
         th:nth-of-type(${rowHeaderIndex + 2}) {
-          border-left: 1px solid
-            ${customBorderColor || borderColor(colorTheme, theme)};
+          border-left: 1px solid ${customBorderColor || borderColor(colorTheme)};
         }
       `}
 
       ${applyBorderLeft &&
       css`
         th:first-of-type {
-          border-left: 1px solid
-            ${customBorderColor || borderColor(colorTheme, theme)};
+          border-left: 1px solid ${customBorderColor || borderColor(colorTheme)};
         }
       `}
 
       ${isInSidebar &&
       css`
         ${allCellTypes} {
-          background-color: ${
-            bgColor || theme.flatTable.drawerSidebar.headerBackground
-          };
+          background-color: ${bgColor || "var(--colorsUtilityMajor040)"};
           };
         }
 
         ${StyledFlatTableHeader} {
-          background-color: ${theme.flatTable.drawerSidebar.headerBackground};
-          border-bottom-color: ${theme.table.secondary};
+          background-color: var(--colorsUtilityMajor040);
+          border-bottom-color: var(--colorsUtilityMajor100);
         }
 
         td:first-of-type,
@@ -232,7 +239,7 @@ const StyledFlatTableRow = styled.tr`
               ${StyledFlatTableCell},
               ${StyledFlatTableCheckbox}:not(th) {
                 background-color: ${backgroundColor ||
-                theme.flatTable.drawerSidebar.hover};
+                "var(--colorsUtilityMajor075)"};
               }
             }
           `
@@ -257,8 +264,7 @@ const StyledFlatTableRow = styled.tr`
       ${isSubRow &&
       css`
         ${allCellTypes} {
-          background-color: ${backgroundColor ||
-          theme.flatTable.subRow.background};
+          background-color: ${backgroundColor || "var(--colorsActionMinor025)"};
         }
 
         ${StyledFlatTableCell}:first-child > div,
@@ -271,14 +277,14 @@ const StyledFlatTableRow = styled.tr`
       ${isDragging &&
       css`
         border: ${isInSidebar
-            ? theme.palette.slateTint(40)
-            : theme.palette.slateTint(55)}
+            ? "var(--colorsUtilityMajor300)"
+            : "var(--colorsUtilityMajor200)"}
           2px solid;
         cursor: grabbing;
         ${allCellTypes} {
           background-color: ${isInSidebar
-            ? theme.palette.slateTint(60)
-            : theme.palette.slateTint(75)};
+            ? "var(--colorsUtilityMajor200)"
+            : "var(--colorsUtilityMajor150)"};
         }
       `}
 
@@ -286,13 +292,14 @@ const StyledFlatTableRow = styled.tr`
       css`
         ${StyledIcon}:first-of-type {
           font-size: 16px;
+          color: var(--colorsActionMinor500);
         }
       `}
 
       ${isFirstSubRow &&
       css`
         ${allCellTypes} {
-          box-shadow: inset 0 6px 4px -4px ${theme.flatTable.subRow.shadow};
+          box-shadow: var(--boxShadow075);
         }
       `}
 

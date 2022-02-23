@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import baseTheme from "../../../../../style/themes/base";
 import StyledIcon from "../../../../icon/icon.style";
 
 const StyledToolbarButton = styled.button.attrs({ type: "button" })`
@@ -14,26 +13,22 @@ const StyledToolbarButton = styled.button.attrs({ type: "button" })`
     width: auto;
   }
 
-  ${({ theme, isActive }) => css`
+  ${({ isActive }) => css`
     :focus,
     :active {
-      outline: 2px solid ${theme.colors.focus};
+      outline: 2px solid var(--colorsSemanticFocus500);
       outline-offset: -2px;
     }
 
     :hover {
-      background-color: ${theme.editor.button.hover};
+      background-color: var(--colorsActionMinor200);
     }
 
     ${isActive &&
     css`
-      background-color: ${theme.editor.button.hover};
+      background-color: var(--colorsActionMinor200);
     `}
   `}
 `;
-
-StyledToolbarButton.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledToolbarButton;

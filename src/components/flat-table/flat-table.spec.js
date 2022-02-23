@@ -23,7 +23,6 @@ import {
   StyledFlatTableWrapper,
   StyledFlatTableFooter,
 } from "./flat-table.style";
-import { baseTheme } from "../../style/themes";
 import { DrawerSidebarContext } from "../drawer";
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
@@ -89,7 +88,7 @@ describe("FlatTable", () => {
 
       assertStyleMatch(
         {
-          outline: `2px solid ${baseTheme.colors.focus}`,
+          outline: "2px solid var(--colorsSemanticFocus500)",
         },
         wrapper.find(StyledFlatTableWrapper),
         {
@@ -109,7 +108,7 @@ describe("FlatTable", () => {
 
       assertStyleMatch(
         {
-          outline: `2px solid ${baseTheme.colors.focus}`,
+          outline: "2px solid var(--colorsSemanticFocus500)",
         },
         wrapper.find(StyledFlatTableWrapper),
         {
@@ -148,10 +147,10 @@ describe("FlatTable", () => {
 
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.flatTable.dark.headerBackground,
-          borderRight: `1px solid ${baseTheme.flatTable.dark.border}`,
-          color: baseTheme.colors.white,
-          borderBottomColor: baseTheme.flatTable.dark.border,
+          backgroundColor: "var(--colorsUtilityMajor400)",
+          borderRight: "1px solid var(--colorsUtilityMajor300)",
+          color: "var(--colorsUtilityYang100)",
+          borderBottomColor: "var(--colorsUtilityMajor300)",
         },
 
         wrapper.find(StyledFlatTableWrapper),
@@ -164,9 +163,9 @@ describe("FlatTable", () => {
 
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.flatTable.light.headerBackground,
-          borderRight: `1px solid ${baseTheme.flatTable.light.border}`,
-          borderBottomColor: baseTheme.flatTable.light.border,
+          backgroundColor: "var(--colorsUtilityMajor100)",
+          borderRight: "1px solid var(--colorsUtilityMajor150)",
+          borderBottomColor: "var(--colorsUtilityMajor100)",
         },
 
         wrapper.find(StyledFlatTableWrapper),
@@ -179,9 +178,9 @@ describe("FlatTable", () => {
 
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.flatTable.transparentBase.headerBackground,
-          borderRight: `1px solid ${baseTheme.flatTable.transparentBase.border}`,
-          borderBottomColor: baseTheme.table.secondary,
+          backgroundColor: "var(--colorsUtilityMajor025)",
+          borderRight: "1px solid var(--colorsUtilityMajor025)",
+          borderBottomColor: "var(--colorsUtilityMajor100)",
         },
 
         wrapper.find(StyledFlatTableWrapper),
@@ -194,10 +193,9 @@ describe("FlatTable", () => {
 
       assertStyleMatch(
         {
-          backgroundColor:
-            baseTheme.flatTable.transparentWhite.headerBackground,
-          borderRight: `1px solid ${baseTheme.flatTable.transparentWhite.border}`,
-          borderBottomColor: baseTheme.table.secondary,
+          backgroundColor: "var(--colorsUtilityYang100)",
+          borderRight: "1px solid var(--colorsUtilityYang100)",
+          borderBottomColor: "var(--colorsUtilityMajor100)",
         },
 
         wrapper.find(StyledFlatTableWrapper),
@@ -344,7 +342,7 @@ describe("FlatTable", () => {
 
       assertStyleMatch(
         {
-          borderLeft: "1px solid #668592",
+          borderLeft: "1px solid var(--colorsUtilityMajor400)",
         },
         wrapper.find(StyledFlatTableHead).find(StyledFlatTableRow).at(1),
         {
@@ -379,9 +377,9 @@ describe("FlatTable", () => {
         id === "StyledFlatTableHeader" ? el : `${StyledFlatTableHead} ${el}`;
       assertStyleMatch(
         {
-          backgroundColor: `${baseTheme.flatTable.drawerSidebar.headerBackground}`,
-          borderRight: `2px solid ${baseTheme.flatTable.drawerSidebar.headerBackground}`,
-          color: `${baseTheme.colors.black}`,
+          backgroundColor: "var(--colorsUtilityMajor040)",
+          borderRight: "2px solid var(--colorsUtilityMajor040)",
+          color: "var(--colorsUtilityYin090)",
         },
         wrapper.find(StyledFlatTableWrapper),
         { modifier: `${modifierString}` }
@@ -395,7 +393,7 @@ describe("FlatTable", () => {
 
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.table.zebra,
+          backgroundColor: "var(--colorsUtilityMajor010)",
         },
         wrapper.find(StyledFlatTable),
         {
@@ -469,7 +467,7 @@ describe("FlatTable", () => {
       wrapper = renderFlatTableWithDiv({ footer: <Footer /> }, mount);
       assertStyleMatch(
         {
-          boxShadow: "inset 0px 0px 0px 1px #CCD6DB",
+          boxShadow: "inset 0px 0px 0px 1px var(--colorsUtilityMajor100)",
           boxSizing: "border-box",
         },
         wrapper.find(StyledFlatTableWrapper)

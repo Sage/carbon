@@ -1,11 +1,12 @@
 import styled, { css } from "styled-components";
 import { layout, flexbox } from "styled-system";
+import menuConfigVariants from "./menu.config";
 
 import {
   StyledVerticalWrapper,
   StyledDivider,
 } from "../vertical-divider/vertical-divider.style";
-import { baseTheme } from "../../style/themes";
+import { StyledLink } from "../link/link.style";
 
 const StyledMenuWrapper = styled.ul`
   line-height: 40px;
@@ -18,14 +19,14 @@ const StyledMenuWrapper = styled.ul`
   ${flexbox}
 
   ${StyledVerticalWrapper} {
-    ${({ menuType, theme }) => css`
+    ${({ menuType }) => css`
       display: inline-block;
       vertical-align: bottom;
-      background-color: ${theme.menu[menuType].background};
+      background-color: ${menuConfigVariants[menuType].background};
 
       ${menuType === "dark" &&
       css`
-        color: ${theme.colors.white};
+        color: ${menuConfigVariants[menuType].color};
       `}
     `}
 
@@ -34,12 +35,6 @@ const StyledMenuWrapper = styled.ul`
       top: -1px;
     }
   }
-
-  ${({ inFullscreenView }) =>
-    inFullscreenView &&
-    css`
-      padding-bottom: 24px;
-    `}
 `;
 
 const StyledMenuItem = styled.li`
@@ -58,11 +53,18 @@ const StyledMenuItem = styled.li`
     css`
       padding-top: 16px;
       padding-bottom: 16px;
+
+      a,
+      ${StyledLink} a,
+      button,
+      ${StyledLink} button,
+      > span,
+      > div,
+      [data-component="submenu-wrapper"] > ${StyledLink} {
+        width: 100%;
+        box-sizing: border-box;
+      }
     `}
 `;
-
-StyledMenuWrapper.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledMenuWrapper, StyledMenuItem };

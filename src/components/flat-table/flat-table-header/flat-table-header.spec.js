@@ -37,7 +37,7 @@ describe("FlatTableHeader", () => {
 
       assertStyleMatch(
         {
-          backgroundColor: "#1A475B",
+          backgroundColor: "var(--colorsActionMinor550)",
         },
         wrapper.find(StyledFlatTableHeader),
         { modifier: "&&&" }

@@ -9,7 +9,6 @@ import {
   testStyledSystemFlexBox,
   assertStyleMatch,
 } from "../../../__spec_helper__/test-utils";
-import { baseTheme } from "../../../style/themes";
 import StyledMenuItemWrapper from "./menu-item.style";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
@@ -19,6 +18,7 @@ import SubmenuBlock from "../submenu-block";
 import StyledIcon from "../../icon/icon.style";
 import Icon from "../../icon/icon.component";
 import { StyledMenuItem } from "../menu.style";
+import menuConfigVariants from "../menu.config";
 
 const events = {
   enter: {
@@ -126,6 +126,130 @@ describe("MenuItem", () => {
     });
   });
 
+  describe.each(["light", "white", "dark", "black"])(
+    '`menuType="%s"`',
+    (menuType) => {
+      it("should render correct styles", () => {
+        wrapper = mount(
+          <MenuContext.Provider value={{ menuType }}>
+            <MenuItem>Item one</MenuItem>
+          </MenuContext.Provider>
+        );
+
+        assertStyleMatch(
+          {
+            backgroundColor: menuConfigVariants[menuType].background,
+          },
+          wrapper.find(StyledMenuItemWrapper)
+        );
+      });
+
+      describe.each([
+        ["button", "focus"],
+        ["a", "focus"],
+      ])("applies the expected styling for %p on %s", (element, pseudo) => {
+        wrapper = mount(
+          <MenuContext.Provider value={{ menuType }}>
+            <MenuItem>Item one</MenuItem>
+          </MenuContext.Provider>
+        );
+
+        assertStyleMatch(
+          {
+            boxShadow:
+              "inset 0 0 0 var(--borderWidth300) var(--colorsSemanticFocus500)",
+            backgroundColor: menuConfigVariants[menuType].background,
+            color: menuConfigVariants[menuType].color,
+          },
+          wrapper.find(StyledMenuItemWrapper),
+          { modifier: `${element}:${pseudo}` }
+        );
+      });
+
+      describe.each([
+        ["button", "hover"],
+        ["a", "hover"],
+      ])("applies the expected styling for %p on %s and", (element, pseudo) => {
+        beforeEach(() => {
+          wrapper = mount(
+            <MenuContext.Provider value={{ menuType }}>
+              <MenuItem>Item one</MenuItem>
+            </MenuContext.Provider>
+          );
+        });
+
+        it("renders correct background and color", () => {
+          assertStyleMatch(
+            {
+              backgroundColor: "var(--colorsComponentsMenuAutumnStandard600)",
+              color: "var(--colorsComponentsMenuYang100)",
+            },
+            wrapper.find(StyledMenuItemWrapper),
+            { modifier: `${element}:${pseudo}` }
+          );
+        });
+
+        it("renders correct icon color", () => {
+          assertStyleMatch(
+            {
+              color: "var(--colorsComponentsMenuYang100)",
+            },
+            wrapper.find(StyledMenuItemWrapper),
+            {
+              modifier: `${element}:${pseudo} [data-component="icon"]`,
+            }
+          );
+        });
+      });
+
+      describe("with selected props set", () => {
+        beforeEach(() => {
+          wrapper = mount(
+            <MenuContext.Provider value={{ menuType }}>
+              <MenuItem selected>Item one</MenuItem>
+            </MenuContext.Provider>
+          );
+        });
+
+        it("should render correct background color", () => {
+          assertStyleMatch(
+            {
+              backgroundColor: menuConfigVariants[menuType].selected,
+            },
+            wrapper.find(StyledMenuItemWrapper)
+          );
+        });
+
+        it.each([
+          ["button", "hover"],
+          ["a", "hover"],
+        ])("applies the expected styling for %p on %s", (element, pseudo) => {
+          assertStyleMatch(
+            {
+              backgroundColor: "var(--colorsComponentsMenuAutumnStandard600)",
+              color: "var(--colorsComponentsMenuYang100)",
+            },
+            wrapper.find(StyledMenuItemWrapper),
+            { modifier: `${element}:${pseudo}` }
+          );
+        });
+
+        it.each([
+          ["button", "focus"],
+          ["a", "focus"],
+        ])("applies the expected styling for %p on %s", (element, pseudo) => {
+          assertStyleMatch(
+            {
+              backgroundColor: menuConfigVariants[menuType].selected,
+            },
+            wrapper.find(StyledMenuItemWrapper),
+            { modifier: `${element}:${pseudo}` }
+          );
+        });
+      });
+    }
+  );
+
   describe("submenu", () => {
     it("should render Submenu if prop submenu is set", () => {
       wrapper = mount(
@@ -156,34 +280,105 @@ describe("MenuItem", () => {
     describe.each(["light", "white", "dark", "black"])(
       '`menuType="%s"`',
       (menuType) => {
-        it("should render correct styles", () => {
+        it("should render correct background color", () => {
           wrapper = mount(
             <MenuContext.Provider value={{ menuType }}>
-              <MenuItem>Item one</MenuItem>
+              <MenuItem submenu="submenu">
+                <MenuItem>Item one</MenuItem>
+              </MenuItem>
             </MenuContext.Provider>
           );
-
           assertStyleMatch(
             {
-              backgroundColor: baseTheme.menu[menuType].background,
+              backgroundColor: menuConfigVariants[menuType].submenuBackground,
             },
             wrapper.find(StyledMenuItemWrapper)
           );
         });
 
-        it("should render correct styles if is `selected`", () => {
-          wrapper = mount(
-            <MenuContext.Provider value={{ menuType }}>
-              <MenuItem selected>Item one</MenuItem>
-            </MenuContext.Provider>
-          );
+        describe.each([
+          ["button", "hover"],
+          ["a", "hover"],
+          ["button", "focus"],
+          ["a", "focus"],
+        ])("applies the expected styling for %p on %s", (element, pseudo) => {
+          beforeEach(() => {
+            wrapper = mount(
+              <MenuContext.Provider value={{ menuType }}>
+                <MenuItem submenu="submenu">
+                  <MenuItem>Item one</MenuItem>
+                </MenuItem>
+              </MenuContext.Provider>
+            );
+          });
+          const styles = {
+            focusBg: menuConfigVariants[menuType].submenuBackground,
+            focusColor: menuConfigVariants[menuType].color,
+            hoverBg: menuConfigVariants[menuType].submenuOpenedBackground,
+            hoverColor: menuConfigVariants[menuType].color,
+          };
 
-          assertStyleMatch(
-            {
-              backgroundColor: baseTheme.menu[menuType].selected,
-            },
-            wrapper.find(StyledMenuItemWrapper)
-          );
+          it("renders correct background and color", () => {
+            assertStyleMatch(
+              {
+                backgroundColor: styles[`${pseudo}Bg`],
+                color: styles[`${pseudo}Color`],
+              },
+              wrapper.find(StyledMenuItemWrapper),
+              { modifier: `${element}:${pseudo}` }
+            );
+          });
+
+          it("renders correct icon color", () => {
+            assertStyleMatch(
+              {
+                color: styles[`${pseudo}Color`],
+              },
+              wrapper.find(StyledMenuItemWrapper),
+              { modifier: `${element}:${pseudo} [data-component="icon"]` }
+            );
+          });
+        });
+
+        describe("with selected props set", () => {
+          beforeEach(() => {
+            wrapper = mount(
+              <MenuContext.Provider value={{ menuType }}>
+                <MenuItem submenu="submenu" selected>
+                  <MenuItem>Item one</MenuItem>
+                </MenuItem>
+              </MenuContext.Provider>
+            );
+          });
+
+          it("should render correct background color", () => {
+            assertStyleMatch(
+              {
+                backgroundColor: menuConfigVariants[menuType].submenuSelected,
+              },
+              wrapper.find(StyledMenuItemWrapper)
+            );
+          });
+
+          it.each([
+            ["button", "hover"],
+            ["a", "hover"],
+            ["button", "focus"],
+            ["a", "focus"],
+          ])("applies the expected styling for %p on %s", (element, pseudo) => {
+            const background = {
+              focus: menuConfigVariants[menuType].submenuSelected,
+              hover: "var(--colorsComponentsMenuAutumnStandard600)",
+            };
+
+            assertStyleMatch(
+              {
+                backgroundColor: background[pseudo],
+              },
+              wrapper.find(StyledMenuItemWrapper),
+              { modifier: `${element}:${pseudo}` }
+            );
+          });
         });
 
         it("should render correct styles for alternate variant", () => {
@@ -195,12 +390,40 @@ describe("MenuItem", () => {
 
           assertStyleMatch(
             {
-              backgroundColor: baseTheme.menu[menuType].alternate,
+              backgroundColor: menuConfigVariants[menuType].alternate,
             },
             wrapper.find(StyledMenuItemWrapper),
             { modifier: `&&&` }
           );
         });
+
+        it.each([
+          ["button", "hover"],
+          ["a", "hover"],
+          ["button", "focus"],
+          ["a", "focus"],
+        ])(
+          "applies the expected styling for alternate variant for %p on %s",
+          (element, pseudo) => {
+            wrapper = mount(
+              <MenuContext.Provider value={{ menuType }}>
+                <MenuItem variant="alternate">Item one</MenuItem>
+              </MenuContext.Provider>
+            );
+            const background = {
+              focus: menuConfigVariants[menuType].alternate,
+              hover: menuConfigVariants[menuType].alternateHover,
+            };
+
+            assertStyleMatch(
+              {
+                backgroundColor: background[pseudo],
+              },
+              wrapper.find(StyledMenuItemWrapper),
+              { modifier: `&&& ${element}:${pseudo}` }
+            );
+          }
+        );
 
         it("should render correct styles if an onClick is provided", () => {
           wrapper = mount(

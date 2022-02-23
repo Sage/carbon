@@ -21,8 +21,8 @@ const StyledFlatTableRowHeader = styled.th`
     verticalBorder,
     verticalBorderColor,
   }) => css`
-    background-color: #fff;
-    border: 1px solid ${theme.table.secondary};
+    background-color: var(--colorsUtilityYang100);
+    border: 1px solid var(--colorsUtilityMajor100);
     border-top: none;
     box-sizing: border-box;
     left: 0;
@@ -91,9 +91,5 @@ const StyledFlatTableRowHeaderContent = styled.div`
       line-height: 1em;
     `}
 `;
-
-StyledFlatTableRowHeaderContent.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledFlatTableRowHeader, StyledFlatTableRowHeaderContent };

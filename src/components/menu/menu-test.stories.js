@@ -1,20 +1,21 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import { Menu } from ".";
 import MenuItem from "./menu-item";
 import MenuFullscreen from "./menu-full-screen";
+import Search from "../search";
 
-<Meta
-  title="Menu/Test"
-  parameters={{
+export default {
+  title: "Menu/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: false,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     menuType: {
       options: ["light", "dark"],
       control: {
@@ -27,10 +28,27 @@ import MenuFullscreen from "./menu-full-screen";
         type: "select",
       },
     },
-  }}
-/>
+    searchVariant: {
+      options: ["default", "dark"],
+      control: {
+        type: "select",
+      },
+    },
+    searchButton: {
+      options: [true, false],
+      control: {
+        type: "boolean",
+      },
+    },
+  },
+};
 
-export const MenuStory = ({ menuType, startPosition }) => {
+export const MenuFullScreenStory = ({
+  menuType,
+  startPosition,
+  searchVariant,
+  searchButton,
+}) => {
   const [isOpen, setIsOpen] = useState(true);
   const onClose = (evt) => {
     setIsOpen(false);
@@ -56,6 +74,14 @@ export const MenuStory = ({ menuType, startPosition }) => {
           <MenuItem href="#">Submenu Item One</MenuItem>
           <MenuItem href="#">Submenu Item Two</MenuItem>
         </MenuItem>
+        <MenuItem variant="alternate">
+          <Search
+            placeholder="Search..."
+            variant={searchVariant}
+            defaultValue=""
+            searchButton={searchButton}
+          />
+        </MenuItem>
         <MenuItem href="#">Menu Item Three</MenuItem>
         <MenuItem href="#">Menu Item Four</MenuItem>
         <MenuItem submenu="Menu Item Five">
@@ -68,18 +94,12 @@ export const MenuStory = ({ menuType, startPosition }) => {
   );
 };
 
-# Menu
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      menuType: "light",
-      startPosition: "left",
-    }}
-  >
-    {MenuStory.bind({})}
-  </Story>
-</Canvas>
+MenuFullScreenStory.story = {
+  name: "fullscreen menu",
+  args: {
+    menuType: "light",
+    startPosition: "left",
+    searchVariant: "default",
+    searchButton: true,
+  },
+};

@@ -1,14 +1,13 @@
 import styled, { css } from "styled-components";
 import StyledCheckbox from "../../checkbox/checkbox.style";
-import baseTheme from "../../../style/themes/base";
 
 const StyledFlatTableCheckbox = styled.td`
-  ${({ as, theme, leftPosition, makeCellSticky }) => css`
+  ${({ as, leftPosition, makeCellSticky }) => css`
     ${as === "td" &&
     css`
-      background-color: ${theme.colors.white};
+      background-color: var(--colorsUtilityYang100);
       border-width: 0;
-      border-bottom: 1px solid ${theme.table.secondary};
+      border-bottom: 1px solid var(--colorsUtilityMajor100);
       overflow: visible;
       padding: 0;
       text-align: left;
@@ -17,11 +16,11 @@ const StyledFlatTableCheckbox = styled.td`
       white-space: nowrap;
 
       &:first-of-type {
-        border-left: 1px solid ${theme.table.secondary};
+        border-left: 1px solid var(--colorsUtilityMajor100);
       }
 
       &:last-of-type {
-        border-right: 1px solid ${theme.table.secondary};
+        border-right: 1px solid var(--colorsUtilityMajor100);
       }
     `}
 
@@ -29,7 +28,7 @@ const StyledFlatTableCheckbox = styled.td`
     css`
       background-color: transparent;
       border-width: 0;
-      border-bottom: 1px solid ${theme.table.secondary};
+      border-bottom: 1px solid var(--colorsUtilityMajor100);
       box-sizing: border-box;
       font-weight: 700;
       left: auto;
@@ -55,9 +54,5 @@ const StyledFlatTableCheckbox = styled.td`
     padding-top: 0px;
   }
 `;
-
-StyledFlatTableCheckbox.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledFlatTableCheckbox;

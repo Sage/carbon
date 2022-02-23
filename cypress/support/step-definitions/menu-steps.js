@@ -78,7 +78,7 @@ Then("{string} is visible", (text) => {
   segmentTitle()
     .should("have.text", text)
     .and("be.visible")
-    .and("have.css", "color", "rgb(64, 102, 119)");
+    .and("have.css", "color", "rgba(0, 0, 0, 0.65)");
 });
 
 Then("{string} submenu has alternate colour theme", (position) => {
@@ -171,7 +171,7 @@ Then("Menu is in fullscreen mode", () => {
     .should("be.visible");
   fullscreenMenu(positionOfElement("second"))
     .find("ul > li")
-    .should("have.length", 15);
+    .should("have.length", 17);
 });
 
 Then("Menu is in fullscreen mode is not visible", () => {
@@ -194,7 +194,7 @@ Then("{string} inner menu element is focused", (position) => {
     .children()
     .children()
     .should("have.css", "background-color")
-    .and("contain", "rgb(0, 125, 90)");
+    .and("contain", "rgb(0, 126, 69)");
   menuComponent(positionOfElement(position))
     .find("ul > li")
     .eq(1)
