@@ -1,3 +1,11 @@
+## [104.27.0](https://github.com/Sage/carbon/compare/v104.26.1...v104.27.0) (2022-02-23)
+
+
+### Features
+
+* **advanced-color-picker:** describe advanced-color-picker using design tokens ([38954ac](https://github.com/Sage/carbon/commit/38954ac9932aea8a4b5a01b4e3b7923b0c31814e))
+* **simple-color-picker:** describe simple-color-picker using design tokens, update tests ([57b347e](https://github.com/Sage/carbon/commit/57b347e8bd9758242f3d543b72671da948a57625))
+
 ### [104.26.1](https://github.com/Sage/carbon/compare/v104.26.0...v104.26.1) (2022-02-22)
 
 
