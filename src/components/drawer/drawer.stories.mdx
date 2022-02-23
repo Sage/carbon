@@ -1006,17 +1006,18 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
                   <Search value="" placeholder="Search" searchWidth="40%" />
                   <PopoverContainer
                     title="Filter"
-                    renderOpenComponent={() => {
+                    renderOpenComponent={({ id }) => {
                       return (
                         <Button
                           buttonType={isFilterOpen ? "primary" : "tertiary"}
                           onClick={handleOpenFilterClick}
                           iconType={isFilterOpen ? "close" : "filter_new"}
                           iconPosition="after"
+                          id={id}
                         >
                           Filter
                         </Button>
-                      );
+                      ); 
                     }}
                     renderCloseComponent={() => {}}
                     open={isFilterOpen}
@@ -1167,7 +1168,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 1"
-                    tabId="tab-1"
+                    tabId="tab-1-child-1"
                   >
                     Content 1
                   </Tab>
@@ -1176,7 +1177,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 2"
-                    tabId="tab-2"
+                    tabId="tab-1-child-2"
                   >
                     Content 2
                   </Tab>
@@ -1185,7 +1186,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 3"
-                    tabId="tab-3"
+                    tabId="tab-1-child-3"
                   >
                     Content 3
                   </Tab>
@@ -1194,7 +1195,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 4"
-                    tabId="tab-4"
+                    tabId="tab-1-child-4"
                   >
                     Content 4
                   </Tab>
@@ -1207,7 +1208,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 1"
-                    tabId="tab-1"
+                    tabId="tab-2-child-1"
                   >
                     Content 5
                   </Tab>
@@ -1216,7 +1217,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 2"
-                    tabId="tab-2"
+                    tabId="tab-2-child-2"
                   >
                     Content 6
                   </Tab>
@@ -1225,7 +1226,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 3"
-                    tabId="tab-3"
+                    tabId="tab-2-child-3"
                   >
                     Content 7
                   </Tab>
@@ -1234,7 +1235,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 4"
-                    tabId="tab-4"
+                    tabId="tab-2-child-4"
                   >
                     Content 8
                   </Tab>
@@ -1247,7 +1248,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 1"
-                    tabId="tab-1"
+                    tabId="tab-3-child-1"
                   >
                     Content 9
                   </Tab>
@@ -1256,7 +1257,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 2"
-                    tabId="tab-2"
+                    tabId="tab-3-child-2"
                   >
                     Content 10
                   </Tab>
@@ -1265,7 +1266,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 3"
-                    tabId="tab-3"
+                    tabId="tab-3-child-3"
                   >
                     Content 11
                   </Tab>
@@ -1274,7 +1275,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 4"
-                    tabId="tab-4"
+                    tabId="tab-3-child-4"
                   >
                     Content 12
                   </Tab>
@@ -1311,7 +1312,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 1"
-                    tabId="tab-1"
+                    tabId="tab-5-child-1"
                   >
                     Content 13
                   </Tab>
@@ -1320,7 +1321,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 2"
-                    tabId="tab-2"
+                    tabId="tab-5-child-2"
                   >
                     Content 14
                   </Tab>
@@ -1329,7 +1330,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 3"
-                    tabId="tab-3"
+                    tabId="tab-5-child-3"
                   >
                     Content 15
                   </Tab>
@@ -1338,7 +1339,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 4"
-                    tabId="tab-4"
+                    tabId="tab-5-child-4"
                   >
                     Content 16
                   </Tab>
@@ -1351,7 +1352,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 1"
-                    tabId="tab-1"
+                    tabId="tab-6-child-1"
                   >
                     Content 17
                   </Tab>
@@ -1360,7 +1361,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 2"
-                    tabId="tab-2"
+                    tabId="tab-6-child-2"
                   >
                     Content 18
                   </Tab>
@@ -1369,7 +1370,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 3"
-                    tabId="tab-3"
+                    tabId="tab-6-child-3"
                   >
                     Content 19
                   </Tab>
@@ -1378,7 +1379,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     warningMessage="warning"
                     infoMessage="info"
                     title="Tab 4"
-                    tabId="tab-4"
+                    tabId="tab-6-child-4"
                   >
                     Content 20
                   </Tab>

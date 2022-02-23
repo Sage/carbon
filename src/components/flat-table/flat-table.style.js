@@ -48,63 +48,62 @@ const StyledFlatTable = styled.table`
     `;
   }}
 
-  ${({ isZebra, theme }) =>
+  ${({ isZebra }) =>
     isZebra &&
     css`
       ${StyledFlatTableRow}:nth-child(2n) {
         ${StyledFlatTableRowHeader},
         ${StyledFlatTableCell},
         ${StyledFlatTableCheckbox} {
-          background-color: ${theme.table.zebra};
+          background-color: var(--colorsUtilityMajor010);
         }
       }
       ${StyledFlatTableRow}:hover {
         ${StyledFlatTableCell},
         ${StyledFlatTableRowHeader},
         ${StyledFlatTableCheckbox} {
-          background-color: ${theme.flatTable.hover};
+          background-color: var(--colorsUtilityMajor025);
         }
       }
     `}
 `;
 
 StyledFlatTable.defaultProps = {
-  theme: baseTheme,
   size: "medium",
 };
 
 const StyledFlatTableWrapper = styled(Box)`
-  ${({ isInSidebar, theme }) =>
+  ${({ isInSidebar }) =>
     css`
       box-sizing: border-box;
 
       :focus {
-        outline: 2px solid ${theme.colors.focus};
+        outline: 2px solid var(--colorsSemanticFocus500);
 
         :not(:focus-visible) {
           outline: none;
         }
 
         :focus-visible {
-          outline: 2px solid ${theme.colors.focus};
+          outline: 2px solid var(--colorsSemanticFocus500);
         }
       }
 
       ${isInSidebar
         ? "min-width: fit-content"
-        : `box-shadow: inset 0px 0px 0px 1px ${theme.table.secondary}`};
+        : `box-shadow: inset 0px 0px 0px 1px var(--colorsUtilityMajor100)`};
     `}
 
-  ${({ colorTheme, theme }) => {
+  ${({ colorTheme }) => {
     switch (colorTheme) {
       case "light":
         return css`
           ${StyledFlatTableHeader},
           ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
-            background-color: ${theme.flatTable.light.headerBackground};
-            border-right: 1px solid ${theme.flatTable.light.border};
-            border-bottom-color: ${theme.flatTable.light.border};
+            background-color: var(--colorsUtilityMajor100);
+            border-right: 1px solid var(--colorsUtilityMajor150);
+            border-bottom-color: var(--colorsUtilityMajor100);
           }
         `;
 
@@ -113,10 +112,9 @@ const StyledFlatTableWrapper = styled(Box)`
           ${StyledFlatTableHeader},
           ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
-            background-color: ${theme.flatTable.transparentBase
-              .headerBackground};
-            border-right: 1px solid ${theme.flatTable.transparentBase.border};
-            border-bottom-color: ${theme.table.secondary};
+            background-color: var(--colorsUtilityMajor025);
+            border-right: 1px solid var(--colorsUtilityMajor025);
+            border-bottom-color: var(--colorsUtilityMajor100);
           }
         `;
 
@@ -125,10 +123,9 @@ const StyledFlatTableWrapper = styled(Box)`
           ${StyledFlatTableHeader},
           ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
-            background-color: ${theme.flatTable.transparentWhite
-              .headerBackground};
-            border-right: 1px solid ${theme.flatTable.transparentWhite.border};
-            border-bottom-color: ${theme.table.secondary};
+            background-color: var(--colorsUtilityYang100);
+            border-right: 1px solid var(--colorsUtilityYang100);
+            border-bottom-color: var(--colorsUtilityMajor100);
           }
         `;
       // default theme is "dark"
@@ -137,25 +134,24 @@ const StyledFlatTableWrapper = styled(Box)`
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox},
           ${StyledFlatTableHeader},
           ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
-            background-color: ${theme.flatTable.dark.headerBackground};
-            border-right: 1px solid ${theme.flatTable.dark.border};
-            color: ${theme.colors.white};
-            border-bottom-color: ${theme.flatTable.dark.border};
+            background-color: var(--colorsUtilityMajor400);
+            border-right: 1px solid var(--colorsUtilityMajor300);
+            color: var(--colorsUtilityYang100);
+            border-bottom-color: var(--colorsUtilityMajor300);
           }
         `;
     }
   }}
 
-  ${({ isInSidebar, theme }) =>
+  ${({ isInSidebar }) =>
     isInSidebar &&
     css`
       ${StyledFlatTableHeader}, ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
       ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
-        background-color: ${theme.flatTable.drawerSidebar.headerBackground};
-        border-right: 2px solid
-          ${theme.flatTable.drawerSidebar.headerBackground};
-        color: ${theme.colors.black};
-        border-bottom-color: ${theme.table.secondary};
+        background-color: var(--colorsUtilityMajor040);
+        border-right: 2px solid var(--colorsUtilityMajor040);
+        color: var(--colorsUtilityYin090);
+        border-bottom-color: var(--colorsUtilityMajor100);
       }
     `}
 
@@ -188,9 +184,5 @@ const StyledFlatTableFooter = styled.div`
       bottom: 0px;
     `}
 `;
-
-StyledFlatTableFooter.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledFlatTableWrapper, StyledFlatTable, StyledFlatTableFooter };

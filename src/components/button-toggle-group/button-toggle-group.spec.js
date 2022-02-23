@@ -34,7 +34,7 @@ const formFieldProps = [
 const buttonToggleGroupVariants = {
   error: "var(--colorsSemanticNegative500)",
   warning: "var(--colorsSemanticCaution500)",
-  info: "var(--colorsActionMinor500)",
+  info: "var(--colorsSemanticInfo500)",
 };
 
 describe("ButtonToggleGroup", () => {

@@ -93,7 +93,7 @@ const Textbox = ({
     fieldHelp,
   });
 
-  const labelId = externalLabelId || internalLabelId;
+  const labelId = label ? externalLabelId || internalLabelId : "";
 
   return (
     <TooltipProvider
