@@ -41,8 +41,8 @@ const modifiers = [
 ];
 
 const SelectTextbox = ({
-  accessibilityLabelId = "",
-  labelId = "",
+  accessibilityLabelId,
+  labelId,
   "aria-controls": ariaControls,
   value,
   disabled,
@@ -144,7 +144,8 @@ const SelectTextbox = ({
   }
 
   function getInputAriaAttributes() {
-    const joinIds = (...ids) => ids.filter((str) => str.length > 0).join(" ");
+    const joinIds = (...ids) =>
+      ids.filter((item) => item !== undefined).join(" ");
     const ariaLabelledby = hasTextCursor
       ? joinIds(labelId, accessibilityLabelId)
       : joinIds(labelId, textId.current);
