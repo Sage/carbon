@@ -4,6 +4,7 @@ import { act } from "react-dom/test-utils";
 import { render } from "react-dom";
 import {
   FlatTable,
+  FlatTableBody,
   FlatTableRow,
   FlatTableCell,
   FlatTableBodyDraggable,
@@ -14,6 +15,25 @@ describe("Draggable Table", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  describe("when a data prop is added", () => {
+    it("should be added to the FlatTableBody", () => {
+      wrapper = mount(
+        <FlatTable>
+          <FlatTableBodyDraggable data-role="test">
+            <FlatTableRow key={0} id={0} index={0}>
+              <FlatTableCell>UK</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow key={1} id={1} index={1}>
+              <FlatTableCell>Germany</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBodyDraggable>
+        </FlatTable>
+      );
+
+      expect(wrapper.find(FlatTableBody).props()["data-role"]).toEqual("test");
+    });
   });
 
   it("should call getOrder with an array with id's", () => {

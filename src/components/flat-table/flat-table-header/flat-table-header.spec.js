@@ -31,6 +31,15 @@ describe("FlatTableHeader", () => {
     );
   });
 
+  describe("when a data prop is added", () => {
+    it("should be added to the root element", () => {
+      const wrapper = mount(<FlatTableHeader data-role="test" />);
+      expect(wrapper.find(StyledFlatTableHeader).props()["data-role"]).toEqual(
+        "test"
+      );
+    });
+  });
+
   describe('with the "alternativeBgColor" prop set', () => {
     it('it overrides the header "background-color"', () => {
       const wrapper = mount(<FlatTableHeader alternativeBgColor />);

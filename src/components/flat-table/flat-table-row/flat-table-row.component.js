@@ -38,6 +38,7 @@ const FlatTableRow = React.forwardRef(
       draggable,
       findItem,
       moveItem,
+      ...rest
     },
     ref
   ) => {
@@ -156,6 +157,7 @@ const FlatTableRow = React.forwardRef(
         applyBorderLeft={applyBorderLeft}
         draggable={draggable}
         {...interactiveRowProps}
+        {...rest}
       >
         {React.Children.map(children, (child, index) => {
           return (
