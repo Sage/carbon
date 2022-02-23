@@ -1,23 +1,20 @@
 import styled from "styled-components";
-import baseTheme from "../../../../style/themes/base";
 
 const StyledButton = styled.button.attrs({ type: "button" })`
+  justify-content: center;
   align-items: center;
-  display: block;
-  border: none;
+  display: flex;
+  border: var(--borderWidth200) solid var(--colorsActionMinorTransparent);
   background: none;
   box-shadow: none;
   cursor: pointer;
-  height: 40px;
-  width: 40px;
-  padding: 0;
+  height: var(--sizing500);
+  width: var(--sizing500);
+  padding: var(--spacing150);
+  box-sizing: border-box;
   &:focus {
-    outline: ${({ theme }) => `3px solid ${theme.colors.focus}`};
+    outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
   }
 `;
-
-StyledButton.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledButton;

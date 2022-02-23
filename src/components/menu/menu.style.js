@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
 import { layout, flexbox } from "styled-system";
+import menuConfigVariants from "./menu.config";
 
 import {
   StyledVerticalWrapper,
   StyledDivider,
 } from "../vertical-divider/vertical-divider.style";
-import { baseTheme } from "../../style/themes";
 import { StyledLink } from "../link/link.style";
 
 const StyledMenuWrapper = styled.ul`
@@ -19,14 +19,14 @@ const StyledMenuWrapper = styled.ul`
   ${flexbox}
 
   ${StyledVerticalWrapper} {
-    ${({ menuType, theme }) => css`
+    ${({ menuType }) => css`
       display: inline-block;
       vertical-align: bottom;
-      background-color: ${theme.menu[menuType].background};
+      background-color: ${menuConfigVariants[menuType].background};
 
       ${menuType === "dark" &&
       css`
-        color: ${theme.colors.white};
+        color: ${menuConfigVariants[menuType].color};
       `}
     `}
 
@@ -66,9 +66,5 @@ const StyledMenuItem = styled.li`
       }
     `}
 `;
-
-StyledMenuWrapper.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledMenuWrapper, StyledMenuItem };

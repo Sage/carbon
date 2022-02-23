@@ -669,15 +669,6 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "warning": "#ED8333",
             "warningButtonFocus": "#E96400",
           },
-          "pod": Object {
-            "border": "#CCD6DB",
-            "footerBackground": "#F2F5F6",
-            "hoverBackground": "#D9E0E4",
-            "secondaryBackground": "#F2F5F6",
-            "softDeleteText": "rgba(0,0,0,0.3)",
-            "tertiaryBackground": "#E6EBED",
-            "tileBackground": "#FFFFFF",
-          },
           "popoverContainer": Object {
             "iconColor": "rgba(0,0,0,0.90)",
           },

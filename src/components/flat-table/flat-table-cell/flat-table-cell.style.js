@@ -23,9 +23,9 @@ const StyledFlatTableCell = styled.td`
     verticalBorder,
     verticalBorderColor,
   }) => css`
-    background-color: #fff;
+    background-color: var(--colorsUtilityYang100);
     border-width: 0;
-    border-bottom: 1px solid ${theme.table.secondary};
+    border-bottom: 1px solid var(--colorsUtilityMajor100);
     text-align: ${align};
     vertical-align: middle;
     padding: 0;
@@ -57,7 +57,7 @@ const StyledFlatTableCell = styled.td`
       ${verticalBorder &&
       css`
         border-right: ${verticalBorderSizes[verticalBorder]} solid
-          ${theme.table.secondary};
+          var(--colorsUtilityMajor300);
       `}
 
       ${verticalBorderColor &&
@@ -67,17 +67,17 @@ const StyledFlatTableCell = styled.td`
     }
 
     &:first-of-type {
-      border-left: 1px solid ${theme.table.secondary};
+      border-left: 1px solid var(--colorsUtilityMajor100);
     }
 
     &:last-of-type {
-      border-right: 1px solid ${theme.table.secondary};
+      border-right: 1px solid var(--colorsUtilityMajor100);
     }
 
     ${rowSpan &&
     css`
       &:first-of-type + & {
-        border-left: 1px solid ${theme.table.secondary};
+        border-left: 1px solid var(--colorsUtilityMajor100);
       }
     `}
 

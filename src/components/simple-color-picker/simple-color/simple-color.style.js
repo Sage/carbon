@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const StyledSimpleColor = styled.div`
-  width: 56px;
-  height: 56px;
+  width: var(--sizing700);
+  height: var(--sizing700);
   margin-right: 2px;
   margin-bottom: 2px;
 

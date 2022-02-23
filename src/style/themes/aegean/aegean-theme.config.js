@@ -28,6 +28,16 @@ export default (palette) => {
         colorsActionMajor600: this.colors.secondary,
         colorsActionMajor150: this.colors.loadingBarBackground,
 
+        colorsComponentsMenuAutumnStandard600: this.colors.primary,
+        colorsComponentsMenuSpringChild600: this.colors.primary,
+        colorsComponentsMenuAutumnChild600: this.colors.primary,
+        colorsComponentsMenuSummerChild600: this.colors.primary,
+        colorsComponentsMenuWinterChild600: this.colors.primary,
+        colorsComponentsMenuSpringChildAlt600: this.colors.primary,
+        colorsComponentsMenuAutumnChildAlt600: this.colors.primary,
+        colorsComponentsMenuWinterChildAlt600: this.colors.primary,
+        colorsComponentsMenuSummerChildAlt600: this.colors.primary,
+
         colorsBaseTheme: this.colors.primary,
       };
     },

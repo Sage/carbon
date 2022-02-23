@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { Editor, Modifier } from "draft-js";
 import { act } from "react-dom/test-utils";
 import { shallow, mount } from "enzyme";
-import { ThemeProvider } from "styled-components";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
   expectError,
 } from "../../__spec_helper__/test-utils";
-import mintTheme from "../../style/themes/mint";
 import TextEditor, {
   TextEditorContentState,
   TextEditorState,
@@ -83,15 +81,13 @@ const MockComponent = (props) => {
   const [value, setValue] = useState(createContent());
 
   return (
-    <ThemeProvider theme={mintTheme}>
-      <TextEditor
-        value={value}
-        onChange={(val) => setValue(val)}
-        labelText="Text Editor Label"
-        labelId="foo"
-        {...props}
-      />
-    </ThemeProvider>
+    <TextEditor
+      value={value}
+      onChange={(val) => setValue(val)}
+      labelText="Text Editor Label"
+      labelId="foo"
+      {...props}
+    />
   );
 };
 
@@ -124,8 +120,8 @@ describe("TextEditor", () => {
         {
           minHeight: "220px",
           minWidth: "320px",
-          backgroundColor: mintTheme.colors.white,
-          outline: `1px solid ${mintTheme.editor.border}`,
+          backgroundColor: "var(--colorsUtilityYang100)",
+          outline: "1px solid var(--colorsUtilityMajor200)",
         },
         wrapper.find(StyledEditorContainer)
       );
@@ -164,7 +160,7 @@ describe("TextEditor", () => {
 
       assertStyleMatch(
         {
-          outline: `3px solid ${mintTheme.colors.focus}`,
+          outline: "3px solid var(--colorsSemanticFocus500)",
           outlineOffset: "1px",
         },
         wrapper.find(StyledEditorOutline)
@@ -723,7 +719,7 @@ describe("TextEditor", () => {
           expect(hasBlockStyle(style)).toBeTruthy();
           assertStyleMatch(
             {
-              backgroundColor: mintTheme.editor.button.hover,
+              backgroundColor: "var(--colorsActionMinor200)",
             },
             wrapper.find(ToolbarButton).at(index)
           );
@@ -899,7 +895,7 @@ describe("TextEditor", () => {
     it("applies the expected outline when an error message is passed", () => {
       assertStyleMatch(
         {
-          outline: `2px solid ${mintTheme.colors.error}`,
+          outline: "2px solid var(--colorsSemanticNegative500)",
         },
         render({ error: "error" }).find(StyledEditorContainer)
       );
@@ -916,7 +912,7 @@ describe("TextEditor", () => {
 
       assertStyleMatch(
         {
-          outline: `3px solid ${mintTheme.colors.focus}`,
+          outline: "3px solid var(--colorsSemanticFocus500)",
           outlineOffset: "2px",
         },
         wrapper.find(StyledEditorOutline)
