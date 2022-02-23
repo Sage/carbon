@@ -1,3 +1,11 @@
+## [104.28.0](https://github.com/Sage/carbon/compare/v104.27.0...v104.28.0) (2022-02-23)
+
+
+### Features
+
+* **pod:** describe pod using design tokens, update tests ([efe366a](https://github.com/Sage/carbon/commit/efe366a3e873ea9b8fa86d09dbb32ec10bc93058))
+* **show-edit-pod:** describe show-edit-pod using design tokens, update tests ([bcb30be](https://github.com/Sage/carbon/commit/bcb30be673d9bbf71c7bc4cb767b54b97688138b))
+
 ## [104.27.0](https://github.com/Sage/carbon/compare/v104.26.1...v104.27.0) (2022-02-23)
 
 

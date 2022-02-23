@@ -6,7 +6,6 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import Form from "../form";
 import Button from "../button";
-import StyledDeleteButton from "./delete-button.style";
 import Events from "../../__internal__/utils/helpers/events";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import LocaleContext from "../../__internal__/i18n-context";
@@ -96,14 +95,15 @@ const ShowEditPod = ({
     const label = deleteText || locale.actions.delete();
 
     return (
-      <StyledDeleteButton
+      <Button
         buttonType="tertiary"
+        destructive
         data-element="delete-button"
         size="small"
         onClick={onDelete}
       >
         {label}
-      </StyledDeleteButton>
+      </Button>
     );
   };
 
