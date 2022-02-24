@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import {
@@ -19,6 +13,7 @@ import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledDateRange from "./date-range.style";
 import Events from "../../__internal__/utils/helpers/events";
 import useLocale from "../../hooks/__internal__/useLocale";
+import usePrevious from "../../hooks/__internal__/usePrevious";
 import getFormatData from "../date/__internal__/date-formats";
 import DateRangeContext from "./date-range.context";
 
@@ -98,14 +93,6 @@ const DateRange = ({
       ? ""
       : formatToISO(format, getEndDate()),
   });
-
-  function usePrevious(arg) {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = arg;
-    });
-    return ref.current;
-  }
 
   const previousValue = usePrevious(value);
 

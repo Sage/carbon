@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { mount, shallow } from "enzyme";
 
-import baseTheme from "../../style/themes/base";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
@@ -78,7 +77,7 @@ describe("Form", () => {
       assertStyleMatch(
         {
           marginTop: "0",
-          marginBottom: "24px",
+          marginBottom: "var(--spacing300)",
         },
         wrapper,
         {
@@ -94,7 +93,7 @@ describe("Form", () => {
       assertStyleMatch(
         {
           marginTop: "0",
-          marginBottom: "16px",
+          marginBottom: "var(--spacing200)",
         },
         wrapper,
         {
@@ -113,7 +112,7 @@ describe("Form", () => {
 
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.colors.white,
+          backgroundColor: "var(--colorsUtilityYang100)",
           boxShadow: "0 -4px 12px 0 rgba(0,0,0,0.05)",
           boxSizing: "border-box",
           padding: "16px 32px",
@@ -180,11 +179,11 @@ describe("Form", () => {
 
         assertStyleMatch(
           {
-            paddingRight: "32px",
-            paddingLeft: "32px",
+            paddingRight: "var(--spacing400)",
+            paddingLeft: "var(--spacing400)",
             paddingTop: "27px",
-            marginRight: "-32px",
-            marginLeft: "-32px",
+            marginRight: "calc(-1 * var(--spacing400))",
+            marginLeft: "calc(-1 * var(--spacing400))",
             marginTop: "-27px",
           },
           wrapper,
@@ -193,11 +192,11 @@ describe("Form", () => {
 
         assertStyleMatch(
           {
-            marginLeft: "-32px",
-            marginBottom: "-32px",
-            width: "calc(100% + 64px)",
-            paddingLeft: "32px",
-            paddingRight: "32px",
+            marginLeft: "calc(-1 * var(--spacing400))",
+            marginBottom: "calc(-1 * var(--spacing400))",
+            width: "calc(100% + var(--spacing800))",
+            paddingLeft: "var(--spacing400)",
+            paddingRight: "var(--spacing400)",
           },
           wrapper,
           { modifier: `${StyledFormFooter}.sticky` }
@@ -300,14 +299,14 @@ describe("Form", () => {
       wrapper.setProps({ warningCount: 1 });
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.form.invalid,
+          backgroundColor: "var(--colorsUtilityMajor025)",
         },
         wrapper.find(StyledFormSummary)
       );
       wrapper.setProps({ errorCount: 1 });
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.form.invalid,
+          backgroundColor: "var(--colorsUtilityMajor025)",
         },
         wrapper.find(StyledFormSummary)
       );
@@ -334,7 +333,7 @@ describe("Form", () => {
 
         assertStyleMatch(
           {
-            color: baseTheme.colors.error,
+            color: "var(--colorsSemanticNegative600)",
           },
           errorSummary
         );
@@ -351,7 +350,7 @@ describe("Form", () => {
 
         assertStyleMatch(
           {
-            color: baseTheme.colors.warning,
+            color: "var(--colorsSemanticCaution650)",
           },
           warningSummary
         );
@@ -366,7 +365,7 @@ describe("Form", () => {
 
         assertStyleMatch(
           {
-            color: baseTheme.colors.error,
+            color: "var(--colorsSemanticNegative600)",
           },
           errorSummary
         );
@@ -379,7 +378,7 @@ describe("Form", () => {
 
         assertStyleMatch(
           {
-            color: baseTheme.colors.warning,
+            color: "var(--colorsSemanticCaution650)",
           },
           warningSummary
         );

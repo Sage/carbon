@@ -10,7 +10,6 @@ import {
   rootTagTest,
 } from "../../__internal__/utils/helpers/tags/tags-specs";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
-import StyledDeleteButton from "./delete-button.style";
 
 describe("ShowEditPod", () => {
   testStyledSystemMargin((props) => <ShowEditPod {...props} />);
@@ -297,7 +296,7 @@ describe("ShowEditPod", () => {
       });
       additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
 
-      expect(additionalComponent.type()).toBe(StyledDeleteButton);
+      expect(additionalComponent.type()).toBe(Button);
       additionalComponent.unmount();
     });
 

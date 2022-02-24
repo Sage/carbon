@@ -6,8 +6,8 @@ import MenuSegmentTitle from "./menu-segment-title.component";
 import MenuContext from "../menu.context";
 import { MenuItem } from "..";
 import StyledTitle from "./menu-segment-title.style";
-import { baseTheme } from "../../../style/themes";
 import openSubmenu from "../__internal__/spec-helper";
+import menuConfigVariants from "../menu.config";
 
 const menuContextValues = (menuType) => ({
   menuType,
@@ -56,7 +56,7 @@ describe("Title", () => {
             textTransform: "uppercase",
             lineHeight: "12px",
             cursor: "default",
-            color: baseTheme.menu[menuType].title,
+            color: menuConfigVariants[menuType].title,
           },
           wrapper.find(StyledTitle)
         );
@@ -68,7 +68,7 @@ describe("Title", () => {
 
         assertStyleMatch(
           {
-            background: baseTheme.menu[menuType].alternate,
+            backgroundColor: menuConfigVariants[menuType].alternate,
           },
           wrapper.find(StyledTitle)
         );

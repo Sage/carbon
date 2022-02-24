@@ -176,7 +176,7 @@ describe("PicklistGroup component", () => {
 
           assertStyleMatch(
             {
-              background: "#006300",
+              background: "var(--colorsActionMajor600)",
             },
             wrapper,
             { modifier: `${StyledButton}` }
@@ -216,7 +216,7 @@ describe("PicklistGroup component", () => {
 
           assertStyleMatch(
             {
-              background: "#9F2D3F",
+              background: "var(--colorsSemanticNegative600)",
             },
             wrapper,
             { modifier: `${StyledButton}` }
@@ -258,7 +258,7 @@ describe("PicklistGroup component", () => {
 
           assertStyleMatch(
             {
-              background: "#006300",
+              background: "var(--colorsActionMajor600)",
             },
             wrapper,
             { modifier: `${StyledButton}` }
@@ -298,7 +298,7 @@ describe("PicklistGroup component", () => {
 
           assertStyleMatch(
             {
-              background: "#9F2D3F",
+              background: "var(--colorsSemanticNegative600)",
             },
             wrapper,
             { modifier: `${StyledButton}` }

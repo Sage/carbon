@@ -11,11 +11,12 @@ import MenuDivider from "../../menu-divider/menu-divider.component";
 import Submenu from "./submenu.component";
 import ScrollableBlock from "../../scrollable-block";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
-import { baseTheme, mintTheme } from "../../../../style/themes";
+import { mintTheme } from "../../../../style/themes";
 import Search from "../../../search";
 import StyledSearch from "../../../search/search.style";
 import openSubmenu from "../spec-helper";
 import SubmenuContext from "./submenu.context";
+import menuConfigVariants from "../../menu.config";
 
 const events = {
   arrowDown: {
@@ -1049,7 +1050,7 @@ describe("Submenu component", () => {
         renderWrapper("default");
         assertStyleMatch(
           {
-            background: baseTheme.menu[menuType].submenuBackground,
+            backgroundColor: menuConfigVariants[menuType].submenuItemBackground,
           },
           wrapper.find(StyledSubmenu)
         );
@@ -1059,10 +1060,55 @@ describe("Submenu component", () => {
         renderWrapper("alternate");
         assertStyleMatch(
           {
-            background: baseTheme.menu[menuType].background,
+            backgroundColor: menuConfigVariants[menuType].background,
           },
           wrapper.find(StyledSubmenu)
         );
+      });
+
+      it.each([
+        ["button", "focus"],
+        ["a", "focus"],
+      ])("applies the expected styling for %p on %s", (el, pseudo) => {
+        renderWrapper("default");
+        assertStyleMatch(
+          {
+            backgroundColor: menuConfigVariants[menuType].submenuItemBackground,
+          },
+          wrapper.find(StyledSubmenu),
+          { modifier: `${StyledMenuItemWrapper} ${el}:${pseudo}` }
+        );
+      });
+
+      describe.each([
+        ["button", "hover"],
+        ["a", "hover"],
+      ])("applies the expected styling for %p on %s", (el, pseudo) => {
+        it("renders correct background and color", () => {
+          renderWrapper("default");
+          assertStyleMatch(
+            {
+              backgroundColor:
+                menuConfigVariants[menuType].submenuItemBackgroundHover,
+              color: "var(--colorsComponentsMenuYang100)",
+            },
+            wrapper.find(StyledSubmenu),
+            { modifier: `${StyledMenuItemWrapper} ${el}:${pseudo}` }
+          );
+        });
+
+        it("renders correct icon color", () => {
+          renderWrapper("default");
+          assertStyleMatch(
+            {
+              color: "var(--colorsComponentsMenuYang100)",
+            },
+            wrapper.find(StyledSubmenu),
+            {
+              modifier: `${StyledMenuItemWrapper} ${el}:${pseudo} [data-component="icon"]`,
+            }
+          );
+        });
       });
     }
   );
@@ -1172,7 +1218,18 @@ describe("Submenu component", () => {
 
         assertStyleMatch(
           {
-            color: baseTheme.menu[menuType].searchIcon,
+            borderBottomColor: "var(--colorsUtilityMajor150)",
+          },
+          wrapper.find(StyledSubmenu),
+          {
+            modifier: css`
+              ${StyledMenuItemWrapper} ${StyledSearch}:hover
+            `,
+          }
+        );
+        assertStyleMatch(
+          {
+            color: "var(--colorsUtilityMajor200)",
           },
           wrapper.find(StyledSubmenu),
           {
@@ -1183,7 +1240,7 @@ describe("Submenu component", () => {
         );
         assertStyleMatch(
           {
-            color: baseTheme.menu[menuType].searchIconHover,
+            color: "var(--colorsUtilityMajor150)",
           },
           wrapper.find(StyledSubmenu),
           {

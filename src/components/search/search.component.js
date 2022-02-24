@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import invariant from "invariant";
@@ -48,6 +48,13 @@ const Search = ({
   const [searchIsActive, setSearchIsActive] = useState(
     initialValue.length >= threshold
   );
+  useEffect(() => {
+    setSearchIsActive(
+      !isControlled
+        ? searchValue.length >= threshold
+        : value.length >= threshold
+    );
+  }, [isControlled, searchValue, threshold, value]);
 
   const [iconType, iconTabIndex] = useMemo(() => {
     const isSearchValueEmpty = !isControlled
@@ -57,11 +64,6 @@ const Search = ({
       isFocused ||
       searchIsActive ||
       inputRef?.current === document.activeElement;
-    setSearchIsActive(
-      !isControlled
-        ? searchValue.length >= threshold
-        : value.length >= threshold
-    );
 
     if (!isSearchValueEmpty) {
       return ["cross", 0];
@@ -97,8 +99,11 @@ const Search = ({
     }
   };
 
-  const handleOnFocus = () => {
+  const handleFocus = (e) => {
     setIsFocused(true);
+    if (onFocus) {
+      onFocus(e);
+    }
   };
 
   let buttonProps = {};
@@ -133,13 +138,19 @@ const Search = ({
     ev.preventDefault();
   };
 
-  const handleBlur = () => {
+  const handleBlur = (e) => {
     setIsFocused(false);
+    if (onBlur) {
+      onBlur(e);
+    }
   };
 
   const handleKeyDown = (ev) => {
     if (Events.isAlphabetKey(ev) || Events.isNumberKey(ev)) {
       ev.stopPropagation();
+    }
+    if (onKeyDown) {
+      onKeyDown(ev);
     }
   };
 
@@ -165,11 +176,6 @@ const Search = ({
       {...filterStyledSystemMarginProps(rest)}
       {...tagComponent("search", rest)}
       id={id}
-      onFocus={handleOnFocus}
-      onClick={handleOnFocus}
-      onBlur={handleBlur}
-      onChange={handleChange}
-      onKeyDown={handleKeyDown}
       name={name}
       {...rest}
     >
@@ -181,10 +187,10 @@ const Search = ({
         iconOnClick={handleIconClick}
         iconOnMouseDown={handleMouseDown}
         aria-label={ariaLabel}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
         inputRef={assignInput}
         tabIndex={tabIndex}
       />

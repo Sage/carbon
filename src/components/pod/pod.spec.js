@@ -25,7 +25,6 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../__internal__/utils/helpers/tags/tags-specs";
-import { baseTheme } from "../../style/themes";
 import LocaleContext from "../../__internal__/i18n-context";
 
 describe("Pod", () => {
@@ -277,7 +276,7 @@ describe("Pod", () => {
               editContainer.simulate(eventType);
               assertStyleMatch(
                 {
-                  backgroundColor: baseTheme.colors.secondary,
+                  backgroundColor: "var(--colorsActionMajor600)",
                 },
                 wrapper.find(StyledBlock)
               );
@@ -287,7 +286,7 @@ describe("Pod", () => {
               editContainer.simulate(nextEventType);
               assertStyleMatch(
                 {
-                  backgroundColor: baseTheme.pod.tertiaryBackground,
+                  backgroundColor: "var(--colorsUtilityMajor050)",
                 },
                 wrapper.find(StyledBlock)
               );
@@ -451,11 +450,11 @@ describe("ActionButtons", () => {
     });
 
     describe.each([
-      ["primary", baseTheme.colors.white],
-      ["secondary", baseTheme.pod.secondaryBackground],
-      ["tertiary", baseTheme.pod.tertiaryBackground],
-      ["transparent", "transparent"],
-      ["tile", baseTheme.colors.white],
+      ["primary", "var(--colorsActionMajorYang100)"],
+      ["secondary", "var(--colorsActionMinor050)"],
+      ["tertiary", "var(--colorsActionMinor100)"],
+      ["transparent", "var(--colorsActionMajorTransparent)"],
+      ["tile", "var(--colorsActionMajorYang100)"],
     ])("when the variant prop is set to %s", (variant, expectedValue) => {
       it("should have expected backgroundColor", () => {
         wrapper = renderer({ variant });
@@ -510,7 +509,7 @@ describe("ActionButtons", () => {
         assertStyleMatch(
           {
             border: "none",
-            background: "transparent",
+            background: "var(--colorsActionMajorTransparent)",
           },
           wrapper,
           {
@@ -527,7 +526,7 @@ describe("ActionButtons", () => {
           });
           assertStyleMatch(
             {
-              outline: "3px solid #FFB500",
+              outline: "3px solid var(--colorsSemanticFocus500)",
               border: "none",
             },
             wrapper,
@@ -641,11 +640,11 @@ describe("StyledBlock", () => {
   });
 
   describe.each([
-    ["primary", baseTheme.colors.white],
-    ["secondary", baseTheme.pod.secondaryBackground],
-    ["tertiary", baseTheme.pod.tertiaryBackground],
-    ["transparent", "transparent"],
-    ["tile", baseTheme.colors.white],
+    ["primary", "var(--colorsUtilityYang100)"],
+    ["secondary", "var(--colorsUtilityMajor025)"],
+    ["tertiary", "var(--colorsUtilityMajor050)"],
+    ["transparent", "var(--colorsUtilityMajorTransparent)"],
+    ["tile", "var(--colorsUtilityYang100)"],
   ])("when the variant prop is set to %s", (variant, expectedValue) => {
     it("should have expected backgroundColor", () => {
       wrapper = renderStyledBlock({ variant });
@@ -714,8 +713,8 @@ describe("StyledBlock", () => {
       wrapper = renderStyledBlock({ softDelete: true });
       assertStyleMatch(
         {
-          color: baseTheme.pod.softDeleteText,
-          backgroundColor: baseTheme.pod.tertiaryBackground,
+          color: "var(--colorsUtilityYin030)",
+          backgroundColor: "var(--colorsUtilityMajor050)",
         },
         wrapper
       );
@@ -727,7 +726,7 @@ describe("StyledBlock", () => {
       wrapper = renderStyledBlock({ [prop]: true });
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.pod.hoverBackground,
+          backgroundColor: "var(--colorsUtilityMajor075)",
         },
         wrapper
       );
@@ -742,7 +741,7 @@ describe("StyledBlock", () => {
         });
         assertStyleMatch(
           {
-            backgroundColor: "transparent",
+            backgroundColor: "var(--colorsUtilityMajorTransparent)",
           },
           wrapper
         );
@@ -772,7 +771,7 @@ describe("StyledBlock", () => {
           assertStyleMatch(
             {
               outline: undefined,
-              border: "1px solid #CCD6DB",
+              border: "1px solid var(--colorsUtilityMajor100)",
             },
             wrapper
           );
@@ -788,7 +787,7 @@ describe("StyledBlock", () => {
           });
           assertStyleMatch(
             {
-              outline: "3px solid #FFB500",
+              outline: "3px solid var(--colorsSemanticFocus500)",
               border: "none",
             },
             wrapper
@@ -812,7 +811,7 @@ describe("StyledFooter", () => {
       wrapper = renderStyledFooter({ variant: "tile" });
       assertStyleMatch(
         {
-          borderTop: `1px solid ${baseTheme.pod.border}`,
+          borderTop: `1px solid var(--colorsUtilityMajor100)`,
         },
         wrapper
       );
@@ -836,7 +835,7 @@ describe("StyledFooter", () => {
       wrapper = renderStyledFooter({ softDelete: true });
       assertStyleMatch(
         {
-          color: baseTheme.pod.softDeleteText,
+          color: "var(--colorsUtilityYin030)",
         },
         wrapper
       );
