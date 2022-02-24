@@ -3,14 +3,14 @@
 exports[`CarbonScopedTokensProvider should render css variables for all themes 1`] = `
 Array [
   CSSStyleRule {
-    "__ends": 14705,
+    "__ends": 14704,
     "__starts": 34,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
       "parentStyleSheet": null,
     },
-    "selectorText": ".Pjcfu",
+    "selectorText": ".gLTtiD",
     "style": CSSStyleDeclaration {
       "--borderRadiusCircle": "50%",
       "--borderWidth000": "0px",
@@ -254,7 +254,7 @@ Array [
       "--sizing800": "64px",
       "--sizing900": "72px",
       "--sizingLogowidth": "40px",
-      "--spacing000": "0px",
+      "--spacing000": "0",
       "--spacing025": "2px",
       "--spacing050": "4px",
       "--spacing075": "6px",
@@ -752,7 +752,7 @@ Array [
       "97": "--colorsUtilityReadOnly600",
       "98": "--colorsActionMajor150",
       "99": "--colorsActionMajor500",
-      "__starts": 40,
+      "__starts": 41,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",
@@ -1136,14 +1136,14 @@ Array [
     },
   },
   CSSStyleRule {
-    "__ends": 29377,
-    "__starts": 14705,
+    "__ends": 29374,
+    "__starts": 14704,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
       "parentStyleSheet": null,
     },
-    "selectorText": ".iLKgYk",
+    "selectorText": ".locBbH",
     "style": CSSStyleDeclaration {
       "--borderRadiusCircle": "50%",
       "--borderWidth000": "0px",
@@ -1387,7 +1387,7 @@ Array [
       "--sizing800": "64px",
       "--sizing900": "72px",
       "--sizingLogowidth": "40px",
-      "--spacing000": "0px",
+      "--spacing000": "0",
       "--spacing025": "2px",
       "--spacing050": "4px",
       "--spacing075": "6px",
@@ -1885,7 +1885,7 @@ Array [
       "97": "--colorsUtilityReadOnly600",
       "98": "--colorsActionMajor150",
       "99": "--colorsActionMajor500",
-      "__starts": 14712,
+      "__starts": 14711,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",
@@ -2269,14 +2269,14 @@ Array [
     },
   },
   CSSStyleRule {
-    "__ends": 44041,
-    "__starts": 29377,
+    "__ends": 44036,
+    "__starts": 29374,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
       "parentStyleSheet": null,
     },
-    "selectorText": ".gxcojr",
+    "selectorText": ".bVYmVa",
     "style": CSSStyleDeclaration {
       "--borderRadiusCircle": "50%",
       "--borderWidth000": "0px",
@@ -2519,7 +2519,7 @@ Array [
       "--sizing800": "64px",
       "--sizing900": "72px",
       "--sizingLogowidth": "40px",
-      "--spacing000": "0px",
+      "--spacing000": "0",
       "--spacing025": "2px",
       "--spacing050": "4px",
       "--spacing075": "6px",
@@ -3016,7 +3016,7 @@ Array [
       "97": "--colorsUtilityReadOnly600",
       "98": "--colorsActionMajor150",
       "99": "--colorsActionMajor500",
-      "__starts": 29384,
+      "__starts": 29381,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",
@@ -3399,8 +3399,8 @@ Array [
     },
   },
   CSSStyleRule {
-    "__ends": 58721,
-    "__starts": 44041,
+    "__ends": 58716,
+    "__starts": 44036,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
@@ -4146,7 +4146,7 @@ Array [
       "97": "--colorsUtilityReadOnly600",
       "98": "--colorsActionMajor150",
       "99": "--colorsActionMajor500",
-      "__starts": 44048,
+      "__starts": 44043,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",
