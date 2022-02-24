@@ -10,7 +10,7 @@ export interface DialogFullScreenProps extends ModalProps {
    */
   "aria-label"?: string;
   /**
-   * Prop to specify the aria-labeledby property of the DialogFullscreen component
+   * Prop to specify the aria-labelledby property of the DialogFullscreen component
    * To be used when the title prop is a custom React Node,
    * or the component is labelled by an internal element other than the title.
    */
@@ -39,7 +39,7 @@ export interface DialogFullScreenProps extends ModalProps {
   subtitle?: string;
   /** Title displayed at top of dialog */
   title?: React.ReactNode;
-  /** The ARIA role to be applied to the DialogFulscreen container */
+  /** The ARIA role to be applied to the DialogFullscreen container */
   role?: string;
 }
 

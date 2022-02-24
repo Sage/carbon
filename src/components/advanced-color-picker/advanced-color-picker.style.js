@@ -25,7 +25,7 @@ const StyledAdvancedColorPickerPreview = styled.div`
   width: 25px;
   height: 25px;
   margin-bottom: 15px;
-  border: 1px solid #516562;
+  border: 1px solid var(--colorsUtilityYin090);
 
   ${({ color }) =>
     color !== "transparent" &&
@@ -58,7 +58,7 @@ const DialogStyle = styled(Dialog)`
   ${StyledColorOptions} {
     max-width: 285px;
     ${StyledSimpleColor} {
-      border: 1px solid #3c514e;
+      border: 1px solid var(--colorsUtilityYin090);
       margin-right: -1px;
       margin-bottom: -1px;
       transition: all 0.2s ease;
@@ -76,6 +76,10 @@ const DialogStyle = styled(Dialog)`
   ${StyledIconButton} {
     top: 20px;
     right: 13px;
+  }
+
+  [data-component="icon"] {
+    color: var(--colorsActionMinorYin065);
   }
 `;
 

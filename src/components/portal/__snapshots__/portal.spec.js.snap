@@ -519,9 +519,6 @@ exports[`Portal when using default node to match snapshot  1`] = `
               "headerBackground": "#fff",
             },
           },
-          "form": Object {
-            "invalid": "#F2F5F6",
-          },
           "help": Object {
             "color": "rgba(0,0,0,0.65)",
             "hover": "rgba(0,0,0,0.9)",
@@ -663,15 +660,6 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "neutralBackgroundFocus": "#1A475B",
             "warning": "#ED8333",
             "warningButtonFocus": "#E96400",
-          },
-          "pod": Object {
-            "border": "#CCD6DB",
-            "footerBackground": "#F2F5F6",
-            "hoverBackground": "#D9E0E4",
-            "secondaryBackground": "#F2F5F6",
-            "softDeleteText": "rgba(0,0,0,0.3)",
-            "tertiaryBackground": "#E6EBED",
-            "tileBackground": "#FFFFFF",
           },
           "popoverContainer": Object {
             "iconColor": "rgba(0,0,0,0.90)",

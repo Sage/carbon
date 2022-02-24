@@ -3,7 +3,6 @@ import {
   StyledHeader,
   StyledHeading,
 } from "../../components/heading/heading.style";
-import baseTheme from "../../style/themes/base";
 
 export const StyledHeaderContainer = styled.div`
   display: flex;
@@ -14,7 +13,7 @@ const StyledFullScreenHeading = styled.div`
   ${({ hasContent }) =>
     hasContent &&
     css`
-      border-bottom: 1px solid ${({ theme }) => theme.disabled.border};
+      border-bottom: 1px solid var(--colorsUtilityMajor050);
     `}
   display: flex;
   justify-content: space-between;
@@ -42,9 +41,5 @@ const StyledFullScreenHeading = styled.div`
     }
   }
 `;
-
-StyledFullScreenHeading.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledFullScreenHeading;
