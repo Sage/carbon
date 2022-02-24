@@ -2,8 +2,8 @@ import styled, { css } from "styled-components";
 import StyledInput from "../../__internal__/input/input.style";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import baseTheme from "../../style/themes/base";
 import StyledSelectText from "../select/__internal__/select-text/select-text.style";
+import Link from "../link";
 
 const StyledSelectContainer = styled.div`
   height: 26px;
@@ -21,66 +21,19 @@ const StyledPagerContainer = styled.div`
   border-top-width: 0;
   font-size: 13px;
   border-top: none;
+  color: var(--colorsUtilityYin090);
 
-  ${({ theme, variant }) =>
-    theme.table &&
-    theme.colors &&
+  ${({ variant }) =>
     css`
       border-width: 1px 1px 1px 1px;
       border-style: none solid solid solid;
-      border-color: ${theme.table.secondary};
+      border-color: var(--colorsUtilityMajor100);
       background-color: ${variant === "alternate"
-        ? theme.pager.alternate
-        : theme.table.zebra};
-
-      .carbon-input-icon {
-        border: none;
-        background: none;
-
-        &:hover {
-          background: none;
-          color: ${theme.colors.black};
-        }
-      }
-
-      .common-input__field:focus-within {
-        outline: 3px solid ${theme.colors.focus};
-      }
-
-      .common-input__input {
-        border: 1px solid ${theme.colors.border};
-
-        &:active,
-        &:hover,
-        &:focus {
-          border: 1px solid ${theme.colors.border};
-        }
-
-        &:focus {
-          border: 1px solid ${theme.colors.border};
-          color: ${theme.colors.black};
-        }
-
-        &:focus ~ label .carbon-input-icon,
-        &:focus ~ label .carbon-input-icon:hover {
-          border: none;
-          background: none;
-          color: ${theme.colors.black};
-        }
-
-        &:hover ~ label .carbon-input-icon {
-          border: none;
-          background: none;
-          color: ${theme.colors.black};
-        }
-
-        &:hover ~ label .carbon-input-icon:hover {
-          border: none;
-          background: none;
-        }
-      }
+        ? "var(--colorsUtilityMajor040)"
+        : "var(--colorsUtilityMajor010)"};
     `}
 `;
+
 const StyledPagerSizeOptions = styled.div`
   display: flex;
   flex: 1 1 30%;
@@ -141,42 +94,10 @@ const StyledPagerNavInner = styled.div`
   padding: 0 12px;
 `;
 
-const StyledPagerLinkStyles = styled.button.attrs({ type: "button" })`
+const StyledPagerLinkStyles = styled(Link)`
   padding: 0 10px;
-  font-size: 13px;
-  border-width: 0;
-  background-color: transparent;
-  cursor: pointer;
   margin-left: 7px;
   margin-right: 7px;
-
-  ${({ theme }) =>
-    theme.pager &&
-    css`
-      color: ${theme.pager.active};
-
-      ${({ disabled }) =>
-        !disabled &&
-        css`
-          &:hover {
-            text-decoration: underline;
-            padding: 5px 10px;
-          }
-        `}
-
-      &:focus {
-        outline: solid 3px ${theme.colors.focus};
-        padding: 5px 10px;
-      }
-    `}
-
-  ${({ disabled, theme }) =>
-    disabled &&
-    theme &&
-    css`
-      color: ${theme.pager.disabled};
-      cursor: not-allowed;
-    `}
 `;
 
 const StyledPagerNoSelect = styled.span`
@@ -189,34 +110,6 @@ const StyledPagerSummary = styled.div`
   flex: 1 1 30%;
   justify-content: flex-end;
 `;
-
-StyledPagerContainer.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledPagerSizeOptions.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledPagerSizeOptionsInner.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledPagerNavigation.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledPagerNavInner.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledPagerLinkStyles.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledPagerSummary.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledPagerContainer,

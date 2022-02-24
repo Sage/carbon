@@ -11,6 +11,38 @@ const mockRef = React.createRef();
 describe("StickyFooter component", () => {
   let wrapper;
 
+  describe("styling", () => {
+    const assertPaddingMatch = (footer) => {
+      assertStyleMatch(
+        {
+          padding: "var(--spacing200) var(--spacing400)",
+          boxSizing: "border-box",
+        },
+        footer
+      );
+    };
+
+    it("should have correct padding when sticky", () => {
+      wrapper = mount(
+        <div id="container" ref={mockRef}>
+          <StickyFooter containerRef={mockRef}>Some content</StickyFooter>
+        </div>
+      );
+      assertPaddingMatch(wrapper.find(StyledStickyFooter));
+    });
+
+    it("should have correct padding when not sticky", () => {
+      wrapper = mount(
+        <div id="container" ref={mockRef}>
+          <StickyFooter containerRef={mockRef} disableSticky>
+            Some content
+          </StickyFooter>
+        </div>
+      );
+      assertPaddingMatch(wrapper.find(StyledStickyFooter));
+    });
+  });
+
   describe("scroll behaviour", () => {
     beforeEach(() => {
       jest.useFakeTimers();
@@ -33,7 +65,6 @@ describe("StickyFooter component", () => {
           .mockImplementation(() => 40);
 
         const containerNode = wrapper.find("#container").getDOMNode();
-
         jest
           .spyOn(containerNode, "clientHeight", "get")
           .mockImplementation(() => 1000);
@@ -56,8 +87,8 @@ describe("StickyFooter component", () => {
             width: "100%",
             bottom: "0",
             left: "0",
-            backgroundColor: "#FFFFFF",
-            boxShadow: "0 -4px 12px rgba(153,173,182,0.05)",
+            backgroundColor: "var(--colorsComponentsNavigationYang100)",
+            boxShadow: "var(--boxShadow150)",
             zIndex: "1000",
           },
           wrapper.find(StyledStickyFooter)

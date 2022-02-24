@@ -1,19 +1,15 @@
 import styled, { css } from "styled-components";
-import { baseTheme } from "../../../style/themes";
 import StyledMenuItemWrapper from "../menu-item/menu-item.style";
+import menuConfigVariants from "../menu.config";
 
 const StyledScrollableBlock = styled.div`
-  ${({ menuType, variant, theme }) => css`
+  ${({ menuType, variant }) => css`
     && ${StyledMenuItemWrapper} {
       background-color: ${variant === "default"
-        ? theme.menu[menuType].submenuBackground
-        : theme.menu[menuType].background};
+        ? menuConfigVariants[menuType].submenuItemBackground
+        : menuConfigVariants[menuType].background};
     }
   `}
 `;
-
-StyledScrollableBlock.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledScrollableBlock;

@@ -43,6 +43,10 @@ const Input = React.forwardRef(
       if (context.inputRef) context.inputRef(input);
     }, [context, input]);
 
+    useEffect(() => {
+      if (disabled && context.onBlur) context.onBlur();
+    }, [disabled, context]);
+
     const handleClick = (ev) => {
       if (onClick) onClick(ev);
       input.current.focus();

@@ -151,10 +151,6 @@ export default (palette) => {
       },
     },
 
-    form: {
-      invalid: palette.slateTint(95),
-    },
-
     card: {
       footerBackground: palette.slateTint(95),
       footerBorder: palette.slateTint(80),
@@ -208,16 +204,6 @@ export default (palette) => {
     help: {
       color: palette.blackOpacity(0.65),
       hover: palette.blackOpacity(0.9),
-    },
-
-    pod: {
-      border: palette.slateTint(80),
-      secondaryBackground: palette.slateTint(95),
-      tertiaryBackground: palette.slateTint(90),
-      softDeleteText: palette.blackOpacity(0.3),
-      tileBackground: "#FFFFFF",
-      footerBackground: palette.slateTint(95),
-      hoverBackground: palette.slateTint(85),
     },
 
     text: {

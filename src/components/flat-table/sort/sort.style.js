@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import StyledIcon from "../../icon/icon.style";
-import { baseTheme } from "../../../style/themes";
 
 const StyledSort = styled.div`
   display: inline-flex;
@@ -14,7 +13,7 @@ const StyledSort = styled.div`
     width: 16px;
     height: 16px;
     padding-left: 6px;
-    color: ${({ theme }) => theme.flatTable.headerIconColor};
+    color: var(--colorsUtilityMajor200);
   }
 
   :hover {
@@ -23,7 +22,7 @@ const StyledSort = styled.div`
   }
 
   :focus {
-    outline: 1px solid ${({ theme }) => theme.colors.focus};
+    outline: 1px solid var(--colorsSemanticFocus500);
   }
 `;
 
@@ -31,9 +30,5 @@ const StyledSpaceHolder = styled.div`
   display: inline-block;
   width: 22px;
 `;
-
-StyledSort.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledSort, StyledSpaceHolder };
