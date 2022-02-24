@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { baseTheme } from "../../../style/themes";
 
 const StyledSelectListContainer = styled.div`
   background-color: white;
-  box-shadow: ${({ theme }) => `${theme.shadows.depth1}`};
+  box-shadow: var(--boxShadow100);
   position: absolute;
   ${({ placement }) => placement === "top-start" && "bottom: 0"};
   min-width: 100%;
@@ -11,6 +10,7 @@ const StyledSelectListContainer = styled.div`
   height: ${({ height }) => height};
   overflow: hidden;
   animation: fadeIn 250ms ease-out;
+
   @keyframes fadeIn {
     0% {
       opacity: 0;
@@ -20,9 +20,5 @@ const StyledSelectListContainer = styled.div`
     }
   }
 `;
-
-StyledSelectListContainer.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledSelectListContainer;
