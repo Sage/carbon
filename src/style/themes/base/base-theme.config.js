@@ -1,6 +1,20 @@
 import tokens from "@sage/design-tokens/js/base/common";
 import atOpacity from "../../utils/at-opacity";
 
+export const space = [
+  "var(--spacing000)",
+  "var(--spacing100)",
+  "var(--spacing200)",
+  "var(--spacing300)",
+  "var(--spacing400)",
+  "var(--spacing500)",
+  "var(--spacing600)",
+  "var(--spacing700)",
+  "var(--spacing800)",
+  "var(--spacing900)",
+  "var(--spacing1000)",
+];
+
 export default (palette) => {
   const baseWithOpacity = atOpacity(palette.productGreen);
 
@@ -11,7 +25,7 @@ export default (palette) => {
 
     spacing: 8,
 
-    space: [0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80],
+    space,
 
     colors: {
       // main

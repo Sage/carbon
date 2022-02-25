@@ -51,7 +51,7 @@ export interface ThemeObject {
   name: string;
   palette: BasePalette;
   spacing: number;
-  space: number[];
+  space: string[];
 
   colors: Colors;
 
