@@ -1,3 +1,11 @@
+## [104.31.0](https://github.com/Sage/carbon/compare/v104.30.0...v104.31.0) (2022-02-25)
+
+
+### Features
+
+* **definition-list:** descirbe DefinitionList component using design tokens ([17f3e84](https://github.com/Sage/carbon/commit/17f3e8450a1d3c44f615cab305900894c7ad78b8))
+* **select:** describe select component using design tokens ([6fa3b76](https://github.com/Sage/carbon/commit/6fa3b766171500afbf5ce4571bd171ef327c24aa))
+
 ## [104.30.0](https://github.com/Sage/carbon/compare/v104.29.0...v104.30.0) (2022-02-23)
 
 
