@@ -982,7 +982,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   <span
     aria-hidden={true}
     className="c1 c2"
-    color="var(--colorsActionMajor500)"
+    color="--colorsActionMajor500"
     data-component="icon"
     data-element="filter"
     disabled={false}
@@ -1948,7 +1948,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   <span
     aria-hidden={true}
     className="c1 c2"
-    color="var(--colorsActionMajor500)"
+    color="--colorsActionMajor500"
     data-component="icon"
     data-element="filter"
     disabled={false}
