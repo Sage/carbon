@@ -1,5 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Drawer uncontrolled Control Button renders with correct styles 1`] = `
+.c0 {
+  position: absolute;
+  top: var(--spacing300);
+  right: 8px;
+  padding: var(--spacing100);
+  width: var(--spacing300);
+  height: var(--spacing300);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-transition: margin-right ease-in-out;
+  transition: margin-right ease-in-out;
+  background-color: transparent;
+  border: none;
+  z-index: 1;
+  -webkit-animation: iaYDxU ease-in-out;
+  animation: iaYDxU ease-in-out;
+}
+
+.c0:focus {
+  outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+}
+
+.c0:hover {
+  cursor: pointer;
+}
+
+<button
+  className="c0"
+  type="button"
+/>
+`;
+
 exports[`Drawer uncontrolled matches snapshot 1`] = `
 <styled.div
   data-component="drawer"
@@ -9,7 +52,6 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
     animationDuration="0.5s"
     className="open"
     expandedWidth="20%"
-    theme="[ theme object ]"
   >
     <Styled(styled.div)
       hasControls={false}
