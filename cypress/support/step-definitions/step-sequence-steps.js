@@ -9,6 +9,14 @@ Then("indicator is set to {word}", (indicator) => {
   stepSequenceItemIndicator().should("have.text", indicator);
 });
 
+Then("indicator {word} is shown", (indicator) => {
+  stepSequenceItemIndicator().should("have.text", indicator);
+});
+
+Then("indicator {word} is not shown", (indicator) => {
+  stepSequenceItemIndicator().should("not.have.text", indicator);
+});
+
 Then("hidden label is set to {word}", (hiddenLabel) => {
   stepSequenceDataComponent().children().should("have.text", hiddenLabel);
 });
