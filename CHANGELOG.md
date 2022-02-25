@@ -1,3 +1,10 @@
+## [104.32.0](https://github.com/Sage/carbon/compare/v104.31.1...v104.32.0) (2022-02-25)
+
+
+### Features
+
+* **step-sequence-item:** support hiding indicator ([460ba0d](https://github.com/Sage/carbon/commit/460ba0dcbb4fb7cefc995cced58380611677cb4a))
+
 ### [104.31.1](https://github.com/Sage/carbon/compare/v104.31.0...v104.31.1) (2022-02-25)
 
 
