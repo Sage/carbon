@@ -1,3 +1,10 @@
+## [104.33.0](https://github.com/Sage/carbon/compare/v104.32.0...v104.33.0) (2022-02-25)
+
+
+### Features
+
+* **navigation-bar:** add position, offset and orientation props to enable fixed or sticky positions ([a2e8467](https://github.com/Sage/carbon/commit/a2e846774d6bcd7f0a7e9da6ae1b67450eddd4c4)), closes [#4691](https://github.com/Sage/carbon/issues/4691)
+
 ## [104.32.0](https://github.com/Sage/carbon/compare/v104.31.1...v104.32.0) (2022-02-25)
 
 
