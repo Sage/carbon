@@ -199,12 +199,6 @@ export interface ThemeObject {
     secondaryColor: string;
   };
 
-  definitionList: {
-    dtTextDark: string;
-    dtTextLight: string;
-    ddText: string;
-  };
-
   disabled: {
     border: string;
     button: string;
