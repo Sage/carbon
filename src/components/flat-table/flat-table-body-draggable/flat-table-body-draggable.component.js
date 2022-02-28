@@ -54,8 +54,9 @@ const FlatTableBodyDraggable = ({ children, getOrder }) => {
 
   const moveItem = (id, atIndex) => {
     const { draggableItem, index } = findItem(id);
-    const copyOfDraggableItems = [...draggableItems];
+    if (!draggableItem) return;
 
+    const copyOfDraggableItems = [...draggableItems];
     copyOfDraggableItems.splice(index, 1);
     copyOfDraggableItems.splice(atIndex, 0, draggableItem);
     setDraggableItems(copyOfDraggableItems);
