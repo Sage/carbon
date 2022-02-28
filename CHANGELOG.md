@@ -1,3 +1,11 @@
+### [104.33.1](https://github.com/Sage/carbon/compare/v104.33.0...v104.33.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* **draggable:** prevent crash when dragging item from one container to another ([def7ef7](https://github.com/Sage/carbon/commit/def7ef7fae2593b1e4830af776f5737960a55c69))
+* **flat-table-draggable:** prevent crash when dragging item from one table to another ([57e8b62](https://github.com/Sage/carbon/commit/57e8b62fdd2051ba72f16e1adb9fabec7e778034)), closes [#4857](https://github.com/Sage/carbon/issues/4857)
+
 ## [104.33.0](https://github.com/Sage/carbon/compare/v104.32.0...v104.33.0) (2022-02-25)
 
 
