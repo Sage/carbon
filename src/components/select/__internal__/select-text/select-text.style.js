@@ -1,8 +1,7 @@
 import styled, { css } from "styled-components";
-import { baseTheme } from "../../../../style/themes";
 
 const StyledSelectText = styled.span`
-  ${({ disabled, hasPlaceholder, readOnly, theme, transparent }) => css`
+  ${({ disabled, hasPlaceholder, readOnly, transparent }) => css`
     align-items: center;
     display: inline-flex;
     flex-grow: 1;
@@ -24,7 +23,7 @@ const StyledSelectText = styled.span`
 
     ${hasPlaceholder &&
     css`
-      color: ${theme.text.placeholder};
+      color: var(--colorsUtilityYin055);
       font-weight: normal;
       user-select: none;
     `}
@@ -39,14 +38,10 @@ const StyledSelectText = styled.span`
     ${readOnly &&
     css`
       cursor: default;
-      color: var(--colorsYin065);
+      color: var(--colorsUtilityYin065);
       text-shadow: none;
     `}
   `}
 `;
-
-StyledSelectText.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledSelectText;
