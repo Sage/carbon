@@ -17,7 +17,12 @@ import TextBox from "../textbox";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("Search", () => {
-  let wrapper, onBlur, onChange, onClick, onKeyDown;
+  let wrapper;
+  let onBlur;
+  let onFocus;
+  let onChange;
+  let onClick;
+  let onKeyDown;
 
   testStyledSystemMargin((props) => <Search value="" {...props} />);
 
@@ -28,7 +33,7 @@ describe("Search", () => {
     it("matches the expected styles", () => {
       assertStyleMatch(
         {
-          borderBottom: "2px solid #738F9B",
+          borderBottom: "2px solid var(--colorsUtilityMajor300)",
           display: "inline-flex",
           fontSize: "14px",
           fontWeight: "700",
@@ -37,21 +42,10 @@ describe("Search", () => {
       );
     });
 
-    it("matches the expected styles when the variant is dark", () => {
-      wrapper = renderWrapper({ value: "Foo", variant: "dark" }, mount);
-      assertStyleMatch(
-        {
-          borderBottom: "2px solid #8CA3AD",
-          color: "rgba(0,0,0,0.90)",
-        },
-        wrapper
-      );
-    });
-
     it("applies the default width when the user does not specify a width", () => {
       assertStyleMatch(
         {
-          borderBottom: "2px solid #738F9B",
+          borderBottom: "2px solid var(--colorsUtilityMajor300)",
           display: "inline-flex",
           fontSize: "14px",
           fontWeight: "700",
@@ -64,7 +58,7 @@ describe("Search", () => {
     it("applies the correct width specified by the user", () => {
       assertStyleMatch(
         {
-          borderBottom: "2px solid #738F9B",
+          borderBottom: "2px solid var(--colorsUtilityMajor300)",
           display: "inline-flex",
           fontSize: "14px",
           fontWeight: "700",
@@ -80,7 +74,7 @@ describe("Search", () => {
       input.simulate("focus");
       assertStyleMatch(
         {
-          borderBottom: "2px solid #738F9B",
+          borderBottom: "2px solid var(--colorsUtilityMajor300)",
         },
         wrapper
       );
@@ -90,7 +84,7 @@ describe("Search", () => {
       wrapper = renderWrapper({ value: "search", variant: "dark" }, mount);
       assertStyleMatch(
         {
-          borderBottom: "2px solid #8CA3AD",
+          borderBottom: "2px solid var(--colorsUtilityMajor200)",
           backgroundColor: "transparent",
         },
         wrapper
@@ -101,19 +95,8 @@ describe("Search", () => {
       wrapper = renderWrapper({ value: "search", searchButton: true }, mount);
       assertStyleMatch(
         {
-          borderBottom: "2px solid #738F9B",
+          borderBottom: "2px solid var(--colorsUtilityMajor300)",
           backgroundColor: "transparent",
-        },
-        wrapper
-      );
-    });
-
-    it("matches the expected styles when the search is active and has a value", () => {
-      wrapper = renderWrapper({ value: "Foo" }, mount);
-      assertStyleMatch(
-        {
-          borderBottom: "2px solid #738F9B",
-          color: "rgba(0,0,0,0.90)",
         },
         wrapper
       );
@@ -143,36 +126,6 @@ describe("Search", () => {
         {
           color: "var(--colorsYin065)",
         },
-        icon
-      );
-    });
-
-    it("matches the expected styles for mouse over icon when variant is dark", () => {
-      wrapper = renderWrapper(
-        {
-          value: "",
-          searchButton: true,
-          id: "Search",
-          name: "Search",
-          variant: "dark",
-        },
-        mount
-      );
-      const icon = wrapper
-        .find(Icon)
-        .findWhere((n) => n.props().type === "search")
-        .hostNodes();
-      act(() => {
-        const input = wrapper.find(Input);
-        input.simulate("focus");
-        icon.simulate("mouseover");
-      });
-      wrapper.update();
-      assertStyleMatch(
-        {
-          color: "rgba(0,0,0,0.90)",
-        },
-        wrapper,
         icon
       );
     });
@@ -335,6 +288,16 @@ describe("Search", () => {
         const input = wrapper.find("input");
         input.simulate("blur");
         expect(onBlur).toHaveBeenCalled();
+      });
+    });
+
+    describe("focusing the component", () => {
+      it("calls onFocus", () => {
+        onFocus = jest.fn();
+        wrapper = renderWrapper({ defaultValue: "Bar", onFocus }, mount);
+        const input = wrapper.find("input");
+        input.simulate("focus");
+        expect(onFocus).toHaveBeenCalled();
       });
     });
   });

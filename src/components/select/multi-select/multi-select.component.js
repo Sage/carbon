@@ -21,6 +21,7 @@ import SelectList from "../select-list/select-list.component";
 import {
   StyledSelectPillContainer,
   StyledSelectMultiSelect,
+  StyledAccessibilityLabelContainer,
 } from "./multi-select.style";
 import Pill from "../../pill";
 import isExpectedOption from "../utils/is-expected-option";
@@ -63,7 +64,9 @@ const MultiSelect = React.forwardRef(
     },
     inputRef
   ) => {
+    const [activeDescendantId, setActiveDescendantId] = useState();
     const selectListId = useRef(guid());
+    const accessibilityLabelId = useRef(guid());
     const labelId = useRef(guid());
     const containerRef = useRef();
     const listboxRef = useRef();
@@ -167,6 +170,20 @@ const MultiSelect = React.forwardRef(
       },
       [onKeyDown, readOnly, filterText, textValue, setOpen, removeSelectedValue]
     );
+
+    const accessibilityLabel = useMemo(() => {
+      return selectedValue && selectedValue.length
+        ? React.Children.map(children, (child) => {
+            return selectedValue.includes(child.props.value)
+              ? child.props.text
+              : false;
+          })
+            .filter((child) => child)
+            .reduce((acc, item) => {
+              return acc ? `${acc}, ${item}` : item;
+            }, "")
+        : null;
+    }, [children, selectedValue]);
 
     const handleGlobalClick = useCallback(
       (event) => {
@@ -378,10 +395,15 @@ const MultiSelect = React.forwardRef(
 
     const onSelectOption = useCallback(
       (optionData) => {
-        const { value: newValue, selectionType } = optionData;
+        const {
+          value: newValue,
+          selectionType,
+          id: selectedOptionId,
+        } = optionData;
 
         if (selectionType === "navigationKey") {
           setHighlightedValue(newValue);
+          setActiveDescendantId(selectedOptionId);
           return;
         }
 
@@ -490,6 +512,7 @@ const MultiSelect = React.forwardRef(
         listPlacement={listPlacement}
         flipEnabled={flipEnabled}
         loaderDataRole="multi-select-list-loader"
+        multiselectValues={selectedValue}
       >
         {children}
       </FilterableSelectList>
@@ -499,7 +522,6 @@ const MultiSelect = React.forwardRef(
       <StyledSelectMultiSelect
         aria-expanded={isOpen}
         aria-haspopup="listbox"
-        ref={containerRef}
         disabled={disabled}
         readOnly={readOnly}
         hasTextCursor
@@ -507,16 +529,28 @@ const MultiSelect = React.forwardRef(
         data-component={dataComponent}
         data-role={dataRole}
         data-element={dataElement}
+        isOpen={isOpen}
         {...filterStyledSystemMarginProps(textboxProps)}
       >
-        <SelectTextbox
-          aria-controls={isOpen ? selectListId.current : ""}
-          type="text"
-          labelId={labelId.current}
-          positionedChildren={disablePortal && isOpen && selectList}
-          {...getTextboxProps()}
-        />
-        {!disablePortal && isOpen && selectList}
+        <div ref={containerRef}>
+          <StyledAccessibilityLabelContainer
+            data-element="accessibility-label"
+            id={accessibilityLabelId.current}
+          >
+            {accessibilityLabel}
+          </StyledAccessibilityLabelContainer>
+          <SelectTextbox
+            accessibilityLabelId={accessibilityLabelId.current}
+            activeDescendantId={activeDescendantId}
+            aria-controls={isOpen ? selectListId.current : undefined}
+            hasTextCursor
+            isOpen={isOpen}
+            labelId={labelId.current}
+            textboxRef={textboxRef}
+            {...getTextboxProps()}
+          />
+        </div>
+        {isOpen && selectList}
       </StyledSelectMultiSelect>
     );
   }

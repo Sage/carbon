@@ -2,14 +2,14 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import NavigationBar, {
   NavigationBarProps,
-  StickyPosition,
+  Orientation,
+  Position,
 } from "./navigation-bar.component";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
   testStyledSystemFlexBox,
 } from "../../__spec_helper__/test-utils";
-import { baseTheme } from "../../style/themes";
 import StyledNavigationBar from "./navigation-bar.style";
 
 describe("NavigationBar", () => {
@@ -88,8 +88,9 @@ describe("NavigationBar", () => {
     assertStyleMatch(
       {
         minHeight: "40px",
-        backgroundColor: baseTheme.navigationBar.light.background,
-        borderBottom: `1px solid ${baseTheme.navigationBar.light.borderBottom}`,
+        backgroundColor: "var(--colorsComponentsMenuSpringStandard500)",
+        borderBottom:
+          "var(--borderWidth100) solid var(--colorsComponentsMenuSpringChildAlt500)",
         zIndex: "2999",
       },
       wrapper
@@ -105,8 +106,8 @@ describe("NavigationBar", () => {
 
     assertStyleMatch(
       {
-        backgroundColor: baseTheme.navigationBar.dark.background,
-        color: baseTheme.colors.white,
+        backgroundColor: "var(--colorsComponentsMenuAutumnStandard500)",
+        color: "var(--colorsComponentsMenuYang100)",
         zIndex: "2999",
       },
       wrapper
@@ -122,8 +123,9 @@ describe("NavigationBar", () => {
 
     assertStyleMatch(
       {
-        backgroundColor: baseTheme.colors.white,
-        borderBottom: `1px solid ${baseTheme.navigationBar.white.borderBottom}`,
+        backgroundColor: "var(--colorsComponentsMenuSummerStandard500)",
+        borderBottom:
+          "var(--borderWidth100) solid var(--colorsComponentsMenuSummerChildAlt500)",
         zIndex: "2999",
       },
       wrapper
@@ -139,8 +141,8 @@ describe("NavigationBar", () => {
 
     assertStyleMatch(
       {
-        backgroundColor: baseTheme.navigationBar.black.background,
-        color: baseTheme.colors.white,
+        backgroundColor: "var(--colorsComponentsMenuWinterStandard500)",
+        color: "var(--colorsComponentsMenuYang100)",
         zIndex: "2999",
       },
       wrapper
@@ -167,7 +169,7 @@ describe("NavigationBar", () => {
     );
   });
 
-  it.each<[StickyPosition, string | undefined]>([
+  it.each<[Orientation, string | undefined]>([
     ["top", undefined],
     ["top", "10px"],
     ["bottom", undefined],
@@ -182,6 +184,34 @@ describe("NavigationBar", () => {
       {
         position: "sticky",
         [position]: offset || "0",
+      },
+      wrapper
+    );
+  });
+
+  it.each<[Position, Orientation, string | undefined]>([
+    ["sticky", "top", undefined],
+    ["fixed", "top", undefined],
+    ["sticky", "top", "10px"],
+    ["fixed", "top", "10px"],
+    ["sticky", "bottom", undefined],
+    ["fixed", "bottom", undefined],
+    ["sticky", "bottom", "10px"],
+    ["fixed", "bottom", "10px"],
+  ])("should set correct position, orientation and offset", (position, orientation, offset) => {
+    wrapper = mount(
+      <NavigationBar position={position} orientation={orientation} offset={offset}>
+        <div>test content</div>
+      </NavigationBar>
+    );
+    assertStyleMatch(
+      {
+        position: `${position}`,
+        [orientation]: offset || "0",
+        ...(position === "fixed" && {
+          width: "100%",
+          boxSizing: "border-box",
+        })
       },
       wrapper
     );

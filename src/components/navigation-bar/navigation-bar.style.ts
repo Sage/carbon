@@ -1,16 +1,26 @@
 import styled, { css } from "styled-components";
 import { padding, flexbox, PaddingProps, FlexboxProps } from "styled-system";
 import { baseTheme } from "../../style/themes";
-import { StickyPosition, NavigationType } from "./navigation-bar.component";
+import {
+  Position,
+  Orientation,
+  NavigationType,
+} from "./navigation-bar.component";
 
 type StyledNavigationBarProps = PaddingProps &
   FlexboxProps & {
     /** Color scheme of navigation component */
     navigationType?: NavigationType;
     /** Defines the position of sticky navigation bar */
-    stickyPosition?: StickyPosition;
+    stickyPosition?: Orientation;
     /** Defines the offset of sticky navigation bar */
     stickyOffset?: string;
+    /** Defines whether the navigation bar should be positioned fixed or sticky */
+    position?: Position;
+    /** Defines the offset of navigation bar */
+    offset?: string;
+    /** Defines whether the navigation bar should be positioned top or bottom */
+    orientation?: Orientation;
   };
 
 const StyledNavigationBar = styled.nav<StyledNavigationBarProps>`
@@ -51,8 +61,21 @@ const StyledNavigationBar = styled.nav<StyledNavigationBarProps>`
     stickyPosition &&
     css`
       position: sticky;
-      ${stickyPosition}: ${stickyOffset}
-    `};
+      ${stickyPosition}: ${stickyOffset};
+    `}
+
+  ${({ position, orientation, offset }) =>
+    position && orientation &&
+    css`
+      position: ${position};
+      ${orientation}: ${offset};
+
+      ${position === "fixed" &&
+      css`
+        box-sizing: border-box;
+        width: 100%;
+      `}
+    `}
 
   ${({ navigationType, theme }) => css`
     min-height: 40px;
@@ -60,27 +83,28 @@ const StyledNavigationBar = styled.nav<StyledNavigationBarProps>`
 
     ${navigationType === "light" &&
     css`
-      background-color: ${theme.navigationBar.light.background};
-      border-bottom: 1px solid ${theme.navigationBar.light.borderBottom};
+      background-color: var(--colorsComponentsMenuSpringStandard500);
+      border-bottom: var(--borderWidth100) solid
+        var(--colorsComponentsMenuSpringChildAlt500);
     `}
 
     ${navigationType === "dark" &&
     css`
-      background-color: ${theme.navigationBar.dark.background};
-      border-bottom: 1px solid ${theme.navigationBar.dark.borderBottom};
-      color: ${theme.colors.white};
+      background-color: var(--colorsComponentsMenuAutumnStandard500);
+      color: var(--colorsComponentsMenuYang100);
     `}
 
     ${navigationType === "black" &&
     css`
-      background-color: ${theme.navigationBar.black.background};
-      color: ${theme.colors.white};
+      background-color: var(--colorsComponentsMenuWinterStandard500);
+      color: var(--colorsComponentsMenuYang100);
     `}
 
     ${navigationType === "white" &&
     css`
-      background-color: ${theme.colors.white};
-      border-bottom: 1px solid ${theme.navigationBar.white.borderBottom};
+      background-color: var(--colorsComponentsMenuSummerStandard500);
+      border-bottom: var(--borderWidth100) solid
+        var(--colorsComponentsMenuSummerChildAlt500);
     `}
   `}
 `;

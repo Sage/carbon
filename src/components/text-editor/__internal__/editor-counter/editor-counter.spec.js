@@ -1,7 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
-import baseTheme from "../../../../style/themes/base";
 import Counter from "./editor-counter.component";
 import { StyledCounter } from "./editor-counter.style";
 import ValidationIcon from "../../../../__internal__/validations";
@@ -27,7 +26,7 @@ describe("EditorCounter", () => {
 
     assertStyleMatch(
       {
-        color: baseTheme.editor.counter,
+        color: "var(--colorsUtilityYin055)",
         width: "100%",
       },
       wrapper.find(StyledCounter)
@@ -67,7 +66,7 @@ describe("EditorCounter", () => {
 
       assertStyleMatch(
         {
-          color: baseTheme.colors.error,
+          color: "var(--colorsSemanticNegative500)",
         },
         wrapper.find(StyledCounter)
       );

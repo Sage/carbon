@@ -22,6 +22,10 @@ import {
 import { dialogTitle } from "../../locators/dialog";
 import DEBUG_FLAG from "..";
 import { pagerSummary } from "../../locators/pager";
+import {
+  buttonSubtextPreview,
+  buttonDataComponent,
+} from "../../locators/button";
 
 const TEXT_ALIGN = "justify-content";
 
@@ -200,4 +204,16 @@ When("I wait {int}", (timeout) => {
 
 When("I press Shift Tab on focused element", () => {
   cy.focused().tab({ shift: true });
+});
+
+Then("Button label on preview is {word}", (label) => {
+  buttonDataComponent().should("have.text", label);
+});
+
+Then("Button subtext on preview is {word}", (subtext) => {
+  buttonSubtextPreview().should("have.text", subtext);
+});
+
+When("I click on {string}", (element) => {
+  buttonDataComponent(element).click({ force: true });
 });

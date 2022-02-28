@@ -12,6 +12,13 @@ import Loader from "../../loader";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledSelectListContainer from "./select-list-container.style";
 import Popover from "../../../__internal__/popover";
+import guid from "../../../__internal__/utils/helpers/guid";
+import StyledOption from "../option/option.style";
+import StyledOptionRow from "../option-row/option-row.style";
+
+jest.mock("../../../__internal__/utils/helpers/guid");
+const mockedGuid = "guid-12345";
+guid.mockImplementation(() => "guid-12345");
 
 const escapeKeyDownEvent = new KeyboardEvent("keydown", {
   key: "Escape",
@@ -100,6 +107,7 @@ describe("SelectList", () => {
             testContainer.dispatchEvent(enterKeyDownEvent);
 
             expect(onSelectFn).toHaveBeenCalledWith({
+              id: mockedGuid,
               selectionType: "enterKey",
               text: "blue",
               value: "opt3",
@@ -116,6 +124,7 @@ describe("SelectList", () => {
             });
 
             expect(onSelectFn).toHaveBeenCalledWith({
+              id: mockedGuid,
               selectionType: "navigationKey",
               text: "red",
               value: "opt1",
@@ -132,6 +141,7 @@ describe("SelectList", () => {
             });
 
             expect(onSelectFn).toHaveBeenCalledWith({
+              id: mockedGuid,
               selectionType: "navigationKey",
               text: "red",
               value: "opt1",
@@ -161,6 +171,7 @@ describe("SelectList", () => {
             });
 
             expect(onSelectFn).toHaveBeenCalledWith({
+              id: mockedGuid,
               selectionType: "navigationKey",
               text: "blue",
               value: "opt3",
@@ -177,6 +188,7 @@ describe("SelectList", () => {
             });
 
             expect(onSelectFn).toHaveBeenCalledWith({
+              id: mockedGuid,
               selectionType: "navigationKey",
               text: "blue",
               value: "opt3",
@@ -192,6 +204,7 @@ describe("SelectList", () => {
           });
 
           expect(onSelectFn).toHaveBeenCalledWith({
+            id: mockedGuid,
             selectionType: "navigationKey",
             text: "red",
             value: "opt1",
@@ -206,6 +219,7 @@ describe("SelectList", () => {
           });
 
           expect(onSelectFn).toHaveBeenCalledWith({
+            id: mockedGuid,
             selectionType: "navigationKey",
             text: "blue",
             value: "opt3",
@@ -226,9 +240,9 @@ describe("SelectList", () => {
   );
 
   describe.each([
-    [renderSelectList, Option],
-    [renderOptionRowSelectList, OptionRow],
-  ])("when rendered", (listRenderer, optionType) => {
+    ["Option", renderSelectList, StyledOption],
+    ["OptionRow", renderOptionRowSelectList, StyledOptionRow],
+  ])("when %s is rendered", (component, listRenderer, optionType) => {
     it('then Options should have additional "isHighlighted" prop', () => {
       const onSelect = jest.fn();
       const wrapper = listRenderer({ onSelect });
@@ -245,6 +259,7 @@ describe("SelectList", () => {
 
         wrapper.find(optionType).first().simulate("click");
         expect(onSelect).toHaveBeenCalledWith({
+          id: mockedGuid,
           selectionType: "click",
           text: "red",
           value: "opt1",
@@ -254,31 +269,34 @@ describe("SelectList", () => {
   });
 
   describe.each([
-    [renderSelectList, Option],
-    [renderOptionRowSelectList, OptionRow],
-  ])("when the filterText is provided", (listRenderer, optionType) => {
-    it("then the first element with text that is matching the filter should be highlighted", () => {
-      const wrapper = listRenderer({ filterText: "g" });
+    ["Option", renderSelectList, StyledOption],
+    ["OptionRow", renderOptionRowSelectList, StyledOptionRow],
+  ])(
+    "when the filterText is provided in a list of %s components",
+    (component, listRenderer, optionType) => {
+      it("then the first element with text that is matching the filter should be highlighted", () => {
+        const wrapper = listRenderer({ filterText: "g" });
 
-      expect(wrapper.find(optionType).at(1)).toHaveStyleRule(
-        "background-color",
-        "var(--colorsUtilityMajor200)"
-      );
-    });
-
-    describe("and it does not match the text of any option", () => {
-      it('then Options should have the "isHighlighted" prop set to "false"', () => {
-        const wrapper = listRenderer({ filterText: "x" });
-
-        wrapper
-          .update()
-          .find(optionType)
-          .forEach((option) => {
-            expect(option.prop("isHighlighted")).toBe(false);
-          });
+        expect(wrapper.find(optionType).at(1)).toHaveStyleRule(
+          "background-color",
+          "var(--colorsUtilityMajor200)"
+        );
       });
-    });
-  });
+
+      describe("and it does not match the text of any option", () => {
+        it('then Options should have the "isHighlighted" prop set to "false"', () => {
+          const wrapper = listRenderer({ filterText: "x" });
+
+          wrapper
+            .update()
+            .find(optionType)
+            .forEach((option) => {
+              expect(option.prop("isHighlighted")).toBe(false);
+            });
+        });
+      });
+    }
+  );
 
   describe("when the anchor element is provided", () => {
     let wrapper;
@@ -760,6 +778,7 @@ describe("SelectList", () => {
           domNode.dispatchEvent(downKeyDownEvent);
         });
         expect(onSelectFn).toHaveBeenCalledWith({
+          id: mockedGuid,
           selectionType: "navigationKey",
           text: "red",
           value: "opt1",

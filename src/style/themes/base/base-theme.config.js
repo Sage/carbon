@@ -151,10 +151,6 @@ export default (palette) => {
       },
     },
 
-    form: {
-      invalid: palette.slateTint(95),
-    },
-
     card: {
       footerBackground: palette.slateTint(95),
       footerBorder: palette.slateTint(80),
@@ -210,16 +206,6 @@ export default (palette) => {
       hover: palette.blackOpacity(0.9),
     },
 
-    pod: {
-      border: palette.slateTint(80),
-      secondaryBackground: palette.slateTint(95),
-      tertiaryBackground: palette.slateTint(90),
-      softDeleteText: palette.blackOpacity(0.3),
-      tileBackground: "#FFFFFF",
-      footerBackground: palette.slateTint(95),
-      hoverBackground: palette.slateTint(85),
-    },
-
     text: {
       color: palette.blackOpacity(0.9),
       placeholder: palette.blackOpacity(0.55),
@@ -234,12 +220,6 @@ export default (palette) => {
 
     content: {
       secondaryColor: palette.slateTint(40),
-    },
-
-    definitionList: {
-      dtTextDark: palette.blackOpacity(0.9),
-      dtTextLight: palette.blackOpacity(0.65),
-      ddText: palette.blackOpacity(0.65),
     },
 
     disabled: {
@@ -412,10 +392,6 @@ export default (palette) => {
       altHover: palette.slateTint(85),
     },
 
-    note: {
-      timeStamp: "rgba(0,0,0,0.65)",
-    },
-
     editorLinkPreview: {
       background: palette.slateTint(95),
       hoverBackground: palette.slateTint(80),
@@ -426,12 +402,12 @@ export default (palette) => {
     zIndex: {
       smallOverlay: 10,
       overlay: 1000,
-      popover: 2000,
       nav: 2999,
       modal: 3000,
       header: 4000,
       fullScreenModal: 5000,
-      notification: 6000,
+      popover: 6000,
+      notification: 7000,
       aboveAll: 9999,
     },
 

@@ -26,7 +26,7 @@ const StyledNavigationItem = styled.li`
     ${({ isSelected }) =>
       isSelected &&
       css`
-        background-color: var(--colorsActionMinorYang100);
+        background-color: var(--colorsActionMajorYang100);
         border-left-color: var(--colorsActionMajor500);
       `}
   }

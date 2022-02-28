@@ -88,6 +88,7 @@ const DialogStyle = styled.div`
   flex-direction: column;
   position: fixed;
   top: 50%;
+  z-index: ${({ theme }) => theme.zIndex.modal};
   max-height: ${({ topMargin }) => `calc(100vh - ${topMargin}px)`};
 
   &:focus {

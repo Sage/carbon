@@ -1,9 +1,8 @@
 import React from "react";
-import { ThemeProvider } from "styled-components";
 import { mount } from "enzyme";
 import { EditorState } from "draft-js";
 import Note from "./note.component";
-import baseTheme from "../../style/themes/base";
+
 import {
   StyledNoteContent,
   StyledInlineControl,
@@ -25,11 +24,7 @@ function render(props = {}) {
     noteContent: EditorState.createEmpty(),
     ...props,
   };
-  return mount(
-    <ThemeProvider theme={baseTheme}>
-      <Note {...defaultProps} />
-    </ThemeProvider>
-  );
+  return mount(<Note {...defaultProps} />);
 }
 
 describe("Note", () => {
@@ -50,8 +45,8 @@ describe("Note", () => {
 
       assertStyleMatch(
         {
-          backgroundColor: `${baseTheme.colors.white}`,
-          border: `1px solid ${baseTheme.tile.border}`,
+          backgroundColor: "var(--colorsUtilityYang100)",
+          border: "1px solid var(--colorsUtilityMajor100)",
           display: "flex",
           flexDirection: "column",
           padding: "24px",
@@ -81,7 +76,7 @@ describe("Note", () => {
 
       assertStyleMatch(
         {
-          borderTop: `solid 1px ${baseTheme.tile.separator}`,
+          borderTop: "solid 1px var(--colorsUtilityMajor050)",
         },
         content,
         { modifier: ":last-of-type:not(:first-of-type)" }
@@ -160,7 +155,7 @@ describe("Note", () => {
       assertStyleMatch(
         {
           display: "flex",
-          marginBottom: "-8px",
+          marginBottom: "calc(-1 * var(--spacing100))",
           flexWrap: "wrap",
         },
         wrapper.find(StyledFooter)
@@ -170,7 +165,7 @@ describe("Note", () => {
         {
           alignItems: "baseline",
           fontWeight: "bold",
-          marginTop: "16px",
+          marginTop: "var(--spacing200)",
         },
         wrapper.find(StyledFooterContent)
       );
@@ -186,8 +181,8 @@ describe("Note", () => {
       assertStyleMatch(
         {
           fontSize: "12px",
-          color: baseTheme.note.timeStamp,
-          marginLeft: "16px",
+          color: "var(--colorsUtilityYin065)",
+          marginLeft: "var(--spacing200)",
         },
         wrapper.find(StyledFooterContent),
         { modifier: ":nth-of-type(2)" }
@@ -196,9 +191,9 @@ describe("Note", () => {
       assertStyleMatch(
         {
           fontSize: "12px",
-          color: baseTheme.note.timeStamp,
+          color: "var(--colorsUtilityYin065)",
           cursor: "pointer",
-          marginLeft: "24px",
+          marginLeft: "var(--spacing300)",
         },
         wrapper.find(StyledFooterContent),
         { modifier: ":last-of-type:not(:nth-of-type(2))" }
@@ -211,7 +206,7 @@ describe("Note", () => {
       assertStyleMatch(
         {
           fontWeight: "bold",
-          marginTop: "16px",
+          marginTop: "var(--spacing200)",
         },
         wrapper.find(StyledFooterContent)
       );
@@ -219,7 +214,7 @@ describe("Note", () => {
       assertStyleMatch(
         {
           fontSize: "12px",
-          color: baseTheme.note.timeStamp,
+          color: "var(--colorsUtilityYin065)",
         },
         wrapper.find(StyledFooterContent),
         { modifier: ":first-of-type" }
@@ -228,9 +223,9 @@ describe("Note", () => {
       assertStyleMatch(
         {
           fontSize: "12px",
-          color: baseTheme.note.timeStamp,
+          color: "var(--colorsUtilityYin065)",
           cursor: "pointer",
-          marginLeft: "24px",
+          marginLeft: "var(--spacing300)",
         },
         wrapper.find(StyledFooterContent),
         { modifier: ":last-of-type:not(:first-of-type)" }

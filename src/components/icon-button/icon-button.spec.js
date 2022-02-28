@@ -105,7 +105,7 @@ describe("IconButton component", () => {
       it("renders correct style for focused IconButton", () => {
         assertStyleMatch(
           {
-            outline: "solid 3px #FFB500",
+            outline: "solid 3px var(--colorsSemanticFocus500)",
           },
           wrapper.find(IconButton).first(),
           { modifier: ":focus" }
@@ -254,6 +254,16 @@ describe("IconButton component", () => {
           <IconButton disabled onAction={() => {}}>
             <Icon type="home" tooltipMessage="foo" />
           </IconButton>
+        );
+      });
+
+      it("should have the correct background color applied to the icon button", () => {
+        assertStyleMatch(
+          {
+            backgroundColor: "transparent",
+          },
+          wrapper,
+          { modifier: `${StyledIcon}` }
         );
       });
 

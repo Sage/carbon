@@ -20,3 +20,11 @@ Then("Toast is centred", () => {
 Then("Toast is not centred", () => {
   toastComponent().should("have.css", "margin-right", "30px");
 });
+
+When("I scroll down the page", () => {
+  cy.scrollTo("0", "500");
+});
+
+Then("Toast is still visible", () => {
+  toastComponent().should("be.visible");
+});

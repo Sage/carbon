@@ -3,6 +3,7 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { mount as enzymeMount, shallow } from "enzyme";
+import TestRenderer from "react-test-renderer";
 
 import Drawer from "./drawer.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
@@ -91,7 +92,7 @@ describe("Drawer", () => {
     it("is expanded by default", () => {
       const wrapper = render();
       const { content } = getElements(wrapper);
-      expect(content.prop("aria-expanded")).toBe("true");
+      expect(content.prop("className").includes("open")).toEqual(true);
     });
 
     it("cleans ups timers on unmount", () => {
@@ -114,29 +115,78 @@ describe("Drawer", () => {
       expect(drawer.prop("data-component")).toBe(dataAttr);
     });
 
-    it("Drawer Sidebar should render as expected", () => {
-      const wrapper = render();
+    it("Drawer Sidebar should render as expected when not expanded", () => {
+      const wrapper = render({ expanded: false });
+      const { sidebar } = getElements(wrapper);
+      assertStyleMatch(
+        {
+          display: "none",
+          opacity: "0",
+          overflowY: undefined,
+        },
+        sidebar
+      );
+    });
+
+    it("Drawer Sidebar should render as expected when expanded", () => {
+      const wrapper = render({ expanded: true });
       const { sidebar } = getElements(wrapper);
       assertStyleMatch(
         {
           display: "flex",
           flexDirection: "column",
           flex: "1 1 0%",
+          overflowY: "auto",
         },
         sidebar
       );
     });
 
-    it("Drawer Content should render as expected", () => {
-      const wrapper = render();
-      const { children } = getElements(wrapper);
-      assertStyleMatch(
-        {
-          flex: "1",
-          overflow: "auto",
-        },
-        children
-      );
+    describe("Drawer Content", () => {
+      it("should render with correct styles", () => {
+        const wrapper = render();
+        const { content } = getElements(wrapper);
+        assertStyleMatch(
+          {
+            minWidth: "var(--sizing500)",
+            width: "var(--sizing500)",
+          },
+          content
+        );
+      });
+
+      describe("when background color is not provided as a prop", () => {
+        it("renders with default background color and border", () => {
+          const wrapper = render();
+          const { content } = getElements(wrapper);
+          assertStyleMatch(
+            {
+              backgroundColor: "var(--colorsUtilityMajor040)",
+              borderRight: "1px solid var(--colorsUtilityMajor075)",
+            },
+            content
+          );
+        });
+      });
+
+      it("children are rendered as expected", () => {
+        const wrapper = render();
+        const { children } = getElements(wrapper);
+        assertStyleMatch(
+          {
+            flex: "1",
+            overflow: "auto",
+          },
+          children
+        );
+      });
+    });
+
+    describe("Control Button", () => {
+      it("renders with correct styles", () => {
+        const snapshot = TestRenderer.create(<StyledButton />).toJSON();
+        expect(snapshot).toMatchSnapshot();
+      });
     });
 
     it("opens sidebar to specific width matching expandedWidth prop", () => {
@@ -176,6 +226,27 @@ describe("Drawer", () => {
             height: "50%",
           },
           wrapper
+        );
+      });
+    });
+
+    describe("when title prop is provided", () => {
+      it("Sidebar sets it as heading", () => {
+        const heading = "My custom title";
+        const wrapper = render({ title: heading });
+        const { title } = getElements(wrapper);
+        expect(title.text()).toBe(heading);
+      });
+
+      it("Sidebar renders heading with correct styles", () => {
+        const heading = "My custom title";
+        const wrapper = render({ title: heading });
+        const { title } = getElements(wrapper);
+        assertStyleMatch(
+          {
+            padding: "var(--spacing300) var(--spacing500)",
+          },
+          title
         );
       });
     });
@@ -251,16 +322,7 @@ describe("Drawer", () => {
             {
               position: "sticky",
               top: "0",
-              borderBottom: "1px solid #ccd6db",
-            },
-            wrapper.find(StyledSidebarHeader)
-          );
-
-          assertStyleMatch(
-            {
-              position: "sticky",
-              top: "0",
-              borderBottom: "1px solid #ccd6db",
+              borderBottom: "var(--sizing010) solid #ccd6db",
             },
             wrapper.find(StyledSidebarHeader)
           );
@@ -353,7 +415,7 @@ describe("Drawer", () => {
     it("is collapsed when expanded prop is provided and is false", () => {
       const wrapper = render({ expanded: false });
       const { content } = getElements(wrapper);
-      expect(content.prop("aria-expanded")).toBe("false");
+      expect(content.prop("className").includes("closed")).toEqual(true);
     });
 
     it("drawer changes to closed when button is clicked", () => {
@@ -505,13 +567,6 @@ describe("Drawer", () => {
       const wrapper = render({ backgroundColor: color });
       const { content } = getElements(wrapper);
       assertStyleMatch({}, content.childAt(0));
-    });
-
-    it("sets drawer sidebar heading when title prop is provided", () => {
-      const heading = "My custom title";
-      const wrapper = render({ title: heading });
-      const { title } = getElements(wrapper);
-      expect(title.text()).toBe(heading);
     });
 
     describe("by an external control", () => {
