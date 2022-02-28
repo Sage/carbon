@@ -1,3 +1,40 @@
+## [104.34.0](https://github.com/Sage/carbon/compare/v104.33.1...v104.34.0) (2022-02-28)
+
+
+### Features
+
+* **icon-button:** describe icon-button component using design tokens, update tests ([ca5a296](https://github.com/Sage/carbon/commit/ca5a2968fe0f482d1734a5bc2c360fa6d3a52cee))
+
+### [104.33.1](https://github.com/Sage/carbon/compare/v104.33.0...v104.33.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* **draggable:** prevent crash when dragging item from one container to another ([def7ef7](https://github.com/Sage/carbon/commit/def7ef7fae2593b1e4830af776f5737960a55c69))
+* **flat-table-draggable:** prevent crash when dragging item from one table to another ([57e8b62](https://github.com/Sage/carbon/commit/57e8b62fdd2051ba72f16e1adb9fabec7e778034)), closes [#4857](https://github.com/Sage/carbon/issues/4857)
+
+## [104.33.0](https://github.com/Sage/carbon/compare/v104.32.0...v104.33.0) (2022-02-25)
+
+
+### Features
+
+* **navigation-bar:** add position, offset and orientation props to enable fixed or sticky positions ([a2e8467](https://github.com/Sage/carbon/commit/a2e846774d6bcd7f0a7e9da6ae1b67450eddd4c4)), closes [#4691](https://github.com/Sage/carbon/issues/4691)
+
+## [104.32.0](https://github.com/Sage/carbon/compare/v104.31.1...v104.32.0) (2022-02-25)
+
+
+### Features
+
+* **step-sequence-item:** support hiding indicator ([460ba0d](https://github.com/Sage/carbon/commit/460ba0dcbb4fb7cefc995cced58380611677cb4a))
+
+### [104.31.1](https://github.com/Sage/carbon/compare/v104.31.0...v104.31.1) (2022-02-25)
+
+
+### Bug Fixes
+
+* **tab-title:** ensure icon color can be overridden when rendered in TabTitle ([29a5bb7](https://github.com/Sage/carbon/commit/29a5bb700dc0d1ff39d6e26dd2839f5081d0d531)), closes [#4875](https://github.com/Sage/carbon/issues/4875)
+* **tab-title:** remove additional error border and prevent content jumping when has siblings ([3d29834](https://github.com/Sage/carbon/commit/3d2983401aeab9f20c61fb4c5e805780cf3fc7f3)), closes [#4833](https://github.com/Sage/carbon/issues/4833)
+
 ## [104.31.0](https://github.com/Sage/carbon/compare/v104.30.0...v104.31.0) (2022-02-25)
 
 

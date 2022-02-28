@@ -85,6 +85,7 @@ export const StepSequenceStory = (args) => (
 export const StepSequenceItemStory = ({
   indicatorSpecialCharacters,
   indicator,
+  hideIndicator,
   hiddenCompleteLabelSpecialCharacters,
   hiddenCompleteLabel,
   hiddenCurrentLabelSpecialCharacters,
@@ -97,6 +98,7 @@ export const StepSequenceItemStory = ({
 }) => (
   <StepSequenceItem
     indicator={indicator || indicatorSpecialCharacters}
+    hideIndicator={hideIndicator}
     hiddenCompleteLabel={
       hiddenCompleteLabel || hiddenCompleteLabelSpecialCharacters
     }
@@ -141,6 +143,7 @@ export const StepSequenceItemStory = ({
     }}
     args={{
       indicator: "1",
+      hideIndicator: false,
       indicatorSpecialCharacters: undefined,
       status: StepSequenceItem.defaultProps.status,
       hiddenCompleteLabel: "",

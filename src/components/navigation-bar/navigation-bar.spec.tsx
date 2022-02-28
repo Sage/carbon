@@ -2,7 +2,8 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import NavigationBar, {
   NavigationBarProps,
-  StickyPosition,
+  Orientation,
+  Position,
 } from "./navigation-bar.component";
 import {
   assertStyleMatch,
@@ -168,7 +169,7 @@ describe("NavigationBar", () => {
     );
   });
 
-  it.each<[StickyPosition, string | undefined]>([
+  it.each<[Orientation, string | undefined]>([
     ["top", undefined],
     ["top", "10px"],
     ["bottom", undefined],
@@ -183,6 +184,34 @@ describe("NavigationBar", () => {
       {
         position: "sticky",
         [position]: offset || "0",
+      },
+      wrapper
+    );
+  });
+
+  it.each<[Position, Orientation, string | undefined]>([
+    ["sticky", "top", undefined],
+    ["fixed", "top", undefined],
+    ["sticky", "top", "10px"],
+    ["fixed", "top", "10px"],
+    ["sticky", "bottom", undefined],
+    ["fixed", "bottom", undefined],
+    ["sticky", "bottom", "10px"],
+    ["fixed", "bottom", "10px"],
+  ])("should set correct position, orientation and offset", (position, orientation, offset) => {
+    wrapper = mount(
+      <NavigationBar position={position} orientation={orientation} offset={offset}>
+        <div>test content</div>
+      </NavigationBar>
+    );
+    assertStyleMatch(
+      {
+        position: `${position}`,
+        [orientation]: offset || "0",
+        ...(position === "fixed" && {
+          width: "100%",
+          boxSizing: "border-box",
+        })
       },
       wrapper
     );

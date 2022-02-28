@@ -16,10 +16,18 @@ import {
   StyledDraggableItem,
 } from "./draggable-item.style";
 
-describe("Draggable Checkbox", () => {
+describe("Draggable", () => {
   let wrapper;
 
   const getOrder = jest.fn();
+
+  const getDraggableItems = (mountNode) =>
+    Array.from(mountNode.querySelectorAll('div[data-element="draggable"]'));
+
+  const createBubbledEvent = (type, props = {}) => {
+    const event = new Event(type, { bubbles: true, ...props });
+    return event;
+  };
 
   beforeEach(() => {
     wrapper = mount(
@@ -136,6 +144,120 @@ describe("Draggable Checkbox", () => {
       },
       wrapper
     );
+  });
+
+  describe("Multiple draggable containers", () => {
+    let mountNode;
+
+    beforeEach(() => {
+      const component = (
+        <div>
+          <div id="container-1">
+            <DraggableContainer getOrder={getOrder}>
+              <DraggableItem key="1" id={1}>
+                Item 1
+              </DraggableItem>
+              <DraggableItem key="2" id={2}>
+                Item 2
+              </DraggableItem>
+              <DraggableItem key="3" id={3}>
+                Item 3
+              </DraggableItem>
+            </DraggableContainer>
+          </div>
+          <div id="container-2">
+            <DraggableContainer getOrder={getOrder}>
+              <DraggableItem key="4" id={4}>
+                Item 4
+              </DraggableItem>
+              <DraggableItem key="5" id={5}>
+                Item 5
+              </DraggableItem>
+              <DraggableItem key="6" id={6}>
+                Item 6
+              </DraggableItem>
+            </DraggableContainer>
+          </div>
+        </div>
+      );
+
+      mountNode = document.createElement("div");
+      document.body.appendChild(mountNode);
+      render(component, mountNode);
+    });
+
+    it("should drag items within container 1", () => {
+      const container1 = mountNode.querySelector("#container-1");
+
+      const draggableItems = getDraggableItems(container1);
+      const startingNode = draggableItems[0];
+      const endingNode = draggableItems[2];
+      act(() => {
+        startingNode.dispatchEvent(
+          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
+        );
+
+        endingNode.dispatchEvent(
+          createBubbledEvent("dragover", { clientX: 0, clientY: 1 })
+        );
+
+        endingNode.dispatchEvent(
+          createBubbledEvent("drop", { clientX: 0, clientY: 1 })
+        );
+      });
+
+      expect(
+        getDraggableItems(container1).map((cell) => cell.textContent)
+      ).toEqual(["Item 2", "Item 3", "Item 1"]);
+    });
+
+    it("should drag items within container 2", () => {
+      const container2 = mountNode.querySelector("#container-2");
+
+      const draggableItems = getDraggableItems(container2);
+      const startingNode = draggableItems[0];
+      const endingNode = draggableItems[2];
+      act(() => {
+        startingNode.dispatchEvent(
+          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
+        );
+
+        endingNode.dispatchEvent(
+          createBubbledEvent("dragover", { clientX: 0, clientY: 1 })
+        );
+
+        endingNode.dispatchEvent(
+          createBubbledEvent("drop", { clientX: 0, clientY: 1 })
+        );
+      });
+
+      expect(
+        getDraggableItems(container2).map((cell) => cell.textContent)
+      ).toEqual(["Item 5", "Item 6", "Item 4"]);
+    });
+
+    it("should not drag items from one container to another", () => {
+      const draggableItems = getDraggableItems(mountNode);
+      const startingNode = draggableItems[0];
+      const endingNode = draggableItems[4];
+      act(() => {
+        startingNode.dispatchEvent(
+          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
+        );
+
+        endingNode.dispatchEvent(
+          createBubbledEvent("dragover", { clientX: 0, clientY: 1 })
+        );
+
+        endingNode.dispatchEvent(
+          createBubbledEvent("drop", { clientX: 0, clientY: 1 })
+        );
+      });
+
+      expect(
+        getDraggableItems(mountNode).map((cell) => cell.textContent)
+      ).toEqual(["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"]);
+    });
   });
 });
 
