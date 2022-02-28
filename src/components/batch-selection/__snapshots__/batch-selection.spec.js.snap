@@ -42,9 +42,8 @@ exports[`BatchSelection component should render correctly 1`] = `
 }
 
 .c3:focus {
-  color: rgba(0,0,0,0.9);
   background-color: transparent;
-  outline: solid 3px #FFB500;
+  outline: solid 3px var(--colorsSemanticFocus500);
   z-index: 1;
 }
 
