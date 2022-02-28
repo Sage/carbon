@@ -1,3 +1,10 @@
+## [104.34.0](https://github.com/Sage/carbon/compare/v104.33.1...v104.34.0) (2022-02-28)
+
+
+### Features
+
+* **icon-button:** describe icon-button component using design tokens, update tests ([ca5a296](https://github.com/Sage/carbon/commit/ca5a2968fe0f482d1734a5bc2c360fa6d3a52cee))
+
 ### [104.33.1](https://github.com/Sage/carbon/compare/v104.33.0...v104.33.1) (2022-02-28)
 
 
