@@ -6,5 +6,5 @@ export default {
   compatibility: {
     ...tokens,
   },
-  name: "sage (experimental)",
+  name: "sage",
 };
