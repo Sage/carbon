@@ -1,3 +1,10 @@
+### [104.34.1](https://github.com/Sage/carbon/compare/v104.34.0...v104.34.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* **card:** fix incorrect headers ([4c4d5fa](https://github.com/Sage/carbon/commit/4c4d5fa3f45885af72464a7d7d65ddcce84c17f2))
+
 ## [104.34.0](https://github.com/Sage/carbon/compare/v104.33.1...v104.34.0) (2022-02-28)
 
 
