@@ -1,3 +1,11 @@
+## [104.38.0](https://github.com/Sage/carbon/compare/v104.37.0...v104.38.0) (2022-03-01)
+
+
+### Features
+
+* **hr:** describe component using design tokens ([f464a08](https://github.com/Sage/carbon/commit/f464a084d9f3c202efa5e0cb1694701153e5c018))
+* **tile-select:** describe accordion footer with token ([dae33f7](https://github.com/Sage/carbon/commit/dae33f70458f5c50e7ccd45f8248a576893bde52))
+
 ## [104.37.0](https://github.com/Sage/carbon/compare/v104.36.0...v104.37.0) (2022-03-01)
 
 
