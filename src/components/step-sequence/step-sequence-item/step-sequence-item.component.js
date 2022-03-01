@@ -7,11 +7,13 @@ import StepSequenceItemHiddenLabelStyle from "./step-sequence-item-hidden-label.
 import Icon from "../../icon";
 
 const StepSequenceItem = (props) => {
-  const indicatorText = () => (
-    <StepSequenceItemIndicatorStyle>
-      {props.indicator}
-    </StepSequenceItemIndicatorStyle>
-  );
+  const indicatorText = () => {
+    return !props.hideIndicator ? (
+      <StepSequenceItemIndicatorStyle>
+        {props.indicator}
+      </StepSequenceItemIndicatorStyle>
+    ) : null;
+  };
 
   const icon = () =>
     props.status === "complete" ? <Icon type="tick" /> : indicatorText();
@@ -56,6 +58,8 @@ StepSequenceItem.propTypes = {
   children: PropTypes.node.isRequired,
   /** Value to be displayed before text for uncompleted steps */
   indicator: PropTypes.string.isRequired,
+  /** Flag to hide the indicator for uncompleted steps */
+  hideIndicator: PropTypes.bool,
   /** Aria label */
   ariaLabel: PropTypes.string,
   /** Status for the step */
@@ -68,6 +72,7 @@ StepSequenceItem.propTypes = {
 
 StepSequenceItem.defaultProps = {
   status: "incomplete",
+  hideIndicator: false,
 };
 
 export default StepSequenceItem;
