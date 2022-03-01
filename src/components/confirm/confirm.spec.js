@@ -138,7 +138,7 @@ describe("Confirm", () => {
 
         assertStyleMatch(
           {
-            color: baseTheme.icon.disabled,
+            color: "var(--colorsActionMinorYin030)",
           },
           wrapper.find(StyledIconButton),
           { modifier: `${StyledIcon}` }

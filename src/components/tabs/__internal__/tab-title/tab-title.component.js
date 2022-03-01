@@ -126,6 +126,7 @@ const TabTitle = React.forwardRef(
         warning={warning}
         info={info}
         noRightBorder={noRightBorder}
+        noLeftBorder={noLeftBorder}
         alternateStyling={alternateStyling || isInSidebar}
         borders={borders}
         isInSidebar={isInSidebar}

@@ -1,4 +1,4 @@
-{ 
+{
   "indicator-100": {
     "indicator": -100
   },
@@ -15,6 +15,14 @@
   "indicatorSpecialCharacter": {
     "indicator": "",
     "indicatorSpecialCharacters": "specialCharacters"
+  },
+  "showIndicator": {
+    "indicator": 999,
+    "hideIndicator": false
+  },
+  "hideIndicator": {
+    "indicator": 999,
+    "hideIndicator": true
   },
   "hiddenCompleteLabelOtherLanguage": {
     "status": "complete",
