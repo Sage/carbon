@@ -5,7 +5,6 @@ import { act } from "react-dom/test-utils";
 import Accordion from "./accordion.component";
 import useResizeObserver from "../../../../hooks/__internal__/useResizeObserver";
 import { StyledContentContainer, StyledContent } from "./accordion.style";
-import baseTheme from "../../../../style/themes/base";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 
 jest.mock("../../../../hooks/__internal__/useResizeObserver");
@@ -16,7 +15,7 @@ describe("Accordion", () => {
 
     assertStyleMatch(
       {
-        backgroundColor: baseTheme.tileSelect.hoverBackground,
+        backgroundColor: "var(--colorsActionMinor050)",
       },
       wrapper.find(StyledContentContainer)
     );
