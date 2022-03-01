@@ -30,6 +30,8 @@ export const getComponent = (component) =>
 export const getElement = (element) =>
   cy.get(`[data-element="${element}"]`).first();
 export const closeIconButton = () => cy.get(CLOSE_ICON_BUTTON);
+export const openNestedDialogButton = () =>  cy.get('span').contains('Open Nested Dialog');
+export const openMainDialogButton = () =>  cy.get('span').contains('Open Main Dialog');
 export const fieldHelpPreview = () => cy.get(FIELD_HELP_PREVIEW).first();
 export const helpIcon = () => cy.get(HELP_ICON_PREVIEW).first();
 export const fieldHelpPreviewByPosition = (position) =>
