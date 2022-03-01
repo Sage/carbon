@@ -1,6 +1,6 @@
 # Carbon [![npm](https://img.shields.io/npm/v/carbon-react.svg)](https://www.npmjs.com/package/carbon-react)
 
-Carbon is a [React](https://facebook.github.io/react/) component library developed by Sage.
+Test is a [React](https://facebook.github.io/react/) component library developed by Sage.
 
 ## Getting started
 
