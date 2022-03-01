@@ -1,3 +1,10 @@
+## [104.37.0](https://github.com/Sage/carbon/compare/v104.36.0...v104.37.0) (2022-03-01)
+
+
+### Features
+
+* **confirm:** describe confirm component using design tokens, update tests ([504e1ac](https://github.com/Sage/carbon/commit/504e1ac4d93978f2cd8726359ddb5da1a5026e92))
+
 ## [104.36.0](https://github.com/Sage/carbon/compare/v104.35.0...v104.36.0) (2022-03-01)
 
 
