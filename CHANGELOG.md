@@ -1,3 +1,10 @@
+## [104.35.0](https://github.com/Sage/carbon/compare/v104.34.1...v104.35.0) (2022-03-01)
+
+
+### Features
+
+* enable tree shaking ([07d2b8a](https://github.com/Sage/carbon/commit/07d2b8a85a7f5ae452c876e65224a4b8dd27501e))
+
 ### [104.34.1](https://github.com/Sage/carbon/compare/v104.34.0...v104.34.1) (2022-02-28)
 
 
