@@ -110,7 +110,7 @@ context("Testing Dialog-Full-Screen component", () => {
     );
 
     it.each(specialCharacters)(
-      "should check Dialog-full-screen % subtitle",
+      "should check Dialog-full-screen % subtitle ",
       (subtitle) => {
         CypressMountWithProviders(
           <DialogFullScreenComponent title="title" subtitle={subtitle} />
