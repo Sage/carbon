@@ -1,3 +1,10 @@
+### [104.38.2](https://github.com/Sage/carbon/compare/v104.38.1...v104.38.2) (2022-03-02)
+
+
+### Bug Fixes
+
+* **select-list:** replace colorsComponentsNavigation token ([ec27917](https://github.com/Sage/carbon/commit/ec279175486d6588ba1b13892697f9acf2a03641))
+
 ### [104.38.1](https://github.com/Sage/carbon/compare/v104.38.0...v104.38.1) (2022-03-02)
 
 
