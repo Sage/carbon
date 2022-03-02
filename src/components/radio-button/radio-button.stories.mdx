@@ -3,6 +3,7 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import { RadioButtonGroup, RadioButton, PrivateRadioButton } from ".";
 import Typography from "../typography";
+import { useState } from "react";
 
 <Meta title="RadioButton" parameters={{ info: { disable: true } }} />
 
@@ -49,16 +50,22 @@ A legend can be set for the group, and each radio button can have a label.
 
 <Canvas>
   <Story name="with legend and labels">
-    <RadioButtonGroup
+    {() => {
+      const [value, setValue] = useState("")
+      return (
+        <RadioButtonGroup
       name="legend-and-labels-group"
-      onChange={() => console.log("change")}
+      onChange={(e) => { setValue(e.target.value); console.log("change") }}
       legend="Radio group legend"
+      value={value}
     >
+    <div foo="foo">
       <RadioButton
         id="legend-and-labels-radio-1"
         value="radio1"
         label="Radio Option 1"
       />
+    </div>
       <RadioButton
         id="legend-and-labels-radio-2"
         value="radio2"
@@ -70,6 +77,8 @@ A legend can be set for the group, and each radio button can have a label.
         label="Radio Option 3"
       />
     </RadioButtonGroup>
+      )
+    }}
   </Story>
 </Canvas>
 

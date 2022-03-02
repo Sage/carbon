@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import RadioButtonStyle from "./radio-button.style";
@@ -6,6 +6,7 @@ import CheckableInput from "../../__internal__/checkable-input/checkable-input.c
 import RadioButtonSvg from "./radio-button-svg.component";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import RadioButtonContext from "./__internal__/radio-button-context";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -56,34 +57,51 @@ const RadioButton = React.forwardRef(
     },
     ref
   ) => {
+    const {
+      checked: contextChecked,
+      error: contextError,
+      info: contextInfo,
+      inline: contextInline,
+      labelSpacing: contextLabelSpacing,
+      onBlur: contextOnBlur,
+      onChange: contextOnChange,
+      onKeyDown: contextOnKeyDown,
+      onMouseDown: contextOnMouseDown,
+      required: contextRequired,
+      warning: contextWarning,
+    } = useContext(RadioButtonContext);
     const marginProps = filterStyledSystemMarginProps(props);
     const handleChange = useCallback(
       (ev) => {
-        onChange(ev);
+        if (contextOnChange) {
+          contextOnChange(ev);
+        } else {
+          onChange(ev);
+        }
         // trigger focus, as Safari doesn't focus radioButtons on click by default
         ev.target.focus();
       },
-      [onChange]
+      [contextOnChange, onChange]
     );
 
     const commonProps = {
       disabled,
       fieldHelpInline,
       inputWidth,
-      labelSpacing,
-      error,
-      warning,
-      info,
+      labelSpacing: contextLabelSpacing || labelSpacing,
+      error: contextError || error,
+      warning: contextWarning || warning,
+      info: contextInfo || info,
     };
 
     const inputProps = {
       ...commonProps,
       autoFocus,
-      checked,
+      checked: contextChecked || checked || false,
       fieldHelp,
       name,
       onChange: handleChange,
-      onBlur,
+      onBlur: contextOnBlur || onBlur,
       onFocus,
       labelAlign,
       labelInline: true,
@@ -99,9 +117,12 @@ const RadioButton = React.forwardRef(
        * opposite way around by default)
        */
       reverse: !reverse,
-      required,
+      required: contextRequired || required,
       inputRef: ref,
+      onKeyDown: contextOnKeyDown,
+      onMouseDown: contextOnMouseDown,
       ...props,
+      defaultChecked: RadioButtonContext ? undefined : props.defaultChecked,
     };
 
     return (
@@ -113,7 +134,7 @@ const RadioButton = React.forwardRef(
           data-component={dataComponent}
           data-role={dataRole}
           data-element={dataElement}
-          inline={inline}
+          inline={contextInline || inline}
           reverse={reverse}
           size={size}
           {...commonProps}

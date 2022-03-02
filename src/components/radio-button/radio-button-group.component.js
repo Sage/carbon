@@ -8,6 +8,7 @@ import RadioButtonMapper from "./radio-button-mapper.component";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+// import RadioButtonGroupContext from "./__internal__/radio-button-context";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -84,18 +85,14 @@ const RadioButtonGroup = (props) => {
             onBlur={onBlur}
             onChange={onChange}
             value={value}
+            inline={inline}
+            labelSpacing={labelSpacing}
+            error={!!error}
+            warning={!!warning}
+            info={!!info}
+            required={required}
           >
-            {React.Children.map(children, (child) => {
-              return React.cloneElement(child, {
-                inline,
-                labelSpacing,
-                error: !!error,
-                warning: !!warning,
-                info: !!info,
-                required,
-                ...child.props,
-              });
-            })}
+            {children}
           </RadioButtonMapper>
         </RadioButtonGroupStyle>
       </Fieldset>
