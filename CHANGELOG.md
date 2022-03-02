@@ -1,3 +1,33 @@
+## [104.38.0](https://github.com/Sage/carbon/compare/v104.37.0...v104.38.0) (2022-03-01)
+
+
+### Features
+
+* **hr:** describe component using design tokens ([f464a08](https://github.com/Sage/carbon/commit/f464a084d9f3c202efa5e0cb1694701153e5c018))
+* **tile-select:** describe accordion footer with token ([dae33f7](https://github.com/Sage/carbon/commit/dae33f70458f5c50e7ccd45f8248a576893bde52))
+
+## [104.37.0](https://github.com/Sage/carbon/compare/v104.36.0...v104.37.0) (2022-03-01)
+
+
+### Features
+
+* **confirm:** describe confirm component using design tokens, update tests ([504e1ac](https://github.com/Sage/carbon/commit/504e1ac4d93978f2cd8726359ddb5da1a5026e92))
+
+## [104.36.0](https://github.com/Sage/carbon/compare/v104.35.0...v104.36.0) (2022-03-01)
+
+
+### Features
+
+* **field-help:** describe field-help using design tokens, update tests ([97b5cc0](https://github.com/Sage/carbon/commit/97b5cc0ba1d6d9e3cfbfd53f20c7a2842563ad53))
+* **fieldset:** describe fieldset using design tokens, update tests ([a7095e5](https://github.com/Sage/carbon/commit/a7095e5fd4f12677851341f9c95e1ec2873abca8))
+
+## [104.35.0](https://github.com/Sage/carbon/compare/v104.34.1...v104.35.0) (2022-03-01)
+
+
+### Features
+
+* enable tree shaking ([07d2b8a](https://github.com/Sage/carbon/commit/07d2b8a85a7f5ae452c876e65224a4b8dd27501e))
+
 ### [104.34.1](https://github.com/Sage/carbon/compare/v104.34.0...v104.34.1) (2022-02-28)
 
 
