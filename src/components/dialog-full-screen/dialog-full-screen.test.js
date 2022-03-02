@@ -121,7 +121,7 @@ context("Testing Dialog-Full-Screen component", () => {
     );
 
     it.each(specialCharacters)(
-      "should render DialogFullScreen component with %s as a children",
+      "should render DialogFullScreen component with %s as a children ",
       (childrenValue) => {
         CypressMountWithProviders(
           <DialogFullScreenComponent>{childrenValue}</DialogFullScreenComponent>
