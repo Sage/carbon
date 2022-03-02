@@ -16,3 +16,4 @@ export const COMMON_INPUT_PREFIX = '[data-element="textbox-prefix"]';
 export const COMMON_INPUT_CHARACTER_LIMIT =
   'div[data-element="character-limit"]';
 export const CY_ROOT = "#__cy_root";
+export const PORTAL = ".carbon-portal";
