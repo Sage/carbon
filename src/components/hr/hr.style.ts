@@ -7,7 +7,7 @@ const StyledHr = styled.hr<MarginProps>`
   width: inherit;
   border: 0;
   height: 1px;
-  background: ${({ theme }) => theme.hr.background};
+  background: var(--colorsUtilityMajor100);
 `;
 
 StyledHr.defaultProps = {

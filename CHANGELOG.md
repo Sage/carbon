@@ -1,3 +1,26 @@
+### [104.38.1](https://github.com/Sage/carbon/compare/v104.38.0...v104.38.1) (2022-03-02)
+
+
+### Bug Fixes
+
+* **button:** fix incorrect forwardref behaviour ([5e69003](https://github.com/Sage/carbon/commit/5e6900398ed167d487df2d330827887e3ff7847d))
+* **icon-button:** fix incorrect ref behaviour ([13cffb9](https://github.com/Sage/carbon/commit/13cffb9b3580b3acb88ca63c102267b9bcaeb557))
+
+## [104.38.0](https://github.com/Sage/carbon/compare/v104.37.0...v104.38.0) (2022-03-01)
+
+
+### Features
+
+* **hr:** describe component using design tokens ([f464a08](https://github.com/Sage/carbon/commit/f464a084d9f3c202efa5e0cb1694701153e5c018))
+* **tile-select:** describe accordion footer with token ([dae33f7](https://github.com/Sage/carbon/commit/dae33f70458f5c50e7ccd45f8248a576893bde52))
+
+## [104.37.0](https://github.com/Sage/carbon/compare/v104.36.0...v104.37.0) (2022-03-01)
+
+
+### Features
+
+* **confirm:** describe confirm component using design tokens, update tests ([504e1ac](https://github.com/Sage/carbon/commit/504e1ac4d93978f2cd8726359ddb5da1a5026e92))
+
 ## [104.36.0](https://github.com/Sage/carbon/compare/v104.35.0...v104.36.0) (2022-03-01)
 
 
