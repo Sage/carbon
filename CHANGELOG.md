@@ -1,3 +1,11 @@
+### [104.38.1](https://github.com/Sage/carbon/compare/v104.38.0...v104.38.1) (2022-03-02)
+
+
+### Bug Fixes
+
+* **button:** fix incorrect forwardref behaviour ([5e69003](https://github.com/Sage/carbon/commit/5e6900398ed167d487df2d330827887e3ff7847d))
+* **icon-button:** fix incorrect ref behaviour ([13cffb9](https://github.com/Sage/carbon/commit/13cffb9b3580b3acb88ca63c102267b9bcaeb557))
+
 ## [104.38.0](https://github.com/Sage/carbon/compare/v104.37.0...v104.38.0) (2022-03-01)
 
 
