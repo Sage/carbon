@@ -31,6 +31,7 @@ const Icon = React.forwardRef(
       tooltipFlipOverrides,
       tooltipId,
       tabIndex,
+      id,
       isPartOfInput,
       inputSize,
       role,
@@ -92,6 +93,7 @@ const Icon = React.forwardRef(
       <StyledIcon
         ref={ref}
         key="icon"
+        id={id}
         className={className || null}
         data-element={iconType()}
         {...tagComponent("icon", rest)}
@@ -208,6 +210,8 @@ Icon.propTypes = {
   tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** @ignore @private */
   focusable: PropTypes.bool,
+  /** Id passed to the icon. */
+  id: PropTypes.string,
 };
 
 Icon.defaultProps = {
