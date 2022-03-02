@@ -4,9 +4,20 @@ import DialogFullScreen from "./dialog-full-screen.component";
 import Dialog from "../dialog/dialog.component";
 import Button from "../button";
 import Form from "../form";
-import { dialogTitle, dialogSubtitle, alertDialogPreview as dialogPreview } from "../../../cypress/locators/dialog";
-import { dialogFullScreenPreview, dialogFullScreenChildren } from "../../../cypress/locators/dialog-full-screen";
-import { closeIconButton, openMainDialogButton, openNestedDialogButton } from "../../../cypress/locators/index";
+import {
+  dialogTitle,
+  dialogSubtitle,
+  alertDialogPreview as dialogPreview,
+} from "../../../cypress/locators/dialog";
+import {
+  dialogFullScreenPreview,
+  dialogFullScreenChildren,
+} from "../../../cypress/locators/dialog-full-screen";
+import {
+  closeIconButton,
+  openMainDialogButton,
+  openNestedDialogButton,
+} from "../../../cypress/locators/index";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
@@ -22,9 +33,7 @@ const DialogFullScreenComponent = ({ children, ...props }) => {
         title="title"
         {...props}
       >
-        <Form>
-          {children}
-        </Form>
+        <Form>{children}</Form>
       </DialogFullScreen>
     </>
   );
@@ -50,16 +59,26 @@ const NestedDialog = () => {
     setNestedDialogOpen(false);
   };
 
-  return <>
-    <Button onClick={handleMainDialogOpen}>Open Main Dialog</Button>
-    <DialogFullScreen open={mainDialogOpen} onCancel={handleMainDialogCancel} title="Main Dialog">
-      <Button onClick={handleNestedDialogOpen}>Open Nested Dialog</Button>
-      <Dialog open={nestedDialogOpen} onCancel={handleNestedDialogCancel} title="Nested Dialog">
-        Nested Dialog Content
-      </Dialog>
-    </DialogFullScreen>
-  </>;
-}
+  return (
+    <>
+      <Button onClick={handleMainDialogOpen}>Open Main Dialog</Button>
+      <DialogFullScreen
+        open={mainDialogOpen}
+        onCancel={handleMainDialogCancel}
+        title="Main Dialog"
+      >
+        <Button onClick={handleNestedDialogOpen}>Open Nested Dialog</Button>
+        <Dialog
+          open={nestedDialogOpen}
+          onCancel={handleNestedDialogCancel}
+          title="Nested Dialog"
+        >
+          Nested Dialog Content
+        </Dialog>
+      </DialogFullScreen>
+    </>
+  );
+};
 
 DialogFullScreenComponent.propTypes = {
   children: PropTypes.node.isRequired,
@@ -67,7 +86,6 @@ DialogFullScreenComponent.propTypes = {
 
 context("Testing Dialog-Full-Screen component", () => {
   describe("Should render dialog-full-screen component", () => {
-
     it("open default Dialog Full Screen Test component using showCloseIcon object name, click closeIcon, confirm dialog is not visible", () => {
       CypressMountWithProviders(
         <DialogFullScreenComponent showCloseIcon focusFirstElement />
@@ -83,41 +101,41 @@ context("Testing Dialog-Full-Screen component", () => {
     });
 
     it.each(specialCharacters)(
-      "should check Dialog-full-screen % title", (title) => {
-        CypressMountWithProviders(
-          <DialogFullScreenComponent title={title} />
-        );
+      "should check Dialog-full-screen % title",
+      (title) => {
+        CypressMountWithProviders(<DialogFullScreenComponent title={title} />);
 
         dialogTitle().should("have.text", title);
-      });
-
+      }
+    );
 
     it.each(specialCharacters)(
-      "should check Dialog-full-screen % subtitle", (subtitle) => {
+      "should check Dialog-full-screen % subtitle",
+      (subtitle) => {
         CypressMountWithProviders(
           <DialogFullScreenComponent title="title" subtitle={subtitle} />
         );
 
         dialogSubtitle().should("have.text", subtitle);
-      });
-
+      }
+    );
 
     it.each(specialCharacters)(
-      "should render DialogFullScreen component with %s as a children", (childrenValue) => {
+      "should render DialogFullScreen component with %s as a children",
+      (childrenValue) => {
         CypressMountWithProviders(
           <DialogFullScreenComponent>{childrenValue}</DialogFullScreenComponent>
         );
 
         dialogFullScreenChildren().should("have.text", childrenValue);
-      });
+      }
+    );
 
     it("should render DialogFullScreen with disabledEscKey prop and not be closed after clicking Escape button", () => {
-      CypressMountWithProviders(
-        <DialogFullScreenComponent disableEscKey />
-      );
+      CypressMountWithProviders(<DialogFullScreenComponent disableEscKey />);
 
       dialogFullScreenPreview().should("exist");
-      dialogFullScreenPreview().get('body').type("{esc}");
+      dialogFullScreenPreview().get("body").type("{esc}");
       cy.wait(1000);
       dialogFullScreenPreview().should("exist");
     });
@@ -127,7 +145,7 @@ context("Testing Dialog-Full-Screen component", () => {
         <DialogFullScreenComponent focusFirstElement />
       );
       dialogFullScreenPreview().should("exist");
-      dialogFullScreenPreview().get('body').type("{esc}");
+      dialogFullScreenPreview().get("body").type("{esc}");
       cy.wait(1000);
       dialogFullScreenPreview().should("not.exist");
     });
@@ -147,13 +165,12 @@ context("Testing Dialog-Full-Screen component", () => {
         });
     });
 
-    it("Verify that nested dialog is closed by pressing Esc key." +
-      "Open Dialog Full Screen > click 'Open Main Dialog' > click 'Open Nested Dialog' and ensure the Dialog is visible." +
-      "Hit Escape > then Dialog is not visible and Dialog Full Screen is visible > hit Escape > the Dialog Full Screen is not visible "
-      , () => {
-        CypressMountWithProviders(
-          <NestedDialog title="title" />
-        );
+    it(
+      "Verify that nested dialog is closed by pressing Esc key." +
+        "Open Dialog Full Screen > click 'Open Main Dialog' > click 'Open Nested Dialog' and ensure the Dialog is visible." +
+        "Hit Escape > then Dialog is not visible and Dialog Full Screen is visible > hit Escape > the Dialog Full Screen is not visible ",
+      () => {
+        CypressMountWithProviders(<NestedDialog title="title" />);
 
         openMainDialogButton().click();
         cy.wait(500);
@@ -163,25 +180,32 @@ context("Testing Dialog-Full-Screen component", () => {
 
         dialogPreview().should("exist");
 
-        cy.get('.carbon-portal').eq(1).find('h1')
-          .contains('Nested Dialog').should('be.visible');
+        cy.get(".carbon-portal")
+          .eq(1)
+          .find("h1")
+          .contains("Nested Dialog")
+          .should("be.visible");
 
-        dialogFullScreenPreview().contains('Main Dialog').should('not.be.visible');
+        dialogFullScreenPreview()
+          .contains("Main Dialog")
+          .should("not.be.visible");
 
-        cy.get(".carbon-portal").find("h1").contains("Nested Dialog").get('body').type("{esc}");
+        cy.get(".carbon-portal")
+          .find("h1")
+          .contains("Nested Dialog")
+          .get("body")
+          .type("{esc}");
         cy.wait(1000);
 
         dialogPreview().should("not.exist");
 
-        dialogFullScreenPreview().contains('Main Dialog').should('be.visible');
+        dialogFullScreenPreview().contains("Main Dialog").should("be.visible");
 
-        dialogFullScreenPreview().get('body').type("{esc}");
+        dialogFullScreenPreview().get("body").type("{esc}");
         cy.wait(1000);
 
         dialogFullScreenPreview().should("not.exist");
-
-      });
-
+      }
+    );
   });
-
 });
