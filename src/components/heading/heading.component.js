@@ -17,6 +17,7 @@ import {
   StyledHeadingBackButton,
   StyledHeadingPills,
 } from "./heading.style";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -50,6 +51,7 @@ const Heading = ({
     );
   };
 
+  const l = useLocale();
   const getBackButton = () => {
     const backButtonProps =
       typeof backLink === "string" ? { href: backLink } : { onClick: backLink };
@@ -57,8 +59,9 @@ const Heading = ({
     return (
       <StyledHeadingBackButton
         // this event allows an element to be focusable on click event on IE
-        onMouseDown={(e) => e.currentTarget.focus()}
+        aria-label={l.heading.backLinkAriaLabel()}
         data-element="back"
+        onMouseDown={(e) => e.currentTarget.focus()}
         {...backButtonProps}
       >
         <StyledHeadingIcon type="chevron_left" divider={divider} />
