@@ -1,33 +1,20 @@
 import React from "react";
-import { mount } from "enzyme";
-import { act } from "react-dom/test-utils";
-import { render } from "react-dom";
+import { fireEvent, render, screen, act } from "@testing-library/react";
+import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+
 import {
   FlatTable,
-  FlatTableBody,
   FlatTableRow,
   FlatTableCell,
   FlatTableBodyDraggable,
 } from "..";
 
-describe("Draggable Table", () => {
-  let wrapper;
-
-  const getTableCells = (mountNode) =>
-    Array.from(mountNode.querySelectorAll('tr[data-element="flat-table-row"]'));
-
-  const createBubbledEvent = (type, props = {}) =>
-    new Event(type, { bubbles: true, ...props });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
+describe("FlatTableBodyDraggable", () => {
   describe("when a data prop is added", () => {
-    it("should be added to the FlatTableBody", () => {
-      wrapper = mount(
+    test("should be added to the FlatTableBody", () => {
+      render(
         <FlatTable>
-          <FlatTableBodyDraggable data-role="test">
+          <FlatTableBodyDraggable data-testid="test">
             <FlatTableRow key={0} id={0} index={0}>
               <FlatTableCell>UK</FlatTableCell>
             </FlatTableRow>
@@ -38,330 +25,379 @@ describe("Draggable Table", () => {
         </FlatTable>
       );
 
-      expect(wrapper.find(FlatTableBody).props()["data-role"]).toEqual("test");
+      expect(screen.getByTestId("test")).toBeTruthy();
     });
   });
 
-  it("should call getOrder with an array with id's", () => {
-    const getOrder = jest.fn();
-    wrapper = mount(
-      <FlatTable>
-        <FlatTableBodyDraggable getOrder={getOrder}>
-          <FlatTableRow key={0} id={0} index={0}>
-            <FlatTableCell>UK</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow key={1} id={1} index={1}>
-            <FlatTableCell>Germany</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBodyDraggable>
-      </FlatTable>
-    );
-    wrapper.find("DropTarget").at(0).props().getOrder();
-    expect(getOrder).toHaveBeenCalledWith([0, 1]);
+  describe("drag and drop functionality", () => {
+    beforeEach(() => {
+      render(
+        <FlatTable>
+          <FlatTableBodyDraggable>
+            <FlatTableRow key="0" id={0}>
+              <FlatTableCell>Row one</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow key="1" id={1}>
+              <FlatTableCell>Row two</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow key="2" id={2}>
+              <FlatTableCell>Row three</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBodyDraggable>
+        </FlatTable>
+      );
+    });
+
+    test("on initial render the rows are in the correct order", () => {
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual(["Row one", "Row two", "Row three"]);
+    });
+
+    test("it can drag-and-drop downwards", () => {
+      const tableRows = screen.getAllByRole("row");
+      const dropTarget = tableRows[2];
+      const elementToDrag = tableRows[0];
+
+      fireEvent.dragStart(elementToDrag);
+      fireEvent.dragEnter(dropTarget);
+      fireEvent.dragOver(dropTarget);
+      fireEvent.drop(dropTarget);
+
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual(["Row two", "Row three", "Row one"]);
+    });
+
+    test("it can drag without drop", () => {
+      const tableRows = screen.getAllByRole("row");
+      const dropTarget = tableRows[2];
+      const elementToDrag = tableRows[0];
+
+      fireEvent.dragStart(elementToDrag);
+      fireEvent.dragEnter(dropTarget);
+      fireEvent.dragOver(dropTarget);
+      fireEvent.drop(window);
+
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual(["Row one", "Row two", "Row three"]);
+    });
+
+    test("sets the cursor correctly when dragging", async () => {
+      const tableRows = screen.getAllByRole("row");
+      const elementToDrag = tableRows[0];
+
+      function tick() {
+        return new Promise((resolve) => {
+          setTimeout(resolve, 500);
+        });
+      }
+
+      await act(async () => {
+        fireEvent.dragStart(elementToDrag);
+        fireEvent.dragEnter(elementToDrag);
+        fireEvent.dragOver(elementToDrag);
+
+        await tick();
+      });
+
+      assertStyleMatch(
+        {
+          cursor: "grabbing",
+        },
+        screen.getByTestId("flat-table-body-draggable")
+      );
+    });
+
+    test("it can drop on the same item", () => {
+      const tableRows = screen.getAllByRole("row");
+      const elementToDrag = tableRows[0];
+
+      fireEvent.dragStart(elementToDrag);
+      fireEvent.dragEnter(elementToDrag);
+      fireEvent.dragOver(elementToDrag);
+      fireEvent.drop(elementToDrag);
+
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual(["Row one", "Row two", "Row three"]);
+    });
+
+    test("it can drag-and-drop upwards", () => {
+      const tableRows = screen.getAllByRole("row");
+      const dropTarget = tableRows[0];
+      const elementToDrag = tableRows[2];
+
+      fireEvent.dragStart(elementToDrag);
+      fireEvent.dragEnter(dropTarget);
+      fireEvent.dragOver(dropTarget);
+      fireEvent.drop(dropTarget);
+
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual(["Row three", "Row one", "Row two"]);
+    });
   });
 
-  it("should not call getOrder with an array if getOrder is not passed to the component", () => {
-    const getOrder = jest.fn();
-    wrapper = mount(
-      <FlatTable>
-        <FlatTableBodyDraggable>
-          <FlatTableRow key={0} id={0} index={0}>
-            <FlatTableCell>UK</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow key={1} id={1} index={1}>
-            <FlatTableCell>Germany</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBodyDraggable>
-      </FlatTable>
-    );
-    wrapper.find("DropTarget").at(0).props().getOrder();
-    expect(getOrder).not.toHaveBeenCalledWith();
-  });
-
-  describe("With sub rows", () => {
-    let mountNode;
-
+  describe("with sub rows", () => {
     beforeEach(() => {
       const subRows = [
         <FlatTableRow>
-          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Sub row one</FlatTableCell>
         </FlatTableRow>,
         <FlatTableRow>
-          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Sub row two</FlatTableCell>
         </FlatTableRow>,
       ];
-      const component = (
+
+      render(
         <FlatTable>
           <FlatTableBodyDraggable>
             <FlatTableRow expandable subRow={subRows} key="0" id={0}>
-              <FlatTableCell>UK</FlatTableCell>
+              <FlatTableCell>Row one</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow expandable subRow={subRows} key="1" id={1}>
-              <FlatTableCell>Germany</FlatTableCell>
+              <FlatTableCell>Row two</FlatTableCell>
             </FlatTableRow>
             <FlatTableRow expandable subRow={subRows} key="2" id={2}>
-              <FlatTableCell>Finland</FlatTableCell>
+              <FlatTableCell>Row three</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBodyDraggable>
+        </FlatTable>
+      );
+    });
+
+    test("on initial render the rows are in the correct order", () => {
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual(["Row one", "Row two", "Row three"]);
+    });
+
+    test("it can drag-and-drop downwards", () => {
+      const tableRows = screen.getAllByRole("row");
+      const dropTarget = tableRows[2];
+      const elementToDrag = tableRows[0];
+
+      fireEvent.dragStart(elementToDrag);
+      fireEvent.dragEnter(dropTarget);
+      fireEvent.dragOver(dropTarget);
+      fireEvent.drop(dropTarget);
+
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual(["Row two", "Row three", "Row one"]);
+    });
+
+    test("it can drag without drop", () => {
+      const tableRows = screen.getAllByRole("row");
+      const elementToDrag = tableRows[0];
+
+      fireEvent.dragStart(elementToDrag);
+
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual(["Row one", "Row two", "Row three"]);
+    });
+
+    test("it can drop on the same item", () => {
+      const tableRows = screen.getAllByRole("row");
+      const elementToDrag = tableRows[0];
+
+      fireEvent.dragStart(elementToDrag);
+      fireEvent.dragEnter(elementToDrag);
+      fireEvent.dragOver(elementToDrag);
+      fireEvent.drop(elementToDrag);
+
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual(["Row one", "Row two", "Row three"]);
+    });
+
+    test("it can drag-and-drop upwards", () => {
+      const tableRows = screen.getAllByRole("row");
+      const dropTarget = tableRows[0];
+      const elementToDrag = tableRows[2];
+
+      fireEvent.dragStart(elementToDrag);
+      fireEvent.dragEnter(dropTarget);
+      fireEvent.dragOver(dropTarget);
+      fireEvent.drop(dropTarget);
+
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual(["Row three", "Row one", "Row two"]);
+    });
+  });
+
+  describe("when the passed in children change", () => {
+    test("should update the children correctly", () => {
+      const { rerender } = render(
+        <FlatTable>
+          <FlatTableBodyDraggable>
+            <FlatTableRow key="0" id={0}>
+              <FlatTableCell>Row one</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow key="1" id={1}>
+              <FlatTableCell>Row two</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow key="2" id={2}>
+              <FlatTableCell>Row three</FlatTableCell>
             </FlatTableRow>
           </FlatTableBodyDraggable>
         </FlatTable>
       );
 
-      mountNode = document.createElement("div");
-      document.body.appendChild(mountNode);
-      render(component, mountNode);
+      rerender(
+        <FlatTable>
+          <FlatTableBodyDraggable>
+            <FlatTableRow expandable key="3" id={3}>
+              <FlatTableCell>Row four</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable key="4" id={4}>
+              <FlatTableCell>Row five</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable key="5" id={5}>
+              <FlatTableCell>Row six</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBodyDraggable>
+        </FlatTable>
+      );
+
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual(["Row four", "Row five", "Row six"]);
     });
+  });
 
-    describe("drag and drop functionality works as expected", () => {
-      it("on initial render it has Initial order of the rows", () => {
-        expect(
-          getTableCells(mountNode).map((cell) => cell.textContent)
-        ).toEqual(["UK", "Germany", "Finland"]);
-      });
+  describe("when getOrder prop set", () => {
+    test("it should call getOrder when the order is changed", () => {
+      const getOrder = jest.fn();
 
-      it("can drag-and-drop downward", () => {
-        const tableCells1 = getTableCells(mountNode);
-        const startingNode1 = tableCells1[0];
-        const endingNode1 = tableCells1[2];
+      render(
+        <FlatTable>
+          <FlatTableBodyDraggable getOrder={getOrder}>
+            <FlatTableRow key="0" id={0}>
+              <FlatTableCell>Row one</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow key="1" id={1}>
+              <FlatTableCell>Row two</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow key="2" id={2}>
+              <FlatTableCell>Row three</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBodyDraggable>
+        </FlatTable>
+      );
+      const tableRows = screen.getAllByRole("row");
+      const elementToDrag = tableRows[0];
 
-        act(() => {
-          startingNode1.dispatchEvent(
-            createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
-          );
+      fireEvent.dragStart(elementToDrag);
+      fireEvent.dragEnter(elementToDrag);
+      fireEvent.dragOver(elementToDrag);
+      fireEvent.drop(elementToDrag);
 
-          endingNode1.dispatchEvent(
-            createBubbledEvent("dragover", { clientX: 0, clientY: 1 })
-          );
-
-          endingNode1.dispatchEvent(
-            createBubbledEvent("drop", { clientX: 0, clientY: 1 })
-          );
-        });
-
-        expect(
-          getTableCells(mountNode).map((cell) => cell.textContent)
-        ).toEqual(["Germany", "Finland", "UK"]);
-      });
-
-      it("can drag without drop", () => {
-        const tableCells1 = getTableCells(mountNode);
-        const startingNode1 = tableCells1[0];
-
-        act(() => {
-          startingNode1.dispatchEvent(
-            createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
-          );
-        });
-
-        expect(
-          getTableCells(mountNode).map((cell) => cell.textContent)
-        ).toEqual(["UK", "Germany", "Finland"]);
-      });
-
-      it("can drop on the same item", () => {
-        const tableCells1 = getTableCells(mountNode);
-        const startingNode1 = tableCells1[0];
-
-        act(() => {
-          startingNode1.dispatchEvent(
-            createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
-          );
-
-          startingNode1.dispatchEvent(
-            createBubbledEvent("dragover", { clientX: 0, clientY: 0 })
-          );
-
-          startingNode1.dispatchEvent(
-            createBubbledEvent("drop", { clientX: 0, clientY: 0 })
-          );
-        });
-
-        expect(
-          getTableCells(mountNode).map((cell) => cell.textContent)
-        ).toEqual(["UK", "Germany", "Finland"]);
-      });
-
-      it("can drag-and-drop upward", () => {
-        const tableCells2 = getTableCells(mountNode);
-        const startingNode2 = tableCells2[2];
-        const endingNode2 = tableCells2[1];
-        startingNode2.closest(
-          'tr[data-element="flat-table-row"]'
-        ).getBoundingClientRect = () => ({
-          top: 20,
-          left: 0,
-        });
-
-        act(() => {
-          startingNode2.dispatchEvent(
-            createBubbledEvent("dragstart", { clientX: 0, clientY: 20 })
-          );
-          endingNode2.dispatchEvent(
-            createBubbledEvent("dragover", { clientX: 0, clientY: 10 })
-          );
-          endingNode2.dispatchEvent(
-            createBubbledEvent("drop", { clientX: 0, clientY: 10 })
-          );
-        });
-
-        expect(
-          getTableCells(mountNode).map((cell) => cell.textContent)
-        ).toEqual(["UK", "Finland", "Germany"]);
-      });
-
-      it("updates children", () => {
-        wrapper = mount(
-          <FlatTable>
-            <FlatTableBodyDraggable>
-              <FlatTableRow key={0} id={0} index={0}>
-                <FlatTableCell>UK</FlatTableCell>
-              </FlatTableRow>
-            </FlatTableBodyDraggable>
-          </FlatTable>
-        );
-
-        wrapper.setProps({
-          children: (
-            <FlatTableBodyDraggable>
-              <FlatTableRow key={0} id={0} index={0}>
-                <FlatTableCell>UK</FlatTableCell>
-              </FlatTableRow>
-              <FlatTableRow key={1} id={1} index={1}>
-                <FlatTableCell>Germany</FlatTableCell>
-              </FlatTableRow>
-              <FlatTableRow key={2} id={2} index={2}>
-                <FlatTableCell>Finland</FlatTableCell>
-              </FlatTableRow>
-            </FlatTableBodyDraggable>
-          ),
-        });
-
-        wrapper.update();
-
-        expect(wrapper.find(FlatTableRow).length).toBe(3);
-      });
+      expect(getOrder).toHaveBeenCalledWith([0, 1, 2]);
     });
   });
 
   describe("mulitple draggable tables", () => {
-    let mountNode;
-
     beforeEach(() => {
-      const component = (
+      render(
         <div>
-          <FlatTable id="table-1">
+          <FlatTable data-testid="table-1">
             <FlatTableBodyDraggable>
-              <FlatTableRow expandable key="0" id={0}>
-                <FlatTableCell>UK</FlatTableCell>
+              <FlatTableRow expandable key="0" id={0} data-testid="table-1-row">
+                <FlatTableCell>Row one</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow expandablekey="1" id={1}>
-                <FlatTableCell>Germany</FlatTableCell>
+              <FlatTableRow expandablekey="1" id={1} data-testid="table-1-row">
+                <FlatTableCell>Row two</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow expandable key="2" id={2}>
-                <FlatTableCell>Finland</FlatTableCell>
+              <FlatTableRow expandable key="2" id={2} data-testid="table-1-row">
+                <FlatTableCell>Row three</FlatTableCell>
               </FlatTableRow>
             </FlatTableBodyDraggable>
           </FlatTable>
-          <FlatTable id="table-2">
+          <FlatTable data-testid="table-2">
             <FlatTableBodyDraggable>
               <FlatTableRow expandable key="3" id={3}>
-                <FlatTableCell>USA</FlatTableCell>
+                <FlatTableCell>Row four</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow expandable key="4" id={4}>
-                <FlatTableCell>Canada</FlatTableCell>
+                <FlatTableCell>Row five</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow expandable key="5" id={5}>
-                <FlatTableCell>Spain</FlatTableCell>
+                <FlatTableCell>Row six</FlatTableCell>
               </FlatTableRow>
             </FlatTableBodyDraggable>
           </FlatTable>
         </div>
       );
-
-      mountNode = document.createElement("div");
-      document.body.appendChild(mountNode);
-      render(component, mountNode);
     });
 
-    it("should drag items within table 1", () => {
-      const table1 = mountNode.querySelector("#table-1");
-      const tableCells = getTableCells(table1);
-      const startingNode = tableCells[0];
-      const endingNode = tableCells[2];
+    test("should drag items within table 1", () => {
+      const tableRows = screen.getAllByRole("row");
+      const dropTarget = tableRows[2];
+      const elementToDrag = tableRows[0];
 
-      act(() => {
-        startingNode.dispatchEvent(
-          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
-        );
+      fireEvent.dragStart(elementToDrag);
+      fireEvent.dragEnter(dropTarget);
+      fireEvent.dragOver(dropTarget);
+      fireEvent.drop(dropTarget);
 
-        endingNode.dispatchEvent(
-          createBubbledEvent("dragover", { clientX: 0, clientY: 1 })
-        );
-
-        endingNode.dispatchEvent(
-          createBubbledEvent("drop", { clientX: 0, clientY: 1 })
-        );
-      });
-
-      expect(getTableCells(table1).map((cell) => cell.textContent)).toEqual([
-        "Germany",
-        "Finland",
-        "UK",
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual([
+        "Row two",
+        "Row three",
+        "Row one",
+        "Row four",
+        "Row five",
+        "Row six",
       ]);
     });
 
-    it("should drag items within table 2", () => {
-      const table2 = mountNode.querySelector("#table-2");
-      const tableCells = getTableCells(table2);
-      const startingNode = tableCells[0];
-      const endingNode = tableCells[2];
+    test("should drag items within table 2", () => {
+      const tableRows = screen.getAllByRole("row");
+      const dropTarget = tableRows[5];
+      const elementToDrag = tableRows[3];
 
-      act(() => {
-        startingNode.dispatchEvent(
-          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
-        );
+      fireEvent.dragStart(elementToDrag);
+      fireEvent.dragEnter(dropTarget);
+      fireEvent.dragOver(dropTarget);
+      fireEvent.drop(dropTarget);
 
-        endingNode.dispatchEvent(
-          createBubbledEvent("dragover", { clientX: 0, clientY: 1 })
-        );
-
-        endingNode.dispatchEvent(
-          createBubbledEvent("drop", { clientX: 0, clientY: 1 })
-        );
-      });
-
-      expect(getTableCells(table2).map((cell) => cell.textContent)).toEqual([
-        "Canada",
-        "Spain",
-        "USA",
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual([
+        "Row one",
+        "Row two",
+        "Row three",
+        "Row five",
+        "Row six",
+        "Row four",
       ]);
     });
 
-    it("should not drag item from one table to another", () => {
-      const tableCells = getTableCells(mountNode);
-      const startingNode = tableCells[0];
-      const endingNode = tableCells[4];
+    test("should not drag item from one table to another", () => {
+      const tableRows = screen.getAllByRole("row");
+      const dropTarget = tableRows[0];
+      const elementToDrag = tableRows[4];
 
-      act(() => {
-        startingNode.dispatchEvent(
-          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
-        );
+      fireEvent.dragStart(elementToDrag);
+      fireEvent.dragEnter(dropTarget);
+      fireEvent.dragOver(dropTarget);
+      fireEvent.drop(dropTarget);
 
-        endingNode.dispatchEvent(
-          createBubbledEvent("dragover", { clientX: 0, clientY: 1 })
-        );
-
-        endingNode.dispatchEvent(
-          createBubbledEvent("drop", { clientX: 0, clientY: 1 })
-        );
-      });
-
-      expect(getTableCells(mountNode).map((cell) => cell.textContent)).toEqual([
-        "UK",
-        "Germany",
-        "Finland",
-        "USA",
-        "Canada",
-        "Spain",
+      expect(
+        screen.getAllByRole("row").map((cell) => cell.textContent)
+      ).toEqual([
+        "Row one",
+        "Row two",
+        "Row three",
+        "Row four",
+        "Row five",
+        "Row six",
       ]);
     });
   });
