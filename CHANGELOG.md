@@ -1,3 +1,11 @@
+## [104.39.0](https://github.com/Sage/carbon/compare/v104.38.2...v104.39.0) (2022-03-03)
+
+
+### Features
+
+* **draggable:** describe draggable using design tokens, update tests ([a70b1b1](https://github.com/Sage/carbon/commit/a70b1b16eb6c9d3cab16bd539246409ddc8aced6))
+* **popover-container:** describe popover-container using design tokens, update tests ([7ff7197](https://github.com/Sage/carbon/commit/7ff719766be0a6278dc0022bc04d8b6b968e59f6))
+
 ### [104.38.2](https://github.com/Sage/carbon/compare/v104.38.1...v104.38.2) (2022-03-02)
 
 
