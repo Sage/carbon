@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
-import { baseTheme } from "../../style/themes";
 import StyledButton from "../button/button.style";
 import { StyledLink } from "../link/link.style";
+import { baseTheme } from "../../style/themes";
 
 export const StyledDl = styled.dl`
   ${space}
@@ -25,12 +25,20 @@ export const StyledDl = styled.dl`
   background-color: transparent;
 `;
 
+StyledDl.defaultProps = {
+  theme: baseTheme,
+};
+
 export const StyledDtDiv = styled.div`
   ${space}
   ${({ dtTextAlign }) => css`
     text-align: ${dtTextAlign};
   `}
 `;
+
+StyledDtDiv.defaultProps = {
+  theme: baseTheme,
+};
 
 export const StyledDdDiv = styled.div`
   ${({ ddTextAlign }) => css`
@@ -40,11 +48,9 @@ export const StyledDdDiv = styled.div`
 
 export const StyledDt = styled.dt`
   ${space}
-  ${({ theme }) => css`
-    font-size: 14px
-    font-weight: 700;
-    color: ${theme.definitionList.dtTextDark};
-  `}
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--colorsUtilityYin090);
 `;
 
 StyledDt.defaultProps = {
@@ -52,27 +58,22 @@ StyledDt.defaultProps = {
 };
 
 export const StyledDd = styled.dd`
-  ${({ theme }) => css`
-    font-size: 14px
-    font-weight: 700;
-    color: ${theme.definitionList.ddText};
-    margin-left: 0px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--colorsUtilityYin065);
+  margin-left: 0px;
 
-    ${StyledButton} {
-      padding: 0;
-      border: none;
-    }
+  ${StyledButton} {
+    padding: 0;
+    border: none;
+  }
 
-    ${StyledLink} {
-      a, button {
-        font-weight: 700px;
-        text-decoration: none;
-      }
+  ${StyledLink} {
+    a,
+    button {
+      font-weight: 700px;
+      text-decoration: none;
     }
-  `}
+  }
   ${space}
 `;
-
-StyledDd.defaultProps = {
-  theme: baseTheme,
-};

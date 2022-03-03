@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import StyledIcon from "../icon/icon.style";
-import baseTheme from "../../style/themes/base";
 import { StyledHeadingTitle } from "../heading/heading.style";
 
 export const StyledConfirmButtons = styled.div`
@@ -24,12 +23,12 @@ export const StyledConfirmHeading = styled.div`
     ${({ type }) =>
       type === "warning" &&
       css`
-        color: ${baseTheme.colors.warning};
+        color: var(--colorsSemanticCaution500);
       `}
     ${({ type }) =>
       type === "error" &&
       css`
-        color: ${baseTheme.colors.error};
+        color: var(--colorsSemanticNegative500);
       `}
   }
 `;

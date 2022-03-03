@@ -3,10 +3,9 @@ import {
   StyledAccordionContentContainer,
   StyledAccordionContent,
 } from "../../../accordion/accordion.style";
-import baseTheme from "../../../../style/themes/base";
 
 const StyledContentContainer = styled(StyledAccordionContentContainer)`
-  background-color: ${({ theme }) => theme.tileSelect.hoverBackground};
+  background-color: var(--colorsActionMinor050);
 `;
 
 const StyledContent = styled(StyledAccordionContent)`
@@ -14,9 +13,5 @@ const StyledContent = styled(StyledAccordionContent)`
   position: relative;
   z-index: 200;
 `;
-
-StyledContentContainer.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledContentContainer, StyledContent };

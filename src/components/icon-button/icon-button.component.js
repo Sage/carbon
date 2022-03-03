@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import Events from "../../__internal__/utils/helpers/events";
@@ -29,20 +29,23 @@ const IconButton = React.forwardRef(
       onAction(e);
     };
 
+    const setRefs = useCallback(
+      (reference) => {
+        setInternalRef(reference);
+        if (!ref) return;
+        if (typeof ref === "object") ref.current = reference;
+        if (typeof ref === "function") ref(reference);
+      },
+      [ref]
+    );
+
     return (
       <StyledIconButton
         {...rest}
         aria-label={ariaLabel}
         onKeyDown={onKeyDown}
         onClick={handleOnAction}
-        ref={(reference) => {
-          if (reference) {
-            setInternalRef(reference);
-            if (!ref) return;
-            if (typeof ref === "object") ref.current = reference;
-            if (typeof ref === "function") ref(reference);
-          }
-        }}
+        ref={setRefs}
         disabled={disabled}
         {...marginProps}
       >
