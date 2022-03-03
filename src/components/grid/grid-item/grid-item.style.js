@@ -9,6 +9,7 @@ function responsiveGridItem(responsiveSettings) {
   return responsiveSettings.map((setting) => {
     const {
       alignSelf,
+      gridArea,
       gridColumn,
       gridRow,
       maxWidth,
@@ -23,6 +24,7 @@ function responsiveGridItem(responsiveSettings) {
       @media screen and (max-width: ${maxWidth}) {
         align-self: ${alignSelf || "stretch"};
         justify-self: ${justifySelf || "stretch"};
+        grid-area: ${gridArea};
         grid-column: ${gridColumn};
         grid-row: ${gridRow};
         padding: ${getSpacing(p)};
@@ -74,17 +76,24 @@ const paddingPropTypes = filterStyledSystemPaddingProps(
 
 const GridItemStyle = styled.div`
   margin: 0;
-
-  ${({ justifySelf }) => flexbox({ justifySelf })}
-  ${({ alignSelf }) => flexbox({ alignSelf })}
   ${padding}
-  ${({ gridRow }) => grid({ gridRow })}
-  ${({ gridColumn }) => grid({ gridColumn })}
-  ${({ responsiveSettings }) =>
-    responsiveSettings &&
+
+  ${({
+    alignSelf,
+    justifySelf,
+    gridArea,
+    gridColumn,
+    gridRow,
+    responsiveSettings,
+  }) => css`
+    ${flexbox({ alignSelf, justifySelf })}
+    ${grid({ gridArea, gridColumn, gridRow })};
+
+    ${responsiveSettings &&
     css`
       ${responsiveGridItem(responsiveSettings)};
     `}
+  `}
 `;
 
 GridItemStyle.propTypes = {
@@ -96,6 +105,7 @@ GridItemStyle.propTypes = {
   responsiveSettings: PropTypes.arrayOf(
     PropTypes.shape({
       alignSelf: PropTypes.string,
+      gridArea: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       gridColumn: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       gridRow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       justifySelf: PropTypes.string,
@@ -106,8 +116,7 @@ GridItemStyle.propTypes = {
 };
 
 GridItemStyle.defaultProps = {
-  gridColumn: "1 / 13",
-  gridRow: "auto",
+  gridArea: "auto / 1 / auto / 13",
 };
 
 export default GridItemStyle;
