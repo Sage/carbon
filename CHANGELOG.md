@@ -1,3 +1,10 @@
+## [104.41.0](https://github.com/Sage/carbon/compare/v104.40.0...v104.41.0) (2022-03-03)
+
+
+### Features
+
+* **link-preview, preview:** describe link-preview & preview using design tokens ([b62e6f3](https://github.com/Sage/carbon/commit/b62e6f3c53bfb085d2da8d876c00da6da0fa3362))
+
 ## [104.40.0](https://github.com/Sage/carbon/compare/v104.39.0...v104.40.0) (2022-03-03)
 
 
