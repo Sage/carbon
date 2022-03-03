@@ -58,9 +58,8 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
 }
 
 .c0:focus {
-  color: rgba(0,0,0,0.9);
   background-color: transparent;
-  outline: solid 3px #FFB500;
+  outline: solid 3px var(--colorsSemanticFocus500);
   z-index: 1;
 }
 
@@ -522,9 +521,8 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
 }
 
 .c0:focus {
-  color: rgba(0,0,0,0.9);
   background-color: transparent;
-  outline: solid 3px #FFB500;
+  outline: solid 3px var(--colorsSemanticFocus500);
   z-index: 1;
 }
 

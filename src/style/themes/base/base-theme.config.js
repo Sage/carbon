@@ -151,10 +151,6 @@ export default (palette) => {
       },
     },
 
-    form: {
-      invalid: palette.slateTint(95),
-    },
-
     card: {
       footerBackground: palette.slateTint(95),
       footerBorder: palette.slateTint(80),
@@ -224,12 +220,6 @@ export default (palette) => {
 
     content: {
       secondaryColor: palette.slateTint(40),
-    },
-
-    definitionList: {
-      dtTextDark: palette.blackOpacity(0.9),
-      dtTextLight: palette.blackOpacity(0.65),
-      ddText: palette.blackOpacity(0.65),
     },
 
     disabled: {

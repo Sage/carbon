@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import Icon from "../icon";
@@ -119,6 +119,16 @@ const Button = ({
       paddingX = 3;
   }
 
+  const setRefs = useCallback(
+    (reference) => {
+      setInternalRef(reference);
+      if (!forwardRef) return;
+      if (typeof forwardRef === "object") forwardRef.current = reference;
+      if (typeof forwardRef === "function") forwardRef(reference);
+    },
+    [forwardRef]
+  );
+
   return (
     <StyledButton
       aria-label={!children && iconType ? ariaLabel || iconType : undefined}
@@ -141,14 +151,7 @@ const Button = ({
       {...tagComponent("button", rest)}
       {...rest}
       {...(href && { href })}
-      ref={(reference) => {
-        if (reference) {
-          setInternalRef(reference);
-          if (!forwardRef) return;
-          if (typeof forwardRef === "object") forwardRef.current = reference;
-          if (typeof forwardRef === "function") forwardRef(reference);
-        }
-      }}
+      ref={setRefs}
     >
       {renderChildren({
         iconType,
