@@ -1,3 +1,12 @@
+### [104.43.1](https://github.com/Sage/carbon/compare/v104.43.0...v104.43.1) (2022-03-03)
+
+
+### Bug Fixes
+
+* **help:** resolve aria issues ([efc5645](https://github.com/Sage/carbon/commit/efc56451d510bc4f50ee381144e4107e4763b74c))
+* **icon:** resolve aria issues ([fa75f2a](https://github.com/Sage/carbon/commit/fa75f2a571adbba83b1dbfc082ad226597dcd2f3))
+* **tooltip:** fix incorrect icon with tooltip focusability ([32644bc](https://github.com/Sage/carbon/commit/32644bc4d68557527c6f8915482838fe08d6902a))
+
 ## [104.43.0](https://github.com/Sage/carbon/compare/v104.42.0...v104.43.0) (2022-03-03)
 
 
