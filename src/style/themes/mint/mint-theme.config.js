@@ -19,9 +19,10 @@ export default (palette) => {
 
     get compatibility() {
       return {
+        colorsActionMajor150: this.colors.loadingBarBackground,
         colorsActionMajor500: this.colors.primary,
         colorsActionMajor600: this.colors.secondary,
-        colorsActionMajor150: this.colors.loadingBarBackground,
+        colorsActionMajor700: this.colors.tertiary,
 
         colorsComponentsMenuAutumnStandard600: this.colors.primary,
         colorsComponentsMenuSpringChild600: this.colors.primary,
