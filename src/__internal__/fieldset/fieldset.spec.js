@@ -78,7 +78,7 @@ describe("Fieldset", () => {
             boxSizing: "border-box",
             margin: "0",
             justifyContent: "flex-end",
-            paddingRight: "16px",
+            paddingRight: "var(--spacing200)",
           },
           wrapper.find(StyledLegend)
         );
@@ -112,7 +112,7 @@ describe("Fieldset", () => {
         wrapper = render({ inline: true, legend: "Legend", legendSpacing: 1 });
         assertStyleMatch(
           {
-            paddingRight: "8px",
+            paddingRight: "var(--spacing100)",
           },
           wrapper.find(StyledLegend)
         );
@@ -151,9 +151,9 @@ describe("Fieldset", () => {
     assertStyleMatch(
       {
         content: '"*"',
-        color: "#C7384F",
+        color: "var(--colorsSemanticNegative500)",
         fontWeight: "700",
-        marginLeft: "8px",
+        marginLeft: "var(--spacing100)",
       },
       mount(<StyledLegendContent isRequired />),
       { modifier: "::after" }

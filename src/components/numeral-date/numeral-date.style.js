@@ -1,10 +1,8 @@
 import styled, { css } from "styled-components";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import StyledIconSpan from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import { baseTheme } from "../../style/themes";
 import StyledInputPresentantion from "../../__internal__/input/input-presentation.style";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
-import StyledIcon from "../icon/icon.style";
 
 export const StyledNumeralDate = styled.div`
   display: inline-flex;
@@ -19,10 +17,9 @@ export const StyledNumeralDate = styled.div`
     margin-top: 0px;
   }
 `;
-StyledNumeralDate.defaultProps = { theme: baseTheme };
 
 export const StyledDateField = styled.div`
-  ${({ isYearInput, theme, isEnd, hasValidationIcon, isMiddle }) => {
+  ${({ isYearInput, isEnd, hasValidationIcon, isMiddle }) => {
     const yearInputOrError = isYearInput || (isEnd && hasValidationIcon);
 
     return css`
@@ -38,14 +35,6 @@ export const StyledDateField = styled.div`
           `
         }
 
-        ${StyledIcon} {
-          display: flex;
-          color: ${theme.numeralDate.error};
-          width: 16px;
-          height: 16px;
-          cursor: pointer;
-        }
-
         ${StyledIconSpan} {
           width: 32px;
           z-index: 999;
@@ -57,5 +46,3 @@ export const StyledDateField = styled.div`
       `;
   }}
 `;
-
-StyledDateField.defaultProps = { theme: baseTheme };
