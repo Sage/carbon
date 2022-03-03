@@ -1,3 +1,10 @@
+## [104.43.0](https://github.com/Sage/carbon/compare/v104.42.0...v104.43.0) (2022-03-03)
+
+
+### Features
+
+* **grid:** add styled-system props ([446f477](https://github.com/Sage/carbon/commit/446f47782a2ef2967ccce810e0fcc025779a16ec))
+
 ## [104.42.0](https://github.com/Sage/carbon/compare/v104.41.0...v104.42.0) (2022-03-03)
 
 
