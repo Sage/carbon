@@ -5,7 +5,6 @@ import StyledIcon from "../icon/icon.style";
 
 const StyledHelp = styled.div`
   background: none;
-  color: ${({ theme }) => theme.help.color};
   cursor: default;
   border: none;
   outline: none;
@@ -17,20 +16,24 @@ const StyledHelp = styled.div`
   margin-top: 0;
   text-decoration: none;
 
+  ${StyledIcon} {
+    color: var(--colorsUtilityYin065);
+  }
+
   ${({ href }) =>
     href &&
     css`
       cursor: pointer;
     `}
 
-  &:focus,
-  &:hover {
-    color: ${({ theme }) => theme.help.hover};
+  &:focus ${StyledIcon},
+  &:hover ${StyledIcon} {
+    color: var(--colorsUtilityYin090);
     text-decoration: none;
   }
 
   &:focus ${StyledIcon} {
-    outline: ${({ theme }) => `2px solid ${theme.colors.focus}`};
+    outline: 2px solid var(--colorsSemanticFocus500);
   }
 
   ${margin}
