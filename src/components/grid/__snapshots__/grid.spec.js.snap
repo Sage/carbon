@@ -12,32 +12,29 @@ exports[`Grid GridItem builds the style rules for the GridItem with custom align
 
 .c1 {
   margin: 0;
-  justify-self: left;
   -webkit-align-self: start;
   -ms-flex-item-align: start;
   align-self: start;
-  grid-row: auto;
-  grid-column: 1 / 13;
+  justify-self: left;
+  grid-area: auto / 1 / auto / 13;
 }
 
 .c2 {
   margin: 0;
-  justify-self: center;
   -webkit-align-self: start;
   -ms-flex-item-align: start;
   align-self: start;
-  grid-row: auto;
-  grid-column: 1 / 13;
+  justify-self: center;
+  grid-area: auto / 1 / auto / 13;
 }
 
 .c3 {
   margin: 0;
-  justify-self: right;
   -webkit-align-self: start;
   -ms-flex-item-align: start;
   align-self: start;
-  grid-row: auto;
-  grid-column: 1 / 13;
+  justify-self: right;
+  grid-area: auto / 1 / auto / 13;
 }
 
 @media screen and (max-width:1920px) {
@@ -100,20 +97,17 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
 
 .c1 {
   margin: 0;
-  grid-row: auto;
-  grid-column: 1 / 13;
+  grid-area: auto / 1 / auto / 13;
 }
 
 .c2 {
   margin: 0;
-  grid-row: auto;
-  grid-column: 1 / 13;
+  grid-area: auto / 1 / auto / 13;
 }
 
 .c3 {
   margin: 0;
-  grid-row: auto;
-  grid-column: 1 / 13;
+  grid-area: auto / 1 / auto / 13;
 }
 
 @media screen and (max-width:1920px) {
