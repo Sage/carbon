@@ -19,7 +19,7 @@ describe("SimpleColorInput", () => {
         {
           border: "2px solid var(--colorsSemanticFocus500)",
           boxShadow:
-            "inset 0px 0px 0px var(--borderWidth200) var(--colorsActionMajorYang100)",
+            "inset 0px 0px 0px var(--borderWidth200) var(--colorsUtilityYang100)",
         },
         wrapper.toJSON(),
         { modifier: `:focus + ${StyledColorSampleBox}` }

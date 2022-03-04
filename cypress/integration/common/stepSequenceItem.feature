@@ -14,6 +14,16 @@ Feature: Step Sequence Item component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | indicatorSpecialCharacter |
 
   @positive
+  Scenario: Show indicator
+    When I open step-sequence-item "Step Sequence Test" component with "stepSequence" json from "commonComponents" using "showIndicator" object name
+    Then indicator 999 is shown
+
+  @positive
+  Scenario: Hide indicator
+    When I open step-sequence-item "Step Sequence Test" component with "stepSequence" json from "commonComponents" using "hideIndicator" object name
+    Then indicator 999 is not shown
+
+  @positive
   Scenario: I set hiddenCompleteLabel to mp150ú¿¡üßä
     When I open step-sequence-item "Step Sequence Test" component with "stepSequence" json from "commonComponents" using "hiddenCompleteLabelOtherLanguage" object name
     Then hidden label is set to mp150ú¿¡üßä

@@ -49,6 +49,17 @@ describe("Button", () => {
 
       expect(ref).toHaveBeenCalledWith(wrapper.find(StyledButton).getDOMNode());
     });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: undefined };
+      const wrapper = mount(<Button forwardRef={ref}>Button</Button>);
+
+      wrapper.update();
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
+    });
   });
 
   describe("tooltip", () => {
