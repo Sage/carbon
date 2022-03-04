@@ -1,5 +1,10 @@
 import * as React from "react";
-import { PaddingProps } from "styled-system";
+import {
+  PaddingProps,
+  GridAreaProps,
+  GridRowProps,
+  GridColumnProps,
+} from "styled-system";
 
 interface ResponsiveSettingsShape extends PaddingProps {
   /** How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch */
@@ -8,10 +13,12 @@ interface ResponsiveSettingsShape extends PaddingProps {
   justifySelf?: string;
   /** Maximum width of the item */
   maxWidth?: string;
+  /** Shorthand property for gridColumn and gridRow */
+  gridArea?: GridAreaProps;
   /** Starting and ending column position of the GridItem within the GridContainer separated by "/" */
-  gridColumn?: string | number;
+  gridColumn?: GridColumnProps;
   /** Starting and ending row position of the GridItem within the GridContainer separated by "/" */
-  gridRow?: string | number;
+  gridRow?: GridRowProps;
 }
 
 export interface GridItemProps extends PaddingProps {
@@ -21,10 +28,12 @@ export interface GridItemProps extends PaddingProps {
   justifySelf?: string;
   /** Defines the Component(s) to be rendered within the GridItem */
   children?: React.ReactNode;
+  /** Shorthand property for gridColumn and gridRow */
+  gridArea?: GridAreaProps;
   /** Starting and ending column position of the GridItem within the GridContainer separated by "/" */
-  gridColumn?: string | number;
+  gridColumn?: GridColumnProps;
   /** Starting and ending row position of the GridItem within the GridContainer separated by "/" */
-  gridRow?: string | number;
+  gridRow?: GridRowProps;
   responsiveSettings?: ResponsiveSettingsShape[];
 }
 

@@ -25,7 +25,7 @@ describe("StyledTickIcon", () => {
       wrapper = render({ checked: true, color: "#000000" });
       assertStyleMatch(
         {
-          color: "var(--colorsActionMajorYang100)",
+          color: "var(--colorsUtilityYang100)",
         },
         wrapper.toJSON(),
         { modifier: "::before" }
@@ -36,7 +36,7 @@ describe("StyledTickIcon", () => {
       wrapper = render({ checked: true, color: "#ffffff" });
       assertStyleMatch(
         {
-          color: "var(--colorsActionMajorYin090)",
+          color: "var(--colorsUtilityYin090)",
         },
         wrapper.toJSON(),
         { modifier: "::before" }
