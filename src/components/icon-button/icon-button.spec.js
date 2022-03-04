@@ -49,6 +49,21 @@ describe("IconButton component", () => {
         wrapper.find(StyledIconButton).getDOMNode()
       );
     });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: undefined };
+      wrapper = mount(
+        <IconButton onAction={() => {}} ref={ref}>
+          <Icon type="home" tooltipMessage="foo" />
+        </IconButton>
+      );
+
+      wrapper.update();
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
+    });
   });
 
   describe("tooltip", () => {

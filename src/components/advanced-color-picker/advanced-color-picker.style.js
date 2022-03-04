@@ -48,7 +48,7 @@ const StyledAdvancedColorPickerPreview = styled.div`
 
 const DialogStyle = styled(Dialog)`
   ${DialogContentStyle} {
-    padding: 18px 18px 18px 17px;
+    padding: var(--spacing200);
   }
 
   ${DialogInnerContentStyle} {
@@ -79,7 +79,7 @@ const DialogStyle = styled(Dialog)`
   }
 
   [data-component="icon"] {
-    color: var(--colorsActionMinorYin065);
+    color: var(--colorsActionMinor500);
   }
 `;
 

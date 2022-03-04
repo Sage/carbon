@@ -27,13 +27,6 @@ describe("FieldHelp", () => {
       const wrapper = render({
         labelInline: true,
         inputWidth: 50,
-        theme: {
-          input: {
-            fieldHelp: {
-              marginSide: "5px",
-            },
-          },
-        },
       });
 
       assertStyleMatch(

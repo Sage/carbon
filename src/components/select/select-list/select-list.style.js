@@ -93,7 +93,7 @@ const StyledSelectListTableHeader = styled.thead`
       bottom: -8px;
       left: 0px;
       background-image: linear-gradient(
-        var(--colorsComponentsNavigationYin100),
+        var(--colorsUtilityMajor800),
         var(--colorsUtilityYang100)
       );
       opacity: 0.03;
