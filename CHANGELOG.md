@@ -1,3 +1,10 @@
+## [104.46.0](https://github.com/Sage/carbon/compare/v104.45.0...v104.46.0) (2022-03-04)
+
+
+### Features
+
+* **date-range, date-input:** describe using design tokens ([605a81a](https://github.com/Sage/carbon/commit/605a81ab76744c098d7c4fcab1bfada78e5eeed3))
+
 ## [104.45.0](https://github.com/Sage/carbon/compare/v104.44.0...v104.45.0) (2022-03-04)
 
 
