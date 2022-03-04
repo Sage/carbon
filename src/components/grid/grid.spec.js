@@ -17,6 +17,24 @@ const paddingProps = [
   ["py", "paddingBottom"],
 ];
 
+const gridContainerProps = [
+  ["gridGap", "15px"],
+  ["gridRowGap", "15px"],
+  ["gridColumnGap", "15px"],
+  ["gridAutoFlow", "row dense"],
+  ["gridAutoRows", "1fr"],
+  ["gridAutoColumns", "1fr"],
+  ["gridTemplateRows", "100px 1fr"],
+  ["gridTemplateColumns", "100px 1fr"],
+  ["gridTemplateAreas", "foo bar"],
+];
+
+const gridItemProps = [
+  ["gridArea", "foo / bar"],
+  ["gridColumn", "1 / 3"],
+  ["gridRow", "1 / 3"],
+];
+
 const item1900 = {
   gridColumn: "1 / 9",
   gridRow: 2,
@@ -206,21 +224,26 @@ describe("Grid", () => {
       }
     );
 
-    describe('when a custom grid-gap is specified using the "gridGap" styled system prop', () => {
-      it("then that grid-gap should have been set on the GridContainer", () => {
-        const wrapper = enzymeMount(
-          <GridContainer id="testContainer" gridGap="15px">
-            <GridItem>1</GridItem>
-            <GridItem>2</GridItem>
-            <GridItem>3</GridItem>
-          </GridContainer>
-        );
+    describe.each(gridContainerProps)(
+      "when a custom %s is specified using that styled system prop",
+      (propName, propValue) => {
+        it(`then the ${propName} attribute should have been set on the GridContainer`, () => {
+          const wrapper = enzymeMount(
+            <GridContainer id="testContainer" {...{ [propName]: propValue }}>
+              <GridItem>1</GridItem>
+              <GridItem>2</GridItem>
+              <GridItem>3</GridItem>
+            </GridContainer>
+          );
 
-        expect(
-          assertStyleMatch({ gridGap: "15px" }, wrapper, { media: "screen" })
-        );
-      });
-    });
+          expect(
+            assertStyleMatch({ [propName]: propValue }, wrapper, {
+              media: "screen",
+            })
+          );
+        });
+      }
+    );
   });
 
   describe("GridItem", () => {
@@ -383,5 +406,27 @@ describe("Grid", () => {
         });
       });
     });
+
+    describe.each(gridItemProps)(
+      "when a custom %s is specified using that styled system prop",
+      (propName, propValue) => {
+        it(`then the ${propName} attribute should have been set on the GridItem`, () => {
+          const wrapper = enzymeMount(
+            <GridContainer id="testContainer">
+              <GridItem {...{ [propName]: propValue }}>1</GridItem>
+              <GridItem>2</GridItem>
+              <GridItem>3</GridItem>
+            </GridContainer>
+          );
+
+          expect(
+            assertStyleMatch(
+              { [propName]: propValue },
+              wrapper.find(GridItem).at(0)
+            )
+          );
+        });
+      }
+    );
   });
 });

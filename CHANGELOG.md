@@ -1,3 +1,63 @@
+## [104.48.0](https://github.com/Sage/carbon/compare/v104.47.0...v104.48.0) (2022-03-04)
+
+
+### Features
+
+* **sidebar-header:** describe sidebar-header using design tokens, update tests ([1adde4b](https://github.com/Sage/carbon/commit/1adde4badabb9f460237cf52b55b8297d9fa8220))
+
+## [104.47.0](https://github.com/Sage/carbon/compare/v104.46.0...v104.47.0) (2022-03-04)
+
+
+### Features
+
+* **box:** describe box component using design tokens, update tests ([2494d24](https://github.com/Sage/carbon/commit/2494d24bbe9a26a1b142ad2177295ed7a34a2554))
+* **content:** describe content component using design tokens, update tests ([f096852](https://github.com/Sage/carbon/commit/f096852391735ceeed37ea7e910bc78c11e62b5e))
+* **dismissible-box:** describe dissmisible-box component using design tokens, update tests ([4c3158a](https://github.com/Sage/carbon/commit/4c3158a586b211622b70f44ceebffc7f625987a0))
+
+## [104.46.0](https://github.com/Sage/carbon/compare/v104.45.0...v104.46.0) (2022-03-04)
+
+
+### Features
+
+* **date-range, date-input:** describe using design tokens ([605a81a](https://github.com/Sage/carbon/commit/605a81ab76744c098d7c4fcab1bfada78e5eeed3))
+
+## [104.45.0](https://github.com/Sage/carbon/compare/v104.44.0...v104.45.0) (2022-03-04)
+
+
+### Features
+
+* **detail:** describe detail component using design tokens, update tests ([ba90819](https://github.com/Sage/carbon/commit/ba90819ad00c03939b26620158563ca4b53f8289))
+
+## [104.44.0](https://github.com/Sage/carbon/compare/v104.43.1...v104.44.0) (2022-03-04)
+
+
+### Features
+
+* **setting-row:** describe setting-row component using design tokens, update tests ([f4808f5](https://github.com/Sage/carbon/commit/f4808f5ebedb07db8d224ae608e4a9888c9c4db1))
+
+### [104.43.1](https://github.com/Sage/carbon/compare/v104.43.0...v104.43.1) (2022-03-03)
+
+
+### Bug Fixes
+
+* **help:** resolve aria issues ([efc5645](https://github.com/Sage/carbon/commit/efc56451d510bc4f50ee381144e4107e4763b74c))
+* **icon:** resolve aria issues ([fa75f2a](https://github.com/Sage/carbon/commit/fa75f2a571adbba83b1dbfc082ad226597dcd2f3))
+* **tooltip:** fix incorrect icon with tooltip focusability ([32644bc](https://github.com/Sage/carbon/commit/32644bc4d68557527c6f8915482838fe08d6902a))
+
+## [104.43.0](https://github.com/Sage/carbon/compare/v104.42.0...v104.43.0) (2022-03-03)
+
+
+### Features
+
+* **grid:** add styled-system props ([446f477](https://github.com/Sage/carbon/commit/446f47782a2ef2967ccce810e0fcc025779a16ec))
+
+## [104.42.0](https://github.com/Sage/carbon/compare/v104.41.0...v104.42.0) (2022-03-03)
+
+
+### Features
+
+* **help:** describe component using design tokens ([a102cdf](https://github.com/Sage/carbon/commit/a102cdf4e736784a796b17994d627dd69bc5dcaf))
+
 ## [104.41.0](https://github.com/Sage/carbon/compare/v104.40.0...v104.41.0) (2022-03-03)
 
 
