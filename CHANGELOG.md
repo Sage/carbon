@@ -1,3 +1,10 @@
+## [104.45.0](https://github.com/Sage/carbon/compare/v104.44.0...v104.45.0) (2022-03-04)
+
+
+### Features
+
+* **detail:** describe detail component using design tokens, update tests ([ba90819](https://github.com/Sage/carbon/commit/ba90819ad00c03939b26620158563ca4b53f8289))
+
 ## [104.44.0](https://github.com/Sage/carbon/compare/v104.43.1...v104.44.0) (2022-03-04)
 
 
