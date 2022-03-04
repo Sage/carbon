@@ -1,3 +1,12 @@
+## [104.47.0](https://github.com/Sage/carbon/compare/v104.46.0...v104.47.0) (2022-03-04)
+
+
+### Features
+
+* **box:** describe box component using design tokens, update tests ([2494d24](https://github.com/Sage/carbon/commit/2494d24bbe9a26a1b142ad2177295ed7a34a2554))
+* **content:** describe content component using design tokens, update tests ([f096852](https://github.com/Sage/carbon/commit/f096852391735ceeed37ea7e910bc78c11e62b5e))
+* **dismissible-box:** describe dissmisible-box component using design tokens, update tests ([4c3158a](https://github.com/Sage/carbon/commit/4c3158a586b211622b70f44ceebffc7f625987a0))
+
 ## [104.46.0](https://github.com/Sage/carbon/compare/v104.45.0...v104.46.0) (2022-03-04)
 
 
