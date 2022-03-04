@@ -1,7 +1,6 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
 
-import baseTheme from "../../style/themes/base";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { Row, Column } from ".";
 import StyledRow from "./row.style";
@@ -114,7 +113,7 @@ describe("Row", () => {
           position: "absolute",
           width: "1px",
           height: "100%",
-          backgroundColor: baseTheme.palette.slateTint(70),
+          backgroundColor: "var(--colorsUtilityMajor150)",
           left: `${size / 2}px`,
           top: "0",
         },

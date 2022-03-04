@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 
-import baseTheme from "../../style/themes/base";
 import StyledColumn from "./column/column.style";
 import { ROW_SIZES_CSS } from "./row.config";
 
@@ -27,7 +26,7 @@ const StyledRow = styled.div`
             position: absolute;
             width: 1px;
             height: 100%;
-            background-color: ${baseTheme.palette.slateTint(70)};
+            background-color: var(--colorsUtilityMajor150);
             left: ${size / 2}px;
             top: 0;
           }
