@@ -294,18 +294,6 @@ export interface ThemeObject {
     errorButtonFocus: string;
   };
 
-  scrollbar: {
-    light: {
-      thumb: string;
-      track: string;
-    };
-
-    dark: {
-      thumb: string;
-      track: string;
-    };
-  };
-
   search: {
     active: string;
     button: string;
