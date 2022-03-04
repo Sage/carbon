@@ -1,3 +1,10 @@
+## [104.44.0](https://github.com/Sage/carbon/compare/v104.43.1...v104.44.0) (2022-03-04)
+
+
+### Features
+
+* **setting-row:** describe setting-row component using design tokens, update tests ([f4808f5](https://github.com/Sage/carbon/commit/f4808f5ebedb07db8d224ae608e4a9888c9c4db1))
+
 ### [104.43.1](https://github.com/Sage/carbon/compare/v104.43.0...v104.43.1) (2022-03-03)
 
 
