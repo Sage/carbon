@@ -1,3 +1,10 @@
+## [104.49.0](https://github.com/Sage/carbon/compare/v104.48.1...v104.49.0) (2022-03-07)
+
+
+### Features
+
+* **scrollable-list-item, select-list-container:** describe components using tokens ([2d4bcbd](https://github.com/Sage/carbon/commit/2d4bcbde12a34b2b660a841ba3204b04762ae90c))
+
 ### [104.48.1](https://github.com/Sage/carbon/compare/v104.48.0...v104.48.1) (2022-03-07)
 
 
