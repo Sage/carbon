@@ -1,3 +1,10 @@
+### [104.48.1](https://github.com/Sage/carbon/compare/v104.48.0...v104.48.1) (2022-03-07)
+
+
+### Bug Fixes
+
+* **icon:** update icon colors token to match  design decisions ([af356c2](https://github.com/Sage/carbon/commit/af356c2691699eb9e02f61869d01f41f8f5510b4))
+
 ## [104.48.0](https://github.com/Sage/carbon/compare/v104.47.0...v104.48.0) (2022-03-04)
 
 
