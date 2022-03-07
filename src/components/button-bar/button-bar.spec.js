@@ -6,7 +6,7 @@ import Button from "../button/button.component";
 import ButtonBar from "./button-bar.component";
 import {
   assertStyleMatch,
-  expectError,
+  expectConsoleOutput as expectError,
 } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button/icon-button.component";
 

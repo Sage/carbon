@@ -10,7 +10,7 @@ import StyledButton from "./button.style";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
-  expectError,
+  expectConsoleOutput as expectError,
 } from "../../__spec_helper__/test-utils";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledIcon from "../icon/icon.style";
