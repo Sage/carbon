@@ -70,6 +70,14 @@ describe("SimpleSelect", () => {
 
   testStyledSystemMargin((props) => getSelect(props));
 
+  it("when placeholder prop is passed, textbox uses it as placeholder text", () => {
+    const placeholder = "foobaz";
+    const wrapper = renderSelect({ placeholder });
+    expect(wrapper.find("span[data-element='select-text']").text()).toBe(
+      placeholder
+    );
+  });
+
   it("the input ref should be forwarded", () => {
     let mockRef;
 
