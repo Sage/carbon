@@ -69,7 +69,7 @@ const StyledIcon = styled.span`
         finalColor = renderedColor;
         finalHoverColor = shade(0.2, renderedColor);
       } else {
-        finalColor = "var(--colorsYin065)";
+        finalColor = "var(--colorsYin090)";
         finalHoverColor = "var(--colorsYin090)";
       }
 
@@ -77,9 +77,6 @@ const StyledIcon = styled.span`
         const { backgroundColor } = styledColor({ bg, theme });
         bgColor = backgroundColor;
         bgHoverColor = shade(0.2, backgroundColor);
-      } else if (disabled) {
-        bgColor = "var(--colorsYin030)";
-        bgHoverColor = "var(--colorsYin030)";
       } else {
         bgColor = "transparent";
         bgHoverColor = "transparent";
