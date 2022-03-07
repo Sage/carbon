@@ -1,3 +1,10 @@
+## [104.48.0](https://github.com/Sage/carbon/compare/v104.47.0...v104.48.0) (2022-03-04)
+
+
+### Features
+
+* **sidebar-header:** describe sidebar-header using design tokens, update tests ([1adde4b](https://github.com/Sage/carbon/commit/1adde4badabb9f460237cf52b55b8297d9fa8220))
+
 ## [104.47.0](https://github.com/Sage/carbon/compare/v104.46.0...v104.47.0) (2022-03-04)
 
 
