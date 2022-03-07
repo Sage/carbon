@@ -1,7 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import baseTheme from "../../style/themes/base";
 import CharacterCount from ".";
 
 describe("CharacterCount", () => {
@@ -23,7 +22,7 @@ describe("CharacterCount", () => {
           fontSize: "12px",
           marginTop: "4px",
           marginBottom: "4px",
-          color: baseTheme.disabled.disabled,
+          color: "var(--colorsUtilityYin055)",
         },
         wrapper
       );
@@ -36,7 +35,7 @@ describe("CharacterCount", () => {
       assertStyleMatch(
         {
           fontWeight: "700",
-          color: baseTheme.colors.error,
+          color: "var(--colorsSemanticNegative500)",
         },
         wrapper
       );
