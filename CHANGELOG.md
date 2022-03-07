@@ -1,3 +1,13 @@
+## [104.50.0](https://github.com/Sage/carbon/compare/v104.49.0...v104.50.0) (2022-03-07)
+
+
+### Features
+
+* **character-count:** describe character-count component using design tokens, update tests ([8e5d184](https://github.com/Sage/carbon/commit/8e5d18443ba277de85bf6a853e23da216d851b03))
+* **checkable-input:** describe checkable-input component using design tokens, update tests ([14b924c](https://github.com/Sage/carbon/commit/14b924cc41d71a82ac4815389a04ffcc113ac24b))
+* **input-icon-toggle:** describe input-icon-toggle component using design tokens ([f82f7bf](https://github.com/Sage/carbon/commit/f82f7bffcca1927f3ecaf08ee2dc506eb96812af))
+* **input-presentation:** describe input-presentation component using design tokens, update tests ([a65fa6b](https://github.com/Sage/carbon/commit/a65fa6b53a57c6faef8863526a943f4580aba9d6))
+
 ## [104.49.0](https://github.com/Sage/carbon/compare/v104.48.1...v104.49.0) (2022-03-07)
 
 
