@@ -10,7 +10,7 @@ import StyledButton from "./button.style";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
-  expectConsoleOutput as expectError,
+  expectConsoleOutput,
 } from "../../__spec_helper__/test-utils";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledIcon from "../icon/icon.style";
@@ -225,7 +225,7 @@ describe("Button", () => {
     it("throws an error", () => {
       const errorMessage =
         "Warning: Failed prop type: Either prop `iconType` must be defined or this node must have children.";
-      const assert = expectError(errorMessage);
+      const assert = expectConsoleOutput(errorMessage);
 
       render({}, mount);
       assert();
@@ -504,7 +504,7 @@ describe("Button", () => {
   describe("A primary button", () => {
     const primary = render({
       name: "Primary Button",
-      as: "primary",
+      buttonType: "primary",
       onClick: jest.fn(),
       children: "Primary",
     }).dive();
@@ -768,5 +768,16 @@ describe("Button", () => {
         );
       }
     );
+  });
+
+  describe("when the `as` prop is used", () => {
+    it("fires a prop deprecation warning to the console", () => {
+      const message =
+        "[Deprecation] The `as` prop is deprecated and will soon be removed. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop";
+      const assert = expectConsoleOutput(message, "warn");
+
+      mount(<Button as="primary">foo</Button>);
+      assert();
+    });
   });
 });
