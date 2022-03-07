@@ -31,26 +31,24 @@ const StyledDetailContent = styled.div`
 `;
 
 const StyledDetailIcon = styled(Icon)`
-  ${({ theme }) => css`
-    position: absolute;
-    color: ${theme.palette.slateTint(50)};
+  position: absolute;
+  color: var(--colorsUtilityYin065);
+  height: ${iconSize};
+  width: ${iconSize};
+  top: -1px;
+  vertical-align: top;
+
+  // StyledSvgIcon
+  span {
     height: ${iconSize};
     width: ${iconSize};
-    top: -1px;
-    vertical-align: top;
-
-    // StyledSvgIcon
-    span {
-      height: ${iconSize};
-      width: ${iconSize};
-      vertical-align: middle;
-    }
-  `}
+    vertical-align: middle;
+  }
 `;
 
 const StyledDetailFootnote = styled.div`
-  ${({ hasIcon, theme }) => css`
-    color: ${theme.palette.slateTint(20)};
+  ${({ hasIcon }) => css`
+    color: var(--colorsUtilityYin055);
     font-size: 13px;
     position: relative;
     margin-top: -2px;
@@ -63,14 +61,6 @@ const StyledDetailFootnote = styled.div`
 `;
 
 StyledDetail.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledDetailIcon.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledDetailFootnote.defaultProps = {
   theme: baseTheme,
 };
 

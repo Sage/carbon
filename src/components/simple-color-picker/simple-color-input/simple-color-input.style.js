@@ -19,7 +19,7 @@ const StyledSimpleColorInput = styled(SimpleColorInput)`
 
   &:focus + ${StyledColorSampleBox} {
     box-shadow: inset 0px 0px 0px var(--borderWidth200)
-      var(--colorsActionMajorYang100);
+      var(--colorsUtilityYang100);
     border: 2px solid var(--colorsSemanticFocus500);
   }
 `;

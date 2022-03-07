@@ -10,7 +10,7 @@ const shimmer = keyframes`
 
 const PreviewStyle = styled.span`
   animation: ${shimmer} 2s ease infinite;
-  background: ${({ theme }) => theme.colors.previewBackground};
+  background: var(--colorsUtilityMajor150);
   display: block;
   height: 15px;
   opacity: 0.6;
@@ -26,10 +26,6 @@ export const StyledPreview = styled.div`
 `;
 
 StyledPreview.defaultProps = {
-  theme: baseTheme,
-};
-
-PreviewStyle.defaultProps = {
   theme: baseTheme,
 };
 

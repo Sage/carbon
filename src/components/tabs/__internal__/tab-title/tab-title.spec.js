@@ -509,30 +509,6 @@ describe("TabTitle", () => {
       );
     });
 
-    it('adjusts padding when isTabSelected is true and size is "large"', () => {
-      wrapper = render(
-        {
-          title: "Tab 1",
-          siblings: [<span>foo</span>, <span>bar</span>],
-          titlePosition: "before",
-          isTabSelected: true,
-          size: "large",
-        },
-        mount
-      );
-
-      expect(wrapper.find(StyledTitleContent).props().hasSiblings).toEqual(
-        true
-      );
-      expect(
-        wrapper.find(StyledTitleContent).props().children[0][0].props.children
-      ).toEqual("Tab 1");
-      assertStyleMatch(
-        { paddingBottom: "6px" },
-        wrapper.find(StyledTitleContent)
-      );
-    });
-
     it('renders as expected when size is "large" and position is "left"', () => {
       wrapper = render(
         {

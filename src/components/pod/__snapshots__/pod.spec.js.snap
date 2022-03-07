@@ -3,7 +3,7 @@
 exports[`ActionButtons StyledDeleteButton when isHovered prop is set should match expected styles 1`] = `
 .c3 {
   position: relative;
-  color: var(--colorsYin065);
+  color: var(--colorsYin090);
   background-color: transparent;
   vertical-align: middle;
   -webkit-align-items: center;
@@ -58,9 +58,8 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
 }
 
 .c0:focus {
-  color: rgba(0,0,0,0.9);
   background-color: transparent;
-  outline: solid 3px #FFB500;
+  outline: solid 3px var(--colorsSemanticFocus500);
   z-index: 1;
 }
 
@@ -467,7 +466,7 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
 exports[`ActionButtons StyledUndoButton when isHovered prop is set should match expected styles 1`] = `
 .c3 {
   position: relative;
-  color: var(--colorsYin065);
+  color: var(--colorsYin090);
   background-color: transparent;
   vertical-align: middle;
   -webkit-align-items: center;
@@ -522,9 +521,8 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
 }
 
 .c0:focus {
-  color: rgba(0,0,0,0.9);
   background-color: transparent;
-  outline: solid 3px #FFB500;
+  outline: solid 3px var(--colorsSemanticFocus500);
   z-index: 1;
 }
 

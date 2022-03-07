@@ -13,7 +13,6 @@ import PreviewBars, { StyledPreview } from "../preview/preview.style";
 import Image from "../image";
 import Placeholder from "./__internal__/placeholder.component";
 import StyledIconButton from "../icon-button/icon-button.style";
-import { baseTheme } from "../../style/themes";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
 const render = (props = {}) => {
@@ -31,10 +30,10 @@ describe("LinkPreview", () => {
         {
           display: "flex",
           margin: "8px",
-          border: `1px solid ${baseTheme.editorLinkPreview.border}`,
-          backgroundColor: baseTheme.editorLinkPreview.background,
+          border: "1px solid var(--colorsUtilityMajor050)",
+          backgroundColor: "var(--colorsUtilityMajor025)",
           textDecoration: "none",
-          color: baseTheme.text.color,
+          color: "var(--colorsUtilityYin090)",
         },
         wrapper.find(StyledLinkPreview)
       );
@@ -80,7 +79,7 @@ describe("LinkPreview", () => {
 
       assertStyleMatch(
         {
-          outline: `2px solid ${baseTheme.colors.focus}`,
+          outline: "2px solid var(--colorsSemanticFocus500)",
         },
         wrapper.find(StyledLinkPreview),
         { modifier: ":focus" }
@@ -89,7 +88,7 @@ describe("LinkPreview", () => {
       assertStyleMatch(
         {
           cursor: "pointer",
-          backgroundColor: baseTheme.editorLinkPreview.hoverBackground,
+          backgroundColor: "var(--colorsUtilityMajor100)",
         },
         wrapper.find(StyledLinkPreview),
         { modifier: ":hover" }
@@ -143,7 +142,7 @@ describe("LinkPreview", () => {
           fontWeight: "400",
           fontSize: "14px",
           lineHeight: "21px",
-          color: baseTheme.editorLinkPreview.url,
+          color: "var(--colorsUtilityMajor400)",
         },
         wrapper.find(StyledUrl)
       );

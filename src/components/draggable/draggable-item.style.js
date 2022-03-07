@@ -11,7 +11,7 @@ const StyledDraggableContainer = styled.div`
 const StyledDraggableItem = styled.div`
   display: flex;
   align-items: center;
-  border-bottom: 1px solid ${({ theme }) => theme.draggableItem.border};
+  border-bottom: 1px solid var(--colorsUtilityMajor050);
   ${padding}
   cursor: move;
 

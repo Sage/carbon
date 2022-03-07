@@ -43,7 +43,7 @@ describe("SelectText", () => {
     assertStyleMatch(
       {
         cursor: "default",
-        color: "var(--colorsYin065)",
+        color: "var(--colorsUtilityYin065)",
         textShadow: "none",
       },
       wrapper

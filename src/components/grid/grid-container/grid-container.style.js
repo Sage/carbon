@@ -28,7 +28,8 @@ const GridContainerStyle = styled.div`
 
   @media screen {
     ${space}
-    ${({ gridGap }) => grid({ gridGap })}
+    ${grid}
+  }
 `;
 
 export default GridContainerStyle;

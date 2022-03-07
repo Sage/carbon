@@ -11,7 +11,7 @@ export const StyledSettingsRow = styled.div`
   ${margin}
 
   clear: both;
-  color: ${({ theme }) => theme.palette.slateTint(20)};
+  color: var(--colorsUtilityYin055);
   display: flex;
   font-size: 14px;
   justify-content: space-between;
@@ -21,7 +21,7 @@ export const StyledSettingsRow = styled.div`
   ${({ hasDivider }) =>
     hasDivider &&
     css`
-      border-bottom: 1px solid ${({ theme }) => theme.palette.slateTint(90)};
+      border-bottom: 1px solid var(--colorsUtilityMajor050);
       padding-bottom: 30px;
     `}
 
@@ -30,7 +30,7 @@ export const StyledSettingsRow = styled.div`
   }
 
   ${StyledHeadingTitle} {
-    color: ${({ theme }) => theme.palette.slate};
+    color: var(--colorsUtilityYin090);
     font-size: 15px;
     font-weight: bold;
     line-height: 18px;
