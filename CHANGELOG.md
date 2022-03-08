@@ -1,3 +1,10 @@
+### [104.52.1](https://github.com/Sage/carbon/compare/v104.52.0...v104.52.1) (2022-03-08)
+
+
+### Bug Fixes
+
+* **filterable-select:** prevent passing a non-existent label id to children ([da6c470](https://github.com/Sage/carbon/commit/da6c4703a19593fa0f78715e09d1e2b2e8cf823a))
+
 ## [104.52.0](https://github.com/Sage/carbon/compare/v104.51.0...v104.52.0) (2022-03-08)
 
 
