@@ -30,6 +30,15 @@ const render = ({ asTh, ...rest }) => {
 };
 
 describe("FlatTableCheckbox", () => {
+  describe("when a data prop is added", () => {
+    it("should be added to the root element", () => {
+      const wrapper = render({ "data-role": "test" });
+
+      expect(
+        wrapper.find(StyledFlatTableCheckbox).props()["data-role"]
+      ).toEqual("test");
+    });
+  });
   describe("should stop the event propagation", () => {
     it("when is clicked", () => {
       const stopPropagation = jest.fn();
