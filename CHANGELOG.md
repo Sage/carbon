@@ -1,3 +1,10 @@
+## [104.52.0](https://github.com/Sage/carbon/compare/v104.51.0...v104.52.0) (2022-03-08)
+
+
+### Features
+
+* **flat-table:** add ability to use data-xxx props on flat table components ([11b365d](https://github.com/Sage/carbon/commit/11b365daf701d5c29acb60b923e5a7f3317b1327)), closes [#4862](https://github.com/Sage/carbon/issues/4862)
+
 ## [104.51.0](https://github.com/Sage/carbon/compare/v104.50.0...v104.51.0) (2022-03-08)
 
 
