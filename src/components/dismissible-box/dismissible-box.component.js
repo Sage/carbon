@@ -11,7 +11,7 @@ const variantStyles = {
     backgroundColor: "#FFFFFF",
   },
   dark: {
-    backgroundColor: "var(--colorsUtilityMajor050)",
+    backgroundColor: "--colorsUtilityMajor050",
   },
 };
 
@@ -33,7 +33,7 @@ const DismissibleBox = ({
     {children}
     <span>
       <IconButton onAction={onClose} aria-label="close-button" ml={3}>
-        <Icon type="close" color="var(--colorsActionMinor500)" />
+        <Icon type="close" color="--colorsActionMinor500" />
       </IconButton>
     </span>
   </StyledDismissibleBox>

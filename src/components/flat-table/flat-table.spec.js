@@ -64,6 +64,16 @@ describe("FlatTable", () => {
     );
   });
 
+  describe("when a data prop is added", () => {
+    it("should be added to the root element", () => {
+      const wrapper = renderFlatTable({ "data-role": "test" }, mount);
+
+      expect(wrapper.find(StyledFlatTableWrapper).props()["data-role"]).toEqual(
+        "test"
+      );
+    });
+  });
+
   describe("when rendered with proper table data", () => {
     let wrapper;
 

@@ -122,7 +122,7 @@ FlatTableCell.propTypes = {
   reportCellWidth: PropTypes.func,
   /** Sets a custom vertical right border */
   verticalBorder: PropTypes.oneOf(["small", "medium", "large"]),
-  /** Sets a custom vertical right border */
+  /** Sets a vertical right border color, provide design token, any color from palette or any valid css color value. */
   verticalBorderColor: PropTypes.string,
 };
 

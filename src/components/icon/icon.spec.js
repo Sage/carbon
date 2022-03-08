@@ -18,6 +18,7 @@ import browserTypeCheck, {
 import styledColor from "../../style/utils/color.js";
 import Tooltip from "../tooltip";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import getColorValue from "../../style/utils/get-color-value";
 
 jest.mock("../../__internal__/utils/helpers/browser-type-check");
 jest.mock("@tippyjs/react/headless", () => ({
@@ -138,6 +139,7 @@ describe("Icon component", () => {
       "rgb(0,123,100)",
       "hsl(0,100%,50%)",
       "#123456",
+      "--colorsYang100",
     ];
     describe.each(correctColors)("when color prop is provided", (color) => {
       it("renders properly colored Icon", () => {
@@ -163,7 +165,7 @@ describe("Icon component", () => {
         });
         expect(wrapper.find(StyledIcon)).not.toHaveStyleRule(
           "color",
-          shade(0.2, renderedColor),
+          shade(0.2, getColorValue(renderedColor)),
           { modifier: ":hover" }
         );
       });
@@ -211,7 +213,7 @@ describe("Icon component", () => {
 
         assertStyleMatch(
           {
-            color: shade(0.2, renderedColor),
+            color: shade(0.2, getColorValue(renderedColor)),
           },
           wrapper.find(StyledIcon),
           { modifier: ":hover" }
@@ -245,7 +247,7 @@ describe("Icon component", () => {
 
         assertStyleMatch(
           {
-            backgroundColor: shade(0.2, backgroundColor),
+            backgroundColor: shade(0.2, getColorValue(backgroundColor)),
           },
           wrapper.find(StyledIcon),
           { modifier: ":hover" }

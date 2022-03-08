@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-restricted-imports
 import { color as styledColor } from "styled-system";
+import tokens from "@sage/design-tokens/js/base/common";
 
 /*
  * styled-system/color allows users to use a color from the theme, from the `colors` object.
@@ -22,6 +23,10 @@ import { color as styledColor } from "styled-system";
  */
 
 export const toColor = (theme, color) => {
+  if (color.startsWith("--") && color.slice(2) in tokens) {
+    return `var(${color})`;
+  }
+
   const { palette } = theme;
 
   const percentage = color.match(/\d+/);
