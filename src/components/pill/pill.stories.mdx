@@ -531,6 +531,24 @@ See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo>
       return (
         <>
           <Box mb={1}>
+            <Pill borderColor="--colorsSemanticCaution500" mr={1}>
+              tag
+            </Pill>
+            <Pill borderColor="--colorsSemanticCaution500" fill mr={1}>
+              tag
+            </Pill>
+            <Pill
+              borderColor="--colorsSemanticCaution500"
+              onDelete={noop}
+              mr={1}
+            >
+              tag
+            </Pill>
+            <Pill borderColor="--colorsSemanticCaution500" onDelete={noop} fill>
+              tag
+            </Pill>
+          </Box>
+          <Box mb={1}>
             <Pill borderColor="blackOpacity65" mr={1}>
               tag
             </Pill>

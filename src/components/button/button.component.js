@@ -21,10 +21,10 @@ function renderChildren({
   /* eslint-enable */
 }) {
   const iconColorMap = {
-    primary: "var(--colorsActionMajorYang100)",
-    secondary: "var(--colorsActionMajor500)",
-    tertiary: "var(--colorsActionMajor500)",
-    darkBackground: "var(--colorsActionMajor500)",
+    primary: "--colorsActionMajorYang100",
+    secondary: "--colorsActionMajor500",
+    tertiary: "--colorsActionMajor500",
+    darkBackground: "--colorsActionMajor500",
   };
 
   const iconProps = {

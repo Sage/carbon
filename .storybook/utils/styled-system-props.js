@@ -211,7 +211,7 @@ const generateStyledSystemColorProps = (defaults) => {
     {
       name: "color",
       type: { summary: "string" },
-      description: "Color, theme value or any valid CSS string.",
+      description: "Color, design token, theme value or any valid CSS string.",
       required: false,
       defaultValue: {
         summary: defaults.color || "-",
@@ -223,7 +223,8 @@ const generateStyledSystemColorProps = (defaults) => {
     {
       name: "backgroundColor",
       type: { summary: "string" },
-      description: "Background, theme value or any valid CSS string.",
+      description:
+        "Background, design token, theme value or any valid CSS string.",
       required: false,
       defaultValue: {
         summary: defaults.backgroundColor || "-",
