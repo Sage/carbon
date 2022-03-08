@@ -15,7 +15,7 @@ const StyledDateRange = styled.div`
   }
 
   & ${StyledDateInput}:first-child {
-    margin-right: var(--spacing150);
+    margin-right: var(--spacing300);
   }
 
   ${StyledLabelContainer} {
