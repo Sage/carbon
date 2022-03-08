@@ -1,3 +1,10 @@
+## [104.51.0](https://github.com/Sage/carbon/compare/v104.50.0...v104.51.0) (2022-03-08)
+
+
+### Features
+
+* extend toColor function by design tokens ([1d17860](https://github.com/Sage/carbon/commit/1d17860cf82f3b7bbe779fb75f93744f36e311a2))
+
 ## [104.50.0](https://github.com/Sage/carbon/compare/v104.49.0...v104.50.0) (2022-03-07)
 
 
