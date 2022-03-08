@@ -1,6 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
-import propTypes from "@styled-system/prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import GridContainerStyle from "./grid-container.style";
 import GridItem from "../grid-item";
 
@@ -33,7 +32,7 @@ GridContainer.propTypes = {
 
     return error;
   },
-  ...propTypes.space,
-  gridGap: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  ...styledSystemPropTypes.space,
+  ...styledSystemPropTypes.grid,
 };
 export default GridContainer;

@@ -192,7 +192,7 @@ describe("DefinitionList", () => {
         {
           fontSize: "14px",
           fontWeight: "700",
-          color: "rgba(0,0,0,0.9)",
+          color: "var(--colorsUtilityYin090)",
         },
         wrapper
       );
@@ -212,7 +212,7 @@ describe("DefinitionList", () => {
         {
           fontSize: "14px",
           fontWeight: "700",
-          color: "rgba(0,0,0,0.65)",
+          color: "var(--colorsUtilityYin065)",
           marginBottom: "16px",
           marginLeft: "0px",
         },
@@ -237,7 +237,7 @@ describe("DefinitionList", () => {
           fontSize: "14px",
           fontWeight: "700",
           paddingRight: "16px",
-          color: "rgba(0,0,0,0.9)",
+          color: "var(--colorsUtilityYin090)",
           marginBottom: "8px",
         },
         wrapper
@@ -250,7 +250,7 @@ describe("DefinitionList", () => {
         {
           fontSize: "14px",
           fontWeight: "700",
-          color: "rgba(0,0,0,0.65)",
+          color: "var(--colorsUtilityYin065)",
           marginBottom: "8px",
           marginLeft: "0px",
         },

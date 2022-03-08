@@ -1,9 +1,7 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { StyledFormFooter } from "../form/form.style.js";
 import { StyledContent } from "../pod/pod.style.js";
 import Pod from "../pod";
-import StyledDeleteButton from "./delete-button.style.js";
-import { baseTheme } from "../../style/themes";
 
 const StyledPod = styled(Pod)`
   ${StyledFormFooter} {
@@ -12,14 +10,13 @@ const StyledPod = styled(Pod)`
 
   ${StyledContent} {
     padding: 16px;
-  }
-
-  ${StyledDeleteButton} {
-    color: ${({ theme }) => theme.colors.error};
-
-    &:hover {
-      color: ${({ theme }) => theme.colors.destructive.hover};
-    }
+    ${({ softDelete }) =>
+      softDelete &&
+      css`
+        [data-element="content-title"] {
+          color: var(--colorsUtilityYin030);
+        }
+      `}
   }
 
   .common-input__prefix {
@@ -40,9 +37,5 @@ const StyledPod = styled(Pod)`
     position: absolute;
   }
 `;
-
-StyledPod.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledPod;

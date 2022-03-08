@@ -13,7 +13,7 @@ const SlideStyle = styled.div`
     opacity: 0.3;
     margin: 30px 0;
     box-shadow: var(--boxShadow200);
-    background-color: var(--colorsComponentsNavigationYang100);
+    background-color: var(--colorsUtilityYang100);
 
     ${id === selectedIndex &&
     css`

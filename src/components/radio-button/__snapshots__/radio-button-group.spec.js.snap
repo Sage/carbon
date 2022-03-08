@@ -43,7 +43,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 
 .c5 .c16 .c17,
 .c5 .c16 .c18 {
-  color: rgba(0,0,0,0.65);
+  color: var(--colorsUtilityYin065);
   vertical-align: middle;
 }
 
@@ -51,7 +51,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 .c5 .c16 .c18:hover,
 .c5 .c16 .c17:focus,
 .c5 .c16 .c18:focus {
-  color: rgba(0,0,0,0.9);
+  color: var(--colorsUtilityYin090);
 }
 
 .c5 .c15 {

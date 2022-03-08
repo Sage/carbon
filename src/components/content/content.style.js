@@ -25,11 +25,11 @@ const StyledContent = styled.div`
 StyledContent.defaultProps = { theme: baseTheme };
 
 const StyledContentTitle = styled.div`
-  ${({ theme, titleWidth, inline, variant, align }) => {
+  ${({ titleWidth, inline, variant, align }) => {
     return css`
       display: ${inline ? "inline-block" : "block"};
       font-weight: bold;
-      color: ${theme.text.colors};
+      color: var(--colorsUtilityYin090);
       width: ${titleWidth && `calc(${titleWidth}% - 30px)`};
       text-align: ${!inline && align};
 
@@ -42,7 +42,7 @@ const StyledContentTitle = styled.div`
 
       ${variant === "secondary" &&
       css`
-        color: ${theme.content.secondaryColor};
+        color: var(--colorsUtilityYin055);
         font-weight: normal;
       `}
     `;
@@ -88,7 +88,5 @@ const StyledContentBody = styled.div`
     `;
   }};
 `;
-
-StyledContentTitle.defaultProps = { theme: baseTheme };
 
 export { StyledContent, StyledContentTitle, StyledContentBody };

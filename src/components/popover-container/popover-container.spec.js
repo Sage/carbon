@@ -7,7 +7,6 @@ import { Transition } from "react-transition-group";
 import {
   PopoverContainerContentStyle,
   PopoverContainerCloseIcon,
-  PopoverContainerIcon,
   PopoverContainerOpenIcon,
   PopoverContainerWrapperStyle,
   PopoverContainerTitleStyle,
@@ -18,7 +17,6 @@ import {
   assertStyleMatch,
   testStyledSystemPadding,
 } from "../../__spec_helper__/test-utils";
-import { baseTheme } from "../../style/themes";
 import Icon from "../icon";
 import guid from "../../__internal__/utils/helpers/guid";
 
@@ -479,17 +477,17 @@ describe("PopoverContainer", () => {
   });
 });
 
-describe("PopoverContainerIcon", () => {
+describe("PopoverContainerOpenIcon", () => {
   it("should render correct style", () => {
     const wrapper = mount(
-      <PopoverContainerIcon onAction={() => {}} theme={baseTheme}>
+      <PopoverContainerOpenIcon onAction={() => {}}>
         <Icon type="settings" />
-      </PopoverContainerIcon>
+      </PopoverContainerOpenIcon>
     );
 
     assertStyleMatch(
       {
-        color: baseTheme.popoverContainer.iconColor,
+        color: "var(--colorsActionMinor500)",
       },
       wrapper,
       {
