@@ -222,12 +222,6 @@ export default (palette) => {
       secondaryColor: palette.slateTint(40),
     },
 
-    definitionList: {
-      dtTextDark: palette.blackOpacity(0.9),
-      dtTextLight: palette.blackOpacity(0.65),
-      ddText: palette.blackOpacity(0.65),
-    },
-
     disabled: {
       border: palette.slateTint(80),
       button: palette.slateTint(90),
@@ -324,18 +318,6 @@ export default (palette) => {
       neutralBackgroundFocus: palette.slateTint(10),
       warningButtonFocus: palette.carrotOrange,
       errorButtonFocus: palette.errorRedShade(20),
-    },
-
-    scrollbar: {
-      light: {
-        thumb: palette.slateTint(40),
-        track: palette.slateTint(95),
-      },
-
-      dark: {
-        thumb: palette.slateTint(60),
-        track: palette.slateTint(20),
-      },
     },
 
     search: {
