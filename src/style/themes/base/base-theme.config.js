@@ -1,6 +1,20 @@
 import tokens from "@sage/design-tokens/js/base/common";
 import atOpacity from "../../utils/at-opacity";
 
+export const space = [
+  "var(--spacing000)",
+  "var(--spacing100)",
+  "var(--spacing200)",
+  "var(--spacing300)",
+  "var(--spacing400)",
+  "var(--spacing500)",
+  "var(--spacing600)",
+  "var(--spacing700)",
+  "var(--spacing800)",
+  "var(--spacing900)",
+  "var(--spacing1000)",
+];
+
 export default (palette) => {
   const baseWithOpacity = atOpacity(palette.productGreen);
 
@@ -11,7 +25,7 @@ export default (palette) => {
 
     spacing: 8,
 
-    space: [0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80],
+    space,
 
     colors: {
       // main
@@ -417,23 +431,6 @@ export default (palette) => {
         colorsSemanticCaution500: this.colors.warning,
 
         colorsSemanticInfo500: this.colors.info,
-
-        spacing000: `${this.space[0]}px`, // 0px
-        spacing025: "2px",
-        spacing050: "4px",
-        spacing075: "6px",
-        spacing100: `${this.space[1]}px`, // 8px
-        spacing125: "10px",
-        spacing150: "12px",
-        spacing200: `${this.space[2]}px`, // 16px
-        spacing250: "20px",
-        spacing300: `${this.space[3]}px`, // 24px
-        spacing400: `${this.space[4]}px`, // 32px
-        spacing500: `${this.space[5]}px`, // 40px
-        spacing600: `${this.space[6]}px`, // 48px
-        spacing700: `${this.space[7]}px`, // 56px
-        spacing800: `${this.space[8]}px`, // 64px
-        spacing900: `${this.space[9]}px`, // 72px
 
         fontSizes100: this.text.size,
       };

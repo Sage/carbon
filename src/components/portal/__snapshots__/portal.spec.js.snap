@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa gxcojr\\"><p>john</p></div></div>"`;
+exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa bVYmVa\\"><p>john</p></div></div>"`;
 
-exports[`Portal when an element with id 'root' exists will mount on that element 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa gxcojr\\"><p>Test</p></div></div></div>"`;
+exports[`Portal when an element with id 'root' exists will mount on that element 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa bVYmVa\\"><p>Test</p></div></div></div>"`;
 
-exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa gxcojr\\"><span>a1</span></div><div class=\\"sc-bdVaJa gxcojr\\"><span>a2</span></div></div>"`;
+exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa bVYmVa\\"><span>a1</span></div><div class=\\"sc-bdVaJa bVYmVa\\"><span>a2</span></div></div>"`;
 
 exports[`Portal when using default node to match snapshot  1`] = `
 <span
@@ -316,7 +316,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "sizing800": "64px",
             "sizing900": "72px",
             "sizingLogowidth": "40px",
-            "spacing000": "0px",
+            "spacing000": "0",
             "spacing025": "2px",
             "spacing050": "4px",
             "spacing075": "6px",
@@ -701,17 +701,17 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
           },
           "space": Array [
-            0,
-            8,
-            16,
-            24,
-            32,
-            40,
-            48,
-            56,
-            64,
-            72,
-            80,
+            "var(--spacing000)",
+            "var(--spacing100)",
+            "var(--spacing200)",
+            "var(--spacing300)",
+            "var(--spacing400)",
+            "var(--spacing500)",
+            "var(--spacing600)",
+            "var(--spacing700)",
+            "var(--spacing800)",
+            "var(--spacing900)",
+            "var(--spacing1000)",
           ],
           "spacing": 8,
           "stepSequence": Object {
@@ -784,4 +784,4 @@ exports[`Portal when using default node to match snapshot  1`] = `
 </span>
 `;
 
-exports[`Portal when using default node when an element with id 'root' does not exist will mount on body 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa gxcojr\\"><span class=\\"sc-bwzfXH gUXKts\\" data-element=\\"tick\\" data-component=\\"icon\\" font-size=\\"small\\" type=\\"tick\\" tabindex=\\"0\\"></span></div></div></div>"`;
+exports[`Portal when using default node when an element with id 'root' does not exist will mount on body 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa bVYmVa\\"><span class=\\"sc-bwzfXH gUXKts\\" data-element=\\"tick\\" data-component=\\"icon\\" font-size=\\"small\\" type=\\"tick\\" tabindex=\\"0\\"></span></div></div></div>"`;
