@@ -11,7 +11,7 @@ import Events from "../../__internal__/utils/helpers/events";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import Fieldset from "../../__internal__/fieldset";
 import SimpleColor from "./simple-color";
-import RadioButtonMapper from "../radio-button/radio-button-mapper.component";
+import RadioButtonMapper from "../../__internal__/radio-button-mapper/radio-button-mapper.component";
 import { StyledContent, StyledColorOptions } from "./simple-color-picker.style";
 import ValidationIcon from "../../__internal__/validations/validation-icon.component";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
@@ -41,9 +41,10 @@ const SimpleColorPicker = (props) => {
     ...rest
   } = props;
 
-  const filteredChildren = useMemo(() => React.Children.toArray(children), [
-    children,
-  ]);
+  const filteredChildren = useMemo(
+    () => React.Children.toArray(children),
+    [children]
+  );
 
   const myRef = useRef(null);
   const [blurBlocked, setIsBlurBlocked] = useState(isBlurBlocked);
