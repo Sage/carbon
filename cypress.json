@@ -7,7 +7,9 @@
   ],
   "env": {
     "TAGS": "not @ignore",
-    "iframe": "iframe.html?id="
+    "iframe": "iframe.html?id=",
+    "CYPRESS_CI": "true"
+
   },
   "failOnStatusCode": false,
   "ignoreTestFiles": [
