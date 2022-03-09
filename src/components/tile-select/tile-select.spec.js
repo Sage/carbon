@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import RadioButtonMapper from "../radio-button/radio-button-mapper.component";
+import RadioButtonMapper from "../../__internal__/radio-button-mapper/radio-button-mapper.component";
 import { TileSelect, TileSelectGroup } from ".";
 
 import {
