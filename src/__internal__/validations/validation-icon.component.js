@@ -35,10 +35,8 @@ const ValidationIcon = ({
   ...rest
 }) => {
   const { hasFocus, hasMouseOver } = useContext(InputContext);
-  const {
-    hasFocus: groupHasFocus,
-    hasMouseOver: groupHasMouseOver,
-  } = useContext(InputGroupContext);
+  const { hasFocus: groupHasFocus, hasMouseOver: groupHasMouseOver } =
+    useContext(InputGroupContext);
   const [triggeredByIcon, setTriggeredByIcon] = useState(false);
 
   const validationType = getValidationType({ error, warning, info });

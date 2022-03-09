@@ -49,10 +49,8 @@ const Dialog = ({
   const { current: subtitleId } = useRef(createGuid());
 
   const centerDialog = useCallback(() => {
-    const {
-      width: dialogWidth,
-      height: dialogHeight,
-    } = dialogRef.current.getBoundingClientRect();
+    const { width: dialogWidth, height: dialogHeight } =
+      dialogRef.current.getBoundingClientRect();
 
     let midPointY = window.innerHeight / 2;
     let midPointX = window.innerWidth / 2;

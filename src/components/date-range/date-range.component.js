@@ -36,9 +36,10 @@ const DateRange = ({
 }) => {
   const l = useLocale();
   const { dateFnsLocale } = l.date;
-  const { format } = useMemo(() => getFormatData(dateFnsLocale()), [
-    dateFnsLocale,
-  ]);
+  const { format } = useMemo(
+    () => getFormatData(dateFnsLocale()),
+    [dateFnsLocale]
+  );
   const inlineLabelWidth = 40;
   const [lastChangedDate, setLastChangedDate] = useState("");
 

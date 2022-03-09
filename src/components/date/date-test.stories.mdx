@@ -31,7 +31,9 @@ export const DateStory = (args) => {
       name="dateinput"
       value={state}
       onChange={setValue}
-      onBlur={(ev) => {action("onBlur")(ev.target.value)}}
+      onBlur={(ev) => {
+        action("onBlur")(ev.target.value);
+      }}
       onKeyDown={(ev) => action("onKeyDown")(ev.target.value)}
       onClick={(ev) => action("onClick")(ev.target.value)}
       {...getCommonTextboxArgsWithSpecialCaracters(args)}

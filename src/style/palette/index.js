@@ -1,14 +1,17 @@
 import tint from "../utils/tint";
 import shade from "../utils/shade";
 
-const cachedFunc = (cb) => (cache = {}) => (weight) => {
-  if (cache[weight]) {
-    return cache[weight];
-  }
-  const color = cb(weight);
-  cache[weight] = color;
-  return color;
-};
+const cachedFunc =
+  (cb) =>
+  (cache = {}) =>
+  (weight) => {
+    if (cache[weight]) {
+      return cache[weight];
+    }
+    const color = cb(weight);
+    cache[weight] = color;
+    return color;
+  };
 
 /**
  * Takes a config object of base colors and, for each base, generates functions

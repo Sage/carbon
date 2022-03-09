@@ -35,9 +35,8 @@ const MenuItem = ({
   ...rest
 }) => {
   const l = useLocale();
-  const { setOpenPopover, isOpenPopover, focusButton } = useContext(
-    ActionPopoverContext
-  );
+  const { setOpenPopover, isOpenPopover, focusButton } =
+    useContext(ActionPopoverContext);
 
   const isHref = !!href;
   const [containerPosition, setContainerPosition] = useState(null);

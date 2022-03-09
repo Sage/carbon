@@ -10,10 +10,8 @@ class ModalManagerInstance {
   }
 
   addModal = (modal, setTriggerRefocusFlag) => {
-    const {
-      modal: topModal,
-      setTriggerRefocusFlag: setTrapFlag,
-    } = this.#getTopModal();
+    const { modal: topModal, setTriggerRefocusFlag: setTrapFlag } =
+      this.#getTopModal();
 
     if (topModal && setTrapFlag) {
       setTrapFlag(false);

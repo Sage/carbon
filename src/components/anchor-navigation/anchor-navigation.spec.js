@@ -352,8 +352,9 @@ describe("AnchorNavigation", () => {
   });
 
   it("renders selected navigation item with proper background when hovered", () => {
-    expect(
-      wrapper.find(StyledNavigationItem).at(0)
-    ).not.toHaveStyleRule("background-color", { modifier: "a:hover" });
+    expect(wrapper.find(StyledNavigationItem).at(0)).not.toHaveStyleRule(
+      "background-color",
+      { modifier: "a:hover" }
+    );
   });
 });

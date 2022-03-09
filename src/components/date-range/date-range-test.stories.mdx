@@ -36,7 +36,7 @@ export const DateRangeStory = ({
       evt.target.value[1].formattedValue,
     ];
     setState(newValue);
-    action("change")(evt.target.value)
+    action("change")(evt.target.value);
   };
   return (
     <DateRange

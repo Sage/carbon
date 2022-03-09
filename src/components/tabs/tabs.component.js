@@ -109,9 +109,10 @@ const Tabs = ({
   );
 
   /** Returns true/false for if the given tab id is selected. */
-  const isTabSelected = useCallback((tabId) => tabId === selectedTabIdState, [
-    selectedTabIdState,
-  ]);
+  const isTabSelected = useCallback(
+    (tabId) => tabId === selectedTabIdState,
+    [selectedTabIdState]
+  );
 
   const hasTabStop = useCallback((tabId) => tabId === tabStopId, [tabStopId]);
 

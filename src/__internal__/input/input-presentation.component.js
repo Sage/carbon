@@ -18,14 +18,11 @@ const InputPresentation = ({
   warning,
   info,
 }) => {
-  const { hasFocus, onMouseDown, onMouseEnter, onMouseLeave } = useContext(
-    InputContext
-  );
+  const { hasFocus, onMouseDown, onMouseEnter, onMouseLeave } =
+    useContext(InputContext);
 
-  const {
-    onMouseEnter: onGroupMouseEnter,
-    onMouseLeave: onGroupMouseLeave,
-  } = useContext(InputGroupContext);
+  const { onMouseEnter: onGroupMouseEnter, onMouseLeave: onGroupMouseLeave } =
+    useContext(InputGroupContext);
 
   const handleMouseEnter = (e) => {
     if (onMouseEnter) onMouseEnter(e);

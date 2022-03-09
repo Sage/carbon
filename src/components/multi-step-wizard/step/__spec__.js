@@ -50,7 +50,8 @@ describe("Step", () => {
     describe("when beforeSubmitValidation props is not null", () => {
       beforeEach(() => {
         spyBeforeSubmitValidation = jasmine.createSpy("beforeSubmitValidation");
-        instance.context.wizard.beforeSubmitValidation = spyBeforeSubmitValidation;
+        instance.context.wizard.beforeSubmitValidation =
+          spyBeforeSubmitValidation;
       });
 
       describe("when beforeSubmitValidation props does not returns true", () => {
@@ -89,7 +90,8 @@ describe("Step", () => {
     describe("when beforeSubmitValidation props is null", () => {
       beforeEach(() => {
         spyBeforeSubmitValidation = null;
-        instance.context.wizard.beforeSubmitValidation = spyBeforeSubmitValidation;
+        instance.context.wizard.beforeSubmitValidation =
+          spyBeforeSubmitValidation;
       });
 
       it("calls the parent wizard to complete", () => {

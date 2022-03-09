@@ -223,10 +223,16 @@ Then the `orientation` relative to the top/bottom can be offset using the `offse
 
 #### Fixed
 
-The `position` prop can be set to `fixed` to make the navigation bar fix to the viewport. Then the `orientation` relative to the 
+The `position` prop can be set to `fixed` to make the navigation bar fix to the viewport. Then the `orientation` relative to the
 top/bottom can be offset using the `offset` prop.
 
-<Story name="fixed" parameters={{ docs: { disable: true }, themeSelector: { chromaticTheme: "sage" } }}>
+<Story
+  name="fixed"
+  parameters={{
+    docs: { disable: true },
+    themeSelector: { chromaticTheme: "sage" },
+  }}
+>
   <div style={{ height: "calc(100% - 50px)" }}>
     <NavigationBar
       position="fixed"
@@ -306,10 +312,7 @@ top/bottom can be offset using the `offset` prop.
 </Story>
 
 <Canvas>
-  <DocsWrapper
-    src="iframe.html?id=navigation-bar--fixed"
-    height="400px"
-  />
+  <DocsWrapper src="iframe.html?id=navigation-bar--fixed" height="400px" />
 </Canvas>
 
 ## Props

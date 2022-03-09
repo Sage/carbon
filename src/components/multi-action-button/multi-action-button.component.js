@@ -34,9 +34,8 @@ const MultiActionButton = ({
   const listening = useRef(false);
   const isMainButtonFocused = useRef(false);
   const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
-  const [removeHandleClickOutside, setRemoveHandleClickOutside] = useState(
-    false
-  );
+  const [removeHandleClickOutside, setRemoveHandleClickOutside] =
+    useState(false);
   const [removeHandleKeyDown, setRemoveHandleKeyDown] = useState(false);
   const [minWidth, setMinWidth] = useState(0);
 

@@ -120,11 +120,7 @@ import {
 
 ### DraggableItem
 
-<StyledSystemProps
-  noHeader
-  padding
-  defaults={{ py: "8px" }}
-/>
+<StyledSystemProps noHeader padding defaults={{ py: "8px" }} />
 
 <ArgsTable
   rows={[
@@ -132,14 +128,14 @@ import {
       name: "id",
       type: { summary: "string | number" },
       description:
-        'The id of the `DraggableItem`. Use this prop to make `Draggable` work. This prop is required.',
+        "The id of the `DraggableItem`. Use this prop to make `Draggable` work. This prop is required.",
       required: true,
     },
     {
       name: "children",
       type: { summary: "node" },
-      description:
-        'The content of the component. This prop is required.',
+      description: "The content of the component. This prop is required.",
       required: true,
     },
-  ]} />
+  ]}
+/>

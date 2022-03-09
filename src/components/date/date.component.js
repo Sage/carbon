@@ -62,9 +62,10 @@ const DateInput = ({
   const focusedViaPicker = useRef(false);
   const l = useLocale();
   const { dateFnsLocale } = l.date;
-  const { format, formats } = useMemo(() => getFormatData(dateFnsLocale()), [
-    dateFnsLocale,
-  ]);
+  const { format, formats } = useMemo(
+    () => getFormatData(dateFnsLocale()),
+    [dateFnsLocale]
+  );
   const { inputRefMap, setInputRefMap } = useContext(DateRangeContext);
   const inputName = dataElement?.split("-")[0];
   const [open, setOpen] = useState(false);

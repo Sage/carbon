@@ -47,9 +47,8 @@ const PillStyle = styled.span`
           ? "var(--colorsUtilityYin090)"
           : "var(--colorsUtilityYang100)";
       } else {
-        const { varietyColor, buttonFocus, content } = styleConfig(theme)[
-          pillRole
-        ][variety];
+        const { varietyColor, buttonFocus, content } =
+          styleConfig(theme)[pillRole][variety];
         pillColor = varietyColor;
         buttonFocusColor = buttonFocus;
         contentColor = content;

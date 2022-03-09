@@ -64,10 +64,7 @@ Hover over the help component to see the different positions.
     {() => {
       return ["right", "left", "top", "bottom"].map((position) => (
         <div style={{ margin: "64px 300px" }}>
-          <Help
-            tooltipPosition={position}
-            isFocused={true}
-          >
+          <Help tooltipPosition={position} isFocused={true}>
             {`This tooltip is positioned ${position}`}
           </Help>
         </div>
@@ -87,10 +84,7 @@ props accept and valid css color value.
     parameters={{ chromatic: { disable: true } }}
   >
     <div style={{ margin: "64px 300px" }}>
-      <Help
-        tooltipBgColor="lightblue"
-        tooltipFontColor="black"
-      >
+      <Help tooltipBgColor="lightblue" tooltipFontColor="black">
         The background and font color are overridden
       </Help>
     </div>
@@ -106,9 +100,7 @@ Using the `type` prop, different icons can be specified. In this example type ha
     {() => {
       return ["error", "add", "minus", "settings"].map((icon) => (
         <div style={{ margin: "64px" }}>
-          <Help
-            type={`${icon}`}
-          >
+          <Help type={`${icon}`}>
             {`This is the Help component with the ${icon} icon`}
           </Help>
         </div>
@@ -124,9 +116,7 @@ Using the `href` prop, a link can be specified.
 <Canvas>
   <Story name="with href" parameters={{ chromatic: { disable: true } }}>
     <div style={{ margin: "64px" }}>
-      <Help
-        href="https://carbon.sage.com"
-      >
+      <Help href="https://carbon.sage.com">
         This is the Help component with a href.
       </Help>
     </div>

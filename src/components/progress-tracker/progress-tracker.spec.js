@@ -357,9 +357,8 @@ describe("ProgressBar", () => {
               display: "flex",
               justifyContent: "space-between",
               flexDirection: "column",
-              [labelsPosition === "left"
-                ? "paddingRight"
-                : "paddingLeft"]: "4px",
+              [labelsPosition === "left" ? "paddingRight" : "paddingLeft"]:
+                "4px",
             },
             wrapper.find(StyledValuesLabel)
           );
