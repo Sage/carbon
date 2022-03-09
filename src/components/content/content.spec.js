@@ -12,7 +12,6 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import { baseTheme } from "../../style/themes";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("Content", () => {
@@ -103,7 +102,7 @@ describe("Content", () => {
           {
             display: "block",
             fontWeight: "bold",
-            color: baseTheme.text.colors,
+            color: "var(--colorsUtilityYin090)",
           },
           wrapper.find(StyledContentTitle)
         );
@@ -133,7 +132,7 @@ describe("Content", () => {
         wrapper = renderWrapper({ variant: "secondary" });
         assertStyleMatch(
           {
-            color: baseTheme.content.secondaryColor,
+            color: "var(--colorsUtilityYin055)",
             fontWeight: "normal",
           },
           wrapper.find(StyledContentTitle)

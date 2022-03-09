@@ -1,3 +1,85 @@
+### [104.52.1](https://github.com/Sage/carbon/compare/v104.52.0...v104.52.1) (2022-03-08)
+
+
+### Bug Fixes
+
+* **filterable-select:** prevent passing a non-existent label id to children ([da6c470](https://github.com/Sage/carbon/commit/da6c4703a19593fa0f78715e09d1e2b2e8cf823a))
+
+## [104.52.0](https://github.com/Sage/carbon/compare/v104.51.0...v104.52.0) (2022-03-08)
+
+
+### Features
+
+* **flat-table:** add ability to use data-xxx props on flat table components ([11b365d](https://github.com/Sage/carbon/commit/11b365daf701d5c29acb60b923e5a7f3317b1327)), closes [#4862](https://github.com/Sage/carbon/issues/4862)
+
+## [104.51.0](https://github.com/Sage/carbon/compare/v104.50.0...v104.51.0) (2022-03-08)
+
+
+### Features
+
+* extend toColor function by design tokens ([1d17860](https://github.com/Sage/carbon/commit/1d17860cf82f3b7bbe779fb75f93744f36e311a2))
+
+## [104.50.0](https://github.com/Sage/carbon/compare/v104.49.0...v104.50.0) (2022-03-07)
+
+
+### Features
+
+* **character-count:** describe character-count component using design tokens, update tests ([8e5d184](https://github.com/Sage/carbon/commit/8e5d18443ba277de85bf6a853e23da216d851b03))
+* **checkable-input:** describe checkable-input component using design tokens, update tests ([14b924c](https://github.com/Sage/carbon/commit/14b924cc41d71a82ac4815389a04ffcc113ac24b))
+* **input-icon-toggle:** describe input-icon-toggle component using design tokens ([f82f7bf](https://github.com/Sage/carbon/commit/f82f7bffcca1927f3ecaf08ee2dc506eb96812af))
+* **input-presentation:** describe input-presentation component using design tokens, update tests ([a65fa6b](https://github.com/Sage/carbon/commit/a65fa6b53a57c6faef8863526a943f4580aba9d6))
+
+## [104.49.0](https://github.com/Sage/carbon/compare/v104.48.1...v104.49.0) (2022-03-07)
+
+
+### Features
+
+* **scrollable-list-item, select-list-container:** describe components using tokens ([2d4bcbd](https://github.com/Sage/carbon/commit/2d4bcbde12a34b2b660a841ba3204b04762ae90c))
+
+### [104.48.1](https://github.com/Sage/carbon/compare/v104.48.0...v104.48.1) (2022-03-07)
+
+
+### Bug Fixes
+
+* **icon:** update icon colors token to match  design decisions ([af356c2](https://github.com/Sage/carbon/commit/af356c2691699eb9e02f61869d01f41f8f5510b4))
+
+## [104.48.0](https://github.com/Sage/carbon/compare/v104.47.0...v104.48.0) (2022-03-04)
+
+
+### Features
+
+* **sidebar-header:** describe sidebar-header using design tokens, update tests ([1adde4b](https://github.com/Sage/carbon/commit/1adde4badabb9f460237cf52b55b8297d9fa8220))
+
+## [104.47.0](https://github.com/Sage/carbon/compare/v104.46.0...v104.47.0) (2022-03-04)
+
+
+### Features
+
+* **box:** describe box component using design tokens, update tests ([2494d24](https://github.com/Sage/carbon/commit/2494d24bbe9a26a1b142ad2177295ed7a34a2554))
+* **content:** describe content component using design tokens, update tests ([f096852](https://github.com/Sage/carbon/commit/f096852391735ceeed37ea7e910bc78c11e62b5e))
+* **dismissible-box:** describe dissmisible-box component using design tokens, update tests ([4c3158a](https://github.com/Sage/carbon/commit/4c3158a586b211622b70f44ceebffc7f625987a0))
+
+## [104.46.0](https://github.com/Sage/carbon/compare/v104.45.0...v104.46.0) (2022-03-04)
+
+
+### Features
+
+* **date-range, date-input:** describe using design tokens ([605a81a](https://github.com/Sage/carbon/commit/605a81ab76744c098d7c4fcab1bfada78e5eeed3))
+
+## [104.45.0](https://github.com/Sage/carbon/compare/v104.44.0...v104.45.0) (2022-03-04)
+
+
+### Features
+
+* **detail:** describe detail component using design tokens, update tests ([ba90819](https://github.com/Sage/carbon/commit/ba90819ad00c03939b26620158563ca4b53f8289))
+
+## [104.44.0](https://github.com/Sage/carbon/compare/v104.43.1...v104.44.0) (2022-03-04)
+
+
+### Features
+
+* **setting-row:** describe setting-row component using design tokens, update tests ([f4808f5](https://github.com/Sage/carbon/commit/f4808f5ebedb07db8d224ae608e4a9888c9c4db1))
+
 ### [104.43.1](https://github.com/Sage/carbon/compare/v104.43.0...v104.43.1) (2022-03-03)
 
 

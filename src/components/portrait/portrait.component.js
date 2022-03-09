@@ -171,9 +171,9 @@ Portrait.propTypes = {
   tooltipType: PropTypes.string,
   /** Defines the size of the tooltip content */
   tooltipSize: PropTypes.oneOf(["medium", "large"]),
-  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** Override background color of the Tooltip, provide design token, any color from palette or any valid css color value. */
   tooltipBgColor: PropTypes.string,
-  /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** Override font color of the Tooltip, provide design token, any color from palette or any valid css color value. */
   tooltipFontColor: PropTypes.string,
 };
 

@@ -13,6 +13,7 @@ const FlatTableCheckbox = ({
   cellIndex,
   reportCellWidth,
   ariaLabelledBy,
+  ...rest
 }) => {
   const ref = useRef(null);
 
@@ -40,6 +41,7 @@ const FlatTableCheckbox = ({
       leftPosition={leftPosition || 0}
       data-element={dataElement}
       as={as}
+      {...rest}
     >
       {selectable && (
         <Checkbox
