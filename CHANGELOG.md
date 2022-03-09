@@ -1,3 +1,10 @@
+## [104.53.0](https://github.com/Sage/carbon/compare/v104.52.2...v104.53.0) (2022-03-09)
+
+
+### Features
+
+* **space:** swap space values for values described by tokens ([ec0c2d4](https://github.com/Sage/carbon/commit/ec0c2d4521eba4649e3863d335390b612ff99994))
+
 ### [104.52.2](https://github.com/Sage/carbon/compare/v104.52.1...v104.52.2) (2022-03-09)
 
 
