@@ -51,7 +51,7 @@ export interface ThemeObject {
   name: string;
   palette: BasePalette;
   spacing: number;
-  space: number[];
+  space: string[];
 
   colors: Colors;
 
@@ -292,18 +292,6 @@ export interface ThemeObject {
     neutralBackgroundFocus: string;
     warningButtonFocus: string;
     errorButtonFocus: string;
-  };
-
-  scrollbar: {
-    light: {
-      thumb: string;
-      track: string;
-    };
-
-    dark: {
-      thumb: string;
-      track: string;
-    };
   };
 
   search: {

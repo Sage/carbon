@@ -211,7 +211,7 @@ const MultiSelect = React.forwardRef(
       [isOpen]
     );
 
-    const mapValuesToPills = useCallback(() => {
+    const mapValuesToPills = useMemo(() => {
       const canDelete = !disabled && !readOnly;
 
       if (!selectedValue.length) {
@@ -465,7 +465,7 @@ const MultiSelect = React.forwardRef(
         disabled,
         readOnly,
         placeholder: placeholderOverride,
-        leftChildren: mapValuesToPills(),
+        leftChildren: mapValuesToPills,
         inputRef: assignInput,
         formattedValue: textValue,
         selectedValue,

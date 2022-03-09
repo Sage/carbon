@@ -2,7 +2,6 @@ import React from "react";
 import { mount } from "enzyme";
 import DismissibleBox from "./dismissible-box.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import { baseTheme } from "../../style/themes";
 import StyledIcon from "../icon/icon.style";
 import IconButton from "../icon-button";
 
@@ -22,10 +21,10 @@ describe("DismissibleBox", () => {
 
       assertStyleMatch(
         {
-          border: `1px solid ${baseTheme.palette.slateTint(80)}`,
+          border: "1px solid var(--colorsUtilityMajor100)",
           borderLeft: "none",
           wordBreak: "break-word",
-          boxShadow: `-4px 0 0 0 ${baseTheme.palette.slateTint(20)}`,
+          boxShadow: "-4px 0 0 0 var(--colorsUtilityMajor400)",
           padding: "20px 24px 20px 20px",
           display: "flex",
           justifyContent: "space-between",
@@ -36,7 +35,7 @@ describe("DismissibleBox", () => {
 
       assertStyleMatch(
         {
-          color: baseTheme.palette.slate,
+          color: "var(--colorsActionMinor600)",
         },
         wrapper,
         { modifier: `${StyledIcon}:hover` }
@@ -48,14 +47,14 @@ describe("DismissibleBox", () => {
 
       assertStyleMatch(
         {
-          border: `1px solid ${baseTheme.palette.slateTint(80)}`,
+          border: "1px solid var(--colorsUtilityMajor100)",
           borderLeft: "none",
           wordBreak: "break-word",
-          boxShadow: `-4px 0 0 0 ${baseTheme.palette.slateTint(20)}`,
+          boxShadow: "-4px 0 0 0 var(--colorsUtilityMajor400)",
           padding: "20px 24px 20px 20px",
           display: "flex",
           justifyContent: "space-between",
-          backgroundColor: baseTheme.palette.slateTint(90),
+          backgroundColor: "var(--colorsUtilityMajor050)",
         },
         wrapper
       );
@@ -75,7 +74,7 @@ describe("DismissibleBox", () => {
 
       assertStyleMatch(
         {
-          border: `1px solid ${baseTheme.palette.slateTint(80)}`,
+          border: "1px solid var(--colorsUtilityMajor100)",
           boxShadow: undefined,
         },
         wrapper

@@ -252,7 +252,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 
 .c0 .DayPicker-Day {
   min-width: var(--sizing500);
-  height: 36px;
+  height: var(--sizing450);
   padding: 0;
   background-color: var(--colorsUtilityYang100);
   cursor: pointer;
