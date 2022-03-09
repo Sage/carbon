@@ -1,3 +1,10 @@
+### [104.52.2](https://github.com/Sage/carbon/compare/v104.52.1...v104.52.2) (2022-03-09)
+
+
+### Bug Fixes
+
+* **storybook:** fix theme selector functionality ([ccfbd50](https://github.com/Sage/carbon/commit/ccfbd50a0415c9c99767136a8e64a2b8ccaccf85))
+
 ### [104.52.1](https://github.com/Sage/carbon/compare/v104.52.0...v104.52.1) (2022-03-08)
 
 
