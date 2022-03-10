@@ -31,7 +31,7 @@ describe("Hr", () => {
 
       assertStyleMatch(
         {
-          marginTop: "56px",
+          marginTop: "var(--spacing700)",
         },
         wrapper.find(StyledHr)
       );
@@ -42,7 +42,7 @@ describe("Hr", () => {
 
       assertStyleMatch(
         {
-          marginBottom: "56px",
+          marginBottom: "var(--spacing700)",
         },
         wrapper.find(StyledHr)
       );

@@ -4,6 +4,7 @@ import { act } from "react-dom/test-utils";
 import TestRenderer from "react-test-renderer";
 
 import Icon from "components/icon";
+import { space } from "style/themes/base/base-theme.config";
 import Button from "./button.component";
 import StyledButton from "./button.style";
 import {
@@ -751,7 +752,7 @@ describe("Button", () => {
 
   describe("overriding size based padding", () => {
     const paddingValues = Array.from({ length: 9 }).map((_, px) => [
-      px === 0 ? String(px) : `${px * 8}px`,
+      space[px],
       px,
     ]);
     it.each(paddingValues)(

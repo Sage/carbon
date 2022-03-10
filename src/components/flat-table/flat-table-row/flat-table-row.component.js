@@ -38,6 +38,7 @@ const FlatTableRow = React.forwardRef(
       draggable,
       findItem,
       moveItem,
+      ...rest
     },
     ref
   ) => {
@@ -156,6 +157,7 @@ const FlatTableRow = React.forwardRef(
         applyBorderLeft={applyBorderLeft}
         draggable={draggable}
         {...interactiveRowProps}
+        {...rest}
       >
         {React.Children.map(children, (child, index) => {
           return (
@@ -218,7 +220,7 @@ const FlatTableRow = React.forwardRef(
 );
 
 FlatTableRow.propTypes = {
-  /** Overrides default cell color */
+  /** Overrides default cell color, provide design token, any color from palette or any valid css color value. */
   bgColor: PropTypes.string,
   /** Array of FlatTableHeader or FlatTableCell. FlatTableRowHeader could also be passed. */
   children: PropTypes.node.isRequired,
@@ -236,7 +238,7 @@ FlatTableRow.propTypes = {
   expandableArea: PropTypes.oneOf(["wholeRow", "firstColumn"]),
   /** Sets an expandable row to be expanded on start */
   expanded: PropTypes.bool,
-  /** Sets the color of the bottom border in the row */
+  /** Sets the color of the bottom border in the row, provide design token, any color from palette or any valid css color value. */
   horizontalBorderColor: PropTypes.string,
   /** Sets the weight of the bottom border in the row */
   horizontalBorderSize: PropTypes.oneOf(["small", "medium", "large"]),

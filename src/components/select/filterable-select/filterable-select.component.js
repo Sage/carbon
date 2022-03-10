@@ -24,6 +24,7 @@ const FilterableSelect = React.forwardRef(
       defaultValue,
       id,
       name,
+      label,
       children,
       onOpen,
       onChange,
@@ -55,7 +56,7 @@ const FilterableSelect = React.forwardRef(
   ) => {
     const [activeDescendantId, setActiveDescendantId] = useState();
     const selectListId = useRef(guid());
-    const labelId = useRef(guid());
+    const labelId = useRef(label ? guid() : undefined);
     const containerRef = useRef();
     const listboxRef = useRef();
     const isControlled = useRef(value !== undefined);
@@ -469,6 +470,7 @@ const FilterableSelect = React.forwardRef(
       return {
         id,
         name,
+        label,
         disabled,
         readOnly,
         inputRef: assignInput,
@@ -499,7 +501,7 @@ const FilterableSelect = React.forwardRef(
       <FilterableSelectList
         ref={listboxRef}
         id={selectListId.current}
-        labelId={labelId.current}
+        labelId={label ? labelId.current : undefined}
         anchorElement={textboxRef && textboxRef.parentElement}
         onSelect={onSelectOption}
         onSelectListClose={onSelectListClose}
@@ -540,10 +542,10 @@ const FilterableSelect = React.forwardRef(
         <div ref={containerRef}>
           <SelectTextbox
             activeDescendantId={activeDescendantId}
+            labelId={label ? labelId.current : undefined}
             aria-controls={isOpen ? selectListId.current : undefined}
             isOpen={isOpen}
             hasTextCursor
-            labelId={labelId.current}
             textboxRef={textboxRef}
             {...getTextboxProps()}
           />

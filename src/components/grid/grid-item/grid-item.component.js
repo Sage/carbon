@@ -23,6 +23,8 @@ GridItem.propTypes = {
   children: PropTypes.node,
   /** How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch */
   alignSelf: PropTypes.string,
+  /** Shorthand property for gridColumn and gridRow */
+  gridArea: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Starting and ending column position of the GridItem within the GridContainer separated by "/" */
   gridColumn: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Starting and ending row position of the GridItem within the GridContainer separated by "/" */
@@ -34,6 +36,8 @@ GridItem.propTypes = {
     PropTypes.shape({
       /** How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch */
       alignSelf: PropTypes.string,
+      /** Shorthand property for gridColumn and gridRow */
+      gridArea: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       /** Starting and ending column position of the GridItem within the GridContainer separated by "/" */
       gridColumn: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       /** Starting and ending row position of the GridItem within the GridContainer separated by "/" */

@@ -7,11 +7,14 @@ import Textbox from "../../textbox";
 import InputPresentationStyle, {
   StyledInputPresentationContainer,
 } from "../../../__internal__/input/input-presentation.style";
+import guid from "../../../__internal__/utils/helpers/guid";
 import useResizeObserver from "../../../hooks/__internal__/useResizeObserver";
 import Translation from "../../../locales/en-gb";
 
 jest.mock("@popperjs/core");
 jest.mock("../../../hooks/__internal__/useResizeObserver");
+jest.mock("../../../__internal__/utils/helpers/guid");
+guid.mockImplementation(() => "guid-123");
 
 const Component = (props) => {
   const [textboxRef, setTextboxRef] = useState();
@@ -192,6 +195,41 @@ describe("SelectTextbox", () => {
         expect(onChangeFn).not.toHaveBeenCalled();
       });
     });
+  });
+
+  describe("ARIA", () => {
+    let labelId;
+
+    beforeEach(() => {
+      guid.mockImplementationOnce(() => "labelId-guid");
+      labelId = guid();
+    });
+
+    describe.each([true, false])(
+      "when labelId has been passed, and hasTextCursor is %s",
+      (hasTextCursor) => {
+        it("aria-labelledby includes labelId", () => {
+          const wrapper = mount(
+            <SelectTextbox hasTextCursor={hasTextCursor} labelId={labelId} />
+          );
+          const ariaLabelledBy = wrapper.find(Textbox).prop("aria-labelledby");
+          expect(ariaLabelledBy).toEqual(expect.stringContaining(labelId));
+        });
+      }
+    );
+
+    describe.each([true, false])(
+      "when labelId is undefined, and hasTextCursor is %s",
+      (hasTextCursor) => {
+        it("aria-labelledby does not point to a non-existent label", () => {
+          const wrapper = mount(
+            <SelectTextbox hasTextCursor={hasTextCursor} labelId={undefined} />
+          );
+          const ariaLabelledBy = wrapper.find(Textbox).prop("aria-labelledby");
+          expect(ariaLabelledBy).not.toEqual(expect.stringContaining(labelId));
+        });
+      }
+    );
   });
 });
 

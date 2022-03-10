@@ -1,6 +1,8 @@
 import { mount } from "enzyme";
-
 import { sprintf } from "sprintf-js";
+
+import { space } from "style/themes/base/base-theme.config";
+
 import { carbonThemeList } from "../style/themes";
 import { mockMatchMedia } from "./mock-match-media";
 
@@ -192,8 +194,16 @@ const backgroundProps = [
   ["backgroundRepeat", "background-repeat", "no-repeat"],
 ];
 
-const getDefaultValue = (value) => {
-  if (typeof value === "number") {
+export const getDefaultValue = (value) => {
+  const spaceArrayLength = space.length - 1;
+  const parsedValue = +value;
+  if (typeof value === "string" && value > spaceArrayLength) {
+    return `${value}px`;
+  }
+  if (parsedValue <= spaceArrayLength) {
+    return space[value];
+  }
+  if (parsedValue > spaceArrayLength) {
     return `${value * 8}px`;
   }
   return value;
@@ -206,7 +216,7 @@ const testStyledSystemMargin = (
   assertOpts
 ) => {
   describe("default props", () => {
-    const wrapper = mount(component());
+    const wrapper = mount(component({ ...defaults }));
     const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
 
     it("should set the correct margins", () => {
@@ -257,7 +267,7 @@ const testStyledSystemMargin = (
 
         expect(
           assertStyleMatch(
-            { [propName]: "16px" },
+            { [propName]: "var(--spacing200)" },
             styleContainer ? styleContainer(wrapper) : wrapper,
             assertOpts
           )
@@ -274,7 +284,7 @@ const testStyledSystemPadding = (
   assertOpts
 ) => {
   describe("default props", () => {
-    const wrapper = mount(component());
+    const wrapper = mount(component({ ...defaults }));
     const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
 
     it("should set the correct paddings", () => {
@@ -327,7 +337,7 @@ const testStyledSystemPadding = (
 
         expect(
           assertStyleMatch(
-            { [propName]: "16px" },
+            { [propName]: "var(--spacing200)" },
             styleContainer ? styleContainer(wrapper) : wrapper,
             assertOpts
           )
