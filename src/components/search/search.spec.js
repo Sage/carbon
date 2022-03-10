@@ -124,7 +124,7 @@ describe("Search", () => {
       wrapper.update();
       assertStyleMatch(
         {
-          color: "var(--colorsYin065)",
+          color: "var(--colorsYin090)",
         },
         icon
       );

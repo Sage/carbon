@@ -52,7 +52,7 @@ describe("Fieldset", () => {
       wrapper = render({ mb: 2 });
       assertStyleMatch(
         {
-          marginBottom: "16px",
+          marginBottom: "var(--spacing200)",
         },
         wrapper.find(StyledFieldset)
       );

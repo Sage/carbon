@@ -10,7 +10,7 @@ export const StyledInputPresentationContainer = styled.div`
 
 const InputPresentationStyle = styled.div`
   align-items: stretch;
-  background: #fff;
+  background: var(--colorsUtilityYang100);
   border: 1px solid var(--colorsUtilityMajor300);
   box-sizing: border-box;
   cursor: text;

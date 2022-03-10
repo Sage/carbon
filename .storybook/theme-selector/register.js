@@ -7,8 +7,8 @@ import {
   TooltipLinkList,
   Icons,
 } from "@storybook/components";
+import { useGlobals } from "@storybook/api";
 import addons, { types } from "@storybook/addons";
-import { FORCE_RE_RENDER } from "@storybook/core-events";
 import styled from "styled-components";
 
 addons.register("sage/theme-switcher", (api) => {
@@ -47,6 +47,7 @@ export const ThemeSwitcher = memo(
   withTheme(({ api }) => {
     const [activeTheme, setTheme] = useState(getThemeName());
     const [expanded, setExpanded] = useState(false);
+    const [globals, updateGlobals] = useGlobals();
 
     if (process.env.STORYBOOK_DEBUG_ALL_THEMES) {
       modernThemes.all = {
@@ -63,7 +64,7 @@ export const ThemeSwitcher = memo(
       onClick: () => {
         setTheme(themeName);
         setThemeName(themeName);
-        addons.getChannel().emit(FORCE_RE_RENDER);
+        updateGlobals({ theme: themeName });
       },
       right: <ThemeIcon background={modernThemes[themeName].colors.primary} />,
     }));

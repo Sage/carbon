@@ -40,7 +40,7 @@ describe("FormField", () => {
 
       assertStyleMatch(
         {
-          marginBottom: "40px",
+          marginBottom: "var(--spacing500)",
         },
         wrapper,
         { modifier: "&&&" }

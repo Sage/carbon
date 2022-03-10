@@ -24,9 +24,9 @@ describe("CardRow", () => {
   });
 
   describe.each([
-    ["small", "16px"],
-    ["medium", "24px"],
-    ["large", "32px"],
+    ["small", "var(--spacing200)"],
+    ["medium", "var(--spacing300)"],
+    ["large", "var(--spacing400)"],
   ])('when the "spacing" prop is set to %s', (size, expectedVal) => {
     const wrapper = renderCardRow({ spacing: size }, TestRenderer.create);
 

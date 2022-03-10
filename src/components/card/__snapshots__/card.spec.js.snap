@@ -36,7 +36,7 @@ exports[`Card CardFooter styling should match the expected styling when it has i
 exports[`Card CardFooter styling should match the expected styling when it has non-interactive content 1`] = `
 .c3 {
   position: relative;
-  color: #008200;
+  color: var(--colorsActionMajor500);
   background-color: transparent;
   vertical-align: middle;
   -webkit-align-items: center;
@@ -144,7 +144,7 @@ exports[`Card CardFooter styling should match the expected styling when it has n
     >
       <span
         className="c2 c3"
-        color="#008200"
+        color="--colorsActionMajor500"
         data-component="icon"
         data-element="link"
         disabled={false}

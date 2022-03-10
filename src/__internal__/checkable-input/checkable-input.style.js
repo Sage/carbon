@@ -5,7 +5,6 @@ import { FieldLineStyle } from "../form-field/form-field.style";
 import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
 import LabelStyle, { StyledLabelContainer } from "../label/label.style";
 import StyledHelp from "../../components/help/help.style";
-import baseTheme from "../../style/themes/base";
 import StyledValidationIcon from "../validations/validation-icon.style";
 
 const StyledCheckableInput = styled.div`
@@ -21,7 +20,6 @@ const StyledCheckableInputWrapper = styled.div`
     labelWidth,
     labelInline,
     reverse,
-    theme,
   }) => css`
     ${FieldLineStyle} {
       display: flex;
@@ -36,12 +34,12 @@ const StyledCheckableInputWrapper = styled.div`
       width: auto;
 
       & ${StyledHelp}, & ${StyledValidationIcon} {
-        color: ${theme.help.color};
+        color: var(--colorsUtilityYin065);
         vertical-align: middle;
 
         &:hover,
         &:focus {
-          color: ${theme.text.color};
+          color: var(--colorsUtilityYin090);
         }
       }
     }
@@ -116,11 +114,6 @@ StyledCheckableInputWrapper.propTypes = {
   fieldHelpInline: PropTypes.bool,
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  theme: PropTypes.object,
-};
-
-StyledCheckableInputWrapper.defaultProps = {
-  theme: baseTheme,
 };
 
 export { StyledCheckableInput, StyledCheckableInputWrapper };
