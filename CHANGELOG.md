@@ -1,3 +1,10 @@
+### [104.53.1](https://github.com/Sage/carbon/compare/v104.53.0...v104.53.1) (2022-03-10)
+
+
+### Bug Fixes
+
+* **multi-select:** prevent component calling onChange on first render when uncontrolled ([51f1e93](https://github.com/Sage/carbon/commit/51f1e93719a4961cfb4a5c41c2cf3985d925e29e)), closes [#4727](https://github.com/Sage/carbon/issues/4727)
+
 ## [104.53.0](https://github.com/Sage/carbon/compare/v104.52.2...v104.53.0) (2022-03-09)
 
 
