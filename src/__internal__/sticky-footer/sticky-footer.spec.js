@@ -87,7 +87,7 @@ describe("StickyFooter component", () => {
             width: "100%",
             bottom: "0",
             left: "0",
-            backgroundColor: "var(--colorsComponentsNavigationYang100)",
+            backgroundColor: "var(--colorsActionMinorYang100)",
             boxShadow: "var(--boxShadow150)",
             zIndex: "1000",
           },

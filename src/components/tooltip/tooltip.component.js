@@ -60,7 +60,7 @@ const Tooltip = React.forwardRef(
               data-element="tooltip-pointer"
               bgColor={bgColor}
             />
-            <div>{content}</div>
+            {content}
           </StyledTooltip>
         </CarbonScopedTokensProvider>
       );
@@ -119,9 +119,9 @@ Tooltip.propTypes = {
   size: PropTypes.oneOf(["medium", "large"]),
   // Reference element, tooltip will be positioned in relation to this element
   target: PropTypes.instanceOf(Element),
-  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** Override background color of the Tooltip, provide design token, any color from palette or any valid css color value. */
   bgColor: PropTypes.string,
-  /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** Override font color of the Tooltip, provide design token, any color from palette or any valid css color value. */
   fontColor: PropTypes.string,
   /** @ignore @private */
   isPartOfInput: PropTypes.bool,

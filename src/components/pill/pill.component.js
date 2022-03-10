@@ -48,7 +48,7 @@ Pill.propTypes = {
   ...marginPropTypes,
   /** Change the color of a status pill. */
   colorVariant: PropTypes.oneOf(["neutral", "negative", "positive", "warning"]),
-  /** Override color variant, provide any color from palette or any valid css color value. */
+  /** Override color variant, provide design token, any color from palette or any valid css color value. */
   borderColor: PropTypes.string,
   /** The content to display inside of the pill.  */
   children: PropTypes.string.isRequired,

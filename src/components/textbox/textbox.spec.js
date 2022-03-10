@@ -16,7 +16,6 @@ import Label from "../../__internal__/label";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import CharacterCount from "../../__internal__/character-count";
 import I18nProvider from "../i18n-provider";
-import baseTheme from "../../style/themes/base";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import createGuid from "../../__internal__/utils/helpers/guid";
@@ -62,7 +61,7 @@ describe("Textbox", () => {
 
     assertStyleMatch(
       {
-        color: baseTheme.colors.error,
+        color: "var(--colorsSemanticNegative500)",
       },
       wrapper.find(CharacterCount)
     );

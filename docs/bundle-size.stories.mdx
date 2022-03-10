@@ -1,0 +1,35 @@
+<Meta title="Documentation/Bundle Size" />
+
+# Bundle size
+
+How to minimize bundle size.
+
+## Tree shaking
+
+Tree shaking in Carbon should work out of the box as long as you're using a bundler that supports ES6 modules and tree shaking. There is no need to change the import paths of the components.
+Considering that all components should be imported more or less as shown below:
+
+```jsx
+import Component from "carbon-react/lib/components/component";
+import {
+  SubComponent1,
+  SubComponent2,
+} from "carbon-react/lib/components/other-component";
+```
+
+To make sure that your webpack config supports tree shaking ensure that none of these optimization options are turned off.
+These values are set to `true` by default.
+
+```jsx
+//webpack.config.js
+module.exports = {
+  //...
+  optimization: {
+    usedExports: true,
+    sideEffects: true,
+    innerGraph: true,
+  },
+};
+```
+
+For more information about the topic see the [webpack guide to tree shaking](https://webpack.js.org/guides/tree-shaking/).

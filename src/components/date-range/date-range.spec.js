@@ -678,6 +678,13 @@ describe("DateRange", () => {
 });
 
 describe("StyledDateRange", () => {
+  it("render Date inputs with spacing between each other", () => {
+    const wrapper = renderDateRange({}, mount);
+    assertStyleMatch({ marginRight: "var(--spacing150)" }, wrapper, {
+      modifier: `& ${StyledDateInput}:first-child`,
+    });
+  });
+
   it("renders Date inputs correctly when the labels are inline", () => {
     const wrapper = mount(
       <StyledDateRange labelsInline>
