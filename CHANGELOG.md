@@ -1,3 +1,10 @@
+### [104.53.2](https://github.com/Sage/carbon/compare/v104.53.1...v104.53.2) (2022-03-10)
+
+
+### Bug Fixes
+
+* **flat-table-row:** update styles to ensure that icon color can be customised via prop ([e4cd58c](https://github.com/Sage/carbon/commit/e4cd58c5a112af790ebff019eb55b5d6c2f746b0)), closes [#4904](https://github.com/Sage/carbon/issues/4904)
+
 ### [104.53.1](https://github.com/Sage/carbon/compare/v104.53.0...v104.53.1) (2022-03-10)
 
 
