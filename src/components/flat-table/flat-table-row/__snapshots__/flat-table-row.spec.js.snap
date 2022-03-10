@@ -32,7 +32,7 @@ exports[`FlatTableRow should have expected styles 1`] = `
   outline: 2px solid #0000;
 }
 
-.c0 [data-component="icon"] {
+.c0 [data-component="icon"]:not([color]) {
   color: var(--colorsActionMinor500);
 }
 
