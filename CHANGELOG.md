@@ -1,3 +1,31 @@
+## [104.53.0](https://github.com/Sage/carbon/compare/v104.52.2...v104.53.0) (2022-03-09)
+
+
+### Features
+
+* **space:** swap space values for values described by tokens ([ec0c2d4](https://github.com/Sage/carbon/commit/ec0c2d4521eba4649e3863d335390b612ff99994))
+
+### [104.52.2](https://github.com/Sage/carbon/compare/v104.52.1...v104.52.2) (2022-03-09)
+
+
+### Bug Fixes
+
+* **storybook:** fix theme selector functionality ([ccfbd50](https://github.com/Sage/carbon/commit/ccfbd50a0415c9c99767136a8e64a2b8ccaccf85))
+
+### [104.52.1](https://github.com/Sage/carbon/compare/v104.52.0...v104.52.1) (2022-03-08)
+
+
+### Bug Fixes
+
+* **filterable-select:** prevent passing a non-existent label id to children ([da6c470](https://github.com/Sage/carbon/commit/da6c4703a19593fa0f78715e09d1e2b2e8cf823a))
+
+## [104.52.0](https://github.com/Sage/carbon/compare/v104.51.0...v104.52.0) (2022-03-08)
+
+
+### Features
+
+* **flat-table:** add ability to use data-xxx props on flat table components ([11b365d](https://github.com/Sage/carbon/commit/11b365daf701d5c29acb60b923e5a7f3317b1327)), closes [#4862](https://github.com/Sage/carbon/issues/4862)
+
 ## [104.51.0](https://github.com/Sage/carbon/compare/v104.50.0...v104.51.0) (2022-03-08)
 
 

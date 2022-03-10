@@ -164,7 +164,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c0 {
-  margin: 0;
+  margin: var(--spacing000);
   border: none;
   padding: 0;
   min-width: 0;
