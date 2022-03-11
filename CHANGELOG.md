@@ -1,3 +1,10 @@
+## [104.54.0](https://github.com/Sage/carbon/compare/v104.53.4...v104.54.0) (2022-03-11)
+
+
+### Features
+
+* **flat-table:** add width prop ([4266db4](https://github.com/Sage/carbon/commit/4266db484c17f9a1de5f72fff49dad894749d5cd)), closes [#4822](https://github.com/Sage/carbon/issues/4822)
+
 ### [104.53.4](https://github.com/Sage/carbon/compare/v104.53.3...v104.53.4) (2022-03-11)
 
 
