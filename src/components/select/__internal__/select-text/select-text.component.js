@@ -5,7 +5,7 @@ import { InputContext } from "../../../../__internal__/input-behaviour";
 
 const SelectText = ({
   disabled,
-  formattedValue,
+  formattedValue = "",
   onClick,
   onKeyDown,
   onFocus,
@@ -52,7 +52,7 @@ const SelectText = ({
       tabIndex="-1"
       transparent={transparent}
     >
-      {formattedValue || (hasPlaceholder ? placeholder : "")}
+      {hasPlaceholder ? placeholder : formattedValue}
     </StyledSelectText>
   );
 };
