@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { withTheme } from "styled-components";
+import tokens from "@sage/design-tokens/js/base/common";
 
-import BaseTheme from "../../style/themes/base";
 import Browser from "../../__internal__/utils/helpers/browser";
 import {
   StyledPortraitInitials,
@@ -12,7 +11,6 @@ import {
 import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
 
 const PortraitInitials = ({
-  theme,
   initials,
   size,
   shape,
@@ -24,14 +22,14 @@ const PortraitInitials = ({
 
   useEffect(() => {
     setCachedImageDataUrl(null);
-  }, [theme, initials, size, darkBackground]);
+  }, [initials, size, darkBackground]);
 
   const generateDataUrl = () => {
     if (cachedImageDataUrl) {
       return cachedImageDataUrl;
     }
 
-    const { textColor, bgColor } = getColorsForInitials(theme, darkBackground);
+    const { textColor, bgColor } = getColorsForInitials(darkBackground);
 
     let canvas = Browser.getDocument().createElement("canvas");
     const context = canvas.getContext("2d");
@@ -50,9 +48,9 @@ const PortraitInitials = ({
     context.textAlign = "center";
 
     // Setup background and front color
-    context.fillStyle = bgColor;
+    context.fillStyle = tokens[bgColor];
     context.fillRect(0, 0, dimensions, dimensions);
-    context.fillStyle = textColor;
+    context.fillStyle = tokens[textColor];
     context.fillText(
       initials.slice(0, 3).toUpperCase(),
       dimensions / 2,
@@ -75,7 +73,6 @@ const PortraitInitials = ({
       data-element="initials"
       size={size}
       shape={shape}
-      theme={theme}
       {...rest}
     >
       <StyledPortraitInitialsImg src={generateDataUrl()} alt={alt} />
@@ -84,8 +81,6 @@ const PortraitInitials = ({
 };
 
 PortraitInitials.propTypes = {
-  /** The theme to use. */
-  theme: PropTypes.object,
   /** The user's initials to render. */
   initials: PropTypes.string.isRequired,
   /** The size of the initials image. */
@@ -100,7 +95,6 @@ PortraitInitials.propTypes = {
 
 PortraitInitials.defaultProps = {
   shape: "square",
-  theme: BaseTheme,
 };
 
-export default withTheme(PortraitInitials);
+export default PortraitInitials;

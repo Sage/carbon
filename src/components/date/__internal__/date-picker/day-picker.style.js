@@ -188,14 +188,11 @@ const StyledDayPicker = styled.div`
     z-index: 1000;
     top: calc(100% + 1px);
     left: 0;
-    background-color: ${({ theme }) => theme.colors.white};
-    box-shadow: ${({ theme }) => theme.shadows.depth1};
-    color: ${({ theme }) => theme.text.color};
+    background-color: var(--colorsUtilityYang100);
+    box-shadow: var(--boxShadow100);
     display: block;
-    font-size: 14px;
-    font-weight: 800;
     overflow: hidden;
-    padding: 24px;
+    padding: var(--spacing300);
     text-align: center;
     user-select: none;
   }
@@ -216,7 +213,7 @@ const StyledDayPicker = styled.div`
   .DayPicker-wrapper {
     padding: 0;
     &:focus {
-      outline: ${({ theme }) => `3px solid ${theme.colors.focus}`};
+      outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
     }
   }
 
@@ -230,8 +227,10 @@ const StyledDayPicker = styled.div`
   }
 
   .DayPicker-Caption {
-    line-height: 40px;
-    height: 40px;
+    color: var(--colorsActionMajorYin090);
+    line-height: var(--sizing500);
+    height: var(--sizing500);
+    //font: var(--typographyDatePickerCalendarMonthM); font assets to be updated part of FE-4975
     font-size: 16px;
     font-weight: 800;
 
@@ -242,20 +241,25 @@ const StyledDayPicker = styled.div`
   }
 
   .DayPicker-Day {
-    min-width: 40px;
-    background-color: ${({ theme }) => theme.colors.white};
+    min-width: var(--sizing500);
+    height: var(--sizing450);
+    padding: 0;
+    background-color: var(--colorsUtilityYang100);
     cursor: pointer;
     border: none;
-    font-weight: 800;
-    padding: 10px 0;
+    //font-family: var(--fontFamiliesDefault); font assets to be updated part of FE-4975
+    //font: var(--typographyDatePickerCalendarDateM); font assets to be updated part of FE-4975
+    font-weight: var(--fontWeights700);
+    font-size: var(--fontSizes100);
+    line-height: var(--lineHeights500);
 
     &:hover {
-      background-color: ${({ theme }) => theme.disabled.input};
-      color: ${({ theme }) => theme.text.color};
+      background-color: var(--colorsActionMinor050);
+      color: var(--colorsActionMajorYin090);
     }
 
     &:focus {
-      outline: ${({ theme }) => `3px solid ${theme.colors.focus}`};
+      outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
     }
 
     + * {
@@ -269,32 +273,30 @@ const StyledDayPicker = styled.div`
 
   .DayPicker-Day--today,
   .DayPicker-Day--today.DayPicker-Day--outside {
-    font-weight: 800;
-    color: ${({ theme }) => theme.text.color};
-    background-color: ${({ theme }) => theme.disabled.border};
+    color: var(--colorsActionMajorYin090);
+    background-color: var(--colorsActionMinor200);
   }
 
   .DayPicker-Day--outside {
-    color: ${({ theme }) => theme.disabled.disabled};
-    background-color: ${({ theme }) => theme.colors.white};
+    color: var(--colorsActionMajorYin055);
+    background-color: var(--colorsUtilityYang100);
   }
 
   .DayPicker-Day--disabled,
   .DayPicker-Day--disabled:hover {
-    color: ${({ theme }) => theme.disabled.disabled};
-    background-color: ${({ theme }) => theme.colors.white};
+    color: var(colorsActionMajorYin030);
+    background-color: var(--colorsUtilityYang100);
     cursor: default;
   }
 
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-    background-color: ${({ theme }) => theme.colors.primary};
-    color: ${({ theme }) => theme.colors.white};
-    font-weight: 800;
+    background-color: var(--colorsActionMajor500);
+    color: var(--colorsUtilityYang100);
   }
 
   .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
-    background-color: ${({ theme }) => theme.colors.primary};
-    color: ${({ theme }) => theme.colors.white};
+    background-color: var(--colorsActionMajor500);
+    color: var(--colorsUtilityYang100);
   }
 `;
 

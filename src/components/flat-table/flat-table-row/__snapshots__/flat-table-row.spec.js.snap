@@ -2,9 +2,9 @@
 
 exports[`FlatTableRow should have expected styles 1`] = `
 .c1 {
-  background-color: #fff;
+  background-color: var(--colorsUtilityYang100);
   border-width: 0;
-  border-bottom: 1px solid #CCD6DB;
+  border-bottom: 1px solid var(--colorsUtilityMajor100);
   text-align: left;
   vertical-align: middle;
   padding: 0;
@@ -15,11 +15,11 @@ exports[`FlatTableRow should have expected styles 1`] = `
 }
 
 .c1:first-of-type {
-  border-left: 1px solid #CCD6DB;
+  border-left: 1px solid var(--colorsUtilityMajor100);
 }
 
 .c1:last-of-type {
-  border-right: 1px solid #CCD6DB;
+  border-right: 1px solid var(--colorsUtilityMajor100);
 }
 
 .c0 {
@@ -32,12 +32,16 @@ exports[`FlatTableRow should have expected styles 1`] = `
   outline: 2px solid #0000;
 }
 
+.c0 [data-component="icon"]:not([color]) {
+  color: var(--colorsActionMinor500);
+}
+
 .c0 .c2 {
-  border-bottom: 1px solid #668592;
+  border-bottom: 1px solid var(--colorsUtilityMajor400);
 }
 
 .c0 .c2:first-child {
-  border-left: 1px solid #668592;
+  border-left: 1px solid var(--colorsUtilityMajor400);
 }
 
 <table>

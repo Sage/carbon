@@ -9,6 +9,8 @@ export interface StepSequenceItemProps {
   hiddenCurrentLabel?: string;
   /** Value to be displayed before text for uncomplete steps */
   indicator: string;
+  /** Flag to hide the indicator for uncomplete steps */
+  hideIndicator?: boolean;
   /** Status for the step */
   status?: "complete" | "current" | "incomplete";
 }

@@ -3,7 +3,7 @@
 exports[`BatchSelection component should render correctly 1`] = `
 .c5 {
   position: relative;
-  color: var(--colorsYin065);
+  color: var(--colorsYin090);
   background-color: transparent;
   vertical-align: middle;
   -webkit-align-items: center;
@@ -42,9 +42,8 @@ exports[`BatchSelection component should render correctly 1`] = `
 }
 
 .c3:focus {
-  color: rgba(0,0,0,0.9);
   background-color: transparent;
-  outline: solid 3px #FFB500;
+  outline: solid 3px var(--colorsSemanticFocus500);
   z-index: 1;
 }
 
@@ -75,6 +74,10 @@ exports[`BatchSelection component should render correctly 1`] = `
   display: inline-flex;
 }
 
+.c0 .c4 {
+  color: var(--colorsActionMajorYin065);
+}
+
 .c0 .c2 {
   margin: 0;
   position: static;
@@ -82,11 +85,11 @@ exports[`BatchSelection component should render correctly 1`] = `
 }
 
 .c0 .c2:hover {
-  background-color: #00A376;
+  background-color: var(--colorsActionMajor500);
 }
 
 .c0 .c2:hover .c4 {
-  color: #FFFFFF;
+  color: var(--colorsActionMajorYang100);
 }
 
 .c1 {

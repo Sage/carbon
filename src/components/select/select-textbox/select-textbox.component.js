@@ -1,19 +1,54 @@
-import React, { useRef } from "react";
+import React, { useRef, useLayoutEffect, useMemo } from "react";
 import PropTypes from "prop-types";
+import { createPopper } from "@popperjs/core";
+
 import Textbox from "../../textbox";
-import useLocale from "../../../hooks/__internal__/useLocale";
 import SelectText from "../__internal__/select-text/select-text.component";
 import guid from "../../../__internal__/utils/helpers/guid/guid";
+import useLocale from "../../../hooks/__internal__/useLocale";
+import useResizeObserver from "../../../hooks/__internal__/useResizeObserver";
+
+const modifiers = [
+  {
+    name: "flip",
+    enabled: false,
+  },
+  {
+    name: "offset",
+    options: {
+      offset: ({ placement, reference }) => {
+        if (placement === "bottom") {
+          return [0, -reference.height];
+        }
+        return [];
+      },
+    },
+  },
+  {
+    name: "sameDimensions",
+    enabled: true,
+    phase: "beforeWrite",
+    requires: ["computeStyles"],
+    fn: ({ state }) => {
+      state.styles.popper.width = `${state.rects.reference.width}px`;
+      state.styles.reference.height = `${state.rects.popper.height}px`;
+    },
+    effect: ({ state }) => {
+      state.elements.popper.style.width = `${state.elements.reference.offsetWidth}px`;
+      state.elements.reference.height = `${state.elements.popper.height}px`;
+    },
+  },
+];
 
 const SelectTextbox = ({
-  accessibilityLabelId = "",
+  accessibilityLabelId,
+  labelId,
   "aria-controls": ariaControls,
   value,
   disabled,
   isOpen,
   readOnly,
   placeholder,
-  labelId,
   size,
   onClick,
   onFocus,
@@ -21,11 +56,49 @@ const SelectTextbox = ({
   onChange,
   selectedValue,
   required,
+  textboxRef,
   hasTextCursor,
   transparent,
   activeDescendantId,
   ...restProps
 }) => {
+  const popperInstance = useRef();
+
+  useLayoutEffect(() => {
+    if (textboxRef && isOpen) {
+      popperInstance.current = createPopper(
+        textboxRef.parentElement.parentElement,
+        textboxRef.parentElement,
+        {
+          strategy: "fixed",
+          modifiers,
+        }
+      );
+    }
+
+    return () => {
+      if (popperInstance.current) {
+        popperInstance.current.destroy();
+        popperInstance.current = null;
+      }
+    };
+  }, [textboxRef, isOpen]);
+
+  const resizeObserverRef = useMemo(
+    () => ({
+      current: textboxRef?.parentElement,
+    }),
+    [textboxRef]
+  );
+
+  useResizeObserver(
+    resizeObserverRef,
+    () => {
+      popperInstance?.current?.update();
+    },
+    !isOpen
+  );
+
   const l = useLocale();
   const textId = useRef(guid());
 
@@ -71,11 +144,15 @@ const SelectTextbox = ({
   }
 
   function getInputAriaAttributes() {
+    const joinIds = (...ids) =>
+      ids.filter((item) => item !== undefined).join(" ");
+    const ariaLabelledby = hasTextCursor
+      ? joinIds(labelId, accessibilityLabelId)
+      : joinIds(labelId, textId.current);
+
     return {
       "aria-expanded": isOpen,
-      "aria-labelledby": hasTextCursor
-        ? `${labelId} ${accessibilityLabelId}`
-        : `${labelId} ${textId.current}`,
+      "aria-labelledby": ariaLabelledby || undefined,
       "aria-activedescendant": activeDescendantId,
       "aria-controls": ariaControls,
       "aria-autocomplete": hasTextCursor ? "both" : undefined,

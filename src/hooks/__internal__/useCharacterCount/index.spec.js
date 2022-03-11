@@ -4,7 +4,6 @@ import { mount } from "enzyme";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import CharacterCount from "../../../__internal__/character-count";
 import I18nProvider from "../../../components/i18n-provider";
-import baseTheme from "../../../style/themes/base";
 import useCharacterCount from ".";
 
 const TestComponent = ({
@@ -64,7 +63,7 @@ describe("useCharacterCount", () => {
 
     assertStyleMatch(
       {
-        color: baseTheme.colors.error,
+        color: "var(--colorsSemanticNegative500)",
       },
       wrapper
     );

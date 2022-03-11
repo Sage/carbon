@@ -1,9 +1,8 @@
 import styled, { css } from "styled-components";
 import Icon from "../../icon";
 import getRgbValues from "../../../style/utils/get-rgb-values";
-import baseTheme from "../../../style/themes/base";
 
-const getIconColor = (color, theme) => {
+const getIconColor = (color) => {
   const rgbValues = getRgbValues(color);
   const [r, g, b] = rgbValues;
   // color contrast calculating formula as per W3 suggestions
@@ -15,8 +14,8 @@ const getIconColor = (color, theme) => {
       Math.round(g * greenMultiplier) +
       Math.round(b * blueMultiplier)) /
     1000;
-  if (contrast < 128) return theme.colors.white;
-  return theme.text.color;
+  if (contrast < 128) return "var(--colorsUtilityYang100)";
+  return "var(--colorsUtilityYin090)";
 };
 
 const StyledTickIcon = styled(Icon)`
@@ -27,7 +26,7 @@ const StyledTickIcon = styled(Icon)`
 
   &::before {
     font-size: 22px;
-    color: ${({ color, theme }) => getIconColor(color, theme)};
+    color: ${({ color }) => getIconColor(color)};
   }
 
   ${({ checked }) =>
@@ -38,9 +37,5 @@ const StyledTickIcon = styled(Icon)`
       }
     `}
 `;
-
-StyledTickIcon.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledTickIcon;

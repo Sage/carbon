@@ -85,7 +85,7 @@ const StyledSelectListTableHeader = styled.thead`
     font-weight: 900;
     font-size: 12px;
     text-transform: uppercase;
-    color: var(--colorsYin055);
+    color: var(--colorsUtilityYin055);
     :after {
       content: "";
       display: block;
@@ -93,8 +93,8 @@ const StyledSelectListTableHeader = styled.thead`
       bottom: -8px;
       left: 0px;
       background-image: linear-gradient(
-        var(--colorsComponentsNavigationYin100),
-        var(--colorsYang100)
+        var(--colorsUtilityMajor800),
+        var(--colorsUtilityYang100)
       );
       opacity: 0.03;
       height: 8px;

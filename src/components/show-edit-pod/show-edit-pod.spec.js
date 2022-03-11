@@ -2,6 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 
 import ShowEditPod from "./show-edit-pod.component";
+import { StyledContent } from "../pod/pod.style.js";
 import Form from "../form";
 import Pod from "../pod";
 import Button from "../button";
@@ -9,8 +10,10 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../__internal__/utils/helpers/tags/tags-specs";
-import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
-import StyledDeleteButton from "./delete-button.style";
+import {
+  testStyledSystemMargin,
+  assertStyleMatch,
+} from "../../__spec_helper__/test-utils";
 
 describe("ShowEditPod", () => {
   testStyledSystemMargin((props) => <ShowEditPod {...props} />);
@@ -297,7 +300,7 @@ describe("ShowEditPod", () => {
       });
       additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
 
-      expect(additionalComponent.type()).toBe(StyledDeleteButton);
+      expect(additionalComponent.type()).toBe(Button);
       additionalComponent.unmount();
     });
 
@@ -341,6 +344,21 @@ describe("ShowEditPod", () => {
 
         expect(wrapper.find(Pod).find('[data-element="delete"]').exists()).toBe(
           false
+        );
+      });
+    });
+    describe("when softDelete prop set", () => {
+      it("content title has correct color", () => {
+        wrapper = renderShowEditPod({
+          onDelete,
+          softDelete: true,
+        });
+        assertStyleMatch(
+          {
+            color: "var(--colorsUtilityYin030)",
+          },
+          wrapper.find(Pod),
+          { modifier: `${StyledContent} [data-element="content-title"]` }
         );
       });
     });

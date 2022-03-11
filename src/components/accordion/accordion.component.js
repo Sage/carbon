@@ -125,7 +125,8 @@ const Accordion = React.forwardRef(
           buttonHeading={buttonHeading}
           buttonWidth={buttonWidth}
           hasButtonProps={buttonHeading && headerSpacing}
-          {...(buttonHeading && { role: "button", p: 0 })}
+          role="button"
+          {...(buttonHeading && { p: 0 })}
           {...headerSpacing}
         >
           <StyledAccordionHeadingsContainer

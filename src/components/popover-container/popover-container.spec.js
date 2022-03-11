@@ -7,7 +7,6 @@ import { Transition } from "react-transition-group";
 import {
   PopoverContainerContentStyle,
   PopoverContainerCloseIcon,
-  PopoverContainerIcon,
   PopoverContainerOpenIcon,
   PopoverContainerWrapperStyle,
   PopoverContainerTitleStyle,
@@ -18,7 +17,6 @@ import {
   assertStyleMatch,
   testStyledSystemPadding,
 } from "../../__spec_helper__/test-utils";
-import { baseTheme } from "../../style/themes";
 import Icon from "../icon";
 import guid from "../../__internal__/utils/helpers/guid";
 
@@ -290,6 +288,7 @@ describe("PopoverContainer", () => {
             ariaLabel,
             ref,
             onClick,
+            id,
           }) => (
             <MyOpenButton
               tabIndex={tabIndex}
@@ -297,6 +296,7 @@ describe("PopoverContainer", () => {
               aria-label={ariaLabel}
               ref={ref}
               onClick={onClick}
+              id={id}
             >
               button
             </MyOpenButton>
@@ -375,6 +375,19 @@ describe("PopoverContainer", () => {
 
         expect(wrapper.find(MyOpenButton).text()).toBe("isOpen is false");
         expect(wrapper.find(MyOpenButton)).not.toBeFocused();
+      });
+
+      it("should set the id on the control when popover is closed", () => {
+        expect(wrapper.find(MyOpenButton).prop("id")).toBe(
+          "PopoverContainer_guid-123"
+        );
+      });
+
+      it("should not set the id on the control when popover is open", () => {
+        act(() => {
+          wrapper.find(MyOpenButton).props().onClick();
+        });
+        expect(wrapper.update().find(MyOpenButton).prop("id")).toBe(undefined);
       });
     });
 
@@ -464,17 +477,17 @@ describe("PopoverContainer", () => {
   });
 });
 
-describe("PopoverContainerIcon", () => {
+describe("PopoverContainerOpenIcon", () => {
   it("should render correct style", () => {
     const wrapper = mount(
-      <PopoverContainerIcon onAction={() => {}} theme={baseTheme}>
+      <PopoverContainerOpenIcon onAction={() => {}}>
         <Icon type="settings" />
-      </PopoverContainerIcon>
+      </PopoverContainerOpenIcon>
     );
 
     assertStyleMatch(
       {
-        color: baseTheme.popoverContainer.iconColor,
+        color: "var(--colorsActionMinor500)",
       },
       wrapper,
       {

@@ -1,28 +1,31 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import BaseTheme from "../../../../style/themes/base";
+
 import StyledIcon from "../../../icon/icon.style";
 import StyledValidationIcon from "../../../../__internal__/validations/validation-icon.style";
 
 const StyledTitleContent = styled.span`
   outline: none;
   display: inline-block;
+  line-height: 20px;
+  margin: 0;
 
   ${({
-    theme,
+    hasCustomLayout,
+    error,
+    warning,
+    info,
     size,
+    isTabSelected,
+    hasSiblings,
     borders,
     position,
     noLeftBorder,
     noRightBorder,
-    isTabSelected,
     hasHref,
-    error,
     alternateStyling,
     align,
   }) => css`
-    line-height: 20px;
-    margin: 0;
     text-align: ${align};
 
     ${position === "left" &&
@@ -34,7 +37,7 @@ const StyledTitleContent = styled.span`
 
     ${hasHref &&
     css`
-      color: ${theme.text.color};
+      color: var(--colorsActionMinorYin090);
       display: block;
       text-decoration: none;
 
@@ -47,15 +50,22 @@ const StyledTitleContent = styled.span`
       }
     `}
 
+    ${!hasHref &&
+    css`
+      [data-component="icon"]:not([color]) {
+        color: var(--colorsActionMinorYin065);
+      }
+    `}
+
     ${borders &&
     css`
-      border-top: 1px solid ${theme.tab.background};
-      border-left: 1px solid ${theme.tab.background};
-      border-right: 1px solid ${theme.tab.background};
+      border-top: 1px solid var(--colorsActionMinor100);
+      border-left: 1px solid var(--colorsActionMinor100);
+      border-right: 1px solid var(--colorsActionMinor100);
 
       ${position === "left" &&
       css`
-        border-bottom: 1px solid ${theme.tab.background};
+        border-bottom: 1px solid var(--colorsActionMinor100);
         ${!alternateStyling && `margin-right: -1px;`}
       `}
 
@@ -65,7 +75,7 @@ const StyledTitleContent = styled.span`
 
         ${!noRightBorder &&
         css`
-          border-right: 1px solid ${theme.tab.background};
+          border-right: 1px solid var(--colorsActionMinor100);
         `}
       `}
 
@@ -78,7 +88,7 @@ const StyledTitleContent = styled.span`
     ${size === "large" &&
     position === "top" &&
     css`
-      padding: 10px 24px;
+      padding: 14px 24px;
       ${borders && `padding-bottom: 9px;`}
       font-size: 16px;
     `}
@@ -87,8 +97,7 @@ const StyledTitleContent = styled.span`
     position === "left" &&
     css`
       font-size: 16px;
-      padding: 22px 24px;
-      ${!isTabSelected && !alternateStyling && error && `margin-right: -2px;`}
+      padding: 14px 24px;
     `}
 
     ${size === "default" &&
@@ -96,19 +105,10 @@ const StyledTitleContent = styled.span`
       padding: 10px 16px;
 
       ${borders && `padding-bottom: 9px;`}
-
-      ${position === "left" &&
-      !isTabSelected &&
-      !alternateStyling &&
-      error &&
-      `
-        margin-right: -2px;
-      `}
     `}
-  `}
+ 
 
-  ${({ position, warning, info, theme, size, hasCustomLayout }) =>
-    (warning || info) &&
+    ${(warning || info) &&
     css`
       outline: 1px solid;
       outline-offset: -1px;
@@ -116,23 +116,23 @@ const StyledTitleContent = styled.span`
       ${info &&
       !warning &&
       css`
-        outline-color: ${theme.colors.info};
+        outline-color: var(--colorsSemanticInfo500);
       `}
 
       ${warning &&
       css`
-        outline-color: ${theme.colors.warning};
+        outline-color: var(--colorsSemanticCaution500);
       `}
 
-    ${position === "top" &&
+      ${position === "top" &&
       css`
         border-bottom-color: transparent;
       `}
 
-    ${position === "left" &&
+      ${position === "left" &&
       css`
         border-right-color: transparent;
-        padding-right: ${size === "large" ? "26px;" : "18px;"};
+        padding-right: ${size === "large" ? "26px" : "18px"};
       `}
       
       &:hover {
@@ -142,15 +142,15 @@ const StyledTitleContent = styled.span`
         ${info &&
         !warning &&
         css`
-          outline-color: ${theme.colors.info};
+          outline-color: var(--colorsSemanticInfo500);
         `}
 
         ${warning &&
         css`
-          outline-color: ${theme.colors.warning};
+          outline-color: var(--colorsSemanticCaution500);
         `}
 
-      ${position === "top" &&
+        ${position === "top" &&
         css`
           border-bottom-color: transparent;
 
@@ -160,18 +160,17 @@ const StyledTitleContent = styled.span`
           `}
         `}
 
-      ${position === "left" &&
+        ${position === "left" &&
         css`
           border-right-color: transparent;
-          padding-right: ${size === "large" ? "26px;" : "18px;"};
+          padding-right: ${size === "large" ? "26px" : "18px"};
         `}
       }
     `}
 
-  ${({ error, theme, position, size, hasCustomLayout }) =>
-    error &&
+    ${error &&
     css`
-      outline: 2px solid ${theme.colors.error};
+      outline: 2px solid var(--colorsSemanticNegative500);
       outline-offset: -2px;
 
       ${position === "top" &&
@@ -186,7 +185,7 @@ const StyledTitleContent = styled.span`
       `}
     
       &:hover {
-        outline: 2px solid ${theme.colors.error};
+        outline: 2px solid var(--colorsSemanticNegative500);
         outline-offset: -2px;
         ${position === "top" &&
         css`
@@ -206,42 +205,14 @@ const StyledTitleContent = styled.span`
       }
     `}
 
-  ${({
-    hasSiblings,
-    hasCustomLayout,
-    error,
-    warning,
-    info,
-    size,
-    isTabSelected,
-    position,
-  }) =>
-    hasSiblings &&
+    ${hasSiblings &&
     !hasCustomLayout &&
     position === "top" &&
     css`
       height: 20px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-
-      ${size === "large" &&
-      !(error || warning || info) &&
-      isTabSelected &&
-      css`
-        padding-bottom: 6px;
-      `}
     `}
 
-  ${({
-    hasCustomLayout,
-    error,
-    warning,
-    info,
-    position,
-    size,
-    isTabSelected,
-  }) =>
-    hasCustomLayout &&
+    ${hasCustomLayout &&
     css`
       display: flex;
 
@@ -260,22 +231,23 @@ const StyledTitleContent = styled.span`
 
       ${position === "top" &&
       css`
-        padding: ${size === "large" ? "2px;" : "0px;"}
-          ${isTabSelected &&
-          css`
-            padding-bottom: 0px;
-          `}
-          ${(error || warning || info) &&
-          css`
-          padding-bottom: ${size === "large" ? "4px;" : "2px;"}
-          padding-right: ${size === "large" ? "18px;" : "14px;"}
+        padding: ${size === "large" ? "2px" : "0px"};
+        ${isTabSelected &&
+        css`
+          padding-bottom: 0px;
+        `}
+        ${(error || warning || info) &&
+        css`
+          padding-bottom: ${size === "large" ? "4px" : "2px"};
+          padding-right: ${size === "large" ? "18px" : "14px"};
 
           &:hover {
-            padding-bottom: ${size === "large" ? "4px;" : "2px;"}
+            padding-bottom: ${size === "large" ? "4px" : "2px"};
           }
-        `};
+        `}
       `}
     `}
+  `}
 `;
 
 const StyledTabTitle = styled.button`
@@ -295,133 +267,142 @@ const StyledTabTitle = styled.button`
     color: inherit;
   }
 
-  ${({ position, borders, noRightBorder, noLeftBorder }) => css`
-    ${position === "top" &&
-    css`
-      height: 40px;
-
-      ${borders &&
-      !(noRightBorder || noLeftBorder) &&
-      css`
-        &:nth-of-type(n + 1) {
-          margin-left: -1px;
-        }
-        &:first-child {
-          margin-left: 0;
-        }
-      `}
-    `}
-    ${position === "left" &&
-    css`
-      ${borders &&
-      css`
-        &:nth-of-type(n + 1) {
-          margin-top: -1px;
-        }
-        &:first-child {
-          margin-top: 0;
-        }
-      `}
-    `}
-  `}
-
-  ${({ isTabSelected, theme }) =>
-    !isTabSelected &&
-    css`
-      &:hover {
-        background: ${theme.tab.background};
-        color: ${theme.text.color};
-        outline: none;
-      }
-      &:focus {
-        color: ${theme.text.color};
-        outline: none;
-      }
-    `}
-
-  ${({ isTabSelected, theme, alternateStyling, error, warning, info }) =>
-    isTabSelected &&
-    css`
-    color: ${theme.text.color};
-    background-color: ${theme.colors.white};
-
-    ${
-      (error || warning || info) &&
-      css`
-        padding-bottom: 0px;
-      `
-    }
-
-    &:hover {
-      background-color: ${theme.colors.white};
-      border-bottom-color: ${
-        alternateStyling
-          ? `${theme.tab.background};`
-          : `${theme.colors.primary};`
-      }
-      color: ${theme.text.color};
-      cursor: default;
-    }
-  `}
-
-  ${({ theme, isInSidebar }) => `
-    &:focus {
-      outline: ${isInSidebar ? "none;" : `2px solid ${theme.colors.focus};`}
-      z-index: 2;
-    }
-  `}
-  
   ${({
+    size,
     position,
     borders,
-    theme,
+    noRightBorder,
+    noLeftBorder,
+    isTabSelected,
     alternateStyling,
     error,
     warning,
     info,
     isInSidebar,
-  }) =>
-    position === "left" &&
-    css`
-      background-color: transparent;
-      border-bottom: 0px;
-
-      ${!isInSidebar &&
+  }) => css`
+    height: ${size === "large" ? "var(--sizing600)" : "var(--sizing500)"};
+    
+    ${
+      position === "top" &&
       css`
-        border-right: ${alternateStyling ? "1px" : "2px"} solid
-          ${theme.tab.background};
-      `}
-
-      ${!borders &&
+        ${borders &&
+        !(noRightBorder || noLeftBorder) &&
+        css`
+          &:nth-of-type(n + 1) {
+            margin-left: -1px;
+          }
+          &:first-child {
+            margin-left: 0;
+          }
+        `}
+      `
+    }
+    ${
+      position === "left" &&
       css`
-        ${StyledTitleContent} {
-          border-bottom: none;
+        ${borders &&
+        css`
+          &:nth-of-type(n + 1) {
+            margin-top: -1px;
+          }
+          &:first-child {
+            margin-top: 0;
+          }
+        `}
+      `
+    }
+
+    ${
+      !isTabSelected &&
+      css`
+        color: var(--colorsActionMinorYin090);
+
+        &:hover {
+          background: var(--colorsActionMinor100);
+          color: var(--colorsActionMinorYin090);
+          outline: none;
         }
-      `}
+        &:focus {
+          color: var(--colorsActionMinorYin090);
+          outline: none;
+        }
+      `
+    }
+
+    ${
+      isTabSelected &&
+      css`
+        color: var(--colorsActionMajorYin090);
+        background-color: var(--colorsActionMajorYang100);
+
+        ${(error || warning || info) &&
+        css`
+          padding-bottom: 0px;
+        `}
+
+        &:hover {
+          background-color: var(--colorsActionMajorYang100);
+          border-bottom-color: ${alternateStyling
+            ? "var(--colorsActionMinor100)"
+            : "var(--colorsActionMajor500)"};
+          color: var(--colorsActionMajorYin090);
+          cursor: default;
+        }
+      `
+    }
+
+    &:focus {
+      outline: ${
+        isInSidebar
+          ? "none;"
+          : "var(--borderWidth300) solid var(--colorsSemanticFocus500);"
+      }
+      z-index: 2;
+    }
+
+    ${
+      position === "left" &&
+      css`
+        background-color: transparent;
+        border-bottom: 0px;
+
+        ${!isInSidebar &&
+        !error &&
+        css`
+          border-right: ${alternateStyling ? "1px" : "2px"} solid
+            var(--colorsActionMinor100);
+        `}
+
+        ${!borders &&
+        css`
+          ${StyledTitleContent} {
+            border-bottom: none;
+          }
+        `}
 
       display: flex;
-      height: auto;
-      margin-left: 0px;
+        height: auto;
+        margin-left: 0px;
 
-      &:first-child {
-        margin-top: 0;
-      }
+        &:first-child {
+          margin-top: 0;
+        }
 
-      &:hover {
-        ${alternateStyling && `border-right-color: ${theme.tab.background};`}
-      }
+        &:hover {
+          ${alternateStyling &&
+          "border-right-color: var(--colorsActionMinor100)"}
+        }
 
-      ${(warning || info) &&
-      css`
-        border-right: none;
-      `}
+        ${(warning || info) &&
+        css`
+          border-right: none;
+        `}
 
-      ${({ isTabSelected }) =>
-        isTabSelected &&
+        ${isTabSelected &&
         css`
           ${alternateStyling &&
           css`
-            border-right-color: ${theme.tab.background};
+            border-right-color: var(--colorsActionMinor100);
           `}
 
           ${!alternateStyling &&
@@ -430,76 +411,73 @@ const StyledTabTitle = styled.button`
             padding-bottom: 0px;
 
             ${StyledTitleContent} {
-              ${!(error || warning || info) && `margin-right: 2px;`}
+              ${!(error || warning || info) && "margin-right: 2px;"}
               border-right: none;
             }
           `}
-    
-          background-color: ${theme.colors.white};
+  
+        background-color: var(--colorsActionMajorYang100);
 
           &:hover {
             ${alternateStyling &&
-            ` border-right-color: ${theme.tab.background};`}
-            background-color: ${theme.colors.white};
+            "border-right-color: var(--colorsActionMinor100);"}
+            background-color: var(--colorsActionMajorYang100);
             ${(error || warning || info) &&
-            `border-right-color: ${theme.colors.error};`}
+            "border-right-color: var(--colorsSemanticNegative500);"}
           }
 
           &:focus {
             ${(error || warning || info) &&
-            `border-right-color: ${theme.colors.error};`}
+            "border-right-color: var(--colorsSemanticNegative500);"}
           }
         `}
-    `}
+      `
+    }
 
-  ${({ alternateStyling, theme, isTabSelected, isInSidebar }) =>
-    alternateStyling &&
-    css`
-      &:focus {
-        background-color: ${theme.tab.background};
-      }
-
-      &:hover {
-        background-color: ${isTabSelected
-          ? `${theme.tab.background};`
-          : `${theme.tab.altHover};`};
-      }
-
-      ${isTabSelected &&
+    ${
+      alternateStyling &&
       css`
-        background-color: ${theme.tab.background};
-      `}
+        &:focus {
+          background-color: var(--colorsActionMinor100);
+        }
 
-      ${isInSidebar && `padding-bottom: 1px;`}
-    `}
+        &:hover {
+          background-color: ${isTabSelected
+            ? "var(--colorsActionMinor100)"
+            : "var(--colorsActionMinor150)"};
+        }
+
+        ${isTabSelected &&
+        css`
+          background-color: var(--colorsActionMinor100);
+        `}
+
+        ${isInSidebar && `padding-bottom: 1px;`}
+      `
+    }
+  `}
 `;
 
 const StyledLayoutWrapper = styled.div`
-  ${({ hasCustomLayout }) =>
-    hasCustomLayout &&
+  ${({ hasCustomLayout, titlePosition, hasCustomSibling, position }) => css`
+    ${hasCustomLayout &&
     css`
       flex-grow: 2;
-      min-width: 100px;
     `}
 
-  ${({ hasCustomLayout, titlePosition, hasCustomSibling, position }) =>
-    !hasCustomLayout &&
+    ${!hasCustomLayout &&
     css`
       display: inline-flex;
 
-      ${({ theme }) => css`
-        position: relative;
-        top: -1px;
-        ${hasCustomSibling &&
-        css`
-          left: 4px;
-        `}
-        ${!hasCustomSibling &&
-        css`
-          ${titlePosition === "before"
-            ? `left: ${theme.spacing}px;`
-            : `right: ${theme.spacing}px;`}
-        `}
+      position: relative;
+      top: -1px;
+      ${hasCustomSibling &&
+      css`
+        left: 4px;
+      `}
+      ${!hasCustomSibling &&
+      css`
+        ${titlePosition === "before" ? "left: 8px;" : "right: 8px;"}
       `}
 
       ${StyledIcon} {
@@ -516,33 +494,34 @@ const StyledLayoutWrapper = styled.div`
         }
       }
     `}
+  `}
 `;
 
 const StyledSelectedIndicator = styled.div`
   position: absolute;
   z-index: 1;
 
-  ${({ position, size, theme }) =>
-    position === "top" &&
+  ${({ position }) => css`
+    ${position === "top" &&
     css`
       bottom: 0px;
       left: 0px;
-      box-shadow: inset 0px ${size === "large" ? "-4px" : "-2px"} 0px
-        ${theme.colors.primary};
+      box-shadow: inset 0px calc(-1 * var(--sizing025)) 0px
+        var(--colorsActionMajor500);
       width: 100%;
-      height: ${size === "large" ? "4px" : "2px"};
+      height: var(--sizing025);
     `}
 
-  ${({ position, size, theme }) =>
-    position === "left" &&
+    ${position === "left" &&
     css`
       top: 0px;
       right: 0px;
-      box-shadow: inset ${size === "large" ? "-4px" : "-2px"} 0px 0px 0px
-        ${theme.colors.primary};
+      box-shadow: inset calc(-1 * var(--sizing025)) 0px 0px 0px
+        var(--colorsActionMajor500);
       height: 100%;
-      width: ${size === "large" ? "4px" : "2px"};
+      width: var(--sizing025);
     `}
+  `}
 `;
 
 StyledTabTitle.propTypes = {
@@ -552,7 +531,6 @@ StyledTabTitle.propTypes = {
 };
 
 StyledTabTitle.defaultProps = {
-  theme: BaseTheme,
   position: "top",
   size: "default",
   borders: false,
@@ -564,7 +542,6 @@ StyledLayoutWrapper.propTypes = {
 };
 
 StyledLayoutWrapper.defaultProps = {
-  theme: BaseTheme,
   titlePosition: "before",
 };
 
@@ -581,7 +558,6 @@ StyledTitleContent.propTypes = {
 };
 
 StyledTitleContent.defaultProps = {
-  theme: BaseTheme,
   position: "top",
   size: "default",
   borders: false,
@@ -593,7 +569,6 @@ StyledSelectedIndicator.propTypes = {
 };
 
 StyledSelectedIndicator.defaultProps = {
-  theme: BaseTheme,
   position: "top",
   size: "default",
 };

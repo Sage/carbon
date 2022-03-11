@@ -2,6 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
+import { space } from "style/themes/base/base-theme.config";
 import guid from "../../__internal__/utils/helpers/guid/guid.js";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Dialog from "./dialog.component";
@@ -19,7 +20,10 @@ import {
 import Button from "../button";
 import Heading from "../heading";
 import { Row, Column } from "../row";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  getDefaultValue,
+} from "../../__spec_helper__/test-utils";
 import Form from "../form";
 import { StyledFormContent, StyledFormFooter } from "../form/form.style";
 import IconButton from "../icon-button";
@@ -571,12 +575,12 @@ describe("Dialog", () => {
       bottom: CONTENT_BOTTOM_PADDING,
     };
 
-    const getValue = (value, isMargin) => {
-      if (!value) {
-        return "0";
-      }
+    const setNegativeValue = (tokenValue) => `calc(-1px * ${tokenValue})`;
 
-      return `${isMargin ? "-" : ""}${value * 8}px`;
+    const getValue = (value, isMargin) => {
+      const defaultValue = getDefaultValue(value);
+
+      return isMargin ? setNegativeValue(defaultValue) : defaultValue;
     };
 
     const getFormSpacing = (value, position, prop, isMargin) => {
@@ -585,7 +589,9 @@ describe("Dialog", () => {
         (["top", "bottom"].includes(position) && !["p", "py"].includes(prop)) ||
         (["left", "right"].includes(position) && !["p", "px"].includes(prop))
       ) {
-        return `${isMargin ? "-" : ""}${defaultPaddingValues[position]}px`;
+        return isMargin
+          ? setNegativeValue(defaultPaddingValues[position])
+          : `${defaultPaddingValues[position]}px`;
       }
 
       return getValue(value, isMargin);
@@ -631,7 +637,7 @@ describe("Dialog", () => {
             const width =
               value === undefined || !["p", "px"].includes(prop)
                 ? HORIZONTAL_PADDING
-                : value * 8;
+                : space[value];
 
             assertStyleMatch(
               {
@@ -639,7 +645,7 @@ describe("Dialog", () => {
                 marginRight: getFormSpacing(value, "right", prop, true),
                 marginBottom: getFormSpacing(value, "bottom", prop, true),
                 bottom: getFormSpacing(value, "bottom", prop, true),
-                width: `calc(100% + ${width * 2}px)`,
+                width: `calc(100% + (2px * ${width}))`,
               },
               wrapper.find(DialogStyle),
               { modifier: `${StyledFormFooter}.sticky` }

@@ -66,10 +66,10 @@ import {
     <FlatTable>
       <FlatTableHead>
         <FlatTableRow>
-          <FlatTableHeader>Name</FlatTableHeader>
-          <FlatTableHeader>Location</FlatTableHeader>
-          <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader><Box justifyContent="space-between" alignItems="center" display="flex">Name <Icon type="individual" color="white" /></Box></FlatTableHeader>
+          <FlatTableHeader><Box justifyContent="space-between" alignItems="center" display="flex">Location <Icon type="location" color="white" /></Box></FlatTableHeader>
+          <FlatTableHeader><Box justifyContent="space-between" alignItems="center" display="flex">Relationship Status <Icon type="person_info" color="white" /></Box></FlatTableHeader>
+          <FlatTableHeader><Box justifyContent="space-between" alignItems="center" display="flex">Dependents <Icon type="people" color="white" /></Box></FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -408,7 +408,7 @@ Setting a custom background color will also override hover, highlight and row se
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>
-        <FlatTableRow horizontalBorderColor="#000">
+        <FlatTableRow horizontalBorderColor="--colorsUtilityYin090">
           <FlatTableCell>John Smith</FlatTableCell>
           <FlatTableCell>Edinburgh</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
@@ -449,7 +449,10 @@ Setting a custom background color will also override hover, highlight and row se
       </FlatTableHead>
       <FlatTableBody>
         <FlatTableRow>
-          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">
+          <FlatTableCell
+            verticalBorder="small"
+            verticalBorderColor="--colorsUtilityYin090"
+          >
             John Doe
           </FlatTableCell>
           <FlatTableCell
@@ -462,7 +465,10 @@ Setting a custom background color will also override hover, highlight and row se
           <FlatTableCell>0</FlatTableCell>
         </FlatTableRow>
         <FlatTableRow>
-          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">
+          <FlatTableCell
+            verticalBorder="small"
+            verticalBorderColor="--colorsUtilityYin090"
+          >
             Jane Doe
           </FlatTableCell>
           <FlatTableCell
@@ -475,7 +481,10 @@ Setting a custom background color will also override hover, highlight and row se
           <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>
         <FlatTableRow>
-          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">
+          <FlatTableCell
+            verticalBorder="small"
+            verticalBorderColor="--colorsUtilityYin090"
+          >
             John Smith
           </FlatTableCell>
           <FlatTableCell
@@ -488,7 +497,10 @@ Setting a custom background color will also override hover, highlight and row se
           <FlatTableCell>1</FlatTableCell>
         </FlatTableRow>
         <FlatTableRow>
-          <FlatTableCell verticalBorder="small" verticalBorderColor="#335CDC">
+          <FlatTableCell
+            verticalBorder="small"
+            verticalBorderColor="--colorsUtilityYin090"
+          >
             Jane Smith
           </FlatTableCell>
           <FlatTableCell
