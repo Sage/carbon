@@ -1,3 +1,10 @@
+### [104.53.3](https://github.com/Sage/carbon/compare/v104.53.2...v104.53.3) (2022-03-11)
+
+
+### Bug Fixes
+
+* **tooltip:** fix tooltip repositioning ([f3a3943](https://github.com/Sage/carbon/commit/f3a394393df10b34588573ecd3120f267bda49ab))
+
 ### [104.53.2](https://github.com/Sage/carbon/compare/v104.53.1...v104.53.2) (2022-03-10)
 
 
