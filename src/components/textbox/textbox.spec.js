@@ -16,7 +16,6 @@ import Label from "../../__internal__/label";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import CharacterCount from "../../__internal__/character-count";
 import I18nProvider from "../i18n-provider";
-import baseTheme from "../../style/themes/base";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import createGuid from "../../__internal__/utils/helpers/guid";
@@ -62,7 +61,7 @@ describe("Textbox", () => {
 
     assertStyleMatch(
       {
-        color: baseTheme.colors.error,
+        color: "var(--colorsSemanticNegative500)",
       },
       wrapper.find(CharacterCount)
     );
@@ -234,15 +233,33 @@ describe("Textbox", () => {
       });
     });
 
-    describe("when labelId is present", () => {
-      it("it overrides the labelId value on the input", () => {
-        const wrapper = mount(
-          <Textbox id="foo" label="bar" labelId="override-bar" />
-        );
+    describe("label", () => {
+      describe("when no value is passed in", () => {
+        it("does not set the labelId", () => {
+          const wrapper = mount(<Textbox id="foo" />);
 
-        expect(wrapper.find(Input).prop("aria-labelledby")).toBe(
-          "override-bar"
-        );
+          expect(wrapper.find(Input).prop("aria-labelledby")).toBe("");
+        });
+      });
+
+      describe("when labelId is not set", () => {
+        it("uses the label to create a labelId value on the input", () => {
+          const wrapper = mount(<Textbox id="foo" label="bar" />);
+
+          expect(wrapper.find(Input).prop("aria-labelledby")).toBe("foo-label");
+        });
+      });
+
+      describe("when labelId is set", () => {
+        it("overrides the labelId value on the input", () => {
+          const wrapper = mount(
+            <Textbox id="foo" label="bar" labelId="override-bar" />
+          );
+
+          expect(wrapper.find(Input).prop("aria-labelledby")).toBe(
+            "override-bar"
+          );
+        });
       });
     });
 

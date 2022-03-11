@@ -2,6 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { margin } from "styled-system";
+
 import BaseTheme from "../../style/themes/base";
 import Icon from "../icon";
 import {
@@ -34,43 +35,35 @@ function stylingForShape({ shape }) {
   `;
 }
 
-function stylingForIcon({ size, theme, darkBackground }) {
+function stylingForIcon({ size, darkBackground }) {
   const params = PORTRAIT_SIZE_PARAMS[size];
 
   if (!params) {
     return css``;
   }
 
-  let color = theme.portrait.border;
-  let backgroundColor = theme.portrait.background;
+  let color = "var(--colorsUtilityMajor200)";
+  let backgroundColor = "var(--colorsUtilityMajor025)";
 
   if (darkBackground) {
-    color = theme.portrait.background;
-    backgroundColor = theme.portrait.border;
+    color = "var(--colorsUtilityMajor025)";
+    backgroundColor = "var(--colorsUtilityMajor200)";
   }
 
   return css`
     background-color: ${backgroundColor};
     color: ${color};
 
-    ${params.iconDimensions &&
-    css`
-      svg {
-        width: ${params.iconDimensions}px;
-        height: ${params.iconDimensions}px;
-      }
-    `}
+    ::before {
+      font-size: ${params.iconDimensions}px;
+    }
   `;
 }
 
-export function getColorsForInitials(theme, darkBackground) {
+export function getColorsForInitials(darkBackground) {
   return {
-    textColor: darkBackground
-      ? theme.portrait.background
-      : theme.portrait.initials,
-    bgColor: darkBackground
-      ? theme.portrait.initials
-      : theme.portrait.background,
+    textColor: darkBackground ? "colorsUtilityYang100" : "colorsUtilityYin055",
+    bgColor: darkBackground ? "colorsUtilityMajor400" : "colorsUtilityMajor025",
   };
 }
 
@@ -80,20 +73,15 @@ export const StyledPortraitInitials = styled.div`
   box-sizing: border-box;
   ${stylingForSize}
   ${stylingForShape}
-  ${({ theme }) =>
-    css`
-      border: 1px solid ${theme.portrait.border};
-    `}
+  border: 1px solid var(--colorsUtilityMajor200);
 `;
 
 StyledPortraitInitials.propTypes = {
-  theme: PropTypes.object,
   size: PropTypes.oneOf(PORTRAIT_SIZES).isRequired,
   shape: PropTypes.oneOf(PORTRAIT_SHAPES),
 };
 
 StyledPortraitInitials.defaultProps = {
-  theme: BaseTheme,
   shape: "square",
 };
 
@@ -120,10 +108,6 @@ StyledPortraitGravatar.propTypes = {
   alt: PropTypes.string,
 };
 
-StyledPortraitGravatar.defaultProps = {
-  theme: BaseTheme,
-};
-
 export const StyledCustomImg = styled.img`
   display: block;
   ${stylingForSize}
@@ -138,7 +122,7 @@ StyledCustomImg.propTypes = {
 };
 
 // && is used here to increase the specificity
-export const StyledIcon = styled(({ darkBackground, ...rest }) => (
+export const StyledIcon = styled(({ size, darkBackground, ...rest }) => (
   <Icon {...rest} />
 ))`
   && {
@@ -147,10 +131,10 @@ export const StyledIcon = styled(({ darkBackground, ...rest }) => (
     ${stylingForSize}
     ${stylingForIcon}
     ${stylingForShape}
-    ${({ theme }) =>
-      css`
-        border: 1px dashed ${theme.portrait.border};
-      `}
+    border: 1px dashed ${({ darkBackground }) =>
+      darkBackground
+        ? "var(--colorsUtilityMajorTransparent)"
+        : "var(--colorsUtilityMajor200)"};
   }
 `;
 
@@ -158,7 +142,6 @@ StyledIcon.propTypes = {
   darkBackground: PropTypes.bool,
   size: PropTypes.oneOf(PORTRAIT_SIZES),
   shape: PropTypes.oneOf(PORTRAIT_SHAPES),
-  theme: PropTypes.object,
   type: PropTypes.string.isRequired,
 };
 
@@ -166,7 +149,6 @@ StyledIcon.defaultProps = {
   darkBackground: false,
   size: "M",
   shape: "square",
-  theme: BaseTheme,
 };
 
 export const StyledPortraitContainer = styled.div`

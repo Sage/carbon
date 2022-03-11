@@ -4,16 +4,15 @@ import StyledIcon from "../icon/icon.style";
 import { baseTheme } from "../../style/themes";
 
 const StyledIconButton = styled.button.attrs({ type: "button" })`
-  ${({ theme, disabled }) => css`
+  ${({ disabled }) => css`
     ${margin}
     background: transparent;
     border: none;
     padding: 0;
 
     &:focus {
-      color: ${theme.text.color};
       background-color: transparent;
-      outline: solid 3px ${theme.colors.focus};
+      outline: solid 3px var(--colorsSemanticFocus500);
       z-index: 1;
     }
 
@@ -26,7 +25,11 @@ const StyledIconButton = styled.button.attrs({ type: "button" })`
     }
 
     ${StyledIcon} {
-      ${disabled && `color: ${theme.icon.disabled}`};
+      ${disabled &&
+      css`
+        color: var(--colorsActionMinorYin030);
+        background-color: transparent;
+      `};
       position: relative;
 
       &:focus {

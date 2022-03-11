@@ -10,7 +10,7 @@ export const StyledInputPresentationContainer = styled.div`
 
 const InputPresentationStyle = styled.div`
   align-items: stretch;
-  background: #fff;
+  background: var(--colorsUtilityYang100);
   border: 1px solid var(--colorsUtilityMajor300);
   box-sizing: border-box;
   cursor: text;
@@ -30,9 +30,8 @@ const InputPresentationStyle = styled.div`
       cursor: not-allowed;
     `}
 
-  ${({ hasFocus, disabled }) =>
+  ${({ hasFocus }) =>
     hasFocus &&
-    !disabled &&
     css`
       & {
         outline: 3px solid var(--colorsSemanticFocus500);

@@ -35,6 +35,24 @@ describe("FlatTableRowCell", () => {
     );
   });
 
+  describe("when a data prop is added", () => {
+    it("should be added to the root element", () => {
+      const wrapper = mount(
+        <table>
+          <tbody>
+            <tr>
+              <FlatTableRowCell data-role="test">Foo</FlatTableRowCell>
+            </tr>
+          </tbody>
+        </table>
+      );
+
+      expect(wrapper.find(StyledFlatTableCell).props()["data-role"]).toEqual(
+        "test"
+      );
+    });
+  });
+
   describe("when truncate prop is true", () => {
     let wrapper;
     beforeEach(() => {
@@ -84,9 +102,9 @@ describe("FlatTableRowCell", () => {
   });
 
   describe.each([
-    ["small", "1px solid #CCD6DB"],
-    ["medium", "2px solid #CCD6DB"],
-    ["large", "4px solid #CCD6DB"],
+    ["small", "1px solid var(--colorsUtilityMajor300)"],
+    ["medium", "2px solid var(--colorsUtilityMajor300)"],
+    ["large", "4px solid var(--colorsUtilityMajor300)"],
   ])(
     "when the verticalBorder prop is set to %s",
     (verticalBorder, expectedValue) => {

@@ -13,7 +13,6 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import baseTheme from "../../style/themes/base";
 
 describe("SettingsRow", () => {
   testStyledSystemMargin((props) => <SettingsRow {...props} />, { m: "0" });
@@ -50,7 +49,7 @@ describe("SettingsRow", () => {
 
         assertStyleMatch(
           {
-            borderBottom: `1px solid ${baseTheme.palette.slateTint(90)}`,
+            borderBottom: "1px solid var(--colorsUtilityMajor050)",
             paddingBottom: "30px",
           },
           wrapper.find(StyledSettingsRow)

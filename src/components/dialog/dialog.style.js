@@ -34,7 +34,7 @@ const calculateWidthValue = (props) => {
   const { paddingLeft, paddingRight, padding } = paddingFn(props);
   const paddingValue = paddingLeft ?? paddingRight ?? padding;
 
-  return paddingValue === undefined ? HORIZONTAL_PADDING * 2 : paddingValue * 2;
+  return paddingValue === undefined ? HORIZONTAL_PADDING : paddingValue;
 };
 
 const calculateFormSpacingValues = (props, isFormContent) => {
@@ -51,27 +51,22 @@ const calculateFormSpacingValues = (props, isFormContent) => {
   const spacingBottomValue = paddingBottom ?? padding ?? CONTENT_BOTTOM_PADDING;
   const spacingLeftValue = paddingLeft ?? padding ?? HORIZONTAL_PADDING;
 
+  const setNegativeValue = (value) => `calc(-1px * ${value})`;
+
   return {
-    "margin-left": spacingLeftValue
-      ? `-${spacingLeftValue}px`
-      : spacingLeftValue,
-    "margin-right": spacingRightValue
-      ? `-${spacingRightValue}px`
-      : spacingRightValue,
+    "margin-left": setNegativeValue(spacingLeftValue),
+    "margin-right": setNegativeValue(spacingRightValue),
+
     ...(isFormContent && {
-      "margin-top": spacingTopValue ? `-${spacingTopValue}px` : spacingTopValue,
+      "margin-top": setNegativeValue(spacingTopValue),
       "padding-top": spacingTopValue,
       "padding-bottom": spacingBottomValue,
       "padding-left": spacingLeftValue,
       "padding-right": spacingRightValue,
     }),
     ...(!isFormContent && {
-      "margin-bottom": spacingBottomValue
-        ? `-${spacingBottomValue}px`
-        : spacingBottomValue,
-      bottom: spacingBottomValue
-        ? `-${spacingBottomValue}px`
-        : spacingBottomValue,
+      "margin-bottom": setNegativeValue(spacingBottomValue),
+      bottom: setNegativeValue(spacingBottomValue),
     }),
   };
 };
@@ -88,6 +83,7 @@ const DialogStyle = styled.div`
   flex-direction: column;
   position: fixed;
   top: 50%;
+  z-index: ${({ theme }) => theme.zIndex.modal};
   max-height: ${({ topMargin }) => `calc(100vh - ${topMargin}px)`};
 
   &:focus {
@@ -122,7 +118,7 @@ const DialogStyle = styled.div`
   }
 
   ${StyledFormFooter}.sticky {
-    width: calc(100% + ${calculateWidthValue}px);
+    width: calc(100% + (2px * ${calculateWidthValue}));
     ${(props) => calculateFormSpacingValues(props, false)}
   }
 

@@ -1,11 +1,88 @@
-import React from "react";
+import React, { useState } from "react";
 import { mount } from "enzyme";
+import { createPopper } from "@popperjs/core";
+
 import SelectTextbox from "./select-textbox.component";
-import Textbox from "../../textbox";
 import SelectText from "../__internal__/select-text/select-text.component";
+import Textbox from "../../textbox";
+import InputPresentationStyle, {
+  StyledInputPresentationContainer,
+} from "../../../__internal__/input/input-presentation.style";
+import guid from "../../../__internal__/utils/helpers/guid";
+import useResizeObserver from "../../../hooks/__internal__/useResizeObserver";
 import Translation from "../../../locales/en-gb";
 
+jest.mock("@popperjs/core");
+jest.mock("../../../hooks/__internal__/useResizeObserver");
+jest.mock("../../../__internal__/utils/helpers/guid");
+guid.mockImplementation(() => "guid-123");
+
+const Component = (props) => {
+  const [textboxRef, setTextboxRef] = useState();
+
+  function assignInput(input) {
+    setTextboxRef(input.current);
+  }
+
+  return (
+    <SelectTextbox textboxRef={textboxRef} inputRef={assignInput} {...props} />
+  );
+};
+
 describe("SelectTextbox", () => {
+  describe("popper - ", () => {
+    const destroyFunc = jest.fn();
+    const updateFunc = jest.fn();
+
+    createPopper.mockImplementation(() => ({
+      destroy: destroyFunc,
+      update: updateFunc,
+    }));
+
+    it("popper instance is initialized when isOpen is true", () => {
+      jest.clearAllMocks();
+
+      mount(<Component isOpen />);
+
+      expect(createPopper).toHaveBeenCalledTimes(1);
+    });
+
+    it("popper instance is destroyed on unmount", () => {
+      const myWrapper = mount(<Component isOpen />);
+
+      myWrapper.unmount();
+
+      expect(destroyFunc).toHaveBeenCalled();
+    });
+
+    it("createPopper is called with proper arguments", () => {
+      jest.clearAllMocks();
+
+      const myWrapper = mount(<Component isOpen />);
+
+      const reference = myWrapper
+        .find(StyledInputPresentationContainer)
+        .getDOMNode();
+      const popper = myWrapper.find(InputPresentationStyle).getDOMNode();
+
+      expect(createPopper.mock.calls[0][0]).toEqual(reference);
+      expect(createPopper.mock.calls[0][1]).toEqual(popper);
+      expect(createPopper.mock.calls[0][2]).toMatchObject({
+        strategy: "fixed",
+      });
+    });
+
+    it("popper instance is updated when reference element resizes", () => {
+      mount(<Component isOpen />);
+
+      useResizeObserver.mock.calls[
+        useResizeObserver.mock.calls.length - 1
+      ][1]();
+
+      expect(updateFunc).toHaveBeenCalled();
+    });
+  });
+
   describe("when rendered", () => {
     it("it should contain a Textbox with expected props", () => {
       const wrapper = mount(<SelectTextbox />);
@@ -58,6 +135,41 @@ describe("SelectTextbox", () => {
     it('the Textbox should have type of "text"', () => {
       expect(wrapper.find(Textbox).prop("type")).toBe("text");
     });
+  });
+
+  describe("ARIA", () => {
+    let labelId;
+
+    beforeEach(() => {
+      guid.mockImplementationOnce(() => "labelId-guid");
+      labelId = guid();
+    });
+
+    describe.each([true, false])(
+      "when labelId has been passed, and hasTextCursor is %s",
+      (hasTextCursor) => {
+        it("aria-labelledby includes labelId", () => {
+          const wrapper = mount(
+            <SelectTextbox hasTextCursor={hasTextCursor} labelId={labelId} />
+          );
+          const ariaLabelledBy = wrapper.find(Textbox).prop("aria-labelledby");
+          expect(ariaLabelledBy).toEqual(expect.stringContaining(labelId));
+        });
+      }
+    );
+
+    describe.each([true, false])(
+      "when labelId is undefined, and hasTextCursor is %s",
+      (hasTextCursor) => {
+        it("aria-labelledby does not point to a non-existent label", () => {
+          const wrapper = mount(
+            <SelectTextbox hasTextCursor={hasTextCursor} labelId={undefined} />
+          );
+          const ariaLabelledBy = wrapper.find(Textbox).prop("aria-labelledby");
+          expect(ariaLabelledBy).not.toEqual(expect.stringContaining(labelId));
+        });
+      }
+    );
   });
 
   describe("when a keyboard key has been pressed when focused on the SelectText", () => {

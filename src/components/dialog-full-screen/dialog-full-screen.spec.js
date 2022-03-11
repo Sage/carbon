@@ -48,6 +48,22 @@ describe("DialogFullScreen", () => {
     ).toBe("true");
   });
 
+  it("should not have aria-modal attribute on the dialog container if role is not `dialog`", () => {
+    wrapper = mount(
+      <DialogFullScreen onCancel={onCancel} open title="my title" role="main">
+        <Button>Button</Button>
+        <Button>Button</Button>
+      </DialogFullScreen>
+    );
+
+    expect(
+      wrapper
+        .find(StyledDialogFullScreen)
+        .getDOMNode()
+        .getAttribute("aria-modal")
+    ).toBe(null);
+  });
+
   describe("contentRef", () => {
     it("the content ref should be forwarded", () => {
       let mockRef;

@@ -1,22 +1,20 @@
 import styled from "styled-components";
-import baseTheme from "../../../../style/themes/base";
 
 const StyledWeekday = styled.div`
   &,
   &.DayPicker-Weekday {
     border: none;
-    min-width: 40px;
+    height: var(--sizing500);
+    min-width: var(--sizing500);
     font-weight: 800;
-    color: ${({ theme }) => theme.colors.border};
+    color: var(--colorsActionMinor400);
     text-transform: uppercase;
     font-size: 12px;
+    //font: var(--typographyDatePickerCalendarDayM) font assets to be updated part of FE-4975
     text-align: center;
     padding: 20px 0 5px;
+    box-sizing: border-box;
   }
 `;
-
-StyledWeekday.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledWeekday;

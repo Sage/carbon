@@ -10,6 +10,7 @@ import browserTypeCheck, {
   isSafari,
 } from "../../__internal__/utils/helpers/browser-type-check";
 import styledColor from "../../style/utils/color";
+import getColorValue from "../../style/utils/get-color-value";
 
 function adjustIconBgSize(fontSize, bgSize) {
   const replacements = {
@@ -58,28 +59,19 @@ const StyledIcon = styled.span`
       if (disabled) {
         finalColor = "var(--colorsYin030)";
         finalHoverColor = "var(--colorsYin030)";
-      } else if (typeof color === "string" && color.startsWith("var")) {
-        finalColor = color;
-        finalHoverColor = shade(
-          0.2,
-          theme.compatibility[color.replace("var(--", "").replace(")", "")]
-        );
       } else if (color) {
         const { color: renderedColor } = styledColor({ color, theme });
         finalColor = renderedColor;
-        finalHoverColor = shade(0.2, renderedColor);
+        finalHoverColor = shade(0.2, getColorValue(renderedColor));
       } else {
-        finalColor = "var(--colorsYin065)";
+        finalColor = "var(--colorsYin090)";
         finalHoverColor = "var(--colorsYin090)";
       }
 
       if (bg) {
         const { backgroundColor } = styledColor({ bg, theme });
         bgColor = backgroundColor;
-        bgHoverColor = shade(0.2, backgroundColor);
-      } else if (disabled) {
-        bgColor = "var(--colorsYin030)";
-        bgHoverColor = "var(--colorsYin030)";
+        bgHoverColor = shade(0.2, getColorValue(backgroundColor));
       } else {
         bgColor = "transparent";
         bgHoverColor = "transparent";

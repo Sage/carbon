@@ -10,7 +10,7 @@ const ButtonBar = styled.div`
   ${stylingForType}
 `;
 
-function stylingForType({ theme, size }) {
+function stylingForType({ size }) {
   return css`
     ${({ fullWidth }) =>
       fullWidth &&
@@ -29,7 +29,7 @@ function stylingForType({ theme, size }) {
 
     button {
       margin: 0;
-      border: 2px solid ${theme.colors.primary};
+      border: 2px solid var(--colorsActionMajor500);
 
       &:not(:last-of-type) {
         border-right-color: transparent;
@@ -40,20 +40,20 @@ function stylingForType({ theme, size }) {
       &:focus {
         position: relative;
         z-index: 2;
-        border-right-color: ${theme.colors.primary};
+        border-right-color: var(--colorsActionMajor500);
       }
       &:hover {
-        background-color: ${theme.colors.secondary};
-        border-color: ${theme.colors.secondary};
+        background-color: var(--colorsActionMajor600);
+        border-color: var(--colorsActionMajor600);
         & + button {
-          border-left-color: ${theme.colors.secondary};
+          border-left-color: var(--colorsActionMajor600);
         }
         & ${StyledIcon} {
           color: white;
         }
       }
       & ${StyledIcon} {
-        color: ${theme.colors.primary};
+        color: var(--colorsActionMajor500);
       }
     }
   `;

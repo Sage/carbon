@@ -5,7 +5,7 @@ import guid from "../../__internal__/utils/helpers/guid/guid.js";
 import Confirm from "./confirm.component";
 import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";
 import Button from "../button/button.component";
-import { baseTheme, mintTheme } from "../../style/themes";
+import { mintTheme } from "../../style/themes";
 import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
 import Heading from "../heading";
@@ -138,7 +138,7 @@ describe("Confirm", () => {
 
         assertStyleMatch(
           {
-            color: baseTheme.icon.disabled,
+            color: "var(--colorsActionMinorYin030)",
           },
           wrapper.find(StyledIconButton),
           { modifier: `${StyledIcon}` }
@@ -299,7 +299,7 @@ describe("Confirm", () => {
         {
           marginRight: "16px",
           marginBottom: "20px",
-          color: baseTheme.colors.error,
+          color: "var(--colorsSemanticNegative500)",
         },
         mount(<StyledConfirmHeading type="error" />),
         { modifier: `${StyledIcon}` }
@@ -326,7 +326,7 @@ describe("Confirm", () => {
         {
           marginRight: "16px",
           marginBottom: "20px",
-          color: baseTheme.colors.warning,
+          color: "var(--colorsSemanticCaution500)",
         },
         mount(<StyledConfirmHeading type="warning" />),
         { modifier: `${StyledIcon}` }

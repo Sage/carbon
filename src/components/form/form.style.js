@@ -32,7 +32,7 @@ export const StyledFormFooter = styled.div`
       justify-content: flex-end;
     `}
 
-  ${({ stickyFooter, theme }) => css`
+  ${({ stickyFooter }) => css`
     ${!stickyFooter &&
     css`
       margin-top: 48px;
@@ -40,7 +40,7 @@ export const StyledFormFooter = styled.div`
 
     ${stickyFooter &&
     css`
-      background-color: ${theme.colors.white};
+      background-color: var(--colorsUtilityYang100);
       box-shadow: 0 -4px 12px 0 rgba(0, 0, 0, 0.05);
       box-sizing: border-box;
       padding: 16px 32px;
@@ -52,6 +52,17 @@ export const StyledFormFooter = styled.div`
   `}
 `;
 
+const formBottomMargins = (fieldSpacing) =>
+  ({
+    0: "var(--spacing000)",
+    1: "var(--spacing100)",
+    2: "var(--spacing200)",
+    3: "var(--spacing300)",
+    4: "var(--spacing400)",
+    5: "var(--spacing500)",
+    7: "var(--spacing700)",
+  }[fieldSpacing]);
+
 export const StyledForm = styled.form`
   ${space}
 
@@ -61,26 +72,31 @@ export const StyledForm = styled.form`
       height: ${height};
     `}
 
-  & ${StyledFormField}, ${StyledFieldset}, ${FieldsetStyle}, > ${StyledButton} {
-    margin-top: 0;
-    margin-bottom: ${({ fieldSpacing, theme }) =>
-      theme.spacing * fieldSpacing}px;
-  }
+  ${({ fieldSpacing }) =>
+    css`
+      &
+        ${StyledFormField},
+        ${StyledFieldset},
+        ${FieldsetStyle},
+        > ${StyledButton} {
+        margin-top: 0;
+        margin-bottom: ${formBottomMargins(fieldSpacing)};
+      }
 
-  ${StyledInlineInputs} {
-    ${StyledFormField} {
-      margin-bottom: 0;
-    }
+      ${StyledInlineInputs} {
+        ${StyledFormField} {
+          margin-bottom: 0;
+        }
 
-    margin-bottom: ${({ fieldSpacing, theme }) =>
-      theme.spacing * fieldSpacing}px;
-  }
+        margin-bottom: ${formBottomMargins(fieldSpacing)};
+      }
+    `}  
 
   ${StyledSearch} ${StyledFormField} {
     margin-bottom: 0px;
   }
 
-  ${({ stickyFooter, isInSidebar, theme }) =>
+  ${({ stickyFooter, isInSidebar }) =>
     stickyFooter &&
     css`
       display: flex;
@@ -91,20 +107,20 @@ export const StyledForm = styled.form`
       css`
         min-height: 100%;
         ${StyledFormContent}.sticky {
-          padding-right: ${theme.space[4]}px;
-          padding-left: ${theme.space[4]}px;
+          padding-right: var(--spacing400);
+          padding-left: var(--spacing400);
           padding-top: 27px;
-          margin-right: -${theme.space[4]}px;
-          margin-left: -${theme.space[4]}px;
+          margin-right: calc(-1 * var(--spacing400));
+          margin-left: calc(-1 * var(--spacing400));
           margin-top: -27px;
         }
 
         ${StyledFormFooter}.sticky {
-          margin-left: -${theme.space[4]}px;
-          margin-bottom: -${theme.space[4]}px;
-          width: calc(100% + ${2 * theme.space[4]}px);
-          padding-left: ${theme.space[4]}px;
-          padding-right: ${theme.space[4]}px;
+          margin-left: calc(-1 * var(--spacing400));
+          margin-bottom: calc(-1 * var(--spacing400));
+          width: calc(100% + var(--spacing800));
+          padding-left: var(--spacing400);
+          padding-right: var(--spacing400);
           bottom: -32px;
         }
       `}
@@ -151,11 +167,6 @@ StyledRightButtons.propTypes = {
 };
 
 StyledFormFooter.propTypes = {
-  theme: PropTypes.object,
   buttonAlignment: PropTypes.oneOf(FORM_BUTTON_ALIGNMENTS),
   stickyFooter: PropTypes.bool,
-};
-
-StyledFormFooter.defaultProps = {
-  theme: baseTheme,
 };

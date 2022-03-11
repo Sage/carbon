@@ -786,6 +786,31 @@ describe("SelectList", () => {
       });
     });
   });
+
+  describe("ARIA", () => {
+    describe("when labelId prop is provided", () => {
+      guid.mockImplementationOnce(() => "labelId-guid");
+      const labelId = guid();
+
+      it("set aria-labelledby to it", () => {
+        const wrapper = renderSelectList({ labelId });
+        const ariaLabelledBy = wrapper
+          .find(StyledSelectList)
+          .prop("aria-labelledby");
+        expect(ariaLabelledBy).toEqual(labelId);
+      });
+    });
+
+    describe("when labelId is undefined", () => {
+      it("do not set aria-labelledby", () => {
+        const wrapper = renderSelectList({ labelId: undefined });
+        const ariaLabelledBy = wrapper
+          .find(StyledSelectList)
+          .prop("aria-labelledby");
+        expect(ariaLabelledBy).toEqual(undefined);
+      });
+    });
+  });
 });
 
 function renderSelectList(props = {}, renderer = mount, enzymeOptions = {}) {

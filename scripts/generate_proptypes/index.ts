@@ -26,9 +26,12 @@ function filterExistingPropTypes(defFiles: string[], tsComponents: string[]) {
   return filesWithoutPropTypes;
 }
 
-async function runScript() {
+async function runScript(bundle: "cjs" | "esm") {
   const srcComponentsPath = path.resolve(__dirname, "../../src/components");
-  const libComponentsPath = path.resolve(__dirname, "../../lib/components");
+  const bundleComponentsPaths = {
+    cjs: path.resolve(__dirname, "../../lib/components"),
+    esm: path.resolve(__dirname, "../../esm/components"),
+  };
 
   const tsComponentPaths = await fg("**/*.component.tsx", {
     absolute: true,
@@ -44,7 +47,7 @@ async function runScript() {
 
   const allDefFiles = await fg("**/*.component.d.ts", {
     absolute: true,
-    cwd: libComponentsPath,
+    cwd: bundleComponentsPaths[bundle],
   });
 
   const filteredDefFiles = filterExistingPropTypes(allDefFiles, tsComponents);
@@ -69,4 +72,5 @@ async function runScript() {
   });
 }
 
-runScript();
+runScript("cjs");
+runScript("esm");

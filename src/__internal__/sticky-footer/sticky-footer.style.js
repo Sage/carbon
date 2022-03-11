@@ -1,5 +1,4 @@
 import styled, { css, keyframes } from "styled-components";
-import baseTheme from "../../style/themes/base";
 
 const FormButtonAnimation = keyframes`
   0%   { transform: translateY(50px); }
@@ -7,23 +6,20 @@ const FormButtonAnimation = keyframes`
 `;
 
 const StyledStickyFooter = styled.div`
-  ${({ sticky, theme }) => css`
-    ${sticky &&
+  padding: var(--spacing200) var(--spacing400);
+  box-sizing: border-box;
+  width: 100%;
+  ${({ sticky }) =>
+    sticky &&
     css`
       animation: ${FormButtonAnimation} 0.25s ease;
       position: sticky;
-      width: 100%;
       bottom: 0;
       left: 0;
-      background-color: ${theme.colors.white};
-      box-shadow: 0 -4px 12px rgba(153, 173, 182, 0.05);
+      background-color: var(--colorsActionMinorYang100);
+      box-shadow: var(--boxShadow150);
       z-index: 1000;
     `}
-  `}
 `;
-
-StyledStickyFooter.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledStickyFooter;
