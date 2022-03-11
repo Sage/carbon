@@ -1,3 +1,10 @@
+### [104.53.4](https://github.com/Sage/carbon/compare/v104.53.3...v104.53.4) (2022-03-11)
+
+
+### Bug Fixes
+
+* **textbox:** prevent axe issue when the validation string is empty ([84f026f](https://github.com/Sage/carbon/commit/84f026f5e15c2f9e9b98b255a53b7706c929abea)), closes [#4839](https://github.com/Sage/carbon/issues/4839)
+
 ### [104.53.3](https://github.com/Sage/carbon/compare/v104.53.2...v104.53.3) (2022-03-11)
 
 
