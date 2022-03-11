@@ -2,7 +2,7 @@
 
 exports[`SimpleColorPicker renders as expected 1`] = `
 .c0 {
-  margin: 0;
+  margin: var(--spacing000);
   border: none;
   padding: 0;
   min-width: 0;
@@ -149,7 +149,7 @@ exports[`SimpleColorPicker renders as expected 1`] = `
 
 .c12::before {
   font-size: 22px;
-  color: var(--colorsActionMajorYang100);
+  color: var(--colorsUtilityYang100);
 }
 
 .c12 {
@@ -209,7 +209,7 @@ exports[`SimpleColorPicker renders as expected 1`] = `
 }
 
 .c7:focus + .c8 {
-  box-shadow: inset 0px 0px 0px var(--borderWidth200) var(--colorsActionMajorYang100);
+  box-shadow: inset 0px 0px 0px var(--borderWidth200) var(--colorsUtilityYang100);
   border: 2px solid var(--colorsSemanticFocus500);
 }
 

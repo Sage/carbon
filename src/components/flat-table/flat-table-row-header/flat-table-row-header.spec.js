@@ -25,6 +25,23 @@ describe("FlatTableRowHeader", () => {
     { modifier: "&&&& > div" }
   );
 
+  describe("when a data prop is added", () => {
+    it("should be added to the root element", () => {
+      const wrapper = mount(
+        <table>
+          <thead>
+            <tr>
+              <FlatTableRowHeader data-role="test" />
+            </tr>
+          </thead>
+        </table>
+      );
+      expect(
+        wrapper.find(StyledFlatTableRowHeader).props()["data-role"]
+      ).toEqual("test");
+    });
+  });
+
   it("renders with proper width style rule when width prop is passed", () => {
     const wrapper = mount(
       <table>

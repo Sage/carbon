@@ -102,6 +102,1122 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c6 .c1 {
   margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c6 .c1 svg {
+  margin-top: 0;
+}
+
+.c7 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c7:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c7 .c1 {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 1px;
+  height: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.c7 .c1 svg {
+  margin-top: 0;
+}
+
+.c8 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c8:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c8 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c8 .c1 svg {
+  margin-top: 0;
+}
+
+.c9 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c9:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c9 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c9 .c1 svg {
+  margin-top: 0;
+}
+
+.c10 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c10:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c10 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c10 .c1 svg {
+  margin-top: 0;
+}
+
+.c11 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c11:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c11 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c11 .c1 svg {
+  margin-top: 0;
+}
+
+.c12 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c12:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c12 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c12 .c1 svg {
+  margin-top: 0;
+}
+
+.c13 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c13:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c13 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c13 .c1 svg {
+  margin-top: 0;
+}
+
+.c14 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c14:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c14 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c14 .c1 svg {
+  margin-top: 0;
+}
+
+.c15 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c15:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c15 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c15 .c1 svg {
+  margin-top: 0;
+}
+
+.c16 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c16:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c16 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c16 .c1 svg {
+  margin-top: 0;
+}
+
+.c17 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c17:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c17 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c17 .c1 svg {
+  margin-top: 0;
+}
+
+.c18 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c18:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c18 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c18 .c1 svg {
+  margin-top: 0;
+}
+
+.c19 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c19:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c19 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c19 .c1 svg {
+  margin-top: 0;
+}
+
+.c20 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c20:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c20 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c20 .c1 svg {
+  margin-top: 0;
+}
+
+.c21 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c21:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c21 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c21 .c1 svg {
+  margin-top: 0;
+}
+
+.c22 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c22:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c22 .c1 {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 1px;
+  height: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.c22 .c1 svg {
+  margin-top: 0;
+}
+
+.c23 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c23:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c23 .c1 {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 1px;
+  height: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.c23 .c1 svg {
+  margin-top: 0;
+}
+
+.c24 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c24:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c24 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c24 .c1 svg {
+  margin-top: 0;
+}
+
+.c25 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c25:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c25 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c25 .c1 svg {
+  margin-top: 0;
+}
+
+.c26 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c26:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c26 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c26 .c1 svg {
+  margin-top: 0;
+}
+
+.c27 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c27:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c27 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c27 .c1 svg {
+  margin-top: 0;
+}
+
+.c28 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c28:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c28 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c28 .c1 svg {
+  margin-top: 0;
+}
+
+.c29 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c29:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c29 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c29 .c1 svg {
+  margin-top: 0;
+}
+
+.c30 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c30:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c30 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c30 .c1 svg {
+  margin-top: 0;
+}
+
+.c31 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c31:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c31 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c31 .c1 svg {
+  margin-top: 0;
+}
+
+.c32 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c32:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c32 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c32 .c1 svg {
+  margin-top: 0;
+}
+
+.c33 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c33:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c33 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c33 .c1 svg {
+  margin-top: 0;
+}
+
+.c34 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c34:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c34 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c34 .c1 svg {
+  margin-top: 0;
+}
+
+.c35 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c35:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c35 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c35 .c1 svg {
+  margin-top: 0;
+}
+
+.c36 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c36:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c36 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c36 .c1 svg {
+  margin-top: 0;
+}
+
+.c37 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c37:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c37 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c37 .c1 svg {
+  margin-top: 0;
+}
+
+.c38 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c38:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c38 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c38 .c1 svg {
+  margin-top: 0;
+}
+
+.c39 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c39:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c39 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c39 .c1 svg {
+  margin-top: 0;
+}
+
+.c40 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c40:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c40 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c40 .c1 svg {
+  margin-top: 0;
+}
+
+.c41 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c41:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c41 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c41 .c1 svg {
+  margin-top: 0;
+}
+
+.c42 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c42:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c42 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c42 .c1 svg {
+  margin-top: 0;
+}
+
+.c43 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c43:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c43 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c43 .c1 svg {
+  margin-top: 0;
+}
+
+.c44 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c44:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c44 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c44 .c1 svg {
+  margin-top: 0;
+}
+
+.c45 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c45:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c45 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c45 .c1 svg {
+  margin-top: 0;
+}
+
+.c46 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c46:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c46 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c46 .c1 svg {
+  margin-top: 0;
+}
+
+.c47 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c47:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c47 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c47 .c1 svg {
+  margin-top: 0;
+}
+
+.c48 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c48:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c48 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c48 .c1 svg {
+  margin-top: 0;
+}
+
+.c49 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c49:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c49 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c49 .c1 svg {
+  margin-top: 0;
+}
+
+.c50 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c50:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c50 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c50 .c1 svg {
+  margin-top: 0;
+}
+
+.c0 {
+  padding-left: var(--spacing300);
+  padding-right: var(--spacing300);
+  margin: var(--spacing000);
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  border-radius: 0;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  outline-offset: 0;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background: transparent;
+  border-color: var(--colorsActionMajor500);
+  color: var(--colorsActionMajor500);
+  font-size: var(--fontSizes100);
+  min-height: 40px;
+}
+
+.c0:focus {
+  outline: solid 3px var(--colorsSemanticFocus500);
+}
+
+.c0 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c0:hover {
+  background: var(--colorsActionMajor600);
+  border-color: var(--colorsActionMajorTransparent);
+  color: var(--colorsActionMajorYang100);
+}
+
+.c0:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c0 .c1 {
+  margin-left: var(--spacing100);
+  margin-right: 0px;
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c0 .c1 svg {
+  margin-top: 0;
+}
+
+<button
+  className="c0"
+  data-component="button"
+  disabled={false}
+  draggable={false}
+  role="button"
+  size="medium"
+  type="button"
+>
+  <span>
+    <span
+      data-element="main-text"
+    >
+      foo
+    </span>
+  </span>
+  <span
+    aria-hidden={true}
+    className="c1 c2"
+    color="--colorsActionMajor500"
+    data-component="icon"
+    data-element="filter"
+    disabled={false}
+    fontSize="small"
+    type="filter"
+  />
+</button>
+`;
+
+exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon before children 1`] = `
+.c2 {
+  position: relative;
+  color: var(--colorsActionMajor500);
+  background-color: transparent;
+  vertical-align: middle;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 16px;
+  width: 16px;
+}
+
+.c2::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e928";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c3 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c3:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c3 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c3 .c1 svg {
+  margin-top: 0;
+}
+
+.c4 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c4:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c4 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c4 .c1 svg {
+  margin-top: 0;
+}
+
+.c5 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c5:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c5 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c5 .c1 svg {
+  margin-top: 0;
+}
+
+.c0 {
+  padding-left: var(--spacing300);
+  padding-right: var(--spacing300);
+  margin: var(--spacing000);
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  border-radius: 0;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  outline-offset: 0;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background: transparent;
+  border-color: var(--colorsActionMajor500);
+  color: var(--colorsActionMajor500);
+  font-size: var(--fontSizes100);
+  min-height: 40px;
+}
+
+.c0:focus {
+  outline: solid 3px var(--colorsSemanticFocus500);
+}
+
+.c0 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c0:hover {
+  background: var(--colorsActionMajor600);
+  border-color: var(--colorsActionMajorTransparent);
+  color: var(--colorsActionMajorYang100);
+}
+
+.c0:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c0 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c0 .c1 svg {
+  margin-top: 0;
+}
+
+.c6 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c6:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c6 .c1 {
+  margin-left: 0px;
   margin-right: 0px;
   margin-bottom: 1px;
   height: 16px;
@@ -896,1043 +2012,41 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
-.c0 {
-  padding-left: 24px;
-  padding-right: 24px;
-  margin: 0;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-flex-flow: wrap;
-  -ms-flex-flow: wrap;
-  flex-flow: wrap;
-  border-radius: 0;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  vertical-align: middle;
-  outline-offset: 0;
-  border: 2px solid transparent;
-  box-sizing: border-box;
-  font-weight: 600;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  background: transparent;
-  border-color: var(--colorsActionMajor500);
-  color: var(--colorsActionMajor500);
-  font-size: var(--fontSizes100);
-  min-height: 40px;
-}
-
-.c0:focus {
-  outline: solid 3px var(--colorsSemanticFocus500);
-}
-
-.c0 .c1 {
+.c48 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c0:hover {
-  background: var(--colorsActionMajor600);
-  border-color: var(--colorsActionMajorTransparent);
+.c48:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c0:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c0 .c1 {
-  margin-left: var(--spacing100);
-  margin-right: 0px;
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c0 .c1 svg {
-  margin-top: 0;
-}
-
-<button
-  className="c0"
-  data-component="button"
-  disabled={false}
-  draggable={false}
-  role="button"
-  size="medium"
-  type="button"
->
-  <span>
-    <span
-      data-element="main-text"
-    >
-      foo
-    </span>
-  </span>
-  <span
-    aria-hidden={true}
-    className="c1 c2"
-    color="var(--colorsActionMajor500)"
-    data-component="icon"
-    data-element="filter"
-    disabled={false}
-    fontSize="small"
-    type="filter"
-  />
-</button>
-`;
-
-exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon before children 1`] = `
-.c2 {
-  position: relative;
-  color: var(--colorsActionMajor500);
-  background-color: transparent;
-  vertical-align: middle;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  height: 16px;
-  width: 16px;
-}
-
-.c2::before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: CarbonIcons;
-  content: "\\e928";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 16px;
-  vertical-align: middle;
-  display: block;
-}
-
-.c0 {
-  padding-left: 24px;
-  padding-right: 24px;
-  margin: 0;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-flex-flow: wrap;
-  -ms-flex-flow: wrap;
-  flex-flow: wrap;
-  border-radius: 0;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  vertical-align: middle;
-  outline-offset: 0;
-  border: 2px solid transparent;
-  box-sizing: border-box;
-  font-weight: 600;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  background: transparent;
-  border-color: var(--colorsActionMajor500);
-  color: var(--colorsActionMajor500);
-  font-size: var(--fontSizes100);
-  min-height: 40px;
-}
-
-.c0:focus {
-  outline: solid 3px var(--colorsSemanticFocus500);
-}
-
-.c0 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c0:hover {
-  background: var(--colorsActionMajor600);
-  border-color: var(--colorsActionMajorTransparent);
-  color: var(--colorsActionMajorYang100);
-}
-
-.c0:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c0 .c1 {
+.c48 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
 
-.c0 .c1 svg {
+.c48 .c1 svg {
   margin-top: 0;
 }
 
-.c3 .c1 {
+.c49 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c3:hover .c1 {
+.c49:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c3 .c1 {
+.c49 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
   height: 16px;
 }
 
-.c3 .c1 svg {
-  margin-top: 0;
-}
-
-.c4 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c4:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c4 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c4 .c1 svg {
-  margin-top: 0;
-}
-
-.c5 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c5:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c5 .c1 {
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-bottom: 1px;
-  height: 16px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.c5 .c1 svg {
-  margin-top: 0;
-}
-
-.c6 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c6:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c6 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c6 .c1 svg {
-  margin-top: 0;
-}
-
-.c7 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c7:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c7 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c7 .c1 svg {
-  margin-top: 0;
-}
-
-.c8 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c8:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c8 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c8 .c1 svg {
-  margin-top: 0;
-}
-
-.c9 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c9:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c9 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c9 .c1 svg {
-  margin-top: 0;
-}
-
-.c10 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c10:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c10 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c10 .c1 svg {
-  margin-top: 0;
-}
-
-.c11 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c11:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c11 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c11 .c1 svg {
-  margin-top: 0;
-}
-
-.c12 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c12:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c12 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c12 .c1 svg {
-  margin-top: 0;
-}
-
-.c13 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c13:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c13 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c13 .c1 svg {
-  margin-top: 0;
-}
-
-.c14 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c14:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c14 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c14 .c1 svg {
-  margin-top: 0;
-}
-
-.c15 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c15:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c15 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c15 .c1 svg {
-  margin-top: 0;
-}
-
-.c16 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c16:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c16 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c16 .c1 svg {
-  margin-top: 0;
-}
-
-.c17 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c17:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c17 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c17 .c1 svg {
-  margin-top: 0;
-}
-
-.c18 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c18:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c18 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c18 .c1 svg {
-  margin-top: 0;
-}
-
-.c19 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c19:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c19 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c19 .c1 svg {
-  margin-top: 0;
-}
-
-.c20 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c20:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c20 .c1 {
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-bottom: 1px;
-  height: 16px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.c20 .c1 svg {
-  margin-top: 0;
-}
-
-.c21 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c21:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c21 .c1 {
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-bottom: 1px;
-  height: 16px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.c21 .c1 svg {
-  margin-top: 0;
-}
-
-.c22 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c22:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c22 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c22 .c1 svg {
-  margin-top: 0;
-}
-
-.c23 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c23:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c23 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c23 .c1 svg {
-  margin-top: 0;
-}
-
-.c24 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c24:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c24 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c24 .c1 svg {
-  margin-top: 0;
-}
-
-.c25 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c25:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c25 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c25 .c1 svg {
-  margin-top: 0;
-}
-
-.c26 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c26:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c26 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c26 .c1 svg {
-  margin-top: 0;
-}
-
-.c27 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c27:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c27 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c27 .c1 svg {
-  margin-top: 0;
-}
-
-.c28 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c28:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c28 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c28 .c1 svg {
-  margin-top: 0;
-}
-
-.c29 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c29:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c29 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c29 .c1 svg {
-  margin-top: 0;
-}
-
-.c30 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c30:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c30 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c30 .c1 svg {
-  margin-top: 0;
-}
-
-.c31 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c31:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c31 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c31 .c1 svg {
-  margin-top: 0;
-}
-
-.c32 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c32:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c32 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c32 .c1 svg {
-  margin-top: 0;
-}
-
-.c33 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c33:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c33 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c33 .c1 svg {
-  margin-top: 0;
-}
-
-.c34 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c34:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c34 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c34 .c1 svg {
-  margin-top: 0;
-}
-
-.c35 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c35:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c35 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c35 .c1 svg {
-  margin-top: 0;
-}
-
-.c36 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c36:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c36 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c36 .c1 svg {
-  margin-top: 0;
-}
-
-.c37 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c37:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c37 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c37 .c1 svg {
-  margin-top: 0;
-}
-
-.c38 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c38:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c38 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c38 .c1 svg {
-  margin-top: 0;
-}
-
-.c39 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c39:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c39 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c39 .c1 svg {
-  margin-top: 0;
-}
-
-.c40 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c40:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c40 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c40 .c1 svg {
-  margin-top: 0;
-}
-
-.c41 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c41:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c41 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c41 .c1 svg {
-  margin-top: 0;
-}
-
-.c42 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c42:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c42 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c42 .c1 svg {
-  margin-top: 0;
-}
-
-.c43 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c43:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c43 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c43 .c1 svg {
-  margin-top: 0;
-}
-
-.c44 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c44:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c44 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c44 .c1 svg {
-  margin-top: 0;
-}
-
-.c45 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c45:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c45 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c45 .c1 svg {
-  margin-top: 0;
-}
-
-.c46 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c46:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c46 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c46 .c1 svg {
+.c49 .c1 svg {
   margin-top: 0;
 }
 
@@ -1948,7 +2062,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   <span
     aria-hidden={true}
     className="c1 c2"
-    color="var(--colorsActionMajor500)"
+    color="--colorsActionMajor500"
     data-component="icon"
     data-element="filter"
     disabled={false}

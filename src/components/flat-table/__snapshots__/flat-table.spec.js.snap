@@ -97,8 +97,8 @@ exports[`FlatTable when rendered with proper table data should have expected str
   box-sizing: border-box;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: var(--spacing300);
+  padding-right: var(--spacing300);
 }
 
 .c5 {
@@ -111,7 +111,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   outline: 2px solid #0000;
 }
 
-.c5 [data-component="icon"] {
+.c5 [data-component="icon"]:not([color]) {
   color: var(--colorsActionMinor500);
 }
 

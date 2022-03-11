@@ -230,7 +230,7 @@ const StyledDayPicker = styled.div`
     color: var(--colorsActionMajorYin090);
     line-height: var(--sizing500);
     height: var(--sizing500);
-    //font: var(--typographyDatePickerCalendarMonthM); to be implemented
+    //font: var(--typographyDatePickerCalendarMonthM); font assets to be updated part of FE-4975
     font-size: 16px;
     font-weight: 800;
 
@@ -242,13 +242,13 @@ const StyledDayPicker = styled.div`
 
   .DayPicker-Day {
     min-width: var(--sizing500);
-    height: 36px; //var(--sizing450); to be implemented
+    height: var(--sizing450);
     padding: 0;
     background-color: var(--colorsUtilityYang100);
     cursor: pointer;
     border: none;
-    //font-family: var(--fontFamiliesDefault); token value to be updated
-    //font: var(--typographyDatePickerCalendarDateM); to be implemented
+    //font-family: var(--fontFamiliesDefault); font assets to be updated part of FE-4975
+    //font: var(--typographyDatePickerCalendarDateM); font assets to be updated part of FE-4975
     font-weight: var(--fontWeights700);
     font-size: var(--fontSizes100);
     line-height: var(--lineHeights500);

@@ -135,7 +135,7 @@ const MultiSelect = React.forwardRef(
           }
           const newValue = [...previousValue];
           newValue.splice(index, 1);
-          if (isControlled.current && onChange) {
+          if (onChange) {
             onChange(createCustomEvent(newValue));
             return newValue;
           }
@@ -300,12 +300,6 @@ const MultiSelect = React.forwardRef(
       }
     }, [filterText, onFilterChange]);
 
-    useEffect(() => {
-      if (!isControlled.current && onChange) {
-        onChange(createCustomEvent(selectedValue));
-      }
-    }, [createCustomEvent, onChange, selectedValue]);
-
     function handleTextboxClick(event) {
       isMouseDownReported.current = false;
 
@@ -427,6 +421,10 @@ const MultiSelect = React.forwardRef(
 
           if (isAlreadySelected) {
             return previousValue;
+          }
+
+          if (onChange) {
+            onChange(createCustomEvent([...previousValue, newValue]));
           }
 
           return [...previousValue, newValue];

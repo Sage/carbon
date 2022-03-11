@@ -9,6 +9,11 @@ import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
 import Button from "../../button";
 import Label from "../../../__internal__/label";
+import InputIconToggle from "../../../__internal__/input-icon-toggle";
+import guid from "../../../__internal__/utils/helpers/guid";
+
+jest.mock("../../../__internal__/utils/helpers/guid");
+guid.mockImplementation(() => "guid-12345");
 
 describe("FilterableSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
@@ -931,6 +936,42 @@ describe("FilterableSelect", () => {
           wrapper.find("input").simulate("focus");
           expect(onOpenFn).toHaveBeenCalled();
         });
+      });
+    });
+  });
+
+  describe("ARIA", () => {
+    describe("when label is passed", () => {
+      let wrapper;
+      let labelId;
+
+      beforeEach(() => {
+        wrapper = renderSelect({ label: "color" });
+        labelId = wrapper.find(Label).prop("labelId");
+      });
+
+      it("Textbox is passed the id of the label", () => {
+        expect(wrapper.find(Textbox).prop("labelId")).toBe(labelId);
+      });
+
+      it("when opened, SelectList is passed the id of the label", () => {
+        wrapper.find(InputIconToggle).simulate("click");
+        expect(wrapper.find(SelectList).prop("labelId")).toBe(labelId);
+      });
+    });
+
+    describe("when label is undefined", () => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = renderSelect({ label: undefined });
+      });
+      it("Textbox isn't passed an id of a non-existent label", () => {
+        expect(wrapper.find(Textbox).prop("labelId")).toBe(undefined);
+      });
+      it("when opened, SelectList isn't passed an id of a non-existent label", () => {
+        wrapper.find(InputIconToggle).simulate("click");
+        expect(wrapper.find(SelectList).prop("labelId")).toBe(undefined);
       });
     });
   });
