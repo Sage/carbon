@@ -1,12 +1,10 @@
-import React, { useContext, useMemo } from "react";
-import { ThemeContext } from "styled-components";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 
 import Icon from "../icon";
 import Event from "../../__internal__/utils/helpers/events";
 import { StyledLink, StyledContent } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
-import { baseTheme } from "../../style/themes";
 import useLocale from "../../hooks/__internal__/useLocale";
 
 const Link = React.forwardRef(
@@ -33,7 +31,6 @@ const Link = React.forwardRef(
     ref
   ) => {
     const l = useLocale();
-    const theme = useContext(ThemeContext) || baseTheme;
     const tabIndex = tabbable && !disabled ? "0" : "-1";
     const handleOnKeyDown = (ev) => {
       if (onKeyDown) {
@@ -57,7 +54,7 @@ const Link = React.forwardRef(
         <Icon
           type={icon}
           bgSize="extra-small"
-          color={theme.colors.primary}
+          color="--colorsActionMajor500"
           disabled={disabled}
           ariaLabel={ariaLabel}
           tooltipMessage={tooltipMessage}

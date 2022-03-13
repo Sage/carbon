@@ -15,6 +15,7 @@ const marginPropTypes = filterStyledSystemMarginProps(
 const Icon = React.forwardRef(
   (
     {
+      "aria-hidden": ariaHidden,
       bg,
       bgShape,
       bgSize,
@@ -35,7 +36,6 @@ const Icon = React.forwardRef(
       inputSize,
       role,
       ariaLabel,
-      "aria-hidden": ariaHidden,
       focusable = true,
       ...rest
     },
@@ -90,6 +90,7 @@ const Icon = React.forwardRef(
 
     const icon = (
       <StyledIcon
+        aria-hidden={ariaHidden}
         ref={ref}
         key="icon"
         className={className || null}
@@ -98,8 +99,7 @@ const Icon = React.forwardRef(
         {...styleProps}
         hasTooltip={hasTooltip}
         aria-label={ariaLabel}
-        aria-hidden={ariaHidden}
-        role={hasTooltip && role === undefined ? "tooltip" : role}
+        role={role}
       />
     );
 
@@ -159,9 +159,9 @@ Icon.propTypes = {
   bgShape: PropTypes.oneOf(["circle", "rounded-rect", "square"]),
   /** Icon font size */
   fontSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
-  /** Icon colour, provide any color from palette or any valid css color value. */
+  /** Icon colour, provide design token, any color from palette or any valid css color value. */
   color: PropTypes.string,
-  /** Background colour, provide any color from palette or any valid css color value. */
+  /** Background colour, provide design token, any color from palette, or any valid css color value. */
   bg: PropTypes.string,
   /** Sets the icon in the disabled state */
   disabled: PropTypes.bool,
@@ -175,9 +175,9 @@ Icon.propTypes = {
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
   /** Control whether the tooltip is visible */
   tooltipVisible: PropTypes.bool,
-  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** Override background color of the Tooltip, provide design token, any color from palette or any valid css color value. */
   tooltipBgColor: PropTypes.string,
-  /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** Override font color of the Tooltip, provide design token, any color from palette or any valid css color value. */
   tooltipFontColor: PropTypes.string,
   /** Id passed to the tooltip container, used for accessibility purposes. */
   tooltipId: PropTypes.string,

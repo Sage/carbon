@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import StyledButton from "../../../button/button.style";
-import baseTheme from "../../../../style/themes/base";
 
 const StyledToolbar = styled.div`
   padding: 8px;
@@ -12,17 +11,11 @@ const StyledToolbar = styled.div`
   user-select: none;
   order: 2;
   border: none;
-  ${({ theme }) => `
-    background-color: ${theme.editor.toolbar.background};
-    border-top: 1px solid ${theme.editor.border};
-  `}
+  border-top: 1px solid var(--colorsUtilityMajor200);
+  background-color: var(--colorsUtilityMajor025);
   min-width: 290px;
   z-index: 10;
 `;
-
-StyledToolbar.defaultProps = {
-  theme: baseTheme,
-};
 
 const StyledEditorStyleControls = styled.div`
   display: inline-block;
@@ -31,10 +24,6 @@ const StyledEditorStyleControls = styled.div`
   min-width: 60px;
   margin-left: -2px;
 `;
-
-StyledEditorStyleControls.defaultProps = {
-  theme: baseTheme,
-};
 
 const StyledEditorActionControls = styled.div`
   display: inline-block;
@@ -47,9 +36,5 @@ const StyledEditorActionControls = styled.div`
     min-height: 33px;
   }
 `;
-
-StyledEditorActionControls.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledToolbar, StyledEditorActionControls, StyledEditorStyleControls };

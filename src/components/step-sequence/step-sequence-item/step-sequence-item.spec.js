@@ -6,6 +6,7 @@ import StepSequenceItem from "./step-sequence-item.component";
 import mintTheme from "../../../style/themes/mint";
 import Icon from "../../icon";
 import StepSequenceItemHiddenLabelStyle from "./step-sequence-item-hidden-label.style";
+import StepSequenceItemIndicatorStyle from "./step-sequence-item-indicator.style";
 
 describe("StepSequenceItem", () => {
   const render = (props, renderer = mount) =>
@@ -76,6 +77,18 @@ describe("StepSequenceItem", () => {
       expect(wrapper.find(StepSequenceItemHiddenLabelStyle).text()).toEqual(
         "HiddenCurrent"
       );
+    });
+
+    describe("when hideIndicator is set to true", () => {
+      it("doesn't render the indicator", () => {
+        const wrapper = render({
+          ...defaultProps,
+          hideIndicator: true,
+        });
+        expect(wrapper.find(StepSequenceItemIndicatorStyle).exists()).toBe(
+          false
+        );
+      });
     });
   });
 });

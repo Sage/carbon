@@ -11,9 +11,11 @@ import "cypress-storybook/react";
 // Temporary fix for issue mentioned in FE-2565 ticket
 // Should be solved by the storybook team in foreseeable future
 // https://github.com/storybookjs/storybook/issues/9948
+// This usage is legacy (https://github.com/storybookjs/storybook/blob/master/addons/actions/ADVANCED.md)
+// and will be removed in Storybook v7
 configureActions({
   // Maximum depth of serialization for large objects
-  depth: 4,
+  depth: 6,
   // Limit the number of items logged into the actions panel
   limit: 20,
 });
@@ -78,7 +80,7 @@ export const parameters = {
   },
   chromatic: { disable: false },
   viewport: { viewports: customViewports },
-  actions: { argTypesRegex: "^on.*" },
+  actions: { argTypesRegex: "^on[A-Z].*" },
   viewMode: process.env.STORYBOOK_VIEW_MODE,
 };
 
