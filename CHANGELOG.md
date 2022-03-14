@@ -1,3 +1,10 @@
+### [104.54.1](https://github.com/Sage/carbon/compare/v104.54.0...v104.54.1) (2022-03-14)
+
+
+### Bug Fixes
+
+* **pager:** fix incorrect styling when open ([4acfe02](https://github.com/Sage/carbon/commit/4acfe02c58b77a0a0df65a93373ec21dcca03026))
+
 ## [104.54.0](https://github.com/Sage/carbon/compare/v104.53.4...v104.54.0) (2022-03-11)
 
 
