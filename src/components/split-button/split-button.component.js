@@ -19,6 +19,7 @@ import Popover from "../../__internal__/popover";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { baseTheme } from "../../style/themes";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
+import Logger from "../../__internal__/utils/logger";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -26,10 +27,12 @@ const marginPropTypes = filterStyledSystemMarginProps(
 
 const CONTENT_WIDTH_RATIO = 0.75;
 
+let deprecatedWarnTriggered = false;
+
 const SplitButton = ({
   align = "left",
-  as = "secondary",
-  buttonType,
+  as,
+  buttonType = "secondary",
   children,
   disabled = false,
   iconPosition = "before",
@@ -40,6 +43,14 @@ const SplitButton = ({
   text,
   ...rest
 }) => {
+  if (!deprecatedWarnTriggered && as) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate(
+      // eslint-disable-next-line max-len
+      "The `as` prop is deprecated and will soon be removed. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop"
+    );
+  }
+
   const theme = useContext(ThemeContext) || baseTheme;
   const isToggleButtonFocused = useRef(false);
   const buttonLabelId = useRef(guid());
@@ -145,7 +156,7 @@ const SplitButton = ({
         isToggleButtonFocused.current = false;
       },
       onKeyDown: handleToggleButtonKeyDown,
-      buttonType: buttonType || as,
+      buttonType: as || buttonType,
       size,
     };
 
@@ -174,7 +185,7 @@ const SplitButton = ({
       primary: theme.colors.white,
       secondary: theme.colors.primary,
     };
-    return colorsMap[buttonType || as];
+    return colorsMap[as || buttonType];
   }
 
   function renderMainButton() {

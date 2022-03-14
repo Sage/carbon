@@ -5,6 +5,7 @@ import Icon from "../icon";
 import StyledButton, { StyledButtonSubtext } from "./button.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import Logger from "../../__internal__/utils/logger";
 
 function renderChildren({
   /* eslint-disable react/prop-types */
@@ -69,6 +70,8 @@ function renderChildren({
   );
 }
 
+let deprecatedWarnTriggered = false;
+
 const Button = ({
   size,
   subtext,
@@ -90,9 +93,17 @@ const Button = ({
   iconTooltipPosition,
   ...rest
 }) => {
+  if (!deprecatedWarnTriggered && as) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate(
+      // eslint-disable-next-line max-len
+      "The `as` prop is deprecated and will soon be removed. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop"
+    );
+  }
+
   const [internalRef, setInternalRef] = useState(null);
 
-  const buttonType = buttonTypeProp || as;
+  const buttonType = as || buttonTypeProp;
 
   if (subtext.length > 0 && size !== "large") {
     throw new Error("subtext prop has no effect unless the button is large");
@@ -247,7 +258,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  as: "secondary",
+  buttonType: "secondary",
   size: "medium",
   fullWidth: false,
   disabled: false,
