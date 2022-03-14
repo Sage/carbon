@@ -1,3 +1,11 @@
+### [104.54.2](https://github.com/Sage/carbon/compare/v104.54.1...v104.54.2) (2022-03-14)
+
+
+### Bug Fixes
+
+* **multi-action-button:** fix tabbing order issues ([fd24b7a](https://github.com/Sage/carbon/commit/fd24b7a5205a219c10d9f13792825e402ed7faea))
+* **split-button:** fix tabbing order issues ([a7b631f](https://github.com/Sage/carbon/commit/a7b631f0f1414fe454fa8af53916a5fe980fcc6e))
+
 ### [104.54.1](https://github.com/Sage/carbon/compare/v104.54.0...v104.54.1) (2022-03-14)
 
 
