@@ -18,6 +18,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import Popover from "../../__internal__/popover";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { baseTheme } from "../../style/themes";
+import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -44,6 +45,7 @@ const SplitButton = ({
   const buttonLabelId = useRef(guid());
   const additionalButtons = useRef([]);
   const splitButtonNode = useRef();
+  const toggleButton = useRef();
   const buttonContainer = useRef();
   const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
   const [minWidth, setMinWidth] = useState(0);
@@ -88,6 +90,12 @@ const SplitButton = ({
         nextIndex = currentIndex < numOfChildren ? currentIndex + 1 : 0;
         ev.preventDefault();
       } else if (Events.isTabKey(ev)) {
+        const elements = Array.from(
+          document.querySelectorAll(defaultFocusableSelectors)
+        ).filter((el) => Number(el.tabIndex) !== -1);
+        const indexOf = elements.indexOf(toggleButton.current);
+        elements[indexOf]?.focus();
+
         // timeout enforces that the "hideButtons" method will be run after browser focuses on the next element
         setTimeout(hideButtons, 0);
       }
@@ -186,6 +194,7 @@ const SplitButton = ({
         data-element="toggle-button"
         key="toggle-button"
         type="button"
+        ref={toggleButton}
         {...toggleButtonProps()}
       >
         <Icon

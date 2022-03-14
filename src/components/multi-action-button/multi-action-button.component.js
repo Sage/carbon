@@ -9,6 +9,7 @@ import Button, { ButtonWithForwardRef } from "../button";
 import Events from "../../__internal__/utils/helpers/events";
 import Popover from "../../__internal__/popover";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -26,6 +27,7 @@ const MultiActionButton = ({
   ...rest
 }) => {
   const ref = useRef();
+  const buttonRef = useRef();
   const buttonContainer = useRef();
   const userInputType =
     "ontouchstart" in document.documentElement ? "touchstart" : "click";
@@ -85,6 +87,12 @@ const MultiActionButton = ({
         nextIndex = currentIndex < children.length - 1 ? currentIndex + 1 : 0;
         ev.preventDefault();
       } else if (Events.isTabKey(ev)) {
+        const elements = Array.from(
+          document.querySelectorAll(defaultFocusableSelectors)
+        ).filter((el) => Number(el.tabIndex) !== -1);
+        const indexOf = elements.indexOf(buttonRef.current);
+        elements[indexOf]?.focus();
+
         // timeout enforces that the "hideButtons" method will be run after browser focuses on the next element
         setTimeout(hideButtons, 0);
       }
@@ -216,6 +224,7 @@ const MultiActionButton = ({
         key="toggle-button"
         onKeyDown={handleMainButtonKeyDown}
         {...mainButtonProps()}
+        forwardRef={buttonRef}
         iconPosition="after"
         iconType="dropdown"
       >

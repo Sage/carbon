@@ -78,3 +78,11 @@ Feature: Split Button component
       And I expand accordionRow using "Enter" key
     When I hover mouse onto "dropdown" icon
     Then Split Button is expanded
+
+  @positive
+  Scenario: I press tab key while Split Button is open
+    Given I open "Split Button" component page "button types"
+      And I click split button toggle
+      And I focus second additional button
+    When I press tab key on split button
+    Then Second Split Button component is focused
