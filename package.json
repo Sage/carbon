@@ -156,7 +156,7 @@
   },
   "dependencies": {
     "@octokit/rest": "^18.12.0",
-    "@popperjs/core": "^2.9.0",
+    "@popperjs/core": "^2.11.2",
     "@sage/design-tokens": "^1.93.0",
     "@styled-system/prop-types": "^5.1.5",
     "@tippyjs/react": "^4.2.5",
