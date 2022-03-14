@@ -1,4 +1,4 @@
-import guid from "./guid";
+import guid from ".";
 
 describe("guid", () => {
   it("returns a 36 character id", () => {

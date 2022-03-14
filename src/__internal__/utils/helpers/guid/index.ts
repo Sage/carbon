@@ -1,10 +1,8 @@
 /**
  * Generates a random guid, useful for creating unique IDs.
- *
- * @method guid
  */
-export default () => {
-  function s4() {
+export default (): string => {
+  function s4(): string {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import guid from "../utils/helpers/guid/guid";
+import guid from "../utils/helpers/guid";
 
 interface TooltipProviderProps {
   /** The position to display the tooltip */
