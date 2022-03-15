@@ -101,7 +101,7 @@ const StyledFlatTableRow = styled.tr`
       width: auto;
       outline: 2px solid #0000;
 
-      [data-component="icon"] {
+      [data-component="icon"]:not([color]) {
         color: var(--colorsActionMinor500);
       }
 

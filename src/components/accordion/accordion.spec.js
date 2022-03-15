@@ -113,7 +113,7 @@ describe("Accordion", () => {
 
       assertStyleMatch(
         {
-          padding: "24px",
+          padding: "var(--spacing300)",
         },
         wrapper.find(StyledAccordionTitleContainer)
       );
@@ -459,7 +459,7 @@ describe("Accordion", () => {
 
         assertStyleMatch(
           {
-            marginLeft: "8px",
+            marginLeft: "var(--spacing100)",
           },
           wrapper
             .find(StyledAccordionHeadingsContainer)

@@ -17,7 +17,6 @@ import {
   StyledCheckableInputWrapper,
 } from "./checkable-input.style";
 import StyledHelp from "../../components/help/help.style";
-import baseTheme from "../../style/themes/base";
 import guid from "../utils/helpers/guid";
 
 jest.mock("../utils/helpers/guid");
@@ -210,7 +209,7 @@ describe("StyledCheckableInputWrapper", () => {
     it("applies the correct base Help styles", () => {
       assertStyleMatch(
         {
-          color: baseTheme.help.color,
+          color: "var(--colorsUtilityYin065)",
           verticalAlign: "middle",
         },
         wrapper,
@@ -223,7 +222,7 @@ describe("StyledCheckableInputWrapper", () => {
     });
 
     it.each(states)("applies the correct Help %s styles", (state) => {
-      assertStyleMatch({ color: baseTheme.text.color }, wrapper, {
+      assertStyleMatch({ color: "var(--colorsUtilityYin090)" }, wrapper, {
         modifier: css`
           ${`${StyledLabelContainer} ${StyledHelp}:${state}`}
         `,
