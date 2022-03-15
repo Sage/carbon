@@ -19,15 +19,14 @@ import { accordionDefaultTitle } from "../../../cypress/locators/accordion";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+
 const SplitButtonList = ({ ...props }) => {
   return (
-    <div>
-      <SplitButton {...props}>
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </SplitButton>
-    </div>
+    <SplitButton text="default text" {...props}>
+      <Button>Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </SplitButton>
   );
 };
 
@@ -130,13 +129,13 @@ context("Tests for Split Button component", () => {
     );
 
     it.each([
-      ["small", "36px"],
-      ["medium", "52px"],
-      ["large", "68px"],
+      ["small", "64px"],
+      ["medium", "90px"],
+      ["large", "114px"],
     ])("should render Split Button with %s size", (size, width) => {
-      CypressMountWithProviders(<SplitButtonList size={size} />);
+      CypressMountWithProviders(<SplitButton size={size} />);
 
-      mainButton().should("have.css", "width").and("contain", width);
+      splitMainButton().should("have.css", "width").and("contain", width);
     });
 
     it.each(["left", "right"])(
@@ -144,7 +143,7 @@ context("Tests for Split Button component", () => {
       (alignment) => {
         CypressMountWithProviders(<SplitButtonList align={alignment} />);
 
-        mainButton().should("have.css", `margin-${alignment}`);
+        splitMainButton().should("have.css", `margin-${alignment}`);
       }
     );
 
@@ -170,7 +169,7 @@ context("Tests for Split Button component", () => {
           </SplitButtonList>
         );
 
-        icon().should("have.css", `margin-${margin}`, "10px");
+        icon().should("have.css", `margin-${margin}`, "8px");
       }
     );
 
@@ -211,8 +210,6 @@ context("Tests for Split Button component", () => {
       CypressMountWithProviders(<SplitButtonList onClick={callback} />);
 
       splitMainButtonDataComponent(positionOfElement("first"))
-        .first()
-        .click()
         .click()
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
