@@ -259,7 +259,7 @@ describe("ActionPopover", () => {
         wrapper
           .find(MenuButton)
           .props()
-          .onClick({ stopPropagation: () => {} });
+          .onClick({ stopPropagation: () => {}, preventDefault: () => {} });
       });
 
       act(() => {
@@ -270,7 +270,11 @@ describe("ActionPopover", () => {
         wrapper
           .find(StyledMenuItem)
           .props()
-          .onKeyDown({ which: 13, stopPropagation: jest.fn() });
+          .onKeyDown({
+            which: 13,
+            stopPropagation: () => {},
+            preventDefault: () => {},
+          });
       });
 
       act(() => {
@@ -976,16 +980,24 @@ describe("ActionPopover", () => {
         ).find(ActionPopoverItem);
 
         expect(item.props().submenu).toBeTruthy();
-        expect(item.find("div").at(0).props().onMouseEnter).toEqual(undefined);
-        expect(item.find("div").at(0).props().onMouseLeave).toEqual(undefined);
-        expect(item.find("div").at(0).props()["aria-haspopup"]).toEqual("true");
-        expect(item.find("div").at(0).props()["aria-label"]).not.toEqual(
+        expect(item.find("button").at(0).props().onMouseEnter).toEqual(
           undefined
         );
-        expect(item.find("div").at(0).props()["aria-controls"]).not.toEqual(
+        expect(item.find("button").at(0).props().onMouseLeave).toEqual(
           undefined
         );
-        expect(item.find("div").at(0).props()["aria-expanded"]).toEqual(false);
+        expect(item.find("button").at(0).props()["aria-haspopup"]).toEqual(
+          "true"
+        );
+        expect(item.find("button").at(0).props()["aria-label"]).not.toEqual(
+          undefined
+        );
+        expect(item.find("button").at(0).props()["aria-controls"]).not.toEqual(
+          undefined
+        );
+        expect(item.find("button").at(0).props()["aria-expanded"]).toEqual(
+          false
+        );
       });
 
       it("updates the focus when an item with a submenu is clicked and does not close the menu", () => {
