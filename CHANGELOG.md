@@ -1,3 +1,10 @@
+### [104.54.3](https://github.com/Sage/carbon/compare/v104.54.2...v104.54.3) (2022-03-15)
+
+
+### Bug Fixes
+
+* **action-popover-item:** prevent popover staying open when using keyboard nav ([6c03ae3](https://github.com/Sage/carbon/commit/6c03ae377c388f6b27c209047267ee3872bd19b3)), closes [#4662](https://github.com/Sage/carbon/issues/4662)
+
 ### [104.54.2](https://github.com/Sage/carbon/compare/v104.54.1...v104.54.2) (2022-03-14)
 
 
