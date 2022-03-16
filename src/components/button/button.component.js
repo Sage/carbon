@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import Icon from "../icon";
 import StyledButton, { StyledButtonSubtext } from "./button.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import Logger from "../../__internal__/utils/logger";
 
 function renderChildren({
   /* eslint-disable react/prop-types */
@@ -21,10 +22,10 @@ function renderChildren({
   /* eslint-enable */
 }) {
   const iconColorMap = {
-    primary: "var(--colorsActionMajorYang100)",
-    secondary: "var(--colorsActionMajor500)",
-    tertiary: "var(--colorsActionMajor500)",
-    darkBackground: "var(--colorsActionMajor500)",
+    primary: "--colorsActionMajorYang100",
+    secondary: "--colorsActionMajor500",
+    tertiary: "--colorsActionMajor500",
+    darkBackground: "--colorsActionMajor500",
   };
 
   const iconProps = {
@@ -69,6 +70,8 @@ function renderChildren({
   );
 }
 
+let deprecatedWarnTriggered = false;
+
 const Button = ({
   size,
   subtext,
@@ -90,9 +93,17 @@ const Button = ({
   iconTooltipPosition,
   ...rest
 }) => {
+  if (!deprecatedWarnTriggered && as) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate(
+      // eslint-disable-next-line max-len
+      "The `as` prop is deprecated and will soon be removed. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop"
+    );
+  }
+
   const [internalRef, setInternalRef] = useState(null);
 
-  const buttonType = buttonTypeProp || as;
+  const buttonType = as || buttonTypeProp;
 
   if (subtext.length > 0 && size !== "large") {
     throw new Error("subtext prop has no effect unless the button is large");
@@ -119,6 +130,16 @@ const Button = ({
       paddingX = 3;
   }
 
+  const setRefs = useCallback(
+    (reference) => {
+      setInternalRef(reference);
+      if (!forwardRef) return;
+      if (typeof forwardRef === "object") forwardRef.current = reference;
+      if (typeof forwardRef === "function") forwardRef(reference);
+    },
+    [forwardRef]
+  );
+
   return (
     <StyledButton
       aria-label={!children && iconType ? ariaLabel || iconType : undefined}
@@ -141,14 +162,7 @@ const Button = ({
       {...tagComponent("button", rest)}
       {...rest}
       {...(href && { href })}
-      ref={(reference) => {
-        if (reference) {
-          setInternalRef(reference);
-          if (!forwardRef) return;
-          if (typeof forwardRef === "object") forwardRef.current = reference;
-          if (typeof forwardRef === "function") forwardRef(reference);
-        }
-      }}
+      ref={setRefs}
     >
       {renderChildren({
         iconType,
@@ -244,7 +258,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  as: "secondary",
+  buttonType: "secondary",
   size: "medium",
   fullWidth: false,
   disabled: false,

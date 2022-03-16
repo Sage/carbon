@@ -5,7 +5,7 @@ import FlatTableRowHeader from "../flat-table-row-header";
 
 const getRefs = (length) => Array.from({ length }, () => React.createRef());
 
-const FlatTableHead = ({ children }) => {
+const FlatTableHead = ({ children, ...rest }) => {
   const [rowHeights, setRowHeights] = useState([]);
   const refs = getRefs(React.Children.count(children));
   let hasFlatTableRowHeader;
@@ -18,11 +18,11 @@ const FlatTableHead = ({ children }) => {
   }, []);
 
   if (React.Children.count(children) === 1) {
-    return <StyledFlatTableHead>{children}</StyledFlatTableHead>;
+    return <StyledFlatTableHead {...rest}>{children}</StyledFlatTableHead>;
   }
 
   return (
-    <StyledFlatTableHead>
+    <StyledFlatTableHead {...rest}>
       {React.Children.map(children, (child, index) => {
         /* Applies left border if preceding row has a FlatTableRowHeader and current one does not. 
            This is only needed when the preceding row has rowSpans applied, 

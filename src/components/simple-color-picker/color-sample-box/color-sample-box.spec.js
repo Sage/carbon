@@ -5,7 +5,7 @@ import ColorSampleBox from ".";
 import StyledColorSampleBox from "./color-sample-box.style";
 import {
   assertStyleMatch,
-  expectError,
+  expectConsoleOutput as expectError,
 } from "../../../__spec_helper__/test-utils";
 import StyledTickIcon from "../tick-icon/tick-icon.style";
 

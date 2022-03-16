@@ -135,7 +135,7 @@ const MultiSelect = React.forwardRef(
           }
           const newValue = [...previousValue];
           newValue.splice(index, 1);
-          if (isControlled.current && onChange) {
+          if (onChange) {
             onChange(createCustomEvent(newValue));
             return newValue;
           }
@@ -211,7 +211,7 @@ const MultiSelect = React.forwardRef(
       [isOpen]
     );
 
-    const mapValuesToPills = useCallback(() => {
+    const mapValuesToPills = useMemo(() => {
       const canDelete = !disabled && !readOnly;
 
       if (!selectedValue.length) {
@@ -299,12 +299,6 @@ const MultiSelect = React.forwardRef(
         onFilterChange(filterText);
       }
     }, [filterText, onFilterChange]);
-
-    useEffect(() => {
-      if (!isControlled.current && onChange) {
-        onChange(createCustomEvent(selectedValue));
-      }
-    }, [createCustomEvent, onChange, selectedValue]);
 
     function handleTextboxClick(event) {
       isMouseDownReported.current = false;
@@ -429,6 +423,10 @@ const MultiSelect = React.forwardRef(
             return previousValue;
           }
 
+          if (onChange) {
+            onChange(createCustomEvent([...previousValue, newValue]));
+          }
+
           return [...previousValue, newValue];
         });
       },
@@ -465,7 +463,7 @@ const MultiSelect = React.forwardRef(
         disabled,
         readOnly,
         placeholder: placeholderOverride,
-        leftChildren: mapValuesToPills(),
+        leftChildren: mapValuesToPills,
         inputRef: assignInput,
         formattedValue: textValue,
         selectedValue,
@@ -520,8 +518,6 @@ const MultiSelect = React.forwardRef(
 
     return (
       <StyledSelectMultiSelect
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
         disabled={disabled}
         readOnly={readOnly}
         hasTextCursor

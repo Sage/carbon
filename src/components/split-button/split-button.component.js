@@ -18,6 +18,8 @@ import guid from "../../__internal__/utils/helpers/guid";
 import Popover from "../../__internal__/popover";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { baseTheme } from "../../style/themes";
+import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
+import Logger from "../../__internal__/utils/logger";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -25,10 +27,12 @@ const marginPropTypes = filterStyledSystemMarginProps(
 
 const CONTENT_WIDTH_RATIO = 0.75;
 
+let deprecatedWarnTriggered = false;
+
 const SplitButton = ({
   align = "left",
-  as = "secondary",
-  buttonType,
+  as,
+  buttonType = "secondary",
   children,
   disabled = false,
   iconPosition = "before",
@@ -39,11 +43,20 @@ const SplitButton = ({
   text,
   ...rest
 }) => {
+  if (!deprecatedWarnTriggered && as) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate(
+      // eslint-disable-next-line max-len
+      "The `as` prop is deprecated and will soon be removed. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop"
+    );
+  }
+
   const theme = useContext(ThemeContext) || baseTheme;
   const isToggleButtonFocused = useRef(false);
   const buttonLabelId = useRef(guid());
   const additionalButtons = useRef([]);
   const splitButtonNode = useRef();
+  const toggleButton = useRef();
   const buttonContainer = useRef();
   const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
   const [minWidth, setMinWidth] = useState(0);
@@ -88,6 +101,12 @@ const SplitButton = ({
         nextIndex = currentIndex < numOfChildren ? currentIndex + 1 : 0;
         ev.preventDefault();
       } else if (Events.isTabKey(ev)) {
+        const elements = Array.from(
+          document.querySelectorAll(defaultFocusableSelectors)
+        ).filter((el) => Number(el.tabIndex) !== -1);
+        const indexOf = elements.indexOf(toggleButton.current);
+        elements[indexOf]?.focus();
+
         // timeout enforces that the "hideButtons" method will be run after browser focuses on the next element
         setTimeout(hideButtons, 0);
       }
@@ -137,7 +156,7 @@ const SplitButton = ({
         isToggleButtonFocused.current = false;
       },
       onKeyDown: handleToggleButtonKeyDown,
-      buttonType: buttonType || as,
+      buttonType: as || buttonType,
       size,
     };
 
@@ -166,7 +185,7 @@ const SplitButton = ({
       primary: theme.colors.white,
       secondary: theme.colors.primary,
     };
-    return colorsMap[buttonType || as];
+    return colorsMap[as || buttonType];
   }
 
   function renderMainButton() {
@@ -186,6 +205,7 @@ const SplitButton = ({
         data-element="toggle-button"
         key="toggle-button"
         type="button"
+        ref={toggleButton}
         {...toggleButtonProps()}
       >
         <Icon

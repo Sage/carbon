@@ -5,10 +5,12 @@ import {
   FLAT_TABLE_PAGE_SIZE_SELECT,
   FLAT_TABLE_PAGE_SELECT_LIST,
   PAGE_SELECT_INPUT,
+  FLAT_TABLE_WRAPPER,
 } from "./locators";
 
 // component preview locators
 export const flatTable = () => cy.get(FLAT_TABLE_COMPONENT);
+export const flatTableWrapper = () => cy.get(FLAT_TABLE_WRAPPER);
 export const flatTableHeader = () => flatTable().find("thead tr");
 export const flatTableHeaderCells = () => flatTableHeader().find("th");
 export const flatTableBodyRowByPosition = (index) =>

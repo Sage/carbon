@@ -16,7 +16,7 @@ const StyledStickyFooter = styled.div`
       position: sticky;
       bottom: 0;
       left: 0;
-      background-color: var(--colorsComponentsNavigationYang100);
+      background-color: var(--colorsActionMinorYang100);
       box-shadow: var(--boxShadow150);
       z-index: 1000;
     `}

@@ -95,11 +95,11 @@ const MenuItem = ({
     (e) => {
       e.stopPropagation();
       if (!disabled) {
+        setOpenPopover(false);
+        focusButton();
         if (onClickProp) {
           onClickProp();
         }
-        setOpenPopover(false);
-        focusButton();
       } else {
         ref.current.focus();
         e.preventDefault();
@@ -145,7 +145,10 @@ const MenuItem = ({
           }
           e.preventDefault();
         } else if (Events.isEnterKey(e)) {
-          if (isHref && download) ref.current.click();
+          if (isHref && download) {
+            ref.current.click();
+          }
+          e.preventDefault();
           onClick(e);
         }
       } else if (Events.isEnterKey(e)) {

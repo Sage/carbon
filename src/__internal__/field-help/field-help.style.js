@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import BaseTheme from "../../style/themes/base";
 
 const FieldHelpStyle = styled.span`
   display: block;
@@ -18,7 +17,6 @@ const FieldHelpStyle = styled.span`
 
 FieldHelpStyle.defaultProps = {
   labelWidth: 30,
-  theme: BaseTheme,
 };
 
 FieldHelpStyle.propTypes = {

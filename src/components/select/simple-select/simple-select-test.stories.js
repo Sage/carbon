@@ -1,7 +1,4 @@
-// it's not mdx file because of https://github.com/storybookjs/storybook/issues/11542
-
 import React from "react";
-import { action } from "@storybook/addon-actions";
 
 import { Select, Option } from "..";
 
@@ -15,11 +12,20 @@ export default {
     },
   },
   argTypes: {
-    value: {
-      table: {
-        disabled: true,
-      },
-    },
+    value: { table: { disable: true }, control: false },
+    disablePortal: { table: { disable: true }, control: false },
+    defaultValue: { table: { disable: true }, control: false },
+    children: { table: { disable: true }, control: false },
+    openOnFocus: { table: { disable: true }, control: false },
+    transparent: { table: { disable: true }, control: false },
+    tableHeader: { table: { disable: true }, control: false },
+    multiColumn: { table: { disable: true }, control: false },
+    isLoading: { table: { disable: true }, control: false },
+    onListScrollBottom: { table: { disable: true }, control: false },
+    tooltipPosition: { table: { disable: true }, control: false },
+    "data-component": { table: { disable: true }, control: false },
+    "data-element": { table: { disable: true }, control: false },
+    "data-role": { table: { disable: true }, control: false },
     listPlacement: {
       options: [
         "auto",
@@ -42,24 +48,42 @@ export default {
         type: "select",
       },
     },
+    onOpen: {
+      action: "onOpen",
+      table: { disable: true },
+      control: false,
+    },
+    onChange: {
+      action: "onChange",
+      table: { disable: true },
+      control: false,
+    },
+    onClick: {
+      action: "onClick",
+      table: { disable: true },
+      control: false,
+    },
+    onFocus: {
+      action: "onFocus",
+      table: { disable: true },
+      control: false,
+    },
+    onBlur: {
+      action: "onBlur",
+      table: { disable: true },
+      control: false,
+    },
+    onKeyDown: {
+      action: "onKeyDown",
+      table: { disable: true },
+      control: false,
+    },
   },
 };
 
-const Default = (args) => {
+const Template = (args) => {
   return (
-    <Select
-      name="simple"
-      id="simple"
-      label="label"
-      labelInline
-      onOpen={action("onOpen")}
-      onChange={action("onChange", { depth: 2 })}
-      onClick={action("onClick", { depth: 2 })}
-      onFocus={action("onFocus", { depth: 2 })}
-      onBlur={action("onBlur", { depth: 2 })}
-      onKeyDown={action("onKeyDown", { depth: 2 })}
-      {...args}
-    >
+    <Select name="simple" id="simple" label="label" labelInline {...args}>
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -78,28 +102,10 @@ const Default = (args) => {
   );
 };
 
-Default.storyName = "default";
-Default.argTypes = {
-  value: { table: { disable: true }, control: false },
-  disablePortal: { table: { disable: true }, control: false },
-  defaultValue: { table: { disable: true }, control: false },
-  children: { table: { disable: true }, control: false },
-  openOnFocus: { table: { disable: true }, control: false },
-  transparent: { table: { disable: true }, control: false },
-  tableHeader: { table: { disable: true }, control: false },
-  multiColumn: { table: { disable: true }, control: false },
-  onOpen: { table: { disable: true }, control: false },
-  isLoading: { table: { disable: true }, control: false },
-  onListScrollBottom: { table: { disable: true }, control: false },
-  tooltipPosition: { table: { disable: true }, control: false },
-  "data-component": { table: { disable: true }, control: false },
-  "data-element": { table: { disable: true }, control: false },
-  "data-role": { table: { disable: true }, control: false },
-};
+export const Default = Template.bind({});
+
 Default.args = {
   mt: 0,
   listPlacement: undefined,
   flipEnabled: true,
 };
-
-export { Default };

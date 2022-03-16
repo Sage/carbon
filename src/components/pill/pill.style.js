@@ -7,6 +7,7 @@ import styleConfig from "./pill.style.config";
 import { baseTheme } from "../../style/themes";
 import StyledIcon from "../icon/icon.style";
 import { toColor } from "../../style/utils/color.js";
+import getColorValue from "../../style/utils/get-color-value";
 
 function addStyleToPillIcon(fontSize) {
   return `
@@ -38,9 +39,9 @@ const PillStyle = styled.span`
     try {
       if (borderColor) {
         pillColor = toColor(theme, borderColor);
-        buttonFocusColor = shade(0.2, pillColor);
+        buttonFocusColor = shade(0.2, getColorValue(pillColor));
         contentColor = meetsContrastGuidelines(
-          pillColor,
+          getColorValue(pillColor),
           theme.compatibility.colorsUtilityYin090
         ).AAA
           ? "var(--colorsUtilityYin090)"

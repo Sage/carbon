@@ -1,5 +1,4 @@
 import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
-import { action } from "@storybook/addon-actions";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
 
@@ -41,18 +40,7 @@ Always insert `Option` Components inside the `Select`, analogous to the original
 
 <Canvas>
   <Story name="default">
-    <Select
-      name="simple"
-      id="simple"
-      label="color"
-      labelInline
-      onOpen={action("onOpen")}
-      onChange={action("onChange", { depth: 2 })}
-      onClick={action("onClick", { depth: 2 })}
-      onFocus={action("onFocus", { depth: 2 })}
-      onBlur={action("onBlur", { depth: 2 })}
-      onKeyDown={action("onKeyDown", { depth: 2 })}
-    >
+    <Select name="simple" id="simple" label="color" labelInline>
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -106,12 +94,6 @@ You can use `listPlacement` prop to set the position of the select list relative
       id="simple"
       label="color"
       labelInline
-      onOpen={action("onOpen")}
-      onChange={action("onChange", { depth: 2 })}
-      onClick={action("onClick", { depth: 2 })}
-      onFocus={action("onFocus", { depth: 2 })}
-      onBlur={action("onBlur", { depth: 2 })}
-      onKeyDown={action("onKeyDown", { depth: 2 })}
       listPlacement="top-start"
     >
       <Option text="Amber" value="1" />
@@ -137,7 +119,6 @@ You can use `listPlacement` prop to set the position of the select list relative
       const [value, setValue] = useState("");
       function onChangeHandler(event) {
         setValue(event.target.value);
-        action("value set");
       }
       function clearValue() {
         setValue("");

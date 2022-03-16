@@ -8,7 +8,7 @@ import {
   assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
 import Box from "./box.component";
-import BaseTheme from "../../style/themes/base";
+import boxConfig from "./box.config";
 
 describe("Box", () => {
   testStyledSystemSpacing((props) => <Box {...props} />);
@@ -45,7 +45,7 @@ describe("Box", () => {
 
       assertStyleMatch(
         {
-          backgroundColor: BaseTheme.scrollbar[scrollVariant].track,
+          backgroundColor: boxConfig[scrollVariant].track,
         },
         wrapper,
         { modifier: "::-webkit-scrollbar-track" }
@@ -53,7 +53,7 @@ describe("Box", () => {
 
       assertStyleMatch(
         {
-          backgroundColor: BaseTheme.scrollbar[scrollVariant].thumb,
+          backgroundColor: boxConfig[scrollVariant].thumb,
         },
         wrapper,
         { modifier: "::-webkit-scrollbar-thumb" }

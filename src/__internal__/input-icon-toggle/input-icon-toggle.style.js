@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import BaseTheme from "../../style/themes/base";
 import sizes from "../input/input-sizes.style";
 
 const InputIconToggleStyle = styled.span.attrs(({ onClick }) => ({
@@ -11,7 +10,6 @@ const InputIconToggleStyle = styled.span.attrs(({ onClick }) => ({
       return onClick(e);
     }
   },
-  theme: BaseTheme,
 }))`
   align-items: center;
   cursor: pointer;
@@ -25,7 +23,7 @@ const InputIconToggleStyle = styled.span.attrs(({ onClick }) => ({
   `}
 
   &:focus {
-    outline: solid 3px ${({ theme }) => theme.colors.focus};
+    outline: solid 3px var(--colorsSemanticFocus500);
   }
 `;
 
@@ -33,7 +31,6 @@ InputIconToggleStyle.safeProps = ["size", "error", "warning", "info"];
 
 InputIconToggleStyle.defaultProps = {
   size: "medium",
-  theme: BaseTheme,
 };
 
 InputIconToggleStyle.propTypes = {

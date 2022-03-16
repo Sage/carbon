@@ -1,6 +1,8 @@
 import { mount } from "enzyme";
-
 import { sprintf } from "sprintf-js";
+
+import { space } from "style/themes/base/base-theme.config";
+
 import { carbonThemeList } from "../style/themes";
 import { mockMatchMedia } from "./mock-match-media";
 
@@ -192,8 +194,16 @@ const backgroundProps = [
   ["backgroundRepeat", "background-repeat", "no-repeat"],
 ];
 
-const getDefaultValue = (value) => {
-  if (typeof value === "number") {
+export const getDefaultValue = (value) => {
+  const spaceArrayLength = space.length - 1;
+  const parsedValue = +value;
+  if (typeof value === "string" && value > spaceArrayLength) {
+    return `${value}px`;
+  }
+  if (parsedValue <= spaceArrayLength) {
+    return space[value];
+  }
+  if (parsedValue > spaceArrayLength) {
     return `${value * 8}px`;
   }
   return value;
@@ -206,7 +216,7 @@ const testStyledSystemMargin = (
   assertOpts
 ) => {
   describe("default props", () => {
-    const wrapper = mount(component());
+    const wrapper = mount(component({ ...defaults }));
     const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
 
     it("should set the correct margins", () => {
@@ -257,7 +267,7 @@ const testStyledSystemMargin = (
 
         expect(
           assertStyleMatch(
-            { [propName]: "16px" },
+            { [propName]: "var(--spacing200)" },
             styleContainer ? styleContainer(wrapper) : wrapper,
             assertOpts
           )
@@ -274,7 +284,7 @@ const testStyledSystemPadding = (
   assertOpts
 ) => {
   describe("default props", () => {
-    const wrapper = mount(component());
+    const wrapper = mount(component({ ...defaults }));
     const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
 
     it("should set the correct paddings", () => {
@@ -327,7 +337,7 @@ const testStyledSystemPadding = (
 
         expect(
           assertStyleMatch(
-            { [propName]: "16px" },
+            { [propName]: "var(--spacing200)" },
             styleContainer ? styleContainer(wrapper) : wrapper,
             assertOpts
           )
@@ -447,37 +457,38 @@ const testStyledSystemBackground = (component, styleContainer) => {
   );
 };
 
-const expectError = (errorMessage) => {
-  if (!errorMessage) {
-    throw new Error("no error message provided");
+// this util will catch that a console output occurred without polluting the output when running the unit tests
+const expectConsoleOutput = (message, type = "error") => {
+  if (!message) {
+    throw new Error(`no ${type} message provided`);
   }
 
   expect.assertions(1);
 
-  const { error } = global.console;
-  let errorArgs;
+  const consoleType = global.console[type];
+  let consoleArgs;
 
-  jest.spyOn(global.console, "error").mockImplementation((...args) => {
+  jest.spyOn(global.console, type).mockImplementation((...args) => {
     if (!args.length) return;
 
     const msg = args.join(" ");
     const params = args.slice(1, args.length);
 
-    if (sprintf(msg, ...params).includes(errorMessage)) {
-      errorArgs = args;
+    if (sprintf(msg, ...params).includes(message)) {
+      consoleArgs = args;
       return;
     }
 
-    error(...args);
+    consoleType(...args);
   });
 
   return () => {
-    if (errorArgs) {
+    if (consoleArgs) {
       // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith(...errorArgs);
+      expect(console[type]).toHaveBeenCalledWith(...consoleArgs);
     }
 
-    global.console.error = error;
+    global.console[type] = consoleType;
   };
 };
 
@@ -504,5 +515,5 @@ export {
   testStyledSystemLayout,
   testStyledSystemFlexBox,
   testStyledSystemBackground,
-  expectError,
+  expectConsoleOutput,
 };
