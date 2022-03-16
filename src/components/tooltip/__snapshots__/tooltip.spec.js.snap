@@ -4,6 +4,15 @@ exports[`Tooltip controlled matches snapshot when isVisible is false 1`] = `
 <ForwardRef(TippyWrapper)
   delay={100}
   placement="top"
+  plugins={
+    Array [
+      Object {
+        "defaultValue": false,
+        "fn": [Function],
+        "name": "sticky",
+      },
+    ]
+  }
   popperOptions={
     Object {
       "modifiers": Array [
@@ -17,6 +26,7 @@ exports[`Tooltip controlled matches snapshot when isVisible is false 1`] = `
     }
   }
   render={[Function]}
+  sticky={true}
   visible={false}
 >
   <div>
@@ -29,6 +39,15 @@ exports[`Tooltip controlled matches snapshot when isVisible is true 1`] = `
 <ForwardRef(TippyWrapper)
   delay={100}
   placement="top"
+  plugins={
+    Array [
+      Object {
+        "defaultValue": false,
+        "fn": [Function],
+        "name": "sticky",
+      },
+    ]
+  }
   popperOptions={
     Object {
       "modifiers": Array [
@@ -42,6 +61,7 @@ exports[`Tooltip controlled matches snapshot when isVisible is true 1`] = `
     }
   }
   render={[Function]}
+  sticky={true}
   visible={true}
 >
   <div>
@@ -54,6 +74,15 @@ exports[`Tooltip default props matches snapshot 1`] = `
 <ForwardRef(TippyWrapper)
   delay={100}
   placement="top"
+  plugins={
+    Array [
+      Object {
+        "defaultValue": false,
+        "fn": [Function],
+        "name": "sticky",
+      },
+    ]
+  }
   popperOptions={
     Object {
       "modifiers": Array [
@@ -67,6 +96,7 @@ exports[`Tooltip default props matches snapshot 1`] = `
     }
   }
   render={[Function]}
+  sticky={true}
 >
   <div>
     foo

@@ -1,12 +1,10 @@
 import React from "react";
 import { act } from "react-test-renderer";
 import { mount } from "enzyme";
-import { ThemeProvider } from "styled-components";
 import {
   simulate,
   assertStyleMatch,
 } from "../../../../__spec_helper__/test-utils";
-import baseTheme from "../../../../style/themes/base";
 import Toolbar from "./toolbar.component";
 import {
   StyledEditorStyleControls,
@@ -27,7 +25,7 @@ jest.mock("@tippyjs/react/headless", () => ({
 const setInlineStyle = jest.fn();
 const setBlockStyle = jest.fn();
 
-const render = (props = {}, theme = baseTheme, renderer = mount, locale) => {
+const render = (props = {}, renderer = mount, locale) => {
   const defaultProps = {
     setInlineStyle,
     setBlockStyle,
@@ -36,9 +34,7 @@ const render = (props = {}, theme = baseTheme, renderer = mount, locale) => {
 
   return renderer(
     <I18nProvider locale={locale}>
-      <ThemeProvider theme={theme}>
-        <Toolbar {...defaultProps} {...props} />
-      </ThemeProvider>
+      <Toolbar {...defaultProps} {...props} />
     </I18nProvider>,
     { attachTo: document.getElementById("enzymeContainer") }
   );
@@ -60,8 +56,8 @@ describe("Toolbar", () => {
           userSelect: "none",
           order: "2",
           border: "none",
-          backgroundColor: baseTheme.editor.toolbar.background,
-          borderTop: `1px solid ${baseTheme.editor.border}`,
+          backgroundColor: "var(--colorsUtilityMajor025)",
+          borderTop: "1px solid var(--colorsUtilityMajor200)",
           minWidth: "290px",
         },
         render()
@@ -182,7 +178,7 @@ describe("Toolbar", () => {
     it(`sets expected background-color when '${id.toLowerCase()}' is active`, () => {
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.editor.button.hover,
+          backgroundColor: "var(--colorsActionMinor200)",
         },
         wrapper.find(ToolbarButton).at(index)
       );
@@ -320,7 +316,7 @@ describe("Toolbar", () => {
     ])(
       "override the tooltip message text and aria label for the controls",
       (id, index) => {
-        wrapper = render({}, undefined, undefined, localeMock);
+        wrapper = render({}, undefined, localeMock);
 
         const { message } = wrapper.find(Tooltip).at(index).props();
         const { ariaLabel } = wrapper.find(ToolbarButton).at(index).props();

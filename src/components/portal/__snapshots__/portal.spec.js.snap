@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa gXbfZT\\"><p>john</p></div></div>"`;
+exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa bVYmVa\\"><p>john</p></div></div>"`;
 
-exports[`Portal when an element with id 'root' exists will mount on that element 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa gXbfZT\\"><p>Test</p></div></div></div>"`;
+exports[`Portal when an element with id 'root' exists will mount on that element 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa bVYmVa\\"><p>Test</p></div></div></div>"`;
 
-exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa gXbfZT\\"><span>a1</span></div><div class=\\"sc-bdVaJa gXbfZT\\"><span>a2</span></div></div>"`;
+exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa bVYmVa\\"><span>a1</span></div><div class=\\"sc-bdVaJa bVYmVa\\"><span>a2</span></div></div>"`;
 
 exports[`Portal when using default node to match snapshot  1`] = `
 <span
@@ -21,58 +21,19 @@ exports[`Portal when using default node to match snapshot  1`] = `
     <styled.div
       theme={
         Object {
-          "accordion": Object {
-            "background": "#E6EBED",
-            "border": "#CCD6DB",
-          },
-          "anchorNavigation": Object {
-            "divider": "#CCD6DB",
-            "navItemHoverBackground": "#E6EBED",
-          },
-          "batchSelection": Object {
-            "lightTheme": "#B3C2C8",
-          },
-          "card": Object {
-            "footerBackground": "#F2F5F6",
-            "footerBorder": "#CCD6DB",
-          },
-          "carousel": Object {
-            "activeSelectorBackground": "#668592",
-            "inactiveSelectorBackground": "#CCD6DB",
-          },
-          "checkable": Object {
-            "checked": "rgba(0,0,0,0.90)",
-          },
           "colors": Object {
-            "asterisk": "#C7384F",
-            "base": "#00A376",
-            "black": "#000000",
-            "border": "#668592",
-            "brand": "#00DC00",
-            "dashedBorder": "#99ADB6",
-            "dashedButtonText": "rgba(0, 0, 0, 0.9)",
-            "dashedHoverBackground": "#CCD6DB",
             "destructive": Object {
               "hover": "#9F2D3F",
             },
-            "disabled": "#66C266",
             "error": "#C7384F",
             "focus": "#FFB500",
-            "focusedIcon": "#335C6D",
-            "focusedLinkBackground": "#FFDA80",
-            "hoveredTabKeyline": "#4DB84D",
             "info": "#0073C2",
             "loadingBarBackground": "#B3E0B3",
-            "previewBackground": "#BFCCD2",
             "primary": "#008200",
             "secondary": "#006300",
-            "slate": "#003349",
-            "success": "#00B000",
             "tertiary": "#004500",
             "warning": "#E96400",
             "white": "#FFFFFF",
-            "whiteMix": "#E6F5E6",
-            "withOpacity": "rgba(0,163,118,0.55)",
           },
           "compatibility": Object {
             "borderRadiusCircle": "50%",
@@ -173,16 +134,6 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "colorsComponentsMenuYin065": "#000000a6",
             "colorsComponentsMenuYin090": "#000000e6",
             "colorsComponentsMenuYin100": "#000000ff",
-            "colorsComponentsNavigation500": "#007e45ff",
-            "colorsComponentsNavigation600": "#006738ff",
-            "colorsComponentsNavigation700": "#004d2aff",
-            "colorsComponentsNavigationTransparent": "#00000000",
-            "colorsComponentsNavigationYang100": "#ffffffff",
-            "colorsComponentsNavigationYin030": "#0000004d",
-            "colorsComponentsNavigationYin055": "#0000008c",
-            "colorsComponentsNavigationYin065": "#000000a6",
-            "colorsComponentsNavigationYin090": "#000000e6",
-            "colorsComponentsNavigationYin100": "#000000ff",
             "colorsDisabled400": "#f2f5f6ff",
             "colorsDisabled500": "#e6ebedff",
             "colorsDisabled600": "#ccd6dbff",
@@ -326,11 +277,12 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "sizing800": "64px",
             "sizing900": "72px",
             "sizingLogowidth": "40px",
-            "spacing000": "0px",
+            "spacing000": "0",
             "spacing025": "2px",
             "spacing050": "4px",
             "spacing075": "6px",
             "spacing100": "8px",
+            "spacing1000": "80px",
             "spacing125": "10px",
             "spacing150": "12px",
             "spacing200": "16px",
@@ -351,18 +303,21 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "typographyButtonLabelL": "Bold 16px/150% Sage UI",
             "typographyButtonLabelM": "Bold 14px/150% Sage UI",
             "typographyButtonLabelS": "Bold 14px/150% Sage UI",
+            "typographyCardSelectParagraphM": "Regular 14px/150% Sage UI",
+            "typographyCardSelectSubtitleM": "Medium 14px/150% Sage UI",
+            "typographyCardSelectTitleM": "Bold 16px/150% Sage UI",
             "typographyDatePickerCalendarDateM": "Bold 14px/150% Sage UI",
             "typographyDatePickerCalendarDayM": "Bold 14px/150% Sage UI",
             "typographyDatePickerCalendarMonthM": "Bold 16px/125% Sage UI",
             "typographyDialogParagraphS": "Bold 14px/150% Sage UI",
             "typographyDialogParagraphXs": "Bold 14px/150% Sage UI",
-            "typographyDialogTitleL": "Bold 20px/125% Sage UI",
-            "typographyDialogTitleM": "Bold 20px/125% Sage UI",
-            "typographyDialogTitleMl": "Bold 20px/125% Sage UI",
-            "typographyDialogTitleMs": "Bold 20px/125% Sage UI",
-            "typographyDialogTitleS": "Bold 20px/125% Sage UI",
-            "typographyDialogTitleXl": "Bold 20px/125% Sage UI",
-            "typographyDialogTitleXs": "Bold 20px/125% Sage UI",
+            "typographyDialogTitleL": "Bold 24px/125% Sage UI",
+            "typographyDialogTitleM": "Bold 24px/125% Sage UI",
+            "typographyDialogTitleMl": "Bold 24px/125% Sage UI",
+            "typographyDialogTitleMs": "Bold 24px/125% Sage UI",
+            "typographyDialogTitleS": "Bold 24px/125% Sage UI",
+            "typographyDialogTitleXl": "Bold 24px/125% Sage UI",
+            "typographyDialogTitleXs": "Bold 24px/125% Sage UI",
             "typographyDrawerTitleM": "Bold 22px/125% Sage UI",
             "typographyFlashTextL": "Regular 16px/150% Sage UI",
             "typographyFlashTextM": "Regular 14px/150% Sage UI",
@@ -449,174 +404,10 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "typographyTooltipTextL": "Regular 16px/150% Sage UI",
             "typographyTooltipTextM": "Regular 14px/150% Sage UI",
           },
-          "content": Object {
-            "secondaryColor": "#668592",
-          },
-          "definitionList": Object {
-            "ddText": "rgba(0,0,0,0.65)",
-            "dtTextDark": "rgba(0,0,0,0.9)",
-            "dtTextLight": "rgba(0,0,0,0.65)",
-          },
           "disabled": Object {
             "background": "#E6EBED",
-            "border": "#CCD6DB",
-            "button": "#E6EBED",
-            "buttonText": "rgba(0,0,0,.2)",
-            "disabled": "rgba(0,0,0,0.55)",
-            "input": "#F2F5F6",
-            "switch": "#E4EAEC",
-            "text": "rgba(0,0,0,0.3)",
-          },
-          "draggableItem": Object {
-            "border": "#E6EBED",
-          },
-          "drawer": Object {
-            "background": "#EDF1F2",
-            "divider": "#D9E0E4",
-          },
-          "editor": Object {
-            "border": "#668592",
-            "button": Object {
-              "hover": "#CCD6DB",
-            },
-            "counter": "rgba(0,0,0,0.55)",
-            "placeholder": "rgba(0,0,0,0.30)",
-            "toolbar": Object {
-              "background": "#F2F5F6",
-            },
-          },
-          "editorLinkPreview": Object {
-            "background": "#F2F5F6",
-            "border": "#E6EBED",
-            "hoverBackground": "#CCD6DB",
-            "url": "#1A475B",
-          },
-          "flatTable": Object {
-            "dark": Object {
-              "border": "#668592",
-              "headerBackground": "#335C6D",
-            },
-            "drawerSidebar": Object {
-              "headerBackground": "#EDF1F2",
-              "highlighted": "#CCD6DB",
-              "hover": "#D9E0E4",
-              "selected": "#B3C2C8",
-            },
-            "headerAlternativeBackground": "#1A475B",
-            "headerIconColor": "#99ADB6",
-            "highlighted": "#E6EBED",
-            "hover": "#F2F5F6",
-            "light": Object {
-              "border": "#B3C2C8",
-              "headerBackground": "#CCD6DB",
-            },
-            "selected": "#D9E0E4",
-            "subRow": Object {
-              "background": "#FAFBFB",
-              "shadow": "rgba(0, 20, 29, 0.1)",
-            },
-            "transparentBase": Object {
-              "border": "#F2F5F6",
-              "headerBackground": "#F2F5F6",
-            },
-            "transparentWhite": Object {
-              "border": "#fff",
-              "headerBackground": "#fff",
-            },
-          },
-          "form": Object {
-            "invalid": "#F2F5F6",
-          },
-          "help": Object {
-            "color": "rgba(0,0,0,0.65)",
-            "hover": "rgba(0,0,0,0.9)",
-          },
-          "hr": Object {
-            "background": "#CCD6DB",
-          },
-          "icon": Object {
-            "default": "rgba(0,0,0,0.65)",
-            "defaultHover": "rgba(0,0,0,0.90)",
-            "disabled": "rgba(0,0,0,0.30)",
-            "onLightBackground": "#668592",
-            "onLightBackgroundHover": "#335C6D",
-          },
-          "menu": Object {
-            "black": Object {
-              "alternate": "#1A1A1A",
-              "background": "#000000",
-              "divider": "#262626",
-              "searchIcon": "#8CA3AD",
-              "searchIconHover": "#BFCCD2",
-              "selected": "#262626",
-              "submenuBackground": "#000000",
-              "text": "#FFFFFF",
-              "title": "#99ADB6",
-            },
-            "dark": Object {
-              "alternate": "#003349",
-              "background": "#003349",
-              "divider": "#1A475B",
-              "searchIcon": "#8CA3AD",
-              "searchIconHover": "#BFCCD2",
-              "selected": "#1A475B",
-              "submenuBackground": "#001A25",
-              "text": "#FFFFFF",
-              "title": "#99ADB6",
-            },
-            "divider": "#E6EBED",
-            "focus": "#F2F5F6",
-            "itemColor": "rgba(0,0,0,0.9)",
-            "itemColorDisabled": "rgba(0,0,0,0.3)",
-            "light": Object {
-              "alternate": "#E6EBED",
-              "background": "#E6EBED",
-              "divider": "#CCD6DB",
-              "searchIcon": "#8CA3AD",
-              "searchIconHover": "#BFCCD2",
-              "selected": "#D9E0E4",
-              "submenuBackground": "#FFFFFF",
-              "text": "#000000",
-              "title": "#406677",
-            },
-            "white": Object {
-              "alternate": "#CCD6DB",
-              "background": "#FFFFFF",
-              "divider": "#B3C2C8",
-              "searchIcon": "#8CA3AD",
-              "searchIconHover": "#BFCCD2",
-              "selected": "#F2F5F6",
-              "submenuBackground": "#E6EBED",
-              "text": "#000000",
-              "title": "#406677",
-            },
           },
           "name": "base",
-          "navigationBar": Object {
-            "black": Object {
-              "background": "rgba(0,0,0,1)",
-            },
-            "dark": Object {
-              "background": "#003349",
-              "borderBottom": "#003349",
-            },
-            "light": Object {
-              "background": "#E6EBED",
-              "borderBottom": "#D9E0E4",
-            },
-            "white": Object {
-              "borderBottom": "#D9E0E4",
-            },
-          },
-          "numeralDate": Object {
-            "error": "#C7384F",
-            "passive": "#668592",
-          },
-          "pager": Object {
-            "active": "rgba(0,0,0,0.90)",
-            "alternate": "#EDF1F2",
-            "disabled": "rgba(0,0,0,0.3)",
-          },
           "palette": Object {
             "amethyst": "#582C83",
             "amethystShade": [Function],
@@ -657,139 +448,20 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "slateTint": [Function],
             "whiteOpacity": [Function],
           },
-          "picklist": Object {
-            "locked": "#F2F5F6",
-            "lockedContent": "#738F9B",
-            "lockedText": "rgba(0,0,0,0.6)",
-          },
-          "pill": Object {
-            "errorButtonFocus": "#9F2D3F",
-            "neutral": "#4D7080",
-            "neutralBackgroundFocus": "#1A475B",
-            "warning": "#ED8333",
-            "warningButtonFocus": "#E96400",
-          },
-          "pod": Object {
-            "border": "#CCD6DB",
-            "footerBackground": "#F2F5F6",
-            "hoverBackground": "#D9E0E4",
-            "secondaryBackground": "#F2F5F6",
-            "softDeleteText": "rgba(0,0,0,0.3)",
-            "tertiaryBackground": "#E6EBED",
-            "tileBackground": "#FFFFFF",
-          },
-          "popoverContainer": Object {
-            "iconColor": "rgba(0,0,0,0.90)",
-          },
-          "portrait": Object {
-            "background": "#F2F5F6",
-            "border": "#8099A4",
-            "initials": "rgba(0,0,0,0.65)",
-          },
-          "progressTracker": Object {
-            "background": "#E6EBED",
-            "innerBackground": "#668592",
-            "trafficNeutral": "#0073C2",
-          },
-          "readOnly": Object {
-            "textboxBackground": "#FAFBFB",
-            "textboxBorder": "#CCD6DB",
-            "textboxText": "rgba(0,0,0,0.74)",
-          },
-          "scrollbar": Object {
-            "dark": Object {
-              "thumb": "#99ADB6",
-              "track": "#335C6D",
-            },
-            "light": Object {
-              "thumb": "#668592",
-              "track": "#F2F5F6",
-            },
-          },
-          "search": Object {
-            "active": "#FFB500",
-            "button": "#255BC7",
-            "darkVariantBorder": "#8CA3AD",
-            "darkVariantPlaceholder": "#8CA3AD",
-            "darkVariantText": "#FFFFFF",
-            "icon": "#8CA3AD",
-            "iconDarkVariant": "#8CA3AD",
-            "iconDarkVariantHover": "#BFCCD2",
-            "iconHover": "#335C6D",
-            "passive": "#738F9B",
-            "searchActive": "#668592",
-          },
-          "select": Object {
-            "border": "#bfccd2",
-            "optionHeader": "rgba(0,0,0,0.55)",
-            "selected": "#F2F5F6",
-            "tableHeaderBorder": "#CCD6DB",
-          },
-          "shadows": Object {
-            "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
-            "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
-            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-          },
           "space": Array [
-            0,
-            8,
-            16,
-            24,
-            32,
-            40,
-            48,
-            56,
-            64,
-            72,
-            80,
+            "var(--spacing000)",
+            "var(--spacing100)",
+            "var(--spacing200)",
+            "var(--spacing300)",
+            "var(--spacing400)",
+            "var(--spacing500)",
+            "var(--spacing600)",
+            "var(--spacing700)",
+            "var(--spacing800)",
+            "var(--spacing900)",
+            "var(--spacing1000)",
           ],
           "spacing": 8,
-          "stepSequence": Object {
-            "completedText": "#008200",
-          },
-          "switch": Object {
-            "disabledFontColor": "rgba(0,0,0,0.30)",
-            "off": "#CCD6DB",
-            "offDisabled": "#E6EBED",
-            "offHover": "#99ADB6",
-            "on": "#335C6D",
-            "onDisabled": "#99ADB6",
-            "onHover": "#003349",
-          },
-          "tab": Object {
-            "altHover": "#D9E0E4",
-            "background": "#CCD6DB",
-          },
-          "table": Object {
-            "dragging": "#E6EBED",
-            "header": "#335C6D",
-            "hover": "#E6EBED",
-            "primary": "#F2F5F6",
-            "secondary": "#CCD6DB",
-            "selected": "#D9E0E4",
-            "tertiary": "#1A475B",
-            "zebra": "#FAFBFB",
-          },
-          "text": Object {
-            "color": "rgba(0,0,0,0.9)",
-            "placeholder": "rgba(0,0,0,0.55)",
-            "size": "14px",
-          },
-          "tile": Object {
-            "border": "#CCD6DB",
-            "footerBackground": "#F2F5F6",
-            "separator": "#E6EBED",
-          },
-          "tileSelect": Object {
-            "border": "#BFCCD2",
-            "descriptionColor": "rgba(0,0,0,0.55)",
-            "disabledBackground": "#E6EBED",
-            "disabledText": "rgba(0,0,0,0.3)",
-            "hoverBackground": "#F2F5F6",
-          },
           "zIndex": Object {
             "aboveAll": 9999,
             "fullScreenModal": 5000,
@@ -817,4 +489,4 @@ exports[`Portal when using default node to match snapshot  1`] = `
 </span>
 `;
 
-exports[`Portal when using default node when an element with id 'root' does not exist will mount on body 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa gXbfZT\\"><span class=\\"sc-bwzfXH gplFmG\\" data-element=\\"tick\\" data-component=\\"icon\\" font-size=\\"small\\" type=\\"tick\\" tabindex=\\"0\\" role=\\"tooltip\\"></span></div></div></div>"`;
+exports[`Portal when using default node when an element with id 'root' does not exist will mount on body 1`] = `"<div id=\\"root\\"><div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa bVYmVa\\"><span class=\\"sc-bwzfXH gUXKts\\" data-element=\\"tick\\" data-component=\\"icon\\" font-size=\\"small\\" type=\\"tick\\" tabindex=\\"0\\"></span></div></div></div>"`;

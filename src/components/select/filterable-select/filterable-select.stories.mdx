@@ -120,6 +120,7 @@ You can use `listPlacement` prop to set the position of the select list relative
           <FilterableSelect
             id="controlled"
             name="controlled"
+            label="color"
             value={value}
             onChange={onChangeHandler}
           >
@@ -145,7 +146,12 @@ You can use `listPlacement` prop to set the position of the select list relative
 
 <Canvas>
   <Story name="openOnFocus" parameters={{ chromatic: { disable: true } }}>
-    <FilterableSelect name="openOnFocus" id="openOnFocus" openOnFocus>
+    <FilterableSelect
+      name="openOnFocus"
+      id="openOnFocus"
+      label="color"
+      openOnFocus
+    >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -224,6 +230,7 @@ You can use `listPlacement` prop to set the position of the select list relative
       disablePortal
       name="withDisabledPortal"
       id="withDisabledPortal"
+      label="color"
       defaultValue="4"
     >
       <Option text="Amber" value="1" />
@@ -251,6 +258,7 @@ You can use `listPlacement` prop to set the position of the select list relative
     <FilterableSelect
       name="withMultipleColumns"
       id="withMultipleColumns"
+      label="clients"
       defaultValue="4"
       multiColumn
       tableHeader={
@@ -626,6 +634,7 @@ If there is no `id` prop specified on an object, then the exact objects will be 
           <FilterableSelect
             id="with-object"
             name="with-object"
+            label="color"
             value={value}
             onChange={onChangeHandler}
           >

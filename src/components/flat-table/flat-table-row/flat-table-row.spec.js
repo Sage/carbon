@@ -7,7 +7,6 @@ import FlatTableRow from "./flat-table-row.component";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 import StyledFlatTableRow from "./flat-table-row.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import { baseTheme } from "../../../style/themes";
 import { StyledFlatTableRowHeader } from "../flat-table-row-header/flat-table-row-header.style";
 import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
@@ -44,6 +43,16 @@ describe("FlatTableRow", () => {
     expect(renderFlatTableRow({}, TestRenderer.create)).toMatchSnapshot();
   });
 
+  describe("when a data prop is added", () => {
+    it("should be added to the root element", () => {
+      const wrapper = renderFlatTableRow({ "data-role": "test" });
+
+      expect(wrapper.find(StyledFlatTableRow).props()["data-role"]).toEqual(
+        "test"
+      );
+    });
+  });
+
   describe('when the "onClick" prop is passed', () => {
     let wrapper, onClickFn;
 
@@ -72,7 +81,7 @@ describe("FlatTableRow", () => {
     it("then the element should have proper outline when focused", () => {
       assertStyleMatch(
         {
-          outline: `2px solid ${baseTheme.colors.focus}`,
+          outline: "2px solid var(--colorsSemanticFocus500)",
           outlineOffset: "-1px",
         },
         wrapper,
@@ -96,7 +105,7 @@ describe("FlatTableRow", () => {
       assertStyleMatch(
         {
           borderBottom: "1px solid transparent",
-          borderLeft: `1px solid ${baseTheme.colors.focus}`,
+          borderLeft: "1px solid var(--colorsSemanticFocus500)",
           backgroundClip: "padding-box",
           zIndex: "1002",
         },
@@ -106,8 +115,8 @@ describe("FlatTableRow", () => {
 
       assertStyleMatch(
         {
-          borderTop: `2px solid ${baseTheme.colors.focus}`,
-          borderBottom: `2px solid ${baseTheme.colors.focus}`,
+          borderTop: "2px solid var(--colorsSemanticFocus500)",
+          borderBottom: "2px solid var(--colorsSemanticFocus500)",
           display: "block",
           left: "0px",
           top: "-1px",
@@ -124,7 +133,7 @@ describe("FlatTableRow", () => {
     it("then all Cells of the Row should have proper hover color", () => {
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.flatTable.hover,
+          backgroundColor: "var(--colorsUtilityMajor025)",
         },
         wrapper,
         { modifier: `:hover ${StyledFlatTableCell}` }
@@ -134,7 +143,7 @@ describe("FlatTableRow", () => {
     it("then the Row Header of the Row should have proper hover color", () => {
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.flatTable.hover,
+          backgroundColor: "var(--colorsUtilityMajor025)",
         },
         wrapper,
         { modifier: `:hover ${StyledFlatTableRowHeader}` }
@@ -189,7 +198,7 @@ describe("FlatTableRow", () => {
       });
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.flatTable.selected,
+          backgroundColor: "var(--colorsUtilityMajor075)",
         },
         wrapper,
         { modifier: `${StyledFlatTableCell}` }
@@ -205,7 +214,7 @@ describe("FlatTableRow", () => {
         wrapper.find(FlatTableRow).at(0).simulate("focus");
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.flatTable.selected,
+            backgroundColor: "var(--colorsUtilityMajor075)",
           },
           wrapper,
           { modifier: `:hover ${StyledFlatTableCell}` }
@@ -263,7 +272,7 @@ describe("FlatTableRow", () => {
       });
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.flatTable.highlighted,
+          backgroundColor: "var(--colorsUtilityMajor050)",
         },
         wrapper,
         { modifier: `${StyledFlatTableCell}` }
@@ -277,7 +286,7 @@ describe("FlatTableRow", () => {
       });
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.flatTable.highlighted,
+          backgroundColor: "var(--colorsUtilityMajor050)",
         },
         wrapper,
         { modifier: `${StyledFlatTableRowHeader}` }
@@ -330,7 +339,7 @@ describe("FlatTableRow", () => {
         wrapper.find(FlatTableRow).at(0).simulate("focus");
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.flatTable.selected,
+            backgroundColor: "var(--colorsUtilityMajor075)",
           },
           wrapper,
           { modifier: `:hover ${StyledFlatTableCell}` }
@@ -370,7 +379,7 @@ describe("FlatTableRow", () => {
       wrapper = renderRowWithContext({ onClick: () => {} });
       assertStyleMatch(
         {
-          backgroundColor: baseTheme.flatTable.drawerSidebar.headerBackground,
+          backgroundColor: "var(--colorsUtilityMajor040)",
         },
         wrapper,
         { modifier: `${el}` }
@@ -382,7 +391,7 @@ describe("FlatTableRow", () => {
       if (!["StyledFlatTableHeader", "StyledFlatTableRowHeader"].includes(id)) {
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.flatTable.drawerSidebar.hover,
+            backgroundColor: "var(--colorsUtilityMajor075)",
           },
           wrapper,
           { modifier: `:hover ${modifierString}` }
@@ -392,7 +401,7 @@ describe("FlatTableRow", () => {
       if (id === "StyledFlatTableCheckbox") {
         assertStyleMatch(
           {
-            borderRight: `1px solid ${baseTheme.flatTable.drawerSidebar.highlighted}`,
+            borderRight: "1px solid var(--colorsUtilityMajor100)",
           },
           wrapper,
           { modifier: `${el}` }
@@ -435,7 +444,7 @@ describe("FlatTableRow", () => {
         if (id !== "StyledFlatTableRowHeader") {
           assertStyleMatch(
             {
-              backgroundColor: baseTheme.flatTable.drawerSidebar.selected,
+              backgroundColor: "var(--colorsUtilityMajor150)",
             },
             wrapper,
             { modifier: `${el}` }
@@ -447,7 +456,7 @@ describe("FlatTableRow", () => {
 
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.flatTable.drawerSidebar.selected,
+            backgroundColor: "var(--colorsUtilityMajor150)",
           },
           wrapper,
           { modifier: `:hover ${modifierString}` }
@@ -469,7 +478,7 @@ describe("FlatTableRow", () => {
         if (id !== "StyledFlatTableRowHeader") {
           assertStyleMatch(
             {
-              backgroundColor: baseTheme.flatTable.drawerSidebar.highlighted,
+              backgroundColor: "var(--colorsUtilityMajor100)",
             },
             wrapper,
             { modifier: `${el}` }
@@ -481,7 +490,7 @@ describe("FlatTableRow", () => {
 
         assertStyleMatch(
           {
-            backgroundColor: baseTheme.flatTable.drawerSidebar.highlighted,
+            backgroundColor: "var(--colorsUtilityMajor100)",
           },
           wrapper,
           { modifier: `:hover ${modifierString}` }
@@ -504,7 +513,7 @@ describe("FlatTableRow", () => {
           if (id !== "StyledFlatTableRowHeader") {
             assertStyleMatch(
               {
-                backgroundColor: baseTheme.flatTable.drawerSidebar.selected,
+                backgroundColor: "var(--colorsUtilityMajor150)",
               },
               wrapper,
               { modifier: `${el}` }
@@ -516,7 +525,7 @@ describe("FlatTableRow", () => {
 
           assertStyleMatch(
             {
-              backgroundColor: baseTheme.flatTable.drawerSidebar.selected,
+              backgroundColor: "var(--colorsUtilityMajor150)",
             },
             wrapper,
             { modifier: `:hover ${modifierString}` }
@@ -659,7 +668,7 @@ describe("FlatTableRow", () => {
 
       assertStyleMatch(
         {
-          borderLeft: `1px solid ${baseTheme.table.secondary}`,
+          borderLeft: "1px solid var(--colorsUtilityMajor100)",
         },
         wrapper,
         { modifier: `:focus ${StyledFlatTableRowHeader}` }
@@ -667,7 +676,7 @@ describe("FlatTableRow", () => {
 
       assertStyleMatch(
         {
-          borderLeft: `1px solid ${baseTheme.colors.focus}`,
+          borderLeft: "1px solid var(--colorsSemanticFocus500)",
         },
         wrapper,
         { modifier: `:focus td:nth-of-type(1)` }
@@ -675,8 +684,8 @@ describe("FlatTableRow", () => {
 
       assertStyleMatch(
         {
-          borderTop: `2px solid ${baseTheme.colors.focus}`,
-          borderBottom: `2px solid ${baseTheme.colors.focus}`,
+          borderTop: "2px solid var(--colorsSemanticFocus500)",
+          borderBottom: "2px solid var(--colorsSemanticFocus500)",
           display: "block",
           left: "0px",
           top: "-1px",
@@ -1097,8 +1106,8 @@ describe("FlatTableRow", () => {
     });
 
     describe.each([
-      ["medium", "2px solid #CCD6DB"],
-      ["large", "4px solid #CCD6DB"],
+      ["medium", "2px solid var(--colorsUtilityMajor100)"],
+      ["large", "4px solid var(--colorsUtilityMajor100)"],
     ])(
       "when the horizontalBorderSize prop is set to %s",
       (horizontalBorderSize, expectedValue) => {
@@ -1437,7 +1446,7 @@ describe("FlatTableRow", () => {
       );
       assertStyleMatch(
         {
-          backgroundColor: "#BFCCD2",
+          backgroundColor: "var(--colorsUtilityMajor150)",
         },
         wrapper,
         { modifier: `${StyledFlatTableCell}` }
@@ -1456,7 +1465,7 @@ describe("FlatTableRow", () => {
       );
       assertStyleMatch(
         {
-          backgroundColor: "#99ADB6",
+          backgroundColor: "var(--colorsUtilityMajor200)",
         },
         wrapper,
         { modifier: `${StyledFlatTableCell}` }
@@ -1496,16 +1505,16 @@ function renderRowWithContext(props = {}) {
 function getThBorderColor(colorTheme) {
   switch (colorTheme) {
     case "light":
-      return baseTheme.flatTable.light.border;
+      return "var(--colorsUtilityMajor100)";
 
     case "transparent-base":
-      return baseTheme.flatTable.transparentBase.border;
+      return "var(--colorsUtilityMajor025)";
 
     case "transparent-white":
-      return baseTheme.flatTable.transparentWhite.border;
+      return "var(--colorsUtilityYang100)";
 
     // default baseTheme is "dark"
     default:
-      return baseTheme.flatTable.dark.border;
+      return "var(--colorsUtilityMajor400)";
   }
 }

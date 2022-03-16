@@ -5,6 +5,7 @@ import Box from "../box";
 import VerticalDivider from "../vertical-divider";
 import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.js";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import DocsWrapper from "../../../.storybook/docs-helpers/components/iframe-wrapper";
 
 <Meta title="Navigation Bar" parameters={{ info: { disable: true } }} />
 
@@ -125,9 +126,12 @@ valid CSS string.
   </Story>
 </Canvas>
 
-### Sticky
+### Position
 
-The `stickyPosition` prop can be used to make the navigation bar stick to the top or bottom of it's nearest scrolling ancestor. Then the position relative to the top/bottom can be offset using the `stickyOffset` prop.
+#### Sticky
+
+The `position` prop can be set to `sticky` to make the navigation bar stick to the top or bottom of its nearest scrolling ancestor.
+Then the `orientation` relative to the top/bottom can be offset using the `offset` prop.
 
 <Canvas>
   <Story name="sticky">
@@ -139,8 +143,9 @@ The `stickyPosition` prop can be used to make the navigation bar stick to the to
         }}
       >
         <NavigationBar
-          stickyPosition="top"
-          stickyOffset="25px"
+          position="sticky"
+          orientation="top"
+          offset="25px"
           aria-label="header"
         >
           <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
@@ -178,8 +183,9 @@ The `stickyPosition` prop can be used to make the navigation bar stick to the to
           }}
         />
         <NavigationBar
-          stickyPosition="bottom"
-          stickyOffset="25px"
+          position="sticky"
+          orientation="bottom"
+          offset="25px"
           aria-label="footer"
         >
           <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
@@ -213,6 +219,97 @@ The `stickyPosition` prop can be used to make the navigation bar stick to the to
       </div>
     </div>
   </Story>
+</Canvas>
+
+#### Fixed
+
+The `position` prop can be set to `fixed` to make the navigation bar fix to the viewport. Then the `orientation` relative to the 
+top/bottom can be offset using the `offset` prop.
+
+<Story name="fixed" parameters={{ docs: { disable: true }, themeSelector: { chromaticTheme: "sage" } }}>
+  <div style={{ height: "calc(100% - 50px)" }}>
+    <NavigationBar
+      position="fixed"
+      orientation="top"
+      offset="25px"
+      aria-label="header"
+    >
+      <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
+        <SageIcon style={{ alignSelf: "center" }} />
+        <Box>
+          <VerticalDivider displayInline pr={0} />
+        </Box>
+        <Menu display="flex" flex="1">
+          <MenuItem flex="1" onClick={() => {}}>
+            Menu Item One
+          </MenuItem>
+          <MenuItem flex="0 0 auto" href="#">
+            Menu Item Two
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuDivider />
+            <MenuItem icon="settings" href="#">
+              Item Submenu Three
+            </MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+            <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+          </MenuItem>
+        </Menu>
+      </Box>
+    </NavigationBar>
+    <div
+      style={{
+        height: "1000px",
+        background: "green",
+      }}
+    />
+    <NavigationBar
+      position="fixed"
+      orientation="bottom"
+      offset="25px"
+      aria-label="footer"
+    >
+      <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
+        <SageIcon style={{ alignSelf: "center" }} />
+        <Box>
+          <VerticalDivider displayInline pr={0} />
+        </Box>
+        <Menu display="flex" flex="1">
+          <MenuItem flex="1" onClick={() => {}}>
+            Menu Item One
+          </MenuItem>
+          <MenuItem flex="0 0 auto" href="#">
+            Menu Item Two
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuDivider />
+            <MenuItem icon="settings" href="#">
+              Item Submenu Three
+            </MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+            <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+          </MenuItem>
+        </Menu>
+      </Box>
+    </NavigationBar>
+  </div>
+</Story>
+
+<Canvas>
+  <DocsWrapper
+    src="iframe.html?id=navigation-bar--fixed"
+    height="400px"
+  />
 </Canvas>
 
 ## Props

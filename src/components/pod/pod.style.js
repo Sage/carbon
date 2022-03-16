@@ -21,18 +21,17 @@ const StyledPod = styled.div`
   }
 `;
 
-const blockBackgrounds = (variant, theme) =>
+const blockBackgrounds = (variant) =>
   ({
-    primary: theme.colors.white,
-    secondary: theme.pod.secondaryBackground,
-    tertiary: theme.pod.tertiaryBackground,
-    transparent: "transparent",
-    tile: theme.colors.white,
+    primary: "var(--colorsUtilityYang100)",
+    secondary: "var(--colorsUtilityMajor025)",
+    tertiary: "var(--colorsUtilityMajor050)",
+    transparent: "var(--colorsUtilityMajorTransparent)",
+    tile: "var(--colorsUtilityYang100)",
   }[variant]);
 
 const StyledBlock = styled.div`
   ${({
-    theme,
     variant,
     softDelete,
     noBorder,
@@ -47,13 +46,15 @@ const StyledBlock = styled.div`
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      background-color: ${blockBackgrounds(variant, theme)};
+      background-color: ${blockBackgrounds(variant)};
       width: 100%;
       height: 100%;
 
       ${variant === "tile" && "box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)"};
 
-      ${noBorder ? "border: none" : `border: 1px solid ${theme.pod.border}`};
+      ${noBorder
+        ? "border: none"
+        : `border: 1px solid var(--colorsUtilityMajor100)`};
 
       ${hasButtons && !(fullWidth || internalEditButton) && "width: auto;"};
 
@@ -61,17 +62,17 @@ const StyledBlock = styled.div`
 
       ${(isHovered || isFocused) &&
       css`
-        background-color: ${theme.pod.hoverBackground};
+        background-color: var(--colorsUtilityMajor075);
 
         ${internalEditButton &&
         variant === "tile" &&
-        "background-color: transparent;"}
+        "background-color: var(--colorsUtilityMajorTransparent);"}
 
         ${contentTriggersEdit &&
         css`
-          background-color: ${theme.colors.secondary};
+          background-color: var(--colorsActionMajor600);
           * {
-            color: ${theme.colors.white};
+            color: var(--colorsUtilityYang100);
           }
         `}
       `}
@@ -79,7 +80,7 @@ const StyledBlock = styled.div`
       ${isFocused &&
       (!internalEditButton || contentTriggersEdit) &&
       css`
-        outline: 3px solid ${theme.colors.focus};
+        outline: 3px solid var(--colorsSemanticFocus500);
         border: none;
         ${noBorder ? "" : "padding: 1px"};
       `};
@@ -92,8 +93,8 @@ const StyledBlock = styled.div`
 
       ${softDelete &&
       css`
-        color: ${theme.pod.softDeleteText};
-        background-color: ${theme.pod.tertiaryBackground};
+        color: var(--colorsUtilityYin030);
+        background-color: var(--colorsUtilityMajor050);
       `};
     `}
 `;
@@ -121,20 +122,20 @@ const footerPaddings = {
 };
 
 const StyledFooter = styled.div`
-  ${({ theme, variant, size, softDelete }) => css`
-    background-color: ${theme.pod.footerBackground};
+  ${({ variant, size, softDelete }) => css`
+    background-color: var(--colorsUtilityMajor025);
     box-shadow: inset 0px 1px 1px 0 rgba(0, 0, 0, 0.1);
-    color: ${theme.text.color};
+    color: var(--colorsUtilityYin090);
     padding: ${footerPaddings[size]};
 
     ${softDelete &&
     css`
-      color: ${theme.pod.softDeleteText};
+      color: var(--colorsUtilityYin030);
     `}
 
     ${variant === "tile" &&
     css`
-      border-top: 1px solid ${theme.pod.border};
+      border-top: 1px solid var(--colorsUtilityMajor100);
     `};
   `}
 `;
@@ -160,17 +161,16 @@ const actionButtonPaddings = {
   "extra-large": 16,
 };
 
-const actionButtonBackgrounds = (variant, theme) =>
+const actionButtonBackgrounds = (variant) =>
   ({
-    primary: theme.colors.white,
-    secondary: theme.pod.secondaryBackground,
-    tertiary: theme.pod.tertiaryBackground,
-    transparent: "transparent",
-    tile: theme.colors.white,
+    primary: "var(--colorsActionMajorYang100)",
+    secondary: "var(--colorsActionMinor050)",
+    tertiary: "var(--colorsActionMinor100)",
+    transparent: "var(--colorsActionMajorTransparent)",
+    tile: "var(--colorsActionMajorYang100)",
   }[variant]);
 
 const getButtonStyles = ({
-  theme,
   size,
   variant,
   noBorder,
@@ -181,8 +181,8 @@ const getButtonStyles = ({
   hoverBackgroundColor,
 }) => css`
   cursor: pointer;
-  background-color: ${actionButtonBackgrounds(variant, theme)};
-  border: 1px solid ${theme.pod.border};
+  background-color: ${actionButtonBackgrounds(variant)};
+  border: 1px solid var(--colorsActionMinor200);
   margin-left: 8px;
   margin-bottom: 8px;
   box-sizing: content-box;
@@ -202,23 +202,23 @@ const getButtonStyles = ({
   ${internalEditButton &&
   css`
     border: none;
-    background: transparent;
+    background: var(--colorsActionMajorTransparent);
   `}
     
   ${(isHovered || isFocused) &&
   !internalEditButton &&
   css`
     background-color: ${hoverBackgroundColor};
-    color: ${theme.colors.white};
+    color: var(--colorsActionMajorYang100);
 
     ${StyledIcon} {
-      color: ${theme.colors.white};
+      color: var(--colorsActionMajorYang100);
     }
   `}
   
   ${isFocused &&
   css`
-    outline: 3px solid ${theme.colors.focus};
+    outline: 3px solid var(--colorsSemanticFocus500);
     border: none;
     padding: ${actionButtonPaddings[size] +
     (noBorder || internalEditButton ? 0 : 1)}px;
@@ -234,8 +234,8 @@ const StyledEditAction = styled(Link)`
     ${(props) =>
       getButtonStyles({
         ...props,
-        iconColor: props.theme.colors.primary,
-        hoverBackgroundColor: props.theme.colors.secondary,
+        iconColor: "var(--colorsActionMajor500)",
+        hoverBackgroundColor: "var(--colorsActionMajor600)",
       })}
   }
 
@@ -251,8 +251,8 @@ const StyledDeleteButton = styled(IconButton)`
     ${(props) =>
       getButtonStyles({
         ...props,
-        iconColor: props.theme.colors.error,
-        hoverBackgroundColor: props.theme.colors.destructive.hover,
+        iconColor: "var(--colorsSemanticNegative500)",
+        hoverBackgroundColor: "var(--colorsSemanticNegative600)",
       })}
   }
 `;
@@ -264,8 +264,8 @@ const StyledUndoButton = styled(IconButton)`
     ${(props) =>
       getButtonStyles({
         ...props,
-        iconColor: props.theme.colors.primary,
-        hoverBackgroundColor: props.theme.colors.secondary,
+        iconColor: "var(--colorsActionMajor500)",
+        hoverBackgroundColor: "var(--colorsActionMajor600)",
       })}
   }
 `;
@@ -303,37 +303,7 @@ const StyledTitle = styled.h4`
   font-weight: 600;
 `;
 
-StyledBlock.defaultProps = {
-  theme: baseTheme,
-};
-StyledContent.defaultProps = {
-  theme: baseTheme,
-};
-StyledEditAction.defaultProps = {
-  theme: baseTheme,
-};
-StyledDeleteButton.defaultProps = {
-  theme: baseTheme,
-};
-StyledUndoButton.defaultProps = {
-  theme: baseTheme,
-};
-StyledActionsContainer.defaultProps = {
-  theme: baseTheme,
-};
-StyledFooter.defaultProps = {
-  theme: baseTheme,
-};
 StyledPod.defaultProps = {
-  theme: baseTheme,
-};
-StyledHeader.defaultProps = {
-  theme: baseTheme,
-};
-StyledSubtitle.defaultProps = {
-  theme: baseTheme,
-};
-StyledTitle.defaultProps = {
   theme: baseTheme,
 };
 

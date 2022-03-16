@@ -3,7 +3,7 @@ import { mount as enzymeMount } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { GridContainer, GridItem } from ".";
-import { baseTheme } from "../../style/themes";
+import { getSpacing } from "./grid-item/grid-item.style";
 
 const paddingProps = [
   ["p", "padding"],
@@ -15,6 +15,24 @@ const paddingProps = [
   ["px", "paddingRight"],
   ["py", "paddingTop"],
   ["py", "paddingBottom"],
+];
+
+const gridContainerProps = [
+  ["gridGap", "15px"],
+  ["gridRowGap", "15px"],
+  ["gridColumnGap", "15px"],
+  ["gridAutoFlow", "row dense"],
+  ["gridAutoRows", "1fr"],
+  ["gridAutoColumns", "1fr"],
+  ["gridTemplateRows", "100px 1fr"],
+  ["gridTemplateColumns", "100px 1fr"],
+  ["gridTemplateAreas", "foo bar"],
+];
+
+const gridItemProps = [
+  ["gridArea", "foo / bar"],
+  ["gridColumn", "1 / 3"],
+  ["gridRow", "1 / 3"],
 ];
 
 const item1900 = {
@@ -206,21 +224,26 @@ describe("Grid", () => {
       }
     );
 
-    describe('when a custom grid-gap is specified using the "gridGap" styled system prop', () => {
-      it("then that grid-gap should have been set on the GridContainer", () => {
-        const wrapper = enzymeMount(
-          <GridContainer id="testContainer" gridGap="15px">
-            <GridItem>1</GridItem>
-            <GridItem>2</GridItem>
-            <GridItem>3</GridItem>
-          </GridContainer>
-        );
+    describe.each(gridContainerProps)(
+      "when a custom %s is specified using that styled system prop",
+      (propName, propValue) => {
+        it(`then the ${propName} attribute should have been set on the GridContainer`, () => {
+          const wrapper = enzymeMount(
+            <GridContainer id="testContainer" {...{ [propName]: propValue }}>
+              <GridItem>1</GridItem>
+              <GridItem>2</GridItem>
+              <GridItem>3</GridItem>
+            </GridContainer>
+          );
 
-        expect(
-          assertStyleMatch({ gridGap: "15px" }, wrapper, { media: "screen" })
-        );
-      });
-    });
+          expect(
+            assertStyleMatch({ [propName]: propValue }, wrapper, {
+              media: "screen",
+            })
+          );
+        });
+      }
+    );
   });
 
   describe("GridItem", () => {
@@ -323,63 +346,87 @@ describe("Grid", () => {
 
     describe(`when a custom padding is specified as a number in responsiveSettings,
       using one of the styled system props`, () => {
-      it("then the padding specified in a theme spacing property should have been set on the GridItem", () => {
-        const wrapper = enzymeMount(
-          <GridContainer id="testContainer">
-            <GridItem responsiveSettings={[{ p: 3, maxWidth: "1500px" }]}>
-              1
-            </GridItem>
-            <GridItem responsiveSettings={[{ pl: 3, maxWidth: "1500px" }]}>
-              2
-            </GridItem>
-            <GridItem responsiveSettings={[{ pr: 3, maxWidth: "1500px" }]}>
-              3
-            </GridItem>
-            <GridItem responsiveSettings={[{ pt: 3, maxWidth: "1500px" }]}>
-              4
-            </GridItem>
-            <GridItem responsiveSettings={[{ pb: 3, maxWidth: "1500px" }]}>
-              5
-            </GridItem>
-          </GridContainer>
-        );
+      [...Array(12).keys()].forEach((prop) => {
+        it("then the padding specified in a theme spacing should have been set on the GridItem", () => {
+          const wrapper = enzymeMount(
+            <GridContainer id="testContainer">
+              <GridItem responsiveSettings={[{ p: prop, maxWidth: "1500px" }]}>
+                1
+              </GridItem>
+              <GridItem responsiveSettings={[{ pl: prop, maxWidth: "1500px" }]}>
+                2
+              </GridItem>
+              <GridItem responsiveSettings={[{ pr: prop, maxWidth: "1500px" }]}>
+                3
+              </GridItem>
+              <GridItem responsiveSettings={[{ pt: prop, maxWidth: "1500px" }]}>
+                4
+              </GridItem>
+              <GridItem responsiveSettings={[{ pb: prop, maxWidth: "1500px" }]}>
+                5
+              </GridItem>
+            </GridContainer>
+          );
 
-        expect(
-          assertStyleMatch(
-            { padding: `${baseTheme.space[3]}px` },
-            wrapper.find(GridItem).first(),
-            { media: "screen and (max-width:1500px)" }
-          )
-        );
-        expect(
-          assertStyleMatch(
-            { paddingLeft: `${baseTheme.space[3]}px` },
-            wrapper.find(GridItem).at(1),
-            { media: "screen and (max-width:1500px)" }
-          )
-        );
-        expect(
-          assertStyleMatch(
-            { paddingRight: `${baseTheme.space[3]}px` },
-            wrapper.find(GridItem).at(2),
-            { media: "screen and (max-width:1500px)" }
-          )
-        );
-        expect(
-          assertStyleMatch(
-            { paddingTop: `${baseTheme.space[3]}px` },
-            wrapper.find(GridItem).at(3),
-            { media: "screen and (max-width:1500px)" }
-          )
-        );
-        expect(
-          assertStyleMatch(
-            { paddingBottom: `${baseTheme.space[3]}px` },
-            wrapper.find(GridItem).at(4),
-            { media: "screen and (max-width:1500px)" }
-          )
-        );
+          expect(
+            assertStyleMatch(
+              { padding: getSpacing(prop) },
+              wrapper.find(GridItem).first(),
+              { media: "screen and (max-width:1500px)" }
+            )
+          );
+          expect(
+            assertStyleMatch(
+              { paddingLeft: getSpacing(prop) },
+              wrapper.find(GridItem).at(1),
+              { media: "screen and (max-width:1500px)" }
+            )
+          );
+          expect(
+            assertStyleMatch(
+              { paddingRight: getSpacing(prop) },
+              wrapper.find(GridItem).at(2),
+              { media: "screen and (max-width:1500px)" }
+            )
+          );
+          expect(
+            assertStyleMatch(
+              { paddingTop: getSpacing(prop) },
+              wrapper.find(GridItem).at(3),
+              { media: "screen and (max-width:1500px)" }
+            )
+          );
+          expect(
+            assertStyleMatch(
+              { paddingBottom: getSpacing(prop) },
+              wrapper.find(GridItem).at(4),
+              { media: "screen and (max-width:1500px)" }
+            )
+          );
+        });
       });
     });
+
+    describe.each(gridItemProps)(
+      "when a custom %s is specified using that styled system prop",
+      (propName, propValue) => {
+        it(`then the ${propName} attribute should have been set on the GridItem`, () => {
+          const wrapper = enzymeMount(
+            <GridContainer id="testContainer">
+              <GridItem {...{ [propName]: propValue }}>1</GridItem>
+              <GridItem>2</GridItem>
+              <GridItem>3</GridItem>
+            </GridContainer>
+          );
+
+          expect(
+            assertStyleMatch(
+              { [propName]: propValue },
+              wrapper.find(GridItem).at(0)
+            )
+          );
+        });
+      }
+    );
   });
 });

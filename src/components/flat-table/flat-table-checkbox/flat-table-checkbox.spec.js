@@ -30,6 +30,41 @@ const render = ({ asTh, ...rest }) => {
 };
 
 describe("FlatTableCheckbox", () => {
+  describe("when a data prop is added", () => {
+    it("should be added to the root element", () => {
+      const wrapper = render({ "data-role": "test" });
+
+      expect(
+        wrapper.find(StyledFlatTableCheckbox).props()["data-role"]
+      ).toEqual("test");
+    });
+  });
+  describe("should stop the event propagation", () => {
+    it("when is clicked", () => {
+      const stopPropagation = jest.fn();
+      const wrapper = render({ onClick: () => {} });
+      wrapper.find(Checkbox).props().onClick({ stopPropagation });
+      expect(stopPropagation).toHaveBeenCalledTimes(1);
+    });
+
+    it("when key is pressed", () => {
+      const stopPropagation = jest.fn();
+      const wrapper = render({});
+      wrapper.find(Checkbox).props().onKeyDown({ stopPropagation });
+      expect(stopPropagation).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("onClick handler", () => {
+    it("does nothing if onClick is not provided - coverage filler", () => {
+      const wrapper = render({});
+      wrapper
+        .find(Checkbox)
+        .props()
+        .onClick({ stopPropagation: () => {} });
+    });
+  });
+
   describe('the "as" prop is not passed in', () => {
     it('renders to match the expected styling for a "td" element', () => {
       expect(render({}).find("td").exists()).toBeTruthy();

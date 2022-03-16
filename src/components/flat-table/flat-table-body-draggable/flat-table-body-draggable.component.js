@@ -27,7 +27,7 @@ DropTarget.propTypes = {
   getOrder: PropTypes.func,
 };
 
-const FlatTableBodyDraggable = ({ children, getOrder }) => {
+const FlatTableBodyDraggable = ({ children, getOrder, ...rest }) => {
   const [draggableItems, setDraggableItems] = useState(
     React.Children.toArray(children)
   );
@@ -54,8 +54,9 @@ const FlatTableBodyDraggable = ({ children, getOrder }) => {
 
   const moveItem = (id, atIndex) => {
     const { draggableItem, index } = findItem(id);
-    const copyOfDraggableItems = [...draggableItems];
+    if (!draggableItem) return;
 
+    const copyOfDraggableItems = [...draggableItems];
     copyOfDraggableItems.splice(index, 1);
     copyOfDraggableItems.splice(atIndex, 0, draggableItem);
     setDraggableItems(copyOfDraggableItems);
@@ -75,7 +76,7 @@ const FlatTableBodyDraggable = ({ children, getOrder }) => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <DropTarget getOrder={getItemsId}>
+      <DropTarget getOrder={getItemsId} {...rest}>
         {draggableItems.map((item) =>
           React.cloneElement(
             item,

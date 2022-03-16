@@ -5,11 +5,10 @@ import { mount } from "enzyme";
 import { SimpleColor, SimpleColorPicker } from ".";
 import { StyledColorOptions } from "./simple-color-picker.style";
 import { StyledLegend } from "../../__internal__/fieldset/fieldset.style";
-import baseTheme from "../../style/themes/base";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-  expectError,
+  expectConsoleOutput as expectError,
 } from "../../__spec_helper__/test-utils";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import Fieldset from "../../__internal__/fieldset";
@@ -19,6 +18,12 @@ const colorValues = [
   { color: "#0073C1" },
   { color: "#582C83" },
 ];
+
+const validationVariants = {
+  error: "var(--colorsSemanticNegative500)",
+  info: "var(--colorsSemanticInfo500)",
+  warning: "var(--colorsSemanticCaution500)",
+};
 
 const name = "test-group";
 
@@ -546,10 +551,9 @@ describe("SimpleColorPicker", () => {
 
       it("renders proper outline", () => {
         const wrapper = render({ [type]: "Message" });
-        const outlineWidth = type === "error" ? 2 : 1;
         assertStyleMatch(
           {
-            outline: `${outlineWidth}px solid ${baseTheme.colors[type]}`,
+            outline: `var(--borderWidth200) solid ${validationVariants[type]}`,
           },
           wrapper.find(StyledColorOptions)
         );
@@ -564,10 +568,9 @@ describe("SimpleColorPicker", () => {
 
       it("renders proper outline", () => {
         const wrapper = render({ [type]: true });
-        const outlineWidth = type === "error" ? 2 : 1;
         assertStyleMatch(
           {
-            outline: `${outlineWidth}px solid ${baseTheme.colors[type]}`,
+            outline: `var(--borderWidth200) solid ${validationVariants[type]}`,
           },
           wrapper.find(StyledColorOptions)
         );

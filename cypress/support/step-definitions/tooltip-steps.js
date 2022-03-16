@@ -9,7 +9,7 @@ Then("tooltipPosition is set to {string}", (tooltipPosition) => {
 });
 
 Then("tooltip text is set to {word}", (text) => {
-  tooltipPreview().children().should("have.text", text);
+  tooltipPreview().should("have.text", text);
 });
 
 Then(

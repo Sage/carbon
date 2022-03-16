@@ -1,10 +1,9 @@
 import styled, { css } from "styled-components";
-import baseTheme from "../../../style/themes/base";
 import { ButtonWithForwardRef } from "../../button";
 import { StyledButton } from "../picklist-item/picklist-item.style";
 
 const StyledGroupWrapper = styled.li`
-  ${({ highlighted, type, theme }) => css`
+  ${({ highlighted, type }) => css`
     &:not(:first-of-type) {
       margin-top: 16px;
     }
@@ -12,10 +11,11 @@ const StyledGroupWrapper = styled.li`
     ${highlighted &&
     css`
       ${StyledButton} {
-        background: ${type === "add"
-          ? theme.colors.secondary
-          : theme.colors.destructive.hover};
-      }
+        background: ${
+          type === "add"
+            ? "var(--colorsActionMajor600)"
+            : "var(--colorsSemanticNegative600)"
+        }
     `}
   `}
 `;
@@ -32,7 +32,7 @@ const StyledPicklistGroup = styled.li`
 `;
 
 const StyledGroupButton = styled(ButtonWithForwardRef)`
-  ${({ iconType, theme }) => css`
+  ${({ iconType }) => css`
     padding: 0;
     margin-right: 0;
     margin-left: auto;
@@ -42,17 +42,15 @@ const StyledGroupButton = styled(ButtonWithForwardRef)`
 
     &:focus {
       > span {
-        color: ${theme.colors.white};
+        color: var(--colorsActionMajorYang100);
       }
-      background: ${iconType === "add"
-        ? theme.colors.secondary
-        : theme.colors.destructive.hover};
-    }
+      background: ${
+        iconType === "add"
+          ? "var(--colorsActionMajor600)"
+          : "var(--colorsSemanticNegative600)"
+      }
   `}
 `;
-
-StyledGroupWrapper.defaultProps = { theme: baseTheme };
-StyledGroupButton.defaultProps = { theme: baseTheme };
 
 export {
   StyledGroupWrapper,

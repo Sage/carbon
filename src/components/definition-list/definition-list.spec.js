@@ -192,15 +192,15 @@ describe("DefinitionList", () => {
         {
           fontSize: "14px",
           fontWeight: "700",
-          color: "rgba(0,0,0,0.9)",
+          color: "var(--colorsUtilityYin090)",
         },
         wrapper
       );
 
       assertStyleMatch(
         {
-          paddingRight: "24px",
-          marginBottom: "16px",
+          paddingRight: "var(--spacing300)",
+          marginBottom: "var(--spacing200)",
         },
         wrapper.find(StyledDt)
       );
@@ -212,8 +212,8 @@ describe("DefinitionList", () => {
         {
           fontSize: "14px",
           fontWeight: "700",
-          color: "rgba(0,0,0,0.65)",
-          marginBottom: "16px",
+          color: "var(--colorsUtilityYin065)",
+          marginBottom: "var(--spacing200)",
           marginLeft: "0px",
         },
         wrapper
@@ -236,9 +236,9 @@ describe("DefinitionList", () => {
         {
           fontSize: "14px",
           fontWeight: "700",
-          paddingRight: "16px",
-          color: "rgba(0,0,0,0.9)",
-          marginBottom: "8px",
+          paddingRight: "var(--spacing200)",
+          color: "var(--colorsUtilityYin090)",
+          marginBottom: "var(--spacing100)",
         },
         wrapper
       );
@@ -250,8 +250,8 @@ describe("DefinitionList", () => {
         {
           fontSize: "14px",
           fontWeight: "700",
-          color: "rgba(0,0,0,0.65)",
-          marginBottom: "8px",
+          color: "var(--colorsUtilityYin065)",
+          marginBottom: "var(--spacing100)",
           marginLeft: "0px",
         },
         wrapper
@@ -316,8 +316,8 @@ describe("DefinitionList", () => {
 
       assertStyleMatch(
         {
-          marginBottom: "24px",
-          paddingRight: "40px",
+          marginBottom: "var(--spacing300)",
+          paddingRight: "var(--spacing500)",
         },
         wrapper.find(StyledDt)
       );

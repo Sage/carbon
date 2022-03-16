@@ -1,8 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import { ThemeProvider } from "styled-components";
 import { assertStyleMatch } from "../../../../../__spec_helper__/test-utils";
-import mintTheme from "../../../../../style/themes/mint";
 import ToolbarButton from "./toolbar-button.component";
 import StyledIcon from "../../../../icon/icon.style";
 
@@ -11,7 +9,7 @@ const onMouseDown = jest.fn();
 const onMouseOver = jest.fn();
 const onMouseLeave = jest.fn();
 
-const render = (props = {}, theme = mintTheme, renderer = mount) => {
+const render = (props = {}, renderer = mount) => {
   const defaultProps = {
     onKeyDown,
     onMouseDown,
@@ -20,11 +18,9 @@ const render = (props = {}, theme = mintTheme, renderer = mount) => {
     ariaLabel: "foo",
   };
   return renderer(
-    <ThemeProvider theme={theme}>
-      <ToolbarButton {...defaultProps} {...props}>
-        foo
-      </ToolbarButton>
-    </ThemeProvider>
+    <ToolbarButton {...defaultProps} {...props}>
+      foo
+    </ToolbarButton>
   );
 };
 
@@ -47,7 +43,7 @@ describe("ToolbarButton", () => {
 
       assertStyleMatch(
         {
-          backgroundColor: mintTheme.editor.button.hover,
+          backgroundColor: "var(--colorsActionMinor200)",
         },
         wrapper,
         { modifier: ":hover" }
@@ -55,7 +51,7 @@ describe("ToolbarButton", () => {
 
       assertStyleMatch(
         {
-          outline: `2px solid ${mintTheme.colors.focus}`,
+          outline: "2px solid var(--colorsSemanticFocus500)",
           outlineOffset: "-2px",
         },
         wrapper,
@@ -74,7 +70,7 @@ describe("ToolbarButton", () => {
     it("matches the expected `background-color` when `activated` prop is truthy", () => {
       assertStyleMatch(
         {
-          backgroundColor: mintTheme.editor.button.hover,
+          backgroundColor: "var(--colorsActionMinor200)",
         },
         render({ activated: true })
       );

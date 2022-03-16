@@ -93,4 +93,15 @@ describe.each([
       }
     );
   });
+
+  it("uses design token", () => {
+    assert(
+      {
+        [prop]: "--colorsYang100",
+      },
+      {
+        [css]: "var(--colorsYang100)",
+      }
+    );
+  });
 });

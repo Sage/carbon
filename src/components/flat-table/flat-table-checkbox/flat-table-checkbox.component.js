@@ -13,6 +13,7 @@ const FlatTableCheckbox = ({
   cellIndex,
   reportCellWidth,
   ariaLabelledBy,
+  ...rest
 }) => {
   const ref = useRef(null);
 
@@ -24,6 +25,15 @@ const FlatTableCheckbox = ({
 
   const dataElement = `flat-table-checkbox-${as === "td" ? "cell" : "header"}`;
 
+  const handleClick = (event) => {
+    event.stopPropagation();
+    if (onClick) onClick(event);
+  };
+
+  const handleKeyDown = (event) => {
+    event.stopPropagation();
+  };
+
   return (
     <StyledFlatTableCheckbox
       ref={ref}
@@ -31,7 +41,7 @@ const FlatTableCheckbox = ({
       leftPosition={leftPosition || 0}
       data-element={dataElement}
       as={as}
-      onClick={onClick}
+      {...rest}
     >
       {selectable && (
         <Checkbox
@@ -40,6 +50,8 @@ const FlatTableCheckbox = ({
           name="flat-table-checkbox"
           mb={0}
           ariaLabelledBy={ariaLabelledBy}
+          onClick={handleClick}
+          onKeyDown={handleKeyDown}
         />
       )}
     </StyledFlatTableCheckbox>

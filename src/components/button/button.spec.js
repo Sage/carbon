@@ -4,12 +4,13 @@ import { act } from "react-dom/test-utils";
 import TestRenderer from "react-test-renderer";
 
 import Icon from "components/icon";
+import { space } from "style/themes/base/base-theme.config";
 import Button from "./button.component";
 import StyledButton from "./button.style";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
-  expectError,
+  expectConsoleOutput,
 } from "../../__spec_helper__/test-utils";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledIcon from "../icon/icon.style";
@@ -48,6 +49,17 @@ describe("Button", () => {
       wrapper.update();
 
       expect(ref).toHaveBeenCalledWith(wrapper.find(StyledButton).getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: undefined };
+      const wrapper = mount(<Button forwardRef={ref}>Button</Button>);
+
+      wrapper.update();
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
     });
   });
 
@@ -213,7 +225,7 @@ describe("Button", () => {
     it("throws an error", () => {
       const errorMessage =
         "Warning: Failed prop type: Either prop `iconType` must be defined or this node must have children.";
-      const assert = expectError(errorMessage);
+      const assert = expectConsoleOutput(errorMessage);
 
       render({}, mount);
       assert();
@@ -492,7 +504,7 @@ describe("Button", () => {
   describe("A primary button", () => {
     const primary = render({
       name: "Primary Button",
-      as: "primary",
+      buttonType: "primary",
       onClick: jest.fn(),
       children: "Primary",
     }).dive();
@@ -740,7 +752,7 @@ describe("Button", () => {
 
   describe("overriding size based padding", () => {
     const paddingValues = Array.from({ length: 9 }).map((_, px) => [
-      px === 0 ? String(px) : `${px * 8}px`,
+      space[px],
       px,
     ]);
     it.each(paddingValues)(
@@ -756,5 +768,16 @@ describe("Button", () => {
         );
       }
     );
+  });
+
+  describe("when the `as` prop is used", () => {
+    it("fires a prop deprecation warning to the console", () => {
+      const message =
+        "[Deprecation] The `as` prop is deprecated and will soon be removed. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop";
+      const assert = expectConsoleOutput(message, "warn");
+
+      mount(<Button as="primary">foo</Button>);
+      assert();
+    });
   });
 });

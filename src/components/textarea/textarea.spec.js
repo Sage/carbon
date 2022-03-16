@@ -7,7 +7,6 @@ import {
 } from "../../__spec_helper__/test-utils";
 import CharacterCount from "../../__internal__/character-count";
 import Textarea from ".";
-import baseTheme from "../../style/themes/base";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
 import { Input } from "../../__internal__/input";
 import FormField from "../../__internal__/form-field";
@@ -302,7 +301,7 @@ describe("Textarea", () => {
           });
           assertStyleMatch(
             {
-              color: baseTheme.colors.error,
+              color: "var(--colorsSemanticNegative500)",
             },
             wrapper.find(CharacterCount)
           );
