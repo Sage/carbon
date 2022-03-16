@@ -110,6 +110,7 @@ const Switch = ({
     labelHelp,
     value,
     type: "checkbox",
+    role: "switch",
     reverse: !reverse, // switched to preserve backward compatibility
     validationOnLabel: shouldValidationBeOnLabel && !disabled,
     ...rest,
