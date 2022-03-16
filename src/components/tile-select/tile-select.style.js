@@ -7,8 +7,7 @@ import StyledIcon from "../icon/icon.style";
 import { baseTheme } from "../../style/themes";
 
 const StyledTitle = styled.h3`
-  font-size: 16px;
-  font-weight: 900;
+  font: var(--typographyCardSelectTitleM);
   margin: 0;
   margin-right: 16px;
   margin-bottom: 8px;
@@ -16,8 +15,7 @@ const StyledTitle = styled.h3`
 `;
 
 const StyledSubtitle = styled.h4`
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typographyCardSelectSubtitleM);
   margin: 0;
   margin-right: 16px;
   margin-bottom: 8px;
@@ -32,7 +30,7 @@ const StyledAdornment = styled.div`
 
 const StyledDescription = styled.p`
   color: var(--colorsActionMinorYin055);
-  font-size: 14px;
+  font: var(--typographyCardSelectParagraphM);
   margin: 0;
 `;
 

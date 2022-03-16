@@ -115,10 +115,16 @@ describe("TileSelect", () => {
     expect(mockCb).toHaveBeenCalled();
   });
 
-  it("renders title element as h3 when title prop is passed as string", () => {
+  it("renders title element as h3 with correct font when title prop is passed as string", () => {
     render({ title: "Title" });
     expect(wrapper.find(StyledTitleContainer).find("h3").exists()).toBeTruthy();
     expect(wrapper.find(StyledTitle).prop("children")).toBe("Title");
+    assertStyleMatch(
+      {
+        font: "var(--typographyCardSelectTitleM)",
+      },
+      wrapper.find("div[data-component='tile-select']").find("h3")
+    );
   });
 
   it("renders title element as a div when title prop is passed as node", () => {
@@ -130,10 +136,16 @@ describe("TileSelect", () => {
     );
   });
 
-  it("renders subtitle element as h4 when subtitle prop is passed as string", () => {
+  it("renders subtitle element as h4 with correct font when subtitle prop is passed as string", () => {
     render({ subtitle: "Subtitle" });
     expect(wrapper.find(StyledTitleContainer).find("h4").exists()).toBeTruthy();
     expect(wrapper.find(StyledSubtitle).prop("children")).toBe("Subtitle");
+    assertStyleMatch(
+      {
+        font: "var(--typographyCardSelectSubtitleM)",
+      },
+      wrapper.find("div[data-component='tile-select']").find("h4")
+    );
   });
 
   it("renders subtitle element as a div when subtitle prop is passed as node", () => {
@@ -151,11 +163,17 @@ describe("TileSelect", () => {
     expect(wrapper.find(StyledAdornment).find(MyComp).exists()).toBe(true);
   });
 
-  it("renders description element as p when description prop is passed as string", () => {
+  it("renders description element as p with correct font when description prop is passed as string", () => {
     render({ description: "description" });
     expect(wrapper.find(StyledDescription).prop("as")).toBe(undefined);
     expect(wrapper.find(StyledDescription).prop("children")).toBe(
       "description"
+    );
+    assertStyleMatch(
+      {
+        font: "var(--typographyCardSelectParagraphM)",
+      },
+      wrapper.find("div[data-component='tile-select']").find("p")
     );
   });
 
