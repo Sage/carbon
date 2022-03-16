@@ -1,3 +1,10 @@
+## [104.55.0](https://github.com/Sage/carbon/compare/v104.54.4...v104.55.0) (2022-03-16)
+
+
+### Features
+
+* **modal-manager:** enable global management of modal lists ([7d640a1](https://github.com/Sage/carbon/commit/7d640a11b948580108826c635cf0c4335aa00697)), closes [#4170](https://github.com/Sage/carbon/issues/4170)
+
 ### [104.54.4](https://github.com/Sage/carbon/compare/v104.54.3...v104.54.4) (2022-03-16)
 
 
