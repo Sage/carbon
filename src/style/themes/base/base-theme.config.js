@@ -39,9 +39,11 @@ export default (palette) => {
       focus: palette.gold,
       info: palette.productBlueShade(3),
       warning: palette.carrotOrange,
+      warningText: palette.carrotOrangeShade(20),
       destructive: {
         hover: palette.errorRedShade(20),
       },
+      placeholder: palette.blackOpacity(0.55),
     },
 
     disabled: {

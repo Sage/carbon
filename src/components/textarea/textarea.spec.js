@@ -16,6 +16,9 @@ import guid from "../../__internal__/utils/helpers/guid";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
+import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
@@ -410,6 +413,74 @@ describe("componentWillUnmount", () => {
     it("the isRequired prop is passed to the label", () => {
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
+    });
+  });
+
+  describe("new validations", () => {
+    const renderWithNewValidations = ({ error, warning }) =>
+      mount(
+        <CarbonProvider validationRedesignOptIn>
+          <Textarea
+            labelHelp="Example hint text"
+            error={error}
+            warning={warning}
+            labelAlign="left"
+            labelInline
+            labelWidth={100}
+            reverse
+          />
+        </CarbonProvider>
+      );
+
+    describe("label width and align props", () => {
+      it("default to undefined", () => {
+        const wrapper = renderWithNewValidations({});
+        const { labelAlign, labelInline, reverse, labelWidth } = wrapper
+          .find(FormField)
+          .props();
+
+        expect(labelAlign).toEqual(undefined);
+        expect(labelInline).toEqual(undefined);
+        expect(reverse).toEqual(undefined);
+        expect(labelWidth).toEqual(undefined);
+      });
+    });
+
+    describe("hint/ labelHelp", () => {
+      it("is visible when the prop is passed", () => {
+        const wrapper = renderWithNewValidations({});
+        expect(wrapper.find(StyledHintText).text()).toEqual(
+          "Example hint text"
+        );
+      });
+
+      it("applies the expected styling", () => {
+        const wrapper = renderWithNewValidations({});
+
+        assertStyleMatch(
+          {
+            fontSize: "14px",
+            marginTop: "0px",
+            marginBottom: "8px",
+            color: "var(--colorsUtilityYin055)",
+          },
+          wrapper.find(StyledHintText)
+        );
+      });
+    });
+
+    describe("new validation design", () => {
+      it("error message is visible when the prop is passed", () => {
+        const wrapper = renderWithNewValidations({ error: "error" });
+        expect(wrapper.find(ErrorBorder).exists()).toEqual(true);
+        expect(wrapper.find(StyledValidationMessage).exists()).toEqual(true);
+      });
+
+      it("warning message is visible when the prop is passed", () => {
+        const wrapper = renderWithNewValidations({ warning: "warning" });
+        expect(wrapper.find(ErrorBorder).exists()).toEqual(true);
+        expect(wrapper.find(StyledValidationMessage).exists()).toEqual(true);
+      });
     });
   });
 });
