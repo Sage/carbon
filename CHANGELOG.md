@@ -1,3 +1,10 @@
+### [104.54.4](https://github.com/Sage/carbon/compare/v104.54.3...v104.54.4) (2022-03-16)
+
+
+### Bug Fixes
+
+* **select:** remove incorrect props ([a755a8f](https://github.com/Sage/carbon/commit/a755a8f7ea34ac49ebcb168f71a7f34161ed986c)), closes [#4840](https://github.com/Sage/carbon/issues/4840)
+
 ### [104.54.3](https://github.com/Sage/carbon/compare/v104.54.2...v104.54.3) (2022-03-15)
 
 
