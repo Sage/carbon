@@ -9,8 +9,7 @@ const StyledBadgeWrapper = styled.div`
 `;
 
 const StyledCounter = styled.div`
-  font-weight: 700;
-  font-size: 12px;
+  font: var(--typographyBadgeLabelM);
   margin-top: -1px;
 `;
 

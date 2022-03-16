@@ -1,6 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
+import { assertStyleMatch } from "__spec_helper__/test-utils";
 import Badge from "./badge.component";
 import Button from "../button";
 import { StyledCounter } from "./badge.style";
@@ -21,6 +22,17 @@ describe("Badge", () => {
     const wrapper = mount(renderComponent({ counter: 1 }));
 
     expect(wrapper.find(BADGE).exists()).toBe(true);
+  });
+
+  it("counter renders with correct font", () => {
+    const wrapper = mount(renderComponent({ counter: 1 }));
+
+    assertStyleMatch(
+      {
+        font: "var(--typographyBadgeLabelM)",
+      },
+      wrapper.find("div[data-element='badge-counter']")
+    );
   });
 
   describe("when counter is between 1 and 99", () => {
