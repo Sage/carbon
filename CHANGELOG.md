@@ -1,3 +1,15 @@
+## [104.56.0](https://github.com/Sage/carbon/compare/v104.55.0...v104.56.0) (2022-03-16)
+
+
+### Features
+
+* **hidden-checkable-input:** surface role prop ([8fe6e73](https://github.com/Sage/carbon/commit/8fe6e730db2b3c5b2f07b26b1ec82abe9ffd49d0))
+
+
+### Bug Fixes
+
+* **switch:** ensure the input has the correct role ([3d012a2](https://github.com/Sage/carbon/commit/3d012a253fc2900a621a2373bf82852fdd4f8b53))
+
 ## [104.55.0](https://github.com/Sage/carbon/compare/v104.54.4...v104.55.0) (2022-03-16)
 
 
