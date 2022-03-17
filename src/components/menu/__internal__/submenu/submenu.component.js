@@ -341,6 +341,7 @@ const Submenu = React.forwardRef(
             submenuDirection={submenuDirection}
             variant={variant}
             menuType={menuContext.menuType}
+            role="list"
           >
             {React.Children.map(children, (child, index) => (
               <SubmenuContext.Provider

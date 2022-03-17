@@ -45,6 +45,7 @@ const Menu = ({ menuType = "light", children, ...rest }) => {
       menuType={menuType}
       {...rest}
       ref={ref}
+      role="list"
     >
       {React.Children.map(children, (child, index) => {
         const isFocused = focusedItemIndex === index;
