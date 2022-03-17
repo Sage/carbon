@@ -14,8 +14,8 @@ const getIconColor = (color) => {
       Math.round(g * greenMultiplier) +
       Math.round(b * blueMultiplier)) /
     1000;
-  if (contrast < 128) return "var(--colorsActionMajorYang100)";
-  return "var(--colorsActionMajorYin090)";
+  if (contrast < 128) return "var(--colorsUtilityYang100)";
+  return "var(--colorsUtilityYin090)";
 };
 
 const StyledTickIcon = styled(Icon)`

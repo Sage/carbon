@@ -44,7 +44,7 @@ Array [
 
 .c1 .c12 .c13,
 .c1 .c12 .c14 {
-  color: rgba(0,0,0,0.65);
+  color: var(--colorsUtilityYin065);
   vertical-align: middle;
 }
 
@@ -52,7 +52,7 @@ Array [
 .c1 .c12 .c14:hover,
 .c1 .c12 .c13:focus,
 .c1 .c12 .c14:focus {
-  color: rgba(0,0,0,0.9);
+  color: var(--colorsUtilityYin090);
 }
 
 .c1 .c11 {
@@ -267,7 +267,7 @@ Array [
 
 .c1 .c12 .c13,
 .c1 .c12 .c14 {
-  color: rgba(0,0,0,0.65);
+  color: var(--colorsUtilityYin065);
   vertical-align: middle;
 }
 
@@ -275,7 +275,7 @@ Array [
 .c1 .c12 .c14:hover,
 .c1 .c12 .c13:focus,
 .c1 .c12 .c14:focus {
-  color: rgba(0,0,0,0.9);
+  color: var(--colorsUtilityYin090);
 }
 
 .c1 .c11 {

@@ -8,7 +8,7 @@ export const TooltipProvider = ({
   children,
   tooltipPosition,
   helpAriaLabel,
-  focusable = true,
+  focusable,
   tooltipVisible,
   disabled,
   target,

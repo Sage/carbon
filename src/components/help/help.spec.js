@@ -89,8 +89,6 @@ describe("Help", () => {
       );
       expect(wrapper.find(StyledHelp).prop("role")).toEqual(undefined);
       expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual(undefined);
-      expect(wrapper.find(Icon).prop("role")).toEqual("tooltip");
-      expect(wrapper.find(Icon).prop("ariaLabel")).toEqual("foo");
       wrapper.unmount();
     });
 

@@ -5,12 +5,10 @@ import TranslationKeysTable from "../../../.storybook/utils/translation-keys-tab
 
 import DateRange from ".";
 import I18nProvider from "../i18n-provider";
-import { fr } from "../../locales/date-fns-locales"
+import { fr } from "../../locales/date-fns-locales";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
-<Meta
-  title="Date Range"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Date Range" parameters={{ info: { disable: true } }} />
 
 # Date Range
 
@@ -38,7 +36,10 @@ import DateRange from "carbon-react/lib/components/date-range";
     {() => {
       const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
       const handleChange = ({ target }) => {
-        const newValue = [target.value[0].formattedValue, target.value[1].formattedValue];
+        const newValue = [
+          target.value[0].formattedValue,
+          target.value[1].formattedValue,
+        ];
         setState(newValue);
       };
       return (
@@ -60,7 +61,10 @@ import DateRange from "carbon-react/lib/components/date-range";
     {() => {
       const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
       const handleChange = ({ target }) => {
-        const newValue = [target.value[0].formattedValue, target.value[1].formattedValue];
+        const newValue = [
+          target.value[0].formattedValue,
+          target.value[1].formattedValue,
+        ];
         setState(newValue);
       };
       return (
@@ -93,26 +97,27 @@ For more information check our [Validations](?path=/docs/documentation-validatio
     {() => {
       const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
       const handleChange = ({ target }) => {
-        const newValue = [target.value[0].formattedValue, target.value[1].formattedValue];
+        const newValue = [
+          target.value[0].formattedValue,
+          target.value[1].formattedValue,
+        ];
         setState(newValue);
       };
-      return (
-        [
-          { startError: "Start Error", endError: "End Error" },
-          { startWarning: "Start Warning", endWarning: "End Warning" },
-          { startInfo: "Start Info", endInfo: "End Info" },
-        ].map((validation) => (
-          <DateRange
-            key={`${Object.keys(validation)[0]}-string-component`}
-            startLabel="Start"
-            endLabel="End"
-            onChange={handleChange}
-            value={state}
-            {...validation}
-          />
-        ))
-      )}
-    }
+      return [
+        { startError: "Start Error", endError: "End Error" },
+        { startWarning: "Start Warning", endWarning: "End Warning" },
+        { startInfo: "Start Info", endInfo: "End Info" },
+      ].map((validation) => (
+        <DateRange
+          key={`${Object.keys(validation)[0]}-string-component`}
+          startLabel="Start"
+          endLabel="End"
+          onChange={handleChange}
+          value={state}
+          {...validation}
+        />
+      ));
+    }}
   </Story>
 </Canvas>
 
@@ -126,27 +131,28 @@ It is possible to use the `tooltipPosition` to override the default placement of
     {() => {
       const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
       const handleChange = ({ target }) => {
-        const newValue = [target.value[0].formattedValue, target.value[1].formattedValue];
+        const newValue = [
+          target.value[0].formattedValue,
+          target.value[1].formattedValue,
+        ];
         setState(newValue);
       };
-      return (
-        [
-          { startError: "Start Error", endError: "End Error" },
-          { startWarning: "Start Warning", endWarning: "End Warning" },
-          { startInfo: "Start Info", endInfo: "End Info" },
-        ].map((validation) => (
-          <DateRange
-            key={`${Object.keys(validation)[0]}-string-component`}
-            startLabel="Start"
-            endLabel="End"
-            value={state}
-            onChange={handleChange}
-            {...validation}
-            tooltipPosition="top"
-          />
-        ))
-      )}
-    }
+      return [
+        { startError: "Start Error", endError: "End Error" },
+        { startWarning: "Start Warning", endWarning: "End Warning" },
+        { startInfo: "Start Info", endInfo: "End Info" },
+      ].map((validation) => (
+        <DateRange
+          key={`${Object.keys(validation)[0]}-string-component`}
+          startLabel="Start"
+          endLabel="End"
+          value={state}
+          onChange={handleChange}
+          {...validation}
+          tooltipPosition="top"
+        />
+      ));
+    }}
   </Story>
 </Canvas>
 
@@ -157,27 +163,28 @@ It is possible to use the `tooltipPosition` to override the default placement of
     {() => {
       const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
       const handleChange = ({ target }) => {
-        const newValue = [target.value[0].formattedValue, target.value[1].formattedValue];
+        const newValue = [
+          target.value[0].formattedValue,
+          target.value[1].formattedValue,
+        ];
         setState(newValue);
       };
-      return (
-        [
-          { startError: "Start Error", endError: "End Error" },
-          { startWarning: "Start Warning", endWarning: "End Warning" },
-          { startInfo: "Start Info", endInfo: "End Info" },
-        ].map((validation) => (
-          <DateRange
-            key={`${Object.keys(validation)[0]}-string-label`}
-            startLabel="Start"
-            endLabel="End"
-            value={state}
-            onChange={handleChange}
-            validationOnLabel
-            {...validation}
-          />
-        ))
-      )}
-    }
+      return [
+        { startError: "Start Error", endError: "End Error" },
+        { startWarning: "Start Warning", endWarning: "End Warning" },
+        { startInfo: "Start Info", endInfo: "End Info" },
+      ].map((validation) => (
+        <DateRange
+          key={`${Object.keys(validation)[0]}-string-label`}
+          startLabel="Start"
+          endLabel="End"
+          value={state}
+          onChange={handleChange}
+          validationOnLabel
+          {...validation}
+        />
+      ));
+    }}
   </Story>
 </Canvas>
 
@@ -191,28 +198,64 @@ It is possible to use the `tooltipPosition` to override the default placement of
     {() => {
       const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
       const handleChange = ({ target }) => {
-        const newValue = [target.value[0].formattedValue, target.value[1].formattedValue];
+        const newValue = [
+          target.value[0].formattedValue,
+          target.value[1].formattedValue,
+        ];
+        setState(newValue);
+      };
+      return [
+        { startError: "Start Error", endError: "End Error" },
+        { startWarning: "Start Warning", endWarning: "End Warning" },
+        { startInfo: "Start Info", endInfo: "End Info" },
+      ].map((validation) => (
+        <DateRange
+          key={`${Object.keys(validation)[0]}-string-label`}
+          startLabel="Start"
+          endLabel="End"
+          value={state}
+          onChange={handleChange}
+          validationOnLabel
+          {...validation}
+          tooltipPosition="top"
+        />
+      ));
+    }}
+  </Story>
+</Canvas>
+
+#### New designs validation
+
+<Canvas>
+  <Story name="validations - string - new design">
+    {() => {
+      const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
+      const handleChange = ({ target }) => {
+        const newValue = [
+          target.value[0].formattedValue,
+          target.value[1].formattedValue,
+        ];
         setState(newValue);
       };
       return (
-        [
-          { startError: "Start Error", endError: "End Error" },
-          { startWarning: "Start Warning", endWarning: "End Warning" },
-          { startInfo: "Start Info", endInfo: "End Info" },
-        ].map((validation) => (
-          <DateRange
-            key={`${Object.keys(validation)[0]}-string-label`}
-            startLabel="Start"
-            endLabel="End"
-            value={state}
-            onChange={handleChange}
-            validationOnLabel
-            {...validation}
-            tooltipPosition="top"
-          />
-        ))
-      )}
-    }
+        <CarbonProvider validationRedesignOptIn>
+          {[
+            { startError: "Start Error", endError: "End Error" },
+            { startWarning: "Start Warning", endWarning: "End Warning" },
+          ].map((validation) => (
+            <DateRange
+              key={`${Object.keys(validation)[0]}-string-component`}
+              startLabel="Start"
+              endLabel="End"
+              onChange={handleChange}
+              value={state}
+              {...validation}
+              m={4}
+            />
+          ))}
+        </CarbonProvider>
+      );
+    }}
   </Story>
 </Canvas>
 
@@ -223,26 +266,27 @@ It is possible to use the `tooltipPosition` to override the default placement of
     {() => {
       const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
       const handleChange = ({ target }) => {
-        const newValue = [target.value[0].formattedValue, target.value[1].formattedValue];
+        const newValue = [
+          target.value[0].formattedValue,
+          target.value[1].formattedValue,
+        ];
         setState(newValue);
       };
-      return (
-        [
-          { startError: true, endError: true },
-          { startWarning: true, endWarning: true },
-          { startInfo: true, endInfo: true },
-        ].map((validation) => (
-          <DateRange
-            key={`${Object.keys(validation)[0]}-boolean-component`}
-            startLabel="Start"
-            endLabel="End"
-            value={state}
-            onChange={handleChange}
-            {...validation}
-          />
-        ))
-      )}
-    }
+      return [
+        { startError: true, endError: true },
+        { startWarning: true, endWarning: true },
+        { startInfo: true, endInfo: true },
+      ].map((validation) => (
+        <DateRange
+          key={`${Object.keys(validation)[0]}-boolean-component`}
+          startLabel="Start"
+          endLabel="End"
+          value={state}
+          onChange={handleChange}
+          {...validation}
+        />
+      ));
+    }}
   </Story>
 </Canvas>
 
@@ -255,7 +299,10 @@ You can pass prop `allowEmptyValue` to start and end `DateInput` using `startDat
     {() => {
       const [state, setState] = useState(["", ""]);
       const handleChange = ({ target }) => {
-        const newValue = [target.value[0].formattedValue, target.value[1].formattedValue];
+        const newValue = [
+          target.value[0].formattedValue,
+          target.value[1].formattedValue,
+        ];
         setState(newValue);
       };
       return (
@@ -271,27 +318,38 @@ You can pass prop `allowEmptyValue` to start and end `DateInput` using `startDat
           }}
           onChange={handleChange}
         />
-      )}
-    }
+      );
+    }}
   </Story>
 </Canvas>
 
 ### Locale override
 
-The examples below illustrates how to override the locale passed into the DateRange component. In this example it has been set up for 
+The examples below illustrates how to override the locale passed into the DateRange component. In this example it has been set up for
 the French locale. Required locales can be imported like so `import { fr } from 'carbon-react/lib/locales/date-fns-locales';`
 
 <Canvas>
-  <Story name="locale override - example implementation" parameters={{ chromatic: { disable: true } }}>
+  <Story
+    name="locale override - example implementation"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
       const handleChange = ({ target }) => {
-        const newValue = [target.value[0].formattedValue, target.value[1].formattedValue];
+        const newValue = [
+          target.value[0].formattedValue,
+          target.value[1].formattedValue,
+        ];
         setState(newValue);
       };
       return (
         <div>
-          <I18nProvider locale={{locale: () => "fr-FR", date: { dateFnsLocale: () => fr }}}>
+          <I18nProvider
+            locale={{
+              locale: () => "fr-FR",
+              date: { dateFnsLocale: () => fr },
+            }}
+          >
             <DateRange
               startLabel="Start"
               endLabel="End"
@@ -300,8 +358,8 @@ the French locale. Required locales can be imported like so `import { fr } from 
             />
           </I18nProvider>
         </div>
-      )}
-    }
+      );
+    }}
   </Story>
 </Canvas>
 

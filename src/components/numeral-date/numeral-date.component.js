@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import invariant from "invariant";
@@ -7,11 +7,15 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import Events from "../../__internal__/utils/helpers/events";
 import { StyledNumeralDate, StyledDateField } from "./numeral-date.style";
 import Textbox from "../textbox";
+import { StyledHintText } from "../textbox/textbox.style";
+import ValidationMessage from "../../__internal__/validation-message";
 import guid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import FormField from "../../__internal__/form-field";
 import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import NumeralDateContext from "./numeral-date-context";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -71,6 +75,8 @@ const NumeralDate = ({
   ...rest
 }) => {
   const l = useLocale();
+  const { validationRedesignOptIn } = useContext(NewValidationContext);
+
   const { current: uniqueId } = useRef(id || guid());
   const isControlled = useRef(value !== undefined);
   const initialValue = isControlled.current ? value : defaultValue;
@@ -193,8 +199,18 @@ const NumeralDate = ({
           fieldHelp={fieldHelp}
           adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
           isRequired={required}
+          validationRedesignOptIn={validationRedesignOptIn}
           {...filterStyledSystemMarginProps(rest)}
         >
+          {validationRedesignOptIn && labelHelp && (
+            <StyledHintText>{labelHelp}</StyledHintText>
+          )}
+          {validationRedesignOptIn && (
+            <ValidationMessage
+              error={internalError}
+              warning={internalWarning}
+            />
+          )}
           <StyledNumeralDate
             name={name}
             onKeyPress={onKeyPress}
@@ -209,38 +225,44 @@ const NumeralDate = ({
               const hasValidationIcon = isStringValidation && validation.length;
 
               return (
-                <StyledDateField
+                <NumeralDateContext.Provider
+                  value={{ disableErrorBorder: index !== 0 }}
                   key={datePart}
-                  isYearInput={datePart.length === 4}
-                  isMiddle={isMiddle}
-                  isEnd={isEnd}
-                  hasValidationIcon={hasValidationIcon}
                 >
-                  <Textbox
-                    {...(index === 0 && { id: uniqueId })}
-                    disabled={disabled}
-                    readOnly={readOnly}
-                    placeholder={datePart}
-                    value={dateValue[datePart]}
-                    onChange={(e) => handleChange(e, datePart)}
-                    inputRef={(ref) => {
-                      refs.current[index] = ref;
-                    }}
-                    onBlur={() => handleBlur(datePart)}
-                    error={!!internalError}
-                    warning={!!internalWarning}
-                    info={!!info}
-                    {...(required && { required })}
-                    {...(isEnd &&
-                      !validationOnLabel && {
-                        error: internalError,
-                        warning: internalWarning,
-                        info,
-                      })}
-                    size={size}
-                    tooltipPosition={tooltipPosition}
-                  />
-                </StyledDateField>
+                  <StyledDateField
+                    key={datePart}
+                    isYearInput={datePart.length === 4}
+                    isMiddle={isMiddle}
+                    isEnd={isEnd}
+                    hasValidationIcon={hasValidationIcon}
+                  >
+                    <Textbox
+                      {...(index === 0 && { id: uniqueId })}
+                      disabled={disabled}
+                      readOnly={readOnly}
+                      placeholder={datePart}
+                      value={dateValue[datePart]}
+                      onChange={(e) => handleChange(e, datePart)}
+                      inputRef={(ref) => {
+                        refs.current[index] = ref;
+                      }}
+                      onBlur={() => handleBlur(datePart)}
+                      error={!!internalError}
+                      warning={!!internalWarning}
+                      info={!!info}
+                      {...(required && { required })}
+                      {...(isEnd &&
+                        !validationRedesignOptIn &&
+                        !validationOnLabel && {
+                          error: internalError,
+                          warning: internalWarning,
+                          info,
+                        })}
+                      size={size}
+                      tooltipPosition={tooltipPosition}
+                    />
+                  </StyledDateField>
+                </NumeralDateContext.Provider>
               );
             })}
           </StyledNumeralDate>

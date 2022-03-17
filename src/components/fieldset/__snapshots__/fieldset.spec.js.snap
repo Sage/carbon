@@ -1,16 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Fieldset renders correctly 1`] = `
-<styled.fieldset
-  data-component="fieldset"
-  m={0}
-  theme="[ theme object ]"
+<ContextProvider
+  value={
+    Object {
+      "validationRedesignOptIn": false,
+    }
+  }
 >
-  <styled.div
-    data-component="fieldset-style"
-    inline={false}
+  <styled.fieldset
+    data-component="fieldset"
+    m={0}
+    theme="[ theme object ]"
   >
-    <Textbox />
-  </styled.div>
-</styled.fieldset>
+    <styled.div
+      data-component="fieldset-style"
+      inline={false}
+    >
+      <Textbox />
+    </styled.div>
+  </styled.fieldset>
+</ContextProvider>
 `;

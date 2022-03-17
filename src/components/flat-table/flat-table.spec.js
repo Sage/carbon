@@ -22,6 +22,7 @@ import {
   StyledFlatTable,
   StyledFlatTableWrapper,
   StyledFlatTableFooter,
+  StyledTableContainer,
 } from "./flat-table.style";
 import { DrawerSidebarContext } from "../drawer";
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
@@ -62,6 +63,16 @@ describe("FlatTable", () => {
     expect(wrapper.find(StyledFlatTable).prop("aria-describedby")).toBe(
       customId
     );
+  });
+
+  describe("when a data prop is added", () => {
+    it("should be added to the root element", () => {
+      const wrapper = renderFlatTable({ "data-role": "test" }, mount);
+
+      expect(wrapper.find(StyledFlatTableWrapper).props()["data-role"]).toEqual(
+        "test"
+      );
+    });
   });
 
   describe("when rendered with proper table data", () => {
@@ -565,6 +576,49 @@ describe("FlatTable", () => {
 
   describe("styled system", () => {
     testStyledSystemMargin(RenderComponent);
+  });
+
+  describe("when width prop is set", () => {
+    it("should apply the correct styles to StyledFlatTableWrapper and StyledTableContainer", () => {
+      const wrapper = renderFlatTable({ width: "300px" }, mount);
+
+      assertStyleMatch(
+        {
+          width: "300px",
+        },
+        wrapper.find(StyledFlatTableWrapper)
+      );
+
+      assertStyleMatch(
+        {
+          width: "300px",
+        },
+        wrapper.find(StyledTableContainer)
+      );
+    });
+
+    describe("when overflowX prop is also set", () => {
+      it("should apply the correct styles to StyledFlatTableWrapper and StyledTableContainer", () => {
+        const wrapper = renderFlatTable(
+          { width: "300px", overflowX: "auto" },
+          mount
+        );
+
+        assertStyleMatch(
+          {
+            overflowX: "hidden",
+          },
+          wrapper.find(StyledFlatTableWrapper)
+        );
+
+        assertStyleMatch(
+          {
+            overflowX: "auto",
+          },
+          wrapper.find(StyledTableContainer)
+        );
+      });
+    });
   });
 });
 

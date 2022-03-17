@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 import NumeralDate from ".";
 
@@ -167,6 +168,28 @@ import NumeralDate from "carbon-react/lib/components/numeral-date";
   </Story>
 </Canvas>
 
+#### New designs validation
+
+<Canvas>
+  <Story name="validations - string - new design">
+    <CarbonProvider validationRedesignOptIn>
+      {["error", "warning"].map((validationType) =>
+        ["small", "medium", "large"].map((size) => (
+          <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+            <NumeralDate
+              dateFormat={["dd", "mm", "yyyy"]}
+              label={`${size} - ${validationType}`}
+              {...{ [validationType]: "Message" }}
+              size={size}
+              m={4}
+            />
+          </div>
+        ))
+      )}
+    </CarbonProvider>
+  </Story>
+</Canvas>
+
 ### Internal validation
 
 `NumeralDate` has an optional internal validation mechanism implemented to check if the date partial values are correct.
@@ -263,7 +286,7 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
       dateFormat={["dd", "mm", "yyyy"]}
       label="With label help"
       labelHelp="Label help"
-      helpAriaLabel="Help"
+      helpAriaLabel="Label help"
     />
   </Story>
 </Canvas>
