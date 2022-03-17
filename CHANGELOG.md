@@ -1,3 +1,15 @@
+## [104.58.0](https://github.com/Sage/carbon/compare/v104.57.0...v104.58.0) (2022-03-17)
+
+
+### Features
+
+* **icon:** add id prop ([14cfc46](https://github.com/Sage/carbon/commit/14cfc4678841bc08d40154eff01fae5a0ab00d59))
+
+
+### Bug Fixes
+
+* **validation-icon:** fix accessibility issue ([b8285bc](https://github.com/Sage/carbon/commit/b8285bc48dcc85fcb7f7ecb36bde2d03f8e83671))
+
 ## [104.57.0](https://github.com/Sage/carbon/compare/v104.56.0...v104.57.0) (2022-03-17)
 
 
