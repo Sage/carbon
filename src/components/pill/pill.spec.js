@@ -212,9 +212,7 @@ describe("Pill", () => {
               ).toJSON();
               assertStyleMatch(
                 {
-                  fontSize: "10px",
-                  minHeight: "16px",
-                  lineHeight: "16px",
+                  font: "var(--typographyPillLabelS)",
                   padding: "0 7px",
                 },
                 wrapper
@@ -233,9 +231,7 @@ describe("Pill", () => {
               ).toJSON();
               assertStyleMatch(
                 {
-                  fontSize: "12px",
-                  minHeight: "20px",
-                  lineHeight: "20px",
+                  font: "var(--typographyPillLabelM)",
                   padding: "0 11px",
                 },
                 wrapper
@@ -254,9 +250,7 @@ describe("Pill", () => {
               ).toJSON();
               assertStyleMatch(
                 {
-                  fontSize: "14px",
-                  minHeight: "24px",
-                  lineHeight: "24px",
+                  font: "var(--typographyPillLabelL)",
                   padding: "0 15px",
                 },
                 wrapper
@@ -275,9 +269,7 @@ describe("Pill", () => {
               ).toJSON();
               assertStyleMatch(
                 {
-                  fontSize: "16px",
-                  minHeight: "26px",
-                  lineHeight: "26px",
+                  font: "var(--typographyPillLabelXl)",
                   padding: "0 19px",
                 },
                 wrapper
@@ -298,7 +290,6 @@ describe("Pill", () => {
               ).toJSON();
               assertStyleMatch(
                 {
-                  fontWeight: "600",
                   position: "relative",
                   padding: "0 11px",
                   textAlign: "center",
@@ -385,9 +376,7 @@ describe("Pill", () => {
                   assertStyleMatch(
                     {
                       padding: "0 24px 0 7px",
-                      minHeight: "16px",
-                      height: "auto",
-                      lineHeight: "16px",
+                      font: "var(--typographyPillLabelS)",
                     },
                     wrapper
                   );
@@ -407,12 +396,10 @@ describe("Pill", () => {
                   ).toJSON();
                   assertStyleMatch(
                     {
-                      fontSize: "12px",
+                      font: "var(--typographyPillLabelM)",
                       padding: "0 32px 0 11px",
                       borderRadius: "12px",
-                      minHeight: "20px",
                       height: "auto",
-                      lineHeight: "20px",
                     },
                     wrapper
                   );
@@ -432,12 +419,10 @@ describe("Pill", () => {
                   ).toJSON();
                   assertStyleMatch(
                     {
-                      fontSize: "14px",
+                      font: "var(--typographyPillLabelL)",
                       padding: "0 36px 0 15px",
                       borderRadius: "13px",
-                      minHeight: "24px",
                       height: "auto",
-                      lineHeight: "24px",
                     },
                     wrapper
                   );
@@ -457,12 +442,10 @@ describe("Pill", () => {
                   ).toJSON();
                   assertStyleMatch(
                     {
-                      fontSize: "16px",
+                      font: "var(--typographyPillLabelXl)",
                       padding: "0 41px 0 19px",
                       borderRadius: "15px",
-                      minHeight: "26px",
                       height: "auto",
-                      lineHeight: "26px",
                     },
                     wrapper
                   );

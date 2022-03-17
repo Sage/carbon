@@ -61,9 +61,7 @@ const PillStyle = styled.span`
 
     return css`
       border-radius: 12px;
-      font-size: 10px;
       letter-spacing: 0.7px;
-      font-weight: 600;
       position: relative;
       display: inline-flex;
       text-align: center;
@@ -86,30 +84,22 @@ const PillStyle = styled.span`
 
       ${size === "S" &&
       css`
-        min-height: 16px;
-        line-height: 16px;
-        font-size: 10px;
+        font: var(--typographyPillLabelS);
       `}
 
       ${size === "M" &&
       css`
-        min-height: 20px;
-        line-height: 20px;
-        font-size: 12px;
+        font: var(--typographyPillLabelM);
       `}
 
       ${size === "L" &&
       css`
-        min-height: 24px;
-        line-height: 24px;
-        font-size: 14px;
+        font: var(--typographyPillLabelL);
       `}
 
       ${size === "XL" &&
       css`
-        min-height: 26px;
-        line-height: 26px;
-        font-size: 16px;
+        font: var(--typographyPillLabelXl);
       `}
 
       ${isDeletable &&
