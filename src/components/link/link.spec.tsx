@@ -272,12 +272,6 @@ describe("Link", () => {
       wrapper = renderLink({ onClick: () => null });
       expect(wrapper.find("button")).toBeTruthy();
     });
-
-    it("should add a role of 'link' to the button", () => {
-      wrapper = renderLink({ onClick: () => null });
-      const anchor = wrapper.find("button").getDOMNode();
-      expect(anchor.getAttribute("role")).toEqual("link");
-    });
   });
 
   describe("aria props", () => {

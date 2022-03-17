@@ -36,6 +36,7 @@ const Submenu = React.forwardRef(
       asPassiveItem,
       onSubmenuOpen,
       onSubmenuClose,
+      onClick,
       ...rest
     },
     ref
@@ -235,6 +236,16 @@ const Submenu = React.forwardRef(
       [closeSubmenu]
     );
 
+    const handleClick = (event) => {
+      if (clickToOpen) {
+        openSubmenu();
+      }
+
+      if (onClick) {
+        onClick(event);
+      }
+    };
+
     useEffect(() => {
       if (characterString !== "") {
         const nextIndex = characterNavigation(
@@ -311,7 +322,6 @@ const Submenu = React.forwardRef(
         data-component="submenu-wrapper"
         onMouseOver={!clickToOpen ? () => openSubmenu() : undefined}
         onMouseLeave={() => closeSubmenu()}
-        onClick={clickToOpen ? () => openSubmenu() : undefined}
         ref={submenuRef}
         isSubmenuOpen={submenuOpen}
       >
@@ -328,9 +338,11 @@ const Submenu = React.forwardRef(
           hasSubmenu
           showDropdownArrow={showDropdownArrow}
           onKeyDown={handleKeyDown}
+          onClick={handleClick}
           clickToOpen={clickToOpen}
           href={href}
           maxWidth={maxWidth}
+          aria-expanded={submenuOpen}
         >
           {title}
         </StyledMenuItemWrapper>
@@ -399,6 +411,8 @@ Submenu.propTypes = {
   onSubmenuOpen: PropTypes.func,
   /** Callback triggered when submenu closes. Only valid with submenu prop */
   onSubmenuClose: PropTypes.func,
+  /** Callback triggered when the top-level menu item is clicked */
+  onClick: PropTypes.func,
 };
 
 export default Submenu;

@@ -137,6 +137,12 @@ describe("Submenu component", () => {
     }
   });
 
+  it("should render the top-level menu item as a button, not a link", () => {
+    wrapper = render("light");
+    expect(wrapper.find("a").exists()).toEqual(false);
+    expect(wrapper.find("button").exists()).toEqual(true);
+  });
+
   describe("when closed", () => {
     it("should not render the submenu", () => {
       wrapper = render("light");
@@ -184,16 +190,32 @@ describe("Submenu component", () => {
     describe("when clicked", () => {
       it("should not open the submenu", () => {
         wrapper = render("light");
-        wrapper.find("a").getDOMNode().click();
+        wrapper.find("button").getDOMNode().click();
         wrapper.update();
 
         expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
       });
+
+      it("should execute the onClick callback", () => {
+        const mockCallback = jest.fn();
+        wrapper = render("light", { onClick: mockCallback });
+        wrapper.find("button").getDOMNode().click();
+        wrapper.update();
+
+        expect(mockCallback).toHaveBeenCalledTimes(1);
+      });
     });
 
     describe("when clickToOpen prop set", () => {
+      let mockCallback;
+
       beforeEach(() => {
-        wrapper = render("light", { clickToOpen: true });
+        mockCallback = jest.fn();
+        wrapper = render("light", { clickToOpen: true, onClick: mockCallback });
+      });
+
+      afterEach(() => {
+        jest.resetAllMocks();
       });
 
       describe("on mouse over", () => {
@@ -209,10 +231,17 @@ describe("Submenu component", () => {
 
       describe("when clicked", () => {
         it("should open the submenu", () => {
-          wrapper.find("a").getDOMNode().click();
+          wrapper.find("button").getDOMNode().click();
           wrapper.update();
 
           expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
+        });
+
+        it("should execute the onClick callback", () => {
+          wrapper.find("button").getDOMNode().click();
+          wrapper.update();
+
+          expect(mockCallback).toHaveBeenCalledTimes(1);
         });
       });
     });
@@ -276,6 +305,11 @@ describe("Submenu component", () => {
         wrapper = render("light", { href: "/path" });
       });
 
+      it("should render the top-level menu item as a link instead of a button", () => {
+        expect(wrapper.find("button").exists()).toEqual(false);
+        expect(wrapper.find("a").exists()).toEqual(true);
+      });
+
       describe("when opening submenu with keyboard", () => {
         it("should leave the focus on the menu item", () => {
           openSubmenu(wrapper);
@@ -325,7 +359,10 @@ describe("Submenu component", () => {
           expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
 
           expect(document.activeElement).toMatchObject(
-            wrapper.find('[data-component="submenu-wrapper"]').find("a").at(1)
+            wrapper
+              .find('[data-component="submenu-wrapper"]')
+              .find("button")
+              .at(1)
           );
         });
 
@@ -355,7 +392,7 @@ describe("Submenu component", () => {
 
       submenuItem = wrapper
         .find('[data-component="submenu-wrapper"]')
-        .find("a");
+        .find("button");
 
       submenuItem.getDOMNode().focus();
       expect(submenuItem).toBeFocused();
@@ -449,7 +486,7 @@ describe("Submenu component", () => {
         wrapper = render("light");
         submenuItem = wrapper
           .find('[data-component="submenu-wrapper"]')
-          .find("a");
+          .find("button");
       });
 
       describe("when enter key pressed", () => {
@@ -659,7 +696,7 @@ describe("Submenu component", () => {
         wrapper = render("light", { onKeyDown: onKeyDownFn });
         submenuItem = wrapper
           .find('[data-component="submenu-wrapper"]')
-          .find("a");
+          .find("button");
         submenuItem.getDOMNode().focus();
 
         act(() => {
@@ -1032,7 +1069,7 @@ describe("Submenu component", () => {
         wrapper = render(menuType, { variant });
         submenuItem = wrapper
           .find('[data-component="submenu-wrapper"]')
-          .find("a");
+          .find("button");
         submenuItem.getDOMNode().focus();
 
         act(() => {

@@ -10,7 +10,10 @@ const events = {
 };
 
 const openSubmenu = (wrapper) => {
-  const menuItem = wrapper.find('[data-component="submenu-wrapper"]').find("a");
+  const menuWrapper = wrapper.find('[data-component="submenu-wrapper"]');
+  const menuItem = menuWrapper.exists("a")
+    ? menuWrapper.find("a")
+    : menuWrapper.find("button");
 
   menuItem.getDOMNode().focus();
 
