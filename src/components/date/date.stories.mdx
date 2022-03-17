@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Meta, Story, Canvas, Props } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import DateInput from ".";
-import { OriginalTextbox } from "../textbox";
+import Textbox from "../textbox";
 import Button from "../button";
 import Box from "../box";
 import I18nProvider from "../i18n-provider";
@@ -605,9 +605,8 @@ the German locale. Required locales can be imported like so `import { de } from 
 
 Due to the `Textbox` component being used internally by the `Date` component the following `Textbox` props are applicable to `Date`
 
-<Props
-  of={OriginalTextbox}
-  exclude={[
+<ArgsTable
+  of={Textbox}  exclude={[
     "value",
     "formattedValue",
     "rawValue",
