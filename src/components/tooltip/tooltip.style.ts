@@ -87,10 +87,11 @@ const StyledTooltip = styled.div<StyledTooltipProps>`
     padding: 8px 12px;
     word-break: break-word;
     white-space: pre-wrap;
-    font-size: ${size === "medium" ? "14px" : "16px"};
-    line-height: 1.5rem;
-    font-weight: 400;
+    font: ${size === "medium"
+      ? "var(--typographyTooltipTextM)"
+      : "var(--typographyTooltipTextL)"};
     background-color: ${tooltipColor(theme, bgColor, type)};
+
     ${tooltipOffset(position, inputSize, isPartOfInput)};
   `}
 `;

@@ -58,14 +58,12 @@ describe("Tooltip", () => {
               maxWidth: "300px",
               zIndex: "6000",
               textAlign: "left",
+              font: "var(--typographyTooltipTextM)",
               color: "var(--colorsSemanticNeutralYang100)",
               display: "inline-block",
               padding: "8px 12px",
               wordBreak: "break-word",
               whiteSpace: "pre-wrap",
-              fontSize: "14px",
-              lineHeight: "1.5rem",
-              fontWeight: "400",
               backgroundColor: "var(--colorsSemanticNeutral500)",
             },
             render().find(StyledTooltipWrapper)
@@ -74,7 +72,7 @@ describe("Tooltip", () => {
 
         it("applies the correct styles when size is 'large'", () => {
           assertStyleMatch(
-            { fontSize: "16px" },
+            { font: "var(--typographyTooltipTextL)" },
             render({ size: "large" }).find(StyledTooltipWrapper)
           );
         });
