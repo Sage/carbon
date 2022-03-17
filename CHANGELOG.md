@@ -1,3 +1,28 @@
+## [104.57.0](https://github.com/Sage/carbon/compare/v104.56.0...v104.57.0) (2022-03-17)
+
+
+### Features
+
+* **carbon-provider:** add support for passing new validation flag via context ([de42a45](https://github.com/Sage/carbon/commit/de42a45fb36e0637d84400010036bc7f639b95e9))
+* **date-range:** add new validation style support ([957037f](https://github.com/Sage/carbon/commit/957037f4a7c1905ea1c807942055d9bbe10534b3))
+* **date:** add new validation style support ([b5fcfc8](https://github.com/Sage/carbon/commit/b5fcfc8156c8a99b9f939c095ee551da71054e1a))
+* **decimal:** add new validation style support ([7929926](https://github.com/Sage/carbon/commit/7929926b8c046091cb0c5d470fa5e1b70769f2a1))
+* **filterable-select:** add new validation style support ([1908bca](https://github.com/Sage/carbon/commit/1908bca40b3e667788a831aa017a5bb1b8913884))
+* **grouped-character:** add new validation style support ([578e308](https://github.com/Sage/carbon/commit/578e3081761a87894408bb54f0b429de14ecfa1f))
+* **multi-select:** add new validation style support ([3bb38ba](https://github.com/Sage/carbon/commit/3bb38baa2138d5c54ee457cbb8ac60f724563f94))
+* **number:** add new validation style support ([0f5b343](https://github.com/Sage/carbon/commit/0f5b343df7e1490ebc2e31f5807eed89d62c770c))
+* **numeral-date:** add new validation style support ([eb537f9](https://github.com/Sage/carbon/commit/eb537f9c9325d1593e52030363f542b00c61eda0))
+* **select:** add new validation style support ([5dcb7d3](https://github.com/Sage/carbon/commit/5dcb7d33156c7b3e627a745442f9a9ce6e78afae))
+* **textarea:** add new validation style support ([af48d7a](https://github.com/Sage/carbon/commit/af48d7a65c92c3558424bab029a4811b9480925e))
+* **textbox:** add support for new validation design and different size inputs ([462c6c6](https://github.com/Sage/carbon/commit/462c6c659a62b22153747ca9155712057ef94162))
+* **validation-message:** describe validation message component with design-tokens ([0acc714](https://github.com/Sage/carbon/commit/0acc714a672d5693f06bb891a25b94a1315f902e))
+* **validation-message:** internal component for validation messages ([ed0e148](https://github.com/Sage/carbon/commit/ed0e148bf08b960b2bd9538cd994ec0faae0611a))
+
+
+### Bug Fixes
+
+* **input:** change warning colour based on context ([e0a1826](https://github.com/Sage/carbon/commit/e0a182679c8af304172f15a05c0ea52c501bb048))
+
 ## [104.56.0](https://github.com/Sage/carbon/compare/v104.55.0...v104.56.0) (2022-03-16)
 
 
