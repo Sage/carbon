@@ -228,15 +228,16 @@ const StyledDayPicker = styled.div`
 
   .DayPicker-Caption {
     color: var(--colorsActionMajorYin090);
-    line-height: var(--sizing500);
     height: var(--sizing500);
-    //font: var(--typographyDatePickerCalendarMonthM); font assets to be updated part of FE-4975
-    font-size: 16px;
-    font-weight: 800;
-
+    font: var(--typographyDatePickerCalendarMonthM);
     > div {
+      display: flex;
+      flex-direction: row;
       margin: 0 auto;
+      height: 100%;
       width: 80%;
+      justify-content: center;
+      align-items: center;
     }
   }
 
@@ -247,11 +248,7 @@ const StyledDayPicker = styled.div`
     background-color: var(--colorsUtilityYang100);
     cursor: pointer;
     border: none;
-    //font-family: var(--fontFamiliesDefault); font assets to be updated part of FE-4975
-    //font: var(--typographyDatePickerCalendarDateM); font assets to be updated part of FE-4975
-    font-weight: var(--fontWeights700);
-    font-size: var(--fontSizes100);
-    line-height: var(--lineHeights500);
+    font: var(--typographyDatePickerCalendarDateM);
 
     &:hover {
       background-color: var(--colorsActionMinor050);

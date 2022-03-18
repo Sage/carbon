@@ -239,15 +239,29 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 
 .c0 .DayPicker-Caption {
   color: var(--colorsActionMajorYin090);
-  line-height: var(--sizing500);
   height: var(--sizing500);
-  font-size: 16px;
-  font-weight: 800;
+  font: var(--typographyDatePickerCalendarMonthM);
 }
 
 .c0 .DayPicker-Caption > div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   margin: 0 auto;
+  height: 100%;
   width: 80%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c0 .DayPicker-Day {
@@ -257,9 +271,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
   background-color: var(--colorsUtilityYang100);
   cursor: pointer;
   border: none;
-  font-weight: var(--fontWeights700);
-  font-size: var(--fontSizes100);
-  line-height: var(--lineHeights500);
+  font: var(--typographyDatePickerCalendarDateM);
 }
 
 .c0 .DayPicker-Day:hover {
