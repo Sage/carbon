@@ -595,6 +595,14 @@ describe("Switch", () => {
       expect(label.prop("isRequired")).toBe(true);
     });
   });
+
+  describe("input role", () => {
+    const wrapper = render({});
+
+    it("equals `switch`", () => {
+      expect(wrapper.find("input").prop("role")).toEqual("switch");
+    });
+  });
 });
 
 describe("translation", () => {

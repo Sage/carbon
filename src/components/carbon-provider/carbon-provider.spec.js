@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 
 import mintTheme from "../../style/themes/mint";
 import aegeanTheme from "../../style/themes/aegean";
-import CarbonProvider from ".";
+import CarbonProvider from "./carbon-provider.component";
 
 const render = (props, renderer = shallow) => {
   return renderer(<CarbonProvider {...props} />);

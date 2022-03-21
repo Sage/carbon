@@ -29,10 +29,12 @@ exports[`Portal when using default node to match snapshot  1`] = `
             "focus": "#FFB500",
             "info": "#0073C2",
             "loadingBarBackground": "#B3E0B3",
+            "placeholder": "rgba(0,0,0,0.55)",
             "primary": "#008200",
             "secondary": "#006300",
             "tertiary": "#004500",
             "warning": "#E96400",
+            "warningText": "#BA5000",
             "white": "#FFFFFF",
           },
           "compatibility": Object {

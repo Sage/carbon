@@ -527,8 +527,6 @@ const FilterableSelect = React.forwardRef(
 
     return (
       <StyledSelect
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
         ref={containerRef}
         hasTextCursor
         readOnly={readOnly}

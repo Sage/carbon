@@ -518,8 +518,6 @@ const MultiSelect = React.forwardRef(
 
     return (
       <StyledSelectMultiSelect
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
         disabled={disabled}
         readOnly={readOnly}
         hasTextCursor

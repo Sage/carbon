@@ -10,10 +10,13 @@ import Events from "../../__internal__/utils/helpers/events";
 import Popover from "../../__internal__/popover";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
+import Logger from "../../__internal__/utils/logger";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
+
+let deprecatedWarnTriggered = false;
 
 const MultiActionButton = ({
   align = "left",
@@ -26,6 +29,14 @@ const MultiActionButton = ({
   subtext,
   ...rest
 }) => {
+  if (!deprecatedWarnTriggered && as) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate(
+      // eslint-disable-next-line max-len
+      "The `as` prop is deprecated and will soon be removed. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop"
+    );
+  }
+
   const ref = useRef();
   const buttonRef = useRef();
   const buttonContainer = useRef();
