@@ -31,6 +31,8 @@ export interface HiddenCheckableInputProps
   extends CommonHiddenCheckableInputProps {
   /** HTML type attribute of the input */
   type: string;
+  /** Role attribute of the input */
+  role?: string;
 }
 
 declare function HiddenCheckableInput(

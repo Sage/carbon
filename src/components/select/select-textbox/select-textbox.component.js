@@ -148,7 +148,7 @@ const SelectTextbox = ({
       : joinIds(labelId, textId.current);
 
     return {
-      "aria-expanded": isOpen,
+      "aria-expanded": readOnly ? undefined : isOpen,
       "aria-labelledby": ariaLabelledby || undefined,
       "aria-activedescendant": activeDescendantId,
       "aria-controls": ariaControls,

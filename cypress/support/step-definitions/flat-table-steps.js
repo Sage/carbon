@@ -1,5 +1,5 @@
 import {
-  flatTable,
+  flatTableWrapper,
   flatTableHeaderCells,
   flatTableBodyRowByPosition,
   flatTableCell,
@@ -65,7 +65,7 @@ Then("First/Last {int} header cells {word} visible", (count, state) => {
 
 When("I scroll table content to bottom right", () => {
   cy.viewport(625, 450);
-  flatTable().parent().scrollTo("100%", "100%");
+  flatTableWrapper().scrollTo("100%", "100%");
 });
 
 Then("First/Last {int} FlatTable rows {word} visible", (count, state) => {

@@ -847,6 +847,41 @@ describe("MultiSelect", () => {
       expect(label.prop("isRequired")).toBe(true);
     });
   });
+
+  describe("uncontrolled", () => {
+    const onChangeFn = jest.fn();
+    const mockOptionObject = {
+      value: "opt1",
+      text: "red",
+    };
+    const textboxProps = {
+      name: "testName",
+      id: "testId",
+    };
+    const expectedEventObject = {
+      target: {
+        ...textboxProps,
+        value: ["opt1"],
+      },
+    };
+    const wrapper = renderSelect({
+      ...textboxProps,
+      onChange: onChangeFn,
+      openOnFocus: true,
+    });
+
+    it("does not call the onChange callback on first render", () => {
+      expect(onChangeFn).not.toHaveBeenCalled();
+    });
+
+    it("calls the onChange callback when an update occurs after first render", () => {
+      wrapper.find("input").simulate("focus");
+      act(() => {
+        wrapper.find(SelectList).prop("onSelect")(mockOptionObject);
+      });
+      expect(onChangeFn).toHaveBeenCalledWith(expectedEventObject);
+    });
+  });
 });
 
 describe("coverage filler for else path", () => {

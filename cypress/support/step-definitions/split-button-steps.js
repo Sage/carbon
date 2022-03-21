@@ -2,6 +2,7 @@ import {
   splitToggleButton,
   additionalButton,
   splitMainButtonDataComponent,
+  mainButton,
 } from "../../locators/split-button";
 import { positionOfElement } from "../helper";
 
@@ -104,6 +105,22 @@ When("I hover mouse onto split button", () => {
   splitMainButtonDataComponent(positionOfElement("first"))
     .invoke("show")
     .trigger("mouseover");
+});
+
+When("I click split button toggle", () => {
+  splitToggleButton().eq(0).click();
+});
+
+When("I press tab key on split button", () => {
+  splitToggleButton().eq(0).tab();
+});
+
+When("I focus second additional button", () => {
+  additionalButton(1).focus();
+});
+
+Then("Second Split Button component is focused", () => {
+  mainButton(1).should("be.focused");
 });
 
 When("I click {string} element of Split Button component", (element) => {
