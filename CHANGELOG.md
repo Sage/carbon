@@ -1,3 +1,10 @@
+### [104.58.1](https://github.com/Sage/carbon/compare/v104.58.0...v104.58.1) (2022-03-21)
+
+
+### Bug Fixes
+
+* **select:** ensure textbox placeholder can be set when passed as prop ([4905d48](https://github.com/Sage/carbon/commit/4905d481e4fcb13e077bbbd5412c72696431a4be))
+
 ## [104.58.0](https://github.com/Sage/carbon/compare/v104.57.0...v104.58.0) (2022-03-17)
 
 
