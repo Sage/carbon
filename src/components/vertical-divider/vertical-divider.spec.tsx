@@ -1,6 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import VerticalDivider from ".";
+import { VerticalDividerPropTypes } from "./vertical-divider.component";
 import { StyledVerticalWrapper, StyledDivider } from "./vertical-divider.style";
 import {
   assertStyleMatch,
@@ -15,9 +16,12 @@ function render(props = {}) {
 
 describe("VerticalDivider", () => {
   describe("styles", () => {
-    testStyledSystemSpacing((props) => <VerticalDivider {...props} />, {
-      p: 3,
-    });
+    testStyledSystemSpacing(
+      (props: VerticalDividerPropTypes) => <VerticalDivider {...props} />,
+      {
+        p: 3,
+      }
+    );
 
     describe("with default values", () => {
       it("matches expected", () => {
@@ -88,7 +92,7 @@ describe("VerticalDivider", () => {
 
   it("renders as an `li` element with `aria-hidden` when inside a Menu", () => {
     const { as, "aria-hidden": ariaHidden } = mount(
-      <MenuContext.Provider value={{ inMenu: true }}>
+      <MenuContext.Provider value={{ menuType: "light", inMenu: true }}>
         <VerticalDivider />
       </MenuContext.Provider>
     )

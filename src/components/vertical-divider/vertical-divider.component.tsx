@@ -1,4 +1,7 @@
+import React, { useContext } from "react";
 import { SpaceProps } from "styled-system";
+import { MenuContext } from "../menu/menu.component";
+import { StyledVerticalWrapper, StyledDivider } from "./vertical-divider.style";
 
 type TintRange =
   | 1
@@ -101,13 +104,37 @@ type TintRange =
   | 98
   | 99
   | 100;
+
 export interface VerticalDividerPropTypes extends SpaceProps {
   h?: number | string;
+  height?: number | string;
   displayInline?: boolean;
   /** the supported rage is 1-100  */
   tint?: TintRange;
 }
 
-declare function VerticalDivider(props: VerticalDividerPropTypes): JSX.Element;
+const VerticalDivider = ({
+  h,
+  height,
+  displayInline = false,
+  tint = 80,
+  ...props
+}: VerticalDividerPropTypes): JSX.Element => {
+  const { inMenu } = useContext(MenuContext);
+
+  return (
+    <StyledVerticalWrapper
+      data-component="vertical-divider"
+      p={props.p || 3}
+      height={h || height}
+      displayInline={displayInline}
+      {...props}
+      as={inMenu ? "li" : "div"}
+      aria-hidden={!!inMenu}
+    >
+      <StyledDivider tint={tint} />
+    </StyledVerticalWrapper>
+  );
+};
 
 export default VerticalDivider;
