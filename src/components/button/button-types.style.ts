@@ -1,6 +1,6 @@
 import StyledIcon from "../icon/icon.style";
 
-export function makeColors(color) {
+function makeColors(color: string) {
   return `
   color: ${color};
   ${StyledIcon} {
@@ -9,7 +9,7 @@ export function makeColors(color) {
   `;
 }
 
-export default (isDisabled, destructive) => ({
+export default (isDisabled?: boolean, destructive?: boolean) => ({
   primary: `
     background: var(--colorsActionMajor500);
     border-color: transparent;
