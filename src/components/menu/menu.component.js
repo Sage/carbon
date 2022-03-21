@@ -55,6 +55,7 @@ const Menu = ({ menuType = "light", children, ...rest }) => {
               menuType,
               handleKeyDown: (ev) => handleKeyDown(ev, index),
               isFocused,
+              inMenu: true,
             }}
           >
             {child}

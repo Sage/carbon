@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
+import { MenuContext } from "../menu/menu.component";
 import { StyledVerticalWrapper, StyledDivider } from "./vertical-divider.style";
 
-const VerticalDivider = ({ h, displayInline = false, tint = 80, ...props }) => (
-  <StyledVerticalWrapper
-    data-component="vertical-divider"
-    p={props.p || 3}
-    height={h}
-    displayInline={displayInline}
-    {...props}
-  >
-    <StyledDivider tint={tint} />
-  </StyledVerticalWrapper>
-);
+const VerticalDivider = ({ h, displayInline = false, tint = 80, ...props }) => {
+  const { inMenu } = useContext(MenuContext);
+
+  return (
+    <StyledVerticalWrapper
+      data-component="vertical-divider"
+      p={props.p || 3}
+      height={h}
+      displayInline={displayInline}
+      {...props}
+      as={inMenu ? "li" : "div"}
+      aria-hidden={!!inMenu}
+    >
+      <StyledDivider tint={tint} />
+    </StyledVerticalWrapper>
+  );
+};
 
 VerticalDivider.propTypes = {
   /** Styled system spacing props */
