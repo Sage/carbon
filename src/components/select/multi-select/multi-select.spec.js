@@ -18,6 +18,14 @@ import InputPresentationStyle from "../../../__internal__/input/input-presentati
 describe("MultiSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
 
+  it("when text is passed in placeholder prop, input element in textbox uses it as placeholder text", () => {
+    const placeholder = "foobaz";
+    const wrapper = renderSelect({ placeholder });
+    expect(
+      wrapper.find("input[data-element='input']").prop("placeholder")
+    ).toBe(placeholder);
+  });
+
   describe("when an HTML element is clicked", () => {
     let wrapper;
     let domNode;
