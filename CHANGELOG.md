@@ -1,3 +1,10 @@
+### [104.58.2](https://github.com/Sage/carbon/compare/v104.58.1...v104.58.2) (2022-03-22)
+
+
+### Bug Fixes
+
+* **tabs:** move onclick handler to button element ([6d63414](https://github.com/Sage/carbon/commit/6d63414d1293c10b36ce73dde6b9580f494da020)), closes [#4883](https://github.com/Sage/carbon/issues/4883)
+
 ### [104.58.1](https://github.com/Sage/carbon/compare/v104.58.0...v104.58.1) (2022-03-21)
 
 
