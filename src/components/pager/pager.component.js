@@ -138,7 +138,6 @@ const Pager = ({
           onBlur={() => setValue(currentPageSize)}
           onKeyDown={handleKeyDown}
           data-element="page-select"
-          id="page-select"
         >
           {pageSizeSelectionOptions.map((sizeOption) => (
             <Option
