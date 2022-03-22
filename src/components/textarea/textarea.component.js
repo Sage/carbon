@@ -10,7 +10,7 @@ import { InputBehaviour } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import guid from "../../__internal__/utils/helpers/guid";
-import StyledTextarea from "./textarea.style";
+import StyledTextarea, { MIN_HEIGHT } from "./textarea.style";
 import LocaleContext from "../../__internal__/i18n-context";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
@@ -72,13 +72,12 @@ const Textarea = ({
 
   const inputRef = useRef();
 
-  const minHeight = useRef(0);
+  const minHeight = useRef(MIN_HEIGHT);
 
   const expandTextarea = () => {
     const textarea = inputRef.current;
 
     if (textarea.scrollHeight > minHeight.current) {
-      // Reset height to zero - IE specific
       textarea.style.height = "0px";
       // Set the height so all content is shown
       textarea.style.height = `${Math.max(
@@ -102,6 +101,12 @@ const Textarea = ({
     label,
     fieldHelp,
   });
+
+  useEffect(() => {
+    if (rows) {
+      minHeight.current = inputRef.current.scrollHeight;
+    }
+  }, [rows]);
 
   useEffect(() => {
     if (expandable) {
