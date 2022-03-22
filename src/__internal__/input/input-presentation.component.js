@@ -5,6 +5,7 @@ import InputPresentationStyle, {
   StyledInputPresentationContainer,
 } from "./input-presentation.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
+import { NewValidationContext } from "../../components/carbon-provider/carbon-provider.component";
 
 const InputPresentation = ({
   children,
@@ -21,6 +22,7 @@ const InputPresentation = ({
   const { hasFocus, onMouseDown, onMouseEnter, onMouseLeave } = useContext(
     InputContext
   );
+  const { validationRedesignOptIn } = useContext(NewValidationContext);
 
   const {
     onMouseEnter: onGroupMouseEnter,
@@ -53,6 +55,7 @@ const InputPresentation = ({
         warning={warning}
         error={error}
         info={info}
+        validationRedesignOptIn={validationRedesignOptIn}
       >
         {children}
       </InputPresentationStyle>

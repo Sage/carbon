@@ -109,7 +109,7 @@ Feature: Select component
 
   @positive
   Scenario: Check the onOpen, onClick, onFocus after clicking on the Select Textbox
-    Given I open "Select" component page "default story"
+    Given I open "Select Test" component page "default"
     When I click on Select text
     Then onOpen action was called in Actions Tab
       And onFocus action was called in Actions Tab
@@ -117,14 +117,14 @@ Feature: Select component
 
   @positive
   Scenario: Check the onChange event by clicking mouse on the select list option
-    Given I open "Select" component page "default story"
+    Given I open "Select Test" component page "default"      
       And I click on Select text
     When I click on "first" option on Select list
     Then onChange action was called in Actions Tab
 
   @positive
   Scenario: Check the onKeyDown event after pressing the downarrow key
-    Given I open "Select" component page "default story"
+    Given I open "Select Test" component page "default"
       And I click on Select text
     When I press the "downarrow" key, when focused on the input
       And I wait 500
@@ -133,7 +133,7 @@ Feature: Select component
 
   @positive
   Scenario Outline: Check the onKeyDown event after press <key>
-    Given I open "Select" component page "default story"
+    Given I open "Select Test" component page "default"
       And I click on Select text
     When I press the "<key>" key, when focused on the input
       And I wait 500
@@ -147,7 +147,7 @@ Feature: Select component
 
   @positive
   Scenario: Check the onBlur event
-    Given I open "Select" component page "default story"
+    Given I open "Select Test" component page "default"
       And I click on Select text
     When I click on Select label
     Then onBlur action was called in Actions Tab

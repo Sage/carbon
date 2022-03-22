@@ -10,7 +10,7 @@ import {
   assertStyleMatch,
   carbonThemesJestTable,
   testStyledSystemMargin,
-  expectError,
+  expectConsoleOutput as expectError,
 } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import { baseTheme } from "../../style/themes";

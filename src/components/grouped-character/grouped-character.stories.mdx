@@ -6,6 +6,7 @@ import GroupedCharacter from ".";
 import { OriginalTextbox } from "../textbox";
 import Button from "../button";
 import Box from "../box";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 <Meta title="GroupedCharacter" parameters={{ info: { disable: true } }} />
 
@@ -486,6 +487,55 @@ It is possible to use the `tooltipPosition` to override the default placement of
           />
         </div>
       ));
+    }}
+  </Story>
+</Canvas>
+
+#### New designs validation
+
+<Canvas>
+  <Story name="validations - string - new design">
+    {() => {
+      const [state, setState] = useState({
+        error: "1231231",
+        warning: "1231231",
+      });
+      const handleChange = (validation) => (e) => {
+        setState({ ...state, [validation]: e.target.value.rawValue });
+      };
+      return (
+        <CarbonProvider validationRedesignOptIn>
+          {["error", "warning"].map((validationType) =>
+            ["small", "medium", "large"].map((size) => (
+              <div
+                style={{ width: "296px" }}
+                key={`${size}-${validationType}-string-component`}
+              >
+                <GroupedCharacter
+                  label={`${size} - ${validationType}`}
+                  value={state[validationType]}
+                  onChange={handleChange(validationType)}
+                  groups={[2, 2, 3]}
+                  size={size}
+                  separator="-"
+                  {...{ [validationType]: "Message" }}
+                  m={4}
+                />
+                <GroupedCharacter
+                  label={`readOnly - ${size} - ${validationType}`}
+                  value="1231231"
+                  groups={[2, 2, 3]}
+                  size={size}
+                  separator="-"
+                  readOnly
+                  {...{ [validationType]: "Message" }}
+                  m={4}
+                />
+              </div>
+            ))
+          )}
+        </CarbonProvider>
+      );
     }}
   </Story>
 </Canvas>

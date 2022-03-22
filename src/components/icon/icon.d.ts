@@ -237,6 +237,8 @@ export interface IconProps extends MarginProps {
   tooltipFlipOverrides?: TooltipPositions[];
   /** Id passed to the tooltip container, used for accessibility purposes */
   tooltipId?: string;
+  /** Id passed to the icon. */
+  id?: string;
 }
 
 declare function Icon(

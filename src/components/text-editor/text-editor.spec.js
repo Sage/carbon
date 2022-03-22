@@ -5,7 +5,7 @@ import { shallow, mount } from "enzyme";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-  expectError,
+  expectConsoleOutput as expectError,
 } from "../../__spec_helper__/test-utils";
 import TextEditor, {
   TextEditorContentState,

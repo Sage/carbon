@@ -45,6 +45,14 @@ describe("FilterableSelect", () => {
     expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
   });
 
+  it("when text is passed in placeholder prop, input element in textbox uses it as placeholder text", () => {
+    const placeholder = "foobaz";
+    const wrapper = renderSelect({ placeholder });
+    expect(
+      wrapper.find("input[data-element='input']").prop("placeholder")
+    ).toBe(placeholder);
+  });
+
   describe("when the value prop has been passed", () => {
     it("then the formatted value should be set to corresponding option text", () => {
       const wrapper = renderSelect({ value: "opt2", onChange: jest.fn() });
@@ -768,18 +776,19 @@ describe("FilterableSelect", () => {
   });
 
   describe("when parent re-renders", () => {
-    const WrapperComponent = (props) => {
+    // eslint-disable-next-line react/prop-types
+    const WrapperComponent = ({ change }) => {
       const mockRef = useRef();
 
       return (
-        <span change={props.change}>
+        <div change={change}>
           <FilterableSelect name="testSelect" id="testSelect" ref={mockRef}>
             <Option value="opt1" text="red" />
             <Option value="opt2" text="green" />
             <Option value="opt3" text="blue" />
             <Option value="opt4" text="black" />
           </FilterableSelect>
-        </span>
+        </div>
       );
     };
 

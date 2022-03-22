@@ -18,6 +18,14 @@ import InputPresentationStyle from "../../../__internal__/input/input-presentati
 describe("MultiSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
 
+  it("when text is passed in placeholder prop, input element in textbox uses it as placeholder text", () => {
+    const placeholder = "foobaz";
+    const wrapper = renderSelect({ placeholder });
+    expect(
+      wrapper.find("input[data-element='input']").prop("placeholder")
+    ).toBe(placeholder);
+  });
+
   describe("when an HTML element is clicked", () => {
     let wrapper;
     let domNode;
@@ -837,6 +845,41 @@ describe("MultiSelect", () => {
     it("the isRequired prop is passed to the label", () => {
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
+    });
+  });
+
+  describe("uncontrolled", () => {
+    const onChangeFn = jest.fn();
+    const mockOptionObject = {
+      value: "opt1",
+      text: "red",
+    };
+    const textboxProps = {
+      name: "testName",
+      id: "testId",
+    };
+    const expectedEventObject = {
+      target: {
+        ...textboxProps,
+        value: ["opt1"],
+      },
+    };
+    const wrapper = renderSelect({
+      ...textboxProps,
+      onChange: onChangeFn,
+      openOnFocus: true,
+    });
+
+    it("does not call the onChange callback on first render", () => {
+      expect(onChangeFn).not.toHaveBeenCalled();
+    });
+
+    it("calls the onChange callback when an update occurs after first render", () => {
+      wrapper.find("input").simulate("focus");
+      act(() => {
+        wrapper.find(SelectList).prop("onSelect")(mockOptionObject);
+      });
+      expect(onChangeFn).toHaveBeenCalledWith(expectedEventObject);
     });
   });
 });
