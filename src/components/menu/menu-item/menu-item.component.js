@@ -135,6 +135,8 @@ const MenuItem = ({
   const getTitle = (title) =>
     maxWidth && typeof title === "string" ? title : "";
 
+  const itemMaxWidth = !inFullscreenView ? maxWidth : undefined;
+
   if (submenu) {
     const asPassiveItem = !(onClick || href);
 
@@ -144,7 +146,7 @@ const MenuItem = ({
         menuType={menuContext.menuType}
         display="inline-block"
         title={getTitle(submenu)}
-        maxWidth={maxWidth}
+        maxWidth={itemMaxWidth}
         onClick={updateFocusOnClick}
         {...rest}
         inFullscreenView={inFullscreenView}
@@ -175,7 +177,7 @@ const MenuItem = ({
       inSubmenu={submenuContext.handleKeyDown !== undefined}
       display="inline-block"
       title={getTitle(children)}
-      maxWidth={maxWidth}
+      maxWidth={itemMaxWidth}
       {...rest}
       inFullscreenView={inFullscreenView && !Object.keys(submenuContext).length}
       menuOpen={menuOpen}
