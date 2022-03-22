@@ -12,3 +12,4 @@ export const additionalButton = (index) =>
 export const splitMainButtonDataComponent = (index) =>
   cy.get(SPLIT_MAIN_BUTTON).children().eq(index);
 export const mainButton = () => cy.get(MAIN_BUTTON);
+export const splitMainButton = () => cy.get(SPLIT_MAIN_BUTTON);
