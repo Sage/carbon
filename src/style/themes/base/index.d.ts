@@ -27,6 +27,8 @@ export interface Colors {
   destructive: {
     hover: string;
   };
+  warningText: string;
+  placeholder: string;
 }
 
 export interface ThemeObject {

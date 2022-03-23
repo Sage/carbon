@@ -238,4 +238,24 @@ context("Tests for MultiActionButton component", () => {
         });
     });
   });
+
+  describe("pressing tab while MultiActionButton is open", () => {
+    it("should focus second MultiActionButton", () => {
+      CypressMountWithProviders(
+        <>
+          <MultiActionButtonList />
+          <MultiActionButtonList />
+        </>
+      );
+
+      multiActionButton()
+        .eq(0)
+        .click()
+        .then(() => {
+          multiActionButtonList().eq(1).focus();
+          multiActionButton().eq(0).tab();
+          multiActionButton().eq(1).should("be.focused");
+        });
+    });
+  });
 });

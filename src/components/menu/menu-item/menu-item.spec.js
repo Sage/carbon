@@ -544,6 +544,22 @@ describe("MenuItem", () => {
           { modifier: "button" }
         );
       });
+
+      it("does not pass the value when inFullscreenView is true", () => {
+        const items = mount(
+          <MenuContext.Provider
+            value={{ menuType: "light", inFullscreenView: true }}
+          >
+            <MenuItem maxWidth="100px" submenu="submenu title">
+              <MenuItem maxWidth="100px">Item one</MenuItem>
+            </MenuItem>
+          </MenuContext.Provider>
+        ).find(StyledMenuItem);
+
+        items.forEach((item) => {
+          expect(item.prop("maxWidth")).toBeUndefined();
+        });
+      });
     });
   });
 

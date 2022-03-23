@@ -77,12 +77,27 @@ describe("HiddenCheckableInput", () => {
     );
   });
 
-  it("renders as expected", () => {
+  it("renders as expected and sets the input role to value of the type prop by default", () => {
     const props = {
       checked: true,
       helpId: "test-help",
       name: "test-name",
       type: "test-type",
+      value: "test-value",
+      tabIndex: 0,
+    };
+
+    const shallowWrapper = shallow(<HiddenCheckableInput {...props} />);
+    expect(shallowWrapper).toMatchSnapshot();
+  });
+
+  it("sets the role if the prop is passed a value", () => {
+    const props = {
+      checked: true,
+      helpId: "test-help",
+      name: "test-name",
+      type: "test-type",
+      role: "test-role",
       value: "test-value",
       tabIndex: 0,
     };

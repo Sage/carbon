@@ -1,5 +1,4 @@
 import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
-import { action } from "@storybook/addon-actions";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
 
@@ -7,6 +6,7 @@ import { useState, useRef } from "react";
 import { Select, Option, OptionRow, OptionGroupHeader } from "../";
 import Button from "../../button";
 import SelectTextbox from "../select-textbox/select-textbox.component";
+import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 
 <Meta title="Select" parameters={{ info: { disable: true } }} />
 
@@ -41,18 +41,7 @@ Always insert `Option` Components inside the `Select`, analogous to the original
 
 <Canvas>
   <Story name="default">
-    <Select
-      name="simple"
-      id="simple"
-      label="color"
-      labelInline
-      onOpen={action("onOpen")}
-      onChange={action("onChange", { depth: 2 })}
-      onClick={action("onClick", { depth: 2 })}
-      onFocus={action("onFocus", { depth: 2 })}
-      onBlur={action("onBlur", { depth: 2 })}
-      onKeyDown={action("onKeyDown", { depth: 2 })}
-    >
+    <Select name="simple" id="simple" label="color" labelInline>
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -106,12 +95,6 @@ You can use `listPlacement` prop to set the position of the select list relative
       id="simple"
       label="color"
       labelInline
-      onOpen={action("onOpen")}
-      onChange={action("onChange", { depth: 2 })}
-      onClick={action("onClick", { depth: 2 })}
-      onFocus={action("onFocus", { depth: 2 })}
-      onBlur={action("onBlur", { depth: 2 })}
-      onKeyDown={action("onKeyDown", { depth: 2 })}
       listPlacement="top-start"
     >
       <Option text="Amber" value="1" />
@@ -137,7 +120,6 @@ You can use `listPlacement` prop to set the position of the select list relative
       const [value, setValue] = useState("");
       function onChangeHandler(event) {
         setValue(event.target.value);
-        action("value set");
       }
       function clearValue() {
         setValue("");
@@ -649,6 +631,64 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
       <Option text="White" value="10" />
       <Option text="Yellow" value="11" />
     </Select>
+  </Story>
+</Canvas>
+
+#### New designs validation
+
+<Canvas>
+  <Story name="validations - string - new design">
+    <CarbonProvider validationRedesignOptIn>
+      {["error", "warning"].map((validationType) =>
+        ["small", "medium", "large"].map((size) => (
+          <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+            <Select
+              name="simple"
+              id={`${size} - ${validationType}`}
+              label={`${size} - ${validationType}`}
+              labelInline
+              size={size}
+              {...{ [validationType]: "Message" }}
+              m={4}
+            >
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+              <Option text="Blue" value="3" />
+              <Option text="Brown" value="4" />
+              <Option text="Green" value="5" />
+              <Option text="Orange" value="6" />
+              <Option text="Pink" value="7" />
+              <Option text="Purple" value="8" />
+              <Option text="Red" value="9" />
+              <Option text="White" value="10" />
+              <Option text="Yellow" value="11" />
+            </Select>
+            <Select
+              name="simple"
+              id={`readOnly - ${size} - ${validationType}`}
+              label={`readOnly - ${size} - ${validationType}`}
+              labelInline
+              size={size}
+              {...{ [validationType]: "Message" }}
+              readOnly
+              m={4}
+            >
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+              <Option text="Blue" value="3" />
+              <Option text="Brown" value="4" />
+              <Option text="Green" value="5" />
+              <Option text="Orange" value="6" />
+              <Option text="Pink" value="7" />
+              <Option text="Purple" value="8" />
+              <Option text="Red" value="9" />
+              <Option text="White" value="10" />
+              <Option text="Yellow" value="11" />
+            </Select>
+          </div>
+        ))
+      )}
+    </CarbonProvider>
   </Story>
 </Canvas>
 

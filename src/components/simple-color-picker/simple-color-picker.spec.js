@@ -8,7 +8,7 @@ import { StyledLegend } from "../../__internal__/fieldset/fieldset.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-  expectError,
+  expectConsoleOutput as expectError,
 } from "../../__spec_helper__/test-utils";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import Fieldset from "../../__internal__/fieldset";

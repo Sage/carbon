@@ -7,6 +7,7 @@ import Decimal from ".";
 import { OriginalTextbox } from "../textbox";
 import Button from "../button";
 import Box from "../box";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 <Meta title="Decimal Input" parameters={{ info: { disable: true } }} />
 
@@ -422,6 +423,51 @@ It is possible to use the `tooltipPosition` to override the default placement of
           />
         </div>
       ));
+    }}
+  </Story>
+</Canvas>
+
+#### New designs validation
+
+<Canvas>
+  <Story name="validations - string - new design">
+    {() => {
+      const [state, setState] = useState({
+        error: "0.01",
+        warning: "0.01",
+      });
+      const handleChange = (validation) => (e) => {
+        setState({ ...state, [validation]: e.target.value.rawValue });
+      };
+      return (
+        <CarbonProvider validationRedesignOptIn>
+          {["error", "warning"].map((validationType) =>
+            ["small", "medium", "large"].map((size) => (
+              <div
+                style={{ width: "296px" }}
+                key={`${size}-${validationType}-string-component`}
+              >
+                <Decimal
+                  label={`${size} - ${validationType}`}
+                  value={state[validationType]}
+                  size={size}
+                  onChange={handleChange(validationType)}
+                  {...{ [validationType]: "Message" }}
+                  m={4}
+                />
+                <Decimal
+                  label={`readOnly - ${size} - ${validationType}`}
+                  value="0.01"
+                  size={size}
+                  readOnly
+                  {...{ [validationType]: "Message" }}
+                  m={4}
+                />
+              </div>
+            ))
+          )}
+        </CarbonProvider>
+      );
     }}
   </Story>
 </Canvas>

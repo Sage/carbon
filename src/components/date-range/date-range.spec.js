@@ -680,7 +680,7 @@ describe("DateRange", () => {
 describe("StyledDateRange", () => {
   it("render Date inputs with spacing between each other", () => {
     const wrapper = renderDateRange({}, mount);
-    assertStyleMatch({ marginRight: "var(--spacing150)" }, wrapper, {
+    assertStyleMatch({ marginRight: "var(--spacing300)" }, wrapper, {
       modifier: `& ${StyledDateInput}:first-child`,
     });
   });
