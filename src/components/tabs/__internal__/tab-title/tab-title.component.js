@@ -134,6 +134,7 @@ const TabTitle = React.forwardRef(
         {...(isHref && { href, target: "_blank", as: "a" })}
         {...tagComponent("tab-header", tabTitleProps)}
         onKeyDown={handleKeyDown}
+        onClick={handleClick}
         size={size}
       >
         <StyledTitleContent
@@ -142,7 +143,6 @@ const TabTitle = React.forwardRef(
           info={info}
           position={position}
           size={size}
-          onClick={handleClick}
           noLeftBorder={noLeftBorder}
           noRightBorder={noRightBorder}
           borders={borders}

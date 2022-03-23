@@ -98,7 +98,7 @@ describe("TabTitle", () => {
       );
       global.open = jest.fn();
       wrapper
-        .find(StyledTitleContent)
+        .find(StyledTabTitle)
         .props()
         .onClick({ stopPropagation: () => {}, preventDefault: () => {} });
       expect(global.open).toHaveBeenCalledWith("randomUrl", "_blank");
@@ -1074,7 +1074,7 @@ describe("TabTitle", () => {
       );
 
       wrapper
-        .find(StyledTitleContent)
+        .find(StyledTabTitle)
         .props()
         .onClick({ stopPropagation, target: {}, preventDefault });
       expect(onClick).toHaveBeenCalledWith(customEvent);
