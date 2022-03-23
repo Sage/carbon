@@ -1,12 +1,15 @@
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import React from "react";
 import StepSequenceItemStyle from "./step-sequence-item.style";
 import StepSequenceItemContentStyle from "./step-sequence-item-content.style";
 import StepSequenceItemIndicatorStyle from "./step-sequence-item-indicator.style";
 import StepSequenceItemHiddenLabelStyle from "./step-sequence-item-hidden-label.style";
 import Icon from "../../icon";
+import { StepSequenceContext } from "../step-sequence.component";
 
 const StepSequenceItem = (props) => {
+  const { orientation } = useContext(StepSequenceContext);
+
   const indicatorText = () => {
     return !props.hideIndicator ? (
       <StepSequenceItemIndicatorStyle>
@@ -42,6 +45,7 @@ const StepSequenceItem = (props) => {
     <StepSequenceItemStyle
       data-component="step-sequence-item"
       {...props}
+      orientation={orientation}
       key={`step-seq-item-${props.indicator}`}
     >
       {hiddenLabel()}

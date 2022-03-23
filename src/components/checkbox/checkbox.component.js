@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import CheckboxStyle from "./checkbox.style";
@@ -7,6 +7,7 @@ import CheckboxSvg from "./checkbox-svg.component";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import { CheckboxGroupContext } from "./checkbox-group.component";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -49,6 +50,12 @@ const Checkbox = ({
   const adaptiveSpacingSmallScreen = !!(
     adaptiveSpacingBreakpoint && !largeScreen
   );
+  const {
+    error: contextError,
+    warning: contextWarning,
+    info: contextInfo,
+    inputName,
+  } = useContext(CheckboxGroupContext);
 
   const inputProps = {
     onClick,
@@ -67,15 +74,16 @@ const Checkbox = ({
     labelHelp,
     labelSpacing,
     required,
-    error,
-    warning,
-    info,
+    error: contextError || error,
+    warning: contextWarning || warning,
+    info: contextInfo || info,
     fieldHelpInline,
     checked,
     disabled,
     inputWidth,
     labelWidth,
     tooltipPosition,
+    inputName,
     ...props,
   };
 
@@ -92,9 +100,9 @@ const Checkbox = ({
         labelSpacing={labelSpacing}
         inputWidth={inputWidth}
         adaptiveSpacingSmallScreen={adaptiveSpacingSmallScreen}
-        error={error}
-        warning={warning}
-        info={info}
+        error={contextError || error}
+        warning={contextWarning || warning}
+        info={contextInfo || info}
         fieldHelpInline={fieldHelpInline}
         reverse={reverse}
         size={size}
