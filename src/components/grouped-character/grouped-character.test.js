@@ -9,6 +9,8 @@ import {
   commonDataElementInputPreview,
 } from "../../../cypress/locators/index";
 
+import { verifyRequiredAsterisk } from "../../../cypress/support/component-helper/common-steps";
+
 const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 
 const GroupedCharacterComponent = ({ onChange, ...props }) => {
@@ -146,16 +148,7 @@ context("Tests for GroupedCharacter component", () => {
     it("should check the GroupedCharacter component is required", () => {
       CypressMountWithProviders(<GroupedCharacterComponent required />);
 
-      getDataElementByValue("label").then(($els) => {
-        // get Window reference from element
-        const win = $els[0].ownerDocument.defaultView;
-        // use getComputedStyle to read the pseudo selector
-        const after = win.getComputedStyle($els[0], "after");
-        // read the value of the `content` CSS property
-        const contentValue = after.getPropertyValue("content");
-        // the returned value will have double quotes around it, but this is correct
-        expect(contentValue).to.eq('"*"');
-      });
+      verifyRequiredAsterisk();
     });
 
     it("should check the GroupedCharacter component has autofocus", () => {
