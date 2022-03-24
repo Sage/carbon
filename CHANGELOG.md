@@ -1,3 +1,10 @@
+### [104.58.5](https://github.com/Sage/carbon/compare/v104.58.4...v104.58.5) (2022-03-24)
+
+
+### Bug Fixes
+
+* **select:** fix page scrolling to the top issue ([3433027](https://github.com/Sage/carbon/commit/3433027b1a373b967319871c63534af7ec560ac3))
+
 ### [104.58.4](https://github.com/Sage/carbon/compare/v104.58.3...v104.58.4) (2022-03-24)
 
 
