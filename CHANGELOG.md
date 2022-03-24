@@ -1,3 +1,10 @@
+### [104.58.4](https://github.com/Sage/carbon/compare/v104.58.3...v104.58.4) (2022-03-24)
+
+
+### Bug Fixes
+
+* **multi-action-button:** fix incorrect hover color ([cca48c5](https://github.com/Sage/carbon/commit/cca48c5e257804d62f742a757e34246ffb23fbde))
+
 ### [104.58.3](https://github.com/Sage/carbon/compare/v104.58.2...v104.58.3) (2022-03-22)
 
 
