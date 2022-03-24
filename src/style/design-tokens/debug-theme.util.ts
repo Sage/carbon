@@ -1,5 +1,6 @@
 import tokens from "@sage/design-tokens/js/base/common";
 import mint from "../themes/mint";
+import { ThemeObject } from "../themes/base";
 
 /**
  *
@@ -11,7 +12,9 @@ import mint from "../themes/mint";
  *
  */
 
-const debugTheme = (themeProperties) =>
+const debugTheme = (
+  themeProperties: Partial<ThemeObject>
+): Record<string, string[]> =>
   Object.fromEntries(
     Object.entries(themeProperties).map(([key, value]) => {
       if (
@@ -40,7 +43,7 @@ const debugTheme = (themeProperties) =>
       if (typeof value === "object") {
         return key === "compatibility"
           ? [key, value]
-          : [key, debugTheme(value)];
+          : [key, debugTheme(value as ThemeObject)];
       }
 
       return [key, ""];

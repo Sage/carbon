@@ -6,7 +6,7 @@ describe("generateCssVariables", () => {
     colorsUtility500: "yellow",
     colorsAction700: "black",
   };
-  let output;
+  let output: string;
 
   beforeEach(() => {
     output = generateCssVariables(tokens);
@@ -22,6 +22,6 @@ describe("generateCssVariables", () => {
   it("should generate css variables format for all tokens", () => {
     const matches = output.match(/^--[a-zA-Z0-9]*:\s?.*;$/gm);
 
-    expect(Object.keys(tokens).length).toEqual(matches.length);
+    expect(Object.keys(tokens).length).toEqual(matches?.length);
   });
 });
