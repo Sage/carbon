@@ -4,9 +4,9 @@ import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import { SlideStyle } from "./slide.style";
 import baseTheme from "../../../style/themes/base";
 
-const Slide = (props) => {
-  return <SlideStyle {...props} {...tagComponent("slide", props)} />;
-};
+const Slide = (props) => (
+  <SlideStyle {...props} {...tagComponent("slide", props)} />
+);
 
 Slide.defaultProps = {
   theme: baseTheme,
