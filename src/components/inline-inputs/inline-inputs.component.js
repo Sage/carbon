@@ -7,24 +7,16 @@ import StyledInlineInputs, {
 } from "./inline-inputs.style";
 import createGuid from "../../__internal__/utils/helpers/guid";
 
-const columnWrapper = (children, gutter) => {
-  let inputs = children;
+export const InlineInputsContext = React.createContext({});
 
-  if (!Array.isArray(inputs)) {
-    inputs = [children];
-  }
-
-  return inputs.map((input, index) => {
-    // Input is never going to be re-ordered so we don't require a defined key
-    /* eslint-disable react/no-array-index-key */
+const columnWrapper = (children, gutter, labelId) => {
+  return React.Children.map(children, (input) => {
     return (
-      <StyledInlineInput
-        key={index}
-        gutter={gutter}
-        data-element="inline-input"
-      >
-        {input}
-      </StyledInlineInput>
+      <InlineInputsContext.Provider value={{ ariaLabelledBy: labelId }}>
+        <StyledInlineInput gutter={gutter} data-element="inline-input">
+          {input}
+        </StyledInlineInput>
+      </InlineInputsContext.Provider>
     );
   });
 };
@@ -52,14 +44,6 @@ const InlineInputs = (props) => {
     );
   }
 
-  function renderChildren() {
-    if (!label) return children;
-
-    return React.Children.map(children, (child) =>
-      React.cloneElement(child, { "aria-labelledby": labelId.current })
-    );
-  }
-
   return (
     <StyledInlineInputs
       gutter={gutter}
@@ -73,7 +57,7 @@ const InlineInputs = (props) => {
         data-element="inline-inputs-container"
         inputWidth={inputWidth}
       >
-        {columnWrapper(renderChildren(), gutter)}
+        {columnWrapper(children, gutter, label ? labelId.current : undefined)}
       </StyledContentContainer>
     </StyledInlineInputs>
   );

@@ -57,9 +57,13 @@ context("Test for Loader component", () => {
     it("should render Loader inside the Button component with correct background color", () => {
       CypressMountWithProviders(<LoaderInsideButton />);
 
-      loaderInsideButton()
-        .should("be.visible")
-        .and("have.css", "background-color", "rgb(0, 126, 69)");
+      loaderInsideButton().then(($el) => {
+        // eslint-disable-next-line no-unused-expressions
+        expect($el).to.be.visible;
+        expect($el)
+          .to.have.css("background-color")
+          .to.equals("rgb(0, 126, 69)");
+      });
     });
 
     it("should render Loader with aria-label prop", () => {

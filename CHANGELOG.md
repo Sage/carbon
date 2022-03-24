@@ -1,3 +1,17 @@
+### [104.58.3](https://github.com/Sage/carbon/compare/v104.58.2...v104.58.3) (2022-03-22)
+
+
+### Bug Fixes
+
+* **menu-item:** prevent setting maxWidth when items are rendered in MenuFullscreen ([8bf5887](https://github.com/Sage/carbon/commit/8bf5887fd7b8bee17c6d42b9b5996937c98e1bee)), closes [#4961](https://github.com/Sage/carbon/issues/4961)
+
+### [104.58.2](https://github.com/Sage/carbon/compare/v104.58.1...v104.58.2) (2022-03-22)
+
+
+### Bug Fixes
+
+* **tabs:** move onclick handler to button element ([6d63414](https://github.com/Sage/carbon/commit/6d63414d1293c10b36ce73dde6b9580f494da020)), closes [#4883](https://github.com/Sage/carbon/issues/4883)
+
 ### [104.58.1](https://github.com/Sage/carbon/compare/v104.58.0...v104.58.1) (2022-03-21)
 
 
