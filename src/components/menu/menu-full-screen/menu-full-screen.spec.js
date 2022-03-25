@@ -30,18 +30,34 @@ const render = ({ startPosition, isOpen, menuType = "light" }) => {
         isOpen={isOpen}
         onClose={onClose}
       >
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem onClick={() => {}} submenu="Menu Item Two">
-          <MenuItem href="#">Submenu Item One</MenuItem>
-          <MenuItem href="#">Submenu Item Two</MenuItem>
+        <MenuItem maxWidth="200px" href="#">
+          Menu Item One
         </MenuItem>
-        <MenuItem href="#">Menu Item Three</MenuItem>
-        <MenuItem href="#">Menu Item Four</MenuItem>
-        <MenuItem submenu="Menu Item Five">
-          <MenuItem href="#">Submenu Item One</MenuItem>
-          <MenuItem href="#">Submenu Item Two</MenuItem>
+        <MenuItem maxWidth="200px" onClick={() => {}} submenu="Menu Item Two">
+          <MenuItem maxWidth="200px" href="#">
+            Submenu Item One
+          </MenuItem>
+          <MenuItem maxWidth="200px" href="#">
+            Submenu Item Two
+          </MenuItem>
         </MenuItem>
-        <MenuItem href="#">Menu Item Six</MenuItem>
+        <MenuItem maxWidth="200px" href="#">
+          Menu Item Three
+        </MenuItem>
+        <MenuItem maxWidth="200px" href="#">
+          Menu Item Four
+        </MenuItem>
+        <MenuItem maxWidth="200px" submenu="Menu Item Five">
+          <MenuItem maxWidth="200px" href="#">
+            Submenu Item One
+          </MenuItem>
+          <MenuItem maxWidth="200px" href="#">
+            Submenu Item Two
+          </MenuItem>
+        </MenuItem>
+        <MenuItem maxWidth="200px" href="#">
+          Menu Item Six
+        </MenuItem>
       </MenuFullscreen>
     </MenuContext.Provider>
   );
@@ -63,6 +79,13 @@ describe("MenuFullscreen", () => {
   it("should render children correctly", () => {
     expect(wrapper.find(MenuItem).length).toEqual(10);
     expect(wrapper.find(MenuDivider).length).toEqual(5);
+  });
+
+  it("should set any maxWidth values passed to items to undefined", () => {
+    const items = wrapper.find(StyledMenuItem);
+    items.forEach((item) => {
+      expect(item.prop("maxWidth")).toBeUndefined();
+    });
   });
 
   describe("styling", () => {

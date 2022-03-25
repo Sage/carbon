@@ -102,15 +102,17 @@ Same as above but as a children of `Dialog` component.
 
 <Canvas>
   <Story name="add item">
-    <PicklistItem type="add" item={1} onChange={() => null}>
-      <div style={{ display: "flex", width: "100%" }}>
-        <div style={{ width: "50%" }}>
-          <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-            Title for Item
-          </p>
+    <ul>
+      <PicklistItem type="add" item={1} onChange={() => null}>
+        <div style={{ display: "flex", width: "100%" }}>
+          <div style={{ width: "50%" }}>
+            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+              Title for Item
+            </p>
+          </div>
         </div>
-      </div>
-    </PicklistItem>
+      </PicklistItem>
+    </ul>
   </Story>
 </Canvas>
 
@@ -118,15 +120,17 @@ Same as above but as a children of `Dialog` component.
 
 <Canvas>
   <Story name="remove item">
-    <PicklistItem type="remove" item={1} onChange={() => null}>
-      <div style={{ display: "flex", width: "100%" }}>
-        <div style={{ width: "50%" }}>
-          <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-            Title for Item
-          </p>
+    <ul>
+      <PicklistItem type="remove" item={1} onChange={() => null}>
+        <div style={{ display: "flex", width: "100%" }}>
+          <div style={{ width: "50%" }}>
+            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+              Title for Item
+            </p>
+          </div>
         </div>
-      </div>
-    </PicklistItem>
+      </PicklistItem>
+    </ul>
   </Story>
 </Canvas>
 
@@ -134,15 +138,17 @@ Same as above but as a children of `Dialog` component.
 
 <Canvas>
   <Story name="locked">
-    <PicklistItem type="add" item={1} onChange={() => null} locked>
-      <div style={{ display: "flex", width: "100%" }}>
-        <div style={{ width: "50%" }}>
-          <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-            Title for Item
-          </p>
+    <ul>
+      <PicklistItem type="add" item={1} onChange={() => null} locked>
+        <div style={{ display: "flex", width: "100%" }}>
+          <div style={{ width: "50%" }}>
+            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+              Title for Item
+            </p>
+          </div>
         </div>
-      </div>
-    </PicklistItem>
+      </PicklistItem>
+    </ul>
   </Story>
 </Canvas>
 
@@ -150,21 +156,23 @@ Same as above but as a children of `Dialog` component.
 
 <Canvas>
   <Story name="custom tooltip message">
-    <PicklistItem
-      type="add"
-      item={1}
-      onChange={() => null}
-      locked
-      tooltipMessage="This is a custom locked tooltip message"
-    >
-      <div style={{ display: "flex", width: "100%" }}>
-        <div style={{ width: "50%" }}>
-          <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-            Title for Item
-          </p>
+    <ul>
+      <PicklistItem
+        type="add"
+        item={1}
+        onChange={() => null}
+        locked
+        tooltipMessage="This is a custom locked tooltip message"
+      >
+        <div style={{ display: "flex", width: "100%" }}>
+          <div style={{ width: "50%" }}>
+            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+              Title for Item
+            </p>
+          </div>
         </div>
-      </div>
-    </PicklistItem>
+      </PicklistItem>
+    </ul>
   </Story>
 </Canvas>
 

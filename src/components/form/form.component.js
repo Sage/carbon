@@ -22,7 +22,6 @@ const Form = ({
   onSubmit,
   buttonAlignment = "right",
   stickyFooter,
-  dialogRef,
   fieldSpacing = 3,
   noValidate = true,
   height,
@@ -112,12 +111,6 @@ Form.propTypes = {
 
   /** Disable HTML5 validation */
   noValidate: PropTypes.bool,
-  /**
-   * @private
-   * @ignore
-   * Used to detect if FormFooter should be sticky when used in Dialog component
-   */
-  dialogRef: PropTypes.shape({ current: PropTypes.any }),
 
   /** Height of the form (any valid CSS value) */
   height: PropTypes.string,

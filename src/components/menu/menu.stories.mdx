@@ -662,7 +662,8 @@ at the different breakpoints.
 ### Fullscreen view
 
 This story is best viewed in the `canvas` view and by adjusting the size of the window. The fullscreen menu behaviour will
-trigger when the screen size is smaller than `1200px`
+trigger when the screen size is smaller than `1200px`. Please note the `MenuItem`s are intended to have a width that fills the viewport,
+as such any `maxWidth` value passed will not be set when they are children of `MenuFullscreen`.
 
 <Canvas>
   <Story name="fullscreen view" parameters={{ chromatic: { disable: true } }}>
@@ -687,7 +688,7 @@ trigger when the screen size is smaller than `1200px`
             <MenuFullscreen
               startPosition={startPosition}
               isOpen={menuOpen[menu]}
-              onClick={() =>
+              onClose={() =>
                 setMenuOpen((state) => ({ ...state, [menu]: false }))
               }
             >

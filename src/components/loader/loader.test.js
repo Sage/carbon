@@ -54,12 +54,20 @@ context("Test for Loader component", () => {
         .and("have.css", "width", `${width}px`);
     });
 
-    it("should render Loader inside the Button component with correct background color", () => {
+    it("should render Loader inside the Button component with correct color", () => {
       CypressMountWithProviders(<LoaderInsideButton />);
 
-      loaderInsideButton()
+      const color = "rgb(255, 255, 255)";
+
+      loader(positionOfElement("first"))
         .should("be.visible")
-        .and("have.css", "background-color", "rgb(0, 126, 69)");
+        .and("have.css", "color", color);
+      loader(positionOfElement("second"))
+        .should("be.visible")
+        .and("have.css", "color", color);
+      loader(positionOfElement("third"))
+        .should("be.visible")
+        .and("have.css", "color", color);
     });
 
     it("should render Loader with aria-label prop", () => {

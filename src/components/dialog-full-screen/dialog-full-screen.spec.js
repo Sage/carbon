@@ -194,7 +194,7 @@ describe("DialogFullScreen", () => {
     });
 
     it("sets overflow hidden to the body", () => {
-      expect(window.document.documentElement.style.overflow).toBe("hidden");
+      expect(window.document.body.style.overflow).toBe("hidden");
     });
   });
 
@@ -206,12 +206,12 @@ describe("DialogFullScreen", () => {
     });
 
     it("recovers an original overflow", () => {
-      window.document.documentElement.style.overflow = "auto";
-      expect(window.document.documentElement.style.overflow).toBe("auto");
+      window.document.body.style.overflow = "auto";
+      expect(window.document.body.style.overflow).toBe("auto");
       wrapper.setProps({ open: true });
-      expect(window.document.documentElement.style.overflow).toBe("hidden");
+      expect(window.document.body.style.overflow).toBe("hidden");
       wrapper.setProps({ open: false });
-      expect(window.document.documentElement.style.overflow).toBe("auto");
+      expect(window.document.body.style.overflow).toBe("auto");
     });
   });
 
@@ -223,12 +223,12 @@ describe("DialogFullScreen", () => {
     });
 
     it("recovers an original overflow", () => {
-      window.document.documentElement.style.overflow = "auto";
-      expect(window.document.documentElement.style.overflow).toBe("auto");
+      window.document.body.style.overflow = "auto";
+      expect(window.document.body.style.overflow).toBe("auto");
       wrapper.setProps({ open: true });
-      expect(window.document.documentElement.style.overflow).toBe("hidden");
+      expect(window.document.body.style.overflow).toBe("hidden");
       wrapper.unmount();
-      expect(window.document.documentElement.style.overflow).toBe("auto");
+      expect(window.document.body.style.overflow).toBe("auto");
     });
   });
 
