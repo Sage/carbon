@@ -1,28 +1,14 @@
 import * as React from "react";
 
+type ToastVariants = "error" | "info" | "success" | "warning";
+
 export interface ToastPropTypes {
   /** The rendered children of the component. */
   children: React.ReactNode;
   /** Customizes the appearance in the DLS theme */
-  variant?:
-    | "default"
-    | "error"
-    | "help"
-    | "info"
-    | "maintenance"
-    | "new"
-    | "success"
-    | "warning";
+  variant?: ToastVariants;
   /** Customizes the appearance in a legacy theme through colour (see the 'iconColorSets' for possible values) */
-  as?:
-    | "default"
-    | "error"
-    | "help"
-    | "info"
-    | "maintenance"
-    | "new"
-    | "success"
-    | "warning";
+  as?: ToastVariants;
   /** Custom className */
   className?: string;
   /** Custom id  */
