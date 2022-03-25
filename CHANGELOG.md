@@ -1,3 +1,10 @@
+### [104.58.6](https://github.com/Sage/carbon/compare/v104.58.5...v104.58.6) (2022-03-25)
+
+
+### Bug Fixes
+
+* **textarea:** allow row and expandable props to be used together ([a9b64ca](https://github.com/Sage/carbon/commit/a9b64cadffc30aaff1212da5593ec245f5b5e5aa)), closes [#4959](https://github.com/Sage/carbon/issues/4959)
+
 ### [104.58.5](https://github.com/Sage/carbon/compare/v104.58.4...v104.58.5) (2022-03-24)
 
 
