@@ -12,6 +12,10 @@ Then("Textarea component is not expandable", () => {
   textareaChildren().should("not.have.css", "height", "85px");
 });
 
+Then("Textarea height is {string}", (height) => {
+  textareaChildren().should("have.css", "height", height);
+});
+
 Then("cols is set to {string}", (colsValue) => {
   textareaChildren().should("have.attr", "cols", colsValue);
 });

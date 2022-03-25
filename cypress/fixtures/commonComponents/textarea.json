@@ -1,9 +1,13 @@
-{ 
+{
   "expandable": {
     "expandable": true
   },
   "expandableFalse": {
     "expandable": false
+  },
+  "expandableWithRows": {
+    "expandable": true,
+    "rows": 7
   },
   "cols1": {
     "cols": 1

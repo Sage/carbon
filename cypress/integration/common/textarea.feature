@@ -40,6 +40,16 @@ Feature: Textarea component
       | 300  | rows300      |
 
   @positive
+  Scenario Outline: Set expandable and rows to <rows> 
+    When I open default "Textarea Test" component with "textarea" json from "commonComponents" using "<nameOfObject>" object name
+    Then rows is set to "<rows>"
+      And Textarea height is "119px"
+    Examples:
+      | rows | nameOfObject       |
+      | 7    | expandableWithRows |
+
+
+  @positive
   Scenario Outline: Set placeholder to <placeholder>
     When I open default "Textarea Test" component with "textarea" json from "commonComponents" using "<nameOfObject>" object name
     Then placeholder is set to <placeholder>
