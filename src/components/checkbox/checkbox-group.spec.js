@@ -125,11 +125,11 @@ describe("CheckboxGroup", () => {
       ["info", "string"],
       ["info", true],
     ])(
-      "when %s is passed as %s it is passed as boolean to RadioButton",
+      "when %s is passed as %s it is passed as boolean to CheckBox",
       (type, value) => {
         const wrapper = render({ [type]: value });
         wrapper
-          .find(Checkbox)
+          .find(CheckboxStyle)
           .forEach((node) => expect(node.props()[type]).toBe(true));
       }
     );

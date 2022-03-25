@@ -5,6 +5,7 @@ import {
   StyledFlatTableWrapper,
   StyledFlatTable,
   StyledFlatTableFooter,
+  StyledTableContainer,
 } from "./flat-table.style";
 import { DrawerSidebarContext } from "../drawer";
 import { filterStyledSystemMarginProps } from "../../style/utils";
@@ -29,6 +30,7 @@ const FlatTable = ({
   ariaDescribedby,
   minHeight,
   overflowX,
+  width,
   ...rest
 }) => {
   const addDefaultHeight = !height && (hasStickyHead || hasStickyFooter);
@@ -46,6 +48,7 @@ const FlatTable = ({
     <DrawerSidebarContext.Consumer>
       {({ isInSidebar }) => (
         <StyledFlatTableWrapper
+          data-component="flat-table-wrapper"
           isInSidebar={isInSidebar}
           hasStickyHead={hasStickyHead}
           colorTheme={colorTheme}
@@ -64,15 +67,19 @@ const FlatTable = ({
           }
           tabIndex="0"
           role="region"
-          overflowX={overflowX}
+          overflowX={width ? "hidden" : undefined}
+          width={width}
           {...rest}
         >
-          <StyledFlatTable data-component="flat-table" {...tableStylingProps}>
-            {caption ? <caption>{caption}</caption> : null}
-            <FlatTableThemeContext.Provider value={{ colorTheme, size }}>
-              {children}
-            </FlatTableThemeContext.Provider>
-          </StyledFlatTable>
+          <StyledTableContainer overflowX={overflowX} width={width}>
+            <StyledFlatTable data-component="flat-table" {...tableStylingProps}>
+              {caption ? <caption>{caption}</caption> : null}
+              <FlatTableThemeContext.Provider value={{ colorTheme, size }}>
+                {children}
+              </FlatTableThemeContext.Provider>
+            </StyledFlatTable>
+          </StyledTableContainer>
+
           {footer && (
             <StyledFlatTableFooter hasStickyFooter={hasStickyFooter}>
               {footer}
@@ -117,6 +124,8 @@ FlatTable.propTypes = {
   hasMaxHeight: PropTypes.bool,
   /** Set the overflow X of the table wrapper. Any valid CSS string */
   overflowX: PropTypes.string,
+  /** Width of the table. Any valid CSS string */
+  width: PropTypes.string,
 };
 
 FlatTable.defaultProps = {

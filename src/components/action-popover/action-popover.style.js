@@ -17,8 +17,9 @@ const Menu = styled.div`
     `${theme.zIndex.popover}`}; // TODO (tokens): implement elevation tokens - FE-4437
 `;
 
-const StyledMenuItem = styled.div`
+const StyledMenuItem = styled.button`
   text-decoration: none;
+  background-color: var(--colorsActionMajorYang100);
 `;
 
 const MenuItemFactory = (button) => styled(button)`

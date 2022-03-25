@@ -128,9 +128,6 @@ const SelectTextbox = ({
 
   function getTextboxProps() {
     return {
-      placeholder: hasTextCursor
-        ? placeholder || l.select.placeholder()
-        : undefined,
       disabled,
       readOnly,
       required,
@@ -151,7 +148,7 @@ const SelectTextbox = ({
       : joinIds(labelId, textId.current);
 
     return {
-      "aria-expanded": isOpen,
+      "aria-expanded": readOnly ? undefined : isOpen,
       "aria-labelledby": ariaLabelledby || undefined,
       "aria-activedescendant": activeDescendantId,
       "aria-controls": ariaControls,
@@ -161,15 +158,12 @@ const SelectTextbox = ({
   }
 
   function renderSelectText() {
-    if (hasTextCursor) {
-      return null;
-    }
-
     return (
       <SelectText
         textId={textId.current}
         transparent={transparent}
         onKeyDown={handleSelectTextKeydown}
+        placeholder={placeholder || l.select.placeholder()}
         {...getTextboxProps()}
       />
     );
@@ -189,10 +183,13 @@ const SelectTextbox = ({
       size={size}
       onChange={onChange}
       value={selectedValue}
+      placeholder={
+        hasTextCursor ? placeholder || l.select.placeholder() : undefined
+      }
       {...getInputAriaAttributes()}
       {...getTextboxProps()}
     >
-      {renderSelectText()}
+      {!hasTextCursor && renderSelectText()}
     </Textbox>
   );
 };

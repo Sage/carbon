@@ -7,6 +7,9 @@ import Link from "../link";
 
 const StyledSelectContainer = styled.div`
   height: 26px;
+  width: 55px;
+  margin-left: 4px;
+  margin-right: 4px;
 
   ${StyledInputPresentation} {
     padding-left: 0;
@@ -44,7 +47,7 @@ const StyledPagerSizeOptions = styled.div`
     height: 26px;
     min-height: 26px;
     min-width: 10px;
-    margin: 0px 4px;
+    margin: 0px;
 
     ${StyledSelectText} {
       font-size: 14px;

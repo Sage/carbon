@@ -82,6 +82,7 @@ const Input = React.forwardRef(
     return (
       <StyledInput
         {...rest}
+        aria-labelledby={context.ariaLabelledBy}
         align={align}
         placeholder={placeholder}
         disabled={disabled}
