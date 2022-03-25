@@ -57,6 +57,20 @@ import {
 } from "carbon-react/lib/components/flat-table";
 ```
 
+**It is necessary that `FlatTableCell` and `FlatTableHeader` components are a direct children of `FlatTableRow` component.**
+
+Reason for that is `FlatTableRow` which iterates and clones the children applying different props depending on the index of the given child.
+If you need to wrap `FlatTableCell` or `FlatTableHeader` remember to spread all the props directly to these components like shown below:
+
+```javascript
+const FlatTableCellWrapper = ({ customProp, ...rest }) => {
+  // ...
+  // some additional logic
+  // ...
+  return <FlatTableCell {...rest} />;
+};
+```
+
 ## Examples
 
 ### Default
