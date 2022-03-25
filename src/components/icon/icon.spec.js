@@ -494,18 +494,21 @@ describe("Icon component", () => {
       });
 
       it("throws an error if a invalid array is passed", () => {
-        jest.spyOn(global.console, "error").mockImplementation(() => {});
-        mount(
-          <Icon
-            type="home"
-            tooltipMessage="foo"
-            tooltipFlipOverrides={["foo", "bar"]}
-          />
-        );
+        const mockGlobal = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => undefined);
 
-        // eslint-disable-next-line no-console
-        expect(console.error).toHaveBeenCalled();
-        global.console.error.mockReset();
+        expect(() => {
+          mount(
+            <Icon
+              type="home"
+              tooltipMessage="foo"
+              tooltipFlipOverrides={["foo", "bar"]}
+            />
+          );
+        }).toThrow();
+
+        mockGlobal.mockReset();
       });
     });
   });

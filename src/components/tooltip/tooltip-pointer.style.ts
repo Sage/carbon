@@ -1,15 +1,25 @@
-import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
-import baseTheme from "../../style/themes/base";
+import { Placement } from "tippy.js";
+
+import baseTheme, { ThemeObject } from "../../style/themes/base";
 import { toColor } from "../../style/utils/color";
 
-const pointerColor = (type, theme, bgColor) => {
+interface StyledTooltipPointer {
+  /** Sets position of the tooltip */
+  position?: Placement;
+  /** Defines the message type */
+  type?: string;
+  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  bgColor?: string;
+}
+
+const pointerColor = (theme: ThemeObject, bgColor?: string, type?: string) => {
   if (bgColor) return toColor(theme, bgColor);
   return type === "error"
     ? "var(--colorsSemanticNegative500)"
     : "var(--colorsSemanticNeutral500)";
 };
-const StyledTooltipPointer = styled.div`
+const StyledTooltipPointer = styled.div<StyledTooltipPointer>`
   ${({ position, theme, type, bgColor }) => css`
     position: absolute;
     width: 0;
@@ -19,7 +29,7 @@ const StyledTooltipPointer = styled.div`
     css`
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;
-      border-top: 8px solid ${pointerColor(type, theme, bgColor)};
+      border-top: 8px solid ${pointerColor(theme, bgColor, type)};
       bottom: calc(-1 * var(--spacing100));
       @-moz-document url-prefix() {
         bottom: -7px;
@@ -30,7 +40,7 @@ const StyledTooltipPointer = styled.div`
     css`
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;
-      border-bottom: 8px solid ${pointerColor(type, theme, bgColor)};
+      border-bottom: 8px solid ${pointerColor(theme, bgColor, type)};
       top: calc(-1 * var(--spacing100));
       @-moz-document url-prefix() {
         top: -7px;
@@ -41,7 +51,7 @@ const StyledTooltipPointer = styled.div`
     css`
       border-top: 8px solid transparent;
       border-bottom: 8px solid transparent;
-      border-right: 8px solid ${pointerColor(type, theme, bgColor)};
+      border-right: 8px solid ${pointerColor(theme, bgColor, type)};
       left: calc(-1 * var(--spacing100));
       @-moz-document url-prefix() {
         left: -7px;
@@ -52,7 +62,7 @@ const StyledTooltipPointer = styled.div`
     css`
       border-top: 8px solid transparent;
       border-bottom: 8px solid transparent;
-      border-left: 8px solid ${pointerColor(type, theme, bgColor)};
+      border-left: 8px solid ${pointerColor(theme, bgColor, type)};
       right: calc(-1 * var(--spacing100));
       @-moz-document url-prefix() {
         right: -7px;
@@ -64,13 +74,6 @@ const StyledTooltipPointer = styled.div`
 StyledTooltipPointer.defaultProps = {
   theme: baseTheme,
   position: "top",
-};
-
-StyledTooltipPointer.propTypes = {
-  position: PropTypes.oneOf(["bottom", "left", "right", "top"]),
-  theme: PropTypes.object,
-  type: PropTypes.string,
-  bgColor: PropTypes.string,
 };
 
 export default StyledTooltipPointer;

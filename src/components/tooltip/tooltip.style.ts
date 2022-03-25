@@ -1,7 +1,9 @@
 import styled, { css, keyframes } from "styled-components";
-import PropTypes from "prop-types";
-import baseTheme from "../../style/themes/base";
+import { Placement } from "tippy.js";
+
+import baseTheme, { ThemeObject } from "../../style/themes/base";
 import { toColor } from "../../style/utils/color";
+import { TooltipProps, InputSizes } from "./tooltip.component";
 
 const fadeIn = keyframes`
   0% {
@@ -13,14 +15,18 @@ const fadeIn = keyframes`
   }
 `;
 
-const tooltipColor = (type, theme, bgColor) => {
+const tooltipColor = (theme: ThemeObject, bgColor?: string, type?: string) => {
   if (bgColor) return toColor(theme, bgColor);
   return type === "error"
     ? "var(--colorsSemanticNegative500)"
     : "var(--colorsSemanticNeutral500)";
 };
 
-const tooltipOffset = (position, inputSize, isPartOfInput) => {
+const tooltipOffset = (
+  position: Placement,
+  inputSize?: InputSizes,
+  isPartOfInput?: boolean
+) => {
   if (!isPartOfInput) {
     return { [position]: "1px" };
   }
@@ -50,14 +56,19 @@ const tooltipOffset = (position, inputSize, isPartOfInput) => {
   }
 };
 
-const StyledTooltipWrapper = styled.div`
+interface StyledTooltipProps
+  extends Omit<TooltipProps, "children" | "message" | "position"> {
+  position: Placement;
+}
+
+const StyledTooltip = styled.div<StyledTooltipProps>`
   ${({
     position,
     size,
     theme,
     type,
     isPartOfInput,
-    inputSize,
+    inputSize = "medium",
     bgColor,
     fontColor,
   }) => css`
@@ -79,27 +90,13 @@ const StyledTooltipWrapper = styled.div`
     font-size: ${size === "medium" ? "14px" : "16px"};
     line-height: 1.5rem;
     font-weight: 400;
-    background-color: ${tooltipColor(type, theme, bgColor)};
+    background-color: ${tooltipColor(theme, bgColor, type)};
     ${tooltipOffset(position, inputSize, isPartOfInput)};
   `}
 `;
 
-StyledTooltipWrapper.propTypes = {
-  position: PropTypes.oneOf(["top", "bottom", "left", "right"]),
-  size: PropTypes.oneOf(["medium", "large"]),
-  theme: PropTypes.object,
-  type: PropTypes.string,
-  isPartOfInput: PropTypes.bool,
-  inputSize: PropTypes.oneOf(["small", "medium", "large"]),
-  bgColor: PropTypes.string,
-  fontColor: PropTypes.string,
-};
-
-StyledTooltipWrapper.defaultProps = {
+StyledTooltip.defaultProps = {
   theme: baseTheme,
-  size: "medium",
-  inputSize: "medium",
-  position: "top",
 };
 
-export default StyledTooltipWrapper;
+export default StyledTooltip;
