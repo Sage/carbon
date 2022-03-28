@@ -5,12 +5,25 @@ export default function useInputAccessibility({
   info,
   label,
   fieldHelp,
-}) {
+}: {
+  id: string;
+  error?: string;
+  warning?: string;
+  info?: string;
+  label?: string;
+  fieldHelp?: string;
+}): {
+  labelId?: string;
+  validationIconId?: string;
+  fieldHelpId?: string;
+  ariaDescribedBy?: string;
+  ariaLabelledBy?: string;
+} {
   const labelId = label ? `${id}-label` : undefined;
 
-  const validationIconId = [error, warning, info].filter((validation) => {
-    return validation && typeof validation === "string";
-  }).length
+  const validationIconId = [error, warning, info].filter(
+    (validation) => validation && typeof validation === "string"
+  ).length
     ? `${id}-validation-icon`
     : undefined;
 
