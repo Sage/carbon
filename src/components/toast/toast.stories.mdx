@@ -70,6 +70,8 @@ Please note, by clicking a `toggle preview` button it will open example toast at
 
 ### Default
 
+Toast variant is `success` by default
+
 <Canvas>
   <Story name="default" parameters={{ info: { disable: true } }}>
     {() => {
@@ -104,10 +106,10 @@ Please note, by clicking a `toggle preview` button it will open example toast at
   </Story>
 </Canvas>
 
-### Variant Info
+### Info
 
 <Canvas>
-  <Story name="variant-info" parameters={{ info: { disable: true } }}>
+  <Story name="info" parameters={{ info: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       const handleToggle = () => {
@@ -144,10 +146,10 @@ Please note, by clicking a `toggle preview` button it will open example toast at
   </Story>
 </Canvas>
 
-### Variant Error
+### Error
 
 <Canvas>
-  <Story name="variant-error" parameters={{ info: { disable: true } }}>
+  <Story name="error" parameters={{ info: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       const handleToggle = () => {
@@ -184,10 +186,10 @@ Please note, by clicking a `toggle preview` button it will open example toast at
   </Story>
 </Canvas>
 
-### Variant Warning
+### Warning
 
 <Canvas>
-  <Story name="variant-warning" parameters={{ info: { disable: true } }}>
+  <Story name="warning" parameters={{ info: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       const handleToggle = () => {
@@ -216,46 +218,6 @@ Please note, by clicking a `toggle preview` button it will open example toast at
             Toggle - Preview is: {isOpen ? "ON" : "OFF"}
           </StyledButton>
           <Toast variant="warning" id="toast-variant-warning" open={isOpen}>
-            My Info
-          </Toast>
-        </div>
-      );
-    }}
-  </Story>
-</Canvas>
-
-### Variant Success
-
-<Canvas>
-  <Story name="variant-success" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [isOpen, setIsOpen] = useState(false);
-      const handleToggle = () => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-        action("open")(!isOpen);
-      };
-      const StyledButton = styled(Button)`
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: ${isOpen ? "green" : "blue"};
-        border: ${isOpen ? "2px solid green" : "2px solid blue"};
-      `;
-      return (
-        <div id="wrapper-variant-success">
-          <StyledButton
-            id="button-variant-success"
-            key="button"
-            onClick={handleToggle}
-          >
-            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-          </StyledButton>
-          <Toast variant="success" id="default-toast" open={isOpen}>
             My Info
           </Toast>
         </div>

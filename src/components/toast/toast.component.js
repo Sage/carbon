@@ -17,7 +17,7 @@ import Events from "../../__internal__/utils/helpers/events";
 import useLocale from "../../hooks/__internal__/useLocale";
 
 const Toast = ({
-  as = "warning",
+  as = "success",
   children,
   className,
   id,
@@ -131,27 +131,9 @@ const Toast = ({
 
 Toast.propTypes = {
   /** Customizes the appearance in the DLS theme */
-  variant: PropTypes.oneOf([
-    "default",
-    "error",
-    "help",
-    "info",
-    "maintenance",
-    "new",
-    "success",
-    "warning",
-  ]),
+  variant: PropTypes.oneOf(["error", "info", "success", "warning"]),
   /** Customizes the appearance in a legacy theme through colour (see the 'iconColorSets' for possible values) */
-  as: PropTypes.oneOf([
-    "default",
-    "error",
-    "help",
-    "info",
-    "maintenance",
-    "new",
-    "success",
-    "warning",
-  ]),
+  as: PropTypes.oneOf(["error", "info", "success", "warning"]),
   /** Custom className */
   className: PropTypes.string,
   /** Custom id  */
