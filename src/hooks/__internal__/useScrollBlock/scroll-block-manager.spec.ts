@@ -12,7 +12,7 @@ describe("ScrollBlockManager", () => {
     });
 
     it("global variable window.__CARBON_INTERNALS_SCROLL_BLOCKERS should have this component added", () => {
-      expect(window.__CARBON_INTERNALS_SCROLL_BLOCKERS.components[id1]).toBe(
+      expect(window.__CARBON_INTERNALS_SCROLL_BLOCKERS?.components[id1]).toBe(
         true
       );
     });
@@ -49,7 +49,7 @@ describe("ScrollBlockManager", () => {
     it("getOriginalValues method return the saved values", () => {
       const scrollBlockManager = new ScrollBlockManager();
 
-      const someValues = [{ value: true }];
+      const someValues = ["value1", "value2"];
 
       scrollBlockManager.saveOriginalValues(someValues);
       expect(scrollBlockManager.getOriginalValues()).toEqual(someValues);
@@ -70,30 +70,33 @@ describe("ScrollBlockManager", () => {
   });
 
   describe("when global variable window.__CARBON_INTERNALS_SCROLL_BLOCKERS does not exist", () => {
-    it("it creates one", () => {
+    it("creates one", () => {
       delete window.__CARBON_INTERNALS_SCROLL_BLOCKERS;
       expect(window.__CARBON_INTERNALS_SCROLL_BLOCKERS).toBe(undefined);
-      // eslint-disable-next-line no-unused-vars
+
       const scrollBlockManager = new ScrollBlockManager();
+      expect(scrollBlockManager.isBlocked()).toBe(false);
       expect(window.__CARBON_INTERNALS_SCROLL_BLOCKERS).toEqual({
         components: {},
         originalValues: [],
+        restoreValues: null,
       });
     });
   });
 
   describe("when saveRestoreValuesCallback is called with a callback", () => {
-    it("it creates one and returns it with getRestoreValuesCallback method", () => {
+    it("creates one and returns it with getRestoreValuesCallback method", () => {
       const scrollBlockManager = new ScrollBlockManager();
       expect(window.__CARBON_INTERNALS_SCROLL_BLOCKERS).toEqual({
         components: {},
         originalValues: [],
+        restoreValues: null,
       });
 
-      const callback = () => {};
+      const callback = jest.fn();
 
       scrollBlockManager.saveRestoreValuesCallback(callback);
-      expect(window.__CARBON_INTERNALS_SCROLL_BLOCKERS.restoreValues).toBe(
+      expect(window.__CARBON_INTERNALS_SCROLL_BLOCKERS?.restoreValues).toBe(
         callback
       );
 
