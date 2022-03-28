@@ -1,6 +1,9 @@
 import * as React from "react";
+import { MarginProps } from "styled-system";
 
-export interface SplitButtonProps {
+export interface SplitButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    MarginProps {
   /** Set align of the rendered content */
   align?: "left" | "right";
   /** Button type: "primary" | "secondary" for legacy theme */
@@ -23,6 +26,6 @@ export interface SplitButtonProps {
   text: string;
 }
 
-declare class SplitButton extends React.Component<SplitButtonProps> {}
+declare function SplitButton(props: SplitButtonProps): JSX.Element;
 
 export default SplitButton;

@@ -16,7 +16,10 @@ import StyledSplitButtonChildrenContainer from "./split-button-children.style";
 import Events from "../../__internal__/utils/helpers/events";
 import guid from "../../__internal__/utils/helpers/guid";
 import Popover from "../../__internal__/popover";
-import { filterStyledSystemMarginProps } from "../../style/utils";
+import {
+  filterStyledSystemMarginProps,
+  filterOutStyledSystemSpacingProps,
+} from "../../style/utils";
 import { baseTheme } from "../../style/themes";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
 import Logger from "../../__internal__/utils/logger";
@@ -41,6 +44,8 @@ const SplitButton = ({
   size = "medium",
   subtext,
   text,
+  "data-element": dataElement,
+  "data-role": dataRole,
   ...rest
 }) => {
   if (!deprecatedWarnTriggered && as) {
@@ -143,6 +148,7 @@ const SplitButton = ({
       onClick,
       size,
       subtext,
+      ...filterOutStyledSystemSpacingProps(rest),
     };
   }
 
@@ -170,8 +176,8 @@ const SplitButton = ({
   function componentTags() {
     return {
       "data-component": "split-button",
-      "data-element": rest["data-element"],
-      "data-role": rest["data-role"],
+      "data-element": dataElement,
+      "data-role": dataRole,
     };
   }
 
