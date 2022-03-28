@@ -11,11 +11,16 @@ const HiddenCheckableInput = ({
   inputRef,
   onChange,
   autoFocus,
+  role,
   ...props
 }) => {
-  const { onBlur, onFocus, onMouseEnter, onMouseLeave } = useContext(
-    InputContext
-  );
+  const {
+    onBlur,
+    onFocus,
+    onMouseEnter,
+    onMouseLeave,
+    ariaLabelledBy,
+  } = useContext(InputContext);
   const {
     onBlur: onBlurGroup,
     onFocus: onFocusGroup,
@@ -53,10 +58,11 @@ const HiddenCheckableInput = ({
       aria-checked={checked}
       checked={checked}
       name={name}
-      role={type}
+      role={role || type}
       type={type}
       value={value}
       {...props}
+      {...(ariaLabelledBy && { "aria-labelledby": ariaLabelledBy })}
       onFocus={handleFocus}
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
@@ -86,6 +92,8 @@ HiddenCheckableInput.propTypes = {
   onMouseEnter: PropTypes.func,
   /** HTML type attribute of the input */
   type: PropTypes.string.isRequired,
+  /** Role attribute of the input */
+  role: PropTypes.string,
   /** Value of the input */
   value: PropTypes.string,
   /** A callback to retrieve the input reference */

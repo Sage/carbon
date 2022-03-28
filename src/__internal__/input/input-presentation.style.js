@@ -10,7 +10,7 @@ export const StyledInputPresentationContainer = styled.div`
 
 const InputPresentationStyle = styled.div`
   align-items: stretch;
-  background: #fff;
+  background: var(--colorsUtilityYang100);
   border: 1px solid var(--colorsUtilityMajor300);
   box-sizing: border-box;
   cursor: text;
@@ -58,7 +58,13 @@ const InputPresentationStyle = styled.div`
   }
 `;
 
-function stylingForValidations({ error, warning, info, disabled }) {
+function stylingForValidations({
+  error,
+  warning,
+  info,
+  disabled,
+  validationRedesignOptIn,
+}) {
   let validationColor;
 
   if (disabled) {
@@ -68,7 +74,9 @@ function stylingForValidations({ error, warning, info, disabled }) {
   if (error) {
     validationColor = "var(--colorsSemanticNegative500)";
   } else if (warning) {
-    validationColor = "var(--colorsSemanticCaution500)";
+    validationColor = validationRedesignOptIn
+      ? "var(--colorsUtilityMajor300)"
+      : "var(--colorsSemanticCaution500)";
   } else if (info) {
     validationColor = "var(--colorsSemanticInfo500)";
   } else {

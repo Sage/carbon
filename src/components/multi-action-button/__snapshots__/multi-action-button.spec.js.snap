@@ -36,9 +36,9 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c2 {
-  padding-left: 24px;
-  padding-right: 24px;
-  margin: 0;
+  padding-left: var(--spacing300);
+  padding-right: var(--spacing300);
+  margin: var(--spacing000);
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -261,7 +261,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
     <span
       aria-hidden={true}
       className="c3 c4"
-      color="var(--colorsActionMajor500)"
+      color="--colorsActionMajor500"
       data-component="icon"
       data-element="dropdown"
       disabled={false}

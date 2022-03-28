@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import propTypes from "prop-types";
-import baseTheme from "../../style/themes/base";
 
 const ScrollableListItem = styled.li`
   ${({ isSelectable }) =>
@@ -8,10 +7,10 @@ const ScrollableListItem = styled.li`
     css`
       cursor: pointer;
     `}
-  ${({ isSelected, theme }) =>
+  ${({ isSelected }) =>
     isSelected &&
     css`
-      background-color: ${theme.select.selected};
+      background-color: var(--colorsUtilityMajor025);
     `}
   box-sizing: content-box;
   padding: 5px 6px;
@@ -21,12 +20,10 @@ const ScrollableListItem = styled.li`
 ScrollableListItem.propTypes = {
   id: propTypes.any,
   isSelected: propTypes.bool,
-  theme: propTypes.object,
 };
 
 ScrollableListItem.defaultProps = {
   isSelectable: true, // defaulted to true so it integrates with ScrollableList by default,
-  theme: baseTheme,
 };
 
 export default ScrollableListItem;

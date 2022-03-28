@@ -26,6 +26,10 @@ export interface FlatTableProps extends MarginProps {
   size?: "compact" | "small" | "medium" | "large" | "extraLarge";
   /** Applies max-height of 100% to FlatTable if true */
   hasMaxHeight?: boolean;
+  /** Set the overflow X of the table wrapper. Any valid CSS string */
+  overflowX?: string;
+  /** Width of the table. Any valid CSS string */
+  width?: string;
 }
 
 declare function FlatTable(props: FlatTableProps): JSX.Element;

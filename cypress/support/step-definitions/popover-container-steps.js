@@ -16,7 +16,7 @@ Then("Popover container is visible", () => {
     .and(
       "have.css",
       "box-shadow",
-      "rgba(0, 20, 29, 0.2) 0px 5px 5px 0px, rgba(0, 20, 29, 0.1) 0px 10px 10px 0px"
+      "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px"
     );
   popoverContainerContentSecondInnerElement()
     .should("have.attr", "data-element", "popover-container-close-component")

@@ -8,29 +8,21 @@
 
 Listed below is the activity we have on our backlog.
 
-### Internationalisation
+### TypeScript
 
-Implement the proposal in the [i18n RFC](https://github.com/Sage/carbon/blob/master/rfcs/text/i18n.md).
+We will convert our existing components from JavaScript to TypeScript.
+This will reduce errors in our definition files and allow us to leverage TypeScript lanagage features during development.
+You can see a detailed plan in the [RFC](https://github.com/Sage/carbon/tree/master/rfcs/text/typescript.md).
 
-### TypeScript Support
+### React Testing Library
 
-At a minimum we should support type definitions for every component.
-We will also review if we should convert our existing code to TypeScript.
+We will convert our existing tests from Enzyme to React Testing Library. You can see a detailed plain in the [RFC](https://github.com/Sage/carbon/tree/master/rfcs/text/enzyme-to-rtl.md).
+This will allow us to upgrade to the latest version of react at a later date.
 
-### Accessibility audit
+### Documentation 
 
-Review current components against accessibility guidelines and plug any gaps we may have to meet those requirements, in particular:
-
-1. Keyboard accessibility of navigation components such as Menu.
-1. Keyboard accessibility of Tables - particularly tables with inputs.
-1. Focus behaviour in Dialog and Sidebar.
-1. Date picker popover.
-
-Review our automation/testing/linting to ensure that accessibility is part of the CI process to prevent any regressions.
-
-### Design System congruence
-
-Review our Design System documentation and ensure our components are congruent with those described in [brand.sage.com](https://brand.sage.com).
+We will increase our documentation efforts to ensure that our consumers have a good development experience.
+We will consider the langauge that we use, the examples that we provide and the tooling that we use.
 
 ### Deprecations
 

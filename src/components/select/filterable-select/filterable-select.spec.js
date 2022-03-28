@@ -9,6 +9,11 @@ import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
 import Button from "../../button";
 import Label from "../../../__internal__/label";
+import InputIconToggle from "../../../__internal__/input-icon-toggle";
+import guid from "../../../__internal__/utils/helpers/guid";
+
+jest.mock("../../../__internal__/utils/helpers/guid");
+guid.mockImplementation(() => "guid-12345");
 
 describe("FilterableSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
@@ -38,6 +43,14 @@ describe("FilterableSelect", () => {
     const wrapper = mount(<WrapperComponent />);
 
     expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+  });
+
+  it("when text is passed in placeholder prop, input element in textbox uses it as placeholder text", () => {
+    const placeholder = "foobaz";
+    const wrapper = renderSelect({ placeholder });
+    expect(
+      wrapper.find("input[data-element='input']").prop("placeholder")
+    ).toBe(placeholder);
   });
 
   describe("when the value prop has been passed", () => {
@@ -763,18 +776,19 @@ describe("FilterableSelect", () => {
   });
 
   describe("when parent re-renders", () => {
-    const WrapperComponent = (props) => {
+    // eslint-disable-next-line react/prop-types
+    const WrapperComponent = ({ change }) => {
       const mockRef = useRef();
 
       return (
-        <span change={props.change}>
+        <div change={change}>
           <FilterableSelect name="testSelect" id="testSelect" ref={mockRef}>
             <Option value="opt1" text="red" />
             <Option value="opt2" text="green" />
             <Option value="opt3" text="blue" />
             <Option value="opt4" text="black" />
           </FilterableSelect>
-        </span>
+        </div>
       );
     };
 
@@ -931,6 +945,42 @@ describe("FilterableSelect", () => {
           wrapper.find("input").simulate("focus");
           expect(onOpenFn).toHaveBeenCalled();
         });
+      });
+    });
+  });
+
+  describe("ARIA", () => {
+    describe("when label is passed", () => {
+      let wrapper;
+      let labelId;
+
+      beforeEach(() => {
+        wrapper = renderSelect({ label: "color" });
+        labelId = wrapper.find(Label).prop("labelId");
+      });
+
+      it("Textbox is passed the id of the label", () => {
+        expect(wrapper.find(Textbox).prop("labelId")).toBe(labelId);
+      });
+
+      it("when opened, SelectList is passed the id of the label", () => {
+        wrapper.find(InputIconToggle).simulate("click");
+        expect(wrapper.find(SelectList).prop("labelId")).toBe(labelId);
+      });
+    });
+
+    describe("when label is undefined", () => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = renderSelect({ label: undefined });
+      });
+      it("Textbox isn't passed an id of a non-existent label", () => {
+        expect(wrapper.find(Textbox).prop("labelId")).toBe(undefined);
+      });
+      it("when opened, SelectList isn't passed an id of a non-existent label", () => {
+        wrapper.find(InputIconToggle).simulate("click");
+        expect(wrapper.find(SelectList).prop("labelId")).toBe(undefined);
       });
     });
   });

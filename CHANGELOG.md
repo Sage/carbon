@@ -1,3 +1,306 @@
+### [104.58.6](https://github.com/Sage/carbon/compare/v104.58.5...v104.58.6) (2022-03-25)
+
+
+### Bug Fixes
+
+* **textarea:** allow row and expandable props to be used together ([a9b64ca](https://github.com/Sage/carbon/commit/a9b64cadffc30aaff1212da5593ec245f5b5e5aa)), closes [#4959](https://github.com/Sage/carbon/issues/4959)
+
+### [104.58.5](https://github.com/Sage/carbon/compare/v104.58.4...v104.58.5) (2022-03-24)
+
+
+### Bug Fixes
+
+* **select:** fix page scrolling to the top issue ([3433027](https://github.com/Sage/carbon/commit/3433027b1a373b967319871c63534af7ec560ac3))
+
+### [104.58.4](https://github.com/Sage/carbon/compare/v104.58.3...v104.58.4) (2022-03-24)
+
+
+### Bug Fixes
+
+* **multi-action-button:** fix incorrect hover color ([cca48c5](https://github.com/Sage/carbon/commit/cca48c5e257804d62f742a757e34246ffb23fbde))
+
+### [104.58.3](https://github.com/Sage/carbon/compare/v104.58.2...v104.58.3) (2022-03-22)
+
+
+### Bug Fixes
+
+* **menu-item:** prevent setting maxWidth when items are rendered in MenuFullscreen ([8bf5887](https://github.com/Sage/carbon/commit/8bf5887fd7b8bee17c6d42b9b5996937c98e1bee)), closes [#4961](https://github.com/Sage/carbon/issues/4961)
+
+### [104.58.2](https://github.com/Sage/carbon/compare/v104.58.1...v104.58.2) (2022-03-22)
+
+
+### Bug Fixes
+
+* **tabs:** move onclick handler to button element ([6d63414](https://github.com/Sage/carbon/commit/6d63414d1293c10b36ce73dde6b9580f494da020)), closes [#4883](https://github.com/Sage/carbon/issues/4883)
+
+### [104.58.1](https://github.com/Sage/carbon/compare/v104.58.0...v104.58.1) (2022-03-21)
+
+
+### Bug Fixes
+
+* **select:** ensure textbox placeholder can be set when passed as prop ([4905d48](https://github.com/Sage/carbon/commit/4905d481e4fcb13e077bbbd5412c72696431a4be))
+
+## [104.58.0](https://github.com/Sage/carbon/compare/v104.57.0...v104.58.0) (2022-03-17)
+
+
+### Features
+
+* **icon:** add id prop ([14cfc46](https://github.com/Sage/carbon/commit/14cfc4678841bc08d40154eff01fae5a0ab00d59))
+
+
+### Bug Fixes
+
+* **validation-icon:** fix accessibility issue ([b8285bc](https://github.com/Sage/carbon/commit/b8285bc48dcc85fcb7f7ecb36bde2d03f8e83671))
+
+## [104.57.0](https://github.com/Sage/carbon/compare/v104.56.0...v104.57.0) (2022-03-17)
+
+
+### Features
+
+* **carbon-provider:** add support for passing new validation flag via context ([de42a45](https://github.com/Sage/carbon/commit/de42a45fb36e0637d84400010036bc7f639b95e9))
+* **date-range:** add new validation style support ([957037f](https://github.com/Sage/carbon/commit/957037f4a7c1905ea1c807942055d9bbe10534b3))
+* **date:** add new validation style support ([b5fcfc8](https://github.com/Sage/carbon/commit/b5fcfc8156c8a99b9f939c095ee551da71054e1a))
+* **decimal:** add new validation style support ([7929926](https://github.com/Sage/carbon/commit/7929926b8c046091cb0c5d470fa5e1b70769f2a1))
+* **filterable-select:** add new validation style support ([1908bca](https://github.com/Sage/carbon/commit/1908bca40b3e667788a831aa017a5bb1b8913884))
+* **grouped-character:** add new validation style support ([578e308](https://github.com/Sage/carbon/commit/578e3081761a87894408bb54f0b429de14ecfa1f))
+* **multi-select:** add new validation style support ([3bb38ba](https://github.com/Sage/carbon/commit/3bb38baa2138d5c54ee457cbb8ac60f724563f94))
+* **number:** add new validation style support ([0f5b343](https://github.com/Sage/carbon/commit/0f5b343df7e1490ebc2e31f5807eed89d62c770c))
+* **numeral-date:** add new validation style support ([eb537f9](https://github.com/Sage/carbon/commit/eb537f9c9325d1593e52030363f542b00c61eda0))
+* **select:** add new validation style support ([5dcb7d3](https://github.com/Sage/carbon/commit/5dcb7d33156c7b3e627a745442f9a9ce6e78afae))
+* **textarea:** add new validation style support ([af48d7a](https://github.com/Sage/carbon/commit/af48d7a65c92c3558424bab029a4811b9480925e))
+* **textbox:** add support for new validation design and different size inputs ([462c6c6](https://github.com/Sage/carbon/commit/462c6c659a62b22153747ca9155712057ef94162))
+* **validation-message:** describe validation message component with design-tokens ([0acc714](https://github.com/Sage/carbon/commit/0acc714a672d5693f06bb891a25b94a1315f902e))
+* **validation-message:** internal component for validation messages ([ed0e148](https://github.com/Sage/carbon/commit/ed0e148bf08b960b2bd9538cd994ec0faae0611a))
+
+
+### Bug Fixes
+
+* **input:** change warning colour based on context ([e0a1826](https://github.com/Sage/carbon/commit/e0a182679c8af304172f15a05c0ea52c501bb048))
+
+## [104.56.0](https://github.com/Sage/carbon/compare/v104.55.0...v104.56.0) (2022-03-16)
+
+
+### Features
+
+* **hidden-checkable-input:** surface role prop ([8fe6e73](https://github.com/Sage/carbon/commit/8fe6e730db2b3c5b2f07b26b1ec82abe9ffd49d0))
+
+
+### Bug Fixes
+
+* **switch:** ensure the input has the correct role ([3d012a2](https://github.com/Sage/carbon/commit/3d012a253fc2900a621a2373bf82852fdd4f8b53))
+
+## [104.55.0](https://github.com/Sage/carbon/compare/v104.54.4...v104.55.0) (2022-03-16)
+
+
+### Features
+
+* **modal-manager:** enable global management of modal lists ([7d640a1](https://github.com/Sage/carbon/commit/7d640a11b948580108826c635cf0c4335aa00697)), closes [#4170](https://github.com/Sage/carbon/issues/4170)
+
+### [104.54.4](https://github.com/Sage/carbon/compare/v104.54.3...v104.54.4) (2022-03-16)
+
+
+### Bug Fixes
+
+* **select:** remove incorrect props ([a755a8f](https://github.com/Sage/carbon/commit/a755a8f7ea34ac49ebcb168f71a7f34161ed986c)), closes [#4840](https://github.com/Sage/carbon/issues/4840)
+
+### [104.54.3](https://github.com/Sage/carbon/compare/v104.54.2...v104.54.3) (2022-03-15)
+
+
+### Bug Fixes
+
+* **action-popover-item:** prevent popover staying open when using keyboard nav ([6c03ae3](https://github.com/Sage/carbon/commit/6c03ae377c388f6b27c209047267ee3872bd19b3)), closes [#4662](https://github.com/Sage/carbon/issues/4662)
+
+### [104.54.2](https://github.com/Sage/carbon/compare/v104.54.1...v104.54.2) (2022-03-14)
+
+
+### Bug Fixes
+
+* **multi-action-button:** fix tabbing order issues ([fd24b7a](https://github.com/Sage/carbon/commit/fd24b7a5205a219c10d9f13792825e402ed7faea))
+* **split-button:** fix tabbing order issues ([a7b631f](https://github.com/Sage/carbon/commit/a7b631f0f1414fe454fa8af53916a5fe980fcc6e))
+
+### [104.54.1](https://github.com/Sage/carbon/compare/v104.54.0...v104.54.1) (2022-03-14)
+
+
+### Bug Fixes
+
+* **pager:** fix incorrect styling when open ([4acfe02](https://github.com/Sage/carbon/commit/4acfe02c58b77a0a0df65a93373ec21dcca03026))
+
+## [104.54.0](https://github.com/Sage/carbon/compare/v104.53.4...v104.54.0) (2022-03-11)
+
+
+### Features
+
+* **flat-table:** add width prop ([4266db4](https://github.com/Sage/carbon/commit/4266db484c17f9a1de5f72fff49dad894749d5cd)), closes [#4822](https://github.com/Sage/carbon/issues/4822)
+
+### [104.53.4](https://github.com/Sage/carbon/compare/v104.53.3...v104.53.4) (2022-03-11)
+
+
+### Bug Fixes
+
+* **textbox:** prevent axe issue when the validation string is empty ([84f026f](https://github.com/Sage/carbon/commit/84f026f5e15c2f9e9b98b255a53b7706c929abea)), closes [#4839](https://github.com/Sage/carbon/issues/4839)
+
+### [104.53.3](https://github.com/Sage/carbon/compare/v104.53.2...v104.53.3) (2022-03-11)
+
+
+### Bug Fixes
+
+* **tooltip:** fix tooltip repositioning ([f3a3943](https://github.com/Sage/carbon/commit/f3a394393df10b34588573ecd3120f267bda49ab))
+
+### [104.53.2](https://github.com/Sage/carbon/compare/v104.53.1...v104.53.2) (2022-03-10)
+
+
+### Bug Fixes
+
+* **flat-table-row:** update styles to ensure that icon color can be customised via prop ([e4cd58c](https://github.com/Sage/carbon/commit/e4cd58c5a112af790ebff019eb55b5d6c2f746b0)), closes [#4904](https://github.com/Sage/carbon/issues/4904)
+
+### [104.53.1](https://github.com/Sage/carbon/compare/v104.53.0...v104.53.1) (2022-03-10)
+
+
+### Bug Fixes
+
+* **multi-select:** prevent component calling onChange on first render when uncontrolled ([51f1e93](https://github.com/Sage/carbon/commit/51f1e93719a4961cfb4a5c41c2cf3985d925e29e)), closes [#4727](https://github.com/Sage/carbon/issues/4727)
+
+## [104.53.0](https://github.com/Sage/carbon/compare/v104.52.2...v104.53.0) (2022-03-09)
+
+
+### Features
+
+* **space:** swap space values for values described by tokens ([ec0c2d4](https://github.com/Sage/carbon/commit/ec0c2d4521eba4649e3863d335390b612ff99994))
+
+### [104.52.2](https://github.com/Sage/carbon/compare/v104.52.1...v104.52.2) (2022-03-09)
+
+
+### Bug Fixes
+
+* **storybook:** fix theme selector functionality ([ccfbd50](https://github.com/Sage/carbon/commit/ccfbd50a0415c9c99767136a8e64a2b8ccaccf85))
+
+### [104.52.1](https://github.com/Sage/carbon/compare/v104.52.0...v104.52.1) (2022-03-08)
+
+
+### Bug Fixes
+
+* **filterable-select:** prevent passing a non-existent label id to children ([da6c470](https://github.com/Sage/carbon/commit/da6c4703a19593fa0f78715e09d1e2b2e8cf823a))
+
+## [104.52.0](https://github.com/Sage/carbon/compare/v104.51.0...v104.52.0) (2022-03-08)
+
+
+### Features
+
+* **flat-table:** add ability to use data-xxx props on flat table components ([11b365d](https://github.com/Sage/carbon/commit/11b365daf701d5c29acb60b923e5a7f3317b1327)), closes [#4862](https://github.com/Sage/carbon/issues/4862)
+
+## [104.51.0](https://github.com/Sage/carbon/compare/v104.50.0...v104.51.0) (2022-03-08)
+
+
+### Features
+
+* extend toColor function by design tokens ([1d17860](https://github.com/Sage/carbon/commit/1d17860cf82f3b7bbe779fb75f93744f36e311a2))
+
+## [104.50.0](https://github.com/Sage/carbon/compare/v104.49.0...v104.50.0) (2022-03-07)
+
+
+### Features
+
+* **character-count:** describe character-count component using design tokens, update tests ([8e5d184](https://github.com/Sage/carbon/commit/8e5d18443ba277de85bf6a853e23da216d851b03))
+* **checkable-input:** describe checkable-input component using design tokens, update tests ([14b924c](https://github.com/Sage/carbon/commit/14b924cc41d71a82ac4815389a04ffcc113ac24b))
+* **input-icon-toggle:** describe input-icon-toggle component using design tokens ([f82f7bf](https://github.com/Sage/carbon/commit/f82f7bffcca1927f3ecaf08ee2dc506eb96812af))
+* **input-presentation:** describe input-presentation component using design tokens, update tests ([a65fa6b](https://github.com/Sage/carbon/commit/a65fa6b53a57c6faef8863526a943f4580aba9d6))
+
+## [104.49.0](https://github.com/Sage/carbon/compare/v104.48.1...v104.49.0) (2022-03-07)
+
+
+### Features
+
+* **scrollable-list-item, select-list-container:** describe components using tokens ([2d4bcbd](https://github.com/Sage/carbon/commit/2d4bcbde12a34b2b660a841ba3204b04762ae90c))
+
+### [104.48.1](https://github.com/Sage/carbon/compare/v104.48.0...v104.48.1) (2022-03-07)
+
+
+### Bug Fixes
+
+* **icon:** update icon colors token to match  design decisions ([af356c2](https://github.com/Sage/carbon/commit/af356c2691699eb9e02f61869d01f41f8f5510b4))
+
+## [104.48.0](https://github.com/Sage/carbon/compare/v104.47.0...v104.48.0) (2022-03-04)
+
+
+### Features
+
+* **sidebar-header:** describe sidebar-header using design tokens, update tests ([1adde4b](https://github.com/Sage/carbon/commit/1adde4badabb9f460237cf52b55b8297d9fa8220))
+
+## [104.47.0](https://github.com/Sage/carbon/compare/v104.46.0...v104.47.0) (2022-03-04)
+
+
+### Features
+
+* **box:** describe box component using design tokens, update tests ([2494d24](https://github.com/Sage/carbon/commit/2494d24bbe9a26a1b142ad2177295ed7a34a2554))
+* **content:** describe content component using design tokens, update tests ([f096852](https://github.com/Sage/carbon/commit/f096852391735ceeed37ea7e910bc78c11e62b5e))
+* **dismissible-box:** describe dissmisible-box component using design tokens, update tests ([4c3158a](https://github.com/Sage/carbon/commit/4c3158a586b211622b70f44ceebffc7f625987a0))
+
+## [104.46.0](https://github.com/Sage/carbon/compare/v104.45.0...v104.46.0) (2022-03-04)
+
+
+### Features
+
+* **date-range, date-input:** describe using design tokens ([605a81a](https://github.com/Sage/carbon/commit/605a81ab76744c098d7c4fcab1bfada78e5eeed3))
+
+## [104.45.0](https://github.com/Sage/carbon/compare/v104.44.0...v104.45.0) (2022-03-04)
+
+
+### Features
+
+* **detail:** describe detail component using design tokens, update tests ([ba90819](https://github.com/Sage/carbon/commit/ba90819ad00c03939b26620158563ca4b53f8289))
+
+## [104.44.0](https://github.com/Sage/carbon/compare/v104.43.1...v104.44.0) (2022-03-04)
+
+
+### Features
+
+* **setting-row:** describe setting-row component using design tokens, update tests ([f4808f5](https://github.com/Sage/carbon/commit/f4808f5ebedb07db8d224ae608e4a9888c9c4db1))
+
+### [104.43.1](https://github.com/Sage/carbon/compare/v104.43.0...v104.43.1) (2022-03-03)
+
+
+### Bug Fixes
+
+* **help:** resolve aria issues ([efc5645](https://github.com/Sage/carbon/commit/efc56451d510bc4f50ee381144e4107e4763b74c))
+* **icon:** resolve aria issues ([fa75f2a](https://github.com/Sage/carbon/commit/fa75f2a571adbba83b1dbfc082ad226597dcd2f3))
+* **tooltip:** fix incorrect icon with tooltip focusability ([32644bc](https://github.com/Sage/carbon/commit/32644bc4d68557527c6f8915482838fe08d6902a))
+
+## [104.43.0](https://github.com/Sage/carbon/compare/v104.42.0...v104.43.0) (2022-03-03)
+
+
+### Features
+
+* **grid:** add styled-system props ([446f477](https://github.com/Sage/carbon/commit/446f47782a2ef2967ccce810e0fcc025779a16ec))
+
+## [104.42.0](https://github.com/Sage/carbon/compare/v104.41.0...v104.42.0) (2022-03-03)
+
+
+### Features
+
+* **help:** describe component using design tokens ([a102cdf](https://github.com/Sage/carbon/commit/a102cdf4e736784a796b17994d627dd69bc5dcaf))
+
+## [104.41.0](https://github.com/Sage/carbon/compare/v104.40.0...v104.41.0) (2022-03-03)
+
+
+### Features
+
+* **link-preview, preview:** describe link-preview & preview using design tokens ([b62e6f3](https://github.com/Sage/carbon/commit/b62e6f3c53bfb085d2da8d876c00da6da0fa3362))
+
+## [104.40.0](https://github.com/Sage/carbon/compare/v104.39.0...v104.40.0) (2022-03-03)
+
+
+### Features
+
+* **grid:** change getSpacing function to design tokens ([ef54b92](https://github.com/Sage/carbon/commit/ef54b92d91ca70ff15158a500b585c60ab708078))
+
+## [104.39.0](https://github.com/Sage/carbon/compare/v104.38.2...v104.39.0) (2022-03-03)
+
+
+### Features
+
+* **draggable:** describe draggable using design tokens, update tests ([a70b1b1](https://github.com/Sage/carbon/commit/a70b1b16eb6c9d3cab16bd539246409ddc8aced6))
+* **popover-container:** describe popover-container using design tokens, update tests ([7ff7197](https://github.com/Sage/carbon/commit/7ff719766be0a6278dc0022bc04d8b6b968e59f6))
+
 ### [104.38.2](https://github.com/Sage/carbon/compare/v104.38.1...v104.38.2) (2022-03-02)
 
 

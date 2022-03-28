@@ -3,25 +3,18 @@ export default (palette) => {
     name: "mint",
 
     colors: {
-      base: palette.productGreen,
       primary: palette.productGreenShade(23.5),
       secondary: palette.productGreenShade(41),
       tertiary: palette.productGreenShade(61),
-      whiteMix: palette.productGreenTint(90),
-      hoveredTabKeyline: palette.productGreenTint(30),
-      disabled: palette.productGreenTint(40),
       loadingBarBackground: palette.productGreenTint(70),
-    },
-
-    stepSequence: {
-      completedText: palette.productGreenShade(23),
     },
 
     get compatibility() {
       return {
+        colorsActionMajor150: this.colors.loadingBarBackground,
         colorsActionMajor500: this.colors.primary,
         colorsActionMajor600: this.colors.secondary,
-        colorsActionMajor150: this.colors.loadingBarBackground,
+        colorsActionMajor700: this.colors.tertiary,
 
         colorsComponentsMenuAutumnStandard600: this.colors.primary,
         colorsComponentsMenuSpringChild600: this.colors.primary,

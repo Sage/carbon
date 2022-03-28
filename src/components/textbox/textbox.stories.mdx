@@ -4,6 +4,7 @@ import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import Textbox, { OriginalTextbox } from ".";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 <Meta title="Textbox" parameters={{ info: { disable: true } }} />
 
@@ -80,7 +81,7 @@ import Textbox from "carbon-react/lib/components/textbox";
         <Textbox
           key={`Textbox - ${size}`}
           label={`Textbox - ${size}`}
-          value="Textbox"
+          defaultValue="Textbox"
           size={size}
           mb={2}
         />
@@ -288,6 +289,42 @@ It is possible to use the `tooltipPosition` to override the default placement of
         </div>
       ))
     }
+  </Story>
+</Canvas>
+
+#### New designs validation
+
+<Canvas>
+  <Story name="validations - string - new design">
+    {() => (
+      <>
+        <CarbonProvider validationRedesignOptIn>
+          {["error", "warning"].map((validationType) =>
+            ["small", "medium", "large"].map((size) => (
+              <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+                <Textbox
+                  m={4}
+                  label={`${size} - ${validationType}`}
+                  defaultValue="Textbox"
+                  labelHelp="Hint text (optional)"
+                  size={size}
+                  {...{ [validationType]: "Message" }}
+                />
+                <Textbox
+                  m={4}
+                  label={`readOnly - ${size} - ${validationType}`}
+                  defaultValue="Textbox"
+                  size={size}
+                  labelHelp="Hint text (optional)"
+                  readOnly
+                  {...{ [validationType]: "Message" }}
+                />
+              </div>
+            ))
+          )}
+        </CarbonProvider>
+      </>
+    )}
   </Story>
 </Canvas>
 

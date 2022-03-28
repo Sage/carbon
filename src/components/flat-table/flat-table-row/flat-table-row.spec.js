@@ -43,6 +43,16 @@ describe("FlatTableRow", () => {
     expect(renderFlatTableRow({}, TestRenderer.create)).toMatchSnapshot();
   });
 
+  describe("when a data prop is added", () => {
+    it("should be added to the root element", () => {
+      const wrapper = renderFlatTableRow({ "data-role": "test" });
+
+      expect(wrapper.find(StyledFlatTableRow).props()["data-role"]).toEqual(
+        "test"
+      );
+    });
+  });
+
   describe('when the "onClick" prop is passed', () => {
     let wrapper, onClickFn;
 

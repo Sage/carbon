@@ -35,6 +35,24 @@ describe("FlatTableRowCell", () => {
     );
   });
 
+  describe("when a data prop is added", () => {
+    it("should be added to the root element", () => {
+      const wrapper = mount(
+        <table>
+          <tbody>
+            <tr>
+              <FlatTableRowCell data-role="test">Foo</FlatTableRowCell>
+            </tr>
+          </tbody>
+        </table>
+      );
+
+      expect(wrapper.find(StyledFlatTableCell).props()["data-role"]).toEqual(
+        "test"
+      );
+    });
+  });
+
   describe("when truncate prop is true", () => {
     let wrapper;
     beforeEach(() => {
