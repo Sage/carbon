@@ -8,7 +8,10 @@ import {
 import Button, { ButtonWithForwardRef } from "../button";
 import Events from "../../__internal__/utils/helpers/events";
 import Popover from "../../__internal__/popover";
-import { filterStyledSystemMarginProps } from "../../style/utils";
+import {
+  filterStyledSystemMarginProps,
+  filterOutStyledSystemSpacingProps,
+} from "../../style/utils";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
 import Logger from "../../__internal__/utils/logger";
 
@@ -27,6 +30,8 @@ const MultiActionButton = ({
   children,
   text,
   subtext,
+  "data-element": dataElement,
+  "data-role": dataRole,
   ...rest
 }) => {
   if (!deprecatedWarnTriggered && as) {
@@ -157,7 +162,6 @@ const MultiActionButton = ({
       disabled,
       displayed: showAdditionalButtons,
       onTouchStart: showButtons,
-      onClick: rest.onClick,
       onFocus: focusMainButton,
       onBlur: () => {
         isMainButtonFocused.current = false;
@@ -166,6 +170,7 @@ const MultiActionButton = ({
       buttonType: buttonType || as,
       size,
       subtext,
+      ...filterOutStyledSystemSpacingProps(rest),
     };
 
     if (!disabled) {
@@ -221,8 +226,8 @@ const MultiActionButton = ({
       onMouseLeave={hideButtons}
       ref={ref}
       data-component="multi-action-button"
-      data-element={rest["data-element"]}
-      data-role={rest["data-role"]}
+      data-element={dataElement}
+      data-role={dataRole}
       align={align}
       displayed={showAdditionalButtons}
       {...filterStyledSystemMarginProps(rest)}

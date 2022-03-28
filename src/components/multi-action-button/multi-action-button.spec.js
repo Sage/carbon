@@ -53,6 +53,16 @@ describe("MultiActionButton", () => {
       expect(render({}, TestRenderer.create)).toMatchSnapshot();
     });
 
+    describe("when id passed", () => {
+      it("the id is passed to the main button", () => {
+        wrapper = render({ id: "customId" });
+
+        expect(
+          wrapper.find({ "data-element": "toggle-button" }).prop("id")
+        ).toBe("customId");
+      });
+    });
+
     describe("when children are Button components", () => {
       it("then they should change to Buttons with forwarded refs", () => {
         wrapper = render({}, mount);
