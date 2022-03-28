@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function useMediaQuery(queryInput) {
+export default function useMediaQuery(queryInput: string): boolean {
   const query = queryInput.replace(/^@media( ?)/m, "");
 
   const [match, setMatch] = React.useState(() => false);

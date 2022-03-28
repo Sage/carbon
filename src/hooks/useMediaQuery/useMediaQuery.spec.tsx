@@ -38,10 +38,11 @@ describe("useMediaQuery custom hook", () => {
   });
 
   describe("on component unmount", () => {
-    let removeListenerFn;
+    let removeListenerFn: jest.Mock;
     beforeEach(() => {
       const { removeListener } = mockMatchMedia(true);
       removeListenerFn = removeListener;
+      removeListenerFn.mockClear();
     });
 
     it("should remove the event listener", () => {
