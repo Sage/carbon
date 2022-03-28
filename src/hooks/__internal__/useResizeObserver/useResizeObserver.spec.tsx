@@ -1,39 +1,47 @@
 import React, { useRef } from "react";
 import { act } from "react-dom/test-utils";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 
 import useResizeObserver from ".";
 
-const TestComponent = ({ callback, disabled }) => {
+const TestComponent = ({
+  callback,
+  disabled,
+}: {
+  callback: () => void;
+  disabled: boolean;
+}) => {
   const ref = useRef(null);
   useResizeObserver(ref, callback, disabled);
   return <div id="observed-node" ref={ref} />;
 };
 
 describe("resize observer", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
   const NativeResizeObserver = window.ResizeObserver;
-  let callbackMock;
+  let callbackMock: jest.Mock;
   const callbackProp = jest.fn();
   const observeMock = jest.fn();
   const unobserveMock = jest.fn();
   const disconnectMock = jest.fn();
 
-  const mountComponent = (disabled) => {
-    window.ResizeObserver = function (callback) {
-      callbackMock = callback;
-      return {
-        observe: (element) => {
-          observeMock(element);
-        },
-        unobserve: (element) => {
-          unobserveMock(element);
-        },
-        disconnect: () => {
-          disconnectMock();
-        },
-      };
-    };
+  const mountComponent = (disabled: boolean) => {
+    window.ResizeObserver = jest
+      .fn()
+      .mockImplementation((callback: jest.Mock) => {
+        callbackMock = callback;
+        return {
+          observe: (element: Element) => {
+            observeMock(element);
+          },
+          unobserve: (element: Element) => {
+            unobserveMock(element);
+          },
+          disconnect: () => {
+            disconnectMock();
+          },
+        };
+      });
 
     wrapper = mount(
       <TestComponent callback={callbackProp} disabled={disabled} />
