@@ -1,3 +1,11 @@
+### [104.58.8](https://github.com/Sage/carbon/compare/v104.58.7...v104.58.8) (2022-03-28)
+
+
+### Bug Fixes
+
+* **message:** remove unused variants ([670281d](https://github.com/Sage/carbon/commit/670281d632736ee19f31156028d7d86418b983df))
+* **toast:** remove unused variants ([5638ced](https://github.com/Sage/carbon/commit/5638ced343a4ae578144446bd829a88a74209ae7))
+
 ### [104.58.7](https://github.com/Sage/carbon/compare/v104.58.6...v104.58.7) (2022-03-28)
 
 
