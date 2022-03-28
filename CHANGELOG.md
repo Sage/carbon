@@ -1,3 +1,10 @@
+### [104.58.7](https://github.com/Sage/carbon/compare/v104.58.6...v104.58.7) (2022-03-28)
+
+
+### Bug Fixes
+
+* **pager:** remove id from page size select ([6999ab1](https://github.com/Sage/carbon/commit/6999ab1e0ee0ef4aa6d47376d3a088e561a7d624)), closes [#4947](https://github.com/Sage/carbon/issues/4947)
+
 ### [104.58.6](https://github.com/Sage/carbon/compare/v104.58.5...v104.58.6) (2022-03-25)
 
 
