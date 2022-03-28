@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import Icon from "../icon";
 import { slideAnimation, fadeAnimation } from "./slide.config";
+import { SlideStyle } from "./slide/slide.style";
 
 const CarouselNavigationStyle = styled.div`
   margin-top: -32.5px;
@@ -129,7 +130,15 @@ const CarouselSliderWrapper = styled.div`
   transition: 0.4s;
   display: flex;
   position: relative;
-  left: ${({ elementIndex }) => 10 - 80 * elementIndex}%;
+
+  ${({ elementIndex }) => css`
+    left: ${10 - 80 * elementIndex}%;
+
+    ${SlideStyle}:nth-of-type(${elementIndex + 1}) {
+      transform: scale(1);
+      opacity: 1;
+    }
+  `}
 `;
 
 const CarouselWrapperStyle = styled.div`

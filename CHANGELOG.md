@@ -1,3 +1,24 @@
+### [104.58.6](https://github.com/Sage/carbon/compare/v104.58.5...v104.58.6) (2022-03-25)
+
+
+### Bug Fixes
+
+* **textarea:** allow row and expandable props to be used together ([a9b64ca](https://github.com/Sage/carbon/commit/a9b64cadffc30aaff1212da5593ec245f5b5e5aa)), closes [#4959](https://github.com/Sage/carbon/issues/4959)
+
+### [104.58.5](https://github.com/Sage/carbon/compare/v104.58.4...v104.58.5) (2022-03-24)
+
+
+### Bug Fixes
+
+* **select:** fix page scrolling to the top issue ([3433027](https://github.com/Sage/carbon/commit/3433027b1a373b967319871c63534af7ec560ac3))
+
+### [104.58.4](https://github.com/Sage/carbon/compare/v104.58.3...v104.58.4) (2022-03-24)
+
+
+### Bug Fixes
+
+* **multi-action-button:** fix incorrect hover color ([cca48c5](https://github.com/Sage/carbon/commit/cca48c5e257804d62f742a757e34246ffb23fbde))
+
 ### [104.58.3](https://github.com/Sage/carbon/compare/v104.58.2...v104.58.3) (2022-03-22)
 
 

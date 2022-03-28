@@ -15,7 +15,6 @@ import {
 import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
-import Form from "../form";
 import { TOP_MARGIN } from "./dialog.config";
 import useLocale from "../../hooks/__internal__/useLocale";
 
@@ -200,14 +199,7 @@ const Dialog = ({
           {dialogTitle()}
           <DialogContentStyle {...contentPadding}>
             <DialogInnerContentStyle ref={innerContentRef} {...contentPadding}>
-              {React.Children.map(children, (child) => {
-                if (child?.type === Form) {
-                  return React.cloneElement(child, {
-                    dialogRef,
-                  });
-                }
-                return child;
-              })}
+              {children}
             </DialogInnerContentStyle>
           </DialogContentStyle>
           {closeIcon()}
