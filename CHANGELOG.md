@@ -1,3 +1,16 @@
+## [105.0.0](https://github.com/Sage/carbon/compare/v104.58.8...v105.0.0) (2022-03-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **row, column:** Row and Column components are deprecated
+and could no longer be used, please use the GridContainer and GridItem components instead.
+To help with migration please use our codemod `npx carbon-codemod replace-row-column-with-grid`
+
+### Code Refactoring
+
+* **row, column:** remove deprecated components ([c5b9bb0](https://github.com/Sage/carbon/commit/c5b9bb0be702cf95decda448937c5df6dc3c8a06))
+
 ### [104.58.8](https://github.com/Sage/carbon/compare/v104.58.7...v104.58.8) (2022-03-28)
 
 
