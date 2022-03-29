@@ -17,6 +17,7 @@ import {
   assertStyleMatch,
   keyboard,
   testStyledSystemMargin,
+  expectConsoleOutput as expectWarn,
 } from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
 
@@ -663,6 +664,27 @@ describe("SplitButton", () => {
     jest.clearAllMocks();
 
     wrapper.unmount();
+  });
+
+  describe("when the `as` prop is used", () => {
+    it("fires a prop deprecation warning to the console", () => {
+      const message =
+        "[Deprecation] The `as` prop is deprecated and will soon be removed. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop";
+      const assert = expectWarn(message, "warn");
+
+      mount(
+        <SplitButton
+          as="primary"
+          text="Split button"
+          data-element="bar"
+          data-role="baz"
+        >
+          <Button key="testKey">Single Button</Button>
+        </SplitButton>
+      );
+      render({ as: "primary" }, undefined, mount);
+      assert();
+    });
   });
 });
 

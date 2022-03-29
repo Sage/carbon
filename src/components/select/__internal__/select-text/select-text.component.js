@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import StyledSelectText from "./select-text.style";
-import useLocale from "../../../../hooks/__internal__/useLocale";
 import { InputContext } from "../../../../__internal__/input-behaviour";
 
 const SelectText = ({
   disabled,
-  formattedValue,
+  formattedValue = "",
   onClick,
   onKeyDown,
   onFocus,
@@ -17,12 +16,8 @@ const SelectText = ({
   textId,
   transparent,
 }) => {
-  const l = useLocale();
   const inputContext = useContext(InputContext);
   const hasPlaceholder = !disabled && !readOnly && !formattedValue;
-  const placeholderText = hasPlaceholder
-    ? placeholder || l.select.placeholder()
-    : "";
 
   function handleFocus(event) {
     inputContext.onFocus(event);
@@ -57,7 +52,7 @@ const SelectText = ({
       tabIndex="-1"
       transparent={transparent}
     >
-      {formattedValue || placeholderText}
+      {hasPlaceholder ? placeholder : formattedValue}
     </StyledSelectText>
   );
 };

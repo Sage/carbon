@@ -11,6 +11,8 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
+export const CheckboxGroupContext = React.createContext({});
+
 const CheckboxGroup = (props) => {
   const {
     children,
@@ -47,15 +49,16 @@ const CheckboxGroup = (props) => {
           data-component="checkbox-group"
           legendInline={legendInline}
         >
-          {React.Children.map(children, (child) =>
-            React.cloneElement(child, {
+          <CheckboxGroupContext.Provider
+            value={{
               inputName: groupName,
               error: !!error,
               warning: !!warning,
               info: !!info,
-              ...child.props,
-            })
-          )}
+            }}
+          >
+            {children}
+          </CheckboxGroupContext.Provider>
         </StyledCheckboxGroup>
       </Fieldset>
     </TooltipProvider>

@@ -2,7 +2,6 @@ import { mount } from "enzyme";
 import React from "react";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 import SelectText from "./select-text.component";
-import Translation from "../../../../locales/en-gb";
 import { InputContext } from "../../../../__internal__/input-behaviour";
 
 const mockInputContextValue = {
@@ -11,6 +10,16 @@ const mockInputContextValue = {
 };
 
 describe("SelectText", () => {
+  it("renders span that has a role of 'button' and is hidden from screen readers", () => {
+    const wrapper = renderSelectText();
+    expect(wrapper.find("span[data-element='select-text']").prop("role")).toBe(
+      "button"
+    );
+    expect(
+      wrapper.find("span[data-element='select-text']").prop("aria-hidden")
+    ).toBe(true);
+  });
+
   it("should contain the text passed in formattedValue prop", () => {
     const formattedValue = "foo";
     const wrapper = renderSelectText({ formattedValue });
@@ -18,10 +27,10 @@ describe("SelectText", () => {
     expect(wrapper.text()).toBe(formattedValue);
   });
 
-  it("should contain translation placeholder text if the formattedValue prop is empty", () => {
-    const wrapper = renderSelectText({});
-
-    expect(wrapper.text()).toBe(Translation.select.placeholder());
+  it("should contain placeholder text when formattedValue is empty", () => {
+    const placeholder = "foobaz";
+    const wrapper = renderSelectText({ placeholder });
+    expect(wrapper.text()).toBe(placeholder);
   });
 
   it("should have proper styling when disabled", () => {

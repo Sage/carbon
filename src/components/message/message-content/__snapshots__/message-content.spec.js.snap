@@ -1,10 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MessageContent when rendered should render correctly 1`] = `
-<styled.div
-  transparent={false}
-  variant="info"
->
+<styled.div>
   <Content
     className="message-content"
   >

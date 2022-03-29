@@ -65,7 +65,8 @@ const StyledNavigationBar = styled.nav<StyledNavigationBarProps>`
     `}
 
   ${({ position, orientation, offset }) =>
-    position && orientation &&
+    position &&
+    orientation &&
     css`
       position: ${position};
       ${orientation}: ${offset};

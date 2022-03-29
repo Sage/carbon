@@ -1,5 +1,14 @@
 class ModalManagerInstance {
-  #modalList = [];
+  #modalList;
+
+  constructor() {
+    // Due to possibility of multiple carbon versions using it
+    // it is necessary to maintain same structure in this global variable
+    if (!window.__CARBON_INTERNALS_MODAL_LIST) {
+      window.__CARBON_INTERNALS_MODAL_LIST = [];
+    }
+    this.#modalList = window.__CARBON_INTERNALS_MODAL_LIST;
+  }
 
   #getTopModal() {
     if (!this.#modalList.length) {
@@ -53,10 +62,13 @@ class ModalManagerInstance {
   }
 
   clearList() {
-    this.#modalList = [];
+    window.__CARBON_INTERNALS_MODAL_LIST = [];
+    this.#modalList = window.__CARBON_INTERNALS_MODAL_LIST;
   }
 }
 
 const ModalManager = new ModalManagerInstance();
+
+export { ModalManagerInstance };
 
 export default ModalManager;

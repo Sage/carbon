@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import { action } from "@storybook/addon-actions";
 import { Preview as MyPreview } from "@storybook/components";
 import LinkTo from "@storybook/addon-links/react";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
@@ -24,6 +25,7 @@ import {
   FlatTableHeader,
   FlatTableCell,
 } from "../flat-table";
+import Confirm from "../confirm";
 
 <Meta
   title="Action Popover"
@@ -87,7 +89,100 @@ import {
 Story showing most of the functionality of the action popover and what can be achieved by using it
 
 <Canvas>
-  <Story id="action-popover-test--default" />
+  <Story name="default">
+    {()=> {
+      const submenu = (
+        <ActionPopoverMenu>
+          <ActionPopoverItem onClick={action("sub menu 1")}>
+            Sub Menu 1
+          </ActionPopoverItem>
+          <ActionPopoverItem onClick={action("sub menu 2")}>
+            Sub Menu 2
+          </ActionPopoverItem>
+          <ActionPopoverItem disabled onClick={action("sub menu 3")}>
+            Sub Menu 3
+          </ActionPopoverItem>
+        </ActionPopoverMenu>
+      );
+      const submenuWithIcons = (
+        <ActionPopoverMenu>
+          <ActionPopoverItem icon="graph" onClick={action("sub menu 1")}>
+            Sub Menu 1
+          </ActionPopoverItem>
+          <ActionPopoverItem icon="add" onClick={action("sub menu 2")}>
+            Sub Menu 2
+          </ActionPopoverItem>
+          <ActionPopoverItem icon="print" disabled onClick={action("sub menu 3")}>
+            Sub Menu 3
+          </ActionPopoverItem>
+        </ActionPopoverMenu>
+      );
+      return (
+        <div style={{ marginTop: "40px", height: "275px"}}>
+          <FlatTable isZebra>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>First Name</FlatTableHeader>
+                <FlatTableHeader>Last Name</FlatTableHeader>
+                <FlatTableHeader>&nbsp;</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow>
+                <FlatTableCell>John</FlatTableCell>
+                <FlatTableCell>Doe</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover onOpen={action("popover opened")} onClose={action("popover closed")}>
+                    <ActionPopoverItem disabled icon="graph" submenu={submenu} onClick={action("email")}>
+                      Business
+                    </ActionPopoverItem>
+                    <ActionPopoverItem icon="email" onClick={action("email")}>
+                      Email Invoice
+                    </ActionPopoverItem>
+                    <ActionPopoverItem icon="print" onClick={action("print")} submenu={submenu}>
+                      Print Invoice
+                    </ActionPopoverItem>
+                    <ActionPopoverItem icon="pdf" submenu={submenu} onClick={action("pdf")}>
+                      Download PDF
+                    </ActionPopoverItem>
+                    <ActionPopoverItem icon="csv" onClick={action("csv")}>
+                      Download CSV
+                    </ActionPopoverItem>
+                    <ActionPopoverDivider />
+                    <ActionPopoverItem icon="delete" onClick={action("delete")}>
+                      Delete
+                    </ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Jane</FlatTableCell>
+                <FlatTableCell>Smith</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover>
+                    <ActionPopoverItem icon="csv" onClick={action("csv")}>
+                      Download CSV
+                    </ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Bob</FlatTableCell>
+                <FlatTableCell>Jones</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover>
+                    <ActionPopoverItem icon="csv" submenu={submenuWithIcons} onClick={action("csv")}>
+                      Download CSV
+                    </ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </div>
+      );
+    }}
+  </Story>
 </Canvas>
 
 ### With icons
@@ -1020,6 +1115,69 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
         </div>
       );
     }}
+  </Story>
+</Canvas>
+
+## Action opening a Modal
+
+<Canvas>
+  <Story name="opening a modal">
+    {() => {
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    return (
+      <>
+      <FlatTable colorTheme="transparent-white">
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader>Devices</FlatTableHeader>
+            <FlatTableHeader>Status</FlatTableHeader>
+            <FlatTableHeader>Action Popover</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow>
+            <FlatTableCell>Mobile Phone</FlatTableCell>
+            <FlatTableCell>Online</FlatTableCell>
+            <FlatTableCell>
+              <ActionPopover
+                renderButton={(props) => (
+                  <ActionPopoverMenuButton isOpen={isOpen} {...props}>
+                    Open Actions
+                  </ActionPopoverMenuButton>
+                )}
+              >
+                <ActionPopoverItem
+                  onClick={() => {
+                    setIsOpen(false);
+                    setIsConfirmOpen(true);
+                  }}
+                >
+                  Open Confirm Dialog
+                </ActionPopoverItem>
+                <ActionPopoverItem icon="settings" onClick={() => {}}>
+                  Do Nothing
+                </ActionPopoverItem>
+              </ActionPopover>
+            </FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+      <Confirm
+        title="Are you sure?"
+        subtitle="Subtitle"
+        confirmButtonDestructive
+        cancelButtonDestructive
+        disableConfirm
+        open={isConfirmOpen}
+        onConfirm={() => setIsConfirmOpen(false)}
+        onCancel={() => setIsConfirmOpen(false)}
+      >
+        Content
+      </Confirm>
+    </>
+    )
+  }}
   </Story>
 </Canvas>
 

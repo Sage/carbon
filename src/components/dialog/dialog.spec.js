@@ -285,20 +285,6 @@ describe("Dialog", () => {
     });
   });
 
-  describe("when a form is passed adds children", () => {
-    it("passes Dialog ref to the Form component when it is a children", () => {
-      wrapper = mount(
-        <Dialog open>
-          <Form />
-        </Dialog>
-      );
-
-      expect(wrapper.find(Form).props().dialogRef.current).toEqual(
-        wrapper.find(DialogStyle).getDOMNode()
-      );
-    });
-  });
-
   describe("dialog headers", () => {
     describe("when a props title or subtitle is passed", () => {
       it("sets a dialog headers", () => {

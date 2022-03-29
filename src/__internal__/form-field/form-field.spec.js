@@ -49,7 +49,7 @@ describe("FormField", () => {
   });
 
   describe("with a label", () => {
-    it("renders the label component above the childen", () => {
+    it("renders the label component above the children", () => {
       expect(
         render({
           label: "Name",
@@ -77,6 +77,24 @@ describe("FormField", () => {
       expect(
         render({ tooltipId, label: "test label" }).find(Label).prop("tooltipId")
       ).toBe(tooltipId);
+    });
+
+    describe("when validationRedesignOptIn is true", () => {
+      it("does not set the validation props on the Label", () => {
+        const { error, warning, info } = render({
+          label: "test label",
+          error: true,
+          warning: true,
+          info: true,
+          validationRedesignOptIn: true,
+        })
+          .find(Label)
+          .props();
+
+        expect(error).toEqual(false);
+        expect(warning).toEqual(false);
+        expect(info).toEqual(false);
+      });
     });
 
     describe("when adaptiveLabelBreakpoint prop is set", () => {
@@ -128,7 +146,7 @@ describe("FormField", () => {
 
   describe("with fieldHelp", () => {
     describe("default", () => {
-      it("renders the FieldHelp component below the childen", () => {
+      it("renders the FieldHelp component below the children", () => {
         expect(
           render({
             fieldHelp: "Help me!",
@@ -140,7 +158,7 @@ describe("FormField", () => {
     });
 
     describe("and fieldHelpInline=true", () => {
-      it("renders the FieldHelp component below the childen", () => {
+      it("renders the FieldHelp component below the children", () => {
         expect(
           render({
             fieldHelp: "Help me!",

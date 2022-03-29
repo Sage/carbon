@@ -5,6 +5,7 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Textarea from ".";
 import { OriginalTextarea } from "./textarea.component";
 import Box from "../box";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 <Meta title="Textarea" parameters={{ info: { disable: true } }} />
 
@@ -289,6 +290,33 @@ It is possible to use the `tooltipPosition` to override the default placement of
         </div>
       ))
     }
+  </Story>
+</Canvas>
+
+#### New designs validation
+
+<Canvas>
+  <Story name="validations - string - new design">
+    <CarbonProvider validationRedesignOptIn>
+      {["error", "warning"].map((validationType) => (
+        <div
+          style={{ width: "296px" }}
+          key={`${validationType}-string-component`}
+        >
+          <Textarea
+            label={`${validationType}`}
+            {...{ [validationType]: "Message" }}
+            m={4}
+          />
+          <Textarea
+            label={`readOnly - ${validationType}`}
+            readOnly
+            {...{ [validationType]: "Message" }}
+            m={4}
+          />
+        </div>
+      ))}
+    </CarbonProvider>
   </Story>
 </Canvas>
 

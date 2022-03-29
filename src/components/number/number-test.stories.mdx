@@ -8,6 +8,7 @@ import {
   getCommonTextboxArgs,
   getCommonTextboxArgsWithSpecialCaracters,
 } from "../textbox/textbox-test.stories.mdx";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 <Meta
   title="Number Input/Test"
@@ -23,7 +24,7 @@ import {
         type: "number",
       },
     },
-    ...commonTextboxArgTypes,
+    ...commonTextboxArgTypes(),
   }}
 />
 
@@ -50,6 +51,32 @@ export const NumberStory = ({
   );
 };
 
+export const NewValidationStory = ({
+  onKeyDownEnabled,
+  onChangeDeferredEnabled,
+  ...args
+}) => {
+  const [state, setState] = useState("");
+  const setValue = (ev) => {
+    action("onChange")(ev);
+    setState(ev.target.value);
+  };
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Number
+        value={state}
+        onChange={setValue}
+        onKeyDown={onKeyDownEnabled ? action("onKeyDown") : undefined}
+        onChangeDeferred={
+          onChangeDeferredEnabled ? action("onChangeDeferred") : undefined
+        }
+        m={2}
+        {...getCommonTextboxArgsWithSpecialCaracters(args)}
+      />
+    </CarbonProvider>
+  );
+};
+
 # Number
 
 ### Default
@@ -65,5 +92,21 @@ export const NumberStory = ({
     }}
   >
     {NumberStory.bind({})}
+  </Story>
+</Canvas>
+
+### New Validation
+
+<Canvas>
+  <Story
+    name="new validation"
+    args={{
+      onChangeDeferredEnabled: false,
+      onKeyDownEnabled: false,
+      deferTimeout: undefined,
+      ...getCommonTextboxArgs(),
+    }}
+  >
+    {NewValidationStory.bind({})}
   </Story>
 </Canvas>

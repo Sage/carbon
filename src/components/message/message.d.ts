@@ -21,15 +21,7 @@ export interface MessageProps extends MarginProps {
   /** set background to be invisible */
   transparent?: boolean;
   /** set type of message based on new DLS standard */
-  variant?:
-    | "default"
-    | "error"
-    | "help"
-    | "info"
-    | "maintenance"
-    | "new"
-    | "success"
-    | "warning";
+  variant?: "error" | "info" | "success" | "warning";
 }
 
 declare function Message(props: MessageProps): JSX.Element;

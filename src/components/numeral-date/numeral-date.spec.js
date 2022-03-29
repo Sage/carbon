@@ -15,6 +15,9 @@ import FormField from "../../__internal__/form-field";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import Label from "../../__internal__/label";
 import StyledHelp from "../help/help.style";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
+import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 
 describe("NumeralDate", () => {
   let wrapper;
@@ -33,6 +36,14 @@ describe("NumeralDate", () => {
 
   const renderWrapper = (props) => {
     return mount(<NumeralDate {...defaultProps} {...props} />);
+  };
+
+  const renderNewValidationsWrapper = (props) => {
+    return mount(
+      <CarbonProvider validationRedesignOptIn>
+        <NumeralDate {...defaultProps} {...props} />
+      </CarbonProvider>
+    );
   };
 
   testStyledSystemMargin(
@@ -473,6 +484,45 @@ describe("NumeralDate", () => {
         .props();
 
       expect(ariaLabel).toEqual(text);
+    });
+  });
+
+  describe("new validation design", () => {
+    describe("hint text/labelHelp", () => {
+      it("is visible when the prop is passed", () => {
+        wrapper = renderNewValidationsWrapper({
+          labelHelp: "Example hint text",
+        });
+        expect(wrapper.find(StyledHintText).text()).toEqual(
+          "Example hint text"
+        );
+      });
+    });
+
+    describe("on error", () => {
+      it("error message is visible", () => {
+        wrapper = renderNewValidationsWrapper({ error: "error" });
+        expect(wrapper.find(StyledValidationMessage).exists()).toEqual(true);
+      });
+
+      it("should only have one ErrorBorder", () => {
+        wrapper = renderNewValidationsWrapper({ error: "error" });
+        expect(wrapper.find(ErrorBorder).exists()).toEqual(true);
+        expect(wrapper.find(ErrorBorder).length).toEqual(1);
+      });
+    });
+
+    describe("on warning", () => {
+      it("warning message is visible", () => {
+        wrapper = renderNewValidationsWrapper({ warning: "warning" });
+        expect(wrapper.find(StyledValidationMessage).exists()).toEqual(true);
+      });
+
+      it("should only have one ErrorBorder", () => {
+        wrapper = renderNewValidationsWrapper({ warning: "warning" });
+        expect(wrapper.find(ErrorBorder).exists()).toEqual(true);
+        expect(wrapper.find(ErrorBorder).length).toEqual(1);
+      });
     });
   });
 });

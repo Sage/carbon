@@ -81,4 +81,23 @@ describe("ScrollBlockManager", () => {
       });
     });
   });
+
+  describe("when saveRestoreValuesCallback is called with a callback", () => {
+    it("it creates one and returns it with getRestoreValuesCallback method", () => {
+      const scrollBlockManager = new ScrollBlockManager();
+      expect(window.__CARBON_INTERNALS_SCROLL_BLOCKERS).toEqual({
+        components: {},
+        originalValues: [],
+      });
+
+      const callback = () => {};
+
+      scrollBlockManager.saveRestoreValuesCallback(callback);
+      expect(window.__CARBON_INTERNALS_SCROLL_BLOCKERS.restoreValues).toBe(
+        callback
+      );
+
+      expect(scrollBlockManager.getRestoreValuesCallback()).toBe(callback);
+    });
+  });
 });

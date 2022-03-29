@@ -198,22 +198,29 @@ describe("NavigationBar", () => {
     ["fixed", "bottom", undefined],
     ["sticky", "bottom", "10px"],
     ["fixed", "bottom", "10px"],
-  ])("should set correct position, orientation and offset", (position, orientation, offset) => {
-    wrapper = mount(
-      <NavigationBar position={position} orientation={orientation} offset={offset}>
-        <div>test content</div>
-      </NavigationBar>
-    );
-    assertStyleMatch(
-      {
-        position: `${position}`,
-        [orientation]: offset || "0",
-        ...(position === "fixed" && {
-          width: "100%",
-          boxSizing: "border-box",
-        })
-      },
-      wrapper
-    );
-  });
+  ])(
+    "should set correct position, orientation and offset",
+    (position, orientation, offset) => {
+      wrapper = mount(
+        <NavigationBar
+          position={position}
+          orientation={orientation}
+          offset={offset}
+        >
+          <div>test content</div>
+        </NavigationBar>
+      );
+      assertStyleMatch(
+        {
+          position: `${position}`,
+          [orientation]: offset || "0",
+          ...(position === "fixed" && {
+            width: "100%",
+            boxSizing: "border-box",
+          }),
+        },
+        wrapper
+      );
+    }
+  );
 });

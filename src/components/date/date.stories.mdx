@@ -8,12 +8,10 @@ import { OriginalTextbox } from "../textbox";
 import Button from "../button";
 import Box from "../box";
 import I18nProvider from "../i18n-provider";
-import { de } from "../../locales/date-fns-locales"
+import { de } from "../../locales/date-fns-locales";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
-<Meta
-  title="Date Input"
-  parameters={{ info: { disable: true } }}
-/>
+<Meta title="Date Input" parameters={{ info: { disable: true } }} />
 
 # Date
 
@@ -38,9 +36,9 @@ import DateInput from "carbon-react/lib/components/date";
 
 ### Default
 
-The `value` and `onChange` props are required as this component must be controlled. The `onChange` will receive a event 
-with a target value containing a `formattedValue` and `rawValue`.  The `rawValue` should be used for storing the value 
-in the backend and for running validations: it will either return a valid ISO string or null. The `formattedValue` should 
+The `value` and `onChange` props are required as this component must be controlled. The `onChange` will receive a event
+with a target value containing a `formattedValue` and `rawValue`. The `rawValue` should be used for storing the value
+in the backend and for running validations: it will either return a valid ISO string or null. The `formattedValue` should
 be used to set the input value like in the example below, although the component can be initialised with an ISO formatted string.
 
 <Canvas>
@@ -71,36 +69,40 @@ be used to set the input value like in the example below, although the component
       const setValue = ({ target }) => {
         setState(target.value.formattedValue);
       };
-      return (
-        ["small", "medium", "large"].map((size) => (
-          <DateInput
-            key={`Date - ${size}`}
-            label={`Date - ${size}`}
-            value={state}
-            onChange={setValue}
-            size={size}
-            mb={2}
-          />
-        ))
-      )}
-    }
+      return ["small", "medium", "large"].map((size) => (
+        <DateInput
+          key={`Date - ${size}`}
+          label={`Date - ${size}`}
+          value={state}
+          onChange={setValue}
+          size={size}
+          mb={2}
+        />
+      ));
+    }}
   </Story>
 </Canvas>
 
 ### AutoFocus
 
 <Canvas>
-  <Story name="autoFocus" parameters={{themeSelector: {fourColumnLayout: true}, chromatic: {viewports: [1800]}}}>
+  <Story
+    name="autoFocus"
+    parameters={{
+      themeSelector: { fourColumnLayout: true },
+      chromatic: { viewports: [1800] },
+    }}
+  >
     {() => {
       const [state, setState] = useState("01/10/2016");
       const setValue = ({ target }) => {
         setState(target.value.formattedValue);
       };
       return (
-        <div style={{height: 450, width: 450}}>
+        <div style={{ height: 450, width: 450 }}>
           <DateInput label="Date" value={state} onChange={setValue} autoFocus />
         </div>
-      )
+      );
     }}
   </Story>
 </Canvas>
@@ -114,7 +116,9 @@ be used to set the input value like in the example below, although the component
       const setValue = ({ target }) => {
         setState(target.value.formattedValue);
       };
-      return  <DateInput label="Date" value={state} onChange={setValue} disabled />
+      return (
+        <DateInput label="Date" value={state} onChange={setValue} disabled />
+      );
     }}
   </Story>
 </Canvas>
@@ -128,7 +132,9 @@ be used to set the input value like in the example below, although the component
       const setValue = ({ target }) => {
         setState(target.value.formattedValue);
       };
-      return <DateInput label="Date" value={state} onChange={setValue} readOnly />
+      return (
+        <DateInput label="Date" value={state} onChange={setValue} readOnly />
+      );
     }}
   </Story>
 </Canvas>
@@ -172,7 +178,15 @@ be used to set the input value like in the example below, although the component
       const setValue = ({ target }) => {
         setState(target.value.formattedValue);
       };
-      return <DateInput label="Date" value={state} onChange={setValue} labelInline name="dateinput" />
+      return (
+        <DateInput
+          label="Date"
+          value={state}
+          onChange={setValue}
+          labelInline
+          name="dateinput"
+        />
+      );
     }}
   </Story>
 </Canvas>
@@ -186,7 +200,15 @@ be used to set the input value like in the example below, although the component
       const setValue = ({ target }) => {
         setState(target.value.formattedValue);
       };
-      return <DateInput label="Date" value={state} onChange={setValue} labelInline labelWidth={10} />
+      return (
+        <DateInput
+          label="Date"
+          value={state}
+          onChange={setValue}
+          labelInline
+          labelWidth={10}
+        />
+      );
     }}
   </Story>
 </Canvas>
@@ -208,7 +230,7 @@ be used to set the input value like in the example below, although the component
           fieldHelp="Help"
           name="dateinput"
         />
-      )
+      );
     }}
   </Story>
 </Canvas>
@@ -231,7 +253,7 @@ be used to set the input value like in the example below, although the component
           name="dateinput"
           helpAriaLabel="Help"
         />
-      )
+      );
     }}
   </Story>
 </Canvas>
@@ -248,7 +270,14 @@ be used to set the input value like in the example below, although the component
       const setValue = ({ target }) => {
         setState(target.value.formattedValue);
       };
-      return <DateInput label="Date" value={state} onChange={setValue} disablePortal />
+      return (
+        <DateInput
+          label="Date"
+          value={state}
+          onChange={setValue}
+          disablePortal
+        />
+      );
     }}
   </Story>
 </Canvas>
@@ -264,7 +293,9 @@ You can use the `required` prop to indicate if the field is mandatory.
       const setValue = ({ target }) => {
         setState(target.value.formattedValue);
       };
-      return <DateInput label="Date" value={state} onChange={setValue} required />
+      return (
+        <DateInput label="Date" value={state} onChange={setValue} required />
+      );
     }}
   </Story>
 </Canvas>
@@ -284,7 +315,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 <Canvas>
   <Story name="validations - string - component">
     {() => {
-     const [state1, setState1] = useState("01/10/2016");
+      const [state1, setState1] = useState("01/10/2016");
       const setValue1 = ({ target }) => {
         setState1(target.value.formattedValue);
       };
@@ -292,28 +323,26 @@ For more information check our [Validations](?path=/docs/documentation-validatio
       const setValue2 = ({ target }) => {
         setState2(target.value.formattedValue);
       };
-      return (
-        ["error", "warning", "info"].map((validationType) => (
-          <div key={`${validationType}-string-component`}>
-            <DateInput
-              label="Date"
-              value={state1}
-              onChange={setValue1}
-              {...{ [validationType]: "Message" }}
-              mb={2}
-            />
-            <DateInput
-              label="Date - readOnly"
-              value={state2}
-              onChange={setValue2}
-              readOnly
-              {...{ [validationType]: "Message" }}
-              mb={2}
-            />
-          </div>
-        ))
-      )}
-    }
+      return ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-component`}>
+          <DateInput
+            label="Date"
+            value={state1}
+            onChange={setValue1}
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+          <DateInput
+            label="Date - readOnly"
+            value={state2}
+            onChange={setValue2}
+            readOnly
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+        </div>
+      ));
+    }}
   </Story>
 </Canvas>
 
@@ -329,21 +358,19 @@ It is possible to use the `tooltipPosition` to override the default placement of
       const setValue = ({ target }) => {
         setState(target.value.formattedValue);
       };
-      return (
-        ["error", "warning", "info"].map((validationType) => (
-          <div key={`${validationType}-string-component`}>
-            <DateInput
-              label="Date"
-              value={state}
-              onChange={setValue}
-              {...{ [validationType]: "Message" }}
-              mb={2}
-              tooltipPosition="top"
-            />
-          </div>
-        ))
-      )}
-    }
+      return ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-component`}>
+          <DateInput
+            label="Date"
+            value={state}
+            onChange={setValue}
+            {...{ [validationType]: "Message" }}
+            mb={2}
+            tooltipPosition="top"
+          />
+        </div>
+      ));
+    }}
   </Story>
 </Canvas>
 
@@ -360,30 +387,28 @@ It is possible to use the `tooltipPosition` to override the default placement of
       const setValue2 = ({ target }) => {
         setState2(target.value.formattedValue);
       };
-      return (
-        ["error", "warning", "info"].map((validationType) => (
-          <div key={`${validationType}-string-label`}>
-            <DateInput
-              label="Date"
-              value={state1}
-              onChange={setValue1}
-              validationOnLabel
-              {...{ [validationType]: "Message" }}
-              mb={2}
-            />
-            <DateInput
-              label="Date"
-               value={state2}
-              onChange={setValue2}
-              validationOnLabel
-              readOnly
-              {...{ [validationType]: "Message" }}
-              mb={2}
-            />
-          </div>
-        ))
-      )}
-    }
+      return ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-label`}>
+          <DateInput
+            label="Date"
+            value={state1}
+            onChange={setValue1}
+            validationOnLabel
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+          <DateInput
+            label="Date"
+            value={state2}
+            onChange={setValue2}
+            validationOnLabel
+            readOnly
+            {...{ [validationType]: "Message" }}
+            mb={2}
+          />
+        </div>
+      ));
+    }}
   </Story>
 </Canvas>
 
@@ -394,27 +419,74 @@ It is possible to use the `tooltipPosition` to override the default placement of
     name="validations - string - with tooltipPosition overriden - label"
     parameters={{ chromatic: { disable: true } }}
   >
-     {() => {
+    {() => {
       const [state, setState] = useState("01/10/2016");
       const setValue = ({ target }) => {
         setState(target.value.formattedValue);
       };
+      return ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-component`}>
+          <DateInput
+            label="Date"
+            value={state}
+            onChange={setValue}
+            validationOnLabel
+            {...{ [validationType]: "Message" }}
+            mb={2}
+            tooltipPosition="top"
+          />
+        </div>
+      ));
+    }}
+  </Story>
+</Canvas>
+
+#### New designs validation
+
+<Canvas>
+  <Story name="validations - string - new design">
+    {() => {
+      const [state1, setState1] = useState("01/10/2016");
+      const setValue1 = ({ target }) => {
+        setState1(target.value.formattedValue);
+      };
+      const [state2, setState2] = useState("01/10/2016");
+      const setValue2 = ({ target }) => {
+        setState2(target.value.formattedValue);
+      };
       return (
-        ["error", "warning", "info"].map((validationType) => (
-          <div key={`${validationType}-string-component`}>
-            <DateInput
-              label="Date"
-              value={state}
-              onChange={setValue}
-              validationOnLabel
-              {...{ [validationType]: "Message" }}
-              mb={2}
-              tooltipPosition="top"
-            />
-          </div>
-        ))
-      )}
-    }
+        <CarbonProvider validationRedesignOptIn>
+          {["error", "warning"].map((validationType) =>
+            ["small", "medium", "large"].map((size) => (
+              <div
+                style={{ width: "296px" }}
+                key={`${size}-${validationType}-string-label`}
+              >
+                <DateInput
+                  label={`${size} - ${validationType}`}
+                  value={state1}
+                  onChange={setValue1}
+                  validationOnLabel
+                  size={size}
+                  {...{ [validationType]: "Message" }}
+                  m={4}
+                />
+                <DateInput
+                  label={`readOnly - ${size} - ${validationType}`}
+                  value={state2}
+                  onChange={setValue2}
+                  validationOnLabel
+                  size={size}
+                  readOnly
+                  {...{ [validationType]: "Message" }}
+                  m={4}
+                />
+              </div>
+            ))
+          )}
+        </CarbonProvider>
+      );
+    }}
   </Story>
 </Canvas>
 
@@ -431,35 +503,36 @@ It is possible to use the `tooltipPosition` to override the default placement of
       const setValue2 = ({ target }) => {
         setState2(target.value.formattedValue);
       };
-      return (
-        ["error", "warning", "info"].map((validationType) => (
-          <div key={`${validationType}-boolean-component`}>
-            <DateInput
-              label="Date"
-              value={state1}
-              onChange={setValue1}
-              {...{ [validationType]: true }}
-            />
-            <DateInput
-              label="Date"
-              value={state2}
-              onChange={setValue2}
-              readOnly
-              {...{ [validationType]: true }}
-            />
-          </div>
-        ))
-      )}
-    }
+      return ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-boolean-component`}>
+          <DateInput
+            label="Date"
+            value={state1}
+            onChange={setValue1}
+            {...{ [validationType]: true }}
+          />
+          <DateInput
+            label="Date"
+            value={state2}
+            onChange={setValue2}
+            readOnly
+            {...{ [validationType]: true }}
+          />
+        </div>
+      ));
+    }}
   </Story>
 </Canvas>
 
 #### Example implementation
 
-The example below will display an error if an invalid date or a date with a year value less than 2020 is passed to the input. 
+The example below will display an error if an invalid date or a date with a year value less than 2020 is passed to the input.
 
 <Canvas>
-  <Story name="validations - example implementation" parameters={{ chromatic: { disable: true } }}>
+  <Story
+    name="validations - example implementation"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [state, setState] = useState("05/04/2022");
       const [validationState, setValidationState] = useState("");
@@ -468,7 +541,7 @@ The example below will display an error if an invalid date or a date with a year
       };
       const handleBlur = ({ target }) => {
         if (!target.value.rawValue) {
-          setValidationState("Error Invalid Date")
+          setValidationState("Error Invalid Date");
           return;
         }
         if (new Date(target.value.rawValue).getFullYear() <= 2020) {
@@ -483,22 +556,29 @@ The example below will display an error if an invalid date or a date with a year
             value={state}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={validationState.includes("Error") ? validationState : undefined}
-            warning={validationState.includes("Warning") ? validationState : undefined}
+            error={
+              validationState.includes("Error") ? validationState : undefined
+            }
+            warning={
+              validationState.includes("Warning") ? validationState : undefined
+            }
           />
         </div>
-      )}
-    }
+      );
+    }}
   </Story>
 </Canvas>
 
 ### Locale override
 
-The examples below illustrates how to override the locale passed into the Date component. In this example it has been set up for 
-the French locale. Required locales can be imported like so `import { fr } from 'carbon-react/lib/locales/date-fns-locales';`
+The examples below illustrates how to override the locale passed into the Date component. In this example it has been set up for
+the German locale. Required locales can be imported like so `import { de } from 'carbon-react/lib/locales/date-fns-locales';`
 
 <Canvas>
-  <Story name="locale override - example implementation" parameters={{ chromatic: { disable: true } }}>
+  <Story
+    name="locale override - example implementation"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [state, setState] = useState("05/04/2022");
       const handleChange = ({ target }) => {
@@ -506,16 +586,14 @@ the French locale. Required locales can be imported like so `import { fr } from 
       };
       return (
         <div>
-          <I18nProvider locale={{locale: () => "de", date: { dateFnsLocale: () => de }}}>
-            <DateInput
-              label="Date"
-              value={state}
-              onChange={handleChange}
-            />
+          <I18nProvider
+            locale={{ locale: () => "de", date: { dateFnsLocale: () => de } }}
+          >
+            <DateInput label="Date" value={state} onChange={handleChange} />
           </I18nProvider>
         </div>
-      )}
-    }
+      );
+    }}
   </Story>
 </Canvas>
 
@@ -547,7 +625,7 @@ Due to the `Textbox` component being used internally by the `Date` component the
     "warnOverLimit",
     "prefix",
     "inputIcon",
-    "iconTabIndex"
+    "iconTabIndex",
   ]}
 />
 

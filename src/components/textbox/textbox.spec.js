@@ -1,7 +1,6 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { mount } from "enzyme";
 import Textbox from ".";
-
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import {
   assertStyleMatch,
@@ -19,6 +18,9 @@ import I18nProvider from "../i18n-provider";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import createGuid from "../../__internal__/utils/helpers/guid";
+import { ErrorBorder, StyledHintText } from "./textbox.style";
+import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -31,17 +33,6 @@ describe("Textbox", () => {
     (component) => component.find(FormFieldStyle),
     { modifier: "&&&" }
   );
-
-  it("renders with InputPresentation and Input and correct props passed to Input", () => {
-    const wrapper = shallow(
-      <Textbox value="foobar" leftChildren="southpaw children">
-        normal children
-      </Textbox>
-    )
-      .dive()
-      .dive();
-    expect(wrapper).toMatchSnapshot();
-  });
 
   it("renders a counter", () => {
     const wrapper = mount(<Textbox value="test string" characterLimit="100" />);
@@ -329,6 +320,74 @@ describe("Textbox", () => {
             }
           );
         });
+      });
+    });
+  });
+
+  describe("new validations", () => {
+    const renderWithNewValidations = ({ error, warning }) =>
+      mount(
+        <CarbonProvider validationRedesignOptIn>
+          <Textbox
+            labelHelp="Example hint text"
+            error={error}
+            warning={warning}
+            labelAlign="left"
+            labelInline
+            labelWidth={100}
+            reverse
+          />
+        </CarbonProvider>
+      );
+
+    describe("label width and align props", () => {
+      it("default to undefined", () => {
+        const wrapper = renderWithNewValidations({});
+        const { labelAlign, labelInline, reverse, labelWidth } = wrapper
+          .find(FormField)
+          .props();
+
+        expect(labelAlign).toEqual(undefined);
+        expect(labelInline).toEqual(undefined);
+        expect(reverse).toEqual(undefined);
+        expect(labelWidth).toEqual(undefined);
+      });
+    });
+
+    describe("hint/ labelHelp", () => {
+      it("is visible when the prop is passed", () => {
+        const wrapper = renderWithNewValidations({});
+        expect(wrapper.find(StyledHintText).text()).toEqual(
+          "Example hint text"
+        );
+      });
+
+      it("applies the expected styling", () => {
+        const wrapper = renderWithNewValidations({});
+
+        assertStyleMatch(
+          {
+            fontSize: "14px",
+            marginTop: "0px",
+            marginBottom: "8px",
+            color: "var(--colorsUtilityYin055)",
+          },
+          wrapper.find(StyledHintText)
+        );
+      });
+    });
+
+    describe("new validation design", () => {
+      it("error message is visible when the prop is passed", () => {
+        const wrapper = renderWithNewValidations({ error: "error" });
+        expect(wrapper.find(ErrorBorder).exists()).toEqual(true);
+        expect(wrapper.find(StyledValidationMessage).exists()).toEqual(true);
+      });
+
+      it("warning message is visible when the prop is passed", () => {
+        const wrapper = renderWithNewValidations({ warning: "warning" });
+        expect(wrapper.find(ErrorBorder).exists()).toEqual(true);
+        expect(wrapper.find(StyledValidationMessage).exists()).toEqual(true);
       });
     });
   });

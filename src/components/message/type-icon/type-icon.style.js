@@ -40,16 +40,7 @@ TypeIconStyle.defaultProps = {
 };
 
 TypeIconStyle.propTypes = {
-  variant: PropTypes.oneOf([
-    "default",
-    "error",
-    "help",
-    "info",
-    "maintenance",
-    "new",
-    "success",
-    "warning",
-  ]),
+  variant: PropTypes.oneOf(["error", "info", "success", "warning"]),
   border: PropTypes.bool,
   transparent: PropTypes.bool,
 };
