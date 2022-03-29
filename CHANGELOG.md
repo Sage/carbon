@@ -1,3 +1,11 @@
+### [105.0.2](https://github.com/Sage/carbon/compare/v105.0.1...v105.0.2) (2022-03-29)
+
+
+### Bug Fixes
+
+* **popover:** attach portal to dialog root when inside dialog ([1304481](https://github.com/Sage/carbon/commit/1304481d25953adfcab9135138b8b55dbd3e6934)), closes [#4880](https://github.com/Sage/carbon/issues/4880)
+* **select:** fix openOnFocus behaviour when clicked ([fab0bfe](https://github.com/Sage/carbon/commit/fab0bfe8e87e3eab6b70c4c0c7fa001215dafbd1))
+
 ### [105.0.1](https://github.com/Sage/carbon/compare/v105.0.0...v105.0.1) (2022-03-29)
 
 

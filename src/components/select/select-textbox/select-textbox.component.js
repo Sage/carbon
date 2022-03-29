@@ -164,7 +164,10 @@ const SelectTextbox = ({
         transparent={transparent}
         onKeyDown={handleSelectTextKeydown}
         placeholder={placeholder || l.select.placeholder()}
-        {...getTextboxProps()}
+        onClick={handleTextboxClick}
+        disabled={disabled}
+        readOnly={readOnly}
+        {...restProps}
       />
     );
   }
