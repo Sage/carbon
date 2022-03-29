@@ -1,3 +1,10 @@
+### [105.0.1](https://github.com/Sage/carbon/compare/v105.0.0...v105.0.1) (2022-03-29)
+
+
+### Bug Fixes
+
+* **vertical-divider:** render component as li element if it is a child of Menu ([3ebfc0b](https://github.com/Sage/carbon/commit/3ebfc0b27b83d1c739ad0a1d0d21bd5011066d31)), closes [#4951](https://github.com/Sage/carbon/issues/4951)
+
 ## [105.0.0](https://github.com/Sage/carbon/compare/v104.58.8...v105.0.0) (2022-03-29)
 
 
