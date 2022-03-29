@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const DeprecationWarning = ({ children }) => (
   <div
     style={{
-      backgroundColor: "red",
+      backgroundColor: "pink",
       textAlign: "center",
       color: "white",
       padding: 20,
