@@ -52,7 +52,7 @@ const StyledTitleContent = styled.span`
 
     ${!hasHref &&
     css`
-      [data-component="icon"]:not([color]) {
+      ${StyledIcon} {
         color: var(--colorsActionMinorYin065);
       }
     `}

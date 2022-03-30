@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { padding } from "styled-system";
+import StyledIcon from "../../icon/icon.style";
 
 const verticalBorderSizes = {
   small: "1px",
@@ -34,6 +35,13 @@ const StyledFlatTableHeader = styled.th`
         width: ${colWidth}px;
       `
     }
+
+    && {
+      ${StyledIcon} {
+        color: var(--colorsUtilityMajor200);
+      }
+    }
+
 
     /* accommodate for no border in the header first cell */
     &:first-child {

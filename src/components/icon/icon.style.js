@@ -37,53 +37,52 @@ function adjustIconBgSize(fontSize, bgSize) {
   return iconSizeConfig.backgroundSize[bgSize];
 }
 
+const getIconColor = ({ disabled, color, theme }) => {
+  if (disabled) {
+    return "color: var(--colorsYin030)";
+  }
+  if (color) {
+    const { color: renderedColor } = styledColor({ color, theme });
+    return `&&&& {color: ${renderedColor}}`;
+  }
+
+  return "color: var(--colorsYin090)";
+};
+
+const getIconBgColor = ({ bg, theme }) => {
+  if (bg) {
+    const { backgroundColor } = styledColor({ bg, theme });
+    return backgroundColor;
+  }
+  return "transparent";
+};
+
+const getIconHoverColor = ({ disabled, color, theme }) => {
+  if (disabled) {
+    return "var(--colorsYin030)";
+  }
+  if (color) {
+    const { color: renderedColor } = styledColor({ color, theme });
+    return shade(0.2, getColorValue(renderedColor));
+  }
+
+  return "var(--colorsYin090)";
+};
+
+const getIconBgHoverColor = ({ bg, theme }) => {
+  if (bg) {
+    const { backgroundColor } = styledColor({ bg, theme });
+    return shade(0.2, getColorValue(backgroundColor));
+  }
+  return "transparent";
+};
+
 const StyledIcon = styled.span`
-  ${({
-    theme,
-    color,
-    bg,
-    isInteractive,
-    bgSize,
-    bgShape,
-    type,
-    fontSize,
-    disabled,
-    hasTooltip,
-  }) => {
-    let finalColor;
-    let finalHoverColor;
-    let bgColor;
-    let bgHoverColor;
-
-    try {
-      if (disabled) {
-        finalColor = "var(--colorsYin030)";
-        finalHoverColor = "var(--colorsYin030)";
-      } else if (color) {
-        const { color: renderedColor } = styledColor({ color, theme });
-        finalColor = renderedColor;
-        finalHoverColor = shade(0.2, getColorValue(renderedColor));
-      } else {
-        finalColor = "var(--colorsYin090)";
-        finalHoverColor = "var(--colorsYin090)";
-      }
-
-      if (bg) {
-        const { backgroundColor } = styledColor({ bg, theme });
-        bgColor = backgroundColor;
-        bgHoverColor = shade(0.2, getColorValue(backgroundColor));
-      } else {
-        bgColor = "transparent";
-        bgHoverColor = "transparent";
-      }
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
-    }
+  ${({ isInteractive, bgSize, bgShape, type, fontSize, hasTooltip }) => {
     return css`
       position: relative;
-      color: ${finalColor};
-      background-color: ${bgColor};
+      ${getIconColor};
+      background-color: ${getIconBgColor};
       vertical-align: middle;
       align-items: center;
       display: inline-flex;
@@ -95,8 +94,8 @@ const StyledIcon = styled.span`
       ${isInteractive &&
       css`
         &:hover {
-          color: ${finalHoverColor};
-          background-color: ${bgHoverColor};
+          color: ${getIconHoverColor};
+          background-color: ${getIconBgHoverColor};
         }
       `}
 
