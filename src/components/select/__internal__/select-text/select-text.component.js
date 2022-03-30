@@ -1,43 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import StyledSelectText from "./select-text.style";
-import useLocale from "../../../../hooks/__internal__/useLocale";
-import { InputContext } from "../../../../__internal__/input-behaviour";
 
 const SelectText = ({
   disabled,
-  formattedValue,
+  formattedValue = "",
   onClick,
   onKeyDown,
-  onFocus,
-  onBlur,
   onMouseDown,
   placeholder,
   readOnly,
   textId,
   transparent,
 }) => {
-  const l = useLocale();
-  const inputContext = useContext(InputContext);
   const hasPlaceholder = !disabled && !readOnly && !formattedValue;
-  const placeholderText = hasPlaceholder
-    ? placeholder || l.select.placeholder()
-    : "";
 
-  function handleFocus(event) {
-    inputContext.onFocus(event);
-
-    if (onFocus) {
-      onFocus(event);
-    }
-  }
-
-  function handleBlur(event) {
-    inputContext.onBlur(event);
-
-    if (onBlur) {
-      onBlur(event);
-    }
+  function handleClick(event) {
+    onClick(event);
   }
 
   return (
@@ -47,9 +26,7 @@ const SelectText = ({
       disabled={disabled}
       hasPlaceholder={hasPlaceholder}
       id={textId}
-      onBlur={handleBlur}
-      onClick={onClick}
-      onFocus={handleFocus}
+      onClick={handleClick}
       onKeyDown={onKeyDown}
       onMouseDown={onMouseDown}
       readOnly={readOnly}
@@ -57,7 +34,7 @@ const SelectText = ({
       tabIndex="-1"
       transparent={transparent}
     >
-      {formattedValue || placeholderText}
+      {hasPlaceholder ? placeholder : formattedValue}
     </StyledSelectText>
   );
 };
@@ -67,12 +44,8 @@ SelectText.propTypes = {
   disabled: PropTypes.bool,
   /** Value to be displayed */
   formattedValue: PropTypes.string,
-  /** Callback function for when the Select Textbox loses it's focus. */
-  onBlur: PropTypes.func,
   /** Callback function for when the component is clicked. */
   onClick: PropTypes.func,
-  /** Callback function for when the Select Textbox is focused. */
-  onFocus: PropTypes.func,
   /** Callback function for when the key is pressed when focused on Select Text. */
   onKeyDown: PropTypes.func,
   /** Callback function for when the left mouse key is pressed when focused on Select Text. */

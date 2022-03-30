@@ -2,8 +2,8 @@
 
 exports[`Tile renders base styles 1`] = `
 .c2 {
-  padding-right: 24px;
-  padding-left: 24px;
+  padding-right: var(--spacing300);
+  padding-left: var(--spacing300);
   box-sizing: border-box;
   position: relative;
   -webkit-box-flex: 1;
@@ -42,7 +42,7 @@ exports[`Tile renders base styles 1`] = `
 }
 
 .c0 {
-  padding: 24px;
+  padding: var(--spacing300);
   box-sizing: border-box;
   background-color: var(--colorsUtilityYang100);
   border: 1px solid var(--colorsUtilityMajor100);

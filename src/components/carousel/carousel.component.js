@@ -99,19 +99,6 @@ const BaseCarousel = ({
     handleSlideChange(newSlideSelection);
   }
 
-  function visibleSlides() {
-    const arrayWithKeys = React.Children.map(children, (element, key) => {
-      return React.cloneElement(element, {
-        key: `slide-${guid()}`,
-        id: key,
-        selectedIndex: selectedSlideIndex,
-        ...element.props,
-      });
-    });
-
-    return arrayWithKeys;
-  }
-
   function slideSelector() {
     if (!enableSlideSelector) return null;
 
@@ -183,6 +170,7 @@ const BaseCarousel = ({
       </CarouselNextButtonWrapperStyle>
     );
   }
+
   return (
     <CarouselWrapperStyle
       className={className}
@@ -191,7 +179,7 @@ const BaseCarousel = ({
       <div className="carbon-carousel__content">
         {previousButton()}
         <CarouselSliderWrapper elementIndex={selectedSlideIndex}>
-          {visibleSlides()}
+          {children}
         </CarouselSliderWrapper>
         {nextButton()}
       </div>

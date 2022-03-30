@@ -108,6 +108,7 @@ const MenuFullscreen = ({
                     value={{
                       inFullscreenView: true,
                       menuType,
+                      inMenu: true,
                     }}
                   >
                     {child}

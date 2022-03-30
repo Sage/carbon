@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import Content from "../../content/content.component.js";
 import MessageContentStyle from "./message-content.style";
 
-const MessageContent = ({ variant, title, transparent, children }) => {
+const MessageContent = ({ title, children }) => {
   return (
-    <MessageContentStyle variant={variant} transparent={transparent}>
+    <MessageContentStyle>
       <Content title={title} className="message-content">
         {children}
       </Content>
@@ -13,24 +13,8 @@ const MessageContent = ({ variant, title, transparent, children }) => {
   );
 };
 
-MessageContent.defaultProps = {
-  variant: "info",
-  transparent: false,
-};
-
 MessageContent.propTypes = {
-  variant: PropTypes.oneOf([
-    "default",
-    "error",
-    "help",
-    "info",
-    "maintenance",
-    "new",
-    "success",
-    "warning",
-  ]),
   title: PropTypes.node,
-  transparent: PropTypes.bool,
   children: PropTypes.node,
 };
 

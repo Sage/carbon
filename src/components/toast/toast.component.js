@@ -15,9 +15,12 @@ import IconButton from "../icon-button";
 import ModalManager from "../modal/__internal__/modal-manager";
 import Events from "../../__internal__/utils/helpers/events";
 import useLocale from "../../hooks/__internal__/useLocale";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedWarnTriggered = false;
 
 const Toast = ({
-  as = "warning",
+  as,
   children,
   className,
   id,
@@ -30,6 +33,14 @@ const Toast = ({
   variant,
   ...restProps
 }) => {
+  if (!deprecatedWarnTriggered && as) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate(
+      // eslint-disable-next-line max-len
+      "The `as` prop is deprecated and will soon be removed from the `Toast` component interface. You should use the `variant` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop"
+    );
+  }
+
   const locale = useLocale();
 
   const toastRef = useRef();
@@ -92,7 +103,7 @@ const Toast = ({
 
     const toastProps = {
       isCenter,
-      variant: variant || as,
+      variant: variant || as || "success",
       id,
       maxWidth,
     };
@@ -131,27 +142,9 @@ const Toast = ({
 
 Toast.propTypes = {
   /** Customizes the appearance in the DLS theme */
-  variant: PropTypes.oneOf([
-    "default",
-    "error",
-    "help",
-    "info",
-    "maintenance",
-    "new",
-    "success",
-    "warning",
-  ]),
+  variant: PropTypes.oneOf(["error", "info", "success", "warning"]),
   /** Customizes the appearance in a legacy theme through colour (see the 'iconColorSets' for possible values) */
-  as: PropTypes.oneOf([
-    "default",
-    "error",
-    "help",
-    "info",
-    "maintenance",
-    "new",
-    "success",
-    "warning",
-  ]),
+  as: PropTypes.oneOf(["error", "info", "success", "warning"]),
   /** Custom className */
   className: PropTypes.string,
   /** Custom id  */

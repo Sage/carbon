@@ -12,6 +12,7 @@ import {
   CarouselNextButtonWrapperStyle,
 } from "./carousel.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { SlideStyle } from "./slide/slide.style";
 
 describe("Carousel", () => {
   describe("when the Previous button has been clicked", () => {
@@ -323,6 +324,22 @@ describe("CarouselSliderWrapper", () => {
       wrapper
     );
   });
+
+  it.each([0, 1, 2, 3])(
+    "should apply the expected styles to the Slide element when the index is %s",
+    (elementIndex) => {
+      wrapper = mount(<CarouselSliderWrapper elementIndex={elementIndex} />);
+
+      assertStyleMatch(
+        {
+          transform: "scale(1)",
+          opacity: "1",
+        },
+        wrapper,
+        { modifier: `${SlideStyle}:nth-of-type(${elementIndex + 1})` }
+      );
+    }
+  );
 });
 
 describe("CarouselSelectorLabelStyle", () => {

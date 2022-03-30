@@ -9,10 +9,14 @@ import Button, { ButtonWithForwardRef } from "../button";
 import Events from "../../__internal__/utils/helpers/events";
 import Popover from "../../__internal__/popover";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
+import Logger from "../../__internal__/utils/logger";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
+
+let deprecatedWarnTriggered = false;
 
 const MultiActionButton = ({
   align = "left",
@@ -25,7 +29,16 @@ const MultiActionButton = ({
   subtext,
   ...rest
 }) => {
+  if (!deprecatedWarnTriggered && as) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate(
+      // eslint-disable-next-line max-len
+      "The `as` prop is deprecated and will soon be removed from the `MultiActionButton` component interface. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop"
+    );
+  }
+
   const ref = useRef();
+  const buttonRef = useRef();
   const buttonContainer = useRef();
   const userInputType =
     "ontouchstart" in document.documentElement ? "touchstart" : "click";
@@ -85,6 +98,12 @@ const MultiActionButton = ({
         nextIndex = currentIndex < children.length - 1 ? currentIndex + 1 : 0;
         ev.preventDefault();
       } else if (Events.isTabKey(ev)) {
+        const elements = Array.from(
+          document.querySelectorAll(defaultFocusableSelectors)
+        ).filter((el) => Number(el.tabIndex) !== -1);
+        const indexOf = elements.indexOf(buttonRef.current);
+        elements[indexOf]?.focus();
+
         // timeout enforces that the "hideButtons" method will be run after browser focuses on the next element
         setTimeout(hideButtons, 0);
       }
@@ -216,6 +235,7 @@ const MultiActionButton = ({
         key="toggle-button"
         onKeyDown={handleMainButtonKeyDown}
         {...mainButtonProps()}
+        forwardRef={buttonRef}
         iconPosition="after"
         iconType="dropdown"
       >

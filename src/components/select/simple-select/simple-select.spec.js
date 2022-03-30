@@ -70,6 +70,14 @@ describe("SimpleSelect", () => {
 
   testStyledSystemMargin((props) => getSelect(props));
 
+  it("when placeholder prop is passed, textbox uses it as placeholder text", () => {
+    const placeholder = "foobaz";
+    const wrapper = renderSelect({ placeholder });
+    expect(wrapper.find("span[data-element='select-text']").text()).toBe(
+      placeholder
+    );
+  });
+
   it("the input ref should be forwarded", () => {
     let mockRef;
 
@@ -146,7 +154,7 @@ describe("SimpleSelect", () => {
       it("the SelectList should be rendered", () => {
         const wrapper = renderSelect({ openOnFocus: true });
 
-        simulateSelectTextEvent(wrapper, "focus");
+        simulateSelectTextboxEvent(wrapper, "focus");
         expect(wrapper.find(SelectList).exists()).toBe(true);
       });
 
@@ -157,7 +165,7 @@ describe("SimpleSelect", () => {
             const obj = { [prop]: true, openOnFocus: true };
             const wrapper = renderSelect(obj);
 
-            simulateSelectTextEvent(wrapper, "focus");
+            simulateSelectTextboxEvent(wrapper, "focus");
             expect(wrapper.find(SelectList).exists()).toBe(false);
           });
         }
@@ -171,7 +179,7 @@ describe("SimpleSelect", () => {
             openOnFocus: true,
           });
 
-          simulateSelectTextEvent(wrapper, "focus");
+          simulateSelectTextboxEvent(wrapper, "focus");
           expect(onFocusFn).toHaveBeenCalled();
         });
       });
@@ -186,17 +194,17 @@ describe("SimpleSelect", () => {
         });
 
         it("then that prop should be called", () => {
-          simulateSelectTextEvent(wrapper, "focus");
+          simulateSelectTextboxEvent(wrapper, "focus");
 
           expect(onOpenFn).toHaveBeenCalled();
         });
 
         describe("and the SelectList already open", () => {
           it("then that prop should not be called", () => {
-            simulateSelectTextEvent(wrapper, "click");
+            simulateSelectTextboxEvent(wrapper, "focus");
             onOpenFn.mockReset();
             expect(wrapper.find(SelectList).exists()).toBe(true);
-            simulateSelectTextEvent(wrapper, "focus");
+            simulateSelectTextboxEvent(wrapper, "focus");
             expect(onOpenFn).not.toHaveBeenCalled();
           });
         });
@@ -204,7 +212,7 @@ describe("SimpleSelect", () => {
         describe("and the focus triggered by mouseDown", () => {
           it("then that prop should not be called", () => {
             simulateSelectTextEvent(wrapper, "mousedown");
-            simulateSelectTextEvent(wrapper, "focus");
+            simulateSelectTextboxEvent(wrapper, "focus");
             expect(onOpenFn).not.toHaveBeenCalled();
           });
         });
@@ -222,7 +230,7 @@ describe("SimpleSelect", () => {
     });
 
     it("the SelectList should not be rendered", () => {
-      simulateSelectTextEvent(wrapper, "focus");
+      simulateSelectTextboxEvent(wrapper, "focus");
       expect(wrapper.find(SelectList).exists()).toBe(false);
     });
 
@@ -440,7 +448,7 @@ describe("SimpleSelect", () => {
       it("then an option with matching text should be selected", () => {
         const wrapper = renderSelect({ openOnFocus: true });
 
-        simulateSelectTextEvent(wrapper, "focus");
+        simulateSelectTextboxEvent(wrapper, "focus");
         simulateKeyDown(wrapper, "b");
         simulateKeyDown(wrapper, "l");
         simulateKeyDown(wrapper, "a");
@@ -456,7 +464,7 @@ describe("SimpleSelect", () => {
         const wrapper = renderSelect();
 
         act(() => {
-          simulateSelectTextEvent(wrapper, "focus");
+          simulateSelectTextboxEvent(wrapper, "focus");
           simulateKeyDown(wrapper, "b");
           simulateKeyDown(wrapper, "l");
           jest.runAllTimers();
@@ -482,7 +490,7 @@ describe("SimpleSelect", () => {
         const onChangeFn = jest.fn();
         const wrapper = renderSelect({ ...textboxProps, onChange: onChangeFn });
 
-        simulateSelectTextEvent(wrapper, "focus");
+        simulateSelectTextboxEvent(wrapper, "focus");
         simulateKeyDown(wrapper, "b");
         expect(onChangeFn).toHaveBeenCalledWith(mockEventObject);
       });
@@ -575,7 +583,7 @@ describe("SimpleSelect", () => {
         act(() => {
           wrapper.find(Option).first().simulate("click");
         });
-        simulateSelectTextEvent(wrapper, "focus");
+        simulateSelectTextboxEvent(wrapper, "focus");
         expect(wrapper.update().find(SelectList).exists()).toBe(false);
       });
     });
@@ -621,7 +629,7 @@ describe("SimpleSelect", () => {
       const onBlurFn = jest.fn();
       const wrapper = renderSelect({ onBlur: onBlurFn });
 
-      simulateSelectTextEvent(wrapper, "blur");
+      simulateSelectTextboxEvent(wrapper, "blur");
       expect(onBlurFn).toHaveBeenCalled();
     });
 
@@ -630,16 +638,16 @@ describe("SimpleSelect", () => {
         const onBlurFn = jest.fn();
         const wrapper = renderSelect({ onBlur: onBlurFn, openOnFocus: true });
 
-        simulateSelectTextEvent(wrapper, "focus");
+        simulateSelectTextboxEvent(wrapper, "focus");
         wrapper.find(Option).first().simulate("mousedown");
-        simulateSelectTextEvent(wrapper, "blur");
+        simulateSelectTextboxEvent(wrapper, "blur");
         expect(onBlurFn).not.toHaveBeenCalled();
       });
     });
 
     it("coverage filler for else path", () => {
       const wrapper = renderSelect();
-      simulateSelectTextEvent(wrapper, "blur");
+      simulateSelectTextboxEvent(wrapper, "blur");
     });
   });
 
@@ -770,6 +778,12 @@ function simulateKeyDown(container, key) {
 
 function simulateSelectTextEvent(container, eventType) {
   const selectText = container.find("[data-element='select-text']").first();
+
+  selectText.simulate(eventType);
+}
+
+function simulateSelectTextboxEvent(container, eventType) {
+  const selectText = container.find('input[type="text"]').first();
 
   selectText.simulate(eventType);
 }

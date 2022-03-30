@@ -51,10 +51,7 @@ const ValidationIcon = ({
 
   return (
     <ValidationIconStyle
-      id={iconId}
       validationType={validationType}
-      role="tooltip"
-      aria-label={validationMessage}
       onClick={onClick}
       onMouseOver={() => setTriggeredByIcon(true)}
       onMouseLeave={() => setTriggeredByIcon(false)}
@@ -90,8 +87,9 @@ const ValidationIcon = ({
         }
         isPartOfInput={isPartOfInput}
         inputSize={size}
-        aria-hidden="true"
-        focusable={false}
+        id={iconId}
+        ariaLabel={validationMessage}
+        focusable={tabIndex !== -1}
       />
     </ValidationIconStyle>
   );

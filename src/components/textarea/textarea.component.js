@@ -10,10 +10,13 @@ import { InputBehaviour } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import guid from "../../__internal__/utils/helpers/guid";
-import StyledTextarea from "./textarea.style";
+import StyledTextarea, { MIN_HEIGHT } from "./textarea.style";
 import LocaleContext from "../../__internal__/i18n-context";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
+import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
+import ValidationMessage from "../../__internal__/validation-message";
 
 const getFormatNumber = (value, locale) =>
   new Intl.NumberFormat(locale).format(value);
@@ -61,18 +64,20 @@ const Textarea = ({
   ...props
 }) => {
   const locale = useContext(LocaleContext);
+  const { validationRedesignOptIn } = useContext(NewValidationContext);
+  const computeLabelPropValues = (prop) =>
+    validationRedesignOptIn ? undefined : prop;
 
   const { current: id } = useRef(idProp || guid());
 
   const inputRef = useRef();
 
-  const minHeight = useRef(0);
+  const minHeight = useRef(MIN_HEIGHT);
 
   const expandTextarea = () => {
     const textarea = inputRef.current;
 
     if (textarea.scrollHeight > minHeight.current) {
-      // Reset height to zero - IE specific
       textarea.style.height = "0px";
       // Set the height so all content is shown
       textarea.style.height = `${Math.max(
@@ -96,6 +101,12 @@ const Textarea = ({
     label,
     fieldHelp,
   });
+
+  useEffect(() => {
+    if (rows) {
+      minHeight.current = inputRef.current.scrollHeight;
+    }
+  }, [rows]);
 
   useEffect(() => {
     if (expandable) {
@@ -149,7 +160,7 @@ const Textarea = ({
           {...filterStyledSystemMarginProps(props)}
         >
           <FormField
-            fieldHelp={fieldHelp}
+            fieldHelp={computeLabelPropValues(fieldHelp)}
             fieldHelpId={fieldHelpId}
             error={error}
             warning={warning}
@@ -158,15 +169,22 @@ const Textarea = ({
             labelId={labelId}
             disabled={disabled}
             id={id}
-            labelInline={labelInline}
-            labelAlign={labelAlign}
-            labelWidth={labelWidth}
-            labelHelp={labelHelp}
+            labelInline={computeLabelPropValues(labelInline)}
+            labelAlign={computeLabelPropValues(labelAlign)}
+            labelWidth={computeLabelPropValues(labelWidth)}
+            labelHelp={computeLabelPropValues(labelHelp)}
             labelSpacing={labelSpacing}
             isRequired={props.required}
-            useValidationIcon={validationOnLabel}
+            useValidationIcon={computeLabelPropValues(validationOnLabel)}
             adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+            validationRedesignOptIn={validationRedesignOptIn}
           >
+            {validationRedesignOptIn && labelHelp && (
+              <StyledHintText>{labelHelp}</StyledHintText>
+            )}
+            {validationRedesignOptIn && (
+              <ValidationMessage error={error} warning={warning} />
+            )}
             <InputPresentation
               size={size}
               disabled={disabled}
@@ -178,10 +196,15 @@ const Textarea = ({
               warning={warning}
               info={info}
             >
+              {validationRedesignOptIn && (error || warning) && (
+                <ErrorBorder warning={!!(!error && warning)} />
+              )}
               <Input
                 aria-invalid={!!error}
                 aria-labelledby={ariaLabelledBy}
-                aria-describedby={ariaDescribedBy}
+                aria-describedby={
+                  validationRedesignOptIn ? undefined : ariaDescribedBy
+                }
                 autoFocus={autoFocus}
                 name={name}
                 value={value}
@@ -211,8 +234,12 @@ const Textarea = ({
                 error={error}
                 warning={warning}
                 info={info}
-                validationIconId={validationIconId}
-                useValidationIcon={!validationOnLabel}
+                validationIconId={
+                  validationRedesignOptIn ? undefined : validationIconId
+                }
+                useValidationIcon={
+                  !(validationRedesignOptIn || validationOnLabel)
+                }
               />
             </InputPresentation>
           </FormField>

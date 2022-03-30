@@ -9,6 +9,7 @@ import {
   getCommonTextboxArgsWithSpecialCaracters,
 } from "../textbox/textbox-test.stories.mdx";
 import GroupedCharacter from "./grouped-character.component";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 <Meta
   title="GroupedCharacter/Test"
@@ -19,7 +20,7 @@ import GroupedCharacter from "./grouped-character.component";
     },
   }}
   argTypes={{
-    ...commonTextboxArgTypes,
+    ...commonTextboxArgTypes(),
     separatorSpecialCharacters: singleSpecialCharacters,
   }}
 />
@@ -44,6 +45,29 @@ export const GroupedCharacterStory = ({
   );
 };
 
+export const NewValidationStory = ({
+  separatorSpecialCharacters,
+  separator,
+  ...args
+}) => {
+  const [state, setState] = useState("");
+  const onChange = (ev) => {
+    setState(ev.target.value.rawValue);
+    action("change")(ev);
+  };
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <GroupedCharacter
+        value={state}
+        m={2}
+        onChange={onChange}
+        separator={separator || separatorSpecialCharacters || " "}
+        {...getCommonTextboxArgsWithSpecialCaracters(args)}
+      />
+    </CarbonProvider>
+  );
+};
+
 # Grouped Character
 
 ### Default
@@ -59,5 +83,21 @@ export const GroupedCharacterStory = ({
     }}
   >
     {GroupedCharacterStory.bind({})}
+  </Story>
+</Canvas>
+
+### New Validation
+
+<Canvas>
+  <Story
+    name="new validation"
+    args={{
+      groups: [2, 2, 4],
+      separator: "-",
+      separatorSpecialCharacters: undefined,
+      ...getCommonTextboxArgs(),
+    }}
+  >
+    {NewValidationStory.bind({})}
   </Story>
 </Canvas>

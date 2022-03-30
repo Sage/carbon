@@ -3,14 +3,14 @@
 exports[`CarbonScopedTokensProvider should render css variables for all themes 1`] = `
 Array [
   CSSStyleRule {
-    "__ends": 14705,
+    "__ends": 14702,
     "__starts": 34,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
       "parentStyleSheet": null,
     },
-    "selectorText": ".Pjcfu",
+    "selectorText": ".egeCnX",
     "style": CSSStyleDeclaration {
       "--borderRadiusCircle": "50%",
       "--borderWidth000": "0px",
@@ -32,7 +32,7 @@ Array [
       "--colorsActionMajor150": "#B3D6EF",
       "--colorsActionMajor500": "#0073C2",
       "--colorsActionMajor600": "#005C9A",
-      "--colorsActionMajor700": "#004d2aff",
+      "--colorsActionMajor700": "#004472",
       "--colorsActionMajorTransparent": "#00000000",
       "--colorsActionMajorYang100": "#ffffffff",
       "--colorsActionMajorYin030": "#0000004d",
@@ -254,7 +254,7 @@ Array [
       "--sizing800": "64px",
       "--sizing900": "72px",
       "--sizingLogowidth": "40px",
-      "--spacing000": "0px",
+      "--spacing000": "0",
       "--spacing025": "2px",
       "--spacing050": "4px",
       "--spacing075": "6px",
@@ -752,7 +752,7 @@ Array [
       "97": "--colorsUtilityReadOnly600",
       "98": "--colorsActionMajor150",
       "99": "--colorsActionMajor500",
-      "__starts": 40,
+      "__starts": 41,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",
@@ -1136,14 +1136,14 @@ Array [
     },
   },
   CSSStyleRule {
-    "__ends": 29377,
-    "__starts": 14705,
+    "__ends": 29370,
+    "__starts": 14702,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
       "parentStyleSheet": null,
     },
-    "selectorText": ".iLKgYk",
+    "selectorText": ".cytQEO",
     "style": CSSStyleDeclaration {
       "--borderRadiusCircle": "50%",
       "--borderWidth000": "0px",
@@ -1165,7 +1165,7 @@ Array [
       "--colorsActionMajor150": "#B3E3D6",
       "--colorsActionMajor500": "#007D5A",
       "--colorsActionMajor600": "#006046",
-      "--colorsActionMajor700": "#004d2aff",
+      "--colorsActionMajor700": "#00402E",
       "--colorsActionMajorTransparent": "#00000000",
       "--colorsActionMajorYang100": "#ffffffff",
       "--colorsActionMajorYin030": "#0000004d",
@@ -1387,7 +1387,7 @@ Array [
       "--sizing800": "64px",
       "--sizing900": "72px",
       "--sizingLogowidth": "40px",
-      "--spacing000": "0px",
+      "--spacing000": "0",
       "--spacing025": "2px",
       "--spacing050": "4px",
       "--spacing075": "6px",
@@ -1885,7 +1885,7 @@ Array [
       "97": "--colorsUtilityReadOnly600",
       "98": "--colorsActionMajor150",
       "99": "--colorsActionMajor500",
-      "__starts": 14712,
+      "__starts": 14709,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",
@@ -2269,14 +2269,14 @@ Array [
     },
   },
   CSSStyleRule {
-    "__ends": 44041,
-    "__starts": 29377,
+    "__ends": 44032,
+    "__starts": 29370,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
       "parentStyleSheet": null,
     },
-    "selectorText": ".gxcojr",
+    "selectorText": ".bVYmVa",
     "style": CSSStyleDeclaration {
       "--borderRadiusCircle": "50%",
       "--borderWidth000": "0px",
@@ -2519,7 +2519,7 @@ Array [
       "--sizing800": "64px",
       "--sizing900": "72px",
       "--sizingLogowidth": "40px",
-      "--spacing000": "0px",
+      "--spacing000": "0",
       "--spacing025": "2px",
       "--spacing050": "4px",
       "--spacing075": "6px",
@@ -3016,7 +3016,7 @@ Array [
       "97": "--colorsUtilityReadOnly600",
       "98": "--colorsActionMajor150",
       "99": "--colorsActionMajor500",
-      "__starts": 29384,
+      "__starts": 29377,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",
@@ -3399,8 +3399,8 @@ Array [
     },
   },
   CSSStyleRule {
-    "__ends": 58721,
-    "__starts": 44041,
+    "__ends": 58712,
+    "__starts": 44032,
     "parentRule": null,
     "parentStyleSheet": CSSStyleSheet {
       "cssRules": [Circular],
@@ -4146,7 +4146,7 @@ Array [
       "97": "--colorsUtilityReadOnly600",
       "98": "--colorsActionMajor150",
       "99": "--colorsActionMajor500",
-      "__starts": 44048,
+      "__starts": 44039,
       "_importants": Object {
         "--borderRadiusCircle": "",
         "--borderWidth000": "",

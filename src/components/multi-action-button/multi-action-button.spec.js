@@ -13,6 +13,7 @@ import {
   assertStyleMatch,
   keyboard,
   testStyledSystemMargin,
+  expectConsoleOutput as expectWarn,
 } from "../../__spec_helper__/test-utils";
 import StyledButton from "../button/button.style";
 import StyledIcon from "../icon/icon.style";
@@ -428,6 +429,17 @@ describe("MultiActionButton", () => {
           true
         );
       });
+    });
+  });
+
+  describe("when the `as` prop is used", () => {
+    it("fires a prop deprecation warning to the console", () => {
+      const message =
+        "[Deprecation] The `as` prop is deprecated and will soon be removed from the `MultiActionButton` component interface. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop";
+      const assert = expectWarn(message, "warn");
+
+      render({ as: "primary" }, mount);
+      assert();
     });
   });
 });

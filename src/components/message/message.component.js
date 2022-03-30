@@ -57,13 +57,7 @@ const Message = ({
         {...marginProps}
       >
         <TypeIcon variant={variant} transparent={transparent} />
-        <MessageContent
-          variant={variant}
-          transparent={transparent}
-          title={title}
-        >
-          {children}
-        </MessageContent>
+        <MessageContent title={title}>{children}</MessageContent>
         {renderCloseIcon()}
       </MessageStyle>
     )
@@ -73,16 +67,7 @@ const Message = ({
 Message.propTypes = {
   ...marginPropTypes,
   /** set type of message based on new DLS standard */
-  variant: PropTypes.oneOf([
-    "default",
-    "error",
-    "help",
-    "info",
-    "maintenance",
-    "new",
-    "success",
-    "warning",
-  ]),
+  variant: PropTypes.oneOf(["error", "info", "success", "warning"]),
   /** set content to component */
   children: PropTypes.node,
   /** set custom class to component */

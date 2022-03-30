@@ -9,6 +9,16 @@ import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import cellSizes from "./cell-sizes.style";
 import Box from "../box";
 
+const StyledTableContainer = styled.div`
+  ${({ width, overflowX }) =>
+    width &&
+    css`
+      width: ${width};
+
+      ${overflowX && `overflow-x: ${overflowX}`}
+    `}
+`;
+
 const StyledFlatTable = styled.table`
   border-collapse: separate;
   border-radius: 0px;
@@ -185,4 +195,9 @@ const StyledFlatTableFooter = styled.div`
     `}
 `;
 
-export { StyledFlatTableWrapper, StyledFlatTable, StyledFlatTableFooter };
+export {
+  StyledFlatTableWrapper,
+  StyledFlatTable,
+  StyledFlatTableFooter,
+  StyledTableContainer,
+};

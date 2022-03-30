@@ -2,6 +2,7 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import Label from "../../__internal__/label";
 import Textbox from "../textbox";
+import { Checkbox } from "../checkbox";
 import InlineInputs from "./inline-inputs.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
@@ -10,6 +11,11 @@ import {
   StyledInlineInput,
 } from "./inline-inputs.style";
 import InputPresentation from "../../__internal__/input/input-presentation.style";
+import guid from "../../__internal__/utils/helpers/guid";
+
+jest.mock("../../__internal__/utils/helpers/guid");
+const mockedGuid = "guid-12345";
+guid.mockImplementation(() => mockedGuid);
 
 describe("Inline Inputs", () => {
   let wrapper;
@@ -44,6 +50,14 @@ describe("Inline Inputs", () => {
         { modifier: `${StyledLabelContainer}` }
       );
     });
+
+    it("sets the aria-labelledby prop on the inputs", () => {
+      wrapper
+        .find("input")
+        .forEach((input) =>
+          expect(input.prop("aria-labelledby")).toEqual(mockedGuid)
+        );
+    });
   });
 
   describe("when a label prop is not passed in", () => {
@@ -55,6 +69,14 @@ describe("Inline Inputs", () => {
       const label = wrapper.find(Label);
 
       expect(label.exists()).toBe(false);
+    });
+
+    it("does not set the aria-labelledby prop on the inputs", () => {
+      wrapper
+        .find("input")
+        .forEach((input) =>
+          expect(input.prop("aria-labelledby")).toEqual(undefined)
+        );
     });
   });
 
@@ -174,6 +196,7 @@ function render(props = {}, renderer = shallow) {
     <InlineInputs {...props}>
       <Textbox />
       <Textbox />
+      <Checkbox />
     </InlineInputs>
   );
 }

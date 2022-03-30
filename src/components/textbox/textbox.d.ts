@@ -20,7 +20,7 @@ export interface CommonTextboxProps
   "data-role"?: string;
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
-  /** Integer to determine a timeout for the defered callback */
+  /** Integer to determine a timeout for the deferred callback */
   deferTimeout?: number;
   /** If true, the component will be disabled */
   disabled?: boolean;

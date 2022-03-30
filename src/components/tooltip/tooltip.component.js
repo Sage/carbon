@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react/headless";
+import { sticky } from "tippy.js";
 
 import StyledTooltip from "./tooltip.style";
 import StyledPointer from "./tooltip-pointer.style";
@@ -8,6 +9,7 @@ import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 const TOOLTIP_DELAY = 100;
+const tippyPlugins = [sticky];
 
 const Tooltip = React.forwardRef(
   (
@@ -71,6 +73,8 @@ const Tooltip = React.forwardRef(
         placement={position}
         delay={TOOLTIP_DELAY}
         {...(isVisible !== undefined && { visible: isVisible })}
+        plugins={tippyPlugins}
+        sticky
         render={(attrs) => tooltip(attrs, message)}
         reference={target}
         popperOptions={{
