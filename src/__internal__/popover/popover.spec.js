@@ -1,10 +1,13 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import { mount } from "enzyme";
 import { createPopper } from "@popperjs/core";
+import { act } from "react-dom/test-utils";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Popover from "./popover.component";
+import Dialog from "../../components/dialog";
 import StyledBackdrop from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
@@ -25,6 +28,26 @@ const Component = (props) => {
       </Popover>
     </div>
   );
+};
+
+const InDialog = (props) => {
+  const ref = useRef();
+
+  return (
+    <Dialog open>
+      <div ref={ref} id="popover-container">
+        {props.renderPopover && (
+          <Popover placement="bottom-start" {...props} reference={ref}>
+            <div id="popover-children" />
+          </Popover>
+        )}
+      </div>
+    </Dialog>
+  );
+};
+
+InDialog.propTypes = {
+  renderPopover: PropTypes.bool,
 };
 
 describe("Popover", () => {
@@ -144,6 +167,25 @@ describe("Popover", () => {
       expect(createPopper.mock.calls[0][2]).toMatchObject({
         placement: "bottom-start",
       });
+    });
+  });
+
+  describe("when inside of a Dialog", () => {
+    it("should attach the portal to the element with role of 'dialog'", () => {
+      const wrapper = mount(<InDialog />);
+      const dialog = wrapper.find("[role='dialog']");
+      const appendChildSpy = jest.spyOn(
+        dialog.at(2).getDOMNode(),
+        "appendChild"
+      );
+
+      wrapper.setProps({ renderPopover: true });
+
+      act(() => {
+        wrapper.update();
+      });
+
+      expect(appendChildSpy).toHaveBeenCalled();
     });
   });
 });

@@ -1,3 +1,3 @@
 import React from "react";
 
-export default React.createContext({ menuType: "light" });
+export default React.createContext({ menuType: "light", inMenu: false });

@@ -1,3 +1,38 @@
+## [105.1.0](https://github.com/Sage/carbon/compare/v105.0.2...v105.1.0) (2022-03-30)
+
+
+### Features
+
+* **tile:** surface variant prop and add deprecation warning for as prop ([e5670e3](https://github.com/Sage/carbon/commit/e5670e37f1dd95d59d1c6d02962734620fea8d03))
+
+### [105.0.2](https://github.com/Sage/carbon/compare/v105.0.1...v105.0.2) (2022-03-29)
+
+
+### Bug Fixes
+
+* **popover:** attach portal to dialog root when inside dialog ([1304481](https://github.com/Sage/carbon/commit/1304481d25953adfcab9135138b8b55dbd3e6934)), closes [#4880](https://github.com/Sage/carbon/issues/4880)
+* **select:** fix openOnFocus behaviour when clicked ([fab0bfe](https://github.com/Sage/carbon/commit/fab0bfe8e87e3eab6b70c4c0c7fa001215dafbd1))
+
+### [105.0.1](https://github.com/Sage/carbon/compare/v105.0.0...v105.0.1) (2022-03-29)
+
+
+### Bug Fixes
+
+* **vertical-divider:** render component as li element if it is a child of Menu ([3ebfc0b](https://github.com/Sage/carbon/commit/3ebfc0b27b83d1c739ad0a1d0d21bd5011066d31)), closes [#4951](https://github.com/Sage/carbon/issues/4951)
+
+## [105.0.0](https://github.com/Sage/carbon/compare/v104.58.8...v105.0.0) (2022-03-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **row, column:** Row and Column components are deprecated
+and could no longer be used, please use the GridContainer and GridItem components instead.
+To help with migration please use our codemod `npx carbon-codemod replace-row-column-with-grid`
+
+### Code Refactoring
+
+* **row, column:** remove deprecated components ([c5b9bb0](https://github.com/Sage/carbon/commit/c5b9bb0be702cf95decda448937c5df6dc3c8a06))
+
 ### [104.58.8](https://github.com/Sage/carbon/compare/v104.58.7...v104.58.8) (2022-03-28)
 
 

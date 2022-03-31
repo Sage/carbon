@@ -1,12 +1,14 @@
 import React from "react";
 import { mount } from "enzyme";
 import VerticalDivider from ".";
+import { VerticalDividerPropTypes } from "./vertical-divider.component";
 import { StyledVerticalWrapper, StyledDivider } from "./vertical-divider.style";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
 } from "../../__spec_helper__/test-utils";
 import { baseTheme } from "../../style/themes";
+import MenuContext from "../menu/menu.context";
 
 function render(props = {}) {
   return mount(<VerticalDivider {...props} />);
@@ -14,9 +16,12 @@ function render(props = {}) {
 
 describe("VerticalDivider", () => {
   describe("styles", () => {
-    testStyledSystemSpacing((props) => <VerticalDivider {...props} />, {
-      p: 3,
-    });
+    testStyledSystemSpacing(
+      (props: VerticalDividerPropTypes) => <VerticalDivider {...props} />,
+      {
+        p: 3,
+      }
+    );
 
     describe("with default values", () => {
       it("matches expected", () => {
@@ -83,5 +88,18 @@ describe("VerticalDivider", () => {
         render().find(StyledVerticalWrapper).prop("data-component")
       ).toEqual("vertical-divider");
     });
+  });
+
+  it("renders as an `li` element with `aria-hidden` when inside a Menu", () => {
+    const { as, "aria-hidden": ariaHidden } = mount(
+      <MenuContext.Provider value={{ menuType: "light", inMenu: true }}>
+        <VerticalDivider />
+      </MenuContext.Provider>
+    )
+      .find(StyledVerticalWrapper)
+      .props();
+
+    expect(as).toEqual("li");
+    expect(ariaHidden).toEqual(true);
   });
 });

@@ -175,6 +175,7 @@ const Modal = ({
                 value={{
                   isAnimationComplete,
                   triggerRefocusFlag,
+                  isInModal: true,
                 }}
               >
                 {content}

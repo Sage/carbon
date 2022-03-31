@@ -15,7 +15,12 @@
   ],
   "moduleDirectories": ["src", "node_modules"],
   "collectCoverage": true,
-  "coveragePathIgnorePatterns": ["node_modules", "src/__spec_helper__"],
+  "coveragePathIgnorePatterns": [
+    "node_modules",
+    "src/__spec_helper__",
+    "lib",
+    "esm"
+  ],
   "coverageReporters": ["text-summary", "html"],
   "coverageDirectory": "<rootDir>/coverage",
   "coverageThreshold": {

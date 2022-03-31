@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { createPopper } from "@popperjs/core";
@@ -6,6 +6,7 @@ import { createPopper } from "@popperjs/core";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import StyledBackdrop from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
+import { ModalContext } from "../../components/modal/modal.component";
 
 const Popover = ({
   children,
@@ -17,11 +18,17 @@ const Popover = ({
   disableBackgroundUI,
 }) => {
   const elementDOM = useRef();
+  const { isInModal } = useContext(ModalContext);
+  let mountNode = document.body;
+
+  if (isInModal && reference.current) {
+    mountNode = reference.current.closest("[role='dialog']");
+  }
 
   if (!elementDOM.current && !disablePortal) {
     elementDOM.current = document.createElement("div");
 
-    document.body.appendChild(elementDOM.current);
+    mountNode.appendChild(elementDOM.current);
   }
   const popperInstance = useRef();
   const popperRef = useRef();
@@ -75,10 +82,11 @@ const Popover = ({
   useEffect(() => {
     return () => {
       if (!disablePortal) {
-        document.body.removeChild(elementDOM.current);
+        mountNode.removeChild(elementDOM.current);
+        elementDOM.current = null;
       }
     };
-  }, [disablePortal]);
+  }, [disablePortal, mountNode]);
 
   if (disableBackgroundUI) {
     content = <StyledBackdrop>{content}</StyledBackdrop>;
@@ -126,7 +134,7 @@ Popover.propTypes = {
   // When true, children are not rendered in portal
   disablePortal: PropTypes.bool,
   // Reference element, children will be positioned in relation to this element - should be a ref
-  reference: PropTypes.shape({ current: PropTypes.any }),
+  reference: PropTypes.shape({ current: PropTypes.any }).isRequired,
 };
 
 export default Popover;
