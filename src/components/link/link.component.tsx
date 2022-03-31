@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import PropTypes from "prop-types";
+import { IconType } from "components/icon/icon";
 
 import Icon from "../icon";
 import Event from "../../__internal__/utils/helpers/events";
@@ -7,7 +7,60 @@ import { StyledLink, StyledContent } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 
-const Link = React.forwardRef(
+export interface LinkProps extends React.AriaAttributes {
+  /** The disabled state of the link. */
+  disabled?: boolean;
+  /** An href for an anchor tag. */
+  href?: string;
+  /** An icon to display next to the link. */
+  icon?: IconType;
+  /** Which side of the link to the render the link. */
+  iconAlign?: "left" | "right";
+  /** Function called when the mouse is clicked. */
+  onClick?: (
+    ev:
+      | React.MouseEvent<HTMLAnchorElement>
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLButtonElement>
+  ) => void;
+  /** Function called when a key is pressed. */
+  onKeyDown?: (
+    ev:
+      | React.KeyboardEvent<HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLButtonElement>
+  ) => void;
+  /** Function called when a mouse down event triggers. */
+  onMouseDown?: (
+    ev:
+      | React.MouseEvent<HTMLAnchorElement>
+      | React.MouseEvent<HTMLButtonElement>
+  ) => void;
+
+  /** Whether to include the link in the tab order of the page */
+  tabbable?: boolean;
+  /** A message to display as a tooltip to the link. */
+  tooltipMessage?: string;
+  /** Positions the tooltip with the link. */
+  tooltipPosition?: "bottom" | "left" | "right" | "top";
+  /** Child content to render in the link. */
+  children?: React.ReactNode;
+  /** Classes to apply to the component. */
+  className?: string;
+  /** Target property in which link should open ie: _blank, _self, _parent, _top */
+  target?: string;
+  /** Aria label for accessibility purposes */
+  ariaLabel?: string;
+  /** Allows to create skip link */
+  isSkipLink?: boolean;
+  /** allows to set rel property in <a> tag */
+  rel?: string;
+}
+
+export const Link = React.forwardRef<
+  HTMLLinkElement | HTMLButtonElement,
+  LinkProps
+>(
   (
     {
       children,
@@ -17,22 +70,26 @@ const Link = React.forwardRef(
       onClick,
       onMouseDown,
       icon,
-      iconAlign,
+      iconAlign = "left",
       isSkipLink,
       disabled,
       ariaLabel,
       rel,
       tooltipMessage,
       tooltipPosition,
-      tabbable,
+      tabbable = true,
       target,
       ...rest
-    },
+    }: LinkProps,
     ref
   ) => {
     const l = useLocale();
     const tabIndex = tabbable && !disabled ? "0" : "-1";
-    const handleOnKeyDown = (ev) => {
+    const handleOnKeyDown = (
+      ev:
+        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+    ) => {
       if (onKeyDown) {
         onKeyDown(ev);
       }
@@ -63,16 +120,16 @@ const Link = React.forwardRef(
       ) : null;
     };
 
-    const ariaProps = useMemo(
-      () =>
-        Object.keys(rest)
-          .filter((key) => key.startsWith("aria"))
-          .reduce((obj, key) => {
-            obj[key] = rest[key];
-            return obj;
-          }, {}),
-      [rest]
-    );
+    const ariaProps = useMemo(() => {
+      const restObject = rest as Record<string, unknown>;
+
+      return Object.keys(restObject)
+        .filter((key) => key.startsWith("aria"))
+        .reduce((obj: Record<string, unknown>, key: string) => {
+          obj[key] = restObject[key];
+          return obj;
+        }, {});
+    }, [rest]);
 
     const componentProps = {
       onKeyDown: handleOnKeyDown,
@@ -125,48 +182,6 @@ const Link = React.forwardRef(
   }
 );
 
-Link.propTypes = {
-  /** Child content to render in the link. */
-  children: PropTypes.node,
-  /** Classes to apply to the component. */
-  className: PropTypes.string,
-  /** The disabled state of the link. */
-  disabled: PropTypes.bool,
-  /** An href for an anchor tag. */
-  href: PropTypes.string,
-  /**
-   * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
-   *
-   * An icon to display next to the link.
-   */
-  icon: PropTypes.string,
-  /** Which side of the link to the render the link. */
-  iconAlign: PropTypes.string,
-  /** Function called when the mouse is clicked. */
-  onClick: PropTypes.func,
-  /** Function called when a key is pressed. */
-  onKeyDown: PropTypes.func,
-  /** Function called when a mouse down event triggers. */
-  onMouseDown: PropTypes.func,
-  /** Whether to include the link in the tab order of the page */
-  tabbable: PropTypes.bool,
-  /** A message to display as a tooltip to the link. */
-  tooltipMessage: PropTypes.string,
-  /** Positions the tooltip with the link. */
-  tooltipPosition: PropTypes.oneOf(["bottom", "left", "right", "top"]),
-  /** Allows to create skip link */
-  isSkipLink: PropTypes.bool,
-  /** Target property in which link should open ie: _blank, _self, _parent, _top */
-  target: PropTypes.string,
-  /** Aria label for accessibility purposes */
-  ariaLabel: PropTypes.string,
-  /** allows to set rel property in <a> tag */
-  rel: PropTypes.string,
-};
-
-Link.defaultProps = {
-  iconAlign: "left",
-  tabbable: true,
-};
+Link.displayName = "Link";
 
 export default Link;
