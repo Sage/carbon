@@ -1,9 +1,9 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import Label from "../../__internal__/label";
 import Textbox from "../textbox";
 import { Checkbox } from "../checkbox";
-import InlineInputs from "./inline-inputs.component";
+import InlineInputs, { InlineInputsProps } from "./inline-inputs.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import {
@@ -11,14 +11,25 @@ import {
   StyledInlineInput,
 } from "./inline-inputs.style";
 import InputPresentation from "../../__internal__/input/input-presentation.style";
-import guid from "../../__internal__/utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid/guid";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
-guid.mockImplementation(() => mockedGuid);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(guid as jest.MockedFunction<any>).mockImplementation(() => mockedGuid);
+
+function render(props: InlineInputsProps = {}) {
+  return mount(
+    <InlineInputs {...props}>
+      <Textbox />
+      <Textbox />
+      <Checkbox />
+    </InlineInputs>
+  );
+}
 
 describe("Inline Inputs", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   describe("when a className prop is passed in", () => {
     it("renders with main class", () => {
@@ -32,7 +43,7 @@ describe("Inline Inputs", () => {
     const labelText = "Test Label";
 
     beforeEach(() => {
-      wrapper = render({ label: labelText }, mount);
+      wrapper = render({ label: labelText });
     });
 
     it("contains a label with a text specified in that prop", () => {
@@ -84,7 +95,7 @@ describe("Inline Inputs", () => {
     const labelText = "Test Label";
 
     beforeEach(() => {
-      wrapper = render({ label: labelText }, mount);
+      wrapper = render({ label: labelText });
     });
 
     it("then all inputs should have 1px width", () => {
@@ -102,7 +113,7 @@ describe("Inline Inputs", () => {
     const gutterValue = "none";
 
     beforeEach(() => {
-      wrapper = render({ gutter: gutterValue }, mount);
+      wrapper = render({ gutter: gutterValue });
     });
 
     it("then the borderLeft css property of the adjacent input should be set to none", () => {
@@ -122,7 +133,7 @@ describe("Inline Inputs", () => {
     const labelWidth = 30;
 
     beforeEach(() => {
-      wrapper = render({ labelWidth }, mount);
+      wrapper = render({ labelWidth });
     });
 
     it("then the label should have percentage width of this prop value", () => {
@@ -138,7 +149,7 @@ describe("Inline Inputs", () => {
 
   describe("when the inputWidth prop is not passed in", () => {
     beforeEach(() => {
-      wrapper = render({}, mount);
+      wrapper = render({});
     });
 
     it("then the inline input container should have it's flex property set to 1", () => {
@@ -155,7 +166,7 @@ describe("Inline Inputs", () => {
     const inputWidth = 70;
 
     beforeEach(() => {
-      wrapper = render({ inputWidth }, mount);
+      wrapper = render({ inputWidth });
     });
 
     it("then the inline input container should have percentage width of this prop value", () => {
@@ -173,30 +184,21 @@ describe("Inline Inputs", () => {
       wrapper = render();
     });
 
-    describe("when their are multiple children", () => {
-      it("renders its children", () => {
-        expect(wrapper.find(Textbox).length).toEqual(2);
-      });
+    it("renders multiple children", () => {
+      expect(wrapper.find(Textbox).length).toEqual(2);
     });
 
-    describe("when there is one child", () => {
-      beforeEach(() => {
-        wrapper.setProps({ children: <Textbox /> });
-      });
+    it("renders a single child", () => {
+      wrapper.setProps({ children: <Textbox /> });
+      expect(wrapper.find(Textbox).length).toEqual(1);
+    });
 
-      it("renders the child", () => {
-        expect(wrapper.find(Textbox).length).toEqual(1);
-      });
+    it("renders when no children are passed", () => {
+      expect(
+        mount(<InlineInputs />)
+          .find(StyledContentContainer)
+          .prop("children")
+      ).toBe(null);
     });
   });
 });
-
-function render(props = {}, renderer = shallow) {
-  return renderer(
-    <InlineInputs {...props}>
-      <Textbox />
-      <Textbox />
-      <Checkbox />
-    </InlineInputs>
-  );
-}
