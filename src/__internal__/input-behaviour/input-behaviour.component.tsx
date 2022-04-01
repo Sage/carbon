@@ -1,13 +1,16 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
-import { InlineInputsContext } from "../../components/inline-inputs/inline-inputs.component";
-import useInputBehaviour from "./useInputBehaviour";
+import { InlineInputsContext } from "../../components/inline-inputs";
+import useInputBehaviour, { InputContextProps } from "./useInputBehaviour";
 
-const defaultValue = {};
-const InputContext = React.createContext(defaultValue);
+const InputContext = React.createContext<InputContextProps>({});
 
-const InputBehaviour = ({ children }) => {
+export interface InputBehaviourProps {
+  children?: React.ReactNode;
+}
+
+const InputBehaviour = ({ children }: InputBehaviourProps) => {
   const contextValue = useInputBehaviour();
   const { ariaLabelledBy } = useContext(InlineInputsContext);
 
