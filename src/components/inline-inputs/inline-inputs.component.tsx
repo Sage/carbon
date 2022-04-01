@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import PropTypes from "prop-types";
 import Label from "../../__internal__/label";
 import StyledInlineInputs, {
   StyledContentContainer,
@@ -7,9 +6,46 @@ import StyledInlineInputs, {
 } from "./inline-inputs.style";
 import createGuid from "../../__internal__/utils/helpers/guid";
 
-export const InlineInputsContext = React.createContext({});
+interface InlineInputsContextProps {
+  ariaLabelledBy?: string;
+}
 
-const columnWrapper = (children, gutter, labelId) => {
+type GutterOptions =
+  | "none"
+  | "extra-small"
+  | "small"
+  | "medium-small"
+  | "medium"
+  | "medium-large"
+  | "large"
+  | "extra-large";
+
+export interface InlineInputsProps {
+  /** Children elements */
+  children?: React.ReactNode;
+  /** [Legacy prop] A custom class name for the component. */
+  className?: string;
+  /** Gutter prop gets passed down to Row component if false gutter value is "none" */
+  gutter?: GutterOptions;
+  /** The id of the corresponding input control for the label */
+  htmlFor?: string;
+  /** Width of the inline inputs container in percentage */
+  inputWidth?: number;
+  /** Defines the label text for the heading. */
+  label?: string;
+  /** Width of a label in percentage */
+  labelWidth?: number;
+}
+
+export const InlineInputsContext: React.Context<InlineInputsContextProps> = React.createContext(
+  {}
+);
+
+const columnWrapper = (
+  children: React.ReactNode,
+  gutter: GutterOptions,
+  labelId?: string
+) => {
   return React.Children.map(children, (input) => {
     return (
       <InlineInputsContext.Provider value={{ ariaLabelledBy: labelId }}>
@@ -21,17 +57,15 @@ const columnWrapper = (children, gutter, labelId) => {
   });
 };
 
-const InlineInputs = (props) => {
-  const {
-    label,
-    htmlFor,
-    children,
-    className,
-    gutter,
-    inputWidth,
-    labelWidth,
-  } = props;
-
+const InlineInputs = ({
+  label,
+  htmlFor = "",
+  children = null,
+  className = "",
+  gutter = "none",
+  inputWidth,
+  labelWidth,
+}: InlineInputsProps) => {
   const labelId = useRef(createGuid());
 
   function renderLabel() {
@@ -63,37 +97,6 @@ const InlineInputs = (props) => {
   );
 };
 
-// Assign props over for demo site
-InlineInputs.propTypes = {
-  /** Children elements */
-  children: PropTypes.node,
-  /** [Legacy prop] A custom class name for the component. */
-  className: PropTypes.string,
-  /** Defines the label text for the heading. */
-  label: PropTypes.string,
-  /** The id of the corresponding input control for the label */
-  htmlFor: PropTypes.string,
-  /** Gutter prop gets passed down to Row component if false gutter value is "none" */
-  gutter: PropTypes.oneOf([
-    "none",
-    "extra-small",
-    "small",
-    "medium-small",
-    "medium",
-    "medium-large",
-    "large",
-    "extra-large",
-  ]),
-  /** Width of the inline inputs container in percentage */
-  inputWidth: PropTypes.number,
-  /** Width of a label in percentage */
-  labelWidth: PropTypes.number,
-};
-
-InlineInputs.defaultProps = {
-  children: null,
-  className: "",
-  gutter: "none",
-};
+InlineInputs.displayName = "InlineInputs";
 
 export default InlineInputs;
