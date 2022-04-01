@@ -1,32 +1,37 @@
 import React from "react";
 import styled from "styled-components";
 import { act } from "react-dom/test-utils";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 
 import useInputBehaviour from "./useInputBehaviour";
 
 const Input = styled.input``;
 
-// eslint-disable-next-line
-const HookTestComponent = ({ blockGroupBehaviour }) => {
+const HookTestComponent = ({
+  blockGroupBehaviour,
+}: {
+  blockGroupBehaviour?: boolean;
+}) => {
   const { inputRef, ...hookValues } = useInputBehaviour(blockGroupBehaviour);
   return (
     <Input
       type="text"
       {...hookValues}
-      ref={(input) => inputRef({ current: input })}
+      ref={(input) => {
+        if (inputRef) inputRef({ current: input });
+      }}
     />
   );
 };
 
-const render = (blockGroupBehaviour) =>
+const render = (blockGroupBehaviour?: boolean) =>
   mount(<HookTestComponent blockGroupBehaviour={blockGroupBehaviour} />, {
     attachTo: document.getElementById("enzymeContainer"),
   });
 
 describe("useInputBehaviour", () => {
-  let wrapper;
-  let container;
+  let wrapper: ReactWrapper;
+  let container: HTMLDivElement | null;
 
   describe("group behaviour enabled", () => {
     beforeEach(() => {
@@ -79,7 +84,9 @@ describe("useInputBehaviour", () => {
       });
       wrapper.update();
       jest.runAllTimers();
-      expect(document.activeElement).toBe(wrapper.find(Input).getDOMNode());
+      expect(
+        document.activeElement === wrapper.find(Input).getDOMNode()
+      ).toEqual(true);
     });
   });
 

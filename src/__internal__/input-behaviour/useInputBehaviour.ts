@@ -1,18 +1,35 @@
 import { useState, useRef, useCallback, useMemo } from "react";
 
-const useInputBehaviour = (blockGroupBehaviour) => {
+export interface InputContextProps {
+  hasFocus?: boolean;
+  hasMouseOver?: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  onMouseDown?: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  inputRef?: (input: { current: HTMLInputElement | null }) => void;
+  ariaLabelledBy?: string;
+}
+
+const useInputBehaviour = (
+  blockGroupBehaviour?: boolean
+): InputContextProps => {
   const [hasFocus, setHasFocus] = useState(false);
   const [hasMouseOver, setHasMouseOver] = useState(false);
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const onFocus = useCallback(() => setHasFocus(true), []);
 
   const onBlur = useCallback(() => setHasFocus(false), []);
 
-  const assignInput = useCallback((input) => {
-    inputRef.current = input.current;
-  }, []);
+  const assignInput = useCallback(
+    (input: { current: HTMLInputElement | null }) => {
+      inputRef.current = input.current;
+    },
+    []
+  );
 
   // use mouse down rather than click to accommodate click and drag events too
   const onMouseDown = useCallback(() => {
