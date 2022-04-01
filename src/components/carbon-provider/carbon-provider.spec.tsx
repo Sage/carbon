@@ -6,20 +6,18 @@ import mintTheme from "../../style/themes/mint";
 import aegeanTheme from "../../style/themes/aegean";
 import CarbonProvider from "./carbon-provider.component";
 
-const render = (props, renderer = shallow) => {
-  return renderer(<CarbonProvider {...props} />);
-};
-
 describe("CarbonProvider", () => {
   it("renders the default props and children", () => {
-    const wrapper = render({ children: "children" }, mount);
+    const wrapper = mount(<CarbonProvider>children</CarbonProvider>);
 
     expect(wrapper.find(ThemeProvider).prop("theme")).toBe(mintTheme);
     expect(wrapper.find(ThemeProvider).text()).toBe("children");
   });
 
   it("renders with the passed theme", () => {
-    const wrapper = render({ children: "children", theme: aegeanTheme });
+    const wrapper = shallow(
+      <CarbonProvider theme={aegeanTheme}>children</CarbonProvider>
+    );
 
     expect(wrapper.find(ThemeProvider).prop("theme")).toBe(aegeanTheme);
   });
