@@ -5,8 +5,11 @@ import Alert from ".";
 import Modal from "../modal";
 import Dialog from "../dialog";
 import Button from "../button";
+import isChromatic from "chromatic/isChromatic";
 
-<Meta title="Alert" parameters={{ info: { disable: true } }} />
+export const isOpenForChromatic = isChromatic();
+
+<Meta title="Alert" parameters={{ info: { disable: true }, themeSelector: { chromaticTheme: "sage" }}} />
 
 # Alert
 
@@ -47,12 +50,12 @@ import Alert from "carbon-react/lib/components/alert";
 <Canvas>
   <Story name="default">
     {() => {
-      const [isOpen, setIsOpen] = useState(true);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>Open Alert</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Alert</Button>
           <Alert
-            onCancel={() => setIsOpen(!isOpen)}
+            onCancel={() => setIsOpen(false)}
             title="Title"
             subtitle="Subtitle"
             open={isOpen}

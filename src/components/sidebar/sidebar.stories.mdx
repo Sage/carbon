@@ -7,7 +7,11 @@ import Typography from "../typography";
 import Form from "../form";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
-<Meta title="Sidebar" parameters={{ info: { disable: true } }} />
+import isChromatic from "chromatic/isChromatic";
+
+export const isOpenForChromatic = isChromatic();
+
+<Meta title="Sidebar" parameters={{ info: { disable: true }, themeSelector: { chromaticTheme: "sage" }}} />
 
 # Sidebar
 
@@ -53,7 +57,7 @@ with all the UI pass `enableBackgroundUI={ true }` to the component
 <Canvas>
   <Story name="default">
     {() => {
-      const [isOpen, setIsOpen] = useState(true);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
           <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -79,9 +83,9 @@ with all the UI pass `enableBackgroundUI={ true }` to the component
 ### With header
 
 <Canvas>
-  <Story name="with header" parameters={{ chromatic: { disable: true } }}>
+  <Story name="with header">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
           <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -109,9 +113,9 @@ with all the UI pass `enableBackgroundUI={ true }` to the component
 If sidebar content does not fit the sidebar, scroll will appear. Default scroll theme is "light".
 
 <Canvas>
-  <Story name="with scroll" parameters={{ chromatic: { disable: true } }}>
+  <Story name="with scroll">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
           <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -139,7 +143,7 @@ If sidebar content does not fit the sidebar, scroll will appear. Default scroll 
 <Canvas>
   <Story name="with typography">
     {() => {
-      const [isOpen, setIsOpen] = useState(true);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
           <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
