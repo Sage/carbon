@@ -1,17 +1,26 @@
 import React, { createContext } from "react";
-import PropTypes from "prop-types";
 import { ThemeProvider } from "styled-components";
 
 import mintTheme from "../../style/themes/mint";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider";
 
-export const NewValidationContext = createContext({});
+import { ThemeObject } from "../../style/themes/base";
 
-const CarbonProvider = ({
+export interface CarbonProviderProps {
+  theme?: ThemeObject;
+  children: React.ReactNode;
+  validationRedesignOptIn?: boolean;
+}
+
+export const NewValidationContext = createContext<
+  Pick<CarbonProviderProps, "validationRedesignOptIn">
+>({});
+
+export const CarbonProvider = ({
   children,
   theme = mintTheme,
   validationRedesignOptIn = false,
-}) => (
+}: CarbonProviderProps) => (
   <ThemeProvider theme={theme}>
     <CarbonScopedTokensProvider>
       <NewValidationContext.Provider value={{ validationRedesignOptIn }}>
@@ -20,11 +29,5 @@ const CarbonProvider = ({
     </CarbonScopedTokensProvider>
   </ThemeProvider>
 );
-
-CarbonProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-  theme: PropTypes.object,
-  validationRedesignOptIn: PropTypes.bool,
-};
 
 export default CarbonProvider;
