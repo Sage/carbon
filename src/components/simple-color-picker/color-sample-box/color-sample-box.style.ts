@@ -1,9 +1,8 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-
 import checkerBoardSvg from "./checker-board.svg";
+import { TickIconProps } from "../tick-icon/tick-icon.style";
 
-const StyledColorSampleBox = styled.div`
+const StyledColorSampleBox = styled.div<Pick<TickIconProps, "color">>`
   height: 100%;
   width: 100%;
   box-sizing: border-box;
@@ -27,9 +26,5 @@ const StyledColorSampleBox = styled.div`
       background-position: -2px -2px;
     `}
 `;
-
-StyledColorSampleBox.propTypes = {
-  color: PropTypes.string,
-};
 
 export default StyledColorSampleBox;

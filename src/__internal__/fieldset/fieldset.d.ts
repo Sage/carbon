@@ -30,6 +30,7 @@ export interface FieldsetProps extends MarginProps {
   isRequired?: boolean;
   /** Controls whether group behaviour should be enabled */
   blockGroupBehaviour?: boolean;
+  role?: string;
 }
 
 declare function Fieldset(props: FieldsetProps): JSX.Element;

@@ -1,9 +1,10 @@
 import styled, { css } from "styled-components";
 
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
+import { SimpleColorPickerProps } from "./simple-color-picker.component";
 
 const BORDER_WIDTH = 2;
-const getRoundedMaxWidth = (maxWidth, childWidth) =>
+const getRoundedMaxWidth = (maxWidth: number, childWidth: number) =>
   Math.floor(maxWidth / childWidth) * childWidth;
 
 const StyledContent = styled.div`
@@ -15,9 +16,18 @@ const StyledContent = styled.div`
   }
 `;
 
-const StyledColorOptions = styled.div`
-  max-width: ${({ maxWidth, childWidth }) =>
-    getRoundedMaxWidth(maxWidth, childWidth)}px;
+const StyledColorOptions = styled.div<
+  Pick<
+    SimpleColorPickerProps,
+    "maxWidth" | "childWidth" | "error" | "warning" | "info"
+  >
+>`
+  ${({ maxWidth, childWidth }) =>
+    maxWidth &&
+    childWidth &&
+    css`
+      max-width: ${getRoundedMaxWidth(maxWidth, childWidth)}px;
+    `}
 
   padding: 0;
   display: flex;

@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import { Input as SimpleColorInput } from "../../../__internal__/input";
+import SimpleColorInput, {
+  CommonInputProps,
+} from "../../../__internal__/input";
 import StyledColorSampleBox from "../color-sample-box/color-sample-box.style";
 
-const StyledSimpleColorInput = styled(SimpleColorInput)`
+const StyledSimpleColorInput = styled(SimpleColorInput)<CommonInputProps>`
   position: absolute;
   opacity: 0;
   height: var(--sizing700);

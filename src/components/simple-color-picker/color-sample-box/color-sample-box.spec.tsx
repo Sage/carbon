@@ -3,17 +3,14 @@ import { shallow, mount } from "enzyme";
 
 import ColorSampleBox from ".";
 import StyledColorSampleBox from "./color-sample-box.style";
-import {
-  assertStyleMatch,
-  expectConsoleOutput as expectError,
-} from "../../../__spec_helper__/test-utils";
-import StyledTickIcon from "../tick-icon/tick-icon.style";
+import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import StyledTickIcon, { TickIconProps } from "../tick-icon/tick-icon.style";
 
-function render(props) {
+function render(props: Pick<TickIconProps, "color" | "checked">) {
   return shallow(<ColorSampleBox {...props} />);
 }
 
-function renderStyles(props) {
+function renderStyles(props: Pick<TickIconProps, "color">) {
   return mount(<StyledColorSampleBox {...props} />);
 }
 
@@ -43,26 +40,27 @@ describe("ColorSampleBox", () => {
     );
   });
 
-  describe("prop types", () => {
-    const wrongColorValues = ["rgb(0,0,0)", "#fff", "test"];
+  describe.each(["rgb(0,0,0)", "#fff", "test"])(
+    "when `color` value other than 6 digit hex format is passed",
+    (color) => {
+      it("throws an error", () => {
+        // this prevents the caching of the error message
+        ColorSampleBox.displayName = color;
 
-    describe.each(wrongColorValues)(
-      "when other than 6 digit hex format is passed",
-      (color) => {
-        it("throws an error", () => {
-          // this prevents the caching of the error message
-          ColorSampleBox.displayName = color;
+        const errorMessage = `Provide color in a six-digit hex format or 'transparent' in ${color}.`;
 
-          const errorMessage = `Warning: Failed prop type: Provide color in a six-digit hex format or 'transparent' in ${color}.`;
+        const mockGlobal = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => undefined);
 
-          const assert = expectError(errorMessage);
-
+        expect(() => {
           render({ checked: true, color });
-          assert();
-        });
-      }
-    );
-  });
+        }).toThrow(errorMessage);
+
+        mockGlobal.mockReset();
+      });
+    }
+  );
 
   describe("when checked", () => {
     it("renders the tick icon", () => {

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { margin } from "styled-system";
+import { margin, MarginProps } from "styled-system";
 import StyledAdvancedColorPickerCell from "./advanced-color-picker-cell.style";
 import { StyledColorOptions } from "../simple-color-picker/simple-color-picker.style";
 import StyledSimpleColor from "../simple-color-picker/simple-color/simple-color.style";
@@ -12,7 +12,7 @@ import StyledIconButton from "../icon-button/icon-button.style";
 import checkerBoardSvg from "../simple-color-picker/color-sample-box/checker-board.svg";
 import baseTheme from "../../style/themes/base";
 
-const StyledAdvancedColorPickerWrapper = styled.div`
+const StyledAdvancedColorPickerWrapper = styled.div<MarginProps>`
   ${margin}
   display: inline-block;
 `;
