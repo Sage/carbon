@@ -5,11 +5,11 @@ import Alert from ".";
 import Modal from "../modal";
 import Dialog from "../dialog";
 import Button from "../button";
-import isChromatic from "chromatic/isChromatic";
+import isChromatic from "../../../.storybook/isChromatic";
 
 export const isOpenForChromatic = isChromatic();
 
-<Meta title="Alert" parameters={{ info: { disable: true }, themeSelector: { chromaticTheme: "sage" }}} />
+<Meta title="Alert" parameters={{ info: { disable: true }, themeProvider: { chromatic: { theme: "sage" } }}} />
 
 # Alert
 
