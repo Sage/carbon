@@ -4,6 +4,8 @@ import { SpaceProps } from "styled-system";
 export interface TileProps extends SpaceProps {
   /** Sets the theme of the tile - either 'tile' or 'transparent' */
   as?: "tile" | "transparent";
+  /** Sets the theme of the tile - either 'tile' or 'transparent' */
+  variant?: "tile" | "transparent";
   /**
    * The content to render within the tile. Each child will be wrapped with
    * a TileContent wrapper, which allows any individual child component to take a

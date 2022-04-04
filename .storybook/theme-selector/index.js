@@ -71,12 +71,13 @@ export const withThemeSelector = makeDecorator({
   ) => {
     const channel = addons.getChannel();
     channel.emit(PARAMS_EVENT, parameters);
-    const themeName = parameters.chromaticTheme || getThemeName();
+
+    // We need to work out if this is a chromatic build so we can still use the theme selector on the hosted storybook
+    const isChromaticBuild =
+      isChromatic() && window.origin !== process.env.STORYBOOK_CHROMATIC_ORIGIN;
     if (
-      themeName === "all" ||
-      (isChromatic() &&
-        window.origin !== process.env.STORYBOOK_CHROMATIC_ORIGIN &&
-        !parameters.chromaticTheme)
+      (isChromaticBuild && !parameters.chromaticTheme) ||
+      getThemeName() === "all"
     ) {
       const Wrapper = parameters.fourColumnLayout
         ? FourColumnLayout
@@ -93,6 +94,11 @@ export const withThemeSelector = makeDecorator({
       );
     }
 
-    return render(Story, themeName);
+    return render(
+      Story,
+      isChromaticBuild && parameters.chromaticTheme
+        ? parameters.chromaticTheme
+        : getThemeName()
+    );
   },
 });

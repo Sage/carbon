@@ -1,3 +1,17 @@
+### [105.1.1](https://github.com/Sage/carbon/compare/v105.1.0...v105.1.1) (2022-04-04)
+
+
+### Bug Fixes
+
+* **flat-table:** correct cursor when using draggable rows ([636b191](https://github.com/Sage/carbon/commit/636b191b7bbf23f0c93f5bfa97f779ed9efc65a9))
+
+## [105.1.0](https://github.com/Sage/carbon/compare/v105.0.2...v105.1.0) (2022-03-30)
+
+
+### Features
+
+* **tile:** surface variant prop and add deprecation warning for as prop ([e5670e3](https://github.com/Sage/carbon/commit/e5670e37f1dd95d59d1c6d02962734620fea8d03))
+
 ### [105.0.2](https://github.com/Sage/carbon/compare/v105.0.1...v105.0.2) (2022-03-29)
 
 
