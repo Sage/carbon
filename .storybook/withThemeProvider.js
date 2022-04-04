@@ -10,6 +10,7 @@ import {
   noTheme,
   sageTheme,
 } from "../src/style/themes";
+import { config } from "react-transition-group";
 
 const themes = [mintTheme, aegeanTheme, noTheme, sageTheme].reduce(
   (themesObject, theme) => {
@@ -53,6 +54,8 @@ const withThemeProvider = makeDecorator({
   ) => {
     const { theme: chromaticTheme, fourColumnLayout } = parameters.chromatic;
     const isChromaticBuild = isChromatic();
+
+    config.disabled = isChromaticBuild;
 
     if (isChromaticBuild && !chromaticTheme) {
       const Wrapper = fourColumnLayout ? FourColumnLayout : React.Fragment;
