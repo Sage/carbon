@@ -1,17 +1,24 @@
 import * as React from "react";
-import { mount } from "enzyme";
+import { mount, MountRendererProps } from "enzyme";
 
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import CharacterCount from "../../../__internal__/character-count";
 import I18nProvider from "../../../components/i18n-provider";
 import useCharacterCount from ".";
 
+interface TestComponentProps {
+  value: string;
+  characterLimit?: string;
+  warnOverLimit?: boolean;
+  enforceCharacterLimit?: boolean;
+}
+
 const TestComponent = ({
   value,
   characterLimit,
   warnOverLimit,
   enforceCharacterLimit,
-}) => {
+}: TestComponentProps) => {
   const [maxLength, characterCount] = useCharacterCount(
     value,
     characterLimit,
@@ -27,7 +34,8 @@ const TestComponent = ({
   );
 };
 
-const render = (props, params) => mount(<TestComponent {...props} />, params);
+const render = (props: TestComponentProps, params?: MountRendererProps) =>
+  mount(<TestComponent {...props} />, params);
 const mockValue = "test string";
 
 describe("useCharacterCount", () => {

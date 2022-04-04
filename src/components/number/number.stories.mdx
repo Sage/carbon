@@ -33,7 +33,7 @@ import Number from "carbon-react/lib/components/number";
     {() => {
       const [state, setState] = useState("123456");
       const setValue = ({ target }) => {
-        setState(target.value.rawValue);
+        setState(target.value);
         console.log(target.value);
       };
       return <Number label="Number" value={state} onChange={setValue} />;
