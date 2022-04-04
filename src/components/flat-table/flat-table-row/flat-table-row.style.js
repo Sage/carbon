@@ -280,7 +280,6 @@ const StyledFlatTableRow = styled.tr`
             ? "var(--colorsUtilityMajor300)"
             : "var(--colorsUtilityMajor200)"}
           2px solid;
-        cursor: grabbing;
         ${allCellTypes} {
           background-color: ${isInSidebar
             ? "var(--colorsUtilityMajor200)"
