@@ -1,3 +1,10 @@
+### [105.1.2](https://github.com/Sage/carbon/compare/v105.1.1...v105.1.2) (2022-04-04)
+
+
+### Bug Fixes
+
+* **select:** fix incorrect option children prop type definition ([26305f0](https://github.com/Sage/carbon/commit/26305f0be0fd493b19d5ced73b7acebdaf4cd075))
+
 ### [105.1.1](https://github.com/Sage/carbon/compare/v105.1.0...v105.1.1) (2022-04-04)
 
 
