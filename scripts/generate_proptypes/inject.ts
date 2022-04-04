@@ -65,6 +65,38 @@ function customBabelPlugin(
             if (firstRequire) {
               importedName = "_propTypes.default";
 
+              // Check if Babel has already added the _interopRequireDefault declaration.
+              const interopRequireDefaultDeclaration = path
+                .get("body")
+                .find((nodePath) => {
+                  const isFunctionNode = babelTypes.isFunctionDeclaration(
+                    nodePath.node
+                  );
+
+                  if (isFunctionNode) {
+                    const functionNode = nodePath.node as babel.types.FunctionDeclaration;
+                    return functionNode.id?.name === "_interopRequireDefault";
+                  }
+                  return false;
+                });
+
+              if (!interopRequireDefaultDeclaration) {
+                const firstFunctionDeclaration = path
+                  .get("body")
+                  .find((nodePath) =>
+                    babelTypes.isFunctionDeclaration(nodePath.node)
+                  );
+                const interopRequire = babel.template.ast(
+                  "function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}"
+                ) as babel.types.FunctionDeclaration;
+
+                if (firstFunctionDeclaration) {
+                  firstFunctionDeclaration.insertBefore(interopRequire);
+                } else {
+                  firstRequire.insertAfter(interopRequire);
+                }
+              }
+
               const propTypesRequire = babel.template.ast(
                 'var _propTypes = _interopRequireDefault(require("prop-types"))'
               ) as babel.types.VariableDeclaration;
@@ -136,7 +168,6 @@ function injectProptypes(
   sourceFile: string
 ): string | null {
   const jsPropTypes = new Map<string, string>();
-
   const result = babel.transformSync(sourceFile, {
     plugins: [
       require.resolve("@babel/plugin-syntax-class-properties"),
