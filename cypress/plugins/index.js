@@ -76,6 +76,14 @@ module.exports = (on, config) => {
               ],
             },
           ];
+          webpackConfig.devServer = {
+            client: {
+              overlay: {
+                errors: true,
+                warnings: false,
+              },
+            },
+          };
           return webpackConfig;
         },
       }
