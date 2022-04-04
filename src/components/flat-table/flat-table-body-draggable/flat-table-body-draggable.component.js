@@ -4,21 +4,32 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import PropTypes from "prop-types";
 
 import StyledIcon from "../../icon/icon.style";
-import FlatTableBody from "../flat-table-body/flat-table-body.component";
+import StyledFlatTableBodyDraggable from "./flat-table-body-draggable.style";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 
 const DropTarget = ({ children, getOrder, ...rest }) => {
+  const [isDragging, setIsDragging] = useState(false);
+
   const [, drop] = useDrop({
     accept: "flatTableRow",
+    hover: (_, monitor) => {
+      if (!isDragging && monitor.isOver()) setIsDragging(true);
+    },
     drop() {
+      setIsDragging(false);
       getOrder();
     },
   });
 
   return (
-    <FlatTableBody ref={drop} {...rest}>
+    <StyledFlatTableBodyDraggable
+      data-testid="flat-table-body-draggable"
+      ref={drop}
+      isDragging={isDragging}
+      {...rest}
+    >
       {children}
-    </FlatTableBody>
+    </StyledFlatTableBodyDraggable>
   );
 };
 

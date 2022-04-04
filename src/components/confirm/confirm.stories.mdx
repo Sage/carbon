@@ -3,11 +3,11 @@ import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import Confirm from ".";
 import Button from "../button";
+import isChromatic from "chromatic/isChromatic";
 
-<Meta
-  title="Confirm"
-  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
-/>
+export const isOpenForChromatic = isChromatic();
+
+<Meta title="Confirm" parameters={{ info: { disable: true }, themeSelector: { chromaticTheme: "sage" }}} />
 
 # Confirm
 
@@ -53,10 +53,10 @@ A good example could be confirming deletion of a large number of records.
 <Canvas>
   <Story name="default">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
           <Confirm
             cancelButtonDestructive
             title="Are you sure?"
@@ -78,10 +78,10 @@ A good example could be confirming deletion of a large number of records.
 <Canvas>
   <Story name="single action">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
@@ -101,10 +101,10 @@ A good example could be confirming deletion of a large number of records.
 <Canvas>
   <Story name="destructive">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
@@ -127,10 +127,10 @@ A good example could be confirming deletion of a large number of records.
 <Canvas>
   <Story name="cancelButtonDestructive">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
@@ -152,10 +152,10 @@ A good example could be confirming deletion of a large number of records.
 <Canvas>
   <Story name="confirmButtonDestructive">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
@@ -177,10 +177,10 @@ A good example could be confirming deletion of a large number of records.
 <Canvas>
   <Story name="disableConfirm">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
@@ -204,10 +204,10 @@ A good example could be confirming deletion of a large number of records.
 <Canvas>
   <Story name="disableCancel">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
@@ -232,10 +232,10 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
 <Canvas>
   <Story name="cancelButtonType">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
@@ -259,10 +259,10 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
 <Canvas>
   <Story name="confirmButtonType">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
@@ -284,10 +284,10 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
 <Canvas>
   <Story name="buttonsIcons">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"
@@ -311,10 +311,10 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
 <Canvas>
   <Story name="isLoadingConfirm">
     {() => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
           <Confirm
             title="Are you sure?"
             subtitle="Subtitle"

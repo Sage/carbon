@@ -3,3 +3,4 @@ export const ACCORDION_PREVIEW = '[data-component="accordion"]';
 export const ACCORDION_TITLE_CONTAINER =
   '[data-element="accordion-title-container"]';
 export const ACCORDION_ICON = '[data-component="icon"]';
+export const ACCORDION_CONTENT = '[data-element="accordion-content"]';
