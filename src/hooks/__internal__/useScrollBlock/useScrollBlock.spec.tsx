@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
-import useScrollBlock from ".";
+import useScrollBlock from "./useScrollBlock";
 import ScrollBlockManager from "./scroll-block-manager";
 
 const TestComponent = () => {
@@ -44,7 +44,7 @@ describe("useScrollBlock", () => {
     expect(document.documentElement.style.position).toBe("");
     expect(document.body.style.overflow).toBe("");
     expect(document.body.style.position).toBe("");
-    // Unable to test if `paddingRight` is reset due to bug in JSDOM
+    // Unable to test if `paddingRight` reset due to bug in JSDOM
     // https://github.com/jsdom/jsdom/issues/2504
     // expect(document.body.style.paddingRight).toBe("");
   });
@@ -63,9 +63,9 @@ describe("implementation tests", () => {
   });
 
   describe("if restoreValues callback exists", () => {
-    let getRestoreValuesCallbackSpy;
-    let saveRestoreValuesCallbackSpy;
-    let getOriginalValuesSpy;
+    let getRestoreValuesCallbackSpy: jest.SpyInstance;
+    let saveRestoreValuesCallbackSpy: jest.SpyInstance;
+    let getOriginalValuesSpy: jest.SpyInstance;
     const restoreValuesMock = jest.fn();
 
     beforeEach(() => {
@@ -88,7 +88,7 @@ describe("implementation tests", () => {
       getRestoreValuesCallbackSpy.mockRestore();
     });
 
-    it("it is invoked and cleared", () => {
+    it("is invoked and cleared", () => {
       const wrapper = mount(<TestComponent />);
       expect(saveRestoreValuesCallbackSpy).toHaveBeenCalled();
       wrapper.unmount();
@@ -110,8 +110,9 @@ describe("implementation tests", () => {
         "getOriginalValues"
       );
       const wrapper = mount(<TestComponent />);
-
-      window.__CARBON_INTERNALS_SCROLL_BLOCKERS.restoreValues = null;
+      if (window.__CARBON_INTERNALS_SCROLL_BLOCKERS) {
+        window.__CARBON_INTERNALS_SCROLL_BLOCKERS.restoreValues = null;
+      }
       wrapper.unmount();
 
       expect(getOriginalValuesSpy).toHaveBeenCalled();

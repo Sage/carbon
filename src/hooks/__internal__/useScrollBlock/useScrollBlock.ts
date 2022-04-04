@@ -7,15 +7,22 @@ import ScrollBlockManager from "./scroll-block-manager";
 // we can confirm that all Sage products use version 105.0.0^
 const scrollBlockManager = new ScrollBlockManager();
 
-/* istanbul ignore next */
-const safeDocument = typeof document !== "undefined" ? document : {};
+type Rule = {
+  element: HTMLElement;
+  property: "position" | "overflow" | "paddingRight";
+  blockingValue: string;
+};
 
-const useScrollBlock = () => {
+const useScrollBlock = (): {
+  blockScroll: () => void;
+  allowScroll: () => void;
+} => {
   const { current: containerGuid } = useRef(guid());
-  const originalValuesRef = useRef();
+  const originalValuesRef = useRef<string[]>([]);
 
-  const rules = useMemo(() => {
-    const { documentElement, body } = safeDocument;
+  const rules: Rule[] = useMemo(() => {
+    /* istanbul ignore next */
+    const { documentElement, body } = document || {};
     const scrollBarWidth = window.innerWidth - documentElement.clientWidth;
     const bodyPaddingRight =
       parseInt(

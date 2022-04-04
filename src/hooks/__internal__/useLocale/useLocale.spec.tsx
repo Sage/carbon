@@ -18,13 +18,15 @@ describe("useLocale custom hook", () => {
   it("when I18nProvider exists should return a translation function", () => {
     const TestComponent = () => {
       const l = useLocale();
-      return <span>{l.test()}</span>;
+      return <span>{l.message.closeButtonAriaLabel()}</span>;
     };
     const wrapper = mount(
       <I18nProvider
         locale={{
           locale: () => "en-GB",
-          test: () => "test",
+          message: {
+            closeButtonAriaLabel: () => "test",
+          },
         }}
       >
         <TestComponent />
