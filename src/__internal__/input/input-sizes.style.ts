@@ -1,4 +1,13 @@
-export default {
+interface SizesProps {
+  height: string;
+  horizontalPadding: string;
+}
+
+interface InputSizesInterface {
+  [key: string]: SizesProps;
+}
+
+const InputSizes: InputSizesInterface = {
   small: {
     height: "var(--sizing400)",
     horizontalPadding: "var(--spacing100)",
@@ -12,3 +21,5 @@ export default {
     horizontalPadding: "var(--spacing200)",
   },
 };
+
+export default InputSizes;
