@@ -1,17 +1,56 @@
-import React, { useRef } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import Tippy from "@tippyjs/react/headless";
-import { sticky } from "tippy.js";
+import { sticky, Placement } from "tippy.js";
+import invariant from "invariant";
 
 import StyledTooltip from "./tooltip.style";
 import StyledPointer from "./tooltip-pointer.style";
+import { TooltipPositions, TOOLTIP_POSITIONS } from "./tooltip.config";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 const TOOLTIP_DELAY = 100;
 const tippyPlugins = [sticky];
 
-const Tooltip = React.forwardRef(
+type Attrs = {
+  "data-placement": Placement;
+  "data-reference-hidden"?: string;
+  "data-escaped"?: string;
+};
+
+export type InputSizes = "small" | "medium" | "large";
+
+export interface TooltipProps {
+  /** The message to be displayed within the tooltip */
+  message: React.ReactNode;
+  /** The id attribute to use for the tooltip */
+  id?: string;
+  /** Whether to to show the Tooltip */
+  isVisible?: boolean;
+  /** Sets position of the tooltip */
+  position?: TooltipPositions;
+  /** Defines the message type */
+  type?: string;
+  /** Children elements */
+  children: React.ReactElement;
+  /** Defines the size of the tooltip content */
+  size?: "medium" | "large";
+  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  bgColor?: string;
+  /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
+  fontColor?: string;
+  /**
+   * Overrides the default flip behaviour of the Tooltip,
+   * must be an array containing some or all of ["top", "bottom", "left", "right"]
+   * (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements)
+   */
+  flipOverrides?: TooltipPositions[];
+  target?: Element;
+  isPartOfInput?: boolean;
+  inputSize?: InputSizes;
+}
+
+export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
   (
     {
       children,
@@ -28,11 +67,22 @@ const Tooltip = React.forwardRef(
       flipOverrides,
       target,
       ...rest
-    },
+    }: TooltipProps,
     ref
   ) => {
-    const tooltipRef = useRef(ref || null);
-    const tooltip = (attrs, content) => {
+    const isFlipOverridesValid =
+      !flipOverrides ||
+      (Array.isArray(flipOverrides) &&
+        flipOverrides.every((placement) =>
+          TOOLTIP_POSITIONS.includes(placement)
+        ));
+
+    invariant(
+      isFlipOverridesValid,
+      `The flipOverrides prop supplied to Tooltip must be an array containing some or all of ["top", "bottom", "left", "right"].`
+    );
+
+    const tooltip = (attrs: Attrs, content: React.ReactNode) => {
       const currentPosition = attrs["data-placement"] || position;
 
       return (
@@ -40,7 +90,7 @@ const Tooltip = React.forwardRef(
           <StyledTooltip
             data-element="tooltip"
             role="tooltip"
-            tabIndex="-1"
+            tabIndex={-1}
             type={type}
             size={size}
             id={id}
@@ -49,7 +99,7 @@ const Tooltip = React.forwardRef(
             inputSize={inputSize}
             {...attrs}
             position={currentPosition}
-            ref={tooltipRef}
+            ref={ref}
             bgColor={bgColor}
             fontColor={fontColor}
           >
@@ -104,49 +154,6 @@ const Tooltip = React.forwardRef(
   }
 );
 
-const placements = ["top", "bottom", "left", "right"];
-
-Tooltip.propTypes = {
-  /** The message to be displayed within the tooltip */
-  message: PropTypes.node.isRequired,
-  /** The id attribute to use for the tooltip */
-  id: PropTypes.string,
-  /** Whether to to show the Tooltip */
-  isVisible: PropTypes.bool,
-  /** Sets position of the tooltip */
-  position: PropTypes.oneOf(placements),
-  /** Defines the message type */
-  type: PropTypes.string,
-  /** Children elements */
-  children: PropTypes.node.isRequired,
-  /** Defines the size of the tooltip content */
-  size: PropTypes.oneOf(["medium", "large"]),
-  // Reference element, tooltip will be positioned in relation to this element
-  target: PropTypes.instanceOf(Element),
-  /** Override background color of the Tooltip, provide design token, any color from palette or any valid css color value. */
-  bgColor: PropTypes.string,
-  /** Override font color of the Tooltip, provide design token, any color from palette or any valid css color value. */
-  fontColor: PropTypes.string,
-  /** @ignore @private */
-  isPartOfInput: PropTypes.bool,
-  /** @ignore @private */
-  inputSize: PropTypes.oneOf(["small", "medium", "large"]),
-  /** Overrides the default flip behaviour of the Tooltip, must be an array containing some or all of ["top", "bottom", "left", "right"] (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) */
-  flipOverrides: (props, propName) => {
-    const prop = props[propName];
-    const isValid =
-      prop &&
-      Array.isArray(prop) &&
-      prop.every((placement) => placements.includes(placement));
-
-    if (!prop || isValid) {
-      return null;
-    }
-    return new Error(
-      // eslint-disable-next-line max-len
-      `The \`${propName}\` prop supplied to \`Tooltip\` must be an array containing some or all of ["top", "bottom", "left", "right"].`
-    );
-  },
-};
+Tooltip.displayName = "Tooltip";
 
 export default Tooltip;

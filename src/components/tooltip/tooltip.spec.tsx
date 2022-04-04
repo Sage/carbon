@@ -1,14 +1,18 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
-import Tooltip from ".";
+
+import Tooltip, { TooltipProps, InputSizes } from "./tooltip.component";
 import StyledTooltipWrapper from "./tooltip.style";
 import StyledTooltipPointer from "./tooltip-pointer.style";
+import { TooltipPositions } from "./tooltip.config";
+
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
-const positions = ["top", "bottom", "left", "right"];
+const positions: TooltipPositions[] = ["top", "bottom", "left", "right"];
 
-function render(props = {}, renderer = mount) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function render(props: Partial<TooltipProps> = {}, renderer: any = mount) {
   const children = <div>foo</div>;
   const message = "foo";
 
@@ -132,15 +136,18 @@ describe("Tooltip", () => {
     });
 
     describe("when the tooltip targets a component that is a part of an input", () => {
-      const isTopOrBottom = (position) => ["top", "bottom"].includes(position);
-      const offsets = (position) => ({
+      const isTopOrBottom = (position: TooltipPositions) =>
+        ["top", "bottom"].includes(position);
+      const offsets = (
+        position: TooltipPositions
+      ): Record<InputSizes, string> => ({
         small: "5px",
         medium: isTopOrBottom(position) ? "4px" : "2px",
         large: isTopOrBottom(position) ? "0px" : "-2px",
       });
 
       describe.each(positions)("and position is %s", (position) => {
-        it.each(["small", "medium", "large"])(
+        it.each<InputSizes>(["small", "medium", "large"])(
           "sets the offset as expected when size is %s",
           (size) => {
             assertStyleMatch(
@@ -253,22 +260,31 @@ describe("Tooltip", () => {
   });
 
   describe("flipOverrides", () => {
+    let mockGlobal: jest.SpyInstance;
+
+    beforeEach(() => {
+      mockGlobal = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => undefined);
+    });
+
+    afterEach(() => {
+      mockGlobal.mockReset();
+    });
+
     it("does not throw an error if a valid array is passed", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
       render({ flipOverrides: ["top", "bottom"] });
 
       // eslint-disable-next-line no-console
       expect(console.error).not.toHaveBeenCalled();
-      global.console.error.mockReset();
     });
 
     it("throws an error if a invalid array is passed", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
-      render({ flipOverrides: ["foo", "bar"] });
-
-      // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalled();
-      global.console.error.mockReset();
+      expect(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore:next-line
+        render({ flipOverrides: ["foo", "bar"] });
+      }).toThrow();
     });
   });
 
@@ -283,6 +299,40 @@ describe("Tooltip", () => {
       expect(
         carbonScopedTokensProvider.find(StyledTooltipWrapper).exists()
       ).toBe(true);
+    });
+  });
+
+  describe("Ref forwarding", () => {
+    it("should forward a ref object correctly", () => {
+      const testRef = { current: null };
+
+      const wrapper = mount(
+        <Tooltip message="foo" isVisible ref={testRef}>
+          <span>Test tooltip</span>
+        </Tooltip>
+      );
+
+      wrapper.update();
+
+      expect(testRef.current).toEqual(
+        wrapper.find(StyledTooltipWrapper).getDOMNode()
+      );
+    });
+
+    it("should forward a callback ref correctly", () => {
+      const testCallbackRef = jest.fn();
+
+      const wrapper = mount(
+        <Tooltip message="foo" isVisible ref={testCallbackRef}>
+          <span>Test tooltip</span>
+        </Tooltip>
+      );
+
+      wrapper.update();
+
+      expect(testCallbackRef).toHaveBeenCalledWith(
+        wrapper.find(StyledTooltipWrapper).getDOMNode()
+      );
     });
   });
 });

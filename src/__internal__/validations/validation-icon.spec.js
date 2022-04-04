@@ -167,14 +167,20 @@ describe("ValidationIcon", () => {
     });
 
     it("throws an error if a invalid array is passed", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
-      mount(
-        <ValidationIcon error="Message" tooltipFlipOverrides={["foo", "bar"]} />
-      );
+      const mockGlobal = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => undefined);
 
-      // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalled();
-      global.console.error.mockReset();
+      expect(() => {
+        mount(
+          <ValidationIcon
+            error="Message"
+            tooltipFlipOverrides={["foo", "bar"]}
+          />
+        );
+      }).toThrow();
+
+      mockGlobal.mockReset();
     });
   });
 });
