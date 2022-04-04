@@ -1,7 +1,10 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import { mount, shallow } from "enzyme";
-import { InputPresentation } from ".";
+import { mount, shallow, ReactWrapper } from "enzyme";
+import InputPresentation, {
+  InputPresentationProps,
+  Sizes,
+} from "./input-presentation.component";
 import InputPresentationStyle, {
   StyledInputPresentationContainer,
 } from "./input-presentation.style";
@@ -10,15 +13,39 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 import { NewValidationContext } from "../../components/carbon-provider/carbon-provider.component";
 
+function render(props: InputPresentationProps) {
+  return mount(<InputPresentation {...props} />);
+}
+
+function renderWithContext(
+  props = {},
+  inputGroupContextValue = {},
+  inputContextValue = {},
+  validationRedesignOptIn = false
+) {
+  return mount(
+    <NewValidationContext.Provider value={{ validationRedesignOptIn }}>
+      <InputGroupContext.Provider value={inputGroupContextValue}>
+        <InputContext.Provider value={inputContextValue}>
+          <InputPresentation {...props}>sample children</InputPresentation>
+        </InputContext.Provider>
+      </InputGroupContext.Provider>
+    </NewValidationContext.Provider>
+  );
+}
+
 describe("InputPresentation", () => {
   it("renders presentational div and context provider for its children", () => {
-    expect(render({}, TestRenderer.create)).toMatchSnapshot();
+    expect(
+      TestRenderer.create(<InputPresentation>Children</InputPresentation>)
+    ).toMatchSnapshot();
   });
 
   it("renders provided positionedChildren component as a direct child of container", () => {
     const Component = () => <div />;
+    const props = { positionedChildren: <Component />, children: "Children" };
     expect(
-      render({ positionedChildren: <Component /> }, shallow)
+      shallow(<InputPresentation {...props} />)
         .find(StyledInputPresentationContainer)
         .childAt(0)
         .get(0)
@@ -26,18 +53,22 @@ describe("InputPresentation", () => {
   });
 
   describe("style", () => {
-    describe.each(["small", "medium", "large"])("when %s provided", (size) => {
-      it(`has the right style for ${size}-sized inputs`, () => {
-        assertStyleMatch(
-          {
-            minHeight: sizes[size].height,
-            paddingLeft: sizes[size].horizontalPadding,
-            paddingRight: sizes[size].horizontalPadding,
-          },
-          render({ size }).find(InputPresentationStyle)
-        );
-      });
-    });
+    describe.each(["small", "medium", "large"])(
+      "when %s provided",
+      (inputSize) => {
+        it(`has the right style for ${inputSize}-sized inputs`, () => {
+          const size = inputSize as Sizes;
+          assertStyleMatch(
+            {
+              minHeight: sizes[inputSize].height,
+              paddingLeft: sizes[inputSize].horizontalPadding,
+              paddingRight: sizes[inputSize].horizontalPadding,
+            },
+            render({ size, children: "Children" }).find(InputPresentationStyle)
+          );
+        });
+      }
+    );
 
     describe("width", () => {
       it("renders correctly with a custom width", () => {
@@ -45,7 +76,7 @@ describe("InputPresentation", () => {
           {
             flex: "0 0 54%",
           },
-          render({ inputWidth: 54 })
+          render({ inputWidth: 54, children: "Children" })
         );
       });
     });
@@ -63,7 +94,9 @@ describe("InputPresentation", () => {
             borderColor: `${token} !important`,
             boxShadow: state === "error" ? boxShadow : undefined,
           },
-          render({ [state]: true }).find(InputPresentationStyle)
+          render({ [state]: true, children: "Children" }).find(
+            InputPresentationStyle
+          )
         );
       });
     });
@@ -132,7 +165,9 @@ describe("InputPresentation", () => {
       it("has the correct style rules", () => {
         assertStyleMatch(
           { flexDirection: "row-reverse" },
-          render({ align: "right" }).find(InputPresentationStyle)
+          render({ align: "right", children: "Children" }).find(
+            InputPresentationStyle
+          )
         );
       });
     });
@@ -145,7 +180,9 @@ describe("InputPresentation", () => {
             borderColor: "var(--colorsUtilityDisabled600)",
             cursor: "not-allowed",
           },
-          render({ disabled: true }).find(InputPresentationStyle)
+          render({ disabled: true, children: "Children" }).find(
+            InputPresentationStyle
+          )
         );
       });
     });
@@ -157,7 +194,9 @@ describe("InputPresentation", () => {
             backgroundColor: "var(--colorsUtilityReadOnly400)",
             borderColor: "var(--colorsUtilityReadOnly600)",
           },
-          render({ readOnly: true }).find(InputPresentationStyle)
+          render({ readOnly: true, children: "Children" }).find(
+            InputPresentationStyle
+          )
         );
       });
     });
@@ -177,13 +216,13 @@ describe("InputPresentation", () => {
   });
 
   describe("context handlers", () => {
-    let contextOnMouseEnter;
-    let groupContextOnMouseEnter;
+    let contextOnMouseEnter: () => void;
+    let groupContextOnMouseEnter: () => void;
 
-    let contextOnMouseLeave;
-    let groupContextOnMouseLeave;
+    let contextOnMouseLeave: () => void;
+    let groupContextOnMouseLeave: () => void;
 
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       contextOnMouseEnter = jest.fn();
@@ -218,33 +257,10 @@ describe("InputPresentation", () => {
     });
 
     it("does nothing if onMouseEnter or onMouseLeave callbacks are not provided", () => {
-      wrapper = render();
+      wrapper = render({ children: "Children" });
       const inputProps = wrapper.find(InputPresentationStyle).props();
       inputProps.onMouseEnter();
       inputProps.onMouseLeave();
     });
   });
 });
-
-function render(props, renderer = mount) {
-  return renderer(
-    <InputPresentation {...props}>sample children</InputPresentation>
-  );
-}
-
-function renderWithContext(
-  props = {},
-  inputGroupContextValue = {},
-  inputContextValue = {},
-  validationRedesignOptIn
-) {
-  return mount(
-    <NewValidationContext.Provider value={{ validationRedesignOptIn }}>
-      <InputGroupContext.Provider value={inputGroupContextValue}>
-        <InputContext.Provider value={inputContextValue}>
-          <InputPresentation {...props}>sample children</InputPresentation>
-        </InputContext.Provider>
-      </InputGroupContext.Provider>
-    </NewValidationContext.Provider>
-  );
-}
