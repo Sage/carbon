@@ -1,6 +1,6 @@
 import { makeDecorator } from "@storybook/addons";
 import isChromatic from "./isChromatic";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CarbonProvider from "../src/components/carbon-provider";
 import sageDebugTheme from "../src/style/design-tokens/debug-theme.util";
@@ -11,6 +11,7 @@ import {
   sageTheme,
 } from "../src/style/themes";
 import { config } from "react-transition-group";
+import WebFont from "webfontloader";
 
 const themes = [mintTheme, aegeanTheme, noTheme, sageTheme].reduce(
   (themesObject, theme) => {
@@ -55,7 +56,29 @@ const withThemeProvider = makeDecorator({
     const { theme: chromaticTheme, fourColumnLayout } = parameters.chromatic;
     const isChromaticBuild = isChromatic();
 
+    // Disable transitions
     config.disabled = isChromaticBuild;
+
+    // Only render the story once the fonts are loaded
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      WebFont.load({
+        custom: {
+          families: ["CarbonIcons", "Lato:n4,n7,n9,i4,i7,i9"],
+        },
+        classes: false,
+        active: () => setLoading(false),
+        inactive: () => setLoading(new Error("Unable to load font files.")),
+      });
+    }, []);
+
+    if (loading instanceof Error) {
+      throw loading;
+    }
+
+    if (loading) {
+      return null;
+    }
 
     if (isChromaticBuild && !chromaticTheme) {
       const Wrapper = fourColumnLayout ? FourColumnLayout : React.Fragment;

@@ -15,6 +15,7 @@ export function visitComponentUrl(component, suffix) {
   cy.visit(prepareUrl(component, suffix), {
     onBeforeLoad,
   });
+  cy.get("#root :first-child", { timeout: 10000 }).should("exist");
 }
 
 // eslint-disable-next-line max-params
@@ -50,6 +51,7 @@ export function visitComponentUrlWithParameters(
     cy.visit(`${prepareUrl(component, story)}${url}`, {
       onBeforeLoad,
     });
+    cy.get("#root :first-child", { timeout: 10000 }).should("exist");
   });
 }
 
