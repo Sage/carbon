@@ -18,8 +18,11 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Typography from "../typography";
 import { Dl, Dt, Dd } from "../definition-list";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+import isChromatic from "chromatic/isChromatic";
 
-<Meta title="Dialog Full Screen" parameters={{ info: { disable: true } }} />
+export const isOpenForChromatic = isChromatic();
+
+<Meta title="Dialog Full Screen" parameters={{ info: { disable: true }, themeSelector: { chromaticTheme: "sage" }}} />
 
 # DialogFullScreen
 
@@ -62,7 +65,7 @@ A good example could be importing a large volume of data, and checking for error
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>
+          <Button onClick={() => setIsOpen(true)}>
             Open DialogFullScreen
           </Button>
           <DialogFullScreen
@@ -108,7 +111,7 @@ to have a possibility to manage active `Tabs` group
 <Canvas>
   <Story name="with complex example">
     {() => {
-      const [isOpen, setIsOpen] = useState(true);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       const [activeTab, setActiveTab] = useState("tab-1");
       const padding40 = useMediaQuery("(min-width: 1260px)");
       const padding32 = useMediaQuery("(min-width: 960px)");
@@ -562,7 +565,7 @@ to have a possibility to manage active `Tabs` group
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>
+          <Button onClick={() => setIsOpen(true)}>
             Open DialogFullScreen
           </Button>
           <DialogFullScreen
@@ -606,7 +609,7 @@ to have a possibility to manage active `Tabs` group
 <Canvas>
   <Story name="with header children" parameters={{ viewports: [500, 1400] }}>
     {() => {
-      const [isOpen, setIsOpen] = useState(true);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
       const verticalMargin = aboveBreakpoint ? "26px" : 0;
       const HeaderChildren = (
@@ -621,7 +624,7 @@ to have a possibility to manage active `Tabs` group
       );
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>
+          <Button onClick={() => setIsOpen(true)}>
             Open DialogFullScreen
           </Button>
           <DialogFullScreen
@@ -665,10 +668,10 @@ to have a possibility to manage active `Tabs` group
 <Canvas>
   <Story name="with help">
     {() => {
-      const [isOpen, setIsOpen] = useState(true);
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>
+          <Button onClick={() => setIsOpen(true)}>
             Open DialogFullScreen
           </Button>
           <DialogFullScreen
@@ -751,7 +754,7 @@ to have a possibility to manage active `Tabs` group
       );
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>
+          <Button onClick={() => setIsOpen(true)}>
             Open DialogFullScreen
           </Button>
           <DialogFullScreen
@@ -802,7 +805,7 @@ to have a possibility to manage active `Tabs` group
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={() => setIsOpen(!isOpen)}>
+          <Button onClick={() => setIsOpen(true)}>
             Open DialogFullScreen
           </Button>
           <DialogFullScreen
