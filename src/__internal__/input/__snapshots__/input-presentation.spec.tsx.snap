@@ -53,7 +53,7 @@ exports[`InputPresentation renders presentational div and context provider for i
     role="presentation"
     size="medium"
   >
-    sample children
+    Children
   </div>
 </div>
 `;

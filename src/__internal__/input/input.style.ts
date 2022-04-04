@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
+import { CommonInputProps } from "./input.component";
 
-const StyledInput = styled.input`
+const StyledInput = styled.input<
+  Pick<CommonInputProps, "align" | "disabled" | "readOnly">
+>`
   background: transparent;
   border: none;
   color: var(--colorsUtilityYin090);
@@ -40,9 +42,5 @@ const StyledInput = styled.input`
       color: var(--colorsActionMinorYin090);
     `}
 `;
-
-StyledInput.propTypes = {
-  disabled: PropTypes.bool,
-};
 
 export default StyledInput;
