@@ -59,7 +59,7 @@ const columnWrapper = (
 
 const InlineInputs = ({
   label,
-  htmlFor = "",
+  htmlFor,
   children = null,
   className = "",
   gutter = "none",
