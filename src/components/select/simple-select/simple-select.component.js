@@ -21,6 +21,7 @@ import SelectList from "../select-list/select-list.component";
 import guid from "../../../__internal__/utils/helpers/guid";
 import getNextChildByText from "../utils/get-next-child-by-text";
 import isExpectedOption from "../utils/is-expected-option";
+import isNavigationKey from "../utils/is-navigation-key";
 
 const SimpleSelect = React.forwardRef(
   (
@@ -349,15 +350,6 @@ const SimpleSelect = React.forwardRef(
 
     function onSelectListClose() {
       setOpenState(false);
-    }
-
-    function isNavigationKey(key) {
-      return (
-        key === "ArrowDown" ||
-        key === "ArrowUp" ||
-        key === "Home" ||
-        key === "End"
-      );
     }
 
     function assignInput(input) {
