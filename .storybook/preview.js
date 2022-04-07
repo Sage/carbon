@@ -1,9 +1,8 @@
 import withGlobalStyles from "./with-global-styles";
-import { withThemeSelector } from "./theme-selector";
 import { withLocaleSelector } from "./locale-selector";
+import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
 import { configureActions } from "@storybook/addon-actions";
 
-import sageTheme from "./sageTheme";
 import "./style/fonts.css";
 import "./style/story-root.css";
 import "cypress-storybook/react";
@@ -59,9 +58,6 @@ const customViewports = {
 };
 
 export const parameters = {
-  docs: {
-    theme: sageTheme,
-  },
   layout: "fullscreen",
   a11y: {
     // axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
@@ -97,10 +93,11 @@ export const globalTypes = {
       ],
     },
   },
+  ...globalThemeProvider,
 };
 
 export const decorators = [
   withGlobalStyles,
-  withThemeSelector,
+  withThemeProvider,
   withLocaleSelector,
 ];

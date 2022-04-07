@@ -93,10 +93,10 @@ Where functionality is already tested in unit testing, this does not need to be 
 
 [Chromatic](https://www.chromatic.com/builds?appId=5ecf782fe724630022d27d7d) is used to test for visual regressions during each build by comparing snapshots of the storybook canvas with previous baseline snapshots. Chromatic automatically snapshots every story canvas. You should not need to run Chromatic locally.
 
-Chromatic is configured to display each theme side-by-side, you can do this locally by using `STORYBOOK_DEBUG_ALL_THEMES=true npm start`. It is possible to display the components in a column layout by passing `fourColumnLayout` param.
+Chromatic is configured to display each theme side-by-side, you can do this locally by using `STORYBOOK_DEBUG_ALL_THEMES=true npm start`. It is possible to display the components in a column layout by passing `chromatic.fourColumnLayout` param.
 
 ```
-<Story name="Example Layout" parameters={{themeSelector: { fourColumnLayout: true }}
+<Story name="Example Layout" parameters={{ themeProvider: { chromatic: { fourColumnLayout: true }}}
   <Component />
 </Story>
 ```
