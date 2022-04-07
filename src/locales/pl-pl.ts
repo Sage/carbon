@@ -1,9 +1,10 @@
-import { pl } from "./date-fns-locales";
+import Locale from "./locale";
+import { pl as plDateLocale } from "./date-fns-locales";
 
-const isSingular = (count) =>
+const isSingular = (count: string | number): boolean =>
   (typeof count === "string" ? parseInt(count) : count) === 1;
 
-export default {
+const plPL: Locale = {
   locale: () => "pl-PL",
   actions: {
     edit: () => "Edytuj",
@@ -20,7 +21,7 @@ export default {
     yes: () => "Tak",
   },
   date: {
-    dateFnsLocale: () => pl,
+    dateFnsLocale: () => plDateLocale,
   },
   dialog: {
     ariaLabels: {
@@ -127,3 +128,5 @@ export default {
     },
   },
 };
+
+export default plPL;
