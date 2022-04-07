@@ -15,6 +15,7 @@ export function visitComponentUrl(component, suffix) {
   cy.visit(prepareUrl(component, suffix), {
     onBeforeLoad,
   });
+  cy.get("#root :first-child", { timeout: 10000 }).should("exist");
 }
 
 // eslint-disable-next-line max-params
@@ -28,17 +29,29 @@ export function visitComponentUrlWithParameters(
   const onBeforeLoad = cy.spy();
   cy.fixture(`${path}/${json}`).then(($json) => {
     const el = $json[nameOfObject];
-    let url = "&args=";
+    let url = "";
+    let args = [];
+    let globals = [];
     for (const prop in el) {
       if (prop === "theme") {
-        url += `&theme=${encodeURIComponent(el[prop])}`;
+        globals.push(`${prop}:${encodeURIComponent(el[prop])}`);
       } else {
-        url += `${prop}:${encodeURIComponent(el[prop])};`;
+        args.push(`${prop}:${encodeURIComponent(el[prop])}`);
       }
     }
+
+    if (args.length) {
+      url += `&args=${args.join(";")}`;
+    }
+
+    if (globals.length) {
+      url += `&globals=${globals.join(";")}`;
+    }
+
     cy.visit(`${prepareUrl(component, story)}${url}`, {
       onBeforeLoad,
     });
+    cy.get("#root :first-child", { timeout: 10000 }).should("exist");
   });
 }
 

@@ -1,11 +1,16 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow, mount, ShallowWrapper, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 import TestRenderer from "react-test-renderer";
 
 import Icon from "components/icon";
 import { space } from "style/themes/base/base-theme.config";
-import Button from "./button.component";
+import Button, {
+  ButtonProps,
+  ButtonTypes,
+  SizeOptions,
+  ButtonIconPosition,
+} from "./button.component";
 import StyledButton from "./button.style";
 import {
   assertStyleMatch,
@@ -17,23 +22,25 @@ import StyledIcon from "../icon/icon.style";
 import { BUTTON_VARIANTS } from "./button.config";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
-const render = (props, renderer = shallow) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const render = (props: ButtonProps, renderer: any = shallow) => {
   return renderer(<Button {...props} />);
 };
 
-const variants = [
-  "primary",
-  "secondary",
-  "tertiary",
-  "dashed",
-  "darkBackground",
+const sizesPadding: [SizeOptions, string][] = [
+  ["small", "16px"],
+  ["medium", "24px"],
+  ["large", "32px"],
 ];
-const sizesPadding = { small: "16px", medium: "24px", large: "32px" };
-const sizesHeights = { small: "32px", medium: "40px", large: "48px" };
+const sizesHeights: [SizeOptions, string][] = [
+  ["small", "32px"],
+  ["medium", "40px"],
+  ["large", "48px"],
+];
 describe("Button", () => {
   describe("refs", () => {
     it("accepts ref as a ref object", () => {
-      const ref = { current: undefined };
+      const ref = { current: null };
 
       const wrapper = mount(<Button forwardRef={ref}>Button</Button>);
 
@@ -52,7 +59,7 @@ describe("Button", () => {
     });
 
     it("sets ref to empty after unmount", () => {
-      const ref = { current: undefined };
+      const ref = { current: null };
       const wrapper = mount(<Button forwardRef={ref}>Button</Button>);
 
       wrapper.update();
@@ -91,10 +98,10 @@ describe("Button", () => {
     });
   });
 
-  describe.each(variants)("spacing for %s button", (variant) => {
+  describe.each(BUTTON_VARIANTS)("spacing for %s button", (variant) => {
     testStyledSystemSpacing(
-      (props) => (
-        <Button variant={variant} {...props}>
+      (props: ButtonProps) => (
+        <Button buttonType={variant} {...props}>
           Test
         </Button>
       ),
@@ -124,11 +131,11 @@ describe("Button", () => {
     });
   });
 
-  describe.each(Object.entries(sizesPadding))(
-    "spacing for %s button",
+  describe.each<[SizeOptions, string]>(sizesPadding)(
+    "spacing for %s button size",
     (size, px) => {
       testStyledSystemSpacing(
-        (props) => (
+        (props: ButtonProps) => (
           <Button size={size} {...props}>
             Test
           </Button>
@@ -155,13 +162,13 @@ describe("Button", () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    describe.each(["before", "after"])(
+    describe.each<ButtonIconPosition>(["before", "after"])(
       'when position is set to "%s"',
       (position) => {
-        describe.each(BUTTON_VARIANTS)(
+        describe.each<ButtonTypes>(BUTTON_VARIANTS)(
           "and the button type is %s",
           (buttonType) => {
-            let wrapper;
+            let wrapper: ShallowWrapper;
             beforeEach(() => {
               wrapper = render({
                 children: "foo",
@@ -187,7 +194,7 @@ describe("Button", () => {
     describe.each(BUTTON_VARIANTS)(
       "and the button type is %s",
       (buttonType) => {
-        let wrapper;
+        let wrapper: ShallowWrapper;
         beforeEach(() => {
           wrapper = render({
             iconType: "filter",
@@ -214,7 +221,7 @@ describe("Button", () => {
           borderColor: "var(--colorsActionMajor500)",
           color: "var(--colorsActionMajor500)",
           fontSize: "var(--fontSizes100)",
-          minHeight: sizesHeights.medium,
+          minHeight: "40px",
         },
         wrapper
       );
@@ -223,16 +230,21 @@ describe("Button", () => {
 
   describe("when there are no iconType or children passed", () => {
     it("throws an error", () => {
+      const mockGlobal = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => undefined);
       const errorMessage =
-        "Warning: Failed prop type: Either prop `iconType` must be defined or this node must have children.";
-      const assert = expectConsoleOutput(errorMessage);
+        "Either prop `iconType` must be defined or this node must have children.";
 
-      render({}, mount);
-      assert();
+      expect(() => {
+        render({}, mount);
+      }).toThrow(errorMessage);
+
+      mockGlobal.mockReset();
     });
   });
 
-  describe.each(variants)(
+  describe.each(BUTTON_VARIANTS)(
     'when setting the "buttonType" prop to "%s"',
     (variant) => {
       it("matches the expected style", () => {
@@ -405,16 +417,16 @@ describe("Button", () => {
           borderColor: "var(--colorsActionDisabled500)",
           color: "var(--colorsActionMajorYin030)",
           fontSize: "var(--fontSizes100)",
-          minHeight: sizesHeights.medium,
+          minHeight: "40px",
         },
         wrapper
       );
     });
 
-    describe.each(Object.entries(sizesHeights))(
-      'when a "%s"',
-      (size, height) => {
-        describe.each(variants)(' "%s" button is rendered', (variant) => {
+    describe.each(sizesHeights)('when a "%s"', (size, height) => {
+      describe.each(BUTTON_VARIANTS)(
+        'and "%s" button is rendered',
+        (variant) => {
           it("matches the expected style", () => {
             const wrapper = render(
               {
@@ -483,9 +495,9 @@ describe("Button", () => {
               wrapper
             );
           });
-        });
-      }
-    );
+        }
+      );
+    });
   });
 
   it("matches the applies the expected style to the icon", () => {
@@ -521,8 +533,6 @@ describe("Button", () => {
   describe("A secondary button", () => {
     const secondary = render({
       name: "Secondary Button",
-      className: "customClass",
-      theme: "red",
       children: "Secondary",
     }).dive();
 
@@ -599,7 +609,7 @@ describe("Button", () => {
       expect(wrapper.find('[data-element="subtext"]').exists()).toBe(true);
     });
 
-    describe.each(["small", "medium"])(
+    describe.each<SizeOptions>(["small", "medium"])(
       'when the "subtext" prop is specified and the size prop is set to "%s"',
       (size) => {
         it("throws an error", () => {
@@ -637,7 +647,7 @@ describe("Button", () => {
   });
 
   describe("when specified with an icon", () => {
-    it.each([
+    it.each<ButtonProps>([
       { iconType: "bin", "aria-label": "Message" },
       { iconType: "bin", children: "Message" },
     ])("hide icon from assistive technologies", (props) => {
@@ -666,7 +676,7 @@ describe("Button", () => {
   });
 
   describe("when the fullWidth prop is provided", () => {
-    it.each(variants)(
+    it.each(BUTTON_VARIANTS)(
       'applies the expected style to the "%s" button',
       (variant) => {
         const button = render(
@@ -688,7 +698,7 @@ describe("Button", () => {
   });
 
   describe("using href prop to render as an anchor", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = mount(<Button href="/">Test</Button>);
@@ -758,7 +768,7 @@ describe("Button", () => {
     it.each(paddingValues)(
       "sets the padding to %s when px prop is %d",
       (result, px) => {
-        const wrapper = render({ px }, mount);
+        const wrapper = render({ px, children: "foo" }, mount);
 
         assertStyleMatch(
           {

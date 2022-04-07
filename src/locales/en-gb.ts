@@ -1,9 +1,10 @@
-import { enGB } from "./date-fns-locales";
+import Locale from "./locale";
+import { enGB as enGBDateLocale } from "./date-fns-locales";
 
-const isSingular = (count) =>
+const isSingular = (count: string | number): boolean =>
   (typeof count === "string" ? parseInt(count) : count) === 1;
 
-export default {
+const enGB: Locale = {
   locale: () => "en-GB",
   actions: {
     edit: () => "Edit",
@@ -20,7 +21,7 @@ export default {
     yes: () => "Yes",
   },
   date: {
-    dateFnsLocale: () => enGB,
+    dateFnsLocale: () => enGBDateLocale,
   },
   dialog: {
     ariaLabels: {
@@ -127,3 +128,5 @@ export default {
     },
   },
 };
+
+export default enGB;

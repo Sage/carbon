@@ -18,11 +18,11 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Typography from "../typography";
 import { Dl, Dt, Dd } from "../definition-list";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
-import isChromatic from "chromatic/isChromatic";
+import isChromatic from "../../../.storybook/isChromatic";
 
 export const isOpenForChromatic = isChromatic();
 
-<Meta title="Dialog Full Screen" parameters={{ info: { disable: true }, themeSelector: { chromaticTheme: "sage" }}} />
+<Meta title="Dialog Full Screen" parameters={{ info: { disable: true }, themeProvider: { chromatic: { theme: "sage" } }}} />
 
 # DialogFullScreen
 
