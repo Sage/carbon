@@ -1,3 +1,11 @@
+## [105.2.0](https://github.com/Sage/carbon/compare/v105.1.2...v105.2.0) (2022-04-07)
+
+
+### Features
+
+* **multi-action-button:** pass props down to main button ([9d06db2](https://github.com/Sage/carbon/commit/9d06db2f42fb3acb66fbbe2511e9fa5ce738f64f))
+* **split-button:** pass props down to main button ([81d2510](https://github.com/Sage/carbon/commit/81d25103fe0cde086c0aff7bcaf2ff098af7efa0)), closes [#4972](https://github.com/Sage/carbon/issues/4972)
+
 ### [105.1.2](https://github.com/Sage/carbon/compare/v105.1.1...v105.1.2) (2022-04-04)
 
 
