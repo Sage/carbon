@@ -158,6 +158,16 @@ describe("SplitButton", () => {
     });
   });
 
+  describe("when id passed", () => {
+    it("the id is passed to the main button", () => {
+      wrapper = render({ id: "customId" });
+
+      expect(wrapper.find({ "data-element": "main-button" }).prop("id")).toBe(
+        "customId"
+      );
+    });
+  });
+
   describe("when there are no children", () => {
     it("does not throw an error", () => {
       expect(() => renderWithNoChildren()).not.toThrow();
