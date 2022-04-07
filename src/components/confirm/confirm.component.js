@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import createGuid from "../../__internal__/utils/helpers/guid/guid.js";
+import createGuid from "../../__internal__/utils/helpers/guid";
 import Logger from "../../__internal__/utils/logger";
 import Heading from "../heading";
 import Dialog from "../dialog";

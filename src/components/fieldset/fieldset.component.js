@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import { validProps } from "../../__internal__/utils/ether";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import {
@@ -16,36 +15,28 @@ const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-const Fieldset = (props) => {
-  const legend = () => {
-    if (!props.legend) return null;
+const Fieldset = ({ children, inline, legend, ...rest }) => {
+  const getLegend = () => {
+    if (!legend) return null;
 
     return (
-      <LegendContainerStyle inline={props.inline} data-component="legend-style">
-        <legend data-element="legend">{props.legend}</legend>
+      <LegendContainerStyle inline={inline} data-component="legend-style">
+        <legend data-element="legend">{legend}</legend>
       </LegendContainerStyle>
     );
   };
 
-  const { ...safeProps } = validProps({
-    propTypes: Fieldset.propTypes,
-    props,
-  });
-
   return (
     <NewValidationContext.Provider value={{ validationRedesignOptIn: false }}>
       <FieldsetStyle
-        {...tagComponent("fieldset", props)}
-        {...safeProps}
+        {...tagComponent("fieldset", rest)}
+        {...rest}
         m={0}
-        {...filterStyledSystemMarginProps(props)}
+        {...filterStyledSystemMarginProps(rest)}
       >
-        <FieldsetContentStyle
-          data-component="fieldset-style"
-          inline={props.inline}
-        >
-          {legend()}
-          {props.children}
+        <FieldsetContentStyle data-component="fieldset-style" inline={inline}>
+          {getLegend()}
+          {children}
         </FieldsetContentStyle>
       </FieldsetStyle>
     </NewValidationContext.Provider>

@@ -682,7 +682,7 @@ describe("SplitButton", () => {
           data-element="bar"
           data-role="baz"
         >
-          <Button key="testKey">Single Button</Button>
+          <button type="button">foo</button>
         </SplitButton>
       );
       assert();

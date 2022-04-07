@@ -4,7 +4,7 @@ import { createPopper } from "@popperjs/core";
 
 import Textbox from "../../textbox";
 import SelectText from "../__internal__/select-text/select-text.component";
-import guid from "../../../__internal__/utils/helpers/guid/guid";
+import guid from "../../../__internal__/utils/helpers/guid";
 import useLocale from "../../../hooks/__internal__/useLocale";
 import useResizeObserver from "../../../hooks/__internal__/useResizeObserver";
 

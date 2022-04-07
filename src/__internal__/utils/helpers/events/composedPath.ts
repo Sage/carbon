@@ -1,8 +1,9 @@
 // A basic cross-browser implementation of Event.protoType.composedPath
 // JSDOM does not suppor event bubbling
 // IE does not support composedPath
+
 // https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
-export default (ev) => {
+export default (ev: CustomEvent): EventTarget[] => {
   // When testing with enzyme, we want to trigger a listener on an element but pretend
   // that it bubbled from the enzymeTestingTarget
   // e.g. document.dispatchEvent(new MouseClick('click', {
