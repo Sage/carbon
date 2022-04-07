@@ -2,7 +2,7 @@ import isNavigationKey from "./is-navigation-key";
 
 describe("isNavigationKey", () => {
   describe("correct navigation keys", () => {
-    it.each(["ArrowDown", "ArrowUp", "Home", "End"])(
+    it.each(["ArrowDown", "ArrowUp", "Home", "End", "PageUp", "PageDown"])(
       "%s is counted as a navigation key",
       (key) => {
         expect(isNavigationKey(key)).toBe(true);
