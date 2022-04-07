@@ -46,4 +46,12 @@ describe("Badge", () => {
       expect(wrapper.find(BADGE).exists()).toBe(false);
     });
   });
+
+  describe("when counter is not set", () => {
+    const wrapper = mount(renderComponent({}));
+
+    it("should not render badge", () => {
+      expect(wrapper.find(BADGE).exists()).toBe(false);
+    });
+  });
 });
