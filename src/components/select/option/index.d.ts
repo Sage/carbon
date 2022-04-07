@@ -4,7 +4,7 @@ export interface OptionProps {
   /** The option's visible text, displayed within <Textbox> of <Select>, and used for filtering */
   text: string;
   /** Optional: alternative rendered content, displayed within <SelectList> of <Select> (eg: an icon, an image, etc) */
-  children?: React.ComponentType;
+  children?: React.ReactNode;
   /** The option's invisible internal value */
   value: string | Record<string, unknown>;
   /** MultiSelect only - custom Pill border color - provide any color from palette or any valid css color value. */

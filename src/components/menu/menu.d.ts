@@ -8,6 +8,7 @@ interface MenuContextProps {
   handleKeyDown: (ev, submenuOpen) => void;
   isFocused: boolean;
   openSubmenu: boolean;
+  inMenu: boolean;
 }
 
 export interface MenuProps extends LayoutProps, FlexBoxProps {

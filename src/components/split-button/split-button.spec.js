@@ -679,7 +679,7 @@ describe("SplitButton", () => {
   describe("when the `as` prop is used", () => {
     it("fires a prop deprecation warning to the console", () => {
       const message =
-        "[Deprecation] The `as` prop is deprecated and will soon be removed. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop";
+        "[Deprecation] The `as` prop is deprecated and will soon be removed from the `SplitButton` component interface. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop";
       const assert = expectWarn(message, "warn");
 
       mount(
@@ -692,7 +692,6 @@ describe("SplitButton", () => {
           <Button key="testKey">Single Button</Button>
         </SplitButton>
       );
-      render({ as: "primary" }, undefined, mount);
       assert();
     });
   });

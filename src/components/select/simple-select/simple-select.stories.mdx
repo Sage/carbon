@@ -5,6 +5,7 @@ import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-
 import { useState, useRef } from "react";
 import { Select, Option, OptionRow, OptionGroupHeader } from "../";
 import Button from "../../button";
+import Icon from "../../icon";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 
@@ -527,6 +528,33 @@ This prop will be called every time a user scrolls to the bottom of the list.
       <Option text="Red" value="9" />
       <Option text="White" value="10" />
       <Option text="Yellow" value="11" />
+    </Select>
+  </Story>
+</Canvas>
+
+### Custom Option content
+
+<Canvas>
+  <Story
+    name="custom option children"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <Select
+      name="customOptionChildren"
+      id="customOptionChildren"
+      defaultValue="4"
+      disablePortal
+      label="Pick your favourite color"
+    >
+      <Option text="Orange" value="1">
+        <Icon type="favourite" color="orange" mr={1} /> Orange
+      </Option>
+      <Option text="Black" value="2">
+        <Icon type="favourite" color="black" mr={1} /> Black
+      </Option>
+      <Option text="Blue" value="3">
+        <Icon type="favourite" color="blue" mr={1} /> Blue
+      </Option>
     </Select>
   </Story>
 </Canvas>

@@ -97,7 +97,7 @@ const Button = ({
     deprecatedWarnTriggered = true;
     Logger.deprecate(
       // eslint-disable-next-line max-len
-      "The `as` prop is deprecated and will soon be removed. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop"
+      "The `as` prop is deprecated and will soon be removed from the `Button` component interface. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop"
     );
   }
 
