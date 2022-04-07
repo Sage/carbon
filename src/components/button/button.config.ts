@@ -1,4 +1,6 @@
-export const BUTTON_VARIANTS = [
+import { ButtonTypes } from "./button.component";
+
+export const BUTTON_VARIANTS: ButtonTypes[] = [
   "primary",
   "secondary",
   "tertiary",
