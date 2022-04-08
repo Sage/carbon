@@ -7,7 +7,6 @@ import {
   slide,
   nextArrowButton,
   previousArrowButton,
-  carousel,
   slideSelector,
 } from "../../../cypress/locators/carousel";
 
@@ -26,8 +25,8 @@ function clickCarouselButton(direction) {
 
 const CarouselComponent = ({ ...props }) => {
   return (
-    <Carousel>
-      <Slide {...props}>
+    <Carousel {...props}>
+      <Slide>
         <Box
           height={200}
           display="flex"
@@ -93,32 +92,6 @@ const CarouselComponent = ({ ...props }) => {
   );
 };
 
-/* const CarouselComponentNoSlide = () => {
-  return (
-    <Carousel enableSlideSelector={false}>
-      <Slide>
-        <Box height={200} display="flex" alignItems="center" justifyContent="center" bg="#003349">
-          <Typography variant="h1" color="#090">
-            Slide 1
-          </Typography>
-        </Box>
-      </Slide>
-      <Slide>
-        <Box height={200} display="flex" alignItems="center" justifyContent="center">
-          <Typography variant="h1">Slide 2</Typography>
-        </Box>
-      </Slide>
-      <Slide>
-        <Box height={200} display="flex" alignItems="center" justifyContent="center" bg="#69418f">
-          <Typography variant="h1" color="#fff">
-            Slide 3
-          </Typography>
-        </Box>
-      </Slide>
-    </Carousel>
-  );
-}; */
-
 context("Testing Carousel component", () => {
   describe("Should render Carousel component", () => {
     it.each([
@@ -127,22 +100,117 @@ context("Testing Carousel component", () => {
       ["2", "Slide 3"],
       ["3", "Slide 4"],
       ["4", "Slide 5"],
-    ])("should set slide %s title to %s by default", (index, title) => {
+    ])("should verify slide %s title is %s", (index, title) => {
       CypressMountWithProviders(<CarouselComponent />);
 
       slide(index).should("have.text", title);
     });
 
-    it("should verify Previous arrow button is disabled on first slide", () => {
-      CypressMountWithProviders(<CarouselComponent initialSlideIndex={0} />);
+    it.each([
+      ["1", "0", "Slide 1"],
+      ["2", "1", "Full clickable slide"],
+      ["3", "2", "Slide 3"],
+      ["4", "3", "Slide 4"],
+    ])(
+      "when left arrow is clicked to slide %s from slide %s title should be %s",
+      (index, indexSlide, title) => {
+        CypressMountWithProviders(<CarouselComponent slideIndex={index} />);
+
+        clickCarouselButton("left");
+
+        slide(indexSlide).should("have.text", title);
+      }
+    );
+
+    it.each([
+      ["0", "1", "Full clickable slide"],
+      ["1", "2", "Slide 3"],
+      ["2", "3", "Slide 4"],
+      ["3", "4", "Slide 5"],
+    ])(
+      "when right arrow is clicked from slide %s to slide %s title should be %s",
+      (index, indexSlide, title) => {
+        CypressMountWithProviders(<CarouselComponent />);
+
+        clickCarouselButton("right");
+
+        slide(indexSlide).should("have.text", title);
+      }
+    );
+
+    it("should verify left arrow button is disabled on first slide", () => {
+      CypressMountWithProviders(<CarouselComponent slideIndex={0} />);
 
       previousArrowButton().should("be.disabled").and("have.attr", "disabled");
     });
 
-    it("should verify Next arrow button is disabled on last slide", () => {
-      CypressMountWithProviders(<CarouselComponent initialSlideIndex={1} />);
+    it("should verify right arrow button is disabled on last slide", () => {
+      CypressMountWithProviders(<CarouselComponent slideIndex={4} />);
 
-      previousArrowButton().should("be.disabled").and("have.attr", "disabled");
+      nextArrowButton().should("be.disabled").and("have.attr", "disabled");
+    });
+
+    it.each([[true], [false]])(
+      "should verify slide Selector is enabled/disabled",
+      (isEnabled) => {
+        CypressMountWithProviders(
+          <CarouselComponent enableSlideSelector={isEnabled} />
+        );
+
+        if (isEnabled === false) {
+          slideSelector().should("not.exist");
+        } else {
+          slideSelector().should("exist");
+        }
+      }
+    );
+
+    it.each([[true], [false]])(
+      "should verify left arrow button is enabled/disabled",
+      (isEnabled) => {
+        CypressMountWithProviders(
+          <CarouselComponent enablePreviousButton={isEnabled} slideIndex={2} />
+        );
+
+        if (isEnabled === false) {
+          previousArrowButton().should("not.exist");
+        } else {
+          previousArrowButton()
+            .should("have.attr", "type", "button")
+            .and("not.have.attr", "disabled-type", "button");
+        }
+      }
+    );
+
+    it.each([[true], [false]])(
+      "should verify right arrow button is enabled/disabled %s",
+      (isEnabled) => {
+        CypressMountWithProviders(
+          <CarouselComponent enableNextButton={isEnabled} />
+        );
+
+        if (isEnabled === false) {
+          nextArrowButton().should("not.exist");
+        } else {
+          nextArrowButton()
+            .should("have.attr", "type", "button")
+            .and("not.have.attr", "disabled-type", "button");
+        }
+      }
+    );
+
+    it.each([
+      ["0", "Slide 1"],
+      ["1", "Full clickable slide"],
+      ["2", "Slide 3"],
+      ["3", "Slide 4"],
+      ["4", "Slide 5"],
+    ])("should set initial slide to %s", (index, title) => {
+      CypressMountWithProviders(
+        <CarouselComponent initialSlideIndex={index} />
+      );
+
+      slide(index).should("have.text", title);
     });
 
     it("should call click action when clicked", () => {
@@ -157,99 +225,5 @@ context("Testing Carousel component", () => {
           expect(callback).to.have.been.calledOnce;
         });
     });
-  });
-  describe("Should render Carousel component", () => {
-    it.each([[true], [false]])(
-      "should verify Slide Selector is disabled",
-      (isEnabled) => {
-        CypressMountWithProviders(
-          <CarouselComponent enableSlideSelector={isEnabled} />
-        );
-
-        if (isEnabled === false) {
-          carousel().should("not.have.attr", "data-element", slideSelector);
-        } else {
-          carousel().should("have.attr", "data-element", slideSelector);
-        }
-      }
-    );
-
-    it.each([[true], [false]])(
-      "should verify Previous arrow button is enabled/disabled",
-      (isEnabled) => {
-        CypressMountWithProviders(
-          <CarouselComponent
-            enablePreviousButton={isEnabled}
-            initialSlideIndex={2}
-          />
-        );
-
-        if (isEnabled === false) {
-          previousArrowButton()
-            .should("have.attr", "disabled-type", "button")
-            .and("not.have.attr", "type", "button");
-        } else {
-          previousArrowButton()
-            .should("have.attr", "type", "button")
-            .and("not.have.attr", "disabled-type", "button");
-        }
-      }
-    );
-
-    it.each([[true], [false]])(
-      "should verify Next arrow button is enabled/disabled %s",
-      (isEnabled) => {
-        CypressMountWithProviders(
-          <CarouselComponent enableNextButton={isEnabled} />
-        );
-
-        if (isEnabled === false) {
-          nextArrowButton()
-            .should("have.attr", "disabled-type", "button")
-            .and("not.have.attr", "type", "button");
-        } else {
-          nextArrowButton()
-            .should("have.attr", "type", "button")
-            .and("not.have.attr", "disabled-type", "button");
-        }
-      }
-    );
-  });
-
-  describe.only("Should render Carousel component", () => {
-    it.each([
-      ["1", "0", "Slide 1"],
-      ["2", "1", "Full clickable slide"],
-      ["3", "2", "Slide 3"],
-      ["4", "3", "Slide 4"],
-    ])(
-      "when previous arrow is clicked to slide %s from slide %s title should be %s",
-      (index, indexSlide, title) => {
-        // CypressMountWithProviders(<CarouselComponent slideIndex={index} />);
-        CypressMountWithProviders(
-          <CarouselComponent initialSlideIndex={indexSlide} />
-        );
-
-        clickCarouselButton("left");
-
-        slide(indexSlide).should("have.text", title);
-      }
-    );
-
-    it.each([
-      ["0", "1", "Full clickable slide"],
-      ["1", "2", "Slide 3"],
-      ["2", "3", "Slide 4"],
-      ["3", "4", "Slide 5"],
-    ])(
-      "when Next arrow is clicked from slide %s to slide %s title should be %s",
-      (index, indexSlide, title) => {
-        CypressMountWithProviders(<CarouselComponent />);
-
-        clickCarouselButton("right");
-
-        slide(indexSlide).should("have.text", title);
-      }
-    );
   });
 });
