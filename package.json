@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "105.1.2",
+  "version": "105.2.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -92,9 +92,11 @@
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/invariant": "^2.2.35",
     "@types/jest": "^26.0.19",
+    "@types/lodash": "^4.14.179",
     "@types/node": "10.12.18",
     "@types/react": "16.9.56",
     "@types/react-dom": "16.9.8",
+    "@types/react-test-renderer": "^17.0.1",
     "@types/styled-components": "^5.1.9",
     "@types/uuid": "^8.3.3",
     "@typescript-eslint/eslint-plugin": "^5.4.0",

@@ -6,7 +6,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import { Input, InputPresentation } from "../../__internal__/input";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import FormField from "../../__internal__/form-field";
-import withUniqueIdProps from "../../__internal__/utils/helpers/with-unique-id-props";
+import useUniqueId from "../../__internal__/utils/helpers/useUniqueId";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
@@ -86,13 +86,15 @@ const Textbox = ({
   const computeLabelPropValues = (prop) =>
     validationRedesignOptIn ? undefined : prop;
 
+  const [uniqueId, uniqueName] = useUniqueId(id, name);
+
   const {
     labelId: internalLabelId,
     validationIconId,
     fieldHelpId,
     ariaDescribedBy,
   } = useInputAccessibility({
-    id,
+    id: uniqueId,
     error,
     warning,
     info,
@@ -123,7 +125,7 @@ const Textbox = ({
           labelInline={computeLabelPropValues(labelInline)}
           labelSpacing={labelSpacing}
           labelWidth={computeLabelPropValues(labelWidth)}
-          id={id}
+          id={uniqueId}
           reverse={computeLabelPropValues(reverse)}
           isOptional={isOptional}
           useValidationIcon={computeLabelPropValues(validationOnLabel)}
@@ -179,9 +181,9 @@ const Textbox = ({
               autoFocus={autoFocus}
               deferTimeout={deferTimeout}
               disabled={disabled}
-              id={id}
+              id={uniqueId}
               inputRef={inputRef}
-              name={name}
+              name={uniqueName}
               onBlur={onBlur}
               onChange={onChange}
               onChangeDeferred={onChangeDeferred}
@@ -369,4 +371,4 @@ Textbox.defaultProps = {
 };
 
 export { Textbox as OriginalTextbox };
-export default withUniqueIdProps(Textbox);
+export default Textbox;

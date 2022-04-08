@@ -158,6 +158,16 @@ describe("SplitButton", () => {
     });
   });
 
+  describe("when id passed", () => {
+    it("the id is passed to the main button", () => {
+      wrapper = render({ id: "customId" });
+
+      expect(wrapper.find({ "data-element": "main-button" }).prop("id")).toBe(
+        "customId"
+      );
+    });
+  });
+
   describe("when there are no children", () => {
     it("does not throw an error", () => {
       expect(() => renderWithNoChildren()).not.toThrow();
@@ -232,24 +242,17 @@ describe("SplitButton", () => {
     });
   });
 
-  describe("for mint and aegean themes", () => {
-    it("renders styles correctly", () => {
-      wrapper = render({}, singleButton, TestRenderer.create);
-      expect(wrapper).toMatchSnapshot();
-    });
+  describe.each(themes)('when the theme is set to "%s"', (name, theme) => {
+    const mockProps = { carbonTheme: theme, buttonType: "primary" };
 
-    describe.each(themes)('when the theme is set to "%s"', (name, theme) => {
-      const mockProps = { carbonTheme: theme, buttonType: "primary" };
-
-      it("renders Toggle Button left border as expected", () => {
-        wrapper = renderWithTheme(mockProps, singleButton, mount);
-        assertStyleMatch(
-          {
-            position: "relative",
-          },
-          wrapper.find(StyledSplitButtonToggle)
-        );
-      });
+    it("renders Toggle Button left border as expected", () => {
+      wrapper = renderWithTheme(mockProps, singleButton, mount);
+      assertStyleMatch(
+        {
+          position: "relative",
+        },
+        wrapper.find(StyledSplitButtonToggle)
+      );
     });
   });
 
@@ -679,7 +682,7 @@ describe("SplitButton", () => {
           data-element="bar"
           data-role="baz"
         >
-          <Button key="testKey">Single Button</Button>
+          <button type="button">foo</button>
         </SplitButton>
       );
       assert();

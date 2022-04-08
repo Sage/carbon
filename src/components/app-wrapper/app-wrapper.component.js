@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
-import { validProps } from "../../__internal__/utils/ether";
 import StyledAppWrapper from "./app-wrapper.style";
 import Logger from "../../__internal__/utils/logger";
 
@@ -39,13 +38,14 @@ class AppWrapper extends React.Component {
    * @method render
    */
   render() {
+    const { children } = this.props;
     return (
       <StyledAppWrapper
-        {...validProps(this)}
+        {...this.props}
         className={this.classes()}
         {...tagComponent("app-wrapper", this.props)}
       >
-        {this.props.children}
+        {children}
       </StyledAppWrapper>
     );
   }

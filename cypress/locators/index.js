@@ -10,6 +10,8 @@ import {
   LABEL,
   DLS_ROOT,
   WARNING_ICON,
+  COMMON_INPUT_PREFIX,
+  COMMON_INPUT_CHARACTER_LIMIT,
 } from "./locators";
 
 // component preview locators
@@ -44,3 +46,6 @@ export const link = () => cy.get(LINK);
 export const pressESCKeyOntoFocusedElement = () => {
   cy.focused().type("{esc}");
 };
+export const commonInputPrefix = () => cy.get(COMMON_INPUT_PREFIX);
+export const commonInputCharacterLimit = () =>
+  cy.get(COMMON_INPUT_CHARACTER_LIMIT);

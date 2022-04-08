@@ -45,7 +45,11 @@ context("Test for Button component", () => {
     it.each(testData)(
       "should render Button subtext with %s special characters",
       (subtext) => {
-        CypressMountWithProviders(<Button size="large" subtext={subtext} />);
+        CypressMountWithProviders(
+          <Button size="large" subtext={subtext}>
+            Foo
+          </Button>
+        );
 
         buttonSubtextPreview().should("have.text", subtext);
       }
@@ -84,7 +88,7 @@ context("Test for Button component", () => {
     );
 
     it("should render Button with full width", () => {
-      CypressMountWithProviders(<Button fullWidth />);
+      CypressMountWithProviders(<Button fullWidth>Foo</Button>);
 
       buttonDataComponent().should("have.css", "width").and("eq", "1350px");
     });
@@ -152,7 +156,7 @@ context("Test for Button component", () => {
     it("should call onClick event", () => {
       const callback = cy.stub();
 
-      CypressMountWithProviders(<Button onClick={callback} />);
+      CypressMountWithProviders(<Button onClick={callback}>Foo</Button>);
 
       buttonDataComponent()
         .click({ force: true })
@@ -165,7 +169,7 @@ context("Test for Button component", () => {
     it("should trigger onBlur event", () => {
       const callback = cy.stub();
 
-      CypressMountWithProviders(<Button onBlur={callback} />);
+      CypressMountWithProviders(<Button onBlur={callback}>Foo</Button>);
 
       buttonDataComponent()
         .focus()
@@ -179,7 +183,7 @@ context("Test for Button component", () => {
     it("should call the onKeyDown", () => {
       const callback = cy.stub();
 
-      CypressMountWithProviders(<Button onKeyDown={callback} />);
+      CypressMountWithProviders(<Button onKeyDown={callback}>Foo</Button>);
 
       buttonDataComponent()
         .trigger("keydown", { force: true }, keyCode("rightarrow"))
@@ -192,7 +196,7 @@ context("Test for Button component", () => {
     it("should trigger onFocus event", () => {
       const callback = cy.stub();
 
-      CypressMountWithProviders(<Button onFocus={callback} />);
+      CypressMountWithProviders(<Button onFocus={callback}>Foo</Button>);
 
       buttonDataComponent()
         .focus()
