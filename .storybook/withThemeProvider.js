@@ -64,7 +64,7 @@ const withThemeProvider = makeDecorator({
     useEffect(() => {
       WebFont.load({
         custom: {
-          families: ["CarbonIcons", "Sage UI"],
+          families: ["CarbonIcons", "Sage UI:n4,n7,n9"],
         },
         classes: false,
         active: () => setLoading(false),
