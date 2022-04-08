@@ -12,7 +12,7 @@ export default create({
   appBorderColor: "#ccd6db",
 
   // Typography
-  fontBase: '"Lato", sans-serif',
+  fontBase: '"Sage UI", sans-serif',
   fontCode: "monospace",
 
   // Text colors
