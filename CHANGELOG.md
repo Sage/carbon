@@ -1,3 +1,15 @@
+## [106.0.0](https://github.com/Sage/carbon/compare/v105.2.0...v106.0.0) (2022-04-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* @sage/design-tokens package is now a peer dependency
+instead of a built-in dependency.
+
+### Features
+
+* add support for Sage UI typeface ([f207ca1](https://github.com/Sage/carbon/commit/f207ca1394a609963aa2c8303868c7ebc20ba985))
+
 ## [105.2.0](https://github.com/Sage/carbon/compare/v105.1.2...v105.2.0) (2022-04-07)
 
 
