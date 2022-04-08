@@ -7,9 +7,9 @@ import Textbox from ".";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ICONS } from "../icon/icon-config";
 
-export const commonTextboxArgTypes = (isNewValidation)  => ({
+export const commonTextboxArgTypes = (isNewValidation) => ({
   size: {
-    options: ["extra-small", "small", "medium", "large"],
+    options: ["small", "medium", "large"],
     control: {
       type: "select",
     },
@@ -162,7 +162,12 @@ export const NewValidationStory = (args) => {
   return (
     <div style={{ width: "296px" }}>
       <CarbonProvider validationRedesignOptIn>
-        <Textbox m={2} {...getCommonTextboxArgsWithSpecialCaracters(args)} value={state} onChange={setValue} />
+        <Textbox
+          m={2}
+          {...getCommonTextboxArgsWithSpecialCaracters(args)}
+          value={state}
+          onChange={setValue}
+        />
       </CarbonProvider>
     </div>
   );
@@ -173,7 +178,11 @@ export const NewValidationStory = (args) => {
 ### Default
 
 <Canvas>
-  <Story argTypes={commonTextboxArgTypes()} name="default" args={getCommonTextboxArgs()}>
+  <Story
+    argTypes={commonTextboxArgTypes()}
+    name="default"
+    args={getCommonTextboxArgs()}
+  >
     {TextboxStory.bind({})}
   </Story>
 </Canvas>
@@ -181,7 +190,11 @@ export const NewValidationStory = (args) => {
 ### Multiple
 
 <Canvas>
-  <Story argTypes={commonTextboxArgTypes()} name="multiple" args={getCommonTextboxArgs()}>
+  <Story
+    argTypes={commonTextboxArgTypes()}
+    name="multiple"
+    args={getCommonTextboxArgs()}
+  >
     {MultipleTextboxStory.bind({})}
   </Story>
 </Canvas>
@@ -189,7 +202,11 @@ export const NewValidationStory = (args) => {
 ### New Validation
 
 <Canvas>
-  <Story argTypes={commonTextboxArgTypes(true)} name="new validation" args={getCommonTextboxArgs(true)}>
+  <Story
+    argTypes={commonTextboxArgTypes(true)}
+    name="new validation"
+    args={getCommonTextboxArgs(true)}
+  >
     {NewValidationStory.bind({})}
   </Story>
 </Canvas>
