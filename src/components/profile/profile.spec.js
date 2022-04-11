@@ -124,26 +124,43 @@ describe("ProfileAvatarStyle", () => {
 
 describe("ProfileDetailStyle", () => {
   describe.each([
-    ["XS", "1px"],
-    ["S", "1px"],
-    ["M", "4px"],
-    ["ML", "8px"],
-    ["L", "14px"],
-    ["XL", "24px"],
-    ["XXL", "32px"],
-  ])("when a src prop is passed and the size is %s", (size, margin) => {
-    it("renders the expected styles", () => {
-      const wrapper = mount(
-        <Profile initials="AS" size={size} src="Foo" email="foo" name="foo" />
-      );
-      assertStyleMatch(
-        {
-          marginTop: margin,
-        },
-        wrapper.find(ProfileDetailsStyle)
-      );
-    });
-  });
+    ["XS", "1px", "Xs"],
+    ["S", "1px", "S"],
+    ["M", "4px", "M"],
+    ["ML", "8px", "Ml"],
+    ["L", "14px", "L"],
+    ["XL", "24px", "Xl"],
+    ["XXL", "32px", "Xxl"],
+  ])(
+    "when a src prop is passed and the size is %s",
+    (size, margin, fontSize) => {
+      it("renders the expected styles", () => {
+        const wrapper = mount(
+          <Profile initials="AS" size={size} src="Foo" email="foo" name="foo" />
+        );
+        assertStyleMatch(
+          {
+            marginTop: margin,
+          },
+          wrapper.find(ProfileDetailsStyle)
+        );
+
+        assertStyleMatch(
+          {
+            font: `var(--typographyProfileEmail${fontSize})`,
+          },
+          wrapper.find(ProfileEmailStyle)
+        );
+
+        assertStyleMatch(
+          {
+            font: `var(--typographyProfileName${fontSize})`,
+          },
+          wrapper.find(ProfileNameStyle)
+        );
+      });
+    }
+  );
 });
 
 describe("styled-system", () => {

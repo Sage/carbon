@@ -8,11 +8,11 @@ import profileConfigSizes from "./profile.config";
 const ProfileNameStyle = styled.span`
   font-weight: bold;
   display: block;
-  font-size: ${({ size }) => profileConfigSizes[size].nameSize};
+  font: ${({ size }) => profileConfigSizes[size].nameFont};
 `;
 
 const ProfileEmailStyle = styled.span`
-  font-size: ${({ size }) => profileConfigSizes[size].emailSize};
+  font: ${({ size }) => profileConfigSizes[size].emailFont};
 `;
 
 const ProfileStyle = styled.div`
