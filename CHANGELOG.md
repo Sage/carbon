@@ -1,3 +1,30 @@
+## [106.0.0](https://github.com/Sage/carbon/compare/v105.2.0...v106.0.0) (2022-04-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* @sage/design-tokens package is now a peer dependency
+instead of a built-in dependency.
+
+### Features
+
+* add support for Sage UI typeface ([f207ca1](https://github.com/Sage/carbon/commit/f207ca1394a609963aa2c8303868c7ebc20ba985))
+
+## [105.2.0](https://github.com/Sage/carbon/compare/v105.1.2...v105.2.0) (2022-04-07)
+
+
+### Features
+
+* **multi-action-button:** pass props down to main button ([9d06db2](https://github.com/Sage/carbon/commit/9d06db2f42fb3acb66fbbe2511e9fa5ce738f64f))
+* **split-button:** pass props down to main button ([81d2510](https://github.com/Sage/carbon/commit/81d25103fe0cde086c0aff7bcaf2ff098af7efa0)), closes [#4972](https://github.com/Sage/carbon/issues/4972)
+
+### [105.1.2](https://github.com/Sage/carbon/compare/v105.1.1...v105.1.2) (2022-04-04)
+
+
+### Bug Fixes
+
+* **select:** fix incorrect option children prop type definition ([26305f0](https://github.com/Sage/carbon/commit/26305f0be0fd493b19d5ced73b7acebdaf4cd075))
+
 ### [105.1.1](https://github.com/Sage/carbon/compare/v105.1.0...v105.1.1) (2022-04-04)
 
 

@@ -128,16 +128,6 @@ context("Tests for Split Button component", () => {
       }
     );
 
-    it.each([
-      ["small", "64px"],
-      ["medium", "90px"],
-      ["large", "114px"],
-    ])("should render Split Button with %s size", (size, width) => {
-      CypressMountWithProviders(<SplitButton size={size} />);
-
-      splitMainButton().should("have.css", "width").and("contain", width);
-    });
-
     it.each(["left", "right"])(
       "should align the Split Button to the %s",
       (alignment) => {

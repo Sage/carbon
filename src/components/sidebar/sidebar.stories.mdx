@@ -7,11 +7,11 @@ import Typography from "../typography";
 import Form from "../form";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
-import isChromatic from "chromatic/isChromatic";
+import isChromatic from "../../../.storybook/isChromatic";
 
 export const isOpenForChromatic = isChromatic();
 
-<Meta title="Sidebar" parameters={{ info: { disable: true }, themeSelector: { chromaticTheme: "sage" }}} />
+<Meta title="Sidebar" parameters={{ info: { disable: true }, themeProvider: { chromatic: { theme: "sage" } }}} />
 
 # Sidebar
 

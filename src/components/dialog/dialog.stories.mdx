@@ -11,11 +11,11 @@ import { RadioButton, RadioButtonGroup } from "../radio-button";
 import Fieldset from "../fieldset";
 import Loader from "../loader";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
-import isChromatic from "chromatic/isChromatic";
+import isChromatic from "../../../.storybook/isChromatic";
 
 export const isOpenForChromatic = isChromatic();
 
-<Meta title="Dialog" parameters={{ info: { disable: true }, themeSelector: { chromaticTheme: "sage" }}} />
+<Meta title="Dialog" parameters={{ info: { disable: true }, themeProvider: { chromatic: { theme: "sage" } }}} />
 
 # Dialog
 

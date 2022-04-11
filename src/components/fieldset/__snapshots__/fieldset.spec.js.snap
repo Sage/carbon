@@ -17,7 +17,11 @@ exports[`Fieldset renders correctly 1`] = `
       data-component="fieldset-style"
       inline={false}
     >
-      <Textbox />
+      <Textbox
+        labelWidth={30}
+        size="medium"
+        validationOnLabel={false}
+      />
     </styled.div>
   </styled.fieldset>
 </ContextProvider>

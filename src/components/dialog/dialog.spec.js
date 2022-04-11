@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
 import { space } from "style/themes/base/base-theme.config";
-import guid from "../../__internal__/utils/helpers/guid/guid.js";
+import guid from "../../__internal__/utils/helpers/guid";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Dialog from "./dialog.component";
 import {
@@ -29,7 +29,7 @@ import IconButton from "../icon-button";
 import Help from "../help";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
-jest.mock("../../__internal__/utils/helpers/guid/guid.js");
+jest.mock("../../__internal__/utils/helpers/guid");
 
 describe("Dialog", () => {
   let onCancel;

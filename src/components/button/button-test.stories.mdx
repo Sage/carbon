@@ -55,17 +55,16 @@ export const commonArgTypes = {
 };
 
 export const commonArgs = {
-  size: Button.defaultProps.size,
+  size: "medium",
   children: "Example Button",
-  disabled: Button.defaultProps.disabled,
+  disabled: false,
   fullWidth: false,
-  subtext: Button.defaultProps.subtext,
-  buttonType: Button.defaultProps.as,
+  subtext: "",
+  buttonType: "secondary",
   href: undefined,
   destructive: false,
   noWrap: false,
-  iconPosition: Button.defaultProps.iconPosition,
-  iconPosition: Button.defaultProps.iconPosition,
+  iconPosition: "before",
   subtextSpecialCharacters: undefined,
   childrenSpecialCharacters: undefined,
 };
@@ -504,7 +503,7 @@ export const FullWidthButtonsStory = () => {
 <Canvas>
   <Story
     name="primary buttons icons before"
-    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
   >
     {generateButtons("primary", "before")}
   </Story>
@@ -515,7 +514,7 @@ export const FullWidthButtonsStory = () => {
 <Canvas>
   <Story
     name="primary buttons icons after"
-    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
   >
     {generateButtons("primary", "after")}
   </Story>
@@ -526,7 +525,7 @@ export const FullWidthButtonsStory = () => {
 <Canvas>
   <Story
     name="secondary buttons icons before"
-    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
   >
     {generateButtons("secondary", "before")}
   </Story>
@@ -537,7 +536,7 @@ export const FullWidthButtonsStory = () => {
 <Canvas>
   <Story
     name="secondary buttons icons after"
-    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
   >
     {generateButtons("secondary", "after")}
   </Story>
@@ -548,7 +547,7 @@ export const FullWidthButtonsStory = () => {
 <Canvas>
   <Story
     name="tertiary buttons icons before"
-    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
   >
     {generateButtons("tertiary", "before")}
   </Story>
@@ -559,7 +558,7 @@ export const FullWidthButtonsStory = () => {
 <Canvas>
   <Story
     name="tertiary buttons icons after"
-    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
   >
     {generateButtons("tertiary", "after")}
   </Story>
@@ -570,7 +569,7 @@ export const FullWidthButtonsStory = () => {
 <Canvas>
   <Story
     name="dashed buttons icons before"
-    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
   >
     {generateButtons("dashed", "before")}
   </Story>
@@ -581,7 +580,7 @@ export const FullWidthButtonsStory = () => {
 <Canvas>
   <Story
     name="dashed buttons icons after"
-    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
   >
     {generateButtons("dashed", "after")}
   </Story>
@@ -592,7 +591,7 @@ export const FullWidthButtonsStory = () => {
 <Canvas>
   <Story
     name="dark background buttons icons before"
-    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
   >
     {generateButtons("darkBackground", "before")}
   </Story>
@@ -603,7 +602,7 @@ export const FullWidthButtonsStory = () => {
 <Canvas>
   <Story
     name="dark background buttons icons after"
-    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
   >
     {generateButtons("darkBackground", "after")}
   </Story>
@@ -614,7 +613,7 @@ export const FullWidthButtonsStory = () => {
 <Canvas>
   <Story
     name="full width buttons"
-    parameters={{ themeSelector: { chromaticTheme: "sage" } }}
+    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
   >
     {FullWidthButtonsStory.bind({})}
   </Story>

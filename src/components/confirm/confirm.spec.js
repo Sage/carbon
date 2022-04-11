@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import guid from "../../__internal__/utils/helpers/guid/guid.js";
+import guid from "../../__internal__/utils/helpers/guid";
 import Confirm from "./confirm.component";
 import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";
 import Button from "../button/button.component";
@@ -13,7 +13,7 @@ import Loader from "../loader";
 import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
 
-jest.mock("../../__internal__/utils/helpers/guid/guid.js");
+jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-123");
 
 const buttonTypes = [

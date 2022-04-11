@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useLayoutEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 
-import createGuid from "../../__internal__/utils/helpers/guid/guid.js";
+import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal from "../modal";
 import Heading from "../heading";
 

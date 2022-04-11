@@ -236,13 +236,18 @@ describe("Help", () => {
     });
 
     it("throws an error if a invalid array is passed", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const mockGlobal = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => undefined);
 
-      renderHelp({ type: "home", tooltipFlipOverrides: ["foo", "bar"] }, mount);
+      expect(() => {
+        renderHelp(
+          { type: "home", tooltipFlipOverrides: ["foo", "bar"] },
+          mount
+        );
+      }).toThrow();
 
-      // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalled();
-      global.console.error.mockReset();
+      mockGlobal.mockReset();
     });
   });
 });

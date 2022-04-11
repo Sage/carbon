@@ -26,7 +26,7 @@ import ListActionButton from "../list-action-button/list-action-button.component
 import StyledSelectListContainer from "./select-list-container.style";
 import Loader from "../../loader";
 import Option from "../option/option.component";
-import guid from "../../../__internal__/utils/helpers/guid/guid";
+import guid from "../../../__internal__/utils/helpers/guid";
 import SelectListContext from "../__internal__/select-list-context";
 
 const fixedPopoverModifiers = [

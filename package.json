@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "105.1.1",
+  "version": "106.0.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -51,6 +51,7 @@
   },
   "homepage": "https://carbon.sage.com",
   "peerDependencies": {
+    "@sage/design-tokens": "^2.3.0",
     "draft-js": "^0.11.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -68,7 +69,8 @@
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@cypress/react": "^5.12.0",
-    "@cypress/webpack-dev-server": "^1.8.0",
+    "@cypress/webpack-dev-server": "^1.8.4",
+    "@sage/design-tokens": "^2.3.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/exec": "^6.0.2",
     "@semantic-release/git": "^10.0.1",
@@ -88,10 +90,13 @@
     "@testing-library/react": "^12.1.3",
     "@types/enzyme": "^3.10.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/invariant": "^2.2.35",
     "@types/jest": "^26.0.19",
+    "@types/lodash": "^4.14.179",
     "@types/node": "10.12.18",
     "@types/react": "16.9.56",
     "@types/react-dom": "16.9.8",
+    "@types/react-test-renderer": "^17.0.1",
     "@types/styled-components": "^5.1.9",
     "@types/uuid": "^8.3.3",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
@@ -151,15 +156,15 @@
     "sprintf-js": "^1.1.2",
     "styled-components": "^4.4.1",
     "ts-node": "^10.4.0",
-    "typescript": "^4.3.5",
+    "typescript": "^4.6.2",
     "typescript-to-proptypes": "^2.2.1",
     "uuid": "^8.3.2",
-    "webpack-dev-server": "^3.11.3"
+    "webfontloader": "^1.6.28",
+    "webpack-dev-server": "^4.0.0"
   },
   "dependencies": {
     "@octokit/rest": "^18.12.0",
     "@popperjs/core": "^2.11.2",
-    "@sage/design-tokens": "^1.93.0",
     "@styled-system/prop-types": "^5.1.5",
     "@tippyjs/react": "^4.2.5",
     "@types/styled-system": "^5.1.11",
