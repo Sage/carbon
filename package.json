@@ -51,7 +51,7 @@
   },
   "homepage": "https://carbon.sage.com",
   "peerDependencies": {
-    "@sage/design-tokens": "^2.3.0",
+    "@sage/design-tokens": "^2.19.0",
     "draft-js": "^0.11.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -70,7 +70,7 @@
     "@commitlint/config-conventional": "^11.0.0",
     "@cypress/react": "^5.12.0",
     "@cypress/webpack-dev-server": "^1.8.4",
-    "@sage/design-tokens": "^2.3.0",
+    "@sage/design-tokens": "^2.19.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/exec": "^6.0.2",
     "@semantic-release/git": "^10.0.1",
