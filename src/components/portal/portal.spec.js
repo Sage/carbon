@@ -1,7 +1,7 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
 import ReactDOM from "react-dom";
-import Portal from "./portal";
+import Portal, { PortalContext } from "./portal";
 import Icon from "../icon";
 import Browser from "../../__internal__/utils/helpers/browser";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
@@ -11,13 +11,13 @@ jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
 describe("Portal", () => {
   let wrapper;
 
-  describe("when an element with id 'root' exists", () => {
+  describe("when an element with id 'root' exists, and renderInRoot is set to true in Portal Context", () => {
     let rootWrapper;
+    const rootDiv = global.document.createElement("div");
+    rootDiv.setAttribute("id", "root");
+    const body = global.document.querySelector("body");
 
     beforeEach(() => {
-      const rootDiv = global.document.createElement("div");
-      rootDiv.setAttribute("id", "root");
-      const body = global.document.querySelector("body");
       body.appendChild(rootDiv);
     });
 
@@ -26,16 +26,22 @@ describe("Portal", () => {
         rootWrapper.unmount();
         rootWrapper = null;
       }
+      body.removeChild(rootDiv);
     });
 
-    it("will mount on that element", () => {
+    it("then the portal will mount inside the root element", () => {
+      const childContent = "Test";
+
       rootWrapper = mount(
-        <Portal>
-          <p>Test</p>
-        </Portal>
+        <PortalContext.Provider value={{ renderInRoot: true }}>
+          <Portal>{childContent}</Portal>
+        </PortalContext.Provider>
       );
 
-      expect(document.body.innerHTML).toMatchSnapshot();
+      expect(
+        rootDiv.getElementsByClassName("carbon-portal")[0].childNodes[0]
+          .textContent
+      ).toBe(childContent);
     });
   });
 
@@ -54,10 +60,8 @@ describe("Portal", () => {
       document.body.innerHTML = "";
     });
 
-    describe("when an element with id 'root' does not exist", () => {
-      it("will mount on body", () => {
-        expect(document.body.innerHTML).toMatchSnapshot();
-      });
+    it("then the portal will mount on body", () => {
+      expect(document.body.innerHTML).toMatchSnapshot();
     });
 
     it("can be able to access Icon", () => {
