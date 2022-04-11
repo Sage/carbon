@@ -48,6 +48,8 @@ Feature: Select component
       | key       | position | value  |
       | downarrow | first    | Amber  |
       | uparrow   | eleventh | Yellow |
+      | pagedown  | fourth   | Brown  |
+      | pageup    | eighth   | Purple |
 
   @positive
   Scenario: An Option that is more than one line is rendered correctly
