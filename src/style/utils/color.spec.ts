@@ -1,7 +1,10 @@
 import color from "./color";
 import { baseTheme } from "../themes";
 
-const assert = (props, result) => {
+const assert = (
+  props: Record<string, string>,
+  result: Record<string, string>
+) => {
   expect(
     color({
       theme: baseTheme,

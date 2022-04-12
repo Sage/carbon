@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
-import { layout } from "styled-system";
+import { layout, styleFn } from "styled-system";
 
 /*
  * styled-system/layout allows users to use a width, height, minWidth, maxWidth, minHeight, maxHeight,
@@ -7,4 +7,5 @@ import { layout } from "styled-system";
  * That's why the purpose of this function is to pass only the`width` prop to the `layout` function.
  */
 
-export default ({ width }) => layout({ width });
+export default ({ width }: Record<string, string>): styleFn =>
+  layout({ width });

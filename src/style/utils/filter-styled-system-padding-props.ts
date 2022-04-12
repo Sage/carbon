@@ -1,6 +1,7 @@
+import { PaddingProps } from "styled-system";
 import filterObjectProperties from "../../__internal__/filter-object-properties";
 
-const paddingPropertyNames = [
+export const paddingPropertyNames = [
   "padding",
   "p",
   "paddingLeft",
@@ -17,6 +18,8 @@ const paddingPropertyNames = [
   "py",
 ];
 
-export default function filterStyledSystemPaddingProps(originalObject) {
+export default function filterStyledSystemPaddingProps(
+  originalObject: Record<string, unknown>
+): PaddingProps {
   return filterObjectProperties(originalObject, paddingPropertyNames);
 }
