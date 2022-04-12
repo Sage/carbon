@@ -1,6 +1,7 @@
 interface DataProps {
   "data-element"?: string;
   "data-role"?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [restKeys: string]: any;
 }
 

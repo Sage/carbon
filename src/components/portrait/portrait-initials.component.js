@@ -44,7 +44,7 @@ const PortraitInitials = ({
 
     // Select a font family to support different language characters
     // like Arial
-    context.font = `${Math.round(canvas.width / 2.4)}px Lato, Arial`;
+    context.font = `${Math.round(canvas.width / 2.4)}px "Sage UI", Arial`;
     context.textAlign = "center";
 
     // Setup background and front color
