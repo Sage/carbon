@@ -6,5 +6,6 @@
 export default (base: string) => {
   const rgb = base?.match(/[^#]{2}/g)?.map((pair) => parseInt(pair, 16));
 
-  return (opacity: number): string => `rgba(${rgb?.join(",")},${opacity})`;
+  return (opacity: number | string): string =>
+    `rgba(${rgb?.join(",")},${opacity})`;
 };
