@@ -6,6 +6,7 @@ import StyledIcon from "../icon/icon.style";
 const StyledLink = styled.span`
   ${({ isSkipLink, theme, iconAlign, hasContent, disabled }) => css`
     display: inline-block;
+    font: var(--typographyLinkTextM);
 
     ${isSkipLink &&
     css`
@@ -28,7 +29,9 @@ const StyledLink = styled.span`
 
     a,
   button {
-      font-size: ${isSkipLink ? "16px" : "14px"};
+      font: ${isSkipLink
+        ? "var(--typographyLinkTextL)"
+        : "var(--typographyLinkTextM)"};
       text-decoration: underline;
       color: ${isSkipLink
         ? "var(--colorsUtilityYin090)"

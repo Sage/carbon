@@ -69,6 +69,7 @@ const StyledMenuItemWrapper = styled.a`
     button,
     ${StyledLink} button {
       padding: 0 16px;
+      line-height: 40px;
     }
 
     button,
@@ -77,6 +78,7 @@ const StyledMenuItemWrapper = styled.a`
       height: 40px;
       margin: 0px;
       text-align: left;
+      padding: 0 16px;
     }
 
     a,

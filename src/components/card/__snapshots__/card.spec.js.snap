@@ -89,11 +89,12 @@ exports[`Card CardFooter styling should match the expected styling when it has n
 
 .c1 {
   display: inline-block;
+  font: var(--typographyLinkTextM);
 }
 
 .c1 a,
 .c1 button {
-  font-size: 14px;
+  font: var(--typographyLinkTextM);
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: var(--colorsActionMajor500);

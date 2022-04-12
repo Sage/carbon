@@ -340,11 +340,12 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
 exports[`ActionButtons StyledEditAction when isHovered prop is set should match expected styles 1`] = `
 .c0 {
   display: inline-block;
+  font: var(--typographyLinkTextM);
 }
 
 .c0 a,
 .c0 button {
-  font-size: 14px;
+  font: var(--typographyLinkTextM);
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: var(--colorsActionMajor500);
