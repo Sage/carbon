@@ -77,7 +77,7 @@ const withThemeProvider = makeDecorator({
     }
 
     if (loading) {
-      return null;
+      return <h1>Loading</h1>;
     }
 
     if (isChromaticBuild && !chromaticTheme) {
