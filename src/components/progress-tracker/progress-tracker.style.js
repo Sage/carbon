@@ -11,7 +11,6 @@ const StyledProgressTracker = styled.div`
   ${margin}
   text-align: center;
   white-space: nowrap;
-
   ${({ isVertical }) => css`
     ${!isVertical &&
     `
@@ -63,7 +62,9 @@ const StyledValuesLabel = styled.span`
   text-align: start;
   display: flex;
   justify-content: space-between;
-  ${({ isVertical, position }) => css`
+  ${({ isVertical, position, size }) => css`
+    font: ${getTypographyToken(size)};
+
     ${isVertical &&
     css`
       flex-direction: column;
@@ -130,6 +131,17 @@ function getHeight(size) {
   }
 }
 
+function getTypographyToken(size) {
+  switch (size) {
+    case "small":
+      return "var(--typographyProgressTrackerValueLabelS)";
+    case "large":
+      return "var(--typographyProgressTrackerValueLabelL)";
+    default:
+      return "var(--typographyProgressTrackerValueLabelM)";
+  }
+}
+
 function getInnerBarColour(progress) {
   if (progress >= 100) return "var(--colorsSemanticPositive500)";
   return "var(--colorsSemanticNeutral500)";
@@ -162,6 +174,7 @@ StyledProgressTracker.propTypes = {
 StyledValuesLabel.propTypes = {
   isVertical: PropTypes.bool,
   position: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  size: PropTypes.oneOf(["small", "medium", "large"]),
 };
 
 StyledValue.propTypes = {

@@ -50,7 +50,11 @@ const ProgressTracker = ({
     };
 
     return (
-      <StyledValuesLabel position={labelsPosition} isVertical={isVertical}>
+      <StyledValuesLabel
+        position={labelsPosition}
+        isVertical={isVertical}
+        size={size}
+      >
         {isVertical && direction === "up" && (
           <>
             <StyledValue isMaxValue>

@@ -79,6 +79,33 @@ describe("ProgressBar", () => {
     });
   });
 
+  describe("Typography tokens", () => {
+    it.each([
+      ["small", "var(--typographyProgressTrackerValueLabelS)"],
+      ["medium", "var(--typographyProgressTrackerValueLabelM)"],
+      ["large", "var(--typographyProgressTrackerValueLabelL)"],
+    ])(
+      "when size is %s the correct token is applied",
+      (size, typographyToken) => {
+        wrapper = mount(
+          <ProgressBar
+            progress={50}
+            size={size}
+            currentProgressLabel="foo"
+            maxProgressLabel="bar"
+          />
+        );
+
+        assertStyleMatch(
+          {
+            font: `${typographyToken}`,
+          },
+          wrapper.find(StyledValuesLabel)
+        );
+      }
+    );
+  });
+
   describe("when size is set to small", () => {
     beforeEach(() => {
       wrapper = mount(<ProgressBar size="small" progress={50} />);
