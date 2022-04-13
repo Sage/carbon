@@ -107,18 +107,6 @@ The `Sage UI` font files themselves are loaded via a public CDN under [license](
 </head>
 ```
 
-##### Webfont Loader
-
-While not required, we also recommend using [`webfontloader`](https://github.com/typekit/webfontloader#custom). This allows you to know when the fonts have finished loading. Once loaded you can render without risking a flash of unstyled text.
-
-```js
-WebFont.load({
-  custom: {
-    families: ["CarbonIcons", "Sage UI"],
-  },
-});
-```
-
 #### React and React DOM
 
 React and React DOM are imported from the [React library](https://reactjs.org/), which forms the basis for Carbon's components.
