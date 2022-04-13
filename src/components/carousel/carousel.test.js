@@ -151,7 +151,7 @@ context("Testing Carousel component", () => {
     });
 
     it.each([[true], [false]])(
-      "should verify slide Selector is enabled/disabled",
+      "should verify slide Selector is enabled/disabled when 'enableSlideSelector' is set to %s",
       (isEnabled) => {
         CypressMountWithProviders(
           <CarouselComponent enableSlideSelector={isEnabled} />
@@ -166,7 +166,7 @@ context("Testing Carousel component", () => {
     );
 
     it.each([[true], [false]])(
-      "should verify left arrow button is enabled/disabled",
+      "should verify left arrow button is enabled/disabled when 'enablePreviousButton' is set to %s",
       (isEnabled) => {
         CypressMountWithProviders(
           <CarouselComponent enablePreviousButton={isEnabled} slideIndex={2} />
@@ -183,7 +183,7 @@ context("Testing Carousel component", () => {
     );
 
     it.each([[true], [false]])(
-      "should verify right arrow button is enabled/disabled %s",
+      "should verify right arrow button is enabled/disabled when 'enableNextButton' is set to %s",
       (isEnabled) => {
         CypressMountWithProviders(
           <CarouselComponent enableNextButton={isEnabled} />
