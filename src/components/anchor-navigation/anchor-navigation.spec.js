@@ -341,6 +341,16 @@ describe("AnchorNavigation", () => {
     });
   });
 
+  it("renders navigation item with correct font styling", () => {
+    assertStyleMatch(
+      {
+        font: "var(--typographyAnchorNavLabelM)",
+      },
+      wrapper.find(StyledNavigationItem).at(0),
+      { modifier: "a" }
+    );
+  });
+
   it("renders not selected navigation item with proper background when hovered", () => {
     assertStyleMatch(
       {

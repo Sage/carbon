@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 
 const StyledNavigationItem = styled.li`
   width: 100%;
+  min-height: var(--sizing500);
 
   a {
     cursor: pointer;
@@ -11,8 +12,8 @@ const StyledNavigationItem = styled.li`
     color: var(--colorsUtilityYin090);
     background-color: transparent;
     border-left: var(--sizing050) solid var(--colorsActionMinor100);
-    font-weight: 700;
-    padding: 12px 24px;
+    font: var(--typographyAnchorNavLabelM);
+    padding: 12px var(--spacing150);
 
     &:focus {
       outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
