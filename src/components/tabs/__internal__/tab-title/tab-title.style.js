@@ -438,21 +438,19 @@ const StyledTabTitle = styled.button`
       alternateStyling &&
       css`
         &:focus {
-          background-color: var(--colorsActionMinor100);
+          background-color: var(--colorsActionMinor200);
         }
 
         &:hover {
           background-color: ${isTabSelected
-            ? "var(--colorsActionMinor100)"
-            : "var(--colorsActionMinor150)"};
+            ? "var(--colorsActionMinor200)"
+            : "var(--colorsActionMinor250)"};
         }
 
         ${isTabSelected &&
         css`
-          background-color: var(--colorsActionMinor100);
+          background-color: var(--colorsActionMinor200);
         `}
-
-        ${isInSidebar && `padding-bottom: 1px;`}
       `
     }
   `}
