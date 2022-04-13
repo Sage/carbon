@@ -348,6 +348,32 @@ describe("ActionPopover", () => {
     );
   });
 
+  it("when menu is opened, menu item is rendered with the correct font", () => {
+    const children = [
+      <ActionPopoverItem
+        href="#"
+        download
+        key="item-1"
+        icon="pdf"
+        {...{ onClick: onClickWrapper("pdf") }}
+        disabled
+      >
+        foobar
+      </ActionPopoverItem>,
+    ];
+    render({ children });
+    openMenu();
+
+    const item = wrapper.find("a[role='menuitem']");
+    expect(item.text()).toBe("foobar");
+    assertStyleMatch(
+      {
+        font: "var(--typographyActionPopoverMenuItemM)",
+      },
+      item
+    );
+  });
+
   describe.each([
     ["Click handlers", "Clicking", (item) => item.simulate("click")],
     [

@@ -27,17 +27,16 @@ const MenuItemFactory = (button) => styled(button)`
   box-sizing: border-box;
   padding: 0 var(--spacing150);
   position: relative;
-  line-height: 40px;
   white-space: nowrap;
   user-select: none;
   display: flex;
   align-items: center;
   border: none;
+  height: var(--sizing500);
   width: 100%;
   color: ${({ disabled }) =>
     disabled ? "var(--colorsUtilityYin030)" : "var(--colorsUtilityYin090)"};
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typographyActionPopoverMenuItemM);
   justify-content: ${({ horizontalAlignment }) =>
     horizontalAlignment === "left" ? "flex-start" : "flex-end"};
   &:focus,
