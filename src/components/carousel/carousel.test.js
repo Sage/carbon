@@ -213,7 +213,7 @@ context("Testing Carousel component", () => {
       slide(index).should("have.text", title);
     });
 
-    it("should call click action when clicked", () => {
+    it("should call onSlideChange when clicked", () => {
       const callback = cy.stub();
 
       CypressMountWithProviders(<CarouselComponent onSlideChange={callback} />);
