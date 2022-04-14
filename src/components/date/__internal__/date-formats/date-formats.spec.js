@@ -1,7 +1,110 @@
 import getFormatData from ".";
 
-const euLocales = ["en-GB", "en-ZA", "fr-FR", "es", "fr-CA", "de"];
+const euLocales = [
+  "en-GB",
+  "en-ZA",
+  "fr-FR",
+  "es",
+  "fr-CA",
+  "de",
+  "pl",
+  "de-AT",
+  "it-IT",
+  "it-CH",
+  "de-CH",
+];
 const naLocales = ["en-US", "en-CA"];
+
+const cnFormats = [
+  "M",
+  "M d",
+  "Md",
+  "M.d",
+  "M,d",
+  "M-d",
+  "M/d",
+  "M:d",
+  "MM",
+  "M dd",
+  "Mdd",
+  "M.dd",
+  "M,dd",
+  "M-dd",
+  "M/dd",
+  "M:dd",
+  "MM d",
+  "MMd",
+  "MM.d",
+  "MM,d",
+  "MM-d",
+  "MM/d",
+  "MM:d",
+  "MM dd",
+  "MMdd",
+  "MM.dd",
+  "MM,dd",
+  "MM-dd",
+  "MM/dd",
+  "MM:dd",
+  "yy d M",
+  "yydM",
+  "yy.d.M",
+  "yy,d,M",
+  "yy-d-M",
+  "yy/d/M",
+  "yy:d:M",
+  "yy d MM",
+  "yydMM",
+  "yy.d.MM",
+  "yy,d,MM",
+  "yy-d-MM",
+  "yy/d/MM",
+  "yy:d:MM",
+  "yy dd M",
+  "yyddM",
+  "yy.dd.M",
+  "yy,dd,M",
+  "yy-dd-M",
+  "yy/dd/M",
+  "yy:dd:M",
+  "yy dd MM",
+  "yyddMM",
+  "yy.dd.MM",
+  "yy,dd,MM",
+  "yy-dd-MM",
+  "yy/dd/MM",
+  "yy:dd:MM",
+  "yyyy d M",
+  "yyyydM",
+  "yyyy.d.M",
+  "yyyy,d,M",
+  "yyyy-d-M",
+  "yyyy/d/M",
+  "yyyy:d:M",
+  "yyyy d MM",
+  "yyyydMM",
+  "yyyy.d.MM",
+  "yyyy,d,MM",
+  "yyyy-d-MM",
+  "yyyy/d/MM",
+  "yyyy:d:MM",
+  "yyyy dd M",
+  "yyyyddM",
+  "yyyy.dd.M",
+  "yyyy,dd,M",
+  "yyyy-dd-M",
+  "yyyy/dd/M",
+  "yyyy:dd:M",
+  "yyyy dd MM",
+  "yyyyddMM",
+  "yyyy.dd.MM",
+  "yyyy,dd,MM",
+  "yyyy-dd-MM",
+  "yyyy/dd/MM",
+  "yyyy:dd:MM",
+];
+
+const cnLocales = ["zh", "zh-CN", "zh-HK", "zh-TW"];
 
 const euFormats = [
   "d M yyyy",
@@ -181,37 +284,56 @@ const naFormats = [
   "MM:dd:yyyy",
 ];
 
-const formatMap = [...euLocales, ...naLocales].reduce((acc, code) => {
-  if (code === "de") {
+const formatMap = [...euLocales, ...naLocales, ...cnLocales].reduce(
+  (acc, code) => {
+    if (code.startsWith("de") || code.startsWith("pl")) {
+      return {
+        ...acc,
+        [code]: "dd.MM.yyyy",
+      };
+    }
+
+    if (["en-CA", "en-US"].includes(code)) {
+      return {
+        ...acc,
+        [code]: "MM/dd/yyyy",
+      };
+    }
+
+    if (code.startsWith("zh")) {
+      return {
+        ...acc,
+        [code]: "yyyy-MM-dd",
+      };
+    }
+
     return {
       ...acc,
-      [code]: "dd.MM.yyyy",
+      [code]: "dd/MM/yyyy",
     };
+  },
+  {}
+);
+
+const getExpectedFormatForLocale = (locale) => {
+  if (naLocales.includes(locale)) {
+    return naFormats;
   }
 
-  if (["en-CA", "en-US"].includes(code)) {
-    return {
-      ...acc,
-      [code]: "MM/dd/yyyy",
-    };
+  if (cnLocales.includes(locale)) {
+    return cnFormats;
   }
 
-  return {
-    ...acc,
-    [code]: "dd/MM/yyyy",
-  };
-}, {});
+  return euFormats;
+};
 
-describe.each([...euLocales, ...naLocales])(
+describe.each([...euLocales, ...naLocales, ...cnLocales])(
   "getFormatData for `%s` returns",
   (locale) => {
     const { formats, format } = getFormatData({ code: locale });
 
     it("the expected formats", () => {
-      const expectedFormats = naLocales.includes(locale)
-        ? naFormats
-        : euFormats;
-
+      const expectedFormats = getExpectedFormatForLocale(locale);
       expect(
         expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
           formats.length === expectedFormats.length

@@ -34,6 +34,24 @@ const NA_FORMATS = [
   "MM dd yyyy",
 ];
 
+// The order of this array is important
+const CN_FORMATS = [
+  "M",
+  "M d",
+  "MM",
+  "M dd",
+  "MM d",
+  "MM dd",
+  "yy d M",
+  "yy d MM",
+  "yy dd M",
+  "yy dd MM",
+  "yyyy d M",
+  "yyyy d MM",
+  "yyyy dd M",
+  "yyyy dd MM",
+];
+
 const SEPARATORS = ["", ".", ",", "-", "/", ":"];
 
 const generateFormats = (formatArray) =>
@@ -55,10 +73,19 @@ const getFormatData = ({ code }) => {
     };
   }
 
-  if (code === "de") {
+  if (
+    ["de", "de-DE", "de-DE", "de-CH", "de-AT", "pl", "pl-PL"].includes(code)
+  ) {
     return {
       format: "dd.MM.yyyy",
       formats: generateFormats(EU_FORMATS),
+    };
+  }
+
+  if (["zh", "zh-CN", "zh-HK", "zh-TW"].includes(code)) {
+    return {
+      format: "yyyy-MM-dd",
+      formats: generateFormats(CN_FORMATS),
     };
   }
 
