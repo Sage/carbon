@@ -1,0 +1,160 @@
+/* eslint-disable react/prop-types */
+import * as React from "react";
+import ButtonBar from ".";
+import Button from "../button";
+import {
+  BUTTON_BAR_SIZES,
+  BUTTON_BAR_ICON_POSITIONS,
+} from "./button-bar.config";
+
+import { buttonDataComponent } from "../../../cypress/locators/button";
+
+import { icon } from "../../../cypress/locators";
+import { positionOfElement, keyCode } from "../../../cypress/support/helper";
+import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+
+const ButtonBarCustom = ({ onClick, ...props }) => {
+  return (
+    <ButtonBar onClick={onClick} {...props} ml={2} mt={2}>
+      <Button>Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </ButtonBar>
+  );
+};
+
+const ButtonBarIconPosition = ({ iconPositionProp, ...props }) => {
+  return (
+    <ButtonBar {...props} size={BUTTON_BAR_SIZES[0]} ml={2} mt={2}>
+      <Button iconType="csv">{iconPositionProp} Button</Button>
+      <Button iconType="pdf">{iconPositionProp} Button</Button>
+      <Button iconType="delete">{iconPositionProp} Button</Button>
+    </ButtonBar>
+  );
+};
+
+context("Test for Button-Bar component", () => {
+  describe("check props for Button-Bar component", () => {
+    it.each([
+      [BUTTON_BAR_SIZES[0], 32],
+      [BUTTON_BAR_SIZES[1], 40],
+      [BUTTON_BAR_SIZES[2], 48],
+    ])("should set size to %s for a Button-Bar", (size, px) => {
+      CypressMountWithProviders(<ButtonBarCustom size={size} />);
+
+      buttonDataComponent().eq(0).should("have.css", "min-height", `${px}px`);
+      buttonDataComponent().eq(1).should("have.css", "min-height", `${px}px`);
+      buttonDataComponent().eq(2).should("have.css", "min-height", `${px}px`);
+    });
+
+    it.each([
+      [BUTTON_BAR_ICON_POSITIONS[0], "right"],
+      [BUTTON_BAR_ICON_POSITIONS[1], "left"],
+    ])(
+      "should set position to %s for icon in a Button-Bar",
+      (iconPosition, margin) => {
+        CypressMountWithProviders(
+          <ButtonBarIconPosition iconPosition={iconPosition} />
+        );
+
+        icon().should("have.css", `margin-${margin}`, "8px");
+      }
+    );
+
+    it("should render Button-Bar with full width", () => {
+      CypressMountWithProviders(<ButtonBarCustom fullWidth />);
+
+      buttonDataComponent()
+        .parent()
+        .should("have.css", "width")
+        .and("eq", "1350px");
+    });
+
+    describe("check children type for Button-Bar", () => {
+      const error =
+        "Warning: Failed prop type: ButtonBar accepts only `Button` or `IconButton` elements.    in ButtonBar";
+      let errors;
+
+      beforeEach(() => {
+        cy.window().then((win) => {
+          errors = cy.spy(win.console, "error");
+        });
+      });
+
+      it("should throw a console error when invalid children are used", () => {
+        CypressMountWithProviders(
+          <ButtonBar>
+            <div />
+          </ButtonBar>
+        );
+
+        buttonDataComponent().should("not.exist");
+        cy.wrap(errors).then(() => {
+          const consoleError = errors.getCalls()[0].args[0];
+          const consoleErrorTrim = consoleError.replace("\n", "");
+          expect(consoleErrorTrim).to.equal(error);
+        });
+      });
+    });
+
+    describe("check events for Button-Bar component", () => {
+      it("should call onClick event", () => {
+        const callback = cy.stub();
+
+        CypressMountWithProviders(<ButtonBarCustom onClick={callback} />);
+
+        buttonDataComponent()
+          .eq(positionOfElement("first"))
+          .click({ force: true })
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      });
+
+      it("should trigger onBlur event", () => {
+        const callback = cy.stub();
+
+        CypressMountWithProviders(<ButtonBarCustom onBlur={callback} />);
+
+        buttonDataComponent()
+          .eq(positionOfElement("second"))
+          .focus()
+          .blur({ force: true })
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      });
+
+      it("should call the onKeyDown", () => {
+        const callback = cy.stub();
+
+        CypressMountWithProviders(<ButtonBarCustom onKeyDown={callback} />);
+
+        buttonDataComponent()
+          .eq(positionOfElement("first"))
+          .trigger("keydown", { force: true }, keyCode("rightarrow"))
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      });
+
+      it("should trigger onFocus event", () => {
+        const callback = cy.stub();
+
+        CypressMountWithProviders(<ButtonBarCustom onFocus={callback} />);
+
+        buttonDataComponent()
+          .eq(positionOfElement("third"))
+          .focus()
+          .blur({ force: true })
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      });
+    });
+  });
+});
