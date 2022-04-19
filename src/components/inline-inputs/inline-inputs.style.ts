@@ -3,6 +3,7 @@ import InputPresentation from "../../__internal__/input/input-presentation.style
 
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import baseTheme from "../../style/themes/base";
+import { InlineInputsProps } from "./inline-inputs.component";
 
 const spacings = {
   none: 0,
@@ -15,21 +16,25 @@ const spacings = {
   "extra-large": 40,
 };
 
-const StyledInlineInput = styled.div`
+const StyledInlineInput = styled.div<Pick<InlineInputsProps, "gutter">>`
   flex: 1;
 
   ${({ gutter }) =>
+    gutter &&
     css`
       margin-bottom: 0;
       padding-left: ${spacings[gutter]}px;
     `}
 `;
 
-const StyledContentContainer = styled.div`
+const StyledContentContainer = styled.div<
+  Pick<InlineInputsProps, "gutter" | "inputWidth">
+>`
   display: flex;
   flex: ${({ inputWidth }) => (inputWidth ? `0 0 ${inputWidth}%` : 1)};
 
   ${({ gutter }) =>
+    gutter &&
     css`
       margin-bottom: 0;
       margin-left: -${spacings[gutter]}px;
@@ -43,7 +48,9 @@ const StyledContentContainer = styled.div`
     `}
 `;
 
-const StyledInlineInputs = styled.div`
+const StyledInlineInputs = styled.div<
+  Pick<InlineInputsProps, "gutter" | "labelWidth">
+>`
   display: flex;
   align-items: center;
 

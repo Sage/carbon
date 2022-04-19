@@ -29,7 +29,7 @@ export interface LabelPropTypes extends ValidationPropTypes {
   /** Whether to show the validation icon */
   useValidationIcon?: boolean;
   /** A string that represents the ID of another form element */
-  htmlFor: string;
+  htmlFor?: string;
   /** Padding right, integer multiplied by base spacing constant (8) */
   pr?: 1 | 2;
   /** Padding left, integer multiplied by base spacing constant (8) */
