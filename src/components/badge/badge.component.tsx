@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
   StyledBadgeWrapper,
   StyledButton,
@@ -7,7 +6,16 @@ import {
   StyledCounter,
 } from "./badge.style";
 
-const Badge = ({ children, counter, onClick }) => {
+export interface BadgeProps {
+  /** The badge will be added to this element */
+  children: React.ReactNode;
+  /** The number rendered in the badge component */
+  counter?: string | number;
+  /** Callback fired when badge is clicked */
+  onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
+}
+
+export const Badge = ({ children, counter = 0, onClick }: BadgeProps) => {
   return (
     <StyledBadgeWrapper>
       {counter > 0 && (
@@ -25,15 +33,6 @@ const Badge = ({ children, counter, onClick }) => {
       {children}
     </StyledBadgeWrapper>
   );
-};
-
-Badge.propTypes = {
-  /** The badge will be added to this element */
-  children: PropTypes.node.isRequired,
-  /** The number rendered in the badge component */
-  counter: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /** Callback fired when badge is clicked */
-  onClick: PropTypes.func,
 };
 
 export default Badge;
