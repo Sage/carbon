@@ -1,15 +1,15 @@
 import React from "react";
 import { mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
-import { Input } from ".";
+import Input, { InputProps } from "./input.component";
 import StyledInput from "./input.style";
 
-import { InputContext } from "../input-behaviour";
+import { InputContext, InputContextProps } from "../input-behaviour";
 
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
 describe("Input", () => {
-  let container;
+  let container: HTMLDivElement | null;
   beforeEach(() => {
     container = document.createElement("div");
     container.id = "enzymeContainer";
@@ -24,7 +24,7 @@ describe("Input", () => {
     container = null;
   });
 
-  const renderMount = (props, context) => {
+  const renderMount = (props: InputProps = {}, context?: InputContextProps) => {
     let component = <Input {...props} />;
 
     if (context) {
@@ -68,8 +68,11 @@ describe("Input", () => {
 
   it("sends the input ref to the inputRef callback", () => {
     const inputRef = jest.fn();
-    renderMount({ inputRef });
+    const contextInputRef = jest.fn();
+
+    renderMount({ inputRef }, { inputRef: contextInputRef });
     expect(inputRef).toHaveBeenCalled();
+    expect(contextInputRef).toHaveBeenCalled();
   });
 
   it("does not fail onBlur or Focus if none are defined", () => {
@@ -104,10 +107,11 @@ describe("Input", () => {
         const wrapper = renderMount({ onChangeDeferred: onChangeDeferredProp });
         jest.useFakeTimers();
         wrapper.find("input").simulate("change");
-        jest.runTimersToTime(500);
+        jest.advanceTimersByTime(500);
         expect(onChangeDeferredProp).not.toHaveBeenCalled();
-        jest.runTimersToTime(750);
+        jest.advanceTimersByTime(750);
         expect(onChangeDeferredProp).toHaveBeenCalled();
+        wrapper.find("input").simulate("change");
       });
     });
     describe("with deferTimeout prop", () => {
@@ -120,9 +124,9 @@ describe("Input", () => {
         });
         jest.useFakeTimers();
         wrapper.find("input").simulate("change");
-        jest.runTimersToTime(50);
+        jest.advanceTimersByTime(50);
         expect(onChangeDeferredProp).not.toHaveBeenCalled();
-        jest.runTimersToTime(100);
+        jest.advanceTimersByTime(100);
         expect(onChangeDeferredProp).toHaveBeenCalled();
       });
     });
@@ -142,23 +146,25 @@ describe("Input", () => {
 
   it("focuses the input element if `autoFocus` prop passed", () => {
     const wrapper = renderMount({ autoFocus: true });
-    expect(wrapper.find("input").getDOMNode()).toEqual(document.activeElement);
+    expect(
+      wrapper.find("input").getDOMNode() === document.activeElement
+    ).toEqual(true);
   });
 
   describe("select text on focus", () => {
     afterEach(() => {
       jest.useRealTimers();
     });
-    const focusWith = (value, leftPos, rightPos) => {
+
+    const focusWith = (value: string, leftPos: number, rightPos: number) => {
       jest.useFakeTimers();
       const wrapper = renderMount({ value });
       const inputComponent = wrapper.find('input[type="text"]');
-      const inputElement = inputComponent.instance();
-      spyOn(inputElement, "setSelectionRange");
+      const inputElement = (inputComponent.instance() as unknown) as HTMLInputElement;
+      jest.spyOn(inputElement, "setSelectionRange");
       inputElement.selectionStart = leftPos;
       inputElement.selectionEnd = rightPos;
-      inputComponent.simulate("focus");
-      inputComponent.getDOMNode().focus();
+      (inputComponent.getDOMNode() as HTMLInputElement).focus();
       jest.runAllTimers();
       return inputElement;
     };
@@ -192,8 +198,8 @@ describe("Input", () => {
       jest.useFakeTimers();
       const wrapper = renderMount({ type: "radio" });
       const inputComponent = wrapper.find('input[type="radio"]');
-      const inputElement = inputComponent.instance();
-      spyOn(inputElement, "setSelectionRange");
+      const inputElement = (inputComponent.instance() as unknown) as HTMLInputElement;
+      jest.spyOn(inputElement, "setSelectionRange");
       inputComponent.simulate("focus");
       jest.runAllTimers();
       return inputElement;
