@@ -87,6 +87,16 @@ describe("Accordion", () => {
     render();
   });
 
+  it("renders content with correct font", () => {
+    render();
+    assertStyleMatch(
+      {
+        font: "var(--typographyAccordionParagraphM)",
+      },
+      wrapper.find("div[data-element='accordion-content']")
+    );
+  });
+
   it("renders content without paddings if `disableCustomPadding` is applied", () => {
     render({ disableContentPadding: true });
 
@@ -95,6 +105,26 @@ describe("Accordion", () => {
         padding: "0",
       },
       wrapper.find(StyledAccordionContent)
+    );
+  });
+
+  it("when title prop is a string, renders title with correct font", () => {
+    render();
+    assertStyleMatch(
+      {
+        font: "var(--typographyAccordionTitleM)",
+      },
+      wrapper.find("h3[data-element='accordion-title']")
+    );
+  });
+
+  it("when title prop is a string and size is small, override title font to be smaller", () => {
+    render({ size: "small" });
+    assertStyleMatch(
+      {
+        fontSize: "14px",
+      },
+      wrapper.find("h3[data-element='accordion-title']")
     );
   });
 
@@ -376,6 +406,7 @@ describe("Accordion", () => {
       assertStyleMatch(
         {
           marginTop: "8px",
+          font: "var(--typographyAccordionSubtitleM)",
         },
         subTitle
       );
@@ -478,11 +509,10 @@ describe("Accordion", () => {
       assertStyleMatch(
         {
           boxSizing: "border-box",
-          fontWeight: "600",
           textDecoration: "none",
-          fontSize: "var(--fontSizes100)",
           minHeight: "var(--spacing500)",
           color: "var(--colorsActionMajor500)",
+          font: "var(--typographyButtonLabelM)",
           width: "150px",
         },
         wrapper

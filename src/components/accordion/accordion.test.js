@@ -18,7 +18,7 @@ import { positionOfElement, keyCode } from "../../../cypress/support/helper";
 const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 const sizes = [
   ["small", "24px"],
-  ["large", "46px"],
+  ["large", "54px"],
 ];
 const accWidths = [["700px"], ["900px"], ["1100px"], ["1300px"]];
 

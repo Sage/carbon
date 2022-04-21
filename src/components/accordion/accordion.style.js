@@ -44,14 +44,18 @@ const StyledAccordionContainer = styled.div`
 `;
 
 const StyledAccordionTitle = styled.h3`
-  font-size: ${({ size }) => (size === "small" ? "14" : "20")}px;
-  font-weight: ${({ size }) => (size === "small" ? 700 : 900)};
-  line-height: 1;
+  font: var(--typographyAccordionTitleM);
+  ${({ size }) =>
+    size === "small" &&
+    css`
+      font-size: 14px;
+    `}
   user-select: none;
   margin: 0;
 `;
 
 const StyledAccordionSubTitle = styled.span`
+  font: var(--typographyAccordionSubtitleM);
   margin-top: 8px;
 `;
 
@@ -128,11 +132,9 @@ const StyledAccordionTitleContainer = styled.div`
     ${buttonHeading &&
     css`
       box-sizing: border-box;
-      font-weight: 600;
       text-decoration: none;
-      font-size: var(--fontSizes100);
       min-height: var(--spacing500);
-
+      font: var(--typographyButtonLabelM);
       color: var(--colorsActionMajor500);
 
       ${!hasButtonProps &&
@@ -183,6 +185,7 @@ const StyledAccordionContentContainer = styled.div`
 `;
 
 const StyledAccordionContent = styled.div`
+  font: var(--typographyAccordionParagraphM);
   padding: var(--spacing300);
   padding-top: 0;
   overflow: hidden;
