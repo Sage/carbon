@@ -149,7 +149,8 @@
         "jest/expect-expect": "off",
         "react/prefer-stateless-function": "off",
         "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["error"]
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "jest-dom/prefer-to-have-attribute": "off"
       }
     }
   ]

@@ -1,9 +1,14 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
+import { LinkProps } from "./link.component";
 
-const StyledLink = styled.span`
+interface StyledLinkProps
+  extends Pick<LinkProps, "isSkipLink" | "iconAlign" | "disabled"> {
+  hasContent: boolean;
+}
+
+const StyledLink = styled.span<StyledLinkProps>`
   ${({ isSkipLink, theme, iconAlign, hasContent, disabled }) => css`
     display: inline-block;
 
@@ -87,11 +92,6 @@ StyledLink.defaultProps = {
   theme: baseTheme,
   disabled: false,
   hasContent: true,
-};
-
-StyledLink.propTypes = {
-  disabled: PropTypes.bool,
-  hasContent: PropTypes.bool,
 };
 
 const StyledContent = styled.span``;
