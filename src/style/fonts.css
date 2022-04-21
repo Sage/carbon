@@ -1,0 +1,30 @@
+@font-face{
+  font-family: "Sage UI";
+  src: url('https://fonts.sage.com/Sage_UI-Regular.woff2') format("woff2"), url('https://fonts.sage.com/Sage_UI-Regular.woff') format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face{
+  font-family: "Sage UI";
+  src: url('https://fonts.sage.com/Sage_UI-Medium.woff2') format("woff2"), url('https://fonts.sage.com/Sage_UI-Medium.woff') format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face{
+  font-family: "Sage UI";
+  src: url('https://fonts.sage.com/Sage_UI-Bold.woff2') format("woff2"), url('https://fonts.sage.com/Sage_UI-Bold.woff') format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "CarbonIcons";
+  src: url("./assets/carbon-icons-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}

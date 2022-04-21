@@ -3,7 +3,7 @@ import { withLocaleSelector } from "./locale-selector";
 import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
 import { configureActions } from "@storybook/addon-actions";
 
-import "./style/fonts.css";
+import "../src/style/fonts.css";
 import "./style/story-root.css";
 import "cypress-storybook/react";
 

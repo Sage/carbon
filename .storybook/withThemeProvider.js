@@ -11,7 +11,6 @@ import {
   sageTheme,
 } from "../src/style/themes";
 import { config } from "react-transition-group";
-import WebFont from "webfontloader";
 
 const themes = [mintTheme, aegeanTheme, noTheme, sageTheme].reduce(
   (themesObject, theme) => {
@@ -59,22 +58,35 @@ const withThemeProvider = makeDecorator({
     // Disable transitions
     config.disabled = isChromaticBuild;
 
-    // Only render the story once the fonts are loaded
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-      WebFont.load({
-        custom: {
-          families: ["CarbonIcons", "Lato:n4,n7,n9,i4,i7,i9"],
-        },
-        classes: false,
-        active: () => setLoading(false),
-        inactive: () => setLoading(new Error("Unable to load font files.")),
-      });
-    }, []);
+    const shouldLoadFonts = isChromatic() && document.fonts;
+    const [loading, setLoading] = useState(shouldLoadFonts);
 
-    if (loading instanceof Error) {
-      throw loading;
-    }
+    useEffect(() => {
+      if (!shouldLoadFonts) {
+        return;
+      }
+
+      const fonts = [
+        "400 1em Sage UI",
+        "700 1em Sage UI",
+        "900 1em Sage UI",
+        "1em CarbonIcons",
+      ];
+
+      // These fonts are pre-loaded but we want to wait until they're finished loading
+      Promise.all(fonts.map((fontName) => document.fonts.load(fontName))).then(
+        (results) => {
+          const firstError = results.findIndex((r) => r.length === 0);
+          if (firstError >= 0) {
+            setLoading(() => {
+              throw new Error(`Font "${fonts[firstError]}" failed to load.`);
+            });
+          } else {
+            setLoading(false);
+          }
+        }
+      );
+    }, []);
 
     if (loading) {
       return null;

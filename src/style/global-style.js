@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
   body {
     color: rgba(0, 0, 0, 0.9);
-    font-family: 'Lato';
+    font-family: "Sage UI", sans-serif;
     font-size: 14px;
     margin: 0px;
     padding: 0px;
