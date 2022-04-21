@@ -3,6 +3,7 @@ import Accordion from "./accordion.component";
 import AccordionGroup from "./accordion-group/accordion-group.component";
 import Checkbox from "../checkbox/checkbox.component";
 import Box from "../box/box.component";
+import Button from "../button";
 import Textbox from "../textbox/textbox.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
@@ -171,6 +172,37 @@ const AccordionGroupComponent = () => {
         <div>Content</div>
       </Accordion>
     </AccordionGroup>
+  );
+};
+
+const DynamicContent = () => {
+  const [contentCount, setContentCount] = React.useState(3);
+  const modifyContentCount = (modifier) => {
+    if (modifier === 1) {
+      setContentCount(contentCount + 1);
+    }
+    if (modifier === -1 && contentCount > 0) {
+      setContentCount(contentCount - 1);
+    }
+  };
+  return (
+    <>
+      <Button data-element="add-content" onClick={() => modifyContentCount(1)}>
+        Add content
+      </Button>
+      <Button
+        data-element="remove-content"
+        onClick={() => modifyContentCount(-1)}
+        ml={2}
+      >
+        Remove content
+      </Button>
+      <Accordion title="Title" defaultExpanded>
+        {Array.from({ length: contentCount }).map((_, index) => (
+          <div key={index}>Content</div>
+        ))}
+      </Accordion>
+    </>
   );
 };
 
@@ -503,6 +535,21 @@ context("Testing Accordion component", () => {
         .parent()
         .should("have.css", "outline", "rgb(255, 181, 0) solid 3px")
         .and("be.visible");
+    });
+  });
+
+  describe("should change content height when children change", () => {
+    it("should have proper height", () => {
+      CypressMountWithProviders(<DynamicContent />);
+      accordionContent().parent().should("have.css", "height", "78px");
+      cy.get('[data-element="add-content"]').click();
+      accordionContent().parent().should("have.css", "height", "96px");
+      cy.get('[data-element="add-content"]').click();
+      accordionContent().parent().should("have.css", "height", "114px");
+      cy.get('[data-element="remove-content"]').click();
+      accordionContent().parent().should("have.css", "height", "96px");
+      cy.get('[data-element="remove-content"]').click();
+      accordionContent().parent().should("have.css", "height", "78px");
     });
   });
 });
