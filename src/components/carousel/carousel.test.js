@@ -93,7 +93,7 @@ const CarouselComponent = ({ ...props }) => {
 };
 
 context("Testing Carousel component", () => {
-  describe("Should render Carousel component", () => {
+  describe("should render Carousel component", () => {
     it.each([
       ["0", "Slide 1"],
       ["1", "Full clickable slide"],
@@ -101,7 +101,7 @@ context("Testing Carousel component", () => {
       ["3", "Slide 4"],
       ["4", "Slide 5"],
     ])("should verify slide %s title is %s", (index, title) => {
-      CypressMountWithProviders(<CarouselComponent />);
+      CypressMountWithProviders(<CarouselComponent slideIndex={index} />);
 
       slide(index).should("have.text", title);
     });
@@ -150,52 +150,45 @@ context("Testing Carousel component", () => {
       nextArrowButton().should("be.disabled").and("have.attr", "disabled");
     });
 
-    it.each([[true], [false]])(
+    it.each([
+      [true, "exist"],
+      [false, "not.exist"],
+    ])(
       "should verify slide Selector is enabled/disabled when 'enableSlideSelector' is set to %s",
-      (isEnabled) => {
+      (isEnabled, state) => {
         CypressMountWithProviders(
           <CarouselComponent enableSlideSelector={isEnabled} />
         );
 
-        if (isEnabled === false) {
-          slideSelector().should("not.exist");
-        } else {
-          slideSelector().should("exist");
-        }
+        slideSelector().should(state);
       }
     );
 
-    it.each([[true], [false]])(
+    it.each([
+      [true, "exist"],
+      [false, "not.exist"],
+    ])(
       "should verify left arrow button is enabled/disabled when 'enablePreviousButton' is set to %s",
-      (isEnabled) => {
+      (isEnabled, state) => {
         CypressMountWithProviders(
           <CarouselComponent enablePreviousButton={isEnabled} slideIndex={2} />
         );
 
-        if (isEnabled === false) {
-          previousArrowButton().should("not.exist");
-        } else {
-          previousArrowButton()
-            .should("have.attr", "type", "button")
-            .and("not.have.attr", "disabled-type", "button");
-        }
+        previousArrowButton().should(state);
       }
     );
 
-    it.each([[true], [false]])(
+    it.each([
+      [true, "exist"],
+      [false, "not.exist"],
+    ])(
       "should verify right arrow button is enabled/disabled when 'enableNextButton' is set to %s",
-      (isEnabled) => {
+      (isEnabled, state) => {
         CypressMountWithProviders(
           <CarouselComponent enableNextButton={isEnabled} />
         );
 
-        if (isEnabled === false) {
-          nextArrowButton().should("not.exist");
-        } else {
-          nextArrowButton()
-            .should("have.attr", "type", "button")
-            .and("not.have.attr", "disabled-type", "button");
-        }
+        nextArrowButton().should(state);
       }
     );
 
@@ -213,7 +206,20 @@ context("Testing Carousel component", () => {
       slide(index).should("have.text", title);
     });
 
-    it("should call onSlideChange when clicked", () => {
+    it("should call onSlideChange when next arrow clicked", () => {
+      const callback = cy.stub();
+
+      CypressMountWithProviders(<CarouselComponent onSlideChange={callback} />);
+
+      nextArrowButton()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          expect(callback).to.have.been.calledOnce;
+        });
+    });
+
+    it("should call onSlideChange when previous arrow clicked", () => {
       const callback = cy.stub();
 
       CypressMountWithProviders(<CarouselComponent onSlideChange={callback} />);
