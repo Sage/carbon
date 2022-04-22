@@ -76,9 +76,7 @@ const TextEditorCustomValidation = ({ ...props }) => {
         labelText="Text Editor Label"
         characterLimit={limit}
         error={limit - contentLength <= 5 ? "There is an error" : undefined}
-        warning={
-          limit - contentLength <= 10 ? "There is an warning" : undefined
-        }
+        warning={limit - contentLength <= 10 ? "There is a warning" : undefined}
         info={limit - contentLength <= 15 ? "There is an info" : undefined}
         {...props}
       />
@@ -165,13 +163,6 @@ context("Test for TextEditor component", () => {
       }
     );
 
-    it("should focus bold button using Tab keyboard", () => {
-      CypressMountWithProviders(<TextEditorCustom />);
-      textEditorInput().focus();
-      cy.focused().tab();
-      textEditorToolbar("bold").should("be.focused");
-    });
-
     it.each([
       ["bold", 0],
       ["italic", 1],
@@ -234,7 +225,7 @@ context("Test for TextEditor component", () => {
       ["bullet-list", 2],
       ["number-list", 3],
     ])(
-      "should activate %s button using Enter keyboard key",
+      "should activate %s button using Space keyboard key",
       (buttonType, times) => {
         CypressMountWithProviders(<TextEditorCustom />);
         textEditorInput().focus().tab();
@@ -257,10 +248,7 @@ context("Test for TextEditor component", () => {
 
       innerTextLink()
         .should("have.attr", "target", "_blank")
-        .and("have.attr", "href", linkText)
-        .then((link) => {
-          cy.request(link.prop("href")).its("status").should("equal", 200);
-        });
+        .and("have.attr", "href", linkText);
       innerText().should("have.text", linkText);
     });
 
@@ -331,7 +319,7 @@ context("Test for TextEditor component", () => {
       });
 
       // created an issue FE-5139 to fix this
-      it.skip("should call onChange event for TextEditor", () => {
+      it.skip("should call onChange callback when a type event is triggered", () => {
         CypressMountWithProviders(
           <TextEditorCustom text={text} onChange={callback} />
         );
@@ -344,7 +332,7 @@ context("Test for TextEditor component", () => {
           });
       });
 
-      it("should call onLinkAdded event when link is passed to the TextEditor", () => {
+      it("should call onLinkAdded callback when a valid url is detected by TextEditor", () => {
         CypressMountWithProviders(<TextEditorCustom onLinkAdded={callback} />);
 
         textEditorInput()

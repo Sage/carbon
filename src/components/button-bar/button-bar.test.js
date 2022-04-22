@@ -98,9 +98,13 @@ context("Test for Button-Bar component", () => {
     });
 
     describe("check events for Button-Bar component", () => {
-      it("should call onClick event", () => {
-        const callback = cy.stub();
+      let callback;
 
+      beforeEach(() => {
+        callback = cy.stub();
+      });
+
+      it("should call onClick callback when a click event is triggered", () => {
         CypressMountWithProviders(<ButtonBarCustom onClick={callback} />);
 
         buttonDataComponent()
@@ -112,9 +116,7 @@ context("Test for Button-Bar component", () => {
           });
       });
 
-      it("should trigger onBlur event", () => {
-        const callback = cy.stub();
-
+      it("should call onBlur callback when a blur event is triggered", () => {
         CypressMountWithProviders(<ButtonBarCustom onBlur={callback} />);
 
         buttonDataComponent()
@@ -127,9 +129,7 @@ context("Test for Button-Bar component", () => {
           });
       });
 
-      it("should call the onKeyDown", () => {
-        const callback = cy.stub();
-
+      it("should call onKeyDown callback when a keydown event is triggered", () => {
         CypressMountWithProviders(<ButtonBarCustom onKeyDown={callback} />);
 
         buttonDataComponent()
@@ -141,9 +141,7 @@ context("Test for Button-Bar component", () => {
           });
       });
 
-      it("should trigger onFocus event", () => {
-        const callback = cy.stub();
-
+      it("should call onKonFocuseyDown callback when a focus event is triggered", () => {
         CypressMountWithProviders(<ButtonBarCustom onFocus={callback} />);
 
         buttonDataComponent()

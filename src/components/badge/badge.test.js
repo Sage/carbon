@@ -69,7 +69,7 @@ context("Testing Badge component", () => {
       badgeCrossIcon().should("be.visible");
     });
 
-    it("should call click action when clicked", () => {
+    it("should call onClick callback when a click event is triggered", () => {
       const callback = cy.stub();
 
       CypressMountWithProviders(

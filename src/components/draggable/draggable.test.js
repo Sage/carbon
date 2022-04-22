@@ -100,9 +100,13 @@ context("Test for Draggable component", () => {
   });
 
   describe("check events for Draggable component", () => {
-    it("should call getOrder event", () => {
-      const callback = cy.stub();
+    let callback;
 
+    beforeEach(() => {
+      callback = cy.stub();
+    });
+
+    it("should call getOrder callback when a drag&drop event is triggered", () => {
       CypressMountWithProviders(<DraggableCustom getOrder={callback} />);
 
       draggableItem("One").trigger("dragstart");
@@ -115,9 +119,7 @@ context("Test for Draggable component", () => {
         });
     });
 
-    it("should not call getOrder event when drag outside", () => {
-      const callback = cy.stub();
-
+    it("should call getOrder callback when a drag&drop event is triggered to outside", () => {
       CypressMountWithProviders(
         <DraggableDifferentContainers getOrder={callback} />
       );
