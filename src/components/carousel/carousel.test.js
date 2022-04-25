@@ -154,7 +154,7 @@ context("Testing Carousel component", () => {
       [true, "exist"],
       [false, "not.exist"],
     ])(
-      "should verify slide Selector is enabled/disabled when 'enableSlideSelector' is set to %s",
+      "should verify when 'enableSlideSelector' is set to %s that slide Selector does %s",
       (isEnabled, state) => {
         CypressMountWithProviders(
           <CarouselComponent enableSlideSelector={isEnabled} />
@@ -168,7 +168,7 @@ context("Testing Carousel component", () => {
       [true, "exist"],
       [false, "not.exist"],
     ])(
-      "should verify left arrow button is enabled/disabled when 'enablePreviousButton' is set to %s",
+      "should verify when 'enablePreviousButton' is set to %s that slide Selector does %s",
       (isEnabled, state) => {
         CypressMountWithProviders(
           <CarouselComponent enablePreviousButton={isEnabled} slideIndex={2} />
@@ -182,7 +182,7 @@ context("Testing Carousel component", () => {
       [true, "exist"],
       [false, "not.exist"],
     ])(
-      "should verify right arrow button is enabled/disabled when 'enableNextButton' is set to %s",
+      "should verify when 'enableNextButton' is set to %s that slide Selector does %s",
       (isEnabled, state) => {
         CypressMountWithProviders(
           <CarouselComponent enableNextButton={isEnabled} />
@@ -205,10 +205,16 @@ context("Testing Carousel component", () => {
 
       slide(index).should("have.text", title);
     });
+  });
+
+  describe("check events for Carousel component", () => {
+    let callback;
+
+    beforeEach(() => {
+      callback = cy.stub();
+    });
 
     it("should call onSlideChange when next arrow clicked", () => {
-      const callback = cy.stub();
-
       CypressMountWithProviders(<CarouselComponent onSlideChange={callback} />);
 
       nextArrowButton()
@@ -220,8 +226,6 @@ context("Testing Carousel component", () => {
     });
 
     it("should call onSlideChange when previous arrow clicked", () => {
-      const callback = cy.stub();
-
       CypressMountWithProviders(<CarouselComponent onSlideChange={callback} />);
 
       nextArrowButton()
