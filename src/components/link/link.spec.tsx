@@ -1,5 +1,5 @@
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 import Link from "./link.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
@@ -14,7 +14,7 @@ function renderLink(props = {}, renderer = mount) {
 }
 
 describe("Link", () => {
-  let wrapper;
+  let wrapper: ShallowWrapper | ReactWrapper;
 
   beforeEach(() => {
     wrapper = renderLink();
@@ -195,8 +195,8 @@ describe("Link", () => {
   });
 
   describe("when the `onKeyDown` event is triggered", () => {
-    let onClickFn;
-    let onKeyDownFn;
+    let onClickFn: () => jest.Mock;
+    let onKeyDownFn: () => jest.Mock;
 
     beforeEach(() => {
       onClickFn = jest.fn();
@@ -256,12 +256,12 @@ describe("Link", () => {
 
   describe("onClick prop", () => {
     it("should render a button element", () => {
-      wrapper = renderLink({ onClick: () => {} });
+      wrapper = renderLink({ onClick: () => null });
       expect(wrapper.find("button")).toBeTruthy();
     });
 
     it("should add a role of 'link' to the button", () => {
-      wrapper = renderLink({ onClick: () => {} });
+      wrapper = renderLink({ onClick: () => null });
       const anchor = wrapper.find("button").getDOMNode();
       expect(anchor.getAttribute("role")).toEqual("link");
     });
@@ -279,7 +279,7 @@ describe("Link", () => {
 
     describe("when rendered as an button element", () => {
       it("should set the aria attributes on the button", () => {
-        wrapper = renderLink({ onClick: () => {}, "aria-label": "test" });
+        wrapper = renderLink({ onClick: () => null, "aria-label": "test" });
         const anchor = wrapper.find("button").getDOMNode();
 
         expect(anchor.getAttribute("aria-label")).toEqual("test");
