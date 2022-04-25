@@ -975,7 +975,7 @@ describe("TabTitle", () => {
           wrapper = render({ alternateStyling: true, size }, mount);
           assertStyleMatch(
             {
-              backgroundColor: "var(--colorsActionMinor100)",
+              backgroundColor: "var(--colorsActionMinor200)",
             },
             wrapper.find(StyledTabTitle),
             { modifier: ":focus" }
@@ -983,7 +983,7 @@ describe("TabTitle", () => {
 
           assertStyleMatch(
             {
-              backgroundColor: "var(--colorsActionMinor150)",
+              backgroundColor: "var(--colorsActionMinor250)",
             },
             wrapper.find(StyledTabTitle),
             { modifier: ":hover" }
@@ -991,7 +991,7 @@ describe("TabTitle", () => {
 
           assertStyleMatch(
             {
-              backgroundColor: "var(--colorsActionMinor100)",
+              backgroundColor: "var(--colorsActionMinor200)",
             },
             render(
               { alternateStyling: true, isTabSelected: true, size },
