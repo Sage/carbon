@@ -274,7 +274,7 @@ const DateInput = ({
       setSelectedDays(
         parseDate(...additionalYears(matchedFormat, matchedValue))
       );
-    } else if (checkISOFormatAndLength(value)) {
+    } else if (checkISOFormatAndLength(value) && isInitialValue.current) {
       setSelectedDays(parseISODate(value));
     } else {
       setSelectedDays(undefined);
@@ -282,7 +282,7 @@ const DateInput = ({
   }, [value, formats]);
 
   const computedValue = () => {
-    if (checkISOFormatAndLength(value)) {
+    if (checkISOFormatAndLength(value) && isInitialValue.current) {
       return formattedValue(format, parseISODate(value));
     }
 
@@ -299,6 +299,8 @@ const DateInput = ({
       valueSeparator !== formatSeparator &&
       isDateValid(parseDate(format, replaceSeparators()))
     ) {
+      isInitialValue.current = false;
+
       const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
         replaceSeparators(),
         formats
