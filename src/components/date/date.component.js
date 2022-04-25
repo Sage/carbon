@@ -212,7 +212,9 @@ const DateInput = ({
       return;
     }
 
-    isBlurBlocked.current = true;
+    if (setInputRefMap) {
+      isBlurBlocked.current = true;
+    }
 
     if (ev.target.type === "text" && !open) {
       setOpen(true);
@@ -220,6 +222,11 @@ const DateInput = ({
       alreadyFocused.current = true;
       setOpen((prev) => !prev);
     }
+  };
+
+  const handleIconMouseDown = (e) => {
+    isBlurBlocked.current = true;
+    handleMouseDown(e);
   };
 
   const handlePickerMouseDown = () => {
@@ -335,7 +342,7 @@ const DateInput = ({
         onKeyDown={handleKeyDown}
         iconOnClick={handleClick}
         onMouseDown={handleMouseDown}
-        iconOnMouseDown={handleMouseDown}
+        iconOnMouseDown={handleIconMouseDown}
         inputIcon="calendar"
         labelInline={labelInline}
         inputRef={assignInput}

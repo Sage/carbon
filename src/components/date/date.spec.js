@@ -20,6 +20,7 @@ import StyledInputPresentation from "../../__internal__/input/input-presentation
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import ValidationIcon from "../../__internal__/validations";
+import DateRangeContext from "../date-range/date-range.context";
 import {
   // eslint-disable-next-line import/named
   de as deLocale,
@@ -234,6 +235,23 @@ describe("Date", () => {
         expect(onChangeFn).not.toHaveBeenCalled();
       }
     );
+
+    it("does not call onBlur when the input is click and DateRangeContext is detected", () => {
+      wrapper = mount(
+        <DateRangeContext.Provider
+          value={{ inputRefMap: {}, setInputRefMap: jest.fn() }}
+        >
+          <DateInput
+            value="2012-12-12"
+            onChange={onChangeFn}
+            onBlur={onBlurFn}
+          />
+        </DateRangeContext.Provider>
+      );
+      simulateMouseDownOnInput(wrapper);
+      simulateBlurOnInput(wrapper);
+      expect(onBlurFn).not.toHaveBeenCalled();
+    });
   });
 
   describe('when the "keyDown" event is triggered on the input', () => {
