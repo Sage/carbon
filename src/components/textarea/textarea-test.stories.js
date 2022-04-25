@@ -70,6 +70,26 @@ export default {
       },
     },
     fieldHelpSpecialCharacters: specialCharacters,
+    children: {
+      control: {
+        type: "text",
+      },
+    },
+    error: {
+      control: {
+        type: "text",
+      },
+    },
+    warning: {
+      control: {
+        type: "text",
+      },
+    },
+    info: {
+      control: {
+        type: "text",
+      },
+    },
   },
   args: {
     expandable: false,
