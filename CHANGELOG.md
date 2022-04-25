@@ -1,3 +1,24 @@
+### [106.0.3](https://github.com/Sage/carbon/compare/v106.0.2...v106.0.3) (2022-04-25)
+
+
+### Bug Fixes
+
+* **decimal:** ensure id prop is passed to input ([a66fe0d](https://github.com/Sage/carbon/commit/a66fe0d6a541341a325772c7090c24feae920672)), closes [#5035](https://github.com/Sage/carbon/issues/5035)
+
+### [106.0.2](https://github.com/Sage/carbon/compare/v106.0.1...v106.0.2) (2022-04-19)
+
+
+### Bug Fixes
+
+* **split-button:** ensure prop type definition is exported from index.d.ts file ([85b96c5](https://github.com/Sage/carbon/commit/85b96c58acd1fb257633237c9313b0d39c56cde1)), closes [#5049](https://github.com/Sage/carbon/issues/5049)
+
+### [106.0.1](https://github.com/Sage/carbon/compare/v106.0.0...v106.0.1) (2022-04-12)
+
+
+### Bug Fixes
+
+* **tabs:** update background colour to improve contrast for selected Tab in alternate variant ([2af38b7](https://github.com/Sage/carbon/commit/2af38b7821fab7c0374bae3a765ab460a1f00310)), closes [#5030](https://github.com/Sage/carbon/issues/5030)
+
 ## [106.0.0](https://github.com/Sage/carbon/compare/v105.2.0...v106.0.0) (2022-04-08)
 
 

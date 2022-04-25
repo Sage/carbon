@@ -251,6 +251,7 @@ const Decimal = ({
         onBlur={handleOnBlur}
         value={stateValue}
         data-component="decimal"
+        id={id}
         {...rest}
       />
       <input
