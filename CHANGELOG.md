@@ -1,3 +1,10 @@
+### [106.0.3](https://github.com/Sage/carbon/compare/v106.0.2...v106.0.3) (2022-04-25)
+
+
+### Bug Fixes
+
+* **decimal:** ensure id prop is passed to input ([a66fe0d](https://github.com/Sage/carbon/commit/a66fe0d6a541341a325772c7090c24feae920672)), closes [#5035](https://github.com/Sage/carbon/issues/5035)
+
 ### [106.0.2](https://github.com/Sage/carbon/compare/v106.0.1...v106.0.2) (2022-04-19)
 
 
