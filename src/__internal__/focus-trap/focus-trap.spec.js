@@ -9,15 +9,19 @@ import { ModalContext } from "../../components/modal/modal.component";
 jest.useFakeTimers();
 
 // eslint-disable-next-line
-const MockComponent = ({ children, triggerRefocusFlag, ...rest }) => {
+const MockComponent = ({
+  children,
+  triggerRefocusFlag,
+  isAnimationComplete,
+  tabIndex,
+  ...rest
+}) => {
   const ref = useRef();
   const [isDisabled, setIsDisabled] = useState(false);
   return (
-    <ModalContext.Provider
-      value={{ isAnimationComplete: true, triggerRefocusFlag }}
-    >
-      <FocusTrap wrapperRef={ref} {...rest}>
-        <div ref={ref} id="myComponent">
+    <ModalContext.Provider value={{ isAnimationComplete, triggerRefocusFlag }}>
+      <FocusTrap wrapperRef={ref} {...rest} isOpen>
+        <div ref={ref} id="myComponent" tabIndex={tabIndex}>
           {React.Children.map(children, (child) => {
             if (child?.props?.id === "disable-on-focus") {
               return React.cloneElement(child, {
@@ -74,7 +78,26 @@ describe("FocusTrap", () => {
       expect(wrapper.update().find("input").at(0)).toBeFocused();
     });
 
-    it("refocuses the first element within the trap when flag is set", () => {
+    it("refocuses the wrapper element when flag is set, if the wrapper has a tabindex", () => {
+      wrapper = mount(
+        <MockComponent
+          autoFocus={false}
+          triggerRefocusFlag={false}
+          tabIndex={-1}
+        >
+          <button type="button">Test button One</button>
+          <input type="text" />
+        </MockComponent>,
+        { attachTo: htmlElement }
+      );
+      act(() => {
+        wrapper.setProps({ triggerRefocusFlag: true });
+      });
+      wrapper.update();
+      expect(wrapper.update().find("div#myComponent").at(0)).toBeFocused();
+    });
+
+    it("refocuses the first element within the trap when flag is set, if the wrapper has no tabindex", () => {
       wrapper = mount(
         <MockComponent autoFocus={false} triggerRefocusFlag={false}>
           <button type="button">Test button One</button>
@@ -122,6 +145,20 @@ describe("FocusTrap", () => {
       expect(document.activeElement).toMatchObject(
         document.querySelectorAll("body")[0]
       );
+    });
+  });
+
+  describe("when isAnimationComplete is false", () => {
+    it("should not focus the first focusable element by default", () => {
+      wrapper = mount(
+        <MockComponent isAnimationComplete={false}>
+          <button type="button">Test button One</button>
+          <input type="text" />
+        </MockComponent>,
+        { attachTo: htmlElement }
+      );
+
+      expect(document.activeElement).toBe(document.querySelectorAll("body")[0]);
     });
   });
 

@@ -10,6 +10,7 @@ import SidebarHeader from "./__internal__/sidebar-header";
 import Box from "../box";
 import { SIDEBAR_SIZES, SIDEBAR_ALIGNMENTS } from "./sidebar.config";
 import useLocale from "../../hooks/__internal__/useLocale";
+import useModalFocus from "../../hooks/__internal__/useModalFocus";
 
 export const SidebarContext = React.createContext({});
 
@@ -55,6 +56,8 @@ const Sidebar = React.forwardRef(
       "data-role": rest["data-role"],
     };
 
+    const focusProps = useModalFocus(open);
+
     const sidebar = (
       <SidebarStyle
         aria-modal={!enableBackgroundUI}
@@ -67,9 +70,10 @@ const Sidebar = React.forwardRef(
         data-element="sidebar"
         onCancel={onCancel}
         role={role}
+        {...focusProps}
       >
-        {closeIcon()}
         {header && <SidebarHeader>{header}</SidebarHeader>}
+        {closeIcon()}
         <Box
           data-element="sidebar-content"
           p={4}
@@ -97,7 +101,9 @@ const Sidebar = React.forwardRef(
         {enableBackgroundUI ? (
           sidebar
         ) : (
-          <FocusTrap wrapperRef={sidebarRef}>{sidebar}</FocusTrap>
+          <FocusTrap wrapperRef={sidebarRef} isOpen={open}>
+            {sidebar}
+          </FocusTrap>
         )}
       </Modal>
     );

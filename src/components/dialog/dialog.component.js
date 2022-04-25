@@ -17,6 +17,7 @@ import IconButton from "../icon-button";
 import Icon from "../icon";
 import { TOP_MARGIN } from "./dialog.config";
 import useLocale from "../../hooks/__internal__/useLocale";
+import useModalFocus from "../../hooks/__internal__/useModalFocus";
 
 const Dialog = ({
   className,
@@ -46,6 +47,8 @@ const Dialog = ({
   const listenersAdded = useRef(false);
   const { current: titleId } = useRef(createGuid());
   const { current: subtitleId } = useRef(createGuid());
+
+  const focusProps = useModalFocus(open);
 
   const centerDialog = useCallback(() => {
     const {
@@ -184,12 +187,14 @@ const Dialog = ({
         focusFirstElement={focusFirstElement}
         bespokeTrap={bespokeFocusTrap}
         wrapperRef={dialogRef}
+        isOpen={open}
       >
         <DialogStyle
           aria-modal
           ref={dialogRef}
           topMargin={TOP_MARGIN}
           {...dialogProps}
+          {...focusProps}
           data-component="dialog"
           data-element="dialog"
           data-role={rest["data-role"]}
@@ -197,12 +202,12 @@ const Dialog = ({
           {...contentPadding}
         >
           {dialogTitle()}
+          {closeIcon()}
           <DialogContentStyle {...contentPadding}>
             <DialogInnerContentStyle ref={innerContentRef} {...contentPadding}>
               {children}
             </DialogInnerContentStyle>
           </DialogContentStyle>
-          {closeIcon()}
         </DialogStyle>
       </FocusTrap>
     </Modal>

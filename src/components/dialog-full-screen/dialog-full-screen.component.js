@@ -11,6 +11,7 @@ import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
+import useModalFocus from "../../hooks/__internal__/useModalFocus";
 
 const DialogFullScreen = ({
   "aria-describedby": ariaDescribedBy,
@@ -39,6 +40,8 @@ const DialogFullScreen = ({
   const headingRef = useRef();
   const { current: titleId } = useRef(createGuid());
   const { current: subtitleId } = useRef(createGuid());
+
+  const focusProps = useModalFocus(open);
 
   const closeIcon = () => {
     if (!showCloseIcon || !onCancel) return null;
@@ -97,16 +100,19 @@ const DialogFullScreen = ({
         autoFocus={!disableAutoFocus}
         focusFirstElement={focusFirstElement}
         wrapperRef={dialogRef}
+        isOpen={open}
       >
         <StyledDialogFullScreen
           aria-modal={role === "dialog" ? true : undefined}
           {...ariaProps}
+          {...focusProps}
           ref={dialogRef}
           data-element="dialog-full-screen"
           pagesStyling={pagesStyling}
           role={role}
         >
           {dialogTitle()}
+          {closeIcon()}
           <StyledContent
             hasHeader={title !== undefined}
             data-element="content"
@@ -115,7 +121,6 @@ const DialogFullScreen = ({
           >
             {children}
           </StyledContent>
-          {closeIcon()}
         </StyledDialogFullScreen>
       </FocusTrap>
     </Modal>
