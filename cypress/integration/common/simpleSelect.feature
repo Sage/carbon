@@ -41,7 +41,6 @@ Feature: Select component
   @positive
   Scenario Outline: Open select list using arrow key
     Given I open "Select" component page "controlled"
-      And I click on Select text
     When I press the "<key>" key, when focused on the input
     Then "SimpleSelect" list is open
     Examples:
