@@ -176,6 +176,11 @@ describe("Drawer", () => {
           {
             flex: "1",
             overflow: "auto",
+            color: "var(--colorsUtilityYin090)",
+            fontFamily: "var(--fontFamiliesDefault)",
+            fontWeight: "var(--fontWeights400)",
+            fontSize: "var(--fontSizes100)",
+            lineHeight: "var(--lineHeights500)",
           },
           children
         );
@@ -245,6 +250,7 @@ describe("Drawer", () => {
         assertStyleMatch(
           {
             padding: "var(--spacing300) var(--spacing500)",
+            font: "var(--typographyDrawerTitleM)",
           },
           title
         );

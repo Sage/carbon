@@ -5,6 +5,14 @@ import StyledStickyFooter from "../../__internal__/sticky-footer/sticky-footer.s
 
 const defaultExpandedWidth = "var(--sizing500)";
 
+const drawerFont = `
+  color: var(--colorsUtilityYin090);
+  font-family: var(--fontFamiliesDefault);
+  font-weight: var(--fontWeights400);
+  font-size: var(--fontSizes100);
+  line-height: var(--lineHeights500);
+`;
+
 const StyledSidebarHeader = styled.div`
   ${({ isExpanded }) => css`
     position: sticky;
@@ -20,12 +28,15 @@ const StyledSidebarHeader = styled.div`
 const StyledSidebarTitle = styled.div`
   white-space: nowrap;
   padding: var(--spacing300) var(--spacing500);
+  font: var(--typographyDrawerTitleM);
 `;
 
 const StyledDrawerChildren = styled.div`
   flex: 1;
   margin-left: 1px;
   overflow: auto;
+
+  ${drawerFont}
 `;
 
 const StyledDrawerSidebar = styled(Box)`
@@ -59,6 +70,8 @@ const StyledDrawerSidebar = styled(Box)`
   &::-webkit-scrollbar {
     width: 12px;
   }
+
+  ${drawerFont}
 `;
 
 const sidebarVisible = () => keyframes`
