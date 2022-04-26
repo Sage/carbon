@@ -130,7 +130,7 @@ context("Tests for Message component", () => {
       }
     );
 
-    it("should check onDismiss for Message component", () => {
+    it("should call onDismiss callback when a click event is triggered", () => {
       const callback = cy.stub();
 
       CypressMountWithProviders(<MessageComponent onDismiss={callback} />);

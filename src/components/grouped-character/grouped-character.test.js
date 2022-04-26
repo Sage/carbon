@@ -176,6 +176,12 @@ context("Tests for GroupedCharacter component", () => {
   });
 
   describe("check events for GroupedCharacter component", () => {
+    let callback;
+
+    beforeEach(() => {
+      callback = cy.stub();
+    });
+
     it.each([
       [[1, 1, 4], "123", "123", "1-2-3", 2],
       [[3, 2, 1], "sage123", "sage12", "sag-e1-2", 5],
@@ -184,10 +190,8 @@ context("Tests for GroupedCharacter component", () => {
       [[5, 2, 2], "9876543211", "987654321", "98765-43-21", 8],
       [[1, 1, 3], "123456789", "12345", "1-2-345", 4],
     ])(
-      "should use %s as groups and %s as inputValue and return %s as formattedValue under onChange event",
+      "should call onChange callback when a type event is triggered using %s as groups and %s as inputValue and return %s as formattedValue",
       (groups, inputValue, rawValue, formattedValue, callbackIndex) => {
-        const callback = cy.stub();
-
         CypressMountWithProviders(
           <GroupedCharacterComponent onChange={callback} groups={groups} />
         );
@@ -208,9 +212,7 @@ context("Tests for GroupedCharacter component", () => {
       }
     );
 
-    it("should return onBlur event", () => {
-      const callback = cy.stub();
-
+    it("should call onBlur callback when a blur event is triggered", () => {
       CypressMountWithProviders(
         <GroupedCharacterComponent onBlur={callback} />
       );
