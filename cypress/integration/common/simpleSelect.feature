@@ -43,6 +43,7 @@ Feature: Select component
     Given I open "Select" component page "controlled"
     When I press the "<key>" key, when focused on the input
     Then "SimpleSelect" list is open
+      And Select input has "<value>" value
     Examples:
       | key       | position | value  |
       | downarrow | first    | Amber  |
