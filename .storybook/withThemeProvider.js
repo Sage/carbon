@@ -63,7 +63,7 @@ const withThemeProvider = makeDecorator({
 
     useEffect(() => {
       if (!shouldLoadFonts) {
-        return null;
+        return;
       }
 
       const fonts = [

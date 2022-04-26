@@ -1379,6 +1379,15 @@ describe("Decimal", () => {
       });
     });
   });
+
+  describe("id prop", () => {
+    it("is passed to the input element", () => {
+      render({ id: "decimalId" });
+      const { input } = getElements();
+
+      expect(input.prop("id")).toEqual("decimalId");
+    });
+  });
 });
 
 describe("Precision prop console errors", () => {
