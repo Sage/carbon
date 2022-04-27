@@ -205,6 +205,13 @@ context("Testing Carousel component", () => {
 
       slide(index).should("have.text", title);
     });
+
+    it("should render Carousel component with className", () => {
+      CypressMountWithProviders(
+        <CarouselComponent className="carousel-classname" />
+      );
+      cy.get('[class*="carousel-classname"]').should("exist");
+    });
   });
 
   describe("check events for Carousel component", () => {
