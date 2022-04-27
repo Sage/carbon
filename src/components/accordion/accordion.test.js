@@ -15,6 +15,11 @@ import {
   accordionContent,
 } from "../../../cypress/locators/accordion";
 import { positionOfElement, keyCode } from "../../../cypress/support/helper";
+import { getDataElementByValue } from "../../../cypress/locators";
+import {
+  ACCORDION_ADD_CONTENT,
+  ACCORDION_REMOVE_CONTENT,
+} from "../../../cypress/locators/accordion/locators";
 
 const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 const sizes = [
@@ -542,13 +547,13 @@ context("Testing Accordion component", () => {
     it("should have proper height", () => {
       CypressMountWithProviders(<DynamicContent />);
       accordionContent().parent().should("have.css", "height", "78px");
-      cy.get('[data-element="add-content"]').click();
+      getDataElementByValue(ACCORDION_ADD_CONTENT).click();
       accordionContent().parent().should("have.css", "height", "96px");
-      cy.get('[data-element="add-content"]').click();
+      getDataElementByValue(ACCORDION_ADD_CONTENT).click();
       accordionContent().parent().should("have.css", "height", "114px");
-      cy.get('[data-element="remove-content"]').click();
+      getDataElementByValue(ACCORDION_REMOVE_CONTENT).click();
       accordionContent().parent().should("have.css", "height", "96px");
-      cy.get('[data-element="remove-content"]').click();
+      getDataElementByValue(ACCORDION_REMOVE_CONTENT).click();
       accordionContent().parent().should("have.css", "height", "78px");
     });
   });
