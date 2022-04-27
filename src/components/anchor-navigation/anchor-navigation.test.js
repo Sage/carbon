@@ -71,7 +71,7 @@ const AnchorNavigationComponent = () => {
 };
 
 context("Testing AnchorNavigation component", () => {
-  describe("Should render AnchorNavigation component", () => {
+  describe("should render AnchorNavigation component", () => {
     it.each([
       ["First", "First section"],
       ["Second", "Second section"],

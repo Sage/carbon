@@ -639,25 +639,30 @@ context("Test for ActionPopover component", () => {
     });
   });
 
-  describe("Check events for ActionPopover component", () => {
-    it.each([[1], [4], [6]])("should call onClick event", (element) => {
-      const callback = cy.stub();
+  describe("check events for ActionPopover component", () => {
+    let callback;
 
-      CypressMountWithProviders(<ActionPopoverCustom onClick={callback} />);
-      actionPopoverButton().eq(0).click();
-      actionPopoverInnerItem(element)
-        .click({ force: true })
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+    beforeEach(() => {
+      callback = cy.stub();
     });
 
     it.each([[1], [4], [6]])(
-      "should call onClick event by pressing Enter",
+      "should call onClick callback when a click event is triggered",
       (element) => {
-        const callback = cy.stub();
+        CypressMountWithProviders(<ActionPopoverCustom onClick={callback} />);
+        actionPopoverButton().eq(0).click();
+        actionPopoverInnerItem(element)
+          .click({ force: true })
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      }
+    );
 
+    it.each([[1], [4], [6]])(
+      "should call onClick callback when a keydown event is triggered by pressing Enter",
+      (element) => {
         CypressMountWithProviders(<ActionPopoverCustom onClick={callback} />);
         actionPopoverButton().eq(0).click();
         actionPopoverInnerItem(element)
@@ -669,27 +674,26 @@ context("Test for ActionPopover component", () => {
       }
     );
 
-    it.each([[0], [1]])("should call onClick event for submenu", (element) => {
-      const callback = cy.stub();
+    it.each([[0], [1]])(
+      "should call onClick callback when a click event is triggered for submenu",
+      (element) => {
+        CypressMountWithProviders(<ActionPopoverCustom onClick={callback} />);
 
-      CypressMountWithProviders(<ActionPopoverCustom onClick={callback} />);
-
-      actionPopoverButton().eq(0).click();
-      actionPopoverInnerItem(2).realHover();
-      actionPopoverSubmenu(element)
-        .invoke("show")
-        .click({ force: true })
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
-    });
+        actionPopoverButton().eq(0).click();
+        actionPopoverInnerItem(2).realHover();
+        actionPopoverSubmenu(element)
+          .invoke("show")
+          .click({ force: true })
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      }
+    );
 
     it.each([[0], [1]])(
-      "should call onClick event for submenu by pressing Enter",
+      "should call onClick callback when a keydown event is triggered for submenu by pressing Enter",
       (element) => {
-        const callback = cy.stub();
-
         CypressMountWithProviders(<ActionPopoverCustom onClick={callback} />);
         actionPopoverButton().eq(0).click();
         actionPopoverInnerItem(2).realHover();
@@ -703,9 +707,7 @@ context("Test for ActionPopover component", () => {
       }
     );
 
-    it("should call onOpen event for ActionPopover", () => {
-      const callback = cy.stub();
-
+    it("should call onOpen callback when a click event is triggered ActionPopover", () => {
       CypressMountWithProviders(<ActionPopoverProps onOpen={callback} />);
       actionPopoverButton()
         .eq(0)
@@ -716,9 +718,7 @@ context("Test for ActionPopover component", () => {
         });
     });
 
-    it("should call onClose event for ActionPopover", () => {
-      const callback = cy.stub();
-
+    it("should call onClose callback when a click event is triggered ActionPopover", () => {
       CypressMountWithProviders(<ActionPopoverProps onClose={callback} />);
       actionPopoverButton()
         .eq(0)
