@@ -223,9 +223,13 @@ context("Tests for Decimal component", () => {
       ["12", "12.00"],
       ["123", "123.00"],
     ];
+    let callback;
 
-    it("should return onChange event for %s value", () => {
-      const callback = cy.stub();
+    beforeEach(() => {
+      callback = cy.stub();
+    });
+
+    it("should call onChange callback when a type event is triggered with %s value", () => {
       CypressMountWithProviders(<Decimal onChange={callback} />);
 
       commonDataElementInputPreview()
@@ -247,8 +251,7 @@ context("Tests for Decimal component", () => {
         });
     });
 
-    it("should return onBlur event", () => {
-      const callback = cy.stub();
+    it("should call onBlur callback when a blur event is triggered", () => {
       CypressMountWithProviders(<Decimal onBlur={callback} />);
 
       commonDataElementInputPreview()
