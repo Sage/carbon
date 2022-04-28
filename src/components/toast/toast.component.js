@@ -47,6 +47,9 @@ const Toast = ({
   const timer = useRef();
   const toastContentNodeRef = useRef();
 
+  const listenerAdded = useRef(false);
+  const modalRegistered = useRef(false);
+
   const componentClasses = useMemo(() => {
     return classNames(className);
   }, [className]);
@@ -63,17 +66,67 @@ const Toast = ({
     [onDismiss]
   );
 
-  useEffect(() => {
-    const currentElement = toastRef.current;
+  const addListener = useCallback(() => {
+    /* istanbul ignore else */
+    if (!listenerAdded.current) {
+      document.addEventListener("keyup", dismissToast);
 
-    ModalManager.addModal(currentElement);
-    document.addEventListener("keyup", dismissToast);
-
-    return () => {
-      ModalManager.removeModal(currentElement);
-      document.removeEventListener("keyup", dismissToast);
-    };
+      listenerAdded.current = true;
+    }
   }, [dismissToast]);
+
+  const removeListener = useCallback(() => {
+    if (listenerAdded.current) {
+      document.removeEventListener("keyup", dismissToast);
+
+      listenerAdded.current = false;
+    }
+  }, [dismissToast]);
+
+  useEffect(() => {
+    if (open) {
+      addListener();
+    } else {
+      removeListener();
+    }
+  }, [addListener, open, removeListener]);
+
+  useEffect(() => {
+    return () => {
+      removeListener();
+    };
+  }, [removeListener]);
+
+  const registerModal = useCallback(() => {
+    /* istanbul ignore else */
+    if (!modalRegistered.current) {
+      ModalManager.addModal(toastRef.current);
+
+      modalRegistered.current = true;
+    }
+  }, []);
+
+  const unregisterModal = useCallback(() => {
+    if (modalRegistered.current) {
+      ModalManager.removeModal(toastRef.current);
+
+      modalRegistered.current = false;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (open) {
+      registerModal();
+    } else {
+      unregisterModal();
+    }
+  }, [open, registerModal, unregisterModal]);
+
+  useEffect(() => {
+    return () => {
+      unregisterModal();
+    };
+  }, [unregisterModal]);
 
   useEffect(() => {
     clearTimeout(timer.current);
