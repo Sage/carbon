@@ -43,12 +43,22 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   margin-right: var(--spacing100);
 }
 
+.c4 a:hover .c2,
+.c4 button:hover .c2 {
+  color: var(--colorsActionMajor600);
+}
+
 .c5 a .c2,
 .c5 button .c2 {
   display: inline-block;
   position: relative;
   vertical-align: middle;
   margin-right: 0;
+}
+
+.c5 a:hover .c2,
+.c5 button:hover .c2 {
+  color: var(--colorsActionMajor600);
 }
 
 .c0 {
@@ -365,6 +375,11 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
   color: var(--colorsActionMajor600);
 }
 
+.c0 a:hover .c9,
+.c0 button:hover .c9 {
+  color: var(--colorsActionMajor600);
+}
+
 .c0 a:focus,
 .c0 button:focus {
   color: var(--colorsActionMajorYin090);
@@ -506,12 +521,22 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   margin-right: var(--spacing100);
 }
 
+.c4 a:hover .c2,
+.c4 button:hover .c2 {
+  color: var(--colorsActionMajor600);
+}
+
 .c5 a .c2,
 .c5 button .c2 {
   display: inline-block;
   position: relative;
   vertical-align: middle;
   margin-right: 0;
+}
+
+.c5 a:hover .c2,
+.c5 button:hover .c2 {
+  color: var(--colorsActionMajor600);
 }
 
 .c0 {
