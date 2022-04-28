@@ -420,6 +420,24 @@ describe("SimpleSelect", () => {
       wrapper.unmount();
     });
 
+    it("if the Meta key is pressed at the same time, nothing should happen", () => {
+      const wrapper = renderSelect();
+
+      simulateKeyDown(wrapper, "b", { metaKey: true });
+      wrapper.update();
+      expect(wrapper.find(Textbox).prop("value")).toBe("");
+      wrapper.unmount();
+    });
+
+    it("if the Control key is pressed at the same time, nothing should happen", () => {
+      const wrapper = renderSelect();
+
+      simulateKeyDown(wrapper, "b", { ctrlKey: true });
+      wrapper.update();
+      expect(wrapper.find(Textbox).prop("value")).toBe("");
+      wrapper.unmount();
+    });
+
     describe("and the same key is pressed in a short amount of time", () => {
       it("then the second option with text starting with that character should be selected", () => {
         const wrapper = renderSelect();
@@ -770,10 +788,10 @@ describe("coverage filler for else path", () => {
   simulateKeyDown(wrapper, "F1");
 });
 
-function simulateKeyDown(container, key) {
+function simulateKeyDown(container, key, options = {}) {
   const selectText = container.find("[data-element='select-text']").first();
 
-  selectText.simulate("keydown", { key });
+  selectText.simulate("keydown", { key, ...options });
 }
 
 function simulateSelectTextEvent(container, eventType) {
