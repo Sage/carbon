@@ -4,11 +4,11 @@ import InputPresentationStyle, {
 } from "./input-presentation.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 import { NewValidationContext } from "../../components/carbon-provider/carbon-provider.component";
-import { ValidationPropTypes } from "../validations";
+import { ValidationProps } from "../validations";
 
 export type Sizes = "small" | "medium" | "large";
 
-export interface CommonInputPresentationProps extends ValidationPropTypes {
+export interface CommonInputPresentationProps extends ValidationProps {
   children: React.ReactNode;
   /** If true, the component will be disabled */
   disabled?: boolean;
