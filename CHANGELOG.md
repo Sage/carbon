@@ -1,3 +1,11 @@
+### [106.1.2](https://github.com/Sage/carbon/compare/v106.1.1...v106.1.2) (2022-04-29)
+
+
+### Bug Fixes
+
+* **dialog:** fix component not displayed in react 17 ([e311304](https://github.com/Sage/carbon/commit/e311304c0937c586f028b1aa954f2b0589711f5f)), closes [#4585](https://github.com/Sage/carbon/issues/4585)
+* **modal:** resolve findDOMNode deprecation warning in React 17 projects ([1d44633](https://github.com/Sage/carbon/commit/1d44633f63124f9f93f8a221440eaaf87a9a0053))
+
 ### [106.1.1](https://github.com/Sage/carbon/compare/v106.1.0...v106.1.1) (2022-04-28)
 
 
