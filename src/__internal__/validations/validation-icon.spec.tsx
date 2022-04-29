@@ -2,7 +2,9 @@ import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
-import ValidationIcon from "./validation-icon.component";
+import ValidationIcon, {
+  ValidationIconProps,
+} from "./validation-icon.component";
 import ValidationIconStyle from "./validation-icon.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 import Tooltip from "../../components/tooltip";
@@ -10,8 +12,21 @@ import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 
 jest.mock("@tippyjs/react/headless");
 
+function renderWithInputContext(
+  inputContextValue = {},
+  inputGroupContextValue = {}
+) {
+  return mount(
+    <InputContext.Provider value={inputContextValue}>
+      <InputGroupContext.Provider value={inputGroupContextValue}>
+        <ValidationIcon error="Message" />
+      </InputGroupContext.Provider>
+    </InputContext.Provider>
+  );
+}
+
 describe("ValidationIcon", () => {
-  testStyledSystemMargin((props) => (
+  testStyledSystemMargin((props: ValidationIconProps) => (
     <ValidationIcon {...props} error="error" />
   ));
 
@@ -152,48 +167,46 @@ describe("ValidationIcon", () => {
       ]);
     });
 
-    it("does not throw an error if a valid array is passed", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
-      mount(
-        <ValidationIcon
-          error="Message"
-          tooltipFlipOverrides={["top", "bottom"]}
-        />
-      );
-
-      // eslint-disable-next-line no-console
-      expect(console.error).not.toHaveBeenCalled();
-      global.console.error.mockReset();
-    });
-
-    it("throws an error if a invalid array is passed", () => {
+    it("throws an error when value is not an array", () => {
       const mockGlobal = jest
         .spyOn(global.console, "error")
         .mockImplementation(() => undefined);
+      const errorMessage = `The tooltipFlipOverrides prop supplied to ValidationIcon must be an array containing some or all of ["top", "bottom", "left", "right"].`;
 
       expect(() => {
         mount(
           <ValidationIcon
+            isPartOfInput
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore:next-line
+            tooltipFlipOverrides="top"
             error="Message"
-            tooltipFlipOverrides={["foo", "bar"]}
           />
         );
-      }).toThrow();
+      }).toThrow(errorMessage);
+
+      mockGlobal.mockReset();
+    });
+
+    it("throws an error when value is an array but contains an invalid element", () => {
+      const mockGlobal = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => undefined);
+      const errorMessage = `The tooltipFlipOverrides prop supplied to ValidationIcon must be an array containing some or all of ["top", "bottom", "left", "right"].`;
+
+      expect(() => {
+        mount(
+          <ValidationIcon
+            isPartOfInput
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore:next-line
+            tooltipFlipOverrides={["top", "foo"]}
+            error="Message"
+          />
+        );
+      }).toThrow(errorMessage);
 
       mockGlobal.mockReset();
     });
   });
 });
-
-function renderWithInputContext(
-  inputContextValue = {},
-  inputGroupContextValue = {}
-) {
-  return mount(
-    <InputContext.Provider value={inputContextValue}>
-      <InputGroupContext.Provider value={inputGroupContextValue}>
-        <ValidationIcon error="Message" />
-      </InputGroupContext.Provider>
-    </InputContext.Provider>
-  );
-}
