@@ -71,7 +71,7 @@ const StyledFlatTable = styled.table`
       ${StyledFlatTableRow}:hover {
         ${StyledFlatTableCell},
         ${StyledFlatTableRowHeader},
-        ${StyledFlatTableCheckbox} {
+        ${StyledFlatTableCheckbox}:not(th) {
           background-color: var(--colorsUtilityMajor025);
         }
       }

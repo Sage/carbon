@@ -398,21 +398,24 @@ describe("FlatTable", () => {
     });
   });
 
-  describe("when isZebra prop is set to true", () => {
-    it("then every second row should have expected background color", () => {
-      const wrapper = renderFlatTable({ isZebra: true }, mount);
+  describe.each(["dark", "light", "transparent-base", "transparent-base"])(
+    "when isZebra prop is set to true and colorTheme is %s",
+    (colorTheme) => {
+      it("should apply hover styling to any FlatTableCheckbox not rendered as a th element", () => {
+        const wrapper = renderFlatTable({ isZebra: true, colorTheme }, mount);
 
-      assertStyleMatch(
-        {
-          backgroundColor: "var(--colorsUtilityMajor010)",
-        },
-        wrapper.find(StyledFlatTable),
-        {
-          modifier: `${StyledFlatTableRow}:nth-child(2n) ${StyledFlatTableCell}`,
-        }
-      );
-    });
-  });
+        assertStyleMatch(
+          {
+            backgroundColor: "var(--colorsUtilityMajor025)",
+          },
+          wrapper.find(StyledFlatTable),
+          {
+            modifier: `${StyledFlatTableRow}:hover ${StyledFlatTableCheckbox}:not(th)`,
+          }
+        );
+      });
+    }
+  );
 
   describe("when the caption prop is set", () => {
     it("then that caption should be rendered in the table", () => {
