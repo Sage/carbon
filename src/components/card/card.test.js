@@ -367,7 +367,7 @@ context("Tests for Card component", () => {
       }
     );
 
-    it("should check click action for Card component", () => {
+    it("should call onClick callback when a click event is triggered", () => {
       const setClickCounter = cy.stub();
 
       CypressMountWithProviders(

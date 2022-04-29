@@ -1,3 +1,17 @@
+### [106.1.1](https://github.com/Sage/carbon/compare/v106.1.0...v106.1.1) (2022-04-28)
+
+
+### Bug Fixes
+
+* **simple-select:** stop key filtering when command/control pressed ([167b068](https://github.com/Sage/carbon/commit/167b068f5273d15e538e050c732620e0417c4856))
+
+## [106.1.0](https://github.com/Sage/carbon/compare/v106.0.3...v106.1.0) (2022-04-26)
+
+
+### Features
+
+* consume Sage UI font from @sage/design-tokens package ([1d27c5f](https://github.com/Sage/carbon/commit/1d27c5f8b1cb334132c86b6864ae19690295f36d))
+
 ### [106.0.3](https://github.com/Sage/carbon/compare/v106.0.2...v106.0.3) (2022-04-25)
 
 

@@ -6,7 +6,7 @@ import APP_WRAPPER_PREVIEW from "../../../cypress/locators/app-wrapper/locators"
 const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 
 context("Testing App Wrapper component", () => {
-  describe("Should render app wrapper component", () => {
+  describe("should render app wrapper component", () => {
     it("should check default App Wrapper", () => {
       CypressMountWithProviders(
         <AppWrapper className="cypressTest">

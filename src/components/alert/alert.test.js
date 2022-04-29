@@ -55,7 +55,7 @@ AlertComponent.propTypes = {
 };
 
 context("Testing Alert component", () => {
-  describe("Should render Alert component", () => {
+  describe("should render Alert component", () => {
     it.each(specialCharacters)(
       "should render Alert component with %s as a title",
       (titleValue) => {
@@ -151,8 +151,8 @@ context("Testing Alert component", () => {
     );
   });
 
-  describe("Check events for Alert component", () => {
-    it("should call cancel event", () => {
+  describe("check events for Alert component", () => {
+    it("should call onCancel callback when a click event is triggered", () => {
       const callback = cy.stub();
 
       CypressMountWithProviders(

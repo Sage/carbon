@@ -81,31 +81,7 @@ The font face definitions for both fonts are included in Carbon and can be direc
 import "carbon-react/lib/style/fonts.css";
 ```
 
-The `Sage UI` font files themselves are loaded via a public CDN under [license](https://github.com/Sage/design-tokens/blob/master/license), so we recommend preloading these in your entry point HTML file to avoid a "flash of unstyled text".
-
-```html
-<head>
-  <!-- Preloading Sage UI fonts from CDN -->
-  <link
-    rel="preload"
-    as="font"
-    href="https://fonts.sage.com/Sage_UI-Regular.woff2"
-    crossorigin="anonymous"
-  />
-  <link
-    rel="preload"
-    as="font"
-    href="https://fonts.sage.com/Sage_UI-Medium.woff2"
-    crossorigin="anonymous"
-  />
-  <link
-    rel="preload"
-    as="font"
-    href="https://fonts.sage.com/Sage_UI-Bold.woff2"
-    crossorigin="anonymous"
-  />
-</head>
-```
+_Note the `Sage UI` font files themselves are loaded from the [@sage/design-tokens](https://github.com/Sage/design-tokens) library. If this has not been installed in your project beforehand, text will be rendered in the browser's default sans-serif font._
 
 #### React and React DOM
 
@@ -122,7 +98,7 @@ Carbon supports two theming systems - the latest which uses Design Tokens in for
 
 The themes available in Carbon include:
 
-- **sage** - the latest theme which uses Design Tokens in form of CSS custom properties. _Note this theme requires installation of `@sage/design-tokens` package, otherwise styles fallback to the old mint theme for compatability._
+- **sage** - the latest theme which uses Design Tokens in form of CSS custom properties. _Note this theme requires installation of `@sage/design-tokens` library, otherwise styles fallback to the old mint theme for compatability._
 - **mint**, **aegean** and **none** - legacy themes that use old theme properties consumed by ThemeProvider.
 
 #### Carbon Provider
