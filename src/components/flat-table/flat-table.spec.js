@@ -558,6 +558,7 @@ describe("FlatTable", () => {
         {
           position: "sticky",
           bottom: "0px",
+          zIndex: "1001",
         },
         wrapper.find(StyledFlatTableFooter)
       );

@@ -192,6 +192,7 @@ const StyledFlatTableFooter = styled.div`
     css`
       position: sticky;
       bottom: 0px;
+      z-index: ${baseTheme.zIndex.overlay + 1};
     `}
 `;
 
