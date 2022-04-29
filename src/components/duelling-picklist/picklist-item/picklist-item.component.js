@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import { CSSTransition } from "react-transition-group";
 
@@ -31,6 +31,7 @@ const PicklistItem = React.forwardRef(
     ref
   ) => {
     const { setElementToFocus } = useContext(FocusContext);
+    const picklistItemNodeRef = useRef();
 
     const calculateFocusIndex = useCallback(() => {
       if (isLastItem) {
@@ -82,11 +83,13 @@ const PicklistItem = React.forwardRef(
         classNames="picklist-item"
         {...rest}
         {...(type === "add" ? { enter: false } : {})}
+        nodeRef={picklistItemNodeRef}
       >
         <StyledPicklistItem
           onKeyDown={handleKeydown}
           data-element="picklist-item"
           locked={locked}
+          ref={picklistItemNodeRef}
         >
           {children}
           {!locked && (

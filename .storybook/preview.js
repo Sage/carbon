@@ -1,6 +1,7 @@
 import withGlobalStyles from "./with-global-styles";
 import { withLocaleSelector } from "./locale-selector";
 import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
+import { withPortalProvider } from "./with-portal-provider";
 import { configureActions } from "@storybook/addon-actions";
 
 import "../src/style/fonts.css";
@@ -100,4 +101,5 @@ export const decorators = [
   withGlobalStyles,
   withThemeProvider,
   withLocaleSelector,
+  withPortalProvider,
 ];
