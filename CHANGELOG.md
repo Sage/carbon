@@ -1,3 +1,10 @@
+### [106.1.3](https://github.com/Sage/carbon/compare/v106.1.2...v106.1.3) (2022-05-03)
+
+
+### Bug Fixes
+
+* **link:** apply correct colour to icon on hover ([be66093](https://github.com/Sage/carbon/commit/be660935ac5e153bb55da770f03e6d3d0090cd09)), closes [#5088](https://github.com/Sage/carbon/issues/5088)
+
 ### [106.1.2](https://github.com/Sage/carbon/compare/v106.1.1...v106.1.2) (2022-04-29)
 
 
