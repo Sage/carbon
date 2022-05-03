@@ -24,6 +24,8 @@ import Icon from "../icon";
 import Button from "../button";
 import { FieldsetStyle } from "../fieldset/fieldset.style";
 import StyledSearch from "../search/search.style";
+import Textarea from "../textarea";
+import StyledTextarea from "../textarea/textarea.style";
 
 jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
 jest.mock("../../hooks/__internal__/useResizeObserver");
@@ -101,6 +103,22 @@ describe("Form", () => {
             ${FieldsetStyle}
           `,
         }
+      );
+    });
+
+    it("applies custom value to textarea with character count specified", () => {
+      wrapper = mount(
+        <StyledForm fieldSpacing={4}>
+          <Textarea label="Textarea with Character Limit" characterLimit={50} />
+        </StyledForm>
+      );
+      assertStyleMatch(
+        {
+          marginTop: "0",
+          marginBottom: "var(--spacing400)",
+        },
+        wrapper,
+        { modifier: `${StyledTextarea}` }
       );
     });
   });
