@@ -20,6 +20,7 @@ import StyledIcon from "../icon/icon.style";
 
 describe("MultiActionButton", () => {
   let wrapper;
+  jest.useFakeTimers();
 
   testStyledSystemMargin((props) => (
     <MultiActionButton text="Test" {...props}>
@@ -167,14 +168,18 @@ describe("MultiActionButton", () => {
       let mainButton;
 
       beforeEach(() => {
-        wrapper = render(
-          {
-            onClick: handleMainButton,
-            childOnClick: handleSecondButton,
-          },
-          mount
+        wrapper = mount(
+          <MultiActionButton text="Test" onClick={handleMainButton}>
+            <Button onClick={handleSecondButton}>Test</Button>
+            <Button>Test 2</Button>
+          </MultiActionButton>
         );
+
         mainButton = wrapper.find(StyledMultiActionButton).find(Button).first();
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
       });
 
       it("the handler should be called on the main button", () => {
@@ -182,101 +187,99 @@ describe("MultiActionButton", () => {
         const button = wrapper
           .find('[data-element="additional-buttons"]')
           .find(ButtonWithForwardRef);
-        button.simulate("click");
+        button.at(0).simulate("click");
         expect(handleSecondButton).toHaveBeenCalled();
       });
 
-      afterEach(() => {
-        wrapper.unmount();
+      it("the menu should close", () => {
+        mainButton.simulate("mouseenter");
+        const button = wrapper
+          .find('[data-element="additional-buttons"]')
+          .find(ButtonWithForwardRef);
+        button.at(0).simulate("click");
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledButtonChildrenContainer).exists()).toBe(
+          false
+        );
+        simulateFocus(mainButton);
+      });
+
+      it("does not throw error when button does not have an onclick prop", () => {
+        expect(() => {
+          mainButton.simulate("mouseenter");
+
+          const button = wrapper
+            .find('[data-element="additional-buttons"]')
+            .find(ButtonWithForwardRef);
+
+          button.at(1).simulate("click");
+        }).not.toThrow();
       });
     });
 
-    describe.each(["click", "touchstart"])(
-      'when the "%s" event is triggered with menu open',
-      (eventType) => {
-        const nativeInputEvent = new Event(eventType, {
-          bubbles: true,
-          cancelable: true,
-        });
-        let domWrapper;
+    describe("when the outside click event is triggered with menu open", () => {
+      const nativeInputEvent = new Event("click", {
+        bubbles: true,
+        cancelable: true,
+      });
+      let domWrapper;
 
-        beforeAll(() => {
-          if (eventType === "touchstart") {
-            document.documentElement.ontouchstart = () => {};
-          }
-        });
+      beforeEach(() => {
+        domWrapper = document.createElement("div");
+        document.body.appendChild(domWrapper);
+        wrapper = mount(
+          <MultiActionButton text="Main button">
+            <Button>Foo</Button>
+          </MultiActionButton>,
+          { attachTo: domWrapper }
+        );
 
-        beforeEach(() => {
-          domWrapper = document.createElement("div");
-          document.body.appendChild(domWrapper);
-          wrapper = mount(
-            <MultiActionButton text="Main button">
-              <Button>Foo</Button>
-            </MultiActionButton>,
-            { attachTo: domWrapper }
+        simulateFocus(wrapper);
+      });
+
+      afterEach(() => {
+        wrapper.detach();
+        document.body.removeChild(domWrapper);
+      });
+
+      describe("on the Menu element", () => {
+        it("then the Menu should not be closed", () => {
+          expect(wrapper.find(StyledButtonChildrenContainer).exists()).toBe(
+            true
           );
-          simulateFocus(wrapper);
-        });
 
-        describe("on the Menu element", () => {
-          it("then the Menu should not be closed", () => {
-            expect(wrapper.find(StyledButtonChildrenContainer).exists()).toBe(
-              true
-            );
-            wrapper
-              .find(StyledButtonChildrenContainer)
-              .find(Button)
-              .getDOMNode()
-              .dispatchEvent(nativeInputEvent);
-            expect(wrapper.find(StyledButtonChildrenContainer).exists()).toBe(
-              true
-            );
-          });
-        });
+          wrapper
+            .find(StyledMultiActionButton)
+            .getDOMNode()
+            .dispatchEvent(nativeInputEvent);
 
-        describe("on an external element", () => {
-          describe("and focus is still on the toggle button", () => {
-            it("then the Menu should not be closed", () => {
-              expect(wrapper.find(StyledButtonChildrenContainer).exists()).toBe(
-                true
-              );
-              domWrapper.dispatchEvent(nativeInputEvent);
-              expect(wrapper.find(StyledButtonChildrenContainer).exists()).toBe(
-                true
-              );
-            });
+          jest.runAllTimers();
+          wrapper.update();
+          expect(wrapper.find(StyledButtonChildrenContainer).exists()).toBe(
+            true
+          );
+        });
+      });
+
+      describe("on an external element", () => {
+        it("then the Menu should be closed", () => {
+          expect(wrapper.find(StyledButtonChildrenContainer).exists()).toBe(
+            true
+          );
+
+          act(() => {
+            simulateBlur(wrapper);
+            domWrapper.dispatchEvent(nativeInputEvent);
           });
 
-          describe("and focus is on a button in the menu", () => {
-            it("then the Menu should be closed", () => {
-              expect(wrapper.find(StyledButtonChildrenContainer).exists()).toBe(
-                true
-              );
-
-              act(() => {
-                simulateBlur(wrapper);
-                domWrapper.dispatchEvent(nativeInputEvent);
-              });
-
-              expect(
-                wrapper.update().find(StyledButtonChildrenContainer).exists()
-              ).toBe(false);
-            });
-          });
+          expect(
+            wrapper.update().find(StyledButtonChildrenContainer).exists()
+          ).toBe(false);
         });
-
-        afterEach(() => {
-          wrapper.detach();
-          document.body.removeChild(domWrapper);
-        });
-
-        afterAll(() => {
-          if (eventType === "touchstart") {
-            document.documentElement.ontouchstart = undefined;
-          }
-        });
-      }
-    );
+      });
+    });
   });
 
   describe("the main button", () => {
@@ -357,15 +360,26 @@ describe("MultiActionButton", () => {
     describe.each([
       ["enter", 13],
       ["space", 32],
+      ["down", 40],
     ])("the %s key is pressed", (name, keyCode) => {
       it("then the first additional button should be focused", () => {
+        simulateBlur(mainButton);
+        wrapper.find(StyledMultiActionButton).simulate("mouseleave");
+        wrapper.update();
         mainButton.simulate("keydown", { which: keyCode });
+        jest.runAllTimers();
+
         const firstButton = wrapper
           .find(additionalButtonsSelector)
           .find(Button)
           .at(0)
           .getDOMNode();
         expect(firstButton).toStrictEqual(document.activeElement);
+      });
+
+      it("does not open additional buttons if opened already - coverage", () => {
+        mainButton.simulate("keydown", { which: keyCode });
+        jest.runAllTimers();
       });
     });
 
