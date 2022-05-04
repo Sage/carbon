@@ -67,7 +67,7 @@ const Accordion = React.forwardRef(
 
     useEffect(() => {
       setContentHeight(accordionContent.current.scrollHeight);
-    }, [isExpanded, children]);
+    }, [isExpanded]);
 
     const toggleAccordion = useCallback(
       (ev) => {
