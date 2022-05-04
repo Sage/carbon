@@ -5,6 +5,7 @@ import { act } from "react-dom/test-utils";
 
 import { ThemeProvider } from "styled-components";
 import SplitButton from "./split-button.component";
+import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
 import StyledSplitButtonChildrenContainer from "./split-button-children.style";
 import Icon from "../icon";
@@ -122,7 +123,9 @@ const buildSizeConfig = (name, size) => {
 };
 
 describe("SplitButton", () => {
-  let wrapper, toggle;
+  let wrapper;
+  let toggle;
+  jest.useFakeTimers();
 
   testStyledSystemMargin((props) => (
     <SplitButton text="Test" {...props}>
@@ -377,18 +380,23 @@ describe("SplitButton", () => {
       const handleMainButton = jasmine.createSpy("main");
       const handleSecondButton = jasmine.createSpy("second");
       beforeEach(() => {
-        wrapper = render(
-          {
-            onClick: handleMainButton,
-          },
-          [
-            <Button onClick={handleSecondButton} key="testKey">
-              Second Button
-            </Button>,
-          ],
-          mount
+        wrapper = mount(
+          <SplitButton
+            onClick={handleMainButton}
+            text="Split button"
+            data-element="bar"
+            data-role="baz"
+          >
+            <Button onClick={handleSecondButton}>Second Button</Button>
+            <Button>Noop button</Button>
+          </SplitButton>
         );
+
         toggle = wrapper.find(StyledSplitButtonToggle);
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
       });
 
       it("the handler should be called on the main button", () => {
@@ -397,56 +405,94 @@ describe("SplitButton", () => {
         const button = wrapper
           .find('[data-element="additional-buttons"]')
           .find(ButtonWithForwardRef);
-        button.simulate("click");
+        button.at(0).simulate("click");
         expect(handleSecondButton).toHaveBeenCalled();
       });
 
-      afterEach(() => {
-        wrapper.unmount();
+      it("the menu should close", () => {
+        toggle.simulate("mouseenter");
+        const button = wrapper
+          .find('[data-element="additional-buttons"]')
+          .find(ButtonWithForwardRef);
+        button.at(0).simulate("click");
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledSplitButtonChildrenContainer).exists()).toBe(
+          false
+        );
+        toggle.simulate("focus");
+      });
+
+      it("does not throw error when button does not have an onclick prop", () => {
+        expect(() => {
+          toggle.simulate("mouseenter");
+
+          const button = wrapper
+            .find('[data-element="additional-buttons"]')
+            .find(ButtonWithForwardRef);
+
+          button.at(1).simulate("click");
+        }).not.toThrow();
       });
     });
   });
 
-  describe.each(["click", "touchstart"])(
-    'when the "%s" event is triggered with menu open',
-    (eventType) => {
-      const nativeInputEvent = new Event(eventType, {
-        bubbles: true,
-        cancelable: true,
-      });
-      let domWrapper;
+  describe("when the outside click event is triggered with menu open", () => {
+    const nativeInputEvent = new Event("click", {
+      bubbles: true,
+      cancelable: true,
+    });
+    let domWrapper;
 
-      beforeAll(() => {
-        if (eventType === "touchstart") {
-          document.documentElement.ontouchstart = () => {};
-        }
-      });
+    beforeEach(() => {
+      domWrapper = document.createElement("div");
+      document.body.appendChild(domWrapper);
+      wrapper = mount(
+        <SplitButton text="Split button">{singleButton}</SplitButton>,
+        { attachTo: domWrapper }
+      );
 
-      beforeEach(() => {
-        domWrapper = document.createElement("div");
-        document.body.appendChild(domWrapper);
-        wrapper = mount(
-          <SplitButton text="Split button">{singleButton}</SplitButton>,
-          { attachTo: domWrapper }
-        );
+      act(() => {
+        simulateFocusOnToggle(wrapper);
+      });
+    });
+
+    afterEach(() => {
+      wrapper.detach();
+      document.body.removeChild(domWrapper);
+    });
+
+    describe("on the Menu element", () => {
+      it("then the Menu should not be closed", () => {
+        expect(
+          wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+        ).toBe(true);
 
         act(() => {
-          simulateFocusOnToggle(wrapper);
+          wrapper
+            .find(StyledSplitButtonChildrenContainer)
+            .getDOMNode()
+            .dispatchEvent(nativeInputEvent);
         });
-      });
+        jest.runAllTimers();
+        wrapper.update();
 
-      describe("on the Menu element", () => {
+        expect(
+          wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+        ).toBe(true);
+      });
+    });
+
+    describe("on an external element", () => {
+      describe("and focus is still on the toggle button", () => {
         it("then the Menu should not be closed", () => {
           expect(
             wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
           ).toBe(true);
 
           act(() => {
-            wrapper
-              .find(StyledSplitButtonChildrenContainer)
-              .find(Button)
-              .getDOMNode()
-              .dispatchEvent(nativeInputEvent);
+            domWrapper.dispatchEvent(nativeInputEvent);
           });
 
           expect(
@@ -455,53 +501,24 @@ describe("SplitButton", () => {
         });
       });
 
-      describe("on an external element", () => {
-        describe("and focus is still on the toggle button", () => {
-          it("then the Menu should not be closed", () => {
-            expect(
-              wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
-            ).toBe(true);
+      describe("and focus is on a button in the menu", () => {
+        it("then the Menu should be closed", () => {
+          expect(
+            wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+          ).toBe(true);
+          simulateBlurOnToggle(wrapper);
 
-            act(() => {
-              domWrapper.dispatchEvent(nativeInputEvent);
-            });
-
-            expect(
-              wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
-            ).toBe(true);
+          act(() => {
+            domWrapper.dispatchEvent(nativeInputEvent);
           });
-        });
 
-        describe("and focus is on a button in the menu", () => {
-          it("then the Menu should be closed", () => {
-            expect(
-              wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
-            ).toBe(true);
-            simulateBlurOnToggle(wrapper);
-
-            act(() => {
-              domWrapper.dispatchEvent(nativeInputEvent);
-            });
-
-            expect(
-              wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
-            ).toBe(false);
-          });
+          expect(
+            wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+          ).toBe(false);
         });
       });
-
-      afterEach(() => {
-        wrapper.detach();
-        document.body.removeChild(domWrapper);
-      });
-
-      afterAll(() => {
-        if (eventType === "touchstart") {
-          document.documentElement.ontouchstart = undefined;
-        }
-      });
-    }
-  );
+    });
+  });
 
   describe("tags", () => {
     describe("on component", () => {
@@ -552,14 +569,25 @@ describe("SplitButton", () => {
     describe.each([
       ["enter", 13],
       ["space", 32],
+      ["down", 40],
     ])("the %s key is pressed", (name, keyCode) => {
       it("then the first additional button should be focused", () => {
+        toggle.simulate("blur");
+        wrapper.find(StyledSplitButton).simulate("mouseleave");
+        wrapper.update();
         toggle.simulate("keydown", { which: keyCode });
+        jest.runAllTimers();
+
         const firstButton = wrapper
           .find(additionalButtonsSelector)
           .find("button")
           .at(0);
         expect(firstButton.getDOMNode()).toBe(document.activeElement);
+      });
+
+      it("does not open additional buttons if opened already - coverage", () => {
+        toggle.simulate("keydown", { which: keyCode });
+        jest.runAllTimers();
       });
     });
 
