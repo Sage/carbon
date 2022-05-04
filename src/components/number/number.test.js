@@ -244,10 +244,13 @@ context("Tests for Number component", () => {
 
   describe("check events for Number component", () => {
     const inputValue = "1";
+    let callback;
 
-    it("should return onChange event for input value 1", () => {
-      const callback = cy.stub();
+    beforeEach(() => {
+      callback = cy.stub();
+    });
 
+    it("should call onChange callback when a type event is triggered", () => {
       CypressMountWithProviders(<NumberInputComponent onChange={callback} />);
 
       commonDataElementInputPreview()
@@ -297,10 +300,8 @@ context("Tests for Number component", () => {
     );
 
     it.each([["downarrow"], ["leftarrow"], ["rightarrow"], ["uparrow"]])(
-      "should return onKeyDown event when %s key is pressed",
+      "should call onKeyDown callback when a %s keydown event is triggered",
       (key) => {
-        const callback = cy.stub();
-
         CypressMountWithProviders(
           <NumberInputComponent onKeyDownEnabled onKeyDown={callback} />
         );

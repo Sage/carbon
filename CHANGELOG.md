@@ -1,3 +1,39 @@
+### [106.1.3](https://github.com/Sage/carbon/compare/v106.1.2...v106.1.3) (2022-05-03)
+
+
+### Bug Fixes
+
+* **link:** apply correct colour to icon on hover ([be66093](https://github.com/Sage/carbon/commit/be660935ac5e153bb55da770f03e6d3d0090cd09)), closes [#5088](https://github.com/Sage/carbon/issues/5088)
+
+### [106.1.2](https://github.com/Sage/carbon/compare/v106.1.1...v106.1.2) (2022-04-29)
+
+
+### Bug Fixes
+
+* **dialog:** fix component not displayed in react 17 ([e311304](https://github.com/Sage/carbon/commit/e311304c0937c586f028b1aa954f2b0589711f5f)), closes [#4585](https://github.com/Sage/carbon/issues/4585)
+* **modal:** resolve findDOMNode deprecation warning in React 17 projects ([1d44633](https://github.com/Sage/carbon/commit/1d44633f63124f9f93f8a221440eaaf87a9a0053))
+
+### [106.1.1](https://github.com/Sage/carbon/compare/v106.1.0...v106.1.1) (2022-04-28)
+
+
+### Bug Fixes
+
+* **simple-select:** stop key filtering when command/control pressed ([167b068](https://github.com/Sage/carbon/commit/167b068f5273d15e538e050c732620e0417c4856))
+
+## [106.1.0](https://github.com/Sage/carbon/compare/v106.0.3...v106.1.0) (2022-04-26)
+
+
+### Features
+
+* consume Sage UI font from @sage/design-tokens package ([1d27c5f](https://github.com/Sage/carbon/commit/1d27c5f8b1cb334132c86b6864ae19690295f36d))
+
+### [106.0.3](https://github.com/Sage/carbon/compare/v106.0.2...v106.0.3) (2022-04-25)
+
+
+### Bug Fixes
+
+* **decimal:** ensure id prop is passed to input ([a66fe0d](https://github.com/Sage/carbon/commit/a66fe0d6a541341a325772c7090c24feae920672)), closes [#5035](https://github.com/Sage/carbon/issues/5035)
+
 ### [106.0.2](https://github.com/Sage/carbon/compare/v106.0.1...v106.0.2) (2022-04-19)
 
 

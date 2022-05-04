@@ -59,6 +59,10 @@ const StyledLink = styled.span<StyledLinkProps>`
         color: ${isSkipLink
           ? "var(--colorsUtilityYin090)"
           : "var(--colorsActionMajor600)"};
+
+        ${StyledIcon} {
+          color: var(--colorsActionMajor600);
+        }
       }
 
       &:focus {

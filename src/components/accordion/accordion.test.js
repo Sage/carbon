@@ -334,7 +334,7 @@ context("Testing Accordion component", () => {
     });
 
     it.each([[true], [false]])(
-      "should check onChange action was called when expanded is set to %s",
+      "should call onChange callback when a click event is triggered and expanded is set to %s",
       (isExpanded) => {
         const callback = cy.stub();
 

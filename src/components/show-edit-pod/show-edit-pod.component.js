@@ -43,6 +43,9 @@ const ShowEditPod = ({
 
   const ref = useRef();
 
+  const editModeNodeRef = useRef();
+  const showModeNodeRef = useRef();
+
   const [isEditing, setIsEditingState] = useState(false);
 
   const isControlled = editing !== undefined;
@@ -148,8 +151,11 @@ const ShowEditPod = ({
           key="1"
           classNames={transitionName}
           timeout={{ enter: 300, exit: 50 }}
+          nodeRef={editModeNodeRef}
         >
-          <div key="edit">{editContent()}</div>
+          <div key="edit" ref={editModeNodeRef}>
+            {editContent()}
+          </div>
         </CSSTransition>
       );
     }
@@ -158,8 +164,11 @@ const ShowEditPod = ({
         key="2"
         classNames={transitionName}
         timeout={{ enter: 300, exit: 50 }}
+        nodeRef={showModeNodeRef}
       >
-        <div key="show">{children}</div>
+        <div key="show" ref={showModeNodeRef}>
+          {children}
+        </div>
       </CSSTransition>
     );
   };

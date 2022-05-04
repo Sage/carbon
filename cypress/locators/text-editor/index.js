@@ -1,5 +1,6 @@
 import { LINK } from "../locators";
 import {
+  TEXT_EDITOR_CONTAINER,
   TEXT_EDITOR_COUNTER,
   TEXT_EDITOR_INPUT,
   TEXT_EDITOR_TOOLBAR,
@@ -20,3 +21,4 @@ export const innerTextList = (typeOfList, index) =>
     .find(`li:nth-child(${index})`)
     .find("div");
 export const innerTextLink = () => textEditorInput().find(LINK).children();
+export const textEditorContainer = () => cy.get(TEXT_EDITOR_CONTAINER);

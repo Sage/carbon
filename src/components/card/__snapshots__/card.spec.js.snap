@@ -114,6 +114,11 @@ exports[`Card CardFooter styling should match the expected styling when it has n
   color: var(--colorsActionMajor600);
 }
 
+.c1 a:hover .c2,
+.c1 button:hover .c2 {
+  color: var(--colorsActionMajor600);
+}
+
 .c1 a:focus,
 .c1 button:focus {
   color: var(--colorsActionMajorYin090);
