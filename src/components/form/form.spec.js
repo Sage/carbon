@@ -43,6 +43,10 @@ describe("Form", () => {
     expect(wrapper.find(StyledForm).hasClass("foo")).toBeTruthy();
   });
 
+  it("does not render the StyledFormFooter container by default", () => {
+    expect(wrapper.find(StyledFormFooter).exists()).toBeFalsy();
+  });
+
   describe("when search used in Form component", () => {
     it("should have no addition margin-bottom", () => {
       wrapper = mount(<StyledForm />);
@@ -144,7 +148,16 @@ describe("Form", () => {
 
     describe("without container", () => {
       beforeEach(() => {
-        wrapper = mount(<Form stickyFooter />);
+        wrapper = mount(
+          <Form
+            stickyFooter
+            saveButton={
+              <Button buttonType="primary" type="submit">
+                Save
+              </Button>
+            }
+          />
+        );
       });
 
       it("renders footer with sticky styles", () => {
@@ -157,7 +170,15 @@ describe("Form", () => {
         const ref = useRef();
         return (
           <div id="test-container" ref={ref}>
-            <Form stickyFooter dialogRef={ref}>
+            <Form
+              stickyFooter
+              saveButton={
+                <Button buttonType="primary" type="submit">
+                  Save
+                </Button>
+              }
+              dialogRef={ref}
+            >
               <span>form content</span>
             </Form>
           </div>
@@ -286,7 +307,14 @@ describe("Form", () => {
     });
 
     it('align all buttons to right when buttonAlignment prop is "right"', () => {
-      wrapper.setProps({ buttonAlignment: "right" });
+      wrapper.setProps({
+        buttonAlignment: "right",
+        saveButton: (
+          <Button buttonType="primary" type="submit">
+            Save
+          </Button>
+        ),
+      });
       assertStyleMatch(
         {
           justifyContent: "flex-end",
@@ -296,7 +324,14 @@ describe("Form", () => {
     });
 
     it("form summary has proper background when errorCount or warningCount are passed", () => {
-      wrapper.setProps({ warningCount: 1 });
+      wrapper.setProps({
+        warningCount: 1,
+        saveButton: (
+          <Button buttonType="primary" type="submit">
+            Save
+          </Button>
+        ),
+      });
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsUtilityMajor025)",
@@ -314,6 +349,18 @@ describe("Form", () => {
   });
 
   describe("FormSummary", () => {
+    beforeEach(() => {
+      wrapper = mount(
+        <Form
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        />
+      );
+    });
+
     it("renders save button with FormSummary", () => {
       const saveButton = <Button id="mySaveButton">Save</Button>;
 
