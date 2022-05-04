@@ -1,3 +1,10 @@
+### [106.1.4](https://github.com/Sage/carbon/compare/v106.1.3...v106.1.4) (2022-05-04)
+
+
+### Bug Fixes
+
+* **accordion:** fix accordion content height issue ([2f76a18](https://github.com/Sage/carbon/commit/2f76a18120d5b4fe7ff26af7a040ad1d5558e5f4))
+
 ### [106.1.3](https://github.com/Sage/carbon/compare/v106.1.2...v106.1.3) (2022-05-03)
 
 
