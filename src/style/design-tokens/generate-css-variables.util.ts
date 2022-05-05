@@ -1,3 +1,5 @@
+import { ThemeObject } from "../themes/base";
+
 /**
  *
  * Converts theme properties to the string in form of css variable definitions.
@@ -7,7 +9,7 @@
  *
  */
 
-export default (theme) =>
+export default (theme: ThemeObject | Record<string, string>): string =>
   Object.entries(theme)
     .map(([key, value]) => `--${key}: ${value};`)
     .join("\r\n");

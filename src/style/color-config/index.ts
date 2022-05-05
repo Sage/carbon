@@ -1,5 +1,5 @@
 // Base colors
-export default {
+const colorConfig: Record<string, string> = {
   brilliantGreen: "00DC00",
   carrotOrange: "E96400",
   errorRed: "C7384F",
@@ -13,3 +13,5 @@ export default {
   slate: "003349",
   black: "000000",
 };
+
+export default colorConfig;

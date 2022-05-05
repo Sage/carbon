@@ -1,4 +1,4 @@
-import configureBase from "./base-theme.config";
+import configureBase, { BasePalette, ThemeObject } from "./base-theme.config";
 import baseColors from "../../color-config";
 import atOpacity from "../../utils/at-opacity";
 import { mergeDeep } from "../../utils/merge-deep";
@@ -10,18 +10,20 @@ const colorsWithHex = addHexSymbols(baseColors);
 const blackOpacity = atOpacity("#000000");
 const whiteOpacity = atOpacity("#FFFFFF");
 
-const palette = {
+const palette: BasePalette = {
   ...colors,
+  ...colorsWithHex,
   blackOpacity,
   whiteOpacity,
-  ...colorsWithHex,
 };
 
 const baseTheme = configureBase(palette);
 
 export default baseTheme;
 
-export const mergeWithBase = (configureTheme) => {
+export const mergeWithBase = (
+  configureTheme: (p: BasePalette) => Partial<ThemeObject>
+): Partial<ThemeObject> => {
   const themeToMergeWithBase = configureTheme(palette);
 
   return {
@@ -29,3 +31,5 @@ export const mergeWithBase = (configureTheme) => {
     palette,
   };
 };
+
+export type { ThemeObject };

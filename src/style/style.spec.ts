@@ -1,20 +1,25 @@
 import config from "./color-config";
 import mix from "./utils/mix";
-import generatePalette from "./palette";
+import generatePalette, { PaletteFunction } from "./palette";
 
-const assertCorrectColorMix = (config, paletteObject) => {
-  Object.keys(config).forEach((col) => {
-    const match = col.match(/([a-z]+)([\d]{0,2})/i);
+const assertCorrectColorMix = (
+  colorConfig: Record<string, string>,
+  paletteObject: Record<string, PaletteFunction>
+) => {
+  Object.keys(colorConfig).forEach((color) => {
+    const match = color.match(/([a-z]+)([\d]{0,2})/i);
 
-    const func = match[1],
-      weight = Number(match[2]);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const func = match![1];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const weight = Number(match![2]);
 
-    expect(paletteObject[func](weight)).toEqual("#" + config[col]);
+    expect(paletteObject[func](weight)).toEqual(`#${colorConfig[color]}`);
   });
 };
 
 describe("style", () => {
-  let colorConfig = {
+  const colorConfig: Record<string, string> = {
     brilliantGreenShade20: "00B000",
     brilliantGreenTint50: "80EE80",
     goldTint50: "FFDA80",
@@ -49,7 +54,7 @@ describe("style", () => {
   };
 
   describe("palette", () => {
-    let palette;
+    let palette: Record<string, PaletteFunction>;
 
     beforeEach(() => {
       palette = generatePalette(config);
@@ -63,38 +68,42 @@ describe("style", () => {
   describe("mix", () => {
     it("defaults to a weight of 50", () => {
       expect(mix(config.genericGreen, "FFFFFF")).toEqual(
-        "#" + colorConfig.genericGreenTint50
+        `#${colorConfig.genericGreenTint50}`
       );
     });
 
     it("accepts colors without a hash symbol", () => {
       expect(mix(config.genericGreen, "FFFFFF")).toEqual(
-        "#" + colorConfig.genericGreenTint50
+        `#${colorConfig.genericGreenTint50}`
       );
     });
 
     it("accepts colors with a hash symbol", () => {
-      expect(mix("#" + config.genericGreen, "#FFFFFF")).toEqual(
-        "#" + colorConfig.genericGreenTint50
+      expect(mix(`#${config.genericGreen}`, "#FFFFFF")).toEqual(
+        `#${colorConfig.genericGreenTint50}`
       );
     });
 
     it("accepts three-digit hashes", () => {
       expect(mix(config.genericGreen, "FFF")).toEqual(
-        "#" + colorConfig.genericGreenTint50
+        `#${colorConfig.genericGreenTint50}`
       );
       expect(mix("FFF", config.genericGreen)).toEqual(
-        "#" + colorConfig.genericGreenTint50
+        `#${colorConfig.genericGreenTint50}`
       );
     });
 
     it("accepts colors with combinations of with and without hash symbols", () => {
-      expect(mix("#" + config.genericGreen, "FFFFFF")).toEqual(
-        "#" + colorConfig.genericGreenTint50
+      expect(mix(`#${config.genericGreen}`, "FFFFFF")).toEqual(
+        `#${colorConfig.genericGreenTint50}`
       );
       expect(mix(config.genericGreen, "#FFFFFF")).toEqual(
-        "#" + colorConfig.genericGreenTint50
+        `#${colorConfig.genericGreenTint50}`
       );
+    });
+
+    it("returns empty string if no second input color passed", () => {
+      expect(mix(`#${config.genericGreen}`, "")).toEqual("");
     });
   });
 });

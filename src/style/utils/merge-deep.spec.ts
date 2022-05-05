@@ -1,7 +1,7 @@
 import { mergeDeep } from "./merge-deep";
 
 describe("mergeDeep", () => {
-  let base;
+  let base: Record<string, unknown>;
 
   beforeEach(() => {
     base = {
@@ -54,8 +54,8 @@ describe("mergeDeep", () => {
     });
   });
 
-  it("merges the objects but does not create a new key when not passed an object", () => {
-    expect(mergeDeep(base, undefined)).toEqual(base);
+  it("merges the objects but does not create a new key when passed a nested empty object", () => {
+    expect(mergeDeep(base, { foo: {} })).toEqual(base);
   });
 
   it("is not mutative", () => {
