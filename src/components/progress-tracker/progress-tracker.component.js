@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../__internal__/utils/helpers/tags";
@@ -10,6 +10,7 @@ import {
   StyledProgressTracker,
   StyledValue,
 } from "./progress-tracker.style";
+import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -23,6 +24,7 @@ const ProgressTracker = ({
   "aria-valuemax": ariaValueMax,
   "aria-valuetext": ariaValueText,
   size = "medium",
+  length = "256px",
   progress = 0,
   showDefaultLabels = false,
   currentProgressLabel,
@@ -32,10 +34,28 @@ const ProgressTracker = ({
   labelsPosition,
   ...rest
 }) => {
+  const barRef = useRef();
+  const [barLength, setBarLength] = useState(0);
   const isVertical = orientation === "vertical";
   const prefixLabels =
     (!isVertical && labelsPosition !== "bottom") ||
     (isVertical && labelsPosition === "left");
+
+  const updateBarLength = useCallback(() => {
+    if (orientation === "horizontal") {
+      setBarLength(`${barRef.current.offsetWidth}px`);
+    } else {
+      setBarLength(`${barRef.current.offsetHeight}px`);
+    }
+  }, [barRef, orientation]);
+
+  useLayoutEffect(() => {
+    updateBarLength();
+  }, [barRef, orientation, updateBarLength]);
+
+  useResizeObserver(barRef, () => {
+    updateBarLength();
+  });
 
   const renderValueLabels = () => {
     if (!showDefaultLabels && !currentProgressLabel && !maxProgressLabel) {
@@ -78,6 +98,7 @@ const ProgressTracker = ({
   return (
     <StyledProgressTracker
       size={size}
+      length={length}
       isVertical={isVertical}
       {...rest}
       {...tagComponent("progress-bar", rest)}
@@ -94,8 +115,14 @@ const ProgressTracker = ({
         direction={isVertical ? direction : undefined}
         isVertical={isVertical}
         size={size}
+        ref={barRef}
       >
-        <InnerBar isVertical={isVertical} size={size} progress={progress} />
+        <InnerBar
+          isVertical={isVertical}
+          size={size}
+          length={barLength}
+          progress={progress}
+        />
       </StyledProgressBar>
       {!prefixLabels && renderValueLabels()}
     </StyledProgressTracker>
@@ -120,6 +147,8 @@ ProgressTracker.propTypes = {
   "aria-valuetext": PropTypes.string,
   /** Size of the progress bar. */
   size: PropTypes.oneOf(["small", "medium", "large"]),
+  /** Length of the progress bar, any valid css string. */
+  length: PropTypes.string,
   /** Current progress (percentage). */
   progress: PropTypes.number,
   /** Flag to control whether the default value labels (as percentages) should be rendered. */

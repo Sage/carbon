@@ -1,19 +1,57 @@
 import React from "react";
 import { mount } from "enzyme";
+import { act } from "react-dom/test-utils";
 import {
   StyledProgressBar,
   InnerBar,
   StyledValuesLabel,
   StyledValue,
+  StyledProgressTracker,
 } from "./progress-tracker.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import ProgressBar from "./progress-tracker.component";
+import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+
+jest.mock("../../hooks/__internal__/useResizeObserver");
 
 describe("ProgressBar", () => {
   let wrapper;
+
+  const originalOffsetHeight = Object.getOwnPropertyDescriptor(
+    HTMLElement.prototype,
+    "offsetHeight"
+  );
+  const originalOffsetWidth = Object.getOwnPropertyDescriptor(
+    HTMLElement.prototype,
+    "offsetWidth"
+  );
+
+  beforeAll(() => {
+    Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
+      configurable: true,
+      value: 256,
+    });
+    Object.defineProperty(HTMLElement.prototype, "offsetWidth", {
+      configurable: true,
+      value: 256,
+    });
+  });
+
+  afterAll(() => {
+    Object.defineProperty(
+      HTMLElement.prototype,
+      "offsetHeight",
+      originalOffsetHeight
+    );
+    Object.defineProperty(
+      HTMLElement.prototype,
+      "offsetWidth",
+      originalOffsetWidth
+    );
+  });
 
   testStyledSystemMargin((props) => <ProgressBar {...props} />);
 
@@ -21,6 +59,44 @@ describe("ProgressBar", () => {
     wrapper = mount(<ProgressBar />);
     const innerBar = wrapper.find(InnerBar);
     expect(innerBar).toBeTruthy();
+  });
+
+  describe("when a custom length is set", () => {
+    describe("horizontal orientation", () => {
+      it.each(["50px", "100%", "auto"])(
+        "sets the width to %s as expected",
+        (width) => {
+          wrapper = mount(<ProgressBar length={width} />);
+          assertStyleMatch(
+            {
+              width,
+            },
+            wrapper.find(StyledProgressTracker)
+          );
+        }
+      );
+    });
+  });
+
+  describe("when the outer bar is resized", () => {
+    it("the inner bar length is recalculated", () => {
+      wrapper = mount(<ProgressBar progress={50} />);
+
+      act(() => {
+        useResizeObserver.mock.calls[
+          useResizeObserver.mock.calls.length - 1
+        ][1]();
+      });
+
+      wrapper.update();
+
+      assertStyleMatch(
+        {
+          width: "calc(256px * 0.5)",
+        },
+        wrapper.find(InnerBar)
+      );
+    });
   });
 
   describe("when size is not specified", () => {
