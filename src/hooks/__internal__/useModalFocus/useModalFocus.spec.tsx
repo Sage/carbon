@@ -25,18 +25,13 @@ describe("useModalFocus custom hook", () => {
     wrapper.unmount();
   });
 
-  it("the container initially has no tabindex", () => {
-    expect(wrapper.find("div").props().tabIndex).toBeUndefined();
-  });
-
-  it("when the open argument is true, the wrapper has tabindex -1", () => {
-    wrapper.find("button").simulate("click");
-    expect(wrapper.find("div").props().tabIndex).toBe(-1);
+  it("the container initially has tabindex 0", () => {
+    expect(wrapper.find("div").props().tabIndex).toBe(0);
   });
 
   it("when open and the wrapper is blurred, the tabindex is removed", () => {
     wrapper.find("button").simulate("click");
-    expect(wrapper.find("div").props().tabIndex).toBe(-1);
+    expect(wrapper.find("div").props().tabIndex).toBe(0);
     wrapper.find("div").simulate("blur");
     expect(wrapper.find("div").props().tabIndex).toBeUndefined();
   });
