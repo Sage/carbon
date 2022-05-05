@@ -7,7 +7,7 @@ import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-
 import { ThemeObject } from "../../style/themes/base";
 
 export interface CarbonProviderProps {
-  theme?: ThemeObject;
+  theme?: Partial<ThemeObject>;
   children: React.ReactNode;
   validationRedesignOptIn?: boolean;
 }

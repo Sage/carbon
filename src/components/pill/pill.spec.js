@@ -14,7 +14,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import { baseTheme } from "../../style/themes";
-import { toColor } from "../../style/utils/color.js";
+import { toColor } from "../../style/utils/color";
 
 const modernStyleTypes = ["neutral", "negative", "positive", "warning"];
 
