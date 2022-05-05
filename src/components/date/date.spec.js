@@ -89,11 +89,11 @@ describe("Date", () => {
   let onFocusFn;
 
   // eslint-disable-next-line react/prop-types
-  const MockComponent = ({ emptyValue, eventValues = () => {} }) => {
+  const MockComponent = ({ emptyValue, eventValues = () => {}, ...rest }) => {
     const [val, setVal] = useState(emptyValue ? "" : "02/02/2022");
     return (
       <DateInput
-        value={val}
+        value={rest.value || val}
         onChange={(ev) => {
           setVal(ev.target.value.formattedValue);
           eventValues(ev.target.value);
@@ -251,6 +251,32 @@ describe("Date", () => {
       simulateMouseDownOnInput(wrapper);
       simulateBlurOnInput(wrapper);
       expect(onBlurFn).not.toHaveBeenCalled();
+    });
+
+    describe("when year value is only two digits", () => {
+      it("emits rawValue as the expected ISO string when year is `69`", () => {
+        const eventValuesFn = jest.fn();
+        wrapper = mount(
+          <MockComponent eventValues={eventValuesFn} value="12.12.69" />
+        );
+        simulateBlurOnInput(wrapper);
+        expect(eventValuesFn).toBeCalledWith({
+          formattedValue: "12/12/1969",
+          rawValue: "1969-12-12",
+        });
+      });
+
+      it("emits rawValue as the expected ISO string when year is `20`", () => {
+        const eventValuesFn = jest.fn();
+        wrapper = mount(
+          <MockComponent eventValues={eventValuesFn} value="12.12.20" />
+        );
+        simulateBlurOnInput(wrapper);
+        expect(eventValuesFn).toBeCalledWith({
+          formattedValue: "12/12/2020",
+          rawValue: "2020-12-12",
+        });
+      });
     });
   });
 

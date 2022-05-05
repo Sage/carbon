@@ -91,7 +91,7 @@ const DateInput = ({
         ? formattedValue(format, selectedDays)
         : ev.target.value;
     const rawValue = isDateValid(parseDate(matchedFormat, matchedValue))
-      ? formatToISO(matchedFormat, matchedValue)
+      ? formatToISO(...additionalYears(matchedFormat, matchedValue))
       : computeInvalidRawValue(ev.target.value);
 
     ev.target = {
