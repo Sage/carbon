@@ -1,3 +1,11 @@
+### [106.1.7](https://github.com/Sage/carbon/compare/v106.1.6...v106.1.7) (2022-05-06)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure no hover background change when FlatTableCheckbox is a th and isZebra is set ([f2fbd1c](https://github.com/Sage/carbon/commit/f2fbd1cc5d0ac54a7b8a5cfdf5e1cc7da6817daf)), closes [#5102](https://github.com/Sage/carbon/issues/5102)
+* **flat-table:** ensure z-index sticky footer is higher than FlatTableRowHeader ([a380428](https://github.com/Sage/carbon/commit/a38042878cb4c783b54d61a2bc9e6f4fdf6c955a)), closes [#5091](https://github.com/Sage/carbon/issues/5091)
+
 ### [106.1.6](https://github.com/Sage/carbon/compare/v106.1.5...v106.1.6) (2022-05-06)
 
 
