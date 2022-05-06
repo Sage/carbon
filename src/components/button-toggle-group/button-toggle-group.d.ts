@@ -2,7 +2,7 @@ import * as React from "react";
 import { MarginProps } from "styled-system";
 
 import { ButtonToggleProps } from "../button-toggle";
-import { ValidationPropTypes } from "../../__internal__/validations";
+import { ValidationProps } from "../../__internal__/validations";
 
 type ButtonToggle =
   | React.ReactElement<ButtonToggleProps>
@@ -10,9 +10,7 @@ type ButtonToggle =
   | null
   | undefined;
 
-export interface ButtonToggleGroupProps
-  extends ValidationPropTypes,
-    MarginProps {
+export interface ButtonToggleGroupProps extends ValidationProps, MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */

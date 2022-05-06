@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import { ValidationPropTypes } from "../validations";
+import { ValidationProps } from "../validations";
 import { CommonHiddenCheckableInputProps } from "./hidden-checkable-input";
 
 export interface CommonCheckableInputProps
-  extends ValidationPropTypes,
+  extends ValidationProps,
     CommonHiddenCheckableInputProps {
   /** If true, the component will be disabled */
   disabled?: boolean;
