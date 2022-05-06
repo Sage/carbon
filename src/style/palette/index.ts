@@ -1,7 +1,11 @@
 import tint from "../utils/tint";
 import shade from "../utils/shade";
 
-const cachedFunc = (cb) => (cache = {}) => (weight) => {
+export type PaletteFunction = (weight: number | string) => string;
+
+const cachedFunc = (cb: PaletteFunction) => (
+  cache: Record<string, string> = {}
+) => (weight: number | string) => {
   if (cache[weight]) {
     return cache[weight];
   }
@@ -26,18 +30,23 @@ const cachedFunc = (cb) => (cache = {}) => (weight) => {
  * where `n` is the degree of white (in case of `tint`) or
  * black (in case of `shade`) they wish to mix into the base color.
  */
-const generatePalette = (config) => {
+const generatePalette = (
+  config: Record<string, string>
+): Record<string, PaletteFunction> => {
   const baseNames = Object.keys(config);
 
-  const funcs = baseNames.reduce((acc, baseName) => {
-    const tintBy = tint(config[baseName]),
-      shadeBy = shade(config[baseName]);
+  const funcs = baseNames.reduce(
+    (acc: Record<string, PaletteFunction>, baseName) => {
+      const tintBy = tint(config[baseName]),
+        shadeBy = shade(config[baseName]);
 
-    acc[`${baseName}Tint`] = cachedFunc(tintBy)();
-    acc[`${baseName}Shade`] = cachedFunc(shadeBy)();
+      acc[`${baseName}Tint`] = cachedFunc(tintBy)();
+      acc[`${baseName}Shade`] = cachedFunc(shadeBy)();
 
-    return acc;
-  }, {});
+      return acc;
+    },
+    {}
+  );
 
   return funcs;
 };

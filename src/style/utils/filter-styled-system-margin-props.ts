@@ -1,6 +1,7 @@
+import { MarginProps } from "styled-system";
 import filterObjectProperties from "../../__internal__/filter-object-properties";
 
-const marginPropertyNames = [
+export const marginPropertyNames = [
   "margin",
   "m",
   "marginLeft",
@@ -17,6 +18,8 @@ const marginPropertyNames = [
   "my",
 ];
 
-export default function filterStyledSystemMarginProps(originalObject) {
+export default function filterStyledSystemMarginProps(
+  originalObject: Record<string, unknown> | MarginProps
+): MarginProps {
   return filterObjectProperties(originalObject, marginPropertyNames);
 }

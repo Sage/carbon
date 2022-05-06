@@ -1,3 +1,4 @@
+import { ThemeObject } from "style/themes/base";
 import styled from "styled-components";
 import { baseTheme } from "../../themes";
 import generateCssVariables from "../generate-css-variables.util";
@@ -9,7 +10,7 @@ import generateCssVariables from "../generate-css-variables.util";
  *
  */
 
-const CarbonScopedTokensProvider = styled.div`
+const CarbonScopedTokensProvider = styled.div<ThemeObject>`
   margin: 0;
   padding: 0;
   width: auto;

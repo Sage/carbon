@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-restricted-imports
 import { color as styledColor } from "styled-system";
 import tokens from "@sage/design-tokens/js/base/common";
+import { ThemeObject } from "style/themes/base";
 
 /*
  * styled-system/color allows users to use a color from the theme, from the `colors` object.
@@ -22,7 +23,7 @@ import tokens from "@sage/design-tokens/js/base/common";
  * This allows us to keep our themes as plain objects.
  */
 
-export const toColor = (theme, color) => {
+export const toColor = (theme: ThemeObject, color: string) => {
   if (color.startsWith("--") && color.slice(2) in tokens) {
     return `var(${color})`;
   }
@@ -30,29 +31,49 @@ export const toColor = (theme, color) => {
   const { palette } = theme;
 
   const percentage = color.match(/\d+/);
-  const method = color.match(/[a-zA-Z]+/);
+  const method = color.match(/[a-zA-Z]+/)?.toString();
 
-  if (method in palette) {
+  if (method && method in palette) {
     const match = palette[method];
     if (typeof match === "function") {
-      const arg = ["blackOpacity", "whiteOpacity"].includes(method.toString())
+      const arg = ["blackOpacity", "whiteOpacity"].includes(method)
         ? `0.${percentage}`
         : percentage;
 
-      return match(arg);
+      return match(arg as string);
     }
+
     return match;
   }
 
   return color;
 };
 
-export default ({ color, bg, backgroundColor, ...rest }) => {
+interface ColorObject {
+  color?: string;
+  bg?: string;
+}
+
+export default ({
+  color,
+  bg,
+  backgroundColor,
+  ...rest
+}: Record<string, unknown>) => {
+  const obj: ColorObject = {};
+  obj.color = color
+    ? toColor(rest.theme as ThemeObject, color as string)
+    : undefined;
+  obj.bg =
+    bg || backgroundColor
+      ? toColor(
+          rest.theme as ThemeObject,
+          (bg as string) || (backgroundColor as string)
+        )
+      : undefined;
+
   return styledColor({
     ...rest,
-    ...(color && { color: toColor(rest.theme, color) }),
-    ...((bg || backgroundColor) && {
-      bg: toColor(rest.theme, bg || backgroundColor),
-    }),
+    ...obj,
   });
 };
