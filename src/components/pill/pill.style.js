@@ -6,7 +6,7 @@ import { margin } from "styled-system";
 import styleConfig from "./pill.style.config";
 import { baseTheme } from "../../style/themes";
 import StyledIcon from "../icon/icon.style";
-import { toColor } from "../../style/utils/color.js";
+import { toColor } from "../../style/utils/color";
 import getColorValue from "../../style/utils/get-color-value";
 
 function addStyleToPillIcon(fontSize) {

@@ -21,6 +21,8 @@ const Modal = ({
   ...rest
 }) => {
   const ref = useRef();
+  const backgroundNodeRef = useRef();
+  const contentNodeRef = useRef();
   const listenerAdded = useRef(false);
   const modalRegistered = useRef(false);
   const [isAnimationComplete, setAnimationComplete] = useState(false);
@@ -136,6 +138,7 @@ const Modal = ({
   if (open) {
     background = !enableBackgroundUI ? (
       <StyledModalBackground
+        ref={backgroundNodeRef}
         data-element="modal-background"
         transitionName="modal-background"
         transitionTime={timeout}
@@ -157,6 +160,7 @@ const Modal = ({
         <TransitionGroup>
           {background && (
             <CSSTransition
+              nodeRef={backgroundNodeRef}
               key="modal"
               appear
               classNames="modal-background"
@@ -170,13 +174,19 @@ const Modal = ({
         </TransitionGroup>
         <TransitionGroup>
           {content && (
-            <CSSTransition appear classNames="modal" timeout={timeout}>
+            <CSSTransition
+              nodeRef={contentNodeRef}
+              appear
+              classNames="modal"
+              timeout={timeout}
+            >
               <ModalContext.Provider
                 value={{
                   isAnimationComplete,
                   triggerRefocusFlag,
                   isInModal: true,
                 }}
+                ref={contentNodeRef}
               >
                 {content}
               </ModalContext.Provider>

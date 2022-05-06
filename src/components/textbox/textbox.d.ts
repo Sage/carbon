@@ -1,11 +1,11 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
 
-import { ValidationPropTypes } from "../../__internal__/validations";
+import { ValidationProps } from "../../__internal__/validations";
 import { CommonInputProps } from "../../__internal__/input";
 
 export interface CommonTextboxProps
-  extends ValidationPropTypes,
+  extends ValidationProps,
     MarginProps,
     Omit<CommonInputProps, "size"> {
   /** Automatically focus the input on component mount */

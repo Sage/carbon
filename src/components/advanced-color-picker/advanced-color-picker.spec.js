@@ -1,4 +1,5 @@
 import React from "react";
+import { config } from "react-transition-group";
 import { mount, shallow } from "enzyme";
 import { act } from "react-test-renderer";
 import AdvancedColorPicker from "./advanced-color-picker.component";
@@ -11,6 +12,8 @@ import {
 } from "../../__spec_helper__/test-utils";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 import { ModalContext } from "../modal/modal.component";
+
+config.disabled = true;
 
 jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");

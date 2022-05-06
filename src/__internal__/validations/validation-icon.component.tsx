@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import invariant from "invariant";
+import { MarginProps } from "styled-system";
 import Icon from "../../components/icon";
 import ValidationIconStyle from "./validation-icon.style";
 import {
@@ -29,7 +30,9 @@ export interface ValidationProps {
 
 type TooltipPositions = "top" | "bottom" | "left" | "right";
 
-export interface ValidationIconProps extends ValidationProps {
+export interface ValidationIconProps
+  extends ValidationProps,
+    Pick<MarginProps, "mr" | "ml"> {
   /** A small string to indicate the size of the icon */
   size?: "small" | "medium" | "large";
   /** The unique id of the component (used with aria-describedby for accessibility) */
@@ -54,10 +57,6 @@ export interface ValidationIconProps extends ValidationProps {
   isPartOfInput?: boolean;
   /** Overrides the default tabindex of the component */
   tabIndex?: number;
-  /** Margin right, given number will be multiplied by base spacing unit (8) */
-  mr?: number;
-  /** Margin left, given number will be multiplied by base spacing unit (8) */
-  ml?: number;
 }
 
 const getValidationType = ({ error, warning, info }: ValidationProps) => {

@@ -1,13 +1,16 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import guid from "../../__internal__/utils/helpers/guid";
 import Browser from "../../__internal__/utils/helpers/browser";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
+export const PortalContext = React.createContext({});
+
 const Portal = ({ children, className, id, onReposition }) => {
   const [portalNode, setPortalNode] = useState(null);
   const uniqueId = useMemo(() => guid(), []);
+  const { renderInRoot } = useContext(PortalContext);
 
   useEffect(() => {
     if (onReposition) {
@@ -44,7 +47,10 @@ const Portal = ({ children, className, id, onReposition }) => {
     if (!node && id !== undefined && document.getElementById(id)) {
       node = document.getElementById(id);
       setPortalNode(node);
-    } else if (!node) {
+    } else if (
+      !node ||
+      document.getElementsByClassName(portalClassName).length === 0
+    ) {
       node = document.createElement("div");
       node.classList.add(portalClassName);
       node.setAttribute("data-portal-exit", uniqueId);
@@ -53,15 +59,14 @@ const Portal = ({ children, className, id, onReposition }) => {
       }
       setPortalNode(node);
 
+      let mainNode = document.body;
       const rootDiv = document.getElementById("root");
 
-      // Storybook adds the hidden attribute to the root element when on the "Docs" pages
-      // Without this check the portal would also be hidden
-      if (rootDiv && !rootDiv.hasAttribute("hidden")) {
-        rootDiv.appendChild(node);
-      } else {
-        document.body.appendChild(node);
+      if (rootDiv && renderInRoot) {
+        mainNode = rootDiv;
       }
+
+      mainNode.appendChild(node);
     }
 
     if (className) {

@@ -45,6 +45,7 @@ const Toast = ({
 
   const toastRef = useRef();
   const timer = useRef();
+  const toastContentNodeRef = useRef();
 
   const componentClasses = useMemo(() => {
     return classNames(className);
@@ -113,11 +114,13 @@ const Toast = ({
         enter
         classNames="toast"
         timeout={{ appear: 1600, enter: 1500, exit: 500 }}
+        nodeRef={toastContentNodeRef}
       >
         <ToastStyle
           className={componentClasses}
           {...tagComponent(restProps["data-component"] || "toast", restProps)}
           {...toastProps}
+          ref={toastContentNodeRef}
         >
           <TypeIcon variant={toastProps.variant}>
             <Icon type={toastProps.variant} />

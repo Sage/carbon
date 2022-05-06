@@ -1,10 +1,8 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
-import { ValidationPropTypes } from "../validations";
+import { ValidationProps } from "../validations";
 
-export interface CommonFormFieldPropTypes
-  extends MarginProps,
-    ValidationPropTypes {
+export interface CommonFormFieldPropTypes extends MarginProps, ValidationProps {
   /** If true, the component will be disabled */
   disabled?: boolean;
   /** Help content to be displayed under an input */

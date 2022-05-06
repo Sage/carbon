@@ -8,7 +8,7 @@ import Textbox from "../textbox";
 import Button from "../button";
 import Box from "../box";
 import I18nProvider from "../i18n-provider";
-import { de } from "../../locales/date-fns-locales";
+import { zhCN, de } from "../../locales/date-fns-locales";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 <Meta title="Date Input" parameters={{ info: { disable: true } }} />
@@ -571,8 +571,8 @@ The example below will display an error if an invalid date or a date with a year
 
 ### Locale override
 
-The examples below illustrates how to override the locale passed into the Date component. In this example it has been set up for
-the German locale. Required locales can be imported like so `import { de } from 'carbon-react/lib/locales/date-fns-locales';`
+The examples below illustrate how to override the locale passed into the Date component. The first example has been set up for
+the German (`de`) locale whilst the second is for a Chinese (`zh-CN`) locale. Required locales can be imported like so `import { de, zhCN } from 'carbon-react/lib/locales/date-fns-locales';`
 
 <Canvas>
   <Story
@@ -580,16 +580,25 @@ the German locale. Required locales can be imported like so `import { de } from 
     parameters={{ chromatic: { disable: true } }}
   >
     {() => {
-      const [state, setState] = useState("05/04/2022");
+      const [state, setState] = useState("2022-04-05");
       const handleChange = ({ target }) => {
         setState(target.value.formattedValue);
       };
+      const [state2, setState2] = useState("2022-04-05");
+      const handleChange2 = ({ target }) => {
+        setState2(target.value.formattedValue);
+      };
       return (
-        <div>
+        <div style={{ display: "flex", justifyContent: "space-around" }}>
           <I18nProvider
-            locale={{ locale: () => "de", date: { dateFnsLocale: () => de } }}
+            locale={{ locale: () => "de-DE", date: { dateFnsLocale: () => de } }}
           >
-            <DateInput label="Date" value={state} onChange={handleChange} />
+            <DateInput label="Date `DE` locale" value={state} onChange={handleChange} />
+          </I18nProvider>
+          <I18nProvider
+            locale={{ locale: () => "zh-CN", date: { dateFnsLocale: () => zhCN } }}
+          >
+            <DateInput label="Date `zh-CN` locale" value={state2} onChange={handleChange2} />
           </I18nProvider>
         </div>
       );

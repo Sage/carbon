@@ -141,7 +141,7 @@ Feature: Confirm component
 
   @positive
   Scenario: Verify that there is no possibility to close Confirm when cancelButton is disabled via ESC key
-    Given I open default "Confirm Test" component with "confirm" json from "commonComponents" using "disableCancelTrue" object name
+    Given I open default "Confirm Test" component with "confirm" json from "commonComponents" using "disableCancel" object name
     When I hit ESC key
     Then Confirm dialog is visible
 

@@ -1,3 +1,41 @@
+### [106.1.6](https://github.com/Sage/carbon/compare/v106.1.5...v106.1.6) (2022-05-06)
+
+
+### Bug Fixes
+
+* **date:** ensure correct output format and input formats are used for given locale ([2e9247e](https://github.com/Sage/carbon/commit/2e9247efc08d5d057a96965b37cca1ff6a89b5f8)), closes [#4966](https://github.com/Sage/carbon/issues/4966)
+* **date:** ensure onBlur callback is called when the input blurs ([6b00554](https://github.com/Sage/carbon/commit/6b005548be4e278edab28f881ca2f85fc6d9f994)), closes [#5072](https://github.com/Sage/carbon/issues/5072)
+* **date:** ensure rawValue emits correct value when year string is only 2 digits ([8d6afa7](https://github.com/Sage/carbon/commit/8d6afa707b32dfef66cd2a3d7b97c02c204f3391)), closes [#5119](https://github.com/Sage/carbon/issues/5119)
+
+### [106.1.5](https://github.com/Sage/carbon/compare/v106.1.4...v106.1.5) (2022-05-06)
+
+
+### Bug Fixes
+
+* **validations:** ensure VaidationProps are correctly imported by components extending its interface ([2f5e59b](https://github.com/Sage/carbon/commit/2f5e59bdf41537d5bb7f201c27c53c6d49ff0b3f)), closes [#5115](https://github.com/Sage/carbon/issues/5115)
+
+### [106.1.4](https://github.com/Sage/carbon/compare/v106.1.3...v106.1.4) (2022-05-04)
+
+
+### Bug Fixes
+
+* **accordion:** fix accordion content height issue ([2f76a18](https://github.com/Sage/carbon/commit/2f76a18120d5b4fe7ff26af7a040ad1d5558e5f4))
+
+### [106.1.3](https://github.com/Sage/carbon/compare/v106.1.2...v106.1.3) (2022-05-03)
+
+
+### Bug Fixes
+
+* **link:** apply correct colour to icon on hover ([be66093](https://github.com/Sage/carbon/commit/be660935ac5e153bb55da770f03e6d3d0090cd09)), closes [#5088](https://github.com/Sage/carbon/issues/5088)
+
+### [106.1.2](https://github.com/Sage/carbon/compare/v106.1.1...v106.1.2) (2022-04-29)
+
+
+### Bug Fixes
+
+* **dialog:** fix component not displayed in react 17 ([e311304](https://github.com/Sage/carbon/commit/e311304c0937c586f028b1aa954f2b0589711f5f)), closes [#4585](https://github.com/Sage/carbon/issues/4585)
+* **modal:** resolve findDOMNode deprecation warning in React 17 projects ([1d44633](https://github.com/Sage/carbon/commit/1d44633f63124f9f93f8a221440eaaf87a9a0053))
+
 ### [106.1.1](https://github.com/Sage/carbon/compare/v106.1.0...v106.1.1) (2022-04-28)
 
 
