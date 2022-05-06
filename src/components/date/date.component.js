@@ -91,7 +91,7 @@ const DateInput = ({
         ? formattedValue(format, selectedDays)
         : ev.target.value;
     const rawValue = isDateValid(parseDate(matchedFormat, matchedValue))
-      ? formatToISO(matchedFormat, matchedValue)
+      ? formatToISO(...additionalYears(matchedFormat, matchedValue))
       : computeInvalidRawValue(ev.target.value);
 
     ev.target = {
@@ -212,7 +212,9 @@ const DateInput = ({
       return;
     }
 
-    isBlurBlocked.current = true;
+    if (setInputRefMap) {
+      isBlurBlocked.current = true;
+    }
 
     if (ev.target.type === "text" && !open) {
       setOpen(true);
@@ -220,6 +222,11 @@ const DateInput = ({
       alreadyFocused.current = true;
       setOpen((prev) => !prev);
     }
+  };
+
+  const handleIconMouseDown = (e) => {
+    isBlurBlocked.current = true;
+    handleMouseDown(e);
   };
 
   const handlePickerMouseDown = () => {
@@ -274,7 +281,7 @@ const DateInput = ({
       setSelectedDays(
         parseDate(...additionalYears(matchedFormat, matchedValue))
       );
-    } else if (checkISOFormatAndLength(value)) {
+    } else if (checkISOFormatAndLength(value) && isInitialValue.current) {
       setSelectedDays(parseISODate(value));
     } else {
       setSelectedDays(undefined);
@@ -282,7 +289,7 @@ const DateInput = ({
   }, [value, formats]);
 
   const computedValue = () => {
-    if (checkISOFormatAndLength(value)) {
+    if (checkISOFormatAndLength(value) && isInitialValue.current) {
       return formattedValue(format, parseISODate(value));
     }
 
@@ -299,6 +306,8 @@ const DateInput = ({
       valueSeparator !== formatSeparator &&
       isDateValid(parseDate(format, replaceSeparators()))
     ) {
+      isInitialValue.current = false;
+
       const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
         replaceSeparators(),
         formats
@@ -333,7 +342,7 @@ const DateInput = ({
         onKeyDown={handleKeyDown}
         iconOnClick={handleClick}
         onMouseDown={handleMouseDown}
-        iconOnMouseDown={handleMouseDown}
+        iconOnMouseDown={handleIconMouseDown}
         inputIcon="calendar"
         labelInline={labelInline}
         inputRef={assignInput}

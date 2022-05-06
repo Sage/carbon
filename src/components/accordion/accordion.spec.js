@@ -153,29 +153,6 @@ describe("Accordion", () => {
         expect(onChange).toHaveBeenCalledWith(ev, true);
       }
     );
-
-    it("adjusts accordions height when the content changes", () => {
-      act(() => render({ expanded: true }));
-      wrapper.update();
-      isExpanded(wrapper);
-
-      const newContentHeight = 400;
-      jest
-        .spyOn(
-          wrapper.find(StyledAccordionContent).getDOMNode(),
-          "scrollHeight",
-          "get"
-        )
-        .mockImplementation(() => newContentHeight);
-      wrapper.setProps({ children: <div /> });
-      wrapper.update();
-      assertStyleMatch(
-        {
-          maxHeight: `${newContentHeight}px`,
-        },
-        wrapper.find(StyledAccordionContentContainer)
-      );
-    });
   });
 
   describe("uncontrolled behaviour", () => {

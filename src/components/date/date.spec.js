@@ -20,6 +20,7 @@ import StyledInputPresentation from "../../__internal__/input/input-presentation
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import ValidationIcon from "../../__internal__/validations";
+import DateRangeContext from "../date-range/date-range.context";
 import {
   // eslint-disable-next-line import/named
   de as deLocale,
@@ -88,11 +89,11 @@ describe("Date", () => {
   let onFocusFn;
 
   // eslint-disable-next-line react/prop-types
-  const MockComponent = ({ emptyValue, eventValues = () => {} }) => {
+  const MockComponent = ({ emptyValue, eventValues = () => {}, ...rest }) => {
     const [val, setVal] = useState(emptyValue ? "" : "02/02/2022");
     return (
       <DateInput
-        value={val}
+        value={rest.value || val}
         onChange={(ev) => {
           setVal(ev.target.value.formattedValue);
           eventValues(ev.target.value);
@@ -234,6 +235,49 @@ describe("Date", () => {
         expect(onChangeFn).not.toHaveBeenCalled();
       }
     );
+
+    it("does not call onBlur when the input is click and DateRangeContext is detected", () => {
+      wrapper = mount(
+        <DateRangeContext.Provider
+          value={{ inputRefMap: {}, setInputRefMap: jest.fn() }}
+        >
+          <DateInput
+            value="2012-12-12"
+            onChange={onChangeFn}
+            onBlur={onBlurFn}
+          />
+        </DateRangeContext.Provider>
+      );
+      simulateMouseDownOnInput(wrapper);
+      simulateBlurOnInput(wrapper);
+      expect(onBlurFn).not.toHaveBeenCalled();
+    });
+
+    describe("when year value is only two digits", () => {
+      it("emits rawValue as the expected ISO string when year is `69`", () => {
+        const eventValuesFn = jest.fn();
+        wrapper = mount(
+          <MockComponent eventValues={eventValuesFn} value="12.12.69" />
+        );
+        simulateBlurOnInput(wrapper);
+        expect(eventValuesFn).toBeCalledWith({
+          formattedValue: "12/12/1969",
+          rawValue: "1969-12-12",
+        });
+      });
+
+      it("emits rawValue as the expected ISO string when year is `20`", () => {
+        const eventValuesFn = jest.fn();
+        wrapper = mount(
+          <MockComponent eventValues={eventValuesFn} value="12.12.20" />
+        );
+        simulateBlurOnInput(wrapper);
+        expect(eventValuesFn).toBeCalledWith({
+          formattedValue: "12/12/2020",
+          rawValue: "2020-12-12",
+        });
+      });
+    });
   });
 
   describe('when the "keyDown" event is triggered on the input', () => {

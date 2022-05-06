@@ -262,6 +262,11 @@ describe("utils", () => {
         "dd/MM/yyyy",
         "01/01/2022",
       ]);
+
+      expect(additionalYears("yyyy/MM/dd", "2022/01/01")).toEqual([
+        "yyyy/MM/dd",
+        "2022/01/01",
+      ]);
     });
 
     describe.each(yearValuesLessThan69)("when year value is %s", (year) => {
@@ -284,6 +289,26 @@ describe("utils", () => {
         const output = result(format, `01-01-20${year}`);
         expect(additionalYears(format, input)).toEqual([`${format}yy`, output]);
       });
+
+      it.each([
+        "yy.M.d",
+        "yy,M,d",
+        "yy-M-d",
+        "yy/M/d",
+        "yy.M.dd",
+        "yy,M,dd",
+        "yy-M-dd-M",
+        "yy/M/dd/M",
+        "yyMdd",
+        "yy.MM.dd",
+        "yy,MM,dd",
+        "yy-MM-dd",
+        "yy/MM/dd",
+      ])("returns the expected when format is %s", (format) => {
+        const input = result(format, `${year}-01-01`);
+        const output = result(format, `20${year}-01-01`);
+        expect(additionalYears(format, input)).toEqual([`yy${format}`, output]);
+      });
     });
 
     describe.each(yearValuesGreaterThan69)("when year value is %s", (year) => {
@@ -305,6 +330,26 @@ describe("utils", () => {
         const input = result(format, `01-01-${year}`);
         const output = result(format, `01-01-19${year}`);
         expect(additionalYears(format, input)).toEqual([`${format}yy`, output]);
+      });
+
+      it.each([
+        "yy.M.d",
+        "yy,M,d",
+        "yy-M-d",
+        "yy/M/d",
+        "yy.M.dd",
+        "yy,M,dd",
+        "yy-M-dd-M",
+        "yy/M/dd/M",
+        "yyMdd",
+        "yy.MM.dd",
+        "yy,MM,dd",
+        "yy-MM-dd",
+        "yy/MM/dd",
+      ])("returns the expected when format is %s", (format) => {
+        const input = result(format, `${year}-01-01`);
+        const output = result(format, `19${year}-01-01`);
+        expect(additionalYears(format, input)).toEqual([`yy${format}`, output]);
       });
     });
   });

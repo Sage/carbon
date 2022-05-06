@@ -180,6 +180,19 @@ describe("Link", () => {
       );
     });
 
+    it("should apply correct colour to icon on hover", () => {
+      wrapper = mount(
+        <Link iconAlign="right" icon="home" href="www.sage.com" />
+      );
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajor600)",
+        },
+        wrapper.find(StyledLink),
+        { modifier: `a:hover ${StyledIcon}` }
+      );
+    });
+
     it("should render a `Tooltip` if tooltipMessage is passed", () => {
       wrapper = mount(
         <Link

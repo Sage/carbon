@@ -1,7 +1,18 @@
 import getFormatData from ".";
 
-const euLocales = ["en-GB", "en-ZA", "fr-FR", "es", "fr-CA", "de"];
+const euLocales = [
+  "en-GB",
+  "en-ZA",
+  "fr",
+  "es",
+  "fr-CA",
+  "de",
+  "pl",
+  "bg",
+  "zh-HK", // currently still using EU style formatting
+];
 const naLocales = ["en-US", "en-CA"];
+const cnLocales = ["zh", "zh-CN", "zh-TW", "hu"];
 
 const euFormats = [
   "d M yyyy",
@@ -181,36 +192,317 @@ const naFormats = [
   "MM:dd:yyyy",
 ];
 
-const formatMap = [...euLocales, ...naLocales].reduce((acc, code) => {
-  if (code === "de") {
+const cnFormats = [
+  "yyyy M",
+  "yyyyM",
+  "yyyy.M",
+  "yyyy,M",
+  "yyyy-M",
+  "yyyy/M",
+  "yyyy:M",
+  "yyyy M d",
+  "yyyyMd",
+  "yyyy.M.d",
+  "yyyy,M,d",
+  "yyyy-M-d",
+  "yyyy/M/d",
+  "yyyy:M:d",
+  "yyyy MM d",
+  "yyyyMMd",
+  "yyyy.MM.d",
+  "yyyy,MM,d",
+  "yyyy-MM-d",
+  "yyyy/MM/d",
+  "yyyy:MM:d",
+  "yyyy M dd",
+  "yyyyMdd",
+  "yyyy.M.dd",
+  "yyyy,M,dd",
+  "yyyy-M-dd",
+  "yyyy/M/dd",
+  "yyyy:M:dd",
+  "yyyy MM dd",
+  "yyyyMMdd",
+  "yyyy.MM.dd",
+  "yyyy,MM,dd",
+  "yyyy-MM-dd",
+  "yyyy/MM/dd",
+  "yyyy:MM:dd",
+  "yy M",
+  "yyM",
+  "yy.M",
+  "yy,M",
+  "yy-M",
+  "yy/M",
+  "yy:M",
+  "yy MM",
+  "yyMM",
+  "yy.MM",
+  "yy,MM",
+  "yy-MM",
+  "yy/MM",
+  "yy:MM",
+  "yy M d",
+  "yyMd",
+  "yy.M.d",
+  "yy,M,d",
+  "yy-M-d",
+  "yy/M/d",
+  "yy:M:d",
+  "yy MM d",
+  "yyMMd",
+  "yy.MM.d",
+  "yy,MM,d",
+  "yy-MM-d",
+  "yy/MM/d",
+  "yy:MM:d",
+  "yy M dd",
+  "yyMdd",
+  "yy.M.dd",
+  "yy,M,dd",
+  "yy-M-dd",
+  "yy/M/dd",
+  "yy:M:dd",
+  "yy MM dd",
+  "yyMMdd",
+  "yy.MM.dd",
+  "yy,MM,dd",
+  "yy-MM-dd",
+  "yy/MM/dd",
+  "yy:MM:dd",
+  "M",
+  "M d",
+  "Md",
+  "M.d",
+  "M,d",
+  "M-d",
+  "M/d",
+  "M:d",
+  "MM",
+  "M dd",
+  "Mdd",
+  "M.dd",
+  "M,dd",
+  "M-dd",
+  "M/dd",
+  "M:dd",
+  "MM d",
+  "MMd",
+  "MM.d",
+  "MM,d",
+  "MM-d",
+  "MM/d",
+  "MM:d",
+  "MM dd",
+  "MMdd",
+  "MM.dd",
+  "MM,dd",
+  "MM-dd",
+  "MM/dd",
+  "MM:dd",
+];
+
+const huFormats = [
+  "yyyy M",
+  "yyyyM",
+  "yyyy.M",
+  "yyyy,M",
+  "yyyy-M",
+  "yyyy/M",
+  "yyyy:M",
+  "yyyy. M.",
+  "yyyy. M",
+  "yyyy M d",
+  "yyyyMd",
+  "yyyy.M.d",
+  "yyyy,M,d",
+  "yyyy-M-d",
+  "yyyy/M/d",
+  "yyyy:M:d",
+  "yyyy. M. d.",
+  "yyyy. M. d",
+  "yyyy MM d",
+  "yyyyMMd",
+  "yyyy.MM.d",
+  "yyyy,MM,d",
+  "yyyy-MM-d",
+  "yyyy/MM/d",
+  "yyyy:MM:d",
+  "yyyy. MM. d.",
+  "yyyy. MM. d",
+  "yyyy M dd",
+  "yyyyMdd",
+  "yyyy.M.dd",
+  "yyyy,M,dd",
+  "yyyy-M-dd",
+  "yyyy/M/dd",
+  "yyyy:M:dd",
+  "yyyy. M. dd.",
+  "yyyy. M. dd",
+  "yyyy MM dd",
+  "yyyyMMdd",
+  "yyyy.MM.dd",
+  "yyyy,MM,dd",
+  "yyyy-MM-dd",
+  "yyyy/MM/dd",
+  "yyyy:MM:dd",
+  "yyyy. MM. dd.",
+  "yyyy. MM. dd",
+  "yy M",
+  "yyM",
+  "yy.M",
+  "yy,M",
+  "yy-M",
+  "yy/M",
+  "yy:M",
+  "yy. M.",
+  "yy. M",
+  "yy MM",
+  "yyMM",
+  "yy.MM",
+  "yy,MM",
+  "yy-MM",
+  "yy/MM",
+  "yy:MM",
+  "yy. MM.",
+  "yy. MM",
+  "yy M d",
+  "yyMd",
+  "yy.M.d",
+  "yy,M,d",
+  "yy-M-d",
+  "yy/M/d",
+  "yy:M:d",
+  "yy. M. d.",
+  "yy. M. d",
+  "yy MM d",
+  "yyMMd",
+  "yy.MM.d",
+  "yy,MM,d",
+  "yy-MM-d",
+  "yy/MM/d",
+  "yy:MM:d",
+  "yy. MM. d.",
+  "yy. MM. d",
+  "yy M dd",
+  "yyMdd",
+  "yy.M.dd",
+  "yy,M,dd",
+  "yy-M-dd",
+  "yy/M/dd",
+  "yy:M:dd",
+  "yy. M. dd.",
+  "yy. M. dd",
+  "yy MM dd",
+  "yyMMdd",
+  "yy.MM.dd",
+  "yy,MM,dd",
+  "yy-MM-dd",
+  "yy/MM/dd",
+  "yy:MM:dd",
+  "yy. MM. dd.",
+  "yy. MM. dd",
+  "M",
+  "M d",
+  "Md",
+  "M.d",
+  "M,d",
+  "M-d",
+  "M/d",
+  "M:d",
+  "M. d.",
+  "M. d",
+  "MM",
+  "M dd",
+  "Mdd",
+  "M.dd",
+  "M,dd",
+  "M-dd",
+  "M/dd",
+  "M:dd",
+  "M. dd.",
+  "M. dd",
+  "MM d",
+  "MMd",
+  "MM.d",
+  "MM,d",
+  "MM-d",
+  "MM/d",
+  "MM:d",
+  "MM. d.",
+  "MM. d",
+  "MM dd",
+  "MMdd",
+  "MM.dd",
+  "MM,dd",
+  "MM-dd",
+  "MM/dd",
+  "MM:dd",
+  "MM. dd.",
+  "MM. dd",
+];
+
+const formatMap = [...euLocales, ...naLocales, ...cnLocales].reduce(
+  (acc, code) => {
+    if (["de", "pl", "bg"].includes(code)) {
+      return {
+        ...acc,
+        [code]: "dd.MM.yyyy",
+      };
+    }
+
+    if (code === "hu") {
+      return {
+        ...acc,
+        [code]: "yyyy. MM. dd.",
+      };
+    }
+
+    if (naLocales.includes(code)) {
+      return {
+        ...acc,
+        [code]: "MM/dd/yyyy",
+      };
+    }
+
+    if (cnLocales.includes(code)) {
+      return {
+        ...acc,
+        [code]: "yyyy/MM/dd",
+      };
+    }
+
     return {
       ...acc,
-      [code]: "dd.MM.yyyy",
+      [code]: "dd/MM/yyyy",
     };
+  },
+  {}
+);
+
+const getExpectedFormatForLocale = (locale) => {
+  if (naLocales.includes(locale)) {
+    return naFormats;
   }
 
-  if (["en-CA", "en-US"].includes(code)) {
-    return {
-      ...acc,
-      [code]: "MM/dd/yyyy",
-    };
+  if (locale === "hu") {
+    return huFormats;
   }
 
-  return {
-    ...acc,
-    [code]: "dd/MM/yyyy",
-  };
-}, {});
+  if (cnLocales.includes(locale)) {
+    return cnFormats;
+  }
 
-describe.each([...euLocales, ...naLocales])(
+  return euFormats;
+};
+
+describe.each([...euLocales, ...naLocales, ...cnLocales])(
   "getFormatData for `%s` returns",
   (locale) => {
     const { formats, format } = getFormatData({ code: locale });
 
     it("the expected formats", () => {
-      const expectedFormats = naLocales.includes(locale)
-        ? naFormats
-        : euFormats;
+      const expectedFormats = getExpectedFormatForLocale(locale);
 
       expect(
         expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
