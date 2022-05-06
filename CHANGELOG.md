@@ -1,3 +1,10 @@
+### [106.1.5](https://github.com/Sage/carbon/compare/v106.1.4...v106.1.5) (2022-05-06)
+
+
+### Bug Fixes
+
+* **validations:** ensure VaidationProps are correctly imported by components extending its interface ([2f5e59b](https://github.com/Sage/carbon/commit/2f5e59bdf41537d5bb7f201c27c53c6d49ff0b3f)), closes [#5115](https://github.com/Sage/carbon/issues/5115)
+
 ### [106.1.4](https://github.com/Sage/carbon/compare/v106.1.3...v106.1.4) (2022-05-04)
 
 
