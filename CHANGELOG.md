@@ -1,3 +1,12 @@
+### [106.1.6](https://github.com/Sage/carbon/compare/v106.1.5...v106.1.6) (2022-05-06)
+
+
+### Bug Fixes
+
+* **date:** ensure correct output format and input formats are used for given locale ([2e9247e](https://github.com/Sage/carbon/commit/2e9247efc08d5d057a96965b37cca1ff6a89b5f8)), closes [#4966](https://github.com/Sage/carbon/issues/4966)
+* **date:** ensure onBlur callback is called when the input blurs ([6b00554](https://github.com/Sage/carbon/commit/6b005548be4e278edab28f881ca2f85fc6d9f994)), closes [#5072](https://github.com/Sage/carbon/issues/5072)
+* **date:** ensure rawValue emits correct value when year string is only 2 digits ([8d6afa7](https://github.com/Sage/carbon/commit/8d6afa707b32dfef66cd2a3d7b97c02c204f3391)), closes [#5119](https://github.com/Sage/carbon/issues/5119)
+
 ### [106.1.5](https://github.com/Sage/carbon/compare/v106.1.4...v106.1.5) (2022-05-06)
 
 
