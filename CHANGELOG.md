@@ -1,3 +1,10 @@
+## [106.2.0](https://github.com/Sage/carbon/compare/v106.1.7...v106.2.0) (2022-05-06)
+
+
+### Features
+
+* **typography:** change strong font weight to 700 ([aba57bd](https://github.com/Sage/carbon/commit/aba57bdd8ea21a04f511da5ab2d73c8402c6f852))
+
 ### [106.1.7](https://github.com/Sage/carbon/compare/v106.1.6...v106.1.7) (2022-05-06)
 
 
