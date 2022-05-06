@@ -85,10 +85,15 @@ context("Tests for Split Button component", () => {
       (buttonType, backgroundColor, color, borderColor) => {
         CypressMountWithProviders(<SplitButtonList buttonType={buttonType} />);
 
-        mainButton()
-          .should("have.css", "background-color", backgroundColor)
-          .and("have.css", "color", color)
-          .and("have.css", "border-color", borderColor);
+        mainButton().as("button");
+
+        cy.get("@button").should(
+          "have.css",
+          "background-color",
+          backgroundColor
+        );
+        cy.get("@button").should("have.css", "color", color);
+        cy.get("@button").should("have.css", "border-color", borderColor);
       }
     );
 
@@ -100,10 +105,15 @@ context("Tests for Split Button component", () => {
       (as, backgroundColor, color, borderColor) => {
         CypressMountWithProviders(<SplitButtonList as={as} />);
 
-        mainButton()
-          .should("have.css", "background-color", backgroundColor)
-          .and("have.css", "color", color)
-          .and("have.css", "border-color", borderColor);
+        mainButton().as("button");
+
+        cy.get("@button").should(
+          "have.css",
+          "background-color",
+          backgroundColor
+        );
+        cy.get("@button").should("have.css", "color", color);
+        cy.get("@button").should("have.css", "border-color", borderColor);
       }
     );
 
