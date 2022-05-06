@@ -1,5 +1,5 @@
 import * as React from "react";
-import Modal, { ModalProps } from "../modal/modal";
+import { ModalProps } from "../modal/modal";
 
 export interface DialogFullScreenProps extends ModalProps {
   /** Prop to specify the aria-describedby property of the DialogFullscreen component */
@@ -18,7 +18,7 @@ export interface DialogFullScreenProps extends ModalProps {
   /** Child elements */
   children?: React.ReactNode;
   /** Reference to the scrollable content element */
-  contentRef:
+  contentRef?:
     | React.MutableRefObject<HTMLElement>
     | (() => React.MutableRefObject<HTMLElement>);
   /** Disables auto focus functionality on child elements */
