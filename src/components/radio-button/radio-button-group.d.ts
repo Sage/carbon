@@ -1,10 +1,8 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
-import { ValidationPropTypes } from "../../__internal__/validations";
+import { ValidationProps } from "../../__internal__/validations";
 
-export interface RadioButtonGroupProps
-  extends ValidationPropTypes,
-    MarginProps {
+export interface RadioButtonGroupProps extends ValidationProps, MarginProps {
   /** Breakpoint for adaptive legend (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLegendBreakpoint?: number;
   /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
