@@ -38,19 +38,41 @@ function hasMatchedFormat(formatString, valueString, fullFormat, fullValue) {
   );
 }
 
+const THRESHOLD_FOR_ADDITIONAL_YEARS = 69;
+
 export function additionalYears(formatString, value) {
   if (formatString.split("y").length - 1 !== 2) {
     return [formatString, value];
   }
 
-  let year = value.substring(value.length - 2);
-  const dayAndMonth = value.substring(0, value.length - 2);
+  const formatStartWithYear = formatString.startsWith("yy");
+  const yearStringStartIndex = formatStartWithYear ? 0 : value.length - 2;
+  const yearStringEndIndex = formatStartWithYear ? 2 : value.length;
+  const dayAndMonthStringStartIndex = formatStartWithYear
+    ? yearStringEndIndex
+    : 0;
+  const dayAndMonthStringEndIndex = formatStartWithYear
+    ? value.length
+    : value.length - 2;
+
+  let year = value.substring(yearStringStartIndex, yearStringEndIndex);
+  const dayAndMonth = value.substring(
+    dayAndMonthStringStartIndex,
+    dayAndMonthStringEndIndex
+  );
   const yearAsNumber = Number(year);
 
-  if (yearAsNumber < 69) {
+  if (yearAsNumber < THRESHOLD_FOR_ADDITIONAL_YEARS) {
     year = String(2000 + yearAsNumber);
   } else {
     year = String(1900 + yearAsNumber);
+  }
+
+  if (formatStartWithYear) {
+    return [
+      `yyyy${formatString.substring(2, formatString.length)}`,
+      `${year}${dayAndMonth}`,
+    ];
   }
 
   return [
