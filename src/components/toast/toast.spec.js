@@ -39,7 +39,7 @@ describe("Toast", () => {
 
       it("it is added to modal manager", () => {
         const toast = wrapper.find(ToastWrapper).getDOMNode();
-        expect(ModalManager.addModal).toHaveBeenCalledWith(toast);
+        expect(ModalManager.addModal).toHaveBeenCalledWith(toast, undefined);
       });
     });
 

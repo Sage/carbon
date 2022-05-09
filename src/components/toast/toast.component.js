@@ -12,9 +12,9 @@ import {
   StyledPortal,
 } from "./toast.style";
 import IconButton from "../icon-button";
-import ModalManager from "../modal/__internal__/modal-manager";
 import Events from "../../__internal__/utils/helpers/events";
 import useLocale from "../../hooks/__internal__/useLocale";
+import useModalManager from "../../hooks/__internal__/useModalManager";
 import Logger from "../../__internal__/utils/logger";
 
 let deprecatedWarnTriggered = false;
@@ -47,18 +47,13 @@ const Toast = ({
   const timer = useRef();
   const toastContentNodeRef = useRef();
 
-  const listenerAdded = useRef(false);
-  const modalRegistered = useRef(false);
-
   const componentClasses = useMemo(() => {
     return classNames(className);
   }, [className]);
 
   const dismissToast = useCallback(
     (ev) => {
-      const isTopmost = ModalManager.isTopmost(toastRef.current);
-
-      if (onDismiss && Events.isEscKey(ev) && isTopmost) {
+      if (onDismiss && Events.isEscKey(ev)) {
         ev.stopImmediatePropagation();
         onDismiss(ev);
       }
@@ -66,67 +61,7 @@ const Toast = ({
     [onDismiss]
   );
 
-  const addListener = useCallback(() => {
-    /* istanbul ignore else */
-    if (!listenerAdded.current) {
-      document.addEventListener("keyup", dismissToast);
-
-      listenerAdded.current = true;
-    }
-  }, [dismissToast]);
-
-  const removeListener = useCallback(() => {
-    if (listenerAdded.current) {
-      document.removeEventListener("keyup", dismissToast);
-
-      listenerAdded.current = false;
-    }
-  }, [dismissToast]);
-
-  useEffect(() => {
-    if (open) {
-      addListener();
-    } else {
-      removeListener();
-    }
-  }, [addListener, open, removeListener]);
-
-  useEffect(() => {
-    return () => {
-      removeListener();
-    };
-  }, [removeListener]);
-
-  const registerModal = useCallback(() => {
-    /* istanbul ignore else */
-    if (!modalRegistered.current) {
-      ModalManager.addModal(toastRef.current);
-
-      modalRegistered.current = true;
-    }
-  }, []);
-
-  const unregisterModal = useCallback(() => {
-    if (modalRegistered.current) {
-      ModalManager.removeModal(toastRef.current);
-
-      modalRegistered.current = false;
-    }
-  }, []);
-
-  useEffect(() => {
-    if (open) {
-      registerModal();
-    } else {
-      unregisterModal();
-    }
-  }, [open, registerModal, unregisterModal]);
-
-  useEffect(() => {
-    return () => {
-      unregisterModal();
-    };
-  }, [unregisterModal]);
+  useModalManager(open, dismissToast, toastRef);
 
   useEffect(() => {
     clearTimeout(timer.current);
