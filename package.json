@@ -111,7 +111,7 @@
     "conventional-changelog-conventionalcommits": "^4.5.0",
     "core-js": "^3.20.3",
     "cross-env": "^5.2.0",
-    "cypress": "^9.5.2",
+    "cypress": "^9.6.0",
     "cypress-axe": "^0.14.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
     "cypress-each": "^1.11.0",

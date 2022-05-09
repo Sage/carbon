@@ -66,14 +66,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Cache Cypress binary
         uses: actions/cache@v2
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
+          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('package.json') }}
           restore-keys: |
             cypress-${{ runner.os }}-cypress-
       - name: install dependencies and verify Cypress
@@ -144,7 +144,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
@@ -152,7 +152,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
+          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('package.json') }}
           restore-keys: |
             cypress-${{ runner.os }}-cypress-
 
@@ -220,14 +220,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Cache Cypress binary
         uses: actions/cache@v2
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
+          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('package.json') }}
           restore-keys: |
             cypress-${{ runner.os }}-cypress-
       - name: install dependencies and verify Cypress
