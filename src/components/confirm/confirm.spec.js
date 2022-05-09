@@ -45,6 +45,10 @@ describe("Confirm", () => {
     );
   });
 
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
   describe("default snapshot", () => {
     it("renders as expected", () => {
       expect(wrapper.props().open).toBeTruthy();
@@ -93,7 +97,6 @@ describe("Confirm", () => {
     });
 
     describe("when `disableCancel` prop is provided", () => {
-      let domNode;
       let escapeKeyEvent;
       const onCancelFn = jest.fn();
 
@@ -111,17 +114,14 @@ describe("Confirm", () => {
             onCancel={onCancelFn}
           />
         );
-        domNode = wrapper.getDOMNode();
-        document.body.appendChild(domNode);
       });
 
       afterEach(() => {
-        document.body.removeChild(domNode);
         onCancelFn.mockReset();
       });
 
       it("should not close the modal if ESC key is pressed", () => {
-        domNode.dispatchEvent(escapeKeyEvent);
+        document.dispatchEvent(escapeKeyEvent);
         expect(onCancelFn).not.toHaveBeenCalled();
       });
 
