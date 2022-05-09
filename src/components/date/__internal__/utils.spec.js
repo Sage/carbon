@@ -355,18 +355,18 @@ describe("utils", () => {
   });
 
   describe("findMatchedFormatAndValue", () => {
-    // when no separator is used it will return "." separated format and value due to bug in date-fns
+    // when no separator is used it will return whitespace separated format and value due to bug in date-fns
     it.each([
-      ["ddMMyyyy", "01012022", "dd.MM.yyyy", "01.01.2022"],
-      ["ddMMyy", "010122", "dd.MM.yy", "01.01.22"],
-      ["dMMyy", "10122", "d.MM.yy", "1.01.22"],
-      ["ddMyy", "01122", "dd.M.yy", "01.1.22"],
-      ["ddMyyyy", "0112022", "dd.M.yyyy", "01.1.2022"],
-      ["dMyyyy", "112022", "d.M.yyyy", "1.1.2022"],
-      ["dMMyyyy", "1012022", "d.MM.yyyy", "1.01.2022"],
-      ["ddMMyyyy", "31012022", "dd.MM.yyyy", "31.01.2022"],
-      ["ddMMyy", "300122", "dd.MM.yy", "30.01.22"],
-      ["ddMyy", "28222", "dd.M.yy", "28.2.22"],
+      ["ddMMyyyy", "01012022", "dd MM yyyy", "01 01 2022"],
+      ["ddMMyy", "010122", "dd MM yy", "01 01 22"],
+      ["dMMyy", "10122", "d MM yy", "1 01 22"],
+      ["ddMyy", "01122", "dd M yy", "01 1 22"],
+      ["ddMyyyy", "0112022", "dd M yyyy", "01 1 2022"],
+      ["dMyyyy", "112022", "d M yyyy", "1 1 2022"],
+      ["dMMyyyy", "1012022", "d MM yyyy", "1 01 2022"],
+      ["ddMMyyyy", "31012022", "dd MM yyyy", "31 01 2022"],
+      ["ddMMyy", "300122", "dd MM yy", "30 01 22"],
+      ["ddMyy", "28222", "dd M yy", "28 2 22"],
     ])(
       "should match the un-separated %s format and %s value and return the expected [%s, %s]",
       (format, value, formatResult, valueResult) => {

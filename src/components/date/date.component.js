@@ -141,7 +141,12 @@ const DateInput = ({
     if (isDateValid(selectedDays)) {
       event = buildCustomEvent(ev);
 
-      if (formattedValue(format, selectedDays) !== value) {
+      const currentValue = checkISOFormatAndLength(value)
+        ? formattedValue(format, parseISODate(value))
+        : value;
+      const [, matchedValue] = findMatchedFormatAndValue(currentValue, formats);
+
+      if (formattedValue(format, selectedDays) !== matchedValue) {
         onChange(event);
       }
     } else {
