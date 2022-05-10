@@ -316,7 +316,7 @@ describe("Typography", () => {
           fontSize: "14px",
           as: "strong",
           lineHeight: "21px",
-          fontWeight: "900",
+          fontWeight: "700",
           textTransform: "none",
           textDecoration: "none",
           verticalAlign: undefined,

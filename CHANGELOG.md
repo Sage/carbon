@@ -1,3 +1,41 @@
+### [106.2.1](https://github.com/Sage/carbon/compare/v106.2.0...v106.2.1) (2022-05-10)
+
+
+### Bug Fixes
+
+* **form:** apply margin correctly to textarea component in a form ([dd40877](https://github.com/Sage/carbon/commit/dd40877aedf588dfd9c6ac28ba53b9c6e9fdceff)), closes [#5074](https://github.com/Sage/carbon/issues/5074)
+
+## [106.2.0](https://github.com/Sage/carbon/compare/v106.1.7...v106.2.0) (2022-05-06)
+
+
+### Features
+
+* **typography:** change strong font weight to 700 ([aba57bd](https://github.com/Sage/carbon/commit/aba57bdd8ea21a04f511da5ab2d73c8402c6f852))
+
+### [106.1.7](https://github.com/Sage/carbon/compare/v106.1.6...v106.1.7) (2022-05-06)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure no hover background change when FlatTableCheckbox is a th and isZebra is set ([f2fbd1c](https://github.com/Sage/carbon/commit/f2fbd1cc5d0ac54a7b8a5cfdf5e1cc7da6817daf)), closes [#5102](https://github.com/Sage/carbon/issues/5102)
+* **flat-table:** ensure z-index sticky footer is higher than FlatTableRowHeader ([a380428](https://github.com/Sage/carbon/commit/a38042878cb4c783b54d61a2bc9e6f4fdf6c955a)), closes [#5091](https://github.com/Sage/carbon/issues/5091)
+
+### [106.1.6](https://github.com/Sage/carbon/compare/v106.1.5...v106.1.6) (2022-05-06)
+
+
+### Bug Fixes
+
+* **date:** ensure correct output format and input formats are used for given locale ([2e9247e](https://github.com/Sage/carbon/commit/2e9247efc08d5d057a96965b37cca1ff6a89b5f8)), closes [#4966](https://github.com/Sage/carbon/issues/4966)
+* **date:** ensure onBlur callback is called when the input blurs ([6b00554](https://github.com/Sage/carbon/commit/6b005548be4e278edab28f881ca2f85fc6d9f994)), closes [#5072](https://github.com/Sage/carbon/issues/5072)
+* **date:** ensure rawValue emits correct value when year string is only 2 digits ([8d6afa7](https://github.com/Sage/carbon/commit/8d6afa707b32dfef66cd2a3d7b97c02c204f3391)), closes [#5119](https://github.com/Sage/carbon/issues/5119)
+
+### [106.1.5](https://github.com/Sage/carbon/compare/v106.1.4...v106.1.5) (2022-05-06)
+
+
+### Bug Fixes
+
+* **validations:** ensure VaidationProps are correctly imported by components extending its interface ([2f5e59b](https://github.com/Sage/carbon/commit/2f5e59bdf41537d5bb7f201c27c53c6d49ff0b3f)), closes [#5115](https://github.com/Sage/carbon/issues/5115)
+
 ### [106.1.4](https://github.com/Sage/carbon/compare/v106.1.3...v106.1.4) (2022-05-04)
 
 
