@@ -1,3 +1,10 @@
+### [106.2.2](https://github.com/Sage/carbon/compare/v106.2.1...v106.2.2) (2022-05-10)
+
+
+### Bug Fixes
+
+* **dialog-full-screen:** update contentRef prop to be optional in type definition ([c1616a9](https://github.com/Sage/carbon/commit/c1616a9e4fe3f6c4c36cf23597f4095186d9c576)), closes [#5121](https://github.com/Sage/carbon/issues/5121)
+
 ### [106.2.1](https://github.com/Sage/carbon/compare/v106.2.0...v106.2.1) (2022-05-10)
 
 
