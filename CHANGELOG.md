@@ -1,3 +1,10 @@
+## [106.3.0](https://github.com/Sage/carbon/compare/v106.2.2...v106.3.0) (2022-05-10)
+
+
+### Features
+
+* **progress-tracker:** add length prop ([51c0d46](https://github.com/Sage/carbon/commit/51c0d462e2e85bc99a58fc1347bebaa48d155589)), closes [#5106](https://github.com/Sage/carbon/issues/5106)
+
 ### [106.2.2](https://github.com/Sage/carbon/compare/v106.2.1...v106.2.2) (2022-05-10)
 
 
