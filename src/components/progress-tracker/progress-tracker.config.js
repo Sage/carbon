@@ -1,3 +1,2 @@
-export const OUTER_TRACKER_LENGTH = "256px";
-
+/* eslint-disable import/prefer-default-export */
 export const PROGRESS_TRACKER_SIZES = ["small", "medium", "large"];

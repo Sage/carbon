@@ -2,24 +2,21 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
-import {
-  OUTER_TRACKER_LENGTH,
-  PROGRESS_TRACKER_SIZES,
-} from "./progress-tracker.config";
+import { PROGRESS_TRACKER_SIZES } from "./progress-tracker.config";
 
 const StyledProgressTracker = styled.div`
   ${margin}
   text-align: center;
   white-space: nowrap;
 
-  ${({ isVertical }) => css`
+  ${({ isVertical, length }) => css`
     ${!isVertical &&
     `
-      width: ${OUTER_TRACKER_LENGTH};
+      width: ${length};
     `}
     ${isVertical &&
     `
-      height: ${OUTER_TRACKER_LENGTH};
+      height: ${length};
       display: flex;
     `}
   `}
@@ -99,20 +96,20 @@ const StyledValuesLabel = styled.span`
 `;
 
 const InnerBar = styled.span`
-  ${({ isVertical, progress, size }) => css`
+  ${({ isVertical, progress, size, length }) => css`
     position: absolute;
     left: 0;
     background-color: ${getInnerBarColour(progress)};
 
     ${!isVertical &&
     css`
-      width: calc(${OUTER_TRACKER_LENGTH} * ${progress / 100});
+      width: calc(${length} * ${progress / 100});
       min-width: 2px;
       height: ${getHeight(size)};
     `}
     ${isVertical &&
     css`
-      height: calc(${OUTER_TRACKER_LENGTH} * ${progress / 100});
+      height: calc(${length} * ${progress / 100});
       min-height: 2px;
       width: ${getHeight(size)};
     `}

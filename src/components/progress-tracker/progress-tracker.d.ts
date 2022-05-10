@@ -1,6 +1,6 @@
 import { MarginProps } from "styled-system";
 
-export interface ProgressBarProps extends MarginProps {
+export interface ProgressTrackerProps extends MarginProps {
   /** Specifies an aria-label to the component */
   "aria-label"?: string;
   /** Specifies the aria-describedby for the component */
@@ -16,6 +16,8 @@ export interface ProgressBarProps extends MarginProps {
   "aria-valuetext"?: string;
   /** Size of the progressBar. */
   size?: "small" | "medium" | "large";
+  /** Length of the progress bar, any valid css string. */
+  length?: string;
   /** Current progress (percentage). */
   progress?: number;
   /** Flag to control whether the default value labels (as percentages) should be rendered. */
@@ -35,6 +37,6 @@ export interface ProgressBarProps extends MarginProps {
   labelsPosition?: "top" | "bottom" | "left" | "right";
 }
 
-declare function ProgressBar(props: ProgressBarProps): JSX.Element;
+declare function ProgressTracker(props: ProgressTrackerProps): JSX.Element;
 
-export default ProgressBar;
+export default ProgressTracker;
