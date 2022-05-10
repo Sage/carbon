@@ -11,7 +11,7 @@ on:
 
 jobs:
   cypress:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       # when one test fails, DO NOT cancel the other
@@ -87,7 +87,7 @@ jobs:
           npx cypress verify
           npx cypress info
       - name: Cypress run
-        uses: cypress-io/github-action@v2.10.2
+        uses: cypress-io/github-action@v3
         with:
           install: false
           start: npm start
@@ -108,7 +108,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   cypress-react:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       # when one test fails, DO NOT cancel the other
@@ -168,7 +168,7 @@ jobs:
           npx cypress info
 
       - name: Cypress React tests
-        uses: cypress-io/github-action@v2.10.2
+        uses: cypress-io/github-action@v3
         with:
           install: false
           command: npx cypress run-ct --parallel --record --group ubuntu-cypress-react --browser chrome
@@ -179,7 +179,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   cypress-axe-accessibility:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
       # when one test fails, DO NOT cancel the other
@@ -245,7 +245,7 @@ jobs:
           npm run build-storybook
           npx sb extract
       - name: Cypress run
-        uses: cypress-io/github-action@v2.10.2
+        uses: cypress-io/github-action@v3
         with:
           install: false
           start: npx http-server storybook-static -p 9001
