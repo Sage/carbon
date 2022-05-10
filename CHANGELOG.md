@@ -1,3 +1,10 @@
+### [106.2.1](https://github.com/Sage/carbon/compare/v106.2.0...v106.2.1) (2022-05-10)
+
+
+### Bug Fixes
+
+* **form:** apply margin correctly to textarea component in a form ([dd40877](https://github.com/Sage/carbon/commit/dd40877aedf588dfd9c6ac28ba53b9c6e9fdceff)), closes [#5074](https://github.com/Sage/carbon/issues/5074)
+
 ## [106.2.0](https://github.com/Sage/carbon/compare/v106.1.7...v106.2.0) (2022-05-06)
 
 
