@@ -103,7 +103,7 @@ function findMatchWithNoSeparators(valueString, formatString) {
   const valueArray = makeSeparatedValues(indexArray, valueString);
 
   if (checkForCompleteMatch(formatArray, valueArray)) {
-    return [formatArray.join("."), valueArray.join(".")];
+    return [formatArray.join(" "), valueArray.join(" ")];
   }
 
   return null;
