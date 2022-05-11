@@ -1,3 +1,10 @@
+### [106.3.1](https://github.com/Sage/carbon/compare/v106.3.0...v106.3.1) (2022-05-11)
+
+
+### Bug Fixes
+
+* **date:** prevent calling onChange when input is blurred and value has not changed ([b2c9467](https://github.com/Sage/carbon/commit/b2c9467b764389eead3cd57d8b81688b7dfdc18d)), closes [#5120](https://github.com/Sage/carbon/issues/5120)
+
 ## [106.3.0](https://github.com/Sage/carbon/compare/v106.2.2...v106.3.0) (2022-05-10)
 
 
