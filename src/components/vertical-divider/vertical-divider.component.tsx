@@ -105,7 +105,7 @@ type TintRange =
   | 99
   | 100;
 
-export interface VerticalDividerPropTypes extends SpaceProps {
+export interface VerticalDividerProps extends SpaceProps {
   h?: number | string;
   height?: number | string;
   displayInline?: boolean;
@@ -119,7 +119,7 @@ const VerticalDivider = ({
   displayInline = false,
   tint = 80,
   ...props
-}: VerticalDividerPropTypes): JSX.Element => {
+}: VerticalDividerProps): JSX.Element => {
   const { inMenu } = useContext(MenuContext);
 
   return (
