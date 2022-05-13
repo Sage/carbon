@@ -399,9 +399,9 @@ describe("Button", () => {
   });
 
   describe('when "noWrap" prop is passed', () => {
-    it("renders with property whiteSpace: nowrap set", () => {
+    it("renders with whiteSpace: nowrap set and removes flex-flow: wrap", () => {
       const wrapper = mount(<Button noWrap>Button</Button>);
-      assertStyleMatch({ whiteSpace: "nowrap" }, wrapper);
+      assertStyleMatch({ whiteSpace: "nowrap", flexFlow: undefined }, wrapper);
     });
   });
 
