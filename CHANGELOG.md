@@ -1,3 +1,10 @@
+### [106.4.1](https://github.com/Sage/carbon/compare/v106.4.0...v106.4.1) (2022-05-13)
+
+
+### Bug Fixes
+
+* **menu:** fix incorrect scrollable block background ([a066c10](https://github.com/Sage/carbon/commit/a066c10d5bbee78980c159a26999dd3a9ff49a30))
+
 ## [106.4.0](https://github.com/Sage/carbon/compare/v106.3.2...v106.4.0) (2022-05-13)
 
 
