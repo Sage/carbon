@@ -120,7 +120,7 @@ describe("Confirm", () => {
         onCancelFn.mockReset();
       });
 
-      it("should not close the modal if ESC key is pressed", () => {
+      it("onCancel callback should not be called if ESC key is pressed", () => {
         document.dispatchEvent(escapeKeyEvent);
         expect(onCancelFn).not.toHaveBeenCalled();
       });
