@@ -48,13 +48,10 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  border-radius: 0;
   -webkit-flex-flow: wrap;
   -ms-flex-flow: wrap;
   flex-flow: wrap;
-  border-radius: 0;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -102,6 +99,25 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   margin-top: 0;
 }
 
+.c5 .c3 {
+  color: var(--colorsActionMajor500);
+}
+
+.c5:hover .c3 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c5 .c3 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 16px;
+}
+
+.c5 .c3 svg {
+  margin-top: 0;
+}
+
 .c0 {
   display: inline-block;
   position: relative;
@@ -125,27 +141,6 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 
 .c0 > .c1:focus,
 .c0 > .c1:focus .c3 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c5 > .c1 {
-  margin: 0;
-}
-
-.c5 > .c1 .c3 {
-  margin-left: 0;
-  left: 8px;
-}
-
-.c5 > .c1:focus {
-  background-color: var(--colorsActionMajor700);
-  border: 3px solid var(--colorsSemanticFocus500);
-  outline: none;
-  margin: 0 -1px;
-}
-
-.c5 > .c1:focus,
-.c5 > .c1:focus .c3 {
   color: var(--colorsActionMajorYang100);
 }
 
@@ -275,12 +270,90 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   color: var(--colorsActionMajorYang100);
 }
 
+.c12 > .c1 {
+  margin: 0;
+}
+
+.c12 > .c1 .c3 {
+  margin-left: 0;
+  left: 8px;
+}
+
+.c12 > .c1:focus {
+  background-color: var(--colorsActionMajor700);
+  border: 3px solid var(--colorsSemanticFocus500);
+  outline: none;
+  margin: 0 -1px;
+}
+
+.c12 > .c1:focus,
+.c12 > .c1:focus .c3 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c13 > .c1 {
+  margin: 0;
+  background-color: var(--colorsActionMajor700);
+  border-color: var(--colorsActionMajor700);
+}
+
+.c13 > .c1 .c3 {
+  margin-left: 0;
+  left: 8px;
+}
+
+.c13 > .c1:focus {
+  background-color: var(--colorsActionMajor700);
+  border: 3px solid var(--colorsSemanticFocus500);
+  outline: none;
+  margin: 0 -1px;
+}
+
+.c13 > .c1:focus,
+.c13 > .c1:focus .c3 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c13 > .c1,
+.c13 > .c1 .c3 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c13 > .c1:focus {
+  border-color: var(--colorsSemanticFocus500);
+  margin: 0 -1px;
+}
+
+.c14 .c3 {
+  margin-left: 0;
+  left: 8px;
+}
+
+.c14 .c1 {
+  border: 1px solid var(--colorsActionMajorTransparent);
+  color: var(--colorsActionMajor500);
+  display: block;
+  margin-left: 0;
+  min-width: 100%;
+  text-align: left;
+  z-index: 1000;
+}
+
+.c14 .c1:focus,
+.c14 .c1:hover {
+  background-color: var(--colorsActionMajor600);
+  color: var(--colorsActionMajorYang100);
+}
+
+.c14 .c1 + .c15 .c1 {
+  margin-top: 3px;
+}
+
 <div
   aria-haspopup="true"
   className="c0"
   data-component="multi-action-button"
   onMouseLeave={[Function]}
-  size="medium"
 >
   <button
     aria-expanded={false}

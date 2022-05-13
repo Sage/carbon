@@ -6,7 +6,7 @@ import {
   PICKLIST_RIGHT_LABEL,
 } from "./locators";
 import { SEARCH_COMPONENT } from "../search/locators";
-import CHECKBOX from "../checkbox/locators";
+import { CHECKBOX } from "../checkbox/locators";
 
 // component preview locators
 export const duellingPicklistComponent = () =>

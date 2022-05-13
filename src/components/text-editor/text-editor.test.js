@@ -278,7 +278,7 @@ context("Test for TextEditor component", () => {
       it("should render TextEditor with required prop", () => {
         CypressMountWithProviders(<TextEditorCustom required />);
 
-        verifyRequiredAsterisk();
+        verifyRequiredAsterisk("Text Editor Label");
       });
 
       it.each([

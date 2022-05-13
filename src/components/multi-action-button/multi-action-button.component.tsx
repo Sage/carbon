@@ -1,6 +1,12 @@
-import React, { useCallback, useEffect, useState, useRef } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import React, {
+  useCallback,
+  useEffect,
+  useState,
+  useRef,
+  useMemo,
+} from "react";
+
+import { SplitButtonProps } from "../split-button";
 import {
   StyledMultiActionButton,
   StyledButtonChildrenContainer,
@@ -15,13 +21,17 @@ import {
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
 import Logger from "../../__internal__/utils/logger";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
-
 let deprecatedWarnTriggered = false;
 
-const MultiActionButton = ({
+export interface MultiActionButtonProps
+  extends Omit<SplitButtonProps, "buttonType"> {
+  /** Button type: "primary" | "secondary" | "tertiary" */
+  buttonType?: "primary" | "secondary" | "tertiary";
+  /** Second text child, renders under main text, only when size is "large" */
+  subtext?: string;
+}
+
+export const MultiActionButton = ({
   align = "left",
   disabled,
   as,
@@ -33,7 +43,7 @@ const MultiActionButton = ({
   "data-element": dataElement,
   "data-role": dataRole,
   ...rest
-}) => {
+}: MultiActionButtonProps) => {
   if (!deprecatedWarnTriggered && as) {
     deprecatedWarnTriggered = true;
     Logger.deprecate(
@@ -42,11 +52,15 @@ const MultiActionButton = ({
     );
   }
 
-  const ref = useRef();
-  const buttonRef = useRef();
-  const buttonContainer = useRef();
-  const buttonChildren = React.Children.toArray(children);
-  const additionalButtons = useRef(buttonChildren.map(() => React.createRef()));
+  const ref = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const buttonContainer = useRef<HTMLDivElement>(null);
+  const buttonChildren = useMemo(() => React.Children.toArray(children), [
+    children,
+  ]);
+  const additionalButtons = useRef(
+    buttonChildren.map(() => React.createRef<HTMLButtonElement>())
+  );
   const listening = useRef(false);
   const isMainButtonFocused = useRef(false);
   const isFocusedAfterClosing = useRef(false);
@@ -60,17 +74,25 @@ const MultiActionButton = ({
 
   const showButtons = () => {
     setShowAdditionalButtons(true);
-    setMinWidth(ref.current.getBoundingClientRect().width);
+
+    /* istanbul ignore else */
+    if (ref.current) {
+      setMinWidth(ref.current.getBoundingClientRect().width);
+    }
   };
 
   const childrenWithProps = () => {
     return buttonChildren.map((child, index) => {
+      if (!React.isValidElement(child)) {
+        return child;
+      }
+
       const props = {
         key: index.toString(),
         role: "menuitem",
         ref: additionalButtons.current[index],
         tabIndex: -1,
-        onClick: (ev) => {
+        onClick: (ev: React.MouseEvent<HTMLButtonElement>) => {
           if (child.props.onClick) child.props.onClick(ev);
           isMainButtonFocused.current = false;
           hideButtons();
@@ -95,20 +117,28 @@ const MultiActionButton = ({
       let nextIndex = -1;
 
       if (Events.isUpKey(ev)) {
-        nextIndex = currentIndex > 0 ? currentIndex - 1 : children.length - 1;
+        nextIndex =
+          currentIndex > 0 ? currentIndex - 1 : buttonChildren.length - 1;
         ev.preventDefault();
       }
 
       if (Events.isDownKey(ev)) {
-        nextIndex = currentIndex < children.length - 1 ? currentIndex + 1 : 0;
+        nextIndex =
+          currentIndex < buttonChildren.length - 1 ? currentIndex + 1 : 0;
         ev.preventDefault();
       }
 
       if (Events.isTabKey(ev)) {
         const elements = Array.from(
-          document.querySelectorAll(defaultFocusableSelectors)
+          document.querySelectorAll(
+            defaultFocusableSelectors
+          ) as NodeListOf<HTMLElement>
         ).filter((el) => Number(el.tabIndex) !== -1);
-        const indexOf = elements.indexOf(buttonRef.current);
+
+        const indexOf = elements.indexOf(
+          buttonRef.current as HTMLButtonElement
+        );
+
         elements[indexOf]?.focus();
 
         // timeout enforces that the "hideButtons" method will be run after browser focuses on the next element
@@ -116,18 +146,17 @@ const MultiActionButton = ({
       }
 
       if (nextIndex > -1) {
-        additionalButtons.current[nextIndex].current.focus();
+        additionalButtons.current[nextIndex].current?.focus();
       }
     },
-    [children, hideButtons]
+    [buttonChildren, hideButtons]
   );
 
   const handleClickOutside = useCallback(
     ({ target }) => {
       if (
-        !ref.current.contains(target) &&
-        buttonContainer.current &&
-        !buttonContainer.current.contains(target)
+        !ref.current?.contains(target) &&
+        !buttonContainer.current?.contains(target)
       ) {
         hideButtons();
       }
@@ -163,7 +192,9 @@ const MultiActionButton = ({
     };
   }, [showAdditionalButtons, addListeners, removeListeners]);
 
-  const handleMainButtonKeyDown = (ev) => {
+  const handleMainButtonKeyDown = (
+    ev: React.KeyboardEvent<HTMLButtonElement>
+  ) => {
     if (
       Events.isEnterKey(ev) ||
       Events.isSpaceKey(ev) ||
@@ -196,25 +227,18 @@ const MultiActionButton = ({
     isMainButtonFocused.current = false;
   };
 
-  const mainButtonProps = () => {
-    const opts = {
-      disabled,
-      displayed: showAdditionalButtons,
-      onTouchStart: showButtons,
-      onFocus: focusMainButton,
-      onBlur: blurMainButton,
-      onKeyDown: handleMainButtonKeyDown,
-      buttonType: buttonType || as,
-      size,
-      subtext,
-      ...filterOutStyledSystemSpacingProps(rest),
-    };
-
-    if (!disabled) {
-      opts.onMouseEnter = showButtons;
-    }
-
-    return opts;
+  const mainButtonProps = {
+    disabled,
+    displayed: showAdditionalButtons,
+    onTouchStart: showButtons,
+    onFocus: focusMainButton,
+    onBlur: blurMainButton,
+    onKeyDown: handleMainButtonKeyDown,
+    buttonType: buttonType || as,
+    size,
+    subtext,
+    ...(!disabled && { onMouseEnter: showButtons }),
+    ...filterOutStyledSystemSpacingProps(rest),
   };
 
   const renderAdditionalButtons = () => (
@@ -240,7 +264,6 @@ const MultiActionButton = ({
       data-component="multi-action-button"
       data-element={dataElement}
       data-role={dataRole}
-      align={align}
       displayed={showAdditionalButtons}
       {...filterStyledSystemMarginProps(rest)}
     >
@@ -250,8 +273,7 @@ const MultiActionButton = ({
         aria-label="Show more"
         data-element="toggle-button"
         key="toggle-button"
-        onKeyDown={handleMainButtonKeyDown}
-        {...mainButtonProps()}
+        {...mainButtonProps}
         forwardRef={buttonRef}
         iconPosition="after"
         iconType="dropdown"
@@ -261,39 +283,6 @@ const MultiActionButton = ({
       {showAdditionalButtons && renderAdditionalButtons()}
     </StyledMultiActionButton>
   );
-};
-
-MultiActionButton.propTypes = {
-  ...marginPropTypes,
-  /** Button type: "primary" | "secondary" | "tertiary" */
-  buttonType: PropTypes.oneOf(["primary", "secondary", "tertiary"]),
-
-  /** The additional button to display. */
-  children: PropTypes.node.isRequired,
-
-  /** Second text child, renders under main text, only when size is "large". */
-  subtext: PropTypes.string,
-
-  /** Customizes the appearance, can be set to 'primary', 'secondary' or 'transparent'. */
-  as: PropTypes.string,
-
-  /** The text to be displayed in the SplitButton. */
-  text: PropTypes.string.isRequired,
-
-  /** Gives the button a disabled state. */
-  disabled: PropTypes.bool,
-
-  /** The size of the MultiActionButton. */
-  size: PropTypes.oneOf(["small", "medium", "large"]),
-
-  /** A custom value for the data-element attribute. */
-  "data-element": PropTypes.string,
-
-  /** A custom value for the data-element attribute. */
-  "data-role": PropTypes.string,
-
-  /** Aligns the button's options */
-  align: PropTypes.oneOf(["left", "right"]),
 };
 
 export default MultiActionButton;

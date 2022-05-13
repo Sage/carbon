@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import PropTypes from "prop-types";
-import propTypes from "@styled-system/prop-types";
+import { SpaceProps } from "styled-system";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import createGuid from "../../__internal__/utils/helpers/guid";
@@ -14,10 +13,64 @@ import {
   StyledAccordionIcon,
   StyledAccordionContentContainer,
   StyledAccordionContent,
+  StyledAccordionContainerProps,
 } from "./accordion.style";
 import ValidationIcon from "../../__internal__/validations";
 
-const Accordion = React.forwardRef(
+export interface AccordionProps
+  extends StyledAccordionContainerProps,
+    SpaceProps {
+  /** Width of the buttonHeading when it's set, defaults to 150px */
+  buttonWidth?: number;
+  children?: React.ReactNode;
+  /** Set the default state of expansion of the Accordion if component is meant to be used as uncontrolled */
+  defaultExpanded?: boolean;
+  /** Disable padding for the content */
+  disableContentPadding?: boolean;
+  /** Sets the expansion state of the Accordion if component is meant to be used as controlled */
+  expanded?: boolean;
+  /** An error message to be displayed in the tooltip */
+  error?: string;
+  /** Styled system spacing props provided to Accordion Title */
+  headerSpacing?: SpaceProps;
+  id?: string;
+  /** Sets icon type - accepted values: 'chevron_down' (default), 'dropdown' */
+  iconType?: "chevron_down" | "dropdown";
+  /** Sets icon alignment - accepted values: 'left', 'right' (default) */
+  iconAlign?: "left" | "right";
+  /** Sets accordion title */
+  title: React.ReactNode;
+  /** An info message to be displayed in the tooltip */
+  info?: string;
+  /** Callback fired when expansion state changes */
+  onChange?: (
+    event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
+    isExpanded: boolean
+  ) => void;
+  /** When the Accordion is open the title can change to this */
+  openTitle?: string;
+  /** Sets accordion size */
+  size?: "large" | "small";
+  /** Sets accordion sub title */
+  subTitle?: string;
+  /** A warning message to be displayed in the tooltip */
+  warning?: string;
+}
+
+export interface AccordionInternalProps {
+  /** @ignore @private */
+  handleKeyboardAccessibility?: (
+    ev: React.KeyboardEvent<HTMLElement>,
+    index?: number
+  ) => void;
+  /** @ignore @private */
+  index?: number;
+}
+
+export const Accordion = React.forwardRef<
+  HTMLDivElement,
+  AccordionProps & AccordionInternalProps
+>(
   (
     {
       borders = "default",
@@ -25,9 +78,9 @@ const Accordion = React.forwardRef(
       expanded,
       onChange,
       children,
-      handleKeyboardAccessibility, // eslint-disable-line react/prop-types
+      handleKeyboardAccessibility,
       id,
-      index, // eslint-disable-line react/prop-types
+      index,
       iconType = "chevron_down",
       iconAlign = "right",
       scheme = "white",
@@ -44,7 +97,7 @@ const Accordion = React.forwardRef(
       buttonWidth = 150,
       openTitle,
       ...rest
-    },
+    }: AccordionProps & AccordionInternalProps,
     ref
   ) => {
     const isControlled = expanded !== undefined;
@@ -53,20 +106,20 @@ const Accordion = React.forwardRef(
       defaultExpanded || false
     );
 
-    const [contentHeight, setContentHeight] = useState(
+    const [contentHeight, setContentHeight] = useState<string | number>(
       isExpandedInternal ? "auto" : 0
     );
 
-    const accordionContent = useRef(null);
+    const accordionContent = useRef<HTMLDivElement>(null);
 
     const isExpanded = isControlled ? expanded : isExpandedInternal;
 
     useResizeObserver(accordionContent, () => {
-      setContentHeight(accordionContent.current.scrollHeight);
+      setContentHeight(accordionContent.current?.scrollHeight as number);
     });
 
     useEffect(() => {
-      setContentHeight(accordionContent.current.scrollHeight);
+      setContentHeight(accordionContent.current?.scrollHeight as number);
     }, [isExpanded]);
 
     const toggleAccordion = useCallback(
@@ -121,10 +174,11 @@ const Accordion = React.forwardRef(
           iconAlign={iconAlign}
           ref={ref}
           size={size}
-          isExpanded={isExpanded}
           buttonHeading={buttonHeading}
           buttonWidth={buttonWidth}
-          hasButtonProps={buttonHeading && headerSpacing}
+          hasButtonProps={
+            buttonHeading && !(typeof headerSpacing === "undefined")
+          }
           role="button"
           {...(buttonHeading && { p: 0 })}
           {...headerSpacing}
@@ -187,51 +241,6 @@ const Accordion = React.forwardRef(
     );
   }
 );
-
-Accordion.propTypes = {
-  /** Styled system spacing props */
-  ...propTypes.space,
-  /** Styled system spacing props provided to Accordion Title */
-  headerSpacing: PropTypes.object,
-  /** Disable padding for the content */
-  disableContentPadding: PropTypes.bool,
-  children: PropTypes.node,
-  id: PropTypes.string,
-  /** Set the default state of expansion of the Accordion if component is meant to be used as uncontrolled */
-  defaultExpanded: PropTypes.bool,
-  /** Sets the expansion state of the Accordion if component is meant to be used as controlled */
-  expanded: PropTypes.bool,
-  /** Sets icon type - accepted values: 'chevron_down' (default), 'dropdown' */
-  iconType: PropTypes.oneOf(["chevron_down", "dropdown"]),
-  /** Sets icon alignment - accepted values: 'left', 'right' (default) */
-  iconAlign: PropTypes.oneOf(["left", "right"]),
-  /** Callback fired when expansion state changes, onChange(event: object, isExpanded: boolean) */
-  onChange: PropTypes.func,
-  /** Sets accordion title. Will render inside a h3 if set to a string */
-  title: PropTypes.node.isRequired,
-  /** Sets accordion sub title */
-  subTitle: PropTypes.string,
-  /** Sets accordion size */
-  size: PropTypes.oneOf(["large", "small"]),
-  /** Toggles left and right borders */
-  borders: PropTypes.oneOf(["default", "full", "none"]),
-  /** Sets background as white or transparent */
-  scheme: PropTypes.oneOf(["white", "transparent"]),
-  /** Sets accordion width */
-  width: PropTypes.string,
-  /** An error message to be displayed in the tooltip */
-  error: PropTypes.string,
-  /** A warning message to be displayed in the tooltip */
-  warning: PropTypes.string,
-  /** An info message to be displayed in the tooltip */
-  info: PropTypes.string,
-  /** Renders the accordion heading in the style of a tertiary button */
-  buttonHeading: PropTypes.bool,
-  /** Width of the buttonHeading when it's set, defaults to 150px */
-  buttonWidth: PropTypes.number,
-  /** When the Accordion is open the title can change to this */
-  openTitle: PropTypes.string,
-};
 
 Accordion.displayName = "Accordion";
 export default Accordion;

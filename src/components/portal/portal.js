@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import guid from "../../__internal__/utils/helpers/guid";
-import Browser from "../../__internal__/utils/helpers/browser";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 export const PortalContext = React.createContext({});
@@ -75,10 +74,6 @@ const Portal = ({ children, className, id, onReposition }) => {
 
     return node;
   };
-
-  if (!Browser.isDomAvailable()) {
-    return null;
-  }
 
   return (
     <span data-portal-entrance={uniqueId}>

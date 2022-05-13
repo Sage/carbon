@@ -10,21 +10,27 @@ import {
   LABEL,
   DLS_ROOT,
   WARNING_ICON,
+  INFO_ICON,
   COMMON_INPUT_PREFIX,
   COMMON_INPUT_CHARACTER_LIMIT,
   CY_ROOT,
   PORTAL,
+  LEGEND,
+  STICKY_FOOTER,
 } from "./locators";
 
 // component preview locators
 export const commonButtonPreviewRoot = () => cy.get(DLS_ROOT).find("button");
 export const label = () => cy.get(LABEL);
+export const legend = () => cy.get(LEGEND);
 export const backgroundUILocator = () => cy.get(BACKGROUND_UI_LOCATOR);
 
 // component preview locators
 export const dlsRoot = () => cy.get(DLS_ROOT);
 export const icon = () => cy.get(ICON);
+export const errorIcon = () => cy.get(ICON);
 export const warningIcon = () => cy.get(WARNING_ICON);
+export const infoIcon = () => cy.get(INFO_ICON);
 export const getDataElementByValue = (element) =>
   cy.get(`[data-element="${element}"]`);
 export const commonDataElementInputPreview = () =>
@@ -55,3 +61,4 @@ export const commonInputCharacterLimit = () =>
   cy.get(COMMON_INPUT_CHARACTER_LIMIT);
 export const cyRoot = () => cy.get(CY_ROOT);
 export const portal = () => cy.get(PORTAL).eq(1).find("h1");
+export const stickyFooter = () => cy.get(STICKY_FOOTER);

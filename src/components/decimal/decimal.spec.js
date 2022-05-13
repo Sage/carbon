@@ -27,13 +27,13 @@ const DOM = (jsx) => {
   ReactDOM.render(jsx, container);
 };
 
-function render(props = {}, renderer = mount) {
+function render(props = {}, renderer = mount, mockComponent) {
   const defaultProps = {
     onChange,
     ...props,
   };
 
-  renderer(<Decimal {...defaultProps} />);
+  renderer(mockComponent || <Decimal {...defaultProps} />);
 }
 
 describe("Decimal", () => {
@@ -1117,7 +1117,19 @@ describe("Decimal", () => {
     });
 
     it("typing a negative value does not revert to the default value", () => {
-      render({ value: "123" });
+      const Foo = () => {
+        const [val, setVal] = React.useState("123");
+        return (
+          <Decimal
+            value={val}
+            onChange={(e) => {
+              onChange(e.target.value);
+              setVal(e.target.value.rawValue);
+            }}
+          />
+        );
+      };
+      render({}, mount, <Foo />);
       type("-");
       expect(onChange).toHaveBeenCalled();
       expect(value()).toBe("-");

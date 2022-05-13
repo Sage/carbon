@@ -188,7 +188,7 @@ context("Tests for Number component", () => {
     it("should check Number is required", () => {
       CypressMountWithProviders(<NumberInputComponent required />);
 
-      verifyRequiredAsterisk();
+      verifyRequiredAsterisk("Number");
     });
 
     it("should check Number label is inline", () => {

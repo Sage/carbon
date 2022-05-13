@@ -61,7 +61,9 @@ context("Tests for GroupedCharacter component", () => {
       (group, inputValue, outputValue) => {
         CypressMountWithProviders(<GroupedCharacterComponent groups={group} />);
 
-        commonDataElementInputPreview().type(inputValue).blur({ force: true });
+        commonDataElementInputPreview()
+          .type(inputValue, { delay: 0 })
+          .blur({ force: true });
         commonDataElementInputPreview()
           .invoke("val")
           .then(($el) => {
@@ -87,7 +89,9 @@ context("Tests for GroupedCharacter component", () => {
           <GroupedCharacterComponent separator={separator} />
         );
 
-        commonDataElementInputPreview().type(inputValue).blur({ force: true });
+        commonDataElementInputPreview()
+          .type(inputValue, { delay: 0 })
+          .blur({ force: true });
         commonDataElementInputPreview()
           .invoke("val")
           .then(($el) => {
@@ -148,7 +152,7 @@ context("Tests for GroupedCharacter component", () => {
     it("should check the GroupedCharacter component is required", () => {
       CypressMountWithProviders(<GroupedCharacterComponent required />);
 
-      verifyRequiredAsterisk();
+      verifyRequiredAsterisk("GroupedCharacter");
     });
 
     it("should check the GroupedCharacter component has autofocus", () => {
@@ -197,7 +201,7 @@ context("Tests for GroupedCharacter component", () => {
         );
 
         commonDataElementInputPreview()
-          .type(inputValue)
+          .type(inputValue, { delay: 0 })
           .blur({ force: true })
           .then(() => {
             // eslint-disable-next-line no-unused-expressions

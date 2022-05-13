@@ -1,4 +1,3 @@
 // component preview locators
-const CHECKBOX = '[role="checkbox"]';
-
-export default CHECKBOX;
+export const CHECKBOX = '[role="checkbox"]';
+export const CHECKBOXGROUP = '[data-component="checkboxgroup"]';

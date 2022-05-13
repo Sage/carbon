@@ -1,8 +1,8 @@
 /* eslint-disable import/prefer-default-export */
-import { getDataElementByValue } from "../../locators/index";
 
-export const verifyRequiredAsterisk = () =>
-  getDataElementByValue("label").then(($els) => {
+// Pass the string which is appended with * as the element
+export const verifyRequiredAsterisk = (element) =>
+  cy.contains(element).then(($els) => {
     // get Window reference from element
     const win = $els[0].ownerDocument.defaultView;
     // use getComputedStyle to read the pseudo selector
