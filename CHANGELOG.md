@@ -1,3 +1,14 @@
+### [106.3.2](https://github.com/Sage/carbon/compare/v106.3.1...v106.3.2) (2022-05-13)
+
+
+### Bug Fixes
+
+* **alert:** export alert props interface from index ([228ed28](https://github.com/Sage/carbon/commit/228ed28db99f660134859f89df8462c632613678))
+* **hr:** export prop interface from index ([0723453](https://github.com/Sage/carbon/commit/0723453e1fef283e0166f0d2c3c2673942c83577))
+* **link:** export prop interface from index ([72acd10](https://github.com/Sage/carbon/commit/72acd10cdc03d1c682b374b52409dec1bf7df854)), closes [#5132](https://github.com/Sage/carbon/issues/5132)
+* **navigation-bar:** export prop interface from index ([5748e36](https://github.com/Sage/carbon/commit/5748e36d02fb85a5db20524d01bd74b6cbf3b1ab))
+* **vertical-divider:** export prop interface from index ([9fd4f3b](https://github.com/Sage/carbon/commit/9fd4f3b539d47b4acfbfa513e1bd69c2e4dcba7e))
+
 ### [106.3.1](https://github.com/Sage/carbon/compare/v106.3.0...v106.3.1) (2022-05-11)
 
 
