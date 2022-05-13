@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import * as React from "react";
 import path from "path";
+
 import {
   ActionPopover,
   ActionPopoverDivider,
@@ -29,7 +30,7 @@ import {
   actionPopoverWrapper,
 } from "../../../cypress/locators/action-popover";
 
-import { getDataElementByValue } from "../../../cypress/locators/index";
+import { getDataElementByValue, cyRoot } from "../../../cypress/locators/index";
 
 import { buttonDataComponent } from "../../../cypress/locators/button";
 
@@ -373,7 +374,7 @@ context("Test for ActionPopover component", () => {
       CypressMountWithProviders(<ActionPopoverCustom />);
 
       actionPopoverButton().eq(0).click();
-      cy.get("#__cy_root").click({ force: true });
+      cyRoot().click({ force: true });
       actionPopover().should("not.exist");
     });
 
