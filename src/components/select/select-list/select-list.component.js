@@ -22,6 +22,7 @@ import OptionRow from "../option-row/option-row.component";
 import updateListScrollTop from "./update-list-scroll";
 import getNextChildByText from "../utils/get-next-child-by-text";
 import getNextIndexByKey from "../utils/get-next-index-by-key";
+import isNavigationKey from "../utils/is-navigation-key";
 import ListActionButton from "../list-action-button/list-action-button.component";
 import StyledSelectListContainer from "./select-list-container.style";
 import Loader from "../../loader";
@@ -408,15 +409,6 @@ const SelectList = React.forwardRef(
       ],
       [flipEnabled]
     );
-
-    function isNavigationKey(keyEvent) {
-      return (
-        keyEvent === "ArrowDown" ||
-        keyEvent === "ArrowUp" ||
-        keyEvent === "Home" ||
-        keyEvent === "End"
-      );
-    }
 
     const loader = () => (
       <StyledSelectLoaderContainer key="loader" as={multiColumn ? "div" : "li"}>

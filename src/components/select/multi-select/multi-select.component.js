@@ -26,6 +26,7 @@ import {
 import Pill from "../../pill";
 import isExpectedOption from "../utils/is-expected-option";
 import isExpectedValue from "../utils/is-expected-value";
+import isNavigationKey from "../utils/is-navigation-key";
 
 const FilterableSelectList = withFilter(SelectList);
 
@@ -479,15 +480,6 @@ const MultiSelect = React.forwardRef(
         size,
         ...filterOutStyledSystemSpacingProps(textboxProps),
       };
-    }
-
-    function isNavigationKey(key) {
-      return (
-        key === "ArrowDown" ||
-        key === "ArrowUp" ||
-        key === "Home" ||
-        key === "End"
-      );
     }
 
     const selectList = (
