@@ -1,3 +1,42 @@
+### [106.3.2](https://github.com/Sage/carbon/compare/v106.3.1...v106.3.2) (2022-05-13)
+
+
+### Bug Fixes
+
+* **alert:** export alert props interface from index ([228ed28](https://github.com/Sage/carbon/commit/228ed28db99f660134859f89df8462c632613678))
+* **hr:** export prop interface from index ([0723453](https://github.com/Sage/carbon/commit/0723453e1fef283e0166f0d2c3c2673942c83577))
+* **link:** export prop interface from index ([72acd10](https://github.com/Sage/carbon/commit/72acd10cdc03d1c682b374b52409dec1bf7df854)), closes [#5132](https://github.com/Sage/carbon/issues/5132)
+* **navigation-bar:** export prop interface from index ([5748e36](https://github.com/Sage/carbon/commit/5748e36d02fb85a5db20524d01bd74b6cbf3b1ab))
+* **vertical-divider:** export prop interface from index ([9fd4f3b](https://github.com/Sage/carbon/commit/9fd4f3b539d47b4acfbfa513e1bd69c2e4dcba7e))
+
+### [106.3.1](https://github.com/Sage/carbon/compare/v106.3.0...v106.3.1) (2022-05-11)
+
+
+### Bug Fixes
+
+* **date:** prevent calling onChange when input is blurred and value has not changed ([b2c9467](https://github.com/Sage/carbon/commit/b2c9467b764389eead3cd57d8b81688b7dfdc18d)), closes [#5120](https://github.com/Sage/carbon/issues/5120)
+
+## [106.3.0](https://github.com/Sage/carbon/compare/v106.2.2...v106.3.0) (2022-05-10)
+
+
+### Features
+
+* **progress-tracker:** add length prop ([51c0d46](https://github.com/Sage/carbon/commit/51c0d462e2e85bc99a58fc1347bebaa48d155589)), closes [#5106](https://github.com/Sage/carbon/issues/5106)
+
+### [106.2.2](https://github.com/Sage/carbon/compare/v106.2.1...v106.2.2) (2022-05-10)
+
+
+### Bug Fixes
+
+* **dialog-full-screen:** update contentRef prop to be optional in type definition ([c1616a9](https://github.com/Sage/carbon/commit/c1616a9e4fe3f6c4c36cf23597f4095186d9c576)), closes [#5121](https://github.com/Sage/carbon/issues/5121)
+
+### [106.2.1](https://github.com/Sage/carbon/compare/v106.2.0...v106.2.1) (2022-05-10)
+
+
+### Bug Fixes
+
+* **form:** apply margin correctly to textarea component in a form ([dd40877](https://github.com/Sage/carbon/commit/dd40877aedf588dfd9c6ac28ba53b9c6e9fdceff)), closes [#5074](https://github.com/Sage/carbon/issues/5074)
+
 ## [106.2.0](https://github.com/Sage/carbon/compare/v106.1.7...v106.2.0) (2022-05-06)
 
 

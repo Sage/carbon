@@ -222,6 +222,20 @@ describe("Date", () => {
       });
     });
 
+    describe("and the component's initial value has not been updated", () => {
+      it("then onBlur should have been called but onChange should not have been called", () => {
+        wrapper = render({
+          onChange: onChangeFn,
+          onBlur: onBlurFn,
+          value: "2012-12-12",
+        });
+        simulateBlurOnInput(wrapper);
+
+        expect(onBlurFn).toHaveBeenCalled();
+        expect(onChangeFn).not.toHaveBeenCalled();
+      });
+    });
+
     it.each(["disabled", "readOnly"])(
       "the onBlur and onChange props should not have been called if the %s prop is true",
       (param) => {
