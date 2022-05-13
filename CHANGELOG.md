@@ -1,3 +1,10 @@
+## [106.4.0](https://github.com/Sage/carbon/compare/v106.3.2...v106.4.0) (2022-05-13)
+
+
+### Features
+
+* **select:** make select list respond to pageup/pagedown keys ([3c08c12](https://github.com/Sage/carbon/commit/3c08c127136ec30be60d86e087867791600b569b))
+
 ### [106.3.2](https://github.com/Sage/carbon/compare/v106.3.1...v106.3.2) (2022-05-13)
 
 
