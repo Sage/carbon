@@ -1,10 +1,10 @@
 import * as React from "react";
 
 import { CommonTextboxProps } from "../../textbox";
-import { ValidationPropTypes } from "../../../__internal__/validations";
+import { ValidationProps } from "../../../__internal__/validations";
 
 export interface FormInputPropTypes
-  extends ValidationPropTypes,
+  extends ValidationProps,
     CommonTextboxProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;

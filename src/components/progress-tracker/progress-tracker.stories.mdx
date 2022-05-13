@@ -63,6 +63,19 @@ This is an example of a large `ProgressTracker` component.
   </Story>
 </Canvas>
 
+### Custom bar length
+
+The length of the bar can be set to any valid css property. This sets the width of a horizontal bar or the height of a vertical bar. The default is "256px".
+
+<Canvas>
+  <Story name="custom bar length">
+    <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+      <ProgressTracker progress={50} length="150px" />
+      <ProgressTracker orientation="vertical" progress={50} length="50px" />
+    </div>
+  </Story>
+</Canvas>
+
 ### Color variants
 
 This is an example of a `ProgressTracker` component with different colors depending on progress.
@@ -404,19 +417,21 @@ It is possible to override the `labelsPosition` to `"left"` when in a `"vertical
 This component has `aria-valuemin`, `aria-valuemax`, `aria-valuenow` and `aria-valuetext` props that can be utilised to enhance the experience for a user that requires a screenreader.
 
 For more information on these props, please visit the W3 documentation on `role="progressbar"`. This can be accessed by clicking [here](https://www.w3.org/TR/wai-aria-1.1/#progressbar).
+
 ### Example
 
 <Canvas>
   <Story name="acessibility example">
     <div style={{ display: "flex", justifyContent: "space-around" }}>
-      <ProgressTracker 
+      <ProgressTracker
         currentProgressLabel="$100"
-        maxProgressLabel="$200" 
-        progress={50} 
-        aria-valuemin={0} 
-        aria-valuenow={50} 
-        aria-valuemax={100} 
-        aria-valuetext="$100"/>
+        maxProgressLabel="$200"
+        progress={50}
+        aria-valuemin={0}
+        aria-valuenow={50}
+        aria-valuemax={100}
+        aria-valuetext="$100"
+      />
     </div>
   </Story>
 </Canvas>

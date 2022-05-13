@@ -239,6 +239,10 @@ export interface IconProps extends MarginProps {
   tooltipId?: string;
   /** Id passed to the icon. */
   id?: string;
+  tabIndex?: number;
+  isPartOfInput?: boolean;
+  inputSize?: "small" | "medium" | "large";
+  focusable?: boolean;
 }
 
 declare function Icon(

@@ -77,52 +77,30 @@ context("Tests for Split Button component", () => {
     });
 
     it.each([
-      [
-        "primary",
-        "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
-        "rgb(255, 255, 255)",
-        "rgb(255, 255, 255)",
-      ],
-      [
-        "secondary",
-        "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
-        "rgb(0, 126, 69)",
-        "rgb(0, 126, 69)",
-      ],
+      ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
+      ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
     ])(
       "check %s type of Split Button uses %s as background color and %s as color and %s as border color",
       (buttonType, backgroundColor, color, borderColor) => {
         CypressMountWithProviders(<SplitButtonList buttonType={buttonType} />);
 
         mainButton()
-          .children()
-          .should("have.css", "background", backgroundColor)
+          .should("have.css", "background-color", backgroundColor)
           .and("have.css", "color", color)
           .and("have.css", "border-color", borderColor);
       }
     );
 
     it.each([
-      [
-        "primary",
-        "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
-        "rgb(255, 255, 255)",
-        "rgb(255, 255, 255)",
-      ],
-      [
-        "secondary",
-        "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
-        "rgb(0, 126, 69)",
-        "rgb(0, 126, 69)",
-      ],
+      ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
+      ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
     ])(
       "check %s Split Button with %s as background color and %s as color and %s as border color",
       (as, backgroundColor, color, borderColor) => {
         CypressMountWithProviders(<SplitButtonList as={as} />);
 
         mainButton()
-          .children()
-          .should("have.css", "background", backgroundColor)
+          .should("have.css", "background-color", backgroundColor)
           .and("have.css", "color", color)
           .and("have.css", "border-color", borderColor);
       }

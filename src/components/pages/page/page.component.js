@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import { CSSTransition } from "react-transition-group";
 import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
@@ -7,6 +7,8 @@ import Box from "../../box";
 import { StyledPage, StyledPageContent } from "./page.style";
 
 const Page = ({ title, children, ...props }) => {
+  const styledPageNodeRef = useRef();
+
   return (
     <CSSTransition
       className="carbon-carousel__transition"
@@ -17,9 +19,10 @@ const Page = ({ title, children, ...props }) => {
       }}
       // eslint-disable-next-line react/prop-types
       classNames={props.transitionName()}
+      nodeRef={styledPageNodeRef}
       {...props}
     >
-      <StyledPage {...tagComponent("page", props)}>
+      <StyledPage {...tagComponent("page", props)} ref={styledPageNodeRef}>
         <FullScreenHeading hasContent={title}>{title}</FullScreenHeading>
         <StyledPageContent data-element="carbon-page-content">
           <Box

@@ -171,7 +171,7 @@ const SimpleSelect = React.forwardRef(
 
             return true;
           });
-        } else if (key.length === 1) {
+        } else if (key.length === 1 && !event.metaKey && !event.ctrlKey) {
           triggerFilterChange(key);
         }
       },

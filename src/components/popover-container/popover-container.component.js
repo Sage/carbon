@@ -40,6 +40,7 @@ const PopoverContainer = ({
   const closeButtonRef = useRef();
   const openButtonRef = useRef();
   const guid = useRef(createGuid());
+  const popoverContentNodeRef = useRef();
   const popoverContainerId = title
     ? `PopoverContainer_${guid.current}`
     : undefined;
@@ -96,6 +97,7 @@ const PopoverContainer = ({
         appear
         mountOnEnter
         unmountOnExit
+        nodeRef={popoverContentNodeRef}
       >
         {(state) => (
           <PopoverContainerContentStyle
@@ -108,6 +110,7 @@ const PopoverContainer = ({
             aria-label={containerAriaLabel}
             aria-describedby={ariaDescribedBy}
             p="16px 24px"
+            ref={popoverContentNodeRef}
             {...filterStyledSystemPaddingProps(rest)}
           >
             <PopoverContainerHeaderStyle>

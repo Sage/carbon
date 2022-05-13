@@ -1,4 +1,4 @@
-// The order of this array is important
+// The order of this array is important, when an input value matches more than one format the last one is used
 const EU_FORMATS = [
   "d M yyyy",
   "dd M yyyy",
@@ -16,7 +16,7 @@ const EU_FORMATS = [
   "dd MM",
 ];
 
-// The order of this array is important
+// The order of this array is important, when an input value matches more than one format the last one is used
 const NA_FORMATS = [
   "M",
   "M d",
@@ -34,37 +34,122 @@ const NA_FORMATS = [
   "MM dd yyyy",
 ];
 
+// The order of this array is important, when an input value matches more than one format the last one is used
+const CN_FORMATS = [
+  "yyyy M",
+  "yyyy M d",
+  "yyyy MM d",
+  "yyyy M dd",
+  "yyyy MM dd",
+  "yy M",
+  "yy MM",
+  "yy M d",
+  "yy MM d",
+  "yy M dd",
+  "yy MM dd",
+  "M",
+  "M d",
+  "MM",
+  "M dd",
+  "MM d",
+  "MM dd",
+];
+
 const SEPARATORS = ["", ".", ",", "-", "/", ":"];
 
-const generateFormats = (formatArray) =>
-  formatArray.reduce((arr, formatString) => {
+const STANDARD_FORMAT_LENGTH = 10;
+
+const generateFormats = (formatArray, separator, trailingChar) => {
+  const separators = SEPARATORS.includes(separator)
+    ? SEPARATORS
+    : [...SEPARATORS, separator];
+
+  return formatArray.reduce((arr, formatString) => {
     const array = [...arr, formatString];
     if (formatString.includes(" ")) {
-      SEPARATORS.forEach((char) =>
-        array.push(formatString.replace(/ /g, char))
-      );
+      separators.forEach((char) => {
+        if (separator === char && trailingChar) {
+          array.push(`${formatString.replace(/ /g, char)}${trailingChar}`);
+        }
+        array.push(formatString.replace(/ /g, char));
+      });
     }
     return array;
   }, []);
+};
+
+const getOutputFormatForLocale = (localeCode) => {
+  const formatMap = {
+    day: "dd",
+    month: "MM",
+    year: "yyyy",
+  };
+
+  const formatter = new Intl.DateTimeFormat(localeCode);
+  let separator;
+
+  const format = formatter
+    .formatToParts(new Date())
+    .map(({ type, value }) => {
+      if (type !== "literal") {
+        return formatMap[type];
+      }
+      if (!separator) {
+        separator = value;
+      }
+      return value;
+    })
+    .join("");
+
+  if (localeCode.startsWith("bg")) {
+    // this locale adds an additional char that has no effect on the output formatting
+    return { format: format.substring(0, STANDARD_FORMAT_LENGTH), separator };
+  }
+
+  return { format, separator };
+};
+
+const getInputFormatsArrayForLocale = (format) => {
+  if (format.startsWith("y")) {
+    return CN_FORMATS;
+  }
+  if (format.startsWith("M")) {
+    return NA_FORMATS;
+  }
+
+  return EU_FORMATS;
+};
+
+// we need this to handle for formats that add extra chars at the end of the format
+const getTrailingChar = (format) => {
+  const lastChar = format.split("").pop();
+
+  return ["y", "M", "d"].includes(lastChar) ? "" : lastChar;
+};
 
 const getFormatData = ({ code }) => {
   if (["en-CA", "en-US"].includes(code)) {
+    const format = "MM/dd/yyyy";
+    const formats = getInputFormatsArrayForLocale(format);
     return {
-      format: "MM/dd/yyyy",
-      formats: generateFormats(NA_FORMATS),
+      format,
+      formats: generateFormats(formats, "/"),
     };
   }
 
-  if (code === "de") {
-    return {
-      format: "dd.MM.yyyy",
-      formats: generateFormats(EU_FORMATS),
-    };
-  }
+  const { format, separator } = getOutputFormatForLocale(code);
+  const outputFormat = ["fr-CA", "en-ZA", "ar-EG"].includes(code)
+    ? "dd/MM/yyyy"
+    : format;
+  const formatsForLocale = getInputFormatsArrayForLocale(outputFormat);
 
   return {
-    format: "dd/MM/yyyy",
-    formats: generateFormats(EU_FORMATS),
+    format: outputFormat,
+    formats: generateFormats(
+      formatsForLocale,
+      separator,
+      getTrailingChar(format)
+    ),
   };
 };
 
