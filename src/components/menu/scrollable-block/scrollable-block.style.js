@@ -7,7 +7,7 @@ const StyledScrollableBlock = styled.div`
     && ${StyledMenuItemWrapper} {
       background-color: ${variant === "default"
         ? menuConfigVariants[menuType].submenuItemBackground
-        : menuConfigVariants[menuType].background};
+        : menuConfigVariants[menuType].alternate};
     }
   `}
 `;
