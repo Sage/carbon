@@ -1,3 +1,10 @@
+### [106.6.1](https://github.com/Sage/carbon/compare/v106.6.0...v106.6.1) (2022-05-16)
+
+
+### Bug Fixes
+
+* **select:** ensure select list appends to body if no element with role dialog exists ([4b2e4da](https://github.com/Sage/carbon/commit/4b2e4da21e181fb34d28bb76ac83f05b2acff778)), closes [#5135](https://github.com/Sage/carbon/issues/5135)
+
 ## [106.6.0](https://github.com/Sage/carbon/compare/v106.5.0...v106.6.0) (2022-05-16)
 
 
