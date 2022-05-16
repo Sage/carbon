@@ -45,18 +45,23 @@ const MultiActionButton = ({
   const ref = useRef();
   const buttonRef = useRef();
   const buttonContainer = useRef();
-  const userInputType =
-    "ontouchstart" in document.documentElement ? "touchstart" : "click";
   const buttonChildren = React.Children.toArray(children);
   const additionalButtons = useRef(buttonChildren.map(() => React.createRef()));
   const listening = useRef(false);
   const isMainButtonFocused = useRef(false);
+  const isFocusedAfterClosing = useRef(false);
   const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
-  const [removeHandleClickOutside, setRemoveHandleClickOutside] = useState(
-    false
-  );
-  const [removeHandleKeyDown, setRemoveHandleKeyDown] = useState(false);
   const [minWidth, setMinWidth] = useState(0);
+
+  const hideButtons = useCallback(() => {
+    if (isMainButtonFocused.current) return;
+    setShowAdditionalButtons(false);
+  }, []);
+
+  const showButtons = () => {
+    setShowAdditionalButtons(true);
+    setMinWidth(ref.current.getBoundingClientRect().width);
+  };
 
   const childrenWithProps = () => {
     return buttonChildren.map((child, index) => {
@@ -65,6 +70,13 @@ const MultiActionButton = ({
         role: "menuitem",
         ref: additionalButtons.current[index],
         tabIndex: -1,
+        onClick: (ev) => {
+          if (child.props.onClick) child.props.onClick(ev);
+          isMainButtonFocused.current = false;
+          hideButtons();
+          isFocusedAfterClosing.current = true;
+          buttonRef.current?.focus();
+        },
       };
 
       if (child.type === Button) {
@@ -74,19 +86,6 @@ const MultiActionButton = ({
       return React.cloneElement(child, props);
     });
   };
-
-  const hideButtons = useCallback(() => {
-    if (isMainButtonFocused.current) return;
-
-    setShowAdditionalButtons(false);
-    setRemoveHandleClickOutside(true);
-
-    /* istanbul ignore else */
-    if (listening.current) {
-      setRemoveHandleKeyDown(true);
-      listening.current = false;
-    }
-  }, []);
 
   const handleKeyDown = useCallback(
     (ev) => {
@@ -99,10 +98,13 @@ const MultiActionButton = ({
         nextIndex = currentIndex > 0 ? currentIndex - 1 : children.length - 1;
         ev.preventDefault();
       }
+
       if (Events.isDownKey(ev)) {
         nextIndex = currentIndex < children.length - 1 ? currentIndex + 1 : 0;
         ev.preventDefault();
-      } else if (Events.isTabKey(ev)) {
+      }
+
+      if (Events.isTabKey(ev)) {
         const elements = Array.from(
           document.querySelectorAll(defaultFocusableSelectors)
         ).filter((el) => Number(el.tabIndex) !== -1);
@@ -117,7 +119,7 @@ const MultiActionButton = ({
         additionalButtons.current[nextIndex].current.focus();
       }
     },
-    [children.length, hideButtons]
+    [children, hideButtons]
   );
 
   const handleClickOutside = useCallback(
@@ -127,34 +129,71 @@ const MultiActionButton = ({
         buttonContainer.current &&
         !buttonContainer.current.contains(target)
       ) {
-        hideButtons(handleClickOutside, undefined);
+        hideButtons();
       }
     },
     [hideButtons]
   );
 
-  const showButtons = () => {
-    document.addEventListener(userInputType, handleClickOutside);
-    setShowAdditionalButtons(true);
-
-    setMinWidth(ref.current.getBoundingClientRect().width);
-
+  const addListeners = useCallback(() => {
     /* istanbul ignore else */
     if (!listening.current) {
+      document.addEventListener("click", handleClickOutside);
       document.addEventListener("keydown", handleKeyDown);
       listening.current = true;
     }
-  };
+  }, [handleKeyDown, handleClickOutside]);
+
+  const removeListeners = useCallback(() => {
+    /* istanbul ignore else */
+    if (listening.current) {
+      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+      listening.current = false;
+    }
+  }, [handleKeyDown, handleClickOutside]);
+
+  useEffect(() => {
+    if (showAdditionalButtons) {
+      addListeners();
+    }
+
+    return () => {
+      removeListeners();
+    };
+  }, [showAdditionalButtons, addListeners, removeListeners]);
 
   const handleMainButtonKeyDown = (ev) => {
-    if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
-      additionalButtons.current[0].current.focus();
+    if (
+      Events.isEnterKey(ev) ||
+      Events.isSpaceKey(ev) ||
+      Events.isDownKey(ev)
+    ) {
+      ev.preventDefault();
+
+      if (!showAdditionalButtons) {
+        showButtons();
+      }
+
+      // see if setTimeout could be removed after we update react to v18 thanks to the concurrent mode
+      setTimeout(() => {
+        additionalButtons.current[0]?.current?.focus();
+      }, 0);
     }
   };
 
   const focusMainButton = () => {
     isMainButtonFocused.current = true;
+    if (isFocusedAfterClosing.current) {
+      isFocusedAfterClosing.current = false;
+      return;
+    }
+
     showButtons();
+  };
+
+  const blurMainButton = () => {
+    isMainButtonFocused.current = false;
   };
 
   const mainButtonProps = () => {
@@ -163,9 +202,7 @@ const MultiActionButton = ({
       displayed: showAdditionalButtons,
       onTouchStart: showButtons,
       onFocus: focusMainButton,
-      onBlur: () => {
-        isMainButtonFocused.current = false;
-      },
+      onBlur: blurMainButton,
       onKeyDown: handleMainButtonKeyDown,
       buttonType: buttonType || as,
       size,
@@ -194,31 +231,6 @@ const MultiActionButton = ({
       </StyledButtonChildrenContainer>
     </Popover>
   );
-
-  useEffect(() => {
-    if (removeHandleClickOutside) {
-      setRemoveHandleClickOutside(false);
-      document.removeEventListener(userInputType, handleClickOutside);
-    }
-
-    if (removeHandleKeyDown) {
-      setRemoveHandleKeyDown(false);
-      document.removeEventListener("keydown", handleKeyDown);
-    }
-  }, [
-    handleClickOutside,
-    handleKeyDown,
-    removeHandleClickOutside,
-    removeHandleKeyDown,
-    userInputType,
-  ]);
-
-  useEffect(() => {
-    return () => {
-      document.removeEventListener(userInputType, handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleClickOutside, handleKeyDown, userInputType]);
 
   return (
     <StyledMultiActionButton

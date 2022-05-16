@@ -8,6 +8,7 @@ import { pressTABKey, keyCode } from "../../../cypress/support/helper";
 
 import {
   multiActionButtonList,
+  multiActionButtonListContainer,
   multiActionButtonText,
   multiActionButton,
   multiActionButtonComponent,
@@ -220,7 +221,7 @@ context("Tests for MultiActionButton component", () => {
 
       multiActionButton()
         .eq(0)
-        .click()
+        .trigger("mouseover")
         .then(() => {
           multiActionButtonList().eq(1).focus();
           multiActionButton().eq(0).tab();
@@ -228,4 +229,35 @@ context("Tests for MultiActionButton component", () => {
         });
     });
   });
+
+  describe("clicking one of the additional buttons", () => {
+    it("should close MultiActionButton", () => {
+      CypressMountWithProviders(<MultiActionButtonList />);
+
+      multiActionButton()
+        .eq(0)
+        .trigger("mouseover")
+        .then(() => {
+          multiActionButtonList().eq(0).click();
+
+          multiActionButtonListContainer().should("not.exist");
+        });
+    });
+  });
+
+  describe.each(["Enter", "Space", "downarrow"])(
+    "pressing %s key on the main button",
+    (key) => {
+      it("opens MultiActionButton list and focuses first button", () => {
+        CypressMountWithProviders(<MultiActionButtonList />);
+
+        multiActionButton()
+          .eq(0)
+          .trigger("keydown", keyCode(key))
+          .then(() => {
+            multiActionButtonList().eq(0).should("be.focused");
+          });
+      });
+    }
+  );
 });
