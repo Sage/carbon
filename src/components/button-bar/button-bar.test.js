@@ -70,33 +70,6 @@ context("Test for Button-Bar component", () => {
         .and("eq", "1350px");
     });
 
-    describe("check children type for Button-Bar", () => {
-      const error =
-        "Warning: Failed prop type: ButtonBar accepts only `Button` or `IconButton` elements.    in ButtonBar";
-      let errors;
-
-      beforeEach(() => {
-        cy.window().then((win) => {
-          errors = cy.spy(win.console, "error");
-        });
-      });
-
-      it("should throw a console error when invalid children are used", () => {
-        CypressMountWithProviders(
-          <ButtonBar>
-            <div />
-          </ButtonBar>
-        );
-
-        buttonDataComponent().should("not.exist");
-        cy.wrap(errors).then(() => {
-          const consoleError = errors.getCalls()[0].args[0];
-          const consoleErrorTrim = consoleError.replace("\n", "");
-          expect(consoleErrorTrim).to.equal(error);
-        });
-      });
-    });
-
     describe("check events for Button-Bar component", () => {
       let callback;
 

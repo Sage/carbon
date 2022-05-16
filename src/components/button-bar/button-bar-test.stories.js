@@ -1,29 +1,24 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React from "react";
 import { action } from "@storybook/addon-actions";
+
 import Button from "../button";
-import ButtonBar from "./";
+import ButtonBar from ".";
 import IconButton from "../icon-button";
 import Icon from "../icon";
-import { ICONS } from "../icon/icon-config";
-import {
-  BUTTON_ICON_POSITIONS,
-  BUTTON_SIZES,
-  BUTTON_VARIANTS,
-} from "../button/button.config";
 import {
   BUTTON_BAR_ICON_POSITIONS,
   BUTTON_BAR_SIZES,
 } from "./button-bar.config";
 
-<Meta
-  title="Button Bar/Test"
-  parameters={{
+export default {
+  title: "Button Bar/Test",
+  parameters: {
     info: { disable: true },
     chromatic: { disable: true },
-  }}
-/>
+  },
+};
 
-export const commonArgTypesButtonBar = {
+const commonArgTypesButtonBar = {
   size: {
     options: BUTTON_BAR_SIZES,
     control: { type: "select" },
@@ -34,13 +29,13 @@ export const commonArgTypesButtonBar = {
   },
 };
 
-export const commonArgsButtonBar = {
-  size: ButtonBar.defaultProps.size,
+const commonArgsButtonBar = {
+  size: "medium",
   fullWidth: false,
   iconPosition: "before",
 };
 
-export const ButtonBarStory = ({ ...args }) => (
+export const Default = ({ ...args }) => (
   <ButtonBar onClick={action("click")} {...args}>
     <Button iconType="search">Example Button</Button>
     <Button iconType="pdf">Example Button</Button>
@@ -48,7 +43,7 @@ export const ButtonBarStory = ({ ...args }) => (
   </ButtonBar>
 );
 
-export const generateButtonBarsWithDifferentIconPositionsAndSizes = () => {
+export const Preview = () => {
   return (
     <>
       <ButtonBar ml={2} mt={2}>
@@ -94,7 +89,7 @@ export const generateButtonBarsWithDifferentIconPositionsAndSizes = () => {
             <>
               <ButtonBar
                 fullWidth
-                key={size + iconPosition + "fullWidth"}
+                key={`${size}${iconPosition}fullWidth`}
                 iconPosition={iconPosition}
                 size={size}
                 ml={2}
@@ -112,29 +107,21 @@ export const generateButtonBarsWithDifferentIconPositionsAndSizes = () => {
   );
 };
 
-# ButtonBar
+Default.story = {
+  name: "default",
+  args: {
+    ...commonArgsButtonBar,
+  },
+  argTypes: {
+    ...commonArgTypesButtonBar,
+  },
+};
 
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    argTypes={commonArgTypesButtonBar}
-    args={commonArgsButtonBar}
-  >
-    {ButtonBarStory.bind({})}
-  </Story>
-</Canvas>
-
-### Visual
-
-<Canvas>
-  <Story
-    name="visual"
-    parameters={{
-      chromatic: { disable: false },
-    }}
-  >
-    {generateButtonBarsWithDifferentIconPositionsAndSizes.bind({})}
-  </Story>
-</Canvas>
+Preview.story = {
+  name: "visual",
+  parameters: {
+    chromatic: {
+      disable: false,
+    },
+  },
+};

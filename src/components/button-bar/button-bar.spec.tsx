@@ -2,15 +2,18 @@ import React from "react";
 import { mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import Icon from "components/icon";
-import Button from "../button/button.component";
+import { IconType } from "../icon/icon";
+import Button from "../button";
 import ButtonBar from "./button-bar.component";
-import {
-  assertStyleMatch,
-  expectConsoleOutput as expectError,
-} from "../../__spec_helper__/test-utils";
-import IconButton from "../icon-button/icon-button.component";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import IconButton from "../icon-button";
 
-const renderButtonBar = (text, numberOfBtns = 1, props = {}, btnProps = {}) => {
+const renderButtonBar = (
+  text?: string,
+  numberOfBtns = 1,
+  props = {},
+  btnProps = {}
+) => {
   const buttons = [];
   for (let i = 0; i < numberOfBtns; i++) {
     buttons.push(<Button {...btnProps}>{text}</Button>);
@@ -18,11 +21,11 @@ const renderButtonBar = (text, numberOfBtns = 1, props = {}, btnProps = {}) => {
   return mount(<ButtonBar {...props}>{buttons}</ButtonBar>);
 };
 
-const renderButtonWithIconBar = (icons, props = {}) => {
+const renderButtonWithIconBar = (icons: IconType[], props = {}) => {
   const buttons = [];
   for (const icon of icons) {
     buttons.push(
-      <IconButton onAction={() => {}}>
+      <IconButton onAction={() => undefined}>
         <Icon type={icon} />
       </IconButton>
     );
@@ -33,10 +36,8 @@ const renderButtonWithIconBar = (icons, props = {}) => {
 describe("Button Bar", () => {
   describe("when no props other than children are passed into the component", () => {
     it("renders the default props and children", () => {
-      const wrapper = renderButtonBar({}, "Button", 3);
+      const wrapper = renderButtonBar("Button", 3);
       expect(wrapper.contains(<Icon type="filter" />)).toBeFalsy();
-      expect(wrapper.props().size).toEqual("medium");
-      expect(wrapper.props().iconPosition).toEqual("before");
     });
   });
 
@@ -63,15 +64,13 @@ describe("Button Bar", () => {
       const wrapper = renderButtonBar("fullWidth", 1, { fullWidth: true });
       expect(wrapper.props().fullWidth).toBeTruthy();
     });
+
     it("renders correctly with multiple buttons", () => {
-      const wrapper = TestRenderer.create(
-        <ButtonBar fullWidth>
-          <Button>fullWidth</Button>
-          <Button>fullWidth</Button>
-        </ButtonBar>
-      );
-      assertStyleMatch({ width: "100%" }, wrapper.toJSON());
+      const wrapper = renderButtonBar("fullWidth", 3, { fullWidth: true });
+
+      assertStyleMatch({ width: "100%" }, wrapper.find(ButtonBar));
     });
+
     it("renders correctly with small size", () => {
       const wrapper = TestRenderer.create(
         <ButtonBar fullWidth size="small">
@@ -132,7 +131,7 @@ describe("Button Bar", () => {
         wrapper.find(Icon).exists() &&
         wrapper.find(Icon).props().type === "filter";
       expect(assertion).toEqual(true);
-      const button = wrapper.find("Button");
+      const button = wrapper.find(Button);
       expect(button.props().iconPosition).toEqual("after");
     });
   });
@@ -141,7 +140,7 @@ describe("Button Bar", () => {
     it("renders an icon correctly", () => {
       const wrapper = mount(
         <ButtonBar>
-          <IconButton onAction={() => {}}>
+          <IconButton onAction={() => undefined}>
             <Icon type="csv" />
           </IconButton>
         </ButtonBar>
@@ -160,15 +159,33 @@ describe("Button Bar", () => {
 
   describe("with children of wrong type", () => {
     const errorMessage =
-      "Warning: Failed prop type: ButtonBar accepts only `Button` or `IconButton` elements.";
-    it("throws an error", () => {
-      const assert = expectError(errorMessage);
-      mount(
-        <ButtonBar>
-          <div>Div</div>
-        </ButtonBar>
-      );
-      assert();
+      "ButtonBar accepts only `Button` or `IconButton` elements.";
+    it("throws an error if child is wrong element", () => {
+      const mockGlobal = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => undefined);
+
+      expect(() => {
+        mount(
+          <ButtonBar>
+            <div>Div</div>
+          </ButtonBar>
+        );
+      }).toThrow(errorMessage);
+
+      mockGlobal.mockReset();
+    });
+
+    it("throws an error if child is not an element", () => {
+      const mockGlobal = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => undefined);
+
+      expect(() => {
+        mount(<ButtonBar>text</ButtonBar>);
+      }).toThrow(errorMessage);
+
+      mockGlobal.mockReset();
     });
   });
 
@@ -183,7 +200,7 @@ describe("Button Bar", () => {
         </ButtonBar>
       );
       wrapper
-        .find("Button")
+        .find(Button)
         .forEach((button) =>
           expect(button.props().buttonType).toEqual("secondary")
         );
@@ -191,7 +208,7 @@ describe("Button Bar", () => {
 
     it("Buttons cannot be 'fullWidth'", () => {
       const wrapper = renderButtonBar("Button", 1, {}, { fullWidth: true });
-      const buttons = wrapper.find("Button");
+      const buttons = wrapper.find(Button);
       buttons.forEach((button) => expect(button.props().fullWidth).toBeFalsy());
     });
 
@@ -215,7 +232,7 @@ describe("Button Bar", () => {
 
     it("Destructive button works correctly", () => {
       const wrapper = renderButtonBar("Small", 1, {}, { destructive: true });
-      expect(wrapper.find("Button").props().destructive).toBeTruthy();
+      expect(wrapper.find(Button).props().destructive).toBeTruthy();
     });
 
     it("Subtext works correctly", () => {
