@@ -11,11 +11,18 @@ import {
   PORTRAIT_SIZE_PARAMS,
 } from "./portrait.config";
 
-function stylingForSize({ size }) {
+function stylingForSize({ size, initials }) {
   const params = PORTRAIT_SIZE_PARAMS[size];
-
   if (!params) {
     return css``;
+  }
+
+  if (initials) {
+    return css`
+      width: inherit;
+      height: inherit;
+      margin: 1px;
+    `;
   }
 
   return css`
@@ -73,7 +80,16 @@ export const StyledPortraitInitials = styled.div`
   box-sizing: border-box;
   ${stylingForSize}
   ${stylingForShape}
-  border: 1px solid var(--colorsUtilityMajor200);
+  outline: 1px solid var(--colorsUtilityMajor200);
+
+  /* Styling for safari. This ensures that there is no outline on the component but that a border is still present 
+     to achieve the same styling as Chrome and Firefox */
+  @media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) and (stroke-color: transparent) {
+      border: 1px solid var(--colorsUtilityMajor200);
+      outline: none;
+    }
+  }
 `;
 
 StyledPortraitInitials.propTypes = {

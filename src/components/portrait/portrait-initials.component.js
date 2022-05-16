@@ -73,6 +73,7 @@ const PortraitInitials = ({
       data-element="initials"
       size={size}
       shape={shape}
+      initials={initials}
       {...rest}
     >
       <StyledPortraitInitialsImg src={generateDataUrl()} alt={alt} />
