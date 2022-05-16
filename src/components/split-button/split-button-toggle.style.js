@@ -55,6 +55,15 @@ const StyledSplitButtonToggle = styled(StyledButton)`
     ${StyledButton} + & ${StyledIcon} {
       margin-left: 0;
     }
+
+    &:focus {
+      background-color: var(--colorsActionMajor500);
+
+      &,
+      ${StyledIcon} {
+        color: var(--colorsActionMajorYang100);
+      }
+    }
   `}
 `;
 

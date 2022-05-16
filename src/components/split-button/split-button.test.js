@@ -10,6 +10,7 @@ import { icon, getDataElementByValue } from "../../../cypress/locators";
 import {
   splitToggleButton,
   additionalButton,
+  additionalButtonsContainer,
   splitMainButtonDataComponent,
   mainButton,
   splitMainButton,
@@ -77,52 +78,30 @@ context("Tests for Split Button component", () => {
     });
 
     it.each([
-      [
-        "primary",
-        "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
-        "rgb(255, 255, 255)",
-        "rgb(255, 255, 255)",
-      ],
-      [
-        "secondary",
-        "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
-        "rgb(0, 126, 69)",
-        "rgb(0, 126, 69)",
-      ],
+      ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
+      ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
     ])(
       "check %s type of Split Button uses %s as background color and %s as color and %s as border color",
       (buttonType, backgroundColor, color, borderColor) => {
         CypressMountWithProviders(<SplitButtonList buttonType={buttonType} />);
 
         mainButton()
-          .children()
-          .should("have.css", "background", backgroundColor)
+          .should("have.css", "background-color", backgroundColor)
           .and("have.css", "color", color)
           .and("have.css", "border-color", borderColor);
       }
     );
 
     it.each([
-      [
-        "primary",
-        "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
-        "rgb(255, 255, 255)",
-        "rgb(255, 255, 255)",
-      ],
-      [
-        "secondary",
-        "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
-        "rgb(0, 126, 69)",
-        "rgb(0, 126, 69)",
-      ],
+      ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
+      ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
     ])(
       "check %s Split Button with %s as background color and %s as color and %s as border color",
       (as, backgroundColor, color, borderColor) => {
         CypressMountWithProviders(<SplitButtonList as={as} />);
 
         mainButton()
-          .children()
-          .should("have.css", "background", backgroundColor)
+          .should("have.css", "background-color", backgroundColor)
           .and("have.css", "color", color)
           .and("have.css", "border-color", borderColor);
       }
@@ -173,27 +152,6 @@ context("Tests for Split Button component", () => {
       splitToggleButton().should("have.attr", "aria-expanded", "true");
     });
 
-    it.each(["first", "second", "third"])(
-      "should render %s element of Split Button with specific background color and border color",
-      (element) => {
-        CypressMountWithProviders(<SplitButtonList />);
-
-        getDataElementByValue("dropdown").trigger("mouseover");
-        additionalButton(positionOfElement(element)).click();
-        additionalButton(positionOfElement(element))
-          .should("have.css", "background-color", "rgb(0, 103, 56)")
-          .and("have.css", "outline", "rgb(255, 181, 0) solid 3px")
-          .should("have.css", "border-bottom-style", "solid")
-          .and("have.css", "border-left-style", "solid")
-          .and("have.css", "border-right-style", "solid")
-          .and("have.css", "border-top-style", "solid")
-          .and("have.css", "border-bottom-width", `1px`)
-          .and("have.css", "border-left-width", `1px`)
-          .and("have.css", "border-right-width", `1px`)
-          .and("have.css", "border-top-width", `1px`);
-      }
-    );
-
     it("should click a main element of Split Button component", () => {
       const callback = cy.stub();
 
@@ -234,4 +192,35 @@ context("Tests for Split Button component", () => {
       mainButton(1).should("be.focused");
     });
   });
+
+  describe("clicking one of the additional buttons", () => {
+    it("should close SplitButton", () => {
+      CypressMountWithProviders(<SplitButtonList />);
+
+      splitToggleButton()
+        .eq(0)
+        .click()
+        .then(() => {
+          additionalButton(0).click();
+
+          additionalButtonsContainer().should("not.exist");
+        });
+    });
+  });
+
+  describe.each(["Enter", "Space", "downarrow"])(
+    "pressing %s key on the main button",
+    (key) => {
+      it("opens SplitButton list and focuses first button", () => {
+        CypressMountWithProviders(<SplitButtonList />);
+
+        splitToggleButton()
+          .eq(0)
+          .trigger("keydown", keyCode(key))
+          .then(() => {
+            additionalButton(0).should("be.focused");
+          });
+      });
+    }
+  );
 });

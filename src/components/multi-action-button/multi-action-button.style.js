@@ -19,9 +19,15 @@ const StyledMultiActionButton = styled.div`
     }
 
     &:focus {
+      background-color: var(--colorsActionMajor700);
       border: 3px solid var(--colorsSemanticFocus500);
       outline: none;
-      margin: -1px;
+      margin: 0 -1px;
+
+      &,
+      ${StyledIcon} {
+        color: var(--colorsActionMajorYang100);
+      }
     }
 
     ${({ displayed }) =>

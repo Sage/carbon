@@ -14,6 +14,7 @@ import withFilter from "../utils/with-filter.hoc";
 import StyledSelect from "../select.style";
 import SelectList from "../select-list/select-list.component";
 import isExpectedOption from "../utils/is-expected-option";
+import isNavigationKey from "../utils/is-navigation-key";
 
 const FilterableSelectList = withFilter(SelectList);
 
@@ -489,14 +490,6 @@ const FilterableSelect = React.forwardRef(
       };
     }
 
-    function isNavigationKey(key) {
-      return (
-        key === "ArrowDown" ||
-        key === "ArrowUp" ||
-        key === "Home" ||
-        key === "End"
-      );
-    }
     const selectList = (
       <FilterableSelectList
         ref={listboxRef}

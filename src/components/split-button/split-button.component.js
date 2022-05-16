@@ -58,16 +58,16 @@ const SplitButton = ({
 
   const theme = useContext(ThemeContext) || baseTheme;
   const isToggleButtonFocused = useRef(false);
+  const isFocusedAfterClosing = useRef(false);
   const buttonLabelId = useRef(guid());
-  const additionalButtons = useRef([]);
+  const buttonChildren = React.Children.toArray(children);
+  const additionalButtons = useRef(buttonChildren.map(() => React.createRef()));
   const splitButtonNode = useRef();
   const toggleButton = useRef();
   const buttonContainer = useRef();
   const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
   const [minWidth, setMinWidth] = useState(0);
-  const userInputType = useRef(
-    "ontouchstart" in document.documentElement ? "touchstart" : "click"
-  );
+  const listening = useRef(false);
 
   const hideButtons = useCallback(() => {
     if (isToggleButtonFocused.current) return;
@@ -90,22 +90,23 @@ const SplitButton = ({
 
   const handleKeyDown = useCallback(
     (ev) => {
-      if (!showAdditionalButtons) {
-        return;
-      }
-
       const numOfChildren = children.length - 1;
-      const currentIndex = additionalButtons.current.findIndex(isActiveElement);
+      const currentIndex = additionalButtons.current.findIndex(
+        (node) => node.current === document.activeElement
+      );
       let nextIndex = -1;
 
       if (Events.isUpKey(ev)) {
         nextIndex = currentIndex > 0 ? currentIndex - 1 : numOfChildren;
         ev.preventDefault();
       }
+
       if (Events.isDownKey(ev)) {
         nextIndex = currentIndex < numOfChildren ? currentIndex + 1 : 0;
         ev.preventDefault();
-      } else if (Events.isTabKey(ev)) {
+      }
+
+      if (Events.isTabKey(ev)) {
         const elements = Array.from(
           document.querySelectorAll(defaultFocusableSelectors)
         ).filter((el) => Number(el.tabIndex) !== -1);
@@ -117,23 +118,38 @@ const SplitButton = ({
       }
 
       if (nextIndex > -1) {
-        additionalButtons.current[nextIndex].focus();
+        additionalButtons.current[nextIndex].current.focus();
       }
     },
-    [hideButtons, children, showAdditionalButtons]
+    [hideButtons, children]
   );
+  const addListeners = useCallback(() => {
+    /* istanbul ignore else */
+    if (!listening.current) {
+      document.addEventListener("click", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
+      listening.current = true;
+    }
+  }, [handleKeyDown, handleClickOutside]);
+
+  const removeListeners = useCallback(() => {
+    /* istanbul ignore else */
+    if (listening.current) {
+      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+      listening.current = false;
+    }
+  }, [handleKeyDown, handleClickOutside]);
 
   useEffect(() => {
-    const inputType = userInputType.current;
+    if (showAdditionalButtons) {
+      addListeners();
+    }
 
-    document.addEventListener(inputType, handleClickOutside);
-    document.addEventListener("keydown", handleKeyDown);
-
-    return function cleanup() {
-      document.removeEventListener(inputType, handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      removeListeners();
     };
-  }, [handleClickOutside, handleKeyDown]);
+  }, [showAdditionalButtons, addListeners, removeListeners]);
 
   function mainButtonProps() {
     return {
@@ -179,11 +195,6 @@ const SplitButton = ({
       "data-element": dataElement,
       "data-role": dataRole,
     };
-  }
-
-  function addRef(ref, index) {
-    if (!ref) return;
-    additionalButtons.current[index] = ref;
   }
 
   function getIconColor() {
@@ -234,8 +245,20 @@ const SplitButton = ({
   }
 
   function handleToggleButtonKeyDown(ev) {
-    if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
-      additionalButtons.current[0].focus();
+    if (
+      Events.isEnterKey(ev) ||
+      Events.isSpaceKey(ev) ||
+      Events.isDownKey(ev)
+    ) {
+      ev.preventDefault();
+
+      if (!showAdditionalButtons) {
+        showButtons();
+      }
+
+      setTimeout(() => {
+        additionalButtons.current[0]?.current?.focus();
+      }, 0);
     }
   }
 
@@ -246,8 +269,15 @@ const SplitButton = ({
       const childProps = {
         key: index.toString(),
         role: "menuitem",
-        ref: (button) => addRef(button, index),
+        ref: additionalButtons.current[index],
         tabIndex: -1,
+        onClick: (ev) => {
+          if (child.props.onClick) child.props.onClick(ev);
+          isToggleButtonFocused.current = false;
+          hideButtons();
+          isFocusedAfterClosing.current = true;
+          toggleButton.current?.focus();
+        },
       };
       if (child.type === Button) {
         return <ButtonWithForwardRef {...child.props} {...childProps} />;
@@ -259,11 +289,12 @@ const SplitButton = ({
 
   function focusToggleButton() {
     isToggleButtonFocused.current = true;
-    showButtons();
-  }
+    if (isFocusedAfterClosing.current) {
+      isFocusedAfterClosing.current = false;
+      return;
+    }
 
-  function isActiveElement(node) {
-    return node === document.activeElement;
+    showButtons();
   }
 
   function renderAdditionalButtons() {
