@@ -71,7 +71,7 @@ const StyledFlatTable = styled.table`
       ${StyledFlatTableRow}:hover {
         ${StyledFlatTableCell},
         ${StyledFlatTableRowHeader},
-        ${StyledFlatTableCheckbox} {
+        ${StyledFlatTableCheckbox}:not(th) {
           background-color: var(--colorsUtilityMajor025);
         }
       }
@@ -192,6 +192,7 @@ const StyledFlatTableFooter = styled.div`
     css`
       position: sticky;
       bottom: 0px;
+      z-index: ${baseTheme.zIndex.overlay + 1};
     `}
 `;
 

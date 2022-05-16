@@ -30,8 +30,8 @@ export function visitComponentUrlWithParameters(
   cy.fixture(`${path}/${json}`).then(($json) => {
     const el = $json[nameOfObject];
     let url = "";
-    let args = [];
-    let globals = [];
+    const args = [];
+    const globals = [];
     for (const prop in el) {
       if (prop === "theme") {
         globals.push(`${prop}:${encodeURIComponent(el[prop])}`);
@@ -171,5 +171,7 @@ export function keyCode(type) {
     End: { key: "End", keyCode: 35, which: 35 },
     Esc: { key: "Escape", keyCode: 27, which: 27 },
     ShiftHold: { key: "Shift", keyCode: 16, which: 16, release: false },
+    pagedown: { key: "PageDown", keyCode: 34, which: 34 },
+    pageup: { key: "PageUp", keyCode: 33, which: 33 },
   }[type];
 }

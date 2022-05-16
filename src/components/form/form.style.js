@@ -11,6 +11,7 @@ import { FieldsetStyle } from "../fieldset/fieldset.style";
 import StyledInlineInputs from "../inline-inputs/inline-inputs.style";
 import { FORM_BUTTON_ALIGNMENTS } from "./form.config";
 import StyledSearch from "../search/search.style";
+import StyledTextarea from "../textarea/textarea.style";
 
 export const StyledFormContent = styled.div`
   ${({ stickyFooter }) => css`
@@ -75,12 +76,18 @@ export const StyledForm = styled.form`
   ${({ fieldSpacing }) =>
     css`
       &
+        ${StyledTextarea},
         ${StyledFormField},
         ${StyledFieldset},
         ${FieldsetStyle},
         > ${StyledButton} {
         margin-top: 0;
         margin-bottom: ${formBottomMargins(fieldSpacing)};
+      }
+
+      ${StyledTextarea}
+      ${StyledFormField} {
+        margin-bottom: 4px;
       }
 
       ${StyledInlineInputs} {

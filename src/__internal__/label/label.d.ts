@@ -1,7 +1,7 @@
 import * as React from "react";
-import { ValidationPropTypes } from "../validations";
+import { ValidationProps } from "../validations";
 
-export interface LabelPropTypes extends ValidationPropTypes {
+export interface LabelPropTypes extends ValidationProps {
   /** Label width */
   width?: number;
   /** Label alignment */

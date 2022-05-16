@@ -91,7 +91,6 @@ const getWeight = (variant) => {
     case "h1":
     case "segment-header":
     case "segment-header-small":
-    case "strong":
       return "900";
     case "h2":
     case "h3":
@@ -99,6 +98,7 @@ const getWeight = (variant) => {
     case "segment-subheader-alt":
     case "b":
     case "em":
+    case "strong":
       return "700";
     case "h4":
     case "h5":

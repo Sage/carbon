@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
-import { ValidationPropTypes } from "../../__internal__/validations";
+import { ValidationProps } from "../../__internal__/validations";
 
 interface DayMonthDate {
   dd: string;
@@ -24,7 +24,7 @@ interface NumeralDateEvent {
   };
 }
 
-export interface NumeralDateProps extends ValidationPropTypes, MarginProps {
+export interface NumeralDateProps extends ValidationProps, MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
