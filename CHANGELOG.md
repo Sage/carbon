@@ -1,3 +1,10 @@
+### [106.4.2](https://github.com/Sage/carbon/compare/v106.4.1...v106.4.2) (2022-05-16)
+
+
+### Bug Fixes
+
+* **portrait:** ensure background fills consistently when zoom is greater than 100% ([f2b4a60](https://github.com/Sage/carbon/commit/f2b4a60278fc8ea93bb665ff0b740ed632e305db)), closes [#4939](https://github.com/Sage/carbon/issues/4939)
+
 ### [106.4.1](https://github.com/Sage/carbon/compare/v106.4.0...v106.4.1) (2022-05-13)
 
 
