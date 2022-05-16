@@ -314,7 +314,7 @@ describe("MenuItem", () => {
           const styles = {
             focusBg: menuConfigVariants[menuType].submenuBackground,
             focusColor: menuConfigVariants[menuType].color,
-            hoverBg: menuConfigVariants[menuType].submenuOpenedBackground,
+            hoverBg: menuConfigVariants[menuType].submenuItemBackground,
             hoverColor: menuConfigVariants[menuType].color,
           };
 
