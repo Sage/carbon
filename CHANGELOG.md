@@ -1,3 +1,10 @@
+## [106.5.0](https://github.com/Sage/carbon/compare/v106.4.2...v106.5.0) (2022-05-16)
+
+
+### Features
+
+* **textarea:** modify padding to use design tokens ([f4d5e71](https://github.com/Sage/carbon/commit/f4d5e71460916ab8a3e12ad2b95f672c20696459))
+
 ### [106.4.2](https://github.com/Sage/carbon/compare/v106.4.1...v106.4.2) (2022-05-16)
 
 
