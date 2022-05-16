@@ -1,3 +1,11 @@
+## [106.6.0](https://github.com/Sage/carbon/compare/v106.5.0...v106.6.0) (2022-05-16)
+
+
+### Features
+
+* **multi-action-button:** close button list when clicked ([5a2d2e4](https://github.com/Sage/carbon/commit/5a2d2e47603a51f2f90ac2928de8786d26daed2b))
+* **split-button:** close button list when clicked ([dbd7edd](https://github.com/Sage/carbon/commit/dbd7edd9e6a86aff741ce976532ec06369968999))
+
 ## [106.5.0](https://github.com/Sage/carbon/compare/v106.4.2...v106.5.0) (2022-05-16)
 
 
