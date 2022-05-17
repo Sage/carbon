@@ -104,7 +104,7 @@ export default {
     inputWidth: 100,
     warnOverLimit: false,
     enforceCharacterLimit: true,
-    label: "",
+    label: "Textarea",
     labelHelp: "",
     labelInline: false,
     labelWidth: 30,

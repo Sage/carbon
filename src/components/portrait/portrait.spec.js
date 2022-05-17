@@ -15,6 +15,7 @@ import {
   StyledIcon,
   StyledCustomImg,
   StyledPortraitContainer,
+  StyledPortraitInitials,
 } from "./portrait.style";
 import PortraitInitials from "./portrait-initials.component";
 import PortraitGravatar from "./portrait-gravatar.component";
@@ -130,6 +131,59 @@ describe("PortraitComponent", () => {
     });
 
     /* eslint-enable no-console */
+  });
+
+  describe("Portrait styles", () => {
+    it("applies expected styles to Portrait with initials", () => {
+      const wrapper = mount(
+        <Portrait shape="circle" initials="AB" darkBackground={false} />
+      );
+
+      assertStyleMatch(
+        {
+          display: "inline-block",
+        },
+        wrapper.find(StyledPortraitContainer)
+      );
+
+      assertStyleMatch(
+        {
+          width: "inherit",
+          height: "inherit",
+          margin: "1px",
+          display: "inline-block",
+          verticalAlign: "middle",
+          boxSizing: "border-box",
+          outline: "1px solid var(--colorsUtilityMajor200)",
+        },
+        wrapper.find(StyledPortraitInitials)
+      );
+    });
+
+    // TODO: Currently due to this issue https://github.com/styled-components/jest-styled-components/pull/354 we are unable to test a media query with a `@supports` selector.
+    // Once this has been resolved we will need to write a test that covers the styles that target `@media not all and (min-resolution: 0.001dpcm)
+    // @supports (-webkit-appearance: none) and (stroke-color: transparent)`.
+
+    it("applies expected styling to Portrait with icon", () => {
+      const wrapper = mount(
+        <Portrait shape="square" darkBackground={false} iconType="image" />
+      );
+
+      assertStyleMatch(
+        {
+          display: "inline-block",
+        },
+        wrapper.find(StyledPortraitContainer)
+      );
+
+      assertStyleMatch(
+        {
+          height: "24px",
+          width: "24px",
+        },
+        wrapper.find(StyledIcon)
+      );
+    });
   });
 
   describe("render icon", () => {

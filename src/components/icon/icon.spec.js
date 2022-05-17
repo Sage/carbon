@@ -15,7 +15,7 @@ import baseTheme from "../../style/themes/base";
 import browserTypeCheck, {
   isSafari,
 } from "../../__internal__/utils/helpers/browser-type-check";
-import styledColor from "../../style/utils/color.js";
+import styledColor from "../../style/utils/color";
 import Tooltip from "../tooltip";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import getColorValue from "../../style/utils/get-color-value";
