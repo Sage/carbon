@@ -30,11 +30,11 @@ const Component = (props) => {
   );
 };
 
-const InDialog = (props) => {
+const InDialog = ({ dialogRole, ...props }) => {
   const ref = useRef();
 
   return (
-    <Dialog open>
+    <Dialog open role={dialogRole}>
       <div ref={ref} id="popover-container">
         {props.renderPopover && (
           <Popover placement="bottom-start" {...props} reference={ref}>
@@ -47,6 +47,7 @@ const InDialog = (props) => {
 };
 
 InDialog.propTypes = {
+  dialogRole: PropTypes.string,
   renderPopover: PropTypes.bool,
 };
 
@@ -186,6 +187,26 @@ describe("Popover", () => {
       });
 
       expect(appendChildSpy).toHaveBeenCalled();
+    });
+
+    it("should attach the portal to the document.body if no element with role of 'dialog' is found", () => {
+      const wrapper = mount(<InDialog dialogRole="alertdialog" />);
+      const dialog = wrapper.find("[role='alertdialog']");
+      const appendChildToDialogSpy = jest.spyOn(
+        dialog.at(2).getDOMNode(),
+        "appendChild"
+      );
+
+      const appendChildToBodySpy = jest.spyOn(document.body, "appendChild");
+
+      wrapper.setProps({ renderPopover: true });
+
+      act(() => {
+        wrapper.update();
+      });
+
+      expect(appendChildToDialogSpy).not.toHaveBeenCalled();
+      expect(appendChildToBodySpy).toHaveBeenCalled();
     });
   });
 });

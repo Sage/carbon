@@ -13,7 +13,7 @@ const StyledSelect = styled.div`
     position: relative;
 
     ${StyledInput} {
-      cursor: "text";
+      cursor: text;
 
       ${disabled &&
       css`
