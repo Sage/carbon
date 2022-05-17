@@ -202,10 +202,20 @@ const ActionPopoverWithProps = ({ ...props }) => {
 const ActionPopoverMenuWithProps = ({ ...props }) => {
   return (
     <ActionPopover>
-      <ActionPopoverMenu {...props}>
-        <ActionPopoverItem>Sub Menu 1</ActionPopoverItem>
-        <ActionPopoverItem>Sub Menu 2</ActionPopoverItem>
-      </ActionPopoverMenu>
+      <ActionPopoverItem
+        submenu={
+          <ActionPopoverMenu {...props}>
+            <ActionPopoverItem icon="graph">Sub Menu 1</ActionPopoverItem>
+            <ActionPopoverItem icon="add">Sub Menu 2</ActionPopoverItem>
+            <ActionPopoverItem icon="print" disabled>
+              Sub Menu 3
+            </ActionPopoverItem>
+          </ActionPopoverMenu>
+        }
+      >
+        Sub Menu 1
+      </ActionPopoverItem>
+      <ActionPopoverItem>Sub Menu 2</ActionPopoverItem>
     </ActionPopover>
   );
 };
@@ -213,10 +223,8 @@ const ActionPopoverMenuWithProps = ({ ...props }) => {
 const ActionPopoverProps = ({ ...props }) => {
   return (
     <ActionPopover {...props}>
-      <ActionPopoverMenu>
-        <ActionPopoverItem>Sub Menu 1</ActionPopoverItem>
-        <ActionPopoverItem>Sub Menu 2</ActionPopoverItem>
-      </ActionPopoverMenu>
+      <ActionPopoverItem>Sub Menu 1</ActionPopoverItem>
+      <ActionPopoverItem>Sub Menu 2</ActionPopoverItem>
     </ActionPopover>
   );
 };
@@ -627,7 +635,10 @@ context("Test for ActionPopover component", () => {
       );
 
       actionPopoverButton().eq(0).click();
-      actionPopover().eq(1).should("have.attr", "id", "cypress");
+      actionPopover()
+        .eq(1)
+        .should("have.attr", "id")
+        .and("contain", "ActionPopoverMenu_");
     });
 
     it("should render ActionPopoverMenu with focusIndex set to null", () => {

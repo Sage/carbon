@@ -5,9 +5,9 @@ const projectRoot = path.resolve(__dirname, "../");
 const ignoreTests = process.env.IGNORE_TESTS === "true";
 const isChromatic = !ignoreTests;
 const getStories = () =>
-  glob.sync(`${projectRoot}/src/**/*.stories.@(js|mdx)`, {
+  glob.sync(`${projectRoot}/src/**/*.stories.@(js|mdx|tsx)`, {
     ...(ignoreTests && {
-      ignore: `${projectRoot}/src/**/*-test.stories.@(js|mdx)`,
+      ignore: `${projectRoot}/src/**/*-test.stories.@(js|mdx|tsx)`,
     }),
   });
 

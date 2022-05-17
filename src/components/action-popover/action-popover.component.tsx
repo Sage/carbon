@@ -5,8 +5,8 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { MarginProps } from "styled-system";
+import invariant from "invariant";
 
 import {
   MenuButton,
@@ -14,7 +14,6 @@ import {
   StyledButtonIcon,
 } from "./action-popover.style";
 import Events from "../../__internal__/utils/helpers/events";
-import { filterStyledSystemMarginProps } from "../../style/utils";
 import Popover from "../../__internal__/popover";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
@@ -23,33 +22,85 @@ import ActionPopoverItem from "./action-popover-item/action-popover-item.compone
 import ActionPopoverDivider from "./action-popover-divider/action-popover-divider.component";
 import ActionPopoverContext from "./action-popover-context";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+interface RenderButtonProps {
+  tabIndex: number;
+  "data-element": string;
+  ariaAttributes: {
+    "aria-haspopup": string;
+    "aria-label": string;
+    "aria-controls": string;
+    "aria-expanded": string;
+  };
+}
 
-const ActionPopover = ({
+export interface ActionPopoverProps extends MarginProps {
+  /** Children for popover component */
+  children?: React.ReactNode;
+  /** Horizontal alignment of menu items content */
+  horizontalAlignment?: "left" | "right";
+  /** Unique ID */
+  id?: string;
+  /** Callback to be called on menu open */
+  onOpen?: () => void;
+  /** Callback to be called on menu close */
+  onClose?: () => void;
+  /** Set whether the menu should open above or below the button */
+  placement?: "bottom" | "top";
+  /** Render a custom menu button to override default ellipsis icon */
+  renderButton?: (buttonProps: RenderButtonProps) => React.ReactNode;
+  /** Boolean to control whether menu should align to right */
+  rightAlignMenu?: boolean;
+}
+
+const onOpenDefault = () => {};
+const onCloseDefault = () => {};
+
+export const ActionPopover = ({
   children,
   id,
-  onOpen,
-  onClose,
+  onOpen = onOpenDefault,
+  onClose = onCloseDefault,
   rightAlignMenu,
   renderButton,
   placement = "bottom",
-  horizontalAlignment,
+  horizontalAlignment = "left",
   ...rest
-}) => {
+}: ActionPopoverProps) => {
   const l = useLocale();
   const [isOpen, setOpenState] = useState(false);
   const [focusIndex, setFocusIndex] = useState(0);
   const [guid] = useState(createGuid());
-  const buttonRef = useRef();
-  const menu = useRef();
+  const buttonRef = useRef<HTMLDivElement>(null);
+  const menu = useRef<HTMLDivElement>(null);
 
   const itemCount = useMemo(() => {
-    return React.Children.toArray(children).filter(
-      (child) => child.type === ActionPopoverItem
-    ).length;
+    return React.Children.toArray(children).filter((child) => {
+      return React.isValidElement(child) && child.type === ActionPopoverItem;
+    }).length;
   }, [children]);
+
+  const hasProperChildren = useMemo(() => {
+    const incorrectChild = React.Children.toArray(children).find(
+      (child: React.ReactNode) => {
+        if (!React.isValidElement(child)) {
+          return true;
+        }
+
+        return (
+          child.type !== ActionPopoverItem &&
+          child.type !== ActionPopoverDivider
+        );
+      }
+    );
+
+    return !incorrectChild;
+  }, [children]);
+
+  invariant(
+    hasProperChildren,
+    `ActionPopover only accepts children of type \`${ActionPopoverItem.displayName}\`` +
+      ` and \`${ActionPopoverDivider.displayName}\`.`
+  );
 
   const mappedPlacement = useMemo(() => {
     if (placement === "top" && !rightAlignMenu) {
@@ -80,6 +131,14 @@ const ActionPopover = ({
     [isOpen, onOpen, onClose]
   );
 
+  const focusButton = useCallback(() => {
+    const button = buttonRef.current?.querySelector<HTMLElement>(
+      "[data-element='action-popover-button']"
+    );
+
+    button?.focus();
+  }, []);
+
   const onButtonClick = useCallback(
     (e) => {
       e.stopPropagation();
@@ -87,12 +146,10 @@ const ActionPopover = ({
       setOpen(isOpening);
       if (!isOpening) {
         // Closing the menu should focus the MenuButton
-        buttonRef.current
-          .querySelector("[data-component='action-popover-button']")
-          .focus();
+        focusButton();
       }
     },
-    [isOpen, setOpen]
+    [isOpen, setOpen, focusButton]
   );
 
   // Keyboard commands implemented as recommended by WAI-ARIA best practices
@@ -115,24 +172,17 @@ const ActionPopover = ({
     [itemCount, setOpen]
   );
 
-  const focusButton = useCallback(
-    () =>
-      buttonRef.current
-        .querySelector("[data-component='action-popover-button']")
-        .focus(),
-    []
-  );
-
   useEffect(() => {
-    const handler = ({ target }) => {
+    const handler = ({ target }: MouseEvent) => {
       // If the event didn't came from part of this component, close the menu.
       // There will be multiple document click listeners but we cant prevent propagation because it will interfere with
       // other instances on the same page
-      if (
-        !buttonRef.current.contains(target) &&
-        menu.current &&
-        !menu.current.contains(target)
-      ) {
+
+      const isInMenu = menu.current && menu.current.contains(target as Node);
+      const isInButton =
+        buttonRef.current && buttonRef.current.contains(target as Node);
+
+      if (!isInMenu && !isInButton) {
         setOpen(false);
       }
     };
@@ -144,16 +194,16 @@ const ActionPopover = ({
     };
   }, [setOpen]);
 
-  const menuButton = (menuID) => {
+  const menuButton = (menuID: string) => {
     if (renderButton) {
       return renderButton({
-        tabIndex: isOpen ? "-1" : "0",
-        "data-component": "action-popover-button",
+        tabIndex: isOpen ? -1 : 0,
+        "data-element": "action-popover-button",
         ariaAttributes: {
           "aria-haspopup": "true",
           "aria-label": l.actionPopover.ariaLabel(),
           "aria-controls": menuID,
-          "aria-expanded": isOpen,
+          "aria-expanded": `${isOpen}`,
         },
       });
     }
@@ -165,8 +215,8 @@ const ActionPopover = ({
         aria-label={l.actionPopover.ariaLabel()}
         aria-controls={menuID}
         aria-expanded={isOpen}
-        tabIndex={isOpen ? "-1" : "0"}
-        data-component="action-popover-button"
+        tabIndex={isOpen ? -1 : 0}
+        data-element="action-popover-button"
       >
         <ButtonIcon type="ellipsis_vertical" />
       </StyledButtonIcon>
@@ -215,58 +265,6 @@ const ActionPopover = ({
       </ActionPopoverContext.Provider>
     </MenuButton>
   );
-};
-
-ActionPopover.propTypes = {
-  ...marginPropTypes,
-  /** Unique ID */
-  id: PropTypes.string,
-  /** Callback to be called on menu open */
-  onOpen: PropTypes.func,
-  /** Callback to be called on menu close */
-  onClose: PropTypes.func,
-  /** Boolean to control whether menu should align to right */
-  rightAlignMenu: PropTypes.bool,
-  /** Children for popover component */
-  children(props, propName, componentName) {
-    let error;
-    const prop = props[propName];
-
-    React.Children.forEach(prop, (child) => {
-      if (child === null) {
-        return;
-      }
-      if (
-        ![
-          ActionPopoverItem.displayName,
-          ActionPopoverDivider.displayName,
-        ].includes(child.type.displayName)
-      ) {
-        error = new Error(
-          `\`${componentName}\` only accepts children of type \`${ActionPopoverItem.displayName}\`` +
-            ` and \`${ActionPopoverDivider.displayName}\`.`
-        );
-      }
-    });
-
-    return error;
-  },
-  /** Render a custom menu button to override default ellipsis icon */
-  renderButton: PropTypes.func,
-  /** Horizontal alignment of menu items content */
-  horizontalAlignment: PropTypes.oneOf(["left", "right"]),
-  /** Set whether the menu should open above or below the button */
-  placement: PropTypes.oneOf(["top", "bottom"]),
-};
-
-const onOpen = () => {};
-const onClose = () => {};
-
-ActionPopover.defaultProps = {
-  id: null,
-  onOpen,
-  onClose,
-  horizontalAlignment: "left",
 };
 
 export default ActionPopover;

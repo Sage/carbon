@@ -12,7 +12,6 @@ import {
   ActionPopoverMenu,
   ActionPopoverMenuButton,
 } from ".";
-import { MenuItem } from "./action-popover-item/action-popover-item.component";
 import { Accordion } from "../accordion";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import DocsWrapper from "../../../.storybook/docs-helpers/components/iframe-wrapper";
@@ -90,7 +89,7 @@ Story showing most of the functionality of the action popover and what can be ac
 
 <Canvas>
   <Story name="default">
-    {()=> {
+    {() => {
       const submenu = (
         <ActionPopoverMenu>
           <ActionPopoverItem onClick={action("sub menu 1")}>
@@ -112,13 +111,17 @@ Story showing most of the functionality of the action popover and what can be ac
           <ActionPopoverItem icon="add" onClick={action("sub menu 2")}>
             Sub Menu 2
           </ActionPopoverItem>
-          <ActionPopoverItem icon="print" disabled onClick={action("sub menu 3")}>
+          <ActionPopoverItem
+            icon="print"
+            disabled
+            onClick={action("sub menu 3")}
+          >
             Sub Menu 3
           </ActionPopoverItem>
         </ActionPopoverMenu>
       );
       return (
-        <div style={{ marginTop: "40px", height: "275px"}}>
+        <div style={{ marginTop: "40px", height: "275px" }}>
           <FlatTable isZebra>
             <FlatTableHead>
               <FlatTableRow>
@@ -132,17 +135,33 @@ Story showing most of the functionality of the action popover and what can be ac
                 <FlatTableCell>John</FlatTableCell>
                 <FlatTableCell>Doe</FlatTableCell>
                 <FlatTableCell>
-                  <ActionPopover onOpen={action("popover opened")} onClose={action("popover closed")}>
-                    <ActionPopoverItem disabled icon="graph" submenu={submenu} onClick={action("email")}>
+                  <ActionPopover
+                    onOpen={action("popover opened")}
+                    onClose={action("popover closed")}
+                  >
+                    <ActionPopoverItem
+                      disabled
+                      icon="graph"
+                      submenu={submenu}
+                      onClick={action("email")}
+                    >
                       Business
                     </ActionPopoverItem>
                     <ActionPopoverItem icon="email" onClick={action("email")}>
                       Email Invoice
                     </ActionPopoverItem>
-                    <ActionPopoverItem icon="print" onClick={action("print")} submenu={submenu}>
+                    <ActionPopoverItem
+                      icon="print"
+                      onClick={action("print")}
+                      submenu={submenu}
+                    >
                       Print Invoice
                     </ActionPopoverItem>
-                    <ActionPopoverItem icon="pdf" submenu={submenu} onClick={action("pdf")}>
+                    <ActionPopoverItem
+                      icon="pdf"
+                      submenu={submenu}
+                      onClick={action("pdf")}
+                    >
                       Download PDF
                     </ActionPopoverItem>
                     <ActionPopoverItem icon="csv" onClick={action("csv")}>
@@ -171,7 +190,11 @@ Story showing most of the functionality of the action popover and what can be ac
                 <FlatTableCell>Jones</FlatTableCell>
                 <FlatTableCell>
                   <ActionPopover>
-                    <ActionPopoverItem icon="csv" submenu={submenuWithIcons} onClick={action("csv")}>
+                    <ActionPopoverItem
+                      icon="csv"
+                      submenu={submenuWithIcons}
+                      onClick={action("csv")}
+                    >
                       Download CSV
                     </ActionPopoverItem>
                   </ActionPopover>
@@ -791,75 +814,70 @@ triggering an action.
 When sub-menus aligns to the right hand side, the key shortcuts are switiched: pressingt the "right" key whilst focus
 is on a item will open a sub-menu if it has one and pressing the "left" key will close it.
 
-<Story
-  name="keyboard navigation right aligned submenu"
-  parameters={{ docs: { disable: true } }}
->
-  <div style={{ height: "250px" }}>
-    <FlatTable>
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableHeader>&nbsp;</FlatTableHeader>
-          <FlatTableHeader>First Name</FlatTableHeader>
-          <FlatTableHeader>Last Name</FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-      <FlatTableBody>
-        <FlatTableRow>
-          <FlatTableCell>
-            <ActionPopover>
-              <ActionPopoverItem
-                icon="csv"
-                onClick={() => {}}
-                submenu={
-                  <ActionPopoverMenu>
-                    <ActionPopoverItem icon="csv" onClick={() => {}}>
-                      CSV
-                    </ActionPopoverItem>
-                    <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                      PDF
-                    </ActionPopoverItem>
-                  </ActionPopoverMenu>
-                }
-              >
-                Download
-              </ActionPopoverItem>
-              <ActionPopoverItem
-                icon="pdf"
-                onClick={() => {}}
-                submenu={
-                  <ActionPopoverMenu>
-                    <ActionPopoverItem icon="csv" onClick={() => {}}>
-                      CSV
-                    </ActionPopoverItem>
-                    <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                      PDF
-                    </ActionPopoverItem>
-                  </ActionPopoverMenu>
-                }
-              >
-                Print
-              </ActionPopoverItem>
-              <ActionPopoverDivider />
-              <ActionPopoverItem onClick={() => {}} icon="delete">
-                Delete
-              </ActionPopoverItem>
-            </ActionPopover>
-          </FlatTableCell>
-          <FlatTableCell>John</FlatTableCell>
-          <FlatTableCell>Doe</FlatTableCell>
-        </FlatTableRow>
-      </FlatTableBody>
-    </FlatTable>
-  </div>
-</Story>
-
-<MyPreview>
-  <DocsWrapper
-    src="iframe.html?id=action-popover--keyboard-access-right-aligned-submenu"
-    height="250px"
-  />
-</MyPreview>
+<Canvas>
+  <Story
+    name="keyboard navigation right aligned submenu"
+    parameters={{ docs: { disable: true } }}
+  >
+    <div style={{ height: "250px" }}>
+      <FlatTable>
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader>&nbsp;</FlatTableHeader>
+            <FlatTableHeader>First Name</FlatTableHeader>
+            <FlatTableHeader>Last Name</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow>
+            <FlatTableCell>
+              <ActionPopover>
+                <ActionPopoverItem
+                  icon="csv"
+                  onClick={() => {}}
+                  submenu={
+                    <ActionPopoverMenu>
+                      <ActionPopoverItem icon="csv" onClick={() => {}}>
+                        CSV
+                      </ActionPopoverItem>
+                      <ActionPopoverItem icon="pdf" onClick={() => {}}>
+                        PDF
+                      </ActionPopoverItem>
+                    </ActionPopoverMenu>
+                  }
+                >
+                  Download
+                </ActionPopoverItem>
+                <ActionPopoverItem
+                  icon="pdf"
+                  onClick={() => {}}
+                  submenu={
+                    <ActionPopoverMenu>
+                      <ActionPopoverItem icon="csv" onClick={() => {}}>
+                        CSV
+                      </ActionPopoverItem>
+                      <ActionPopoverItem icon="pdf" onClick={() => {}}>
+                        PDF
+                      </ActionPopoverItem>
+                    </ActionPopoverMenu>
+                  }
+                >
+                  Print
+                </ActionPopoverItem>
+                <ActionPopoverDivider />
+                <ActionPopoverItem onClick={() => {}} icon="delete">
+                  Delete
+                </ActionPopoverItem>
+              </ActionPopover>
+            </FlatTableCell>
+            <FlatTableCell>John</FlatTableCell>
+            <FlatTableCell>Doe</FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+    </div>
+  </Story>
+</Canvas>
 
 ### With additional options
 
@@ -1123,61 +1141,61 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
 <Canvas>
   <Story name="opening a modal">
     {() => {
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
-    return (
-      <>
-      <FlatTable colorTheme="transparent-white">
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Devices</FlatTableHeader>
-            <FlatTableHeader>Status</FlatTableHeader>
-            <FlatTableHeader>Action Popover</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>Mobile Phone</FlatTableCell>
-            <FlatTableCell>Online</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover
-                renderButton={(props) => (
-                  <ActionPopoverMenuButton isOpen={isOpen} {...props}>
-                    Open Actions
-                  </ActionPopoverMenuButton>
-                )}
-              >
-                <ActionPopoverItem
-                  onClick={() => {
-                    setIsOpen(false);
-                    setIsConfirmOpen(true);
-                  }}
-                >
-                  Open Confirm Dialog
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="settings" onClick={() => {}}>
-                  Do Nothing
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
-      <Confirm
-        title="Are you sure?"
-        subtitle="Subtitle"
-        confirmButtonDestructive
-        cancelButtonDestructive
-        disableConfirm
-        open={isConfirmOpen}
-        onConfirm={() => setIsConfirmOpen(false)}
-        onCancel={() => setIsConfirmOpen(false)}
-      >
-        Content
-      </Confirm>
-    </>
-    )
-  }}
+      const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <>
+          <FlatTable colorTheme="transparent-white">
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Devices</FlatTableHeader>
+                <FlatTableHeader>Status</FlatTableHeader>
+                <FlatTableHeader>Action Popover</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow>
+                <FlatTableCell>Mobile Phone</FlatTableCell>
+                <FlatTableCell>Online</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover
+                    renderButton={(props) => (
+                      <ActionPopoverMenuButton isOpen={isOpen} {...props}>
+                        Open Actions
+                      </ActionPopoverMenuButton>
+                    )}
+                  >
+                    <ActionPopoverItem
+                      onClick={() => {
+                        setIsOpen(false);
+                        setIsConfirmOpen(true);
+                      }}
+                    >
+                      Open Confirm Dialog
+                    </ActionPopoverItem>
+                    <ActionPopoverItem icon="settings" onClick={() => {}}>
+                      Do Nothing
+                    </ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+          <Confirm
+            title="Are you sure?"
+            subtitle="Subtitle"
+            confirmButtonDestructive
+            cancelButtonDestructive
+            disableConfirm
+            open={isConfirmOpen}
+            onConfirm={() => setIsConfirmOpen(false)}
+            onCancel={() => setIsConfirmOpen(false)}
+          >
+            Content
+          </Confirm>
+        </>
+      );
+    }}
   </Story>
 </Canvas>
 
@@ -1193,7 +1211,7 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
 
 ### ActionPopoverItem Props
 
-<ArgsTable of={MenuItem} />
+<ArgsTable of={ActionPopoverItem} />
 
 ## Translation keys
 

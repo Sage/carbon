@@ -1,37 +1,107 @@
 import React, { useCallback, useMemo, useContext } from "react";
-import PropTypes from "prop-types";
+import invariant from "invariant";
+
 import { Menu } from "../action-popover.style";
 import Events from "../../../__internal__/utils/helpers/events";
 import ActionPopoverItem from "../action-popover-item/action-popover-item.component";
 import ActionPopoverDivider from "../action-popover-divider/action-popover-divider.component";
 import ActionPopoverContext from "../action-popover-context";
 
-const ActionPopoverMenu = React.forwardRef(
+export interface ActionPopoverMenuBaseProps {
+  /** Children for the menu */
+  children?: React.ReactNode;
+  /** Index to control which item is focused */
+  focusIndex?: number;
+  /** Flag to indicate whether a menu should open */
+  isOpen?: boolean;
+  /** A unique ID for the menu */
+  menuID?: string;
+  /** Callback to set the index of the focused item */
+  setFocusIndex?: (args: number) => void;
+  /** Callback to set the isOpen flag */
+  setOpen?: (args: boolean) => void;
+  /** Unique ID for the menu's parent */
+  parentID?: string;
+  /** Horizontal alignment of menu items content */
+  horizontalAlignment?: "left" | "right";
+  /** Set whether the menu should open above or below the button */
+  placement?: "bottom" | "top";
+  /** @ignore @private */
+  role?: string;
+  /** @ignore @private */
+  "data-element"?: string;
+  /** @ignore @private */
+  style?: {
+    left: number;
+    top?: string;
+    bottom?: string;
+    right: "auto";
+  };
+}
+
+export interface ActionPopoverMenuProps
+  extends ActionPopoverMenuBaseProps,
+    React.RefAttributes<HTMLDivElement> {}
+
+const ActionPopoverMenu = React.forwardRef<
+  HTMLDivElement,
+  ActionPopoverMenuBaseProps
+>(
   (
     {
-      parentID,
       children,
+      parentID,
       focusIndex,
       isOpen,
       menuID,
-      onClick,
       setOpen,
       setFocusIndex,
       placement = "bottom",
       horizontalAlignment,
       ...rest
-    },
+    }: ActionPopoverMenuBaseProps,
     ref
   ) => {
-    const { focusButton } = useContext(ActionPopoverContext);
-
-    const items = useMemo(
-      () =>
-        React.Children.toArray(children).filter(
-          (child) => child && child.type === ActionPopoverItem
-        ),
-      [children]
+    const context = useContext(ActionPopoverContext);
+    invariant(
+      context,
+      "ActionPopoverMenu must be used within an ActionPopover component"
     );
+    const { focusButton } = context;
+
+    invariant(
+      setOpen && setFocusIndex && typeof focusIndex !== "undefined",
+      "ActionPopoverMenu must be used within an ActionPopover or ActionPopoverItem component"
+    );
+
+    const hasProperChildren = useMemo(() => {
+      const incorrectChild = React.Children.toArray(children).find(
+        (child: React.ReactNode) => {
+          if (!React.isValidElement(child)) {
+            return true;
+          }
+
+          return (
+            child.type !== ActionPopoverItem &&
+            child.type !== ActionPopoverDivider
+          );
+        }
+      );
+
+      return !incorrectChild;
+    }, [children]);
+
+    invariant(
+      hasProperChildren,
+      `ActionPopoverMenu only accepts children of type \`${ActionPopoverItem.displayName}\`` +
+        ` and \`${ActionPopoverDivider.displayName}\`.`
+    );
+
+    const items = useMemo(() => {
+      return React.Children.toArray(children).filter((child) => {
+        return React.isValidElement(child) && child.type === ActionPopoverItem;
+      });
+    }, [children]);
 
     const onKeyDown = useCallback(
       (e) => {
@@ -66,21 +136,21 @@ const ActionPopoverMenu = React.forwardRef(
           // A-Za-z: focus the next item on the list that starts with the pressed key
           // selection should wrap to the start of the list
           e.stopPropagation();
-          let firstMatch;
-          let nextMatch;
-          React.Children.forEach(
-            items,
-            ({ props: { children: text } }, index) => {
-              if (text && text.toLowerCase().startsWith(e.key.toLowerCase())) {
-                if (firstMatch === undefined) {
-                  firstMatch = index;
-                }
-                if (index > focusIndex && nextMatch === undefined) {
-                  nextMatch = index;
-                }
+          let firstMatch: number | undefined;
+          let nextMatch: number | undefined;
+          React.Children.forEach(items, (child, index) => {
+            if (
+              React.isValidElement(child) &&
+              child.props.children.toLowerCase().startsWith(e.key.toLowerCase())
+            ) {
+              if (firstMatch === undefined) {
+                firstMatch = index;
+              }
+              if (index > focusIndex && nextMatch === undefined) {
+                nextMatch = index;
               }
             }
-          );
+          });
 
           if (nextMatch !== undefined) {
             setFocusIndex(nextMatch);
@@ -95,7 +165,7 @@ const ActionPopoverMenu = React.forwardRef(
     const clonedChildren = useMemo(() => {
       let index = 0;
       return React.Children.map(children, (child) => {
-        if (child && child.type === ActionPopoverItem) {
+        if (React.isValidElement(child) && child.type === ActionPopoverItem) {
           index += 1;
           return React.cloneElement(child, {
             focusItem: isOpen && focusIndex === index - 1,
@@ -124,51 +194,6 @@ const ActionPopoverMenu = React.forwardRef(
     );
   }
 );
-
-ActionPopoverMenu.propTypes = {
-  /** Unique ID for the menu's parent */
-  parentID: PropTypes.string,
-  /** Children for the menu */
-  children(props, propName, componentName) {
-    let error;
-    const prop = props[propName];
-
-    React.Children.forEach(prop, (child) => {
-      if (child === null) {
-        return;
-      }
-      if (
-        ![
-          ActionPopoverItem.displayName,
-          ActionPopoverDivider.displayName,
-        ].includes(child.type.displayName)
-      ) {
-        error = new Error(
-          `\`${componentName}\` only accepts children of type \`${ActionPopoverItem.displayName}\`` +
-            ` and \`${ActionPopoverDivider.displayName}\`.`
-        );
-      }
-    });
-
-    return error;
-  },
-  /** Index to control which item is focused */
-  focusIndex: PropTypes.number,
-  /** A unique ID for the menu */
-  menuID: PropTypes.string,
-  /** Flag to indicate whether a menu should open */
-  isOpen: PropTypes.bool,
-  /** Callback to set the index of the focused item */
-  setFocusIndex: PropTypes.func,
-  /** Callback to set the isOpen flag */
-  setOpen: PropTypes.func,
-  /** Callback called on click event */
-  onClick: PropTypes.func,
-  /** @ignore @private */
-  placement: PropTypes.oneOf(["bottom", "top"]),
-  /** @ignore @private */
-  horizontalAlignment: PropTypes.oneOf(["left", "right"]),
-};
 
 ActionPopoverMenu.displayName = "ActionPopoverMenu";
 
