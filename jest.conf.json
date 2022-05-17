@@ -5,7 +5,7 @@
     "./src/__spec_helper__/index.js",
     "jest-canvas-mock"
   ],
-  "setupFilesAfterEnv": ["./src/__spec_helper__/expect.js"],
+  "setupFilesAfterEnv": ["./src/__spec_helper__/expect.ts"],
   "snapshotSerializers": ["enzyme-to-json/serializer"],
   "testMatch": [
     "**/__spec__.js",

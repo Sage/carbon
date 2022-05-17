@@ -100,7 +100,7 @@ describe("Button", () => {
 
   describe.each(BUTTON_VARIANTS)("spacing for %s button", (variant) => {
     testStyledSystemSpacing(
-      (props: ButtonProps) => (
+      (props) => (
         <Button buttonType={variant} {...props}>
           Test
         </Button>
@@ -135,7 +135,7 @@ describe("Button", () => {
     "spacing for %s button size",
     (size, px) => {
       testStyledSystemSpacing(
-        (props: ButtonProps) => (
+        (props) => (
           <Button size={size} {...props}>
             Test
           </Button>

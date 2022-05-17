@@ -7,14 +7,14 @@ import {
   testStyledSystemFlexBox,
   assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
-import Box, { BoxProps, OverflowWrap, ScrollVariant } from "./box.component";
+import Box, { OverflowWrap, ScrollVariant } from "./box.component";
 import boxConfig from "./box.config";
 
 describe("Box", () => {
-  testStyledSystemSpacing((props: BoxProps) => <Box {...props} />);
-  testStyledSystemColor((props: BoxProps) => <Box {...props} />);
-  testStyledSystemLayout((props: BoxProps) => <Box {...props} />);
-  testStyledSystemFlexBox((props: BoxProps) => <Box {...props} />);
+  testStyledSystemSpacing((props) => <Box {...props} />);
+  testStyledSystemColor((props) => <Box {...props} />);
+  testStyledSystemLayout((props) => <Box {...props} />);
+  testStyledSystemFlexBox((props) => <Box {...props} />);
 
   it.each<OverflowWrap>(["break-word", "anywhere"])(
     "overflowWrap sets the expected style on the wrapper",

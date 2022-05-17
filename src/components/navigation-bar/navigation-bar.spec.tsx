@@ -1,7 +1,6 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import NavigationBar, {
-  NavigationBarProps,
   Orientation,
   Position,
 } from "./navigation-bar.component";
@@ -16,15 +15,13 @@ describe("NavigationBar", () => {
   let wrapper;
 
   testStyledSystemPadding(
-    (props: NavigationBarProps) => (
-      <NavigationBar {...props}>test content</NavigationBar>
-    ),
+    (props) => <NavigationBar {...props}>test content</NavigationBar>,
     undefined,
     undefined,
     { modifier: "&&" }
   );
 
-  testStyledSystemFlexBox((props: NavigationBarProps) => (
+  testStyledSystemFlexBox((props) => (
     <NavigationBar {...props}>test content</NavigationBar>
   ));
 
