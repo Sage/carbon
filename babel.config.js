@@ -1,3 +1,6 @@
+const inProduction = process.env.NODE_ENV === "production";
+const inStorybookBuild = process.env.STORYBOOK_BUILD === "true";
+
 module.exports = (api) => {
   const useCJSModules = api.env(["test", "cjs"]);
 
@@ -19,8 +22,11 @@ module.exports = (api) => {
       "@babel/preset-typescript",
     ],
     plugins: [
+      !inStorybookBuild &&
+        inProduction &&
+        "./plugins/generate-proptypes/index.mjs",
       "@babel/plugin-proposal-class-properties",
       "@babel/plugin-transform-classes",
-    ],
+    ].filter(Boolean),
   };
 };

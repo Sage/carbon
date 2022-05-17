@@ -40,7 +40,7 @@ Feature: Textarea component
       | 300  | rows300      |
 
   @positive
-  Scenario Outline: Set expandable and rows to <rows> 
+  Scenario Outline: Set expandable and rows to <rows>
     When I open default "Textarea Test" component with "textarea" json from "commonComponents" using "<nameOfObject>" object name
     Then rows is set to "<rows>"
       And Textarea height is "119px"
@@ -167,3 +167,11 @@ Feature: Textarea component
       | input                        |
       | mp150ú¿¡üßä                  |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+
+  @positive
+  Scenario: Verify padding of Textarea component with default props
+    When I open default "Textarea Test" component with "textarea" json from "commonComponents" using "expandableFalse" object name
+    Then Textarea padding "left" size is 16px
+      And Textarea padding "right" size is 16px
+      And Textarea padding "top" size is 12px
+      And Textarea padding "bottom" size is 12px

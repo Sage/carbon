@@ -19,11 +19,8 @@ const Popover = ({
 }) => {
   const elementDOM = useRef();
   const { isInModal } = useContext(ModalContext);
-  let mountNode = document.body;
-
-  if (isInModal && reference.current) {
-    mountNode = reference.current.closest("[role='dialog']");
-  }
+  const candidateNode = reference.current?.closest("[role='dialog']");
+  const mountNode = isInModal && candidateNode ? candidateNode : document.body;
 
   if (!elementDOM.current && !disablePortal) {
     elementDOM.current = document.createElement("div");

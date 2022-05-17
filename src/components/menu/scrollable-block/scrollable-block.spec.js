@@ -77,7 +77,7 @@ describe("ScrollableBlock", () => {
 
           assertStyleMatch(
             {
-              backgroundColor: menuConfigVariants[menuType].background,
+              backgroundColor: menuConfigVariants[menuType].alternate,
             },
             wrapper,
             { modifier: `&& ${StyledMenuItemWrapper}` }
