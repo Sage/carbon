@@ -97,7 +97,7 @@ describe("FocusTrap", () => {
       expect(wrapper.update().find("div#myComponent").at(0)).toBeFocused();
     });
 
-    it("refocuses the first element within the trap when flag is set, if the wrapper has no tabindex", () => {
+    it("refocuses the container within the trap when flag is set, if the wrapper has no tabindex", () => {
       wrapper = mount(
         <MockComponent autoFocus={false} triggerRefocusFlag={false}>
           <button type="button">Test button One</button>
@@ -109,10 +109,10 @@ describe("FocusTrap", () => {
         wrapper.setProps({ triggerRefocusFlag: true });
       });
       wrapper.update();
-      expect(wrapper.update().find("button").at(0)).toBeFocused();
+      expect(wrapper.update().find("#myComponent").at(0)).toBeFocused();
     });
 
-    it("refocuses the first element if last element that had focus becomes disabled", () => {
+    it("refocuses the container if last element that had focus becomes disabled", () => {
       wrapper = mount(
         <MockComponent autoFocus={false} triggerRefocusFlag={false}>
           <button type="button">Test button One</button>
@@ -128,7 +128,7 @@ describe("FocusTrap", () => {
         wrapper.setProps({ triggerRefocusFlag: true });
       });
       wrapper.update();
-      expect(wrapper.update().find("button").at(0)).toBeFocused();
+      expect(wrapper.update().find("#myComponent")).toBeFocused();
     });
   });
 

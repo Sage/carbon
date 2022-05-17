@@ -178,7 +178,32 @@ const FocusTrap = ({
     }
   }, [triggerRefocusFlag, refocusTrap]);
 
-  return <div ref={trapRef}>{children}</div>;
+  const [tabIndex, setTabIndex] = useState(0);
+
+  useEffect(() => {
+    // issue in cypress prevents setting tabIndex to -1, instead tabIndex is set to 0 and removed on blur.
+    if (!isOpen) {
+      setTabIndex(0);
+    }
+  }, [isOpen]);
+
+  const onBlur = () => {
+    /* istanbul ignore else */
+    if (isOpen) {
+      setTabIndex(undefined);
+    }
+  };
+
+  const focusProps = { tabIndex, onBlur };
+
+  // passes focusProps if no tabindex has been explicitly set on the wrapper
+  const clonedChildren = React.Children.map(children, (child) => {
+    return child.props.tabIndex === undefined
+      ? React.cloneElement(child, focusProps)
+      : child;
+  });
+
+  return <div ref={trapRef}>{clonedChildren}</div>;
 };
 
 FocusTrap.propTypes = {

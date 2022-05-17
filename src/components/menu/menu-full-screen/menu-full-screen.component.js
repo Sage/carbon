@@ -14,7 +14,6 @@ import IconButton from "../../icon-button";
 import Icon from "../../icon";
 import Portal from "../../portal";
 import MenuDivider from "../menu-divider/menu-divider.component";
-import useModalFocus from "../../../hooks/__internal__/useModalFocus";
 
 const MenuFullscreen = ({
   children,
@@ -26,8 +25,6 @@ const MenuFullscreen = ({
   const menuWrapperRef = useRef();
   const menuContentRef = useRef();
   const { menuType } = useContext(MenuContext);
-
-  const focusProps = useModalFocus(isOpen);
 
   const handleKeyDown = (ev) => {
     /* istanbul ignore else */
@@ -61,7 +58,6 @@ const MenuFullscreen = ({
             menuType={menuType}
             startPosition={startPosition}
             onKeyDown={handleKeyDown}
-            {...focusProps}
             {...rest}
           >
             <StyledMenuFullscreenHeader
