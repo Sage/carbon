@@ -1,6 +1,6 @@
 import { simpleColorPickerLegend } from "../../locators/simple-color-picker";
 import {
-  experimentalSimpleColorPickerInput,
+  simpleColorPickerInput,
   simpleColorPicker,
 } from "../../locators/advanced-color-picker/index";
 import { commonDataElementInputPreview } from "../../locators";
@@ -8,7 +8,7 @@ import { keyCode } from "../helper";
 
 When("I pick {int} simple color input", (index) => {
   for (let i = 0; i < index; ++i) {
-    experimentalSimpleColorPickerInput(i + 1).click();
+    simpleColorPickerInput(i + 1).click();
   }
 });
 
@@ -20,7 +20,7 @@ Then(
 );
 
 When("I select {int} color", (index) => {
-  experimentalSimpleColorPickerInput(index).click();
+  simpleColorPickerInput(index).click();
 });
 
 When("I press {word} on the {int} color", (key, index) => {
@@ -28,13 +28,13 @@ When("I press {word} on the {int} color", (key, index) => {
 });
 
 When("I press {word} on the {int} color", (key, index) => {
-  experimentalSimpleColorPickerInput(index).trigger("keydown", keyCode(key));
+  simpleColorPickerInput(index).trigger("keydown", keyCode(key));
 });
 
 Then("It renders with all colors with {string} json", (json) => {
   cy.fixture(`commonComponents/${json}.json`).then(($json) => {
     for (let i = 0; i < $json.length; ++i) {
-      experimentalSimpleColorPickerInput(i)
+      simpleColorPickerInput(i)
         .should("have.value", $json[i].color)
         .and("have.attr", "aria-label", $json[i].label);
     }
