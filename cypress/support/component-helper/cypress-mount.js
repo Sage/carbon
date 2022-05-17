@@ -4,6 +4,7 @@ import CarbonProvider from "../../../src/components/carbon-provider/carbon-provi
 import I18nProvider from "../../../src/components/i18n-provider/i18n-provider.component";
 import enGB from "../../../src/locales/en-gb";
 import sageTheme from "../../../src/style/themes/sage/index";
+import "../../../src/style/fonts.css";
 
 const CypressMountWithProviders = (
   children,

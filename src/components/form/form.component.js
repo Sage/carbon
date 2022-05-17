@@ -31,6 +31,14 @@ const Form = ({
   const formRef = useRef();
   const formFooterRef = useRef();
 
+  const renderFooter = !!(
+    saveButton ||
+    leftSideButtons ||
+    rightSideButtons ||
+    errorCount ||
+    warningCount
+  );
+
   return (
     <StyledForm
       ref={formRef}
@@ -50,29 +58,31 @@ const Form = ({
       >
         {children}
       </StyledFormContent>
-      <StyledFormFooter
-        data-element="form-footer"
-        className={stickyFooter ? "sticky" : ""}
-        ref={formFooterRef}
-        stickyFooter={stickyFooter}
-        buttonAlignment={buttonAlignment}
-      >
-        {leftSideButtons && (
-          <StyledLeftButtons buttonAlignment={buttonAlignment}>
-            {leftSideButtons}
-          </StyledLeftButtons>
-        )}
+      {renderFooter && (
+        <StyledFormFooter
+          data-element="form-footer"
+          className={stickyFooter ? "sticky" : ""}
+          ref={formFooterRef}
+          stickyFooter={stickyFooter}
+          buttonAlignment={buttonAlignment}
+        >
+          {leftSideButtons && (
+            <StyledLeftButtons buttonAlignment={buttonAlignment}>
+              {leftSideButtons}
+            </StyledLeftButtons>
+          )}
 
-        <FormSummary errors={errorCount} warnings={warningCount}>
-          {saveButton}
-        </FormSummary>
+          <FormSummary errors={errorCount} warnings={warningCount}>
+            {saveButton}
+          </FormSummary>
 
-        {rightSideButtons && (
-          <StyledRightButtons buttonAlignment={buttonAlignment}>
-            {rightSideButtons}
-          </StyledRightButtons>
-        )}
-      </StyledFormFooter>
+          {rightSideButtons && (
+            <StyledRightButtons buttonAlignment={buttonAlignment}>
+              {rightSideButtons}
+            </StyledRightButtons>
+          )}
+        </StyledFormFooter>
+      )}
     </StyledForm>
   );
 };

@@ -1,3 +1,10 @@
+### [106.6.2](https://github.com/Sage/carbon/compare/v106.6.1...v106.6.2) (2022-05-17)
+
+
+### Bug Fixes
+
+* **form:** only render footer when it has content ([14bc4b2](https://github.com/Sage/carbon/commit/14bc4b2fa709a8b88aac3e46aea7935745b05926)), closes [#5065](https://github.com/Sage/carbon/issues/5065)
+
 ### [106.6.1](https://github.com/Sage/carbon/compare/v106.6.0...v106.6.1) (2022-05-16)
 
 

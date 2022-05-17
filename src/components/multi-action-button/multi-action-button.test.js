@@ -21,10 +21,10 @@ const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 const MultiActionButtonList = ({ ...props }) => {
   return (
     <div>
-      <MultiActionButton {...props}>
-        <Button buttonType="primary">Example Button</Button>
-        <Button buttonType="secondary">Example Button with long text</Button>
-        <Button buttonType="tertiary">Short</Button>
+      <MultiActionButton text="Multi Action Button" {...props}>
+        <Button>Example Button</Button>
+        <Button>Example Button with long text</Button>
+        <Button>Short</Button>
       </MultiActionButton>
     </div>
   );
@@ -116,12 +116,12 @@ context("Tests for MultiActionButton component", () => {
       ["small", "32px"],
       ["medium", "40px"],
       ["large", "48px"],
-    ])("should render Multi Action Button with %s size", (size, width) => {
+    ])("should render Multi Action Button with %s size", (size, height) => {
       CypressMountWithProviders(<MultiActionButtonList size={size} />);
 
       multiActionButtonComponent()
-        .should("have.css", "width")
-        .and("contain", width);
+        .should("have.css", "height")
+        .and("contain", height);
     });
 
     it.each(["left", "right"])(
@@ -258,6 +258,45 @@ context("Tests for MultiActionButton component", () => {
             multiActionButtonList().eq(0).should("be.focused");
           });
       });
+    }
+  );
+});
+
+// https://github.com/cypress-io/cypress/issues/21511
+describe.skip("should check colors for MultiActionButton component", () => {
+  it.each([
+    ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
+    ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
+    ["tertiary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgba(0, 0, 0, 0)"],
+  ])(
+    "check %s type of Multi action button uses %s as background color and %s as color and %s as border color",
+    (buttonType, backgroundColor, color, borderColor) => {
+      CypressMountWithProviders(
+        <MultiActionButtonList buttonType={buttonType} />
+      );
+
+      multiActionButtonComponent().children().as("button");
+
+      cy.get("@button").should("have.css", "background-color", backgroundColor);
+      cy.get("@button").should("have.css", "color", color);
+      cy.get("@button").should("have.css", "border-color", borderColor);
+    }
+  );
+
+  it.each([
+    ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
+    ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
+    ["tertiary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgba(0, 0, 0, 0)"],
+  ])(
+    "check %s Multi action button with %s as background color and %s as color and %s as border color",
+    (as, backgroundColor, color, borderColor) => {
+      CypressMountWithProviders(<MultiActionButtonList as={as} />);
+
+      multiActionButtonComponent().children().as("button");
+
+      cy.get("@button").should("have.css", "background-color", backgroundColor);
+      cy.get("@button").should("have.css", "color", color);
+      cy.get("@button").should("have.css", "border-color", borderColor);
     }
   );
 });

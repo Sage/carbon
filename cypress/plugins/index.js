@@ -75,6 +75,33 @@ module.exports = (on, config) => {
                 },
               ],
             },
+            {
+              test: /\.(css|scss)$/i,
+              use: [
+                {
+                  loader: "css-loader",
+                  options: {
+                    importLoaders: 2,
+                    sourceMap: true,
+                  },
+                },
+              ],
+            },
+            {
+              test: /\.(woff|woff2)$/,
+              loader: "url-loader",
+              options: {
+                limit: 1032000,
+                mimetype: "application/font-woff",
+              },
+            },
+            {
+              test: /\.(ttf|otf|eot|svg)(\?[\s\S]+)?$/,
+              loader: "file-loader",
+              options: {
+                esModule: false,
+              },
+            },
           ];
           webpackConfig.devServer = {
             client: {
