@@ -1,7 +1,15 @@
 import "jest-styled-components";
 import { ReactWrapper } from "enzyme";
+import { diff } from "jest-matcher-utils";
 
-const { diff } = require("jest-matcher-utils");
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace jest {
+    interface Matchers<R> {
+      toBeFocused(): R;
+    }
+  }
+}
 
 expect.extend({
   toBeFocused(received) {

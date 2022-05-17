@@ -248,7 +248,7 @@ Then("The {word} content row has focus", (position) => {
 
 Then("The {word} subrow action popover has focus", (position) => {
   flatTableSubrowByPosition(positionOfElement(position))
-    .find('[data-component="action-popover-button"]')
+    .find('[data-element="action-popover-button"]')
     .should("have.focus")
     .and("have.css", "outline", `${gold} solid 3px`);
 });

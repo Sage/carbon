@@ -150,6 +150,7 @@
         "react/prefer-stateless-function": "off",
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
+        "@typescript-eslint/no-empty-function": ["error", {"allow": ["arrowFunctions"]}],
         "jest-dom/prefer-to-have-attribute": "off"
       }
     }

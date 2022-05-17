@@ -20,7 +20,7 @@ describe("Hr", () => {
     wrapper = render({});
   });
 
-  testStyledSystemMargin((props: HrProps) => <Hr {...props} />, {
+  testStyledSystemMargin((props) => <Hr {...props} />, {
     mt: "24px",
     mb: "24px",
   });
