@@ -38,21 +38,24 @@ const Decimal = ({
 
   const emptyValue = allowEmptyValue ? "" : "0.00";
 
-  const getSafeValueProp = (initialValue) => {
-    // We're intentionally preventing the use of number values to help prevent any unintentional rounding issues
-    invariant(
-      typeof initialValue === "string",
-      "Decimal `value` prop must be a string"
-    );
-
-    if (initialValue && !allowEmptyValue) {
+  const getSafeValueProp = useCallback(
+    (initialValue) => {
+      // We're intentionally preventing the use of number values to help prevent any unintentional rounding issues
       invariant(
-        initialValue !== "",
-        "Decimal `value` must not be an empty string. Please use `allowEmptyValue` or `0.00`"
+        typeof initialValue === "string",
+        "Decimal `value` prop must be a string"
       );
-    }
-    return initialValue;
-  };
+
+      if (initialValue && !allowEmptyValue) {
+        invariant(
+          initialValue !== "",
+          "Decimal `value` must not be an empty string. Please use `allowEmptyValue` or `0.00`"
+        );
+      }
+      return initialValue;
+    },
+    [allowEmptyValue]
+  );
 
   const getSeparator = useCallback(
     (separatorType) => {
@@ -227,17 +230,31 @@ const Decimal = ({
     prevControlledRef.current = isControlled;
   }, [isControlled]);
 
+  const prevValue = usePrevious(value);
+
   useEffect(() => {
-    const unformattedValue = toStandardDecimal(stateValue);
+    const standardDecimalValue = toStandardDecimal(stateValue);
 
     if (isControlled) {
       const valueProp = getSafeValueProp(value);
-      if (unformattedValue !== valueProp) {
-        setStateValue(formatValue(value));
+      if (standardDecimalValue !== valueProp) {
+        if (valueProp === "" && prevValue === "") {
+          setStateValue(formatValue(emptyValue));
+        } else {
+          setStateValue(formatValue(valueProp));
+        }
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  }, [
+    emptyValue,
+    formatValue,
+    getSafeValueProp,
+    isControlled,
+    prevValue,
+    stateValue,
+    toStandardDecimal,
+    value,
+  ]);
 
   return (
     <>
