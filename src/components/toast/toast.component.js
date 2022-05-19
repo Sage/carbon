@@ -12,9 +12,9 @@ import {
   StyledPortal,
 } from "./toast.style";
 import IconButton from "../icon-button";
-import ModalManager from "../modal/__internal__/modal-manager";
 import Events from "../../__internal__/utils/helpers/events";
 import useLocale from "../../hooks/__internal__/useLocale";
+import useModalManager from "../../hooks/__internal__/useModalManager";
 import Logger from "../../__internal__/utils/logger";
 
 let deprecatedWarnTriggered = false;
@@ -53,9 +53,7 @@ const Toast = ({
 
   const dismissToast = useCallback(
     (ev) => {
-      const isTopmost = ModalManager.isTopmost(toastRef.current);
-
-      if (onDismiss && Events.isEscKey(ev) && isTopmost) {
+      if (onDismiss && Events.isEscKey(ev)) {
         ev.stopImmediatePropagation();
         onDismiss(ev);
       }
@@ -63,17 +61,7 @@ const Toast = ({
     [onDismiss]
   );
 
-  useEffect(() => {
-    const currentElement = toastRef.current;
-
-    ModalManager.addModal(currentElement);
-    document.addEventListener("keyup", dismissToast);
-
-    return () => {
-      ModalManager.removeModal(currentElement);
-      document.removeEventListener("keyup", dismissToast);
-    };
-  }, [dismissToast]);
+  useModalManager(open, dismissToast, toastRef);
 
   useEffect(() => {
     clearTimeout(timer.current);

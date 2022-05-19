@@ -5,7 +5,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import useScrollBlock from "../../hooks/__internal__/useScrollBlock";
 import Portal from "../portal";
 import Events from "../../__internal__/utils/helpers/events";
-import ModalManager from "./__internal__/modal-manager";
+import useModalManager from "../../hooks/__internal__/useModalManager";
 import { StyledModal, StyledModalBackground } from "./modal.style";
 
 export const ModalContext = React.createContext({});
@@ -23,8 +23,6 @@ const Modal = ({
   const ref = useRef();
   const backgroundNodeRef = useRef();
   const contentNodeRef = useRef();
-  const listenerAdded = useRef(false);
-  const modalRegistered = useRef(false);
   const [isAnimationComplete, setAnimationComplete] = useState(false);
   const [triggerRefocusFlag, setTriggerRefocusFlag] = useState(false);
 
@@ -52,15 +50,7 @@ const Modal = ({
 
   const closeModal = useCallback(
     (ev) => {
-      const isTopmost = ModalManager.isTopmost(ref.current);
-
-      if (
-        onCancel &&
-        !disableClose &&
-        !disableEscKey &&
-        Events.isEscKey(ev) &&
-        isTopmost
-      ) {
+      if (onCancel && !disableClose && !disableEscKey && Events.isEscKey(ev)) {
         ev.stopImmediatePropagation();
         onCancel(ev);
       }
@@ -68,69 +58,7 @@ const Modal = ({
     [disableClose, disableEscKey, onCancel]
   );
 
-  const addListener = useCallback(() => {
-    /* istanbul ignore else */
-    if (!listenerAdded.current) {
-      document.addEventListener("keyup", closeModal);
-
-      listenerAdded.current = true;
-    }
-  }, [closeModal]);
-
-  const removeListener = useCallback(() => {
-    if (listenerAdded.current) {
-      document.removeEventListener("keyup", closeModal);
-
-      listenerAdded.current = false;
-    }
-  }, [closeModal]);
-
-  useEffect(() => {
-    if (open) {
-      addListener();
-    }
-    if (!open) {
-      removeListener();
-    }
-  }, [addListener, open, removeListener]);
-
-  useEffect(() => {
-    return () => {
-      removeListener();
-    };
-  }, [removeListener]);
-
-  const registerModal = useCallback(() => {
-    /* istanbul ignore else */
-    if (!modalRegistered.current) {
-      ModalManager.addModal(ref.current, setTriggerRefocusFlag);
-
-      modalRegistered.current = true;
-    }
-  }, []);
-
-  const unregisterModal = useCallback(() => {
-    if (modalRegistered.current) {
-      ModalManager.removeModal(ref.current);
-
-      modalRegistered.current = false;
-    }
-  }, []);
-
-  useEffect(() => {
-    if (open) {
-      registerModal();
-    }
-    if (!open) {
-      unregisterModal();
-    }
-  }, [open, registerModal, unregisterModal]);
-
-  useEffect(() => {
-    return () => {
-      unregisterModal();
-    };
-  }, [unregisterModal]);
+  useModalManager(open, closeModal, ref, setTriggerRefocusFlag);
 
   let background;
   let content;
