@@ -153,7 +153,7 @@ export const Link = React.forwardRef<
 
       return React.createElement(
         type,
-        { ...componentProps, ...(type === "button" && { role: "link" }) },
+        componentProps,
         <>
           {renderLinkIcon()}
 
