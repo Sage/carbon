@@ -62,7 +62,7 @@ const RadioButtonMapper = ({
     });
   });
 
-  return buttons;
+  return <>{buttons}</>;
 };
 
 RadioButtonMapper.propTypes = {

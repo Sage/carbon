@@ -21,19 +21,17 @@ import {
   InputContextProps,
 } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import { ValidationPropTypes } from "../../__internal__/validations";
+import { ValidationProps } from "../../__internal__/validations";
 
-type SimpleColorPickerChild =
-  | React.FunctionComponentElement<SimpleColorProps>
-  | boolean
-  | null
-  | undefined;
+// type SimpleColorPickerChild =
+//   | React.FunctionComponentElement<SimpleColorProps>
+//   | boolean
+//   | null
+//   | undefined;
 
-export interface SimpleColorPickerProps
-  extends ValidationPropTypes,
-    MarginProps {
+export interface SimpleColorPickerProps extends ValidationProps, MarginProps {
   /** The SimpleColor components to be rendered in the group */
-  children?: SimpleColorPickerChild | SimpleColorPickerChild[];
+  children?: React.ReactNode;
   /** prop that represents childWidth */
   childWidth?: number;
   /** Should the onBlur callback prop be initially blocked? */
@@ -84,11 +82,10 @@ const SimpleColorPicker = ({
     InputGroupContext
   );
 
-  const childrenArray: SimpleColorPickerChild[] = useMemo<
-    SimpleColorPickerChild[]
-  >(() => React.Children.toArray(children) as SimpleColorPickerChild[], [
-    children,
-  ]);
+  const childrenArray = useMemo<React.ReactNode[]>(
+    () => React.Children.toArray(children),
+    [children]
+  );
 
   const filteredChildren = childrenArray.filter(
     (child) => child && typeof child !== "boolean"
@@ -108,8 +105,9 @@ const SimpleColorPicker = ({
   const gridItemRefs = useMemo(
     () =>
       filteredChildren.map(
-        (child: SimpleColorPickerChild) =>
-          typeof child !== "boolean" && (child?.ref || React.createRef())
+        (child) =>
+          (child as React.FunctionComponentElement<SimpleColorProps>)?.ref ||
+          React.createRef()
       ),
     [filteredChildren]
   );
@@ -191,7 +189,7 @@ const SimpleColorPicker = ({
       }
 
       if (Events.isLeftKey(e) || Events.isRightKey(e)) {
-        const position = (element: SimpleColorPickerChild) => {
+        const position = (element: React.ReactElement) => {
           return (
             typeof element !== "boolean" &&
             e.target.getAttribute("value") === element?.props?.value
@@ -211,10 +209,8 @@ const SimpleColorPicker = ({
         }
       }
 
-      const item =
-        typeof navigationGrid[itemIndex] !== "boolean"
-          ? navigationGrid[itemIndex]?.ref?.current
-          : null;
+      const item = navigationGrid[itemIndex]?.ref?.current;
+
       if (item) {
         item.focus();
         item.click();
@@ -253,16 +249,15 @@ const SimpleColorPicker = ({
   const handleOnMouseDown = (ev: React.MouseEvent<HTMLInputElement>) => {
     setIsBlurBlocked(true);
 
-    // If the mousedown event occurred on the currently-focused <SimpleColor>
-    if (focusedElement !== null && focusedElement === ev.target) {
+    // If the mousedown event occurred and a <SimpleColor> is focused
+    if (focusedElement !== null) {
       ev.preventDefault();
 
       // If a different <SimpleColor> is currently focused
-    } else if (focusedElement !== null) {
-      ev.preventDefault();
-      setIsBlurBlocked(false);
-      setFocusedElement(ev.target);
-
+      if (focusedElement !== ev.target) {
+        setIsBlurBlocked(false);
+        setFocusedElement(ev.target);
+      }
       // If no <SimpleColor> is currently focused
     } else {
       setIsBlurBlocked(true);
