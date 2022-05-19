@@ -1,7 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
 import VerticalDivider from ".";
-import { VerticalDividerProps } from "./vertical-divider.component";
 import { StyledVerticalWrapper, StyledDivider } from "./vertical-divider.style";
 import {
   assertStyleMatch,
@@ -16,12 +15,9 @@ function render(props = {}) {
 
 describe("VerticalDivider", () => {
   describe("styles", () => {
-    testStyledSystemSpacing(
-      (props: VerticalDividerProps) => <VerticalDivider {...props} />,
-      {
-        p: 3,
-      }
-    );
+    testStyledSystemSpacing((props) => <VerticalDivider {...props} />, {
+      p: 3,
+    });
 
     describe("with default values", () => {
       it("matches expected", () => {

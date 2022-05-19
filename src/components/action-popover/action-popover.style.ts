@@ -7,7 +7,8 @@ import StyledButton from "../button/button.style";
 import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
 
 const Menu = styled.div`
-  ${({ isOpen }) => (isOpen ? "display: block;" : "visibility: hidden;")}
+  ${({ isOpen }: { isOpen?: boolean }) =>
+    isOpen ? "display: block;" : "visibility: hidden;"}
   margin: 0;
   padding: var(--spacing100) 0;
   box-shadow: var(--boxShadow100);
@@ -17,13 +18,15 @@ const Menu = styled.div`
     `${theme.zIndex.popover}`}; // TODO (tokens): implement elevation tokens - FE-4437
 `;
 
-const StyledMenuItem = styled.button`
+type StyledMenuItemProps = {
+  isDisabled: boolean;
+  horizontalAlignment: "left" | "right";
+};
+
+const StyledMenuItem = styled.button<StyledMenuItemProps>`
   text-decoration: none;
   background-color: var(--colorsActionMajorYang100);
-`;
-
-const MenuItemFactory = (button) => styled(button)`
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: pointer;
   box-sizing: border-box;
   padding: 0 var(--spacing150);
   position: relative;
@@ -34,37 +37,38 @@ const MenuItemFactory = (button) => styled(button)`
   align-items: center;
   border: none;
   width: 100%;
-  color: ${({ disabled }) =>
-    disabled ? "var(--colorsUtilityYin030)" : "var(--colorsUtilityYin090)"};
+  color: var(--colorsUtilityYin090);
   font-size: 14px;
   font-weight: 700;
   justify-content: ${({ horizontalAlignment }) =>
     horizontalAlignment === "left" ? "flex-start" : "flex-end"};
-  &:focus,
-  &:hover {
-    ${({ disabled }) =>
-      !disabled &&
-      css`
-        background-color: var(--colorsUtilityMajor025);
-      `}
-  }
+
   &:focus {
     outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
     z-index: 1;
   }
-  ${({ disabled }) =>
-    !disabled &&
+
+  ${({ isDisabled }) =>
+    isDisabled &&
     css`
-      && ${StyledIcon} {
-        cursor: pointer;
-      }
-    `}
-  ${({ disabled }) =>
-    disabled &&
-    css`
+      color: var(--colorsUtilityYin030);
+      cursor: not-allowed;
+
       && ${StyledIcon} {
         cursor: not-allowed;
         color: var(--colorsUtilityYin030);
+      }
+    `}
+
+  ${({ isDisabled }) =>
+    !isDisabled &&
+    css`
+      &:focus,
+      &:hover {
+        background-color: var(--colorsUtilityMajor025);
+      }
+      && ${StyledIcon} {
+        cursor: pointer;
       }
     `}
 `;
@@ -144,7 +148,6 @@ const MenuButtonOverrideWrapper = styled.div`
 
 export {
   Menu,
-  MenuItemFactory,
   MenuButton,
   ButtonIcon,
   StyledButtonIcon,

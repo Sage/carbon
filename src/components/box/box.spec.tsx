@@ -7,7 +7,7 @@ import {
   testStyledSystemFlexBox,
   assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
-import Box from "./box.component";
+import Box, { OverflowWrap, ScrollVariant } from "./box.component";
 import boxConfig from "./box.config";
 
 describe("Box", () => {
@@ -16,7 +16,7 @@ describe("Box", () => {
   testStyledSystemLayout((props) => <Box {...props} />);
   testStyledSystemFlexBox((props) => <Box {...props} />);
 
-  it.each(["break-word", "anywhere"])(
+  it.each<OverflowWrap>(["break-word", "anywhere"])(
     "overflowWrap sets the expected style on the wrapper",
     (overflowValue) => {
       const wrapper = mount(<Box overflowWrap={overflowValue} />);
@@ -30,7 +30,7 @@ describe("Box", () => {
     }
   );
 
-  it.each(["light", "dark"])(
+  it.each<ScrollVariant>(["light", "dark"])(
     "has styles applied when scrollVariant is set to %s",
     (scrollVariant) => {
       const wrapper = mount(<Box scrollVariant={scrollVariant} />);

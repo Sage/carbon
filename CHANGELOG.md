@@ -1,3 +1,53 @@
+### [106.6.2](https://github.com/Sage/carbon/compare/v106.6.1...v106.6.2) (2022-05-17)
+
+
+### Bug Fixes
+
+* **form:** only render footer when it has content ([14bc4b2](https://github.com/Sage/carbon/commit/14bc4b2fa709a8b88aac3e46aea7935745b05926)), closes [#5065](https://github.com/Sage/carbon/issues/5065)
+
+### [106.6.1](https://github.com/Sage/carbon/compare/v106.6.0...v106.6.1) (2022-05-16)
+
+
+### Bug Fixes
+
+* **select:** ensure select list appends to body if no element with role dialog exists ([4b2e4da](https://github.com/Sage/carbon/commit/4b2e4da21e181fb34d28bb76ac83f05b2acff778)), closes [#5135](https://github.com/Sage/carbon/issues/5135)
+
+## [106.6.0](https://github.com/Sage/carbon/compare/v106.5.0...v106.6.0) (2022-05-16)
+
+
+### Features
+
+* **multi-action-button:** close button list when clicked ([5a2d2e4](https://github.com/Sage/carbon/commit/5a2d2e47603a51f2f90ac2928de8786d26daed2b))
+* **split-button:** close button list when clicked ([dbd7edd](https://github.com/Sage/carbon/commit/dbd7edd9e6a86aff741ce976532ec06369968999))
+
+## [106.5.0](https://github.com/Sage/carbon/compare/v106.4.2...v106.5.0) (2022-05-16)
+
+
+### Features
+
+* **textarea:** modify padding to use design tokens ([f4d5e71](https://github.com/Sage/carbon/commit/f4d5e71460916ab8a3e12ad2b95f672c20696459))
+
+### [106.4.2](https://github.com/Sage/carbon/compare/v106.4.1...v106.4.2) (2022-05-16)
+
+
+### Bug Fixes
+
+* **portrait:** ensure background fills consistently when zoom is greater than 100% ([f2b4a60](https://github.com/Sage/carbon/commit/f2b4a60278fc8ea93bb665ff0b740ed632e305db)), closes [#4939](https://github.com/Sage/carbon/issues/4939)
+
+### [106.4.1](https://github.com/Sage/carbon/compare/v106.4.0...v106.4.1) (2022-05-13)
+
+
+### Bug Fixes
+
+* **menu:** fix incorrect scrollable block background ([a066c10](https://github.com/Sage/carbon/commit/a066c10d5bbee78980c159a26999dd3a9ff49a30))
+
+## [106.4.0](https://github.com/Sage/carbon/compare/v106.3.2...v106.4.0) (2022-05-13)
+
+
+### Features
+
+* **select:** make select list respond to pageup/pagedown keys ([3c08c12](https://github.com/Sage/carbon/commit/3c08c127136ec30be60d86e087867791600b569b))
+
 ### [106.3.2](https://github.com/Sage/carbon/compare/v106.3.1...v106.3.2) (2022-05-13)
 
 

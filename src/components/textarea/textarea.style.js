@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
+import InputPresentationStyle from "../../__internal__/input/input-presentation.style";
 import StyledInput from "../../__internal__/input/input.style";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
@@ -14,8 +15,10 @@ const StyledTextarea = styled.div`
   ${StyledInput} {
     resize: none;
     min-height: ${MIN_HEIGHT}px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+  }
+
+  ${InputPresentationStyle} {
+    padding: var(--spacing150) var(--spacing200);
   }
 
   ${({ labelInline }) =>

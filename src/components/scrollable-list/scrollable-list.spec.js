@@ -305,8 +305,12 @@ describe("ScrollableList", () => {
       });
 
       it("removes the keypress event listener when unmounted", () => {
+        const removeEventListenerSpy = jest.spyOn(
+          document,
+          "removeEventListener"
+        );
         scrollableList.unmount();
-        expect(keyboard.pressDownArrow()).toThrowError();
+        expect(removeEventListenerSpy.mock.calls[0][0]).toBe("keydown");
       });
 
       it("triggers select on tab if something is highlighted", () => {

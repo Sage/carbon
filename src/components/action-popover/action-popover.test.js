@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import * as React from "react";
 import path from "path";
+
 import {
   ActionPopover,
   ActionPopoverDivider,
@@ -29,7 +30,7 @@ import {
   actionPopoverWrapper,
 } from "../../../cypress/locators/action-popover";
 
-import { getDataElementByValue } from "../../../cypress/locators/index";
+import { getDataElementByValue, cyRoot } from "../../../cypress/locators/index";
 
 import { buttonDataComponent } from "../../../cypress/locators/button";
 
@@ -201,10 +202,20 @@ const ActionPopoverWithProps = ({ ...props }) => {
 const ActionPopoverMenuWithProps = ({ ...props }) => {
   return (
     <ActionPopover>
-      <ActionPopoverMenu {...props}>
-        <ActionPopoverItem>Sub Menu 1</ActionPopoverItem>
-        <ActionPopoverItem>Sub Menu 2</ActionPopoverItem>
-      </ActionPopoverMenu>
+      <ActionPopoverItem
+        submenu={
+          <ActionPopoverMenu {...props}>
+            <ActionPopoverItem icon="graph">Sub Menu 1</ActionPopoverItem>
+            <ActionPopoverItem icon="add">Sub Menu 2</ActionPopoverItem>
+            <ActionPopoverItem icon="print" disabled>
+              Sub Menu 3
+            </ActionPopoverItem>
+          </ActionPopoverMenu>
+        }
+      >
+        Sub Menu 1
+      </ActionPopoverItem>
+      <ActionPopoverItem>Sub Menu 2</ActionPopoverItem>
     </ActionPopover>
   );
 };
@@ -212,10 +223,8 @@ const ActionPopoverMenuWithProps = ({ ...props }) => {
 const ActionPopoverProps = ({ ...props }) => {
   return (
     <ActionPopover {...props}>
-      <ActionPopoverMenu>
-        <ActionPopoverItem>Sub Menu 1</ActionPopoverItem>
-        <ActionPopoverItem>Sub Menu 2</ActionPopoverItem>
-      </ActionPopoverMenu>
+      <ActionPopoverItem>Sub Menu 1</ActionPopoverItem>
+      <ActionPopoverItem>Sub Menu 2</ActionPopoverItem>
     </ActionPopover>
   );
 };
@@ -373,7 +382,7 @@ context("Test for ActionPopover component", () => {
       CypressMountWithProviders(<ActionPopoverCustom />);
 
       actionPopoverButton().eq(0).click();
-      cy.get("#__cy_root").click({ force: true });
+      cyRoot().click({ force: true });
       actionPopover().should("not.exist");
     });
 
@@ -626,7 +635,10 @@ context("Test for ActionPopover component", () => {
       );
 
       actionPopoverButton().eq(0).click();
-      actionPopover().eq(1).should("have.attr", "id", "cypress");
+      actionPopover()
+        .eq(1)
+        .should("have.attr", "id")
+        .and("contain", "ActionPopoverMenu_");
     });
 
     it("should render ActionPopoverMenu with focusIndex set to null", () => {

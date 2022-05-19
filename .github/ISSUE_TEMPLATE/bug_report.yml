@@ -61,6 +61,14 @@ body:
       placeholder: 77.13.2
     validations:
       required: true
+  - type: input
+    id: design-tokens-version
+    attributes:
+      label: Design Tokens Version
+      description: What version of [@sage/design-tokens](https://github.com/Sage/design-tokens) are you using? Only applicable if using Carbon v106.0.0 or above.
+      placeholder: 2.21.0
+    validations:
+      required: false
   - type: dropdown
     id: browsers
     attributes:

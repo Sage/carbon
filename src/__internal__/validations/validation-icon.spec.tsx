@@ -2,9 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
-import ValidationIcon, {
-  ValidationIconProps,
-} from "./validation-icon.component";
+import ValidationIcon from "./validation-icon.component";
 import ValidationIconStyle from "./validation-icon.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 import Tooltip from "../../components/tooltip";
@@ -26,7 +24,7 @@ function renderWithInputContext(
 }
 
 describe("ValidationIcon", () => {
-  testStyledSystemMargin((props: ValidationIconProps) => (
+  testStyledSystemMargin((props) => (
     <ValidationIcon {...props} error="error" />
   ));
 
