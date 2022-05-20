@@ -77,42 +77,6 @@ context("Tests for MultiActionButton component", () => {
     );
 
     it.each([
-      ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
-      ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
-      ["tertiary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgba(0, 0, 0, 0)"],
-    ])(
-      "check %s type of Multi action button uses %s as background color and %s as color and %s as border color",
-      (buttonType, backgroundColor, color, borderColor) => {
-        CypressMountWithProviders(
-          <MultiActionButtonList buttonType={buttonType} />
-        );
-
-        multiActionButtonComponent()
-          .children()
-          .should("have.css", "background-color", backgroundColor)
-          .and("have.css", "color", color)
-          .and("have.css", "border-color", borderColor);
-      }
-    );
-
-    it.each([
-      ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
-      ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
-      ["tertiary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgba(0, 0, 0, 0)"],
-    ])(
-      "check %s Multi action button with %s as background color and %s as color and %s as border color",
-      (as, backgroundColor, color, borderColor) => {
-        CypressMountWithProviders(<MultiActionButtonList as={as} />);
-
-        multiActionButtonComponent()
-          .children()
-          .should("have.css", "background-color", backgroundColor)
-          .and("have.css", "color", color)
-          .and("have.css", "border-color", borderColor);
-      }
-    );
-
-    it.each([
       ["small", "32px"],
       ["medium", "40px"],
       ["large", "48px"],
