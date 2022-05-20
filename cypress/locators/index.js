@@ -14,6 +14,7 @@ import {
   COMMON_INPUT_CHARACTER_LIMIT,
   CY_ROOT,
   PORTAL,
+  STICKY_FOOTER,
 } from "./locators";
 
 // component preview locators
@@ -55,3 +56,4 @@ export const commonInputCharacterLimit = () =>
   cy.get(COMMON_INPUT_CHARACTER_LIMIT);
 export const cyRoot = () => cy.get(CY_ROOT);
 export const portal = () => cy.get(PORTAL).eq(1).find("h1");
+export const stickyFooter = () => cy.get(STICKY_FOOTER);
