@@ -1,6 +1,7 @@
 import {
   alertDialogPreview as dialogPreview,
   openPreviewButton,
+  dialogSubtitle,
 } from "../../locators/dialog/index";
 import { backgroundUILocator } from "../../locators/index";
 
@@ -39,4 +40,16 @@ When("I scroll to the bottom of the dialog", () => {
 
 When("I click on Open Preview button", () => {
   openPreviewButton().click();
+});
+
+Then("Confirm dialog is visible", () => {
+  dialogPreview().should("be.visible");
+});
+
+Then("component subtitle on preview is {word}", (subtitle) => {
+  dialogSubtitle().should("have.text", subtitle);
+});
+
+Then("Confirm dialog is not visible", () => {
+  dialogPreview().should("not.exist");
 });
