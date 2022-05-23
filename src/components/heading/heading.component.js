@@ -23,12 +23,6 @@ const marginPropTypes = filterStyledSystemMarginProps(
 );
 
 class Heading extends React.Component {
-  /**
-   * Returns the help component.
-   *
-   * @method help
-   * @return {Object} JSX
-   */
   get help() {
     if (!this.props.help && !this.props.helpLink) {
       return null;
@@ -46,12 +40,6 @@ class Heading extends React.Component {
     );
   }
 
-  /**
-   * Returns the back button.
-   *
-   * @method back
-   * @return {Object} JSX
-   */
   get back() {
     if (!this.props.backLink) {
       return null;
@@ -77,12 +65,6 @@ class Heading extends React.Component {
     );
   }
 
-  /**
-   * Returns the subheader.
-   *
-   * @method subheader
-   * @return {Object} JSX
-   */
   get subheader() {
     if (!this.props.subheader) {
       return null;
@@ -100,32 +82,14 @@ class Heading extends React.Component {
     );
   }
 
-  /**
-   * Returns the separator if enabled and needed.
-   *
-   * @method separator
-   * @return {Object} JSX
-   */
   get separator() {
     return this.props.separator ? <StyledSeparator /> : null;
   }
 
-  /**
-   * Returns the separator if enabled and needed.
-   *
-   * @method divider
-   * @return {Object} JSX
-   */
   get divider() {
     return this.props.divider ? <StyledDivider data-element="divider" /> : null;
   }
 
-  /**
-   * Returns pills if provided
-   *
-   * @method pills
-   * @return {Object} JSX
-   */
   get pills() {
     return this.props.pills ? (
       <StyledHeadingPills data-element="pills">
@@ -134,10 +98,6 @@ class Heading extends React.Component {
     ) : null;
   }
 
-  /**
-   * @method render
-   * @return {Object} JSX
-   */
   render() {
     if (!this.props.title) {
       return null;
