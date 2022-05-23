@@ -166,7 +166,7 @@ describe("Menu", () => {
         menuWrapper.update();
 
         expect(
-          menuWrapper.find(StyledMenuItemWrapper).at(2).find("a")
+          menuWrapper.find(StyledMenuItemWrapper).at(2).find("button")
         ).toBeFocused();
         wrapper.unmount();
       });

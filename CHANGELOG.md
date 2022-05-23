@@ -1,3 +1,19 @@
+### [106.6.4](https://github.com/Sage/carbon/compare/v106.6.3...v106.6.4) (2022-05-19)
+
+
+### Bug Fixes
+
+* **menu, link:** ensure correct semantic HTML for menu items and links ([d505ffb](https://github.com/Sage/carbon/commit/d505ffbf0f5f304b23a6c7f41f4072822ca32078)), closes [#4922](https://github.com/Sage/carbon/issues/4922)
+* **menu:** announce the menu as a list when using a screenreader ([175e1f3](https://github.com/Sage/carbon/commit/175e1f3b624db51e9b5ad68ca1cb36d6c9000c12))
+* **scrollable-block:** add role to fix scrollable submenu ([a4ef5af](https://github.com/Sage/carbon/commit/a4ef5af27c50233a82371e0cbee861df0185e4cd))
+
+### [106.6.3](https://github.com/Sage/carbon/compare/v106.6.2...v106.6.3) (2022-05-19)
+
+
+### Bug Fixes
+
+* **toast:** fix escape key behaviour when toast launched from dialog ([6b9037d](https://github.com/Sage/carbon/commit/6b9037df288ae0498a05de5ce6762ffd34b75b6e)), closes [#5079](https://github.com/Sage/carbon/issues/5079)
+
 ### [106.6.2](https://github.com/Sage/carbon/compare/v106.6.1...v106.6.2) (2022-05-17)
 
 

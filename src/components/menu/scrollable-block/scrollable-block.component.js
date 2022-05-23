@@ -28,6 +28,7 @@ const ScrollableBlock = ({
       data-component="submenu-scrollable-block"
       menuType={menuContext.menuType}
       variant={variant}
+      role="presentation"
       {...rest}
     >
       <Box
@@ -35,6 +36,7 @@ const ScrollableBlock = ({
         scrollVariant={scrollVariants[menuContext.menuType]}
         height={height}
         p={0}
+        role="presentation"
       >
         {React.Children.map(children, (child, index) => {
           let isFocused = false;

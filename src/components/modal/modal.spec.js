@@ -34,6 +34,7 @@ describe("Modal", () => {
     it("does not bind if component is not open on mount", () => {
       wrapper = mount(<Modal open={false} onCancel={onCancel} />);
       expect(addEventListenerSpy).not.toHaveBeenCalled();
+      wrapper.unmount();
     });
 
     it("removes the event listener if modal was open on unmount", () => {
@@ -54,12 +55,14 @@ describe("Modal", () => {
 
       wrapper.setProps({ open: true });
       expect(addEventListenerSpy).toHaveBeenCalledTimes(1);
+      wrapper.unmount();
     });
 
     it("removes event listeners on modal close", () => {
       wrapper = mount(<Modal open onCancel={onCancel} />);
       wrapper.setProps({ open: false });
       expect(removeEventListenerSpy).toHaveBeenCalledTimes(1);
+      wrapper.unmount();
     });
   });
 
@@ -70,6 +73,7 @@ describe("Modal", () => {
           <Modal onCancel={() => {}} open enableBackgroundUI={false} />
         );
         expect(wrapper.find(StyledModalBackground).exists()).toBe(true);
+        wrapper.unmount();
       });
 
       it("blocks scroll on open", () => {
@@ -77,6 +81,7 @@ describe("Modal", () => {
         useScrollBlock.mockReturnValue({ allowScroll, blockScroll });
         wrapper = mount(<Modal open />);
         expect(blockScroll).toHaveBeenCalled();
+        wrapper.unmount();
       });
 
       it("unblocks scroll on close", () => {
@@ -85,6 +90,7 @@ describe("Modal", () => {
         wrapper = mount(<Modal open />);
         wrapper.setProps({ open: false });
         expect(allowScroll).toHaveBeenCalled();
+        wrapper.unmount();
       });
     });
 
@@ -92,6 +98,7 @@ describe("Modal", () => {
       it("does not render background overlay", () => {
         wrapper = mount(<Modal onCancel={() => {}} open enableBackgroundUI />);
         expect(wrapper.find(StyledModalBackground).exists()).toBe(false);
+        wrapper.unmount();
       });
 
       it("does not block scroll", () => {
@@ -105,7 +112,6 @@ describe("Modal", () => {
   });
 
   describe("when the modal is open", () => {
-    let domNode;
     let escapeKeyEvent;
     const onCancelFn = jest.fn();
 
@@ -116,24 +122,22 @@ describe("Modal", () => {
         bubbles: true,
       });
       wrapper = mount(<Modal open onCancel={onCancelFn} />);
-      domNode = wrapper.getDOMNode();
-      document.body.appendChild(domNode);
     });
 
     afterEach(() => {
-      document.body.removeChild(domNode);
+      wrapper.unmount();
     });
 
     describe("and the esc key is released", () => {
       it("stopImmediatePropagation function should have been called on the event", () => {
         jest.spyOn(escapeKeyEvent, "stopImmediatePropagation");
-        domNode.dispatchEvent(escapeKeyEvent);
+        document.dispatchEvent(escapeKeyEvent);
         expect(escapeKeyEvent.stopImmediatePropagation).toHaveBeenCalled();
       });
 
       it("then the onCancel method should have been called", () => {
         onCancelFn.mockReset();
-        domNode.dispatchEvent(escapeKeyEvent);
+        document.dispatchEvent(escapeKeyEvent);
         expect(onCancelFn).toHaveBeenCalled();
       });
 
@@ -141,7 +145,7 @@ describe("Modal", () => {
         it("then the onCancel method should not have been called", () => {
           wrapper.setProps({ disableEscKey: true });
           onCancelFn.mockReset();
-          domNode.dispatchEvent(escapeKeyEvent);
+          document.dispatchEvent(escapeKeyEvent);
           expect(onCancelFn).not.toHaveBeenCalled();
         });
       });

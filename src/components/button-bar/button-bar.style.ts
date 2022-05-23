@@ -1,31 +1,29 @@
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
-import PropTypes from "prop-types";
-import propTypes from "@styled-system/prop-types";
+import { space, SpaceProps } from "styled-system";
 import BaseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
+import { ButtonBarProps } from "./button-bar.component";
 
-const ButtonBar = styled.div`
+type StyledButtonBarProps = SpaceProps &
+  Pick<ButtonBarProps, "size" | "fullWidth">;
+
+const StyledButtonBar = styled.div<StyledButtonBarProps>`
   ${space}
-  ${stylingForType}
-`;
 
-function stylingForType({ size }) {
-  return css`
-    ${({ fullWidth }) =>
-      fullWidth &&
-      css`
+  ${({ fullWidth, size }) => css`
+    ${fullWidth &&
+    css`
+      width: 100%;
+      display: flex;
+      button {
+        box-sizing: content-box;
+        padding: 0;
         width: 100%;
-        display: flex;
-        button {
-          box-sizing: content-box;
-          padding: 0;
-          width: 100%;
-          ${size === "small" && "min-height: 28px"}
-          ${size === "medium" && "min-height: 36px"}
+        ${size === "small" && "min-height: 28px"}
+        ${size === "medium" && "min-height: 36px"}
           ${size === "large" && "min-height: 44px"}
-        }
-      `}
+      }
+    `}
 
     button {
       margin: 0;
@@ -56,20 +54,12 @@ function stylingForType({ size }) {
         color: var(--colorsActionMajor500);
       }
     }
-  `;
-}
+  `}
+`;
 
-ButtonBar.defaultProps = {
+StyledButtonBar.defaultProps = {
   theme: BaseTheme,
   size: "medium",
 };
 
-ButtonBar.propTypes = {
-  /** Styled system spacing props */
-  ...propTypes.space,
-  /** Assigns a size to the button: "small" | "medium" | "large" */
-  size: PropTypes.oneOf(["small", "medium", "large"]),
-  children: PropTypes.node.isRequired,
-};
-
-export default ButtonBar;
+export default StyledButtonBar;

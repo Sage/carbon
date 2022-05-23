@@ -177,9 +177,13 @@ By rendering an icon and providing a string to the `tooltipMessage` prop, a tool
 
 A custom `onClick` function can be passed to the Link component to render it as a button instead of an anchor.
 
+**Please note**: this option is bad for accessibility, as the output looks like a link but behaves like an HTML button. If the `onClick` function performs navigation,
+instead use the `href` prop with an appropriate value. If an on-page action is performed, so you want a genuine button, please consider using
+the <LinkTo kind="Button" story="primary">Button component</LinkTo> instead so that styles match.
+
 <Canvas>
   <Story name="with onClick" parameters={{ chromatic: { disable: true } }}>
-    <Link onClick={() => {}}>This is a link</Link>
+    <Link onClick={() => {}}>This is actually a button but looks like a link</Link>
   </Story>
 </Canvas>
 

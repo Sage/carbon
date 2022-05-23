@@ -22,22 +22,30 @@ describe("Toast", () => {
   describe("modal manager", () => {
     jest.spyOn(ModalManager, "addModal");
     jest.spyOn(ModalManager, "removeModal");
+    let wrapper;
 
     describe("when component mounts", () => {
-      it("it is added to modal manager", () => {
-        const wrapper = mount(
+      beforeEach(() => {
+        wrapper = mount(
           <Toast isCenter onDismiss={() => {}}>
             foobar
           </Toast>
         );
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
+      });
+
+      it("it is added to modal manager", () => {
         const toast = wrapper.find(ToastWrapper).getDOMNode();
-        expect(ModalManager.addModal).toHaveBeenCalledWith(toast);
+        expect(ModalManager.addModal).toHaveBeenCalledWith(toast, undefined);
       });
     });
 
     describe("when component unmounts", () => {
       it("it is removed from modal manager", () => {
-        const wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
+        wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
         const toast = wrapper.find(ToastWrapper).getDOMNode();
         wrapper.unmount();
         expect(ModalManager.removeModal).toHaveBeenCalledWith(toast);
@@ -46,8 +54,14 @@ describe("Toast", () => {
   });
 
   describe("when toast is closed", () => {
+    let wrapper;
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
     it("should exists anyway", () => {
-      const wrapper = mount(
+      wrapper = mount(
         <Toast
           open={false}
           variant="info"
@@ -60,11 +74,41 @@ describe("Toast", () => {
       expect(wrapper).toBeTruthy();
       expect(wrapper.prop("open")).toEqual(false);
     });
+
+    it("it is removed from modal manager", () => {
+      wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
+      const toast = wrapper.find(ToastWrapper).getDOMNode();
+      wrapper.setProps({ open: false });
+      expect(ModalManager.removeModal).toHaveBeenCalledWith(toast);
+    });
+
+    describe("and escape key is released", () => {
+      it("stopImmediatePropagation function should not have been called on the event", () => {
+        wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
+        wrapper.setProps({ open: false });
+        const escapeKeyEvent = new KeyboardEvent("keyup", {
+          key: "Escape",
+          which: 27,
+          bubbles: true,
+        });
+        jest.spyOn(escapeKeyEvent, "stopImmediatePropagation");
+        document.dispatchEvent(escapeKeyEvent);
+        expect(escapeKeyEvent.stopImmediatePropagation).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe("when toast is open", () => {
+    let wrapper;
+
     describe("with prop isCenter", () => {
+      afterEach(() => {
+        wrapper.unmount();
+      });
+
       it("should render Toast in the center of the document", () => {
+        wrapper = mount(<ToastWrapper isCenter />);
+
         assertStyleMatch(
           {
             position: "relative",
@@ -73,13 +117,13 @@ describe("Toast", () => {
             justifyContent: "center",
             display: "flex",
           },
-          mount(<ToastWrapper isCenter />)
+          wrapper
         );
       });
     });
 
     it("does not render close icon", () => {
-      const wrapper = mount(
+      wrapper = mount(
         <Toast open variant="info" className="custom">
           foobar
         </Toast>
@@ -87,30 +131,36 @@ describe("Toast", () => {
       const icon = wrapper.find("[data-element='close']");
 
       expect(icon.exists()).toBe(false);
+
+      wrapper.unmount();
     });
 
     it("renders the component with correct classes", () => {
-      const wrapper = shallow(<Toast open className="exampleClass" />);
+      wrapper = shallow(<Toast open className="exampleClass" />);
       expect(wrapper.find(".exampleClass")).toHaveLength(1);
     });
 
     it("renders the component with correct id", () => {
       const toastId = "toast-id";
-      const wrapper = shallow(<Toast open id={toastId} />);
+      wrapper = shallow(<Toast open id={toastId} />);
       expect(wrapper.find('[data-component="toast"]').prop("id")).toBe(toastId);
     });
 
     it("renders child content", () => {
-      const wrapper = shallow(<Toast>children</Toast>);
+      wrapper = shallow(<Toast>children</Toast>);
       expect(wrapper.contains("children")).toBe(true);
     });
 
     describe("with onDismiss prop", () => {
-      let wrapper, onDismiss;
+      let onDismiss;
 
       beforeEach(() => {
         onDismiss = jest.fn();
         wrapper = mount(<Toast open onDismiss={onDismiss} />);
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
       });
 
       it("renders close icon", () => {
@@ -159,10 +209,12 @@ describe("Toast", () => {
   });
 
   describe("tags", () => {
-    describe("on component", () => {
-      const wrapper = shallow(<Toast data-element="bar" data-role="baz" />);
+    let wrapper;
 
+    describe("on component", () => {
       it("include correct component, element and role data tags", () => {
+        wrapper = shallow(<Toast data-element="bar" data-role="baz" />);
+
         rootTagTest(
           wrapper.find('[data-component="toast"]'),
           "toast",
@@ -173,21 +225,36 @@ describe("Toast", () => {
     });
 
     describe("on internal elements", () => {
-      const wrapper = mount(<Toast open onDismiss={() => {}} />);
+      wrapper = mount(<Toast open onDismiss={() => {}} />);
       elementsTagTest(wrapper.find(IconButton).first().find("span"), ["close"]);
+      wrapper.unmount();
     });
   });
 
   describe("when toast has specified maximum width", () => {
+    let wrapper;
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
     it("should render ToastStyle with correct maxWidth", () => {
-      const wrapper = mount(<Toast maxWidth="200px" />).find(ToastStyle);
-      assertStyleMatch({ maxWidth: "200px" }, wrapper);
+      wrapper = mount(<Toast maxWidth="200px" />);
+      assertStyleMatch({ maxWidth: "200px" }, wrapper.find(ToastStyle));
     });
   });
 });
 
 describe("ToastStyle", () => {
+  let wrapper;
+
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
   it("should render with correct style based on default theme", () => {
+    wrapper = mount(<ToastStyle variant="help" open />);
+
     assertStyleMatch(
       {
         boxShadow:
@@ -198,14 +265,12 @@ describe("ToastStyle", () => {
         position: "relative",
         marginRight: "30px",
       },
-      mount(<ToastStyle variant="help" open />)
+      wrapper
     );
   });
 
   describe("when the toast is displayed", () => {
-    let domNode;
     let escapeKeyEvent;
-    let wrapper;
     let onDismissFn;
 
     beforeEach(() => {
@@ -216,26 +281,33 @@ describe("ToastStyle", () => {
       });
       onDismissFn = jest.fn();
       wrapper = mount(<Toast open onDismiss={onDismissFn} />);
-      domNode = wrapper.getDOMNode();
-      document.body.appendChild(domNode);
-    });
-
-    afterEach(() => {
-      document.body.removeChild(domNode);
     });
 
     describe("and the esc key is released", () => {
       it("stopImmediatePropagation function should have been called on the event", () => {
         jest.spyOn(escapeKeyEvent, "stopImmediatePropagation");
-        domNode.dispatchEvent(escapeKeyEvent);
+        document.dispatchEvent(escapeKeyEvent);
         expect(escapeKeyEvent.stopImmediatePropagation).toHaveBeenCalled();
       });
 
       it("then the onDismiss method should have been called", () => {
         onDismissFn.mockReset();
-        domNode.dispatchEvent(escapeKeyEvent);
+        document.dispatchEvent(escapeKeyEvent);
         expect(onDismissFn).toHaveBeenCalled();
       });
+    });
+
+    it("when a key other than escape is released, onDismiss and stopImmediatePropagation are not called", () => {
+      const otherKeyEvent = new KeyboardEvent("keyup", {
+        key: "a",
+        which: 65,
+        bubbles: true,
+      });
+      jest.spyOn(otherKeyEvent, "stopImmediatePropagation");
+      onDismissFn.mockReset();
+      document.dispatchEvent(otherKeyEvent);
+      expect(otherKeyEvent.stopImmediatePropagation).not.toHaveBeenCalled();
+      expect(onDismissFn).not.toHaveBeenCalled();
     });
   });
 
@@ -245,7 +317,7 @@ describe("ToastStyle", () => {
         "[Deprecation] The `as` prop is deprecated and will soon be removed from the `Toast` component interface. You should use the `variant` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop";
       const assert = expectWarn(message, "warn");
 
-      mount(
+      wrapper = mount(
         <Toast open={false} as="info" onDismiss={() => {}}>
           foobar
         </Toast>
@@ -256,13 +328,21 @@ describe("ToastStyle", () => {
 });
 
 describe("TestContentStyle", () => {
+  let wrapper;
+
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
   it("should render with correct style based on default theme", () => {
+    wrapper = mount(<ToastContentStyle variant="help" open />);
+
     assertStyleMatch(
       {
         padding: "8px 16px 8px 16px",
         whiteSpace: "pre-wrap",
       },
-      mount(<ToastContentStyle variant="help" open />)
+      wrapper
     );
   });
 });
