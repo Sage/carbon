@@ -14,6 +14,9 @@ There is no code in Carbon to implement a specific routing library, we aim to le
 
 React Router is one of the most popular routing libraries so we have provided examples below to help with implementing Carbon components as links using both v5 and v6 of this library. There are small but important differences in the implementation of each version.
 
+**Important:** Whichever Routing library you use, when adding `onClick` handlers to `Link` and `MenuItem` components to handle routing, it is important that the `href` prop is also
+provided to ensure the component renders as an HTML `<a>` tag rather than a `<button>`. 
+
 ## Usage with React Router v5
 
 An example of how to use the Carbon `Button` and `Link` components as links with React Router v5 is shown below, this can be applied to any of the supported Carbon components.
@@ -47,6 +50,8 @@ const CarbonLinkWithReactRouter = ({ to, children }) => {
   );
 
   return (
+    /* note the href prop here - without this an HTML <button> will be rendered
+    and the "link" will therefore not behave as expected in every way */
     <Link onClick={onClick} href={to}>
       {children}
     </Link>
@@ -142,6 +147,8 @@ const CarbonLinkWithReactRouter = ({ to, children }) => {
   );
 
   return (
+    /* note the href prop here - without this an HTML <button> will be rendered
+    and the "link" will therefore not behave as expected in every way */
     <Link onClick={onClick} href={to}>
       {children}
     </Link>
