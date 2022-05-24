@@ -1,3 +1,10 @@
+### [106.6.6](https://github.com/Sage/carbon/compare/v106.6.5...v106.6.6) (2022-05-24)
+
+
+### Bug Fixes
+
+* **button:** stop icon from wrapping when nowrap prop set ([0711c3f](https://github.com/Sage/carbon/commit/0711c3fc57d45167ce51e2e64e1ac9cda7c950b4)), closes [#5101](https://github.com/Sage/carbon/issues/5101)
+
 ### [106.6.5](https://github.com/Sage/carbon/compare/v106.6.4...v106.6.5) (2022-05-23)
 
 
