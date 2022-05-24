@@ -101,9 +101,9 @@ const Overview = () => (
 const App = () => (
   <BrowserRouter>
     <Switch>
-      <Route exact path="/" element={<Home />} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/overview" element={<Overview />} />
+      <Route exact path="/" component={Home} />
+      <Route path="/settings" component={Settings} />
+      <Route path="/overview" component={Overview} />
     </Switch>
   </BrowserRouter>
 );
