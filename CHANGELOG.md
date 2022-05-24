@@ -1,3 +1,10 @@
+### [106.6.5](https://github.com/Sage/carbon/compare/v106.6.4...v106.6.5) (2022-05-23)
+
+
+### Bug Fixes
+
+* **heading:** remove doc comments to fix type definitions ([9903e45](https://github.com/Sage/carbon/commit/9903e45586141eca5f7d1afc2de7349932d755e4))
+
 ### [106.6.4](https://github.com/Sage/carbon/compare/v106.6.3...v106.6.4) (2022-05-19)
 
 

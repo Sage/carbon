@@ -13,6 +13,8 @@ import {
   COMMON_INPUT_PREFIX,
   COMMON_INPUT_CHARACTER_LIMIT,
   CY_ROOT,
+  PORTAL,
+  STICKY_FOOTER,
 } from "./locators";
 
 // component preview locators
@@ -33,6 +35,8 @@ export const getComponent = (component) =>
 export const getElement = (element) =>
   cy.get(`[data-element="${element}"]`).first();
 export const closeIconButton = () => cy.get(CLOSE_ICON_BUTTON);
+export const openDialogByName = (name) =>
+  getDataElementByValue("main-text").contains(name);
 export const fieldHelpPreview = () => cy.get(FIELD_HELP_PREVIEW).first();
 export const helpIcon = () => cy.get(HELP_ICON_PREVIEW).first();
 export const fieldHelpPreviewByPosition = (position) =>
@@ -51,3 +55,5 @@ export const commonInputPrefix = () => cy.get(COMMON_INPUT_PREFIX);
 export const commonInputCharacterLimit = () =>
   cy.get(COMMON_INPUT_CHARACTER_LIMIT);
 export const cyRoot = () => cy.get(CY_ROOT);
+export const portal = () => cy.get(PORTAL).eq(1).find("h1");
+export const stickyFooter = () => cy.get(STICKY_FOOTER);

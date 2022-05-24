@@ -1,8 +1,8 @@
-import DRAWER_TOGGLE from "./locators";
+import { DRAWER, DRAWER_SIDEBAR, DRAWER_TOGGLE } from "./locators";
 
 // component preview locators
 export const drawerToggle = () => cy.get(DRAWER_TOGGLE);
-export const drawerSidebar = (drawer) =>
-  cy.get(`#${drawer}`).find("div:nth-child(1)");
-export const drawerSidebarContentInnerElement = (drawer, index) =>
-  drawerSidebar(drawer).find("div").find(`li:nth-child(${index})`);
+export const drawer = () => cy.get(DRAWER);
+export const drawerSidebar = () => cy.get(DRAWER_SIDEBAR);
+export const drawerSidebarContentInnerElement = (index) =>
+  drawerSidebar().find("li").eq(index);
