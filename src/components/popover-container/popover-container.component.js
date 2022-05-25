@@ -13,6 +13,7 @@ import {
 import Icon from "../icon";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
+import ClickAwayWrapper from "../../__internal__/click-away-wrapper";
 
 const paddingPropTypes = filterStyledSystemPaddingProps(
   styledSystemPropTypes.space
@@ -37,6 +38,7 @@ const PopoverContainer = ({
   const isControlled = open !== undefined;
   const [isOpenInternal, setIsOpenInternal] = useState(false);
 
+  const ref = useRef();
   const closeButtonRef = useRef();
   const openButtonRef = useRef();
   const guid = useRef(createGuid());
@@ -84,49 +86,61 @@ const PopoverContainer = ({
     ariaLabel: closeButtonAriaLabel,
   };
 
+  const handleClickAway = (e) => {
+    if (!isControlled) setIsOpenInternal(false);
+    if (onClose) onClose(e);
+  };
+
   return (
-    <PopoverContainerWrapperStyle
-      data-component="popover-container"
-      role="region"
-      aria-labelledby={popoverContainerId}
+    <ClickAwayWrapper
+      targets={[ref]}
+      handleClickAway={handleClickAway}
+      eventTypeId="mousedown"
     >
-      {renderOpenComponent(renderOpenComponentProps)}
-      <Transition
-        in={isOpen}
-        timeout={{ exit: 300 }}
-        appear
-        mountOnEnter
-        unmountOnExit
-        nodeRef={popoverContentNodeRef}
+      <PopoverContainerWrapperStyle
+        data-component="popover-container"
+        role="region"
+        aria-labelledby={popoverContainerId}
+        ref={ref}
       >
-        {(state) => (
-          <PopoverContainerContentStyle
-            data-element="popover-container-content"
-            role="dialog"
-            animationState={state}
-            position={position}
-            shouldCoverButton={shouldCoverButton}
-            aria-labelledby={popoverContainerId}
-            aria-label={containerAriaLabel}
-            aria-describedby={ariaDescribedBy}
-            p="16px 24px"
-            ref={popoverContentNodeRef}
-            {...filterStyledSystemPaddingProps(rest)}
-          >
-            <PopoverContainerHeaderStyle>
-              <PopoverContainerTitleStyle
-                id={popoverContainerId}
-                data-element="popover-container-title"
-              >
-                {title}
-              </PopoverContainerTitleStyle>
-              {renderCloseComponent(renderCloseComponentProps)}
-            </PopoverContainerHeaderStyle>
-            {children}
-          </PopoverContainerContentStyle>
-        )}
-      </Transition>
-    </PopoverContainerWrapperStyle>
+        {renderOpenComponent(renderOpenComponentProps)}
+        <Transition
+          in={isOpen}
+          timeout={{ exit: 300 }}
+          appear
+          mountOnEnter
+          unmountOnExit
+          nodeRef={popoverContentNodeRef}
+        >
+          {(state) => (
+            <PopoverContainerContentStyle
+              data-element="popover-container-content"
+              role="dialog"
+              animationState={state}
+              position={position}
+              shouldCoverButton={shouldCoverButton}
+              aria-labelledby={popoverContainerId}
+              aria-label={containerAriaLabel}
+              aria-describedby={ariaDescribedBy}
+              p="16px 24px"
+              ref={popoverContentNodeRef}
+              {...filterStyledSystemPaddingProps(rest)}
+            >
+              <PopoverContainerHeaderStyle>
+                <PopoverContainerTitleStyle
+                  id={popoverContainerId}
+                  data-element="popover-container-title"
+                >
+                  {title}
+                </PopoverContainerTitleStyle>
+                {renderCloseComponent(renderCloseComponentProps)}
+              </PopoverContainerHeaderStyle>
+              {children}
+            </PopoverContainerContentStyle>
+          )}
+        </Transition>
+      </PopoverContainerWrapperStyle>
+    </ClickAwayWrapper>
   );
 };
 
