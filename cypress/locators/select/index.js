@@ -6,6 +6,7 @@ import {
   SELECT_INPUT,
   MULTI_SELECT,
   SELECT_LIST_WRAPPER,
+  SELECT_ELEMENT_INPUT,
 } from "./locators";
 import { PILL_PREVIEW } from "../pill/locators";
 import { getDataElementByValue } from "..";
@@ -26,9 +27,17 @@ export const multiColumnsSelectListHeader = () =>
   selectList().find("thead > tr > th");
 export const multiColumnsSelectListBody = () =>
   selectList().find("tbody > tr:nth-child(3) > td");
+export const multiColumnsSelectListRow = () =>
+  selectList().find("tbody > tr:nth-child(2)");
 export const boldedAndUnderlinedValue = (text) =>
   selectList()
     .find("tbody > tr:nth-child(1) > td:nth-child(2) > span")
     .contains(text);
 export const selectListPosition = () => cy.get(SELECT_LIST_WRAPPER).parent();
 export const selectText = () => getDataElementByValue(SELECT_TEXT);
+export const selectListCustomChild = (index) =>
+  selectList().find(`li:nth-child(${index})`).find("span");
+export const selectListOptionGroup = () =>
+  selectList().find("div:nth-child(1) > h4");
+export const selectListWrapper = () => cy.get(SELECT_LIST_WRAPPER);
+export const selectElementInput = () => cy.get(SELECT_ELEMENT_INPUT);
