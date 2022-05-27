@@ -38,6 +38,7 @@ const ButtonToggleGroup = ({
   "data-element": dataElement,
   "data-role": dataRole,
   helpAriaLabel,
+  id,
   ...props
 }) => {
   const validationProps = {
@@ -62,6 +63,7 @@ const ButtonToggleGroup = ({
           data-component={dataComponent}
           data-role={dataRole}
           data-element={dataElement}
+          id={id}
           {...validationProps}
           {...filterStyledSystemMarginProps(props)}
         >
