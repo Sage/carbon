@@ -23,6 +23,7 @@ import StyledDateInput from "./date.style";
 import Textbox from "../textbox";
 import DatePicker from "./__internal__/date-picker";
 import DateRangeContext from "../date-range/date-range.context";
+import ClickAwayWrapper from "../../__internal__/click-away-wrapper";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -250,29 +251,6 @@ const DateInput = ({
   };
 
   useEffect(() => {
-    const fnClosePicker = (ev) => {
-      if (
-        open &&
-        !Events.composedPath(ev).includes(parentRef.current) &&
-        !Events.composedPath(ev).includes(pickerRef.current)
-      ) {
-        alreadyFocused.current = true;
-        inputRef.current.focus();
-        isBlurBlocked.current = false;
-        inputRef.current.blur();
-        setOpen(false);
-        alreadyFocused.current = false;
-      }
-    };
-
-    document.addEventListener("mousedown", fnClosePicker);
-
-    return function cleanup() {
-      document.removeEventListener("mousedown", fnClosePicker);
-    };
-  }, [open]);
-
-  useEffect(() => {
     const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
       value,
       formats
@@ -326,60 +304,77 @@ const DateInput = ({
     return value;
   };
 
+  const handleClickAway = () => {
+    if (open) {
+      alreadyFocused.current = true;
+      inputRef.current.focus();
+      isBlurBlocked.current = false;
+      inputRef.current.blur();
+      setOpen(false);
+      alreadyFocused.current = false;
+    }
+  };
+
   return (
-    <StyledDateInput
-      ref={wrapperRef}
-      role="presentation"
-      size={size}
-      labelInline={labelInline}
-      data-component={dataComponent || "date"}
-      data-element={dataElement}
-      data-role={dataRole}
-      {...filterStyledSystemMarginProps(rest)}
+    <ClickAwayWrapper
+      handleClickAway={handleClickAway}
+      eventTypeId="mousedown"
+      targets={[parentRef, pickerRef]}
     >
-      <Textbox
-        {...filterOutStyledSystemSpacingProps(rest)}
-        value={computedValue()}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        onClick={handleClick}
-        onFocus={handleFocus}
-        onKeyDown={handleKeyDown}
-        iconOnClick={handleClick}
-        onMouseDown={handleMouseDown}
-        iconOnMouseDown={handleIconMouseDown}
-        inputIcon="calendar"
-        labelInline={labelInline}
-        inputRef={assignInput}
-        adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-        tooltipPosition={tooltipPosition}
-        helpAriaLabel={helpAriaLabel}
-        autoFocus={autoFocus}
+      <StyledDateInput
+        ref={wrapperRef}
+        role="presentation"
         size={size}
-        disabled={disabled}
-        readOnly={readOnly}
-      />
-      <DatePicker
-        disablePortal={disablePortal}
-        inputElement={parentRef}
-        pickerProps={pickerProps}
-        selectedDays={selectedDays}
-        setSelectedDays={setSelectedDays}
-        onDayClick={handleDayClick}
-        minDate={minDate}
-        maxDate={maxDate}
-        ref={pickerRef}
-        pickerMouseDown={handlePickerMouseDown}
-        open={open}
-      />
-    </StyledDateInput>
+        labelInline={labelInline}
+        data-component={dataComponent || "date"}
+        data-element={dataElement}
+        data-role={dataRole}
+        {...filterStyledSystemMarginProps(rest)}
+      >
+        <Textbox
+          {...filterOutStyledSystemSpacingProps(rest)}
+          value={computedValue()}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          onClick={handleClick}
+          onFocus={handleFocus}
+          onKeyDown={handleKeyDown}
+          iconOnClick={handleClick}
+          onMouseDown={handleMouseDown}
+          iconOnMouseDown={handleIconMouseDown}
+          inputIcon="calendar"
+          labelInline={labelInline}
+          inputRef={assignInput}
+          adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+          tooltipPosition={tooltipPosition}
+          helpAriaLabel={helpAriaLabel}
+          autoFocus={autoFocus}
+          size={size}
+          disabled={disabled}
+          readOnly={readOnly}
+        />
+        <DatePicker
+          disablePortal={disablePortal}
+          inputElement={parentRef}
+          pickerProps={pickerProps}
+          selectedDays={selectedDays}
+          setSelectedDays={setSelectedDays}
+          onDayClick={handleDayClick}
+          minDate={minDate}
+          maxDate={maxDate}
+          ref={pickerRef}
+          pickerMouseDown={handlePickerMouseDown}
+          open={open}
+        />
+      </StyledDateInput>
+    </ClickAwayWrapper>
   );
 };
 
 DateInput.propTypes = {
   ...Textbox.propTypes,
   ...marginPropTypes,
-  /** Pass any props that match the [DayPickerProps](https://react-day-picker.js.org/api/DayPicker)
+  /** Pass any props that match the [DayPickerProps](https://react-day-picker-v7.netlify.app/docs/getting-started/)
    * interface to override default behaviors
    * */
   pickerProps: PropTypes.object,
