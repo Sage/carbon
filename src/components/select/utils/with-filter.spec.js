@@ -141,12 +141,12 @@ const FilteredListComponent = withFilter(ListComponent);
 function renderFilteredOptions(props, renderer = mount) {
   return renderer(
     <FilteredListComponent {...props}>
-      <Option text="red" value="0" />
-      <Option text="blue" value="1" />
-      <Option text="green" value="2" />
-      <Option text="black" value="3" />
-      <Option text="purple" value="4" />
-      <Option text="brown" value="5" />
+      <Option text="red" id="0" value="0" />
+      <Option text="blue" id="1" value="1" />
+      <Option text="green" id="2" value="2" />
+      <Option text="black" id="3" value="3" />
+      <Option text="purple" id="4" value="4" />
+      <Option text="brown" id="5" value="5" />
     </FilteredListComponent>
   );
 }
@@ -156,7 +156,7 @@ const FilteredTableListComponent = withFilter(TableListComponent);
 function renderFilteredOptionRows(props, renderer = mount) {
   return renderer(
     <FilteredTableListComponent multiColumn {...props}>
-      <OptionRow text="amber" value="0">
+      <OptionRow text="amber" id="0" value="0">
         <td>
           <div />
         </td>
@@ -164,23 +164,23 @@ function renderFilteredOptionRows(props, renderer = mount) {
           <div />
         </td>
       </OptionRow>
-      <OptionRow text="blue" value="1">
+      <OptionRow text="blue" id="1" value="1">
         <td>Blue</td>
         <td>Light</td>
       </OptionRow>
-      <OptionRow text="green" value="2">
+      <OptionRow text="green" id="2" value="2">
         <td>Green</td>
         <td>Light</td>
       </OptionRow>
-      <OptionRow text="black" value="3">
+      <OptionRow text="black" id="3" value="3">
         <td>Black</td>
         <td>Dark</td>
       </OptionRow>
-      <OptionRow text="purple" value="4">
+      <OptionRow text="purple" id="4" value="4">
         <td>Purple</td>
         <td>Dark</td>
       </OptionRow>
-      <OptionRow text="brown" value="5">
+      <OptionRow text="brown" id="5" value="5">
         <td>Brown</td>
         <td>Dark</td>
       </OptionRow>
