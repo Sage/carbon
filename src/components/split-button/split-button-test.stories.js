@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React from "react";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
@@ -13,15 +13,15 @@ import {
 } from "./split-button.config";
 import SplitButton from "./split-button.component";
 
-<Meta
-  title="Split Button/Test"
-  parameters={{
+export default {
+  title: "Split Button/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     iconType: {
       options: ["", ...ICONS],
       control: {
@@ -54,9 +54,10 @@ import SplitButton from "./split-button.component";
     },
     textSpecialCharacters: specialCharacters,
     subtextSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+};
 
+/* eslint-disable react/prop-types */
 export const SplitButtonStory = ({
   buttonType,
   dataElement,
@@ -68,6 +69,7 @@ export const SplitButtonStory = ({
   iconType,
   iconPosition,
   ...args
+  /* eslint-enable */
 }) => {
   return (
     <Box height={400} mt={100} ml={100}>
@@ -96,28 +98,20 @@ export const SplitButtonStory = ({
   );
 };
 
-# Split Button
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      iconType: "",
-      iconPosition: "before",
-      buttonType: "secondary",
-      dataElement: "data-element",
-      dataRole: "",
-      disabled: false,
-      size: "medium",
-      align: "left",
-      text: "Example Split Button",
-      textSpecialCharacters: undefined,
-      subtext: "",
-      subtextSpecialCharacters: undefined,
-    }}
-  >
-    {SplitButtonStory.bind({})}
-  </Story>
-</Canvas>
+SplitButtonStory.story = {
+  name: "default",
+  args: {
+    iconType: "",
+    iconPosition: "before",
+    buttonType: "secondary",
+    dataElement: "data-element",
+    dataRole: "",
+    disabled: false,
+    size: "medium",
+    align: "left",
+    text: "Example Split Button",
+    textSpecialCharacters: undefined,
+    subtext: "",
+    subtextSpecialCharacters: undefined,
+  },
+};
