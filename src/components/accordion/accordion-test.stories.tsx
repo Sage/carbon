@@ -1,21 +1,19 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React from "react";
 import { action } from "@storybook/addon-actions";
 
-import Accordion from "./accordion.component";
-import AccordionGroup from "./accordion-group/accordion-group.component";
+import { Accordion, AccordionGroup } from ".";
 import Textbox from "../textbox";
 import Box from "../box";
 
-<Meta
-  title="Accordion/Test"
-  parameters={{
+export default {
+  title: "Accordion/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     iconAlign: {
       options: ["left", "right"],
       control: {
@@ -46,20 +44,28 @@ import Box from "../box";
         type: "select",
       },
     },
-  }}
-/>
-
-export const AccordionStory = (args) => {
-  return (
-    <Accordion onChange={action("expansionToggled")} {...args}>
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
-    </Accordion>
-  );
+  },
 };
 
-export const AccordionGroupedStory = () => (
+export const Default = ({ ...args }) => (
+  <Accordion
+    onChange={action("expansionToggled")}
+    {...{
+      iconAlign: "right",
+      customPadding: 0,
+      title: "Title",
+      subTitle: "Sub Title",
+      width: "100%",
+      ...args,
+    }}
+  >
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+  </Accordion>
+);
+
+export const Grouped = () => (
   <AccordionGroup>
     <Accordion title="First Accordion" onChange={action("expansionToggled")}>
       <Box p={2}>
@@ -80,32 +86,3 @@ export const AccordionGroupedStory = () => (
     </Accordion>
   </AccordionGroup>
 );
-
-# Accordion
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      iconType: undefined,
-      iconAlign: "right",
-      borders: undefined,
-      size: undefined,
-      customPadding: 0,
-      scheme: undefined,
-      title: "Title",
-      subTitle: "Sub Title",
-      width: "100%",
-    }}
-  >
-    {AccordionStory.bind({})}
-  </Story>
-</Canvas>
-
-### Grouped
-
-<Canvas>
-  <Story name="grouped">{AccordionGroupedStory.bind({})}</Story>
-</Canvas>
