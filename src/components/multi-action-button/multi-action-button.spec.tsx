@@ -1,7 +1,7 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
-import { shallow, mount } from "enzyme";
+import { shallow, mount, ShallowWrapper, ReactWrapper } from "enzyme";
 import MultiActionButton from "./multi-action-button.component";
 import {
   StyledMultiActionButton,
@@ -18,8 +18,29 @@ import {
 import StyledButton from "../button/button.style";
 import StyledIcon from "../icon/icon.style";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function render(props = {}, renderer: any = shallow) {
+  return renderer(
+    <MultiActionButton text="Test" {...props}>
+      <Button>Test</Button>
+    </MultiActionButton>
+  );
+}
+
+function simulateFocus(container: ShallowWrapper | ReactWrapper) {
+  const toggleButton = container.find('[data-element="toggle-button"]').at(0);
+
+  toggleButton.simulate("focus");
+}
+
+function simulateBlur(container: ShallowWrapper | ReactWrapper) {
+  const toggleButton = container.find('[data-element="toggle-button"]').at(0);
+
+  toggleButton.simulate("blur");
+}
+
 describe("MultiActionButton", () => {
-  let wrapper;
+  let wrapper: ShallowWrapper | ReactWrapper;
   jest.useFakeTimers();
 
   testStyledSystemMargin((props) => (
@@ -27,6 +48,133 @@ describe("MultiActionButton", () => {
       <Button>Test</Button>
     </MultiActionButton>
   ));
+
+  describe("when focused", () => {
+    const additionalButtonsSelector = '[data-element="additional-buttons"]';
+    let container: HTMLDivElement | null;
+    let mainButton: ReactWrapper;
+
+    beforeEach(() => {
+      container = document.createElement("div");
+      container.id = "enzymeContainer";
+      document.body.appendChild(container);
+      wrapper = mount(
+        <MultiActionButton text="Main Button">
+          <Button>First</Button>
+          <Button>Second</Button>
+        </MultiActionButton>,
+        { attachTo: document.getElementById("enzymeContainer") }
+      );
+      mainButton = wrapper.find(StyledMultiActionButton).find(Button).first();
+      simulateFocus(mainButton);
+    });
+
+    afterEach(() => {
+      container?.parentNode?.removeChild(container);
+
+      wrapper.unmount();
+
+      container = null;
+    });
+
+    describe.each([
+      ["enter", 13],
+      ["space", 32],
+      ["down", 40],
+    ])("the %s key is pressed", (name, keyCode) => {
+      it("then the first additional button should be focused", () => {
+        simulateBlur(mainButton);
+        wrapper.find(StyledMultiActionButton).simulate("mouseleave");
+        wrapper.update();
+        mainButton.simulate("keydown", { which: keyCode });
+        jest.runAllTimers();
+
+        const firstButton = wrapper
+          .find(additionalButtonsSelector)
+          .find(Button)
+          .at(0)
+          .getDOMNode();
+        expect(firstButton).toStrictEqual(document.activeElement);
+      });
+
+      it("does not open additional buttons if opened already - coverage", () => {
+        mainButton.simulate("keydown", { which: keyCode });
+        jest.runAllTimers();
+      });
+    });
+
+    describe('when "down" key is pressed', () => {
+      it("the additional buttons should be stepped through in sequence", () => {
+        const additionalButtons = wrapper
+          .find(additionalButtonsSelector)
+          .find(ButtonWithForwardRef);
+
+        keyboard.pressDownArrow();
+        expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
+          document.activeElement
+        );
+        keyboard.pressDownArrow();
+        expect(additionalButtons.at(1).getDOMNode()).toStrictEqual(
+          document.activeElement
+        );
+        keyboard.pressDownArrow();
+        expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
+          document.activeElement
+        );
+      });
+    });
+
+    describe('when "up" key is pressed', () => {
+      it("the additional buttons should be stepped through in sequence", () => {
+        const additionalButtons = wrapper
+          .find(additionalButtonsSelector)
+          .find(ButtonWithForwardRef);
+
+        keyboard.pressUpArrow();
+        expect(additionalButtons.at(1).getDOMNode()).toStrictEqual(
+          document.activeElement
+        );
+        keyboard.pressUpArrow();
+        expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
+          document.activeElement
+        );
+        keyboard.pressUpArrow();
+        expect(additionalButtons.at(1).getDOMNode()).toStrictEqual(
+          document.activeElement
+        );
+      });
+    });
+
+    describe("the tab key is pressed", () => {
+      it("calls the expected timeout function", () => {
+        const timeoutSpy = jest.spyOn(window, "setTimeout");
+        keyboard.pressTab();
+
+        expect(timeoutSpy).toHaveBeenCalled();
+      });
+
+      it("does not pass focus to the first additional button", () => {
+        mainButton.simulate("keydown", { which: 9 });
+        const firstButton = wrapper
+          .find(additionalButtonsSelector)
+          .find(Button)
+          .at(0)
+          .getDOMNode();
+
+        expect(firstButton).not.toStrictEqual(document.activeElement);
+      });
+    });
+
+    describe("and mouse leaves the main Button", () => {
+      it("then the additional buttons menu should remain open", () => {
+        wrapper.simulate("mouseLeave");
+
+        expect(wrapper.find(additionalButtonsSelector).exists()).toStrictEqual(
+          true
+        );
+      });
+    });
+  });
 
   describe("tags", () => {
     describe("on component", () => {
@@ -93,7 +241,7 @@ describe("MultiActionButton", () => {
       });
 
       describe("buttonType", () => {
-        it.each(["primary", "secondary", "tertiary"])(
+        it.each(["primary", "secondary", "tertiary"] as const)(
           "sets the parent button type as expected when buttonType is %s",
           (type) => {
             wrapper = mount(
@@ -157,7 +305,8 @@ describe("MultiActionButton", () => {
         wrapper = render({ disabled: true }, mount);
 
         expect(
-          wrapper.find(StyledMultiActionButton).find(Button).onMouseEnter
+          wrapper.find(StyledMultiActionButton).find(Button).props()
+            .onMouseEnter
         ).toEqual(undefined);
       });
     });
@@ -165,7 +314,7 @@ describe("MultiActionButton", () => {
     describe("clicking a button", () => {
       const handleMainButton = jest.fn();
       const handleSecondButton = jest.fn();
-      let mainButton;
+      let mainButton: ReactWrapper;
 
       beforeEach(() => {
         wrapper = mount(
@@ -224,24 +373,27 @@ describe("MultiActionButton", () => {
         bubbles: true,
         cancelable: true,
       });
-      let domWrapper;
+      let container: HTMLDivElement | null;
 
       beforeEach(() => {
-        domWrapper = document.createElement("div");
-        document.body.appendChild(domWrapper);
+        container = document.createElement("div");
+        document.body.appendChild(container);
         wrapper = mount(
           <MultiActionButton text="Main button">
             <Button>Foo</Button>
           </MultiActionButton>,
-          { attachTo: domWrapper }
+          { attachTo: container }
         );
 
         simulateFocus(wrapper);
       });
 
       afterEach(() => {
-        wrapper.detach();
-        document.body.removeChild(domWrapper);
+        (wrapper as ReactWrapper).detach();
+        (wrapper as ReactWrapper).unmount();
+        container?.parentNode?.removeChild(container);
+
+        container = null;
       });
 
       describe("on the Menu element", () => {
@@ -271,7 +423,7 @@ describe("MultiActionButton", () => {
 
           act(() => {
             simulateBlur(wrapper);
-            domWrapper.dispatchEvent(nativeInputEvent);
+            container?.dispatchEvent(nativeInputEvent);
           });
 
           expect(
@@ -310,7 +462,7 @@ describe("MultiActionButton", () => {
   });
 
   it("should set proper width of ButtonContainer", () => {
-    spyOn(Element.prototype, "getBoundingClientRect");
+    jest.spyOn(Element.prototype, "getBoundingClientRect");
     Element.prototype.getBoundingClientRect = jest
       .fn()
       .mockImplementation(() => ({ width: 200 }));
@@ -328,134 +480,6 @@ describe("MultiActionButton", () => {
     wrapper.unmount();
   });
 
-  describe("when focused", () => {
-    const additionalButtonsSelector = '[data-element="additional-buttons"]';
-    let container;
-    let mainButton;
-
-    beforeEach(() => {
-      container = document.createElement("div");
-      container.id = "enzymeContainer";
-      document.body.appendChild(container);
-      wrapper = mount(
-        <MultiActionButton text="Main Button">
-          <Button>Foo</Button>
-          <Button>Foo</Button>
-        </MultiActionButton>,
-        { attachTo: document.getElementById("enzymeContainer") }
-      );
-      mainButton = wrapper.find(StyledMultiActionButton).find(Button).first();
-      simulateFocus(mainButton);
-    });
-
-    afterEach(() => {
-      if (container && container.parentNode) {
-        container.parentNode.removeChild(container);
-      }
-      wrapper.unmount();
-
-      container = null;
-    });
-
-    describe.each([
-      ["enter", 13],
-      ["space", 32],
-      ["down", 40],
-    ])("the %s key is pressed", (name, keyCode) => {
-      it("then the first additional button should be focused", () => {
-        simulateBlur(mainButton);
-        wrapper.find(StyledMultiActionButton).simulate("mouseleave");
-        wrapper.update();
-        mainButton.simulate("keydown", { which: keyCode });
-        jest.runAllTimers();
-
-        const firstButton = wrapper
-          .find(additionalButtonsSelector)
-          .find(Button)
-          .at(0)
-          .getDOMNode();
-        expect(firstButton).toStrictEqual(document.activeElement);
-      });
-
-      it("does not open additional buttons if opened already - coverage", () => {
-        mainButton.simulate("keydown", { which: keyCode });
-        jest.runAllTimers();
-      });
-    });
-
-    describe('when "down" key is pressed', () => {
-      it("the additional buttons should be stepped through in sequence", () => {
-        const additionalButtons = wrapper
-          .find(additionalButtonsSelector)
-          .find(ButtonWithForwardRef);
-
-        keyboard.pressDownArrow();
-        expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
-        keyboard.pressDownArrow();
-        expect(
-          additionalButtons.at(additionalButtons.length - 1).getDOMNode()
-        ).toStrictEqual(document.activeElement);
-        keyboard.pressDownArrow();
-        expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
-      });
-    });
-
-    describe('when "up" key is pressed', () => {
-      it("the additional buttons should be stepped through in sequence", () => {
-        const additionalButtons = wrapper
-          .find(additionalButtonsSelector)
-          .find(ButtonWithForwardRef);
-
-        keyboard.pressUpArrow();
-        expect(
-          additionalButtons.at(additionalButtons.length - 1).getDOMNode()
-        ).toStrictEqual(document.activeElement);
-        keyboard.pressUpArrow();
-        expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
-        keyboard.pressUpArrow();
-        expect(
-          additionalButtons.at(additionalButtons.length - 1).getDOMNode()
-        ).toStrictEqual(document.activeElement);
-      });
-    });
-
-    describe("the tab key is pressed", () => {
-      it("it calls the expected timeout function", () => {
-        const timeoutSpy = spyOn(window, "setTimeout");
-        keyboard.pressTab();
-
-        expect(timeoutSpy).toHaveBeenCalled();
-      });
-
-      it("it does not pass focus to the first additional button", () => {
-        mainButton.simulate("keydown", { which: 9 });
-        const firstButton = wrapper
-          .find(additionalButtonsSelector)
-          .find(Button)
-          .at(0)
-          .getDOMNode();
-
-        expect(firstButton).not.toStrictEqual(document.activeElement);
-      });
-    });
-
-    describe("and mouse leaves the main Button", () => {
-      it("then the additional buttons menu should remain open", () => {
-        wrapper.simulate("mouseLeave");
-
-        expect(wrapper.find(additionalButtonsSelector).exists()).toStrictEqual(
-          true
-        );
-      });
-    });
-  });
-
   describe("when the `as` prop is used", () => {
     it("fires a prop deprecation warning to the console", () => {
       const message =
@@ -466,25 +490,22 @@ describe("MultiActionButton", () => {
       assert();
     });
   });
+
+  describe("coverage", () => {
+    it("renders a string when passed as a child", () => {
+      const tempWrapper = mount(
+        <MultiActionButton text="text">
+          <Button>Click</Button>
+          Some string
+        </MultiActionButton>
+      );
+      const mainButton = tempWrapper
+        .find(StyledMultiActionButton)
+        .find(Button)
+        .first();
+      simulateFocus(mainButton);
+
+      expect(tempWrapper.contains("Some string")).toBe(true);
+    });
+  });
 });
-
-function render(props = {}, renderer = shallow) {
-  const { childOnClick } = props;
-  return renderer(
-    <MultiActionButton text="Test" {...props}>
-      <Button onClick={childOnClick}>Test</Button>
-    </MultiActionButton>
-  );
-}
-
-function simulateFocus(container) {
-  const toggleButton = container.find('[data-element="toggle-button"]').at(0);
-
-  toggleButton.simulate("focus");
-}
-
-function simulateBlur(container) {
-  const toggleButton = container.find('[data-element="toggle-button"]').at(0);
-
-  toggleButton.simulate("blur");
-}
