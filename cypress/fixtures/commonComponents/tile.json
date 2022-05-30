@@ -1,9 +1,9 @@
 {
-  "asTile": {
-    "as": "tile"
+  "tileVariant": {
+    "variant": "tile"
   },
-  "asTransparent": {
-    "as": "transparent"
+  "transparentVariant": {
+    "variant": "transparent"
   },
   "width1": {
     "width": 1
