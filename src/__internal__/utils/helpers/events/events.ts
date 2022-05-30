@@ -19,50 +19,6 @@ const Events = {
   },
 
   /**
-   * A method to determine whether a key down event was an arrow key
-   * */
-  isNavigationKeyup: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    if (!Events.isEventType(ev, "keyup")) {
-      return false;
-    }
-
-    return Events.isNavigationKey(ev);
-  },
-
-  /**
-   * A method to determine whether a key down event was an enter key
-   * */
-  isEnterKeyup: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    if (!Events.isEventType(ev, "keyup")) {
-      return false;
-    }
-
-    return Events.isEnterKey(ev);
-  },
-
-  /**
-   * A method to determine whether a key up event is allowed or not.
-   * */
-  isValidKeypress: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    if (!Events.isEventType(ev, "keyup")) {
-      return false;
-    }
-    if (
-      Events.isNumberKey(ev) ||
-      Events.isAlphabetKey(ev) ||
-      Events.isNumpadKey(ev) ||
-      Events.isSymbolKey(ev) ||
-      Events.isSpaceKey(ev) ||
-      Events.isDeletingKey(ev) ||
-      Events.isBackspaceKey(ev)
-    ) {
-      return true;
-    }
-
-    return false;
-  },
-
-  /**
    * Determines if a number key along the top of the keyboard or a number key on the
    * keypad is pressed
    * */
@@ -72,39 +28,11 @@ const Events = {
   },
 
   /**
-   * Determines if the key pressed is part of the numpad
-   * includes symbols
-   * */
-  isNumpadKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which !== undefined && ev.which >= 96 && ev.which <= 111;
-  },
-
-  /**
    * Determines if the key pressed is a alphabet key
    * Case insensitive
    * */
   isAlphabetKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
     return ev.which !== undefined && ev.which >= 65 && ev.which <= 90;
-  },
-
-  /**
-   * Determines if the key pressed is a valid symbol
-   * */
-  isSymbolKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return (
-      ev.which !== undefined &&
-      ((ev.which >= 58 && ev.which <= 64) || // : to @
-        (ev.which >= 106 && ev.which <= 107) || // numpad * and +
-        (ev.which >= 186 && ev.which <= 192) || // , .
-        (ev.which >= 219 && ev.which <= 222))
-    );
-  },
-
-  /**
-   * Determines if the key pressed is a navigation key
-   * */
-  isNavigationKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which !== undefined && ev.which >= 37 && ev.which <= 40;
   },
 
   /**
@@ -136,13 +64,6 @@ const Events = {
   },
 
   /**
-   * Determines if the key pressed is a meta key
-   * */
-  isMetaKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return !!ev.metaKey;
-  },
-
-  /**
    * Determines if the key pressed is the escape key
    * */
   isEscKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
@@ -164,27 +85,6 @@ const Events = {
   },
 
   /**
-   * Determines if the key pressed is the backspace key
-   * */
-  isBackspaceKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.key === "Backspace";
-  },
-
-  /**
-   * Determines if the key pressed is the delete key
-   * */
-  isDeleteKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.key === "Delete";
-  },
-
-  /**
-   * Determines if the key pressed is the backspace or delete key
-   * */
-  isDeletingKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return Events.isDeleteKey(ev) || Events.isBackspaceKey(ev);
-  },
-
-  /**
    * Determines if the key pressed is the shift key
    * */
   isShiftKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
@@ -203,27 +103,6 @@ const Events = {
    * */
   isEnterOrSpaceKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
     return ev.which === 13 || ev.which === 32;
-  },
-
-  /**
-   * Determines if the key pressed is the period key
-   * */
-  isPeriodKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which === 190;
-  },
-
-  /**
-   * Determines if the key pressed is the comma key
-   * */
-  isCommaKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which === 188;
-  },
-
-  /**
-   * Determines if the key pressed is the minus key
-   * */
-  isMinusKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.key === "-" || ev.key === "Subtract";
   },
 
   /**

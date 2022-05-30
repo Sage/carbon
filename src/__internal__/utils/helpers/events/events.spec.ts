@@ -19,68 +19,6 @@ describe("Events", () => {
     });
   });
 
-  describe("isNavigationKeyup", () => {
-    describe("when event is not a key up event", () => {
-      it("returns false", () => {
-        expect(
-          Events.isNavigationKeyup({ type: "click" } as KeyboardEvent)
-        ).toBeFalsy();
-      });
-    });
-
-    describe("when event is a keyup event", () => {
-      describe("when key is not a navigation key", () => {
-        it("returns false", () => {
-          expect(
-            Events.isNavigationKeyup({
-              type: "keyup",
-              which: 8,
-            } as KeyboardEvent)
-          ).toBeFalsy();
-        });
-      });
-
-      describe("key is a navigation key", () => {
-        it("returns true", () => {
-          expect(
-            Events.isNavigationKeyup({
-              type: "keyup",
-              which: 38,
-            } as KeyboardEvent)
-          ).toBeTruthy();
-        });
-      });
-    });
-  });
-
-  describe("isEnterKeyup", () => {
-    describe("when event is not a key up event", () => {
-      it("returns false", () => {
-        expect(
-          Events.isEnterKeyup({ type: "click" } as KeyboardEvent)
-        ).toBeFalsy();
-      });
-    });
-
-    describe("when event is a keyup event", () => {
-      describe("when key is not the enter key", () => {
-        it("returns false", () => {
-          expect(
-            Events.isEnterKeyup({ type: "keyup", which: 8 } as KeyboardEvent)
-          ).toBeFalsy();
-        });
-      });
-
-      describe("key is the enter key", () => {
-        it("returns true", () => {
-          expect(
-            Events.isEnterKeyup({ type: "keyup", which: 13 } as KeyboardEvent)
-          ).toBeTruthy();
-        });
-      });
-    });
-  });
-
   describe("isEnterOrSpaceKey", () => {
     describe("when event is not a key up event", () => {
       it("returns false", () => {
@@ -126,156 +64,6 @@ describe("Events", () => {
     });
   });
 
-  describe("isValidKeyPress", () => {
-    describe("when event is not a key up event", () => {
-      it("returns false", () => {
-        expect(
-          Events.isValidKeypress({ type: "click" } as KeyboardEvent)
-        ).toBeFalsy();
-      });
-    });
-
-    describe("when event is a keyup event", () => {
-      describe("when key is not valid", () => {
-        it("returns false", () => {
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 223,
-              key: "`",
-            } as KeyboardEvent)
-          ).toBeFalsy();
-        });
-      });
-
-      describe("key is a valid number or letter", () => {
-        it("returns true", () => {
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 48,
-              key: "Delete",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 66,
-              key: "b",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 90,
-              key: "z",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-        });
-      });
-
-      describe("key is a valid numpad number", () => {
-        it("returns true", () => {
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 96,
-              key: "0",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 100,
-              key: "4",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 111,
-              key: "divide",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-        });
-      });
-
-      describe("key is a valid symbol", () => {
-        it("returns true", () => {
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 186,
-              key: ";",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 190,
-              key: ".",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 192,
-              key: "`",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 219,
-              key: "[",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 220,
-              key: "\\",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 222,
-              key: "'",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-        });
-      });
-
-      describe("key is space, delete or backspace", () => {
-        it("returns true", () => {
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 32,
-              key: " ",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 46,
-              key: "Delete",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-          expect(
-            Events.isValidKeypress({
-              type: "keyup",
-              which: 8,
-              key: "Backspace",
-            } as KeyboardEvent)
-          ).toBeTruthy();
-        });
-      });
-    });
-  });
-
   describe("isNumberKey", () => {
     it("returns false when a non number key is pressed", () => {
       expect(Events.isNumberKey({ key: "a" } as KeyboardEvent)).toBeFalsy();
@@ -289,20 +77,6 @@ describe("Events", () => {
     );
   });
 
-  describe("isNumpadKey", () => {
-    it("returns false when a non numpad key is pressed", () => {
-      expect(Events.isNumpadKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
-    });
-
-    it("returns true when a numpad number is pressed", () => {
-      expect(Events.isNumpadKey({ which: 97 } as KeyboardEvent)).toBeTruthy();
-    });
-
-    it("returns true when a numpad symbol is pressed", () => {
-      expect(Events.isNumpadKey({ which: 107 } as KeyboardEvent)).toBeTruthy();
-    });
-  });
-
   describe("isAlphabet", () => {
     it("returns false when a non alphabet key is pressed", () => {
       expect(Events.isAlphabetKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
@@ -310,32 +84,6 @@ describe("Events", () => {
 
     it("returns true when a alphabet is pressed", () => {
       expect(Events.isAlphabetKey({ which: 66 } as KeyboardEvent)).toBeTruthy();
-    });
-  });
-
-  describe("isSymbolKey", () => {
-    it("returns false when a non symbol key is pressed", () => {
-      expect(Events.isSymbolKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
-    });
-
-    it("returns true when a symbol key is pressed", () => {
-      expect(Events.isSymbolKey({ which: 59 } as KeyboardEvent)).toBeTruthy();
-    });
-
-    it("returns true when a numpad symbol is pressed", () => {
-      expect(Events.isSymbolKey({ which: 107 } as KeyboardEvent)).toBeTruthy();
-    });
-  });
-
-  describe("isNavigationKey", () => {
-    it("returns false when a non navigation key is pressed", () => {
-      expect(Events.isNavigationKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
-    });
-
-    it("returns true when one of the 4 navigation keys is pressed", () => {
-      expect(
-        Events.isNavigationKey({ which: 37 } as KeyboardEvent)
-      ).toBeTruthy();
     });
   });
 
@@ -379,16 +127,6 @@ describe("Events", () => {
     });
   });
 
-  describe("isMetaKey", () => {
-    it("returns false when the event is not a meta key", () => {
-      expect(Events.isMetaKey({ metaKey: false } as KeyboardEvent)).toBeFalsy();
-    });
-
-    it("returns true when the event is a meta key", () => {
-      expect(Events.isMetaKey({ metaKey: true } as KeyboardEvent)).toBeTruthy();
-    });
-  });
-
   describe("isEscKey", () => {
     it("returns false when the ESC key is not pressed", () => {
       expect(Events.isEscKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
@@ -419,48 +157,6 @@ describe("Events", () => {
     });
   });
 
-  describe("isBackspaceKey", () => {
-    it("returns false when the Backspace key is not pressed", () => {
-      expect(Events.isBackspaceKey({ key: " " } as KeyboardEvent)).toBeFalsy();
-    });
-
-    it("returns true when the Backspace key is pressed", () => {
-      expect(
-        Events.isBackspaceKey({ key: "Backspace" } as KeyboardEvent)
-      ).toBeTruthy();
-    });
-  });
-
-  describe("isDeleteKey", () => {
-    it("returns false when the Delete key is not pressed", () => {
-      expect(Events.isDeleteKey({ key: " " } as KeyboardEvent)).toBeFalsy();
-    });
-
-    it("returns true when the Delete key is pressed", () => {
-      expect(
-        Events.isDeleteKey({ key: "Delete" } as KeyboardEvent)
-      ).toBeTruthy();
-    });
-  });
-
-  describe("isDeletingKey", () => {
-    it("returns false when a deleting key is not pressed", () => {
-      expect(Events.isDeletingKey({ key: " " } as KeyboardEvent)).toBeFalsy();
-    });
-
-    it("returns true when the Delete key is pressed", () => {
-      expect(
-        Events.isDeletingKey({ key: "Delete" } as KeyboardEvent)
-      ).toBeTruthy();
-    });
-
-    it("returns true when the Backspace key is pressed", () => {
-      expect(
-        Events.isDeletingKey({ key: "Backspace" } as KeyboardEvent)
-      ).toBeTruthy();
-    });
-  });
-
   describe("isShiftKey", () => {
     it("returns false when a Shift key is not pressed", () => {
       expect(Events.isShiftKey({ which: 9 } as KeyboardEvent)).toBeFalsy();
@@ -478,42 +174,6 @@ describe("Events", () => {
 
     it("returns true when the Space key is pressed", () => {
       expect(Events.isSpaceKey({ which: 32 } as KeyboardEvent)).toBeTruthy();
-    });
-  });
-
-  describe("isPeriodKey", () => {
-    it("returns false when a Period key is not pressed", () => {
-      expect(Events.isPeriodKey({ which: 9 } as KeyboardEvent)).toBeFalsy();
-    });
-
-    it("returns true when the Period key is pressed", () => {
-      expect(Events.isPeriodKey({ which: 190 } as KeyboardEvent)).toBeTruthy();
-    });
-  });
-
-  describe("isCommaKey", () => {
-    it("returns false when a Comma key is not pressed", () => {
-      expect(Events.isCommaKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
-    });
-
-    it("returns true when the Comma key is pressed", () => {
-      expect(Events.isCommaKey({ which: 188 } as KeyboardEvent)).toBeTruthy();
-    });
-  });
-
-  describe("isMinusKey", () => {
-    it("returns false when a minus key is not pressed", () => {
-      expect(Events.isMinusKey({ key: " " } as KeyboardEvent)).toBeFalsy();
-    });
-
-    it("returns true when the minus key is pressed", () => {
-      expect(Events.isMinusKey({ key: "-" } as KeyboardEvent)).toBeTruthy();
-    });
-
-    it("returns true when the numpad minus key is pressed (IE)", () => {
-      expect(
-        Events.isMinusKey({ key: "Subtract" } as KeyboardEvent)
-      ).toBeTruthy();
     });
   });
 
