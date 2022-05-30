@@ -201,7 +201,9 @@ describe("Tabs", () => {
 
   describe('when `headerWidth` is provided, and `position="top"`', () => {
     it(" should render console error", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
 
       mount(
         <Tabs position="top" headerWidth="500px">
@@ -212,9 +214,11 @@ describe("Tabs", () => {
       );
 
       // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith(
-        "Warning: Failed prop type: Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left\n    in Tabs"
+      expect(console.error.mock.calls[0][2]).toBe(
+        "Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left"
       );
+
+      consoleSpy.mockRestore();
     });
   });
 

@@ -153,19 +153,20 @@ describe("Grid", () => {
     });
 
     it("validates the incorrect children prop", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
       enzymeMount(
         <GridContainer>
           <p>invalid children</p>
         </GridContainer>
       );
 
-      const expected =
-        "Warning: Failed prop type: `GridContainer` only accepts children of" +
-        " type `GridItem`.\n    in GridContainer";
-
-      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
-      global.console.error.mockReset();
+      // eslint-disable-line no-console
+      expect(console.error.mock.calls[0][2]).toBe(
+        "`GridContainer` only accepts children of type `GridItem`."
+      );
+      consoleSpy.mockRestore();
     });
 
     it("is a valid proptype if children is only one GridItem", () => {
