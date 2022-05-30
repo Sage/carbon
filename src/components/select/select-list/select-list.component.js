@@ -319,7 +319,7 @@ const SelectList = React.forwardRef(
       }
 
       setListHeight(`${newHeight}px`);
-    }, [children, listRef.current]);
+    }, [children]);
 
     useEffect(() => {
       const keyboardEvent = "keydown";
@@ -490,7 +490,7 @@ SelectList.propTypes = {
   id: PropTypes.string,
   /** The Id of the label */
   labelId: PropTypes.string,
-  /** Child components (such as <Option>) for the <ScrollableList> */
+  /** Child components (such as <Option>) */
   children: PropTypes.node,
   /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
   disablePortal: PropTypes.bool,
