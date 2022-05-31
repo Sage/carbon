@@ -1,6 +1,6 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 
 import {
   simulate,
@@ -24,12 +24,16 @@ import {
 import AccordionGroup from "./accordion-group/accordion-group.component";
 import ValidationIcon from "../../__internal__/validations";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
+import { AccordionProps } from "./accordion.component";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
+type iconAlign = "left" | "right" | undefined;
+
+const mockedUseResizeObserver = useResizeObserver as jest.Mock<() => void>;
 
 const contentHeight = 200;
 
-const isExpanded = (wrapper) => {
+function expectIsExpanded(wrapper: ReactWrapper) {
   assertStyleMatch(
     {
       transform: undefined,
@@ -44,9 +48,9 @@ const isExpanded = (wrapper) => {
     },
     wrapper.find(StyledAccordionContentContainer)
   );
-};
+}
 
-const isCollapsed = (wrapper) => {
+function expectIsCollapsed(wrapper: ReactWrapper) {
   assertStyleMatch(
     {
       transform: "rotate(90deg)",
@@ -61,18 +65,21 @@ const isCollapsed = (wrapper) => {
     },
     wrapper.find(StyledAccordionContentContainer)
   );
-};
+}
 
 testStyledSystemSpacing(
-  (props) => <Accordion title="foo" {...props} />,
+  (props) => <Accordion {...props} title="foo" />,
   {},
-  (wrapper) => wrapper.find(StyledAccordionContainer)
+  (wrapper: ReactWrapper) => wrapper.find(StyledAccordionContainer)
 );
 
 describe("Accordion", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
-  const render = (props) => {
+  const render = (
+    props?: Pick<Partial<AccordionProps>, "title"> &
+      Omit<AccordionProps, "title">
+  ) => {
     wrapper = mount(<Accordion title="Title" {...props} />);
     jest
       .spyOn(
@@ -107,7 +114,7 @@ describe("Accordion", () => {
     });
   });
 
-  describe(" with headerSpacing prop", () => {
+  describe("with headerSpacing prop", () => {
     it("should apply correct padding", () => {
       render({ headerSpacing: { p: 3 } });
 
@@ -124,12 +131,12 @@ describe("Accordion", () => {
     it("mounts expanded when expanded prop is passed as true", () => {
       act(() => render({ expanded: true }));
       wrapper.update();
-      isExpanded(wrapper);
+      expectIsExpanded(wrapper);
     });
 
     it("mounts collapsed when expanded prop is passed as false", () => {
       render({ expanded: false });
-      isCollapsed(wrapper);
+      expectIsCollapsed(wrapper);
     });
 
     it("fires provided onChange prop when clicked on the header area", () => {
@@ -159,20 +166,20 @@ describe("Accordion", () => {
     it("mounts expanded when defaultExpanded prop is passed as true", () => {
       act(() => render({ defaultExpanded: true }));
       wrapper.update();
-      isExpanded(wrapper);
+      expectIsExpanded(wrapper);
     });
 
     it("mounts collapsed when defaultExpanded prop is not passed at all", () => {
-      isCollapsed(wrapper);
+      expectIsCollapsed(wrapper);
     });
 
     it("toggles expansion state when clicking on the header area", () => {
       act(() => wrapper.find(StyledAccordionTitleContainer).prop("onClick")());
       wrapper.update();
-      isExpanded(wrapper);
+      expectIsExpanded(wrapper);
       act(() => wrapper.find(StyledAccordionTitleContainer).prop("onClick")());
       wrapper.update();
-      isCollapsed(wrapper);
+      expectIsCollapsed(wrapper);
     });
 
     it.each([
@@ -187,14 +194,14 @@ describe("Accordion", () => {
           })
         );
         wrapper.update();
-        isExpanded(wrapper);
+        expectIsExpanded(wrapper);
         act(() =>
           wrapper.find(StyledAccordionTitleContainer).prop("onKeyDown")({
             which: keyCode,
           })
         );
         wrapper.update();
-        isCollapsed(wrapper);
+        expectIsCollapsed(wrapper);
       }
     );
 
@@ -205,14 +212,14 @@ describe("Accordion", () => {
         })
       );
       wrapper.update();
-      isCollapsed(wrapper);
+      expectIsCollapsed(wrapper);
     });
 
     describe("resize observer", () => {
       it("recalculates the content height", () => {
         act(() => render({ expanded: true }));
         wrapper.update();
-        isExpanded(wrapper);
+        expectIsExpanded(wrapper);
 
         assertStyleMatch(
           {
@@ -232,11 +239,15 @@ describe("Accordion", () => {
           .mockImplementation(() => newContentHeight);
 
         act(() => {
+          // eslint-disable-next-line
+          // @ts-ignore:next-line jest provided property
           global.innerWidth = 500;
+          // eslint-disable-next-line
+          // @ts-ignore:next-line jest provided property
           global.innerHeight = 500;
 
-          useResizeObserver.mock.calls[
-            useResizeObserver.mock.calls.length - 1
+          mockedUseResizeObserver.mock.calls[
+            mockedUseResizeObserver.mock.calls.length - 1
           ][1]();
         });
         wrapper.update();
@@ -497,7 +508,11 @@ describe("Accordion", () => {
       "should set the icon position of the button correctly",
       (iconPosition, marginValue) => {
         wrapper = mount(
-          <Accordion title="Title" buttonHeading iconAlign={iconPosition} />
+          <Accordion
+            title="Title"
+            buttonHeading
+            iconAlign={iconPosition as iconAlign}
+          />
         ).find(StyledAccordionTitleContainer);
 
         assertStyleMatch(
@@ -568,9 +583,7 @@ describe("Accordion", () => {
 
   describe("props", () => {
     it("passes data-role attribute to the root element of component", () => {
-      render({
-        "data-role": "role",
-      });
+      wrapper = mount(<Accordion title="Title" data-role="role" />);
 
       expect(wrapper.find(StyledAccordionContainer).props()["data-role"]).toBe(
         "role"
@@ -580,8 +593,8 @@ describe("Accordion", () => {
 });
 
 describe("AccordionGroup", () => {
-  let wrapper;
-  let container;
+  let wrapper: ReactWrapper;
+  let container: HTMLElement | null;
 
   const renderAttached = () => {
     wrapper = mount(
@@ -695,21 +708,32 @@ describe("AccordionGroup", () => {
     }
   );
 
-  it("validates the incorrect children prop", () => {
-    jest.spyOn(global.console, "error").mockImplementation(() => {});
+  describe("when the incorrect children are passed", () => {
+    let mockGlobal: jest.SpyInstance;
     const InvalidComponent = React.forwardRef(() => <div />);
-    mount(
-      <AccordionGroup>
-        <InvalidComponent />
-        <InvalidComponent />
-      </AccordionGroup>
-    );
 
-    const expected =
-      "Warning: Failed prop type: `AccordionGroup` only accepts children of" +
-      " type `Accordion`.\n    in AccordionGroup";
+    InvalidComponent.displayName = "invalid component";
 
-    expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+    beforeEach(() => {
+      mockGlobal = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => undefined);
+    });
+
+    afterEach(() => {
+      mockGlobal.mockReset();
+    });
+
+    it("then an error should be thrown", () => {
+      expect(() => {
+        mount(
+          <AccordionGroup>
+            <InvalidComponent />
+            <InvalidComponent />
+          </AccordionGroup>
+        );
+      }).toThrow("AccordionGroup accepts only children of type `Accordion`.");
+    });
   });
 
   it("accepts empty children", () => {

@@ -9,7 +9,18 @@ const StyledAccordionGroup = styled.div`
   ${margin}
 `;
 
-const StyledAccordionContainer = styled.div`
+export interface StyledAccordionContainerProps {
+  /** Toggles left and right borders */
+  borders?: "default" | "full" | "none";
+  /** Renders the accordion heading in the style of a tertiary button */
+  buttonHeading?: boolean;
+  /** Sets background as white or transparent */
+  scheme?: "white" | "transparent";
+  /** Sets accordion width */
+  width?: string;
+}
+
+const StyledAccordionContainer = styled.div<StyledAccordionContainerProps>`
   ${space}
   display: flex;
   align-items: ${({ buttonHeading }) =>
@@ -43,7 +54,11 @@ const StyledAccordionContainer = styled.div`
   }
 `;
 
-const StyledAccordionTitle = styled.h3`
+interface StyledAccordionTitleProps {
+  size?: "large" | "small";
+}
+
+const StyledAccordionTitle = styled.h3<StyledAccordionTitleProps>`
   font-size: ${({ size }) => (size === "small" ? "14" : "20")}px;
   font-weight: ${({ size }) => (size === "small" ? 700 : 900)};
   line-height: 1;
@@ -55,7 +70,12 @@ const StyledAccordionSubTitle = styled.span`
   margin-top: 8px;
 `;
 
-const StyledAccordionIcon = styled(Icon)`
+interface StyledAccordionIconProps {
+  isExpanded?: boolean;
+  iconAlign?: "left" | "right";
+}
+
+const StyledAccordionIcon = styled(Icon)<StyledAccordionIconProps>`
   transition: transform 0.3s;
   margin-right: ${({ iconAlign }) =>
     iconAlign === "left" ? "var(--spacing200)" : "var(--spacing000)"};
@@ -70,7 +90,12 @@ const StyledAccordionIcon = styled(Icon)`
   color: var(--colorsActionMinor500);
 `;
 
-const StyledAccordionHeadingsContainer = styled.div`
+interface StyledAccordionHeadingsContainerProps {
+  buttonHeading?: boolean;
+  hasValidationIcon?: boolean;
+}
+
+const StyledAccordionHeadingsContainer = styled.div<StyledAccordionHeadingsContainerProps>`
   ${({ buttonHeading, hasValidationIcon }) =>
     !buttonHeading &&
     css`
@@ -97,7 +122,15 @@ const StyledAccordionHeadingsContainer = styled.div`
     `}
 `;
 
-const StyledAccordionTitleContainer = styled.div`
+interface StyledAccordionTitleContainerProps {
+  buttonHeading?: boolean;
+  buttonWidth?: number;
+  hasButtonProps?: boolean;
+  iconAlign?: "left" | "right";
+  size?: "large" | "small";
+}
+
+const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerProps>`
   ${({ buttonHeading, buttonWidth, iconAlign, size, hasButtonProps }) => css`
     padding: ${size === "small" ? "var(--spacing200)" : "var(--spacing300)"};
     ${space}
@@ -166,7 +199,12 @@ const StyledAccordionTitleContainer = styled.div`
   `}
 `;
 
-const StyledAccordionContentContainer = styled.div`
+export interface StyledAccordionContentContainerProps {
+  isExpanded?: boolean;
+  maxHeight?: string | number;
+}
+
+const StyledAccordionContentContainer = styled.div<StyledAccordionContentContainerProps>`
   flex-grow: 1;
   box-sizing: border-box;
   overflow: hidden;
@@ -182,7 +220,11 @@ const StyledAccordionContentContainer = styled.div`
   `}
 `;
 
-const StyledAccordionContent = styled.div`
+export interface StyledAccordionContentProps {
+  disableContentPadding?: boolean;
+}
+
+const StyledAccordionContent = styled.div<StyledAccordionContentProps>`
   padding: var(--spacing300);
   padding-top: 0;
   overflow: hidden;
