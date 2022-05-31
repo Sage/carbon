@@ -28,14 +28,6 @@ const Events = {
   },
 
   /**
-   * Determines if the key pressed is a alphabet key
-   * Case insensitive
-   * */
-  isAlphabetKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which !== undefined && ev.which >= 65 && ev.which <= 90;
-  },
-
-  /**
    * Determines if the key pressed is a navigation left key
    * */
   isLeftKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {

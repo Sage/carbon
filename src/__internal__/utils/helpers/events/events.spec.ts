@@ -77,16 +77,6 @@ describe("Events", () => {
     );
   });
 
-  describe("isAlphabet", () => {
-    it("returns false when a non alphabet key is pressed", () => {
-      expect(Events.isAlphabetKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
-    });
-
-    it("returns true when a alphabet is pressed", () => {
-      expect(Events.isAlphabetKey({ which: 66 } as KeyboardEvent)).toBeTruthy();
-    });
-  });
-
   describe("isLeftKey", () => {
     it("returns false when the left key is not pressed", () => {
       expect(Events.isLeftKey({ which: 8 } as KeyboardEvent)).toBeFalsy();

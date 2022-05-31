@@ -770,9 +770,15 @@ describe("ActionPopover", () => {
         simulate.keydown.pressZ(items.at(0));
         jest.runAllTimers();
         expect(items.at(0)).toBeFocused();
+      });
 
-        // does nothing when a number key is pressed
-        simulate.keydown.press1(items.at(0));
+      it("does nothing when a non printable character key is pressed", () => {
+        render();
+        openMenu();
+
+        const { items } = getElements();
+
+        items.at(0).simulate("keydown", { key: "F1" });
         jest.runAllTimers();
         expect(items.at(0)).toBeFocused();
       });
