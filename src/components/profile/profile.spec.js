@@ -6,7 +6,6 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../__internal__/utils/helpers/tags/tags-specs";
-import Browser from "../../__internal__/utils/helpers/browser";
 import {
   ProfileNameStyle,
   ProfileEmailStyle,
@@ -21,31 +20,6 @@ import {
 
 describe("Profile", () => {
   let instance;
-  const fillRectFn = jest.fn();
-  const fillTextFn = jest.fn();
-
-  beforeAll(() => {
-    spyOn(Browser, "getDocument").and.returnValue({
-      createElement: () => {
-        return {
-          getContext: () => {
-            return {
-              font: null,
-              textAlign: null,
-              fillStyle: null,
-              fillRect: fillRectFn,
-              fillText: fillTextFn,
-            };
-          },
-          width: 10,
-          height: 10,
-          toDataURL: () => {
-            return "data:image/png";
-          },
-        };
-      },
-    });
-  });
 
   describe("render", () => {
     beforeEach(() => {
