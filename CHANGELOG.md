@@ -1,3 +1,10 @@
+### [106.6.7](https://github.com/Sage/carbon/compare/v106.6.6...v106.6.7) (2022-05-31)
+
+
+### Bug Fixes
+
+* **menu:** change passive menu item background color ([a05a3ad](https://github.com/Sage/carbon/commit/a05a3add1b854a1dca4a6fcf19c1df0ce78a3efb)), closes [#5064](https://github.com/Sage/carbon/issues/5064)
+
 ### [106.6.6](https://github.com/Sage/carbon/compare/v106.6.5...v106.6.6) (2022-05-24)
 
 
