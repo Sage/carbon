@@ -166,26 +166,6 @@ describe("NavigationBar", () => {
     );
   });
 
-  it.each<[Orientation, string | undefined]>([
-    ["top", undefined],
-    ["top", "10px"],
-    ["bottom", undefined],
-    ["bottom", "10px"],
-  ])("should set correct sticky offset", (position, offset) => {
-    wrapper = mount(
-      <NavigationBar stickyPosition={position} stickyOffset={offset}>
-        <div>test content</div>
-      </NavigationBar>
-    );
-    assertStyleMatch(
-      {
-        position: "sticky",
-        [position]: offset || "0",
-      },
-      wrapper
-    );
-  });
-
   it.each<[Position, Orientation, string | undefined]>([
     ["sticky", "top", undefined],
     ["fixed", "top", undefined],
