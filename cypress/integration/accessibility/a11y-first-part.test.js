@@ -1,3 +1,3 @@
 import tests from "../../support/accessibility/a11y-utils";
 
-tests(0, 150);
+tests(0, 75);
