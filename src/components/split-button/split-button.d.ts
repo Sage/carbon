@@ -6,8 +6,6 @@ export interface SplitButtonProps
     MarginProps {
   /** Set align of the rendered content */
   align?: "left" | "right";
-  /** Button type: "primary" | "secondary" for legacy theme */
-  as?: "primary" | "secondary";
   /** Button type: "primary" | "secondary" */
   buttonType?: "primary" | "secondary";
   /** The additional button to display. */
