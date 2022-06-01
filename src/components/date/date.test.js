@@ -45,11 +45,14 @@ import { verifyRequiredAsterisk } from "../../../cypress/support/component-helpe
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 const DAY_PICKER_PREFIX = "DayPicker-Day--";
-const TODAY_CALENDAR = Cypress.dayjs().format("ddd D MMM YYYY");
+const TODAY = Cypress.dayjs().format("ddd D MMM YYYY");
+const DATE_INPUT = Cypress.dayjs("2022-05-01").format("DD/MM/YYYY");
 const TODAY_DATE_INPUT = Cypress.dayjs().format("DD/MM/YYYY");
-const NEXT_MONTH = Cypress.dayjs().add(1, "months").format("MMMM YYYY");
-const ACTUAL_MONTH = Cypress.dayjs().format("MMMM YYYY");
-const PREVIOUS_MONTH = Cypress.dayjs()
+const NEXT_MONTH = Cypress.dayjs("2022-05-01")
+  .add(1, "months")
+  .format("MMMM YYYY");
+const ACTUAL_MONTH = Cypress.dayjs("2022-05-01").format("MMMM YYYY");
+const PREVIOUS_MONTH = Cypress.dayjs("2022-05-01")
   .subtract(1, "months")
   .format("MMMM YYYY");
 const MIN_DATE = "04/04/2030";
@@ -158,13 +161,13 @@ context("Test for DateInput component", () => {
 
       dateInput().clear().type(TODAY_DATE_INPUT);
 
-      dayPickerDay(TODAY_CALENDAR)
+      dayPickerDay(TODAY)
         .should("have.attr", "aria-label")
-        .and("contains", TODAY_CALENDAR);
-      dayPickerDay(TODAY_CALENDAR)
+        .and("contains", TODAY);
+      dayPickerDay(TODAY)
         .should("have.attr", "class")
         .and("contains", `${DAY_PICKER_PREFIX}today`);
-      dayPickerDay(TODAY_CALENDAR)
+      dayPickerDay(TODAY)
         .should("have.attr", "class")
         .and("contains", `${DAY_PICKER_PREFIX}selected`);
     });
@@ -223,7 +226,7 @@ context("Test for DateInput component", () => {
       (arrow, month) => {
         CypressMountWithProviders(<DateInputCustom />);
 
-        dateInput().clear().type(TODAY_DATE_INPUT);
+        dateInput().clear().type(DATE_INPUT);
         dateInputParent().click();
 
         getDataElementByValue(arrow).click();
@@ -246,7 +249,7 @@ context("Test for DateInput component", () => {
       (arrow, month, key) => {
         CypressMountWithProviders(<DateInputCustom />);
 
-        dateInput().clear().type(TODAY_DATE_INPUT);
+        dateInput().clear().type(DATE_INPUT);
         dateInputParent().click();
 
         dayPickerWrapper().focus();

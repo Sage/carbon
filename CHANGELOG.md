@@ -1,3 +1,10 @@
+### [106.6.8](https://github.com/Sage/carbon/compare/v106.6.7...v106.6.8) (2022-06-01)
+
+
+### Bug Fixes
+
+* **decimal:** ensure that value prop is reliably displayed ([5130b96](https://github.com/Sage/carbon/commit/5130b96e7f5f7cac18962c7c6f4ecd60f89e014c))
+
 ### [106.6.7](https://github.com/Sage/carbon/compare/v106.6.6...v106.6.7) (2022-05-31)
 
 
