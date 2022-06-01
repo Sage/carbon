@@ -16,6 +16,8 @@ export interface DatePickerProps extends Pick<DayPickerProps, "onDayClick"> {
   selectedDays?: Date;
   /** Callback to handle mousedown event on picker container */
   pickerMouseDown?: () => void;
+  /** Sets whether the picker should be displayed */
+  open?: boolean;
 }
 
 declare function DatePicker(
