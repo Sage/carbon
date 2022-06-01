@@ -96,7 +96,9 @@ context("Tests for Decimal component", () => {
       (precision, inputValue, outputValue) => {
         CypressMountWithProviders(<Decimal precision={precision} />);
 
-        commonDataElementInputPreview().type(inputValue).blur({ force: true });
+        commonDataElementInputPreview()
+          .type(inputValue, { delay: 0 })
+          .blur({ force: true });
         commonDataElementInputPreview().should("have.value", outputValue);
       }
     );
@@ -127,7 +129,9 @@ context("Tests for Decimal component", () => {
       (locale, inputValue, outputValue) => {
         CypressMountWithProviders(<Decimal locale={locale} precision={3} />);
 
-        commonDataElementInputPreview().type(inputValue).blur({ force: true });
+        commonDataElementInputPreview()
+          .type(inputValue, { delay: 0 })
+          .blur({ force: true });
         commonDataElementInputPreview()
           .invoke("val")
           .then(($el) => {
