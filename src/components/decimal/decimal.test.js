@@ -255,6 +255,26 @@ context("Tests for Decimal component", () => {
         });
     });
 
+    it("can have a custom onChange handler", () => {
+      const CustomDecimalComponent = ({ onChange, value, ...props }) => {
+        const [state, setState] = React.useState("0.01");
+        const handleChange = ({ target }) => {
+          let newValue = target.value.rawValue;
+          if (newValue.startsWith("22.22")) newValue = "22.22";
+          setState(newValue);
+        };
+
+        return <Decimal onChange={handleChange} value={state} {...props} />;
+      };
+
+      CypressMountWithProviders(<CustomDecimalComponent />);
+
+      commonDataElementInputPreview().type("22.222");
+      expect(
+        commonDataElementInputPreview().should("have.attr", "value", "22.22")
+      );
+    });
+
     it("should call onBlur callback when a blur event is triggered", () => {
       CypressMountWithProviders(<Decimal onBlur={callback} />);
 
