@@ -131,8 +131,7 @@ const StyledMenuItemWrapper = styled.a`
     css`
       a,
       button {
-        background-color: ${menuConfigVariants[menuType]
-          .submenuOpenedBackground};
+        background-color: ${menuConfigVariants[menuType].submenuItemBackground};
         color: ${menuConfigVariants[menuType].color};
       }
     `} 
@@ -160,13 +159,17 @@ const StyledMenuItemWrapper = styled.a`
 
       a:hover,
       button:hover {
+        background-color: ${menuConfigVariants[menuType]
+          .submenuOpenedBackground};
+        color: var(--colorsComponentsMenuYang100);
+
         ${!(href || clickToOpen) &&
         css`
           cursor: default;
+          background-color: ${menuConfigVariants[menuType]
+            .submenuItemBackground};
+          color: ${menuConfigVariants[menuType].color};
         `}
-        background-color: ${menuConfigVariants[menuType]
-          .submenuOpenedBackground};
-        color: ${menuConfigVariants[menuType].color};
 
         [data-component="icon"] {
           color: ${menuConfigVariants[menuType].color};

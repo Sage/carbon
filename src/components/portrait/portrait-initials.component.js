@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import tokens from "@sage/design-tokens/js/base/common";
 
-import Browser from "../../__internal__/utils/helpers/browser";
 import {
   StyledPortraitInitials,
   StyledPortraitInitialsImg,
@@ -31,7 +30,7 @@ const PortraitInitials = ({
 
     const { textColor, bgColor } = getColorsForInitials(darkBackground);
 
-    let canvas = Browser.getDocument().createElement("canvas");
+    let canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
 
     let { dimensions } = PORTRAIT_SIZE_PARAMS[size];
