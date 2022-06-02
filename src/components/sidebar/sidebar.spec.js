@@ -141,13 +141,13 @@ describe("Sidebar", () => {
 
     it("closes when close icon is focused and Enter key is pressed", () => {
       const icon = wrapper.find(IconButton).first();
-      icon.simulate("keyDown", { which: 13, key: "Enter" });
+      icon.simulate("keyDown", { key: "Enter" });
       expect(spy).toHaveBeenCalled();
     });
 
     it("does not close when close icon is focused any other key is pressed", () => {
       const icon = wrapper.find(IconButton).first();
-      icon.simulate("keyDown", { which: 65, key: "a" });
+      icon.simulate("keyDown", { key: "a" });
       expect(spy).not.toHaveBeenCalled();
     });
   });

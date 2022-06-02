@@ -34,7 +34,7 @@ describe("Events", () => {
           expect(
             Events.isEnterOrSpaceKey({
               type: "keyup",
-              which: 8,
+              key: "Backspace",
             } as KeyboardEvent)
           ).toBeFalsy();
         });
@@ -45,7 +45,7 @@ describe("Events", () => {
           expect(
             Events.isEnterOrSpaceKey({
               type: "keyup",
-              which: 13,
+              key: "Enter",
             } as KeyboardEvent)
           ).toBeTruthy();
         });
@@ -56,7 +56,7 @@ describe("Events", () => {
           expect(
             Events.isEnterOrSpaceKey({
               type: "keyup",
-              which: 32,
+              key: " ",
             } as KeyboardEvent)
           ).toBeTruthy();
         });
@@ -79,111 +79,131 @@ describe("Events", () => {
 
   describe("isLeftKey", () => {
     it("returns false when the left key is not pressed", () => {
-      expect(Events.isLeftKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
+      expect(
+        Events.isLeftKey({ key: "Backspace" } as KeyboardEvent)
+      ).toBeFalsy();
     });
 
     it("returns true when the left key is pressed", () => {
-      expect(Events.isLeftKey({ which: 37 } as KeyboardEvent)).toBeTruthy();
+      expect(
+        Events.isLeftKey({ key: "ArrowLeft" } as KeyboardEvent)
+      ).toBeTruthy();
     });
   });
 
   describe("isUpKey", () => {
     it("returns false when the up key is not pressed", () => {
-      expect(Events.isUpKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
+      expect(Events.isUpKey({ key: "Backspace" } as KeyboardEvent)).toBeFalsy();
     });
 
     it("returns true when the up key is pressed", () => {
-      expect(Events.isUpKey({ which: 38 } as KeyboardEvent)).toBeTruthy();
+      expect(Events.isUpKey({ key: "ArrowUp" } as KeyboardEvent)).toBeTruthy();
     });
   });
 
   describe("isRightKey", () => {
     it("returns false when the right key is not pressed", () => {
-      expect(Events.isRightKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
+      expect(
+        Events.isRightKey({ key: "Backspace" } as KeyboardEvent)
+      ).toBeFalsy();
     });
 
     it("returns true when the right key is pressed", () => {
-      expect(Events.isRightKey({ which: 39 } as KeyboardEvent)).toBeTruthy();
+      expect(
+        Events.isRightKey({ key: "ArrowRight" } as KeyboardEvent)
+      ).toBeTruthy();
     });
   });
 
   describe("isDownKey", () => {
     it("returns false when the down key is not pressed", () => {
-      expect(Events.isDownKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
+      expect(
+        Events.isDownKey({ key: "Backspace" } as KeyboardEvent)
+      ).toBeFalsy();
     });
 
     it("returns true when the down key is pressed", () => {
-      expect(Events.isDownKey({ which: 40 } as KeyboardEvent)).toBeTruthy();
+      expect(
+        Events.isDownKey({ key: "ArrowDown" } as KeyboardEvent)
+      ).toBeTruthy();
     });
   });
 
   describe("isEscKey", () => {
     it("returns false when the ESC key is not pressed", () => {
-      expect(Events.isEscKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
+      expect(
+        Events.isEscKey({ key: "Backspace" } as KeyboardEvent)
+      ).toBeFalsy();
     });
 
     it("returns true when the ESC key is pressed", () => {
-      expect(Events.isEscKey({ which: 27 } as KeyboardEvent)).toBeTruthy();
+      expect(Events.isEscKey({ key: "Escape" } as KeyboardEvent)).toBeTruthy();
     });
   });
 
   describe("isEnterKey", () => {
     it("returns false when the Enter key is not pressed", () => {
-      expect(Events.isEnterKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
+      expect(
+        Events.isEnterKey({ key: "Backspace" } as KeyboardEvent)
+      ).toBeFalsy();
     });
 
     it("returns true when the Enter key is pressed", () => {
-      expect(Events.isEnterKey({ which: 13 } as KeyboardEvent)).toBeTruthy();
+      expect(Events.isEnterKey({ key: "Enter" } as KeyboardEvent)).toBeTruthy();
     });
   });
 
   describe("isTabKey", () => {
     it("returns false when the Tab key is not pressed", () => {
-      expect(Events.isTabKey({ which: 8 } as KeyboardEvent)).toBeFalsy();
+      expect(
+        Events.isTabKey({ key: "Backspace" } as KeyboardEvent)
+      ).toBeFalsy();
     });
 
     it("returns true when the Tab key is pressed", () => {
-      expect(Events.isTabKey({ which: 9 } as KeyboardEvent)).toBeTruthy();
+      expect(Events.isTabKey({ key: "Tab" } as KeyboardEvent)).toBeTruthy();
     });
   });
 
   describe("isShiftKey", () => {
     it("returns false when a Shift key is not pressed", () => {
-      expect(Events.isShiftKey({ which: 9 } as KeyboardEvent)).toBeFalsy();
+      expect(Events.isShiftKey({ key: "Tab" } as KeyboardEvent)).toBeFalsy();
     });
 
     it("returns true when the Shift key is pressed", () => {
-      expect(Events.isShiftKey({ which: 16 } as KeyboardEvent)).toBeTruthy();
+      expect(
+        Events.isShiftKey({ shiftKey: true } as KeyboardEvent)
+      ).toBeTruthy();
     });
   });
 
   describe("isSpaceKey", () => {
     it("returns false when a Space key is not pressed", () => {
-      expect(Events.isSpaceKey({ which: 9 } as KeyboardEvent)).toBeFalsy();
+      expect(Events.isSpaceKey({ key: "Tab" } as KeyboardEvent)).toBeFalsy();
     });
 
     it("returns true when the Space key is pressed", () => {
-      expect(Events.isSpaceKey({ which: 32 } as KeyboardEvent)).toBeTruthy();
+      expect(Events.isSpaceKey({ key: " " } as KeyboardEvent)).toBeTruthy();
     });
   });
 
   describe("isHomeKey", () => {
     it("returns false when the home key is not pressed", () => {
-      expect(Events.isHomeKey({ which: 190 } as KeyboardEvent)).toBeFalsy();
+      expect(Events.isHomeKey({ key: "End" } as KeyboardEvent)).toBeFalsy();
     });
 
     it("returns true when the home key is pressed", () => {
-      expect(Events.isHomeKey({ which: 36 } as KeyboardEvent)).toBeTruthy();
+      expect(Events.isHomeKey({ key: "Home" } as KeyboardEvent)).toBeTruthy();
     });
   });
 
   describe("isEndKey", () => {
     it("returns false when the end key is not pressed", () => {
-      expect(Events.isEndKey({ which: 190 } as KeyboardEvent)).toBeFalsy();
+      expect(Events.isEndKey({ key: "Home" } as KeyboardEvent)).toBeFalsy();
     });
 
     it("returns true when the end key is pressed", () => {
-      expect(Events.isEndKey({ which: 35 } as KeyboardEvent)).toBeTruthy();
+      expect(Events.isEndKey({ key: "End" } as KeyboardEvent)).toBeTruthy();
     });
   });
 

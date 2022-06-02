@@ -470,7 +470,7 @@ describe("Tabs", () => {
         (index) => {
           const wrapper = render();
           act(() => {
-            simulate.keydown.pressRightArrow(wrapper.find(TabTitle).at(index));
+            simulate.keydown.pressArrowRight(wrapper.find(TabTitle).at(index));
           });
           wrapper.update();
           const newIndex = index === 2 ? 0 : index + 1;
@@ -485,7 +485,7 @@ describe("Tabs", () => {
         (index) => {
           const wrapper = render();
           act(() => {
-            simulate.keydown.pressLeftArrow(wrapper.find(TabTitle).at(index));
+            simulate.keydown.pressArrowLeft(wrapper.find(TabTitle).at(index));
           });
           wrapper.update();
           const newIndex = index === 0 ? 2 : index - 1;
@@ -502,7 +502,7 @@ describe("Tabs", () => {
         (index) => {
           const wrapper = render({ position: "left" });
           act(() => {
-            simulate.keydown.pressDownArrow(wrapper.find(TabTitle).at(index));
+            simulate.keydown.pressArrowDown(wrapper.find(TabTitle).at(index));
           });
           wrapper.update();
           const newIndex = index === 2 ? 0 : index + 1;
@@ -517,7 +517,7 @@ describe("Tabs", () => {
         (index) => {
           const wrapper = render({ position: "left" });
           act(() => {
-            simulate.keydown.pressUpArrow(wrapper.find(TabTitle).at(index));
+            simulate.keydown.pressArrowUp(wrapper.find(TabTitle).at(index));
           });
           wrapper.update();
           const newIndex = index === 0 ? 2 : index - 1;
@@ -862,19 +862,19 @@ describe("Tabs", () => {
       it("is consistent when navigating with the arrow keys and the composition of the children changes", () => {
         wrapper.find(StyledTabTitle).first().getDOMNode().focus();
 
-        runFocusExpectations("pressLeftArrow", [0, 2, 1, 0, 2]);
+        runFocusExpectations("pressArrowLeft", [0, 2, 1, 0, 2]);
 
         toggleChildren();
 
         wrapper.find(StyledTabTitle).first().getDOMNode().focus();
 
-        runFocusExpectations("pressLeftArrow", [0, 2, 1, 0, 2]);
+        runFocusExpectations("pressArrowLeft", [0, 2, 1, 0, 2]);
 
         toggleChildren();
 
         wrapper.find(StyledTabTitle).first().getDOMNode().focus();
 
-        runFocusExpectations("pressRightArrow", [0, 1, 2, 0]);
+        runFocusExpectations("pressArrowRight", [0, 1, 2, 0]);
       });
     });
   });

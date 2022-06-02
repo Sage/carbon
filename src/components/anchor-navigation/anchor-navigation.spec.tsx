@@ -166,17 +166,23 @@ describe("AnchorNavigation", () => {
   });
 
   describe.each([
-    ["enter", 13],
-    ["space", 32],
-  ])("when %s key is pressed", (key, keyCode) => {
-    it.each([0, 1, 2, 3, 4])(
-      "when key is pressed on navigation item, viewport scrolls to wanted section",
+    ["Enter", "Enter"],
+    ["Space", " "],
+  ])("%s", (keyName, key) => {
+    it.each([
+      [0, true],
+      [1, true],
+      [2, false],
+      [3, true],
+      [4, true],
+    ])(
+      "pressed on navigation item scrolls to wanted section and focuses its first focusable element",
       (index) => {
         const preventDefault = jest.fn();
         wrapper
           .find(`${StyledNavigationItem} a`)
           .at(index)
-          .simulate("keydown", { preventDefault, which: keyCode });
+          .simulate("keydown", { preventDefault, key });
         act(() => {
           jest.advanceTimersByTime(15);
         });
@@ -194,7 +200,7 @@ describe("AnchorNavigation", () => {
       wrapper
         .find(`${StyledNavigationItem} a`)
         .at(sectionIndex)
-        .simulate("keydown", { preventDefault, which: keyCode });
+        .simulate("keydown", { preventDefault, key });
       act(() => {
         jest.advanceTimersByTime(15);
       });
@@ -215,7 +221,7 @@ describe("AnchorNavigation", () => {
   ])(
     "focuses on the next navigation item in a loop when down arrow is pressed",
     (focused, shouldBeFocused) => {
-      simulate.keydown.pressDownArrow(
+      simulate.keydown.pressArrowDown(
         wrapper.find(`${StyledNavigationItem} a`).at(focused)
       );
       expect(
@@ -234,7 +240,7 @@ describe("AnchorNavigation", () => {
   ])(
     "focuses on the previous navigation item in a loop when up arrow is pressed",
     (focused, shouldBeFocused) => {
-      simulate.keydown.pressUpArrow(
+      simulate.keydown.pressArrowUp(
         wrapper.find(`${StyledNavigationItem} a`).at(focused)
       );
       expect(
@@ -245,7 +251,7 @@ describe("AnchorNavigation", () => {
 
   // coverage filler
   it("does nothing if key other than up, down, tab or space key is pressed", () => {
-    simulate.keydown.pressRightArrow(
+    simulate.keydown.pressArrowRight(
       wrapper.find(`${StyledNavigationItem} a`).at(0)
     );
   });

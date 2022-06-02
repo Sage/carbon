@@ -273,7 +273,7 @@ describe("ActionPopover", () => {
           .find(StyledMenuItem)
           .props()
           .onKeyDown({
-            which: 13,
+            key: "Enter",
             stopPropagation: () => {},
             preventDefault: () => {},
           });
@@ -360,7 +360,7 @@ describe("ActionPopover", () => {
       "Keypress handlers",
       "Pressing Enter",
       (item: ReactWrapper<ActionPopoverItemProps>) =>
-        item.simulate("keydown", { key: "Enter", which: 13 }),
+        item.simulate("keydown", { key: "Enter" }),
     ],
   ])("%s", (group, prefix, mutator) => {
     beforeEach(() => {
@@ -522,7 +522,7 @@ describe("ActionPopover", () => {
 
   describe("Keypress handlers", () => {
     describe("MenuButton", () => {
-      it.each(["DownArrow", "Space", "Enter", "UpArrow"] as const)(
+      it.each(["ArrowDown", "Space", "Enter", "ArrowUp"] as const)(
         "Pressing %s key opens the menu",
         (key) => {
           render();
@@ -536,7 +536,7 @@ describe("ActionPopover", () => {
         }
       );
 
-      it.each(["DownArrow", "Space", "Enter"] as const)(
+      it.each(["ArrowDown", "Space", "Enter"] as const)(
         "Pressing %s key selects the first item",
         (key) => {
           render();
@@ -552,7 +552,7 @@ describe("ActionPopover", () => {
       it("Pressing UpArrow selects the last item", () => {
         render();
         const { menubutton } = getElements();
-        simulate.keydown.pressUpArrow(menubutton);
+        simulate.keydown.pressArrowUp(menubutton);
         jest.runAllTimers();
 
         const { items } = getElements();
@@ -589,7 +589,7 @@ describe("ActionPopover", () => {
       ])("Pressing %s key closes the menu", (key, mutator) => {
         render();
         const { menubutton } = getElements();
-        simulate.keydown.pressDownArrow(menubutton);
+        simulate.keydown.pressArrowDown(menubutton);
         const { items } = getElements();
 
         mutator(items.first());
@@ -609,7 +609,7 @@ describe("ActionPopover", () => {
       it("Pressing Escape focuses the MenuButton", () => {
         render();
         const { menubutton, buttonIcon } = getElements();
-        simulate.keydown.pressDownArrow(menubutton);
+        simulate.keydown.pressArrowDown(menubutton);
 
         const { items } = getElements();
 
@@ -624,20 +624,20 @@ describe("ActionPopover", () => {
           "next",
           "",
           (items: ReactWrapper<ActionPopoverItemProps>) => {
-            simulate.keydown.pressDownArrow(items.first());
+            simulate.keydown.pressArrowDown(items.first());
             jest.runAllTimers();
             expect(items.at(1)).toBeFocused();
 
-            simulate.keydown.pressDownArrow(items.at(1));
+            simulate.keydown.pressArrowDown(items.at(1));
             jest.runAllTimers();
             expect(items.at(2)).toBeFocused();
             jest.runAllTimers();
 
-            simulate.keydown.pressDownArrow(items.at(2));
+            simulate.keydown.pressArrowDown(items.at(2));
             jest.runAllTimers();
             expect(items.at(3)).toBeFocused();
 
-            simulate.keydown.pressDownArrow(items.at(3));
+            simulate.keydown.pressArrowDown(items.at(3));
             jest.runAllTimers();
             expect(items.at(0)).toBeFocused();
             // we're checking that we can focus the disabled item, this is intentional behaviour
@@ -656,7 +656,7 @@ describe("ActionPopover", () => {
             jest.runAllTimers();
             expect(items.last()).toBeFocused();
 
-            simulate.keydown.pressDownArrow(items.last());
+            simulate.keydown.pressArrowDown(items.last());
             jest.runAllTimers();
             expect(items.first()).toBeFocused();
           },
@@ -666,21 +666,21 @@ describe("ActionPopover", () => {
           "previous",
           "",
           (items: ReactWrapper<ActionPopoverItemProps>) => {
-            simulate.keydown.pressDownArrow(items.first());
-            simulate.keydown.pressDownArrow(items.at(1));
-            simulate.keydown.pressDownArrow(items.at(2));
+            simulate.keydown.pressArrowDown(items.first());
+            simulate.keydown.pressArrowDown(items.at(1));
+            simulate.keydown.pressArrowDown(items.at(2));
 
-            simulate.keydown.pressUpArrow(items.at(3));
+            simulate.keydown.pressArrowUp(items.at(3));
             jest.runAllTimers();
 
             expect(items.at(2)).toBeFocused();
 
-            simulate.keydown.pressUpArrow(items.at(2));
+            simulate.keydown.pressArrowUp(items.at(2));
             jest.runAllTimers();
 
             expect(items.at(1)).toBeFocused();
 
-            simulate.keydown.pressUpArrow(items.at(1));
+            simulate.keydown.pressArrowUp(items.at(1));
             jest.runAllTimers();
             expect(items.first()).toBeFocused();
           },
@@ -690,7 +690,7 @@ describe("ActionPopover", () => {
           "last",
           "if the focus is on the first item",
           (items: ReactWrapper<ActionPopoverItemProps>) => {
-            simulate.keydown.pressUpArrow(items.first());
+            simulate.keydown.pressArrowUp(items.first());
             jest.runAllTimers();
             expect(items.last()).toBeFocused();
           },
@@ -700,7 +700,7 @@ describe("ActionPopover", () => {
           "first",
           "",
           (items: ReactWrapper<ActionPopoverItemProps>) => {
-            simulate.keydown.pressDownArrow(items.first());
+            simulate.keydown.pressArrowDown(items.first());
 
             simulate.keydown.pressHome(items.at(1));
 
@@ -902,7 +902,7 @@ describe("ActionPopover", () => {
         const { items } = getElements();
         const item = items.at(1);
         act(() => {
-          simulate.keydown.pressLeftArrow(item);
+          simulate.keydown.pressArrowLeft(item);
         });
         jest.runAllTimers();
         act(() => {
@@ -921,11 +921,11 @@ describe("ActionPopover", () => {
         const { items } = getElements();
         const item = items.at(1);
         act(() => {
-          simulate.keydown.pressLeftArrow(item);
+          simulate.keydown.pressArrowLeft(item);
         });
         jest.runAllTimers();
         act(() => {
-          simulate.keydown.pressRightArrow(item);
+          simulate.keydown.pressArrowRight(item);
         });
         jest.runAllTimers();
         act(() => {
@@ -945,7 +945,7 @@ describe("ActionPopover", () => {
         const { items } = getElements();
         const item = items.at(1);
         act(() => {
-          simulate.keydown.pressLeftArrow(item);
+          simulate.keydown.pressArrowLeft(item);
           jest.runAllTimers();
         });
         act(() => {
@@ -1010,7 +1010,7 @@ describe("ActionPopover", () => {
         const submenu = item.find(ActionPopoverMenu);
         const submenuItem = submenu.find(ActionPopoverItem).at(0);
         act(() => {
-          simulate.keydown.pressLeftArrow(item);
+          simulate.keydown.pressArrowLeft(item);
         });
         act(() => {
           simulate.keydown.pressEscape(submenuItem);
@@ -1103,7 +1103,7 @@ describe("ActionPopover", () => {
         });
 
         act(() => {
-          simulate.keydown.pressLeftArrow(item);
+          simulate.keydown.pressArrowLeft(item);
           jest.runAllTimers();
           expect(item).not.toBeFocused();
         });
@@ -1132,7 +1132,7 @@ describe("ActionPopover", () => {
         });
 
         act(() => {
-          simulate.keydown.pressLeftArrow(item);
+          simulate.keydown.pressArrowLeft(item);
         });
 
         act(() => {
@@ -1224,7 +1224,7 @@ describe("ActionPopover", () => {
         const item = items.at(1);
 
         act(() => {
-          simulate.keydown.pressRightArrow(item);
+          simulate.keydown.pressArrowRight(item);
         });
         jest.runAllTimers();
 
@@ -1244,10 +1244,10 @@ describe("ActionPopover", () => {
         const { items } = getElements();
         const item = items.at(1);
         act(() => {
-          simulate.keydown.pressRightArrow(item);
+          simulate.keydown.pressArrowRight(item);
         });
         act(() => {
-          simulate.keydown.pressLeftArrow(item);
+          simulate.keydown.pressArrowLeft(item);
         });
         act(() => {
           expect(

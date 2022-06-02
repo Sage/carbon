@@ -714,7 +714,6 @@ describe("Button", () => {
         act(() => {
           wrapper.find(StyledButton).at(0).props().onKeyDown({
             key: " ",
-            which: 32,
             preventDefault: preventDefaultSpy,
           });
         });
@@ -732,7 +731,6 @@ describe("Button", () => {
         act(() => {
           wrapper.find(StyledButton).at(0).props().onKeyDown({
             key: "ArrowLeft",
-            which: 37,
             preventDefault: jest.fn(),
           });
         });

@@ -77,15 +77,15 @@ describe("MultiActionButton", () => {
     });
 
     describe.each([
-      ["enter", 13],
-      ["space", 32],
-      ["down", 40],
-    ])("the %s key is pressed", (name, keyCode) => {
+      ["Enter", "Enter"],
+      ["Space", " "],
+      ["ArrowDown", "ArrowDown"],
+    ])("the %s key is pressed", (name, key) => {
       it("then the first additional button should be focused", () => {
         simulateBlur(mainButton);
         wrapper.find(StyledMultiActionButton).simulate("mouseleave");
         wrapper.update();
-        mainButton.simulate("keydown", { which: keyCode });
+        mainButton.simulate("keydown", { key });
         jest.runAllTimers();
 
         const firstButton = wrapper
@@ -97,7 +97,7 @@ describe("MultiActionButton", () => {
       });
 
       it("does not open additional buttons if opened already - coverage", () => {
-        mainButton.simulate("keydown", { which: keyCode });
+        mainButton.simulate("keydown", { key });
         jest.runAllTimers();
       });
     });
@@ -108,15 +108,15 @@ describe("MultiActionButton", () => {
           .find(additionalButtonsSelector)
           .find(ButtonWithForwardRef);
 
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
           document.activeElement
         );
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(additionalButtons.at(1).getDOMNode()).toStrictEqual(
           document.activeElement
         );
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
           document.activeElement
         );
@@ -129,15 +129,15 @@ describe("MultiActionButton", () => {
           .find(additionalButtonsSelector)
           .find(ButtonWithForwardRef);
 
-        keyboard.pressUpArrow();
+        keyboard.pressArrowUp();
         expect(additionalButtons.at(1).getDOMNode()).toStrictEqual(
           document.activeElement
         );
-        keyboard.pressUpArrow();
+        keyboard.pressArrowUp();
         expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
           document.activeElement
         );
-        keyboard.pressUpArrow();
+        keyboard.pressArrowUp();
         expect(additionalButtons.at(1).getDOMNode()).toStrictEqual(
           document.activeElement
         );
@@ -153,7 +153,7 @@ describe("MultiActionButton", () => {
       });
 
       it("does not pass focus to the first additional button", () => {
-        mainButton.simulate("keydown", { which: 9 });
+        mainButton.simulate("keydown", { key: "Tab" });
         const firstButton = wrapper
           .find(additionalButtonsSelector)
           .find(Button)

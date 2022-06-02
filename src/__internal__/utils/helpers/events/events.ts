@@ -31,84 +31,84 @@ const Events = {
    * Determines if the key pressed is a navigation left key
    * */
   isLeftKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which === 37;
+    return ev.key === "ArrowLeft";
   },
 
   /**
    * Determines if the key pressed is a navigation up key
    * */
   isUpKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which === 38;
+    return ev.key === "ArrowUp";
   },
 
   /**
    * Determines if the key pressed is a navigation right key
    * */
   isRightKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which === 39;
+    return ev.key === "ArrowRight";
   },
 
   /**
    * Determines if the key pressed is a navigation down key
    * */
   isDownKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which === 40;
+    return ev.key === "ArrowDown";
   },
 
   /**
    * Determines if the key pressed is the escape key
    * */
   isEscKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which === 27;
+    return ev.key === "Escape";
   },
 
   /**
    * Determines if the key pressed is the enter key
    * */
   isEnterKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which === 13;
+    return ev.key === "Enter";
   },
 
   /**
    * Determines if the key pressed is the tab key
    * */
   isTabKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which === 9;
+    return ev.key === "Tab";
   },
 
   /**
    * Determines if the key pressed is the shift key
    * */
   isShiftKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.shiftKey || ev.which === 16;
+    return ev.shiftKey;
   },
 
   /**
    * Determines if the key pressed is the space key
    * */
   isSpaceKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which === 32;
+    return ev.key === " ";
   },
 
   /**
    * Determines if the key pressed is the space key or enter key
    * */
   isEnterOrSpaceKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which === 13 || ev.which === 32;
+    return ev.key === "Enter" || ev.key === " ";
   },
 
   /**
    * Determines if the key pressed is the home key
    * */
   isHomeKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which === 36;
+    return ev.key === "Home";
   },
 
   /**
    * Determines if the key pressed is the end key
    * */
   isEndKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
-    return ev.which === 35;
+    return ev.key === "End";
   },
 
   /**

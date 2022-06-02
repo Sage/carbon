@@ -122,7 +122,7 @@ describe("Pager Navigation", () => {
       );
 
       const input = wrapper.find("input");
-      input.simulate("keyup", { which: 13, target: { value: 6 } });
+      input.simulate("keyup", { key: "Enter", target: { value: 6 } });
       expect(setCurrentPage).toHaveBeenCalledWith(6);
     });
 
@@ -138,7 +138,7 @@ describe("Pager Navigation", () => {
       );
 
       const input = wrapper.find("input");
-      input.simulate("keyup", { which: 2, target: { value: 6 } });
+      input.simulate("keyup", { key: "a", target: { value: 6 } });
       expect(setCurrentPage).not.toHaveBeenCalled();
     });
 
@@ -154,7 +154,7 @@ describe("Pager Navigation", () => {
       );
 
       const input = wrapper.find("input");
-      input.simulate("keyup", { which: 13, target: { value: "asdfghjk" } });
+      input.simulate("keyup", { key: "Enter", target: { value: "asdfghjk" } });
       expect(setCurrentPage).toHaveBeenCalledWith(1);
     });
 

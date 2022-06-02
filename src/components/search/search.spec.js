@@ -329,7 +329,6 @@ describe("Search", () => {
 
     it("passes other event handlers down to the input", () => {
       const keyDownParams = {
-        which: 65,
         key: "a",
         target: { selectionStart: 1, selectionEnd: 2 },
       };
@@ -537,7 +536,6 @@ describe("Search", () => {
 
     it("should stop propagation of the event for character keys", () => {
       const keyDownParams = {
-        which: 65,
         key: "a",
         target: { selectionStart: 1, selectionEnd: 2 },
         stopPropagation: stopPropagationFn,
@@ -549,7 +547,6 @@ describe("Search", () => {
 
     it("should stop propagation of the event for number keys", () => {
       const keyDownParams = {
-        which: 50,
         key: "2",
         target: { selectionStart: 1, selectionEnd: 2 },
         stopPropagation: stopPropagationFn,
@@ -561,7 +558,6 @@ describe("Search", () => {
 
     it("should not stop propagation of the event for other keys", () => {
       const keyDownParams = {
-        which: 9,
         key: "Tab",
         target: { selectionStart: 1, selectionEnd: 2 },
         stopPropagation: stopPropagationFn,

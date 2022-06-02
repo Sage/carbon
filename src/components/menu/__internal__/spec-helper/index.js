@@ -3,8 +3,7 @@ import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 
 const events = {
   space: {
-    key: "Space",
-    which: 32,
+    key: " ",
     preventDefault: jest.fn(),
   },
 };
