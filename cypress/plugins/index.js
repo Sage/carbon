@@ -1,16 +1,3 @@
-// ***********************************************************
-// This example plugins/index.js can be used to load plugins
-//
-// You can change the location of this file or turn off loading
-// the plugins file with the 'pluginsFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/plugins-guide
-// ***********************************************************
-
-// This function is called when a project is opened or re-opened (e.g. due to
-// the project's config changing)
-
 // eslint-disable-next-line import/no-extraneous-dependencies
 const cucumber = require("cypress-cucumber-preprocessor").default;
 
@@ -50,72 +37,6 @@ module.exports = (on, config) => {
 
     return launchOptions;
   });
-
-  if (config.testingType === "component") {
-    // eslint-disable-next-line global-require
-    require("@cypress/react/plugins/babel")(
-      on,
-      { ...config },
-      {
-        setWebpackConfig: (webpackConfig) => {
-          webpackConfig.module.rules = [
-            {
-              test: /\.(tsx?)|(jsx?)$/,
-              exclude: /node_modules/,
-              use: [
-                {
-                  loader: "babel-loader",
-                  options: {
-                    presets: [
-                      "@babel/preset-env",
-                      "@babel/preset-react",
-                      "@babel/preset-typescript",
-                    ],
-                  },
-                },
-              ],
-            },
-            {
-              test: /\.(css|scss)$/i,
-              use: [
-                {
-                  loader: "css-loader",
-                  options: {
-                    importLoaders: 2,
-                    sourceMap: true,
-                  },
-                },
-              ],
-            },
-            {
-              test: /\.(woff|woff2)$/,
-              loader: "url-loader",
-              options: {
-                limit: 1032000,
-                mimetype: "application/font-woff",
-              },
-            },
-            {
-              test: /\.(ttf|otf|eot|svg)(\?[\s\S]+)?$/,
-              loader: "file-loader",
-              options: {
-                esModule: false,
-              },
-            },
-          ];
-          webpackConfig.devServer = {
-            client: {
-              overlay: {
-                errors: true,
-                warnings: false,
-              },
-            },
-          };
-          return webpackConfig;
-        },
-      }
-    );
-  }
 
   return config; // IMPORTANT to return a config
 };
