@@ -1,0 +1,223 @@
+import React, { useEffect, useRef, useState } from "react";
+import { PaddingProps } from "styled-system";
+import { Transition, TransitionStatus } from "react-transition-group";
+
+import {
+  PopoverContainerWrapperStyle,
+  PopoverContainerHeaderStyle,
+  PopoverContainerContentStyle,
+  PopoverContainerCloseIcon,
+  PopoverContainerTitleStyle,
+  PopoverContainerOpenIcon,
+} from "./popover-container.style";
+import Icon from "../icon";
+import createGuid from "../../__internal__/utils/helpers/guid";
+import { filterStyledSystemPaddingProps } from "../../style/utils";
+
+export interface RenderOpenProps {
+  tabIndex: number;
+  isOpen?: boolean;
+  "data-element": string;
+  onClick: (ev: React.MouseEvent<HTMLElement>) => void;
+  ref: React.RefObject<HTMLButtonElement>;
+  "aria-label"?: string;
+  id?: string;
+}
+
+const renderOpen = ({
+  tabIndex,
+  onClick,
+  "data-element": dataElement,
+  ref,
+  "aria-label": ariaLabel,
+  id,
+}: RenderOpenProps) => (
+  <PopoverContainerOpenIcon
+    tabIndex={tabIndex}
+    onAction={onClick}
+    data-element={dataElement}
+    ref={ref}
+    aria-label={ariaLabel}
+    aria-haspopup
+    id={id}
+  >
+    <Icon type="settings" />
+  </PopoverContainerOpenIcon>
+);
+
+export interface RenderCloseProps {
+  "data-element": string;
+  tabIndex: number;
+  onClick: (ev: React.MouseEvent<HTMLElement>) => void;
+  ref: React.RefObject<HTMLButtonElement>;
+  "aria-label": string;
+}
+
+const renderClose = ({
+  "data-element": dataElement,
+  tabIndex,
+  onClick,
+  ref,
+  "aria-label": ariaLabel,
+}: RenderCloseProps) => (
+  <PopoverContainerCloseIcon
+    data-element={dataElement}
+    tabIndex={tabIndex}
+    onAction={onClick}
+    ref={ref}
+    aria-label={ariaLabel}
+  >
+    <Icon type="close" />
+  </PopoverContainerCloseIcon>
+);
+
+export interface PopoverContainerProps extends PaddingProps {
+  /** A function that will render the open component
+   *
+   * `({tabIndex, isOpen, data-element, onClick, ref, aria-label}) => ()`
+   *
+   */
+  renderOpenComponent?: (args: RenderOpenProps) => JSX.Element;
+  /** A function that will render the close component
+   *
+   * `({data-element, tabIndex, onClick, ref, aria-label}) => ()`
+   *
+   */
+  renderCloseComponent?: (args: RenderCloseProps) => JSX.Element;
+  /** The content of the popover-container */
+  children?: React.ReactNode;
+  /** Sets rendering position of dialog */
+  position?: "left" | "right";
+  /** Sets the popover container dialog header name */
+  title?: string;
+  /** Callback fires when close icon clicked */
+  onClose?: (ev: React.MouseEvent<HTMLElement>) => void;
+  /** if `true` the popover-container is open */
+  open?: boolean;
+  /** Callback fires when open component is clicked */
+  onOpen?: (ev: React.MouseEvent<HTMLElement>) => void;
+  /** if `true` the popover-container will cover open button */
+  shouldCoverButton?: boolean;
+  /** The id of the element that describe the dialog. */
+  ariaDescribedBy?: string;
+  /** Open button aria label */
+  openButtonAriaLabel?: string;
+  /** Close button aria label */
+  closeButtonAriaLabel?: string;
+  /** Container aria label */
+  containerAriaLabel?: string;
+}
+
+export const PopoverContainer = ({
+  children,
+  title,
+  position = "right",
+  open,
+  onOpen,
+  onClose,
+  renderOpenComponent = renderOpen,
+  renderCloseComponent = renderClose,
+  shouldCoverButton = false,
+  ariaDescribedBy,
+  openButtonAriaLabel,
+  closeButtonAriaLabel = "close",
+  containerAriaLabel,
+  ...rest
+}: PopoverContainerProps) => {
+  const isControlled = open !== undefined;
+  const [isOpenInternal, setIsOpenInternal] = useState(false);
+
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const openButtonRef = useRef<HTMLButtonElement>(null);
+  const guid = useRef(createGuid());
+  const popoverContentNodeRef = useRef<HTMLDivElement>(null);
+  const popoverContainerId = title
+    ? `PopoverContainer_${guid.current}`
+    : undefined;
+
+  const isOpen = isControlled ? open : isOpenInternal;
+
+  useEffect(() => {
+    if (isOpen && closeButtonRef.current) closeButtonRef.current.focus();
+  }, [isOpen]);
+
+  const handleOpenButtonClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (!isControlled) setIsOpenInternal(!isOpen);
+
+    // We want the open button to close the popover if it is already open
+    if (!isOpen) {
+      if (onOpen) onOpen(e);
+    } else if (onClose) onClose(e);
+  };
+
+  const handleCloseButtonClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (!isControlled) setIsOpenInternal(!isOpen);
+    if (onClose) onClose(e);
+    if (isOpen && openButtonRef.current) openButtonRef.current.focus();
+  };
+
+  const renderOpenComponentProps = {
+    tabIndex: isOpen ? -1 : 0,
+    isOpen,
+    "data-element": "popover-container-open-component",
+    onClick: handleOpenButtonClick,
+    ref: openButtonRef,
+    "aria-label": openButtonAriaLabel || title,
+    id: isOpen ? undefined : popoverContainerId,
+  };
+
+  const renderCloseComponentProps = {
+    "data-element": "popover-container-close-component",
+    tabIndex: 0,
+    onClick: handleCloseButtonClick,
+    ref: closeButtonRef,
+    "aria-label": closeButtonAriaLabel,
+  };
+
+  return (
+    <PopoverContainerWrapperStyle
+      data-component="popover-container"
+      role="region"
+      aria-labelledby={popoverContainerId}
+    >
+      {renderOpenComponent(renderOpenComponentProps)}
+      <Transition
+        in={isOpen}
+        timeout={{ exit: 300 }}
+        appear
+        mountOnEnter
+        unmountOnExit
+        nodeRef={popoverContentNodeRef}
+      >
+        {(state: TransitionStatus) => (
+          <PopoverContainerContentStyle
+            data-element="popover-container-content"
+            role="dialog"
+            animationState={state}
+            position={position}
+            shouldCoverButton={shouldCoverButton}
+            aria-labelledby={popoverContainerId}
+            aria-label={containerAriaLabel}
+            aria-describedby={ariaDescribedBy}
+            p="16px 24px"
+            ref={popoverContentNodeRef}
+            {...filterStyledSystemPaddingProps(rest)}
+          >
+            <PopoverContainerHeaderStyle>
+              <PopoverContainerTitleStyle
+                id={popoverContainerId}
+                data-element="popover-container-title"
+              >
+                {title}
+              </PopoverContainerTitleStyle>
+              {renderCloseComponent(renderCloseComponentProps)}
+            </PopoverContainerHeaderStyle>
+            {children}
+          </PopoverContainerContentStyle>
+        )}
+      </Transition>
+    </PopoverContainerWrapperStyle>
+  );
+};
+
+export default PopoverContainer;

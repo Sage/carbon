@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { padding } from "styled-system";
+import { TransitionStatus } from "react-transition-group";
+
 import { baseTheme } from "../../style/themes";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
@@ -16,7 +18,13 @@ const PopoverContainerHeaderStyle = styled.div`
   max-width: 280px;
 `;
 
-const PopoverContainerContentStyle = styled.div`
+type PopoverContainerContentStyleProps = {
+  shouldCoverButton?: boolean;
+  position?: "left" | "right";
+  animationState?: TransitionStatus;
+};
+
+const PopoverContainerContentStyle = styled.div<PopoverContainerContentStyleProps>`
   ${padding}
 
   background: var(--colorsUtilityYang100);
@@ -54,13 +62,18 @@ const PopoverContainerContentStyle = styled.div`
   }}
 `;
 
-const PopoverContainerOpenIcon = styled(IconButton)`
+type AdditionalIconButtonProps = {
+  tabIndex?: number;
+  id?: string;
+};
+
+const PopoverContainerOpenIcon = styled(IconButton)<AdditionalIconButtonProps>`
   ${StyledIcon} {
     color: var(--colorsActionMinor500);
   }
 `;
 
-const PopoverContainerCloseIcon = styled(IconButton)`
+const PopoverContainerCloseIcon = styled(IconButton)<AdditionalIconButtonProps>`
   position: absolute;
   top: 16px;
   right: 24px;

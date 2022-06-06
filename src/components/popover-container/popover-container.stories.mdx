@@ -95,17 +95,44 @@ Use the `renderOpenComponent` and `renderCloseComponent` to render your own open
     <div style={{ height: 250 }}>
       <PopoverContainer
         title="Custom Open &amp; Close Button"
-        renderOpenComponent={({ isOpen, ref, ...rest }) => (
+        renderOpenComponent={({
+          tabIndex,
+          isOpen,
+          "data-element": dataElement,
+          onClick,
+          ref,
+          "aria-label": ariaLabel,
+          id,
+        }) => (
           <Button
             iconType={!isOpen ? "filter_new" : "close"}
             iconPosition="after"
-            {...rest}
+            tabIndex={tabIndex}
+            data-element={dataElement}
+            aria-label={ariaLabel}
+            forwardRef={ref}
+            id={id}
+            onClick={onClick}
           >
             Filter
           </Button>
         )}
-        renderCloseComponent={({ isOpen, ref, ...rest }) => (
-          <Button {...rest}>Close</Button>
+        renderCloseComponent={({
+          "data-element": dataElement,
+          tabIndex,
+          onClick,
+          ref,
+          "aria-label": ariaLabel,
+        }) => (
+          <Button
+            tabIndex={tabIndex}
+            data-element={dataElement}
+            aria-label={ariaLabel}
+            forwardRef={ref}
+            onClick={onClick}
+          >
+            Close
+          </Button>
         )}
       >
         Content
@@ -272,6 +299,7 @@ You can do it easly in this way:
                   iconPosition="after"
                   iconType={!isOpen ? "filter_new" : "close"}
                   size="small"
+                  forwardRef={ref}
                   {...rest}
                 >
                   Filter
