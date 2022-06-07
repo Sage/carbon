@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
+import { FieldHelpProps } from "./field-help.component";
 
-const FieldHelpStyle = styled.span`
+const FieldHelpStyle = styled.span<
+  Pick<FieldHelpProps, "labelInline" | "labelWidth">
+>`
   display: block;
   flex: 1;
   margin-top: 8px;
@@ -14,14 +16,5 @@ const FieldHelpStyle = styled.span`
       padding-left: 0;
     `}
 `;
-
-FieldHelpStyle.defaultProps = {
-  labelWidth: 30,
-};
-
-FieldHelpStyle.propTypes = {
-  labelWidth: PropTypes.number,
-  labelInline: PropTypes.bool,
-};
 
 export default FieldHelpStyle;

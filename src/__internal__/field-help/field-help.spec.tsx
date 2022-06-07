@@ -1,9 +1,9 @@
 import React from "react";
 import { mount } from "enzyme";
-import FieldHelp from "./field-help.component";
+import FieldHelp, { FieldHelpProps } from "./field-help.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
-function render(props) {
+function render(props?: FieldHelpProps) {
   return mount(<FieldHelp {...props}>help text</FieldHelp>);
 }
 
