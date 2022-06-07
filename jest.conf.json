@@ -13,6 +13,11 @@
     "**/*.spec.ts",
     "**/*.spec.tsx"
   ],
+  "testPathIgnorePatterns": [
+    "node_modules",
+    "lib",
+    "esm"
+  ],
   "moduleDirectories": ["src", "node_modules"],
   "collectCoverage": true,
   "coveragePathIgnorePatterns": [
