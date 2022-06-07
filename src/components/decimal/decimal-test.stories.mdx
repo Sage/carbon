@@ -119,6 +119,29 @@ export const NewValidationStory = (args) => {
   );
 };
 
+export const DecimalCustomOnChangeStory = (args) => {
+  const [state, setState] = useState("0.01");
+  const handleChange = (e) => {
+    let newValue = e.target.value.rawValue;
+    if (newValue.startsWith("22.22")) newValue = "22.22";
+    action("onChange")(e, newValue);
+    setState(newValue);
+  };
+  return (
+    <div>
+      If you try to type "22.222", the onChange should block the last "2" from being entered and you should see "22.22" in the textbox.
+      The recommended approach for manipulating input values is to use validation. However, it is also possible to manipulate this via the onChange function like so:
+      <Decimal
+        mt={2}
+        value={state}
+        onChange={handleChange}
+        onBlur={action("onBlur")}
+        {...getCommonTextboxArgsWithSpecialCaracters(args)}
+      />
+    </div>
+  );
+};
+
 # Decimal
 
 ### Default
@@ -167,5 +190,13 @@ export const NewValidationStory = (args) => {
 <Canvas>
   <Story name="new validation" args={commonArgs}>
     {NewValidationStory.bind({})}
+  </Story>
+</Canvas>
+
+### Custom onChange
+
+<Canvas>
+  <Story name="custom onChange" args={commonArgs}>
+    {DecimalCustomOnChangeStory.bind({})}
   </Story>
 </Canvas>

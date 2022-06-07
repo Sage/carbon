@@ -1,8 +1,10 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React from "react";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
-import MultiActionButton from "./multi-action-button.component";
+import MultiActionButton, {
+  MultiActionButtonProps,
+} from "./multi-action-button.component";
 import Button from "../button";
 import {
   MULTI_ACTION_BUTTON_ALIGNMENTS,
@@ -10,15 +12,15 @@ import {
   MULTI_ACTION_BUTTON_THEMES,
 } from "./multi-action-button.config";
 
-<Meta
-  title="Multi Action Button/Test"
-  parameters={{
+export default {
+  title: "Multi Action Button/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     align: {
       options: MULTI_ACTION_BUTTON_ALIGNMENTS,
       control: {
@@ -39,18 +41,26 @@ import {
     },
     textSpecialCharacters: specialCharacters,
     subtextSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+};
+
+type MultiActionButtonStoryArgs = {
+  buttonType?: MultiActionButtonProps["buttonType"];
+  textContent: string;
+  text: string;
+  textSpecialCharacters: string;
+  subtext: string;
+  subtextSpecialCharacters: string;
+};
 
 export const MultiActionButtonStory = ({
   buttonType,
-  textContent,
   text,
   textSpecialCharacters,
   subtext,
   subtextSpecialCharacters,
   ...args
-}) => (
+}: MultiActionButtonStoryArgs) => (
   <MultiActionButton
     buttonType={buttonType}
     text={text || textSpecialCharacters}
@@ -64,23 +74,15 @@ export const MultiActionButtonStory = ({
   </MultiActionButton>
 );
 
-# Multi Action Button
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      align: "left",
-      buttonType: "secondary",
-      size: "medium",
-      subtext: "",
-      text: "Example Multi Action Button",
-      textSpecialCharacters: undefined,
-      subtextSpecialCharacters: undefined,
-    }}
-  >
-    {MultiActionButtonStory.bind({})}
-  </Story>
-</Canvas>
+MultiActionButtonStory.story = {
+  name: "default",
+  args: {
+    align: "left",
+    buttonType: "secondary",
+    size: "medium",
+    subtext: "",
+    text: "Example Multi Action Button",
+    textSpecialCharacters: undefined,
+    subtextSpecialCharacters: undefined,
+  },
+};
