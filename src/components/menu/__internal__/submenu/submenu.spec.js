@@ -1135,14 +1135,14 @@ describe("Submenu component", () => {
     }
   );
 
-  describe("when it has a ScrollableBlock as a child", () => {
+  describe("when the entire submenu is scrollable", () => {
     const renderScrollableBlock = (menuType, props) => {
       return mount(
         <MenuContext.Provider value={menuContextValues(menuType)}>
           <Submenu title="title" tabIndex={-1} {...props}>
-            <MenuItem>Apple</MenuItem>
-            <MenuItem>Banana</MenuItem>
             <ScrollableBlock>
+              <MenuItem>Apple</MenuItem>
+              <MenuItem>Banana</MenuItem>
               <MenuItem>Carrot</MenuItem>
               <MenuItem>Broccoli</MenuItem>
             </ScrollableBlock>
@@ -1157,6 +1157,34 @@ describe("Submenu component", () => {
       openSubmenu(wrapper);
 
       expect(wrapper.find(MenuItem).length).toEqual(4);
+    });
+  });
+
+  describe("when it uses ScrollableBlock in a submenu item", () => {
+    const renderScrollableBlock = (menuType, props) => {
+      return mount(
+        <MenuContext.Provider value={menuContextValues(menuType)}>
+          <Submenu title="title" tabIndex={-1} {...props}>
+            <MenuItem>Apple</MenuItem>
+            <MenuItem>Banana</MenuItem>
+            <MenuItem>
+              Vegetables
+              <ScrollableBlock>
+                <MenuItem>Carrot</MenuItem>
+                <MenuItem>Broccoli</MenuItem>
+              </ScrollableBlock>
+            </MenuItem>
+          </Submenu>
+        </MenuContext.Provider>,
+        { attachTo: htmlElement }
+      );
+    };
+
+    it("should render all of the underlying menu items", () => {
+      wrapper = renderScrollableBlock("light");
+      openSubmenu(wrapper);
+
+      expect(wrapper.find(MenuItem).length).toEqual(5);
     });
   });
 

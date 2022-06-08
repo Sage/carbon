@@ -15,6 +15,7 @@ import Events from "../../../__internal__/utils/helpers/events";
 import MenuContext from "../menu.context";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
+import ScrollableBlock from "../scrollable-block";
 import { StyledMenuItem } from "../menu.style";
 import Search from "../../search";
 
@@ -46,13 +47,16 @@ const MenuItem = ({
   const isChildSearch = useRef(false);
   const childRef = useRef();
   const { inFullscreenView } = menuContext;
-  const childrenItems = React.Children.map(children, (child) => {
-    if (child?.type === Search) {
-      isChildSearch.current = true;
-    }
-
-    return child;
-  });
+  const childrenItems = useMemo(
+    () =>
+      React.Children.map(children, (child) => {
+        if (child?.type === Search) {
+          isChildSearch.current = true;
+        }
+        return child;
+      }),
+    [children]
+  );
 
   const focusRef = isChildSearch.current ? childRef : ref;
   useEffect(() => {
@@ -118,11 +122,26 @@ const MenuItem = ({
     ref,
   };
 
-  const clonedChildren = isChildSearch.current
-    ? childrenItems.map((child) =>
-        React.cloneElement(child, { inputRef: childRef })
-      )
-    : children;
+  const [nonBlockChildren, blockChildren] = useMemo(() => {
+    const childArray = React.Children.toArray(childrenItems);
+    const blockIndex = childArray.findIndex(
+      (child) => child.type === ScrollableBlock
+    );
+    const nonBlock =
+      blockIndex === -1 ? childrenItems : childArray.slice(0, blockIndex);
+    const inBlock = blockIndex === -1 ? null : childArray.slice(blockIndex);
+    return [nonBlock, inBlock];
+  }, [childrenItems]);
+
+  const cloneChildren = (childrenToClone) =>
+    isChildSearch.current
+      ? childrenToClone?.map((child) =>
+          React.cloneElement(child, { inputRef: childRef })
+        )
+      : childrenToClone;
+
+  const clonedNonBlockChildren = cloneChildren(nonBlockChildren);
+  const clonedBlockChildren = cloneChildren(blockChildren);
 
   const getTitle = (title) =>
     maxWidth && typeof title === "string" ? title : "";
@@ -156,7 +175,8 @@ const MenuItem = ({
           {...elementProps}
           {...rest}
         >
-          {childrenItems}
+          {clonedNonBlockChildren}
+          {clonedBlockChildren}
         </Submenu>
       </StyledMenuItem>
     );
@@ -183,8 +203,9 @@ const MenuItem = ({
         maxWidth={maxWidth}
         inFullscreenView={inFullscreenView}
       >
-        {clonedChildren}
+        {clonedNonBlockChildren}
       </StyledMenuItemWrapper>
+      {clonedBlockChildren}
     </StyledMenuItem>
   );
 };

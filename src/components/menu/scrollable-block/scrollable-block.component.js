@@ -36,7 +36,8 @@ const ScrollableBlock = ({
         scrollVariant={scrollVariants[menuContext.menuType]}
         height={height}
         p={0}
-        role="presentation"
+        role="list"
+        as="ul"
       >
         {React.Children.map(children, (child, index) => {
           let isFocused = false;

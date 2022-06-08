@@ -47,15 +47,43 @@ const Submenu = React.forwardRef(
     const { inFullscreenView } = menuContext;
     const [submenuOpen, setSubmenuOpen] = useState(false);
     const [submenuFocusIndex, setSubmenuFocusIndex] = useState(undefined);
+
+    const blockIndex = useRef(
+      React.Children.toArray(children).findIndex(
+        (item) => item.type === ScrollableBlock
+      )
+    );
+
     const [characterString, setCharacterString] = useState("");
     const submenuRef = useRef();
-    const formattedChildren = React.Children.map(children, (child) => {
-      if (child.type === ScrollableBlock) {
-        return [...child.props.children];
-      }
+    const formattedChildren = useMemo(
+      () =>
+        React.Children.map(children, (child, index) => {
+          // for when the whole submenu is scrollable
+          if (child?.type === ScrollableBlock) {
+            return [...child.props.children];
+          }
 
-      return child;
-    });
+          // check for a scrollable sub-submenu inside a MenuItem
+          const grandChildren = React.Children.toArray(child?.props.children);
+          const scrollableSubmenu = grandChildren.find(
+            (grandChild) => grandChild.type === ScrollableBlock
+          );
+
+          if (scrollableSubmenu) {
+            blockIndex.current = index + 1;
+            const withoutScrollable = React.cloneElement(child, {
+              children: grandChildren.filter(
+                (grandChild) => grandChild !== scrollableSubmenu
+              ),
+            });
+            return [withoutScrollable, ...scrollableSubmenu.props.children];
+          }
+
+          return child;
+        }),
+      [children]
+    );
 
     const arrayOfFormattedChildren = React.Children.toArray(formattedChildren);
 
@@ -281,6 +309,7 @@ const Submenu = React.forwardRef(
             variant={variant}
             menuType={menuContext.menuType}
             inFullscreenView={inFullscreenView}
+            {...(blockIndex.current === 0 ? { as: "div" } : { role: "list" })}
           >
             {React.Children.map(children, (child, index) => (
               <SubmenuContext.Provider
@@ -288,9 +317,7 @@ const Submenu = React.forwardRef(
                   isFocused: submenuFocusIndex === index,
                   focusIndex: submenuFocusIndex,
                   handleKeyDown,
-                  blockIndex: React.Children.toArray(children).findIndex(
-                    (item) => item.type === ScrollableBlock
-                  ),
+                  blockIndex: blockIndex.current,
                 }}
               >
                 {child}
@@ -341,7 +368,7 @@ const Submenu = React.forwardRef(
               submenuDirection={submenuDirection}
               variant={variant}
               menuType={menuContext.menuType}
-              role="list"
+              {...(blockIndex.current === 0 ? { as: "div" } : { role: "list" })}
             >
               {React.Children.map(children, (child, index) => (
                 <SubmenuContext.Provider
@@ -349,11 +376,9 @@ const Submenu = React.forwardRef(
                     isFocused: !blockDoubleFocus && submenuFocusIndex === index,
                     focusIndex: submenuFocusIndex,
                     handleKeyDown,
-                    blockIndex: React.Children.toArray(children).findIndex(
-                      (item) => item.type === ScrollableBlock
-                    ),
+                    blockIndex: blockIndex.current,
                     updateFocusIndex: setSubmenuFocusIndex,
-                    itemIndex: child.type === MenuItem ? index : undefined,
+                    itemIndex: child?.type === MenuItem ? index : undefined,
                   }}
                 >
                   {child}

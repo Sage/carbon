@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
-import { MenuItem } from "..";
+import { MenuItem, ScrollableBlock } from "..";
 import MenuFullscreen from ".";
 import MenuDivider from "../menu-divider/menu-divider.component";
 import MenuContext from "../menu.context";
@@ -19,6 +19,7 @@ import {
 import { baseTheme } from "../../../style/themes";
 import { StyledMenuItem } from "../menu.style";
 import menuConfigVariants from "../menu.config";
+import Submenu from "../__internal__/submenu/submenu.component";
 
 const onClose = jest.fn();
 
@@ -232,6 +233,27 @@ describe("MenuFullscreen", () => {
       element.dispatchEvent(endEvent);
 
       expect(wrapper.find(StyledMenuFullscreen)).toBeFocused();
+    });
+  });
+
+  describe("when there is a scrollable submenu", () => {
+    it("should render all of the underlying menu items", () => {
+      wrapper = mount(
+        <MenuFullscreen isOpen onClose={() => {}}>
+          <MenuItem submenu="submenu">
+            <ScrollableBlock>
+              <MenuItem>Apple</MenuItem>
+              <MenuItem>Banana</MenuItem>
+              <MenuItem>Carrot</MenuItem>
+              <MenuItem>Broccoli</MenuItem>
+            </ScrollableBlock>
+          </MenuItem>
+        </MenuFullscreen>
+      );
+
+      expect(wrapper.find(Submenu).find(MenuItem).length).toEqual(4);
+
+      wrapper.unmount();
     });
   });
 });
