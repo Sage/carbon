@@ -1469,6 +1469,34 @@ describe("FlatTableRow", () => {
       );
     });
   });
+
+  describe("wrapping FlatTableRowHeader", () => {
+    it("calculates the rowHeaderIndex as expected", () => {
+      // eslint-disable-next-line react/prop-types
+      const FlatTableRowHeaderWrapper = ({ children }) => (
+        <FlatTableRowHeader>{children}</FlatTableRowHeader>
+      );
+      FlatTableRowHeaderWrapper.displayName = FlatTableRowHeader.displayName;
+      const rowHeaderIndex = mount(
+        <table>
+          <thead>
+            <FlatTableRow>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableRowHeaderWrapper>Foo</FlatTableRowHeaderWrapper>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Foo</FlatTableCell>
+            </FlatTableRow>
+          </thead>
+        </table>
+      )
+        .find(StyledFlatTableRow)
+        .prop("rowHeaderIndex");
+
+      expect(rowHeaderIndex).toEqual(3);
+    });
+  });
 });
 
 function renderFlatTableRow(props = {}, renderer = mount) {
