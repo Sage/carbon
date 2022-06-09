@@ -188,12 +188,12 @@ describe("Submenu component", () => {
     });
 
     describe("when clicked", () => {
-      it("should not open the submenu", () => {
+      it("should open the submenu", () => {
         wrapper = render("light");
         wrapper.find("button").getDOMNode().click();
         wrapper.update();
 
-        expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
+        expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
       });
 
       it("should execute the onClick callback", () => {

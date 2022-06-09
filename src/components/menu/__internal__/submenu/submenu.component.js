@@ -237,9 +237,7 @@ const Submenu = React.forwardRef(
     );
 
     const handleClick = (event) => {
-      if (clickToOpen) {
-        openSubmenu();
-      }
+      openSubmenu();
 
       if (onClick) {
         onClick(event);
