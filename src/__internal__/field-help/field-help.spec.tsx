@@ -22,16 +22,30 @@ describe("FieldHelp", () => {
     );
   });
 
-  describe("when initiated with labelInline prop set to true and inputWidth prop with a custom value", () => {
-    it('has "margin-left" style set to width and both sides of margin', () => {
+  describe("when initiated with labelInline prop set to true", () => {
+    it('has "margin-left" style set to default width', () => {
       const wrapper = render({
         labelInline: true,
-        inputWidth: 50,
       });
 
       assertStyleMatch(
         {
           marginLeft: "30%",
+          paddingLeft: "0",
+        },
+        wrapper
+      );
+    });
+
+    it('has "margin-left" style set to labelWidth value', () => {
+      const wrapper = render({
+        labelInline: true,
+        labelWidth: 50,
+      });
+
+      assertStyleMatch(
+        {
+          marginLeft: "50%",
           paddingLeft: "0",
         },
         wrapper

@@ -1,9 +1,13 @@
 import styled, { css } from "styled-components";
-import { FieldHelpProps } from "./field-help.component";
 
-const FieldHelpStyle = styled.span<
-  Pick<FieldHelpProps, "labelInline" | "labelWidth">
->`
+export interface StyledFieldHelpProps {
+  /** When true, label is placed in line an input */
+  labelInline?: boolean;
+  /** Width of a label in percentage. Works only when labelInline is true */
+  labelWidth?: number;
+}
+
+const StyledFieldHelp = styled.span<StyledFieldHelpProps>`
   display: block;
   flex: 1;
   margin-top: 8px;
@@ -17,4 +21,4 @@ const FieldHelpStyle = styled.span<
     `}
 `;
 
-export default FieldHelpStyle;
+export default StyledFieldHelp;
