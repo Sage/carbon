@@ -1,3 +1,16 @@
+## [106.7.0](https://github.com/Sage/carbon/compare/v106.6.10...v106.7.0) (2022-06-10)
+
+
+### Features
+
+* **dialog, sidebar:** set focus to dialog container on open ([0a6a2b0](https://github.com/Sage/carbon/commit/0a6a2b0ac438d9bcdae8986959a4c2c2575cd3c0)), closes [#4975](https://github.com/Sage/carbon/issues/4975)
+* **sidebar:** add aria-labelledby referencing title if not provided ([a2c795a](https://github.com/Sage/carbon/commit/a2c795a280615a34c07530f3183edcae0c9152b1))
+
+
+### Bug Fixes
+
+* **menu-full-screen:** fix for new FocusTrap behavior ([0c4b8b5](https://github.com/Sage/carbon/commit/0c4b8b5d7de210e0cdef597fe16b258ac08567fc))
+
 ### [106.6.10](https://github.com/Sage/carbon/compare/v106.6.9...v106.6.10) (2022-06-10)
 
 
