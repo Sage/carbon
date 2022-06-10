@@ -359,20 +359,19 @@ const DateInput = ({
         disabled={disabled}
         readOnly={readOnly}
       />
-      {open && (
-        <DatePicker
-          disablePortal={disablePortal}
-          inputElement={parentRef}
-          pickerProps={pickerProps}
-          selectedDays={selectedDays}
-          setSelectedDays={setSelectedDays}
-          onDayClick={handleDayClick}
-          minDate={minDate}
-          maxDate={maxDate}
-          ref={pickerRef}
-          pickerMouseDown={handlePickerMouseDown}
-        />
-      )}
+      <DatePicker
+        disablePortal={disablePortal}
+        inputElement={parentRef}
+        pickerProps={pickerProps}
+        selectedDays={selectedDays}
+        setSelectedDays={setSelectedDays}
+        onDayClick={handleDayClick}
+        minDate={minDate}
+        maxDate={maxDate}
+        ref={pickerRef}
+        pickerMouseDown={handlePickerMouseDown}
+        open={open}
+      />
     </StyledDateInput>
   );
 };
