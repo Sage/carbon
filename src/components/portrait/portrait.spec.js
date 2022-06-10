@@ -8,7 +8,6 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import { carbonThemeList } from "../../style/themes";
-import Browser from "../../__internal__/utils/helpers/browser";
 import Portrait from "./portrait.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
@@ -20,23 +19,6 @@ import {
 import PortraitInitials from "./portrait-initials.component";
 import PortraitGravatar from "./portrait-gravatar.component";
 import Tooltip from "../tooltip";
-
-const mockCanvasDataURL = "data:image/png";
-
-const mockDocumentWithCanvas = {
-  createElement: () => ({
-    width: 10,
-    height: 10,
-    toDataURL: () => mockCanvasDataURL,
-    getContext: () => ({
-      font: null,
-      textAlign: null,
-      fillStyle: null,
-      fillRect: jasmine.createSpy("fillRect"),
-      fillText: jasmine.createSpy("fillText"),
-    }),
-  }),
-};
 
 function renderDLS(element) {
   return mount(
@@ -53,10 +35,6 @@ function renderFindTypeFail(element, type) {
 }
 
 describe("PortraitComponent", () => {
-  beforeEach(() => {
-    spyOn(Browser, "getDocument").and.returnValue(mockDocumentWithCanvas);
-  });
-
   testStyledSystemMargin((props) => <Portrait {...props} />);
 
   describe("props validation", () => {

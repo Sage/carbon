@@ -119,31 +119,27 @@ Feature: Menu component
     When I click closeIcon
     Then Menu is in fullscreen mode is not visible
 
-  @ignore
-  # testing incorrect behaviour, ignored as that behaviour will be implemented as part of FE-5092
+  @positive
   Scenario: Check that close icon is focused in Fullscreen Menu
     Given I open "Menu Test" component page "menu-full-screen-story"
-    When I hit Tab key 1 times
+    When I continue to hit Tab key 1 times
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
-  @ignore
-  # testing incorrect behaviour, ignored as that behaviour will be implemented as part of FE-5092
+  @positive
   Scenario: Check that inner Menu is available with tabbing in Fullscreen Menu
     Given I open "Menu Test" component page "menu-full-screen-story"
-    When I hit Tab key 5 times
+    When I continue to hit Tab key 5 times
     Then "fourth" inner menu element is focused
 
-  @ignore
-  # testing incorrect behaviour, ignored as that behaviour will be implemented as part of FE-5092
+  @positive
   Scenario: Check that previous inner Menu is available with shift tabbing in Fullscreen Menu
     Given I open "Menu Test" component page "menu-full-screen-story"
-      And I hit Tab key 6 times
+      And I continue to hit Tab key 6 times
     When I press Shift Tab on focused element
     Then "fourth" inner menu element is focused
 
-  @ignore
-  # testing incorrect behaviour, ignored as that behaviour will be implemented as part of separate task
+  @positive
   Scenario: Check that inner Menu without link is NOT available with tabbing in Fullscreen Menu
     Given I open "Menu Test" component page "menu-full-screen-story"
-    When I hit Tab key 8 times
+    When I continue to hit Tab key 8 times
     Then inner menu without active redirection is not focused

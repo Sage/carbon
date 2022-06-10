@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 
-import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import PopoverContainer from "./popover-container.component";
 
 export default {

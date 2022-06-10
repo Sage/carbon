@@ -1,3 +1,58 @@
+## [106.7.0](https://github.com/Sage/carbon/compare/v106.6.10...v106.7.0) (2022-06-10)
+
+
+### Features
+
+* **dialog, sidebar:** set focus to dialog container on open ([0a6a2b0](https://github.com/Sage/carbon/commit/0a6a2b0ac438d9bcdae8986959a4c2c2575cd3c0)), closes [#4975](https://github.com/Sage/carbon/issues/4975)
+* **sidebar:** add aria-labelledby referencing title if not provided ([a2c795a](https://github.com/Sage/carbon/commit/a2c795a280615a34c07530f3183edcae0c9152b1))
+
+
+### Bug Fixes
+
+* **menu-full-screen:** fix for new FocusTrap behavior ([0c4b8b5](https://github.com/Sage/carbon/commit/0c4b8b5d7de210e0cdef597fe16b258ac08567fc))
+
+### [106.6.10](https://github.com/Sage/carbon/compare/v106.6.9...v106.6.10) (2022-06-10)
+
+
+### Bug Fixes
+
+* **date:** ensure months and days are capitalised and formatted correctly for all locales ([b759d45](https://github.com/Sage/carbon/commit/b759d45bc98864234561087b2476fdff69a6cd24)), closes [#5181](https://github.com/Sage/carbon/issues/5181)
+
+### [106.6.9](https://github.com/Sage/carbon/compare/v106.6.8...v106.6.9) (2022-06-10)
+
+
+### Bug Fixes
+
+* fix missing type declarations ([6fa87a6](https://github.com/Sage/carbon/commit/6fa87a6541430390b7facc685529fa1ec0ce4f74))
+
+### [106.6.8](https://github.com/Sage/carbon/compare/v106.6.7...v106.6.8) (2022-06-01)
+
+
+### Bug Fixes
+
+* **decimal:** ensure that value prop is reliably displayed ([5130b96](https://github.com/Sage/carbon/commit/5130b96e7f5f7cac18962c7c6f4ecd60f89e014c))
+
+### [106.6.7](https://github.com/Sage/carbon/compare/v106.6.6...v106.6.7) (2022-05-31)
+
+
+### Bug Fixes
+
+* **menu:** change passive menu item background color ([a05a3ad](https://github.com/Sage/carbon/commit/a05a3add1b854a1dca4a6fcf19c1df0ce78a3efb)), closes [#5064](https://github.com/Sage/carbon/issues/5064)
+
+### [106.6.6](https://github.com/Sage/carbon/compare/v106.6.5...v106.6.6) (2022-05-24)
+
+
+### Bug Fixes
+
+* **button:** stop icon from wrapping when nowrap prop set ([0711c3f](https://github.com/Sage/carbon/commit/0711c3fc57d45167ce51e2e64e1ac9cda7c950b4)), closes [#5101](https://github.com/Sage/carbon/issues/5101)
+
+### [106.6.5](https://github.com/Sage/carbon/compare/v106.6.4...v106.6.5) (2022-05-23)
+
+
+### Bug Fixes
+
+* **heading:** remove doc comments to fix type definitions ([9903e45](https://github.com/Sage/carbon/commit/9903e45586141eca5f7d1afc2de7349932d755e4))
+
 ### [106.6.4](https://github.com/Sage/carbon/compare/v106.6.3...v106.6.4) (2022-05-19)
 
 

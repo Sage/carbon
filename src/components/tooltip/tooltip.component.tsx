@@ -45,8 +45,11 @@ export interface TooltipProps {
    * (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements)
    */
   flipOverrides?: TooltipPositions[];
+  /** @ignore @private */
   target?: Element;
+  /** @ignore @private */
   isPartOfInput?: boolean;
+  /** @ignore @private */
   inputSize?: InputSizes;
 }
 

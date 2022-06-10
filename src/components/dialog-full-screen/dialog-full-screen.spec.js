@@ -23,7 +23,13 @@ describe("DialogFullScreen", () => {
   let wrapper;
   let onCancel;
 
-  beforeEach(() => {
+  afterEach(() => {
+    if (wrapper.exists(DialogFullScreen)) {
+      wrapper.unmount();
+    }
+  });
+
+  it("should have aria-modal attribute on the dialog container", () => {
     onCancel = jasmine.createSpy("cancel");
     wrapper = mount(
       <DialogFullScreen
@@ -37,15 +43,15 @@ describe("DialogFullScreen", () => {
         <Button>Button</Button>
       </DialogFullScreen>
     );
-  });
 
-  it("should have aria-modal attribute on the dialog container", () => {
     expect(
       wrapper
         .find(StyledDialogFullScreen)
         .getDOMNode()
         .getAttribute("aria-modal")
     ).toBe("true");
+
+    wrapper.unmount();
   });
 
   it("should not have aria-modal attribute on the dialog container if role is not `dialog`", () => {
@@ -62,6 +68,8 @@ describe("DialogFullScreen", () => {
         .getDOMNode()
         .getAttribute("aria-modal")
     ).toBe(null);
+
+    wrapper.unmount();
   });
 
   describe("contentRef", () => {
@@ -89,13 +97,15 @@ describe("DialogFullScreen", () => {
       wrapper = mount(<WrapperComponent />);
 
       expect(mockRef.current).toBe(wrapper.find(StyledContent).getDOMNode());
+
+      wrapper.unmount();
     });
   });
 
   describe("autoFocus", () => {
     jest.useFakeTimers();
-    it("should focus the first element by default", () => {
-      mount(
+    it("should focus the dialog container by default", () => {
+      wrapper = mount(
         <DialogFullScreen open>
           <input type="text" />
         </DialogFullScreen>
@@ -103,12 +113,16 @@ describe("DialogFullScreen", () => {
 
       jest.runAllTimers();
 
-      const firstFocusableElement = document.querySelector("input");
-      expect(document.activeElement).toBe(firstFocusableElement);
+      const dialogContainer = document.querySelector(
+        '[data-element="dialog-full-screen"]'
+      );
+      expect(document.activeElement).toBe(dialogContainer);
+
+      wrapper.unmount();
     });
 
     it("should not focus the first element when disableAutoFocus is passed", () => {
-      mount(
+      wrapper = mount(
         <DialogFullScreen open disableAutoFocus>
           <input type="text" />
         </DialogFullScreen>
@@ -118,6 +132,8 @@ describe("DialogFullScreen", () => {
 
       const firstFocusableElement = document.querySelector("input");
       expect(document.activeElement).not.toBe(firstFocusableElement);
+
+      wrapper.unmount();
     });
   });
 
@@ -133,12 +149,14 @@ describe("DialogFullScreen", () => {
           </DialogFullScreen>
         );
       };
-      mount(<Component />);
+      wrapper = mount(<Component />);
 
       jest.runAllTimers();
 
       const secondFocusableElement = document.querySelectorAll("input")[1];
       expect(document.activeElement).toEqual(secondFocusableElement);
+
+      wrapper.unmount();
     });
   });
 
@@ -161,23 +179,27 @@ describe("DialogFullScreen", () => {
       },
       wrapper.find(StyledContent)
     );
+
+    wrapper.unmount();
   });
 
   describe("children", () => {
-    wrapper = mount(
-      <DialogFullScreen
-        open
-        className="foo"
-        title="my title"
-        onCancel={onCancel}
-      >
-        <Button>Button</Button>
-        <Button>Button</Button>
-      </DialogFullScreen>
-    );
-
     it("renders the children passed to it", () => {
+      wrapper = mount(
+        <DialogFullScreen
+          open
+          className="foo"
+          title="my title"
+          onCancel={onCancel}
+        >
+          <Button>Button</Button>
+          <Button>Button</Button>
+        </DialogFullScreen>
+      );
+
       expect(wrapper.find(Modal).find(Button).length).toEqual(2);
+
+      wrapper.unmount();
     });
   });
 
@@ -191,6 +213,7 @@ describe("DialogFullScreen", () => {
 
     afterEach(() => {
       jest.useRealTimers();
+      wrapper.unmount();
     });
 
     it("sets overflow hidden to the body", () => {
@@ -203,6 +226,10 @@ describe("DialogFullScreen", () => {
       wrapper = mount(
         <DialogFullScreen style={{ overflow: "auto" }} open={false} />
       );
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
     });
 
     it("recovers an original overflow", () => {
@@ -236,19 +263,22 @@ describe("DialogFullScreen", () => {
     describe("is a string", () => {
       let mockIds;
 
-      beforeAll(() => {
+      it("renders the title within a heading", () => {
         mockIds = ["foo", "baz"];
         guid
           .mockImplementationOnce(() => mockIds[0])
           .mockImplementationOnce(() => mockIds[1]);
-      });
-
-      it("renders the title within a heading", () => {
+        wrapper = mount(
+          <DialogFullScreen open title="my title" subtitle="my subtitle" />
+        );
         const heading = wrapper.find(Heading);
+
         expect(heading.props().title).toEqual("my title");
         expect(heading.props().subheader).toEqual("my subtitle");
         expect(mockIds).toContain(heading.props().titleId);
         expect(mockIds).toContain(heading.props().subtitleId);
+
+        wrapper.unmount();
       });
     });
 
@@ -266,6 +296,10 @@ describe("DialogFullScreen", () => {
             <Button>Button</Button>
           </DialogFullScreen>
         );
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
       });
 
       it("renders the component in a full screen heading", () => {
@@ -287,6 +321,8 @@ describe("DialogFullScreen", () => {
         );
 
         expect(wrapper.find(Help).exists()).toBe(true);
+
+        wrapper.unmount();
       });
     });
   });
@@ -307,6 +343,8 @@ describe("DialogFullScreen", () => {
 
         expect(wrapper.find(Modal).props()["data-element"]).toEqual("bar");
         expect(wrapper.find(Modal).props()["data-role"]).toEqual("baz");
+
+        wrapper.unmount();
       });
     });
   });
@@ -325,6 +363,8 @@ describe("DialogFullScreen", () => {
         />
       );
       expect(wrapper.find(IconButton).first().length).toEqual(0);
+
+      wrapper.unmount();
     });
   });
 
@@ -340,6 +380,8 @@ describe("DialogFullScreen", () => {
         />
       );
       expect(wrapper.find(IconButton).first().length).toEqual(0);
+
+      wrapper.unmount();
     });
   });
 
@@ -356,6 +398,8 @@ describe("DialogFullScreen", () => {
         />
       );
       expect(wrapper.find(IconButton).first().length).toEqual(1);
+
+      wrapper.unmount();
     });
   });
 
@@ -377,6 +421,8 @@ describe("DialogFullScreen", () => {
       expect(
         wrapper.find(FullScreenHeading).find("#header-children").length
       ).toEqual(1);
+
+      wrapper.unmount();
     });
   });
 
@@ -392,13 +438,15 @@ describe("DialogFullScreen", () => {
           data-element="bar"
           pagesStyling
         />
-      ).find(StyledDialogFullScreen);
+      );
+
+      const styles = wrapper.find(StyledDialogFullScreen);
 
       assertStyleMatch(
         {
           padding: "0",
         },
-        wrapper,
+        styles,
         { modifier: `${StyledContent}` }
       );
 
@@ -410,7 +458,7 @@ describe("DialogFullScreen", () => {
           top: "32px",
           zIndex: "1",
         },
-        wrapper,
+        styles,
         { modifier: `${StyledIconButton}` }
       );
 
@@ -418,7 +466,7 @@ describe("DialogFullScreen", () => {
         {
           padding: "32px 32px 0",
         },
-        wrapper,
+        styles,
         { modifier: `${StyledFullScreenHeading}` }
       );
 
@@ -427,7 +475,7 @@ describe("DialogFullScreen", () => {
           width: "auto",
           paddingTop: "4px",
         },
-        wrapper,
+        styles,
         { modifier: `${StyledHeading}` }
       );
 
@@ -437,9 +485,11 @@ describe("DialogFullScreen", () => {
           boxSizing: "content-box",
           margin: "0 0 0 3px",
         },
-        wrapper,
+        styles,
         { modifier: `${StyledHeading} ${StyledHeader}` }
       );
+
+      wrapper.unmount();
     });
   });
 
@@ -459,6 +509,8 @@ describe("DialogFullScreen", () => {
       expect(
         wrapper.find("[data-element='dialog-full-screen']").first().prop("role")
       ).toBe("dialog");
+
+      wrapper.unmount();
     });
 
     describe("when a title is specified as string", () => {
@@ -480,6 +532,8 @@ describe("DialogFullScreen", () => {
             .first()
             .prop("aria-labelledby")
         ).toBe("guid-12345");
+
+        wrapper.unmount();
       });
     });
 
@@ -502,6 +556,8 @@ describe("DialogFullScreen", () => {
             .first()
             .prop("aria-describedby")
         ).toBe("guid-12345");
+
+        wrapper.unmount();
       });
     });
 
@@ -527,6 +583,8 @@ describe("DialogFullScreen", () => {
             .first()
             .prop("aria-labelledby")
         ).toBe(titleId);
+
+        wrapper.unmount();
       });
     });
 
@@ -549,6 +607,8 @@ describe("DialogFullScreen", () => {
             .first()
             .prop("role")
         ).toBe(dialogRole);
+
+        wrapper.unmount();
       });
     });
 
@@ -571,6 +631,8 @@ describe("DialogFullScreen", () => {
             .first()
             .prop("aria-label")
         ).toBe(label);
+
+        wrapper.unmount();
       });
     });
   });
@@ -594,6 +656,10 @@ describe("closeIcon", () => {
         data-element="bar"
       />
     );
+  });
+
+  afterEach(() => {
+    wrapper.unmount();
   });
 
   it("closes when the exit icon is clicked", () => {

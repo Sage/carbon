@@ -3,7 +3,6 @@ import { mount, shallow } from "enzyme";
 import ReactDOM from "react-dom";
 import Portal, { PortalContext } from "./portal";
 import Icon from "../icon";
-import Browser from "../../__internal__/utils/helpers/browser";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
@@ -198,16 +197,6 @@ describe("Portal", () => {
     );
 
     expect(document.body.innerHTML).toMatchSnapshot();
-  });
-
-  it("will NOT mount with no DOM", () => {
-    spyOn(Browser, "getWindow").and.returnValue(undefined);
-    const noDOMWrapper = mount(
-      <Portal>
-        <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
-      </Portal>
-    );
-    expect(noDOMWrapper.html()).toBe(null);
   });
 
   describe("when reposition prop is updated", () => {

@@ -4,7 +4,11 @@ import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 
-const StyledMultiActionButton = styled.div`
+type StyledMultiActionButtonProps = {
+  displayed: boolean;
+};
+
+const StyledMultiActionButton = styled.div<StyledMultiActionButtonProps>`
   ${margin}
 
   display: inline-block;
@@ -49,10 +53,15 @@ const StyledMultiActionButton = styled.div`
   }
 `;
 
-const StyledButtonChildrenContainer = styled.div`
-  ${({ theme, align }) => css`
+type StyledButtonChildrenContainerProps = {
+  align: "left" | "right";
+  minWidth: number;
+};
+
+const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerProps>`
+  ${({ theme, align, minWidth }) => css`
     background-color: var(--colorsActionMajorYang100);
-    min-width: ${({ minWidth }) => minWidth}px;
+    min-width: ${minWidth}px;
     white-space: nowrap;
     z-index: ${theme.zIndex.popover};
     box-shadow: var(--boxShadow100);
@@ -90,8 +99,6 @@ StyledButtonChildrenContainer.defaultProps = {
 
 StyledMultiActionButton.defaultProps = {
   theme: baseTheme,
-  size: "medium",
-  legacyColorVariant: "blue",
 };
 
 export { StyledButtonChildrenContainer, StyledMultiActionButton };
