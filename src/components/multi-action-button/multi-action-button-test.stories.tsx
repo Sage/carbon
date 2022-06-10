@@ -1,7 +1,8 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 
-import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
+
 import MultiActionButton, {
   MultiActionButtonProps,
 } from "./multi-action-button.component";
