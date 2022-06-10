@@ -16,7 +16,7 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "outDir": "./lib/",
-    "rootDir": "./",
+    "rootDir": "./src",
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,

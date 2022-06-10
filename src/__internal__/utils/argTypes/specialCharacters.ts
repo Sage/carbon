@@ -41,6 +41,7 @@ export const number = {
 export default {
   options: ["undefined", "otherLanguage", "specialCharacters"],
   mapping: {
+    // eslint-disable-next-line object-shorthand
     undefined: undefined,
     otherLanguage: "mp150ú¿¡üßä",
     specialCharacters: "!@#$%^*()_+-=~[];:.,?{}&\"'<>",
