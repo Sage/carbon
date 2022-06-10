@@ -174,7 +174,7 @@ describe("StyledDayPicker", () => {
     let wrapper;
     const translations = {
       "en-GB": enGBLocale,
-      de: deLocale,
+      "de-DE": deLocale,
       es: esLocale,
       "en-ZA": enZALocale,
       "fr-FR": frLocale,
@@ -210,9 +210,10 @@ describe("StyledDayPicker", () => {
     };
 
     const monthsArray = (l) =>
-      Array.from({ length: 12 }).map((_, i) =>
-        translations[l].localize.month(i)
-      );
+      Array.from({ length: 12 }).map((_, i) => {
+        const month = translations[l].localize.month(i);
+        return month[0].toUpperCase() + month.slice(1);
+      });
 
     beforeEach(() => {
       wrapper = renderI18n({
@@ -222,7 +223,7 @@ describe("StyledDayPicker", () => {
 
     describe.each([
       "en-GB",
-      "de",
+      "de-DE",
       "es",
       "en-ZA",
       "fr-FR",
@@ -256,7 +257,7 @@ describe("StyledDayPicker", () => {
 
           expect(title).toEqual(long[i]);
           expect(children).toEqual(
-            locale === "de" ? long[i].substring(0, 3) : short[i]
+            locale === "de-DE" ? long[i].substring(0, 3) : short[i]
           );
         });
       });
@@ -274,16 +275,23 @@ describe("StyledDayPicker", () => {
       });
     });
   });
+
+  it("does not render the picker if open prop is false", () => {
+    expect(render({ open: false }).find(StyledDayPicker).exists()).toBeFalsy();
+  });
 });
 
 function renderI18n({ locale, ...props }) {
   return mount(
     <I18nProvider locale={locale}>
-      <DatePicker inputElement={inputElement} {...props} />
+      <DatePicker inputElement={inputElement} open {...props} />
     </I18nProvider>
   );
 }
 
 function render(props, params) {
-  return mount(<DatePicker inputElement={inputElement} {...props} />, params);
+  return mount(
+    <DatePicker inputElement={inputElement} open {...props} />,
+    params
+  );
 }

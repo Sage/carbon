@@ -1,3 +1,31 @@
+### [106.6.10](https://github.com/Sage/carbon/compare/v106.6.9...v106.6.10) (2022-06-10)
+
+
+### Bug Fixes
+
+* **date:** ensure months and days are capitalised and formatted correctly for all locales ([b759d45](https://github.com/Sage/carbon/commit/b759d45bc98864234561087b2476fdff69a6cd24)), closes [#5181](https://github.com/Sage/carbon/issues/5181)
+
+### [106.6.9](https://github.com/Sage/carbon/compare/v106.6.8...v106.6.9) (2022-06-10)
+
+
+### Bug Fixes
+
+* fix missing type declarations ([6fa87a6](https://github.com/Sage/carbon/commit/6fa87a6541430390b7facc685529fa1ec0ce4f74))
+
+### [106.6.8](https://github.com/Sage/carbon/compare/v106.6.7...v106.6.8) (2022-06-01)
+
+
+### Bug Fixes
+
+* **decimal:** ensure that value prop is reliably displayed ([5130b96](https://github.com/Sage/carbon/commit/5130b96e7f5f7cac18962c7c6f4ecd60f89e014c))
+
+### [106.6.7](https://github.com/Sage/carbon/compare/v106.6.6...v106.6.7) (2022-05-31)
+
+
+### Bug Fixes
+
+* **menu:** change passive menu item background color ([a05a3ad](https://github.com/Sage/carbon/commit/a05a3add1b854a1dca4a6fcf19c1df0ce78a3efb)), closes [#5064](https://github.com/Sage/carbon/issues/5064)
+
 ### [106.6.6](https://github.com/Sage/carbon/compare/v106.6.5...v106.6.6) (2022-05-24)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "106.6.6",
+  "version": "106.6.10",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -97,6 +97,7 @@
     "@types/node": "10.12.18",
     "@types/react": "16.9.56",
     "@types/react-dom": "16.9.8",
+    "@types/react-is": "^17.0.3",
     "@types/react-test-renderer": "^17.0.1",
     "@types/sprintf-js": "^1.1.2",
     "@types/styled-components": "^5.1.9",
