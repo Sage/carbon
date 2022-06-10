@@ -97,6 +97,7 @@ const DialogFullScreen = ({
         autoFocus={!disableAutoFocus}
         focusFirstElement={focusFirstElement}
         wrapperRef={dialogRef}
+        isOpen={open}
       >
         <StyledDialogFullScreen
           aria-modal={role === "dialog" ? true : undefined}
@@ -107,6 +108,7 @@ const DialogFullScreen = ({
           role={role}
         >
           {dialogTitle()}
+          {closeIcon()}
           <StyledContent
             hasHeader={title !== undefined}
             data-element="content"
@@ -115,7 +117,6 @@ const DialogFullScreen = ({
           >
             {children}
           </StyledContent>
-          {closeIcon()}
         </StyledDialogFullScreen>
       </FocusTrap>
     </Modal>

@@ -12,6 +12,7 @@ import {
   fullscreenMenu,
   menu,
   menuItem,
+  fullScreenMenuItem,
 } from "../../locators/menu";
 import { searchInput, searchCrossIcon } from "../../locators/search/index";
 import { positionOfElement, keyCode } from "../helper";
@@ -181,21 +182,21 @@ Then("Menu is in fullscreen mode is not visible", () => {
 });
 
 Then("{string} inner menu element is focused", (position) => {
-  menuComponent(positionOfElement(position))
+  fullScreenMenuItem(positionOfElement(position))
     .find("ul > li")
     .eq(1)
     .children()
     .children()
     .should("have.css", "box-shadow")
     .and("contain", "rgb(255, 181, 0)");
-  menuComponent(positionOfElement(position))
+  fullScreenMenuItem(positionOfElement(position))
     .find("ul > li")
     .eq(1)
     .children()
     .children()
     .should("have.css", "background-color")
     .and("contain", "rgb(0, 126, 69)");
-  menuComponent(positionOfElement(position))
+  fullScreenMenuItem(positionOfElement(position))
     .find("ul > li")
     .eq(1)
     .children()

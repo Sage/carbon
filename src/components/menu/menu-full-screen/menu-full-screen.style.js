@@ -13,6 +13,7 @@ const StyledMenuFullscreen = styled.div`
   bottom: 0;
   height: 100vh;
   width: 100%;
+  outline: none;
 
   a,
   button,
