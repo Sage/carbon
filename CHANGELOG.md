@@ -1,3 +1,10 @@
+### [106.6.10](https://github.com/Sage/carbon/compare/v106.6.9...v106.6.10) (2022-06-10)
+
+
+### Bug Fixes
+
+* **date:** ensure months and days are capitalised and formatted correctly for all locales ([b759d45](https://github.com/Sage/carbon/commit/b759d45bc98864234561087b2476fdff69a6cd24)), closes [#5181](https://github.com/Sage/carbon/issues/5181)
+
 ### [106.6.9](https://github.com/Sage/carbon/compare/v106.6.8...v106.6.9) (2022-06-10)
 
 
