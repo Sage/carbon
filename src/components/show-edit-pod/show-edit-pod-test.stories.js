@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import ShowEditPod from "./show-edit-pod.component";
 import Content from "../content";
 
-import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Textbox from "../textbox";
 import Fieldset from "../fieldset";
 import {

@@ -3,7 +3,7 @@ import React from "react";
 
 import specialCharacters, {
   email as testEmail,
-} from "../../../.storybook/utils/argTypes/specialCharacters";
+} from "../../__internal__/utils/argTypes/specialCharacters";
 import Profile from "./profile.component";
 import { PROFILE_SIZES } from "./profile.config";
 
