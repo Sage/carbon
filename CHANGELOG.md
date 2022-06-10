@@ -1,3 +1,10 @@
+### [106.6.9](https://github.com/Sage/carbon/compare/v106.6.8...v106.6.9) (2022-06-10)
+
+
+### Bug Fixes
+
+* fix missing type declarations ([6fa87a6](https://github.com/Sage/carbon/commit/6fa87a6541430390b7facc685529fa1ec0ce4f74))
+
 ### [106.6.8](https://github.com/Sage/carbon/compare/v106.6.7...v106.6.8) (2022-06-01)
 
 
