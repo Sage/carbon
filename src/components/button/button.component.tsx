@@ -6,7 +6,6 @@ import Icon, { IconType, IconProps, TooltipPositions } from "../icon";
 import StyledButton, { StyledButtonSubtext } from "./button.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import Logger from "../../__internal__/utils/logger";
 
 export type ButtonTypes =
   | "primary"
@@ -24,8 +23,6 @@ export interface ButtonProps extends SpaceProps {
    * This is required to comply with WCAG 4.1.2 - Buttons must have discernible text
    */
   "aria-label"?: string;
-  /** [Legacy] Button types for legacy theme: "primary" | "secondary" */
-  as?: ButtonTypes;
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
   buttonType?: ButtonTypes;
   /** The text the button displays */
@@ -163,12 +160,9 @@ RenderChildrenProps) {
   );
 }
 
-let deprecatedWarnTriggered = false;
-
 const Button = ({
   size = "medium",
   subtext = "",
-  as,
   children,
   forwardRef,
   "aria-label": ariaLabel,
@@ -188,14 +182,6 @@ const Button = ({
   fullWidth = false,
   ...rest
 }: ButtonProps) => {
-  if (!deprecatedWarnTriggered && as) {
-    deprecatedWarnTriggered = true;
-    Logger.deprecate(
-      // eslint-disable-next-line max-len
-      "The `as` prop is deprecated and will soon be removed from the `Button` component interface. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop"
-    );
-  }
-
   invariant(
     !!(children || iconType),
     "Either prop `iconType` must be defined or this node must have children."
@@ -209,7 +195,7 @@ const Button = ({
 
   const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
 
-  const buttonType = as || buttonTypeProp;
+  const buttonType = buttonTypeProp;
 
   let paddingX;
 

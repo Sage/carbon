@@ -214,25 +214,5 @@ context("Tests for Split Button component", () => {
         cy.get("@button").should("have.css", "border-color", borderColor);
       }
     );
-
-    it.each([
-      ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
-      ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
-    ])(
-      "check %s Split Button with %s as background color and %s as color and %s as border color",
-      (as, backgroundColor, color, borderColor) => {
-        CypressMountWithProviders(<SplitButtonList as={as} />);
-
-        mainButton().as("button");
-
-        cy.get("@button").should(
-          "have.css",
-          "background-color",
-          backgroundColor
-        );
-        cy.get("@button").should("have.css", "color", color);
-        cy.get("@button").should("have.css", "border-color", borderColor);
-      }
-    );
   });
 });

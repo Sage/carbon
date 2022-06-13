@@ -4,7 +4,7 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import TileSelect from "./tile-select.component";
-import RadioButtonMapper from "../radio-button/radio-button-mapper.component";
+import RadioButtonMapper from "../../__internal__/radio-button-mapper/radio-button-mapper.component";
 import {
   StyledTileSelectFieldset,
   StyledGroupDescription,

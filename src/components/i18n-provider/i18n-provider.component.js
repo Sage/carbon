@@ -92,15 +92,6 @@ I18nProvider.propTypes = {
     titleSelect: PropTypes.shape({
       deselect: PropTypes.func,
     }),
-    wizards: PropTypes.shape({
-      multiStep: PropTypes.shape({
-        buttons: PropTypes.shape({
-          submit: PropTypes.func,
-          next: PropTypes.func,
-          back: PropTypes.func,
-        }),
-      }),
-    }),
   }),
   children: PropTypes.node.isRequired,
 };

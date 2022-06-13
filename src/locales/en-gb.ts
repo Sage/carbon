@@ -118,15 +118,6 @@ const enGB: Locale = {
       close: () => "Close",
     },
   },
-  wizards: {
-    multiStep: {
-      buttons: {
-        submit: () => "Submit",
-        next: () => "Next",
-        back: () => "Back",
-      },
-    },
-  },
 };
 
 export default enGB;

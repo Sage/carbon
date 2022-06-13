@@ -3,10 +3,7 @@ import { shallow, mount } from "enzyme";
 import guid from "../../__internal__/utils/helpers/guid";
 import Toast from "./toast.component";
 import { ToastStyle, ToastContentStyle, ToastWrapper } from "./toast.style";
-import {
-  assertStyleMatch,
-  expectConsoleOutput as expectWarn,
-} from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import ModalManager from "../modal/__internal__/modal-manager";
 import {
@@ -308,21 +305,6 @@ describe("ToastStyle", () => {
       document.dispatchEvent(otherKeyEvent);
       expect(otherKeyEvent.stopImmediatePropagation).not.toHaveBeenCalled();
       expect(onDismissFn).not.toHaveBeenCalled();
-    });
-  });
-
-  describe("when the `as` prop is used", () => {
-    it("fires a prop deprecation warning to the console", () => {
-      const message =
-        "[Deprecation] The `as` prop is deprecated and will soon be removed from the `Toast` component interface. You should use the `variant` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop";
-      const assert = expectWarn(message, "warn");
-
-      wrapper = mount(
-        <Toast open={false} as="info" onDismiss={() => {}}>
-          foobar
-        </Toast>
-      );
-      assert();
     });
   });
 });

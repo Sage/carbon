@@ -11,10 +11,6 @@ type StyledNavigationBarProps = PaddingProps &
   FlexboxProps & {
     /** Color scheme of navigation component */
     navigationType?: NavigationType;
-    /** Defines the position of sticky navigation bar */
-    stickyPosition?: Orientation;
-    /** Defines the offset of sticky navigation bar */
-    stickyOffset?: string;
     /** Defines whether the navigation bar should be positioned fixed or sticky */
     position?: Position;
     /** Defines the offset of navigation bar */
@@ -56,13 +52,6 @@ const StyledNavigationBar = styled.nav<StyledNavigationBarProps>`
   .carbon-logo {
     margin-right: 10px;
   }
-
-  ${({ stickyPosition, stickyOffset }) =>
-    stickyPosition &&
-    css`
-      position: sticky;
-      ${stickyPosition}: ${stickyOffset};
-    `}
 
   ${({ position, orientation, offset }) =>
     position &&

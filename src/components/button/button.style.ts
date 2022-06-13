@@ -72,7 +72,7 @@ function stylingForType({
 }
 
 type StyledButtonProps = SpaceProps &
-  Omit<ButtonProps, "as"> & {
+  ButtonProps & {
     iconOnly?: boolean;
   };
 
