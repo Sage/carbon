@@ -118,15 +118,6 @@ const plPL: Locale = {
       close: () => "Zamknij",
     },
   },
-  wizards: {
-    multiStep: {
-      buttons: {
-        submit: () => "Wyślij",
-        next: () => "Następny",
-        back: () => "Wstecz",
-      },
-    },
-  },
 };
 
 export default plPL;

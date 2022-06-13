@@ -2,12 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import { StyledTile, TileContent } from "./tile.style.js";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedWarnTriggered = false;
 
 const Tile = ({
-  as,
   variant = "tile",
   p = 3,
   children,
@@ -15,14 +11,6 @@ const Tile = ({
   width,
   ...props
 }) => {
-  if (!deprecatedWarnTriggered && as) {
-    deprecatedWarnTriggered = true;
-    Logger.deprecate(
-      // eslint-disable-next-line max-len
-      "The `as` prop is deprecated and will soon be removed from the `Tile` component interface. You should use the `variant` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop"
-    );
-  }
-
   const isHorizontal = () => orientation === "horizontal";
   const isVertical = () => orientation === "vertical";
   const wrappedChildren = React.Children.map(children, (child, index) => {
@@ -55,7 +43,7 @@ const Tile = ({
 
   return (
     <StyledTile
-      tileTheme={as || variant}
+      tileTheme={variant}
       width={width}
       data-component="tile"
       isHorizontal={isHorizontal(orientation)}
@@ -70,8 +58,6 @@ const Tile = ({
 Tile.propTypes = {
   /** Styled system spacing props */
   ...propTypes.space,
-  /** Sets the theme of the tile - either 'tile' or 'transparent' */
-  as: PropTypes.oneOf(["tile", "transparent"]),
   /** Sets the theme of the tile - either 'tile' or 'transparent' */
   variant: PropTypes.oneOf(["tile", "transparent"]),
   /**

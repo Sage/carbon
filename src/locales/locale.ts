@@ -97,15 +97,6 @@ interface Locale {
       close: () => string;
     };
   };
-  wizards: {
-    multiStep: {
-      buttons: {
-        submit: () => string;
-        next: () => string;
-        back: () => string;
-      };
-    };
-  };
 }
 
 export default Locale;

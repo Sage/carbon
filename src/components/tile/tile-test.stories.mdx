@@ -13,7 +13,7 @@ import { TILE_ORIENTATIONS, TILE_THEMES } from "./tile.config";
     },
   }}
   argTypes={{
-    as: {
+    variant: {
       options: TILE_THEMES,
       control: {
         type: "select",
@@ -75,7 +75,7 @@ export const TileStory = ({
   <Story
     name="default"
     args={{
-      as: "tile",
+      variant: "tile",
       orientation: "horizontal",
       width: "",
       contentOneChildren: "Test Body One",

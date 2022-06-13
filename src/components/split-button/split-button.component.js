@@ -22,7 +22,6 @@ import {
 } from "../../style/utils";
 import { baseTheme } from "../../style/themes";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
-import Logger from "../../__internal__/utils/logger";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -30,11 +29,8 @@ const marginPropTypes = filterStyledSystemMarginProps(
 
 const CONTENT_WIDTH_RATIO = 0.75;
 
-let deprecatedWarnTriggered = false;
-
 const SplitButton = ({
   align = "left",
-  as,
   buttonType = "secondary",
   children,
   disabled = false,
@@ -48,14 +44,6 @@ const SplitButton = ({
   "data-role": dataRole,
   ...rest
 }) => {
-  if (!deprecatedWarnTriggered && as) {
-    deprecatedWarnTriggered = true;
-    Logger.deprecate(
-      // eslint-disable-next-line max-len
-      "The `as` prop is deprecated and will soon be removed from the `SplitButton` component interface. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop"
-    );
-  }
-
   const theme = useContext(ThemeContext) || baseTheme;
   const isToggleButtonFocused = useRef(false);
   const isFocusedAfterClosing = useRef(false);
@@ -157,7 +145,6 @@ const SplitButton = ({
       onFocus: hideButtons,
       onTouchStart: hideButtons,
       iconPosition,
-      as,
       buttonType,
       disabled,
       iconType,
@@ -178,7 +165,7 @@ const SplitButton = ({
         isToggleButtonFocused.current = false;
       },
       onKeyDown: handleToggleButtonKeyDown,
-      buttonType: as || buttonType,
+      buttonType,
       size,
     };
 
@@ -202,7 +189,7 @@ const SplitButton = ({
       primary: theme.colors.white,
       secondary: theme.colors.primary,
     };
-    return colorsMap[as || buttonType];
+    return colorsMap[buttonType];
   }
 
   function renderMainButton() {
@@ -334,8 +321,6 @@ SplitButton.propTypes = {
   ...marginPropTypes,
   /** Button type: "primary" | "secondary" */
   buttonType: PropTypes.oneOf(["primary", "secondary"]),
-  /** Button type: "primary" | "secondary" for legacy theme */
-  as: PropTypes.oneOf(["primary", "secondary"]),
   /** The additional button to display. */
   children: PropTypes.node.isRequired,
   /** A custom value for the data-element attribute */
@@ -354,6 +339,6 @@ SplitButton.propTypes = {
   align: PropTypes.oneOf(["left", "right"]),
 };
 
-SplitButton.safeProps = ["buttonType", "as", "disabled", "size"];
+SplitButton.safeProps = ["buttonType", "disabled", "size"];
 
 export default SplitButton;
