@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 
 import mintTheme from "../../style/themes/mint";
 import RadioButtonMapper from "./radio-button-mapper.component";
-import { RadioButton } from ".";
-import Button from "../button";
+import { RadioButton } from "../../components/radio-button";
+import Button from "../../components/button";
 
 const buttonValues = ["test-1", "test-2"];
 const name = "test-group";

@@ -7,7 +7,13 @@ import isChromatic from "../../../.storybook/isChromatic";
 
 export const isOpenForChromatic = isChromatic();
 
-<Meta title="Confirm" parameters={{ info: { disable: true }, themeProvider: { chromatic: { theme: "sage" } }}} />
+<Meta
+  title="Confirm"
+  parameters={{
+    info: { disable: true },
+    themeProvider: { chromatic: { theme: "sage" } },
+  }}
+/>
 
 # Confirm
 
@@ -87,32 +93,6 @@ A good example could be confirming deletion of a large number of records.
             subtitle="Subtitle"
             open={isOpen}
             onConfirm={() => setIsOpen(false)}
-          >
-            Content
-          </Confirm>
-        </>
-      );
-    }}
-  </Story>
-</Canvas>
-
-### Destructive buttons
-
-<Canvas>
-  <Story name="destructive">
-    {() => {
-      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
-      return (
-        <>
-          <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
-          <Confirm
-            title="Are you sure?"
-            subtitle="Subtitle"
-            destructive
-            cancelButtonType="tertiary"
-            open={isOpen}
-            onConfirm={() => setIsOpen(false)}
-            onCancel={() => setIsOpen(false)}
           >
             Content
           </Confirm>

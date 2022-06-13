@@ -1,3 +1,72 @@
+## [107.0.0](https://github.com/Sage/carbon/compare/v106.7.0...v107.0.0) (2022-06-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** The deprecated `SubmenuBlock` component has now been removed
+and can no longer be used. Please use the `MenuItem` component with the
+`submenu` prop instead.
+* **navigation-bar:** The deprecated props `stickyPosition` and `stickyOffset` have been
+removed and can no longer be used. Please use the `position`, `offset` and `orientation`
+props to achieve the same layout. The following codemods are available to help with
+updating your code:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/remove-prop
+https://github.com/Sage/carbon-codemod/tree/master/transforms/add-prop
+* **multi-action-button:** The deprecated `as` prop has been removed and can no longer
+be used. Please use the `buttonType` prop to achieve the same styling.
+A codemod is available to help with updating your code:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* **split-button:** The deprecated `as` prop has been removed and can no longer
+be used. Please use the `buttonType` prop to achieve the same styling.
+A codemod is available for updating your code:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* **toast:** The deprecated `as` prop has now been removed and can no
+longer be used. Please use the `variant` prop to achieve the same styling.
+A codemod is available to help with updating your code:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* **tile:** The deprecated `as` prop has been removed and can no
+longer be used. Please use the `variant` prop to achieve the same
+styling. A codemod is available to help with updating your code and can be found
+here:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* The deprecated `ScrollableList` component has been removed and can no
+longer be used.
+* The deprecated `MultiStepWizard` component has been removed and can no
+longer be used. Please use the `StepSequence` component instead.
+* The deprecated `MountInApp` component has been removed
+and can no longer be used.
+* **confirm:** The deprecated `destructive` prop has been removed and can no
+longer be used. Please use `cancelButtonDestructive` and `confirmButtonDestructive` props
+instead. A codemod is available to help with renaming props and can be found here:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* **button:** The deprecated `as` prop has now been removed and can no
+longer be used. Please use the `buttonType` prop instead which has similar
+functionality. A codemod is available to help with renaming props and can be found
+here: https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* The deprecated `AppWrapper` component has now been removed
+and can no longer be used. Please use the `Box` component instead.
+* **radio-button:** `RadioButtonMapper` is now an internal component and can no longer be
+imported by consuming apps.
+* **heading:** `Heading` has been refactored from a class-based to a functional-based
+component - therefore cannot be extended anymore.
+
+### Code Refactoring
+
+* **button:** remove deprecated `as` prop ([660b699](https://github.com/Sage/carbon/commit/660b69991ff1753d197ec0ed731a30dc27c34c8f))
+* **confirm:** remove deprecated `destructive` prop ([c4edbf2](https://github.com/Sage/carbon/commit/c4edbf2afa2c0be5b8197f4e098e0bcc26cffb54))
+* **heading:** convert to functional component ([2f8aa70](https://github.com/Sage/carbon/commit/2f8aa709d282533098dedec6a15cab3034350ffe))
+* **menu:** remove deprecated `SubmenuBlock` component ([bc4a3e0](https://github.com/Sage/carbon/commit/bc4a3e078ca9023bc4b216a5d62d80ee00e61e1f))
+* **multi-action-button:** remove deprecated `as` prop ([f9128e6](https://github.com/Sage/carbon/commit/f9128e65326f497661e852eca2a4379b60bcb2d3))
+* **navigation-bar:** remove deprecated `stickyPosition` and `stickyOffset` props ([c0a7381](https://github.com/Sage/carbon/commit/c0a73814b9b5a2ba748bda16a3010f18f7175a8e))
+* **radio-button:** prevent consumption of RadioButtonMapper component ([20043a6](https://github.com/Sage/carbon/commit/20043a6cd42ecc8a0ea00fa07f99ea2b02f27534))
+* remove deprecated `AppWrapper` component ([d26dece](https://github.com/Sage/carbon/commit/d26decef5a0778e5fc7d3c169908f6793bc5f6c8))
+* remove deprecated `MountInApp` component ([7766355](https://github.com/Sage/carbon/commit/77663552812d574e60c72da2c94a9855ae6745fd))
+* remove deprecated `ScrollableList` component ([ef85639](https://github.com/Sage/carbon/commit/ef85639a6b515481d648240aa6839d9adfd7693f))
+* removed deprecated `MultiStepWizard` component ([a2ecb9c](https://github.com/Sage/carbon/commit/a2ecb9c55eef4584c2b833b2c8ec10409aae7457))
+* **split-button:** remove deprecated `as` prop ([b4c1762](https://github.com/Sage/carbon/commit/b4c176254522bdc042a63d28fdca0fb65013f6c4))
+* **tile:** remove deprecated `as` prop ([98d466e](https://github.com/Sage/carbon/commit/98d466e15d3547867f432c891cec3bd229297588))
+* **toast:** remove deprecated `as` prop ([85690a6](https://github.com/Sage/carbon/commit/85690a60564883f0167521ffd0284ac0f14b62f0))
+
 ## [106.7.0](https://github.com/Sage/carbon/compare/v106.6.10...v106.7.0) (2022-06-10)
 
 

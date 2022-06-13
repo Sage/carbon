@@ -11,7 +11,13 @@ import isChromatic from "../../../.storybook/isChromatic";
 
 export const isOpenForChromatic = isChromatic();
 
-<Meta title="Sidebar" parameters={{ info: { disable: true }, themeProvider: { chromatic: { theme: "sage" } }}} />
+<Meta
+  title="Sidebar"
+  parameters={{
+    info: { disable: true },
+    themeProvider: { chromatic: { theme: "sage" } },
+  }}
+/>
 
 # Sidebar
 
@@ -67,8 +73,8 @@ with all the UI pass `enableBackgroundUI={ true }` to the component
             onCancel={() => setIsOpen(false)}
           >
             <div>
-              <Button as="primary">Test</Button>
-              <Button as="secondary" ml={2}>
+              <Button buttonType="primary">Test</Button>
+              <Button buttonType="secondary" ml={2}>
                 Last
               </Button>
             </div>
@@ -95,8 +101,8 @@ with all the UI pass `enableBackgroundUI={ true }` to the component
             header={<Typography variant="h3">Sidebar header</Typography>}
           >
             <div>
-              <Button as="primary">Test</Button>
-              <Button as="secondary" ml={2}>
+              <Button buttonType="primary">Test</Button>
+              <Button buttonType="secondary" ml={2}>
                 Last
               </Button>
             </div>
@@ -125,8 +131,8 @@ If sidebar content does not fit the sidebar, scroll will appear. Default scroll 
             header={<Typography variant="h3">Sidebar header</Typography>}
           >
             <div>
-              <Button as="primary">Test</Button>
-              <Button as="secondary" ml={2}>
+              <Button buttonType="primary">Test</Button>
+              <Button buttonType="secondary" ml={2}>
                 Last
               </Button>
             </div>
