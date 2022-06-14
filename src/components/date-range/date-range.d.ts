@@ -2,7 +2,7 @@ import * as React from "react";
 import { MarginProps } from "styled-system";
 import { DateInputProps } from "../date/date";
 
-interface DateRangeChangeEvent {
+export interface DateRangeChangeEvent {
   target: {
     value: [
       {
@@ -19,7 +19,7 @@ interface DateRangeChangeEvent {
 
 export interface DateRangeProps extends MarginProps {
   /** Props for the child end Date component */
-  endDateProps?: DateInputProps;
+  endDateProps?: Partial<DateInputProps>;
   /** Optional label for endDate field */
   endLabel?: string;
   /**
@@ -51,7 +51,7 @@ export interface DateRangeProps extends MarginProps {
   /** Specify a callback triggered on blur */
   onBlur?: (ev: DateRangeChangeEvent) => void;
   /** Props for the child start Date component */
-  startDateProps?: DateInputProps;
+  startDateProps?: Partial<DateInputProps>;
   /** Optional label for startDate field */
   startLabel?: string;
   /**
