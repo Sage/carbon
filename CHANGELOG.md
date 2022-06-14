@@ -1,3 +1,10 @@
+### [107.1.2](https://github.com/Sage/carbon/compare/v107.1.1...v107.1.2) (2022-06-14)
+
+
+### Bug Fixes
+
+* **button-toggle-group:** ensure that id prop is passed to FormField ([0b81a5e](https://github.com/Sage/carbon/commit/0b81a5e044f5b32913b7735c77cd71ad3304c07c))
+
 ### [107.1.1](https://github.com/Sage/carbon/compare/v107.1.0...v107.1.1) (2022-06-14)
 
 
