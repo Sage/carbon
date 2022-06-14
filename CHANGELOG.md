@@ -1,3 +1,25 @@
+### [107.1.2](https://github.com/Sage/carbon/compare/v107.1.1...v107.1.2) (2022-06-14)
+
+
+### Bug Fixes
+
+* **button-toggle-group:** ensure that id prop is passed to FormField ([0b81a5e](https://github.com/Sage/carbon/commit/0b81a5e044f5b32913b7735c77cd71ad3304c07c))
+
+### [107.1.1](https://github.com/Sage/carbon/compare/v107.1.0...v107.1.1) (2022-06-14)
+
+
+### Bug Fixes
+
+* **date-range:** change startDateProps and endDateProps to ensure all props are optional ([83ed1b9](https://github.com/Sage/carbon/commit/83ed1b9ed3760d7e788b31cb092623ee7c3a0e7e)), closes [#5185](https://github.com/Sage/carbon/issues/5185)
+
+## [107.1.0](https://github.com/Sage/carbon/compare/v107.0.0...v107.1.0) (2022-06-13)
+
+
+### Features
+
+* **click-away-wrapper:** add ClickAwayWrapper component to internal directory ([091f0a4](https://github.com/Sage/carbon/commit/091f0a48a7dd0963fe493c82044d591521a093bb))
+* **popover-container:** add ClickAwayWrapper to close popover when click outside detected ([5ba1522](https://github.com/Sage/carbon/commit/5ba1522d09cc0301fd1aee7aad71d49f53e19fda)), closes [#5017](https://github.com/Sage/carbon/issues/5017) [#5158](https://github.com/Sage/carbon/issues/5158)
+
 ## [107.0.0](https://github.com/Sage/carbon/compare/v106.7.0...v107.0.0) (2022-06-13)
 
 
