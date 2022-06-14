@@ -1,3 +1,10 @@
+### [107.1.1](https://github.com/Sage/carbon/compare/v107.1.0...v107.1.1) (2022-06-14)
+
+
+### Bug Fixes
+
+* **date-range:** change startDateProps and endDateProps to ensure all props are optional ([83ed1b9](https://github.com/Sage/carbon/commit/83ed1b9ed3760d7e788b31cb092623ee7c3a0e7e)), closes [#5185](https://github.com/Sage/carbon/issues/5185)
+
 ## [107.1.0](https://github.com/Sage/carbon/compare/v107.0.0...v107.1.0) (2022-06-13)
 
 
