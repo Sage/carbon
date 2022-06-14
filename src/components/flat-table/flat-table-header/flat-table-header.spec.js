@@ -33,7 +33,15 @@ describe("FlatTableHeader", () => {
 
   describe("when a data prop is added", () => {
     it("should be added to the root element", () => {
-      const wrapper = mount(<FlatTableHeader data-role="test" />);
+      const wrapper = mount(
+        <table>
+          <thead>
+            <tr>
+              <FlatTableHeader data-role="test" />
+            </tr>
+          </thead>
+        </table>
+      );
       expect(wrapper.find(StyledFlatTableHeader).props()["data-role"]).toEqual(
         "test"
       );
@@ -42,7 +50,15 @@ describe("FlatTableHeader", () => {
 
   describe('with the "alternativeBgColor" prop set', () => {
     it('it overrides the header "background-color"', () => {
-      const wrapper = mount(<FlatTableHeader alternativeBgColor />);
+      const wrapper = mount(
+        <table>
+          <thead>
+            <tr>
+              <FlatTableHeader alternativeBgColor />
+            </tr>
+          </thead>
+        </table>
+      );
 
       assertStyleMatch(
         {
@@ -64,7 +80,15 @@ describe("FlatTableHeader", () => {
       let wrapper;
 
       it("it overrides the header border-right-width", () => {
-        wrapper = mount(<FlatTableHeader verticalBorder={verticalBorder} />);
+        wrapper = mount(
+          <table>
+            <thead>
+              <tr>
+                <FlatTableHeader verticalBorder={verticalBorder} />
+              </tr>
+            </thead>
+          </table>
+        );
         assertStyleMatch(
           {
             borderRightWidth: expectedValue,
