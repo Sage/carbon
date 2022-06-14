@@ -21,6 +21,8 @@ async function run(bundle) {
     "**/*.spec.js",
     "**/*.spec.ts",
     "**/*.spec.tsx",
+    "**/*.stories.js",
+    "**/*.stories.tsx",
     "**/*.d.ts",
   ];
 

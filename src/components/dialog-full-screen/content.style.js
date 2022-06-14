@@ -81,16 +81,10 @@ const StyledContent = styled.div`
 
   ${({ hasHeader }) =>
     !hasHeader &&
-    `
-    padding-top: 0;
-    margin-top: -25px;
-
-    .carbon-app-wrapper {
-      max-width: 100%;
-      padding: 0;
-      height: 70px;
-    }
-  `}
+    css`
+      padding-top: 0;
+      margin-top: -25px;
+    `}
 `;
 
 export default StyledContent;

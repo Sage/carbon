@@ -125,26 +125,26 @@ describe("AdvancedColorPicker", () => {
           });
         });
 
-        describe("when tab key pressed on the close button", () => {
+        describe("when shift tab keys pressed on the close button", () => {
           it("should switch focus to the selected color input", () => {
             render({ ...requiredProps, open: true });
             const { closeIcon, defaultSimpleColor } = getElements();
 
             closeIcon.focus();
             expect(document.activeElement).toBe(closeIcon);
-            document.dispatchEvent(tabKey);
+            document.dispatchEvent(shiftTabKey);
             expect(document.activeElement).toBe(defaultSimpleColor);
           });
         });
 
-        describe("when shift tab keys pressed on the selected color input", () => {
+        describe("tab key pressed on the selected color input", () => {
           it("should switch focus to the close button", () => {
             render({ ...requiredProps, open: true });
             jest.runAllTimers();
             const { closeIcon, defaultSimpleColor } = getElements();
 
             expect(document.activeElement).toBe(defaultSimpleColor);
-            document.dispatchEvent(shiftTabKey);
+            document.dispatchEvent(tabKey);
             expect(document.activeElement).toBe(closeIcon);
           });
         });
@@ -229,7 +229,6 @@ describe("AdvancedColorPicker", () => {
 
             expect(document.activeElement).toBe(simpleColors[7]);
             const color = wrapper.find(SimpleColor).at(8);
-
             color.find("input").first().getDOMNode().click();
 
             expect(onChange).not.toHaveBeenCalled();
@@ -254,7 +253,7 @@ describe("AdvancedColorPicker", () => {
           expect(document.activeElement).toBe(simpleColors[7]);
 
           const color = wrapper.find(SimpleColor).at(8);
-          color.find("input").first().getDOMNode().click();
+          color.find("input").first().simulate("click");
 
           expect(onBlur).toHaveBeenCalled();
           expect(document.activeElement.getAttribute("value")).toBe(

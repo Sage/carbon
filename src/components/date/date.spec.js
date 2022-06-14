@@ -146,7 +146,7 @@ describe("Date", () => {
       const focusedElement = document.activeElement;
 
       expect(input.getDOMNode()).toBe(focusedElement);
-      expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+      expect(wrapper.update().find(DayPicker).exists()).toBe(true);
     });
 
     it("the component's input should not be focused and picker should not exist when prop is falsy", () => {
@@ -155,7 +155,7 @@ describe("Date", () => {
       const focusedElement = document.activeElement;
 
       expect(input.getDOMNode()).not.toBe(focusedElement);
-      expect(wrapper.update().find(DatePicker).exists()).not.toBe(true);
+      expect(wrapper.update().find(DayPicker).exists()).not.toBe(true);
     });
   });
 
@@ -168,7 +168,7 @@ describe("Date", () => {
       wrapper = render({ onFocus: onFocusFn });
       simulateFocusOnInput(wrapper);
       expect(onFocusFn).toHaveBeenCalled();
-      expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+      expect(wrapper.update().find(DayPicker).exists()).toBe(true);
 
       simulateBlurOnInput(wrapper); // for coverage
     });
@@ -180,7 +180,7 @@ describe("Date", () => {
 
         simulateFocusOnInput(wrapper);
         expect(onFocusFn).not.toHaveBeenCalled();
-        expect(wrapper.update().find(DatePicker).exists()).not.toBe(true);
+        expect(wrapper.update().find(DayPicker).exists()).not.toBe(true);
       }
     );
   });
@@ -314,17 +314,17 @@ describe("Date", () => {
 
     describe('and with the "Tab" key', () => {
       it('then the "DatePicker" should be closed', () => {
-        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
         simulateOnKeyDown(wrapper, tabKeyCode);
-        expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(false);
       });
     });
 
     describe('and with the key other that "Tab"', () => {
       it('then the "DatePicker" should not be closed', () => {
-        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
         simulateOnKeyDown(wrapper, enterKeyCode);
-        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
       });
     });
   });
@@ -351,9 +351,9 @@ describe("Date", () => {
       it("then the 'DatePicker' should open on first click and further clicks should not close the picker", () => {
         wrapper = render();
         simulateMouseDownOnInput(wrapper);
-        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
         simulateMouseDownOnInput(wrapper);
-        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
       });
 
       it.each(["disabled", "readOnly"])(
@@ -361,7 +361,7 @@ describe("Date", () => {
         (param) => {
           wrapper = render({ [param]: true });
           simulateMouseDownOnInput(wrapper);
-          expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+          expect(wrapper.update().find(DayPicker).exists()).toBe(false);
         }
       );
 
@@ -371,7 +371,7 @@ describe("Date", () => {
           wrapper = render({ [param]: true, onClick: onClickFn });
           simulateClickOnInput(wrapper);
           expect(onClickFn).not.toHaveBeenCalled();
-          expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+          expect(wrapper.update().find(DayPicker).exists()).toBe(false);
         }
       );
     });
@@ -395,11 +395,11 @@ describe("Date", () => {
       it("then the 'DatePicker' should toggle open or closed", () => {
         wrapper = render();
         simulateMouseDownOnInputIcon(wrapper);
-        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
         simulateMouseDownOnInputIcon(wrapper);
-        expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(false);
         simulateMouseDownOnInputIcon(wrapper);
-        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
         simulateFocusOnInput(wrapper);
       });
 
@@ -409,7 +409,7 @@ describe("Date", () => {
           wrapper = render({ [param]: true, onClick: onClickFn });
           simulateClickOnInput(wrapper);
           expect(onClickFn).not.toHaveBeenCalled();
-          expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+          expect(wrapper.update().find(DayPicker).exists()).toBe(false);
         }
       );
     });
@@ -418,7 +418,7 @@ describe("Date", () => {
       it("the 'DatePicker' should close if it is open", () => {
         wrapper = render();
         simulateFocusOnInput(wrapper);
-        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
 
         act(() => {
           document.dispatchEvent(
@@ -426,14 +426,14 @@ describe("Date", () => {
           );
         });
 
-        expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(false);
         wrapper.unmount();
       });
 
       it("the 'DatePicker' should close if it is open", () => {
         wrapper = render();
         simulateFocusOnInput(wrapper);
-        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
 
         simulateMouseDownOnPicker(wrapper);
 
@@ -445,7 +445,7 @@ describe("Date", () => {
           );
         });
 
-        expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(false);
         wrapper.unmount();
       });
     });
@@ -455,7 +455,7 @@ describe("Date", () => {
         const onBlurFn = jest.fn();
         wrapper = render({ onBlur: onBlurFn });
         simulateMouseDownOnInput(wrapper);
-        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
         simulateMouseDownOnPicker(wrapper);
         wrapper.update();
         simulateBlurOnInput(wrapper);
@@ -467,7 +467,7 @@ describe("Date", () => {
       it("the 'DatePicker' should remain open", () => {
         wrapper = render();
         simulateFocusOnInput(wrapper);
-        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
 
         act(() => {
           document.dispatchEvent(
@@ -481,7 +481,7 @@ describe("Date", () => {
           );
         });
 
-        expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
       });
     });
   });
@@ -579,7 +579,7 @@ describe("Date", () => {
       });
 
       it("should return focus to the date input and close the DatePicker", () => {
-        expect(wrapper.update().find(DatePicker).exists()).toBe(false);
+        expect(wrapper.update().find(DayPicker).exists()).toBe(false);
         expect(onFocusFn).toHaveBeenCalled();
       });
 
@@ -608,7 +608,7 @@ describe("Date", () => {
         it("does not call onChange, focus the input or close the picker", () => {
           expect(onChangeFn).not.toHaveBeenCalled();
           expect(onFocusFn).not.toHaveBeenCalled();
-          expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+          expect(wrapper.update().find(DayPicker).exists()).toBe(true);
         });
       });
     });
@@ -837,7 +837,7 @@ describe("Date", () => {
         wrapper.find(InputIconToggle).props().onMouseDown({ target: {} });
       });
 
-      expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+      expect(wrapper.update().find(DayPicker).exists()).toBe(true);
     });
   });
 
@@ -848,7 +848,7 @@ describe("Date", () => {
         wrapper.find(InputIconToggle).props().onMouseDown({ target: {} });
       });
 
-      expect(wrapper.update().find(DatePicker).exists()).toBe(true);
+      expect(wrapper.update().find(DayPicker).exists()).toBe(true);
       expect(wrapper.find(DatePicker).props().inputElement.current).toBe(
         wrapper.find(StyledInputPresentation).getDOMNode()
       );

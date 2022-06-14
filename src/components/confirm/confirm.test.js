@@ -347,10 +347,10 @@ context("Testing Confirm component", () => {
       firstElement().should("be.focused");
     });
 
-    it("should focus default first element", () => {
+    it("should focus the dialog container", () => {
       CypressMountWithProviders(<ConfirmComponent blockFocusElement />);
-      const defaultfocus = () => cy.get('[data-element="default-focused"]');
-      defaultfocus().should("be.focused");
+      const dialogContainer = () => cy.get('[data-component="dialog"]');
+      dialogContainer().should("be.focused");
     });
 
     it.each([

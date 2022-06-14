@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import createGuid from "../../__internal__/utils/helpers/guid";
-import Logger from "../../__internal__/utils/logger";
 import Heading from "../heading";
 import Dialog from "../dialog";
 import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";
@@ -10,15 +9,12 @@ import Icon from "../icon";
 import Loader from "../loader";
 import useLocale from "../../hooks/__internal__/useLocale";
 
-let deprecatedWarnTriggered = false;
-
 const Confirm = ({
   "aria-labelledby": ariaLabelledBy,
   "aria-describedby": ariaDescribedBy,
   "aria-label": ariaLabel,
   open,
   children,
-  destructive,
   cancelButtonDestructive,
   confirmButtonDestructive,
   cancelButtonType,
@@ -39,13 +35,6 @@ const Confirm = ({
   title,
   ...rest
 }) => {
-  if (!deprecatedWarnTriggered && destructive) {
-    deprecatedWarnTriggered = true;
-    Logger.deprecate(
-      "`destructive` prop is deprecated and will soon be removed. Please use `cancelButtonDestructive` and `confirmButtonDestructive` props."
-    );
-  }
-
   const l = useLocale();
 
   const { current: titleId } = useRef(createGuid());
@@ -70,7 +59,7 @@ const Confirm = ({
         onClick={onCancel}
         data-element="cancel"
         buttonType={cancelButtonType}
-        destructive={destructive || cancelButtonDestructive}
+        destructive={cancelButtonDestructive}
         disabled={disableCancel}
         iconType={cancelButtonIconType}
         iconPosition={cancelButtonIconPosition}
@@ -85,7 +74,7 @@ const Confirm = ({
       onClick={onConfirm}
       data-element="confirm"
       buttonType={confirmButtonType}
-      destructive={destructive || confirmButtonDestructive}
+      destructive={confirmButtonDestructive}
       disabled={isLoadingConfirm || disableConfirm}
       ml={2}
       iconType={confirmButtonIconType}
@@ -141,7 +130,6 @@ const Confirm = ({
 Confirm.defaultProps = {
   size: "extra-small",
   showCloseIcon: false,
-  destructive: false,
   cancelButtonDestructive: false,
   confirmButtonDestructive: false,
   iconType: null,
@@ -200,8 +188,6 @@ Confirm.propTypes = {
   confirmLabel: PropTypes.string,
   /** Customise the cancel button label */
   cancelLabel: PropTypes.string,
-  /** Apply destructive style to the buttons */
-  destructive: PropTypes.bool,
   /** Apply destructive style to the cancel button */
   cancelButtonDestructive: PropTypes.bool,
   /** Apply destructive style to the confirm button */

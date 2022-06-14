@@ -617,3 +617,95 @@ describe("PopoverContainerContentStyle", () => {
     });
   });
 });
+
+describe("open state when click event triggered", () => {
+  it("should close the container when uncontrolled and target is outside wrapper element", () => {
+    const wrapper = render({});
+    act(() => {
+      wrapper.find(PopoverContainerOpenIcon).props().onAction();
+    });
+    expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
+      undefined
+    );
+    document.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+    expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
+      "PopoverContainer_guid-123"
+    );
+  });
+
+  it("should not close the container when uncontrolled and target is inside wrapper element", () => {
+    const wrapper = render({});
+    act(() => {
+      wrapper.find(PopoverContainerOpenIcon).props().onAction();
+    });
+    expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
+      undefined
+    );
+    document.dispatchEvent(
+      new CustomEvent("click", {
+        detail: {
+          enzymeTestingTarget: wrapper?.find(PopoverContainer).getDOMNode(),
+        },
+      })
+    );
+    expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
+      undefined
+    );
+  });
+
+  it("should close the container when controlled and target is outside wrapper element", () => {
+    const onCloseFn = jest.fn();
+    const MockWrapper = () => {
+      const [open, setOpen] = React.useState(true);
+
+      return (
+        <PopoverContainer
+          title="PopoverContainerSettings"
+          open={open}
+          onClose={(e) => {
+            setOpen(false);
+            onCloseFn(e);
+          }}
+        />
+      );
+    };
+    const wrapper = mount(<MockWrapper />);
+
+    expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
+    act(() => {
+      document.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+    });
+    expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(false);
+    expect(onCloseFn).toHaveBeenCalled();
+  });
+
+  it("should not close the container when controlled and target is inside wrapper element", () => {
+    const onCloseFn = jest.fn();
+    const MockWrapper = () => {
+      const [open, setOpen] = React.useState(true);
+
+      return (
+        <PopoverContainer
+          title="PopoverContainerSettings"
+          open={open}
+          onClose={(e) => {
+            setOpen(false);
+            onCloseFn(e);
+          }}
+        />
+      );
+    };
+    const wrapper = mount(<MockWrapper />);
+
+    expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
+    document.dispatchEvent(
+      new CustomEvent("click", {
+        detail: {
+          enzymeTestingTarget: wrapper?.find(PopoverContainer).getDOMNode(),
+        },
+      })
+    );
+    expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
+    expect(onCloseFn).not.toHaveBeenCalled();
+  });
+});

@@ -184,6 +184,7 @@ const Dialog = ({
         focusFirstElement={focusFirstElement}
         bespokeTrap={bespokeFocusTrap}
         wrapperRef={dialogRef}
+        isOpen={open}
       >
         <DialogStyle
           aria-modal
@@ -197,12 +198,12 @@ const Dialog = ({
           {...contentPadding}
         >
           {dialogTitle()}
+          {closeIcon()}
           <DialogContentStyle {...contentPadding}>
             <DialogInnerContentStyle ref={innerContentRef} {...contentPadding}>
               {children}
             </DialogInnerContentStyle>
           </DialogContentStyle>
-          {closeIcon()}
         </DialogStyle>
       </FocusTrap>
     </Modal>
