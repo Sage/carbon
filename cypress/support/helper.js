@@ -1,4 +1,4 @@
-import DEBUG_FLAG from ".";
+import DEBUG_FLAG from "./e2e";
 
 const stringToURL = (str) => str.toLowerCase().replace(/ /g, "-");
 

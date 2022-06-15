@@ -20,7 +20,7 @@ import {
   helpIcon,
 } from "../../locators";
 import { dialogTitle } from "../../locators/dialog";
-import DEBUG_FLAG from "..";
+import DEBUG_FLAG from "../e2e";
 import { pagerSummary } from "../../locators/pager";
 import {
   buttonSubtextPreview,

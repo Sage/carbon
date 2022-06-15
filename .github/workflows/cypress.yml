@@ -82,7 +82,7 @@ jobs:
           npx cypress verify
           npx cypress info
       - name: Cypress run
-        uses: cypress-io/github-action@v3
+        uses: cypress-io/github-action@v4
         with:
           install: false
           start: npm start
@@ -94,8 +94,8 @@ jobs:
           quiet: true
           browser: chrome
           spec: |
-            cypress/integration/common/*
-            cypress/integration/themes/*
+            cypress/e2e/common/*
+            cypress/e2e/themes/*
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -164,10 +164,15 @@ jobs:
           npx cypress info
 
       - name: Cypress React tests
-        uses: cypress-io/github-action@v3
+        uses: cypress-io/github-action@v4
         with:
           install: false
-          command: npx cypress run-ct --parallel --record --group ubuntu-cypress-react --browser chrome
+          record: true
+          parallel: true
+          group: ubuntu-cypress-react
+          quiet: true
+          browser: chrome
+          component: true
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -245,7 +250,7 @@ jobs:
           npm run build-storybook
           npx sb extract
       - name: Cypress run
-        uses: cypress-io/github-action@v3
+        uses: cypress-io/github-action@v4
         with:
           install: false
           start: npx http-server storybook-static -p 9001
@@ -256,7 +261,7 @@ jobs:
           group: ubuntu-accessibility
           quiet: true
           browser: chrome
-          spec: cypress/integration/accessibility/*.test.js
+          spec: cypress/e2e/accessibility/*.test.js
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
