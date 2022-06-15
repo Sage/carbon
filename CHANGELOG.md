@@ -1,3 +1,10 @@
+### [107.1.4](https://github.com/Sage/carbon/compare/v107.1.3...v107.1.4) (2022-06-15)
+
+
+### Bug Fixes
+
+* **tabs:** fix issue with two tab titles being highlited simultaneously ([659ef2a](https://github.com/Sage/carbon/commit/659ef2ab4c6d07c276a8bf0ca2d95f2e7b8b6db1))
+
 ### [107.1.3](https://github.com/Sage/carbon/compare/v107.1.2...v107.1.3) (2022-06-15)
 
 
