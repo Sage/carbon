@@ -1,3 +1,10 @@
+### [107.1.3](https://github.com/Sage/carbon/compare/v107.1.2...v107.1.3) (2022-06-15)
+
+
+### Bug Fixes
+
+* **heading:** fix typings ([a53482e](https://github.com/Sage/carbon/commit/a53482ef5c258eb10712cd1339e6384cf7475c16))
+
 ### [107.1.2](https://github.com/Sage/carbon/compare/v107.1.1...v107.1.2) (2022-06-14)
 
 
