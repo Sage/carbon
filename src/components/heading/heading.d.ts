@@ -2,8 +2,8 @@ import * as React from "react";
 import { MarginProps } from "styled-system";
 
 export interface HeadingProps extends MarginProps {
-  /** Custom className */
-  className?: string;
+  /** Child elements */
+  children?: React.ReactNode;
   /** Defines the title for the heading. */
   title?: React.ReactNode;
   /** Defines the title id for the heading. */
@@ -24,8 +24,10 @@ export interface HeadingProps extends MarginProps {
   separator?: boolean;
   /** Pills that will be added after the title. */
   pills?: React.ReactNode;
+  /** Aria label for rendered help component */
+  helpAriaLabel?: string;
 }
 
-declare class Heading extends React.Component<HeadingProps> {}
+declare function Heading(props: HeadingProps): JSX.Element | null;
 
 export default Heading;

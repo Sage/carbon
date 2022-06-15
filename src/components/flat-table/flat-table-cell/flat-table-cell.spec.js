@@ -111,7 +111,17 @@ describe("FlatTableRowCell", () => {
       let wrapper;
 
       it("it overrides the cell border-right size", () => {
-        wrapper = mount(<FlatTableRowCell verticalBorder={verticalBorder} />);
+        wrapper = mount(
+          <table>
+            <tbody>
+              <tr>
+                <FlatTableRowCell verticalBorder={verticalBorder}>
+                  Foo
+                </FlatTableRowCell>
+              </tr>
+            </tbody>
+          </table>
+        );
         assertStyleMatch(
           {
             borderRight: expectedValue,
@@ -133,7 +143,15 @@ describe("FlatTableRowCell", () => {
 
       it("it overrides the cell border-right-color", () => {
         wrapper = mount(
-          <FlatTableRowCell verticalBorderColor={verticalBorderColor} />
+          <table>
+            <tbody>
+              <tr>
+                <FlatTableRowCell verticalBorderColor={verticalBorderColor}>
+                  Foo
+                </FlatTableRowCell>
+              </tr>
+            </tbody>
+          </table>
         );
         assertStyleMatch(
           {

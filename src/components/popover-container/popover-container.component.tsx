@@ -13,6 +13,7 @@ import {
 import Icon from "../icon";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
+import ClickAwayWrapper from "../../__internal__/click-away-wrapper";
 
 export interface RenderOpenProps {
   tabIndex: number;
@@ -127,6 +128,7 @@ export const PopoverContainer = ({
   const isControlled = open !== undefined;
   const [isOpenInternal, setIsOpenInternal] = useState(false);
 
+  const ref = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);
   const guid = useRef(createGuid());
@@ -174,49 +176,63 @@ export const PopoverContainer = ({
     "aria-label": closeButtonAriaLabel,
   };
 
+  // TODO: Assign proper type after ClickAwayWrapper has been refactored
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleClickAway = (e: any) => {
+    if (!isControlled) setIsOpenInternal(false);
+    if (onClose) onClose(e);
+  };
+
   return (
-    <PopoverContainerWrapperStyle
-      data-component="popover-container"
-      role="region"
-      aria-labelledby={popoverContainerId}
+    <ClickAwayWrapper
+      targets={[ref]}
+      handleClickAway={handleClickAway}
+      eventTypeId="mousedown"
     >
-      {renderOpenComponent(renderOpenComponentProps)}
-      <Transition
-        in={isOpen}
-        timeout={{ exit: 300 }}
-        appear
-        mountOnEnter
-        unmountOnExit
-        nodeRef={popoverContentNodeRef}
+      <PopoverContainerWrapperStyle
+        data-component="popover-container"
+        role="region"
+        aria-labelledby={popoverContainerId}
+        ref={ref}
       >
-        {(state: TransitionStatus) => (
-          <PopoverContainerContentStyle
-            data-element="popover-container-content"
-            role="dialog"
-            animationState={state}
-            position={position}
-            shouldCoverButton={shouldCoverButton}
-            aria-labelledby={popoverContainerId}
-            aria-label={containerAriaLabel}
-            aria-describedby={ariaDescribedBy}
-            p="16px 24px"
-            ref={popoverContentNodeRef}
-            {...filterStyledSystemPaddingProps(rest)}
-          >
-            <PopoverContainerHeaderStyle>
-              <PopoverContainerTitleStyle
-                id={popoverContainerId}
-                data-element="popover-container-title"
-              >
-                {title}
-              </PopoverContainerTitleStyle>
-              {renderCloseComponent(renderCloseComponentProps)}
-            </PopoverContainerHeaderStyle>
-            {children}
-          </PopoverContainerContentStyle>
-        )}
-      </Transition>
-    </PopoverContainerWrapperStyle>
+        {renderOpenComponent(renderOpenComponentProps)}
+        <Transition
+          in={isOpen}
+          timeout={{ exit: 300 }}
+          appear
+          mountOnEnter
+          unmountOnExit
+          nodeRef={popoverContentNodeRef}
+        >
+          {(state: TransitionStatus) => (
+            <PopoverContainerContentStyle
+              data-element="popover-container-content"
+              role="dialog"
+              animationState={state}
+              position={position}
+              shouldCoverButton={shouldCoverButton}
+              aria-labelledby={popoverContainerId}
+              aria-label={containerAriaLabel}
+              aria-describedby={ariaDescribedBy}
+              p="16px 24px"
+              ref={popoverContentNodeRef}
+              {...filterStyledSystemPaddingProps(rest)}
+            >
+              <PopoverContainerHeaderStyle>
+                <PopoverContainerTitleStyle
+                  id={popoverContainerId}
+                  data-element="popover-container-title"
+                >
+                  {title}
+                </PopoverContainerTitleStyle>
+                {renderCloseComponent(renderCloseComponentProps)}
+              </PopoverContainerHeaderStyle>
+              {children}
+            </PopoverContainerContentStyle>
+          )}
+        </Transition>
+      </PopoverContainerWrapperStyle>
+    </ClickAwayWrapper>
   );
 };
 

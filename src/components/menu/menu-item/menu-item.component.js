@@ -15,7 +15,6 @@ import Events from "../../../__internal__/utils/helpers/events";
 import MenuContext from "../menu.context";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
-import SubmenuBlock from "../submenu-block/submenu-block.component";
 import { StyledMenuItem } from "../menu.style";
 import Search from "../../search";
 
@@ -48,13 +47,6 @@ const MenuItem = ({
   const childRef = useRef();
   const { inFullscreenView } = menuContext;
   const childrenItems = React.Children.map(children, (child) => {
-    if (child && child.type === SubmenuBlock) {
-      const childArray = Array.isArray(child.props.children)
-        ? child.props.children
-        : [child.props.children];
-
-      return [...childArray.map((innerChild) => innerChild)];
-    }
     if (child?.type === Search) {
       isChildSearch.current = true;
     }

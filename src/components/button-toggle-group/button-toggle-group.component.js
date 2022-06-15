@@ -5,7 +5,7 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import FormField from "../../__internal__/form-field";
 import ButtonToggleGroupStyle from "./button-toggle-group.style";
 import ButtonToggle from "../button-toggle";
-import RadioButtonMapper from "../radio-button/radio-button-mapper.component";
+import RadioButtonMapper from "../../__internal__/radio-button-mapper/radio-button-mapper.component";
 import ValidationIcon from "../../__internal__/validations/validation-icon.component";
 import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
@@ -38,6 +38,7 @@ const ButtonToggleGroup = ({
   "data-element": dataElement,
   "data-role": dataRole,
   helpAriaLabel,
+  id,
   ...props
 }) => {
   const validationProps = {
@@ -62,6 +63,7 @@ const ButtonToggleGroup = ({
           data-component={dataComponent}
           data-role={dataRole}
           data-element={dataElement}
+          id={id}
           {...validationProps}
           {...filterStyledSystemMarginProps(props)}
         >
