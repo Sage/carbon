@@ -15,7 +15,7 @@ import {
   pageSelectInput,
 } from "../../locators/flat-table";
 
-import DEBUG_FLAG from "..";
+import DEBUG_FLAG from "../e2e";
 import { keyCode, positionOfElement } from "../helper";
 import { icon } from "../../locators";
 import { selectOption } from "../../locators/select";

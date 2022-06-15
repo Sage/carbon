@@ -113,7 +113,7 @@ describe("Form", () => {
     it("applies custom value to textarea with character count specified", () => {
       wrapper = mount(
         <StyledForm fieldSpacing={4}>
-          <Textarea label="Textarea with Character Limit" characterLimit={50} />
+          <Textarea label="Textarea with Character Limit" characterLimit="50" />
         </StyledForm>
       );
       assertStyleMatch(

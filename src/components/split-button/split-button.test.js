@@ -194,7 +194,7 @@ context("Tests for Split Button component", () => {
     }
   );
   // https://github.com/cypress-io/cypress/issues/21511
-  describe.skip("should check colors for Split Button component", () => {
+  describe("should check colors for Split Button component", () => {
     it.each([
       ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
       ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],

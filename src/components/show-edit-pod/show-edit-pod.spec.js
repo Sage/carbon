@@ -1,6 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
+import { act } from "react-dom/test-utils";
 import ShowEditPod from "./show-edit-pod.component";
 import { StyledContent } from "../pod/pod.style.js";
 import Form from "../form";
@@ -27,7 +28,9 @@ describe("ShowEditPod", () => {
       container = document.createElement("div");
       container.id = "enzymeContainer";
       document.body.appendChild(container);
-      wrapper = renderShowEditPod({ editing: true });
+      act(() => {
+        wrapper = renderShowEditPod({ editing: true });
+      });
     });
 
     it("sets focus on the pod DOM node", () => {
@@ -42,7 +45,9 @@ describe("ShowEditPod", () => {
 
     describe("and when the editing prop is changed to false", () => {
       it("does not display the Edit Form", () => {
-        wrapper.setProps({ editing: false });
+        act(() => {
+          wrapper.setProps({ editing: false });
+        });
         jest.runAllTimers();
 
         expect(wrapper.update().find(Form).exists()).toBe(false);
@@ -72,8 +77,10 @@ describe("ShowEditPod", () => {
     describe("and onEdit prop is called on Pod Component", () => {
       beforeEach(() => {
         jest.useFakeTimers();
-        wrapper = renderShowEditPod({ onEdit: jest.fn() });
-        wrapper.find(Pod).props().onEdit();
+        act(() => {
+          wrapper = renderShowEditPod({ onEdit: jest.fn() });
+          wrapper.find(Pod).props().onEdit();
+        });
       });
 
       it("displays the Edit Form", () => {
@@ -84,7 +91,9 @@ describe("ShowEditPod", () => {
 
       describe("and then the onCancel prop is called on the Edit Form", () => {
         it("does not display the Edit Form", () => {
-          wrapper.update().find(Form).find(Button).at(0).props().onClick();
+          act(() => {
+            wrapper.update().find(Form).find(Button).at(0).props().onClick();
+          });
           jest.runAllTimers();
 
           expect(
@@ -110,10 +119,10 @@ describe("ShowEditPod", () => {
 
       beforeEach(() => {
         onEditSpy = jest.fn();
-        wrapper = renderShowEditPod({
-          onEdit: onEditSpy,
+        act(() => {
+          wrapper = renderShowEditPod({ onEdit: onEditSpy });
+          wrapper.find(Pod).props().onEdit();
         });
-        wrapper.find(Pod).props().onEdit();
       });
 
       it("calls the onEdit callback", () => {
@@ -130,10 +139,12 @@ describe("ShowEditPod", () => {
           container.id = "enzymeContainer";
           document.body.appendChild(container);
           onEditSpy = jest.fn();
-          wrapperAttached = renderShowEditPod({
-            onEdit: onEditSpy,
+          act(() => {
+            wrapperAttached = renderShowEditPod({
+              onEdit: onEditSpy,
+            });
+            wrapperAttached.find(Pod).props().onEdit();
           });
-          wrapperAttached.find(Pod).props().onEdit();
         });
 
         afterEach(() => {
@@ -158,19 +169,22 @@ describe("ShowEditPod", () => {
       beforeEach(() => {
         jest.useFakeTimers();
         onSave = jest.fn();
-        wrapper = renderShowEditPod({
-          onSave,
-          onEdit: jest.fn(),
+        act(() => {
+          wrapper = renderShowEditPod({
+            onSave,
+            onEdit: jest.fn(),
+          });
+          wrapper.find(Pod).props().onEdit();
         });
-        wrapper.find(Pod).props().onEdit();
         jest.runAllTimers();
       });
 
       describe("after the Edit Form saving", () => {
         it("does not display the Edit Form", () => {
           const ev = { preventDefault: jest.fn() };
-
-          wrapper.update().find(Form).props().onSubmit(ev);
+          act(() => {
+            wrapper.update().find(Form).props().onSubmit(ev);
+          });
           jest.runAllTimers();
 
           expect(wrapper.update().find(Form).exists()).toBe(false);
@@ -184,11 +198,13 @@ describe("ShowEditPod", () => {
       describe("and onEdit prop is called on Pod Component", () => {
         beforeEach(() => {
           jest.useFakeTimers();
-          wrapper = renderShowEditPod({
-            onEdit: jest.fn(),
-            editing: true,
+          act(() => {
+            wrapper = renderShowEditPod({
+              onEdit: jest.fn(),
+              editing: true,
+            });
+            wrapper.setProps({ editing: false });
           });
-          wrapper.setProps({ editing: false });
           jest.runAllTimers();
         });
 
@@ -203,11 +219,13 @@ describe("ShowEditPod", () => {
     describe('with the "editing" prop set to false on mount', () => {
       describe("and onEdit prop is called on Pod Component", () => {
         beforeEach(() => {
-          wrapper = renderShowEditPod({
-            onEdit: jest.fn(),
-            editing: false,
+          act(() => {
+            wrapper = renderShowEditPod({
+              onEdit: jest.fn(),
+              editing: false,
+            });
+            wrapper.find(Pod).props().onEdit();
           });
-          wrapper.find(Pod).props().onEdit();
         });
 
         it("does not display the Edit Form", () => {
@@ -227,9 +245,11 @@ describe("ShowEditPod", () => {
 
     beforeEach(() => {
       onSave = jest.fn();
-      wrapper = renderShowEditPod({
-        onSave,
-        editing: true,
+      act(() => {
+        wrapper = renderShowEditPod({
+          onSave,
+          editing: true,
+        });
       });
     });
 
@@ -253,29 +273,37 @@ describe("ShowEditPod", () => {
 
     beforeEach(() => {
       onCancel = jest.fn();
-      wrapper = renderShowEditPod({
-        onCancel,
-        editing: true,
+      act(() => {
+        wrapper = renderShowEditPod({
+          onCancel,
+          editing: true,
+        });
       });
     });
 
     describe("and the cancel is triggered on Edit Form", () => {
       it("calls the onCancel function", () => {
-        wrapper.find(Form).find(Button).at(0).props().onClick(mockEvent);
+        act(() => {
+          wrapper.find(Form).find(Button).at(0).props().onClick(mockEvent);
+        });
         expect(onCancel).toHaveBeenCalledWith(mockEvent);
       });
     });
 
     describe("and the escape key is hit", () => {
       it("calls the onCancel function", () => {
-        wrapper.find(Pod).simulate("keydown", { which: 27 });
+        act(() => {
+          wrapper.find(Pod).simulate("keydown", { which: 27 });
+        });
         expect(onCancel).toHaveBeenCalled();
       });
     });
 
     describe("when the event is not the escape key", () => {
       it("does not call onCancelEditForm", () => {
-        wrapper.find(Form).simulate("keydown", { which: 33 });
+        act(() => {
+          wrapper.find(Form).simulate("keydown", { which: 33 });
+        });
         expect(onCancel).not.toHaveBeenCalled();
       });
     });

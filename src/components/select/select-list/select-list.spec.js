@@ -433,7 +433,7 @@ describe("SelectList", () => {
               isLoading
             >
               {multiColumn ? (
-                <OptionRow value="opt1" text="red">
+                <OptionRow id="1" value="opt1" text="red">
                   <td>foo</td>
                 </OptionRow>
               ) : (
@@ -867,13 +867,13 @@ function getOptionRowSelectList(props) {
         {...props}
         {...wrapperProps}
       >
-        <OptionRow value="opt1" text="red">
+        <OptionRow id="1" value="opt1" text="red">
           <td>red</td>
         </OptionRow>
-        <OptionRow value="opt2" text="green">
+        <OptionRow id="2" value="opt2" text="green">
           <td>green</td>
         </OptionRow>
-        <OptionRow value="opt3" text="blue">
+        <OptionRow id="3" value="opt3" text="blue">
           <td>blue</td>
         </OptionRow>
       </SelectList>
