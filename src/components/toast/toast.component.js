@@ -41,6 +41,8 @@ const Toast = React.forwardRef(
     const toastContentNodeRef = useRef();
     const closeIconRef = useRef();
 
+    const focusedElementBeforeOpening = useRef();
+
     const refToPass = ref || toastRef;
 
     const componentClasses = useMemo(() => {
@@ -70,10 +72,24 @@ const Toast = React.forwardRef(
     }, [onDismiss, open, timeout]);
 
     useEffect(() => {
-      if (open && onDismiss && !disableAutoFocus) {
-        closeIconRef.current?.focus();
+      if (onDismiss && !disableAutoFocus) {
+        if (open) {
+          focusedElementBeforeOpening.current = document.activeElement;
+          closeIconRef.current?.focus();
+        } else if (focusedElementBeforeOpening.current) {
+          focusedElementBeforeOpening.current.focus();
+          focusedElementBeforeOpening.current = undefined;
+        }
       }
     }, [open, onDismiss, disableAutoFocus]);
+
+    useEffect(() => {
+      return () => {
+        if (focusedElementBeforeOpening.current) {
+          focusedElementBeforeOpening.current.focus();
+        }
+      };
+    }, []);
 
     function renderCloseIcon() {
       if (!onDismiss) return null;

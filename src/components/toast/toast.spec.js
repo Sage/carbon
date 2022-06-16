@@ -5,6 +5,7 @@ import Toast from "./toast.component";
 import { ToastStyle, ToastContentStyle, ToastWrapper } from "./toast.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
+import Button from "../button";
 import ModalManager from "../modal/__internal__/modal-manager";
 import {
   elementsTagTest,
@@ -171,6 +172,32 @@ describe("Toast", () => {
         expect(icon).toBeFocused();
       });
 
+      it("when the toast closes, focus is returned to the element it was on before the toast opened", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+        const WrapperComponent = (toastProps) => (
+          <>
+            <Button id="buttonId">A button</Button>
+            <Toast {...toastProps} />
+          </>
+        );
+
+        wrapper.unmount();
+        wrapper = mount(
+          <WrapperComponent onDismiss={onDismiss} open={false} />,
+          { attachTo: htmlElement }
+        );
+        const button = wrapper.find("#buttonId").first();
+        button.getDOMNode().focus();
+
+        wrapper.setProps({ open: true });
+        const icon = wrapper.find("[data-element='close']").first();
+        expect(icon).toBeFocused();
+
+        wrapper.setProps({ open: false });
+        expect(button).toBeFocused();
+      });
+
       describe("calls onDismiss method when", () => {
         it("dismiss icon is clicked", () => {
           wrapper.find(IconButton).first().simulate("click");
@@ -217,6 +244,35 @@ describe("Toast", () => {
           const icon = wrapper.find("[data-element='close']").first();
 
           expect(icon).not.toBeFocused();
+        });
+
+        it("when the toast closes, focus is not returned to the element it was on before the toast opened", () => {
+          const element = document.createElement("div");
+          const htmlElement = document.body.appendChild(element);
+          const WrapperComponent = (toastProps) => (
+            <>
+              <Button id="buttonId">A button</Button>
+              <Toast {...toastProps} />
+            </>
+          );
+
+          wrapper.unmount();
+          wrapper = mount(
+            <WrapperComponent
+              onDismiss={onDismiss}
+              open={false}
+              disableAutoFocus
+            />,
+            { attachTo: htmlElement }
+          );
+
+          wrapper.setProps({ open: true });
+          const icon = wrapper.find("[data-element='close']").first();
+          icon.getDOMNode().focus();
+
+          wrapper.setProps({ open: false });
+          const button = wrapper.find("#buttonId").first();
+          expect(button).not.toBeFocused();
         });
       });
     });
