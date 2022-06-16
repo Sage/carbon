@@ -1,7 +1,10 @@
-import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 
-const StyledNavigationItem = styled.li`
+export interface StyledNavigationItemProps {
+  isSelected?: boolean;
+}
+
+const StyledNavigationItem = styled.li<StyledNavigationItemProps>`
   width: 100%;
 
   a {
@@ -31,9 +34,5 @@ const StyledNavigationItem = styled.li`
       `}
   }
 `;
-
-StyledNavigationItem.propTypes = {
-  isSelected: PropTypes.bool,
-};
 
 export default StyledNavigationItem;

@@ -9,14 +9,16 @@ import {
 import Textbox from "../textbox";
 
 import {
-  AnchorNavigationStory,
-  Content,
-  AnchorNavigationInFullScreenDialogStory,
-} from "./anchor-navigation-test.stories.mdx";
+  DefaultStory,
+  InFullScreenDialogStory,
+} from "./anchor-navigation-test.stories.tsx";
 
 <Meta
   title="Anchor Navigation"
-  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+  parameters={{
+    info: { disable: true },
+    chromatic: { disable: true },
+  }}
 />
 
 # Anchor Navigation
@@ -97,16 +99,14 @@ const MyComponent = () => (
 
 `AnchorNavigation` can be placed anywhere on the page to help with navigating long scrollable sections.
 
-<Story name="default">{AnchorNavigationStory.bind({})}</Story>
+<Story name="default">{DefaultStory.bind({})}</Story>
 
 ### In DialogFullScreen
 
 `AnchorNavigation` can also be used as the content of `DialogFullScreen` component.
 
 <Canvas>
-  <Story name="in full screen dialog">
-    {AnchorNavigationInFullScreenDialogStory.bind({})}
-  </Story>
+  <Story name="in full screen dialog">{InFullScreenDialogStory.bind({})}</Story>
 </Canvas>
 
 ## Props:
