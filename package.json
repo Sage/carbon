@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "107.1.2",
+  "version": "107.1.5",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -18,8 +18,8 @@
     "start:debug-theme": "cross-env STORYBOOK_DEBUG_THEME=true npm run start",
     "test": "jest --config=./jest.conf.json",
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
-    "test:cypress": "cypress open",
-    "cypress:react": "npx cypress open-ct",
+    "test:cypress": "npx cypress open --e2e",
+    "cypress:react": "npx cypress open --component",
     "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",
     "format": "prettier --write './src'",
     "lint": "eslint ./src",
@@ -115,7 +115,7 @@
     "core-js": "^3.20.3",
     "cross-env": "^5.2.0",
     "css-loader": "4.0.0",
-    "cypress": "^9.6.0",
+    "cypress": "^10.1.0",
     "cypress-axe": "^0.14.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
     "cypress-each": "^1.11.0",

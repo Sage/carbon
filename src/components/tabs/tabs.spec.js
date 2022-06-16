@@ -18,7 +18,7 @@ import {
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import { DrawerSidebarContext } from "../drawer";
 
-function render(props) {
+function render(props, mountOptions) {
   return mount(
     <Tabs {...props}>
       <Tab
@@ -48,7 +48,8 @@ function render(props) {
       >
         TabContent
       </Tab>
-    </Tabs>
+    </Tabs>,
+    mountOptions
   );
 }
 
@@ -409,6 +410,37 @@ describe("Tabs", () => {
       wrapper.setProps({ selectedTabId: "uniqueid1" });
       wrapper.update();
       expect(wrapper.find(Tab).at(0).props().isTabSelected).toEqual(true);
+    });
+
+    it("blurs the selected TabTitle when a new id is passed via the selectedTabId prop", () => {
+      const container = document.createElement("div");
+      container.id = "container";
+      document.body.appendChild(container);
+
+      const wrapper = render(
+        { selectedTabId: "uniqueid1" },
+        {
+          attachTo: document.querySelector("#container"),
+        }
+      );
+
+      act(() => {
+        wrapper.find(StyledTabTitle).at(0).getDOMNode().focus();
+      });
+
+      expect(document.activeElement).toBe(
+        wrapper.find(StyledTabTitle).at(0).getDOMNode()
+      );
+
+      wrapper.setProps({ selectedTabId: "uniqueid2" });
+      wrapper.update();
+
+      expect(document.activeElement).not.toBe(
+        wrapper.find(StyledTabTitle).at(0).getDOMNode()
+      );
+
+      wrapper.detach();
+      document.body.removeChild(container);
     });
 
     it('only calls the "onTabChange" callback when visible tabId does not match new tabId', () => {
