@@ -165,6 +165,12 @@ describe("Toast", () => {
         expect(icon.exists()).toBe(true);
       });
 
+      it("auto focuses the close icon", () => {
+        const icon = wrapper.find("[data-element='close']").first();
+
+        expect(icon).toBeFocused();
+      });
+
       describe("calls onDismiss method when", () => {
         it("dismiss icon is clicked", () => {
           wrapper.find(IconButton).first().simulate("click");
@@ -199,6 +205,18 @@ describe("Toast", () => {
           wrapper.setProps({ timeout: 2000, open: false, onDismiss: mockFn });
           jest.runTimersToTime(2000);
           expect(mockFn).not.toHaveBeenCalled();
+        });
+      });
+
+      describe("with disableAutoFocus prop", () => {
+        it("does not auto focus the close icon", () => {
+          wrapper.unmount();
+          wrapper = mount(
+            <Toast open onDismiss={onDismiss} disableAutoFocus />
+          );
+          const icon = wrapper.find("[data-element='close']").first();
+
+          expect(icon).not.toBeFocused();
         });
       });
     });

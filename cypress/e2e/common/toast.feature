@@ -23,11 +23,16 @@ Feature: Toast component
     Then Toast component is not visible
 
   @positive
-  Scenario: CloseIcon has the border outline
+  Scenario: CloseIcon is automatically focused and has the border outline
     Given I open "Toast" component page "dismissible"
-      And I click on "button-toast-dismissible" Toggle Preview
-    When closeIcon is focused
+    When I click on "button-toast-dismissible" Toggle Preview
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
+  
+  @positive
+  Scenario: CloseIcon is not automatically focused when disableAutoFocus prop is set
+    Given I open "Toast" component page "dismissible without auto-focus"
+    When I click on "button-toast-dismissible" Toggle Preview
+    Then close icon is not focused
 
   @positive
   Scenario: Confirm that when isCenter property is false Toast is left aligned

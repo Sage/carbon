@@ -29,6 +29,7 @@ const Toast = React.forwardRef(
       targetPortalId,
       timeout,
       variant,
+      disableAutoFocus,
       ...restProps
     },
     ref
@@ -38,6 +39,7 @@ const Toast = React.forwardRef(
     const toastRef = useRef();
     const timer = useRef();
     const toastContentNodeRef = useRef();
+    const closeIconRef = useRef();
 
     const refToPass = ref || toastRef;
 
@@ -67,6 +69,12 @@ const Toast = React.forwardRef(
       timer.current = setTimeout(() => onDismiss(), timeout);
     }, [onDismiss, open, timeout]);
 
+    useEffect(() => {
+      if (open && onDismiss && !disableAutoFocus) {
+        closeIconRef.current?.focus();
+      }
+    }, [open, onDismiss, disableAutoFocus]);
+
     function renderCloseIcon() {
       if (!onDismiss) return null;
 
@@ -75,6 +83,7 @@ const Toast = React.forwardRef(
           aria-label={locale.toast.ariaLabels.close()}
           data-element="close"
           onAction={onDismiss}
+          ref={closeIconRef}
         >
           <Icon type="close" />
         </IconButton>
@@ -152,6 +161,8 @@ Toast.propTypes = {
   targetPortalId: PropTypes.string,
   /** Maximum toast width */
   maxWidth: PropTypes.string,
+  /** Disables auto focus functionality when the Toast has a close icon */
+  disableAutoFocus: PropTypes.bool,
 };
 
 export default Toast;
