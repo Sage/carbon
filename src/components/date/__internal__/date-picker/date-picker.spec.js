@@ -33,9 +33,6 @@ const timeZone = "Europe/London";
 
 const getZonedDate = (date) => utcToZonedTime(new Date(date), timeZone);
 
-const inputElement = {
-  getBoundingClientRect: () => ({ left: 0, bottom: 0 }),
-};
 const firstDate = "2019-02-02";
 const secondDate = "2019-02-08";
 const invalidDate = "2019-02-";
@@ -139,13 +136,15 @@ describe("DatePicker", () => {
     });
 
     describe("without a disabled modifier", () => {
-      it('then "onDayClick" prop should have been called with the same date', () => {
+      it('then "onDayClick" prop should have been called with the same date and event target composition', () => {
         const date = new Date(firstDate);
         act(() => {
           wrapper.find(DayPicker).prop("onDayClick")(date, {}, { target: {} });
         });
 
-        expect(onDayClickFn).toHaveBeenCalledWith(date, { target: {} });
+        expect(onDayClickFn).toHaveBeenCalledWith(date, {
+          target: { id: "bar", name: "foo" },
+        });
       });
     });
 
@@ -281,17 +280,29 @@ describe("StyledDayPicker", () => {
   });
 });
 
+const MockComponent = (props) => {
+  const ref = React.useRef();
+  const Input = () => (
+    <div ref={ref}>
+      <input name="foo" id="bar" />
+    </div>
+  );
+  return (
+    <>
+      <Input />
+      <DatePicker inputElement={ref} {...props} />
+    </>
+  );
+};
+
 function renderI18n({ locale, ...props }) {
   return mount(
     <I18nProvider locale={locale}>
-      <DatePicker inputElement={inputElement} open {...props} />
+      <MockComponent open {...props} />
     </I18nProvider>
   );
 }
 
 function render(props, params) {
-  return mount(
-    <DatePicker inputElement={inputElement} open {...props} />,
-    params
-  );
+  return mount(<MockComponent open {...props} />, params);
 }

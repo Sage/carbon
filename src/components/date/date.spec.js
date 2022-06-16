@@ -103,6 +103,8 @@ describe("Date", () => {
           eventValues(ev.target.value);
         }}
         allowEmptyValue={emptyValue}
+        name="Foo"
+        id="Bar"
       />
     );
   };
@@ -138,6 +140,7 @@ describe("Date", () => {
       }
 
       container = null;
+      wrapper?.unmount();
     });
 
     it("the component's input should be focused and picker should exist when prop is true", () => {
@@ -576,6 +579,8 @@ describe("Date", () => {
         }
 
         container = null;
+
+        wrapper?.unmount();
       });
 
       it("should return focus to the date input and close the DatePicker", () => {
@@ -585,6 +590,34 @@ describe("Date", () => {
 
       it("should update the input element to reflect the passed date", () => {
         expect(wrapper.update().find("input").prop("value")).toBe("01/01/2021");
+      });
+
+      it("should call onChange with the expected event target composition", () => {
+        const onChangeFn = jest.fn();
+
+        wrapper = render({ onChange: onChangeFn, name: "foo", id: "bar" });
+        simulateFocusOnInput(wrapper);
+        jest.clearAllMocks();
+        act(() => {
+          wrapper
+            .update()
+            .find(DayPicker)
+            .props()
+            .onDayClick(mockDate, {}, { target: {} });
+        });
+
+        expect(onChangeFn).toHaveBeenCalledWith(
+          expect.objectContaining({
+            target: {
+              id: "bar",
+              name: "foo",
+              value: {
+                formattedValue: "01/01/2021",
+                rawValue: "2021-01-01",
+              },
+            },
+          })
+        );
       });
 
       describe("when the disabled modifier is set", () => {
