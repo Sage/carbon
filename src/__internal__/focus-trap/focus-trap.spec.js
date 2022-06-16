@@ -802,6 +802,72 @@ describe("FocusTrap", () => {
     });
   });
 
+  describe("additionalWrapperRefs", () => {
+    beforeEach(() => {
+      const wrapperRef = { current: null };
+      const otherContentRef1 = { current: null };
+      const otherContentRef2 = { current: null };
+      wrapper = mount(
+        <ModalContext.Provider value={{ isAnimationComplete: true }}>
+          <FocusTrap
+            wrapperRef={wrapperRef}
+            additionalWrapperRefs={[otherContentRef1, otherContentRef2]}
+          >
+            <button type="button" id="outside1">
+              outside focus trap
+            </button>
+            <div ref={wrapperRef}>
+              <button type="button" id="insidewrapper">
+                In wrapperRef
+              </button>
+            </div>
+            <button type="button" id="outside2">
+              outside focus trap
+            </button>
+            <div ref={otherContentRef1}>
+              <button type="button" id="insideother1">
+                In otherContentRef1
+              </button>
+            </div>
+            <button type="button" id="outside3">
+              outside focus trap
+            </button>
+            <div ref={otherContentRef2}>
+              <button type="button" id="insideother2">
+                In otherContentRef2
+              </button>
+            </div>
+            <button type="button" id="outside4">
+              outside focus trap
+            </button>
+          </FocusTrap>
+        </ModalContext.Provider>,
+        { attachTo: htmlElement }
+      );
+    });
+
+    it("tab should cycle through focusable elements inside the provided container refs and ignore all others", () => {
+      act(() => {
+        document.getElementById("insidewrapper").focus();
+        document.dispatchEvent(tabKey);
+      });
+
+      expect(wrapper.find("#insideother1").at(0)).toBeFocused();
+
+      act(() => {
+        document.dispatchEvent(tabKey);
+      });
+
+      expect(wrapper.find("#insideother2").at(0)).toBeFocused();
+
+      act(() => {
+        document.dispatchEvent(tabKey);
+      });
+
+      expect(wrapper.find("#insidewrapper").at(0)).toBeFocused();
+    });
+  });
+
   describe("when content in the children tree changes", () => {
     it("should trigger the MutationObserver", () => {
       const mutationObserverMock = jest.fn(function MutationObserver(callback) {

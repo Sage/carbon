@@ -29,6 +29,7 @@ const Sidebar = React.forwardRef(
       children,
       onCancel,
       role = "dialog",
+      focusableContainers,
       ...rest
     },
     ref
@@ -101,7 +102,11 @@ const Sidebar = React.forwardRef(
         {enableBackgroundUI ? (
           sidebar
         ) : (
-          <FocusTrap wrapperRef={sidebarRef} isOpen={open}>
+          <FocusTrap
+            wrapperRef={sidebarRef}
+            isOpen={open}
+            additionalWrapperRefs={focusableContainers}
+          >
             {sidebar}
           </FocusTrap>
         )}
@@ -135,6 +140,10 @@ Sidebar.propTypes = {
   header: PropTypes.node,
   /** The ARIA role to be applied to the container */
   role: PropTypes.string,
+  /** an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar */
+  focusableContainers: PropTypes.arrayOf(
+    PropTypes.shape({ current: PropTypes.any })
+  ),
 };
 
 Sidebar.defaultProps = {

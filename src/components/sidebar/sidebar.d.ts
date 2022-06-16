@@ -42,6 +42,8 @@ export interface SidebarProps {
     | "medium-large"
     | "large"
     | "extra-large";
+  /** an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar */
+  focusableContainers?: React.MutableRefObject<HTMLElement>[];
 }
 
 declare const SidebarContext: React.Context<SidebarContextProps>;

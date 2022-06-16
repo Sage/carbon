@@ -23,6 +23,7 @@ const FocusTrap = ({
   bespokeTrap,
   wrapperRef,
   isOpen,
+  additionalWrapperRefs,
 }) => {
   const trapRef = useRef(null);
   const [focusableElements, setFocusableElements] = useState();
@@ -44,20 +45,28 @@ const FocusTrap = ({
     [focusableElements]
   );
 
-  const updateFocusableElements = useCallback(() => {
-    const ref = wrapperRef?.current;
-    if (ref) {
-      const elements = Array.from(
-        ref.querySelectorAll(defaultFocusableSelectors)
-      ).filter((el) => Number(el.tabIndex) !== -1);
+  const allRefs = [wrapperRef, ...additionalWrapperRefs].map(
+    (ref) => ref?.current
+  );
 
-      if (hasNewInputs(elements)) {
-        setFocusableElements(Array.from(elements));
-        setFirstElement(elements[0]);
-        setLastElement(elements[elements.length - 1]);
+  const updateFocusableElements = useCallback(() => {
+    const elements = [];
+    allRefs.forEach((ref) => {
+      if (ref) {
+        elements.push(
+          ...Array.from(ref.querySelectorAll(defaultFocusableSelectors)).filter(
+            (el) => Number(el.tabIndex) !== -1
+          )
+        );
       }
+    });
+
+    if (hasNewInputs(elements)) {
+      setFocusableElements(Array.from(elements));
+      setFirstElement(elements[0]);
+      setLastElement(elements[elements.length - 1]);
     }
-  }, [hasNewInputs, wrapperRef]);
+  }, [hasNewInputs, allRefs]);
 
   useEffect(() => {
     const observer = new MutationObserver(updateFocusableElements);
@@ -222,6 +231,14 @@ FocusTrap.propTypes = {
   wrapperRef: PropTypes.shape({ current: PropTypes.any }),
   /* whether the modal (etc.) component that the focus trap is inside is open or not */
   isOpen: PropTypes.bool,
+  /** an optional array of refs to containers whose content should also be reachable from the FocusTrap */
+  additionalWrapperRefs: PropTypes.arrayOf(
+    PropTypes.shape({ current: PropTypes.any })
+  ),
+};
+
+FocusTrap.defaultProps = {
+  additionalWrapperRefs: [],
 };
 
 export default FocusTrap;
