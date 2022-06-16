@@ -10,8 +10,7 @@ import PropTypes from "prop-types";
 
 import {
   defaultFocusableSelectors,
-  nextNonRadioElementIndex,
-  isRadio,
+  getNextElement,
   setElementFocus,
 } from "./focus-trap-utils";
 import { ModalContext } from "../../components/modal/modal.component";
@@ -106,27 +105,29 @@ const FocusTrap = ({
           ev.preventDefault();
         } else if (ev.shiftKey) {
           /* shift + tab */
-          if (
-            activeElement === firstElement ||
-            activeElement === wrapperRef.current
-          ) {
-            lastElement.focus();
-            ev.preventDefault();
-          }
-
-          // If current element is radio button -
-          // find next non radio button element
-          if (isRadio(activeElement)) {
-            const nextIndex = nextNonRadioElementIndex(
-              activeElement,
-              focusableElements
+          let elementToFocus;
+          if (activeElement === wrapperRef.current) {
+            elementToFocus = getNextElement(
+              firstElement,
+              focusableElements,
+              ev.shiftKey
             );
-
-            setElementFocus(focusableElements[nextIndex]);
-            ev.preventDefault();
+          } else {
+            elementToFocus = getNextElement(
+              activeElement,
+              focusableElements,
+              ev.shiftKey
+            );
           }
-        } else if (activeElement === lastElement) {
-          firstElement.focus();
+          setElementFocus(elementToFocus);
+          ev.preventDefault();
+        } else {
+          const elementToFocus = getNextElement(
+            activeElement,
+            focusableElements,
+            ev.shiftKey
+          );
+          setElementFocus(elementToFocus);
           ev.preventDefault();
         }
       }
