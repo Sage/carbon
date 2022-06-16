@@ -148,14 +148,14 @@ describe("Accordion", () => {
     });
 
     it.each([
-      ["enter", 13],
-      ["space", 32],
+      ["Enter", "Enter"],
+      ["Space", " "],
     ])(
       "fires provided onChange prop when $s key is pressed on the header area",
-      (key, keyCode) => {
+      (keyName, key) => {
         const onChange = jest.fn();
         render({ onChange, expanded: false });
-        const ev = { which: keyCode };
+        const ev = { key };
         wrapper.find(StyledAccordionTitleContainer).prop("onKeyDown")(ev);
         expect(onChange).toHaveBeenCalledWith(ev, true);
       }
@@ -183,22 +183,18 @@ describe("Accordion", () => {
     });
 
     it.each([
-      ["enter", 13],
-      ["space", 32],
+      ["Enter", "Enter"],
+      ["Space", " "],
     ])(
       "toggles expansion state when pressing %s key on the header area",
-      (key, keyCode) => {
+      (keyName, key) => {
         act(() =>
-          wrapper.find(StyledAccordionTitleContainer).prop("onKeyDown")({
-            which: keyCode,
-          })
+          wrapper.find(StyledAccordionTitleContainer).prop("onKeyDown")({ key })
         );
         wrapper.update();
         expectIsExpanded(wrapper);
         act(() =>
-          wrapper.find(StyledAccordionTitleContainer).prop("onKeyDown")({
-            which: keyCode,
-          })
+          wrapper.find(StyledAccordionTitleContainer).prop("onKeyDown")({ key })
         );
         wrapper.update();
         expectIsCollapsed(wrapper);
@@ -208,7 +204,7 @@ describe("Accordion", () => {
     it("does not toggle expansion state when keys other than enter or space pressed on the header area", () => {
       act(() =>
         wrapper.find(StyledAccordionTitleContainer).prop("onKeyDown")({
-          which: 10,
+          key: "a",
         })
       );
       wrapper.update();
@@ -650,7 +646,7 @@ describe("AccordionGroup", () => {
   ])(
     "focuses on the next Accordion in a loop when down arrow is pressed",
     (focused, shouldBeFocused) => {
-      simulate.keydown.pressDownArrow(
+      simulate.keydown.pressArrowDown(
         wrapper.find(StyledAccordionTitleContainer).at(focused)
       );
       expect(
@@ -667,7 +663,7 @@ describe("AccordionGroup", () => {
   ])(
     "focuses on the previous Accordion in a loop when up arrow is pressed",
     (focused, shouldBeFocused) => {
-      simulate.keydown.pressUpArrow(
+      simulate.keydown.pressArrowUp(
         wrapper.find(StyledAccordionTitleContainer).at(focused)
       );
       expect(

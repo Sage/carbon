@@ -11,7 +11,6 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import Icon from "../icon";
 import Textbox from "../textbox";
 import Button from "../button";
-import Events from "../../__internal__/utils/helpers/events";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -146,9 +145,10 @@ const Search = ({
   };
 
   const handleKeyDown = (ev) => {
-    if (Events.isAlphabetKey(ev) || Events.isNumberKey(ev)) {
+    if (ev.key.length === 1) {
       ev.stopPropagation();
     }
+
     if (onKeyDown) {
       onKeyDown(ev);
     }

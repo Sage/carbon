@@ -292,18 +292,14 @@ describe("ShowEditPod", () => {
 
     describe("and the escape key is hit", () => {
       it("calls the onCancel function", () => {
-        act(() => {
-          wrapper.find(Pod).simulate("keydown", { which: 27 });
-        });
+        wrapper.find(Pod).simulate("keydown", { key: "Escape" });
         expect(onCancel).toHaveBeenCalled();
       });
     });
 
     describe("when the event is not the escape key", () => {
       it("does not call onCancelEditForm", () => {
-        act(() => {
-          wrapper.find(Form).simulate("keydown", { which: 33 });
-        });
+        wrapper.find(Form).simulate("keydown", { key: "a" });
         expect(onCancel).not.toHaveBeenCalled();
       });
     });

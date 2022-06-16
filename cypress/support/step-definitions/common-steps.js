@@ -148,8 +148,8 @@ When("I press Tab onto focused element", () => {
 });
 
 When("I press ESC onto focused element", () => {
-  cy.focused().trigger("keydown", { keyCode: 16, which: 16, release: false });
-  cy.focused().trigger("keydown", { keyCode: 27, which: 27 });
+  cy.focused().trigger("keydown", { key: "Shift", release: false });
+  cy.focused().trigger("keydown", { key: "Escape" });
 });
 
 When("I press ShiftTab onto focused element", () => {

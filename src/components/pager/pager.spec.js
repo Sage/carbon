@@ -203,7 +203,7 @@ describe("Pager", () => {
       );
 
       const input = wrapper.find(NumberInput).find("input");
-      input.simulate("keyup", { which: 13, target: { value: -100 } });
+      input.simulate("keyup", { key: "Enter", target: { value: -100 } });
       expect(input.prop("value")).toBe("10");
     });
 
@@ -220,7 +220,7 @@ describe("Pager", () => {
       );
 
       const input = wrapper.find(NumberInput).find("input");
-      input.simulate("keyup", { which: 13, target: { value: -100 } });
+      input.simulate("keyup", { key: "Enter", target: { value: -100 } });
       expect(input.prop("value")).toBe("1");
     });
 
@@ -244,7 +244,7 @@ describe("Pager", () => {
   it("updates correctly if new current page value is higher than page count", () => {
     const wrapper = render({ ...props, currentPage: 10 }, mount);
     const input = wrapper.find(NumberInput).find("input");
-    input.simulate("keyup", { which: 13, target: { value: 200 } });
+    input.simulate("keyup", { key: "Enter", target: { value: 200 } });
     expect(input.prop("value")).toBe("10");
   });
 
@@ -536,7 +536,7 @@ describe("Pager", () => {
           wrapper
             .find(Select)
             .props()
-            .onKeyDown({ which: 13, target: selectOptions });
+            .onKeyDown({ key: "Enter", target: selectOptions });
         });
 
         act(() => {
@@ -551,7 +551,7 @@ describe("Pager", () => {
           wrapper
             .find(Select)
             .props()
-            .onKeyDown({ which: 11, target: selectOptions });
+            .onKeyDown({ key: "a", target: selectOptions });
         });
 
         expect(onPagination).not.toHaveBeenCalledWith();

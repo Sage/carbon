@@ -22,12 +22,10 @@ import menuConfigVariants from "../menu.config";
 const events = {
   enter: {
     key: "Enter",
-    which: 13,
     preventDefault: jest.fn(),
   },
   escape: {
     key: "Escape",
-    which: 27,
     preventDefault: jest.fn(),
   },
 };

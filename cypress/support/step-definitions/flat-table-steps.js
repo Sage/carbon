@@ -97,7 +97,7 @@ Then(
 Then("press Enter key on the row element", () => {
   flatTableBodyRowByPosition(2)
     .focus()
-    .trigger("keydown", { keyCode: 13, which: 13, force: true });
+    .trigger("keydown", { key: "Enter", force: true });
 });
 
 Then("I click on {string} header {int} times", (position, times) => {
@@ -192,12 +192,12 @@ Then(
         flatTableSortable()
           .eq(positionOfElement(position))
           .focus()
-          .trigger("keydown", { keyCode: 13, which: 13, force: true });
+          .trigger("keydown", { key: "Enter", force: true });
       } else if (key === "Space") {
         flatTableSortable()
           .eq(positionOfElement(position))
           .focus()
-          .trigger("keydown", { keyCode: 32, which: 32, force: true });
+          .trigger("keydown", { key: " ", force: true });
       } else {
         throw new Error("Only Enter or Space key can be applied");
       }

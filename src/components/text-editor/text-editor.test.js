@@ -186,7 +186,7 @@ context("Test for TextEditor component", () => {
       ["bullet-list", 2],
       ["number-list", 1],
     ])(
-      "should focus %s button using LeftArrow keyboard key",
+      "should focus %s button using ArrowLeft keyboard key",
       (buttonType, times) => {
         CypressMountWithProviders(<TextEditorCustom />);
         textEditorInput().focus().tab();

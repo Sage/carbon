@@ -398,19 +398,16 @@ describe("NumeralDate", () => {
 
     it("allows numeric key presses", () => {
       const input = wrapper.find("input");
-      const event = { key: "1", which: 49, preventDefault: jest.fn() };
+      const event = { key: "1", preventDefault: jest.fn() };
       act(() => {
         input.simulate("keypress", event);
       });
       expect(event.preventDefault).not.toHaveBeenCalled();
     });
 
-    it.each([
-      ["a", 65],
-      ["/", 191],
-    ])("does not allow non-numeric characters", (key) => {
+    it.each([["a"], ["/"]])("does not allow non-numeric characters", (key) => {
       const input = wrapper.find("input");
-      const event = { key: key[0], which: key[1], preventDefault: jest.fn() };
+      const event = { key: key[0], preventDefault: jest.fn() };
       act(() => {
         input.simulate("keypress", event);
       });

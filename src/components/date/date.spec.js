@@ -298,9 +298,6 @@ describe("Date", () => {
   });
 
   describe('when the "keyDown" event is triggered on the input', () => {
-    const tabKeyCode = 9;
-    const enterKeyCode = 13;
-
     beforeEach(() => {
       wrapper = render();
       simulateFocusOnInput(wrapper);
@@ -310,7 +307,7 @@ describe("Date", () => {
       it("then the `onKeyDown` prop should be invoked", () => {
         const onKeyDown = jest.fn();
         wrapper.setProps({ onKeyDown });
-        simulateOnKeyDown(wrapper, 117);
+        simulateOnKeyDown(wrapper, "F6");
         expect(onKeyDown).toHaveBeenCalled();
       });
     });
@@ -318,7 +315,7 @@ describe("Date", () => {
     describe('and with the "Tab" key', () => {
       it('then the "DatePicker" should be closed', () => {
         expect(wrapper.update().find(DayPicker).exists()).toBe(true);
-        simulateOnKeyDown(wrapper, tabKeyCode);
+        simulateOnKeyDown(wrapper, "Tab");
         expect(wrapper.update().find(DayPicker).exists()).toBe(false);
       });
     });
@@ -326,7 +323,7 @@ describe("Date", () => {
     describe('and with the key other that "Tab"', () => {
       it('then the "DatePicker" should not be closed', () => {
         expect(wrapper.update().find(DayPicker).exists()).toBe(true);
-        simulateOnKeyDown(wrapper, enterKeyCode);
+        simulateOnKeyDown(wrapper, "Enter");
         expect(wrapper.update().find(DayPicker).exists()).toBe(true);
       });
     });
@@ -970,7 +967,7 @@ function simulateMouseDownOnPicker(wrapper) {
 }
 
 function simulateOnKeyDown(wrapper, key) {
-  const keyDownParams = { which: key };
+  const keyDownParams = { key };
   const input = wrapper.find("input");
 
   act(() => {

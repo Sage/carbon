@@ -589,7 +589,7 @@ describe("TextEditor", () => {
         wrapper = render();
         const editor = wrapper.find(Editor);
         act(() => {
-          editor.props().keyBindingFn({ key: "tab", which: 9 });
+          editor.props().keyBindingFn({ key: "Tab" });
         });
         act(() => {
           wrapper.update();
@@ -635,7 +635,7 @@ describe("TextEditor", () => {
         wrapper = render();
         const editor = wrapper.find(Editor);
         act(() => {
-          editor.props().keyBindingFn({ key: "tab", which: 9, shiftKey: true });
+          editor.props().keyBindingFn({ key: "tab", shiftKey: true });
         });
         act(() => {
           wrapper.update();

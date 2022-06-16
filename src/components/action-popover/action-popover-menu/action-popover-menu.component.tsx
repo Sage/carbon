@@ -132,8 +132,8 @@ const ActionPopoverMenu = React.forwardRef<
           e.preventDefault();
           e.stopPropagation();
           setFocusIndex(items.length - 1);
-        } else if (Events.isAlphabetKey(e)) {
-          // A-Za-z: focus the next item on the list that starts with the pressed key
+        } else if (e.key.length === 1) {
+          // any printable character: focus the next item on the list that starts with that character
           // selection should wrap to the start of the list
           e.stopPropagation();
           let firstMatch: number | undefined;
