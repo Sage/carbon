@@ -1,3 +1,10 @@
+### [107.1.5](https://github.com/Sage/carbon/compare/v107.1.4...v107.1.5) (2022-06-16)
+
+
+### Bug Fixes
+
+* **date:** ensure that event contains input name and id when picker is used to change date ([7376122](https://github.com/Sage/carbon/commit/7376122249f374eba87870359c5cd24da5459613)), closes [#5193](https://github.com/Sage/carbon/issues/5193)
+
 ### [107.1.4](https://github.com/Sage/carbon/compare/v107.1.3...v107.1.4) (2022-06-15)
 
 
