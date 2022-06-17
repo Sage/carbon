@@ -1,3 +1,10 @@
+### [107.1.6](https://github.com/Sage/carbon/compare/v107.1.5...v107.1.6) (2022-06-17)
+
+
+### Bug Fixes
+
+* **flat-table-row:** update sticky column functionality to support wrapping row headers ([d15cb0d](https://github.com/Sage/carbon/commit/d15cb0da02f4428bd550ad8a7709325f33113390)), closes [#5208](https://github.com/Sage/carbon/issues/5208)
+
 ### [107.1.5](https://github.com/Sage/carbon/compare/v107.1.4...v107.1.5) (2022-06-16)
 
 
