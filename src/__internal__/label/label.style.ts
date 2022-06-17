@@ -1,7 +1,13 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 
-const LabelStyle = styled.label`
+export interface StyledLabelProps {
+  /** If true, the component will be disabled */
+  disabled?: boolean;
+  /** Flag to configure component as mandatory */
+  isRequired?: boolean;
+}
+
+const StyledLabel = styled.label<StyledLabelProps>`
   color: var(--colorsUtilityYin090);
   display: block;
   font-weight: 600; //TODO: (tokens) use token var(--fontWeights500)
@@ -24,12 +30,24 @@ const LabelStyle = styled.label`
     `}
 `;
 
-LabelStyle.propTypes = {
-  disabled: PropTypes.bool,
-  isRequired: PropTypes.bool,
-};
+export interface StyledLabelContainerProps {
+  /** Label alignment */
+  align?: "left" | "right";
+  /** When true, label is placed in line an input */
+  inline?: boolean;
+  /** Flag to configure component as optional in Form */
+  optional?: boolean;
+  /** Padding right, integer multiplied by base spacing constant (8) */
+  pr?: 1 | 2;
+  /** Padding left, integer multiplied by base spacing constant (8) */
+  pl?: 1 | 2;
+  /** Label width */
+  width?: number;
+}
 
-export const StyledLabelContainer = styled.div`
+const DEFAULT_CONTAINER_WIDTH = 30;
+
+export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
   display: flex;
   align-items: center;
   margin-bottom: 8px;
@@ -48,7 +66,7 @@ export const StyledLabelContainer = styled.div`
         padding-left: var(${pl === 1 ? "--spacing100" : "--spacing200"});
       `};
       justify-content: ${align === "right" ? "flex-end" : "flex-start"};
-      width: ${width === 0 ? StyledLabelContainer.defaultProps.width : width}%;
+      width: ${width || DEFAULT_CONTAINER_WIDTH}%;
     `}
 
   ${({ optional }) =>
@@ -62,17 +80,4 @@ export const StyledLabelContainer = styled.div`
     `}
 `;
 
-StyledLabelContainer.defaultProps = {
-  align: "right",
-  width: 30,
-};
-
-StyledLabelContainer.propTypes = {
-  align: PropTypes.oneOf(["left", "right"]),
-  inline: PropTypes.bool,
-  width: PropTypes.number,
-  pr: PropTypes.number,
-  pl: PropTypes.number,
-};
-
-export default LabelStyle;
+export default StyledLabel;
