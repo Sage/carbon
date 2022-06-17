@@ -89,4 +89,6 @@ FlatTableHeader.defaultProps = {
   align: "left",
 };
 
+FlatTableHeader.displayName = "FlatTableHeader";
+
 export default FlatTableHeader;
