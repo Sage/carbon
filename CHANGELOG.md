@@ -1,3 +1,53 @@
+### [107.1.6](https://github.com/Sage/carbon/compare/v107.1.5...v107.1.6) (2022-06-17)
+
+
+### Bug Fixes
+
+* **flat-table-row:** update sticky column functionality to support wrapping row headers ([d15cb0d](https://github.com/Sage/carbon/commit/d15cb0da02f4428bd550ad8a7709325f33113390)), closes [#5208](https://github.com/Sage/carbon/issues/5208)
+
+### [107.1.5](https://github.com/Sage/carbon/compare/v107.1.4...v107.1.5) (2022-06-16)
+
+
+### Bug Fixes
+
+* **date:** ensure that event contains input name and id when picker is used to change date ([7376122](https://github.com/Sage/carbon/commit/7376122249f374eba87870359c5cd24da5459613)), closes [#5193](https://github.com/Sage/carbon/issues/5193)
+
+### [107.1.4](https://github.com/Sage/carbon/compare/v107.1.3...v107.1.4) (2022-06-15)
+
+
+### Bug Fixes
+
+* **tabs:** fix issue with two tab titles being highlited simultaneously ([659ef2a](https://github.com/Sage/carbon/commit/659ef2ab4c6d07c276a8bf0ca2d95f2e7b8b6db1))
+
+### [107.1.3](https://github.com/Sage/carbon/compare/v107.1.2...v107.1.3) (2022-06-15)
+
+
+### Bug Fixes
+
+* **heading:** fix typings ([a53482e](https://github.com/Sage/carbon/commit/a53482ef5c258eb10712cd1339e6384cf7475c16))
+
+### [107.1.2](https://github.com/Sage/carbon/compare/v107.1.1...v107.1.2) (2022-06-14)
+
+
+### Bug Fixes
+
+* **button-toggle-group:** ensure that id prop is passed to FormField ([0b81a5e](https://github.com/Sage/carbon/commit/0b81a5e044f5b32913b7735c77cd71ad3304c07c))
+
+### [107.1.1](https://github.com/Sage/carbon/compare/v107.1.0...v107.1.1) (2022-06-14)
+
+
+### Bug Fixes
+
+* **date-range:** change startDateProps and endDateProps to ensure all props are optional ([83ed1b9](https://github.com/Sage/carbon/commit/83ed1b9ed3760d7e788b31cb092623ee7c3a0e7e)), closes [#5185](https://github.com/Sage/carbon/issues/5185)
+
+## [107.1.0](https://github.com/Sage/carbon/compare/v107.0.0...v107.1.0) (2022-06-13)
+
+
+### Features
+
+* **click-away-wrapper:** add ClickAwayWrapper component to internal directory ([091f0a4](https://github.com/Sage/carbon/commit/091f0a48a7dd0963fe493c82044d591521a093bb))
+* **popover-container:** add ClickAwayWrapper to close popover when click outside detected ([5ba1522](https://github.com/Sage/carbon/commit/5ba1522d09cc0301fd1aee7aad71d49f53e19fda)), closes [#5017](https://github.com/Sage/carbon/issues/5017) [#5158](https://github.com/Sage/carbon/issues/5158)
+
 ## [107.0.0](https://github.com/Sage/carbon/compare/v106.7.0...v107.0.0) (2022-06-13)
 
 

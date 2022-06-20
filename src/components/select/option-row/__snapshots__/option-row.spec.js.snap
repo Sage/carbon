@@ -25,6 +25,7 @@ exports[`OptionRow renders properly 1`] = `
       aria-selected={true}
       className="c0"
       data-component="option-row"
+      id="1"
       onClick={[Function]}
       role="option"
     >

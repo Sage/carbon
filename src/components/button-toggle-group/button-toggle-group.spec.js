@@ -29,6 +29,7 @@ const formFieldProps = [
   ["labelInline", true],
   ["labelWidth", 30],
   ["labelAlign", "right"],
+  ["id", "foo"],
 ];
 
 const buttonToggleGroupVariants = {

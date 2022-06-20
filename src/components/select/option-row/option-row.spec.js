@@ -5,7 +5,7 @@ import OptionRow from "./option-row.component";
 
 describe("OptionRow", () => {
   it("renders properly", () => {
-    const props = { value: "1", text: "foo", children: "bar" };
+    const props = { id: "1", value: "1", text: "foo", children: "bar" };
     expect(renderOptionRow(props, TestRenderer.create)).toMatchSnapshot();
   });
 
@@ -40,11 +40,12 @@ describe("OptionRow", () => {
   describe("when the element is clicked", () => {
     it("then onSelect should be called with text and value", () => {
       const onSelect = jest.fn();
-      const props = { value: "1", text: "foo", onSelect };
+      const props = { id: "1", value: "1", text: "foo", onSelect };
       const wrapper = renderOptionRow(props, mount);
       wrapper.find(OptionRow).simulate("click");
 
       expect(onSelect).toHaveBeenCalledWith({
+        id: props.id,
         text: props.text,
         value: props.value,
       });
@@ -56,7 +57,7 @@ function renderOptionRow(props, renderer = shallow) {
   return renderer(
     <table>
       <tbody>
-        <OptionRow {...props}>
+        <OptionRow id="1" {...props}>
           <td>foo</td>
         </OptionRow>
       </tbody>

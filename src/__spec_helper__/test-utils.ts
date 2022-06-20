@@ -36,64 +36,49 @@ const assertStyleMatch = <Props>(
 
 const makeArrayKeys = (n: number) => [...Array(n).keys()];
 
-const dispatchKeyPress = (code: number) => {
-  const ev = new KeyboardEvent("keydown", { which: code });
+const dispatchKeyPress = (code: string) => {
+  const ev = new KeyboardEvent("keydown", { key: code });
   document.dispatchEvent(ev);
 };
 
-const keyMap = {
-  UpArrow: 38,
-  DownArrow: 40,
-  RightArrow: 39,
-  LeftArrow: 37,
-  Enter: 13,
-  Tab: 9,
-  Space: 32,
-  Escape: 27,
-  End: 35,
-  Home: 36,
-  D: 68,
-  E: 69,
-  P: 80,
-  Z: 90,
-  1: 49,
-} as const;
+const keys = [
+  "ArrowUp",
+  "ArrowDown",
+  "ArrowRight",
+  "ArrowLeft",
+  "Enter",
+  "Tab",
+  " ",
+  "Escape",
+  "End",
+  "Home",
+  "D",
+  "E",
+  "P",
+  "Z",
+  "1",
+];
 
-type Keys = keyof typeof keyMap;
-type MappedKeys = `press${Keys}`;
-
-type KeyboardAccumulatorType = Record<MappedKeys, () => void>;
-
-const keyboard = (Object.keys(keyMap) as Keys[]).reduce(
-  (acc: KeyboardAccumulatorType, key: Keys) => {
-    acc[`press${key}`] = () => dispatchKeyPress(keyMap[key]);
-    return acc;
-  },
-  {} as KeyboardAccumulatorType
-);
+const keyboard = keys.reduce((acc, key) => {
+  const methodName = `press${key === " " ? "Space" : key}`;
+  acc[methodName] = () => dispatchKeyPress(key);
+  return acc;
+}, {} as Record<string, () => void>);
 
 // Build an object of Enzyme simulate helpers
 // e.g. simulate.keydown.pressTab(target, { shiftKey: true })
 // e.g. simulate.keydown.pressEscape(target)
-type KeydownAccumulatorType = Record<
-  MappedKeys,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (wrapper: ReactWrapper<any>, options?: { shiftKey: boolean }) => void
->;
+const keydown = keys.reduce((acc, key) => {
+  const methodName = `press${key === " " ? "Space" : key}`;
 
-const keydown = (Object.keys(keyMap) as Keys[]).reduce(
-  (acc: KeydownAccumulatorType, key: Keys) => {
-    acc[`press${key}`] = (target, { shiftKey } = { shiftKey: false }) => {
-      target.simulate("keydown", {
-        shiftKey,
-        key,
-        which: keyMap[key],
-      });
-    };
-    return acc;
-  },
-  {} as KeydownAccumulatorType
-);
+  acc[methodName] = (target, { shiftKey } = { shiftKey: false }) => {
+    target.simulate("keydown", {
+      shiftKey,
+      key,
+    });
+  };
+  return acc;
+}, {} as Record<string, (target: ReactWrapper<any>, { shiftKey }?: { shiftKey: boolean }) => void>);
 
 const simulate = {
   keydown,
@@ -147,7 +132,7 @@ const assertCorrectTraversal = (
 };
 
 const assertKeyboardTraversal = assertCorrectTraversal(
-  () => keyboard.pressDownArrow
+  () => keyboard.pressArrowDown
 )(expect);
 const assertHoverTraversal = assertCorrectTraversal((wrapper: ReactWrapper) =>
   hoverList(wrapper)

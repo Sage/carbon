@@ -83,7 +83,7 @@ describe("Pod", () => {
     });
 
     it("onDelete prop function gets invoked by pressing enter key", () => {
-      const event = { preventDefault: () => {}, which: 13, type: "keydown" };
+      const event = { preventDefault: () => {}, key: "Enter", type: "keydown" };
       const onDelete = jest.fn();
       wrapper.setProps({ onDelete });
       wrapper.find(StyledDeleteButton).props().onKeyDown(event);
@@ -91,7 +91,7 @@ describe("Pod", () => {
     });
 
     it("onEdit prop function is not invoked by pressing non-enter key", () => {
-      const event = { preventDefault: () => {}, which: 15, type: "keydown" };
+      const event = { preventDefault: () => {}, key: "a", type: "keydown" };
       const onDelete = jest.fn();
       wrapper.setProps({ onDelete });
       wrapper.find(StyledDeleteButton).props().onKeyDown(event);
@@ -146,7 +146,7 @@ describe("Pod", () => {
     });
 
     it("onDelete prop function gets invoked by pressing enter key", () => {
-      const event = { preventDefault: () => {}, which: 13, type: "keydown" };
+      const event = { preventDefault: () => {}, key: "Enter", type: "keydown" };
       const onUndo = jest.fn();
       wrapper.setProps({ onUndo, softDelete: true });
       wrapper.find(StyledUndoButton).props().onKeyDown(event);
@@ -154,7 +154,7 @@ describe("Pod", () => {
     });
 
     it("onEdit prop function is not invoked by pressing non-enter key", () => {
-      const event = { preventDefault: () => {}, which: 15, type: "keydown" };
+      const event = { preventDefault: () => {}, key: "a", type: "keydown" };
       const onUndo = jest.fn();
       wrapper.setProps({ onUndo, softDelete: true });
       wrapper.find(StyledUndoButton).props().onKeyDown(event);
@@ -226,7 +226,7 @@ describe("Pod", () => {
     });
 
     it("if onEdit prop is a function it gets invoked by pressing enter key", () => {
-      const event = { preventDefault: () => {}, which: 13, type: "keydown" };
+      const event = { preventDefault: () => {}, key: "Enter", type: "keydown" };
       const onEdit = jest.fn();
       wrapper.setProps({ onEdit });
       wrapper.find('[data-element="edit-container"]').props().onKeyDown(event);
@@ -234,7 +234,7 @@ describe("Pod", () => {
     });
 
     it("if onEdit prop is a function it is not invoked by pressing non-enter key", () => {
-      const event = { preventDefault: () => {}, which: 15, type: "keydown" };
+      const event = { preventDefault: () => {}, key: "a", type: "keydown" };
       const onEdit = jest.fn();
       wrapper.setProps({ onEdit });
       wrapper.find('[data-element="edit-container"]').props().onKeyDown(event);
@@ -309,7 +309,7 @@ describe("Pod", () => {
             it("it gets invoked by pressing enter key", () => {
               const event = {
                 preventDefault: () => {},
-                which: 13,
+                key: "Enter",
                 type: "keydown",
               };
               const onEdit = jest.fn();
@@ -325,7 +325,7 @@ describe("Pod", () => {
             it("it is not invoked by pressing non-enter key", () => {
               const event = {
                 preventDefault: () => {},
-                which: 15,
+                key: "a",
                 type: "keydown",
               };
               const onEdit = jest.fn();

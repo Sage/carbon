@@ -118,7 +118,6 @@ describe("Modal", () => {
     beforeEach(() => {
       escapeKeyEvent = new KeyboardEvent("keyup", {
         key: "Escape",
-        which: 27,
         bubbles: true,
       });
       wrapper = mount(<Modal open onCancel={onCancelFn} />);

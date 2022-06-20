@@ -81,6 +81,12 @@ const DatePicker = React.forwardRef(
 
     const handleDayClick = (date, { disabled }, ev) => {
       if (!disabled) {
+        const { id, name } = inputElement?.current?.firstChild;
+        ev.target = {
+          ...ev.target,
+          id,
+          name,
+        };
         onDayClick(date, ev);
       }
     };
@@ -119,7 +125,6 @@ const DatePicker = React.forwardRef(
               );
             }}
             navbarElement={<Navbar />}
-            enableOutsideDays
             fixedWeeks
             initialMonth={selectedDays || undefined}
             disabledDays={getDisabledDays(minDate, maxDate)}

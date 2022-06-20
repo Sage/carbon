@@ -21,7 +21,6 @@ import menuConfigVariants from "./menu.config";
 const events = {
   end: {
     key: "End",
-    which: 35,
     preventDefault: jest.fn(),
   },
 };

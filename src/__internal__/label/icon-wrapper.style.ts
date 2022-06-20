@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import ValidationIconStyle from "../validations/validation-icon.style";
+import StyledValidationIcon from "../validations/validation-icon.style";
 import StyledHelp from "../../components/help/help.style";
 
-const IconWrapperStyle = styled.div`
+const StyledIconWrapper = styled.div`
   display: inline-block;
   margin: 0;
   margin-left: 4px;
@@ -17,9 +17,9 @@ const IconWrapperStyle = styled.div`
     outline: 2px solid var(--colorsSemanticFocus500);
   }
 
-  ${ValidationIconStyle}, ${StyledHelp} {
+  ${StyledValidationIcon}, ${StyledHelp} {
     position: static;
   }
 `;
 
-export default IconWrapperStyle;
+export default StyledIconWrapper;

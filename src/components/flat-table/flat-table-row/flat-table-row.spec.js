@@ -22,17 +22,14 @@ import { FlatTableThemeContext } from "../flat-table.component";
 const events = {
   enter: {
     key: "Enter",
-    which: 13,
     preventDefault: jest.fn(),
   },
   space: {
-    key: "Space",
-    which: 32,
+    key: " ",
     preventDefault: jest.fn(),
   },
   c: {
     key: "c",
-    which: 67,
     preventDefault: jest.fn(),
     stopPropagation: jest.fn(),
   },
@@ -152,21 +149,21 @@ describe("FlatTableRow", () => {
 
     describe("and space key is pressed", () => {
       it("then the onClick prop should be called", () => {
-        wrapper.find(FlatTableRow).simulate("keydown", { which: 13 });
+        wrapper.find(FlatTableRow).simulate("keydown", { key: "Enter" });
         expect(onClickFn).toHaveBeenCalled();
       });
     });
 
     describe("and enter key is pressed", () => {
       it("then the onClick prop should be called", () => {
-        wrapper.find(FlatTableRow).simulate("keydown", { which: 32 });
+        wrapper.find(FlatTableRow).simulate("keydown", { key: " " });
         expect(onClickFn).toHaveBeenCalled();
       });
     });
 
     describe("and a key other than space or enter is pressed", () => {
       it("then the onClick prop should not be called", () => {
-        wrapper.find(FlatTableRow).simulate("keydown", { which: 18 });
+        wrapper.find(FlatTableRow).simulate("keydown", { key: "a" });
         expect(onClickFn).not.toHaveBeenCalled();
       });
     });
@@ -1470,6 +1467,34 @@ describe("FlatTableRow", () => {
         wrapper,
         { modifier: `${StyledFlatTableCell}` }
       );
+    });
+  });
+
+  describe("wrapping FlatTableRowHeader", () => {
+    it("calculates the rowHeaderIndex as expected", () => {
+      // eslint-disable-next-line react/prop-types
+      const FlatTableRowHeaderWrapper = ({ children }) => (
+        <FlatTableRowHeader>{children}</FlatTableRowHeader>
+      );
+      FlatTableRowHeaderWrapper.displayName = FlatTableRowHeader.displayName;
+      const rowHeaderIndex = mount(
+        <table>
+          <thead>
+            <FlatTableRow>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableRowHeaderWrapper>Foo</FlatTableRowHeaderWrapper>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Foo</FlatTableCell>
+            </FlatTableRow>
+          </thead>
+        </table>
+      )
+        .find(StyledFlatTableRow)
+        .prop("rowHeaderIndex");
+
+      expect(rowHeaderIndex).toEqual(3);
     });
   });
 });

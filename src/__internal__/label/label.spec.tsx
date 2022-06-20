@@ -1,14 +1,13 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { shallow, mount } from "enzyme";
+import { shallow, mount, ReactWrapper } from "enzyme";
 
 import Help from "../../components/help";
-import Label from ".";
+import Label, { LabelProps } from ".";
 import StyledLabel, { StyledLabelContainer } from "./label.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 import ValidationIcon from "../validations/validation-icon.component";
-import mintTheme from "../../style/themes/mint";
 import IconWrapperStyle from "./icon-wrapper.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 
@@ -16,19 +15,38 @@ jest.mock("@tippyjs/react/headless");
 
 const validationTypes = ["error", "warning", "info"];
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function render(props?: LabelProps, renderer: any = mount) {
+  return renderer(<Label {...props}>Name:</Label>);
+}
+
+function renderWithContext(
+  props: LabelProps = {},
+  inputGroupContextValue = {},
+  inputContextValue = {}
+) {
+  return mount(
+    <InputGroupContext.Provider value={inputGroupContextValue}>
+      <InputContext.Provider value={inputContextValue}>
+        <Label {...props}>Name:</Label>
+      </InputContext.Provider>
+    </InputGroupContext.Provider>
+  );
+}
+
 describe("Label", () => {
   it("renders the label", () => {
     expect(noThemeSnapshot(render({}, shallow))).toMatchSnapshot();
   });
 
   describe("context handlers", () => {
-    let contextOnMouseEnter;
-    let groupContextOnMouseEnter;
+    let contextOnMouseEnter: () => void;
+    let groupContextOnMouseEnter: () => void;
 
-    let contextOnMouseLeave;
-    let groupContextOnMouseLeave;
+    let contextOnMouseLeave: () => void;
+    let groupContextOnMouseLeave: () => void;
 
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       contextOnMouseEnter = jest.fn();
@@ -111,7 +129,6 @@ describe("Label", () => {
       const wrapper = render({
         inline: true,
         optional: true,
-        theme: mintTheme,
       });
 
       assertStyleMatch(
@@ -147,7 +164,6 @@ describe("Label", () => {
       const wrapper = render({
         inline: true,
         isRequired: true,
-        theme: mintTheme,
       });
 
       assertStyleMatch(
@@ -218,7 +234,7 @@ describe("Label", () => {
 
   describe("when attached to child of form", () => {
     describe("when IconWrapperStyle", () => {
-      let wrapper;
+      let wrapper: ReactWrapper;
 
       beforeEach(() => {
         wrapper = render(
@@ -321,21 +337,3 @@ describe("Label", () => {
     }
   );
 });
-
-function render(props, renderer = mount) {
-  return renderer(<Label {...props}>Name:</Label>);
-}
-
-function renderWithContext(
-  props = {},
-  inputGroupContextValue = {},
-  inputContextValue = {}
-) {
-  return mount(
-    <InputGroupContext.Provider value={inputGroupContextValue}>
-      <InputContext.Provider value={inputContextValue}>
-        <Label {...props}>Name:</Label>
-      </InputContext.Provider>
-    </InputGroupContext.Provider>
-  );
-}

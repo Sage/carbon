@@ -103,6 +103,8 @@ describe("Date", () => {
           eventValues(ev.target.value);
         }}
         allowEmptyValue={emptyValue}
+        name="Foo"
+        id="Bar"
       />
     );
   };
@@ -138,6 +140,7 @@ describe("Date", () => {
       }
 
       container = null;
+      wrapper?.unmount();
     });
 
     it("the component's input should be focused and picker should exist when prop is true", () => {
@@ -295,9 +298,6 @@ describe("Date", () => {
   });
 
   describe('when the "keyDown" event is triggered on the input', () => {
-    const tabKeyCode = 9;
-    const enterKeyCode = 13;
-
     beforeEach(() => {
       wrapper = render();
       simulateFocusOnInput(wrapper);
@@ -307,7 +307,7 @@ describe("Date", () => {
       it("then the `onKeyDown` prop should be invoked", () => {
         const onKeyDown = jest.fn();
         wrapper.setProps({ onKeyDown });
-        simulateOnKeyDown(wrapper, 117);
+        simulateOnKeyDown(wrapper, "F6");
         expect(onKeyDown).toHaveBeenCalled();
       });
     });
@@ -315,7 +315,7 @@ describe("Date", () => {
     describe('and with the "Tab" key', () => {
       it('then the "DatePicker" should be closed', () => {
         expect(wrapper.update().find(DayPicker).exists()).toBe(true);
-        simulateOnKeyDown(wrapper, tabKeyCode);
+        simulateOnKeyDown(wrapper, "Tab");
         expect(wrapper.update().find(DayPicker).exists()).toBe(false);
       });
     });
@@ -323,7 +323,7 @@ describe("Date", () => {
     describe('and with the key other that "Tab"', () => {
       it('then the "DatePicker" should not be closed', () => {
         expect(wrapper.update().find(DayPicker).exists()).toBe(true);
-        simulateOnKeyDown(wrapper, enterKeyCode);
+        simulateOnKeyDown(wrapper, "Enter");
         expect(wrapper.update().find(DayPicker).exists()).toBe(true);
       });
     });
@@ -576,6 +576,8 @@ describe("Date", () => {
         }
 
         container = null;
+
+        wrapper?.unmount();
       });
 
       it("should return focus to the date input and close the DatePicker", () => {
@@ -585,6 +587,34 @@ describe("Date", () => {
 
       it("should update the input element to reflect the passed date", () => {
         expect(wrapper.update().find("input").prop("value")).toBe("01/01/2021");
+      });
+
+      it("should call onChange with the expected event target composition", () => {
+        const onChangeFn = jest.fn();
+
+        wrapper = render({ onChange: onChangeFn, name: "foo", id: "bar" });
+        simulateFocusOnInput(wrapper);
+        jest.clearAllMocks();
+        act(() => {
+          wrapper
+            .update()
+            .find(DayPicker)
+            .props()
+            .onDayClick(mockDate, {}, { target: {} });
+        });
+
+        expect(onChangeFn).toHaveBeenCalledWith(
+          expect.objectContaining({
+            target: {
+              id: "bar",
+              name: "foo",
+              value: {
+                formattedValue: "01/01/2021",
+                rawValue: "2021-01-01",
+              },
+            },
+          })
+        );
       });
 
       describe("when the disabled modifier is set", () => {
@@ -937,7 +967,7 @@ function simulateMouseDownOnPicker(wrapper) {
 }
 
 function simulateOnKeyDown(wrapper, key) {
-  const keyDownParams = { which: key };
+  const keyDownParams = { key };
   const input = wrapper.find("input");
 
   act(() => {

@@ -20,7 +20,7 @@ describe("BasePages", () => {
     (transition, expected) => {
       wrapper = mount(
         <BasePages transition={transition}>
-          <Page>Page</Page>
+          <Page title="foo">Page</Page>
         </BasePages>
       );
 
@@ -113,7 +113,7 @@ describe("BasePages", () => {
           data-role="baz"
           initialPageIndex={0}
         >
-          <Page />
+          <Page title="Foo">Bar</Page>
         </BasePages>
       );
 
@@ -125,7 +125,9 @@ describe("BasePages", () => {
     describe("on internal elements", () => {
       wrapper = mount(
         <BasePages theme={mintTheme} initialPageIndex={0}>
-          <Page data-element="page" />
+          <Page data-element="page" title="Foo">
+            Bar
+          </Page>
         </BasePages>
       );
 

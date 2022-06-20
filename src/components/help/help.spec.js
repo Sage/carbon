@@ -174,11 +174,11 @@ describe("Help", () => {
 
   describe("when a key is pressed when the tooltip is open", () => {
     const escapeKeyDownEvent = new KeyboardEvent("keydown", {
-      which: 27,
+      key: "Escape",
       bubbles: true,
     });
     const enterKeyDownEvent = new KeyboardEvent("keydown", {
-      which: 13,
+      key: "Enter",
       bubbles: true,
     });
     let domNode;

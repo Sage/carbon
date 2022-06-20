@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 
 import FlatTableHead from "./flat-table-head.component";
 import StyledFlatTableHead from "./flat-table-head.style";
-import FlatTable from "../flat-table.component";
+import { FlatTable, FlatTableRow, FlatTableHeader } from "../index";
 
 describe("FlatTableHead", () => {
   describe("when a data prop is added", () => {
@@ -11,9 +11,9 @@ describe("FlatTableHead", () => {
       const wrapper = mount(
         <FlatTable>
           <FlatTableHead data-role="test">
-            <tr>
-              <th>Children</th>
-            </tr>
+            <FlatTableRow>
+              <FlatTableHeader>Children</FlatTableHeader>
+            </FlatTableRow>
           </FlatTableHead>
         </FlatTable>
       );
@@ -26,12 +26,12 @@ describe("FlatTableHead", () => {
       const wrapper = mount(
         <FlatTable>
           <FlatTableHead data-role="test">
-            <tr>
-              <th>Children</th>
-            </tr>
-            <tr>
-              <th>Children</th>
-            </tr>
+            <FlatTableRow>
+              <FlatTableHeader>Children</FlatTableHeader>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableHeader>Children</FlatTableHeader>
+            </FlatTableRow>
           </FlatTableHead>
         </FlatTable>
       );
