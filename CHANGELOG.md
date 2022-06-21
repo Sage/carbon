@@ -1,3 +1,15 @@
+## [107.2.0](https://github.com/Sage/carbon/compare/v107.1.8...v107.2.0) (2022-06-21)
+
+
+### Features
+
+* **modal:** add typing for and export ModalContext from modal module ([c4155bd](https://github.com/Sage/carbon/commit/c4155bd171f42b05ce22d7080bf30f6e588623a2))
+
+
+### Bug Fixes
+
+* **form:** prevent two scrollbars appearing when content overflows inside modal ([085a9cf](https://github.com/Sage/carbon/commit/085a9cf75988237555ccd59a474f3729aecdf75e))
+
 ### [107.1.8](https://github.com/Sage/carbon/compare/v107.1.7...v107.1.8) (2022-06-21)
 
 
