@@ -1,6 +1,6 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 
 import { simulate, assertStyleMatch } from "../../__spec_helper__/test-utils";
 
@@ -15,8 +15,14 @@ import {
   StyledNavigation,
 } from "./anchor-navigation.style";
 import StyledNavigationItem from "./anchor-navigation-item/anchor-navigation-item.style";
+import { AnchorNavigationProps } from "./anchor-navigation.component";
 
-const expectNavigationItemToBeSelected = (index, wrapper) =>
+const SECTION_VISIBILITY_OFFSET = 200;
+
+const expectNavigationItemToBeSelected = (
+  index: number,
+  wrapper: ReactWrapper
+) =>
   assertStyleMatch(
     {
       backgroundColor: "var(--colorsActionMajorYang100)",
@@ -26,39 +32,44 @@ const expectNavigationItemToBeSelected = (index, wrapper) =>
     { modifier: "a" }
   );
 
-// eslint-disable-next-line react/prop-types
-const Content = React.forwardRef(({ title, noTextbox }, ref) => (
-  <>
-    <div ref={ref} className="focusableContent">
-      {!noTextbox && <Textbox label={title} />}
-      <h2>{title}</h2>
-    </div>
-  </>
-));
+interface ContentProps {
+  title?: string;
+  noTextbox?: boolean;
+}
+const Content = React.forwardRef<HTMLDivElement, ContentProps>(
+  ({ title, noTextbox }: ContentProps, ref) => (
+    <>
+      <div ref={ref} className="focusableContent">
+        {!noTextbox && <Textbox label={title} />}
+        <h2>{title}</h2>
+      </div>
+    </>
+  )
+);
+Content.displayName = "Content";
 
 describe("AnchorNavigation", () => {
-  let wrapper;
-  let scrollIntoViewMock;
-  let container;
+  let wrapper: ReactWrapper;
+  let scrollIntoViewMock: jest.Mock;
+  let container: HTMLDivElement | null;
 
-  let ref1;
-  let ref2;
-  let ref3;
-  let ref4;
-  let ref5;
+  let ref1: React.RefObject<HTMLDivElement>;
+  let ref2: React.RefObject<HTMLDivElement>;
+  let ref3: React.RefObject<HTMLDivElement>;
+  let ref4: React.RefObject<HTMLDivElement>;
+  let ref5: React.RefObject<HTMLDivElement>;
 
-  const renderAttached = (props) => {
+  const renderAttached = (props?: AnchorNavigationProps) => {
     ref1 = React.createRef();
     ref2 = React.createRef();
     ref3 = React.createRef();
     ref4 = React.createRef();
     ref5 = React.createRef();
 
-    function mockFunction(options) {
-      return { options, element: this };
+    function mockView(this: HTMLDivElement, options: ScrollIntoViewOptions) {
+      return { element: this, options };
     }
-    scrollIntoViewMock = jest.fn().mockImplementation(mockFunction);
-
+    scrollIntoViewMock = jest.fn().mockImplementation(mockView);
     Element.prototype.scrollIntoView = scrollIntoViewMock;
 
     wrapper = mount(
@@ -69,7 +80,7 @@ describe("AnchorNavigation", () => {
             <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
             <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
             <AnchorNavigationItem target={ref4}>
-              The slighly longer than expected fourth navigation item
+              The slightly longer than expected fourth navigation item
             </AnchorNavigationItem>
             <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
           </>
@@ -123,15 +134,9 @@ describe("AnchorNavigation", () => {
     });
   });
 
-  it.each([
-    [0, true],
-    [1, true],
-    [2, false],
-    [3, true],
-    [4, true],
-  ])(
-    "clicking on navigation item selects this item, scrolls to wanted section and focuses its first focusable element",
-    (index, hasFocusableElement) => {
+  it.each([0, 1, 2, 3, 4])(
+    "when navigation item is clicked, item is selected and viewport scrolls to wanted section",
+    (index) => {
       const preventDefault = jest.fn();
       wrapper
         .find(`${StyledNavigationItem} a`)
@@ -144,17 +149,26 @@ describe("AnchorNavigation", () => {
       });
       wrapper.update();
       expectNavigationItemToBeSelected(index, wrapper);
-
-      if (hasFocusableElement) {
-        expect(wrapper.find(Content).at(index).find("input")).toBeFocused();
-      }
     }
   );
 
+  it("when navigation item is clicked and target section contains a focusable element, focus on that element", () => {
+    const sectionIndex = 0;
+    const preventDefault = jest.fn();
+
+    wrapper
+      .find(`${StyledNavigationItem} a`)
+      .at(sectionIndex)
+      .simulate("click", { preventDefault });
+    wrapper.update();
+
+    expect(wrapper.find(Content).at(sectionIndex).find("input")).toBeFocused();
+  });
+
   describe.each([
-    ["enter", 13],
-    ["space", 32],
-  ])("%s", (key, keyCode) => {
+    ["Enter", "Enter"],
+    ["Space", " "],
+  ])("%s", (keyName, key) => {
     it.each([
       [0, true],
       [1, true],
@@ -163,25 +177,38 @@ describe("AnchorNavigation", () => {
       [4, true],
     ])(
       "pressed on navigation item scrolls to wanted section and focuses its first focusable element",
-      (index, hasFocusableElement) => {
+      (index) => {
         const preventDefault = jest.fn();
         wrapper
           .find(`${StyledNavigationItem} a`)
           .at(index)
-          .simulate("keydown", { preventDefault, which: keyCode });
+          .simulate("keydown", { preventDefault, key });
         act(() => {
           jest.advanceTimersByTime(15);
         });
 
-        if (hasFocusableElement) {
-          expect(wrapper.find(Content).at(index).find("input")).toBeFocused();
-        }
         expect(scrollIntoViewMock).toHaveReturnedWith({
           element: wrapper.find(".focusableContent").at(index).getDOMNode(),
           options: { block: "start", inline: "nearest", behavior: "smooth" },
         });
       }
     );
+
+    it("when key is pressed on navigation item and target section contains a focusable element, focus on that element", () => {
+      const sectionIndex = 0;
+      const preventDefault = jest.fn();
+      wrapper
+        .find(`${StyledNavigationItem} a`)
+        .at(sectionIndex)
+        .simulate("keydown", { preventDefault, key });
+      act(() => {
+        jest.advanceTimersByTime(15);
+      });
+
+      expect(
+        wrapper.find(Content).at(sectionIndex).find("input")
+      ).toBeFocused();
+    });
   });
 
   it.each([
@@ -194,7 +221,7 @@ describe("AnchorNavigation", () => {
   ])(
     "focuses on the next navigation item in a loop when down arrow is pressed",
     (focused, shouldBeFocused) => {
-      simulate.keydown.pressDownArrow(
+      simulate.keydown.pressArrowDown(
         wrapper.find(`${StyledNavigationItem} a`).at(focused)
       );
       expect(
@@ -213,7 +240,7 @@ describe("AnchorNavigation", () => {
   ])(
     "focuses on the previous navigation item in a loop when up arrow is pressed",
     (focused, shouldBeFocused) => {
-      simulate.keydown.pressUpArrow(
+      simulate.keydown.pressArrowUp(
         wrapper.find(`${StyledNavigationItem} a`).at(focused)
       );
       expect(
@@ -224,7 +251,7 @@ describe("AnchorNavigation", () => {
 
   // coverage filler
   it("does nothing if key other than up, down, tab or space key is pressed", () => {
-    simulate.keydown.pressRightArrow(
+    simulate.keydown.pressArrowRight(
       wrapper.find(`${StyledNavigationItem} a`).at(0)
     );
   });
@@ -247,11 +274,13 @@ describe("AnchorNavigation", () => {
       const refs = [ref1, ref2, ref3, ref4, ref5];
 
       refs.forEach((ref, index) => {
-        jest
-          .spyOn(ref.current, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            top: topEdgeOffsets[index] - scrollPosition,
-          }));
+        if (ref.current) {
+          jest
+            .spyOn(ref.current, "getBoundingClientRect")
+            .mockImplementation(
+              () => ({ top: topEdgeOffsets[index] - scrollPosition } as DOMRect)
+            );
+        }
       });
 
       jest
@@ -259,7 +288,9 @@ describe("AnchorNavigation", () => {
           wrapper.find(StyledNavigation).getDOMNode(),
           "getBoundingClientRect"
         )
-        .mockImplementation(() => ({ top: 200 }));
+        .mockImplementation(
+          () => ({ top: SECTION_VISIBILITY_OFFSET } as DOMRect)
+        );
 
       act(() => {
         window.dispatchEvent(new Event("scroll"));
@@ -278,66 +309,49 @@ describe("AnchorNavigation", () => {
   });
 
   describe("validates the incorrect stickyNavigation prop content", () => {
-    it("has wrong item", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+    let mockGlobal: jest.SpyInstance;
 
-      mount(
-        <AnchorNavigation
-          stickyNavigation={
-            <>
-              <p>Invalid children</p>
-            </>
-          }
-        />
-      );
-
-      const expected =
-        "Warning: Failed prop type: Prop stickyNavigation container supplied to AnchorNavigation only accepts children of" +
-        " type AnchorNavigationItem.\n    in AnchorNavigation";
-
-      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+    beforeEach(() => {
+      mockGlobal = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => undefined);
     });
 
-    it("has wrong container", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
-
-      mount(
-        <AnchorNavigation
-          stickyNavigation={
-            <div>
-              <AnchorNavigationItem>First</AnchorNavigationItem>
-            </div>
-          }
-        />
-      );
-
-      const expected =
-        "Warning: Failed prop type: Prop stickyNavigation container supplied to AnchorNavigation should be a React.Fragment." +
-        "\n    in AnchorNavigation";
-
-      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+    afterEach(() => {
+      mockGlobal.mockReset();
     });
 
-    it("has wrong container and items", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+    it("items are not AnchorNavigationItems", () => {
+      const error = `\`stickyNavigation\` prop in \`AnchorNavigation\` should be a React Fragment that only contains children of type \`${AnchorNavigationItem.displayName}\``;
 
-      mount(
-        <AnchorNavigation
-          stickyNavigation={
-            <div>
-              <AnchorNavigationItem>First</AnchorNavigationItem>
-              <p>Invalid item</p>
-            </div>
-          }
-        />
-      );
+      expect(() => {
+        mount(
+          <AnchorNavigation
+            stickyNavigation={
+              <>
+                <p>Invalid children</p>
+              </>
+            }
+          />
+        );
+      }).toThrow(error);
+    });
 
-      const expected =
-        "Warning: Failed prop type: Prop stickyNavigation container supplied to AnchorNavigation should be a React.Fragment." +
-        " Prop stickyNavigation container supplied to AnchorNavigation only accepts children of type AnchorNavigationItem." +
-        "\n    in AnchorNavigation";
+    it("container is not a React Fragment", () => {
+      const error =
+        "`stickyNavigation` prop in `AnchorNavigation` should be a React Fragment.";
 
-      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+      expect(() => {
+        mount(
+          <AnchorNavigation
+            stickyNavigation={
+              <div>
+                <AnchorNavigationItem>First</AnchorNavigationItem>
+              </div>
+            }
+          />
+        );
+      }).toThrow(error);
     });
   });
 
@@ -352,8 +366,12 @@ describe("AnchorNavigation", () => {
   });
 
   it("renders selected navigation item with proper background when hovered", () => {
-    expect(
-      wrapper.find(StyledNavigationItem).at(0)
-    ).not.toHaveStyleRule("background-color", { modifier: "a:hover" });
+    expect(wrapper.find(StyledNavigationItem).at(0)).not.toHaveStyleRule(
+      "background-color",
+      undefined,
+      {
+        modifier: "a:hover",
+      }
+    );
   });
 });

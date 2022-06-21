@@ -91,10 +91,7 @@ describe("SimpleColorPicker", () => {
         const selectedColor = wrapper.find(SimpleColor).at(1).find("input");
 
         act(() => {
-          selectedColor
-            .find("input")
-            .first()
-            .simulate("keydown", { which: 65, key: "a" });
+          selectedColor.find("input").first().simulate("keydown", { key: "a" });
         });
 
         expect(onKeyDown).toHaveBeenCalled();
@@ -112,7 +109,7 @@ describe("SimpleColorPicker", () => {
           secondColor
             .find("input")
             .first()
-            .simulate("keydown", { which: 17, key: "ctrl" });
+            .simulate("keydown", { key: "ctrl" });
         });
 
         expect(onChange).not.toHaveBeenCalled();
@@ -149,7 +146,7 @@ describe("SimpleColorPicker", () => {
               colorOne
                 .find("input")
                 .first()
-                .simulate("keydown", { which: 37, key: "ArrowLeft" });
+                .simulate("keydown", { key: "ArrowLeft" });
             });
 
             expect(
@@ -194,7 +191,7 @@ describe("SimpleColorPicker", () => {
               secondColor
                 .find("input")
                 .first()
-                .simulate("keydown", { which: 38, key: "ArrowUp" });
+                .simulate("keydown", { key: "ArrowUp" });
             });
 
             expect(
@@ -224,7 +221,7 @@ describe("SimpleColorPicker", () => {
               secondColor
                 .find("input")
                 .first()
-                .simulate("keydown", { which: 38, key: "ArrowUp" });
+                .simulate("keydown", { key: "ArrowUp" });
             });
 
             expect(
@@ -275,7 +272,7 @@ describe("SimpleColorPicker", () => {
               thirdColor
                 .find("input")
                 .first()
-                .simulate("keydown", { which: 39, key: "ArrowRight" });
+                .simulate("keydown", { key: "ArrowRight" });
             });
 
             expect(
@@ -299,7 +296,7 @@ describe("SimpleColorPicker", () => {
               secondColor
                 .find("input")
                 .first()
-                .simulate("keydown", { which: 39, key: "ArrowRight" });
+                .simulate("keydown", { key: "ArrowRight" });
             });
 
             expect(
@@ -345,7 +342,7 @@ describe("SimpleColorPicker", () => {
               secondColor
                 .find("input")
                 .first()
-                .simulate("keydown", { which: 40, key: "ArrowDown" });
+                .simulate("keydown", { key: "ArrowDown" });
             });
 
             expect(
@@ -376,7 +373,7 @@ describe("SimpleColorPicker", () => {
               thirdColor
                 .find("input")
                 .first()
-                .simulate("keydown", { which: 40, key: "ArrowDown" });
+                .simulate("keydown", { key: "ArrowDown" });
             });
 
             expect(

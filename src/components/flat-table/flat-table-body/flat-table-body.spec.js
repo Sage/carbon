@@ -7,7 +7,9 @@ import FlatTable from "../flat-table.component";
 function renderComponent(props = {}) {
   return mount(
     <FlatTable>
-      <FlatTableBody {...props}>Children</FlatTableBody>
+      <FlatTableBody {...props}>
+        <tr />
+      </FlatTableBody>
     </FlatTable>
   );
 }

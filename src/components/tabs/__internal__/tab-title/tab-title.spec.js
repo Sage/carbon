@@ -80,7 +80,7 @@ describe("TabTitle", () => {
       wrapper = render({ href: "randomUrl" });
       global.open = jest.fn();
 
-      wrapper.props().onKeyDown({ which: 32, stopPropagation: () => {} });
+      wrapper.props().onKeyDown({ key: " ", stopPropagation: () => {} });
       expect(global.open).toHaveBeenCalledWith("randomUrl", "_blank");
       jest.clearAllMocks();
     });
@@ -111,7 +111,7 @@ describe("TabTitle", () => {
       wrapper = render({ onKeyDown: () => {} });
       global.open = jest.fn();
 
-      wrapper.props().onKeyDown({ which: 32, stopPropagation: () => {} });
+      wrapper.props().onKeyDown({ key: " ", stopPropagation: () => {} });
       expect(global.open).not.toHaveBeenCalled();
     });
   });
