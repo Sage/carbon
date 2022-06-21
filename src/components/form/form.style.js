@@ -14,10 +14,10 @@ import StyledSearch from "../search/search.style";
 import StyledTextarea from "../textarea/textarea.style";
 
 export const StyledFormContent = styled.div`
-  ${({ stickyFooter }) => css`
+  ${({ stickyFooter, isInModal }) => css`
     ${stickyFooter &&
     css`
-      overflow-y: auto;
+      overflow-y: ${isInModal ? "visible" : "auto"};
       flex: 1;
     `}
   `}
