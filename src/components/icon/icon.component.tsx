@@ -43,7 +43,7 @@ export interface IconProps extends Omit<StyledIconProps, "type">, MarginProps {
   /**
    * Icon type
    *
-   * The full list of types can be seen [here](https://github.com/Sage/carbon/blob/master/src/components/icon/icon-config.js).
+   * The full list of types can be seen [here](https://carbon.sage.com/?path=/docs/icon--list-of-icons#list-of-icons).
    */
   type: IconType | LegacyIconTypes;
   /** @ignore @private */
