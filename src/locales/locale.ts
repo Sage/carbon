@@ -38,6 +38,9 @@ interface Locale {
       ) => [string, string] | null;
     };
   };
+  heading: {
+    backLinkAriaLabel: () => string;
+  };
   message: {
     closeButtonAriaLabel: () => string;
   };

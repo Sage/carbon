@@ -1,3 +1,11 @@
+### [107.2.1](https://github.com/Sage/carbon/compare/v107.2.0...v107.2.1) (2022-06-22)
+
+
+### Bug Fixes
+
+* **heading:** add aria-label to back button ([b3473de](https://github.com/Sage/carbon/commit/b3473de80e3f40a168486393df00df06b5cfa61b)), closes [#4876](https://github.com/Sage/carbon/issues/4876)
+* **help:** add aria-label when help is a link ([4882e13](https://github.com/Sage/carbon/commit/4882e134bdec67625c85640dd7f4d9a1f1863dc8))
+
 ## [107.2.0](https://github.com/Sage/carbon/compare/v107.1.8...v107.2.0) (2022-06-21)
 
 

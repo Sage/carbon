@@ -88,7 +88,7 @@ describe("Help", () => {
         "noopener noreferrer"
       );
       expect(wrapper.find(StyledHelp).prop("role")).toEqual(undefined);
-      expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual(undefined);
+      expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual("foo");
       wrapper.unmount();
     });
 
