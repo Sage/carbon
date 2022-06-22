@@ -1,3 +1,29 @@
+## [107.2.0](https://github.com/Sage/carbon/compare/v107.1.8...v107.2.0) (2022-06-21)
+
+
+### Features
+
+* **modal:** add typing for and export ModalContext from modal module ([c4155bd](https://github.com/Sage/carbon/commit/c4155bd171f42b05ce22d7080bf30f6e588623a2))
+
+
+### Bug Fixes
+
+* **form:** prevent two scrollbars appearing when content overflows inside modal ([085a9cf](https://github.com/Sage/carbon/commit/085a9cf75988237555ccd59a474f3729aecdf75e))
+
+### [107.1.8](https://github.com/Sage/carbon/compare/v107.1.7...v107.1.8) (2022-06-21)
+
+
+### Bug Fixes
+
+* **submenu:** make menu open on click even when clickToOpen prop missing ([040c276](https://github.com/Sage/carbon/commit/040c2762719c04f9fae499b277c1d5729fac04ad)), closes [#4797](https://github.com/Sage/carbon/issues/4797)
+
+### [107.1.7](https://github.com/Sage/carbon/compare/v107.1.6...v107.1.7) (2022-06-20)
+
+
+### Bug Fixes
+
+* **date:** ensure that contrast ratio for weekday meets AA standards ([5de5ff9](https://github.com/Sage/carbon/commit/5de5ff953a06ba3627ef97dd97b1b1f71a5c3ccc)), closes [#5173](https://github.com/Sage/carbon/issues/5173)
+
 ### [107.1.6](https://github.com/Sage/carbon/compare/v107.1.5...v107.1.6) (2022-06-17)
 
 

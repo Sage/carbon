@@ -1,1 +1,1 @@
-export { default } from "./modal";
+export { default, ModalContext } from "./modal.component";
