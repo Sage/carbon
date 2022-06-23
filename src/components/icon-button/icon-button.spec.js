@@ -135,7 +135,7 @@ describe("IconButton component", () => {
       describe("when EnterKey", () => {
         it("calls close callback", () => {
           const foundIconButton = wrapper.find(IconButton).first();
-          const keyDownParams = { keyCode: 13, which: 13 };
+          const keyDownParams = { key: "Enter" };
           foundIconButton.simulate("keyDown", keyDownParams);
           expect(onDismiss).toHaveBeenCalledTimes(1);
         });
@@ -144,7 +144,7 @@ describe("IconButton component", () => {
       describe("when SpaceKey", () => {
         it("calls close callback", () => {
           const foundIconButton = wrapper.find(IconButton).first();
-          const keyDownParams = { keyCode: 32, which: 32 };
+          const keyDownParams = { key: " " };
           foundIconButton.simulate("keyDown", keyDownParams);
           expect(onDismiss).toHaveBeenCalledTimes(1);
         });
@@ -153,7 +153,7 @@ describe("IconButton component", () => {
       describe("when TabKey", () => {
         it("calls close callback", () => {
           const foundIconButton = wrapper.find(IconButton).first();
-          const keyDownParams = { keyCode: 9, which: 9 };
+          const keyDownParams = { key: "Tab" };
           foundIconButton.simulate("keyDown", keyDownParams);
           expect(onDismiss).toHaveBeenCalledTimes(0);
         });

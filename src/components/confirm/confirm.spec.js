@@ -102,7 +102,6 @@ describe("Confirm", () => {
       beforeEach(() => {
         escapeKeyEvent = new KeyboardEvent("keyup", {
           key: "Escape",
-          which: 27,
           bubbles: true,
         });
         wrapper = mount(

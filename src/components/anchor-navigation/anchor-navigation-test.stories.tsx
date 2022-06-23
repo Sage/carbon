@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useRef, useState } from "react";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import Textbox from "../textbox";
 import Button from "../button";
@@ -10,17 +11,22 @@ import {
   AnchorNavigationItem,
 } from ".";
 
-<Meta
-  title="Test/AnchorNavigation"
-  parameters={{
+export default {
+  component: AnchorNavigation,
+  title: "Anchor Navigation/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-/>
+  },
+} as ComponentMeta<typeof AnchorNavigation>;
 
-export const Content = ({ title, noTextbox }) => (
+interface ContentProps {
+  title: string;
+  noTextbox?: boolean;
+}
+const Content = ({ title, noTextbox }: ContentProps) => (
   <>
     <div>
       <h2>{title}</h2>
@@ -35,12 +41,12 @@ export const Content = ({ title, noTextbox }) => (
   </>
 );
 
-export const AnchorNavigationStory = () => {
-  const ref1 = useRef();
-  const ref2 = useRef();
-  const ref3 = useRef();
-  const ref4 = useRef();
-  const ref5 = useRef();
+export const DefaultStory: ComponentStory<typeof AnchorNavigation> = () => {
+  const ref1 = useRef<HTMLDivElement>(null);
+  const ref2 = useRef<HTMLDivElement>(null);
+  const ref3 = useRef<HTMLDivElement>(null);
+  const ref4 = useRef<HTMLDivElement>(null);
+  const ref5 = useRef<HTMLDivElement>(null);
   return (
     <AnchorNavigation
       stickyNavigation={
@@ -77,14 +83,17 @@ export const AnchorNavigationStory = () => {
     </AnchorNavigation>
   );
 };
+DefaultStory.storyName = "default";
 
-export const AnchorNavigationInFullScreenDialogStory = () => {
+export const InFullScreenDialogStory: ComponentStory<
+  typeof AnchorNavigation
+> = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const ref1 = useRef();
-  const ref2 = useRef();
-  const ref3 = useRef();
-  const ref4 = useRef();
-  const ref5 = useRef();
+  const ref1 = useRef<HTMLDivElement>(null);
+  const ref2 = useRef<HTMLDivElement>(null);
+  const ref3 = useRef<HTMLDivElement>(null);
+  const ref4 = useRef<HTMLDivElement>(null);
+  const ref5 = useRef<HTMLDivElement>(null);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open AnchorNavigation</Button>
@@ -131,28 +140,4 @@ export const AnchorNavigationInFullScreenDialogStory = () => {
     </>
   );
 };
-
-# Anchor Navigation
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    parameters={{
-      chromatic: {
-        disable: false,
-      },
-    }}
-  >
-    {AnchorNavigationStory.bind({})}
-  </Story>
-</Canvas>
-
-### In full screen dialog
-
-<Canvas>
-  <Story name="in full screen dialog">
-    {AnchorNavigationInFullScreenDialogStory.bind({})}
-  </Story>
-</Canvas>
+InFullScreenDialogStory.storyName = "in full screen dialog";

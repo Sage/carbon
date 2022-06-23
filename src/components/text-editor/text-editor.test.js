@@ -17,7 +17,7 @@ import {
 
 import { getDataElementByValue } from "../../../cypress/locators";
 import { positionOfElement, keyCode } from "../../../cypress/support/helper";
-import { verifyRequiredAsterisk } from "../../../cypress/support/component-helper/common-steps";
+import { verifyRequiredAsteriskForLabel } from "../../../cypress/support/component-helper/common-steps";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 const TextEditorCustom = ({ text, onChange, onLinkAdded, ...props }) => {
@@ -186,7 +186,7 @@ context("Test for TextEditor component", () => {
       ["bullet-list", 2],
       ["number-list", 1],
     ])(
-      "should focus %s button using LeftArrow keyboard key",
+      "should focus %s button using ArrowLeft keyboard key",
       (buttonType, times) => {
         CypressMountWithProviders(<TextEditorCustom />);
         textEditorInput().focus().tab();
@@ -278,7 +278,7 @@ context("Test for TextEditor component", () => {
       it("should render TextEditor with required prop", () => {
         CypressMountWithProviders(<TextEditorCustom required />);
 
-        verifyRequiredAsterisk();
+        verifyRequiredAsteriskForLabel();
       });
 
       it.each([

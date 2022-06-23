@@ -171,16 +171,16 @@ describe("InputIconToggle", () => {
 
   describe("default onKeydown handler", () => {
     it.each([
-      ["Enter", 13],
-      [" ", 32],
+      ["Enter", "Enter"],
+      ["Space", " "],
     ])(
       "prevents default when pressing `%s` and onClick is set",
-      (key, which) => {
+      (keyname, key) => {
         const wrapper = render(
           { inputIcon: "dropdown", onClick: () => {} },
           mount
         );
-        const event = { key, which, preventDefault: jest.fn() };
+        const event = { key, preventDefault: jest.fn() };
         act(() => {
           wrapper.simulate("keydown", event);
         });
@@ -190,7 +190,7 @@ describe("InputIconToggle", () => {
 
     it("does not prevent default if onClick is not set", () => {
       const wrapper = render({ inputIcon: "dropdown" }, mount);
-      const event = { key: " ", which: 32, preventDefault: jest.fn() };
+      const event = { key: " ", preventDefault: jest.fn() };
       act(() => {
         wrapper.simulate("keydown", event);
       });

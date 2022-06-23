@@ -46,8 +46,7 @@ When("I press {string} onto {int} actionPopoverInnerItem", (key, element) => {
 
 When("I press Enter onto {int} submenu actionPopoverInnerItem", (element) => {
   actionPopoverSubmenu(element).trigger("keydown", {
-    keyCode: 13,
-    which: 13,
+    key: "Enter",
     force: true,
   });
 });

@@ -232,7 +232,7 @@ describe("Link", () => {
           onKeyDown: onKeyDownFn,
           onClick: onClickFn,
         });
-        wrapper.find("a").simulate("keydown", { which: 13 });
+        wrapper.find("a").simulate("keydown", { key: "Enter" });
 
         expect(onClickFn).not.toHaveBeenCalled();
       });
@@ -243,7 +243,7 @@ describe("Link", () => {
         wrapper.setProps({
           onClick: onClickFn,
         });
-        wrapper.find("button").simulate("keydown", { which: 13 });
+        wrapper.find("button").simulate("keydown", { key: "Enter" });
 
         expect(onClickFn).toHaveBeenCalled();
       });
@@ -254,7 +254,7 @@ describe("Link", () => {
         wrapper.setProps({
           onKeyDown: onKeyDownFn,
         });
-        wrapper.find("a").simulate("keydown", { which: 13 });
+        wrapper.find("a").simulate("keydown", { key: "Enter" });
       });
 
       it("should trigger `onKeyDown` prop", () => {

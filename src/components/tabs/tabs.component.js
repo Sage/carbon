@@ -48,9 +48,10 @@ const Tabs = ({
   );
 
   /** Array of the tabIds for the child nodes */
-  const tabIds = () => {
-    return filteredChildren.map((child) => child.props.tabId);
-  };
+  const tabIds = useMemo(
+    () => filteredChildren.map((child) => child.props.tabId),
+    [filteredChildren]
+  );
 
   /** Array of refs to the TabTitle nodes */
   const tabRefs = useMemo(
@@ -71,15 +72,14 @@ const Tabs = ({
     const selectedTab =
       selectedTabId || Children.toArray(children)[0].props.tabId;
 
-    if (!tabIds().includes(selectedTabId)) {
+    if (!tabIds.includes(selectedTabId)) {
       setTabStopId(React.Children.toArray(children)[0].props.tabId);
     } else {
       setTabStopId(selectedTab);
     }
 
     setSelectedTabIdState(selectedTab);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [children, selectedTabId, tabIds]);
 
   const updateErrors = useCallback(
     (id, hasError) => {
@@ -131,6 +131,30 @@ const Tabs = ({
     [onTabChange, isTabSelected, hasTabStop]
   );
 
+  const blurPreviousSelectedTab = useCallback(() => {
+    const previousTabIndex = tabIds.indexOf(previousSelectedTabId.current);
+    /* istanbul ignore else */
+    if (previousTabIndex !== -1) {
+      const previousTabRef = tabRefs[previousTabIndex];
+      previousTabRef.current?.blur();
+    }
+  }, [tabIds, tabRefs]);
+
+  useEffect(() => {
+    if (previousSelectedTabId.current !== selectedTabId) {
+      if (selectedTabId !== selectedTabIdState) {
+        setSelectedTabIdState(selectedTabId);
+        blurPreviousSelectedTab();
+      }
+      previousSelectedTabId.current = selectedTabId;
+    }
+  }, [
+    blurPreviousSelectedTab,
+    previousSelectedTabId,
+    selectedTabId,
+    selectedTabIdState,
+  ]);
+
   /** Determines if the tab titles are in a vertical format. */
   const isVertical = (currentPosition) => currentPosition === "left";
 
@@ -152,14 +176,12 @@ const Tabs = ({
     event.preventDefault();
     let newIndex = index;
 
-    const ids = tabIds();
-
     if (index < 0) {
-      newIndex = ids.length - 1;
-    } else if (index === ids.length) {
+      newIndex = tabIds.length - 1;
+    } else if (index === tabIds.length) {
       newIndex = 0;
     }
-    const nextTabId = ids[newIndex];
+    const nextTabId = tabIds[newIndex];
     const nextRef = tabRefs[newIndex];
     updateVisibleTab(nextTabId);
     focusTab(nextRef);
@@ -328,15 +350,6 @@ const Tabs = ({
 
     return tabs;
   };
-
-  useEffect(() => {
-    if (previousSelectedTabId.current !== selectedTabId) {
-      if (selectedTabId !== selectedTabIdState) {
-        setSelectedTabIdState(selectedTabId);
-      }
-      previousSelectedTabId.current = selectedTabId;
-    }
-  }, [previousSelectedTabId, selectedTabId, selectedTabIdState]);
 
   return (
     <StyledTabs

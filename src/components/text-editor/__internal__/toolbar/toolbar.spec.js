@@ -121,7 +121,7 @@ describe("Toolbar", () => {
     describe("Pressing the right arrow key when the controls are focused", () => {
       wrapper = render({ canFocus: true });
       it.each([0, 1, 2, 3])("moves focus to the next button", (index) => {
-        simulate.keydown.pressRightArrow(wrapper.find(ToolbarButton).at(index));
+        simulate.keydown.pressArrowRight(wrapper.find(ToolbarButton).at(index));
         const newIndex = index < 3 ? index + 1 : 0;
         setTimeout(() =>
           expect(
@@ -134,7 +134,7 @@ describe("Toolbar", () => {
     describe("Pressing the left arrow key when the controls are focused", () => {
       wrapper = render({ canFocus: true });
       it.each([0, 3, 2, 1])("moves focus to the previous button", (index) => {
-        simulate.keydown.pressLeftArrow(wrapper.find(ToolbarButton).at(index));
+        simulate.keydown.pressArrowLeft(wrapper.find(ToolbarButton).at(index));
         const newIndex = index === 0 ? 3 : index - 1;
         setTimeout(() =>
           expect(

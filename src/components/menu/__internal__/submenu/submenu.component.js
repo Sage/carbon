@@ -163,7 +163,7 @@ const Submenu = React.forwardRef(
             nextIndex = numberOfChildren - 1;
           }
 
-          if (Events.isAlphabetKey(event) || Events.isNumberKey(event)) {
+          if (event.key.length === 1) {
             event.stopPropagation();
 
             if (characterTimer.current) {
@@ -233,9 +233,7 @@ const Submenu = React.forwardRef(
     };
 
     const handleClick = (event) => {
-      if (clickToOpen) {
-        openSubmenu();
-      }
+      openSubmenu();
 
       if (onClick) {
         onClick(event);

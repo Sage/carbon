@@ -3,6 +3,7 @@ import React, {
   useContext,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -48,9 +49,15 @@ const FlatTableRow = React.forwardRef(
     const firstColumnExpandable = expandableArea === "firstColumn";
     const [stickyCellWidths, setStickyCellWidths] = useState([]);
     const [leftPositions, setLeftPositions] = useState([]);
-    const childrenArray = React.Children.toArray(children);
-    const rowHeaderIndex = childrenArray.findIndex(
-      (child) => child.type === FlatTableRowHeader
+    const childrenArray = useMemo(() => React.Children.toArray(children), [
+      children,
+    ]);
+    const rowHeaderIndex = useMemo(
+      () =>
+        childrenArray.findIndex(
+          (child) => child.type.displayName === FlatTableRowHeader.displayName
+        ),
+      [childrenArray]
     );
     const themeContext = useContext(FlatTableThemeContext);
 

@@ -88,7 +88,7 @@ describe("Help", () => {
         "noopener noreferrer"
       );
       expect(wrapper.find(StyledHelp).prop("role")).toEqual(undefined);
-      expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual(undefined);
+      expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual("foo");
       wrapper.unmount();
     });
 
@@ -174,11 +174,11 @@ describe("Help", () => {
 
   describe("when a key is pressed when the tooltip is open", () => {
     const escapeKeyDownEvent = new KeyboardEvent("keydown", {
-      which: 27,
+      key: "Escape",
       bubbles: true,
     });
     const enterKeyDownEvent = new KeyboardEvent("keydown", {
-      which: 13,
+      key: "Enter",
       bubbles: true,
     });
     let domNode;

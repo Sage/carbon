@@ -90,4 +90,6 @@ FlatTableRowHeader.propTypes = {
   verticalBorderColor: PropTypes.string,
 };
 
+FlatTableRowHeader.displayName = "FlatTableRowHeader";
+
 export default FlatTableRowHeader;
