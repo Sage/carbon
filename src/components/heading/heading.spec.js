@@ -22,63 +22,105 @@ import DefaultPages from "../pages/pages.component";
 import Page from "../pages/page/page.component";
 import Hr from "../hr";
 import Pill from "../pill";
+import enGb from "../../locales/en-gb";
 
 describe("Heading", () => {
   testStyledSystemMargin((props) => (
     <Heading title="foo" subheader="subheader" {...props} />
   ));
 
-  it("renders a h1 with the title", () => {
-    const wrapper = mount(
-      <Heading
-        title="foo"
-        subheader="subheader"
-        help="bar"
-        helpLink="/bar"
-        backLink="/foobar"
-      />
-    );
-    expect(wrapper.find(StyledHeadingTitle).text()).toEqual("foo");
+  describe("when the title prop is provided", () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(<Heading title="foo" />);
+    });
+
+    it("renders a heading title with text from prop content", () => {
+      expect(wrapper.find(StyledHeadingTitle).text()).toEqual("foo");
+    });
   });
 
-  it("renders a help component", () => {
-    const wrapper = mount(<Heading title="Test" help="bar" helpLink="/bar" />);
-    const help = wrapper.find(Help);
+  describe("when the help prop is provided", () => {
+    it("renders a help component", () => {
+      const wrapper = mount(
+        <Heading title="Test" help="bar" helpLink="/bar" />
+      );
+      const help = wrapper.find(Help);
 
-    expect(help.props().href).toEqual("/bar");
+      expect(help.props().href).toEqual("/bar");
+    });
   });
 
-  it("renders a back link and applies correct styling to header and subheader", () => {
-    const wrapper = mount(
-      <Heading
-        title="foo"
-        subheader="subheader"
-        help="bar"
-        helpLink="/bar"
-        backLink="/foobar"
-        divider={false}
-      />
-    );
+  describe("when the backLink prop is provided", () => {
+    const backLink = "/foobar";
+    let wrapper;
 
-    const link = wrapper.find(Link);
-    expect(link.prop("href")).toEqual("/foobar");
+    beforeEach(() => {
+      wrapper = mount(
+        <Heading title="foo" subheader="subheader" backLink={backLink} />
+      );
+    });
 
-    assertStyleMatch(
-      {
-        display: "grid",
-        gridTemplateColumns: "min-content auto",
-      },
-      wrapper.find(StyledHeader)
-    );
+    it("renders a back link with the backLink prop value as href", () => {
+      const link = wrapper.find(Link);
 
-    assertStyleMatch(
-      {
-        marginTop: "5px",
-        gridRow: "2",
-        gridColumn: "2",
-      },
-      wrapper.find(StyledSubHeader)
-    );
+      expect(link.prop("href")).toEqual(backLink);
+    });
+
+    it("the back link has aria-label value based on locale", () => {
+      const link = wrapper.find(Link);
+
+      expect(link.prop("aria-label")).toEqual(enGb.heading.backLinkAriaLabel());
+    });
+
+    it("the back link has data-element prop set", () => {
+      const link = wrapper.find(Link);
+
+      expect(link.prop("data-element")).toEqual("back");
+    });
+
+    it("applies correct styling to header", () => {
+      assertStyleMatch(
+        {
+          display: "grid",
+          gridTemplateColumns: "min-content auto",
+        },
+        wrapper.find(StyledHeader)
+      );
+    });
+
+    it("applies correct styling to subheader", () => {
+      assertStyleMatch(
+        {
+          gridColumn: "2",
+        },
+        wrapper.find(StyledSubHeader)
+      );
+    });
+  });
+
+  describe("when the subheader prop is provided", () => {
+    const subheader = "subheader text";
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(<Heading title="foo" subheader={subheader} />);
+    });
+
+    it("renders a subheader with text given by the subheader prop", () => {
+      expect(wrapper.find(StyledSubHeader).text()).toEqual(subheader);
+    });
+
+    it("applies correct styling to subheader", () => {
+      assertStyleMatch(
+        {
+          marginTop: "5px",
+          gridRow: "2",
+        },
+        wrapper.find(StyledSubHeader)
+      );
+    });
   });
 
   it("renders a back link as a button with an outline", () => {
@@ -100,19 +142,6 @@ describe("Heading", () => {
       link,
       { modifier: `button:focus` }
     );
-  });
-
-  it("renders a subheader", () => {
-    const wrapper = mount(
-      <Heading
-        title="foo"
-        subheader="subheader"
-        help="bar"
-        helpLink="/bar"
-        backLink="/foobar"
-      />
-    );
-    expect(wrapper.find(StyledSubHeader).text()).toEqual("subheader");
   });
 
   it("renders passed components inside pills container when provided", () => {
@@ -202,11 +231,11 @@ describe("Heading", () => {
   describe("when the backLink is a function", () => {
     it("sets it as the link onClick prop", () => {
       const backLinkSpy = jasmine.createSpy(),
-        wrapper = shallow(<Heading title="Test" backLink={backLinkSpy} />),
-        link = wrapper.find('[data-element="back"]');
+        wrapper = mount(<Heading title="Test" backLink={backLinkSpy} />),
+        link = wrapper.find('[data-element="back"]').at(0);
 
-      expect(link.props().onClick.toBeDefined);
-      expect(link.props().onClick()).toEqual(wrapper.props().backLink);
+      expect(link.props().onClick).toBeDefined();
+      expect(link.props().onClick).toEqual(backLinkSpy);
     });
   });
 
@@ -252,7 +281,7 @@ describe("Heading", () => {
         />
       );
 
-      elementsTagTest(wrapper, ["back", "help", "subtitle", "title", "pills"]);
+      elementsTagTest(wrapper, ["help", "subtitle", "title", "pills"]);
     });
   });
 });

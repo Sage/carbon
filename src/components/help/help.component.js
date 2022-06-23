@@ -67,6 +67,7 @@ const Help = ({
           ? tooltipId || defaultTooltipId.current
           : undefined
       }
+      aria-label={helpAriaLabel || ariaLabel}
       className={className}
       as={tagType}
       href={href}
@@ -88,7 +89,6 @@ const Help = ({
           }
         : {
             role: "button",
-            "aria-label": helpAriaLabel || ariaLabel,
           })}
       {...filterStyledSystemMarginProps(rest)}
       {...rest}

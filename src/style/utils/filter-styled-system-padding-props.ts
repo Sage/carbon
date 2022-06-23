@@ -19,7 +19,9 @@ export const paddingPropertyNames = [
 ];
 
 export default function filterStyledSystemPaddingProps(
-  originalObject: Record<string, unknown>
+  // method should accept any react prop
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  props: Record<string, any>
 ): PaddingProps {
-  return filterObjectProperties(originalObject, paddingPropertyNames);
+  return filterObjectProperties(props, paddingPropertyNames);
 }
