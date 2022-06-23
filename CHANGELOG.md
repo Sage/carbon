@@ -1,3 +1,16 @@
+## [108.0.0](https://github.com/Sage/carbon/compare/v107.2.1...v108.0.0) (2022-06-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **popover-container:** dataElement and ariaLabel props have been renamed
+to data-element and aria-label in both renderOpenComponent and
+renderCloseComponent render prop methods
+
+### Code Refactoring
+
+* **popover-container:** convert to ts ([58a95eb](https://github.com/Sage/carbon/commit/58a95ebcb28292d511f2d4d18b32537bdbd54d4e))
+
 ### [107.2.1](https://github.com/Sage/carbon/compare/v107.2.0...v107.2.1) (2022-06-22)
 
 
