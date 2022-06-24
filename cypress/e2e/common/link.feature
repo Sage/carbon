@@ -21,16 +21,6 @@ Feature: Link component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
-  Scenario: Link is tabbable
-    When I open default "Link Test" component with "link" json from "commonComponents" using "tabbable" object name
-    Then Link is tabbable
-
-  @positive
-  Scenario: Link is not tabbable
-    When I open default "Link Test" component with "link" json from "commonComponents" using "tabbableFalse" object name
-    Then Link is not tabbable
-
-  @positive
   Scenario: Change type of icon for a Link component to feedback
     When I open default "Link Test" component with "link" json from "commonComponents" using "icon" object name
     Then icon on link component preview is "feedback"

@@ -468,7 +468,6 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
 >
   <a
     onKeyDown={[Function]}
-    tabIndex="0"
   >
     <span
       className="c2 "

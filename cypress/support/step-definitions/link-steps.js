@@ -15,14 +15,6 @@ Then("icon on link component preview is {string}", (iconName) => {
   linkIcon().should("have.attr", "data-element", iconName).and("be.visible");
 });
 
-Then("Link is tabbable", () => {
-  link().children().should("have.attr", "tabindex", "0");
-});
-
-Then("Link is not tabbable", () => {
-  link().children().should("have.attr", "tabindex", "-1");
-});
-
 Then("Skip link is visible", () => {
   skipLink()
     .should("be.visible")

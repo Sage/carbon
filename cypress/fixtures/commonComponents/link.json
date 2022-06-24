@@ -38,12 +38,6 @@
     "icon": "add",
     "iconAlign": "left"
   },
-  "tabbable": {
-    "tabbable": true
-  },
-  "tabbableFalse": {
-    "tabbable": false
-  },
   "icon": {
     "icon": "feedback"
   }
