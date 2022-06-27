@@ -13,6 +13,26 @@ Feature: Menu component
       | second   |
 
   @positive
+  Scenario Outline: Test that the keyboard navigation works correctly with scrollable submenus
+    Given I open "Menu" component page "scrollable submenu"
+    And I press tab from default menu "second" expandable Menu component 3 times
+    When I press keyboard "downarrow" key times <times>
+    Then "<position>" submenu element is focused
+    Examples:
+      | times | position |
+      | 1     | first    |
+      | 2     | second   |
+      | 3     | third    |
+      | 4     | fourth   |
+      | 5     | fifth    |
+      | 6     | sixth    |
+      | 7     | seventh  |
+      | 8     | eighth   |
+      | 9     | ninth    |
+      | 10    | tenth    |
+      | 11    | eleventh |
+
+  @positive
   Scenario: Check the size of the second expandable element of Menu
     Given I open "Menu" component page "divider"
     When I hover over "first" expandable Menu component

@@ -40,12 +40,7 @@ const ScrollableBlock = ({
         as="ul"
       >
         {React.Children.map(children, (child, index) => {
-          let isFocused = false;
-          const blockItemFocused = focusIndex >= blockIndex;
-
-          if (blockItemFocused) {
-            isFocused = focusIndex - blockIndex === index;
-          }
+          const isFocused = focusIndex - blockIndex - 1 === index;
 
           return (
             <SubmenuContext.Provider

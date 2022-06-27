@@ -204,6 +204,22 @@ Then("{string} inner menu element is focused", (position) => {
     .should("be.focused");
 });
 
+Then("{string} submenu element is focused", (position) => {
+  submenu()
+    .find("ul > li")
+    .eq(positionOfElement(position))
+    .children()
+    .children()
+    .should("have.css", "box-shadow")
+    .and("contain", "rgb(255, 181, 0)");
+  submenu()
+    .find("ul > li")
+    .eq(positionOfElement(position))
+    .children()
+    .children()
+    .should("be.focused");
+});
+
 Then("inner menu without active redirection is not focused", () => {
   menuItem().should("not.be.focused");
 });

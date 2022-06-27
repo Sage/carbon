@@ -1188,6 +1188,42 @@ describe("Submenu component", () => {
     });
   });
 
+  describe("when it uses ScrollableBlock in more than one submenu item", () => {
+    const renderScrollableBlock = (menuType, props) => {
+      return mount(
+        <MenuContext.Provider value={menuContextValues(menuType)}>
+          <Submenu title="title" tabIndex={-1} {...props}>
+            <MenuItem>Apple</MenuItem>
+            <MenuItem>Banana</MenuItem>
+            <MenuItem>
+              Vegetables
+              <ScrollableBlock>
+                <MenuItem>Carrot</MenuItem>
+                <MenuItem>Broccoli</MenuItem>
+              </ScrollableBlock>
+            </MenuItem>
+            <MenuItem>
+              Meat
+              <ScrollableBlock>
+                <MenuItem>Beef</MenuItem>
+                <MenuItem>Lamb</MenuItem>
+                <MenuItem>Pork</MenuItem>
+              </ScrollableBlock>
+            </MenuItem>
+          </Submenu>
+        </MenuContext.Provider>,
+        { attachTo: htmlElement }
+      );
+    };
+
+    it("should render all of the underlying menu items", () => {
+      wrapper = renderScrollableBlock("light");
+      openSubmenu(wrapper);
+
+      expect(wrapper.find(MenuItem).length).toEqual(9);
+    });
+  });
+
   describe("when it has Search as a child", () => {
     const renderWithSearch = (menuType, props) => {
       return mount(

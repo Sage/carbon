@@ -457,15 +457,15 @@ In order to align text and icons within a submenu a `Box` component will need to
 
 ### Scrollable submenu
 
-A scrollable submenu can be added using the `ScrollableBlock` component. This can be used for all of the submenu items, or just a selection, as shown in `Menu Itme Four` below.
-Note that only one `ScrollableBlock` can be used within a single submenu.
+A scrollable submenu can be added using the `ScrollableBlock` component. This can be used for all of the submenu items, or for a child list of one menu item.
+It can even be used in multiple submenu items, as shown in `Menu Item Four` below.
 
 <Canvas>
   <Story
     name="scrollable submenu"
     parameters={{ chromatic: { disable: true } }}
   >
-    <Box mb={150}>
+    <Box mb={500}>
       {["white", "light", "dark", "black"].map((menuType) => (
         <div key={menuType}>
           <Typography variant="h4" textTransform="capitalize" my={2}>
@@ -495,16 +495,25 @@ Note that only one `ScrollableBlock` can be used within a single submenu.
               <MenuItem href="#">
                 Item Submenu Two
                 <ScrollableBlock variant="alternate" height="200px">
-                  <MenuItem href="#">Item Submenu Three</MenuItem>
-                  <MenuItem href="#">Item Submenu Four</MenuItem>
-                  <MenuItem href="#">Item Submenu Five</MenuItem>
-                  <MenuItem href="#">Item Submenu Six</MenuItem>
-                  <MenuItem href="#">Item Submenu Seven</MenuItem>
-                  <MenuItem href="#">Item Submenu Eight</MenuItem>
-                  <MenuItem href="#">Item Submenu Nine</MenuItem>
-                  <MenuItem href="#">Item Submenu Ten</MenuItem>
-                  <MenuItem href="#">Item Submenu Eleven</MenuItem>
-                  <MenuItem href="#">Item Submenu Twelve</MenuItem>
+                  <MenuItem href="#">First scrollable block subitem one</MenuItem>
+                  <MenuItem href="#">First scrollable block subitem two</MenuItem>
+                  <MenuItem href="#">First scrollable block subitem three</MenuItem>
+                  <MenuItem href="#">First scrollable block subitem four</MenuItem>
+                  <MenuItem href="#">First scrollable block subitem five</MenuItem>
+                  <MenuItem href="#">First scrollable block subitem six</MenuItem>
+                </ScrollableBlock>
+              </MenuItem>
+              <MenuItem href="#">
+                Item Submenu Three
+                <ScrollableBlock variant="alternate" height="200px">
+                  <MenuItem href="#">Second scrollable block subitem one</MenuItem>
+                  <MenuItem href="#">Second scrollable block subitem two</MenuItem>
+                  <MenuItem href="#">
+                    Second scrollable block subitem three
+                  </MenuItem>
+                  <MenuItem href="#">Second scrollable block subitem four</MenuItem>
+                  <MenuItem href="#">Second scrollable block subitem five</MenuItem>
+                  <MenuItem href="#">Second scrollable block subitem six</MenuItem>
                 </ScrollableBlock>
               </MenuItem>
             </MenuItem>

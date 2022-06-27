@@ -44,21 +44,18 @@ const MenuItem = ({
   const ref = useRef(null);
   const focusFromMenu = menuContext.isFocused;
   const focusFromSubmenu = submenuContext.isFocused;
-  const isChildSearch = useRef(false);
   const childRef = useRef();
   const { inFullscreenView } = menuContext;
-  const childrenItems = useMemo(
+  const isChildSearch = useMemo(
     () =>
-      React.Children.map(children, (child) => {
-        if (child?.type === Search) {
-          isChildSearch.current = true;
-        }
-        return child;
-      }),
+      !!React.Children.toArray(children).find(
+        (child) => child?.type === Search
+      ),
     [children]
   );
 
-  const focusRef = isChildSearch.current ? childRef : ref;
+  const focusRef = isChildSearch ? childRef : ref;
+
   useEffect(() => {
     if (focusFromSubmenu === undefined && focusFromMenu) {
       focusRef.current.focus();
@@ -87,7 +84,7 @@ const MenuItem = ({
       if (submenuContext.handleKeyDown !== undefined) {
         if (
           !(
-            isChildSearch.current &&
+            isChildSearch &&
             document.activeElement === focusRef.current &&
             focusRef.current?.value
           )
@@ -98,7 +95,7 @@ const MenuItem = ({
         menuContext.handleKeyDown(event);
       }
     },
-    [focusRef, menuContext, onKeyDown, submenuContext]
+    [focusRef, menuContext, onKeyDown, submenuContext, isChildSearch]
   );
 
   const classes = useMemo(
@@ -113,8 +110,7 @@ const MenuItem = ({
     className: classes,
     href,
     target,
-    onClick:
-      onClick || (isChildSearch.current ? updateFocusOnClick : undefined),
+    onClick: onClick || (isChildSearch ? updateFocusOnClick : undefined),
     icon,
     selected,
     variant,
@@ -123,22 +119,24 @@ const MenuItem = ({
   };
 
   const [nonBlockChildren, blockChildren] = useMemo(() => {
-    const childArray = React.Children.toArray(childrenItems);
+    const childArray = React.Children.toArray(children);
     const blockIndex = childArray.findIndex(
       (child) => child.type === ScrollableBlock
     );
+
     const nonBlock =
-      blockIndex === -1 ? childrenItems : childArray.slice(0, blockIndex);
-    const inBlock = blockIndex === -1 ? null : childArray.slice(blockIndex);
-    return [nonBlock, inBlock];
-  }, [childrenItems]);
+      blockIndex === -1 ? childArray : childArray.slice(0, blockIndex);
+    const block = blockIndex === -1 ? null : childArray.slice(blockIndex);
+
+    return [nonBlock, block];
+  }, [children]);
 
   const cloneChildren = (childrenToClone) =>
-    isChildSearch.current
-      ? childrenToClone?.map((child) =>
-          React.cloneElement(child, { inputRef: childRef })
-        )
-      : childrenToClone;
+    childrenToClone?.map((child) =>
+      child?.type === Search
+        ? React.cloneElement(child, { inputRef: childRef })
+        : child
+    );
 
   const clonedNonBlockChildren = cloneChildren(nonBlockChildren);
   const clonedBlockChildren = cloneChildren(blockChildren);
@@ -195,8 +193,8 @@ const MenuItem = ({
       menuOpen={menuOpen}
     >
       <StyledMenuItemWrapper
-        as={isChildSearch.current ? "div" : Link}
-        isSearch={isChildSearch.current}
+        as={isChildSearch ? "div" : Link}
+        isSearch={isChildSearch}
         menuType={menuContext.menuType}
         {...elementProps}
         ariaLabel={ariaLabel}
