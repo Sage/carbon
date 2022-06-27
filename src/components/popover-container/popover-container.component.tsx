@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { PaddingProps } from "styled-system";
 import { Transition, TransitionStatus } from "react-transition-group";
+import { OffsetsFunction } from "@popperjs/core/lib/modifiers/offset";
 
 import {
   PopoverContainerWrapperStyle,
@@ -11,6 +12,7 @@ import {
   PopoverContainerOpenIcon,
 } from "./popover-container.style";
 import Icon from "../icon";
+import Popover from "../../__internal__/popover";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
 import ClickAwayWrapper from "../../__internal__/click-away-wrapper";
@@ -109,6 +111,19 @@ export interface PopoverContainerProps extends PaddingProps {
   containerAriaLabel?: string;
 }
 
+const offset: OffsetsFunction = ({ reference }) => {
+  return [0, -reference.height];
+};
+
+const popperModifiers = [
+  {
+    name: "offset",
+    options: {
+      offset,
+    },
+  },
+];
+
 export const PopoverContainer = ({
   children,
   title,
@@ -140,7 +155,8 @@ export const PopoverContainer = ({
   const isOpen = isControlled ? open : isOpenInternal;
 
   useEffect(() => {
-    if (isOpen && closeButtonRef.current) closeButtonRef.current.focus();
+    if (isOpen && closeButtonRef.current)
+      setTimeout(() => closeButtonRef.current?.focus(), 0);
   }, [isOpen]);
 
   const handleOpenButtonClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -204,32 +220,38 @@ export const PopoverContainer = ({
           unmountOnExit
           nodeRef={popoverContentNodeRef}
         >
-          {(state: TransitionStatus) => (
-            <PopoverContainerContentStyle
-              data-element="popover-container-content"
-              role="dialog"
-              animationState={state}
-              position={position}
-              shouldCoverButton={shouldCoverButton}
-              aria-labelledby={popoverContainerId}
-              aria-label={containerAriaLabel}
-              aria-describedby={ariaDescribedBy}
-              p="16px 24px"
-              ref={popoverContentNodeRef}
-              {...filterStyledSystemPaddingProps(rest)}
-            >
-              <PopoverContainerHeaderStyle>
-                <PopoverContainerTitleStyle
-                  id={popoverContainerId}
-                  data-element="popover-container-title"
+          {(state: TransitionStatus) =>
+            isOpen && (
+              <Popover
+                reference={openButtonRef}
+                placement={position === "right" ? "bottom-start" : "bottom-end"}
+                {...(shouldCoverButton && { modifiers: popperModifiers })}
+              >
+                <PopoverContainerContentStyle
+                  data-element="popover-container-content"
+                  role="dialog"
+                  animationState={state}
+                  aria-labelledby={popoverContainerId}
+                  aria-label={containerAriaLabel}
+                  aria-describedby={ariaDescribedBy}
+                  p="16px 24px"
+                  ref={popoverContentNodeRef}
+                  {...filterStyledSystemPaddingProps(rest)}
                 >
-                  {title}
-                </PopoverContainerTitleStyle>
-                {renderCloseComponent(renderCloseComponentProps)}
-              </PopoverContainerHeaderStyle>
-              {children}
-            </PopoverContainerContentStyle>
-          )}
+                  <PopoverContainerHeaderStyle>
+                    <PopoverContainerTitleStyle
+                      id={popoverContainerId}
+                      data-element="popover-container-title"
+                    >
+                      {title}
+                    </PopoverContainerTitleStyle>
+                    {renderCloseComponent(renderCloseComponentProps)}
+                  </PopoverContainerHeaderStyle>
+                  {children}
+                </PopoverContainerContentStyle>
+              </Popover>
+            )
+          }
         </Transition>
       </PopoverContainerWrapperStyle>
     </ClickAwayWrapper>
