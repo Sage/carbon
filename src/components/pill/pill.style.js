@@ -19,16 +19,28 @@ function addStyleToPillIcon(fontSize) {
   `;
 }
 
-const PillStyle = styled.span`
-  ${margin};
+export const StyledPillChildren = styled.span`
+  ${({ truncate }) => css`
+    ${truncate &&
+    `
+      text-overflow: ellipsis;
+      overflow: hidden;
+    `}
+  `}
+`;
+
+const StyledPill = styled.span`
+  ${margin}
   ${({
-    colorVariant,
+    wrapText,
     borderColor,
-    theme,
-    inFill,
+    colorVariant,
     isDeletable,
+    inFill,
+    maxWidth,
     pillRole,
     size,
+    theme,
   }) => {
     const isStatus = pillRole === "status";
     const variety = isStatus ? colorVariant : "primary";
@@ -71,7 +83,15 @@ const PillStyle = styled.span`
       justify-content: center;
       border: 2px solid ${pillColor};
       height: auto;
-      white-space: nowrap;
+      ${!wrapText &&
+      css`
+        white-space: nowrap;
+      `}
+      ${wrapText &&
+      css`
+        white-space: break-spaces;
+        hyphens: auto;
+      `}
       color: ${contentColor};
 
       ${inFill &&
@@ -278,18 +298,19 @@ const PillStyle = styled.span`
           }
         `}
       `}
+      ${maxWidth && `max-width: ${maxWidth}`}
     `;
   }}
 `;
 
-PillStyle.defaultProps = {
+StyledPill.defaultProps = {
   inFill: false,
   colorVariant: "default",
   isDeletable: false,
   theme: baseTheme,
 };
 
-PillStyle.propTypes = {
+StyledPill.propTypes = {
   inFill: PropTypes.bool,
   colorVariant: PropTypes.oneOf(["neutral", "negative", "positive", "warning"]),
   isDeletable: PropTypes.func,
@@ -299,4 +320,4 @@ PillStyle.propTypes = {
   theme: PropTypes.object,
 };
 
-export default PillStyle;
+export default StyledPill;

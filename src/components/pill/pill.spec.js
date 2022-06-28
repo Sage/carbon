@@ -4,6 +4,7 @@ import { shallow, mount } from "enzyme";
 import { shade } from "polished";
 
 import Pill from "./pill.component";
+import StyledPill from "./pill.style";
 import styleConfig from "./pill.style.config";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
@@ -40,16 +41,16 @@ describe("Pill", () => {
       instance = render({
         children: "My Text",
       });
-      pill = instance.find("span").hostNodes();
+      pill = instance.find(StyledPill);
     });
 
-    it("renders a span tag with the given children", () => {
-      expect(pill.length).toEqual(1);
-      expect(pill.props().children[0]).toEqual("My Text");
+    it("renders with the given children", () => {
+      expect(pill.find(StyledPill).text()).toEqual("My Text");
     });
 
     it("does not render a close icon", () => {
       expect(pill.props().onClick).toBe(null);
+      expect(pill.find(IconButton).exists()).toBe(false);
     });
   });
 
@@ -87,7 +88,7 @@ describe("Pill", () => {
         children: "My Text",
         onClick: spy,
       });
-      const pill = instance.find("span");
+      const pill = instance.find(StyledPill);
 
       pill.simulate("click");
       expect(spy).toHaveBeenCalled();
@@ -541,6 +542,24 @@ describe("Pill", () => {
         });
       }
     );
+  });
+
+  describe("wrapText", () => {
+    it("applies the expected styling", () => {
+      const wrapper = render({
+        wrapText: true,
+        maxWidth: "40px",
+      });
+
+      assertStyleMatch(
+        {
+          maxWidth: "40px",
+          whiteSpace: "break-spaces",
+          hyphens: "auto",
+        },
+        wrapper.find(StyledPill)
+      );
+    });
   });
 
   describe("styled system", () => {
