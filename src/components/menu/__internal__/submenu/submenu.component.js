@@ -271,9 +271,8 @@ const Submenu = React.forwardRef(
             menuType={menuContext.menuType}
             ref={ref}
             as={asPassiveItem ? "div" : Link}
-            href={!asPassiveItem ? href : undefined}
+            href={href}
             icon={icon}
-            tabIndex={asPassiveItem ? -1 : 0}
             variant={variant}
             inFullscreenView={inFullscreenView}
           >
