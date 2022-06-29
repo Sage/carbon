@@ -16,7 +16,6 @@ export const CheckboxGroupContext = React.createContext({});
 const CheckboxGroup = (props) => {
   const {
     children,
-    groupName,
     legend,
     error,
     warning,
@@ -51,7 +50,6 @@ const CheckboxGroup = (props) => {
         >
           <CheckboxGroupContext.Provider
             value={{
-              inputName: groupName,
               error: !!error,
               warning: !!warning,
               info: !!info,
@@ -80,8 +78,6 @@ CheckboxGroup.propTypes = {
   legendSpacing: PropTypes.oneOf([1, 2]),
   /** The Checkboxes to be rendered in the group */
   children: PropTypes.node.isRequired,
-  /** Specifies the name prop to be applied to each button in the group */
-  groupName: PropTypes.string.isRequired,
   /** Indicate that error has occurred
   Pass string to display icon, tooltip and red border
   Pass true boolean to only display red border */
