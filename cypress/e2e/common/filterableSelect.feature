@@ -7,8 +7,22 @@ Feature: Filterable Select component
     When I type "A" into input
     Then "first" option on Select list is "Amber"
       And "first" option on the list is hovered over
-      And  "second" option on Select list is "Black"
-      And  "third" option on Select list is "Orange"
+      And "second" option on Select list is "Black"
+      And "third" option on Select list is "Orange"
+    
+  @positive
+  Scenario: Filter by typed characters with multiple columns
+    Given I open "Select filterable" component page "with multiple columns"
+    When I type "ill" into input
+    Then "first" row on Select list contains "Jill"
+      And "second" row on Select list contains "Bill"
+
+  @positive
+  Scenario: Filter by typed characters with multiple columns and nested content
+    Given I open "Select filterable" component page "with multiple columns and nested"
+    When I type "ant" into input
+    Then "first" row on Select list contains "Accountant"
+      And "second" row on Select list contains "Accountant"
 
   @positive
   Scenario Outline: Filterable Select list is not open using keyboard <key>
