@@ -76,6 +76,10 @@ Then("Multi select input has {string} pill", (text) => {
   multiSelectPill().should("have.attr", "title", text);
 });
 
+Then("Multi select input has {int} values", (length) => {
+  multiSelectPill().should("have.length", length);
+});
+
 Then("Multi select {string} pill has {string} value", (int, text) => {
   multiSelectPillByPosition(positionOfElement(int)).should(
     "have.attr",

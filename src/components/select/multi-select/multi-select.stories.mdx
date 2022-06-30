@@ -106,7 +106,7 @@ You can use `listPlacement` prop to set the position of the select list relative
       const [value, setValue] = useState([]);
       function onChangeHandler(event) {
         setValue(event.target.value);
-        partialAction("value set");
+        partialAction("value set")(event);
       }
       return (
         <MultiSelect
@@ -126,6 +126,49 @@ You can use `listPlacement` prop to set the position of the select list relative
           <Option text="Red" value="9" />
           <Option text="White" value="10" />
           <Option text="Yellow" value="11" />
+        </MultiSelect>
+      );
+    }}
+  </Story>
+</Canvas>
+
+#### Controlled with custom onChange
+
+This example shows how you could use a custom onChange handler to limit the amount of selected items to a fixed maximum.
+
+Please note that this is not a recommended best practice and may confuse users - it is better to use validation with a clear error message if these are your requirements.
+But it demonstrates what can be done with a custom onChange handler in a controlled component.
+
+<Canvas>
+  <Story name="controlled with custom onchange">
+    {() => {
+      const MAX_SELECTIONS_ALLOWED = 2;
+      const [selectedPills, setSelectedPills] = useState([]);
+      const handleActivityChange = (event) => {
+        if (event.target.value.length <= MAX_SELECTIONS_ALLOWED) {
+          setSelectedPills(event.target.value);
+        }
+      };
+      return (
+        <MultiSelect
+          name="testing"
+          value={selectedPills}
+          onChange={handleActivityChange}
+          disablePortal
+          openOnFocus
+          label="Test"
+          placeholder=" "
+        >
+          <Option value="1" text="One" />
+          <Option value="2" text="Two" />
+          <Option value="3" text="Three" />
+          <Option value="4" text="Four" />
+          <Option value="5" text="Five" />
+          <Option value="6" text="Six" />
+          <Option value="7" text="Seven" />
+          <Option value="8" text="Eight" />
+          <Option value="9" text="Nine" />
+          <Option value="10" text="Ten" />
         </MultiSelect>
       );
     }}

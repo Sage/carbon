@@ -108,7 +108,7 @@ You can use `listPlacement` prop to set the position of the select list relative
       const [value, setValue] = useState("");
       function onChangeHandler(event) {
         setValue(event.target.value);
-        partialAction("value set");
+        partialAction("value set")(event);
       }
       function clearValue() {
         setValue("");
