@@ -1,3 +1,10 @@
+### [109.0.1](https://github.com/Sage/carbon/compare/v109.0.0...v109.0.1) (2022-07-01)
+
+
+### Bug Fixes
+
+* **flat-table:** fix border bottom colour in light theme ([9932367](https://github.com/Sage/carbon/commit/99323674d86a3a637b1389d81017d621f9e977bc)), closes [#5175](https://github.com/Sage/carbon/issues/5175)
+
 ## [109.0.0](https://github.com/Sage/carbon/compare/v108.0.0...v109.0.0) (2022-07-01)
 
 
