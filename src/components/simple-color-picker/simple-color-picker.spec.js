@@ -579,7 +579,7 @@ describe("SimpleColorPicker", () => {
     it("validates the incorrect children prop", () => {
       const errorMessage =
         "Warning: Failed prop type: `SimpleColorPicker` only accepts children of" +
-        " type `SimpleColor`.\n    in SimpleColorPicker";
+        " type `SimpleColor`.\n    at SimpleColorPicker";
 
       const assert = expectError(errorMessage);
       mount(

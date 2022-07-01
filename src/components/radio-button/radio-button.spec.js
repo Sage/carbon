@@ -46,14 +46,16 @@ const borderColorsByValidationTypes = {
 describe("RadioButton", () => {
   describe("propTypes", () => {
     it("does not allow a children prop", () => {
-      spyOn(console, "error");
+      const consoleSpy = jest.spyOn(console, "error");
       render({ children: "someChildren" });
       const expected =
         "Forbidden prop `children` supplied to `RadioButton`. " +
         "This component is meant to be used as a self-closing tag. " +
         "You should probably use the label prop instead.";
-      const actual = console.error.calls.argsFor(0)[0];
-      expect(actual).toMatch(expected);
+      // eslint-disable-next-line no-console
+      expect(console.error.mock.calls[0][2]).toBe(expected);
+
+      consoleSpy.mockRestore();
     });
   });
 

@@ -13,7 +13,7 @@ import {
   commonInputCharacterLimit,
 } from "../../../cypress/locators";
 
-import { verifyRequiredAsterisk } from "../../../cypress/support/component-helper/common-steps";
+import { verifyRequiredAsteriskForLabel } from "../../../cypress/support/component-helper/common-steps";
 
 const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 
@@ -188,7 +188,7 @@ context("Tests for Number component", () => {
     it("should check Number is required", () => {
       CypressMountWithProviders(<NumberInputComponent required />);
 
-      verifyRequiredAsterisk();
+      verifyRequiredAsteriskForLabel();
     });
 
     it("should check Number label is inline", () => {
