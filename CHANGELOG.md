@@ -1,3 +1,10 @@
+### [109.0.2](https://github.com/Sage/carbon/compare/v109.0.1...v109.0.2) (2022-07-01)
+
+
+### Bug Fixes
+
+* **form:** fix tabs focus outline not rendering correctly ([f4e56fe](https://github.com/Sage/carbon/commit/f4e56fe482a57567b62ee125018f2d3f5c49eae1)), closes [#5161](https://github.com/Sage/carbon/issues/5161)
+
 ### [109.0.1](https://github.com/Sage/carbon/compare/v109.0.0...v109.0.1) (2022-07-01)
 
 
