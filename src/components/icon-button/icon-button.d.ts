@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
-import { IconProps } from "../icon/icon";
+import { IconProps } from "../icon/icon-type";
 
 export interface IconButtonProps extends MarginProps {
   /** Optional: alternative rendered content, displayed within <SelectList> of <Select> (eg: an icon, an image, etc) */

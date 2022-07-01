@@ -258,12 +258,7 @@ describe("PopoverContainer", () => {
       const openIcon = wrapper.find(PopoverContainerOpenIcon);
 
       expect(openIcon.exists()).toBe(true);
-      expect(openIcon.find(Icon).props()).toEqual({
-        bgSize: "small",
-        disabled: false,
-        fontSize: "small",
-        type: "settings",
-      });
+      expect(openIcon.find(Icon).props()).toEqual({ type: "settings" });
       expect(openIcon.prop("aria-haspopup")).toEqual(true);
       expect(openIcon.prop("tabIndex")).toEqual(0);
       expect(openIcon.prop("aria-label")).toEqual("PopoverContainerSettings");
