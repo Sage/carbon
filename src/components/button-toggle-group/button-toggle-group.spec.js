@@ -107,7 +107,9 @@ describe("ButtonToggleGroup", () => {
 
   describe("children", () => {
     it("validates the incorrect children prop", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
       const InvalidComponent = React.forwardRef(() => <div />);
       mount(
         <ButtonToggleGroup name="name" id="id">
@@ -116,11 +118,11 @@ describe("ButtonToggleGroup", () => {
         </ButtonToggleGroup>
       );
 
-      const expected =
-        "Warning: Failed prop type: `ButtonToggleGroup` only accepts children of" +
-        " type `ButtonToggle`.\n    in ButtonToggleGroup";
-
-      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+      // eslint-disable-next-line no-console
+      expect(console.error.mock.calls[0][2]).toBe(
+        "`ButtonToggleGroup` only accepts children of type `ButtonToggle`."
+      );
+      consoleSpy.mockRestore();
     });
 
     it("accepts empty children", () => {

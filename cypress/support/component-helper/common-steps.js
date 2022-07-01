@@ -1,8 +1,8 @@
 /* eslint-disable import/prefer-default-export */
-import { getDataElementByValue } from "../../locators/index";
+import { label, legendSpan } from "../../locators/index";
 
-export const verifyRequiredAsterisk = () =>
-  getDataElementByValue("label").then(($els) => {
+const verifyRequiredAsterisk = (element) =>
+  element.then(($els) => {
     // get Window reference from element
     const win = $els[0].ownerDocument.defaultView;
     // use getComputedStyle to read the pseudo selector
@@ -12,3 +12,8 @@ export const verifyRequiredAsterisk = () =>
     // the returned value will have double quotes around it, but this is correct
     expect(contentValue).to.eq('"*"');
   });
+
+export const verifyRequiredAsteriskForLabel = () =>
+  verifyRequiredAsterisk(label());
+export const verifyRequiredAsteriskForLegend = () =>
+  verifyRequiredAsterisk(legendSpan());

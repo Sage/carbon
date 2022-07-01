@@ -61,11 +61,11 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
   content: "\\e950";
-  font-size: 16px;
   font-style: normal;
   font-weight: normal;
-  line-height: 16px;
   vertical-align: middle;
+  font-size: 16px;
+  line-height: 16px;
   display: block;
 }
 
@@ -330,7 +330,6 @@ exports[`SimpleColorPicker renders as expected 1`] = `
             color="#0073C1"
             data-component="icon"
             data-element="tick"
-            disabled={false}
             fontSize="small"
             type="tick"
           />

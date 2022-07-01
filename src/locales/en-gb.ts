@@ -56,6 +56,9 @@ const enGB: Locale = {
         },
     },
   },
+  heading: {
+    backLinkAriaLabel: () => "Back",
+  },
   message: {
     closeButtonAriaLabel: () => "Close",
   },

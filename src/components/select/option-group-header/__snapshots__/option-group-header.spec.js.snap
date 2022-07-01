@@ -72,11 +72,11 @@ exports[`OptionGroupHeader when icon prop is set then it should display the icon
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
   content: "\\e93c";
-  font-size: 16px;
   font-style: normal;
   font-weight: normal;
-  line-height: 16px;
   vertical-align: middle;
+  font-size: 16px;
+  line-height: 16px;
   display: block;
 }
 
@@ -122,7 +122,6 @@ exports[`OptionGroupHeader when icon prop is set then it should display the icon
     className="c1 c2"
     data-component="icon"
     data-element="individual"
-    disabled={false}
     fontSize="small"
     type="individual"
   />

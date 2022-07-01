@@ -1,3 +1,42 @@
+### [109.0.1](https://github.com/Sage/carbon/compare/v109.0.0...v109.0.1) (2022-07-01)
+
+
+### Bug Fixes
+
+* **flat-table:** fix border bottom colour in light theme ([9932367](https://github.com/Sage/carbon/commit/99323674d86a3a637b1389d81017d621f9e977bc)), closes [#5175](https://github.com/Sage/carbon/issues/5175)
+
+## [109.0.0](https://github.com/Sage/carbon/compare/v108.0.0...v109.0.0) (2022-07-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* react 16 is no longer supported
+
+### Features
+
+* upgrade to react 17 ([831dcd8](https://github.com/Sage/carbon/commit/831dcd8daeebc463fb4a129d45afde634af75a43))
+
+## [108.0.0](https://github.com/Sage/carbon/compare/v107.2.1...v108.0.0) (2022-06-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **popover-container:** dataElement and ariaLabel props have been renamed
+to data-element and aria-label in both renderOpenComponent and
+renderCloseComponent render prop methods
+
+### Code Refactoring
+
+* **popover-container:** convert to ts ([58a95eb](https://github.com/Sage/carbon/commit/58a95ebcb28292d511f2d4d18b32537bdbd54d4e))
+
+### [107.2.1](https://github.com/Sage/carbon/compare/v107.2.0...v107.2.1) (2022-06-22)
+
+
+### Bug Fixes
+
+* **heading:** add aria-label to back button ([b3473de](https://github.com/Sage/carbon/commit/b3473de80e3f40a168486393df00df06b5cfa61b)), closes [#4876](https://github.com/Sage/carbon/issues/4876)
+* **help:** add aria-label when help is a link ([4882e13](https://github.com/Sage/carbon/commit/4882e134bdec67625c85640dd7f4d9a1f1863dc8))
+
 ## [107.2.0](https://github.com/Sage/carbon/compare/v107.1.8...v107.2.0) (2022-06-21)
 
 

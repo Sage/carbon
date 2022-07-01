@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { forwardRef } from "react";
-import { mount } from "enzyme";
-import { css } from "styled-components";
+import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 import { Transition } from "react-transition-group";
 import {
@@ -12,7 +11,11 @@ import {
   PopoverContainerTitleStyle,
 } from "./popover-container.style";
 import StyledIcon from "../icon/icon.style";
-import PopoverContainer from "./popover-container.component";
+import PopoverContainer, {
+  PopoverContainerProps,
+  RenderOpenProps,
+  RenderCloseProps,
+} from "./popover-container.component";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
@@ -21,15 +24,18 @@ import Icon from "../icon";
 import guid from "../../__internal__/utils/helpers/guid";
 
 jest.mock("../../__internal__/utils/helpers/guid");
-guid.mockImplementation(() => "guid-123");
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => "guid-123");
 
-const render = (props, renderMethod = mount) => {
+const render = (props?: PopoverContainerProps, renderMethod = mount) => {
   return renderMethod(
     <PopoverContainer title="PopoverContainerSettings" {...props} />
   );
 };
 
-const renderAttached = (props, renderMethod = mount) => {
+const renderAttached = (
+  props?: PopoverContainerProps,
+  renderMethod = mount
+) => {
   return renderMethod(
     <PopoverContainer title="PopoverContainerSettings" {...props} />,
     { attachTo: document.getElementById("enzymeContainer") }
@@ -48,7 +54,7 @@ describe("PopoverContainer", () => {
   );
 
   jest.useFakeTimers();
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   beforeEach(() => {
     wrapper = render();
@@ -156,11 +162,27 @@ describe("PopoverContainer", () => {
   });
 
   it("`position` should be right by default", () => {
-    expect(wrapper.props().position).toBe("right");
+    act(() => {
+      wrapper.find(PopoverContainerOpenIcon).props().onAction();
+    });
+
+    wrapper.update();
+
+    expect(wrapper.find(PopoverContainerContentStyle).props().position).toBe(
+      "right"
+    );
   });
 
   it("`shouldCoverButton` should be false by default", () => {
-    expect(wrapper.props().shouldCoverButton).toBe(false);
+    act(() => {
+      wrapper.find(PopoverContainerOpenIcon).props().onAction();
+    });
+
+    wrapper.update();
+
+    expect(
+      wrapper.find(PopoverContainerContentStyle).props().shouldCoverButton
+    ).toBe(false);
   });
 
   describe("if is controlled", () => {
@@ -236,12 +258,7 @@ describe("PopoverContainer", () => {
       const openIcon = wrapper.find(PopoverContainerOpenIcon);
 
       expect(openIcon.exists()).toBe(true);
-      expect(openIcon.find(Icon).props()).toEqual({
-        bgSize: "small",
-        disabled: false,
-        fontSize: "small",
-        type: "settings",
-      });
+      expect(openIcon.find(Icon).props()).toEqual({ type: "settings" });
       expect(openIcon.prop("aria-haspopup")).toEqual(true);
       expect(openIcon.prop("tabIndex")).toEqual(0);
       expect(openIcon.prop("aria-label")).toEqual("PopoverContainerSettings");
@@ -271,10 +288,20 @@ describe("PopoverContainer", () => {
     });
 
     describe("and custom component is provided as an opening button", () => {
-      const MyOpenButton = forwardRef((props, ref) => (
+      interface MyOpenButtonProps extends RenderOpenProps {
+        children: React.ReactNode;
+      }
+
+      const MyOpenButton = React.forwardRef<
+        HTMLButtonElement,
+        MyOpenButtonProps
+      >((props: MyOpenButtonProps, ref) => (
         <button type="button" {...props} ref={ref} />
       ));
-      let container;
+
+      MyOpenButton.displayName = "MyOpenButton";
+
+      let container: HTMLDivElement | null;
 
       beforeEach(() => {
         container = document.createElement("div");
@@ -282,10 +309,11 @@ describe("PopoverContainer", () => {
         document.body.appendChild(container);
         wrapper = renderAttached({
           title: "render props",
+          // eslint-disable-next-line react/display-name
           renderOpenComponent: ({
             tabIndex,
-            dataElement,
-            ariaLabel,
+            "data-element": dataElement,
+            "aria-label": ariaLabel,
             ref,
             onClick,
             id,
@@ -314,7 +342,10 @@ describe("PopoverContainer", () => {
 
       it("should be focused when user clicks the close icon", () => {
         act(() => {
-          wrapper.find(MyOpenButton).props().onClick();
+          wrapper
+            .find(MyOpenButton)
+            .props()
+            .onClick({} as React.MouseEvent<HTMLElement>);
         });
 
         wrapper.update();
@@ -341,10 +372,11 @@ describe("PopoverContainer", () => {
       it("should not be focused if `ref` is not provided", () => {
         wrapper = render({
           title: "render props",
+          // eslint-disable-next-line react/display-name
           renderOpenComponent: ({
             tabIndex,
-            dataElement,
-            ariaLabel,
+            "data-element": dataElement,
+            "aria-label": ariaLabel,
             onClick,
             isOpen,
           }) => (
@@ -360,7 +392,10 @@ describe("PopoverContainer", () => {
         });
 
         act(() => {
-          wrapper.find(MyOpenButton).props().onClick();
+          wrapper
+            .find(MyOpenButton)
+            .props()
+            .onClick({} as React.MouseEvent<HTMLElement>);
         });
 
         wrapper.update();
@@ -385,17 +420,29 @@ describe("PopoverContainer", () => {
 
       it("should not set the id on the control when popover is open", () => {
         act(() => {
-          wrapper.find(MyOpenButton).props().onClick();
+          wrapper
+            .find(MyOpenButton)
+            .props()
+            .onClick({} as React.MouseEvent<HTMLElement>);
         });
         expect(wrapper.update().find(MyOpenButton).prop("id")).toBe(undefined);
       });
     });
 
     describe("and custom component is provided as a closing button", () => {
-      const MyCloseButton = forwardRef((props, ref) => (
-        <button type="button" {...props} ref={ref} />
-      ));
-      let container;
+      interface MyCloseButtonProps extends RenderCloseProps {
+        children: React.ReactNode;
+      }
+
+      const MyCloseButton = forwardRef<HTMLButtonElement, MyCloseButtonProps>(
+        (props: MyCloseButtonProps, ref) => (
+          <button type="button" {...props} ref={ref} />
+        )
+      );
+
+      MyCloseButton.displayName = "MyCloseButton";
+
+      let container: HTMLDivElement | null;
 
       beforeEach(() => {
         container = document.createElement("div");
@@ -403,13 +450,20 @@ describe("PopoverContainer", () => {
         document.body.appendChild(container);
         wrapper = renderAttached({
           open: true,
-          renderCloseComponent: ({ tabIndex, dataElement, ariaLabel, ref }) => (
+          // eslint-disable-next-line react/display-name
+          renderCloseComponent: ({
+            tabIndex,
+            "data-element": dataElement,
+            "aria-label": ariaLabel,
+            ref,
+            onClick,
+          }) => (
             <MyCloseButton
-              type="button"
               tabIndex={tabIndex}
               ref={ref}
               data-element={dataElement}
               aria-label={ariaLabel}
+              onClick={onClick}
             >
               Close
             </MyCloseButton>
@@ -439,9 +493,9 @@ describe("PopoverContainer", () => {
     });
   });
 
-  describe("if close button is clicked ", () => {
+  describe("if close button is clicked", () => {
     describe("and `ref` of opening button exists", () => {
-      let container;
+      let container: HTMLDivElement | null;
       beforeEach(() => {
         container = document.createElement("div");
         container.id = "enzymeContainer";
@@ -491,9 +545,7 @@ describe("PopoverContainerOpenIcon", () => {
       },
       wrapper,
       {
-        modifier: css`
-          ${StyledIcon}
-        `,
+        modifier: `${StyledIcon}`,
       }
     );
   });
@@ -559,16 +611,6 @@ describe("PopoverContainerContentStyle", () => {
     assertStyleMatch(
       {
         right: "0",
-      },
-      wrapper
-    );
-  });
-
-  it("should render to the right by default", () => {
-    const wrapper = mount(<PopoverContainerContentStyle />);
-    assertStyleMatch(
-      {
-        left: "0",
       },
       wrapper
     );

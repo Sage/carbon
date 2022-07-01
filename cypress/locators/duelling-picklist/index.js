@@ -6,7 +6,7 @@ import {
   PICKLIST_RIGHT_LABEL,
 } from "./locators";
 import { SEARCH_COMPONENT } from "../search/locators";
-import CHECKBOX from "../checkbox/locators";
+import { CHECKBOXROLE } from "../checkbox/locators";
 
 // component preview locators
 export const duellingPicklistComponent = () =>
@@ -24,4 +24,4 @@ export const addButton = (index) =>
   unassignedPicklistItems().eq(index).find("button");
 export const removeButton = () => assignedPicklist().find("button");
 export const duellingSearchInput = () => cy.get(SEARCH_COMPONENT).find("input");
-export const checkBox = () => cy.get(CHECKBOX);
+export const checkBox = () => cy.get(CHECKBOXROLE);

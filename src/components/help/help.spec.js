@@ -8,8 +8,6 @@ import StyledHelp from "./help.style";
 import Tooltip from "../tooltip";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 
-jest.mock("@tippyjs/react/headless");
-
 describe("Help", () => {
   let wrapper;
 
@@ -88,7 +86,7 @@ describe("Help", () => {
         "noopener noreferrer"
       );
       expect(wrapper.find(StyledHelp).prop("role")).toEqual(undefined);
-      expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual(undefined);
+      expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual("foo");
       wrapper.unmount();
     });
 
