@@ -1,3 +1,14 @@
+## [109.0.0](https://github.com/Sage/carbon/compare/v108.0.0...v109.0.0) (2022-07-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* react 16 is no longer supported
+
+### Features
+
+* upgrade to react 17 ([831dcd8](https://github.com/Sage/carbon/commit/831dcd8daeebc463fb4a129d45afde634af75a43))
+
 ## [108.0.0](https://github.com/Sage/carbon/compare/v107.2.1...v108.0.0) (2022-06-23)
 
 
