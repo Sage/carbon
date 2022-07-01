@@ -1,3 +1,10 @@
+## [109.1.0](https://github.com/Sage/carbon/compare/v109.0.2...v109.1.0) (2022-07-01)
+
+
+### Features
+
+* **inline-inputs:** add adaptiveLabelBreakpoint prop to component ([0ffdde6](https://github.com/Sage/carbon/commit/0ffdde63dd08e0c130ac176074fec74b49cf9c1a)), closes [#5099](https://github.com/Sage/carbon/issues/5099)
+
 ### [109.0.2](https://github.com/Sage/carbon/compare/v109.0.1...v109.0.2) (2022-07-01)
 
 
