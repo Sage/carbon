@@ -2,6 +2,8 @@ import React, { useRef, useContext } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
+import { ModalContext } from "../modal/modal.component";
+import { SidebarContext } from "../sidebar/sidebar.component";
 import FormSummary from "./__internal__/form-summary.component";
 import {
   StyledForm,
@@ -10,7 +12,6 @@ import {
   StyledLeftButtons,
   StyledRightButtons,
 } from "./form.style";
-import { SidebarContext } from "../sidebar/sidebar.component";
 
 const Form = ({
   children,
@@ -28,6 +29,7 @@ const Form = ({
   ...rest
 }) => {
   const { isInSidebar } = useContext(SidebarContext);
+  const { isInModal } = useContext(ModalContext);
   const formRef = useRef();
   const formFooterRef = useRef();
 
@@ -53,8 +55,9 @@ const Form = ({
     >
       <StyledFormContent
         data-element="form-content"
-        stickyFooter={stickyFooter}
         className={stickyFooter ? "sticky" : ""}
+        stickyFooter={stickyFooter}
+        isInModal={isInModal}
       >
         {children}
       </StyledFormContent>

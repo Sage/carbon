@@ -1,5 +1,14 @@
 import * as React from "react";
 
+export interface ModalContextProps {
+  value?: {
+    isInModal?: boolean;
+    isAnimationComplete?: boolean;
+    triggerRefocusFlag?: boolean;
+  };
+  ref?: React.MutableRefObject<React.ReactNode>;
+}
+
 export interface ModalProps {
   /** Modal content */
   children?: React.ReactNode;
@@ -19,6 +28,8 @@ export interface ModalProps {
   timeout?: number;
 }
 
+declare const ModelContext: React.Context<ModalContextProps>;
 declare function Modal(props: ModalProps): JSX.Element;
 
+export { ModalContext };
 export default Modal;

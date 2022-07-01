@@ -56,6 +56,9 @@ const plPL: Locale = {
         },
     },
   },
+  heading: {
+    backLinkAriaLabel: () => "Wstecz",
+  },
   message: {
     closeButtonAriaLabel: () => "Zamknij",
   },

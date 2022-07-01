@@ -8,8 +8,6 @@ import { InputContext, InputGroupContext } from "../input-behaviour";
 import Tooltip from "../../components/tooltip";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 
-jest.mock("@tippyjs/react/headless");
-
 function renderWithInputContext(
   inputContextValue = {},
   inputGroupContextValue = {}

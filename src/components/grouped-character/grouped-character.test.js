@@ -9,7 +9,7 @@ import {
   commonDataElementInputPreview,
 } from "../../../cypress/locators/index";
 
-import { verifyRequiredAsterisk } from "../../../cypress/support/component-helper/common-steps";
+import { verifyRequiredAsteriskForLabel } from "../../../cypress/support/component-helper/common-steps";
 
 const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 
@@ -152,7 +152,7 @@ context("Tests for GroupedCharacter component", () => {
     it("should check the GroupedCharacter component is required", () => {
       CypressMountWithProviders(<GroupedCharacterComponent required />);
 
-      verifyRequiredAsterisk();
+      verifyRequiredAsteriskForLabel();
     });
 
     it("should check the GroupedCharacter component has autofocus", () => {

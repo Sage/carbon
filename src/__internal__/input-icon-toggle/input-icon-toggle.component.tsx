@@ -1,11 +1,36 @@
 import React from "react";
-import PropTypes from "prop-types";
-import Icon from "../../components/icon";
-import InputIconToggleStyle from "./input-icon-toggle.style";
-import ValidationIcon from "../validations/validation-icon.component";
+import Icon, { IconType } from "../../components/icon";
+import InputIconToggleStyle, {
+  InputIconToggleStyleProps,
+} from "./input-icon-toggle.style";
+import ValidationIcon, {
+  ValidationProps,
+} from "../validations/validation-icon.component";
 
-const shouldDisplayValidationIcon = ({ error, warning, info }) => {
+export interface InputIconToggleProps
+  extends InputIconToggleStyleProps,
+    ValidationProps {
+  align?: "left" | "right";
+  disabled?: boolean;
+  iconTabIndex?: number;
+  inputIcon?: IconType;
+  onBlur?: (ev: React.FocusEvent<HTMLElement>) => void;
+  onFocus?: (ev: React.FocusEvent<HTMLElement>) => void;
+  onMouseDown?: (ev: React.MouseEvent<HTMLElement>) => void;
+  readOnly?: boolean;
+  tooltipId?: string;
+  useValidationIcon?: boolean;
+  /** Id of the validation icon */
+  validationIconId?: string;
+}
+
+const shouldDisplayValidationIcon = ({
+  error,
+  warning,
+  info,
+}: ValidationProps) => {
   const validation = error || warning || info || null;
+
   return typeof validation === "string";
 };
 
@@ -25,7 +50,7 @@ const InputIconToggle = ({
   align,
   iconTabIndex,
   validationIconId,
-}) => {
+}: InputIconToggleProps) => {
   if (
     useValidationIcon &&
     !disabled &&
@@ -65,25 +90,6 @@ const InputIconToggle = ({
     );
   }
   return null;
-};
-
-InputIconToggle.propTypes = {
-  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  disabled: PropTypes.bool,
-  readOnly: PropTypes.bool,
-  onClick: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  onMouseDown: PropTypes.func,
-  inputIcon: PropTypes.string,
-  size: PropTypes.oneOf(["small", "medium", "large"]),
-  align: PropTypes.oneOf(["left", "right"]),
-  useValidationIcon: PropTypes.bool,
-  iconTabIndex: PropTypes.number,
-  /** Id of the validation icon */
-  validationIconId: PropTypes.string,
 };
 
 export default InputIconToggle;

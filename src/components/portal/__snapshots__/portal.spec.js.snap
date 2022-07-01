@@ -4,7 +4,7 @@ exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\"
 
 exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa bJdEkx\\"><span>a1</span></div><div class=\\"sc-bdVaJa bJdEkx\\"><span>a2</span></div></div>"`;
 
-exports[`Portal when using default node then the portal will mount on body 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa bJdEkx\\"><span class=\\"sc-bwzfXH gUXKts\\" data-element=\\"tick\\" data-component=\\"icon\\" font-size=\\"small\\" type=\\"tick\\" tabindex=\\"0\\"></span></div></div>"`;
+exports[`Portal when using default node then the portal will mount on body 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa bJdEkx\\"><span class=\\"sc-bxivhb lbAINf\\" data-element=\\"tick\\" font-size=\\"small\\" tabindex=\\"0\\" type=\\"tick\\" data-component=\\"icon\\"></span></div></div>"`;
 
 exports[`Portal when using default node to match snapshot  1`] = `
 <span
@@ -555,10 +555,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
         }
       }
     >
-      <ForwardRef
-        bgSize="small"
-        disabled={false}
-        fontSize="small"
+      <Icon
         tooltipMessage="Test"
         tooltipPosition="top"
         type="tick"
