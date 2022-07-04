@@ -20,29 +20,35 @@ describe("EditorLink", () => {
       getEntity: (entityKey) => ({ getData: () => entityKey }),
     };
 
-    const wrapper = render({
-      contentState,
-      entityKey: "bar",
-      children: [
-        <div key="foo" text="foo">
-          foo
-        </div>,
-      ],
-    });
+    const wrapper = render(
+      {
+        contentState,
+        entityKey: "bar",
+        children: [
+          <div key="foo" text="foo">
+            foo
+          </div>,
+        ],
+      },
+      false
+    );
 
     expect(wrapper.find(Link).props().href).toEqual("https://bar");
     expect(wrapper.find(Link).text()).toEqual("foo");
   });
 
   it("derives the correct url from the `children` element when no `contentState` is provided", () => {
-    const wrapper = render({
-      entityKey: "bar",
-      children: [
-        <div key="foo" text="foo">
-          foo
-        </div>,
-      ],
-    });
+    const wrapper = render(
+      {
+        entityKey: "bar",
+        children: [
+          <div key="foo" text="foo">
+            foo
+          </div>,
+        ],
+      },
+      false
+    );
 
     expect(wrapper.find(Link).props().href).toEqual("https://foo");
     expect(wrapper.find(Link).text()).toEqual("foo");
@@ -53,28 +59,34 @@ describe("EditorLink", () => {
       getEntity: (entityKey) => ({ getData: () => entityKey }),
     };
 
-    const wrapper = render({
-      contentState,
-      children: [
-        <div key="foo" text="foo">
-          foo
-        </div>,
-      ],
-    });
+    const wrapper = render(
+      {
+        contentState,
+        children: [
+          <div key="foo" text="foo">
+            foo
+          </div>,
+        ],
+      },
+      false
+    );
 
     expect(wrapper.find(Link).props().href).toEqual("https://foo");
     expect(wrapper.find(Link).text()).toEqual("foo");
   });
 
   it("does not append `https://` to the url when it contains `http://`", () => {
-    const wrapper = render({
-      entityKey: "bar",
-      children: [
-        <div key="foo" text="http://foo">
-          foo
-        </div>,
-      ],
-    });
+    const wrapper = render(
+      {
+        entityKey: "bar",
+        children: [
+          <div key="foo" text="http://foo">
+            foo
+          </div>,
+        ],
+      },
+      false
+    );
 
     expect(wrapper.find(Link).props().href).toEqual("http://foo");
     expect(wrapper.find(Link).text()).toEqual("foo");
@@ -93,32 +105,36 @@ describe("EditorLink", () => {
     expect(onLinkAdded).toHaveBeenCalledWith("http://foo");
   });
 
-  it("prevents link from being tabbable if in editMode", () => {
-    const wrapper = render({
-      entityKey: "bar",
-      children: [
-        <div key="foo" text="http://foo">
-          foo
-        </div>,
-      ],
-    });
-
-    expect(wrapper.find(Link).props().tabbable).toEqual(false);
-  });
-
-  it("allows link to be tabbable if not in editMode", () => {
-    const wrapper = render(
-      {
+  describe("when in editMode", () => {
+    it("link should not have a href prop", () => {
+      const wrapper = render({
         entityKey: "bar",
         children: [
           <div key="foo" text="http://foo">
             foo
           </div>,
         ],
-      },
-      false
-    );
+      });
 
-    expect(wrapper.find(Link).props().tabbable).toEqual(true);
+      expect(wrapper.find(Link).props().href).toEqual(undefined);
+    });
+  });
+
+  describe("when not in editMode", () => {
+    it("link should have href prop the same as the link in text", () => {
+      const wrapper = render(
+        {
+          entityKey: "bar",
+          children: [
+            <div key="foo" text="http://foo">
+              foo
+            </div>,
+          ],
+        },
+        false
+      );
+
+      expect(wrapper.find(Link).props().href).toEqual("http://foo");
+    });
   });
 });

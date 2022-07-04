@@ -29,12 +29,11 @@ const EditorLink = ({ children, contentState, entityKey, ...rest }) => {
 
   return (
     <StyledLink
-      href={validUrl}
+      href={!editMode ? validUrl : undefined}
       title={validUrl}
-      aria-label={validUrl}
+      aria-label={!editMode ? validUrl : undefined}
       target="_blank"
       rel="noopener noreferrer"
-      tabbable={!editMode}
       {...rest}
     >
       {children}
