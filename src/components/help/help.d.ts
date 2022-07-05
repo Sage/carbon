@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IconType } from "components/icon/icon";
+import { IconType } from "components/icon/icon-type";
 import { MarginProps } from "styled-system";
 
 export interface HelpProps extends MarginProps {
