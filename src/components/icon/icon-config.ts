@@ -1,3 +1,7 @@
+import { TooltipPositions } from "../tooltip/tooltip.config";
+import { IconType } from "./icon-type";
+import { BackgroundShape, BgSize, FontSize } from "./icon.style";
+
 const dlsConfig = {
   backgroundSize: {
     "extra-small": "16px",
@@ -19,20 +23,36 @@ const dlsConfig = {
   },
 };
 
-export const ICON_TOOLTIP_POSITIONS = ["bottom", "left", "right", "top"];
-export const ICON_SHAPES = ["circle", "rounded-rect", "square"];
-export const ICON_SIZES = [
+export const ICON_TOOLTIP_POSITIONS: TooltipPositions[] = [
+  "bottom",
+  "left",
+  "right",
+  "top",
+];
+export const ICON_SHAPES: BackgroundShape[] = [
+  "circle",
+  "rounded-rect",
+  "square",
+];
+export const ICON_SIZES: BgSize[] = [
   "extra-small",
   "small",
   "medium",
   "large",
   "extra-large",
 ];
-export const ICON_FONT_SIZES = ["small", "medium", "large", "extra-large"];
-export const ICONS = [
+export const ICON_FONT_SIZES: FontSize[] = [
+  "small",
+  "medium",
+  "large",
+  "extra-large",
+];
+export const ICONS: IconType[] = [
   "add",
+  "admin",
   "alert",
   "analysis",
+  "arrow",
   "arrow_down",
   "arrow_left",
   "arrow_left_boxed",
@@ -91,7 +111,9 @@ export const ICONS = [
   "collaborate",
   "computer_clock",
   "connect",
+  "contacts",
   "copy",
+  "create",
   "credit_card",
   "credit_card_slash",
   "cross",
@@ -99,6 +121,7 @@ export const ICONS = [
   "csv",
   "delete",
   "delivery",
+  "disconnect",
   "disputed",
   "document_right_align",
   "document_tick",
@@ -113,6 +136,7 @@ export const ICONS = [
   "edited",
   "email",
   "email_switch",
+  "entry",
   "ellipsis_horizontal",
   "ellipsis_vertical",
   "envelope_dollar",
@@ -139,6 +163,7 @@ export const ICONS = [
   "flag",
   "folder",
   "gift",
+  "go",
   "graph",
   "grid",
   "help",
@@ -154,6 +179,8 @@ export const ICONS = [
   "ledger",
   "ledger_arrow_left",
   "ledger_arrow_right",
+  "lightbulb_off",
+  "lightbulb_on",
   "link",
   "list_view",
   "locked",
@@ -162,11 +189,12 @@ export const ICONS = [
   "lookup",
   "marker",
   "message",
-  "messages",
   "minus",
   "minus_large",
   "mobile",
   "money_bag",
+  "none",
+  "old_warning",
   "pause",
   "pause_circle",
   "pdf",
@@ -176,6 +204,7 @@ export const ICONS = [
   "person_info",
   "person_tick",
   "phone",
+  "piggy_bank",
   "play",
   "play_circle",
   "plus",
@@ -185,6 +214,8 @@ export const ICONS = [
   "progress",
   "progressed",
   "question",
+  "question_hollow",
+  "question_mark",
   "refresh",
   "refresh_clock",
   "remove",
@@ -194,6 +225,7 @@ export const ICONS = [
   "search",
   "services",
   "settings",
+  "settings_old",
   "share",
   "shop",
   "sort_down",
@@ -208,9 +240,11 @@ export const ICONS = [
   "submitted",
   "sync",
   "tag",
+  "talk",
   "three_boxes",
   "tick",
   "tick_circle",
+  "true_tick",
   "undo",
   "unlocked",
   "upload",
@@ -218,23 +252,6 @@ export const ICONS = [
   "video",
   "view",
   "warning",
-  "admin",
-  "arrow",
-  "contacts",
-  "create",
-  "disconnect",
-  "entry",
-  "go",
-  "lightbulb_off",
-  "lightbulb_on",
-  "none",
-  "old_warning",
-  "piggy_bank",
-  "question_hollow",
-  "question_mark",
-  "settings_old",
-  "talk",
-  "true_tick",
 ];
 
 export default dlsConfig;

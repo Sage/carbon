@@ -28,7 +28,10 @@ describe("Modal", () => {
 
     it("binds the key event listener to the document on mount", () => {
       wrapper = mount(<Modal open onCancel={onCancel} />);
-      expect(addEventListenerSpy).toHaveBeenCalledTimes(1);
+      expect(addEventListenerSpy).toHaveBeenCalledWith(
+        "keyup",
+        expect.any(Function)
+      );
     });
 
     it("does not bind if component is not open on mount", () => {

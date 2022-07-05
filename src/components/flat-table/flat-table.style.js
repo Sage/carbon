@@ -113,7 +113,7 @@ const StyledFlatTableWrapper = styled(Box)`
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
             background-color: var(--colorsUtilityMajor100);
             border-right: 1px solid var(--colorsUtilityMajor150);
-            border-bottom-color: var(--colorsUtilityMajor100);
+            border-bottom-color: var(--colorsUtilityMajor150);
           }
         `;
 

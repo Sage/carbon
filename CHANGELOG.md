@@ -1,3 +1,35 @@
+## [109.1.0](https://github.com/Sage/carbon/compare/v109.0.2...v109.1.0) (2022-07-01)
+
+
+### Features
+
+* **inline-inputs:** add adaptiveLabelBreakpoint prop to component ([0ffdde6](https://github.com/Sage/carbon/commit/0ffdde63dd08e0c130ac176074fec74b49cf9c1a)), closes [#5099](https://github.com/Sage/carbon/issues/5099)
+
+### [109.0.2](https://github.com/Sage/carbon/compare/v109.0.1...v109.0.2) (2022-07-01)
+
+
+### Bug Fixes
+
+* **form:** fix tabs focus outline not rendering correctly ([f4e56fe](https://github.com/Sage/carbon/commit/f4e56fe482a57567b62ee125018f2d3f5c49eae1)), closes [#5161](https://github.com/Sage/carbon/issues/5161)
+
+### [109.0.1](https://github.com/Sage/carbon/compare/v109.0.0...v109.0.1) (2022-07-01)
+
+
+### Bug Fixes
+
+* **flat-table:** fix border bottom colour in light theme ([9932367](https://github.com/Sage/carbon/commit/99323674d86a3a637b1389d81017d621f9e977bc)), closes [#5175](https://github.com/Sage/carbon/issues/5175)
+
+## [109.0.0](https://github.com/Sage/carbon/compare/v108.0.0...v109.0.0) (2022-07-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* react 16 is no longer supported
+
+### Features
+
+* upgrade to react 17 ([831dcd8](https://github.com/Sage/carbon/commit/831dcd8daeebc463fb4a129d45afde634af75a43))
+
 ## [108.0.0](https://github.com/Sage/carbon/compare/v107.2.1...v108.0.0) (2022-06-23)
 
 

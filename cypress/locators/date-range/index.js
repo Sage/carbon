@@ -1,8 +1,9 @@
-import LABEL_PREVIEW from "./locators";
 import { LABEL } from "../locators";
+import DATE_RANGE from "./locators";
 
 // component preview locators
-const labelPreview = (index) =>
-  cy.get(LABEL_PREVIEW).find(`:nth-child(${index})`).find(LABEL);
-
-export default labelPreview;
+export const dateRange = (index) => cy.get(DATE_RANGE).children().eq(index);
+export const dateRangeComponentLabel = (index) =>
+  cy.get(DATE_RANGE).find(LABEL).eq(index);
+export const dateRangeComponentInput = (index) =>
+  cy.get(DATE_RANGE).find("input").eq(index);
