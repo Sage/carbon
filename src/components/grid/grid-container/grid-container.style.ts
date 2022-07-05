@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { space, grid } from "styled-system";
+import { space, grid, MarginProps, GridProps } from "styled-system";
 
-const GridContainerStyle = styled.div`
+const StyledGridContainer = styled.div<MarginProps & GridProps>`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: auto;
@@ -32,4 +32,4 @@ const GridContainerStyle = styled.div`
   }
 `;
 
-export default GridContainerStyle;
+export default StyledGridContainer;
