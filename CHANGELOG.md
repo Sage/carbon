@@ -1,3 +1,10 @@
+### [109.1.1](https://github.com/Sage/carbon/compare/v109.1.0...v109.1.1) (2022-07-05)
+
+
+### Bug Fixes
+
+* **use-click-away-listener:** rewrite ClickAwayWrapper component as a custom hook ([b7a37f8](https://github.com/Sage/carbon/commit/b7a37f807645870210ed1e750a553de75df5f6ad)), closes [#5245](https://github.com/Sage/carbon/issues/5245)
+
 ## [109.1.0](https://github.com/Sage/carbon/compare/v109.0.2...v109.1.0) (2022-07-01)
 
 
