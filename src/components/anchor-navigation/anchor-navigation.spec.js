@@ -193,7 +193,7 @@ describe('AnchorNavigation', () => {
   });
 
   it('validates the incorrect stickyNavigation prop', () => {
-    jest.spyOn(global.console, 'error').mockImplementation(() => {});
+    const consoleSpy = jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
     mount(<AnchorNavigation
       stickyNavigation={
@@ -203,10 +203,11 @@ describe('AnchorNavigation', () => {
       }
     />);
 
-    const expected = 'Warning: Failed prop type: `AnchorNavigation` only accepts children of'
-      + ' type `AnchorNavigationItem`.\n    in AnchorNavigation';
+    const expected = '`AnchorNavigation` only accepts children of'
+      + ' type `AnchorNavigationItem`.';
 
-    expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+    expect(console.error.mock.calls[0][2]).toBe(expected); // eslint-disable-line no-console
+    consoleSpy.mockRestore();
   });
 
   it('renders not selected navigation item with proper background when hovered', () => {

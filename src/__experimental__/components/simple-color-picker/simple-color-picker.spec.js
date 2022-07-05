@@ -161,7 +161,7 @@ describe('SimpleColorPicker', () => {
 
   describe('propTypes', () => {
     it('validates the incorrect children prop', () => {
-      jest.spyOn(global.console, 'error').mockImplementation(() => {});
+      const consoleSpy = jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
       mount(
         <SimpleColorPicker name={ name } legend='SimpleColorPicker Legend'>
@@ -170,10 +170,11 @@ describe('SimpleColorPicker', () => {
         </SimpleColorPicker>
       );
 
-      const expected = 'Warning: Failed prop type: `SimpleColorPicker` only accepts children of'
-        + ' type `SimpleColor`.\n    in SimpleColorPicker';
+      const expected = '`SimpleColorPicker` only accepts children of'
+        + ' type `SimpleColor`.';
 
-      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+      expect(console.error.mock.calls[0][2]).toBe(expected); // eslint-disable-line no-console
+      consoleSpy.mockRestore();
     });
   });
 });

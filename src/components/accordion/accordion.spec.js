@@ -262,7 +262,7 @@ describe('AccordionGroup', () => {
   });
 
   it('validates the incorrect children prop', () => {
-    jest.spyOn(global.console, 'error').mockImplementation(() => {});
+    const consoleSpy = jest.spyOn(global.console, 'error').mockImplementation(() => {});
     const InvalidComponent = React.forwardRef(() => <div />);
     mount(
       <AccordionGroup>
@@ -271,9 +271,10 @@ describe('AccordionGroup', () => {
       </AccordionGroup>
     );
 
-    const expected = 'Warning: Failed prop type: `AccordionGroup` only accepts children of'
-        + ' type `Accordion`.\n    in AccordionGroup';
+    const expected = '`AccordionGroup` only accepts children of'
+        + ' type `Accordion`.';
 
-    expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+    expect(console.error.mock.calls[0][2]).toBe(expected); // eslint-disable-line no-console
+    consoleSpy.mockRestore();
   });
 });

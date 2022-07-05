@@ -76,16 +76,17 @@ describe('GroupedCharacter', () => {
     });
 
     it('does not allow a separator string containing multiple characters', () => {
-      spyOn(console, 'error');
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
       instance = mountComponent({
         separator: '-=', groups: basicGroupConfig, value: valueString, onChange
       });
-      const expected = 'Warning: Failed prop type: Invalid prop separator supplied '
+      const expected = 'Invalid prop separator supplied '
         + 'to GroupedCharacter. Must be string of length 1.';
-      const actual = console.error.calls.argsFor(0)[0];
+      const actual = console.error.mock.calls[0][2];
       expect(actual).toMatch(expected);
       input = instance.find('input');
       expect(input.props().value).toEqual('12-34-5678');
+      consoleSpy.mockRestore();
     });
 
     it('does not allow values of length greater than that allowed by the group config', () => {
