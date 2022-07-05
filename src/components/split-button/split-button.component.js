@@ -9,7 +9,7 @@ import { ThemeContext } from "styled-components";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import Icon from "../icon";
-import Button, { ButtonWithForwardRef } from "../button";
+import Button from "../button";
 import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
 import StyledSplitButtonChildrenContainer from "./split-button-children.style";
@@ -266,9 +266,6 @@ const SplitButton = ({
           toggleButton.current?.focus();
         },
       };
-      if (child.type === Button) {
-        return <ButtonWithForwardRef {...child.props} {...childProps} />;
-      }
 
       return React.cloneElement(child, childProps);
     });

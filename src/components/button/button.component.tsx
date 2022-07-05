@@ -6,6 +6,7 @@ import Icon, { IconType, IconProps, TooltipPositions } from "../icon";
 import StyledButton, { StyledButtonSubtext } from "./button.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import Logger from "../../__internal__/utils/logger";
 
 export type ButtonTypes =
   | "primary"
@@ -160,118 +161,146 @@ RenderChildrenProps) {
   );
 }
 
-const Button = ({
-  size = "medium",
-  subtext = "",
-  children,
-  forwardRef,
-  "aria-label": ariaLabel,
-  disabled = false,
-  destructive = false,
-  buttonType: buttonTypeProp = "secondary",
-  iconType,
-  iconPosition = "before",
-  href,
-  m = 0,
-  px,
-  noWrap,
-  target,
-  rel,
-  iconTooltipMessage,
-  iconTooltipPosition,
-  fullWidth = false,
-  ...rest
-}: ButtonProps) => {
-  invariant(
-    !!(children || iconType),
-    "Either prop `iconType` must be defined or this node must have children."
-  );
-  if (subtext) {
+let deprecatedForwardRefWarnTriggered = false;
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      size = "medium",
+      subtext = "",
+      children,
+      forwardRef,
+      "aria-label": ariaLabel,
+      disabled = false,
+      destructive = false,
+      buttonType: buttonTypeProp = "secondary",
+      iconType,
+      iconPosition = "before",
+      href,
+      m = 0,
+      px,
+      noWrap,
+      target,
+      rel,
+      iconTooltipMessage,
+      iconTooltipPosition,
+      fullWidth = false,
+      ...rest
+    }: ButtonProps,
+    ref
+  ) => {
     invariant(
-      size === "large",
-      "subtext prop has no effect unless the button is large."
+      !!(children || iconType),
+      "Either prop `iconType` must be defined or this node must have children."
+    );
+    if (subtext) {
+      invariant(
+        size === "large",
+        "subtext prop has no effect unless the button is large."
+      );
+    }
+
+    if (!deprecatedForwardRefWarnTriggered && forwardRef) {
+      deprecatedForwardRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `forwardRef` prop in `Button` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
+
+    const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
+
+    const buttonType = buttonTypeProp;
+
+    let paddingX;
+
+    const handleLinkKeyDown = (
+      event: React.KeyboardEvent<HTMLButtonElement>
+    ) => {
+      // If space key click link
+      if (event.key === " ") {
+        event.preventDefault();
+        internalRef?.click();
+      }
+    };
+
+    switch (size) {
+      case "small":
+        paddingX = 2;
+        break;
+      case "large":
+        paddingX = 4;
+        break;
+      default:
+        paddingX = 3;
+    }
+
+    const setRefs = useCallback(
+      (reference) => {
+        setInternalRef(reference);
+        const activeRef = ref || forwardRef;
+        if (!activeRef) return;
+        if (typeof activeRef === "object") activeRef.current = reference;
+        if (typeof activeRef === "function") activeRef(reference);
+      },
+      [ref, forwardRef]
+    );
+
+    return (
+      <StyledButton
+        aria-label={!children && iconType ? ariaLabel || iconType : undefined}
+        as={!disabled && href ? "a" : "button"}
+        onKeyDown={href ? handleLinkKeyDown : undefined}
+        draggable={false}
+        buttonType={buttonType}
+        disabled={disabled}
+        destructive={destructive}
+        role="button"
+        type={href ? undefined : "button"}
+        iconType={iconType}
+        size={size}
+        px={px ?? paddingX}
+        m={m}
+        noWrap={noWrap}
+        iconOnly={!!(!children && iconType)}
+        iconPosition={iconPosition}
+        target={target}
+        rel={rel}
+        fullWidth={fullWidth}
+        {...tagComponent("button", rest)}
+        {...rest}
+        {...(href && { href })}
+        ref={setRefs}
+      >
+        {renderChildren({
+          iconType,
+          iconPosition,
+          size,
+          subtext,
+          children,
+          disabled,
+          buttonType,
+          iconTooltipMessage,
+          iconTooltipPosition,
+          tooltipTarget: internalRef,
+        })}
+      </StyledButton>
     );
   }
+);
 
-  const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
-
-  const buttonType = buttonTypeProp;
-
-  let paddingX;
-
-  const handleLinkKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-    // If space key click link
-    if (event.key === " ") {
-      event.preventDefault();
-      internalRef?.click();
-    }
-  };
-
-  switch (size) {
-    case "small":
-      paddingX = 2;
-      break;
-    case "large":
-      paddingX = 4;
-      break;
-    default:
-      paddingX = 3;
-  }
-
-  const setRefs = useCallback(
-    (reference) => {
-      setInternalRef(reference);
-      if (!forwardRef) return;
-      if (typeof forwardRef === "object") forwardRef.current = reference;
-      if (typeof forwardRef === "function") forwardRef(reference);
-    },
-    [forwardRef]
-  );
-
-  return (
-    <StyledButton
-      aria-label={!children && iconType ? ariaLabel || iconType : undefined}
-      as={!disabled && href ? "a" : "button"}
-      onKeyDown={href ? handleLinkKeyDown : undefined}
-      draggable={false}
-      buttonType={buttonType}
-      disabled={disabled}
-      destructive={destructive}
-      role="button"
-      type={href ? undefined : "button"}
-      iconType={iconType}
-      size={size}
-      px={px ?? paddingX}
-      m={m}
-      noWrap={noWrap}
-      iconOnly={!!(!children && iconType)}
-      iconPosition={iconPosition}
-      target={target}
-      rel={rel}
-      fullWidth={fullWidth}
-      {...tagComponent("button", rest)}
-      {...rest}
-      {...(href && { href })}
-      ref={setRefs}
-    >
-      {renderChildren({
-        iconType,
-        iconPosition,
-        size,
-        subtext,
-        children,
-        disabled,
-        buttonType,
-        iconTooltipMessage,
-        iconTooltipPosition,
-        tooltipTarget: internalRef,
-      })}
-    </StyledButton>
-  );
-};
+let deprecatedButtonForwardRefWarnTriggered = false;
 
 const ButtonWithForwardRef = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (props, ref) => <Button forwardRef={ref} {...props} />
+  (props, ref) => {
+    if (!deprecatedButtonForwardRefWarnTriggered) {
+      deprecatedButtonForwardRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `ButtonWithForwardRef` component is deprecated and will soon be removed. Please use a basic `Button` component with `ref` instead."
+      );
+    }
+
+    return <Button ref={ref} {...props} />;
+  }
 );
 
 ButtonWithForwardRef.displayName = "Button";

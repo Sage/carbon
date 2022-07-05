@@ -11,7 +11,7 @@ import {
   StyledMultiActionButton,
   StyledButtonChildrenContainer,
 } from "./multi-action-button.style";
-import Button, { ButtonWithForwardRef } from "../button";
+import Button from "../button";
 import Events from "../../__internal__/utils/helpers/events";
 import Popover from "../../__internal__/popover";
 import {
@@ -88,10 +88,6 @@ export const MultiActionButton = ({
           buttonRef.current?.focus();
         },
       };
-
-      if (child.type === Button) {
-        return <ButtonWithForwardRef {...child.props} {...props} />;
-      }
 
       return React.cloneElement(child, props);
     });

@@ -9,7 +9,7 @@ import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
 import StyledSplitButtonChildrenContainer from "./split-button-children.style";
 import Icon from "../icon";
-import Button, { ButtonWithForwardRef } from "../button";
+import Button from "../button";
 import StyledButton from "../button/button.style";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import mintTheme from "../../style/themes/mint";
@@ -181,7 +181,7 @@ describe("SplitButton", () => {
       wrapper = render({}, singleButton, mount);
       simulateFocusOnToggle(wrapper);
 
-      expect(wrapper.find(ButtonWithForwardRef).exists()).toBe(true);
+      expect(wrapper.find(Button).exists()).toBe(true);
     });
 
     afterEach(() => {
@@ -403,7 +403,7 @@ describe("SplitButton", () => {
 
         const button = wrapper
           .find('[data-element="additional-buttons"]')
-          .find(ButtonWithForwardRef);
+          .find(Button);
         button.at(0).simulate("click");
         expect(handleSecondButton).toHaveBeenCalled();
       });
@@ -412,7 +412,7 @@ describe("SplitButton", () => {
         toggle.simulate("mouseenter");
         const button = wrapper
           .find('[data-element="additional-buttons"]')
-          .find(ButtonWithForwardRef);
+          .find(Button);
         button.at(0).simulate("click");
 
         wrapper.update();
@@ -429,7 +429,7 @@ describe("SplitButton", () => {
 
           const button = wrapper
             .find('[data-element="additional-buttons"]')
-            .find(ButtonWithForwardRef);
+            .find(Button);
 
           button.at(1).simulate("click");
         }).not.toThrow();
@@ -594,7 +594,7 @@ describe("SplitButton", () => {
       it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
-          .find(ButtonWithForwardRef);
+          .find(Button);
 
         keyboard.pressArrowUp();
         expect(
@@ -615,7 +615,7 @@ describe("SplitButton", () => {
       it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
-          .find(ButtonWithForwardRef);
+          .find(Button);
 
         keyboard.pressArrowDown();
         expect(additionalButtons.at(0).getDOMNode()).toBe(
