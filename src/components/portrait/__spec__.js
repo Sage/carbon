@@ -92,8 +92,15 @@ describe('Portrait', () => {
 
   describe('custom props function', () => {
     describe('src and gravatar', () => {
+      let consoleSpy;
       beforeEach(() => {
-        spyOn(console, 'error');
+        consoleSpy = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => {});
+      });
+
+      afterEach(() => {
+        consoleSpy.mockRestore();
       });
 
       describe('when neither gravatar or src is passed', () => {
@@ -103,8 +110,8 @@ describe('Portrait', () => {
           );
 
           const expected =
-            'Warning: Failed prop type: Portrait requires a prop of "src" OR a prop of "gravatar"\n    in Portrait';
-          const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
+            'Portrait requires a prop of "src" OR a prop of "gravatar"';
+          const actual = console.error.mock.calls[0][2]; // eslint-disable-line no-console
 
           expect(actual).toMatch(expected);
         });
@@ -120,9 +127,9 @@ describe('Portrait', () => {
           );
 
           const expected =
-            'Warning: Failed prop type: Portrait requires a prop of "src" OR a prop of "gravatar" but not both\n    in Portrait';
-          const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
-          expect(actual).toMatch(expected);
+            'Portrait requires a prop of "src" OR a prop of "gravatar" but not both';
+            const actual = console.error.mock.calls[0][2]; // eslint-disable-line no-console
+            expect(actual).toMatch(expected);
         });
       });
     });
