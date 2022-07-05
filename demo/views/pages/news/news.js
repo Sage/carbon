@@ -1,1 +1,0 @@
-import './news.scss';
