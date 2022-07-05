@@ -8,8 +8,11 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import Icon from "./icon.component";
-import StyledIcon from "./icon.style";
+import Icon, { IconProps, LegacyIconTypes } from "./icon.component";
+import StyledIcon, {
+  StyledIconProps,
+  StyledIconInternalProps,
+} from "./icon.style";
 import iconConfig, { ICON_SHAPES, ICON_SIZES } from "./icon-config";
 import baseTheme from "../../style/themes/base";
 import browserTypeCheck, {
@@ -19,25 +22,45 @@ import styledColor from "../../style/utils/color";
 import Tooltip from "../tooltip";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import getColorValue from "../../style/utils/get-color-value";
+import { IconType } from "./icon-type";
+import { TooltipPositions } from "../tooltip/tooltip.config";
+
+interface MismatchedPairs {
+  prop: LegacyIconTypes;
+  rendersAs: IconType;
+}
+
+interface MockTippyContent {
+  children: typeof Icon;
+}
 
 jest.mock("../../__internal__/utils/helpers/browser-type-check");
 jest.mock("@tippyjs/react/headless", () => ({
   __esModule: true,
-  default: ({ children }) => children,
+  default: ({ children }: MockTippyContent) => children,
 }));
 
-function render(props, renderer = shallow) {
-  return renderer(<Icon type="add" {...props} />);
+const mockBrowserTypeCheck = (browserTypeCheck as unknown) as jest.MockedFunction<
+  () => boolean
+>;
+const mockIsSafari = (isSafari as unknown) as jest.MockedFunction<
+  () => boolean
+>;
+
+function renderIcon(props: Partial<IconProps>) {
+  return <Icon type="add" {...props} />;
 }
 
-function renderStyles(props) {
+function renderStyles(
+  props: Partial<StyledIconProps> & StyledIconInternalProps
+) {
   return TestRenderer.create(<StyledIcon type="add" {...props} />);
 }
 
 describe("Icon component", () => {
   testStyledSystemMargin((props) => <Icon type="add" {...props} />);
 
-  const mismatchedPairs = [
+  const mismatchedPairs: MismatchedPairs[] = [
     { prop: "help", rendersAs: "question" },
     { prop: "maintenance", rendersAs: "settings" },
     { prop: "new", rendersAs: "gift" },
@@ -49,7 +72,7 @@ describe("Icon component", () => {
     "mismatched pairs of props and icons retrieved",
     (mismatchedPair) => {
       it(`renders ${mismatchedPair.prop} as ${mismatchedPair.rendersAs}`, () => {
-        const wrapper = render({ type: mismatchedPair.prop }, mount);
+        const wrapper = mount(renderIcon({ type: mismatchedPair.prop }));
         const elemExists = wrapper
           .find(`[data-element="${mismatchedPair.rendersAs}"]`)
           .exists();
@@ -60,11 +83,11 @@ describe("Icon component", () => {
 
   describe("when the icon type is services", () => {
     beforeEach(() => {
-      browserTypeCheck.mockImplementation(() => true);
-      isSafari.mockImplementation(() => true);
+      mockBrowserTypeCheck.mockImplementation(() => true);
+      mockIsSafari.mockImplementation(() => true);
     });
 
-    it('it applies additional margin-top styling when the fontSize is "small"', () => {
+    it('applies additional margin-top styling when the fontSize is "small"', () => {
       const wrapper = renderStyles({
         type: "services",
         fontSize: "small",
@@ -78,7 +101,7 @@ describe("Icon component", () => {
       );
     });
 
-    it('it applies additional margin-top styling when the fontSize is "large"', () => {
+    it('applies additional margin-top styling when the fontSize is "large"', () => {
       const wrapper = renderStyles({
         type: "services",
         fontSize: "large",
@@ -92,8 +115,8 @@ describe("Icon component", () => {
       );
     });
 
-    it('it applies additional margin-top styling when the browser is safari and fontSize is "small"', () => {
-      browserTypeCheck.mockImplementation(() => false);
+    it('applies additional margin-top styling when the browser is safari and fontSize is "small"', () => {
+      mockBrowserTypeCheck.mockImplementation(() => false);
       const wrapper = renderStyles({
         type: "services",
         fontSize: "small",
@@ -107,8 +130,8 @@ describe("Icon component", () => {
       );
     });
 
-    it('it applies additional margin-top styling when the browser is safari and the fontSize is "large"', () => {
-      browserTypeCheck.mockImplementation(() => false);
+    it('applies additional margin-top styling when the browser is safari and the fontSize is "large"', () => {
+      mockBrowserTypeCheck.mockImplementation(() => false);
       const wrapper = renderStyles({
         type: "services",
         theme: baseTheme,
@@ -126,7 +149,7 @@ describe("Icon component", () => {
 
   describe("with custom class name", () => {
     it("renders with a custom className", () => {
-      const wrapper = render({ className: "testClass" });
+      const wrapper = shallow(renderIcon({ className: "testClass" }));
       expect(wrapper.find(".testClass").length).toEqual(1);
     });
   });
@@ -257,12 +280,16 @@ describe("Icon component", () => {
 
     const wrongColors = ["rgb(0,0)", "#ff", "test"];
     describe.each(wrongColors)("when wrong color prop is provided", (color) => {
+      let consoleSpy: jest.SpyInstance;
+
       beforeEach(() => {
-        jest.spyOn(global.console, "error").mockImplementation(() => {});
+        consoleSpy = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => {});
       });
 
       afterEach(() => {
-        global.console.error.mockReset();
+        consoleSpy.mockReset();
       });
 
       it("throws an error", () => {
@@ -273,12 +300,16 @@ describe("Icon component", () => {
     });
 
     describe.each(wrongColors)("when wrong bg prop is provided", (color) => {
+      let consoleSpy: jest.SpyInstance;
+
       beforeEach(() => {
-        jest.spyOn(global.console, "error").mockImplementation(() => {});
+        consoleSpy = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => {});
       });
 
       afterEach(() => {
-        global.console.error.mockReset();
+        consoleSpy.mockReset();
       });
 
       it("throws an error", () => {
@@ -318,7 +349,7 @@ describe("Icon component", () => {
   describe("background size", () => {
     describe("without shape or color", () => {
       it("renders with default size", () => {
-        const wrapper = render({ type: "basket" });
+        const wrapper = shallow(renderIcon({ type: "basket" }));
         const icon = wrapper.find(StyledIcon);
         expect(icon.props().bgSize).toEqual("small");
       });
@@ -381,7 +412,7 @@ describe("Icon component", () => {
       expect(wrapper.find(Tooltip).props().message).toEqual(customMessage);
     });
 
-    it.each(["top", "bottom", "left", "right"])(
+    it.each(["top", "bottom", "left", "right"] as TooltipPositions[])(
       "renders in a given tooltipPosition",
       (position) => {
         const wrapper = mount(
@@ -475,8 +506,16 @@ describe("Icon component", () => {
     });
 
     describe("tooltipFlipOverrides", () => {
+      let consoleSpy: jest.SpyInstance;
+
+      beforeEach(() => {
+        consoleSpy = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => {});
+      });
+
       it("does not throw an error if a valid array is passed", () => {
-        global.console.error.mockReset();
+        consoleSpy.mockReset();
 
         jest.spyOn(global.console, "error").mockImplementation(() => {});
 
@@ -490,25 +529,7 @@ describe("Icon component", () => {
 
         // eslint-disable-next-line no-console
         expect(console.error).not.toHaveBeenCalled();
-        global.console.error.mockReset();
-      });
-
-      it("throws an error if a invalid array is passed", () => {
-        const mockGlobal = jest
-          .spyOn(global.console, "error")
-          .mockImplementation(() => undefined);
-
-        expect(() => {
-          mount(
-            <Icon
-              type="home"
-              tooltipMessage="foo"
-              tooltipFlipOverrides={["foo", "bar"]}
-            />
-          );
-        }).toThrow();
-
-        mockGlobal.mockReset();
+        consoleSpy.mockReset();
       });
     });
   });

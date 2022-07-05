@@ -17,7 +17,7 @@ export const StyledFormContent = styled.div`
   ${({ stickyFooter, isInModal }) => css`
     ${stickyFooter &&
     css`
-      overflow-y: ${isInModal ? "visible" : "auto"};
+      overflow-y: ${isInModal ? "visible" : "inherit"};
       flex: 1;
     `}
   `}

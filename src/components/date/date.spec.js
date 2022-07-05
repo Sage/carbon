@@ -470,15 +470,10 @@ describe("Date", () => {
         expect(wrapper.update().find(DayPicker).exists()).toBe(true);
 
         act(() => {
-          document.dispatchEvent(
-            new CustomEvent("mousedown", {
-              detail: {
-                enzymeTestingTarget: wrapper
-                  .find(StyledInputPresentation)
-                  .getDOMNode(),
-              },
-            })
-          );
+          wrapper
+            .find(StyledInputPresentation)
+            .getDOMNode()
+            .dispatchEvent(new CustomEvent("mousedown", { bubbles: true }));
         });
 
         expect(wrapper.update().find(DayPicker).exists()).toBe(true);

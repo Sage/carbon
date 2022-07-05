@@ -2,11 +2,12 @@ import React, { useCallback, useState } from "react";
 import { SpaceProps } from "styled-system";
 import invariant from "invariant";
 
-import Icon, { IconType, IconProps, TooltipPositions } from "../icon";
+import Icon, { IconType, IconProps } from "../icon";
 import StyledButton, { StyledButtonSubtext } from "./button.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
+import { TooltipPositions } from "../tooltip/tooltip.config";
 
 export type ButtonTypes =
   | "primary"

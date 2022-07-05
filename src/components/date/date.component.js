@@ -23,7 +23,7 @@ import StyledDateInput from "./date.style";
 import Textbox from "../textbox";
 import DatePicker from "./__internal__/date-picker";
 import DateRangeContext from "../date-range/date-range.context";
-import ClickAwayWrapper from "../../__internal__/click-away-wrapper";
+import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -315,59 +315,55 @@ const DateInput = ({
     }
   };
 
+  useClickAwayListener([parentRef, pickerRef], handleClickAway, "mousedown");
+
   return (
-    <ClickAwayWrapper
-      handleClickAway={handleClickAway}
-      eventTypeId="mousedown"
-      targets={[parentRef, pickerRef]}
+    <StyledDateInput
+      ref={wrapperRef}
+      role="presentation"
+      size={size}
+      labelInline={labelInline}
+      data-component={dataComponent || "date"}
+      data-element={dataElement}
+      data-role={dataRole}
+      {...filterStyledSystemMarginProps(rest)}
     >
-      <StyledDateInput
-        ref={wrapperRef}
-        role="presentation"
-        size={size}
+      <Textbox
+        {...filterOutStyledSystemSpacingProps(rest)}
+        value={computedValue()}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        onClick={handleClick}
+        onFocus={handleFocus}
+        onKeyDown={handleKeyDown}
+        iconOnClick={handleClick}
+        onMouseDown={handleMouseDown}
+        iconOnMouseDown={handleIconMouseDown}
+        inputIcon="calendar"
         labelInline={labelInline}
-        data-component={dataComponent || "date"}
-        data-element={dataElement}
-        data-role={dataRole}
-        {...filterStyledSystemMarginProps(rest)}
-      >
-        <Textbox
-          {...filterOutStyledSystemSpacingProps(rest)}
-          value={computedValue()}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          onClick={handleClick}
-          onFocus={handleFocus}
-          onKeyDown={handleKeyDown}
-          iconOnClick={handleClick}
-          onMouseDown={handleMouseDown}
-          iconOnMouseDown={handleIconMouseDown}
-          inputIcon="calendar"
-          labelInline={labelInline}
-          inputRef={assignInput}
-          adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-          tooltipPosition={tooltipPosition}
-          helpAriaLabel={helpAriaLabel}
-          autoFocus={autoFocus}
-          size={size}
-          disabled={disabled}
-          readOnly={readOnly}
-        />
-        <DatePicker
-          disablePortal={disablePortal}
-          inputElement={parentRef}
-          pickerProps={pickerProps}
-          selectedDays={selectedDays}
-          setSelectedDays={setSelectedDays}
-          onDayClick={handleDayClick}
-          minDate={minDate}
-          maxDate={maxDate}
-          ref={pickerRef}
-          pickerMouseDown={handlePickerMouseDown}
-          open={open}
-        />
-      </StyledDateInput>
-    </ClickAwayWrapper>
+        inputRef={assignInput}
+        adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+        tooltipPosition={tooltipPosition}
+        helpAriaLabel={helpAriaLabel}
+        autoFocus={autoFocus}
+        size={size}
+        disabled={disabled}
+        readOnly={readOnly}
+      />
+      <DatePicker
+        disablePortal={disablePortal}
+        inputElement={parentRef}
+        pickerProps={pickerProps}
+        selectedDays={selectedDays}
+        setSelectedDays={setSelectedDays}
+        onDayClick={handleDayClick}
+        minDate={minDate}
+        maxDate={maxDate}
+        ref={pickerRef}
+        pickerMouseDown={handlePickerMouseDown}
+        open={open}
+      />
+    </StyledDateInput>
   );
 };
 

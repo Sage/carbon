@@ -258,12 +258,7 @@ describe("PopoverContainer", () => {
       const openIcon = wrapper.find(PopoverContainerOpenIcon);
 
       expect(openIcon.exists()).toBe(true);
-      expect(openIcon.find(Icon).props()).toEqual({
-        bgSize: "small",
-        disabled: false,
-        fontSize: "small",
-        type: "settings",
-      });
+      expect(openIcon.find(Icon).props()).toEqual({ type: "settings" });
       expect(openIcon.prop("aria-haspopup")).toEqual(true);
       expect(openIcon.prop("tabIndex")).toEqual(0);
       expect(openIcon.prop("aria-label")).toEqual("PopoverContainerSettings");
@@ -674,7 +669,9 @@ describe("open state when click event triggered", () => {
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
       undefined
     );
-    document.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+    act(() => {
+      document.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+    });
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
       "PopoverContainer_guid-123"
     );
@@ -688,13 +685,9 @@ describe("open state when click event triggered", () => {
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
       undefined
     );
-    document.dispatchEvent(
-      new CustomEvent("click", {
-        detail: {
-          enzymeTestingTarget: wrapper?.find(PopoverContainer).getDOMNode(),
-        },
-      })
-    );
+    act(() => {
+      wrapper?.find(PopoverContainer).simulate("click");
+    });
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
       undefined
     );
