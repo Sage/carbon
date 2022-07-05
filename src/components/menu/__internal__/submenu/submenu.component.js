@@ -18,7 +18,7 @@ import MenuItem from "../../menu-item";
 import { characterNavigation } from "../keyboard-navigation";
 import ScrollableBlock from "../../scrollable-block";
 import SubmenuContext from "./submenu.context";
-import ClickAwayWrapper from "../../../../__internal__/click-away-wrapper";
+import useClickAwayListener from "../../../../hooks/__internal__/useClickAwayListener";
 
 const Submenu = React.forwardRef(
   (
@@ -163,7 +163,7 @@ const Submenu = React.forwardRef(
             nextIndex = numberOfChildren - 1;
           }
 
-          if (Events.isAlphabetKey(event) || Events.isNumberKey(event)) {
+          if (event.key.length === 1) {
             event.stopPropagation();
 
             if (characterTimer.current) {
@@ -233,9 +233,7 @@ const Submenu = React.forwardRef(
     };
 
     const handleClick = (event) => {
-      if (clickToOpen) {
-        openSubmenu();
-      }
+      openSubmenu();
 
       if (onClick) {
         onClick(event);
@@ -254,6 +252,8 @@ const Submenu = React.forwardRef(
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [characterString]);
+
+    useClickAwayListener([submenuRef], handleClickAway);
 
     if (inFullscreenView) {
       return (
@@ -304,67 +304,62 @@ const Submenu = React.forwardRef(
     }
 
     return (
-      <ClickAwayWrapper
-        handleClickAway={handleClickAway}
-        targets={[submenuRef]}
+      <StyledSubmenuWrapper
+        data-component="submenu-wrapper"
+        onMouseOver={!clickToOpen ? () => openSubmenu() : undefined}
+        onMouseLeave={() => closeSubmenu()}
+        ref={submenuRef}
+        isSubmenuOpen={submenuOpen}
       >
-        <StyledSubmenuWrapper
-          data-component="submenu-wrapper"
-          onMouseOver={!clickToOpen ? () => openSubmenu() : undefined}
-          onMouseLeave={() => closeSubmenu()}
-          ref={submenuRef}
-          isSubmenuOpen={submenuOpen}
+        <StyledMenuItemWrapper
+          {...rest}
+          className={className}
+          menuType={menuContext.menuType}
+          ref={ref}
+          icon={icon}
+          tabIndex={-1}
+          variant={variant}
+          isOpen={submenuOpen}
+          as={Link}
+          hasSubmenu
+          showDropdownArrow={showDropdownArrow}
+          onKeyDown={handleKeyDown}
+          onClick={handleClick}
+          clickToOpen={clickToOpen}
+          href={href}
+          maxWidth={maxWidth}
+          aria-expanded={submenuOpen}
         >
-          <StyledMenuItemWrapper
-            {...rest}
-            className={className}
-            menuType={menuContext.menuType}
-            ref={ref}
-            icon={icon}
-            tabIndex={-1}
-            variant={variant}
-            isOpen={submenuOpen}
-            as={Link}
-            hasSubmenu
-            showDropdownArrow={showDropdownArrow}
-            onKeyDown={handleKeyDown}
-            onClick={handleClick}
-            clickToOpen={clickToOpen}
-            href={href}
-            maxWidth={maxWidth}
-            aria-expanded={submenuOpen}
-          >
-            {title}
-          </StyledMenuItemWrapper>
+          {title}
+        </StyledMenuItemWrapper>
 
-          {submenuOpen && (
-            <StyledSubmenu
-              data-component="submenu"
-              submenuDirection={submenuDirection}
-              variant={variant}
-              menuType={menuContext.menuType}
-              role="list"
-            >
-              {React.Children.map(children, (child, index) => (
-                <SubmenuContext.Provider
-                  value={{
-                    isFocused: !blockDoubleFocus && submenuFocusIndex === index,
-                    focusIndex: submenuFocusIndex,
-                    handleKeyDown,
-                    blockIndex: React.Children.toArray(children).findIndex(
-                      (item) => item.type === ScrollableBlock
-                    ),
-                    updateFocusIndex: setSubmenuFocusIndex,
-                    itemIndex: child.type === MenuItem ? index : undefined,
-                  }}
-                >
-                  {child}
-                </SubmenuContext.Provider>
-              ))}
-            </StyledSubmenu>
-          )}
-        </StyledSubmenuWrapper>
-      </ClickAwayWrapper>
+        {submenuOpen && (
+          <StyledSubmenu
+            data-component="submenu"
+            submenuDirection={submenuDirection}
+            variant={variant}
+            menuType={menuContext.menuType}
+            role="list"
+          >
+            {React.Children.map(children, (child, index) => (
+              <SubmenuContext.Provider
+                value={{
+                  isFocused: !blockDoubleFocus && submenuFocusIndex === index,
+                  focusIndex: submenuFocusIndex,
+                  handleKeyDown,
+                  blockIndex: React.Children.toArray(children).findIndex(
+                    (item) => item.type === ScrollableBlock
+                  ),
+                  updateFocusIndex: setSubmenuFocusIndex,
+                  itemIndex: child.type === MenuItem ? index : undefined,
+                }}
+              >
+                {child}
+              </SubmenuContext.Provider>
+            ))}
+          </StyledSubmenu>
+        )}
+      </StyledSubmenuWrapper>
     );
   }
 );

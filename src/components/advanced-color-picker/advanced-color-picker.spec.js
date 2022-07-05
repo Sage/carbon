@@ -72,27 +72,10 @@ describe("AdvancedColorPicker", () => {
   });
 
   const aKey = new KeyboardEvent("keydown", {
-    which: 65,
-    keyCode: 65,
     key: "a",
   });
-  const spaceKey = new KeyboardEvent("keydown", {
-    which: 32,
-    keyCode: 32,
-    key: "Space",
-  });
-  const enterKey = new KeyboardEvent("keydown", {
-    which: 13,
-    keyCode: 13,
-    key: "Enter",
-  });
-  const tabKey = new KeyboardEvent("keydown", {
-    which: 9,
-    keyCode: 9,
-    key: "Tab",
-  });
+  const tabKey = new KeyboardEvent("keydown", { key: "Tab" });
   const shiftTabKey = new KeyboardEvent("keydown", {
-    keyCode: 9,
     key: "Tab",
     shiftKey: true,
   });
@@ -265,9 +248,9 @@ describe("AdvancedColorPicker", () => {
 
     describe("SimpleColor onKeyDown event triggers", () => {
       const keyDownEvents = [
-        ["Enter", true, true, enterKey],
-        ["Space", true, true, spaceKey],
-        ["a", false, false, aKey],
+        ["Enter", true, true],
+        ["Space", true, true],
+        ["a", false, false],
       ];
 
       const extraProps = {
@@ -277,7 +260,7 @@ describe("AdvancedColorPicker", () => {
 
       test.each(keyDownEvents)(
         "on %p key dialog`s isOpen is: %p",
-        (name, result, expectedResult, key) => {
+        (key, result, expectedResult) => {
           render(extraProps);
           act(() => {
             wrapper
@@ -285,7 +268,7 @@ describe("AdvancedColorPicker", () => {
               .at(8)
               .find("input")
               .first()
-              .simulate("keydown", { which: key.keyCode });
+              .simulate("keydown", { key });
           });
           expect(result).toEqual(expectedResult);
         }
@@ -344,16 +327,16 @@ describe("AdvancedColorPicker", () => {
           });
 
           const keyDownEvents = [
-            ["Enter", true, true, enterKey],
-            ["Space", true, true, spaceKey],
-            ["a", false, false, aKey],
+            ["Enter", true, true],
+            ["Space", true, true],
+            ["a", false, false],
           ];
 
           test.each(keyDownEvents)(
             "on %p key dialog`s isOpen is: %p",
-            (name, result, expectedResult, key) => {
+            (key, result, expectedResult) => {
               act(() => {
-                colorPickerCell.simulate("keydown", { which: key.keyCode });
+                colorPickerCell.simulate("keydown", { key });
               });
               expect(result).toEqual(expectedResult);
             }

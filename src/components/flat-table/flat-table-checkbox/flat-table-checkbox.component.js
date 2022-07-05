@@ -91,4 +91,6 @@ FlatTableCheckbox.propTypes = {
   reportCellWidth: PropTypes.func,
 };
 
+FlatTableCheckbox.displayName = "FlatTableCheckbox";
+
 export default FlatTableCheckbox;

@@ -330,15 +330,12 @@ describe("DateRange", () => {
 
   describe("blocking blur", () => {
     let container;
-    const tabKey = new KeyboardEvent("keydown", { key: "Tab", which: 9 });
+    const tabKey = new KeyboardEvent("keydown", { key: "Tab" });
     const shiftTabKey = new KeyboardEvent("keydown", {
       key: "Tab",
-      which: 9,
       shiftKey: true,
     });
-    const randomKey = new KeyboardEvent("keydown", {
-      which: 32,
-    });
+    const randomKey = new KeyboardEvent("keydown", { key: " " });
 
     beforeEach(() => {
       container = document.createElement("div");

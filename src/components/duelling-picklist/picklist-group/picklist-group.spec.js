@@ -113,7 +113,7 @@ describe("PicklistGroup component", () => {
           mount
         );
 
-        wrapper.find(StyledGroupButton).simulate("keydown", { which: 13 });
+        wrapper.find(StyledGroupButton).simulate("keydown", { key: "Enter" });
 
         expect(onChangeFn).toHaveBeenCalled();
         expect(setElementToFocus).toHaveBeenCalledWith(0, 0);
@@ -131,7 +131,7 @@ describe("PicklistGroup component", () => {
           mount
         );
 
-        wrapper.find(StyledGroupButton).simulate("keydown", { which: 32 });
+        wrapper.find(StyledGroupButton).simulate("keydown", { key: " " });
 
         expect(onChangeFn).toHaveBeenCalled();
         expect(setElementToFocus).toHaveBeenCalledWith(0, 0);
@@ -149,7 +149,7 @@ describe("PicklistGroup component", () => {
           mount
         );
 
-        wrapper.find(StyledGroupButton).simulate("keydown", { which: 70 });
+        wrapper.find(StyledGroupButton).simulate("keydown", { key: "a" });
 
         expect(onChangeFn).not.toHaveBeenCalled();
         expect(setElementToFocus).not.toHaveBeenCalled();

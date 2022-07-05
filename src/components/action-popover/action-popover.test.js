@@ -340,11 +340,10 @@ context("Test for ActionPopover component", () => {
 
       actionPopoverButton().eq(0).click();
       cy.focused().trigger("keydown", {
-        keyCode: 16,
-        which: 16,
+        key: "Shift",
         release: false,
       });
-      cy.focused().trigger("keydown", { keyCode: 27, which: 27 });
+      cy.focused().trigger("keydown", { key: "Escape" });
       actionPopover().should("not.exist");
     });
 
@@ -354,11 +353,10 @@ context("Test for ActionPopover component", () => {
       actionPopoverButton().eq(0).click();
       cy.focused().trigger("keydown", keyCode("downarrow"));
       cy.focused().trigger("keydown", {
-        keyCode: 16,
-        which: 16,
+        key: "Shift",
         release: false,
       });
-      cy.focused().trigger("keydown", { keyCode: 27, which: 27 });
+      cy.focused().trigger("keydown", { key: "Escape" });
       actionPopover().should("not.exist");
     });
 
@@ -370,11 +368,10 @@ context("Test for ActionPopover component", () => {
         cy.focused().trigger("keydown", keyCode("downarrow"));
       }
       cy.focused().trigger("keydown", {
-        keyCode: 16,
-        which: 16,
+        key: "Shift",
         release: false,
       });
-      cy.focused().trigger("keydown", { keyCode: 27, which: 27 });
+      cy.focused().trigger("keydown", { key: "Escape" });
       actionPopover().should("not.exist");
     });
 
@@ -487,11 +484,10 @@ context("Test for ActionPopover component", () => {
           cy.focused().trigger("keydown", keyCode("downarrow"));
         }
         cy.focused().trigger("keydown", {
-          keyCode: 16,
-          which: 16,
+          key: "Shift",
           release: false,
         });
-        cy.focused().trigger("keydown", { keyCode: 27, which: 27 });
+        cy.focused().trigger("keydown", { key: "Escape" });
         actionPopover().should("not.exist");
       }
     );

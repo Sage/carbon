@@ -1,4 +1,4 @@
-import { IconType } from "components/icon/icon";
+import { IconType } from "components/icon/icon-type";
 import * as React from "react";
 import { FlexboxProps, LayoutProps } from "styled-system";
 

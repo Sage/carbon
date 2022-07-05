@@ -2159,6 +2159,87 @@ of the button control.
   </Story>
 </Canvas>
 
+## Wrapping FlatTableRowHeaders
+
+The `FlatTableRow` relies on specific child composition to identify sticky columns. If you need to wrap the `FlatTableRowHeader` you will need to set the `displayName` of the wrapper to `FlatTableRowHeader.displayName`.
+
+<Canvas>
+  <Story
+    name="wrapping row headers"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const FlatTableRowHeaderWrapper = ({ children, ...rest }) => (
+        <FlatTableRowHeader {...rest}>
+          {children}
+        </FlatTableRowHeader>
+      );
+      FlatTableRowHeaderWrapper.displayName = FlatTableRowHeader.displayName
+      return (
+        <FlatTable width="310px" overflowX="auto">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableRowHeaderWrapper>Location</FlatTableRowHeaderWrapper>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableRowHeaderWrapper>London</FlatTableRowHeaderWrapper>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>
+                <ActionPopover>
+                  <ActionPopoverItem onClick={() => {}} icon="edit">
+                    Edit
+                  </ActionPopoverItem>
+                </ActionPopover>
+              </FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableRowHeaderWrapper>York</FlatTableRowHeaderWrapper>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>
+                <ActionPopover>
+                  <ActionPopoverItem onClick={() => {}} icon="edit">
+                    Edit
+                  </ActionPopoverItem>
+                </ActionPopover>
+              </FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableRowHeaderWrapper>Edinburgh</FlatTableRowHeaderWrapper>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>
+                <ActionPopover>
+                  <ActionPopoverItem onClick={() => {}} icon="edit">
+                    Edit
+                  </ActionPopoverItem>
+                </ActionPopover>
+              </FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableRowHeaderWrapper>Newcastle</FlatTableRowHeaderWrapper>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>
+                <ActionPopover>
+                  <ActionPopoverItem onClick={() => {}} icon="edit">
+                    Edit
+                  </ActionPopoverItem>
+                </ActionPopover>
+              </FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+)}}
+  </Story>
+</Canvas>
+
 ## Props
 
 ### FlatTable

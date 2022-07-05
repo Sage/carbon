@@ -152,7 +152,6 @@ describe("SplitButton", () => {
             color="#008200"
             disabled={false}
             bgSize="extra-small"
-            fontSize="small"
             bg="transparent"
           />
         )
@@ -566,15 +565,15 @@ describe("SplitButton", () => {
     });
 
     describe.each([
-      ["enter", 13],
-      ["space", 32],
-      ["down", 40],
-    ])("the %s key is pressed", (name, keyCode) => {
+      ["Enter", "Enter"],
+      ["Space", " "],
+      ["ArrowDown", "ArrowDown"],
+    ])("the %s key is pressed", (name, key) => {
       it("then the first additional button should be focused", () => {
         toggle.simulate("blur");
         wrapper.find(StyledSplitButton).simulate("mouseleave");
         wrapper.update();
-        toggle.simulate("keydown", { which: keyCode });
+        toggle.simulate("keydown", { key });
         jest.runAllTimers();
 
         const firstButton = wrapper
@@ -585,7 +584,7 @@ describe("SplitButton", () => {
       });
 
       it("does not open additional buttons if opened already - coverage", () => {
-        toggle.simulate("keydown", { which: keyCode });
+        toggle.simulate("keydown", { key });
         jest.runAllTimers();
       });
     });
@@ -596,15 +595,15 @@ describe("SplitButton", () => {
           .find(additionalButtonsSelector)
           .find(ButtonWithForwardRef);
 
-        keyboard.pressUpArrow();
+        keyboard.pressArrowUp();
         expect(
           additionalButtons.at(additionalButtons.length - 1).getDOMNode()
         ).toBe(document.activeElement);
-        keyboard.pressUpArrow();
+        keyboard.pressArrowUp();
         expect(
           additionalButtons.at(additionalButtons.length - 2).getDOMNode()
         ).toBe(document.activeElement);
-        keyboard.pressUpArrow();
+        keyboard.pressArrowUp();
         expect(additionalButtons.at(0).getDOMNode()).toBe(
           document.activeElement
         );
@@ -617,19 +616,19 @@ describe("SplitButton", () => {
           .find(additionalButtonsSelector)
           .find(ButtonWithForwardRef);
 
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(additionalButtons.at(0).getDOMNode()).toBe(
           document.activeElement
         );
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(
           additionalButtons.at(additionalButtons.length - 2).getDOMNode()
         ).toBe(document.activeElement);
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(
           additionalButtons.at(additionalButtons.length - 1).getDOMNode()
         ).toBe(document.activeElement);
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(additionalButtons.at(0).getDOMNode()).toBe(
           document.activeElement
         );
@@ -645,7 +644,7 @@ describe("SplitButton", () => {
       });
 
       it("it does not pass focus to the first additional button", () => {
-        toggle.simulate("keydown", { which: 9 });
+        toggle.simulate("keydown", { key: "Tab" });
         const firstButton = wrapper
           .find(additionalButtonsSelector)
           .find("button")

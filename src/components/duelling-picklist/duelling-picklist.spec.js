@@ -460,7 +460,7 @@ describe("DuellingPicklist", () => {
           .find(StyledPicklist)
           .at(0)
           .props()
-          .onKeyDown({ which: 35, preventDefault: () => {} });
+          .onKeyDown({ key: "End", preventDefault: () => {} });
       });
 
       expect(
@@ -479,7 +479,7 @@ describe("DuellingPicklist", () => {
           .find(StyledPicklist)
           .at(0)
           .props()
-          .onKeyDown({ which: 36, preventDefault: () => {} });
+          .onKeyDown({ key: "Home", preventDefault: () => {} });
       });
 
       expect(
@@ -497,7 +497,7 @@ describe("DuellingPicklist", () => {
         .find(StyledPicklist)
         .at(0)
         .props()
-        .onKeyDown({ which: 87, preventDefault: () => {} });
+        .onKeyDown({ key: "a", preventDefault: () => {} });
 
       expect(
         wrapper.find(Picklist).at(0).find(StyledPicklistItem).at(0)
@@ -512,7 +512,7 @@ describe("DuellingPicklist", () => {
           .find(StyledPicklistItem)
           .at(0)
           .props()
-          .onKeyDown({ which: 87, preventDefault: () => {} });
+          .onKeyDown({ key: "a", preventDefault: () => {} });
       });
 
       expect(
@@ -536,11 +536,11 @@ describe("DuellingPicklist", () => {
     });
 
     it.each([
-      ["space", 32],
-      ["enter", 13],
+      ["Space", " "],
+      ["Enter", "Enter"],
     ])(
       "calls passed onChange function with proper item passed as an argument when %s key pressed",
-      (_, which) => {
+      (_, key) => {
         act(() => {
           wrapper
             .find(Picklist)
@@ -549,7 +549,7 @@ describe("DuellingPicklist", () => {
             .at(0)
             .find(StyledPicklistItem)
             .props()
-            .onKeyDown({ which, preventDefault: () => {} });
+            .onKeyDown({ key, preventDefault: () => {} });
         });
 
         expect(onAdd.mock.calls[0][0]).toEqual({
@@ -709,13 +709,13 @@ describe("DuellingPicklist", () => {
       );
 
       it.each([
-        ["space", 32, 0, 1],
-        ["enter", 13, 1, 0],
-        ["space", 32, 1, 0],
-        ["enter", 13, 0, 1],
+        ["Space", " ", 0, 1],
+        ["Enter", "Enter", 1, 0],
+        ["Space", " ", 1, 0],
+        ["Enter", "Enter", 0, 1],
       ])(
         "moves focus to the first item in the other picklist when the last item receives %s key press",
-        (_, which, current, result) => {
+        (_, key, current, result) => {
           act(() => {
             wrapper
               .find(Picklist)
@@ -723,7 +723,7 @@ describe("DuellingPicklist", () => {
               .find(StyledPicklistItem)
               .last()
               .props()
-              .onKeyDown({ which, preventDefault: () => {} });
+              .onKeyDown({ key, preventDefault: () => {} });
           });
 
           expect(
@@ -829,13 +829,13 @@ describe("DuellingPicklist", () => {
       );
 
       it.each([
-        ["space", 32, 0, 1],
-        ["enter", 13, 1, 0],
-        ["space", 32, 1, 0],
-        ["enter", 13, 0, 1],
+        ["Space", " ", 0, 1],
+        ["Enter", "Enter", 1, 0],
+        ["Space", " ", 1, 0],
+        ["Enter", "Enter", 0, 1],
       ])(
         "moves focus to the first item in the other picklist when the last item receives %s key press",
-        (_, which, current, result) => {
+        (_, key, current, result) => {
           act(() => {
             wrapper
               .find(Picklist)
@@ -843,7 +843,7 @@ describe("DuellingPicklist", () => {
               .find(StyledPicklistGroup)
               .last()
               .props()
-              .onKeyDown({ which, preventDefault: () => {} });
+              .onKeyDown({ key, preventDefault: () => {} });
           });
 
           expect(
@@ -861,17 +861,20 @@ describe("DuellingPicklist", () => {
 
   describe("children", () => {
     it("should throw an error if there are not two Picklist components", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
       mount(
         <DuellingPicklist>
           <div>foo</div>
         </DuellingPicklist>
       );
+
       // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith(
-        "Warning: Failed prop type: `children` must have two `Picklist`s\n    in DuellingPicklist"
+      expect(console.error.mock.calls[0][2]).toBe(
+        "`children` must have two `Picklist`s"
       );
-      global.console.error.mockReset();
+      consoleSpy.mockRestore();
     });
   });
 });

@@ -26,8 +26,6 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 
-jest.mock("@tippyjs/react/headless");
-
 const radioValues = ["val1", "val2", "val3"];
 
 describe("TileSelect", () => {
@@ -510,7 +508,9 @@ describe("TileSelectGroup", () => {
 
   describe("propTypes", () => {
     it("validates the incorrect children prop", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
 
       mount(
         <TileSelectGroup name="tile-select-group" legend="Legend">
@@ -519,11 +519,12 @@ describe("TileSelectGroup", () => {
         </TileSelectGroup>
       );
 
-      const expected =
-        "Warning: Failed prop type: `TileSelectGroup` only accepts children of" +
-        " type `TileSelect`.\n    in TileSelectGroup";
+      // eslint-disable-next-line no-console
+      expect(console.error.mock.calls[0][2]).toBe(
+        "`TileSelectGroup` only accepts children of type `TileSelect`."
+      );
 
-      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+      consoleSpy.mockRestore();
     });
   });
 });

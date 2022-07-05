@@ -21,81 +21,66 @@ import menuConfigVariants from "../../menu.config";
 const events = {
   arrowDown: {
     key: "ArrowDown",
-    which: 40,
     preventDefault: jest.fn(),
   },
   arrowUp: {
     key: "ArrowUp",
-    which: 38,
     preventDefault: jest.fn(),
     defaultPrevented: true,
   },
   arrowLeft: {
     key: "ArrowLeft",
-    which: 37,
     preventDefault: jest.fn(),
   },
   arrowRight: {
     key: "ArrowRight",
-    which: 39,
     preventDefault: jest.fn(),
   },
   enter: {
     key: "Enter",
-    which: 13,
     preventDefault: jest.fn(),
     bubbles: true,
   },
   space: {
-    key: "Space",
-    which: 32,
+    key: " ",
     preventDefault: jest.fn(),
   },
   semicolon: {
     key: ";",
-    which: 186,
     preventDefault: jest.fn(),
   },
   home: {
     key: "Home",
-    which: 36,
     preventDefault: jest.fn(),
   },
   end: {
     key: "End",
-    which: 35,
     preventDefault: jest.fn(),
   },
   escape: {
     key: "Escape",
-    which: 27,
     preventDefault: jest.fn(),
   },
   b: {
     key: "b",
-    which: 66,
     preventDefault: jest.fn(),
     stopPropagation: jest.fn(),
   },
   c: {
     key: "c",
-    which: 67,
     preventDefault: jest.fn(),
     stopPropagation: jest.fn(),
   },
   r: {
     key: "r",
-    which: 82,
     preventDefault: jest.fn(),
     stopPropagation: jest.fn(),
   },
   tab: {
     key: "Tab",
-    which: 9,
   },
   shiftTab: {
     key: "Tab",
-    which: 9,
     shiftKey: true,
   },
 };
@@ -188,12 +173,12 @@ describe("Submenu component", () => {
     });
 
     describe("when clicked", () => {
-      it("should not open the submenu", () => {
+      it("should open the submenu", () => {
         wrapper = render("light");
         wrapper.find("button").getDOMNode().click();
         wrapper.update();
 
-        expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
+        expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
       });
 
       it("should execute the onClick callback", () => {
@@ -414,25 +399,19 @@ describe("Submenu component", () => {
 
     describe("when clicked", () => {
       it("should leave the submenu open", () => {
-        const submenuElement = document.querySelector(
-          '[data-component="link"]'
-        );
+        const submenuElement = wrapper.find(StyledSubmenu);
 
         act(() => {
-          document.dispatchEvent(
-            new CustomEvent("click", {
-              detail: {
-                enzymeTestingTarget: submenuElement,
-              },
-            })
-          );
+          submenuElement
+            .getDOMNode()
+            .dispatchEvent(new CustomEvent("click", { bubbles: true }));
         });
 
         act(() => {
           wrapper.update();
         });
 
-        expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
+        expect(submenuElement.exists()).toEqual(true);
       });
     });
 

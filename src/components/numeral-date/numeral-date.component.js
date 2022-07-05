@@ -120,7 +120,10 @@ const NumeralDate = ({
 
   const onKeyPress = (ev) => {
     const isValidKey =
-      Events.isNumberKey(ev) || Events.isDeletingKey(ev) || Events.isTabKey(ev);
+      Events.isNumberKey(ev) ||
+      Events.isTabKey(ev) ||
+      ev.key === "Delete" ||
+      ev.key === "Backspace";
 
     if (!isValidKey) {
       ev.preventDefault();

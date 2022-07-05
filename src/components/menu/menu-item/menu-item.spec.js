@@ -22,12 +22,10 @@ import menuConfigVariants from "../menu.config";
 const events = {
   enter: {
     key: "Enter",
-    which: 13,
     preventDefault: jest.fn(),
   },
   escape: {
     key: "Escape",
-    which: 27,
     preventDefault: jest.fn(),
   },
 };
@@ -679,24 +677,27 @@ describe("MenuItem", () => {
     });
 
     it("give error when `aria-label` is not set and menu item has no child text", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
       wrapper = mount(<MenuItem icon="settings" />);
       // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith(
-        "Warning: Failed prop type: If no text is provided an ariaLabel" +
-          " should be given to facilitate accessibility.\n    in MenuItem"
+      expect(console.error.mock.calls[0][2]).toBe(
+        "If no text is provided an ariaLabel should be given to facilitate accessibility."
       );
-      global.console.error.mockReset();
+      consoleSpy.mockRestore();
     });
 
     it("give error when no children or icon is given", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
       wrapper = mount(<MenuItem ariaLabel="a" />);
       // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith(
-        "Warning: Failed prop type: Either prop `icon` must be defined or this node must have children.\n    in MenuItem"
+      expect(console.error.mock.calls[0][2]).toBe(
+        "Either prop `icon` must be defined or this node must have children."
       );
-      global.console.error.mockReset();
+      consoleSpy.mockRestore();
     });
   });
 });

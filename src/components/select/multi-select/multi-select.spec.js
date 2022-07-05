@@ -258,7 +258,6 @@ describe("MultiSelect", () => {
   describe('when the "onKeyDown" prop is passed', () => {
     const expectedEventObject = {
       key: "ArrowDown",
-      which: 40,
     };
 
     it("then when a key is pressed, that prop should be called with expected values", () => {
@@ -802,6 +801,7 @@ describe("MultiSelect", () => {
       const mockRef = useRef();
 
       return (
+        // eslint-disable-next-line react/prop-types
         <span change={props.change}>
           <MultiSelect
             openOnFocus

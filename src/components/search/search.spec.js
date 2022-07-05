@@ -329,7 +329,6 @@ describe("Search", () => {
 
     it("passes other event handlers down to the input", () => {
       const keyDownParams = {
-        which: 65,
         key: "a",
         target: { selectionStart: 1, selectionEnd: 2 },
       };
@@ -447,13 +446,15 @@ describe("Search", () => {
 
   describe("Prop Types", () => {
     it("validates children prop types", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
       mount(<Search value="Foo" threshold={-4} />);
       // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith(
-        "Warning: Failed prop type: Threshold must be a positive number.\n    in Search"
+      expect(console.error.mock.calls[0][2]).toBe(
+        "Threshold must be a positive number."
       );
-      global.console.error.mockReset();
+      consoleSpy.mockRestore();
     });
   });
 
@@ -537,7 +538,6 @@ describe("Search", () => {
 
     it("should stop propagation of the event for character keys", () => {
       const keyDownParams = {
-        which: 65,
         key: "a",
         target: { selectionStart: 1, selectionEnd: 2 },
         stopPropagation: stopPropagationFn,
@@ -549,7 +549,6 @@ describe("Search", () => {
 
     it("should stop propagation of the event for number keys", () => {
       const keyDownParams = {
-        which: 50,
         key: "2",
         target: { selectionStart: 1, selectionEnd: 2 },
         stopPropagation: stopPropagationFn,
@@ -561,7 +560,6 @@ describe("Search", () => {
 
     it("should not stop propagation of the event for other keys", () => {
       const keyDownParams = {
-        which: 9,
         key: "Tab",
         target: { selectionStart: 1, selectionEnd: 2 },
         stopPropagation: stopPropagationFn,

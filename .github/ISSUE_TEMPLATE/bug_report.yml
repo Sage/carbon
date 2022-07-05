@@ -26,7 +26,7 @@ body:
     attributes:
       label: Expected behaviour
       description: |
-        Please give a clear and concise description of the current behaviour.
+        Please give a clear and concise description of the expected behaviour.
     validations:
       required: true
   - type: input

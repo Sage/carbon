@@ -41,7 +41,7 @@ import {
   fieldHelpPreview,
 } from "../../../cypress/locators";
 import { keyCode } from "../../../cypress/support/helper";
-import { verifyRequiredAsterisk } from "../../../cypress/support/component-helper/common-steps";
+import { verifyRequiredAsteriskForLabel } from "../../../cypress/support/component-helper/common-steps";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 const DAY_PICKER_PREFIX = "DayPicker-Day--";
@@ -296,7 +296,7 @@ context("Test for DateInput component", () => {
   it("should check the required prop", () => {
     CypressMountWithProviders(<DateInputCustom required />);
 
-    verifyRequiredAsterisk();
+    verifyRequiredAsteriskForLabel();
   });
 
   it("should check the autofocus prop", () => {

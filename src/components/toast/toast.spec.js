@@ -18,7 +18,7 @@ describe("Toast", () => {
 
   describe("modal manager", () => {
     jest.spyOn(ModalManager, "addModal");
-    jest.spyOn(ModalManager, "removeModal");
+    const removeModalSpy = jest.spyOn(ModalManager, "removeModal");
     let wrapper;
 
     describe("when component mounts", () => {
@@ -42,6 +42,7 @@ describe("Toast", () => {
 
     describe("when component unmounts", () => {
       it("it is removed from modal manager", () => {
+        removeModalSpy.mockClear();
         wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
         const toast = wrapper.find(ToastWrapper).getDOMNode();
         wrapper.unmount();
@@ -85,7 +86,6 @@ describe("Toast", () => {
         wrapper.setProps({ open: false });
         const escapeKeyEvent = new KeyboardEvent("keyup", {
           key: "Escape",
-          which: 27,
           bubbles: true,
         });
         jest.spyOn(escapeKeyEvent, "stopImmediatePropagation");
@@ -174,7 +174,7 @@ describe("Toast", () => {
 
         it("dismiss icon is focused and Enter key is pressed", () => {
           const icon = wrapper.find(IconButton).first();
-          icon.simulate("keyDown", { which: 13, key: "Enter" });
+          icon.simulate("keyDown", { key: "Enter" });
           expect(onDismiss).toHaveBeenCalled();
         });
 
@@ -190,7 +190,7 @@ describe("Toast", () => {
       describe("does not call onDismiss method when", () => {
         it("dismiss icon is focused any other key is pressed", () => {
           const icon = wrapper.find(IconButton).first();
-          icon.simulate("keyDown", { which: 65, key: "a" });
+          icon.simulate("keyDown", { key: "a" });
           expect(onDismiss).not.toHaveBeenCalled();
         });
 
@@ -273,7 +273,6 @@ describe("ToastStyle", () => {
     beforeEach(() => {
       escapeKeyEvent = new KeyboardEvent("keyup", {
         key: "Escape",
-        which: 27,
         bubbles: true,
       });
       onDismissFn = jest.fn();
@@ -297,7 +296,6 @@ describe("ToastStyle", () => {
     it("when a key other than escape is released, onDismiss and stopImmediatePropagation are not called", () => {
       const otherKeyEvent = new KeyboardEvent("keyup", {
         key: "a",
-        which: 65,
         bubbles: true,
       });
       jest.spyOn(otherKeyEvent, "stopImmediatePropagation");

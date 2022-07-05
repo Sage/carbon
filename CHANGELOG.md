@@ -1,3 +1,117 @@
+### [109.1.1](https://github.com/Sage/carbon/compare/v109.1.0...v109.1.1) (2022-07-05)
+
+
+### Bug Fixes
+
+* **use-click-away-listener:** rewrite ClickAwayWrapper component as a custom hook ([b7a37f8](https://github.com/Sage/carbon/commit/b7a37f807645870210ed1e750a553de75df5f6ad)), closes [#5245](https://github.com/Sage/carbon/issues/5245)
+
+## [109.1.0](https://github.com/Sage/carbon/compare/v109.0.2...v109.1.0) (2022-07-01)
+
+
+### Features
+
+* **inline-inputs:** add adaptiveLabelBreakpoint prop to component ([0ffdde6](https://github.com/Sage/carbon/commit/0ffdde63dd08e0c130ac176074fec74b49cf9c1a)), closes [#5099](https://github.com/Sage/carbon/issues/5099)
+
+### [109.0.2](https://github.com/Sage/carbon/compare/v109.0.1...v109.0.2) (2022-07-01)
+
+
+### Bug Fixes
+
+* **form:** fix tabs focus outline not rendering correctly ([f4e56fe](https://github.com/Sage/carbon/commit/f4e56fe482a57567b62ee125018f2d3f5c49eae1)), closes [#5161](https://github.com/Sage/carbon/issues/5161)
+
+### [109.0.1](https://github.com/Sage/carbon/compare/v109.0.0...v109.0.1) (2022-07-01)
+
+
+### Bug Fixes
+
+* **flat-table:** fix border bottom colour in light theme ([9932367](https://github.com/Sage/carbon/commit/99323674d86a3a637b1389d81017d621f9e977bc)), closes [#5175](https://github.com/Sage/carbon/issues/5175)
+
+## [109.0.0](https://github.com/Sage/carbon/compare/v108.0.0...v109.0.0) (2022-07-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* react 16 is no longer supported
+
+### Features
+
+* upgrade to react 17 ([831dcd8](https://github.com/Sage/carbon/commit/831dcd8daeebc463fb4a129d45afde634af75a43))
+
+## [108.0.0](https://github.com/Sage/carbon/compare/v107.2.1...v108.0.0) (2022-06-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **popover-container:** dataElement and ariaLabel props have been renamed
+to data-element and aria-label in both renderOpenComponent and
+renderCloseComponent render prop methods
+
+### Code Refactoring
+
+* **popover-container:** convert to ts ([58a95eb](https://github.com/Sage/carbon/commit/58a95ebcb28292d511f2d4d18b32537bdbd54d4e))
+
+### [107.2.1](https://github.com/Sage/carbon/compare/v107.2.0...v107.2.1) (2022-06-22)
+
+
+### Bug Fixes
+
+* **heading:** add aria-label to back button ([b3473de](https://github.com/Sage/carbon/commit/b3473de80e3f40a168486393df00df06b5cfa61b)), closes [#4876](https://github.com/Sage/carbon/issues/4876)
+* **help:** add aria-label when help is a link ([4882e13](https://github.com/Sage/carbon/commit/4882e134bdec67625c85640dd7f4d9a1f1863dc8))
+
+## [107.2.0](https://github.com/Sage/carbon/compare/v107.1.8...v107.2.0) (2022-06-21)
+
+
+### Features
+
+* **modal:** add typing for and export ModalContext from modal module ([c4155bd](https://github.com/Sage/carbon/commit/c4155bd171f42b05ce22d7080bf30f6e588623a2))
+
+
+### Bug Fixes
+
+* **form:** prevent two scrollbars appearing when content overflows inside modal ([085a9cf](https://github.com/Sage/carbon/commit/085a9cf75988237555ccd59a474f3729aecdf75e))
+
+### [107.1.8](https://github.com/Sage/carbon/compare/v107.1.7...v107.1.8) (2022-06-21)
+
+
+### Bug Fixes
+
+* **submenu:** make menu open on click even when clickToOpen prop missing ([040c276](https://github.com/Sage/carbon/commit/040c2762719c04f9fae499b277c1d5729fac04ad)), closes [#4797](https://github.com/Sage/carbon/issues/4797)
+
+### [107.1.7](https://github.com/Sage/carbon/compare/v107.1.6...v107.1.7) (2022-06-20)
+
+
+### Bug Fixes
+
+* **date:** ensure that contrast ratio for weekday meets AA standards ([5de5ff9](https://github.com/Sage/carbon/commit/5de5ff953a06ba3627ef97dd97b1b1f71a5c3ccc)), closes [#5173](https://github.com/Sage/carbon/issues/5173)
+
+### [107.1.6](https://github.com/Sage/carbon/compare/v107.1.5...v107.1.6) (2022-06-17)
+
+
+### Bug Fixes
+
+* **flat-table-row:** update sticky column functionality to support wrapping row headers ([d15cb0d](https://github.com/Sage/carbon/commit/d15cb0da02f4428bd550ad8a7709325f33113390)), closes [#5208](https://github.com/Sage/carbon/issues/5208)
+
+### [107.1.5](https://github.com/Sage/carbon/compare/v107.1.4...v107.1.5) (2022-06-16)
+
+
+### Bug Fixes
+
+* **date:** ensure that event contains input name and id when picker is used to change date ([7376122](https://github.com/Sage/carbon/commit/7376122249f374eba87870359c5cd24da5459613)), closes [#5193](https://github.com/Sage/carbon/issues/5193)
+
+### [107.1.4](https://github.com/Sage/carbon/compare/v107.1.3...v107.1.4) (2022-06-15)
+
+
+### Bug Fixes
+
+* **tabs:** fix issue with two tab titles being highlited simultaneously ([659ef2a](https://github.com/Sage/carbon/commit/659ef2ab4c6d07c276a8bf0ca2d95f2e7b8b6db1))
+
+### [107.1.3](https://github.com/Sage/carbon/compare/v107.1.2...v107.1.3) (2022-06-15)
+
+
+### Bug Fixes
+
+* **heading:** fix typings ([a53482e](https://github.com/Sage/carbon/commit/a53482ef5c258eb10712cd1339e6384cf7475c16))
+
 ### [107.1.2](https://github.com/Sage/carbon/compare/v107.1.1...v107.1.2) (2022-06-14)
 
 

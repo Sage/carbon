@@ -55,7 +55,7 @@ describe("NumeralDate", () => {
 
   describe("propTypes", () => {
     it("does not allow an incorrect dateFormat prop", () => {
-      spyOn(global.console, "error");
+      const consoleSpy = jest.spyOn(global.console, "error");
       renderWrapper({ dateFormat: ["xx"] });
       const expected =
         "Forbidden prop `dateFormat` supplied to `NumeralDate`. " +
@@ -67,8 +67,9 @@ describe("NumeralDate", () => {
         "['mm', 'yyyy']";
 
       // eslint-disable-next-line no-console
-      const actual = console.error.calls.argsFor(0)[0];
-      expect(actual).toMatch(expected);
+      expect(console.error.mock.calls[0][2]).toBe(expected);
+
+      consoleSpy.mockRestore();
     });
 
     it("does not throw an error if no dateFormat is passed", () => {
@@ -398,19 +399,16 @@ describe("NumeralDate", () => {
 
     it("allows numeric key presses", () => {
       const input = wrapper.find("input");
-      const event = { key: "1", which: 49, preventDefault: jest.fn() };
+      const event = { key: "1", preventDefault: jest.fn() };
       act(() => {
         input.simulate("keypress", event);
       });
       expect(event.preventDefault).not.toHaveBeenCalled();
     });
 
-    it.each([
-      ["a", 65],
-      ["/", 191],
-    ])("does not allow non-numeric characters", (key) => {
+    it.each([["a"], ["/"]])("does not allow non-numeric characters", (key) => {
       const input = wrapper.find("input");
-      const event = { key: key[0], which: key[1], preventDefault: jest.fn() };
+      const event = { key: key[0], preventDefault: jest.fn() };
       act(() => {
         input.simulate("keypress", event);
       });

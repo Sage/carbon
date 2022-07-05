@@ -18,7 +18,7 @@ import {
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import { DrawerSidebarContext } from "../drawer";
 
-function render(props) {
+function render(props, mountOptions) {
   return mount(
     <Tabs {...props}>
       <Tab
@@ -48,7 +48,8 @@ function render(props) {
       >
         TabContent
       </Tab>
-    </Tabs>
+    </Tabs>,
+    mountOptions
   );
 }
 
@@ -200,7 +201,9 @@ describe("Tabs", () => {
 
   describe('when `headerWidth` is provided, and `position="top"`', () => {
     it(" should render console error", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
 
       mount(
         <Tabs position="top" headerWidth="500px">
@@ -211,9 +214,11 @@ describe("Tabs", () => {
       );
 
       // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith(
-        "Warning: Failed prop type: Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left\n    in Tabs"
+      expect(console.error.mock.calls[0][2]).toBe(
+        "Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left"
       );
+
+      consoleSpy.mockRestore();
     });
   });
 
@@ -411,6 +416,37 @@ describe("Tabs", () => {
       expect(wrapper.find(Tab).at(0).props().isTabSelected).toEqual(true);
     });
 
+    it("blurs the selected TabTitle when a new id is passed via the selectedTabId prop", () => {
+      const container = document.createElement("div");
+      container.id = "container";
+      document.body.appendChild(container);
+
+      const wrapper = render(
+        { selectedTabId: "uniqueid1" },
+        {
+          attachTo: document.querySelector("#container"),
+        }
+      );
+
+      act(() => {
+        wrapper.find(StyledTabTitle).at(0).getDOMNode().focus();
+      });
+
+      expect(document.activeElement).toBe(
+        wrapper.find(StyledTabTitle).at(0).getDOMNode()
+      );
+
+      wrapper.setProps({ selectedTabId: "uniqueid2" });
+      wrapper.update();
+
+      expect(document.activeElement).not.toBe(
+        wrapper.find(StyledTabTitle).at(0).getDOMNode()
+      );
+
+      wrapper.detach();
+      document.body.removeChild(container);
+    });
+
     it('only calls the "onTabChange" callback when visible tabId does not match new tabId', () => {
       const onTabChange = jest.fn();
       const wrapper = render({ onTabChange, selectedTabId: "uniqueid1" });
@@ -438,7 +474,7 @@ describe("Tabs", () => {
         (index) => {
           const wrapper = render();
           act(() => {
-            simulate.keydown.pressRightArrow(wrapper.find(TabTitle).at(index));
+            simulate.keydown.pressArrowRight(wrapper.find(TabTitle).at(index));
           });
           wrapper.update();
           const newIndex = index === 2 ? 0 : index + 1;
@@ -453,7 +489,7 @@ describe("Tabs", () => {
         (index) => {
           const wrapper = render();
           act(() => {
-            simulate.keydown.pressLeftArrow(wrapper.find(TabTitle).at(index));
+            simulate.keydown.pressArrowLeft(wrapper.find(TabTitle).at(index));
           });
           wrapper.update();
           const newIndex = index === 0 ? 2 : index - 1;
@@ -470,7 +506,7 @@ describe("Tabs", () => {
         (index) => {
           const wrapper = render({ position: "left" });
           act(() => {
-            simulate.keydown.pressDownArrow(wrapper.find(TabTitle).at(index));
+            simulate.keydown.pressArrowDown(wrapper.find(TabTitle).at(index));
           });
           wrapper.update();
           const newIndex = index === 2 ? 0 : index + 1;
@@ -485,7 +521,7 @@ describe("Tabs", () => {
         (index) => {
           const wrapper = render({ position: "left" });
           act(() => {
-            simulate.keydown.pressUpArrow(wrapper.find(TabTitle).at(index));
+            simulate.keydown.pressArrowUp(wrapper.find(TabTitle).at(index));
           });
           wrapper.update();
           const newIndex = index === 0 ? 2 : index - 1;
@@ -830,19 +866,19 @@ describe("Tabs", () => {
       it("is consistent when navigating with the arrow keys and the composition of the children changes", () => {
         wrapper.find(StyledTabTitle).first().getDOMNode().focus();
 
-        runFocusExpectations("pressLeftArrow", [0, 2, 1, 0, 2]);
+        runFocusExpectations("pressArrowLeft", [0, 2, 1, 0, 2]);
 
         toggleChildren();
 
         wrapper.find(StyledTabTitle).first().getDOMNode().focus();
 
-        runFocusExpectations("pressLeftArrow", [0, 2, 1, 0, 2]);
+        runFocusExpectations("pressArrowLeft", [0, 2, 1, 0, 2]);
 
         toggleChildren();
 
         wrapper.find(StyledTabTitle).first().getDOMNode().focus();
 
-        runFocusExpectations("pressRightArrow", [0, 1, 2, 0]);
+        runFocusExpectations("pressArrowRight", [0, 1, 2, 0]);
       });
     });
   });
