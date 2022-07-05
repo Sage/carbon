@@ -52,36 +52,41 @@ const useModalManager = (
     };
   }, [removeListener]);
 
-  const registerModal = useCallback(() => {
-    /* istanbul ignore else */
-    if (!modalRegistered.current) {
-      ModalManager.addModal(modalRef.current, setTriggerRefocusFlag);
+  const registerModal = useCallback(
+    (ref) => {
+      /* istanbul ignore else */
+      if (!modalRegistered.current) {
+        ModalManager.addModal(ref, setTriggerRefocusFlag);
 
-      modalRegistered.current = true;
-    }
-  }, [modalRef, setTriggerRefocusFlag]);
+        modalRegistered.current = true;
+      }
+    },
+    [setTriggerRefocusFlag]
+  );
 
-  const unregisterModal = useCallback(() => {
+  const unregisterModal = useCallback((ref) => {
     if (modalRegistered.current) {
-      ModalManager.removeModal(modalRef.current);
+      ModalManager.removeModal(ref);
 
       modalRegistered.current = false;
     }
-  }, [modalRef]);
+  }, []);
 
   useEffect(() => {
+    const ref = modalRef.current;
     if (open) {
-      registerModal();
+      registerModal(ref);
     } else {
-      unregisterModal();
+      unregisterModal(ref);
     }
-  }, [open, registerModal, unregisterModal]);
+  }, [modalRef, open, registerModal, unregisterModal]);
 
   useEffect(() => {
+    const ref = modalRef.current;
     return () => {
-      unregisterModal();
+      unregisterModal(ref);
     };
-  }, [unregisterModal]);
+  }, [modalRef, unregisterModal]);
 };
 
 export default useModalManager;

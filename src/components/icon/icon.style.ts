@@ -1,43 +1,70 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 import { shade } from "polished";
 import { margin } from "styled-system";
 
 import iconUnicodes from "./icon-unicodes";
-import baseTheme from "../../style/themes/base";
-import iconSizeConfig, { ICON_SHAPES } from "./icon-config";
+import baseTheme, { ThemeObject } from "../../style/themes/base";
+import iconConfig from "./icon-config";
 import browserTypeCheck, {
   isSafari,
 } from "../../__internal__/utils/helpers/browser-type-check";
 import styledColor from "../../style/utils/color";
 import getColorValue from "../../style/utils/get-color-value";
+import { IconType } from "./icon-type";
 
-function adjustIconBgSize(fontSize, bgSize) {
-  const replacements = {
-    medium: {
-      small: "medium",
-    },
-    large: {
-      small: "large",
-      medium: "large",
-    },
-    "extra-large": {
-      small: "extra-large",
-      medium: "extra-large",
-      large: "extra-large",
-    },
-  };
+export type BackgroundShape = "circle" | "rounded-rect" | "square";
 
-  const replacement = replacements?.[fontSize]?.[bgSize];
+export type BgSize =
+  | "extra-small"
+  | "small"
+  | "medium"
+  | "large"
+  | "extra-large";
 
-  if (replacement) {
-    return iconSizeConfig.backgroundSize[replacement];
-  }
+export type FontSize = "small" | "medium" | "large" | "extra-large";
 
-  return iconSizeConfig.backgroundSize[bgSize];
+export interface StyledIconProps {
+  /** Background colour, provide any color from palette or any valid css color value. */
+  bg?: string;
+  /** Background shape */
+  bgShape?: BackgroundShape;
+  /** Background size */
+  bgSize?: BgSize;
+  /**
+   * @private
+   * @ignore
+   * Add classes to this component
+   */
+  className?: string;
+  /** Icon colour, provide any color from palette or any valid css color value. */
+  color?: string;
+  /** Sets the icon in the disabled state */
+  disabled?: boolean;
+  /** Icon font size */
+  fontSize?: FontSize;
+  /**
+   * Icon type
+   *
+   * The full list of types can be seen [here](https://github.com/Sage/carbon/blob/master/src/components/icon/icon-config.js).
+   */
+  type: IconType;
 }
 
-const StyledIcon = styled.span`
+export interface StyledIconInternalProps {
+  isInteractive?: boolean;
+  hasTooltip?: boolean;
+  theme?: ThemeObject;
+}
+
+function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
+  if (fontSize && fontSize !== "small") {
+    return iconConfig.backgroundSize[fontSize];
+  }
+
+  return bgSize ? iconConfig.backgroundSize[bgSize] : undefined;
+}
+
+const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
   ${({
     theme,
     color,
@@ -90,7 +117,7 @@ const StyledIcon = styled.span`
       justify-content: center;
       height: ${adjustIconBgSize(fontSize, bgSize)};
       width: ${adjustIconBgSize(fontSize, bgSize)};
-      border-radius: ${iconSizeConfig.backgroundShape[bgShape]};
+      ${bgShape ? `border-radius: ${iconConfig.backgroundShape[bgShape]}` : ""};
 
       ${isInteractive &&
       css`
@@ -106,11 +133,15 @@ const StyledIcon = styled.span`
 
         font-family: CarbonIcons;
         content: "${iconUnicodes[type]}";
-        font-size: ${iconSizeConfig.iconSize[fontSize]};
         font-style: normal;
         font-weight: normal;
-        line-height: ${iconSizeConfig.iconSize[fontSize]};
         vertical-align: middle;
+
+        ${fontSize &&
+        css`
+          font-size: ${iconConfig.iconSize[fontSize]};
+          line-height: ${iconConfig.iconSize[fontSize]};
+        `}
 
         ${type === "services" &&
         browserTypeCheck(window) &&
@@ -139,22 +170,6 @@ const StyledIcon = styled.span`
     `;
   }}
 `;
-
-StyledIcon.propTypes = {
-  theme: PropTypes.object,
-  type: PropTypes.string,
-  isInteractive: PropTypes.bool,
-  disabled: PropTypes.bool,
-  bgSize: PropTypes.oneOf([
-    "extra-small",
-    "small",
-    "medium",
-    "large",
-    "extra-large",
-  ]),
-  bgShape: PropTypes.oneOf(ICON_SHAPES),
-  fontSize: PropTypes.oneOf(["small", "medium", "large", "extra-large"]),
-};
 
 StyledIcon.defaultProps = {
   theme: baseTheme,

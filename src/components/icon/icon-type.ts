@@ -1,25 +1,9 @@
-import * as React from "react";
-import { MarginProps } from "styled-system";
-
-export type BgSize =
-  | "extra-small"
-  | "small"
-  | "medium"
-  | "large"
-  | "extra-large";
-export type TooltipPositions = "top" | "bottom" | "left" | "right";
-export type FontSize =
-  | "extra-small"
-  | "small"
-  | "medium"
-  | "large"
-  | "extra-large";
-export type BackgroundShape = "circle" | "rounded-rect" | "square";
-
 export type IconType =
   | "add"
+  | "admin"
   | "alert"
   | "analysis"
+  | "arrow"
   | "arrow_down"
   | "arrow_left"
   | "arrow_left_boxed"
@@ -78,7 +62,9 @@ export type IconType =
   | "collaborate"
   | "computer_clock"
   | "connect"
+  | "contacts"
   | "copy"
+  | "create"
   | "credit_card"
   | "credit_card_slash"
   | "cross"
@@ -101,6 +87,9 @@ export type IconType =
   | "edited"
   | "email"
   | "email_switch"
+  | "entry"
+  | "envelope_dollar"
+  | "envelope_euro"
   | "ellipsis_horizontal"
   | "ellipsis_vertical"
   | "error"
@@ -125,6 +114,7 @@ export type IconType =
   | "flag"
   | "folder"
   | "gift"
+  | "go"
   | "graph"
   | "grid"
   | "help"
@@ -141,6 +131,8 @@ export type IconType =
   | "ledger_arrow_left"
   | "ledger_arrow_right"
   | "link"
+  | "lightbulb_off"
+  | "lightbulb_on"
   | "list_view"
   | "locked"
   | "location"
@@ -148,11 +140,12 @@ export type IconType =
   | "lookup"
   | "marker"
   | "message"
-  | "messages"
   | "minus"
   | "minus_large"
   | "mobile"
   | "money_bag"
+  | "none"
+  | "old_warning"
   | "pause"
   | "pause_circle"
   | "pdf"
@@ -162,6 +155,7 @@ export type IconType =
   | "person_info"
   | "person_tick"
   | "phone"
+  | "piggy_bank"
   | "play"
   | "play_circle"
   | "plus"
@@ -171,6 +165,8 @@ export type IconType =
   | "progress"
   | "progressed"
   | "question"
+  | "question_hollow"
+  | "question_mark"
   | "refresh"
   | "refresh_clock"
   | "remove"
@@ -180,6 +176,7 @@ export type IconType =
   | "search"
   | "services"
   | "settings"
+  | "settings_old"
   | "share"
   | "shop"
   | "sort_down"
@@ -194,59 +191,15 @@ export type IconType =
   | "submitted"
   | "sync"
   | "tag"
+  | "talk"
   | "three_boxes"
   | "tick"
   | "tick_circle"
+  | "true_tick"
+  | "undo"
   | "unlocked"
   | "upload"
   | "uploaded"
   | "video"
   | "view"
   | "warning";
-
-export interface IconProps extends MarginProps {
-  /** Icon type */
-  type: IconType;
-  /** Background size */
-  bgSize?: BgSize;
-  /** Background shape */
-  bgShape?: BackgroundShape;
-  /** Icon font size */
-  fontSize?: FontSize;
-  /** Icon colour, provide any color from palette or any valid css color value. */
-  color?: string;
-  /** Background colour, provide any color from palette or any valid css color value. */
-  bg?: string;
-  /** Sets the icon in the disabled state */
-  disabled?: boolean;
-  /** Aria label for accessibility purposes */
-  ariaLabel?: string;
-  /** Set whether icon should be recognised by assistive technologies */
-  "aria-hidden"?: boolean;
-  /** The message to be displayed within the tooltip */
-  tooltipMessage?: React.ReactNode;
-  /** The position to display the tooltip */
-  tooltipPosition?: TooltipPositions;
-  /** Control whether the tooltip is visible */
-  tooltipVisible?: boolean;
-  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
-  tooltipBgColor?: string;
-  /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
-  tooltipFontColor?: string;
-  /** Overrides the default flip behaviour of the Tooltip */
-  tooltipFlipOverrides?: TooltipPositions[];
-  /** Id passed to the tooltip container, used for accessibility purposes */
-  tooltipId?: string;
-  /** Id passed to the icon. */
-  id?: string;
-  tabIndex?: number;
-  isPartOfInput?: boolean;
-  inputSize?: "small" | "medium" | "large";
-  focusable?: boolean;
-}
-
-declare function Icon(
-  props: IconProps & React.RefAttributes<HTMLSpanElement>
-): JSX.Element;
-
-export default Icon;

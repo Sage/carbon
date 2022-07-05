@@ -149,7 +149,7 @@ describe("Form", () => {
 
       assertStyleMatch(
         {
-          overflowY: "auto",
+          overflowY: "inherit",
           flex: "1",
         },
         wrapper.find(StyledFormContent)

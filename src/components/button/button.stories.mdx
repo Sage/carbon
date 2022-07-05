@@ -30,13 +30,13 @@ For the single most prominent call to action on the page (e.g. Save, Submit, Con
 <Canvas>
   <Story name="primary">
     <>
-      <Button buttonType="primary" size="small">
+      <Button mt={2} buttonType="primary" size="small">
         Small
       </Button>
-      <Button buttonType="primary" ml={2}>
+      <Button mt={2} buttonType="primary" ml={2}>
         Medium
       </Button>
-      <Button buttonType="primary" size="large" ml={2}>
+      <Button mt={2} buttonType="primary" size="large" ml={2}>
         Large
       </Button>
     </>
@@ -48,13 +48,13 @@ Primary buttons can be destructive.
 <Canvas>
   <Story name="primary/destructive">
     <>
-      <Button buttonType="primary" destructive size="small">
+      <Button mt={2} buttonType="primary" destructive size="small">
         Small
       </Button>
-      <Button buttonType="primary" destructive ml={2}>
+      <Button mt={2} buttonType="primary" destructive ml={2}>
         Medium
       </Button>
-      <Button buttonType="primary" destructive size="large" ml={2}>
+      <Button mt={2} buttonType="primary" destructive size="large" ml={2}>
         Large
       </Button>
     </>
@@ -66,13 +66,13 @@ Primary buttons can be disabled.
 <Canvas>
   <Story name="primary/disabled">
     <>
-      <Button buttonType="primary" disabled size="small">
+      <Button mt={2} buttonType="primary" disabled size="small">
         Small
       </Button>
-      <Button buttonType="primary" disabled ml={2}>
+      <Button mt={2} buttonType="primary" disabled ml={2}>
         Medium
       </Button>
-      <Button buttonType="primary" disabled size="large" ml={2}>
+      <Button mt={2} buttonType="primary" disabled size="large" ml={2}>
         Large
       </Button>
     </>
@@ -84,10 +84,11 @@ Primary buttons can have an icon positioned before or after the text.
 <Canvas>
   <Story name="primary/icon">
     <>
-      <Button buttonType="primary" iconType="print">
+      <Button mt={2} buttonType="primary" iconType="print">
         Medium
       </Button>
       <Button
+        mt={2}
         buttonType="primary"
         destructive
         iconType="delete"
@@ -97,6 +98,7 @@ Primary buttons can have an icon positioned before or after the text.
         Medium
       </Button>
       <Button
+        mt={2}
         buttonType="primary"
         disabled
         iconType="print"
@@ -114,7 +116,7 @@ Primary buttons can be `fullWidth`.
 <Canvas>
   <Story name="primary/full-width">
     <>
-      <Button buttonType="primary" fullWidth>
+      <Button mt={2} buttonType="primary" fullWidth>
         Full Width
       </Button>
     </>
@@ -125,7 +127,7 @@ Primary buttons can be set into `noWrap` mode to prevent text wrapping.
 
 <Canvas>
   <Story name="primary/noWrap">
-    <Button buttonType="primary" noWrap>
+    <Button mt={2} buttonType="primary" noWrap>
       Long button text
     </Button>
   </Story>
@@ -139,9 +141,9 @@ Secondary buttons are transparent, rather than white.
 <Canvas>
   <Story name="secondary">
     <>
-      <Button size="small">Small</Button>
-      <Button ml={2}>Medium</Button>
-      <Button size="large" ml={2}>
+      <Button mt={2} size="small">Small</Button>
+      <Button mt={2} ml={2}>Medium</Button>
+      <Button mt={2} size="large" ml={2}>
         Large
       </Button>
     </>
@@ -153,13 +155,13 @@ Secondary buttons can be destructive.
 <Canvas>
   <Story name="secondary/destructive">
     <>
-      <Button destructive size="small">
+      <Button mt={2} destructive size="small">
         Small
       </Button>
-      <Button destructive ml={2}>
+      <Button mt={2} destructive ml={2}>
         Medium
       </Button>
-      <Button destructive size="large" ml={2}>
+      <Button mt={2} destructive size="large" ml={2}>
         Large
       </Button>
     </>
@@ -171,13 +173,13 @@ Secondary buttons can be disabled.
 <Canvas>
   <Story name="secondary/disabled">
     <>
-      <Button size="small" disabled>
+      <Button mt={2} size="small" disabled>
         Small
       </Button>
-      <Button disabled ml={2}>
+      <Button mt={2} disabled ml={2}>
         Medium
       </Button>
-      <Button size="large" disabled ml={2}>
+      <Button mt={2} size="large" disabled ml={2}>
         Large
       </Button>
     </>
@@ -189,11 +191,11 @@ Secondary buttons can have an icon positioned before or after the text.
 <Canvas>
   <Story name="secondary/icon">
     <>
-      <Button iconType="print">Medium</Button>
-      <Button destructive iconType="delete" iconPosition="after" ml={2}>
+      <Button mt={2} iconType="print">Medium</Button>
+      <Button mt={2} destructive iconType="delete" iconPosition="after" ml={2}>
         Medium
       </Button>
-      <Button disabled iconType="print" iconPosition="after" ml={2}>
+      <Button mt={2} disabled iconType="print" iconPosition="after" ml={2}>
         Medium
       </Button>
     </>
@@ -205,7 +207,7 @@ Secondary buttons can be `fullWidth`.
 <Canvas>
   <Story name="secondary/full-width">
     <>
-      <Button buttonType="secondary" fullWidth>
+      <Button mt={2} buttonType="secondary" fullWidth>
         Full Width
       </Button>
     </>
@@ -216,7 +218,7 @@ Secondary buttons can be set into `noWrap` mode to prevent text wrapping.
 
 <Canvas>
   <Story name="secondary/noWrap" parameters={{ chromatic: { disable: true } }}>
-    <Button buttonType="secondary" noWrap>
+    <Button mt={2} buttonType="secondary" noWrap>
       Long button text
     </Button>
   </Story>
@@ -229,13 +231,13 @@ Tertiary or ‘ghost’ buttons are used for reversing actions, like ‘Cancel�
 <Canvas>
   <Story name="tertiary">
     <>
-      <Button buttonType="tertiary" size="small">
+      <Button mt={2} buttonType="tertiary" size="small">
         Small
       </Button>
-      <Button buttonType="tertiary" ml={2}>
+      <Button mt={2} buttonType="tertiary" ml={2}>
         Medium
       </Button>
-      <Button buttonType="tertiary" size="large" ml={2}>
+      <Button mt={2} buttonType="tertiary" size="large" ml={2}>
         Large
       </Button>
     </>
@@ -247,13 +249,13 @@ Tertiary buttons can be destructive.
 <Canvas>
   <Story name="tertiary/destructive">
     <>
-      <Button buttonType="tertiary" destructive size="small">
+      <Button mt={2} buttonType="tertiary" destructive size="small">
         Small
       </Button>
-      <Button buttonType="tertiary" destructive ml={2}>
+      <Button mt={2} buttonType="tertiary" destructive ml={2}>
         Medium
       </Button>
-      <Button buttonType="tertiary" destructive size="large" ml={2}>
+      <Button mt={2} buttonType="tertiary" destructive size="large" ml={2}>
         Large
       </Button>
     </>
@@ -265,13 +267,13 @@ Tertiary buttons can be disabled.
 <Canvas>
   <Story name="tertiary/disabled">
     <>
-      <Button buttonType="tertiary" disabled size="small">
+      <Button mt={2} buttonType="tertiary" disabled size="small">
         Small
       </Button>
-      <Button buttonType="tertiary" disabled ml={2}>
+      <Button mt={2} buttonType="tertiary" disabled ml={2}>
         Medium
       </Button>
-      <Button buttonType="tertiary" disabled size="large" ml={2}>
+      <Button mt={2} buttonType="tertiary" disabled size="large" ml={2}>
         Large
       </Button>
     </>
@@ -283,10 +285,11 @@ Tertiary buttons can have an icon positioned before or after the text.
 <Canvas>
   <Story name="tertiary/icon">
     <>
-      <Button buttonType="tertiary" iconType="print">
+      <Button mt={2} buttonType="tertiary" iconType="print">
         Medium
       </Button>
       <Button
+        mt={2}
         buttonType="tertiary"
         destructive
         iconType="delete"
@@ -296,6 +299,7 @@ Tertiary buttons can have an icon positioned before or after the text.
         Medium
       </Button>
       <Button
+        mt={2}
         buttonType="tertiary"
         disabled
         iconType="print"
@@ -313,7 +317,7 @@ Tertiary buttons can be `fullWidth`.
 <Canvas>
   <Story name="tertiary/full-width">
     <>
-      <Button buttonType="tertiary" fullWidth>
+      <Button mt={2} buttonType="tertiary" fullWidth>
         Full Width
       </Button>
     </>
@@ -324,7 +328,7 @@ Tertiary buttons can be set to `noWrap` mode to prevent text wrapping.
 
 <Canvas>
   <Story name="tertiary/noWrap" parameters={{ chromatic: { disable: true } }}>
-    <Button buttonType="tertiary" noWrap>
+    <Button mt={2} buttonType="tertiary" noWrap>
       Long button text
     </Button>
   </Story>
@@ -337,13 +341,13 @@ Dashed buttons are used for adding new content that replaces empty states.
 <Canvas>
   <Story name="dashed">
     <>
-      <Button buttonType="dashed" size="small">
+      <Button mt={2} buttonType="dashed" size="small">
         Small
       </Button>
-      <Button buttonType="dashed" ml={2}>
+      <Button mt={2} buttonType="dashed" ml={2}>
         Medium
       </Button>
-      <Button buttonType="dashed" size="large" ml={2}>
+      <Button mt={2} buttonType="dashed" size="large" ml={2}>
         Large
       </Button>
     </>
@@ -355,13 +359,13 @@ Dashed buttons can be disabled.
 <Canvas>
   <Story name="dashed/disabled">
     <>
-      <Button buttonType="dashed" disabled size="small">
+      <Button mt={2} buttonType="dashed" disabled size="small">
         Small
       </Button>
-      <Button buttonType="dashed" disabled ml={2}>
+      <Button mt={2} buttonType="dashed" disabled ml={2}>
         Medium
       </Button>
-      <Button buttonType="dashed" disabled size="large" ml={2}>
+      <Button mt={2} buttonType="dashed" disabled size="large" ml={2}>
         Large
       </Button>
     </>
@@ -373,16 +377,17 @@ Dashed buttons can have an icon positioned before or after the text.
 <Canvas>
   <Story name="dashed/icon">
     <>
-      <Button buttonType="dashed" iconType="add" size="small">
+      <Button mt={2} buttonType="dashed" iconType="add" size="small">
         Small
       </Button>
-      <Button buttonType="dashed" iconType="add" iconPosition="after" ml={2}>
+      <Button mt={2} buttonType="dashed" iconType="add" iconPosition="after" ml={2}>
         Medium
       </Button>
-      <Button buttonType="dashed" disabled iconType="add" size="small" ml={2}>
+      <Button mt={2} buttonType="dashed" disabled iconType="add" size="small" ml={2}>
         Small
       </Button>
       <Button
+        mt={2}
         buttonType="dashed"
         disabled
         iconType="add"
@@ -399,7 +404,7 @@ Dashed buttons can be `fullWidth`.
 
 <Canvas>
   <Story name="dashed/full-width">
-    <Button buttonType="dashed" fullWidth>
+    <Button mt={2} buttonType="dashed" fullWidth>
       Full Width
     </Button>
   </Story>
@@ -409,7 +414,7 @@ Dashed buttons can be set to `noWrap` mode to prevent text wrapping.
 
 <Canvas>
   <Story name="dashed/noWrap" parameters={{ chromatic: { disable: true } }}>
-    <Button buttonType="dashed" noWrap>
+    <Button mt={2} buttonType="dashed" noWrap>
       Long button text
     </Button>
   </Story>
@@ -421,10 +426,11 @@ Passing in the `href` prop will render an anchor with `role="button"` and the Bu
 
 <Canvas>
   <Story name="as a link">
-    <Button buttonType="primary" href="/">
+    <Button mt={2} buttonType="primary" href="/">
       I'm a link
     </Button>
     <Button
+      mt={2}
       buttonType="primary"
       href="/"
       target="_blank"
@@ -444,13 +450,20 @@ Buttons can be rendered with just an icon.
   <Story name="icon only button">
     <>
       <Button
+        mt={2}
         buttonType="primary"
         size="small"
         iconType="bin"
         aria-label="Delete"
       />
-      <Button destructive ml={2} iconType="bin" aria-label="Delete" />
       <Button
+        mt={2}
+        destructive
+        ml={2}
+        iconType="bin"
+        aria-label="Delete" />
+      <Button
+        mt={2}
         buttonType="dashed"
         size="large"
         ml={2}
@@ -470,6 +483,7 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
   >
     <>
       <Button
+        mt={2}
         buttonType="primary"
         size="small"
         iconType="bin"
@@ -484,6 +498,7 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
         aria-label="Delete"
       />
       <Button
+        mt={2}
         buttonType="dashed"
         size="large"
         ml={2}

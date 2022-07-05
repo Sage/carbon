@@ -51,12 +51,16 @@ describe("PortraitComponent", () => {
       });
 
       it("rejects an invalid size", () => {
+        const consoleSpy = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => {});
+
         renderDLS(<Portrait src="foo" size="bar" />);
-        expect(console.error).toHaveBeenCalled();
-        expect(console.error.calls.argsFor(0).length).toBe(1);
-        const expected = "Warning: Failed prop type: Invalid prop `size`";
-        const actual = console.error.calls.argsFor(0)[0];
-        expect(actual).toEqual(expect.stringContaining(expected));
+        expect(console.error.mock.calls[0][2]).toBe(
+          'Invalid prop `size` of value `bar` supplied to `Portrait`, expected one of ["XS","S","M","ML","L","XL","XXL"].'
+        );
+
+        consoleSpy.mockRestore();
       });
     });
 
@@ -68,12 +72,16 @@ describe("PortraitComponent", () => {
       });
 
       it("rejects an invalid shape", () => {
+        const consoleSpy = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => {});
+
         renderDLS(<Portrait src="foo" shape="bar" />);
-        expect(console.error).toHaveBeenCalled();
-        expect(console.error.calls.argsFor(0).length).toBe(1);
-        const expected = "Warning: Failed prop type: Invalid prop `shape`";
-        const actual = console.error.calls.argsFor(0)[0];
-        expect(actual).toEqual(expect.stringContaining(expected));
+        expect(console.error.mock.calls[0][2]).toBe(
+          'Invalid prop `shape` of value `bar` supplied to `Portrait`, expected one of ["circle","square"].'
+        );
+
+        consoleSpy.mockRestore();
       });
     });
 
@@ -86,25 +94,31 @@ describe("PortraitComponent", () => {
       });
 
       it("rejects an invalid src", () => {
+        const consoleSpy = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => {});
+
         renderDLS(<Portrait src={42} size="XXL" />);
-        expect(console.error).toHaveBeenCalled();
-        expect(console.error.calls.argsFor(0).length).toBe(1);
-        const expected =
-          "Invalid prop `src` of type `number` supplied to `Portrait`, expected `string`.";
-        const actual = console.error.calls.argsFor(0)[0];
-        expect(actual).toMatch(expected);
+        expect(console.error.mock.calls[0][2]).toBe(
+          "Invalid prop `src` of type `number` supplied to `Portrait`, expected `string`."
+        );
+
+        consoleSpy.mockRestore();
       });
     });
 
     describe("gravatar and src", () => {
       it("throws an error when both gravatar and src are passed", () => {
+        const consoleSpy = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => {});
+
         renderDLS(<Portrait gravatar="example@example.com" src="foo" />);
-        expect(console.error).toHaveBeenCalledTimes(1);
-        expect(console.error.calls.argsFor(0).length).toBe(1);
-        const expected =
-          'Warning: Failed prop type: Portrait requires a prop of "src" or "gravatar" but not both';
-        const actual = console.error.calls.argsFor(0)[0];
-        expect(actual).toMatch(expected);
+        expect(console.error.mock.calls[0][2]).toBe(
+          'Portrait requires a prop of "src" or "gravatar" but not both'
+        );
+
+        consoleSpy.mockRestore();
       });
     });
 
@@ -257,12 +271,16 @@ describe("PortraitComponent", () => {
       });
 
       it("rejects an invalid size", () => {
+        const consoleSpy = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => {});
+
         renderDLS(<StyledIcon type="individual" size="foo" darkBackground />);
-        expect(console.error).toHaveBeenCalled();
-        expect(console.error.calls.argsFor(0).length).toBe(1);
-        const expected = "Warning: Failed prop type: Invalid prop `size`";
-        const actual = console.error.calls.argsFor(0)[0];
-        expect(actual).toEqual(expect.stringContaining(expected));
+        expect(console.error.mock.calls[0][2]).toBe(
+          'Invalid prop `size` of value `foo` supplied to `Styled(Component)`, expected one of ["XS","S","M","ML","L","XL","XXL"].'
+        );
+
+        consoleSpy.mockRestore();
       });
 
       /* eslint-enable no-console */
