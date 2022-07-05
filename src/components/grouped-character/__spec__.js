@@ -23,8 +23,12 @@ describe('GroupedCharacter', () => {
     });
 
     describe('separator custom validation', () => {
+      let consoleSpy;
       beforeEach(() => {
-        spyOn(console, 'error');
+        consoleSpy = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => {});
+
         let badWrapper = mount(
           <GroupedCharacter separator={ 22 } groups={ [2, 2, 2] } />
         );
@@ -32,7 +36,10 @@ describe('GroupedCharacter', () => {
 
       describe('for a separator that is not a string', () => {
         it('throws an error', () => {
-          expect(console.error.calls.argsFor(0)[0]).toContain('Invalid prop separator');
+          expect(console.error.mock.calls[0][2]).toContain(
+            'Invalid prop separator'
+          );
+          consoleSpy.mockRestore();
         });
       });
     });
