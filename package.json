@@ -106,8 +106,7 @@
     "react-test-renderer": "^16.12.0",
     "rimraf": "^2.6.3",
     "semantic-release": "^16.0.1",
-    "underscore.string": "~3.3.4",
-    "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
+    "underscore.string": "~3.3.4"
   },
   "dependencies": {
     "allure-commandline": "^2.13.0",

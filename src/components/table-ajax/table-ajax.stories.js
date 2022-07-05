@@ -3,7 +3,6 @@ import { storiesOf } from '@storybook/react';
 import { text, boolean, object } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
-import { enableMock } from '../../../.storybook/utils/xhr/xhr-mock';
 import {
   TableAjax, TableRow, TableCell, TableHeader
 } from './table-ajax';
@@ -58,8 +57,6 @@ const handleChange = (data) => {
 
 function makeStory(name, themeSelector) {
   const component = () => {
-    enableMock();
-
     const pageSize = text('pageSize', '5');
     const paginate = boolean('paginate', TableAjax.defaultProps.paginate);
     const customHeaders = object('customHeaders', { Accept: 'application/json' });
