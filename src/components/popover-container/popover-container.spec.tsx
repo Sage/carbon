@@ -669,7 +669,9 @@ describe("open state when click event triggered", () => {
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
       undefined
     );
-    document.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+    act(() => {
+      document.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+    });
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
       "PopoverContainer_guid-123"
     );
@@ -683,13 +685,9 @@ describe("open state when click event triggered", () => {
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
       undefined
     );
-    document.dispatchEvent(
-      new CustomEvent("click", {
-        detail: {
-          enzymeTestingTarget: wrapper?.find(PopoverContainer).getDOMNode(),
-        },
-      })
-    );
+    act(() => {
+      wrapper?.find(PopoverContainer).simulate("click");
+    });
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
       undefined
     );
