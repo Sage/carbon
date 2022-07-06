@@ -399,25 +399,19 @@ describe("Submenu component", () => {
 
     describe("when clicked", () => {
       it("should leave the submenu open", () => {
-        const submenuElement = document.querySelector(
-          '[data-component="link"]'
-        );
+        const submenuElement = wrapper.find(StyledSubmenu);
 
         act(() => {
-          document.dispatchEvent(
-            new CustomEvent("click", {
-              detail: {
-                enzymeTestingTarget: submenuElement,
-              },
-            })
-          );
+          submenuElement
+            .getDOMNode()
+            .dispatchEvent(new CustomEvent("click", { bubbles: true }));
         });
 
         act(() => {
           wrapper.update();
         });
 
-        expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
+        expect(submenuElement.exists()).toEqual(true);
       });
     });
 
