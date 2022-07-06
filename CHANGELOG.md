@@ -1,3 +1,10 @@
+### [109.1.2](https://github.com/Sage/carbon/compare/v109.1.1...v109.1.2) (2022-07-06)
+
+
+### Bug Fixes
+
+* **flat-table/sort:** fix color of sort arrows ([a892359](https://github.com/Sage/carbon/commit/a892359a3159fba1a89c6f0301210868c63caeb6)), closes [#4984](https://github.com/Sage/carbon/issues/4984)
+
 ### [109.1.1](https://github.com/Sage/carbon/compare/v109.1.0...v109.1.1) (2022-07-05)
 
 
