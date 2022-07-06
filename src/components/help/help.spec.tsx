@@ -1,21 +1,35 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { shallow, mount } from "enzyme";
+import { shallow, mount, ShallowWrapper, ReactWrapper } from "enzyme";
 import Icon from "components/icon";
-import Help from "./help.component";
+import Help, { HelpProps } from "./help.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledHelp from "./help.style";
 import Tooltip from "../tooltip";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 
+interface MockTippyContent {
+  children: typeof Icon;
+}
+
+jest.mock("@tippyjs/react/headless", () => ({
+  __esModule: true,
+  default: ({ children }: MockTippyContent) => children,
+}));
+
+function renderHelp(props: HelpProps = {}) {
+  const { children } = props;
+  return <Help {...props}>{children || "Helpful Content"}</Help>;
+}
+
 describe("Help", () => {
-  let wrapper;
+  let wrapper: ShallowWrapper | ReactWrapper;
 
   testStyledSystemMargin((props) => <Help {...props} />);
 
   describe("when custom classes are passed", () => {
     it("adds the custom classes", () => {
-      wrapper = renderHelp({ className: "fancy-pants" });
+      wrapper = shallow(renderHelp({ className: "fancy-pants" }));
       expect(wrapper.hasClass("fancy-pants")).toBe(true);
     });
   });
@@ -25,14 +39,14 @@ describe("Help", () => {
     let tooltip;
 
     it('renders an icon with "help" type', () => {
-      wrapper = renderHelp();
+      wrapper = shallow(renderHelp());
       icon = wrapper.find(Icon);
       expect(icon.props().type).toBe("help");
     });
 
     it("passes the children as a prop", () => {
       const mockMessage = <span>Help Message</span>;
-      wrapper = mount(<Help>{mockMessage}</Help>);
+      wrapper = mount(renderHelp({ children: mockMessage }));
       tooltip = wrapper.find(Tooltip);
       expect(tooltip.props().message).toBe(mockMessage);
     });
@@ -42,7 +56,7 @@ describe("Help", () => {
       const mockMessage = "Help Message";
 
       wrapper = mount(
-        <Help tooltipPosition={mockPosition}>{mockMessage}</Help>
+        renderHelp({ tooltipPosition: mockPosition, children: mockMessage })
       );
 
       tooltip = wrapper.find(Tooltip);
@@ -51,35 +65,35 @@ describe("Help", () => {
 
     it("passes the type if provided", () => {
       const mockType = "info";
-      wrapper = renderHelp({ type: mockType });
+      wrapper = shallow(renderHelp({ type: mockType }));
       icon = wrapper.find(Icon);
       expect(icon.props().type).toBe(mockType);
     });
 
     it("passes the tooltipId if provided", () => {
       const tooltipId = "tooltip-id";
-      wrapper = renderHelp({ tooltipId });
+      wrapper = shallow(renderHelp({ tooltipId }));
       icon = wrapper.find(Icon);
       expect(icon.props().tooltipId).toBe(tooltipId);
     });
 
     it("checks the default type if not provided", () => {
       const mockType = "help";
-      wrapper = renderHelp();
+      wrapper = shallow(renderHelp());
       icon = wrapper.find(Icon);
       expect(icon.props().type).toBe(mockType);
     });
 
     it("renders a link when the href if provided", () => {
       const mockHref = "href";
-      wrapper = renderHelp({ href: mockHref }, mount);
+      wrapper = mount(renderHelp({ href: mockHref }));
       expect(wrapper.find("a").exists()).toBe(true);
       wrapper.unmount();
     });
 
     it("sets the appropriate props when href set", () => {
       const mockHref = "href";
-      wrapper = renderHelp({ href: mockHref, ariaLabel: "foo" }, mount);
+      wrapper = mount(renderHelp({ href: mockHref, ariaLabel: "foo" }));
 
       expect(wrapper.find(StyledHelp).prop("target")).toEqual("_blank");
       expect(wrapper.find(StyledHelp).prop("rel")).toEqual(
@@ -100,18 +114,20 @@ describe("Help", () => {
   });
 
   describe("tags on component", () => {
-    const tagsWrapper = renderHelp({
-      "data-element": "bar",
-      "data-role": "baz",
-    });
+    const tagsWrapper = shallow(
+      renderHelp({
+        "data-element": "bar",
+        "data-role": "baz",
+      })
+    );
 
     it("include correct component, element and role data tags", () => {
       rootTagTest(tagsWrapper, "help", "bar", "baz");
     });
   });
 
-  it("it does not prevent clicking interacting with the input", () => {
-    wrapper = renderHelp({}, mount);
+  it("does not prevent clicking interacting with the input", () => {
+    wrapper = mount(renderHelp({}));
     const preventDefault = jest.fn();
     wrapper.simulate("click", { preventDefault });
     expect(preventDefault).not.toHaveBeenCalled();
@@ -119,7 +135,7 @@ describe("Help", () => {
 
   describe("when the Help component is focused", () => {
     beforeEach(() => {
-      wrapper = renderHelp({}, mount);
+      wrapper = mount(renderHelp({}));
       wrapper.find(StyledHelp).simulate("focus");
     });
 
@@ -149,7 +165,7 @@ describe("Help", () => {
 
   describe("when the Help receives a mouse over event", () => {
     beforeEach(() => {
-      wrapper = renderHelp({}, mount);
+      wrapper = mount(renderHelp({}));
       wrapper.find(StyledHelp).simulate("mouseover");
     });
 
@@ -179,7 +195,7 @@ describe("Help", () => {
       key: "Enter",
       bubbles: true,
     });
-    let domNode;
+    let domNode: Element;
 
     beforeEach(() => {
       act(() => {
@@ -218,38 +234,4 @@ describe("Help", () => {
       document.body.removeChild(domNode);
     });
   });
-
-  describe("tooltipFlipOverrides", () => {
-    it("does not throw an error if a valid array is passed", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
-
-      renderHelp(
-        { type: "home", tooltipFlipOverrides: ["top", "bottom"] },
-        mount
-      );
-
-      // eslint-disable-next-line no-console
-      expect(console.error).not.toHaveBeenCalled();
-      global.console.error.mockReset();
-    });
-
-    it("throws an error if a invalid array is passed", () => {
-      const mockGlobal = jest
-        .spyOn(global.console, "error")
-        .mockImplementation(() => undefined);
-
-      expect(() => {
-        renderHelp(
-          { type: "home", tooltipFlipOverrides: ["foo", "bar"] },
-          mount
-        );
-      }).toThrow();
-
-      mockGlobal.mockReset();
-    });
-  });
 });
-
-function renderHelp(props, renderer = shallow) {
-  return renderer(<Help {...props}>Helpful Content</Help>);
-}
