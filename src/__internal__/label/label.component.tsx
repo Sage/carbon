@@ -23,7 +23,7 @@ export interface LabelProps
   /** Icon type */
   helpIcon?: IconType;
   /** Overrides the default tabindex of the Help component */
-  helpTabIndex?: string;
+  helpTabIndex?: number | string;
   /** A string that represents the ID of another form element */
   htmlFor?: string;
   /** The unique id of the label element */
@@ -135,7 +135,7 @@ export const Label = ({
         <StyledIconWrapper {...wrapperProps}>
           <Help
             tooltipId={tooltipId}
-            tabIndex={helpTabIndex}
+            tabIndex={Number(helpTabIndex)}
             type={helpIcon}
             isFocused={isFocused}
           >

@@ -510,14 +510,6 @@ context("Testing Checkbox component", () => {
         checkboxGroup().should("contain.text", "Checkbox 3");
       });
 
-      // Skipping this test as it is failing due to https://github.com/Sage/carbon/issues/5247
-      it.skip("should render CheckboxGroup component with groupName", () => {
-        CypressMountWithProviders(
-          <CheckboxGroupComponent groupName="testGroupName" />
-        );
-        checkboxRole().should("have.attr", "name", "testGroupName");
-      });
-
       it.each([
         [1, "8px"],
         [2, "16px"],
