@@ -1104,7 +1104,7 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
 
 export const FlatTableSortableStory = (args) => {
   const headDataItems = [
-    { name: "client", isActive: false },
+    { name: "client", isActive: true },
     { name: "total", isActive: false },
   ];
   const bodyDataItems = [
@@ -1115,7 +1115,7 @@ export const FlatTableSortableStory = (args) => {
   ];
   const [headData, setHeadData] = useState(headDataItems);
   const [sortType, setSortType] = useState("ascending");
-  const [sortValue, setSortValue] = useState();
+  const [sortValue, setSortValue] = useState("client");
   const sortByNumber = (dataToSort, sortByValue, type) => {
     const sortedData = dataToSort.sort((a, b) => {
       if (type === "ascending") {

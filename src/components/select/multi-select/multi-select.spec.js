@@ -365,7 +365,7 @@ describe("MultiSelect", () => {
           [prop]: true,
         });
 
-        expect(wrapper.find(Pill).at(0).props().onDelete).toBe(null);
+        expect(wrapper.find(Pill).at(0).props().onDelete).toBe(undefined);
       });
     }
   );
@@ -880,6 +880,21 @@ describe("MultiSelect", () => {
         wrapper.find(SelectList).prop("onSelect")(mockOptionObject);
       });
       expect(onChangeFn).toHaveBeenCalledWith(expectedEventObject);
+    });
+  });
+
+  describe("wrapPillText", () => {
+    it("sets the allowTextWrap prop on the pills and overrides truncate value if true", () => {
+      const pill = renderSelect({
+        name: "testName",
+        id: "testId",
+        wrapPillText: true,
+        truncatePillText: true,
+        value: ["opt1"],
+        onChange: jest.fn(),
+      }).find(Pill);
+
+      expect(pill.prop("wrapText")).toBe(true);
     });
   });
 });
