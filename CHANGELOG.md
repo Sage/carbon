@@ -1,3 +1,10 @@
+### [109.1.3](https://github.com/Sage/carbon/compare/v109.1.2...v109.1.3) (2022-07-08)
+
+
+### Bug Fixes
+
+* **popover-container:** position automatically depending on available space ([4b63a17](https://github.com/Sage/carbon/commit/4b63a17caf8517f2de44c2442be49155d46d30ce))
+
 ### [109.1.2](https://github.com/Sage/carbon/compare/v109.1.1...v109.1.2) (2022-07-06)
 
 

@@ -28,6 +28,7 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-toolbars",
   ],
+  staticDirs: ["../.assets", "../logo"],
   webpackFinal: async (config, { configType }) => {
     config.resolve = {
       alias: {

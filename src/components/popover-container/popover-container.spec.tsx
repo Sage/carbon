@@ -3,6 +3,9 @@ import React, { forwardRef } from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 import { Transition } from "react-transition-group";
+import { OffsetsFunction } from "@popperjs/core/lib/modifiers/offset";
+
+import Popover from "../../__internal__/popover";
 import {
   PopoverContainerContentStyle,
   PopoverContainerCloseIcon,
@@ -161,18 +164,6 @@ describe("PopoverContainer", () => {
     expect(wrapper.find("button").props().tabIndex).toBe(0);
   });
 
-  it("`position` should be right by default", () => {
-    act(() => {
-      wrapper.find(PopoverContainerOpenIcon).props().onAction();
-    });
-
-    wrapper.update();
-
-    expect(wrapper.find(PopoverContainerContentStyle).props().position).toBe(
-      "right"
-    );
-  });
-
   it("`shouldCoverButton` should be false by default", () => {
     act(() => {
       wrapper.find(PopoverContainerOpenIcon).props().onAction();
@@ -180,9 +171,51 @@ describe("PopoverContainer", () => {
 
     wrapper.update();
 
-    expect(
-      wrapper.find(PopoverContainerContentStyle).props().shouldCoverButton
-    ).toBe(false);
+    expect(wrapper.find(PopoverContainerContentStyle).props().modifiers).toBe(
+      undefined
+    );
+  });
+
+  describe("popover", () => {
+    it("renders a DayPicker inside of a Popover", () => {
+      wrapper = render({ open: true });
+
+      expect(
+        wrapper.find(Popover).find(PopoverContainerContentStyle).exists()
+      ).toBe(true);
+    });
+
+    it("should have the correct offset when shouldCoverButton is set to true", () => {
+      wrapper = render({ shouldCoverButton: true, open: true });
+
+      expect(
+        wrapper.find(Popover).props().modifiers?.[0]?.options?.offset
+      ).not.toBe(undefined);
+
+      const reference = { height: 40, width: 0, y: 0, x: 0 };
+      const placement = "bottom";
+
+      expect(
+        (wrapper.find(Popover).props().modifiers?.[0]?.options
+          ?.offset as OffsetsFunction)({
+          placement,
+          reference,
+          popper: reference,
+        })
+      ).toEqual([0, -40]);
+    });
+
+    it.each([
+      ["bottom-start", "right"] as const,
+      ["bottom-end", "left"] as const,
+    ])(
+      "should have placement equal to %s when position prop is equal %s",
+      (placement, position) => {
+        wrapper = render({ position, open: true });
+
+        expect(wrapper.find(Popover).props().placement).toEqual(placement);
+      }
+    );
   });
 
   describe("if is controlled", () => {
@@ -430,6 +463,7 @@ describe("PopoverContainer", () => {
     });
 
     describe("and custom component is provided as a closing button", () => {
+      jest.useFakeTimers();
       interface MyCloseButtonProps extends RenderCloseProps {
         children: React.ReactNode;
       }
@@ -480,6 +514,7 @@ describe("PopoverContainer", () => {
       });
 
       it("should be focused if `ref` is provided", () => {
+        jest.runAllTimers();
         expect(wrapper.find(MyCloseButton)).toBeFocused();
       });
 
@@ -561,12 +596,6 @@ describe("PopoverContainerContentStyle", () => {
     expect(wrapper.find(PopoverContainerContentStyle).props().role).toBe(
       "dialog"
     );
-    expect(wrapper.find(PopoverContainerContentStyle).props().position).toBe(
-      "right"
-    );
-    expect(
-      wrapper.find(PopoverContainerContentStyle).props().shouldCoverButton
-    ).toBe(false);
     expect(
       wrapper.find(PopoverContainerContentStyle).prop("aria-labelledby")
     ).toContain("PopoverContainer_guid-123");
@@ -591,39 +620,6 @@ describe("PopoverContainerContentStyle", () => {
     ).toBe(undefined);
     expect(wrapper.find(PopoverContainerContentStyle).prop("aria-label")).toBe(
       "bar"
-    );
-  });
-
-  it("should render to the right by default", () => {
-    const wrapper = mount(<PopoverContainerContentStyle />);
-
-    assertStyleMatch(
-      {
-        left: "0",
-      },
-      wrapper
-    );
-  });
-
-  it("should render to the left if position is set to `left`", () => {
-    const wrapper = mount(<PopoverContainerContentStyle position="left" />);
-
-    assertStyleMatch(
-      {
-        right: "0",
-      },
-      wrapper
-    );
-  });
-
-  it("should render correct style if `shouldCoverButton` prop is provided", () => {
-    const wrapper = mount(<PopoverContainerContentStyle shouldCoverButton />);
-
-    assertStyleMatch(
-      {
-        top: "0",
-      },
-      wrapper
     );
   });
 
