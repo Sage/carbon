@@ -1,4 +1,22 @@
-export default () => {
+interface StyledPillInnerConfigProps {
+  varietyColor: string;
+  buttonFocus: string;
+  content: string;
+}
+
+interface StyledPillConfig {
+  status: {
+    neutral: StyledPillInnerConfigProps;
+    negative: StyledPillInnerConfigProps;
+    warning: StyledPillInnerConfigProps;
+    positive: StyledPillInnerConfigProps;
+  };
+  tag: {
+    primary: StyledPillInnerConfigProps;
+  };
+}
+
+export default (): StyledPillConfig => {
   return {
     status: {
       neutral: {
