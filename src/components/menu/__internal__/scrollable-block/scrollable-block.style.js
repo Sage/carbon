@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import StyledMenuItemWrapper from "../menu-item/menu-item.style";
-import menuConfigVariants from "../menu.config";
+import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
+import menuConfigVariants from "../../menu.config";
 
 const StyledScrollableBlock = styled.div`
   ${({ menuType, variant }) => css`

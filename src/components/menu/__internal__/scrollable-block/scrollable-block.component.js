@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
-import MenuContext from "../menu.context";
-import SubmenuContext from "../__internal__/submenu/submenu.context";
+import MenuContext from "../../menu.context";
+import SubmenuContext from "../submenu/submenu.context";
 import StyledScrollableBlock from "./scrollable-block.style";
-import Box from "../../box";
+import Box from "../../../box";
 
 const ScrollableBlock = ({
   children,
@@ -36,15 +36,11 @@ const ScrollableBlock = ({
         scrollVariant={scrollVariants[menuContext.menuType]}
         height={height}
         p={0}
-        role="presentation"
+        role="list"
+        as="ul"
       >
         {React.Children.map(children, (child, index) => {
-          let isFocused = false;
-          const blockItemFocused = focusIndex >= blockIndex;
-
-          if (blockItemFocused) {
-            isFocused = focusIndex - blockIndex === index;
-          }
+          const isFocused = focusIndex - blockIndex === index;
 
           return (
             <SubmenuContext.Provider

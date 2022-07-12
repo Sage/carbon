@@ -6,7 +6,6 @@ import {
   MenuItem,
   MenuDivider,
   MenuSegmentTitle,
-  ScrollableBlock,
   MenuFullscreen,
 } from ".";
 import Box from "../box";
@@ -457,59 +456,69 @@ In order to align text and icons within a submenu a `Box` component will need to
 
 ### Scrollable submenu
 
-A scrollable submenu can be added using the `ScrollableBlock` component. This can be used for all of the submenu items, or just a selection, as shown in `Menu Itme Four` below.
-Note that only one `ScrollableBlock` can be used within a single submenu.
+A scrollable submenu can be added using the `scrollable` prop on a `MenuItem`.
+If the `MenuItem` also has the `submenu` prop, the whole submenu will be scrollable - if added to a child `MenuItem` of a submenu then a nested list is
+rendered, with the text inside as a parent menu item and the nested `MenuItem`s being scrollable.
+It is possible to use this more than once within a single submenu, as shown in `Menu Item Four` below.
 
 <Canvas>
   <Story
     name="scrollable submenu"
     parameters={{ chromatic: { disable: true } }}
+    decorators={[
+      (Story) => <Box mb={500}><Story/></Box>
+    ]}
   >
-    <Box mb={150}>
-      {["white", "light", "dark", "black"].map((menuType) => (
-        <div key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType}>
-            <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
-            <MenuItem href="#">Menu Item Two</MenuItem>
-            <MenuItem submenu="Menu Item Three">
-              <ScrollableBlock height="200px">
-                <MenuItem href="#">Item Submenu One</MenuItem>
-                <MenuItem href="#">Item Submenu Two</MenuItem>
-                <MenuItem href="#">Item Submenu Three</MenuItem>
-                <MenuItem href="#">Item Submenu Four</MenuItem>
-                <MenuItem href="#">Item Submenu Five</MenuItem>
-                <MenuItem href="#">Item Submenu Six</MenuItem>
-                <MenuItem href="#">Item Submenu Seven</MenuItem>
-                <MenuItem href="#">Item Submenu Eight</MenuItem>
-                <MenuItem href="#">Item Submenu Nine</MenuItem>
-                <MenuItem href="#">Item Submenu Ten</MenuItem>
-                <MenuItem href="#">Item Submenu Eleven</MenuItem>
-                <MenuItem href="#">Item Submenu Twelve</MenuItem>
-              </ScrollableBlock>
+    {["white", "light", "dark", "black"].map((menuType) => (
+      <div key={menuType}>
+        <Typography variant="h4" textTransform="capitalize" my={2}>
+          {menuType}
+        </Typography>
+        <Menu menuType={menuType}>
+          <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+          <MenuItem href="#">Menu Item Two</MenuItem>
+          <MenuItem submenu="Menu Item Three" scrollable scrollHeight="200px">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuItem href="#">Item Submenu Three</MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+            <MenuItem href="#">Item Submenu Five</MenuItem>
+            <MenuItem href="#">Item Submenu Six</MenuItem>
+            <MenuItem href="#">Item Submenu Seven</MenuItem>
+            <MenuItem href="#">Item Submenu Eight</MenuItem>
+            <MenuItem href="#">Item Submenu Nine</MenuItem>
+            <MenuItem href="#">Item Submenu Ten</MenuItem>
+            <MenuItem href="#">Item Submenu Eleven</MenuItem>
+            <MenuItem href="#">Item Submenu Twelve</MenuItem>
+          </MenuItem>
+          <MenuItem submenu="Menu Item Four">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#" scrollable scrollVariant="alternate" scrollHeight="200px">
+              Item Submenu Two
+              <MenuItem href="#">First nested list, item one</MenuItem>
+              <MenuItem href="#">First nested list, item two</MenuItem>
+              <MenuItem href="#">First nested list, item three</MenuItem>
+              <MenuItem href="#">First nested list, item four</MenuItem>
+              <MenuItem href="#">First nested list, item five</MenuItem>
+              <MenuItem href="#">First nested list, item six</MenuItem>
+              <MenuItem href="#">First nested list, item seven</MenuItem>
+              <MenuItem href="#">First nested list, item eight</MenuItem>
             </MenuItem>
-            <MenuItem submenu="Menu Item Four">
-              <MenuItem href="#">Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <ScrollableBlock variant="alternate" height="200px">
-                <MenuItem href="#">Item Submenu Three</MenuItem>
-                <MenuItem href="#">Item Submenu Four</MenuItem>
-                <MenuItem href="#">Item Submenu Five</MenuItem>
-                <MenuItem href="#">Item Submenu Six</MenuItem>
-                <MenuItem href="#">Item Submenu Seven</MenuItem>
-                <MenuItem href="#">Item Submenu Eight</MenuItem>
-                <MenuItem href="#">Item Submenu Nine</MenuItem>
-                <MenuItem href="#">Item Submenu Ten</MenuItem>
-                <MenuItem href="#">Item Submenu Eleven</MenuItem>
-                <MenuItem href="#">Item Submenu Twelve</MenuItem>
-              </ScrollableBlock>
+            <MenuItem href="#" scrollable scrollVariant="alternate" scrollHeight="200px">
+              Item Submenu Three
+              <MenuItem href="#">Second nested list, item one</MenuItem>
+              <MenuItem href="#">Second nested list, item two</MenuItem>
+              <MenuItem href="#">Second nested list, item three</MenuItem>
+              <MenuItem href="#">Second nested list, item four</MenuItem>
+              <MenuItem href="#">Second nested list, item five</MenuItem>
+              <MenuItem href="#">Second nested list, item six</MenuItem>
+              <MenuItem href="#">Second nested list, item seven</MenuItem>
+              <MenuItem href="#">Second nested list, item eight</MenuItem>
             </MenuItem>
-          </Menu>
-        </div>
-      ))}
-    </Box>
+          </MenuItem>
+        </Menu>
+      </div>
+    ))}
   </Story>
 </Canvas>
 
@@ -746,10 +755,6 @@ as such any `maxWidth` value passed will not be set when they are children of `M
 ### MenuItem
 
 <StyledSystemProps of={MenuItem} flexBox layout noHeader />
-
-### ScrollableBlock
-
-<ArgsTable of={ScrollableBlock} />
 
 ### MenuDivider
 

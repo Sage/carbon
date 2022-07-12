@@ -9,7 +9,6 @@ import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import { StyledSubmenu } from "./submenu.style";
 import MenuDivider from "../../menu-divider/menu-divider.component";
 import Submenu from "./submenu.component";
-import ScrollableBlock from "../../scrollable-block";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 import { mintTheme } from "../../../../style/themes";
 import Search from "../../../search";
@@ -17,6 +16,7 @@ import StyledSearch from "../../../search/search.style";
 import openSubmenu from "../spec-helper";
 import SubmenuContext from "./submenu.context";
 import menuConfigVariants from "../../menu.config";
+import ScrollableBlock from "../scrollable-block";
 
 const events = {
   arrowDown: {
@@ -1129,17 +1129,40 @@ describe("Submenu component", () => {
     }
   );
 
-  describe("when it has a ScrollableBlock as a child", () => {
+  describe("when the entire submenu is scrollable", () => {
+    const renderScrollableBlock = (menuType, props) => {
+      return mount(
+        <MenuContext.Provider value={menuContextValues(menuType)}>
+          <Submenu scrollable title="title" tabIndex={-1} {...props}>
+            <ScrollableBlock>
+              <MenuItem>Apple</MenuItem>
+              <MenuItem>Banana</MenuItem>
+              <MenuItem>Carrot</MenuItem>
+              <MenuItem>Broccoli</MenuItem>
+            </ScrollableBlock>
+          </Submenu>
+        </MenuContext.Provider>,
+        { attachTo: htmlElement }
+      );
+    };
+    it("should render all of the underlying menu items", () => {
+      wrapper = renderScrollableBlock("light");
+      openSubmenu(wrapper);
+      expect(wrapper.find(MenuItem).length).toEqual(4);
+    });
+  });
+
+  describe("when it has a scrollable nested submenu", () => {
     const renderScrollableBlock = (menuType, props) => {
       return mount(
         <MenuContext.Provider value={menuContextValues(menuType)}>
           <Submenu title="title" tabIndex={-1} {...props}>
             <MenuItem>Apple</MenuItem>
-            <MenuItem>Banana</MenuItem>
-            <ScrollableBlock>
+            <MenuItem scrollable>
+              Banana
               <MenuItem>Carrot</MenuItem>
               <MenuItem>Broccoli</MenuItem>
-            </ScrollableBlock>
+            </MenuItem>
           </Submenu>
         </MenuContext.Provider>,
         { attachTo: htmlElement }

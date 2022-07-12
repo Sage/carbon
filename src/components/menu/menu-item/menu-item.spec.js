@@ -86,13 +86,13 @@ describe("MenuItem", () => {
   testStyledSystemFlexBox((props) => <MenuItem {...props}>Item One</MenuItem>);
 
   it("should render children correctly", () => {
-    wrapper = shallow(<MenuItem>Item One</MenuItem>);
+    wrapper = mount(<MenuItem>Item One</MenuItem>);
 
     expect(wrapper.find(StyledMenuItemWrapper).text()).toContain("Item One");
   });
 
   it("should render additional `carbon-menu-item--has-link` if specified prop exists", () => {
-    wrapper = shallow(<MenuItem href="#">Item One</MenuItem>);
+    wrapper = mount(<MenuItem href="#">Item One</MenuItem>);
 
     expect(wrapper.find(StyledMenuItemWrapper).props().className).toBe(
       "carbon-menu-item--has-link"

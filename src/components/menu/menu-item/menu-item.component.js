@@ -17,6 +17,7 @@ import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
 import { StyledMenuItem } from "../menu.style";
 import Search from "../../search";
+import ScrollableBlock from "../__internal__/scrollable-block";
 
 const MenuItem = ({
   submenu,
@@ -36,6 +37,9 @@ const MenuItem = ({
   menuOpen,
   onSubmenuOpen,
   onSubmenuClose,
+  scrollable,
+  scrollHeight,
+  scrollVariant = variant,
   ...rest
 }) => {
   const menuContext = useContext(MenuContext);
@@ -43,18 +47,21 @@ const MenuItem = ({
   const ref = useRef(null);
   const focusFromMenu = menuContext.isFocused;
   const focusFromSubmenu = submenuContext.isFocused;
-  const isChildSearch = useRef(false);
+  const submenuHandleKeyDown = submenuContext.handleKeyDown;
+  const { menuType } = menuContext;
   const childRef = useRef();
   const { inFullscreenView } = menuContext;
-  const childrenItems = React.Children.map(children, (child) => {
-    if (child?.type === Search) {
-      isChildSearch.current = true;
-    }
 
-    return child;
-  });
+  const isChildSearch = useMemo(
+    () =>
+      !!React.Children.toArray(children).find(
+        (child) => child?.type === Search
+      ),
+    [children]
+  );
 
-  const focusRef = isChildSearch.current ? childRef : ref;
+  const focusRef = isChildSearch ? childRef : ref;
+
   useEffect(() => {
     if (focusFromSubmenu === undefined && focusFromMenu) {
       focusRef.current.focus();
@@ -80,21 +87,21 @@ const MenuItem = ({
         ref.current.focus();
       }
 
-      if (submenuContext.handleKeyDown !== undefined) {
+      if (submenuHandleKeyDown !== undefined) {
         if (
           !(
-            isChildSearch.current &&
+            isChildSearch &&
             document.activeElement === focusRef.current &&
             focusRef.current?.value
           )
         ) {
-          submenuContext.handleKeyDown(event);
+          submenuHandleKeyDown(event);
         }
       } else {
         menuContext.handleKeyDown(event);
       }
     },
-    [focusRef, menuContext, onKeyDown, submenuContext]
+    [focusRef, menuContext, onKeyDown, submenuHandleKeyDown, isChildSearch]
   );
 
   const classes = useMemo(
@@ -105,32 +112,109 @@ const MenuItem = ({
     [href, onClick]
   );
 
-  const elementProps = {
-    className: classes,
-    href,
-    target,
-    onClick:
-      onClick || (isChildSearch.current ? updateFocusOnClick : undefined),
-    icon,
-    selected,
-    variant,
-    onKeyDown: !inFullscreenView ? handleKeyDown : undefined,
-    ref,
-  };
+  const elementProps = useMemo(
+    () => ({
+      className: classes,
+      href,
+      target,
+      onClick: onClick || (isChildSearch ? updateFocusOnClick : undefined),
+      icon,
+      selected,
+      variant,
+      onKeyDown: !inFullscreenView ? handleKeyDown : undefined,
+      ref,
+    }),
+    [
+      classes,
+      handleKeyDown,
+      href,
+      icon,
+      inFullscreenView,
+      onClick,
+      selected,
+      target,
+      updateFocusOnClick,
+      variant,
+      isChildSearch,
+    ]
+  );
 
-  const clonedChildren = isChildSearch.current
-    ? childrenItems.map((child) =>
-        React.cloneElement(child, { inputRef: childRef })
-      )
-    : children;
+  const clonedChildren = useMemo(
+    () =>
+      isChildSearch
+        ? React.Children.map(children, (child) =>
+            React.cloneElement(child, { inputRef: childRef })
+          )
+        : children,
+    [children, isChildSearch]
+  );
 
   const getTitle = (title) =>
     maxWidth && typeof title === "string" ? title : "";
 
   const itemMaxWidth = !inFullscreenView ? maxWidth : undefined;
 
+  const renderMenuItems = useCallback(
+    (childItems) => (
+      <StyledMenuItemWrapper
+        as={isChildSearch ? "div" : Link}
+        isSearch={isChildSearch}
+        menuType={menuType}
+        {...elementProps}
+        ariaLabel={ariaLabel}
+        maxWidth={maxWidth}
+        inFullscreenView={inFullscreenView}
+      >
+        {childItems}
+      </StyledMenuItemWrapper>
+    ),
+    [
+      ariaLabel,
+      elementProps,
+      inFullscreenView,
+      maxWidth,
+      menuType,
+      isChildSearch,
+    ]
+  );
+
+  const childItems = useMemo(() => {
+    if (scrollable) {
+      const menuItemChildren = React.Children.toArray(clonedChildren).filter(
+        (child) => child.type === MenuItem
+      );
+      const nonMenuItemChildren = React.Children.toArray(clonedChildren).filter(
+        (child) => child.type !== MenuItem
+      );
+
+      return (
+        <>
+          {renderMenuItems(nonMenuItemChildren)}
+          <ScrollableBlock height={scrollHeight} variant={scrollVariant}>
+            {menuItemChildren}
+          </ScrollableBlock>
+        </>
+      );
+    }
+    return renderMenuItems(clonedChildren);
+  }, [
+    clonedChildren,
+    scrollable,
+    scrollHeight,
+    scrollVariant,
+    renderMenuItems,
+  ]);
+
   if (submenu) {
     const asPassiveItem = !(onClick || href);
+
+    const submenuContents = scrollable ? (
+      <ScrollableBlock height={scrollHeight} variant={scrollVariant}>
+        {children}
+      </ScrollableBlock>
+    ) : (
+      children
+    );
 
     return (
       <StyledMenuItem
@@ -153,10 +237,11 @@ const MenuItem = ({
           ariaLabel={ariaLabel}
           onSubmenuOpen={onSubmenuOpen}
           onSubmenuClose={onSubmenuClose}
+          scrollable={scrollable}
           {...elementProps}
           {...rest}
         >
-          {childrenItems}
+          {submenuContents}
         </Submenu>
       </StyledMenuItem>
     );
@@ -174,17 +259,7 @@ const MenuItem = ({
       inFullscreenView={inFullscreenView && !Object.keys(submenuContext).length}
       menuOpen={menuOpen}
     >
-      <StyledMenuItemWrapper
-        as={isChildSearch.current ? "div" : Link}
-        isSearch={isChildSearch.current}
-        menuType={menuContext.menuType}
-        {...elementProps}
-        ariaLabel={ariaLabel}
-        maxWidth={maxWidth}
-        inFullscreenView={inFullscreenView}
-      >
-        {clonedChildren}
-      </StyledMenuItemWrapper>
+      {childItems}
     </StyledMenuItem>
   );
 };
@@ -261,6 +336,12 @@ MenuItem.propTypes = {
   onSubmenuOpen: PropTypes.func,
   /** Callback triggered when submenu closes. Only valid with submenu prop */
   onSubmenuClose: PropTypes.func,
+  /** If set, renders any child MenuItems inside a scrollable sublist */
+  scrollable: PropTypes.bool,
+  /** Styled system height prop for scrollable sublist */
+  scrollHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /** set the colour variant for the scrollable sublist. Defaults to the variant of the MenuItem itself */
+  scrollVariant: PropTypes.oneOf(["default", "alternate"]),
 };
 
 export default MenuItem;

@@ -2,13 +2,13 @@ import React from "react";
 import { mount } from "enzyme";
 
 import ScrollableBlock from ".";
-import MenuItem from "../menu-item";
-import MenuContext from "../menu.context";
-import menuConfigVariants from "../menu.config";
-import SubmenuContext from "../__internal__/submenu/submenu.context";
-import StyledMenuItemWrapper from "../menu-item/menu-item.style";
-import MenuDivider from "../menu-divider/menu-divider.component";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import MenuItem from "../../menu-item";
+import MenuContext from "../../menu.context";
+import menuConfigVariants from "../../menu.config";
+import SubmenuContext from "../submenu/submenu.context";
+import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
+import MenuDivider from "../../menu-divider/menu-divider.component";
+import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 
 const handleKeyDownFn = jest.fn();
 

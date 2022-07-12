@@ -57,7 +57,7 @@ When("I scroll to the bottom of the block", () => {
 });
 
 Then("The last element is visible", () => {
-  lastSubmenuElement(div).should("be.visible");
+  lastSubmenuElement("li").should("be.visible");
 });
 
 Then(
@@ -199,6 +199,22 @@ Then("{string} inner menu element is focused", (position) => {
   fullScreenMenuItem(positionOfElement(position))
     .find("ul > li")
     .eq(1)
+    .children()
+    .children()
+    .should("be.focused");
+});
+
+Then("{string} submenu element is focused", (position) => {
+  submenu()
+    .find("ul > li")
+    .eq(positionOfElement(position))
+    .children()
+    .children()
+    .should("have.css", "box-shadow")
+    .and("contain", "rgb(255, 181, 0)");
+  submenu()
+    .find("ul > li")
+    .eq(positionOfElement(position))
     .children()
     .children()
     .should("be.focused");

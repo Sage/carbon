@@ -35,6 +35,12 @@ export interface MenuWithChildren extends MenuItemBaseProps {
   children: React.ReactNode;
   /** Either prop `icon` must be defined or this node must have children. */
   icon?: IconType;
+  /** If set, renders any child MenuItems inside a scrollable sublist */
+  scrollable?: boolean;
+  /** Styled system height prop for scrollable sublist */
+  scrollHeight?: string | number;
+  /** set the colour variant for the scrollable sublist. Defaults to the variant of the MenuItem itself */
+  scrollVariant?: "default" | "alternate";
 }
 
 export interface MenuWithIcon extends MenuItemBaseProps {

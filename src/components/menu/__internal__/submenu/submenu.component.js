@@ -16,7 +16,6 @@ import Events from "../../../../__internal__/utils/helpers/events";
 import MenuContext from "../../menu.context";
 import MenuItem from "../../menu-item";
 import { characterNavigation } from "../keyboard-navigation";
-import ScrollableBlock from "../../scrollable-block";
 import SubmenuContext from "./submenu.context";
 import useClickAwayListener from "../../../../hooks/__internal__/useClickAwayListener";
 
@@ -38,6 +37,7 @@ const Submenu = React.forwardRef(
       onSubmenuOpen,
       onSubmenuClose,
       onClick,
+      scrollable,
       ...rest
     },
     ref
@@ -49,20 +49,103 @@ const Submenu = React.forwardRef(
     const [submenuFocusIndex, setSubmenuFocusIndex] = useState(undefined);
     const [characterString, setCharacterString] = useState("");
     const submenuRef = useRef();
-    const formattedChildren = React.Children.map(children, (child) => {
-      if (child.type === ScrollableBlock) {
-        return [...child.props.children];
+
+    const formattedChildren = useMemo(() => {
+      if (scrollable) {
+        // there will be only one child, a ScrollableBlock containing the "real" MenuItem children
+        return children.props.children;
       }
 
-      return child;
-    });
+      const childrenFormatted = [];
 
-    const arrayOfFormattedChildren = React.Children.toArray(formattedChildren);
+      React.Children.forEach(children, (child) => {
+        if (child?.props.scrollable) {
+          // remove any MenuItem components from the child's children, and consider these as separate children
+          const allScrollableChildren = React.Children.toArray(
+            child?.props.children
+          );
+          const menuItems = allScrollableChildren.filter(
+            (scrollableChild) => scrollableChild.type === MenuItem
+          );
+          const nonMenuItems = allScrollableChildren.filter(
+            (scrollableChild) => scrollableChild.type !== MenuItem
+          );
+          const menuItemsRemoved = React.cloneElement(child, {
+            children: nonMenuItems,
+          });
+
+          childrenFormatted.push(menuItemsRemoved, ...menuItems);
+        } else {
+          childrenFormatted.push(child);
+        }
+      });
+
+      return childrenFormatted;
+    }, [children, scrollable]);
+
+    const arrayOfFormattedChildren = useMemo(
+      () => React.Children.toArray(formattedChildren),
+      [formattedChildren]
+    );
 
     const numberOfChildren = useMemo(
       () => React.Children.count(formattedChildren),
       [formattedChildren]
     );
+
+    const scrollableParts = useMemo(() => {
+      const parts = [];
+      if (scrollable) {
+        parts.push({ start: 0, end: numberOfChildren - 1 });
+      } else {
+        let scrollableChildrenSoFar = 0;
+        React.Children.forEach(children, (child, index) => {
+          if (child?.type === MenuItem && child.props.scrollable) {
+            const scrollableChildrenCount = React.Children.toArray(
+              child.props.children
+            ).filter((grandChild) => grandChild.type === MenuItem).length;
+
+            const startIndex = index + scrollableChildrenSoFar;
+
+            parts.push({
+              start: startIndex + 1,
+              end: startIndex + scrollableChildrenCount,
+            });
+
+            scrollableChildrenSoFar += scrollableChildrenCount;
+          }
+        });
+      }
+      return parts;
+    }, [children, numberOfChildren, scrollable]);
+
+    // given the index of an item in the submenu, determines the index of its first scrollable child
+    // in the array of all flattened children including scrollable blocks, if it exists.
+    // Otherwise, returns the index of the previous "first scrollable child", or 1 more than its own index
+    // if there are no scrollable blocks before it - in both cases the resulting blockindex ensures no
+    // items are focused.
+    const getBlockIndex = (childIndex) => {
+      let blockIndex = childIndex + 1;
+      let scrollableCount = 0;
+      for (const { start, end } of scrollableParts) {
+        const actualIndex = childIndex + scrollableCount;
+        if (start > actualIndex + 1) {
+          break;
+        }
+        blockIndex = start;
+        scrollableCount += end - start + 1;
+      }
+      return blockIndex;
+    };
+
+    const isFocusInScrollableBlock = useMemo(() => {
+      for (const { start, end } of scrollableParts) {
+        if (submenuFocusIndex >= start && submenuFocusIndex <= end) {
+          return true;
+        }
+      }
+      return false;
+    }, [scrollableParts, submenuFocusIndex]);
 
     const characterTimer = useRef();
 
@@ -204,7 +287,7 @@ const Submenu = React.forwardRef(
           // If not, call handleKeyDown again
           const nextChild = arrayOfFormattedChildren[nextIndex];
 
-          if (nextChild?.type === MenuItem) {
+          if (nextChild?.type === MenuItem || typeof nextChild === "string") {
             setSubmenuFocusIndex(nextIndex);
           } else {
             handleKeyDown(event, nextIndex);
@@ -247,7 +330,6 @@ const Submenu = React.forwardRef(
           React.Children.toArray(formattedChildren),
           submenuFocusIndex
         );
-
         setSubmenuFocusIndex(nextIndex);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -263,6 +345,7 @@ const Submenu = React.forwardRef(
           inFullscreenView={inFullscreenView}
           menuType={menuContext.menuType}
           asPassiveItem={asPassiveItem}
+          {...(scrollable ? { as: "div" } : { role: "list" })}
         >
           <StyledMenuItemWrapper
             {...rest}
@@ -290,9 +373,7 @@ const Submenu = React.forwardRef(
                   isFocused: submenuFocusIndex === index,
                   focusIndex: submenuFocusIndex,
                   handleKeyDown,
-                  blockIndex: React.Children.toArray(children).findIndex(
-                    (item) => item.type === ScrollableBlock
-                  ),
+                  blockIndex: getBlockIndex(index),
                 }}
               >
                 {child}
@@ -339,17 +420,18 @@ const Submenu = React.forwardRef(
             submenuDirection={submenuDirection}
             variant={variant}
             menuType={menuContext.menuType}
-            role="list"
+            {...(scrollable ? { as: "div" } : { role: "list" })}
           >
             {React.Children.map(children, (child, index) => (
               <SubmenuContext.Provider
                 value={{
-                  isFocused: !blockDoubleFocus && submenuFocusIndex === index,
+                  isFocused:
+                    !isFocusInScrollableBlock &&
+                    !blockDoubleFocus &&
+                    submenuFocusIndex === getBlockIndex(index) - 1,
                   focusIndex: submenuFocusIndex,
                   handleKeyDown,
-                  blockIndex: React.Children.toArray(children).findIndex(
-                    (item) => item.type === ScrollableBlock
-                  ),
+                  blockIndex: getBlockIndex(index),
                   updateFocusIndex: setSubmenuFocusIndex,
                   itemIndex: child.type === MenuItem ? index : undefined,
                 }}
@@ -399,6 +481,8 @@ Submenu.propTypes = {
   onSubmenuClose: PropTypes.func,
   /** Callback triggered when the top-level menu item is clicked */
   onClick: PropTypes.func,
+  /** indicates whether the child menu is wrapped in a ScrollableBlock or not */
+  scrollable: PropTypes.bool,
 };
 
 export default Submenu;

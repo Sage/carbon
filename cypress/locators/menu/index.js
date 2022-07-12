@@ -14,7 +14,7 @@ export const submenu = () => cy.get(SUBMENU);
 export const submenuBlock = () => cy.get(SUBMENU).find("ul");
 export const innerMenu = (index, htmlProp) =>
   submenuBlock().find(`li:nth-child(${index})`).find(htmlProp);
-export const scrollBlock = () => cy.get(SUBMENU).find(SCROLL_BLOCK);
+export const scrollBlock = () => cy.get(SUBMENU).find(SCROLL_BLOCK).eq(0);
 export const lastSubmenuElement = (htmlProp) =>
   submenuBlock().find(htmlProp).last();
 export const menuDivider = () => cy.get(MENU_DIVIDER);
