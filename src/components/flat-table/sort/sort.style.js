@@ -13,7 +13,6 @@ const StyledSort = styled.div`
     width: 16px;
     height: 16px;
     padding-left: 6px;
-    color: var(--colorsUtilityMajor200);
   }
 
   :hover {

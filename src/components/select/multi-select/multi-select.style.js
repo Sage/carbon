@@ -11,6 +11,7 @@ const StyledSelectPillContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: 3px 2px 3px 0;
+  max-width: 100%;
 
   && ${StyledPill} {
     text-overflow: ellipsis;

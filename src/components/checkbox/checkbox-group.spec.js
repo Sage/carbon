@@ -12,7 +12,6 @@ import Tooltip from "../tooltip";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 
 const checkboxValues = ["required", "optional"];
-const groupName = "my-checkbox-group";
 
 function render(props, childProps, renderer = mount) {
   const children = checkboxValues.map((value) => (
@@ -29,7 +28,6 @@ function render(props, childProps, renderer = mount) {
   return renderer(
     <CheckboxGroup
       name="group-radio-buttons"
-      groupName={groupName}
       label="Test CheckboxGroup Label"
       {...props}
     >
@@ -42,7 +40,6 @@ describe("CheckboxGroup", () => {
   testStyledSystemMargin((props) => (
     <CheckboxGroup
       name="group-radio-buttons"
-      groupName={groupName}
       label="Test CheckboxGroup Label"
       {...props}
     >
