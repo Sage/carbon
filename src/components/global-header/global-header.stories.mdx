@@ -1,0 +1,197 @@
+import { useState } from "react";
+import { Meta, Canvas, Story } from "@storybook/addon-docs";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import NavigationBar from "../navigation-bar";
+import Box from "../box";
+import { Menu, MenuFullscreen, MenuItem, MenuSegmentTitle } from "../menu";
+import GlobalHeader from "./global-header.component";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import LinkTo from "@storybook/addon-links/react";
+
+<Meta
+  title="Global Header"
+  parameters={{
+    info: { disable: true },
+    chromatic: { disable: true },
+    docs: {
+      inlineStories: false,
+      iframeHeight: 200,
+    },
+  }}
+/>
+
+# Global Header
+
+Global Header is a wrapper component designed for creating site-wide navigation layouts.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import GlobalHeader from "carbon-react/lib/components/global-header";
+```
+
+## Examples
+
+### Default
+
+Global Header shares similarities with the <LinkTo kind="Navigation Bar" story="default">Navigation Bar component</LinkTo>, but is permanently fixed to the top of the viewport and has a greater z-index than Navigation Bar.
+
+<Canvas>
+  <Story name="default">
+    <GlobalHeader>Example content</GlobalHeader>
+  </Story>
+</Canvas>
+
+### Basic menu
+
+In conjunction with the <LinkTo kind="Menu" story="default">Menu component</LinkTo>, the component can be used to create global navigation layouts.
+
+<Canvas>
+  <Story name="basic menu">
+    <GlobalHeader>
+      <Menu menuType="black" display="flex" flex="1">
+        <MenuItem flex="1" submenu="Product Switcher">
+          <MenuItem>Product A</MenuItem>
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Parent Menu 1">
+          <MenuItem href="#">Child Item 1</MenuItem>
+          <MenuSegmentTitle>Segment title</MenuSegmentTitle>
+          <MenuItem href="#">Child Item 2</MenuItem>
+          <MenuItem href="#">Child Item 3</MenuItem>
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Parent Menu 2">
+          <MenuItem>Child Item</MenuItem>
+        </MenuItem>
+      </Menu>
+    </GlobalHeader>
+  </Story>
+</Canvas>
+
+### Responsive menu
+
+This story is best viewed in the `canvas` view and by adjusting the size of the window. The fullscreen behaviour will trigger when the screen size is smaller than `600px`.
+
+<Canvas>
+  <Story name="responsive menu">
+    {() => {
+      const fullscreenViewBreakPoint = useMediaQuery("(max-width: 599px)");
+      const [isListViewOpen, setIsListViewOpen] = useState(false);
+      const menuItems = [
+        <MenuItem
+          key="product-switcher"
+          minWidth="160px"
+          flex="1"
+          submenu="Product Switcher"
+        >
+          <MenuItem>Product A</MenuItem>
+        </MenuItem>,
+        <MenuItem
+          key="parent-menu-1"
+          minWidth="145px"
+          flex="0 0 auto"
+          submenu="Parent Menu 1"
+        >
+          <MenuItem href="#">Child Item 1</MenuItem>
+          <MenuSegmentTitle>Segment title</MenuSegmentTitle>
+          <MenuItem href="#">Child Item 2</MenuItem>
+          <MenuItem href="#">Child Item 3</MenuItem>
+        </MenuItem>,
+        <MenuItem
+          key="parent-menu-2"
+          minWidth="145px"
+          flex="0 0 auto"
+          submenu="Parent Menu 2"
+        >
+          <MenuItem>Child Item</MenuItem>
+        </MenuItem>,
+      ];
+      return (
+        <GlobalHeader>
+          <Menu menuType="black" display="flex" flex="1">
+            {fullscreenViewBreakPoint ? (
+              <>
+                <MenuItem
+                  onClick={(ev) => {
+                    ev.preventDefault();
+                    setIsListViewOpen(true);
+                  }}
+                >
+                  Admin
+                </MenuItem>
+                <MenuFullscreen
+                  menuType="black"
+                  isOpen={isListViewOpen}
+                  onClose={() => setIsListViewOpen(false)}
+                >
+                  {menuItems}
+                </MenuFullscreen>
+              </>
+            ) : (
+              menuItems
+            )}
+          </Menu>
+        </GlobalHeader>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Global and local navigation bar layout
+
+The component can be used alongside the <LinkTo kind='Navigation Bar' story="default">Navigation Bar component</LinkTo> to create a two navigation bar layout, with the former being for site-wide navigation and the latter being for local navigation. Since Global Header is fixed to top of the viewport, the Navigation Bar must also have its `position` fixed, with a top `orientation` and `offset` of 40px.
+
+<Canvas>
+  <Story
+    name="global and local navigation bar layout"
+    parameters={{ docs: { inlineStories: false, iframeHeight: 250 } }}
+  >
+    <GlobalHeader>
+      <Menu menuType="black" display="flex" flex="1">
+        <MenuItem flex="1" submenu="Product Switcher">
+          <MenuItem href="#">Product A</MenuItem>
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Parent Menu 1">
+          <MenuItem href="#">Child Item 1</MenuItem>
+          <MenuItem href="#">Child Item 2</MenuItem>
+          <MenuItem href="#">Child Item 3</MenuItem>
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Parent Menu 2">
+          <MenuItem>Child Item</MenuItem>
+        </MenuItem>
+      </Menu>
+    </GlobalHeader>
+    <NavigationBar position="fixed" orientation="top" offset="40px">
+      <Menu display="flex" flex="1">
+        <MenuItem flex="1">Menu Item One</MenuItem>
+        <MenuItem flex="0 0 auto" href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuDivider />
+          <MenuItem icon="settings" href="#">
+            Item Submenu Three
+          </MenuItem>
+          <MenuItem href="#">Item Submenu Four</MenuItem>
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>
+    </NavigationBar>
+  </Story>
+</Canvas>
+
+## Props
+
+### Global Header
+
+<StyledSystemProps of={GlobalHeader} noHeader padding flexBox />
