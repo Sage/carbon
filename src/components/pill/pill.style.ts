@@ -1,15 +1,35 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 import { shade, meetsContrastGuidelines } from "polished";
-import { margin } from "styled-system";
+import { margin, MarginProps } from "styled-system";
 
 import styleConfig from "./pill.style.config";
 import { baseTheme } from "../../style/themes";
+import { ThemeObject } from "../../style/themes/base/base-theme.config";
 import StyledIcon from "../icon/icon.style";
 import { toColor } from "../../style/utils/color";
 import getColorValue from "../../style/utils/get-color-value";
 
-function addStyleToPillIcon(fontSize) {
+export interface StyledPillProps extends MarginProps {
+  /** Override color variant, provide any color from palette or any valid css color value. */
+  borderColor?: string;
+  /** Sets the max-width of the pill. */
+  maxWidth?: string;
+  /** Sets the size of the pill. */
+  size?: "S" | "M" | "L" | "XL";
+  /** @private @ignore */
+  theme?: Partial<ThemeObject>;
+  /** Allow the text within pill to wrap. */
+  wrapText?: boolean;
+}
+
+interface AllStyledPillProps extends StyledPillProps {
+  inFill?: boolean;
+  isDeletable: boolean;
+  colorVariant: "neutral" | "negative" | "positive" | "warning";
+  pillRole: "tag" | "status";
+}
+
+function addStyleToPillIcon(fontSize: string) {
   return `
     ${StyledIcon} {
       &:before {
@@ -19,19 +39,20 @@ function addStyleToPillIcon(fontSize) {
   `;
 }
 
-const PillStyle = styled.span`
-  ${margin};
+const StyledPill = styled.span<AllStyledPillProps>`
+  ${margin}
   ${({
-    colorVariant,
+    wrapText,
     borderColor,
-    theme,
-    inFill,
+    colorVariant,
     isDeletable,
+    inFill,
+    maxWidth,
     pillRole,
     size,
+    theme,
   }) => {
     const isStatus = pillRole === "status";
-    const variety = isStatus ? colorVariant : "primary";
     let pillColor;
     let buttonFocusColor;
     let contentColor;
@@ -47,9 +68,10 @@ const PillStyle = styled.span`
           ? "var(--colorsUtilityYin090)"
           : "var(--colorsUtilityYang100)";
       } else {
-        const { varietyColor, buttonFocus, content } = styleConfig(theme)[
-          pillRole
-        ][variety];
+        const { status, tag } = styleConfig();
+        const { varietyColor, buttonFocus, content } = isStatus
+          ? status[colorVariant]
+          : tag.primary;
         pillColor = varietyColor;
         buttonFocusColor = buttonFocus;
         contentColor = content;
@@ -71,7 +93,15 @@ const PillStyle = styled.span`
       justify-content: center;
       border: 2px solid ${pillColor};
       height: auto;
-      white-space: nowrap;
+      ${!wrapText &&
+      css`
+        white-space: nowrap;
+      `}
+      ${wrapText &&
+      css`
+        white-space: break-spaces;
+        hyphens: auto;
+      `}
       color: ${contentColor};
 
       ${inFill &&
@@ -278,25 +308,15 @@ const PillStyle = styled.span`
           }
         `}
       `}
+      ${maxWidth && `max-width: ${maxWidth}`}
     `;
   }}
 `;
 
-PillStyle.defaultProps = {
+StyledPill.defaultProps = {
   inFill: false,
-  colorVariant: "default",
   isDeletable: false,
   theme: baseTheme,
 };
 
-PillStyle.propTypes = {
-  inFill: PropTypes.bool,
-  colorVariant: PropTypes.oneOf(["neutral", "negative", "positive", "warning"]),
-  isDeletable: PropTypes.func,
-  size: PropTypes.oneOf(["S", "M", "L", "XL"]),
-  pillRole: PropTypes.oneOf(["tag", "status"]),
-  borderColor: PropTypes.string,
-  theme: PropTypes.object,
-};
-
-export default PillStyle;
+export default StyledPill;

@@ -1,18 +1,18 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React from "react";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Pill from "./pill.component";
 
-<Meta
-  title="Pill/Test"
-  parameters={{
+export default {
+  title: "Pill/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     pillRole: {
       options: ["tag", "status"],
       control: {
@@ -37,46 +37,42 @@ import Pill from "./pill.component";
       },
     },
     childrenSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+};
 
-export const PillStory = ({
+type PillStoryArgs = {
+  children: string;
+  childrenSpecialCharacters: string;
+  onDelete: boolean;
+};
+
+export const Default = ({
   children,
   childrenSpecialCharacters,
   onDelete,
   ...args
-}) => {
+}: PillStoryArgs) => {
   return (
-    <Pill
-      onDelete={onDelete ? action("delete") : undefined}
-      children={children || childrenSpecialCharacters}
-      {...args}
-    />
+    <Pill onDelete={onDelete ? action("delete") : undefined} {...args}>
+      {children || childrenSpecialCharacters}
+    </Pill>
   );
 };
 
-# Pill
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      ml: 0,
-      mr: 0,
-      mt: 0,
-      mb: 0,
-      children: "Pill",
-      childrenSpecialCharacters: undefined,
-      borderColor: undefined,
-      fill: Pill.defaultProps.fill,
-      onDelete: false,
-      size: Pill.defaultProps.size,
-      pillRole: "tag",
-      colorVariant: "neutral",
-    }}
-  >
-    {PillStory.bind({})}
-  </Story>
-</Canvas>
+Default.story = {
+  name: "default",
+  args: {
+    ml: 0,
+    mr: 0,
+    mt: 0,
+    mb: 0,
+    children: "Pill",
+    childrenSpecialCharacters: undefined,
+    borderColor: undefined,
+    fill: false,
+    onDelete: false,
+    size: "M",
+    pillRole: "tag",
+    colorVariant: "neutral",
+  },
+};

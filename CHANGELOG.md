@@ -1,3 +1,22 @@
+## [109.2.0](https://github.com/Sage/carbon/compare/v109.1.3...v109.2.0) (2022-07-12)
+
+
+### Features
+
+* **pill:** add text wrapping and max width support to component ([9fc65bc](https://github.com/Sage/carbon/commit/9fc65bcc9bb29771503dc7fdba3d931248ae627c))
+
+
+### Bug Fixes
+
+* **multi-select:** prevent pills with long text strings from overflowing the input ([4beabcf](https://github.com/Sage/carbon/commit/4beabcfd0862c8a7c3a30388a44c498e0e8ee59b)), closes [#5192](https://github.com/Sage/carbon/issues/5192)
+
+### [109.1.3](https://github.com/Sage/carbon/compare/v109.1.2...v109.1.3) (2022-07-08)
+
+
+### Bug Fixes
+
+* **popover-container:** position automatically depending on available space ([4b63a17](https://github.com/Sage/carbon/commit/4b63a17caf8517f2de44c2442be49155d46d30ce))
+
 ### [109.1.2](https://github.com/Sage/carbon/compare/v109.1.1...v109.1.2) (2022-07-06)
 
 
