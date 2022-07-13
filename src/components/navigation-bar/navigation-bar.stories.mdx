@@ -2,10 +2,7 @@ import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import NavigationBar from "./navigation-bar.component";
 import { Menu, MenuItem } from "../menu";
 import Box from "../box";
-import VerticalDivider from "../vertical-divider";
-import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.js";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import DocsWrapper from "../../../.storybook/docs-helpers/components/iframe-wrapper";
 
 <Meta title="Navigation Bar" parameters={{ info: { disable: true } }} />
 
@@ -59,6 +56,19 @@ import NavigationBar from "carbon-react/lib/components/navigation-bar";
   </Story>
 </Canvas>
 
+### Example with menu
+
+<Canvas>
+  <Story name="example with menu">
+    <NavigationBar>
+      <Menu>
+        <MenuItem>Menu Item One</MenuItem>
+        <MenuItem>Menu Item Two</MenuItem>
+      </Menu>
+    </NavigationBar>
+  </Story>
+</Canvas>
+
 ### Loading State
 
 If `isLoading={true}` the children will not be visible
@@ -67,8 +77,8 @@ If `isLoading={true}` the children will not be visible
   <Story name="isLoading">
     <NavigationBar isLoading>
       <Menu>
-        <MenuItem>menu item one</MenuItem>
-        <MenuItem>menu item two</MenuItem>
+        <MenuItem>Menu Item One</MenuItem>
+        <MenuItem>Menu Item Two</MenuItem>
       </Menu>
     </NavigationBar>
   </Story>
@@ -93,13 +103,18 @@ valid CSS string.
 ### Set content max width using Box
 
 <Canvas>
-  <Story name="content max width using Box">
+  <Story
+    name="content max width using Box"
+    decorators={[
+      (Story) => (
+        <div style={{ height: 200 }}>
+          <Story />
+        </div>
+      ),
+    ]}
+  >
     <NavigationBar>
       <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-        <SageIcon style={{ alignSelf: "center" }} />
-        <Box>
-          <VerticalDivider displayInline pr={0} />
-        </Box>
         <Menu display="flex" flex="1">
           <MenuItem flex="1" onClick={() => {}}>
             Menu Item One
@@ -134,133 +149,114 @@ The `position` prop can be set to `sticky` to make the navigation bar stick to t
 Then the `orientation` relative to the top/bottom can be offset using the `offset` prop.
 
 <Canvas>
-  <Story name="sticky">
-    <div style={{ overflow: "scroll" }}>
+  <Story
+    name="sticky"
+    parameters={{ docs: { inlineStories: false, iframeHeight: 250 } }}
+  >
+    <div id="sticky-container" style={{ height: "250px" }}>
+      <NavigationBar
+        position="sticky"
+        orientation="top"
+        offset="25px"
+        aria-label="header"
+      >
+        <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
+          <Menu display="flex" flex="1">
+            <MenuItem flex="1" onClick={() => {}}>
+              Menu Item One
+            </MenuItem>
+            <MenuItem flex="0 0 auto" href="#">
+              Menu Item Two
+            </MenuItem>
+            <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuDivider />
+              <MenuItem icon="settings" href="#">
+                Item Submenu Three
+              </MenuItem>
+              <MenuItem href="#">Item Submenu Four</MenuItem>
+            </MenuItem>
+            <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+            </MenuItem>
+          </Menu>
+        </Box>
+      </NavigationBar>
       <div
         style={{
-          margin: "50px",
-          height: "250px",
+          height: "1000px",
+          background: "green",
         }}
+      />
+      <NavigationBar
+        position="sticky"
+        orientation="bottom"
+        offset="25px"
+        aria-label="footer"
       >
-        <NavigationBar
-          position="sticky"
-          orientation="top"
-          offset="25px"
-          aria-label="header"
-        >
-          <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-            <SageIcon style={{ alignSelf: "center" }} />
-            <Box>
-              <VerticalDivider displayInline pr={0} />
-            </Box>
-            <Menu display="flex" flex="1">
-              <MenuItem flex="1" onClick={() => {}}>
-                Menu Item One
-              </MenuItem>
-              <MenuItem flex="0 0 auto" href="#">
-                Menu Item Two
-              </MenuItem>
-              <MenuItem flex="0 0 auto" submenu="Menu Item Three">
-                <MenuItem href="#">Item Submenu One</MenuItem>
-                <MenuItem href="#">Item Submenu Two</MenuItem>
-                <MenuDivider />
-                <MenuItem icon="settings" href="#">
-                  Item Submenu Three
-                </MenuItem>
-                <MenuItem href="#">Item Submenu Four</MenuItem>
-              </MenuItem>
-              <MenuItem flex="0 0 auto" submenu="Menu Item Four">
-                <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-                <MenuItem href="#">Item Submenu Two</MenuItem>
-              </MenuItem>
-            </Menu>
-          </Box>
-        </NavigationBar>
-        <div
-          style={{
-            height: "1000px",
-            background: "green",
-          }}
-        />
-        <NavigationBar
-          position="sticky"
-          orientation="bottom"
-          offset="25px"
-          aria-label="footer"
-        >
-          <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-            <SageIcon style={{ alignSelf: "center" }} />
-            <Box>
-              <VerticalDivider displayInline pr={0} />
-            </Box>
-            <Menu display="flex" flex="1">
-              <MenuItem flex="1" onClick={() => {}}>
-                Menu Item One
-              </MenuItem>
-              <MenuItem flex="0 0 auto" href="#">
-                Menu Item Two
-              </MenuItem>
-              <MenuItem flex="0 0 auto" submenu="Menu Item Three">
-                <MenuItem href="#">Item Submenu One</MenuItem>
-                <MenuItem href="#">Item Submenu Two</MenuItem>
-                <MenuDivider />
-                <MenuItem icon="settings" href="#">
-                  Item Submenu Three
-                </MenuItem>
-                <MenuItem href="#">Item Submenu Four</MenuItem>
-              </MenuItem>
-              <MenuItem flex="0 0 auto" submenu="Menu Item Four">
-                <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-                <MenuItem href="#">Item Submenu Two</MenuItem>
-              </MenuItem>
-            </Menu>
-          </Box>
-        </NavigationBar>
-      </div>
+        <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
+          <Menu display="flex" flex="1">
+            <MenuItem flex="1" onClick={() => {}}>
+              Menu Item One
+            </MenuItem>
+            <MenuItem flex="0 0 auto" href="#">
+              Menu Item Two
+            </MenuItem>
+            <MenuItem flex="0 0 auto" href="#">
+              Menu Item Three
+            </MenuItem>
+            <MenuItem flex="0 0 auto" href="#">
+              Menu Item Four
+            </MenuItem>
+          </Menu>
+        </Box>
+      </NavigationBar>
     </div>
   </Story>
 </Canvas>
 
 #### Fixed
 
-The `position` prop can be set to `fixed` to make the navigation bar fix to the viewport. Then the `orientation` relative to the 
+The `position` prop can be set to `fixed` to make the navigation bar fix to the viewport. Then the `orientation` relative to the
 top/bottom can be offset using the `offset` prop.
 
-<Story name="fixed" parameters={{ docs: { disable: true }, themeProvider: { chromatic: { theme: "sage" } } }}>
-  <div style={{ height: "calc(100% - 50px)" }}>
+<Canvas>
+  <Story
+    name="fixed"
+    parameters={{
+      docs: { inlineStories: false, iframeHeight: 200 },
+      themeProvider: { chromatic: { theme: "sage" } },
+    }}
+  >
     <NavigationBar
       position="fixed"
       orientation="top"
       offset="25px"
       aria-label="header"
     >
-      <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-        <SageIcon style={{ alignSelf: "center" }} />
-        <Box>
-          <VerticalDivider displayInline pr={0} />
-        </Box>
-        <Menu display="flex" flex="1">
-          <MenuItem flex="1" onClick={() => {}}>
-            Menu Item One
+      <Menu display="flex" flex="1">
+        <MenuItem flex="1" onClick={() => {}}>
+          Menu Item One
+        </MenuItem>
+        <MenuItem flex="0 0 auto" href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuDivider />
+          <MenuItem icon="settings" href="#">
+            Item Submenu Three
           </MenuItem>
-          <MenuItem flex="0 0 auto" href="#">
-            Menu Item Two
-          </MenuItem>
-          <MenuItem flex="0 0 auto" submenu="Menu Item Three">
-            <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-            <MenuDivider />
-            <MenuItem icon="settings" href="#">
-              Item Submenu Three
-            </MenuItem>
-            <MenuItem href="#">Item Submenu Four</MenuItem>
-          </MenuItem>
-          <MenuItem flex="0 0 auto" submenu="Menu Item Four">
-            <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-          </MenuItem>
-        </Menu>
-      </Box>
+          <MenuItem href="#">Item Submenu Four</MenuItem>
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>
     </NavigationBar>
     <div
       style={{
@@ -274,42 +270,22 @@ top/bottom can be offset using the `offset` prop.
       offset="25px"
       aria-label="footer"
     >
-      <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-        <SageIcon style={{ alignSelf: "center" }} />
-        <Box>
-          <VerticalDivider displayInline pr={0} />
-        </Box>
-        <Menu display="flex" flex="1">
-          <MenuItem flex="1" onClick={() => {}}>
-            Menu Item One
-          </MenuItem>
-          <MenuItem flex="0 0 auto" href="#">
-            Menu Item Two
-          </MenuItem>
-          <MenuItem flex="0 0 auto" submenu="Menu Item Three">
-            <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-            <MenuDivider />
-            <MenuItem icon="settings" href="#">
-              Item Submenu Three
-            </MenuItem>
-            <MenuItem href="#">Item Submenu Four</MenuItem>
-          </MenuItem>
-          <MenuItem flex="0 0 auto" submenu="Menu Item Four">
-            <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-          </MenuItem>
-        </Menu>
-      </Box>
+      <Menu display="flex" flex="1">
+        <MenuItem flex="1" onClick={() => {}}>
+          Menu Item One
+        </MenuItem>
+        <MenuItem flex="0 0 auto" href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem flex="0 0 auto" href="#">
+          Menu Item Three
+        </MenuItem>
+        <MenuItem flex="0 0 auto" href="#">
+          Menu Item Four
+        </MenuItem>
+      </Menu>
     </NavigationBar>
-  </div>
-</Story>
-
-<Canvas>
-  <DocsWrapper
-    src="iframe.html?id=navigation-bar--fixed"
-    height="400px"
-  />
+  </Story>
 </Canvas>
 
 ## Props
