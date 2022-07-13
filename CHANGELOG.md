@@ -1,3 +1,10 @@
+### [109.2.1](https://github.com/Sage/carbon/compare/v109.2.0...v109.2.1) (2022-07-13)
+
+
+### Bug Fixes
+
+* **search:** update icon colour and hover colour in default variant ([2912a74](https://github.com/Sage/carbon/commit/2912a74f16514c52fe478408ad8bb675f8f8a7ae))
+
 ## [109.2.0](https://github.com/Sage/carbon/compare/v109.1.3...v109.2.0) (2022-07-12)
 
 
