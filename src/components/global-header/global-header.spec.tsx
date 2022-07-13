@@ -12,7 +12,7 @@ function render(props?: GlobalHeaderProps) {
 describe("Global Header", () => {
   let wrapper: ReactWrapper;
 
-  it("should render with correct `data-component`", () => {
+  it("should render with correct `data-component` tag", () => {
     wrapper = render();
     expect(wrapper.find(GLOBAL_HEADER).exists()).toBe(true);
   });
@@ -41,6 +41,14 @@ describe("Global Header", () => {
   });
 
   describe("when logo prop is passed", () => {
+    it("should render logo wrapper with correct `data-element` tag", () => {
+      const logo = <img src="foobar" alt="Carbon logo" />;
+      wrapper = render({ logo });
+      expect(
+        wrapper.find("[data-element='global-header-logo-wrapper']").exists()
+      ).toBe(true);
+    });
+
     it("and logo is an img element, render logo correctly", () => {
       const logo = <img src="foobar" alt="Carbon logo" />;
       wrapper = render({ logo });

@@ -54,7 +54,11 @@ const GlobalHeader = ({ children, logo, ...rest }: GlobalHeaderProps) => {
       position="fixed"
       {...rest}
     >
-      {logo && <StyledLogo>{logo}</StyledLogo>}
+      {logo && (
+        <StyledLogo data-element="global-header-logo-wrapper">
+          {logo}
+        </StyledLogo>
+      )}
       {children}
     </StyledGlobalHeader>
   );
