@@ -46,9 +46,16 @@ describe('TableHeader', () => {
   });
 
   describe('prop checking', () => {
-    beforeEach(() => {
-      spyOn(console, 'error');
-    });
+    let consoleSpy;
+      beforeEach(() => {
+        consoleSpy = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => {});
+      });
+
+      afterEach(() => {
+        consoleSpy.mockRestore();
+      });
 
     it('throws an error if no name prop is passed', () => {
       TestUtils.renderIntoDocument(
@@ -58,7 +65,7 @@ describe('TableHeader', () => {
           </TableRow>
         </Table>
       );
-      expect(console.error.calls.argsFor(0)[0]).toMatch(`Failed prop type: Sortable columns require a prop of name of type String`);
+      expect(console.error.mock.calls[0][2]).toMatch(`Sortable columns require a prop of name of type String`);
     });
 
     it('throws an error if the name is not a string', () => {
@@ -69,7 +76,7 @@ describe('TableHeader', () => {
           </TableRow>
         </Table>
       );
-      expect(console.error.calls.argsFor(0)[0]).toMatch(`Failed prop type: name must be a string`);
+      expect(console.error.mock.calls[0][2]).toMatch(`name must be a string`);
     });
   });
 
