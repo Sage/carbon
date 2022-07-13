@@ -4,10 +4,13 @@ import { PaddingProps, FlexboxProps } from "styled-system";
 import { ThemeObject } from "style/themes/base";
 import { baseTheme } from "../../style/themes";
 import StyledNavigationBar from "../navigation-bar/navigation-bar.style";
+import Box from "../box";
 
 export interface GlobalHeaderProps extends PaddingProps, FlexboxProps {
   /** Child elements */
   children?: React.ReactNode;
+  /** Logo to render */
+  logo?: React.ReactNode;
 }
 
 interface StyledGlobalHeaderProps {
@@ -19,7 +22,28 @@ const StyledGlobalHeader = styled(StyledNavigationBar)<StyledGlobalHeaderProps>`
   `}
 `;
 
-const GlobalHeader = ({ children, ...rest }: GlobalHeaderProps) => {
+const StyledLogo = styled(Box)`
+  display: flex;
+  align-items: center;
+  margin-left: var(--spacing200);
+  margin-right: var(--spacing300);
+
+  & > * {
+    max-height: 100%;
+  }
+
+  @media (min-width: 600px) {
+    margin-left: var(--spacing300);
+  }
+  @media (min-width: 960px) {
+    margin-left: var(--spacing400);
+  }
+  @media (min-width: 1260px) {
+    margin-left: var(--spacing500);
+  }
+`;
+
+const GlobalHeader = ({ children, logo, ...rest }: GlobalHeaderProps) => {
   return (
     <StyledGlobalHeader
       aria-label="Global Header"
@@ -30,6 +54,7 @@ const GlobalHeader = ({ children, ...rest }: GlobalHeaderProps) => {
       position="fixed"
       {...rest}
     >
+      {logo && <StyledLogo>{logo}</StyledLogo>}
       {children}
     </StyledGlobalHeader>
   );

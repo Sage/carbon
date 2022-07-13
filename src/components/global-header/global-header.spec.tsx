@@ -39,4 +39,23 @@ describe("Global Header", () => {
     wrapper = render();
     expect(wrapper.find(GLOBAL_HEADER)).toHaveStyleRule("z-index", "2999");
   });
+
+  describe("when logo prop is passed", () => {
+    it("and logo is an img element, render logo correctly", () => {
+      const logo = <img src="foobar" alt="Carbon logo" />;
+      wrapper = render({ logo });
+      expect(wrapper.find(GLOBAL_HEADER).find("img").exists()).toBe(true);
+    });
+
+    it("and logo is a svg element, render logo correctly", () => {
+      const logo = <svg aria-label="Carbon logo" />;
+      wrapper = render({ logo });
+      expect(
+        wrapper
+          .find(GLOBAL_HEADER)
+          .find("svg[aria-label='Carbon logo']")
+          .exists()
+      ).toBe(true);
+    });
+  });
 });
