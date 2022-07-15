@@ -21,6 +21,7 @@ import { StyledMenuItem } from "../menu.style";
 import menuConfigVariants from "../menu.config";
 
 const onClose = jest.fn();
+const onClick = jest.fn();
 
 // eslint-disable-next-line react/prop-types
 const TestMenu = ({ startPosition, isOpen }) => (
@@ -32,7 +33,7 @@ const TestMenu = ({ startPosition, isOpen }) => (
     <MenuItem maxWidth="200px" href="#">
       Menu Item One
     </MenuItem>
-    <MenuItem maxWidth="200px" onClick={() => {}} submenu="Menu Item Two">
+    <MenuItem maxWidth="200px" onClick={onClick} submenu="Menu Item Two">
       <MenuItem maxWidth="200px" href="#">
         Submenu Item One
       </MenuItem>
@@ -211,6 +212,17 @@ describe("MenuFullscreen", () => {
         render({ isOpen: true }).find(StyledMenuFullscreen)
       );
       expect(onClose).toHaveBeenCalled();
+    });
+  });
+
+  describe("onClick", () => {
+    it("calls the onClick callback when menu item is clicked", () => {
+      const menuItem = render({ isOpen: true })
+        .find(MenuItem)
+        .at(1)
+        .find("button");
+      menuItem.simulate("click");
+      expect(onClick).toHaveBeenCalled();
     });
   });
 
