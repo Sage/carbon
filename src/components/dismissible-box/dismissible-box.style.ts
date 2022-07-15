@@ -2,7 +2,11 @@ import styled, { css } from "styled-components";
 import Box from "../box";
 import StyledIcon from "../icon/icon.style";
 
-export default styled(Box)`
+export interface StyledDismissibleBoxProps {
+  hasBorderLeftHighlight?: boolean;
+}
+
+const StyledDismissibleBox = styled(Box)<StyledDismissibleBoxProps>`
   ${({ hasBorderLeftHighlight }) => css`
     word-break: break-word;
 
@@ -19,3 +23,5 @@ export default styled(Box)`
     }
   `}
 `;
+
+export { StyledDismissibleBox };
