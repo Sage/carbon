@@ -1,3 +1,10 @@
+### [109.2.3](https://github.com/Sage/carbon/compare/v109.2.2...v109.2.3) (2022-07-15)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** pass onClick to menu item ([839cd55](https://github.com/Sage/carbon/commit/839cd557f18c70957b375ae0962ac00e04f44dfe)), closes [#5313](https://github.com/Sage/carbon/issues/5313)
+
 ### [109.2.2](https://github.com/Sage/carbon/compare/v109.2.1...v109.2.2) (2022-07-14)
 
 
