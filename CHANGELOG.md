@@ -1,3 +1,10 @@
+### [109.2.2](https://github.com/Sage/carbon/compare/v109.2.1...v109.2.2) (2022-07-14)
+
+
+### Bug Fixes
+
+* **button:** fix forwardRef type isssues ([a2ec6ff](https://github.com/Sage/carbon/commit/a2ec6ff05483d9c77d0369f0b171a2144f7d816e))
+
 ### [109.2.1](https://github.com/Sage/carbon/compare/v109.2.0...v109.2.1) (2022-07-13)
 
 
