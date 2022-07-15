@@ -3,14 +3,22 @@ import Box from "../box";
 import StyledIcon from "../icon/icon.style";
 
 export interface StyledDismissibleBoxProps {
+  /** Flag to control whether the thicker left border highlight should be rendered */
   hasBorderLeftHighlight?: boolean;
+  /** Set the base color variant */
+  variant?: "light" | "dark";
 }
 
 const StyledDismissibleBox = styled(Box)<StyledDismissibleBoxProps>`
-  ${({ hasBorderLeftHighlight }) => css`
-    word-break: break-word;
+  ${({ hasBorderLeftHighlight = true, variant = "light" }) => css`
+    background-color: ${variant === "light"
+      ? "#FFFFFF"
+      : "var(--colorsUtilityMajor050)"};
 
     border: 1px solid var(--colorsUtilityMajor100);
+    display: flex;
+    justify-content: space-between;
+    word-break: break-word;
 
     ${hasBorderLeftHighlight &&
     `
