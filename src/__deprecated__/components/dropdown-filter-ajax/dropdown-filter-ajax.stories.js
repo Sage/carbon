@@ -13,7 +13,6 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import DropdownFilterAjax from './dropdown-filter-ajax';
-import { enableMock } from '../../../../.storybook/utils/xhr/xhr-mock';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 DropdownFilterAjax.__docgenInfo = getDocGenInfo(
@@ -25,8 +24,6 @@ const store = new Store({
   value: '',
   visibleValue: ''
 });
-
-enableMock();
 
 // Shared Props
 const onChange = (evt) => {

@@ -41,8 +41,13 @@ describe('TableHeader', () => {
   });
 
   describe('prop checking', () => {
+    let consoleSpy;
     beforeEach(() => {
-      jest.spyOn(global.console, 'error').mockImplementation(() => {});
+      consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      consoleSpy.mockRestore();
     });
 
     it('throws an error if no name prop is passed', () => {
@@ -57,11 +62,11 @@ describe('TableHeader', () => {
       );
 
 
-      expect(console.error.mock.calls[0][0]).toMatch(expected);
+      expect(console.error.mock.calls[0][2]).toMatch(expected);
     });
 
     it('throws an error if the name is not a string', () => {
-      const expected = 'Failed prop type: name must be a string';
+      const expected = 'name must be a string';
 
       mount(
         <Table onChange={ changeSpy } sortOrder='desc'>
@@ -71,7 +76,7 @@ describe('TableHeader', () => {
         </Table>
       );
 
-      expect(console.error.mock.calls[0][0]).toMatch(expected);
+      expect(console.error.mock.calls[0][2]).toMatch(expected);
     });
 
     afterEach(() => {

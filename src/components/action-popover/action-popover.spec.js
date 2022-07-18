@@ -536,14 +536,14 @@ describe('ActionPopover', () => {
   });
 
   it('validates the children prop', () => {
-    jest.spyOn(global.console, 'error').mockImplementation(() => {});
+    const consoleSpy = jest.spyOn(global.console, 'error').mockImplementation(() => {});
     ReactDOM.render(
       <ThemeProvider theme={ mintTheme }>
         <ActionPopover><p>invalid children</p></ActionPopover>
       </ThemeProvider>, container.current
     );
-    expect(console.error).toHaveBeenCalledWith('Warning: Failed prop type: `ActionPopover` only accepts children of'
-    + ' type `ActionPopoverItem` and `ActionPopoverDivider`.\n    in ActionPopover');
-    global.console.error.mockReset();
+    expect(console.error.mock.calls[0][2]).toBe('`ActionPopover` only accepts children of'
+    + ' type `ActionPopoverItem` and `ActionPopoverDivider`.');
+    consoleSpy.mockRestore();
   });
 });

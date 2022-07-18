@@ -46,7 +46,7 @@ describe('Draggable Checkbox', () => {
   });
 
   it('validates the incorrect children prop', () => {
-    jest.spyOn(global.console, 'error').mockImplementation(() => {});
+    const consoleSpy = jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
     wrapper = mount(
       <DraggableContainer>
@@ -58,10 +58,11 @@ describe('Draggable Checkbox', () => {
       </DraggableContainer>
     );
 
-    const expected = 'Warning: Failed prop type: `DraggableContainer` only accepts children of'
-        + ' type `DraggableItem`.\n    in DraggableContainer';
+    const expected = '`DraggableContainer` only accepts children of'
+        + ' type `DraggableItem`.';
 
-    expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
+    expect(console.error.mock.calls[0][2]).toBe(expected); // eslint-disable-line no-console
+    consoleSpy.mockRestore();
   });
 
   it('should render correct if isDragging enable', () => {
