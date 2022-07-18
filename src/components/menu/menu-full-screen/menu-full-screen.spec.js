@@ -17,48 +17,54 @@ import {
   simulate,
 } from "../../../__spec_helper__/test-utils";
 import { baseTheme } from "../../../style/themes";
-import { StyledMenuItem, StyledMenuWrapper } from "../menu.style";
+import { StyledMenuItem } from "../menu.style";
 import menuConfigVariants from "../menu.config";
 
 const onClose = jest.fn();
+const onClick = jest.fn();
 
-const render = ({ startPosition, isOpen, menuType = "light" }) => {
+// eslint-disable-next-line react/prop-types
+const TestMenu = ({ startPosition, isOpen }) => (
+  <MenuFullscreen
+    startPosition={startPosition}
+    isOpen={isOpen}
+    onClose={onClose}
+  >
+    <MenuItem maxWidth="200px" href="#">
+      Menu Item One
+    </MenuItem>
+    <MenuItem maxWidth="200px" onClick={onClick} submenu="Menu Item Two">
+      <MenuItem maxWidth="200px" href="#">
+        Submenu Item One
+      </MenuItem>
+      <MenuItem maxWidth="200px" href="#">
+        Submenu Item Two
+      </MenuItem>
+    </MenuItem>
+    <MenuItem maxWidth="200px" href="#">
+      Menu Item Three
+    </MenuItem>
+    <MenuItem maxWidth="200px" href="#">
+      Menu Item Four
+    </MenuItem>
+    <MenuItem maxWidth="200px" submenu="Menu Item Five">
+      <MenuItem maxWidth="200px" href="#">
+        Submenu Item One
+      </MenuItem>
+      <MenuItem maxWidth="200px" href="#">
+        Submenu Item Two
+      </MenuItem>
+    </MenuItem>
+    <MenuItem maxWidth="200px" href="#">
+      Menu Item Six
+    </MenuItem>
+  </MenuFullscreen>
+);
+
+const render = ({ menuType = "light", ...props }) => {
   return mount(
     <MenuContext.Provider value={{ menuType }}>
-      <MenuFullscreen
-        startPosition={startPosition}
-        isOpen={isOpen}
-        onClose={onClose}
-      >
-        <MenuItem maxWidth="200px" href="#">
-          Menu Item One
-        </MenuItem>
-        <MenuItem maxWidth="200px" onClick={() => {}} submenu="Menu Item Two">
-          <MenuItem maxWidth="200px" href="#">
-            Submenu Item One
-          </MenuItem>
-          <MenuItem maxWidth="200px" href="#">
-            Submenu Item Two
-          </MenuItem>
-        </MenuItem>
-        <MenuItem maxWidth="200px" href="#">
-          Menu Item Three
-        </MenuItem>
-        <MenuItem maxWidth="200px" href="#">
-          Menu Item Four
-        </MenuItem>
-        <MenuItem maxWidth="200px" submenu="Menu Item Five">
-          <MenuItem maxWidth="200px" href="#">
-            Submenu Item One
-          </MenuItem>
-          <MenuItem maxWidth="200px" href="#">
-            Submenu Item Two
-          </MenuItem>
-        </MenuItem>
-        <MenuItem maxWidth="200px" href="#">
-          Menu Item Six
-        </MenuItem>
-      </MenuFullscreen>
+      <TestMenu {...props} />
     </MenuContext.Provider>
   );
 };
@@ -209,18 +215,35 @@ describe("MenuFullscreen", () => {
     });
   });
 
+  describe("onClick", () => {
+    it("calls the onClick callback when menu item is clicked", () => {
+      const menuItem = render({ isOpen: true })
+        .find(MenuItem)
+        .at(1)
+        .find("button");
+      menuItem.simulate("click");
+      expect(onClick).toHaveBeenCalled();
+    });
+  });
+
   describe("focus behaviour", () => {
-    it("focuses the content container on open of menu", () => {
-      wrapper = render({ isOpen: true });
+    it("focuses the menu wrapper on open of menu", () => {
+      wrapper = mount(<TestMenu />);
+      wrapper.setProps({ isOpen: true });
 
       const element = wrapper.find(StyledMenuFullscreen).getDOMNode();
-      const event = new Event("transitionend", {
+      const startEvent = new Event("transitionstart", {
         bubbles: true,
         cancellable: true,
       });
-      element.dispatchEvent(event);
+      const endEvent = new Event("transitionend", {
+        bubbles: true,
+        cancellable: true,
+      });
+      element.dispatchEvent(startEvent);
+      element.dispatchEvent(endEvent);
 
-      expect(wrapper.find(StyledMenuWrapper)).toBeFocused();
+      expect(wrapper.find(StyledMenuFullscreen)).toBeFocused();
     });
   });
 });

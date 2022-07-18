@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -33,20 +33,6 @@ const MenuFullscreen = ({
     }
   };
 
-  useLayoutEffect(() => {
-    const checkTransitionEnd = () => {
-      menuContentRef.current.focus();
-    };
-
-    const wrapperRef = menuWrapperRef.current;
-
-    if (isOpen) {
-      wrapperRef.addEventListener("transitionend", checkTransitionEnd);
-    } else {
-      wrapperRef.removeEventListener("transitionend", checkTransitionEnd);
-    }
-  }, [isOpen]);
-
   const scrollVariants = {
     light: "light",
     dark: "dark",
@@ -64,7 +50,7 @@ const MenuFullscreen = ({
   return (
     <li aria-label="menu-fullscreen">
       <Portal>
-        <FocusTrap autoFocus={false} wrapperRef={menuWrapperRef}>
+        <FocusTrap wrapperRef={menuWrapperRef} isOpen={isOpen}>
           <StyledMenuFullscreen
             data-component="menu-fullscreen"
             ref={menuWrapperRef}
@@ -101,7 +87,6 @@ const MenuFullscreen = ({
                 flexDirection="column"
                 role="list"
                 inFullscreenView
-                tabIndex={-1}
               >
                 {React.Children.map(children, (child, index) => (
                   <MenuContext.Provider

@@ -33,7 +33,10 @@ const Sort = ({ children, onClick, sortType }) => {
       >
         {children}
         {sortType && (
-          <Icon type={sortType === "ascending" ? "sort_up" : "sort_down"} />
+          <Icon
+            type={sortType === "ascending" ? "sort_up" : "sort_down"}
+            color="--colorsUtilityMajor200"
+          />
         )}
       </StyledSort>
       {!sortType && <StyledSpaceHolder />}

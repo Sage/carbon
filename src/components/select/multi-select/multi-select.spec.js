@@ -258,7 +258,6 @@ describe("MultiSelect", () => {
   describe('when the "onKeyDown" prop is passed', () => {
     const expectedEventObject = {
       key: "ArrowDown",
-      which: 40,
     };
 
     it("then when a key is pressed, that prop should be called with expected values", () => {
@@ -366,7 +365,7 @@ describe("MultiSelect", () => {
           [prop]: true,
         });
 
-        expect(wrapper.find(Pill).at(0).props().onDelete).toBe(null);
+        expect(wrapper.find(Pill).at(0).props().onDelete).toBe(undefined);
       });
     }
   );
@@ -802,6 +801,7 @@ describe("MultiSelect", () => {
       const mockRef = useRef();
 
       return (
+        // eslint-disable-next-line react/prop-types
         <span change={props.change}>
           <MultiSelect
             openOnFocus
@@ -880,6 +880,21 @@ describe("MultiSelect", () => {
         wrapper.find(SelectList).prop("onSelect")(mockOptionObject);
       });
       expect(onChangeFn).toHaveBeenCalledWith(expectedEventObject);
+    });
+  });
+
+  describe("wrapPillText", () => {
+    it("sets the allowTextWrap prop on the pills and overrides truncate value if true", () => {
+      const pill = renderSelect({
+        name: "testName",
+        id: "testId",
+        wrapPillText: true,
+        truncatePillText: true,
+        value: ["opt1"],
+        onChange: jest.fn(),
+      }).find(Pill);
+
+      expect(pill.prop("wrapText")).toBe(true);
     });
   });
 });

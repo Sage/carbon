@@ -1,6 +1,6 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
-import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Heading from "./heading.component";
 
 <Meta
@@ -69,8 +69,8 @@ export const HeadingStory = ({
       helpLinkSpecialCharacters: undefined,
       backLink: "",
       backLinkSpecialCharacters: undefined,
-      divider: Heading.defaultProps.divider,
-      separator: Heading.defaultProps.separator,
+      divider: true,
+      separator: false,
     }}
   >
     {HeadingStory.bind({})}

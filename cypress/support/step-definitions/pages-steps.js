@@ -1,13 +1,12 @@
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import {
   dataComponentButtonByText,
   closeDataElement,
   backArrow,
 } from "../../locators/pages";
-import DEBUG_FLAG from "..";
-import {
-  getDataElementByValue,
-  getComponent,
-} from "../../locators";
+import DEBUG_FLAG from "../e2e";
+import { getDataElementByValue, getComponent } from "../../locators";
 
 Then("My {word} Page is visible", (word) => {
   getDataElementByValue("title").should("have.text", `My ${word} Page`);

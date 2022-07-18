@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import Icon from "components/icon";
-import { IconType } from "../icon/icon";
+import { IconType } from "../icon/icon-type";
 import Button from "../button";
 import ButtonBar from "./button-bar.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";

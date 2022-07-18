@@ -9,7 +9,7 @@ import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
 import StyledSplitButtonChildrenContainer from "./split-button-children.style";
 import Icon from "../icon";
-import Button, { ButtonWithForwardRef } from "../button";
+import Button from "../button";
 import StyledButton from "../button/button.style";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import mintTheme from "../../style/themes/mint";
@@ -18,7 +18,6 @@ import {
   assertStyleMatch,
   keyboard,
   testStyledSystemMargin,
-  expectConsoleOutput as expectWarn,
 } from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
 
@@ -153,7 +152,6 @@ describe("SplitButton", () => {
             color="#008200"
             disabled={false}
             bgSize="extra-small"
-            fontSize="small"
             bg="transparent"
           />
         )
@@ -182,7 +180,7 @@ describe("SplitButton", () => {
       wrapper = render({}, singleButton, mount);
       simulateFocusOnToggle(wrapper);
 
-      expect(wrapper.find(ButtonWithForwardRef).exists()).toBe(true);
+      expect(wrapper.find(Button).exists()).toBe(true);
     });
 
     afterEach(() => {
@@ -404,7 +402,7 @@ describe("SplitButton", () => {
 
         const button = wrapper
           .find('[data-element="additional-buttons"]')
-          .find(ButtonWithForwardRef);
+          .find(Button);
         button.at(0).simulate("click");
         expect(handleSecondButton).toHaveBeenCalled();
       });
@@ -413,7 +411,7 @@ describe("SplitButton", () => {
         toggle.simulate("mouseenter");
         const button = wrapper
           .find('[data-element="additional-buttons"]')
-          .find(ButtonWithForwardRef);
+          .find(Button);
         button.at(0).simulate("click");
 
         wrapper.update();
@@ -430,7 +428,7 @@ describe("SplitButton", () => {
 
           const button = wrapper
             .find('[data-element="additional-buttons"]')
-            .find(ButtonWithForwardRef);
+            .find(Button);
 
           button.at(1).simulate("click");
         }).not.toThrow();
@@ -567,15 +565,15 @@ describe("SplitButton", () => {
     });
 
     describe.each([
-      ["enter", 13],
-      ["space", 32],
-      ["down", 40],
-    ])("the %s key is pressed", (name, keyCode) => {
+      ["Enter", "Enter"],
+      ["Space", " "],
+      ["ArrowDown", "ArrowDown"],
+    ])("the %s key is pressed", (name, key) => {
       it("then the first additional button should be focused", () => {
         toggle.simulate("blur");
         wrapper.find(StyledSplitButton).simulate("mouseleave");
         wrapper.update();
-        toggle.simulate("keydown", { which: keyCode });
+        toggle.simulate("keydown", { key });
         jest.runAllTimers();
 
         const firstButton = wrapper
@@ -586,7 +584,7 @@ describe("SplitButton", () => {
       });
 
       it("does not open additional buttons if opened already - coverage", () => {
-        toggle.simulate("keydown", { which: keyCode });
+        toggle.simulate("keydown", { key });
         jest.runAllTimers();
       });
     });
@@ -595,17 +593,17 @@ describe("SplitButton", () => {
       it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
-          .find(ButtonWithForwardRef);
+          .find(Button);
 
-        keyboard.pressUpArrow();
+        keyboard.pressArrowUp();
         expect(
           additionalButtons.at(additionalButtons.length - 1).getDOMNode()
         ).toBe(document.activeElement);
-        keyboard.pressUpArrow();
+        keyboard.pressArrowUp();
         expect(
           additionalButtons.at(additionalButtons.length - 2).getDOMNode()
         ).toBe(document.activeElement);
-        keyboard.pressUpArrow();
+        keyboard.pressArrowUp();
         expect(additionalButtons.at(0).getDOMNode()).toBe(
           document.activeElement
         );
@@ -616,21 +614,21 @@ describe("SplitButton", () => {
       it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
-          .find(ButtonWithForwardRef);
+          .find(Button);
 
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(additionalButtons.at(0).getDOMNode()).toBe(
           document.activeElement
         );
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(
           additionalButtons.at(additionalButtons.length - 2).getDOMNode()
         ).toBe(document.activeElement);
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(
           additionalButtons.at(additionalButtons.length - 1).getDOMNode()
         ).toBe(document.activeElement);
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(additionalButtons.at(0).getDOMNode()).toBe(
           document.activeElement
         );
@@ -646,7 +644,7 @@ describe("SplitButton", () => {
       });
 
       it("it does not pass focus to the first additional button", () => {
-        toggle.simulate("keydown", { which: 9 });
+        toggle.simulate("keydown", { key: "Tab" });
         const firstButton = wrapper
           .find(additionalButtonsSelector)
           .find("button")
@@ -695,26 +693,6 @@ describe("SplitButton", () => {
     jest.clearAllMocks();
 
     wrapper.unmount();
-  });
-
-  describe("when the `as` prop is used", () => {
-    it("fires a prop deprecation warning to the console", () => {
-      const message =
-        "[Deprecation] The `as` prop is deprecated and will soon be removed from the `SplitButton` component interface. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop";
-      const assert = expectWarn(message, "warn");
-
-      mount(
-        <SplitButton
-          as="primary"
-          text="Split button"
-          data-element="bar"
-          data-role="baz"
-        >
-          <button type="button">foo</button>
-        </SplitButton>
-      );
-      assert();
-    });
   });
 });
 

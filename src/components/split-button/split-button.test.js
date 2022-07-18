@@ -194,7 +194,7 @@ context("Tests for Split Button component", () => {
     }
   );
   // https://github.com/cypress-io/cypress/issues/21511
-  describe.skip("should check colors for Split Button component", () => {
+  describe("should check colors for Split Button component", () => {
     it.each([
       ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
       ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
@@ -202,26 +202,6 @@ context("Tests for Split Button component", () => {
       "check %s type of Split Button uses %s as background color and %s as color and %s as border color",
       (buttonType, backgroundColor, color, borderColor) => {
         CypressMountWithProviders(<SplitButtonList buttonType={buttonType} />);
-
-        mainButton().as("button");
-
-        cy.get("@button").should(
-          "have.css",
-          "background-color",
-          backgroundColor
-        );
-        cy.get("@button").should("have.css", "color", color);
-        cy.get("@button").should("have.css", "border-color", borderColor);
-      }
-    );
-
-    it.each([
-      ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
-      ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
-    ])(
-      "check %s Split Button with %s as background color and %s as color and %s as border color",
-      (as, backgroundColor, color, borderColor) => {
-        CypressMountWithProviders(<SplitButtonList as={as} />);
 
         mainButton().as("button");
 

@@ -4,9 +4,12 @@ import Label from "../../__internal__/label";
 import Textbox from "../textbox";
 import { Checkbox } from "../checkbox";
 import InlineInputs, { InlineInputsProps } from "./inline-inputs.component";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import {
+  assertStyleMatch,
+  mockMatchMedia,
+} from "../../__spec_helper__/test-utils";
+import { StyledLabelContainer } from "../../__internal__/label/label.style";
+import StyledInlineInputs, {
   StyledContentContainer,
   StyledInlineInput,
 } from "./inline-inputs.style";
@@ -199,6 +202,58 @@ describe("Inline Inputs", () => {
           .find(StyledContentContainer)
           .prop("children")
       ).toBe(null);
+    });
+  });
+
+  describe("when adaptiveLabelBreakpoint is set", () => {
+    describe("when screen is smaller than breakpoint", () => {
+      beforeEach(() => {
+        mockMatchMedia(false);
+      });
+
+      it("labelInline prop should be false", () => {
+        wrapper = mount(
+          <InlineInputs
+            label="inline label"
+            labelWidth={30}
+            adaptiveLabelBreakpoint={500}
+          >
+            <Textbox />
+            <Textbox />
+            <Checkbox />
+          </InlineInputs>
+        );
+
+        expect(wrapper.find(StyledInlineInputs).props().labelInline).toEqual(
+          false
+        );
+        expect(wrapper.find(Label).props().inline).toEqual(false);
+      });
+    });
+
+    describe("when screen is larger than breakpoint", () => {
+      beforeEach(() => {
+        mockMatchMedia(true);
+      });
+
+      it("labelInline prop should be true", () => {
+        wrapper = mount(
+          <InlineInputs
+            label="inline label"
+            labelWidth={30}
+            adaptiveLabelBreakpoint={500}
+          >
+            <Textbox />
+            <Textbox />
+            <Checkbox />
+          </InlineInputs>
+        );
+
+        expect(wrapper.find(StyledInlineInputs).props().labelInline).toEqual(
+          true
+        );
+        expect(wrapper.find(Label).props().inline).toEqual(true);
+      });
     });
   });
 });

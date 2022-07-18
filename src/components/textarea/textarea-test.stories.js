@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import specialCharacters, {
   number,
-} from "../../../.storybook/utils/argTypes/specialCharacters";
+} from "../../__internal__/utils/argTypes/specialCharacters";
 import Textarea from ".";
 
 export default {

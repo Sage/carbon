@@ -1,12 +1,13 @@
 import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 
-import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import InlineInputs from ".";
 import Textbox from "../textbox";
 import Decimal from "../decimal";
 import { Select, Option } from "../select";
 import { useState } from "react";
 import { INLINE_INPUTS_SIZES } from "./inline-inputs.config";
+import Box from "../box";
 
 <Meta
   title="Inline Inputs"
@@ -88,6 +89,36 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
         </InlineInputs>
       );
     }}
+  </Story>
+</Canvas>
+
+## with adaptiveLabelBreakpoint
+
+<Canvas>
+  <Story 
+    name="with adaptiveLabelBreakpoint"
+    args={{
+      gutter: "none",
+      label: "My Inline Inputs",
+      labelSpecialCharacters: undefined,
+    }}>
+    {({ label, labelSpecialCharacters, ...args }) => {
+      return (
+        <Box p={4} >
+          <InlineInputs
+            label={label || labelSpecialCharacters}
+            adaptiveLabelBreakpoint={768}
+            labelWidth={30}
+            {...args}
+          >
+            <Textbox />
+            <Textbox />
+          </InlineInputs>
+          <Textbox label="My Textbox" adaptiveLabelBreakpoint={768} />
+        </Box>
+      );
+    }
+  }
   </Story>
 </Canvas>
 

@@ -10,17 +10,18 @@ import Button, {
   ButtonTypes,
   SizeOptions,
   ButtonIconPosition,
+  ButtonWithForwardRef,
 } from "./button.component";
 import StyledButton from "./button.style";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
-  expectConsoleOutput,
 } from "../../__spec_helper__/test-utils";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledIcon from "../icon/icon.style";
 import { BUTTON_VARIANTS } from "./button.config";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import Logger from "../../__internal__/utils/logger";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const render = (props: ButtonProps, renderer: any = shallow) => {
@@ -37,12 +38,43 @@ const sizesHeights: [SizeOptions, string][] = [
   ["medium", "40px"],
   ["large", "48px"],
 ];
+
+describe("ButtonWithForwardRef", () => {
+  it("should display deprecation warning when the component is used once", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+    const wrapper = mount(<ButtonWithForwardRef>Button</ButtonWithForwardRef>);
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `ButtonWithForwardRef` component is deprecated and will soon be removed. Please use a basic `Button` component with `ref` instead."
+    );
+
+    wrapper.setProps({ prop1: true });
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+    loggerSpy.mockRestore();
+  });
+});
+
 describe("Button", () => {
-  describe("refs", () => {
+  it("should display deprecation warning when the forwardRef prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    const ref = { current: null };
+
+    const wrapper = mount(<Button forwardRef={ref}>Button</Button>);
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `forwardRef` prop in `Button` component is deprecated and will soon be removed. Please use `ref` instead."
+    );
+    wrapper.setProps({ prop1: true });
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+    loggerSpy.mockRestore();
+  });
+
+  describe.each(["ref", "forwardRef"])("%s", (propName) => {
     it("accepts ref as a ref object", () => {
       const ref = { current: null };
 
-      const wrapper = mount(<Button forwardRef={ref}>Button</Button>);
+      const wrapper = mount(<Button {...{ [propName]: ref }}>Button</Button>);
 
       wrapper.update();
 
@@ -51,7 +83,7 @@ describe("Button", () => {
 
     it("accepts ref as a ref callback", () => {
       const ref = jest.fn();
-      const wrapper = mount(<Button forwardRef={ref}>Button</Button>);
+      const wrapper = mount(<Button {...{ [propName]: ref }}>Button</Button>);
 
       wrapper.update();
 
@@ -60,7 +92,7 @@ describe("Button", () => {
 
     it("sets ref to empty after unmount", () => {
       const ref = { current: null };
-      const wrapper = mount(<Button forwardRef={ref}>Button</Button>);
+      const wrapper = mount(<Button {...{ [propName]: ref }}>Button</Button>);
 
       wrapper.update();
 
@@ -715,7 +747,6 @@ describe("Button", () => {
         act(() => {
           wrapper.find(StyledButton).at(0).props().onKeyDown({
             key: " ",
-            which: 32,
             preventDefault: preventDefaultSpy,
           });
         });
@@ -733,7 +764,6 @@ describe("Button", () => {
         act(() => {
           wrapper.find(StyledButton).at(0).props().onKeyDown({
             key: "ArrowLeft",
-            which: 37,
             preventDefault: jest.fn(),
           });
         });
@@ -778,16 +808,5 @@ describe("Button", () => {
         );
       }
     );
-  });
-
-  describe("when the `as` prop is used", () => {
-    it("fires a prop deprecation warning to the console", () => {
-      const message =
-        "[Deprecation] The `as` prop is deprecated and will soon be removed from the `Button` component interface. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop";
-      const assert = expectConsoleOutput(message, "warn");
-
-      mount(<Button as="primary">foo</Button>);
-      assert();
-    });
   });
 });

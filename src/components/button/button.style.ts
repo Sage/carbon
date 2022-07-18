@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
-import { IconType } from "components/icon/icon";
+import { IconType } from "components/icon/icon-type";
 
 import BaseTheme from "../../style/themes/base";
 import buttonTypes from "./button-types.style";
@@ -72,7 +72,7 @@ function stylingForType({
 }
 
 type StyledButtonProps = SpaceProps &
-  Omit<ButtonProps, "as"> & {
+  ButtonProps & {
     iconOnly?: boolean;
   };
 

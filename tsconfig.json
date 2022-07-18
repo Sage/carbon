@@ -16,12 +16,11 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "outDir": "./lib/",
-    "rootDir": "./",
+    "rootDir": "./src",
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "es6"
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.stories.js", "src/**/*.test.js"]
+  "include": ["./src/**/*.ts*"],
 }

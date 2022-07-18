@@ -20,25 +20,45 @@ const DatePicker = React.forwardRef(
       onDayClick,
       pickerMouseDown,
       pickerProps,
+      open,
     },
     ref
   ) => {
     const l = useLocale();
     const { localize, options } = l.date.dateFnsLocale();
     const { weekStartsOn } = options;
-    const monthsLong = Array.from({ length: 12 }).map((_, i) =>
-      localize.month(i)
+    const monthsLong = useMemo(
+      () =>
+        Array.from({ length: 12 }).map((_, i) => {
+          const month = localize.month(i);
+          return month[0].toUpperCase() + month.slice(1);
+        }),
+      [localize]
     );
-    const monthsShort = Array.from({ length: 12 }).map((_, i) =>
-      localize.month(i, { width: "abbreviated" }).substring(0, 3)
+    const monthsShort = useMemo(
+      () =>
+        Array.from({ length: 12 }).map((_, i) =>
+          localize.month(i, { width: "abbreviated" }).substring(0, 3)
+        ),
+      [localize]
     );
-    const weekdaysLong = Array.from({ length: 7 }).map((_, i) =>
-      localize.day(i)
+    const weekdaysLong = useMemo(
+      () => Array.from({ length: 7 }).map((_, i) => localize.day(i)),
+      [localize]
     );
-    const weekdaysShort = Array.from({ length: 7 }).map((_, i) =>
-      localize
-        .day(i, l.locale() === "de" ? {} : { width: "abbreviated" })
-        .substring(0, 3)
+    const weekdaysShort = useMemo(
+      () =>
+        Array.from({ length: 7 }).map((_, i) =>
+          localize
+            .day(
+              i,
+              ["de", "pl"].filter((str) => l.locale().includes(str)).length
+                ? { width: "wide" }
+                : { width: "abbreviated" }
+            )
+            .substring(0, 3)
+        ),
+      [l, localize]
     );
 
     const popoverModifiers = useMemo(
@@ -61,6 +81,12 @@ const DatePicker = React.forwardRef(
 
     const handleDayClick = (date, { disabled }, ev) => {
       if (!disabled) {
+        const { id, name } = inputElement?.current?.firstChild;
+        ev.target = {
+          ...ev.target,
+          id,
+          name,
+        };
         onDayClick(date, ev);
       }
     };
@@ -69,6 +95,10 @@ const DatePicker = React.forwardRef(
       `${weekdaysShort[date.getDay()]} ${date.getDate()} ${
         monthsShort[date.getMonth()]
       } ${date.getFullYear()}`;
+
+    if (!open) {
+      return null;
+    }
 
     return (
       <Popover
@@ -95,7 +125,6 @@ const DatePicker = React.forwardRef(
               );
             }}
             navbarElement={<Navbar />}
-            enableOutsideDays
             fixedWeeks
             initialMonth={selectedDays || undefined}
             disabledDays={getDisabledDays(minDate, maxDate)}
@@ -127,6 +156,8 @@ DatePicker.propTypes = {
   pickerProps: PropTypes.object,
   /** Callback to handle mousedown event on picker */
   pickerMouseDown: PropTypes.func,
+  /** Sets whether the picker should be displayed */
+  open: PropTypes.bool,
 };
 
 export default DatePicker;

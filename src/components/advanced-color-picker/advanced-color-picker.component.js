@@ -61,17 +61,17 @@ const AdvancedColorPicker = ({
   }, [colors, currentColor, dialogOpen, isOpen]);
 
   const handleFocus = useCallback(
-    (e, firstFocusableElement, lastFocusableElement) => {
+    (e, firstFocusableElement) => {
       if (e.key === "Tab") {
         /* istanbul ignore else */
         if (e.shiftKey) {
           /* istanbul ignore else */
-          if (document.activeElement === selectedColorRef) {
-            lastFocusableElement.focus();
+          if (document.activeElement === firstFocusableElement) {
+            selectedColorRef.focus();
             e.preventDefault();
           }
-        } else if (document.activeElement === lastFocusableElement) {
-          selectedColorRef.focus();
+        } else if (document.activeElement === selectedColorRef) {
+          firstFocusableElement.focus();
           e.preventDefault();
         }
       }

@@ -6,6 +6,7 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Form from ".";
 import Textbox from "../textbox";
 import Textarea from "../textarea";
+import { Tab, Tabs } from "../tabs";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import DateInput from "../date";
 import { Select, MultiSelect, Option } from "../select";
@@ -63,6 +64,15 @@ When `stickyFooter` prop is set as true, footer becomes stickied to the bottom o
       }
       stickyFooter
     >
+    <Tabs mb={2}>
+      <Tab
+        pl="3px"
+        customLayout={
+          <Box mx="16px" my="10px">
+            Tab1
+          </Box>
+        }/>
+      </Tabs>
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />

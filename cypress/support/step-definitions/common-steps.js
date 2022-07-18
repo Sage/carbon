@@ -1,3 +1,5 @@
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import {
   visitComponentUrl,
   pressESCKey,
@@ -20,7 +22,7 @@ import {
   helpIcon,
 } from "../../locators";
 import { dialogTitle } from "../../locators/dialog";
-import DEBUG_FLAG from "..";
+import DEBUG_FLAG from "../e2e";
 import { pagerSummary } from "../../locators/pager";
 import {
   buttonSubtextPreview,
@@ -148,8 +150,8 @@ When("I press Tab onto focused element", () => {
 });
 
 When("I press ESC onto focused element", () => {
-  cy.focused().trigger("keydown", { keyCode: 16, which: 16, release: false });
-  cy.focused().trigger("keydown", { keyCode: 27, which: 27 });
+  cy.focused().trigger("keydown", { key: "Shift", release: false });
+  cy.focused().trigger("keydown", { key: "Escape" });
 });
 
 When("I press ShiftTab onto focused element", () => {

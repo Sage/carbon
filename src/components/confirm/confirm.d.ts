@@ -1,4 +1,4 @@
-import { IconType } from "components/icon/icon";
+import { IconType } from "components/icon/icon-type";
 import * as React from "react";
 import { DialogProps } from "../dialog/dialog";
 
@@ -21,8 +21,6 @@ export interface ConfirmProps extends DialogProps {
   cancelLabel?: string;
   /** Customise the confirm button label */
   confirmLabel?: string;
-  /** Apply destructive style to the buttons */
-  destructive?: boolean;
   /** Apply destructive style to the cancel button */
   cancelButtonDestructive?: boolean;
   /** Apply destructive style to the confirm button */

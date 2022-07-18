@@ -56,7 +56,6 @@ describe("Confirm", () => {
       expect(wrapper.props().subtitle).toEqual("Confirm Subtitle");
       expect(wrapper.props()["data-element"]).toEqual("bar");
       expect(wrapper.props()["data-role"]).toEqual("baz");
-      expect(wrapper.props().destructive).toBeFalsy();
     });
   });
 
@@ -103,7 +102,6 @@ describe("Confirm", () => {
       beforeEach(() => {
         escapeKeyEvent = new KeyboardEvent("keyup", {
           key: "Escape",
-          which: 27,
           bubbles: true,
         });
         wrapper = mount(
@@ -331,31 +329,6 @@ describe("Confirm", () => {
         mount(<StyledConfirmHeading type="warning" />),
         { modifier: `${StyledIcon}` }
       );
-    });
-
-    it("confirm and cancel buttons should be `destructive`", () => {
-      wrapper = mount(
-        <Confirm
-          open
-          onCancel={onCancel}
-          onConfirm={onConfirm}
-          confirmLabel="Delete"
-          cancelLabel="Cancel"
-          destructive
-        />
-      );
-
-      const confirmButton = wrapper
-        .find(Button)
-        .find('[data-element="confirm"]')
-        .at(0);
-      const cancelButton = wrapper
-        .find(Button)
-        .find('[data-element="cancel"]')
-        .at(0);
-
-      expect(confirmButton.props().destructive).toBeTruthy();
-      expect(cancelButton.props().destructive).toBeTruthy();
     });
 
     it("confirm button should be `destructive`", () => {

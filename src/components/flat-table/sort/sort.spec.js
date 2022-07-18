@@ -7,9 +7,9 @@ import { StyledSort, StyledSpaceHolder } from "./sort.style";
 describe("Sort", () => {
   let wrapper, onClickFn, onKeyDownFn;
 
-  const ENTER_KEY = { keyCode: 13, which: 13 };
-  const SPACE_KEY = { keyCode: 32, which: 32 };
-  const RANDOM_KEY = { keyCode: 82, which: 82 };
+  const ENTER_KEY = { key: "Enter" };
+  const SPACE_KEY = { key: " " };
+  const RANDOM_KEY = { key: "a" };
 
   beforeEach(() => {
     onClickFn = jest.fn();

@@ -15,6 +15,7 @@ import {
   setElementFocus,
 } from "./focus-trap-utils";
 import { ModalContext } from "../../components/modal/modal.component";
+import usePrevious from "../../hooks/__internal__/usePrevious";
 
 const FocusTrap = ({
   children,
@@ -22,14 +23,16 @@ const FocusTrap = ({
   focusFirstElement,
   bespokeTrap,
   wrapperRef,
+  isOpen,
 }) => {
   const trapRef = useRef(null);
-  const firstOpen = useRef(true);
   const [focusableElements, setFocusableElements] = useState();
   const [firstElement, setFirstElement] = useState();
   const [lastElement, setLastElement] = useState();
   const [currentFocusedElement, setCurrentFocusedElement] = useState();
-  const { isAnimationComplete, triggerRefocusFlag } = useContext(ModalContext);
+  const { isAnimationComplete = true, triggerRefocusFlag } = useContext(
+    ModalContext
+  );
 
   const hasNewInputs = useCallback(
     (candidate) => {
@@ -74,17 +77,19 @@ const FocusTrap = ({
     updateFocusableElements();
   }, [children, updateFocusableElements]);
 
+  const shouldSetFocus =
+    autoFocus &&
+    isOpen &&
+    isAnimationComplete &&
+    (focusFirstElement || wrapperRef?.current);
+
+  const prevShouldSetFocus = usePrevious(shouldSetFocus);
+
   useEffect(() => {
-    if (
-      autoFocus &&
-      firstOpen.current &&
-      isAnimationComplete &&
-      (focusFirstElement || firstElement)
-    ) {
-      setElementFocus(focusFirstElement || firstElement);
-      firstOpen.current = false;
+    if (shouldSetFocus && !prevShouldSetFocus) {
+      setElementFocus(focusFirstElement || wrapperRef?.current);
     }
-  }, [autoFocus, firstElement, focusFirstElement, isAnimationComplete]);
+  }, [shouldSetFocus, prevShouldSetFocus, focusFirstElement, wrapperRef]);
 
   useEffect(() => {
     const trapFn = (ev) => {
@@ -101,7 +106,10 @@ const FocusTrap = ({
           ev.preventDefault();
         } else if (ev.shiftKey) {
           /* shift + tab */
-          if (activeElement === firstElement) {
+          if (
+            activeElement === firstElement ||
+            activeElement === wrapperRef.current
+          ) {
             lastElement.focus();
             ev.preventDefault();
           }
@@ -129,7 +137,7 @@ const FocusTrap = ({
     return function cleanup() {
       document.removeEventListener("keydown", trapFn);
     };
-  }, [firstElement, lastElement, focusableElements, bespokeTrap]);
+  }, [firstElement, lastElement, focusableElements, bespokeTrap, wrapperRef]);
 
   const updateCurrentFocusedElement = useCallback(() => {
     const element = focusableElements?.find(
@@ -141,14 +149,6 @@ const FocusTrap = ({
     }
   }, [focusableElements]);
 
-  useEffect(() => {
-    document.addEventListener("focusin", updateCurrentFocusedElement);
-
-    return () => {
-      document.removeEventListener("focusin", updateCurrentFocusedElement);
-    };
-  }, [updateCurrentFocusedElement]);
-
   const refocusTrap = useCallback(() => {
     /* istanbul ignore else */
     if (
@@ -157,10 +157,12 @@ const FocusTrap = ({
     ) {
       // the trap breaks if it tries to refocus a disabled element
       setElementFocus(currentFocusedElement);
+    } else if (wrapperRef?.current?.hasAttribute("tabindex")) {
+      setElementFocus(wrapperRef.current);
     } else if (firstElement) {
       setElementFocus(firstElement);
     }
-  }, [currentFocusedElement, firstElement]);
+  }, [currentFocusedElement, firstElement, wrapperRef]);
 
   useEffect(() => {
     if (triggerRefocusFlag) {
@@ -168,7 +170,36 @@ const FocusTrap = ({
     }
   }, [triggerRefocusFlag, refocusTrap]);
 
-  return <div ref={trapRef}>{children}</div>;
+  const [tabIndex, setTabIndex] = useState(0);
+
+  useEffect(() => {
+    // issue in cypress prevents setting tabIndex to -1, instead tabIndex is set to 0 and removed on blur.
+    if (!isOpen) {
+      setTabIndex(0);
+    }
+  }, [isOpen]);
+
+  const onBlur = () => {
+    /* istanbul ignore else */
+    if (isOpen) {
+      setTabIndex(undefined);
+    }
+  };
+
+  const focusProps = (hasNoTabIndex) => ({
+    ...(hasNoTabIndex && { tabIndex, onBlur }),
+    onFocus: updateCurrentFocusedElement,
+  });
+
+  // passes focusProps, sets tabIndex and onBlur if no tabIndex has been expicitly set on child
+  const clonedChildren = React.Children.map(children, (child) => {
+    return React.cloneElement(
+      child,
+      focusProps(child.props.tabIndex === undefined)
+    );
+  });
+
+  return <div ref={trapRef}>{clonedChildren}</div>;
 };
 
 FocusTrap.propTypes = {
@@ -184,6 +215,8 @@ FocusTrap.propTypes = {
   bespokeTrap: PropTypes.func,
   /** a ref to the container wrapping the focusable elements */
   wrapperRef: PropTypes.shape({ current: PropTypes.any }),
+  /* whether the modal (etc.) component that the focus trap is inside is open or not */
+  isOpen: PropTypes.bool,
 };
 
 export default FocusTrap;

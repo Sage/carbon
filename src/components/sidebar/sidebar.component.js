@@ -9,6 +9,7 @@ import FocusTrap from "../../__internal__/focus-trap";
 import SidebarHeader from "./__internal__/sidebar-header";
 import Box from "../box";
 import { SIDEBAR_SIZES, SIDEBAR_ALIGNMENTS } from "./sidebar.config";
+import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 
 export const SidebarContext = React.createContext({});
@@ -33,6 +34,7 @@ const Sidebar = React.forwardRef(
     ref
   ) => {
     const locale = useLocale();
+    const { current: titleId } = useRef(createGuid());
 
     let sidebarRef = useRef();
     if (ref) sidebarRef = ref;
@@ -60,7 +62,9 @@ const Sidebar = React.forwardRef(
         aria-modal={!enableBackgroundUI}
         aria-describedby={ariaDescribedBy}
         aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
+        aria-labelledby={
+          !ariaLabelledBy && !ariaLabel ? titleId : ariaLabelledBy
+        }
         ref={sidebarRef}
         position={position}
         size={size}
@@ -68,8 +72,8 @@ const Sidebar = React.forwardRef(
         onCancel={onCancel}
         role={role}
       >
+        {header && <SidebarHeader id={titleId}>{header}</SidebarHeader>}
         {closeIcon()}
-        {header && <SidebarHeader>{header}</SidebarHeader>}
         <Box
           data-element="sidebar-content"
           p={4}
@@ -97,7 +101,9 @@ const Sidebar = React.forwardRef(
         {enableBackgroundUI ? (
           sidebar
         ) : (
-          <FocusTrap wrapperRef={sidebarRef}>{sidebar}</FocusTrap>
+          <FocusTrap wrapperRef={sidebarRef} isOpen={open}>
+            {sidebar}
+          </FocusTrap>
         )}
       </Modal>
     );

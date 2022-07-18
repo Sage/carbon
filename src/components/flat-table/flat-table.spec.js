@@ -176,7 +176,7 @@ describe("FlatTable", () => {
         {
           backgroundColor: "var(--colorsUtilityMajor100)",
           borderRight: "1px solid var(--colorsUtilityMajor150)",
-          borderBottomColor: "var(--colorsUtilityMajor100)",
+          borderBottomColor: "var(--colorsUtilityMajor150)",
         },
 
         wrapper.find(StyledFlatTableWrapper),

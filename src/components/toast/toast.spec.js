@@ -3,10 +3,7 @@ import { shallow, mount } from "enzyme";
 import guid from "../../__internal__/utils/helpers/guid";
 import Toast from "./toast.component";
 import { ToastStyle, ToastContentStyle, ToastWrapper } from "./toast.style";
-import {
-  assertStyleMatch,
-  expectConsoleOutput as expectWarn,
-} from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import ModalManager from "../modal/__internal__/modal-manager";
 import {
@@ -21,7 +18,7 @@ describe("Toast", () => {
 
   describe("modal manager", () => {
     jest.spyOn(ModalManager, "addModal");
-    jest.spyOn(ModalManager, "removeModal");
+    const removeModalSpy = jest.spyOn(ModalManager, "removeModal");
     let wrapper;
 
     describe("when component mounts", () => {
@@ -45,6 +42,7 @@ describe("Toast", () => {
 
     describe("when component unmounts", () => {
       it("it is removed from modal manager", () => {
+        removeModalSpy.mockClear();
         wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
         const toast = wrapper.find(ToastWrapper).getDOMNode();
         wrapper.unmount();
@@ -88,7 +86,6 @@ describe("Toast", () => {
         wrapper.setProps({ open: false });
         const escapeKeyEvent = new KeyboardEvent("keyup", {
           key: "Escape",
-          which: 27,
           bubbles: true,
         });
         jest.spyOn(escapeKeyEvent, "stopImmediatePropagation");
@@ -177,7 +174,7 @@ describe("Toast", () => {
 
         it("dismiss icon is focused and Enter key is pressed", () => {
           const icon = wrapper.find(IconButton).first();
-          icon.simulate("keyDown", { which: 13, key: "Enter" });
+          icon.simulate("keyDown", { key: "Enter" });
           expect(onDismiss).toHaveBeenCalled();
         });
 
@@ -193,7 +190,7 @@ describe("Toast", () => {
       describe("does not call onDismiss method when", () => {
         it("dismiss icon is focused any other key is pressed", () => {
           const icon = wrapper.find(IconButton).first();
-          icon.simulate("keyDown", { which: 65, key: "a" });
+          icon.simulate("keyDown", { key: "a" });
           expect(onDismiss).not.toHaveBeenCalled();
         });
 
@@ -276,7 +273,6 @@ describe("ToastStyle", () => {
     beforeEach(() => {
       escapeKeyEvent = new KeyboardEvent("keyup", {
         key: "Escape",
-        which: 27,
         bubbles: true,
       });
       onDismissFn = jest.fn();
@@ -300,7 +296,6 @@ describe("ToastStyle", () => {
     it("when a key other than escape is released, onDismiss and stopImmediatePropagation are not called", () => {
       const otherKeyEvent = new KeyboardEvent("keyup", {
         key: "a",
-        which: 65,
         bubbles: true,
       });
       jest.spyOn(otherKeyEvent, "stopImmediatePropagation");
@@ -308,21 +303,6 @@ describe("ToastStyle", () => {
       document.dispatchEvent(otherKeyEvent);
       expect(otherKeyEvent.stopImmediatePropagation).not.toHaveBeenCalled();
       expect(onDismissFn).not.toHaveBeenCalled();
-    });
-  });
-
-  describe("when the `as` prop is used", () => {
-    it("fires a prop deprecation warning to the console", () => {
-      const message =
-        "[Deprecation] The `as` prop is deprecated and will soon be removed from the `Toast` component interface. You should use the `variant` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop";
-      const assert = expectWarn(message, "warn");
-
-      wrapper = mount(
-        <Toast open={false} as="info" onDismiss={() => {}}>
-          foobar
-        </Toast>
-      );
-      assert();
     });
   });
 });

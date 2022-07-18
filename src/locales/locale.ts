@@ -38,6 +38,9 @@ interface Locale {
       ) => [string, string] | null;
     };
   };
+  heading: {
+    backLinkAriaLabel: () => string;
+  };
   message: {
     closeButtonAriaLabel: () => string;
   };
@@ -95,15 +98,6 @@ interface Locale {
   toast: {
     ariaLabels: {
       close: () => string;
-    };
-  };
-  wizards: {
-    multiStep: {
-      buttons: {
-        submit: () => string;
-        next: () => string;
-        back: () => string;
-      };
     };
   };
 }

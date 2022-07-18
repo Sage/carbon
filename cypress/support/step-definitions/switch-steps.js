@@ -1,3 +1,5 @@
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import { switchLoading, switchInput } from "../../locators/switch";
 
 Then("Switch component is loading", () => {

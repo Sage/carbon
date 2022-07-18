@@ -7,6 +7,9 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
 import SidebarHeader from "./__internal__/sidebar-header/sidebar-header.component";
+import guid from "../../__internal__/utils/helpers/guid";
+
+jest.mock("../../__internal__/utils/helpers/guid");
 
 describe("Sidebar", () => {
   let wrapper, spy;
@@ -111,6 +114,22 @@ describe("Sidebar", () => {
         wrapper = mount(<Sidebar open header="test header" />);
         expect(wrapper.find(SidebarHeader).contains("test header")).toBe(true);
       });
+
+      it("when a header is provided, the container has an aria-labeledby attribute set to it's header's id", () => {
+        guid.mockImplementation(() => "guid-12345");
+
+        wrapper = mount(<Sidebar open header="test header" />);
+        expect(wrapper.find(SidebarStyle).first().prop("aria-labelledby")).toBe(
+          "guid-12345"
+        );
+      });
+
+      it("when no header is provided, the container has an aria-labeledby attribute set to the prop provided", () => {
+        wrapper = mount(<Sidebar open aria-labelledby="my-id" />);
+        expect(wrapper.find(SidebarStyle).first().prop("aria-labelledby")).toBe(
+          "my-id"
+        );
+      });
     });
   });
 
@@ -122,13 +141,13 @@ describe("Sidebar", () => {
 
     it("closes when close icon is focused and Enter key is pressed", () => {
       const icon = wrapper.find(IconButton).first();
-      icon.simulate("keyDown", { which: 13, key: "Enter" });
+      icon.simulate("keyDown", { key: "Enter" });
       expect(spy).toHaveBeenCalled();
     });
 
     it("does not close when close icon is focused any other key is pressed", () => {
       const icon = wrapper.find(IconButton).first();
-      icon.simulate("keyDown", { which: 65, key: "a" });
+      icon.simulate("keyDown", { key: "a" });
       expect(spy).not.toHaveBeenCalled();
     });
   });

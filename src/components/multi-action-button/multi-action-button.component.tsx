@@ -6,12 +6,13 @@ import React, {
   useMemo,
 } from "react";
 
+import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { SplitButtonProps } from "../split-button";
 import {
   StyledMultiActionButton,
   StyledButtonChildrenContainer,
 } from "./multi-action-button.style";
-import Button, { ButtonWithForwardRef } from "../button";
+import Button from "../button";
 import Events from "../../__internal__/utils/helpers/events";
 import Popover from "../../__internal__/popover";
 import {
@@ -19,9 +20,6 @@ import {
   filterOutStyledSystemSpacingProps,
 } from "../../style/utils";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedWarnTriggered = false;
 
 export interface MultiActionButtonProps
   extends Omit<SplitButtonProps, "buttonType"> {
@@ -34,7 +32,6 @@ export interface MultiActionButtonProps
 export const MultiActionButton = ({
   align = "left",
   disabled,
-  as,
   buttonType,
   size,
   children,
@@ -44,14 +41,6 @@ export const MultiActionButton = ({
   "data-role": dataRole,
   ...rest
 }: MultiActionButtonProps) => {
-  if (!deprecatedWarnTriggered && as) {
-    deprecatedWarnTriggered = true;
-    Logger.deprecate(
-      // eslint-disable-next-line max-len
-      "The `as` prop is deprecated and will soon be removed from the `MultiActionButton` component interface. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop"
-    );
-  }
-
   const ref = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const buttonContainer = useRef<HTMLDivElement>(null);
@@ -101,10 +90,6 @@ export const MultiActionButton = ({
         },
       };
 
-      if (child.type === Button) {
-        return <ButtonWithForwardRef {...child.props} {...props} />;
-      }
-
       return React.cloneElement(child, props);
     });
   };
@@ -152,35 +137,21 @@ export const MultiActionButton = ({
     [buttonChildren, hideButtons]
   );
 
-  const handleClickOutside = useCallback(
-    ({ target }) => {
-      if (
-        !ref.current?.contains(target) &&
-        !buttonContainer.current?.contains(target)
-      ) {
-        hideButtons();
-      }
-    },
-    [hideButtons]
-  );
-
   const addListeners = useCallback(() => {
     /* istanbul ignore else */
     if (!listening.current) {
-      document.addEventListener("click", handleClickOutside);
       document.addEventListener("keydown", handleKeyDown);
       listening.current = true;
     }
-  }, [handleKeyDown, handleClickOutside]);
+  }, [handleKeyDown]);
 
   const removeListeners = useCallback(() => {
     /* istanbul ignore else */
     if (listening.current) {
-      document.removeEventListener("click", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
       listening.current = false;
     }
-  }, [handleKeyDown, handleClickOutside]);
+  }, [handleKeyDown]);
 
   useEffect(() => {
     if (showAdditionalButtons) {
@@ -234,7 +205,7 @@ export const MultiActionButton = ({
     onFocus: focusMainButton,
     onBlur: blurMainButton,
     onKeyDown: handleMainButtonKeyDown,
-    buttonType: buttonType || as,
+    buttonType,
     size,
     subtext,
     ...(!disabled && { onMouseEnter: showButtons }),
@@ -255,6 +226,8 @@ export const MultiActionButton = ({
       </StyledButtonChildrenContainer>
     </Popover>
   );
+
+  useClickAwayListener([ref], hideButtons);
 
   return (
     <StyledMultiActionButton

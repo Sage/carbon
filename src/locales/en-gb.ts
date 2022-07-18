@@ -56,6 +56,9 @@ const enGB: Locale = {
         },
     },
   },
+  heading: {
+    backLinkAriaLabel: () => "Back",
+  },
   message: {
     closeButtonAriaLabel: () => "Close",
   },
@@ -116,15 +119,6 @@ const enGB: Locale = {
   toast: {
     ariaLabels: {
       close: () => "Close",
-    },
-  },
-  wizards: {
-    multiStep: {
-      buttons: {
-        submit: () => "Submit",
-        next: () => "Next",
-        back: () => "Back",
-      },
     },
   },
 };

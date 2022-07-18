@@ -61,6 +61,7 @@ const MultiSelect = React.forwardRef(
       "data-role": dataRole,
       listPlacement = "bottom-start",
       flipEnabled = true,
+      wrapPillText = true,
       ...textboxProps
     },
     inputRef
@@ -243,6 +244,7 @@ const MultiSelect = React.forwardRef(
               onDelete={
                 canDelete ? () => removeSelectedValue(index) : undefined
               }
+              wrapText={wrapPillText}
               {...pillProps}
             >
               {title}
@@ -604,6 +606,8 @@ MultiSelect.propTypes = {
   ]),
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled: PropTypes.bool,
+  /** Wraps the pill text when it would overflow the input width */
+  wrapPillText: PropTypes.bool,
 };
 
 MultiSelect.defaultProps = {

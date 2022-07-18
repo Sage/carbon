@@ -26,6 +26,7 @@ import { FieldsetStyle } from "../fieldset/fieldset.style";
 import StyledSearch from "../search/search.style";
 import Textarea from "../textarea";
 import StyledTextarea from "../textarea/textarea.style";
+import Dialog from "../dialog";
 
 jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
 jest.mock("../../hooks/__internal__/useResizeObserver");
@@ -113,7 +114,7 @@ describe("Form", () => {
     it("applies custom value to textarea with character count specified", () => {
       wrapper = mount(
         <StyledForm fieldSpacing={4}>
-          <Textarea label="Textarea with Character Limit" characterLimit={50} />
+          <Textarea label="Textarea with Character Limit" characterLimit="50" />
         </StyledForm>
       );
       assertStyleMatch(
@@ -148,7 +149,7 @@ describe("Form", () => {
 
       assertStyleMatch(
         {
-          overflowY: "auto",
+          overflowY: "inherit",
           flex: "1",
         },
         wrapper.find(StyledFormContent)
@@ -164,26 +165,22 @@ describe("Form", () => {
       );
     };
 
-    describe("without container", () => {
-      beforeEach(() => {
-        wrapper = mount(
-          <Form
-            stickyFooter
-            saveButton={
-              <Button buttonType="primary" type="submit">
-                Save
-              </Button>
-            }
-          />
-        );
-      });
+    it("when not rendered in a container, render footer with sticky styles", () => {
+      wrapper = mount(
+        <Form
+          stickyFooter
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        />
+      );
 
-      it("renders footer with sticky styles", () => {
-        assertThatFooterIsSticky();
-      });
+      assertThatFooterIsSticky();
     });
 
-    describe("with custom container", () => {
+    it("when rendered in a container, render footer with sticky styles", () => {
       const Component = () => {
         const ref = useRef();
         return (
@@ -203,44 +200,56 @@ describe("Form", () => {
         );
       };
 
-      beforeEach(() => {
-        wrapper = mount(<Component />);
-      });
-
-      it("renders footer with sticky styles", () => {
-        assertThatFooterIsSticky();
-      });
+      wrapper = mount(<Component />);
+      assertThatFooterIsSticky();
     });
 
-    describe("when stickyFooter is provided and it is used in Sidebar", () => {
-      it("should render correct styles", () => {
-        wrapper = mount(<StyledForm stickyFooter isInSidebar />);
+    it("when inside a modal-like component and form content overflows, scroll bar does not appear", () => {
+      wrapper = mount(
+        <Dialog open disableAutoFocus>
+          <Form
+            height="200px"
+            stickyFooter
+            saveButton={<Button>Submit</Button>}
+          >
+            <div style={{ height: 300 }}>Content</div>
+          </Form>
+        </Dialog>
+      );
 
-        assertStyleMatch(
-          {
-            paddingRight: "var(--spacing400)",
-            paddingLeft: "var(--spacing400)",
-            paddingTop: "27px",
-            marginRight: "calc(-1 * var(--spacing400))",
-            marginLeft: "calc(-1 * var(--spacing400))",
-            marginTop: "-27px",
-          },
-          wrapper,
-          { modifier: `${StyledFormContent}.sticky` }
-        );
+      expect(wrapper.find("[data-element='form-content']")).toHaveStyleRule(
+        "overflow-y",
+        "visible"
+      );
+    });
 
-        assertStyleMatch(
-          {
-            marginLeft: "calc(-1 * var(--spacing400))",
-            marginBottom: "calc(-1 * var(--spacing400))",
-            width: "calc(100% + var(--spacing800))",
-            paddingLeft: "var(--spacing400)",
-            paddingRight: "var(--spacing400)",
-          },
-          wrapper,
-          { modifier: `${StyledFormFooter}.sticky` }
-        );
-      });
+    it("when inside a Sidebar, render with correct styles", () => {
+      wrapper = mount(<Form stickyFooter isInSidebar />);
+
+      assertStyleMatch(
+        {
+          paddingRight: "var(--spacing400)",
+          paddingLeft: "var(--spacing400)",
+          paddingTop: "27px",
+          marginRight: "calc(-1 * var(--spacing400))",
+          marginLeft: "calc(-1 * var(--spacing400))",
+          marginTop: "-27px",
+        },
+        wrapper,
+        { modifier: `${StyledFormContent}.sticky` }
+      );
+
+      assertStyleMatch(
+        {
+          marginLeft: "calc(-1 * var(--spacing400))",
+          marginBottom: "calc(-1 * var(--spacing400))",
+          width: "calc(100% + var(--spacing800))",
+          paddingLeft: "var(--spacing400)",
+          paddingRight: "var(--spacing400)",
+        },
+        wrapper,
+        { modifier: `${StyledFormFooter}.sticky` }
+      );
     });
   });
 

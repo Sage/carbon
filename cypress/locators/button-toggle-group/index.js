@@ -1,10 +1,16 @@
-import BUTTON_TOGGLE_GROUP_CONTAINER from "./locators";
+import {
+  BUTTON_TOGGLE_GROUP_CONTAINER,
+  BUTTON_TOGGLE_GROUP_HELP,
+  BUTTON_TOGGLE_GROUP_HELP_ICON,
+} from "./locators";
 
 // component preview locators
-const labelPreviewByText = () =>
+export const labelPreviewByText = () =>
   cy
     .get(BUTTON_TOGGLE_GROUP_CONTAINER)
     .find('div[data-component="button-toggle"]')
     .find("label");
-
-export default labelPreviewByText;
+export const buttonToggleGroup = () => cy.get(BUTTON_TOGGLE_GROUP_CONTAINER);
+export const buttonToggleGroupHelp = () => cy.get(BUTTON_TOGGLE_GROUP_HELP);
+export const buttonToggleGroupHelpIcon = () =>
+  cy.get(BUTTON_TOGGLE_GROUP_HELP_ICON);

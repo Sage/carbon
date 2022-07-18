@@ -9,7 +9,6 @@ import {
   assertStyleMatch,
   testStyledSystemSpacing,
   testStyledSystemWidth,
-  expectConsoleOutput as expectWarn,
 } from "../../__spec_helper__/test-utils";
 
 function render(props, renderer = TestRenderer.create) {
@@ -72,7 +71,7 @@ describe("Tile", () => {
     testStyledSystemWidth((props) => <Tile {...props} />);
 
     describe("variant", () => {
-      it('renders a white background when as === "tile"', () => {
+      it('renders a white background when variant prop is "tile"', () => {
         const wrapper = render({ variant: "tile" }).toJSON();
 
         assertStyleMatch(
@@ -81,7 +80,7 @@ describe("Tile", () => {
         );
       });
 
-      it('renders a transparent background when as === "transparent"', () => {
+      it('renders a transparent background when variant prop is "transparent"', () => {
         const wrapper = render({ variant: "transparent" }).toJSON();
 
         assertStyleMatch({ backgroundColor: "transparent" }, wrapper);
@@ -230,22 +229,6 @@ describe("Tile", () => {
           }
         );
       });
-    });
-  });
-
-  describe("when the `as` prop is used", () => {
-    it("fires a prop deprecation warning to the console", () => {
-      const message =
-        "[Deprecation] The `as` prop is deprecated and will soon be removed from the `Tile` component interface. You should use the `variant` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop";
-      const assert = expectWarn(message, "warn");
-
-      mount(
-        <Tile as="tile">
-          <Content key="one">Child 1</Content>
-          <Content>Child 2</Content>
-        </Tile>
-      );
-      assert();
     });
   });
 });

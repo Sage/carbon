@@ -18,6 +18,7 @@ import MenuItem from "../../menu-item";
 import { characterNavigation } from "../keyboard-navigation";
 import ScrollableBlock from "../../scrollable-block";
 import SubmenuContext from "./submenu.context";
+import useClickAwayListener from "../../../../hooks/__internal__/useClickAwayListener";
 
 const Submenu = React.forwardRef(
   (
@@ -162,7 +163,7 @@ const Submenu = React.forwardRef(
             nextIndex = numberOfChildren - 1;
           }
 
-          if (Events.isAlphabetKey(event) || Events.isNumberKey(event)) {
+          if (event.key.length === 1) {
             event.stopPropagation();
 
             if (characterTimer.current) {
@@ -226,20 +227,13 @@ const Submenu = React.forwardRef(
       ]
     );
 
-    const onClickOutside = useCallback(
-      (event) => {
-        if (!Events.composedPath(event).includes(submenuRef.current)) {
-          document.removeEventListener("click", onClickOutside);
-          closeSubmenu();
-        }
-      },
-      [closeSubmenu]
-    );
+    const handleClickAway = () => {
+      document.removeEventListener("click", handleClickAway);
+      closeSubmenu();
+    };
 
     const handleClick = (event) => {
-      if (clickToOpen) {
-        openSubmenu();
-      }
+      openSubmenu();
 
       if (onClick) {
         onClick(event);
@@ -259,15 +253,7 @@ const Submenu = React.forwardRef(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [characterString]);
 
-    useEffect(() => {
-      if (submenuOpen) {
-        document.addEventListener("click", onClickOutside);
-      }
-
-      return function cleanup() {
-        document.removeEventListener("click", onClickOutside);
-      };
-    }, [onClickOutside, submenuOpen]);
+    useClickAwayListener([submenuRef], handleClickAway);
 
     if (inFullscreenView) {
       return (
@@ -280,6 +266,7 @@ const Submenu = React.forwardRef(
         >
           <StyledMenuItemWrapper
             {...rest}
+            onClick={onClick}
             className={className}
             menuType={menuContext.menuType}
             ref={ref}

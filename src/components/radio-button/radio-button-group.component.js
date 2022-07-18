@@ -4,7 +4,7 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import Fieldset from "../../__internal__/fieldset";
 import RadioButtonGroupStyle from "./radio-button-group.style";
-import RadioButtonMapper from "./radio-button-mapper.component";
+import RadioButtonMapper from "../../__internal__/radio-button-mapper/radio-button-mapper.component";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";

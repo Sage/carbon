@@ -7,13 +7,12 @@ import {
   StyledMultiActionButton,
   StyledButtonChildrenContainer,
 } from "./multi-action-button.style";
-import Button, { ButtonWithForwardRef } from "../button";
+import Button from "../button";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   keyboard,
   testStyledSystemMargin,
-  expectConsoleOutput as expectWarn,
 } from "../../__spec_helper__/test-utils";
 import StyledButton from "../button/button.style";
 import StyledIcon from "../icon/icon.style";
@@ -78,15 +77,15 @@ describe("MultiActionButton", () => {
     });
 
     describe.each([
-      ["enter", 13],
-      ["space", 32],
-      ["down", 40],
-    ])("the %s key is pressed", (name, keyCode) => {
+      ["Enter", "Enter"],
+      ["Space", " "],
+      ["ArrowDown", "ArrowDown"],
+    ])("the %s key is pressed", (name, key) => {
       it("then the first additional button should be focused", () => {
         simulateBlur(mainButton);
         wrapper.find(StyledMultiActionButton).simulate("mouseleave");
         wrapper.update();
-        mainButton.simulate("keydown", { which: keyCode });
+        mainButton.simulate("keydown", { key });
         jest.runAllTimers();
 
         const firstButton = wrapper
@@ -98,7 +97,7 @@ describe("MultiActionButton", () => {
       });
 
       it("does not open additional buttons if opened already - coverage", () => {
-        mainButton.simulate("keydown", { which: keyCode });
+        mainButton.simulate("keydown", { key });
         jest.runAllTimers();
       });
     });
@@ -107,17 +106,17 @@ describe("MultiActionButton", () => {
       it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
-          .find(ButtonWithForwardRef);
+          .find(Button);
 
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
           document.activeElement
         );
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(additionalButtons.at(1).getDOMNode()).toStrictEqual(
           document.activeElement
         );
-        keyboard.pressDownArrow();
+        keyboard.pressArrowDown();
         expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
           document.activeElement
         );
@@ -128,17 +127,17 @@ describe("MultiActionButton", () => {
       it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
-          .find(ButtonWithForwardRef);
+          .find(Button);
 
-        keyboard.pressUpArrow();
+        keyboard.pressArrowUp();
         expect(additionalButtons.at(1).getDOMNode()).toStrictEqual(
           document.activeElement
         );
-        keyboard.pressUpArrow();
+        keyboard.pressArrowUp();
         expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
           document.activeElement
         );
-        keyboard.pressUpArrow();
+        keyboard.pressArrowUp();
         expect(additionalButtons.at(1).getDOMNode()).toStrictEqual(
           document.activeElement
         );
@@ -154,7 +153,7 @@ describe("MultiActionButton", () => {
       });
 
       it("does not pass focus to the first additional button", () => {
-        mainButton.simulate("keydown", { which: 9 });
+        mainButton.simulate("keydown", { key: "Tab" });
         const firstButton = wrapper
           .find(additionalButtonsSelector)
           .find(Button)
@@ -217,7 +216,7 @@ describe("MultiActionButton", () => {
         wrapper = render({}, mount);
         simulateFocus(wrapper);
 
-        expect(wrapper.find(ButtonWithForwardRef).exists()).toBe(true);
+        expect(wrapper.find(Button).exists()).toBe(true);
       });
 
       afterEach(() => {
@@ -335,7 +334,7 @@ describe("MultiActionButton", () => {
         mainButton.simulate("mouseenter");
         const button = wrapper
           .find('[data-element="additional-buttons"]')
-          .find(ButtonWithForwardRef);
+          .find(Button);
         button.at(0).simulate("click");
         expect(handleSecondButton).toHaveBeenCalled();
       });
@@ -344,7 +343,7 @@ describe("MultiActionButton", () => {
         mainButton.simulate("mouseenter");
         const button = wrapper
           .find('[data-element="additional-buttons"]')
-          .find(ButtonWithForwardRef);
+          .find(Button);
         button.at(0).simulate("click");
 
         wrapper.update();
@@ -361,7 +360,7 @@ describe("MultiActionButton", () => {
 
           const button = wrapper
             .find('[data-element="additional-buttons"]')
-            .find(ButtonWithForwardRef);
+            .find(Button);
 
           button.at(1).simulate("click");
         }).not.toThrow();
@@ -478,17 +477,6 @@ describe("MultiActionButton", () => {
     jest.clearAllMocks();
 
     wrapper.unmount();
-  });
-
-  describe("when the `as` prop is used", () => {
-    it("fires a prop deprecation warning to the console", () => {
-      const message =
-        "[Deprecation] The `as` prop is deprecated and will soon be removed from the `MultiActionButton` component interface. You should use the `buttonType` prop to achieve the same styling. The following codemod is available to help with updating your code https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop";
-      const assert = expectWarn(message, "warn");
-
-      render({ as: "primary" }, mount);
-      assert();
-    });
   });
 
   describe("coverage", () => {

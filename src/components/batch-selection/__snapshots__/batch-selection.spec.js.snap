@@ -27,11 +27,11 @@ exports[`BatchSelection component should render correctly 1`] = `
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
   content: "\\e93a";
-  font-size: 16px;
   font-style: normal;
   font-weight: normal;
-  line-height: 16px;
   vertical-align: middle;
+  font-size: 16px;
+  line-height: 16px;
   display: block;
 }
 
@@ -117,7 +117,6 @@ exports[`BatchSelection component should render correctly 1`] = `
       className="c4 c5"
       data-component="icon"
       data-element="edit"
-      disabled={false}
       fontSize="small"
       type="edit"
     />

@@ -2,9 +2,9 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
+import DayPicker from "react-day-picker";
 import DateRange from "./date-range.component";
 import DateInput from "../date";
-import DatePicker from "../date/__internal__/date-picker";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
@@ -330,15 +330,12 @@ describe("DateRange", () => {
 
   describe("blocking blur", () => {
     let container;
-    const tabKey = new KeyboardEvent("keydown", { key: "Tab", which: 9 });
+    const tabKey = new KeyboardEvent("keydown", { key: "Tab" });
     const shiftTabKey = new KeyboardEvent("keydown", {
       key: "Tab",
-      which: 9,
       shiftKey: true,
     });
-    const randomKey = new KeyboardEvent("keydown", {
-      which: 32,
-    });
+    const randomKey = new KeyboardEvent("keydown", { key: " " });
 
     beforeEach(() => {
       container = document.createElement("div");
@@ -476,13 +473,13 @@ describe("DateRange", () => {
     it("closes the other datepicker", () => {
       simulateFocusOnInput(wrapper.find(DateInput).last());
       expect(
-        wrapper.update().find(DateInput).last().find(DatePicker).exists()
+        wrapper.update().find(DateInput).last().find(DayPicker).exists()
       ).toBeTruthy();
 
       simulateFocusOnInput(wrapper.find(DateInput).first());
 
       expect(
-        wrapper.update().find(DateInput).last().find(DatePicker).exists()
+        wrapper.update().find(DateInput).last().find(DayPicker).exists()
       ).toBeFalsy();
     });
   });
@@ -491,12 +488,12 @@ describe("DateRange", () => {
     it("closes the other datepicker", () => {
       simulateFocusOnInput(wrapper.find(DateInput).first());
       expect(
-        wrapper.update().find(DateInput).first().find(DatePicker).exists()
+        wrapper.update().find(DateInput).first().find(DayPicker).exists()
       ).toBeTruthy();
 
       simulateFocusOnInput(wrapper.find(DateInput).last());
       expect(
-        wrapper.update().find(DateInput).first().find(DatePicker).exists()
+        wrapper.update().find(DateInput).first().find(DayPicker).exists()
       ).toBeFalsy();
     });
   });

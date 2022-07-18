@@ -1,7 +1,7 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
-import specialCharacters from "../../../.storybook/utils/argTypes/specialCharacters";
+import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Button from ".";
 import { ICONS } from "../icon/icon-config";
 import {
@@ -113,7 +113,7 @@ export const ButtonAsASiblingStory = ({
 export const generateButtons = (buttonType, iconPosition) => {
   return (
     <>
-      {["", ...ICONS].map((iconType) => {
+      {["", "bin"].map((iconType) => {
         const props = { iconPosition, buttonType, iconType };
         return (
           <div key={`${buttonType}-${iconPosition}-${iconType}`}>

@@ -1,3 +1,282 @@
+### [109.2.3](https://github.com/Sage/carbon/compare/v109.2.2...v109.2.3) (2022-07-15)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** pass onClick to menu item ([839cd55](https://github.com/Sage/carbon/commit/839cd557f18c70957b375ae0962ac00e04f44dfe)), closes [#5313](https://github.com/Sage/carbon/issues/5313)
+
+### [109.2.2](https://github.com/Sage/carbon/compare/v109.2.1...v109.2.2) (2022-07-14)
+
+
+### Bug Fixes
+
+* **button:** fix forwardRef type isssues ([a2ec6ff](https://github.com/Sage/carbon/commit/a2ec6ff05483d9c77d0369f0b171a2144f7d816e))
+
+### [109.2.1](https://github.com/Sage/carbon/compare/v109.2.0...v109.2.1) (2022-07-13)
+
+
+### Bug Fixes
+
+* **search:** update icon colour and hover colour in default variant ([2912a74](https://github.com/Sage/carbon/commit/2912a74f16514c52fe478408ad8bb675f8f8a7ae))
+
+## [109.2.0](https://github.com/Sage/carbon/compare/v109.1.3...v109.2.0) (2022-07-12)
+
+
+### Features
+
+* **pill:** add text wrapping and max width support to component ([9fc65bc](https://github.com/Sage/carbon/commit/9fc65bcc9bb29771503dc7fdba3d931248ae627c))
+
+
+### Bug Fixes
+
+* **multi-select:** prevent pills with long text strings from overflowing the input ([4beabcf](https://github.com/Sage/carbon/commit/4beabcfd0862c8a7c3a30388a44c498e0e8ee59b)), closes [#5192](https://github.com/Sage/carbon/issues/5192)
+
+### [109.1.3](https://github.com/Sage/carbon/compare/v109.1.2...v109.1.3) (2022-07-08)
+
+
+### Bug Fixes
+
+* **popover-container:** position automatically depending on available space ([4b63a17](https://github.com/Sage/carbon/commit/4b63a17caf8517f2de44c2442be49155d46d30ce))
+
+### [109.1.2](https://github.com/Sage/carbon/compare/v109.1.1...v109.1.2) (2022-07-06)
+
+
+### Bug Fixes
+
+* **flat-table/sort:** fix color of sort arrows ([a892359](https://github.com/Sage/carbon/commit/a892359a3159fba1a89c6f0301210868c63caeb6)), closes [#4984](https://github.com/Sage/carbon/issues/4984)
+
+### [109.1.1](https://github.com/Sage/carbon/compare/v109.1.0...v109.1.1) (2022-07-05)
+
+
+### Bug Fixes
+
+* **use-click-away-listener:** rewrite ClickAwayWrapper component as a custom hook ([b7a37f8](https://github.com/Sage/carbon/commit/b7a37f807645870210ed1e750a553de75df5f6ad)), closes [#5245](https://github.com/Sage/carbon/issues/5245)
+
+## [109.1.0](https://github.com/Sage/carbon/compare/v109.0.2...v109.1.0) (2022-07-01)
+
+
+### Features
+
+* **inline-inputs:** add adaptiveLabelBreakpoint prop to component ([0ffdde6](https://github.com/Sage/carbon/commit/0ffdde63dd08e0c130ac176074fec74b49cf9c1a)), closes [#5099](https://github.com/Sage/carbon/issues/5099)
+
+### [109.0.2](https://github.com/Sage/carbon/compare/v109.0.1...v109.0.2) (2022-07-01)
+
+
+### Bug Fixes
+
+* **form:** fix tabs focus outline not rendering correctly ([f4e56fe](https://github.com/Sage/carbon/commit/f4e56fe482a57567b62ee125018f2d3f5c49eae1)), closes [#5161](https://github.com/Sage/carbon/issues/5161)
+
+### [109.0.1](https://github.com/Sage/carbon/compare/v109.0.0...v109.0.1) (2022-07-01)
+
+
+### Bug Fixes
+
+* **flat-table:** fix border bottom colour in light theme ([9932367](https://github.com/Sage/carbon/commit/99323674d86a3a637b1389d81017d621f9e977bc)), closes [#5175](https://github.com/Sage/carbon/issues/5175)
+
+## [109.0.0](https://github.com/Sage/carbon/compare/v108.0.0...v109.0.0) (2022-07-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* react 16 is no longer supported
+
+### Features
+
+* upgrade to react 17 ([831dcd8](https://github.com/Sage/carbon/commit/831dcd8daeebc463fb4a129d45afde634af75a43))
+
+## [108.0.0](https://github.com/Sage/carbon/compare/v107.2.1...v108.0.0) (2022-06-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **popover-container:** dataElement and ariaLabel props have been renamed
+to data-element and aria-label in both renderOpenComponent and
+renderCloseComponent render prop methods
+
+### Code Refactoring
+
+* **popover-container:** convert to ts ([58a95eb](https://github.com/Sage/carbon/commit/58a95ebcb28292d511f2d4d18b32537bdbd54d4e))
+
+### [107.2.1](https://github.com/Sage/carbon/compare/v107.2.0...v107.2.1) (2022-06-22)
+
+
+### Bug Fixes
+
+* **heading:** add aria-label to back button ([b3473de](https://github.com/Sage/carbon/commit/b3473de80e3f40a168486393df00df06b5cfa61b)), closes [#4876](https://github.com/Sage/carbon/issues/4876)
+* **help:** add aria-label when help is a link ([4882e13](https://github.com/Sage/carbon/commit/4882e134bdec67625c85640dd7f4d9a1f1863dc8))
+
+## [107.2.0](https://github.com/Sage/carbon/compare/v107.1.8...v107.2.0) (2022-06-21)
+
+
+### Features
+
+* **modal:** add typing for and export ModalContext from modal module ([c4155bd](https://github.com/Sage/carbon/commit/c4155bd171f42b05ce22d7080bf30f6e588623a2))
+
+
+### Bug Fixes
+
+* **form:** prevent two scrollbars appearing when content overflows inside modal ([085a9cf](https://github.com/Sage/carbon/commit/085a9cf75988237555ccd59a474f3729aecdf75e))
+
+### [107.1.8](https://github.com/Sage/carbon/compare/v107.1.7...v107.1.8) (2022-06-21)
+
+
+### Bug Fixes
+
+* **submenu:** make menu open on click even when clickToOpen prop missing ([040c276](https://github.com/Sage/carbon/commit/040c2762719c04f9fae499b277c1d5729fac04ad)), closes [#4797](https://github.com/Sage/carbon/issues/4797)
+
+### [107.1.7](https://github.com/Sage/carbon/compare/v107.1.6...v107.1.7) (2022-06-20)
+
+
+### Bug Fixes
+
+* **date:** ensure that contrast ratio for weekday meets AA standards ([5de5ff9](https://github.com/Sage/carbon/commit/5de5ff953a06ba3627ef97dd97b1b1f71a5c3ccc)), closes [#5173](https://github.com/Sage/carbon/issues/5173)
+
+### [107.1.6](https://github.com/Sage/carbon/compare/v107.1.5...v107.1.6) (2022-06-17)
+
+
+### Bug Fixes
+
+* **flat-table-row:** update sticky column functionality to support wrapping row headers ([d15cb0d](https://github.com/Sage/carbon/commit/d15cb0da02f4428bd550ad8a7709325f33113390)), closes [#5208](https://github.com/Sage/carbon/issues/5208)
+
+### [107.1.5](https://github.com/Sage/carbon/compare/v107.1.4...v107.1.5) (2022-06-16)
+
+
+### Bug Fixes
+
+* **date:** ensure that event contains input name and id when picker is used to change date ([7376122](https://github.com/Sage/carbon/commit/7376122249f374eba87870359c5cd24da5459613)), closes [#5193](https://github.com/Sage/carbon/issues/5193)
+
+### [107.1.4](https://github.com/Sage/carbon/compare/v107.1.3...v107.1.4) (2022-06-15)
+
+
+### Bug Fixes
+
+* **tabs:** fix issue with two tab titles being highlited simultaneously ([659ef2a](https://github.com/Sage/carbon/commit/659ef2ab4c6d07c276a8bf0ca2d95f2e7b8b6db1))
+
+### [107.1.3](https://github.com/Sage/carbon/compare/v107.1.2...v107.1.3) (2022-06-15)
+
+
+### Bug Fixes
+
+* **heading:** fix typings ([a53482e](https://github.com/Sage/carbon/commit/a53482ef5c258eb10712cd1339e6384cf7475c16))
+
+### [107.1.2](https://github.com/Sage/carbon/compare/v107.1.1...v107.1.2) (2022-06-14)
+
+
+### Bug Fixes
+
+* **button-toggle-group:** ensure that id prop is passed to FormField ([0b81a5e](https://github.com/Sage/carbon/commit/0b81a5e044f5b32913b7735c77cd71ad3304c07c))
+
+### [107.1.1](https://github.com/Sage/carbon/compare/v107.1.0...v107.1.1) (2022-06-14)
+
+
+### Bug Fixes
+
+* **date-range:** change startDateProps and endDateProps to ensure all props are optional ([83ed1b9](https://github.com/Sage/carbon/commit/83ed1b9ed3760d7e788b31cb092623ee7c3a0e7e)), closes [#5185](https://github.com/Sage/carbon/issues/5185)
+
+## [107.1.0](https://github.com/Sage/carbon/compare/v107.0.0...v107.1.0) (2022-06-13)
+
+
+### Features
+
+* **click-away-wrapper:** add ClickAwayWrapper component to internal directory ([091f0a4](https://github.com/Sage/carbon/commit/091f0a48a7dd0963fe493c82044d591521a093bb))
+* **popover-container:** add ClickAwayWrapper to close popover when click outside detected ([5ba1522](https://github.com/Sage/carbon/commit/5ba1522d09cc0301fd1aee7aad71d49f53e19fda)), closes [#5017](https://github.com/Sage/carbon/issues/5017) [#5158](https://github.com/Sage/carbon/issues/5158)
+
+## [107.0.0](https://github.com/Sage/carbon/compare/v106.7.0...v107.0.0) (2022-06-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** The deprecated `SubmenuBlock` component has now been removed
+and can no longer be used. Please use the `MenuItem` component with the
+`submenu` prop instead.
+* **navigation-bar:** The deprecated props `stickyPosition` and `stickyOffset` have been
+removed and can no longer be used. Please use the `position`, `offset` and `orientation`
+props to achieve the same layout. The following codemods are available to help with
+updating your code:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/remove-prop
+https://github.com/Sage/carbon-codemod/tree/master/transforms/add-prop
+* **multi-action-button:** The deprecated `as` prop has been removed and can no longer
+be used. Please use the `buttonType` prop to achieve the same styling.
+A codemod is available to help with updating your code:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* **split-button:** The deprecated `as` prop has been removed and can no longer
+be used. Please use the `buttonType` prop to achieve the same styling.
+A codemod is available for updating your code:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* **toast:** The deprecated `as` prop has now been removed and can no
+longer be used. Please use the `variant` prop to achieve the same styling.
+A codemod is available to help with updating your code:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* **tile:** The deprecated `as` prop has been removed and can no
+longer be used. Please use the `variant` prop to achieve the same
+styling. A codemod is available to help with updating your code and can be found
+here:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* The deprecated `ScrollableList` component has been removed and can no
+longer be used.
+* The deprecated `MultiStepWizard` component has been removed and can no
+longer be used. Please use the `StepSequence` component instead.
+* The deprecated `MountInApp` component has been removed
+and can no longer be used.
+* **confirm:** The deprecated `destructive` prop has been removed and can no
+longer be used. Please use `cancelButtonDestructive` and `confirmButtonDestructive` props
+instead. A codemod is available to help with renaming props and can be found here:
+https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* **button:** The deprecated `as` prop has now been removed and can no
+longer be used. Please use the `buttonType` prop instead which has similar
+functionality. A codemod is available to help with renaming props and can be found
+here: https://github.com/Sage/carbon-codemod/tree/master/transforms/rename-prop
+* The deprecated `AppWrapper` component has now been removed
+and can no longer be used. Please use the `Box` component instead.
+* **radio-button:** `RadioButtonMapper` is now an internal component and can no longer be
+imported by consuming apps.
+* **heading:** `Heading` has been refactored from a class-based to a functional-based
+component - therefore cannot be extended anymore.
+
+### Code Refactoring
+
+* **button:** remove deprecated `as` prop ([660b699](https://github.com/Sage/carbon/commit/660b69991ff1753d197ec0ed731a30dc27c34c8f))
+* **confirm:** remove deprecated `destructive` prop ([c4edbf2](https://github.com/Sage/carbon/commit/c4edbf2afa2c0be5b8197f4e098e0bcc26cffb54))
+* **heading:** convert to functional component ([2f8aa70](https://github.com/Sage/carbon/commit/2f8aa709d282533098dedec6a15cab3034350ffe))
+* **menu:** remove deprecated `SubmenuBlock` component ([bc4a3e0](https://github.com/Sage/carbon/commit/bc4a3e078ca9023bc4b216a5d62d80ee00e61e1f))
+* **multi-action-button:** remove deprecated `as` prop ([f9128e6](https://github.com/Sage/carbon/commit/f9128e65326f497661e852eca2a4379b60bcb2d3))
+* **navigation-bar:** remove deprecated `stickyPosition` and `stickyOffset` props ([c0a7381](https://github.com/Sage/carbon/commit/c0a73814b9b5a2ba748bda16a3010f18f7175a8e))
+* **radio-button:** prevent consumption of RadioButtonMapper component ([20043a6](https://github.com/Sage/carbon/commit/20043a6cd42ecc8a0ea00fa07f99ea2b02f27534))
+* remove deprecated `AppWrapper` component ([d26dece](https://github.com/Sage/carbon/commit/d26decef5a0778e5fc7d3c169908f6793bc5f6c8))
+* remove deprecated `MountInApp` component ([7766355](https://github.com/Sage/carbon/commit/77663552812d574e60c72da2c94a9855ae6745fd))
+* remove deprecated `ScrollableList` component ([ef85639](https://github.com/Sage/carbon/commit/ef85639a6b515481d648240aa6839d9adfd7693f))
+* removed deprecated `MultiStepWizard` component ([a2ecb9c](https://github.com/Sage/carbon/commit/a2ecb9c55eef4584c2b833b2c8ec10409aae7457))
+* **split-button:** remove deprecated `as` prop ([b4c1762](https://github.com/Sage/carbon/commit/b4c176254522bdc042a63d28fdca0fb65013f6c4))
+* **tile:** remove deprecated `as` prop ([98d466e](https://github.com/Sage/carbon/commit/98d466e15d3547867f432c891cec3bd229297588))
+* **toast:** remove deprecated `as` prop ([85690a6](https://github.com/Sage/carbon/commit/85690a60564883f0167521ffd0284ac0f14b62f0))
+
+## [106.7.0](https://github.com/Sage/carbon/compare/v106.6.10...v106.7.0) (2022-06-10)
+
+
+### Features
+
+* **dialog, sidebar:** set focus to dialog container on open ([0a6a2b0](https://github.com/Sage/carbon/commit/0a6a2b0ac438d9bcdae8986959a4c2c2575cd3c0)), closes [#4975](https://github.com/Sage/carbon/issues/4975)
+* **sidebar:** add aria-labelledby referencing title if not provided ([a2c795a](https://github.com/Sage/carbon/commit/a2c795a280615a34c07530f3183edcae0c9152b1))
+
+
+### Bug Fixes
+
+* **menu-full-screen:** fix for new FocusTrap behavior ([0c4b8b5](https://github.com/Sage/carbon/commit/0c4b8b5d7de210e0cdef597fe16b258ac08567fc))
+
+### [106.6.10](https://github.com/Sage/carbon/compare/v106.6.9...v106.6.10) (2022-06-10)
+
+
+### Bug Fixes
+
+* **date:** ensure months and days are capitalised and formatted correctly for all locales ([b759d45](https://github.com/Sage/carbon/commit/b759d45bc98864234561087b2476fdff69a6cd24)), closes [#5181](https://github.com/Sage/carbon/issues/5181)
+
+### [106.6.9](https://github.com/Sage/carbon/compare/v106.6.8...v106.6.9) (2022-06-10)
+
+
+### Bug Fixes
+
+* fix missing type declarations ([6fa87a6](https://github.com/Sage/carbon/commit/6fa87a6541430390b7facc685529fa1ec0ce4f74))
+
 ### [106.6.8](https://github.com/Sage/carbon/compare/v106.6.7...v106.6.8) (2022-06-01)
 
 

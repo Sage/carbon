@@ -33,9 +33,6 @@ const timeZone = "Europe/London";
 
 const getZonedDate = (date) => utcToZonedTime(new Date(date), timeZone);
 
-const inputElement = {
-  getBoundingClientRect: () => ({ left: 0, bottom: 0 }),
-};
 const firstDate = "2019-02-02";
 const secondDate = "2019-02-08";
 const invalidDate = "2019-02-";
@@ -139,13 +136,15 @@ describe("DatePicker", () => {
     });
 
     describe("without a disabled modifier", () => {
-      it('then "onDayClick" prop should have been called with the same date', () => {
+      it('then "onDayClick" prop should have been called with the same date and event target composition', () => {
         const date = new Date(firstDate);
         act(() => {
           wrapper.find(DayPicker).prop("onDayClick")(date, {}, { target: {} });
         });
 
-        expect(onDayClickFn).toHaveBeenCalledWith(date, { target: {} });
+        expect(onDayClickFn).toHaveBeenCalledWith(date, {
+          target: { id: "bar", name: "foo" },
+        });
       });
     });
 
@@ -174,7 +173,7 @@ describe("StyledDayPicker", () => {
     let wrapper;
     const translations = {
       "en-GB": enGBLocale,
-      de: deLocale,
+      "de-DE": deLocale,
       es: esLocale,
       "en-ZA": enZALocale,
       "fr-FR": frLocale,
@@ -210,9 +209,10 @@ describe("StyledDayPicker", () => {
     };
 
     const monthsArray = (l) =>
-      Array.from({ length: 12 }).map((_, i) =>
-        translations[l].localize.month(i)
-      );
+      Array.from({ length: 12 }).map((_, i) => {
+        const month = translations[l].localize.month(i);
+        return month[0].toUpperCase() + month.slice(1);
+      });
 
     beforeEach(() => {
       wrapper = renderI18n({
@@ -222,7 +222,7 @@ describe("StyledDayPicker", () => {
 
     describe.each([
       "en-GB",
-      "de",
+      "de-DE",
       "es",
       "en-ZA",
       "fr-FR",
@@ -256,7 +256,7 @@ describe("StyledDayPicker", () => {
 
           expect(title).toEqual(long[i]);
           expect(children).toEqual(
-            locale === "de" ? long[i].substring(0, 3) : short[i]
+            locale === "de-DE" ? long[i].substring(0, 3) : short[i]
           );
         });
       });
@@ -274,16 +274,35 @@ describe("StyledDayPicker", () => {
       });
     });
   });
+
+  it("does not render the picker if open prop is false", () => {
+    expect(render({ open: false }).find(StyledDayPicker).exists()).toBeFalsy();
+  });
 });
+
+const MockComponent = (props) => {
+  const ref = React.useRef();
+  const Input = () => (
+    <div ref={ref}>
+      <input name="foo" id="bar" />
+    </div>
+  );
+  return (
+    <>
+      <Input />
+      <DatePicker inputElement={ref} {...props} />
+    </>
+  );
+};
 
 function renderI18n({ locale, ...props }) {
   return mount(
     <I18nProvider locale={locale}>
-      <DatePicker inputElement={inputElement} {...props} />
+      <MockComponent open {...props} />
     </I18nProvider>
   );
 }
 
 function render(props, params) {
-  return mount(<DatePicker inputElement={inputElement} {...props} />, params);
+  return mount(<MockComponent open {...props} />, params);
 }

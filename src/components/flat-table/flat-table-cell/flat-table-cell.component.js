@@ -126,4 +126,6 @@ FlatTableCell.propTypes = {
   verticalBorderColor: PropTypes.string,
 };
 
+FlatTableCell.displayName = "FlatTableCell";
+
 export default FlatTableCell;

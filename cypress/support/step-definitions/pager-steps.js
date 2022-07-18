@@ -1,3 +1,5 @@
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import {
   pageSelect,
   maxPages,
@@ -7,7 +9,7 @@ import {
   pageSelectItems,
   paginationButtonByIndex,
 } from "../../locators/pager";
-import DEBUG_FLAG from "..";
+import DEBUG_FLAG from "../e2e";
 import { positionOfPaginationButton } from "../helper";
 
 Then("pageSize is set to {string} {word}", (pageSize, item) => {

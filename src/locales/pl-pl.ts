@@ -56,6 +56,9 @@ const plPL: Locale = {
         },
     },
   },
+  heading: {
+    backLinkAriaLabel: () => "Wstecz",
+  },
   message: {
     closeButtonAriaLabel: () => "Zamknij",
   },
@@ -116,15 +119,6 @@ const plPL: Locale = {
   toast: {
     ariaLabels: {
       close: () => "Zamknij",
-    },
-  },
-  wizards: {
-    multiStep: {
-      buttons: {
-        submit: () => "Wyślij",
-        next: () => "Następny",
-        back: () => "Wstecz",
-      },
     },
   },
 };

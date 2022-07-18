@@ -23,6 +23,7 @@ import StyledDateInput from "./date.style";
 import Textbox from "../textbox";
 import DatePicker from "./__internal__/date-picker";
 import DateRangeContext from "../date-range/date-range.context";
+import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -250,29 +251,6 @@ const DateInput = ({
   };
 
   useEffect(() => {
-    const fnClosePicker = (ev) => {
-      if (
-        open &&
-        !Events.composedPath(ev).includes(parentRef.current) &&
-        !Events.composedPath(ev).includes(pickerRef.current)
-      ) {
-        alreadyFocused.current = true;
-        inputRef.current.focus();
-        isBlurBlocked.current = false;
-        inputRef.current.blur();
-        setOpen(false);
-        alreadyFocused.current = false;
-      }
-    };
-
-    document.addEventListener("mousedown", fnClosePicker);
-
-    return function cleanup() {
-      document.removeEventListener("mousedown", fnClosePicker);
-    };
-  }, [open]);
-
-  useEffect(() => {
     const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
       value,
       formats
@@ -326,6 +304,19 @@ const DateInput = ({
     return value;
   };
 
+  const handleClickAway = () => {
+    if (open) {
+      alreadyFocused.current = true;
+      inputRef.current.focus();
+      isBlurBlocked.current = false;
+      inputRef.current.blur();
+      setOpen(false);
+      alreadyFocused.current = false;
+    }
+  };
+
+  useClickAwayListener([parentRef, pickerRef], handleClickAway, "mousedown");
+
   return (
     <StyledDateInput
       ref={wrapperRef}
@@ -359,20 +350,19 @@ const DateInput = ({
         disabled={disabled}
         readOnly={readOnly}
       />
-      {open && (
-        <DatePicker
-          disablePortal={disablePortal}
-          inputElement={parentRef}
-          pickerProps={pickerProps}
-          selectedDays={selectedDays}
-          setSelectedDays={setSelectedDays}
-          onDayClick={handleDayClick}
-          minDate={minDate}
-          maxDate={maxDate}
-          ref={pickerRef}
-          pickerMouseDown={handlePickerMouseDown}
-        />
-      )}
+      <DatePicker
+        disablePortal={disablePortal}
+        inputElement={parentRef}
+        pickerProps={pickerProps}
+        selectedDays={selectedDays}
+        setSelectedDays={setSelectedDays}
+        onDayClick={handleDayClick}
+        minDate={minDate}
+        maxDate={maxDate}
+        ref={pickerRef}
+        pickerMouseDown={handlePickerMouseDown}
+        open={open}
+      />
     </StyledDateInput>
   );
 };
@@ -380,7 +370,7 @@ const DateInput = ({
 DateInput.propTypes = {
   ...Textbox.propTypes,
   ...marginPropTypes,
-  /** Pass any props that match the [DayPickerProps](https://react-day-picker.js.org/api/DayPicker)
+  /** Pass any props that match the [DayPickerProps](https://react-day-picker-v7.netlify.app/docs/getting-started/)
    * interface to override default behaviors
    * */
   pickerProps: PropTypes.object,

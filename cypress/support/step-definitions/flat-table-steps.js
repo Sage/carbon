@@ -1,3 +1,5 @@
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import {
   flatTableWrapper,
   flatTableHeaderCells,
@@ -15,7 +17,7 @@ import {
   pageSelectInput,
 } from "../../locators/flat-table";
 
-import DEBUG_FLAG from "..";
+import DEBUG_FLAG from "../e2e";
 import { keyCode, positionOfElement } from "../helper";
 import { icon } from "../../locators";
 import { selectOption } from "../../locators/select";
@@ -97,7 +99,7 @@ Then(
 Then("press Enter key on the row element", () => {
   flatTableBodyRowByPosition(2)
     .focus()
-    .trigger("keydown", { keyCode: 13, which: 13, force: true });
+    .trigger("keydown", { key: "Enter", force: true });
 });
 
 Then("I click on {string} header {int} times", (position, times) => {
@@ -192,12 +194,12 @@ Then(
         flatTableSortable()
           .eq(positionOfElement(position))
           .focus()
-          .trigger("keydown", { keyCode: 13, which: 13, force: true });
+          .trigger("keydown", { key: "Enter", force: true });
       } else if (key === "Space") {
         flatTableSortable()
           .eq(positionOfElement(position))
           .focus()
-          .trigger("keydown", { keyCode: 32, which: 32, force: true });
+          .trigger("keydown", { key: " ", force: true });
       } else {
         throw new Error("Only Enter or Space key can be applied");
       }
