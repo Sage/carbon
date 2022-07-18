@@ -1,15 +1,17 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow, mount, ShallowWrapper, ReactWrapper } from "enzyme";
 import TestRenderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
 
 import { ThemeProvider } from "styled-components";
+import { ThemeObject } from "style/themes/base";
 import SplitButton from "./split-button.component";
 import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
 import StyledSplitButtonChildrenContainer from "./split-button-children.style";
 import Icon from "../icon";
 import Button from "../button";
+import { SizeOptions } from "../button/button.component";
 import StyledButton from "../button/button.style";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import mintTheme from "../../style/themes/mint";
@@ -21,11 +23,13 @@ import {
 import guid from "../../__internal__/utils/helpers/guid";
 
 jest.mock("../../__internal__/utils/helpers/guid");
-guid.mockImplementation(() => "guid-12345");
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(
+  () => "guid-12345"
+);
 
-const sizes = ["small", "medium", "large"];
+const sizes: SizeOptions[] = ["small", "medium", "large"];
 
-const themes = [
+const themes: [string, Partial<ThemeObject>][] = [
   ["mint", mintTheme],
   ["aegean", aegeanTheme],
 ];
@@ -39,8 +43,9 @@ const multipleButtons = [
 
 const render = (
   mainProps = {},
-  childButtons = singleButton,
-  renderer = shallow
+  childButtons: React.ReactNode = singleButton,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  renderer: any = shallow
 ) => {
   return renderer(
     <SplitButton
@@ -56,7 +61,7 @@ const render = (
 
 const renderAttached = (
   mainProps = {},
-  childButtons = singleButton,
+  childButtons: React.ReactNode = singleButton,
   renderer = mount
 ) => {
   return renderer(
@@ -73,9 +78,10 @@ const renderAttached = (
 };
 
 const renderWithTheme = (
-  mainProps = {},
+  mainProps: { carbonTheme?: Partial<ThemeObject> } = {},
   childButtons = singleButton,
-  renderer = shallow
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  renderer: any = shallow
 ) => {
   return renderer(
     <ThemeProvider theme={mainProps.carbonTheme}>
@@ -104,8 +110,10 @@ const renderWithNoChildren = (mainProps = {}, renderer = shallow) => {
   );
 };
 
-const buildSizeConfig = (name, size) => {
-  const sizeObj = {};
+type sizeConfig = { fontSize?: string; height?: string; padding?: string };
+
+const buildSizeConfig = (size: SizeOptions): sizeConfig => {
+  const sizeObj = {} as sizeConfig;
   sizeObj.fontSize = size === "large" ? "16px" : "14px";
   if (size === "small") {
     sizeObj.height = "32px";
@@ -120,9 +128,15 @@ const buildSizeConfig = (name, size) => {
   return sizeObj;
 };
 
+function openAdditionalButtons(container: ShallowWrapper | ReactWrapper) {
+  const toggleButton = container.find('[data-element="toggle-button"]').at(0);
+
+  toggleButton.simulate("keydown", { key: "ArrowDown" });
+}
+
 describe("SplitButton", () => {
-  let wrapper;
-  let toggle;
+  let wrapper: ShallowWrapper | ReactWrapper;
+  let toggle: ShallowWrapper | ReactWrapper;
   jest.useFakeTimers();
 
   testStyledSystemMargin((props) => (
@@ -205,11 +219,15 @@ describe("SplitButton", () => {
   });
 
   describe.each(themes)('when the theme is set to "%s"', (name, theme) => {
-    let themedWrapper;
+    let themedWrapper: ReactWrapper;
 
     beforeEach(() => {
       themedWrapper = mount(
-        <StyledSplitButtonChildrenContainer theme={theme}>
+        <StyledSplitButtonChildrenContainer
+          theme={theme}
+          align="right"
+          minWidth={20}
+        >
           <StyledButton>Foo</StyledButton>
         </StyledSplitButtonChildrenContainer>
       );
@@ -237,15 +255,12 @@ describe("SplitButton", () => {
       );
     });
 
-    afterEach(() => {
-      themedWrapper.unmount();
-    });
-  });
-
-  describe.each(themes)('when the theme is set to "%s"', (name, theme) => {
-    const mockProps = { carbonTheme: theme, buttonType: "primary" };
-
     it("renders Toggle Button left border as expected", () => {
+      const mockProps = {
+        carbonTheme: theme as Partial<ThemeObject>,
+        buttonType: "primary",
+      };
+
       wrapper = renderWithTheme(mockProps, singleButton, mount);
       assertStyleMatch(
         {
@@ -253,6 +268,10 @@ describe("SplitButton", () => {
         },
         wrapper.find(StyledSplitButtonToggle)
       );
+    });
+
+    afterEach(() => {
+      themedWrapper.unmount();
     });
   });
 
@@ -266,12 +285,16 @@ describe("SplitButton", () => {
         ];
 
         const themedWrapper = mount(
-          <StyledSplitButtonChildrenContainer theme={theme}>
+          <StyledSplitButtonChildrenContainer
+            theme={theme}
+            align="right"
+            minWidth={20}
+          >
             {children}
           </StyledSplitButtonChildrenContainer>
         );
 
-        const expectedStyle = buildSizeConfig(name, size);
+        const expectedStyle = buildSizeConfig(size);
 
         for (let index = 0; index < children.length - 1; index++) {
           assertStyleMatch(
@@ -345,7 +368,7 @@ describe("SplitButton", () => {
     });
 
     describe("mouse leave split-button", () => {
-      let mainButton;
+      let mainButton: ShallowWrapper | ReactWrapper;
 
       beforeEach(() => {
         wrapper = render({}, singleButton, mount);
@@ -375,8 +398,8 @@ describe("SplitButton", () => {
     });
 
     describe("clicking a button", () => {
-      const handleMainButton = jasmine.createSpy("main");
-      const handleSecondButton = jasmine.createSpy("second");
+      const handleMainButton = jest.fn();
+      const handleSecondButton = jest.fn();
       beforeEach(() => {
         wrapper = mount(
           <SplitButton
@@ -441,7 +464,7 @@ describe("SplitButton", () => {
       bubbles: true,
       cancelable: true,
     });
-    let domWrapper;
+    let domWrapper: HTMLDivElement;
 
     beforeEach(() => {
       domWrapper = document.createElement("div");
@@ -457,7 +480,7 @@ describe("SplitButton", () => {
     });
 
     afterEach(() => {
-      wrapper.detach();
+      (wrapper as ReactWrapper).detach();
       document.body.removeChild(domWrapper);
     });
 
@@ -511,7 +534,7 @@ describe("SplitButton", () => {
       });
     });
 
-    describe.each(["additional-buttons", "main-button", "toggle-button"])(
+    it.each(["additional-buttons", "main-button", "toggle-button"])(
       "%s element is tagged",
       (element) => {
         wrapper = render({}, multipleButtons, mount);
@@ -522,11 +545,15 @@ describe("SplitButton", () => {
         expect(wrapper.find({ "data-element": element }).exists()).toBe(true);
       }
     );
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
   });
 
   describe("when focused on the toggle button", () => {
     const additionalButtonsSelector = '[data-element="additional-buttons"]';
-    let container;
+    let container: HTMLDivElement | null;
 
     beforeEach(() => {
       container = document.createElement("div");
@@ -788,7 +815,7 @@ describe("SplitButton", () => {
   });
 
   describe("when the esc key is pressed", () => {
-    let container;
+    let container: HTMLDivElement | null;
     beforeEach(() => {
       container = document.createElement("div");
       container.id = "enzymeContainer";
@@ -844,7 +871,7 @@ describe("SplitButton", () => {
   });
 
   it("should set proper width of ButtonContainer", () => {
-    spyOn(Element.prototype, "getBoundingClientRect");
+    jest.spyOn(Element.prototype, "getBoundingClientRect");
     Element.prototype.getBoundingClientRect = jest
       .fn()
       .mockImplementation(() => ({ width: 200 }));
@@ -862,9 +889,3 @@ describe("SplitButton", () => {
     wrapper.unmount();
   });
 });
-
-function openAdditionalButtons(container) {
-  const toggleButton = container.find('[data-element="toggle-button"]').at(0);
-
-  toggleButton.simulate("keydown", { key: "ArrowDown" });
-}
