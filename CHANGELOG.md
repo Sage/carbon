@@ -1,3 +1,24 @@
+### [109.2.3](https://github.com/Sage/carbon/compare/v109.2.2...v109.2.3) (2022-07-15)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** pass onClick to menu item ([839cd55](https://github.com/Sage/carbon/commit/839cd557f18c70957b375ae0962ac00e04f44dfe)), closes [#5313](https://github.com/Sage/carbon/issues/5313)
+
+### [109.2.2](https://github.com/Sage/carbon/compare/v109.2.1...v109.2.2) (2022-07-14)
+
+
+### Bug Fixes
+
+* **button:** fix forwardRef type isssues ([a2ec6ff](https://github.com/Sage/carbon/commit/a2ec6ff05483d9c77d0369f0b171a2144f7d816e))
+
+### [109.2.1](https://github.com/Sage/carbon/compare/v109.2.0...v109.2.1) (2022-07-13)
+
+
+### Bug Fixes
+
+* **search:** update icon colour and hover colour in default variant ([2912a74](https://github.com/Sage/carbon/commit/2912a74f16514c52fe478408ad8bb675f8f8a7ae))
+
 ## [109.2.0](https://github.com/Sage/carbon/compare/v109.1.3...v109.2.0) (2022-07-12)
 
 

@@ -266,6 +266,7 @@ const Submenu = React.forwardRef(
         >
           <StyledMenuItemWrapper
             {...rest}
+            onClick={onClick}
             className={className}
             menuType={menuContext.menuType}
             ref={ref}

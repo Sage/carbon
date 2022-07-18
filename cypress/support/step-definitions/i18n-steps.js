@@ -1,3 +1,5 @@
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import i18nPreview from "../../locators/i18n";
 
 Then("preview text is {string}", (text) => {

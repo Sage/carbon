@@ -1,3 +1,5 @@
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import { tabById, tabContentById } from "../../locators/tabs";
 
 const TAB_CONTENT = "Content for tab ";
