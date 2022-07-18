@@ -114,7 +114,7 @@ Feature: Multi Select component
 
   @positive
   Scenario: Verify that the value prop is respected even with custom onChange logic
-    Given I open "Select multiselect" component page "controlled with custom onchange"
+    Given I open "Select multiselect test" component page "controlled with custom onchange"
     When Type "Two" text into multi select input and select the value
       And Type "Three" text into multi select input and select the value
       And Type "Four" text into multi select input and select the value
