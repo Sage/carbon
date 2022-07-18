@@ -1,3 +1,10 @@
+### [109.2.4](https://github.com/Sage/carbon/compare/v109.2.3...v109.2.4) (2022-07-18)
+
+
+### Bug Fixes
+
+* **use-scroll-block:** calc the scroll width each time the clientWidth value of document changes ([5744ec4](https://github.com/Sage/carbon/commit/5744ec42239213be365ebf8450b6ebe188e3fbe9)), closes [#5220](https://github.com/Sage/carbon/issues/5220)
+
 ### [109.2.3](https://github.com/Sage/carbon/compare/v109.2.2...v109.2.3) (2022-07-15)
 
 
