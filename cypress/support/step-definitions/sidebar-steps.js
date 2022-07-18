@@ -1,3 +1,4 @@
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
 import { sidebarPreview } from "../../locators/sidebar";
 import { backgroundUILocator } from "../../locators";
 

@@ -2,12 +2,17 @@
 const fetch = require("node-fetch");
 const dotenv = require("dotenv");
 const chalk = require("chalk");
-const { version } = require("../package.json");
+const ci = require("ci-info");
+const { version } = require("../../package.json");
 
 dotenv.config();
 const majorVersion = version.split(".")[0];
 
 const checkCarbonVersion = () => {
+  if (ci.BITRISE) {
+    return;
+  }
+
   fetch("https://registry.npmjs.com/carbon-react")
     .then((res) => res.json())
     .then((data) => {
@@ -16,6 +21,7 @@ const checkCarbonVersion = () => {
 
       const diff = Number(latestMajor) - Number(majorVersion);
 
+      // This is ignored as coverage will fail when run in CI without it
       if (diff > 1) {
         console.log(
           `carbon-react version installed is currently ${chalk.yellow(
@@ -27,4 +33,6 @@ const checkCarbonVersion = () => {
     .catch((err) => console.log(err));
 };
 
-if (!process.env.CARBON_INSTALL) checkCarbonVersion();
+checkCarbonVersion();
+
+module.exports = checkCarbonVersion;

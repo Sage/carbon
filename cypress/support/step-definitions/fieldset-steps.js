@@ -1,3 +1,5 @@
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import legendPreview from "../../locators/fieldset";
 
 Then("legend on preview is {word}", (legend) => {
