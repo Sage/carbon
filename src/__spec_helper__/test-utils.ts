@@ -26,6 +26,7 @@ const assertStyleMatch = <Props>(
     | ShallowWrapper<Props>
     | ReactTestRendererJSON
     | ReactTestRendererJSON[]
+    | HTMLElement
     | null,
   opts?: jest.Options
 ) => {
