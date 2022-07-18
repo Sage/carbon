@@ -29,11 +29,13 @@ import Badge from "carbon-react/lib/components/badge";
 
 <Canvas>
   <Story name="default">
-    <Badge counter={9}>
-      <Button style={{ marginRight: 0 }} buttonType="tertiary">
-        Filter
-      </Button>
-    </Badge>
+    <div style={{ margin: "40px" }}>
+      <Badge counter={9}>
+        <Button style={{ marginRight: 0 }} buttonType="tertiary">
+          Filter
+        </Button>
+      </Badge>
+    </div>
   </Story>
 </Canvas>
 
@@ -43,11 +45,13 @@ Badge doesn't support more than 2 digits
 
 <Canvas>
   <Story name="with 3 digits">
-    <Badge counter={130}>
-      <Button style={{ marginRight: 0 }} buttonType="tertiary">
-        Filter
-      </Button>
-    </Badge>
+    <div style={{ margin: "40px" }}>
+      <Badge counter={130}>
+        <Button style={{ marginRight: 0 }} buttonType="tertiary">
+          Filter
+        </Button>
+      </Badge>
+    </div>
   </Story>
 </Canvas>
 
@@ -57,9 +61,11 @@ If the counter is less than 1 badge will not show itself
 
 <Canvas>
   <Story name="with counter 0">
-    <Badge counter={0}>
-      <Button buttonType="tertiary">Filter</Button>
-    </Badge>
+    <div style={{ margin: "40px" }}>
+      <Badge counter={0}>
+        <Button buttonType="tertiary">Filter</Button>
+      </Badge>
+    </div>
   </Story>
 </Canvas>
 

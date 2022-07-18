@@ -1,3 +1,5 @@
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import { getComponent, getElement } from "../../locators";
 import {
   buttonToggleComponent,

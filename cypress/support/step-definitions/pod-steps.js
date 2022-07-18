@@ -1,7 +1,8 @@
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import {
   podContent,
   podSubTitle,
-  podDescription,
   podEdit,
   podFooter,
   podPreview,

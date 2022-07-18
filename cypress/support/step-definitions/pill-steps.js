@@ -1,3 +1,5 @@
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import { pillPreview, pillCloseIcon } from "../../locators/pill";
 
 Then("Pill children on preview is set to {word}", (text) => {

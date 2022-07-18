@@ -6,12 +6,13 @@ import React, {
   useMemo,
 } from "react";
 
+import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { SplitButtonProps } from "../split-button";
 import {
   StyledMultiActionButton,
   StyledButtonChildrenContainer,
 } from "./multi-action-button.style";
-import Button, { ButtonWithForwardRef } from "../button";
+import Button from "../button";
 import Events from "../../__internal__/utils/helpers/events";
 import Popover from "../../__internal__/popover";
 import {
@@ -89,10 +90,6 @@ export const MultiActionButton = ({
         },
       };
 
-      if (child.type === Button) {
-        return <ButtonWithForwardRef {...child.props} {...props} />;
-      }
-
       return React.cloneElement(child, props);
     });
   };
@@ -140,35 +137,21 @@ export const MultiActionButton = ({
     [buttonChildren, hideButtons]
   );
 
-  const handleClickOutside = useCallback(
-    ({ target }) => {
-      if (
-        !ref.current?.contains(target) &&
-        !buttonContainer.current?.contains(target)
-      ) {
-        hideButtons();
-      }
-    },
-    [hideButtons]
-  );
-
   const addListeners = useCallback(() => {
     /* istanbul ignore else */
     if (!listening.current) {
-      document.addEventListener("click", handleClickOutside);
       document.addEventListener("keydown", handleKeyDown);
       listening.current = true;
     }
-  }, [handleKeyDown, handleClickOutside]);
+  }, [handleKeyDown]);
 
   const removeListeners = useCallback(() => {
     /* istanbul ignore else */
     if (listening.current) {
-      document.removeEventListener("click", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
       listening.current = false;
     }
-  }, [handleKeyDown, handleClickOutside]);
+  }, [handleKeyDown]);
 
   useEffect(() => {
     if (showAdditionalButtons) {
@@ -243,6 +226,8 @@ export const MultiActionButton = ({
       </StyledButtonChildrenContainer>
     </Popover>
   );
+
+  useClickAwayListener([ref], hideButtons);
 
   return (
     <StyledMultiActionButton
