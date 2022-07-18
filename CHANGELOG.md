@@ -1,3 +1,10 @@
+### [13.12.1](https://github.com/Sage/carbon/compare/v13.12.0...v13.12.1) (2022-07-18)
+
+
+### Bug Fixes
+
+* update react and react-dom to v17 ([b0a5ff2](https://github.com/Sage/carbon/commit/b0a5ff23b3cd62243baef20e4f6837f56bd7fd97))
+
 ## [13.12.0](https://github.com/Sage/carbon/compare/v13.11.0...v13.12.0) (2020-03-11)
 
 
