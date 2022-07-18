@@ -21,8 +21,6 @@ interface CommonFormFieldProps extends MarginProps, ValidationProps {
   tooltipId?: string;
   /** The unique id of the FieldHelp component */
   fieldHelpId?: string;
-  /** Overrides the default tabindex of the Help component */
-  helpTabIndex?: number | string;
   /** Label content */
   label?: React.ReactNode;
   /** Text alignment of the label */
@@ -75,7 +73,6 @@ const FormField = ({
   info,
   tooltipId,
   fieldHelpId,
-  helpTabIndex,
   label,
   labelId,
   labelAlign,
@@ -159,7 +156,6 @@ const FormField = ({
             info={!rest.validationRedesignOptIn && info}
             help={labelHelp}
             tooltipId={tooltipId}
-            helpTabIndex={helpTabIndex}
             htmlFor={id}
             helpIcon={labelHelpIcon}
             inline={inlineLabel}
