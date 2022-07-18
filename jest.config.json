@@ -2,10 +2,14 @@
   "notify": false,
   "setupFiles": [
     "raf/polyfill",
-    "./src/__spec_helper__/index.js",
+    "<rootDir>/enzyme.config.js"
+  ],
+  "setupFilesAfterEnv": [
+    "<rootDir>/src/__spec_helper__/index.ts",
+    "<rootDir>/src/__spec_helper__/expect.ts",
+    "@testing-library/jest-dom",
     "jest-canvas-mock"
   ],
-  "setupFilesAfterEnv": ["./src/__spec_helper__/expect.ts"],
   "snapshotSerializers": ["enzyme-to-json/serializer"],
   "testMatch": [
     "**/__spec__.js",
@@ -40,8 +44,5 @@
   "transform": {
     "^.+\\.(js|mjs|jsx|ts|tsx)$": "babel-jest",
     "^.+\\.svg$": "<rootDir>/svgTransform.js"
-  },
-  "moduleNameMapper": {
-    "\\.(png)$": "<rootDir>/__mocks__/imageMock.js"
   }
 }
