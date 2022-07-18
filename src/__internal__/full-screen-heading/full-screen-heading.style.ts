@@ -4,12 +4,16 @@ import {
   StyledHeading,
 } from "../../components/heading/heading.style";
 
+export interface StyledFullScreenHeadingProps {
+  hasContent?: boolean;
+}
+
 export const StyledHeaderContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
 
-const StyledFullScreenHeading = styled.div`
+const StyledFullScreenHeading = styled.div<StyledFullScreenHeadingProps>`
   ${({ hasContent }) =>
     hasContent &&
     css`
