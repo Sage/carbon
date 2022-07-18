@@ -2,6 +2,7 @@
 const { Octokit } = require("@octokit/rest");
 const dotenv = require("dotenv");
 const chalk = require("chalk");
+const ci = require("ci-info");
 
 dotenv.config();
 const octokit = new Octokit({
@@ -33,6 +34,10 @@ const getOpenRfcs = async () => {
 const getRfcTitle = (rfc) => rfc.title.split(": ")[1];
 
 const checkRfcs = async () => {
+  if (ci.BITRISE) {
+    return;
+  }
+
   const openRfcs = await getOpenRfcs();
 
   if (openRfcs.length > 0) {
@@ -46,4 +51,6 @@ const checkRfcs = async () => {
   }
 };
 
-if (!process.env.CARBON_INSTALL) checkRfcs();
+checkRfcs();
+
+module.exports = checkRfcs;

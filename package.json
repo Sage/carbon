@@ -10,8 +10,8 @@
   "files": [
     "lib",
     "esm",
-    "scripts/check_carbon_version.js",
-    "scripts/check_rfcs.js"
+    "scripts/check_carbon_version/check_carbon_version.js",
+    "scripts/check_rfcs/check_rfcs.js"
   ],
   "scripts": {
     "start": "node ./scripts/check_node_version.js && start-storybook -p 9001 -c .storybook",
@@ -27,7 +27,7 @@
     "copy-files": "node ./scripts/copy-files.js",
     "precompile": "npm run type-check && npm run clean-lib && npm run build && npm run build:types && npm run copy-files",
     "prepublishOnly": "npm run precompile",
-    "postinstall": "node ./scripts/check_carbon_version.js && node ./scripts/check_rfcs.js",
+    "postinstall": "node ./scripts/check_carbon_version/check_carbon_version.js && node ./scripts/check_rfcs/check_rfcs.js",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
     "build-storybook": "cross-env STORYBOOK_BUILD=true build-storybook -c .storybook",
     "start-storybook": "cross-env STORYBOOK_BUILD=true start-storybook -c .storybook",
@@ -151,6 +151,7 @@
     "jest-styled-components": "^6.3.1",
     "lint-staged": "^10.5.3",
     "mockdate": "^2.0.2",
+    "nock": "^13.2.8",
     "prettier": "^2.1.2",
     "raf": "^3.4.0",
     "react": "^17.0.2",
@@ -176,6 +177,7 @@
     "@styled-system/prop-types": "^5.1.5",
     "@tippyjs/react": "^4.2.5",
     "@types/styled-system": "^5.1.11",
+    "ci-info": "^3.3.2",
     "classnames": "~2.2.6",
     "crypto-js": "~3.3.0",
     "date-fns": "^2.26.0",
