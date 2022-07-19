@@ -1,3 +1,11 @@
+### [109.3.1](https://github.com/Sage/carbon/compare/v109.3.0...v109.3.1) (2022-07-19)
+
+
+### Bug Fixes
+
+* **multi-action-button:** add new keyboard functionality to component ([a76819b](https://github.com/Sage/carbon/commit/a76819b39e888ec926b74d94f63f7c3c631399bd)), closes [#4522](https://github.com/Sage/carbon/issues/4522)
+* **split-button:** add new keyboard functionality to component ([5121f6a](https://github.com/Sage/carbon/commit/5121f6af4521a9658e937cecff91676cffdf4f86)), closes [#4522](https://github.com/Sage/carbon/issues/4522)
+
 ## [109.3.0](https://github.com/Sage/carbon/compare/v109.2.4...v109.3.0) (2022-07-19)
 
 
