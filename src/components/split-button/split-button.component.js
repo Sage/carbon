@@ -1,9 +1,9 @@
 import React, {
-  useRef,
-  useState,
   useContext,
   useCallback,
-  useEffect,
+  useMemo,
+  useRef,
+  useState,
 } from "react";
 import { ThemeContext } from "styled-components";
 import PropTypes from "prop-types";
@@ -23,7 +23,7 @@ import {
   filterOutStyledSystemSpacingProps,
 } from "../../style/utils";
 import { baseTheme } from "../../style/themes";
-import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
+import useMenuKeyboardNavigation from "../../hooks/__internal__/useMenuKeyboardNavigation";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -47,84 +47,31 @@ const SplitButton = ({
   ...rest
 }) => {
   const theme = useContext(ThemeContext) || baseTheme;
-  const isToggleButtonFocused = useRef(false);
-  const isFocusedAfterClosing = useRef(false);
   const buttonLabelId = useRef(guid());
-  const buttonChildren = React.Children.toArray(children);
-  const additionalButtons = useRef(buttonChildren.map(() => React.createRef()));
+  const buttonChildren = useMemo(() => React.Children.toArray(children), [
+    children,
+  ]);
+  const buttonChildrenRefs = useMemo(
+    () => buttonChildren.map(() => React.createRef()),
+    [buttonChildren]
+  );
   const splitButtonNode = useRef();
   const toggleButton = useRef();
   const buttonContainer = useRef();
   const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
   const [minWidth, setMinWidth] = useState(0);
-  const listening = useRef(false);
 
   const hideButtons = useCallback(() => {
-    if (isToggleButtonFocused.current) return;
+    if (toggleButton.current === document.activeElement) return;
 
     setShowAdditionalButtons(false);
   }, []);
 
-  const handleKeyDown = useCallback(
-    (ev) => {
-      const numOfChildren = children.length - 1;
-      const currentIndex = additionalButtons.current.findIndex(
-        (node) => node.current === document.activeElement
-      );
-      let nextIndex = -1;
-
-      if (Events.isUpKey(ev)) {
-        nextIndex = currentIndex > 0 ? currentIndex - 1 : numOfChildren;
-        ev.preventDefault();
-      }
-
-      if (Events.isDownKey(ev)) {
-        nextIndex = currentIndex < numOfChildren ? currentIndex + 1 : 0;
-        ev.preventDefault();
-      }
-
-      if (Events.isTabKey(ev)) {
-        const elements = Array.from(
-          document.querySelectorAll(defaultFocusableSelectors)
-        ).filter((el) => Number(el.tabIndex) !== -1);
-        const indexOf = elements.indexOf(toggleButton.current);
-        elements[indexOf]?.focus();
-
-        // timeout enforces that the "hideButtons" method will be run after browser focuses on the next element
-        setTimeout(hideButtons, 0);
-      }
-
-      if (nextIndex > -1) {
-        additionalButtons.current[nextIndex].current.focus();
-      }
-    },
-    [hideButtons, children]
+  const handleKeyDown = useMenuKeyboardNavigation(
+    toggleButton,
+    buttonChildrenRefs,
+    hideButtons
   );
-  const addListeners = useCallback(() => {
-    /* istanbul ignore else */
-    if (!listening.current) {
-      document.addEventListener("keydown", handleKeyDown);
-      listening.current = true;
-    }
-  }, [handleKeyDown]);
-
-  const removeListeners = useCallback(() => {
-    /* istanbul ignore else */
-    if (listening.current) {
-      document.removeEventListener("keydown", handleKeyDown);
-      listening.current = false;
-    }
-  }, [handleKeyDown]);
-
-  useEffect(() => {
-    if (showAdditionalButtons) {
-      addListeners();
-    }
-
-    return () => {
-      removeListeners();
-    };
-  }, [showAdditionalButtons, addListeners, removeListeners]);
 
   function mainButtonProps() {
     return {
@@ -147,10 +94,6 @@ const SplitButton = ({
       disabled,
       displayed: showAdditionalButtons,
       onTouchStart: showButtons,
-      onFocus: focusToggleButton,
-      onBlur: () => {
-        isToggleButtonFocused.current = false;
-      },
       onKeyDown: handleToggleButtonKeyDown,
       buttonType,
       size,
@@ -222,7 +165,8 @@ const SplitButton = ({
     if (
       Events.isEnterKey(ev) ||
       Events.isSpaceKey(ev) ||
-      Events.isDownKey(ev)
+      Events.isDownKey(ev) ||
+      Events.isUpKey(ev)
     ) {
       ev.preventDefault();
 
@@ -231,8 +175,11 @@ const SplitButton = ({
       }
 
       setTimeout(() => {
-        additionalButtons.current[0]?.current?.focus();
+        buttonChildrenRefs[0]?.current?.focus();
       }, 0);
+    } else if (Events.isEscKey(ev)) {
+      setShowAdditionalButtons(false);
+      ev.preventDefault();
     }
   }
 
@@ -243,29 +190,17 @@ const SplitButton = ({
       const childProps = {
         key: index.toString(),
         role: "menuitem",
-        ref: additionalButtons.current[index],
+        ref: buttonChildrenRefs[index],
         tabIndex: -1,
         onClick: (ev) => {
           if (child.props.onClick) child.props.onClick(ev);
-          isToggleButtonFocused.current = false;
           hideButtons();
-          isFocusedAfterClosing.current = true;
           toggleButton.current?.focus();
         },
       };
 
       return React.cloneElement(child, childProps);
     });
-  }
-
-  function focusToggleButton() {
-    isToggleButtonFocused.current = true;
-    if (isFocusedAfterClosing.current) {
-      isFocusedAfterClosing.current = false;
-      return;
-    }
-
-    showButtons();
   }
 
   function renderAdditionalButtons() {
@@ -280,6 +215,7 @@ const SplitButton = ({
           align={align}
           minWidth={minWidth}
           ref={buttonContainer}
+          onKeyDown={handleKeyDown}
         >
           {childrenWithProps()}
         </StyledSplitButtonChildrenContainer>
