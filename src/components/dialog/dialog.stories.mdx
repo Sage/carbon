@@ -10,6 +10,7 @@ import Textbox from "../textbox";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import Fieldset from "../fieldset";
 import Loader from "../loader";
+import Toast from "../toast";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import isChromatic from "../../../.storybook/isChromatic";
 
@@ -394,6 +395,69 @@ set the padding to 0. Please see the [table below](#props) for more iformation a
               <Textbox label="Address" />
             </Form>
           </Dialog>
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Allowing other elements to be focused
+
+Using the `focusableContainers` prop allows elements that are not DOM children of the Dialog to be reachable with the keyboard while the Dialog is open.
+This may occasionally be useful with things like Toasts where they persist on the page until dismissed by clicking a close icon.
+
+<Canvas>
+  <Story name="other focusable containers"parameters={{ chromatic: { disable: true } }}>
+    {() => {
+      const [isDialogOpen, setIsDialogOpen] = useState(false);
+      const [isToast1Open, setIsToast1Open] = useState(false);
+      const [isToast2Open, setIsToast2Open] = useState(false);
+      const toast1Ref = useRef();
+      const toast2Ref = useRef();
+      return (
+        <>
+          <Button onClick={() => setIsDialogOpen(true)}>Open Dialog</Button>
+          <Dialog
+            open={isDialogOpen}
+            onCancel={() => setIsDialogOpen(false)}
+            title="Title"
+            subtitle="Subtitle"
+            focusableContainers={[toast1Ref, toast2Ref]}
+          >
+            <Form
+              stickyFooter={true}
+              height="500px"
+              leftSideButtons={
+                <Button onClick={() => setIsToast1Open(true)}>Show first toast</Button>
+              }
+              saveButton={
+                <Button buttonType="primary" onClick={() => setIsToast2Open(true)}>
+                  Show second toast
+                </Button>
+              }
+            >
+              <Typography>
+                This is an example of a dialog with a Form as content
+              </Typography>
+              <Textbox label="First Name" />
+              <Textbox label="Middle Name" />
+              <Textbox label="Surname" />
+              <Textbox label="Birth Place" />
+              <Textbox label="Favourite Colour" />
+              <Textbox label="Address" /><Textbox label="First Name" />
+              <Textbox label="Middle Name" />
+              <Textbox label="Surname" />
+              <Textbox label="Birth Place" />
+              <Textbox label="Favourite Colour" />
+              <Textbox label="Address" />
+            </Form>
+          </Dialog>
+          <Toast open={isToast1Open} onDismiss={() => setIsToast1Open(false)} ref={toast1Ref} targetPortalId="stacked">
+            Toast message 1
+          </Toast>
+          <Toast open={isToast2Open} onDismiss={() => setIsToast2Open(false)} ref={toast2Ref} targetPortalId="stacked">
+            Toast message 2
+          </Toast>
         </>
       );
     }}

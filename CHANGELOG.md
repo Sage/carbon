@@ -1,3 +1,17 @@
+## [109.3.0](https://github.com/Sage/carbon/compare/v109.2.4...v109.3.0) (2022-07-19)
+
+
+### Features
+
+* **dialog, dialog-full-screen, sidebar:** allow more tab control ([e497fb1](https://github.com/Sage/carbon/commit/e497fb1d29f75b77995234995bcc8f16b39b94e1)), closes [#5092](https://github.com/Sage/carbon/issues/5092)
+* **toast:** autofocus dismiss button unless disableAutoFocus prop set ([2c0ff36](https://github.com/Sage/carbon/commit/2c0ff3681c5a171ed1e294a778642a07d585ba42)), closes [#5092](https://github.com/Sage/carbon/issues/5092)
+* **toast:** return focus when closing toast after autofocus ([517682e](https://github.com/Sage/carbon/commit/517682e5f9d604cb5d1a44dccc63e250c7687cbd))
+
+
+### Bug Fixes
+
+* **focus-trap:** fix behaviour with radio buttons ([c6e55e7](https://github.com/Sage/carbon/commit/c6e55e7c8f5b072764e733fa50abfef694a7b34d)), closes [#5224](https://github.com/Sage/carbon/issues/5224)
+
 ### [109.2.4](https://github.com/Sage/carbon/compare/v109.2.3...v109.2.4) (2022-07-18)
 
 
