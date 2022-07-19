@@ -1,6 +1,7 @@
 import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 import { toastComponent, toastTogglePreview } from "../../locators/toast";
+import { closeIconButton } from "../../locators";
 
 When("I click on {string} Toggle Preview", (e) => {
   toastTogglePreview(e).scrollIntoView();
@@ -29,4 +30,8 @@ When("I scroll down the page", () => {
 
 Then("Toast is still visible", () => {
   toastComponent().should("be.visible");
+});
+
+Then("close icon is not focused", () => {
+  closeIconButton().should("not.be.focused");
 });

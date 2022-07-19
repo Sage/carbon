@@ -59,6 +59,8 @@ export interface DialogProps extends ModalProps {
   role?: string;
   /** Padding to be set on the Dialog content */
   contentPadding?: ContentPaddingInterface;
+  /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
+  focusableContainers?: React.MutableRefObject<HTMLElement>[];
 }
 
 declare function Dialog(props: DialogProps): JSX.Element;

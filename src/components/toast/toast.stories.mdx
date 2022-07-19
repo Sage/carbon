@@ -6,6 +6,9 @@ import { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import Button from "../button";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+import isChromatic from "../../../.storybook/isChromatic";
+
+export const isOpenForChromatic = isChromatic();
 
 <Meta
   title="Toast"
@@ -431,6 +434,58 @@ Toast variant is `success` by default
             onDismiss={onDismissClick}
             isCenter={true}
             timeout={2000}
+          >
+            My text
+          </Toast>
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Dismissible without autoFocus
+
+<Canvas>
+  <Story name="dismissible without autoFocus" parameters={{ info: { disable: true } }}>
+    {() => {
+      const onDismissClick = (evt) => {
+        if (!isOpen) {
+          window.scrollTo(0, 0);
+        }
+        setIsOpen(!isOpen);
+      };
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+      const handleToggle = () => {
+        if (!isOpen) {
+          window.scrollTo(0, 0);
+        }
+        setIsOpen(!isOpen);
+      };
+      const StyledButton = styled(Button)`
+        position: absolute;
+        display: block;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: ${isOpen ? "green" : "blue"};
+        border: ${isOpen ? "2px solid green" : "2px solid blue"};
+      `;
+      return (
+        <div id="wrapper-dismissible">
+          <StyledButton
+            id="button-toast-dismissible"
+            key="button"
+            onClick={handleToggle}
+          >
+            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+          </StyledButton>
+          <Toast
+            variant="warning"
+            id="toast-dismissible"
+            open={isOpen}
+            onDismiss={onDismissClick}
+            isCenter={true}
+            disableAutoFocus
           >
             My text
           </Toast>
