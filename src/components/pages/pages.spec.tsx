@@ -1,30 +1,114 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { shallow, mount } from "enzyme";
+import { shallow, mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
-import BasePages, { Page } from "./pages.component";
+import Pages, { Page } from "./pages.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import mintTheme from "../../style/themes/mint";
 import Button from "../button";
 import Heading from "../heading";
 import { StyledHeadingBackButton } from "../heading/heading.style";
 
-describe("BasePages", () => {
-  let wrapper;
+interface MockComponentProps {
+  index?: number;
+  initialPageIndex?: number;
+}
+
+function MockComponentWithOneChild({
+  initialPageIndex,
+}: Pick<MockComponentProps, "initialPageIndex">) {
+  const [pageIndex, setPageIndex] = useState<number | undefined>(
+    initialPageIndex
+  );
+  const moveToNextPageWithUndefinedValue = () => setPageIndex(undefined);
+  const moveToNextPage = () => {
+    if (pageIndex !== undefined) setPageIndex(pageIndex + 1);
+  };
+  const moveToPreviousPage = () => {
+    if (pageIndex !== undefined) setPageIndex(pageIndex - 1);
+  };
+
+  return (
+    <Pages pageIndex={pageIndex}>
+      <Page
+        title={
+          <Heading
+            data-element="firstHeader"
+            title="My First Page"
+            backLink={moveToPreviousPage}
+          />
+        }
+      >
+        <Button onClick={moveToNextPage}>Go to second page</Button>
+        <Button onClick={moveToNextPageWithUndefinedValue}>
+          Go to second page
+        </Button>
+      </Page>
+    </Pages>
+  );
+}
+
+function MockComponent({ index = 0, initialPageIndex }: MockComponentProps) {
+  const [pageIndex, setPageIndex] = useState(index);
+  const moveToNextPage = () => setPageIndex(pageIndex + 1);
+  const moveToPreviousPage = () => setPageIndex(pageIndex - 1);
+
+  return (
+    <Pages initialpageIndex={initialPageIndex} pageIndex={pageIndex}>
+      <Page
+        title={
+          <Heading
+            data-element="firstHeader"
+            title="My First Page"
+            backLink={moveToPreviousPage}
+          />
+        }
+      >
+        <Button onClick={moveToNextPage}>Go to second page</Button>
+      </Page>
+      <Page
+        title={
+          <Heading
+            data-element="secondHeader"
+            title="My Second Page"
+            backLink={moveToPreviousPage}
+          />
+        }
+      >
+        Second page
+      </Page>
+      <Page
+        title={
+          <Heading
+            data-element="thirdHeader"
+            title="My Third Page"
+            backLink={moveToPreviousPage}
+          />
+        }
+      >
+        Third page
+        <Button onClick={moveToNextPage}>Go to next page</Button>
+      </Page>
+    </Pages>
+  );
+}
+
+describe("Pages", () => {
+  let wrapper: ReactWrapper | ShallowWrapper;
 
   it.each([
     ["fade", "carousel-transition-fade"],
     ["slide", "slide-next"],
   ])(
-    "should rednder correct animation if %s provided",
+    "should render correct animation if %s provided",
     (transition, expected) => {
       wrapper = mount(
-        <BasePages transition={transition}>
+        <Pages pageIndex={0} transition={transition}>
           <Page title="foo">Page</Page>
-        </BasePages>
+        </Pages>
       );
 
-      expect(wrapper.find(Page).props().transitionName()).toBe(expected);
+      expect(wrapper.find(Page).props().transitionName).toBe(expected);
     }
   );
 
@@ -107,14 +191,14 @@ describe("BasePages", () => {
   describe("tags", () => {
     describe("on component", () => {
       const tag = shallow(
-        <BasePages
+        <Pages
           theme={mintTheme}
           data-element="bar"
           data-role="baz"
-          initialPageIndex={0}
+          initialpageIndex={0}
         >
           <Page title="Foo">Bar</Page>
-        </BasePages>
+        </Pages>
       );
 
       it("include correct component, element and role data tags", () => {
@@ -124,11 +208,11 @@ describe("BasePages", () => {
 
     describe("on internal elements", () => {
       wrapper = mount(
-        <BasePages theme={mintTheme} initialPageIndex={0}>
+        <Pages theme={mintTheme} initialpageIndex={0}>
           <Page data-element="page" title="Foo">
             Bar
           </Page>
-        </BasePages>
+        </Pages>
       );
 
       it("should has expected data elements", () => {
@@ -138,74 +222,3 @@ describe("BasePages", () => {
     });
   });
 });
-
-function MockComponentWithOneChild({ initialPageIndex }) {
-  const [pageIndex, setPageIndex] = useState(initialPageIndex);
-  const moveToNextPageWithUndefinedValue = () => setPageIndex(undefined);
-  const moveToNextPage = () => setPageIndex(pageIndex + 1);
-  const moveToPreviousPage = () => setPageIndex(pageIndex - 1);
-
-  return (
-    <BasePages pageIndex={pageIndex}>
-      <Page
-        title={
-          <Heading
-            data-element="firstHeader"
-            title="My First Page"
-            backLink={moveToPreviousPage}
-          />
-        }
-      >
-        <Button onClick={moveToNextPage}>Go to second page</Button>
-        <Button onClick={moveToNextPageWithUndefinedValue}>
-          Go to second page
-        </Button>
-      </Page>
-    </BasePages>
-  );
-}
-
-function MockComponent({ index, initialPageIndex }) {
-  const [pageIndex, setPageIndex] = useState(index);
-  const moveToNextPage = () => setPageIndex(pageIndex + 1);
-  const moveToPreviousPage = () => setPageIndex(pageIndex - 1);
-
-  return (
-    <BasePages initialPageIndex={initialPageIndex} pageIndex={pageIndex}>
-      <Page
-        title={
-          <Heading
-            data-element="firstHeader"
-            title="My First Page"
-            backLink={moveToPreviousPage}
-          />
-        }
-      >
-        <Button onClick={moveToNextPage}>Go to second page</Button>
-      </Page>
-      <Page
-        title={
-          <Heading
-            data-element="secondHeader"
-            title="My Second Page"
-            backLink={moveToPreviousPage}
-          />
-        }
-      >
-        Second page
-      </Page>
-      <Page
-        title={
-          <Heading
-            data-element="thirdHeader"
-            title="My Third Page"
-            backLink={moveToPreviousPage}
-          />
-        }
-      >
-        Third page
-        <Button onClick={moveToNextPage}>Go to next page</Button>
-      </Page>
-    </BasePages>
-  );
-}

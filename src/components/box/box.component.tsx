@@ -27,6 +27,8 @@ export interface BoxProps
   overflowWrap?: OverflowWrap;
   /** scroll styling attribute */
   scrollVariant?: ScrollVariant;
+  /** set the box-sizing attribute of the Box component */
+  boxSizing?: "content-box" | "border-box";
 }
 
 const Box = styled.div<BoxProps>`

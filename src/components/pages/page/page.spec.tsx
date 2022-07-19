@@ -1,13 +1,13 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { StyledPage } from "./page.style.js";
+import { StyledPage } from "./page.style";
 import Page from "./page.component";
 import FullScreenHeading from "../../../__internal__/full-screen-heading";
 
-describe("Pages", () => {
+describe("Page", () => {
   const wrapper = shallow(
     <Page
-      transitionName={() => {}}
+      transitionName="foo"
       title="My Title"
       data-element="carbon-page-content"
     >

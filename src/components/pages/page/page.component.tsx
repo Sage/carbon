@@ -1,14 +1,22 @@
 import React, { useRef } from "react";
-import PropTypes from "prop-types";
 import { CSSTransition } from "react-transition-group";
 import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import FullScreenHeading from "../../../__internal__/full-screen-heading";
 import Box from "../../box";
 import { StyledPage, StyledPageContent } from "./page.style";
 
-const Page = ({ title, children, ...props }) => {
-  const styledPageNodeRef = useRef();
+export interface PageProps {
+  /** The title for the page, normally a Heading component. */
+  title: React.ReactNode;
+  /** This component supports children. */
+  children: React.ReactNode;
+  /** @ignore @private */
+  transitionName?: string;
+}
 
+const Page = ({ title, children, ...rest }: PageProps) => {
+  const styledPageNodeRef = useRef(null);
+  const { transitionName } = rest;
   return (
     <CSSTransition
       className="carbon-carousel__transition"
@@ -17,13 +25,12 @@ const Page = ({ title, children, ...props }) => {
         enter: 0,
         exit: 0,
       }}
-      // eslint-disable-next-line react/prop-types
-      classNames={props.transitionName()}
+      classNames={transitionName}
       nodeRef={styledPageNodeRef}
-      {...props}
+      {...rest}
     >
-      <StyledPage {...tagComponent("page", props)} ref={styledPageNodeRef}>
-        <FullScreenHeading hasContent={title}>{title}</FullScreenHeading>
+      <StyledPage {...tagComponent("page", rest)} ref={styledPageNodeRef}>
+        <FullScreenHeading hasContent={!!title}>{title}</FullScreenHeading>
         <StyledPageContent data-element="carbon-page-content">
           <Box
             boxSizing="border-box"
@@ -40,16 +47,6 @@ const Page = ({ title, children, ...props }) => {
   );
 };
 
-Page.propTypes = {
-  /**
-   * The title for the page, normally a Heading component.
-   */
-  title: PropTypes.node.isRequired,
-
-  /**
-   * This component supports children.
-   */
-  children: PropTypes.node.isRequired,
-};
+Page.displayName = "Page";
 
 export default Page;

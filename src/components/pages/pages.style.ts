@@ -21,8 +21,8 @@ const PagesWrapperStyle = styled.div`
     overflow: hidden;
     position: relative;
   }
-  ${slideAnimation};
-  ${fadeAnimation};
+  ${slideAnimation}
+  ${fadeAnimation}
 `;
 
 PagesContent.defaultProps = {
