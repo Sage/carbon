@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { IconType } from "components/icon/icon";
+import { IconType } from "components/icon/icon-type";
 
 import Icon from "../icon";
 import Event from "../../__internal__/utils/helpers/events";

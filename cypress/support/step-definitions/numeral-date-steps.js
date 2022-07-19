@@ -1,3 +1,5 @@
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import { numeralDateInputByPosition } from "../../locators/numeralDate";
 import { positionOfElement } from "../helper";
 import { warningIcon } from "../../locators/index";

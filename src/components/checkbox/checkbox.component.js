@@ -54,7 +54,6 @@ const Checkbox = ({
     error: contextError,
     warning: contextWarning,
     info: contextInfo,
-    inputName,
   } = useContext(CheckboxGroupContext);
 
   const inputProps = {
@@ -83,7 +82,6 @@ const Checkbox = ({
     inputWidth,
     labelWidth,
     tooltipPosition,
-    inputName,
     ...props,
   };
 

@@ -9,7 +9,7 @@
 .vscode
 CONTRIBUTING.md
 gulpfile.js
-jest.conf.json
+jest.config.json
 cla
 docs
 __mocks__

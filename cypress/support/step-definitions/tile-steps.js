@@ -1,3 +1,5 @@
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import tile from "../../locators/tile";
 
 Then("Tile component as property is set to {string}", (value) => {

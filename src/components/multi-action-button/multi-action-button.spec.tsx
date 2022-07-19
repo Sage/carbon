@@ -7,7 +7,7 @@ import {
   StyledMultiActionButton,
   StyledButtonChildrenContainer,
 } from "./multi-action-button.style";
-import Button, { ButtonWithForwardRef } from "../button";
+import Button from "../button";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
@@ -106,7 +106,7 @@ describe("MultiActionButton", () => {
       it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
-          .find(ButtonWithForwardRef);
+          .find(Button);
 
         keyboard.pressArrowDown();
         expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
@@ -127,7 +127,7 @@ describe("MultiActionButton", () => {
       it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
-          .find(ButtonWithForwardRef);
+          .find(Button);
 
         keyboard.pressArrowUp();
         expect(additionalButtons.at(1).getDOMNode()).toStrictEqual(
@@ -216,7 +216,7 @@ describe("MultiActionButton", () => {
         wrapper = render({}, mount);
         simulateFocus(wrapper);
 
-        expect(wrapper.find(ButtonWithForwardRef).exists()).toBe(true);
+        expect(wrapper.find(Button).exists()).toBe(true);
       });
 
       afterEach(() => {
@@ -334,7 +334,7 @@ describe("MultiActionButton", () => {
         mainButton.simulate("mouseenter");
         const button = wrapper
           .find('[data-element="additional-buttons"]')
-          .find(ButtonWithForwardRef);
+          .find(Button);
         button.at(0).simulate("click");
         expect(handleSecondButton).toHaveBeenCalled();
       });
@@ -343,7 +343,7 @@ describe("MultiActionButton", () => {
         mainButton.simulate("mouseenter");
         const button = wrapper
           .find('[data-element="additional-buttons"]')
-          .find(ButtonWithForwardRef);
+          .find(Button);
         button.at(0).simulate("click");
 
         wrapper.update();
@@ -360,7 +360,7 @@ describe("MultiActionButton", () => {
 
           const button = wrapper
             .find('[data-element="additional-buttons"]')
-            .find(ButtonWithForwardRef);
+            .find(Button);
 
           button.at(1).simulate("click");
         }).not.toThrow();

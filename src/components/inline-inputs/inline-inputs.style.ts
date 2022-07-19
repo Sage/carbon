@@ -5,6 +5,32 @@ import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import baseTheme from "../../style/themes/base";
 import { InlineInputsProps } from "./inline-inputs.component";
 
+type GutterOptions =
+  | "none"
+  | "extra-small"
+  | "small"
+  | "medium-small"
+  | "medium"
+  | "medium-large"
+  | "large"
+  | "extra-large";
+interface StyledInlineInputProps {
+  /** Gutter prop gets passed down to Row component if false gutter value is "none" */
+  gutter?: GutterOptions;
+}
+
+export interface StyledContentContainerProps extends StyledInlineInputProps {
+  /** Width of the inline inputs container in percentage */
+  inputWidth?: number;
+}
+
+export interface StyledInlineInputsProps extends StyledInlineInputProps {
+  /** Width of a label in percentage */
+  labelWidth?: number;
+  /** @ignore @private */
+  labelInline?: boolean;
+}
+
 const spacings = {
   none: 0,
   "extra-small": 8,
@@ -16,7 +42,7 @@ const spacings = {
   "extra-large": 40,
 };
 
-const StyledInlineInput = styled.div<Pick<InlineInputsProps, "gutter">>`
+const StyledInlineInput = styled.div<InlineInputsProps>`
   flex: 1;
 
   ${({ gutter }) =>
@@ -27,9 +53,7 @@ const StyledInlineInput = styled.div<Pick<InlineInputsProps, "gutter">>`
     `}
 `;
 
-const StyledContentContainer = styled.div<
-  Pick<InlineInputsProps, "gutter" | "inputWidth">
->`
+const StyledContentContainer = styled.div<InlineInputsProps>`
   display: flex;
   flex: ${({ inputWidth }) => (inputWidth ? `0 0 ${inputWidth}%` : 1)};
 
@@ -48,15 +72,13 @@ const StyledContentContainer = styled.div<
     `}
 `;
 
-const StyledInlineInputs = styled.div<
-  Pick<InlineInputsProps, "gutter" | "labelWidth">
->`
-  display: flex;
+const StyledInlineInputs = styled.div<InlineInputsProps>`
+  display: ${({ labelInline }) => (labelInline ? `flex` : `block`)};
   align-items: center;
 
   ${StyledLabelContainer} {
     width: auto;
-    margin-bottom: 0;
+    margin-bottom: ${({ labelInline }) => (labelInline ? `0px` : `8px`)};
     padding-right: 16px;
     flex: 0 0 ${({ labelWidth }) => (labelWidth ? `${labelWidth}%` : "auto")};
   }

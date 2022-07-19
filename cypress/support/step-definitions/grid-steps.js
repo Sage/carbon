@@ -1,3 +1,5 @@
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import { pod, gridPod, gridComponent } from "../../locators/grid";
 
 Then("pod {int} is {string}", (index, title) => {

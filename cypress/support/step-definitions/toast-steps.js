@@ -1,3 +1,5 @@
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import { toastComponent, toastTogglePreview } from "../../locators/toast";
 import { closeIconButton } from "../../locators";
 

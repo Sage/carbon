@@ -19,7 +19,7 @@ describe("Toast", () => {
 
   describe("modal manager", () => {
     jest.spyOn(ModalManager, "addModal");
-    jest.spyOn(ModalManager, "removeModal");
+    const removeModalSpy = jest.spyOn(ModalManager, "removeModal");
     let wrapper;
 
     describe("when component mounts", () => {
@@ -43,6 +43,7 @@ describe("Toast", () => {
 
     describe("when component unmounts", () => {
       it("it is removed from modal manager", () => {
+        removeModalSpy.mockClear();
         wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
         const toast = wrapper.find(ToastWrapper).getDOMNode();
         wrapper.unmount();

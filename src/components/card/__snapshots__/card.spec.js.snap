@@ -60,11 +60,11 @@ exports[`Card CardFooter styling should match the expected styling when it has n
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
   content: "\\e92d";
-  font-size: 16px;
   font-style: normal;
   font-weight: normal;
-  line-height: 16px;
   vertical-align: middle;
+  font-size: 16px;
+  line-height: 16px;
   display: block;
 }
 
@@ -152,7 +152,6 @@ exports[`Card CardFooter styling should match the expected styling when it has n
         color="--colorsActionMajor500"
         data-component="icon"
         data-element="link"
-        disabled={false}
         fontSize="small"
         type="link"
       />

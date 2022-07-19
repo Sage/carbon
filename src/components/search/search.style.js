@@ -129,26 +129,38 @@ const StyledSearch = styled.div`
         z-index: ${theme.zIndex.smallOverlay};
       }
       ${StyledIcon} {
-        color: ${iconColor
-          ? "var(--colorsUtilityMajor400)"
-          : "var(--colorsUtilityMajor200)"};
+        ${darkVariant &&
+        css`
+          ${iconColor &&
+          css`
+            color: var(--colorsUtilityMajor400);
+
+            :hover {
+              color: var(--colorsUtilityMajor500);
+            }
+          `}
+          ${!iconColor &&
+          css`
+            color: var(--colorsUtilityMajor200);
+
+            :hover {
+              color: var(--colorsUtilityMajor100);
+            }
+          `}
+        `}
+
         ${!darkVariant &&
         css`
-          color: var(--colorsUtilityMajor400);
+          color: var(--colorsActionMinor500);
+
+          :hover {
+            color: var(--colorsActionMinor600);
+          }
         `}
 
         width: 20px;
         height: 20px;
         cursor: pointer;
-        :hover {
-          color: ${iconColor
-            ? "var(--colorsUtilityMajor500)"
-            : "var(--colorsUtilityMajor100)"};
-          ${!darkVariant &&
-          css`
-            color: var(--colorsUtilityMajor500);
-          `}
-        }
       }
 
       ${StyledInputIconToggle} {

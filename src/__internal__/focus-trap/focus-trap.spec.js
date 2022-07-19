@@ -5,6 +5,7 @@ import { mount } from "enzyme";
 import FocusTrap from "./focus-trap.component";
 import { RadioButton, RadioButtonGroup } from "../../components/radio-button";
 import { ModalContext } from "../../components/modal/modal.component";
+import { Select, Option } from "../../components/select";
 
 jest.useFakeTimers();
 
@@ -40,8 +41,8 @@ const MockComponent = ({
 
 describe("FocusTrap", () => {
   let wrapper;
-  const element = document.createElement("div");
-  const htmlElement = document.body.appendChild(element);
+  let element = document.createElement("div");
+  let htmlElement = document.body.appendChild(element);
   const tabKey = new KeyboardEvent("keydown", { key: "Tab" });
   const shiftKey = new KeyboardEvent("keydown", { shiftKey: true });
   const shiftTabKey = new KeyboardEvent("keydown", {
@@ -50,8 +51,21 @@ describe("FocusTrap", () => {
   });
   const otherKey = new KeyboardEvent("keydown", { keyCode: 32 });
 
+  beforeEach(() => {
+    element = document.createElement("div");
+    htmlElement = document.body.appendChild(element);
+  });
+
   afterEach(() => {
-    wrapper.unmount();
+    try {
+      wrapper.unmount();
+    } catch (e) {
+      // Intentionally left empty
+    }
+
+    while (document.body.firstChild) {
+      document.body.removeChild(document.body.lastChild);
+    }
   });
 
   describe("triggerRefocusFlag", () => {
@@ -59,22 +73,22 @@ describe("FocusTrap", () => {
       wrapper = mount(
         <MockComponent autoFocus={false} triggerRefocusFlag={false}>
           <button type="button">Test button One</button>
-          <input type="text" />
+          <Select
+            id="c0499f86-d5a7-4a72-a0b7-753a2d218c54"
+            label="the dropdown"
+          >
+            <Option value="1" text="Option 1" />
+          </Select>
         </MockComponent>,
         { attachTo: htmlElement }
       );
-      act(() => {
-        document.querySelectorAll("input")[0].focus();
-      });
+      document.querySelectorAll("input")[0].focus();
       expect(wrapper.update().find("input").at(0)).toBeFocused();
-      act(() => {
-        document.querySelectorAll("input")[0].blur();
-      });
+      document.querySelectorAll("input")[0].blur();
       expect(wrapper.update().find("input").at(0)).not.toBeFocused();
       act(() => {
         wrapper.setProps({ triggerRefocusFlag: true });
       });
-      wrapper.update();
       expect(wrapper.update().find("input").at(0)).toBeFocused();
     });
 
@@ -120,9 +134,7 @@ describe("FocusTrap", () => {
         </MockComponent>,
         { attachTo: htmlElement }
       );
-      act(() => {
-        document.querySelectorAll("input")[0].focus();
-      });
+      document.querySelectorAll("input")[0].focus();
       expect(wrapper.update().find("input").at(0)).toBeFocused();
       act(() => {
         wrapper.setProps({ triggerRefocusFlag: true });

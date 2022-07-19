@@ -159,14 +159,6 @@ const FocusTrap = ({
     }
   }, [focusableElements]);
 
-  useEffect(() => {
-    document.addEventListener("focusin", updateCurrentFocusedElement);
-
-    return () => {
-      document.removeEventListener("focusin", updateCurrentFocusedElement);
-    };
-  }, [updateCurrentFocusedElement]);
-
   const refocusTrap = useCallback(() => {
     /* istanbul ignore else */
     if (
@@ -204,13 +196,17 @@ const FocusTrap = ({
     }
   };
 
-  const focusProps = { tabIndex, onBlur };
+  const focusProps = (hasNoTabIndex) => ({
+    ...(hasNoTabIndex && { tabIndex, onBlur }),
+    onFocus: updateCurrentFocusedElement,
+  });
 
-  // passes focusProps if no tabindex has been explicitly set on the wrapper
+  // passes focusProps, sets tabIndex and onBlur if no tabIndex has been expicitly set on child
   const clonedChildren = React.Children.map(children, (child) => {
-    return child.props.tabIndex === undefined
-      ? React.cloneElement(child, focusProps)
-      : child;
+    return React.cloneElement(
+      child,
+      focusProps(child.props.tabIndex === undefined)
+    );
   });
 
   return <div ref={trapRef}>{clonedChildren}</div>;

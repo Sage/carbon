@@ -11,8 +11,6 @@ import ValidationIcon from "../validations/validation-icon.component";
 import IconWrapperStyle from "./icon-wrapper.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 
-jest.mock("@tippyjs/react/headless");
-
 const validationTypes = ["error", "warning", "info"];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

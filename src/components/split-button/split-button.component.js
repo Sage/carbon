@@ -8,8 +8,10 @@ import React, {
 import { ThemeContext } from "styled-components";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
+
+import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import Icon from "../icon";
-import Button, { ButtonWithForwardRef } from "../button";
+import Button from "../button";
 import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
 import StyledSplitButtonChildrenContainer from "./split-button-children.style";
@@ -63,19 +65,6 @@ const SplitButton = ({
     setShowAdditionalButtons(false);
   }, []);
 
-  const handleClickOutside = useCallback(
-    ({ target }) => {
-      if (
-        !splitButtonNode.current.contains(target) &&
-        buttonContainer.current &&
-        !buttonContainer.current.contains(target)
-      ) {
-        hideButtons();
-      }
-    },
-    [hideButtons]
-  );
-
   const handleKeyDown = useCallback(
     (ev) => {
       const numOfChildren = children.length - 1;
@@ -114,20 +103,18 @@ const SplitButton = ({
   const addListeners = useCallback(() => {
     /* istanbul ignore else */
     if (!listening.current) {
-      document.addEventListener("click", handleClickOutside);
       document.addEventListener("keydown", handleKeyDown);
       listening.current = true;
     }
-  }, [handleKeyDown, handleClickOutside]);
+  }, [handleKeyDown]);
 
   const removeListeners = useCallback(() => {
     /* istanbul ignore else */
     if (listening.current) {
-      document.removeEventListener("click", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
       listening.current = false;
     }
-  }, [handleKeyDown, handleClickOutside]);
+  }, [handleKeyDown]);
 
   useEffect(() => {
     if (showAdditionalButtons) {
@@ -266,9 +253,6 @@ const SplitButton = ({
           toggleButton.current?.focus();
         },
       };
-      if (child.type === Button) {
-        return <ButtonWithForwardRef {...child.props} {...childProps} />;
-      }
 
       return React.cloneElement(child, childProps);
     });
@@ -302,6 +286,8 @@ const SplitButton = ({
       </Popover>
     );
   }
+
+  useClickAwayListener([splitButtonNode], hideButtons);
 
   return (
     <StyledSplitButton
