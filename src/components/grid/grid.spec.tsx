@@ -1,6 +1,7 @@
 import React from "react";
 import { mount as enzymeMount } from "enzyme";
 import TestRenderer from "react-test-renderer";
+
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { GridContainer, GridItem } from ".";
 import { getSpacing } from "./grid-item/grid-item.style";
@@ -101,7 +102,7 @@ const item31500 = {
   maxWidth: "1500px",
 };
 
-const mount = (attachTo) => {
+const mount = () => {
   return enzymeMount(
     <GridContainer id="testContainer">
       <GridItem responsiveSettings={[item11500, item11300, item1900]}>
@@ -113,8 +114,7 @@ const mount = (attachTo) => {
       <GridItem responsiveSettings={[item31500, item3900, item31300]}>
         3
       </GridItem>
-    </GridContainer>,
-    { attachTo }
+    </GridContainer>
   );
 };
 
@@ -153,54 +153,60 @@ describe("Grid", () => {
     });
 
     it("validates the incorrect children prop", () => {
-      const consoleSpy = jest
+      const consoleErrorSpy = jest
         .spyOn(global.console, "error")
         .mockImplementation(() => {});
-      enzymeMount(
-        <GridContainer>
-          <p>invalid children</p>
-        </GridContainer>
-      );
+      expect(() => {
+        enzymeMount(
+          <GridContainer>
+            invalid
+            <p>invalid children</p>
+          </GridContainer>
+        );
+      }).toThrow("GridContainer only accepts children of type GridItem.");
 
-      // eslint-disable-line no-console
-      expect(console.error.mock.calls[0][2]).toBe(
-        "`GridContainer` only accepts children of type `GridItem`."
-      );
-      consoleSpy.mockRestore();
+      consoleErrorSpy.mockRestore();
     });
 
     it("is a valid proptype if children is only one GridItem", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
-      enzymeMount(
-        <GridContainer id="testContainer">
-          <GridItem>
-            <p>1</p>
-          </GridItem>
-        </GridContainer>
-      );
-      // eslint-disable-next-line no-console
-      expect(console.error).not.toHaveBeenCalled();
-      global.console.error.mockReset();
+      const consoleErrorSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
+
+      expect(() => {
+        enzymeMount(
+          <GridContainer id="testContainer">
+            <GridItem>
+              <p>1</p>
+            </GridItem>
+          </GridContainer>
+        );
+      }).not.toThrow();
+
+      consoleErrorSpy.mockRestore();
     });
 
     it("is a valid proptype if children is multiple GridItems", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
-      enzymeMount(
-        <GridContainer id="testContainer">
-          <GridItem>
-            <p>1</p>
-          </GridItem>
-          <GridItem>
-            <p>2</p>
-          </GridItem>
-          <GridItem>
-            <p>3</p>
-          </GridItem>
-        </GridContainer>
-      );
-      // eslint-disable-next-line no-console
-      expect(console.error).not.toHaveBeenCalled();
-      global.console.error.mockReset();
+      const consoleErrorSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
+      expect(() => {
+        enzymeMount(
+          <GridContainer id="testContainer">
+            <GridItem>
+              <p>1</p>
+            </GridItem>
+            <GridItem>
+              <p>2</p>
+            </GridItem>
+            <GridItem>
+              <p>3</p>
+            </GridItem>
+          </GridContainer>
+        );
+      }).not.toThrow();
+
+      consoleErrorSpy.mockRestore();
     });
 
     describe.each(paddingProps)(
@@ -216,11 +222,9 @@ describe("Grid", () => {
             </GridContainer>
           );
 
-          expect(
-            assertStyleMatch({ [propName]: "15px" }, wrapper, {
-              media: "screen",
-            })
-          );
+          assertStyleMatch({ [propName]: "15px" }, wrapper, {
+            media: "screen",
+          });
         });
       }
     );
@@ -237,11 +241,9 @@ describe("Grid", () => {
             </GridContainer>
           );
 
-          expect(
-            assertStyleMatch({ [propName]: propValue }, wrapper, {
-              media: "screen",
-            })
-          );
+          assertStyleMatch({ [propName]: propValue }, wrapper, {
+            media: "screen",
+          });
         });
       }
     );
@@ -300,47 +302,35 @@ describe("Grid", () => {
           </GridContainer>
         );
 
-        expect(
-          assertStyleMatch({ padding: "15px" }, wrapper.find(GridItem).first())
+        assertStyleMatch({ padding: "15px" }, wrapper.find(GridItem).first());
+
+        assertStyleMatch({ paddingLeft: "15px" }, wrapper.find(GridItem).at(1));
+
+        assertStyleMatch(
+          { paddingRight: "15px" },
+          wrapper.find(GridItem).at(2)
         );
-        expect(
-          assertStyleMatch(
-            { paddingLeft: "15px" },
-            wrapper.find(GridItem).at(1)
-          )
+        assertStyleMatch({ paddingTop: "15px" }, wrapper.find(GridItem).at(3));
+
+        assertStyleMatch(
+          { paddingBottom: "15px" },
+          wrapper.find(GridItem).at(4)
         );
-        expect(
-          assertStyleMatch(
-            { paddingRight: "15px" },
-            wrapper.find(GridItem).at(2)
-          )
+
+        assertStyleMatch(
+          {
+            paddingLeft: "15px",
+            paddingRight: "15px",
+          },
+          wrapper.find(GridItem).at(5)
         );
-        expect(
-          assertStyleMatch({ paddingTop: "15px" }, wrapper.find(GridItem).at(3))
-        );
-        expect(
-          assertStyleMatch(
-            { paddingBottom: "15px" },
-            wrapper.find(GridItem).at(4)
-          )
-        );
-        expect(
-          assertStyleMatch(
-            {
-              paddingLeft: "15px",
-              paddingRight: "15px",
-            },
-            wrapper.find(GridItem).at(5)
-          )
-        );
-        expect(
-          assertStyleMatch(
-            {
-              paddingTop: "15px",
-              paddingBottom: "15px",
-            },
-            wrapper.find(GridItem).at(6)
-          )
+
+        assertStyleMatch(
+          {
+            paddingTop: "15px",
+            paddingBottom: "15px",
+          },
+          wrapper.find(GridItem).at(6)
         );
       });
     });
@@ -369,40 +359,34 @@ describe("Grid", () => {
             </GridContainer>
           );
 
-          expect(
-            assertStyleMatch(
-              { padding: getSpacing(prop) },
-              wrapper.find(GridItem).first(),
-              { media: "screen and (max-width:1500px)" }
-            )
+          assertStyleMatch(
+            { padding: getSpacing(prop) },
+            wrapper.find(GridItem).first(),
+            { media: "screen and (max-width:1500px)" }
           );
-          expect(
-            assertStyleMatch(
-              { paddingLeft: getSpacing(prop) },
-              wrapper.find(GridItem).at(1),
-              { media: "screen and (max-width:1500px)" }
-            )
+
+          assertStyleMatch(
+            { paddingLeft: getSpacing(prop) },
+            wrapper.find(GridItem).at(1),
+            { media: "screen and (max-width:1500px)" }
           );
-          expect(
-            assertStyleMatch(
-              { paddingRight: getSpacing(prop) },
-              wrapper.find(GridItem).at(2),
-              { media: "screen and (max-width:1500px)" }
-            )
+
+          assertStyleMatch(
+            { paddingRight: getSpacing(prop) },
+            wrapper.find(GridItem).at(2),
+            { media: "screen and (max-width:1500px)" }
           );
-          expect(
-            assertStyleMatch(
-              { paddingTop: getSpacing(prop) },
-              wrapper.find(GridItem).at(3),
-              { media: "screen and (max-width:1500px)" }
-            )
+
+          assertStyleMatch(
+            { paddingTop: getSpacing(prop) },
+            wrapper.find(GridItem).at(3),
+            { media: "screen and (max-width:1500px)" }
           );
-          expect(
-            assertStyleMatch(
-              { paddingBottom: getSpacing(prop) },
-              wrapper.find(GridItem).at(4),
-              { media: "screen and (max-width:1500px)" }
-            )
+
+          assertStyleMatch(
+            { paddingBottom: getSpacing(prop) },
+            wrapper.find(GridItem).at(4),
+            { media: "screen and (max-width:1500px)" }
           );
         });
       });
@@ -420,11 +404,9 @@ describe("Grid", () => {
             </GridContainer>
           );
 
-          expect(
-            assertStyleMatch(
-              { [propName]: propValue },
-              wrapper.find(GridItem).at(0)
-            )
+          assertStyleMatch(
+            { [propName]: propValue },
+            wrapper.find(GridItem).at(0)
           );
         });
       }
