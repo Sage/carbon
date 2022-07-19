@@ -30,14 +30,12 @@ interface PageStoryProps {
   initialPageIndex?: number;
 }
 
-export const PagesStory = ({ initialPageIndex }: PageStoryProps) => {
+export const DefaultStory = ({ initialPageIndex }: PageStoryProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(Number(initialPageIndex) || 0);
   const [isDisabled, setIsDisabled] = useState(false);
   const handleCancel = (
-    ev:
-      | React.KeyboardEvent<HTMLElement>
-      | React.MouseEvent<HTMLElement>
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
   ) => {
     setIsOpen(false);
     setPageIndex(0);
@@ -117,9 +115,5 @@ export const PagesStory = ({ initialPageIndex }: PageStoryProps) => {
   );
 };
 
-PagesStory.story = {
-  name: "default",
-  args: {
-    initialPageIndex: 0,
-  },
-};
+DefaultStory.storyName = "default";
+DefaultStory.parameters = { args: { initialPageIndex: 0 } };

@@ -15,6 +15,7 @@ import boxConfig from "./box.config";
 
 export type OverflowWrap = "break-word" | "anywhere";
 export type ScrollVariant = "light" | "dark";
+export type BoxSizing = "content-box" | "border-box";
 
 export interface BoxProps
   extends SpaceProps,
@@ -28,7 +29,7 @@ export interface BoxProps
   /** scroll styling attribute */
   scrollVariant?: ScrollVariant;
   /** set the box-sizing attribute of the Box component */
-  boxSizing?: "content-box" | "border-box";
+  boxSizing?: BoxSizing;
 }
 
 const Box = styled.div<BoxProps>`
@@ -59,6 +60,12 @@ const Box = styled.div<BoxProps>`
       &::-webkit-scrollbar-thumb {
         background-color: ${boxConfig[scrollVariant].thumb};
       }
+    `}
+
+  ${({ boxSizing }) =>
+    boxSizing &&
+    css`
+      box-sizing: ${boxSizing};
     `}
 `;
 

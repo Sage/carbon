@@ -7,7 +7,7 @@ import {
   testStyledSystemFlexBox,
   assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
-import Box, { OverflowWrap, ScrollVariant } from "./box.component";
+import Box, { OverflowWrap, ScrollVariant, BoxSizing } from "./box.component";
 import boxConfig from "./box.config";
 
 describe("Box", () => {
@@ -58,6 +58,15 @@ describe("Box", () => {
         wrapper,
         { modifier: "::-webkit-scrollbar-thumb" }
       );
+    }
+  );
+
+  it.each<BoxSizing>(["content-box", "border-box"])(
+    "has styles applied when boxSizing is set to %s",
+    (boxSizing) => {
+      const wrapper = mount(<Box boxSizing={boxSizing} />);
+
+      assertStyleMatch({ boxSizing }, wrapper);
     }
   );
 });

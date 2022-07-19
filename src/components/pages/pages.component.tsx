@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TransitionGroup } from "react-transition-group";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import Page from "./page";
@@ -20,7 +14,7 @@ export interface PagesProps {
   pageIndex?: number | string;
   /** Individual Page components */
   children?: React.ReactNode;
-  /** Controls which transition to use. */
+  /** Controls which transition to use (fade or slide). */
   transition?: string;
   /** @ignore @private */
   theme?: Partial<ThemeObject>;
@@ -40,16 +34,15 @@ const Pages = ({
   const [pageIndex, setPageIndex] = useState(
     Number(incomingPageIndex) || Number(initialpageIndex)
   );
-
   const transitionDirection = useRef(NEXT);
 
-  const transitionName = useMemo(() => {
+  const transitionName = () => {
     if (transition === "slide") {
       return `slide-${transitionDirection.current}`;
     }
 
     return `carousel-transition-${transition}`;
-  }, [transition]);
+  };
 
   const handleVisiblePage = () => {
     let index = pageIndex;

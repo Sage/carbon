@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { shallow, mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
+import { CSSTransition } from "react-transition-group";
+
 import Pages, { Page } from "./pages.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import mintTheme from "../../style/themes/mint";
@@ -103,12 +105,12 @@ describe("Pages", () => {
     "should render correct animation if %s provided",
     (transition, expected) => {
       wrapper = mount(
-        <Pages pageIndex={0} transition={transition}>
+        <Pages transition={transition}>
           <Page title="foo">Page</Page>
         </Pages>
       );
 
-      expect(wrapper.find(Page).props().transitionName).toBe(expected);
+      expect(wrapper.find(CSSTransition).props().classNames).toBe(expected);
     }
   );
 

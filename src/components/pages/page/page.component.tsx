@@ -1,17 +1,19 @@
 import React, { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
+import { PaddingProps } from "styled-system";
 import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import FullScreenHeading from "../../../__internal__/full-screen-heading";
 import Box from "../../box";
 import { StyledPage, StyledPageContent } from "./page.style";
+import { filterStyledSystemPaddingProps } from "../../../style/utils";
 
-export interface PageProps {
+export interface PageProps extends PaddingProps {
   /** The title for the page, normally a Heading component. */
   title: React.ReactNode;
   /** This component supports children. */
   children: React.ReactNode;
   /** @ignore @private */
-  transitionName?: string;
+  transitionName?: () => string;
 }
 
 const Page = ({ title, children, ...rest }: PageProps) => {
@@ -25,13 +27,17 @@ const Page = ({ title, children, ...rest }: PageProps) => {
         enter: 0,
         exit: 0,
       }}
-      classNames={transitionName}
+      {...(transitionName && { classNames: transitionName() })}
       nodeRef={styledPageNodeRef}
       {...rest}
     >
       <StyledPage {...tagComponent("page", rest)} ref={styledPageNodeRef}>
-        <FullScreenHeading hasContent={!!title}>{title}</FullScreenHeading>
-        <StyledPageContent data-element="carbon-page-content">
+        <FullScreenHeading hasContent>{title}</FullScreenHeading>
+        <StyledPageContent
+          data-element="carbon-page-content"
+          p="30px 40px"
+          {...filterStyledSystemPaddingProps(rest)}
+        >
           <Box
             boxSizing="border-box"
             maxWidth="100%"
