@@ -269,11 +269,11 @@ This may occasionally be useful with things like Toasts where they persist on th
               stickyFooter={true}
               height="500px"
               leftSideButtons={
-                <Button onClick={() => setIsToast1Open(true)}>Show first toast</Button>
+                <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
               }
               saveButton={
-                <Button buttonType="primary" onClick={() => setIsToast2Open(true)}>
-                  Show second toast
+                <Button buttonType="primary" type="submit">
+                  Save
                 </Button>
               }
             >
@@ -283,14 +283,10 @@ This may occasionally be useful with things like Toasts where they persist on th
               <Textbox label="First Name" />
               <Textbox label="Middle Name" />
               <Textbox label="Surname" />
-              <Textbox label="Birth Place" />
-              <Textbox label="Favourite Colour" />
-              <Textbox label="Address" /><Textbox label="First Name" />
-              <Textbox label="Middle Name" />
-              <Textbox label="Surname" />
-              <Textbox label="Birth Place" />
-              <Textbox label="Favourite Colour" />
-              <Textbox label="Address" />
+              <Button onClick={() => setIsToast1Open(true)}>Show first toast</Button>
+              <Button ml={2} buttonType="primary" onClick={() => setIsToast2Open(true)}>
+                Show second toast
+              </Button>
             </Form>
           </Sidebar>
           <Toast open={isToast1Open} onDismiss={() => setIsToast1Open(false)} ref={toast1Ref} targetPortalId="stacked">

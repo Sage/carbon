@@ -11,6 +11,10 @@ import {
 import { StyledForm } from "../form/form.style";
 
 const StyledDialogFullScreen = styled.div`
+  :focus {
+    outline: none;
+  }
+
   background-color: var(--colorsUtilityMajor025);
   height: 100%;
   left: 0;

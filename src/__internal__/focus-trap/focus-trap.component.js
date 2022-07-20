@@ -3,6 +3,7 @@ import React, {
   useContext,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -45,9 +46,15 @@ const FocusTrap = ({
     [focusableElements]
   );
 
-  const allRefs = [wrapperRef, ...additionalWrapperRefs].map(
-    (ref) => ref?.current
+  const trapWrappers = useMemo(
+    () =>
+      additionalWrapperRefs?.length
+        ? [wrapperRef, ...additionalWrapperRefs]
+        : [wrapperRef],
+    [additionalWrapperRefs, wrapperRef]
   );
+
+  const allRefs = trapWrappers.map((ref) => ref?.current);
 
   const updateFocusableElements = useCallback(() => {
     const elements = [];
@@ -71,15 +78,19 @@ const FocusTrap = ({
   useEffect(() => {
     const observer = new MutationObserver(updateFocusableElements);
 
-    observer.observe(trapRef.current, {
-      subtree: true,
-      childList: true,
-      attributes: true,
-      characterData: true,
+    trapWrappers.forEach((wrapper) => {
+      if (wrapper?.current) {
+        observer.observe(wrapper?.current, {
+          subtree: true,
+          childList: true,
+          attributes: true,
+          characterData: true,
+        });
+      }
     });
 
     return () => observer.disconnect();
-  }, [updateFocusableElements]);
+  }, [updateFocusableElements, trapWrappers]);
 
   useLayoutEffect(() => {
     updateFocusableElements();
@@ -142,10 +153,10 @@ const FocusTrap = ({
       }
     };
 
-    document.addEventListener("keydown", trapFn);
+    document.addEventListener("keydown", trapFn, true);
 
     return function cleanup() {
-      document.removeEventListener("keydown", trapFn);
+      document.removeEventListener("keydown", trapFn, true);
     };
   }, [firstElement, lastElement, focusableElements, bespokeTrap, wrapperRef]);
 
