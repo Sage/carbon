@@ -87,10 +87,7 @@ const MultiSelect = React.forwardRef(
     const [filterText, setFilterText] = useState("");
     const [placeholderOverride, setPlaceholderOverride] = useState();
 
-    const actualValue = useMemo(
-      () => (isControlled.current ? value : selectedValue),
-      [value, selectedValue]
-    );
+    const actualValue = isControlled.current ? value : selectedValue;
 
     const setOpen = useCallback(() => {
       setOpenState((isAlreadyOpen) => {
