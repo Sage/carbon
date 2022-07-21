@@ -25,8 +25,12 @@ export interface ToastPropTypes {
   targetPortalId?: string;
   /** Maximum toast width */
   maxWidth?: string;
+  /** Disables auto focus functionality when the Toast has a close icon */
+  disableAutoFocus?: boolean;
 }
 
-declare class Toast extends React.Component<ToastPropTypes> {}
+declare function Toast(
+  props: ToastPropTypes & React.RefAttributes<HTMLDivElement>
+): JSX.Element;
 
 export default Toast;

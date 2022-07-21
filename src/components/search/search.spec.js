@@ -11,7 +11,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import StyledTextInput from "../../__internal__/input/input-presentation.style";
 import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
-
+import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
 import TextBox from "../textbox";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
@@ -164,6 +164,82 @@ describe("Search", () => {
         },
         wrapper,
         { modifier: `${StyledInputIconToggle}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMinor500)",
+        },
+        wrapper,
+        { modifier: `${StyledIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMinor600)",
+        },
+        wrapper,
+        { modifier: `${StyledIcon}:hover` }
+      );
+    });
+
+    it("applies the expected styling to the close icon when dark variant", () => {
+      wrapper = renderWrapper({ value: "FooBar", variant: "dark" }, mount);
+      assertStyleMatch(
+        {
+          marginBottom: "-1px",
+        },
+        wrapper,
+        { modifier: `${StyledInputIconToggle}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsUtilityMajor200)",
+        },
+        wrapper,
+        { modifier: `${StyledIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsUtilityMajor100)",
+        },
+        wrapper,
+        { modifier: `${StyledIcon}:hover` }
+      );
+    });
+
+    it("applies the expected styling to the close icon when dark variant and input is focused", () => {
+      wrapper = renderWrapper({ value: "FooBar", variant: "dark" }, mount);
+      act(() => {
+        const input = wrapper.find(Input);
+        input.simulate("focus");
+      });
+      wrapper.update();
+
+      assertStyleMatch(
+        {
+          marginBottom: "-1px",
+        },
+        wrapper,
+        { modifier: `${StyledInputIconToggle}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsUtilityMajor400)",
+        },
+        wrapper,
+        { modifier: `${StyledIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsUtilityMajor500)",
+        },
+        wrapper,
+        { modifier: `${StyledIcon}:hover` }
       );
     });
   });
@@ -446,13 +522,15 @@ describe("Search", () => {
 
   describe("Prop Types", () => {
     it("validates children prop types", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
       mount(<Search value="Foo" threshold={-4} />);
       // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith(
-        "Warning: Failed prop type: Threshold must be a positive number.\n    in Search"
+      expect(console.error.mock.calls[0][2]).toBe(
+        "Threshold must be a positive number."
       );
-      global.console.error.mockReset();
+      consoleSpy.mockRestore();
     });
   });
 

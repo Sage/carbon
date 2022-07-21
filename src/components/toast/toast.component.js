@@ -16,108 +16,143 @@ import Events from "../../__internal__/utils/helpers/events";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 
-const Toast = ({
-  children,
-  className,
-  id,
-  isCenter = true,
-  maxWidth,
-  onDismiss,
-  open = true,
-  targetPortalId,
-  timeout,
-  variant,
-  ...restProps
-}) => {
-  const locale = useLocale();
-
-  const toastRef = useRef();
-  const timer = useRef();
-  const toastContentNodeRef = useRef();
-
-  const componentClasses = useMemo(() => {
-    return classNames(className);
-  }, [className]);
-
-  const dismissToast = useCallback(
-    (ev) => {
-      if (onDismiss && Events.isEscKey(ev)) {
-        ev.stopImmediatePropagation();
-        onDismiss(ev);
-      }
+const Toast = React.forwardRef(
+  (
+    {
+      children,
+      className,
+      id,
+      isCenter = true,
+      maxWidth,
+      onDismiss,
+      open = true,
+      targetPortalId,
+      timeout,
+      variant,
+      disableAutoFocus,
+      ...restProps
     },
-    [onDismiss]
-  );
+    ref
+  ) => {
+    const locale = useLocale();
 
-  useModalManager(open, dismissToast, toastRef);
+    const toastRef = useRef();
+    const timer = useRef();
+    const toastContentNodeRef = useRef();
+    const closeIconRef = useRef();
 
-  useEffect(() => {
-    clearTimeout(timer.current);
+    const focusedElementBeforeOpening = useRef();
 
-    if (!timeout || !open || !onDismiss) {
-      return;
+    const refToPass = ref || toastRef;
+
+    const componentClasses = useMemo(() => {
+      return classNames(className);
+    }, [className]);
+
+    const dismissToast = useCallback(
+      (ev) => {
+        if (onDismiss && Events.isEscKey(ev)) {
+          ev.stopImmediatePropagation();
+          onDismiss(ev);
+        }
+      },
+      [onDismiss]
+    );
+
+    useModalManager(open, dismissToast, refToPass);
+
+    useEffect(() => {
+      clearTimeout(timer.current);
+
+      if (!timeout || !open || !onDismiss) {
+        return;
+      }
+
+      timer.current = setTimeout(() => onDismiss(), timeout);
+    }, [onDismiss, open, timeout]);
+
+    useEffect(() => {
+      if (onDismiss && !disableAutoFocus) {
+        if (open) {
+          focusedElementBeforeOpening.current = document.activeElement;
+          closeIconRef.current?.focus();
+        } else if (focusedElementBeforeOpening.current) {
+          focusedElementBeforeOpening.current.focus();
+          focusedElementBeforeOpening.current = undefined;
+        }
+      }
+    }, [open, onDismiss, disableAutoFocus]);
+
+    useEffect(() => {
+      return () => {
+        if (focusedElementBeforeOpening.current) {
+          focusedElementBeforeOpening.current.focus();
+        }
+      };
+    }, []);
+
+    function renderCloseIcon() {
+      if (!onDismiss) return null;
+
+      return (
+        <IconButton
+          aria-label={locale.toast.ariaLabels.close()}
+          data-element="close"
+          onAction={onDismiss}
+          ref={closeIconRef}
+        >
+          <Icon type="close" />
+        </IconButton>
+      );
     }
 
-    timer.current = setTimeout(() => onDismiss(), timeout);
-  }, [onDismiss, open, timeout]);
+    function renderToastContent() {
+      if (!open) return null;
 
-  function renderCloseIcon() {
-    if (!onDismiss) return null;
+      const toastProps = {
+        isCenter,
+        variant: variant || "success",
+        id,
+        maxWidth,
+      };
 
-    return (
-      <IconButton
-        aria-label={locale.toast.ariaLabels.close()}
-        data-element="close"
-        onAction={onDismiss}
-      >
-        <Icon type="close" />
-      </IconButton>
-    );
-  }
-
-  function renderToastContent() {
-    if (!open) return null;
-
-    const toastProps = {
-      isCenter,
-      variant: variant || "success",
-      id,
-      maxWidth,
-    };
-
-    return (
-      <CSSTransition
-        enter
-        classNames="toast"
-        timeout={{ appear: 1600, enter: 1500, exit: 500 }}
-        nodeRef={toastContentNodeRef}
-      >
-        <ToastStyle
-          className={componentClasses}
-          {...tagComponent(restProps["data-component"] || "toast", restProps)}
-          {...toastProps}
-          ref={toastContentNodeRef}
+      return (
+        <CSSTransition
+          enter
+          classNames="toast"
+          timeout={{ appear: 1600, enter: 1500, exit: 500 }}
+          nodeRef={toastContentNodeRef}
         >
-          <TypeIcon variant={toastProps.variant}>
-            <Icon type={toastProps.variant} />
-          </TypeIcon>
-          <ToastContentStyle variant={toastProps.variant} isDismiss={onDismiss}>
-            {children}
-          </ToastContentStyle>
-          {renderCloseIcon()}
-        </ToastStyle>
-      </CSSTransition>
+          <ToastStyle
+            className={componentClasses}
+            {...tagComponent(restProps["data-component"] || "toast", restProps)}
+            {...toastProps}
+            ref={toastContentNodeRef}
+          >
+            <TypeIcon variant={toastProps.variant}>
+              <Icon type={toastProps.variant} />
+            </TypeIcon>
+            <ToastContentStyle
+              variant={toastProps.variant}
+              isDismiss={onDismiss}
+            >
+              {children}
+            </ToastContentStyle>
+            {renderCloseIcon()}
+          </ToastStyle>
+        </CSSTransition>
+      );
+    }
+
+    return (
+      <StyledPortal id={targetPortalId} isCenter={isCenter}>
+        <ToastWrapper isCenter={isCenter} ref={refToPass}>
+          <TransitionGroup>{renderToastContent()}</TransitionGroup>
+        </ToastWrapper>
+      </StyledPortal>
     );
   }
-
-  return (
-    <StyledPortal id={targetPortalId} isCenter={isCenter}>
-      <ToastWrapper isCenter={isCenter} ref={toastRef}>
-        <TransitionGroup>{renderToastContent()}</TransitionGroup>
-      </ToastWrapper>
-    </StyledPortal>
-  );
-};
+);
 
 Toast.propTypes = {
   /** Customizes the appearance in the DLS theme */
@@ -142,6 +177,8 @@ Toast.propTypes = {
   targetPortalId: PropTypes.string,
   /** Maximum toast width */
   maxWidth: PropTypes.string,
+  /** Disables auto focus functionality when the Toast has a close icon */
+  disableAutoFocus: PropTypes.bool,
 };
 
 export default Toast;

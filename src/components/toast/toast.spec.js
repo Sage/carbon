@@ -5,6 +5,7 @@ import Toast from "./toast.component";
 import { ToastStyle, ToastContentStyle, ToastWrapper } from "./toast.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
+import Button from "../button";
 import ModalManager from "../modal/__internal__/modal-manager";
 import {
   elementsTagTest,
@@ -18,7 +19,7 @@ describe("Toast", () => {
 
   describe("modal manager", () => {
     jest.spyOn(ModalManager, "addModal");
-    jest.spyOn(ModalManager, "removeModal");
+    const removeModalSpy = jest.spyOn(ModalManager, "removeModal");
     let wrapper;
 
     describe("when component mounts", () => {
@@ -42,6 +43,7 @@ describe("Toast", () => {
 
     describe("when component unmounts", () => {
       it("it is removed from modal manager", () => {
+        removeModalSpy.mockClear();
         wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
         const toast = wrapper.find(ToastWrapper).getDOMNode();
         wrapper.unmount();
@@ -165,6 +167,38 @@ describe("Toast", () => {
         expect(icon.exists()).toBe(true);
       });
 
+      it("auto focuses the close icon", () => {
+        const icon = wrapper.find("[data-element='close']").first();
+
+        expect(icon).toBeFocused();
+      });
+
+      it("when the toast closes, focus is returned to the element it was on before the toast opened", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+        const WrapperComponent = (toastProps) => (
+          <>
+            <Button id="buttonId">A button</Button>
+            <Toast {...toastProps} />
+          </>
+        );
+
+        wrapper.unmount();
+        wrapper = mount(
+          <WrapperComponent onDismiss={onDismiss} open={false} />,
+          { attachTo: htmlElement }
+        );
+        const button = wrapper.find("#buttonId").first();
+        button.getDOMNode().focus();
+
+        wrapper.setProps({ open: true });
+        const icon = wrapper.find("[data-element='close']").first();
+        expect(icon).toBeFocused();
+
+        wrapper.setProps({ open: false });
+        expect(button).toBeFocused();
+      });
+
       describe("calls onDismiss method when", () => {
         it("dismiss icon is clicked", () => {
           wrapper.find(IconButton).first().simulate("click");
@@ -199,6 +233,47 @@ describe("Toast", () => {
           wrapper.setProps({ timeout: 2000, open: false, onDismiss: mockFn });
           jest.runTimersToTime(2000);
           expect(mockFn).not.toHaveBeenCalled();
+        });
+      });
+
+      describe("with disableAutoFocus prop", () => {
+        it("does not auto focus the close icon", () => {
+          wrapper.unmount();
+          wrapper = mount(
+            <Toast open onDismiss={onDismiss} disableAutoFocus />
+          );
+          const icon = wrapper.find("[data-element='close']").first();
+
+          expect(icon).not.toBeFocused();
+        });
+
+        it("when the toast closes, focus is not returned to the element it was on before the toast opened", () => {
+          const element = document.createElement("div");
+          const htmlElement = document.body.appendChild(element);
+          const WrapperComponent = (toastProps) => (
+            <>
+              <Button id="buttonId">A button</Button>
+              <Toast {...toastProps} />
+            </>
+          );
+
+          wrapper.unmount();
+          wrapper = mount(
+            <WrapperComponent
+              onDismiss={onDismiss}
+              open={false}
+              disableAutoFocus
+            />,
+            { attachTo: htmlElement }
+          );
+
+          wrapper.setProps({ open: true });
+          const icon = wrapper.find("[data-element='close']").first();
+          icon.getDOMNode().focus();
+
+          wrapper.setProps({ open: false });
+          const button = wrapper.find("#buttonId").first();
+          expect(button).not.toBeFocused();
         });
       });
     });

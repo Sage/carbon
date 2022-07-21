@@ -861,17 +861,20 @@ describe("DuellingPicklist", () => {
 
   describe("children", () => {
     it("should throw an error if there are not two Picklist components", () => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
       mount(
         <DuellingPicklist>
           <div>foo</div>
         </DuellingPicklist>
       );
+
       // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith(
-        "Warning: Failed prop type: `children` must have two `Picklist`s\n    in DuellingPicklist"
+      expect(console.error.mock.calls[0][2]).toBe(
+        "`children` must have two `Picklist`s"
       );
-      global.console.error.mockReset();
+      consoleSpy.mockRestore();
     });
   });
 });

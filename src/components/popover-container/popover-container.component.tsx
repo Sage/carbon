@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { PaddingProps } from "styled-system";
 import { Transition, TransitionStatus } from "react-transition-group";
+import { OffsetsFunction } from "@popperjs/core/lib/modifiers/offset";
 
 import {
   PopoverContainerWrapperStyle,
@@ -11,9 +12,10 @@ import {
   PopoverContainerOpenIcon,
 } from "./popover-container.style";
 import Icon from "../icon";
+import Popover from "../../__internal__/popover";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
-import ClickAwayWrapper from "../../__internal__/click-away-wrapper";
+import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 
 export interface RenderOpenProps {
   tabIndex: number;
@@ -92,7 +94,7 @@ export interface PopoverContainerProps extends PaddingProps {
   /** Sets the popover container dialog header name */
   title?: string;
   /** Callback fires when close icon clicked */
-  onClose?: (ev: React.MouseEvent<HTMLElement>) => void;
+  onClose?: (ev: React.MouseEvent<HTMLElement> | Event) => void;
   /** if `true` the popover-container is open */
   open?: boolean;
   /** Callback fires when open component is clicked */
@@ -108,6 +110,19 @@ export interface PopoverContainerProps extends PaddingProps {
   /** Container aria label */
   containerAriaLabel?: string;
 }
+
+const offset: OffsetsFunction = ({ reference }) => {
+  return [0, -reference.height];
+};
+
+const popperModifiers = [
+  {
+    name: "offset",
+    options: {
+      offset,
+    },
+  },
+];
 
 export const PopoverContainer = ({
   children,
@@ -140,7 +155,8 @@ export const PopoverContainer = ({
   const isOpen = isControlled ? open : isOpenInternal;
 
   useEffect(() => {
-    if (isOpen && closeButtonRef.current) closeButtonRef.current.focus();
+    if (isOpen && closeButtonRef.current)
+      setTimeout(() => closeButtonRef.current?.focus(), 0);
   }, [isOpen]);
 
   const handleOpenButtonClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -176,63 +192,63 @@ export const PopoverContainer = ({
     "aria-label": closeButtonAriaLabel,
   };
 
-  // TODO: Assign proper type after ClickAwayWrapper has been refactored
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleClickAway = (e: any) => {
+  const handleClickAway = (e: Event) => {
     if (!isControlled) setIsOpenInternal(false);
     if (onClose) onClose(e);
   };
 
+  useClickAwayListener([ref], handleClickAway, "mousedown");
+
   return (
-    <ClickAwayWrapper
-      targets={[ref]}
-      handleClickAway={handleClickAway}
-      eventTypeId="mousedown"
+    <PopoverContainerWrapperStyle
+      data-component="popover-container"
+      role="region"
+      aria-labelledby={popoverContainerId}
+      ref={ref}
     >
-      <PopoverContainerWrapperStyle
-        data-component="popover-container"
-        role="region"
-        aria-labelledby={popoverContainerId}
-        ref={ref}
+      {renderOpenComponent(renderOpenComponentProps)}
+      <Transition
+        in={isOpen}
+        timeout={{ exit: 300 }}
+        appear
+        mountOnEnter
+        unmountOnExit
+        nodeRef={popoverContentNodeRef}
       >
-        {renderOpenComponent(renderOpenComponentProps)}
-        <Transition
-          in={isOpen}
-          timeout={{ exit: 300 }}
-          appear
-          mountOnEnter
-          unmountOnExit
-          nodeRef={popoverContentNodeRef}
-        >
-          {(state: TransitionStatus) => (
-            <PopoverContainerContentStyle
-              data-element="popover-container-content"
-              role="dialog"
-              animationState={state}
-              position={position}
-              shouldCoverButton={shouldCoverButton}
-              aria-labelledby={popoverContainerId}
-              aria-label={containerAriaLabel}
-              aria-describedby={ariaDescribedBy}
-              p="16px 24px"
-              ref={popoverContentNodeRef}
-              {...filterStyledSystemPaddingProps(rest)}
+        {(state: TransitionStatus) =>
+          isOpen && (
+            <Popover
+              reference={openButtonRef}
+              placement={position === "right" ? "bottom-start" : "bottom-end"}
+              {...(shouldCoverButton && { modifiers: popperModifiers })}
             >
-              <PopoverContainerHeaderStyle>
-                <PopoverContainerTitleStyle
-                  id={popoverContainerId}
-                  data-element="popover-container-title"
-                >
-                  {title}
-                </PopoverContainerTitleStyle>
-                {renderCloseComponent(renderCloseComponentProps)}
-              </PopoverContainerHeaderStyle>
-              {children}
-            </PopoverContainerContentStyle>
-          )}
-        </Transition>
-      </PopoverContainerWrapperStyle>
-    </ClickAwayWrapper>
+              <PopoverContainerContentStyle
+                data-element="popover-container-content"
+                role="dialog"
+                animationState={state}
+                aria-labelledby={popoverContainerId}
+                aria-label={containerAriaLabel}
+                aria-describedby={ariaDescribedBy}
+                p="16px 24px"
+                ref={popoverContentNodeRef}
+                {...filterStyledSystemPaddingProps(rest)}
+              >
+                <PopoverContainerHeaderStyle>
+                  <PopoverContainerTitleStyle
+                    id={popoverContainerId}
+                    data-element="popover-container-title"
+                  >
+                    {title}
+                  </PopoverContainerTitleStyle>
+                  {renderCloseComponent(renderCloseComponentProps)}
+                </PopoverContainerHeaderStyle>
+                {children}
+              </PopoverContainerContentStyle>
+            </Popover>
+          )
+        }
+      </Transition>
+    </PopoverContainerWrapperStyle>
   );
 };
 

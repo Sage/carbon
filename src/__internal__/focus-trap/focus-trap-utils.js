@@ -40,27 +40,67 @@ const isRadio = (element) => {
   );
 };
 
-const nextNonRadioElementIndex = (element, focusableElements) => {
+const getRadioElementToFocus = (groupName, shiftKey) => {
+  const buttonsInGroup = document.querySelectorAll(
+    `input[type="radio"][name="${groupName}"]`
+  );
+  const selectedButton = [...buttonsInGroup].find((button) => button.checked);
+
+  if (selectedButton) {
+    return selectedButton;
+  }
+  return buttonsInGroup[shiftKey ? buttonsInGroup.length - 1 : 0];
+};
+
+const getNextElement = (element, focusableElements, shiftKey) => {
   const currentIndex = focusableElements.indexOf(element);
-  let nextIndex = currentIndex - 1;
+  const increment = shiftKey ? -1 : 1;
+  let nextIndex = currentIndex;
+  let foundElement;
 
-  if (currentIndex === 0) return focusableElements.length - 1;
+  while (!foundElement) {
+    nextIndex += increment;
+    if (nextIndex < 0) {
+      nextIndex += focusableElements.length;
+    }
+    if (nextIndex >= focusableElements.length) {
+      nextIndex -= focusableElements.length;
+    }
 
-  const isNextRadio = isRadio(focusableElements[nextIndex]);
+    const nextElement = focusableElements[nextIndex];
 
-  if (isNextRadio) {
-    nextIndex = nextNonRadioElementIndex(
-      focusableElements[nextIndex],
-      focusableElements
-    );
+    if (nextElement === element) {
+      // guard in case there is only one focusable element (or only a single radio group) in the trap.
+      // If this happens we don't want to freeze the browser by looping forever, and it's OK to just focus
+      // the same element we're already on
+      return element;
+    }
+
+    if (isRadio(nextElement)) {
+      // if we've reached a radio element we need to ensure we focus the correct button in its group
+      const nextElementGroupName = nextElement.getAttribute("name");
+
+      if (isRadio(element)) {
+        const groupName = element.getAttribute("name");
+
+        // if the name is different we're in a new group so can focus the appropriate button in it*/
+        if (nextElementGroupName !== groupName) {
+          foundElement = getRadioElementToFocus(nextElementGroupName, shiftKey);
+        }
+
+        // otherwise we're still in the same radio group so need to continue the loop
+      } else {
+        // if we've moved into a radio group from a non-radio starting point, we still have to ensure we focus
+        // the correct button in the group
+        foundElement = getRadioElementToFocus(nextElementGroupName, shiftKey);
+      }
+    } else {
+      // if we've reached a non-radio element, we can focus it with no issues
+      foundElement = nextElement;
+    }
   }
 
-  return nextIndex;
+  return foundElement;
 };
 
-export {
-  defaultFocusableSelectors,
-  nextNonRadioElementIndex,
-  isRadio,
-  setElementFocus,
-};
+export { defaultFocusableSelectors, getNextElement, setElementFocus };
