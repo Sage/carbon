@@ -1,5 +1,6 @@
 import {
   SELECT_OPTIONS,
+  SELECT_OPTION_ROWS,
   DROPDOWN_BUTTON,
   SELECT_LIST,
   SELECT_TEXT,
@@ -16,6 +17,7 @@ export const selectDataComponent = (component) =>
   cy.get(`[data-component="${component}-select"]`);
 export const selectList = () => cy.get(SELECT_LIST);
 export const selectOption = (index) => cy.get(SELECT_OPTIONS).eq(index);
+export const selectOptionRow = (index) => cy.get(SELECT_OPTION_ROWS).eq(index);
 export const dropdownButton = () => cy.get(DROPDOWN_BUTTON);
 export const selectInput = () => cy.get(SELECT_INPUT);
 export const multiSelectPill = () => cy.get(PILL_PREVIEW);
