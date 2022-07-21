@@ -116,31 +116,22 @@ const MultiSelect = React.forwardRef(
 
     /* generic value update function which can be used for both controlled and uncontrolled
      * components, both with and without onChange.
-     * It accepts a function to update the value, and ensures that in every situation both
-     * onChange and the update function are only called at most once, in case they have side
-     * effects */
+     * It accepts a function to update the value, which is assumed to be have no side effects and therefore
+     * be safe to run more than once if needed. */
     const updateValue = useCallback(
       (updateFunction) => {
-        // this inner function both updates the value (via updateFunction) and ensures that
-        // onChange is called, if it exists and if a value has been added or removed from the MultiSelect
-        const updateAndCallOnChange = (oldValue) => {
-          const newValue = updateFunction(oldValue);
-          if (onChange && newValue.length !== oldValue.length) {
-            onChange(createCustomEvent(newValue));
-          }
-          return newValue;
-        };
+        const newValue = updateFunction(actualValue);
+        // only call onChange if an option has been selected or deselected
+        if (onChange && newValue.length !== actualValue.length) {
+          onChange(createCustomEvent(newValue));
+        }
 
-        if (isControlled.current) {
-          // if the component is controlled, do not change selectedValue (which is only used if uncontrolled)
-          // - instead ensure the onChange is called to update the value prop
-          updateAndCallOnChange(value);
-        } else {
-          // if the component is uncontrolled, call setSelectedValue with the provided update function
-          setSelectedValue(updateAndCallOnChange);
+        // no need to update selectedValue if the component is controlled: onChange should take care of updating the value
+        if (!isControlled.current) {
+          setSelectedValue(updateFunction);
         }
       },
-      [createCustomEvent, onChange, value]
+      [createCustomEvent, onChange, actualValue]
     );
 
     const handleTextboxChange = useCallback(
@@ -161,8 +152,9 @@ const MultiSelect = React.forwardRef(
 
     const removeSelectedValue = useCallback(
       (index) => {
+        isClickTriggeredBySelect.current = true;
+
         updateValue((previousValue) => {
-          isClickTriggeredBySelect.current = true;
           if (!previousValue.length) {
             return previousValue;
           }
@@ -442,10 +434,10 @@ const MultiSelect = React.forwardRef(
           onChange(createCustomEvent([...actualValue, newValue]));
         }
 
-        updateValue((previousValue) => {
-          textboxRef.focus();
-          isMouseDownReported.current = false;
+        textboxRef.focus();
+        isMouseDownReported.current = false;
 
+        updateValue((previousValue) => {
           if (isAlreadySelected) {
             return previousValue;
           }
