@@ -36,6 +36,7 @@ const MenuItem = ({
   menuOpen,
   onSubmenuOpen,
   onSubmenuClose,
+  overrideColor,
   ...rest
 }) => {
   const menuContext = useContext(MenuContext);
@@ -115,6 +116,7 @@ const MenuItem = ({
     selected,
     variant,
     onKeyDown: !inFullscreenView ? handleKeyDown : undefined,
+    overrideColor,
     ref,
   };
 
@@ -261,6 +263,8 @@ MenuItem.propTypes = {
   onSubmenuOpen: PropTypes.func,
   /** Callback triggered when submenu closes. Only valid with submenu prop */
   onSubmenuClose: PropTypes.func,
+  /** @ignore @private */
+  overrideColor: PropTypes.bool,
 };
 
 export default MenuItem;

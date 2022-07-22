@@ -59,7 +59,7 @@ When("I scroll to the bottom of the block", () => {
 });
 
 Then("The last element is visible", () => {
-  lastSubmenuElement(div).should("be.visible");
+  lastSubmenuElement("li").should("be.visible");
 });
 
 Then(
