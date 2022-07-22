@@ -112,7 +112,7 @@
     "browserslist": "^4.16.6",
     "chalk": "^4.1.1",
     "chromatic": "^6.0.5",
-    "commitizen": "^4.2.4",
+    "commitizen": "^4.2.5",
     "conventional-changelog-conventionalcommits": "^4.5.0",
     "core-js": "^3.20.3",
     "cross-env": "^5.2.0",
