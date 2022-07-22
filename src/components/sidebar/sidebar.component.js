@@ -37,7 +37,7 @@ const Sidebar = React.forwardRef(
     const locale = useLocale();
     const { current: titleId } = useRef(createGuid());
 
-    let sidebarRef = useRef();
+    let sidebarRef = useRef(null);
     if (ref) sidebarRef = ref;
     const closeIcon = () => {
       if (!onCancel) return null;
