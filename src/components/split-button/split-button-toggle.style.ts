@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import StyledButton from "../button/button.style";
-import { ButtonTypes } from "../button/button.component";
 import StyledIcon from "../icon/icon.style";
 
 const horizontalPaddingSizes = {
@@ -10,7 +9,7 @@ const horizontalPaddingSizes = {
 };
 
 type StyledSplitButtonToggleProps = {
-  buttonType: ButtonTypes;
+  buttonType: "primary" | "secondary";
   disabled: boolean;
   displayed: boolean;
   size: "small" | "medium" | "large";

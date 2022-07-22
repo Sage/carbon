@@ -27,12 +27,12 @@ jest.mock("../../__internal__/utils/helpers/guid");
   () => "guid-12345"
 );
 
-const sizes: SizeOptions[] = ["small", "medium", "large"];
+const sizes = ["small", "medium", "large"] as const;
 
-const themes: [string, Partial<ThemeObject>][] = [
+const themes = [
   ["mint", mintTheme],
   ["aegean", aegeanTheme],
-];
+] as const;
 
 const singleButton = <Button key="testKey">Single Button</Button>;
 const multipleButtons = [
@@ -110,10 +110,10 @@ const renderWithNoChildren = (mainProps = {}, renderer = shallow) => {
   );
 };
 
-type sizeConfig = { fontSize?: string; height?: string; padding?: string };
+type SizeConfig = { fontSize?: string; height?: string; padding?: string };
 
-const buildSizeConfig = (size: SizeOptions): sizeConfig => {
-  const sizeObj = {} as sizeConfig;
+const buildSizeConfig = (size: SizeOptions): SizeConfig => {
+  const sizeObj = {} as SizeConfig;
   sizeObj.fontSize = size === "large" ? "16px" : "14px";
   if (size === "small") {
     sizeObj.height = "32px";
