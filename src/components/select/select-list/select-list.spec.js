@@ -3,7 +3,11 @@ import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
 import SelectList from "./select-list.component";
-import { StyledSelectList, StyledPopoverContainer } from "./select-list.style";
+import {
+  StyledSelectList,
+  StyledPopoverContainer,
+  StyledSelectListTableHeader,
+} from "./select-list.style";
 import Option from "../option/option.component";
 import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
@@ -783,6 +787,52 @@ describe("SelectList", () => {
           text: "red",
           value: "opt1",
         });
+      });
+    });
+  });
+
+  describe("multiColumn mode", () => {
+    const originalOffsetWidth = Object.getOwnPropertyDescriptor(
+      HTMLElement.prototype,
+      "offsetWidth"
+    );
+    const originalClientWidth = Object.getOwnPropertyDescriptor(
+      HTMLElement.prototype,
+      "clientWidth"
+    );
+
+    it("aligns the column if needed", () => {
+      Object.defineProperty(HTMLElement.prototype, "offsetWidth", {
+        configurable: true,
+        value: 20,
+      });
+      Object.defineProperty(HTMLElement.prototype, "clientWidth", {
+        configurable: true,
+        value: 10,
+      });
+
+      const wrapper = renderOptionRowSelectList();
+      assertStyleMatch(
+        {
+          width: "calc(100% - 10px)",
+        },
+        wrapper.find(StyledSelectListTableHeader),
+        {
+          modifier: "tr",
+        }
+      );
+
+      afterAll(() => {
+        Object.defineProperty(
+          HTMLElement.prototype,
+          "offsetWidth",
+          originalOffsetWidth
+        );
+        Object.defineProperty(
+          HTMLElement.prototype,
+          "clientWidth",
+          originalClientWidth
+        );
       });
     });
   });
