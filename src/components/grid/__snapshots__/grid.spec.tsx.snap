@@ -143,6 +143,11 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     justify-self: stretch;
     grid-column: 1 / 7;
     grid-row: 1;
+    padding: undefined;
+    padding-left: undefined;
+    padding-right: undefined;
+    padding-top: undefined;
+    padding-bottom: undefined;
   }
 }
 
@@ -154,6 +159,11 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     justify-self: stretch;
     grid-column: 1 / 13;
     grid-row: 1;
+    padding: undefined;
+    padding-left: undefined;
+    padding-right: undefined;
+    padding-top: undefined;
+    padding-bottom: undefined;
   }
 }
 
@@ -165,6 +175,11 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     justify-self: stretch;
     grid-column: 1 / 9;
     grid-row: 2;
+    padding: undefined;
+    padding-left: undefined;
+    padding-right: undefined;
+    padding-top: undefined;
+    padding-bottom: undefined;
   }
 }
 
@@ -176,6 +191,11 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     justify-self: stretch;
     grid-column: 7 / 13;
     grid-row: 1;
+    padding: undefined;
+    padding-left: undefined;
+    padding-right: undefined;
+    padding-top: undefined;
+    padding-bottom: undefined;
   }
 }
 
@@ -187,6 +207,11 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     justify-self: stretch;
     grid-column: 1 / 13;
     grid-row: 2;
+    padding: undefined;
+    padding-left: undefined;
+    padding-right: undefined;
+    padding-top: undefined;
+    padding-bottom: undefined;
   }
 }
 
@@ -198,6 +223,11 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     justify-self: stretch;
     grid-column: 1 / 9;
     grid-row: 3;
+    padding: undefined;
+    padding-left: undefined;
+    padding-right: undefined;
+    padding-top: undefined;
+    padding-bottom: undefined;
   }
 }
 
@@ -209,6 +239,11 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     justify-self: stretch;
     grid-column: 1 / 13;
     grid-row: 2;
+    padding: undefined;
+    padding-left: undefined;
+    padding-right: undefined;
+    padding-top: undefined;
+    padding-bottom: undefined;
   }
 }
 
@@ -220,6 +255,11 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     justify-self: stretch;
     grid-column: 1 / 9;
     grid-row: 1;
+    padding: undefined;
+    padding-left: undefined;
+    padding-right: undefined;
+    padding-top: undefined;
+    padding-bottom: undefined;
   }
 }
 
@@ -231,6 +271,11 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     justify-self: stretch;
     grid-column: 1 / 13;
     grid-row: 3;
+    padding: undefined;
+    padding-left: undefined;
+    padding-right: undefined;
+    padding-top: undefined;
+    padding-bottom: undefined;
   }
 }
 
