@@ -1,21 +1,22 @@
 import React, { useCallback, useRef, useState } from "react";
-import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import { mount } from "enzyme";
 import { createPopper } from "@popperjs/core";
 import { act } from "react-dom/test-utils";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
-import Popover from "./popover.component";
+import Popover, { PopoverProps } from "./popover.component";
 import Dialog from "../../components/dialog";
 import StyledBackdrop from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 jest.mock("@popperjs/core");
 jest.mock("../../hooks/__internal__/useResizeObserver");
+const useResizeObserverMock = useResizeObserver as jest.Mock;
+const createPopperMock = createPopper as jest.Mock;
 
-const Component = (props) => {
-  const [ref, setRef] = useState({});
+const Component = (props: Partial<PopoverProps>) => {
+  const [ref, setRef] = useState({ current: null });
 
   const setRefCallback = useCallback((reference) => {
     setRef({ current: reference });
@@ -30,13 +31,20 @@ const Component = (props) => {
   );
 };
 
-const InDialog = ({ dialogRole, ...props }) => {
-  const ref = useRef();
+const InDialog = ({
+  dialogRole,
+  renderPopover,
+  ...props
+}: {
+  dialogRole?: string;
+  renderPopover?: boolean;
+}) => {
+  const ref = useRef<HTMLDivElement | null>(null);
 
   return (
     <Dialog open role={dialogRole}>
       <div ref={ref} id="popover-container">
-        {props.renderPopover && (
+        {renderPopover && (
           <Popover placement="bottom-start" {...props} reference={ref}>
             <div id="popover-children" />
           </Popover>
@@ -44,11 +52,6 @@ const InDialog = ({ dialogRole, ...props }) => {
       </div>
     </Dialog>
   );
-};
-
-InDialog.propTypes = {
-  dialogRole: PropTypes.string,
-  renderPopover: PropTypes.bool,
 };
 
 describe("Popover", () => {
@@ -85,9 +88,10 @@ describe("Popover", () => {
       grandchild.id = "popover-children";
       provider.appendChild(grandchild);
 
-      expect(createPortalSpy.mock.calls[0][0].props.children.props.id).toBe(
-        "popover-children"
-      );
+      expect(
+        (createPortalSpy.mock.calls[0][0] as React.ReactElement).props.children
+          .props.id
+      ).toBe("popover-children");
       expect(createPortalSpy.mock.calls[0][1].childNodes[0]).toEqual(provider);
     });
 
@@ -118,11 +122,11 @@ describe("Popover", () => {
     });
   });
 
-  describe("popper - ", () => {
+  describe("popper -", () => {
     const destroyFunc = jest.fn();
     const updateFunc = jest.fn();
 
-    createPopper.mockImplementation(() => ({
+    (createPopper as jest.Mock).mockImplementation(() => ({
       destroy: destroyFunc,
       update: updateFunc,
     }));
@@ -150,8 +154,8 @@ describe("Popover", () => {
     it("popper instance is updated when reference element resizes", () => {
       mount(<Component />);
 
-      useResizeObserver.mock.calls[
-        useResizeObserver.mock.calls.length - 1
+      useResizeObserverMock.mock.calls[
+        useResizeObserverMock.mock.calls.length - 1
       ][1]();
 
       expect(updateFunc).toHaveBeenCalled();
@@ -163,9 +167,9 @@ describe("Popover", () => {
       const ref = myWrapper.find("#popover-container").getDOMNode();
       const menu = myWrapper.find("#popover-children").getDOMNode();
 
-      expect(createPopper.mock.calls[0][0]).toEqual(ref);
-      expect(createPopper.mock.calls[0][1]).toEqual(menu);
-      expect(createPopper.mock.calls[0][2]).toMatchObject({
+      expect(createPopperMock.mock.calls[0][0]).toEqual(ref);
+      expect(createPopperMock.mock.calls[0][1]).toEqual(menu);
+      expect(createPopperMock.mock.calls[0][2]).toMatchObject({
         placement: "bottom-start",
       });
     });

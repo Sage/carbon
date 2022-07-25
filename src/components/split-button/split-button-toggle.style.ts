@@ -8,7 +8,16 @@ const horizontalPaddingSizes = {
   large: 14,
 };
 
-const StyledSplitButtonToggle = styled(StyledButton)`
+type StyledSplitButtonToggleProps = {
+  buttonType: "primary" | "secondary";
+  disabled: boolean;
+  displayed: boolean;
+  size: "small" | "medium" | "large";
+};
+
+const StyledSplitButtonToggle = styled(
+  StyledButton
+)<StyledSplitButtonToggleProps>`
   ${({ buttonType, disabled, displayed, size }) => css`
     ${!disabled && displayed
       ? css`

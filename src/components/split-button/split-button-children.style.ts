@@ -1,11 +1,17 @@
 import styled, { css } from "styled-components";
-import BaseTheme from "../../style/themes/base";
+import BaseTheme, { ThemeObject } from "../../style/themes/base";
 import StyledButton from "../button/button.style";
 
-const StyledSplitButtonChildrenContainer = styled.div`
-  ${({ theme, align }) => css`
+type StyledSplitButtonChildrenContainerProps = {
+  theme: ThemeObject;
+  align: "left" | "right";
+  minWidth: number;
+};
+
+const StyledSplitButtonChildrenContainer = styled.div<StyledSplitButtonChildrenContainerProps>`
+  ${({ theme, align, minWidth }) => css`
     background-color: var(--colorsActionMajorYang100);
-    min-width: ${({ minWidth }) => minWidth}px;
+    min-width: ${minWidth}px;
     white-space: nowrap;
     z-index: ${theme.zIndex.popover};
     box-shadow: var(--boxShadow100);
