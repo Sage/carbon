@@ -6,11 +6,10 @@ import React, {
   useState,
 } from "react";
 import { ThemeContext } from "styled-components";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { MarginProps } from "styled-system";
 
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
-import Icon from "../icon";
+import Icon, { IconType } from "../icon";
 import Button from "../button";
 import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
@@ -25,13 +24,36 @@ import {
 import { baseTheme } from "../../style/themes";
 import useMenuKeyboardNavigation from "../../hooks/__internal__/useMenuKeyboardNavigation";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
-
 const CONTENT_WIDTH_RATIO = 0.75;
 
-const SplitButton = ({
+export interface SplitButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    MarginProps {
+  /** Set align of the rendered content */
+  align?: "left" | "right";
+  /** Button type: "primary" | "secondary" */
+  buttonType?: "primary" | "secondary";
+  /** The additional button to display. */
+  children: React.ReactNode;
+  /** A custom value for the data-element attribute */
+  "data-element"?: string;
+  /** A custom value for the data-role attribute */
+  "data-role"?: string;
+  /** Gives the button a disabled state. */
+  disabled?: boolean;
+  /** Defines an Icon position within the button: "before" | "after" */
+  iconPosition?: "before" | "after";
+  /** Defines an Icon type within the button */
+  iconType?: IconType;
+  /** The size of the buttons in the SplitButton. */
+  size?: "small" | "medium" | "large";
+  /** Second text child, renders under main text, only when size is "large" */
+  subtext?: string;
+  /** The text to be displayed in the SplitButton. */
+  text: string;
+}
+
+export const SplitButton = ({
   align = "left",
   buttonType = "secondary",
   children,
@@ -45,19 +67,18 @@ const SplitButton = ({
   "data-element": dataElement,
   "data-role": dataRole,
   ...rest
-}) => {
+}: SplitButtonProps) => {
   const theme = useContext(ThemeContext) || baseTheme;
   const buttonLabelId = useRef(guid());
   const buttonChildren = useMemo(() => React.Children.toArray(children), [
     children,
   ]);
-  const buttonChildrenRefs = useMemo(
+  const buttonChildrenRefs = useMemo<React.RefObject<HTMLButtonElement>[]>(
     () => buttonChildren.map(() => React.createRef()),
     [buttonChildren]
   );
-  const splitButtonNode = useRef();
-  const toggleButton = useRef();
-  const buttonContainer = useRef();
+  const splitButtonNode = useRef<HTMLDivElement>(null);
+  const toggleButton = useRef<HTMLButtonElement>(null);
   const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
   const [minWidth, setMinWidth] = useState(0);
 
@@ -73,38 +94,67 @@ const SplitButton = ({
     hideButtons
   );
 
-  function mainButtonProps() {
-    return {
-      onMouseEnter: hideButtons,
-      onFocus: hideButtons,
-      onTouchStart: hideButtons,
-      iconPosition,
-      buttonType,
-      disabled,
-      iconType,
-      onClick,
-      size,
-      subtext,
-      ...filterOutStyledSystemSpacingProps(rest),
-    };
-  }
+  function showButtons() {
+    setShowAdditionalButtons(true);
 
-  function toggleButtonProps() {
-    const opts = {
-      disabled,
-      displayed: showAdditionalButtons,
-      onTouchStart: showButtons,
-      onKeyDown: handleToggleButtonKeyDown,
-      buttonType,
-      size,
-    };
-
-    if (!disabled) {
-      opts.onMouseEnter = showButtons;
+    /* istanbul ignore else */
+    if (splitButtonNode.current) {
+      setMinWidth(
+        CONTENT_WIDTH_RATIO *
+          splitButtonNode.current.getBoundingClientRect().width
+      );
     }
-
-    return opts;
   }
+
+  function handleToggleButtonKeyDown(
+    ev: React.KeyboardEvent<HTMLButtonElement>
+  ) {
+    if (
+      Events.isEnterKey(ev) ||
+      Events.isSpaceKey(ev) ||
+      Events.isDownKey(ev) ||
+      Events.isUpKey(ev)
+    ) {
+      ev.preventDefault();
+
+      if (!showAdditionalButtons) {
+        showButtons();
+      }
+
+      setTimeout(() => {
+        buttonChildrenRefs[0]?.current?.focus();
+      }, 0);
+    } else if (Events.isEscKey(ev)) {
+      setShowAdditionalButtons(false);
+      ev.preventDefault();
+    }
+  }
+
+  const mainButtonProps = {
+    onMouseEnter: hideButtons,
+    onFocus: hideButtons,
+    onTouchStart: hideButtons,
+    iconPosition,
+    buttonType,
+    disabled,
+    iconType,
+    onClick: onClick as React.MouseEventHandler<
+      HTMLButtonElement | HTMLAnchorElement
+    >,
+    size,
+    subtext,
+    ...filterOutStyledSystemSpacingProps(rest),
+  };
+
+  const toggleButtonProps = {
+    disabled,
+    displayed: showAdditionalButtons,
+    onTouchStart: showButtons,
+    onKeyDown: handleToggleButtonKeyDown,
+    buttonType,
+    size,
+    ...(!disabled && { onMouseEnter: showButtons }),
+  };
 
   function componentTags() {
     return {
@@ -128,7 +178,7 @@ const SplitButton = ({
         data-element="main-button"
         key="main-button"
         id={buttonLabelId.current}
-        {...mainButtonProps()}
+        {...mainButtonProps}
       >
         {text}
       </Button>,
@@ -140,7 +190,7 @@ const SplitButton = ({
         key="toggle-button"
         type="button"
         ref={toggleButton}
-        {...toggleButtonProps()}
+        {...toggleButtonProps}
       >
         <Icon
           type="dropdown"
@@ -153,36 +203,6 @@ const SplitButton = ({
     ];
   }
 
-  function showButtons() {
-    setShowAdditionalButtons(true);
-    setMinWidth(
-      CONTENT_WIDTH_RATIO *
-        splitButtonNode.current.getBoundingClientRect().width
-    );
-  }
-
-  function handleToggleButtonKeyDown(ev) {
-    if (
-      Events.isEnterKey(ev) ||
-      Events.isSpaceKey(ev) ||
-      Events.isDownKey(ev) ||
-      Events.isUpKey(ev)
-    ) {
-      ev.preventDefault();
-
-      if (!showAdditionalButtons) {
-        showButtons();
-      }
-
-      setTimeout(() => {
-        buttonChildrenRefs[0]?.current?.focus();
-      }, 0);
-    } else if (Events.isEscKey(ev)) {
-      setShowAdditionalButtons(false);
-      ev.preventDefault();
-    }
-  }
-
   function childrenWithProps() {
     const childArray = Array.isArray(children) ? children : [children];
 
@@ -192,7 +212,7 @@ const SplitButton = ({
         role: "menuitem",
         ref: buttonChildrenRefs[index],
         tabIndex: -1,
-        onClick: (ev) => {
+        onClick: (ev: React.MouseEvent<HTMLButtonElement>) => {
           if (child.props.onClick) child.props.onClick(ev);
           hideButtons();
           toggleButton.current?.focus();
@@ -214,7 +234,6 @@ const SplitButton = ({
           data-element="additional-buttons"
           align={align}
           minWidth={minWidth}
-          ref={buttonContainer}
           onKeyDown={handleKeyDown}
         >
           {childrenWithProps()}
@@ -238,29 +257,5 @@ const SplitButton = ({
     </StyledSplitButton>
   );
 };
-
-SplitButton.propTypes = {
-  ...marginPropTypes,
-  /** Button type: "primary" | "secondary" */
-  buttonType: PropTypes.oneOf(["primary", "secondary"]),
-  /** The additional button to display. */
-  children: PropTypes.node.isRequired,
-  /** A custom value for the data-element attribute */
-  "data-element": PropTypes.string,
-  /** A custom value for the data-role attribute */
-  "data-role": PropTypes.string,
-  /** Gives the button a disabled state. */
-  disabled: PropTypes.bool,
-  /** The size of the buttons in the SplitButton. */
-  size: PropTypes.oneOf(["small", "medium", "large"]),
-  /** The text to be displayed in the SplitButton. */
-  text: PropTypes.string.isRequired,
-  /** Defines an Icon position within the button: "before" | "after" */
-  iconPosition: PropTypes.oneOf(["before", "after"]),
-  /** Set align of the rendered content */
-  align: PropTypes.oneOf(["left", "right"]),
-};
-
-SplitButton.safeProps = ["buttonType", "disabled", "size"];
 
 export default SplitButton;
