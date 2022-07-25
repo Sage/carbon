@@ -1,3 +1,10 @@
+### [109.3.3](https://github.com/Sage/carbon/compare/v109.3.2...v109.3.3) (2022-07-25)
+
+
+### Bug Fixes
+
+* **select:** fix column alignment in multi column mode ([6897637](https://github.com/Sage/carbon/commit/6897637f08fa32bfb3fee861aeb79a104c453e6b))
+
 ### [109.3.2](https://github.com/Sage/carbon/compare/v109.3.1...v109.3.2) (2022-07-21)
 
 
