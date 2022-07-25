@@ -23,7 +23,7 @@ export interface LabelProps
   /** Icon type */
   helpIcon?: IconType;
   /** Overrides the default tabindex of the Help component */
-  helpTabIndex?: number | string;
+  helpTabIndex?: string | number;
   /** A string that represents the ID of another form element */
   htmlFor?: string;
   /** The unique id of the label element */
