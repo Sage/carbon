@@ -7,6 +7,11 @@ import StyledIcon from "../icon/icon.style";
 import baseTheme from "../../style/themes/base";
 import CheckboxStyle from "../checkbox/checkbox.style";
 
+export interface StyledFieldsetProps {
+  /** When true, legend is placed in line with the children */
+  inline?: boolean;
+}
+
 const FieldsetStyle = styled.fieldset`
   ${margin}
   border: none;
@@ -27,7 +32,7 @@ FieldsetStyle.defaultProps = {
   theme: baseTheme,
 };
 
-const LegendContainerStyle = styled.div`
+const LegendContainerStyle = styled.div<StyledFieldsetProps>`
   ${({ inline }) =>
     inline &&
     `
@@ -50,7 +55,7 @@ const LegendContainerStyle = styled.div`
   }
 `;
 
-const FieldsetContentStyle = styled.div`
+const FieldsetContentStyle = styled.div<StyledFieldsetProps>`
   ${({ inline }) => inline && "display: flex;"}
 `;
 

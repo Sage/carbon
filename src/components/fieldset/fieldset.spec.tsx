@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import Fieldset from "./fieldset.component";
+import Fieldset, { FieldsetProps } from "./fieldset.component";
 import Textbox from "../textbox";
 import { LegendContainerStyle, FieldsetContentStyle } from "./fieldset.style";
 import {
@@ -9,7 +9,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 
-function render(props, renderer = shallow) {
+function render(props: FieldsetProps = {}, renderer = shallow) {
   return renderer(
     <Fieldset {...props}>
       <Textbox />
