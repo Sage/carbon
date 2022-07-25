@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import Fieldset from "./fieldset.component";
+import Fieldset, { FieldsetProps } from "./fieldset.component";
 
 import {
   StyledFieldset,
@@ -15,15 +15,16 @@ import {
 import ValidationIcon from "../validations/validation-icon.component";
 
 const Component = () => <div />;
-const RenderComponent = (props) => (
+const RenderComponent = (props?: Partial<FieldsetProps>) => (
   <Fieldset {...props}>
     <Component />
   </Fieldset>
 );
 
-const render = (props) => mount(<RenderComponent {...props} />);
+const render = (props?: Partial<FieldsetProps>) =>
+  mount(<RenderComponent {...props} />);
 
-const validationTypes = ["error", "warning", "info"];
+const validationTypes = ["error", "warning", "info"] as const;
 
 describe("Fieldset", () => {
   let wrapper;

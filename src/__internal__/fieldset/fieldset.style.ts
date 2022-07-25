@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 import { margin } from "styled-system";
 import BaseTheme from "../../style/themes/base";
 
@@ -15,7 +14,10 @@ StyledFieldset.defaultProps = {
   theme: BaseTheme,
 };
 
-const StyledLegendContent = styled.span`
+type StyledLegendContentProps = {
+  isRequired?: boolean;
+};
+const StyledLegendContent = styled.span<StyledLegendContentProps>`
   display: flex;
   align-items: center;
   line-height: 24px;
@@ -32,7 +34,13 @@ const StyledLegendContent = styled.span`
     `}
 `;
 
-const StyledLegend = styled.legend`
+type StyledLegendProps = {
+  inline?: boolean;
+  width?: number;
+  align?: "left" | "right";
+  rightPadding?: 1 | 2;
+};
+const StyledLegend = styled.legend<StyledLegendProps>`
   display: flex;
   align-items: center;
   margin-bottom: 8px;
@@ -51,16 +59,5 @@ const StyledLegend = styled.legend`
         : "var(--spacing200)"};
     `}
 `;
-
-StyledLegend.defaultProps = {
-  align: "right",
-};
-
-StyledLegend.propTypes = {
-  inline: PropTypes.bool,
-  width: PropTypes.number,
-  align: PropTypes.oneOf(["left", "right"]),
-  rightPadding: PropTypes.oneOf([1, 2]),
-};
 
 export { StyledFieldset, StyledLegend, StyledLegendContent };
