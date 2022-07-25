@@ -19,8 +19,6 @@ const PopoverContainerHeaderStyle = styled.div`
 `;
 
 type PopoverContainerContentStyleProps = {
-  shouldCoverButton?: boolean;
-  position?: "left" | "right";
   animationState?: TransitionStatus;
 };
 
@@ -32,10 +30,6 @@ const PopoverContainerContentStyle = styled.div<PopoverContainerContentStyleProp
   min-width: 300px;
   position: absolute;
   z-index: ${({ theme }) => theme.zIndex.popover};
-
-  ${({ shouldCoverButton }) => shouldCoverButton && "top: 0"}
-
-  ${({ position }) => (position === "left" ? "right: 0" : "left: 0")};
 
   ${({ animationState }) => {
     switch (animationState) {

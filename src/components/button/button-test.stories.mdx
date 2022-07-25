@@ -113,7 +113,7 @@ export const ButtonAsASiblingStory = ({
 export const generateButtons = (buttonType, iconPosition) => {
   return (
     <>
-      {["", ...ICONS].map((iconType) => {
+      {["", "bin"].map((iconType) => {
         const props = { iconPosition, buttonType, iconType };
         return (
           <div key={`${buttonType}-${iconPosition}-${iconType}`}>

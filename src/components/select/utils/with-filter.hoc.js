@@ -25,7 +25,8 @@ const filterOptionRows = (optionRow, filterText) => {
       const processedValue = filterText.toLowerCase();
       return processedText.includes(processedValue);
     }
-    return false;
+    // filter recursively based on children
+    return filterOptionRows(cell, filterText);
   });
 
   if (hasText) {

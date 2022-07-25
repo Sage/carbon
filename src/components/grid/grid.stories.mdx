@@ -370,7 +370,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
         <GridItem justifySelf="left" gridColumn="1 / 1">
           <Pod
             alignTitle="left"
-            as="primary"
+            variant="primary"
             border
             padding="medium"
             podType="primary"
@@ -414,7 +414,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
         <GridItem alignSelf="stretch" justifySelf="right" gridColumn="11 / 12">
           <Pod
             alignTitle="left"
-            as="primary"
+            variant="primary"
             border
             padding="medium"
             podType="primary"
@@ -429,11 +429,13 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 
 ## Props
 
-<StyledSystemProps of={GridContainer} spacing />
+### GridContainer Props
 
-## GridItem Props
+<StyledSystemProps of={GridContainer} spacing noHeader />
 
-<StyledSystemProps of={GridItem} padding />
+### GridItem Props
+
+<StyledSystemProps of={GridItem} padding noHeader />
 
 ### responsiveSettings
 

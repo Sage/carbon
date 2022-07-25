@@ -58,6 +58,8 @@ export interface MultiSelectProps
     | "left-end";
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: bool;
+  /** Wraps the pill text when it would overflow the input width */
+  wrapPillText?: boolean;
 }
 
 declare function MultiSelect(
