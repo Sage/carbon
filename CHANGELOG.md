@@ -1,3 +1,86 @@
+### [109.3.3](https://github.com/Sage/carbon/compare/v109.3.2...v109.3.3) (2022-07-25)
+
+
+### Bug Fixes
+
+* **select:** fix column alignment in multi column mode ([6897637](https://github.com/Sage/carbon/commit/6897637f08fa32bfb3fee861aeb79a104c453e6b))
+
+### [109.3.2](https://github.com/Sage/carbon/compare/v109.3.1...v109.3.2) (2022-07-21)
+
+
+### Bug Fixes
+
+* **filterableselect, multiselect:** fix filter for nested components ([65bc094](https://github.com/Sage/carbon/commit/65bc0943269774f5a87f482cafc26c90a9095dfd)), closes [#5242](https://github.com/Sage/carbon/issues/5242)
+
+### [109.3.1](https://github.com/Sage/carbon/compare/v109.3.0...v109.3.1) (2022-07-19)
+
+
+### Bug Fixes
+
+* **multi-action-button:** add new keyboard functionality to component ([a76819b](https://github.com/Sage/carbon/commit/a76819b39e888ec926b74d94f63f7c3c631399bd)), closes [#4522](https://github.com/Sage/carbon/issues/4522)
+* **split-button:** add new keyboard functionality to component ([5121f6a](https://github.com/Sage/carbon/commit/5121f6af4521a9658e937cecff91676cffdf4f86)), closes [#4522](https://github.com/Sage/carbon/issues/4522)
+
+## [109.3.0](https://github.com/Sage/carbon/compare/v109.2.4...v109.3.0) (2022-07-19)
+
+
+### Features
+
+* **dialog, dialog-full-screen, sidebar:** allow more tab control ([e497fb1](https://github.com/Sage/carbon/commit/e497fb1d29f75b77995234995bcc8f16b39b94e1)), closes [#5092](https://github.com/Sage/carbon/issues/5092)
+* **toast:** autofocus dismiss button unless disableAutoFocus prop set ([2c0ff36](https://github.com/Sage/carbon/commit/2c0ff3681c5a171ed1e294a778642a07d585ba42)), closes [#5092](https://github.com/Sage/carbon/issues/5092)
+* **toast:** return focus when closing toast after autofocus ([517682e](https://github.com/Sage/carbon/commit/517682e5f9d604cb5d1a44dccc63e250c7687cbd))
+
+
+### Bug Fixes
+
+* **focus-trap:** fix behaviour with radio buttons ([c6e55e7](https://github.com/Sage/carbon/commit/c6e55e7c8f5b072764e733fa50abfef694a7b34d)), closes [#5224](https://github.com/Sage/carbon/issues/5224)
+
+### [109.2.4](https://github.com/Sage/carbon/compare/v109.2.3...v109.2.4) (2022-07-18)
+
+
+### Bug Fixes
+
+* **use-scroll-block:** calc the scroll width each time the clientWidth value of document changes ([5744ec4](https://github.com/Sage/carbon/commit/5744ec42239213be365ebf8450b6ebe188e3fbe9)), closes [#5220](https://github.com/Sage/carbon/issues/5220)
+
+### [109.2.3](https://github.com/Sage/carbon/compare/v109.2.2...v109.2.3) (2022-07-15)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** pass onClick to menu item ([839cd55](https://github.com/Sage/carbon/commit/839cd557f18c70957b375ae0962ac00e04f44dfe)), closes [#5313](https://github.com/Sage/carbon/issues/5313)
+
+### [109.2.2](https://github.com/Sage/carbon/compare/v109.2.1...v109.2.2) (2022-07-14)
+
+
+### Bug Fixes
+
+* **button:** fix forwardRef type isssues ([a2ec6ff](https://github.com/Sage/carbon/commit/a2ec6ff05483d9c77d0369f0b171a2144f7d816e))
+
+### [109.2.1](https://github.com/Sage/carbon/compare/v109.2.0...v109.2.1) (2022-07-13)
+
+
+### Bug Fixes
+
+* **search:** update icon colour and hover colour in default variant ([2912a74](https://github.com/Sage/carbon/commit/2912a74f16514c52fe478408ad8bb675f8f8a7ae))
+
+## [109.2.0](https://github.com/Sage/carbon/compare/v109.1.3...v109.2.0) (2022-07-12)
+
+
+### Features
+
+* **pill:** add text wrapping and max width support to component ([9fc65bc](https://github.com/Sage/carbon/commit/9fc65bcc9bb29771503dc7fdba3d931248ae627c))
+
+
+### Bug Fixes
+
+* **multi-select:** prevent pills with long text strings from overflowing the input ([4beabcf](https://github.com/Sage/carbon/commit/4beabcfd0862c8a7c3a30388a44c498e0e8ee59b)), closes [#5192](https://github.com/Sage/carbon/issues/5192)
+
+### [109.1.3](https://github.com/Sage/carbon/compare/v109.1.2...v109.1.3) (2022-07-08)
+
+
+### Bug Fixes
+
+* **popover-container:** position automatically depending on available space ([4b63a17](https://github.com/Sage/carbon/commit/4b63a17caf8517f2de44c2442be49155d46d30ce))
+
 ### [109.1.2](https://github.com/Sage/carbon/compare/v109.1.1...v109.1.2) (2022-07-06)
 
 

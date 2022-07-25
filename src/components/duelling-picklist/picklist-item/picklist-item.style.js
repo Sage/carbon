@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { ButtonWithForwardRef } from "../../button";
+import Button from "../../button";
 import Icon from "../../icon";
 import StyledIcon from "../../icon/icon.style";
 
@@ -34,7 +34,7 @@ const StyledPicklistItem = styled.li`
   `}
 `;
 
-const StyledButton = styled(ButtonWithForwardRef)`
+const StyledButton = styled(Button)`
   ${({ iconType }) => css`
     padding: 0;
     margin-right: 0;

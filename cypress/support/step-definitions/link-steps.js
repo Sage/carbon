@@ -1,3 +1,5 @@
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import { link } from "../../locators";
 import { linkChildren, linkIcon, skipLink, relLink } from "../../locators/link";
 

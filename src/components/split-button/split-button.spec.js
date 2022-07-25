@@ -9,14 +9,13 @@ import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
 import StyledSplitButtonChildrenContainer from "./split-button-children.style";
 import Icon from "../icon";
-import Button, { ButtonWithForwardRef } from "../button";
+import Button from "../button";
 import StyledButton from "../button/button.style";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import mintTheme from "../../style/themes/mint";
 import aegeanTheme from "../../style/themes/aegean";
 import {
   assertStyleMatch,
-  keyboard,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -178,9 +177,9 @@ describe("SplitButton", () => {
   describe("when children are Button Components", () => {
     it("then they should change to Buttons with forwarded refs", () => {
       wrapper = render({}, singleButton, mount);
-      simulateFocusOnToggle(wrapper);
+      openAdditionalButtons(wrapper);
 
-      expect(wrapper.find(ButtonWithForwardRef).exists()).toBe(true);
+      expect(wrapper.find(Button).exists()).toBe(true);
     });
 
     afterEach(() => {
@@ -192,7 +191,7 @@ describe("SplitButton", () => {
     it("then child elements should be rendered as they are", () => {
       const spanElement = <span className="span-element" />;
       wrapper = render({}, spanElement, mount);
-      simulateFocusOnToggle(wrapper);
+      openAdditionalButtons(wrapper);
 
       const element = wrapper
         .find(StyledSplitButtonChildrenContainer)
@@ -361,11 +360,12 @@ describe("SplitButton", () => {
           wrapper.find("[data-element='additional-buttons']").exists()
         ).toBe(true);
 
-        mainButton.simulate("mouseenter");
-        wrapper.update();
+        act(() => {
+          mainButton.simulate("mouseenter");
+        });
 
         expect(
-          wrapper.find("[data-element='additional-buttons']").exists()
+          wrapper.update().find("[data-element='additional-buttons']").exists()
         ).toBe(false);
       });
 
@@ -402,7 +402,7 @@ describe("SplitButton", () => {
 
         const button = wrapper
           .find('[data-element="additional-buttons"]')
-          .find(ButtonWithForwardRef);
+          .find(Button);
         button.at(0).simulate("click");
         expect(handleSecondButton).toHaveBeenCalled();
       });
@@ -411,7 +411,7 @@ describe("SplitButton", () => {
         toggle.simulate("mouseenter");
         const button = wrapper
           .find('[data-element="additional-buttons"]')
-          .find(ButtonWithForwardRef);
+          .find(Button);
         button.at(0).simulate("click");
 
         wrapper.update();
@@ -428,7 +428,7 @@ describe("SplitButton", () => {
 
           const button = wrapper
             .find('[data-element="additional-buttons"]')
-            .find(ButtonWithForwardRef);
+            .find(Button);
 
           button.at(1).simulate("click");
         }).not.toThrow();
@@ -452,7 +452,7 @@ describe("SplitButton", () => {
       );
 
       act(() => {
-        simulateFocusOnToggle(wrapper);
+        openAdditionalButtons(wrapper);
       });
     });
 
@@ -469,7 +469,7 @@ describe("SplitButton", () => {
 
         act(() => {
           wrapper
-            .find(StyledSplitButtonChildrenContainer)
+            .find(StyledSplitButton)
             .getDOMNode()
             .dispatchEvent(nativeInputEvent);
         });
@@ -483,37 +483,18 @@ describe("SplitButton", () => {
     });
 
     describe("on an external element", () => {
-      describe("and focus is still on the toggle button", () => {
-        it("then the Menu should not be closed", () => {
-          expect(
-            wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
-          ).toBe(true);
+      it("then the Menu should be closed", () => {
+        expect(
+          wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+        ).toBe(true);
 
-          act(() => {
-            domWrapper.dispatchEvent(nativeInputEvent);
-          });
-
-          expect(
-            wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
-          ).toBe(true);
+        act(() => {
+          domWrapper.dispatchEvent(nativeInputEvent);
         });
-      });
 
-      describe("and focus is on a button in the menu", () => {
-        it("then the Menu should be closed", () => {
-          expect(
-            wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
-          ).toBe(true);
-          simulateBlurOnToggle(wrapper);
-
-          act(() => {
-            domWrapper.dispatchEvent(nativeInputEvent);
-          });
-
-          expect(
-            wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
-          ).toBe(false);
-        });
+        expect(
+          wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+        ).toBe(false);
       });
     });
   });
@@ -553,7 +534,8 @@ describe("SplitButton", () => {
       document.body.appendChild(container);
       wrapper = renderAttached({}, multipleButtons);
       toggle = wrapper.find(StyledSplitButtonToggle);
-      toggle.simulate("focus");
+      openAdditionalButtons(wrapper);
+      jest.runAllTimers();
     });
 
     afterEach(() => {
@@ -564,28 +546,39 @@ describe("SplitButton", () => {
       container = null;
     });
 
-    describe.each([
-      ["Enter", "Enter"],
-      ["Space", " "],
-      ["ArrowDown", "ArrowDown"],
-    ])("the %s key is pressed", (name, key) => {
-      it("then the first additional button should be focused", () => {
-        toggle.simulate("blur");
-        wrapper.find(StyledSplitButton).simulate("mouseleave");
-        wrapper.update();
-        toggle.simulate("keydown", { key });
-        jest.runAllTimers();
+    describe("using keyboard to open children container", () => {
+      it.each([
+        ["Enter", "Enter"],
+        ["Space", " "],
+        ["ArrowDown", "ArrowDown"],
+        ["ArrowUp", "ArrowUp"],
+      ])(
+        "then the first additional button should be focused when %s key is pressed",
+        (name, key) => {
+          toggle.simulate("blur");
+          wrapper.find(StyledSplitButton).simulate("mouseleave");
+          wrapper.update();
+          toggle.simulate("keydown", { key });
+          jest.runAllTimers();
 
-        const firstButton = wrapper
-          .find(additionalButtonsSelector)
-          .find("button")
-          .at(0);
-        expect(firstButton.getDOMNode()).toBe(document.activeElement);
-      });
+          const firstButton = wrapper
+            .find(additionalButtonsSelector)
+            .find("button")
+            .at(0);
+          expect(firstButton.getDOMNode()).toBe(document.activeElement);
+        }
+      );
 
       it("does not open additional buttons if opened already - coverage", () => {
-        toggle.simulate("keydown", { key });
+        toggle.simulate("keydown", { key: "Enter" });
         jest.runAllTimers();
+      });
+
+      it("does not call preventDefault if key is not Enter, Space or ArrowDown", () => {
+        const preventDefault = jest.fn();
+        toggle.simulate("keydown", { key: "1", preventDefault });
+
+        expect(preventDefault).not.toHaveBeenCalled();
       });
     });
 
@@ -593,18 +586,33 @@ describe("SplitButton", () => {
       it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
-          .find(ButtonWithForwardRef);
+          .find(Button);
 
-        keyboard.pressArrowUp();
+        wrapper
+          .find(StyledSplitButtonChildrenContainer)
+          .simulate("keydown", { key: "ArrowDown" });
+        wrapper
+          .find(StyledSplitButtonChildrenContainer)
+          .simulate("keydown", { key: "ArrowDown" });
         expect(
           additionalButtons.at(additionalButtons.length - 1).getDOMNode()
-        ).toBe(document.activeElement);
-        keyboard.pressArrowUp();
+        ).toStrictEqual(document.activeElement);
+        wrapper
+          .find(StyledSplitButtonChildrenContainer)
+          .simulate("keydown", { key: "ArrowUp" });
         expect(
           additionalButtons.at(additionalButtons.length - 2).getDOMNode()
-        ).toBe(document.activeElement);
-        keyboard.pressArrowUp();
-        expect(additionalButtons.at(0).getDOMNode()).toBe(
+        ).toStrictEqual(document.activeElement);
+        wrapper
+          .find(StyledSplitButtonChildrenContainer)
+          .simulate("keydown", { key: "ArrowUp" });
+        expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
+          document.activeElement
+        );
+        wrapper
+          .find(StyledSplitButtonChildrenContainer)
+          .simulate("keydown", { key: "ArrowUp" });
+        expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
           document.activeElement
         );
       });
@@ -614,65 +622,224 @@ describe("SplitButton", () => {
       it("the additional buttons should be stepped through in sequence", () => {
         const additionalButtons = wrapper
           .find(additionalButtonsSelector)
-          .find(ButtonWithForwardRef);
+          .find(Button);
 
-        keyboard.pressArrowDown();
-        expect(additionalButtons.at(0).getDOMNode()).toBe(
-          document.activeElement
-        );
-        keyboard.pressArrowDown();
+        wrapper
+          .find(StyledSplitButtonChildrenContainer)
+          .simulate("keydown", { key: "ArrowDown" });
         expect(
           additionalButtons.at(additionalButtons.length - 2).getDOMNode()
-        ).toBe(document.activeElement);
-        keyboard.pressArrowDown();
+        ).toStrictEqual(document.activeElement);
+        wrapper
+          .find(StyledSplitButtonChildrenContainer)
+          .simulate("keydown", { key: "ArrowDown" });
         expect(
           additionalButtons.at(additionalButtons.length - 1).getDOMNode()
-        ).toBe(document.activeElement);
-        keyboard.pressArrowDown();
-        expect(additionalButtons.at(0).getDOMNode()).toBe(
+        ).toStrictEqual(document.activeElement);
+        wrapper
+          .find(StyledSplitButtonChildrenContainer)
+          .simulate("keydown", { key: "ArrowDown" });
+        expect(
+          additionalButtons.at(additionalButtons.length - 1).getDOMNode()
+        ).toStrictEqual(document.activeElement);
+      });
+    });
+
+    describe.each([
+      ["Home", "Home", ""],
+      ["Ctrl + ArrowUp", "ArrowUp", "ctrlKey"],
+      ["Meta + ArrowUp", "ArrowUp", "metaKey"],
+    ])("when %s key is pressed", (_, key, modifier) => {
+      it("focuses the first button", () => {
+        const additionalButtons = wrapper
+          .find(additionalButtonsSelector)
+          .find(Button);
+
+        wrapper.find(StyledSplitButtonChildrenContainer).simulate("keydown", {
+          key,
+          ctrlKey: modifier === "ctrlKey",
+          metaKey: modifier === "metaKey",
+        });
+        expect(additionalButtons.first().getDOMNode()).toStrictEqual(
+          document.activeElement
+        );
+      });
+    });
+
+    describe.each([
+      ["End", "End", ""],
+      ["Ctrl + ArrowDown", "ArrowDown", "ctrlKey"],
+      ["Meta + ArrowDown", "ArrowDown", "metaKey"],
+      // eslint-disable-next-line
+    ])("when %s key is pressed", (_, key, modifier) => {
+      it("focuses the last button", () => {
+        const additionalButtons = wrapper
+          .find(additionalButtonsSelector)
+          .find(Button);
+
+        wrapper.find(StyledSplitButtonChildrenContainer).simulate("keydown", {
+          key,
+          ctrlKey: modifier === "ctrlKey",
+          metaKey: modifier === "metaKey",
+        });
+        expect(additionalButtons.last().getDOMNode()).toStrictEqual(
           document.activeElement
         );
       });
     });
 
     describe("the tab key is pressed", () => {
-      it("it calls the expected timeout function", () => {
-        const timeoutSpy = spyOn(window, "setTimeout");
-        keyboard.pressTab();
-
-        expect(timeoutSpy).toHaveBeenCalled();
-      });
-
-      it("it does not pass focus to the first additional button", () => {
-        toggle.simulate("keydown", { key: "Tab" });
-        const firstButton = wrapper
+      it("moves focus down the button children and closes container when the last one is focused", () => {
+        const additionalButtons = wrapper
           .find(additionalButtonsSelector)
-          .find("button")
-          .at(0);
+          .find(Button);
 
-        expect(firstButton.getDOMNode()).not.toBe(document.activeElement);
+        additionalButtons.first().simulate("keydown", { key: "Tab" });
+        expect(
+          additionalButtons.at(additionalButtons.length - 2).getDOMNode()
+        ).toStrictEqual(document.activeElement);
+
+        additionalButtons
+          .at(additionalButtons.length - 2)
+          .simulate("keydown", { key: "Tab" });
+
+        expect(additionalButtons.last().getDOMNode()).toStrictEqual(
+          document.activeElement
+        );
+
+        act(() => {
+          additionalButtons.last().simulate("keydown", { key: "Tab" });
+          jest.runAllTimers();
+        });
+
+        expect(
+          wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+        ).toBeFalsy();
+      });
+    });
+
+    describe("when shift and tab are pressed", () => {
+      it("moves focus up the button children, closes container when the first one is focused and sets focus on the main button", () => {
+        const additionalButtons = wrapper
+          .find(additionalButtonsSelector)
+          .find(Button);
+
+        additionalButtons.first().simulate("keydown", { key: "Tab" });
+        additionalButtons
+          .last()
+          .simulate("keydown", { key: "Tab", shiftKey: true });
+
+        expect(additionalButtons.first().getDOMNode()).toStrictEqual(
+          document.activeElement
+        );
+
+        act(() => {
+          additionalButtons
+            .first()
+            .simulate("keydown", { key: "Tab", shiftKey: true });
+          jest.runAllTimers();
+        });
+
+        expect(
+          wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+        ).toBeFalsy();
+
+        expect(toggle.getDOMNode()).toStrictEqual(document.activeElement);
       });
     });
 
     describe("and mouse leaves the Split Button", () => {
       it("then the additional buttons menu should remain open", () => {
-        wrapper.simulate("mouseLeave");
+        const additionalButtons = wrapper
+          .find(additionalButtonsSelector)
+          .find(Button);
 
-        expect(wrapper.find(additionalButtonsSelector).exists()).toBe(true);
+        additionalButtons
+          .first()
+          .simulate("keydown", { key: "Tab", shiftKey: true });
+        jest.runAllTimers();
+
+        toggle.simulate("mouseenter");
+
+        wrapper.find(StyledSplitButton).simulate("mouseleave");
+
+        expect(wrapper.find(additionalButtonsSelector).exists()).toStrictEqual(
+          true
+        );
       });
     });
 
     describe("and mouse leaves the Split Button after focus is out of toggle", () => {
       it("then the additional buttons menu should be closed", () => {
         toggle.simulate("blur");
-        wrapper.simulate("mouseLeave");
+        act(() => {
+          wrapper.simulate("mouseleave");
+        });
 
-        expect(wrapper.find(additionalButtonsSelector).exists()).toBe(false);
+        expect(wrapper.update().find(additionalButtonsSelector).exists()).toBe(
+          false
+        );
       });
     });
 
     afterEach(() => {
       wrapper.unmount();
+    });
+  });
+
+  describe("when the esc key is pressed", () => {
+    let container;
+    beforeEach(() => {
+      container = document.createElement("div");
+      container.id = "enzymeContainer";
+      document.body.appendChild(container);
+      wrapper = mount(
+        <SplitButton text="Split button">
+          <Button>First</Button>
+          <Button>Second</Button>
+        </SplitButton>,
+        { attachTo: document.getElementById("enzymeContainer") }
+      );
+    });
+
+    afterEach(() => {
+      container?.parentNode?.removeChild(container);
+      wrapper.unmount();
+      container = null;
+    });
+
+    it("hides the additional children buttons when key pressed and one is focused", () => {
+      openAdditionalButtons(wrapper);
+
+      expect(
+        wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+      ).toBeTruthy();
+      act(() => {
+        wrapper
+          .find(StyledSplitButtonChildrenContainer)
+          .simulate("keydown", { key: "Escape" });
+      });
+      expect(
+        wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+      ).toBeFalsy();
+      expect(wrapper.find(StyledSplitButtonToggle).getDOMNode()).toStrictEqual(
+        document.activeElement
+      );
+    });
+
+    it("hides the additional children buttons when key pressed and focus is not on the list buttons", () => {
+      const toggleButton = wrapper.find(StyledSplitButtonToggle);
+
+      toggleButton.simulate("mouseEnter");
+      expect(
+        wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+      ).toBeTruthy();
+      act(() => {
+        toggleButton.simulate("keydown", { key: "Escape" });
+      });
+      expect(
+        wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+      ).toBeFalsy();
     });
   });
 
@@ -683,7 +850,7 @@ describe("SplitButton", () => {
       .mockImplementation(() => ({ width: 200 }));
 
     wrapper = render({}, singleButton, mount);
-    simulateFocusOnToggle(wrapper);
+    openAdditionalButtons(wrapper);
 
     assertStyleMatch(
       { minWidth: `${0.75 * 200}px` },
@@ -696,14 +863,8 @@ describe("SplitButton", () => {
   });
 });
 
-function simulateFocusOnToggle(container) {
+function openAdditionalButtons(container) {
   const toggleButton = container.find('[data-element="toggle-button"]').at(0);
 
-  toggleButton.simulate("focus");
-}
-
-function simulateBlurOnToggle(container) {
-  const toggleButton = container.find('[data-element="toggle-button"]').at(0);
-
-  toggleButton.simulate("blur");
+  toggleButton.simulate("keydown", { key: "ArrowDown" });
 }

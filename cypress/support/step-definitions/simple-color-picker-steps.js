@@ -1,3 +1,5 @@
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import { simpleColorPickerLegend } from "../../locators/simple-color-picker";
 import {
   simpleColorPickerInput,
@@ -21,10 +23,6 @@ Then(
 
 When("I select {int} color", (index) => {
   simpleColorPickerInput(index).click();
-});
-
-When("I press {word} on the {int} color", (key, index) => {
-  simpleColorPicker(index).trigger("keydown", keyCode(key));
 });
 
 When("I press {word} on the {int} color", (key, index) => {

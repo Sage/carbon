@@ -174,8 +174,90 @@ context("Tests for MultiActionButton component", () => {
     });
   });
 
+  describe("pressing ArrowUp while MultiActionButton is open", () => {
+    it("should move focus to previous child button and should not loop to last button when first is focused", () => {
+      CypressMountWithProviders(
+        <>
+          <MultiActionButtonList />
+          <MultiActionButtonList />
+        </>
+      );
+
+      multiActionButton()
+        .eq(0)
+        .trigger("mouseover")
+        .then(() => {
+          multiActionButtonList().eq(2).focus();
+          multiActionButtonListContainer()
+            .eq(0)
+            .trigger("keydown", keyCode("uparrow"));
+          multiActionButtonList().eq(1).should("be.focused");
+          multiActionButtonListContainer()
+            .eq(0)
+            .trigger("keydown", keyCode("uparrow"));
+          multiActionButtonList().eq(0).should("be.focused");
+          multiActionButtonListContainer()
+            .eq(0)
+            .trigger("keydown", keyCode("uparrow"));
+          multiActionButtonList().eq(0).should("be.focused");
+        });
+    });
+  });
+
+  describe("pressing shift and tab while MultiActionButton is open", () => {
+    it("should move focus to previous child button and focus the main button when pressed and first button is focused", () => {
+      CypressMountWithProviders(
+        <>
+          <MultiActionButtonList />
+          <MultiActionButtonList />
+        </>
+      );
+
+      multiActionButton()
+        .eq(0)
+        .trigger("mouseover")
+        .then(() => {
+          multiActionButtonList().eq(1).focus();
+          multiActionButton().eq(0).tab({ shift: true });
+          multiActionButtonList().eq(0).should("be.focused");
+          multiActionButton().eq(0).tab({ shift: true });
+          multiActionButton().eq(0).should("be.focused");
+        });
+    });
+  });
+
+  describe("pressing ArrowDown while MultiActionButton is open", () => {
+    it("should move focus to next child button and should not loop to first button when last is focused", () => {
+      CypressMountWithProviders(
+        <>
+          <MultiActionButtonList />
+          <MultiActionButtonList />
+        </>
+      );
+
+      multiActionButton()
+        .eq(0)
+        .trigger("mouseover")
+        .then(() => {
+          multiActionButtonList().eq(0).focus();
+          multiActionButtonListContainer()
+            .eq(0)
+            .trigger("keydown", keyCode("downarrow"));
+          multiActionButtonList().eq(1).should("be.focused");
+          multiActionButtonListContainer()
+            .eq(0)
+            .trigger("keydown", keyCode("downarrow"));
+          multiActionButtonList().eq(2).should("be.focused");
+          multiActionButtonListContainer()
+            .eq(0)
+            .trigger("keydown", keyCode("downarrow"));
+          multiActionButtonList().eq(2).should("be.focused");
+        });
+    });
+  });
+
   describe("pressing tab while MultiActionButton is open", () => {
-    it("should focus second MultiActionButton", () => {
+    it("should move focus to next child button and to second MultiActionButton when end of list reached", () => {
       CypressMountWithProviders(
         <>
           <MultiActionButtonList />
@@ -189,7 +271,156 @@ context("Tests for MultiActionButton component", () => {
         .then(() => {
           multiActionButtonList().eq(1).focus();
           multiActionButton().eq(0).tab();
+          multiActionButtonList().eq(2).should("be.focused");
+          multiActionButton().eq(0).tab();
           multiActionButton().eq(1).should("be.focused");
+        });
+    });
+  });
+
+  describe("pressing metaKey + ArrowUp while MultiActionButton is open", () => {
+    it("should move focus to first child button", () => {
+      CypressMountWithProviders(
+        <>
+          <MultiActionButtonList />
+          <MultiActionButtonList />
+        </>
+      );
+
+      multiActionButton()
+        .eq(0)
+        .trigger("mouseover")
+        .then(() => {
+          multiActionButtonList().eq(2).focus();
+          multiActionButtonListContainer()
+            .eq(0)
+            .trigger("keydown", { metaKey: true, key: "ArrowUp" });
+          multiActionButtonList().eq(0).should("be.focused");
+        });
+    });
+  });
+
+  describe("pressing ctrlKey + ArrowUp while MultiActionButton is open", () => {
+    it("should move focus to first child button", () => {
+      CypressMountWithProviders(
+        <>
+          <MultiActionButtonList />
+          <MultiActionButtonList />
+        </>
+      );
+
+      multiActionButton()
+        .eq(0)
+        .trigger("mouseover")
+        .then(() => {
+          multiActionButtonList().eq(2).focus();
+          multiActionButtonListContainer()
+            .eq(0)
+            .trigger("keydown", { ctrlKey: true, key: "ArrowUp" });
+          multiActionButtonList().eq(0).should("be.focused");
+        });
+    });
+  });
+
+  describe("pressing Home while MultiActionButton is open", () => {
+    it("should move focus to first child button", () => {
+      CypressMountWithProviders(
+        <>
+          <MultiActionButtonList />
+          <MultiActionButtonList />
+        </>
+      );
+
+      multiActionButton()
+        .eq(0)
+        .trigger("mouseover")
+        .then(() => {
+          multiActionButtonList().eq(2).focus();
+          multiActionButtonListContainer()
+            .eq(0)
+            .trigger("keydown", keyCode("Home"));
+          multiActionButtonList().eq(0).should("be.focused");
+        });
+    });
+  });
+
+  describe("pressing metaKey + ArrowDown while MultiActionButton is open", () => {
+    it("should move focus to last child button", () => {
+      CypressMountWithProviders(
+        <>
+          <MultiActionButtonList />
+          <MultiActionButtonList />
+        </>
+      );
+
+      multiActionButton()
+        .eq(0)
+        .trigger("mouseover")
+        .then(() => {
+          multiActionButtonList().eq(0).focus();
+          multiActionButtonListContainer()
+            .eq(0)
+            .trigger("keydown", { metaKey: true, key: "ArrowDown" });
+          multiActionButtonList().eq(2).should("be.focused");
+        });
+    });
+  });
+
+  describe("pressing ctrlKey + ArrowDown while MultiActionButton is open", () => {
+    it("should move focus to last child button", () => {
+      CypressMountWithProviders(
+        <>
+          <MultiActionButtonList />
+          <MultiActionButtonList />
+        </>
+      );
+
+      multiActionButton()
+        .eq(0)
+        .trigger("mouseover")
+        .then(() => {
+          multiActionButtonList().eq(0).focus();
+          multiActionButtonListContainer()
+            .eq(0)
+            .trigger("keydown", { ctrlKey: true, key: "ArrowDown" });
+          multiActionButtonList().eq(2).should("be.focused");
+        });
+    });
+  });
+
+  describe("pressing End while MultiActionButton is open", () => {
+    it("should move focus to last child button", () => {
+      CypressMountWithProviders(
+        <>
+          <MultiActionButtonList />
+          <MultiActionButtonList />
+        </>
+      );
+
+      multiActionButton()
+        .eq(0)
+        .trigger("mouseover")
+        .then(() => {
+          multiActionButtonList().eq(0).focus();
+          multiActionButtonListContainer()
+            .eq(0)
+            .trigger("keydown", keyCode("End"));
+          multiActionButtonList().eq(2).should("be.focused");
+        });
+    });
+  });
+
+  describe("Pressing esc while MultiActionButton is open", () => {
+    it("should close MultiActionButton", () => {
+      CypressMountWithProviders(<MultiActionButtonList />);
+
+      multiActionButton()
+        .eq(0)
+        .trigger("mouseover")
+        .then(() => {
+          multiActionButtonList().eq(1).focus();
+          multiActionButton().eq(0).trigger("keydown", keyCode("Esc"));
+          multiActionButtonListContainer().should("not.exist");
         });
     });
   });

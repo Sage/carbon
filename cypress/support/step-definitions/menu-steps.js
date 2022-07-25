@@ -1,3 +1,5 @@
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import { LINK } from "../../locators/locators";
 import {
   submenuBlock,

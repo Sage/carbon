@@ -75,11 +75,16 @@ const StyledSelectListTable = styled.table`
 
 // TODO (design-tokens): to match current style for border bottom colorsUtilityMajor100
 const StyledSelectListTableHeader = styled.thead`
+  border-bottom: 1px solid var(--colorsUtilityMajor050);
+
+  tr {
+    width: ${({ scrollbarWidth }) => `calc(100% - ${scrollbarWidth}px)`};
+  }
+
   th {
     position: sticky;
     top: 0;
     padding: var(--spacing200);
-    border-bottom: 1px solid var(--colorsUtilityMajor050);
     background-color: white;
     text-align: left;
     font-weight: 900;
