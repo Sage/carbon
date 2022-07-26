@@ -1,3 +1,10 @@
+### [109.3.4](https://github.com/Sage/carbon/compare/v109.3.3...v109.3.4) (2022-07-26)
+
+
+### Bug Fixes
+
+* **pager:** change styles so all items are exposed to accessibility tree ([67a3846](https://github.com/Sage/carbon/commit/67a3846306dd8fe13db20f54c14d9b675573aaa4)), closes [#4637](https://github.com/Sage/carbon/issues/4637)
+
 ### [109.3.3](https://github.com/Sage/carbon/compare/v109.3.2...v109.3.3) (2022-07-25)
 
 
