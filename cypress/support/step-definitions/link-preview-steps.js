@@ -1,3 +1,5 @@
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import {
   linkPreviewText,
   linkPreviewCloseIcon,
@@ -28,10 +30,6 @@ Then(
       .and("have.css", "outline-width", width);
   }
 );
-
-When("I focus Link Preview close icon", () => {
-  linkPreviewCloseIcon().parent().focus();
-});
 
 Then(
   "Link Preview close icon has the border outline color {string} and width {string}",

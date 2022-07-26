@@ -31,6 +31,7 @@ const DialogFullScreen = ({
   contentRef,
   help,
   role = "dialog",
+  focusableContainers,
   ...rest
 }) => {
   const locale = useLocale();
@@ -98,6 +99,7 @@ const DialogFullScreen = ({
         focusFirstElement={focusFirstElement}
         wrapperRef={dialogRef}
         isOpen={open}
+        additionalWrapperRefs={focusableContainers}
       >
         <StyledDialogFullScreen
           aria-modal={role === "dialog" ? true : undefined}
@@ -175,6 +177,10 @@ DialogFullScreen.propTypes = {
   ]),
   /** The ARIA role to be applied to the DialogFullscreen container */
   role: PropTypes.string,
+  /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
+  focusableContainers: PropTypes.arrayOf(
+    PropTypes.shape({ current: PropTypes.any })
+  ),
 };
 
 export default DialogFullScreen;

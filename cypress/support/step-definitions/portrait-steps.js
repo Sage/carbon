@@ -1,3 +1,5 @@
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import { icon } from "../../locators/index";
 import { portraitPreview, portraitInitials } from "../../locators/portrait";
 
