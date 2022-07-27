@@ -1,3 +1,10 @@
+### [109.3.5](https://github.com/Sage/carbon/compare/v109.3.4...v109.3.5) (2022-07-27)
+
+
+### Bug Fixes
+
+* **multiselect:** ensure value prop is always used when controlled ([0ec8fa9](https://github.com/Sage/carbon/commit/0ec8fa96c30a5076ff581020a26af3be6f265fb6)), closes [#5259](https://github.com/Sage/carbon/issues/5259)
+
 ### [109.3.4](https://github.com/Sage/carbon/compare/v109.3.3...v109.3.4) (2022-07-26)
 
 
