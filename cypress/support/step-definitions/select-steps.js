@@ -2,6 +2,7 @@ import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 import {
   selectOption,
+  selectOptionRow,
   dropdownButton,
   selectList,
   selectInput,
@@ -117,6 +118,10 @@ When("I type {string} into default input", (text) => {
 
 When("{string} option on Select list is {string}", (position, text) => {
   selectOption(positionOfElement(position)).should("have.text", text);
+});
+
+When("{string} row on Select list contains {string}", (position, text) => {
+  selectOptionRow(positionOfElement(position)).should("contain.text", text);
 });
 
 When("I click on {string} option on Select list", (position) => {

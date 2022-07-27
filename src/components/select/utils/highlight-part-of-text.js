@@ -1,7 +1,7 @@
 import React from "react";
 import MatchingText from "./matching-text.style";
 
-export default function highlightPartOfText(text, partToHighlight) {
+function highlightPartOfText(text, partToHighlight) {
   if (!partToHighlight || !partToHighlight.length || !text) return text;
   const lowercaseText = text.toLowerCase();
   const lowercasePart = partToHighlight.toLowerCase();
@@ -29,4 +29,15 @@ export default function highlightPartOfText(text, partToHighlight) {
   ];
 
   return newValue;
+}
+
+export default function highlightPartOfTextRecursive(child, partToHighlight) {
+  if (typeof child === "string") {
+    return highlightPartOfText(child, partToHighlight);
+  }
+  const highlightedChildren = React.Children.map(
+    child.props.children,
+    (grandChild) => highlightPartOfTextRecursive(grandChild, partToHighlight)
+  );
+  return React.cloneElement(child, { children: highlightedChildren });
 }

@@ -1,4 +1,4 @@
-import { useRef, useCallback, useMemo } from "react";
+import { useRef, useCallback } from "react";
 
 import guid from "../../../__internal__/utils/helpers/guid";
 import ScrollBlockManager from "./scroll-block-manager";
@@ -13,6 +13,44 @@ type Rule = {
   blockingValue: string;
 };
 
+const getRules = (): Rule[] => {
+  /* istanbul ignore next */
+  const { documentElement, body } = document || {};
+  const scrollBarWidth = window.innerWidth - documentElement.clientWidth;
+  const bodyPaddingRight =
+    parseInt(window.getComputedStyle(body).getPropertyValue("padding-right")) ||
+    0;
+
+  return [
+    // TODO: First two entries of this array with the documentElement can be removed
+    {
+      element: documentElement,
+      property: "position",
+      blockingValue: "relative",
+    },
+    {
+      element: documentElement,
+      property: "overflow",
+      blockingValue: "hidden",
+    },
+    {
+      element: body,
+      property: "position",
+      blockingValue: "relative",
+    },
+    {
+      element: body,
+      property: "overflow",
+      blockingValue: "hidden",
+    },
+    {
+      element: body,
+      property: "paddingRight",
+      blockingValue: `${bodyPaddingRight + scrollBarWidth}px`,
+    },
+  ];
+};
+
 const useScrollBlock = (): {
   blockScroll: () => void;
   allowScroll: () => void;
@@ -20,52 +58,14 @@ const useScrollBlock = (): {
   const { current: containerGuid } = useRef(guid());
   const originalValuesRef = useRef<string[]>([]);
 
-  const rules: Rule[] = useMemo(() => {
-    /* istanbul ignore next */
-    const { documentElement, body } = document || {};
-    const scrollBarWidth = window.innerWidth - documentElement.clientWidth;
-    const bodyPaddingRight =
-      parseInt(
-        window.getComputedStyle(body).getPropertyValue("padding-right")
-      ) || 0;
-
-    return [
-      // TODO: First two entries of this array with the documentElement can be removed
-      {
-        element: documentElement,
-        property: "position",
-        blockingValue: "relative",
-      },
-      {
-        element: documentElement,
-        property: "overflow",
-        blockingValue: "hidden",
-      },
-      {
-        element: body,
-        property: "position",
-        blockingValue: "relative",
-      },
-      {
-        element: body,
-        property: "overflow",
-        blockingValue: "hidden",
-      },
-      {
-        element: body,
-        property: "paddingRight",
-        blockingValue: `${bodyPaddingRight + scrollBarWidth}px`,
-      },
-    ];
-  }, []);
-
   const restoreValues = useCallback(() => {
-    rules.forEach(({ element, property }, index) => {
+    getRules().forEach(({ element, property }, index) => {
       element.style[property] = originalValuesRef.current[index];
     });
-  }, [rules]);
+  }, []);
 
   const blockScroll = useCallback(() => {
+    const rules = getRules();
     const isBlocked = scrollBlockManager.isBlocked();
     scrollBlockManager.registerComponent(containerGuid);
 
@@ -84,7 +84,7 @@ const useScrollBlock = (): {
     rules.slice(-3).forEach(({ element, property, blockingValue }) => {
       element.style[property] = blockingValue;
     });
-  }, [restoreValues, containerGuid, rules]);
+  }, [restoreValues, containerGuid]);
 
   const allowScroll = useCallback(() => {
     scrollBlockManager.unregisterComponent(containerGuid);
@@ -103,12 +103,12 @@ const useScrollBlock = (): {
     // TODO: all of the code below can be removed from this block
     const originalValues = scrollBlockManager.getOriginalValues();
 
-    rules.forEach(({ element, property }, index) => {
+    getRules().forEach(({ element, property }, index) => {
       element.style[property] = originalValues[index];
     });
 
     scrollBlockManager.saveOriginalValues([]);
-  }, [containerGuid, rules]);
+  }, [containerGuid]);
 
   return { blockScroll, allowScroll };
 };

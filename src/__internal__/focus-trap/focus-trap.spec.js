@@ -251,7 +251,7 @@ describe("FocusTrap", () => {
 
     beforeEach(() => {
       bespokeFn = jest.fn();
-      mount(
+      wrapper = mount(
         <MockComponent bespokeTrap={bespokeFn}>
           <button type="button">Test button One</button>
           <button type="button">Test button Two</button>
@@ -454,39 +454,14 @@ describe("FocusTrap", () => {
       );
     });
 
-    describe("when focus on the first button and shift-tab pressed", () => {
-      it("should loop focus to the last focusable element", () => {
-        act(() => {
-          document.dispatchEvent(tabKey);
-        });
-
-        expect(document.activeElement).toMatchObject(
-          wrapper.find("button").at(0)
-        );
-
-        act(() => {
-          document.dispatchEvent(shiftTabKey);
-        });
-
-        expect(document.activeElement).toMatchObject(
-          wrapper.find('input[type="radio"]').at(0)
-        );
-      });
-    });
-
     describe("when focus on first radio button shift-tab pressed", () => {
       it("should loop focus to the last focusable element", () => {
-        expect(document.activeElement).toMatchObject(
-          wrapper.find('input[type="radio"]').at(0)
-        );
-
         act(() => {
+          document.querySelectorAll('input[type="radio"]')[0].focus();
           document.dispatchEvent(shiftTabKey);
         });
 
-        expect(document.activeElement).toMatchObject(
-          wrapper.find("button").at(1)
-        );
+        expect(wrapper.find("button").at(1)).toBeFocused();
       });
     });
 
@@ -495,6 +470,7 @@ describe("FocusTrap", () => {
         act(() => {
           document.querySelectorAll('input[type="radio"]')[1].focus();
         });
+
         expect(document.activeElement).toMatchObject(
           wrapper.find('input[type="radio"]').at(1)
         );
@@ -503,9 +479,134 @@ describe("FocusTrap", () => {
           document.dispatchEvent(shiftTabKey);
         });
 
+        expect(wrapper.find("button").at(1)).toBeFocused();
+      });
+    });
+  });
+
+  describe("with 2 different radio groups", () => {
+    beforeEach(() => {
+      wrapper = mount(
+        <MockComponent>
+          <RadioButtonGroup
+            name="radiogroup1"
+            legend="How do you want to create this address?"
+            legendInline
+            onChange={() => jest.fn()}
+            value="1"
+            legendWidth={40}
+          >
+            <RadioButton value="1" label="Create a new Address" size="large" />
+            <RadioButton
+              value="2"
+              label="Select an Existing address"
+              size="large"
+            />
+          </RadioButtonGroup>
+          <RadioButtonGroup
+            name="radiogroup2"
+            legend="How do you want to create this address?"
+            legendInline
+            onChange={() => jest.fn()}
+            value="1"
+            legendWidth={40}
+          >
+            <RadioButton value="1" label="Create a new Address" size="large" />
+            <RadioButton
+              value="2"
+              label="Select an Existing address"
+              size="large"
+            />
+          </RadioButtonGroup>
+          <button type="button">Test button One</button>
+          <button type="button">Test button Two</button>
+        </MockComponent>,
+        { attachTo: htmlElement }
+      );
+    });
+
+    describe("when focus on first radio button of second group shift-tab pressed", () => {
+      it("should focus the selected button of the first group", () => {
+        act(() => {
+          document.querySelectorAll('input[type="radio"]')[2].focus();
+        });
+
         expect(document.activeElement).toMatchObject(
-          wrapper.find("button").at(1)
+          wrapper.find('input[type="radio"]').at(2)
         );
+
+        act(() => {
+          document.dispatchEvent(shiftTabKey);
+        });
+
+        expect(wrapper.find('input[type="radio"]').at(0)).toBeFocused();
+      });
+    });
+
+    describe("when focus on second radio button of second group shift-tab pressed", () => {
+      it("should focus the selected button of the first group", () => {
+        act(() => {
+          document.querySelectorAll('input[type="radio"]')[3].focus();
+        });
+
+        expect(document.activeElement).toMatchObject(
+          wrapper.find('input[type="radio"]').at(3)
+        );
+
+        act(() => {
+          document.dispatchEvent(shiftTabKey);
+        });
+
+        expect(wrapper.find('input[type="radio"]').at(0)).toBeFocused();
+      });
+    });
+  });
+
+  describe("when last focusable elements are radio buttons", () => {
+    beforeEach(() => {
+      wrapper = mount(
+        <MockComponent>
+          <button type="button">Test button One</button>
+          <button type="button">Test button Two</button>
+          <RadioButtonGroup
+            name="mybuttongroup"
+            legend="How do you want to create this address?"
+            legendInline
+            onChange={() => jest.fn()}
+            value="1"
+            legendWidth={40}
+          >
+            <RadioButton value="1" label="Create a new Address" size="large" />
+            <RadioButton
+              value="2"
+              label="Select an Existing address"
+              size="large"
+            />
+          </RadioButtonGroup>
+        </MockComponent>,
+        { attachTo: htmlElement }
+      );
+    });
+
+    describe("when focus on second radio button tab pressed", () => {
+      it("should loop focus to the first focusable element", () => {
+        act(() => {
+          document.querySelectorAll('input[type="radio"]')[1].focus();
+          document.dispatchEvent(tabKey);
+        });
+
+        expect(wrapper.find("button").at(0)).toBeFocused();
+      });
+    });
+
+    describe("when focus on first radio button tab pressed", () => {
+      it("should loop focus to the first focusable element", () => {
+        act(() => {
+          document.querySelectorAll('input[type="radio"]')[0].focus();
+          document.dispatchEvent(tabKey);
+        });
+
+        expect(wrapper.find("button").at(0)).toBeFocused();
       });
     });
   });
@@ -520,7 +621,7 @@ describe("FocusTrap", () => {
             legend="How do you want to create this address?"
             legendInline
             onChange={() => jest.fn()}
-            value="1"
+            value={undefined}
             legendWidth={40}
           >
             <RadioButton value="1" label="Create a new Address" size="large" />
@@ -537,49 +638,159 @@ describe("FocusTrap", () => {
     });
 
     describe("when focus on first radio button shift-tab pressed", () => {
-      it("should loop focus to the last focusable element", () => {
+      it("should move focus to the previous focusable element", () => {
         act(() => {
-          document.dispatchEvent(tabKey);
-        });
-
-        expect(document.activeElement).toMatchObject(
-          wrapper.find('input[type="radio"]').at(0)
-        );
-
-        act(() => {
+          document.querySelectorAll('input[type="radio"]')[0].focus();
           document.dispatchEvent(shiftTabKey);
         });
 
-        expect(document.activeElement).toMatchObject(
-          wrapper.find("button").at(0)
-        );
+        expect(wrapper.find("button").at(0)).toBeFocused();
       });
     });
 
     describe("when focus on second radio button shift-tab pressed", () => {
-      it("should loop focus to the last focusable element", () => {
+      it("should move focus to the previous focusable element", () => {
         act(() => {
           document.querySelectorAll('input[type="radio"]')[1].focus();
         });
-        expect(document.activeElement).toMatchObject(
-          wrapper.find('input[type="radio"]').at(1)
-        );
+
+        expect(wrapper.find('input[type="radio"]').at(1)).toBeFocused();
 
         act(() => {
           document.dispatchEvent(shiftTabKey);
         });
 
-        expect(document.activeElement).toMatchObject(
-          wrapper.find("button").at(0)
-        );
+        expect(wrapper.find("button").at(0)).toBeFocused();
       });
+    });
+
+    describe("when tabbing into the radio group", () => {
+      it("should move focus to the first radio button when none was previously selected", () => {
+        act(() => {
+          document.querySelectorAll("button")[0].focus();
+        });
+
+        act(() => {
+          document.dispatchEvent(tabKey);
+        });
+
+        expect(wrapper.find('input[type="radio"]').at(0)).toBeFocused();
+      });
+
+      it("should move focus to the selected radio button if one is selected", () => {
+        act(() => {
+          document.querySelectorAll('input[type="radio"]')[1].click();
+          document.querySelectorAll("button")[0].focus();
+        });
+
+        act(() => {
+          document.dispatchEvent(tabKey);
+        });
+
+        expect(wrapper.find('input[type="radio"]').at(1)).toBeFocused();
+      });
+    });
+
+    describe("when shift tabbing into the radio group", () => {
+      it("should move focus to the last radio button when none was previously selected", () => {
+        act(() => {
+          document.querySelectorAll("button")[1].focus();
+        });
+
+        act(() => {
+          document.dispatchEvent(shiftTabKey);
+        });
+
+        expect(wrapper.find('input[type="radio"]').at(1)).toBeFocused();
+      });
+
+      it("should move focus to the selected radio button if one is selected", () => {
+        act(() => {
+          document.querySelectorAll('input[type="radio"]')[0].click();
+          document.querySelectorAll("button")[1].focus();
+        });
+
+        act(() => {
+          document.dispatchEvent(shiftTabKey);
+        });
+
+        expect(wrapper.find('input[type="radio"]').at(0)).toBeFocused();
+      });
+    });
+  });
+
+  describe("when trap contains only one focusable element", () => {
+    beforeEach(() => {
+      wrapper = mount(
+        <MockComponent>
+          <button type="button">Test button</button>
+        </MockComponent>,
+        { attachTo: htmlElement }
+      );
+    });
+
+    it("pressing tab does not move focus", () => {
+      act(() => {
+        document.dispatchEvent(tabKey);
+      });
+
+      expect(wrapper.find("button").at(0)).toBeFocused();
+    });
+
+    it("pressing shift tab does not move focus", () => {
+      act(() => {
+        document.dispatchEvent(shiftTabKey);
+      });
+
+      expect(wrapper.find("button").at(0)).toBeFocused();
+    });
+  });
+
+  describe("when trap contains one radio button group and no other focusable elements", () => {
+    beforeEach(() => {
+      wrapper = mount(
+        <MockComponent>
+          <RadioButtonGroup
+            name="mybuttongroup"
+            legend="How do you want to create this address?"
+            legendInline
+            onChange={() => jest.fn()}
+            value="1"
+            legendWidth={40}
+          >
+            <RadioButton value="1" label="Create a new Address" size="large" />
+            <RadioButton
+              value="2"
+              label="Select an Existing address"
+              size="large"
+            />
+          </RadioButtonGroup>
+        </MockComponent>,
+        { attachTo: htmlElement }
+      );
+    });
+
+    it("pressing tab does not move focus", () => {
+      act(() => {
+        document.dispatchEvent(tabKey);
+      });
+
+      expect(wrapper.find('input[type="radio"]').at(0)).toBeFocused();
+    });
+
+    it("pressing shift tab does not move focus", () => {
+      act(() => {
+        document.dispatchEvent(shiftTabKey);
+      });
+
+      expect(wrapper.find('input[type="radio"]').at(0)).toBeFocused();
     });
   });
 
   describe("wrapperRef", () => {
     it("renders without wrapperRef provided", () => {
       expect(() => {
-        mount(
+        wrapper = mount(
           <ModalContext.Provider value={{ isAnimationComplete: true }}>
             <FocusTrap>
               <div id="myComponent">Content</div>
@@ -592,7 +803,7 @@ describe("FocusTrap", () => {
     it("should not update focusable elements if wrapper ref isn't found", () => {
       const wrapperRef = { current: null };
       expect(() => {
-        mount(
+        wrapper = mount(
           <ModalContext.Provider value={{ isAnimationComplete: true }}>
             <FocusTrap wrapperRef={wrapperRef}>
               <div id="myComponent">Content</div>
@@ -600,6 +811,72 @@ describe("FocusTrap", () => {
           </ModalContext.Provider>
         );
       }).not.toThrow();
+    });
+  });
+
+  describe("additionalWrapperRefs", () => {
+    beforeEach(() => {
+      const wrapperRef = { current: null };
+      const otherContentRef1 = { current: null };
+      const otherContentRef2 = { current: null };
+      wrapper = mount(
+        <ModalContext.Provider value={{ isAnimationComplete: true }}>
+          <FocusTrap
+            wrapperRef={wrapperRef}
+            additionalWrapperRefs={[otherContentRef1, otherContentRef2]}
+          >
+            <button type="button" id="outside1">
+              outside focus trap
+            </button>
+            <div ref={wrapperRef}>
+              <button type="button" id="insidewrapper">
+                In wrapperRef
+              </button>
+            </div>
+            <button type="button" id="outside2">
+              outside focus trap
+            </button>
+            <div ref={otherContentRef1}>
+              <button type="button" id="insideother1">
+                In otherContentRef1
+              </button>
+            </div>
+            <button type="button" id="outside3">
+              outside focus trap
+            </button>
+            <div ref={otherContentRef2}>
+              <button type="button" id="insideother2">
+                In otherContentRef2
+              </button>
+            </div>
+            <button type="button" id="outside4">
+              outside focus trap
+            </button>
+          </FocusTrap>
+        </ModalContext.Provider>,
+        { attachTo: htmlElement }
+      );
+    });
+
+    it("tab should cycle through focusable elements inside the provided container refs and ignore all others", () => {
+      act(() => {
+        document.getElementById("insidewrapper").focus();
+        document.dispatchEvent(tabKey);
+      });
+
+      expect(wrapper.find("#insideother1").at(0)).toBeFocused();
+
+      act(() => {
+        document.dispatchEvent(tabKey);
+      });
+
+      expect(wrapper.find("#insideother2").at(0)).toBeFocused();
+
+      act(() => {
+        document.dispatchEvent(tabKey);
+      });
+
+      expect(wrapper.find("#insidewrapper").at(0)).toBeFocused();
     });
   });
 

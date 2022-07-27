@@ -1,6 +1,6 @@
-declare function setup(): void;
+declare function setupMatchMediaMock(): void;
 declare function mockMatchMedia(
   matches?: boolean
 ): { removeListener: jest.Mock };
 
-export { setup, mockMatchMedia };
+export { setupMatchMediaMock, mockMatchMedia };

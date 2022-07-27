@@ -103,7 +103,7 @@ const StyledPagerLinkStyles = styled(Link)`
   margin-right: 7px;
 `;
 
-const StyledPagerNoSelect = styled.span`
+const StyledPagerNoSelect = styled.div`
   user-select: none;
   white-space: nowrap;
 `;

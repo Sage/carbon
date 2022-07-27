@@ -2,7 +2,7 @@ let mocked = false;
 let _matches = false;
 const removeListener = jest.fn();
 
-export const setup = () => {
+export const setupMatchMediaMock = () => {
   if (!global.window) {
     return;
   }
@@ -24,7 +24,7 @@ export const setup = () => {
 export const mockMatchMedia = (matches) => {
   if (!mocked) {
     throw new Error(
-      "window.matchMedia has not been mocked. Did you call setup()?"
+      "window.matchMedia has not been mocked. Did you call setupMatchMediaMock()?"
     );
   }
   _matches = matches;

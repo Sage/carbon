@@ -17,6 +17,7 @@ import Icon from "../icon";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Typography from "../typography";
 import { Dl, Dt, Dd } from "../definition-list";
+import Toast from "../toast";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import isChromatic from "../../../.storybook/isChromatic";
 
@@ -914,6 +915,70 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
             </div>
             <Textbox label="This should be focused first now" autoFocus />
           </DialogFullScreen>
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
+
+
+### Allowing other elements to be focused
+
+Using the `focusableContainers` prop allows elements that are not DOM children of the Dialog to be reachable with the keyboard while the Dialog is open.
+This may occasionally be useful with things like Toasts where they persist on the page until dismissed by clicking a close icon.
+
+<Canvas>
+  <Story name="other focusable containers" parameters={{ chromatic: { disable: true } }}>
+    {() => {
+      const [isDialogOpen, setIsDialogOpen] = useState(false);
+      const [isToast1Open, setIsToast1Open] = useState(false);
+      const [isToast2Open, setIsToast2Open] = useState(false);
+      const toast1Ref = useRef();
+      const toast2Ref = useRef();
+      return (
+        <>
+          <Button onClick={() => setIsDialogOpen(true)}>Open DialogFullScreen</Button>
+          <DialogFullScreen
+            open={isDialogOpen}
+            onCancel={() => setIsDialogOpen(false)}
+            title="Title"
+            subtitle="Subtitle"
+            focusableContainers={[toast1Ref, toast2Ref]}
+          >
+            <Form
+              stickyFooter={true}
+              height="500px"
+              leftSideButtons={
+                <Button onClick={() => setIsToast1Open(true)}>Show first toast</Button>
+              }
+              saveButton={
+                <Button buttonType="primary" onClick={() => setIsToast2Open(true)}>
+                  Show second toast
+                </Button>
+              }
+            >
+              <Typography>
+                This is an example of a dialog with a Form as content
+              </Typography>
+              <Textbox label="First Name" />
+              <Textbox label="Middle Name" />
+              <Textbox label="Surname" />
+              <Textbox label="Birth Place" />
+              <Textbox label="Favourite Colour" />
+              <Textbox label="Address" /><Textbox label="First Name" />
+              <Textbox label="Middle Name" />
+              <Textbox label="Surname" />
+              <Textbox label="Birth Place" />
+              <Textbox label="Favourite Colour" />
+              <Textbox label="Address" />
+            </Form>
+          </DialogFullScreen>
+          <Toast open={isToast1Open} onDismiss={() => setIsToast1Open(false)} ref={toast1Ref} targetPortalId="stacked">
+            Toast message 1
+          </Toast>
+          <Toast open={isToast2Open} onDismiss={() => setIsToast2Open(false)} ref={toast2Ref} targetPortalId="stacked">
+            Toast message 2
+          </Toast>
         </>
       );
     }}

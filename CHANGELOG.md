@@ -1,3 +1,53 @@
+### [109.3.4](https://github.com/Sage/carbon/compare/v109.3.3...v109.3.4) (2022-07-26)
+
+
+### Bug Fixes
+
+* **pager:** change styles so all items are exposed to accessibility tree ([67a3846](https://github.com/Sage/carbon/commit/67a3846306dd8fe13db20f54c14d9b675573aaa4)), closes [#4637](https://github.com/Sage/carbon/issues/4637)
+
+### [109.3.3](https://github.com/Sage/carbon/compare/v109.3.2...v109.3.3) (2022-07-25)
+
+
+### Bug Fixes
+
+* **select:** fix column alignment in multi column mode ([6897637](https://github.com/Sage/carbon/commit/6897637f08fa32bfb3fee861aeb79a104c453e6b))
+
+### [109.3.2](https://github.com/Sage/carbon/compare/v109.3.1...v109.3.2) (2022-07-21)
+
+
+### Bug Fixes
+
+* **filterableselect, multiselect:** fix filter for nested components ([65bc094](https://github.com/Sage/carbon/commit/65bc0943269774f5a87f482cafc26c90a9095dfd)), closes [#5242](https://github.com/Sage/carbon/issues/5242)
+
+### [109.3.1](https://github.com/Sage/carbon/compare/v109.3.0...v109.3.1) (2022-07-19)
+
+
+### Bug Fixes
+
+* **multi-action-button:** add new keyboard functionality to component ([a76819b](https://github.com/Sage/carbon/commit/a76819b39e888ec926b74d94f63f7c3c631399bd)), closes [#4522](https://github.com/Sage/carbon/issues/4522)
+* **split-button:** add new keyboard functionality to component ([5121f6a](https://github.com/Sage/carbon/commit/5121f6af4521a9658e937cecff91676cffdf4f86)), closes [#4522](https://github.com/Sage/carbon/issues/4522)
+
+## [109.3.0](https://github.com/Sage/carbon/compare/v109.2.4...v109.3.0) (2022-07-19)
+
+
+### Features
+
+* **dialog, dialog-full-screen, sidebar:** allow more tab control ([e497fb1](https://github.com/Sage/carbon/commit/e497fb1d29f75b77995234995bcc8f16b39b94e1)), closes [#5092](https://github.com/Sage/carbon/issues/5092)
+* **toast:** autofocus dismiss button unless disableAutoFocus prop set ([2c0ff36](https://github.com/Sage/carbon/commit/2c0ff3681c5a171ed1e294a778642a07d585ba42)), closes [#5092](https://github.com/Sage/carbon/issues/5092)
+* **toast:** return focus when closing toast after autofocus ([517682e](https://github.com/Sage/carbon/commit/517682e5f9d604cb5d1a44dccc63e250c7687cbd))
+
+
+### Bug Fixes
+
+* **focus-trap:** fix behaviour with radio buttons ([c6e55e7](https://github.com/Sage/carbon/commit/c6e55e7c8f5b072764e733fa50abfef694a7b34d)), closes [#5224](https://github.com/Sage/carbon/issues/5224)
+
+### [109.2.4](https://github.com/Sage/carbon/compare/v109.2.3...v109.2.4) (2022-07-18)
+
+
+### Bug Fixes
+
+* **use-scroll-block:** calc the scroll width each time the clientWidth value of document changes ([5744ec4](https://github.com/Sage/carbon/commit/5744ec42239213be365ebf8450b6ebe188e3fbe9)), closes [#5220](https://github.com/Sage/carbon/issues/5220)
+
 ### [109.2.3](https://github.com/Sage/carbon/compare/v109.2.2...v109.2.3) (2022-07-15)
 
 
