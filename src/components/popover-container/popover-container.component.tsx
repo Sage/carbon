@@ -21,7 +21,9 @@ export interface RenderOpenProps {
   tabIndex: number;
   isOpen?: boolean;
   "data-element": string;
-  onClick: (ev: React.MouseEvent<HTMLElement>) => void;
+  onClick: (
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+  ) => void;
   ref: React.RefObject<HTMLButtonElement>;
   "aria-label"?: string;
   id?: string;
@@ -51,7 +53,9 @@ const renderOpen = ({
 export interface RenderCloseProps {
   "data-element": string;
   tabIndex: number;
-  onClick: (ev: React.MouseEvent<HTMLElement>) => void;
+  onClick: (
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+  ) => void;
   ref: React.RefObject<HTMLButtonElement>;
   "aria-label": string;
 }
@@ -94,11 +98,15 @@ export interface PopoverContainerProps extends PaddingProps {
   /** Sets the popover container dialog header name */
   title?: string;
   /** Callback fires when close icon clicked */
-  onClose?: (ev: React.MouseEvent<HTMLElement> | Event) => void;
+  onClose?: (
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement> | Event
+  ) => void;
   /** if `true` the popover-container is open */
   open?: boolean;
   /** Callback fires when open component is clicked */
-  onOpen?: (ev: React.MouseEvent<HTMLElement>) => void;
+  onOpen?: (
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+  ) => void;
   /** if `true` the popover-container will cover open button */
   shouldCoverButton?: boolean;
   /** The id of the element that describe the dialog. */
@@ -159,7 +167,9 @@ export const PopoverContainer = ({
       setTimeout(() => closeButtonRef.current?.focus(), 0);
   }, [isOpen]);
 
-  const handleOpenButtonClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handleOpenButtonClick = (
+    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+  ) => {
     if (!isControlled) setIsOpenInternal(!isOpen);
 
     // We want the open button to close the popover if it is already open
@@ -168,7 +178,9 @@ export const PopoverContainer = ({
     } else if (onClose) onClose(e);
   };
 
-  const handleCloseButtonClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handleCloseButtonClick = (
+    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+  ) => {
     if (!isControlled) setIsOpenInternal(!isOpen);
     if (onClose) onClose(e);
     if (isOpen && openButtonRef.current) openButtonRef.current.focus();
