@@ -1,3 +1,10 @@
+## [109.4.0](https://github.com/Sage/carbon/compare/v109.3.5...v109.4.0) (2022-07-27)
+
+
+### Features
+
+* **page:** add padding interface to content container ([74233e2](https://github.com/Sage/carbon/commit/74233e2f5d7f38bdb7525e77bd4a68d69a07d2f0)), closes [#5302](https://github.com/Sage/carbon/issues/5302)
+
 ### [109.3.5](https://github.com/Sage/carbon/compare/v109.3.4...v109.3.5) (2022-07-27)
 
 
