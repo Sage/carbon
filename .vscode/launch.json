@@ -25,7 +25,7 @@
         "name": "Run Current Spec",
         "program": "${workspaceRoot}/node_modules/.bin/jest",
         "args": [
-          "--config=./jest.conf.json",
+          "--config=./jest.config.json",
           "${file}"
         ],
         "stopOnEntry": false,
