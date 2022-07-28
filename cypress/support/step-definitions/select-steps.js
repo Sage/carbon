@@ -2,6 +2,7 @@ import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 import {
   selectOption,
+  selectOptionRow,
   dropdownButton,
   selectList,
   selectInput,
@@ -76,6 +77,10 @@ Then("Multi select input has {string} pill", (text) => {
   multiSelectPill().should("have.attr", "title", text);
 });
 
+Then("Multi select input has {int} values", (length) => {
+  multiSelectPill().should("have.length", length);
+});
+
 Then("Multi select {string} pill has {string} value", (int, text) => {
   multiSelectPillByPosition(positionOfElement(int)).should(
     "have.attr",
@@ -113,6 +118,10 @@ When("I type {string} into default input", (text) => {
 
 When("{string} option on Select list is {string}", (position, text) => {
   selectOption(positionOfElement(position)).should("have.text", text);
+});
+
+When("{string} row on Select list contains {string}", (position, text) => {
+  selectOptionRow(positionOfElement(position)).should("contain.text", text);
 });
 
 When("I click on {string} option on Select list", (position) => {
