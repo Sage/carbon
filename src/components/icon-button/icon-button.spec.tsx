@@ -1,8 +1,9 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
+
 import IconButton from ".";
-import Message from "../message/message.component";
+import Message from "../message";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -14,15 +15,16 @@ import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 jest.mock("@tippyjs/react/headless", () => ({
   __esModule: true,
-  default: ({ children }) => children,
+  default: ({ children }: { children: React.ReactNode }) => children,
 }));
 
 describe("IconButton component", () => {
-  let wrapper, onDismiss, onBlur;
+  let wrapper: ReactWrapper;
+  let onDismiss: jest.Mock;
 
   describe("refs", () => {
     it("accepts ref as a ref object", () => {
-      const ref = { current: undefined };
+      const ref = { current: null };
 
       wrapper = mount(
         <IconButton onAction={() => {}} ref={ref}>
@@ -51,7 +53,7 @@ describe("IconButton component", () => {
     });
 
     it("sets ref to empty after unmount", () => {
-      const ref = { current: undefined };
+      const ref = { current: null };
       wrapper = mount(
         <IconButton onAction={() => {}} ref={ref}>
           <Icon type="home" tooltipMessage="foo" />
@@ -85,9 +87,8 @@ describe("IconButton component", () => {
   describe("when onDismiss is provided", () => {
     beforeEach(() => {
       onDismiss = jest.fn();
-      onBlur = jest.fn();
       wrapper = mount(
-        <Message roundedCorners={false} variant="info" onDismiss={onDismiss}>
+        <Message variant="info" onDismiss={onDismiss}>
           Message
         </Message>
       );
@@ -165,25 +166,6 @@ describe("IconButton component", () => {
         const foundIconButton = wrapper.find(IconButton).first();
         foundIconButton.simulate("click");
         expect(onDismiss).toHaveBeenCalledTimes(1);
-      });
-    });
-
-    describe("when component does not handle onBlur", () => {
-      it("does not call onBlur callback", () => {
-        wrapper = mount(
-          <Message
-            roundedCorners={false}
-            variant="info"
-            onDismiss={onDismiss}
-            onBlur={onBlur}
-          >
-            Message
-          </Message>
-        );
-        const foundIconButton = wrapper.find(IconButton).first();
-        foundIconButton.simulate("click");
-        expect(onDismiss).toHaveBeenCalledTimes(1);
-        expect(onBlur).toHaveBeenCalledTimes(0);
       });
     });
   });
