@@ -1,3 +1,16 @@
+## [109.5.0](https://github.com/Sage/carbon/compare/v109.4.0...v109.5.0) (2022-07-28)
+
+
+### Features
+
+* **icon-button:** convert to typescript ([65dca20](https://github.com/Sage/carbon/commit/65dca20bb17cf535c3e3279cff3726a8322748b3))
+
+
+### Bug Fixes
+
+* **pill:** fix event handlers types ([d655206](https://github.com/Sage/carbon/commit/d6552066a75bf5e1dc607ca75be3a1ce512c030f))
+* **popover-container:** fix event handlers types ([51d1091](https://github.com/Sage/carbon/commit/51d109197319af83da869bc73768993b9cc6f57b))
+
 ## [109.4.0](https://github.com/Sage/carbon/compare/v109.3.5...v109.4.0) (2022-07-27)
 
 
