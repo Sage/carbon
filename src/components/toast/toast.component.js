@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import classNames from "classnames";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import PropTypes from "prop-types";
@@ -44,6 +50,8 @@ const Toast = React.forwardRef(
 
     const focusedElementBeforeOpening = useRef();
 
+    const [tabIndex, setTabIndex] = useState(0);
+
     const refToPass = ref || toastRef;
 
     const componentClasses = useMemo(() => {
@@ -73,13 +81,14 @@ const Toast = React.forwardRef(
     }, [onDismiss, open, timeout]);
 
     useEffect(() => {
-      if (onDismiss && !disableAutoFocus) {
+      if (!disableAutoFocus) {
         if (open) {
           focusedElementBeforeOpening.current = document.activeElement;
-          closeIconRef.current?.focus();
+          toastContentNodeRef.current?.focus();
         } else if (focusedElementBeforeOpening.current) {
           focusedElementBeforeOpening.current.focus();
           focusedElementBeforeOpening.current = undefined;
+          setTabIndex(0);
         }
       }
     }, [open, onDismiss, disableAutoFocus]);
@@ -130,6 +139,10 @@ const Toast = React.forwardRef(
             {...tagComponent(restProps["data-component"] || "toast", restProps)}
             {...toastProps}
             ref={toastContentNodeRef}
+            {...(!disableAutoFocus && {
+              tabIndex,
+              onBlur: () => setTabIndex(undefined),
+            })}
           >
             {!isNotice && (
               <TypeIcon variant={toastProps.variant}>
