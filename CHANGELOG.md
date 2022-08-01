@@ -1,3 +1,11 @@
+### [109.5.1](https://github.com/Sage/carbon/compare/v109.5.0...v109.5.1) (2022-08-01)
+
+
+### Bug Fixes
+
+* **button-toggle-group:** add missing id prop to type definition ([51c1e70](https://github.com/Sage/carbon/commit/51c1e7099559ef21edc50ae6e4d3f3de97ec3548)), closes [#5314](https://github.com/Sage/carbon/issues/5314)
+* **tab:** make typing of props in TabContextProps interface optional ([673a809](https://github.com/Sage/carbon/commit/673a8097a9fed1af1f1903efca75df6b27a2e1f7))
+
 ## [109.5.0](https://github.com/Sage/carbon/compare/v109.4.0...v109.5.0) (2022-07-28)
 
 
