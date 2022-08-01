@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { padding } from "styled-system";
 import BaseTheme from "../../../style/themes/base";
 
 const StyledPage = styled.article`
@@ -7,14 +8,18 @@ const StyledPage = styled.article`
 `;
 
 const StyledPageContent = styled.div`
+  ${padding}
   box-sizing: border-box;
-  padding: 30px 40px;
   width: 100%;
   height: 100%;
   overflow-y: auto;
 `;
 
 StyledPage.defaultProps = {
+  theme: BaseTheme,
+};
+
+StyledPageContent.defaultProps = {
   theme: BaseTheme,
 };
 

@@ -1,7 +1,5 @@
 import React from "react";
-import StyledPill, {
-  StyledPillProps,
-} from "./pill.style";
+import StyledPill, { StyledPillProps } from "./pill.style";
 import Icon from "../icon";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import IconButton from "../icon-button";
@@ -18,20 +16,16 @@ export interface PillProps extends StyledPillProps {
   /** Fills the pill background with colour. When fill is false only the border is coloured. */
   fill?: boolean;
   /** Callback function for when the pill is clicked. */
-  onClick?: React.MouseEventHandler<HTMLSpanElement>;
+  onClick?: (ev: React.MouseEvent<HTMLSpanElement>) => void;
   /** Callback function for when the remove icon is clicked. */
-  onDelete?: React.MouseEventHandler<HTMLButtonElement>;
+  onDelete?: (
+    ev:
+      | React.KeyboardEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>
+  ) => void;
   /** Sets the type of pill in use. */
   pillRole?: "tag" | "status";
 }
-
-const renderCloseIcon = (
-  onDelete: React.MouseEventHandler<HTMLButtonElement>
-) => (
-  <IconButton onAction={onDelete} data-element="close" aria-label="close">
-    <Icon type="cross" />
-  </IconButton>
-);
 
 export const Pill = ({
   wrapText,
@@ -60,7 +54,11 @@ export const Pill = ({
     {...rest}
   >
     {children}
-    {onDelete && renderCloseIcon(onDelete)}
+    {onDelete && (
+      <IconButton onAction={onDelete} data-element="close" aria-label="close">
+        <Icon type="cross" />
+      </IconButton>
+    )}
   </StyledPill>
 );
 

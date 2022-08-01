@@ -1,9 +1,24 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
 import { TransitionGroup } from "react-transition-group";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
-import Page from "./page/page.component";
+import Page from "./page";
 import { PagesWrapperStyle, PagesContent } from "./pages.style";
+import { ThemeObject } from "../../style/themes/base";
+
+export interface PagesProps {
+  /** [legacy] Custom className */
+  className?: string;
+  /** The selected tab on page load */
+  initialpageIndex?: number | string;
+  /** The current page's index */
+  pageIndex?: number | string;
+  /** Individual Page components */
+  children?: React.ReactNode;
+  /** Controls which transition to use (fade or slide). */
+  transition?: string;
+  /** @ignore @private */
+  theme?: Partial<ThemeObject>;
+}
 
 const NEXT = "next";
 const PREVIOUS = "previous";
@@ -15,11 +30,10 @@ const Pages = ({
   transition = "slide",
   children,
   ...props
-}) => {
+}: PagesProps) => {
   const [pageIndex, setPageIndex] = useState(
     Number(incomingPageIndex) || Number(initialpageIndex)
   );
-
   const transitionDirection = useRef(NEXT);
 
   const transitionName = () => {
@@ -32,8 +46,10 @@ const Pages = ({
 
   const handleVisiblePage = () => {
     let index = pageIndex;
-
     const visiblePage = React.Children.toArray(children)[index];
+
+    /* istanbul ignore if */
+    if (!React.isValidElement(visiblePage)) return visiblePage;
 
     index = visiblePage.props.id || index;
 
@@ -97,20 +113,7 @@ const Pages = ({
   );
 };
 
-Pages.propTypes = {
-  /** [legacy] Custom className */
-  className: PropTypes.string,
-  /** The selected tab on page load */
-  initialpageIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  pageIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /** Individual tabs */
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
-  /** Controls which transition to use. */
-  transition: PropTypes.string,
-};
+Pages.displayName = "Pages";
 
 export default Pages;
 
