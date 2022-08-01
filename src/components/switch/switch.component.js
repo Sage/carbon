@@ -183,8 +183,6 @@ Switch.propTypes = {
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** When true, validation icon will be placed on label instead of being placed by the input */
   validationOnLabel: PropTypes.bool,
-  /** Override tab index on the validation and help icon */
-  helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Triggers loading animation */
   loading: PropTypes.bool,
   /** Accepts a callback function which can be used to update parent state on change */
