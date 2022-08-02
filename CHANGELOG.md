@@ -1,3 +1,10 @@
+### [109.5.2](https://github.com/Sage/carbon/compare/v109.5.1...v109.5.2) (2022-08-02)
+
+
+### Bug Fixes
+
+* **loader:** ensure correct colours are applied to loader when in a button ([f2ff159](https://github.com/Sage/carbon/commit/f2ff1598f73390c9aea2512add6c7accac6becc3)), closes [#5226](https://github.com/Sage/carbon/issues/5226)
+
 ### [109.5.1](https://github.com/Sage/carbon/compare/v109.5.0...v109.5.1) (2022-08-01)
 
 
