@@ -53,8 +53,8 @@ const FullMenuExample = () => (
   </>
 );
 
-context("Global Header", () => {
-  it("z-index of component is greater than that of NavigationBar", () => {
+context("Testing Global Header component", () => {
+  it("should check that z-index of component is greater than that of NavigationBar", () => {
     CypressMountWithProviders(<FullMenuExample />);
 
     globalHeader()
@@ -70,7 +70,7 @@ context("Global Header", () => {
       });
   });
 
-  it("when logo prop is passed, the height of the logo element never exceeds the maximum height of the component", () => {
+  it("should check when logo prop is passed, the height of the logo element never exceeds the maximum height of the component", () => {
     const logoHeight = 41;
     const expectedHeight = 40;
 

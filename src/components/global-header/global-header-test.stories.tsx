@@ -46,3 +46,11 @@ export const MenuWithIconOnlyButtonsStory: ComponentStory<
   );
 };
 MenuWithIconOnlyButtonsStory.storyName = "menu with icon-only buttons";
+MenuWithIconOnlyButtonsStory.parameters = {
+  docs: {
+    description: {
+      story:
+        "Disclaimer: use of Icon-only buttons is not recommended due to poor accessibility",
+    },
+  },
+};
