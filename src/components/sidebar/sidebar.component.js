@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
+import styledSystemPropTypes from "@styled-system/prop-types";
 
 import Modal from "../modal";
-import SidebarStyle from "./sidebar.style";
+import StyledSidebar from "./sidebar.style";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import FocusTrap from "../../__internal__/focus-trap";
@@ -11,6 +12,11 @@ import Box from "../box";
 import { SIDEBAR_SIZES, SIDEBAR_ALIGNMENTS } from "./sidebar.config";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
+import { filterStyledSystemPaddingProps } from "../../style/utils";
+
+const paddingPropTypes = filterStyledSystemPaddingProps(
+  styledSystemPropTypes.space
+);
 
 export const SidebarContext = React.createContext({});
 
@@ -22,10 +28,10 @@ const Sidebar = React.forwardRef(
       "aria-labelledby": ariaLabelledBy,
       open,
       disableEscKey,
-      enableBackgroundUI,
+      enableBackgroundUI = false,
       header,
-      position,
-      size,
+      position = "right",
+      size = "medium",
       children,
       onCancel,
       role = "dialog",
@@ -59,7 +65,7 @@ const Sidebar = React.forwardRef(
     };
 
     const sidebar = (
-      <SidebarStyle
+      <StyledSidebar
         aria-modal={!enableBackgroundUI}
         aria-describedby={ariaDescribedBy}
         aria-label={ariaLabel}
@@ -77,8 +83,10 @@ const Sidebar = React.forwardRef(
         {closeIcon()}
         <Box
           data-element="sidebar-content"
-          p={4}
-          pt="27px"
+          pt="var(--spacing300)"
+          pb="var(--spacing400)"
+          px="var(--spacing400)"
+          {...filterStyledSystemPaddingProps(rest)}
           scrollVariant="light"
           overflow="auto"
           flex="1"
@@ -87,7 +95,7 @@ const Sidebar = React.forwardRef(
             {children}
           </SidebarContext.Provider>
         </Box>
-      </SidebarStyle>
+      </StyledSidebar>
     );
 
     return (
@@ -116,6 +124,8 @@ const Sidebar = React.forwardRef(
 );
 
 Sidebar.propTypes = {
+  /** Styled system padding props to apply to Sidebar content */
+  ...paddingPropTypes,
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby": PropTypes.string,
   /** Prop to specify the aria-label of the component */
@@ -144,12 +154,6 @@ Sidebar.propTypes = {
   focusableContainers: PropTypes.arrayOf(
     PropTypes.shape({ current: PropTypes.any })
   ),
-};
-
-Sidebar.defaultProps = {
-  position: "right",
-  size: "medium",
-  enableBackgroundUI: false,
 };
 
 export default Sidebar;
