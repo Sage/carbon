@@ -159,7 +159,7 @@ const Pager = ({
           {showPageSizeLabelBefore && <span>{l.pager.show()}</span>}
           {sizeSelector()}
           {showPageSizeLabelAfter && (
-            <span>{l.pager.records(currentPageSize, false)}</span>
+            <div>{l.pager.records(currentPageSize, false)}</div>
           )}
         </StyledPagerSizeOptionsInner>
       )

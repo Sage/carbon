@@ -87,6 +87,8 @@ const MultiSelect = React.forwardRef(
     const [filterText, setFilterText] = useState("");
     const [placeholderOverride, setPlaceholderOverride] = useState();
 
+    const actualValue = isControlled.current ? value : selectedValue;
+
     const setOpen = useCallback(() => {
       setOpenState((isAlreadyOpen) => {
         if (!isAlreadyOpen && onOpen) {
@@ -112,6 +114,26 @@ const MultiSelect = React.forwardRef(
       [name, id]
     );
 
+    /* generic value update function which can be used for both controlled and uncontrolled
+     * components, both with and without onChange.
+     * It accepts a function to update the value, which is assumed to be have no side effects and therefore
+     * be safe to run more than once if needed. */
+    const updateValue = useCallback(
+      (updateFunction) => {
+        const newValue = updateFunction(actualValue);
+        // only call onChange if an option has been selected or deselected
+        if (onChange && newValue.length !== actualValue.length) {
+          onChange(createCustomEvent(newValue));
+        }
+
+        // no need to update selectedValue if the component is controlled: onChange should take care of updating the value
+        if (!isControlled.current) {
+          setSelectedValue(updateFunction);
+        }
+      },
+      [createCustomEvent, onChange, actualValue]
+    );
+
     const handleTextboxChange = useCallback(
       (event) => {
         const newValue = event.target.value;
@@ -130,21 +152,19 @@ const MultiSelect = React.forwardRef(
 
     const removeSelectedValue = useCallback(
       (index) => {
-        setSelectedValue((previousValue) => {
-          isClickTriggeredBySelect.current = true;
+        isClickTriggeredBySelect.current = true;
+
+        updateValue((previousValue) => {
           if (!previousValue.length) {
             return previousValue;
           }
           const newValue = [...previousValue];
           newValue.splice(index, 1);
-          if (onChange) {
-            onChange(createCustomEvent(newValue));
-            return newValue;
-          }
+
           return newValue;
         });
       },
-      [createCustomEvent, onChange]
+      [updateValue]
     );
 
     const handleTextboxKeydown = useCallback(
@@ -174,9 +194,9 @@ const MultiSelect = React.forwardRef(
     );
 
     const accessibilityLabel = useMemo(() => {
-      return selectedValue && selectedValue.length
+      return actualValue && actualValue.length
         ? React.Children.map(children, (child) => {
-            return selectedValue.includes(child.props.value)
+            return actualValue.includes(child.props.value)
               ? child.props.text
               : false;
           })
@@ -185,7 +205,7 @@ const MultiSelect = React.forwardRef(
               return acc ? `${acc}, ${item}` : item;
             }, "")
         : null;
-    }, [children, selectedValue]);
+    }, [children, actualValue]);
 
     const handleGlobalClick = useCallback(
       (event) => {
@@ -216,11 +236,11 @@ const MultiSelect = React.forwardRef(
     const mapValuesToPills = useMemo(() => {
       const canDelete = !disabled && !readOnly;
 
-      if (!selectedValue.length) {
+      if (!actualValue.length) {
         return "";
       }
 
-      return selectedValue.map((singleValue, index) => {
+      return actualValue.map((singleValue, index) => {
         const matchingOption = React.Children.toArray(children).find((child) =>
           isExpectedOption(child, singleValue)
         );
@@ -270,22 +290,19 @@ const MultiSelect = React.forwardRef(
         !isControlled.current || (isControlled.current && onChange),
         onChangeMissingMessage
       );
-      if (isControlled.current) {
-        setSelectedValue(value);
-      }
     }, [value, onChange]);
 
     // removes placeholder when a value is present
     useEffect(() => {
       const hasValue = value?.length;
-      const hasSelectedValue = selectedValue?.length;
+      const hasSelectedValue = actualValue?.length;
 
       if (hasValue || hasSelectedValue) {
         setPlaceholderOverride(" ");
       } else {
         setPlaceholderOverride(placeholder);
       }
-    }, [value, selectedValue, placeholder]);
+    }, [value, actualValue, placeholder]);
 
     useEffect(() => {
       const clickEvent = "click";
@@ -411,29 +428,24 @@ const MultiSelect = React.forwardRef(
         setTextValue("");
 
         const isAlreadySelected =
-          selectedValue.findIndex((val) => isExpectedValue(val, newValue)) !==
-          -1;
+          actualValue.findIndex((val) => isExpectedValue(val, newValue)) !== -1;
 
         if (!isAlreadySelected && isControlled.current && onChange) {
-          onChange(createCustomEvent([...selectedValue, newValue]));
+          onChange(createCustomEvent([...actualValue, newValue]));
         }
 
-        setSelectedValue((previousValue) => {
-          textboxRef.focus();
-          isMouseDownReported.current = false;
+        textboxRef.focus();
+        isMouseDownReported.current = false;
 
+        updateValue((previousValue) => {
           if (isAlreadySelected) {
             return previousValue;
-          }
-
-          if (onChange) {
-            onChange(createCustomEvent([...previousValue, newValue]));
           }
 
           return [...previousValue, newValue];
         });
       },
-      [createCustomEvent, onChange, textboxRef, selectedValue]
+      [createCustomEvent, onChange, textboxRef, actualValue, updateValue]
     );
 
     function onSelectListClose() {
@@ -469,7 +481,7 @@ const MultiSelect = React.forwardRef(
         leftChildren: mapValuesToPills,
         inputRef: assignInput,
         formattedValue: textValue,
-        selectedValue,
+        selectedValue: actualValue,
         onClick: handleTextboxClick,
         onMouseDown: handleTextboxMouseDown,
         onFocus: handleTextboxFocus,
@@ -504,7 +516,7 @@ const MultiSelect = React.forwardRef(
         listPlacement={listPlacement}
         flipEnabled={flipEnabled}
         loaderDataRole="multi-select-list-loader"
-        multiselectValues={selectedValue}
+        multiselectValues={actualValue}
       >
         {children}
       </FilterableSelectList>

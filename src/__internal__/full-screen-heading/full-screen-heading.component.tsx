@@ -1,16 +1,23 @@
 import React from "react";
-import PropTypes from "prop-types";
 import tagComponent from "../utils/helpers/tags/tags";
 import StyledFullScreenHeading, {
   StyledHeaderContainer,
+  StyledFullScreenHeadingProps,
 } from "./full-screen-heading.style";
 
-const FullScreenHeading = React.forwardRef((props, ref) => {
-  const { children, ...otherProps } = props;
+export interface FullScreenHeadingProps extends StyledFullScreenHeadingProps {
+  children?: React.ReactNode;
+}
+
+const FullScreenHeading = React.forwardRef<
+  HTMLDivElement,
+  FullScreenHeadingProps
+>((props: FullScreenHeadingProps, ref) => {
+  const { children, hasContent } = props;
 
   return (
     <StyledFullScreenHeading
-      {...otherProps}
+      hasContent={hasContent}
       {...tagComponent("full-screen-heading", props)}
       ref={ref}
     >
@@ -19,8 +26,6 @@ const FullScreenHeading = React.forwardRef((props, ref) => {
   );
 });
 
-FullScreenHeading.propTypes = {
-  children: PropTypes.node,
-};
+FullScreenHeading.displayName = "FullScreenHeading";
 
 export default FullScreenHeading;

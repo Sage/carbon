@@ -113,6 +113,16 @@ Feature: Multi Select component
       And Multi select "third" pill has "Green" value
 
   @positive
+  Scenario: Verify that the value prop is respected even with custom onChange logic
+    Given I open "Select multiselect test" component page "default"
+    When Type "Two" text into multi select input and select the value
+      And Type "Three" text into multi select input and select the value
+      And Type "Four" text into multi select input and select the value
+    Then Multi select "first" pill has "Two" value
+      And Multi select "second" pill has "Three" value
+      And Multi select input has 2 values
+
+  @positive
   Scenario: Lazy loading is visible after open the Multi Select
     Given I open "Select multiselect" component page "with is loading prop"
     When I click on dropdown button
