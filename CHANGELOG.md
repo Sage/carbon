@@ -1,3 +1,10 @@
+## [109.6.0](https://github.com/Sage/carbon/compare/v109.5.2...v109.6.0) (2022-08-03)
+
+
+### Features
+
+* **modal:** convert to typescript ([1e4b5cf](https://github.com/Sage/carbon/commit/1e4b5cf4aa0f191c283c1d40a97847ad7e2dd963))
+
 ### [109.5.2](https://github.com/Sage/carbon/compare/v109.5.1...v109.5.2) (2022-08-02)
 
 
