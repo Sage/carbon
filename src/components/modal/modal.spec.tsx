@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 
 import Modal from "./modal.component";
 import { StyledModalBackground } from "./modal.style";
@@ -9,21 +9,30 @@ jest.mock("../../hooks/__internal__/useScrollBlock");
 const allowScroll = jest.fn();
 const blockScroll = jest.fn();
 
-useScrollBlock.mockReturnValue({
+const mockedUseScrollBlock = useScrollBlock as jest.MockedFunction<
+  typeof useScrollBlock
+>;
+
+mockedUseScrollBlock.mockReturnValue({
   allowScroll,
   blockScroll,
 });
 
 describe("Modal", () => {
-  let wrapper;
-  let onCancel;
-  let addEventListenerSpy;
-  let removeEventListenerSpy;
+  let wrapper: ReactWrapper;
+  let onCancel: jest.Mock;
+  let addEventListenerSpy: jest.SpyInstance;
+  let removeEventListenerSpy: jest.SpyInstance;
 
   describe("event listeners", () => {
     beforeEach(() => {
-      addEventListenerSpy = spyOn(document, "addEventListener");
-      removeEventListenerSpy = spyOn(document, "removeEventListener");
+      addEventListenerSpy = jest.spyOn(document, "addEventListener");
+      removeEventListenerSpy = jest.spyOn(document, "removeEventListener");
+    });
+
+    afterEach(() => {
+      addEventListenerSpy.mockRestore();
+      removeEventListenerSpy.mockRestore();
     });
 
     it("binds the key event listener to the document on mount", () => {
@@ -81,7 +90,7 @@ describe("Modal", () => {
 
       it("blocks scroll on open", () => {
         jest.resetAllMocks();
-        useScrollBlock.mockReturnValue({ allowScroll, blockScroll });
+        mockedUseScrollBlock.mockReturnValue({ allowScroll, blockScroll });
         wrapper = mount(<Modal open />);
         expect(blockScroll).toHaveBeenCalled();
         wrapper.unmount();
@@ -89,7 +98,7 @@ describe("Modal", () => {
 
       it("unblocks scroll on close", () => {
         jest.resetAllMocks();
-        useScrollBlock.mockReturnValue({ allowScroll, blockScroll });
+        mockedUseScrollBlock.mockReturnValue({ allowScroll, blockScroll });
         wrapper = mount(<Modal open />);
         wrapper.setProps({ open: false });
         expect(allowScroll).toHaveBeenCalled();
@@ -106,7 +115,7 @@ describe("Modal", () => {
 
       it("does not block scroll", () => {
         jest.resetAllMocks();
-        useScrollBlock.mockReturnValue({ allowScroll, blockScroll });
+        mockedUseScrollBlock.mockReturnValue({ allowScroll, blockScroll });
         wrapper = mount(<Modal open enableBackgroundUI />);
         expect(blockScroll).not.toHaveBeenCalled();
         wrapper.unmount();
@@ -115,7 +124,7 @@ describe("Modal", () => {
   });
 
   describe("when the modal is open", () => {
-    let escapeKeyEvent;
+    let escapeKeyEvent: KeyboardEvent;
     const onCancelFn = jest.fn();
 
     beforeEach(() => {
