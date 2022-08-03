@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
-import DefaultPages from "./pages.component";
-import Page from "./page/page.component";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import Pages, { Page } from ".";
 import DialogFullScreen from "../dialog-full-screen";
 import Heading from "../heading";
 import Button from "../button";
@@ -66,7 +67,7 @@ import Pages, { Page } from "carbon-react/lib/components/pages";
         <div>
           <Button onClick={handleOpen}>Open Preview</Button>
           <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
-            <DefaultPages pageIndex={pageIndex}>
+            <Pages pageIndex={pageIndex}>
               <Page title={<Heading title="My First Page" />}>
                 <Button onClick={handleOnClick} disabled={isDisabled}>
                   Go to second page
@@ -88,12 +89,11 @@ import Pages, { Page } from "carbon-react/lib/components/pages";
               >
                 Third Page
               </Page>
-            </DefaultPages>
+            </Pages>
           </DialogFullScreen>
         </div>
       );
     }}
-    ;
   </Story>
 </Canvas>
 
@@ -139,7 +139,7 @@ import Pages, { Page } from "carbon-react/lib/components/pages";
         <div>
           <Button onClick={handleOpen}>Open Preview</Button>
           <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
-            <DefaultPages
+            <Pages
               initialpageIndex={initialpageIndex}
               pageIndex={pageIndex}
             >
@@ -164,12 +164,11 @@ import Pages, { Page } from "carbon-react/lib/components/pages";
               >
                 Third Page
               </Page>
-            </DefaultPages>
+            </Pages>
           </DialogFullScreen>
         </div>
       );
     }}
-    ;
   </Story>
 </Canvas>
 
@@ -210,7 +209,7 @@ import Pages, { Page } from "carbon-react/lib/components/pages";
         <div>
           <Button onClick={handleOpen}>Open Preview</Button>
           <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
-            <DefaultPages pageIndex={pageIndex}>
+            <Pages pageIndex={pageIndex}>
               <Page title={<Heading title="My First Page" />}>
                 <Button onClick={handleOnClick} disabled={isDisabled}>
                   Go to second page
@@ -232,12 +231,72 @@ import Pages, { Page } from "carbon-react/lib/components/pages";
               >
                 Third Page
               </Page>
-            </DefaultPages>
+            </Pages>
           </DialogFullScreen>
         </div>
       );
     }}
-    ;
+  </Story>
+</Canvas>
+
+### Overriding content padding
+
+<Canvas>
+  <Story name="overriding content padding">
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      const [pageIndex, setPageIndex] = useState(0);
+      const [isDisabled, setIsDisabled] = useState(false);
+      const handleCancel = () => {
+        setIsOpen(false);
+        setPageIndex(0);
+      };
+      const handleOpen = () => {
+        setIsOpen(true);
+        setPageIndex(0);
+      };
+      const handleOnClick = () => {
+        setIsDisabled(true);
+        setPageIndex(pageIndex + 1);
+        setTimeout(() => {
+          setIsDisabled(false);
+        }, 50);
+      };
+      const handleBackClick = (ev) => {
+        setIsDisabled(true);
+        setTimeout(() => {
+          setIsDisabled(false);
+        }, 50);
+        if (!isDisabled) {
+          ev.preventDefault();
+          setPageIndex(pageIndex - 1);
+        }
+      };
+      return (
+        <div>
+          <Button onClick={handleOpen}>Open Preview</Button>
+          <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+            <Pages pageIndex={pageIndex}>
+              <Page p={0} title={<Heading title="My First Page" />}>
+                <Button onClick={handleOnClick} disabled={isDisabled}>
+                  Go to Last page
+                </Button>
+              </Page>
+              <Page
+                p={0}
+                title={
+                  <Heading title="My Last Page" backLink={handleBackClick} />
+                }
+              >
+                <Button onClick={handleBackClick} disabled={isDisabled}>
+                  Go to First page
+                </Button>
+              </Page>
+            </Pages>
+          </DialogFullScreen>
+        </div>
+      );
+    }}
   </Story>
 </Canvas>
 
@@ -245,8 +304,8 @@ import Pages, { Page } from "carbon-react/lib/components/pages";
 
 ### Props for Pages
 
-<ArgsTable of={DefaultPages} />
+<ArgsTable of={Pages} />
 
 ### Props for Page
 
-<ArgsTable of={Page} />
+<StyledSystemProps of={Page} padding noHeader />

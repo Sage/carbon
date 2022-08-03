@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
+import { ComponentMeta } from "@storybook/react";
 
 import Pages from ".";
 import Page from "./page/page.component";
@@ -8,41 +8,51 @@ import DialogFullScreen from "../dialog-full-screen";
 import Heading from "../heading";
 import Button from "../button";
 
-<Meta
-  title="Pages/Test"
-  parameters={{
+export default {
+  title: "Pages/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     initialPageIndex: {
       options: [0, 1, 2],
       control: {
         type: "select",
       },
     },
-  }}
-/>
+  },
+} as ComponentMeta<typeof Pages>;
 
-export const PagesStory = ({ initialPageIndex }) => {
+interface PageStoryProps {
+  initialPageIndex?: number;
+}
+
+export const DefaultStory = ({ initialPageIndex }: PageStoryProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(Number(initialPageIndex) || 0);
   const [isDisabled, setIsDisabled] = useState(false);
-  const handleCancel = (ev) => {
+  const handleCancel = (
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+  ) => {
     setIsOpen(false);
     setPageIndex(0);
     action("cancel")(ev);
   };
-  const handleOpen = (ev) => {
+  const handleOpen = (
+    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => {
     setIsOpen(true);
     if (!initialPageIndex) {
       setPageIndex(0);
     } else setPageIndex(Number(initialPageIndex));
-    action("open")(ev);
+    action("open")(event);
   };
-  const handleOnClick = (ev) => {
+  const handleOnClick = (
+    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => {
     setIsDisabled(true);
     setPageIndex(pageIndex + 1);
     setTimeout(() => {
@@ -51,7 +61,9 @@ export const PagesStory = ({ initialPageIndex }) => {
     action("click")(ev);
     action("slide")(`Page index: ${pageIndex + 1}`);
   };
-  const handleBackClick = (ev) => {
+  const handleBackClick = (
+    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => {
     setIsDisabled(true);
     setTimeout(() => {
       setIsDisabled(false);
@@ -67,7 +79,7 @@ export const PagesStory = ({ initialPageIndex }) => {
     <div>
       <Button onClick={handleOpen}>Open Preview</Button>
       <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
-        <Pages initialPageIndex={initialPageIndex} pageIndex={pageIndex}>
+        <Pages initialpageIndex={initialPageIndex} pageIndex={pageIndex}>
           <Page title={<Heading title="My First Page" divider={false} />}>
             <Button onClick={handleOnClick} disabled={isDisabled}>
               Go to second page
@@ -103,17 +115,5 @@ export const PagesStory = ({ initialPageIndex }) => {
   );
 };
 
-# PAges
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      initialPageIndex: 0,
-    }}
-  >
-    {PagesStory.bind({})}
-  </Story>
-</Canvas>
+DefaultStory.storyName = "default";
+DefaultStory.parameters = { args: { initialPageIndex: 0 } };
