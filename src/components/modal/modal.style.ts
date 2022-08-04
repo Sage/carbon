@@ -3,7 +3,12 @@ import baseTheme from "../../style/themes/base";
 
 const backgroundOpacity = "0.6";
 
-const StyledModalBackground = styled.div`
+type TransitionProps = {
+  transitionName: string;
+  transitionTime: number;
+};
+
+const StyledModalBackground = styled.div<TransitionProps>`
   background-color: rgba(0, 20, 29, 0.6);
   bottom: 0;
   left: 0;
@@ -34,7 +39,7 @@ const StyledModalBackground = styled.div`
   `};
 `;
 
-const StyledModal = styled.div`
+const StyledModal = styled.div<TransitionProps>`
   position: absolute;
   z-index: ${({ theme }) => theme.zIndex.modal};
 
