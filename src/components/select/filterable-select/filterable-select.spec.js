@@ -112,7 +112,9 @@ describe("FilterableSelect", () => {
 
     it("the SelectList should not be rendered", () => {
       wrapper.find("input").simulate("focus");
-      expect(wrapper.find(SelectList).exists()).toBe(false);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
     });
 
     describe.each(["ArrowDown", "ArrowUp", "Home", "End"])(
@@ -120,14 +122,20 @@ describe("FilterableSelect", () => {
       (key) => {
         it("the SelectList should be rendered", () => {
           wrapper.find("input").simulate("keydown", { key });
-          expect(wrapper.update().find(SelectList).exists()).toBe(true);
+          wrapper
+            .find(Option)
+            .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         });
 
         describe("with readOnly prop set to true", () => {
           it("then the SelectList should not be rendered", () => {
             wrapper.setProps({ readOnly: true });
             wrapper.update().find("input").simulate("keydown", { key });
-            expect(wrapper.find(SelectList).exists()).toBe(false);
+            wrapper
+              .find(Option)
+              .forEach((option) =>
+                expect(option.getDOMNode()).not.toBeVisible()
+              );
           });
         });
       }
@@ -136,14 +144,18 @@ describe("FilterableSelect", () => {
     describe("and the Enter key has been pressed", () => {
       it("the SelectList should not be rendered", () => {
         wrapper.find("input").simulate("keydown", { key: "Enter" });
-        expect(wrapper.find(SelectList).exists()).toBe(false);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
       });
 
       describe("with readOnly prop set to true", () => {
         it("then the SelectList should not be rendered", () => {
           wrapper.setProps({ readOnly: true });
           wrapper.update().find("input").simulate("keydown", { key: "Enter" });
-          expect(wrapper.find(SelectList).exists()).toBe(false);
+          wrapper
+            .find(Option)
+            .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
         });
       });
     });
@@ -203,7 +215,9 @@ describe("FilterableSelect", () => {
       const wrapper = renderSelect();
 
       wrapper.find("input").simulate("click");
-      expect(wrapper.find(SelectList).exists()).toBe(false);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
     });
 
     describe.each(["disabled", "readOnly"])(
@@ -221,7 +235,9 @@ describe("FilterableSelect", () => {
           const wrapper = renderSelect({ [prop]: true });
 
           wrapper.find("input").simulate("click");
-          expect(wrapper.find(SelectList).exists()).toBe(false);
+          wrapper
+            .find(Option)
+            .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
         });
       }
     );
@@ -245,7 +261,9 @@ describe("FilterableSelect", () => {
           .find('[type="dropdown"]')
           .first()
           .simulate("click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
       });
 
       it.each([
@@ -299,7 +317,9 @@ describe("FilterableSelect", () => {
             .first();
           dropdown.simulate("click");
           dropdown.simulate("click");
-          expect(wrapper.find(SelectList).exists()).toBe(false);
+          wrapper
+            .find(Option)
+            .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
         });
       });
 
@@ -462,11 +482,15 @@ describe("FilterableSelect", () => {
           .find('[type="dropdown"]')
           .first()
           .simulate("click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
-        expect(wrapper.update().find(SelectList).exists()).toBe(false);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
       });
     });
 
@@ -479,12 +503,16 @@ describe("FilterableSelect", () => {
           .find('[type="dropdown"]')
           .first()
           .simulate("click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(navigationKeyOptionObject);
         });
         wrapper.update();
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         expect(wrapper.find(Textbox).prop("value")).toBe("Foo");
         expect(wrapper.find(Textbox).prop("formattedValue")).toBe("Bar");
       });
@@ -539,11 +567,15 @@ describe("FilterableSelect", () => {
       const wrapper = renderSelect();
 
       wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
-      expect(wrapper.find(SelectList).exists()).toBe(true);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
       act(() => {
         wrapper.find(SelectList).prop("onSelectListClose")();
       });
-      expect(wrapper.update().find(SelectList).exists()).toBe(false);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
     });
   });
 
@@ -564,14 +596,18 @@ describe("FilterableSelect", () => {
           .find('[type="dropdown"]')
           .first()
           .simulate("click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           wrapper
             .find("input")
             .getDOMNode()
             .dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
-        expect(wrapper.update().find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
       });
     });
 
@@ -582,11 +618,15 @@ describe("FilterableSelect", () => {
           .find('[type="dropdown"]')
           .first()
           .simulate("click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
-        expect(wrapper.update().find(SelectList).exists()).toBe(false);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
       });
     });
 
@@ -665,7 +705,9 @@ describe("FilterableSelect", () => {
         act(() => {
           document.body.dispatchEvent(tabKeyDownEvent);
         });
-        expect(wrapper.update().find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         expect(wrapper.find(SelectList).find("button").getDOMNode()).toBe(
           document.activeElement
         );
@@ -680,7 +722,9 @@ describe("FilterableSelect", () => {
         });
 
         it("then the SelectList should be closed", () => {
-          expect(wrapper.update().find(SelectList).exists()).toBe(false);
+          wrapper
+            .find(Option)
+            .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
         });
 
         it("then the select input should be focused", () => {
@@ -721,7 +765,9 @@ describe("FilterableSelect", () => {
           .find('[type="dropdown"]')
           .first()
           .simulate("click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
@@ -868,7 +914,9 @@ describe("FilterableSelect", () => {
         const wrapper = renderSelect({ openOnFocus: true });
 
         wrapper.find("input").simulate("focus");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
       });
 
       describe.each(["readOnly", "disabled"])(
@@ -879,7 +927,11 @@ describe("FilterableSelect", () => {
             const wrapper = renderSelect(obj);
 
             wrapper.find("input").simulate("focus");
-            expect(wrapper.find(SelectList).exists()).toBe(false);
+            wrapper
+              .find(Option)
+              .forEach((option) =>
+                expect(option.getDOMNode()).not.toBeVisible()
+              );
           });
         }
       );
@@ -915,7 +967,9 @@ describe("FilterableSelect", () => {
           it("then that prop should not be called", () => {
             wrapper.find("input").simulate("focus");
             onOpenFn.mockReset();
-            expect(wrapper.find(SelectList).exists()).toBe(true);
+            wrapper
+              .find(Option)
+              .forEach((option) => expect(option.getDOMNode()).toBeVisible());
             wrapper.find("input").simulate("focus");
             expect(onOpenFn).not.toHaveBeenCalled();
           });
