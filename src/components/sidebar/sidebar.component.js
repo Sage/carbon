@@ -9,7 +9,6 @@ import Icon from "../icon";
 import FocusTrap from "../../__internal__/focus-trap";
 import SidebarHeader from "./__internal__/sidebar-header";
 import Box from "../box";
-import { SIDEBAR_SIZES, SIDEBAR_ALIGNMENTS } from "./sidebar.config";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
@@ -143,9 +142,17 @@ Sidebar.propTypes = {
   /** Set this prop to false to hide the translucent background when the dialog is open. */
   enableBackgroundUI: PropTypes.bool,
   /** Sets the position of sidebar, either left or right. */
-  position: PropTypes.oneOf(SIDEBAR_ALIGNMENTS),
+  position: PropTypes.oneOf(["left", "right"]),
   /** Sets the size of the sidebar when open. */
-  size: PropTypes.oneOf(SIDEBAR_SIZES),
+  size: PropTypes.oneOf([
+    "extra-small",
+    "small",
+    "medium-small",
+    "medium",
+    "medium-large",
+    "large",
+    "extra-large",
+  ]),
   /** Node that will be used as sidebar header. */
   header: PropTypes.node,
   /** The ARIA role to be applied to the container */
