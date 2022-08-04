@@ -27,7 +27,7 @@ const Sidebar = React.forwardRef(
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledBy,
       open,
-      disableEscKey,
+      disableEscKey = false,
       enableBackgroundUI = false,
       header,
       position = "right",
