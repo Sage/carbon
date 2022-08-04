@@ -1,10 +1,26 @@
 import React from "react";
-import propTypes from "@styled-system/prop-types";
-import PropTypes from "prop-types";
-import { StyledDl, StyledDtDiv, StyledDdDiv } from "./definition-list.style";
+import { SpaceProps } from "styled-system";
+import { isElement, isFragment } from "react-is";
+import {
+  StyledDl,
+  StyledDtDiv,
+  StyledDdDiv,
+  StyledDtDivProps,
+  StyledDdDivProps,
+  StyledDlProps,
+} from "./definition-list.style";
 import Dt from "./dt.component";
 import Dd from "./dd.component";
 import DlContext from "./__internal__/dl.context";
+
+export interface DlProps
+  extends SpaceProps,
+    StyledDlProps,
+    StyledDtDivProps,
+    StyledDdDivProps {
+  /** prop to render children. */
+  children: React.ReactNode;
+}
 
 const Dl = ({
   children,
@@ -13,38 +29,42 @@ const Dl = ({
   ddTextAlign = "left",
   asSingleColumn = false,
   ...rest
-}) => {
-  const dlComponent = [];
+}: DlProps) => {
+  const dlComponent: React.ReactNode[] = [];
   const listChildren = React.Children.toArray(children);
   let key = "";
 
-  const composeDlComponent = (childrenArray) => {
-    let dtLabel;
-    let ddContent = [];
+  const composeDlComponent = (childrenArray: React.ReactNode[]) => {
+    let dtLabel: React.ReactNode;
+    let ddContent: React.ReactNode[] = [];
     let isLastChild;
     let nextItemIsNotDd;
 
-    childrenArray.forEach((child, index) => {
-      if (child.type === React.Fragment) {
+    childrenArray.forEach((child: React.ReactNode, index: number) => {
+      if (isFragment(child)) {
         composeDlComponent(child.props.children);
       } else {
-        if (child.type === Dt) {
+        if (isElement(child) && child.type === Dt) {
           dtLabel = child;
         }
-        if (child.type === Dd) {
+        if (isElement(child) && child.type === Dd) {
           ddContent.push(child);
         }
 
         isLastChild = index === childrenArray.length - 1;
+
+        const originalKey = isElement(child) && child.props.key;
+        const nextItem = childrenArray[index + 1];
+        const isNextItemDt = isElement(nextItem) && nextItem.type === Dt;
+
         nextItemIsNotDd =
-          !isLastChild &&
-          [Dt, React.Fragment].includes(childrenArray[index + 1].type);
+          !isLastChild && (isNextItemDt || isFragment(nextItem));
 
         if (dtLabel && (nextItemIsNotDd || isLastChild)) {
           key = `${key + 1}`;
 
           dlComponent.push(
-            <React.Fragment key={child.props.key || key}>
+            <React.Fragment key={originalKey || key}>
               <StyledDtDiv dtTextAlign={dtTextAlign}>{dtLabel}</StyledDtDiv>
               <StyledDdDiv ddTextAlign={ddTextAlign}>{ddContent}</StyledDdDiv>
             </React.Fragment>
@@ -72,22 +92,4 @@ const Dl = ({
   );
 };
 
-Dl.propTypes = {
-  ...propTypes.space,
-  /** This string will specify the text align styling of the `<dt></dt>`. */
-  dtTextAlign: PropTypes.oneOf(["left", "center", "right"]),
-  /** This string will specify the text align styling of the `<dd></dd>`. */
-  ddTextAlign: PropTypes.oneOf(["left", "center", "right"]),
-  /** This value will specify the width of the `StyledDtDiv` as a percentage. The remaining space will be taken up
-      by the `StyledDdDiv`. This prop has no effect when `asSingleColumn` is set.
-   */
-  w: PropTypes.number,
-  /**
-   * @private
-   * @ignore
-   */
-  children: PropTypes.node.isRequired,
-  /** Render the DefinitionList as a single column */
-  asSingleColumn: PropTypes.bool,
-};
 export default Dl;
