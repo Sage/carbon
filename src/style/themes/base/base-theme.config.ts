@@ -46,6 +46,7 @@ export interface ThemeObject extends Record<string, unknown> {
     overlay: number;
     popover: number;
     nav: number;
+    globalNav: number;
     modal: number;
     header: number;
     fullScreenModal: number;
@@ -109,7 +110,8 @@ export default (palette: BasePalette): ThemeObject => {
     zIndex: {
       smallOverlay: 10,
       overlay: 1000,
-      nav: 2999,
+      nav: 2998,
+      globalNav: 2999,
       modal: 3000,
       header: 4000,
       fullScreenModal: 5000,
