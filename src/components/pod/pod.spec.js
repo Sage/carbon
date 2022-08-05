@@ -286,7 +286,7 @@ describe("Pod", () => {
               editContainer.simulate(nextEventType);
               assertStyleMatch(
                 {
-                  backgroundColor: "var(--colorsUtilityMajor050)",
+                  backgroundColor: "var(--colorsUtilityMajor040)",
                 },
                 wrapper.find(StyledBlock)
               );
@@ -642,7 +642,7 @@ describe("StyledBlock", () => {
   describe.each([
     ["primary", "var(--colorsUtilityYang100)"],
     ["secondary", "var(--colorsUtilityMajor025)"],
-    ["tertiary", "var(--colorsUtilityMajor050)"],
+    ["tertiary", "var(--colorsUtilityMajor040)"],
     ["transparent", "var(--colorsUtilityMajorTransparent)"],
     ["tile", "var(--colorsUtilityYang100)"],
   ])("when the variant prop is set to %s", (variant, expectedValue) => {
@@ -713,8 +713,8 @@ describe("StyledBlock", () => {
       wrapper = renderStyledBlock({ softDelete: true });
       assertStyleMatch(
         {
-          color: "var(--colorsUtilityYin030)",
-          backgroundColor: "var(--colorsUtilityMajor050)",
+          color: "var(--colorsUtilityYin065)",
+          backgroundColor: "var(--colorsActionDisabled500)",
         },
         wrapper
       );
@@ -835,7 +835,7 @@ describe("StyledFooter", () => {
       wrapper = renderStyledFooter({ softDelete: true });
       assertStyleMatch(
         {
-          color: "var(--colorsUtilityYin030)",
+          color: "var(--colorsUtilityYin055)",
         },
         wrapper
       );

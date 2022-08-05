@@ -25,7 +25,7 @@ const blockBackgrounds = (variant) =>
   ({
     primary: "var(--colorsUtilityYang100)",
     secondary: "var(--colorsUtilityMajor025)",
-    tertiary: "var(--colorsUtilityMajor050)",
+    tertiary: "var(--colorsUtilityMajor040)",
     transparent: "var(--colorsUtilityMajorTransparent)",
     tile: "var(--colorsUtilityYang100)",
   }[variant]);
@@ -93,8 +93,8 @@ const StyledBlock = styled.div`
 
       ${softDelete &&
       css`
-        color: var(--colorsUtilityYin030);
-        background-color: var(--colorsUtilityMajor050);
+        color: var(--colorsUtilityYin065);
+        background-color: var(--colorsActionDisabled500);
       `};
     `}
 `;
@@ -130,7 +130,7 @@ const StyledFooter = styled.div`
 
     ${softDelete &&
     css`
-      color: var(--colorsUtilityYin030);
+      color: var(--colorsUtilityYin055);
     `}
 
     ${variant === "tile" &&

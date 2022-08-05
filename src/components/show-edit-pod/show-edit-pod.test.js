@@ -51,7 +51,7 @@ context("Testing ShowEditPod component", () => {
     it.each([
       ["primary", "rgb(255, 255, 255)", "none"],
       ["secondary", "rgb(242, 245, 246)", "none"],
-      ["tertiary", "rgb(230, 235, 237)", "none"],
+      ["tertiary", "rgb(237, 241, 242)", "none"],
       ["tile", "rgb(255, 255, 255)", "rgba(2, 18, 36, 0.2) 0px 2px 3px 0px"],
       ["transparent", "rgba(0, 0, 0, 0)", "none"],
     ])(
