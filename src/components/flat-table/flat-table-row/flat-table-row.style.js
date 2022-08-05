@@ -143,8 +143,36 @@ const StyledFlatTableRow = styled.tr`
         cursor: pointer;
 
         :focus {
-          outline: 2px solid var(--colorsSemanticFocus500);
-          outline-offset: -1px;
+          position: relative;
+
+          :after {
+            content: "";
+            box-sizing: border-box;
+            position: absolute;
+            left: 0px;
+            right: 0px;
+            top: -1px;
+            bottom: 0px;
+            border: 2px solid var(--colorsSemanticFocus500);
+          }
+
+          :first-child {
+            :after {
+              top: 0px;
+            }
+          }
+          /* Styling for safari. Position relative does not work on tr elements on Safari  */
+          @media not all and (min-resolution: 0.001dpcm) {
+            @supports (-webkit-appearance: none) and (stroke-color: transparent) {
+              outline: 2px solid var(--colorsSemanticFocus500);
+              outline-offset: -1px;
+              position: static;
+              :after {
+                content: none;
+                border: none;
+              }
+            }
+          }
 
           ${StyledFlatTableRowHeader} {
             ${stickyColumnFocusStyling(rowHeaderIndex, theme)}

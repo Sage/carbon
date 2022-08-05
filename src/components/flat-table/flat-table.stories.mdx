@@ -80,10 +80,42 @@ const FlatTableCellWrapper = ({ customProp, ...rest }) => {
     <FlatTable>
       <FlatTableHead>
         <FlatTableRow>
-          <FlatTableHeader><Box justifyContent="space-between" alignItems="center" display="flex">Name <Icon type="individual" color="white" /></Box></FlatTableHeader>
-          <FlatTableHeader><Box justifyContent="space-between" alignItems="center" display="flex">Location <Icon type="location" color="white" /></Box></FlatTableHeader>
-          <FlatTableHeader><Box justifyContent="space-between" alignItems="center" display="flex">Relationship Status <Icon type="person_info" color="white" /></Box></FlatTableHeader>
-          <FlatTableHeader><Box justifyContent="space-between" alignItems="center" display="flex">Dependents <Icon type="people" color="white" /></Box></FlatTableHeader>
+          <FlatTableHeader>
+            <Box
+              justifyContent="space-between"
+              alignItems="center"
+              display="flex"
+            >
+              Name <Icon type="individual" color="white" />
+            </Box>
+          </FlatTableHeader>
+          <FlatTableHeader>
+            <Box
+              justifyContent="space-between"
+              alignItems="center"
+              display="flex"
+            >
+              Location <Icon type="location" color="white" />
+            </Box>
+          </FlatTableHeader>
+          <FlatTableHeader>
+            <Box
+              justifyContent="space-between"
+              alignItems="center"
+              display="flex"
+            >
+              Relationship Status <Icon type="person_info" color="white" />
+            </Box>
+          </FlatTableHeader>
+          <FlatTableHeader>
+            <Box
+              justifyContent="space-between"
+              alignItems="center"
+              display="flex"
+            >
+              Dependents <Icon type="people" color="white" />
+            </Box>
+          </FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -2170,11 +2202,9 @@ The `FlatTableRow` relies on specific child composition to identify sticky colum
   >
     {() => {
       const FlatTableRowHeaderWrapper = ({ children, ...rest }) => (
-        <FlatTableRowHeader {...rest}>
-          {children}
-        </FlatTableRowHeader>
+        <FlatTableRowHeader {...rest}>{children}</FlatTableRowHeader>
       );
-      FlatTableRowHeaderWrapper.displayName = FlatTableRowHeader.displayName
+      FlatTableRowHeaderWrapper.displayName = FlatTableRowHeader.displayName;
       return (
         <FlatTable width="310px" overflowX="auto">
           <FlatTableHead>
@@ -2236,7 +2266,8 @@ The `FlatTableRow` relies on specific child composition to identify sticky colum
             </FlatTableRow>
           </FlatTableBody>
         </FlatTable>
-)}}
+      );
+    }}
   </Story>
 </Canvas>
 

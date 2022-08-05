@@ -78,11 +78,23 @@ describe("FlatTableRow", () => {
     it("then the element should have proper outline when focused", () => {
       assertStyleMatch(
         {
-          outline: "2px solid var(--colorsSemanticFocus500)",
-          outlineOffset: "-1px",
+          boxSizing: "border-box",
+          position: "absolute",
+          left: "0px",
+          right: "0px",
+          top: "-1px",
+          bottom: "0px",
+          border: "2px solid var(--colorsSemanticFocus500)",
         },
         wrapper,
-        { modifier: ":focus" }
+        { modifier: ":focus:after" }
+      );
+      assertStyleMatch(
+        {
+          top: "0px",
+        },
+        wrapper,
+        { modifier: ":focus:first-child:after" }
       );
     });
 
