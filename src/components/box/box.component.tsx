@@ -8,6 +8,8 @@ import {
   flexbox,
   FlexboxProps,
   ColorProps,
+  position,
+  PositionProps,
 } from "styled-system";
 import BaseTheme from "../../style/themes/base";
 import styledColor from "../../style/utils/color";
@@ -21,7 +23,8 @@ export interface BoxProps
   extends SpaceProps,
     LayoutProps,
     FlexboxProps,
-    ColorProps {
+    ColorProps,
+    Omit<PositionProps, "zIndex"> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
   /** String to set Box content break strategy. Note "anywhere" is not supported in Safari */
@@ -36,6 +39,7 @@ const Box = styled.div<BoxProps>`
   ${space}
   ${layout}
   ${flexbox}
+  ${position}
   ${({ color, bg, backgroundColor, ...rest }) =>
     styledColor({ color, bg, backgroundColor, ...rest })}
 
