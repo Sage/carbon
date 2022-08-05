@@ -15,32 +15,6 @@ export default {
       disable: false,
     },
   },
-  argTypes: {
-    menuType: {
-      options: ["light", "dark"],
-      control: {
-        type: "select",
-      },
-    },
-    startPosition: {
-      options: ["left", "right"],
-      control: {
-        type: "select",
-      },
-    },
-    searchVariant: {
-      options: ["default", "dark"],
-      control: {
-        type: "select",
-      },
-    },
-    searchButton: {
-      options: [true, false],
-      control: {
-        type: "boolean",
-      },
-    },
-  },
 };
 
 export const MenuFullScreenStory = ({
@@ -94,12 +68,57 @@ export const MenuFullScreenStory = ({
   );
 };
 
+MenuFullScreenStory.storyName = "fullscreen menu";
 MenuFullScreenStory.story = {
-  name: "fullscreen menu",
   args: {
     menuType: "light",
     startPosition: "left",
     searchVariant: "default",
     searchButton: true,
   },
+  argTypes: {
+    menuType: {
+      options: ["light", "dark"],
+      control: {
+        type: "select",
+      },
+    },
+    startPosition: {
+      options: ["left", "right"],
+      control: {
+        type: "select",
+      },
+    },
+    searchVariant: {
+      options: ["default", "dark"],
+      control: {
+        type: "select",
+      },
+    },
+    searchButton: {
+      options: [true, false],
+      control: {
+        type: "boolean",
+      },
+    },
+  },
 };
+
+export const LongLabelsStory = () => {
+  return (
+    <Menu>
+      <MenuItem submenu="Parent Menu A">
+        <MenuItem>Child A</MenuItem>
+        <MenuItem>Child B with very long label</MenuItem>
+        <MenuItem>Child C</MenuItem>
+      </MenuItem>
+      <MenuItem submenu="Parent Menu B with very long label">
+        <MenuItem>Child A</MenuItem>
+        <MenuItem>Child B</MenuItem>
+        <MenuItem>Child C</MenuItem>
+      </MenuItem>
+    </Menu>
+  );
+};
+
+LongLabelsStory.storyName = "submenus with long item labels";

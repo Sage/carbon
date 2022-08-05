@@ -52,6 +52,8 @@ export interface ButtonProps extends SpaceProps {
   iconTooltipPosition?: TooltipPositions;
   /** Defines an Icon type within the button */
   iconType?: IconType;
+  /** id attribute */
+  id?: string;
   /** If provided, the text inside a button will not wrap */
   noWrap?: boolean;
   /** Specify a callback triggered on blur */

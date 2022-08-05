@@ -1,5 +1,5 @@
 import * as React from "react";
-import { LayoutProps, FlexBoxProps } from "../../utils/helpers/options-helper";
+import { LayoutProps, FlexboxProps } from "styled-system";
 
 type menuType = "light" | "dark" | "white" | "black";
 interface MenuContextProps {
@@ -11,7 +11,7 @@ interface MenuContextProps {
   inMenu: boolean;
 }
 
-export interface MenuProps extends LayoutProps, FlexBoxProps {
+export interface MenuProps extends LayoutProps, FlexboxProps {
   /** Children elements */
   children: React.ReactNode;
   /** Defines the color scheme of the component */

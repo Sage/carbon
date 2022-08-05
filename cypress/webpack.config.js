@@ -41,7 +41,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(ttf|otf|eot|svg)(\?[\s\S]+)?$/,
+        test: /\.(ttf|otf|eot|svg|png)(\?[\s\S]+)?$/,
         loader: "file-loader",
         options: {
           esModule: false,

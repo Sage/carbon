@@ -1,3 +1,78 @@
+## [109.7.0](https://github.com/Sage/carbon/compare/v109.6.0...v109.7.0) (2022-08-04)
+
+
+### Features
+
+* add new GlobalHeader component ([0d920b6](https://github.com/Sage/carbon/commit/0d920b6902618f5f13066328d91fde72e684ba5f))
+
+
+### Bug Fixes
+
+* **menu:** modify typing to extend flexbox props from styled-system ([67a2450](https://github.com/Sage/carbon/commit/67a24509fa3739e022f03a1a90b7191540239bc4))
+
+## [109.6.0](https://github.com/Sage/carbon/compare/v109.5.2...v109.6.0) (2022-08-03)
+
+
+### Features
+
+* **modal:** convert to typescript ([1e4b5cf](https://github.com/Sage/carbon/commit/1e4b5cf4aa0f191c283c1d40a97847ad7e2dd963))
+
+### [109.5.2](https://github.com/Sage/carbon/compare/v109.5.1...v109.5.2) (2022-08-02)
+
+
+### Bug Fixes
+
+* **loader:** ensure correct colours are applied to loader when in a button ([f2ff159](https://github.com/Sage/carbon/commit/f2ff1598f73390c9aea2512add6c7accac6becc3)), closes [#5226](https://github.com/Sage/carbon/issues/5226)
+
+### [109.5.1](https://github.com/Sage/carbon/compare/v109.5.0...v109.5.1) (2022-08-01)
+
+
+### Bug Fixes
+
+* **button-toggle-group:** add missing id prop to type definition ([51c1e70](https://github.com/Sage/carbon/commit/51c1e7099559ef21edc50ae6e4d3f3de97ec3548)), closes [#5314](https://github.com/Sage/carbon/issues/5314)
+* **tab:** make typing of props in TabContextProps interface optional ([673a809](https://github.com/Sage/carbon/commit/673a8097a9fed1af1f1903efca75df6b27a2e1f7))
+
+## [109.5.0](https://github.com/Sage/carbon/compare/v109.4.0...v109.5.0) (2022-07-28)
+
+
+### Features
+
+* **icon-button:** convert to typescript ([65dca20](https://github.com/Sage/carbon/commit/65dca20bb17cf535c3e3279cff3726a8322748b3))
+
+
+### Bug Fixes
+
+* **pill:** fix event handlers types ([d655206](https://github.com/Sage/carbon/commit/d6552066a75bf5e1dc607ca75be3a1ce512c030f))
+* **popover-container:** fix event handlers types ([51d1091](https://github.com/Sage/carbon/commit/51d109197319af83da869bc73768993b9cc6f57b))
+
+## [109.4.0](https://github.com/Sage/carbon/compare/v109.3.5...v109.4.0) (2022-07-27)
+
+
+### Features
+
+* **page:** add padding interface to content container ([74233e2](https://github.com/Sage/carbon/commit/74233e2f5d7f38bdb7525e77bd4a68d69a07d2f0)), closes [#5302](https://github.com/Sage/carbon/issues/5302)
+
+### [109.3.5](https://github.com/Sage/carbon/compare/v109.3.4...v109.3.5) (2022-07-27)
+
+
+### Bug Fixes
+
+* **multiselect:** ensure value prop is always used when controlled ([0ec8fa9](https://github.com/Sage/carbon/commit/0ec8fa96c30a5076ff581020a26af3be6f265fb6)), closes [#5259](https://github.com/Sage/carbon/issues/5259)
+
+### [109.3.4](https://github.com/Sage/carbon/compare/v109.3.3...v109.3.4) (2022-07-26)
+
+
+### Bug Fixes
+
+* **pager:** change styles so all items are exposed to accessibility tree ([67a3846](https://github.com/Sage/carbon/commit/67a3846306dd8fe13db20f54c14d9b675573aaa4)), closes [#4637](https://github.com/Sage/carbon/issues/4637)
+
+### [109.3.3](https://github.com/Sage/carbon/compare/v109.3.2...v109.3.3) (2022-07-25)
+
+
+### Bug Fixes
+
+* **select:** fix column alignment in multi column mode ([6897637](https://github.com/Sage/carbon/commit/6897637f08fa32bfb3fee861aeb79a104c453e6b))
+
 ### [109.3.2](https://github.com/Sage/carbon/compare/v109.3.1...v109.3.2) (2022-07-21)
 
 

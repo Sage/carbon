@@ -275,7 +275,7 @@ describe("Pager", () => {
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
           .textContent
       ).toEqual(
-        wrapper.find(StyledPagerSizeOptionsInner).find("span").last().text()
+        wrapper.find(StyledPagerSizeOptionsInner).find("div").last().text()
       );
     });
 
@@ -294,7 +294,7 @@ describe("Pager", () => {
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
           .textContent
       ).toEqual(
-        wrapper.find(StyledPagerSizeOptionsInner).find("span").last().text()
+        wrapper.find(StyledPagerSizeOptionsInner).find("div").last().text()
       );
     });
 

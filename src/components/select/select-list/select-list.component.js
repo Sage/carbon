@@ -73,6 +73,7 @@ const SelectList = React.forwardRef(
     const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
     const [listHeight, setListHeight] = useState(0);
     const [listWidth, setListWidth] = useState(null);
+    const [scrollbarWidth, setScrollbarWidth] = useState(0);
     const placement = useRef("bottom");
     const lastFilter = useRef("");
     const listRef = useRef();
@@ -87,6 +88,14 @@ const SelectList = React.forwardRef(
         allowScroll();
       };
     }, [allowScroll, blockScroll]);
+
+    useLayoutEffect(() => {
+      if (multiColumn) {
+        setScrollbarWidth(
+          tableRef.current.offsetWidth - tableRef.current.clientWidth
+        );
+      }
+    }, [multiColumn]);
 
     const setPlacementCallback = useCallback(
       (popper) => {
@@ -421,7 +430,7 @@ const SelectList = React.forwardRef(
     if (multiColumn) {
       selectListContent = (
         <StyledSelectListTable>
-          <StyledSelectListTableHeader>
+          <StyledSelectListTableHeader scrollbarWidth={scrollbarWidth}>
             {tableHeader}
           </StyledSelectListTableHeader>
           <StyledSelectListTableBody ref={tableRef}>
