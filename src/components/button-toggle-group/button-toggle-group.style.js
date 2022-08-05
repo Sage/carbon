@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { StyledButtonToggleLabel } from "../button-toggle/button-toggle.style";
 import ValidationIconStyle from "../../__internal__/validations/validation-icon.style";
 
-const ButtonToggleGroupStyle = styled.div`
+const StyledButtonToggleGroup = styled.div`
   display: flex;
 
   ${({ inputWidth }) =>
@@ -36,4 +36,4 @@ const ButtonToggleGroupStyle = styled.div`
   }
 `;
 
-export default ButtonToggleGroupStyle;
+export default StyledButtonToggleGroup;

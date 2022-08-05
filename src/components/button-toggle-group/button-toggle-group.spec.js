@@ -14,7 +14,7 @@ import StyledValidationIcon from "../../__internal__/validations/validation-icon
 import ValidationIcon from "../../__internal__/validations";
 import ButtonToggleGroup from "./button-toggle-group.component";
 import ButtonToggle from "../button-toggle/button-toggle.component";
-import ButtonToggleGroupStyle from "./button-toggle-group.style";
+import StyledButtonToggleGroup from "./button-toggle-group.style";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import FormField from "../../__internal__/form-field";
 import StyledHelp from "../help/help.style";
@@ -100,7 +100,7 @@ describe("ButtonToggleGroup", () => {
         {
           width: "48%",
         },
-        wrapper.find(ButtonToggleGroupStyle)
+        wrapper.find(StyledButtonToggleGroup)
       );
     });
   });
@@ -178,7 +178,7 @@ describe("ButtonToggleGroup", () => {
               boxShadow,
               borderColor: buttonToggleGroupVariants[type],
             },
-            wrapper.find(ButtonToggleGroupStyle),
+            wrapper.find(StyledButtonToggleGroup),
             { modifier: `${StyledButtonToggleLabel}` }
           );
         });
@@ -190,7 +190,7 @@ describe("ButtonToggleGroup", () => {
           );
           expect(
             wrapper
-              .find(ButtonToggleGroupStyle)
+              .find(StyledButtonToggleGroup)
               .find(StyledValidationIcon)
               .exists()
           ).toBe(true);
@@ -235,7 +235,7 @@ describe("ButtonToggleGroup", () => {
               boxShadow,
               borderColor: buttonToggleGroupVariants[type],
             },
-            wrapper.find(ButtonToggleGroupStyle),
+            wrapper.find(StyledButtonToggleGroup),
             { modifier: `${StyledButtonToggleLabel}` }
           );
         });
