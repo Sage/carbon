@@ -1,6 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { MarginProps } from "styled-system";
 
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
@@ -8,14 +7,23 @@ import {
   FieldsetStyle,
   LegendContainerStyle,
   FieldsetContentStyle,
+  StyledFieldsetProps,
 } from "./fieldset.style";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+export interface FieldsetProps extends StyledFieldsetProps, MarginProps {
+  /** Child elements */
+  children?: React.ReactNode;
+  /** The text for the fieldsets legend element. */
+  legend?: string;
+}
 
-const Fieldset = ({ children, inline, legend, ...rest }) => {
+const Fieldset = ({
+  children,
+  inline = false,
+  legend,
+  ...rest
+}: FieldsetProps) => {
   const getLegend = () => {
     if (!legend) return null;
 
@@ -41,21 +49,6 @@ const Fieldset = ({ children, inline, legend, ...rest }) => {
       </FieldsetStyle>
     </NewValidationContext.Provider>
   );
-};
-
-Fieldset.propTypes = {
-  /** Filtered styled system margin props */
-  ...marginPropTypes,
-  /** Child elements */
-  children: PropTypes.node,
-  /** The text for the fieldsets legend element. */
-  legend: PropTypes.string,
-  /** When true, legend is placed in line with the children */
-  inline: PropTypes.bool,
-};
-
-Fieldset.defaultProps = {
-  inline: false,
 };
 
 export default Fieldset;
