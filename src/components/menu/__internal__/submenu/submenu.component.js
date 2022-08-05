@@ -355,11 +355,7 @@ const Submenu = React.forwardRef(
             submenuDirection={submenuDirection}
             variant={variant}
             menuType={menuContext.menuType}
-            role={
-              blockIndex === 0
-                ? /* istanbul ignore next */ "presentation"
-                : "list"
-            }
+            role={blockIndex === 0 ? "presentation" : "list"}
           >
             {React.Children.map(children, (child, index) => (
               <SubmenuContext.Provider

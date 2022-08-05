@@ -243,7 +243,7 @@ const StyledMenuItemWrapper = styled.a`
             border-bottom: 4px solid transparent;
             border-left: 4px solid transparent;
           }
-        `};
+        `}
       `
     }
 

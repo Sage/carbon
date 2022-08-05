@@ -1165,6 +1165,30 @@ describe("Submenu component", () => {
         expect(wrapper.find(MenuItem).length).toEqual(5);
       });
     });
+
+    describe("when the scrollable block wraps the entire submenu", () => {
+      it("the outer submenu should have role presentation", () => {
+        wrapper = mount(
+          <MenuContext.Provider value={menuContextValues("light")}>
+            <Submenu title="title">
+              <ScrollableBlock>
+                <MenuItem>Apple</MenuItem>
+                <MenuItem>Banana</MenuItem>
+                <MenuItem>Carrot</MenuItem>
+                <MenuItem>Broccoli</MenuItem>
+              </ScrollableBlock>
+            </Submenu>
+          </MenuContext.Provider>
+        );
+
+        openSubmenu(wrapper);
+        const outerSubmenu = wrapper.find(StyledSubmenu);
+
+        expect(outerSubmenu.getDOMNode().getAttribute("role")).toBe(
+          "presentation"
+        );
+      });
+    });
   });
 
   describe("when it has Search as a child", () => {
