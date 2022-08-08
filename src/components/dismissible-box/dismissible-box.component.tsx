@@ -28,7 +28,7 @@ export interface DismissibleBoxProps
   width?: number | string;
 }
 
-const DismissibleBox = ({
+export const DismissibleBox = ({
   children,
   onClose,
   ...rest
