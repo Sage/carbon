@@ -1,3 +1,10 @@
+### [109.7.1](https://github.com/Sage/carbon/compare/v109.7.0...v109.7.1) (2022-08-08)
+
+
+### Bug Fixes
+
+* **grid-container:** add support for wrapping GridItems in fragments ([bb57e85](https://github.com/Sage/carbon/commit/bb57e850335ecf24e3ea81eeca21ee0b68f81cbc)), closes [#5325](https://github.com/Sage/carbon/issues/5325)
+
 ## [109.7.0](https://github.com/Sage/carbon/compare/v109.6.0...v109.7.0) (2022-08-04)
 
 
