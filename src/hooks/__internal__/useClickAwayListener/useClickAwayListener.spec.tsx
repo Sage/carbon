@@ -14,13 +14,13 @@ const MockComponent = ({
   handleClickAway,
   eventTypeId = "click",
 }: ClickAwayProps) => {
-  const stopPropagation = useClickAwayListener(handleClickAway, eventTypeId);
-  const stopPropagationProp = {
-    [eventHandlerPropNames[eventTypeId]]: stopPropagation,
+  const onInsideClick = useClickAwayListener(handleClickAway, eventTypeId);
+  const onInsideClickProp = {
+    [eventHandlerPropNames[eventTypeId]]: onInsideClick,
   };
 
   return (
-    <div data-testid="target-element" {...stopPropagationProp}>
+    <div data-testid="target-element" {...onInsideClickProp}>
       Child
     </div>
   );
