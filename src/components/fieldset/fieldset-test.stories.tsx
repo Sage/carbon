@@ -1,24 +1,32 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React from "react";
+import { ComponentMeta } from "@storybook/react";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Fieldset from "./fieldset.component";
 import Textbox from "../textbox";
-import { Checkbox } from "../checkbox";
 
-<Meta
-  title="Fieldset/Test"
-  parameters={{
+export default {
+  title: "Fieldset/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     legendSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+} as ComponentMeta<typeof Fieldset>;
 
-export const FieldsetStory = ({ legend, legendSpecialCharacters }) => {
+type FieldsetStoryProps = {
+  legend?: string;
+  legendSpecialCharacters?: string;
+};
+
+export const DefaultStory = ({
+  legend,
+  legendSpecialCharacters,
+}: FieldsetStoryProps) => {
   return (
     <Fieldset legend={legend || legendSpecialCharacters}>
       <Textbox
@@ -46,17 +54,9 @@ export const FieldsetStory = ({ legend, legendSpecialCharacters }) => {
   );
 };
 
-# Fieldset
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      legendSpecialCharacters: undefined,
-    }}
-  >
-    {FieldsetStory.bind({})}
-  </Story>
-</Canvas>
+DefaultStory.storyName = "default";
+DefaultStory.parameters = {
+  args: {
+    legendSpecialCharacters: undefined,
+  },
+};

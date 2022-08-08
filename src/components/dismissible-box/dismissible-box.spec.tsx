@@ -1,13 +1,18 @@
 import React from "react";
 import { mount } from "enzyme";
-import DismissibleBox from "./dismissible-box.component";
+import DismissibleBox, {
+  DismissibleBoxProps,
+} from "./dismissible-box.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import StyledIcon from "../icon/icon.style";
 import IconButton from "../icon-button";
 
 const onCloseMock = jest.fn();
 
-const render = ({ children, ...rest }) =>
+const renderDismissibleBox = ({
+  children,
+  ...rest
+}: Partial<DismissibleBoxProps>) =>
   mount(
     <DismissibleBox {...rest} onClose={onCloseMock}>
       {children}
@@ -17,7 +22,7 @@ const render = ({ children, ...rest }) =>
 describe("DismissibleBox", () => {
   describe("styling", () => {
     it("matches the expected as default for light variant", () => {
-      const wrapper = render({});
+      const wrapper = renderDismissibleBox({});
 
       assertStyleMatch(
         {
@@ -43,7 +48,7 @@ describe("DismissibleBox", () => {
     });
 
     it("matches the expected as default for dark variant", () => {
-      const wrapper = render({ variant: "dark" });
+      const wrapper = renderDismissibleBox({ variant: "dark" });
 
       assertStyleMatch(
         {
@@ -65,12 +70,12 @@ describe("DismissibleBox", () => {
         {
           width: "650px",
         },
-        render({ width: "650px" })
+        renderDismissibleBox({ width: "650px" })
       );
     });
 
     it("matches the expected styling when hasBorderLeftHighlight is false", () => {
-      const wrapper = render({ hasBorderLeftHighlight: false });
+      const wrapper = renderDismissibleBox({ hasBorderLeftHighlight: false });
 
       assertStyleMatch(
         {
@@ -84,7 +89,7 @@ describe("DismissibleBox", () => {
 
   describe("close icon button", () => {
     it("calls the onClose callback when clicked", () => {
-      render({}).find(IconButton).simulate("click");
+      renderDismissibleBox({}).find(IconButton).simulate("click");
 
       expect(onCloseMock).toHaveBeenCalledWith(
         expect.objectContaining({ type: "click" })

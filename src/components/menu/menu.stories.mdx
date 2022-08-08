@@ -12,7 +12,6 @@ import {
 import Box from "../box";
 import NavigationBar from "../navigation-bar";
 import VerticalDivider from "../vertical-divider";
-import { SageIcon } from "../../../.storybook/welcome-page/footer/footer.style.js";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Search from "../search";
 import Icon from "../icon";
@@ -33,7 +32,14 @@ Provides navigation for an app, which can be used via mouse or keyboard.
 ## Quick Start
 
 ```javascript
-import { Menu, MenuItem, MenuDivider } from "carbon-react/lib/components/menu";
+import {
+  Menu,
+  MenuItem,
+  MenuDivider,
+  MenuSegmentTitle,
+  ScrollableBlock,
+  MenuFullscreen,
+} from "carbon-react/lib/components/menu";
 ```
 
 ## Examples
@@ -320,81 +326,6 @@ is rendered.
         </MenuItem>
       </Menu>
     </div>
-  </Story>
-</Canvas>
-
-### Full navbar alignment example
-
-<Canvas>
-  <Story name="full navbar alignment example">
-    {() => {
-      const isBelowBreakpoint = (value) =>
-        useMediaQuery(`(max-width: ${value})`);
-      return (
-        <Box mb={150}>
-          {["white", "light", "dark", "black"].map((menuType) => (
-            <div key={menuType}>
-              <Typography variant="h4" textTransform="capitalize" my={2}>
-                {menuType}
-              </Typography>
-              <NavigationBar
-                navigationType={menuType}
-                aria-label={`Navbar ${menuType}`}
-              >
-                <SageIcon style={{ alignSelf: "center" }} />
-                <Box>
-                  <VerticalDivider displayInline pr={0} />
-                </Box>
-                <Menu display="flex" flex="1" menuType={menuType}>
-                  <MenuItem
-                    flex="1"
-                    onClick={() => {}}
-                    maxWidth={isBelowBreakpoint("850px") ? "130px" : undefined}
-                    submenu="Menu Item One"
-                  >
-                    <MenuItem href="#">Item Submenu One</MenuItem>
-                    <MenuItem href="#">Item Submenu Two</MenuItem>
-                    <MenuDivider />
-                    <MenuItem icon="settings" href="#">
-                      Item Submenu Three
-                    </MenuItem>
-                    <MenuItem href="#">Item Submenu Four</MenuItem>
-                  </MenuItem>
-                  <MenuItem
-                    flex="0 0 auto"
-                    href="#"
-                    maxWidth={isBelowBreakpoint("800px") ? "120px" : undefined}
-                  >
-                    Menu Item Two
-                  </MenuItem>
-                  <MenuItem
-                    flex="0 0 auto"
-                    maxWidth={isBelowBreakpoint("770px") ? "130px" : undefined}
-                    submenu="Menu Item Three"
-                  >
-                    <MenuItem href="#">Item Submenu One</MenuItem>
-                    <MenuItem href="#">Item Submenu Two</MenuItem>
-                    <MenuDivider />
-                    <MenuItem icon="settings" href="#">
-                      Item Submenu Three
-                    </MenuItem>
-                    <MenuItem href="#">Item Submenu Four</MenuItem>
-                  </MenuItem>
-                  <MenuItem
-                    flex="0 0 auto"
-                    maxWidth={isBelowBreakpoint("750px") ? "130px" : undefined}
-                    submenu="Menu Item Four"
-                  >
-                    <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-                    <MenuItem href="#">Item Submenu Two</MenuItem>
-                  </MenuItem>
-                </Menu>
-              </NavigationBar>
-            </div>
-          ))}
-        </Box>
-      );
-    }}
   </Story>
 </Canvas>
 

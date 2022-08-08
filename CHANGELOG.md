@@ -1,3 +1,29 @@
+## [109.7.0](https://github.com/Sage/carbon/compare/v109.6.0...v109.7.0) (2022-08-04)
+
+
+### Features
+
+* add new GlobalHeader component ([0d920b6](https://github.com/Sage/carbon/commit/0d920b6902618f5f13066328d91fde72e684ba5f))
+
+
+### Bug Fixes
+
+* **menu:** modify typing to extend flexbox props from styled-system ([67a2450](https://github.com/Sage/carbon/commit/67a24509fa3739e022f03a1a90b7191540239bc4))
+
+## [109.6.0](https://github.com/Sage/carbon/compare/v109.5.2...v109.6.0) (2022-08-03)
+
+
+### Features
+
+* **modal:** convert to typescript ([1e4b5cf](https://github.com/Sage/carbon/commit/1e4b5cf4aa0f191c283c1d40a97847ad7e2dd963))
+
+### [109.5.2](https://github.com/Sage/carbon/compare/v109.5.1...v109.5.2) (2022-08-02)
+
+
+### Bug Fixes
+
+* **loader:** ensure correct colours are applied to loader when in a button ([f2ff159](https://github.com/Sage/carbon/commit/f2ff1598f73390c9aea2512add6c7accac6becc3)), closes [#5226](https://github.com/Sage/carbon/issues/5226)
+
 ### [109.5.1](https://github.com/Sage/carbon/compare/v109.5.0...v109.5.1) (2022-08-01)
 
 
