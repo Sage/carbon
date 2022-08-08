@@ -1,6 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
 
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import {
@@ -11,19 +9,39 @@ import {
   ProfileEmailStyle,
 } from "./profile.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { ProfileSize } from "./profile.config";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
-
-function acronymize(str) {
+function acronymize(str: string) {
   if (!str) return "";
   const matches = str.match(/\b\w/g);
   if (!matches) return "";
   return matches.join("");
 }
 
-const Profile = ({ src, className, initials, name, size, email, ...props }) => {
+export interface ProfileProps {
+  /** [Legacy] A custom class name for the component */
+  className?: string;
+  /** Custom source URL */
+  src?: string;
+  /** Define the name to display. */
+  name: string;
+  /** Define the email to use (will check Gravatar for image). */
+  email: string;
+  /** Define initials to display if there is no Gravatar image. */
+  initials?: string;
+  /** Allow to setup size for the component */
+  size?: ProfileSize;
+}
+
+export const Profile = ({
+  src,
+  className,
+  initials,
+  name,
+  size,
+  email,
+  ...props
+}: ProfileProps) => {
   const getInitials = () => {
     if (initials) return initials;
     return acronymize(name);
@@ -75,22 +93,6 @@ const Profile = ({ src, className, initials, name, size, email, ...props }) => {
       {text()}
     </ProfileStyle>
   );
-};
-
-Profile.propTypes = {
-  ...marginPropTypes,
-  /** [Legacy] A custom class name for the component */
-  className: PropTypes.string,
-  /** Custom source URL */
-  src: PropTypes.string,
-  /** Define the name to display. */
-  name: PropTypes.string.isRequired,
-  /** Define the email to use (will check Gravatar for image). */
-  email: PropTypes.string.isRequired,
-  /** Define initials to display if there is no Gravatar image. */
-  initials: PropTypes.string,
-  /** Allow to setup size for the component */
-  size: PropTypes.oneOf(["XS", "S", "M", "ML", "L", "XL", "XXL"]),
 };
 
 export default Profile;
