@@ -50,14 +50,19 @@ export const Default = ({
       GridItem 3.
     </Pod>
   );
-  return (
-    <GridContainer>
+  const GridItemWrapper = () => (
+    <>
       <GridItem responsiveSettings={[item11500, item11300, item1900]}>
         {item1Child}
       </GridItem>
       <GridItem responsiveSettings={[item21500, item21300, item2900]}>
         {item2Child}
       </GridItem>
+    </>
+  );
+  return (
+    <GridContainer>
+      <GridItemWrapper />
       <GridItem responsiveSettings={[item31500, item31300, item3900]}>
         {item3Child}
       </GridItem>
