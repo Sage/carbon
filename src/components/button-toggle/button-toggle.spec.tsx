@@ -1,52 +1,80 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { ThemeProvider } from "styled-components";
 import TestRenderer from "react-test-renderer";
 import guid from "../../__internal__/utils/helpers/guid";
 import { baseTheme } from "../../style/themes";
-import ButtonToggle from "./button-toggle.component";
+import ButtonToggle, { ButtonToggleProps } from "./button-toggle.component";
 import ButtonToggleInput from "./button-toggle-input.component";
-import {
-  assertStyleMatch,
-  carbonThemesJestTable,
-} from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import {
   StyledButtonToggleIcon,
   StyledButtonToggleLabel,
   StyledButtonToggleInput,
+  ButtonToggleIconSizes,
 } from "./button-toggle.style";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
+import { ThemeObject } from "../../style/themes/base";
 
 jest.mock("../../__internal__/utils/helpers/guid");
-guid.mockImplementation(() => "guid-12345");
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(
+  () => "guid-12345"
+);
+
+function renderButtonToggle(props: Partial<ButtonToggleProps> = {}) {
+  return mount(<ButtonToggle {...props}>Button</ButtonToggle>);
+}
+
+function renderButtonToggleWithTheme(
+  props: Partial<ButtonToggleProps & { theme: ThemeObject }> = {}
+) {
+  const { theme, ...componentProps } = props;
+
+  return mount(
+    <ThemeProvider theme={theme}>
+      <ButtonToggle {...componentProps}>Button</ButtonToggle>
+    </ThemeProvider>
+  );
+}
+
+function renderButtonToggleWithContext(
+  props: Partial<ButtonToggleProps> = {},
+  inputGroupContextValue = {}
+) {
+  return mount(
+    <InputGroupContext.Provider value={inputGroupContextValue}>
+      <ButtonToggle {...props}>Button</ButtonToggle>
+    </InputGroupContext.Provider>
+  );
+}
 
 describe("ButtonToggle", () => {
   describe("functionality", () => {
     it("pass onChange props to input", () => {
       const onChangeMock = jest.fn();
-      const wrapper = renderWithTheme({
+      const wrapper = renderButtonToggleWithTheme({
         theme: baseTheme,
         onChange: onChangeMock,
       });
 
-      wrapper.find(ButtonToggleInput).prop("onChange")();
+      wrapper.find(ButtonToggleInput).simulate("change");
       expect(onChangeMock.mock.calls.length).toBe(1);
     });
 
     it("pass onBlur props to input", () => {
       const onBlurMock = jest.fn();
-      const wrapper = renderWithTheme({
+      const wrapper = renderButtonToggleWithTheme({
         theme: baseTheme,
         onBlur: onBlurMock,
       });
 
-      wrapper.find(ButtonToggleInput).prop("onBlur")();
+      wrapper.find(ButtonToggleInput).simulate("blur");
       expect(onBlurMock.mock.calls.length).toBe(1);
     });
 
     it("pass onFocus props to input", () => {
       const onFocusMock = jest.fn();
-      const wrapper = renderWithTheme({
+      const wrapper = renderButtonToggleWithTheme({
         theme: baseTheme,
         onFocus: onFocusMock,
       });
@@ -57,17 +85,15 @@ describe("ButtonToggle", () => {
   });
 
   describe("when a label is clicked", () => {
-    const onClickMock = jest.fn();
-    let wrapper;
-    let domWrapper;
+    let wrapper: ReactWrapper;
+    let domWrapper: HTMLDivElement;
 
     beforeEach(() => {
       domWrapper = document.createElement("div");
       document.body.appendChild(domWrapper);
-      wrapper = mount(
-        <ButtonToggle onClick={onClickMock}>Button</ButtonToggle>,
-        { attachTo: domWrapper }
-      );
+      wrapper = mount(<ButtonToggle>Button</ButtonToggle>, {
+        attachTo: domWrapper,
+      });
     });
 
     afterEach(() => {
@@ -84,16 +110,16 @@ describe("ButtonToggle", () => {
   });
 
   describe("HiddenCheckableInput", () => {
-    let propOnBlur;
-    let groupContextOnBlur;
+    let propOnBlur: jest.Mock;
+    let groupContextOnBlur: jest.Mock;
 
-    let groupContextOnFocus;
+    let groupContextOnFocus: jest.Mock;
 
-    let groupContextOnMouseEnter;
+    let groupContextOnMouseEnter: jest.Mock;
 
-    let groupContextOnMouseLeave;
+    let groupContextOnMouseLeave: jest.Mock;
 
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       propOnBlur = jest.fn();
@@ -105,7 +131,7 @@ describe("ButtonToggle", () => {
 
       groupContextOnMouseLeave = jest.fn();
 
-      wrapper = renderWithContext(
+      wrapper = renderButtonToggleWithContext(
         {
           onBlur: propOnBlur,
         },
@@ -140,34 +166,19 @@ describe("ButtonToggle", () => {
     });
 
     it("does nothing if onBlur callbacks are not provided", () => {
-      wrapper = renderWithContext();
+      wrapper = renderButtonToggleWithContext();
       const inputProps = wrapper.find(StyledButtonToggleInput).props();
 
       inputProps.onBlur();
     });
 
     it("does nothing if onFocus callbacks are not provided", () => {
-      wrapper = renderWithContext();
+      wrapper = renderButtonToggleWithContext();
       const inputProps = wrapper.find(StyledButtonToggleInput).props();
 
       inputProps.onFocus();
     });
   });
-
-  describe.each(carbonThemesJestTable)(
-    "when the %s theme is set",
-    (themeName, theme) => {
-      it("renders correct styles", () => {
-        const wrapper = renderWithTheme(
-          {
-            theme,
-          },
-          TestRenderer.create
-        );
-        expect(wrapper).toMatchSnapshot();
-      });
-    }
-  );
 
   describe("General styling", () => {
     const heightConfig = {
@@ -200,11 +211,11 @@ describe("ButtonToggle", () => {
       large: 48,
     };
 
-    describe.each(["small", "medium", "large"])(
+    describe.each(["small", "medium", "large"] as ButtonToggleIconSizes[])(
       "renders correct styles for %s size",
       (size) => {
         it("without icon", () => {
-          const wrapper = render({
+          const wrapper = renderButtonToggle({
             size,
             buttonIcon: "add",
             buttonIconSize: "large",
@@ -221,7 +232,7 @@ describe("ButtonToggle", () => {
         });
 
         it("with large icon", () => {
-          const wrapper = render({
+          const wrapper = renderButtonToggle({
             size,
           });
 
@@ -236,8 +247,9 @@ describe("ButtonToggle", () => {
         });
       }
     );
+
     it("renders correctly when disabled", () => {
-      const wrapper = render({
+      const wrapper = renderButtonToggle({
         disabled: true,
       });
       assertStyleMatch(
@@ -250,7 +262,7 @@ describe("ButtonToggle", () => {
       );
     });
     it("renders correctly with small icon", () => {
-      const wrapper = render({
+      const wrapper = renderButtonToggle({
         buttonIcon: "add",
         buttonIconSize: "small",
       });
@@ -278,28 +290,6 @@ describe("ButtonToggle", () => {
   });
 
   describe("coverage filler for else path", () => {
-    mount(<ButtonToggle buttonIcon="add" />);
+    mount(<ButtonToggle buttonIcon="add">toggle</ButtonToggle>);
   });
 });
-
-function render(props = {}, renderer = mount) {
-  return renderer(<ButtonToggle {...props}>Button</ButtonToggle>);
-}
-
-function renderWithTheme(props = {}, renderer = mount) {
-  const { theme, ...componentProps } = props;
-
-  return renderer(
-    <ThemeProvider theme={theme}>
-      <ButtonToggle {...componentProps}>Button</ButtonToggle>
-    </ThemeProvider>
-  );
-}
-
-function renderWithContext(props = {}, inputGroupContextValue = {}) {
-  return mount(
-    <InputGroupContext.Provider value={inputGroupContextValue}>
-      <ButtonToggle {...props}>Button</ButtonToggle>
-    </InputGroupContext.Provider>
-  );
-}
