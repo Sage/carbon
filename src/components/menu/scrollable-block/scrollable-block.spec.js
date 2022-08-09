@@ -29,11 +29,11 @@ describe("ScrollableBlock", () => {
           value={submenuContextValues(blockIndex, focusIndex)}
         >
           <ScrollableBlock {...props}>
-            <MenuItem>Apple</MenuItem>
-            <MenuItem>Banana</MenuItem>
+            <MenuItem href="#">Apple</MenuItem>
+            <MenuItem href="#">Banana</MenuItem>
             <MenuDivider />
-            <MenuItem>Carrot</MenuItem>
-            <MenuItem>Broccoli</MenuItem>
+            <MenuItem href="#">Carrot</MenuItem>
+            <MenuItem href="#">Broccoli</MenuItem>
           </ScrollableBlock>
         </SubmenuContext.Provider>
       </MenuContext.Provider>,
