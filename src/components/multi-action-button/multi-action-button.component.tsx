@@ -143,12 +143,13 @@ export const MultiActionButton = ({
     </Popover>
   );
 
-  useClickAwayListener([ref], hideButtons);
+  const handleClick = useClickAwayListener(hideButtons);
 
   return (
     <StyledMultiActionButton
       aria-haspopup="true"
       onMouseLeave={hideButtons}
+      onClick={handleClick}
       ref={ref}
       data-component="multi-action-button"
       data-element={dataElement}

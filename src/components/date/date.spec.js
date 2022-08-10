@@ -957,7 +957,11 @@ function simulateMouseDownOnPicker(wrapper) {
   };
 
   act(() => {
-    input.simulate("mousedown", mockEvent);
+    input
+      .getDOMNode()
+      .dispatchEvent(
+        new MouseEvent("mousedown", { ...mockEvent, bubbles: true })
+      );
   });
 }
 

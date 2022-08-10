@@ -57,7 +57,6 @@ const DateInput = ({
   const wrapperRef = useRef();
   const parentRef = useRef();
   const inputRef = useRef();
-  const pickerRef = useRef();
   const alreadyFocused = useRef(false);
   const isBlurBlocked = useRef(false);
   const focusedViaPicker = useRef(false);
@@ -106,6 +105,19 @@ const DateInput = ({
 
     return ev;
   };
+
+  const handleClickAway = () => {
+    if (open) {
+      alreadyFocused.current = true;
+      inputRef.current.focus();
+      isBlurBlocked.current = false;
+      inputRef.current.blur();
+      setOpen(false);
+      alreadyFocused.current = false;
+    }
+  };
+
+  const handleClickInside = useClickAwayListener(handleClickAway, "mousedown");
 
   const handleChange = (ev) => {
     isInitialValue.current = false;
@@ -214,6 +226,8 @@ const DateInput = ({
   };
 
   const handleMouseDown = (ev) => {
+    handleClickInside(ev);
+
     if (disabled || readOnly) {
       return;
     }
@@ -235,8 +249,9 @@ const DateInput = ({
     handleMouseDown(e);
   };
 
-  const handlePickerMouseDown = () => {
+  const handlePickerMouseDown = (ev) => {
     isBlurBlocked.current = true;
+    handleClickInside(ev);
   };
 
   const assignInput = (input) => {
@@ -304,19 +319,6 @@ const DateInput = ({
     return value;
   };
 
-  const handleClickAway = () => {
-    if (open) {
-      alreadyFocused.current = true;
-      inputRef.current.focus();
-      isBlurBlocked.current = false;
-      inputRef.current.blur();
-      setOpen(false);
-      alreadyFocused.current = false;
-    }
-  };
-
-  useClickAwayListener([parentRef, pickerRef], handleClickAway, "mousedown");
-
   return (
     <StyledDateInput
       ref={wrapperRef}
@@ -359,7 +361,6 @@ const DateInput = ({
         onDayClick={handleDayClick}
         minDate={minDate}
         maxDate={maxDate}
-        ref={pickerRef}
         pickerMouseDown={handlePickerMouseDown}
         open={open}
       />

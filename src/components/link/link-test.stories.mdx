@@ -71,7 +71,6 @@ export const LinkStory = ({
       href: "",
       icon: "",
       iconAlign: "left",
-      tabbable: true,
       tooltipMessage: "",
       tooltipPosition: "bottom",
       hasOnClick: false,
@@ -81,5 +80,13 @@ export const LinkStory = ({
     }}
   >
     {LinkStory.bind({})}
+  </Story>
+</Canvas>
+
+### Disabled button link
+
+<Canvas>
+  <Story name="with disabled button link">
+    <Link onClick={() => {}} disabled>This is a disabled button link</Link>
   </Story>
 </Canvas>

@@ -48,7 +48,6 @@ const Submenu = React.forwardRef(
     const [submenuOpen, setSubmenuOpen] = useState(false);
     const [submenuFocusIndex, setSubmenuFocusIndex] = useState(undefined);
     const [characterString, setCharacterString] = useState("");
-    const submenuRef = useRef();
     const formattedChildren = React.Children.map(children, (child) => {
       if (child.type === ScrollableBlock) {
         return [...child.props.children];
@@ -253,16 +252,16 @@ const Submenu = React.forwardRef(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [characterString]);
 
-    useClickAwayListener([submenuRef], handleClickAway);
+    const handleClickInside = useClickAwayListener(handleClickAway);
 
     if (inFullscreenView) {
       return (
         <StyledSubmenuWrapper
           data-component="submenu-wrapper"
-          ref={submenuRef}
           inFullscreenView={inFullscreenView}
           menuType={menuContext.menuType}
           asPassiveItem={asPassiveItem}
+          onClick={handleClickInside}
         >
           <StyledMenuItemWrapper
             {...rest}
@@ -271,9 +270,8 @@ const Submenu = React.forwardRef(
             menuType={menuContext.menuType}
             ref={ref}
             as={asPassiveItem ? "div" : Link}
-            href={!asPassiveItem ? href : undefined}
+            href={href}
             icon={icon}
-            tabIndex={asPassiveItem ? -1 : 0}
             variant={variant}
             inFullscreenView={inFullscreenView}
           >
@@ -309,8 +307,8 @@ const Submenu = React.forwardRef(
         data-component="submenu-wrapper"
         onMouseOver={!clickToOpen ? () => openSubmenu() : undefined}
         onMouseLeave={() => closeSubmenu()}
-        ref={submenuRef}
         isSubmenuOpen={submenuOpen}
+        onClick={handleClickInside}
       >
         <StyledMenuItemWrapper
           {...rest}
