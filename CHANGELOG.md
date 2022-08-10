@@ -1,3 +1,10 @@
+### [110.0.1](https://github.com/Sage/carbon/compare/v110.0.0...v110.0.1) (2022-08-10)
+
+
+### Bug Fixes
+
+* **popover-container:** ensure clicks inside popover do not close it ([48808bc](https://github.com/Sage/carbon/commit/48808bc32b4437729a2d3aa74f1f1013ea354c8e))
+
 ## [110.0.0](https://github.com/Sage/carbon/compare/v109.7.1...v110.0.0) (2022-08-09)
 
 
