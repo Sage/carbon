@@ -5,6 +5,7 @@ import Pod from "../pod";
 import { GridContainer, GridItem } from ".";
 import { Dl, Dt, Dd } from "../definition-list";
 import Button from "../button";
+import Link from "../link";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Grid" parameters={{ chromatic: { disable: true } }} />
@@ -46,10 +47,12 @@ import { GridContainer, GridItem } from "carbon-react/lib/components/grid";
 ### `GridItem`
 
 The child of a `GridContainer` is a `GridItem`, which can have a set of breakpoints applied that are used to control how each `GridItem` responds at given widths.
+As a result it is important that you render `GridItem` components as direct children of the `GridContainer`. If you do need to wrap the items you should use `React.Fragment`s and avoid adding any additional HTML elements.
 
 - Can be defined at any width between 1 and 12, each unit corresponding to a column of the `GridContainer`.
 - Unlimited breakpoints provide dynamic adjustment at any viewport width.
 - Can be re-ordered on the page by viewport dimensions.
+
 
 ### Paddings
 

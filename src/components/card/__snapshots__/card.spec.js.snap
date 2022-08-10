@@ -145,7 +145,6 @@ exports[`Card CardFooter styling should match the expected styling when it has n
     <a
       href="https://carbon.sage.com/"
       onKeyDown={[Function]}
-      tabIndex="0"
     >
       <span
         className="c2 c3"

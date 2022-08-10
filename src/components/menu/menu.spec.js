@@ -31,7 +31,7 @@ describe("Menu", () => {
   beforeEach(() => {
     wrapper = shallow(
       <Menu>
-        <MenuItem>test element</MenuItem>
+        <MenuItem href="#">test element</MenuItem>
       </Menu>
     );
   });
@@ -111,14 +111,14 @@ describe("Menu", () => {
     const render = (props) => {
       return mount(
         <Menu {...props}>
-          <MenuItem>test one</MenuItem>
+          <MenuItem href="#">test one</MenuItem>
           <MenuItem submenu="one">
-            <MenuItem>test element one</MenuItem>
-            <MenuItem>test element two</MenuItem>
+            <MenuItem href="#">test element one</MenuItem>
+            <MenuItem href="#">test element two</MenuItem>
           </MenuItem>
           <MenuItem submenu="two">
-            <MenuItem>test element one</MenuItem>
-            <MenuItem>test element two</MenuItem>
+            <MenuItem href="#">test element one</MenuItem>
+            <MenuItem href="#">test element two</MenuItem>
           </MenuItem>
         </Menu>,
         { attachTo: container }

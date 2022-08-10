@@ -12,7 +12,6 @@ import {
   textEditorToolbar,
   innerText,
   innerTextList,
-  innerTextLink,
 } from "../../../cypress/locators/text-editor";
 
 import { getDataElementByValue } from "../../../cypress/locators";
@@ -245,10 +244,6 @@ context("Test for TextEditor component", () => {
       CypressMountWithProviders(<TextEditorCustom />);
 
       textEditorInput().clear().type(linkText);
-
-      innerTextLink()
-        .should("have.attr", "target", "_blank")
-        .and("have.attr", "href", linkText);
       innerText().should("have.text", linkText);
     });
 
