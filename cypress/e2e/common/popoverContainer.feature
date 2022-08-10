@@ -44,3 +44,11 @@ Feature: Popover container component
       | key   |
       | Enter |
       | Space |
+
+  @positive
+  Scenario Outline: Select component inside Popover container does not close the Popover container when an option is selected
+    Given I open "Popover container Test" component page "with select"
+      And I open popover container
+      And I click on Select text
+    When I select the "green" Option
+    Then Popover container is visible

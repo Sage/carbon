@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import useClickAwayListener from "./useClickAwayListener";
@@ -8,13 +8,19 @@ interface ClickAwayProps {
   eventTypeId?: "mousedown" | "click";
 }
 
-const MockComponent = ({ handleClickAway, eventTypeId }: ClickAwayProps) => {
-  const ref = useRef<HTMLDivElement>(null);
+const eventHandlerPropNames = { click: "onClick", mousedown: "onMouseDown" };
 
-  useClickAwayListener([ref], handleClickAway, eventTypeId);
+const MockComponent = ({
+  handleClickAway,
+  eventTypeId = "click",
+}: ClickAwayProps) => {
+  const onInsideClick = useClickAwayListener(handleClickAway, eventTypeId);
+  const onInsideClickProp = {
+    [eventHandlerPropNames[eventTypeId]]: onInsideClick,
+  };
 
   return (
-    <div data-testid="target-element" ref={ref}>
+    <div data-testid="target-element" {...onInsideClickProp}>
       Child
     </div>
   );

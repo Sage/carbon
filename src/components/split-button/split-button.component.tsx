@@ -242,12 +242,13 @@ export const SplitButton = ({
     );
   }
 
-  useClickAwayListener([splitButtonNode], hideButtons);
+  const handleClick = useClickAwayListener(hideButtons);
 
   return (
     <StyledSplitButton
       aria-haspopup="true"
       onMouseLeave={hideButtons}
+      onClick={handleClick}
       ref={splitButtonNode}
       {...componentTags()}
       {...filterStyledSystemMarginProps(rest)}
