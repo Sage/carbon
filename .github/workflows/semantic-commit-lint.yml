@@ -15,7 +15,7 @@ jobs:
       - id: setup_node
         uses: actions/setup-node@v1
         with:
-          node-version: ">=14.16.0 14"
+          node-version: ">=16.16.0 16"
       - id: install_dependencies
         run: npm ci
       - id: lint_commits
