@@ -16,7 +16,13 @@ import isChromatic from "../../../.storybook/isChromatic";
 
 export const isOpenForChromatic = isChromatic();
 
-<Meta title="Dialog" parameters={{ info: { disable: true }, themeProvider: { chromatic: { theme: "sage" } }}} />
+<Meta
+  title="Dialog"
+  parameters={{
+    info: { disable: true },
+    themeProvider: { chromatic: { theme: "sage" } },
+  }}
+/>
 
 # Dialog
 
@@ -350,7 +356,7 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
 
 ### Overriding the content padding
 
-Using the `contentPadding` prop will enable the padding of the `Dialog` content to be overriden, the example below has 
+Using the `contentPadding` prop will enable the padding of the `Dialog` content to be overriden, the example below has
 set the padding to 0. Please see the [table below](#props) for more iformation about the values accepted by this prop.
 
 <Canvas>
@@ -365,7 +371,7 @@ set the padding to 0. Please see the [table below](#props) for more iformation a
             onCancel={() => setIsOpen(false)}
             title="Title"
             subtitle="Subtitle"
-            contentPadding={{p: 0}}
+            contentPadding={{ p: 0 }}
           >
             <Form
               stickyFooter={true}
@@ -387,7 +393,8 @@ set the padding to 0. Please see the [table below](#props) for more iformation a
               <Textbox label="Surname" />
               <Textbox label="Birth Place" />
               <Textbox label="Favourite Colour" />
-              <Textbox label="Address" /><Textbox label="First Name" />
+              <Textbox label="Address" />
+              <Textbox label="First Name" />
               <Textbox label="Middle Name" />
               <Textbox label="Surname" />
               <Textbox label="Birth Place" />
@@ -448,10 +455,20 @@ This may occasionally be useful with things like Toasts where they persist on th
               </Button>
             </Form>
           </Dialog>
-          <Toast open={isToast1Open} onDismiss={() => setIsToast1Open(false)} ref={toast1Ref} targetPortalId="stacked">
+          <Toast
+            open={isToast1Open}
+            onDismiss={() => setIsToast1Open(false)}
+            ref={toast1Ref}
+            targetPortalId="stacked"
+          >
             Toast message 1
           </Toast>
-          <Toast open={isToast2Open} onDismiss={() => setIsToast2Open(false)} ref={toast2Ref} targetPortalId="stacked">
+          <Toast
+            open={isToast2Open}
+            onDismiss={() => setIsToast2Open(false)}
+            ref={toast2Ref}
+            targetPortalId="stacked"
+          >
             Toast message 2
           </Toast>
         </>
