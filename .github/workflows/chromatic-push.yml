@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v1
         with:
-          node-version: ">=16.16.0 16"
+          node-version: ">=14.16.0 14"
       - run: npm ci
       - uses: chromaui/action@v1
         with:
