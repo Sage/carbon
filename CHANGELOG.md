@@ -1,3 +1,30 @@
+### [110.0.1](https://github.com/Sage/carbon/compare/v110.0.0...v110.0.1) (2022-08-10)
+
+
+### Bug Fixes
+
+* **popover-container:** ensure clicks inside popover do not close it ([48808bc](https://github.com/Sage/carbon/commit/48808bc32b4437729a2d3aa74f1f1013ea354c8e))
+
+## [110.0.0](https://github.com/Sage/carbon/compare/v109.7.1...v110.0.0) (2022-08-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **link:** The tabbable prop has been removed and can no longer be used.
+Link component renders either an anchor or a button,
+both of these HTML elements are already tabbable by default,
+however anchors without href and disabled buttons are not,
+making this prop redundant.
+
+### Bug Fixes
+
+* **menu:** force submenu wrapper to render as a button ([460449c](https://github.com/Sage/carbon/commit/460449c2a6df409437ffc08ae0c9c48622f0c79d))
+
+
+### Code Refactoring
+
+* **link:** remove tabbable prop ([f087214](https://github.com/Sage/carbon/commit/f087214c6ee867646375088c250f2c4679467d5f))
+
 ### [109.7.1](https://github.com/Sage/carbon/compare/v109.7.0...v109.7.1) (2022-08-08)
 
 
