@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 
 import specialCharacters, {
   email as testEmail,
 } from "../../__internal__/utils/argTypes/specialCharacters";
-import Profile from "./profile.component";
+import Profile, { ProfileProps } from "./profile.component";
 import { PROFILE_SIZES } from "./profile.config";
 
 export default {
@@ -33,13 +32,18 @@ export default {
   },
 };
 
+interface DefaultStoryProps extends ProfileProps {
+  emailSpecialCharacters: string;
+  nameSpecialCharacters: string;
+}
+
 export const DefaultStory = ({
   email,
   emailSpecialCharacters,
   name,
   nameSpecialCharacters,
   ...args
-}) => (
+}: DefaultStoryProps) => (
   <Profile
     email={email || emailSpecialCharacters}
     name={name || nameSpecialCharacters}

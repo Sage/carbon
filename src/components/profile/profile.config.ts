@@ -1,4 +1,7 @@
-export const PROFILE_SIZES = ["XS", "S", "M", "ML", "L", "XL", "XXL"];
+export const PROFILE_SIZES = ["XS", "S", "M", "ML", "L", "XL", "XXL"] as const;
+type AllProfileSizes = typeof PROFILE_SIZES;
+export type ProfileSize = AllProfileSizes[number];
+
 export default {
   XS: {
     nameSize: "var(--fontSizes050)",
