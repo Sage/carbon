@@ -1,0 +1,59 @@
+import React from "react";
+import Loader, { LoaderProps } from ".";
+import Button from "../button";
+import { LOADER_SIZES } from "./loader.config";
+
+export default {
+  title: "Loader/Test",
+  parameters: {
+    info: { disable: true },
+    chromatic: {
+      disable: true,
+    },
+  },
+  argTypes: {
+    isActive: {
+      control: {
+        type: "boolean",
+      },
+    },
+    isInsideButton: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: LOADER_SIZES,
+      control: {
+        type: "select",
+      },
+    },
+  },
+};
+
+export const Default = ({
+  isInsideButton,
+  size,
+  isActive,
+  ...args
+}: LoaderProps) => {
+  if (isInsideButton) {
+    return (
+      <Button buttonType="primary" disabled={!isActive}>
+        <Loader
+          {...{
+            isInsideButton,
+            size,
+            isActive,
+            ...args,
+          }}
+        />
+      </Button>
+    );
+  }
+  return <Loader size={size} />;
+};
+
+Default.args = {
+  size: "medium",
+};
