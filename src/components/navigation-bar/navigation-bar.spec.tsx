@@ -88,7 +88,7 @@ describe("NavigationBar", () => {
         backgroundColor: "var(--colorsComponentsMenuSpringStandard500)",
         borderBottom:
           "var(--borderWidth100) solid var(--colorsComponentsMenuSpringChildAlt500)",
-        zIndex: "2999",
+        zIndex: "2998",
       },
       wrapper
     );
@@ -105,7 +105,7 @@ describe("NavigationBar", () => {
       {
         backgroundColor: "var(--colorsComponentsMenuAutumnStandard500)",
         color: "var(--colorsComponentsMenuYang100)",
-        zIndex: "2999",
+        zIndex: "2998",
       },
       wrapper
     );
@@ -123,7 +123,7 @@ describe("NavigationBar", () => {
         backgroundColor: "var(--colorsComponentsMenuSummerStandard500)",
         borderBottom:
           "var(--borderWidth100) solid var(--colorsComponentsMenuSummerChildAlt500)",
-        zIndex: "2999",
+        zIndex: "2998",
       },
       wrapper
     );
@@ -140,7 +140,7 @@ describe("NavigationBar", () => {
       {
         backgroundColor: "var(--colorsComponentsMenuWinterStandard500)",
         color: "var(--colorsComponentsMenuYang100)",
-        zIndex: "2999",
+        zIndex: "2998",
       },
       wrapper
     );

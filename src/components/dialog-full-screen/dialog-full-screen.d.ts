@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ModalProps } from "../modal/modal";
+import { ModalProps } from "../modal";
 
 export interface DialogFullScreenProps extends ModalProps {
   /** Prop to specify the aria-describedby property of the DialogFullscreen component */

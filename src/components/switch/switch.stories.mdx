@@ -136,15 +136,16 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Canvas>
   <Story name="loading">
-    {["small.on", "small.off", "large.on", "large.off"].map((variant) => {
-      const [setIsChecked] = useState(false);
+    {["small.on", "small.off", "large.on", "large.off"].map((variant, id) => {
+      const [isChecked, setIsChecked] = useState(variant.includes("on"));
       const [size, checked] = variant.split(".");
       return (
         <Switch
+          key={id}
           label={variant.replace(".", " ")}
           size={size}
-          loading="loading"
-          checked={checked === "on" ? "checked" : ""}
+          loading
+          checked={isChecked}
           onChange={(e) => setIsChecked((state) => !state)}
         />
       );

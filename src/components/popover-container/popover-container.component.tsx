@@ -151,7 +151,6 @@ export const PopoverContainer = ({
   const isControlled = open !== undefined;
   const [isOpenInternal, setIsOpenInternal] = useState(false);
 
-  const ref = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);
   const guid = useRef(createGuid());
@@ -209,14 +208,14 @@ export const PopoverContainer = ({
     if (onClose) onClose(e);
   };
 
-  useClickAwayListener([ref], handleClickAway, "mousedown");
+  const handleClick = useClickAwayListener(handleClickAway, "mousedown");
 
   return (
     <PopoverContainerWrapperStyle
       data-component="popover-container"
       role="region"
       aria-labelledby={popoverContainerId}
-      ref={ref}
+      onMouseDown={handleClick}
     >
       {renderOpenComponent(renderOpenComponentProps)}
       <Transition

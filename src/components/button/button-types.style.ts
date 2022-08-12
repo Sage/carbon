@@ -1,10 +1,14 @@
 import StyledIcon from "../icon/icon.style";
+import StyledLoaderSquare from "../loader/loader-square.style";
 
 function makeColors(color: string) {
   return `
   color: ${color};
   ${StyledIcon} {
     color: ${color};
+  }
+  ${StyledLoaderSquare} {
+    background-color: ${color};
   }
   `;
 }

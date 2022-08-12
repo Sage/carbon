@@ -8,21 +8,46 @@ import Events from "../../__internal__/utils/helpers/events";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 import { StyledModal, StyledModalBackground } from "./modal.style";
 
-export const ModalContext = React.createContext({});
+export interface ModalContextProps {
+  isInModal?: boolean;
+  isAnimationComplete?: boolean;
+  triggerRefocusFlag?: boolean;
+}
+
+export const ModalContext = React.createContext<ModalContextProps>({});
+
+export interface ModalProps {
+  /** Modal content */
+  children?: React.ReactNode;
+  /** The ARIA role to be applied to the modal */
+  ariaRole?: string;
+  /** Determines if the Esc Key closes the modal */
+  disableEscKey?: boolean;
+  /** Determines if the Dialog can be closed */
+  disableClose?: boolean;
+  /** Determines if the background is disabled when the modal is open */
+  enableBackgroundUI?: boolean;
+  /** A custom close event handler */
+  onCancel?: (ev: React.KeyboardEvent<HTMLElement>) => void;
+  /** Sets the open state of the modal */
+  open: boolean;
+  /** Transition time */
+  timeout?: number;
+}
 
 const Modal = ({
   children,
   open,
   onCancel,
-  disableEscKey,
+  disableEscKey = false,
   disableClose,
-  enableBackgroundUI,
-  timeout,
+  enableBackgroundUI = false,
+  timeout = 300,
   ...rest
-}) => {
-  const ref = useRef();
-  const backgroundNodeRef = useRef();
-  const contentNodeRef = useRef();
+}: ModalProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const backgroundNodeRef = useRef<HTMLDivElement>(null);
+  const contentNodeRef = useRef<HTMLDivElement>(null);
   const [isAnimationComplete, setAnimationComplete] = useState(false);
   const [triggerRefocusFlag, setTriggerRefocusFlag] = useState(false);
 
@@ -114,9 +139,8 @@ const Modal = ({
                   triggerRefocusFlag,
                   isInModal: true,
                 }}
-                ref={contentNodeRef}
               >
-                {content}
+                <div ref={contentNodeRef}>{content}</div>
               </ModalContext.Provider>
             </CSSTransition>
           )}
@@ -141,13 +165,6 @@ Modal.propTypes = {
   disableClose: PropTypes.bool,
   /** Transition time */
   timeout: PropTypes.number,
-};
-
-Modal.defaultProps = {
-  onCancel: null,
-  enableBackgroundUI: false,
-  disableEscKey: false,
-  timeout: 300,
 };
 
 export default Modal;

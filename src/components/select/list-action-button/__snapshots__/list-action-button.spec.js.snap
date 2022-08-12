@@ -78,6 +78,10 @@ exports[`Option renders properly 1`] = `
   color: var(--colorsActionMajor500);
 }
 
+.c2 .c5 {
+  background-color: var(--colorsActionMajor500);
+}
+
 .c2:hover {
   background: var(--colorsActionMajor600);
   border-color: var(--colorsActionMajorTransparent);
@@ -86,6 +90,10 @@ exports[`Option renders properly 1`] = `
 
 .c2:hover .c3 {
   color: var(--colorsActionMajorYang100);
+}
+
+.c2:hover .c5 {
+  background-color: var(--colorsActionMajorYang100);
 }
 
 .c2 .c3 {

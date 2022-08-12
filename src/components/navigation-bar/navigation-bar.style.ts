@@ -7,7 +7,7 @@ import {
   NavigationType,
 } from "./navigation-bar.component";
 
-type StyledNavigationBarProps = PaddingProps &
+export type StyledNavigationBarProps = PaddingProps &
   FlexboxProps & {
     /** Color scheme of navigation component */
     navigationType?: NavigationType;

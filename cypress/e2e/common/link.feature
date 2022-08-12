@@ -21,32 +21,22 @@ Feature: Link component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
-  Scenario: Link is tabbable
-    When I open default "Link Test" component with "link" json from "commonComponents" using "tabbable" object name
-    Then Link is tabbable
-
-  @positive
-  Scenario: Link is not tabbable
-    When I open default "Link Test" component with "link" json from "commonComponents" using "tabbableFalse" object name
-    Then Link is not tabbable
-
-  @positive
   Scenario: Change type of icon for a Link component to feedback
     When I open default "Link Test" component with "link" json from "commonComponents" using "icon" object name
     Then icon on link component preview is "feedback"
 
   @positive
   Scenario: Check skip link is visible when focused
-    Given I open "Link" component page "is skip link"
+    Given I open "Link" component page "with is skip link"
     When I hit Tab key 1 times
     Then Skip link is visible
 
   @positive
   Scenario: Check skip link is not visible without focus
-    When I open "Link" component page "is skip link"
+    When I open "Link" component page "with is skip link"
     Then Skip link is not visible
 
   @positive
-  Scenario: Check rel attr is able to be used in a link component
-    When I open "Link" component page "with rel"
+  Scenario Outline: Change Link rel to noreferrer noopener
+    Given I open "Link" component page "default story"
     Then link has a rel attribute

@@ -544,9 +544,10 @@ exports[`Portal when using default node to match snapshot  1`] = `
           "zIndex": Object {
             "aboveAll": 9999,
             "fullScreenModal": 5000,
+            "globalNav": 2999,
             "header": 4000,
             "modal": 3000,
-            "nav": 2999,
+            "nav": 2998,
             "notification": 7000,
             "overlay": 1000,
             "popover": 6000,

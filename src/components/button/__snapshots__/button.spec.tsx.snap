@@ -1997,6 +1997,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   color: var(--colorsActionMajor500);
 }
 
+.c0 .c110 {
+  background-color: var(--colorsActionMajor500);
+}
+
 .c0:hover {
   background: var(--colorsActionMajor600);
   border-color: var(--colorsActionMajorTransparent);
@@ -2005,6 +2009,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c0:hover .c1 {
   color: var(--colorsActionMajorYang100);
+}
+
+.c0:hover .c110 {
+  background-color: var(--colorsActionMajorYang100);
 }
 
 .c0 .c1 {
@@ -2250,6 +2258,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   color: var(--colorsActionMajor500);
 }
 
+.c0 .c109 {
+  background-color: var(--colorsActionMajor500);
+}
+
 .c0:hover {
   background: var(--colorsActionMajor600);
   border-color: var(--colorsActionMajorTransparent);
@@ -2258,6 +2270,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c0:hover .c1 {
   color: var(--colorsActionMajorYang100);
+}
+
+.c0:hover .c109 {
+  background-color: var(--colorsActionMajorYang100);
 }
 
 .c0 .c1 {

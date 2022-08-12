@@ -5,8 +5,8 @@ describe("ModalManager", () => {
     const cb1 = jest.fn();
     const cb2 = jest.fn();
 
-    const mockModal1 = { foo: "foo" };
-    const mockModal2 = { bar: "bar" };
+    const mockModal1 = document.createElement("div");
+    const mockModal2 = document.createElement("div");
 
     it("then the element passed in an attribute should be the topmost element", () => {
       ModalManager.addModal(mockModal1, cb1);
@@ -21,20 +21,28 @@ describe("ModalManager", () => {
     });
 
     it("global variable window.__CARBON_INTERNALS_MODAL_LIST should have the Modals added", () => {
-      expect(window.__CARBON_INTERNALS_MODAL_LIST.length).toEqual(2);
-      expect(window.__CARBON_INTERNALS_MODAL_LIST[0]).toEqual({
+      expect(window.__CARBON_INTERNALS_MODAL_LIST?.length).toEqual(2);
+      expect(window.__CARBON_INTERNALS_MODAL_LIST?.[0]).toEqual({
         modal: mockModal1,
         setTriggerRefocusFlag: cb1,
       });
-      expect(window.__CARBON_INTERNALS_MODAL_LIST[1]).toEqual({
+      expect(window.__CARBON_INTERNALS_MODAL_LIST?.[1]).toEqual({
         modal: mockModal2,
         setTriggerRefocusFlag: cb2,
+      });
+    });
+
+    describe("and modal does not exist yet", () => {
+      it("does not throw", () => {
+        expect(() => {
+          ModalManager.addModal(null);
+        }).not.toThrow();
       });
     });
   });
 
   describe("when the clearList method has been called", () => {
-    const mockModal = { foo: "bar" };
+    const mockModal = document.createElement("div");
 
     beforeEach(() => {
       ModalManager.addModal(mockModal);
@@ -46,12 +54,12 @@ describe("ModalManager", () => {
     });
 
     it("global variable window.__CARBON_INTERNALS_MODAL_LIST should have no Modals added", () => {
-      expect(window.__CARBON_INTERNALS_MODAL_LIST[0]).toEqual({
+      expect(window.__CARBON_INTERNALS_MODAL_LIST?.[0]).toEqual({
         modal: mockModal,
         setTriggerRefocusFlag: undefined,
       });
       ModalManager.clearList();
-      expect(window.__CARBON_INTERNALS_MODAL_LIST.length).toEqual(0);
+      expect(window.__CARBON_INTERNALS_MODAL_LIST?.length).toEqual(0);
     });
   });
 
@@ -59,8 +67,8 @@ describe("ModalManager", () => {
     const cb1 = jest.fn();
     const cb2 = jest.fn();
 
-    const mockModal1 = { foo: "foo" };
-    const mockModal2 = { bar: "bar" };
+    const mockModal1 = document.createElement("div");
+    const mockModal2 = document.createElement("div");
 
     beforeEach(() => {
       ModalManager.clearList();
@@ -88,40 +96,40 @@ describe("ModalManager", () => {
       it("should no longer be in the global variable window.__CARBON_INTERNALS_MODAL_LIST", () => {
         ModalManager.addModal(mockModal1, cb1);
         ModalManager.addModal(mockModal2, cb2);
-        expect(window.__CARBON_INTERNALS_MODAL_LIST.length).toEqual(2);
-        expect(window.__CARBON_INTERNALS_MODAL_LIST[0]).toEqual({
+        expect(window.__CARBON_INTERNALS_MODAL_LIST?.length).toEqual(2);
+        expect(window.__CARBON_INTERNALS_MODAL_LIST?.[0]).toEqual({
           modal: mockModal1,
           setTriggerRefocusFlag: cb1,
         });
-        expect(window.__CARBON_INTERNALS_MODAL_LIST[1]).toEqual({
+        expect(window.__CARBON_INTERNALS_MODAL_LIST?.[1]).toEqual({
           modal: mockModal2,
           setTriggerRefocusFlag: cb2,
         });
         ModalManager.removeModal(mockModal2);
-        expect(window.__CARBON_INTERNALS_MODAL_LIST.length).toEqual(1);
-        expect(window.__CARBON_INTERNALS_MODAL_LIST[0]).toEqual({
+        expect(window.__CARBON_INTERNALS_MODAL_LIST?.length).toEqual(1);
+        expect(window.__CARBON_INTERNALS_MODAL_LIST?.[0]).toEqual({
           modal: mockModal1,
           setTriggerRefocusFlag: cb1,
         });
         ModalManager.removeModal(mockModal1);
-        expect(window.__CARBON_INTERNALS_MODAL_LIST.length).toEqual(0);
+        expect(window.__CARBON_INTERNALS_MODAL_LIST?.length).toEqual(0);
       });
     });
 
     describe("and the param does not match a Modal in the list", () => {
       it("then nothing happens", () => {
-        const mockModal = { foo: "bar" };
-
+        const mockModal = document.createElement("div");
+        const otherModal = document.createElement("div");
         ModalManager.addModal(mockModal);
-        ModalManager.removeModal({ some: "value" });
+        ModalManager.removeModal(otherModal);
       });
     });
   });
 
   describe("when the global variable window.__CARBON_INTERNALS_MODAL_LIST already has modals", () => {
     it("the modalList should also contain them", () => {
-      const mockModal1 = { foo: "foo" };
-      const mockModal2 = { bar: "bar" };
+      const mockModal1 = document.createElement("div");
+      const mockModal2 = document.createElement("div");
       window.__CARBON_INTERNALS_MODAL_LIST = [
         { modal: mockModal1 },
         { modal: mockModal2 },

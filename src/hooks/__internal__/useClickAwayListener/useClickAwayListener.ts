@@ -1,29 +1,38 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
+
+// Needs to also take Portals into account (so can't just check DOM containment), but ideally without using
+// event.stopPropagation() which could have unexpected and frustrating consequences for consumers.
+// Simple approach taken from https://github.com/facebook/react/issues/10962#issuecomment-444622208
 
 export default (
-  targets: React.RefObject<HTMLElement>[],
   handleClickAway: (ev: Event) => void,
   eventTypeId: "mousedown" | "click" = "click"
 ) => {
-  const targetsRef = useRef(targets);
-  targetsRef.current = targets;
+  const clickIsInside = useRef(false);
+
+  const onDocumentClick = useCallback(
+    (ev: Event) => {
+      if (clickIsInside.current) {
+        clickIsInside.current = false;
+        return;
+      }
+
+      handleClickAway(ev);
+    },
+    [handleClickAway]
+  );
+
+  const onInsideClick = useCallback(() => {
+    clickIsInside.current = true;
+  }, []);
 
   useEffect(() => {
-    const fnClickAway = (ev: Event) => {
-      const clickedElements = targetsRef.current.filter(
-        (targetRef: React.RefObject<HTMLElement>) =>
-          targetRef.current?.contains(ev?.target as Node)
-      );
-
-      if (!clickedElements?.length) {
-        handleClickAway(ev);
-      }
-    };
-
-    document.addEventListener(eventTypeId, fnClickAway as EventListener);
+    document.addEventListener(eventTypeId, onDocumentClick);
 
     return function cleanup() {
-      document.removeEventListener(eventTypeId, fnClickAway as EventListener);
+      document.removeEventListener(eventTypeId, onDocumentClick);
     };
-  }, [handleClickAway, eventTypeId]);
+  }, [onDocumentClick, eventTypeId]);
+
+  return onInsideClick;
 };

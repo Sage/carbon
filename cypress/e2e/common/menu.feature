@@ -143,3 +143,15 @@ Feature: Menu component
     Given I open "Menu Test" component page "menu-full-screen-story"
     When I continue to hit Tab key 8 times
     Then inner menu without active redirection is not focused
+
+  @positive
+  Scenario: If there is a Menu Item with a very long label inside a submenu, check that the width of the whole submenu is determined by this submenu item
+    Given I open "Menu Test" component page "long-labels-story"
+    When I hover over "first" expandable Menu component
+    Then width of submenu should equal the width of the "second" submenu item
+
+  @positive
+  Scenario: If there is a Menu Item with a submenu that has a very long label, check the width of the whole submenu is determined by this parent item
+    Given I open "Menu Test" component page "long-labels-story"
+    When I hover over "second" expandable Menu component
+    Then width of submenu should equal the width of "second" expandable Menu component
