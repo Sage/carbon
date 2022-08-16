@@ -1,3 +1,15 @@
+### [110.0.2](https://github.com/Sage/carbon/compare/v110.0.1...v110.0.2) (2022-08-16)
+
+
+### Bug Fixes
+
+* **flat-table:** fix cut outline of selected row ([51c7a33](https://github.com/Sage/carbon/commit/51c7a3352d63107c8a9f4b31a9ad007402dc26e6))
+
+
+### Reverts
+
+* **node, npm:** revert relaxing of node and npm versions ([a5ce6cc](https://github.com/Sage/carbon/commit/a5ce6cce5140b7f65cab7308be131b378977b5cc)), closes [#5364](https://github.com/Sage/carbon/issues/5364)
+
 ### [110.0.1](https://github.com/Sage/carbon/compare/v110.0.0...v110.0.1) (2022-08-10)
 
 

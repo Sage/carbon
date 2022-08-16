@@ -24,6 +24,16 @@ import { selectOption } from "../../locators/select";
 
 const gold = "rgb(255, 181, 0)";
 
+const checkFocus = (elements) => {
+  // get Window reference from element
+  const win = elements[0].ownerDocument.defaultView;
+  // use getComputedStyle to read the pseudo selector
+  const after = win.getComputedStyle(elements[0], "after");
+  // read the value of the `content` CSS property
+  const contentValue = after.getPropertyValue("border");
+  expect(contentValue).to.eq(`2px solid ${gold}`);
+};
+
 Then("FlatTable body rows are sticky", () => {
   cy.wait(500);
   for (let i = 0; i <= 3; i++) {
@@ -90,9 +100,7 @@ Then(
   "I focus {int} row and focused row element has golden border on focus",
   (index) => {
     cy.wait(500, { log: DEBUG_FLAG }); // wait was added due to changing animation
-    flatTableBodyRowByPosition(index)
-      .focus()
-      .should("have.css", "outline-color", gold);
+    flatTableBodyRowByPosition(index).focus().then(checkFocus);
   }
 );
 
@@ -245,7 +253,7 @@ Then("The first cell in the third content row has focus", () => {
 Then("The {word} content row has focus", (position) => {
   flatTableBodyRowByPosition(positionOfElement(position))
     .should("have.focus")
-    .and("have.css", "outline-color", gold);
+    .then(checkFocus);
 });
 
 Then("The {word} subrow action popover has focus", (position) => {
