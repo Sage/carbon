@@ -21,7 +21,7 @@ const ButtonToggleGroup = ({
   error,
   warning,
   info,
-  validationOnLabel,
+  validationOnLabel = false,
   label,
   labelHelp,
   labelSpacing,
@@ -34,7 +34,7 @@ const ButtonToggleGroup = ({
   onChange,
   onBlur,
   value,
-  "data-component": dataComponent,
+  "data-component": dataComponent = "button-toggle-group",
   "data-element": dataElement,
   "data-role": dataRole,
   helpAriaLabel,
@@ -102,9 +102,11 @@ ButtonToggleGroup.propTypes = {
   "data-element": PropTypes.string,
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-role": PropTypes.string,
+  /** Unique id for the root element of the component */
+  id: PropTypes.string.isRequired,
   /** Specifies the name prop to be applied to each button in the group */
   name: PropTypes.string.isRequired,
-  /** Children to be rendered (ButtonToggle). */
+  /** Togglable buttons to be rendered. Only accepts children of type ButtonToggle */
   children: (props, propName, componentName) => {
     let error;
     const prop = props[propName];
@@ -155,19 +157,14 @@ ButtonToggleGroup.propTypes = {
   labelWidth: PropTypes.number,
   /** The alignment for the text in the label. */
   labelAlign: PropTypes.string,
-  /** callback to handle change event */
-  onChange: PropTypes.func,
   /** Callback fired when each RadioButton is blurred */
   onBlur: PropTypes.func,
+  /** callback to handle change event */
+  onChange: PropTypes.func,
   /** The value of the Button Toggle Group */
   value: PropTypes.string,
   /** Aria label for rendered help component */
   helpAriaLabel: PropTypes.string,
-};
-
-ButtonToggleGroup.defaultProps = {
-  validationOnLabel: false,
-  "data-component": "button-toggle-group",
 };
 
 ButtonToggleGroup.displayName = "ButtonToggleGroup";

@@ -105,11 +105,11 @@ describe("Submenu component", () => {
     return mount(
       <MenuContext.Provider value={menuContextValues(menuType)}>
         <Submenu title="title" tabIndex={-1} {...props}>
-          <MenuItem>Apple</MenuItem>
-          <MenuItem>Banana</MenuItem>
+          <MenuItem href="#">Apple</MenuItem>
+          <MenuItem href="#">Banana</MenuItem>
           <MenuDivider />
-          <MenuItem>Carrot</MenuItem>
-          <MenuItem>Broccoli</MenuItem>
+          <MenuItem href="#">Carrot</MenuItem>
+          <MenuItem href="#">Broccoli</MenuItem>
         </Submenu>
       </MenuContext.Provider>,
       { attachTo: htmlElement }
@@ -1160,8 +1160,8 @@ describe("Submenu component", () => {
         <ThemeProvider theme={mintTheme}>
           <MenuContext.Provider value={menuContextValues(menuType)}>
             <Submenu title="title" tabIndex={-1} {...props}>
-              <MenuItem>Apple</MenuItem>
-              <MenuItem variant="alternate">
+              <MenuItem href="#">Apple</MenuItem>
+              <MenuItem href="#" variant="alternate">
                 <Search
                   defaultValue=""
                   placeholder="Dark variant"
@@ -1169,7 +1169,7 @@ describe("Submenu component", () => {
                   onChange={() => {}}
                 />
               </MenuItem>
-              <MenuItem>Banana</MenuItem>
+              <MenuItem href="#">Banana</MenuItem>
             </Submenu>
           </MenuContext.Provider>
         </ThemeProvider>,

@@ -51,7 +51,9 @@ describe("MenuItem", () => {
   const renderMenuContext = (isFocused, props) => {
     return mount(
       <MenuContext.Provider value={menuContextValues(isFocused)}>
-        <MenuItem {...props}>Item One</MenuItem>
+        <MenuItem href="#" {...props}>
+          Item One
+        </MenuItem>
       </MenuContext.Provider>,
       { attachTo: container }
     );
@@ -61,7 +63,9 @@ describe("MenuItem", () => {
     return mount(
       <MenuContext.Provider value={menuContextValues(false)}>
         <SubmenuContext.Provider value={submenuContextValues(false)}>
-          <MenuItem {...props}>Item One</MenuItem>
+          <MenuItem href="#" {...props}>
+            Item One
+          </MenuItem>
         </SubmenuContext.Provider>
       </MenuContext.Provider>
     );

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import Loader from ".";
 import Button from "../button/button.component";
+import Box from "../box";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta
@@ -64,8 +65,7 @@ This is an example of the large Loader component. The larger size is only used w
 
 ### Inside Buttons
 
-This is an example of the Loader nested inside of a Button component. When used inside a primary button the colour of the squares will be white.
-To ensure that the correct styling is applied to the `Loader` component when it is nested inside of the `Button` component,
+These examples show a `Loader` nested inside of a `Button` component. To ensure that the correct styling is applied to the `Loader` component when it is nested inside of the `Button` component,
 please remember to pass the `isInsideButton` prop to the `Loader` component.
 
 <Canvas>
@@ -73,6 +73,26 @@ please remember to pass the `isInsideButton` prop to the `Loader` component.
     <Button buttonType="primary" aria-label="Loading">
       <Loader isInsideButton />
     </Button>
+    <Button ml={2} buttonType="primary" destructive aria-label="Loading">
+      <Loader isInsideButton />
+    </Button>
+    <Button ml={2} destructive aria-label="Loading">
+      <Loader isInsideButton />
+    </Button>
+    <Button ml={2} buttonType="tertiary" aria-label="Loading">
+      <Loader isInsideButton />
+    </Button>
+    <Button ml={2} buttonType="secondary" aria-label="Loading">
+      <Loader isInsideButton />
+    </Button>
+    <Button ml={2} buttonType="dashed" aria-label="Loading">
+      <Loader isInsideButton />
+    </Button>
+    <Box mt={2} height="72px" width="152px" bg="#000000">
+      <Button m={2} buttonType="darkBackground" aria-label="Loading">
+        <Loader isInsideButton />
+      </Button>
+    </Box>
   </Story>
 </Canvas>
 

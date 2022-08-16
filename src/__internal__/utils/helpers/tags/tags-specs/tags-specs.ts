@@ -1,6 +1,9 @@
 import { ReactWrapper, ShallowWrapper } from "enzyme";
 
-const elementsTagTest = (wrapper: ReactWrapper, elements: string[]) => {
+const elementsTagTest = (
+  wrapper: ReactWrapper | ShallowWrapper,
+  elements: string[]
+) => {
   elements.forEach((element) => {
     it(`include 'data-element="${element}"'`, () => {
       expect(wrapper.find({ "data-element": element }).length).toEqual(1);

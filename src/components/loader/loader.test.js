@@ -81,7 +81,7 @@ context("Test for Loader component", () => {
     it("should render Loader with isActive prop set to false", () => {
       CypressMountWithProviders(<LoaderInsideButton isActive={false} />);
 
-      const color = "rgb(51, 91, 112)";
+      const color = "rgb(255, 255, 255)";
 
       loader(positionOfElement("first")).should(
         "have.css",

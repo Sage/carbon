@@ -1,0 +1,231 @@
+import { useState } from "react";
+import { Meta, Canvas, Story } from "@storybook/addon-docs";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import NavigationBar from "../navigation-bar";
+import Box from "../box";
+import VerticalDivider from "../vertical-divider";
+import {
+  Menu,
+  MenuFullscreen,
+  MenuItem,
+  MenuSegmentTitle,
+  MenuDivider,
+} from "../menu";
+import GlobalHeader from "./global-header.component";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import LinkTo from "@storybook/addon-links/react";
+import carbonLogo from "../../../logo/carbon-logo.png";
+
+<Meta
+  title="Global Header"
+  parameters={{
+    info: { disable: true },
+    chromatic: { disable: true },
+    docs: {
+      inlineStories: false,
+      iframeHeight: 200,
+    },
+  }}
+/>
+
+# Global Header
+
+`GlobalHeader` is a wrapper component designed for creating site-wide navigation layouts.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import GlobalHeader from "carbon-react/lib/components/global-header";
+```
+
+## Examples
+
+### Default
+
+`GlobalHeader` shares similarities with the <LinkTo kind="Navigation Bar" story="default">NavigationBar component</LinkTo>, but is permanently fixed to the top of the viewport and has a greater z-index than `NavigationBar`.
+
+<Canvas>
+  <Story name="default">
+    <GlobalHeader>Example content</GlobalHeader>
+  </Story>
+</Canvas>
+
+### With logo
+
+A custom logo in the form of an HTML element or a React component can be rendered by passing it via the `logo` prop. The logo is wrapped in a container that applies style rules for margins and child element height. It is possible to set a custom height for the logo element, but any value that exceeds the height of the `GlobalHeader` component will be constrained to 40px.
+
+<Canvas>
+  <Story name="with logo">
+    {() => {
+      const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
+      return <GlobalHeader logo={<Logo />}>Example content</GlobalHeader>;
+    }}
+  </Story>
+</Canvas>
+
+### Basic menu
+
+In conjunction with the <LinkTo kind="Menu" story="default">Menu component</LinkTo>, `GlobalHeader` can be used to create global navigation layouts.
+
+<Canvas>
+  <Story name="basic menu">
+    {() => {
+      const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
+      return (
+        <GlobalHeader logo={<Logo />}>
+          <Menu menuType="black" display="flex" flex="1">
+            <MenuItem flex="1" submenu="Product Switcher">
+              <MenuItem>Product A</MenuItem>
+            </MenuItem>
+            <MenuItem flex="0 0 auto" submenu="Parent Menu 1">
+              <MenuItem href="#">Child Item 1</MenuItem>
+              <MenuSegmentTitle>Segment title</MenuSegmentTitle>
+              <MenuItem href="#">Child Item 2</MenuItem>
+              <MenuItem href="#">Child Item 3</MenuItem>
+            </MenuItem>
+            <MenuItem flex="0 0 auto" submenu="Parent Menu 2">
+              <MenuItem>Child Item</MenuItem>
+            </MenuItem>
+          </Menu>
+        </GlobalHeader>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Responsive menu
+
+This story is best viewed in the `canvas` view and by adjusting the size of the window. The fullscreen behaviour will trigger when the screen size is smaller than `600px`.
+
+<Canvas>
+  <Story name="responsive menu">
+    {() => {
+      const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
+      const fullscreenViewBreakPoint = useMediaQuery("(max-width: 599px)");
+      const [isListViewOpen, setIsListViewOpen] = useState(false);
+      const menuItems = [
+        <MenuItem
+          key="product-switcher"
+          minWidth="160px"
+          flex="1"
+          submenu="Product Switcher"
+        >
+          <MenuItem>Product A</MenuItem>
+        </MenuItem>,
+        <MenuItem
+          key="parent-menu-1"
+          minWidth="145px"
+          flex="0 0 auto"
+          submenu="Parent Menu 1"
+        >
+          <MenuItem href="#">Child Item 1</MenuItem>
+          <MenuSegmentTitle>Segment title</MenuSegmentTitle>
+          <MenuItem href="#">Child Item 2</MenuItem>
+          <MenuItem href="#">Child Item 3</MenuItem>
+        </MenuItem>,
+        <MenuItem
+          key="parent-menu-2"
+          minWidth="145px"
+          flex="0 0 auto"
+          submenu="Parent Menu 2"
+        >
+          <MenuItem>Child Item</MenuItem>
+        </MenuItem>,
+      ];
+      return (
+        <GlobalHeader logo={<Logo />}>
+          <Menu menuType="black" display="flex" flex="1">
+            {fullscreenViewBreakPoint ? (
+              <>
+                <MenuItem
+                  onClick={(ev) => {
+                    ev.preventDefault();
+                    setIsListViewOpen(true);
+                  }}
+                >
+                  Menu
+                </MenuItem>
+                <MenuFullscreen
+                  menuType="black"
+                  isOpen={isListViewOpen}
+                  onClose={() => setIsListViewOpen(false)}
+                >
+                  {menuItems}
+                </MenuFullscreen>
+              </>
+            ) : (
+              menuItems
+            )}
+          </Menu>
+        </GlobalHeader>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Global and local navigation bar layout
+
+The component can be used alongside the <LinkTo kind='Navigation Bar' story="default">NavigationBar component</LinkTo> to create a two navigation bar layout, with the former being for site-wide navigation and the latter being for local navigation. Since `GlobalHeader` is fixed to top of the viewport, the `NavigationBar` must also have its `position` fixed, with a top `orientation` and `offset` of 40px.
+
+<Canvas>
+  <Story
+    name="global and local navigation bar layout"
+    parameters={{ docs: { inlineStories: false, iframeHeight: 250 } }}
+  >
+    {() => {
+      const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
+      return (
+        <>
+          <GlobalHeader logo={<Logo />}>
+            <Menu menuType="black" display="flex" flex="1">
+              <MenuItem flex="1" submenu="Product Switcher">
+                <MenuItem href="#">Product A</MenuItem>
+              </MenuItem>
+              <MenuItem flex="0 0 auto" submenu="Parent Menu 1">
+                <MenuItem href="#">Child Item 1</MenuItem>
+                <MenuItem href="#">Child Item 2</MenuItem>
+                <MenuItem href="#">Child Item 3</MenuItem>
+              </MenuItem>
+              <MenuItem flex="0 0 auto" submenu="Parent Menu 2">
+                <MenuItem>Child Item</MenuItem>
+              </MenuItem>
+            </Menu>
+          </GlobalHeader>
+          <NavigationBar position="fixed" orientation="top" offset="40px">
+            <Menu display="flex" flex="1">
+              <MenuItem flex="1">Menu Item One</MenuItem>
+              <MenuItem flex="0 0 auto" href="#">
+                Menu Item Two
+              </MenuItem>
+              <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+                <MenuItem href="#">Item Submenu One</MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+                <MenuDivider />
+                <MenuItem icon="settings" href="#">
+                  Item Submenu Three
+                </MenuItem>
+                <MenuItem href="#">Item Submenu Four</MenuItem>
+              </MenuItem>
+              <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+                <MenuItem href="#">Item Submenu One</MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+              </MenuItem>
+            </Menu>
+          </NavigationBar>
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
+
+## Props
+
+### Global Header
+
+<StyledSystemProps of={GlobalHeader} noHeader padding flexBox />

@@ -1,3 +1,71 @@
+### [110.0.1](https://github.com/Sage/carbon/compare/v110.0.0...v110.0.1) (2022-08-10)
+
+
+### Bug Fixes
+
+* **popover-container:** ensure clicks inside popover do not close it ([48808bc](https://github.com/Sage/carbon/commit/48808bc32b4437729a2d3aa74f1f1013ea354c8e))
+
+## [110.0.0](https://github.com/Sage/carbon/compare/v109.7.1...v110.0.0) (2022-08-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **link:** The tabbable prop has been removed and can no longer be used.
+Link component renders either an anchor or a button,
+both of these HTML elements are already tabbable by default,
+however anchors without href and disabled buttons are not,
+making this prop redundant.
+
+### Bug Fixes
+
+* **menu:** force submenu wrapper to render as a button ([460449c](https://github.com/Sage/carbon/commit/460449c2a6df409437ffc08ae0c9c48622f0c79d))
+
+
+### Code Refactoring
+
+* **link:** remove tabbable prop ([f087214](https://github.com/Sage/carbon/commit/f087214c6ee867646375088c250f2c4679467d5f))
+
+### [109.7.1](https://github.com/Sage/carbon/compare/v109.7.0...v109.7.1) (2022-08-08)
+
+
+### Bug Fixes
+
+* **grid-container:** add support for wrapping GridItems in fragments ([bb57e85](https://github.com/Sage/carbon/commit/bb57e850335ecf24e3ea81eeca21ee0b68f81cbc)), closes [#5325](https://github.com/Sage/carbon/issues/5325)
+
+## [109.7.0](https://github.com/Sage/carbon/compare/v109.6.0...v109.7.0) (2022-08-04)
+
+
+### Features
+
+* add new GlobalHeader component ([0d920b6](https://github.com/Sage/carbon/commit/0d920b6902618f5f13066328d91fde72e684ba5f))
+
+
+### Bug Fixes
+
+* **menu:** modify typing to extend flexbox props from styled-system ([67a2450](https://github.com/Sage/carbon/commit/67a24509fa3739e022f03a1a90b7191540239bc4))
+
+## [109.6.0](https://github.com/Sage/carbon/compare/v109.5.2...v109.6.0) (2022-08-03)
+
+
+### Features
+
+* **modal:** convert to typescript ([1e4b5cf](https://github.com/Sage/carbon/commit/1e4b5cf4aa0f191c283c1d40a97847ad7e2dd963))
+
+### [109.5.2](https://github.com/Sage/carbon/compare/v109.5.1...v109.5.2) (2022-08-02)
+
+
+### Bug Fixes
+
+* **loader:** ensure correct colours are applied to loader when in a button ([f2ff159](https://github.com/Sage/carbon/commit/f2ff1598f73390c9aea2512add6c7accac6becc3)), closes [#5226](https://github.com/Sage/carbon/issues/5226)
+
+### [109.5.1](https://github.com/Sage/carbon/compare/v109.5.0...v109.5.1) (2022-08-01)
+
+
+### Bug Fixes
+
+* **button-toggle-group:** add missing id prop to type definition ([51c1e70](https://github.com/Sage/carbon/commit/51c1e7099559ef21edc50ae6e4d3f3de97ec3548)), closes [#5314](https://github.com/Sage/carbon/issues/5314)
+* **tab:** make typing of props in TabContextProps interface optional ([673a809](https://github.com/Sage/carbon/commit/673a8097a9fed1af1f1903efca75df6b27a2e1f7))
+
 ## [109.5.0](https://github.com/Sage/carbon/compare/v109.4.0...v109.5.0) (2022-07-28)
 
 

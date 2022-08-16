@@ -128,7 +128,7 @@ describe("ButtonToggleGroup", () => {
     it("accepts empty children", () => {
       expect(() => {
         mount(
-          <ButtonToggleGroup>
+          <ButtonToggleGroup name="name" id="id">
             {null}
             {false}
             {undefined}

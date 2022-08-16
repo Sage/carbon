@@ -209,3 +209,23 @@ Then("{string} inner menu element is focused", (position) => {
 Then("inner menu without active redirection is not focused", () => {
   menuItem().should("not.be.focused");
 });
+
+Then(
+  "width of submenu should equal the width of the {string} submenu item",
+  (position) => {
+    submenuItem(positionOfElement(position)).then(($item) => {
+      submenuBlock().should("have.css", "width", `${$item.width()}px`);
+    });
+  }
+);
+
+Then(
+  "width of submenu should equal the width of {string} expandable Menu component",
+  (position) => {
+    submenu()
+      .eq(positionOfElement(position))
+      .then(($menu) => {
+        submenuBlock().should("have.css", "width", `${$menu.width()}px`);
+      });
+  }
+);

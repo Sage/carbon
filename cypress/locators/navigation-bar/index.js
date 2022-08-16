@@ -1,6 +1,6 @@
 import NAVIGATION_BAR from "./locators";
 
 // component preview locators
-const navigationBarChildren = () => cy.get(NAVIGATION_BAR);
+const navigationBar = () => cy.get(NAVIGATION_BAR);
 
-export default navigationBarChildren;
+export default navigationBar;

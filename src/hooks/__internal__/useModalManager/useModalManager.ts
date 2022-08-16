@@ -53,7 +53,7 @@ const useModalManager = (
   }, [removeListener]);
 
   const registerModal = useCallback(
-    (ref) => {
+    (ref: HTMLElement | null) => {
       /* istanbul ignore else */
       if (!modalRegistered.current) {
         ModalManager.addModal(ref, setTriggerRefocusFlag);
@@ -64,7 +64,7 @@ const useModalManager = (
     [setTriggerRefocusFlag]
   );
 
-  const unregisterModal = useCallback((ref) => {
+  const unregisterModal = useCallback((ref: HTMLElement | null) => {
     if (modalRegistered.current) {
       ModalManager.removeModal(ref);
 

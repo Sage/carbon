@@ -17,9 +17,11 @@ export interface ButtonToggleGroupProps extends ValidationProps, MarginProps {
   "data-element"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-role"?: string;
+  /** Unique id for the root element of the component */
+  id: string;
   /** Specifies the name prop to be applied to each button in the group */
   name: string;
-  /** Children to be rendered (ButtonToggle). */
+  /** Togglable buttons to be rendered. Only accepts children of type ButtonToggle */
   children?: ButtonToggle | ButtonToggle[];
   /** When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel?: boolean;

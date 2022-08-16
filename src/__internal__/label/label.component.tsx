@@ -22,8 +22,6 @@ export interface LabelProps
   help?: React.ReactNode;
   /** Icon type */
   helpIcon?: IconType;
-  /** Overrides the default tabindex of the Help component */
-  helpTabIndex?: number | string;
   /** A string that represents the ID of another form element */
   htmlFor?: string;
   /** The unique id of the label element */
@@ -62,7 +60,6 @@ export const Label = ({
   error,
   help,
   helpIcon,
-  helpTabIndex,
   htmlFor,
   info,
   inline,
@@ -133,12 +130,7 @@ export const Label = ({
     return (
       help && (
         <StyledIconWrapper {...wrapperProps}>
-          <Help
-            tooltipId={tooltipId}
-            tabIndex={Number(helpTabIndex)}
-            type={helpIcon}
-            isFocused={isFocused}
-          >
+          <Help tooltipId={tooltipId} type={helpIcon} isFocused={isFocused}>
             {help}
           </Help>
         </StyledIconWrapper>
