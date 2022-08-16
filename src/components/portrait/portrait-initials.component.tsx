@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import tokens from "@sage/design-tokens/js/base/common";
 
+import { PortraitSizes, PortraitShapes } from "./portrait.component";
 import {
   StyledPortraitInitials,
   StyledPortraitInitialsImg,
@@ -9,18 +9,30 @@ import {
 } from "./portrait.style";
 import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
 
+export interface PortraitInitialsProps {
+  /** The user's initials to render. */
+  initials: string;
+  /** The size of the initials image. */
+  size: PortraitSizes;
+  /** Use a dark background. */
+  darkBackground?: boolean;
+  /** The shape of the Portrait. */
+  shape?: PortraitShapes;
+  /** The `alt` HTML string. */
+  alt?: string;
+}
+
 const PortraitInitials = ({
   initials,
   size,
-  shape,
+  shape = "square",
   darkBackground,
   alt,
-  ...rest
-}) => {
-  const [cachedImageDataUrl, setCachedImageDataUrl] = useState();
+}: PortraitInitialsProps) => {
+  const [cachedImageDataUrl, setCachedImageDataUrl] = useState<string>();
 
   useEffect(() => {
-    setCachedImageDataUrl(null);
+    setCachedImageDataUrl("");
   }, [initials, size, darkBackground]);
 
   const generateDataUrl = () => {
@@ -30,7 +42,7 @@ const PortraitInitials = ({
 
     const { textColor, bgColor } = getColorsForInitials(darkBackground);
 
-    let canvas = document.createElement("canvas");
+    let canvas: HTMLCanvasElement | null = document.createElement("canvas");
     const context = canvas.getContext("2d");
 
     let { dimensions } = PORTRAIT_SIZE_PARAMS[size];
@@ -41,20 +53,22 @@ const PortraitInitials = ({
     canvas.width = dimensions;
     canvas.height = dimensions;
 
-    // Select a font family to support different language characters
-    // like Arial
-    context.font = `${Math.round(canvas.width / 2.4)}px "Sage UI", Arial`;
-    context.textAlign = "center";
+    // Select a font family to support different language characters like Arial
+    /* istanbul ignore else */
+    if (context) {
+      context.font = `${Math.round(canvas.width / 2.4)}px "Sage UI", Arial`;
+      context.textAlign = "center";
 
-    // Setup background and front color
-    context.fillStyle = tokens[bgColor];
-    context.fillRect(0, 0, dimensions, dimensions);
-    context.fillStyle = tokens[textColor];
-    context.fillText(
-      initials.slice(0, 3).toUpperCase(),
-      dimensions / 2,
-      dimensions / 1.5
-    );
+      // Setup background and front color
+      context.fillStyle = tokens[bgColor];
+      context.fillRect(0, 0, dimensions, dimensions);
+      context.fillStyle = tokens[textColor];
+      context.fillText(
+        initials.slice(0, 3).toUpperCase(),
+        dimensions / 2,
+        dimensions / 1.5
+      );
+    }
 
     // Set image representation in default format (png)
     const dataURI = canvas.toDataURL();
@@ -73,28 +87,10 @@ const PortraitInitials = ({
       size={size}
       shape={shape}
       initials={initials}
-      {...rest}
     >
       <StyledPortraitInitialsImg src={generateDataUrl()} alt={alt} />
     </StyledPortraitInitials>
   );
-};
-
-PortraitInitials.propTypes = {
-  /** The user's initials to render. */
-  initials: PropTypes.string.isRequired,
-  /** The size of the initials image. */
-  size: PropTypes.oneOf(["XS", "S", "M", "ML", "L", "XL", "XXL"]).isRequired,
-  /** Use a dark background. */
-  darkBackground: PropTypes.bool,
-  /** The shape of the Portrait. */
-  shape: PropTypes.oneOf(["circle", "square"]),
-  /** The `alt` HTML string. */
-  alt: PropTypes.string,
-};
-
-PortraitInitials.defaultProps = {
-  shape: "square",
 };
 
 export default PortraitInitials;
