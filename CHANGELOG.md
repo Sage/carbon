@@ -1,3 +1,10 @@
+### [110.0.3](https://github.com/Sage/carbon/compare/v110.0.2...v110.0.3) (2022-08-16)
+
+
+### Bug Fixes
+
+* **modal:** remove propTypes from component ([b9994e5](https://github.com/Sage/carbon/commit/b9994e52d3b00423f959bb520afe66901a16a3f3)), closes [#5376](https://github.com/Sage/carbon/issues/5376)
+
 ### [110.0.2](https://github.com/Sage/carbon/compare/v110.0.1...v110.0.2) (2022-08-16)
 
 
