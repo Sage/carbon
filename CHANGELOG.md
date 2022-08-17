@@ -1,3 +1,10 @@
+## [110.1.0](https://github.com/Sage/carbon/compare/v110.0.4...v110.1.0) (2022-08-17)
+
+
+### Features
+
+* **sidebar:** add padding props for customising content container ([4f7a7bf](https://github.com/Sage/carbon/commit/4f7a7bf92213e0ba74c6e0a72e3242e240f5cfe2))
+
 ### [110.0.4](https://github.com/Sage/carbon/compare/v110.0.3...v110.0.4) (2022-08-17)
 
 
