@@ -5,7 +5,41 @@ import { IconType } from "components/icon/icon-type";
 import BaseTheme from "../../style/themes/base";
 import buttonTypes from "./button-types.style";
 import StyledIcon from "../icon/icon.style";
-import { ButtonProps, SizeOptions } from "./button.component";
+
+export type ButtonIconPosition = "before" | "after";
+export type ButtonTypes =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "dashed"
+  | "darkBackground";
+export type SizeOptions = "small" | "medium" | "large";
+
+export interface PrivateStyledButtonProps {
+  iconOnly?: boolean;
+}
+export interface StyledButtonProps extends SpaceProps {
+  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
+  buttonType?: ButtonTypes;
+  /** Apply destructive style to the button */
+  destructive?: boolean;
+  /** Apply disabled state to the button */
+  disabled?: boolean;
+  /** Apply fullWidth style to the button */
+  fullWidth?: boolean;
+  /** Defines an Icon position related to the children: "before" | "after" */
+  iconPosition?: ButtonIconPosition;
+  /** Defines an Icon type within the button */
+  iconType?: IconType;
+  /** If provided, the text inside a button will not wrap */
+  noWrap?: boolean;
+  /** HTML rel attribute */
+  rel?: string;
+  /** Assigns a size to the button: "small" | "medium" | "large" */
+  size?: SizeOptions;
+  /** HTML target attribute */
+  target?: string;
+}
 
 function additionalIconStyle(iconType?: IconType) {
   if (iconType === "services") return "6px";
@@ -36,9 +70,8 @@ function stylingForType({
   buttonType = "secondary",
   size,
   destructive,
-}: Pick<ButtonProps, "disabled" | "buttonType" | "size" | "destructive"> & {
-  iconOnly?: boolean;
-}) {
+}: Pick<StyledButtonProps, "disabled" | "buttonType" | "size" | "destructive"> &
+  PrivateStyledButtonProps) {
   return css`
     border: 2px solid transparent;
     box-sizing: border-box;
@@ -71,12 +104,9 @@ function stylingForType({
   `;
 }
 
-type StyledButtonProps = SpaceProps &
-  ButtonProps & {
-    iconOnly?: boolean;
-  };
-
-const StyledButton = styled.button<StyledButtonProps>`
+const StyledButton = styled.button<
+  StyledButtonProps & PrivateStyledButtonProps
+>`
   ${space}
   ${({ disabled, noWrap }) => css`
     align-items: center;

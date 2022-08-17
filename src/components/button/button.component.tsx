@@ -1,61 +1,44 @@
 import React, { useCallback, useState } from "react";
-import { SpaceProps } from "styled-system";
 import invariant from "invariant";
 
-import Icon, { IconType, IconProps } from "../icon";
-import StyledButton, { StyledButtonSubtext } from "./button.style";
+import Icon, { IconProps } from "../icon";
+import StyledButton, {
+  StyledButtonSubtext,
+  StyledButtonProps,
+  ButtonIconPosition,
+  ButtonTypes,
+  SizeOptions,
+} from "./button.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 
-export type ButtonTypes =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "dashed"
-  | "darkBackground";
+export type { ButtonIconPosition, ButtonTypes, SizeOptions };
 
-export type SizeOptions = "small" | "medium" | "large";
-export type ButtonIconPosition = "before" | "after";
-
-export interface ButtonProps extends SpaceProps {
+export interface ButtonProps extends StyledButtonProps {
   /** Prop to specify the aria-label text.
    *  Only to be used in Button when only an icon is rendered.
    * This is required to comply with WCAG 4.1.2 - Buttons must have discernible text
    */
   "aria-label"?: string;
-  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
-  buttonType?: ButtonTypes;
   /** The text the button displays */
   children?: React.ReactNode;
   /** Name attribute */
   name?: string;
-  /** Apply disabled state to the button */
-  disabled?: boolean;
-  /** Apply destructive style to the button */
-  destructive?: boolean;
   /** Ref to be forwarded */
   forwardRef?:
     | React.RefCallback<HTMLButtonElement>
     | React.MutableRefObject<HTMLButtonElement | null>
     | null;
-  /** Apply fullWidth style to the button */
-  fullWidth?: boolean;
   /** Used to transform button into anchor */
   href?: string;
-  /** Defines an Icon position related to the children: "before" | "after" */
-  iconPosition?: ButtonIconPosition;
   /** Provides a tooltip message when the icon is hovered. */
   iconTooltipMessage?: string;
   /** Provides positioning when the tooltip is displayed. */
   iconTooltipPosition?: TooltipPositions;
-  /** Defines an Icon type within the button */
-  iconType?: IconType;
   /** id attribute */
   id?: string;
-  /** If provided, the text inside a button will not wrap */
-  noWrap?: boolean;
   /** Specify a callback triggered on blur */
   onBlur?: (ev: React.FocusEvent<HTMLButtonElement>) => void;
   /** Specify a callback triggered on change */
@@ -68,16 +51,8 @@ export interface ButtonProps extends SpaceProps {
   onClick?: (
     event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>
   ) => void;
-  /** Assigns a size to the button: "small" | "medium" | "large" */
-  size?: SizeOptions;
   /** Second text child, renders under main text, only when size is "large" */
   subtext?: string;
-  /** HTML button type property */
-  type?: string;
-  /** HTML target attribute */
-  target?: string;
-  /** HTML rel attribute */
-  rel?: string;
 }
 
 interface RenderChildrenProps
