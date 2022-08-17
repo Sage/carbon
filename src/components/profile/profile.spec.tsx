@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow, mount, ShallowWrapper, ReactWrapper } from "enzyme";
 
 import Profile from "./profile.component";
 import {
@@ -19,7 +19,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 
 describe("Profile", () => {
-  let instance;
+  let instance: ShallowWrapper | ReactWrapper;
 
   describe("render", () => {
     beforeEach(() => {
@@ -105,19 +105,22 @@ describe("ProfileDetailStyle", () => {
     ["L", "14px"],
     ["XL", "24px"],
     ["XXL", "32px"],
-  ])("when a src prop is passed and the size is %s", (size, margin) => {
-    it("renders the expected styles", () => {
-      const wrapper = mount(
-        <Profile initials="AS" size={size} src="Foo" email="foo" name="foo" />
-      );
-      assertStyleMatch(
-        {
-          marginTop: margin,
-        },
-        wrapper.find(ProfileDetailsStyle)
-      );
-    });
-  });
+  ] as const)(
+    "when a src prop is passed and the size is %s",
+    (size, margin) => {
+      it("renders the expected styles", () => {
+        const wrapper = mount(
+          <Profile initials="AS" size={size} src="Foo" email="foo" name="foo" />
+        );
+        assertStyleMatch(
+          {
+            marginTop: margin,
+          },
+          wrapper.find(ProfileDetailsStyle)
+        );
+      });
+    }
+  );
 });
 
 describe("styled-system", () => {

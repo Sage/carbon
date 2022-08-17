@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
-import propTypes from "@styled-system/prop-types";
-import PropTypes from "prop-types";
+import { SpaceProps } from "styled-system";
 import { StyledDt } from "./definition-list.style";
 import DlContext from "./__internal__/dl.context";
 
-const Dt = ({ children, ...rest }) => {
+export interface DtProps extends SpaceProps {
+  /** Prop for what will render in the `<Dd></Dd>` tags */
+  children: React.ReactNode;
+}
+
+const Dt = ({ children, ...rest }: DtProps) => {
   const { asSingleColumn } = useContext(DlContext);
   const { mb, pr } = rest;
   return (
@@ -17,12 +21,6 @@ const Dt = ({ children, ...rest }) => {
       {children}
     </StyledDt>
   );
-};
-
-Dt.propTypes = {
-  ...propTypes.space,
-  /** Child elements */
-  children: PropTypes.node.isRequired,
 };
 
 export default Dt;

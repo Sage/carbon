@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { ThemeProvider } from "styled-components";
 import mintTheme from "../../style/themes/mint";
 import {
@@ -11,39 +11,46 @@ import {
   StyledDt,
   StyledDtDiv,
   StyledDdDiv,
+  ElementAlignment,
 } from "./definition-list.style";
-import Dl from "./dl.component";
+import Dl, { DlProps } from "./dl.component";
 import Dt from "./dt.component";
 import Dd from "./dd.component";
 import DlContext from "./__internal__/dl.context";
 
-describe("DefinitionList", () => {
-  let wrapper;
+type nodeType = "Dl" | "Dt" | "Dd";
 
-  const renderWrapper = (id, props, render = mount) => {
-    const { asSingleColumn } = props;
+const renderWrapper = (
+  id: nodeType,
+  props: Partial<DlProps> = {},
+  render = mount
+) => {
+  const { asSingleColumn } = props;
 
-    const definitionObject = {
-      Dl: (
-        <Dl {...props}>
-          <Dt>Foo</Dt>
-          <Dd>Barr</Dd>
-        </Dl>
-      ),
-      Dt: asSingleColumn ? (
-        <DlContext.Provider value={{ asSingleColumn: true }}>
-          <Dt {...props}>Foo</Dt>
-        </DlContext.Provider>
-      ) : (
+  const definitionObject = {
+    Dl: (
+      <Dl {...props}>
+        <Dt>Foo</Dt>
+        <Dd>Barr</Dd>
+      </Dl>
+    ),
+    Dt: asSingleColumn ? (
+      <DlContext.Provider value={{ asSingleColumn: true }}>
         <Dt {...props}>Foo</Dt>
-      ),
-      Dd: <Dd {...props}>Barr</Dd>,
-    };
-
-    return render(
-      <ThemeProvider theme={mintTheme}>{definitionObject[id]}</ThemeProvider>
-    );
+      </DlContext.Provider>
+    ) : (
+      <Dt {...props}>Foo</Dt>
+    ),
+    Dd: <Dd {...props}>Barr</Dd>,
   };
+
+  return render(
+    <ThemeProvider theme={mintTheme}>{definitionObject[id]}</ThemeProvider>
+  );
+};
+
+describe("DefinitionList", () => {
+  let wrapper: ReactWrapper;
 
   testStyledSystemSpacing((props) => (
     <ThemeProvider theme={mintTheme}>
@@ -64,8 +71,9 @@ describe("DefinitionList", () => {
           </Dl>
         </ThemeProvider>
       ),
-      null,
-      (component) => component.find(Dt)
+      undefined,
+      (component: ReactWrapper) =>
+        (component.find(Dt) as unknown) as ReactWrapper
     );
   });
 
@@ -79,8 +87,8 @@ describe("DefinitionList", () => {
           </Dl>
         </ThemeProvider>
       ),
-      null,
-      (component) => component.find(Dd)
+      undefined,
+      (component) => (component.find(Dd) as unknown) as ReactWrapper
     );
   });
 
@@ -136,15 +144,12 @@ describe("DefinitionList", () => {
     describe("when mapping from an object", () => {
       it("should render the correct amount of list items", () => {
         const definitions = [
-          true && {
+          {
             definition: "First",
             description: "1st Description",
           },
-          false && {
-            definition: "Second",
-            description: "2nd Description",
-          },
-          true && {
+          undefined,
+          {
             definition: "Third",
             description: "3rd Description",
           },
@@ -154,7 +159,7 @@ describe("DefinitionList", () => {
           <Dl>
             {definitions.map(
               (x) =>
-                !!x && (
+                x && (
                   <React.Fragment key={x.definition}>
                     <Dt>{x.definition}</Dt>
                     <Dd>{x.description}</Dd>
@@ -172,7 +177,7 @@ describe("DefinitionList", () => {
 
   describe("styles", () => {
     it("matches the expected default styles of Dl", () => {
-      wrapper = renderWrapper("Dl", {});
+      wrapper = renderWrapper("Dl");
       assertStyleMatch(
         {
           display: "grid",
@@ -187,7 +192,7 @@ describe("DefinitionList", () => {
     });
 
     it("matches the expected default styles of Dt", () => {
-      wrapper = renderWrapper("Dt", {});
+      wrapper = renderWrapper("Dt");
       assertStyleMatch(
         {
           fontSize: "14px",
@@ -207,7 +212,7 @@ describe("DefinitionList", () => {
     });
 
     it("matches the expected default styles of Dd", () => {
-      wrapper = renderWrapper("Dd", {});
+      wrapper = renderWrapper("Dd");
       assertStyleMatch(
         {
           fontSize: "14px",
@@ -258,18 +263,32 @@ describe("DefinitionList", () => {
       );
     });
 
-    it.each(["left", "center", "right"])(
-      "matches the custom text alignments passed to Dl and Dd",
+    describe.each(["left", "center", "right"] as ElementAlignment[])(
+      "when the align prop is set to %s",
       (align) => {
-        assertStyleMatch(
-          {
-            textAlign: `${align}`,
-          },
-          renderWrapper("Dl", { dtTextAlign: align, ddTextAlign: align }).find(
-            StyledDtDiv,
-            StyledDdDiv
-          )
-        );
+        it("matches the custom text alignments passed to Dt", () => {
+          assertStyleMatch(
+            {
+              textAlign: `${align}`,
+            },
+            renderWrapper("Dl", {
+              dtTextAlign: align,
+              ddTextAlign: align,
+            }).find(StyledDtDiv)
+          );
+        });
+
+        it("matches the custom text alignments passed to Dd", () => {
+          assertStyleMatch(
+            {
+              textAlign: `${align}`,
+            },
+            renderWrapper("Dl", {
+              dtTextAlign: align,
+              ddTextAlign: align,
+            }).find(StyledDdDiv)
+          );
+        });
       }
     );
   });

@@ -37,8 +37,6 @@ export interface LinkProps extends React.AriaAttributes {
       | React.MouseEvent<HTMLButtonElement>
   ) => void;
 
-  /** Whether to include the link in the tab order of the page */
-  tabbable?: boolean;
   /** A message to display as a tooltip to the link. */
   tooltipMessage?: string;
   /** Positions the tooltip with the link. */
@@ -77,14 +75,12 @@ export const Link = React.forwardRef<
       rel,
       tooltipMessage,
       tooltipPosition,
-      tabbable = true,
       target,
       ...rest
     }: LinkProps,
     ref
   ) => {
     const l = useLocale();
-    const tabIndex = tabbable && !disabled ? "0" : "-1";
     const handleOnKeyDown = (
       ev:
         | React.KeyboardEvent<HTMLAnchorElement>
@@ -136,7 +132,6 @@ export const Link = React.forwardRef<
       onMouseDown,
       onClick,
       disabled,
-      tabIndex,
       target,
       ref,
       href,

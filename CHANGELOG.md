@@ -1,3 +1,49 @@
+### [110.0.3](https://github.com/Sage/carbon/compare/v110.0.2...v110.0.3) (2022-08-16)
+
+
+### Bug Fixes
+
+* **modal:** remove propTypes from component ([b9994e5](https://github.com/Sage/carbon/commit/b9994e52d3b00423f959bb520afe66901a16a3f3)), closes [#5376](https://github.com/Sage/carbon/issues/5376)
+
+### [110.0.2](https://github.com/Sage/carbon/compare/v110.0.1...v110.0.2) (2022-08-16)
+
+
+### Bug Fixes
+
+* **flat-table:** fix cut outline of selected row ([51c7a33](https://github.com/Sage/carbon/commit/51c7a3352d63107c8a9f4b31a9ad007402dc26e6))
+
+
+### Reverts
+
+* **node, npm:** revert relaxing of node and npm versions ([a5ce6cc](https://github.com/Sage/carbon/commit/a5ce6cce5140b7f65cab7308be131b378977b5cc)), closes [#5364](https://github.com/Sage/carbon/issues/5364)
+
+### [110.0.1](https://github.com/Sage/carbon/compare/v110.0.0...v110.0.1) (2022-08-10)
+
+
+### Bug Fixes
+
+* **popover-container:** ensure clicks inside popover do not close it ([48808bc](https://github.com/Sage/carbon/commit/48808bc32b4437729a2d3aa74f1f1013ea354c8e))
+
+## [110.0.0](https://github.com/Sage/carbon/compare/v109.7.1...v110.0.0) (2022-08-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **link:** The tabbable prop has been removed and can no longer be used.
+Link component renders either an anchor or a button,
+both of these HTML elements are already tabbable by default,
+however anchors without href and disabled buttons are not,
+making this prop redundant.
+
+### Bug Fixes
+
+* **menu:** force submenu wrapper to render as a button ([460449c](https://github.com/Sage/carbon/commit/460449c2a6df409437ffc08ae0c9c48622f0c79d))
+
+
+### Code Refactoring
+
+* **link:** remove tabbable prop ([f087214](https://github.com/Sage/carbon/commit/f087214c6ee867646375088c250f2c4679467d5f))
+
 ### [109.7.1](https://github.com/Sage/carbon/compare/v109.7.0...v109.7.1) (2022-08-08)
 
 
