@@ -407,7 +407,7 @@ Using the `focusableContainers` prop allows elements that are not DOM children o
 This may occasionally be useful with things like Toasts where they persist on the page until dismissed by clicking a close icon.
 
 <Canvas>
-  <Story name="other focusable containers"parameters={{ chromatic: { disable: true } }}>
+  <Story name="other focusable containers" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isDialogOpen, setIsDialogOpen] = useState(false);
       const [isToast1Open, setIsToast1Open] = useState(false);
@@ -428,11 +428,11 @@ This may occasionally be useful with things like Toasts where they persist on th
               stickyFooter={true}
               height="500px"
               leftSideButtons={
-                <Button onClick={() => setIsToast1Open(true)}>Show first toast</Button>
+                <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
               }
               saveButton={
-                <Button buttonType="primary" onClick={() => setIsToast2Open(true)}>
-                  Show second toast
+                <Button buttonType="primary" type="submit">
+                  Save
                 </Button>
               }
             >
@@ -442,14 +442,10 @@ This may occasionally be useful with things like Toasts where they persist on th
               <Textbox label="First Name" />
               <Textbox label="Middle Name" />
               <Textbox label="Surname" />
-              <Textbox label="Birth Place" />
-              <Textbox label="Favourite Colour" />
-              <Textbox label="Address" /><Textbox label="First Name" />
-              <Textbox label="Middle Name" />
-              <Textbox label="Surname" />
-              <Textbox label="Birth Place" />
-              <Textbox label="Favourite Colour" />
-              <Textbox label="Address" />
+              <Button onClick={() => setIsToast1Open(true)}>Show first toast</Button>
+              <Button ml={2} buttonType="primary" onClick={() => setIsToast2Open(true)}>
+                Show second toast
+              </Button>
             </Form>
           </Dialog>
           <Toast open={isToast1Open} onDismiss={() => setIsToast1Open(false)} ref={toast1Ref} targetPortalId="stacked">

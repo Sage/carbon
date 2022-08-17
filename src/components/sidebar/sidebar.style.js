@@ -4,6 +4,11 @@ import StyledIconButton from "../icon-button/icon-button.style";
 import { SIDEBAR_SIZES_CSS } from "./sidebar.config";
 
 const SidebarStyle = styled.div`
+  // prevents outline being added in safari
+  :focus {
+    outline: none;
+  }
+
   ${({ onCancel, position, size, theme }) => css`
     background: var(--colorsUtilityMajor025);
     border-radius: 1px;
