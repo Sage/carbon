@@ -61,10 +61,8 @@ const FocusTrap = ({
   const [currentFocusedElement, setCurrentFocusedElement] = useState<
     HTMLElement | undefined
   >();
-  const {
-    isAnimationComplete = true,
-    triggerRefocusFlag,
-  } = useContext<ModalContextProps>(ModalContext);
+  const { isAnimationComplete = true, triggerRefocusFlag } =
+    useContext<ModalContextProps>(ModalContext);
 
   const hasNewInputs = useCallback(
     (candidate) => {

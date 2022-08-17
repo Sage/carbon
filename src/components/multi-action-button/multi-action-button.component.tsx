@@ -38,9 +38,10 @@ export const MultiActionButton = ({
   const ref = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const buttonContainer = useRef<HTMLDivElement>(null);
-  const buttonChildren = useMemo(() => React.Children.toArray(children), [
-    children,
-  ]);
+  const buttonChildren = useMemo(
+    () => React.Children.toArray(children),
+    [children]
+  );
   const buttonChildrenRefs = useMemo(
     () => buttonChildren.map(() => React.createRef<HTMLButtonElement>()),
     [buttonChildren]

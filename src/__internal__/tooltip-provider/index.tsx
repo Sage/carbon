@@ -19,9 +19,8 @@ interface ToolbarContextProps extends Omit<TooltipProviderProps, "children"> {
   };
 }
 
-export const TooltipContext: React.Context<ToolbarContextProps> = React.createContext(
-  {}
-);
+export const TooltipContext: React.Context<ToolbarContextProps> =
+  React.createContext({});
 
 export const TooltipProvider = ({
   children,

@@ -302,7 +302,7 @@ export const ActionPopoverItem = ({
       isDisabled={disabled}
       horizontalAlignment={horizontalAlignment}
       {...(disabled && { "aria-disabled": true })}
-      {...(isHref && { as: ("a" as unknown) as undefined, download, href })}
+      {...(isHref && { as: "a" as unknown as undefined, download, href })}
       {...(submenu && itemSubmenuProps)}
     >
       {React.isValidElement(submenu)

@@ -39,10 +39,8 @@ class ModalManagerInstance {
       return;
     }
 
-    const {
-      modal: topModal,
-      setTriggerRefocusFlag: setTrapFlag,
-    } = this.getTopModal();
+    const { modal: topModal, setTriggerRefocusFlag: setTrapFlag } =
+      this.getTopModal();
 
     if (topModal && setTrapFlag) {
       setTrapFlag(false);

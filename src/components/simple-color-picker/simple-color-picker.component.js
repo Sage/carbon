@@ -41,9 +41,10 @@ const SimpleColorPicker = (props) => {
     ...rest
   } = props;
 
-  const filteredChildren = useMemo(() => React.Children.toArray(children), [
-    children,
-  ]);
+  const filteredChildren = useMemo(
+    () => React.Children.toArray(children),
+    [children]
+  );
 
   const myRef = useRef(null);
   const [blurBlocked, setIsBlurBlocked] = useState(isBlurBlocked);

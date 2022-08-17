@@ -139,9 +139,8 @@ export const getSelectedLength = (value) => {
   let length = 0;
 
   if (!selection.isCollapsed()) {
-    const { startKey, endKey, startOffset, endOffset } = getSelectionInfo(
-      value
-    );
+    const { startKey, endKey, startOffset, endOffset } =
+      getSelectionInfo(value);
     const { content, blockLength } = getContentInfo(value);
     const startLength = blockLength - startOffset;
     const keyAfterEnd = content.getKeyAfter(endKey);

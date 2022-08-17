@@ -70,9 +70,10 @@ export const SplitButton = ({
 }: SplitButtonProps) => {
   const theme = useContext(ThemeContext) || baseTheme;
   const buttonLabelId = useRef(guid());
-  const buttonChildren = useMemo(() => React.Children.toArray(children), [
-    children,
-  ]);
+  const buttonChildren = useMemo(
+    () => React.Children.toArray(children),
+    [children]
+  );
   const buttonChildrenRefs = useMemo<React.RefObject<HTMLButtonElement>[]>(
     () => buttonChildren.map(() => React.createRef()),
     [buttonChildren]

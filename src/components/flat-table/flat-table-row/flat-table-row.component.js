@@ -49,9 +49,10 @@ const FlatTableRow = React.forwardRef(
     const firstColumnExpandable = expandableArea === "firstColumn";
     const [stickyCellWidths, setStickyCellWidths] = useState([]);
     const [leftPositions, setLeftPositions] = useState([]);
-    const childrenArray = useMemo(() => React.Children.toArray(children), [
-      children,
-    ]);
+    const childrenArray = useMemo(
+      () => React.Children.toArray(children),
+      [children]
+    );
     const rowHeaderIndex = useMemo(
       () =>
         childrenArray.findIndex(

@@ -76,9 +76,9 @@ const Popover = ({
   let content;
   let popperElementRef: React.MutableRefObject<HTMLElement | null>;
 
-  const childRef = (React.Children.only(
-    children
-  ) as React.FunctionComponentElement<unknown>).ref;
+  const childRef = (
+    React.Children.only(children) as React.FunctionComponentElement<unknown>
+  ).ref;
 
   if (childRef) {
     content = children;

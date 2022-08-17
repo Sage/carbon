@@ -39,9 +39,8 @@ export interface InlineInputsProps
   label?: string;
 }
 
-export const InlineInputsContext: React.Context<InlineInputsContextProps> = React.createContext(
-  {}
-);
+export const InlineInputsContext: React.Context<InlineInputsContextProps> =
+  React.createContext({});
 
 const columnWrapper = (
   children: React.ReactNode,

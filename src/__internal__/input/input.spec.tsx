@@ -160,7 +160,8 @@ describe("Input", () => {
       jest.useFakeTimers();
       const wrapper = renderMount({ value });
       const inputComponent = wrapper.find('input[type="text"]');
-      const inputElement = (inputComponent.instance() as unknown) as HTMLInputElement;
+      const inputElement =
+        inputComponent.instance() as unknown as HTMLInputElement;
       jest.spyOn(inputElement, "setSelectionRange");
       inputElement.selectionStart = leftPos;
       inputElement.selectionEnd = rightPos;
@@ -198,7 +199,8 @@ describe("Input", () => {
       jest.useFakeTimers();
       const wrapper = renderMount({ type: "radio" });
       const inputComponent = wrapper.find('input[type="radio"]');
-      const inputElement = (inputComponent.instance() as unknown) as HTMLInputElement;
+      const inputElement =
+        inputComponent.instance() as unknown as HTMLInputElement;
       jest.spyOn(inputElement, "setSelectionRange");
       inputComponent.simulate("focus");
       jest.runAllTimers();

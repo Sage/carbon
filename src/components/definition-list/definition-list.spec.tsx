@@ -72,8 +72,7 @@ describe("DefinitionList", () => {
         </ThemeProvider>
       ),
       undefined,
-      (component: ReactWrapper) =>
-        (component.find(Dt) as unknown) as ReactWrapper
+      (component: ReactWrapper) => component.find(Dt) as unknown as ReactWrapper
     );
   });
 
@@ -88,7 +87,7 @@ describe("DefinitionList", () => {
         </ThemeProvider>
       ),
       undefined,
-      (component) => (component.find(Dd) as unknown) as ReactWrapper
+      (component) => component.find(Dd) as unknown as ReactWrapper
     );
   });
 

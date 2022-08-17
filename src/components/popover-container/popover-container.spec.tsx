@@ -196,8 +196,10 @@ describe("PopoverContainer", () => {
       const placement = "bottom";
 
       expect(
-        (wrapper.find(Popover).props().modifiers?.[0]?.options
-          ?.offset as OffsetsFunction)({
+        (
+          wrapper.find(Popover).props().modifiers?.[0]?.options
+            ?.offset as OffsetsFunction
+        )({
           placement,
           reference,
           popper: reference,

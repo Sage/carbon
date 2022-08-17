@@ -175,9 +175,8 @@ describe("DuellingPicklist", () => {
   const MockComponent = ({ grouped }) => {
     const [notSelectedListItems, setNotSelectedItems] = useState([0, 1, 2]);
     const [selectedListItems, setSelectedItems] = useState([3, 4, 5]);
-    const [notSelectedListGroups, setNotSelectedGroups] = useState(
-      notSelectedGroups
-    );
+    const [notSelectedListGroups, setNotSelectedGroups] =
+      useState(notSelectedGroups);
     const [selectedListGroups, setSelectedGroups] = useState(selectedGroups);
 
     const addItem = (item) => {

@@ -40,12 +40,10 @@ jest.mock("@tippyjs/react/headless", () => ({
   default: ({ children }: MockTippyContent) => children,
 }));
 
-const mockBrowserTypeCheck = (browserTypeCheck as unknown) as jest.MockedFunction<
+const mockBrowserTypeCheck = browserTypeCheck as unknown as jest.MockedFunction<
   () => boolean
 >;
-const mockIsSafari = (isSafari as unknown) as jest.MockedFunction<
-  () => boolean
->;
+const mockIsSafari = isSafari as unknown as jest.MockedFunction<() => boolean>;
 
 function renderIcon(props: Partial<IconProps>) {
   return <Icon type="add" {...props} />;

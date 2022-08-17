@@ -95,13 +95,10 @@ export const ValidationIcon = ({
     );
   }
 
-  const { hasFocus, hasMouseOver } = useContext<InputContextProps>(
-    InputContext
-  );
-  const {
-    hasFocus: groupHasFocus,
-    hasMouseOver: groupHasMouseOver,
-  } = useContext<InputContextProps>(InputGroupContext);
+  const { hasFocus, hasMouseOver } =
+    useContext<InputContextProps>(InputContext);
+  const { hasFocus: groupHasFocus, hasMouseOver: groupHasMouseOver } =
+    useContext<InputContextProps>(InputGroupContext);
   const [triggeredByIcon, setTriggeredByIcon] = useState(false);
 
   const validationType = getValidationType({ error, warning, info });

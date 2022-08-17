@@ -116,9 +116,8 @@ const FormField = ({
     inlineLabel = largeScreen;
   }
 
-  const { setError, setWarning, setInfo } = useContext<TabContextProps>(
-    TabContext
-  );
+  const { setError, setWarning, setInfo } =
+    useContext<TabContextProps>(TabContext);
 
   useEffect(() => {
     if (setError) setError(id, !!error);

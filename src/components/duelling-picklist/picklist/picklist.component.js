@@ -10,9 +10,10 @@ import PicklistGroup from "../picklist-group/picklist-group.component";
 export const Picklist = ({ disabled, children, placeholder, index }) => {
   const { elementToFocus, setElementToFocus } = useContext(FocusContext);
 
-  const isEmpty = useMemo(() => !React.Children.toArray(children).length, [
-    children,
-  ]);
+  const isEmpty = useMemo(
+    () => !React.Children.toArray(children).length,
+    [children]
+  );
 
   const filteredChildren = React.Children.toArray(children);
 

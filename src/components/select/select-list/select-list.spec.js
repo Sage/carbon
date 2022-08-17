@@ -605,10 +605,8 @@ describe("SelectList", () => {
 
       it("then the focus function should have been called on the ListActionButton", () => {
         onFocusFn.mockClear();
-        wrapper
-          .find(ListActionButton)
-          .find("button")
-          .getDOMNode().focus = onFocusFn;
+        wrapper.find(ListActionButton).find("button").getDOMNode().focus =
+          onFocusFn;
         act(() => {
           testContainer.dispatchEvent(tabKeyDownEvent);
         });

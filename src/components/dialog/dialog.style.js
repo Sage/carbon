@@ -38,13 +38,8 @@ const calculateWidthValue = (props) => {
 };
 
 const calculateFormSpacingValues = (props, isFormContent) => {
-  const {
-    paddingTop,
-    paddingBottom,
-    paddingLeft,
-    paddingRight,
-    padding,
-  } = paddingFn(props);
+  const { paddingTop, paddingBottom, paddingLeft, paddingRight, padding } =
+    paddingFn(props);
 
   const spacingTopValue = paddingTop ?? padding ?? CONTENT_TOP_PADDING;
   const spacingRightValue = paddingRight ?? padding ?? HORIZONTAL_PADDING;

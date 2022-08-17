@@ -102,34 +102,31 @@ const isUnique = (val: number, index: number, self: number[]) =>
 const isSelectableGiven = (nonSelectables: number[]) => (i: number) =>
   !nonSelectables.includes(i);
 
-const selectedItemReducer = (
-  method: (wrapper: ReactWrapper) => (i: number) => void
-) => (wrapper: ReactWrapper) => (acc: number[], i: number) => {
-  method(wrapper)(i);
-  return [...acc, selectedItemOf(wrapper)];
-};
+const selectedItemReducer =
+  (method: (wrapper: ReactWrapper) => (i: number) => void) =>
+  (wrapper: ReactWrapper) =>
+  (acc: number[], i: number) => {
+    method(wrapper)(i);
+    return [...acc, selectedItemOf(wrapper)];
+  };
 
 const arraysEqual = (arr1: number[], arr2: number[]) =>
   arr1.sort().join(",") === arr2.sort().join(",");
 
-const assertCorrectTraversal = (
-  method: (wrapper: ReactWrapper) => (i: number) => void
-) => (expect: jest.Expect) => ({
-  num,
-  nonSelectables = [],
-}: {
-  num: number;
-  nonSelectables?: number[];
-}) => (wrapper: ReactWrapper) => {
-  const array = makeArrayKeys(num);
-  const validIndexes = array.filter(isSelectableGiven(nonSelectables));
+const assertCorrectTraversal =
+  (method: (wrapper: ReactWrapper) => (i: number) => void) =>
+  (expect: jest.Expect) =>
+  ({ num, nonSelectables = [] }: { num: number; nonSelectables?: number[] }) =>
+  (wrapper: ReactWrapper) => {
+    const array = makeArrayKeys(num);
+    const validIndexes = array.filter(isSelectableGiven(nonSelectables));
 
-  const selectedItem = selectedItemOf(wrapper);
-  const indexesThatWereSelected = array
-    .reduce(selectedItemReducer(method)(wrapper), [selectedItem])
-    .filter(isUnique);
-  expect(arraysEqual(validIndexes, indexesThatWereSelected)).toBeTruthy();
-};
+    const selectedItem = selectedItemOf(wrapper);
+    const indexesThatWereSelected = array
+      .reduce(selectedItemReducer(method)(wrapper), [selectedItem])
+      .filter(isUnique);
+    expect(arraysEqual(validIndexes, indexesThatWereSelected)).toBeTruthy();
+  };
 
 const assertKeyboardTraversal = assertCorrectTraversal(
   () => keyboard.pressArrowDown

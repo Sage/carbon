@@ -3,16 +3,17 @@ import shade from "../utils/shade";
 
 export type PaletteFunction = (weight: number | string) => string;
 
-const cachedFunc = (cb: PaletteFunction) => (
-  cache: Record<string, string> = {}
-) => (weight: number | string) => {
-  if (cache[weight]) {
-    return cache[weight];
-  }
-  const color = cb(weight);
-  cache[weight] = color;
-  return color;
-};
+const cachedFunc =
+  (cb: PaletteFunction) =>
+  (cache: Record<string, string> = {}) =>
+  (weight: number | string) => {
+    if (cache[weight]) {
+      return cache[weight];
+    }
+    const color = cb(weight);
+    cache[weight] = color;
+    return color;
+  };
 
 /**
  * Takes a config object of base colors and, for each base, generates functions

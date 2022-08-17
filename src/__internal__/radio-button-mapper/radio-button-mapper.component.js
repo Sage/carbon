@@ -10,9 +10,10 @@ const RadioButtonMapper = ({
   onKeyDown,
   value,
 }) => {
-  const filteredChildren = useMemo(() => React.Children.toArray(children), [
-    children,
-  ]);
+  const filteredChildren = useMemo(
+    () => React.Children.toArray(children),
+    [children]
+  );
   const anyChecked = useMemo(() => {
     let result = false;
     filteredChildren.forEach((child) => {
