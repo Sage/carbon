@@ -1,3 +1,25 @@
+## [110.1.0](https://github.com/Sage/carbon/compare/v110.0.4...v110.1.0) (2022-08-17)
+
+
+### Features
+
+* **sidebar:** add padding props for customising content container ([4f7a7bf](https://github.com/Sage/carbon/commit/4f7a7bf92213e0ba74c6e0a72e3242e240f5cfe2))
+
+### [110.0.4](https://github.com/Sage/carbon/compare/v110.0.3...v110.0.4) (2022-08-17)
+
+
+### Bug Fixes
+
+* **focus-trap:** keydown listener is now registered in capture phase ([7f4d2e2](https://github.com/Sage/carbon/commit/7f4d2e2b15cb2a692f2e3b1c178675322ce2ade2)), closes [#5295](https://github.com/Sage/carbon/issues/5295)
+* **sidebar:** ensure sidebar wrapper does not have outline when focused ([bbdcd5d](https://github.com/Sage/carbon/commit/bbdcd5d2b747dbe206171b25bd85023a15d95fa9))
+
+### [110.0.3](https://github.com/Sage/carbon/compare/v110.0.2...v110.0.3) (2022-08-16)
+
+
+### Bug Fixes
+
+* **modal:** remove propTypes from component ([b9994e5](https://github.com/Sage/carbon/commit/b9994e52d3b00423f959bb520afe66901a16a3f3)), closes [#5376](https://github.com/Sage/carbon/issues/5376)
+
 ### [110.0.2](https://github.com/Sage/carbon/compare/v110.0.1...v110.0.2) (2022-08-16)
 
 

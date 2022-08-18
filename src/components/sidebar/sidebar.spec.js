@@ -1,9 +1,12 @@
-import React, { useRef } from "react";
 import { mount } from "enzyme";
+import React, { useRef } from "react";
 import Sidebar from "./sidebar.component";
 import Textbox from "../textbox";
-import SidebarStyle from "./sidebar.style";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import StyledSidebar from "./sidebar.style";
+import {
+  assertStyleMatch,
+  testStyledSystemPadding,
+} from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
 import SidebarHeader from "./__internal__/sidebar-header/sidebar-header.component";
@@ -50,7 +53,7 @@ describe("Sidebar", () => {
               right: "25px",
               top: "25px",
             },
-            wrapper.find(SidebarStyle),
+            wrapper.find(StyledSidebar),
             { modifier: `> ${StyledIconButton}:first-of-type` }
           );
         });
@@ -119,16 +122,16 @@ describe("Sidebar", () => {
         guid.mockImplementation(() => "guid-12345");
 
         wrapper = mount(<Sidebar open header="test header" />);
-        expect(wrapper.find(SidebarStyle).first().prop("aria-labelledby")).toBe(
-          "guid-12345"
-        );
+        expect(
+          wrapper.find(StyledSidebar).first().prop("aria-labelledby")
+        ).toBe("guid-12345");
       });
 
       it("when no header is provided, the container has an aria-labeledby attribute set to the prop provided", () => {
         wrapper = mount(<Sidebar open aria-labelledby="my-id" />);
-        expect(wrapper.find(SidebarStyle).first().prop("aria-labelledby")).toBe(
-          "my-id"
-        );
+        expect(
+          wrapper.find(StyledSidebar).first().prop("aria-labelledby")
+        ).toBe("my-id");
       });
     });
   });
@@ -153,10 +156,10 @@ describe("Sidebar", () => {
   });
 });
 
-describe("SidebarStyle", () => {
+describe("StyledSidebar", () => {
   describe("when prop size is passed to the component and position is set to right", () => {
     const wrapper = mount(
-      <SidebarStyle open size="extra-small" position="right" />
+      <StyledSidebar open size="extra-small" position="right" />
     );
 
     it("should render correct style", () => {
@@ -175,7 +178,7 @@ describe("SidebarStyle", () => {
 
   describe("when prop left is passed to the component", () => {
     const wrapper = mount(
-      <SidebarStyle open size="extra-small" position="left" />
+      <StyledSidebar open size="extra-small" position="left" />
     );
 
     it("should render correct style", () => {
@@ -204,6 +207,22 @@ describe("SidebarStyle", () => {
 
     const wrapper = mount(<WrapperComponent />);
 
-    expect(mockRef.current).toBe(wrapper.find(SidebarStyle).getDOMNode());
+    expect(mockRef.current).toBe(wrapper.find(StyledSidebar).getDOMNode());
   });
+});
+
+describe("Sidebar content", () => {
+  testStyledSystemPadding(
+    (props) => (
+      <Sidebar open {...props}>
+        Content
+      </Sidebar>
+    ),
+    {
+      pt: "var(--spacing300)",
+      pb: "var(--spacing400)",
+      px: "var(--spacing400)",
+    },
+    (component) => component.find("[data-element='sidebar-content']")
+  );
 });

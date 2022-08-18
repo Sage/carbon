@@ -1,9 +1,10 @@
 const defaultFocusableSelectors =
   'button:not([disabled]), [href], input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]';
 
-const waitForVisibleAndFocus = (element) => {
-  const INTERVAL = 10;
-  const MAX_TIME = 100;
+const INTERVAL = 10;
+const MAX_TIME = 100;
+
+const setElementFocus = (element: HTMLElement) => {
   let timeSoFar = 0;
 
   const stylesMatch = () => {
@@ -25,26 +26,19 @@ const waitForVisibleAndFocus = (element) => {
   check();
 };
 
-function setElementFocus(element) {
-  if (typeof element === "function") {
-    element();
-  } else {
-    const el = element.current || element;
-    waitForVisibleAndFocus(el);
-  }
-}
-
-const isRadio = (element) => {
+const isRadio = (element: HTMLElement) => {
   return (
     element.hasAttribute("type") && element.getAttribute("type") === "radio"
   );
 };
 
-const getRadioElementToFocus = (groupName, shiftKey) => {
+const getRadioElementToFocus = (groupName: string, shiftKey: boolean) => {
   const buttonsInGroup = document.querySelectorAll(
     `input[type="radio"][name="${groupName}"]`
   );
-  const selectedButton = [...buttonsInGroup].find((button) => button.checked);
+  const selectedButton = [...buttonsInGroup].find(
+    (button) => (button as HTMLInputElement).checked
+  );
 
   if (selectedButton) {
     return selectedButton;
@@ -52,7 +46,11 @@ const getRadioElementToFocus = (groupName, shiftKey) => {
   return buttonsInGroup[shiftKey ? buttonsInGroup.length - 1 : 0];
 };
 
-const getNextElement = (element, focusableElements, shiftKey) => {
+const getNextElement = (
+  element: HTMLElement,
+  focusableElements: HTMLElement[],
+  shiftKey: boolean
+) => {
   const currentIndex = focusableElements.indexOf(element);
   const increment = shiftKey ? -1 : 1;
   let nextIndex = currentIndex;
@@ -78,7 +76,7 @@ const getNextElement = (element, focusableElements, shiftKey) => {
 
     if (isRadio(nextElement)) {
       // if we've reached a radio element we need to ensure we focus the correct button in its group
-      const nextElementGroupName = nextElement.getAttribute("name");
+      const nextElementGroupName = nextElement.getAttribute("name") as string;
 
       if (isRadio(element)) {
         const groupName = element.getAttribute("name");
@@ -100,7 +98,7 @@ const getNextElement = (element, focusableElements, shiftKey) => {
     }
   }
 
-  return foundElement;
+  return foundElement as HTMLElement;
 };
 
 export { defaultFocusableSelectors, getNextElement, setElementFocus };
