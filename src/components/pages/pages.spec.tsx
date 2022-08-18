@@ -19,9 +19,8 @@ interface MockComponentProps {
 function MockComponentWithOneChild({
   initialPageIndex,
 }: Pick<MockComponentProps, "initialPageIndex">) {
-  const [pageIndex, setPageIndex] = useState<number | undefined>(
-    initialPageIndex
-  );
+  const [pageIndex, setPageIndex] =
+    useState<number | undefined>(initialPageIndex);
   const moveToNextPageWithUndefinedValue = () => setPageIndex(undefined);
   const moveToNextPage = () => {
     if (pageIndex !== undefined) setPageIndex(pageIndex + 1);

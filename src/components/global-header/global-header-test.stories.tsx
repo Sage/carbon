@@ -21,30 +21,31 @@ export default {
   },
 } as ComponentMeta<typeof GlobalHeader>;
 
-export const MenuWithIconOnlyButtonsStory: ComponentStory<
-  typeof GlobalHeader
-> = () => {
-  return (
-    <GlobalHeader logo={<img height={28} src={carbonLogo} alt="Carbon logo" />}>
-      <VerticalDivider h="100%" pt={1} pb={1} pr={0} pl={2} tint={100} />
-      <Menu menuType="black" display="flex" flex="1">
-        <MenuItem flex="1" submenu="Product Switcher">
-          <MenuItem href="#">Product A</MenuItem>
-        </MenuItem>
-        <MenuItem flex="0 0 auto" icon="person">
-          User name
-        </MenuItem>
-        <MenuItem flex="0 0 auto" submenu="Selected role">
-          <MenuItem>Administrator</MenuItem>
-        </MenuItem>
-        <MenuItem ariaLabel="search" icon="search" href="#" />
-        <MenuItem ariaLabel="alert" icon="alert" href="#" />
-        <MenuItem ariaLabel="settings" icon="settings" href="#" />
-        <MenuItem ariaLabel="logout" icon="logout" href="#" />
-      </Menu>
-    </GlobalHeader>
-  );
-};
+export const MenuWithIconOnlyButtonsStory: ComponentStory<typeof GlobalHeader> =
+  () => {
+    return (
+      <GlobalHeader
+        logo={<img height={28} src={carbonLogo} alt="Carbon logo" />}
+      >
+        <VerticalDivider h="100%" pt={1} pb={1} pr={0} pl={2} tint={100} />
+        <Menu menuType="black" display="flex" flex="1">
+          <MenuItem flex="1" submenu="Product Switcher">
+            <MenuItem href="#">Product A</MenuItem>
+          </MenuItem>
+          <MenuItem flex="0 0 auto" icon="person">
+            User name
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Selected role">
+            <MenuItem>Administrator</MenuItem>
+          </MenuItem>
+          <MenuItem ariaLabel="search" icon="search" href="#" />
+          <MenuItem ariaLabel="alert" icon="alert" href="#" />
+          <MenuItem ariaLabel="settings" icon="settings" href="#" />
+          <MenuItem ariaLabel="logout" icon="logout" href="#" />
+        </Menu>
+      </GlobalHeader>
+    );
+  };
 MenuWithIconOnlyButtonsStory.storyName = "menu with icon-only buttons";
 MenuWithIconOnlyButtonsStory.parameters = {
   docs: {

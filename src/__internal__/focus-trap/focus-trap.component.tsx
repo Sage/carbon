@@ -53,14 +53,12 @@ const FocusTrap = ({
   additionalWrapperRefs,
 }: FocusTrapProps) => {
   const trapRef = useRef<HTMLDivElement>(null);
-  const [focusableElements, setFocusableElements] = useState<
-    HTMLElement[] | undefined
-  >();
+  const [focusableElements, setFocusableElements] =
+    useState<HTMLElement[] | undefined>();
   const [firstElement, setFirstElement] = useState<HTMLElement | undefined>();
   const [lastElement, setLastElement] = useState<HTMLElement | undefined>();
-  const [currentFocusedElement, setCurrentFocusedElement] = useState<
-    HTMLElement | undefined
-  >();
+  const [currentFocusedElement, setCurrentFocusedElement] =
+    useState<HTMLElement | undefined>();
   const { isAnimationComplete = true, triggerRefocusFlag } =
     useContext<ModalContextProps>(ModalContext);
 

@@ -123,9 +123,8 @@ export const ActionPopoverItem = ({
 
   const { setOpenPopover, isOpenPopover, focusButton } = context;
   const isHref = !!href;
-  const [containerPosition, setContainerPosition] = useState<
-    ContainerPosition | undefined
-  >(undefined);
+  const [containerPosition, setContainerPosition] =
+    useState<ContainerPosition | undefined>(undefined);
   const [guid] = useState(createGuid());
   const [isOpen, setOpen] = useState(false);
   const [focusIndex, setFocusIndex] = useState<number>(0);
