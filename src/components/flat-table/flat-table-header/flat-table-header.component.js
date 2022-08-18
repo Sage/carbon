@@ -1,9 +1,10 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, useContext } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import StyledFlatTableHeader from "./flat-table-header.style";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
+import { FlatTableThemeContext } from "../flat-table.component";
 
 const paddingPropTypes = filterStyledSystemPaddingProps(
   styledSystemPropTypes.space
@@ -23,6 +24,7 @@ const FlatTableHeader = ({
   ...rest
 }) => {
   const ref = useRef(null);
+  const { colorTheme } = useContext(FlatTableThemeContext);
 
   useLayoutEffect(() => {
     if (ref.current && reportCellWidth) {
@@ -36,6 +38,7 @@ const FlatTableHeader = ({
       leftPosition={leftPosition || 0}
       makeCellSticky={!!reportCellWidth}
       align={align}
+      colorTheme={colorTheme}
       data-element="flat-table-header"
       colSpan={colspan}
       rowSpan={rowspan}
