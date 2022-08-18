@@ -1,3 +1,10 @@
+### [110.1.1](https://github.com/Sage/carbon/compare/v110.1.0...v110.1.1) (2022-08-18)
+
+
+### Bug Fixes
+
+* **definition-list:** ensure links are styled correctly ([288b85a](https://github.com/Sage/carbon/commit/288b85a438f0347c0bacbb439fa06eefdd1666ce)), closes [#5240](https://github.com/Sage/carbon/issues/5240)
+
 ## [110.1.0](https://github.com/Sage/carbon/compare/v110.0.4...v110.1.0) (2022-08-17)
 
 
