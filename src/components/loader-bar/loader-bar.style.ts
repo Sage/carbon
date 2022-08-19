@@ -1,12 +1,26 @@
 import styled, { css, keyframes } from "styled-components";
-import PropTypes from "prop-types";
-import { margin } from "styled-system";
+import { margin, MarginProps } from "styled-system";
 import baseTheme from "../../style/themes/base";
-import { LOADER_BAR_SIZES } from "./loader-bar.config";
+
+export interface StyledLoaderBarProps {
+  /** Size of the loaderBar. */
+  size?: "small" | "medium" | "large";
+}
+
+function getHeight(size: StyledLoaderBarProps["size"]) {
+  switch (size) {
+    case "small":
+      return "4px";
+    case "large":
+      return "16px";
+    default:
+      return "8px";
+  }
+}
 
 const INNER_BAR_LENGTH = "128px";
 
-const StyledLoader = styled.div`
+const StyledLoader = styled.div<StyledLoaderBarProps & MarginProps>`
   ${margin}
   text-align: center;
   white-space: nowrap;
@@ -23,7 +37,7 @@ const innerBarAnimation = keyframes`
   }
 `;
 
-const StyledLoaderBar = styled.div`
+const StyledLoaderBar = styled.div<StyledLoaderBarProps>`
   ${({ size }) => css`
     display: inline-block;
     height: ${getHeight(size)};
@@ -34,7 +48,7 @@ const StyledLoaderBar = styled.div`
   `}
 `;
 
-const InnerBar = styled.div`
+const InnerBar = styled.div<StyledLoaderBarProps>`
   ${({ size }) => css`
     position: absolute;
     background-color: var(--colorsActionMajor500);
@@ -44,31 +58,8 @@ const InnerBar = styled.div`
   `}
 `;
 
-function getHeight(size) {
-  switch (size) {
-    case "small":
-      return "4px";
-    case "large":
-      return "16px";
-    default:
-      return "8px";
-  }
-}
-
 StyledLoader.defaultProps = {
   theme: baseTheme,
-};
-
-StyledLoaderBar.defaultProps = {
-  size: "medium",
-};
-
-InnerBar.defaultProps = {
-  size: "medium",
-};
-
-StyledLoaderBar.propTypes = {
-  size: PropTypes.oneOf(LOADER_BAR_SIZES),
 };
 
 export { InnerBar, StyledLoader };
