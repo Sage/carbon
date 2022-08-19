@@ -1,26 +1,29 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React from "react";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import ButtonToggle from ".";
 
-<Meta
-  title="Button Toggle/Test"
-  parameters={{
+export default {
+  title: "Button Toggle/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     childrenSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+};
 
-export const ButtonToggleStory = ({
+export const Default = ({
   children,
   childrenSpecialCharacters,
   ...args
+}: {
+  children: string;
+  childrenSpecialCharacters: string;
 }) => (
   <div>
     <ButtonToggle
@@ -29,42 +32,32 @@ export const ButtonToggleStory = ({
       onChange={() => action("onChange")("foo")}
       onFocus={() => action("onFocus")("foo")}
       onBlur={() => action("onBlur")("foo")}
-      children={children || childrenSpecialCharacters}
-      {...args}
-    />
+    >
+      {childrenSpecialCharacters || children}
+    </ButtonToggle>
     <ButtonToggle
       name="new-button-toggle"
       key="button-toggle-2"
       onChange={() => action("onChange")("bar")}
       onFocus={() => action("onFocus")("bar")}
       onBlur={() => action("onBlur")("bar")}
-      children={children || childrenSpecialCharacters}
-      {...args}
-    />
+    >
+      {childrenSpecialCharacters || children}
+    </ButtonToggle>
     <ButtonToggle
       name="new-button-toggle"
       key="button-toggle-3"
       onChange={() => action("onChange")("baz")}
       onFocus={() => action("onFocus")("baz")}
       onBlur={() => action("onBlur")("baz")}
-      children={children || childrenSpecialCharacters}
-      {...args}
-    />
+    >
+      {childrenSpecialCharacters || children}
+    </ButtonToggle>
   </div>
 );
 
-# ToggleButton
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      children: "Option",
-      childrenSpecialCharacters: undefined,
-    }}
-  >
-    {ButtonToggleStory.bind({})}
-  </Story>
-</Canvas>
+Default.storyName = "default";
+Default.args = {
+  children: "Options",
+  childrenSpecialCharacters: undefined,
+};
