@@ -12,3 +12,4 @@ export const advancedColorPickerCell = () => cy.get(ADVANCED_COLOR_PICKER_CELL);
 export const advancedColorPicker = (index) => {
   return cy.get(SIMPLE_COLOR).eq(index);
 };
+export const simpleColorPickerComponent = () => cy.get(SIMPLE_COLOR_PICKER);

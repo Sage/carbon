@@ -1,18 +1,28 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import StyledButton from "../button/button.style";
-import { StyledLink } from "../link/link.style";
 import { baseTheme } from "../../style/themes";
 
-export const StyledDl = styled.dl`
+export interface StyledDlProps {
+  /** Render the DefinitionList as a single column */
+  asSingleColumn?: boolean;
+  /** This value will specify the width of the `StyledDtDiv` as a percentage. The remaining space will be taken up
+      by the `StyledDdDiv`. This prop has no effect when `asSingleColumn` is set.
+   */
+  w?: number;
+}
+
+export type ElementAlignment = "left" | "center" | "right";
+
+export const StyledDl = styled.dl<StyledDlProps>`
   ${space}
 
-  ${({ asSingleColumn }) => css`
+  ${({ asSingleColumn, w }) => css`
     ${!asSingleColumn &&
     css`
       display: grid;
       grid-template-rows: auto;
-      grid-template-columns: ${({ w }) => `${w}% auto;`};
+      grid-template-columns: ${w}% auto;
     `}
     ${asSingleColumn &&
     css`
@@ -29,7 +39,12 @@ StyledDl.defaultProps = {
   theme: baseTheme,
 };
 
-export const StyledDtDiv = styled.div`
+export interface StyledDtDivProps {
+  /** This string will specify the text align styling of the `<dt></dt>`. */
+  dtTextAlign?: ElementAlignment;
+}
+
+export const StyledDtDiv = styled.div<StyledDtDivProps>`
   ${space}
   ${({ dtTextAlign }) => css`
     text-align: ${dtTextAlign};
@@ -40,7 +55,12 @@ StyledDtDiv.defaultProps = {
   theme: baseTheme,
 };
 
-export const StyledDdDiv = styled.div`
+export interface StyledDdDivProps {
+  /** This string will specify the text align styling of the `<dd></dd>`. */
+  ddTextAlign?: ElementAlignment;
+}
+
+export const StyledDdDiv = styled.div<StyledDdDivProps>`
   ${({ ddTextAlign }) => css`
     text-align: ${ddTextAlign};
   `}
@@ -66,14 +86,6 @@ export const StyledDd = styled.dd`
   ${StyledButton} {
     padding: 0;
     border: none;
-  }
-
-  ${StyledLink} {
-    a,
-    button {
-      font-weight: 700px;
-      text-decoration: none;
-    }
   }
   ${space}
 `;

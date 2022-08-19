@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useCallback, useState } from "react";
-import PropTypes from "prop-types";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import useScrollBlock from "../../hooks/__internal__/useScrollBlock";
@@ -148,23 +147,6 @@ const Modal = ({
       </StyledModal>
     </Portal>
   );
-};
-
-Modal.propTypes = {
-  /** Modal content */
-  children: PropTypes.node,
-  /** A custom close event handler */
-  onCancel: PropTypes.func,
-  /** Controls the open state of the modal */
-  open: PropTypes.bool.isRequired,
-  /** Determines if the background is disabled when the modal is open */
-  enableBackgroundUI: PropTypes.bool,
-  /** Determines if the Esc Key closes the modal */
-  disableEscKey: PropTypes.bool,
-  /** Determines if the Dialog can be closed */
-  disableClose: PropTypes.bool,
-  /** Transition time */
-  timeout: PropTypes.number,
 };
 
 export default Modal;

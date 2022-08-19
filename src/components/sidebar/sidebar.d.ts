@@ -1,9 +1,10 @@
 import * as React from "react";
+import { PaddingProps } from "styled-system";
 
 export interface SidebarContextProps {
   isInSidebar: boolean;
 }
-export interface SidebarProps {
+export interface SidebarProps extends PaddingProps {
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby"?: string;
   /**
