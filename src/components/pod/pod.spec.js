@@ -709,14 +709,14 @@ describe("StyledBlock", () => {
   });
 
   describe("when softDelete prop is set", () => {
-    it("should not render the border", () => {
+    it("should render block with no border", () => {
       wrapper = renderStyledBlock({ softDelete: true });
+
       assertStyleMatch(
         {
-          color: "var(--colorsUtilityYin065)",
-          backgroundColor: "var(--colorsActionDisabled500)",
+          border: "none",
         },
-        wrapper
+        wrapper.find(StyledBlock)
       );
     });
   });

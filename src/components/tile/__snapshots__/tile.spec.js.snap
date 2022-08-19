@@ -68,7 +68,6 @@ exports[`Tile renders base styles 1`] = `
 .c5 {
   display: block;
   font-weight: bold;
-  color: var(--colorsUtilityYin090);
   text-align: left;
 }
 

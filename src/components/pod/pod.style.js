@@ -93,8 +93,12 @@ const StyledBlock = styled.div`
 
       ${softDelete &&
       css`
-        color: var(--colorsUtilityYin065);
+        border: none;
         background-color: var(--colorsActionDisabled500);
+
+        & > * {
+          color: var(--colorsUtilityYin065);
+        }
       `};
     `}
 `;
