@@ -164,7 +164,7 @@
     "webpack-dev-server": "^4.0.0"
   },
   "dependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^12.0.1",
+    "@badeball/cypress-cucumber-preprocessor": "^11.4.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.1.3",
     "@octokit/rest": "^18.12.0",
     "@popperjs/core": "^2.11.5",

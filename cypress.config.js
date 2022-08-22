@@ -2,10 +2,12 @@
 const { defineConfig } = require("cypress");
 
 const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
-const addCucumberPreprocessorPlugin = require("@badeball/cypress-cucumber-preprocessor")
-  .addCucumberPreprocessorPlugin;
-const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild")
-  .createEsbuildPlugin;
+const {
+  addCucumberPreprocessorPlugin,
+} = require("@badeball/cypress-cucumber-preprocessor");
+const {
+  createEsbuildPlugin,
+} = require("@badeball/cypress-cucumber-preprocessor/esbuild");
 const webpackConfig = require("./cypress/webpack.config.js");
 
 async function setupNodeEvents(on, config) {
