@@ -139,10 +139,7 @@ import Pages, { Page } from "carbon-react/lib/components/pages";
         <div>
           <Button onClick={handleOpen}>Open Preview</Button>
           <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
-            <Pages
-              initialpageIndex={initialpageIndex}
-              pageIndex={pageIndex}
-            >
+            <Pages initialpageIndex={initialpageIndex} pageIndex={pageIndex}>
               <Page title={<Heading title="My First Page" />}>
                 <Button onClick={handleOnClick} disabled={isDisabled}>
                   Go to second page

@@ -129,8 +129,10 @@ export const DecimalCustomOnChangeStory = (args) => {
   };
   return (
     <div>
-      If you try to type "22.222", the onChange should block the last "2" from being entered and you should see "22.22" in the textbox.
-      The recommended approach for manipulating input values is to use validation. However, it is also possible to manipulate this via the onChange function like so:
+      If you try to type "22.222", the onChange should block the last "2" from
+      being entered and you should see "22.22" in the textbox. The recommended
+      approach for manipulating input values is to use validation. However, it
+      is also possible to manipulate this via the onChange function like so:
       <Decimal
         mt={2}
         value={state}
