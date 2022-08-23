@@ -95,16 +95,17 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
 ## with adaptiveLabelBreakpoint
 
 <Canvas>
-  <Story 
+  <Story
     name="with adaptiveLabelBreakpoint"
     args={{
       gutter: "none",
       label: "My Inline Inputs",
       labelSpecialCharacters: undefined,
-    }}>
+    }}
+  >
     {({ label, labelSpecialCharacters, ...args }) => {
       return (
-        <Box p={4} >
+        <Box p={4}>
           <InlineInputs
             label={label || labelSpecialCharacters}
             adaptiveLabelBreakpoint={768}
@@ -117,8 +118,7 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
           <Textbox label="My Textbox" adaptiveLabelBreakpoint={768} />
         </Box>
       );
-    }
-  }
+    }}
   </Story>
 </Canvas>
 
