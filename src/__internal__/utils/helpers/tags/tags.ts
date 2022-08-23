@@ -6,13 +6,16 @@ interface DataProps {
 }
 
 export interface TagProps extends DataProps {
-  "data-component": string;
+  "data-component"?: string;
 }
 
 /**
  * Builds props object containing top level data tags
  */
-function tagComponent(componentName: string, props: DataProps): TagProps {
+function tagComponent(
+  componentName: string | undefined,
+  props: DataProps
+): TagProps {
   const tagProps: TagProps = {
     "data-component": componentName,
   };

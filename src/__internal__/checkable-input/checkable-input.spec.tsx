@@ -1,10 +1,9 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
-import { css } from "styled-components";
 
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import CheckableInput from ".";
+import CheckableInput, { CheckableInputProps } from ".";
 import FieldHelpStyle from "../field-help/field-help.style";
 import { FieldLineStyle } from "../form-field/form-field.style";
 import Label from "../label";
@@ -15,20 +14,22 @@ import LabelStyle, { StyledLabelContainer } from "../label/label.style";
 import {
   StyledCheckableInput,
   StyledCheckableInputWrapper,
+  StyledCheckableInputWrapperProps,
 } from "./checkable-input.style";
 import StyledHelp from "../../components/help/help.style";
 import guid from "../utils/helpers/guid";
 
-jest.mock("../utils/helpers/guid");
 const mockedGuid = "guid-12345";
-guid.mockImplementation(() => "guid-12345");
+jest.mock("../utils/helpers/guid");
 
-function render(props) {
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
+
+function render(props?: StyledCheckableInputWrapperProps) {
   return TestRenderer.create(<StyledCheckableInputWrapper {...props} />);
 }
 
 describe("CheckableInput", () => {
-  function mountInput(props) {
+  function mountInput(props?: Partial<CheckableInputProps>) {
     return mount(
       <CheckableInput type="text" value="" onChange={() => null} {...props} />
     );
@@ -61,7 +62,7 @@ describe("CheckableInput", () => {
   });
 
   describe("when label prop is not present", () => {
-    it("it does not set the aria-labelledby prop on the hidden input", () => {
+    it("does not set the aria-labelledby prop on the hidden input", () => {
       const labelWrapper = mountInput({
         id: "foo",
       }).find(HiddenCheckableInputStyle);
@@ -72,7 +73,7 @@ describe("CheckableInput", () => {
 
   describe("aria attributes", () => {
     describe("when ariaLabelledBy is present", () => {
-      it("it overrides the labelId value on the hidden input", () => {
+      it("overrides the labelId value on the hidden input", () => {
         const labelWrapper = mountInput({
           id: "foo",
           label: "bar",
@@ -150,7 +151,7 @@ describe("CheckableInput", () => {
             );
           });
 
-          describe.each(["info", "warning", "error"])(
+          it.each(["info", "warning", "error"])(
             "and %s is present too",
             (validationType) => {
               const hiddenCheckableInputStyle = mountInput({
@@ -185,9 +186,7 @@ describe("StyledCheckableInputWrapper", () => {
         },
         wrapper,
         {
-          modifier: css`
-            ${FieldLineStyle}
-          `,
+          modifier: `${FieldLineStyle}`,
         }
       );
     });
@@ -199,9 +198,7 @@ describe("StyledCheckableInputWrapper", () => {
         },
         wrapper,
         {
-          modifier: css`
-            ${StyledLabelContainer}
-          `,
+          modifier: `${StyledLabelContainer}`,
         }
       );
     });
@@ -214,18 +211,14 @@ describe("StyledCheckableInputWrapper", () => {
         },
         wrapper,
         {
-          modifier: css`
-            ${`${StyledLabelContainer} ${StyledHelp}`}
-          `,
+          modifier: `${StyledLabelContainer} ${StyledHelp}`,
         }
       );
     });
 
     it.each(states)("applies the correct Help %s styles", (state) => {
       assertStyleMatch({ color: "var(--colorsUtilityYin090)" }, wrapper, {
-        modifier: css`
-          ${`${StyledLabelContainer} ${StyledHelp}:${state}`}
-        `,
+        modifier: `${StyledLabelContainer} ${StyledHelp}:${state}`,
       });
     });
   });
@@ -241,9 +234,7 @@ describe("StyledCheckableInputWrapper", () => {
         },
         wrapper,
         {
-          modifier: css`
-            ${`${LabelStyle}:${state}`}
-          `,
+          modifier: `${LabelStyle}:${state}`,
         }
       );
     });
@@ -258,9 +249,7 @@ describe("StyledCheckableInputWrapper", () => {
           },
           wrapper,
           {
-            modifier: css`
-              ${`${HiddenCheckableInputStyle}:${state}`}
-            `,
+            modifier: `${HiddenCheckableInputStyle}:${state}`,
           }
         );
       }
@@ -280,9 +269,7 @@ describe("StyledCheckableInputWrapper", () => {
         },
         wrapper,
         {
-          modifier: css`
-            ${FieldHelpStyle}
-          `,
+          modifier: `${FieldHelpStyle}`,
         }
       );
     });
@@ -299,9 +286,7 @@ describe("StyledCheckableInputWrapper", () => {
           },
           wrapper,
           {
-            modifier: css`
-              ${StyledCheckableInput}
-            `,
+            modifier: `${StyledCheckableInput}`,
           }
         );
       });
@@ -318,9 +303,7 @@ describe("StyledCheckableInputWrapper", () => {
         },
         wrapper,
         {
-          modifier: css`
-            ${StyledLabelContainer}
-          `,
+          modifier: `${StyledLabelContainer}`,
         }
       );
     });
