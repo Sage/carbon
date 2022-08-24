@@ -76,7 +76,7 @@ A configuration shows a close icon at the top right of the Dialog. Sometimes use
             subtitle="Subtitle"
           >
             <Form
-              stickyFooter={true}
+              stickyFooter
               height="500px"
               leftSideButtons={
                 <Button onClick={() => setIsOpen(false)}>Cancel</Button>
@@ -90,6 +90,12 @@ A configuration shows a close icon at the top right of the Dialog. Sometimes use
               <Typography>
                 This is an example of a dialog with a Form as content
               </Typography>
+              <Textbox label="First Name" />
+              <Textbox label="Middle Name" />
+              <Textbox label="Surname" />
+              <Textbox label="Birth Place" />
+              <Textbox label="Favourite Colour" />
+              <Textbox label="Address" />
               <Textbox label="First Name" />
               <Textbox label="Middle Name" />
               <Textbox label="Surname" />

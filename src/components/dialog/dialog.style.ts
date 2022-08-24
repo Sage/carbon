@@ -96,13 +96,13 @@ const calculatePaddingTopInnerContent = ({
     ? 0
     : `${CONTENT_TOP_PADDING}px`;
 
-type DialogStyleProps = {
+type StyledDialogProps = {
   topMargin: number;
   size?: keyof typeof dialogSizes;
   dialogHeight?: string;
 };
 
-const DialogStyle = styled.div<DialogStyleProps & ContentPaddingInterface>`
+const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   background-color: var(--colorsUtilityMajor025);
   box-shadow: var(--boxShadow300);
   display: flex;
@@ -120,12 +120,6 @@ const DialogStyle = styled.div<DialogStyleProps & ContentPaddingInterface>`
     size &&
     css`
       width: ${dialogSizes[size]};
-
-      // IE10+ fix (caters for scrollbar width)
-      @media screen and (-ms-high-contrast: active),
-        screen and (-ms-high-contrast: none) {
-        width: $size - 16;
-      }
     `}
 
   ${({ dialogHeight }) =>
@@ -161,12 +155,12 @@ const DialogStyle = styled.div<DialogStyleProps & ContentPaddingInterface>`
   }
 `;
 
-type DialogTitleStyleProps = {
+type StyledDialogTitleProps = {
   showCloseIcon?: boolean;
   hasSubtitle?: boolean;
 };
 
-const DialogTitleStyle = styled.div<DialogTitleStyleProps>`
+const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
   padding: 23px ${HORIZONTAL_PADDING}px 0;
   border-bottom: 1px solid #ccd6db;
   ${({ showCloseIcon }) => showCloseIcon && "padding-right: 85px"};
@@ -188,34 +182,40 @@ const DialogTitleStyle = styled.div<DialogTitleStyleProps>`
   }
 `;
 
-const DialogContentStyle = styled.div<ContentPaddingInterface>`
+const StyledDialogContent = styled.div<
+  ContentPaddingInterface & { hasStickyFooter: boolean }
+>`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  ${({ hasStickyFooter }) =>
+    !hasStickyFooter &&
+    css`
+      overflow-y: auto;
+    `}
   width: 100%;
   flex: 1;
   padding: 0px ${HORIZONTAL_PADDING}px ${CONTENT_BOTTOM_PADDING}px;
   ${paddingFn}
 `;
 
-const DialogInnerContentStyle = styled.div<ContentPaddingInterface>`
+const StyledDialogInnerContent = styled.div<ContentPaddingInterface>`
   position: relative;
   flex: 1;
   padding-top: ${calculatePaddingTopInnerContent};
 `;
 
-DialogStyle.defaultProps = {
+StyledDialog.defaultProps = {
   theme: baseTheme,
 };
 
-DialogContentStyle.defaultProps = {
+StyledDialogContent.defaultProps = {
   theme: baseTheme,
 };
 
 export {
-  DialogStyle,
-  DialogTitleStyle,
-  DialogContentStyle,
-  DialogInnerContentStyle,
+  StyledDialog,
+  StyledDialogTitle,
+  StyledDialogContent,
+  StyledDialogInnerContent,
 };
