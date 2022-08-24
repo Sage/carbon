@@ -1,6 +1,13 @@
 import styled, { css, keyframes } from "styled-components";
-import PropTypes from "prop-types";
-import { LOADER_SIZES } from "./loader.config";
+
+export interface StyledLoaderSquareProps {
+  /** Size of the loader. */
+  size?: "small" | "medium" | "large";
+  /** Applies white color. */
+  isInsideButton?: boolean;
+  /** Applies slate color. Available only when isInsideButton is true. */
+  isActive?: boolean;
+}
 
 const loaderAnimation = keyframes`
   0%, 80%, 100% {
@@ -13,9 +20,10 @@ const loaderAnimation = keyframes`
   }
 `;
 
-const getDimentions = (size) => {
+const getDimentions = (size: StyledLoaderSquareProps["size"]) => {
   let width;
   let marginRight;
+
   switch (size) {
     case "medium":
       width = "16px";
@@ -29,14 +37,15 @@ const getDimentions = (size) => {
       width = "12px";
       marginRight = "6px";
   }
-  return `
-  width: ${width};
-  height: ${width};
-  margin-right: ${marginRight};
+
+  return css`
+    width: ${width};
+    height: ${width};
+    margin-right: ${marginRight};
   `;
 };
 
-const StyledLoaderSquare = styled.div`
+const StyledLoaderSquare = styled.div<StyledLoaderSquareProps>`
   ${({ size, isInsideButton, isActive }) => css`
     animation: ${loaderAnimation} 1s infinite ease-in-out both;
     background-color: var(--colorsActionMajor500);
@@ -69,12 +78,6 @@ StyledLoaderSquare.defaultProps = {
   size: "small",
   isInsideButton: false,
   isActive: true,
-};
-
-StyledLoaderSquare.propTypes = {
-  size: PropTypes.oneOf(LOADER_SIZES),
-  isInsideButton: PropTypes.bool,
-  isActive: PropTypes.bool,
 };
 
 export default StyledLoaderSquare;

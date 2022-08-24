@@ -5,20 +5,19 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import Loader from "./loader.component";
+import Loader, { LoaderProps } from ".";
 import StyledLoader from "./loader.style";
+import StyledLoaderSquare from "./loader-square.style";
 
-function render(props) {
+function renderLoader(props: LoaderProps = {}) {
   return shallow(<Loader {...props} />);
 }
 
-function renderStyles(props) {
+function renderStyles(props = {}) {
   return TestRenderer.create(<StyledLoader {...props} />);
 }
 
 describe("Loader", () => {
-  let wrapper;
-
   testStyledSystemMargin((props) => <Loader {...props} />);
 
   it("renders as expected", () => {
@@ -28,11 +27,10 @@ describe("Loader", () => {
       },
       renderStyles().toJSON()
     );
-    expect(render().children()).toHaveLength(3);
   });
 
-  it("contains custom className if passed as a prop", () => {
-    wrapper = render({ className: "class" });
-    expect(wrapper.find(".class").exists()).toEqual(true);
+  it("renders three squares", () => {
+    expect(renderLoader().find(StyledLoaderSquare).exists()).toBe(true);
+    expect(renderLoader().find(StyledLoaderSquare)).toHaveLength(3);
   });
 });

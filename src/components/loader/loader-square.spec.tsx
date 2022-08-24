@@ -1,9 +1,11 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import StyledLoaderSquare from "./loader-square.style";
+import StyledLoaderSquare, {
+  StyledLoaderSquareProps,
+} from "./loader-square.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
-function render(props) {
+function render(props: StyledLoaderSquareProps = {}) {
   return TestRenderer.create(<StyledLoaderSquare {...props} />);
 }
 

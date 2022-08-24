@@ -1,6 +1,8 @@
-import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
+import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";
+
+export type ButtonToggleIconSizes = "small" | "large";
 
 const heightConfig = {
   small: 32,
@@ -40,7 +42,18 @@ const StyledButtonToggleContentWrapper = styled.div`
   height: 100%;
 `;
 
-const StyledButtonToggleLabel = styled.label`
+export interface StyledButtonToggleLabelProps {
+  /** buttonIcon to render. */
+  buttonIcon?: IconType;
+  /** Sets the size of the buttonIcon (eg. large) */
+  buttonIconSize?: ButtonToggleIconSizes;
+  /** Disable all user interaction. */
+  disabled?: boolean;
+  /** ButtonToggle size */
+  size: "small" | "medium" | "large";
+}
+
+const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
   display: inline-block;
   position: relative;
   box-sizing: border-box;
@@ -111,13 +124,15 @@ const iconFontSizes = {
   largeIcon: 32,
 };
 
-const StyledButtonToggleIcon = styled.div`
-  ${({ hasNoContent }) =>
-    hasNoContent
-      ? ""
-      : css`
-          margin-right: 8px;
-        `}
+export interface StyledButtonToggleIconProps {
+  /** Sets the size of the buttonIcon (eg. large) */
+  buttonIconSize?: ButtonToggleIconSizes;
+  hasContent?: boolean;
+}
+
+const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
+  ${({ hasContent }) => hasContent && `margin-right: 8px;`}
+
   ${({ buttonIconSize }) =>
     buttonIconSize === "large" &&
     css`
@@ -141,7 +156,11 @@ const StyledButtonToggleIcon = styled.div`
     `}
 `;
 
-const StyledButtonToggle = styled.div`
+export interface StyledButtonToggleProps {
+  grouped?: boolean;
+}
+
+const StyledButtonToggle = styled.div<StyledButtonToggleProps>`
   display: inline-block;
   vertical-align: middle;
 
@@ -164,10 +183,6 @@ const StyledButtonToggleInput = styled.input`
   height: 0;
   opacity: 0;
 `;
-
-StyledButtonToggleIcon.propTypes = {
-  buttonIconSize: PropTypes.string,
-};
 
 export {
   StyledButtonToggle,

@@ -1,11 +1,11 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import StyledLoaderBar, { InnerBar } from "./loader-bar.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import LoaderBar from "./loader-bar.component";
 
 describe("LoaderBar", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
   it("renders component as expected", () => {
     wrapper = mount(<LoaderBar />);
     const innerBar = wrapper.find(InnerBar);
