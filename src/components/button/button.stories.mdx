@@ -141,8 +141,12 @@ Secondary buttons are transparent, rather than white.
 <Canvas>
   <Story name="secondary">
     <>
-      <Button mt={2} size="small">Small</Button>
-      <Button mt={2} ml={2}>Medium</Button>
+      <Button mt={2} size="small">
+        Small
+      </Button>
+      <Button mt={2} ml={2}>
+        Medium
+      </Button>
       <Button mt={2} size="large" ml={2}>
         Large
       </Button>
@@ -191,7 +195,9 @@ Secondary buttons can have an icon positioned before or after the text.
 <Canvas>
   <Story name="secondary/icon">
     <>
-      <Button mt={2} iconType="print">Medium</Button>
+      <Button mt={2} iconType="print">
+        Medium
+      </Button>
       <Button mt={2} destructive iconType="delete" iconPosition="after" ml={2}>
         Medium
       </Button>
@@ -380,10 +386,23 @@ Dashed buttons can have an icon positioned before or after the text.
       <Button mt={2} buttonType="dashed" iconType="add" size="small">
         Small
       </Button>
-      <Button mt={2} buttonType="dashed" iconType="add" iconPosition="after" ml={2}>
+      <Button
+        mt={2}
+        buttonType="dashed"
+        iconType="add"
+        iconPosition="after"
+        ml={2}
+      >
         Medium
       </Button>
-      <Button mt={2} buttonType="dashed" disabled iconType="add" size="small" ml={2}>
+      <Button
+        mt={2}
+        buttonType="dashed"
+        disabled
+        iconType="add"
+        size="small"
+        ml={2}
+      >
         Small
       </Button>
       <Button
@@ -456,12 +475,7 @@ Buttons can be rendered with just an icon.
         iconType="bin"
         aria-label="Delete"
       />
-      <Button
-        mt={2}
-        destructive
-        ml={2}
-        iconType="bin"
-        aria-label="Delete" />
+      <Button mt={2} destructive ml={2} iconType="bin" aria-label="Delete" />
       <Button
         mt={2}
         buttonType="dashed"

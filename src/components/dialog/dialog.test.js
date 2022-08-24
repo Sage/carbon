@@ -20,6 +20,8 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 
 const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 
+const getInput = (index) => cy.get('[data-element="input"]').eq(index);
+
 // eslint-disable-next-line react/prop-types
 const DialogComponent = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = React.useState(true);
@@ -229,6 +231,46 @@ context("Testing Dialog component", () => {
     it("should render Dialog component disabling autofocus", () => {
       CypressMountWithProviders(<DialogComponent disableAutoFocus />);
       buttonDataComponent().eq(1).should("not.be.focused");
+    });
+
+    it("should render Dialog component and trap focus in it when the inputs are tabbed through", () => {
+      CypressMountWithProviders(
+        <DialogComponent focusFirstElement={undefined} />
+      );
+      cy.get("body").tab();
+      closeIconButton().should("be.focused");
+      cy.get("body").tab();
+      buttonDataComponent().eq(0).should("be.focused");
+      cy.get("body").tab();
+      buttonDataComponent().eq(1).should("be.focused");
+      cy.get("body").tab();
+      getInput(0).should("be.focused");
+      cy.get("body").tab();
+      getInput(1).should("be.focused");
+      cy.get("body").tab();
+      getInput(2).should("be.focused");
+      cy.get("body").tab();
+      closeIconButton().should("be.focused");
+    });
+
+    it("should render Dialog component and trap focus in it when the inputs are back tabbed through", () => {
+      CypressMountWithProviders(
+        <DialogComponent focusFirstElement={undefined} />
+      );
+      cy.get("body").tab();
+      closeIconButton().should("be.focused");
+      cy.get("body").tab({ shift: true });
+      getInput(2).should("be.focused");
+      cy.get("body").tab({ shift: true });
+      getInput(1).should("be.focused");
+      cy.get("body").tab({ shift: true });
+      getInput(0).should("be.focused");
+      cy.get("body").tab({ shift: true });
+      buttonDataComponent().eq(1).should("be.focused");
+      cy.get("body").tab({ shift: true });
+      buttonDataComponent().eq(0).should("be.focused");
+      cy.get("body").tab({ shift: true });
+      closeIconButton().should("be.focused");
     });
   });
 });
