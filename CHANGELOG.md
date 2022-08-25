@@ -1,3 +1,10 @@
+### [110.1.2](https://github.com/Sage/carbon/compare/v110.1.1...v110.1.2) (2022-08-25)
+
+
+### Bug Fixes
+
+* **date:** ensure selectedDays prop receives a valid value on initial render ([3c8d6da](https://github.com/Sage/carbon/commit/3c8d6daf936dda6e8c5c3ed312f429c2770625eb)), closes [#5333](https://github.com/Sage/carbon/issues/5333)
+
 ### [110.1.1](https://github.com/Sage/carbon/compare/v110.1.0...v110.1.1) (2022-08-18)
 
 
