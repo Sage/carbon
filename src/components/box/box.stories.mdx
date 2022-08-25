@@ -8,16 +8,7 @@ import Textbox from "../textbox";
 import Typography from "../typography";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta 
-  title="Box"   
-  parameters={{
-    info: { disable: true },
-    chromatic: { disable: true },
-    docs: {
-      inlineStories: false,
-      iframeHeight: 200,
-    },
-  }} />
+<Meta title="Box" />
 
 # Box
 
@@ -51,16 +42,10 @@ import Box from "carbon-react/lib/components/box";
 
 ### Position
 
+Please note that in order to see the `position: fixed` Box, you will need to view this example in the `Canvas` tab.
 <Canvas>
   <Story 
     name="position" 
-    decorators={[
-      (Story) => (
-        <div style={{ height: 600 }}>
-          <Story />
-        </div>
-      ),
-    ]}
     parameters={{ info: { disable: true } }}
   >
     <Box 
@@ -82,7 +67,7 @@ import Box from "carbon-react/lib/components/box";
         <Button buttonType="primary" destructive>Button</Button>
       </Box>
     </Box>
-    <Box size="150px" position="fixed" right="0" bottom="0" bg="primary">
+    <Box size="500px" position="fixed" right="0" bg="primary">
       <Box>
         <Typography color="white">This box has position fixed</Typography>
       </Box>
