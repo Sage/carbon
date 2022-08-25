@@ -17,6 +17,7 @@ import {
   PORTAL,
   LEGEND,
   STICKY_FOOTER,
+  BODY,
 } from "./locators";
 
 // component preview locators
@@ -28,6 +29,7 @@ export const backgroundUILocator = () => cy.get(BACKGROUND_UI_LOCATOR);
 
 // component preview locators
 export const dlsRoot = () => cy.get(DLS_ROOT);
+export const body = () => cy.get(BODY);
 export const icon = () => cy.get(ICON);
 export const errorIcon = () => cy.get(ICON);
 export const warningIcon = () => cy.get(WARNING_ICON);

@@ -36,8 +36,8 @@ const DialogFullScreen = ({
 }) => {
   const locale = useLocale();
 
-  const dialogRef = useRef();
-  const headingRef = useRef();
+  const dialogRef = useRef(null);
+  const headingRef = useRef(null);
   const { current: titleId } = useRef(createGuid());
   const { current: subtitleId } = useRef(createGuid());
 

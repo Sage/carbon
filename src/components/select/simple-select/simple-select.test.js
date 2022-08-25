@@ -11,6 +11,7 @@ import {
   helpIcon,
   tooltipPreview,
   commonDataElementInputPreview,
+  body,
 } from "../../../../cypress/locators";
 
 import {
@@ -21,6 +22,7 @@ import {
   dropdownButton,
   selectListText,
   multiColumnsSelectListHeader,
+  multiColumnsSelectListHeaderColumn,
   multiColumnsSelectListBody,
   multiColumnsSelectListRow,
   selectListCustomChild,
@@ -319,8 +321,8 @@ const SimpleSelectObjectAsValueComponent = ({ ...props }) => {
 
   return (
     <SimpleSelect
-      id="with-object"
-      name="with-object"
+      id="withObject"
+      name="withObject"
       value={value}
       onChange={onChangeHandler}
       {...props}
@@ -686,7 +688,7 @@ context("Tests for Simple Select component", () => {
 
       selectText().click();
       selectList().should("be.visible");
-      cy.get("body").realClick();
+      body().realClick();
       selectInput().should("have.attr", "aria-expanded", "false");
       selectList().should("not.exist");
     });
@@ -782,22 +784,40 @@ context("Tests for Simple Select component", () => {
     it("should render list options with multiple columns", () => {
       CypressMountWithProviders(<SimpleSelectMultipleColumnsComponent />);
 
-      const headerColumns = "3";
-      const bodyColumns = "3";
+      const columns = 3;
 
       selectText().click();
       selectList().should("be.visible");
       multiColumnsSelectListHeader()
-        .should("have.length", headerColumns)
+        .should("have.length", columns)
         .and("be.visible");
       multiColumnsSelectListBody()
-        .should("have.length", bodyColumns)
+        .should("have.length", columns)
         .and("be.visible");
       multiColumnsSelectListRow().should(
         "have.css",
         "background-color",
         "rgb(153, 173, 183)"
       );
+    });
+
+    it("should check table header content in list with multiple columns", () => {
+      CypressMountWithProviders(<SimpleSelectMultipleColumnsComponent />);
+
+      const headerCol1 = "Name";
+      const headerCol2 = "Surname";
+      const headerCol3 = "Occupation";
+
+      selectText().click();
+      multiColumnsSelectListHeaderColumn(1)
+        .should("have.text", headerCol1)
+        .and("be.visible");
+      multiColumnsSelectListHeaderColumn(2)
+        .should("have.text", headerCol2)
+        .and("be.visible");
+      multiColumnsSelectListHeaderColumn(3)
+        .should("have.text", headerCol3)
+        .and("be.visible");
     });
 
     it.each([
@@ -888,6 +908,31 @@ context("Tests for Simple Select component", () => {
         selectText().click();
         selectListPosition()
           .should("have.attr", "data-popper-placement", flipPosition)
+          .and("be.visible");
+      }
+    );
+
+    it.each([
+      ["bottom", "0px", "0px", "0px", "0px"],
+      ["top", "600px", "0px", "0px", "0px"],
+      ["right", "200px", "0px", "0px", "900px"],
+      ["left", "600px", "0px", "900px", "0px"],
+    ])(
+      "should render list in %s position with the most space when listPosition is set to auto",
+      (position, top, bottom, left, right) => {
+        CypressMountWithProviders(
+          <SimpleSelectComponent
+            listPlacement="auto"
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
+          />
+        );
+
+        selectText().click();
+        selectListPosition()
+          .should("have.attr", "data-popper-placement", position)
           .and("be.visible");
       }
     );

@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import StyledButton from "../button/button.style";
-import { StyledLink } from "../link/link.style";
 import { baseTheme } from "../../style/themes";
 
 export interface StyledDlProps {
@@ -87,14 +86,6 @@ export const StyledDd = styled.dd`
   ${StyledButton} {
     padding: 0;
     border: none;
-  }
-
-  ${StyledLink} {
-    a,
-    button {
-      font-weight: 700px;
-      text-decoration: none;
-    }
   }
   ${space}
 `;

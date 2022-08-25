@@ -28,7 +28,9 @@ const modernStyleTypes = [
 ] as const;
 
 describe("Pill", () => {
-  const renderPillComponent = (props?: PillProps) => <Pill {...props}>My Text</Pill>;
+  const renderPillComponent = (props?: PillProps) => (
+    <Pill {...props}>My Text</Pill>
+  );
 
   it("has required styles", () => {
     const wrapper = mount(renderPillComponent());
@@ -69,7 +71,9 @@ describe("Pill", () => {
       const spy = jest.fn();
 
       beforeEach(() => {
-        wrapper = mount(renderPillComponent({ onDelete: spy, children: "My Text" }));
+        wrapper = mount(
+          renderPillComponent({ onDelete: spy, children: "My Text" })
+        );
       });
 
       it('includes "close" icon when onDelete prop passed', () => {
@@ -108,7 +112,11 @@ describe("Pill", () => {
 
   describe("when there are custom tags on the component", () => {
     const wrapper = shallow(
-      renderPillComponent({ "data-element": "bar", "data-role": "baz", children: "My Text" })
+      renderPillComponent({
+        "data-element": "bar",
+        "data-role": "baz",
+        children: "My Text",
+      })
     );
 
     it("includes correct component, element and role data tags", () => {
@@ -128,7 +136,11 @@ describe("Pill", () => {
       (color) => {
         it("takes precedence over colorVariant and renders properly colored pill", () => {
           const wrapper = mount(
-            renderPillComponent({ borderColor: color, fill: true, children: "My Text" })
+            renderPillComponent({
+              borderColor: color,
+              fill: true,
+              children: "My Text",
+            })
           );
           assertStyleMatch(
             {
@@ -213,7 +225,9 @@ describe("Pill", () => {
         describe(`${theme.name} theme`, () => {
           describe("when the component size is small", () => {
             it("matches the expected styles for a small pill", () => {
-              const wrapper = mount(renderPillComponent({ children: "My Text", size: "S" }));
+              const wrapper = mount(
+                renderPillComponent({ children: "My Text", size: "S" })
+              );
               assertStyleMatch(
                 {
                   fontSize: "10px",
@@ -228,7 +242,9 @@ describe("Pill", () => {
 
           describe("when the component size is medium", () => {
             it("matches the expected styles for a medium pill", () => {
-              const wrapper = mount(renderPillComponent({ children: "My Text", size: "M" }));
+              const wrapper = mount(
+                renderPillComponent({ children: "My Text", size: "M" })
+              );
               assertStyleMatch(
                 {
                   fontSize: "12px",
@@ -243,7 +259,9 @@ describe("Pill", () => {
 
           describe("when the component size is large", () => {
             it("matches the expected styles for a large pill", () => {
-              const wrapper = mount(renderPillComponent({ children: "My Text", size: "L" }));
+              const wrapper = mount(
+                renderPillComponent({ children: "My Text", size: "L" })
+              );
               assertStyleMatch(
                 {
                   fontSize: "14px",
@@ -297,7 +315,11 @@ describe("Pill", () => {
             describe("when the component is deletable", () => {
               it("matches the expected styles for a deletable pill", () => {
                 const wrapper = mount(
-                  renderPillComponent({ children: "My Text", onDelete: jest.fn(), theme })
+                  renderPillComponent({
+                    children: "My Text",
+                    onDelete: jest.fn(),
+                    theme,
+                  })
                 );
                 assertStyleMatch(
                   {

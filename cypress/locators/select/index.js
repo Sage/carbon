@@ -8,8 +8,11 @@ import {
   MULTI_SELECT,
   SELECT_LIST_WRAPPER,
   SELECT_ELEMENT_INPUT,
+  FILTERABLE_ADD_BUTTON,
+  FILTERABLE_RESET_BUTTON,
 } from "./locators";
 import { PILL_PREVIEW } from "../pill/locators";
+import { ALERT_DIALOG } from "../dialog/locators";
 import { getDataElementByValue } from "..";
 
 // component preview locators
@@ -27,10 +30,14 @@ export const multiSelectDataComponent = () => cy.get(MULTI_SELECT);
 export const selectListText = (text) => cy.get(SELECT_LIST).contains(text);
 export const multiColumnsSelectListHeader = () =>
   selectList().find("thead > tr > th");
+export const multiColumnsSelectListHeaderColumn = (index) =>
+  selectList().find(`thead > tr > th:nth-child(${index})`);
 export const multiColumnsSelectListBody = () =>
   selectList().find("tbody > tr:nth-child(3) > td");
 export const multiColumnsSelectListRow = () =>
   selectList().find("tbody > tr:nth-child(2)");
+export const multiColumnsSelectListNoResultsMessage = (text) =>
+  selectList().find("tbody > tr > td").contains(`No results for "${text}"`);
 export const boldedAndUnderlinedValue = (text) =>
   selectList()
     .find("tbody > tr:nth-child(1) > td:nth-child(2) > span")
@@ -43,3 +50,11 @@ export const selectListOptionGroup = () =>
   selectList().find("div:nth-child(1) > h4");
 export const selectListWrapper = () => cy.get(SELECT_LIST_WRAPPER);
 export const selectElementInput = () => cy.get(SELECT_ELEMENT_INPUT);
+export const filterableSelectAddElementButton = () =>
+  cy.get(FILTERABLE_ADD_BUTTON);
+export const filterableSelectButtonIcon = () =>
+  filterableSelectAddElementButton().find("span:nth-child(2)");
+export const filterableSelectAddNewButton = () =>
+  cy.get(ALERT_DIALOG).find("div:nth-child(3) > div > button");
+export const filterableSelectResetButton = () =>
+  cy.get(FILTERABLE_RESET_BUTTON);
