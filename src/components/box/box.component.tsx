@@ -33,6 +33,8 @@ export interface BoxProps
   scrollVariant?: ScrollVariant;
   /** set the box-sizing attribute of the Box component */
   boxSizing?: BoxSizing;
+  /** Allows a tabindex to be specified */
+  tabIndex?: number | string;
 }
 
 const Box = styled.div<BoxProps>`
