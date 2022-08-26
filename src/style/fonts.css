@@ -9,28 +9,35 @@
   font-family: "Sage UI";
   font-style: normal;
   font-weight: 400;
-  src: url("~@sage/design-tokens/assets/fonts/sageui-regular.woff2") format("woff2"),
-       url("~@sage/design-tokens/assets/fonts/sageui-regular.woff") format("woff"),
-       url("~@sage/design-tokens/assets/fonts/sageui-regular.ttf") format("truetype"),
-       url("~@sage/design-tokens/assets/fonts/sageui-regular.otf") format("opentype");
+  src: url("~@sage/design-tokens/assets/fonts/sageui-regular.woff2")
+      format("woff2"),
+    url("~@sage/design-tokens/assets/fonts/sageui-regular.woff") format("woff"),
+    url("~@sage/design-tokens/assets/fonts/sageui-regular.ttf")
+      format("truetype"),
+    url("~@sage/design-tokens/assets/fonts/sageui-regular.otf")
+      format("opentype");
 }
 
 @font-face {
   font-family: "Sage UI";
   font-style: normal;
   font-weight: 700;
-  src: url("~@sage/design-tokens/assets/fonts/sageui-medium.woff2") format("woff2"),
-       url("~@sage/design-tokens/assets/fonts/sageui-medium.woff") format("woff"),
-       url("~@sage/design-tokens/assets/fonts/sageui-medium.ttf") format("truetype"),
-       url("~@sage/design-tokens/assets/fonts/sageui-medium.otf") format("opentype");
+  src: url("~@sage/design-tokens/assets/fonts/sageui-medium.woff2")
+      format("woff2"),
+    url("~@sage/design-tokens/assets/fonts/sageui-medium.woff") format("woff"),
+    url("~@sage/design-tokens/assets/fonts/sageui-medium.ttf")
+      format("truetype"),
+    url("~@sage/design-tokens/assets/fonts/sageui-medium.otf")
+      format("opentype");
 }
 
 @font-face {
   font-family: "Sage UI";
   font-style: normal;
   font-weight: 900;
-  src: url("~@sage/design-tokens/assets/fonts/sageui-bold.woff2") format("woff2"),
-       url("~@sage/design-tokens/assets/fonts/sageui-bold.woff") format("woff"),
-       url("~@sage/design-tokens/assets/fonts/sageui-bold.ttf") format("truetype"),
-       url("~@sage/design-tokens/assets/fonts/sageui-bold.otf") format("opentype");
+  src: url("~@sage/design-tokens/assets/fonts/sageui-bold.woff2")
+      format("woff2"),
+    url("~@sage/design-tokens/assets/fonts/sageui-bold.woff") format("woff"),
+    url("~@sage/design-tokens/assets/fonts/sageui-bold.ttf") format("truetype"),
+    url("~@sage/design-tokens/assets/fonts/sageui-bold.otf") format("opentype");
 }

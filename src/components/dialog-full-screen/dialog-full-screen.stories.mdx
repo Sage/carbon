@@ -23,7 +23,13 @@ import isChromatic from "../../../.storybook/isChromatic";
 
 export const isOpenForChromatic = isChromatic();
 
-<Meta title="Dialog Full Screen" parameters={{ info: { disable: true }, themeProvider: { chromatic: { theme: "sage" } }}} />
+<Meta
+  title="Dialog Full Screen"
+  parameters={{
+    info: { disable: true },
+    themeProvider: { chromatic: { theme: "sage" } },
+  }}
+/>
 
 # DialogFullScreen
 
@@ -66,9 +72,7 @@ A good example could be importing a large volume of data, and checking for error
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={() => setIsOpen(true)}>
-            Open DialogFullScreen
-          </Button>
+          <Button onClick={() => setIsOpen(true)}>Open DialogFullScreen</Button>
           <DialogFullScreen
             open={isOpen}
             onCancel={() => setIsOpen(false)}
@@ -356,7 +360,10 @@ to have a possibility to manage active `Tabs` group
       );
       const ContentOne = (
         <div>
-          <Accordion borders="none" title={<Typography variant="h2">Example one details</Typography>}>
+          <Accordion
+            borders="none"
+            title={<Typography variant="h2">Example one details</Typography>}
+          >
             <Dl dtTextAlign="right" ddTextAlign="left">
               <Dt>Type</Dt>
               <Dd>Example Type Text</Dd>
@@ -392,7 +399,10 @@ to have a possibility to manage active `Tabs` group
               </Dd>
             </Dl>
           </Accordion>
-          <Accordion borders="none" title={<Typography variant="h2">Example one products</Typography>}>
+          <Accordion
+            borders="none"
+            title={<Typography variant="h2">Example one products</Typography>}
+          >
             <div>Example Product Content</div>
             <div>Example Product Content</div>
             <div>Example Product Content</div>
@@ -407,7 +417,10 @@ to have a possibility to manage active `Tabs` group
       );
       const ContentTwo = (
         <div>
-          <Accordion borders="none" title={<Typography variant="h2">Example two details</Typography>}>
+          <Accordion
+            borders="none"
+            title={<Typography variant="h2">Example two details</Typography>}
+          >
             <Dl dtTextAlign="right" ddTextAlign="left">
               <Dt>Type</Dt>
               <Dd>Example Type Text</Dd>
@@ -443,7 +456,10 @@ to have a possibility to manage active `Tabs` group
               </Dd>
             </Dl>
           </Accordion>
-          <Accordion borders="none" title={<Typography variant="h2">Example two products</Typography>}>
+          <Accordion
+            borders="none"
+            title={<Typography variant="h2">Example two products</Typography>}
+          >
             <div>Example Product Content</div>
             <div>Example Product Content</div>
             <div>Example Product Content</div>
@@ -458,7 +474,10 @@ to have a possibility to manage active `Tabs` group
       );
       const ContentThree = (
         <div>
-          <Accordion borders="none" title={<Typography variant="h2">Example three details</Typography>}>
+          <Accordion
+            borders="none"
+            title={<Typography variant="h2">Example three details</Typography>}
+          >
             <Dl dtTextAlign="right" ddTextAlign="left">
               <Dt>Type</Dt>
               <Dd>Example Type Text</Dd>
@@ -494,7 +513,10 @@ to have a possibility to manage active `Tabs` group
               </Dd>
             </Dl>
           </Accordion>
-          <Accordion borders="none" title={<Typography variant="h2">Example three products</Typography>}>
+          <Accordion
+            borders="none"
+            title={<Typography variant="h2">Example three products</Typography>}
+          >
             <div>Example Product Content</div>
             <div>Example Product Content</div>
             <div>Example Product Content</div>
@@ -566,9 +588,7 @@ to have a possibility to manage active `Tabs` group
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={() => setIsOpen(true)}>
-            Open DialogFullScreen
-          </Button>
+          <Button onClick={() => setIsOpen(true)}>Open DialogFullScreen</Button>
           <DialogFullScreen
             open={isOpen}
             onCancel={() => setIsOpen(false)}
@@ -625,9 +645,7 @@ to have a possibility to manage active `Tabs` group
       );
       return (
         <>
-          <Button onClick={() => setIsOpen(true)}>
-            Open DialogFullScreen
-          </Button>
+          <Button onClick={() => setIsOpen(true)}>Open DialogFullScreen</Button>
           <DialogFullScreen
             open={isOpen}
             onCancel={() => setIsOpen(false)}
@@ -672,9 +690,7 @@ to have a possibility to manage active `Tabs` group
       const [isOpen, setIsOpen] = useState(isOpenForChromatic);
       return (
         <>
-          <Button onClick={() => setIsOpen(true)}>
-            Open DialogFullScreen
-          </Button>
+          <Button onClick={() => setIsOpen(true)}>Open DialogFullScreen</Button>
           <DialogFullScreen
             open={isOpen}
             onCancel={() => setIsOpen(false)}
@@ -755,9 +771,7 @@ to have a possibility to manage active `Tabs` group
       );
       return (
         <>
-          <Button onClick={() => setIsOpen(true)}>
-            Open DialogFullScreen
-          </Button>
+          <Button onClick={() => setIsOpen(true)}>Open DialogFullScreen</Button>
           <DialogFullScreen
             open={isOpen}
             onCancel={() => setIsOpen(false)}
@@ -806,9 +820,7 @@ to have a possibility to manage active `Tabs` group
       const [isOpen, setIsOpen] = useState(false);
       return (
         <>
-          <Button onClick={() => setIsOpen(true)}>
-            Open DialogFullScreen
-          </Button>
+          <Button onClick={() => setIsOpen(true)}>Open DialogFullScreen</Button>
           <DialogFullScreen
             open={isOpen}
             onCancel={() => setIsOpen(false)}
@@ -921,14 +933,16 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
   </Story>
 </Canvas>
 
-
 ### Allowing other elements to be focused
 
 Using the `focusableContainers` prop allows elements that are not DOM children of the Dialog to be reachable with the keyboard while the Dialog is open.
 This may occasionally be useful with things like Toasts where they persist on the page until dismissed by clicking a close icon.
 
 <Canvas>
-  <Story name="other focusable containers" parameters={{ chromatic: { disable: true } }}>
+  <Story
+    name="other focusable containers"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [isDialogOpen, setIsDialogOpen] = useState(false);
       const [isToast1Open, setIsToast1Open] = useState(false);
@@ -937,7 +951,9 @@ This may occasionally be useful with things like Toasts where they persist on th
       const toast2Ref = useRef();
       return (
         <>
-          <Button onClick={() => setIsDialogOpen(true)}>Open DialogFullScreen</Button>
+          <Button onClick={() => setIsDialogOpen(true)}>
+            Open DialogFullScreen
+          </Button>
           <DialogFullScreen
             open={isDialogOpen}
             onCancel={() => setIsDialogOpen(false)}
@@ -963,16 +979,32 @@ This may occasionally be useful with things like Toasts where they persist on th
               <Textbox label="First Name" />
               <Textbox label="Middle Name" />
               <Textbox label="Surname" />
-              <Button onClick={() => setIsToast1Open(true)}>Show first toast</Button>
-              <Button ml={2} buttonType="primary" onClick={() => setIsToast2Open(true)}>
+              <Button onClick={() => setIsToast1Open(true)}>
+                Show first toast
+              </Button>
+              <Button
+                ml={2}
+                buttonType="primary"
+                onClick={() => setIsToast2Open(true)}
+              >
                 Show second toast
               </Button>
             </Form>
           </DialogFullScreen>
-          <Toast open={isToast1Open} onDismiss={() => setIsToast1Open(false)} ref={toast1Ref} targetPortalId="stacked">
+          <Toast
+            open={isToast1Open}
+            onDismiss={() => setIsToast1Open(false)}
+            ref={toast1Ref}
+            targetPortalId="stacked"
+          >
             Toast message 1
           </Toast>
-          <Toast open={isToast2Open} onDismiss={() => setIsToast2Open(false)} ref={toast2Ref} targetPortalId="stacked">
+          <Toast
+            open={isToast2Open}
+            onDismiss={() => setIsToast2Open(false)}
+            ref={toast2Ref}
+            targetPortalId="stacked"
+          >
             Toast message 2
           </Toast>
         </>

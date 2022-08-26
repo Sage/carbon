@@ -21,7 +21,7 @@ const ContentComponent = ({ ...props }) => {
 context("Tests for Content component", () => {
   describe("should check Content component properties", () => {
     it.each([
-      ["primary", "rgba(0, 0, 0, 0.9)"],
+      ["primary", "rgb(0, 0, 0)"],
       ["secondary", "rgba(0, 0, 0, 0.55)"],
     ])(
       "should check %s as variant for Content component",

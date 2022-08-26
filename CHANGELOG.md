@@ -1,3 +1,24 @@
+### [110.1.2](https://github.com/Sage/carbon/compare/v110.1.1...v110.1.2) (2022-08-25)
+
+
+### Bug Fixes
+
+* **date:** ensure selectedDays prop receives a valid value on initial render ([3c8d6da](https://github.com/Sage/carbon/commit/3c8d6daf936dda6e8c5c3ed312f429c2770625eb)), closes [#5333](https://github.com/Sage/carbon/issues/5333)
+
+### [110.1.1](https://github.com/Sage/carbon/compare/v110.1.0...v110.1.1) (2022-08-18)
+
+
+### Bug Fixes
+
+* **definition-list:** ensure links are styled correctly ([288b85a](https://github.com/Sage/carbon/commit/288b85a438f0347c0bacbb439fa06eefdd1666ce)), closes [#5240](https://github.com/Sage/carbon/issues/5240)
+
+## [110.1.0](https://github.com/Sage/carbon/compare/v110.0.4...v110.1.0) (2022-08-17)
+
+
+### Features
+
+* **sidebar:** add padding props for customising content container ([4f7a7bf](https://github.com/Sage/carbon/commit/4f7a7bf92213e0ba74c6e0a72e3242e240f5cfe2))
+
 ### [110.0.4](https://github.com/Sage/carbon/compare/v110.0.3...v110.0.4) (2022-08-17)
 
 
