@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.c2 {
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  height: 40px;
+  padding: 0 24px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--colorsActionMinor500);
+}
+
+.c2 .c8 {
+  color: var(--colorsActionMinor500);
+}
+
+input:checked ~ .c2.c2 {
+  background-color: var(--colorsActionMinor300);
+  color: var(--colorsActionMinor600);
+  cursor: auto;
+}
+
+input:focus ~ .c2 {
+  outline: 3px solid var(--colorsSemanticFocus500);
+  z-index: 100;
+}
+
+input:not(:checked):not(:disabled) ~ .c2:hover {
+  background-color: var(--colorsActionMinor200);
+  border-color: var(--colorsActionMinor500);
+  color: var(--colorsActionMinor500);
+}
+
+input:not(:checked):not(:disabled) ~ .c2:hover .c8 {
+  color: var(--colorsActionMinor500);
+}
+
+.c5 .c3 {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c6 .c3 {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c7 .c3 {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c0 {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.c0:not(:first-of-type) {
+  margin-left: 8px;
+}
+
+.c0:not(:first-of-type) {
+  margin-left: -1px;
+}
+
+.c1 {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+<div>
+  <div
+    className="c0"
+    data-component="button-toggle"
+    onClick={[Function]}
+  >
+    <input
+      className="c1"
+      data-element="button-toggle-input"
+      id="guid-12345"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="radio"
+    />
+    <label
+      className="c2"
+      htmlFor="guid-12345"
+      size="medium"
+    >
+      <div
+        className="c3 c4"
+      >
+        Text
+      </div>
+    </label>
+  </div>
+  <div
+    className="c0"
+    data-component="button-toggle"
+    onClick={[Function]}
+  >
+    <input
+      className="c1"
+      data-element="button-toggle-input"
+      id="guid-12345"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="radio"
+    />
+    <label
+      className="c2"
+      htmlFor="guid-12345"
+      size="medium"
+    >
+      <div
+        className="c3 c4"
+      >
+        Text
+      </div>
+    </label>
+  </div>
+</div>
+`;
