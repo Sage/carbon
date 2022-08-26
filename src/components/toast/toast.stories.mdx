@@ -446,7 +446,10 @@ Toast variant is `success` by default
 ### Dismissible without autoFocus
 
 <Canvas>
-  <Story name="dismissible without autoFocus" parameters={{ info: { disable: true } }}>
+  <Story
+    name="dismissible without autoFocus"
+    parameters={{ info: { disable: true } }}
+  >
     {() => {
       const onDismissClick = (evt) => {
         if (!isOpen) {

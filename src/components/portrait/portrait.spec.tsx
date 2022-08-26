@@ -1,6 +1,6 @@
 import React from "react";
 import ReactTestUtils from "react-dom/test-utils";
-import { shallow, mount } from "enzyme";
+import { shallow, mount, EnzymePropSelector } from "enzyme";
 import { ThemeProvider } from "styled-components";
 
 import {
@@ -20,110 +20,26 @@ import PortraitInitials from "./portrait-initials.component";
 import PortraitGravatar from "./portrait-gravatar.component";
 import Tooltip from "../tooltip";
 
-function renderDLS(element) {
+function renderDLS(element: JSX.Element) {
   return mount(
     <ThemeProvider theme={carbonThemeList[0]}>{element}</ThemeProvider>
   );
 }
 
-function renderFindTypeSuccess(element, type, expectedProps) {
+function renderFindTypeSuccess(
+  element: JSX.Element,
+  type: EnzymePropSelector,
+  expectedProps: Record<string, unknown>
+) {
   expect(renderDLS(element).find(type).props()).toMatchObject(expectedProps);
 }
 
-function renderFindTypeFail(element, type) {
+function renderFindTypeFail(element: JSX.Element, type: EnzymePropSelector) {
   expect(renderDLS(element).find(type)).toHaveLength(0);
 }
 
 describe("PortraitComponent", () => {
   testStyledSystemMargin((props) => <Portrait {...props} />);
-
-  describe("props validation", () => {
-    beforeEach(() => {
-      spyOn(console, "error");
-    });
-
-    /* eslint-disable no-console */
-
-    describe("size", () => {
-      it("accepts a valid size", () => {
-        renderDLS(<Portrait src="foo" size="XXL" />);
-        expect(console.error).toHaveBeenCalledTimes(0);
-      });
-
-      it("rejects an invalid size", () => {
-        const consoleSpy = jest
-          .spyOn(global.console, "error")
-          .mockImplementation(() => {});
-
-        renderDLS(<Portrait src="foo" size="bar" />);
-        expect(console.error.mock.calls[0][2]).toBe(
-          'Invalid prop `size` of value `bar` supplied to `Portrait`, expected one of ["XS","S","M","ML","L","XL","XXL"].'
-        );
-
-        consoleSpy.mockRestore();
-      });
-    });
-
-    describe("shape", () => {
-      it("accepts valid DLS shapes", () => {
-        renderDLS(<Portrait src="foo" shape="square" />);
-        renderDLS(<Portrait src="foo" shape="circle" />);
-        expect(console.error).toHaveBeenCalledTimes(0);
-      });
-
-      it("rejects an invalid shape", () => {
-        const consoleSpy = jest
-          .spyOn(global.console, "error")
-          .mockImplementation(() => {});
-
-        renderDLS(<Portrait src="foo" shape="bar" />);
-        expect(console.error.mock.calls[0][2]).toBe(
-          'Invalid prop `shape` of value `bar` supplied to `Portrait`, expected one of ["circle","square"].'
-        );
-
-        consoleSpy.mockRestore();
-      });
-    });
-
-    describe("src", () => {
-      it("accepts a valid src", () => {
-        renderDLS(
-          <Portrait src="https://example.com/example.png" size="XXL" />
-        );
-        expect(console.error).toHaveBeenCalledTimes(0);
-      });
-
-      it("rejects an invalid src", () => {
-        const consoleSpy = jest
-          .spyOn(global.console, "error")
-          .mockImplementation(() => {});
-
-        renderDLS(<Portrait src={42} size="XXL" />);
-        expect(console.error.mock.calls[0][2]).toBe(
-          "Invalid prop `src` of type `number` supplied to `Portrait`, expected `string`."
-        );
-
-        consoleSpy.mockRestore();
-      });
-    });
-
-    describe("gravatar and src", () => {
-      it("throws an error when both gravatar and src are passed", () => {
-        const consoleSpy = jest
-          .spyOn(global.console, "error")
-          .mockImplementation(() => {});
-
-        renderDLS(<Portrait gravatar="example@example.com" src="foo" />);
-        expect(console.error.mock.calls[0][2]).toBe(
-          'Portrait requires a prop of "src" or "gravatar" but not both'
-        );
-
-        consoleSpy.mockRestore();
-      });
-    });
-
-    /* eslint-enable no-console */
-  });
 
   describe("Portrait styles", () => {
     it("applies expected styles to Portrait with initials", () => {
@@ -179,7 +95,8 @@ describe("PortraitComponent", () => {
   });
 
   describe("render icon", () => {
-    const testFail = (element) => renderFindTypeFail(element, StyledIcon);
+    const testFail = (element: JSX.Element) =>
+      renderFindTypeFail(element, StyledIcon);
 
     it("renders icon when not supplied with Gravatar or src or initials", () => {
       const wrapper = mount(
@@ -192,12 +109,7 @@ describe("PortraitComponent", () => {
 
     it("renders specified icon when not supplied with Gravatar, src or initials", () => {
       const wrapper = mount(
-        <Portrait
-          size="XXL"
-          shape="square"
-          darkBackground={false}
-          iconType="image"
-        />
+        <Portrait size="XXL" shape="square" darkBackground iconType="image" />
       );
       expect(wrapper.find(StyledIcon).props()).toEqual(
         expect.objectContaining({ type: "image", size: "XXL" })
@@ -250,41 +162,6 @@ describe("PortraitComponent", () => {
         );
       });
     });
-
-    describe("sizes", () => {
-      beforeEach(() => {
-        spyOn(console, "error");
-      });
-
-      /* eslint-disable no-console */
-
-      it("accepts a valid DLS size", () => {
-        const styledIconDark = (
-          <StyledIcon type="individual" size="XXL" darkBackground />
-        );
-        const styledIconLight = (
-          <StyledIcon type="individual" size="XXL" darkBackground={false} />
-        );
-        renderDLS(styledIconDark);
-        renderDLS(styledIconLight);
-        expect(console.error).toHaveBeenCalledTimes(0);
-      });
-
-      it("rejects an invalid size", () => {
-        const consoleSpy = jest
-          .spyOn(global.console, "error")
-          .mockImplementation(() => {});
-
-        renderDLS(<StyledIcon type="individual" size="foo" darkBackground />);
-        expect(console.error.mock.calls[0][2]).toBe(
-          'Invalid prop `size` of value `foo` supplied to `Styled(Component)`, expected one of ["XS","S","M","ML","L","XL","XXL"].'
-        );
-
-        consoleSpy.mockRestore();
-      });
-
-      /* eslint-enable no-console */
-    });
   });
 
   describe("render initials", () => {
@@ -295,9 +172,10 @@ describe("PortraitComponent", () => {
       darkBackground: false,
     };
 
-    const testSuccess = (element) =>
+    const testSuccess = (element: JSX.Element) =>
       renderFindTypeSuccess(element, PortraitInitials, expectedProps);
-    const testFail = (element) => renderFindTypeFail(element, PortraitInitials);
+    const testFail = (element: JSX.Element) =>
+      renderFindTypeFail(element, PortraitInitials);
 
     it("renders initials when supplied with initials but no Gravatar or src", () => {
       testSuccess(<Portrait initials="AB" />);
@@ -321,16 +199,15 @@ describe("PortraitComponent", () => {
     });
 
     it("can render the DLS theme", () => {
-      spyOn(console, "error");
+      jest.spyOn(console, "error");
       const props = {
         size: "XXL",
         initials: "AB",
         darkBackground: false,
         theme: carbonThemeList[0],
-      };
+      } as const;
       renderDLS(<PortraitInitials {...props} />);
-      props.darkBackground = true;
-      renderDLS(<PortraitInitials {...props} />);
+      renderDLS(<PortraitInitials {...props} darkBackground />);
       expect(console.error).toHaveBeenCalledTimes(0); // eslint-disable-line no-console
     });
 
@@ -364,7 +241,7 @@ describe("PortraitComponent", () => {
       alt: "foo",
     };
 
-    const testSuccess = (element) =>
+    const testSuccess = (element: JSX.Element) =>
       renderFindTypeSuccess(element, PortraitGravatar, expectedProps);
 
     it("renders the Gravatar for the specified email address", () => {
@@ -399,8 +276,10 @@ describe("PortraitComponent", () => {
   describe("render custom image", () => {
     const imageUrl = "https://example.com/example.jpg";
 
-    const testSuccess = (element, expectedProps) =>
-      renderFindTypeSuccess(element, StyledCustomImg, expectedProps);
+    const testSuccess = (
+      element: JSX.Element,
+      expectedProps: Record<string, unknown>
+    ) => renderFindTypeSuccess(element, StyledCustomImg, expectedProps);
 
     it("renders avatar when supplied with src but no Gravatar", () => {
       testSuccess(<Portrait src={imageUrl} alt="foo" />, {
@@ -484,7 +363,7 @@ describe("PortraitComponent", () => {
       rootTagTest(wrapper, "portrait", "bar", "baz");
     });
 
-    describe("includes user-image tag on internal elements when there is an image", () => {
+    it("includes user-image tag on internal elements when there is an image", () => {
       const rendered = renderDLS(<Portrait src={imageUrl} />);
       expect(
         rendered.find({ "data-element": "user-image" }).length
