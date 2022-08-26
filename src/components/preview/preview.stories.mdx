@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { ArgsTable } from "@storybook/components";
-import PreviewComponent from "./preview.component";
+import Preview from "./preview.component";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Button from "../button";
 
@@ -29,7 +29,7 @@ import Preview from "carbon-react/lib/components/preview";
 
 <Canvas>
   <Story name="default">
-    <PreviewComponent loading />
+    <Preview loading />
   </Story>
 </Canvas>
 
@@ -37,7 +37,7 @@ import Preview from "carbon-react/lib/components/preview";
 
 <Canvas>
   <Story name="with Lines">
-    <PreviewComponent loading lines={6} />
+    <Preview loading lines={6} />
   </Story>
 </Canvas>
 
@@ -52,9 +52,9 @@ import Preview from "carbon-react/lib/components/preview";
       };
       return (
         <>
-          <PreviewComponent loading={isLoading} lines={3}>
+          <Preview loading={isLoading} lines={3}>
             This the where the children are rendered
-          </PreviewComponent>
+          </Preview>
           <Button mt={2} onClick={handleOnClick}>
             {isLoading ? "Click to preview children" : "Click to see loading state"}
           </Button>
@@ -68,7 +68,7 @@ import Preview from "carbon-react/lib/components/preview";
 
 <Canvas>
   <Story name="with Width">
-    <PreviewComponent loading width={"256px"} />
+    <Preview loading width={"256px"} />
   </Story>
 </Canvas>
 
@@ -76,7 +76,7 @@ import Preview from "carbon-react/lib/components/preview";
 
 <Canvas>
   <Story name="with Height">
-    <PreviewComponent loading height={"256px"} />
+    <Preview loading height={"256px"} />
   </Story>
 </Canvas>
 
