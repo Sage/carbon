@@ -754,6 +754,20 @@ describe("Date", () => {
     });
   });
 
+  describe("when allowEmptyValue prop is set and initial value is an empty string", () => {
+    it("returns an undefined value for selectedDays in DatePicker", () => {
+      wrapper = render({ allowEmptyValue: true });
+
+      expect(wrapper.find(DatePicker).prop("selectedDays")).toEqual(undefined);
+    });
+
+    it("returns an empty string value in the Date component", () => {
+      wrapper = render({ allowEmptyValue: true });
+
+      expect(wrapper.find("input").prop("value")).toEqual("");
+    });
+  });
+
   describe("tooltipPosition", () => {
     it("overrides the default position when validation is on input", () => {
       const { position } = render({ error: "message", tooltipPosition: "top" })
