@@ -41,6 +41,10 @@ interface CommonFormFieldProps extends MarginProps, ValidationProps {
   reverse?: boolean;
   /** Id of the validation icon */
   validationIconId?: string;
+  /**
+   * @private @ignore
+   * Flag dedicating if latest validation design should be used */
+  validationRedesignOptIn?: boolean;
 }
 
 export interface FormFieldProps extends CommonFormFieldProps, TagProps {
@@ -65,6 +69,7 @@ export interface FormFieldProps extends CommonFormFieldProps, TagProps {
 
 const FormField = ({
   children,
+  "data-component": dataComponent,
   disabled,
   fieldHelp: fieldHelpContent,
   fieldHelpInline,
@@ -88,6 +93,7 @@ const FormField = ({
   adaptiveLabelBreakpoint,
   isRequired,
   validationIconId,
+  validationRedesignOptIn,
   ...rest
 }: FormFieldProps) => {
   const invalidValidationProp: string | undefined = useMemo(() => {
@@ -139,10 +145,7 @@ const FormField = ({
   ) : null;
 
   return (
-    <FormFieldStyle
-      {...tagComponent(rest["data-component"], rest)}
-      {...marginProps}
-    >
+    <FormFieldStyle {...tagComponent(dataComponent, rest)} {...marginProps}>
       <FieldLineStyle inline={inlineLabel}>
         {reverse && children}
 
@@ -151,9 +154,9 @@ const FormField = ({
             labelId={labelId}
             align={labelAlign}
             disabled={disabled}
-            error={!rest.validationRedesignOptIn && error}
-            warning={!rest.validationRedesignOptIn && warning}
-            info={!rest.validationRedesignOptIn && info}
+            error={!validationRedesignOptIn && error}
+            warning={!validationRedesignOptIn && warning}
+            info={!validationRedesignOptIn && info}
             help={labelHelp}
             tooltipId={tooltipId}
             htmlFor={id}

@@ -1,3 +1,10 @@
+### [110.1.3](https://github.com/Sage/carbon/compare/v110.1.2...v110.1.3) (2022-08-26)
+
+
+### Bug Fixes
+
+* **form-field:** modify typing of data props ([52a1e57](https://github.com/Sage/carbon/commit/52a1e579054b02f32f777b962cabe9e4514401ff))
+
 ### [110.1.2](https://github.com/Sage/carbon/compare/v110.1.1...v110.1.2) (2022-08-25)
 
 
