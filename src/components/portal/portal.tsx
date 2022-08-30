@@ -1,13 +1,28 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
+
 import guid from "../../__internal__/utils/helpers/guid";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
-export const PortalContext = React.createContext({});
+interface PortalContextProps {
+  renderInRoot?: boolean;
+}
 
-const Portal = ({ children, className, id, onReposition }) => {
-  const [portalNode, setPortalNode] = useState(null);
+export const PortalContext = React.createContext<PortalContextProps>({});
+
+interface PortalProps {
+  /** The content of the portal. */
+  children?: React.ReactNode;
+  /** Classname attached to portal container. */
+  className?: string;
+  /** Id attribute attached to portal container. */
+  id?: string;
+  /** Callback function triggered when parent element is scrolled or window resized. */
+  onReposition?: () => void;
+}
+
+const Portal = ({ children, className, id, onReposition }: PortalProps) => {
+  const [portalNode, setPortalNode] = useState<HTMLElement | null>(null);
   const uniqueId = useMemo(() => guid(), []);
   const { renderInRoot } = useContext(PortalContext);
 
@@ -26,14 +41,14 @@ const Portal = ({ children, className, id, onReposition }) => {
 
   useEffect(() => {
     return () => {
-      portalNode.remove();
+      portalNode?.remove();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const addClassNames = (node) => {
-    className.split(" ").forEach((el) => {
-      node.classList.add(el);
+  const addClassNames = (node: HTMLElement | null) => {
+    className?.split(" ").forEach((el) => {
+      node?.classList.add(el);
     });
 
     return node;
@@ -72,7 +87,7 @@ const Portal = ({ children, className, id, onReposition }) => {
       node = addClassNames(node);
     }
 
-    return node;
+    return node as HTMLElement;
   };
 
   return (
@@ -83,15 +98,6 @@ const Portal = ({ children, className, id, onReposition }) => {
       )}
     </span>
   );
-};
-
-Portal.propTypes = {
-  /** The content of the portal. */
-  children: PropTypes.node,
-  className: PropTypes.string,
-  id: PropTypes.string,
-  /** Callback function triggered when parent element is scrolled or window resized. */
-  onReposition: PropTypes.func,
 };
 
 export default Portal;
