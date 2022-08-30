@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const HeadingBackgroundWrapper = styled.div`
-  background: linear-gradient(80deg,#2f355a,#343f80);
+  background: #000000;
   height: 100%;
   left: 0;
   position: relative;
@@ -41,6 +41,6 @@ export const CodeButtonWrapper = styled.div`
 
 export const GitHubLinkWrapper = styled.div`
   font-weight: 100;
-  letter-spacing: .3px;
+  letter-spacing: 0.3px;
   margin-top: 40px;
 `;
