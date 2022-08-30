@@ -15,7 +15,7 @@ exports[`Option renders properly 1`] = `
 }
 
 .c0:hover {
-  background-color: var(--colorsUtilityMajor200);
+  background-color: var(--colorsUtilityMajor100);
 }
 
 <li
@@ -44,7 +44,7 @@ exports[`Option when no children are provided renders with the text prop as chil
 }
 
 .c0:hover {
-  background-color: var(--colorsUtilityMajor200);
+  background-color: var(--colorsUtilityMajor100);
 }
 
 <li

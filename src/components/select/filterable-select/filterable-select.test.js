@@ -1242,6 +1242,17 @@ context("Tests for Filterable Select component", () => {
       filterableSelectAddNewButton().should("be.visible").click();
       getDataElementByValue("input").should("have.attr", "value", newOption);
     });
+
+    it("should have correct hover state of list option", () => {
+      CypressMountWithProviders(<FilterableSelectComponent />);
+
+      const optionValue = "Blue";
+
+      dropdownButton().click();
+      selectListText(optionValue)
+        .realHover()
+        .should("have.css", "background-color", "rgb(204, 214, 219)");
+    });
   });
 
   describe("check events for Filterable Select component", () => {
