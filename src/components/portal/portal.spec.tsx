@@ -1,5 +1,5 @@
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { mount, shallow, ReactWrapper } from "enzyme";
 import ReactDOM from "react-dom";
 import Portal, { PortalContext } from "./portal";
 import Icon from "../icon";
@@ -8,13 +8,13 @@ import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-
 jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
 
 describe("Portal", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   describe("when an element with id 'root' exists, and renderInRoot is set to true in Portal Context", () => {
-    let rootWrapper;
-    const rootDiv = global.document.createElement("div");
+    let rootWrapper: ReactWrapper | null;
+    const rootDiv = document.createElement("div");
     rootDiv.setAttribute("id", "root");
-    const body = global.document.querySelector("body");
+    const body = document.querySelector("body") as HTMLBodyElement;
 
     beforeEach(() => {
       body.appendChild(rootDiv);
@@ -91,7 +91,7 @@ describe("Portal", () => {
       expect(document.body.innerHTML).toEqual("");
     });
 
-    it("to match snapshot ", () => {
+    it("to match snapshot", () => {
       const wrapper2 = shallow(
         <Portal>
           <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
@@ -103,15 +103,15 @@ describe("Portal", () => {
 
   describe("will manage listeners", () => {
     describe("when NOT given reposition prop", () => {
-      let parentDiv;
+      let parentDiv: HTMLDivElement;
       beforeEach(() => {
-        spyOn(window, "addEventListener");
-        spyOn(window, "removeEventListener");
-        spyOn(ReactDOM, "findDOMNode").and.returnValue(parentDiv);
+        jest.spyOn(window, "addEventListener");
+        jest.spyOn(window, "removeEventListener");
+        jest.spyOn(ReactDOM, "findDOMNode").mockReturnValue(parentDiv);
 
         parentDiv = document.createElement("div");
-        spyOn(parentDiv, "addEventListener");
-        spyOn(parentDiv, "removeEventListener");
+        jest.spyOn(parentDiv, "addEventListener");
+        jest.spyOn(parentDiv, "removeEventListener");
 
         wrapper = mount(
           <Portal>
@@ -124,7 +124,7 @@ describe("Portal", () => {
         if (wrapper.length) wrapper.unmount();
       });
 
-      it('will NOT add window "resize" listener ', () => {
+      it('will NOT add window "resize" listener', () => {
         expect(window.addEventListener).not.toHaveBeenCalledWith("resize");
       });
 
@@ -133,7 +133,7 @@ describe("Portal", () => {
         expect(window.removeEventListener).not.toHaveBeenCalledWith("resize");
       });
 
-      it('will NOT window "scroll" listener ', () => {
+      it('will NOT window "scroll" listener', () => {
         expect(parentDiv.addEventListener).not.toHaveBeenCalled();
       });
 
@@ -144,19 +144,19 @@ describe("Portal", () => {
     });
 
     describe("when given reposition prop", () => {
-      let repositionCb;
-      let parentDiv;
+      let repositionCb: jest.Mock;
+      let parentDiv: HTMLDivElement;
 
       beforeEach(() => {
-        repositionCb = jasmine.createSpy("onReposition");
+        repositionCb = jest.fn();
         parentDiv = document.createElement("div");
         parentDiv.style.overflow = "auto";
 
-        spyOn(window, "addEventListener");
-        spyOn(window, "removeEventListener");
-        spyOn(ReactDOM, "findDOMNode").and.returnValue(parentDiv);
-        spyOn(parentDiv, "addEventListener");
-        spyOn(parentDiv, "removeEventListener");
+        jest.spyOn(window, "addEventListener");
+        jest.spyOn(window, "removeEventListener");
+        jest.spyOn(ReactDOM, "findDOMNode").mockReturnValue(parentDiv);
+        jest.spyOn(parentDiv, "addEventListener");
+        jest.spyOn(parentDiv, "removeEventListener");
         wrapper = mount(
           <Portal onReposition={repositionCb}>
             <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
@@ -168,7 +168,7 @@ describe("Portal", () => {
         if (wrapper.length) wrapper.unmount();
       });
 
-      it('will add window "resize" listener ', () => {
+      it('will add window "resize" listener', () => {
         expect(window.addEventListener).toHaveBeenCalledWith(
           "resize",
           repositionCb
@@ -183,7 +183,7 @@ describe("Portal", () => {
         );
       });
 
-      it('will call window "reposition" callback ', () => {
+      it('will call window "reposition" callback', () => {
         expect(repositionCb).toHaveBeenCalled();
       });
     });
@@ -200,15 +200,15 @@ describe("Portal", () => {
   });
 
   describe("when reposition prop is updated", () => {
-    let repositionCb;
-    let repositionCbNew;
+    let repositionCb: jest.Mock;
+    let repositionCbNew: jest.Mock;
 
     beforeEach(() => {
-      repositionCb = jasmine.createSpy("onReposition");
-      repositionCbNew = jasmine.createSpy("onRepositionNew");
+      repositionCb = jest.fn();
+      repositionCbNew = jest.fn();
 
-      spyOn(window, "addEventListener");
-      spyOn(window, "removeEventListener");
+      jest.spyOn(window, "addEventListener");
+      jest.spyOn(window, "removeEventListener");
 
       wrapper = mount(
         <Portal onReposition={repositionCb}>
