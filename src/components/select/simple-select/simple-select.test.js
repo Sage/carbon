@@ -1013,12 +1013,13 @@ context("Tests for Simple Select component", () => {
   });
 
   describe("check height of Select list when opened", () => {
-    it("with long option text, should not cut off any text", () => {
+    it("should not cut off any text with long option text", () => {
       CypressMountWithProviders(<SimpleSelectWithLongWrappingTextComponent />);
 
       selectText().click();
-      selectListWrapper().should("be.visible");
-      selectListWrapper().should("have.css", "height", "152px");
+      selectListWrapper()
+        .should("have.css", "height", "152px")
+        .and("be.visible");
     });
   });
 });
