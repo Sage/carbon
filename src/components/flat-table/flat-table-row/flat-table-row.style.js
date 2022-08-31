@@ -154,6 +154,7 @@ const StyledFlatTableRow = styled.tr`
             top: -1px;
             bottom: 0px;
             border: 2px solid var(--colorsSemanticFocus500);
+            pointer-events: none;
           }
 
           :first-child {
