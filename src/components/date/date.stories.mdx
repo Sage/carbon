@@ -89,7 +89,7 @@ be used to set the input value like in the example below, although the component
   <Story
     name="autoFocus"
     parameters={{
-      themeProvider: {chromatic: { fourColumnLayout: true }},
+      themeProvider: { chromatic: { fourColumnLayout: true } },
       chromatic: { viewports: [1800] },
     }}
   >
@@ -591,14 +591,28 @@ the German (`de`) locale whilst the second is for a Chinese (`zh-CN`) locale. Re
       return (
         <div style={{ display: "flex", justifyContent: "space-around" }}>
           <I18nProvider
-            locale={{ locale: () => "de-DE", date: { dateFnsLocale: () => de } }}
+            locale={{
+              locale: () => "de-DE",
+              date: { dateFnsLocale: () => de },
+            }}
           >
-            <DateInput label="Date `DE` locale" value={state} onChange={handleChange} />
+            <DateInput
+              label="Date `DE` locale"
+              value={state}
+              onChange={handleChange}
+            />
           </I18nProvider>
           <I18nProvider
-            locale={{ locale: () => "zh-CN", date: { dateFnsLocale: () => zhCN } }}
+            locale={{
+              locale: () => "zh-CN",
+              date: { dateFnsLocale: () => zhCN },
+            }}
           >
-            <DateInput label="Date `zh-CN` locale" value={state2} onChange={handleChange2} />
+            <DateInput
+              label="Date `zh-CN` locale"
+              value={state2}
+              onChange={handleChange2}
+            />
           </I18nProvider>
         </div>
       );
@@ -615,7 +629,8 @@ the German (`de`) locale whilst the second is for a Chinese (`zh-CN`) locale. Re
 Due to the `Textbox` component being used internally by the `Date` component the following `Textbox` props are applicable to `Date`
 
 <ArgsTable
-  of={Textbox}  exclude={[
+  of={Textbox}
+  exclude={[
     "value",
     "formattedValue",
     "rawValue",

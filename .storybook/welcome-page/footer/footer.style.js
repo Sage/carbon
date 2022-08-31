@@ -3,7 +3,7 @@ import LogoSvg from "./sage_logo.svg";
 
 export const Background = styled.div`
   margin-top: -1px;
-  background-color: #003349;
+  background-color: #000000;
   left: 0;
   right: 0;
 `;
@@ -40,8 +40,8 @@ export const SageIcon = styled.span`
   @media (min-width: 800px) {
     margin: 0 0 0 auto;
   }
-  height: 22px;
-  width: 57px;
+  height: 26px;
+  width: 47px;
 `;
 
 export const Legal = styled.span``;

@@ -41,9 +41,9 @@ const Dialog = ({
 }) => {
   const locale = useLocale();
 
-  const dialogRef = useRef();
-  const innerContentRef = useRef();
-  const titleRef = useRef();
+  const dialogRef = useRef(null);
+  const innerContentRef = useRef(null);
+  const titleRef = useRef(null);
   const listenersAdded = useRef(false);
   const { current: titleId } = useRef(createGuid());
   const { current: subtitleId } = useRef(createGuid());

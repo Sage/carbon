@@ -3,7 +3,9 @@ import { ArgsTable } from "@storybook/components";
 
 import Box from ".";
 import Form from "../form";
+import Button from "../button";
 import Textbox from "../textbox";
+import Typography from "../typography";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Box" />
@@ -34,6 +36,41 @@ import Box from "carbon-react/lib/components/box";
   <Story name="spacing" parameters={{ info: { disable: true } }}>
     <Box m={3} p={3} bg="secondary">
       <Box height="100px" bg="primary"></Box>
+    </Box>
+  </Story>
+</Canvas>
+
+### Position
+
+Please note that in order to see the `position: fixed` Box, you will need to view this example in the `Canvas` tab.
+<Canvas>
+  <Story 
+    name="position" 
+    parameters={{ info: { disable: true } }}
+  >
+    <Box 
+      display="inline-block"
+      size="350px"
+      overflow="auto"
+      scrollVariant="light"
+      mr="20px"
+      bg="secondary"
+    > 
+        <Box width="400px" height="80px" m={2} bg="primary" position="sticky" top="0" tabIndex="0">
+          <Typography color="white">This box has position sticky</Typography>
+          <Button buttonType="primary" destructive>Button</Button>
+        </Box>
+      <Box size="500px">
+      </Box>
+      <Box width="400px" height="80px" m={2} bg="primary" position="sticky" bottom="0">
+        <Typography color="white">This box has position sticky</Typography>
+        <Button buttonType="primary" destructive>Button</Button>
+      </Box>
+    </Box>
+    <Box size="500px" position="fixed" right="0" bg="primary">
+      <Box>
+        <Typography color="white">This box has position fixed</Typography>
+      </Box>
     </Box>
   </Story>
 </Canvas>
@@ -222,7 +259,7 @@ If no `scrollVariant` prop is set then the scroll bar will resort to the browser
 
 ### Style System
 
-<StyledSystemProps spacing color flexBox layout noHeader />
+<StyledSystemProps spacing color flexBox layout position noHeader />
 
 ### Scroll Variant
 
