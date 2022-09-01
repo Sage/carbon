@@ -4,6 +4,7 @@ import { MarginProps } from "styled-system";
 import { ValidationProps } from "../../__internal__/validations";
 import { CommonInputProps } from "../../__internal__/input";
 
+// TODO: Change characterLimit type to number - batch with other breaking changes
 export interface TextareaProps
   extends ValidationProps,
     MarginProps,
@@ -19,7 +20,7 @@ export interface TextareaProps
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Character limit of the textarea */
-  characterLimit?: string;
+  characterLimit?: string | number;
   /** Type of the icon that will be rendered next to the input */
   children?: React.ReactNode;
   /** The visible width of the text control, in average character widths */

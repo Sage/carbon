@@ -288,7 +288,7 @@ describe("Textarea", () => {
 
     describe("and when characterLimit prop is defined", () => {
       beforeEach(() => {
-        wrapper.setProps({ characterLimit: "5" });
+        wrapper.setProps({ characterLimit: 5 });
       });
 
       it("should have a CharacterCount as it's child", () => {
@@ -366,7 +366,7 @@ describe("componentWillUnmount", () => {
         expandable
         cols={10}
         rows={10}
-        characterLimit="100"
+        characterLimit={100}
       />
     );
 

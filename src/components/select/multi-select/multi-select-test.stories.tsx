@@ -15,11 +15,9 @@ export default {
 const Template = () => {
   const MAX_SELECTIONS_ALLOWED = 2;
   const [selectedPills, setSelectedPills] = useState([] as string[]);
-  const handleActivityChange = (event: {
-    target: { name?: string; id?: string; value: string[] };
-  }) => {
+  const handleActivityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length <= MAX_SELECTIONS_ALLOWED) {
-      setSelectedPills(event.target.value);
+      setSelectedPills((event.target.value as unknown) as string[]);
     }
   };
   return (

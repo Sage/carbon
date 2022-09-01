@@ -3,13 +3,13 @@ import { create } from "@storybook/theming/create";
 export default create({
   base: "light",
 
-  colorPrimary: "red",
-  colorSecondary: "#0073C2",
+  colorPrimary: "#007e45",
+  colorSecondary: "#8099A6",
 
   // UI
-  appBg: "#F2F5F6",
-  appContentBg: "white",
-  appBorderColor: "#ccd6db",
+  appBg: "#FFFFFF",
+  appContentBg: "#f2f5f6",
+  appBorderColor: "#000000",
 
   // Typography
   fontBase: '"Sage UI", sans-serif',
@@ -22,7 +22,7 @@ export default create({
   // Toolbar default and active colors
   barTextColor: "white",
   barSelectedColor: "#00DC00",
-  barBg: "#003349",
+  barBg: "#000000",
 
   // Form colors
   inputBg: "white",
@@ -30,7 +30,7 @@ export default create({
   inputTextColor: "rgba(0,0,0,0.9)",
   inputBorderRadius: 0,
 
-  brandTitle: "Sage DLS in Carbon",
+  brandTitle: "Sage DS in Carbon",
   brandUrl: "https://carbon.sage.com",
   brandImage: "carbon-by-sage-logo.png",
 });
