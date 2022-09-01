@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import Textbox from ".";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import {
@@ -24,7 +24,10 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../__internal__/utils/helpers/guid");
-createGuid.mockReturnValue(mockedGuid);
+
+(createGuid as jest.MockedFunction<typeof createGuid>).mockReturnValue(
+  mockedGuid
+);
 
 describe("Textbox", () => {
   testStyledSystemMargin(
@@ -35,7 +38,7 @@ describe("Textbox", () => {
   );
 
   it("renders a counter", () => {
-    const wrapper = mount(<Textbox value="test string" characterLimit="100" />);
+    const wrapper = mount(<Textbox value="test string" characterLimit={100} />);
 
     expect(wrapper.find(CharacterCount).text()).toBe("11/100");
   });
@@ -59,10 +62,10 @@ describe("Textbox", () => {
   });
 
   it("sets max length", () => {
-    const wrapper = mount(<Textbox value="test string" characterLimit="100" />);
+    const wrapper = mount(<Textbox value="test string" characterLimit={100} />);
 
     expect(wrapper.find(CharacterCount).text()).toBe("11/100");
-    expect(wrapper.find("input").prop("maxLength")).toBe("100");
+    expect(wrapper.find("input").prop("maxLength")).toBe(100);
   });
 
   it("supports a separate onClick handler passing for the icon", () => {
@@ -119,7 +122,7 @@ describe("Textbox", () => {
         ["top", false],
         ["bottom", false],
         ["left", false],
-      ])(
+      ] as const)(
         "should pass the expected value rather than the default ('right')",
         (tooltipPosition, onLabel) => {
           const wrapper = mount(
@@ -149,7 +152,7 @@ describe("Textbox", () => {
   });
 
   describe("required", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeAll(() => {
       wrapper = mount(<Textbox value="foo" label="Required" required />);
@@ -194,7 +197,7 @@ describe("Textbox", () => {
       ["en-GB", "0/1,000,000"],
       ["fr-FR", "0/1 000 000"],
     ])("displays %s format", (locale, limit) => {
-      const wrapper = mount(<Textbox value="" characterLimit="1000000" />, {
+      const wrapper = mount(<Textbox value="" characterLimit={1000000} />, {
         wrappingComponent: I18nProvider,
         wrappingComponentProps: {
           locale: {
@@ -303,7 +306,7 @@ describe("Textbox", () => {
             );
           });
 
-          describe.each(["info", "warning", "error"])(
+          it.each(["info", "warning", "error"])(
             "and %s is present too",
             (validationType) => {
               const wrapper = mount(
@@ -325,7 +328,13 @@ describe("Textbox", () => {
   });
 
   describe("new validations", () => {
-    const renderWithNewValidations = ({ error, warning }) =>
+    const renderWithNewValidations = ({
+      error,
+      warning,
+    }: {
+      error?: string;
+      warning?: string;
+    }) =>
       mount(
         <CarbonProvider validationRedesignOptIn>
           <Textbox

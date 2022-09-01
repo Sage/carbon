@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 
-const StyledCharacterCount = styled.div`
+import baseTheme from "../../style/themes/base";
+
+const StyledCharacterCount = styled.div<{ isOverLimit: boolean }>`
   text-align: right;
   font-size: 12px;
   margin-top: 4px;
@@ -16,5 +18,9 @@ const StyledCharacterCount = styled.div`
       font-weight: 700;
     `}
 `;
+
+StyledCharacterCount.defaultProps = {
+  theme: baseTheme,
+};
 
 export default StyledCharacterCount;
