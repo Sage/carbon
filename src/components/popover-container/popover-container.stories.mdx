@@ -11,7 +11,7 @@ import Badge from "../badge";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import isChromatic from "../../../.storybook/isChromatic";
 
-export const isOpenForChromatic = isChromatic(); 
+export const isOpenForChromatic = isChromatic();
 
 <Meta title="Popover Container" />
 
@@ -60,7 +60,12 @@ Use the `title` prop to set a title within the `PopoverContainer`.
       const onClose = () => setOpen(false);
       return (
         <div style={{ height: 100 }}>
-          <PopoverContainer title="With a title" open={open} onClose={onClose} onOpen={onOpen}>
+          <PopoverContainer
+            title="With a title"
+            open={open}
+            onClose={onClose}
+            onOpen={onOpen}
+          >
             Contents
           </PopoverContainer>
         </div>
@@ -84,7 +89,13 @@ of the screen.
       const onClose = () => setOpen(false);
       return (
         <div style={{ height: 150, float: "right", clear: "right" }}>
-          <PopoverContainer title="Right Aligned" position="left" open={open} onClose={onClose} onOpen={onOpen}>
+          <PopoverContainer
+            title="Right Aligned"
+            position="left"
+            open={open}
+            onClose={onClose}
+            onOpen={onOpen}
+          >
             Contents
           </PopoverContainer>
         </div>
@@ -107,7 +118,13 @@ Use the `shouldCoverButton` prop to hide the open button when the `PopoverContai
       const onClose = () => setOpen(false);
       return (
         <div style={{ height: 100 }}>
-          <PopoverContainer title="Cover Button" shouldCoverButton open={open} onClose={onClose} onOpen={onOpen}>
+          <PopoverContainer
+            title="Cover Button"
+            shouldCoverButton
+            open={open}
+            onClose={onClose}
+            onOpen={onOpen}
+          >
             Contents
           </PopoverContainer>
         </div>
@@ -133,6 +150,8 @@ Use the `renderOpenComponent` and `renderCloseComponent` to render your own open
           ref,
           "aria-label": ariaLabel,
           id,
+          "aria-expanded": ariaExpanded,
+          "aria-haspopup": ariaHasPopup,
         }) => (
           <Button
             iconType={!isOpen ? "filter_new" : "close"}
@@ -140,6 +159,8 @@ Use the `renderOpenComponent` and `renderCloseComponent` to render your own open
             tabIndex={tabIndex}
             data-element={dataElement}
             aria-label={ariaLabel}
+            aria-haspopup={ariaHasPopup}
+            aria-expanded={ariaExpanded}
             forwardRef={ref}
             id={id}
             onClick={onClick}
@@ -218,7 +239,12 @@ You can easily use many different components to create your own composition.
       const onClose = () => setOpen(false);
       return (
         <div style={{ height: 330 }}>
-          <PopoverContainer title="Popover Container Title" open={open} onOpen={onOpen} onClose={onClose}>
+          <PopoverContainer
+            title="Popover Container Title"
+            open={open}
+            onOpen={onOpen}
+            onClose={onClose}
+          >
             <Link>This is example link text</Link>
             <div style={{ padding: "25px 0 15px 0" }}>
               <Button>Small</Button>
