@@ -1,3 +1,10 @@
+### [110.2.1](https://github.com/Sage/carbon/compare/v110.2.0...v110.2.1) (2022-09-01)
+
+
+### Bug Fixes
+
+* **select:** ensure select list always has correct height to fit content ([f1d966b](https://github.com/Sage/carbon/commit/f1d966bb96645d91fa989f3f40fb2fd8173e8951)), closes [#5341](https://github.com/Sage/carbon/issues/5341)
+
 ## [110.2.0](https://github.com/Sage/carbon/compare/v110.1.3...v110.2.0) (2022-08-30)
 
 
