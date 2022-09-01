@@ -3,7 +3,12 @@
 /* eslint-disable jest/no-export */
 import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { sprintf } from "sprintf-js";
-import { LayoutProps, FlexboxProps, BackgroundProps } from "styled-system";
+import {
+  LayoutProps,
+  FlexboxProps,
+  BackgroundProps,
+  PositionProps,
+} from "styled-system";
 import { ReactTestRendererJSON } from "react-test-renderer";
 
 import { space } from "style/themes/base/base-theme.config";
@@ -224,6 +229,18 @@ const backgroundProps = [
   ["backgroundImage", "background-image", "url(foo.jpg)"],
   ["backgroundSize", "background-size", "center"],
   ["backgroundRepeat", "background-repeat", "no-repeat"],
+] as const;
+
+const positionProps = [
+  ["top", "0px"],
+  ["bottom", "0px"],
+  ["right", "0px"],
+  ["left", "0px"],
+  ["position", "fixed"],
+  ["position", "sticky"],
+  ["position", "absolute"],
+  ["position", "static"],
+  ["position", "relative"],
 ] as const;
 
 export const getDefaultValue = (value?: string | number) => {
@@ -479,6 +496,26 @@ const testStyledSystemBackground = (
   );
 };
 
+const testStyledSystemPosition = (
+  component: (positionProperties?: PositionProps) => JSX.Element,
+  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
+) => {
+  describe.each(positionProps)(
+    'when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, value) => {
+      it(`then ${styledSystemProp} should have been set correctly`, () => {
+        const props = { [styledSystemProp]: value };
+        const wrapper = mount(component({ ...props }));
+
+        assertStyleMatch(
+          { [styledSystemProp]: value },
+          styleContainer ? styleContainer(wrapper) : wrapper
+        );
+      });
+    }
+  );
+};
+
 // this util will catch that a console output occurred without polluting the output when running the unit tests
 const expectConsoleOutput = (
   message: string,
@@ -540,5 +577,6 @@ export {
   testStyledSystemLayout,
   testStyledSystemFlexBox,
   testStyledSystemBackground,
+  testStyledSystemPosition,
   expectConsoleOutput,
 };

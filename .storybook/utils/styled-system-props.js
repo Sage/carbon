@@ -651,6 +651,71 @@ const generateStyledSystemBackgroundProps = (defaults) => {
   ];
 };
 
+const generateStyledSystemPositionProps = (defaults) => {
+  return [
+    {
+      name: "top",
+      type: { summary: "string" },
+      description: "Any valid CSS string.",
+      required: false,
+      defaultValue: {
+        summary: defaults.top || "-",
+      },
+      table: {
+        category: "position",
+      },
+    },
+    {
+      name: "bottom",
+      type: { summary: "string" },
+      description: "Any valid CSS string.",
+      required: false,
+      defaultValue: {
+        summary: defaults.bottom || "-",
+      },
+      table: {
+        category: "position",
+      },
+    },
+    {
+      name: "left",
+      type: { summary: "string" },
+      description: "Any valid CSS string.",
+      required: false,
+      defaultValue: {
+        summary: defaults.left || "-",
+      },
+      table: {
+        category: "position",
+      },
+    },
+    {
+      name: "right",
+      type: { summary: "string" },
+      description: "Any valid CSS string.",
+      required: false,
+      defaultValue: {
+        summary: defaults.right || "-",
+      },
+      table: {
+        category: "position",
+      },
+    },
+    {
+      name: "position",
+      type: { summary: "string" },
+      description: "Any valid CSS string.",
+      required: false,
+      defaultValue: {
+        summary: defaults.position || "-",
+      },
+      table: {
+        category: "position",
+      },
+    },
+  ];
+};
+
 const StyledSystemProps = ({
   of,
   spacing,
@@ -663,6 +728,7 @@ const StyledSystemProps = ({
   margin,
   padding,
   background,
+  position,
 }) => {
   let rows = [];
 
@@ -689,6 +755,9 @@ const StyledSystemProps = ({
   }
   if (background) {
     rows.push(...generateStyledSystemBackgroundProps(defaults));
+  }
+  if (position) {
+    rows.push(...generateStyledSystemPositionProps(defaults));
   }
 
   return (

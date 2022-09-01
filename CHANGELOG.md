@@ -1,3 +1,11 @@
+## [110.2.0](https://github.com/Sage/carbon/compare/v110.1.3...v110.2.0) (2022-08-30)
+
+
+### Features
+
+* **box:** add styled-system position props ([52f065f](https://github.com/Sage/carbon/commit/52f065fbedf5eadf36f970faab96d191bddc4fdc)), closes [#5345](https://github.com/Sage/carbon/issues/5345)
+* **box:** add tabIndex prop ([79a20f2](https://github.com/Sage/carbon/commit/79a20f2ccb9903586c4721ed5313895fa53e67d4))
+
 ### [110.1.3](https://github.com/Sage/carbon/compare/v110.1.2...v110.1.3) (2022-08-26)
 
 
