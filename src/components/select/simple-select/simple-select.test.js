@@ -847,6 +847,17 @@ context("Tests for Simple Select component", () => {
       selectListOptionGroup("1").should("have.text", "Group one");
     });
 
+    it("should render option list with proper maxHeight value", () => {
+      const maxHeight = 200;
+      CypressMountWithProviders(
+        <SimpleSelectComponent listMaxHeight={maxHeight} />
+      );
+      selectText().click();
+      selectList()
+        .should("have.css", "max-height", `${maxHeight}px`)
+        .and("be.visible");
+    });
+
     it.each([
       ["top", "300px", "0px", "200px", "0px"],
       ["bottom", "0px", "0px", "0px", "0px"],

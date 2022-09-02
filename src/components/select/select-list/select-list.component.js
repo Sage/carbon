@@ -48,6 +48,7 @@ const fixedPopoverModifiers = [
 const SelectList = React.forwardRef(
   (
     {
+      listMaxHeight = 180,
       listActionButton,
       id,
       labelId,
@@ -461,7 +462,6 @@ const SelectList = React.forwardRef(
           >
             <StyledSelectListContainer
               data-element="select-list-wrapper"
-              height={listHeight}
               placement={placement.current}
               {...listProps}
             >
@@ -475,6 +475,7 @@ const SelectList = React.forwardRef(
                 tabIndex="-1"
                 isLoading={isLoading}
                 multiColumn={multiColumn}
+                maxHeight={listMaxHeight}
               >
                 {selectListContent}
                 {isLoading && loader()}
@@ -515,6 +516,8 @@ SelectList.propTypes = {
   highlightedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** True for default text button or a Button Component to be rendered */
   listActionButton: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
+  /** Maximum list height - defaults to 180 */
+  listMaxHeight: PropTypes.number,
   /** A callback for when the Action Button is triggered */
   onListAction: PropTypes.func,
   /** If true the loader animation is displayed below the last option */
