@@ -1,3 +1,10 @@
+### [110.2.2](https://github.com/Sage/carbon/compare/v110.2.1...v110.2.2) (2022-09-02)
+
+
+### Bug Fixes
+
+* **popover-container:** remove incorrect role attribute ([dfc9ac1](https://github.com/Sage/carbon/commit/dfc9ac1668f3353fa25b0f066610514ccbf4e8d9))
+
 ### [110.2.1](https://github.com/Sage/carbon/compare/v110.2.0...v110.2.1) (2022-09-01)
 
 
