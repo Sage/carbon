@@ -60,6 +60,7 @@ const MultiSelect = React.forwardRef(
       "data-element": dataElement,
       "data-role": dataRole,
       listPlacement = "bottom-start",
+      listMaxHeight,
       flipEnabled = true,
       wrapPillText = true,
       ...textboxProps
@@ -514,6 +515,7 @@ const MultiSelect = React.forwardRef(
         tableHeader={tableHeader}
         multiColumn={multiColumn}
         listPlacement={listPlacement}
+        listMaxHeight={listMaxHeight}
         flipEnabled={flipEnabled}
         loaderDataRole="multi-select-list-loader"
         multiselectValues={actualValue}
@@ -598,6 +600,8 @@ MultiSelect.propTypes = {
   isLoading: PropTypes.bool,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Maximum list height - defaults to 180 */
+  listMaxHeight: PropTypes.number,
   /** Placement of the select list in relation to the input element */
   listPlacement: PropTypes.oneOf([
     "auto",
