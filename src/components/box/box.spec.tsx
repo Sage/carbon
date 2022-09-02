@@ -5,6 +5,7 @@ import {
   testStyledSystemColor,
   testStyledSystemLayout,
   testStyledSystemFlexBox,
+  testStyledSystemPosition,
   assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
 import Box, { OverflowWrap, ScrollVariant, BoxSizing } from "./box.component";
@@ -15,6 +16,7 @@ describe("Box", () => {
   testStyledSystemColor((props) => <Box {...props} />);
   testStyledSystemLayout((props) => <Box {...props} />);
   testStyledSystemFlexBox((props) => <Box {...props} />);
+  testStyledSystemPosition((props) => <Box {...props} />);
 
   it.each<OverflowWrap>(["break-word", "anywhere"])(
     "overflowWrap sets the expected style on the wrapper",

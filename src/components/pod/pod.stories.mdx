@@ -195,7 +195,7 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
       onUndo={() => {}}
       softDelete
     >
-      <Typography color="blackOpacity30">Soft delete state</Typography>
+      Soft delete state
     </Pod>
   </Story>
 </Canvas>
@@ -329,23 +329,18 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
 <Canvas>
   <Story name="address example">
     <Pod internalEditButton variant="tertiary">
-      <h5 style={{ margin: 0 }}>Unit 1</h5>
-      <div>South Nelson Industrial Estate</div>
-      <div>Cramlington</div>
-      <div>NE23 1WF</div>
-      <div>United Kingdom</div>
-      <div
-        style={{
-          fontWeight: 900,
-          borderTop: "1px solid #ccd6db",
-          marginTop: "15px",
-          paddingTop: "5px",
-        }}
-      >
-        <Button buttonType="tertiary" size="small" px={0}>
-          Select a different address
-        </Button>
-      </div>
+      <Box>
+        <Typography variant="h5" fontWeight="700">
+          Unit 1
+        </Typography>
+        <Typography m={0}>South Nelson Industrial Estate</Typography>
+        <Typography m={0}>Cramlington</Typography>
+        <Typography m={0}>NE23 1WF</Typography>
+        <Typography m={0}>United Kingdom</Typography>
+      </Box>
+      <Button buttonType="tertiary" size="small" mt={1} px={0}>
+        Select a different address
+      </Button>
       <div style={{ position: "absolute", right: "8px", top: "8px" }}>
         <Button
           buttonType="tertiary"

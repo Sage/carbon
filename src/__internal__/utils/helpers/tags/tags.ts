@@ -1,11 +1,14 @@
 interface DataProps {
+  /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-element"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-role"?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [restKeys: string]: any;
 }
 
 export interface TagProps extends DataProps {
+  /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
 }
 

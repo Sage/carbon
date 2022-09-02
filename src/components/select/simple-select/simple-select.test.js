@@ -4,6 +4,7 @@ import Option from "../option/option.component";
 import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
 import Icon from "../../icon/icon.component";
+import Box from "../../box";
 import CypressMountWithProviders from "../../../../cypress/support/component-helper/cypress-mount";
 
 import {
@@ -18,6 +19,7 @@ import {
   selectText,
   selectInput,
   selectList,
+  selectListWrapper,
   selectOption,
   dropdownButton,
   selectListText,
@@ -453,6 +455,19 @@ const SimpleSelectEventsComponent = ({ onChange, ...props }) => {
     </SimpleSelect>
   );
 };
+
+const SimpleSelectWithLongWrappingTextComponent = () => (
+  <Box width={400}>
+    <SimpleSelect name="simple" id="simple" label="label" labelInline>
+      <Option
+        text="Like a lot of intelligent animals, most crows are quite social. 
+        For instance, American crows spend most of the year living in pairs or small family groups.
+        During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night."
+        value="1"
+      />
+    </SimpleSelect>
+  </Box>
+);
 
 const testPropValue = "cypress_test";
 
@@ -1040,5 +1055,16 @@ context("Tests for Simple Select component", () => {
           });
       }
     );
+  });
+
+  describe("check height of Select list when opened", () => {
+    it("should not cut off any text with long option text", () => {
+      CypressMountWithProviders(<SimpleSelectWithLongWrappingTextComponent />);
+
+      selectText().click();
+      selectListWrapper()
+        .should("have.css", "height", "152px")
+        .and("be.visible");
+    });
   });
 });

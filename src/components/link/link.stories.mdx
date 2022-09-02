@@ -53,7 +53,9 @@ By default an anchor element will be rendered.
       href="https://carbon.sage.com"
       target="_blank"
       rel="noreferrer noopener"
-    >This is a link</Link>
+    >
+      This is a link
+    </Link>
   </Story>
 </Canvas>
 
@@ -75,7 +77,9 @@ The `icon` prop allows you to render an icon.
 
 <Canvas>
   <Story name="with icon" parameters={{ chromatic: { disable: true } }}>
-    <Link icon="settings" href="#foo">This is a link</Link>
+    <Link icon="settings" href="#foo">
+      This is a link
+    </Link>
   </Story>
 </Canvas>
 
@@ -108,7 +112,11 @@ By rendering an icon and providing a string to the `tooltipMessage` prop, a tool
 <Canvas>
   <Story name="with tooltip" parameters={{ chromatic: { disable: true } }}>
     <div style={{ margin: "64px" }}>
-      <Link icon="settings" tooltipMessage="This is a tooltip message" href="#foo">
+      <Link
+        icon="settings"
+        tooltipMessage="This is a tooltip message"
+        href="#foo"
+      >
         This is a link
       </Link>
     </div>
@@ -170,7 +178,9 @@ perform client-side routing, but still provide the `href` to render an HTML link
 
 <Canvas>
   <Story name="with onClick" parameters={{ chromatic: { disable: true } }}>
-    <Link onClick={() => {}}>This is actually a button but looks like a link</Link>
+    <Link onClick={() => {}}>
+      This is actually a button but looks like a link
+    </Link>
   </Story>
 </Canvas>
 

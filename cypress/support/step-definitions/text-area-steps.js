@@ -45,10 +45,10 @@ Then("characterLimit for default Textarea is shown as {string}", (length) => {
 });
 
 Then("characterLimit for default Textarea is not set to {word}", (length) => {
-  textareaChildren().should("have.attr", "maxlength", length);
   // eslint-disable-next-line no-restricted-globals
   if (isNaN(length)) {
-    characterLimitDefaultTextarea().contains("NaN");
+    textareaChildren().should("not.have.attr", "maxlength");
+    characterLimitDefaultTextarea().should("not.exist");
   }
 });
 

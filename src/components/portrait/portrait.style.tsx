@@ -1,21 +1,19 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-import { margin } from "styled-system";
+import { margin, MarginProps } from "styled-system";
 
 import BaseTheme from "../../style/themes/base";
-import Icon from "../icon";
-import {
-  PORTRAIT_SHAPES,
-  PORTRAIT_SIZES,
-  PORTRAIT_SIZE_PARAMS,
-} from "./portrait.config";
+import Icon, { IconType } from "../icon";
+import { PortraitSizes, PortraitShapes } from "./portrait.component";
+import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
 
-function stylingForSize({ size, initials }) {
+type StylingForSize = {
+  size: PortraitSizes;
+  initials?: string;
+};
+
+function stylingForSize({ size, initials }: StylingForSize) {
   const params = PORTRAIT_SIZE_PARAMS[size];
-  if (!params) {
-    return css``;
-  }
 
   if (initials) {
     return css`
@@ -26,12 +24,14 @@ function stylingForSize({ size, initials }) {
   }
 
   return css`
-    width: ${params.dimensions}px;
-    height: ${params.dimensions}px;
+    width: ${params?.dimensions}px;
+    height: ${params?.dimensions}px;
   `;
 }
 
-function stylingForShape({ shape }) {
+type StylingForShape = { shape?: PortraitShapes };
+
+function stylingForShape({ shape }: StylingForShape) {
   let cssString = "overflow: hidden;";
 
   if (shape === "square") cssString += "border-radius: 0px;";
@@ -42,12 +42,13 @@ function stylingForShape({ shape }) {
   `;
 }
 
-function stylingForIcon({ size, darkBackground }) {
-  const params = PORTRAIT_SIZE_PARAMS[size];
+type StylingForIcon = {
+  size: PortraitSizes;
+  darkBackground: boolean;
+};
 
-  if (!params) {
-    return css``;
-  }
+function stylingForIcon({ size, darkBackground }: StylingForIcon) {
+  const params = PORTRAIT_SIZE_PARAMS[size];
 
   let color = "var(--colorsUtilityMajor200)";
   let backgroundColor = "var(--colorsUtilityMajor025)";
@@ -62,19 +63,33 @@ function stylingForIcon({ size, darkBackground }) {
     color: ${color};
 
     ::before {
-      font-size: ${params.iconDimensions}px;
+      font-size: ${params?.iconDimensions}px;
     }
   `;
 }
 
-export function getColorsForInitials(darkBackground) {
+export function getColorsForInitials(
+  darkBackground?: boolean
+): {
+  textColor: "colorsUtilityYang100" | "colorsUtilityYin055";
+  bgColor: "colorsUtilityMajor400" | "colorsUtilityMajor025";
+} {
   return {
     textColor: darkBackground ? "colorsUtilityYang100" : "colorsUtilityYin055",
     bgColor: darkBackground ? "colorsUtilityMajor400" : "colorsUtilityMajor025",
   };
 }
 
-export const StyledPortraitInitials = styled.div`
+type PortraitSizeAndShape = {
+  size: PortraitSizes;
+  shape?: PortraitShapes;
+};
+
+type StyledPortraitInitialsProps = PortraitSizeAndShape & {
+  initials?: string;
+};
+
+export const StyledPortraitInitials = styled.div<StyledPortraitInitialsProps>`
   display: inline-block;
   vertical-align: middle;
   box-sizing: border-box;
@@ -92,55 +107,31 @@ export const StyledPortraitInitials = styled.div`
   }
 `;
 
-StyledPortraitInitials.propTypes = {
-  size: PropTypes.oneOf(PORTRAIT_SIZES).isRequired,
-  shape: PropTypes.oneOf(PORTRAIT_SHAPES),
-};
-
-StyledPortraitInitials.defaultProps = {
-  shape: "square",
-};
-
 export const StyledPortraitInitialsImg = styled.img`
   display: block;
 `;
 
-StyledPortraitInitialsImg.propTypes = {
-  src: PropTypes.string.isRequired,
-  alt: PropTypes.string,
-};
-
-export const StyledPortraitGravatar = styled.img`
+export const StyledPortraitGravatar = styled.img<PortraitSizeAndShape>`
   display: inline-block;
   vertical-align: middle;
   ${stylingForSize}
   ${stylingForShape}
 `;
 
-StyledPortraitGravatar.propTypes = {
-  shape: PropTypes.oneOf(PORTRAIT_SHAPES),
-  size: PropTypes.oneOf(PORTRAIT_SIZES).isRequired,
-  src: PropTypes.string.isRequired,
-  alt: PropTypes.string,
-};
-
-export const StyledCustomImg = styled.img`
+export const StyledCustomImg = styled.img<PortraitSizeAndShape>`
   display: block;
   ${stylingForSize}
   ${stylingForShape}
 `;
 
-StyledCustomImg.propTypes = {
-  src: PropTypes.string.isRequired,
-  alt: PropTypes.string,
-  shape: PropTypes.oneOf(PORTRAIT_SHAPES),
-  size: PropTypes.oneOf(PORTRAIT_SIZES).isRequired,
-};
-
 // && is used here to increase the specificity
-export const StyledIcon = styled(({ size, darkBackground, ...rest }) => (
-  <Icon {...rest} />
-))`
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const StyledIcon = styled(Icon)<{
+  size: PortraitSizes;
+  shape?: PortraitShapes;
+  darkBackground: boolean;
+  type: IconType;
+}>`
   && {
     box-sizing: border-box;
     line-height: 14px;
@@ -154,20 +145,11 @@ export const StyledIcon = styled(({ size, darkBackground, ...rest }) => (
   }
 `;
 
-StyledIcon.propTypes = {
-  darkBackground: PropTypes.bool,
-  size: PropTypes.oneOf(PORTRAIT_SIZES),
-  shape: PropTypes.oneOf(PORTRAIT_SHAPES),
-  type: PropTypes.string.isRequired,
+type StyledPortraitContainerProps = MarginProps & {
+  onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
 };
 
-StyledIcon.defaultProps = {
-  darkBackground: false,
-  size: "M",
-  shape: "square",
-};
-
-export const StyledPortraitContainer = styled.div`
+export const StyledPortraitContainer = styled.div<StyledPortraitContainerProps>`
   display: inline-block;
   ${({ onClick }) => onClick && "cursor: pointer"}
   ${margin}

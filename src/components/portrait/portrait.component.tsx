@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { MarginProps } from "styled-system";
+
+import { IconType } from "../icon";
 import Tooltip from "../tooltip";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import PortraitGravatar from "./portrait-gravatar.component";
@@ -13,18 +14,65 @@ import {
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+export type PortraitShapes = "circle" | "square";
 
-const Portrait = ({
-  alt,
-  darkBackground,
+export type PortraitSizes = "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
+
+export interface PortraitBaseProps extends MarginProps {
+  /** The size of the Portrait. */
+  size?: PortraitSizes;
+  /** The `alt` HTML string. */
+  alt?: string;
+  /** The shape of the Portrait. */
+  shape?: PortraitShapes;
+  /** Icon to be rendered as a fallback. */
+  iconType?: IconType;
+  /** The initials to render in the Portrait. */
+  initials?: string;
+  /** Use a dark background. */
+  darkBackground?: boolean;
+  /** Prop for `onClick` events. */
+  onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
+  /** The message to be displayed within the tooltip */
+  tooltipMessage?: React.ReactNode;
+  /** The id attribute to use for the tooltip */
+  tooltipId?: string;
+  /** Whether to to show the Tooltip */
+  tooltipIsVisible?: boolean;
+  /** Sets position of the tooltip */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /** Defines the message type */
+  tooltipType?: string;
+  /** Defines the size of the tooltip content */
+  tooltipSize?: "medium" | "large";
+  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  tooltipBgColor?: string;
+  /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
+  tooltipFontColor?: string;
+}
+
+export interface PortraitWithGravatar extends PortraitBaseProps {
+  /** An email address registered with Gravatar. */
+  gravatar?: string;
+  src?: never;
+}
+
+export interface PortraitWithSrc extends PortraitBaseProps {
+  /** A custom image URL. */
+  src?: string;
+  gravatar?: never;
+}
+
+export type PortraitProps = PortraitWithGravatar | PortraitWithSrc;
+
+export const Portrait = ({
+  alt = "",
+  darkBackground = false,
   gravatar,
-  iconType,
+  iconType = "individual",
   initials,
-  shape,
-  size,
+  shape = "square",
+  size = "M",
   src,
   onClick,
   tooltipMessage,
@@ -36,7 +84,7 @@ const Portrait = ({
   tooltipBgColor,
   tooltipFontColor,
   ...rest
-}) => {
+}: PortraitProps) => {
   const [externalError, setExternalError] = useState(false);
 
   useEffect(() => {
@@ -127,62 +175,6 @@ const Portrait = ({
   };
 
   return renderComponent();
-};
-
-Portrait.propTypes = {
-  ...marginPropTypes,
-  /** The size of the Portrait. */
-  size: PropTypes.oneOf(["XS", "S", "M", "ML", "L", "XL", "XXL"]),
-  /** A custom image URL. */
-  src: (props) => {
-    if (props.src && typeof props.src !== "string") {
-      throw new Error(
-        `Invalid prop \`src\` of type \`${typeof props.src}\` supplied to \`Portrait\`, expected \`string\`.`
-      );
-    } else if (props.gravatar && props.src) {
-      throw new Error(
-        'Portrait requires a prop of "src" or "gravatar" but not both'
-      );
-    }
-  },
-  /** An email address registered with Gravatar. */
-  gravatar: PropTypes.string,
-  /** The `alt` HTML string. */
-  alt: PropTypes.string,
-  /** The shape of the Portrait. */
-  shape: PropTypes.oneOf(["circle", "square"]),
-  /** The initials to render in the Portrait. */
-  initials: PropTypes.string,
-  /** Use a dark background. */
-  darkBackground: PropTypes.bool,
-  /** The icon to render as fallback */
-  iconType: PropTypes.string,
-  /** Prop for `onClick` events. */
-  onClick: PropTypes.func,
-  /** The message to be displayed within the tooltip */
-  tooltipMessage: PropTypes.node,
-  /** The id attribute to use for the tooltip */
-  tooltipId: PropTypes.string,
-  /** Whether to to show the Tooltip */
-  tooltipIsVisible: PropTypes.bool,
-  /** Sets position of the tooltip */
-  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
-  /** Defines the message type */
-  tooltipType: PropTypes.string,
-  /** Defines the size of the tooltip content */
-  tooltipSize: PropTypes.oneOf(["medium", "large"]),
-  /** Override background color of the Tooltip, provide design token, any color from palette or any valid css color value. */
-  tooltipBgColor: PropTypes.string,
-  /** Override font color of the Tooltip, provide design token, any color from palette or any valid css color value. */
-  tooltipFontColor: PropTypes.string,
-};
-
-Portrait.defaultProps = {
-  size: "M",
-  shape: "square",
-  darkBackground: false,
-  alt: "",
-  iconType: "individual",
 };
 
 export default Portrait;

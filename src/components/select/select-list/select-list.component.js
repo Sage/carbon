@@ -81,6 +81,23 @@ const SelectList = React.forwardRef(
     const listActionButtonRef = useRef();
     const { blockScroll, allowScroll } = useScrollBlock();
 
+    const updateListHeight = () => {
+      let newHeight = listRef.current.clientHeight;
+
+      if (listActionButtonRef.current) {
+        newHeight += listActionButtonRef.current.parentElement.clientHeight;
+      }
+
+      setListHeight(`${newHeight}px`);
+    };
+
+    const listCallbackRef = useCallback((element) => {
+      listRef.current = element;
+      if (element) {
+        setTimeout(updateListHeight, 0);
+      }
+    }, []);
+
     useEffect(() => {
       blockScroll();
 
@@ -318,17 +335,7 @@ const SelectList = React.forwardRef(
       };
     }, [assignListWidth]);
 
-    useLayoutEffect(() => {
-      let newHeight;
-
-      newHeight = listRef.current.clientHeight;
-
-      if (listActionButtonRef.current) {
-        newHeight += listActionButtonRef.current.parentElement.clientHeight;
-      }
-
-      setListHeight(`${newHeight}px`);
-    }, [children]);
+    useLayoutEffect(updateListHeight, [children]);
 
     useEffect(() => {
       const keyboardEvent = "keydown";
@@ -471,7 +478,7 @@ const SelectList = React.forwardRef(
                 aria-labelledby={labelId}
                 data-element="select-list"
                 role="listbox"
-                ref={listRef}
+                ref={listCallbackRef}
                 tabIndex="-1"
                 isLoading={isLoading}
                 multiColumn={multiColumn}
