@@ -41,9 +41,6 @@ const BoxComponent = ({ ...props }) => {
       width={400}
       height={400}
       data-element="box"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
       bg="primary"
       color="red"
       {...props}
@@ -730,5 +727,26 @@ context("Testing Box component", () => {
 
       verifyScrollbarVariant(variant, thumb, track);
     });
+
+    it.each(["fixed", "absolute", "static", "sticky", "relative"])(
+      "should verify Box position is %s",
+      (value) => {
+        CypressMountWithProviders(
+          <BoxComponent
+            top="0px"
+            left="0px"
+            right="0px"
+            bottom="0px"
+            position={value}
+          />
+        );
+
+        getDataElementByValue("box").should("have.css", "top", "0px");
+        getDataElementByValue("box").should("have.css", "bottom", "0px");
+        getDataElementByValue("box").should("have.css", "right", "0px");
+        getDataElementByValue("box").should("have.css", "left", "0px");
+        getDataElementByValue("box").should("have.css", "position", value);
+      }
+    );
   });
 });

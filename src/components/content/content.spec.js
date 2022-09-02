@@ -102,7 +102,6 @@ describe("Content", () => {
           {
             display: "block",
             fontWeight: "bold",
-            color: "var(--colorsUtilityYin090)",
           },
           wrapper.find(StyledContentTitle)
         );

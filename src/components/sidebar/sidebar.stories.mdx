@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
-import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Sidebar from ".";
 import Button from "../button";
@@ -43,7 +44,7 @@ Useful to perform an action in context without navigating the user to a separate
 
 Useful if the user might need to refer back to the page behind the sidebar. For example, the user could select from a list of clients on the page, with detailed information on the client loading in the sidebar.
 
-Several pre-set widths are available, and the height is always 100%. It’s best to avoid sidebars that are taller than the user’s viewport height, as a scroll would hide some information. Typical user viewport heights can be as little as 650 pixels.
+Several pre-set widths are available, and the height of the sidebar is always 100%. It’s best to avoid sidebars that are taller than the user’s viewport height, as a scroll would hide some information. Typical user viewport heights can be as little as 650 pixels.
 
 Choose whether a dark tint is applied behind the dialog which helps to focus the user on the sidebar, but don’t select this option if the user needs to refer back to the underlying page.
 
@@ -74,6 +75,30 @@ with all the UI pass `enableBackgroundUI={ true }` to the component
             open={isOpen}
             onCancel={() => setIsOpen(false)}
           >
+            <div>
+              <Button buttonType="primary">Test</Button>
+              <Button buttonType="secondary" ml={2}>
+                Last
+              </Button>
+            </div>
+            Main Content
+          </Sidebar>
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Custom padding around content
+
+<Canvas>
+  <Story name="custom padding around content">
+    {() => {
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+      return (
+        <>
+          <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+          <Sidebar open={isOpen} onCancel={() => setIsOpen(false)} p={0}>
             <div>
               <Button buttonType="primary">Test</Button>
               <Button buttonType="secondary" ml={2}>
@@ -241,7 +266,6 @@ If sidebar content does not fit the sidebar, scroll will appear. Default scroll 
   </Story>
 </Canvas>
 
-
 ### Allowing other elements to be focused
 
 Using the `focusableContainers` prop allows elements that are not DOM children of the Sidebar to be reachable with the keyboard while the Sidebar is open.
@@ -249,7 +273,10 @@ This may occasionally be useful with things like Toasts where they persist on th
 (In the example below, try clicking the cancel and/or save buttons and notice how you can navigate across one or both toasts as well as the sidebar using the keyboard.)
 
 <Canvas>
-  <Story name="other focusable containers" parameters={{ chromatic: { disable: true } }}>
+  <Story
+    name="other focusable containers"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [isDialogOpen, setIsDialogOpen] = useState(false);
       const [isToast1Open, setIsToast1Open] = useState(false);
@@ -284,16 +311,32 @@ This may occasionally be useful with things like Toasts where they persist on th
               <Textbox label="First Name" />
               <Textbox label="Middle Name" />
               <Textbox label="Surname" />
-              <Button onClick={() => setIsToast1Open(true)}>Show first toast</Button>
-              <Button ml={2} buttonType="primary" onClick={() => setIsToast2Open(true)}>
+              <Button onClick={() => setIsToast1Open(true)}>
+                Show first toast
+              </Button>
+              <Button
+                ml={2}
+                buttonType="primary"
+                onClick={() => setIsToast2Open(true)}
+              >
                 Show second toast
               </Button>
             </Form>
           </Sidebar>
-          <Toast open={isToast1Open} onDismiss={() => setIsToast1Open(false)} ref={toast1Ref} targetPortalId="stacked">
+          <Toast
+            open={isToast1Open}
+            onDismiss={() => setIsToast1Open(false)}
+            ref={toast1Ref}
+            targetPortalId="stacked"
+          >
             Toast message 1
           </Toast>
-          <Toast open={isToast2Open} onDismiss={() => setIsToast2Open(false)} ref={toast2Ref} targetPortalId="stacked">
+          <Toast
+            open={isToast2Open}
+            onDismiss={() => setIsToast2Open(false)}
+            ref={toast2Ref}
+            targetPortalId="stacked"
+          >
             Toast message 2
           </Toast>
         </>
@@ -306,7 +349,7 @@ This may occasionally be useful with things like Toasts where they persist on th
 
 ### Sidebar
 
-<ArgsTable of={Sidebar} />
+<StyledSystemProps noHeader padding of={Sidebar} />
 
 ## Translation keys
 
