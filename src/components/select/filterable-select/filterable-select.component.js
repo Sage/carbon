@@ -38,6 +38,7 @@ const FilterableSelect = React.forwardRef(
       noResultsMessage,
       disablePortal,
       listActionButton,
+      listMaxHeight,
       onListAction,
       isLoading,
       disabled,
@@ -504,6 +505,7 @@ const FilterableSelect = React.forwardRef(
         noResultsMessage={noResultsMessage}
         disablePortal={disablePortal}
         listActionButton={listActionButton}
+        listMaxHeight={listMaxHeight}
         onListAction={handleOnListAction}
         isLoading={isLoading}
         readOnly={readOnly}
@@ -587,6 +589,8 @@ FilterableSelect.propTypes = {
   onListScrollBottom: PropTypes.func,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Maximum list height - defaults to 180 */
+  listMaxHeight: PropTypes.number,
   /** Placement of the select list in relation to the input element */
   listPlacement: PropTypes.oneOf([
     "auto",

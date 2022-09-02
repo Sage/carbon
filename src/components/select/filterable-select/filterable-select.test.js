@@ -1030,6 +1030,17 @@ context("Tests for Filterable Select component", () => {
       );
     });
 
+    it("should render option list with proper maxHeight value", () => {
+      const maxHeight = 200;
+      CypressMountWithProviders(
+        <FilterableSelectComponent listMaxHeight={maxHeight} />
+      );
+      dropdownButton().click();
+      selectList()
+        .should("have.css", "max-height", `${maxHeight}px`)
+        .and("be.visible");
+    });
+
     it.each([
       ["top", "0px", "0px", "0px", "0px"],
       ["bottom", "600px", "0px", "0px", "0px"],
