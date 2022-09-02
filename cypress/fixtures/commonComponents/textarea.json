@@ -69,7 +69,7 @@
     "characterLimitSpecialCharacters": "specialCharacters"
   },
   "characterLimit-0,112": {
-    "characterLimit": "",
+    "characterLimit": "-0,112",
     "characterLimitSpecialCharacters": "floatMinusNumberCommaString"
   },
   "characterLimit0.1112333": {

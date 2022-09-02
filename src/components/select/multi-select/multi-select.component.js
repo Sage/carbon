@@ -274,7 +274,7 @@ const MultiSelect = React.forwardRef(
         );
       });
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [children, disabled, readOnly, selectedValue]);
+    }, [children, disabled, readOnly, actualValue]);
 
     useEffect(() => {
       const modeSwitchedMessage =
