@@ -1,20 +1,19 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Button from "../button";
-import Message from "./message.component";
+import Message, { MessageProps } from "./message.component";
 
-<Meta
-  title="Message/Test"
-  parameters={{
+export default {
+  title: "Message/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     variant: {
       options: ["info", "error", "success", "warning"],
       control: {
@@ -23,18 +22,27 @@ import Message from "./message.component";
     },
     titleSpecialCharacters: specialCharacters,
     childrenSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+};
 
-export const MessageStory = ({
+interface DefaultProps extends Partial<MessageProps> {
+  titleSpecialCharacters?: string;
+  childrenSpecialCharacters?: string;
+}
+
+export const Default = ({
   titleSpecialCharacters,
   title,
   childrenSpecialCharacters,
   children,
   ...args
-}) => {
+}: DefaultProps) => {
   const [isOpen, setIsOpen] = useState(true);
-  const onDismiss = (evt) => {
+  const onDismiss = (
+    evt:
+      | React.KeyboardEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>
+  ) => {
     setIsOpen(false);
     action("click")(evt);
   };
@@ -49,31 +57,22 @@ export const MessageStory = ({
         open={isOpen}
         onDismiss={onDismiss}
         title={title || titleSpecialCharacters}
-        children={children || childrenSpecialCharacters}
         {...args}
-      />
+      >
+        {children || childrenSpecialCharacters}
+      </Message>
     </>
   );
 };
 
-# Message
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      variant: "info",
-      title: "",
-      id: "custom-id",
-      transparent: false,
-      children: "This is some information from the Message Component.",
-      showCloseIcon: true,
-      titleSpecialCharacters: undefined,
-      childrenSpecialCharacters: undefined,
-    }}
-  >
-    {MessageStory.bind({})}
-  </Story>
-</Canvas>
+Default.storyName = "default";
+Default.args = {
+  variant: "info",
+  title: "",
+  id: "custom-id",
+  transparent: false,
+  children: "This is some information from the Message Component.",
+  showCloseIcon: true,
+  titleSpecialCharacters: undefined,
+  childrenSpecialCharacters: undefined,
+};
