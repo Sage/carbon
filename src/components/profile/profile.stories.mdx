@@ -2,6 +2,8 @@ import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Profile from ".";
+import useMediaQuery from "../../hooks/useMediaQuery";
+
 
 <Meta title="Profile" parameters={{ info: { disable: true } }} />
 
@@ -64,6 +66,49 @@ To use an image, simply pass any valid image URL as a `src` prop.
         />
       ))
     }
+  </Story>
+</Canvas>
+
+### Responsive Example
+
+<Canvas>
+  <Story 
+    name="responsive"
+    parameters={
+      { 
+        chromatic: { 
+          viewports: [1300, 900] 
+        } 
+      }
+    }
+  >
+    {() => {
+      const largeScreen = useMediaQuery("(min-width: 1260px)");
+      const mediumScreen = useMediaQuery("(min-width: 960px)");
+      const smallScreen = useMediaQuery("(max-width: 600px)");
+      const setCorrectScreenSize = () => {
+        if (largeScreen) {
+          return "XL";
+        }
+        if (mediumScreen) {
+          return "ML";
+        }
+        if (smallScreen) {
+          return "S";
+        }
+        return "M";
+      };
+      return (
+        <div>
+          <Profile
+            email="email@email.com"
+            initials="JD"
+            name="John Doe"
+            size={setCorrectScreenSize()}
+          />
+        </div>
+      );
+    }}
   </Story>
 </Canvas>
 
