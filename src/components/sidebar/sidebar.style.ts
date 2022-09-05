@@ -1,9 +1,17 @@
 import styled, { css } from "styled-components";
+
+import { SidebarProps } from "./sidebar.component";
 import baseTheme from "../../style/themes/base";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { SIDEBAR_SIZES_CSS } from "./sidebar.config";
 
-const StyledSidebar = styled.div`
+type StyledSidebarProps = {
+  onCancel?: SidebarProps["onCancel"];
+  position?: SidebarProps["position"];
+  size?: SidebarProps["size"];
+};
+
+const StyledSidebar = styled.div<StyledSidebarProps>`
   // prevents outline being added in safari
   :focus {
     outline: none;

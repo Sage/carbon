@@ -8,7 +8,7 @@ import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 
 describe("Sidebar Header", () => {
   const wrapper = shallow(
-    <SidebarHeader>
+    <SidebarHeader id="id">
       <Textbox />
     </SidebarHeader>
   );
