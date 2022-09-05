@@ -1,3 +1,10 @@
+### [110.2.3](https://github.com/Sage/carbon/compare/v110.2.2...v110.2.3) (2022-09-05)
+
+
+### Bug Fixes
+
+* **flat-table-row:** allow click actions inside interactive row ([536ec5a](https://github.com/Sage/carbon/commit/536ec5a2c393dd906dcaf6939ce5c1dc3e459b72)), closes [#5402](https://github.com/Sage/carbon/issues/5402)
+
 ### [110.2.2](https://github.com/Sage/carbon/compare/v110.2.1...v110.2.2) (2022-09-02)
 
 
