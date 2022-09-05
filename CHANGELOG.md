@@ -1,3 +1,10 @@
+### [110.2.4](https://github.com/Sage/carbon/compare/v110.2.3...v110.2.4) (2022-09-05)
+
+
+### Bug Fixes
+
+* **definition-list:** ensure component has valid displayName ([84ad499](https://github.com/Sage/carbon/commit/84ad4995b6ec5fc698ea0bcca267d2cbff7952ef))
+
 ### [110.2.3](https://github.com/Sage/carbon/compare/v110.2.2...v110.2.3) (2022-09-05)
 
 
