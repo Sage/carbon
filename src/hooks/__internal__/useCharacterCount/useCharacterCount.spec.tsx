@@ -8,7 +8,7 @@ import useCharacterCount from ".";
 
 interface TestComponentProps {
   value: string;
-  characterLimit?: string;
+  characterLimit?: number;
   warnOverLimit?: boolean;
   enforceCharacterLimit?: boolean;
 }
@@ -42,7 +42,7 @@ describe("useCharacterCount", () => {
   it("returns a counter and no maxLength", () => {
     const wrapper = render({
       value: mockValue,
-      characterLimit: "100",
+      characterLimit: 100,
       enforceCharacterLimit: false,
     });
 
@@ -53,7 +53,7 @@ describe("useCharacterCount", () => {
   it("returns a counter and maxLength", () => {
     const wrapper = render({
       value: mockValue,
-      characterLimit: "100",
+      characterLimit: 100,
       enforceCharacterLimit: true,
     });
 
@@ -64,7 +64,7 @@ describe("useCharacterCount", () => {
   it("returns a counter with an overlimit warning", () => {
     const wrapper = render({
       value: mockValue,
-      characterLimit: "10",
+      characterLimit: 10,
       warnOverLimit: true,
       enforceCharacterLimit: false,
     });
@@ -94,7 +94,7 @@ describe("useCharacterCount", () => {
       const wrapper = render(
         {
           value: "",
-          characterLimit: "1000000",
+          characterLimit: 1000000,
         },
         {
           wrappingComponent: I18nProvider,

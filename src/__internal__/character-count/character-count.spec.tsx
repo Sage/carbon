@@ -1,17 +1,15 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import CharacterCount from ".";
 
 describe("CharacterCount", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   beforeEach(() => {
-    wrapper = renderCharacterCount({
-      value: "5",
-      limit: "10",
-      isOverLimit: false,
-    });
+    wrapper = mount(
+      <CharacterCount value="5" limit="10" isOverLimit={false} />
+    );
   });
 
   describe("when rendered", () => {
@@ -42,7 +40,3 @@ describe("CharacterCount", () => {
     });
   });
 });
-
-function renderCharacterCount(props, renderer = mount) {
-  return renderer(<CharacterCount {...props} />);
-}

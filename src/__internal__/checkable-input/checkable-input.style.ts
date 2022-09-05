@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
+
 import FieldHelpStyle from "../field-help/field-help.style";
 import { FieldLineStyle } from "../form-field/form-field.style";
 import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
@@ -12,7 +12,16 @@ const StyledCheckableInput = styled.div`
   position: relative;
 `;
 
-const StyledCheckableInputWrapper = styled.div`
+export interface StyledCheckableInputWrapperProps {
+  disabled?: boolean;
+  fieldHelpInline?: boolean;
+  inputWidth?: number | string;
+  labelWidth?: number;
+  labelInline?: boolean;
+  reverse?: boolean;
+}
+
+const StyledCheckableInputWrapper = styled.div<StyledCheckableInputWrapperProps>`
   ${({
     disabled,
     fieldHelpInline,
@@ -108,12 +117,5 @@ const StyledCheckableInputWrapper = styled.div`
     `}
   `}
 `;
-
-StyledCheckableInputWrapper.propTypes = {
-  disabled: PropTypes.bool,
-  fieldHelpInline: PropTypes.bool,
-  inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-};
 
 export { StyledCheckableInput, StyledCheckableInputWrapper };
