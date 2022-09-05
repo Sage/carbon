@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import { baseTheme } from "../../style/themes";
 
-const StepSequenceStyle = styled.ol`
+const StepSequenceStyle = styled.ol<{ orientation: "horizontal" | "vertical" }>`
   display: flex;
   margin: 0;
   padding: 18px;

@@ -1,16 +1,23 @@
 import React from "react";
 import { mount } from "enzyme";
-import TestRenderer from "react-test-renderer";
+
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import StepSequenceItem from "./step-sequence-item.component";
-import mintTheme from "../../../style/themes/mint";
+import StepSequenceItem, {
+  StepSequenceItemProps,
+} from "./step-sequence-item.component";
 import Icon from "../../icon";
-import StepSequenceItemHiddenLabelStyle from "./step-sequence-item-hidden-label.style";
-import StepSequenceItemIndicatorStyle from "./step-sequence-item-indicator.style";
+import {
+  StepSequenceItemHiddenLabelStyle,
+  StepSequenceItemIndicatorStyle,
+} from "./step-sequence-item.style";
 
 describe("StepSequenceItem", () => {
-  const render = (props, renderer = mount) =>
-    renderer(<StepSequenceItem {...props}>Item</StepSequenceItem>);
+  const render = (props: Partial<StepSequenceItemProps>, renderer = mount) =>
+    renderer(
+      <StepSequenceItem indicator="1" {...props}>
+        Item
+      </StepSequenceItem>
+    );
 
   const defaultProps = {
     ariaLabel: "Step 1 of 5",
@@ -19,18 +26,11 @@ describe("StepSequenceItem", () => {
     hiddenCurrentLabel: "HiddenCurrent",
   };
 
-  it("renders correctly", () => {
-    expect(
-      render({ ...defaultProps, theme: mintTheme }, TestRenderer.create)
-    ).toMatchSnapshot();
-  });
-
   describe("when complete", () => {
     it("renders the tick item", () => {
       const wrapper = render({
         ...defaultProps,
         status: "complete",
-        theme: mintTheme,
       });
       expect(wrapper.find(Icon).exists()).toBe(true);
     });
@@ -39,7 +39,6 @@ describe("StepSequenceItem", () => {
       const wrapper = render({
         ...defaultProps,
         status: "complete",
-        theme: mintTheme,
       });
       expect(wrapper.find(StepSequenceItemHiddenLabelStyle).exists()).toBe(
         true
@@ -55,7 +54,6 @@ describe("StepSequenceItem", () => {
       const wrapper = render({
         ...defaultProps,
         status: "current",
-        theme: mintTheme,
       });
       assertStyleMatch(
         {
@@ -69,7 +67,6 @@ describe("StepSequenceItem", () => {
       const wrapper = render({
         ...defaultProps,
         status: "current",
-        theme: mintTheme,
       });
       expect(wrapper.find(StepSequenceItemHiddenLabelStyle).exists()).toBe(
         true

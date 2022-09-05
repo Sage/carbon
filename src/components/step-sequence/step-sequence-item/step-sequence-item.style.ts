@@ -1,7 +1,12 @@
 import styled, { css } from "styled-components";
 import StyledIcon from "../../icon/icon.style";
 
-const StepSequenceItemStyle = styled.li`
+type StepSequenceItemStyle = {
+  status: "complete" | "current" | "incomplete";
+  orientation: "horizontal" | "vertical";
+};
+
+export const StepSequenceItemStyle = styled.li<StepSequenceItemStyle>`
   display: flex;
   align-items: center;
   flex-grow: 1;
@@ -75,4 +80,22 @@ const StepSequenceItemStyle = styled.li`
     `}
 `;
 
-export default StepSequenceItemStyle;
+export const StepSequenceItemContentStyle = styled.span`
+  display: flex;
+`;
+
+export const StepSequenceItemHiddenLabelStyle = styled.span`
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+`;
+
+export const StepSequenceItemIndicatorStyle = styled.span`
+  display: block;
+  min-width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  text-align: center;
+`;
