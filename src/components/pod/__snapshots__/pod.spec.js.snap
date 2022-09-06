@@ -277,25 +277,6 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   color: var(--colorsActionMajorYang100);
 }
 
-.c23 .c2 {
-  color: var(--colorsActionMajor500);
-}
-
-.c23:hover .c2 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c23 .c2 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c23 .c2 svg {
-  margin-top: 0;
-}
-
 <button
   className="c0 c1"
   onClick={[Function]}
@@ -760,25 +741,6 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
 
 .c28.c28 .c2 {
   color: var(--colorsActionMajorYang100);
-}
-
-.c29 .c2 {
-  color: var(--colorsActionMajor500);
-}
-
-.c29:hover .c2 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c29 .c2 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 16px;
-}
-
-.c29 .c2 svg {
-  margin-top: 0;
 }
 
 <button

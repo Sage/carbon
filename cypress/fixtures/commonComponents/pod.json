@@ -1,38 +1,4 @@
 {
-  "childrenOtherLanguage": {
-    "children": "",
-    "childrenSpecialCharacters": "otherLanguage"
-  },
-  "childrenSpecialCharacter": {
-    "children": "",
-    "childrenSpecialCharacters": "specialCharacters"
-  },
-  "titleOtherLanguage": {
-    "title": "",
-    "titleSpecialCharacters": "otherLanguage"
-  },
-  "titleSpecialCharacter": {
-    "title": "",
-    "titleSpecialCharacters": "specialCharacters"
-  },
-  "subtitleOtherLanguage": {
-    "title": "title",
-    "subtitle": "",
-    "subtitleSpecialCharacters": "otherLanguage"
-  },
-  "subtitleSpecialCharacter": {
-    "title": "title",
-    "subtitle": "",
-    "subtitleSpecialCharacters": "specialCharacters"
-  },
-  "footerOtherLanguage": {
-    "footer": "",
-    "footerSpecialCharacters": "otherLanguage"
-  },
-  "footerSpecialCharacter": {
-    "footer": "",
-    "footerSpecialCharacters": "specialCharacters"
-  },
   "triggerEditOnContent": {
     "onEdit": true,
     "triggerEditOnContent": true

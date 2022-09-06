@@ -3,7 +3,6 @@ import { shallow, mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
 
 import Pod from "./pod.component";
-import Button from "../button";
 import Icon from "../icon";
 import {
   StyledBlock,
@@ -27,6 +26,8 @@ import {
 } from "../../__internal__/utils/helpers/tags/tags-specs";
 import LocaleContext from "../../__internal__/i18n-context";
 
+const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+
 describe("Pod", () => {
   let instance;
   let wrapper;
@@ -42,22 +43,28 @@ describe("Pod", () => {
       expect(wrapper.find(StyledHeader).exists()).toBeFalsy();
     });
 
-    it("renders title when title is passed as a prop", () => {
-      wrapper.setProps({ title: "Title" });
-      expect(wrapper.find(StyledTitle).props().children).toEqual("Title");
+    it.each(specialCharacters)("renders title when title is %s", (title) => {
+      wrapper.setProps({ title });
+      expect(wrapper.find(StyledTitle).props().children).toEqual(title);
     });
 
-    it("renders subtitle when subtitle is passed as a prop", () => {
-      wrapper.setProps({ title: "Title", subtitle: "Subtitle" });
-      expect(wrapper.find(StyledSubtitle).props().children).toEqual("Subtitle");
-    });
+    it.each(specialCharacters)(
+      "renders subtitle when subtitle is %s",
+      (subtitle) => {
+        wrapper.setProps({ title: "Title", subtitle });
+        expect(wrapper.find(StyledSubtitle).props().children).toEqual(subtitle);
+      }
+    );
   });
 
   describe("podFooter", () => {
-    it("renders footer when footer prop is passed", () => {
-      wrapper.setProps({ footer: "Footer" });
-      expect(wrapper.find(StyledFooter).props().children).toEqual("Footer");
-    });
+    it.each(specialCharacters)(
+      "renders footer when footer prop is %s",
+      (footer) => {
+        wrapper.setProps({ footer });
+        expect(wrapper.find(StyledFooter).props().children).toEqual(footer);
+      }
+    );
 
     it("does not render footer when footer prop is not passed", () => {
       expect(wrapper.find(StyledFooter).exists()).toEqual(false);
@@ -359,6 +366,14 @@ describe("Pod", () => {
   });
 
   describe("render", () => {
+    it.each(specialCharacters)(
+      "renders children correctly when text %s is passed as a child",
+      (text) => {
+        wrapper.setProps({ children: text });
+        expect(wrapper.find(StyledPod).text()).toEqual(text);
+      }
+    );
+
     it("applies all props to the pod", () => {
       const someRandomProps = {
         prop1: "value1",
@@ -372,18 +387,6 @@ describe("Pod", () => {
     it("does not apply title prop to containing elements", () => {
       instance = shallow(<Pod title="some-title" />);
       expect(wrapper.is("[title]")).toBe(false);
-    });
-
-    it("renders all children passed to it", () => {
-      instance = mount(
-        <Pod>
-          <Button>Button</Button>
-          <Button>Button</Button>
-          <Button>Button</Button>
-        </Pod>
-      );
-
-      expect(instance.find(Button).length).toEqual(3);
     });
   });
 
