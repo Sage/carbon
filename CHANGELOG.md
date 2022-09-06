@@ -1,3 +1,10 @@
+## [110.3.0](https://github.com/Sage/carbon/compare/v110.2.4...v110.3.0) (2022-09-06)
+
+
+### Features
+
+* **scrollable-block:** add parent prop and fix rendered HTML ([c7537f0](https://github.com/Sage/carbon/commit/c7537f012a88e86ec727000bd5e1b89e56112168))
+
 ### [110.2.4](https://github.com/Sage/carbon/compare/v110.2.3...v110.2.4) (2022-09-05)
 
 
