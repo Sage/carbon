@@ -444,6 +444,73 @@ Note that only one `ScrollableBlock` can be used within a single submenu.
   </Story>
 </Canvas>
 
+### Scrollable submenu with parent
+
+This is an example of using the `parent` prop of `ScrollableBlock` to render a scrollable sublist of a parent item. The `parentVariant`
+prop can be used to give it a variant that's different from that used in the `ScrollableBlock`.
+
+Note that the result shown here, for those interacting with the page without assisistive technology, is the same as that which
+would be produced by leaving out the `parent` prop and putting the `Search` component inside a separate `MenuItem` just before the
+`ScrollableBlock`. However the rendered HTML would be different, with the `ScrollableBlock` becoming a sublist inside its own list
+item that is not connected to the Search - in this example there is a clear semantic relationship between the search input and the
+scrollable list so the `parent` prop should be used to ensure screenreaders make the relationship clear to their users.
+
+<Canvas>
+  <Story name="scrollable submenu with parent item" parameters={{ chromatic: { disable: true } }}>
+    {() => {
+      const items = [
+        "apple",
+        "banana",
+        "carrot",
+        "grapefruit",
+        "melon",
+        "orange",
+        "pear",
+        "strawberry"
+      ];
+      const [itemSearch, setItemSearch] = React.useState(items);
+      const [searchString, setSearchString] = React.useState("");
+      const handleTextChange = (e) => {
+        const searchStr = e.target.value;
+        setSearchString(searchStr);
+        let found;
+        if (searchStr.length > 0) {
+          found = items.filter((item) => item.includes(searchStr));
+        } else {
+          found = items;
+        }
+        setItemSearch(found);
+      };
+      return (
+        <Box mb={300}>
+          <Menu>
+            <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+            <MenuItem href="#">Menu Item Two</MenuItem>
+            <MenuItem submenu="Menu Item Three">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <ScrollableBlock
+                variant="alternate"
+                height="200px"
+                parent={<Search
+                  placeholder="search"
+                  value={searchString}
+                  onChange={handleTextChange}
+                />}
+              >
+                {itemSearch.map((item) => (
+                  <MenuItem key={item} href="#">
+                    {item}
+                  </MenuItem>
+                ))}
+              </ScrollableBlock>
+            </MenuItem>
+          </Menu>
+        </Box>
+      );
+    }}
+  </Story>
+</Canvas>
+
 ### Submenu with search
 
 <Canvas>
