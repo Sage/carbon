@@ -1,9 +1,9 @@
 const setupResizeObserverMock = () => {
-  if (!global.window) {
+  if (!window) {
     return;
   }
-  global.window.ResizeObserver =
-    global.window.ResizeObserver ||
+  window.ResizeObserver =
+    window.ResizeObserver ||
     jest.fn().mockImplementation(() => ({
       disconnect: jest.fn(),
       observe: jest.fn(),
