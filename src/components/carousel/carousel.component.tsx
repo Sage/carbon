@@ -5,7 +5,6 @@ import React, {
   useState,
   useMemo,
 } from "react";
-import { compact } from "lodash";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
@@ -65,7 +64,9 @@ export const Carousel = ({
   const id = useMemo(() => guid(), []);
 
   const numOfSlides = useMemo(() => {
-    return Array.isArray(children) ? compact(children).length : 1;
+    return React.Children.toArray(children).filter((child) =>
+      React.isValidElement(child)
+    ).length;
   }, [children]);
 
   const handleSlideChange = useCallback(
