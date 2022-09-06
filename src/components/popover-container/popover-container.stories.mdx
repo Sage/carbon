@@ -150,6 +150,8 @@ Use the `renderOpenComponent` and `renderCloseComponent` to render your own open
           ref,
           "aria-label": ariaLabel,
           id,
+          "aria-expanded": ariaExpanded,
+          "aria-haspopup": ariaHasPopup,
         }) => (
           <Button
             iconType={!isOpen ? "filter_new" : "close"}
@@ -157,6 +159,8 @@ Use the `renderOpenComponent` and `renderCloseComponent` to render your own open
             tabIndex={tabIndex}
             data-element={dataElement}
             aria-label={ariaLabel}
+            aria-haspopup={ariaHasPopup}
+            aria-expanded={ariaExpanded}
             forwardRef={ref}
             id={id}
             onClick={onClick}

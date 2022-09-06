@@ -5,7 +5,7 @@ import StyledStickyFooter from "../../__internal__/sticky-footer/sticky-footer.s
 
 const defaultExpandedWidth = "var(--sizing500)";
 
-const StyledSidebarHeader = styled.div`
+const StyledSidebarHeader = styled.div<{ isExpanded?: boolean }>`
   ${({ isExpanded }) => css`
     position: sticky;
     top: 0;
@@ -28,7 +28,12 @@ const StyledDrawerChildren = styled.div`
   overflow: auto;
 `;
 
-const StyledDrawerSidebar = styled(Box)`
+interface StyledDrawerSidebarProps {
+  isExpanded?: boolean;
+  hasControls: boolean;
+}
+
+const StyledDrawerSidebar = styled(Box)<StyledDrawerSidebarProps>`
   ${({ hasControls, isExpanded }) =>
     css`
       ${!isExpanded &&
@@ -72,7 +77,7 @@ const sidebarHidden = () => keyframes`
   100% {opacity: 0; display: none;}
 `;
 
-const drawerOpen = (expandedWidth) => keyframes`
+const drawerOpen = (expandedWidth: string) => keyframes`
   0% {
     width: ${defaultExpandedWidth};
     overflow: hidden;
@@ -84,7 +89,7 @@ const drawerOpen = (expandedWidth) => keyframes`
   }
 `;
 
-const drawerClose = (expandedWidth) => keyframes`
+const drawerClose = (expandedWidth: string) => keyframes`
   0% {width: ${expandedWidth};}
   100% {width: ${defaultExpandedWidth};}
 `;
@@ -100,7 +105,13 @@ const buttonClose = () => keyframes`
   100% {float: left;}
 `;
 
-const StyledDrawerContent = styled.div`
+interface StyledDrawerContentProps {
+  animationDuration?: string;
+  backgroundColor?: string;
+  expandedWidth: string;
+}
+
+const StyledDrawerContent = styled.div<StyledDrawerContentProps>`
   display: flex;
   flex-direction: column;
   min-width: ${defaultExpandedWidth};
@@ -158,7 +169,14 @@ const StyledDrawerContent = styled.div`
   }
 `;
 
-const StyledButton = styled.button.attrs({ type: "button" })`
+interface StyledSidebarToggleButtonProps {
+  animationDuration?: string;
+  isExpanded?: boolean;
+}
+
+const StyledSidebarToggleButton = styled.button.attrs({
+  type: "button",
+})<StyledSidebarToggleButtonProps>`
   ${({ animationDuration, isExpanded }) => css`
     position: absolute;
     top: var(--spacing300);
@@ -191,7 +209,7 @@ const StyledButton = styled.button.attrs({ type: "button" })`
   `}
 `;
 
-const StyledDrawerWrapper = styled.div`
+const StyledDrawerWrapper = styled.div<{ height: string }>`
   display: flex;
   height: ${({ height }) => height};
 `;
@@ -203,5 +221,5 @@ export {
   StyledDrawerChildren,
   StyledDrawerSidebar,
   StyledSidebarTitle,
-  StyledButton,
+  StyledSidebarToggleButton,
 };

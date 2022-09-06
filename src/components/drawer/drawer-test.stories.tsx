@@ -1,5 +1,4 @@
-import { useState, useCallback } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useState, useCallback } from "react";
 import { action } from "@storybook/addon-actions";
 
 import Drawer from ".";
@@ -16,15 +15,15 @@ import Typography from "../typography";
 import Box from "../box";
 import Button from "../button";
 
-<Meta
-  title="Drawer/Test"
-  parameters={{
+export default {
+  title: "Drawer/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: false,
     },
-  }}
-/>
+  },
+};
 
 export const DrawerStory = () => {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -473,10 +472,4 @@ export const DrawerStory = () => {
   );
 };
 
-# Drawer
-
-### Default
-
-<Canvas>
-  <Story name="visual">{DrawerStory.bind({})}</Story>
-</Canvas>
+DrawerStory.storyName = "visual";

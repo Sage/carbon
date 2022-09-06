@@ -11,6 +11,7 @@ import { RadioButton, RadioButtonGroup } from "../radio-button";
 import Fieldset from "../fieldset";
 import Loader from "../loader";
 import Toast from "../toast";
+import useMediaQuery from "../../hooks/useMediaQuery";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import isChromatic from "../../../.storybook/isChromatic";
 
@@ -480,6 +481,75 @@ This may occasionally be useful with things like Toasts where they persist on th
           >
             Toast message 2
           </Toast>
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Responsive Example
+
+<Canvas>
+  <Story 
+    name="responsive" 
+    parameters={
+      { 
+        chromatic: { 
+          viewports: [1500, 900] 
+        } 
+      }
+    }
+  >
+    {() => {
+      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+      const largeScreen = useMediaQuery("(min-width: 1260px)");
+      const mediumScreen = useMediaQuery("(min-width: 960px)");
+      const smallScreen = useMediaQuery("(min-width: 600px)");
+      const setCorrectScreenSize = () => {
+        if (largeScreen) {
+          return "large";
+        }
+        if (mediumScreen) {
+          return "medium";
+        }
+        if (smallScreen) {
+          return "small";
+        }
+        return "auto";
+      };
+      return (
+        <>
+          <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+          <Dialog
+            size={setCorrectScreenSize()}
+            open={isOpen}
+            onCancel={() => setIsOpen(false)}
+            title="Title"
+            subtitle="Subtitle"
+          >
+            <Form
+              stickyFooter={true}
+              height="500px"
+              leftSideButtons={
+                <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+              }
+              saveButton={
+                <Button buttonType="primary" type="submit">
+                  Save
+                </Button>
+              }
+            >
+              <Typography>
+                This is an example of a dialog with a Form as content
+              </Typography>
+              <Textbox label="First Name" />
+              <Textbox label="Middle Name" />
+              <Textbox label="Surname" />
+              <Textbox label="Birth Place" />
+              <Textbox label="Favourite Colour" />
+              <Textbox label="Address" />
+            </Form>
+          </Dialog>
         </>
       );
     }}

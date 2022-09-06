@@ -7,11 +7,11 @@ export default function useInputAccessibility({
   fieldHelp,
 }: {
   id: string;
-  error?: string;
-  warning?: string;
-  info?: string;
-  label?: string;
-  fieldHelp?: string;
+  error?: string | boolean;
+  warning?: string | boolean;
+  info?: string | boolean;
+  label?: React.ReactNode;
+  fieldHelp?: React.ReactNode;
 }): {
   labelId?: string;
   validationIconId?: string;

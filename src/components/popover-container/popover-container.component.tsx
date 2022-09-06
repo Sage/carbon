@@ -27,6 +27,8 @@ export interface RenderOpenProps {
   ref: React.RefObject<HTMLButtonElement>;
   "aria-label"?: string;
   id?: string;
+  "aria-expanded": boolean;
+  "aria-haspopup": "dialog";
 }
 
 const renderOpen = ({
@@ -36,6 +38,8 @@ const renderOpen = ({
   ref,
   "aria-label": ariaLabel,
   id,
+  "aria-expanded": ariaExpanded,
+  "aria-haspopup": ariaHasPopup,
 }: RenderOpenProps) => (
   <PopoverContainerOpenIcon
     tabIndex={tabIndex}
@@ -43,7 +47,8 @@ const renderOpen = ({
     data-element={dataElement}
     ref={ref}
     aria-label={ariaLabel}
-    aria-haspopup
+    aria-haspopup={ariaHasPopup}
+    aria-expanded={ariaExpanded}
     id={id}
   >
     <Icon type="settings" />
@@ -187,6 +192,8 @@ export const PopoverContainer = ({
 
   const renderOpenComponentProps = {
     tabIndex: isOpen ? -1 : 0,
+    "aria-expanded": isOpen,
+    "aria-haspopup": "dialog" as const,
     isOpen,
     "data-element": "popover-container-open-component",
     onClick: handleOpenButtonClick,
@@ -213,8 +220,6 @@ export const PopoverContainer = ({
   return (
     <PopoverContainerWrapperStyle
       data-component="popover-container"
-      role="region"
-      aria-labelledby={popoverContainerId}
       onMouseDown={handleClick}
     >
       {renderOpenComponent(renderOpenComponentProps)}
