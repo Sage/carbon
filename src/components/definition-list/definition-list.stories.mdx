@@ -6,6 +6,8 @@ import Box from "../box";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Hr from "../hr";
 import Typography from "../typography";
+import useMediaQuery from "../../hooks/useMediaQuery";
+
 
 <Meta title="Definition List" parameters={{ info: { disable: true } }} />
 
@@ -215,6 +217,44 @@ such as `Typography` and `Hr`.
         <Hr ml={0} mt={1} />
       </Box>
     </Box>
+  </Story>
+</Canvas>
+
+### Responsive Example
+
+<Canvas>
+  <Story 
+    name="responsive" 
+    parameters={
+      { 
+        chromatic: { 
+          viewports: [1200, 500] 
+        } 
+      }
+    }
+  >
+    {() => {
+      const smallScreen = useMediaQuery("(max-width: 700px)");
+      return (
+        <Dl 
+          ddTextAlign={smallScreen === "right"} 
+          dtTextAlign={smallScreen ? "left" : "right"} 
+          asSingleColumn={smallScreen}
+        >
+          <Dt>First</Dt>
+          <Dd>Description</Dd>
+          <Dt>Second</Dt>
+          <Dd>
+            <Box display="inline-flex" alignItems="center">
+              <Box mr={1}>Details example</Box>
+              <Icon type="tick" />
+            </Box>
+          </Dd>
+          <Dt>Third</Dt>
+          <Dd>Description</Dd>
+        </Dl>
+      );
+    }}
   </Story>
 </Canvas>
 

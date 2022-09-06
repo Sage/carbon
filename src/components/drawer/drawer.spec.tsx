@@ -2,10 +2,10 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { mount as enzymeMount, shallow } from "enzyme";
+import { mount, ReactWrapper, shallow } from "enzyme";
 import TestRenderer from "react-test-renderer";
 
-import Drawer from "./drawer.component";
+import Drawer, { DrawerProps } from "./drawer.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
 import {
@@ -13,7 +13,7 @@ import {
   StyledDrawerContent,
   StyledDrawerChildren,
   StyledSidebarTitle,
-  StyledButton,
+  StyledSidebarToggleButton,
   StyledSidebarHeader,
 } from "./drawer.style";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
@@ -21,9 +21,9 @@ import StickyFooter from "../../__internal__/sticky-footer";
 import Button from "../button";
 
 jest.mock("../../__internal__/utils/helpers/guid");
-guid.mockImplementation(() => "guid-123");
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => "guid-123");
 
-let container = null;
+let container: HTMLDivElement | null;
 
 const defaultProps = {
   expandedWidth: "20%",
@@ -37,33 +37,22 @@ const defaultProps = {
   ),
 };
 
-const mount = (jsx) => {
-  return enzymeMount(jsx, { attachTo: container });
-};
+function renderDrawerInContainer(jsx: JSX.Element) {
+  return mount(jsx, { attachTo: container });
+}
 
-const render = (props, renderer = mount) => {
-  return renderer(
+function getDrawer(props: Partial<DrawerProps> = {}) {
+  return (
     <Drawer {...props}>
       content body content body content body content body content body content
       body content body
     </Drawer>
   );
-};
+}
 
-const getElements = (wrapper) => {
-  if (!wrapper) {
-    return {};
-  }
-
-  return {
-    drawer: wrapper.find(Drawer),
-    sidebar: wrapper.find(StyledDrawerSidebar),
-    content: wrapper.find(StyledDrawerContent),
-    children: wrapper.find(StyledDrawerChildren),
-    button: wrapper.find(StyledButton),
-    title: wrapper.find(StyledSidebarTitle),
-  };
-};
+function renderDrawer(props: Partial<DrawerProps> = {}) {
+  return mount(getDrawer(props));
+}
 
 describe("Drawer", () => {
   beforeEach(() => {
@@ -73,64 +62,70 @@ describe("Drawer", () => {
   });
 
   afterEach(() => {
-    document.body.removeChild(container);
+    if (container) {
+      document.body.removeChild(container);
+    }
     container = null;
   });
 
   describe("uncontrolled", () => {
     it("matches snapshot", () => {
-      const wrapper = render(defaultProps, shallow);
+      const drawerComponent = getDrawer(defaultProps);
+      const wrapper = shallow(drawerComponent);
+
       expect(noThemeSnapshot(wrapper)).toMatchSnapshot();
     });
 
     it("cleans ups timers on unmount", () => {
-      const wrapper = render();
+      const wrapper = renderDrawer({ expanded: true });
+
+      wrapper.setProps({ expanded: false });
       wrapper.unmount();
+
       expect(clearTimeout).toHaveBeenCalled();
     });
 
     it("is expanded by default", () => {
-      const wrapper = render();
-      const { content } = getElements(wrapper);
-      expect(content.prop("className").includes("open")).toEqual(true);
-    });
+      const wrapper = renderDrawer();
+      const content = wrapper.find(StyledDrawerContent);
 
-    it("cleans ups timers on unmount", () => {
-      const wrapper = render();
-      wrapper.unmount();
-      expect(clearTimeout).toHaveBeenCalled();
+      expect(content?.prop("className").includes("open")).toEqual(true);
     });
 
     it("correctly sets aria attribute", () => {
       const ariaLabel = "test";
-      const wrapper = render({ "aria-label": ariaLabel });
-      const { drawer } = getElements(wrapper);
-      expect(drawer.prop("aria-label")).toBe(ariaLabel);
+      const wrapper = renderDrawer({ "aria-label": ariaLabel });
+      const drawer = wrapper.find(Drawer);
+
+      expect(drawer?.prop("aria-label")).toBe(ariaLabel);
     });
 
-    it("renders drawer component correctly", () => {
+    it("has data-component attribute value set to 'drawer'", () => {
       const dataAttr = "drawer";
-      const wrapper = render({ "data-component": dataAttr });
-      const { drawer } = getElements(wrapper);
-      expect(drawer.prop("data-component")).toBe(dataAttr);
+      const wrapper = renderDrawer();
+      const drawer = wrapper.find(Drawer);
+
+      expect(drawer?.getDOMNode().getAttribute("data-component")).toBe(
+        dataAttr
+      );
     });
 
     it("Drawer Sidebar should render as expected when not expanded", () => {
-      const wrapper = render({ expanded: false });
-      const { sidebar } = getElements(wrapper);
+      const wrapper = renderDrawer({ expanded: false });
+
       assertStyleMatch(
         {
           display: "none",
           opacity: "0",
           overflowY: undefined,
         },
-        sidebar
+        wrapper.find(StyledDrawerSidebar)
       );
     });
 
     it("Drawer Sidebar should render as expected when expanded", () => {
-      const wrapper = render({ expanded: true });
-      const { sidebar } = getElements(wrapper);
+      const wrapper = renderDrawer({ expanded: true });
+
       assertStyleMatch(
         {
           display: "flex",
@@ -138,40 +133,38 @@ describe("Drawer", () => {
           flex: "1 1 0%",
           overflowY: "auto",
         },
-        sidebar
+        wrapper.find(StyledDrawerSidebar)
       );
     });
 
     describe("Drawer Content", () => {
       it("should render with correct styles", () => {
-        const wrapper = render();
-        const { content } = getElements(wrapper);
+        const wrapper = renderDrawer();
         assertStyleMatch(
           {
             minWidth: "var(--sizing500)",
             width: "var(--sizing500)",
           },
-          content
+          wrapper.find(StyledDrawerContent)
         );
       });
 
       describe("when background color is not provided as a prop", () => {
         it("renders with default background color and border", () => {
-          const wrapper = render();
-          const { content } = getElements(wrapper);
+          const wrapper = renderDrawer();
           assertStyleMatch(
             {
               backgroundColor: "var(--colorsUtilityMajor040)",
               borderRight: "1px solid var(--colorsUtilityMajor075)",
             },
-            content
+            wrapper.find(StyledDrawerContent)
           );
         });
       });
 
       it("children are rendered as expected", () => {
-        const wrapper = render();
-        const { children } = getElements(wrapper);
+        const wrapper = renderDrawer();
+        const children = wrapper.find(StyledDrawerChildren);
         assertStyleMatch(
           {
             flex: "1",
@@ -184,16 +177,20 @@ describe("Drawer", () => {
 
     describe("Control Button", () => {
       it("renders with correct styles", () => {
-        const snapshot = TestRenderer.create(<StyledButton />).toJSON();
+        const snapshot = TestRenderer.create(
+          <StyledSidebarToggleButton />
+        ).toJSON();
         expect(snapshot).toMatchSnapshot();
       });
     });
 
     it("opens sidebar to specific width matching expandedWidth prop", () => {
       const expandedWidth = "50%";
-      const wrapper = render({ expandedWidth, showControls: true });
-      const { button, content } = getElements(wrapper);
+      const wrapper = renderDrawer({ expandedWidth, showControls: true });
+      const content = wrapper.find(StyledDrawerContent);
+      const button = wrapper.find(StyledSidebarToggleButton);
       button.simulate("click");
+
       assertStyleMatch(
         {
           width: expandedWidth,
@@ -205,9 +202,10 @@ describe("Drawer", () => {
 
     describe("when height prop is provided", () => {
       it("should render height 100% by default", () => {
-        const wrapper = render({ showControls: true });
-        const { button } = getElements(wrapper);
+        const wrapper = renderDrawer({ showControls: true });
+        const button = wrapper.find(StyledSidebarToggleButton);
         button.simulate("click");
+
         assertStyleMatch(
           {
             height: "100%",
@@ -218,9 +216,10 @@ describe("Drawer", () => {
 
       it("should render custom height if provided", () => {
         const height = "50%";
-        const wrapper = render({ height, showControls: true });
-        const { button } = getElements(wrapper);
+        const wrapper = renderDrawer({ height, showControls: true });
+        const button = wrapper.find(StyledSidebarToggleButton);
         button.simulate("click");
+
         assertStyleMatch(
           {
             height: "50%",
@@ -233,15 +232,17 @@ describe("Drawer", () => {
     describe("when title prop is provided", () => {
       it("Sidebar sets it as heading", () => {
         const heading = "My custom title";
-        const wrapper = render({ title: heading });
-        const { title } = getElements(wrapper);
+        const wrapper = renderDrawer({ title: heading });
+        const title = wrapper.find(StyledSidebarTitle);
+
         expect(title.text()).toBe(heading);
       });
 
       it("Sidebar renders heading with correct styles", () => {
         const heading = "My custom title";
-        const wrapper = render({ title: heading });
-        const { title } = getElements(wrapper);
+        const wrapper = renderDrawer({ title: heading });
+        const title = wrapper.find(StyledSidebarTitle);
+
         assertStyleMatch(
           {
             padding: "var(--spacing300) var(--spacing500)",
@@ -252,67 +253,84 @@ describe("Drawer", () => {
     });
 
     it("one click on button closes drawer sidebar", () => {
-      const wrapper = render({ showControls: true });
-      const { button } = getElements(wrapper);
+      const wrapper = renderDrawer({ showControls: true });
+      const button = wrapper.find(StyledSidebarToggleButton);
       button.simulate("click");
-      const { content } = getElements(wrapper);
+      const content = wrapper.find(StyledDrawerContent);
       expect(content.childAt(0).hasClass("closed")).toBeTruthy();
     });
 
     it("two clicks on button closes and then opens drawer sidebar", () => {
-      const wrapper = render({ showControls: true });
-      let { button } = getElements(wrapper);
+      const wrapper = renderDrawer({ showControls: true });
+      let button = wrapper.find(StyledSidebarToggleButton);
       button.simulate("click");
-      let { content } = getElements(wrapper);
+      let content = wrapper.find(StyledDrawerContent);
+
       expect(content.childAt(0).hasClass("closed")).toBeTruthy();
-      button = getElements(wrapper).button;
+      button = wrapper.find(StyledSidebarToggleButton);
       button.simulate("click");
-      content = getElements(wrapper).content;
+      content = wrapper.find(StyledDrawerContent);
+
       expect(content.childAt(0).hasClass("open")).toBeTruthy();
     });
 
-    it("sets class `open` on drawer that opened", () => {
-      const wrapper = render({ defaultExpanded: false, showControls: true });
-      const { button } = getElements(wrapper);
-      act(() => {
-        button.simulate("click");
-        jest.runAllTimers();
-      });
-      wrapper.update();
-      const { content } = getElements(wrapper);
+    it("sets class `open` on drawer by default", () => {
+      const wrapper = renderDrawer({ showControls: true });
+      const content = wrapper.find(StyledDrawerContent);
+
       expect(content.childAt(0).hasClass("open")).toBeTruthy();
+    });
+
+    describe("when the defaultExpanded prop is set to false", () => {
+      let wrapper: ReactWrapper;
+      let button: ReactWrapper;
+
+      beforeEach(() => {
+        wrapper = renderDrawer({
+          defaultExpanded: false,
+          showControls: true,
+        });
+        button = wrapper.find(StyledSidebarToggleButton);
+      });
+
+      it("sets class `open` on drawer that opened", () => {
+        act(() => {
+          button.simulate("click");
+          jest.runAllTimers();
+        });
+        wrapper.update();
+        const content = wrapper.find(StyledDrawerContent);
+
+        expect(content.childAt(0).hasClass("open")).toBeTruthy();
+      });
     });
 
     it("two clicks on button opens and then closes drawer sidebar", () => {
-      const wrapper = render({ showControls: true });
-      const { button } = getElements(wrapper);
+      const wrapper = renderDrawer({ showControls: true });
+      const button = wrapper.find(StyledSidebarToggleButton);
       button.simulate("click");
-      const { content } = getElements(wrapper);
+      const content = wrapper.find(StyledDrawerContent);
+
       expect(content.childAt(0).hasClass("closed")).toBeTruthy();
     });
 
-    it("sets class `open` on drawer that opened", () => {
-      const wrapper = render({ showControls: true });
-      const { content } = getElements(wrapper);
-      expect(content.childAt(0).hasClass("open")).toBeTruthy();
-    });
-
     it("sets class `closed` on drawer that closed", () => {
-      const wrapper = render({ showControls: true });
-      const { button } = getElements(wrapper);
+      const wrapper = renderDrawer({ showControls: true });
+      const button = wrapper.find(StyledSidebarToggleButton);
       act(() => {
         button.simulate("click");
         jest.runAllTimers();
       });
       wrapper.update();
-      const { content } = getElements(wrapper);
+      const content = wrapper.find(StyledDrawerContent);
+
       expect(content.childAt(0).hasClass("closed")).toBeTruthy();
     });
 
     describe("with the stickyHeader prop set", () => {
       describe("when expanded", () => {
         it("should add the correct styles", () => {
-          const wrapper = render({
+          const wrapper = renderDrawer({
             stickyHeader: true,
             showControls: true,
             title: "Test title",
@@ -331,7 +349,7 @@ describe("Drawer", () => {
 
       describe("when closed", () => {
         it("should add the correct styles", () => {
-          const wrapper = render({
+          const wrapper = renderDrawer({
             stickyHeader: true,
             showControls: true,
             title: "Test title",
@@ -353,7 +371,7 @@ describe("Drawer", () => {
     describe("with the footer prop set", () => {
       describe("when stickyFooter prop is false", () => {
         it("should not be sticky", () => {
-          const wrapper = render({
+          const wrapper = renderDrawer({
             footer: <div>Some footer content</div>,
           });
 
@@ -365,7 +383,7 @@ describe("Drawer", () => {
 
       describe("when stickyFooter prop is true", () => {
         it("should be sticky", () => {
-          const wrapper = render({
+          const wrapper = renderDrawer({
             footer: <div>Some footer content</div>,
             stickyFooter: true,
           });
@@ -378,17 +396,21 @@ describe("Drawer", () => {
     });
 
     describe("invariant", () => {
+      let consoleSpy: jest.SpyInstance;
+
       beforeEach(() => {
-        jest.spyOn(global.console, "error").mockImplementation(() => {});
+        consoleSpy = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => {});
       });
 
       afterEach(() => {
-        global.console.error.mockReset();
+        consoleSpy.mockReset();
       });
 
       it("throws if Drawer is changed from uncontrolled to controlled", () => {
         expect(() => {
-          const wrapper = render({ expanded: undefined });
+          const wrapper = renderDrawer({ expanded: undefined });
           wrapper.setProps({ expanded: true });
           wrapper.update();
         }).toThrow(
@@ -401,8 +423,9 @@ describe("Drawer", () => {
 
   describe("controlled", () => {
     it("sidebar is open when expanded prop is provided", () => {
-      const wrapper = render({ expanded: true });
-      const { content } = getElements(wrapper);
+      const wrapper = renderDrawer({ expanded: true });
+      const content = wrapper.find(StyledDrawerContent);
+
       assertStyleMatch(
         {
           width: "40%",
@@ -413,16 +436,17 @@ describe("Drawer", () => {
     });
 
     it("is collapsed when expanded prop is provided and is false", () => {
-      const wrapper = render({ expanded: false });
-      const { content } = getElements(wrapper);
+      const wrapper = renderDrawer({ expanded: false });
+      const content = wrapper.find(StyledDrawerContent);
+
       expect(content.prop("className").includes("closed")).toEqual(true);
     });
 
     it("drawer changes to closed when button is clicked", () => {
-      const wrapper = render({ expanded: true, showControls: true });
-      const { button } = getElements(wrapper);
+      const wrapper = renderDrawer({ expanded: true, showControls: true });
+      const button = wrapper.find(StyledSidebarToggleButton);
       button.simulate("click");
-      const { content } = getElements(wrapper);
+      const content = wrapper.find(StyledDrawerContent);
 
       assertStyleMatch(
         {
@@ -435,14 +459,14 @@ describe("Drawer", () => {
 
     it("drawer changes to open when button is clicked", () => {
       const onChange = jest.fn();
-      const wrapper = render({
+      const wrapper = renderDrawer({
         expanded: false,
         showControls: true,
         onChange,
       });
-      const { button } = getElements(wrapper);
+      const button = wrapper.find(StyledSidebarToggleButton);
       button.simulate("click");
-      const { content } = getElements(wrapper);
+      const content = wrapper.find(StyledDrawerContent);
 
       assertStyleMatch(
         {
@@ -455,39 +479,42 @@ describe("Drawer", () => {
     });
 
     it("drawer opening sets timeout class", () => {
-      const wrapper = render({
+      const wrapper = renderDrawer({
         expanded: false,
         showControls: true,
         animationDuration: "500ms",
       });
-      const { button } = getElements(wrapper);
+      const button = wrapper.find(StyledSidebarToggleButton);
       button.simulate("click");
-      const { content } = getElements(wrapper);
+      const content = wrapper.find(StyledDrawerContent);
+
       expect(content.childAt(0).hasClass("opening")).toBeTruthy();
     });
 
     it("sets `closing` class on drawer when close icon was clicked", () => {
-      const wrapper = render({
+      const wrapper = renderDrawer({
         expanded: true,
         showControls: true,
         animationDuration: "0.5s",
       });
-      const { button } = getElements(wrapper);
+      const button = wrapper.find(StyledSidebarToggleButton);
       button.simulate("click");
-      const { content } = getElements(wrapper);
+      const content = wrapper.find(StyledDrawerContent);
+
       expect(content.childAt(0).hasClass("closing")).toBeTruthy();
     });
 
     it("sets animation speed to two seconds when string `numeric` value is given as a string", () => {
       const animationDuration = "2000";
-      const wrapper = render({
+      const wrapper = renderDrawer({
         expanded: true,
         showControls: true,
         animationDuration,
       });
-      const { button } = getElements(wrapper);
+      const button = wrapper.find(StyledSidebarToggleButton);
       button.simulate("click");
-      const { content } = getElements(wrapper);
+      const content = wrapper.find(StyledDrawerContent);
+
       expect(content.childAt(0).prop("animationDuration")).toBe(
         animationDuration
       );
@@ -495,14 +522,15 @@ describe("Drawer", () => {
 
     it("sets animation speed to two seconds when string `ms` value is given as a string", () => {
       const animationDuration = "2000ms";
-      const wrapper = render({
+      const wrapper = renderDrawer({
         expanded: true,
         showControls: true,
         animationDuration,
       });
-      const { button } = getElements(wrapper);
+      const button = wrapper.find(StyledSidebarToggleButton);
       button.simulate("click");
-      const { content } = getElements(wrapper);
+      const content = wrapper.find(StyledDrawerContent);
+
       expect(content.childAt(0).prop("animationDuration")).toBe(
         animationDuration
       );
@@ -510,14 +538,15 @@ describe("Drawer", () => {
 
     it("sets animation speed to two seconds when string `decimal` value is given as a string", () => {
       const animationDuration = "0.5s";
-      const wrapper = render({
+      const wrapper = renderDrawer({
         expanded: true,
         showControls: true,
         animationDuration,
       });
-      const { button } = getElements(wrapper);
+      const button = wrapper.find(StyledSidebarToggleButton);
       button.simulate("click");
-      const { content } = getElements(wrapper);
+      const content = wrapper.find(StyledDrawerContent);
+
       expect(content.childAt(0).prop("animationDuration")).toBe(
         animationDuration
       );
@@ -525,14 +554,15 @@ describe("Drawer", () => {
 
     it("sets animation speed to two seconds when string `seconds` value is given as a string", () => {
       const animationDuration = "2s";
-      const wrapper = render({
+      const wrapper = renderDrawer({
         expanded: true,
         showControls: true,
         animationDuration,
       });
-      const { button } = getElements(wrapper);
+      const button = wrapper.find(StyledSidebarToggleButton);
       button.simulate("click");
-      const { content } = getElements(wrapper);
+      const content = wrapper.find(StyledDrawerContent);
+
       expect(content.childAt(0).prop("animationDuration")).toBe(
         animationDuration
       );
@@ -540,8 +570,9 @@ describe("Drawer", () => {
 
     it("sets background color as red when backgroundColor prop is provided", () => {
       const color = "#FF0000";
-      const wrapper = render({ backgroundColor: color });
-      const { content } = getElements(wrapper);
+      const wrapper = renderDrawer({ backgroundColor: color });
+      const content = wrapper.find(StyledDrawerContent);
+
       assertStyleMatch(
         {
           backgroundColor: color,
@@ -552,8 +583,9 @@ describe("Drawer", () => {
 
     it("sets background color as white when backgroundColor prop is provided", () => {
       const color = "#FFFFFF";
-      const wrapper = render({ backgroundColor: color });
-      const { content } = getElements(wrapper);
+      const wrapper = renderDrawer({ backgroundColor: color });
+      const content = wrapper.find(StyledDrawerContent);
+
       assertStyleMatch(
         {
           backgroundColor: color,
@@ -564,8 +596,9 @@ describe("Drawer", () => {
 
     it("sets background as transparent when backgroundColor prop is provided", () => {
       const color = "transparent";
-      const wrapper = render({ backgroundColor: color });
-      const { content } = getElements(wrapper);
+      const wrapper = renderDrawer({ backgroundColor: color });
+      const content = wrapper.find(StyledDrawerContent);
+
       assertStyleMatch({}, content.childAt(0));
     });
 
@@ -585,9 +618,13 @@ describe("Drawer", () => {
       };
 
       it("expands the sidebar", () => {
-        const wrapper = mount(<MockComponent />);
+        const wrapper = renderDrawerInContainer(<MockComponent />);
+
         act(() => {
-          wrapper.find(Button).prop("onClick")();
+          wrapper
+            .find(Button)
+            .props()
+            .onClick?.({} as React.MouseEvent<HTMLButtonElement>);
           jest.runAllTimers();
         });
         expect(
@@ -596,45 +633,56 @@ describe("Drawer", () => {
       });
 
       it("toggles the opening animation and sets the expected class name", () => {
-        const wrapper = mount(<MockComponent />);
+        const wrapper = renderDrawerInContainer(<MockComponent />);
         const button = wrapper.find(Button);
         button.simulate("click");
-        const { content } = getElements(wrapper);
+        const content = wrapper.find(StyledDrawerContent);
+
         expect(content.childAt(0).hasClass("opening")).toBeTruthy();
       });
 
       it("contracts the sidebar and toggles the closing animation", () => {
-        const wrapper = mount(<MockComponent expanded />);
+        const wrapper = renderDrawerInContainer(<MockComponent expanded />);
+
         act(() => {
-          wrapper.find(Button).prop("onClick")();
+          wrapper
+            .find(Button)
+            .props()
+            .onClick?.({} as React.MouseEvent<HTMLButtonElement>);
           jest.runAllTimers();
         });
+
         expect(
           wrapper.update().find(StyledDrawerSidebar).prop("isExpanded")
         ).toEqual(false);
       });
 
       it("toggles the closing animation and sets the expected class name", () => {
-        const wrapper = mount(<MockComponent expanded />);
+        const wrapper = renderDrawerInContainer(<MockComponent expanded />);
         const button = wrapper.find(Button);
         button.simulate("click");
-        const { content } = getElements(wrapper);
+        const content = wrapper.find(StyledDrawerContent);
+
         expect(content.childAt(0).hasClass("closing")).toBeTruthy();
       });
     });
 
     describe("invariant", () => {
+      let consoleSpy: jest.SpyInstance;
+
       beforeEach(() => {
-        jest.spyOn(global.console, "error").mockImplementation(() => {});
+        consoleSpy = jest
+          .spyOn(global.console, "error")
+          .mockImplementation(() => {});
       });
 
       afterEach(() => {
-        global.console.error.mockReset();
+        consoleSpy.mockReset();
       });
 
       it("throws if Drawer is changed from controlled to uncontrolled", () => {
         expect(() => {
-          const wrapper = render({ expanded: true });
+          const wrapper = renderDrawer({ expanded: true });
           wrapper.setProps({ expanded: undefined });
           wrapper.update();
         }).toThrow(
