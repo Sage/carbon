@@ -1,5 +1,5 @@
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { mount, shallow, ReactWrapper } from "enzyme";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 
 import HiddenCheckableInput from "./hidden-checkable-input.component";
@@ -20,23 +20,23 @@ const render = (
 };
 
 describe("HiddenCheckableInput", () => {
-  let propOnBlur;
-  let contextOnBlur;
-  let groupContextOnBlur;
+  let propOnBlur: jest.Mock;
+  let contextOnBlur: jest.Mock;
+  let groupContextOnBlur: jest.Mock;
 
-  let propOnFocus;
-  let contextOnFocus;
-  let groupContextOnFocus;
+  let propOnFocus: jest.Mock;
+  let contextOnFocus: jest.Mock;
+  let groupContextOnFocus: jest.Mock;
 
-  let propOnMouseEnter;
-  let contextOnMouseEnter;
-  let groupContextOnMouseEnter;
+  let propOnMouseEnter: jest.Mock;
+  let contextOnMouseEnter: jest.Mock;
+  let groupContextOnMouseEnter: jest.Mock;
 
-  let propOnMouseLeave;
-  let contextOnMouseLeave;
-  let groupContextOnMouseLeave;
+  let propOnMouseLeave: jest.Mock;
+  let contextOnMouseLeave: jest.Mock;
+  let groupContextOnMouseLeave: jest.Mock;
 
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   beforeEach(() => {
     propOnBlur = jest.fn();
