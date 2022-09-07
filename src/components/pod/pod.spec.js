@@ -16,7 +16,7 @@ import {
   StyledTitle,
   StyledDeleteButton,
   StyledUndoButton,
-} from "./pod.style.js";
+} from "./pod.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -75,26 +75,23 @@ describe("Pod", () => {
     });
 
     it("onDelete prop function gets invoked by clicking delete action button", () => {
-      const event = { preventDefault: () => {} };
       const onDelete = jest.fn();
       wrapper.setProps({ onDelete });
-      wrapper.find(StyledDeleteButton).props().onAction(event);
+      wrapper.find("button").simulate("click");
       expect(onDelete).toHaveBeenCalled();
     });
 
     it("onDelete prop function gets invoked by pressing enter key", () => {
-      const event = { preventDefault: () => {}, key: "Enter", type: "keydown" };
       const onDelete = jest.fn();
       wrapper.setProps({ onDelete });
-      wrapper.find(StyledDeleteButton).props().onKeyDown(event);
+      wrapper.find("button").simulate("keydown", { key: "Enter" });
       expect(onDelete).toHaveBeenCalled();
     });
 
     it("onEdit prop function is not invoked by pressing non-enter key", () => {
-      const event = { preventDefault: () => {}, key: "a", type: "keydown" };
       const onDelete = jest.fn();
       wrapper.setProps({ onDelete });
-      wrapper.find(StyledDeleteButton).props().onKeyDown(event);
+      wrapper.find("button").simulate("keydown", { key: "a" });
       expect(onDelete).not.toHaveBeenCalled();
     });
 
@@ -138,26 +135,23 @@ describe("Pod", () => {
     });
 
     it("onDelete prop function gets invoked by clicking delete action button", () => {
-      const event = { preventDefault: () => {} };
       const onUndo = jest.fn();
       wrapper.setProps({ onUndo, softDelete: true });
-      wrapper.find(StyledUndoButton).props().onAction(event);
+      wrapper.find("button").simulate("click");
       expect(onUndo).toHaveBeenCalled();
     });
 
     it("onDelete prop function gets invoked by pressing enter key", () => {
-      const event = { preventDefault: () => {}, key: "Enter", type: "keydown" };
       const onUndo = jest.fn();
       wrapper.setProps({ onUndo, softDelete: true });
-      wrapper.find(StyledUndoButton).props().onKeyDown(event);
+      wrapper.find("button").simulate("keydown", { key: "Enter" });
       expect(onUndo).toHaveBeenCalled();
     });
 
     it("onEdit prop function is not invoked by pressing non-enter key", () => {
-      const event = { preventDefault: () => {}, key: "a", type: "keydown" };
       const onUndo = jest.fn();
       wrapper.setProps({ onUndo, softDelete: true });
-      wrapper.find(StyledUndoButton).props().onKeyDown(event);
+      wrapper.find("button").simulate("keydown", { key: "a" });
       expect(onUndo).not.toHaveBeenCalled();
     });
 
@@ -203,9 +197,9 @@ describe("Pod", () => {
       expect(wrapper.find(StyledEditAction).exists()).toEqual(false);
     });
 
-    it("edit action button has a `to` prop if onEdit is a string", () => {
+    it("edit action button has a `href` prop if onEdit is a string", () => {
       wrapper.setProps({ onEdit: "someString" });
-      expect(wrapper.find(StyledEditAction).props().to).toEqual("someString");
+      expect(wrapper.find(StyledEditAction).props().href).toEqual("someString");
     });
 
     it("if onEdit prop is an object then it is spread on edit action button as props", () => {
@@ -218,26 +212,27 @@ describe("Pod", () => {
     });
 
     it("if onEdit prop is a function it gets invoked by clicking edit action button container", () => {
-      const event = { preventDefault: () => {} };
       const onEdit = jest.fn();
       wrapper.setProps({ onEdit });
-      wrapper.find('[data-element="edit-container"]').props().onClick(event);
+      wrapper.find('[data-element="edit-container"]').simulate("click");
       expect(onEdit).toHaveBeenCalled();
     });
 
     it("if onEdit prop is a function it gets invoked by pressing enter key", () => {
-      const event = { preventDefault: () => {}, key: "Enter", type: "keydown" };
       const onEdit = jest.fn();
       wrapper.setProps({ onEdit });
-      wrapper.find('[data-element="edit-container"]').props().onKeyDown(event);
+      wrapper
+        .find('[data-element="edit-container"]')
+        .simulate("keydown", { key: "Enter" });
       expect(onEdit).toHaveBeenCalled();
     });
 
     it("if onEdit prop is a function it is not invoked by pressing non-enter key", () => {
-      const event = { preventDefault: () => {}, key: "a", type: "keydown" };
       const onEdit = jest.fn();
       wrapper.setProps({ onEdit });
-      wrapper.find('[data-element="edit-container"]').props().onKeyDown(event);
+      wrapper
+        .find('[data-element="edit-container"]')
+        .simulate("keydown", { key: "a" });
       expect(onEdit).not.toHaveBeenCalled();
     });
   });

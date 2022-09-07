@@ -1,5 +1,6 @@
 // component preview locators
-export const SHOW_EDIT_POD = '[data-component="pod"]';
+export const SHOW_EDIT_POD = '[data-component="show-edit-pod"]';
+export const SHOW_EDIT_POD_BLOCK = '[data-element="block"]';
 export const SHOW_EDIT_POD_CONTENT_FORM = '[data-element="form-content"]';
 export const SHOW_EDIT_POD_HIDE_DELETE_BUTTON = "button[data-element=delete]";
 export const SHOW_EDIT_POD_FORM_FOOTER = '[data-element="form-footer"]';

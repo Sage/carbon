@@ -1,5 +1,6 @@
 import {
   SHOW_EDIT_POD,
+  SHOW_EDIT_POD_BLOCK,
   SHOW_EDIT_POD_CONTENT_FORM,
   SHOW_EDIT_POD_HIDE_DELETE_BUTTON,
   SHOW_EDIT_POD_FORM_FOOTER,
@@ -13,8 +14,8 @@ import {
 } from "./locators";
 
 // component preview locators
-export const showEditPod = () => cy.get(SHOW_EDIT_POD).find("div");
-export const showEditPodClassName = () => cy.get(SHOW_EDIT_POD);
+export const showEditPod = () => cy.get(SHOW_EDIT_POD);
+export const showEditPodBlock = () => cy.get(SHOW_EDIT_POD_BLOCK);
 export const showEditPodContentForm = () => cy.get(SHOW_EDIT_POD_CONTENT_FORM);
 export const showEditPodHideDeleteButton = () =>
   cy.get(SHOW_EDIT_POD_HIDE_DELETE_BUTTON);
