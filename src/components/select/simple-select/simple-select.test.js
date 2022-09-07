@@ -569,7 +569,7 @@ context("Tests for Simple Select component", () => {
       selectText().click();
       commonDataElementInputPreview().should("have.attr", "readOnly");
       selectText().should("have.attr", "aria-hidden", "true");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should render Simple Select as transparent", () => {
@@ -685,7 +685,7 @@ context("Tests for Simple Select component", () => {
       selectList().should("be.visible");
       selectInput().tab();
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should close the list with the Esc key", () => {
@@ -695,7 +695,7 @@ context("Tests for Simple Select component", () => {
       selectList().should("be.visible");
       selectText().trigger("keydown", { ...keyCode("Esc") });
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should close the list by clicking out of the component", () => {
@@ -705,7 +705,7 @@ context("Tests for Simple Select component", () => {
       selectList().should("be.visible");
       body().realClick();
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it.each([["downarrow"], ["uparrow"], ["Space"], ["Home"], ["End"]])(
@@ -728,7 +728,7 @@ context("Tests for Simple Select component", () => {
         selectListText(option).click();
         getDataElementByValue("input").should("have.attr", "value", option);
         selectInput().should("have.attr", "aria-expanded", "false");
-        selectList().should("not.exist");
+        selectList().should("not.be.visible");
       }
     );
 
