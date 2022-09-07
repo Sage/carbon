@@ -122,7 +122,7 @@ describe("MenuItem", () => {
           verticalAlign: "bottom",
         },
         wrapper.find(StyledMenuItemWrapper),
-        { modifier: "button" }
+        { modifier: "&& button" }
       );
     });
   });
@@ -163,7 +163,7 @@ describe("MenuItem", () => {
             color: menuConfigVariants[menuType].color,
           },
           wrapper.find(StyledMenuItemWrapper),
-          { modifier: `${element}:${pseudo}` }
+          { modifier: `&& ${element}:${pseudo}` }
         );
       });
 
@@ -186,7 +186,7 @@ describe("MenuItem", () => {
               color: "var(--colorsComponentsMenuYang100)",
             },
             wrapper.find(StyledMenuItemWrapper),
-            { modifier: `${element}:${pseudo}` }
+            { modifier: `&& ${element}:${pseudo}` }
           );
         });
 
@@ -197,7 +197,7 @@ describe("MenuItem", () => {
             },
             wrapper.find(StyledMenuItemWrapper),
             {
-              modifier: `${element}:${pseudo} [data-component="icon"]`,
+              modifier: `&& ${element}:${pseudo} [data-component="icon"]`,
             }
           );
         });
@@ -231,7 +231,7 @@ describe("MenuItem", () => {
               color: "var(--colorsComponentsMenuYang100)",
             },
             wrapper.find(StyledMenuItemWrapper),
-            { modifier: `${element}:${pseudo}` }
+            { modifier: `&& ${element}:${pseudo}` }
           );
         });
 
@@ -542,7 +542,7 @@ describe("MenuItem", () => {
             verticalAlign: "bottom",
           },
           wrapper.find(StyledMenuItemWrapper),
-          { modifier: "button" }
+          { modifier: "&& button" }
         );
       });
 
