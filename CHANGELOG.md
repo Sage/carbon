@@ -1,3 +1,11 @@
+## [110.4.0](https://github.com/Sage/carbon/compare/v110.3.0...v110.4.0) (2022-09-07)
+
+
+### Features
+
+* **button-toggle:** add invariant for childless and iconless buttons ([3a2b631](https://github.com/Sage/carbon/commit/3a2b631546ac213f17ebd2a64994b3c206baa290))
+* **radio-button-mapper:** define types for component props ([c6bce8c](https://github.com/Sage/carbon/commit/c6bce8caafc929d54bdb210693b24fabfec77d0a))
+
 ## [110.3.0](https://github.com/Sage/carbon/compare/v110.2.4...v110.3.0) (2022-09-06)
 
 
