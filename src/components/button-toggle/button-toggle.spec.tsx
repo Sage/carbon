@@ -289,6 +289,21 @@ describe("ButtonToggle", () => {
     });
   });
 
+  it("an error is thrown when neither children or the buttonIcon prop are specified", () => {
+    const mockGlobal = jest
+      .spyOn(global.console, "error")
+      .mockImplementation(() => undefined);
+
+    const error =
+      "Either prop `buttonIcon` must be defined, or this node must have children";
+
+    expect(() => {
+      mount(<ButtonToggle />);
+    }).toThrow(error);
+
+    mockGlobal.mockReset();
+  });
+
   describe("coverage filler for else path", () => {
     mount(<ButtonToggle buttonIcon="add">toggle</ButtonToggle>);
   });

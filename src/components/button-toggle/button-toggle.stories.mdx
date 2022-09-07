@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
-import ButtonToggle from "../button-toggle";
+import ButtonToggle from ".";
+import ButtonToggleGroup from "../button-toggle-group";
+import LinkTo from "@storybook/addon-links/react";
 
 <Meta title="Button Toggle" parameters={{ info: { disable: true } }} />
 
 # Button Toggle
 
-Press one of the buttons to make selection. ButtonToggle component should be used when user has to make a choice between a small number of options.
+Press one of the buttons to make selection. This component should be used when user has to make a choice between a small number of options.
 
 ## Contents
 
@@ -18,16 +20,15 @@ Press one of the buttons to make selection. ButtonToggle component should be use
 
 ## Quick Start
 
-To use the `ButtonToggle` component you have to import the `<ButtonToggle />` component:
-
 ```javascript
 import ButtonToggle from "carbon-react/lib/components/button-toggle";
+import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
 ```
 
 ## Designer Notes
 
+- You should use the <LinkTo kind="Button Toggle Group" story="default">ButtonToggleGroup component</LinkTo> if you need to wrap multiple `ButtonToggle` components together.
 - An icon could be added to make the meaning of an option clearer.
-- This component should not be used as part of the `Form`, `ButtonToggleGroup` should be used instead.
 
 ## Examples
 
@@ -35,57 +36,35 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
 
 <Canvas>
   <Story name="default">
-    <div>
-      <ButtonToggle name="default" key="foo">
+    <ButtonToggleGroup id="button-toggle-group-id" name="options">
+      <ButtonToggle name="default" value="foo">
         Foo
       </ButtonToggle>
-      <ButtonToggle name="default" key="bar">
+      <ButtonToggle name="default" value="bar">
         Bar
       </ButtonToggle>
-      <ButtonToggle name="default" key="baz">
+      <ButtonToggle name="default" value="baz">
         Baz
       </ButtonToggle>
-    </div>
+    </ButtonToggleGroup>
   </Story>
 </Canvas>
-
-### Icon only
-
-<Preview>
-  <Story name="icon only">
-    <div>
-      <ButtonToggle name="sizes" key="foo" buttonIcon="add" aria-label="add" />
-      <ButtonToggle
-        name="sizes"
-        key="bar"
-        buttonIcon="share"
-        aria-label="share"
-      />
-      <ButtonToggle
-        name="sizes"
-        key="baz"
-        buttonIcon="tick"
-        aria-label="tick"
-      />
-    </div>
-  </Story>
-</Preview>
 
 ### Default with small icon
 
 <Canvas>
   <Story name="default with small icon">
-    <div>
-      <ButtonToggle name="sizes" key="foo" buttonIcon="add">
+    <ButtonToggleGroup id="button-toggle-group-id" name="options">
+      <ButtonToggle name="sizes" value="foo" buttonIcon="add">
         Add
       </ButtonToggle>
-      <ButtonToggle name="sizes" key="bar" buttonIcon="share">
+      <ButtonToggle name="sizes" value="bar" buttonIcon="share">
         Share
       </ButtonToggle>
-      <ButtonToggle name="sizes" key="baz" buttonIcon="tick">
+      <ButtonToggle name="sizes" value="baz" buttonIcon="tick">
         Tick
       </ButtonToggle>
-    </div>
+    </ButtonToggleGroup>
   </Story>
 </Canvas>
 
@@ -93,10 +72,10 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
 
 <Canvas>
   <Story name="default with large icon">
-    <div>
+    <ButtonToggleGroup id="button-toggle-group-id" name="options">
       <ButtonToggle
         name="sizes"
-        key="foo"
+        value="foo"
         buttonIcon="add"
         buttonIconSize="large"
       >
@@ -104,7 +83,7 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       </ButtonToggle>
       <ButtonToggle
         name="sizes"
-        key="bar"
+        value="bar"
         buttonIcon="share"
         buttonIconSize="large"
       >
@@ -112,13 +91,42 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       </ButtonToggle>
       <ButtonToggle
         name="sizes"
-        key="baz"
+        value="baz"
         buttonIcon="tick"
         buttonIconSize="large"
       >
         Tick
       </ButtonToggle>
-    </div>
+    </ButtonToggleGroup>
+  </Story>
+</Canvas>
+
+### Icon only
+
+While we do not advocate the use of icon-only buttons for accessibility reasons, the `aria-label` or `aria-labelledby` props can be used with `buttonIcon` so assistive techniques are aware of the action that will be taken when the component pressed.
+
+<Canvas>
+  <Story name="icon only">
+    <ButtonToggleGroup id="button-toggle-group-id" name="options">
+      <ButtonToggle
+        name="sizes"
+        value="foo"
+        buttonIcon="add"
+        aria-label="add"
+      />
+      <ButtonToggle
+        name="sizes"
+        value="bar"
+        buttonIcon="share"
+        aria-label="share"
+      />
+      <ButtonToggle
+        name="sizes"
+        value="baz"
+        buttonIcon="tick"
+        aria-label="tick"
+      />
+    </ButtonToggleGroup>
   </Story>
 </Canvas>
 
@@ -126,17 +134,17 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
 
 <Canvas>
   <Story name="small">
-    <div>
-      <ButtonToggle size="small" name="sizes" key="foo">
+    <ButtonToggleGroup id="button-toggle-group-id" name="options">
+      <ButtonToggle size="small" name="sizes" value="foo">
         Add
       </ButtonToggle>
-      <ButtonToggle size="small" name="sizes" key="bar">
+      <ButtonToggle size="small" name="sizes" value="bar">
         Share
       </ButtonToggle>
-      <ButtonToggle size="small" name="sizes" key="baz">
+      <ButtonToggle size="small" name="sizes" value="baz">
         Tick
       </ButtonToggle>
-    </div>
+    </ButtonToggleGroup>
   </Story>
 </Canvas>
 
@@ -144,17 +152,17 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
 
 <Canvas>
   <Story name="small with small icon">
-    <div>
-      <ButtonToggle size="small" name="sizes" key="foo" buttonIcon="add">
+    <ButtonToggleGroup id="button-toggle-group-id" name="options">
+      <ButtonToggle size="small" name="sizes" value="foo" buttonIcon="add">
         Add
       </ButtonToggle>
-      <ButtonToggle size="small" name="sizes" key="bar" buttonIcon="share">
+      <ButtonToggle size="small" name="sizes" value="bar" buttonIcon="share">
         Share
       </ButtonToggle>
-      <ButtonToggle size="small" name="sizes" key="baz" buttonIcon="tick">
+      <ButtonToggle size="small" name="sizes" value="baz" buttonIcon="tick">
         Tick
       </ButtonToggle>
-    </div>
+    </ButtonToggleGroup>
   </Story>
 </Canvas>
 
@@ -162,11 +170,11 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
 
 <Canvas>
   <Story name="small with large icon">
-    <div>
+    <ButtonToggleGroup id="button-toggle-group-id" name="options">
       <ButtonToggle
         size="small"
         name="sizes"
-        key="foo"
+        value="foo"
         buttonIcon="add"
         buttonIconSize="large"
       >
@@ -175,7 +183,7 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       <ButtonToggle
         size="small"
         name="sizes"
-        key="bar"
+        value="bar"
         buttonIcon="share"
         buttonIconSize="large"
       >
@@ -184,13 +192,13 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       <ButtonToggle
         size="small"
         name="sizes"
-        key="baz"
+        value="baz"
         buttonIcon="tick"
         buttonIconSize="large"
       >
         Tick
       </ButtonToggle>
-    </div>
+    </ButtonToggleGroup>
   </Story>
 </Canvas>
 
@@ -198,17 +206,17 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
 
 <Canvas>
   <Story name="large">
-    <div>
-      <ButtonToggle size="large" name="sizes" key="foo">
+    <ButtonToggleGroup id="button-toggle-group-id" name="options">
+      <ButtonToggle size="large" name="sizes" value="foo">
         Add
       </ButtonToggle>
-      <ButtonToggle size="large" name="sizes" key="bar">
+      <ButtonToggle size="large" name="sizes" value="bar">
         Share
       </ButtonToggle>
-      <ButtonToggle size="large" name="sizes" key="baz">
+      <ButtonToggle size="large" name="sizes" value="baz">
         Tick
       </ButtonToggle>
-    </div>
+    </ButtonToggleGroup>
   </Story>
 </Canvas>
 
@@ -216,17 +224,17 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
 
 <Canvas>
   <Story name="large with small icon">
-    <div>
-      <ButtonToggle size="large" name="sizes" key="foo" buttonIcon="add">
+    <ButtonToggleGroup id="button-toggle-group-id" name="options">
+      <ButtonToggle size="large" name="sizes" value="foo" buttonIcon="add">
         Add
       </ButtonToggle>
-      <ButtonToggle size="large" name="sizes" key="bar" buttonIcon="share">
+      <ButtonToggle size="large" name="sizes" value="bar" buttonIcon="share">
         Share
       </ButtonToggle>
-      <ButtonToggle size="large" name="sizes" key="baz" buttonIcon="tick">
+      <ButtonToggle size="large" name="sizes" value="baz" buttonIcon="tick">
         Tick
       </ButtonToggle>
-    </div>
+    </ButtonToggleGroup>
   </Story>
 </Canvas>
 
@@ -234,11 +242,11 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
 
 <Canvas>
   <Story name="large with large icon">
-    <div>
+    <ButtonToggleGroup id="button-toggle-group-id" name="options">
       <ButtonToggle
         size="large"
         name="sizes"
-        key="foo"
+        value="foo"
         buttonIcon="add"
         buttonIconSize="large"
       >
@@ -247,7 +255,7 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       <ButtonToggle
         size="large"
         name="sizes"
-        key="bar"
+        value="bar"
         buttonIcon="share"
         buttonIconSize="large"
       >
@@ -256,13 +264,13 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
       <ButtonToggle
         size="large"
         name="sizes"
-        key="baz"
+        value="baz"
         buttonIcon="tick"
         buttonIconSize="large"
       >
         Tick
       </ButtonToggle>
-    </div>
+    </ButtonToggleGroup>
   </Story>
 </Canvas>
 
@@ -270,17 +278,17 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
 
 <Canvas>
   <Story name="disabled">
-    <div>
-      <ButtonToggle name="disabled" key="foo" disabled>
+    <ButtonToggleGroup id="button-toggle-group-id" name="options">
+      <ButtonToggle name="disabled" value="foo" disabled>
         Foo
       </ButtonToggle>
-      <ButtonToggle name="disabled" key="bar" disabled>
+      <ButtonToggle name="disabled" value="bar" disabled>
         Bar
       </ButtonToggle>
-      <ButtonToggle name="disabled" key="baz" disabled>
+      <ButtonToggle name="disabled" value="baz" disabled>
         Baz
       </ButtonToggle>
-    </div>
+    </ButtonToggleGroup>
   </Story>
 </Canvas>
 
@@ -288,17 +296,17 @@ import ButtonToggle from "carbon-react/lib/components/button-toggle";
 
 <Canvas>
   <Story name="grouped">
-    <div>
-      <ButtonToggle name="grouped" key="foo" grouped>
+    <ButtonToggleGroup id="button-toggle-group-id" name="grouped-options">
+      <ButtonToggle name="grouped" value="foo" grouped>
         Foo
       </ButtonToggle>
-      <ButtonToggle name="grouped" key="bar" grouped>
+      <ButtonToggle name="grouped" value="bar" grouped>
         Bar
       </ButtonToggle>
-      <ButtonToggle name="grouped" key="baz" grouped>
+      <ButtonToggle name="grouped" value="baz" grouped>
         Baz
       </ButtonToggle>
-    </div>
+    </ButtonToggleGroup>
   </Story>
 </Canvas>
 
