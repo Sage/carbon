@@ -1,5 +1,6 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
+import ChildrenMapperProvider from "../../__internal__/children-mapper-provider";
 
 const RadioButtonMapper = ({
   children,
@@ -23,9 +24,39 @@ const RadioButtonMapper = ({
     return result;
   }, [filteredChildren]);
 
-  const isControlled = value !== undefined;
-
+  const isControlled = useMemo(() => value !== undefined, [value]);
   const [checkedValue, setCheckedValue] = useState(false);
+  const [registeredRadioButtons, setRegisteredRadioButtons] = useState([]);
+  const [isCheckedMap, setIsCheckedMap] = useState({});
+
+  const updateIsCheckedMap = useCallback(
+    (array) => {
+      setIsCheckedMap(
+        array.reduce((acc, [id, inputProps]) => {
+          if (!acc[id]) {
+            acc[id] = {};
+          }
+
+          const { inputValue, defaultChecked } = inputProps;
+
+          if (isControlled) {
+            // The user is controlling the input via the value prop
+            acc[id].checked = value === inputValue;
+          } else if (!checkedValue && anyChecked) {
+            // Uncontrolled and the user has not made a selection, but at least one has a checked prop
+            acc[id].checked = defaultChecked || false;
+          } else {
+            // Uncontrolled, existing selection or none marked as checked
+            acc[id].checked = checkedValue === inputValue;
+          }
+
+          return acc;
+        }, {})
+      );
+    },
+    [anyChecked, checkedValue, isControlled, value]
+  );
+
   const onChangeProp = useCallback(
     (e) => {
       if (onChange) {
@@ -35,34 +66,27 @@ const RadioButtonMapper = ({
         setCheckedValue(e.target.value);
       }
     },
-    [onChange, setCheckedValue, isControlled]
+    [onChange, isControlled]
   );
 
-  const buttons = filteredChildren.map((child) => {
-    let checked;
-    if (isControlled) {
-      // The user is controlling the input via the value prop
-      checked = value === child.props.value;
-    } else if (!checkedValue && anyChecked) {
-      // Uncontrolled and the user has not made a selection, but at least one has a checked prop
-      checked = child.props.defaultChecked || false;
-    } else {
-      // Uncontrolled, existing selection or none marked as checked
-      checked = checkedValue === child.props.value;
-    }
+  useEffect(() => {
+    updateIsCheckedMap(registeredRadioButtons);
+  }, [value, checkedValue, registeredRadioButtons, updateIsCheckedMap]);
 
-    return React.cloneElement(child, {
-      defaultChecked: undefined,
-      checked,
-      name,
-      onBlur,
-      onMouseDown,
-      onChange: onChangeProp,
-      onKeyDown,
-    });
-  });
-
-  return buttons;
+  return (
+    <ChildrenMapperProvider
+      registeredChildren={registeredRadioButtons}
+      setRegisteredChildren={setRegisteredRadioButtons}
+      childrenMap={isCheckedMap}
+      name={name}
+      onBlur={onBlur}
+      onMouseDown={onMouseDown}
+      onChange={onChangeProp}
+      onKeyDown={onKeyDown}
+    >
+      {filteredChildren}
+    </ChildrenMapperProvider>
+  );
 };
 
 RadioButtonMapper.propTypes = {
@@ -76,6 +100,8 @@ RadioButtonMapper.propTypes = {
   onChange: PropTypes.func,
   /** Callback fired on key down */
   onKeyDown: PropTypes.func,
+  /** Callback fired on mouse down */
+  onMouseDown: PropTypes.func,
   /** Value of the selected RadioButton */
   value: PropTypes.string,
 };

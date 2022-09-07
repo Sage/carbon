@@ -49,17 +49,25 @@ A legend can be set for the group, and each radio button can have a label.
 
 <Canvas>
   <Story name="with legend and labels">
-    <RadioButtonGroup
-      name="legend-and-labels-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
-      <RadioButton
+    {() => {
+      const Foo = () => (
+        <><><><>
+         <RadioButton
         id="legend-and-labels-radio-1"
         value="radio1"
         label="Radio Option 1"
         labelHelp="first option"
       />
+        </></></></>
+      );
+      return (
+        <RadioButtonGroup
+      name="legend-and-labels-group"
+      onChange={() => console.log("change")}
+      legend="Radio group legend"
+      onBlur={() => alert("hello")}
+    >
+      <Foo />
       <RadioButton
         id="legend-and-labels-radio-2"
         value="radio2"
@@ -73,6 +81,8 @@ A legend can be set for the group, and each radio button can have a label.
         labelHelp="third option"
       />
     </RadioButtonGroup>
+      )
+    }}
   </Story>
 </Canvas>
 

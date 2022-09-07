@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import RadioButtonStyle from "./radio-button.style";
@@ -6,6 +6,10 @@ import CheckableInput from "../../__internal__/checkable-input/checkable-input.c
 import RadioButtonSvg from "./radio-button-svg.component";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import RadioButtonGroupContext from "./__internal__/radio-button-group-context";
+import { ChildrenMapperContext } from "../../__internal__/children-mapper-provider";
+import useRegisterChildToMapper from "../../hooks/__internal__/useRegisterChildToMapper";
+import createGuid from "../../__internal__/utils/helpers/guid";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -56,34 +60,62 @@ const RadioButton = React.forwardRef(
     },
     ref
   ) => {
+    const guid = useRef(createGuid());
+    const {
+      inline: contextInline,
+      labelSpacing: contextLabelSpacing,
+      error: contextError,
+      warning: contextWarning,
+      info: contextInfo,
+      required: contextRequired,
+    } = useContext(RadioButtonGroupContext);
+    const {
+      registerChild,
+      unregisterChild,
+      childrenMap,
+      name: contextName,
+      onBlur: contextOnBlur,
+      onMouseDown,
+      onChange: contextOnChange,
+      onKeyDown,
+    } = useContext(ChildrenMapperContext);
+    const inGroup = !!Object.keys(childrenMap).length;
+    const { checked: contextChecked } = childrenMap[guid.current] || {};
+
+    useRegisterChildToMapper(guid.current, registerChild, unregisterChild, {
+      inputValue: value,
+      defaultChecked: props.defaultChecked,
+    });
+
     const marginProps = filterStyledSystemMarginProps(props);
     const handleChange = useCallback(
       (ev) => {
-        onChange(ev);
+        if (contextOnChange) contextOnChange(ev);
+        else onChange(ev);
         // trigger focus, as Safari doesn't focus radioButtons on click by default
         ev.target.focus();
       },
-      [onChange]
+      [onChange, contextOnChange]
     );
 
     const commonProps = {
       disabled,
       fieldHelpInline,
       inputWidth,
-      labelSpacing,
-      error,
-      warning,
-      info,
+      labelSpacing: contextLabelSpacing || labelSpacing,
+      error: contextError || error,
+      warning: contextWarning || warning,
+      info: contextInfo || info,
     };
 
     const inputProps = {
       ...commonProps,
       autoFocus,
-      checked,
+      checked: contextChecked || checked || false,
       fieldHelp,
-      name,
+      name: contextName || name,
       onChange: handleChange,
-      onBlur,
+      onBlur: onBlur || contextOnBlur,
       onFocus,
       labelAlign,
       labelInline: true,
@@ -99,8 +131,10 @@ const RadioButton = React.forwardRef(
        * opposite way around by default)
        */
       reverse: !reverse,
-      required,
+      required: required || contextRequired,
       inputRef: ref,
+      onMouseDown,
+      onKeyDown,
       ...props,
     };
 
@@ -113,13 +147,16 @@ const RadioButton = React.forwardRef(
           data-component={dataComponent}
           data-role={dataRole}
           data-element={dataElement}
-          inline={inline}
+          inline={inline || contextInline}
           reverse={reverse}
           size={size}
           {...commonProps}
           {...marginProps}
         >
-          <CheckableInput {...inputProps}>
+          <CheckableInput
+            {...inputProps}
+            {...(inGroup && { defaultChecked: undefined })}
+          >
             <RadioButtonSvg />
           </CheckableInput>
         </RadioButtonStyle>
