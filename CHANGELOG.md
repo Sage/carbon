@@ -1,3 +1,10 @@
+### [110.4.1](https://github.com/Sage/carbon/compare/v110.4.0...v110.4.1) (2022-09-07)
+
+
+### Bug Fixes
+
+* **select:** ensure aria-activedescendant is always valid ([327b134](https://github.com/Sage/carbon/commit/327b134a05a494ef149d0edcc40331107b470ae3)), closes [#5289](https://github.com/Sage/carbon/issues/5289)
+
 ## [110.4.0](https://github.com/Sage/carbon/compare/v110.3.0...v110.4.0) (2022-09-07)
 
 
