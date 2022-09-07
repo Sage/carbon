@@ -66,6 +66,7 @@ const SelectList = React.forwardRef(
       loaderDataRole,
       listPlacement = "bottom-start",
       flipEnabled = true,
+      isOpen,
       ...listProps
     },
     listContainerRef
@@ -81,13 +82,39 @@ const SelectList = React.forwardRef(
     const listActionButtonRef = useRef();
     const { blockScroll, allowScroll } = useScrollBlock();
 
+    const updateListHeight = useCallback(() => {
+      if (isOpen) {
+        let newHeight = listRef.current.clientHeight;
+
+        if (listActionButtonRef.current) {
+          newHeight += listActionButtonRef.current.parentElement.clientHeight;
+        }
+
+        setListHeight(`${newHeight}px`);
+      }
+    }, [isOpen]);
+
+    const listCallbackRef = useCallback(
+      (element) => {
+        listRef.current = element;
+        if (element) {
+          setTimeout(updateListHeight, 0);
+        }
+      },
+      [updateListHeight]
+    );
+
     useEffect(() => {
-      blockScroll();
+      if (isOpen) {
+        blockScroll();
+      }
 
       return () => {
-        allowScroll();
+        if (isOpen) {
+          allowScroll();
+        }
       };
-    }, [allowScroll, blockScroll]);
+    }, [allowScroll, blockScroll, isOpen]);
 
     useLayoutEffect(() => {
       if (multiColumn) {
@@ -129,6 +156,10 @@ const SelectList = React.forwardRef(
       [onSelect]
     );
 
+    const childIds = useMemo(() => React.Children.map(children, () => guid()), [
+      children,
+    ]);
+
     const childrenWithListProps = useMemo(
       () =>
         React.Children.map(children, (child, index) => {
@@ -138,7 +169,7 @@ const SelectList = React.forwardRef(
 
           const newProps = {
             index,
-            id: guid(),
+            id: childIds[index],
             onSelect: handleSelect,
             hidden: isLoading && React.Children.count(children) === 1,
             ref: optionRefList[index],
@@ -146,8 +177,7 @@ const SelectList = React.forwardRef(
 
           return React.cloneElement(child, newProps);
         }),
-
-      [children, handleSelect, isLoading, optionRefList]
+      [children, handleSelect, isLoading, optionRefList, childIds]
     );
 
     const childrenList = useMemo(
@@ -250,6 +280,10 @@ const SelectList = React.forwardRef(
 
     const handleGlobalKeydown = useCallback(
       (event) => {
+        if (!isOpen) {
+          return;
+        }
+
         const { key } = event;
         const isActionButtonFocused =
           document.activeElement === listActionButtonRef.current;
@@ -285,6 +319,7 @@ const SelectList = React.forwardRef(
         onSelect,
         highlightNextItem,
         focusOnAnchor,
+        isOpen,
       ]
     );
 
@@ -318,17 +353,7 @@ const SelectList = React.forwardRef(
       };
     }, [assignListWidth]);
 
-    useLayoutEffect(() => {
-      let newHeight;
-
-      newHeight = listRef.current.clientHeight;
-
-      if (listActionButtonRef.current) {
-        newHeight += listActionButtonRef.current.parentElement.clientHeight;
-      }
-
-      setListHeight(`${newHeight}px`);
-    }, [children]);
+    useLayoutEffect(updateListHeight, [children, updateListHeight]);
 
     useEffect(() => {
       const keyboardEvent = "keydown";
@@ -447,7 +472,7 @@ const SelectList = React.forwardRef(
         reference={anchorRef}
         onFirstUpdate={setPlacementCallback}
         modifiers={popoverModifiers}
-        disableBackgroundUI
+        isOpen={isOpen}
       >
         <StyledPopoverContainer
           height={listHeight}
@@ -471,7 +496,7 @@ const SelectList = React.forwardRef(
                 aria-labelledby={labelId}
                 data-element="select-list"
                 role="listbox"
-                ref={listRef}
+                ref={listCallbackRef}
                 tabIndex="-1"
                 isLoading={isLoading}
                 multiColumn={multiColumn}
@@ -547,6 +572,10 @@ SelectList.propTypes = {
   ]),
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled: PropTypes.bool,
+  /** @private @ignore
+   * Hides the list (with CSS display: none) if not set
+   */
+  isOpen: PropTypes.bool,
 };
 
 export default SelectList;

@@ -36,16 +36,20 @@ import Pill from "carbon-react/lib/components/pill";
 
 ### Wrapped
 
-By default the text within a Pill will not wrap. You can override this behavior by setting the `wrapText` 
-and `maxWidth` props. It is also possible to hyphenate the words but you may need to define where to place 
-the hyphens using `&shy;` if they are not automatically added: this is because the rules for adding them are 
+By default the text within a Pill will not wrap. You can override this behavior by setting the `wrapText`
+and `maxWidth` props. It is also possible to hyphenate the words but you may need to define where to place
+the hyphens using `&shy;` if they are not automatically added: this is because the rules for adding them are
 language-specific and support for every `lang` attrribute is not universal.
 
 <Canvas>
   <Story name="wrapped">
     <Box mb={1}>
-      <Pill maxWidth="44px" wrapText>Wrapped pill</Pill>
-      <Pill ml={1} maxWidth="44px" wrapText>Hyphe&shy;nated&shy;pill</Pill>
+      <Pill maxWidth="44px" wrapText>
+        Wrapped pill
+      </Pill>
+      <Pill ml={1} maxWidth="44px" wrapText>
+        Hyphe&shy;nated&shy;pill
+      </Pill>
     </Box>
   </Story>
 </Canvas>

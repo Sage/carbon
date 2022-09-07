@@ -238,6 +238,7 @@ const Pod = forwardRef(
         ref={ref}
       >
         <StyledBlock
+          data-element="block"
           contentTriggersEdit={shouldContentHaveEditEvents()}
           hasButtons={onEdit || onDelete || onUndo}
           fullWidth={editContentFullWidth}

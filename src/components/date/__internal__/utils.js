@@ -1,7 +1,7 @@
 import { format, formatISO, isMatch, parse, parseISO } from "date-fns/fp";
 
 export function parseDate(formatString, valueString) {
-  if (!valueString || !formatString) return "";
+  if (!valueString || !formatString) return null;
 
   return parse(new Date(), formatString, valueString);
 }
