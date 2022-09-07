@@ -6,7 +6,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 const TestComponent = () => {
   const l = useLocale();
 
-  return `${l.locale()}-${l.actions.delete()}-${l.actions.edit()}`;
+  return <>{`${l.locale()}-${l.actions.delete()}-${l.actions.edit()}`}</>;
 };
 
 describe("I18nProvider", () => {
@@ -23,7 +23,10 @@ describe("I18nProvider", () => {
   it("uses locale", () => {
     const wrapper = mount(
       <I18nProvider
-        locale={{ locale: () => "fr-FR", actions: { delete: () => "Effacer" } }}
+        locale={{
+          locale: () => "fr-FR",
+          actions: { delete: () => "Effacer", edit: () => "Edit" },
+        }}
       >
         <TestComponent />
       </I18nProvider>
