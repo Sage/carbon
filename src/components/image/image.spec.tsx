@@ -29,36 +29,33 @@ describe("Image", () => {
   });
 
   describe("prop types", () => {
-    beforeEach(() => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
-    });
+    const mockGlobal = jest
+      .spyOn(global.console, "error")
+      .mockImplementation(() => undefined);
 
     afterEach(() => {
-      global.console.error.mockReset();
+      mockGlobal.mockReset();
     });
 
     it("throws an error when `children` and `src` are passed", () => {
-      mount(
-        <Image src="foo.jpg" alt="foo">
-          foo
-        </Image>
-      );
-      expect(console.error).toHaveBeenCalled();
+      const errorMessage =
+        "The 'Image' component renders as an 'img' element when the 'src' prop is used and therefore does not accept children.";
+      expect(() => {
+        mount(
+          <Image src="foo.jpg" alt="foo">
+            foo
+          </Image>
+        );
+      }).toThrow(errorMessage);
     });
 
     it("throws an error when `src` is passed and no `alt` provided", () => {
-      mount(<Image src="foo.jpg" />);
-      expect(console.error).toHaveBeenCalled();
-    });
+      const errorMessage =
+        "Please provide an 'alt' string when rendering the 'Image' component as an 'img' element.";
 
-    it("does not throw an error when `src` is passed and `alt` provided", () => {
-      mount(<Image src="foo.jpg" alt="foo" />);
-      expect(console.error).not.toHaveBeenCalled();
-    });
-
-    it("throws an error when `children` is passed and no `src` provided", () => {
-      mount(<Image backgroundImage="url('foo.jpg')">foo</Image>);
-      expect(console.error).not.toHaveBeenCalled();
+      expect(() => {
+        mount(<Image src="foo.jpg" />);
+      }).toThrow(errorMessage);
     });
   });
 });
