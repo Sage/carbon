@@ -1,11 +1,16 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { MarginProps } from "styled-system";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import { Input, InputPresentation } from "../../__internal__/input";
+import {
+  Input,
+  InputPresentation,
+  CommonInputProps,
+} from "../../__internal__/input";
+import { ValidationProps } from "../../__internal__/validations";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import FormField from "../../__internal__/form-field";
+import { IconType } from "../icon";
 import useUniqueId from "../../__internal__/utils/helpers/useUniqueId";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
@@ -17,11 +22,102 @@ import ValidationMessage from "../../__internal__/validation-message";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 import NumeralDateContext from "../numeral-date/numeral-date-context";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+export interface CommonTextboxProps
+  extends ValidationProps,
+    MarginProps,
+    Omit<CommonInputProps, "size"> {
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role"?: string;
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint?: number;
+  /** Integer to determine a timeout for the deferred callback */
+  deferTimeout?: number;
+  /** Help content to be displayed under an input */
+  fieldHelp?: React.ReactNode;
+  /**
+   * An optional alternative for props.value, this is useful if the
+   * real value is an ID but you want to show a human-readable version.
+   */
+  formattedValue?: string;
+  /** Unique identifier for the input. Will use a randomly generated GUID if none is provided */
+  id?: string;
+  /** Type of the icon that will be rendered next to the input */
+  inputIcon?: IconType;
+  /** Optional handler for click event on Textbox icon */
+  iconOnClick?: (
+    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+  ) => void;
+  /** Optional handler for mouse down event on Textbox icon */
+  iconOnMouseDown?: (ev: React.MouseEvent<HTMLElement>) => void;
+  /** Overrides the default tabindex of the component */
+  iconTabIndex?: number;
+  /** The width of the input as a percentage */
+  inputWidth?: number;
+  /** Additional child elements to display before the input */
+  leftChildren?: React.ReactNode;
+  /** Label content */
+  label?: string;
+  /** Inline label alignment */
+  labelAlign?: "left" | "right";
+  /** A message that the Help component will display */
+  labelHelp?: React.ReactNode;
+  /** When true label is inline */
+  labelInline?: boolean;
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing?: 1 | 2;
+  /** Label width */
+  labelWidth?: number;
+  /** Specify a callback triggered on change */
+  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  /** Deferred callback to be called after the onChange event */
+  onChangeDeferred?: () => void;
+  /** Specify a callback triggered on click */
+  onClick?: (
+    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+  ) => void;
+  /** Event handler for the focus event */
+  onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
+  /** Event handler for the blur event */
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
+  /** Event handler for the mouse down event */
+  onMouseDown?: (ev: React.MouseEvent<HTMLElement>) => void;
+  /** Emphasized part of the displayed text */
+  prefix?: string;
+  /** Reverses label and input display */
+  reverse?: boolean;
+  /** Size of an input */
+  size?: "small" | "medium" | "large";
+  /** When true, validation icon will be placed on label instead of being placed on the input */
+  validationOnLabel?: boolean;
+  /** Overrides the default tooltip position */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /** Aria label for rendered help component */
+  helpAriaLabel?: string;
+}
 
-const Textbox = ({
+// TODO: Change characterLimit type to number - batch with other breaking changes
+export interface TextboxProps extends CommonTextboxProps {
+  /** Content to be rendered next to the input */
+  children?: React.ReactNode;
+  /** [Legacy] Flag to configure component as optional in Form */
+  isOptional?: boolean;
+  /** Container for DatePicker or SelectList components */
+  positionedChildren?: React.ReactNode;
+  /** Label id passed from Select component */
+  labelId?: string;
+  /** Character limit of the textarea */
+  characterLimit?: string | number;
+  /** Stop the user typing over the characterLimit */
+  enforceCharacterLimit?: boolean;
+  /** Whether to display the character count message in red */
+  warnOverLimit?: boolean;
+}
+
+export const Textbox = ({
   align,
   autoFocus,
   children,
@@ -42,7 +138,7 @@ const Textbox = ({
   info,
   name,
   reverse,
-  size,
+  size = "medium",
   value,
   readOnly,
   placeholder,
@@ -58,8 +154,8 @@ const Textbox = ({
   iconOnClick,
   iconOnMouseDown,
   iconTabIndex,
-  validationOnLabel,
-  labelWidth,
+  validationOnLabel = false,
+  labelWidth = 30,
   inputWidth,
   prefix,
   adaptiveLabelBreakpoint,
@@ -74,16 +170,20 @@ const Textbox = ({
   warnOverLimit = false,
   helpAriaLabel,
   ...props
-}) => {
+}: TextboxProps) => {
+  const characterCountValue = typeof value === "string" ? value : "";
   const [maxLength, characterCount] = useCharacterCount(
-    value,
-    characterLimit,
+    characterCountValue,
+    // TODO: Can be removed after the characterLimit type is changed to number
+    typeof characterLimit === "string"
+      ? parseInt(characterLimit, 10)
+      : characterLimit,
     warnOverLimit,
     enforceCharacterLimit
   );
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const { disableErrorBorder } = useContext(NumeralDateContext);
-  const computeLabelPropValues = (prop) =>
+  const computeLabelPropValues = <T,>(prop: T): undefined | T =>
     validationRedesignOptIn ? undefined : prop;
 
   const [uniqueId, uniqueName] = useUniqueId(id, name);
@@ -99,7 +199,6 @@ const Textbox = ({
     warning,
     info,
     label,
-    labelHelp,
     fieldHelp,
   });
 
@@ -192,7 +291,9 @@ const Textbox = ({
               onMouseDown={onMouseDown}
               placeholder={disabled || readOnly ? "" : placeholder}
               readOnly={readOnly}
-              value={visibleValue(value, formattedValue)}
+              value={
+                typeof formattedValue === "string" ? formattedValue : value
+              }
               maxLength={maxLength}
               {...props}
             />
@@ -224,151 +325,4 @@ const Textbox = ({
   );
 };
 
-function visibleValue(value, formattedValue) {
-  return typeof formattedValue === "string" ? formattedValue : value;
-}
-
-Textbox.propTypes = {
-  /** Filtered styled system margin props */
-  ...marginPropTypes,
-  /** Automatically focus the input on component mount */
-  autoFocus: PropTypes.bool,
-  /* The default value alignment on the input */
-  align: PropTypes.oneOf(["right", "left"]),
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component": PropTypes.string,
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element": PropTypes.string,
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role": PropTypes.string,
-  /**
-   * An optional alternative for props.value, this is useful if the
-   * real value is an ID but you want to show a human-readable version.
-   */
-  formattedValue: PropTypes.string,
-  /** The value of the Textbox */
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-    PropTypes.array, // Allows the textbox to be used in the Multi-Select component
-  ]),
-  /** The unformatted value  */
-  rawValue: PropTypes.string,
-  /** If true, the component will be disabled */
-  disabled: PropTypes.bool,
-  /** If true, the component will be read-only */
-  readOnly: PropTypes.bool,
-  /** Event handler for the change event */
-  onChange: PropTypes.func,
-  /** Event handler for the focus event */
-  onFocus: PropTypes.func,
-  /** Event handler for the blur event */
-  onBlur: PropTypes.func,
-  /** Event handler for the mouse down event */
-  onMouseDown: PropTypes.func,
-  /** Deferred callback called after the onChange event */
-  onChangeDeferred: PropTypes.func,
-  /** Integer to determine timeout for deferred callback */
-  deferTimeout: PropTypes.number,
-  /** Unique identifier for the input. Will use a randomly generated GUID if none is provided */
-  id: PropTypes.string,
-  /** Label */
-  label: PropTypes.string,
-  /** Inline label alignment */
-  labelAlign: PropTypes.oneOf(["left", "right"]),
-  /** Text applied to label help tooltip */
-  labelHelp: PropTypes.node,
-  /** When true, label is placed in line an input */
-  labelInline: PropTypes.bool,
-  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
-  labelSpacing: PropTypes.oneOf([1, 2]),
-  /** Width of a label in percentage. Works only when labelInline is true */
-  labelWidth: PropTypes.number,
-  /** Width of an input in percentage. Works only when labelInline is true */
-  inputWidth: PropTypes.number,
-  /** Input name */
-  name: PropTypes.string,
-  /** Help content to be displayed under an input */
-  fieldHelp: PropTypes.node,
-  /** Type of the icon that will be rendered next to the input */
-  children: PropTypes.node,
-  /**
-   * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
-   *
-   * Icon to display inside of the Textbox
-   * */
-  inputIcon: PropTypes.string,
-  /** Additional child elements to display before the input */
-  leftChildren: PropTypes.node,
-  /** [Legacy] Flag to configure component as optional in Form */
-  isOptional: PropTypes.bool,
-  /** Indicate that error has occurred
-  Pass string to display icon, tooltip and red border
-  Pass true boolean to only display red border */
-  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  /** Indicate that warning has occurred
-  Pass string to display icon, tooltip and orange border
-  Pass true boolean to only display orange border */
-  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  /** Indicate additional information
-  Pass string to display icon, tooltip and blue border
-  Pass true boolean to only display blue border */
-  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  /** When true, validation icon will be placed on label instead of being placed on the input */
-  validationOnLabel: PropTypes.bool,
-  /** Size of an input */
-  size: PropTypes.oneOf(["small", "medium", "large"]),
-  /** Placeholder string to be displayed in input */
-  placeholder: PropTypes.string,
-  /**
-   * Container for DatePicker or SelectList components
-   * @private
-   * @ignore
-   *
-   */
-  positionedChildren: PropTypes.node,
-  /**
-   * Label id passed from Select component
-   * @private
-   * @ignore
-   *
-   */
-  labelId: PropTypes.string,
-  /** Optional handler for click event on Textbox icon */
-  iconOnClick: PropTypes.func,
-  /** Optional handler for mousedown event on Textbox icon */
-  iconOnMouseDown: PropTypes.func,
-  /** Overrides the default tabindex of the component */
-  iconTabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Handler for onClick events */
-  onClick: PropTypes.func,
-  /** Emphasized part of the displayed text */
-  prefix: PropTypes.string,
-  /** Reverses label and input display */
-  reverse: PropTypes.bool,
-  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
-  adaptiveLabelBreakpoint: PropTypes.number,
-  /** Flag to configure component as required */
-  required: PropTypes.bool,
-  /** A callback to retrieve the input reference */
-  inputRef: PropTypes.func,
-  /** Overrides the default tooltip position */
-  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
-  /** Stop the user typing over the characterLimit */
-  enforceCharacterLimit: PropTypes.bool,
-  /** Character limit of the textarea */
-  characterLimit: PropTypes.string,
-  /** Whether to display the character count message in red */
-  warnOverLimit: PropTypes.bool,
-  /** Aria label for rendered help component */
-  helpAriaLabel: PropTypes.string,
-};
-
-Textbox.defaultProps = {
-  labelWidth: 30,
-  size: "medium",
-  validationOnLabel: false,
-};
-
-export { Textbox as OriginalTextbox };
 export default Textbox;

@@ -1,3 +1,38 @@
+## [110.3.0](https://github.com/Sage/carbon/compare/v110.2.4...v110.3.0) (2022-09-06)
+
+
+### Features
+
+* **scrollable-block:** add parent prop and fix rendered HTML ([c7537f0](https://github.com/Sage/carbon/commit/c7537f012a88e86ec727000bd5e1b89e56112168))
+
+### [110.2.4](https://github.com/Sage/carbon/compare/v110.2.3...v110.2.4) (2022-09-05)
+
+
+### Bug Fixes
+
+* **definition-list:** ensure component has valid displayName ([84ad499](https://github.com/Sage/carbon/commit/84ad4995b6ec5fc698ea0bcca267d2cbff7952ef))
+
+### [110.2.3](https://github.com/Sage/carbon/compare/v110.2.2...v110.2.3) (2022-09-05)
+
+
+### Bug Fixes
+
+* **flat-table-row:** allow click actions inside interactive row ([536ec5a](https://github.com/Sage/carbon/commit/536ec5a2c393dd906dcaf6939ce5c1dc3e459b72)), closes [#5402](https://github.com/Sage/carbon/issues/5402)
+
+### [110.2.2](https://github.com/Sage/carbon/compare/v110.2.1...v110.2.2) (2022-09-02)
+
+
+### Bug Fixes
+
+* **popover-container:** remove incorrect role attribute ([dfc9ac1](https://github.com/Sage/carbon/commit/dfc9ac1668f3353fa25b0f066610514ccbf4e8d9))
+
+### [110.2.1](https://github.com/Sage/carbon/compare/v110.2.0...v110.2.1) (2022-09-01)
+
+
+### Bug Fixes
+
+* **select:** ensure select list always has correct height to fit content ([f1d966b](https://github.com/Sage/carbon/commit/f1d966bb96645d91fa989f3f40fb2fd8173e8951)), closes [#5341](https://github.com/Sage/carbon/issues/5341)
+
 ## [110.2.0](https://github.com/Sage/carbon/compare/v110.1.3...v110.2.0) (2022-08-30)
 
 

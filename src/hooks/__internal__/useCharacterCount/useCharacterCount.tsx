@@ -6,26 +6,28 @@ const getFormatNumber = (value: number, locale: string) =>
   new Intl.NumberFormat(locale).format(value);
 
 const useCharacterCount = (
-  value: string,
-  characterLimit?: string,
+  value = "",
+  characterLimit?: number,
   warnOverLimit = false,
   enforceCharacterLimit = true
-): [string | undefined, JSX.Element | null] => {
+): [number | undefined, JSX.Element | null] => {
+  const isCharacterLimitValid =
+    typeof characterLimit === "number" && !Number.isNaN(characterLimit);
   const l = useLocale();
   const isOverLimit = useMemo(() => {
-    if (value && characterLimit) {
-      return value.length > parseInt(characterLimit, 10);
+    if (value && isCharacterLimitValid) {
+      return value.length > characterLimit;
     }
     return false;
-  }, [value, characterLimit]);
+  }, [value, characterLimit, isCharacterLimitValid]);
 
   return [
-    enforceCharacterLimit && characterLimit ? characterLimit : undefined,
-    characterLimit ? (
+    enforceCharacterLimit && isCharacterLimitValid ? characterLimit : undefined,
+    isCharacterLimitValid ? (
       <CharacterCount
         isOverLimit={isOverLimit && warnOverLimit}
         value={getFormatNumber(value.length, l.locale())}
-        limit={getFormatNumber(+characterLimit, l.locale())}
+        limit={getFormatNumber(characterLimit, l.locale())}
         data-element="character-limit"
       />
     ) : null,

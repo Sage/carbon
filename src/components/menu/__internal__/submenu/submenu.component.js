@@ -50,7 +50,13 @@ const Submenu = React.forwardRef(
     const [characterString, setCharacterString] = useState("");
     const formattedChildren = React.Children.map(children, (child) => {
       if (child.type === ScrollableBlock) {
-        return [...child.props.children];
+        const blockChildren = [...child.props.children];
+
+        if (child.props.parent) {
+          blockChildren.unshift(<MenuItem>{child.props.parent}</MenuItem>);
+        }
+
+        return blockChildren;
       }
 
       return child;
@@ -62,6 +68,19 @@ const Submenu = React.forwardRef(
       () => React.Children.count(formattedChildren),
       [formattedChildren]
     );
+
+    const blockIndex = useMemo(() => {
+      const childrenArray = React.Children.toArray(children);
+      let index = childrenArray.findIndex(
+        (item) => item.type === ScrollableBlock
+      );
+
+      if (childrenArray[index]?.props.parent) {
+        index += 1;
+      }
+
+      return index;
+    }, [children]);
 
     const characterTimer = useRef();
 
@@ -289,9 +308,7 @@ const Submenu = React.forwardRef(
                   isFocused: submenuFocusIndex === index,
                   focusIndex: submenuFocusIndex,
                   handleKeyDown,
-                  blockIndex: React.Children.toArray(children).findIndex(
-                    (item) => item.type === ScrollableBlock
-                  ),
+                  blockIndex,
                 }}
               >
                 {child}
@@ -338,7 +355,7 @@ const Submenu = React.forwardRef(
             submenuDirection={submenuDirection}
             variant={variant}
             menuType={menuContext.menuType}
-            role="list"
+            role={blockIndex === 0 ? "presentation" : "list"}
           >
             {React.Children.map(children, (child, index) => (
               <SubmenuContext.Provider
@@ -346,9 +363,7 @@ const Submenu = React.forwardRef(
                   isFocused: !blockDoubleFocus && submenuFocusIndex === index,
                   focusIndex: submenuFocusIndex,
                   handleKeyDown,
-                  blockIndex: React.Children.toArray(children).findIndex(
-                    (item) => item.type === ScrollableBlock
-                  ),
+                  blockIndex,
                   updateFocusIndex: setSubmenuFocusIndex,
                   itemIndex: child.type === MenuItem ? index : undefined,
                 }}

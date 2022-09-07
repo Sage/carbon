@@ -1,5 +1,6 @@
 import React from "react";
 
+import Box from "../../box";
 import { Select, Option } from "..";
 
 export default {
@@ -83,22 +84,16 @@ export default {
 
 const Template = (args) => {
   return (
-    <Select name="simple" id="simple" label="label" labelInline {...args}>
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="White" value="4" />
-      <Option text="Green" value="5" />
-      <Option
-        text="Like a lot of intelligent animals, most crows are quite social. 
-        For instance, American crows spend most of the year living in pairs or small family groups.
-        During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night"
-        value="6"
-      />
-      <Option text="Pink" value="7" />
-      <Option text="Red" value="8" />
-      <Option text="Yellow" value="9" />
-    </Select>
+    <Box width={400}>
+      <Select name="simple" id="simple" label="label" labelInline {...args}>
+        <Option
+          text="Like a lot of intelligent animals, most crows are quite social. 
+          For instance, American crows spend most of the year living in pairs or small family groups.
+          During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night."
+          value="1"
+        />
+      </Select>
+    </Box>
   );
 };
 

@@ -1,8 +1,7 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 
 const ErrorBorder = styled.span`
-  ${({ warning }) =>
+  ${({ warning }: { warning: boolean }) =>
     css`
       position: absolute;
       z-index: 6;
@@ -22,19 +21,5 @@ const StyledHintText = styled.p`
   color: var(--colorsUtilityYin055);
   font-size: 14px;
 `;
-
-StyledHintText.defaultProps = {
-  size: "medium",
-};
-
-ErrorBorder.propTypes = {
-  warning: PropTypes.bool,
-  size: PropTypes.string,
-};
-
-ErrorBorder.defaultProps = {
-  warning: false,
-  size: "medium",
-};
 
 export { StyledHintText, ErrorBorder };
