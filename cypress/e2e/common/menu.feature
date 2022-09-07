@@ -109,6 +109,17 @@ Feature: Menu component
     Then Search component input icon should be focused
 
   @positive
+  Scenario: Check that the Search component is focusable by using the downarrow key when rendered as the parent of a scrollable submenu
+    Given I open "Menu" component page "scrollable submenu with parent item"
+      And I click onto root in Test directory
+      And I hit Tab key 3 times
+      And I wait 50
+      And I press "Enter" onto focused element
+      And I wait 50
+    When I press keyboard "downarrow" key times 1
+    Then Search component input should be focused
+
+  @positive
   Scenario: Check that the fullscreen menu is rendered properly
     When I open "Menu Test" component page "menu-full-screen-story"
     Then Menu is in fullscreen mode

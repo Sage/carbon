@@ -23,4 +23,5 @@ const Dt = ({ children, ...rest }: DtProps) => {
   );
 };
 
+Dt.displayName = "Dt";
 export default Dt;

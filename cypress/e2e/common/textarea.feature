@@ -90,7 +90,6 @@ Feature: Textarea component
       | characterLimit               | nameOfObject                   |
       | mp150ú¿¡üßä                  | characterLimitOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | characterLimitSpecialCharacter |
-      | -0,112                       | characterLimit-0,112           |
       | 0.1112333                    | characterLimit0.1112333        |
 
   @positive

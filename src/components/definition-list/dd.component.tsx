@@ -16,4 +16,5 @@ const Dd = ({ children, ...rest }: DdProps) => {
   );
 };
 
+Dd.displayName = "Dd";
 export default Dd;
