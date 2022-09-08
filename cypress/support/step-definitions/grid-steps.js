@@ -1,6 +1,6 @@
 import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
-import { pod, gridPod, gridComponent } from "../../locators/grid";
+import { pod, gridItem, gridComponent } from "../../locators/grid";
 
 Then("pod {int} is {string}", (index, title) => {
   pod(index).should("have.text", title);
@@ -34,28 +34,27 @@ When("I resize grid viewport to {string}", (sizeOfViewport) => {
 });
 
 Then(
-  "pod {int} has height from row {string} to row {string}",
+  "grid item {int} has height from row {string} to row {string}",
   (index, rowStart, rowEnd) => {
-    if (index === 1) {
-      gridPod(index).should("have.css", "grid-row", "auto / auto");
-    } else {
-      gridPod(index).should("have.css", "grid-row", `${rowStart} / ${rowEnd}`);
-    }
+    gridItem(index).should("have.css", "grid-row", `${rowStart} / ${rowEnd}`);
   }
 );
 
 Then(
-  "pod {int} has width from column {int} to column {int}",
+  "grid item {int} has height from row {int} to row {int}",
+  (index, rowStart, rowEnd) => {
+    gridItem(index).should("have.css", "grid-row", `${rowStart} / ${rowEnd}`);
+  }
+);
+
+Then(
+  "grid item {int} has width from column {int} to column {int}",
   (index, colStart, colEnd) => {
-    if (index === 1) {
-      gridPod(index).should("have.css", "grid-column", "auto / auto");
-    } else {
-      gridPod(index).should(
-        "have.css",
-        "grid-column",
-        `${colStart} / ${colEnd}`
-      );
-    }
+    gridItem(index).should(
+      "have.css",
+      "grid-column",
+      `${colStart} / ${colEnd}`
+    );
   }
 );
 
