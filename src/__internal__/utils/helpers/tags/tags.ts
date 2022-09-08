@@ -1,18 +1,24 @@
 interface DataProps {
+  /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-element"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-role"?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [restKeys: string]: any;
 }
 
 export interface TagProps extends DataProps {
-  "data-component": string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-component"?: string;
 }
 
 /**
  * Builds props object containing top level data tags
  */
-function tagComponent(componentName: string, props: DataProps): TagProps {
+function tagComponent(
+  componentName: string | undefined,
+  props: DataProps
+): TagProps {
   const tagProps: TagProps = {
     "data-component": componentName,
   };
