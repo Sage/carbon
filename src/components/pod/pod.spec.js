@@ -24,7 +24,6 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../__internal__/utils/helpers/tags/tags-specs";
-import LocaleContext from "../../__internal__/i18n-context";
 
 const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 
@@ -430,7 +429,7 @@ describe("Pod", () => {
         />
       );
 
-      elementsTagTest(tagWrapper.find(LocaleContext.Consumer).dive(), ["edit"]);
+      elementsTagTest(tagWrapper.find(StyledEditAction), ["edit"]);
       elementsTagTest(tagWrapper, ["footer", "subtitle", "title"]);
     });
   });

@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
-
 import { MarginProps } from "styled-system";
+import useLocale from "../../hooks/__internal__/useLocale";
+
 import {
   StyledBlock,
   StyledContent,
@@ -18,7 +19,6 @@ import Icon from "../icon";
 
 import Event from "../../__internal__/utils/helpers/events";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
-import LocaleContext from "../../__internal__/i18n-context";
 
 export interface PodProps extends MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -106,6 +106,7 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
     const [isUndoFocused, setUndoFocused] = useState(false);
     const [isUndoHovered, setUndoHovered] = useState(false);
 
+    const l = useLocale();
     const shouldContentHaveEditEvents = useMemo(
       () => !!(onEdit && (triggerEditOnContent || displayEditButtonOnHover)),
       [displayEditButtonOnHover, onEdit, triggerEditOnContent]
@@ -138,83 +139,6 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
         onClick: processPodAction(onEdit),
         onKeyDown: processPodAction(onEdit),
       }),
-    };
-
-    const actionButtons = () => {
-      if (softDelete && onUndo) {
-        return (
-          <StyledActionsContainer internalEditButton={internalEditButton}>
-            <StyledUndoButton
-              onMouseEnter={() => setUndoHovered(true)}
-              onMouseLeave={() => setUndoHovered(false)}
-              onFocus={() => setUndoFocused(true)}
-              onBlur={() => setUndoFocused(false)}
-              data-element="undo-container"
-              internalEditButton={internalEditButton}
-              isFocused={isUndoFocused}
-              isHovered={isUndoHovered}
-              noBorder={!border}
-              size={size}
-              variant={variant}
-              onAction={processPodAction(onUndo)}
-            >
-              <Icon type="undo" />
-            </StyledUndoButton>
-          </StyledActionsContainer>
-        );
-      }
-
-      if (!softDelete && (onDelete || onEdit)) {
-        return (
-          <StyledActionsContainer internalEditButton={internalEditButton}>
-            {onEdit && (
-              <LocaleContext.Consumer>
-                {(l) => (
-                  <div {...editEvents} data-element="edit-container">
-                    <StyledEditAction
-                      data-element="edit"
-                      displayOnlyOnHover={displayEditButtonOnHover}
-                      icon="edit"
-                      internalEditButton={internalEditButton}
-                      isFocused={isEditFocused}
-                      isHovered={isEditHovered}
-                      noBorder={!border}
-                      size={size}
-                      variant={variant}
-                      {...(typeof onEdit === "string"
-                        ? { href: onEdit }
-                        : onEdit)}
-                    >
-                      {l.actions.edit()}
-                    </StyledEditAction>
-                  </div>
-                )}
-              </LocaleContext.Consumer>
-            )}
-            {onDelete && (
-              <StyledDeleteButton
-                onMouseEnter={() => setDeleteHovered(true)}
-                onMouseLeave={() => setDeleteHovered(false)}
-                onFocus={() => setDeleteFocused(true)}
-                onBlur={() => setDeleteFocused(false)}
-                data-element="delete"
-                internalEditButton={internalEditButton}
-                displayOnlyOnHover={displayEditButtonOnHover}
-                isFocused={isDeleteFocused}
-                isHovered={isDeleteHovered}
-                noBorder={!border}
-                size={size}
-                variant={variant}
-                onAction={processPodAction(onDelete)}
-              >
-                <Icon type="delete" />
-              </StyledDeleteButton>
-            )}
-          </StyledActionsContainer>
-        );
-      }
-
-      return null;
     };
 
     return (
@@ -272,7 +196,68 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
             </StyledFooter>
           )}
         </StyledBlock>
-        {actionButtons()}
+        {(onEdit || onDelete || onUndo) && (
+          <StyledActionsContainer
+            data-element="action-button-container"
+            internalEditButton={internalEditButton}
+          >
+            {softDelete && onUndo && (
+              <StyledUndoButton
+                onMouseEnter={() => setUndoHovered(true)}
+                onMouseLeave={() => setUndoHovered(false)}
+                onFocus={() => setUndoFocused(true)}
+                onBlur={() => setUndoFocused(false)}
+                data-element="undo-container"
+                internalEditButton={internalEditButton}
+                isFocused={isUndoFocused}
+                isHovered={isUndoHovered}
+                noBorder={!border}
+                size={size}
+                variant={variant}
+                onAction={processPodAction(onUndo)}
+              >
+                <Icon type="undo" />
+              </StyledUndoButton>
+            )}
+            {!softDelete && onEdit && (
+              <div {...editEvents} data-element="edit-container">
+                <StyledEditAction
+                  data-element="edit"
+                  displayOnlyOnHover={displayEditButtonOnHover}
+                  icon="edit"
+                  internalEditButton={internalEditButton}
+                  isFocused={isEditFocused}
+                  isHovered={isEditHovered}
+                  noBorder={!border}
+                  size={size}
+                  variant={variant}
+                  {...(typeof onEdit === "string" ? { href: onEdit } : onEdit)}
+                >
+                  {l.actions.edit()}
+                </StyledEditAction>
+              </div>
+            )}
+            {!softDelete && onDelete && (
+              <StyledDeleteButton
+                onMouseEnter={() => setDeleteHovered(true)}
+                onMouseLeave={() => setDeleteHovered(false)}
+                onFocus={() => setDeleteFocused(true)}
+                onBlur={() => setDeleteFocused(false)}
+                data-element="delete"
+                internalEditButton={internalEditButton}
+                displayOnlyOnHover={displayEditButtonOnHover}
+                isFocused={isDeleteFocused}
+                isHovered={isDeleteHovered}
+                noBorder={!border}
+                size={size}
+                variant={variant}
+                onAction={processPodAction(onDelete)}
+              >
+                <Icon type="delete" />
+              </StyledDeleteButton>
+            )}
+          </StyledActionsContainer>
+        )}
       </StyledPod>
     );
   }
