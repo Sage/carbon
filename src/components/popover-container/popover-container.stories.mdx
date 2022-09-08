@@ -1,5 +1,10 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import PopoverContainer from "./popover-container.component";
+import { ArgsTable as Props } from "@storybook/addon-docs";
+
+import PopoverContainer, {
+  renderOpen,
+  renderClose,
+} from "./popover-container.component";
 import { DraggableContainer, DraggableItem } from "../draggable";
 import { Checkbox } from "../checkbox";
 import ButtonToggle from "../button-toggle";
@@ -136,6 +141,16 @@ Use the `shouldCoverButton` prop to hide the open button when the `PopoverContai
 ### Custom Open/Close Button
 
 Use the `renderOpenComponent` and `renderCloseComponent` to render your own open or close buttons.
+
+These props use a render prop pattern - https://reactjs.org/docs/render-props.html
+
+##### Props passed through renderOpenComponent:
+
+<Props of={renderOpen} />
+
+##### Props passed through renderCloseComponent:
+
+<Props of={renderClose} />
 
 <Canvas>
   <Story name="render props" parameters={{ info: { disable: true } }}>
