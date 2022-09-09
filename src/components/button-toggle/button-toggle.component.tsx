@@ -1,4 +1,5 @@
 import React, { useContext, useRef } from "react";
+import invariant from "invariant";
 import {
   StyledButtonToggle,
   StyledButtonToggleLabel,
@@ -16,8 +17,8 @@ import { InputGroupContext } from "../../__internal__/input-behaviour";
 export interface ButtonToggleProps
   extends ButtonToggleInputProps,
     Partial<StyledButtonToggleLabelProps> {
-  /** A required prop. This is the button text. */
-  children: React.ReactNode;
+  /** Text to display for the button. */
+  children?: React.ReactNode;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -32,26 +33,30 @@ export interface ButtonToggleProps
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
 }
 
-export const ButtonToggle = (props: ButtonToggleProps) => {
-  const {
-    "aria-label": ariaLabel,
-    "aria-labelledby": ariaLabelledBy,
-    buttonIcon,
-    buttonIconSize = "small",
-    checked,
-    children,
-    "data-component": dataComponent,
-    "data-element": dataElement,
-    "data-role": dataRole,
-    disabled,
-    grouped,
-    name,
-    onBlur,
-    onChange,
-    onFocus,
-    size = "medium",
-    value,
-  } = props;
+export const ButtonToggle = ({
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
+  buttonIcon,
+  buttonIconSize = "small",
+  checked,
+  children,
+  "data-component": dataComponent,
+  "data-element": dataElement,
+  "data-role": dataRole,
+  disabled,
+  grouped,
+  name,
+  onBlur,
+  onChange,
+  onFocus,
+  size = "medium",
+  value,
+}: ButtonToggleProps) => {
+  invariant(
+    !!(children || buttonIcon),
+    "Either prop `buttonIcon` must be defined, or this node must have children"
+  );
+
   const { onMouseEnter, onMouseLeave } = useContext(InputGroupContext);
 
   const inputGuid = guid();

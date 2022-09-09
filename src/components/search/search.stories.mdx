@@ -177,6 +177,104 @@ In this example the `variant` prop is "dark" and no search button is present.
   </Story>
 </Canvas>
 
+### Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+#### As a string
+
+<Canvas>
+  <Story name="validations - string - component">
+    {() => {
+      const [state, setState] = useState({
+        error: "<foo>",
+        warning: "<foo>",
+        info: "<foo>",
+      });
+      const handleChange = (validation) => (e) => {
+        setState({ ...state, [validation]: e.target.value });
+      };
+      return ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-component`}>
+          <Search
+            label="Search"
+            value={state[validationType]}
+            onChange={handleChange(validationType)}
+            searchButton
+            {...{ [validationType]: "Invalid characters" }}
+          />
+        </div>
+      ));
+    }}
+  </Story>
+</Canvas>
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Canvas>
+  <Story
+    name="validations - string - with tooltipPosition overriden - component"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    {() => {
+      const [state, setState] = useState({
+        error: "<foo>",
+        warning: "<foo>",
+        info: "<foo>",
+      });
+      const handleChange = (validation) => (e) => {
+        setState({ ...state, [validation]: e.target.value });
+      };
+      return ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-string-component`}>
+          <Search
+            label="Search"
+            value={state[validationType]}
+            onChange={handleChange(validationType)}
+            searchButton
+            {...{ [validationType]: "Invalid characters" }}
+            tooltipPosition="bottom"
+          />
+        </div>
+      ));
+    }}
+  </Story>
+</Canvas>
+
+#### As a boolean
+
+<Canvas>
+  <Story name="validations - boolean">
+    {() => {
+      const [state, setState] = useState({
+        error: "<foo>",
+        warning: "<foo>",
+        info: "<foo>",
+      });
+      const handleChange = (validation) => (e) => {
+        setState({ ...state, [validation]: e.target.value });
+      };
+      return ["error", "warning", "info"].map((validationType) => (
+        <div key={`${validationType}-boolean-component`}>
+          <Search
+            label="Search"
+            value={state[validationType]}
+            searchButton
+            onChange={handleChange(validationType)}
+            {...{ [validationType]: true }}
+          />
+        </div>
+      ));
+    }}
+  </Story>
+</Canvas>
+
 ## Props
 
 ### Search
