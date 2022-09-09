@@ -1,3 +1,10 @@
+## [110.5.0](https://github.com/Sage/carbon/compare/v110.4.1...v110.5.0) (2022-09-09)
+
+
+### Features
+
+* **search:** add validation props ([04dad45](https://github.com/Sage/carbon/commit/04dad45336168ebdb45ad21f68f2f41fb306efd2)), closes [#5236](https://github.com/Sage/carbon/issues/5236)
+
 ### [110.4.1](https://github.com/Sage/carbon/compare/v110.4.0...v110.4.1) (2022-09-07)
 
 
