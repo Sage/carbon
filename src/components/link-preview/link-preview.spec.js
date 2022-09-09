@@ -9,7 +9,10 @@ import {
   StyledDescription,
   StyledUrl,
 } from "./link-preview.style";
-import PreviewBars, { StyledPreview } from "../preview/preview.style";
+import {
+  StyledPreview,
+  StyledPreviewPlaceholder,
+} from "../preview/preview.style";
 import Image from "../image";
 import Placeholder from "./__internal__/placeholder.component";
 import StyledIconButton from "../icon-button/icon-button.style";
@@ -51,7 +54,7 @@ describe("LinkPreview", () => {
           marginTop: "8px",
         },
         wrapper.find(StyledPreviewWrapper),
-        { modifier: `${PreviewBars}:first-of-type` }
+        { modifier: `${StyledPreviewPlaceholder}:first-of-type` }
       );
 
       assertStyleMatch(
@@ -59,7 +62,7 @@ describe("LinkPreview", () => {
           marginTop: "16px",
         },
         wrapper.find(StyledPreviewWrapper),
-        { modifier: `${PreviewBars}:not(:first-of-type)` }
+        { modifier: `${StyledPreviewPlaceholder}:not(:first-of-type)` }
       );
     });
 

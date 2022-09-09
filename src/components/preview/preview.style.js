@@ -8,13 +8,13 @@ const shimmer = keyframes`
   100% { opacity:0.1 }
 `;
 
-const PreviewStyle = styled.span`
+export const StyledPreviewPlaceholder = styled.span`
   animation: ${shimmer} 2s ease infinite;
   background: var(--colorsUtilityMajor150);
   display: block;
-  height: 15px;
+  height: ${({ height }) => height || "15px"};
   opacity: 0.6;
-  width: 100%;
+  width: ${({ width }) => width || "100%"};
 
   & + & {
     margin-top: 3px;
@@ -28,5 +28,3 @@ export const StyledPreview = styled.div`
 StyledPreview.defaultProps = {
   theme: baseTheme,
 };
-
-export default PreviewStyle;

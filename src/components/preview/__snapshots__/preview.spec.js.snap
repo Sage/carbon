@@ -1,14 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Preview when given a width and height renders with the given width and height 1`] = `
+.c2 + .c0 {
+  margin-top: 3px;
+}
+
+.c3 + .c0 {
+  margin-top: 3px;
+}
+
 .c1 {
   -webkit-animation: blNbyL 2s ease infinite;
   animation: blNbyL 2s ease infinite;
   background: var(--colorsUtilityMajor150);
   display: block;
-  height: 15px;
+  height: 20px;
   opacity: 0.6;
-  width: 100%;
+  width: 10px;
 }
 
 .c1 + .c0 {
@@ -21,12 +29,8 @@ exports[`Preview when given a width and height renders with the given width and 
   <span
     className="c0 c1"
     data-component="preview"
-    style={
-      Object {
-        "height": "20px",
-        "width": "10px",
-      }
-    }
+    height="20px"
+    width="10px"
   />
 </div>
 `;
@@ -52,12 +56,6 @@ exports[`Preview when given children but a truthy loading prop will render the p
   <span
     className="c0 c1"
     data-component="preview"
-    style={
-      Object {
-        "height": undefined,
-        "width": undefined,
-      }
-    }
   />
 </div>
 `;
@@ -97,12 +95,6 @@ exports[`Preview when given no children will render the placeholder 1`] = `
   <span
     className="c0 c1"
     data-component="preview"
-    style={
-      Object {
-        "height": undefined,
-        "width": undefined,
-      }
-    }
   />
 </div>
 `;
@@ -122,38 +114,35 @@ exports[`Preview when multi line renders multi previews, the last being 80% widt
   margin-top: 3px;
 }
 
+.c2 {
+  -webkit-animation: blNbyL 2s ease infinite;
+  animation: blNbyL 2s ease infinite;
+  background: var(--colorsUtilityMajor150);
+  display: block;
+  height: 15px;
+  opacity: 0.6;
+  width: 80%;
+}
+
+.c2 + .c0 {
+  margin-top: 3px;
+}
+
 <div
   className=""
 >
   <span
     className="c0 c1"
     data-component="preview"
-    style={
-      Object {
-        "height": undefined,
-        "width": undefined,
-      }
-    }
   />
   <span
     className="c0 c1"
     data-component="preview"
-    style={
-      Object {
-        "height": undefined,
-        "width": undefined,
-      }
-    }
   />
   <span
-    className="c0 c1"
+    className="c0 c2"
     data-component="preview"
-    style={
-      Object {
-        "height": undefined,
-        "width": "80%",
-      }
-    }
+    width="80%"
   />
 </div>
 `;

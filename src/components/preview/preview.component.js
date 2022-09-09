@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
-import PreviewStyle, { StyledPreview } from "./preview.style";
+import { StyledPreview, StyledPreviewPlaceholder } from "./preview.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
@@ -41,9 +41,10 @@ function createPreview(allProps, index) {
   }
 
   return (
-    <PreviewStyle
+    <StyledPreviewPlaceholder
       key={index}
-      style={{ height, width }}
+      height={height}
+      width={width}
       {...tagComponent("preview", allProps)}
     />
   );
