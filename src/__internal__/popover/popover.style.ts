@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import baseTheme from "../../style/themes/base";
 
-const StyledBackdrop = styled.div`
+export const StyledBackdrop = styled.div`
   bottom: 0;
   left: 0;
   position: fixed;
@@ -15,4 +15,10 @@ StyledBackdrop.defaultProps = {
   theme: baseTheme,
 };
 
-export default StyledBackdrop;
+type StyledPopoverContentProps = {
+  isOpen?: boolean;
+};
+
+export const StyledPopoverContent = styled.div<StyledPopoverContentProps>`
+  ${({ isOpen }) => !isOpen && "display: none;"}
+`;

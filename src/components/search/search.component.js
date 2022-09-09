@@ -34,6 +34,10 @@ const Search = ({
   "aria-label": ariaLabel = "search",
   inputRef,
   tabIndex,
+  error,
+  warning,
+  info,
+  tooltipPosition,
   ...rest
 }) => {
   const isControlled = value !== undefined;
@@ -193,6 +197,10 @@ const Search = ({
         onKeyDown={handleKeyDown}
         inputRef={assignInput}
         tabIndex={tabIndex}
+        error={error}
+        warning={warning}
+        info={info}
+        tooltipPosition={tooltipPosition}
       />
       {searchButton && (
         <StyledSearchButton>
@@ -269,6 +277,20 @@ Search.propTypes = {
   inputRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   /** Input tabindex */
   tabIndex: PropTypes.number,
+  /** Indicate that error has occurred
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Overrides the default tooltip position */
+  tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
 };
 
 export default Search;

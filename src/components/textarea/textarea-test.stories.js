@@ -7,7 +7,6 @@ import specialCharacters, {
 import Textarea from ".";
 
 export default {
-  component: Textarea,
   title: "Textarea/Test",
   parameters: {
     info: { disable: true },
@@ -90,6 +89,11 @@ export default {
         type: "text",
       },
     },
+    characterLimit: {
+      control: {
+        type: "number",
+      },
+    },
   },
   args: {
     expandable: false,
@@ -100,7 +104,7 @@ export default {
     readOnly: false,
     placeholder: "",
     fieldHelp: "",
-    characterLimit: "",
+    characterLimit: undefined,
     inputWidth: 100,
     warnOverLimit: false,
     enforceCharacterLimit: true,
@@ -146,7 +150,7 @@ export const Default = ({
       label={label || labelSpecialCharacters}
       labelHelp={labelHelp || labelHelpSpecialCharacters}
       helpAriaLabel={labelHelp || labelHelpSpecialCharacters}
-      characterLimit={characterLimit || characterLimitSpecialCharacters}
+      characterLimit={characterLimit ?? characterLimitSpecialCharacters}
       fieldHelp={fieldHelp || fieldHelpSpecialCharacters}
     />
   );
