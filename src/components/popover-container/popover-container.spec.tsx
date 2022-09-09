@@ -143,9 +143,6 @@ describe("PopoverContainer", () => {
     expect(wrapper.find(PopoverContainerTitleStyle).props().id).toBe(
       "PopoverContainer_guid-123"
     );
-    expect(
-      wrapper.find(PopoverContainerWrapperStyle).prop("aria-labelledby")
-    ).toBe("PopoverContainer_guid-123");
   });
 
   it("should not set the id for `PopoverContainerTitleStyle` when title has no value", () => {
@@ -292,7 +289,7 @@ describe("PopoverContainer", () => {
 
       expect(openIcon.exists()).toBe(true);
       expect(openIcon.find(Icon).props()).toEqual({ type: "settings" });
-      expect(openIcon.prop("aria-haspopup")).toEqual(true);
+      expect(openIcon.prop("aria-haspopup")).toEqual("dialog");
       expect(openIcon.prop("tabIndex")).toEqual(0);
       expect(openIcon.prop("aria-label")).toEqual("PopoverContainerSettings");
     });
@@ -350,6 +347,8 @@ describe("PopoverContainer", () => {
             ref,
             onClick,
             id,
+            "aria-expanded": ariaExpanded,
+            "aria-haspopup": ariaHasPopup,
           }) => (
             <MyOpenButton
               tabIndex={tabIndex}
@@ -358,6 +357,8 @@ describe("PopoverContainer", () => {
               ref={ref}
               onClick={onClick}
               id={id}
+              aria-haspopup={ariaHasPopup}
+              aria-expanded={ariaExpanded}
             >
               button
             </MyOpenButton>
@@ -400,6 +401,15 @@ describe("PopoverContainer", () => {
         expect(wrapper.find(MyOpenButton).prop("aria-label")).toBe(
           "render props"
         );
+        expect(wrapper.find(MyOpenButton).prop("aria-haspopup")).toBe("dialog");
+        expect(wrapper.find(MyOpenButton).prop("aria-expanded")).toBe(false);
+
+        act(() => {
+          wrapper.setProps({ open: true });
+          wrapper.update();
+        });
+
+        expect(wrapper.find(MyOpenButton).prop("aria-expanded")).toBe(true);
       });
 
       it("should not be focused if `ref` is not provided", () => {
@@ -412,12 +422,16 @@ describe("PopoverContainer", () => {
             "aria-label": ariaLabel,
             onClick,
             isOpen,
+            "aria-expanded": ariaExpanded,
+            "aria-haspopup": ariaHasPopup,
           }) => (
             <MyOpenButton
               tabIndex={tabIndex}
               data-element={dataElement}
               aria-label={ariaLabel}
               onClick={onClick}
+              aria-haspopup={ariaHasPopup}
+              aria-expanded={ariaExpanded}
             >
               {isOpen ? "isOpen is true" : "isOpen is false"}
             </MyOpenButton>

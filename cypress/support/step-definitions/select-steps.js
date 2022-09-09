@@ -32,7 +32,7 @@ Then("{string} list is open", () => {
 
 Then("{string} list is closed", () => {
   selectInput().should("have.attr", "aria-expanded", "false");
-  selectList().should("not.exist");
+  selectList().should("not.be.visible");
 });
 
 When("I click on Select input", () => {

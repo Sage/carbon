@@ -4,22 +4,19 @@ import styledSystemPropTypes from "@styled-system/prop-types";
 
 import { InputPresentation } from "../../__internal__/input";
 import FormField from "../../__internal__/form-field";
-import CharacterCount from "../../__internal__/character-count";
+import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
+
 import Input from "../../__internal__/input/input.component";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import guid from "../../__internal__/utils/helpers/guid";
 import StyledTextarea, { MIN_HEIGHT } from "./textarea.style";
-import LocaleContext from "../../__internal__/i18n-context";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
-
-const getFormatNumber = (value, locale) =>
-  new Intl.NumberFormat(locale).format(value);
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -63,7 +60,6 @@ const Textarea = ({
   helpAriaLabel,
   ...props
 }) => {
-  const locale = useContext(LocaleContext);
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const computeLabelPropValues = (prop) =>
     validationRedesignOptIn ? undefined : prop;
@@ -102,6 +98,16 @@ const Textarea = ({
     fieldHelp,
   });
 
+  const [maxLength, characterCount] = useCharacterCount(
+    value,
+    // TODO: Can be removed after the characterLimit type is changed to number
+    typeof characterLimit === "string"
+      ? parseInt(characterLimit, 10)
+      : characterLimit,
+    warnOverLimit,
+    enforceCharacterLimit
+  );
+
   useEffect(() => {
     if (rows) {
       minHeight.current = inputRef.current.scrollHeight;
@@ -126,25 +132,6 @@ const Textarea = ({
       }
     };
   }, [expandable]);
-
-  const isOverLimit = () => {
-    return (value || "").length > parseInt(characterLimit, 10);
-  };
-
-  const characterCount = () => {
-    if (!characterLimit) {
-      return null;
-    }
-
-    return (
-      <CharacterCount
-        isOverLimit={isOverLimit() && warnOverLimit}
-        value={getFormatNumber((value || "").length, locale.locale())}
-        limit={getFormatNumber(characterLimit, locale.locale())}
-        data-element="character-limit"
-      />
-    );
-  };
 
   return (
     <TooltipProvider
@@ -209,11 +196,7 @@ const Textarea = ({
                 name={name}
                 value={value}
                 ref={inputRef}
-                maxLength={
-                  enforceCharacterLimit && characterLimit
-                    ? characterLimit
-                    : undefined
-                }
+                maxLength={maxLength}
                 onChange={onChange}
                 disabled={disabled}
                 readOnly={readOnly}
@@ -243,7 +226,7 @@ const Textarea = ({
               />
             </InputPresentation>
           </FormField>
-          {characterCount()}
+          {characterCount}
         </StyledTextarea>
       </InputBehaviour>
     </TooltipProvider>
@@ -263,7 +246,7 @@ Textarea.propTypes = {
   /** id of the input */
   id: PropTypes.string,
   /** Character limit of the textarea */
-  characterLimit: PropTypes.string,
+  characterLimit: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Type of the icon that will be rendered next to the input */
   children: PropTypes.node,
   /** The visible width of the text control, in average character widths */

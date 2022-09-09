@@ -691,7 +691,7 @@ context("Tests for Filterable Select component", () => {
 
       commonDataElementInputPreview().should("have.attr", "readOnly");
       selectInput().click();
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it.each([
@@ -808,7 +808,7 @@ context("Tests for Filterable Select component", () => {
       commonDataElementInputPreview()
         .should("be.focused")
         .and("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should not open the list with mouse click on Filterable Select input", () => {
@@ -818,7 +818,7 @@ context("Tests for Filterable Select component", () => {
       commonDataElementInputPreview()
         .should("be.focused")
         .and("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should open the list with mouse click on dropdown button", () => {
@@ -833,7 +833,7 @@ context("Tests for Filterable Select component", () => {
 
       dropdownButton().click();
       dropdownButton().click();
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should close the list with the Tab key", () => {
@@ -843,7 +843,7 @@ context("Tests for Filterable Select component", () => {
       selectList().should("be.visible");
       selectInput().tab();
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should close the list with the Esc key", () => {
@@ -853,7 +853,7 @@ context("Tests for Filterable Select component", () => {
       selectList().should("be.visible");
       selectInput().trigger("keydown", { ...keyCode("Esc") });
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should close the list by clicking out of the component", () => {
@@ -863,7 +863,7 @@ context("Tests for Filterable Select component", () => {
       selectList().should("be.visible");
       body().click({ force: true });
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it.each([
@@ -882,7 +882,7 @@ context("Tests for Filterable Select component", () => {
         if (state === "open") {
           selectList().should("be.visible");
         } else {
-          selectList().should("not.exist");
+          selectList().should("not.be.visible");
         }
       }
     );
@@ -896,7 +896,7 @@ context("Tests for Filterable Select component", () => {
         selectListText(option).click();
         getDataElementByValue("input").should("have.attr", "value", option);
         selectInput().should("have.attr", "aria-expanded", "false");
-        selectList().should("not.exist");
+        selectList().should("not.be.visible");
       }
     );
 
@@ -988,7 +988,7 @@ context("Tests for Filterable Select component", () => {
       selectListText(option).click();
       getDataElementByValue("input").should("have.attr", "value", option);
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
       dropdownButton().click();
       selectList()
         .find("li")
