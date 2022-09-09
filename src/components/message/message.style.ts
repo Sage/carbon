@@ -1,8 +1,9 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-import { margin } from "styled-system";
+import { margin, MarginProps } from "styled-system";
+
 import BaseTheme from "../../style/themes/base";
 import StyledIconButton from "../icon-button/icon-button.style";
+import { MessageVariant } from "./message.component";
 
 const messageVariants = {
   error: "var(--colorsSemanticNegative500)",
@@ -11,7 +12,12 @@ const messageVariants = {
   warning: "var(--colorsSemanticCaution500)",
 };
 
-const MessageStyle = styled.div`
+type MessageStyleProps = {
+  variant: MessageVariant;
+  transparent?: boolean;
+};
+
+const MessageStyle = styled.div<MessageStyleProps & MarginProps>`
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -38,14 +44,7 @@ const MessageStyle = styled.div`
 `;
 
 MessageStyle.defaultProps = {
-  variant: "info",
   theme: BaseTheme,
-  transparent: false,
-};
-
-MessageStyle.propTypes = {
-  variant: PropTypes.string,
-  transparent: PropTypes.bool,
 };
 
 export default MessageStyle;

@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
+
+import { MessageVariant } from "../message.component";
 
 const messageVariants = {
   error: "var(--colorsSemanticNegative500)",
@@ -8,7 +9,14 @@ const messageVariants = {
   warning: "var(--colorsSemanticCaution500)",
 };
 
-const TypeIconStyle = styled.div`
+type TypeIconStyleProps = {
+  /** set background to be invisible */
+  transparent?: boolean;
+  /** set type of message based on new DLS standard */
+  variant: MessageVariant;
+};
+
+const TypeIconStyle = styled.div<TypeIconStyleProps>`
   align-items: center;
   background-color: ${({ variant }) => messageVariants[variant]};
   display: flex;
@@ -33,16 +41,5 @@ const TypeIconStyle = styled.div`
       }
     `}
 `;
-
-TypeIconStyle.defaultProps = {
-  variant: "info",
-  transparent: false,
-};
-
-TypeIconStyle.propTypes = {
-  variant: PropTypes.oneOf(["error", "info", "success", "warning"]),
-  border: PropTypes.bool,
-  transparent: PropTypes.bool,
-};
 
 export default TypeIconStyle;
