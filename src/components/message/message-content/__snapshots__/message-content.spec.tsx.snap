@@ -2,9 +2,7 @@
 
 exports[`MessageContent when rendered should render correctly 1`] = `
 <styled.div>
-  <Content
-    className="message-content"
-  >
+  <Content>
     children
   </Content>
 </styled.div>
