@@ -4,6 +4,7 @@ import Option from "../option/option.component";
 import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
 import Icon from "../../icon/icon.component";
+import Box from "../../box";
 import CypressMountWithProviders from "../../../../cypress/support/component-helper/cypress-mount";
 
 import {
@@ -18,6 +19,7 @@ import {
   selectText,
   selectInput,
   selectList,
+  selectListWrapper,
   selectOption,
   dropdownButton,
   selectListText,
@@ -454,6 +456,19 @@ const SimpleSelectEventsComponent = ({ onChange, ...props }) => {
   );
 };
 
+const SimpleSelectWithLongWrappingTextComponent = () => (
+  <Box width={400}>
+    <SimpleSelect name="simple" id="simple" label="label" labelInline>
+      <Option
+        text="Like a lot of intelligent animals, most crows are quite social. 
+        For instance, American crows spend most of the year living in pairs or small family groups.
+        During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night."
+        value="1"
+      />
+    </SimpleSelect>
+  </Box>
+);
+
 const testPropValue = "cypress_test";
 
 context("Tests for Simple Select component", () => {
@@ -554,7 +569,7 @@ context("Tests for Simple Select component", () => {
       selectText().click();
       commonDataElementInputPreview().should("have.attr", "readOnly");
       selectText().should("have.attr", "aria-hidden", "true");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should render Simple Select as transparent", () => {
@@ -670,7 +685,7 @@ context("Tests for Simple Select component", () => {
       selectList().should("be.visible");
       selectInput().tab();
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should close the list with the Esc key", () => {
@@ -680,7 +695,7 @@ context("Tests for Simple Select component", () => {
       selectList().should("be.visible");
       selectText().trigger("keydown", { ...keyCode("Esc") });
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should close the list by clicking out of the component", () => {
@@ -690,7 +705,7 @@ context("Tests for Simple Select component", () => {
       selectList().should("be.visible");
       body().realClick();
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it.each([["downarrow"], ["uparrow"], ["Space"], ["Home"], ["End"]])(
@@ -713,7 +728,7 @@ context("Tests for Simple Select component", () => {
         selectListText(option).click();
         getDataElementByValue("input").should("have.attr", "value", option);
         selectInput().should("have.attr", "aria-expanded", "false");
-        selectList().should("not.exist");
+        selectList().should("not.be.visible");
       }
     );
 
@@ -1040,5 +1055,16 @@ context("Tests for Simple Select component", () => {
           });
       }
     );
+  });
+
+  describe("check height of Select list when opened", () => {
+    it("should not cut off any text with long option text", () => {
+      CypressMountWithProviders(<SimpleSelectWithLongWrappingTextComponent />);
+
+      selectText().click();
+      selectListWrapper()
+        .should("have.css", "height", "152px")
+        .and("be.visible");
+    });
   });
 });

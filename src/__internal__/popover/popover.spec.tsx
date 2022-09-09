@@ -1,13 +1,13 @@
 import React, { useCallback, useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { createPopper } from "@popperjs/core";
 import { act } from "react-dom/test-utils";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Popover, { PopoverProps } from "./popover.component";
 import Dialog from "../../components/dialog";
-import StyledBackdrop from "./popover.style";
+import { StyledBackdrop } from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
 jest.mock("@popperjs/core");
@@ -70,6 +70,7 @@ describe("Popover", () => {
       grandchild.id = "popover-children";
       provider.appendChild(grandchild);
       expect(appendChildSpy.mock.calls[0][0].childNodes[0]).toEqual(provider);
+      wrapper.unmount();
     });
     it("does not render children in portal when disablePortal passed", () => {
       const createPortalSpy = jest.spyOn(ReactDOM, "createPortal");
@@ -90,9 +91,10 @@ describe("Popover", () => {
 
       expect(
         (createPortalSpy.mock.calls[0][0] as React.ReactElement).props.children
-          .props.id
+          .props.children.props.id
       ).toBe("popover-children");
       expect(createPortalSpy.mock.calls[0][1].childNodes[0]).toEqual(provider);
+      wrapper.unmount();
     });
 
     it("removes created div from the body on unmount", () => {
@@ -109,15 +111,21 @@ describe("Popover", () => {
   });
 
   describe("disableBackgroundUI", () => {
+    let wrapper: ReactWrapper;
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
     it("renders content as a child of backdrop when background is disabled", () => {
-      const wrapper = mount(<Component disableBackgroundUI />);
+      wrapper = mount(<Component disableBackgroundUI />);
       expect(
         wrapper.find(StyledBackdrop).find("#popover-children").exists()
       ).toBe(true);
     });
 
     it("does not render backdrop when background is not disabled", () => {
-      const wrapper = mount(<Component />);
+      wrapper = mount(<Component />);
       expect(wrapper.find(StyledBackdrop).exists()).toBe(false);
     });
   });
@@ -141,6 +149,8 @@ describe("Popover", () => {
       myWrapper.setProps({ placement: "bottom" });
 
       expect(createPopper).toHaveBeenCalledTimes(2);
+
+      myWrapper.unmount();
     });
 
     it("popper instance is destroyed on unmount", () => {
@@ -152,13 +162,15 @@ describe("Popover", () => {
     });
 
     it("popper instance is updated when reference element resizes", () => {
-      mount(<Component />);
+      const myWrapper = mount(<Component />);
 
       useResizeObserverMock.mock.calls[
         useResizeObserverMock.mock.calls.length - 1
       ][1]();
 
       expect(updateFunc).toHaveBeenCalled();
+
+      myWrapper.unmount();
     });
 
     it("createPopper is called with proper arguments", () => {
@@ -172,12 +184,20 @@ describe("Popover", () => {
       expect(createPopperMock.mock.calls[0][2]).toMatchObject({
         placement: "bottom-start",
       });
+
+      myWrapper.unmount();
     });
   });
 
   describe("when inside of a Dialog", () => {
+    let wrapper: ReactWrapper;
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
     it("should attach the portal to the element with role of 'dialog'", () => {
-      const wrapper = mount(<InDialog />);
+      wrapper = mount(<InDialog />);
       const dialog = wrapper.find("[role='dialog']");
       const appendChildSpy = jest.spyOn(
         dialog.at(2).getDOMNode(),
@@ -194,7 +214,7 @@ describe("Popover", () => {
     });
 
     it("should attach the portal to the document.body if no element with role of 'dialog' is found", () => {
-      const wrapper = mount(<InDialog dialogRole="alertdialog" />);
+      wrapper = mount(<InDialog dialogRole="alertdialog" />);
       const dialog = wrapper.find("[role='alertdialog']");
       const appendChildToDialogSpy = jest.spyOn(
         dialog.at(2).getDOMNode(),
@@ -211,6 +231,29 @@ describe("Popover", () => {
 
       expect(appendChildToDialogSpy).not.toHaveBeenCalled();
       expect(appendChildToBodySpy).toHaveBeenCalled();
+    });
+  });
+
+  describe("isOpen prop", () => {
+    let wrapper: ReactWrapper;
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    it("when true, the popover content is visible", () => {
+      wrapper = mount(<Component isOpen />);
+      expect(document.getElementById("popover-children")).toBeVisible();
+    });
+
+    it("when false, the popover content is not visible", () => {
+      wrapper = mount(<Component isOpen={false} />);
+      expect(document.getElementById("popover-children")).not.toBeVisible();
+    });
+
+    it("when not provided, the popover content is visible", () => {
+      wrapper = mount(<Component />);
+      expect(document.getElementById("popover-children")).toBeVisible();
     });
   });
 });

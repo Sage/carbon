@@ -43,7 +43,7 @@ const StyledButtonToggleContentWrapper = styled.div`
 `;
 
 export interface StyledButtonToggleLabelProps {
-  /** buttonIcon to render. */
+  /** The icon to be rendered inside of the button */
   buttonIcon?: IconType;
   /** Sets the size of the buttonIcon (eg. large) */
   buttonIconSize?: ButtonToggleIconSizes;
