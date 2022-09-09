@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import Button from "../button";
-import Sidebar from ".";
+import Sidebar, { SidebarProps } from ".";
 import { SIDEBAR_ALIGNMENTS, SIDEBAR_SIZES } from "./sidebar.config";
 
 export default {
@@ -57,7 +57,7 @@ export default {
   },
 };
 
-export const Default = (args) => {
+export const Default = (args: Partial<SidebarProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   const onCancel = () => {
     setIsOpen(false);

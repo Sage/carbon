@@ -1,6 +1,5 @@
-import React, { useRef } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import React, { useRef, useCallback } from "react";
+import { PaddingProps } from "styled-system";
 
 import Modal from "../modal";
 import StyledSidebar from "./sidebar.style";
@@ -12,14 +11,60 @@ import Box from "../box";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
+import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 
-const paddingPropTypes = filterStyledSystemPaddingProps(
-  styledSystemPropTypes.space
-);
+export interface SidebarContextProps {
+  isInSidebar?: boolean;
+}
 
-export const SidebarContext = React.createContext({});
+export const SidebarContext = React.createContext<SidebarContextProps>({});
 
-const Sidebar = React.forwardRef(
+export interface SidebarProps extends PaddingProps, TagProps {
+  /** Prop to specify the aria-describedby property of the component */
+  "aria-describedby"?: string;
+  /**
+   * Prop to specify the aria-label of the component.
+   * To be used only when the title prop is not defined, and the component is not labelled by any internal element.
+   */
+  "aria-label"?: string;
+  /**
+   * Prop to specify the aria-labeledby property of the component
+   * To be used when the title prop is a custom React Node,
+   * or the component is labelled by an internal element other than the title.
+   */
+  "aria-labelledby"?: string;
+  /** Modal content */
+  children?: React.ReactNode;
+  /** Determines if the Esc Key closes the modal */
+  disableEscKey?: boolean;
+  /** Set this prop to false to hide the translucent background when the dialog is open. */
+  enableBackgroundUI?: boolean;
+  /** Node that will be used as sidebar header. */
+  header?: React.ReactNode;
+  /** A custom close event handler */
+  onCancel?: (
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+  ) => void;
+  /** Sets the open state of the modal */
+  open: boolean;
+  /** Sets the position of sidebar, either left or right. */
+  position?: "left" | "right";
+  /** The ARIA role to be applied to the component container */
+  role?: string;
+  /** Sets the size of the sidebar when open. */
+  size?:
+    | "extra-small"
+    | "small"
+    | "medium-small"
+    | "medium"
+    | "medium-large"
+    | "large"
+    | "extra-large";
+  /** an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar */
+  focusableContainers?: React.MutableRefObject<HTMLElement>[];
+}
+
+export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
   (
     {
       "aria-describedby": ariaDescribedBy,
@@ -36,14 +81,24 @@ const Sidebar = React.forwardRef(
       role = "dialog",
       focusableContainers,
       ...rest
-    },
+    }: SidebarProps,
     ref
   ) => {
     const locale = useLocale();
-    const { current: titleId } = useRef(createGuid());
+    const { current: titleId } = useRef<string>(createGuid());
 
-    let sidebarRef = useRef(null);
-    if (ref) sidebarRef = ref;
+    const sidebarRef = useRef<HTMLDivElement | null>(null);
+
+    const setRefs = useCallback(
+      (reference) => {
+        sidebarRef.current = reference;
+        if (!ref) return;
+        if (typeof ref === "object") ref.current = reference;
+        if (typeof ref === "function") ref(reference);
+      },
+      [ref]
+    );
+
     const closeIcon = () => {
       if (!onCancel) return null;
       return (
@@ -71,7 +126,7 @@ const Sidebar = React.forwardRef(
         aria-labelledby={
           !ariaLabelledBy && !ariaLabel ? titleId : ariaLabelledBy
         }
-        ref={sidebarRef}
+        ref={setRefs}
         position={position}
         size={size}
         data-element="sidebar"
@@ -103,7 +158,6 @@ const Sidebar = React.forwardRef(
         onCancel={onCancel}
         disableEscKey={disableEscKey}
         enableBackgroundUI={enableBackgroundUI}
-        className="carbon-sidebar"
         {...componentTags}
       >
         {enableBackgroundUI ? (
@@ -122,45 +176,6 @@ const Sidebar = React.forwardRef(
   }
 );
 
-Sidebar.propTypes = {
-  /** Styled system padding props to apply to Sidebar content */
-  ...paddingPropTypes,
-  /** Prop to specify the aria-describedby property of the component */
-  "aria-describedby": PropTypes.string,
-  /** Prop to specify the aria-label of the component */
-  "aria-label": PropTypes.string,
-  /** Prop to specify the aria-labeledby property of the component */
-  "aria-labelledby": PropTypes.string,
-  /** Modal content */
-  children: PropTypes.node,
-  /** A custom close event handler */
-  onCancel: PropTypes.func,
-  /** Determines if the Esc Key closes the modal */
-  disableEscKey: PropTypes.bool,
-  /** A boolean to track the open state of the dialog */
-  open: PropTypes.bool.isRequired,
-  /** Set this prop to false to hide the translucent background when the dialog is open. */
-  enableBackgroundUI: PropTypes.bool,
-  /** Sets the position of sidebar, either left or right. */
-  position: PropTypes.oneOf(["left", "right"]),
-  /** Sets the size of the sidebar when open. */
-  size: PropTypes.oneOf([
-    "extra-small",
-    "small",
-    "medium-small",
-    "medium",
-    "medium-large",
-    "large",
-    "extra-large",
-  ]),
-  /** Node that will be used as sidebar header. */
-  header: PropTypes.node,
-  /** The ARIA role to be applied to the container */
-  role: PropTypes.string,
-  /** an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar */
-  focusableContainers: PropTypes.arrayOf(
-    PropTypes.shape({ current: PropTypes.any })
-  ),
-};
+Sidebar.displayName = "Sidebar";
 
 export default Sidebar;

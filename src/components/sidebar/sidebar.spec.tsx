@@ -1,5 +1,6 @@
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import React, { useRef } from "react";
+
 import Sidebar from "./sidebar.component";
 import Textbox from "../textbox";
 import StyledSidebar from "./sidebar.style";
@@ -15,10 +16,11 @@ import guid from "../../__internal__/utils/helpers/guid";
 jest.mock("../../__internal__/utils/helpers/guid");
 
 describe("Sidebar", () => {
-  let wrapper, spy;
+  let wrapper: ReactWrapper;
+  let spy: jest.Mock;
 
   beforeEach(() => {
-    spy = jasmine.createSpy();
+    spy = jest.fn();
     wrapper = mount(
       <Sidebar
         open
@@ -119,7 +121,9 @@ describe("Sidebar", () => {
       });
 
       it("when a header is provided, the container has an aria-labeledby attribute set to it's header's id", () => {
-        guid.mockImplementation(() => "guid-12345");
+        (guid as jest.MockedFunction<typeof guid>).mockImplementation(
+          () => "guid-12345"
+        );
 
         wrapper = mount(<Sidebar open header="test header" />);
         expect(
@@ -159,7 +163,7 @@ describe("Sidebar", () => {
 describe("StyledSidebar", () => {
   describe("when prop size is passed to the component and position is set to right", () => {
     const wrapper = mount(
-      <StyledSidebar open size="extra-small" position="right" />
+      <StyledSidebar size="extra-small" position="right" />
     );
 
     it("should render correct style", () => {
@@ -177,9 +181,7 @@ describe("StyledSidebar", () => {
   });
 
   describe("when prop left is passed to the component", () => {
-    const wrapper = mount(
-      <StyledSidebar open size="extra-small" position="left" />
-    );
+    const wrapper = mount(<StyledSidebar size="extra-small" position="left" />);
 
     it("should render correct style", () => {
       assertStyleMatch(
@@ -193,10 +195,10 @@ describe("StyledSidebar", () => {
   });
 
   it("the sidebar ref should be forwarded", () => {
-    let mockRef;
+    let mockRef: React.RefObject<HTMLDivElement> | undefined;
 
     const WrapperComponent = () => {
-      mockRef = useRef();
+      mockRef = useRef<HTMLDivElement>(null);
 
       return (
         <Sidebar open ref={mockRef}>
@@ -207,7 +209,35 @@ describe("StyledSidebar", () => {
 
     const wrapper = mount(<WrapperComponent />);
 
-    expect(mockRef.current).toBe(wrapper.find(StyledSidebar).getDOMNode());
+    expect(mockRef?.current).toBe(wrapper.find(StyledSidebar).getDOMNode());
+  });
+
+  it("accepts ref as a ref callback", () => {
+    const ref = jest.fn();
+    const wrapper = mount(
+      <Sidebar open ref={ref}>
+        test content
+      </Sidebar>
+    );
+
+    wrapper.update();
+
+    expect(ref).toHaveBeenCalledWith(wrapper.find(StyledSidebar).getDOMNode());
+  });
+
+  it("sets ref to empty after unmount", () => {
+    const ref = { current: null };
+    const wrapper = mount(
+      <Sidebar open ref={ref}>
+        test content
+      </Sidebar>
+    );
+
+    wrapper.update();
+
+    wrapper.unmount();
+
+    expect(ref.current).toBe(null);
   });
 });
 
