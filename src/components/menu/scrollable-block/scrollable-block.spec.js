@@ -8,6 +8,7 @@ import menuConfigVariants from "../menu.config";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
 import StyledMenuItemWrapper from "../menu-item/menu-item.style";
 import MenuDivider from "../menu-divider/menu-divider.component";
+import Search from "../../search";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 
 const handleKeyDownFn = jest.fn();
@@ -86,6 +87,42 @@ describe("ScrollableBlock", () => {
       });
     }
   );
+
+  describe("parent prop", () => {
+    it("should render the parent item, wrapped in a MenuItem", () => {
+      wrapper = render("light", {
+        parent: <Search value="" onChange={() => {}} />,
+      });
+
+      const firstMenuItem = wrapper.find(StyledMenuItemWrapper).at(0);
+
+      expect(firstMenuItem.exists(Search)).toBe(true);
+    });
+
+    it.each([
+      ["default", "alternate", "alternate"],
+      ["alternate", "default", "submenuItemBackground"],
+    ])(
+      "should render parent with the correct variant: with scrollable variant %s and parent variant %s",
+      (blockVariant, parentVariant, expectedColor) => {
+        wrapper = render("light", {
+          variant: blockVariant,
+          parent: <Search value="" onChange={() => {}} />,
+          parentVariant,
+        });
+
+        const parentMenuItem = wrapper.find(StyledMenuItemWrapper).at(0);
+
+        assertStyleMatch(
+          {
+            backgroundColor: menuConfigVariants.light[expectedColor],
+          },
+          parentMenuItem,
+          { modifier: "&&&&" }
+        );
+      }
+    );
+  });
 
   describe("when a block child focused by submenu context", () => {
     it("should focus the underlying MenuItem", () => {

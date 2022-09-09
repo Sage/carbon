@@ -3,9 +3,12 @@ import ReactDOM from "react-dom";
 import { createPopper, State, Instance } from "@popperjs/core";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
-import StyledBackdrop from "./popover.style";
+import { StyledBackdrop, StyledPopoverContent } from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
-import { ModalContext } from "../../components/modal/modal.component";
+import {
+  ModalContext,
+  ModalContextProps,
+} from "../../components/modal/modal.component";
 
 type PopoverModifier = {
   name: string;
@@ -45,11 +48,9 @@ export interface PopoverProps {
   disablePortal?: boolean;
   // Reference element, children will be positioned in relation to this element - should be a ref shaped object
   reference: React.RefObject<HTMLElement>;
+  // Determines if the popover is currently open/visible or not. Defaults to true.
+  isOpen?: boolean;
 }
-// TODO: Remove TempModalContext after modal has been converted to TS
-type TempModalContext = {
-  isInModal?: boolean;
-};
 
 const Popover = ({
   children,
@@ -59,10 +60,10 @@ const Popover = ({
   onFirstUpdate,
   modifiers,
   disableBackgroundUI,
+  isOpen = true,
 }: PopoverProps) => {
   const elementDOM = useRef<HTMLDivElement | null>(null);
-  // TODO: Remove TempModalContext after modal has been converted to TS
-  const { isInModal } = useContext<TempModalContext>(ModalContext);
+  const { isInModal } = useContext<ModalContextProps>(ModalContext);
   const candidateNode = reference.current?.closest("[role='dialog']");
   const mountNode = isInModal && candidateNode ? candidateNode : document.body;
 
@@ -91,6 +92,12 @@ const Popover = ({
   useResizeObserver(reference, () => {
     popperInstance?.current?.update();
   });
+
+  useEffect(() => {
+    if (isOpen) {
+      popperInstance?.current?.update();
+    }
+  }, [isOpen]);
 
   useLayoutEffect(() => {
     if (reference.current) {
@@ -130,6 +137,10 @@ const Popover = ({
       }
     };
   }, [disablePortal, mountNode]);
+
+  content = (
+    <StyledPopoverContent isOpen={isOpen}>{content}</StyledPopoverContent>
+  );
 
   if (disableBackgroundUI) {
     content = <StyledBackdrop>{content}</StyledBackdrop>;
