@@ -1,3 +1,10 @@
+## [110.6.0](https://github.com/Sage/carbon/compare/v110.5.2...v110.6.0) (2022-09-12)
+
+
+### Features
+
+* **icon:** 3 new icons, alert_on, palm_tree and tick_thick ([c35a8d7](https://github.com/Sage/carbon/commit/c35a8d767289104bd0dd1e2cc9bd5364867fe59b))
+
 ### [110.5.2](https://github.com/Sage/carbon/compare/v110.5.1...v110.5.2) (2022-09-12)
 
 
