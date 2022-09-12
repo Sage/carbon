@@ -1,3 +1,10 @@
+### [110.5.2](https://github.com/Sage/carbon/compare/v110.5.1...v110.5.2) (2022-09-12)
+
+
+### Bug Fixes
+
+* **flat-table-header:** alternative color not changing according theme ([ce6e48c](https://github.com/Sage/carbon/commit/ce6e48c5a26084a96bfe29cf9cd7dcd62d3935e6))
+
 ### [110.5.1](https://github.com/Sage/carbon/compare/v110.5.0...v110.5.1) (2022-09-12)
 
 
