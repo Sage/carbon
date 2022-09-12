@@ -1,3 +1,10 @@
+### [110.6.1](https://github.com/Sage/carbon/compare/v110.6.0...v110.6.1) (2022-09-12)
+
+
+### Bug Fixes
+
+* **button:** always pass aria-label down to the html element ([286f668](https://github.com/Sage/carbon/commit/286f66851bf70a1e2f4b00acfbd8c0a3dd1cd1f9)), closes [#5311](https://github.com/Sage/carbon/issues/5311)
+
 ## [110.6.0](https://github.com/Sage/carbon/compare/v110.5.2...v110.6.0) (2022-09-12)
 
 
