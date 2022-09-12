@@ -1,5 +1,6 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
+import { act } from "react-dom/test-utils";
 import { css } from "styled-components";
 import TabTitle from "./tab-title.component";
 import {
@@ -12,11 +13,14 @@ import { aegeanTheme } from "../../../../style/themes";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 import ValidationIcon from "../../../../__internal__/validations/validation-icon.component";
 import StyledValidationIcon from "../../../../__internal__/validations/validation-icon.style";
+import Icon from "../../../icon";
 import StyledIcon from "../../../icon/icon.style";
+import Tooltip from "../../../tooltip";
 
-function render(props, renderer = shallow) {
+function render(props, renderer = shallow, container = {}) {
   return renderer(
-    <TabTitle title="Tab Title 1" dataTabId="uniqueid1" {...props} />
+    <TabTitle title="Tab Title 1" dataTabId="uniqueid1" {...props} />,
+    container
   );
 }
 
@@ -80,7 +84,10 @@ describe("TabTitle", () => {
       wrapper = render({ href: "randomUrl" });
       global.open = jest.fn();
 
-      wrapper.props().onKeyDown({ key: " ", stopPropagation: () => {} });
+      wrapper
+        .find(StyledTabTitle)
+        .props()
+        .onKeyDown({ key: " ", stopPropagation: () => {} });
       expect(global.open).toHaveBeenCalledWith("randomUrl", "_blank");
       jest.clearAllMocks();
     });
@@ -111,7 +118,10 @@ describe("TabTitle", () => {
       wrapper = render({ onKeyDown: () => {} });
       global.open = jest.fn();
 
-      wrapper.props().onKeyDown({ key: " ", stopPropagation: () => {} });
+      wrapper
+        .find(StyledTabTitle)
+        .props()
+        .onKeyDown({ key: " ", stopPropagation: () => {} });
       expect(global.open).not.toHaveBeenCalled();
     });
   });
@@ -1289,6 +1299,78 @@ describe("TabTitle", () => {
           );
         });
       });
+    });
+  });
+
+  describe("TabTitleContext", () => {
+    let container;
+
+    beforeEach(() => {
+      container = document.createElement("div");
+      container.id = "enzymeContainer";
+      document.body.appendChild(container);
+
+      wrapper = render(
+        {
+          siblings: [<Icon tooltipMessage="foo" type="home" />],
+          ref: { current: null },
+        },
+        mount,
+        {
+          attachTo: document.getElementById("enzymeContainer"),
+        }
+      );
+    });
+
+    afterEach(() => {
+      if (container && container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+
+      container = null;
+    });
+
+    it("sets showTooltip to true when the TabTitle is focused", () => {
+      act(() => {
+        wrapper.find(StyledTabTitle).prop("onFocus")();
+      });
+
+      expect(wrapper.update().find(Tooltip).prop("isVisible")).toBe(true);
+    });
+
+    it("sets showTooltip to true when the TabTitle is hovered", () => {
+      act(() => {
+        wrapper.find(StyledTabTitle).prop("onMouseOver")();
+      });
+
+      expect(wrapper.update().find(Tooltip).prop("isVisible")).toBe(true);
+    });
+
+    it("sets showTooltip to false when the TabTitle is blurred", () => {
+      act(() => {
+        wrapper.find(StyledTabTitle).prop("onFocus")();
+        wrapper.update().find(StyledTabTitle).prop("onBlur")();
+      });
+
+      expect(wrapper.update().find(Tooltip).prop("isVisible")).toBe(false);
+    });
+
+    it("sets showTooltip to false when the TabTitle is not hovered", () => {
+      act(() => {
+        wrapper.find(StyledTabTitle).prop("onMouseOver")();
+        wrapper.update().find(StyledTabTitle).prop("onMouseLeave")();
+      });
+
+      expect(wrapper.update().find(Tooltip).prop("isVisible")).toBe(false);
+    });
+
+    it("does not set showTooltip to false when TabTitle is blurred but still hovered with mouse", () => {
+      act(() => {
+        wrapper.find(StyledTabTitle).prop("onMouseOver")();
+        wrapper.update().find(StyledTabTitle).prop("onBlur")();
+      });
+
+      expect(wrapper.update().find(Tooltip).prop("isVisible")).toBe(true);
     });
   });
 });
