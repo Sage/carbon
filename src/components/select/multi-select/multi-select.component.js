@@ -517,6 +517,7 @@ const MultiSelect = React.forwardRef(
         flipEnabled={flipEnabled}
         loaderDataRole="multi-select-list-loader"
         multiselectValues={actualValue}
+        isOpen={isOpen}
       >
         {children}
       </FilterableSelectList>
@@ -544,7 +545,7 @@ const MultiSelect = React.forwardRef(
           <SelectTextbox
             accessibilityLabelId={accessibilityLabelId.current}
             activeDescendantId={activeDescendantId}
-            aria-controls={isOpen ? selectListId.current : undefined}
+            aria-controls={selectListId.current}
             hasTextCursor
             isOpen={isOpen}
             labelId={labelId.current}
@@ -552,7 +553,7 @@ const MultiSelect = React.forwardRef(
             {...getTextboxProps()}
           />
         </div>
-        {isOpen && selectList}
+        {selectList}
       </StyledSelectMultiSelect>
     );
   }

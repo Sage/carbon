@@ -1,3 +1,32 @@
+## [110.5.0](https://github.com/Sage/carbon/compare/v110.4.1...v110.5.0) (2022-09-09)
+
+
+### Features
+
+* **search:** add validation props ([04dad45](https://github.com/Sage/carbon/commit/04dad45336168ebdb45ad21f68f2f41fb306efd2)), closes [#5236](https://github.com/Sage/carbon/issues/5236)
+
+### [110.4.1](https://github.com/Sage/carbon/compare/v110.4.0...v110.4.1) (2022-09-07)
+
+
+### Bug Fixes
+
+* **select:** ensure aria-activedescendant is always valid ([327b134](https://github.com/Sage/carbon/commit/327b134a05a494ef149d0edcc40331107b470ae3)), closes [#5289](https://github.com/Sage/carbon/issues/5289)
+
+## [110.4.0](https://github.com/Sage/carbon/compare/v110.3.0...v110.4.0) (2022-09-07)
+
+
+### Features
+
+* **button-toggle:** add invariant for childless and iconless buttons ([3a2b631](https://github.com/Sage/carbon/commit/3a2b631546ac213f17ebd2a64994b3c206baa290))
+* **radio-button-mapper:** define types for component props ([c6bce8c](https://github.com/Sage/carbon/commit/c6bce8caafc929d54bdb210693b24fabfec77d0a))
+
+## [110.3.0](https://github.com/Sage/carbon/compare/v110.2.4...v110.3.0) (2022-09-06)
+
+
+### Features
+
+* **scrollable-block:** add parent prop and fix rendered HTML ([c7537f0](https://github.com/Sage/carbon/commit/c7537f012a88e86ec727000bd5e1b89e56112168))
+
 ### [110.2.4](https://github.com/Sage/carbon/compare/v110.2.3...v110.2.4) (2022-09-05)
 
 
