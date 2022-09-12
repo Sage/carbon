@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import {
   StyledTabTitle,
@@ -11,6 +11,9 @@ import ValidationIcon from "../../../../__internal__/validations/validation-icon
 import createGuid from "../../../../__internal__/utils/helpers/guid";
 import Icon from "../../../icon";
 import Events from "../../../../__internal__/utils/helpers/events";
+import { TooltipProvider } from "../../../../__internal__/tooltip-provider";
+
+export const TabTitleContext = React.createContext({});
 
 const TabTitle = React.forwardRef(
   (
@@ -46,6 +49,18 @@ const TabTitle = React.forwardRef(
     const isHref = !!href;
     const hasAlternateStyling = alternateStyling || isInSidebar;
     const hasFailedValidation = error || warning || info;
+    const [shouldShowTooltip, setShouldShowTooltip] = useState(false);
+    const hasHover = useRef(false);
+
+    const showTooltip = () => {
+      setShouldShowTooltip(true);
+    };
+
+    const hideTooltip = () => {
+      if (ref?.current !== document.activeElement && !hasHover.current) {
+        setShouldShowTooltip(false);
+      }
+    };
 
     if (siblings && !keys.current.length) {
       siblings.forEach(() => keys.current.push(createGuid()));
@@ -114,89 +129,103 @@ const TabTitle = React.forwardRef(
     };
 
     return (
-      <StyledTabTitle
-        ref={ref}
-        aria-selected={isTabSelected}
-        data-element="select-tab"
-        data-tabid={dataTabId}
-        role="tab"
-        position={position}
-        isTabSelected={isTabSelected}
-        error={error}
-        warning={warning}
-        info={info}
-        noRightBorder={noRightBorder}
-        noLeftBorder={noLeftBorder}
-        alternateStyling={alternateStyling || isInSidebar}
-        borders={borders}
-        isInSidebar={isInSidebar}
-        {...tabTitleProps}
-        {...(isHref && { href, target: "_blank", as: "a" })}
-        {...tagComponent("tab-header", tabTitleProps)}
-        onKeyDown={handleKeyDown}
-        onClick={handleClick}
-        size={size}
-      >
-        <StyledTitleContent
-          error={error}
-          warning={warning}
-          info={info}
-          position={position}
-          size={size}
-          noLeftBorder={noLeftBorder}
-          noRightBorder={noRightBorder}
-          borders={borders}
-          hasSiblings={!!siblings}
-          isTabSelected={isTabSelected}
-          hasCustomLayout={!!customLayout}
-          alternateStyling={hasAlternateStyling}
-          align={align}
-          hasHref={!!href}
-        >
-          {renderContent()}
-          {isHref && <Icon type="link" />}
-
-          {hasFailedValidation && (
-            <StyledLayoutWrapper
-              position={position}
-              hasCustomSibling={!!customLayout}
-            >
-              {error && (
-                <ValidationIcon
-                  onClick={handleClick}
-                  tooltipPosition="top"
-                  error={errorMessage}
-                  tabIndex={null}
-                />
-              )}
-
-              {!error && warning && (
-                <ValidationIcon
-                  onClick={handleClick}
-                  tooltipPosition="top"
-                  warning={warningMessage}
-                  tabIndex={null}
-                />
-              )}
-
-              {!warning && !error && info && (
-                <ValidationIcon
-                  onClick={handleClick}
-                  tooltipPosition="top"
-                  info={infoMessage}
-                  tabIndex={null}
-                />
-              )}
-            </StyledLayoutWrapper>
-          )}
-        </StyledTitleContent>
-        {!(hasFailedValidation || hasAlternateStyling) && isTabSelected && (
-          <StyledSelectedIndicator
-            data-element="tab-selected-indicator"
+      <TooltipProvider tooltipVisible={shouldShowTooltip}>
+        <TabTitleContext.Provider value={{ isInTab: true }}>
+          <StyledTabTitle
+            ref={ref}
+            aria-selected={isTabSelected}
+            data-element="select-tab"
+            data-tabid={dataTabId}
+            role="tab"
             position={position}
-          />
-        )}
-      </StyledTabTitle>
+            isTabSelected={isTabSelected}
+            error={error}
+            warning={warning}
+            info={info}
+            noRightBorder={noRightBorder}
+            noLeftBorder={noLeftBorder}
+            alternateStyling={alternateStyling || isInSidebar}
+            borders={borders}
+            isInSidebar={isInSidebar}
+            {...tabTitleProps}
+            {...(isHref && { href, target: "_blank", as: "a" })}
+            {...tagComponent("tab-header", tabTitleProps)}
+            onKeyDown={handleKeyDown}
+            onClick={handleClick}
+            size={size}
+            onMouseOver={() => {
+              hasHover.current = true;
+              showTooltip();
+            }}
+            onMouseLeave={() => {
+              hasHover.current = false;
+              hideTooltip();
+            }}
+            onFocus={showTooltip}
+            onBlur={hideTooltip}
+          >
+            <StyledTitleContent
+              error={error}
+              warning={warning}
+              info={info}
+              position={position}
+              size={size}
+              noLeftBorder={noLeftBorder}
+              noRightBorder={noRightBorder}
+              borders={borders}
+              hasSiblings={!!siblings}
+              isTabSelected={isTabSelected}
+              hasCustomLayout={!!customLayout}
+              alternateStyling={hasAlternateStyling}
+              align={align}
+              hasHref={!!href}
+            >
+              {renderContent()}
+              {isHref && <Icon type="link" />}
+
+              {hasFailedValidation && (
+                <StyledLayoutWrapper
+                  position={position}
+                  hasCustomSibling={!!customLayout}
+                >
+                  {error && (
+                    <ValidationIcon
+                      onClick={handleClick}
+                      tooltipPosition="top"
+                      error={errorMessage}
+                      tabIndex={null}
+                    />
+                  )}
+
+                  {!error && warning && (
+                    <ValidationIcon
+                      onClick={handleClick}
+                      tooltipPosition="top"
+                      warning={warningMessage}
+                      tabIndex={null}
+                    />
+                  )}
+
+                  {!warning && !error && info && (
+                    <ValidationIcon
+                      onClick={handleClick}
+                      tooltipPosition="top"
+                      info={infoMessage}
+                      tabIndex={null}
+                    />
+                  )}
+                </StyledLayoutWrapper>
+              )}
+            </StyledTitleContent>
+            {!(hasFailedValidation || hasAlternateStyling) && isTabSelected && (
+              <StyledSelectedIndicator
+                data-element="tab-selected-indicator"
+                position={position}
+              />
+            )}
+          </StyledTabTitle>
+        </TabTitleContext.Provider>
+      </TooltipProvider>
     );
   }
 );
