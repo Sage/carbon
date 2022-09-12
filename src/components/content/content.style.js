@@ -29,7 +29,6 @@ const StyledContentTitle = styled.div`
     return css`
       display: ${inline ? "inline-block" : "block"};
       font-weight: bold;
-      color: var(--colorsUtilityYin090);
       width: ${titleWidth && `calc(${titleWidth}% - 30px)`};
       text-align: ${!inline && align};
 

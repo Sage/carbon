@@ -92,4 +92,5 @@ const Dl = ({
   );
 };
 
+Dl.displayName = "Dl";
 export default Dl;

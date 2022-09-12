@@ -39,25 +39,33 @@ describe("MultiSelect", () => {
     describe("and that element is part of the Select", () => {
       it("then the SelectList should be open", () => {
         wrapper.find("input").simulate("focus");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           wrapper
             .find(StyledSelectList)
             .getDOMNode()
             .dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
-        expect(wrapper.update().find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
       });
     });
 
     describe("and that element is not part of the Select", () => {
       it("then the SelectList should be closed", () => {
         wrapper.find("input").simulate("focus");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
-        expect(wrapper.update().find(SelectList).exists()).toBe(false);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
       });
     });
 
@@ -218,7 +226,9 @@ describe("MultiSelect", () => {
 
     it("the SelectList should not be rendered", () => {
       wrapper.find("input").simulate("focus");
-      expect(wrapper.find(SelectList).exists()).toBe(false);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
     });
 
     describe.each(["ArrowDown", "ArrowUp", "Home", "End"])(
@@ -226,14 +236,20 @@ describe("MultiSelect", () => {
       (key) => {
         it("the SelectList should be rendered", () => {
           wrapper.find("input").simulate("keydown", { key });
-          expect(wrapper.update().find(SelectList).exists()).toBe(true);
+          wrapper
+            .find(Option)
+            .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         });
 
         describe("with readOnly prop set to true", () => {
           it("then the SelectList should not be rendered", () => {
             wrapper.setProps({ readOnly: true });
             wrapper.update().find("input").simulate("keydown", { key });
-            expect(wrapper.find(SelectList).exists()).toBe(false);
+            wrapper
+              .find(Option)
+              .forEach((option) =>
+                expect(option.getDOMNode()).not.toBeVisible()
+              );
           });
         });
       }
@@ -242,14 +258,18 @@ describe("MultiSelect", () => {
     describe('and the "Enter" key has been pressed', () => {
       it("the SelectList should not be rendered", () => {
         wrapper.find("input").simulate("keydown", { key: "Enter" });
-        expect(wrapper.find(SelectList).exists()).toBe(false);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
       });
 
       describe("with readOnly prop set to true", () => {
         it("then the SelectList should not be rendered", () => {
           wrapper.setProps({ readOnly: true });
           wrapper.update().find("input").simulate("keydown", { key: "Enter" });
-          expect(wrapper.find(SelectList).exists()).toBe(false);
+          wrapper
+            .find(Option)
+            .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
         });
       });
     });
@@ -375,7 +395,9 @@ describe("MultiSelect", () => {
       const wrapper = renderSelect();
 
       wrapper.find("input").simulate("click");
-      expect(wrapper.find(SelectList).exists()).toBe(false);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
     });
 
     describe('and the "onClick" prop is passed', () => {
@@ -415,7 +437,9 @@ describe("MultiSelect", () => {
       const wrapper = renderSelect();
 
       wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
-      expect(wrapper.find(SelectList).exists()).toBe(true);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
     });
 
     describe("twice", () => {
@@ -427,7 +451,9 @@ describe("MultiSelect", () => {
           .first();
         dropdown.simulate("click");
         dropdown.simulate("click");
-        expect(wrapper.find(SelectList).exists()).toBe(false);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
       });
     });
 
@@ -466,7 +492,9 @@ describe("MultiSelect", () => {
         const wrapper = renderSelect({ openOnFocus: true });
 
         wrapper.find("input").simulate("focus");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
       });
 
       describe.each(["readOnly", "disabled"])(
@@ -477,7 +505,11 @@ describe("MultiSelect", () => {
             const wrapper = renderSelect(obj);
 
             wrapper.find("input").simulate("focus");
-            expect(wrapper.find(SelectList).exists()).toBe(false);
+            wrapper
+              .find(Option)
+              .forEach((option) =>
+                expect(option.getDOMNode()).not.toBeVisible()
+              );
           });
         }
       );
@@ -513,7 +545,9 @@ describe("MultiSelect", () => {
           it("then that prop should not be called", () => {
             wrapper.find("input").simulate("focus");
             onOpenFn.mockReset();
-            expect(wrapper.find(SelectList).exists()).toBe(true);
+            wrapper
+              .find(Option)
+              .forEach((option) => expect(option.getDOMNode()).toBeVisible());
             wrapper.find("input").simulate("focus");
             expect(onOpenFn).not.toHaveBeenCalled();
           });
@@ -594,11 +628,15 @@ describe("MultiSelect", () => {
       const wrapper = renderSelect({ openOnFocus: true });
 
       wrapper.find("input").simulate("focus");
-      expect(wrapper.find(SelectList).exists()).toBe(true);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
       act(() => {
         wrapper.find(SelectList).prop("onSelect")(mockOptionObject);
       });
-      expect(wrapper.update().find(SelectList).exists()).toBe(true);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
     });
 
     describe('and the "onChange" prop is passed', () => {
@@ -669,7 +707,9 @@ describe("MultiSelect", () => {
       act(() => {
         wrapper.find(Option).first().simulate("click");
       });
-      expect(wrapper.update().find(SelectList).exists()).toBe(true);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
     });
 
     describe('with the "onChange" prop passed', () => {
@@ -733,11 +773,15 @@ describe("MultiSelect", () => {
       const wrapper = renderSelect({ openOnFocus: true });
 
       wrapper.find("input").simulate("focus");
-      expect(wrapper.find(SelectList).exists()).toBe(true);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
       act(() => {
         wrapper.find(SelectList).prop("onSelectListClose")();
       });
-      expect(wrapper.update().find(SelectList).exists()).toBe(false);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
     });
   });
 
@@ -766,7 +810,9 @@ describe("MultiSelect", () => {
           .find('[type="dropdown"]')
           .first()
           .simulate("click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });

@@ -1,6 +1,5 @@
 import React from "react";
 import { mount } from "enzyme";
-import CarbonProvider from "../../components/carbon-provider";
 import FormField, { FormFieldProps } from "./form-field.component";
 import FieldHelp from "../field-help";
 import { FieldLineStyle } from "./form-field.style";
@@ -15,33 +14,27 @@ const setError = jest.fn();
 const setWarning = jest.fn();
 const setInfo = jest.fn();
 
-type RenderProps = Omit<FormFieldProps, "data-component">;
-
-function render({ id = "mock-input", ...rest }: RenderProps) {
+function render(formFieldProps: FormFieldProps) {
   return mount(
-    <CarbonProvider>
-      <FormField data-component="mock-component" id={id} {...rest}>
-        <input id={id} />
-      </FormField>
-    </CarbonProvider>
+    <FormField {...formFieldProps}>
+      <input id={formFieldProps.id} />
+    </FormField>
   );
 }
 
-function renderWithContext({ id = "mock-input", ...rest }: RenderProps) {
+function renderWithTabContext(formFieldProps: FormFieldProps) {
   return mount(
-    <CarbonProvider>
-      <TabContext.Provider value={{ setError, setWarning, setInfo }}>
-        <FormField data-component="mock-component" id={id} {...rest}>
-          <input id={id} />
-        </FormField>
-      </TabContext.Provider>
-    </CarbonProvider>
+    <TabContext.Provider value={{ setError, setWarning, setInfo }}>
+      <FormField {...formFieldProps}>
+        <input id={formFieldProps.id} />
+      </FormField>
+    </TabContext.Provider>
   );
 }
 
 describe("FormField", () => {
   it("with the mb prop set, correct bottom margin should be set", () => {
-    const wrapper = render({ mb: 5 });
+    const wrapper = render({ id: "mock-input", mb: 5 });
 
     assertStyleMatch(
       {
@@ -55,10 +48,10 @@ describe("FormField", () => {
   describe("with a label", () => {
     it("renders label alongside children", () => {
       const wrapper = render({
+        id: "mock-input",
         label: "Name",
         labelAlign: "left",
         labelWidth: 20,
-        size: "small",
       });
 
       expect(wrapper.find("label[data-element='label']").exists()).toBe(true);
@@ -72,11 +65,11 @@ describe("FormField", () => {
       "when labelInline prop is %s, make container of input and label a %s container",
       (labelInline, display) => {
         const wrapper = render({
+          id: "mock-input",
           label: "Name",
           labelInline,
           labelAlign: "left",
           labelWidth: 20,
-          size: "small",
         });
 
         assertStyleMatch(
@@ -92,7 +85,6 @@ describe("FormField", () => {
       const id = "foo";
       const wrapper = render({
         id,
-        name: "foo",
         label: "Name",
       });
       expect(wrapper.find(`input[id='${id}']`).exists()).toBe(true);
@@ -102,21 +94,23 @@ describe("FormField", () => {
     it("passes the tooltipId to the Label id prop", () => {
       const tooltipId = "test-help-id";
       expect(
-        render({ tooltipId, label: "test label" }).find(Label).prop("tooltipId")
+        render({ id: "mock-input", tooltipId, label: "test label" })
+          .find(Label)
+          .prop("tooltipId")
       ).toBe(tooltipId);
     });
 
     describe("when validationRedesignOptIn is true", () => {
       it("does not set the validation props on the Label", () => {
-        const { error, warning, info } = render({
+        const wrapper = render({
+          id: "mock-input",
           label: "test label",
           error: true,
           warning: true,
           info: true,
           validationRedesignOptIn: true,
-        })
-          .find(Label)
-          .props();
+        });
+        const { error, warning, info } = wrapper.find(Label).props();
 
         expect(error).toEqual(false);
         expect(warning).toEqual(false);
@@ -132,6 +126,7 @@ describe("FormField", () => {
 
         it("should pass labelInline to its children", () => {
           const wrapper = render({
+            id: "mock-input",
             label: "Name",
             labelInline: true,
             fieldHelp: "Help",
@@ -151,6 +146,7 @@ describe("FormField", () => {
 
         it("should pass labelInline to its children", () => {
           const wrapper = render({
+            id: "mock-input",
             label: "Name",
             labelInline: true,
             fieldHelp: "Help",
@@ -171,6 +167,7 @@ describe("FormField", () => {
 
     it("renders field help element with correct id", () => {
       const wrapper = render({
+        id: "mock-input",
         fieldHelpId,
         fieldHelp,
         labelWidth: 20,
@@ -180,6 +177,7 @@ describe("FormField", () => {
 
     it("when fieldHelpInline and labelInline props are true, field help is rendered inline with input", () => {
       const wrapper = render({
+        id: "mock-input",
         fieldHelpId,
         fieldHelp,
         labelWidth: 20,
@@ -192,6 +190,7 @@ describe("FormField", () => {
 
     it("when fieldHelpInline prop is false and labelInline is true, field help is not rendered inline with input", () => {
       const wrapper = render({
+        id: "mock-input",
         fieldHelpId,
         fieldHelp,
         labelWidth: 20,
@@ -205,17 +204,17 @@ describe("FormField", () => {
 
   describe("with TabContext", () => {
     it('calls "setError" when has "error" is true', () => {
-      renderWithContext({ error: true, id: "foo" });
+      renderWithTabContext({ id: "foo", error: true });
       expect(setError).toHaveBeenCalledWith("foo", true);
     });
 
     it('calls "setWarning" when has "warning" is true', () => {
-      renderWithContext({ warning: true, id: "foo" });
+      renderWithTabContext({ id: "foo", warning: true });
       expect(setWarning).toHaveBeenCalledWith("foo", true);
     });
 
     it('calls "setInfo" when has "info" is true', () => {
-      renderWithContext({ info: true, id: "foo" });
+      renderWithTabContext({ id: "foo", info: true });
       expect(setInfo).toHaveBeenCalledWith("foo", true);
     });
   });
@@ -233,7 +232,11 @@ describe("FormField", () => {
         "Use `readOnly` if you require users to see validations with a non-interactive field";
 
       expect(() =>
-        renderWithContext({ disabled: true, [validation]: true })
+        renderWithTabContext({
+          id: "mock-input",
+          disabled: true,
+          [validation]: true,
+        })
       ).toThrow(error);
 
       consoleSpy.mockRestore();

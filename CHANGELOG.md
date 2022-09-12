@@ -1,3 +1,103 @@
+## [110.6.0](https://github.com/Sage/carbon/compare/v110.5.2...v110.6.0) (2022-09-12)
+
+
+### Features
+
+* **icon:** 3 new icons, alert_on, palm_tree and tick_thick ([c35a8d7](https://github.com/Sage/carbon/commit/c35a8d767289104bd0dd1e2cc9bd5364867fe59b))
+
+### [110.5.2](https://github.com/Sage/carbon/compare/v110.5.1...v110.5.2) (2022-09-12)
+
+
+### Bug Fixes
+
+* **flat-table-header:** alternative color not changing according theme ([ce6e48c](https://github.com/Sage/carbon/commit/ce6e48c5a26084a96bfe29cf9cd7dcd62d3935e6))
+
+### [110.5.1](https://github.com/Sage/carbon/compare/v110.5.0...v110.5.1) (2022-09-12)
+
+
+### Bug Fixes
+
+* **tabs, icon:** override behaviour of icon with tooltip when rendered inside tab title ([235e6d9](https://github.com/Sage/carbon/commit/235e6d95c626c1b88050363b02a71a2117bccf94)), closes [#4663](https://github.com/Sage/carbon/issues/4663)
+
+## [110.5.0](https://github.com/Sage/carbon/compare/v110.4.1...v110.5.0) (2022-09-09)
+
+
+### Features
+
+* **search:** add validation props ([04dad45](https://github.com/Sage/carbon/commit/04dad45336168ebdb45ad21f68f2f41fb306efd2)), closes [#5236](https://github.com/Sage/carbon/issues/5236)
+
+### [110.4.1](https://github.com/Sage/carbon/compare/v110.4.0...v110.4.1) (2022-09-07)
+
+
+### Bug Fixes
+
+* **select:** ensure aria-activedescendant is always valid ([327b134](https://github.com/Sage/carbon/commit/327b134a05a494ef149d0edcc40331107b470ae3)), closes [#5289](https://github.com/Sage/carbon/issues/5289)
+
+## [110.4.0](https://github.com/Sage/carbon/compare/v110.3.0...v110.4.0) (2022-09-07)
+
+
+### Features
+
+* **button-toggle:** add invariant for childless and iconless buttons ([3a2b631](https://github.com/Sage/carbon/commit/3a2b631546ac213f17ebd2a64994b3c206baa290))
+* **radio-button-mapper:** define types for component props ([c6bce8c](https://github.com/Sage/carbon/commit/c6bce8caafc929d54bdb210693b24fabfec77d0a))
+
+## [110.3.0](https://github.com/Sage/carbon/compare/v110.2.4...v110.3.0) (2022-09-06)
+
+
+### Features
+
+* **scrollable-block:** add parent prop and fix rendered HTML ([c7537f0](https://github.com/Sage/carbon/commit/c7537f012a88e86ec727000bd5e1b89e56112168))
+
+### [110.2.4](https://github.com/Sage/carbon/compare/v110.2.3...v110.2.4) (2022-09-05)
+
+
+### Bug Fixes
+
+* **definition-list:** ensure component has valid displayName ([84ad499](https://github.com/Sage/carbon/commit/84ad4995b6ec5fc698ea0bcca267d2cbff7952ef))
+
+### [110.2.3](https://github.com/Sage/carbon/compare/v110.2.2...v110.2.3) (2022-09-05)
+
+
+### Bug Fixes
+
+* **flat-table-row:** allow click actions inside interactive row ([536ec5a](https://github.com/Sage/carbon/commit/536ec5a2c393dd906dcaf6939ce5c1dc3e459b72)), closes [#5402](https://github.com/Sage/carbon/issues/5402)
+
+### [110.2.2](https://github.com/Sage/carbon/compare/v110.2.1...v110.2.2) (2022-09-02)
+
+
+### Bug Fixes
+
+* **popover-container:** remove incorrect role attribute ([dfc9ac1](https://github.com/Sage/carbon/commit/dfc9ac1668f3353fa25b0f066610514ccbf4e8d9))
+
+### [110.2.1](https://github.com/Sage/carbon/compare/v110.2.0...v110.2.1) (2022-09-01)
+
+
+### Bug Fixes
+
+* **select:** ensure select list always has correct height to fit content ([f1d966b](https://github.com/Sage/carbon/commit/f1d966bb96645d91fa989f3f40fb2fd8173e8951)), closes [#5341](https://github.com/Sage/carbon/issues/5341)
+
+## [110.2.0](https://github.com/Sage/carbon/compare/v110.1.3...v110.2.0) (2022-08-30)
+
+
+### Features
+
+* **box:** add styled-system position props ([52f065f](https://github.com/Sage/carbon/commit/52f065fbedf5eadf36f970faab96d191bddc4fdc)), closes [#5345](https://github.com/Sage/carbon/issues/5345)
+* **box:** add tabIndex prop ([79a20f2](https://github.com/Sage/carbon/commit/79a20f2ccb9903586c4721ed5313895fa53e67d4))
+
+### [110.1.3](https://github.com/Sage/carbon/compare/v110.1.2...v110.1.3) (2022-08-26)
+
+
+### Bug Fixes
+
+* **form-field:** modify typing of data props ([52a1e57](https://github.com/Sage/carbon/commit/52a1e579054b02f32f777b962cabe9e4514401ff))
+
+### [110.1.2](https://github.com/Sage/carbon/compare/v110.1.1...v110.1.2) (2022-08-25)
+
+
+### Bug Fixes
+
+* **date:** ensure selectedDays prop receives a valid value on initial render ([3c8d6da](https://github.com/Sage/carbon/commit/3c8d6daf936dda6e8c5c3ed312f429c2770625eb)), closes [#5333](https://github.com/Sage/carbon/issues/5333)
+
 ### [110.1.1](https://github.com/Sage/carbon/compare/v110.1.0...v110.1.1) (2022-08-18)
 
 

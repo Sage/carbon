@@ -16,13 +16,13 @@ import Loader from "../../loader";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledSelectListContainer from "./select-list-container.style";
 import Popover from "../../../__internal__/popover";
-import guid from "../../../__internal__/utils/helpers/guid";
+import * as guidModule from "../../../__internal__/utils/helpers/guid";
 import StyledOption from "../option/option.style";
 import StyledOptionRow from "../option-row/option-row.style";
 
-jest.mock("../../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
-guid.mockImplementation(() => "guid-12345");
+const guidSpy = jest.spyOn(guidModule, "default");
+guidSpy.mockImplementation(() => "guid-12345");
 
 const escapeKeyDownEvent = new KeyboardEvent("keydown", {
   key: "Escape",
@@ -408,6 +408,7 @@ describe("SelectList", () => {
               onSelect={() => {}}
               onSelectListClose={() => {}}
               isLoading
+              isOpen
             >
               {options}
             </SelectList>
@@ -435,6 +436,7 @@ describe("SelectList", () => {
               onSelectListClose={() => {}}
               multiColumn={multiColumn}
               isLoading
+              isOpen
             >
               {multiColumn ? (
                 <OptionRow id="1" value="opt1" text="red">
@@ -746,7 +748,7 @@ describe("SelectList", () => {
   describe("when non option elements are provided as children", () => {
     it("then isHighlighted prop should not be set on them", () => {
       const wrapper = mount(
-        <SelectList onSelect={() => {}} onSelectListClose={() => {}}>
+        <SelectList onSelect={() => {}} onSelectListClose={() => {}} isOpen>
           {false && ""}
           <li>not an option element</li>
         </SelectList>
@@ -839,8 +841,8 @@ describe("SelectList", () => {
 
   describe("ARIA", () => {
     describe("when labelId prop is provided", () => {
-      guid.mockImplementationOnce(() => "labelId-guid");
-      const labelId = guid();
+      guidSpy.mockImplementationOnce(() => "labelId-guid");
+      const labelId = guidSpy();
 
       it("set aria-labelledby to it", () => {
         const wrapper = renderSelectList({ labelId });
@@ -859,6 +861,56 @@ describe("SelectList", () => {
           .prop("aria-labelledby");
         expect(ariaLabelledBy).toEqual(undefined);
       });
+    });
+  });
+
+  describe("IDs are stable over the component's lifecycle", () => {
+    let wrapper;
+    let optionIds;
+
+    beforeEach(() => {
+      guidSpy.mockRestore();
+      wrapper = renderUnwrappedSelectList({ isOpen: false });
+      optionIds = wrapper
+        .find(Option)
+        .map((option) => option.getDOMNode().getAttribute("id"));
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    it("when the list is opened for the first time", () => {
+      wrapper.setProps({ open: true });
+      wrapper.update();
+      const currentOptionIds = wrapper
+        .find(Option)
+        .map((option) => option.getDOMNode().getAttribute("id"));
+      expect(currentOptionIds).toEqual(optionIds);
+    });
+
+    it("when the list is opened and then closed", () => {
+      wrapper.setProps({ open: true });
+      wrapper.update();
+      wrapper.setProps({ open: false });
+      wrapper.update();
+      const currentOptionIds = wrapper
+        .find(Option)
+        .map((option) => option.getDOMNode().getAttribute("id"));
+      expect(currentOptionIds).toEqual(optionIds);
+    });
+
+    it("when the list is opened, closed and then re-opened", () => {
+      wrapper.setProps({ open: true });
+      wrapper.update();
+      wrapper.setProps({ open: false });
+      wrapper.update();
+      wrapper.setProps({ open: true });
+      wrapper.update();
+      const currentOptionIds = wrapper
+        .find(Option)
+        .map((option) => option.getDOMNode().getAttribute("id"));
+      expect(currentOptionIds).toEqual(optionIds);
     });
   });
 });
@@ -883,6 +935,7 @@ function getSelectList(props) {
   const defaultProps = {
     onSelect: () => {},
     onSelectListClose: () => {},
+    isOpen: true,
   };
 
   const WrapperComponent = (wrapperProps) => {
@@ -904,6 +957,7 @@ function getOptionRowSelectList(props) {
   const defaultProps = {
     onSelect: () => {},
     onSelectListClose: () => {},
+    isOpen: true,
   };
 
   const WrapperComponent = (wrapperProps) => {
@@ -937,6 +991,7 @@ function getGroupedSelectList(props) {
   const defaultProps = {
     onSelect: () => {},
     onSelectListClose: () => {},
+    isOpen: true,
   };
 
   const WrapperComponent = (wrapperProps) => {
@@ -955,4 +1010,14 @@ function getGroupedSelectList(props) {
   };
 
   return <WrapperComponent />;
+}
+
+function renderUnwrappedSelectList(props) {
+  return mount(
+    <SelectList {...props}>
+      <Option value="opt1" text="red" />
+      <Option value="opt2" text="green" />
+      <Option value="opt3" text="blue" />
+    </SelectList>
+  );
 }

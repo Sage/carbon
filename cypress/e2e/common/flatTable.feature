@@ -305,3 +305,9 @@ Feature: FlatTable component
       | pl4          | 32px            |
       | pl25px       | 25px            |
       | pl6em        | 84px            |
+
+  @positive
+  Scenario Outline: Links are still clickable when inside a focused expandable row
+    Given I open "Flat Table test" component page "expandable with link"
+    When I click on the first cell in the first row
+    Then The link is clickable
