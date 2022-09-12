@@ -24,6 +24,7 @@ import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import getColorValue from "../../style/utils/get-color-value";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
+import { TabTitleContext } from "../tabs/__internal__/tab-title/tab-title.component";
 
 interface MismatchedPairs {
   prop: LegacyIconTypes;
@@ -530,6 +531,18 @@ describe("Icon component", () => {
         // eslint-disable-next-line no-console
         expect(console.error).not.toHaveBeenCalled();
         consoleSpy.mockReset();
+      });
+    });
+
+    describe("TabTitleContext", () => {
+      it("overrides tabIndex and sets to undefined", () => {
+        const wrapper = mount(
+          <TabTitleContext.Provider value={{ isInTab: true }}>
+            <Icon type="home" tooltipMessage="foo" tabIndex={0} />
+          </TabTitleContext.Provider>
+        );
+
+        expect(wrapper.find(StyledIcon).prop("tabIndex")).toBe(undefined);
       });
     });
   });
