@@ -1,3 +1,10 @@
+### [110.5.1](https://github.com/Sage/carbon/compare/v110.5.0...v110.5.1) (2022-09-12)
+
+
+### Bug Fixes
+
+* **tabs, icon:** override behaviour of icon with tooltip when rendered inside tab title ([235e6d9](https://github.com/Sage/carbon/commit/235e6d95c626c1b88050363b02a71a2117bccf94)), closes [#4663](https://github.com/Sage/carbon/issues/4663)
+
 ## [110.5.0](https://github.com/Sage/carbon/compare/v110.4.1...v110.5.0) (2022-09-09)
 
 
