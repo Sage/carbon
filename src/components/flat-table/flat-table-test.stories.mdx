@@ -14,6 +14,7 @@ import {
   Sort,
 } from ".";
 import guid from "../../__internal__/utils/helpers/guid";
+import Link from "../link";
 import { FLAT_TABLE_SIZES, FLAT_TABLE_THEMES } from "./flat-table.config";
 import { FlatTableSortableStory } from "./flat-table.stories.mdx";
 
@@ -335,5 +336,74 @@ export const FlatTableStory = ({
     }}
   >
     {FlatTableSortableStory.bind({})}
+  </Story>
+</Canvas>
+
+### Expandable with inner link
+
+<Canvas>
+  <Story name="expandable with link">
+    {() => {
+      const SubRows = [
+        <FlatTableRow>
+          <FlatTableRowHeader>Child one</FlatTableRowHeader>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow>
+          <FlatTableRowHeader>Child two</FlatTableRowHeader>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+      ];
+      return (
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableRowHeader>Name</FlatTableRowHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableRowHeader>John Doe</FlatTableRowHeader>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>
+                <Link
+                  href="https://carbon.sage.com"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  This is a link
+                </Link>
+              </FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableRowHeader>John Smith</FlatTableRowHeader>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+    }}
   </Story>
 </Canvas>
