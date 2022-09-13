@@ -4,12 +4,16 @@ export const POD_SIZES = [
   "medium",
   "large",
   "extra-large",
-];
-export const POD_ALIGNMENTS = ["center", "left", "right"];
-export const POD_THEMES = [
+] as const;
+export const POD_ALIGNMENTS = ["left", "center", "right"] as const;
+export const POD_VARIANTS = [
   "primary",
   "secondary",
   "tertiary",
   "tile",
   "transparent",
-];
+] as const;
+
+export type PodSize = typeof POD_SIZES[number];
+export type PodAlignment = typeof POD_ALIGNMENTS[number];
+export type PodVariant = typeof POD_VARIANTS[number];

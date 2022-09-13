@@ -19,6 +19,7 @@ import Icon from "../icon";
 
 import Event from "../../__internal__/utils/helpers/events";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import { PodAlignment, PodSize, PodVariant } from "./pod.config";
 
 export interface PodProps extends MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -28,7 +29,7 @@ export interface PodProps extends MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-role"?: string;
   /** Aligns the title to left, right or center */
-  alignTitle?: "left" | "center" | "right";
+  alignTitle?: PodAlignment;
   /** Enables/disables the border around the pod. */
   border?: boolean;
   /** Children elements */
@@ -36,9 +37,9 @@ export interface PodProps extends MarginProps {
   /** Custom className */
   className?: string;
   /** Determines the padding around the pod */
-  size?: "extra-small" | "small" | "medium" | "large" | "extra-large";
+  size?: PodSize;
   /** Prop to apply a theme to the Pod */
-  variant?: "primary" | "secondary" | "tertiary" | "tile" | "transparent";
+  variant?: PodVariant;
   /** Title for the pod h4 element always shown */
   title?: string | React.ReactNode;
   /** Optional subtitle for the pod */

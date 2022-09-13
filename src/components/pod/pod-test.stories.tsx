@@ -3,7 +3,7 @@ import { ComponentMeta } from "@storybook/react";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Pod, { PodProps } from "./pod.component";
-import { POD_ALIGNMENTS, POD_SIZES, POD_THEMES } from "./pod.config";
+import { POD_ALIGNMENTS, POD_SIZES, POD_VARIANTS } from "./pod.config";
 
 export default {
   component: Pod,
@@ -32,7 +32,7 @@ export default {
       },
     },
     variant: {
-      options: POD_THEMES,
+      options: POD_VARIANTS,
       control: {
         type: "select",
       },

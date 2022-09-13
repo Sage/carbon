@@ -6,9 +6,10 @@ import Link from "../link";
 import { StyledContent as StyledLinkContent } from "../link/link.style";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
+import { PodAlignment, PodSize, PodVariant } from "./pod.config";
 
 export interface StyledPodProps extends MarginProps {
-  alignTitle: "left" | "center" | "right";
+  alignTitle: PodAlignment;
   internalEditButton?: boolean;
   height?: string;
 }
@@ -35,7 +36,7 @@ const blockBackgrounds = {
 };
 
 export interface StyledBlockProps {
-  variant: "primary" | "secondary" | "tertiary" | "tile" | "transparent";
+  variant: PodVariant;
   noBorder: boolean;
   softDelete?: boolean;
   hasButtons: boolean;
@@ -127,7 +128,7 @@ const contentPaddings = {
 };
 
 export interface StyledContentProps {
-  size: "extra-small" | "small" | "medium" | "large" | "extra-large";
+  size: PodSize;
 }
 const StyledContent = styled.div<StyledContentProps>`
   text-align: left;
@@ -144,8 +145,8 @@ const footerPaddings = {
 };
 
 export interface StyledFooterProps {
-  variant: "primary" | "secondary" | "tertiary" | "tile" | "transparent";
-  size: "extra-small" | "small" | "medium" | "large" | "extra-large";
+  variant: PodVariant;
+  size: PodSize;
   softDelete?: boolean;
 }
 const StyledFooter = styled.div<StyledFooterProps>`
@@ -196,8 +197,8 @@ const actionButtonBackgrounds = {
 };
 
 export interface StyledPodButton {
-  size: "extra-small" | "small" | "medium" | "large" | "extra-large";
-  variant: "primary" | "secondary" | "tertiary" | "tile" | "transparent";
+  size: PodSize;
+  variant: PodVariant;
   noBorder: boolean;
   isFocused?: boolean;
   isHovered?: boolean;
@@ -316,9 +317,9 @@ const headerRightAlignMargins = {
 };
 
 export interface StyledHeaderProps {
-  alignTitle: "left" | "center" | "right";
+  alignTitle: PodAlignment;
   internalEditButton?: boolean;
-  size: "extra-small" | "small" | "medium" | "large" | "extra-large";
+  size: PodSize;
 }
 const StyledHeader = styled.div<StyledHeaderProps>`
   ${({ alignTitle, internalEditButton, size }) => css`
