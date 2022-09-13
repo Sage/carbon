@@ -1,10 +1,9 @@
 import React, { useRef, useEffect, useLayoutEffect, useCallback } from "react";
-import PropTypes from "prop-types";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
-import Modal from "../modal";
+import Modal, { ModalProps } from "../modal";
 import Heading from "../heading";
-
+import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import {
   DialogStyle,
@@ -18,19 +17,93 @@ import Icon from "../icon";
 import { TOP_MARGIN } from "./dialog.config";
 import useLocale from "../../hooks/__internal__/useLocale";
 
-const Dialog = ({
+type PaddingValues = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
+export interface ContentPaddingInterface {
+  p?: PaddingValues;
+  py?: PaddingValues;
+  px?: PaddingValues;
+}
+
+type DialogSizes =
+  | "auto"
+  | "extra-small"
+  | "small"
+  | "medium-small"
+  | "medium"
+  | "medium-large"
+  | "large"
+  | "extra-large";
+
+export interface DialogProps extends ModalProps, TagProps {
+  /** Custom class name  */
+  className?: string;
+  /** Prop to specify the aria-describedby property of the Dialog component */
+  "aria-describedby"?: string;
+  /**
+   * Prop to specify the aria-label of the Dialog component.
+   * To be used only when the title prop is not defined, and the component is not labelled by any internal element.
+   */
+  "aria-label"?: string;
+  /**
+   * Prop to specify the aria-labelledby property of the Dialog component
+   * To be used when the title prop is a custom React Node,
+   * or the component is labelled by an internal element other than the title.
+   */
+  "aria-labelledby"?: string;
+  /* Disables auto focus functionality on child elements */
+  disableAutoFocus?: boolean;
+  /* Disables the focus trap when the dialog is open */
+  disableFocusTrap?: boolean;
+  /**
+   * Function to replace focus trap
+   * @ignore
+   * @private
+   */
+  bespokeFocusTrap?: (
+    ev: KeyboardEvent,
+    firstElement?: HTMLElement,
+    lastElement?: HTMLElement
+  ) => void;
+  /** Optional reference to an element meant to be focused on open */
+  focusFirstElement?: React.MutableRefObject<HTMLElement | null>;
+  /** Allows developers to specify a specific height for the dialog. */
+  height?: string;
+  /** Adds Help tooltip to Header */
+  help?: string;
+  /** A custom close event handler */
+  onCancel?: (
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLButtonElement>
+  ) => void;
+  /** Determines if the close icon is shown */
+  showCloseIcon?: boolean;
+  /** Size of dialog, default size is 750px */
+  size?: DialogSizes;
+  /** Subtitle displayed at top of dialog */
+  subtitle?: string;
+  /** Title displayed at top of dialog */
+  title?: React.ReactNode;
+  /** The ARIA role to be applied to the Dialog container */
+  role?: string;
+  /** Padding to be set on the Dialog content */
+  contentPadding?: ContentPaddingInterface;
+  /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
+  focusableContainers?: React.MutableRefObject<HTMLElement | null>[];
+}
+
+export const Dialog = ({
   className,
   children,
   open,
   height,
-  size,
+  size = "medium",
   title,
   disableEscKey,
   subtitle,
-  disableAutoFocus,
+  disableAutoFocus = false,
   focusFirstElement,
   onCancel,
-  showCloseIcon,
+  showCloseIcon = true,
   bespokeFocusTrap,
   disableClose,
   help,
@@ -38,10 +111,10 @@ const Dialog = ({
   contentPadding = {},
   focusableContainers,
   ...rest
-}) => {
+}: DialogProps) => {
   const locale = useLocale();
 
-  const dialogRef = useRef(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const innerContentRef = useRef(null);
   const titleRef = useRef(null);
   const listenersAdded = useRef(false);
@@ -49,6 +122,11 @@ const Dialog = ({
   const { current: subtitleId } = useRef(createGuid());
 
   const centerDialog = useCallback(() => {
+    /* istanbul ignore if */
+    if (!dialogRef.current) {
+      return;
+    }
+
     const {
       width: dialogWidth,
       height: dialogHeight,
@@ -210,83 +288,6 @@ const Dialog = ({
       </FocusTrap>
     </Modal>
   );
-};
-
-Dialog.propTypes = {
-  /** Prop to specify the aria-describedby property of the Dialog component */
-  "aria-describedby": PropTypes.string,
-  /**
-   * Prop to specify the aria-label of the Dialog component.
-   * To be used only when the title prop is not defined, and the component is not labelled by any internal element.
-   */
-  "aria-label": PropTypes.string,
-  /**
-   * Prop to specify the aria-labelledby property of the Dialog component
-   * To be used when the title prop is a custom React Node,
-   * or the component is labelled by an internal element other than the title.
-   */
-  "aria-labelledby": PropTypes.string,
-  /** Dialog content */
-  children: PropTypes.node,
-  /** Custom class name  */
-  className: PropTypes.string,
-  /** Controls the open state of the component */
-  open: PropTypes.bool.isRequired,
-  /** A custom close event handler */
-  onCancel: PropTypes.func,
-  /** Determines if the Esc Key closes the Dialog */
-  disableEscKey: PropTypes.bool,
-  /** Determines if the Dialog can be closed */
-  disableClose: PropTypes.bool,
-  /** Allows developers to specify a specific height for the dialog. */
-  height: PropTypes.string,
-  /** Adds Help tooltip to Header */
-  help: PropTypes.string,
-  /** Title displayed at top of dialog */
-  title: PropTypes.node,
-  /** Subtitle displayed at top of dialog */
-  subtitle: PropTypes.string,
-  /** Size of dialog, default size is 750px */
-  size: PropTypes.oneOf([
-    "auto",
-    "extra-small",
-    "small",
-    "medium-small",
-    "medium",
-    "medium-large",
-    "large",
-    "extra-large",
-  ]),
-  /** Determines if the close icon is shown */
-  showCloseIcon: PropTypes.bool,
-  /** Optional reference to an element meant to be focused on open */
-  focusFirstElement: PropTypes.shape({ current: PropTypes.any }),
-  /** Disables auto focus functionality on child elements */
-  disableAutoFocus: PropTypes.bool,
-  /**
-   * Function to replace focus trap
-   * @ignore
-   * @private
-   */
-  bespokeFocusTrap: PropTypes.func,
-  /** The ARIA role to be applied to the Dialog container */
-  role: PropTypes.string,
-  /** Padding to be set on the Dialog content */
-  contentPadding: PropTypes.shape({
-    p: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7, 8]),
-    px: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7, 8]),
-    py: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7, 8]),
-  }),
-  /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
-  focusableContainers: PropTypes.arrayOf(
-    PropTypes.shape({ current: PropTypes.any })
-  ),
-};
-
-Dialog.defaultProps = {
-  size: "medium",
-  showCloseIcon: true,
-  disableAutoFocus: false,
 };
 
 export default Dialog;

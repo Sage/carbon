@@ -18,6 +18,7 @@ import {
   CONTENT_TOP_PADDING,
   CONTENT_BOTTOM_PADDING,
 } from "./dialog.config";
+import { ContentPaddingInterface } from "./dialog.component";
 
 const dialogSizes = {
   auto: "auto",
@@ -30,28 +31,41 @@ const dialogSizes = {
   "extra-large": "1080px",
 };
 
-const calculateWidthValue = (props) => {
-  const { paddingLeft, paddingRight, padding } = paddingFn(props);
+interface PaddingValues {
+  paddingTop: number;
+  paddingBottom: number;
+  paddingLeft: number;
+  paddingRight: number;
+  padding: number;
+}
+
+const calculateWidthValue = (props: ContentPaddingInterface) => {
+  const { paddingLeft, paddingRight, padding }: PaddingValues = paddingFn(
+    props
+  );
   const paddingValue = paddingLeft ?? paddingRight ?? padding;
 
   return paddingValue === undefined ? HORIZONTAL_PADDING : paddingValue;
 };
 
-const calculateFormSpacingValues = (props, isFormContent) => {
+const calculateFormSpacingValues = (
+  props: ContentPaddingInterface,
+  isFormContent: boolean
+) => {
   const {
     paddingTop,
     paddingBottom,
     paddingLeft,
     paddingRight,
     padding,
-  } = paddingFn(props);
+  }: PaddingValues = paddingFn(props);
 
   const spacingTopValue = paddingTop ?? padding ?? CONTENT_TOP_PADDING;
   const spacingRightValue = paddingRight ?? padding ?? HORIZONTAL_PADDING;
   const spacingBottomValue = paddingBottom ?? padding ?? CONTENT_BOTTOM_PADDING;
   const spacingLeftValue = paddingLeft ?? padding ?? HORIZONTAL_PADDING;
 
-  const setNegativeValue = (value) => `calc(-1px * ${value})`;
+  const setNegativeValue = (value: number) => `calc(-1px * ${value})`;
 
   return {
     "margin-left": setNegativeValue(spacingLeftValue),
@@ -71,12 +85,24 @@ const calculateFormSpacingValues = (props, isFormContent) => {
   };
 };
 
-const calculatePaddingTopInnerContent = ({ py, p }) =>
+const calculatePaddingTopInnerContent = ({
+  py,
+  p,
+}: {
+  py?: ContentPaddingInterface["py"];
+  p?: ContentPaddingInterface["p"];
+}) =>
   [py, p].some((padding) => padding !== undefined)
     ? 0
     : `${CONTENT_TOP_PADDING}px`;
 
-const DialogStyle = styled.div`
+type DialogStyleProps = {
+  topMargin: number;
+  size?: keyof typeof dialogSizes;
+  dialogHeight?: string;
+};
+
+const DialogStyle = styled.div<DialogStyleProps & ContentPaddingInterface>`
   background-color: var(--colorsUtilityMajor025);
   box-shadow: var(--boxShadow300);
   display: flex;
@@ -135,7 +161,12 @@ const DialogStyle = styled.div`
   }
 `;
 
-const DialogTitleStyle = styled.div`
+type DialogTitleStyleProps = {
+  showCloseIcon?: boolean;
+  hasSubtitle?: boolean;
+};
+
+const DialogTitleStyle = styled.div<DialogTitleStyleProps>`
   padding: 23px ${HORIZONTAL_PADDING}px 0;
   border-bottom: 1px solid #ccd6db;
   ${({ showCloseIcon }) => showCloseIcon && "padding-right: 85px"};
@@ -157,7 +188,7 @@ const DialogTitleStyle = styled.div`
   }
 `;
 
-const DialogContentStyle = styled.div`
+const DialogContentStyle = styled.div<ContentPaddingInterface>`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -168,7 +199,7 @@ const DialogContentStyle = styled.div`
   ${paddingFn}
 `;
 
-const DialogInnerContentStyle = styled.div`
+const DialogInnerContentStyle = styled.div<ContentPaddingInterface>`
   position: relative;
   flex: 1;
   padding-top: ${calculatePaddingTopInnerContent};

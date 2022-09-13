@@ -1,11 +1,11 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 
 import { space } from "style/themes/base/base-theme.config";
 import guid from "../../__internal__/utils/helpers/guid";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
-import Dialog from "./dialog.component";
+import Dialog, { DialogProps } from "./dialog.component";
 import {
   DialogStyle,
   DialogTitleStyle,
@@ -31,14 +31,18 @@ import Help from "../help";
 jest.mock("../../hooks/__internal__/useResizeObserver");
 jest.mock("../../__internal__/utils/helpers/guid");
 
-describe("Dialog", () => {
-  let onCancel;
-  let addEventListenerSpy;
-  let removeEventListenerSpy;
+const useResizeObserverMock = useResizeObserver as jest.MockedFunction<
+  typeof useResizeObserver
+>;
 
-  let wrapper;
+describe("Dialog", () => {
+  let onCancel: jest.Mock;
+  let addEventListenerSpy: jest.SpyInstance;
+  let removeEventListenerSpy: jest.SpyInstance;
+
+  let wrapper: ReactWrapper<DialogProps>;
   beforeEach(() => {
-    onCancel = jasmine.createSpy("cancel");
+    onCancel = jest.fn();
   });
 
   describe("event listeners", () => {
@@ -166,9 +170,9 @@ describe("Dialog", () => {
             <div />
           </Dialog>
         );
-        expect(wrapper.find(DialogStyle).getDOMNode().style.top).toEqual(
-          "150px"
-        );
+        expect(
+          (wrapper.find(DialogStyle).getDOMNode() as HTMLElement).style.top
+        ).toEqual("150px");
       });
 
       it("sets top position to the correct value on resize", () => {
@@ -180,19 +184,22 @@ describe("Dialog", () => {
 
         jest
           .spyOn(Element.prototype, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            height: 100,
-          }));
+          .mockImplementation(
+            () =>
+              ({
+                height: 100,
+              } as DOMRect)
+          );
 
         act(() => {
-          useResizeObserver.mock.calls[
-            useResizeObserver.mock.calls.length - 1
+          useResizeObserverMock.mock.calls[
+            useResizeObserverMock.mock.calls.length - 1
           ][1]();
         });
 
-        expect(wrapper.find(DialogStyle).getDOMNode().style.top).toEqual(
-          "100px"
-        );
+        expect(
+          (wrapper.find(DialogStyle).getDOMNode() as HTMLElement).style.top
+        ).toEqual("100px");
       });
     });
 
@@ -200,9 +207,12 @@ describe("Dialog", () => {
       it("sets top position to 20px on open", () => {
         jest
           .spyOn(Element.prototype, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            height: 261,
-          }));
+          .mockImplementation(
+            () =>
+              ({
+                height: 261,
+              } as DOMRect)
+          );
 
         wrapper = mount(
           <Dialog open>
@@ -210,9 +220,9 @@ describe("Dialog", () => {
           </Dialog>
         );
 
-        expect(wrapper.find(DialogStyle).getDOMNode().style.top).toEqual(
-          "20px"
-        );
+        expect(
+          (wrapper.find(DialogStyle).getDOMNode() as HTMLElement).style.top
+        ).toEqual("20px");
       });
 
       it("sets top position to 20px on resize", () => {
@@ -224,19 +234,22 @@ describe("Dialog", () => {
 
         jest
           .spyOn(Element.prototype, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            height: 261,
-          }));
+          .mockImplementation(
+            () =>
+              ({
+                height: 261,
+              } as DOMRect)
+          );
 
         act(() => {
-          useResizeObserver.mock.calls[
-            useResizeObserver.mock.calls.length - 1
+          useResizeObserverMock.mock.calls[
+            useResizeObserverMock.mock.calls.length - 1
           ][1]();
         });
 
-        expect(wrapper.find(DialogStyle).getDOMNode().style.top).toEqual(
-          "20px"
-        );
+        expect(
+          (wrapper.find(DialogStyle).getDOMNode() as HTMLElement).style.top
+        ).toEqual("20px");
       });
     });
 
@@ -244,9 +257,12 @@ describe("Dialog", () => {
       it("sets left position to 20px on open", () => {
         jest
           .spyOn(Element.prototype, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            width: 361,
-          }));
+          .mockImplementation(
+            () =>
+              ({
+                width: 361,
+              } as DOMRect)
+          );
 
         wrapper = mount(
           <Dialog open>
@@ -254,9 +270,9 @@ describe("Dialog", () => {
           </Dialog>
         );
 
-        expect(wrapper.find(DialogStyle).getDOMNode().style.left).toEqual(
-          "20px"
-        );
+        expect(
+          (wrapper.find(DialogStyle).getDOMNode() as HTMLElement).style.left
+        ).toEqual("20px");
       });
 
       it("sets left position to 20px on resize", () => {
@@ -268,19 +284,22 @@ describe("Dialog", () => {
 
         jest
           .spyOn(Element.prototype, "getBoundingClientRect")
-          .mockImplementation(() => ({
-            width: 361,
-          }));
+          .mockImplementation(
+            () =>
+              ({
+                width: 361,
+              } as DOMRect)
+          );
 
         act(() => {
-          useResizeObserver.mock.calls[
-            useResizeObserver.mock.calls.length - 1
+          useResizeObserverMock.mock.calls[
+            useResizeObserverMock.mock.calls.length - 1
           ][1]();
         });
 
-        expect(wrapper.find(DialogStyle).getDOMNode().style.left).toEqual(
-          "20px"
-        );
+        expect(
+          (wrapper.find(DialogStyle).getDOMNode() as HTMLElement).style.left
+        ).toEqual("20px");
       });
     });
   });
@@ -368,8 +387,7 @@ describe("Dialog", () => {
       it("has the correct content, tags, elements etc", () => {
         expect(wrapper.props()["data-element"]).toEqual("bar");
         expect(wrapper.props()["data-role"]).toEqual("baz");
-        expect(wrapper.props().showCloseIcon).toEqual(true);
-        expect(wrapper.props().children.length).toEqual(2);
+        expect((wrapper.props().children as JSX.Element[]).length).toEqual(2);
       });
 
       it("closes when the exit icon is click", () => {
@@ -484,7 +502,9 @@ describe("Dialog", () => {
   describe("ARIA attributes", () => {
     describe("when a title is specified as string", () => {
       it("then the container should have aria-labelledby attribute set to it's title id", () => {
-        guid.mockImplementation(() => "foo");
+        (guid as jest.MockedFunction<typeof guid>).mockImplementation(
+          () => "foo"
+        );
         wrapper = mount(<Dialog open title="Test" />);
 
         expect(
@@ -498,7 +518,10 @@ describe("Dialog", () => {
 
     describe("when a subtitle is specified", () => {
       it("then the container should have aria-describedby attribute set to it's subtitle id", () => {
-        guid.mockImplementation(() => "baz");
+        (guid as jest.MockedFunction<typeof guid>).mockImplementation(
+          () => "baz"
+        );
+
         wrapper = mount(<Dialog open subtitle="Test" />);
 
         expect(
@@ -560,15 +583,21 @@ describe("Dialog", () => {
       bottom: CONTENT_BOTTOM_PADDING,
     };
 
-    const setNegativeValue = (tokenValue) => `calc(-1px * ${tokenValue})`;
+    const setNegativeValue = (tokenValue?: string | number) =>
+      `calc(-1px * ${tokenValue})`;
 
-    const getValue = (value, isMargin) => {
+    const getValue = (value: number | undefined, isMargin?: boolean) => {
       const defaultValue = getDefaultValue(value);
 
       return isMargin ? setNegativeValue(defaultValue) : defaultValue;
     };
 
-    const getFormSpacing = (value, position, prop, isMargin) => {
+    const getFormSpacing = (
+      value: number | undefined,
+      position: "top" | "bottom" | "left" | "right",
+      prop: "py" | "px" | "p",
+      isMargin?: boolean
+    ) => {
       if (
         value === undefined ||
         (["top", "bottom"].includes(position) && !["p", "py"].includes(prop)) ||
@@ -582,7 +611,11 @@ describe("Dialog", () => {
       return getValue(value, isMargin);
     };
 
-    const getDialogContentPadding = (value, isMatch, allSides) => {
+    const getDialogContentPadding = (
+      value: number | undefined,
+      isMatch: boolean,
+      allSides?: boolean
+    ) => {
       if (value === undefined || !isMatch) {
         return allSides
           ? `0px ${HORIZONTAL_PADDING}px ${CONTENT_BOTTOM_PADDING}px`
@@ -595,71 +628,74 @@ describe("Dialog", () => {
     describe.each([undefined, 0, 1, 2, 3, 4, 5, 6, 7, 8])(
       "when `%s` is passed",
       (value) => {
-        describe.each(["p", "py", "px"])("to the `%s` property", (prop) => {
-          beforeEach(() => {
-            wrapper = mount(
-              <Dialog open contentPadding={{ [prop]: value }}>
-                <Form />
-              </Dialog>
-            );
-          });
+        describe.each(["p", "py", "px"] as const)(
+          "to the `%s` property",
+          (prop) => {
+            beforeEach(() => {
+              wrapper = mount(
+                <Dialog open contentPadding={{ [prop]: value }}>
+                  <Form />
+                </Dialog>
+              );
+            });
 
-          it("applies the expected values to the DialogStyle and Form elements", () => {
-            assertStyleMatch(
-              {
-                marginLeft: getFormSpacing(value, "left", prop, true),
-                marginRight: getFormSpacing(value, "right", prop, true),
-                marginTop: getFormSpacing(value, "top", prop, true),
-                paddingTop: getFormSpacing(value, "top", prop),
-                paddingBottom: getFormSpacing(value, "bottom", prop),
-                paddingLeft: getFormSpacing(value, "left", prop),
-                paddingRight: getFormSpacing(value, "right", prop),
-              },
-              wrapper.find(DialogStyle),
-              { modifier: `${StyledFormContent}.sticky` }
-            );
+            it("applies the expected values to the DialogStyle and Form elements", () => {
+              assertStyleMatch(
+                {
+                  marginLeft: getFormSpacing(value, "left", prop, true),
+                  marginRight: getFormSpacing(value, "right", prop, true),
+                  marginTop: getFormSpacing(value, "top", prop, true),
+                  paddingTop: getFormSpacing(value, "top", prop),
+                  paddingBottom: getFormSpacing(value, "bottom", prop),
+                  paddingLeft: getFormSpacing(value, "left", prop),
+                  paddingRight: getFormSpacing(value, "right", prop),
+                },
+                wrapper.find(DialogStyle),
+                { modifier: `${StyledFormContent}.sticky` }
+              );
 
-            const width =
-              value === undefined || !["p", "px"].includes(prop)
-                ? HORIZONTAL_PADDING
-                : space[value];
+              const width =
+                value === undefined || !["p", "px"].includes(prop)
+                  ? HORIZONTAL_PADDING
+                  : space[value];
 
-            assertStyleMatch(
-              {
-                marginLeft: getFormSpacing(value, "left", prop, true),
-                marginRight: getFormSpacing(value, "right", prop, true),
-                marginBottom: getFormSpacing(value, "bottom", prop, true),
-                bottom: getFormSpacing(value, "bottom", prop, true),
-                width: `calc(100% + (2px * ${width}))`,
-              },
-              wrapper.find(DialogStyle),
-              { modifier: `${StyledFormFooter}.sticky` }
-            );
-          });
+              assertStyleMatch(
+                {
+                  marginLeft: getFormSpacing(value, "left", prop, true),
+                  marginRight: getFormSpacing(value, "right", prop, true),
+                  marginBottom: getFormSpacing(value, "bottom", prop, true),
+                  bottom: getFormSpacing(value, "bottom", prop, true),
+                  width: `calc(100% + (2px * ${width}))`,
+                },
+                wrapper.find(DialogStyle),
+                { modifier: `${StyledFormFooter}.sticky` }
+              );
+            });
 
-          it("applies the expected values to the DialogContentStyle and DialogInnerContentStyle elements", () => {
-            assertStyleMatch(
-              {
-                padding: getDialogContentPadding(value, prop === "p", true),
-                paddingLeft: getDialogContentPadding(value, prop === "px"),
-                paddingRight: getDialogContentPadding(value, prop === "px"),
-                paddingTop: getDialogContentPadding(value, prop === "py"),
-                paddingBottom: getDialogContentPadding(value, prop === "py"),
-              },
-              wrapper.find(DialogContentStyle)
-            );
+            it("applies the expected values to the DialogContentStyle and DialogInnerContentStyle elements", () => {
+              assertStyleMatch(
+                {
+                  padding: getDialogContentPadding(value, prop === "p", true),
+                  paddingLeft: getDialogContentPadding(value, prop === "px"),
+                  paddingRight: getDialogContentPadding(value, prop === "px"),
+                  paddingTop: getDialogContentPadding(value, prop === "py"),
+                  paddingBottom: getDialogContentPadding(value, prop === "py"),
+                },
+                wrapper.find(DialogContentStyle)
+              );
 
-            assertStyleMatch(
-              {
-                paddingTop:
-                  ["py", "p"].includes(prop) && value !== undefined
-                    ? "0"
-                    : `${CONTENT_TOP_PADDING}px`,
-              },
-              wrapper.find(DialogInnerContentStyle)
-            );
-          });
-        });
+              assertStyleMatch(
+                {
+                  paddingTop:
+                    ["py", "p"].includes(prop) && value !== undefined
+                      ? "0"
+                      : `${CONTENT_TOP_PADDING}px`,
+                },
+                wrapper.find(DialogInnerContentStyle)
+              );
+            });
+          }
+        );
       }
     );
   });

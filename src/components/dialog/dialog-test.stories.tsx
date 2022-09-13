@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
-import Dialog from "./dialog.component";
+import Dialog, { DialogProps } from "./dialog.component";
 import Form from "../form";
 import Textbox from "../textbox";
 import Button from "../button";
@@ -12,15 +11,15 @@ import { Checkbox } from "../checkbox";
 import { Select, Option } from "../select";
 import { DIALOG_SIZES } from "./dialog.config";
 
-<Meta
-  title="Dialog/Test"
-  parameters={{
+export default {
+  title: "Dialog/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     size: {
       options: DIALOG_SIZES,
       control: {
@@ -29,24 +28,26 @@ import { DIALOG_SIZES } from "./dialog.config";
     },
     titleSpecialCharacters: specialCharacters,
     subtitleSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+};
 
-export const DialogStory = ({
+export const Default = ({
   stickyFooter,
   title,
   titleSpecialCharacters,
   subtitle,
   subtitleSpecialCharacters,
   ...args
-}) => {
+}: Partial<DialogProps>) => {
   const [date, setDate] = useState("01/06/2020");
   const [isOpen, setIsOpen] = useState(true);
-  const handleCancel = (evt) => {
+  const handleCancel = (
+    evt: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+  ) => {
     setIsOpen(false);
     action("cancel")(evt);
   };
-  const handleOpen = (evt) => {
+  const handleOpen = (evt: React.MouseEvent<HTMLElement>) => {
     setIsOpen(true);
     action("open")(evt);
   };
@@ -147,25 +148,15 @@ export const DialogStory = ({
   );
 };
 
-# Dialog
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      height: "",
-      title: "Example Dialog",
-      titleSpecialCharacters: undefined,
-      subtitle: "Example Subtitle",
-      subtitleSpecialCharacters: undefined,
-      size: Dialog.defaultProps.size,
-      showCloseIcon: Dialog.defaultProps.showCloseIcon,
-      disableEscKey: false,
-      stickyFooter: false,
-    }}
-  >
-    {DialogStory.bind({})}
-  </Story>
-</Canvas>
+Default.storyName = "default";
+Default.args = {
+  height: "",
+  title: "Example Dialog",
+  titleSpecialCharacters: undefined,
+  subtitle: "Example Subtitle",
+  subtitleSpecialCharacters: undefined,
+  size: "medium",
+  showCloseIcon: true,
+  disableEscKey: false,
+  stickyFooter: false,
+};
