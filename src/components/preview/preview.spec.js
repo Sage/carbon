@@ -1,11 +1,11 @@
 import React from "react";
 import { mount } from "enzyme";
-import Preview from "./preview.component";
+import Preview from ".";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import { StyledPreviewPlaceholder } from "./preview.style";
+import PreviewPlaceholder from "./__internal__/preview-placeholder.component";
 
 const render = (props) => {
   return mount(<Preview {...props} />);
@@ -25,7 +25,7 @@ describe("Preview", () => {
     });
 
     it("will not render a placeholder", () => {
-      expect(wrapper.find(StyledPreviewPlaceholder).exists()).toBe(false);
+      expect(wrapper.find(PreviewPlaceholder).exists()).toBe(false);
     });
   });
 
@@ -34,7 +34,7 @@ describe("Preview", () => {
       const childrenContent = "This is some text";
       const wrapper = render({ children: childrenContent, loading: true });
 
-      expect(wrapper.find(StyledPreviewPlaceholder).exists()).toBe(true);
+      expect(wrapper.find(PreviewPlaceholder).exists()).toBe(true);
     });
   });
 
@@ -42,7 +42,7 @@ describe("Preview", () => {
     it("will not render a placeholder", () => {
       const wrapper = render({ loading: false });
 
-      expect(wrapper.find(StyledPreviewPlaceholder).exists()).toBe(false);
+      expect(wrapper.find(PreviewPlaceholder).exists()).toBe(false);
     });
   });
 
@@ -50,7 +50,7 @@ describe("Preview", () => {
     it("will render the placeholder", () => {
       const wrapper = render();
 
-      expect(wrapper.find(StyledPreviewPlaceholder).exists()).toBe(true);
+      expect(wrapper.find(PreviewPlaceholder).exists()).toBe(true);
     });
   });
 
@@ -58,7 +58,7 @@ describe("Preview", () => {
     it("renders the number of placeholders equal to that prop value", () => {
       const wrapper = render({ lines: 3 });
 
-      expect(wrapper.find(StyledPreviewPlaceholder).length).toBe(3);
+      expect(wrapper.find(PreviewPlaceholder).length).toBe(3);
     });
   });
 
@@ -71,7 +71,7 @@ describe("Preview", () => {
         {
           ...customSizes,
         },
-        wrapper.find(StyledPreviewPlaceholder)
+        wrapper.find(PreviewPlaceholder)
       );
     });
   });

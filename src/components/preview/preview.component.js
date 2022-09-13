@@ -2,53 +2,32 @@ import React from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
-import { StyledPreview, StyledPreviewPlaceholder } from "./preview.style";
+import PreviewPlaceholder from "./__internal__/preview-placeholder.component";
+import { StyledPreview } from "./preview.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
 
-const Preview = (props) => {
+export const Preview = ({ children, loading, lines, ...props }) => {
   const marginProps = filterStyledSystemMarginProps(props);
+  const hasPlaceholder = typeof loading !== "undefined" ? loading : !children;
 
-  if (isLoading(props.loading, props.children)) {
-    const previews = [];
-    for (let i = 1; i <= props.lines; i++) {
-      previews.push(createPreview(props, i));
+  if (hasPlaceholder) {
+    const placeholders = [];
+
+    for (let i = 1; i <= lines; i++) {
+      placeholders.push(
+        <PreviewPlaceholder key={i} index={i} lines={lines} {...props} />
+      );
     }
-    return <StyledPreview {...marginProps}>{previews}</StyledPreview>;
+
+    return <StyledPreview {...marginProps}>{placeholders}</StyledPreview>;
   }
 
-  return <StyledPreview {...marginProps}>{props.children}</StyledPreview>;
+  return <StyledPreview {...marginProps}>{children}</StyledPreview>;
 };
-
-function isLoading(loading, children) {
-  if (typeof loading !== "undefined") {
-    return loading;
-  }
-
-  return !children;
-}
-
-function createPreview(allProps, index) {
-  const { height, lines } = allProps;
-  let { width } = allProps;
-
-  if (!width && lines > 1 && lines === index) {
-    width = "80%";
-  }
-
-  return (
-    <StyledPreviewPlaceholder
-      key={index}
-      height={height}
-      width={width}
-      {...tagComponent("preview", allProps)}
-    />
-  );
-}
 
 Preview.propTypes = {
   ...marginPropTypes,

@@ -9,10 +9,8 @@ import {
   StyledDescription,
   StyledUrl,
 } from "./link-preview.style";
-import {
-  StyledPreview,
-  StyledPreviewPlaceholder,
-} from "../preview/preview.style";
+import { StyledPreview } from "../preview/preview.style";
+import { StyledPreviewPlaceholder } from "../preview/__internal__/preview-placeholder.style";
 import Image from "../image";
 import Placeholder from "./__internal__/placeholder.component";
 import StyledIconButton from "../icon-button/icon-button.style";

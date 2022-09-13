@@ -1,8 +1,6 @@
 import styled, { css } from "styled-components";
-import {
-  StyledPreview,
-  StyledPreviewPlaceholder,
-} from "../preview/preview.style";
+import { StyledPreview } from "../preview/preview.style";
+import { StyledPreviewPlaceholder } from "../preview/__internal__/preview-placeholder.style";
 
 const StyledLinkPreview = styled.a`
   display: flex;
