@@ -111,6 +111,11 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
       () => !!(onEdit && (triggerEditOnContent || displayEditButtonOnHover)),
       [displayEditButtonOnHover, onEdit, triggerEditOnContent]
     );
+    const hasButtons = useMemo(() => !!(onEdit || onDelete || onUndo), [
+      onEdit,
+      onDelete,
+      onUndo,
+    ]);
 
     const processPodAction = (
       action: React.EventHandler<
@@ -154,7 +159,7 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
         <StyledBlock
           data-element="block"
           contentTriggersEdit={shouldContentHaveEditEvents}
-          hasButtons={!!(onEdit || onDelete || onUndo)}
+          hasButtons={hasButtons}
           fullWidth={editContentFullWidth}
           internalEditButton={internalEditButton}
           isFocused={isEditFocused || isDeleteFocused}
@@ -196,7 +201,7 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
             </StyledFooter>
           )}
         </StyledBlock>
-        {(onEdit || onDelete || onUndo) && (
+        {hasButtons && (
           <StyledActionsContainer
             data-element="action-button-container"
             internalEditButton={internalEditButton}
