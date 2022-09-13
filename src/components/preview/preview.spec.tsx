@@ -1,20 +1,20 @@
 import React from "react";
-import { mount } from "enzyme";
-import Preview from ".";
+import { mount, ReactWrapper } from "enzyme";
+import Preview, { PreviewProps } from ".";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import PreviewPlaceholder from "./__internal__/preview-placeholder.component";
 
-const render = (props) => {
+const render = (props: PreviewProps) => {
   return mount(<Preview {...props} />);
 };
 
 describe("Preview", () => {
   describe("when given children and no loading prop", () => {
     const childrenContent = "This is some text";
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = render({ children: childrenContent });
@@ -48,7 +48,7 @@ describe("Preview", () => {
 
   describe("when given no children and no loading prop", () => {
     it("will render the placeholder", () => {
-      const wrapper = render();
+      const wrapper = render({});
 
       expect(wrapper.find(PreviewPlaceholder).exists()).toBe(true);
     });
