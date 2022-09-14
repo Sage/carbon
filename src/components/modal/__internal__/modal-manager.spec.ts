@@ -142,4 +142,46 @@ describe("ModalManager", () => {
       expect(Manager.isTopmost(mockModal1)).toBe(true);
     });
   });
+
+  describe("when there are functions in the global top modal setter list", () => {
+    let f: jest.Mock<(topModal: HTMLElement | null) => void>;
+    let g: jest.Mock<(topModal: HTMLElement | null) => void>;
+
+    beforeEach(() => {
+      f = jest.fn();
+      g = jest.fn();
+      window.__CARBON_INTERNALS_MODAL_SETTER_LIST = [f, g];
+    });
+
+    it("when a modal is added, all functions are called with the new modal", () => {
+      const mockModal = document.createElement("div");
+      ModalManager.addModal(mockModal);
+      expect(f).toHaveBeenCalledWith(mockModal);
+      expect(g).toHaveBeenCalledWith(mockModal);
+    });
+
+    it("when a modal is removed, all functions are called with the new top modal", () => {
+      const mockModal = document.createElement("div");
+      const otherModal = document.createElement("div");
+      ModalManager.addModal(mockModal);
+      ModalManager.addModal(otherModal);
+      ModalManager.removeModal(otherModal);
+      expect(f).toHaveBeenCalledTimes(3);
+      expect(g).toHaveBeenCalledTimes(3);
+      expect(f.mock.calls[2][0]).toBe(mockModal);
+      expect(g.mock.calls[2][0]).toBe(mockModal);
+    });
+
+    it("when the modal list is cleared, all functions are called with the null", () => {
+      const mockModal = document.createElement("div");
+      const otherModal = document.createElement("div");
+      ModalManager.addModal(mockModal);
+      ModalManager.addModal(otherModal);
+      ModalManager.clearList();
+      expect(f).toHaveBeenCalledTimes(3);
+      expect(g).toHaveBeenCalledTimes(3);
+      expect(f.mock.calls[2][0]).toBe(null);
+      expect(g.mock.calls[2][0]).toBe(null);
+    });
+  });
 });
