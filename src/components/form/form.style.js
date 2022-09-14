@@ -33,7 +33,7 @@ export const StyledFormFooter = styled.div`
       justify-content: flex-end;
     `}
 
-  ${({ stickyFooter }) => css`
+  ${({ stickyFooter, fullWidthButtons }) => css`
     ${!stickyFooter &&
     css`
       margin-top: 48px;
@@ -49,6 +49,12 @@ export const StyledFormFooter = styled.div`
       z-index: 1000;
       position: sticky;
       bottom: 0;
+    `}
+
+    ${fullWidthButtons &&
+    css`
+      flex-direction: column;
+      align-items: stretch;
     `}
   `}
 `;
@@ -136,7 +142,8 @@ export const StyledForm = styled.form`
 
 export const StyledRightButtons = styled.div`
   display: flex;
-  margin-left: 16px;
+  ${({ fullWidthButtons }) =>
+    fullWidthButtons ? `margin-left: 0px;` : `margin-left: 16px;`}
   ${({ buttonAlignment }) => buttonAlignment === "left" && "flex-grow: 1"};
 
   ${StyledButton}:last-child {
@@ -144,10 +151,16 @@ export const StyledRightButtons = styled.div`
   }
 `;
 
+export const StyledFullWidthButtons = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
 export const StyledLeftButtons = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-right: 16px;
+  ${({ fullWidthButtons }) =>
+    fullWidthButtons ? `margin-right: 0px;` : `margin-right: 16px;`}
   ${({ buttonAlignment }) => buttonAlignment === "right" && "flex-grow: 1"};
 
   ${StyledButton}:last-child {

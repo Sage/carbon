@@ -7,6 +7,8 @@ export interface FormSummaryProps {
   errors?: number;
   /** The total number of warnings present in the form */
   warnings?: number;
+  /** Applies full width styling */
+  fullWidth?: boolean;
 }
 
 declare function FormSummary(props: FormSummaryProps): JSX.Element;

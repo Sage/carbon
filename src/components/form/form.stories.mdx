@@ -18,6 +18,8 @@ import Button from "../button";
 import DialogFullScreen from "../dialog-full-screen";
 import Dialog from "../dialog";
 import Box from "../box";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
+
 
 <Meta title="Form" parameters={{ info: { disable: true } }} />
 
@@ -82,6 +84,50 @@ When `stickyFooter` prop is set as true, footer becomes stickied to the bottom o
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
     </Form>
+  </Story>
+</Canvas>
+
+### Full Width Buttons
+
+<Canvas>
+  <Story
+    name="with full width buttons"
+    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
+  >
+    <CarbonProvider validationRedesignOptIn>
+      <Form
+        fullWidthButtons
+        onSubmit={() => console.log("submit")}
+        stickyFooter
+        leftSideButtons={
+          <Button mb={3} onClick={() => console.log("cancel")} fullWidth>Cancel</Button>
+        }
+        saveButton={
+          <Button buttonType="primary" type="submit" fullWidth>
+            Save
+          </Button>
+        }
+        errorCount={3}
+        warningCount={2}
+      >
+      <Tabs mb={2}>
+        <Tab
+          pl="3px"
+          customLayout={
+            <Box mx="16px" my="10px">
+              Tab1
+            </Box>
+          }/>
+        </Tabs>
+        <Textbox label="Textbox" />
+        <Textbox label="Textbox" />
+        <Textbox label="Textbox" />
+        <Textbox label="Textbox" />
+        <Textbox label="Textbox" />
+        <Textbox label="Textbox" />
+        <Textbox label="Textbox" />
+      </Form>
+    </CarbonProvider>
   </Story>
 </Canvas>
 
