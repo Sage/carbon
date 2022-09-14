@@ -1,3 +1,10 @@
+## [110.7.0](https://github.com/Sage/carbon/compare/v110.6.1...v110.7.0) (2022-09-14)
+
+
+### Features
+
+* **form:** add support for full width buttons ([5b132fa](https://github.com/Sage/carbon/commit/5b132faf74fa9879be7b8ef910e63322731e19e4)), closes [#4206](https://github.com/Sage/carbon/issues/4206)
+
 ### [110.6.1](https://github.com/Sage/carbon/compare/v110.6.0...v110.6.1) (2022-09-12)
 
 
