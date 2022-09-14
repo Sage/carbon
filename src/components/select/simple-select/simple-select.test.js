@@ -538,20 +538,29 @@ context("Tests for Simple Select component", () => {
         .should("have.attr", "data-role", testPropValue);
     });
 
-    it.each([["top"], ["bottom"], ["left"], ["right"]])(
+    it.each([
+      ["top", "200px", "0px", "0px", "0px"],
+      ["bottom", "0px", "0px", "0px", "0px"],
+      ["left", "200px", "0px", "200px", "0px"],
+      ["right", "200px", "0px", "0px", "200px"],
+    ])(
       "should render the help tooltip in the %s position",
-      (tooltipPositionValue) => {
+      (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
           <SimpleSelectComponent
             labelHelp="Help"
             tooltipPosition={tooltipPositionValue}
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
           />
         );
 
         helpIcon().trigger("mouseover");
         tooltipPreview()
           .should("be.visible")
-          .and("have.css", tooltipPositionValue);
+          .and("have.attr", "data-placement", tooltipPositionValue);
       }
     );
 
@@ -1043,7 +1052,7 @@ context("Tests for Simple Select component", () => {
       "should call onKeyDown event when %s key is pressed",
       (key) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent onKeyDownEnabled onKeyDown={callback} />
+          <SimpleSelectComponent onKeyDown={callback} />
         );
 
         commonDataElementInputPreview()

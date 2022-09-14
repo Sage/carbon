@@ -1,9 +1,8 @@
 import * as React from "react";
-import FilterableSelect from "./filterable-select.component";
+import MultiSelect from "./multi-select.component";
 import Option from "../option/option.component";
 import OptionRow from "../option-row/option-row.component";
 import Button from "../../button/button.component";
-import Dialog from "../../dialog/dialog.component";
 import CypressMountWithProviders from "../../../../cypress/support/component-helper/cypress-mount";
 
 import {
@@ -24,16 +23,18 @@ import {
   multiColumnsSelectListBody,
   multiColumnsSelectListRow,
   selectListPosition,
-  selectDataComponent,
+  multiSelectDataComponent,
   selectElementInput,
   selectInput,
-  filterableSelectAddElementButton,
-  filterableSelectButtonIcon,
-  filterableSelectAddNewButton,
-  selectResetButton,
   boldedAndUnderlinedValue,
   multiColumnsSelectListNoResultsMessage,
+  multiSelectPill,
+  multiSelectPillByPosition,
+  multiSelectPillByText,
+  selectResetButton,
 } from "../../../../cypress/locators/select";
+
+import { pillCloseIcon } from "../../../../cypress/locators/pill";
 
 import { loader } from "../../../../cypress/locators/loader";
 
@@ -41,18 +42,16 @@ import { verifyRequiredAsteriskForLabel } from "../../../../cypress/support/comp
 
 import { keyCode, positionOfElement } from "../../../../cypress/support/helper";
 
-import { alertDialogPreview } from "../../../../cypress/locators/dialog";
-
-const FilterableSelectComponent = ({ ...props }) => {
-  const [value, setValue] = React.useState("");
+const MultiSelectComponent = ({ ...props }) => {
+  const [value, setValue] = React.useState([]);
 
   function onChangeHandler(event) {
     setValue(event.target.value);
   }
 
   return (
-    <FilterableSelect
-      label="filterable select"
+    <MultiSelect
+      label="color"
       labelInline
       value={value}
       onChange={onChangeHandler}
@@ -69,13 +68,67 @@ const FilterableSelectComponent = ({ ...props }) => {
       <Option text="Red" value="9" />
       <Option text="White" value="10" />
       <Option text="Yellow" value="11" />
-    </FilterableSelect>
+    </MultiSelect>
   );
 };
 
-const FilterableSelectWithLazyLoadingComponent = ({ ...props }) => {
+const MultiSelectDefaultValueComponent = ({ ...props }) => {
+  return (
+    <MultiSelect label="color" labelInline {...props}>
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </MultiSelect>
+  );
+};
+
+const MultiSelectLongPillComponent = ({ ...props }) => {
+  const [value, setValue] = React.useState([]);
+
+  function onChangeHandler(event) {
+    setValue(event.target.value);
+  }
+
+  return (
+    <div
+      style={{
+        maxWidth: "200px",
+      }}
+    >
+      <MultiSelect
+        label="color"
+        labelInline
+        value={value}
+        onChange={onChangeHandler}
+        {...props}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue as the sky on a summer's day" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green as the grass in a spring meadow" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </div>
+  );
+};
+
+const MultiSelectWithLazyLoadingComponent = ({ ...props }) => {
   const preventLoading = React.useRef(false);
-  const [value, setValue] = React.useState("black");
+  const [value, setValue] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const asyncList = [
     <Option text="Amber" value="amber" key="Amber" />,
@@ -84,9 +137,7 @@ const FilterableSelectWithLazyLoadingComponent = ({ ...props }) => {
     <Option text="Brown" value="brown" key="Brown" />,
     <Option text="Green" value="green" key="Green" />,
   ];
-  const [optionList, setOptionList] = React.useState([
-    <Option text="Black" value="black" key="Black" />,
-  ]);
+  const [optionList, setOptionList] = React.useState([]);
 
   function onChangeHandler(event) {
     setValue(event.target.value);
@@ -106,7 +157,7 @@ const FilterableSelectWithLazyLoadingComponent = ({ ...props }) => {
   }
 
   return (
-    <FilterableSelect
+    <MultiSelect
       label="color"
       value={value}
       onChange={onChangeHandler}
@@ -115,13 +166,13 @@ const FilterableSelectWithLazyLoadingComponent = ({ ...props }) => {
       {...props}
     >
       {optionList}
-    </FilterableSelect>
+    </MultiSelect>
   );
 };
 
-const FilterableSelectLazyLoadTwiceComponent = ({ ...props }) => {
+const MultiSelectLazyLoadTwiceComponent = ({ ...props }) => {
   const preventLoading = React.useRef(false);
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const asyncList = [
     <Option text="Amber" value="amber" key="Amber" />,
@@ -143,6 +194,7 @@ const FilterableSelectLazyLoadTwiceComponent = ({ ...props }) => {
       setOptionList(asyncList);
     }, 2000);
   }
+
   function clearData() {
     setOptionList([]);
     setValue("");
@@ -154,7 +206,7 @@ const FilterableSelectLazyLoadTwiceComponent = ({ ...props }) => {
       <Button onClick={clearData} mb={2} data-element="reset-button">
         reset
       </Button>
-      <FilterableSelect
+      <MultiSelect
         label="color"
         value={value}
         onChange={(event) => setValue(event.target.value)}
@@ -163,101 +215,19 @@ const FilterableSelectLazyLoadTwiceComponent = ({ ...props }) => {
         {...props}
       >
         {optionList}
-      </FilterableSelect>
+      </MultiSelect>
     </div>
   );
 };
 
-const FilterableSelectWithInfiniteScrollComponent = ({ ...props }) => {
-  const preventLoading = React.useRef(false);
-  const preventLazyLoading = React.useRef(false);
-  const lazyLoadingCounter = React.useRef(0);
-  const [value, setValue] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-
-  const getLazyLoaded = () => {
-    const counter = lazyLoadingCounter.current;
-    return [
-      <Option
-        text={`Lazy Loaded A${counter}`}
-        value={`lazyA${counter}`}
-        key={`lazyA${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded B${counter}`}
-        value={`lazyB${counter}`}
-        key={`lazyB${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded C${counter}`}
-        value={`lazyC${counter}`}
-        key={`lazyC${counter}`}
-      />,
-    ];
-  };
-
-  const [optionList, setOptionList] = React.useState([]);
-
-  function onChangeHandler(event) {
-    setValue(event.target.value);
-  }
-
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-
-  function onLazyLoading() {
-    if (preventLazyLoading.current) {
-      return;
-    }
-
-    preventLazyLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      preventLazyLoading.current = false;
-      lazyLoadingCounter.current += 1;
-      setIsLoading(false);
-      setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
-    }, 2000);
-  }
-
-  return (
-    <FilterableSelect
-      label="color"
-      value={value}
-      onChange={onChangeHandler}
-      onOpen={() => loadList()}
-      isLoading={isLoading}
-      onListScrollBottom={onLazyLoading}
-      {...props}
-    >
-      {optionList}
-    </FilterableSelect>
-  );
-};
-
-const FilterableSelectObjectAsValueComponent = ({ ...props }) => {
-  const [value, setValue] = React.useState({
-    id: "Green",
-    value: 5,
-    text: "Green",
-  });
+const MultiSelectObjectAsValueComponent = ({ ...props }) => {
+  const [value, setValue] = React.useState([
+    {
+      id: "Green",
+      value: 5,
+      text: "Green",
+    },
+  ]);
   const optionList = React.useRef([
     <Option
       text="Amber"
@@ -365,17 +335,17 @@ const FilterableSelectObjectAsValueComponent = ({ ...props }) => {
   }
 
   return (
-    <FilterableSelect value={value} onChange={onChangeHandler} {...props}>
+    <MultiSelect value={value} onChange={onChangeHandler} {...props}>
       {optionList.current}
-    </FilterableSelect>
+    </MultiSelect>
   );
 };
 
-const FilterableSelectMultiColumnsComponent = ({ ...props }) => {
+const MultiSelectMultiColumnsComponent = ({ ...props }) => {
   return (
-    <FilterableSelect
+    <MultiSelect
       multiColumn
-      defaultValue="2"
+      defaultValue={["2"]}
       {...props}
       tableHeader={
         <tr>
@@ -410,111 +380,45 @@ const FilterableSelectMultiColumnsComponent = ({ ...props }) => {
         <td>Zoe</td>
         <td>Astronaut</td>
       </OptionRow>
-    </FilterableSelect>
+    </MultiSelect>
   );
 };
 
-const FilterableSelectMultiColumnsNestedComponent = ({ ...props }) => {
-  return (
-    <FilterableSelect
-      multiColumn
-      defaultValue="2"
-      {...props}
-      tableHeader={
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Occupation</th>
-        </tr>
-      }
-      listActionButton={
-        <Button iconType="add" iconPosition="after">
-          Add a New Element
-        </Button>
-      }
-      onListAction={() => console.log("Action")}
-    >
-      <OptionRow value="1" text="John Doe">
-        <td>John</td>
-        <td>Doe</td>
-        <td>Welder</td>
-      </OptionRow>
-      <OptionRow value="2" text="Joe Vick">
-        <td>Joe</td>
-        <td>Vick</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow value="3" text="Jane Poe">
-        <td>Jane</td>
-        <td>Poe</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow value="4" text="Jill Moe">
-        <td>Jill</td>
-        <td>Moe</td>
-        <td>Engineer</td>
-      </OptionRow>
-      <OptionRow value="5" text="Bill Zoe">
-        <td>Bill</td>
-        <td>Zoe</td>
-        <td>Astronaut</td>
-      </OptionRow>
-    </FilterableSelect>
-  );
-};
+const MultiSelectMaxOptionsComponent = ({ ...props }) => {
+  const maxSelectionsAllowed = 2;
+  const [selectedPills, setSelectedPills] = React.useState([]);
 
-const FilterableSelectWithActionButtonComponent = () => {
-  const [value, setValue] = React.useState("");
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [optionList, setOptionList] = React.useState([
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ]);
-
-  function addNew() {
-    const counter = optionList.length.toString();
-    setOptionList((newOptionList) => [
-      ...newOptionList,
-      <Option
-        text={`New${counter}`}
-        value={`val${counter}`}
-        key={`New${counter}`}
-      />,
-    ]);
-    setIsOpen(false);
-    setValue(`val${counter}`);
+  function onChangeHandler(event) {
+    if (event.target.value.length <= maxSelectionsAllowed) {
+      setSelectedPills(event.target.value);
+    }
   }
 
   return (
-    <>
-      <FilterableSelect
-        label="color"
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-        listActionButton={
-          <Button iconType="add" iconPosition="after">
-            Add a New Element
-          </Button>
-        }
-        onListAction={() => setIsOpen(true)}
-      >
-        {optionList}
-      </FilterableSelect>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Dialog component triggered on action"
-      >
-        <Button onClick={addNew}>Add new</Button>
-      </Dialog>
-    </>
+    <MultiSelect
+      value={selectedPills}
+      onChange={onChangeHandler}
+      disablePortal
+      openOnFocus
+      label="color"
+      {...props}
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </MultiSelect>
   );
 };
 
-const FilterableSelectOnChangeEventComponent = ({ onChange, ...props }) => {
+const MultiSelectOnFilterChangeEventComponent = ({ onChange, ...props }) => {
   const [state, setState] = React.useState("");
 
   const setValue = ({ target }) => {
@@ -525,7 +429,7 @@ const FilterableSelectOnChangeEventComponent = ({ onChange, ...props }) => {
   };
 
   return (
-    <FilterableSelect
+    <MultiSelect
       label="color"
       value={state}
       labelInline
@@ -537,49 +441,42 @@ const FilterableSelectOnChangeEventComponent = ({ onChange, ...props }) => {
       <Option text="Blue" value="3" />
       <Option text="Brown" value="4" />
       <Option text="Green" value="5" />
-    </FilterableSelect>
+    </MultiSelect>
   );
 };
 
-const FilterableSelectListActionEventComponent = ({ ...props }) => {
-  const [value, setValue] = React.useState("");
-
+const MultiSelectCustomColorComponent = ({ ...props }) => {
   return (
-    <FilterableSelect
-      label="color"
-      value={value}
-      labelInline
-      onChange={(event) => setValue(event.target.value)}
-      {...props}
-      listActionButton={
-        <Button iconType="add" iconPosition="after">
-          Add a New Element
-        </Button>
-      }
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-    </FilterableSelect>
+    <MultiSelect label="color" labelInline defaultValue={["1", "3"]} {...props}>
+      <Option text="Amber" value="1" borderColor="#FFBF00" fill />
+      <Option text="Black" value="2" borderColor="blackOpacity65" fill />
+      <Option text="Blue" value="3" borderColor="productBlue" />
+      <Option text="Brown" value="4" borderColor="brown" fill />
+      <Option text="Green" value="5" borderColor="productGreen" />
+      <Option text="Orange" value="6" borderColor="orange" />
+      <Option text="Pink" value="7" borderColor="pink" />
+      <Option text="Purple" value="8" borderColor="purple" />
+      <Option text="Red" value="9" borderColor="red" fill />
+      <Option text="White" value="10" borderColor="white" />
+      <Option text="Yellow" value="11" borderColor="yellow" fill />
+    </MultiSelect>
   );
 };
 
 const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 const testPropValue = "cypress_test";
-const addElementText = "Add a New Element";
 const columns = 3;
-const icon = "add";
+const option1 = "Green";
+const option2 = "Purple";
+const option3 = "Yellow";
+const defaultValue = ["10"];
 
-context("Tests for Filterable Select component", () => {
-  describe("check props for Filterable Select component", () => {
+context("Tests for Multi Select component", () => {
+  describe("check props for Multi Select component", () => {
     it.each(testData)(
-      "should render Filterable Select label using %s special characters",
+      "should render Multi Select label using %s special characters",
       (labelValue) => {
-        CypressMountWithProviders(
-          <FilterableSelectComponent label={labelValue} />
-        );
+        CypressMountWithProviders(<MultiSelectComponent label={labelValue} />);
 
         getDataElementByValue("label").should("have.text", labelValue);
       }
@@ -589,7 +486,7 @@ context("Tests for Filterable Select component", () => {
       "should render labelHelp message using %s special characters",
       (labelHelpValue) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent labelHelp={labelHelpValue} />
+          <MultiSelectComponent labelHelp={labelHelpValue} />
         );
 
         helpIcon().trigger("mouseover");
@@ -601,17 +498,15 @@ context("Tests for Filterable Select component", () => {
       "should render placeholder using %s special characters",
       (placeholderValue) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent placeholder={placeholderValue} />
+          <MultiSelectComponent placeholder={placeholderValue} />
         );
 
         selectInput().should("have.attr", "placeholder", placeholderValue);
       }
     );
 
-    it("should render Filterable Select with name prop set to test value", () => {
-      CypressMountWithProviders(
-        <FilterableSelectComponent name={testPropValue} />
-      );
+    it("should render Multi Select with name prop set to test value", () => {
+      CypressMountWithProviders(<MultiSelectComponent name={testPropValue} />);
 
       commonDataElementInputPreview().should(
         "have.attr",
@@ -620,17 +515,15 @@ context("Tests for Filterable Select component", () => {
       );
     });
 
-    it("should render Filterable Select with id prop prop set to test value", () => {
-      CypressMountWithProviders(
-        <FilterableSelectComponent id={testPropValue} />
-      );
+    it("should render Multi Select with id prop set to test value", () => {
+      CypressMountWithProviders(<MultiSelectComponent id={testPropValue} />);
 
       commonDataElementInputPreview().should("have.attr", "id", testPropValue);
     });
 
-    it("should render Filterable Select with data-component prop set to test value", () => {
+    it("should render Multi Select with data-component prop set to test value", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent data-component={testPropValue} />
+        <MultiSelectComponent data-component={testPropValue} />
       );
 
       selectElementInput()
@@ -639,9 +532,9 @@ context("Tests for Filterable Select component", () => {
         .should("have.attr", "data-component", testPropValue);
     });
 
-    it("should render Filterable Select with data-element prop set to test value", () => {
+    it("should render Multi Select with data-element prop set to test value", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent data-element={testPropValue} />
+        <MultiSelectComponent data-element={testPropValue} />
       );
 
       selectElementInput()
@@ -650,9 +543,9 @@ context("Tests for Filterable Select component", () => {
         .should("have.attr", "data-element", testPropValue);
     });
 
-    it("should render Filterable Select with data-role prop set to test value", () => {
+    it("should render Multi Select with data-role prop set to test value", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent data-role={testPropValue} />
+        <MultiSelectComponent data-role={testPropValue} />
       );
 
       selectElementInput()
@@ -670,7 +563,7 @@ context("Tests for Filterable Select component", () => {
       "should render the help tooltip in the %s position",
       (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent
+          <MultiSelectComponent
             labelHelp="Help"
             tooltipPosition={tooltipPositionValue}
             mt={top}
@@ -687,16 +580,16 @@ context("Tests for Filterable Select component", () => {
       }
     );
 
-    it("should check Filterable Select is disabled", () => {
-      CypressMountWithProviders(<FilterableSelectComponent disabled />);
+    it("should check Multi Select is disabled", () => {
+      CypressMountWithProviders(<MultiSelectComponent disabled />);
 
       commonDataElementInputPreview()
         .should("be.disabled")
         .and("have.attr", "disabled");
     });
 
-    it("should render Filterable Select as read only", () => {
-      CypressMountWithProviders(<FilterableSelectComponent readOnly />);
+    it("should render Multi Select as read only", () => {
+      CypressMountWithProviders(<MultiSelectComponent readOnly />);
 
       commonDataElementInputPreview().should("have.attr", "readOnly");
       selectInput().click();
@@ -708,9 +601,9 @@ context("Tests for Filterable Select component", () => {
       ["medium", "40px"],
       ["large", "48px"],
     ])(
-      "should use %s as size and render Filterable Select with %s as height",
+      "should use %s as size and render Multi Select with %s as height",
       (size, height) => {
-        CypressMountWithProviders(<FilterableSelectComponent size={size} />);
+        CypressMountWithProviders(<MultiSelectComponent size={size} />);
 
         commonDataElementInputPreview()
           .parent()
@@ -718,20 +611,20 @@ context("Tests for Filterable Select component", () => {
       }
     );
 
-    it("should check Filterable Select has autofocus", () => {
-      CypressMountWithProviders(<FilterableSelectComponent autoFocus />);
+    it("should check Multi Select has autofocus", () => {
+      CypressMountWithProviders(<MultiSelectComponent autoFocus />);
 
       commonDataElementInputPreview().should("be.focused");
     });
 
-    it("should check Filterable Select is required", () => {
-      CypressMountWithProviders(<FilterableSelectComponent required />);
+    it("should check Multi Select is required", () => {
+      CypressMountWithProviders(<MultiSelectComponent required />);
 
       verifyRequiredAsteriskForLabel();
     });
 
-    it("should check Filterable Select label is inline", () => {
-      CypressMountWithProviders(<FilterableSelectComponent labelInline />);
+    it("should check Multi Select label is inline", () => {
+      CypressMountWithProviders(<MultiSelectComponent labelInline />);
 
       getDataElementByValue("label")
         .parent()
@@ -743,12 +636,12 @@ context("Tests for Filterable Select component", () => {
       ["flex", "400"],
       ["block", "401"],
     ])(
-      "should check Filterable Select label alignment is %s with adaptiveLabelBreakpoint %s and viewport 400",
+      "should check Multi Select label alignment is %s with adaptiveLabelBreakpoint %s and viewport 400",
       (displayValue, breakpoint) => {
         cy.viewport(400, 300);
 
         CypressMountWithProviders(
-          <FilterableSelectComponent
+          <MultiSelectComponent
             labelInline
             adaptiveLabelBreakpoint={breakpoint}
           />
@@ -768,7 +661,7 @@ context("Tests for Filterable Select component", () => {
       "should use %s as labelAligment and render it with flex-%s as css properties",
       (alignment, cssProp) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent labelInline labelAlign={alignment} />
+          <MultiSelectComponent labelInline labelAlign={alignment} />
         );
 
         getDataElementByValue("label")
@@ -786,7 +679,7 @@ context("Tests for Filterable Select component", () => {
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent
+          <MultiSelectComponent
             labelInline
             labelWidth={label}
             inputWidth={input}
@@ -803,8 +696,8 @@ context("Tests for Filterable Select component", () => {
       }
     );
 
-    it("should not open the list with focus on Filterable Select input", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+    it("should not open the list with focus on Multi Select input", () => {
+      CypressMountWithProviders(<MultiSelectComponent />);
 
       commonDataElementInputPreview().focus();
       commonDataElementInputPreview()
@@ -813,8 +706,8 @@ context("Tests for Filterable Select component", () => {
       selectList().should("not.be.visible");
     });
 
-    it("should not open the list with mouse click on Filterable Select input", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+    it("should not open the list with mouse click on Multi Select input", () => {
+      CypressMountWithProviders(<MultiSelectComponent />);
 
       commonDataElementInputPreview().click();
       commonDataElementInputPreview()
@@ -824,14 +717,14 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should open the list with mouse click on dropdown button", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+      CypressMountWithProviders(<MultiSelectComponent />);
 
       dropdownButton().click();
       selectList().should("be.visible");
     });
 
     it("should close the list with mouse click on dropdown button", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+      CypressMountWithProviders(<MultiSelectComponent />);
 
       dropdownButton().click();
       dropdownButton().click();
@@ -839,7 +732,7 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should close the list with the Tab key", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+      CypressMountWithProviders(<MultiSelectComponent />);
 
       dropdownButton().click();
       selectList().should("be.visible");
@@ -849,7 +742,7 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should close the list with the Esc key", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+      CypressMountWithProviders(<MultiSelectComponent />);
 
       dropdownButton().click();
       selectList().should("be.visible");
@@ -859,7 +752,7 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should close the list by clicking out of the component", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+      CypressMountWithProviders(<MultiSelectComponent />);
 
       dropdownButton().click();
       selectList().should("be.visible");
@@ -875,9 +768,9 @@ context("Tests for Filterable Select component", () => {
       ["open", "End"],
       ["not open", "Enter"],
     ])(
-      "should %s the list when %s is pressed with Filterable Select input in focus",
+      "should %s the list when %s is pressed with Multi Select input in focus",
       (state, key) => {
-        CypressMountWithProviders(<FilterableSelectComponent />);
+        CypressMountWithProviders(<MultiSelectComponent />);
 
         commonDataElementInputPreview().focus();
         selectInput().trigger("keydown", { ...keyCode(key), force: true });
@@ -890,17 +783,47 @@ context("Tests for Filterable Select component", () => {
     );
 
     it.each([["Amber"], ["Yellow"]])(
-      "should select option %s when clicked from the list",
+      "should select option %s when clicked from the list and create option pill in the input",
       (option) => {
-        CypressMountWithProviders(<FilterableSelectComponent />);
+        CypressMountWithProviders(<MultiSelectComponent />);
 
         dropdownButton().click();
         selectListText(option).click();
-        getDataElementByValue("input").should("have.attr", "value", option);
-        selectInput().should("have.attr", "aria-expanded", "false");
-        selectList().should("not.be.visible");
+        selectInput().should("have.attr", "aria-expanded", "true");
+        selectList().should("be.visible");
+        multiSelectPill().should("have.attr", "title", option);
       }
     );
+
+    it("should select two options and create option pills in the input", () => {
+      CypressMountWithProviders(<MultiSelectComponent />);
+
+      dropdownButton().click();
+      selectListText(option1).click();
+      selectInput().should("have.attr", "aria-expanded", "true");
+      selectList().should("be.visible");
+      multiSelectPill().should("have.attr", "title", option1);
+      selectListText(option2).click();
+      multiSelectPillByPosition(0).should("have.attr", "title", option1);
+      multiSelectPillByPosition(1).should("have.attr", "title", option2);
+    });
+
+    it("should check number of selected options are limited to 2", () => {
+      CypressMountWithProviders(<MultiSelectMaxOptionsComponent />);
+
+      const length = 2;
+
+      dropdownButton().click();
+      selectListText(option1).click();
+      selectInput().should("have.attr", "aria-expanded", "true");
+      selectList().should("be.visible");
+      multiSelectPill().should("have.attr", "title", option1);
+      selectListText(option2).click();
+      selectListText(option3).click();
+      multiSelectPill().should("have.length", length);
+      multiSelectPillByPosition(0).should("have.attr", "title", option1);
+      multiSelectPillByPosition(1).should("have.attr", "title", option2);
+    });
 
     it.each([
       ["A", "Amber", "Black", "Orange"],
@@ -908,7 +831,7 @@ context("Tests for Filterable Select component", () => {
     ])(
       "should filter options when %s is typed",
       (text, optionValue1, optionValue2, optionValue3) => {
-        CypressMountWithProviders(<FilterableSelectComponent />);
+        CypressMountWithProviders(<MultiSelectComponent />);
 
         commonDataElementInputPreview().type(text);
         selectInput().should("have.attr", "aria-expanded", "true");
@@ -923,13 +846,13 @@ context("Tests for Filterable Select component", () => {
           .and("have.css", "background-color", "rgba(0, 0, 0, 0)");
         selectOption(positionOfElement("third"))
           .should("have.text", optionValue3)
-          .and("have.css", "background-color", "rgba(0, 0, 0, 0)")
-          .and("be.visible");
+          .and("be.visible")
+          .and("have.css", "background-color", "rgba(0, 0, 0, 0)");
       }
     );
 
     it("should render the lazy loader when the prop is set", () => {
-      CypressMountWithProviders(<FilterableSelectWithLazyLoadingComponent />);
+      CypressMountWithProviders(<MultiSelectWithLazyLoadingComponent />);
 
       dropdownButton().click();
       selectList().should("be.visible");
@@ -938,9 +861,8 @@ context("Tests for Filterable Select component", () => {
       }
     });
 
-    // FE-5300 raised to fix the issue with the loader not reappeearing
-    it.skip("should render the lazy loader when the prop is set and list is opened again", () => {
-      CypressMountWithProviders(<FilterableSelectLazyLoadTwiceComponent />);
+    it("should render the lazy loader when the prop is set and list is opened again", () => {
+      CypressMountWithProviders(<MultiSelectLazyLoadTwiceComponent />);
 
       const option = "Amber";
 
@@ -959,39 +881,18 @@ context("Tests for Filterable Select component", () => {
       }
     });
 
-    it("should render a lazy loaded option when the infinite scroll prop is set", () => {
-      CypressMountWithProviders(
-        <FilterableSelectWithInfiniteScrollComponent />
-      );
-
-      const option = "Lazy Loaded A1";
-
-      dropdownButton().click();
-      selectList().should("be.visible");
-      for (let i = 0; i < 3; i++) {
-        loader(i).should("be.visible");
-      }
-      selectList().scrollTo("bottom").wait(250);
-      selectList().scrollTo("bottom");
-      selectList().should("be.visible");
-      for (let i = 0; i < 3; i++) {
-        loader(i).should("be.visible");
-      }
-      selectListText(option).should("be.visible");
-    });
-
     it("should list options when value is set and select list is opened again", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+      CypressMountWithProviders(<MultiSelectComponent />);
 
       const option = "Amber";
       const count = 11;
 
       dropdownButton().click();
       selectListText(option).click();
-      getDataElementByValue("input").should("have.attr", "value", option);
-      selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
-      dropdownButton().click();
+      multiSelectPill().should("have.attr", "title", option);
+      selectInput().should("have.attr", "aria-expanded", "true");
+      selectList().should("be.visible");
+      dropdownButton().click().click();
       selectList()
         .find("li")
         .should(($lis) => {
@@ -1000,7 +901,7 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should check list is open when input is focussed and openOnFocus is set", () => {
-      CypressMountWithProviders(<FilterableSelectComponent openOnFocus />);
+      CypressMountWithProviders(<MultiSelectComponent openOnFocus />);
 
       commonDataElementInputPreview().focus();
       selectInput().should("have.attr", "aria-expanded", "true");
@@ -1008,28 +909,23 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should check list is open when input is clicked and openOnFocus is set", () => {
-      CypressMountWithProviders(<FilterableSelectComponent openOnFocus />);
+      CypressMountWithProviders(<MultiSelectComponent openOnFocus />);
 
       commonDataElementInputPreview().click();
       selectInput().should("have.attr", "aria-expanded", "true");
       selectList().should("be.visible");
     });
 
-    it("should open correct list and select one when an object is already set as a value", () => {
-      CypressMountWithProviders(<FilterableSelectObjectAsValueComponent />);
+    // FE-5332 logged for bug in master preventing editing of pills when object set as value
+    it.skip("should open correct list and select one when an object is already set as a value", () => {
+      CypressMountWithProviders(<MultiSelectObjectAsValueComponent />);
 
-      const position = "first";
-      const positionValue = "Amber";
-
-      getDataElementByValue("input").should("have.attr", "value", "Green");
+      multiSelectPill().should("have.attr", "title", option1);
       selectInput().should("have.attr", "aria-expanded", "false");
       dropdownButton().click();
-      selectOption(positionOfElement(position)).click();
-      getDataElementByValue("input").should(
-        "have.attr",
-        "value",
-        positionValue
-      );
+      selectListText(option2).click();
+      multiSelectPillByPosition(0).should("have.attr", "title", option1);
+      multiSelectPillByPosition(1).should("have.attr", "title", option2);
     });
 
     it.each([
@@ -1041,7 +937,7 @@ context("Tests for Filterable Select component", () => {
       "should flip list to opposite position when there is not enough space to render it in %s position",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent
+          <MultiSelectComponent
             listPlacement={position}
             flipEnabled
             mt={top}
@@ -1084,7 +980,7 @@ context("Tests for Filterable Select component", () => {
       "should render list in %s position with the most space when listPosition is set to auto",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent
+          <MultiSelectComponent
             listPlacement="auto"
             mt={top}
             mb={bottom}
@@ -1108,19 +1004,19 @@ context("Tests for Filterable Select component", () => {
       (state, numberOfChildren) => {
         CypressMountWithProviders(
           <div>
-            <FilterableSelectComponent disablePortal={state} />
+            <MultiSelectComponent disablePortal={state} />
           </div>
         );
 
         dropdownButton().click();
-        selectDataComponent("filterable")
+        multiSelectDataComponent()
           .children()
           .should("have.length", numberOfChildren);
       }
     );
 
     it("should render list options with multiple columns", () => {
-      CypressMountWithProviders(<FilterableSelectMultiColumnsComponent />);
+      CypressMountWithProviders(<MultiSelectMultiColumnsComponent />);
 
       dropdownButton().click();
       selectList().should("be.visible");
@@ -1133,12 +1029,12 @@ context("Tests for Filterable Select component", () => {
       multiColumnsSelectListRow().should(
         "have.css",
         "background-color",
-        "rgb(153, 173, 183)"
+        "rgba(0, 0, 0, 0)"
       );
     });
 
     it("should check table header content in list with multiple columns", () => {
-      CypressMountWithProviders(<FilterableSelectMultiColumnsComponent />);
+      CypressMountWithProviders(<MultiSelectMultiColumnsComponent />);
 
       const headerCol1 = "Name";
       const headerCol2 = "Surname";
@@ -1157,7 +1053,7 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should indicate a matched filtered string with bold and underline", () => {
-      CypressMountWithProviders(<FilterableSelectMultiColumnsComponent />);
+      CypressMountWithProviders(<MultiSelectMultiColumnsComponent />);
 
       const text = "Do";
 
@@ -1169,82 +1065,127 @@ context("Tests for Filterable Select component", () => {
         .and("have.css", "font-weight", "700");
     });
 
-    it("should indicate no results match entered string", () => {
-      CypressMountWithProviders(<FilterableSelectMultiColumnsComponent />);
+    it.each([["Xyz"], [" "]])(
+      'should indicate no results match entered string "%s"',
+      (text) => {
+        CypressMountWithProviders(<MultiSelectMultiColumnsComponent />);
 
-      const text = "Xyz";
+        commonDataElementInputPreview().click().should("be.focused");
+        commonDataElementInputPreview().type(text);
+        selectList().should("be.visible");
+        multiColumnsSelectListHeader()
+          .should("have.length", columns)
+          .and("be.visible");
+        multiColumnsSelectListNoResultsMessage(text).should("be.visible");
+      }
+    );
 
-      commonDataElementInputPreview().click().should("be.focused");
-      commonDataElementInputPreview().type(text);
-      selectList().should("be.visible");
-      multiColumnsSelectListHeader()
-        .should("have.length", columns)
-        .and("be.visible");
-      multiColumnsSelectListNoResultsMessage(text).should("be.visible");
+    it.each([
+      ["3", "Blue"],
+      ["7", "Pink"],
+    ])(
+      "should set defaultValue prop to %s and show option pill %s preselected",
+      (value, option) => {
+        CypressMountWithProviders(
+          <MultiSelectDefaultValueComponent defaultValue={[value]} />
+        );
+
+        multiSelectPill().should("have.attr", "title", option);
+      }
+    );
+
+    it("should have no pill option preselected if defaultValue prop is not set", () => {
+      CypressMountWithProviders(<MultiSelectDefaultValueComponent />);
+
+      multiSelectPill().should("not.exist");
     });
 
-    it("should render list options with multiple columns and nested component", () => {
+    it("should render Multi Select with custom coloured pills", () => {
+      CypressMountWithProviders(<MultiSelectCustomColorComponent />);
+
+      multiSelectPillByPosition(0)
+        .should("have.css", "borderColor", "rgb(255, 191, 0)")
+        .and("have.css", "background-color", "rgb(255, 191, 0)");
+      multiSelectPillByPosition(1)
+        .should("have.css", "borderColor", "rgb(0, 119, 200)")
+        .and("have.css", "background-color", "rgba(0, 0, 0, 0)");
+    });
+
+    it.each([
+      ["third", "Blue as the sky on a summer's day"],
+      ["fifth", "Green as the grass in a spring meadow"],
+    ])(
+      "should select %s list option and show pill with complete long text wrapped in the input",
+      (option, text) => {
+        CypressMountWithProviders(
+          <MultiSelectLongPillComponent wrapPillText />
+        );
+
+        dropdownButton().click();
+        selectOption(positionOfElement(option)).click();
+        multiSelectPill().should("have.attr", "title", text);
+      }
+    );
+
+    it("should show selected pill option with correctly formatted delete button when focussed", () => {
       CypressMountWithProviders(
-        <FilterableSelectMultiColumnsNestedComponent />
+        <MultiSelectDefaultValueComponent defaultValue={defaultValue} />
       );
 
-      dropdownButton().click();
-      selectList().should("be.visible");
-      multiColumnsSelectListHeader()
-        .should("have.length", columns)
-        .and("be.visible");
-      multiColumnsSelectListBody()
-        .should("have.length", columns)
-        .and("be.visible");
-      filterableSelectAddElementButton()
-        .should("be.visible")
-        .and("have.text", addElementText);
-      filterableSelectButtonIcon()
-        .should("be.visible")
-        .and("have.attr", "type", icon);
+      multiSelectPill().should("have.attr", "title", "White");
+      pillCloseIcon()
+        .focus()
+        .should("have.css", "box-shadow", "rgb(255, 181, 0) 0px 0px 0px 3px")
+        .and("have.css", "background-color", "rgb(0, 103, 56)");
     });
 
-    it("should render list options with an action button and trigger Dialog on action", () => {
-      CypressMountWithProviders(<FilterableSelectWithActionButtonComponent />);
+    it("should delete pill option with delete button", () => {
+      CypressMountWithProviders(
+        <MultiSelectDefaultValueComponent defaultValue={defaultValue} />
+      );
 
-      dropdownButton().click();
-      selectList().should("be.visible");
-      filterableSelectAddElementButton()
-        .should("be.visible")
-        .and("have.text", addElementText);
-      filterableSelectButtonIcon()
-        .should("be.visible")
-        .and("have.attr", "type", icon);
-      filterableSelectAddElementButton().click();
-      alertDialogPreview().should("be.visible");
+      multiSelectPill().should("have.attr", "title", "White");
+      pillCloseIcon().click();
+      multiSelectPill().should("not.exist");
     });
 
-    it("should add new list option from Add new Dialog", () => {
-      CypressMountWithProviders(<FilterableSelectWithActionButtonComponent />);
+    it("should delete pill option with backspace key", () => {
+      CypressMountWithProviders(
+        <MultiSelectDefaultValueComponent defaultValue={defaultValue} />
+      );
 
-      const newOption = "New5";
+      multiSelectPill().should("have.attr", "title", "White");
+      commonDataElementInputPreview().type("{backspace}");
+      multiSelectPill().should("not.exist");
+    });
+
+    it("should delete all selected pill options and leave list open", () => {
+      CypressMountWithProviders(<MultiSelectComponent />);
 
       dropdownButton().click();
+      selectListText(option1).click();
+      selectListText(option2).click();
+      selectInput().should("have.attr", "aria-expanded", "true");
       selectList().should("be.visible");
-      filterableSelectAddElementButton().should("be.visible").click();
-      alertDialogPreview().should("be.visible");
-      filterableSelectAddNewButton().should("be.visible").click();
-      getDataElementByValue("input").should("have.attr", "value", newOption);
+      commonDataElementInputPreview().type("{backspace}");
+      multiSelectPillByText(option2).should("not.exist");
+      selectList().should("be.visible");
+      commonDataElementInputPreview().type("{backspace}");
+      multiSelectPill().should("not.exist");
+      selectList().should("be.visible");
     });
   });
 
-  describe("check events for Filterable Select component", () => {
+  describe("check events for Multi Select component", () => {
     let callback;
     beforeEach(() => {
       callback = cy.stub();
     });
 
     it("should call onClick event when mouse is clicked on text input", () => {
-      CypressMountWithProviders(
-        <FilterableSelectComponent onClick={callback} />
-      );
+      CypressMountWithProviders(<MultiSelectComponent onClick={callback} />);
 
-      dropdownButton()
+      commonDataElementInputPreview()
         .click()
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
@@ -1252,10 +1193,8 @@ context("Tests for Filterable Select component", () => {
         });
     });
 
-    it("should call onFocus when Filterable Select is brought into focus", () => {
-      CypressMountWithProviders(
-        <FilterableSelectComponent onFocus={callback} />
-      );
+    it("should call onFocus when Multi Select is brought into focus", () => {
+      CypressMountWithProviders(<MultiSelectComponent onFocus={callback} />);
 
       commonDataElementInputPreview()
         .focus()
@@ -1265,10 +1204,8 @@ context("Tests for Filterable Select component", () => {
         });
     });
 
-    it("should call onOpen when Filterable Select is opened", () => {
-      CypressMountWithProviders(
-        <FilterableSelectComponent onOpen={callback} />
-      );
+    it("should call onOpen when Multi Select is opened", () => {
+      CypressMountWithProviders(<MultiSelectComponent onOpen={callback} />);
 
       dropdownButton()
         .click()
@@ -1279,12 +1216,10 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should call onBlur event when the list is closed", () => {
-      CypressMountWithProviders(
-        <FilterableSelectComponent onBlur={callback} />
-      );
+      CypressMountWithProviders(<MultiSelectComponent onBlur={callback} />);
 
       dropdownButton().click();
-      commonDataElementInputPreview()
+      selectInput()
         .blur()
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
@@ -1293,12 +1228,10 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should call onChange event when a list option is selected", () => {
-      CypressMountWithProviders(
-        <FilterableSelectComponent onChange={callback} />
-      );
+      CypressMountWithProviders(<MultiSelectComponent onChange={callback} />);
 
       const position = "first";
-      const option = "1";
+      const option = ["1"];
 
       dropdownButton().click();
       selectOption(positionOfElement(position))
@@ -1315,7 +1248,7 @@ context("Tests for Filterable Select component", () => {
       "should call onKeyDown event when %s key is pressed",
       (key) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent onKeyDown={callback} />
+          <MultiSelectComponent onKeyDown={callback} />
         );
 
         commonDataElementInputPreview()
@@ -1330,7 +1263,7 @@ context("Tests for Filterable Select component", () => {
 
     it("should call onFilterChange event when a filter string is input", () => {
       CypressMountWithProviders(
-        <FilterableSelectOnChangeEventComponent onFilterChange={callback} />
+        <MultiSelectOnFilterChangeEventComponent onFilterChange={callback} />
       );
 
       const text = "B";
@@ -1342,35 +1275,6 @@ context("Tests for Filterable Select component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledTwice;
           expect(callback.getCalls()[1].args[0]).to.equals(text);
-        });
-    });
-
-    it("should call onListAction event when the Action Button is clicked", () => {
-      CypressMountWithProviders(
-        <FilterableSelectListActionEventComponent onListAction={callback} />
-      );
-
-      dropdownButton().click();
-      filterableSelectAddElementButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
-    });
-
-    it("should call onListScrollBottom event when the list is scrolled to the bottom", () => {
-      CypressMountWithProviders(
-        <FilterableSelectComponent onListScrollBottom={callback} />
-      );
-
-      dropdownButton().click();
-      selectList()
-        .scrollTo("bottom")
-        .wait(250)
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
         });
     });
   });

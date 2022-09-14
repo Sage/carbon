@@ -303,7 +303,7 @@ context("Tests for Number component", () => {
       "should call onKeyDown callback when a %s keydown event is triggered",
       (key) => {
         CypressMountWithProviders(
-          <NumberInputComponent onKeyDownEnabled onKeyDown={callback} />
+          <NumberInputComponent onKeyDown={callback} />
         );
 
         commonDataElementInputPreview()
