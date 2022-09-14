@@ -75,7 +75,10 @@ describe("Tile", () => {
         const wrapper = render({ variant: "tile" }).toJSON();
 
         assertStyleMatch(
-          { backgroundColor: "var(--colorsUtilityYang100)" },
+          {
+            backgroundColor: "var(--colorsUtilityYang100)",
+            border: "1px solid var(--colorsUtilityMajor100)",
+          },
           wrapper
         );
       });
@@ -84,6 +87,18 @@ describe("Tile", () => {
         const wrapper = render({ variant: "transparent" }).toJSON();
 
         assertStyleMatch({ backgroundColor: "transparent" }, wrapper);
+      });
+
+      it('renders with expected background and border styles when variant is "active"', () => {
+        const wrapper = render({ variant: "active" }).toJSON();
+
+        assertStyleMatch(
+          {
+            backgroundColor: "var(--colorsActionMajor025)",
+            borderColor: "var(--colorsActionMajor500)",
+          },
+          wrapper
+        );
       });
     });
 
