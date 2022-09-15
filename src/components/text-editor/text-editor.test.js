@@ -277,7 +277,7 @@ context("Test for TextEditor component", () => {
       });
 
       it.each([
-        ["error", 0, "rgb(205, 56, 75)"],
+        ["error", 0, "rgb(203, 55, 74)"],
         ["warning", 5, "rgb(239, 103, 0)"],
         ["info", 10, "rgb(0, 96, 167)"],
       ])("should show %s validation state", (state, times, color) => {

@@ -36,7 +36,7 @@ exports[`Card CardFooter styling should match the expected styling when it has i
 exports[`Card CardFooter styling should match the expected styling when it has non-interactive content 1`] = `
 .c3 {
   position: relative;
-  color: var(--colorsActionMajor500);
+  color: var(--colorsYin090);
   background-color: transparent;
   vertical-align: middle;
   -webkit-align-items: center;
@@ -94,9 +94,33 @@ exports[`Card CardFooter styling should match the expected styling when it has n
 .c1 a,
 .c1 button {
   font-size: 14px;
+  color: var(--colorsActionMajor500);
+}
+
+.c1 a .c2,
+.c1 button .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c1 a:hover,
+.c1 button:hover {
+  color: var(--colorsActionMajor600);
+}
+
+.c1 a:hover .c2,
+.c1 button:hover .c2 {
+  color: var(--colorsActionMajor600);
+}
+
+.c1 a:focus,
+.c1 button:focus {
+  background-color: var(--colorsSemanticFocus250);
+}
+
+.c1 a,
+.c1 button {
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: var(--colorsActionMajor500);
   display: inline-block;
 }
 
@@ -111,19 +135,17 @@ exports[`Card CardFooter styling should match the expected styling when it has n
 .c1 a:hover,
 .c1 button:hover {
   cursor: pointer;
-  color: var(--colorsActionMajor600);
-}
-
-.c1 a:hover .c2,
-.c1 button:hover .c2 {
-  color: var(--colorsActionMajor600);
 }
 
 .c1 a:focus,
 .c1 button:focus {
   color: var(--colorsActionMajorYin090);
-  background-color: var(--colorsSemanticFocus250);
   outline: none;
+}
+
+.c1 a:focus .c2,
+.c1 button:focus .c2 {
+  color: var(--colorsActionMajorYin090);
 }
 
 .c1 button {
@@ -148,7 +170,6 @@ exports[`Card CardFooter styling should match the expected styling when it has n
     >
       <span
         className="c2 c3"
-        color="--colorsActionMajor500"
         data-component="icon"
         data-element="link"
         fontSize="small"

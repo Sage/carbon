@@ -37,14 +37,34 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
 
 .c4 a .c2,
 .c4 button .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c4 a:hover .c2,
+.c4 button:hover .c2 {
+  color: var(--colorsActionMajor600);
+}
+
+.c4 a .c2,
+.c4 button .c2 {
   display: inline-block;
   position: relative;
   vertical-align: middle;
   margin-right: var(--spacing100);
 }
 
-.c4 a:hover .c2,
-.c4 button:hover .c2 {
+.c4 a:focus .c2,
+.c4 button:focus .c2 {
+  color: var(--colorsActionMajorYin090);
+}
+
+.c5 a .c2,
+.c5 button .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c5 a:hover .c2,
+.c5 button:hover .c2 {
   color: var(--colorsActionMajor600);
 }
 
@@ -56,9 +76,9 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
   margin-right: 0;
 }
 
-.c5 a:hover .c2,
-.c5 button:hover .c2 {
-  color: var(--colorsActionMajor600);
+.c5 a:focus .c2,
+.c5 button:focus .c2 {
+  color: var(--colorsActionMajorYin090);
 }
 
 .c0 {
@@ -354,9 +374,33 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
 .c0 a,
 .c0 button {
   font-size: 14px;
+  color: var(--colorsActionMajor500);
+}
+
+.c0 a .c9,
+.c0 button .c9 {
+  color: var(--colorsActionMajor500);
+}
+
+.c0 a:hover,
+.c0 button:hover {
+  color: var(--colorsActionMajor600);
+}
+
+.c0 a:hover .c9,
+.c0 button:hover .c9 {
+  color: var(--colorsActionMajor600);
+}
+
+.c0 a:focus,
+.c0 button:focus {
+  background-color: var(--colorsSemanticFocus250);
+}
+
+.c0 a,
+.c0 button {
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: var(--colorsActionMajor500);
   display: inline-block;
 }
 
@@ -371,19 +415,17 @@ exports[`ActionButtons StyledEditAction when isHovered prop is set should match 
 .c0 a:hover,
 .c0 button:hover {
   cursor: pointer;
-  color: var(--colorsActionMajor600);
-}
-
-.c0 a:hover .c9,
-.c0 button:hover .c9 {
-  color: var(--colorsActionMajor600);
 }
 
 .c0 a:focus,
 .c0 button:focus {
   color: var(--colorsActionMajorYin090);
-  background-color: var(--colorsSemanticFocus250);
   outline: none;
+}
+
+.c0 a:focus .c9,
+.c0 button:focus .c9 {
+  color: var(--colorsActionMajorYin090);
 }
 
 .c0 button {
@@ -513,14 +555,34 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
 
 .c4 a .c2,
 .c4 button .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c4 a:hover .c2,
+.c4 button:hover .c2 {
+  color: var(--colorsActionMajor600);
+}
+
+.c4 a .c2,
+.c4 button .c2 {
   display: inline-block;
   position: relative;
   vertical-align: middle;
   margin-right: var(--spacing100);
 }
 
-.c4 a:hover .c2,
-.c4 button:hover .c2 {
+.c4 a:focus .c2,
+.c4 button:focus .c2 {
+  color: var(--colorsActionMajorYin090);
+}
+
+.c5 a .c2,
+.c5 button .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c5 a:hover .c2,
+.c5 button:hover .c2 {
   color: var(--colorsActionMajor600);
 }
 
@@ -532,9 +594,9 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
   margin-right: 0;
 }
 
-.c5 a:hover .c2,
-.c5 button:hover .c2 {
-  color: var(--colorsActionMajor600);
+.c5 a:focus .c2,
+.c5 button:focus .c2 {
+  color: var(--colorsActionMajorYin090);
 }
 
 .c0 {

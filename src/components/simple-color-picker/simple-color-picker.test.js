@@ -78,7 +78,7 @@ const colors = [
 ];
 
 const validationTypes = [
-  ["error", "rgb(205, 56, 75)"],
+  ["error", "rgb(203, 55, 74)"],
   ["warning", "rgb(239, 103, 0)"],
   ["info", "rgb(0, 96, 167)"],
 ];

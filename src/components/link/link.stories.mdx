@@ -63,7 +63,7 @@ By default an anchor element will be rendered.
 
 Setting the `disabled` prop to true disables the link.
 
-**Please note**: To disable an anchor, the `href` prop must be not defined.
+**Please note**: To disable an anchor, the `href` prop must not be defined.
 
 <Canvas>
   <Story name="with disabled">
@@ -166,7 +166,7 @@ To show how it works, press the TAB key and you will be able to see how `Skip Li
   </Story>
 </Canvas>
 
-### OnClick
+### onClick
 
 A custom `onClick` function can be passed to the Link component to render it as a button instead of an anchor.
 
@@ -181,6 +181,112 @@ perform client-side routing, but still provide the `href` to render an HTML link
     <Link onClick={() => {}}>
       This is actually a button but looks like a link
     </Link>
+  </Story>
+</Canvas>
+
+### variants
+
+Setting the `variant` prop to either `negative` or `neutral` enables overriding of the `default` styling of the `Link` component.
+<Canvas>
+  <Story name="variants">
+    <>
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+        variant="negative"
+      >
+        This is a link
+      </Link>
+      <br />
+      <br />
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+        variant="neutral"
+      >
+        This is a link
+      </Link>
+    </>
+  </Story>
+</Canvas>
+
+### On a dark background
+ 
+When the `Link` component is rendered on a dark background, the `isDarkBackground` prop can be used to update the colour styling 
+to ensure there is enough contrast. 
+
+<Canvas>
+  <Story name="on a dark background">
+    <div style={{
+      backgroundColor: "#000000",
+      width: "max-content",
+      padding: "20px 10px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
+    }}>
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+        isDarkBackground
+      >
+        This is a link
+      </Link>
+      {["left", "right"].map((align) => (
+        <React.Fragment key={`${align}-default-variant`}>
+          <br />
+          <Link icon="settings" isDarkBackground iconAlign={align} href="#foo">
+            This is a link
+          </Link>
+        </React.Fragment>
+      ))}
+      <br />
+       <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+        isDarkBackground
+        variant="negative"
+      >
+        This is a link
+      </Link>
+      {["left", "right"].map((align) => (
+        <React.Fragment key={`${align}-negative-variant`}>
+          <br />
+          <Link icon="settings" isDarkBackground variant="negative" iconAlign={align} href="#foo">
+            This is a link
+          </Link>
+        </React.Fragment>
+      ))}
+      <br />
+       <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+        isDarkBackground
+        variant="neutral"
+      >
+        This is a link
+      </Link>
+      {["left", "right"].map((align) => (
+        <React.Fragment key={`${align}-neutral-variant`}>
+          <br />
+          <Link icon="settings" isDarkBackground variant="neutral" iconAlign={align} href="#foo">
+            This is a link
+          </Link>
+        </React.Fragment>
+      ))}
+      <br />
+      <Link
+        isDarkBackground
+        disabled
+       >
+        This is a link
+      </Link>
+    </div>
   </Story>
 </Canvas>
 

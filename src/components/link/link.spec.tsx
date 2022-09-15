@@ -293,4 +293,315 @@ describe("Link", () => {
       });
     });
   });
+
+  describe("'negative' variant", () => {
+    it("matches the styling when isDarkBackground is false", () => {
+      wrapper = renderLink({
+        href: "foo.com",
+        isDarkBackground: false,
+        icon: "home",
+        variant: "negative",
+      });
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsSemanticNegative500)",
+        },
+        wrapper,
+        { modifier: "a" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsSemanticNegative500)",
+        },
+        wrapper,
+        { modifier: `a ${StyledIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsSemanticNegative600)",
+        },
+        wrapper,
+        { modifier: "a:hover" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsSemanticNegative600)",
+        },
+        wrapper,
+        { modifier: `a:hover ${StyledIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajorYin090)",
+          backgroundColor: "var(--colorsSemanticFocus250)",
+        },
+        wrapper,
+        { modifier: "a:focus" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajorYin090)",
+        },
+        wrapper,
+        { modifier: `a:focus ${StyledIcon}` }
+      );
+    });
+  });
+
+  describe("'neutral' variant", () => {
+    it("matches the styling when isDarkBackground is false", () => {
+      wrapper = renderLink({
+        href: "foo.com",
+        isDarkBackground: false,
+        icon: "home",
+        variant: "neutral",
+      });
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajorYin090)",
+        },
+        wrapper,
+        { modifier: "a" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajorYin090)",
+        },
+        wrapper,
+        { modifier: `a ${StyledIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajor600)",
+        },
+        wrapper,
+        { modifier: "a:hover" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajor600)",
+        },
+        wrapper,
+        { modifier: `a:hover ${StyledIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajorYin090)",
+          backgroundColor: "var(--colorsSemanticFocus250)",
+        },
+        wrapper,
+        { modifier: "a:focus" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajorYin090)",
+        },
+        wrapper,
+        { modifier: `a:focus ${StyledIcon}` }
+      );
+    });
+  });
+
+  describe("isDarkBackground", () => {
+    it("matches the expected styling with default variant", () => {
+      wrapper = renderLink({
+        href: "foo.com",
+        isDarkBackground: true,
+        icon: "home",
+      });
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajor350)",
+        },
+        wrapper,
+        { modifier: "a" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajor350)",
+        },
+        wrapper,
+        { modifier: `a ${StyledIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajor450)",
+        },
+        wrapper,
+        { modifier: "a:hover" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajor450)",
+        },
+        wrapper,
+        { modifier: `a:hover ${StyledIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajorYin090)",
+          backgroundColor: "var(--colorsSemanticFocus250)",
+        },
+        wrapper,
+        { modifier: "a:focus" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajorYin090)",
+        },
+        wrapper,
+        { modifier: `a:focus ${StyledIcon}` }
+      );
+    });
+
+    it("matches the expected styling when disabled", () => {
+      wrapper = renderLink({
+        href: "foo.com",
+        isDarkBackground: true,
+        disabled: true,
+      });
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajorYang030)",
+        },
+        wrapper,
+        { modifier: "a" }
+      );
+    });
+
+    it("matches the styling when variant is set to 'negative'", () => {
+      wrapper = renderLink({
+        href: "foo.com",
+        isDarkBackground: true,
+        icon: "home",
+        variant: "negative",
+      });
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsSemanticNegative350)",
+        },
+        wrapper,
+        { modifier: "a" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsSemanticNegative350)",
+        },
+        wrapper,
+        { modifier: `a ${StyledIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsSemanticNegative450)",
+        },
+        wrapper,
+        { modifier: "a:hover" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsSemanticNegative450)",
+        },
+        wrapper,
+        { modifier: `a:hover ${StyledIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajorYin090)",
+          backgroundColor: "var(--colorsSemanticFocus250)",
+        },
+        wrapper,
+        { modifier: "a:focus" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajorYin090)",
+        },
+        wrapper,
+        { modifier: `a:focus ${StyledIcon}` }
+      );
+    });
+
+    it("matches the styling when variant is set to 'neutral'", () => {
+      wrapper = renderLink({
+        href: "foo.com",
+        isDarkBackground: true,
+        icon: "home",
+        variant: "neutral",
+      });
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMinor100)",
+        },
+        wrapper,
+        { modifier: "a" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMinor100)",
+        },
+        wrapper,
+        { modifier: `a ${StyledIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajor450)",
+        },
+        wrapper,
+        { modifier: "a:hover" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajor450)",
+        },
+        wrapper,
+        { modifier: `a:hover ${StyledIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajorYin090)",
+          backgroundColor: "var(--colorsSemanticFocus250)",
+        },
+        wrapper,
+        { modifier: "a:focus" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajorYin090)",
+        },
+        wrapper,
+        { modifier: `a:focus ${StyledIcon}` }
+      );
+    });
+  });
 });
