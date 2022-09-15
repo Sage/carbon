@@ -1,3 +1,10 @@
+## [110.8.0](https://github.com/Sage/carbon/compare/v110.7.0...v110.8.0) (2022-09-15)
+
+
+### Features
+
+* **link:** add support for negative and neutral states and better contrast on dark backgrounds ([7c5e4e0](https://github.com/Sage/carbon/commit/7c5e4e0eca2746fe8604c0cbd96168701f13acbe)), closes [#5407](https://github.com/Sage/carbon/issues/5407)
+
 ## [110.7.0](https://github.com/Sage/carbon/compare/v110.6.1...v110.7.0) (2022-09-14)
 
 
