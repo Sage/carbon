@@ -2,12 +2,13 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import { mount, shallow } from "enzyme";
 import mintTheme from "../../style/themes/mint";
-import Content from "./content.component.js";
+import Content, { ContentProps } from ".";
 import {
   StyledContent,
   StyledContentTitle,
   StyledContentBody,
-} from "./content.style.js";
+  AlignOptions,
+} from "./content.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -17,7 +18,7 @@ import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 describe("Content", () => {
   let wrapper;
 
-  const renderWrapper = (props, render = mount) => {
+  const renderWrapper = (props?: ContentProps, render = mount) => {
     return render(
       <ThemeProvider theme={mintTheme}>
         <Content {...props}>Foo</Content>
@@ -63,17 +64,20 @@ describe("Content", () => {
         ["center", "center"],
         ["right", "right"],
         ["left", "left"],
-      ])(" if prop is `%s`", (a, exptected) => {
-        wrapper = renderWrapper({ align: a });
-        assertStyleMatch(
-          {
-            textAlign: exptected,
-          },
-          wrapper
-        );
-      });
+      ] as const)(
+        "if prop is `%s`",
+        (a: AlignOptions, expected: AlignOptions) => {
+          wrapper = renderWrapper({ align: a });
+          assertStyleMatch(
+            {
+              textAlign: expected,
+            },
+            wrapper
+          );
+        }
+      );
 
-      it("if there is prop align ", () => {
+      it("if there is prop align", () => {
         wrapper = renderWrapper();
         assertStyleMatch(
           {
