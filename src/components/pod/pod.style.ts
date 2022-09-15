@@ -18,7 +18,6 @@ const StyledPod = styled.div<StyledPodProps>`
   display: flex;
   align-items: flex-start;
   width: 100%;
-  text-align: ${({ alignTitle }) => alignTitle};
   ${({ internalEditButton }) => internalEditButton && "position: relative"};
   ${({ height }) => height && `height: ${height}`};
 

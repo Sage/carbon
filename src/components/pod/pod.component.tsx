@@ -18,12 +18,9 @@ import {
 import Icon from "../icon";
 
 import Event from "../../__internal__/utils/helpers/events";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { PodAlignment, PodSize, PodVariant } from "./pod.config";
 
 export interface PodProps extends MarginProps {
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-element"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -78,6 +75,8 @@ export interface PodProps extends MarginProps {
 const Pod = React.forwardRef<HTMLDivElement, PodProps>(
   (
     {
+      "data-element": dataElement,
+      "data-role": dataRole,
       alignTitle = "left",
       border = true,
       children,
@@ -154,7 +153,9 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
         internalEditButton={internalEditButton}
         height={typeof height === "number" ? `${height}px` : height}
         ref={ref}
-        {...tagComponent("pod", rest)}
+        data-component="pod"
+        data-element={dataElement}
+        data-role={dataRole}
         {...rest}
       >
         <StyledBlock
