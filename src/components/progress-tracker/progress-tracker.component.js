@@ -20,8 +20,8 @@ const ProgressTracker = ({
   "aria-label": ariaLabel = "progress tracker",
   "aria-describedby": ariaDescribedBy,
   "aria-valuenow": ariaValueNow,
-  "aria-valuemin": ariaValueMin,
-  "aria-valuemax": ariaValueMax,
+  "aria-valuemin": ariaValueMin = 0,
+  "aria-valuemax": ariaValueMax = 100,
   "aria-valuetext": ariaValueText,
   size = "medium",
   length = "256px",
@@ -95,6 +95,9 @@ const ProgressTracker = ({
     );
   };
 
+  const defaultValueNow =
+    ariaValueMin + ((ariaValueMax - ariaValueMin) * progress) / 100;
+
   return (
     <StyledProgressTracker
       size={size}
@@ -105,7 +108,9 @@ const ProgressTracker = ({
       role="progressbar"
       aria-label={ariaLabel}
       aria-describedby={ariaDescribedBy}
-      aria-valuenow={ariaValueNow}
+      aria-valuenow={
+        ariaValueNow === undefined ? defaultValueNow : ariaValueNow
+      }
       aria-valuemin={ariaValueMin}
       aria-valuemax={ariaValueMax}
       aria-valuetext={ariaValueText}

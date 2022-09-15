@@ -492,20 +492,25 @@ describe("ProgressBar", () => {
     });
 
     it("should allow an aria-label prop to be passed to the component", () => {
-      expect(wrapper.prop("aria-label")).toBe("FooBar");
+      expect(wrapper.getDOMNode().getAttribute("aria-label")).toBe("FooBar");
     });
 
     it("should allow an aria-describedby prop to be passed to the component", () => {
-      expect(wrapper.prop("aria-describedby")).toBe("Foo");
+      expect(wrapper.getDOMNode().getAttribute("aria-describedby")).toBe("Foo");
     });
 
     it.each([
-      ["aria-valuemin", 0],
-      ["aria-valuenow", 10],
-      ["aria-valuemax", 100],
+      ["aria-valuemin", "0"],
+      ["aria-valuenow", "10"],
+      ["aria-valuemax", "100"],
       ["aria-valuetext", "Bar"],
     ])("should allow a value to be passed to %s ", (prop, value) => {
-      expect(wrapper.prop(prop)).toBe(value);
+      expect(wrapper.getDOMNode().getAttribute(prop)).toBe(value);
+    });
+
+    it("should calculate aria-valuenow from the values of progress, aria-valuemin and aria-valuemax if not provided", () => {
+      wrapper.setProps({ "aria-valuenow": undefined });
+      expect(wrapper.getDOMNode().getAttribute("aria-valuenow")).toBe("10");
     });
   });
 });
