@@ -16,7 +16,10 @@ import {
   menuItem,
   fullScreenMenuItem,
 } from "../../locators/menu";
-import { searchInput, searchCrossIcon } from "../../locators/search/index";
+import {
+  searchDefaultInput,
+  searchCrossIcon,
+} from "../../locators/search/index";
 import { positionOfElement, keyCode } from "../helper";
 
 const span = "span";
@@ -152,11 +155,11 @@ When("I press {string} key {int} times", (key, times) => {
 });
 
 When("I press Tab on Search component", () => {
-  searchInput().tab();
+  searchDefaultInput().tab();
 });
 
 Then("Search component input should be focused", () => {
-  searchInput().should("have.focus");
+  searchDefaultInput().should("have.focus");
 });
 
 Then("Search component input icon should be focused", () => {
@@ -229,3 +232,7 @@ Then(
       });
   }
 );
+
+When("Type {string} text into search input", (text) => {
+  searchDefaultInput().clear().type(text);
+});
