@@ -1,11 +1,61 @@
-import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
-import propTypes from "@styled-system/prop-types";
-import color from "../../style/utils/color";
+import { ColorProps, space, SpaceProps } from "styled-system";
+import styledColor from "../../style/utils/color";
 import baseTheme from "../../style/themes/base";
 
-const getAs = (variant) => {
+const VARIANT_TYPES = [
+  "h1-large",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "segment-header",
+  "segment-header-small",
+  "segment-subheader",
+  "segment-subheader-alt",
+  "p",
+  "small",
+  "big",
+  "sup",
+  "sub",
+  "strong",
+  "b",
+  "em",
+  "ul",
+  "ol",
+] as const;
+type VariantTypes = typeof VARIANT_TYPES[number];
+export interface TypographyProps extends SpaceProps, ColorProps {
+  /** Override the variant component */
+  as?: React.ElementType;
+  /** The visual style to apply to the component */
+  variant?: VariantTypes;
+  /** Override the variant font-size */
+  fontSize?: string;
+  /** Override the variant font-weight */
+  fontWeight?: string;
+  /** Override the variant line-height */
+  lineHeight?: string;
+  /** Override the variant text-transform */
+  textTransform?: string;
+  /** Override the variant text-decoration */
+  textDecoration?: string;
+  /** Override the variant display */
+  display?: string;
+  /** Override the list-style-type */
+  listStyleType?: string;
+  /** Override the white-space type */
+  whiteSpace?: string;
+  /** Override the word-wrap type */
+  wordWrap?: string;
+  /** Override the text-overflow type */
+  textOverflow?: string;
+  /** Apply truncation */
+  truncate?: boolean;
+}
+
+const getAs = (variant?: VariantTypes) => {
   switch (variant) {
     case "h1-large":
       return "h1";
@@ -21,7 +71,7 @@ const getAs = (variant) => {
   }
 };
 
-const getSize = (variant) => {
+const getSize = (variant?: VariantTypes) => {
   switch (variant) {
     case "h1-large":
       return "32px";
@@ -53,7 +103,7 @@ const getSize = (variant) => {
   }
 };
 
-const getLineHeight = (variant) => {
+const getLineHeight = (variant?: VariantTypes) => {
   switch (variant) {
     case "h1-large":
       return "40px";
@@ -85,7 +135,7 @@ const getLineHeight = (variant) => {
   }
 };
 
-const getWeight = (variant) => {
+const getWeight = (variant?: VariantTypes) => {
   switch (variant) {
     case "h1-large":
     case "h1":
@@ -112,14 +162,14 @@ const getWeight = (variant) => {
   }
 };
 
-const getTransform = (variant) => {
+const getTransform = (variant?: VariantTypes) => {
   if (variant === "segment-subheader-alt") {
     return "uppercase";
   }
   return "none";
 };
 
-const getDecoration = (variant) => {
+const getDecoration = (variant?: VariantTypes) => {
   if (variant === "em") {
     return "underline";
   }
@@ -135,7 +185,7 @@ const Typography = styled.span.attrs(
     textTransform,
     lineHeight,
     textDecoration,
-  }) => {
+  }: TypographyProps) => {
     return {
       as: as || getAs(variant),
       size: fontSize || getSize(variant),
@@ -146,7 +196,7 @@ const Typography = styled.span.attrs(
       defaultMargin: variant === "p" ? "0 0 16px" : "0",
     };
   }
-)`
+)<TypographyProps>`
   ${({
     size,
     weight,
@@ -179,69 +229,18 @@ const Typography = styled.span.attrs(
     `};
     ${variant === "sup" && "vertical-align: super;"};
     ${variant === "sub" && "vertical-align: sub;"};
-    ${display && `display: ${display};`};
+    ${display && `display: ${display}`};
     ${listStyleType && `list-style-type: ${listStyleType};`}; ;
   `}
   ${space}
-${color}
+  ${({ color, bg, backgroundColor, ...rest }) =>
+    styledColor({ color, bg, backgroundColor, ...rest })}
 `;
 
 Typography.defaultProps = {
   color: "blackOpacity90",
   variant: "p",
   theme: baseTheme,
-};
-
-Typography.propTypes = {
-  /** Styled system spacing props */
-  ...propTypes.space,
-  /** Styled system color props */
-  ...propTypes.color,
-  /** The visual style to apply to the component */
-  variant: PropTypes.oneOf([
-    "h1-large",
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "segment-header",
-    "segment-header-small",
-    "segment-subheader",
-    "segment-subheader-alt",
-    "p",
-    "small",
-    "big",
-    "sup",
-    "sub",
-    "strong",
-    "b",
-    "em",
-  ]),
-  /** Override the variant component */
-  as: PropTypes.string,
-  /** Override the variant font-size */
-  fontSize: PropTypes.string,
-  /** Override the variant font-weight */
-  fontWeight: PropTypes.string,
-  /** Override the variant line-height */
-  lineHeight: PropTypes.string,
-  /** Override the variant text-transform */
-  textTransform: PropTypes.string,
-  /** Override the variant text-decoration */
-  textDecoration: PropTypes.string,
-  /** Override the variant display */
-  display: PropTypes.string,
-  /** Override the list-style-type */
-  listStyleType: PropTypes.string,
-  /** Override the white-space type */
-  whiteSpace: PropTypes.string,
-  /** Override the word-wrap type */
-  wordWrap: PropTypes.string,
-  /** Override the text-overflow type */
-  textOverflow: PropTypes.string,
-  /** Apply truncation */
-  truncate: PropTypes.bool,
 };
 
 Typography.displayName = "Typography";
