@@ -553,11 +553,6 @@ describe("SelectList", () => {
 
       assertStyleMatch(
         { height: "100px" },
-        wrapper.find(StyledSelectListContainer)
-      );
-
-      assertStyleMatch(
-        { height: "100px" },
         wrapper.find(StyledPopoverContainer)
       );
 
@@ -663,7 +658,7 @@ describe("SelectList", () => {
           .update();
         assertStyleMatch(
           { height: "150px" },
-          wrapper.find(StyledSelectListContainer)
+          wrapper.find(StyledPopoverContainer)
         );
       });
     });
@@ -692,7 +687,7 @@ describe("SelectList", () => {
 
       assertStyleMatch(
         { height: "60px" },
-        wrapper.find(StyledSelectListContainer)
+        wrapper.find(StyledPopoverContainer)
       );
     });
   });

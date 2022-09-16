@@ -26,7 +26,7 @@ const StyledSelectList = styled.ul`
     align-items: flex-start;
     flex-direction: column;
     list-style-type: none;
-    max-height: ${({ maxHeight }) => `${maxHeight}`};
+    max-height: ${({ maxHeight }) => `${maxHeight}`}px;
     margin: 0;
     outline: none;
     overflow-x: hidden;
