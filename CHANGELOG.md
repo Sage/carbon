@@ -1,3 +1,12 @@
+## [110.9.0](https://github.com/Sage/carbon/compare/v110.8.0...v110.9.0) (2022-09-16)
+
+
+### Features
+
+* **filterable-select:** add listMaxHeight prop support ([d37346f](https://github.com/Sage/carbon/commit/d37346ff217b3f57b549c9116283f9434e9b7daa))
+* **multi-select:** add listMaxHeight prop support ([140199e](https://github.com/Sage/carbon/commit/140199e6604961c7f5320edb23d71c1a7864db8c))
+* **simple-select:** add listMaxHeight prop support ([dc2bb43](https://github.com/Sage/carbon/commit/dc2bb439f0d56519cf1e7895a4fffd17c557dce3))
+
 ## [110.8.0](https://github.com/Sage/carbon/compare/v110.7.0...v110.8.0) (2022-09-15)
 
 
