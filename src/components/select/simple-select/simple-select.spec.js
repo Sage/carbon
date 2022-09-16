@@ -29,7 +29,9 @@ describe("SimpleSelect", () => {
     describe("and that element is an Option of the Select List", () => {
       it("then the SelectList should be closed", () => {
         simulateSelectTextEvent(wrapper, "click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           wrapper
             .find(Option)
@@ -37,7 +39,9 @@ describe("SimpleSelect", () => {
             .getDOMNode()
             .dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
-        expect(wrapper.update().find(SelectList).exists()).toBe(false);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
       });
     });
 
@@ -47,11 +51,15 @@ describe("SimpleSelect", () => {
           document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
         simulateSelectTextEvent(wrapper, "click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
-        expect(wrapper.update().find(SelectList).exists()).toBe(false);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
       });
     });
 
@@ -166,7 +174,9 @@ describe("SimpleSelect", () => {
         const wrapper = renderSelect({ openOnFocus: true });
 
         simulateSelectTextboxEvent(wrapper, "focus");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
       });
 
       describe.each(["readOnly", "disabled"])(
@@ -177,7 +187,11 @@ describe("SimpleSelect", () => {
             const wrapper = renderSelect(obj);
 
             simulateSelectTextboxEvent(wrapper, "focus");
-            expect(wrapper.find(SelectList).exists()).toBe(false);
+            wrapper
+              .find(Option)
+              .forEach((option) =>
+                expect(option.getDOMNode()).not.toBeVisible()
+              );
           });
         }
       );
@@ -214,7 +228,9 @@ describe("SimpleSelect", () => {
           it("then that prop should not be called", () => {
             simulateSelectTextboxEvent(wrapper, "focus");
             onOpenFn.mockReset();
-            expect(wrapper.find(SelectList).exists()).toBe(true);
+            wrapper
+              .find(Option)
+              .forEach((option) => expect(option.getDOMNode()).toBeVisible());
             simulateSelectTextboxEvent(wrapper, "focus");
             expect(onOpenFn).not.toHaveBeenCalled();
           });
@@ -242,7 +258,9 @@ describe("SimpleSelect", () => {
 
     it("the SelectList should not be rendered", () => {
       simulateSelectTextboxEvent(wrapper, "focus");
-      expect(wrapper.find(SelectList).exists()).toBe(false);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
     });
 
     describe.each([
@@ -255,7 +273,9 @@ describe("SimpleSelect", () => {
     ])('and the "%s" key is pressed', (key) => {
       it("the SelectList should be rendered", () => {
         simulateKeyDown(wrapper, key);
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
       });
 
       it("the onOpen prop should be called", () => {
@@ -267,7 +287,9 @@ describe("SimpleSelect", () => {
         it("the onOpen prop should not be called", () => {
           simulateSelectTextEvent(wrapper, "click");
           onOpenFn.mockReset();
-          expect(wrapper.find(SelectList).exists()).toBe(true);
+          wrapper
+            .find(Option)
+            .forEach((option) => expect(option.getDOMNode()).toBeVisible());
           simulateKeyDown(wrapper, key);
           expect(onOpenFn).not.toHaveBeenCalled();
         });
@@ -277,7 +299,9 @@ describe("SimpleSelect", () => {
         it("then the SelectList should not be rendered", () => {
           wrapper.setProps({ readOnly: true });
           simulateKeyDown(wrapper, key);
-          expect(wrapper.find(SelectList).exists()).toBe(false);
+          wrapper
+            .find(Option)
+            .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
         });
       });
     });
@@ -285,7 +309,9 @@ describe("SimpleSelect", () => {
     describe("and a key other than Enter, Up or Down is pressed", () => {
       it("the SelectList should not be rendered", () => {
         simulateKeyDown(wrapper, "b");
-        expect(wrapper.find(SelectList).exists()).toBe(false);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
       });
 
       describe("with readOnly prop set to true", () => {
@@ -293,7 +319,9 @@ describe("SimpleSelect", () => {
           wrapper.setProps({ readOnly: true });
           wrapper.update();
           simulateKeyDown(wrapper, "b");
-          expect(wrapper.find(SelectList).exists()).toBe(false);
+          wrapper
+            .find(Option)
+            .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
         });
       });
     });
@@ -304,7 +332,9 @@ describe("SimpleSelect", () => {
       const wrapper = renderSelect();
 
       simulateSelectTextEvent(wrapper, "click");
-      expect(wrapper.find(SelectList).exists()).toBe(true);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
     });
 
     describe.each(["disabled", "readOnly"])(
@@ -322,7 +352,9 @@ describe("SimpleSelect", () => {
           const wrapper = renderSelect({ [prop]: true });
 
           simulateSelectTextEvent(wrapper, "click");
-          expect(wrapper.find(SelectList).exists()).toBe(false);
+          wrapper
+            .find(Option)
+            .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
         });
       }
     );
@@ -352,9 +384,13 @@ describe("SimpleSelect", () => {
         const wrapper = renderSelect();
 
         simulateSelectTextEvent(wrapper, "click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         simulateSelectTextEvent(wrapper, "click");
-        expect(wrapper.find(SelectList).exists()).toBe(false);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
       });
     });
 
@@ -398,7 +434,9 @@ describe("SimpleSelect", () => {
       const wrapper = renderSelect();
 
       wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
-      expect(wrapper.find(SelectList).exists()).toBe(true);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
     });
 
     describe("and the SelectList is open", () => {
@@ -410,13 +448,17 @@ describe("SimpleSelect", () => {
           .find('[type="dropdown"]')
           .first()
           .simulate("click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         wrapper
           .find(Textbox)
           .find('[type="dropdown"]')
           .first()
           .simulate("click");
-        expect(wrapper.find(SelectList).exists()).toBe(false);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
       });
     });
   });
@@ -553,11 +595,15 @@ describe("SimpleSelect", () => {
         const wrapper = renderSelect();
 
         simulateSelectTextEvent(wrapper, "click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
-        expect(wrapper.update().find(SelectList).exists()).toBe(false);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
       });
     });
 
@@ -566,7 +612,9 @@ describe("SimpleSelect", () => {
 
       beforeAll(() => {
         simulateSelectTextEvent(wrapper, "click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(navigationKeyOptionObject);
         });
@@ -574,7 +622,9 @@ describe("SimpleSelect", () => {
       });
 
       it("the SelectList should be open", () => {
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
       });
 
       it("the expected value should be selected", () => {
@@ -608,12 +658,16 @@ describe("SimpleSelect", () => {
         const wrapper = renderSelect();
 
         simulateSelectTextEvent(wrapper, "click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           wrapper.find(Option).first().simulate("click");
         });
         simulateSelectTextboxEvent(wrapper, "focus");
-        expect(wrapper.update().find(SelectList).exists()).toBe(false);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
       });
     });
   });
@@ -623,11 +677,15 @@ describe("SimpleSelect", () => {
       const wrapper = renderSelect();
 
       simulateSelectTextEvent(wrapper, "click");
-      expect(wrapper.find(SelectList).exists()).toBe(true);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
       act(() => {
         wrapper.find(SelectList).prop("onSelectListClose")();
       });
-      expect(wrapper.update().find(SelectList).exists()).toBe(false);
+      wrapper
+        .find(Option)
+        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
     });
   });
 
@@ -705,7 +763,9 @@ describe("SimpleSelect", () => {
     describe("and an option is selected", () => {
       it("then the onChange prop should be called with expected value", () => {
         simulateSelectTextEvent(wrapper, "click");
-        expect(wrapper.find(SelectList).exists()).toBe(true);
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });

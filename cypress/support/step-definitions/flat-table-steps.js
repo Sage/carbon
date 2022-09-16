@@ -16,6 +16,7 @@ import {
   flatTableSubrowFirstCell,
   pageSelectInput,
 } from "../../locators/flat-table";
+import { relLink } from "../../locators/link";
 
 import DEBUG_FLAG from "../e2e";
 import { keyCode, positionOfElement } from "../helper";
@@ -314,3 +315,7 @@ Then(
     );
   }
 );
+
+Then("The link is clickable", () => {
+  relLink().click();
+});

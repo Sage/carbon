@@ -400,6 +400,7 @@ const SimpleSelect = React.forwardRef(
         loaderDataRole="simple-select-list-loader"
         listPlacement={listPlacement}
         flipEnabled={flipEnabled}
+        isOpen={isOpen}
       >
         {children}
       </SelectList>
@@ -418,7 +419,7 @@ const SimpleSelect = React.forwardRef(
       >
         <div ref={containerRef}>
           <SelectTextbox
-            aria-controls={isOpen ? selectListId.current : undefined}
+            aria-controls={selectListId.current}
             activeDescendantId={activeDescendantId}
             labelId={labelId.current}
             isOpen={isOpen}
@@ -426,7 +427,7 @@ const SimpleSelect = React.forwardRef(
             {...getTextboxProps()}
           />
         </div>
-        {isOpen && selectList}
+        {selectList}
       </StyledSelect>
     );
   }

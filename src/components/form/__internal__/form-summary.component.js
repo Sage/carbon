@@ -40,21 +40,25 @@ Summary.propTypes = {
   warnings: PropTypes.number,
 };
 
-const FormSummary = (props) => (
-  <StyledFormSummary
-    showSummary={props.errors > 0 || props.warnings > 0}
-    data-element="form-summary"
-  >
-    <Summary type="errors" {...props} />
-    <Summary type="warnings" {...props} />
-    {props.children}
-  </StyledFormSummary>
-);
+const FormSummary = ({ fullWidth, ...props }) => {
+  return (
+    <StyledFormSummary
+      showSummary={props.errors || props.warnings}
+      data-element="form-summary"
+      fullWidth={fullWidth}
+    >
+      <Summary type="errors" {...props} />
+      <Summary type="warnings" {...props} />
+      {props.children}
+    </StyledFormSummary>
+  );
+};
 
 FormSummary.propTypes = {
   children: PropTypes.node,
   errors: PropTypes.number,
   warnings: PropTypes.number,
+  fullWidth: PropTypes.bool,
 };
 
 export default FormSummary;

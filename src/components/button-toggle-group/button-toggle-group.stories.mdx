@@ -21,8 +21,6 @@ Press one of the buttons to make selection. ButtonToggleGroup component should b
 
 ## Quick Start
 
-To use the `ButtonToggleGroup` component you have to import two components: `<ButtonToggleGroup />` and `<ButtonToggle />`:
-
 ```javascript
 import ButtonToggle from "carbon-react/lib/components/button-toggle";
 import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
@@ -30,7 +28,7 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
 
 ## Designer Notes
 
-- Always insert `ButtonToggle` Components inside the `ButtonToggleGroup`.
+- Only pass `ButtonToggle` components as children of `ButtonToggleGroup`, passing anything else will result in an error.
 - An icon could be added to make the meaning of an option clearer.
 
 ## Examples
@@ -48,15 +46,9 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       fieldHelp="field help message"
       onChange={action("onChange")}
     >
-      <ButtonToggle key="foo" value="foo">
-        Foo
-      </ButtonToggle>
-      <ButtonToggle key="bar" value="bar">
-        Bar
-      </ButtonToggle>
-      <ButtonToggle key="baz" value="baz">
-        Baz
-      </ButtonToggle>
+      <ButtonToggle value="foo">Foo</ButtonToggle>
+      <ButtonToggle value="bar">Bar</ButtonToggle>
+      <ButtonToggle value="baz">Baz</ButtonToggle>
     </ButtonToggleGroup>
   </Story>
 </Canvas>
@@ -82,15 +74,9 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
           onChange={onChangeHandler}
           value={value}
         >
-          <ButtonToggle key="foo" value="foo">
-            Foo
-          </ButtonToggle>
-          <ButtonToggle key="bar" value="bar">
-            Bar
-          </ButtonToggle>
-          <ButtonToggle key="baz" value="baz">
-            Baz
-          </ButtonToggle>
+          <ButtonToggle value="foo">Foo</ButtonToggle>
+          <ButtonToggle value="bar">Bar</ButtonToggle>
+          <ButtonToggle value="baz">Baz</ButtonToggle>
         </ButtonToggleGroup>
       );
     }}
@@ -110,13 +96,13 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       fieldHelp="field help mesage"
       onChange={() => {}}
     >
-      <ButtonToggle key="foo" value="foo" grouped>
+      <ButtonToggle value="foo" grouped>
         Foo
       </ButtonToggle>
-      <ButtonToggle key="bar" value="bar" grouped>
+      <ButtonToggle value="bar" grouped>
         Bar
       </ButtonToggle>
-      <ButtonToggle key="baz" value="baz" grouped>
+      <ButtonToggle value="baz" grouped>
         Baz
       </ButtonToggle>
     </ButtonToggleGroup>
@@ -137,15 +123,9 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       fieldHelpInline
       onChange={() => {}}
     >
-      <ButtonToggle key="foo" value="foo">
-        Foo
-      </ButtonToggle>
-      <ButtonToggle key="bar" value="bar">
-        Bar
-      </ButtonToggle>
-      <ButtonToggle key="baz" value="baz">
-        Baz
-      </ButtonToggle>
+      <ButtonToggle value="foo">Foo</ButtonToggle>
+      <ButtonToggle value="bar">Bar</ButtonToggle>
+      <ButtonToggle value="baz">Baz</ButtonToggle>
     </ButtonToggleGroup>
   </Story>
 </Canvas>
@@ -164,15 +144,9 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       labelInline
       onChange={() => {}}
     >
-      <ButtonToggle key="foo" value="foo">
-        Foo
-      </ButtonToggle>
-      <ButtonToggle key="bar" value="bar">
-        Bar
-      </ButtonToggle>
-      <ButtonToggle key="baz" value="baz">
-        Baz
-      </ButtonToggle>
+      <ButtonToggle value="foo">Foo</ButtonToggle>
+      <ButtonToggle value="bar">Bar</ButtonToggle>
+      <ButtonToggle value="baz">Baz</ButtonToggle>
     </ButtonToggleGroup>
   </Story>
 </Canvas>

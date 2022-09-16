@@ -63,9 +63,16 @@ const StyledHeadingBackButton = styled(Link)`
       outline: 3px solid var(--colorsSemanticFocus500);
     }
 
+    &:hover {
+      ${StyledIcon} {
+        color: var(--colorsActionMinor600);
+      }
+    }
+
     ${StyledIcon} {
       margin-right: 0;
       display: inline-flex;
+      color: var(--colorsActionMinor500);
     }
   }
 `;
@@ -105,16 +112,11 @@ const StyledSubHeader = styled.div`
 `;
 
 const StyledHeadingIcon = styled(Icon)`
-  color: var(--colorsActionMinor500);
   height: 30px;
 
   &:before,
   &${StyledIcon}:before {
     font-size: 24px;
-  }
-
-  &:hover {
-    color: var(--colorsActionMinor600);
   }
 `;
 

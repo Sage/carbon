@@ -214,6 +214,8 @@ const FilterableSelect = React.forwardRef(
       [fillLastFilterCharacter, onKeyDown, readOnly]
     );
 
+    const valueToUse = isControlled.current ? value : selectedValue;
+
     const handleGlobalClick = useCallback(
       (event) => {
         const notInContainer =
@@ -224,11 +226,11 @@ const FilterableSelect = React.forwardRef(
         isMouseDownReported.current = false;
 
         if (notInContainer && notInList) {
-          setMatchingText(selectedValue, true);
+          setMatchingText(valueToUse, true);
           setOpen(false);
         }
       },
-      [setMatchingText, selectedValue]
+      [setMatchingText, valueToUse]
     );
 
     useEffect(() => {
@@ -515,6 +517,7 @@ const FilterableSelect = React.forwardRef(
         loaderDataRole="filterable-select-list-loader"
         listPlacement={listPlacement}
         flipEnabled={flipEnabled}
+        isOpen={isOpen}
       >
         {children}
       </FilterableSelectList>
@@ -536,14 +539,14 @@ const FilterableSelect = React.forwardRef(
           <SelectTextbox
             activeDescendantId={activeDescendantId}
             labelId={label ? labelId.current : undefined}
-            aria-controls={isOpen ? selectListId.current : undefined}
+            aria-controls={selectListId.current}
             isOpen={isOpen}
             hasTextCursor
             textboxRef={textboxRef}
             {...getTextboxProps()}
           />
         </div>
-        {isOpen && selectList}
+        {selectList}
       </StyledSelect>
     );
   }

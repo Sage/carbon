@@ -16,6 +16,8 @@ export interface ModalContextProps {
 export const ModalContext = React.createContext<ModalContextProps>({});
 
 export interface ModalProps {
+  /** Custom class name  */
+  className?: string;
   /** Modal content */
   children?: React.ReactNode;
   /** The ARIA role to be applied to the modal */
