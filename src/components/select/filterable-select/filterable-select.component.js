@@ -38,6 +38,7 @@ const FilterableSelect = React.forwardRef(
       noResultsMessage,
       disablePortal,
       listActionButton,
+      listMaxHeight,
       onListAction,
       isLoading,
       disabled,
@@ -213,6 +214,8 @@ const FilterableSelect = React.forwardRef(
       [fillLastFilterCharacter, onKeyDown, readOnly]
     );
 
+    const valueToUse = isControlled.current ? value : selectedValue;
+
     const handleGlobalClick = useCallback(
       (event) => {
         const notInContainer =
@@ -223,11 +226,11 @@ const FilterableSelect = React.forwardRef(
         isMouseDownReported.current = false;
 
         if (notInContainer && notInList) {
-          setMatchingText(selectedValue, true);
+          setMatchingText(valueToUse, true);
           setOpen(false);
         }
       },
-      [setMatchingText, selectedValue]
+      [setMatchingText, valueToUse]
     );
 
     useEffect(() => {
@@ -504,6 +507,7 @@ const FilterableSelect = React.forwardRef(
         noResultsMessage={noResultsMessage}
         disablePortal={disablePortal}
         listActionButton={listActionButton}
+        listMaxHeight={listMaxHeight}
         onListAction={handleOnListAction}
         isLoading={isLoading}
         readOnly={readOnly}
@@ -513,6 +517,7 @@ const FilterableSelect = React.forwardRef(
         loaderDataRole="filterable-select-list-loader"
         listPlacement={listPlacement}
         flipEnabled={flipEnabled}
+        isOpen={isOpen}
       >
         {children}
       </FilterableSelectList>
@@ -534,14 +539,14 @@ const FilterableSelect = React.forwardRef(
           <SelectTextbox
             activeDescendantId={activeDescendantId}
             labelId={label ? labelId.current : undefined}
-            aria-controls={isOpen ? selectListId.current : undefined}
+            aria-controls={selectListId.current}
             isOpen={isOpen}
             hasTextCursor
             textboxRef={textboxRef}
             {...getTextboxProps()}
           />
         </div>
-        {isOpen && selectList}
+        {selectList}
       </StyledSelect>
     );
   }
@@ -587,6 +592,8 @@ FilterableSelect.propTypes = {
   onListScrollBottom: PropTypes.func,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Maximum list height - defaults to 180 */
+  listMaxHeight: PropTypes.number,
   /** Placement of the select list in relation to the input element */
   listPlacement: PropTypes.oneOf([
     "auto",

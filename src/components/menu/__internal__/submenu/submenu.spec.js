@@ -1130,13 +1130,13 @@ describe("Submenu component", () => {
   );
 
   describe("when it has a ScrollableBlock as a child", () => {
-    const renderScrollableBlock = (menuType, props) => {
+    const renderScrollableBlock = (menuType, props, parent) => {
       return mount(
         <MenuContext.Provider value={menuContextValues(menuType)}>
           <Submenu title="title" tabIndex={-1} {...props}>
             <MenuItem>Apple</MenuItem>
             <MenuItem>Banana</MenuItem>
-            <ScrollableBlock>
+            <ScrollableBlock parent={parent}>
               <MenuItem>Carrot</MenuItem>
               <MenuItem>Broccoli</MenuItem>
             </ScrollableBlock>
@@ -1151,6 +1151,43 @@ describe("Submenu component", () => {
       openSubmenu(wrapper);
 
       expect(wrapper.find(MenuItem).length).toEqual(4);
+    });
+
+    describe("when the scrollable block has a parent item", () => {
+      it("should render all of the underlying menu items", () => {
+        wrapper = renderScrollableBlock(
+          "light",
+          {},
+          <Search value="" onChange={() => {}} />
+        );
+        openSubmenu(wrapper);
+
+        expect(wrapper.find(MenuItem).length).toEqual(5);
+      });
+    });
+
+    describe("when the scrollable block wraps the entire submenu", () => {
+      it("the outer submenu should have role presentation", () => {
+        wrapper = mount(
+          <MenuContext.Provider value={menuContextValues("light")}>
+            <Submenu title="title">
+              <ScrollableBlock>
+                <MenuItem>Apple</MenuItem>
+                <MenuItem>Banana</MenuItem>
+                <MenuItem>Carrot</MenuItem>
+                <MenuItem>Broccoli</MenuItem>
+              </ScrollableBlock>
+            </Submenu>
+          </MenuContext.Provider>
+        );
+
+        openSubmenu(wrapper);
+        const outerSubmenu = wrapper.find(StyledSubmenu);
+
+        expect(outerSubmenu.getDOMNode().getAttribute("role")).toBe(
+          "presentation"
+        );
+      });
     });
   });
 

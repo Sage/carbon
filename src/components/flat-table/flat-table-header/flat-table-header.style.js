@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { padding } from "styled-system";
+import getAlternativeBackgroundColor from "./flat-table-header-utils";
 
 const verticalBorderSizes = {
   small: "1px",
@@ -15,6 +16,7 @@ const StyledFlatTableHeader = styled.th`
     leftPosition,
     makeCellSticky,
     verticalBorder,
+    colorTheme,
   }) => css`
     background-color: transparent;
     border-width: 0;
@@ -57,11 +59,11 @@ const StyledFlatTableHeader = styled.th`
     ${
       alternativeBgColor &&
       css`
-        &&&:first-child {
-          border-left: 1px solid var(--colorsActionMinor550);
-        }
         &&& {
-          background-color: var(--colorsActionMinor550);
+          background-color: ${getAlternativeBackgroundColor(colorTheme)};
+        }
+        &&&:first-child {
+          border-left: unset;
         }
       `
     };

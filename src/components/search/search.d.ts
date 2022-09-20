@@ -1,7 +1,7 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
 
-export interface SearchProps extends MarginProps {
+export interface SearchProps extends ValidationProps, MarginProps {
   /** Prop to specify the aria-label of the search component */
   "aria-label"?: string;
   /** Prop for `uncontrolled` use */
@@ -42,6 +42,8 @@ export interface SearchProps extends MarginProps {
   inputRef?: React.RefObject<HTMLInputElement>;
   /** Input tabindex */
   tabIndex?: number;
+  /** Overrides the default tooltip position */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
 declare function Search(props: SearchProps): JSX.Element;

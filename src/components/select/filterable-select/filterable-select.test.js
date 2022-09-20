@@ -30,7 +30,7 @@ import {
   filterableSelectAddElementButton,
   filterableSelectButtonIcon,
   filterableSelectAddNewButton,
-  filterableSelectResetButton,
+  selectResetButton,
   boldedAndUnderlinedValue,
   multiColumnsSelectListNoResultsMessage,
 } from "../../../../cypress/locators/select";
@@ -661,20 +661,29 @@ context("Tests for Filterable Select component", () => {
         .should("have.attr", "data-role", testPropValue);
     });
 
-    it.each([["top"], ["bottom"], ["left"], ["right"]])(
+    it.each([
+      ["top", "200px", "0px", "0px", "0px"],
+      ["bottom", "0px", "0px", "0px", "0px"],
+      ["left", "200px", "0px", "200px", "0px"],
+      ["right", "200px", "0px", "0px", "200px"],
+    ])(
       "should render the help tooltip in the %s position",
-      (tooltipPositionValue) => {
+      (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
           <FilterableSelectComponent
             labelHelp="Help"
             tooltipPosition={tooltipPositionValue}
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
           />
         );
 
         helpIcon().trigger("mouseover");
         tooltipPreview()
           .should("be.visible")
-          .and("have.css", tooltipPositionValue);
+          .and("have.attr", "data-placement", tooltipPositionValue);
       }
     );
 
@@ -691,7 +700,7 @@ context("Tests for Filterable Select component", () => {
 
       commonDataElementInputPreview().should("have.attr", "readOnly");
       selectInput().click();
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it.each([
@@ -730,12 +739,12 @@ context("Tests for Filterable Select component", () => {
     });
 
     it.each([
-      ["inline", "399"],
-      ["inline", "400"],
-      ["above", "401"],
+      ["flex", "399"],
+      ["flex", "400"],
+      ["block", "401"],
     ])(
-      "should check Filterable Select label is %s with adaptiveLabelBreakpoint %s and viewport 400",
-      (alignment, breakpoint) => {
+      "should check Filterable Select label alignment is %s with adaptiveLabelBreakpoint %s and viewport 400",
+      (displayValue, breakpoint) => {
         cy.viewport(400, 300);
 
         CypressMountWithProviders(
@@ -745,17 +754,10 @@ context("Tests for Filterable Select component", () => {
           />
         );
 
-        if (alignment === "inline") {
-          getDataElementByValue("label")
-            .parent()
-            .parent()
-            .should("have.css", "display", "flex");
-        } else {
-          getDataElementByValue("label")
-            .parent()
-            .parent()
-            .should("have.css", "display", "block");
-        }
+        getDataElementByValue("label")
+          .parent()
+          .parent()
+          .should("have.css", "display", displayValue);
       }
     );
 
@@ -808,7 +810,7 @@ context("Tests for Filterable Select component", () => {
       commonDataElementInputPreview()
         .should("be.focused")
         .and("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should not open the list with mouse click on Filterable Select input", () => {
@@ -818,7 +820,7 @@ context("Tests for Filterable Select component", () => {
       commonDataElementInputPreview()
         .should("be.focused")
         .and("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should open the list with mouse click on dropdown button", () => {
@@ -833,7 +835,7 @@ context("Tests for Filterable Select component", () => {
 
       dropdownButton().click();
       dropdownButton().click();
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should close the list with the Tab key", () => {
@@ -843,7 +845,7 @@ context("Tests for Filterable Select component", () => {
       selectList().should("be.visible");
       selectInput().tab();
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should close the list with the Esc key", () => {
@@ -853,7 +855,7 @@ context("Tests for Filterable Select component", () => {
       selectList().should("be.visible");
       selectInput().trigger("keydown", { ...keyCode("Esc") });
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it("should close the list by clicking out of the component", () => {
@@ -863,7 +865,7 @@ context("Tests for Filterable Select component", () => {
       selectList().should("be.visible");
       body().click({ force: true });
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
     });
 
     it.each([
@@ -882,7 +884,7 @@ context("Tests for Filterable Select component", () => {
         if (state === "open") {
           selectList().should("be.visible");
         } else {
-          selectList().should("not.exist");
+          selectList().should("not.be.visible");
         }
       }
     );
@@ -896,7 +898,7 @@ context("Tests for Filterable Select component", () => {
         selectListText(option).click();
         getDataElementByValue("input").should("have.attr", "value", option);
         selectInput().should("have.attr", "aria-expanded", "false");
-        selectList().should("not.exist");
+        selectList().should("not.be.visible");
       }
     );
 
@@ -949,7 +951,7 @@ context("Tests for Filterable Select component", () => {
       }
       selectListText(option).should("be.visible");
       dropdownButton().click();
-      filterableSelectResetButton().click({ force: true });
+      selectResetButton().click({ force: true });
       dropdownButton().click();
       selectList().should("be.visible");
       for (let i = 0; i < 3; i++) {
@@ -988,7 +990,7 @@ context("Tests for Filterable Select component", () => {
       selectListText(option).click();
       getDataElementByValue("input").should("have.attr", "value", option);
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.exist");
+      selectList().should("not.be.visible");
       dropdownButton().click();
       selectList()
         .find("li")
@@ -1028,6 +1030,17 @@ context("Tests for Filterable Select component", () => {
         "value",
         positionValue
       );
+    });
+
+    it("should render option list with proper maxHeight value", () => {
+      const maxHeight = 200;
+      CypressMountWithProviders(
+        <FilterableSelectComponent listMaxHeight={maxHeight} />
+      );
+      dropdownButton().click();
+      selectList()
+        .should("have.css", "max-height", `${maxHeight}px`)
+        .and("be.visible");
     });
 
     it.each([
@@ -1292,17 +1305,20 @@ context("Tests for Filterable Select component", () => {
 
     it("should call onChange event when a list option is selected", () => {
       CypressMountWithProviders(
-        <FilterableSelectOnChangeEventComponent onChange={callback} />
+        <FilterableSelectComponent onChange={callback} />
       );
 
       const position = "first";
+      const option = "1";
 
       dropdownButton().click();
       selectOption(positionOfElement(position))
         .click()
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
+          expect(callback).to.have.been.calledWith({
+            target: { value: option },
+          });
         });
     });
 
@@ -1310,7 +1326,7 @@ context("Tests for Filterable Select component", () => {
       "should call onKeyDown event when %s key is pressed",
       (key) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent onKeyDownEnabled onKeyDown={callback} />
+          <FilterableSelectComponent onKeyDown={callback} />
         );
 
         commonDataElementInputPreview()
@@ -1325,7 +1341,7 @@ context("Tests for Filterable Select component", () => {
 
     it("should call onFilterChange event when a filter string is input", () => {
       CypressMountWithProviders(
-        <FilterableSelectOnChangeEventComponent onChange={callback} />
+        <FilterableSelectOnChangeEventComponent onFilterChange={callback} />
       );
 
       const text = "B";
@@ -1335,7 +1351,8 @@ context("Tests for Filterable Select component", () => {
         .type(text)
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
+          expect(callback).to.have.been.calledTwice;
+          expect(callback.getCalls()[1].args[0]).to.equals(text);
         });
     });
 

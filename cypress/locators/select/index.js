@@ -9,7 +9,7 @@ import {
   SELECT_LIST_WRAPPER,
   SELECT_ELEMENT_INPUT,
   FILTERABLE_ADD_BUTTON,
-  FILTERABLE_RESET_BUTTON,
+  SELECT_RESET_BUTTON,
 } from "./locators";
 import { PILL_PREVIEW } from "../pill/locators";
 import { ALERT_DIALOG } from "../dialog/locators";
@@ -26,6 +26,8 @@ export const selectInput = () => cy.get(SELECT_INPUT);
 export const multiSelectPill = () => cy.get(PILL_PREVIEW);
 export const multiSelectPillByPosition = (index) =>
   cy.get(PILL_PREVIEW).eq(index);
+export const multiSelectPillByText = (text) =>
+  cy.get(PILL_PREVIEW).contains(text);
 export const multiSelectDataComponent = () => cy.get(MULTI_SELECT);
 export const selectListText = (text) => cy.get(SELECT_LIST).contains(text);
 export const multiColumnsSelectListHeader = () =>
@@ -56,5 +58,4 @@ export const filterableSelectButtonIcon = () =>
   filterableSelectAddElementButton().find("span:nth-child(2)");
 export const filterableSelectAddNewButton = () =>
   cy.get(ALERT_DIALOG).find("div:nth-child(3) > div > button");
-export const filterableSelectResetButton = () =>
-  cy.get(FILTERABLE_RESET_BUTTON);
+export const selectResetButton = () => cy.get(SELECT_RESET_BUTTON);

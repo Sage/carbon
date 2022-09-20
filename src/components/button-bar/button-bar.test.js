@@ -114,7 +114,7 @@ context("Test for Button-Bar component", () => {
           });
       });
 
-      it("should call onKonFocuseyDown callback when a focus event is triggered", () => {
+      it("should call onFocus callback when a focus event is triggered", () => {
         CypressMountWithProviders(<ButtonBarCustom onFocus={callback} />);
 
         buttonDataComponent()

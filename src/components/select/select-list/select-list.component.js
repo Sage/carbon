@@ -48,6 +48,7 @@ const fixedPopoverModifiers = [
 const SelectList = React.forwardRef(
   (
     {
+      listMaxHeight = 180,
       listActionButton,
       id,
       labelId,
@@ -66,6 +67,7 @@ const SelectList = React.forwardRef(
       loaderDataRole,
       listPlacement = "bottom-start",
       flipEnabled = true,
+      isOpen,
       ...listProps
     },
     listContainerRef
@@ -81,30 +83,39 @@ const SelectList = React.forwardRef(
     const listActionButtonRef = useRef();
     const { blockScroll, allowScroll } = useScrollBlock();
 
-    const updateListHeight = () => {
-      let newHeight = listRef.current.clientHeight;
+    const updateListHeight = useCallback(() => {
+      if (isOpen) {
+        let newHeight = listRef.current.clientHeight;
 
-      if (listActionButtonRef.current) {
-        newHeight += listActionButtonRef.current.parentElement.clientHeight;
+        if (listActionButtonRef.current) {
+          newHeight += listActionButtonRef.current.parentElement.clientHeight;
+        }
+
+        setListHeight(`${newHeight}px`);
       }
+    }, [isOpen]);
 
-      setListHeight(`${newHeight}px`);
-    };
-
-    const listCallbackRef = useCallback((element) => {
-      listRef.current = element;
-      if (element) {
-        setTimeout(updateListHeight, 0);
-      }
-    }, []);
+    const listCallbackRef = useCallback(
+      (element) => {
+        listRef.current = element;
+        if (element) {
+          setTimeout(updateListHeight, 0);
+        }
+      },
+      [updateListHeight]
+    );
 
     useEffect(() => {
-      blockScroll();
+      if (isOpen) {
+        blockScroll();
+      }
 
       return () => {
-        allowScroll();
+        if (isOpen) {
+          allowScroll();
+        }
       };
-    }, [allowScroll, blockScroll]);
+    }, [allowScroll, blockScroll, isOpen]);
 
     useLayoutEffect(() => {
       if (multiColumn) {
@@ -146,6 +157,10 @@ const SelectList = React.forwardRef(
       [onSelect]
     );
 
+    const childIds = useMemo(() => React.Children.map(children, () => guid()), [
+      children,
+    ]);
+
     const childrenWithListProps = useMemo(
       () =>
         React.Children.map(children, (child, index) => {
@@ -155,7 +170,7 @@ const SelectList = React.forwardRef(
 
           const newProps = {
             index,
-            id: guid(),
+            id: childIds[index],
             onSelect: handleSelect,
             hidden: isLoading && React.Children.count(children) === 1,
             ref: optionRefList[index],
@@ -163,8 +178,7 @@ const SelectList = React.forwardRef(
 
           return React.cloneElement(child, newProps);
         }),
-
-      [children, handleSelect, isLoading, optionRefList]
+      [children, handleSelect, isLoading, optionRefList, childIds]
     );
 
     const childrenList = useMemo(
@@ -267,6 +281,10 @@ const SelectList = React.forwardRef(
 
     const handleGlobalKeydown = useCallback(
       (event) => {
+        if (!isOpen) {
+          return;
+        }
+
         const { key } = event;
         const isActionButtonFocused =
           document.activeElement === listActionButtonRef.current;
@@ -302,6 +320,7 @@ const SelectList = React.forwardRef(
         onSelect,
         highlightNextItem,
         focusOnAnchor,
+        isOpen,
       ]
     );
 
@@ -335,7 +354,7 @@ const SelectList = React.forwardRef(
       };
     }, [assignListWidth]);
 
-    useLayoutEffect(updateListHeight, [children]);
+    useLayoutEffect(updateListHeight, [children, updateListHeight]);
 
     useEffect(() => {
       const keyboardEvent = "keydown";
@@ -454,7 +473,7 @@ const SelectList = React.forwardRef(
         reference={anchorRef}
         onFirstUpdate={setPlacementCallback}
         modifiers={popoverModifiers}
-        disableBackgroundUI
+        isOpen={isOpen}
       >
         <StyledPopoverContainer
           height={listHeight}
@@ -468,7 +487,6 @@ const SelectList = React.forwardRef(
           >
             <StyledSelectListContainer
               data-element="select-list-wrapper"
-              height={listHeight}
               placement={placement.current}
               {...listProps}
             >
@@ -482,6 +500,7 @@ const SelectList = React.forwardRef(
                 tabIndex="-1"
                 isLoading={isLoading}
                 multiColumn={multiColumn}
+                maxHeight={listMaxHeight}
               >
                 {selectListContent}
                 {isLoading && loader()}
@@ -522,6 +541,8 @@ SelectList.propTypes = {
   highlightedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** True for default text button or a Button Component to be rendered */
   listActionButton: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
+  /** Maximum list height - defaults to 180 */
+  listMaxHeight: PropTypes.number,
   /** A callback for when the Action Button is triggered */
   onListAction: PropTypes.func,
   /** If true the loader animation is displayed below the last option */
@@ -554,6 +575,10 @@ SelectList.propTypes = {
   ]),
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled: PropTypes.bool,
+  /** @private @ignore
+   * Hides the list (with CSS display: none) if not set
+   */
+  isOpen: PropTypes.bool,
 };
 
 export default SelectList;

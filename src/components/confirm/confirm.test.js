@@ -243,7 +243,7 @@ context("Testing Confirm component", () => {
     });
 
     it.each([
-      [true, "rgb(205, 56, 75)", "rgb(205, 56, 75)"],
+      [true, "rgb(203, 55, 74)", "rgb(203, 55, 74)"],
       [false, "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
     ])(
       "should check cancel button has destructive CSS properties",
@@ -259,7 +259,7 @@ context("Testing Confirm component", () => {
     );
 
     it.each([
-      [true, "rgb(205, 56, 75)"],
+      [true, "rgb(203, 55, 74)"],
       [false, "rgb(0, 126, 69)"],
     ])(
       "should check confirm button has destructive CSS properties",

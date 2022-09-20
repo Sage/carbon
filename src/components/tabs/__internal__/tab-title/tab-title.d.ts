@@ -1,5 +1,9 @@
 import * as React from "react";
 
+export interface TabTitleContextProps {
+  isInTab?: boolean;
+}
+
 export interface TabTitleProps {
   title: string;
   id?: string;
@@ -34,6 +38,8 @@ export interface TabTitleProps {
   ) => void;
 }
 
+declare const TabTitleContext: React.Context<TabTitleContextProps>;
 declare function TabTitle(props: TabTitleProps): JSX.Element;
 
+export { TabTitleContext };
 export default TabTitle;

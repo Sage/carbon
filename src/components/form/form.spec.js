@@ -12,6 +12,7 @@ import {
   StyledFormFooter,
   StyledForm,
   StyledFormContent,
+  StyledFullWidthButtons,
 } from "./form.style";
 import FormSummary from "./__internal__/form-summary.component";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
@@ -546,5 +547,110 @@ describe("Form", () => {
     expect(wrapper.find("form").prop("noValidate")).toBe(true);
     wrapper.setProps({ noValidate: false });
     expect(wrapper.find("form").prop("noValidate")).toBe(false);
+  });
+
+  describe("Form with fullWidthButtons", () => {
+    beforeEach(() => {
+      wrapper = mount(
+        <Form
+          stickyFooter
+          fullWidthButtons
+          leftSideButtons={
+            <Button fullWidth buttonType="primary">
+              cancel
+            </Button>
+          }
+          rightSideButtons={
+            <Button fullWidth buttonType="primary">
+              Foo
+            </Button>
+          }
+          saveButton={
+            <Button fullWidth buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+          errorCount={2}
+          warningCount={3}
+        />
+      );
+    });
+
+    it("applies the correct styles to FormFooter", () => {
+      assertStyleMatch(
+        {
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "stretch",
+          backgroundColor: `var(--colorsUtilityYang100)`,
+          boxSizing: "border-box",
+          padding: "16px 32px",
+          width: "100%",
+          zIndex: "1000",
+          position: "sticky",
+          bottom: "0",
+        },
+        wrapper.find(StyledFormFooter)
+      );
+    });
+
+    it("applies the correct styles to StyledLeftButtons", () => {
+      assertStyleMatch(
+        {
+          marginRight: "0px",
+        },
+        wrapper.find(StyledLeftButtons)
+      );
+    });
+
+    it("applies the correct styles to StyledRightButtons", () => {
+      assertStyleMatch(
+        {
+          marginLeft: "0px",
+        },
+        wrapper.find(StyledRightButtons)
+      );
+    });
+
+    it("applies the correct styles to saveButtons", () => {
+      assertStyleMatch(
+        {
+          width: "100%",
+          display: "flex",
+        },
+        wrapper.find(StyledFullWidthButtons)
+      );
+    });
+
+    it("applies the correct styles to Form Summary", () => {
+      assertStyleMatch(
+        {
+          display: "flex",
+          flexWrap: "wrap",
+          width: "100%",
+          justifyContent: "flex-start",
+        },
+        wrapper.find(StyledFormSummary)
+      );
+    });
+
+    it("can be used without a stickyFooter", () => {
+      wrapper = mount(
+        <Form
+          fullWidthButtons
+          stickyFooter={false}
+          saveButton={
+            <Button fullWidth buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+          errorCount={2}
+          warningCount={3}
+        />
+      );
+      expect(wrapper.find(StyledFormFooter).props().stickyFooter).toEqual(
+        false
+      );
+    });
   });
 });
