@@ -1,3 +1,26 @@
+### [110.9.1](https://github.com/Sage/carbon/compare/v110.9.0...v110.9.1) (2022-09-21)
+
+
+### Bug Fixes
+
+* **confirm:** update DialogProps import path to ensure interface is extended correctly ([f5f2004](https://github.com/Sage/carbon/commit/f5f2004769368f73be4412a2e9563b96f2bd4014))
+
+## [110.9.0](https://github.com/Sage/carbon/compare/v110.8.0...v110.9.0) (2022-09-16)
+
+
+### Features
+
+* **filterable-select:** add listMaxHeight prop support ([d37346f](https://github.com/Sage/carbon/commit/d37346ff217b3f57b549c9116283f9434e9b7daa))
+* **multi-select:** add listMaxHeight prop support ([140199e](https://github.com/Sage/carbon/commit/140199e6604961c7f5320edb23d71c1a7864db8c))
+* **simple-select:** add listMaxHeight prop support ([dc2bb43](https://github.com/Sage/carbon/commit/dc2bb439f0d56519cf1e7895a4fffd17c557dce3))
+
+## [110.8.0](https://github.com/Sage/carbon/compare/v110.7.0...v110.8.0) (2022-09-15)
+
+
+### Features
+
+* **link:** add support for negative and neutral states and better contrast on dark backgrounds ([7c5e4e0](https://github.com/Sage/carbon/commit/7c5e4e0eca2746fe8604c0cbd96168701f13acbe)), closes [#5407](https://github.com/Sage/carbon/issues/5407)
+
 ## [110.7.0](https://github.com/Sage/carbon/compare/v110.6.1...v110.7.0) (2022-09-14)
 
 

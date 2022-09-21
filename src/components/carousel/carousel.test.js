@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Carousel, Slide } from "./carousel.component";
+import { Carousel, Slide } from ".";
 import Box from "../box/box.component";
 import Typography from "../typography/typography.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";

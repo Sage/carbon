@@ -11,7 +11,7 @@ import { pressESCKey } from "../../../cypress/support/helper";
 const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 const testData = "cypressData";
 const colorTypes = [
-  ["rgb(205, 56, 75)"],
+  ["rgb(203, 55, 74)"],
   ["rgb(51, 91, 112)"],
   ["rgb(0, 138, 33)"],
   ["rgb(239, 103, 0)"],

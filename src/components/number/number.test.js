@@ -115,7 +115,7 @@ context("Tests for Number component", () => {
 
     it.each([
       ["11", "11", "rgba(0, 0, 0, 0.55)"],
-      ["11", "10", "rgb(205, 56, 75)"],
+      ["11", "10", "rgb(203, 55, 74)"],
     ])(
       "should input %s characters and warn if over character limit of %s in Number",
       (charactersUsed, limit, color) => {
