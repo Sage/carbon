@@ -23,7 +23,7 @@ export const parseToIntElement = (elem) => {
   return parseInt(inputString);
 };
 
-export const checkGoldenOutline = (elem, outlineWidthPx) => {
+export const checkGoldenOutline = (elem, outlineWidthPx = 3) => {
   const outlineWidth = parseToIntElement(elem.css("outline-width"));
   expect(elem.css("outline-color")).to.equals("rgb(255, 181, 0)");
   expect(elem.css("outline-style")).to.equals("solid");

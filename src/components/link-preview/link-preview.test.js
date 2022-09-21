@@ -115,7 +115,7 @@ context("Test for Link Preview component", () => {
         .parent()
         .focus()
         .then(($el) => {
-          checkGoldenOutline($el, 3);
+          checkGoldenOutline($el);
         });
     });
   });
@@ -127,7 +127,7 @@ context("Test for Link Preview component", () => {
       callback = cy.stub();
     });
 
-    it("should call onClick callback when a click event is triggered", () => {
+    it("should call onClose callback when a click event is triggered", () => {
       CypressMountWithProviders(
         <LinkPreviewComponent as="div" onClose={callback} />
       );
@@ -141,7 +141,7 @@ context("Test for Link Preview component", () => {
     });
 
     it.each([["Enter"], ["Space"]])(
-      "should call onClick callback when a keyboard event is triggered",
+      "should call onClose callback when a keyboard event is triggered",
       (key) => {
         CypressMountWithProviders(
           <LinkPreviewComponent as="div" onClose={callback} />
