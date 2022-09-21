@@ -1,3 +1,10 @@
+### [110.9.1](https://github.com/Sage/carbon/compare/v110.9.0...v110.9.1) (2022-09-21)
+
+
+### Bug Fixes
+
+* **confirm:** update DialogProps import path to ensure interface is extended correctly ([f5f2004](https://github.com/Sage/carbon/commit/f5f2004769368f73be4412a2e9563b96f2bd4014))
+
 ## [110.9.0](https://github.com/Sage/carbon/compare/v110.8.0...v110.9.0) (2022-09-16)
 
 

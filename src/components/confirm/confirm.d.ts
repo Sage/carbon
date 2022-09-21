@@ -1,6 +1,6 @@
 import { IconType } from "components/icon/icon-type";
 import * as React from "react";
-import { DialogProps } from "../dialog/dialog";
+import { DialogProps } from "../dialog";
 
 export interface ConfirmProps extends DialogProps {
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "dashed" | "darkBackground" */
