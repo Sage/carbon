@@ -1,4 +1,11 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { SpaceProps } from "styled-system";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
@@ -16,6 +23,8 @@ import {
   StyledAccordionContainerProps,
 } from "./accordion.style";
 import ValidationIcon from "../../__internal__/validations";
+import useRegisterChildToMapper from "../../hooks/__internal__/useRegisterChildToMapper";
+import { ChildrenMapperContext } from "../../__internal__/children-mapper-provider";
 
 export interface AccordionProps
   extends StyledAccordionContainerProps,
@@ -78,9 +87,7 @@ export const Accordion = React.forwardRef<
       expanded,
       onChange,
       children,
-      handleKeyboardAccessibility,
       id,
-      index,
       iconType = "chevron_down",
       iconAlign = "right",
       scheme = "white",
@@ -97,9 +104,10 @@ export const Accordion = React.forwardRef<
       buttonWidth = 150,
       openTitle,
       ...rest
-    }: AccordionProps & AccordionInternalProps,
+    }: AccordionProps,
     ref
   ) => {
+    const guid = useRef(createGuid());
     const isControlled = expanded !== undefined;
 
     const [isExpandedInternal, setIsExpandedInternal] = useState(
@@ -113,6 +121,15 @@ export const Accordion = React.forwardRef<
     const accordionContent = useRef<HTMLDivElement>(null);
 
     const isExpanded = isControlled ? expanded : isExpandedInternal;
+    const { registerChild, unregisterChild, childrenMap } = useContext(
+      ChildrenMapperContext
+    );
+
+    const {
+      onKeyDown: handleKeyboardAccessibility,
+      index,
+      ref: refFromContext,
+    } = childrenMap[guid.current as keyof typeof childrenMap] || {};
 
     useResizeObserver(accordionContent, () => {
       setContentHeight(accordionContent.current?.scrollHeight as number);
@@ -145,13 +162,19 @@ export const Accordion = React.forwardRef<
       [handleKeyboardAccessibility, index, toggleAccordion]
     );
 
-    const guid = useRef(createGuid());
     const accordionId = id || `Accordion_${guid.current}`;
     const headerId = `AccordionHeader_${guid.current}`;
     const contentId = `AccordionContent_${guid.current}`;
     const showValidationIcon = !!(error || warning || info);
 
-    const getTitle = () => (isExpanded ? openTitle || title : title);
+    const accordionTitle = useMemo(
+      () => (isExpanded ? openTitle || title : title),
+      [isExpanded, openTitle, title]
+    );
+
+    useRegisterChildToMapper(guid.current, registerChild, unregisterChild, {
+      ref,
+    });
 
     return (
       <StyledAccordionContainer
@@ -172,7 +195,7 @@ export const Accordion = React.forwardRef<
           onKeyDown={handleKeyDown}
           tabIndex={0}
           iconAlign={iconAlign}
-          ref={ref}
+          ref={refFromContext}
           size={size}
           buttonHeading={buttonHeading}
           buttonWidth={buttonWidth}
@@ -193,7 +216,7 @@ export const Accordion = React.forwardRef<
                 {title}
               </StyledAccordionTitle>
             ) : (
-              getTitle()
+              accordionTitle
             )}
             {!buttonHeading && (
               <>

@@ -457,12 +457,19 @@ To achieve proper keyboard accessibility as described in `W3` sources it is requ
 
 <Canvas>
   <Story name="grouped">
-    <AccordionGroup>
+   {() => {
+    const Foo = () => (
+      <><><><>
       <Accordion title="First Accordion">
         <Box p={2}>
           <Textbox label="Textbox in an Accordion" />
         </Box>
       </Accordion>
+      </></></></>
+    );
+    return (
+       <AccordionGroup>
+        <Foo />
       <Accordion title="Second Accordion">
         <Box p={2}>
           <Textbox label="Textbox in an Accordion" />
@@ -476,6 +483,8 @@ To achieve proper keyboard accessibility as described in `W3` sources it is requ
         </Box>
       </Accordion>
     </AccordionGroup>
+    )
+   }}
   </Story>
 </Canvas>
 
