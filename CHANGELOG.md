@@ -1,3 +1,10 @@
+### [110.10.1](https://github.com/Sage/carbon/compare/v110.10.0...v110.10.1) (2022-09-22)
+
+
+### Bug Fixes
+
+* **dialog, dialog-full-screen, sidebar, form:** ensure focused elements are displayed on screen ([172d64c](https://github.com/Sage/carbon/commit/172d64c5fff2aa85bfe1d536781019bef3888d0a)), closes [#5278](https://github.com/Sage/carbon/issues/5278)
+
 ## [110.10.0](https://github.com/Sage/carbon/compare/v110.9.1...v110.10.0) (2022-09-21)
 
 
