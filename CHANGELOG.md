@@ -1,3 +1,10 @@
+### [110.10.2](https://github.com/Sage/carbon/compare/v110.10.1...v110.10.2) (2022-09-22)
+
+
+### Bug Fixes
+
+* **popover-container:** fix positioning with renderOpenComponent prop ([ab2fa46](https://github.com/Sage/carbon/commit/ab2fa46b98a5d36668ffff47a97722340af610fd))
+
 ### [110.10.1](https://github.com/Sage/carbon/compare/v110.10.0...v110.10.1) (2022-09-22)
 
 
