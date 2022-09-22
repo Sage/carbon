@@ -1,6 +1,6 @@
 import * as React from "react";
 
-type ToastVariants = "error" | "info" | "success" | "warning";
+type ToastVariants = "error" | "info" | "success" | "warning" | "notice";
 
 export interface ToastPropTypes {
   /** The rendered children of the component. */
