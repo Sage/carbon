@@ -2,7 +2,11 @@ import styled, { css } from "styled-components";
 import { StyledFormFooter, StyledFormContent } from "../form/form.style";
 
 const StyledContent = styled.div`
-  overflow-y: auto;
+  ${({ hasStickyFooter }) =>
+    !hasStickyFooter &&
+    css`
+      overflow-y: auto;
+    `}
   padding: 0 16px;
   flex: 1;
 

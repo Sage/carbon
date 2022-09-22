@@ -4,13 +4,16 @@ import React, { useRef } from "react";
 import Sidebar from "./sidebar.component";
 import Textbox from "../textbox";
 import StyledSidebar from "./sidebar.style";
+import IconButton from "../icon-button";
+import StyledIconButton from "../icon-button/icon-button.style";
+import SidebarHeader from "./__internal__/sidebar-header/sidebar-header.component";
+import Form from "../form";
+import Box from "../box";
+
 import {
   assertStyleMatch,
   testStyledSystemPadding,
 } from "../../__spec_helper__/test-utils";
-import IconButton from "../icon-button";
-import StyledIconButton from "../icon-button/icon-button.style";
-import SidebarHeader from "./__internal__/sidebar-header/sidebar-header.component";
 import guid from "../../__internal__/utils/helpers/guid";
 
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -238,6 +241,30 @@ describe("StyledSidebar", () => {
     wrapper.unmount();
 
     expect(ref.current).toBe(null);
+  });
+
+  describe("when the Form child has a sticky footer", () => {
+    it("does not set overflow styling", () => {
+      const wrapper = mount(
+        <Sidebar open>
+          <Form stickyFooter />
+        </Sidebar>
+      );
+
+      expect(wrapper.find(Box)).not.toHaveStyleRule("overflow");
+    });
+  });
+
+  describe("when the Form child does not have a sticky footer", () => {
+    it("sets overflow styling", () => {
+      const wrapper = mount(
+        <Sidebar open>
+          <Form />
+        </Sidebar>
+      );
+
+      expect(wrapper.find(Box)).toHaveStyleRule("overflow", "auto");
+    });
   });
 });
 

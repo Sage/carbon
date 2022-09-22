@@ -2,8 +2,8 @@ import React, { useRef, useContext } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import { ModalContext } from "../modal/modal.component";
 import { SidebarContext } from "../sidebar/sidebar.component";
+import { ModalContext } from "../modal/modal.component";
 import FormSummary from "./__internal__/form-summary.component";
 import {
   StyledForm,
@@ -53,6 +53,7 @@ const Form = ({
       noValidate={noValidate}
       isInSidebar={isInSidebar}
       height={height}
+      isInModal={isInModal}
       {...rest}
     >
       <StyledFormContent
@@ -70,6 +71,7 @@ const Form = ({
           ref={formFooterRef}
           stickyFooter={stickyFooter}
           buttonAlignment={buttonAlignment}
+          isInModal={isInModal}
         >
           {leftSideButtons && (
             <StyledLeftButtons buttonAlignment={buttonAlignment}>
@@ -163,5 +165,7 @@ Form.propTypes = {
   /** Applies styling for full width buttons. Please note that you will still need to pass the `fullWidth` prop to the button you compose */
   fullWidthButtons: PropTypes.bool,
 };
+
+Form.displayName = "Form";
 
 export default Form;
