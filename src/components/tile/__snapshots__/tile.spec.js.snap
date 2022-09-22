@@ -44,8 +44,8 @@ exports[`Tile renders base styles 1`] = `
 .c0 {
   padding: var(--spacing300);
   box-sizing: border-box;
-  background-color: var(--colorsUtilityYang100);
   border: 1px solid var(--colorsUtilityMajor100);
+  background-color: var(--colorsUtilityYang100);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

@@ -1,3 +1,10 @@
+## [110.10.0](https://github.com/Sage/carbon/compare/v110.9.1...v110.10.0) (2022-09-21)
+
+
+### Features
+
+* **tile:** add support for active variant styling ([e1ed353](https://github.com/Sage/carbon/commit/e1ed353821c2f0b431ada65bb3f6b8242bf5ccd5)), closes [#5444](https://github.com/Sage/carbon/issues/5444)
+
 ### [110.9.1](https://github.com/Sage/carbon/compare/v110.9.0...v110.9.1) (2022-09-21)
 
 
