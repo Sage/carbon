@@ -15,6 +15,10 @@ import {
   searchIcon,
   searchFindIcon,
 } from "../../../cypress/locators/search/index";
+import {
+  parseToIntElement,
+  checkGoldenOutline,
+} from "../../../cypress/support/component-helper/common-steps";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { keyCode } from "../../../cypress/support/helper";
 
@@ -25,18 +29,6 @@ const validationTypes = [
   ["warning", "rgb(239, 103, 0)"],
   ["info", "rgb(0, 96, 167)"],
 ];
-
-const parseToIntElement = (elem) => {
-  const inputString = elem.split(" ", 3);
-  return parseInt(inputString);
-};
-
-const checkGoldenOutline = (elem) => {
-  const outlineWidth = parseToIntElement(elem.css("outline-width"));
-  expect(elem.css("outline-color")).to.equals("rgb(255, 181, 0)");
-  expect(elem.css("outline-style")).to.equals("solid");
-  expect(outlineWidth).to.be.within(2, 3);
-};
 
 const SearchComponent = ({ ...props }) => {
   const [value, setValue] = React.useState("");
