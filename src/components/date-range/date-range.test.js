@@ -57,7 +57,7 @@ const DateRangeCustom = ({ onChange, onBlur, ...props }) => {
 const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 const START_DATE_RANGE_INDEX = 0;
 const END_DATE_RANGE_INDEX = 1;
-const ERROR_COLOUR = "rgb(205, 56, 75)";
+const ERROR_COLOUR = "rgb(203, 55, 74)";
 const WARN_COLOUR = "rgb(239, 103, 0)";
 const INFO_COLOUR = "rgb(0, 96, 167)";
 

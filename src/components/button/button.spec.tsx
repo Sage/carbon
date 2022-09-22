@@ -668,12 +668,26 @@ describe("Button", () => {
   });
 
   describe("aria-label", () => {
-    it("should be present when button has only an icon", () => {
+    it("when defined, should be present on the button element", () => {
+      const wrapper = shallow(<Button aria-label="bar">foo</Button>).dive();
+
+      const ariaLink = wrapper.find('[aria-label="bar"]');
+      expect(ariaLink.exists()).toBe(true);
+    });
+
+    it("when defined, should be present on the button element, when the button has only an icon", () => {
       const wrapper = shallow(
-        <Button aria-label="Bin" iconType="bin" />
+        <Button aria-label="foo" iconType="bin" />
       ).dive();
 
-      const ariaLink = wrapper.find('[aria-label="Bin"]');
+      const ariaLink = wrapper.find('[aria-label="foo"]');
+      expect(ariaLink.exists()).toBe(true);
+    });
+
+    it("when not defined, should default to iconType, when the button has only an icon", () => {
+      const wrapper = shallow(<Button iconType="bin" />).dive();
+
+      const ariaLink = wrapper.find('[aria-label="bin"]');
       expect(ariaLink.exists()).toBe(true);
     });
   });

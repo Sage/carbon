@@ -2,8 +2,8 @@ import React, { useRef, useContext } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
-import { ModalContext } from "../modal/modal.component";
 import { SidebarContext } from "../sidebar/sidebar.component";
+import { ModalContext } from "../modal/modal.component";
 import FormSummary from "./__internal__/form-summary.component";
 import {
   StyledForm,
@@ -11,6 +11,7 @@ import {
   StyledFormFooter,
   StyledLeftButtons,
   StyledRightButtons,
+  StyledFullWidthButtons,
 } from "./form.style";
 
 const Form = ({
@@ -26,6 +27,7 @@ const Form = ({
   fieldSpacing = 3,
   noValidate = true,
   height,
+  fullWidthButtons = false,
   ...rest
 }) => {
   const { isInSidebar } = useContext(SidebarContext);
@@ -51,6 +53,7 @@ const Form = ({
       noValidate={noValidate}
       isInSidebar={isInSidebar}
       height={height}
+      isInModal={isInModal}
       {...rest}
     >
       <StyledFormContent
@@ -61,13 +64,14 @@ const Form = ({
       >
         {children}
       </StyledFormContent>
-      {renderFooter && (
+      {!fullWidthButtons && renderFooter && (
         <StyledFormFooter
           data-element="form-footer"
           className={stickyFooter ? "sticky" : ""}
           ref={formFooterRef}
           stickyFooter={stickyFooter}
           buttonAlignment={buttonAlignment}
+          isInModal={isInModal}
         >
           {leftSideButtons && (
             <StyledLeftButtons buttonAlignment={buttonAlignment}>
@@ -84,6 +88,36 @@ const Form = ({
               {rightSideButtons}
             </StyledRightButtons>
           )}
+        </StyledFormFooter>
+      )}
+      {fullWidthButtons && renderFooter && (
+        <StyledFormFooter
+          data-element="form-footer"
+          className={stickyFooter ? "sticky" : ""}
+          ref={formFooterRef}
+          stickyFooter={stickyFooter}
+          buttonAlignment={buttonAlignment}
+          fullWidthButtons={fullWidthButtons}
+        >
+          {leftSideButtons && (
+            <StyledLeftButtons fullWidthButtons={fullWidthButtons}>
+              {leftSideButtons}
+            </StyledLeftButtons>
+          )}
+          {rightSideButtons && (
+            <StyledRightButtons fullWidthButtons={fullWidthButtons}>
+              {rightSideButtons}
+            </StyledRightButtons>
+          )}
+          <StyledFullWidthButtons>
+            <FormSummary
+              fullWidth={fullWidthButtons}
+              errors={errorCount}
+              warnings={warningCount}
+            >
+              {saveButton}
+            </FormSummary>
+          </StyledFullWidthButtons>
         </StyledFormFooter>
       )}
     </StyledForm>
@@ -127,6 +161,11 @@ Form.propTypes = {
 
   /** Height of the form (any valid CSS value) */
   height: PropTypes.string,
+
+  /** Applies styling for full width buttons. Please note that you will still need to pass the `fullWidth` prop to the button you compose */
+  fullWidthButtons: PropTypes.bool,
 };
+
+Form.displayName = "Form";
 
 export default Form;

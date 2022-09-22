@@ -12,12 +12,20 @@ export const StyledFormSummary = styled.div`
   padding: 8px;
   white-space: nowrap;
 
+  ${({ fullWidth }) =>
+    fullWidth &&
+    css`
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: flex-start;
+    `}
+
   ${({ showSummary }) =>
     showSummary &&
     css`
       background-color: var(--colorsUtilityMajor025);
     `}
-
   ${StyledButton} {
     margin-right: 0;
   }
@@ -65,6 +73,7 @@ export const StyledInternalSummary = styled.div`
 
 StyledFormSummary.propTypes = {
   showSummary: PropTypes.bool,
+  fullWidth: PropTypes.bool,
 };
 
 StyledInternalSummary.propTypes = {

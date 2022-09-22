@@ -48,36 +48,38 @@ const StyledMenuItemWrapper = styled.a`
       css`
         max-width: inherit;
 
-        a,
-        button {
-          ${maxWidth &&
-          css`
-            box-sizing: border-box;
-            max-width: inherit;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            vertical-align: bottom;
-          `}
-        }
+        && {
+          a,
+          button {
+            ${maxWidth &&
+            css`
+              box-sizing: border-box;
+              max-width: inherit;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              vertical-align: bottom;
+            `}
+          }
 
-        a:focus,
-        button:focus {
-          box-shadow: inset 0 0 0 var(--borderWidth300)
-            var(--colorsSemanticFocus500);
-          background-color: ${menuConfigVariants[menuType].background};
-          color: ${menuConfigVariants[menuType].color};
-          z-index: 1;
-          position: relative;
-        }
+          a:focus,
+          button:focus {
+            box-shadow: inset 0 0 0 var(--borderWidth300)
+              var(--colorsSemanticFocus500);
+            background-color: ${menuConfigVariants[menuType].background};
+            color: ${menuConfigVariants[menuType].color};
+            z-index: 1;
+            position: relative;
+          }
 
-        a:hover,
-        button:hover {
-          background-color: var(--colorsComponentsMenuAutumnStandard600);
-          color: var(--colorsComponentsMenuYang100);
-
-          [data-component="icon"] {
+          a:hover,
+          button:hover {
+            background-color: var(--colorsComponentsMenuAutumnStandard600);
             color: var(--colorsComponentsMenuYang100);
+
+            [data-component="icon"] {
+              color: var(--colorsComponentsMenuYang100);
+            }
           }
         }
       `
@@ -98,19 +100,21 @@ const StyledMenuItemWrapper = styled.a`
       text-align: left;
     }
 
-    a,
-    button,
-    [data-component="icon"],
-    ${StyledLink} a,
-    ${StyledLink} button,
-    ${StyledLink} [data-component="icon"] {
-      font-weight: 700;
-      text-decoration: none;
-      color: ${menuConfigVariants[menuType].color};
-    }
+    && {
+      a,
+      button,
+      [data-component="icon"],
+      ${StyledLink} a,
+      ${StyledLink} button,
+      ${StyledLink} [data-component="icon"] {
+        font-weight: 700;
+        text-decoration: none;
+        color: ${menuConfigVariants[menuType].color};
+      }
 
-    ${IconStyle} {
-      bottom: 1px;
+      ${IconStyle} {
+        bottom: 1px;
+      }
     }
 
     ${

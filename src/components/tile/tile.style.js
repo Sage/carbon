@@ -61,10 +61,24 @@ const StyledTile = styled.div`
     ${space}
 
     box-sizing: border-box;
-    background-color: ${tileTheme === "tile"
-      ? "var(--colorsUtilityYang100)"
-      : "transparent"};
     border: 1px solid var(--colorsUtilityMajor100);
+
+    ${tileTheme === "tile" &&
+    css`
+      background-color: var(--colorsUtilityYang100);
+    `}
+
+    ${tileTheme === "transparent" &&
+    css`
+      background-color: transparent;
+    `}
+
+    ${tileTheme === "active" &&
+    css`
+      background-color: var(--colorsActionMajor025);
+      border-color: var(--colorsActionMajor500);
+    `}
+
     display: flex;
     flex-direction: ${isHorizontal ? "row" : "column"};
     position: relative;

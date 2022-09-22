@@ -160,7 +160,7 @@ context("Testing Fieldset component", () => {
     );
 
     it.each([
-      ["rgb(205, 56, 75)", "error", true],
+      ["rgb(203, 55, 74)", "error", true],
       ["rgb(239, 103, 0)", "warning", true],
       ["rgb(0, 96, 167)", "info", true],
       ["rgb(102, 132, 148)", "error", false],

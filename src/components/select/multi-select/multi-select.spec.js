@@ -95,6 +95,16 @@ describe("MultiSelect", () => {
     expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
   });
 
+  describe("when listMaxHeight prop is provided", () => {
+    it("overrides default list max-height", () => {
+      mount(getSelect());
+      const wrapper = renderSelect({ listMaxHeight: 120, openOnFocus: true });
+
+      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
+      assertStyleMatch({ maxHeight: "120px" }, wrapper.find(StyledSelectList));
+    });
+  });
+
   describe("disablePortal", () => {
     it("renders SelectList with a disablePortal prop assigned", () => {
       const wrapper = renderSelect({ disablePortal: true });

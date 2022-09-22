@@ -26,6 +26,8 @@ export interface FormProps extends SpaceProps {
   warningCount?: number;
   /** Height of the form (any valid CSS value) */
   height?: string;
+  /** Applies styling for full width buttons. Please note that you will still need to pass the `fullWidth` prop to the button you compose */
+  fullWidthButtons?: boolean;
 }
 
 declare function Form(props: FormProps): JSX.Element;

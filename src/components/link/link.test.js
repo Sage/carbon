@@ -137,6 +137,57 @@ context("Test for Link component", () => {
     });
   });
 
+  it.each([
+    ["default", "rgb(0, 126, 69)"],
+    ["negative", "rgb(203, 55, 74)"],
+    ["neutral", "rgba(0, 0, 0, 0.9)"],
+  ])(
+    "should render Link with variant prop set to %s",
+    (variant, defaultColor) => {
+      CypressMountWithProviders(<LinkComponent variant={variant} />);
+
+      link().children().should("have.css", "color", defaultColor);
+    }
+  );
+
+  it.each([
+    ["default", "rgb(0, 103, 56)"],
+    ["negative", "rgb(162, 44, 59)"],
+    ["neutral", "rgb(0, 103, 56)"],
+  ])(
+    "should render Link with correct hover state with variant prop set to %s",
+    (variant, hoverColor) => {
+      CypressMountWithProviders(<LinkComponent variant={variant} />);
+
+      link().children().realHover().should("have.css", "color", hoverColor);
+    }
+  );
+
+  it.each([
+    ["default", "rgb(25, 142, 89)"],
+    ["negative", "rgb(208, 75, 92)"],
+    ["neutral", "rgb(25, 142, 89)"],
+  ])(
+    "should render Link with correct hover state with isDarkBackground prop set with %s variant",
+    (variant, hoverColor) => {
+      CypressMountWithProviders(
+        <LinkComponent variant={variant} isDarkBackground />
+      );
+
+      link().children().realHover().should("have.css", "color", hoverColor);
+    }
+  );
+
+  it("should render Link with correct focus state", () => {
+    CypressMountWithProviders(<LinkComponent />);
+
+    link()
+      .children()
+      .focus()
+      .should("have.css", "background-color", "rgb(255, 218, 128)")
+      .and("have.css", "color", "rgba(0, 0, 0, 0.9)");
+  });
+
   describe("check events for Link component", () => {
     let callback;
 

@@ -1,7 +1,6 @@
 import React from "react";
 
-import Dialog from "../dialog";
-import { DialogProps } from "../dialog/dialog";
+import Dialog, { DialogProps } from "../dialog";
 
 export const Alert = ({
   children,

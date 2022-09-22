@@ -538,20 +538,29 @@ context("Tests for Simple Select component", () => {
         .should("have.attr", "data-role", testPropValue);
     });
 
-    it.each([["top"], ["bottom"], ["left"], ["right"]])(
+    it.each([
+      ["top", "200px", "0px", "0px", "0px"],
+      ["bottom", "0px", "0px", "0px", "0px"],
+      ["left", "200px", "0px", "200px", "0px"],
+      ["right", "200px", "0px", "0px", "200px"],
+    ])(
       "should render the help tooltip in the %s position",
-      (tooltipPositionValue) => {
+      (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
           <SimpleSelectComponent
             labelHelp="Help"
             tooltipPosition={tooltipPositionValue}
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
           />
         );
 
         helpIcon().trigger("mouseover");
         tooltipPreview()
           .should("be.visible")
-          .and("have.css", tooltipPositionValue);
+          .and("have.attr", "data-placement", tooltipPositionValue);
       }
     );
 
@@ -862,6 +871,17 @@ context("Tests for Simple Select component", () => {
       selectListOptionGroup("1").should("have.text", "Group one");
     });
 
+    it("should render option list with proper maxHeight value", () => {
+      const maxHeight = 200;
+      CypressMountWithProviders(
+        <SimpleSelectComponent listMaxHeight={maxHeight} />
+      );
+      selectText().click();
+      selectList()
+        .should("have.css", "max-height", `${maxHeight}px`)
+        .and("be.visible");
+    });
+
     it.each([
       ["top", "300px", "0px", "200px", "0px"],
       ["bottom", "0px", "0px", "0px", "0px"],
@@ -1043,7 +1063,7 @@ context("Tests for Simple Select component", () => {
       "should call onKeyDown event when %s key is pressed",
       (key) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent onKeyDownEnabled onKeyDown={callback} />
+          <SimpleSelectComponent onKeyDown={callback} />
         );
 
         commonDataElementInputPreview()

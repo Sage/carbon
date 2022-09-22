@@ -108,7 +108,7 @@ context("Testing Button-Toggle-Group component", () => {
     });
 
     it.each([
-      ["error", "Error Message", "", "", "rgb(205, 56, 75)"],
+      ["error", "Error Message", "", "", "rgb(203, 55, 74)"],
       ["warning", "", "Warning Message", "", "rgb(239, 103, 0)"],
       ["info", "", "", "Info Message", "rgb(0, 96, 167)"],
     ])(

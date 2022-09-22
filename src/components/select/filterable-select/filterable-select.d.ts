@@ -44,6 +44,8 @@ export interface FilterableSelectProps
   value?: string | Record<string, unknown>;
   /** Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /** Maximum list height - defaults to 180 */
+  listMaxHeight?: number;
   /** Placement of the select list in relation to the input element */
   listPlacement?:
     | "auto"

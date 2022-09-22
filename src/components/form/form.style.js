@@ -17,7 +17,7 @@ export const StyledFormContent = styled.div`
   ${({ stickyFooter, isInModal }) => css`
     ${stickyFooter &&
     css`
-      overflow-y: ${isInModal ? "visible" : "inherit"};
+      overflow-y: ${isInModal ? "auto" : "inherit"};
       flex: 1;
     `}
   `}
@@ -33,7 +33,7 @@ export const StyledFormFooter = styled.div`
       justify-content: flex-end;
     `}
 
-  ${({ stickyFooter }) => css`
+  ${({ stickyFooter, fullWidthButtons, isInModal }) => css`
     ${!stickyFooter &&
     css`
       margin-top: 48px;
@@ -47,8 +47,17 @@ export const StyledFormFooter = styled.div`
       padding: 16px 32px;
       width: 100%;
       z-index: 1000;
-      position: sticky;
+      ${!isInModal &&
+      css`
+        position: sticky;
+      `}
       bottom: 0;
+    `}
+
+    ${fullWidthButtons &&
+    css`
+      flex-direction: column;
+      align-items: stretch;
     `}
   `}
 `;
@@ -63,6 +72,9 @@ const formBottomMargins = (fieldSpacing) =>
     5: "var(--spacing500)",
     7: "var(--spacing700)",
   }[fieldSpacing]);
+
+// Accounts for height of the header of Modal parent, the height form footer and some additional spacing
+const HEIGHT_SPACING = 216;
 
 export const StyledForm = styled.form`
   ${space}
@@ -103,12 +115,17 @@ export const StyledForm = styled.form`
     margin-bottom: 0px;
   }
 
-  ${({ stickyFooter, isInSidebar }) =>
+  ${({ stickyFooter, isInModal, isInSidebar }) =>
     stickyFooter &&
     css`
       display: flex;
       flex-direction: column;
       position: relative;
+
+      ${isInModal &&
+      css`
+        max-height: calc(100vh - ${HEIGHT_SPACING}px);
+      `}
 
       ${isInSidebar &&
       css`
@@ -136,7 +153,8 @@ export const StyledForm = styled.form`
 
 export const StyledRightButtons = styled.div`
   display: flex;
-  margin-left: 16px;
+  ${({ fullWidthButtons }) =>
+    fullWidthButtons ? `margin-left: 0px;` : `margin-left: 16px;`}
   ${({ buttonAlignment }) => buttonAlignment === "left" && "flex-grow: 1"};
 
   ${StyledButton}:last-child {
@@ -144,10 +162,16 @@ export const StyledRightButtons = styled.div`
   }
 `;
 
+export const StyledFullWidthButtons = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
 export const StyledLeftButtons = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-right: 16px;
+  ${({ fullWidthButtons }) =>
+    fullWidthButtons ? `margin-right: 0px;` : `margin-right: 16px;`}
   ${({ buttonAlignment }) => buttonAlignment === "right" && "flex-grow: 1"};
 
   ${StyledButton}:last-child {

@@ -61,7 +61,7 @@ Then(
   (overCharacterLimit, limit) => {
     characterLimitDefaultTextarea()
       .should("have.text", `${overCharacterLimit}/${limit}`)
-      .and("have.css", "color", "rgb(205, 56, 75)");
+      .and("have.css", "color", "rgb(203, 55, 74)");
   }
 );
 

@@ -242,7 +242,7 @@ context("Testing Checkbox component", () => {
   it("should render Checkbox component with error", () => {
     CypressMountWithProviders(<CheckboxComponent error />);
 
-    checkboxSvg().should("have.css", "border-bottom-color", "rgb(205, 56, 75)");
+    checkboxSvg().should("have.css", "border-bottom-color", "rgb(203, 55, 74)");
   });
 
   it("should render Checkbox component with warning", () => {
@@ -406,7 +406,7 @@ context("Testing Checkbox component", () => {
         checkboxSvg().should(
           "have.css",
           "border-bottom-color",
-          "rgb(205, 56, 75)"
+          "rgb(203, 55, 74)"
         );
       });
 

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { MarginProps } from "styled-system";
 import invariant from "invariant";
 import Tooltip from "../tooltip";
@@ -9,6 +9,8 @@ import StyledIcon, { StyledIconProps } from "./icon.style";
 import { ICON_TOOLTIP_POSITIONS } from "./icon-config";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
+import { TabTitleContext } from "../tabs/__internal__/tab-title/tab-title.component";
+import { TabTitleContextProps } from "../tabs/__internal__/tab-title/tab-title";
 
 export type LegacyIconTypes =
   | "help"
@@ -108,8 +110,10 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       target,
     } = useContext(TooltipContext);
 
+    const { isInTab } = useContext<TabTitleContextProps>(TabTitleContext);
+
     /** Return Icon type with overrides */
-    const iconType = () => {
+    const iconType = useMemo(() => {
       // switch tweaks icon names for actual icons in the set
       switch (type) {
         case "help":
@@ -126,12 +130,20 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
         default:
           return type;
       }
-    };
+    }, [type]);
 
     const isFocusable =
       focusableFromContext !== undefined ? focusableFromContext : focusable;
     const hasTooltip =
       !disabled && !disabledFromContext && !!tooltipMessage && isFocusable;
+
+    const computedTabIndex = useMemo(() => {
+      if (isInTab) {
+        return undefined;
+      }
+
+      return hasTooltip && tabIndex === undefined ? 0 : tabIndex;
+    }, [isInTab, hasTooltip, tabIndex]);
 
     const styledIconProps = {
       "aria-hidden": ariaHidden,
@@ -141,7 +153,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       bgShape,
       className: className || undefined,
       color,
-      "data-element": iconType(),
+      "data-element": iconType,
       disabled: disabledFromContext || disabled,
       fontSize,
       hasTooltip,
@@ -150,18 +162,20 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       key: "icon",
       ref,
       role,
-      tabIndex: hasTooltip && tabIndex === undefined ? 0 : tabIndex,
-      type: iconType(),
+      tabIndex: computedTabIndex,
+      type: iconType,
       ...tagComponent("icon", rest),
       ...filterStyledSystemMarginProps(rest),
     };
 
+    const shouldShowTooltip = () => {
+      return tooltipVisibleFromContext !== undefined
+        ? tooltipVisibleFromContext
+        : tooltipVisible;
+    };
+
     if (tooltipMessage) {
-      const showTooltip =
-        tooltipVisibleFromContext !== undefined
-          ? tooltipVisibleFromContext
-          : tooltipVisible;
-      const visible = disabled ? undefined : showTooltip;
+      const visible = disabled ? undefined : shouldShowTooltip();
 
       return (
         <Tooltip

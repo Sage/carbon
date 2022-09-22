@@ -20,9 +20,9 @@ export type SizeOptions = "small" | "medium" | "large";
 export type ButtonIconPosition = "before" | "after";
 
 export interface ButtonProps extends SpaceProps {
-  /** Prop to specify the aria-label text.
-   *  Only to be used in Button when only an icon is rendered.
-   * This is required to comply with WCAG 4.1.2 - Buttons must have discernible text
+  /**
+   * Prop to specify the aria-label attribute of the component
+   * Defaults to the iconType, when the component has only an icon
    */
   "aria-label"?: string;
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
@@ -250,7 +250,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <StyledButton
-        aria-label={!children && iconType ? ariaLabel || iconType : undefined}
+        aria-label={!children && iconType ? ariaLabel || iconType : ariaLabel}
         as={!disabled && href ? "a" : "button"}
         onKeyDown={href ? handleLinkKeyDown : undefined}
         draggable={false}

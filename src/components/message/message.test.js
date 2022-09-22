@@ -33,7 +33,7 @@ context("Tests for Message component", () => {
   describe("should check Message component properties", () => {
     it.each([
       ["info", "rgb(51, 91, 112)"],
-      ["error", "rgb(205, 56, 75)"],
+      ["error", "rgb(203, 55, 74)"],
       ["success", "rgb(0, 138, 33)"],
       ["warning", "rgb(239, 103, 0)"],
     ])(
