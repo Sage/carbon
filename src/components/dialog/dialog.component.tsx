@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useLayoutEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
@@ -6,16 +6,17 @@ import Heading from "../heading";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import {
-  DialogStyle,
-  DialogTitleStyle,
-  DialogContentStyle,
-  DialogInnerContentStyle,
+  StyledDialog,
+  StyledDialogTitle,
+  StyledDialogContent,
+  StyledDialogInnerContent,
 } from "./dialog.style";
 import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import { TOP_MARGIN } from "./dialog.config";
 import useLocale from "../../hooks/__internal__/useLocale";
+import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
 
 type PaddingValues = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
@@ -120,6 +121,7 @@ export const Dialog = ({
   const listenersAdded = useRef(false);
   const { current: titleId } = useRef(createGuid());
   const { current: subtitleId } = useRef(createGuid());
+  const hasStickyFooter = useIsStickyFooterForm(children);
 
   const centerDialog = useCallback(() => {
     /* istanbul ignore if */
@@ -206,7 +208,7 @@ export const Dialog = ({
     if (!title) return null;
 
     return (
-      <DialogTitleStyle
+      <StyledDialogTitle
         showCloseIcon={showCloseIcon}
         hasSubtitle={!!subtitle}
         ref={titleRef}
@@ -224,7 +226,7 @@ export const Dialog = ({
         ) : (
           title
         )}
-      </DialogTitleStyle>
+      </StyledDialogTitle>
     );
   };
 
@@ -266,7 +268,7 @@ export const Dialog = ({
         isOpen={open}
         additionalWrapperRefs={focusableContainers}
       >
-        <DialogStyle
+        <StyledDialog
           aria-modal
           ref={dialogRef}
           topMargin={TOP_MARGIN}
@@ -279,12 +281,15 @@ export const Dialog = ({
         >
           {dialogTitle()}
           {closeIcon()}
-          <DialogContentStyle {...contentPadding}>
-            <DialogInnerContentStyle ref={innerContentRef} {...contentPadding}>
+          <StyledDialogContent
+            {...contentPadding}
+            hasStickyFooter={hasStickyFooter}
+          >
+            <StyledDialogInnerContent ref={innerContentRef} {...contentPadding}>
               {children}
-            </DialogInnerContentStyle>
-          </DialogContentStyle>
-        </DialogStyle>
+            </StyledDialogInnerContent>
+          </StyledDialogContent>
+        </StyledDialog>
       </FocusTrap>
     </Modal>
   );
