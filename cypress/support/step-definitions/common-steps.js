@@ -2,7 +2,6 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 import {
   visitComponentUrl,
-  pressESCKey,
   pressTABKey,
   positionOfElement,
   keyCode,
@@ -11,25 +10,16 @@ import {
   continuePressingTABKey,
 } from "../helper";
 import {
-  backgroundUILocator,
   tooltipPreview,
   getDataElementByValue,
-  commonButtonPreviewRoot,
   closeIconButton,
   fieldHelpPreview,
   helpIconByPosition,
   getElement,
   helpIcon,
 } from "../../locators";
-import { dialogTitle } from "../../locators/dialog";
 import DEBUG_FLAG from "../e2e";
-import { pagerSummary } from "../../locators/pager";
-import {
-  buttonSubtextPreview,
-  buttonDataComponent,
-} from "../../locators/button";
-
-const TEXT_ALIGN = "justify-content";
+import { buttonDataComponent } from "../../locators/button";
 
 Given(
   "I open {word} {string} component with {string} json from {string} using {string} object name",
@@ -42,23 +32,11 @@ Given("I open {string} component page {string}", (component, story) => {
   visitComponentUrl(component, story);
 });
 
-When("I open component preview", () => {
-  commonButtonPreviewRoot().click();
-});
-
 When("I click {string} button on preview", (text) => {
   getDataElementByValue("main-text").contains(text).click();
 });
 
-Then("component title on preview is {word}", (title) => {
-  dialogTitle().should("have.text", title);
-});
-
 Then("label on preview is {word}", (text) => {
-  getDataElementByValue("label").should("have.text", text);
-});
-
-Then("label is set to {word}", (text) => {
   getDataElementByValue("label").should("have.text", text);
 });
 
@@ -82,24 +60,8 @@ Then("fieldHelp on preview is set to {word}", (text) => {
   fieldHelpPreview().should("have.text", text);
 });
 
-Then("Background UI is enabled", () => {
-  backgroundUILocator().should("not.exist");
-});
-
-Then("closeIcon is visible", () => {
-  closeIconButton().should("be.visible");
-});
-
 Then("I click closeIcon", () => {
   closeIconButton().click();
-});
-
-Then("closeIcon is not visible", () => {
-  closeIconButton().should("not.exist");
-});
-
-Then("I focus closeIcon", () => {
-  closeIconButton().focus();
 });
 
 Then(
@@ -110,14 +72,6 @@ Then(
       .and("have.css", "outline-width", width);
   }
 );
-
-Then("closeIcon is focused", () => {
-  closeIconButton().focus();
-});
-
-When("I hit ESC key", () => {
-  pressESCKey();
-});
 
 When("I hit Tab key {int} time(s)", (times) => {
   pressTABKey(times);
@@ -145,23 +99,6 @@ When("I press {string} onto focused element", (key) => {
   cy.focused().trigger("keydown", keyCode(key));
 });
 
-When("I press Tab onto focused element", () => {
-  cy.focused().tab();
-});
-
-When("I press ESC onto focused element", () => {
-  cy.focused().trigger("keydown", { key: "Shift", release: false });
-  cy.focused().trigger("keydown", { key: "Escape" });
-});
-
-When("I press ShiftTab onto focused element", () => {
-  cy.focused().tab({ shift: true });
-});
-
-Then("focused element inner content is set to {string}", (text) => {
-  cy.focused().should("contain", text);
-});
-
 When("I press {string} key times {int}", (key, times) => {
   for (let i = 0; i < times; i++) {
     cy.focused().type(`${key}`);
@@ -170,26 +107,6 @@ When("I press {string} key times {int}", (key, times) => {
 
 When("I click onto root in Test directory", () => {
   cy.get("#root").click({ force: true });
-});
-
-Then("totalRecords is set to {string} {word}", (totalRecords, element) => {
-  pagerSummary().invoke("text").should("contain", `${totalRecords} ${element}`);
-});
-
-Then("label Align on preview is {string}", (direction) => {
-  if (direction === "left") {
-    getDataElementByValue("label")
-      .parent()
-      .should(($element) =>
-        expect($element).to.have.css(TEXT_ALIGN, "flex-start")
-      );
-  } else {
-    getDataElementByValue("label")
-      .parent()
-      .should(($element) =>
-        expect($element).to.have.css(TEXT_ALIGN, "flex-end")
-      );
-  }
 });
 
 Then("icon name on preview is {string}", (iconName) => {
@@ -206,14 +123,6 @@ When("I wait {int}", (timeout) => {
 
 When("I press Shift Tab on focused element", () => {
   cy.focused().tab({ shift: true });
-});
-
-Then("Button label on preview is {word}", (label) => {
-  buttonDataComponent().should("have.text", label);
-});
-
-Then("Button subtext on preview is {word}", (subtext) => {
-  buttonSubtextPreview().should("have.text", subtext);
 });
 
 When("I click on {string}", (element) => {
