@@ -6,7 +6,8 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import CheckboxStyle, { StyledCheckboxGroup } from "./checkbox.style";
+import StyledCheckbox from "./checkbox.style";
+import StyledCheckboxGroup from "./checkbox-group.style";
 import Fieldset from "../../__internal__/fieldset";
 import Tooltip from "../tooltip";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
@@ -92,7 +93,7 @@ describe("CheckboxGroup", () => {
         paddingTop: "4px",
       },
       wrapper.find(StyledCheckboxGroup),
-      { modifier: `${CheckboxStyle}:first-child` }
+      { modifier: `${StyledCheckbox}:first-child` }
     );
   });
 
@@ -126,7 +127,7 @@ describe("CheckboxGroup", () => {
       (type, value) => {
         const wrapper = render({ [type]: value });
         wrapper
-          .find(CheckboxStyle)
+          .find(StyledCheckbox)
           .forEach((node) => expect(node.props()[type]).toBe(true));
       }
     );

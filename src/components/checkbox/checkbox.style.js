@@ -10,8 +10,6 @@ import StyledLabel, {
   StyledLabelContainer,
 } from "../../__internal__/label/label.style";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
-import StyledFormField from "../../__internal__/form-field/form-field.style";
-import StyledIcon from "../icon/icon.style";
 import baseTheme from "../../style/themes/base";
 
 const CheckboxStyle = styled.div`
@@ -209,51 +207,5 @@ CheckboxStyle.propTypes = {
   reverse: PropTypes.bool,
   adaptiveSpacingSmallScreen: PropTypes.bool,
 };
-
-const StyledCheckboxGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  ${StyledIcon}::before {
-    font-size: 16px;
-  }
-
-  && ${StyledFormField} {
-    margin: 0;
-  }
-
-  & ${CheckboxStyle} {
-    margin-bottom: var(--spacing150);
-
-    :last-of-type {
-      margin-bottom: 0;
-    }
-  }
-
-  & > ${StyledFormField} {
-    & > ${StyledLabelContainer} {
-      margin-bottom: 4px;
-      vertical-align: middle;
-
-      ${StyledValidationIcon} {
-        display: inline-block;
-      }
-    }
-  }
-
-  ${({ legendInline }) =>
-    legendInline &&
-    css`
-      ${CheckboxStyle}:first-child {
-        padding-top: 4px;
-      }
-    `}
-`;
-
-StyledCheckboxGroup.propTypes = {
-  legendInline: PropTypes.bool,
-};
-
-export { StyledCheckboxGroup };
 
 export default CheckboxStyle;
