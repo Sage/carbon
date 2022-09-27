@@ -1,3 +1,10 @@
+### [110.10.3](https://github.com/Sage/carbon/compare/v110.10.2...v110.10.3) (2022-09-23)
+
+
+### Bug Fixes
+
+* **tabs:** update type definition for validationStatusOverride prop ([19bb18f](https://github.com/Sage/carbon/commit/19bb18f16fbfbca6342825d395a2f73c63597472))
+
 ### [110.10.2](https://github.com/Sage/carbon/compare/v110.10.1...v110.10.2) (2022-09-22)
 
 

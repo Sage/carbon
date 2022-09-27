@@ -20,6 +20,7 @@ import {
   ACCORDION_ADD_CONTENT,
   ACCORDION_REMOVE_CONTENT,
 } from "../../../cypress/locators/accordion/locators";
+import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
 
 const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 const sizes = [
@@ -247,7 +248,9 @@ context("Testing Accordion component", () => {
       accordionTitleContainer().focus();
 
       accordionDefaultTitle()
-        .should("have.css", "outline", "rgb(255, 181, 0) solid 3px")
+        .then(($el) => {
+          checkGoldenOutline($el);
+        })
         .and("be.visible");
     });
 
@@ -500,19 +503,25 @@ context("Testing Accordion component", () => {
       accordionTitleContainer().eq(0).focus();
       accordionTitleContainerByPosition(0)
         .parent()
-        .should("have.css", "outline", "rgb(255, 181, 0) solid 3px")
+        .then(($el) => {
+          checkGoldenOutline($el);
+        })
         .and("be.visible");
 
       accordionTitleContainer().eq(0).trigger("keydown", keyCode("downarrow"));
       accordionTitleContainerByPosition(1)
         .parent()
-        .should("have.css", "outline", "rgb(255, 181, 0) solid 3px")
+        .then(($el) => {
+          checkGoldenOutline($el);
+        })
         .and("be.visible");
 
       accordionTitleContainer().eq(1).trigger("keydown", keyCode("downarrow"));
       accordionTitleContainerByPosition(2)
         .parent()
-        .should("have.css", "outline", "rgb(255, 181, 0) solid 3px")
+        .then(($el) => {
+          checkGoldenOutline($el);
+        })
         .and("be.visible");
     });
 
@@ -525,7 +534,9 @@ context("Testing Accordion component", () => {
 
       accordionTitleContainerByPosition(2)
         .parent()
-        .should("have.css", "outline", "rgb(255, 181, 0) solid 3px")
+        .then(($el) => {
+          checkGoldenOutline($el);
+        })
         .and("be.visible");
     });
 
@@ -538,7 +549,9 @@ context("Testing Accordion component", () => {
 
       accordionTitleContainerByPosition(0)
         .parent()
-        .should("have.css", "outline", "rgb(255, 181, 0) solid 3px")
+        .then(($el) => {
+          checkGoldenOutline($el);
+        })
         .and("be.visible");
     });
   });
