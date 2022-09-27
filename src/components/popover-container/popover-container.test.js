@@ -1,6 +1,7 @@
 import * as React from "react";
 import PopoverContainer from "./popover-container.component";
 import Button from "../button";
+import Portrait from "../portrait";
 import { Select, Option } from "../select";
 
 import { getDataElementByValue, getComponent } from "../../../cypress/locators";
@@ -111,6 +112,32 @@ context("Test for Popover Container component", () => {
       }
     );
 
+    it.each([
+      ["left", "148px 910px 544px 108px"],
+      ["right", "148px 108px 544px 910px"],
+    ])(
+      "should render Popover Container with position prop set to %s when custom open component is used",
+      (position, insetValue) => {
+        CypressMountWithProviders(
+          <div
+            style={{
+              float: position,
+              clear: position,
+            }}
+          >
+            <PopoverContainerComponent
+              position={position}
+              renderOpenComponent={({ onClick }) => (
+                <Portrait onClick={onClick} />
+              )}
+            />
+          </div>
+        );
+
+        popoverContainerContent().should("have.css", "inset", insetValue);
+      }
+    );
+
     it("should render Popover Container with ariaDescribedBy", () => {
       CypressMountWithProviders(
         <PopoverContainerComponent ariaDescribedBy={testCypress} />
@@ -129,6 +156,7 @@ context("Test for Popover Container component", () => {
       );
 
       popoverContainerComponent()
+        .children()
         .children()
         .should("have.attr", "aria-label", testCypress);
     });
