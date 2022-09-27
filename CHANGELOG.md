@@ -1,3 +1,10 @@
+## [110.11.0](https://github.com/Sage/carbon/compare/v110.10.3...v110.11.0) (2022-09-27)
+
+
+### Features
+
+* **progress-tracker:** add default value for aria-valuenow ([434911d](https://github.com/Sage/carbon/commit/434911d8e8c5a82df5b600f3d1eb32b9deed0964))
+
 ### [110.10.3](https://github.com/Sage/carbon/compare/v110.10.2...v110.10.3) (2022-09-23)
 
 
