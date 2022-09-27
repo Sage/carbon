@@ -205,7 +205,7 @@ describe("Form", () => {
       assertThatFooterIsSticky();
     });
 
-    it("when inside a modal-like component and form content overflows, scroll bar does not appear", () => {
+    it("when inside a modal-like component and form content overflows the expected styling is applied", () => {
       wrapper = mount(
         <Dialog open disableAutoFocus>
           <Form
@@ -220,7 +220,12 @@ describe("Form", () => {
 
       expect(wrapper.find("[data-element='form-content']")).toHaveStyleRule(
         "overflow-y",
-        "visible"
+        "auto"
+      );
+
+      expect(wrapper.find(StyledForm)).toHaveStyleRule(
+        "max-height",
+        "calc(100vh - 216px)"
       );
     });
 
