@@ -418,7 +418,10 @@ This component has `aria-valuemin`, `aria-valuemax`, `aria-valuenow` and `aria-v
 
 For more information on these props, please visit the W3 documentation on `role="progressbar"`. This can be accessed by clicking [here](https://www.w3.org/TR/wai-aria-1.1/#progressbar).
 
-### Example
+Note that `aria-valuenow` will by default be calculated from the provided values for `aria-valuemin` (which defaults to 0), `aria-valuemax` (which defaults to 100), and `progress`. This
+default can be overridden if you provide this prop explicitly.
+
+### Example 1
 
 <Canvas>
   <Story name="acessibility example">
@@ -427,10 +430,26 @@ For more information on these props, please visit the W3 documentation on `role=
         currentProgressLabel="$100"
         maxProgressLabel="$200"
         progress={50}
-        aria-valuemin={0}
-        aria-valuenow={50}
-        aria-valuemax={100}
-        aria-valuetext="$100"
+        aria-valuemin={100}
+        aria-valuenow={150}
+        aria-valuemax={200}
+        aria-valuetext="$150"
+      />
+    </div>
+  </Story>
+</Canvas>
+
+### Example 2
+
+This example shows the automatic calculation of `aria-valuenow` when not provided (inspect the DOM, or listen using a screenreader, to see the output).
+
+<Canvas>
+  <Story name="acessibility example 2">
+    <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <ProgressTracker
+        progress={50}
+        aria-valuemin={111}
+        aria-valuemax={188}
       />
     </div>
   </Story>

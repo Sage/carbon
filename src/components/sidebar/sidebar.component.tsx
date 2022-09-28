@@ -11,6 +11,7 @@ import Box from "../box";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
+import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 
 export interface SidebarContextProps {
@@ -86,6 +87,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
   ) => {
     const locale = useLocale();
     const { current: titleId } = useRef<string>(createGuid());
+    const hasStickyFooter = useIsStickyFooterForm(children);
 
     const sidebarRef = useRef<HTMLDivElement | null>(null);
 
@@ -142,7 +144,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
           px="var(--spacing400)"
           {...filterStyledSystemPaddingProps(rest)}
           scrollVariant="light"
-          overflow="auto"
+          overflow={hasStickyFooter ? undefined : "auto"}
           flex="1"
         >
           <SidebarContext.Provider value={{ isInSidebar: true }}>

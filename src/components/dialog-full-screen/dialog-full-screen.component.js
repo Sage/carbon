@@ -11,6 +11,7 @@ import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
+import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
 
 const DialogFullScreen = ({
   "aria-describedby": ariaDescribedBy,
@@ -40,6 +41,7 @@ const DialogFullScreen = ({
   const headingRef = useRef(null);
   const { current: titleId } = useRef(createGuid());
   const { current: subtitleId } = useRef(createGuid());
+  const hasStickyFooter = useIsStickyFooterForm(children);
 
   const closeIcon = () => {
     if (!showCloseIcon || !onCancel) return null;
@@ -56,7 +58,7 @@ const DialogFullScreen = ({
   };
 
   const dialogTitle = () => (
-    <FullScreenHeading hasContent={title} ref={headingRef}>
+    <FullScreenHeading hasContent={!!title} ref={headingRef}>
       {typeof title === "string" ? (
         <Heading
           data-element="dialog-title"
@@ -116,6 +118,7 @@ const DialogFullScreen = ({
             data-element="content"
             ref={contentRef}
             disableContentPadding={disableContentPadding}
+            hasStickyFooter={hasStickyFooter}
           >
             {children}
           </StyledContent>

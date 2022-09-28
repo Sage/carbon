@@ -1,19 +1,19 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React from "react";
 import { action } from "@storybook/addon-actions";
 
 import Box from "../box";
 import Typography from "../typography";
-import BaseCarousel, { Carousel, Slide } from "./carousel.component";
+import { Carousel, Slide } from ".";
 
-<Meta
-  title="Carousel/Test"
-  parameters={{
+export default {
+  title: "Carousel/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     initialSlideIndex: {
       options: [0, 1, 2, 3, 4],
       control: {
@@ -26,10 +26,10 @@ import BaseCarousel, { Carousel, Slide } from "./carousel.component";
         type: "select",
       },
     },
-  }}
-/>
+  },
+};
 
-export const slideStyle = {
+const slideStyle = {
   height: "400px",
   display: "flex",
   alignItems: "center",
@@ -37,7 +37,10 @@ export const slideStyle = {
   margin: "0 auto",
 };
 
-export const CarouselStory = (args) => (
+export const CarouselStory = (args: {
+  initialSlideIndex: number;
+  slideIndex: number;
+}) => (
   <Carousel {...args}>
     <Slide>
       <Box bg="#003349" {...slideStyle}>
@@ -75,18 +78,8 @@ export const CarouselStory = (args) => (
   </Carousel>
 );
 
-# Carousel
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      initialSlideIndex: 0,
-      slideIndex: 2,
-    }}
-  >
-    {CarouselStory.bind({})}
-  </Story>
-</Canvas>
+CarouselStory.storyName = "default";
+CarouselStory.args = {
+  initialSlideIndex: 0,
+  slideIndex: 2,
+};

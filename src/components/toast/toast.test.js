@@ -7,6 +7,7 @@ import toastComponent from "../../../cypress/locators/toast";
 import { closeIconButton, getComponent } from "../../../cypress/locators/index";
 
 import { pressESCKey } from "../../../cypress/support/helper";
+import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
 
 const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 const testData = "cypressData";
@@ -58,9 +59,9 @@ context("Testing Toast component", () => {
     it("should render Toast component with focused close icon", () => {
       CypressMountWithProviders(<ToastComponent />);
 
-      closeIconButton()
-        .should("have.css", "outline-color", "rgb(255, 181, 0)")
-        .and("have.css", "outline-width", "3px");
+      closeIconButton().then(($el) => {
+        checkGoldenOutline($el);
+      });
     });
 
     it("should render Toast component with not focused close icon", () => {

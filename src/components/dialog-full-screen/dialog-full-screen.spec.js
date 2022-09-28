@@ -7,13 +7,15 @@ import StyledDialogFullScreen from "./dialog-full-screen.style";
 import DialogFullScreen from "./dialog-full-screen.component";
 import StyledContent from "./content.style";
 import Button from "../button";
-import guid from "../../__internal__/utils/helpers/guid";
 import Heading from "../heading";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { StyledHeader, StyledHeading } from "../heading/heading.style";
 import Help from "../help";
+import Form from "../form";
+
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import guid from "../../__internal__/utils/helpers/guid";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 
@@ -490,6 +492,30 @@ describe("DialogFullScreen", () => {
       );
 
       wrapper.unmount();
+    });
+  });
+
+  describe("when the Form child has a sticky footer", () => {
+    it("it does not set overflow styling", () => {
+      wrapper = mount(
+        <DialogFullScreen open>
+          <Form stickyFooter />
+        </DialogFullScreen>
+      );
+
+      expect(wrapper.find(StyledContent)).not.toHaveStyleRule("overflow-y");
+    });
+  });
+
+  describe("when the Form child does not have a sticky footer", () => {
+    it("it sets overflow styling", () => {
+      wrapper = mount(
+        <DialogFullScreen open>
+          <Form />
+        </DialogFullScreen>
+      );
+
+      expect(wrapper.find(StyledContent)).toHaveStyleRule("overflow-y", "auto");
     });
   });
 

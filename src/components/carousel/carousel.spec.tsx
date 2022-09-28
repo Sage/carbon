@@ -1,6 +1,6 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
-import BaseCarousel, { Carousel, Slide } from "./carousel.component";
+import { shallow, mount, ReactWrapper } from "enzyme";
+import { Carousel, CarouselProps } from "./carousel.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   CarouselPreviousButtonWrapperStyle,
@@ -13,10 +13,21 @@ import {
 } from "./carousel.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { SlideStyle } from "./slide/slide.style";
+import Slide from "./slide";
+
+function renderCarousel(props: CarouselProps, renderer = mount) {
+  const children = props.children || [
+    <Slide key="slide1" />,
+    <Slide key="slide2" />,
+    <Slide key="slide3" />,
+  ];
+
+  return renderer(<Carousel {...props}>{children}</Carousel>);
+}
 
 describe("Carousel", () => {
   describe("when the Previous button has been clicked", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
     const onSlideChangeSpy = jest.fn();
 
     beforeEach(() => {
@@ -77,7 +88,7 @@ describe("Carousel", () => {
   });
 
   describe("when the Next button has been clicked", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
     const onSlideChangeSpy = jest.fn();
 
     beforeEach(() => {
@@ -191,7 +202,7 @@ describe("Carousel", () => {
 
   describe("when the slideIndex prop has been passed with a slide number", () => {
     const onSlideChangeSpy = jest.fn();
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       onSlideChangeSpy.mockClear();
@@ -229,9 +240,9 @@ describe("Carousel", () => {
   describe("tags", () => {
     describe("on component", () => {
       const wrapper = shallow(
-        <BaseCarousel data-element="bar" data-role="baz" initialSlideIndex={0}>
+        <Carousel data-element="bar" data-role="baz" initialSlideIndex={0}>
           <Slide />
-        </BaseCarousel>
+        </Carousel>
       );
 
       it("include correct component, element and role data tags", () => {
@@ -241,9 +252,9 @@ describe("Carousel", () => {
 
     describe("on internal elements", () => {
       const wrapper = mount(
-        <BaseCarousel initialSlideIndex={0}>
+        <Carousel initialSlideIndex={0}>
           <Slide data-element="slide" />
-        </BaseCarousel>
+        </Carousel>
       );
 
       it("should has expected data elements", () => {
@@ -293,7 +304,7 @@ describe("CarouselButtonStyle", () => {
 });
 
 describe("CarouselSelectorWrapperStyle", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   it("should render matched styles", () => {
     wrapper = mount(<CarouselSelectorWrapperStyle />);
@@ -309,7 +320,7 @@ describe("CarouselSelectorWrapperStyle", () => {
 });
 
 describe("CarouselSliderWrapper", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   it("should render matched styles", () => {
     wrapper = mount(<CarouselSliderWrapper elementIndex={1} />);
@@ -376,7 +387,7 @@ describe("CarouselSelectorInputWrapperStyle", () => {
 });
 
 describe("SlideStyle", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   it("should render matched style", () => {
     wrapper = mount(<Slide onClick={() => {}} />);
@@ -394,22 +405,12 @@ describe("SlideStyle", () => {
 
 it("coverage filler for else path", () => {
   const wrapper = mount(
-    <BaseCarousel>
+    <Carousel>
       <Slide />
       <Slide />
       <Slide />
-    </BaseCarousel>
+    </Carousel>
   );
 
   wrapper.find("button[data-element='next']").first().simulate("click");
 });
-
-function renderCarousel(props, renderer = mount) {
-  const children = props.children || [
-    <Slide key="slide1" />,
-    <Slide key="slide2" />,
-    <Slide key="slide3" />,
-  ];
-
-  return renderer(<Carousel {...props}>{children}</Carousel>);
-}

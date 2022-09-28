@@ -126,7 +126,11 @@ const CarouselSelectorInputWrapperStyle = styled.span`
   vertical-align: middle;
 `;
 
-const CarouselSliderWrapper = styled.div`
+interface CarouselSliderWrapperProps {
+  elementIndex: number;
+}
+
+const CarouselSliderWrapper = styled.div<CarouselSliderWrapperProps>`
   transition: 0.4s;
   display: flex;
   position: relative;

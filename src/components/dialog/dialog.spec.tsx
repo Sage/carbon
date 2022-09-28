@@ -7,10 +7,10 @@ import guid from "../../__internal__/utils/helpers/guid";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Dialog, { DialogProps } from "./dialog.component";
 import {
-  DialogStyle,
-  DialogTitleStyle,
-  DialogContentStyle,
-  DialogInnerContentStyle,
+  StyledDialog,
+  StyledDialogTitle,
+  StyledDialogContent,
+  StyledDialogInnerContent,
 } from "./dialog.style";
 import {
   HORIZONTAL_PADDING,
@@ -171,7 +171,7 @@ describe("Dialog", () => {
           </Dialog>
         );
         expect(
-          (wrapper.find(DialogStyle).getDOMNode() as HTMLElement).style.top
+          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top
         ).toEqual("150px");
       });
 
@@ -198,7 +198,7 @@ describe("Dialog", () => {
         });
 
         expect(
-          (wrapper.find(DialogStyle).getDOMNode() as HTMLElement).style.top
+          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top
         ).toEqual("100px");
       });
     });
@@ -221,7 +221,7 @@ describe("Dialog", () => {
         );
 
         expect(
-          (wrapper.find(DialogStyle).getDOMNode() as HTMLElement).style.top
+          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top
         ).toEqual("20px");
       });
 
@@ -248,7 +248,7 @@ describe("Dialog", () => {
         });
 
         expect(
-          (wrapper.find(DialogStyle).getDOMNode() as HTMLElement).style.top
+          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top
         ).toEqual("20px");
       });
     });
@@ -271,7 +271,7 @@ describe("Dialog", () => {
         );
 
         expect(
-          (wrapper.find(DialogStyle).getDOMNode() as HTMLElement).style.left
+          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.left
         ).toEqual("20px");
       });
 
@@ -298,7 +298,7 @@ describe("Dialog", () => {
         });
 
         expect(
-          (wrapper.find(DialogStyle).getDOMNode() as HTMLElement).style.left
+          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.left
         ).toEqual("20px");
       });
     });
@@ -336,7 +336,7 @@ describe("Dialog", () => {
         );
 
         expect(
-          wrapper.find(DialogTitleStyle).find(TitleComponent).exists()
+          wrapper.find(StyledDialogTitle).find(TitleComponent).exists()
         ).toBe(true);
         expect(wrapper.find(Heading).exists()).toBe(false);
       });
@@ -345,7 +345,7 @@ describe("Dialog", () => {
     describe("when a props title is not passed", () => {
       it("title is not rendered", () => {
         wrapper = mount(<Dialog onCancel={onCancel} open />);
-        expect(wrapper.find(DialogTitleStyle).exists()).toBe(false);
+        expect(wrapper.find(StyledDialogTitle).exists()).toBe(false);
         expect(wrapper.find(Heading).exists()).toBe(false);
       });
     });
@@ -449,13 +449,13 @@ describe("Dialog", () => {
     });
   });
 
-  describe("when topMargin is passed to the DialogStyle", () => {
-    it("should set correct max-height on DialogStyle", () => {
+  describe("when topMargin is passed to the StyledDialog", () => {
+    it("should set correct max-height on StyledDialog", () => {
       assertStyleMatch(
         {
           maxHeight: "calc(100vh - 30px)",
         },
-        mount(<DialogStyle topMargin={30} />)
+        mount(<StyledDialog topMargin={30} />)
       );
     });
   });
@@ -470,19 +470,48 @@ describe("Dialog", () => {
           {
             height: "400px",
           },
-          wrapper.find(DialogStyle)
+          wrapper.find(StyledDialog)
         );
       });
     }
   );
 
   describe("when showCloseIcon prop is true", () => {
-    it("DialogTitleStyle should have padding-right: 85px", () => {
+    it("StyledDialogTitle should have padding-right: 85px", () => {
       wrapper = mount(<Dialog title="Heading" open />);
 
-      const DialogTitle = wrapper.find(DialogTitleStyle);
+      const DialogTitle = wrapper.find(StyledDialogTitle);
 
       assertStyleMatch({ paddingRight: "85px" }, DialogTitle);
+    });
+  });
+
+  describe("when the Form child has a sticky footer", () => {
+    it("does not set overflow styling", () => {
+      wrapper = mount(
+        <Dialog open>
+          <Form stickyFooter />
+        </Dialog>
+      );
+
+      expect(wrapper.find(StyledDialogContent)).not.toHaveStyleRule(
+        "overflow-y"
+      );
+    });
+  });
+
+  describe("when the Form child does not have a sticky footer", () => {
+    it("sets overflow styling", () => {
+      wrapper = mount(
+        <Dialog open>
+          <Form />
+        </Dialog>
+      );
+
+      expect(wrapper.find(StyledDialogContent)).toHaveStyleRule(
+        "overflow-y",
+        "auto"
+      );
     });
   });
 
@@ -650,7 +679,7 @@ describe("Dialog", () => {
                   paddingLeft: getFormSpacing(value, "left", prop),
                   paddingRight: getFormSpacing(value, "right", prop),
                 },
-                wrapper.find(DialogStyle),
+                wrapper.find(StyledDialog),
                 { modifier: `${StyledFormContent}.sticky` }
               );
 
@@ -667,7 +696,7 @@ describe("Dialog", () => {
                   bottom: getFormSpacing(value, "bottom", prop, true),
                   width: `calc(100% + (2px * ${width}))`,
                 },
-                wrapper.find(DialogStyle),
+                wrapper.find(StyledDialog),
                 { modifier: `${StyledFormFooter}.sticky` }
               );
             });
@@ -681,7 +710,7 @@ describe("Dialog", () => {
                   paddingTop: getDialogContentPadding(value, prop === "py"),
                   paddingBottom: getDialogContentPadding(value, prop === "py"),
                 },
-                wrapper.find(DialogContentStyle)
+                wrapper.find(StyledDialogContent)
               );
 
               assertStyleMatch(
@@ -691,7 +720,7 @@ describe("Dialog", () => {
                       ? "0"
                       : `${CONTENT_TOP_PADDING}px`,
                 },
-                wrapper.find(DialogInnerContentStyle)
+                wrapper.find(StyledDialogInnerContent)
               );
             });
           }

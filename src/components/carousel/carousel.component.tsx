@@ -5,11 +5,9 @@ import React, {
   useState,
   useMemo,
 } from "react";
-import PropTypes from "prop-types";
-import { compact } from "lodash";
-import { withTheme } from "styled-components";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
-import Slide from "./slide/slide.component";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import {
   CarouselPreviousButtonWrapperStyle,
   CarouselNextButtonWrapperStyle,
@@ -25,10 +23,29 @@ import {
 } from "./carousel.style";
 import guid from "../../__internal__/utils/helpers/guid";
 
+export interface CarouselProps extends TagProps {
+  /** Individual tabs */
+  children?: React.ReactNode;
+  /** [legacy] Custom className */
+  className?: string;
+  /** Enables the next button */
+  enableNextButton?: boolean;
+  /** Enables the previous button */
+  enablePreviousButton?: boolean;
+  /** Enables the slide selector */
+  enableSlideSelector?: boolean;
+  /** The selected tab on page load */
+  initialSlideIndex?: number | string;
+  /** Action to be called on slide change */
+  onSlideChange?: (index: number, transitionDirection: string) => void;
+  /** The selected slide */
+  slideIndex?: number | string;
+}
+
 const NEXT = "next";
 const PREVIOUS = "previous";
 
-const BaseCarousel = ({
+export const Carousel = ({
   children,
   className,
   enableSlideSelector = true,
@@ -38,16 +55,18 @@ const BaseCarousel = ({
   onSlideChange,
   slideIndex,
   ...props
-}) => {
+}: CarouselProps) => {
   const [selectedSlideIndex, setSelectedSlideIndex] = useState(
     Number(slideIndex) || Number(initialSlideIndex)
   );
   const transitionDirection = useRef(NEXT);
-  const lastSlideIndexProp = useRef(props.slideIndex);
-  const id = guid();
+  const lastSlideIndexProp = useRef(slideIndex);
+  const id = useMemo(() => guid(), []);
 
   const numOfSlides = useMemo(() => {
-    return Array.isArray(children) ? compact(children).length : 1;
+    return React.Children.toArray(children).filter((child) =>
+      React.isValidElement(child)
+    ).length;
   }, [children]);
 
   const handleSlideChange = useCallback(
@@ -92,7 +111,7 @@ const BaseCarousel = ({
     handleSlideChange(newIndex);
   }
 
-  function onSlideSelection(ev) {
+  function onSlideSelection(ev: React.ChangeEvent<HTMLInputElement>) {
     const newSlideSelection = Number(ev.target.value);
     transitionDirection.current =
       newSlideSelection > selectedSlideIndex ? NEXT : PREVIOUS;
@@ -188,28 +207,6 @@ const BaseCarousel = ({
   );
 };
 
-BaseCarousel.propTypes = {
-  /** [legacy] Custom className */
-  className: PropTypes.string,
-  /** The selected tab on page load */
-  initialSlideIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /** The selected slide */
-  slideIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /** Individual tabs */
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  /** Enables the slide selector */
-  enableSlideSelector: PropTypes.bool,
-  /** Enables the previous button */
-  enablePreviousButton: PropTypes.bool,
-  /** Enables the next button */
-  enableNextButton: PropTypes.bool,
-  /** Action to be called on slide change */
-  onSlideChange: PropTypes.func,
-};
-
-const Carousel = withTheme(BaseCarousel);
 Carousel.displayName = "Carousel";
 
-export default BaseCarousel;
-
-export { Carousel, Slide };
+export default Carousel;
