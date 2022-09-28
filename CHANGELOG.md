@@ -1,3 +1,10 @@
+### [110.11.1](https://github.com/Sage/carbon/compare/v110.11.0...v110.11.1) (2022-09-28)
+
+
+### Bug Fixes
+
+* **multi-action-button:** ensure that enter and space keys trigger onClick callback ([6d0f6e8](https://github.com/Sage/carbon/commit/6d0f6e8dd18f0b5ee908b7f94fb1776a00d217d2)), closes [#5472](https://github.com/Sage/carbon/issues/5472)
+
 ## [110.11.0](https://github.com/Sage/carbon/compare/v110.10.3...v110.11.0) (2022-09-27)
 
 
