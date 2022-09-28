@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
-import { margin } from "styled-system";
-import PropTypes from "prop-types";
+import { margin, MarginProps } from "styled-system";
 
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
 import StyledFieldHelp from "../../__internal__/field-help/field-help.style";
@@ -11,8 +10,19 @@ import StyledLabel, {
 } from "../../__internal__/label/label.style";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import baseTheme from "../../style/themes/base";
+import { ValidationProps } from "../../__internal__/validations";
 
-const CheckboxStyle = styled.div`
+interface StyledCheckboxProps extends ValidationProps, MarginProps {
+  disabled?: boolean;
+  fieldHelpInline?: boolean;
+  inputWidth?: number | string;
+  size?: string;
+  labelSpacing?: 1 | 2;
+  reverse?: boolean;
+  adaptiveSpacingSmallScreen?: boolean;
+}
+
+const StyledCheckbox = styled.div<StyledCheckboxProps>`
   ${margin}
   ${({
     disabled,
@@ -191,21 +201,8 @@ const CheckboxStyle = styled.div`
   `}
 `;
 
-CheckboxStyle.defaultProps = {
+StyledCheckbox.defaultProps = {
   theme: baseTheme,
 };
 
-CheckboxStyle.propTypes = {
-  disabled: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  fieldHelpInline: PropTypes.bool,
-  inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  size: PropTypes.string,
-  labelSpacing: PropTypes.oneOf([1, 2]),
-  reverse: PropTypes.bool,
-  adaptiveSpacingSmallScreen: PropTypes.bool,
-};
-
-export default CheckboxStyle;
+export default StyledCheckbox;

@@ -1,19 +1,24 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
-import { Checkbox } from ".";
+import { Checkbox, CheckboxProps } from ".";
 
-<Meta
-  title="Checkbox/Test"
-  parameters={{
+interface StoryProps {
+  labelSpecialCharacters: string;
+  fieldHelpSpecialCharacters: string;
+  labelHelpSpecialCharacters: string;
+}
+
+export default {
+  title: "Checkbox/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disable: false,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     labelSpacing: {
       options: [1, 2],
       control: {
@@ -50,21 +55,21 @@ import { Checkbox } from ".";
     labelSpecialCharacters: specialCharacters,
     fieldHelpSpecialCharacters: specialCharacters,
     labelHelpSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+};
 
-export const CheckboxStory = ({
-  labelSpecialCharacters,
+export const Default = ({
   label,
-  fieldHelpSpecialCharacters,
+  labelSpecialCharacters,
   fieldHelp,
-  labelHelpSpecialCharacters,
+  fieldHelpSpecialCharacters,
   labelHelp,
+  labelHelpSpecialCharacters,
   ...args
-}) => {
+}: CheckboxProps & StoryProps) => {
   const [isChecked, setIsChecked] = useState(false);
-  const handleChange = (ev) => {
-    const { checked } = ev.target;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = event.target;
     setIsChecked(checked);
     action("change")(`checked: ${checked}`);
   };
@@ -76,41 +81,32 @@ export const CheckboxStory = ({
       label={label || labelSpecialCharacters}
       fieldHelp={fieldHelp || fieldHelpSpecialCharacters}
       labelHelp={labelHelp || labelHelpSpecialCharacters}
-      helpAriaLabel={labelHelp || labelHelpSpecialCharacters}
+      helpAriaLabel={(labelHelp as string) || labelHelpSpecialCharacters}
       {...args}
     />
   );
 };
 
-# Checkbox
+Default.storyName = "default";
 
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      key: "",
-      label: "Example Checkbox",
-      labelSpecialCharacters: undefined,
-      autoFocus: false,
-      disabled: false,
-      fieldHelp: "This text provides help for the input.",
-      fieldHelpSpecialCharacters: undefined,
-      fieldHelpInline: false,
-      reverse: false,
-      labelHelp: "This text provides more information for the label.",
-      labelHelpSpecialCharacters: undefined,
-      inputWidth: 0,
-      labelWidth: 0,
-      labelSpacing: 1,
-      size: "small",
-      value: "",
-      ml: "0",
-      adaptiveSpacingBreakpoint: undefined,
-      required: false,
-    }}
-  >
-    {CheckboxStory.bind({})}
-  </Story>
-</Canvas>
+Default.args = {
+  key: "",
+  label: "Example Checkbox",
+  labelSpecialCharacters: undefined,
+  autoFocus: false,
+  disabled: false,
+  fieldHelp: "This text provides help for the input.",
+  fieldHelpSpecialCharacters: undefined,
+  fieldHelpInline: false,
+  reverse: false,
+  labelHelp: "This text provides more information for the label.",
+  labelHelpSpecialCharacters: undefined,
+  inputWidth: 0,
+  labelWidth: 0,
+  labelSpacing: 1,
+  size: "small",
+  value: "",
+  ml: "0",
+  adaptiveSpacingBreakpoint: undefined,
+  required: false,
+};

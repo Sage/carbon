@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import CheckboxGroup from "./checkbox-group.component";
+import CheckboxGroup, { CheckboxGroupProps } from "./checkbox-group.component";
 import { Checkbox } from ".";
 import {
   assertStyleMatch,
@@ -14,7 +14,11 @@ import StyledFormField from "../../__internal__/form-field/form-field.style";
 
 const checkboxValues = ["required", "optional"];
 
-function render(props, childProps, renderer = mount) {
+function renderCheckboxGroup(
+  props: Partial<CheckboxGroupProps>,
+  childProps = {},
+  renderer = mount
+) {
   const children = checkboxValues.map((value) => (
     <Checkbox
       id={`cId-${value}`}
@@ -27,11 +31,7 @@ function render(props, childProps, renderer = mount) {
   ));
 
   return renderer(
-    <CheckboxGroup
-      name="group-radio-buttons"
-      label="Test CheckboxGroup Label"
-      {...props}
-    >
+    <CheckboxGroup legend="Test CheckboxGroup Label" {...props}>
       {children}
     </CheckboxGroup>
   );
@@ -39,11 +39,7 @@ function render(props, childProps, renderer = mount) {
 
 describe("CheckboxGroup", () => {
   testStyledSystemMargin((props) => (
-    <CheckboxGroup
-      name="group-radio-buttons"
-      label="Test CheckboxGroup Label"
-      {...props}
-    >
+    <CheckboxGroup legend="Test CheckboxGroup Label" {...props}>
       {checkboxValues.map((value) => (
         <Checkbox
           id={`cId-${value}`}
@@ -56,6 +52,8 @@ describe("CheckboxGroup", () => {
     </CheckboxGroup>
   ));
 
+  type TestConfig = [string, string | boolean | number, string][];
+
   describe.each([
     ["legend", "foo"],
     ["required", true, "isRequired"],
@@ -63,18 +61,23 @@ describe("CheckboxGroup", () => {
     ["legendWidth", 30],
     ["legendAlign", "right"],
     ["legendSpacing", 2],
-  ])("when the %s prop is set", (propName, propValue, expectedPropName) => {
-    it("then it should be passed to the underlying Fieldset component", () => {
-      expect(
-        render({ [propName]: propValue })
-          .find("Fieldset")
-          .prop(expectedPropName || propName)
-      ).toBe(propValue);
-    });
-  });
+  ] as TestConfig)(
+    "when the %s prop is set",
+    (propName, propValue, expectedPropName) => {
+      it("then it should be passed to the underlying Fieldset component", () => {
+        expect(
+          renderCheckboxGroup({
+            [propName]: propValue,
+          } as Partial<CheckboxGroupProps>)
+            .find("Fieldset")
+            .prop(expectedPropName || propName)
+        ).toBe(propValue);
+      });
+    }
+  );
 
   it("should have a margin set to 0 on every Checkbox FormField", () => {
-    const wrapper = render({});
+    const wrapper = renderCheckboxGroup({});
 
     assertStyleMatch(
       {
@@ -86,7 +89,7 @@ describe("CheckboxGroup", () => {
   });
 
   it("should render correct styles if `legendInline` is provided", () => {
-    const wrapper = render({ legendInline: true });
+    const wrapper = renderCheckboxGroup({ legendInline: true });
 
     assertStyleMatch(
       {
@@ -95,23 +98,6 @@ describe("CheckboxGroup", () => {
       wrapper.find(StyledCheckboxGroup),
       { modifier: `${StyledCheckbox}:first-child` }
     );
-  });
-
-  describe("onChange", () => {
-    it("should be called", () => {
-      const fakeFunction = jest.fn();
-      const wrapper = render(
-        {},
-        {
-          onChange: fakeFunction,
-        }
-      );
-      const checkbox = wrapper.find(Checkbox).first();
-
-      checkbox.prop("onChange")();
-
-      expect(fakeFunction).toBeCalledTimes(1);
-    });
   });
 
   describe("validations", () => {
@@ -125,7 +111,7 @@ describe("CheckboxGroup", () => {
     ])(
       "when %s is passed as %s it is passed as boolean to CheckBox",
       (type, value) => {
-        const wrapper = render({ [type]: value });
+        const wrapper = renderCheckboxGroup({ [type]: value });
         wrapper
           .find(StyledCheckbox)
           .forEach((node) => expect(node.props()[type]).toBe(true));
@@ -134,13 +120,13 @@ describe("CheckboxGroup", () => {
   });
 
   it("blocks the group behaviour if no validation set on group", () => {
-    const wrapper = render({});
+    const wrapper = renderCheckboxGroup({});
     expect(wrapper.find(Fieldset).props().blockGroupBehaviour).toEqual(true);
   });
 
   describe("tooltipPosition", () => {
     it("should override the default value", () => {
-      const wrapper = render(
+      const wrapper = renderCheckboxGroup(
         { legend: "foo", error: "message", tooltipPosition: "bottom" },
         mount
       );
