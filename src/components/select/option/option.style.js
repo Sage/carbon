@@ -18,7 +18,7 @@ const StyledOption = styled.li`
   ${({ hidden }) => hidden && "display: none;"}
 
   :hover {
-    background-color: var(--colorsUtilityMajor200);
+    background-color: var(--colorsUtilityMajor100);
   }
 `;
 

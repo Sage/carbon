@@ -1174,6 +1174,15 @@ context("Tests for Multi Select component", () => {
       multiSelectPill().should("not.exist");
       selectList().should("be.visible");
     });
+
+    it("should have correct hover state of list option", () => {
+      CypressMountWithProviders(<MultiSelectComponent />);
+
+      dropdownButton().click();
+      selectListText(option1)
+        .realHover()
+        .should("have.css", "background-color", "rgb(204, 214, 219)");
+    });
   });
 
   describe("check events for Multi Select component", () => {
