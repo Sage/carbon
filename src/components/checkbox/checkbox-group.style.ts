@@ -1,12 +1,11 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 import StyledIcon from "../icon/icon.style";
 import CheckboxStyle from "./checkbox.style";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 
-const StyledCheckboxGroup = styled.div`
+const StyledCheckboxGroup = styled.div<{ legendInline?: boolean }>`
   display: flex;
   flex-direction: column;
 
@@ -45,9 +44,5 @@ const StyledCheckboxGroup = styled.div`
       }
     `}
 `;
-
-StyledCheckboxGroup.propTypes = {
-  legendInline: PropTypes.bool,
-};
 
 export default StyledCheckboxGroup;
