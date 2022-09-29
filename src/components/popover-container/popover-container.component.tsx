@@ -20,7 +20,7 @@ import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener"
 export interface RenderOpenProps {
   tabIndex: number;
   isOpen?: boolean;
-  "data-element": string;
+  "data-element"?: string;
   onClick: (
     ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
   ) => void;
@@ -31,7 +31,7 @@ export interface RenderOpenProps {
   "aria-haspopup": "dialog";
 }
 
-const renderOpen = ({
+export const renderOpen = ({
   tabIndex,
   onClick,
   "data-element": dataElement,
@@ -56,7 +56,7 @@ const renderOpen = ({
 );
 
 export interface RenderCloseProps {
-  "data-element": string;
+  "data-element"?: string;
   tabIndex: number;
   onClick: (
     ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
@@ -65,7 +65,7 @@ export interface RenderCloseProps {
   "aria-label": string;
 }
 
-const renderClose = ({
+export const renderClose = ({
   "data-element": dataElement,
   tabIndex,
   onClick,
@@ -158,6 +158,7 @@ export const PopoverContainer = ({
 
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);
+  const popoverReference = useRef<HTMLDivElement>(null);
   const guid = useRef(createGuid());
   const popoverContentNodeRef = useRef<HTMLDivElement>(null);
   const popoverContainerId = title
@@ -222,7 +223,9 @@ export const PopoverContainer = ({
       data-component="popover-container"
       onMouseDown={handleClick}
     >
-      {renderOpenComponent(renderOpenComponentProps)}
+      <div ref={popoverReference}>
+        {renderOpenComponent(renderOpenComponentProps)}
+      </div>
       <Transition
         in={isOpen}
         timeout={{ exit: 300 }}
@@ -234,7 +237,7 @@ export const PopoverContainer = ({
         {(state: TransitionStatus) =>
           isOpen && (
             <Popover
-              reference={openButtonRef}
+              reference={popoverReference}
               placement={position === "right" ? "bottom-start" : "bottom-end"}
               {...(shouldCoverButton && { modifiers: popperModifiers })}
             >

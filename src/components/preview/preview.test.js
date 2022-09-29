@@ -1,5 +1,5 @@
 import * as React from "react";
-import Preview from "./preview.component";
+import Preview from ".";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { cyRoot } from "../../../cypress/locators/index";
 import {
@@ -19,7 +19,7 @@ context("Tests for Preview component", () => {
     it.each(pixelsData)(
       "should check height as %spx for Preview component",
       (height) => {
-        CypressMountWithProviders(<PreviewComponent height={height} />);
+        CypressMountWithProviders(<PreviewComponent height={`${height}px`} />);
         previewComponent().should("have.css", "height", `${height}px`);
       }
     );
@@ -27,7 +27,7 @@ context("Tests for Preview component", () => {
     it.each(pixelsData)(
       "should check width as %spx for Preview component",
       (width) => {
-        CypressMountWithProviders(<PreviewComponent width={width} />);
+        CypressMountWithProviders(<PreviewComponent width={`${width}px`} />);
         previewComponent().should("have.css", "width", `${width}px`);
       }
     );

@@ -31,7 +31,7 @@ describe("OptionRow", () => {
       const props = { value: "1", text: "foo" };
       expect(renderOptionRow(props, mount)).toHaveStyleRule(
         "background-color",
-        "var(--colorsUtilityMajor200)",
+        "var(--colorsUtilityMajor100)",
         { modifier: ":hover" }
       );
     });

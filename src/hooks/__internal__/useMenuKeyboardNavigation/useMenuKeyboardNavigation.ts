@@ -11,7 +11,10 @@ export default (
 
   const handleKeyDown = useCallback(
     (ev) => {
-      ev.preventDefault();
+      if (!(Events.isEnterKey(ev) || Events.isSpaceKey(ev))) {
+        ev.preventDefault();
+      }
+
       const currentIndex = childrenRefs?.findIndex(
         (node) => node.current === document.activeElement
       );

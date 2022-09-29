@@ -29,3 +29,16 @@ export const checkGoldenOutline = (elem, outlineWidthPx = 3) => {
   expect(elem.css("outline-style")).to.equals("solid");
   expect(outlineWidth).to.be.within(outlineWidthPx - 1, outlineWidth + 1);
 };
+
+export const splitByDotAndParseToIntElement = (elem) => {
+  const inputString = elem.split(".");
+  return parseInt(inputString);
+};
+
+export const useJQueryCssValueAndAssert = (elem, cssProp, valueToAssert) => {
+  const val = elem.css(cssProp);
+  return expect(splitByDotAndParseToIntElement(val)).to.be.within(
+    valueToAssert - 1,
+    valueToAssert + 2
+  );
+};

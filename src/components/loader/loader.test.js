@@ -7,6 +7,7 @@ import { loader, loaderInsideButton } from "../../../cypress/locators/loader";
 
 import { positionOfElement } from "../../../cypress/support/helper";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
 
 const LoaderInsideButton = ({ ...props }) => {
   return (
@@ -105,7 +106,9 @@ context("Test for Loader component", () => {
 
       loaderInsideButton()
         .focus()
-        .should("have.css", "outline-color", "rgb(255, 181, 0)");
+        .then(($el) => {
+          checkGoldenOutline($el);
+        });
     });
   });
 });

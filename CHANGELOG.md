@@ -1,3 +1,31 @@
+### [110.11.1](https://github.com/Sage/carbon/compare/v110.11.0...v110.11.1) (2022-09-28)
+
+
+### Bug Fixes
+
+* **multi-action-button:** ensure that enter and space keys trigger onClick callback ([6d0f6e8](https://github.com/Sage/carbon/commit/6d0f6e8dd18f0b5ee908b7f94fb1776a00d217d2)), closes [#5472](https://github.com/Sage/carbon/issues/5472)
+
+## [110.11.0](https://github.com/Sage/carbon/compare/v110.10.3...v110.11.0) (2022-09-27)
+
+
+### Features
+
+* **progress-tracker:** add default value for aria-valuenow ([434911d](https://github.com/Sage/carbon/commit/434911d8e8c5a82df5b600f3d1eb32b9deed0964))
+
+### [110.10.3](https://github.com/Sage/carbon/compare/v110.10.2...v110.10.3) (2022-09-23)
+
+
+### Bug Fixes
+
+* **tabs:** update type definition for validationStatusOverride prop ([19bb18f](https://github.com/Sage/carbon/commit/19bb18f16fbfbca6342825d395a2f73c63597472))
+
+### [110.10.2](https://github.com/Sage/carbon/compare/v110.10.1...v110.10.2) (2022-09-22)
+
+
+### Bug Fixes
+
+* **popover-container:** fix positioning with renderOpenComponent prop ([ab2fa46](https://github.com/Sage/carbon/commit/ab2fa46b98a5d36668ffff47a97722340af610fd))
+
 ### [110.10.1](https://github.com/Sage/carbon/compare/v110.10.0...v110.10.1) (2022-09-22)
 
 
