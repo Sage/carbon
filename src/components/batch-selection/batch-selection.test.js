@@ -4,6 +4,7 @@ import IconButton from "../icon-button/icon-button.component";
 import { positionOfElement } from "../../../cypress/support/helper";
 import Icon from "../icon/icon.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
 
 import {
   batchSelectionCounter,
@@ -84,7 +85,9 @@ context("Tests for BatchSelection component", () => {
         batchSelectionButtonsByPosition(positionOfElement(index))
           .parent()
           .focus()
-          .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
+          .then(($el) => {
+            checkGoldenOutline($el);
+          });
       }
     );
   });

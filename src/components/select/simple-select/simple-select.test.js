@@ -984,6 +984,28 @@ context("Tests for Simple Select component", () => {
           .should("have.length", numberOfChildren);
       }
     );
+
+    it("should have correct hover state of list option", () => {
+      CypressMountWithProviders(<SimpleSelectComponent />);
+
+      const optionValue3 = "Blue";
+
+      selectText().click();
+      selectListText(optionValue3)
+        .realHover()
+        .should("have.css", "background-color", "rgb(204, 214, 219)");
+    });
+  });
+
+  describe("check height of Select list when opened", () => {
+    it("should not cut off any text with long option text", () => {
+      CypressMountWithProviders(<SimpleSelectWithLongWrappingTextComponent />);
+
+      selectText().click();
+      selectListWrapper()
+        .should("have.css", "height", "152px")
+        .and("be.visible");
+    });
   });
 
   describe("check events for Simple Select component", () => {
@@ -1069,16 +1091,5 @@ context("Tests for Simple Select component", () => {
           });
       }
     );
-  });
-
-  describe("check height of Select list when opened", () => {
-    it("should not cut off any text with long option text", () => {
-      CypressMountWithProviders(<SimpleSelectWithLongWrappingTextComponent />);
-
-      selectText().click();
-      selectListWrapper()
-        .should("have.css", "height", "152px")
-        .and("be.visible");
-    });
   });
 });

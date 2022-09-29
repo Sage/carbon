@@ -65,7 +65,7 @@ const StyledMenuItem = styled.button<StyledMenuItemProps>`
     css`
       &:focus,
       &:hover {
-        background-color: var(--colorsUtilityMajor025);
+        background-color: var(--colorsUtilityMajor100);
       }
       && ${StyledIcon} {
         cursor: pointer;

@@ -58,8 +58,8 @@ const Tile = ({
 Tile.propTypes = {
   /** Styled system spacing props */
   ...propTypes.space,
-  /** Sets the theme of the tile - either 'tile' or 'transparent' */
-  variant: PropTypes.oneOf(["tile", "transparent"]),
+  /** Sets the theme of the tile - either 'tile', 'transparent' or 'active' */
+  variant: PropTypes.oneOf(["tile", "transparent", "active"]),
   /**
    * The content to render within the tile. Each child will be wrapped with
    * a TileContent wrapper, which allows any individual child component to take a
