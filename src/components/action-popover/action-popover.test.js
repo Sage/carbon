@@ -553,12 +553,13 @@ context("Test for ActionPopover component", () => {
 
       accordionDefaultTitle().trigger("keydown", keyCode("Enter"));
       actionPopoverButton().eq(0).click();
+      cy.scrollTo("0", "1000");
       actionPopover()
-        .should("have.attr", "data-popper-placement", "bottom-end")
+        .should("have.attr", "data-floating-placement", "bottom-end")
         .and("be.visible");
       cy.scrollTo("0", "0");
       actionPopover()
-        .should("have.attr", "data-popper-placement", "top-end")
+        .should("have.attr", "data-floating-placement", "top-end")
         .and("be.visible");
     });
   });

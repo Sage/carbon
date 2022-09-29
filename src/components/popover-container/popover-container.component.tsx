@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { PaddingProps } from "styled-system";
 import { Transition, TransitionStatus } from "react-transition-group";
-import { OffsetsFunction } from "@popperjs/core/lib/modifiers/offset";
+import { flip, offset } from "@floating-ui/dom";
 
 import {
   PopoverContainerWrapperStyle,
@@ -124,17 +124,13 @@ export interface PopoverContainerProps extends PaddingProps {
   containerAriaLabel?: string;
 }
 
-const offset: OffsetsFunction = ({ reference }) => {
-  return [0, -reference.height];
-};
-
-const popperModifiers = [
-  {
-    name: "offset",
-    options: {
-      offset,
-    },
-  },
+const popoverMiddleware = [
+  offset(({ rects }) => ({
+    mainAxis: -rects.reference.height,
+  })),
+  flip({
+    fallbackStrategy: "initialPlacement",
+  }),
 ];
 
 export const PopoverContainer = ({
@@ -236,7 +232,7 @@ export const PopoverContainer = ({
             <Popover
               reference={openButtonRef}
               placement={position === "right" ? "bottom-start" : "bottom-end"}
-              {...(shouldCoverButton && { modifiers: popperModifiers })}
+              {...(shouldCoverButton && { middleware: popoverMiddleware })}
             >
               <PopoverContainerContentStyle
                 data-element="popover-container-content"

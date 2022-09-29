@@ -3,7 +3,7 @@
 exports[`StyledDayPicker renders presentational div and context provider for its children 1`] = `
 .c0 {
   position: absolute;
-  height: 352px;
+  height: 346px;
   width: 352px;
   z-index: 6000;
 }

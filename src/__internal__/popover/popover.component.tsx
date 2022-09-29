@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useLayoutEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { createPopper, State, Instance } from "@popperjs/core";
+import { flip, Placement, Middleware } from "@floating-ui/dom";
 
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+import useFloating from "../../hooks/__internal__/useFloating";
 import { StyledBackdrop, StyledPopoverContent } from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 import {
@@ -10,57 +10,42 @@ import {
   ModalContextProps,
 } from "../../components/modal/modal.component";
 
-type PopoverModifier = {
-  name: string;
-  options?: Record<string, unknown>;
-  enabled?: boolean;
-};
-
 export interface PopoverProps {
   // Element to be positioned, has to be a single node and has to accept `ref` and `style` props
   children: React.ReactElement;
   // Placement of children in relation to the reference element
-  placement?:
-    | "auto"
-    | "auto-start"
-    | "auto-end"
-    | "top"
-    | "top-start"
-    | "top-end"
-    | "bottom"
-    | "bottom-start"
-    | "bottom-end"
-    | "right"
-    | "right-start"
-    | "right-end"
-    | "left"
-    | "left-start"
-    | "left-end";
+  placement?: Placement;
   // Disables interaction with background UI
   disableBackgroundUI?: boolean;
-  // Optional modifiers array, for more information and object shape go to:
-  // https://popper.js.org/docs/v2/constructors/#modifiers
-  modifiers?: PopoverModifier[];
-  // Optional onFirstUpdate function, for more information go to:
-  // hhttps://popper.js.org/docs/v2/lifecycle/#hook-into-the-lifecycle
-  onFirstUpdate?: (state: Partial<State>) => void;
+  // Optional middleware array, for more information go to:
+  // https://floating-ui.com/docs/middleware
+  middleware?: Middleware[];
   // When true, children are not rendered in portal
   disablePortal?: boolean;
   // Reference element, children will be positioned in relation to this element - should be a ref shaped object
   reference: React.RefObject<HTMLElement>;
   // Determines if the popover is currently open/visible or not. Defaults to true.
   isOpen?: boolean;
+  // Whether to update the position of the floating element on every animation frame if required. This is optimized for performance but can still be costly. Use with caution!
+  // https://floating-ui.com/docs/autoUpdate#animationframe
+  animationFrame?: boolean;
 }
+
+const defaultMiddleware = [
+  flip({
+    fallbackStrategy: "initialPlacement",
+  }),
+];
 
 const Popover = ({
   children,
   placement,
   disablePortal,
   reference,
-  onFirstUpdate,
-  modifiers,
+  middleware = defaultMiddleware,
   disableBackgroundUI,
   isOpen = true,
+  animationFrame,
 }: PopoverProps) => {
   const elementDOM = useRef<HTMLDivElement | null>(null);
   const { isInModal } = useContext<ModalContextProps>(ModalContext);
@@ -72,62 +57,27 @@ const Popover = ({
     mountNode.appendChild(elementDOM.current);
   }
 
-  const popperInstance = useRef<Instance | null>(null);
-  const popperRef = useRef<HTMLElement | null>(null);
-  let content;
-  let popperElementRef: React.MutableRefObject<HTMLElement | null>;
-
   const childRef = (React.Children.only(
     children
   ) as React.FunctionComponentElement<unknown>).ref;
+  const innerRef = useRef<HTMLElement | null>(null);
+  const floatingReference = childRef || innerRef;
 
+  let content;
   if (childRef) {
     content = children;
-    popperElementRef = childRef;
   } else {
-    content = React.cloneElement(children, { ref: popperRef });
-    popperElementRef = popperRef;
+    content = React.cloneElement(children, { ref: floatingReference });
   }
 
-  useResizeObserver(reference, () => {
-    popperInstance?.current?.update();
+  useFloating({
+    isOpen,
+    reference,
+    floating: floatingReference,
+    placement,
+    middleware,
+    animationFrame,
   });
-
-  useEffect(() => {
-    if (isOpen) {
-      popperInstance?.current?.update();
-    }
-  }, [isOpen]);
-
-  useLayoutEffect(() => {
-    if (reference.current) {
-      popperInstance.current = createPopper(
-        reference.current,
-        popperElementRef.current as HTMLElement,
-        {
-          placement,
-          onFirstUpdate,
-          modifiers: [
-            {
-              name: "computeStyles",
-              options: {
-                gpuAcceleration: false,
-                roundOffsets: false,
-              },
-            },
-            ...(modifiers || []),
-          ],
-        }
-      );
-    }
-
-    return () => {
-      if (popperInstance.current) {
-        popperInstance.current.destroy();
-        popperInstance.current = null;
-      }
-    };
-  }, [modifiers, onFirstUpdate, placement, popperElementRef, reference]);
 
   useEffect(() => {
     return () => {
@@ -138,12 +88,18 @@ const Popover = ({
     };
   }, [disablePortal, mountNode]);
 
-  content = (
-    <StyledPopoverContent isOpen={isOpen}>{content}</StyledPopoverContent>
-  );
+  if (!disableBackgroundUI) {
+    content = (
+      <StyledPopoverContent isOpen={isOpen}>{content}</StyledPopoverContent>
+    );
+  }
 
   if (disableBackgroundUI) {
-    content = <StyledBackdrop>{content}</StyledBackdrop>;
+    content = (
+      <StyledPopoverContent isOpen={isOpen}>
+        <StyledBackdrop>{content}</StyledBackdrop>
+      </StyledPopoverContent>
+    );
   }
 
   if (disablePortal) {
