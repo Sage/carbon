@@ -394,30 +394,17 @@ describe("SimpleSelect", () => {
       });
     });
 
-    it.each([
-      "auto",
-      "auto-start",
-      "auto-end",
-      "top",
-      "top-start",
-      "top-end",
-      "bottom",
-      "bottom-start",
-      "bottom-end",
-      "right",
-      "right-start",
-      "right-end",
-      "left",
-      "left-start",
-      "left-end",
-    ])("the listPlacement prop should be passed", (listPlacement) => {
-      const wrapper = renderSelect({ listPlacement });
+    it.each(["top", "bottom", "right", "left"])(
+      "the listPlacement prop should be passed",
+      (listPlacement) => {
+        const wrapper = renderSelect({ listPlacement });
 
-      simulateSelectTextEvent(wrapper, "click");
-      expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
-        listPlacement
-      );
-    });
+        simulateSelectTextEvent(wrapper, "click");
+        expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
+          listPlacement
+        );
+      }
+    );
 
     it("the flipEnabled prop should be passed", () => {
       const wrapper = renderSelect({ flipEnabled: false });

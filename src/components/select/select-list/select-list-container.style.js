@@ -3,8 +3,6 @@ import styled from "styled-components";
 const StyledSelectListContainer = styled.div`
   background-color: white;
   box-shadow: var(--boxShadow100);
-  position: absolute;
-  ${({ placement }) => placement === "top-start" && "bottom: 0"};
   min-width: 100%;
   max-width: 870px;
   height: 100%;

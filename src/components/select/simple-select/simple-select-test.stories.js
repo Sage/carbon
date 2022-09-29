@@ -1,6 +1,8 @@
-import React from "react";
-
+import React, { useState } from "react";
 import Box from "../../box";
+import Icon from "../../icon";
+import Dialog from "../../dialog";
+
 import { Select, Option } from "..";
 
 export default {
@@ -82,7 +84,7 @@ export default {
   },
 };
 
-const Template = (args) => {
+export const Default = (args) => {
   return (
     <Box width={400}>
       <Select name="simple" id="simple" label="label" labelInline {...args}>
@@ -97,10 +99,64 @@ const Template = (args) => {
   );
 };
 
-export const Default = Template.bind({});
-
 Default.args = {
   mt: 0,
   listPlacement: undefined,
   flipEnabled: true,
+};
+
+export const DelayedReposition = () => {
+  const [displayContent, setDisplayContent] = useState(false);
+
+  const onOpenWithTimeOut = () => {
+    setTimeout(() => {
+      setDisplayContent(!displayContent);
+    }, 500);
+  };
+
+  const onOpen = () => {
+    setDisplayContent(!displayContent);
+  };
+  return (
+    <Dialog size="medium" open title="Title">
+      <Box
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="stretch"
+        margin="25px"
+      >
+        <Box width="50%">
+          <Select
+            label="noTimeOut"
+            name="noTimeOut"
+            id="noTimeOut"
+            onOpen={onOpen}
+          >
+            <Option text="Amber" value="1" />
+            <Option text="Black" value="2" />
+            <Option text="Blue" value="3" />
+          </Select>
+        </Box>
+        <Box width="50%">
+          <Select
+            label="timeOut"
+            name="timeOut"
+            id="timeOut"
+            onOpen={onOpenWithTimeOut}
+          >
+            <Option text="Amber" value="1" />
+            <Option text="Black" value="2" />
+            <Option text="Blue" value="3" />
+          </Select>
+        </Box>
+      </Box>
+      {displayContent && (
+        <Box mb={1} display="flex" alignItems="center">
+          <Icon type="error" color="errorRed" />
+          Error displayed
+        </Box>
+      )}
+    </Dialog>
+  );
 };
