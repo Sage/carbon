@@ -82,7 +82,7 @@ describe("FlatTableRow", () => {
           position: "absolute",
           left: "0px",
           right: "0px",
-          top: "-1px",
+          top: "0",
           bottom: "0px",
           border: "2px solid var(--colorsSemanticFocus500)",
         },
@@ -113,9 +113,7 @@ describe("FlatTableRow", () => {
 
       assertStyleMatch(
         {
-          borderBottom: "1px solid transparent",
-          borderLeft: "1px solid var(--colorsSemanticFocus500)",
-          backgroundClip: "padding-box",
+          borderLeft: "2px solid var(--colorsSemanticFocus500)",
           zIndex: "1002",
         },
         wrapper,
@@ -128,8 +126,8 @@ describe("FlatTableRow", () => {
           borderBottom: "2px solid var(--colorsSemanticFocus500)",
           display: "block",
           left: "0px",
-          top: "-1px",
-          height: "calc(100% - 1px)",
+          top: "0px",
+          height: "calc(100% - 3px)",
           width: "101%",
           position: "absolute",
           zIndex: "1000",
@@ -677,34 +675,10 @@ describe("FlatTableRow", () => {
 
       assertStyleMatch(
         {
-          borderLeft: "1px solid var(--colorsUtilityMajor100)",
+          borderLeft: "2px solid var(--colorsUtilityMajor100)",
         },
         wrapper,
         { modifier: `:focus ${StyledFlatTableRowHeader}` }
-      );
-
-      assertStyleMatch(
-        {
-          borderLeft: "1px solid var(--colorsSemanticFocus500)",
-        },
-        wrapper,
-        { modifier: `:focus td:nth-of-type(1)` }
-      );
-
-      assertStyleMatch(
-        {
-          borderTop: "2px solid var(--colorsSemanticFocus500)",
-          borderBottom: "2px solid var(--colorsSemanticFocus500)",
-          display: "block",
-          left: "0px",
-          top: "-1px",
-          height: "calc(100% - 1px)",
-          width: "101%",
-          position: "absolute",
-          zIndex: "1000",
-        },
-        wrapper.find(FlatTableRow),
-        { modifier: `:focus td:nth-of-type(1):before` }
       );
     });
 

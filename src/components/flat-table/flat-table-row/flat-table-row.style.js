@@ -14,27 +14,27 @@ const horizontalBorderSizes = {
 
 const stickyColumnFocusStyling = (index, theme) => {
   return `
-    border-bottom: 1px solid transparent;
-    border-left: 1px solid
+    border-left: 2px solid
       ${
         index === 0
           ? "var(--colorsSemanticFocus500)"
           : "var(--colorsUtilityMajor100)"
       };
-    background-clip: padding-box;
-    z-index: ${theme.zIndex.overlay + 2};
-
-    :before {
-      content: "";
-      border-top: 2px solid var(--colorsSemanticFocus500);
-      border-bottom: 2px solid var(--colorsSemanticFocus500);
-      display: block;
-      left: 0px;
-      top: -1px;
-      height: calc(100% - 1px);
-      width: 101%;
-      position: absolute;
-      z-index: ${theme.zIndex.overlay};
+      width: calc(100% + 1px);
+      top: 0;
+      z-index: ${theme.zIndex.overlay + 2};
+      :before {
+        content: "";
+        border-top: 2px solid var(--colorsSemanticFocus500);
+        border-bottom: 2px solid var(--colorsSemanticFocus500);
+        display: block;
+        left: 0px;
+        top: 0px;
+        height: calc(100% - 3px);
+        width: 101%;
+        position: absolute;
+        z-index: ${theme.zIndex.overlay};
+      }
     }
   `;
 };
@@ -99,7 +99,6 @@ const StyledFlatTableRow = styled.tr`
       min-width: 100%;
       table-layout: fixed;
       width: auto;
-      outline: 2px solid #0000;
 
       [data-component="icon"]:not([color]) {
         color: var(--colorsActionMinor500);
@@ -151,7 +150,7 @@ const StyledFlatTableRow = styled.tr`
             position: absolute;
             left: 0px;
             right: 0px;
-            top: -1px;
+            top: 0;
             bottom: 0px;
             border: 2px solid var(--colorsSemanticFocus500);
             pointer-events: none;
@@ -166,7 +165,7 @@ const StyledFlatTableRow = styled.tr`
           @media not all and (min-resolution: 0.001dpcm) {
             @supports (-webkit-appearance: none) and (stroke-color: transparent) {
               outline: 2px solid var(--colorsSemanticFocus500);
-              outline-offset: -1px;
+              outline-offset: -2px;
               position: static;
               :after {
                 content: none;
