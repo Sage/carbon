@@ -4,7 +4,7 @@ import { act } from "react-dom/test-utils";
 import { Input } from "../../__internal__/input";
 import Button from "../button";
 import Search from "./search.component";
-import { StyledSearchButton } from "./search.style";
+import StyledSearchButton from "./search-button.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
