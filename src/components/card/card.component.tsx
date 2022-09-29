@@ -6,11 +6,17 @@ import StyledCard from "./card.style";
 import Icon from "../icon";
 import { CardRow, CardRowProps, CardFooter, CardFooterProps } from ".";
 import { CardSpacing } from "./card.config";
+import Logger from "../../__internal__/utils/logger";
 
 export interface CardProps extends MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-element"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role"?: string;
+  /**
+   * [DEPRECATED - use `data-role` instead]
+   * Identifier used for testing purposes, applied to the root element of the component.
+   * */
   dataRole?: string;
   /** Action to be executed when card is clicked or enter pressed */
   action?: (event: React.MouseEvent<HTMLDivElement>) => void;
@@ -30,17 +36,27 @@ function hasDisplayName(child: React.ReactElement, displayName: string) {
   return (child.type as React.FunctionComponent).displayName === displayName;
 }
 
+let isDeprecationWarningTriggered = false;
+
 const Card = ({
   "data-element": dataElement,
+  "data-role": dataRole,
+  dataRole: oldDataRole,
   action,
   children,
   cardWidth = "500px",
-  dataRole,
   draggable,
   interactive,
   spacing = "medium",
   ...rest
 }: CardProps) => {
+  if (!isDeprecationWarningTriggered && oldDataRole) {
+    isDeprecationWarningTriggered = true;
+    Logger.deprecate(
+      "The `dataRole` prop of `Card` is now deprecated. Please use the kebab-case version `data-role` instead."
+    );
+  }
+
   const renderChildren = useCallback(
     () =>
       React.Children.map<React.ReactNode, React.ReactNode>(
@@ -83,7 +99,7 @@ const Card = ({
     <StyledCard
       data-component="card"
       data-element={dataElement}
-      data-role={dataRole}
+      data-role={dataRole || oldDataRole}
       cardWidth={cardWidth}
       interactive={!!interactive}
       draggable={!!draggable}

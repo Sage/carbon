@@ -8,6 +8,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import Icon from "../icon";
 import StyledCard from "./card.style";
+import Logger from "../../__internal__/utils/logger";
 
 function render(props: Partial<CardProps> = {}) {
   return mount(<Card {...props}>Content</Card>);
@@ -196,7 +197,7 @@ describe("Card", () => {
     const dataRole = "baz";
     const wrapper = render({
       "data-element": dataElement,
-      dataRole,
+      "data-role": dataRole,
     });
     expect(
       wrapper.find("div[data-component='card']").prop("data-element")
@@ -204,5 +205,27 @@ describe("Card", () => {
     expect(wrapper.find("div[data-component='card']").prop("data-role")).toBe(
       dataRole
     );
+  });
+
+  it("when dataRole prop is provided, raise deprecation warning once in the console", () => {
+    // Mock console.warn to prevent warning from appearing in console while test is running
+    const mockConsole = jest
+      .spyOn(global.console, "warn")
+      .mockImplementation(() => undefined);
+
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    mount(
+      <>
+        <Card dataRole="foo">Card 1</Card>
+        <Card dataRole="bar">Card 2</Card>
+      </>
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `dataRole` prop of `Card` is now deprecated. Please use the kebab-case version `data-role` instead."
+    );
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+    loggerSpy.mockRestore();
+
+    mockConsole.mockRestore();
   });
 });
