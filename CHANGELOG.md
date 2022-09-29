@@ -1,3 +1,10 @@
+### [111.0.2](https://github.com/Sage/carbon/compare/v111.0.1...v111.0.2) (2022-09-29)
+
+
+### Bug Fixes
+
+* **menu:** ensure submenu closes when enter key is pressed ([04f5045](https://github.com/Sage/carbon/commit/04f504507e1f0a826806012301c7b5ee142cc98e)), closes [#4792](https://github.com/Sage/carbon/issues/4792)
+
 ### [111.0.1](https://github.com/Sage/carbon/compare/v111.0.0...v111.0.1) (2022-09-29)
 
 
