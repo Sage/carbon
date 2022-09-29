@@ -1,9 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { MarginProps } from "styled-system";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import {
   StyledHeading,
   StyledHeadingIcon,
@@ -19,11 +20,42 @@ import {
 } from "./heading.style";
 import useLocale from "../../hooks/__internal__/useLocale";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+export interface HeadingProps extends MarginProps, TagProps {
+  /** Child elements */
+  children?: React.ReactNode;
+  /** Defines the title for the heading. */
+  title?: React.ReactNode;
+  /** Defines the title id for the heading. */
+  titleId?: string;
+  /** Defines the subheader for the heading. */
+  subheader?: React.ReactNode;
+  /** Defines the subtitle id for the heading. */
+  subtitleId?: string;
+  /** Defines the help text for the heading. */
+  help?: string;
+  /** Defines the help link for the heading. */
+  helpLink?: string;
+  /** Defines the a href for the back link. */
+  backLink?:
+    | string
+    | ((
+        ev:
+          | React.MouseEvent<HTMLAnchorElement>
+          | React.MouseEvent<HTMLButtonElement>
+          | React.KeyboardEvent<HTMLAnchorElement>
+          | React.KeyboardEvent<HTMLButtonElement>
+      ) => void);
+  /** Adds a divider below the heading and the content. */
+  divider?: boolean;
+  /** Adds a separator between the title and the subheader. */
+  separator?: boolean;
+  /** Pills that will be added after the title. */
+  pills?: React.ReactNode;
+  /** Aria label for rendered help component */
+  helpAriaLabel?: string;
+}
 
-const Heading = ({
+export const Heading = ({
   children,
   backLink,
   divider = true,
@@ -37,7 +69,7 @@ const Heading = ({
   title,
   titleId,
   ...rest
-}) => {
+}: HeadingProps) => {
   const getHelp = () => {
     return (
       <StyledHeaderHelp
@@ -64,7 +96,7 @@ const Heading = ({
         onMouseDown={(e) => e.currentTarget.focus()}
         {...backButtonProps}
       >
-        <StyledHeadingIcon type="chevron_left" divider={divider} />
+        <StyledHeadingIcon type="chevron_left" />
       </StyledHeadingBackButton>
     );
   };
@@ -102,13 +134,13 @@ const Heading = ({
       <StyledHeader
         data-element="header-container"
         divider={divider}
-        subheader={subheader}
+        subheader={!!subheader}
         hasBackLink={!!backLink}
       >
         {backLink && getBackButton()}
         <StyledHeaderContent>
           <StyledHeadingTitle
-            withMargin={pills || help}
+            withMargin={!!pills || !!help}
             variant="h1"
             data-element="title"
             id={titleId}
@@ -125,46 +157,6 @@ const Heading = ({
       {children}
     </StyledHeading>
   ) : null;
-};
-
-Heading.propTypes = {
-  ...marginPropTypes,
-
-  /** Child elements */
-  children: PropTypes.node,
-
-  /** Defines the title for the heading. */
-  title: PropTypes.node,
-
-  /** Defines the title id for the heading. */
-  titleId: PropTypes.string,
-
-  /** Defines the subheader for the heading. */
-  subheader: PropTypes.node,
-
-  /** Defines the subtitle id for the heading. */
-  subtitleId: PropTypes.string,
-
-  /** Defines the help text for the heading. */
-  help: PropTypes.string,
-
-  /** Defines the help link for the heading. */
-  helpLink: PropTypes.string,
-
-  /** Defines the a href for the back link. */
-  backLink: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-  /** Adds a divider below the heading and the content. */
-  divider: PropTypes.bool,
-
-  /** Adds a separator between the title and the subheader. */
-  separator: PropTypes.bool,
-
-  /** Pills that will be added after the title. */
-  pills: PropTypes.node,
-
-  /** Aria label for rendered help component */
-  helpAriaLabel: PropTypes.string,
 };
 
 export default Heading;
