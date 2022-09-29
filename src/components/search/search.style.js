@@ -5,7 +5,6 @@ import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-ic
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import StyledInput from "../../__internal__/input/input.style";
 import StyledIcon from "../icon/icon.style";
-import StyledButton from "../button/button.style";
 import { baseTheme } from "../../style/themes";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 
@@ -174,32 +173,5 @@ const StyledSearch = styled.div`
 `;
 
 StyledSearch.defaultProps = { theme: baseTheme };
+
 export default StyledSearch;
-
-export const StyledSearchButton = styled.div`
-  display: inline-flex;
-  border-bottom: none;
-  & ${StyledButton} {
-    background-color: var(--colorsActionMajor500);
-    border-color: var(--colorsActionMajorTransparent);
-    :hover {
-      background: var(--colorsActionMajor600);
-      border-color: var(--colorsActionMajorTransparent);
-    }
-
-    width: 40px;
-    margin: 0px 0px;
-    padding-bottom: 3px;
-    :focus {
-      z-index: ${({ theme }) => theme.zIndex.smallOverlay};
-    }
-  }
-`;
-
-export const StyledButtonIcon = styled.div`
-  &&& ${StyledIcon} {
-    color: var(--colorsActionMajorYang100);
-    margin-right: 0px;
-  }
-`;
-StyledSearchButton.defaultProps = { theme: baseTheme };

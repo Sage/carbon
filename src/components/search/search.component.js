@@ -1,13 +1,11 @@
 import React, { useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
 import invariant from "invariant";
-import StyledSearch, {
-  StyledSearchButton,
-  StyledButtonIcon,
-} from "./search.style";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import styledSystemPropTypes from "@styled-system/prop-types";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import StyledSearch from "./search.style";
+import StyledSearchButton, { StyledButtonIcon } from "./search-button.style";
 import Icon from "../icon";
 import Textbox from "../textbox";
 import Button from "../button";
