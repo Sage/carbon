@@ -1,6 +1,6 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
-import Heading from "./heading.component";
+import { shallow, mount, ReactWrapper } from "enzyme";
+import Heading from ".";
 import {
   StyledHeader,
   StyledSubHeader,
@@ -30,7 +30,7 @@ describe("Heading", () => {
   ));
 
   describe("when the title prop is provided", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = mount(<Heading title="foo" />);
@@ -54,7 +54,7 @@ describe("Heading", () => {
 
   describe("when the backLink prop is provided", () => {
     const backLink = "/foobar";
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = mount(
@@ -102,7 +102,7 @@ describe("Heading", () => {
 
   describe("when the subheader prop is provided", () => {
     const subheader = "subheader text";
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = mount(<Heading title="foo" subheader={subheader} />);
@@ -154,7 +154,7 @@ describe("Heading", () => {
     expect(wrapper.find(Pill)).toHaveLength(2);
   });
 
-  describe("renders title with margin ", () => {
+  describe("renders title with margin", () => {
     it("if pills provided", () => {
       const wrapper = mount(
         <Heading title="Test" pills={<Pill>Pill</Pill>} />
@@ -230,12 +230,12 @@ describe("Heading", () => {
 
   describe("when the backLink is a function", () => {
     it("sets it as the link onClick prop", () => {
-      const backLinkSpy = jasmine.createSpy(),
-        wrapper = mount(<Heading title="Test" backLink={backLinkSpy} />),
+      const mockBackLink = jest.fn(),
+        wrapper = mount(<Heading title="Test" backLink={mockBackLink} />),
         link = wrapper.find('[data-element="back"]').at(0);
 
       expect(link.props().onClick).toBeDefined();
-      expect(link.props().onClick).toEqual(backLinkSpy);
+      expect(link.props().onClick).toEqual(mockBackLink);
     });
   });
 
