@@ -27,6 +27,7 @@ const StyledProgressBar = styled.span`
     display: flex;
     position: relative;
     background-color: var(--colorsSemanticNeutral200);
+    border: 1px solid black;
     border-radius: 25px;
 
     ${!isVertical &&
