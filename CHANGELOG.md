@@ -1,3 +1,10 @@
+### [111.0.1](https://github.com/Sage/carbon/compare/v111.0.0...v111.0.1) (2022-09-29)
+
+
+### Bug Fixes
+
+* **flat-table:** correct alignment of focus outline ([87f464b](https://github.com/Sage/carbon/commit/87f464b5f40f4c0d379a00f06f25a78469af29c6)), closes [#5403](https://github.com/Sage/carbon/issues/5403)
+
 ## [111.0.0](https://github.com/Sage/carbon/compare/v110.11.1...v111.0.0) (2022-09-29)
 
 
