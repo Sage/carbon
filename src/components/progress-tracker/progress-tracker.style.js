@@ -102,6 +102,7 @@ const InnerBar = styled.span`
     position: absolute;
     left: 0;
     background-color: ${getInnerBarColour(progress)};
+    border-radius: 25px;
 
     ${!isVertical &&
     css`
