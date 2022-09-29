@@ -119,6 +119,115 @@ Please note that in order to see the `position: fixed` Box, you will need to vie
   </Story>
 </Canvas>
 
+### Gap
+
+The `Box` component also supports the `gap`, `column-gap` and `row-gap` properties when its `display` property is set to either 
+`flex` or `inline-flex`. See the [prop table](#props) below for more information on the types it accepts. Below is an example of 
+how these props can be used.
+
+<Canvas>
+  <Story name="flex gap" parameters={{ info: { disable: true } }}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={2}
+    >
+      <Box
+        display="flex"
+        columnGap={1}
+      >
+        <Box
+          display="flex"
+          flexDirection="column"
+          rowGap={2}
+        >
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="column"
+          rowGap={3}
+        >
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="column"
+          rowGap={4}
+        >
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="column"
+          rowGap={5}
+        >
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="column"
+          rowGap={6}
+        >
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="column"
+          rowGap={7}
+        >
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="column"
+          rowGap={8}
+        >
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+          <Box width="100px" height="100px" bg="primary"></Box>
+        </Box>
+      </Box>
+      <Box
+        display="flex"
+        gap={4}
+      >
+        <Box width="100px" height="100px" bg="primary"></Box>
+        <Box width="100px" height="100px" bg="primary"></Box>
+        <Box width="100px" height="100px" bg="primary"></Box>
+      </Box>
+      <Box
+        display="flex"
+        gap={8}
+      >
+        <Box width="100px" height="100px" bg="primary"></Box>
+        <Box width="100px" height="100px" bg="primary"></Box>
+        <Box width="100px" height="100px" bg="primary"></Box>
+      </Box>
+      <Box
+        display="flex"
+        gap="72px"
+      >
+        <Box width="100px" height="100px" bg="primary"></Box>
+        <Box width="100px" height="100px" bg="primary"></Box>
+        <Box width="100px" height="100px" bg="primary"></Box>
+      </Box>
+    </Box>
+  </Story>
+</Canvas>
+
 ### Layout
 
 <Canvas>
@@ -259,9 +368,7 @@ If no `scrollVariant` prop is set then the scroll bar will resort to the browser
 
 ### Style System
 
-<StyledSystemProps spacing color flexBox layout position noHeader />
-
-### Scroll Variant
+<StyledSystemProps spacing color flexBox hasGapProps layout position noHeader />
 
 <ArgsTable
   rows={[
@@ -277,6 +384,18 @@ If no `scrollVariant` prop is set then the scroll bar will resort to the browser
       name: "scrollVariant",
       type: { summary: "dark | light" },
       description: "String to denote which style variant to use for scrollbars",
+      required: false,
+    },
+    {
+      name: "boxSizing",
+      type: { summary: "content-box | border-box" },
+      description: "Set the box-sizing attribute of the Box component",
+      required: false,
+    },
+    {
+      name: "tabIndex",
+      type: { summary: "number | string" },
+      description: "Allows a tabindex to be specified",
       required: false,
     },
   ]}

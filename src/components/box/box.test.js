@@ -748,5 +748,58 @@ context("Testing Box component", () => {
         getDataElementByValue("box").should("have.css", "position", value);
       }
     );
+
+    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, "20%", "20px"])(
+      "should verify gap prop sets expected CSS on Box",
+      (gap) => {
+        CypressMountWithProviders(<BoxComponent display="flex" gap={gap} />);
+
+        getDataElementByValue("box").should(
+          "have.css",
+          "row-gap",
+          typeof gap === "number" ? `${gap * 8}px` : gap
+        );
+
+        getDataElementByValue("box").should(
+          "have.css",
+          "column-gap",
+          typeof gap === "number" ? `${gap * 8}px` : gap
+        );
+      }
+    );
+
+    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, "20%", "20px"])(
+      "should verify rowGap prop sets expected CSS on Box and overrides gap if set",
+      (rowGap) => {
+        CypressMountWithProviders(
+          <BoxComponent display="flex" rowGap={rowGap} gap={8} />
+        );
+
+        getDataElementByValue("box").should(
+          "have.css",
+          "row-gap",
+          typeof rowGap === "number" ? `${rowGap * 8}px` : rowGap
+        );
+
+        getDataElementByValue("box").should("have.css", "column-gap", "64px");
+      }
+    );
+
+    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, "20%", "20px"])(
+      "should verify columnGap prop sets expected CSS on Box and overrides gap if set",
+      (columnGap) => {
+        CypressMountWithProviders(
+          <BoxComponent display="flex" columnGap={columnGap} gap={8} />
+        );
+
+        getDataElementByValue("box").should("have.css", "row-gap", "64px");
+
+        getDataElementByValue("box").should(
+          "have.css",
+          "column-gap",
+          typeof columnGap === "number" ? `${columnGap * 8}px` : columnGap
+        );
+      }
+    );
   });
 });
