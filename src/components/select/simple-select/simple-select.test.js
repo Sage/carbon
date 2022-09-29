@@ -902,7 +902,7 @@ context("Tests for Simple Select component", () => {
 
         selectText().click();
         selectListPosition()
-          .should("have.attr", "data-popper-placement", position)
+          .should("have.attr", "data-floating-placement", position)
           .and("be.visible");
       }
     );
@@ -942,7 +942,7 @@ context("Tests for Simple Select component", () => {
 
         selectText().click();
         selectListPosition()
-          .should("have.attr", "data-popper-placement", flipPosition)
+          .should("have.attr", "data-floating-placement", flipPosition)
           .and("be.visible");
       }
     );
@@ -950,24 +950,18 @@ context("Tests for Simple Select component", () => {
     it.each([
       ["bottom", "0px", "0px", "0px", "0px"],
       ["top", "600px", "0px", "0px", "0px"],
-      ["right", "200px", "0px", "0px", "900px"],
-      ["left", "600px", "0px", "900px", "0px"],
+      ["bottom", "200px", "0px", "0px", "900px"],
+      ["top", "600px", "0px", "900px", "0px"],
     ])(
-      "should render list in %s position with the most space when listPosition is set to auto",
+      "should render list in %s position with the most space when listPosition is not set",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent
-            listPlacement="auto"
-            mt={top}
-            mb={bottom}
-            ml={left}
-            mr={right}
-          />
+          <SimpleSelectComponent mt={top} mb={bottom} ml={left} mr={right} />
         );
 
         selectText().click();
         selectListPosition()
-          .should("have.attr", "data-popper-placement", position)
+          .should("have.attr", "data-floating-placement", position)
           .and("be.visible");
       }
     );

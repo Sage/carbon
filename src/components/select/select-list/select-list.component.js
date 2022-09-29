@@ -7,6 +7,7 @@ import React, {
   useMemo,
 } from "react";
 import PropTypes from "prop-types";
+import { flip, offset } from "@floating-ui/dom";
 
 import useScrollBlock from "../../../hooks/__internal__/useScrollBlock";
 import {
@@ -30,21 +31,6 @@ import Option from "../option/option.component";
 import guid from "../../../__internal__/utils/helpers/guid";
 import SelectListContext from "../__internal__/select-list-context";
 
-const fixedPopoverModifiers = [
-  {
-    name: "offset",
-    options: {
-      offset: [0, 3],
-    },
-  },
-  {
-    name: "preventOverflow",
-    options: {
-      mainAxis: false,
-    },
-  },
-];
-
 const SelectList = React.forwardRef(
   (
     {
@@ -65,7 +51,7 @@ const SelectList = React.forwardRef(
       multiColumn,
       tableHeader,
       loaderDataRole,
-      listPlacement = "bottom-start",
+      listPlacement = "bottom",
       flipEnabled = true,
       isOpen,
       ...listProps
@@ -76,7 +62,6 @@ const SelectList = React.forwardRef(
     const [listHeight, setListHeight] = useState(0);
     const [listWidth, setListWidth] = useState(null);
     const [scrollbarWidth, setScrollbarWidth] = useState(0);
-    const placement = useRef("bottom");
     const lastFilter = useRef("");
     const listRef = useRef();
     const tableRef = useRef();
@@ -124,13 +109,6 @@ const SelectList = React.forwardRef(
         );
       }
     }, [multiColumn]);
-
-    const setPlacementCallback = useCallback(
-      (popper) => {
-        placement.current = popper.placement;
-      },
-      [placement]
-    );
 
     const anchorRef = useMemo(
       () => ({
@@ -434,13 +412,16 @@ const SelectList = React.forwardRef(
       }
     }, [children, currentOptionsListIndex, isLoading, lastOptionIndex]);
 
-    const popoverModifiers = useMemo(
+    const popoverMiddleware = useMemo(
       () => [
-        ...fixedPopoverModifiers,
-        {
-          name: "flip",
-          enabled: flipEnabled,
-        },
+        offset(3),
+        ...(flipEnabled
+          ? [
+              flip({
+                fallbackStrategy: "initialPlacement",
+              }),
+            ]
+          : []),
       ],
       [flipEnabled]
     );
@@ -471,9 +452,10 @@ const SelectList = React.forwardRef(
         placement={listPlacement}
         disablePortal={disablePortal}
         reference={anchorRef}
-        onFirstUpdate={setPlacementCallback}
-        modifiers={popoverModifiers}
+        middleware={popoverMiddleware}
         isOpen={isOpen}
+        disableBackgroundUI
+        animationFrame
       >
         <StyledPopoverContainer
           height={listHeight}
@@ -487,7 +469,6 @@ const SelectList = React.forwardRef(
           >
             <StyledSelectListContainer
               data-element="select-list-wrapper"
-              placement={placement.current}
               {...listProps}
             >
               <StyledSelectList
@@ -556,23 +537,7 @@ SelectList.propTypes = {
   /** Data role for loader component */
   loaderDataRole: PropTypes.string,
   /** Placement of the select list relative to the input element */
-  listPlacement: PropTypes.oneOf([
-    "auto",
-    "auto-start",
-    "auto-end",
-    "top",
-    "top-start",
-    "top-end",
-    "bottom",
-    "bottom-start",
-    "bottom-end",
-    "right",
-    "right-start",
-    "right-end",
-    "left",
-    "left-start",
-    "left-end",
-  ]),
+  listPlacement: PropTypes.oneOf(["top", "bottom", "right", "left"]),
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled: PropTypes.bool,
   /** @private @ignore

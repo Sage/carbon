@@ -180,7 +180,7 @@ const StyledDayPicker = styled.div`
   ${addReactDayPickerStyles}
 
   position: absolute;
-  height: 352px;
+  height: 346px;
   width: 352px;
   z-index: ${({ theme }) => theme.zIndex.popover};
 

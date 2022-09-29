@@ -1,19 +1,16 @@
 import React, { useCallback, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { mount, ReactWrapper } from "enzyme";
-import { createPopper } from "@popperjs/core";
 import { act } from "react-dom/test-utils";
 
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Popover, { PopoverProps } from "./popover.component";
 import Dialog from "../../components/dialog";
 import { StyledBackdrop } from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
+import useFloating from "../../hooks/__internal__/useFloating";
 
-jest.mock("@popperjs/core");
-jest.mock("../../hooks/__internal__/useResizeObserver");
-const useResizeObserverMock = useResizeObserver as jest.Mock;
-const createPopperMock = createPopper as jest.Mock;
+jest.mock("../../hooks/__internal__/useFloating");
+const useFloatingMock = useFloating as jest.Mock;
 
 const Component = (props: Partial<PopoverProps>) => {
   const [ref, setRef] = useState({ current: null });
@@ -130,62 +127,26 @@ describe("Popover", () => {
     });
   });
 
-  describe("popper -", () => {
-    const destroyFunc = jest.fn();
-    const updateFunc = jest.fn();
-
-    (createPopper as jest.Mock).mockImplementation(() => ({
-      destroy: destroyFunc,
-      update: updateFunc,
-    }));
-
-    it("popper instance is initialized again after props change", () => {
-      jest.clearAllMocks();
-
-      const myWrapper = mount(<Component />);
-
-      expect(createPopper).toHaveBeenCalledTimes(1);
-
-      myWrapper.setProps({ placement: "bottom" });
-
-      expect(createPopper).toHaveBeenCalledTimes(2);
-
-      myWrapper.unmount();
-    });
-
-    it("popper instance is destroyed on unmount", () => {
-      const myWrapper = mount(<Component />);
-
-      myWrapper.unmount();
-
-      expect(destroyFunc).toHaveBeenCalled();
-    });
-
-    it("popper instance is updated when reference element resizes", () => {
-      const myWrapper = mount(<Component />);
-
-      useResizeObserverMock.mock.calls[
-        useResizeObserverMock.mock.calls.length - 1
-      ][1]();
-
-      expect(updateFunc).toHaveBeenCalled();
-
-      myWrapper.unmount();
-    });
-
-    it("createPopper is called with proper arguments", () => {
-      const myWrapper = mount(<Component />);
-
-      const ref = myWrapper.find("#popover-container").getDOMNode();
-      const menu = myWrapper.find("#popover-children").getDOMNode();
-
-      expect(createPopperMock.mock.calls[0][0]).toEqual(ref);
-      expect(createPopperMock.mock.calls[0][1]).toEqual(menu);
-      expect(createPopperMock.mock.calls[0][2]).toMatchObject({
-        placement: "bottom-start",
+  describe("useFloating", () => {
+    it("calls useFloating with proper arguments", () => {
+      useFloatingMock.mockClear();
+      const wrapper = mount(
+        <Component isOpen placement="top" animationFrame />
+      );
+      act(() => {
+        wrapper.update();
       });
+      const call = useFloatingMock.mock.calls[1][0];
 
-      myWrapper.unmount();
+      expect(call.isOpen).toBe(true);
+      expect(call.reference).toEqual({
+        current: wrapper.find("#popover-container").getDOMNode(),
+      });
+      expect(call.floating).toEqual({
+        current: wrapper.find("#popover-children").getDOMNode(),
+      });
+      expect(call.placement).toBe("top");
+      expect(call.animationFrame).toBe(true);
     });
   });
 
@@ -243,17 +204,17 @@ describe("Popover", () => {
 
     it("when true, the popover content is visible", () => {
       wrapper = mount(<Component isOpen />);
-      expect(document.getElementById("popover-children")).toBeVisible();
+      expect(wrapper.find("#popover-children").getDOMNode()).toBeVisible();
     });
 
     it("when false, the popover content is not visible", () => {
       wrapper = mount(<Component isOpen={false} />);
-      expect(document.getElementById("popover-children")).not.toBeVisible();
+      expect(wrapper.find("#popover-children").getDOMNode()).not.toBeVisible();
     });
 
     it("when not provided, the popover content is visible", () => {
       wrapper = mount(<Component />);
-      expect(document.getElementById("popover-children")).toBeVisible();
+      expect(wrapper.find("#popover-children").getDOMNode()).toBeVisible();
     });
   });
 });
