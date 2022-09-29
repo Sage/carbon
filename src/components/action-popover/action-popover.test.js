@@ -658,18 +658,6 @@ context("Test for ActionPopover component", () => {
       actionPopoverButton().eq(0).click();
       actionPopover().eq(1).children().eq(0).should("not.be.focused");
     });
-
-    it.each([[0], [1]])(
-      "should have correct hover state of submenu item in ActionPopoverMenu",
-      (element) => {
-        CypressMountWithProviders(<ActionPopoverMenuWithProps />);
-
-        actionPopoverButton().eq(0).click();
-        actionPopoverInnerItem(element)
-          .realHover()
-          .should("have.css", "background-color", "rgb(204, 214, 219)");
-      }
-    );
   });
 
   describe("check events for ActionPopover component", () => {
