@@ -1036,6 +1036,40 @@ describe("Submenu component", () => {
           ).toBeFocused();
         });
       });
+
+      describe("when enter key pressed", () => {
+        it("it should navigate to href and close submenu", () => {
+          jest.useFakeTimers();
+          document.dispatchEvent(tabKey);
+          wrapper.update();
+
+          expect(document.activeElement).toMatchObject(
+            wrapper
+              .find(StyledSubmenu)
+              .find(StyledMenuItemWrapper)
+              .at(1)
+              .find("a")
+          );
+
+          act(() => {
+            wrapper
+              .find(StyledMenuItemWrapper)
+              .at(1)
+              .props()
+              .onKeyDown(events.enter);
+          });
+
+          wrapper.update();
+
+          act(() => {
+            jest.runAllTimers();
+          });
+
+          wrapper.update();
+
+          expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
+        });
+      });
     });
   });
 
