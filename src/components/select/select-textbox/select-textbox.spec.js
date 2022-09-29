@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { mount } from "enzyme";
-import { createPopper } from "@popperjs/core";
+import { act } from "react-dom/test-utils";
 
 import SelectTextbox from "./select-textbox.component";
 import Textbox from "../../textbox";
@@ -8,11 +8,10 @@ import InputPresentationStyle, {
   StyledInputPresentationContainer,
 } from "../../../__internal__/input/input-presentation.style";
 import guid from "../../../__internal__/utils/helpers/guid";
-import useResizeObserver from "../../../hooks/__internal__/useResizeObserver";
 import Translation from "../../../locales/en-gb";
+import useFloating from "../../../hooks/__internal__/useFloating";
 
-jest.mock("@popperjs/core");
-jest.mock("../../../hooks/__internal__/useResizeObserver");
+jest.mock("../../../hooks/__internal__/useFloating");
 jest.mock("../../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-123");
 
@@ -29,56 +28,33 @@ const Component = (props) => {
 };
 
 describe("SelectTextbox", () => {
-  describe("popper - ", () => {
-    const destroyFunc = jest.fn();
-    const updateFunc = jest.fn();
-
-    createPopper.mockImplementation(() => ({
-      destroy: destroyFunc,
-      update: updateFunc,
-    }));
-
-    it("popper instance is initialized when isOpen is true", () => {
-      jest.clearAllMocks();
-
-      mount(<Component isOpen />);
-
-      expect(createPopper).toHaveBeenCalledTimes(1);
-    });
-
-    it("popper instance is destroyed on unmount", () => {
-      const myWrapper = mount(<Component isOpen />);
-
-      myWrapper.unmount();
-
-      expect(destroyFunc).toHaveBeenCalled();
-    });
-
-    it("createPopper is called with proper arguments", () => {
-      jest.clearAllMocks();
-
-      const myWrapper = mount(<Component isOpen />);
-
-      const reference = myWrapper
-        .find(StyledInputPresentationContainer)
-        .getDOMNode();
-      const popper = myWrapper.find(InputPresentationStyle).getDOMNode();
-
-      expect(createPopper.mock.calls[0][0]).toEqual(reference);
-      expect(createPopper.mock.calls[0][1]).toEqual(popper);
-      expect(createPopper.mock.calls[0][2]).toMatchObject({
-        strategy: "fixed",
+  describe("useFloating", () => {
+    it("calls useFloating with proper argument", () => {
+      useFloating.mockClear();
+      const wrapper = mount(<Component isOpen />);
+      act(() => {
+        wrapper.update();
       });
-    });
+      const call = useFloating.mock.calls[1][0];
 
-    it("popper instance is updated when reference element resizes", () => {
-      mount(<Component isOpen />);
+      expect(call.isOpen).toBe(true);
+      expect(call.reference).toEqual({
+        current: wrapper.find(StyledInputPresentationContainer).getDOMNode(),
+      });
+      expect(call.floating).toEqual({
+        current: wrapper.find(InputPresentationStyle).getDOMNode(),
+      });
+      expect(call.animationFrame).toBe(true);
+      expect(call.strategy).toBe("fixed");
 
-      useResizeObserver.mock.calls[
-        useResizeObserver.mock.calls.length - 1
-      ][1]();
+      const rects = { reference: { height: 40, width: 0, y: 0, x: 0 } };
 
-      expect(updateFunc).toHaveBeenCalled();
+      expect(
+        call.middleware?.[0]?.options?.({
+          rects,
+          placement: "bottom",
+        })
+      ).toEqual({ mainAxis: -40 });
     });
   });
 

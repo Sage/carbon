@@ -278,7 +278,7 @@ When("pageSize select list is opened", () => {
 
 Then("pageSizeSelectList is visible at the {word}", (position) => {
   flatTablePageSelectListPosition()
-    .should("have.attr", "data-popper-placement", `${position}-start`)
+    .should("have.attr", "data-floating-placement", position)
     .and("be.visible");
 });
 

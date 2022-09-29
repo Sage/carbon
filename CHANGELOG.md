@@ -1,3 +1,20 @@
+## [111.0.0](https://github.com/Sage/carbon/compare/v110.11.1...v111.0.0) (2022-09-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **select:** listPlacement prop interface on all Select components has been changed -
+ only `top`, `bottom`, `left` and `right` are valid values now
+
+### Features
+
+* add internal useFloating hook ([cd73ec8](https://github.com/Sage/carbon/commit/cd73ec8b58d5887b0297fa0c0c0604879c8c313b))
+
+
+### Bug Fixes
+
+* **select:** fix issue with list not updating position after layout change ([f3b22d9](https://github.com/Sage/carbon/commit/f3b22d9538d65c2fdb26d8dee1b8f417fd1e42ef))
+
 ### [110.11.1](https://github.com/Sage/carbon/compare/v110.11.0...v110.11.1) (2022-09-28)
 
 

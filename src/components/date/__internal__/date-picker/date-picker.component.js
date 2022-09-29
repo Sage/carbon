@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import DayPicker from "react-day-picker";
+import { flip, offset } from "@floating-ui/dom";
 
 import { getDisabledDays } from "../utils";
 import Popover from "../../../../__internal__/popover";
@@ -8,6 +9,13 @@ import useLocale from "../../../../hooks/__internal__/useLocale";
 import Navbar from "../navbar";
 import Weekday from "../weekday";
 import StyledDayPicker from "./day-picker.style";
+
+const popoverMiddleware = [
+  offset(3),
+  flip({
+    fallbackStrategy: "initialPlacement",
+  }),
+];
 
 const DatePicker = React.forwardRef(
   (
@@ -61,24 +69,6 @@ const DatePicker = React.forwardRef(
       [l, localize]
     );
 
-    const popoverModifiers = useMemo(
-      () => [
-        {
-          name: "offset",
-          options: {
-            offset: [0, 3],
-          },
-        },
-        {
-          name: "preventOverflow",
-          options: {
-            mainAxis: false,
-          },
-        },
-      ],
-      []
-    );
-
     const handleDayClick = (date, { disabled }, ev) => {
       if (!disabled) {
         const { id, name } = inputElement?.current?.firstChild;
@@ -104,7 +94,7 @@ const DatePicker = React.forwardRef(
       <Popover
         placement="bottom-start"
         reference={inputElement}
-        modifiers={popoverModifiers}
+        middleware={popoverMiddleware}
         disablePortal={disablePortal}
       >
         <StyledDayPicker ref={ref} onMouseDown={pickerMouseDown}>

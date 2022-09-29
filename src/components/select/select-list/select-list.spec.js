@@ -14,7 +14,6 @@ import OptionGroupHeader from "../option-group-header/option-group-header.compon
 import ListActionButton from "../list-action-button/list-action-button.component";
 import Loader from "../../loader";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import StyledSelectListContainer from "./select-list-container.style";
 import Popover from "../../../__internal__/popover";
 import * as guidModule from "../../../__internal__/utils/helpers/guid";
 import StyledOption from "../option/option.style";
@@ -693,6 +692,19 @@ describe("SelectList", () => {
   });
 
   describe("popover", () => {
+    it("renders Popover with correct props", () => {
+      const wrapper = renderSelectList();
+
+      expect(wrapper.find(Popover).props().disableBackgroundUI).toBe(true);
+      expect(wrapper.find(Popover).props().animationFrame).toBe(true);
+      expect(wrapper.find(Popover).props().middleware[0]).toMatchObject({
+        name: "offset",
+        options: 3,
+      });
+      expect(wrapper.find(Popover).props().middleware[1]).toMatchObject({
+        name: "flip",
+      });
+    });
     it("renders SelectList as a child of Popover with disablePortal=undefined by default", () => {
       const wrapper = renderSelectList();
       expect(wrapper.find(Popover).find(StyledSelectList).exists()).toBe(true);
@@ -703,18 +715,6 @@ describe("SelectList", () => {
       const wrapper = renderSelectList({ disablePortal: true });
       expect(wrapper.find(Popover).find(StyledSelectList).exists()).toBe(true);
       expect(wrapper.find(Popover).props().disablePortal).toBe(true);
-    });
-
-    it("renders StyledSelectListContainer with bottom:0 style when placement is passed as top-start", () => {
-      const wrapper = mount(
-        <StyledSelectListContainer placement="top-start" />
-      );
-      assertStyleMatch(
-        {
-          bottom: "0",
-        },
-        wrapper
-      );
     });
 
     it.each([

@@ -1,43 +1,23 @@
-import React, { useRef, useLayoutEffect, useMemo } from "react";
+import React, { useRef, useMemo } from "react";
 import PropTypes from "prop-types";
-import { createPopper } from "@popperjs/core";
+import { offset, size as sizeMiddleware } from "@floating-ui/dom";
 
+import useFloating from "../../../hooks/__internal__/useFloating";
 import Textbox from "../../textbox";
 import SelectText from "../__internal__/select-text/select-text.component";
 import guid from "../../../__internal__/utils/helpers/guid";
 import useLocale from "../../../hooks/__internal__/useLocale";
-import useResizeObserver from "../../../hooks/__internal__/useResizeObserver";
 
-const modifiers = [
-  {
-    name: "flip",
-    enabled: false,
-  },
-  {
-    name: "offset",
-    options: {
-      offset: ({ placement, reference }) => {
-        if (placement === "bottom") {
-          return [0, -reference.height];
-        }
-        return [];
-      },
+const floatingMiddleware = [
+  offset(({ rects }) => ({
+    mainAxis: -rects.reference.height,
+  })),
+  sizeMiddleware({
+    apply({ rects, elements }) {
+      elements.reference.style.height = `${rects.floating.height}px`;
+      elements.floating.style.width = `${rects.reference.width}px`;
     },
-  },
-  {
-    name: "sameDimensions",
-    enabled: true,
-    phase: "beforeWrite",
-    requires: ["computeStyles"],
-    fn: ({ state }) => {
-      state.styles.popper.width = `${state.rects.reference.width}px`;
-      state.styles.reference.height = `${state.rects.popper.height}px`;
-    },
-    effect: ({ state }) => {
-      state.elements.popper.style.width = `${state.elements.reference.offsetWidth}px`;
-      state.elements.reference.height = `${state.elements.popper.height}px`;
-    },
-  },
+  }),
 ];
 
 const SelectTextbox = ({
@@ -62,42 +42,28 @@ const SelectTextbox = ({
   activeDescendantId,
   ...restProps
 }) => {
-  const popperInstance = useRef();
+  const reference = useMemo(
+    () => ({
+      current: textboxRef?.parentElement.parentElement,
+    }),
+    [textboxRef]
+  );
 
-  useLayoutEffect(() => {
-    if (textboxRef && isOpen) {
-      popperInstance.current = createPopper(
-        textboxRef.parentElement.parentElement,
-        textboxRef.parentElement,
-        {
-          strategy: "fixed",
-          modifiers,
-        }
-      );
-    }
-
-    return () => {
-      if (popperInstance.current) {
-        popperInstance.current.destroy();
-        popperInstance.current = null;
-      }
-    };
-  }, [textboxRef, isOpen]);
-
-  const resizeObserverRef = useMemo(
+  const floating = useMemo(
     () => ({
       current: textboxRef?.parentElement,
     }),
     [textboxRef]
   );
 
-  useResizeObserver(
-    resizeObserverRef,
-    () => {
-      popperInstance?.current?.update();
-    },
-    !isOpen
-  );
+  useFloating({
+    isOpen,
+    reference,
+    floating,
+    strategy: "fixed",
+    animationFrame: true,
+    middleware: floatingMiddleware,
+  });
 
   const l = useLocale();
   const textId = useRef(guid());
