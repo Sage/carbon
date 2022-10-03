@@ -30,7 +30,6 @@
     "clean-lib": "rimraf ./lib && rimraf ./esm",
     "commit": "git-cz",
     "generate-metadata": "node ./scripts/generate_metadata/index.mjs",
-    "generate-proptypes": "ts-node ./scripts/generate_proptypes/index.ts",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build:types": "tsc -p tsconfig-build.json --emitDeclarationOnly --outDir ./lib && tsc -p tsconfig-build.json --emitDeclarationOnly --outDir ./esm"
