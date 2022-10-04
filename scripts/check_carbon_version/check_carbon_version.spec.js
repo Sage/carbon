@@ -33,13 +33,18 @@ describe("checkCarbonVersion script", () => {
     consoleLogMock.mockRestore();
   });
 
-  describe("when not being run in Bitrise CI", () => {
+  describe("when not being run in CI", () => {
     it("should run and call console log", () => {
+      jest.resetModules();
+      const OLD_ENV = process.env.NODE_ENV;
+      process.env.NODE_ENV = "test";
+
       fetch.mockResponse(JSON.stringify(mockLatestMoreThanOneAhead));
       checkCarbonVersion();
 
-      // this flag is set when run in Carbon's CI pipeline so test fails
       expect(consoleLogMock).toHaveBeenCalled();
+
+      process.env.NODE_ENV = OLD_ENV;
     });
 
     it("should run but not console log if the version numbers are less than 1 apart", () => {
@@ -50,9 +55,9 @@ describe("checkCarbonVersion script", () => {
     });
   });
 
-  it("should not run the script when being run in Bitrise CI", () => {
+  it("should not run the script when being run in CI", () => {
     fetch.mockResponse(JSON.stringify(mockLatestMoreThanOneAhead));
-    ci.BITRISE = true;
+    ci.isCI = true;
     checkCarbonVersion();
 
     expect(consoleLogMock).not.toHaveBeenCalled();
