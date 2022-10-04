@@ -1,14 +1,11 @@
-import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
 
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
-import Link from "./link.component";
-import Box from "../box";
-import { Menu, MenuItem } from "../menu";
-import Typography from "../typography";
+import Link from ".";
+import * as stories from "./link.stories";
 
-<Meta title="Link" parameters={{ info: { disable: true } }} />
+<Meta title="Link" component={Link} parameters={{ info: { disable: true }, controls: { disable: true } }} />
 
 # Link
 
@@ -48,15 +45,7 @@ By default an anchor element will be rendered.
 `target` and `rel` props will be passed down to the anchor element when provided.
 
 <Canvas>
-  <Story name="default">
-    <Link
-      href="https://carbon.sage.com"
-      target="_blank"
-      rel="noreferrer noopener"
-    >
-      This is a link
-    </Link>
-  </Story>
+  <Story name="default" story={stories.DefaultStory}/>
 </Canvas>
 
 ### Disabled
@@ -66,9 +55,7 @@ Setting the `disabled` prop to true disables the link.
 **Please note**: To disable an anchor, the `href` prop must not be defined.
 
 <Canvas>
-  <Story name="with disabled">
-    <Link disabled>This is a disabled anchor link</Link>
-  </Story>
+  <Story name="with disabled" story={stories.WithDisabled} />
 </Canvas>
 
 ### Icon
@@ -76,11 +63,7 @@ Setting the `disabled` prop to true disables the link.
 The `icon` prop allows you to render an icon.
 
 <Canvas>
-  <Story name="with icon" parameters={{ chromatic: { disable: true } }}>
-    <Link icon="settings" href="#foo">
-      This is a link
-    </Link>
-  </Story>
+  <Story name="with icon" story={stories.WithIcon} />
 </Canvas>
 
 #### Icon Align
@@ -90,17 +73,7 @@ The `iconAlign` prop allows you to control if the icon renders to left or right 
 **Please note**: To be used only when the `icon` prop is defined.
 
 <Canvas>
-  <Story name="with iconAlign">
-    {() => {
-      return ["left", "right"].map((align) => (
-        <div style={{ margin: "64px" }}>
-          <Link icon="settings" iconAlign={`${align}`} href="#foo">
-            This is a link
-          </Link>
-        </div>
-      ));
-    }}
-  </Story>
+  <Story name="with iconAlign" story={stories.WithIconAlign} />
 </Canvas>
 
 #### Tooltip
@@ -110,17 +83,7 @@ By rendering an icon and providing a string to the `tooltipMessage` prop, a tool
 **Please note**: To be used only when the `icon` prop is defined.
 
 <Canvas>
-  <Story name="with tooltip" parameters={{ chromatic: { disable: true } }}>
-    <div style={{ margin: "64px" }}>
-      <Link
-        icon="settings"
-        tooltipMessage="This is a tooltip message"
-        href="#foo"
-      >
-        This is a link
-      </Link>
-    </div>
-  </Story>
+  <Story name="with tooltip" story={stories.WithTooltip} />
 </Canvas>
 
 ### isSkipLink
@@ -131,39 +94,7 @@ It allows a user to jump into the main content without going through the whole `
 To show how it works, press the TAB key and you will be able to see how `Skip Link` will displays.
 
 <Canvas>
-  <Story name="with isSkipLink" parameters={{ chromatic: { disable: true } }}>
-    <Link href="#main-content" isSkipLink />
-    <Menu>
-      <MenuItem href="#">Menu Item 1</MenuItem>
-      <MenuItem href="#">Menu Item 2</MenuItem>
-      <MenuItem href="#">Menu Item 3</MenuItem>
-      <MenuItem href="#">Menu Item 4</MenuItem>
-      <MenuItem href="#">Menu Item 5</MenuItem>
-    </Menu>
-    <Box py={2} id="main-content">
-      <Typography mb={1} variant="h1">
-        {" "}
-        This is header of main content container{" "}
-      </Typography>
-      <Typography variant="p">
-        Laborum anim magna pariatur ea mollit elit cillum exercitation irure
-        consectetur. Lorem qui dolor reprehenderit reprehenderit ut ad. Esse
-        magna aliquip ea culpa nulla laborum deserunt cupidatat ullamco fugiat
-        in enim. Sunt velit tempor anim occaecat. Culpa ut consectetur sunt
-        tempor eu est deserunt veniam. Voluptate commodo consequat ipsum aliquip
-        elit aute pariatur occaecat eiusmod culpa dolore voluptate Lorem
-        commodo. Consectetur anim exercitation esse irure est amet adipisicing
-        cupidatat laborum non commodo id. Ex id nostrud aute deserunt. Qui non
-        aute ea eu commodo anim labore dolor minim enim cillum eiusmod commodo
-        ipsum. Consectetur ipsum consectetur Lorem tempor proident cillum eu
-        minim. Adipisicing in nostrud sit Lorem ex aute tempor aliquip aute.
-        Duis dolore laboris labore exercitation enim dolore anim occaecat anim
-        laboris dolor ut. Lorem ullamco adipisicing duis aute non minim.
-        Adipisicing consequat labore non aliquip anim.
-      </Typography>
-      <Link href="https://carbon.sage.com">Carbon Page</Link>
-    </Box>
-  </Story>
+  <Story name="with isSkipLink" story={stories.WithIsSkipLink} />
 </Canvas>
 
 ### onClick
@@ -177,39 +108,14 @@ HTML `<a>` tag is used instead. See for example our [React Router docs](?path=/d
 perform client-side routing, but still provide the `href` to render an HTML link rather than a button.
 
 <Canvas>
-  <Story name="with onClick" parameters={{ chromatic: { disable: true } }}>
-    <Link onClick={() => {}}>
-      This is actually a button but looks like a link
-    </Link>
-  </Story>
+  <Story name="with onClick" story={stories.WithOnClick} />
 </Canvas>
 
 ### variants
 
 Setting the `variant` prop to either `negative` or `neutral` enables overriding of the `default` styling of the `Link` component.
 <Canvas>
-  <Story name="variants">
-    <>
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        variant="negative"
-      >
-        This is a link
-      </Link>
-      <br />
-      <br />
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        variant="neutral"
-      >
-        This is a link
-      </Link>
-    </>
-  </Story>
+  <Story name="variants" story={stories.Variants} />
 </Canvas>
 
 ### On a dark background
@@ -218,76 +124,7 @@ When the `Link` component is rendered on a dark background, the `isDarkBackgroun
 to ensure there is enough contrast. 
 
 <Canvas>
-  <Story name="on a dark background">
-    <div style={{
-      backgroundColor: "#000000",
-      width: "max-content",
-      padding: "20px 10px",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center"
-    }}>
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        isDarkBackground
-      >
-        This is a link
-      </Link>
-      {["left", "right"].map((align) => (
-        <React.Fragment key={`${align}-default-variant`}>
-          <br />
-          <Link icon="settings" isDarkBackground iconAlign={align} href="#foo">
-            This is a link
-          </Link>
-        </React.Fragment>
-      ))}
-      <br />
-       <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        isDarkBackground
-        variant="negative"
-      >
-        This is a link
-      </Link>
-      {["left", "right"].map((align) => (
-        <React.Fragment key={`${align}-negative-variant`}>
-          <br />
-          <Link icon="settings" isDarkBackground variant="negative" iconAlign={align} href="#foo">
-            This is a link
-          </Link>
-        </React.Fragment>
-      ))}
-      <br />
-       <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        isDarkBackground
-        variant="neutral"
-      >
-        This is a link
-      </Link>
-      {["left", "right"].map((align) => (
-        <React.Fragment key={`${align}-neutral-variant`}>
-          <br />
-          <Link icon="settings" isDarkBackground variant="neutral" iconAlign={align} href="#foo">
-            This is a link
-          </Link>
-        </React.Fragment>
-      ))}
-      <br />
-      <Link
-        isDarkBackground
-        disabled
-       >
-        This is a link
-      </Link>
-    </div>
-  </Story>
+  <Story name="on a dark background" story={stories.OnADarkBackground}/>
 </Canvas>
 
 ## Props
