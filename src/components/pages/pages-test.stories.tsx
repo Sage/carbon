@@ -62,7 +62,11 @@ export const DefaultStory = ({ initialPageIndex }: PageStoryProps) => {
     action("slide")(`Page index: ${pageIndex + 1}`);
   };
   const handleBackClick = (
-    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+    ev:
+      | React.MouseEvent<HTMLAnchorElement>
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLButtonElement>
   ) => {
     setIsDisabled(true);
     setTimeout(() => {

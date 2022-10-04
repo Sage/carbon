@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import PreviewBars, { StyledPreview } from "../preview/preview.style";
+import { StyledPreview } from "../preview/preview.style";
+import { StyledPreviewPlaceholder } from "../preview/__internal__/preview-placeholder.style";
 
 const StyledLinkPreview = styled.a`
   display: flex;
@@ -45,11 +46,11 @@ const StyledPreviewWrapper = styled.div`
       }
     `}
 
-  ${PreviewBars}:first-of-type {
+  ${StyledPreviewPlaceholder}:first-of-type {
     margin-top: 8px;
   }
 
-  ${PreviewBars}:not(:first-of-type) {
+  ${StyledPreviewPlaceholder}:not(:first-of-type) {
     margin-top: 16px;
   }
 `;

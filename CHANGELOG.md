@@ -1,3 +1,55 @@
+### [111.0.2](https://github.com/Sage/carbon/compare/v111.0.1...v111.0.2) (2022-09-29)
+
+
+### Bug Fixes
+
+* **menu:** ensure submenu closes when enter key is pressed ([04f5045](https://github.com/Sage/carbon/commit/04f504507e1f0a826806012301c7b5ee142cc98e)), closes [#4792](https://github.com/Sage/carbon/issues/4792)
+
+### [111.0.1](https://github.com/Sage/carbon/compare/v111.0.0...v111.0.1) (2022-09-29)
+
+
+### Bug Fixes
+
+* **flat-table:** correct alignment of focus outline ([87f464b](https://github.com/Sage/carbon/commit/87f464b5f40f4c0d379a00f06f25a78469af29c6)), closes [#5403](https://github.com/Sage/carbon/issues/5403)
+
+## [111.0.0](https://github.com/Sage/carbon/compare/v110.11.1...v111.0.0) (2022-09-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **select:** listPlacement prop interface on all Select components has been changed -
+ only `top`, `bottom`, `left` and `right` are valid values now
+
+### Features
+
+* add internal useFloating hook ([cd73ec8](https://github.com/Sage/carbon/commit/cd73ec8b58d5887b0297fa0c0c0604879c8c313b))
+
+
+### Bug Fixes
+
+* **select:** fix issue with list not updating position after layout change ([f3b22d9](https://github.com/Sage/carbon/commit/f3b22d9538d65c2fdb26d8dee1b8f417fd1e42ef))
+
+### [110.11.1](https://github.com/Sage/carbon/compare/v110.11.0...v110.11.1) (2022-09-28)
+
+
+### Bug Fixes
+
+* **multi-action-button:** ensure that enter and space keys trigger onClick callback ([6d0f6e8](https://github.com/Sage/carbon/commit/6d0f6e8dd18f0b5ee908b7f94fb1776a00d217d2)), closes [#5472](https://github.com/Sage/carbon/issues/5472)
+
+## [110.11.0](https://github.com/Sage/carbon/compare/v110.10.3...v110.11.0) (2022-09-27)
+
+
+### Features
+
+* **progress-tracker:** add default value for aria-valuenow ([434911d](https://github.com/Sage/carbon/commit/434911d8e8c5a82df5b600f3d1eb32b9deed0964))
+
+### [110.10.3](https://github.com/Sage/carbon/compare/v110.10.2...v110.10.3) (2022-09-23)
+
+
+### Bug Fixes
+
+* **tabs:** update type definition for validationStatusOverride prop ([19bb18f](https://github.com/Sage/carbon/commit/19bb18f16fbfbca6342825d395a2f73c63597472))
+
 ### [110.10.2](https://github.com/Sage/carbon/compare/v110.10.1...v110.10.2) (2022-09-22)
 
 

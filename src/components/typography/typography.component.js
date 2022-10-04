@@ -243,4 +243,6 @@ Typography.propTypes = {
   /** Apply truncation */
   truncate: PropTypes.bool,
 };
+
+Typography.displayName = "Typography";
 export default Typography;

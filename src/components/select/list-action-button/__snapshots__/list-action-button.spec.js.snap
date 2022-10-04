@@ -114,14 +114,8 @@ exports[`Option renders properly 1`] = `
   box-shadow: 0 0px 0 0 rgba(0,0,0,0),0 -8px 8px 0 rgba(0,0,0,0.03);
 }
 
-.c0 .c3 {
-  color: var(--colorsUtilityYin090);
-}
-
 .c0 .c1 {
-  background: transparent;
   border: none;
-  color: var(--colorsUtilityYin090);
   -webkit-box-pack: left;
   -webkit-justify-content: left;
   -ms-flex-pack: left;
@@ -129,14 +123,6 @@ exports[`Option renders properly 1`] = `
   padding-left: var(--spacing200);
   padding-right: var(--spacing200);
   width: 100%;
-}
-
-.c0 .c1:hover {
-  background-color: var(--colorsUtilityMajor025);
-}
-
-.c0 .c1:hover .c3 {
-  color: var(--colorsUtilityYin090);
 }
 
 <div

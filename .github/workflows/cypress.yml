@@ -20,7 +20,7 @@ jobs:
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
-        # run 15 copies of the current job in parallel
+        # run 5 copies of the current job in parallel
         containers:
           [
             1,
@@ -28,16 +28,6 @@ jobs:
             3,
             4,
             5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            13,
-            14,
-            15,
           ]
     container: 
       image: cypress/browsers:node16.14.2-slim-chrome103-ff102
@@ -114,11 +104,14 @@ jobs:
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
-        # run 2 copy of the current job in parallel
+        # run 5 copy of the current job in parallel
         containers:
           [
             1,
             2,
+            3,
+            4,
+            5,
           ]
     container: 
       image: cypress/browsers:node16.14.2-slim-chrome103-ff102
@@ -193,7 +186,7 @@ jobs:
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
-        # run 10 copies of the current job in parallel
+        # run 7 copies of the current job in parallel
         containers:
           [
             1,
@@ -203,9 +196,6 @@ jobs:
             5,
             6,
             7,
-            8,
-            9,
-            10,
           ]
     container: 
       image: cypress/browsers:node16.14.2-slim-chrome103-ff102

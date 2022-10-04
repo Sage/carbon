@@ -1,9 +1,13 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import Content from "./content.component.js";
+import Content from ".";
+import * as stories from "./content.stories.tsx";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Typography from "../typography";
 
-<Meta title="Content" parameters={{ info: { disable: true } }} />
+<Meta
+  title="Content"
+  parameters={{ info: { disable: true }, controls: { disabled: true } }}
+/>
 
 # Content
 
@@ -29,44 +33,25 @@ import Content from "carbon-react/lib/components/content";
 ### Default content
 
 <Canvas>
-  <Story name="default">
-    <Content title="Title" variant="primary">
-      This is an example of some content
-    </Content>
-  </Story>
+  <Story name="default" story={stories.DefaultStory}/>
 </Canvas>
 
 ### Inline content
 
 <Canvas>
-  <Story name="inline">
-    <Content title="Title" inline>
-      This is an example of some content
-    </Content>
-  </Story>
+  <Story name="inline" story={stories.InlineContent}/>
 </Canvas>
 
 ### Custom title
 
 <Canvas>
-  <Story name="custom title">
-    <Content
-      title={<Typography color="primary">Title</Typography>}
-      variant="primary"
-    >
-      This is an example of some content
-    </Content>
-  </Story>
+  <Story name="custom title" story={stories.CustomTitle}/>
 </Canvas>
 
 ### Secondary styling
 
 <Canvas>
-  <Story name="secondary styling">
-    <Content title="Title" variant="secondary">
-      This is an example of some content
-    </Content>
-  </Story>
+  <Story name="secondary styling" story={stories.SecondaryStyling}/>
 </Canvas>
 
 ## Props

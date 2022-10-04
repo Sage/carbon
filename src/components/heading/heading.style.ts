@@ -23,7 +23,13 @@ const StyledHeaderContent = styled.div`
   align-items: flex-end;
 `;
 
-const StyledHeader = styled.div`
+type StyledHeaderProps = {
+  divider?: boolean;
+  subheader?: boolean;
+  hasBackLink?: boolean;
+};
+
+const StyledHeader = styled.div<StyledHeaderProps>`
   ${({ divider, subheader, hasBackLink }) => css`
     ${subheader &&
     css`
@@ -77,7 +83,11 @@ const StyledHeadingBackButton = styled(Link)`
   }
 `;
 
-const StyledHeadingTitle = styled(Typography)`
+type StyledHeadingTitleProps = {
+  withMargin?: boolean;
+};
+
+const StyledHeadingTitle = styled(Typography)<StyledHeadingTitleProps>`
   line-height: 32px;
   ${({ withMargin }) =>
     withMargin
@@ -93,7 +103,12 @@ const StyledHeadingPills = styled.span`
   vertical-align: top;
 `;
 
-const StyledSubHeader = styled.div`
+type StyledSubHeaderProps = {
+  hasBackLink?: boolean;
+  hasSeparator?: boolean;
+};
+
+const StyledSubHeader = styled.div<StyledSubHeaderProps>`
   margin-top: 5px;
   grid-row: 2;
 

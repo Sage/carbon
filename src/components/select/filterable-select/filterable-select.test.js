@@ -1081,7 +1081,7 @@ context("Tests for Filterable Select component", () => {
 
         dropdownButton().click();
         selectListPosition()
-          .should("have.attr", "data-popper-placement", flipPosition)
+          .should("have.attr", "data-floating-placement", flipPosition)
           .and("be.visible");
       }
     );
@@ -1089,14 +1089,13 @@ context("Tests for Filterable Select component", () => {
     it.each([
       ["bottom", "0px", "0px", "0px", "0px"],
       ["top", "600px", "0px", "0px", "0px"],
-      ["right", "200px", "0px", "0px", "900px"],
-      ["left", "600px", "0px", "900px", "0px"],
+      ["bottom", "200px", "0px", "0px", "900px"],
+      ["top", "600px", "0px", "900px", "0px"],
     ])(
-      "should render list in %s position with the most space when listPosition is set to auto",
+      "should render list in %s position with the most space when listPosition is not set",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
           <FilterableSelectComponent
-            listPlacement="auto"
             mt={top}
             mb={bottom}
             ml={left}
@@ -1106,7 +1105,7 @@ context("Tests for Filterable Select component", () => {
 
         dropdownButton().click();
         selectListPosition()
-          .should("have.attr", "data-popper-placement", position)
+          .should("have.attr", "data-floating-placement", position)
           .and("be.visible");
       }
     );
@@ -1241,6 +1240,17 @@ context("Tests for Filterable Select component", () => {
       alertDialogPreview().should("be.visible");
       filterableSelectAddNewButton().should("be.visible").click();
       getDataElementByValue("input").should("have.attr", "value", newOption);
+    });
+
+    it("should have correct hover state of list option", () => {
+      CypressMountWithProviders(<FilterableSelectComponent />);
+
+      const optionValue = "Blue";
+
+      dropdownButton().click();
+      selectListText(optionValue)
+        .realHover()
+        .should("have.css", "background-color", "rgb(204, 214, 219)");
     });
   });
 

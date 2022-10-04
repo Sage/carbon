@@ -1,18 +1,18 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
-
+import React from "react";
 import Tile from ".";
+import { TileProps } from "./tile";
 import Content from "../content";
 import { TILE_ORIENTATIONS, TILE_THEMES } from "./tile.config";
 
-<Meta
-  title="Tile/Test"
-  parameters={{
+export default {
+  title: "Tile/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     variant: {
       options: TILE_THEMES,
       control: {
@@ -25,10 +25,22 @@ import { TILE_ORIENTATIONS, TILE_THEMES } from "./tile.config";
         type: "select",
       },
     },
-  }}
-/>
+  },
+};
 
-export const TileStory = ({
+interface TileStoryProps {
+  contentOneChildren?: string;
+  contentOneTitle?: string;
+  contentOneWidth?: string;
+  contentTwoChildren?: string;
+  contentTwoTitle?: string;
+  contentTwoWidth?: string;
+  contentThreeChildren?: string;
+  contentThreeTitle?: string;
+  contentThreeWidth?: string;
+}
+
+export const DefaultStory = ({
   contentOneChildren,
   contentOneTitle,
   contentOneWidth,
@@ -38,9 +50,8 @@ export const TileStory = ({
   contentThreeChildren,
   contentThreeTitle,
   contentThreeWidth,
-  title,
   ...args
-}) => {
+}: TileProps & TileStoryProps) => {
   const contentOneProps = {
     key: "one",
     children: contentOneChildren,
@@ -67,28 +78,18 @@ export const TileStory = ({
   return <Tile {...args}>{tileContent}</Tile>;
 };
 
-# Tile
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      variant: "tile",
-      orientation: "horizontal",
-      width: "",
-      contentOneChildren: "Test Body One",
-      contentOneTitle: "Test Title One",
-      contentOneWidth: "",
-      contentTwoChildren: "Test Body Two",
-      contentTwoTitle: "Test Title Two",
-      contentTwoWidth: "",
-      contentThreeChildren: "Test Body Three",
-      contentThreeTitle: "Test Title Three",
-      contentThreeWidth: "",
-    }}
-  >
-    {TileStory.bind({})}
-  </Story>
-</Canvas>
+DefaultStory.storyName = "default";
+DefaultStory.args = {
+  variant: "tile",
+  orientation: "horizontal",
+  width: "",
+  contentOneChildren: "Test Body One",
+  contentOneTitle: "Test Title One",
+  contentOneWidth: "",
+  contentTwoChildren: "Test Body Two",
+  contentTwoTitle: "Test Title Two",
+  contentTwoWidth: "",
+  contentThreeChildren: "Test Body Three",
+  contentThreeTitle: "Test Title Three",
+  contentThreeWidth: "",
+};

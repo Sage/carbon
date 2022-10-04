@@ -195,6 +195,12 @@ const Submenu = React.forwardRef(
             setCharacterString("");
           }
 
+          if (Events.isEnterKey(event)) {
+            /* timeout enforces that the "closeSubmenu" method will be run after 
+              the browser navigates to the specified href of the menu-item. */
+            setTimeout(() => closeSubmenu());
+          }
+
           if (href && index === undefined) {
             if (
               Events.isEnterKey(event) ||

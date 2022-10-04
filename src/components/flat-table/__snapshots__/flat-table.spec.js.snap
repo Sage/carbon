@@ -108,7 +108,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
   min-width: 100%;
   table-layout: fixed;
   width: auto;
-  outline: 2px solid #0000;
 }
 
 .c5 [data-component="icon"]:not([color]) {
