@@ -8,7 +8,17 @@ import StyledIcon from "../icon/icon.style";
 import { baseTheme } from "../../style/themes";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 
-const StyledSearch = styled.div`
+interface StyledSearchProps {
+  name?: string;
+  isFocused?: boolean;
+  searchHasValue?: boolean;
+  searchIsActive?: boolean;
+  searchWidth?: string;
+  showSearchButton?: boolean;
+  variant?: string;
+}
+
+const StyledSearch = styled.div<StyledSearchProps>`
   ${({
     isFocused,
     searchWidth,
