@@ -1,3 +1,10 @@
+### [111.0.3](https://github.com/Sage/carbon/compare/v111.0.2...v111.0.3) (2022-10-04)
+
+
+### Bug Fixes
+
+* **multi-select:** ensure aria-selected has the correct value ([0e1f314](https://github.com/Sage/carbon/commit/0e1f31427293731f1301aad0ff2a8fac1a4059e4)), closes [#5272](https://github.com/Sage/carbon/issues/5272)
+
 ### [111.0.2](https://github.com/Sage/carbon/compare/v111.0.1...v111.0.2) (2022-09-29)
 
 
