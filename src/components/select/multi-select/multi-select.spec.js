@@ -944,6 +944,63 @@ describe("MultiSelect", () => {
   });
 });
 
+describe("aria-selected attribute for options", () => {
+  let wrapper;
+
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
+  describe("when controlled", () => {
+    beforeEach(() => {
+      wrapper = renderSelect({ value: ["opt1", "opt2"], onChange: () => {} });
+    });
+
+    it("the selected options have aria-selected=true", () => {
+      expect(
+        wrapper.find(Option).at(0).getDOMNode().getAttribute("aria-selected")
+      ).toBe("true");
+
+      expect(
+        wrapper.find(Option).at(1).getDOMNode().getAttribute("aria-selected")
+      ).toBe("true");
+    });
+
+    it("the not selected options have aria-selected=false", () => {
+      expect(
+        wrapper.find(Option).at(2).getDOMNode().getAttribute("aria-selected")
+      ).toBe("false");
+    });
+  });
+
+  describe("when uncontrolled", () => {
+    beforeEach(() => {
+      wrapper = renderSelect({ openOnFocus: true });
+      wrapper.find("input").simulate("focus");
+      act(() => {
+        wrapper.find(Option).first().simulate("click");
+        wrapper.find(Option).at(1).simulate("click");
+      });
+    });
+
+    it("the selected options have aria-selected=true", () => {
+      expect(
+        wrapper.find(Option).at(0).getDOMNode().getAttribute("aria-selected")
+      ).toBe("true");
+
+      expect(
+        wrapper.find(Option).at(1).getDOMNode().getAttribute("aria-selected")
+      ).toBe("true");
+    });
+
+    it("the not selected options have aria-selected=false", () => {
+      expect(
+        wrapper.find(Option).at(2).getDOMNode().getAttribute("aria-selected")
+      ).toBe("false");
+    });
+  });
+});
+
 describe("coverage filler for else path", () => {
   const wrapper = renderSelect();
   wrapper.find("input").simulate("blur");

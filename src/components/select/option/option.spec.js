@@ -63,6 +63,17 @@ describe("Option", () => {
     });
   });
 
+  describe("when the multiselectValues list is present but does not contain the element value", () => {
+    it("then the aria-selected attribute should be set to false", () => {
+      const wrapper = mount(
+        <SelectListContext.Provider value={{ multiselectValues: [1, 2] }}>
+          <Option value={3} text="foo" />
+        </SelectListContext.Provider>
+      );
+      expect(wrapper.getDOMNode().getAttribute("aria-selected")).toBe("false");
+    });
+  });
+
   describe("when the element is clicked", () => {
     it("then onSelect should be called with text and value", () => {
       const onSelect = jest.fn();
