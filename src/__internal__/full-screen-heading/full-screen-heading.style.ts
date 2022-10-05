@@ -19,6 +19,7 @@ const StyledFullScreenHeading = styled.div<StyledFullScreenHeadingProps>`
     css`
       border-bottom: 1px solid var(--colorsUtilityMajor050);
     `}
+  background-color: var(--colorsUtilityYang100);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
