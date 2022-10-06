@@ -2,7 +2,13 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import guid from "../../__internal__/utils/helpers/guid";
 import Toast from "./toast.component";
-import { ToastStyle, ToastContentStyle, ToastWrapper } from "./toast.style";
+import {
+  ToastStyle,
+  ToastContentStyle,
+  ToastWrapper,
+  StyledPortal,
+  TypeIcon,
+} from "./toast.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import Button from "../button";
@@ -312,6 +318,39 @@ describe("Toast", () => {
     it("should render ToastStyle with correct maxWidth", () => {
       wrapper = mount(<Toast maxWidth="200px" />);
       assertStyleMatch({ maxWidth: "200px" }, wrapper.find(ToastStyle));
+    });
+  });
+
+  describe("when isNotice prop is set", () => {
+    const onDismissFn = jest.fn();
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(
+        <Toast onDismiss={onDismissFn} open variant="notice">
+          foo
+        </Toast>
+      );
+    });
+
+    it("then the prop should be passed to ToastStyle", () => {
+      expect(wrapper.find(ToastStyle).props().isNotice).toBe(true);
+    });
+
+    it("then the prop should be passed to StyledPortal", () => {
+      expect(wrapper.find(StyledPortal).props().isNotice).toBe(true);
+    });
+
+    it("then the prop should be passed to ToastWrapper", () => {
+      expect(wrapper.find(ToastWrapper).props().isNotice).toBe(true);
+    });
+
+    it("then the prop should be passed to ToastContentStyle", () => {
+      expect(wrapper.find(ToastContentStyle).props().isNotice).toBe(true);
+    });
+
+    it("then the TypeIcon should not be rendered", () => {
+      expect(wrapper.find(TypeIcon).exists()).toBe(false);
     });
   });
 });

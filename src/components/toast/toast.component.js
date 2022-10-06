@@ -34,6 +34,7 @@ const Toast = React.forwardRef(
     },
     ref
   ) => {
+    const isNotice = variant === "notice";
     const locale = useLocale();
 
     const toastRef = useRef();
@@ -119,20 +120,24 @@ const Toast = React.forwardRef(
       return (
         <CSSTransition
           enter
-          classNames="toast"
+          classNames={isNotice ? "toast-alternative" : "toast"}
           timeout={{ appear: 1600, enter: 1500, exit: 500 }}
           nodeRef={toastContentNodeRef}
         >
           <ToastStyle
+            isNotice={isNotice}
             className={componentClasses}
             {...tagComponent(restProps["data-component"] || "toast", restProps)}
             {...toastProps}
             ref={toastContentNodeRef}
           >
-            <TypeIcon variant={toastProps.variant}>
-              <Icon type={toastProps.variant} />
-            </TypeIcon>
+            {!isNotice && (
+              <TypeIcon variant={toastProps.variant}>
+                <Icon type={toastProps.variant} />
+              </TypeIcon>
+            )}
             <ToastContentStyle
+              isNotice={isNotice}
               variant={toastProps.variant}
               isDismiss={onDismiss}
             >
@@ -145,8 +150,8 @@ const Toast = React.forwardRef(
     }
 
     return (
-      <StyledPortal id={targetPortalId} isCenter={isCenter}>
-        <ToastWrapper isCenter={isCenter} ref={refToPass}>
+      <StyledPortal id={targetPortalId} isCenter={isCenter} isNotice={isNotice}>
+        <ToastWrapper isCenter={isCenter} ref={refToPass} isNotice={isNotice}>
           <TransitionGroup>{renderToastContent()}</TransitionGroup>
         </ToastWrapper>
       </StyledPortal>
@@ -156,7 +161,7 @@ const Toast = React.forwardRef(
 
 Toast.propTypes = {
   /** Customizes the appearance in the DLS theme */
-  variant: PropTypes.oneOf(["error", "info", "success", "warning"]),
+  variant: PropTypes.oneOf(["error", "info", "success", "warning", "notice"]),
   /** Custom className */
   className: PropTypes.string,
   /** Custom id  */

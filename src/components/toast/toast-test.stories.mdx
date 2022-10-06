@@ -5,6 +5,7 @@ import { action } from "@storybook/addon-actions";
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Toast from ".";
 import Button from "../button";
+import Icon from "../icon";
 import { TOAST_COLORS } from "./toast.config";
 
 <Meta
@@ -191,6 +192,14 @@ export const ToastVisualStory = ({
         open={isOpen}
       >
         My Success
+      </Toast>
+      <Toast
+        onDismiss={onDismissClick}
+        open={isOpen}
+        targetPortalId="visual-notice"
+        variant="notice"
+      >
+        <Icon type="warning" color="--colorsSemanticNeutralYang100" /> Notice
       </Toast>
     </div>
   );

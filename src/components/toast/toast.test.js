@@ -157,6 +157,27 @@ context("Testing Toast component", () => {
 
       toastComponent().should("have.css", "maxWidth", "250px");
     });
+
+    it("should render Toast component with notice variant", () => {
+      CypressMountWithProviders(<ToastComponent variant="notice" open />);
+
+      toastComponent()
+        .then((toast) => {
+          expect(toast.css("background-color")).to.equals("rgb(51, 91, 112)");
+          expect(toast.css("box-shadow")).to.equals(
+            "rgba(0, 20, 29, 0.1) 0px 10px 30px 0px, rgba(0, 20, 29, 0.1) 0px 30px 60px 0px"
+          );
+        })
+        .and("be.visible");
+    });
+
+    it("should render Toast component with notice variant with focused close icon", () => {
+      CypressMountWithProviders(<ToastComponent variant="notice" open />);
+
+      closeIconButton().then(($el) => {
+        checkGoldenOutline($el);
+      });
+    });
   });
 
   describe("check events for Toast component", () => {
