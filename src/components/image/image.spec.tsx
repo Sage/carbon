@@ -28,6 +28,12 @@ describe("Image", () => {
     expect(wrapper.find("div").exists()).toBeTruthy();
   });
 
+  it("when hidden prop is passed, renders Image with `hidden` html attribute", () => {
+    const wrapper = mount(<Image src="foo.jpg" alt="foo" hidden />);
+
+    expect(wrapper.find("img[hidden]").exists()).toBeTruthy();
+  });
+
   describe("prop types", () => {
     const mockGlobal = jest
       .spyOn(global.console, "error")
