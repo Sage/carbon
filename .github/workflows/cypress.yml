@@ -12,7 +12,7 @@ on:
 jobs:
   cypress:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -30,7 +30,7 @@ jobs:
             5,
           ]
     container: 
-      image: cypress/browsers:node16.14.2-slim-chrome103-ff102
+      image: cypress/browsers:node16.17.0-chrome106
       options: --user 1001
     steps:
       - id: get_pull
@@ -96,7 +96,7 @@ jobs:
 
   cypress-react:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -114,7 +114,7 @@ jobs:
             5,
           ]
     container: 
-      image: cypress/browsers:node16.14.2-slim-chrome103-ff102
+      image: cypress/browsers:node16.17.0-chrome106
       options: --user 1001
     steps:
       - id: get_pull
@@ -198,7 +198,7 @@ jobs:
             7,
           ]
     container: 
-      image: cypress/browsers:node16.14.2-slim-chrome103-ff102
+      image: cypress/browsers:node16.17.0-chrome106
       options: --user 1001
     steps:
       - id: get_pull
