@@ -23,6 +23,7 @@ const Tab = ({
   updateWarnings,
   updateInfos,
   href,
+  title,
   ...rest
 }) => {
   const [tabErrors, setTabErrors] = useState({});
