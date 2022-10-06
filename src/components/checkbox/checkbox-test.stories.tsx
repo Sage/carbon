@@ -5,9 +5,9 @@ import specialCharacters from "../../__internal__/utils/argTypes/specialCharacte
 import { Checkbox, CheckboxProps } from ".";
 
 interface StoryProps {
-  labelSpecialCharacters: string;
-  fieldHelpSpecialCharacters: string;
-  labelHelpSpecialCharacters: string;
+  labelSpecialCharacters?: string;
+  fieldHelpSpecialCharacters?: string;
+  labelHelpSpecialCharacters?: string;
 }
 
 export default {

@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import * as stories from "./checkbox.stories";
 
 import { Checkbox, CheckboxGroup } from ".";
 
@@ -41,118 +41,49 @@ import { Checkbox } from "carbon-react/lib/components/checkbox";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      return (
-        <Checkbox
-          label="Example checkbox"
-          name="checkbox-default"
-          checked={isChecked}
-          onChange={(e) => setIsChecked(e.target.checked)}
-        />
-      );
-    }}
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Sizes
 
 <Canvas>
-  <Story name="sizes">
-    {() => {
-      return ["small", "large"].map((size) => (
-        <Checkbox
-          label={size}
-          key={`checkbox-${size}`}
-          name={`checkbox-default`}
-          size={size}
-        />
-      ));
-    }}
-  </Story>
+  <Story name="sizes" story={stories.Sizes} />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled">
-    <Checkbox label="Disabled checkbox" disabled />
-  </Story>
+  <Story name="disabled" story={stories.Disabled} />
 </Canvas>
 
 ### Reversed
 
 <Canvas>
-  <Story name="reversed">
-    <Checkbox label="Reversed checkbox" reverse />
-  </Story>
+  <Story name="reverse" story={stories.Reverse} />
 </Canvas>
 
 ### With fieldHelp
 
 <Canvas>
-  <Story name="with fieldHelp">
-    <>
-      <Checkbox
-        label="With fieldHelp"
-        fieldHelp="This text provides help for the input."
-      />
-      <Checkbox
-        label="With inline fieldHelp"
-        fieldHelp="This text provides help for the input."
-        fieldHelpInline
-      />
-    </>
-  </Story>
+  <Story name="with fieldHelp" story={stories.WithFieldHelp} />
 </Canvas>
 
 ### With labelHelp
 
 <Canvas>
-  <Story name="with labelHelp">
-    <Checkbox
-      label="With labelHelp"
-      labelHelp="This text provides more information for the label."
-      helpAriaLabel="This text provides more information for the label."
-    />
-  </Story>
+  <Story name="with labelHelp" story={stories.WithLabelHelp} />
 </Canvas>
 
 ### With custom labelWidth
 
 <Canvas>
-  <Story name="with custom labelWidth">
-    <>
-      <Checkbox label="With custom labelWidth" labelWidth={100} />
-      <Checkbox
-        label="With custom labelWidth and label aligned to right"
-        labelWidth={100}
-        labelAlign="right"
-      />
-    </>
-  </Story>
+  <Story name="with custom labelWidth" story={stories.WithCustomLabelWidth} />
 </Canvas>
 
 ### Checkbox Group
 
 <Canvas>
-  <Story name="checkbox group">
-    <CheckboxGroup
-      id="checkbox-group"
-      name="checkbox-group"
-      legend="Checkbox Group"
-    >
-      {["One", "Two", "Three"].map((label) => (
-        <Checkbox
-          id={`checkbox_${name}-${label}`}
-          key={`checkbox_${name}-${label}`}
-          name={`checkbox_${name}-${label}`}
-          label={label}
-        />
-      ))}
-    </CheckboxGroup>
-  </Story>
+  <Story name="checkbox group" story={stories.WithCheckboxGroup} />
 </Canvas>
 
 ### With inline legend
@@ -162,25 +93,7 @@ The legend can be made inline. Its width can be changed with the `legendWidth` p
 The spacing between the legend and the checkboxes can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, so therefore `8px` or `16px`. The default is `2` for this prop.
 
 <Canvas>
-  <Story name="checkbox group with inline legend">
-    <CheckboxGroup
-      id="checkbox-group-inline"
-      name="checkbox-group-inline"
-      legend="Checkbox Group"
-      legendSpacing={2}
-      legendWidth={10}
-      legendInline
-    >
-      {["One", "Two", "Three"].map((label) => (
-        <Checkbox
-          id={`checkbox_${name}-${label}`}
-          key={`checkbox_${name}-${label}`}
-          name={`checkbox_${name}-${label}`}
-          label={label}
-        />
-      ))}
-    </CheckboxGroup>
-  </Story>
+  <Story name="checkbox group with inline legend" story={stories.WithCheckboxGroupInlineLegend} />
 </Canvas>
 
 ## Props
