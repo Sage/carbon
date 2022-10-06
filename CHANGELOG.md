@@ -1,3 +1,10 @@
+## [111.1.0](https://github.com/Sage/carbon/compare/v111.0.3...v111.1.0) (2022-10-06)
+
+
+### Features
+
+* **toast:** add notice variant ([f177de5](https://github.com/Sage/carbon/commit/f177de563a53544b64f08641e314a685d4af8f65))
+
 ### [111.0.3](https://github.com/Sage/carbon/compare/v111.0.2...v111.0.3) (2022-10-04)
 
 
