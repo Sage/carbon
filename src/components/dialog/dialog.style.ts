@@ -161,6 +161,7 @@ type StyledDialogTitleProps = {
 };
 
 const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
+  background-color: var(--colorsUtilityYang100);
   padding: 23px ${HORIZONTAL_PADDING}px 0;
   border-bottom: 1px solid #ccd6db;
   ${({ showCloseIcon }) => showCloseIcon && "padding-right: 85px"};
