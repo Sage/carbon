@@ -5,7 +5,10 @@ type menuType = "light" | "dark" | "white" | "black";
 interface MenuContextProps {
   menuType: menuType;
   isFirstElement: boolean;
-  handleKeyDown: (ev, submenuOpen) => void;
+  handleKeyDown: (
+    ev: React.KeyboardEvent<HTMLAnchorElement | HTMLButtonElement>,
+    submenuOpen?: boolean
+  ) => void;
   isFocused: boolean;
   openSubmenu: boolean;
   inMenu: boolean;
