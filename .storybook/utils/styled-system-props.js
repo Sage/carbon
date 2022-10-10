@@ -425,7 +425,53 @@ const generateStyledSystemLayoutProps = (defaults) => {
   ];
 };
 
-const generateStyledSystemFlexBoxProps = (defaults) => {
+const gapProperties = (hasGap) => {
+  if (!hasGap) return [];
+
+  return [
+    {
+      name: "gap",
+      type: { summary: "number | string" },
+      description:
+        "Sets the gap between children of a flex box container. Accepts any valid CSS string or any number 0 - 8 which will be multiplied by 8 and result in a px value.",
+      required: false,
+      defaultValue: {
+        summary: "-",
+      },
+      table: {
+        category: "Flexbox",
+      },
+    },
+    {
+      name: "columnGap",
+      type: { summary: "number | string" },
+      description:
+        "Sets the column gap between children of a flex box container. Accepts any valid CSS string or any number 0 - 8 which will be multiplied by 8 and result in a px value.",
+      required: false,
+      defaultValue: {
+        summary: "-",
+      },
+      table: {
+        category: "Flexbox",
+      },
+    },
+    {
+      name: "rowGap",
+      type: { summary: "number | string" },
+      description:
+        "Sets the row gap between children of a flex box container. Accepts any valid CSS string or any number 0 - 8 which will be multiplied by 8 and result in a px value.",
+      required: false,
+      defaultValue: {
+        summary: "-",
+      },
+      table: {
+        category: "Flexbox",
+      },
+    },
+  ];
+};
+
+const generateStyledSystemFlexBoxProps = (defaults, hasGap) => {
   return [
     {
       name: "alignItems",
@@ -583,6 +629,7 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
         category: "Flexbox",
       },
     },
+    ...gapProperties(hasGap),
   ];
 };
 
@@ -723,6 +770,7 @@ const StyledSystemProps = ({
   width,
   layout,
   flexBox,
+  hasGapProps,
   defaults = {},
   noHeader,
   margin,
@@ -751,7 +799,7 @@ const StyledSystemProps = ({
     rows.push(...generateStyledSystemWidthProps(defaults));
   }
   if (flexBox) {
-    rows.push(...generateStyledSystemFlexBoxProps(defaults));
+    rows.push(...generateStyledSystemFlexBoxProps(defaults, hasGapProps));
   }
   if (background) {
     rows.push(...generateStyledSystemBackgroundProps(defaults));
