@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+/* istanbul ignore file */
 const fetch = require("node-fetch");
 const dotenv = require("dotenv");
 const chalk = require("chalk");
@@ -9,7 +10,7 @@ dotenv.config();
 const majorVersion = version.split(".")[0];
 
 const checkCarbonVersion = () => {
-  if (ci.BITRISE) {
+  if (ci.isCI && process.env.NODE_ENV !== "test") {
     return;
   }
 

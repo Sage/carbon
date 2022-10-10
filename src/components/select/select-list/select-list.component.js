@@ -54,6 +54,7 @@ const SelectList = React.forwardRef(
       listPlacement = "bottom",
       flipEnabled = true,
       isOpen,
+      multiselectValues,
       ...listProps
     },
     listContainerRef
@@ -465,6 +466,7 @@ const SelectList = React.forwardRef(
           <SelectListContext.Provider
             value={{
               currentOptionsListIndex,
+              multiselectValues,
             }}
           >
             <StyledSelectListContainer
@@ -477,6 +479,7 @@ const SelectList = React.forwardRef(
                 aria-labelledby={labelId}
                 data-element="select-list"
                 role="listbox"
+                aria-multiselectable={multiselectValues ? true : undefined}
                 ref={listCallbackRef}
                 tabIndex="-1"
                 isLoading={isLoading}
@@ -544,6 +547,11 @@ SelectList.propTypes = {
    * Hides the list (with CSS display: none) if not set
    */
   isOpen: PropTypes.bool,
+  /** array of selected values, if rendered as part of a MultiSelect */
+  multiselectValues: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(PropTypes.object),
+  ]),
 };
 
 export default SelectList;

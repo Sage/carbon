@@ -500,7 +500,6 @@ const MultiSelect = React.forwardRef(
     const selectList = (
       <FilterableSelectList
         ref={listboxRef}
-        aria-multiselectable
         id={selectListId.current}
         labelId={labelId.current}
         anchorElement={textboxRef && textboxRef.parentElement}

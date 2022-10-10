@@ -25,7 +25,7 @@ describe("SidebarHeaderStyle", () => {
     const wrapper = mount(<SidebarHeaderStyle />);
     assertStyleMatch(
       {
-        backgroundColor: "var(--colorsUtilityMajor025)",
+        backgroundColor: "var(--colorsUtilityYang100)",
         boxShadow: "inset 0 -1px 0 0 var(--colorsUtilityMajor100)",
         boxSizing: "border-box",
         padding: "27px 32px 32px 32px",

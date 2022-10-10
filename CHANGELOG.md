@@ -1,3 +1,24 @@
+## [111.2.0](https://github.com/Sage/carbon/compare/v111.1.0...v111.2.0) (2022-10-07)
+
+
+### Features
+
+* **sidebar, drawer and dialogs:** adjust background of modal headers to be white instead of grey ([2126172](https://github.com/Sage/carbon/commit/21261720fadf628479d3e2b2edb18a5e22663eeb))
+
+## [111.1.0](https://github.com/Sage/carbon/compare/v111.0.3...v111.1.0) (2022-10-06)
+
+
+### Features
+
+* **toast:** add notice variant ([f177de5](https://github.com/Sage/carbon/commit/f177de563a53544b64f08641e314a685d4af8f65))
+
+### [111.0.3](https://github.com/Sage/carbon/compare/v111.0.2...v111.0.3) (2022-10-04)
+
+
+### Bug Fixes
+
+* **multi-select:** ensure aria-selected has the correct value ([0e1f314](https://github.com/Sage/carbon/commit/0e1f31427293731f1301aad0ff2a8fac1a4059e4)), closes [#5272](https://github.com/Sage/carbon/issues/5272)
+
 ### [111.0.2](https://github.com/Sage/carbon/compare/v111.0.1...v111.0.2) (2022-09-29)
 
 
