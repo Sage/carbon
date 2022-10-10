@@ -26,7 +26,7 @@ export interface ContentPaddingInterface {
   px?: PaddingValues;
 }
 
-type DialogSizes =
+export type DialogSizes =
   | "auto"
   | "extra-small"
   | "small"

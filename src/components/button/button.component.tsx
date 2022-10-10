@@ -57,17 +57,15 @@ export interface ButtonProps extends SpaceProps {
   /** If provided, the text inside a button will not wrap */
   noWrap?: boolean;
   /** Specify a callback triggered on blur */
-  onBlur?: (ev: React.FocusEvent<HTMLButtonElement>) => void;
+  onBlur?: React.FocusEventHandler<HTMLButtonElement>;
   /** Specify a callback triggered on change */
-  onChange?: (ev: React.ChangeEvent<HTMLButtonElement>) => void;
+  onChange?: React.ChangeEventHandler<HTMLButtonElement>;
   /** Specify a callback triggered on focus */
-  onFocus?: (ev: React.FocusEvent<HTMLButtonElement>) => void;
+  onFocus?: React.FocusEventHandler<HTMLButtonElement>;
   /** Specify a callback triggered on keyDown */
-  onKeyDown?: (ev: React.KeyboardEvent<HTMLButtonElement>) => void;
+  onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
   /** onClick handler */
-  onClick?: (
-    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>
-  ) => void;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
   /** Assigns a size to the button: "small" | "medium" | "large" */
   size?: SizeOptions;
   /** Second text child, renders under main text, only when size is "large" */

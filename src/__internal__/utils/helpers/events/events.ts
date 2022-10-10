@@ -18,6 +18,12 @@ const Events = {
     return ev.type === type;
   },
 
+  isKeyboardEvent: (
+    ev: React.SyntheticEvent | Event
+  ): ev is React.KeyboardEvent | KeyboardEvent => {
+    return ["keydown", "keypress", "keyup"].includes(ev.type);
+  },
+
   /**
    * Determines if a number key along the top of the keyboard or a number key on the
    * keypad is pressed

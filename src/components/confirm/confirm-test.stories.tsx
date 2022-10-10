@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Button from "../button";
 import Confirm from ".";
-import { CONFIRM_SIZES } from "./confirm.config";
+import CONFIRM_SIZES from "./confirm.config";
+import { ConfirmProps } from "./confirm.component";
 
-<Meta
-  title="Confirm/Test"
-  parameters={{
+export default {
+  title: "Confirm/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: false,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     size: {
       options: CONFIRM_SIZES,
       control: {
@@ -34,15 +34,25 @@ import { CONFIRM_SIZES } from "./confirm.config";
         type: "select",
       },
     },
+    childrenSpecialCharacters: specialCharacters,
     cancelLabelSpecialCharacters: specialCharacters,
     confirmLabelSpecialCharacters: specialCharacters,
     subtitleSpecialCharacters: specialCharacters,
     titleSpecialCharacters: specialCharacters,
-    childrenSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+};
+
+interface StoryProps {
+  childrenSpecialCharacters?: string;
+  cancelLabelSpecialCharacters?: string;
+  confirmLabelSpecialCharacters?: string;
+  subtitleSpecialCharacters?: string;
+  titleSpecialCharacters?: string;
+}
 
 export const ConfirmStory = ({
+  open,
+  onConfirm,
   cancelLabel,
   cancelLabelSpecialCharacters,
   confirmLabel,
@@ -54,7 +64,7 @@ export const ConfirmStory = ({
   children,
   childrenSpecialCharacters,
   ...args
-}) => {
+}: ConfirmProps & StoryProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const handleCancel = () => {
     action("cancel")();
@@ -72,50 +82,41 @@ export const ConfirmStory = ({
     <>
       <Button onClick={handleOpen}>Open Confirm</Button>
       <Confirm
-        open={isOpen}
-        onConfirm={handleConfirm}
+        open={typeof open === "undefined" ? isOpen : open}
+        onConfirm={typeof onConfirm === "undefined" ? handleConfirm : onConfirm}
         onCancel={handleCancel}
         cancelLabel={cancelLabel || cancelLabelSpecialCharacters}
         confirmLabel={confirmLabel || confirmLabelSpecialCharacters}
         subtitle={subtitle || subtitleSpecialCharacters}
         title={title || titleSpecialCharacters}
-        children={children || childrenSpecialCharacters}
         {...args}
-      />
+      >
+        {children || childrenSpecialCharacters}
+      </Confirm>
     </>
   );
 };
 
-# Confirm
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      children: "This is an example of a confirm.",
-      childrenSpecialCharacters: undefined,
-      title: "Are you sure?",
-      titleSpecialCharacters: undefined,
-      disableEscKey: false,
-      height: "",
-      subtitle: "",
-      subtitleSpecialCharacters: undefined,
-      size: Confirm.defaultProps.size,
-      showCloseIcon: Confirm.defaultProps.showCloseIcon,
-      disableAutoFocus: false,
-      confirmLabel: "",
-      confirmLabelSpecialCharacters: undefined,
-      cancelLabel: "",
-      cancelLabelSpecialCharacters: undefined,
-      iconType: null,
-      isLoadingConfirm: false,
-      disableConfirm: false,
-      disableCancel: false,
-      cancelButtonType: "secondary",
-    }}
-  >
-    {ConfirmStory.bind({})}
-  </Story>
-</Canvas>
+ConfirmStory.storyName = "default";
+ConfirmStory.args = {
+  children: "This is an example of a confirm.",
+  childrenSpecialCharacters: undefined,
+  title: "Are you sure?",
+  titleSpecialCharacters: undefined,
+  disableEscKey: false,
+  height: "",
+  subtitle: "",
+  subtitleSpecialCharacters: undefined,
+  size: "extra-small",
+  showCloseIcon: false,
+  disableAutoFocus: false,
+  confirmLabel: "",
+  confirmLabelSpecialCharacters: undefined,
+  cancelLabel: "",
+  cancelLabelSpecialCharacters: undefined,
+  iconType: null,
+  isLoadingConfirm: false,
+  disableConfirm: false,
+  disableCancel: false,
+  cancelButtonType: "secondary",
+};

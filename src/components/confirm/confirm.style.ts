@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
+
+import { ConfirmProps } from "./confirm.component";
+
 import StyledIcon from "../icon/icon.style";
 import { StyledHeadingTitle } from "../heading/heading.style";
 
@@ -9,7 +11,9 @@ export const StyledConfirmButtons = styled.div`
   justify-content: flex-end;
 `;
 
-export const StyledConfirmHeading = styled.div`
+export const StyledConfirmHeading = styled.div<{
+  type: Exclude<ConfirmProps["iconType"], undefined>;
+}>`
   display: flex;
   align-items: center;
 
@@ -32,7 +36,3 @@ export const StyledConfirmHeading = styled.div`
       `}
   }
 `;
-
-StyledConfirmHeading.propTypes = {
-  type: PropTypes.oneOf(["error", "warning"]),
-};
