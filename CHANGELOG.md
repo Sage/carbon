@@ -1,3 +1,10 @@
+## [111.2.0](https://github.com/Sage/carbon/compare/v111.1.0...v111.2.0) (2022-10-07)
+
+
+### Features
+
+* **sidebar, drawer and dialogs:** adjust background of modal headers to be white instead of grey ([2126172](https://github.com/Sage/carbon/commit/21261720fadf628479d3e2b2edb18a5e22663eeb))
+
 ## [111.1.0](https://github.com/Sage/carbon/compare/v111.0.3...v111.1.0) (2022-10-06)
 
 
