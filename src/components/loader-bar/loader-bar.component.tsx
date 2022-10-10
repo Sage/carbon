@@ -9,7 +9,7 @@ import StyledLoaderBar, {
 
 export interface LoaderBarProps extends StyledLoaderBarProps, MarginProps {}
 
-const LoaderBar = ({ size = "medium", ...rest }: LoaderBarProps) => {
+export const LoaderBar = ({ size = "medium", ...rest }: LoaderBarProps) => {
   return (
     <StyledLoader {...rest} {...tagComponent("loader-bar", rest)}>
       <StyledLoaderBar size={size}>
@@ -19,4 +19,5 @@ const LoaderBar = ({ size = "medium", ...rest }: LoaderBarProps) => {
   );
 };
 
+LoaderBar.DisplayName = "Loader Bar";
 export default LoaderBar;
