@@ -1,3 +1,10 @@
+## [111.3.0](https://github.com/Sage/carbon/compare/v111.2.0...v111.3.0) (2022-10-10)
+
+
+### Features
+
+* **box:** add support for the gap css property when component is displayed flex or inline-flex ([b751e26](https://github.com/Sage/carbon/commit/b751e26a0136a586a0f225081fc5f6bf7c21ee32)), closes [#5434](https://github.com/Sage/carbon/issues/5434)
+
 ## [111.2.0](https://github.com/Sage/carbon/compare/v111.1.0...v111.2.0) (2022-10-07)
 
 
