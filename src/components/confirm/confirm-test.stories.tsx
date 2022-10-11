@@ -3,9 +3,8 @@ import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Button from "../button";
-import Confirm from ".";
+import Confirm, { ConfirmProps } from ".";
 import CONFIRM_SIZES from "./confirm.config";
-import { ConfirmProps } from "./confirm.component";
 
 export default {
   title: "Confirm/Test",

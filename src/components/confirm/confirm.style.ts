@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { ConfirmProps } from "./confirm.component";
+import { ConfirmProps } from ".";
 
 import StyledIcon from "../icon/icon.style";
 import { StyledHeadingTitle } from "../heading/heading.style";
