@@ -1,12 +1,11 @@
 import React from "react";
-import { SpaceProps } from "styled-system";
 import Typography, { TypographyProps } from "./typography.component";
 
-export interface ListProps extends SpaceProps, TypographyProps {
+export interface ListProps extends TypographyProps {
   children?: React.ReactNode;
 }
 
-export interface ListItemProps extends SpaceProps, TypographyProps {
+export interface ListItemProps extends TypographyProps {
   children?: React.ReactNode;
 }
 

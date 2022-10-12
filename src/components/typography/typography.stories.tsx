@@ -93,6 +93,7 @@ export const VariantsStory: ComponentStory<typeof Fragment> = () => (
     </List>
   </>
 );
+VariantsStory.parameters = { info: { disable: true } };
 
 export const TruncateStory: ComponentStory<typeof Fragment> = () => (
   <>
@@ -111,3 +112,4 @@ export const TruncateStory: ComponentStory<typeof Fragment> = () => (
     </div>
   </>
 );
+TruncateStory.parameters = { info: { disable: true } };

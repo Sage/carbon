@@ -229,7 +229,7 @@ const Typography = styled.span.attrs(
     `};
     ${variant === "sup" && "vertical-align: super;"};
     ${variant === "sub" && "vertical-align: sub;"};
-    ${display && `display: ${display}`};
+    ${display && `display: ${display};`};
     ${listStyleType && `list-style-type: ${listStyleType};`}; ;
   `}
   ${space}
