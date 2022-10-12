@@ -31,6 +31,12 @@ export default {
   },
 };
 
+interface StoryProps {
+  stickyFooter: boolean;
+  titleSpecialCharacters: string;
+  subtitleSpecialCharacters: string;
+}
+
 export const Default = ({
   stickyFooter,
   title,
@@ -38,7 +44,7 @@ export const Default = ({
   subtitle,
   subtitleSpecialCharacters,
   ...args
-}: Partial<DialogProps>) => {
+}: Partial<DialogProps> & StoryProps) => {
   const [date, setDate] = useState("01/06/2020");
   const [isOpen, setIsOpen] = useState(true);
   const handleCancel = (

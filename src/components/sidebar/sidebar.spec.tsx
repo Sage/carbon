@@ -25,14 +25,7 @@ describe("Sidebar", () => {
   beforeEach(() => {
     spy = jest.fn();
     wrapper = mount(
-      <Sidebar
-        open
-        title="Test"
-        className="custom-class"
-        data-role="baz"
-        data-element="bar"
-        onCancel={spy}
-      >
+      <Sidebar open data-role="baz" data-element="bar" onCancel={spy}>
         <Textbox />
         <Textbox />
         <Textbox />
