@@ -103,7 +103,7 @@ Tab.propTypes = {
   children: PropTypes.node,
   /** Overrides Title default layout with a one defined in this prop */
   customLayout: PropTypes.node,
-  /** Boolean indicating selected state of Tab. */
+  /** @ignore @private Boolean indicating selected state of Tab. */
   isTabSelected: PropTypes.bool,
   /** The position of the Tab. */
   position: PropTypes.oneOf(["top", "left"]),
