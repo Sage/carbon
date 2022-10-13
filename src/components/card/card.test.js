@@ -2,10 +2,8 @@ import * as React from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useState, useRef } from "react";
-import Card from "./card.component";
-import CardRow from "./card-row/card-row.component";
-import CardFooter from "./card-footer/card-footer.component";
-import CardColumn from "./card-column/card-column.component";
+import { Card, CardRow, CardFooter, CardColumn } from ".";
+
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import Link from "../link";
 import Heading from "../heading";
@@ -343,7 +341,7 @@ context("Tests for Card component", () => {
     );
 
     it("should check dataRole for Card component", () => {
-      CypressMountWithProviders(<CardComponent dataRole="cypress" />);
+      CypressMountWithProviders(<CardComponent data-role="cypress" />);
       card().should("have.attr", "data-role", "cypress");
     });
 
