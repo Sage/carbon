@@ -1,4 +1,5 @@
 export const DIALOG_SIZES = [
+  "auto",
   "extra-small",
   "small",
   "medium-small",

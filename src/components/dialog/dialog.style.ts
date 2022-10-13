@@ -17,6 +17,7 @@ import {
   HORIZONTAL_PADDING,
   CONTENT_TOP_PADDING,
   CONTENT_BOTTOM_PADDING,
+  DialogSizes,
 } from "./dialog.config";
 import { ContentPaddingInterface } from "./dialog.component";
 
@@ -98,7 +99,7 @@ const calculatePaddingTopInnerContent = ({
 
 type StyledDialogProps = {
   topMargin: number;
-  size?: keyof typeof dialogSizes;
+  size?: DialogSizes;
   dialogHeight?: string;
 };
 
