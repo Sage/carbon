@@ -1,3 +1,10 @@
+### [111.3.1](https://github.com/Sage/carbon/compare/v111.3.0...v111.3.1) (2022-10-13)
+
+
+### Bug Fixes
+
+* **multi-action-button:** fix styling bug when a href is passed to a button ([cffbdf7](https://github.com/Sage/carbon/commit/cffbdf7604b7badcbc1b4790646678a42864a7dd)), closes [#5483](https://github.com/Sage/carbon/issues/5483)
+
 ## [111.3.0](https://github.com/Sage/carbon/compare/v111.2.0...v111.3.0) (2022-10-10)
 
 
