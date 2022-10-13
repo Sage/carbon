@@ -13,7 +13,11 @@ function makeColors(color: string) {
   `;
 }
 
-export default (isDisabled?: boolean, destructive?: boolean) => ({
+export default (
+  isDisabled?: boolean,
+  destructive?: boolean,
+  isMinor?: boolean
+) => ({
   primary: `
     background: var(--colorsActionMajor500);
     border-color: transparent;
@@ -23,23 +27,24 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
     }
 
     ${
-      isDisabled
-        ? `
-    background: var(--colorsActionDisabled500);
-    ${makeColors("var(--colorsActionMajorYin030)")};
-    &:hover {
-      background: var(--colorsActionDisabled500);
-    }
-  `
-        : ""
-    }
-
-    ${
       destructive
         ? `background: var(--colorsSemanticNegative500);
     ${makeColors("var(--colorsSemanticNegativeYang100)")};
     &:hover {
       background: var(--colorsSemanticNegative600);
+    }
+
+    ${
+      isMinor
+        ? `
+    background: var(--colorsActionMinor500);
+    border-color: transparent;
+    ${makeColors("var(--colorsActionMajorYin030)")};
+    &:hover {
+      background: var(--colorsActionMinor600);
+    }
+  `
+        : ""
     }
 
     ${
@@ -55,7 +60,9 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
     }`
         : ""
     }
+
   `,
+
   secondary: `
       background: transparent;
       border-color: var(--colorsActionMajor500);
@@ -64,6 +71,19 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
         background: var(--colorsActionMajor600);
         border-color: var(--colorsActionMajorTransparent);
         ${makeColors("var(--colorsActionMajorYang100)")};
+      }
+
+      ${
+        isMinor
+          ? `
+      background: var(--colorsSemanticNegative500);
+      border-color: transparent;
+      ${makeColors("var(--colorsActionMajorYin030)")};
+      &:hover {
+        background: var(--colorsSemanticNegative600);
+      }
+    `
+          : ""
       }
 
       ${
@@ -94,6 +114,7 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
           : ""
       }
   `,
+
   tertiary: `
     background: transparent;
     border-color: transparent;
@@ -112,6 +133,19 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
         ${makeColors("var(--colorsSemanticNegativeYang100)")};
       }
       `
+        : ""
+    }
+
+    ${
+      isMinor
+        ? `
+    background: var(--colorsSemanticNegative500);
+    border-color: var(--colorsActionMinorTransparent);
+    ${makeColors("var(--colorsActionMajorYin030)")};
+    &:hover {
+      background: var(--colorsSemanticNegative600);
+    }
+  `
         : ""
     }
 
@@ -154,6 +188,18 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
     `
         : ""
     }
+    ${
+      isMinor
+        ? `
+    background: var(--colorsSemanticNegative500);
+    border-color: var(--colorsActionMinorTransparent);
+    ${makeColors("var(--colorsActionMajorYin030)")};
+    &:hover {
+      background: var(--colorsSemanticNegative600);
+    }
+  `
+        : ""
+    }
   `,
   darkBackground: `
     background: var(--colorsActionMajorYang100);
@@ -176,5 +222,18 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
     `
         : ""
     }
+    ${
+      isMinor
+        ? `
+    background: var(--colorsSemanticNegative500);
+    border-color: var(--colorsActionMinorTransparent);
+    ${makeColors("var(--colorsActionMajorYin030)")};
+    &:hover {
+      background: var(--colorsSemanticNegative600);
+    }
+  `
+        : ""
+    }
+
   `,
 });

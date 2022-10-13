@@ -35,6 +35,8 @@ export interface ButtonProps extends SpaceProps {
   disabled?: boolean;
   /** Apply destructive style to the button */
   destructive?: boolean;
+  /** Apply minor style to the button */
+  isMinor?: boolean;
   /** Ref to be forwarded */
   forwardRef?:
     | React.RefCallback<HTMLButtonElement>
@@ -92,6 +94,7 @@ interface RenderChildrenProps
     | "buttonType"
     | "iconTooltipMessage"
     | "iconTooltipPosition"
+    | "isMinor"
   > {
   buttonType: ButtonTypes;
   tooltipTarget?: Element;
@@ -176,6 +179,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       "aria-label": ariaLabel,
       disabled = false,
       destructive = false,
+      isMinor = false,
       buttonType: buttonTypeProp = "secondary",
       iconType,
       iconPosition = "before",
@@ -257,6 +261,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         buttonType={buttonType}
         disabled={disabled}
         destructive={destructive}
+        isMinor={isMinor}
         role="button"
         type={href ? undefined : "button"}
         iconType={iconType}
@@ -285,6 +290,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           iconTooltipMessage,
           iconTooltipPosition,
           tooltipTarget: internalRef,
+          isMinor,
         })}
       </StyledButton>
     );
