@@ -1,3 +1,10 @@
+### [111.3.2](https://github.com/Sage/carbon/compare/v111.3.1...v111.3.2) (2022-10-13)
+
+
+### Bug Fixes
+
+* move cypress preprocessor dependencies to devDependencies ([efca508](https://github.com/Sage/carbon/commit/efca50845702f47bec393ad5c29e296c262a01fd))
+
 ### [111.3.1](https://github.com/Sage/carbon/compare/v111.3.0...v111.3.1) (2022-10-13)
 
 
