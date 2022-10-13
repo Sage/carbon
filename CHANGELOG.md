@@ -1,3 +1,24 @@
+### [111.3.2](https://github.com/Sage/carbon/compare/v111.3.1...v111.3.2) (2022-10-13)
+
+
+### Bug Fixes
+
+* move cypress preprocessor dependencies to devDependencies ([efca508](https://github.com/Sage/carbon/commit/efca50845702f47bec393ad5c29e296c262a01fd))
+
+### [111.3.1](https://github.com/Sage/carbon/compare/v111.3.0...v111.3.1) (2022-10-13)
+
+
+### Bug Fixes
+
+* **multi-action-button:** fix styling bug when a href is passed to a button ([cffbdf7](https://github.com/Sage/carbon/commit/cffbdf7604b7badcbc1b4790646678a42864a7dd)), closes [#5483](https://github.com/Sage/carbon/issues/5483)
+
+## [111.3.0](https://github.com/Sage/carbon/compare/v111.2.0...v111.3.0) (2022-10-10)
+
+
+### Features
+
+* **box:** add support for the gap css property when component is displayed flex or inline-flex ([b751e26](https://github.com/Sage/carbon/commit/b751e26a0136a586a0f225081fc5f6bf7c21ee32)), closes [#5434](https://github.com/Sage/carbon/issues/5434)
+
 ## [111.2.0](https://github.com/Sage/carbon/compare/v111.1.0...v111.2.0) (2022-10-07)
 
 

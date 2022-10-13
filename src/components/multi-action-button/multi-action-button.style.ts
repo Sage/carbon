@@ -74,11 +74,19 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
     ${StyledButton} {
       border: 1px solid var(--colorsActionMajorTransparent);
       color: var(--colorsActionMajor500);
-      display: block;
+      display: flex;
+      justify-content: ${align};
       margin-left: 0;
       min-width: 100%;
       text-align: ${align};
       z-index: ${theme.zIndex.overlay};
+
+      /* Styling for Safari. Display flex is not supported on buttons in Safari. */
+      @media not all and (min-resolution: 0.001dpcm) {
+        @supports (-webkit-appearance: none) and (stroke-color: transparent) {
+          display: -webkit-box;
+        }
+      }
 
       &:focus,
       &:hover {
