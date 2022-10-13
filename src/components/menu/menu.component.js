@@ -47,22 +47,27 @@ const Menu = ({ menuType = "light", children, ...rest }) => {
       ref={ref}
       role="list"
     >
-      {React.Children.map(children, (child, index) => {
-        const isFocused = focusedItemIndex === index;
+      <MenuContext.Provider
+        value={{
+          menuType,
+          handleKeyDown,
+          inMenu: true,
+        }}
+      >
+        {React.Children.map(children, (child, index) => {
+          const isFocused = focusedItemIndex === index;
 
-        return (
-          <MenuContext.Provider
-            value={{
-              menuType,
-              handleKeyDown: (ev) => handleKeyDown(ev, index),
-              isFocused,
-              inMenu: true,
-            }}
-          >
-            {child}
-          </MenuContext.Provider>
-        );
-      })}
+          if (
+            React.isValidElement(child) &&
+            child.type.displayName === "MenuItem" &&
+            child.props.submenu
+          ) {
+            return React.cloneElement(child, { isFocused });
+          }
+
+          return child;
+        })}
+      </MenuContext.Provider>
     </StyledMenuWrapper>
   );
 };
