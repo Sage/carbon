@@ -14,7 +14,7 @@ export interface TabProps extends PaddingProps {
   className?: string;
   /** The child elements of Tab component. */
   children?: React.ReactNode;
-  /** Boolean indicating selected state of Tab. */
+  /** @ignore @private Boolean indicating selected state of Tab. */
   isTabSelected?: boolean;
   /** The position of the Tab. */
   position?: "top" | "left";
