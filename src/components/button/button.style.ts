@@ -64,9 +64,10 @@ function stylingForType({
     
     ${size === "large" &&
     css`
-      font-size: 16px;
+      font-size: var(--fontSizes200);
       min-height: 48px;
     `}
+
     ${iconOnly && stylingForIconOnly(size)}
   `;
 }
@@ -95,7 +96,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     css`
       width: 100%;
     `}
-
+    
   ${({ iconOnly, iconPosition, iconType }) => css`
     ${StyledIcon} {
       margin-left: ${!iconOnly && iconPosition === "after"
