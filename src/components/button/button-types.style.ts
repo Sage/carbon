@@ -25,7 +25,29 @@ export default (
     &:hover {
       background: var(--colorsActionMajor600);
     }
-
+    ${
+      isDisabled
+        ? `
+    background: var(--colorsActionDisabled500);
+    ${makeColors("var(--colorsActionMajorYin030)")};
+    &:hover {
+      background: var(--colorsActionDisabled500);
+    }
+  `
+        : ""
+    }
+    ${
+      isMinor
+        ? `
+    background: var(--colorsActionMinor500);
+    border-color: transparent;
+    ${makeColors("var(--colorsSemanticNegativeYang100)")};
+    &:hover {
+      background: var(--colorsActionMinor600);
+    }
+  `
+        : ""
+    }
     ${
       destructive
         ? `background: var(--colorsSemanticNegative500);
@@ -33,20 +55,6 @@ export default (
     &:hover {
       background: var(--colorsSemanticNegative600);
     }
-
-    ${
-      isMinor
-        ? `
-    background: var(--colorsActionMinor500);
-    border-color: transparent;
-    ${makeColors("var(--colorsActionMajorYin030)")};
-    &:hover {
-      background: var(--colorsActionMinor600);
-    }
-  `
-        : ""
-    }
-
     ${
       isDisabled
         ? `
@@ -60,9 +68,7 @@ export default (
     }`
         : ""
     }
-
   `,
-
   secondary: `
       background: transparent;
       border-color: var(--colorsActionMajor500);
@@ -72,20 +78,6 @@ export default (
         border-color: var(--colorsActionMajorTransparent);
         ${makeColors("var(--colorsActionMajorYang100)")};
       }
-
-      ${
-        isMinor
-          ? `
-      background: var(--colorsSemanticNegative500);
-      border-color: transparent;
-      ${makeColors("var(--colorsActionMajorYin030)")};
-      &:hover {
-        background: var(--colorsSemanticNegative600);
-      }
-    `
-          : ""
-      }
-
       ${
         destructive
           ? `
@@ -99,7 +91,19 @@ export default (
       `
           : ""
       }
-
+      ${
+        isMinor
+          ? `
+      background: transparent;
+      border-color: var(--colorsActionMinor500);
+      ${makeColors("var(--colorsSemanticNegativeYang100)")};
+      &:hover {
+        color: var(--colorsSemanticNegativeYang100);
+        background: var(--colorsActionMinor600);
+      }
+    `
+          : ""
+      }
       ${
         isDisabled
           ? `
@@ -114,7 +118,6 @@ export default (
           : ""
       }
   `,
-
   tertiary: `
     background: transparent;
     border-color: transparent;
@@ -123,7 +126,6 @@ export default (
       background: var(--colorsActionMajor600);
       ${makeColors("var(--colorsActionMajorYang100)")};
     }
-
     ${
       destructive
         ? `
@@ -135,20 +137,18 @@ export default (
       `
         : ""
     }
-
     ${
       isMinor
         ? `
-    background: var(--colorsSemanticNegative500);
-    border-color: var(--colorsActionMinorTransparent);
-    ${makeColors("var(--colorsActionMajorYin030)")};
+    background: transparent;
+    ${makeColors("var(--colorsActionMinor500)")};
     &:hover {
-      background: var(--colorsSemanticNegative600);
+      color: var(--colorsSemanticNegativeYang100);
+      background: var(--colorsActionMinor600);
     }
   `
         : ""
     }
-
     ${
       isDisabled
         ? `
@@ -168,7 +168,6 @@ export default (
     &:hover {
       background-color: var(--colorsActionMinor200);
     }
-
     ${
       destructive
         ? `
@@ -176,7 +175,6 @@ export default (
       `
         : ""
     }
-
     ${
       isDisabled
         ? `
@@ -188,18 +186,6 @@ export default (
     `
         : ""
     }
-    ${
-      isMinor
-        ? `
-    background: var(--colorsSemanticNegative500);
-    border-color: var(--colorsActionMinorTransparent);
-    ${makeColors("var(--colorsActionMajorYin030)")};
-    &:hover {
-      background: var(--colorsSemanticNegative600);
-    }
-  `
-        : ""
-    }
   `,
   darkBackground: `
     background: var(--colorsActionMajorYang100);
@@ -209,7 +195,6 @@ export default (
       background: var(--colorsActionMajor600);
       ${makeColors("var(--colorsActionMajorYang100)")}
     }
-
     ${
       isDisabled
         ? `
@@ -222,18 +207,5 @@ export default (
     `
         : ""
     }
-    ${
-      isMinor
-        ? `
-    background: var(--colorsSemanticNegative500);
-    border-color: var(--colorsActionMinorTransparent);
-    ${makeColors("var(--colorsActionMajorYin030)")};
-    &:hover {
-      background: var(--colorsSemanticNegative600);
-    }
-  `
-        : ""
-    }
-
   `,
 });
