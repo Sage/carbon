@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import * as React from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Card, CardRow, CardFooter, CardColumn } from ".";
 
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -54,108 +55,41 @@ const CardComponent = ({ ...props }) => {
   );
 };
 
-const CardDraggable = ({ ...props }) => {
+const DraggableExample = () => {
   const columnNames = {
-    productOne: "Product One",
-    productTwo: "Product Two",
+    PRODUCT_ONE: "Product One",
+    PRODUCT_TWO: "Product Two",
   };
-  const cards = [
-    { id: 1, name: "Item 1", column: columnNames.productOne },
-    { id: 2, name: "Item 2", column: columnNames.productOne },
-    { id: 3, name: "Item 3", column: columnNames.productTwo },
-    { id: 4, name: "Item 4", column: columnNames.productOne },
-  ];
-  const MovableItem = ({
-    name,
-    index,
-    currentColumnName,
-    setItems,
-    dataElement,
-  }) => {
-    const changeItemColumn = (currentItem, columnName) => {
-      setItems((prevState) => {
-        return prevState.map((e) => {
-          return {
-            ...e,
-            column: e.name === currentItem.name ? columnName : e.column,
-          };
-        });
-      });
-    };
-    const ref = useRef(null);
-    const [, drop] = useDrop({
-      accept: "Card",
-      hover(item, monitor) {
-        if (!ref.current) {
-          return;
-        }
-        const dragIndex = item.index;
-        const hoverIndex = index;
-        if (dragIndex === hoverIndex) {
-          return;
-        }
-        const hoverBoundingRect = ref.current?.getBoundingClientRect();
-        const hoverMiddleY =
-          (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-        const clientOffset = monitor.getClientOffset();
-        const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-        if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-          return;
-        }
-        if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-          return;
-        }
-        item.index = hoverIndex;
-      },
-    });
+
+  const ITEM_TYPE = "Card";
+
+  const MovableItem = ({ "data-element": dataElement, name, changeColumn }) => {
     const [{ isDragging }, drag] = useDrag({
-      type: "Card",
-      item: {
-        index,
-        name,
-        currentColumnName,
-      },
-      end: (item, monitor) => {
-        const dropResult = monitor.getDropResult();
-        if (dropResult) {
-          const { name: dropResultName } = dropResult;
-          const { productOne, productTwo } = columnNames;
-          switch (dropResultName) {
-            case productTwo:
-              changeItemColumn(item, productTwo);
-              break;
-            case productOne:
-              changeItemColumn(item, productOne);
-              break;
-            default:
-              break;
-          }
-        }
-      },
+      type: ITEM_TYPE,
+      item: { name },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
+      end: (_, monitor) => {
+        const dropResult = monitor.getDropResult();
+        if (!dropResult) return;
+        changeColumn(dropResult.column);
+      },
     });
-    const opacity = isDragging ? 0.4 : 1;
-    drag(drop(ref));
+
     return (
       <Box
-        ref={ref}
-        style={{
-          opacity,
-          borderRadius: "5px",
-          backgroundColor: "#FAFDFF",
-          height: "100px",
-          width: "80%",
-          margin: "16px auto",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          boxShadow: "0px 0px 3px rgba(0, 0, 0, 0.5)",
-        }}
+        ref={drag}
+        opacity={isDragging ? 0.4 : 1}
+        width="80%"
+        height="100px"
+        margin="16px auto"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
       >
-        <Card id={name} {...props} draggable data-element={dataElement}>
-          <CardRow>
+        <Card draggable data-element={dataElement}>
+          <CardRow pt={0}>
             <CardColumn align="left">
               <Heading title={name} divider={false} />
               <Typography>user.name@sage.com</Typography>
@@ -168,83 +102,76 @@ const CardDraggable = ({ ...props }) => {
       </Box>
     );
   };
-  const Column = ({ children, title, dataElement }) => {
-    const [{ isOver, canDrop }, drop] = useDrop({
-      accept: "Card",
-      drop: () => ({ name: title }),
+
+  const Column = ({ "data-element": dataElement, children, title }) => {
+    const [{ isOver }, drop] = useDrop({
+      accept: ITEM_TYPE,
+      drop: () => ({ column: title }),
       collect: (monitor) => ({
         isOver: monitor.isOver(),
-        canDrop: monitor.canDrop(),
       }),
     });
-    const getBackgroundColor = () => {
-      if (isOver && canDrop) {
-        return "rgb(0, 129, 93)";
-      }
-      return "";
-    };
-    const getTextColor = () => {
-      if (isOver && canDrop) {
-        return "#FFFFFF";
-      }
-      return "";
-    };
+
     return (
       <Box
         ref={drop}
-        style={{
-          backgroundColor: getBackgroundColor(),
-          borderRadius: "10px",
-          boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.5)",
-          border: "2px solid #7d7d7d",
-          height: "max-content",
-          minHeight: "100px",
-          width: "260px",
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-        }}
-        m={2}
+        backgroundColor={
+          isOver
+            ? "var(--colorsActionMajor500)"
+            : "var(--colorsUtilityMajor075)"
+        }
         data-element={dataElement}
+        height="max-content"
+        minHeight="100px"
+        width="260px"
+        display="flex"
+        justifyContent="center"
+        flexWrap="wrap"
+        m={2}
+        py={2}
       >
-        <Typography variant="p" color={getTextColor()}>
+        <Typography
+          variant="b"
+          color={isOver ? "var(--colorsGray000)" : undefined}
+        >
           {title}
         </Typography>
         {children}
       </Box>
     );
   };
-  const [items, setItems] = useState(cards);
-  const moveCardHandler = (dragIndex, hoverIndex) => {
-    const dragItem = items[dragIndex];
-    if (dragItem) {
-      setItems((prevState) => {
-        const copiedStateArray = [...prevState];
-        const prevItem = copiedStateArray.splice(hoverIndex, 1, dragItem);
-        copiedStateArray.splice(dragIndex, 1, prevItem[0]);
-        return copiedStateArray;
-      });
-    }
+
+  const [cards, setCards] = useState([
+    { id: 0, name: "Item 1", column: columnNames.PRODUCT_ONE },
+    { id: 1, name: "Item 2", column: columnNames.PRODUCT_ONE },
+    { id: 2, name: "Item 3", column: columnNames.PRODUCT_TWO },
+    { id: 3, name: "Item 4", column: columnNames.PRODUCT_ONE },
+  ]);
+
+  const changeItemColumn = (id, column) => {
+    setCards((prevState) =>
+      prevState.map((c) => ({
+        ...c,
+        column: c.id === id ? column : c.column,
+      }))
+    );
   };
-  const returnItemsForColumn = (columnName) => {
-    return items
-      .filter((item) => item.column === columnName)
-      .map((item, index) => (
+
+  const returnColumnItems = (column) =>
+    cards
+      .filter((c) => c.column === column)
+      .map(({ id, name }) => (
         <MovableItem
-          key={item.id}
-          name={item.name}
-          currentColumnName={item.column}
-          setItems={setItems}
-          index={index}
-          moveCardHandler={moveCardHandler}
-          dataElement={`draggable-card-${item.id}`}
+          key={id}
+          name={name}
+          changeColumn={(newColumn) => changeItemColumn(id, newColumn)}
+          data-element={`draggable-card-${id}`}
         />
       ));
-  };
-  const { productOne, productTwo } = columnNames;
+
   return (
     <Box width="700px" height="450px">
-      <div
+      <Box
         style={{
           display: "flex",
           flexDirection: "row",
@@ -252,14 +179,20 @@ const CardDraggable = ({ ...props }) => {
         }}
       >
         <DndProvider backend={HTML5Backend}>
-          <Column title={productOne} dataElement="draggable-container-1">
-            {returnItemsForColumn(productOne)}
+          <Column
+            title={columnNames.PRODUCT_ONE}
+            data-element="draggable-container-1"
+          >
+            {returnColumnItems(columnNames.PRODUCT_ONE)}
           </Column>
-          <Column title={productTwo} dataElement="draggable-container-2">
-            {returnItemsForColumn(productTwo)}
+          <Column
+            title={columnNames.PRODUCT_TWO}
+            data-element="draggable-container-2"
+          >
+            {returnColumnItems(columnNames.PRODUCT_TWO)}
           </Column>
         </DndProvider>
-      </div>
+      </Box>
     </Box>
   );
 };
@@ -319,14 +252,14 @@ context("Tests for Card component", () => {
     ])(
       "drag %s Card item to the %s column",
       (draggableCardItem, columnName, lengthOfFirst, lengthOfSecond) => {
-        CypressMountWithProviders(<CardDraggable draggable />);
+        CypressMountWithProviders(<DraggableExample />);
 
-        draggableCard(draggableCardItem).trigger("dragstart");
+        draggableCard(draggableCardItem - 1).trigger("dragstart");
         draggableContainer(columnName).trigger("drop");
         draggableContainer(columnName).trigger("dragend");
 
         draggableContainer(columnName)
-          .find(`[data-element="draggable-card-${draggableCardItem}"]`)
+          .find(`[data-element="draggable-card-${draggableCardItem - 1}"]`)
           .should("exist")
           .and("be.visible");
 
