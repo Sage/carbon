@@ -33,6 +33,7 @@ const DialogFullScreen = ({
   help,
   role = "dialog",
   focusableContainers,
+  focusableSelectors,
   ...rest
 }) => {
   const locale = useLocale();
@@ -102,6 +103,7 @@ const DialogFullScreen = ({
         wrapperRef={dialogRef}
         isOpen={open}
         additionalWrapperRefs={focusableContainers}
+        focusableSelectors={focusableSelectors}
       >
         <StyledDialogFullScreen
           aria-modal={role === "dialog" ? true : undefined}
@@ -184,6 +186,8 @@ DialogFullScreen.propTypes = {
   focusableContainers: PropTypes.arrayOf(
     PropTypes.shape({ current: PropTypes.any })
   ),
+  /** Optional selector to identify the focusable elements, if not provided a default selector is used */
+  focusableSelectors: PropTypes.string,
 };
 
 export default DialogFullScreen;

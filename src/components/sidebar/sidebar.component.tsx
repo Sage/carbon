@@ -68,6 +68,8 @@ export interface SidebarProps extends PaddingProps, TagProps {
     | "extra-large";
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar */
   focusableContainers?: CustomRefObject<HTMLElement>[];
+  /** Optional selector to identify the focusable elements, if not provided a default selector is used */
+  focusableSelectors?: string;
 }
 
 export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
@@ -86,6 +88,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       onCancel,
       role = "dialog",
       focusableContainers,
+      focusableSelectors,
       ...rest
     }: SidebarProps,
     ref
@@ -174,6 +177,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             wrapperRef={sidebarRef}
             isOpen={open}
             additionalWrapperRefs={focusableContainers}
+            focusableSelectors={focusableSelectors}
           >
             {sidebar}
           </FocusTrap>
