@@ -38,6 +38,7 @@ const FlatTableCheckbox = ({
     <StyledFlatTableCheckbox
       ref={ref}
       makeCellSticky={!!reportCellWidth}
+      className={reportCellWidth ? "isSticky" : undefined}
       leftPosition={leftPosition || 0}
       data-element={dataElement}
       as={as}

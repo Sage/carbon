@@ -42,6 +42,7 @@ const FlatTableCell = ({
     <StyledFlatTableCell
       leftPosition={leftPosition || 0}
       makeCellSticky={!!reportCellWidth}
+      className={reportCellWidth ? "isSticky" : undefined}
       ref={ref}
       align={align}
       data-element="flat-table-cell"

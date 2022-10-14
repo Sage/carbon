@@ -21,7 +21,6 @@ const stickyColumnFocusStyling = (index, theme) => {
           : "var(--colorsUtilityMajor100)"
       };
       width: calc(100% + 1px);
-      top: 0;
       z-index: ${theme.zIndex.overlay + 2};
       :before {
         content: "";

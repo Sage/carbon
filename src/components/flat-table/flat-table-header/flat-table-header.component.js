@@ -37,6 +37,7 @@ const FlatTableHeader = ({
       ref={ref}
       leftPosition={leftPosition || 0}
       makeCellSticky={!!reportCellWidth}
+      className={reportCellWidth ? "isSticky" : undefined}
       align={align}
       colorTheme={colorTheme}
       data-element="flat-table-header"

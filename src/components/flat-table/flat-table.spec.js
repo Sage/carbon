@@ -214,10 +214,9 @@ describe("FlatTable", () => {
       );
     });
 
-    it("then the Row Header in the table Head should have proper z-index", () => {
+    it("then the Header in the table Head should have proper z-index", () => {
       assertStyleMatch(
         {
-          zIndex: "1002",
           top: "0",
           left: "0",
         },
@@ -333,20 +332,6 @@ describe("FlatTable", () => {
         </FlatTable>
       );
     };
-
-    it("should not overlap the first column of FlatTableHeader by applying expected z-index", () => {
-      act(() => render());
-
-      assertStyleMatch(
-        {
-          zIndex: "1002",
-        },
-        wrapper.find(StyledFlatTableHeader),
-        {
-          modifier: `&&&`,
-        }
-      );
-    });
 
     it("should apply left border if preceding row has a FlatTableRowHeader and current one does not and when the preceding row has a rowSpan applied", () => {
       act(() => render());
@@ -623,6 +608,54 @@ describe("FlatTable", () => {
         );
       });
     });
+  });
+
+  describe("z-indexes", () => {
+    let wrapper;
+    const modifiers = [
+      [`${StyledFlatTableHead} ${StyledFlatTableRowHeader}`, "1005"],
+      [`${StyledFlatTableHeader}.isSticky`, "1005"],
+      [`${StyledFlatTableHead} ${StyledFlatTableCheckbox}.isSticky`, "1005"],
+      [`${StyledFlatTableHeader}`, "1003"],
+      [`${StyledFlatTableCheckbox}`, "1003"],
+      [`tbody ${StyledFlatTableRowHeader}`, "1000"],
+      [`${StyledFlatTableCell}.isSticky`, "1000"],
+      [`tbody ${StyledFlatTableCheckbox}.isSticky`, "1000"],
+    ];
+
+    beforeEach(() => {
+      wrapper = mount(
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>heading one</FlatTableHeader>
+              <FlatTableRowHeader>heading two</FlatTableRowHeader>
+              <FlatTableHeader>heading three</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>name</FlatTableCell>
+              <FlatTableRowHeader>unique id</FlatTableRowHeader>
+              <FlatTableCell>city</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+    });
+
+    it.each(modifiers)(
+      "should apply the expected value to elements rendered in thead",
+      (modifier, zIndex) => {
+        assertStyleMatch(
+          {
+            zIndex,
+          },
+          wrapper,
+          { modifier }
+        );
+      }
+    );
   });
 });
 

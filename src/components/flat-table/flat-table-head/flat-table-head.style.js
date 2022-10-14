@@ -8,7 +8,6 @@ const StyledFlatTableHead = styled.thead`
     border-left: none;
     border-right: none;
     font-weight: 700;
-    z-index: ${({ theme }) => theme.zIndex.overlay};
   }
 `;
 

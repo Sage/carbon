@@ -9,6 +9,10 @@ import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import cellSizes from "./cell-sizes.style";
 import Box from "../box";
 
+const HEADER_OVERLAY_INCREMENT = 3;
+const STICKY_FOOTER_OVERLAY_INCREMENT = 1;
+const ROW_HEADER_OVERLAY_INCREMENT = 5;
+
 const StyledTableContainer = styled.div`
   ${({ width, overflowX }) =>
     width &&
@@ -170,16 +174,36 @@ const StyledFlatTableWrapper = styled(Box)`
     css`
       ${StyledFlatTableHead} th {
         position: sticky;
-        z-index: ${({ theme }) => theme.zIndex.overlay};
       }
 
       ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
       ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
-        z-index: ${({ theme }) => theme.zIndex.overlay + 2};
         top: 0;
         left: 0;
       }
     `}
+
+  ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
+  ${StyledFlatTableHeader}.isSticky,
+  ${StyledFlatTableHead} ${StyledFlatTableCheckbox}.isSticky {
+    z-index: ${({ theme }) =>
+      theme.zIndex.overlay + ROW_HEADER_OVERLAY_INCREMENT};
+  }
+
+  ${StyledFlatTableHeader}.isSticky,
+  ${StyledFlatTableCheckbox}.isSticky {
+    border-right: none;
+  }
+
+  ${StyledFlatTableHeader}, ${StyledFlatTableCheckbox} {
+    z-index: ${({ theme }) => theme.zIndex.overlay + HEADER_OVERLAY_INCREMENT};
+  }
+
+  tbody ${StyledFlatTableRowHeader},
+  ${StyledFlatTableCell}.isSticky,
+  tbody ${StyledFlatTableCheckbox}.isSticky {
+    z-index: ${({ theme }) => theme.zIndex.overlay};
+  }
 `;
 
 StyledFlatTableWrapper.defaultProps = {
@@ -187,14 +211,18 @@ StyledFlatTableWrapper.defaultProps = {
 };
 
 const StyledFlatTableFooter = styled.div`
-  ${({ hasStickyFooter }) =>
+  ${({ hasStickyFooter, theme }) =>
     hasStickyFooter &&
     css`
       position: sticky;
       bottom: 0px;
-      z-index: ${baseTheme.zIndex.overlay + 1};
+      z-index: ${theme.zIndex.overlay + STICKY_FOOTER_OVERLAY_INCREMENT};
     `}
 `;
+
+StyledFlatTableFooter.defaultProps = {
+  theme: baseTheme,
+};
 
 export {
   StyledFlatTableWrapper,

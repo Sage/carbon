@@ -127,7 +127,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
   border-left: none;
   border-right: none;
   font-weight: 700;
-  z-index: 1000;
 }
 
 .c1 {
@@ -182,6 +181,28 @@ exports[`FlatTable when rendered with proper table data should have expected str
   border-right: 1px solid var(--colorsUtilityMajor300);
   color: var(--colorsUtilityYang100);
   border-bottom-color: var(--colorsUtilityMajor300);
+}
+
+.c0 .c2 .c6,
+.c0 .c8.isSticky,
+.c0 .c2 .c13.isSticky {
+  z-index: 1005;
+}
+
+.c0 .c8.isSticky,
+.c0 .c13.isSticky {
+  border-right: none;
+}
+
+.c0 .c8,
+.c0 .c13 {
+  z-index: 1003;
+}
+
+.c0 tbody .c6,
+.c0 .c10.isSticky,
+.c0 tbody .c13.isSticky {
+  z-index: 1000;
 }
 
 <div
