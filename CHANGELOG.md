@@ -1,3 +1,10 @@
+## [111.4.0](https://github.com/Sage/carbon/compare/v111.3.3...v111.4.0) (2022-10-14)
+
+
+### Features
+
+* **dialog:** introduce DialogSizes type ([872627c](https://github.com/Sage/carbon/commit/872627c900befe2caea9557dcbfb880067d5b954)), closes [#5516](https://github.com/Sage/carbon/issues/5516)
+
 ### [111.3.3](https://github.com/Sage/carbon/compare/v111.3.2...v111.3.3) (2022-10-13)
 
 
