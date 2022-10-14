@@ -1,3 +1,60 @@
+## [111.4.0](https://github.com/Sage/carbon/compare/v111.3.3...v111.4.0) (2022-10-14)
+
+
+### Features
+
+* **dialog:** introduce DialogSizes type ([872627c](https://github.com/Sage/carbon/commit/872627c900befe2caea9557dcbfb880067d5b954)), closes [#5516](https://github.com/Sage/carbon/issues/5516)
+
+### [111.3.3](https://github.com/Sage/carbon/compare/v111.3.2...v111.3.3) (2022-10-13)
+
+
+### Bug Fixes
+
+* **tab:** prevent title prop being set as an attribute on the DOM element ([6169a7f](https://github.com/Sage/carbon/commit/6169a7fa9523c8287f2e7882645aff59b8349f3b)), closes [#5480](https://github.com/Sage/carbon/issues/5480)
+* **tabs:** ensure that the selected Tab does not update when children update ([dccf8ed](https://github.com/Sage/carbon/commit/dccf8edd9c40875441ac4a64a19b49973fa1919f)), closes [#5527](https://github.com/Sage/carbon/issues/5527)
+
+### [111.3.2](https://github.com/Sage/carbon/compare/v111.3.1...v111.3.2) (2022-10-13)
+
+
+### Bug Fixes
+
+* move cypress preprocessor dependencies to devDependencies ([efca508](https://github.com/Sage/carbon/commit/efca50845702f47bec393ad5c29e296c262a01fd))
+
+### [111.3.1](https://github.com/Sage/carbon/compare/v111.3.0...v111.3.1) (2022-10-13)
+
+
+### Bug Fixes
+
+* **multi-action-button:** fix styling bug when a href is passed to a button ([cffbdf7](https://github.com/Sage/carbon/commit/cffbdf7604b7badcbc1b4790646678a42864a7dd)), closes [#5483](https://github.com/Sage/carbon/issues/5483)
+
+## [111.3.0](https://github.com/Sage/carbon/compare/v111.2.0...v111.3.0) (2022-10-10)
+
+
+### Features
+
+* **box:** add support for the gap css property when component is displayed flex or inline-flex ([b751e26](https://github.com/Sage/carbon/commit/b751e26a0136a586a0f225081fc5f6bf7c21ee32)), closes [#5434](https://github.com/Sage/carbon/issues/5434)
+
+## [111.2.0](https://github.com/Sage/carbon/compare/v111.1.0...v111.2.0) (2022-10-07)
+
+
+### Features
+
+* **sidebar, drawer and dialogs:** adjust background of modal headers to be white instead of grey ([2126172](https://github.com/Sage/carbon/commit/21261720fadf628479d3e2b2edb18a5e22663eeb))
+
+## [111.1.0](https://github.com/Sage/carbon/compare/v111.0.3...v111.1.0) (2022-10-06)
+
+
+### Features
+
+* **toast:** add notice variant ([f177de5](https://github.com/Sage/carbon/commit/f177de563a53544b64f08641e314a685d4af8f65))
+
+### [111.0.3](https://github.com/Sage/carbon/compare/v111.0.2...v111.0.3) (2022-10-04)
+
+
+### Bug Fixes
+
+* **multi-select:** ensure aria-selected has the correct value ([0e1f314](https://github.com/Sage/carbon/commit/0e1f31427293731f1301aad0ff2a8fac1a4059e4)), closes [#5272](https://github.com/Sage/carbon/issues/5272)
+
 ### [111.0.2](https://github.com/Sage/carbon/compare/v111.0.1...v111.0.2) (2022-09-29)
 
 

@@ -164,7 +164,7 @@ export const MultiActionButton = ({
         data-element="toggle-button"
         key="toggle-button"
         {...mainButtonProps}
-        forwardRef={buttonRef}
+        ref={buttonRef}
         iconPosition="after"
         iconType="dropdown"
       >

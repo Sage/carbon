@@ -1,5 +1,4 @@
 import { commonButtonPreviewRoot, getDataElementByValue } from "../../locators";
-import { accordionDefaultTitle } from "../../locators/accordion";
 import {
   actionPopoverButton,
   actionPopoverWrapper,
@@ -48,6 +47,7 @@ export default (from, end) => {
     if (
       !prepareUrl[0].startsWith("welcome") &&
       !prepareUrl[0].startsWith("documentation") &&
+      !prepareUrl[0].startsWith("accordion") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);
@@ -63,10 +63,6 @@ export default (from, end) => {
         "should render %s component with %s story and have no accessibility violations",
         (componentName, storyName) => {
           visitComponentUrl(componentName, storyName);
-          // open the accordion component
-          if (componentName.startsWith("accordion")) {
-            accordionDefaultTitle().click({ multiple: true });
-          }
 
           // open the action-popover component
           if (

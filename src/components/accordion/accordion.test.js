@@ -1,10 +1,4 @@
 import * as React from "react";
-import Accordion from "./accordion.component";
-import AccordionGroup from "./accordion-group/accordion-group.component";
-import Checkbox from "../checkbox/checkbox.component";
-import Box from "../box/box.component";
-import Button from "../button";
-import Textbox from "../textbox/textbox.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
   accordion,
@@ -21,196 +15,29 @@ import {
   ACCORDION_REMOVE_CONTENT,
 } from "../../../cypress/locators/accordion/locators";
 import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+import {
+  AccordionComponent,
+  AccordionWithIcon,
+  AccordionGroupWithError,
+  AccordionGroupWithWarning,
+  AccordionGroupWithInfo,
+  AccordionGroupComponent,
+  DynamicContent,
+  AccordionDefault,
+  AccordionWithBoxAndDifferentPaddings,
+  AccordionOpeningButton,
+  AccordionGroupDefault,
+  AccordionGroupValidation,
+  AccordionWithDefinitionList,
+} from "./accordion.stories.tsx";
+
 const sizes = [
   ["small", "24px"],
   ["large", "46px"],
 ];
 const accWidths = [["700px"], ["900px"], ["1100px"], ["1300px"]];
-
-const AccordionComponent = ({ ...props }) => {
-  return (
-    <Accordion
-      customPadding={0}
-      onChange={() => {}}
-      subTitle="Sub Title"
-      title="Title"
-      width="100%"
-      {...props}
-    >
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
-    </Accordion>
-  );
-};
-
-const AccordionWithIcon = () => {
-  const [errors] = React.useState({
-    one: "error",
-  });
-  const [warnings] = React.useState({
-    one: "warning",
-  });
-
-  const [expanded, setExpanded] = React.useState({
-    one: false,
-  });
-
-  return (
-    <AccordionGroup>
-      <Accordion
-        title="Heading"
-        expanded={expanded.one}
-        onChange={() =>
-          setExpanded((previousState) => ({
-            ...previousState,
-            one: !previousState.one,
-          }))
-        }
-        error={errors.one}
-        warning={warnings.one}
-      >
-        <Checkbox label="Add error" />
-      </Accordion>
-    </AccordionGroup>
-  );
-};
-
-const AccordionGroupWithError = () => {
-  const [errors] = React.useState({
-    one: "error",
-    two: "error",
-    three: "error",
-  });
-
-  return (
-    <div
-      style={{
-        marginTop: "16px",
-      }}
-    >
-      <AccordionGroup>
-        <Accordion title="Heading" error={errors.one}>
-          <div style={{ padding: "8px" }}>
-            <Checkbox label="Add error" error={!!errors.one} />
-          </div>
-        </Accordion>
-      </AccordionGroup>
-    </div>
-  );
-};
-
-const AccordionGroupWithWarning = () => {
-  const [warnings] = React.useState({
-    one: "warning",
-  });
-
-  return (
-    <div
-      style={{
-        marginTop: "16px",
-      }}
-    >
-      <AccordionGroup>
-        <Accordion title="Heading" warning={warnings.one}>
-          <div style={{ padding: "8px" }}>
-            <Checkbox label="Add warning" warning={!!warnings.one} />
-          </div>
-        </Accordion>
-      </AccordionGroup>
-    </div>
-  );
-};
-
-const AccordionGroupWithInfo = () => {
-  const [infos] = React.useState({
-    one: "info",
-  });
-
-  return (
-    <div
-      style={{
-        marginTop: "16px",
-      }}
-    >
-      <AccordionGroup>
-        <Accordion title="Heading" info={infos.one}>
-          <div style={{ padding: "8px" }}>
-            <Checkbox label="Add info" info={!!infos.one} />
-          </div>
-        </Accordion>
-      </AccordionGroup>
-    </div>
-  );
-};
-
-const AccordionGroupComponent = () => {
-  return (
-    <AccordionGroup>
-      <Accordion
-        title="First Accordion"
-        customPadding={0}
-        onChange={() => {}}
-        width="100%"
-      >
-        <Box p={2}>
-          <Textbox label="Textbox in an Accordion" />
-        </Box>
-      </Accordion>
-      <Accordion
-        title="Second Accordion"
-        customPadding={0}
-        onChange={() => {}}
-        width="100%"
-      >
-        <Box p={2}>
-          <Box height="100px" bg="primary" />
-        </Box>
-      </Accordion>
-      <Accordion
-        title="Third Accordion"
-        customPadding={0}
-        onChange={() => {}}
-        width="100%"
-      >
-        <div>Content</div>
-      </Accordion>
-    </AccordionGroup>
-  );
-};
-
-const DynamicContent = () => {
-  const [contentCount, setContentCount] = React.useState(3);
-  const modifyContentCount = (modifier) => {
-    if (modifier === 1) {
-      setContentCount(contentCount + 1);
-    }
-    if (modifier === -1 && contentCount > 0) {
-      setContentCount(contentCount - 1);
-    }
-  };
-  return (
-    <>
-      <Button data-element="add-content" onClick={() => modifyContentCount(1)}>
-        Add content
-      </Button>
-      <Button
-        data-element="remove-content"
-        onClick={() => modifyContentCount(-1)}
-        ml={2}
-      >
-        Remove content
-      </Button>
-      <Accordion title="Title" defaultExpanded>
-        {Array.from({ length: contentCount }).map((_, index) => (
-          <div key={index}>Content</div>
-        ))}
-      </Accordion>
-    </>
-  );
-};
 
 context("Testing Accordion component", () => {
   describe("should render Accordion component", () => {
@@ -354,7 +181,7 @@ context("Testing Accordion component", () => {
       }
     );
 
-    it.each(specialCharacters)(
+    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
       "should render Accordion component with %s as a title",
       (titleValue) => {
         CypressMountWithProviders(<AccordionComponent title={titleValue} />);
@@ -363,7 +190,7 @@ context("Testing Accordion component", () => {
       }
     );
 
-    it.each(specialCharacters)(
+    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
       "should render Accordion component with %s as a subtitle",
       (titleValue) => {
         CypressMountWithProviders(<AccordionComponent subTitle={titleValue} />);
@@ -568,6 +395,130 @@ context("Testing Accordion component", () => {
       accordionContent().parent().should("have.css", "height", "96px");
       getDataElementByValue(ACCORDION_REMOVE_CONTENT).click();
       accordionContent().parent().should("have.css", "height", "78px");
+    });
+  });
+
+  describe("Accessibility tests for Accordion", () => {
+    it("should pass accessibility tests for AccordionDefault", () => {
+      CypressMountWithProviders(<AccordionDefault />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for AccordionDefault expanded", () => {
+      CypressMountWithProviders(<AccordionDefault expanded />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Accordion with disableContentPadding ", () => {
+      CypressMountWithProviders(<AccordionDefault disableContentPadding />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Accordion transparent", () => {
+      CypressMountWithProviders(<AccordionDefault scheme="transparent" />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Accordion size small", () => {
+      CypressMountWithProviders(<AccordionDefault size="small" />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Accordion with subTitle", () => {
+      CypressMountWithProviders(<AccordionDefault subTitle="Sub title" />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Accordion with full borders", () => {
+      CypressMountWithProviders(<AccordionDefault borders="full" />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Accordion with full borders expanded", () => {
+      CypressMountWithProviders(<AccordionDefault borders="full" expanded />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Accordion with left aligned icon", () => {
+      CypressMountWithProviders(<AccordionDefault iconAlign="left" />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Accordion with 500px width", () => {
+      CypressMountWithProviders(<AccordionDefault width="500px" />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([
+      [0, 0],
+      [1, 1],
+      [2, 2],
+      [3, 3],
+      [4, 4],
+      [5, 5],
+      [6, 6],
+    ])(
+      "should pass accessibility tests for Accordion with margin set to %s and padding set to %s",
+      (margin, padding) => {
+        CypressMountWithProviders(<AccordionDefault m={margin} p={padding} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([[0], [1], [2], [3], [4], [5], [6]])(
+      "should pass accessibility tests for Accordion with title padding set to %s",
+      (padding) => {
+        CypressMountWithProviders(
+          <AccordionDefault
+            headerSpacing={{
+              p: padding,
+            }}
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibility tests for Accordion with Box and different paddings", () => {
+      CypressMountWithProviders(<AccordionWithBoxAndDifferentPaddings />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Accordion with opening buttons", () => {
+      CypressMountWithProviders(<AccordionOpeningButton />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for AccordionGroup", () => {
+      CypressMountWithProviders(<AccordionGroupDefault />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for AccordionGroupValidation", () => {
+      CypressMountWithProviders(<AccordionGroupValidation />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for AccordionWithDefinitionList", () => {
+      CypressMountWithProviders(<AccordionWithDefinitionList />);
+
+      cy.checkAccessibility();
     });
   });
 });

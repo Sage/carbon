@@ -57,11 +57,16 @@ describe("checkRfcs script", () => {
     nock.cleanAll();
   });
 
-  describe("when not being run in Bitrise CI", () => {
+  describe("when not being run in CI", () => {
     it("should run and call console log", async () => {
+      jest.resetModules();
+      const OLD_ENV = process.env.NODE_ENV;
+      process.env.NODE_ENV = "test";
       await checkRfcs();
 
       expect(consoleLogMock).toHaveBeenCalled();
+
+      process.env.NODE_ENV = OLD_ENV;
     });
 
     it("should run but not console log if there are no items with RFC labels", async () => {
@@ -77,8 +82,8 @@ describe("checkRfcs script", () => {
     });
   });
 
-  it("should not run the script when being run in Bitrise CI", async () => {
-    ci.BITRISE = true;
+  it("should not run the script when being run in CI", async () => {
+    ci.isCI = true;
     await checkRfcs();
 
     expect(consoleLogMock).not.toHaveBeenCalled();

@@ -5,36 +5,29 @@ import Modal, { ModalProps } from "../modal";
 import Heading from "../heading";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+
 import {
   StyledDialog,
   StyledDialogTitle,
   StyledDialogContent,
   StyledDialogInnerContent,
 } from "./dialog.style";
+import { DialogSizes, TOP_MARGIN } from "./dialog.config";
+
 import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
-import { TOP_MARGIN } from "./dialog.config";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
 
-type PaddingValues = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+const PADDING_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const;
+type PaddingValues = typeof PADDING_VALUES[number];
 
 export interface ContentPaddingInterface {
   p?: PaddingValues;
   py?: PaddingValues;
   px?: PaddingValues;
 }
-
-type DialogSizes =
-  | "auto"
-  | "extra-small"
-  | "small"
-  | "medium-small"
-  | "medium"
-  | "medium-large"
-  | "large"
-  | "extra-large";
 
 export interface DialogProps extends ModalProps, TagProps {
   /** Custom class name  */

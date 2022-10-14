@@ -340,7 +340,14 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 .c14 .c1 {
   border: 1px solid var(--colorsActionMajorTransparent);
   color: var(--colorsActionMajor500);
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+  -webkit-justify-content: left;
+  -ms-flex-pack: left;
+  justify-content: left;
   margin-left: 0;
   min-width: 100%;
   text-align: left;
