@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { mount as enzymeMount } from "enzyme";
+import { mount as enzymeMount, ReactWrapper } from "enzyme";
 
-import Decimal from "./decimal.component";
+import Decimal, { DecimalProps, CustomEvent } from "./decimal.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 import Textbox from "../textbox/textbox.component";
 import Label from "../../__internal__/label";
@@ -15,29 +15,33 @@ import I18nProvider from "../i18n-provider";
 // input, not calling the prop directly, this is important. By mounting we can make these assertions with
 // confidence that the `onChange` will not be dispatched if e.preventDefault has been called
 
-let wrapper;
-let container;
-const onChange = jest.fn();
+describe("Decimal", () => {
+  let wrapper: ReactWrapper;
+  let container: HTMLDivElement | null;
+  const onChange = jest.fn();
 
-const mount = (jsx) => {
-  wrapper = enzymeMount(jsx, { attachTo: container });
-};
-
-const DOM = (jsx) => {
-  ReactDOM.render(jsx, container);
-};
-
-function render(props = {}, renderer = mount, mockComponent) {
-  const defaultProps = {
-    onChange,
-    ...props,
+  const mount = (jsx: JSX.Element) => {
+    wrapper = enzymeMount(jsx, { attachTo: container });
   };
 
-  renderer(mockComponent || <Decimal {...defaultProps} />);
-}
+  const DOM = (jsx: JSX.Element) => {
+    ReactDOM.render(jsx, container);
+  };
 
-describe("Decimal", () => {
-  function setProps(obj) {
+  function render(
+    props: Partial<DecimalProps> = {},
+    renderer = mount,
+    mockComponent?: JSX.Element
+  ) {
+    const defaultProps = {
+      onChange,
+      ...props,
+    };
+
+    renderer(mockComponent || <Decimal {...defaultProps} />);
+  }
+
+  function setProps(obj: Partial<DecimalProps>) {
     wrapper.setProps(obj);
     wrapper.update();
   }
@@ -65,7 +69,7 @@ describe("Decimal", () => {
     return hiddenInput.prop("value");
   };
 
-  const checkWhere = (where) => {
+  const checkWhere = (where: string) => {
     const without = where.replace(/\|/g, "");
     if (without !== value()) {
       throw new Error(
@@ -74,7 +78,7 @@ describe("Decimal", () => {
     }
   };
 
-  const type = (typedValue) => {
+  const type = (typedValue: string) => {
     // This function does not trigger the onblur, so the number will not be auto formatted
     const { input } = getElements();
     input.simulate("change", { target: { value: typedValue } });
@@ -85,7 +89,11 @@ describe("Decimal", () => {
     input.simulate("blur");
   };
 
-  const press = (obj, where, method = "keyPress") => {
+  const press = (
+    obj: Partial<ClipboardEvent> | Partial<KeyboardEvent>,
+    where: string,
+    method = "keyPress"
+  ) => {
     checkWhere(where);
 
     const preventDefault = jest.fn();
@@ -102,16 +110,22 @@ describe("Decimal", () => {
     return { preventDefault };
   };
 
-  function ClipboardData(obj) {
-    this.data = { ...obj };
+  class ClipboardData {
+    data: { "text/plain": string };
+
+    constructor(args: { "text/plain": string }) {
+      this.data = { ...args };
+    }
+
+    getData(dataType: "text/plain") {
+      return this.data[dataType];
+    }
   }
 
-  ClipboardData.prototype.getData = function (dataType) {
-    return this.data[dataType];
-  };
-
-  const paste = (obj, where) => {
-    const clipboardData = new ClipboardData({ "text/plain": obj.key });
+  const paste = (obj: { key: string }, where: string) => {
+    const clipboardData = (new ClipboardData({
+      "text/plain": obj.key,
+    }) as unknown) as DataTransfer;
     return press({ clipboardData }, where, "paste");
   };
 
@@ -122,11 +136,10 @@ describe("Decimal", () => {
   });
 
   afterEach(() => {
-    document.body.removeChild(container);
+    document.body.removeChild(container as HTMLDivElement);
     container = null;
     if (wrapper) {
       wrapper.unmount();
-      wrapper = null;
     }
   });
 
@@ -138,7 +151,7 @@ describe("Decimal", () => {
   );
 
   it("renders in ReactDOM", () => {
-    render(null, DOM);
+    render({}, DOM);
   });
 
   describe("Uncontrolled", () => {
@@ -248,7 +261,7 @@ describe("Decimal", () => {
         expect(hiddenValue()).toBe("12345.654");
       });
 
-      it.each([
+      it.each<[DecimalProps["precision"], string]>([
         [0, "150"],
         [1, "130.4"],
         [2, "136.42"],
@@ -803,13 +816,15 @@ describe("Decimal", () => {
 
         describe("precision", () => {
           it("fires a console error when precision is changed once component is loaded.", () => {
-            jest.spyOn(global.console, "error").mockImplementation(() => {});
+            const consoleSpy = jest
+              .spyOn(global.console, "error")
+              .mockImplementation(() => {});
             render({ defaultValue: "12345", precision: 2, ...itProps });
             setProps({ precision: 1 });
-            expect(console.error).toHaveBeenCalledWith(
+            expect(consoleSpy).toHaveBeenCalledWith(
               "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect."
             );
-            global.console.error.mockReset();
+            consoleSpy.mockRestore();
           });
 
           it("supports a precision of 0", () => {
@@ -1149,7 +1164,7 @@ describe("Decimal", () => {
       render({
         value: "",
         onBlur,
-        onChange: (e) => {
+        onChange: (e: CustomEvent) => {
           setProps({ value: e.target.value.rawValue });
         },
         allowEmptyValue: true,
@@ -1167,7 +1182,7 @@ describe("Decimal", () => {
       render({
         value: "",
         onBlur,
-        onChange: (e) => {
+        onChange: (e: CustomEvent) => {
           setProps({ value: e.target.value.rawValue });
         },
         allowEmptyValue: true,
@@ -1185,7 +1200,7 @@ describe("Decimal", () => {
       render({
         value: "",
         onBlur,
-        onChange: (e) => {
+        onChange: (e: CustomEvent) => {
           setProps({ value: e.target.value.rawValue });
         },
         allowEmptyValue: true,
@@ -1203,7 +1218,7 @@ describe("Decimal", () => {
       render({
         value: "",
         onBlur,
-        onChange: (e) => {
+        onChange: (e: CustomEvent) => {
           setProps({ value: e.target.value.rawValue });
         },
         allowEmptyValue: true,
@@ -1221,7 +1236,7 @@ describe("Decimal", () => {
       render({
         value: "",
         onBlur,
-        onChange: (e) => {
+        onChange: (e: CustomEvent) => {
           setProps({ value: e.target.value.rawValue });
         },
         allowEmptyValue: true,
@@ -1239,7 +1254,7 @@ describe("Decimal", () => {
       render({
         value: "",
         onBlur,
-        onChange: (e) => {
+        onChange: (e: CustomEvent) => {
           setProps({ value: e.target.value.rawValue });
         },
         allowEmptyValue: true,
@@ -1257,7 +1272,7 @@ describe("Decimal", () => {
       render({
         value: "",
         onBlur,
-        onChange: (e) => {
+        onChange: (e: CustomEvent) => {
           setProps({ value: e.target.value.rawValue });
         },
         allowEmptyValue: true,
@@ -1315,7 +1330,7 @@ describe("Decimal", () => {
       render({
         value: "0.00",
         onBlur,
-        onChange: (e) => {
+        onChange: (e: CustomEvent) => {
           setProps({ value: e.target.value.rawValue });
         },
       });
@@ -1400,54 +1415,46 @@ describe("Decimal", () => {
       expect(input.prop("id")).toEqual("decimalId");
     });
   });
-});
 
-describe("Precision prop console errors", () => {
-  let consoleSpy;
-  beforeEach(() => {
-    consoleSpy = jest
-      .spyOn(global.console, "error")
-      .mockImplementation(() => {});
-  });
-
-  afterEach(() => {
-    consoleSpy.mockRestore();
-  });
-
-  it("does not trigger an error message if the precision value is not specified", () => {
-    mount(<Decimal defaultValue="12345.654" />);
-    // eslint-disable-next-line no-console
-    expect(console.error).not.toHaveBeenCalled();
-  });
-
-  it("triggers an error message if the precision value is greater than 15", () => {
-    mount(<Decimal defaultValue="12345.654" precision={16} />);
-    // eslint-disable-next-line no-console
-    expect(console.error.mock.calls[0][2]).toBe(
-      "Precision prop must be a number greater than 0 or equal to or less than 15."
-    );
-  });
-});
-
-describe("required", () => {
-  let inputs;
-  beforeAll(() => {
-    render({ label: "required", required: true }, (jsx) => {
-      wrapper = enzymeMount(jsx);
+  describe("Precision prop console errors", () => {
+    let consoleSpy: jest.SpyInstance;
+    beforeEach(() => {
+      consoleSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => {});
     });
-    inputs = wrapper.find("input");
+
+    afterEach(() => {
+      consoleSpy.mockRestore();
+    });
+
+    it("does not trigger an error message if the precision value is not specified", () => {
+      mount(<Decimal defaultValue="12345.654" />);
+      // eslint-disable-next-line no-console
+      expect(console.error).not.toHaveBeenCalled();
+    });
   });
 
-  it("the required prop is passed to the input", () => {
-    expect(inputs.at(0).prop("required")).toBe(true);
-  });
+  describe("required", () => {
+    let inputs: ReactWrapper;
+    beforeEach(() => {
+      render({ label: "required", required: true }, (jsx) => {
+        wrapper = enzymeMount(jsx);
+      });
+      inputs = wrapper.find("input");
+    });
 
-  it("the required prop not passed to the hidden input", () => {
-    expect(inputs.at(1).prop("required")).toBe(undefined);
-  });
+    it("the required prop is passed to the input", () => {
+      expect(inputs.at(0).prop("required")).toBe(true);
+    });
 
-  it("the isRequired prop is passed to the label", () => {
-    const label = wrapper.find(Label);
-    expect(label.prop("isRequired")).toBe(true);
+    it("the required prop not passed to the hidden input", () => {
+      expect(inputs.at(1).prop("required")).toBe(undefined);
+    });
+
+    it("the isRequired prop is passed to the label", () => {
+      const label = wrapper.find(Label);
+      expect(label.prop("isRequired")).toBe(true);
+    });
   });
 });
