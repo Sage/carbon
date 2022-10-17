@@ -1,3 +1,10 @@
+### [111.4.1](https://github.com/Sage/carbon/compare/v111.4.0...v111.4.1) (2022-10-17)
+
+
+### Bug Fixes
+
+* fix typescript errors in declaration files ([ae9a447](https://github.com/Sage/carbon/commit/ae9a447ada1bd6b1433eb92944b2ac0389c26335)), closes [#5478](https://github.com/Sage/carbon/issues/5478)
+
 ## [111.4.0](https://github.com/Sage/carbon/compare/v111.3.3...v111.4.0) (2022-10-14)
 
 
