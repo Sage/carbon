@@ -272,6 +272,8 @@ MenuItem.propTypes = {
   overrideColor: PropTypes.bool,
   /** @ignore @private */
   isFocused: PropTypes.bool,
+  /** @ignore @private */
+  indexInMenu: PropTypes.number,
 };
 
 MenuItem.displayName = "MenuItem";

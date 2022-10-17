@@ -15,6 +15,8 @@ import {
   testStyledSystemFlexBox,
   assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
+import openSubmenu from "./__internal__/spec-helper";
+import { StyledSubmenu } from "./__internal__/submenu/submenu.style";
 import StyledMenuItemWrapper from "./menu-item/menu-item.style";
 import menuConfigVariants from "./menu.config";
 
@@ -216,6 +218,33 @@ describe("Menu", () => {
       );
 
       expect(wrapper.find(MenuItem).length).toEqual(1);
+    });
+  });
+
+  describe("with multiple submenus", () => {
+    it("when a sumenu is opened, any previously open submenu is closed", () => {
+      wrapper = mount(
+        <Menu>
+          <MenuItem href="#">menu item</MenuItem>
+          <MenuItem submenu="submenu 1">
+            <MenuItem href="#">submenu 1 item 1</MenuItem>
+            <MenuItem href="#">submenu 1 item 2</MenuItem>
+          </MenuItem>
+          <MenuItem submenu="submenu 2">
+            <MenuItem href="#">submenu 2 item 1</MenuItem>
+            <MenuItem href="#">submenu 2 item 2</MenuItem>
+          </MenuItem>
+        </Menu>
+      );
+
+      openSubmenu(wrapper, 0);
+      let openSubmenus = wrapper.find(StyledSubmenu);
+      expect(openSubmenus.length).toEqual(1);
+      expect(openSubmenus.at(0).html()).toContain("submenu 1");
+      openSubmenu(wrapper, 1);
+      openSubmenus = wrapper.find(StyledSubmenu);
+      expect(openSubmenus.length).toEqual(1);
+      expect(openSubmenus.at(0).html()).toContain("submenu 2");
     });
   });
 });

@@ -92,6 +92,7 @@ const menuContextValues = (menuType) => ({
   handleKeyDown: mockhandleKeyDown,
   reset: mockMenuReset,
   menuType,
+  setOpenSubmenuIndex: () => {},
 });
 
 describe("Submenu component", () => {
