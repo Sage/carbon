@@ -5,22 +5,75 @@ import React, {
   useCallback,
   useContext,
 } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
-
 import invariant from "invariant";
-import Textbox from "../textbox";
-import { filterStyledSystemMarginProps } from "../../style/utils";
+
+import Textbox, { CommonTextboxProps } from "../textbox";
 import LocaleContext from "../../__internal__/i18n-context";
 import usePrevious from "../../hooks/__internal__/usePrevious";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
-const Decimal = ({
-  align,
+export interface CustomEvent {
+  target: {
+    name?: string;
+    id?: string;
+    value: {
+      formattedValue: string;
+      rawValue: string;
+    };
+  };
+}
+
+export interface DecimalProps
+  extends Omit<CommonTextboxProps, "onChange" | "onBlur"> {
+  /** Text alignment of the label */
+  align?: "left" | "right";
+  /** Allow an empty value instead of defaulting to 0.00 */
+  allowEmptyValue?: boolean;
+  /** The default value of the input if it's meant to be used as an uncontrolled component */
+  defaultValue?: string;
+  /** The input id */
+  id?: string;
+  /** The width of the input as a percentage */
+  inputWidth?: number;
+  /** Handler for change event if input is meant to be used as a controlled component */
+  onChange?: (ev: CustomEvent) => void;
+  /** Handler for blur event */
+  onBlur?: (ev: CustomEvent) => void;
+  /** Handler for key press event */
+  onKeyPress?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
+  /** The input name */
+  name?: string;
+  /** The decimal precision of the value in the input */
+  precision?:
+    | 0
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 13
+    | 14
+    | 15;
+  /** If true, the component will be read-only */
+  readOnly?: boolean;
+  /** Flag to configure component as mandatory */
+  required?: boolean;
+  /** The value of the input if it's used as a controlled component */
+  value?: string;
+  /** The locale string - default en */
+  locale?: string;
+}
+
+export const Decimal = ({
+  align = "right",
   defaultValue,
-  precision,
+  precision = 2,
   inputWidth,
   readOnly,
   onChange,
@@ -28,12 +81,12 @@ const Decimal = ({
   onKeyPress,
   id,
   name,
-  allowEmptyValue,
+  allowEmptyValue = false,
   required,
   locale,
   value,
   ...rest
-}) => {
+}: DecimalProps) => {
   const l = useContext(LocaleContext);
 
   const emptyValue = allowEmptyValue ? "" : "0.00";
@@ -62,7 +115,7 @@ const Decimal = ({
       const numberWithGroupAndDecimalSeparator = 10000.1;
       return Intl.NumberFormat(locale || l.locale())
         .formatToParts(numberWithGroupAndDecimalSeparator)
-        .find((part) => part.type === separatorType).value;
+        .find((part) => part.type === separatorType)?.value;
     },
     [l, locale]
   );
@@ -141,7 +194,7 @@ const Decimal = ({
   const toStandardDecimal = useCallback(
     (i18nValue) => {
       const valueWithoutNBS =
-        getSeparator("group").match(/\s+/) && !i18nValue.match(/\s{2,}/)
+        getSeparator("group")?.match(/\s+/) && !i18nValue.match(/\s{2,}/)
           ? i18nValue.replace(/\s+/g, "")
           : i18nValue;
       /* If a value is passed in that is a number but has too many delimiters in succession, we want to handle this
@@ -153,7 +206,7 @@ const Decimal = ({
         `([^A-Za-z0-9]{2,})|(^[^A-Za-z0-9-]+)|([^0-9a-z-,.])|([^0-9-,.]+)|([W,.])$`,
         "g"
       );
-      const separator = getSeparator("decimal");
+      const separator = getSeparator("decimal") as string;
       const separatorRegex = new RegExp(
         separator === "." ? `\\${separator}` : separator,
         "g"
@@ -178,7 +231,7 @@ const Decimal = ({
       : formatValue(decimalValue)
   );
 
-  const createEvent = (formatted, raw) => {
+  const createEvent = (formatted: string, raw?: string): CustomEvent => {
     return {
       target: {
         name,
@@ -191,13 +244,13 @@ const Decimal = ({
     };
   };
 
-  const handleOnChange = (ev) => {
+  const handleOnChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const { value: val } = ev.target;
     setStateValue(val);
     if (onChange) onChange(createEvent(val));
   };
 
-  const handleOnBlur = (ev) => {
+  const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
     const { value: updatedValue } = ev.target;
     let event;
 
@@ -218,7 +271,7 @@ const Decimal = ({
   };
 
   const isControlled = value !== undefined;
-  const prevControlledRef = useRef();
+  const prevControlledRef = useRef<boolean>();
 
   useEffect(() => {
     const message =
@@ -279,86 +332,6 @@ const Decimal = ({
       />
     </>
   );
-};
-
-Decimal.propTypes = {
-  /** Styled-system margin props */
-  ...marginPropTypes,
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component": PropTypes.string,
-  /**
-   * The default value alignment on the input
-   */
-  align: PropTypes.oneOf(["right", "left"]),
-  /**
-   * The decimal precision of the value in the input
-   */
-  // eslint-disable-next-line consistent-return
-  precision: (props) => {
-    if (
-      !Number.isInteger(props.precision) ||
-      props.precision < 0 ||
-      props.precision > 15
-    ) {
-      return new Error(
-        "Precision prop must be a number greater than 0 or equal to or less than 15."
-      );
-    }
-  },
-  /**
-   * The width of the input as a percentage
-   */
-  inputWidth: PropTypes.number,
-  /**
-   * If true, the component will be read-only
-   */
-  readOnly: PropTypes.bool,
-  /**
-   * The default value of the input if it's meant to be used as an uncontrolled component
-   */
-  defaultValue: PropTypes.string,
-  /**
-   * The value of the input if it's used as a controlled component
-   */
-  value: PropTypes.string,
-  /**
-   * Handler for change event if input is meant to be used as a controlled component
-   */
-  onChange: PropTypes.func,
-  /**
-   * Handler for blur event
-   */
-  onBlur: PropTypes.func,
-  /**
-   * Handler for key press event
-   */
-  onKeyPress: PropTypes.func,
-  /**
-   * The input name
-   */
-  name: PropTypes.string,
-  /**
-   * The input id
-   */
-  id: PropTypes.string,
-  /**
-   * Allow an empty value instead of defaulting to 0.00
-   */
-  allowEmptyValue: PropTypes.bool,
-  /** Flag to configure component as mandatory */
-  required: PropTypes.bool,
-  /**
-   * Override the locale string, default from I18nProvider
-   */
-  locale: PropTypes.string,
-  /** Aria label for rendered help component */
-  helpAriaLabel: PropTypes.string,
-};
-
-Decimal.defaultProps = {
-  precision: 2,
-  allowEmptyValue: false,
-  align: "right",
 };
 
 export default Decimal;

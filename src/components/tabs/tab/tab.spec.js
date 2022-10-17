@@ -111,6 +111,10 @@ describe("Tab", () => {
     );
   });
 
+  it("does not pass title prop down to DOM element", () => {
+    expect(render({}).getDOMNode().getAttribute("title")).toEqual(null);
+  });
+
   describe("if `href` prop provided", () => {
     it("should not render the content", () => {
       wrapper = render({ href: "#" });
