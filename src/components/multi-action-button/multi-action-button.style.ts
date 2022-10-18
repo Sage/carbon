@@ -81,10 +81,11 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
       text-align: ${align};
       z-index: ${theme.zIndex.overlay};
 
-      /* Styling for Safari. Display flex is not supported on buttons in Safari. */
+      /* Styling for Safari. */
       @media not all and (min-resolution: 0.001dpcm) {
         @supports (-webkit-appearance: none) and (stroke-color: transparent) {
           display: -webkit-box;
+          justify-content: ${align === "right" ? `flex-end` : `flex-start`};
         }
       }
 
