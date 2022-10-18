@@ -25,7 +25,7 @@ describe("NumeralDate", () => {
   const onChange = jest.fn();
   const onKeyDown = jest.fn();
   const defaultProps = {
-    defaultValue: { dd: "30" },
+    defaultValue: { dd: "30", mm: "01" },
     onBlur,
     onChange,
     onKeyDown,
@@ -53,9 +53,20 @@ describe("NumeralDate", () => {
     { modifier: "&&&" }
   );
 
+  beforeEach(() => {
+    onBlur.mockReset();
+    onChange.mockReset();
+    onKeyDown.mockReset();
+  });
+
   describe("propTypes", () => {
+    let consoleSpy;
+
+    beforeEach(() => {
+      consoleSpy = jest.spyOn(global.console, "error");
+    });
+
     it("does not allow an incorrect dateFormat prop", () => {
-      const consoleSpy = jest.spyOn(global.console, "error");
       renderWrapper({ dateFormat: ["xx"] });
       const expected =
         "Forbidden prop `dateFormat` supplied to `NumeralDate`. " +
@@ -66,18 +77,15 @@ describe("NumeralDate", () => {
         "['mm', 'dd'], " +
         "['mm', 'yyyy']";
 
-      // eslint-disable-next-line no-console
-      expect(console.error.mock.calls[0][2]).toBe(expected);
+      expect(consoleSpy.mock.calls[0][2]).toBe(expected);
 
       consoleSpy.mockRestore();
     });
 
     it("does not throw an error if no dateFormat is passed", () => {
-      jest.spyOn(global.console, "error");
       renderWrapper();
 
-      // eslint-disable-next-line no-console
-      expect(console.error).not.toHaveBeenCalled();
+      expect(consoleSpy).not.toHaveBeenCalled();
     });
   });
 
@@ -93,7 +101,7 @@ describe("NumeralDate", () => {
     it("throws when component changes from uncontrolled to controlled", () => {
       wrapper = renderWrapper({ value: undefined });
       expect(() => {
-        wrapper.setProps({ value: { dd: "02" } });
+        wrapper.setProps({ value: { dd: "02", mm: "01" } });
       }).toThrow(
         "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
           "Decide between using a controlled or uncontrolled input element for the lifetime of the component"
@@ -101,7 +109,7 @@ describe("NumeralDate", () => {
     });
 
     it("throws when component changes from controlled to uncontrolled", () => {
-      wrapper = renderWrapper({ value: { dd: "02" } });
+      wrapper = renderWrapper({ value: { dd: "02", mm: "01" } });
       expect(() => {
         wrapper.setProps({ value: undefined });
       }).toThrow(
@@ -222,20 +230,23 @@ describe("NumeralDate", () => {
         ["32", false],
         ["33", false],
       ])(
-        "renders internal validation when day field is blurred and has incorrect value",
+        "renders internal validation when day field is blurred and has incorrect value (%o)",
         (value, isValid) => {
           wrapper = renderWrapper({
-            dateFormat: ["dd"],
-            defaultValue: null,
+            defaultValue: undefined,
             [internalValidationProp]: true,
           });
-          const input = wrapper.find("input");
+          const input = wrapper.find("input").at(0);
           input.simulate("change", { target: { value } });
           wrapper.update();
           input.simulate("blur");
           jest.runAllTimers();
           wrapper.update();
-          expect(wrapper.find(Textbox).at(0).props()[validationType]).toBe(
+
+          const dateTextboxes = wrapper.find(Textbox);
+          expect(
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+          ).toBe(
             isValid ? "" : "Day should be a number within a 1-31 range.\n"
           );
         }
@@ -249,11 +260,10 @@ describe("NumeralDate", () => {
         ["13", false],
         ["14", false],
       ])(
-        "renders internal validation when month field is blurred and has incorrect value",
+        "renders internal validation when month field is blurred and has incorrect value (%o)",
         (value, isValid) => {
           wrapper = renderWrapper({
-            defaultValue: null,
-            dateFormat: ["dd", "mm"],
+            defaultValue: undefined,
             [internalValidationProp]: true,
           });
           const input = wrapper.find("input").at(1);
@@ -261,7 +271,11 @@ describe("NumeralDate", () => {
           input.simulate("blur");
           jest.runAllTimers();
           wrapper.update();
-          expect(wrapper.find(Textbox).at(1).props()[validationType]).toBe(
+
+          const dateTextboxes = wrapper.find(Textbox);
+          expect(
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+          ).toBe(
             isValid ? "" : "Month should be a number within a 1-12 range.\n"
           );
         }
@@ -276,11 +290,10 @@ describe("NumeralDate", () => {
         ["2201", false],
         ["2202", false],
       ])(
-        "renders internal validation when year field is blurred and has incorrect value",
+        "renders internal validation when year field is blurred and has incorrect value (%o)",
         (value, isValid) => {
           wrapper = renderWrapper({
-            defaultValue: null,
-            dateFormat: ["dd", "mm", "yyyy"],
+            defaultValue: undefined,
             [internalValidationProp]: true,
           });
           const input = wrapper.find("input").at(2);
@@ -288,35 +301,57 @@ describe("NumeralDate", () => {
           input.simulate("blur");
           jest.runAllTimers();
           wrapper.update();
-          expect(wrapper.find(Textbox).at(2).props()[validationType]).toBe(
+
+          const dateTextboxes = wrapper.find(Textbox);
+          expect(
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+          ).toBe(
             isValid ? "" : "Year should be a number within a 1800-2200 range.\n"
           );
         }
       );
 
-      it("renders multiline internal validation when all fields are blurred with incorrect values", () => {
-        wrapper = renderWrapper({
-          defaultValue: null,
-          dateFormat: ["dd", "mm", "yyyy"],
-          [internalValidationProp]: true,
-        });
-        const dayInput = wrapper.find("input").at(0);
-        dayInput.simulate("change", { target: { value: "0" } });
-        dayInput.simulate("blur");
-        const monthInput = wrapper.find("input").at(1);
-        monthInput.simulate("change", { target: { value: "0" } });
-        monthInput.simulate("blur");
-        const yearInput = wrapper.find("input").at(2);
-        yearInput.simulate("change", { target: { value: "0" } });
-        yearInput.simulate("blur");
-        jest.runAllTimers();
-        wrapper.update();
-        expect(wrapper.find(Textbox).at(2).props()[validationType]).toBe(
-          "Day should be a number within a 1-31 range.\n" +
-            "Month should be a number within a 1-12 range.\n" +
-            "Year should be a number within a 1800-2200 range.\n"
-        );
-      });
+      describe.each([[["dd", "mm"]], [["dd", "mm", "yyyy"]]])(
+        "when the format is set to %o and values are changed to be invalid",
+        (dateFormat) => {
+          it("multiline internal validation matching the format should be rendered", () => {
+            wrapper = renderWrapper({
+              dateFormat,
+              defaultValue: undefined,
+              [internalValidationProp]: true,
+            });
+            const dayInput = wrapper.find("input").at(0);
+            dayInput.simulate("change", { target: { value: "0" } });
+            dayInput.simulate("blur");
+            const monthInput = wrapper.find("input").at(1);
+            monthInput.simulate("change", { target: { value: "0" } });
+            monthInput.simulate("blur");
+
+            if (dateFormat.length === 3) {
+              const yearInput = wrapper.find("input").at(2);
+              yearInput.simulate("change", { target: { value: "0" } });
+              yearInput.simulate("blur");
+            }
+
+            jest.runAllTimers();
+            wrapper.update();
+
+            const dateTextboxes = wrapper.find(Textbox);
+
+            expect(
+              dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+            ).toBe(
+              "Day should be a number within a 1-31 range.\n" +
+                "Month should be a number within a 1-12 range.\n" +
+                `${
+                  dateFormat.length === 3
+                    ? "Year should be a number within a 1800-2200 range.\n"
+                    : ""
+                }`
+            );
+          });
+        }
+      );
     });
   });
 
@@ -329,8 +364,8 @@ describe("NumeralDate", () => {
 
   describe("Clicking off the component", () => {
     it("calls onBlur if prop is passed", () => {
-      wrapper = renderWrapper({ defaultValue: undefined, dateFormat: ["dd"] });
-      const input = wrapper.find("input");
+      wrapper = renderWrapper({ defaultValue: undefined });
+      const input = wrapper.find("input").at(0);
       input.simulate("blur");
       jest.runAllTimers();
       expect(onBlur).toHaveBeenCalled();
@@ -339,8 +374,8 @@ describe("NumeralDate", () => {
 
   describe("supports being a controlled component", () => {
     it("calls onChange prop with proper argument", () => {
-      wrapper = renderWrapper({ name: "Name", id: "Id", dateFormat: ["dd"] });
-      const input = wrapper.find("input");
+      wrapper = renderWrapper({ name: "Name", id: "Id" });
+      const input = wrapper.find("input").at(0);
       act(() => {
         input.simulate("change", { target: { value: "45" } });
       });
@@ -348,6 +383,7 @@ describe("NumeralDate", () => {
         target: {
           value: {
             dd: "45",
+            mm: "01",
           },
           name: "Name",
           id: "Id",
@@ -359,9 +395,8 @@ describe("NumeralDate", () => {
       wrapper = renderWrapper({
         defaultValue: undefined,
         value: { dd: "30" },
-        dateFormat: ["dd"],
       });
-      const input = wrapper.find("input");
+      const input = wrapper.find("input").at(0);
       expect(input.props().value).toEqual("30");
     });
 
@@ -369,36 +404,35 @@ describe("NumeralDate", () => {
       wrapper = renderWrapper({
         defaultValue: undefined,
         value: undefined,
-        dateFormat: ["dd"],
       });
-      const input = wrapper.find("input");
+      const input = wrapper.find("input").at(0);
       expect(input.props().value).toEqual("");
     });
   });
 
   describe("supports being a uncontrolled component", () => {
     it("accepts a default value", () => {
-      wrapper = renderWrapper({ dateFormat: ["dd"] });
-      const input = wrapper.find("input");
+      wrapper = renderWrapper({});
+      const input = wrapper.find("input").at(0);
       expect(input.props().value).toEqual("30");
     });
 
     it("passes empty string to the input if defaultValue is not provided", () => {
-      wrapper = renderWrapper({ defaultValue: undefined, dateFormat: ["dd"] });
-      const input = wrapper.find("input");
+      wrapper = renderWrapper({ defaultValue: undefined });
+      const input = wrapper.find("input").at(0);
       expect(input.props().value).toEqual("");
     });
   });
 
   describe("Valid characters", () => {
     beforeEach(() => {
-      wrapper = renderWrapper({ dateFormat: ["dd"] });
+      wrapper = renderWrapper({});
     });
 
     afterEach(() => jest.clearAllMocks());
 
     it("allows numeric key presses", () => {
-      const input = wrapper.find("input");
+      const input = wrapper.find("input").at(0);
       const event = { key: "1", preventDefault: jest.fn() };
       act(() => {
         input.simulate("keypress", event);
@@ -407,7 +441,7 @@ describe("NumeralDate", () => {
     });
 
     it.each([["a"], ["/"]])("does not allow non-numeric characters", (key) => {
-      const input = wrapper.find("input");
+      const input = wrapper.find("input").at(0);
       const event = { key: key[0], preventDefault: jest.fn() };
       act(() => {
         input.simulate("keypress", event);
@@ -416,7 +450,7 @@ describe("NumeralDate", () => {
     });
 
     it("does not allow partial date value to be too long", () => {
-      const input = wrapper.find("input");
+      const input = wrapper.find("input").at(0);
       const event = {
         target: {
           value: "123",
@@ -433,10 +467,7 @@ describe("NumeralDate", () => {
   describe("tags", () => {
     describe("on component", () => {
       const wrapperWithTags = shallow(
-        <NumeralDate
-          dateFormat={["dd", "mm", "yyyy"]}
-          value={{ dd: "12", mm: "", yyyy: "" }}
-        />
+        <NumeralDate value={{ dd: "12", mm: "", yyyy: "" }} />
       );
       it("include correct component, element and role data tags", () => {
         rootTagTest(wrapperWithTags.find(StyledNumeralDate), "numeral-date");
@@ -472,7 +503,7 @@ describe("NumeralDate", () => {
 
       const { "aria-label": ariaLabel } = mount(
         <NumeralDate
-          value={{ dd: "02" }}
+          value={{ dd: "02", mm: "", yyyy: "" }}
           label={text}
           labelHelp={text}
           helpAriaLabel={text}
