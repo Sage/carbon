@@ -3,7 +3,7 @@ import { Side } from "@floating-ui/dom";
 import { FormInputPropTypes } from "../select-textbox/select-textbox";
 
 export interface MultiSelectProps
-  extends Omit<FormInputPropTypes, "defaultValue"> {
+  extends Omit<FormInputPropTypes, "defaultValue" | "value"> {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -45,7 +45,7 @@ export interface MultiSelectProps
   /** Placement of the select list in relation to the input element */
   listPlacement?: Side;
   /** Use the opposite list placement if the set placement does not fit */
-  flipEnabled?: bool;
+  flipEnabled?: boolean;
   /** Wraps the pill text when it would overflow the input width */
   wrapPillText?: boolean;
 }

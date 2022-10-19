@@ -1,3 +1,39 @@
+### [111.4.2](https://github.com/Sage/carbon/compare/v111.4.1...v111.4.2) (2022-10-18)
+
+
+### Bug Fixes
+
+* **multi-action-button:** fix safari styling for right alignment ([abee168](https://github.com/Sage/carbon/commit/abee168019229c103c37c8b2141616f77b399cd5))
+
+### [111.4.1](https://github.com/Sage/carbon/compare/v111.4.0...v111.4.1) (2022-10-17)
+
+
+### Bug Fixes
+
+* fix typescript errors in declaration files ([ae9a447](https://github.com/Sage/carbon/commit/ae9a447ada1bd6b1433eb92944b2ac0389c26335)), closes [#5478](https://github.com/Sage/carbon/issues/5478)
+
+## [111.4.0](https://github.com/Sage/carbon/compare/v111.3.3...v111.4.0) (2022-10-14)
+
+
+### Features
+
+* **dialog:** introduce DialogSizes type ([872627c](https://github.com/Sage/carbon/commit/872627c900befe2caea9557dcbfb880067d5b954)), closes [#5516](https://github.com/Sage/carbon/issues/5516)
+
+### [111.3.3](https://github.com/Sage/carbon/compare/v111.3.2...v111.3.3) (2022-10-13)
+
+
+### Bug Fixes
+
+* **tab:** prevent title prop being set as an attribute on the DOM element ([6169a7f](https://github.com/Sage/carbon/commit/6169a7fa9523c8287f2e7882645aff59b8349f3b)), closes [#5480](https://github.com/Sage/carbon/issues/5480)
+* **tabs:** ensure that the selected Tab does not update when children update ([dccf8ed](https://github.com/Sage/carbon/commit/dccf8edd9c40875441ac4a64a19b49973fa1919f)), closes [#5527](https://github.com/Sage/carbon/issues/5527)
+
+### [111.3.2](https://github.com/Sage/carbon/compare/v111.3.1...v111.3.2) (2022-10-13)
+
+
+### Bug Fixes
+
+* move cypress preprocessor dependencies to devDependencies ([efca508](https://github.com/Sage/carbon/commit/efca50845702f47bec393ad5c29e296c262a01fd))
+
 ### [111.3.1](https://github.com/Sage/carbon/compare/v111.3.0...v111.3.1) (2022-10-13)
 
 

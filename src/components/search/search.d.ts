@@ -1,5 +1,6 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
+import { ValidationProps } from "../../__internal__/validations";
 
 export interface SearchProps extends ValidationProps, MarginProps {
   /** Prop to specify the aria-label of the search component */

@@ -7,8 +7,17 @@ import {
   testStyledSystemSpacing,
 } from "../../__spec_helper__/test-utils";
 import Typography, { List, ListItem } from ".";
+import { TypographyProps } from "./typography.component";
 
-const assert = ({ as, ...css }, props) => {
+interface AssertStyleMatchProps {
+  as?: string;
+  [key: string]: string | number | undefined;
+}
+
+const assert = (
+  { as, ...css }: AssertStyleMatchProps,
+  props: TypographyProps
+) => {
   const wrapper = mount(
     <ThemeProvider theme={mintTheme}>
       <Typography {...props} />
@@ -37,7 +46,7 @@ const pStyling = {
 describe("Typography", () => {
   describe("default variants", () => {
     it("applies p styling by default", () => {
-      assert({ ...pStyling, as: "p" });
+      assert({ ...pStyling, as: "p" }, {});
     });
 
     it("applies p styling", () => {
@@ -588,42 +597,42 @@ describe("Typography", () => {
 });
 
 describe("List", () => {
-  it.each([
-    ["ul", "square"],
-    ["ol", "decimal"],
-  ])("renders as a %s", (as, listStyleType) => {
-    const wrapper = mount(
-      <ThemeProvider theme={mintTheme}>
-        <List as={as}>
-          <ListItem>Bread</ListItem>
-          <ListItem>Milk</ListItem>
-          <ListItem>Sugar</ListItem>
-        </List>
-      </ThemeProvider>
-    );
+  it.each([["ul", "square"] as const, ["ol", "decimal"] as const])(
+    "renders as a %s",
+    (as, listStyleType) => {
+      const wrapper = mount(
+        <ThemeProvider theme={mintTheme}>
+          <List as={as}>
+            <ListItem>Bread</ListItem>
+            <ListItem>Milk</ListItem>
+            <ListItem>Sugar</ListItem>
+          </List>
+        </ThemeProvider>
+      );
 
-    const ul = wrapper.find(as);
-    assertStyleMatch(
-      {
-        ...pStyling,
-        listStyleType,
-      },
-      ul
-    );
-
-    const listItems = wrapper.find("li");
-    expect(listItems.length).toBe(3);
-
-    listItems.forEach((listItem) => {
+      const ul = wrapper.find(as);
       assertStyleMatch(
         {
           ...pStyling,
-          margin: "0 0 8px 16px",
+          listStyleType,
         },
-        listItem
+        ul
       );
-    });
-  });
+
+      const listItems = wrapper.find("li");
+      expect(listItems.length).toBe(3);
+
+      listItems.forEach((listItem) => {
+        assertStyleMatch(
+          {
+            ...pStyling,
+            margin: "0 0 8px 16px",
+          },
+          listItem
+        );
+      });
+    }
+  );
 
   testStyledSystemSpacing((props) => <List {...props} />);
 
