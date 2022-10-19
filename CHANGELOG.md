@@ -1,3 +1,10 @@
+### [111.5.1](https://github.com/Sage/carbon/compare/v111.5.0...v111.5.1) (2022-10-19)
+
+
+### Bug Fixes
+
+* **tags:** update TagProps interface so only the data tag types are exported ([e6d14ba](https://github.com/Sage/carbon/commit/e6d14ba32c033a47955a08abee2799d343c0e988)), closes [#5534](https://github.com/Sage/carbon/issues/5534)
+
 ## [111.5.0](https://github.com/Sage/carbon/compare/v111.4.2...v111.5.0) (2022-10-19)
 
 
