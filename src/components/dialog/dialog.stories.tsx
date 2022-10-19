@@ -187,7 +187,6 @@ export const DynamicContent: StoryFn = () => {
         size="medium"
         open={isOpen}
         title="Dialog with dynamic content"
-        isLoading="isLoading"
         onCancel={() => setIsOpen(false)}
       >
         {isLoading ? (

@@ -138,7 +138,6 @@ describe("Dialog", () => {
       mount(
         <Dialog
           onCancel={() => {}}
-          onConfirm={() => {}}
           open
           subtitle="Test"
           title="Test"
@@ -372,7 +371,6 @@ describe("Dialog", () => {
             size="small"
             className="foo"
             onCancel={onCancel}
-            onConfirm={() => {}}
             height="500"
             role="dialog"
             data-element="bar"
@@ -423,7 +421,6 @@ describe("Dialog", () => {
       wrapper = mount(
         <Dialog
           onCancel={() => {}}
-          onConfirm={() => {}}
           open
           subtitle="Test"
           title="Test"
@@ -435,9 +432,7 @@ describe("Dialog", () => {
     describe("when title or subtitle are not set", () => {
       it(`does not render aria-labelledby pointing at the title element or
       an aria-describedby attribute pointing at the subtitle element`, () => {
-        wrapper = mount(
-          <Dialog onCancel={() => {}} onConfirm={() => {}} open />
-        );
+        wrapper = mount(<Dialog onCancel={() => {}} open />);
 
         expect(
           wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').length

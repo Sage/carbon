@@ -281,16 +281,15 @@ This may occasionally be useful with things like Toasts where they persist on th
       const [isDialogOpen, setIsDialogOpen] = useState(false);
       const [isToast1Open, setIsToast1Open] = useState(false);
       const [isToast2Open, setIsToast2Open] = useState(false);
-      const toast1Ref = useRef();
-      const toast2Ref = useRef();
+      const toast1Ref = useRef(null);
+      const toast2Ref = useRef(null);
       return (
         <>
           <Button onClick={() => setIsDialogOpen(true)}>Open sidebar</Button>
           <Sidebar
             open={isDialogOpen}
             onCancel={() => setIsDialogOpen(false)}
-            title="Title"
-            subtitle="Subtitle"
+            header={<Typography variant="h3">Sidebar header</Typography>}
             focusableContainers={[toast1Ref, toast2Ref]}
           >
             <Form
