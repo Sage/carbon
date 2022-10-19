@@ -1,8 +1,7 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-import { margin } from "styled-system";
+import { margin, MarginProps } from "styled-system";
 import baseTheme from "../../style/themes/base";
-import { CARD_SIZES } from "./card.config";
+import { CardSpacing } from "./card.config";
 
 const paddingSizes = {
   small: "0 24px",
@@ -10,7 +9,13 @@ const paddingSizes = {
   large: "0 48px",
 };
 
-const StyledCard = styled.div`
+export interface StyledCardProps extends MarginProps {
+  cardWidth: string;
+  interactive: boolean;
+  draggable: boolean;
+  spacing: CardSpacing;
+}
+const StyledCard = styled.div<StyledCardProps>`
   ${({ cardWidth, interactive, draggable, spacing }) => css`
     background-color: var(--colorsUtilityYang100);
     border: none;
@@ -46,17 +51,7 @@ const StyledCard = styled.div`
 `;
 
 StyledCard.defaultProps = {
-  cardWidth: "500px",
-  spacing: "medium",
   theme: baseTheme,
-};
-
-StyledCard.propTypes = {
-  cardWidth: PropTypes.string,
-  interactive: PropTypes.bool,
-  draggable: PropTypes.bool,
-  spacing: PropTypes.oneOf(CARD_SIZES),
-  theme: PropTypes.object,
 };
 
 export default StyledCard;

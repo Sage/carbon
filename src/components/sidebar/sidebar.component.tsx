@@ -14,6 +14,11 @@ import { filterStyledSystemPaddingProps } from "../../style/utils";
 import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 
+// TODO FE-5408 will investigate why React.RefObject<T> produces a failed prop type when current = null
+type CustomRefObject<T> = {
+  current?: T | null;
+};
+
 export interface SidebarContextProps {
   isInSidebar?: boolean;
 }
@@ -25,13 +30,13 @@ export interface SidebarProps extends PaddingProps, TagProps {
   "aria-describedby"?: string;
   /**
    * Prop to specify the aria-label of the component.
-   * To be used only when the title prop is not defined, and the component is not labelled by any internal element.
+   * To be used only when the header prop is not defined, and the component is not labelled by any internal element.
    */
   "aria-label"?: string;
   /**
    * Prop to specify the aria-labeledby property of the component
-   * To be used when the title prop is a custom React Node,
-   * or the component is labelled by an internal element other than the title.
+   * To be used when the header prop is a custom React Node,
+   * or the component is labelled by an internal element other than the header.
    */
   "aria-labelledby"?: string;
   /** Modal content */
@@ -62,7 +67,7 @@ export interface SidebarProps extends PaddingProps, TagProps {
     | "large"
     | "extra-large";
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar */
-  focusableContainers?: React.MutableRefObject<HTMLElement>[];
+  focusableContainers?: CustomRefObject<HTMLElement>[];
 }
 
 export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
@@ -86,7 +91,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
     ref
   ) => {
     const locale = useLocale();
-    const { current: titleId } = useRef<string>(createGuid());
+    const { current: headerId } = useRef<string>(createGuid());
     const hasStickyFooter = useIsStickyFooterForm(children);
 
     const sidebarRef = useRef<HTMLDivElement | null>(null);
@@ -126,7 +131,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         aria-describedby={ariaDescribedBy}
         aria-label={ariaLabel}
         aria-labelledby={
-          !ariaLabelledBy && !ariaLabel ? titleId : ariaLabelledBy
+          !ariaLabelledBy && !ariaLabel ? headerId : ariaLabelledBy
         }
         ref={setRefs}
         position={position}
@@ -135,7 +140,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         onCancel={onCancel}
         role={role}
       >
-        {header && <SidebarHeader id={titleId}>{header}</SidebarHeader>}
+        {header && <SidebarHeader id={headerId}>{header}</SidebarHeader>}
         {closeIcon()}
         <Box
           data-element="sidebar-content"

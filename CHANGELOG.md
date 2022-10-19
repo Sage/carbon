@@ -1,3 +1,24 @@
+### [111.5.1](https://github.com/Sage/carbon/compare/v111.5.0...v111.5.1) (2022-10-19)
+
+
+### Bug Fixes
+
+* **tags:** update TagProps interface so only the data tag types are exported ([e6d14ba](https://github.com/Sage/carbon/commit/e6d14ba32c033a47955a08abee2799d343c0e988)), closes [#5534](https://github.com/Sage/carbon/issues/5534)
+
+## [111.5.0](https://github.com/Sage/carbon/compare/v111.4.2...v111.5.0) (2022-10-19)
+
+
+### Features
+
+* **card:** deprecate dataRole prop, replace with functionality with data-role ([6fff828](https://github.com/Sage/carbon/commit/6fff8280972db3a1b219c2b9a6e55d5489bd4117))
+
+### [111.4.2](https://github.com/Sage/carbon/compare/v111.4.1...v111.4.2) (2022-10-18)
+
+
+### Bug Fixes
+
+* **multi-action-button:** fix safari styling for right alignment ([abee168](https://github.com/Sage/carbon/commit/abee168019229c103c37c8b2141616f77b399cd5))
+
 ### [111.4.1](https://github.com/Sage/carbon/compare/v111.4.0...v111.4.1) (2022-10-17)
 
 

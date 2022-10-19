@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Card CardFooter styling should match the expected styling when it has interactive styling 1`] = `
+exports[`CardFooter matches expected styling when it contains interactive styling 1`] = `
 .c0 {
   background-color: var(--colorsUtilityMajor025);
   border-top: var(--colorsUtilityMajor100);
@@ -33,7 +33,26 @@ exports[`Card CardFooter styling should match the expected styling when it has i
 </div>
 `;
 
-exports[`Card CardFooter styling should match the expected styling when it has non-interactive content 1`] = `
+exports[`CardFooter matches expected styling when it contains non-interactive content 1`] = `
+.c0 {
+  background-color: var(--colorsUtilityMajor025);
+  border-top: var(--colorsUtilityMajor100);
+  border-top-width: 1px;
+  border-top-style: solid;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 -32px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0 .c4 {
+  margin: 0;
+  padding: 18px 32px;
+}
+
 .c3 {
   position: relative;
   color: var(--colorsYin090);
@@ -66,25 +85,6 @@ exports[`Card CardFooter styling should match the expected styling when it has n
   font-size: 16px;
   line-height: 16px;
   display: block;
-}
-
-.c0 {
-  background-color: var(--colorsUtilityMajor025);
-  border-top: var(--colorsUtilityMajor100);
-  border-top-width: 1px;
-  border-top-style: solid;
-  font-size: 14px;
-  font-weight: 700;
-  margin: 0 -32px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c0 .c4 {
-  margin: 0;
-  padding: 18px 32px;
 }
 
 .c1 {

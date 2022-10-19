@@ -54,7 +54,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Multiaction Button component theme to <theme>
-    When I open default-story "Multi action button" component with "themeNames" json from "themes" using "<nameOfObject>" object name
+    When I open multi-action-button-story "Multi action button test" component with "themeNames" json from "themes" using "<nameOfObject>" object name
     Then "button" component css "color" is set to "<theme>" common
       And "button" component css "border-color" is set to "<theme>" common
     Examples:

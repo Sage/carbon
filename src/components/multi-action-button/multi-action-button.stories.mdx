@@ -1,6 +1,7 @@
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import MultiActionButton from ".";
+import * as stories from "./multi-action-button.stories.tsx";
 import Button from "../button";
 import Box from "../box";
 import { Accordion } from "../accordion";
@@ -37,79 +38,31 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
 ### Default
 
 <Canvas>
-  <Story name="default" parameters={{ chromatic: { disable: true } }}>
-    <MultiActionButton text="Multi Action Button">
-      <Button>Button 1</Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
-    </MultiActionButton>
-  </Story>
+  <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled">
-    <MultiActionButton disabled text="Multi Action Button">
-      <Button>Button 1</Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
-    </MultiActionButton>
-  </Story>
+  <Story name="disabled" story={stories.Disabled} />
 </Canvas>
 
 ### Button types
 
 <Canvas>
-  <Story name="button types">
-    {["primary", "secondary", "tertiary"].map((buttonType) => (
-      <Box key={buttonType} mb={3}>
-        <MultiActionButton
-          buttonType={buttonType}
-          text={`Multi Action Button - ${buttonType}`}
-        >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </MultiActionButton>
-      </Box>
-    ))}
-  </Story>
+  <Story name="button types" story={stories.ButtonTypes} />
 </Canvas>
 
 ### Sizes
 
 <Canvas>
-  <Story name="sizes">
-    {["small", "medium", "large"].map((size) => (
-      <Box key={size} mb={3}>
-        <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
-          <Button size={size}>Button 1</Button>
-          <Button size={size}>Button 2</Button>
-          <Button size={size}>Button 3</Button>
-        </MultiActionButton>
-      </Box>
-    ))}
-  </Story>
+  <Story name="sizes" story={stories.Sizes}/>
 </Canvas>
 
 ### Alignment
 
 <Canvas>
-  <Story name="align" parameters={{ chromatic: { disable: true } }}>
-    {["left", "right"].map((align) => (
-      <Box key={align} mb={3}>
-        <MultiActionButton
-          align={align}
-          text={`Multi Action Button - ${align}`}
-        >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </MultiActionButton>
-      </Box>
-    ))}
-  </Story>
+  <Story name="align" story={stories.Alignment} />
 </Canvas>
 
 ### Subtext
@@ -117,40 +70,14 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
 Subtext only works when `size` is `large`
 
 <Canvas>
-  <Story name="subtext">
-    <MultiActionButton
-      size="large"
-      subtext="subtext"
-      text="Multi Action Button"
-    >
-      <Button size="large">Button 1</Button>
-      <Button size="large">Button 2</Button>
-      <Button size="large">Button 3</Button>
-    </MultiActionButton>
-  </Story>
+  <Story name="subtext" story={stories.Subtext} />
 </Canvas>
 
 ## In overflow: hidden container
 
 <Canvas>
   <Story
-    name="in overflow hidden container"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <Accordion title="Heading">
-      <Box p={4}>
-        <MultiActionButton
-          size="large"
-          subtext="subtext"
-          text="Multi Action Button"
-        >
-          <Button size="large">Button 1</Button>
-          <Button size="large">Button 2</Button>
-          <Button size="large">Button 3</Button>
-        </MultiActionButton>
-      </Box>
-    </Accordion>
-  </Story>
+    name="in overflow hidden container" story={stories.InOverflowHiddenContainer} />
 </Canvas>
 
 ## Props
