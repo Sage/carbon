@@ -232,7 +232,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     switch (size) {
       case "small":
-        paddingX = 2;
+        paddingX = 2
         break;
       case "large":
         paddingX = 4;

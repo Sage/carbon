@@ -36,7 +36,8 @@ function stylingForType({
   buttonType = "secondary",
   size,
   destructive,
-}: Pick<ButtonProps, "disabled" | "buttonType" | "size" | "destructive"> & {
+  isMinor,
+}: Pick<ButtonProps, "disabled" | "buttonType" | "size" | "destructive" | "isMinor"> & {
   iconOnly?: boolean;
 }) {
   return css`
@@ -48,7 +49,7 @@ function stylingForType({
       outline: solid 3px var(--colorsSemanticFocus500);
     }
 
-    ${buttonTypes(disabled, destructive)[buttonType]};
+    ${buttonTypes(disabled, destructive, isMinor)[buttonType]};
 
     ${size === "small" &&
     css`

@@ -222,6 +222,8 @@ describe("Button", () => {
     );
   });
 
+  describe("When icon type is specified and button has no children", () => {})
+
   describe("When icon type is specified and button has no children", () => {
     describe.each(BUTTON_VARIANTS)(
       "and the button type is %s",
