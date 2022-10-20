@@ -219,6 +219,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const buttonType = buttonTypeProp;
 
     let paddingX;
+    let isMinorPadding;
 
     const handleLinkKeyDown = (
       event: React.KeyboardEvent<HTMLButtonElement>
@@ -232,13 +233,27 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     switch (size) {
       case "small":
-        paddingX = 2
+        paddingX = 2;
         break;
       case "large":
         paddingX = 4;
         break;
       default:
         paddingX = 3;
+    }
+
+    switch (size) {
+      case "small":
+        isMinorPadding = 1;
+        break;
+      case "medium":
+        isMinorPadding = 2;
+        break;
+      case "large":
+        isMinorPadding = 2;
+        break;
+      default:
+        isMinorPadding = 3;
     }
 
     const setRefs = useCallback(

@@ -30,14 +30,23 @@ For the single most prominent call to action on the page (e.g. Save, Submit, Con
 <Canvas>
   <Story name="primary">
     <>
-      <Button mt={2} buttonType="primary" size="small">
+      <Button mt={2} buttonType="primary" size="small" ml={2}>
         Small
+      </Button>
+      <Button mt={2} buttonType="primary" isMinor={true} size="small" ml={2}>
+        Minor
       </Button>
       <Button mt={2} buttonType="primary" ml={2}>
         Medium
       </Button>
+      <Button mt={2} buttonType="primary" isMinor={true} ml={2}>
+        Minor
+      </Button>
       <Button mt={2} buttonType="primary" size="large" ml={2}>
         Large
+      </Button>
+      <Button mt={2} buttonType="primary" size="large" isMinor={true} ml={2}>
+        Minor
       </Button>
     </>
   </Story>
@@ -48,14 +57,23 @@ Primary buttons can be destructive.
 <Canvas>
   <Story name="primary/destructive">
     <>
-      <Button mt={2} buttonType="primary" destructive size="small">
+      <Button mt={2} buttonType="primary" destructive size="small" ml={2}>
         Small
+      </Button>
+      <Button mt={2} buttonType="primary" destructive size="small" isMinor={true} ml={2}>
+        Minor
       </Button>
       <Button mt={2} buttonType="primary" destructive ml={2}>
         Medium
       </Button>
+      <Button mt={2} buttonType="primary" destructive ml={2} isMinor={true}>
+        Minor
+      </Button>
       <Button mt={2} buttonType="primary" destructive size="large" ml={2}>
         Large
+      </Button>
+      <Button buttonType="primary" destructive isMinor={true} size="large" ml={2}>
+        Minor
       </Button>
     </>
   </Story>
@@ -66,11 +84,17 @@ Primary buttons can be disabled.
 <Canvas>
   <Story name="primary/disabled">
     <>
-      <Button mt={2} buttonType="primary" disabled size="small">
+      <Button mt={2} buttonType="primary" disabled size="small" ml={2}>
         Small
+      </Button>
+      <Button mt={2} buttonType="primary" isMinor={true} disabled size="small" ml={2}>
+        Minor
       </Button>
       <Button mt={2} buttonType="primary" disabled ml={2}>
         Medium
+      </Button>
+      <Button mt={2} buttonType="primary" disabled ml={2} isMinor={true} ml={2}>
+        Minor
       </Button>
       <Button mt={2} buttonType="primary" disabled size="large" ml={2}>
         Large
@@ -84,7 +108,7 @@ Primary buttons can have an icon positioned before or after the text.
 <Canvas>
   <Story name="primary/icon">
     <>
-      <Button mt={2} buttonType="primary" iconType="print">
+      <Button mt={2} buttonType="primary" iconType="print" ml={2}>
         Medium
       </Button>
       <Button
@@ -141,14 +165,23 @@ Secondary buttons are transparent, rather than white.
 <Canvas>
   <Story name="secondary">
     <>
-      <Button mt={2} size="small">
+      <Button mt={2} size="small" ml={2}>
         Small
+      </Button>
+      <Button mt={2} size="small" isMinor={true} ml={2}>
+        Minor
       </Button>
       <Button mt={2} ml={2}>
         Medium
       </Button>
+      <Button mt={2} ml={2} isMinor={true}>
+        Minor
+      </Button>
       <Button mt={2} size="large" ml={2}>
         Large
+      </Button>
+      <Button mt={2} size="large" ml={2} isMinor={true}>
+        Minor
       </Button>
     </>
   </Story>
@@ -159,14 +192,23 @@ Secondary buttons can be destructive.
 <Canvas>
   <Story name="secondary/destructive">
     <>
-      <Button mt={2} destructive size="small">
+      <Button mt={2} destructive size="small" ml={2}>
         Small
+      </Button>
+      <Button mt={2} destructive size="small" isMinor={true} ml={2}>
+        Minor
       </Button>
       <Button mt={2} destructive ml={2}>
         Medium
       </Button>
+      <Button mt={2} destructive ml={2} isMinor={true}>
+        Minor
+      </Button>
       <Button mt={2} destructive size="large" ml={2}>
         Large
+      </Button>
+      <Button mt={2} destructive size="large" ml={2} isMinor={true}>
+        Minor
       </Button>
     </>
   </Story>
@@ -177,14 +219,23 @@ Secondary buttons can be disabled.
 <Canvas>
   <Story name="secondary/disabled">
     <>
-      <Button mt={2} size="small" disabled>
+      <Button mt={2} size="small" disabled ml={2}>
         Small
+      </Button>
+      <Button mt={2} size="small" disabled isMinor={true} ml={2}>
+        Minor
       </Button>
       <Button mt={2} disabled ml={2}>
         Medium
       </Button>
+      <Button mt={2} disabled ml={2} isMinor={true}>
+        Minor
+      </Button>
       <Button mt={2} size="large" disabled ml={2}>
         Large
+      </Button>
+      <Button mt={2} size="large" disabled ml={2} isMinor={true}>
+        Minor
       </Button>
     </>
   </Story>
@@ -195,14 +246,23 @@ Secondary buttons can have an icon positioned before or after the text.
 <Canvas>
   <Story name="secondary/icon">
     <>
-      <Button mt={2} iconType="print">
+      <Button mt={2} iconType="print" ml={2}>
         Medium
+      </Button>
+      <Button mt={2} iconType="print" isMinor={true} ml={2}>
+        Minor
       </Button>
       <Button mt={2} destructive iconType="delete" iconPosition="after" ml={2}>
         Medium
       </Button>
+      <Button mt={2} destructive iconType="delete" iconPosition="after" ml={2} isMinor={true}>
+        Minor
+      </Button>
       <Button mt={2} disabled iconType="print" iconPosition="after" ml={2}>
         Medium
+      </Button>
+      <Button mt={2} disabled iconType="print" iconPosition="after" ml={2} isMinor={true}>
+        Minor
       </Button>
     </>
   </Story>
@@ -237,14 +297,23 @@ Tertiary or ‘ghost’ buttons are used for reversing actions, like ‘Cancel�
 <Canvas>
   <Story name="tertiary">
     <>
-      <Button mt={2} buttonType="tertiary" size="small">
+      <Button mt={2} buttonType="tertiary" size="small" ml={2}>
         Small
+      </Button>
+      <Button mt={2} buttonType="tertiary" size="small" isMinor={true} ml={2}>
+        Minor
       </Button>
       <Button mt={2} buttonType="tertiary" ml={2}>
         Medium
       </Button>
+      <Button mt={2} buttonType="tertiary" ml={2} isMinor={true}>
+        Minor
+      </Button>
       <Button mt={2} buttonType="tertiary" size="large" ml={2}>
         Large
+      </Button>
+      <Button mt={2} buttonType="tertiary" size="large" ml={2} isMinor={true}>
+        Minor
       </Button>
     </>
   </Story>
@@ -255,14 +324,23 @@ Tertiary buttons can be destructive.
 <Canvas>
   <Story name="tertiary/destructive">
     <>
-      <Button mt={2} buttonType="tertiary" destructive size="small">
+      <Button mt={2} buttonType="tertiary" destructive size="small" ml={2}>
         Small
+      </Button>
+      <Button mt={2} buttonType="tertiary" destructive size="small" isMinor={true} ml={2}>
+        Minor
       </Button>
       <Button mt={2} buttonType="tertiary" destructive ml={2}>
         Medium
       </Button>
+      <Button mt={2} buttonType="tertiary" destructive ml={2} isMinor={true}>
+        Minor
+      </Button>
       <Button mt={2} buttonType="tertiary" destructive size="large" ml={2}>
         Large
+      </Button>
+      <Button mt={2} buttonType="tertiary" destructive size="large" ml={2} isMinor={true}>
+        Minor
       </Button>
     </>
   </Story>
@@ -273,14 +351,23 @@ Tertiary buttons can be disabled.
 <Canvas>
   <Story name="tertiary/disabled">
     <>
-      <Button mt={2} buttonType="tertiary" disabled size="small">
+      <Button mt={2} buttonType="tertiary" disabled size="small" ml={2}>
         Small
+      </Button>
+      <Button mt={2} buttonType="tertiary" disabled size="small" isMinor={true} ml={2}>
+        Minor
       </Button>
       <Button mt={2} buttonType="tertiary" disabled ml={2}>
         Medium
       </Button>
+      <Button mt={2} buttonType="tertiary" disabled ml={2} isMinor={true}>
+        Minor
+      </Button>
       <Button mt={2} buttonType="tertiary" disabled size="large" ml={2}>
         Large
+      </Button>
+      <Button mt={2} buttonType="tertiary" disabled size="large" ml={2} isMinor={true}>
+        Minor
       </Button>
     </>
   </Story>
@@ -291,8 +378,11 @@ Tertiary buttons can have an icon positioned before or after the text.
 <Canvas>
   <Story name="tertiary/icon">
     <>
-      <Button mt={2} buttonType="tertiary" iconType="print">
+      <Button mt={2} buttonType="tertiary" iconType="print" ml={2}>
         Medium
+      </Button>
+      <Button mt={2} buttonType="tertiary" iconType="print" isMinor={true} ml={2}>
+        Minor
       </Button>
       <Button
         mt={2}
@@ -307,12 +397,34 @@ Tertiary buttons can have an icon positioned before or after the text.
       <Button
         mt={2}
         buttonType="tertiary"
+        destructive
+        iconType="delete"
+        iconPosition="after"
+        ml={2}
+        isMinor={true}
+      >
+        Minor
+      </Button>
+      <Button
+        mt={2}
+        buttonType="tertiary"
         disabled
         iconType="print"
         iconPosition="after"
         ml={2}
       >
         Medium
+      </Button>
+           <Button
+        mt={2}
+        buttonType="tertiary"
+        disabled
+        iconType="print"
+        iconPosition="after"
+        ml={2}
+        isMinor={true}
+      >
+        Minor
       </Button>
     </>
   </Story>

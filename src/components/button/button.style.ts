@@ -37,7 +37,10 @@ function stylingForType({
   size,
   destructive,
   isMinor,
-}: Pick<ButtonProps, "disabled" | "buttonType" | "size" | "destructive" | "isMinor"> & {
+}: Pick<
+  ButtonProps,
+  "disabled" | "buttonType" | "size" | "destructive" | "isMinor"
+> & {
   iconOnly?: boolean;
 }) {
   return css`
@@ -68,6 +71,29 @@ function stylingForType({
       font-size: 16px;
       min-height: 48px;
     `}
+
+    /* BUTTON MINOR */
+    ${isMinor &&
+    size === "small" &&
+    css`
+      padding: var(--spacing100) var(--spacing100);
+      min-height: var(--spacing400);
+    `}
+
+    ${isMinor &&
+    size === "medium" &&
+    css`
+      padding: var(--spacing100) var(--spacing150);
+      min-height: var(--spacing500);
+    `}
+    
+    ${isMinor &&
+    size === "large" &&
+    css`
+      padding: var(--spacing100) var(--spacing200);
+      min-height: var(--spacing600);
+    `}
+
     ${iconOnly && stylingForIconOnly(size)}
   `;
 }

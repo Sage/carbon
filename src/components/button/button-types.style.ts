@@ -17,6 +17,7 @@ export default (
   isDisabled?: boolean,
   destructive?: boolean,
   isMinor?: boolean,
+  size?: string
 ) => ({
   primary: `
     background: var(--colorsActionMajor500);
@@ -29,6 +30,9 @@ export default (
       isMinor
         ? `
     background: var(--colorsActionMinor500);
+    padding: ${
+      size === "medium" ? "padding: var(--spacing100) var(--spacing150)" : null
+    };
     border-color: transparent;
     ${makeColors("var(--colorsSemanticNegativeYang100)")};
     &:hover {
@@ -95,8 +99,7 @@ export default (
         isMinor
           ? `
       background: transparent;
-      padding-left: var(--spacing100);
-      padding-right: var(--spacing100);
+      padding: var(--spacing100);
       border-color: var(--colorsActionMinor500);
       ${makeColors("var(--colorsActionMinor500)")};
       &:hover {
@@ -143,8 +146,7 @@ export default (
       isMinor
         ? `
     background: transparent;
-    padding-left: var(--spacing100);
-    padding-right: var(--spacing100);
+    padding: var(--spacing100);
     ${makeColors("var(--colorsActionMinor500)")};
     &:hover {
       color: var(--colorsSemanticNegativeYang100);
