@@ -6,6 +6,8 @@ import Button from "../button";
 import Textbox from "../textbox";
 import Pill from "../pill";
 import Form from "../form";
+import Box from "../box";
+import CarbonProvider from "../carbon-provider";
 import {
   dialogTitle,
   dialogSubtitle,
@@ -22,6 +24,7 @@ import {
   getDataElementByValue,
   tooltipPreview,
   getComponent,
+  getElement,
 } from "../../../cypress/locators/index";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { contentElement } from "../../../cypress/locators/content/index";
@@ -94,6 +97,35 @@ const NestedDialog = () => {
           Nested Dialog Content
         </Dialog>
       </DialogFullScreen>
+    </>
+  );
+};
+
+const MultipleDialogsInDifferentProviders = () => {
+  const [isModal1Open, setIsModal1Open] = React.useState(false);
+  const [isModal2Open, setIsModal2Open] = React.useState(false);
+  return (
+    <>
+      <CarbonProvider>
+        <Box>
+          <Button onClick={() => setIsModal1Open(true)}>Open Modal 1</Button>
+          <DialogFullScreen
+            title="Full Screen Dialog"
+            open={isModal1Open}
+            onCancel={() => setIsModal1Open(false)}
+          >
+            This is Modal 1
+            <Button onClick={() => setIsModal2Open(true)}>Open Modal 2</Button>
+          </DialogFullScreen>
+        </Box>
+      </CarbonProvider>
+      <CarbonProvider>
+        <Box>
+          <Dialog open={isModal2Open} onCancel={() => setIsModal2Open(false)}>
+            This is Modal 2
+          </Dialog>
+        </Box>
+      </CarbonProvider>
     </>
   );
 };
@@ -253,6 +285,38 @@ context("Testing DialogFullScreen component", () => {
       dialogFullScreenPreview().trigger("keyup", keyCode("Esc"));
 
       dialogFullScreenPreview().should("not.exist");
+    });
+
+    it("should render nested dialogs with the aria-modal property only set on the top one", () => {
+      CypressMountWithProviders(<NestedDialog />);
+
+      openDialogByName(`Open ${mainDialogTitle}`).click();
+
+      getElement("dialog-full-screen")
+        .should("have.attr", "aria-modal")
+        .and("eq", "true");
+
+      openDialogByName(`Open ${nestedDialogTitle}`).click();
+
+      getElement("dialog-full-screen").should("not.have.attr", "aria-modal");
+
+      getElement("dialog").should("have.attr", "aria-modal").and("eq", "true");
+    });
+
+    it("should render nested dialogs with the aria-modal property only set on the top one, even when the dialogs are wrapped in separate CarbonProviders", () => {
+      cy.mount(<MultipleDialogsInDifferentProviders />);
+
+      openDialogByName("Open Modal 1").click();
+
+      getElement("dialog-full-screen")
+        .should("have.attr", "aria-modal")
+        .and("eq", "true");
+
+      openDialogByName("Open Modal 2").click();
+
+      getElement("dialog-full-screen").should("not.have.attr", "aria-modal");
+
+      getElement("dialog").should("have.attr", "aria-modal").and("eq", "true");
     });
 
     it("should render DialogFullScreen component with aria-describedby", () => {

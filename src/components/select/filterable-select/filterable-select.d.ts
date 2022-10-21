@@ -4,7 +4,7 @@ import Button from "../../button";
 import { FormInputPropTypes } from "../select-textbox/select-textbox";
 
 export interface FilterableSelectProps
-  extends Omit<FormInputPropTypes, "defaultValue"> {
+  extends Omit<FormInputPropTypes, "defaultValue" | "value"> {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -50,7 +50,7 @@ export interface FilterableSelectProps
   /** Placement of the select list in relation to the input element */
   listPlacement?: Side;
   /** Use the opposite list placement if the set placement does not fit */
-  flipEnabled?: bool;
+  flipEnabled?: boolean;
 }
 
 declare function FilterableSelect(

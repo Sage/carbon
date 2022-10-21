@@ -1,7 +1,8 @@
 import * as React from "react";
 import GridContainer from "./grid-container/grid-container.component";
 import GridItem from "./grid-item/grid-item.component";
-import { pod, gridPod, gridComponent } from "../../../cypress/locators/grid";
+import { gridItem, gridContainer } from "../../../cypress/locators/grid";
+import Pod from "../pod";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 const viewportSize = (sizeOfViewport) => {
@@ -31,267 +32,173 @@ const viewportSize = (sizeOfViewport) => {
   }
 };
 
-const GridComponent = ({ ...props }) => {
+const SimpleGridExample = ({ ...itemProps }) => {
   return (
-    <>
-      <GridContainer {...props}>
-        <GridItem alignSelf="stretch" justifySelf="stretch" {...props}>
-          <pod alignTitle="left" border padding="medium" variant="primary">
-            1
-          </pod>
-        </GridItem>
-        <GridItem alignSelf="stretch" justifySelf="stretch">
-          <pod alignTitle="left" border padding="medium" variant="primary">
-            2
-          </pod>
-        </GridItem>
-        <GridItem alignSelf="stretch" justifySelf="stretch">
-          <pod alignTitle="left" border padding="medium" variant="primary">
-            3
-          </pod>
-        </GridItem>
-      </GridContainer>
-    </>
+    <GridContainer>
+      <GridItem alignSelf="stretch" justifySelf="stretch" {...itemProps}>
+        <Pod>Item 1</Pod>
+      </GridItem>
+    </GridContainer>
   );
 };
 
-const GridComponentSized = ({ ...props }) => {
+const GridLayoutExample = () => {
   return (
-    <>
-      <GridContainer {...props}>
-        <GridItem alignSelf="stretch" justifySelf="stretch" {...props}>
-          <pod alignTitle="left" border padding="medium" variant="primary">
-            1
-          </pod>
-        </GridItem>
-        <GridItem
-          alignSelf="stretch"
-          justifySelf="stretch"
-          gridColumn="1 / 6"
-          gridRow="2 / 3"
-        >
-          <pod alignTitle="left" border padding="medium" variant="primary">
-            2
-          </pod>
-        </GridItem>
-        <GridItem
-          alignSelf="stretch"
-          justifySelf="stretch"
-          gridColumn="7 / 13"
-          gridRow="4 / 5"
-        >
-          <pod alignTitle="left" border padding="medium" variant="primary">
-            3
-          </pod>
-        </GridItem>
-      </GridContainer>
-    </>
+    <GridContainer>
+      <GridItem alignSelf="stretch" justifySelf="stretch">
+        <Pod>Item 1</Pod>
+      </GridItem>
+      <GridItem
+        alignSelf="stretch"
+        justifySelf="stretch"
+        gridColumn="1 / 6"
+        gridRow="2 / 3"
+      >
+        <Pod>Item 2</Pod>
+      </GridItem>
+      <GridItem
+        alignSelf="stretch"
+        justifySelf="stretch"
+        gridColumn="7 / 13"
+        gridRow="4 / 5"
+      >
+        <Pod>Item 3</Pod>
+      </GridItem>
+    </GridContainer>
   );
 };
 
 context("Testing Grid component", () => {
   describe("should render Grid component", () => {
     it.each([
-      [1, "1 /1", "1 / 13", 1862],
+      [1, "auto / auto", "1 / 13", 1862],
       [2, "2 / 3", "1 / 6", 752],
       [3, "4 / 5", "7 / 13", 911],
     ])(
-      "should render Grid viewport to default and verify pod width and height",
-      (index, row, col, podWidth) => {
-        CypressMountWithProviders(<GridComponentSized />);
+      "when viewport size is default, grid item %s should have correct grid-row, grid-column and width",
+      (itemNumber, row, col, expectedWidth) => {
+        CypressMountWithProviders(<GridLayoutExample />);
 
         viewportSize("default");
-        if (index === 1) {
-          gridPod(index).should("have.css", "grid-row", "auto / auto");
-          gridPod(index).should("have.css", "grid-column", "auto / auto");
-          gridPod(index)
-            .invoke("css", "width")
-            .then(parseFloat)
-            .then(($el) => {
-              expect($el).to.be.gte(podWidth);
-              expect($el).to.be.lt(podWidth + 1);
-            });
-        } else {
-          gridPod(index).should("have.css", "grid-row", row);
-          gridPod(index).should("have.css", "grid-column", col);
-          gridPod(index)
-            .invoke("css", "width")
-            .then(parseFloat)
-            .then(($el) => {
-              expect($el).to.be.gte(podWidth);
-              expect($el).to.be.lt(podWidth + 1);
-            });
-        }
+        gridItem(itemNumber - 1)
+          .should("have.css", "grid-row", row)
+          .should("have.css", "grid-column", col)
+          .then(($element) =>
+            expect(parseFloat($element.css("width"))).to.be.within(
+              expectedWidth,
+              expectedWidth + 1
+            )
+          );
       }
     );
 
     it.each([
-      [1, "1 /1", "1 / 13", 551],
+      [1, "auto / auto", "1 / 13", 551],
       [2, "2 / 3", "1 / 6", 220],
       [3, "4 / 5", "7 / 13", 267],
     ])(
-      "should render Grid viewport to extra small and verify pod width and height",
-      (index, row, col, podWidth) => {
-        CypressMountWithProviders(<GridComponentSized />);
+      "when viewport size is extra small, grid item %s should have correct grid-row, grid-column and width",
+      (itemNumber, row, col, expectedWidth) => {
+        CypressMountWithProviders(<GridLayoutExample />);
 
         viewportSize("extra small");
-        if (index === 1) {
-          gridPod(index).should("have.css", "grid-row", "auto / auto");
-          gridPod(index).should("have.css", "grid-column", "auto / auto");
-          gridPod(index)
-            .invoke("css", "width")
-            .then(parseFloat)
-            .then(($el) => {
-              expect($el).to.be.gte(podWidth);
-              expect($el).to.be.lt(podWidth + 1);
-            });
-        } else {
-          gridPod(index).should("have.css", "grid-row", row);
-          gridPod(index).should("have.css", "grid-column", col);
-          gridPod(index)
-            .invoke("css", "width")
-            .then(parseFloat)
-            .then(($el) => {
-              expect($el).to.be.gte(podWidth);
-              expect($el).to.be.lt(podWidth + 1);
-            });
-        }
+        gridItem(itemNumber - 1)
+          .should("have.css", "grid-row", row)
+          .should("have.css", "grid-column", col)
+          .then(($element) =>
+            expect(parseFloat($element.css("width"))).to.be.within(
+              expectedWidth,
+              expectedWidth + 1
+            )
+          );
       }
     );
 
     it.each([
-      [1, "1 /1", "1 / 13", 895],
+      [1, "auto / auto", "1 / 13", 895],
       [2, "2 / 3", "1 / 6", 363],
       [3, "4 / 5", "7 / 13", 439],
     ])(
-      "should render Grid viewport to small and verify pod width and height",
-      (index, row, col, podWidth) => {
-        CypressMountWithProviders(<GridComponentSized />);
+      "when viewport size is small, grid item %s should have correct grid-row, grid-column and width",
+      (itemNumber, row, col, expectedWidth) => {
+        CypressMountWithProviders(<GridLayoutExample />);
 
         viewportSize("small");
-        if (index === 1) {
-          gridPod(index).should("have.css", "grid-row", "auto / auto");
-          gridPod(index).should("have.css", "grid-column", "auto / auto");
-          gridPod(index)
-            .invoke("css", "width")
-            .then(parseFloat)
-            .then(($el) => {
-              expect($el).to.be.gte(podWidth);
-              expect($el).to.be.lt(podWidth + 1);
-            });
-        } else {
-          gridPod(index).should("have.css", "grid-row", row);
-          gridPod(index).should("have.css", "grid-column", col);
-          gridPod(index)
-            .invoke("css", "width")
-            .then(parseFloat)
-            .then(($el) => {
-              expect($el).to.be.gte(podWidth);
-              expect($el).to.be.lt(podWidth + 1);
-            });
-        }
+        gridItem(itemNumber - 1)
+          .should("have.css", "grid-row", row)
+          .should("have.css", "grid-column", col)
+          .then(($element) =>
+            expect(parseFloat($element.css("width"))).to.be.within(
+              expectedWidth,
+              expectedWidth + 1
+            )
+          );
       }
     );
 
     it.each([
-      [1, "1 /1", "1 / 13", 1179],
+      [1, "auto / auto", "1 / 13", 1179],
       [2, "2 / 3", "1 / 6", 477],
       [3, "4 / 5", "7 / 13", 577],
     ])(
-      "should render Grid viewport to medium and verify pod width and height",
-      (index, row, col, podWidth) => {
-        CypressMountWithProviders(<GridComponentSized />);
+      "when viewport size is medium, grid item %s should have correct grid-row, grid-column and width",
+      (itemNumber, row, col, expectedWidth) => {
+        CypressMountWithProviders(<GridLayoutExample />);
 
         viewportSize("medium");
-        if (index === 1) {
-          gridPod(index).should("have.css", "grid-row", "auto / auto");
-          gridPod(index).should("have.css", "grid-column", "auto / auto");
-          gridPod(index)
-            .invoke("css", "width")
-            .then(parseFloat)
-            .then(($el) => {
-              expect($el).to.be.gte(podWidth);
-              expect($el).to.be.lt(podWidth + 1);
-            });
-        } else {
-          gridPod(index).should("have.css", "grid-row", row);
-          gridPod(index).should("have.css", "grid-column", col);
-          gridPod(index)
-            .invoke("css", "width")
-            .then(parseFloat)
-            .then(($el) => {
-              expect($el).to.be.gte(podWidth);
-              expect($el).to.be.lt(podWidth + 1);
-            });
-        }
+        gridItem(itemNumber - 1)
+          .should("have.css", "grid-row", row)
+          .should("have.css", "grid-column", col)
+          .then(($element) =>
+            expect(parseFloat($element.css("width"))).to.be.within(
+              expectedWidth,
+              expectedWidth + 1
+            )
+          );
       }
     );
 
     it.each([
-      [1, "1 /1", "1 / 13", 1824],
+      [1, "auto / auto", "1 / 13", 1824],
       [2, "2 / 3", "1 / 6", 746],
       [3, "4 / 5", "7 / 13", 900],
     ])(
-      "should render Grid viewport to large and verify pod width and height",
-      (index, row, col, podWidth) => {
-        CypressMountWithProviders(<GridComponentSized />);
+      "when viewport size is large, grid item %s should have correct grid-row, grid-column and width",
+      (itemNumber, row, col, expectedWidth) => {
+        CypressMountWithProviders(<GridLayoutExample />);
 
         viewportSize("large");
-        if (index === 1) {
-          gridPod(index).should("have.css", "grid-row", "auto / auto");
-          gridPod(index).should("have.css", "grid-column", "auto / auto");
-          gridPod(index)
-            .invoke("css", "width")
-            .then(parseFloat)
-            .then(($el) => {
-              expect($el).to.be.gte(podWidth);
-              expect($el).to.be.lt(podWidth + 1);
-            });
-        } else {
-          gridPod(index).should("have.css", "grid-row", row);
-          gridPod(index).should("have.css", "grid-column", col);
-          gridPod(index)
-            .invoke("css", "width")
-            .then(parseFloat)
-            .then(($el) => {
-              expect($el).to.be.gte(podWidth);
-              expect($el).to.be.lt(podWidth + 1);
-            });
-        }
+        gridItem(itemNumber - 1)
+          .should("have.css", "grid-row", row)
+          .should("have.css", "grid-column", col)
+          .then(($element) =>
+            expect(parseFloat($element.css("width"))).to.be.within(
+              expectedWidth,
+              expectedWidth + 1
+            )
+          );
       }
     );
 
     it.each([
-      [1, "1 /1", "1 / 13", 1826],
+      [1, "auto / auto", "1 / 13", 1826],
       [2, "2 / 3", "1 / 6", 737],
       [3, "4 / 5", "7 / 13", 893],
     ])(
-      "should render Grid viewport to extra large and verify pod width and height",
-      (index, row, col, podWidth) => {
-        CypressMountWithProviders(<GridComponentSized />);
+      "when viewport size is extra large, grid item %s should have correct grid-row, grid-column and width",
+      (itemNumber, row, col, expectedWidth) => {
+        CypressMountWithProviders(<GridLayoutExample />);
 
         viewportSize("extra large");
-        if (index === 1) {
-          gridPod(index).should("have.css", "grid-row", "auto / auto");
-          gridPod(index).should("have.css", "grid-column", "auto / auto");
-          gridPod(index)
-            .invoke("css", "width")
-            .then(parseFloat)
-            .then(($el) => {
-              expect($el).to.be.gte(podWidth);
-              expect($el).to.be.lt(podWidth + 1);
-            });
-        } else {
-          gridPod(index).should("have.css", "grid-row", row);
-          gridPod(index).should("have.css", "grid-column", col);
-          gridPod(index)
-            .invoke("css", "width")
-            .then(parseFloat)
-            .then(($el) => {
-              expect($el).to.be.gte(podWidth);
-              expect($el).to.be.lt(podWidth + 1);
-            });
-        }
+        gridItem(itemNumber - 1)
+          .should("have.css", "grid-row", row)
+          .should("have.css", "grid-column", col)
+          .then(($element) =>
+            expect(parseFloat($element.css("width"))).to.be.within(
+              expectedWidth,
+              expectedWidth + 1
+            )
+          );
       }
     );
 
@@ -302,70 +209,65 @@ context("Testing Grid component", () => {
       ["large", 40, 24],
       ["extra large", 40, 40],
     ])(
-      "should render Grid viewport to %s and verify padding and gap",
+      "when viewport size is %s, grid container has correct padding and row gap size",
       (size, padding, gridGap) => {
-        CypressMountWithProviders(<GridComponent />);
+        CypressMountWithProviders(<SimpleGridExample />);
 
         viewportSize(size);
-        gridComponent().should("have.css", "padding-left", `${padding}px`);
-        gridComponent().should("have.css", "row-gap", `${gridGap}px`);
+
+        gridContainer()
+          .should("have.css", "padding-left", `${padding}px`)
+          .and("have.css", "row-gap", `${gridGap}px`);
       }
     );
 
     it.each(["start", "end", "center", "stretch"])(
-      "should render Grid with grid item alignment set to %s",
+      "grid item correctly has alignment set to %",
       (alignment) => {
-        CypressMountWithProviders(<GridComponent alignSelf={alignment} />);
+        CypressMountWithProviders(<SimpleGridExample alignSelf={alignment} />);
 
-        gridComponent().children().should("have.css", "align-self", alignment);
+        gridItem(0).should("have.css", "align-self", alignment);
       }
     );
 
     it.each(["start", "end", "center", "stretch"])(
-      "should render Grid with grid item justification set to %s",
+      "grid item correctly has justification set to %s",
       (justification) => {
         CypressMountWithProviders(
-          <GridComponent justifySelf={justification} />
+          <SimpleGridExample justifySelf={justification} />
         );
 
-        gridComponent()
-          .children()
-          .should("have.css", "justify-self", justification);
+        gridItem(0).should("have.css", "justify-self", justification);
       }
     );
 
-    it("should render Grid with grid column start and end defined by gridColumn prop", () => {
-      CypressMountWithProviders(<GridComponent gridColumn="4 / 10" />);
+    it("grid item has correct start and end columns when gridColumn prop is passed", () => {
+      CypressMountWithProviders(<SimpleGridExample gridColumn="4 / 10" />);
 
-      gridComponent()
-        .children()
+      gridItem(0)
         .should("have.css", "grid-column-start", "4")
-        .and("have.css", "grid-column-end", "10")
-        .and("have.css", "width", "623px");
+        .and("have.css", "grid-column-end", "10");
     });
 
-    it("should render Grid with grid row start and end defined by gridRow prop", () => {
-      CypressMountWithProviders(<GridComponent gridRow="4 / 11" />);
+    it("grid item has correct start and end rows when gridRow prop is passed", () => {
+      CypressMountWithProviders(<SimpleGridExample gridRow="4 / 11" />);
 
-      gridComponent()
-        .children()
+      gridItem(0)
         .should("have.css", "grid-row-start", "4")
-        .and("have.css", "grid-row-end", "11")
-        .and("have.css", "height", "144px");
+        .and("have.css", "grid-row-end", "11");
     });
 
-    it("should render Grid with grid column and grid row defined by gridArea prop", () => {
-      CypressMountWithProviders(<GridComponent gridArea="3 / 4 / 11 / 10" />);
+    it("grid item has correct start and end columns and rows when gridArea prop is passed", () => {
+      CypressMountWithProviders(
+        <SimpleGridExample gridArea="3 / 4 / 11 / 10" />
+      );
 
-      gridComponent()
-        .children()
+      gridItem(0)
         .should("have.css", "grid-column", "4 / 10")
-        .and("have.css", "grid-row", "3 / 11")
-        .and("have.css", "width", "623px")
-        .and("have.css", "height", "168px");
+        .and("have.css", "grid-row", "3 / 11");
     });
 
-    it("should render Grid with responsiveSettings", () => {
+    it("correctly renders grid items when each have responsive settings passed", () => {
       CypressMountWithProviders(
         <GridContainer>
           <GridItem
@@ -393,9 +295,7 @@ context("Testing Grid component", () => {
               },
             ]}
           >
-            <pod alignTitle="left" border padding="medium" variant="primary">
-              1
-            </pod>
+            <Pod>Item 1</Pod>
           </GridItem>
           <GridItem
             responsiveSettings={[
@@ -422,9 +322,7 @@ context("Testing Grid component", () => {
               },
             ]}
           >
-            <pod alignTitle="left" border padding="medium" variant="primary">
-              2
-            </pod>
+            <Pod>Item 2</Pod>
           </GridItem>
           <GridItem
             responsiveSettings={[
@@ -451,36 +349,35 @@ context("Testing Grid component", () => {
               },
             ]}
           >
-            <pod alignTitle="left" border padding="medium" variant="primary">
-              3
-            </pod>
+            <Pod>Item 3</Pod>
           </GridItem>
         </GridContainer>
       );
 
-      gridComponent()
-        .children()
+      gridItem(0)
         .should("have.css", "grid-column", "1 / 7")
         .and("have.css", "grid-row", "1 / 1")
-        .and("have.css", "width", "623px")
         .and("have.css", "align-self", "stretch")
-        .and("have.css", "justify-self", "stretch");
-      gridComponent()
-        .children()
-        .eq(1)
+        .and("have.css", "justify-self", "stretch")
+        .then(($element) =>
+          expect(parseFloat($element.css("width"))).to.be.within(623, 624)
+        );
+      gridItem(1)
         .should("have.css", "grid-column", "6 / 13")
         .and("have.css", "grid-row", "1 / 1")
-        .and("have.css", "width", "8px")
         .and("have.css", "align-self", "end")
-        .and("have.css", "justify-self", "end");
-      gridComponent()
-        .children()
-        .eq(2)
+        .and("have.css", "justify-self", "end")
+        .then(($element) =>
+          expect(parseFloat($element.css("width"))).to.be.within(75, 76)
+        );
+      gridItem(2)
         .should("have.css", "grid-column", "1 / 13")
         .and("have.css", "grid-row", "3 / 3")
-        .and("have.css", "width", "1270px")
         .and("have.css", "align-self", "start")
-        .and("have.css", "justify-self", "stretch");
+        .and("have.css", "justify-self", "stretch")
+        .then(($element) =>
+          expect(parseFloat($element.css("width"))).to.be.within(1270, 1271)
+        );
     });
   });
 });
