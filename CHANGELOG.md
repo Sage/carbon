@@ -1,3 +1,10 @@
+## [111.7.0](https://github.com/Sage/carbon/compare/v111.6.0...v111.7.0) (2022-10-21)
+
+
+### Features
+
+* **focus-trap:** custom selector for focusable elements ([f5f3ce3](https://github.com/Sage/carbon/commit/f5f3ce38bfa6b4336f318575055ef73c4f403d19))
+
 ## [111.6.0](https://github.com/Sage/carbon/compare/v111.5.3...v111.6.0) (2022-10-21)
 
 
