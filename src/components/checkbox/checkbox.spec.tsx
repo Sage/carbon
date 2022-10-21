@@ -1,7 +1,6 @@
 import React from "react";
-import { mount } from "enzyme";
-import { css } from "styled-components";
-import Checkbox from "./checkbox.component";
+import { mount, ReactWrapper } from "enzyme";
+import { Checkbox, CheckboxProps } from ".";
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
 import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
@@ -18,9 +17,13 @@ import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
-guid.mockImplementation(() => "guid-12345");
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(
+  () => "guid-12345"
+);
 
-function render(props, renderer = mount, options = {}) {
+const validationTypes = ["error", "warning", "info"];
+
+function renderCheckbox(props: CheckboxProps, renderer = mount, options = {}) {
   return renderer(
     <Checkbox
       onChange={props.checked !== undefined ? () => {} : undefined}
@@ -32,12 +35,20 @@ function render(props, renderer = mount, options = {}) {
   );
 }
 
-const validationTypes = ["error", "warning", "info"];
-const borderColorsByValidationTypes = {
-  error: "var(--colorsSemanticNegative500)",
-  warning: "var(--colorsSemanticCaution500)",
-  info: "var(--colorsSemanticInfo500)",
-};
+function getValidationBorderColor(
+  validationType: typeof validationTypes[number]
+) {
+  switch (validationType) {
+    case "error":
+      return "var(--colorsSemanticNegative500)";
+    case "warning":
+      return "var(--colorsSemanticCaution500)";
+    case "info":
+      return "var(--colorsSemanticInfo500)";
+    default:
+      return "";
+  }
+}
 
 describe("Checkbox", () => {
   testStyledSystemMargin((props) => (
@@ -46,10 +57,10 @@ describe("Checkbox", () => {
 
   describe("base theme", () => {
     describe("when size=large", () => {
-      let wrapper;
+      let wrapper: ReactWrapper;
 
       beforeEach(() => {
-        wrapper = render({ size: "large" });
+        wrapper = renderCheckbox({ size: "large" });
       });
 
       it("applies the appropriate input display element styles", () => {
@@ -59,13 +70,13 @@ describe("Checkbox", () => {
         };
 
         assertStyleMatch(styles, wrapper, {
-          modifier: css`
+          modifier: `
             ${StyledCheckableInput}
           `,
         });
 
         assertStyleMatch(styles, wrapper, {
-          modifier: css`
+          modifier: `
             ${HiddenCheckableInputStyle}
           `,
         });
@@ -78,7 +89,7 @@ describe("Checkbox", () => {
           },
           wrapper,
           {
-            modifier: css`
+            modifier: `
               ${StyledCheckableInputSvgWrapper}
             `,
           }
@@ -92,7 +103,7 @@ describe("Checkbox", () => {
           },
           wrapper,
           {
-            modifier: css`
+            modifier: `
               ${StyledCheckableInputSvgWrapper}
             `,
           }
@@ -106,7 +117,7 @@ describe("Checkbox", () => {
           },
           wrapper,
           {
-            modifier: css`
+            modifier: `
               ${FieldHelpStyle}
             `,
           }
@@ -115,7 +126,7 @@ describe("Checkbox", () => {
 
       describe("when labelSpacing is 2", () => {
         it("should apply the correct fieldHelp styles", () => {
-          wrapper = render({ labelSpacing: 2, size: "large" });
+          wrapper = renderCheckbox({ labelSpacing: 2, size: "large" });
           assertStyleMatch(
             {
               paddingLeft: "var(--spacing200)",
@@ -123,7 +134,7 @@ describe("Checkbox", () => {
             },
             wrapper,
             {
-              modifier: css`
+              modifier: `
                 ${FieldHelpStyle}
               `,
             }
@@ -133,7 +144,7 @@ describe("Checkbox", () => {
     });
 
     describe("when size=large and fieldHelpInline=true", () => {
-      const wrapper = render({ fieldHelpInline: true, size: "large" });
+      const wrapper = renderCheckbox({ fieldHelpInline: true, size: "large" });
 
       it("applies the appropriate FieldHelp styles", () => {
         assertStyleMatch(
@@ -142,7 +153,7 @@ describe("Checkbox", () => {
           },
           wrapper,
           {
-            modifier: css`
+            modifier: `
               ${FieldHelpStyle}
             `,
           }
@@ -152,7 +163,7 @@ describe("Checkbox", () => {
 
     describe("when checkbox is checked", () => {
       it("renders the correct check colour", () => {
-        const wrapper = render({ checked: true });
+        const wrapper = renderCheckbox({ checked: true });
 
         assertStyleMatch(
           {
@@ -160,7 +171,7 @@ describe("Checkbox", () => {
           },
           wrapper,
           {
-            modifier: css`
+            modifier: `
               ${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path
             `,
           }
@@ -168,7 +179,7 @@ describe("Checkbox", () => {
       });
 
       describe("and disabled=true", () => {
-        const wrapper = render({ checked: true, disabled: true });
+        const wrapper = renderCheckbox({ checked: true, disabled: true });
 
         it("renders the correct check colour", () => {
           assertStyleMatch(
@@ -177,7 +188,7 @@ describe("Checkbox", () => {
             },
             wrapper,
             {
-              modifier: css`
+              modifier: `
                 ${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path
               `,
             }
@@ -187,7 +198,7 @@ describe("Checkbox", () => {
     });
 
     describe("when disabled=true", () => {
-      const wrapper = render({ disabled: true });
+      const wrapper = renderCheckbox({ disabled: true });
 
       it("applies the appropriate svg wrapper styles", () => {
         assertStyleMatch(
@@ -218,7 +229,7 @@ describe("Checkbox", () => {
 
         it("applies the appropriate svg hover styles", () => {
           assertStyleMatch(hoverFocusStyles, wrapper, {
-            modifier: css`
+            modifier: `
               ${`${StyledCheckableInputSvgWrapper}:hover`}
             `,
           });
@@ -226,7 +237,7 @@ describe("Checkbox", () => {
 
         it("applies the appropriate svg focus styles", () => {
           assertStyleMatch(hoverFocusStyles, wrapper, {
-            modifier: css`
+            modifier: `
               ${`${StyledCheckableInputSvgWrapper}:focus`}
             `,
           });
@@ -242,7 +253,7 @@ describe("Checkbox", () => {
           });
 
           it("should set the correct margin", () => {
-            const wrapper = render(
+            const wrapper = renderCheckbox(
               {
                 label: "Label",
                 adaptiveSpacingBreakpoint: 1000,
@@ -261,7 +272,7 @@ describe("Checkbox", () => {
           });
 
           it('should set margin-left "0"', () => {
-            const wrapper = render(
+            const wrapper = renderCheckbox(
               {
                 label: "Label",
                 adaptiveSpacingBreakpoint: 1000,
@@ -277,7 +288,7 @@ describe("Checkbox", () => {
     });
 
     describe("when using validation props", () => {
-      let wrapper;
+      let wrapper: ReactWrapper;
 
       beforeEach(() => {
         wrapper = mount(<Checkbox name="checkbox-warning" value="my-value" />);
@@ -289,7 +300,9 @@ describe("Checkbox", () => {
           const borderWidth = type === "error" ? 2 : 1;
           assertStyleMatch(
             {
-              border: `${borderWidth}px solid ${borderColorsByValidationTypes[type]}`,
+              border: `${borderWidth}px solid ${getValidationBorderColor(
+                type
+              )}`,
             },
             wrapper,
             { modifier: "svg" }
@@ -303,7 +316,9 @@ describe("Checkbox", () => {
           const borderWidth = type === "error" ? 2 : 1;
           assertStyleMatch(
             {
-              border: `${borderWidth}px solid ${borderColorsByValidationTypes[type]}`,
+              border: `${borderWidth}px solid ${getValidationBorderColor(
+                type
+              )}`,
             },
             wrapper,
             { modifier: "svg" }
@@ -362,10 +377,10 @@ describe("Checkbox", () => {
 
     describe("when fieldHelpInline is true", () => {
       it("renders the correct FieldHelp styles", () => {
-        const wrapper = render({ fieldHelpInline: true });
+        const wrapper = renderCheckbox({ fieldHelpInline: true });
 
         assertStyleMatch({ marginLeft: "0" }, wrapper, {
-          modifier: css`
+          modifier: `
             ${FieldHelpStyle}
           `,
         });
@@ -374,7 +389,7 @@ describe("Checkbox", () => {
 
     describe("when setting a custom inputWidth", () => {
       describe("default", () => {
-        const wrapper = render({ inputWidth: 50 });
+        const wrapper = renderCheckbox({ inputWidth: 50 });
 
         it("renders the correct FieldHelp styles", () => {
           assertStyleMatch(
@@ -383,7 +398,7 @@ describe("Checkbox", () => {
             },
             wrapper,
             {
-              modifier: css`
+              modifier: `
                 ${FieldHelpStyle}
               `,
             }
@@ -393,7 +408,7 @@ describe("Checkbox", () => {
 
       describe("reversed", () => {
         it("renders the correct FieldHelp styles", () => {
-          const wrapper = render({ inputWidth: 50, reverse: true });
+          const wrapper = renderCheckbox({ inputWidth: 50, reverse: true });
 
           assertStyleMatch(
             {
@@ -401,7 +416,7 @@ describe("Checkbox", () => {
             },
             wrapper,
             {
-              modifier: css`
+              modifier: `
                 ${FieldHelpStyle}
               `,
             }
@@ -412,7 +427,7 @@ describe("Checkbox", () => {
 
     describe("when reverse is true", () => {
       describe("default", () => {
-        const wrapper = render({ reverse: true });
+        const wrapper = renderCheckbox({ reverse: true });
 
         it("renders the correct FieldHelp styles", () => {
           assertStyleMatch(
@@ -421,7 +436,7 @@ describe("Checkbox", () => {
             },
             wrapper,
             {
-              modifier: css`
+              modifier: `
                 ${FieldHelpStyle}
               `,
             }
@@ -430,7 +445,7 @@ describe("Checkbox", () => {
       });
 
       describe("and fieldHelpInline is true", () => {
-        const wrapper = render({
+        const wrapper = renderCheckbox({
           reverse: true,
           fieldHelpInline: true,
         });
@@ -442,7 +457,7 @@ describe("Checkbox", () => {
             },
             wrapper,
             {
-              modifier: css`
+              modifier: `
                 ${StyledCheckableInput}
               `,
             }
@@ -452,7 +467,7 @@ describe("Checkbox", () => {
     });
 
     describe("when labelSpacing is 2", () => {
-      const wrapper = render({ labelSpacing: 2 });
+      const wrapper = renderCheckbox({ labelSpacing: 2 });
       assertStyleMatch(
         {
           paddingLeft: "var(--spacing200)",
@@ -460,7 +475,7 @@ describe("Checkbox", () => {
         },
         wrapper,
         {
-          modifier: css`
+          modifier: `
             ${FieldHelpStyle}
           `,
         }
@@ -470,7 +485,7 @@ describe("Checkbox", () => {
 
   describe.each(carbonThemesJestTable)("when the theme is set to %s", () => {
     it("sets the appropriate check colour", () => {
-      const wrapper = render({ checked: true });
+      const wrapper = renderCheckbox({ checked: true });
 
       assertStyleMatch(
         {
@@ -478,7 +493,7 @@ describe("Checkbox", () => {
         },
         wrapper,
         {
-          modifier: css`
+          modifier: `
             ${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path
           `,
         }
@@ -487,7 +502,7 @@ describe("Checkbox", () => {
   });
 
   describe("required", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeAll(() => {
       wrapper = mount(<Checkbox value="foo" label="Required" required />);
@@ -507,7 +522,7 @@ describe("Checkbox", () => {
   describe("labelHelp text", () => {
     it("should be displayed in tooltip message", () => {
       const text = "foo";
-      const wrapper = render({ label: "foo", labelHelp: text }, mount);
+      const wrapper = renderCheckbox({ label: "foo", labelHelp: text }, mount);
       const tooltip = wrapper.find(Tooltip);
 
       expect(tooltip.prop("message")).toEqual(text);
@@ -517,7 +532,7 @@ describe("Checkbox", () => {
   describe("helpAriaLabel", () => {
     it("should set the aria-label on the Help component", () => {
       const text = "foo";
-      const wrapper = render(
+      const wrapper = renderCheckbox(
         { label: "foo", labelHelp: text, helpAriaLabel: text },
         mount
       );
@@ -529,7 +544,7 @@ describe("Checkbox", () => {
 
   describe("tooltipPosition", () => {
     it("should override the default value", () => {
-      const wrapper = render(
+      const wrapper = renderCheckbox(
         { label: "foo", error: "message", tooltipPosition: "bottom" },
         mount
       );

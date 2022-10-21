@@ -1,10 +1,10 @@
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { mount, ReactWrapper, shallow } from "enzyme";
 import { act } from "react-dom/test-utils";
 import { Input } from "../../__internal__/input";
 import Button from "../button";
-import Search from "./search.component";
-import { StyledSearchButton } from "./search.style";
+import Search, { SearchProps } from "./search.component";
+import StyledSearchButton from "./search-button.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -16,18 +16,19 @@ import Icon from "../icon";
 import TextBox from "../textbox";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
+function renderSearch(props: SearchProps) {
+  return mount(<Search {...props} />);
+}
+
 describe("Search", () => {
-  let wrapper;
-  let onBlur;
-  let onFocus;
-  let onChange;
-  let onClick;
-  let onKeyDown;
+  let wrapper: ReactWrapper;
+  let onBlur: jest.Mock;
+  let onFocus: jest.Mock;
+  let onChange: jest.Mock;
+  let onClick: jest.Mock;
+  let onKeyDown: jest.Mock;
 
   testStyledSystemMargin((props) => <Search value="" {...props} />);
-
-  const renderWrapper = (props, render = shallow) =>
-    render(<Search {...props} />);
 
   describe("styles", () => {
     it("matches the expected styles", () => {
@@ -38,7 +39,7 @@ describe("Search", () => {
           fontSize: "14px",
           fontWeight: "700",
         },
-        renderWrapper({ value: "" }, mount)
+        renderSearch({ value: "" })
       );
     });
 
@@ -51,7 +52,7 @@ describe("Search", () => {
           fontWeight: "700",
           width: "100%",
         },
-        renderWrapper({ value: "", searchWidth: null }, mount)
+        renderSearch({ value: "", searchWidth: undefined })
       );
     });
 
@@ -64,14 +65,15 @@ describe("Search", () => {
           fontWeight: "700",
           width: "400px",
         },
-        renderWrapper({ value: "", searchWidth: "400px" }, mount)
+        renderSearch({ value: "", searchWidth: "400px" })
       );
     });
 
     it("matches the expected styles when the input is focused", () => {
-      wrapper = renderWrapper({ value: "" }, mount);
+      wrapper = renderSearch({ value: "" });
       const input = wrapper.find("input");
       input.simulate("focus");
+
       assertStyleMatch(
         {
           borderBottom: "2px solid var(--colorsUtilityMajor300)",
@@ -81,7 +83,8 @@ describe("Search", () => {
     });
 
     it("matches the expected styles when variant is dark, the input is not focused and has a value", () => {
-      wrapper = renderWrapper({ value: "search", variant: "dark" }, mount);
+      wrapper = renderSearch({ value: "search", variant: "dark" });
+
       assertStyleMatch(
         {
           borderBottom: "2px solid var(--colorsUtilityMajor200)",
@@ -92,7 +95,8 @@ describe("Search", () => {
     });
 
     it("matches the expected styles when the input is not focused, has a value and search has button", () => {
-      wrapper = renderWrapper({ value: "search", searchButton: true }, mount);
+      wrapper = renderSearch({ value: "search", searchButton: true });
+
       assertStyleMatch(
         {
           borderBottom: "2px solid var(--colorsUtilityMajor300)",
@@ -103,16 +107,13 @@ describe("Search", () => {
     });
 
     it("matches the expected styles for icon when variant is dark", () => {
-      wrapper = renderWrapper(
-        {
-          value: "",
-          searchButton: true,
-          id: "Search",
-          name: "Search",
-          variant: "dark",
-        },
-        mount
-      );
+      wrapper = renderSearch({
+        value: "",
+        searchButton: true,
+        id: "Search",
+        name: "Search",
+        variant: "dark",
+      });
       const icon = wrapper
         .find(Icon)
         .findWhere((n) => n.props().type === "search")
@@ -122,6 +123,7 @@ describe("Search", () => {
         input.simulate("focus");
       });
       wrapper.update();
+
       assertStyleMatch(
         {
           color: "var(--colorsYin090)",
@@ -131,7 +133,8 @@ describe("Search", () => {
     });
 
     it("applies the expected styling to the input", () => {
-      wrapper = renderWrapper({ value: "" }, mount);
+      wrapper = renderSearch({ value: "" });
+
       assertStyleMatch(
         {
           fontSize: "14px",
@@ -143,10 +146,9 @@ describe("Search", () => {
     });
 
     it("applies the expected styling to the search button", () => {
-      wrapper = renderWrapper(
-        { value: "FooBar", searchButton: true },
-        mount
-      ).find(StyledSearchButton);
+      wrapper = renderSearch({ value: "FooBar", searchButton: true }).find(
+        StyledSearchButton
+      );
       assertStyleMatch(
         {
           display: "inline-flex",
@@ -157,7 +159,7 @@ describe("Search", () => {
     });
 
     it("applies the expected styling to the close icon", () => {
-      wrapper = renderWrapper({ value: "FooBar" }, mount);
+      wrapper = renderSearch({ value: "FooBar" });
       assertStyleMatch(
         {
           marginBottom: "-1px",
@@ -184,7 +186,7 @@ describe("Search", () => {
     });
 
     it("applies the expected styling to the close icon when dark variant", () => {
-      wrapper = renderWrapper({ value: "FooBar", variant: "dark" }, mount);
+      wrapper = renderSearch({ value: "FooBar", variant: "dark" });
       assertStyleMatch(
         {
           marginBottom: "-1px",
@@ -211,7 +213,7 @@ describe("Search", () => {
     });
 
     it("applies the expected styling to the close icon when dark variant and input is focused", () => {
-      wrapper = renderWrapper({ value: "FooBar", variant: "dark" }, mount);
+      wrapper = renderSearch({ value: "FooBar", variant: "dark" });
       act(() => {
         const input = wrapper.find(Input);
         input.simulate("focus");
@@ -246,15 +248,12 @@ describe("Search", () => {
 
   describe("When button is true and textbox is active", () => {
     it("does not render an icon in textbox", () => {
-      wrapper = renderWrapper(
-        {
-          value: "",
-          searchButton: true,
-          id: "Search",
-          name: "Search",
-        },
-        mount
-      );
+      wrapper = renderSearch({
+        value: "",
+        searchButton: true,
+        id: "Search",
+        name: "Search",
+      });
       const icon = wrapper
         .find(Icon)
         .findWhere((n) => n.props().type === "search")
@@ -273,30 +272,24 @@ describe("Search", () => {
       onKeyDown = jest.fn();
       onChange = jest.fn();
       onBlur = jest.fn();
-      wrapper = renderWrapper(
-        {
-          defaultValue: "Bar",
-          onBlur,
-          onChange,
-          onKeyDown,
-          id: "Search",
-          name: "Search",
-        },
-        mount
-      );
+      wrapper = renderSearch({
+        defaultValue: "Bar",
+        onBlur,
+        onChange,
+        onKeyDown,
+        id: "Search",
+        name: "Search",
+      });
     });
 
     it("input does not call onClick", () => {
       onClick = jest.fn();
-      wrapper = renderWrapper(
-        {
-          defaultValue: "FooBar",
-          onClick,
-          id: "Search",
-          name: "Search",
-        },
-        mount
-      );
+      wrapper = renderSearch({
+        defaultValue: "FooBar",
+        onClick,
+        id: "Search",
+        name: "Search",
+      });
       act(() => {
         const textbox = wrapper.find("input");
         textbox.simulate("click");
@@ -306,7 +299,7 @@ describe("Search", () => {
     });
 
     it("accepts a default value", () => {
-      wrapper = renderWrapper({ defaultValue: "Bar" }, mount);
+      wrapper = renderSearch({ defaultValue: "Bar" });
       const input = wrapper.find("input");
       input.simulate("change", { target: { value: "Bar" } });
       expect(input.props().value).toEqual("Bar");
@@ -315,15 +308,12 @@ describe("Search", () => {
     describe("clicking the textbox icon", () => {
       it("calls the onChange", () => {
         onChange = jest.fn();
-        wrapper = renderWrapper(
-          {
-            defaultValue: "Tick",
-            onChange,
-            id: "Search",
-            name: "Search",
-          },
-          mount
-        );
+        wrapper = renderSearch({
+          defaultValue: "Tick",
+          onChange,
+          id: "Search",
+          name: "Search",
+        });
         act(() => {
           const icon = wrapper
             .find(Icon)
@@ -336,14 +326,11 @@ describe("Search", () => {
       });
 
       it("clears the input value", () => {
-        wrapper = renderWrapper(
-          {
-            defaultValue: "Bar",
-            id: "Search",
-            name: "Search",
-          },
-          mount
-        );
+        wrapper = renderSearch({
+          defaultValue: "Bar",
+          id: "Search",
+          name: "Search",
+        });
         act(() => {
           const icon = wrapper
             .find(Icon)
@@ -360,7 +347,7 @@ describe("Search", () => {
     describe("Clicking off the component", () => {
       it("calls onBlur", () => {
         onBlur = jest.fn();
-        wrapper = renderWrapper({ defaultValue: "Bar", onBlur }, mount);
+        wrapper = renderSearch({ defaultValue: "Bar", onBlur });
         const input = wrapper.find("input");
         input.simulate("blur");
         expect(onBlur).toHaveBeenCalled();
@@ -370,7 +357,7 @@ describe("Search", () => {
     describe("focusing the component", () => {
       it("calls onFocus", () => {
         onFocus = jest.fn();
-        wrapper = renderWrapper({ defaultValue: "Bar", onFocus }, mount);
+        wrapper = renderSearch({ defaultValue: "Bar", onFocus });
         const input = wrapper.find("input");
         input.simulate("focus");
         expect(onFocus).toHaveBeenCalled();
@@ -383,17 +370,14 @@ describe("Search", () => {
       onKeyDown = jest.fn();
       onChange = jest.fn();
       onBlur = jest.fn();
-      wrapper = renderWrapper(
-        {
-          value: "Bar",
-          onBlur,
-          onChange,
-          onKeyDown,
-          id: "Search",
-          name: "Search",
-        },
-        mount
-      );
+      wrapper = renderSearch({
+        value: "Bar",
+        onBlur,
+        onChange,
+        onKeyDown,
+        id: "Search",
+        name: "Search",
+      });
     });
 
     it("accepts a value and calls onChange prop", () => {
@@ -441,17 +425,14 @@ describe("Search", () => {
       });
 
       it("clears the input value", () => {
-        wrapper = renderWrapper(
-          {
-            defaultValue: "Bar",
-            onBlur,
-            onChange,
-            onKeyDown,
-            id: "Search",
-            name: "Search",
-          },
-          mount
-        );
+        wrapper = renderSearch({
+          defaultValue: "Bar",
+          onBlur,
+          onChange,
+          onKeyDown,
+          id: "Search",
+          name: "Search",
+        });
         act(() => {
           const icon = wrapper
             .find(Icon)
@@ -477,16 +458,13 @@ describe("Search", () => {
   describe("Clicking the button", () => {
     it("calls onClick when uncontrolled", () => {
       onClick = jest.fn();
-      wrapper = renderWrapper(
-        {
-          defaultValue: "FooBar",
-          onClick,
-          searchButton: true,
-          id: "Search",
-          name: "Search",
-        },
-        mount
-      );
+      wrapper = renderSearch({
+        defaultValue: "FooBar",
+        onClick,
+        searchButton: true,
+        id: "Search",
+        name: "Search",
+      });
       act(() => {
         const button = wrapper.find(Button);
         button.simulate("click");
@@ -499,16 +477,13 @@ describe("Search", () => {
 
     it("calls onClick when controlled", () => {
       onClick = jest.fn();
-      wrapper = renderWrapper(
-        {
-          value: "FooBar",
-          onClick,
-          searchButton: true,
-          id: "Search",
-          name: "Search",
-        },
-        mount
-      );
+      wrapper = renderSearch({
+        value: "FooBar",
+        onClick,
+        searchButton: true,
+        id: "Search",
+        name: "Search",
+      });
       act(() => {
         const button = wrapper.find(Button);
         button.simulate("click");
@@ -521,14 +496,17 @@ describe("Search", () => {
   });
 
   describe("Prop Types", () => {
-    it("validates children prop types", () => {
-      const consoleSpy = jest
+    let consoleSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      consoleSpy = jest
         .spyOn(global.console, "error")
         .mockImplementation(() => {});
-      mount(<Search value="Foo" threshold={-4} />);
-      // eslint-disable-next-line no-console
-      expect(console.error.mock.calls[0][2]).toBe(
-        "Threshold must be a positive number."
+    });
+
+    it("validates children prop types", () => {
+      expect(() => mount(<Search value="Foo" threshold={-4} />)).toThrow(
+        "Threshold must be a positive number"
       );
       consoleSpy.mockRestore();
     });
@@ -545,63 +523,23 @@ describe("Search", () => {
 
   describe("tab index should be set on clear button", () => {
     it("when input field is not empty", () => {
-      wrapper = renderWrapper(
-        {
-          defaultValue: "Bar",
-          id: "Search",
-          name: "Search",
-        },
-        mount
-      );
+      wrapper = renderSearch({
+        defaultValue: "Bar",
+        id: "Search",
+        name: "Search",
+      });
       const input = wrapper.find(TextBox);
       expect(input.prop("iconTabIndex")).toEqual(0);
     });
 
     it("when input field is empty", () => {
-      wrapper = renderWrapper(
-        {
-          defaultValue: "",
-          id: "Search",
-          name: "Search",
-        },
-        mount
-      );
+      wrapper = renderSearch({
+        defaultValue: "",
+        id: "Search",
+        name: "Search",
+      });
       const input = wrapper.find(TextBox);
       expect(input.prop("iconTabIndex")).toEqual(-1);
-    });
-  });
-
-  describe("tab index should be set on search button", () => {
-    it("when input field is not empty", () => {
-      wrapper = renderWrapper(
-        {
-          defaultValue: "Bar",
-          id: "Search",
-          name: "Search",
-          searchButton: true,
-        },
-        mount
-      );
-      const searchButton = wrapper.find(Button);
-      expect(searchButton.prop("tabIndex")).toEqual(0);
-    });
-  });
-
-  describe("tab index should not be set on search button", () => {
-    it("when input field has focus and is empty", () => {
-      wrapper = renderWrapper(
-        {
-          defaultValue: "",
-          id: "Search",
-          name: "Search",
-          searchButton: true,
-        },
-        mount
-      );
-      const input = wrapper.find("input");
-      input.simulate("focus");
-      const searchButton = wrapper.find(Button);
-      expect(searchButton.prop("tabIndex")).toEqual(-1);
     });
   });
 

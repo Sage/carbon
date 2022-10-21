@@ -1,11 +1,10 @@
 {
   "name": "carbon-react",
-  "version": "111.5.1",
+  "version": "111.5.3",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
     "esm",
-    "scripts/check_carbon_version/check_carbon_version.js",
     "scripts/check_rfcs/check_rfcs.js"
   ],
   "scripts": {
@@ -21,7 +20,7 @@
     "copy-files": "node ./scripts/copy-files.js",
     "precompile": "npm run type-check && npm run clean-lib && npm run build && npm run build:types && npm run copy-files",
     "prepublishOnly": "npm run precompile",
-    "postinstall": "node ./scripts/check_carbon_version/check_carbon_version.js && node ./scripts/check_rfcs/check_rfcs.js",
+    "postinstall": "node ./scripts/check_rfcs/check_rfcs.js",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
     "build-storybook": "cross-env STORYBOOK_BUILD=true build-storybook -c .storybook",
     "start-storybook": "cross-env STORYBOOK_BUILD=true start-storybook -c .storybook",
@@ -179,7 +178,7 @@
     "immutable": "~3.8.2",
     "invariant": "^2.2.4",
     "lodash": "^4.17.20",
-    "node-fetch": "^2.6.7",
+    "node-fetch": "^3.2.10",
     "polished": "^4.0.5",
     "prop-types": "^15.7.2",
     "react-day-picker": "~7.4.10",

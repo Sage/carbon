@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+  useContext,
+} from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
@@ -19,6 +25,7 @@ import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
+import TopModalContext from "../carbon-provider/top-modal-context";
 
 const PADDING_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const;
 type PaddingValues = typeof PADDING_VALUES[number];
@@ -119,6 +126,8 @@ export const Dialog = ({
   const { current: titleId } = useRef(createGuid());
   const { current: subtitleId } = useRef(createGuid());
   const hasStickyFooter = useIsStickyFooterForm(children);
+
+  const { topModal } = useContext(TopModalContext);
 
   const centerDialog = useCallback(() => {
     /* istanbul ignore if */
@@ -266,7 +275,7 @@ export const Dialog = ({
         additionalWrapperRefs={focusableContainers}
       >
         <StyledDialog
-          aria-modal
+          aria-modal={topModal?.contains(dialogRef.current) ? true : undefined}
           ref={dialogRef}
           topMargin={TOP_MARGIN}
           {...dialogProps}

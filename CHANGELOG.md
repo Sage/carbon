@@ -1,3 +1,17 @@
+### [111.5.3](https://github.com/Sage/carbon/compare/v111.5.2...v111.5.3) (2022-10-21)
+
+
+### Bug Fixes
+
+* upgrade node-fetch dependency to version 3 ([0f20144](https://github.com/Sage/carbon/commit/0f201440a122a0ee2bafeca10d43350fb64aeb16))
+
+### [111.5.2](https://github.com/Sage/carbon/compare/v111.5.1...v111.5.2) (2022-10-20)
+
+
+### Bug Fixes
+
+* **dialog, sidebar:** ensure aria-modal is only added to top modal ([e6bcf92](https://github.com/Sage/carbon/commit/e6bcf920b1dbc35a3931ab5cd911c767df9b5065)), closes [#5303](https://github.com/Sage/carbon/issues/5303)
+
 ### [111.5.1](https://github.com/Sage/carbon/compare/v111.5.0...v111.5.1) (2022-10-19)
 
 
