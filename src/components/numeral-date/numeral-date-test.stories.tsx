@@ -1,28 +1,37 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import NumeralDate from ".";
 import Box from "../box";
+import {
+  DayMonthDate,
+  FullDate,
+  NumeralDateEvent,
+  NumeralDateProps,
+} from "./numeral-date.component";
 
-<Meta
-  title="Numeral Date/Test"
-  parameters={{
+export default {
+  title: "Numeral Date/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-/>
+  },
+};
 
-export const NumeralDateStory = (args) => {
-  const [dateValue, setDateValue] = useState({ dd: "", mm: "", yyyy: "" });
-  const handleChange = (ev) => {
-    setDateValue(ev.target.value);
-    action("change")(ev);
+export const Default = (args: NumeralDateProps) => {
+  const [dateValue, setDateValue] = useState<FullDate>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+  const handleChange = (event: NumeralDateEvent) => {
+    setDateValue(event.target.value as FullDate);
+    action("change")(event);
   };
-  const handleBlur = (ev) => {
-    action("blur")(ev);
+  const handleBlur = (event: NumeralDateEvent) => {
+    action("blur")(event);
   };
   return (
     <Box mt="120px">
@@ -39,21 +48,26 @@ export const NumeralDateStory = (args) => {
   );
 };
 
-export const NumeralDateValidationsStory = (args) => {
+Default.storyName = "default";
+Default.args = {
+  dateFormat: ["dd", "mm", "yyyy"],
+};
+
+export const Validations = (args: NumeralDateProps<DayMonthDate>) => {
   const validationTypes = ["error", "warning", "info"];
-  const [dateValue, setDateValue] = useState({});
-  const handleChange = (ev, itemId) => {
-    setDateValue({ ...dateValue, [itemId]: ev.target.value });
-    action("change")(ev);
+  const [dateValue, setDateValue] = useState({ dd: "", mm: "" });
+  const handleChange = (event: NumeralDateEvent<DayMonthDate>) => {
+    setDateValue({ ...dateValue });
+    action("change")(event);
   };
-  const handleBlur = (ev) => {
-    action("blur")(ev);
+  const handleBlur = (event: NumeralDateEvent<DayMonthDate>) => {
+    action("blur")(event);
   };
   return (
     <>
       <h4>Validations as string</h4>
       {validationTypes.map((validation) => (
-        <NumeralDate
+        <NumeralDate<DayMonthDate>
           key={`${validation}-string`}
           onChange={handleChange}
           label="Numeral date"
@@ -83,40 +97,4 @@ export const NumeralDateValidationsStory = (args) => {
   );
 };
 
-# Numeral Date
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      dateFormat: ["dd", "mm", "yyyy"],
-    }}
-    parameters={{
-      chromatic: {
-        disable: true,
-      },
-    }}
-  >
-    {NumeralDateStory.bind({})}
-  </Story>
-</Canvas>
-
-### Validations
-
-<Canvas>
-  <Story
-    name="validations"
-    args={{
-      dateFormat: ["dd", "mm", "yyyy"],
-    }}
-    parameters={{
-      chromatic: {
-        disable: false,
-      },
-    }}
-  >
-    {NumeralDateValidationsStory.bind({})}
-  </Story>
-</Canvas>
+Validations.storyName = "validations";
