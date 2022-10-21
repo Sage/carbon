@@ -1,11 +1,13 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import { ArgsTable } from "@storybook/components";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Image from "./image.component";
+
 import Box from "../box";
 import Typography from "../typography";
-import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import useMediaQuery from "../../hooks/useMediaQuery";
+
+import * as stories from "./image.stories.tsx";
 
 <Meta title="Image" />
 
@@ -36,24 +38,7 @@ By default the component will render as a `div` element and use the `backgroundI
 css attribute.
 
 <Canvas>
-  <Story name="default" parameters={{ info: { disable: true } }}>
-    <Image
-      m={3}
-      height="700px"
-      backgroundImage={`url(${require("../../../.assets/flexible.svg")})`}
-    >
-      <Box
-        height="700px"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Typography variant="h4">
-          Here is an example of some overlayed text
-        </Typography>
-      </Box>
-    </Image>
-  </Story>
+  <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
 ### As an img element
@@ -62,27 +47,15 @@ If you want to render an `img` element pass in a value to the `src` prop. The co
 rendered in this way.
 
 <Canvas>
-  <Story name="as an img" parameters={{ info: { disable: true } }}>
-    <Image
-      m={3}
-      ml={8}
-      alt="Example alt text"
-      src={require("../../../.assets/point.svg")}
-    />
-    <Image
-      m={3}
-      ml={5}
-      size="200px"
-      alt="Example alt text"
-      src={require("../../../.assets/brush.svg")}
-    />
-    <Image
-      m={3}
-      size="300px"
-      alt="Example alt text"
-      src={require("../../../.assets/collaborate.svg")}
-    />
-  </Story>
+  <Story name="as an img" story={stories.AsAnImg} />
+</Canvas>
+
+## With `hidden` prop
+
+To hide the component completely - meaning hidden visually and from being accessible via keyboard navigation or a screen reader - the `hidden` prop can be passed. The underlying element remains in the DOM but is semantically hidden.
+
+<Canvas>
+  <Story name="with hidden prop" story={stories.WithHiddenProp} />
 </Canvas>
 
 ### Custom responsive behaviour
@@ -93,80 +66,12 @@ viewed in the Canvas tab using full-screen mode with device or viewport emulatio
 <Canvas>
   <Story
     name="custom responsive behaviour"
-    parameters={{ chromatic: { disable: true }, info: { disable: true } }}
-  >
-    {() => {
-      const query1 = useMediaQuery("(max-width: 1000px)");
-      const query2 = useMediaQuery("(max-width: 900px)");
-      const query3 = useMediaQuery("(max-width: 800px)");
-      const responsiveProps = () => {
-        if (query3) {
-          return {
-            backgroundSize: "contain",
-            backgroundImage: `url(${require("../../../.assets/collaborate.svg")})`,
-            m: 1,
-          };
-        }
-        if (query2) {
-          return {
-            backgroundSize: "contiain",
-            backgroundRepeat: "repeat",
-            backgroundImage: `url(${require("../../../.assets/point.svg")})`,
-            m: 2,
-          };
-        }
-        if (query1) {
-          return {
-            backgroundImage: `url(${require("../../../.assets/collaborate.svg")})`,
-            m: 3,
-          };
-        }
-        return {
-          backgroundImage: `url(${require("../../../.assets/point.svg")})`,
-          m: 4,
-        };
-      };
-      return (
-        <Image {...responsiveProps()}>
-          <Box
-            height="700px"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Typography variant="h4">
-              Here is an example of some overlayed text
-            </Typography>
-          </Box>
-        </Image>
-      );
-    }}
-  </Story>
+    story={stories.CustomResponsiveBehaviour}
+  />
 </Canvas>
 
 ## Props
 
 ### Image
 
-<ArgsTable
-  rows={[
-    {
-      name: "src",
-      type: { summary: "string" },
-      description:
-        "Any valid file path for an image, passing a value to this prop will render component as `<img />`",
-      required: false,
-      defaultValue: "-",
-    },
-    {
-      name: "alt",
-      type: { summary: "string" },
-      description:
-        "Text to display when component renders as `<img />` but fails to load the `src`",
-      required: false,
-      defaultValue: "-",
-    },
-  ]}
-/>
-
-<StyledSystemProps margin layout background noHeader />
+<StyledSystemProps of={Image} margin layout background noHeader />
