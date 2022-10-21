@@ -6,6 +6,8 @@ import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-
 
 import { ThemeObject } from "../../style/themes/base";
 
+import { TopModalContextProvider } from "./top-modal-context";
+
 export interface CarbonProviderProps {
   theme?: Partial<ThemeObject>;
   children: React.ReactNode;
@@ -24,7 +26,7 @@ export const CarbonProvider = ({
   <ThemeProvider theme={theme}>
     <CarbonScopedTokensProvider>
       <NewValidationContext.Provider value={{ validationRedesignOptIn }}>
-        {children}
+        <TopModalContextProvider>{children}</TopModalContextProvider>
       </NewValidationContext.Provider>
     </CarbonScopedTokensProvider>
   </ThemeProvider>
