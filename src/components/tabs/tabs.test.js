@@ -543,8 +543,11 @@ context("Testing Tabs component", () => {
       (id, validationMessage) => {
         CypressMountWithProviders(<TabsComponentValidations />);
 
-        tabById(id).realHover();
-        tooltipPreview().should("have.text", validationMessage);
+        tabById(id)
+          .trigger("mouseover")
+          .then(() => {
+            tooltipPreview().should("have.text", validationMessage);
+          });
       }
     );
 
