@@ -72,6 +72,8 @@ export interface DialogProps extends ModalProps, TagProps {
   ) => void;
   /** Optional reference to an element meant to be focused on open */
   focusFirstElement?: React.MutableRefObject<HTMLElement | null>;
+  /** Optional selector to identify the focusable elements, if not provided a default selector is used */
+  focusableSelectors?: string;
   /** Allows developers to specify a specific height for the dialog. */
   height?: string;
   /** Adds Help tooltip to Header */
@@ -107,6 +109,7 @@ export const Dialog = ({
   subtitle,
   disableAutoFocus = false,
   focusFirstElement,
+  focusableSelectors,
   onCancel,
   showCloseIcon = true,
   bespokeFocusTrap,
@@ -270,6 +273,7 @@ export const Dialog = ({
         autoFocus={!disableAutoFocus}
         focusFirstElement={focusFirstElement}
         bespokeTrap={bespokeFocusTrap}
+        focusableSelectors={focusableSelectors}
         wrapperRef={dialogRef}
         isOpen={open}
         additionalWrapperRefs={focusableContainers}
