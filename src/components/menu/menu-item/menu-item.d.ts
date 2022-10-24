@@ -19,6 +19,8 @@ export interface MenuItemBaseProps extends LayoutProps, FlexboxProps {
   onKeyDown?: (event: React.KeyboardEvent<HTMLAnchorElement>) => void;
   /** The target to use for the menu item. */
   target?: string;
+  /** The rel attribute to be used for the underlying <a> tag */
+  rel?: string;
   /** set the colour variant for a menuType */
   variant?: "default" | "alternate";
   /** Flag to display the dropdown arrow when an item has a submenu */

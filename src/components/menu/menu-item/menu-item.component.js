@@ -37,6 +37,7 @@ const MenuItem = ({
   onSubmenuOpen,
   onSubmenuClose,
   overrideColor,
+  rel,
   ...rest
 }) => {
   const menuContext = useContext(MenuContext);
@@ -110,6 +111,7 @@ const MenuItem = ({
     className: classes,
     href,
     target,
+    rel,
     onClick:
       onClick || (isChildSearch.current ? updateFocusOnClick : undefined),
     icon,
@@ -242,6 +244,8 @@ MenuItem.propTypes = {
   onKeyDown: PropTypes.func,
   /** The target to use for the menu item. */
   target: PropTypes.string,
+  /** The rel attribute to be used for the underlying <a> tag */
+  rel: PropTypes.string,
   /** Flag to display the dropdown arrow when an item has a submenu */
   showDropdownArrow: PropTypes.bool,
   /** set the colour variant for a menuType */
