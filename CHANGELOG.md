@@ -1,3 +1,10 @@
+## [111.8.0](https://github.com/Sage/carbon/compare/v111.7.0...v111.8.0) (2022-10-24)
+
+
+### Features
+
+* **menuitem:** add `rel` prop to be passed down to HTML anchor ([1544e79](https://github.com/Sage/carbon/commit/1544e79c75460aefc2c17eddac639a446594503c)), closes [#5464](https://github.com/Sage/carbon/issues/5464)
+
 ## [111.7.0](https://github.com/Sage/carbon/compare/v111.6.0...v111.7.0) (2022-10-21)
 
 
