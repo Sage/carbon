@@ -1,3 +1,31 @@
+## [111.7.0](https://github.com/Sage/carbon/compare/v111.6.0...v111.7.0) (2022-10-21)
+
+
+### Features
+
+* **focus-trap:** custom selector for focusable elements ([f5f3ce3](https://github.com/Sage/carbon/commit/f5f3ce38bfa6b4336f318575055ef73c4f403d19))
+
+## [111.6.0](https://github.com/Sage/carbon/compare/v111.5.3...v111.6.0) (2022-10-21)
+
+
+### Features
+
+* **image:** add hidden prop ([2d89615](https://github.com/Sage/carbon/commit/2d89615e542fc285f9dda6e3545325020a059df9))
+
+### [111.5.3](https://github.com/Sage/carbon/compare/v111.5.2...v111.5.3) (2022-10-21)
+
+
+### Bug Fixes
+
+* upgrade node-fetch dependency to version 3 ([0f20144](https://github.com/Sage/carbon/commit/0f201440a122a0ee2bafeca10d43350fb64aeb16))
+
+### [111.5.2](https://github.com/Sage/carbon/compare/v111.5.1...v111.5.2) (2022-10-20)
+
+
+### Bug Fixes
+
+* **dialog, sidebar:** ensure aria-modal is only added to top modal ([e6bcf92](https://github.com/Sage/carbon/commit/e6bcf920b1dbc35a3931ab5cd911c767df9b5065)), closes [#5303](https://github.com/Sage/carbon/issues/5303)
+
 ### [111.5.1](https://github.com/Sage/carbon/compare/v111.5.0...v111.5.1) (2022-10-19)
 
 
