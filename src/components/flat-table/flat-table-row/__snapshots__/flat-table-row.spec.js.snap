@@ -35,11 +35,15 @@ exports[`FlatTableRow should have expected styles 1`] = `
   color: var(--colorsActionMinor500);
 }
 
-.c0 .c2 {
+.c0 .c2 + td {
+  border-left: none;
+}
+
+.c0 .c3 {
   border-bottom: 1px solid var(--colorsUtilityMajor400);
 }
 
-.c0 .c2:first-child {
+.c0 .c3:first-child {
   border-left: 1px solid var(--colorsUtilityMajor400);
 }
 

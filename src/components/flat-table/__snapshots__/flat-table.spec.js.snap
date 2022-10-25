@@ -114,6 +114,14 @@ exports[`FlatTable when rendered with proper table data should have expected str
   color: var(--colorsActionMinor500);
 }
 
+.c5 .c6 + td {
+  border-left: none;
+}
+
+.c5 .c6:nth-child(1) {
+  border-right: 2px solid var(--colorsUtilityMajor100);
+}
+
 .c5 .c8 {
   border-bottom: 1px solid var(--colorsUtilityMajor400);
 }
@@ -122,10 +130,13 @@ exports[`FlatTable when rendered with proper table data should have expected str
   border-left: 1px solid var(--colorsUtilityMajor400);
 }
 
-.c3 .c6,
-.c3 .c13 {
+.c3.c3.c3 .c13 {
   border-left: none;
   border-right: none;
+}
+
+.c3.c3.c3 .c6,
+.c3.c3.c3 .c13 {
   font-weight: 700;
 }
 
@@ -176,11 +187,19 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 .c0 .c2 .c13,
 .c0 .c8,
-.c0 .c2 .c6 {
+.c0 .c2 {
   background-color: var(--colorsUtilityMajor400);
   border-right: 1px solid var(--colorsUtilityMajor300);
   color: var(--colorsUtilityYang100);
   border-bottom-color: var(--colorsUtilityMajor300);
+}
+
+.c0 .c2 .c6 {
+  background-color: var(--colorsUtilityMajor400);
+  color: var(--colorsUtilityYang100);
+  border-bottom-color: var(--colorsUtilityMajor300);
+  border-right-color: var(--colorsUtilityMajor300);
+  border-left-color: var(--colorsUtilityMajor300);
 }
 
 .c0 .c2 .c6,
@@ -232,6 +251,8 @@ exports[`FlatTable when rendered with proper table data should have expected str
           <th
             className="c6 c7"
             data-element="flat-table-row-header"
+            onClick={[Function]}
+            onKeyDown={[Function]}
           >
             <div
               className=""
@@ -275,6 +296,8 @@ exports[`FlatTable when rendered with proper table data should have expected str
           <th
             className="c6 c7"
             data-element="flat-table-row-header"
+            onClick={[Function]}
+            onKeyDown={[Function]}
           >
             <div
               className=""
@@ -323,6 +346,8 @@ exports[`FlatTable when rendered with proper table data should have expected str
           <th
             className="c6 c7"
             data-element="flat-table-row-header"
+            onClick={[Function]}
+            onKeyDown={[Function]}
           >
             <div
               className=""

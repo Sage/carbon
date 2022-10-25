@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
@@ -23,23 +23,42 @@ const FlatTableRowHeader = ({
   onClick,
   onKeyDown,
   leftPosition,
+  rightPosition,
   truncate,
   title,
+  stickyAlignment = "left",
   ...rest
 }) => {
+  const handleOnClick = useCallback(
+    (ev) => {
+      if (expandable && onClick) onClick(ev);
+    },
+    [expandable, onClick]
+  );
+  const handleOnKeyDown = useCallback(
+    (ev) => {
+      if (expandable && onKeyDown) onKeyDown(ev);
+    },
+    [expandable, onKeyDown]
+  );
+
   return (
     <StyledFlatTableRowHeader
-      leftPosition={leftPosition || 0}
+      leftPosition={stickyAlignment === "left" ? leftPosition || 0 : undefined}
+      rightPosition={
+        stickyAlignment === "right" ? rightPosition || 0 : undefined
+      }
       align={align}
       data-element="flat-table-row-header"
       colWidth={width}
       py={py || "10px"}
       px={px || 3}
-      onClick={expandable && onClick ? onClick : undefined}
+      onClick={handleOnClick}
       tabIndex={expandable && onClick ? 0 : undefined}
-      onKeyDown={expandable && onKeyDown ? onKeyDown : undefined}
+      onKeyDown={handleOnKeyDown}
       isTruncated={truncate}
       expandable={expandable}
+      stickyAlignment={stickyAlignment}
       {...rest}
     >
       <StyledFlatTableRowHeaderContent
@@ -88,6 +107,18 @@ FlatTableRowHeader.propTypes = {
   verticalBorder: PropTypes.oneOf(["small", "medium", "large"]),
   /** Sets a vertical right border color, provide design token, any color from palette or any valid css color value. */
   verticalBorderColor: PropTypes.string,
+  /** Defines whether the column should be sticky on the left or right hand side of the Table */
+  stickyAlignment: PropTypes.oneOf(["left", "right"]),
+  /**
+   * @private
+   * @ignore
+   */
+  leftPosition: PropTypes.number,
+  /**
+   * @private
+   * @ignore
+   */
+  rightPosition: PropTypes.number,
 };
 
 FlatTableRowHeader.displayName = "FlatTableRowHeader";

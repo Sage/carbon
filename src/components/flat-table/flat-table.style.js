@@ -19,7 +19,7 @@ const StyledTableContainer = styled.div`
     css`
       width: ${width};
 
-      ${overflowX && `overflow-x: ${overflowX}`}
+      ${overflowX && `overflow-x: ${overflowX};`}
     `}
 `;
 
@@ -113,33 +113,48 @@ const StyledFlatTableWrapper = styled(Box)`
       case "light":
         return css`
           ${StyledFlatTableHeader},
-          ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
             background-color: var(--colorsUtilityMajor100);
             border-right: 1px solid var(--colorsUtilityMajor150);
             border-bottom-color: var(--colorsUtilityMajor150);
+          }
+          ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
+            background-color: var(--colorsUtilityMajor100);
+            border-bottom-color: var(--colorsUtilityMajor150);
+            border-right-color: var(--colorsUtilityMajor150);
+            border-left-color: var(--colorsUtilityMajor150);
           }
         `;
 
       case "transparent-base":
         return css`
           ${StyledFlatTableHeader},
-          ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
             background-color: var(--colorsUtilityMajor025);
             border-right: 1px solid var(--colorsUtilityMajor025);
             border-bottom-color: var(--colorsUtilityMajor100);
+          }
+          ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
+            background-color: var(--colorsUtilityMajor025);
+            border-bottom-color: var(--colorsUtilityMajor100);
+            border-right-color: var(--colorsUtilityMajor025);
+            border-left-color: var(--colorsUtilityMajor025);
           }
         `;
 
       case "transparent-white":
         return css`
           ${StyledFlatTableHeader},
-          ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
             background-color: var(--colorsUtilityYang100);
             border-right: 1px solid var(--colorsUtilityYang100);
             border-bottom-color: var(--colorsUtilityMajor100);
+          }
+          ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
+            background-color: var(--colorsUtilityYang100);
+            border-bottom-color: var(--colorsUtilityMajor100);
+            border-right-color: var(--colorsUtilityYang100);
+            border-left-color: var(--colorsUtilityYang100);
           }
         `;
       // default theme is "dark"
@@ -147,11 +162,18 @@ const StyledFlatTableWrapper = styled(Box)`
         return css`
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox},
           ${StyledFlatTableHeader},
-          ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
+          ${StyledFlatTableHead} {
             background-color: var(--colorsUtilityMajor400);
             border-right: 1px solid var(--colorsUtilityMajor300);
             color: var(--colorsUtilityYang100);
             border-bottom-color: var(--colorsUtilityMajor300);
+          }
+          ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
+            background-color: var(--colorsUtilityMajor400);
+            color: var(--colorsUtilityYang100);
+            border-bottom-color: var(--colorsUtilityMajor300);
+            border-right-color: var(--colorsUtilityMajor300);
+            border-left-color: var(--colorsUtilityMajor300);
           }
         `;
     }

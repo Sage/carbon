@@ -14,9 +14,11 @@ const StyledFlatTableHeader = styled.th`
     alternativeBgColor,
     colWidth,
     leftPosition,
+    rightPosition,
     makeCellSticky,
     verticalBorder,
     colorTheme,
+    theme,
   }) => css`
     background-color: transparent;
     border-width: 0;
@@ -71,26 +73,27 @@ const StyledFlatTableHeader = styled.th`
     ${
       makeCellSticky &&
       css`
-      left: ${leftPosition}px;
-      position: sticky;
+        ${leftPosition !== undefined && `left: ${leftPosition}px;`}
+        ${rightPosition !== undefined && `right: ${rightPosition}px;`}
+        position: sticky;
+       
+        &:first-child {
+          padding-right: 0.395em;
 
-      &:first-child {
-        padding-right: 0.395em;
-
-        /* Applies specific styling for Firefox. Increased padding is required to ensure no gap is present between
-        the th elements. This includes FlatTableHeader and FlatTableRowHeader */
-        @-moz-document url-prefix() {
-          padding-right: 2px;
-        }
-
-        /* Styling for safari. Increased padding is required to ensure no gap is present between
-        the th elements. This includes FlatTableHeader and FlatTableRowHeader  */
-        @media not all and (min-resolution:.001dpcm) {
-          @supports (-webkit-appearance:none) and (stroke-color:transparent) {
-            padding-right: 0.9em;
+          /* Applies specific styling for Firefox. Increased padding is required to ensure no gap is present between
+          the th elements. This includes FlatTableHeader and FlatTableRowHeader */
+          @-moz-document url-prefix() {
+            padding-right: 2px;
           }
-        }
-    `
+
+          /* Styling for safari. Increased padding is required to ensure no gap is present between
+          the th elements. This includes FlatTableHeader and FlatTableRowHeader  */
+          @media not all and (min-resolution:.001dpcm) {
+            @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+              padding-right: 0.9em;
+            }
+          }
+      `
     }
 
     &&& {
