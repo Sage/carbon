@@ -31,7 +31,7 @@ export default (
         ? `
     background: var(--colorsActionMinor500);
     padding: ${
-      size === "medium" ? "padding: var(--spacing100) var(--spacing150)" : null
+      size === "medium" ? "padding: var(--spacing150) var(--spacing150)" : null
     };
     border-color: transparent;
     ${makeColors("var(--colorsSemanticNegativeYang100)")};

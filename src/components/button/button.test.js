@@ -1,6 +1,5 @@
 import * as React from "react";
 import Button from "./button.component";
-import {render} from '@testing-library/react';
 
 import {
   buttonSubtextPreview,
@@ -153,35 +152,8 @@ context("Test for Button component", () => {
         .eq(positionOfElement("fourth"))
         .should("be.enabled");
     });
-
-      it("should render Button Types with --colorsActionMinor500", () => {
-        const { container } = render(<Button isMinor />)
-        expect(container.getElementByClassName("--colorsActionMinor500"))
-  
-        render(<Button/>)
-        const primaryButton = screen.getAllByRole('button', {name: /primary/i})
-        expect(primaryButton).toHaveClass('--colorsActionMinor500')
-  
-        const secondaryButton = screen.getAllByRole('button', {name: /secondary/i})
-        expect(secondaryButton).toHaveClass('--colorsActionMinor500')
-  
-        const tertiaryButton = screen.getAllByRole('button', {name: /tertiary/i})
-        expect(tertiaryButton).toHaveClass('--colorsActionMinor500')
-  
-      });
-
-      it("should render Button Minor", () => {
-        CypressMountWithProviders(<Button isMinor>Foo</Button>);
-  
-        buttonDataComponent()
-        .eq(positionOfElement("first"))
-        .and("have.attr", "isMinor");
-
-        
-      });
- 
-
   });
+
 
   describe("check events for Button component", () => {
     let callback;

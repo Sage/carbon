@@ -39,6 +39,13 @@ const sizesHeights: [SizeOptions, string][] = [
   ["large", "48px"],
 ];
 
+const isMinorSizesPadding: [SizeOptions, string][] = [
+  ["small", "var(--spacing100) var(--spacing100)"],
+  ["medium", "var(var) var(--spacing150)"],
+  ["large", "var(var) var(--spacing200)"],
+];
+
+
 describe("ButtonWithForwardRef", () => {
   it("should display deprecation warning when the component is used once", () => {
     const loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -100,6 +107,50 @@ describe("Button", () => {
 
       expect(ref.current).toBe(null);
     });
+  });
+
+  describe( "Button Minor",() => {
+      it.each(isMinorSizesPadding)("when size is %s the padding is %s", (size, padding) => {
+          const wrapper = mount(
+            <Button isMinor size={size}>Foo</Button>
+          )
+          assertStyleMatch({padding}, wrapper)    
+      });
+
+      it.each(BUTTON_VARIANTS)(
+        'when setting the "buttonType" prop to "%s"',
+        (variant) => {
+          it("matches the expected style", () => {
+            const wrapper = render(
+              {
+                children: "foo",
+                disabled: true,
+                buttonType: variant,
+              },
+              TestRenderer.create
+            ).toJSON();
+            assertStyleMatch(
+              {
+                background:
+                  variant === "primary" ||
+                  variant === "secondary" ||
+                  variant === "tertiary"
+                    ? "transparent"
+                    : "var(--colorsActionMinor500)",
+                borderColor:
+                  variant === "secondary" || null
+                    ? "var(--colorsActionMinor500)"
+                    : "transparent",
+                color:
+                  variant === "tertiary" || null
+                    ? "var(--colorsActionMinor500)"
+                    : "var(--colorsSemanticNegativeYang100)",
+              },
+              wrapper
+            );
+          });
+        }
+      );
   });
 
   describe("tooltip", () => {

@@ -83,14 +83,14 @@ function stylingForType({
     ${isMinor &&
     size === "medium" &&
     css`
-      padding: var(--spacing100) var(--spacing150);
+      padding: var(var) var(--spacing150);
       min-height: var(--spacing500);
     `}
     
     ${isMinor &&
     size === "large" &&
     css`
-      padding: var(--spacing100) var(--spacing200);
+      padding: var(var) var(--spacing200);
       min-height: var(--spacing600);
     `}
 
