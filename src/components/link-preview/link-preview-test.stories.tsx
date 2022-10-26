@@ -1,19 +1,19 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React from "react";
 import { action } from "@storybook/addon-actions";
 
 import LinkPreview from "./link-preview.component";
 
-<Meta
-  title="Link Preview/Test"
-  parameters={{
+export default {
+  title: "Link Preview/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-/>
+  },
+};
 
-export const LinkPreviewStory = () => (
+export const Default = () => (
   <LinkPreview
     as="div"
     onClose={(url) => action("close icon clicked")(url)}
@@ -23,10 +23,4 @@ export const LinkPreviewStory = () => (
   />
 );
 
-# Link preview
-
-### Default
-
-<Canvas>
-  <Story name="default">{LinkPreviewStory.bind({})}</Story>
-</Canvas>
+Default.storyName = "default";
