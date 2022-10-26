@@ -28,7 +28,6 @@ import StyledSearch from "../search/search.style";
 import Textarea from "../textarea";
 import StyledTextarea from "../textarea/textarea.style";
 import Dialog from "../dialog";
-import { SidebarContext } from "../sidebar/sidebar.component";
 
 jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
 jest.mock("../../hooks/__internal__/useResizeObserver");
@@ -226,39 +225,6 @@ describe("Form", () => {
       expect(wrapper.find(StyledForm)).toHaveStyleRule(
         "max-height",
         "calc(100vh - 216px)"
-      );
-    });
-
-    it("when inside a Sidebar, render with correct styles", () => {
-      wrapper = mount(
-        <SidebarContext.Provider value={{ isInSidebar: true }}>
-          <Form stickyFooter />
-        </SidebarContext.Provider>
-      );
-
-      assertStyleMatch(
-        {
-          paddingRight: "var(--spacing400)",
-          paddingLeft: "var(--spacing400)",
-          paddingTop: "27px",
-          marginRight: "calc(-1 * var(--spacing400))",
-          marginLeft: "calc(-1 * var(--spacing400))",
-          marginTop: "-27px",
-        },
-        wrapper,
-        { modifier: `${StyledFormContent}.sticky` }
-      );
-
-      assertStyleMatch(
-        {
-          marginLeft: "calc(-1 * var(--spacing400))",
-          marginBottom: "calc(-1 * var(--spacing400))",
-          width: "calc(100% + var(--spacing800))",
-          paddingLeft: "var(--spacing400)",
-          paddingRight: "var(--spacing400)",
-        },
-        wrapper,
-        { modifier: `${StyledFormFooter}.sticky` }
       );
     });
   });
