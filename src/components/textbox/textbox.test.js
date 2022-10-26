@@ -130,7 +130,7 @@ context("Tests for Textbox component", () => {
 
       getDataElementByValue("label")
         .parent()
-        .should("have.css", "-webkit-box-pack", "end");
+        .should("have.css", "justify-content", "flex-end");
     });
 
     it.each([
@@ -151,14 +151,17 @@ context("Tests for Textbox component", () => {
       }
     );
 
-    it("should render Textbox with labelHelp prop", () => {
-      CypressMountWithProviders(
-        <TextboxComponent labelInline labelHelp={CHARACTERS.STANDARD} />
-      );
+    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+      "should render Textbox with labelHelp prop",
+      (labelHelp) => {
+        CypressMountWithProviders(
+          <TextboxComponent labelInline labelHelp={labelHelp} />
+        );
 
-      getDataElementByValue("question").trigger("mouseover");
-      tooltipPreview().should("have.text", CHARACTERS.STANDARD);
-    });
+        getDataElementByValue("question").trigger("mouseover");
+        tooltipPreview().should("have.text", labelHelp);
+      }
+    );
 
     it.each([
       [1, "8px"],
@@ -292,7 +295,6 @@ context("Tests for Textbox component", () => {
       CypressMountWithProviders(<TextboxComponent readOnly />);
 
       textboxInput().and("have.attr", "readOnly");
-      textbox().should("have.attr", "readOnly");
     });
 
     it.each(["error", "warning", "info"])(
@@ -391,18 +393,18 @@ context("Tests for Textbox component", () => {
       (boolean, firstElement, secondElement) => {
         CypressMountWithProviders(<TextboxComponent reverse={boolean} />);
 
-        cyRoot()
+        getDataElementByValue("label").parent().parent().as("startPoint");
+
+        cy.get("@startPoint")
           .children()
+          .eq(0)
+          .find(firstElement)
+          .should("be.visible");
+        cy.get("@startPoint")
           .children()
-          .children()
-          .children(0)
-          .find(firstElement);
-        cyRoot()
-          .children()
-          .children()
-          .children()
-          .children(1)
-          .find(secondElement);
+          .eq(1)
+          .find(secondElement)
+          .should("be.visible");
       }
     );
 
@@ -546,6 +548,15 @@ context("Tests for Textbox component", () => {
       getComponent("button").click();
       textboxInput().should("be.focused");
     });
+
+    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+      "should input into Textbox and verify the value",
+      (input) => {
+        CypressMountWithProviders(<TextboxComponent />);
+
+        textboxInput().type(input).should("have.attr", "value", input);
+      }
+    );
   });
 
   describe("check events for Textbox component", () => {
