@@ -1,9 +1,13 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 import StyledIcon from "../../icon/icon.style";
 import StyledButton from "../../button/button.style";
 
-export const StyledFormSummary = styled.div`
+type StyledFormSummaryProps = {
+  showSummary?: boolean;
+  fullWidth?: boolean;
+};
+
+export const StyledFormSummary = styled.div<StyledFormSummaryProps>`
   display: inline-flex;
   align-items: center;
   font-size: 13px;
@@ -38,7 +42,11 @@ export const StyledMessagePrefix = styled.div`
   margin-right: 4px;
 `;
 
-export const StyledInternalSummary = styled.div`
+export type StyledInternalSummaryProps = {
+  type: "error" | "warning";
+};
+
+export const StyledInternalSummary = styled.div<StyledInternalSummaryProps>`
   display: flex;
   align-items: center;
   margin-right: 8px;
@@ -46,12 +54,12 @@ export const StyledInternalSummary = styled.div`
     margin-right: 16px;
   }
   ${({ type }) =>
-    type === "warnings" &&
+    type === "warning" &&
     css`
       color: var(--colorsSemanticCaution650);
     `}
   ${({ type }) =>
-    type === "errors" &&
+    type === "error" &&
     css`
       color: var(--colorsSemanticNegative600);
     `}
@@ -59,23 +67,14 @@ export const StyledInternalSummary = styled.div`
   ${StyledIcon} {
     margin-right: 4px;
     ${({ type }) =>
-      type === "warnings" &&
+      type === "warning" &&
       css`
         color: var(--colorsSemanticCaution650);
       `}
     ${({ type }) =>
-      type === "errors" &&
+      type === "error" &&
       css`
         color: var(--colorsSemanticNegative600);
       `}
   }
 `;
-
-StyledFormSummary.propTypes = {
-  showSummary: PropTypes.bool,
-  fullWidth: PropTypes.bool,
-};
-
-StyledInternalSummary.propTypes = {
-  type: PropTypes.oneOf(["errors", "warnings"]),
-};

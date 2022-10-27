@@ -1,6 +1,5 @@
 import React, { useRef, useContext } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { SpaceProps } from "styled-system";
 
 import { SidebarContext } from "../sidebar/sidebar.component";
 import { ModalContext } from "../modal/modal.component";
@@ -13,8 +12,38 @@ import {
   StyledRightButtons,
   StyledFullWidthButtons,
 } from "./form.style";
+import { FormButtonAlignment } from "./form.config";
 
-const Form = ({
+export interface FormProps extends SpaceProps {
+  /** Alignment of buttons */
+  buttonAlignment?: FormButtonAlignment;
+  /** Child elements */
+  children?: React.ReactNode;
+  /** The total number of errors present in the form */
+  errorCount?: number;
+  /** Spacing between form fields, given number will be multiplied by base spacing unit (8) */
+  fieldSpacing?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  /** Additional buttons rendered on the left side of the save button */
+  leftSideButtons?: React.ReactNode;
+  /** Disable HTML5 validation */
+  noValidate?: boolean;
+  /** Callback passed to the form element */
+  onSubmit?: React.FormEventHandler;
+  /** Additional buttons rendered on the right side of the save button */
+  rightSideButtons?: React.ReactNode;
+  /** Save button to be rendered */
+  saveButton?: React.ReactNode;
+  /** Enables the sticky footer. */
+  stickyFooter?: boolean;
+  /** The total number of warnings present in the form */
+  warningCount?: number;
+  /** Height of the form (any valid CSS value) */
+  height?: string;
+  /** Applies styling for full width buttons. Please note that you will still need to pass the `fullWidth` prop to the button you compose */
+  fullWidthButtons?: boolean;
+}
+
+export const Form = ({
   children,
   saveButton,
   leftSideButtons,
@@ -29,11 +58,11 @@ const Form = ({
   height,
   fullWidthButtons = false,
   ...rest
-}) => {
+}: FormProps) => {
   const { isInSidebar } = useContext(SidebarContext);
   const { isInModal } = useContext(ModalContext);
-  const formRef = useRef();
-  const formFooterRef = useRef();
+  const formRef = useRef<HTMLFormElement>(null);
+  const formFooterRef = useRef<HTMLDivElement>(null);
 
   const renderFooter = !!(
     saveButton ||
@@ -79,7 +108,7 @@ const Form = ({
             </StyledLeftButtons>
           )}
 
-          <FormSummary errors={errorCount} warnings={warningCount}>
+          <FormSummary errorCount={errorCount} warningCount={warningCount}>
             {saveButton}
           </FormSummary>
 
@@ -112,8 +141,8 @@ const Form = ({
           <StyledFullWidthButtons>
             <FormSummary
               fullWidth={fullWidthButtons}
-              errors={errorCount}
-              warnings={warningCount}
+              errorCount={errorCount}
+              warningCount={warningCount}
             >
               {saveButton}
             </FormSummary>
@@ -122,48 +151,6 @@ const Form = ({
       )}
     </StyledForm>
   );
-};
-
-Form.propTypes = {
-  ...styledSystemPropTypes.space,
-  /** Alignment of buttons */
-  buttonAlignment: PropTypes.oneOf(["left", "right"]),
-
-  /** Enables the sticky footer. */
-  stickyFooter: PropTypes.bool,
-
-  /** Additional buttons rendered on the left side of the save button */
-  leftSideButtons: PropTypes.node,
-
-  /** Additional buttons rendered on the right side of the save button */
-  rightSideButtons: PropTypes.node,
-
-  /** Callback passed to the form element */
-  onSubmit: PropTypes.func,
-
-  /** Child elements */
-  children: PropTypes.node,
-
-  /** Save button to be rendered */
-  saveButton: PropTypes.node,
-
-  /** The total number of errors present in the form */
-  errorCount: PropTypes.number,
-
-  /** The total number of warnings present in the form */
-  warningCount: PropTypes.number,
-
-  /** Spacing between form fields, given number will be multiplied by base spacing unit (8) */
-  fieldSpacing: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
-
-  /** Disable HTML5 validation */
-  noValidate: PropTypes.bool,
-
-  /** Height of the form (any valid CSS value) */
-  height: PropTypes.string,
-
-  /** Applies styling for full width buttons. Please note that you will still need to pass the `fullWidth` prop to the button you compose */
-  fullWidthButtons: PropTypes.bool,
 };
 
 Form.displayName = "Form";
