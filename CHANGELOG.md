@@ -1,3 +1,10 @@
+### [111.8.1](https://github.com/Sage/carbon/compare/v111.8.0...v111.8.1) (2022-10-27)
+
+
+### Bug Fixes
+
+* **definition-list:** correct font styling of dt and dd elements ([6a6f628](https://github.com/Sage/carbon/commit/6a6f628b75672a7c8b64ef8d869778c3a216c3e1))
+
 ## [111.8.0](https://github.com/Sage/carbon/compare/v111.7.0...v111.8.0) (2022-10-24)
 
 
