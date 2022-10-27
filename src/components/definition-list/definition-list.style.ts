@@ -68,7 +68,7 @@ export const StyledDdDiv = styled.div<StyledDdDivProps>`
 
 export const StyledDt = styled.dt`
   ${space}
-  font-size: 14px;
+  font-size: var(--fontSizes100);
   font-weight: 700;
   color: var(--colorsUtilityYin090);
 `;
@@ -78,8 +78,8 @@ StyledDt.defaultProps = {
 };
 
 export const StyledDd = styled.dd`
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--fontSizes100);
+  font-weight: var(--fontWeights400);
   color: var(--colorsUtilityYin065);
   margin-left: 0px;
 
