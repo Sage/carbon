@@ -27,6 +27,7 @@ import Form from "../form";
 import { StyledFormContent, StyledFormFooter } from "../form/form.style";
 import IconButton from "../icon-button";
 import Help from "../help";
+import CarbonProvider from "../carbon-provider";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -441,6 +442,30 @@ describe("Dialog", () => {
           wrapper.find('[aria-labelledby="carbon-dialog-title"]').length
         ).toEqual(0);
       });
+    });
+
+    it("should have aria-modal attribute on the dialog container", () => {
+      onCancel = jest.fn();
+      wrapper = mount(
+        <CarbonProvider>
+          <Dialog
+            onCancel={onCancel}
+            className="foo"
+            open
+            title="my title"
+            subtitle="my subtitle"
+          >
+            <Button>Button</Button>
+            <Button>Button</Button>
+          </Dialog>
+        </CarbonProvider>
+      );
+
+      expect(
+        wrapper.find(StyledDialog).getDOMNode().getAttribute("aria-modal")
+      ).toBe("true");
+
+      wrapper.unmount();
     });
   });
 

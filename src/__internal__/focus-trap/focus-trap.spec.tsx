@@ -20,6 +20,7 @@ const WRAPPER_ID = "test wrapper";
 const FIRST_ELEMENT = "first element";
 const BUTTON_ONE = "Test button One";
 const BUTTON_TWO = "Test button Two";
+const BUTTON_THREE = "Test button Three";
 const RADIO_LABEL_ONE = "Radio one";
 const RADIO_LABEL_TWO = "Radio two";
 const RADIO_GROUP_ONE = "Radio group one";
@@ -773,6 +774,28 @@ describe("FocusTrap", () => {
       expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
       tabPress();
       expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
+    });
+  });
+
+  describe("when using a custom focusable element selector", () => {
+    it("should only focus elements which meet the custom selector", () => {
+      render(
+        <MockComponent focusableSelectors="button.focusable-button">
+          <button type="button" className="focusable-button">
+            {BUTTON_ONE}
+          </button>
+          <button type="button" className="not-focusable-button">
+            {BUTTON_TWO}
+          </button>
+          <button type="button" className="focusable-button">
+            {BUTTON_THREE}
+          </button>
+        </MockComponent>
+      );
+
+      focusElement(screen.getByText(BUTTON_ONE));
+      tabPress();
+      expect(screen.getByText(BUTTON_THREE)).toHaveFocus();
     });
   });
 });

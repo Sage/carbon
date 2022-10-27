@@ -43,6 +43,8 @@ export interface DialogFullScreenProps extends ModalProps {
   role?: string;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
   focusableContainers?: React.MutableRefObject<HTMLElement | null>[];
+  /** Optional selector to identify the focusable elements, if not provided a default selector is used */
+  focusableSelectors?: string;
 }
 
 declare function DialogFullScreen(props: DialogFullScreenProps): JSX.Element;

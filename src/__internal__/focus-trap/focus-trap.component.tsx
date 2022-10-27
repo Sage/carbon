@@ -35,6 +35,8 @@ export interface FocusTrapProps {
     firstElement?: HTMLElement,
     lastElement?: HTMLElement
   ) => void;
+  /** optional selector to identify the focusable elements, if not provided a default selector is used */
+  focusableSelectors?: string;
   /** a ref to the container wrapping the focusable elements */
   wrapperRef?: CustomRefObject<HTMLElement>;
   /* whether the modal (etc.) component that the focus trap is inside is open or not */
@@ -46,6 +48,7 @@ export interface FocusTrapProps {
 const FocusTrap = ({
   children,
   autoFocus = true,
+  focusableSelectors,
   focusFirstElement,
   bespokeTrap,
   wrapperRef,
@@ -85,16 +88,20 @@ const FocusTrap = ({
     [additionalWrapperRefs, wrapperRef]
   );
 
-  const allRefs = trapWrappers.map((ref) => ref?.current);
+  const allRefs: Array<HTMLElement | undefined | null> = trapWrappers.map(
+    (ref: CustomRefObject<HTMLElement> | undefined) => ref?.current
+  );
 
   const updateFocusableElements = useCallback(() => {
     const elements: Element[] = [];
     allRefs.forEach((ref) => {
       if (ref) {
         elements.push(
-          ...Array.from(ref.querySelectorAll(defaultFocusableSelectors)).filter(
-            (el) => Number((el as HTMLElement).tabIndex) !== -1
-          )
+          ...Array.from(
+            ref.querySelectorAll(
+              focusableSelectors || defaultFocusableSelectors
+            )
+          ).filter((el) => Number((el as HTMLElement).tabIndex) !== -1)
         );
       }
     });
@@ -104,7 +111,7 @@ const FocusTrap = ({
       setFirstElement(elements[0] as HTMLElement);
       setLastElement(elements[elements.length - 1] as HTMLElement);
     }
-  }, [hasNewInputs, allRefs]);
+  }, [hasNewInputs, allRefs, focusableSelectors]);
 
   useEffect(() => {
     const observer = new MutationObserver(updateFocusableElements);
