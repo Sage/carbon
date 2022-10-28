@@ -11,14 +11,14 @@ import {
   StyledFooterContent,
 } from "./note.style";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
-import StyledStatusIconWrapper from "./__internal__/status-with-tooltip/status.style";
+import StyledStatusIconWrapper from "./__internal__/status-icon/status-icon.style";
 import LinkPreview from "../link-preview";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 
-function render(props = {}) {
+function renderNote(props = {}) {
   const defaultProps = {
     createdDate: "23 May 2020, 12:08 PM",
     noteContent: EditorState.createEmpty(),
@@ -41,7 +41,7 @@ describe("Note", () => {
 
   describe("Styling", () => {
     it("matches the expected", () => {
-      const wrapper = render();
+      const wrapper = renderNote();
 
       assertStyleMatch(
         {
@@ -88,7 +88,7 @@ describe("Note", () => {
         {
           width: "75%",
         },
-        render({ width: 75 })
+        renderNote({ width: 75 })
       );
     });
   });
@@ -97,11 +97,11 @@ describe("Note", () => {
     const title = "title";
 
     it('does not render the "title" when prop is undefined', () => {
-      expect(render().find(StyledTitle).exists()).toBeFalsy();
+      expect(renderNote().find(StyledTitle).exists()).toBeFalsy();
     });
 
     it('renders the "title" with expected styling when prop has value', () => {
-      const wrapper = render({ title });
+      const wrapper = renderNote({ title });
 
       assertStyleMatch(
         {
@@ -125,11 +125,11 @@ describe("Note", () => {
     );
 
     it('does not render the "inlineControl" when prop is undefined', () => {
-      expect(render().find(StyledInlineControl).exists()).toBeFalsy();
+      expect(renderNote().find(StyledInlineControl).exists()).toBeFalsy();
     });
 
     it('renders the "inlineControl" with expected styling when prop has value', () => {
-      const wrapper = render({ inlineControl });
+      const wrapper = renderNote({ inlineControl });
 
       assertStyleMatch(
         {
@@ -150,7 +150,7 @@ describe("Note", () => {
     const createdDate = "25/12/20";
 
     it("renders the correct styling for the footer and content", () => {
-      const wrapper = render({ name, createdDate });
+      const wrapper = renderNote({ name, createdDate });
 
       assertStyleMatch(
         {
@@ -201,7 +201,7 @@ describe("Note", () => {
     });
 
     it("renders the correct styling for the footer and content when no name is passed", () => {
-      const wrapper = render({ createdDate });
+      const wrapper = renderNote({ createdDate });
 
       assertStyleMatch(
         {
@@ -233,7 +233,7 @@ describe("Note", () => {
     });
 
     it('renders the "name" and "createdDate" when props have value', () => {
-      const wrapper = render({ name, createdDate });
+      const wrapper = renderNote({ name, createdDate });
       const footerContent = wrapper.find(StyledFooterContent);
       expect(wrapper.find(StyledNoteContent)).toHaveLength(2);
       expect(wrapper.find(StyledFooter).exists()).toBeTruthy();
@@ -243,7 +243,7 @@ describe("Note", () => {
     });
 
     it('renders the "status" with tooltip when "text" and "timeStamp" have values', () => {
-      const wrapper = render({
+      const wrapper = renderNote({
         name,
         createdDate,
         status: { text: "foo", timeStamp: "123" },
@@ -256,59 +256,76 @@ describe("Note", () => {
   });
 
   describe("invariant", () => {
-    beforeEach(() => {
-      jest.spyOn(global.console, "error").mockImplementation(() => {});
-    });
+    const mockGlobal = jest
+      .spyOn(global.console, "error")
+      .mockImplementation(() => undefined);
 
     afterEach(() => {
-      global.console.error.mockReset();
+      mockGlobal.mockReset();
     });
 
     it("throws if the width is < 0", () => {
       expect(() => {
-        render({ width: 0 });
+        renderNote({ width: 0 });
       }).toThrow("<Note> width must be greater than 0");
     });
 
     it("throws if createdDate is not defined", () => {
       expect(() => {
-        render({ createdDate: undefined });
+        renderNote({ createdDate: undefined });
       }).toThrow("<Note> createdDate is required");
     });
 
     it("throws if noteContent is not defined", () => {
       expect(() => {
-        render({ noteContent: undefined });
+        renderNote({ noteContent: undefined });
       }).toThrow("<Note> noteContent is required");
     });
 
     it("throws if status.text is not defined", () => {
       expect(() => {
-        render({ status: {} });
+        renderNote({ status: {} });
       }).toThrow("<Note> status.text is required");
     });
 
     it("throws if status.timeStamp is not defined", () => {
       expect(() => {
-        render({ status: { text: "Edited" } });
+        renderNote({ status: { text: "Edited" } });
       }).toThrow("<Note> status.timeStamp is required");
     });
 
     it("throws if inlineControl is not an ActionPopover", () => {
       expect(() => {
-        render({ inlineControl: <button type="button">A Button</button> });
+        renderNote({ inlineControl: <button type="button">A Button</button> });
       }).toThrow("<Note> inlineControl must be an instance of <ActionPopover>");
     });
   });
 
   describe("Link Previews", () => {
-    it("renders any LinkPreviews passed in via the `previews` prop", () => {
+    it("renders any LinkPreviews passed in via the `previews` prop passed as an array", () => {
       const previews = [
-        <LinkPreview url="foo" />,
-        <LinkPreview url="bar" />,
-        <LinkPreview url="wiz" />,
+        <LinkPreview url="foo" key="foo" />,
+        null,
+        <LinkPreview url="bar" key="bar" />,
+        undefined,
+        <LinkPreview url="wiz" key="wiz" />,
       ];
-      const wrapper = render({ previews });
+      const wrapper = renderNote({ previews });
+      expect(wrapper.find(LinkPreview).length).toEqual(3);
+      wrapper
+        .find(LinkPreview)
+        .forEach((preview) => expect(preview.find("a").exists()).toBeTruthy());
+    });
+
+    it("renders any LinkPreviews passed in via the `previews` prop passed as a node", () => {
+      const previews = (
+        <>
+          <LinkPreview url="foo" key="foo" />,
+          <LinkPreview url="bar" key="bar" />,
+          <LinkPreview url="wiz" key="wiz" />,
+        </>
+      );
+      const wrapper = renderNote({ previews });
       expect(wrapper.find(LinkPreview).length).toEqual(3);
       wrapper
         .find(LinkPreview)
