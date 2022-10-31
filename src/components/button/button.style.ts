@@ -76,22 +76,25 @@ function stylingForType({
     ${isMinor &&
     size === "small" &&
     css`
-      padding: var(--spacing100) var(--spacing100);
-      min-height: var(--spacing400);
+      padding-left: var(--spacing100);
+      padding-right: var(--spacing100);
+      height: var(--sizing400);
     `}
 
     ${isMinor &&
     size === "medium" &&
     css`
-      padding: var(var) var(--spacing150);
-      min-height: var(--spacing500);
+      padding-left: var(--spacing150);
+      padding-right: var(--spacing150);
+      height: var(--sizing500);
     `}
     
     ${isMinor &&
     size === "large" &&
     css`
-      padding: var(var) var(--spacing200);
-      min-height: var(--spacing600);
+      padding-left: var(--spacing200);
+      padding-right:  var(--spacing200);
+      height: var(--sizing600);
     `}
 
     ${iconOnly && stylingForIconOnly(size)}

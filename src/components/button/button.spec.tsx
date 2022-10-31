@@ -109,49 +109,20 @@ describe("Button", () => {
     });
   });
 
-  describe( "Button Minor",() => {
+  describe( "Button Minor Padding",() => {
       it.each(isMinorSizesPadding)("when size is %s the padding is %s", (size, padding) => {
           const wrapper = mount(
             <Button isMinor size={size}>Foo</Button>
           )
           assertStyleMatch({padding}, wrapper)    
       });
-
-      it.each(BUTTON_VARIANTS)(
-        'when setting the "buttonType" prop to "%s"',
-        (variant) => {
-          it("matches the expected style", () => {
-            const wrapper = render(
-              {
-                children: "foo",
-                disabled: true,
-                buttonType: variant,
-              },
-              TestRenderer.create
-            ).toJSON();
-            assertStyleMatch(
-              {
-                background:
-                  variant === "primary" ||
-                  variant === "secondary" ||
-                  variant === "tertiary"
-                    ? "transparent"
-                    : "var(--colorsActionMinor500)",
-                borderColor:
-                  variant === "secondary" || null
-                    ? "var(--colorsActionMinor500)"
-                    : "transparent",
-                color:
-                  variant === "tertiary" || null
-                    ? "var(--colorsActionMinor500)"
-                    : "var(--colorsSemanticNegativeYang100)",
-              },
-              wrapper
-            );
-          });
-        }
-      );
   });
+
+  describe( "Button Minor Colors ",() => {
+
+  });
+
+
 
   describe("tooltip", () => {
     it("renders TooltipProvider with correct props", () => {
