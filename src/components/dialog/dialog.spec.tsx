@@ -27,6 +27,7 @@ import Form from "../form";
 import { StyledFormContent, StyledFormFooter } from "../form/form.style";
 import IconButton from "../icon-button";
 import Help from "../help";
+import CarbonProvider from "../carbon-provider";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -138,7 +139,6 @@ describe("Dialog", () => {
       mount(
         <Dialog
           onCancel={() => {}}
-          onConfirm={() => {}}
           open
           subtitle="Test"
           title="Test"
@@ -372,7 +372,6 @@ describe("Dialog", () => {
             size="small"
             className="foo"
             onCancel={onCancel}
-            onConfirm={() => {}}
             height="500"
             role="dialog"
             data-element="bar"
@@ -423,7 +422,6 @@ describe("Dialog", () => {
       wrapper = mount(
         <Dialog
           onCancel={() => {}}
-          onConfirm={() => {}}
           open
           subtitle="Test"
           title="Test"
@@ -435,9 +433,7 @@ describe("Dialog", () => {
     describe("when title or subtitle are not set", () => {
       it(`does not render aria-labelledby pointing at the title element or
       an aria-describedby attribute pointing at the subtitle element`, () => {
-        wrapper = mount(
-          <Dialog onCancel={() => {}} onConfirm={() => {}} open />
-        );
+        wrapper = mount(<Dialog onCancel={() => {}} open />);
 
         expect(
           wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').length
@@ -446,6 +442,30 @@ describe("Dialog", () => {
           wrapper.find('[aria-labelledby="carbon-dialog-title"]').length
         ).toEqual(0);
       });
+    });
+
+    it("should have aria-modal attribute on the dialog container", () => {
+      onCancel = jest.fn();
+      wrapper = mount(
+        <CarbonProvider>
+          <Dialog
+            onCancel={onCancel}
+            className="foo"
+            open
+            title="my title"
+            subtitle="my subtitle"
+          >
+            <Button>Button</Button>
+            <Button>Button</Button>
+          </Dialog>
+        </CarbonProvider>
+      );
+
+      expect(
+        wrapper.find(StyledDialog).getDOMNode().getAttribute("aria-modal")
+      ).toBe("true");
+
+      wrapper.unmount();
     });
   });
 

@@ -237,8 +237,6 @@ export const Textbox = ({
             validationRedesignOptIn ? undefined : validationIconId
           }
           validationRedesignOptIn={validationRedesignOptIn}
-          size={size}
-          readOnly={readOnly}
           {...filterStyledSystemMarginProps(props)}
         >
           {validationRedesignOptIn && labelHelp && (

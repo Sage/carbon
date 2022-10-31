@@ -1,9 +1,12 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import Tile from ".";
-import Content from "../content";
+import LinkTo from "@storybook/addon-links/react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import { action } from "@storybook/addon-actions";
+
+import Tile from ".";
+
 import { Dl, Dt, Dd } from "../definition-list";
+import Content from "../content";
 import Link from "../link";
 import Button from "../button";
 import Heading from "../heading";
@@ -20,7 +23,7 @@ import Hr from "../hr";
 
 # Tile
 
-Tiles contain static content for visual scanning only, and don't contain controls.
+Tiles are containers for static content such as text, and don't contain controls.
 
 ## Contents
 
@@ -34,6 +37,10 @@ Tiles contain static content for visual scanning only, and don't contain control
 import Tile from "carbon-react/lib/components/tile";
 import TileFooter from "carbon-react/lib/components/tile/tile-footer";
 ```
+
+## Designer notes
+
+- Tiles should be reserved for static content. If you require a container with controls or interactive content, use the <LinkTo kind='Card' story='default-story'>Card component</LinkTo> instead.
 
 ## Examples
 

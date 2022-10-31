@@ -16,6 +16,7 @@ import Form from "../form";
 
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
+import CarbonProvider from "../carbon-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 
@@ -34,16 +35,18 @@ describe("DialogFullScreen", () => {
   it("should have aria-modal attribute on the dialog container", () => {
     onCancel = jasmine.createSpy("cancel");
     wrapper = mount(
-      <DialogFullScreen
-        onCancel={onCancel}
-        className="foo"
-        open
-        title="my title"
-        subtitle="my subtitle"
-      >
-        <Button>Button</Button>
-        <Button>Button</Button>
-      </DialogFullScreen>
+      <CarbonProvider>
+        <DialogFullScreen
+          onCancel={onCancel}
+          className="foo"
+          open
+          title="my title"
+          subtitle="my subtitle"
+        >
+          <Button>Button</Button>
+          <Button>Button</Button>
+        </DialogFullScreen>
+      </CarbonProvider>
     );
 
     expect(
@@ -58,10 +61,12 @@ describe("DialogFullScreen", () => {
 
   it("should not have aria-modal attribute on the dialog container if role is not `dialog`", () => {
     wrapper = mount(
-      <DialogFullScreen onCancel={onCancel} open title="my title" role="main">
-        <Button>Button</Button>
-        <Button>Button</Button>
-      </DialogFullScreen>
+      <CarbonProvider>
+        <DialogFullScreen onCancel={onCancel} open title="my title" role="main">
+          <Button>Button</Button>
+          <Button>Button</Button>
+        </DialogFullScreen>
+      </CarbonProvider>
     );
 
     expect(
@@ -522,7 +527,9 @@ describe("DialogFullScreen", () => {
   describe("ARIA attributes", () => {
     it("by default, set role to `dialog` and aria-modal to true", () => {
       wrapper = mount(
-        <DialogFullScreen open onCancel={() => {}} onConfirm={() => {}} />
+        <CarbonProvider>
+          <DialogFullScreen open onCancel={() => {}} onConfirm={() => {}} />
+        </CarbonProvider>
       );
 
       expect(

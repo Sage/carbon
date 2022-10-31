@@ -195,7 +195,7 @@ describe("DefinitionList", () => {
       wrapper = renderWrapper("Dt");
       assertStyleMatch(
         {
-          fontSize: "14px",
+          fontSize: "var(--fontSizes100)",
           fontWeight: "700",
           color: "var(--colorsUtilityYin090)",
         },
@@ -215,8 +215,8 @@ describe("DefinitionList", () => {
       wrapper = renderWrapper("Dd");
       assertStyleMatch(
         {
-          fontSize: "14px",
-          fontWeight: "700",
+          fontSize: "var(--fontSizes100)",
+          fontWeight: "var(--fontWeights400)",
           color: "var(--colorsUtilityYin065)",
           marginBottom: "var(--spacing200)",
           marginLeft: "0px",
@@ -239,10 +239,7 @@ describe("DefinitionList", () => {
       wrapper = renderWrapper("Dt", { mb: 1, pr: 2 });
       assertStyleMatch(
         {
-          fontSize: "14px",
-          fontWeight: "700",
           paddingRight: "var(--spacing200)",
-          color: "var(--colorsUtilityYin090)",
           marginBottom: "var(--spacing100)",
         },
         wrapper
@@ -253,11 +250,7 @@ describe("DefinitionList", () => {
       wrapper = renderWrapper("Dd", { mb: 1 });
       assertStyleMatch(
         {
-          fontSize: "14px",
-          fontWeight: "700",
-          color: "var(--colorsUtilityYin065)",
           marginBottom: "var(--spacing100)",
-          marginLeft: "0px",
         },
         wrapper
       );

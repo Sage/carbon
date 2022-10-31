@@ -704,4 +704,17 @@ describe("MenuItem", () => {
       consoleSpy.mockRestore();
     });
   });
+
+  it.each([
+    ["href", "https://carbon.sage.com"],
+    ["target", "_blank"],
+    ["rel", "noopener"],
+  ])(
+    "the %s prop should be passed as an attribute to the underlying HTML anchor element",
+    (prop, value) => {
+      wrapper = mount(<MenuItem {...{ [prop]: value }} />);
+      const anchor = wrapper.find("a").getDOMNode();
+      expect(anchor.getAttribute(prop)).toBe(value);
+    }
+  );
 });
