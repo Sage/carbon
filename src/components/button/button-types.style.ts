@@ -30,9 +30,6 @@ export default (
       isMinor
         ? `
     background: var(--colorsActionMinor500);
-    padding: ${
-      size === "medium" ? "padding: var(--spacing150) var(--spacing150)" : null
-    };
     border-color: transparent;
     ${makeColors("var(--colorsSemanticNegativeYang100)")};
     &:hover {
@@ -82,19 +79,7 @@ export default (
         border-color: var(--colorsActionMajorTransparent);
         ${makeColors("var(--colorsActionMajorYang100)")};
       }
-      ${
-        destructive
-          ? `
-        border-color: var(--colorsSemanticNegative500);
-        ${makeColors("var(--colorsSemanticNegative500)")}
-        &:hover {
-          background: var(--colorsSemanticNegative600);
-          border-color: var(--colorsSemanticNegativeTransparent);
-          ${makeColors("var(--colorsSemanticNegativeYang100)")};
-        }
-      `
-          : ""
-      }
+
       ${
         isMinor
           ? `
@@ -109,6 +94,21 @@ export default (
     `
           : ""
       }
+
+      ${
+        destructive
+          ? `
+        border-color: var(--colorsSemanticNegative500);
+        ${makeColors("var(--colorsSemanticNegative500)")}
+        &:hover {
+          background: var(--colorsSemanticNegative600);
+          border-color: var(--colorsSemanticNegativeTransparent);
+          ${makeColors("var(--colorsSemanticNegativeYang100)")};
+        }
+      `
+          : ""
+      }
+      
       ${
         isDisabled
           ? `
@@ -131,17 +131,7 @@ export default (
       background: var(--colorsActionMajor600);
       ${makeColors("var(--colorsActionMajorYang100)")};
     }
-    ${
-      destructive
-        ? `
-      ${makeColors("var(--colorsSemanticNegative500)")};
-      &:hover {
-        background: var(--colorsSemanticNegative600);
-        ${makeColors("var(--colorsSemanticNegativeYang100)")};
-      }
-      `
-        : ""
-    }
+
     ${
       isMinor
         ? `
@@ -155,6 +145,19 @@ export default (
   `
         : ""
     }
+    
+    ${
+      destructive
+        ? `
+      ${makeColors("var(--colorsSemanticNegative500)")};
+      &:hover {
+        background: var(--colorsSemanticNegative600);
+        ${makeColors("var(--colorsSemanticNegativeYang100)")};
+      }
+      `
+        : ""
+    }
+
     ${
       isDisabled
         ? `
