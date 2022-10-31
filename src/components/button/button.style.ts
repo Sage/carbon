@@ -76,9 +76,9 @@ function stylingForType({
     ${isMinor &&
     size === "small" &&
     css`
-      padding-left: var(--spacing100);
-      padding-right: var(--spacing100);
-      height: var(--sizing400);
+      min-height: 32px;
+      padding: var(--spacing000) var(--spacing100) var(--spacing000)
+        var(--spacing100);
     `}
 
     ${isMinor &&
@@ -86,15 +86,13 @@ function stylingForType({
     css`
       padding-left: var(--spacing150);
       padding-right: var(--spacing150);
-      height: var(--sizing500);
     `}
     
     ${isMinor &&
     size === "large" &&
     css`
       padding-left: var(--spacing200);
-      padding-right:  var(--spacing200);
-      height: var(--sizing600);
+      padding-right: var(--spacing200);
     `}
 
     ${iconOnly && stylingForIconOnly(size)}
