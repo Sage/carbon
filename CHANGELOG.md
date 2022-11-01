@@ -1,3 +1,10 @@
+### [111.8.2](https://github.com/Sage/carbon/compare/v111.8.1...v111.8.2) (2022-10-31)
+
+
+### Bug Fixes
+
+* **select:** fix select list positioning issues ([942c31b](https://github.com/Sage/carbon/commit/942c31b7839593e66b785420e86079d06d5c78d5))
+
 ### [111.8.1](https://github.com/Sage/carbon/compare/v111.8.0...v111.8.1) (2022-10-27)
 
 
