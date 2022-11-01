@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { mount, shallow } from "enzyme";
+import { mount, shallow, ReactWrapper, ShallowWrapper } from "enzyme";
 
 import {
   assertStyleMatch,
@@ -28,12 +28,13 @@ import StyledSearch from "../search/search.style";
 import Textarea from "../textarea";
 import StyledTextarea from "../textarea/textarea.style";
 import Dialog from "../dialog";
+import { SidebarContext } from "../sidebar/sidebar.component";
 
 jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
 jest.mock("../../hooks/__internal__/useResizeObserver");
 
 describe("Form", () => {
-  let wrapper;
+  let wrapper: ReactWrapper | ShallowWrapper;
 
   beforeEach(() => {
     jest.useFakeTimers();
@@ -53,7 +54,7 @@ describe("Form", () => {
 
   describe("when search used in Form component", () => {
     it("should have no addition margin-bottom", () => {
-      wrapper = mount(<StyledForm />);
+      wrapper = mount(<StyledForm fieldSpacing={0} />);
 
       assertStyleMatch(
         {
@@ -67,7 +68,7 @@ describe("Form", () => {
 
   describe("when height prop is set", () => {
     it("sets the correct height onto StyledForm", () => {
-      wrapper = mount(<StyledForm height="100px" />);
+      wrapper = mount(<StyledForm height="100px" fieldSpacing={0} />);
 
       assertStyleMatch(
         {
@@ -79,7 +80,7 @@ describe("Form", () => {
   });
 
   describe("When `fieldSpacing` applied", () => {
-    wrapper = mount(<StyledForm />);
+    wrapper = mount(<StyledForm fieldSpacing={0} />);
 
     it("as default", () => {
       assertStyleMatch(
@@ -183,7 +184,7 @@ describe("Form", () => {
 
     it("when rendered in a container, render footer with sticky styles", () => {
       const Component = () => {
-        const ref = useRef();
+        const ref = useRef<HTMLDivElement>(null);
         return (
           <div id="test-container" ref={ref}>
             <Form
@@ -193,7 +194,6 @@ describe("Form", () => {
                   Save
                 </Button>
               }
-              dialogRef={ref}
             >
               <span>form content</span>
             </Form>
@@ -230,7 +230,11 @@ describe("Form", () => {
     });
 
     it("when inside a Sidebar, render with correct styles", () => {
-      wrapper = mount(<Form stickyFooter isInSidebar />);
+      wrapper = mount(
+        <SidebarContext.Provider value={{ isInSidebar: true }}>
+          <Form stickyFooter />
+        </SidebarContext.Provider>
+      );
 
       assertStyleMatch(
         {
@@ -465,12 +469,8 @@ describe("Form", () => {
       });
     });
 
-    describe("when either errorCount or warningCount or both are set on Form", () => {
+    describe("when both errorCount and warningCount are set", () => {
       it.each([
-        [1, 0, "There is", "1 error", null, null],
-        [2, 0, "There are", "2 errors", null, null],
-        [0, 1, null, null, "There is", "1 warning"],
-        [0, 2, null, null, "There are", "2 warnings"],
         [1, 1, "There are", "1 error", "and", "1 warning"],
         [2, 1, "There are", "2 errors", "and", "1 warning"],
         [2, 2, "There are", "2 errors", "and", "2 warnings"],
@@ -486,31 +486,62 @@ describe("Form", () => {
           // eslint-disable-next-line max-params
         ) => {
           wrapper.setProps({ errorCount, warningCount });
-          const warningPosition = errorCount ? 1 : 0;
-          if (errorCount) {
-            expect(wrapper.find(StyledMessagePrefix).at(0).text()).toBe(
-              errPrefix
-            );
-            expect(wrapper.find(StyledInternalSummary).at(0).text()).toBe(
-              errMessage
-            );
-          }
-          if (warningCount) {
-            expect(
-              wrapper.find(StyledMessagePrefix).at(warningPosition).text()
-            ).toBe(warnPrefix);
-            expect(
-              wrapper.find(StyledInternalSummary).at(warningPosition).text()
-            ).toBe(warnMessage);
-          }
+
+          expect(wrapper.find(StyledMessagePrefix).at(0).text()).toBe(
+            errPrefix
+          );
+
+          expect(wrapper.find(StyledInternalSummary).at(0).text()).toBe(
+            errMessage
+          );
+
+          expect(wrapper.find(StyledMessagePrefix).at(1).text()).toBe(
+            warnPrefix
+          );
+
+          expect(wrapper.find(StyledInternalSummary).at(1).text()).toBe(
+            warnMessage
+          );
         }
       );
+    });
 
-      it("when there are no errors and warnings", () => {
-        wrapper.setProps({ errorCount: 0, warningCount: 0 });
+    describe("when errorCount is set but not warningCount", () => {
+      it.each([
+        [1, "There is", "1 error"],
+        [2, "There are", "2 errors"],
+      ])(
+        "properly pluralized translation of error and messages is rendered",
+        (errorCount, errPrefix, errMessage) => {
+          wrapper.setProps({ errorCount });
 
-        expect(wrapper.find(StyledInternalSummary).exists()).toBe(false);
-      });
+          expect(wrapper.find(StyledMessagePrefix).text()).toBe(errPrefix);
+
+          expect(wrapper.find(StyledInternalSummary).text()).toBe(errMessage);
+        }
+      );
+    });
+
+    describe("when warningCount is set but not errorCount", () => {
+      it.each([
+        [1, "There is", "1 warning"],
+        [2, "There are", "2 warnings"],
+      ])(
+        "properly pluralized translation of error and warning messages is rendered",
+        (warningCount, warnPrefix, warnMessage) => {
+          wrapper.setProps({ warningCount });
+
+          expect(wrapper.find(StyledMessagePrefix).text()).toBe(warnPrefix);
+
+          expect(wrapper.find(StyledInternalSummary).text()).toBe(warnMessage);
+        }
+      );
+    });
+
+    it("when there are no errors and warnings", () => {
+      wrapper.setProps({ errorCount: 0, warningCount: 0 });
+
+      expect(wrapper.find(StyledInternalSummary).exists()).toBe(false);
     });
   });
 
