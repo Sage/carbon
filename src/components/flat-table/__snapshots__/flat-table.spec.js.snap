@@ -8,7 +8,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
   font-weight: 700;
   left: auto;
   text-align: left;
-  top: 0;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -208,7 +207,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   z-index: 1005;
 }
 
-.c0 .c8.isSticky,
+.c0 thead .c8.isSticky,
 .c0 .c13.isSticky {
   border-right: none;
 }

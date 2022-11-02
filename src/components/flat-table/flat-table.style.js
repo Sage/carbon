@@ -191,17 +191,14 @@ const StyledFlatTableWrapper = styled(Box)`
       }
     `}
 
-  ${({ hasStickyHead }) =>
+  ${({ hasStickyHead, theme }) =>
     hasStickyHead &&
     css`
-      ${StyledFlatTableHead} th {
+      ${StyledFlatTableHead} {
         position: sticky;
-      }
-
-      ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
-      ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
         top: 0;
         left: 0;
+        z-index: ${theme.zIndex.overlay + ROW_HEADER_OVERLAY_INCREMENT};
       }
     `}
 
@@ -212,8 +209,7 @@ const StyledFlatTableWrapper = styled(Box)`
       theme.zIndex.overlay + ROW_HEADER_OVERLAY_INCREMENT};
   }
 
-  ${StyledFlatTableHeader}.isSticky,
-  ${StyledFlatTableCheckbox}.isSticky {
+  thead ${StyledFlatTableHeader}.isSticky, ${StyledFlatTableCheckbox}.isSticky {
     border-right: none;
   }
 
@@ -221,9 +217,11 @@ const StyledFlatTableWrapper = styled(Box)`
     z-index: ${({ theme }) => theme.zIndex.overlay + HEADER_OVERLAY_INCREMENT};
   }
 
-  tbody ${StyledFlatTableRowHeader},
-  ${StyledFlatTableCell}.isSticky,
-  tbody ${StyledFlatTableCheckbox}.isSticky {
+  tbody
+    ${StyledFlatTableRowHeader},
+    ${StyledFlatTableCell}.isSticky,
+    tbody
+    ${StyledFlatTableCheckbox}.isSticky {
     z-index: ${({ theme }) => theme.zIndex.overlay};
   }
 `;

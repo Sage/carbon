@@ -34,7 +34,6 @@ const StyledFlatTableCheckbox = styled.td`
       left: auto;
       padding: 0;
       text-align: left;
-      top: 0;
       user-select: none;
       vertical-align: middle;
       white-space: nowrap;

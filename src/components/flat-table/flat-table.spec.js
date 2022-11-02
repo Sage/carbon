@@ -147,9 +147,12 @@ describe("FlatTable", () => {
       assertStyleMatch(
         {
           position: "sticky",
+          top: "0",
+          left: "0",
+          zIndex: "1005",
         },
         wrapper.find(StyledFlatTableWrapper),
-        { modifier: `${StyledFlatTableHead} th` }
+        { modifier: `${StyledFlatTableHead}` }
       );
     });
 
@@ -211,17 +214,6 @@ describe("FlatTable", () => {
 
         wrapper.find(StyledFlatTableWrapper),
         { modifier: `${StyledFlatTableHeader}` }
-      );
-    });
-
-    it("then the Header in the table Head should have proper z-index", () => {
-      assertStyleMatch(
-        {
-          top: "0",
-          left: "0",
-        },
-        wrapper.find(StyledFlatTableWrapper),
-        { modifier: `${StyledFlatTableHead} ${StyledFlatTableRowHeader}` }
       );
     });
   });

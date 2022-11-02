@@ -29,7 +29,6 @@ const StyledFlatTableHeader = styled.th`
     font-weight: 700;
     left: auto;
     text-align: ${align};
-    top: 0;
     user-select: none;
     vertical-align: middle;
     white-space: nowrap;
