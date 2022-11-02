@@ -1,16 +1,28 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
 
-import Textbox from "../textbox";
-import { filterStyledSystemMarginProps } from "../../style/utils";
+import Textbox, { TextboxProps } from "../textbox";
 import { generateGroups, toSum } from "./grouped-character.utils";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+type EventValue = {
+  formattedValue: string;
+  rawValue: string;
+};
 
-const buildCustomTarget = ({ target }, value) => {
+type CustomTarget = {
+  name?: string;
+  id?: string;
+  value: EventValue;
+};
+
+export interface CustomEvent
+  extends Omit<React.ChangeEvent<HTMLInputElement>, "target"> {
+  target: CustomTarget;
+}
+
+const buildCustomTarget = (
+  { target }: React.ChangeEvent<HTMLInputElement>,
+  value: EventValue
+): CustomTarget => {
   const { name, id } = target;
   return {
     ...(name && { name }),
@@ -19,7 +31,23 @@ const buildCustomTarget = ({ target }, value) => {
   };
 };
 
-const GroupedCharacter = ({
+export interface GroupedCharacterProps
+  extends Omit<TextboxProps, "onChange" | "onBlur"> {
+  /** Default input value if component is meant to be used as an uncontrolled component */
+  defaultValue?: string;
+  /** pattern by which input value should be grouped */
+  groups: number[];
+  /** Handler for blur event */
+  onBlur?: (ev: CustomEvent) => void;
+  /** Handler for change event if input is meant to be used as a controlled component */
+  onChange?: (ev: CustomEvent) => void;
+  /** character to be used as separator - has to be a 1 character string */
+  separator: string;
+  /** Input value if component is meant to be used as a controlled component */
+  value?: string;
+}
+
+export const GroupedCharacter = ({
   defaultValue,
   groups,
   onBlur,
@@ -27,7 +55,7 @@ const GroupedCharacter = ({
   separator: rawSeparator,
   value: externalValue,
   ...rest
-}) => {
+}: GroupedCharacterProps) => {
   const [internalValue, setInternalValue] = useState(defaultValue || "");
 
   const isControlled = externalValue !== undefined;
@@ -36,24 +64,26 @@ const GroupedCharacter = ({
 
   const maxRawLength = groups.reduce(toSum);
 
-  const formatValue = (val) => generateGroups(groups, val).join(separator);
+  const formatValue = (val: string) =>
+    generateGroups(groups, val).join(separator);
 
-  const sanitizeValue = (val) =>
+  const sanitizeValue = (val: string) =>
     val.split(separator).join("").substring(0, maxRawLength);
 
   const value = isControlled ? externalValue : internalValue;
 
-  const handleChange = (ev) => {
+  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const { target } = ev;
-    const { selectionEnd } = target;
-    let newCursorPos = selectionEnd;
+    const { selectionEnd } = target as HTMLInputElement;
+
+    let newCursorPos = selectionEnd ?? 0;
 
     const rawValue = sanitizeValue(target.value);
     const formattedValue = formatValue(rawValue);
 
     const isLastPosition = target.value.length === newCursorPos;
     const isAtOneBeyondSeparator =
-      formattedValue[selectionEnd - 1] === separator;
+      formattedValue[newCursorPos - 1] === separator;
 
     if (isLastPosition) {
       const targetValSeparatorCount = target.value.split(separator).length - 1;
@@ -66,35 +96,39 @@ const GroupedCharacter = ({
       newCursorPos += isDeleting ? -1 : 1;
     }
 
-    ev.target = buildCustomTarget(ev, {
+    const modifiedEvent = (ev as unknown) as CustomEvent;
+    modifiedEvent.target = buildCustomTarget(ev, {
       rawValue,
       formattedValue,
     });
 
-    onChange(ev);
+    onChange?.(modifiedEvent);
     if (!isControlled) {
       setInternalValue(rawValue);
     }
     setTimeout(() => target.setSelectionRange(newCursorPos, newCursorPos));
   };
 
-  const handleBlur = (ev) => {
+  const handleBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
     if (onBlur) {
       const { target } = ev;
       const rawValue = sanitizeValue(target.value);
       const formattedValue = formatValue(rawValue);
 
-      ev.target = buildCustomTarget(ev, {
+      const modifiedEvent = (ev as unknown) as CustomEvent;
+      modifiedEvent.target = buildCustomTarget(ev, {
         rawValue,
         formattedValue,
       });
-      onBlur(ev);
+      onBlur(modifiedEvent);
     }
   };
 
-  const handleKeyPress = (ev) => {
-    const { selectionStart, selectionEnd } = ev.target;
-    const hasSelection = selectionEnd - selectionStart > 0;
+  const handleKeyPress = (ev: React.KeyboardEvent<HTMLInputElement>) => {
+    const { selectionStart, selectionEnd } = ev.target as HTMLInputElement;
+
+    /* istanbul ignore next */
+    const hasSelection = (selectionEnd ?? 0) - (selectionStart ?? 0) > 0;
 
     if (maxRawLength === value.length && !hasSelection) {
       ev.preventDefault();
@@ -111,33 +145,6 @@ const GroupedCharacter = ({
       onKeyPress={handleKeyPress}
     />
   );
-};
-
-GroupedCharacter.propTypes = {
-  ...marginPropTypes,
-  /** character to be used as separator - has to be a 1 character string */
-  separator: (props, propName, componentName) => {
-    if (typeof props[propName] !== "string" || props[propName].length > 1) {
-      return new Error(
-        `Invalid prop ${propName} supplied to ${componentName}. Must be string of length 1.`
-      );
-    }
-    return null;
-  },
-  /** pattern by which input value should be grouped */
-  groups: PropTypes.array,
-  /** Input value if component is meant to be used as a controlled component */
-  value: PropTypes.string,
-  /** Default input value if component is meant to be used as an uncontrolled component */
-  defaultValue: PropTypes.string,
-  /** on change handler which receives the event with object as a value containing rawValue and formattedValue */
-  onChange: PropTypes.func,
-  /** on blur handler which receives the event with object as a value containing rawValue and formattedValue */
-  onBlur: PropTypes.func,
-  /** Flag to configure component as mandatory */
-  required: PropTypes.bool,
-  /** Aria label for rendered help component */
-  helpAriaLabel: PropTypes.string,
 };
 
 export default GroupedCharacter;
