@@ -151,7 +151,11 @@
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
         "@typescript-eslint/no-empty-function": ["error", {"allow": ["arrowFunctions"]}],
-        "jest-dom/prefer-to-have-attribute": "off"
+        "jest-dom/prefer-to-have-attribute": "off",
+        "no-restricted-imports": ["error", {
+          "name": "prop-types",
+          "message": "Please do not import `prop-types` in TypeScript files."
+      }]
       }
     }
   ]
