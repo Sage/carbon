@@ -1,3 +1,10 @@
+### [111.8.3](https://github.com/Sage/carbon/compare/v111.8.2...v111.8.3) (2022-11-03)
+
+
+### Bug Fixes
+
+* **menu:** ensure only one submenu can be open at any one time ([285f6b4](https://github.com/Sage/carbon/commit/285f6b44e851f4ab65600db5aa7aad19d7d46d1a)), closes [#5229](https://github.com/Sage/carbon/issues/5229)
+
 ### [111.8.2](https://github.com/Sage/carbon/compare/v111.8.1...v111.8.2) (2022-10-31)
 
 
