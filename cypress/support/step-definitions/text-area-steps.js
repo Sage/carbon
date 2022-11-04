@@ -7,7 +7,7 @@ import {
 } from "../../locators/textarea";
 
 Then("Textarea component is expandable", () => {
-  textareaChildren().should("have.css", "height", "85px");
+  textareaChildren().should("have.css", "height", "109px");
 });
 
 Then("Textarea component is not expandable", () => {
@@ -19,9 +19,11 @@ Then("Textarea height is {string}", (height) => {
 });
 
 Then("Textarea padding {string} size is {int}px", (padding, pxValue) => {
-  textarea().should((el) => {
-    expect(el).to.have.css(`padding-${padding}`).to.equal(`${pxValue}px`);
-  });
+  textarea()
+    .find("textarea")
+    .should((el) => {
+      expect(el).to.have.css(`padding-${padding}`).to.equal(`${pxValue}px`);
+    });
 });
 
 Then("cols is set to {string}", (colsValue) => {
