@@ -525,7 +525,6 @@ const FilterableSelect = React.forwardRef(
 
     return (
       <StyledSelect
-        ref={containerRef}
         hasTextCursor
         readOnly={readOnly}
         disabled={disabled}

@@ -16,6 +16,5 @@ export interface RadioButtonMapperProps {
 }
 
 declare function RadioButtonMapper(props?: RadioButtonMapperProps): JSX.Element;
-RadioButtonMapper.displayName = "RadioButtonMapper";
 
 export default RadioButtonMapper;

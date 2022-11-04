@@ -53,7 +53,7 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
     className="open"
     expandedWidth="20%"
   >
-    <Styled(styled.div)
+    <Styled(Box)
       hasControls={false}
       id="DrawerSidebar_guid-123"
       isExpanded={true}
@@ -81,7 +81,7 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
           </li>
         </ul>
       </ContextProvider>
-    </Styled(styled.div)>
+    </Styled(Box)>
   </styled.div>
   <styled.div>
     content body content body content body content body content body content body content body

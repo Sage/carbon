@@ -42,3 +42,17 @@ export const useJQueryCssValueAndAssert = (elem, cssProp, valueToAssert) => {
     valueToAssert + 2
   );
 };
+
+export const disableTheAnimationAndTransitions = () => {
+  cy.get("body").invoke(
+    "append",
+    Cypress.$(`
+      <style id="__cypress-animation-disabler">
+        *, *:before, *:after {
+          transition-property: none !important;
+          animation: none !important;
+        }
+      </style>
+    `)
+  );
+};

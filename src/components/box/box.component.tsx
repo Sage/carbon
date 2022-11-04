@@ -109,4 +109,5 @@ Box.defaultProps = {
   theme: BaseTheme,
 };
 
+Box.displayName = "Box";
 export default Box;
