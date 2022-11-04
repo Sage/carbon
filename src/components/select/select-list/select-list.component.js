@@ -7,13 +7,12 @@ import React, {
   useMemo,
 } from "react";
 import PropTypes from "prop-types";
-import { flip, offset } from "@floating-ui/dom";
+import { flip, offset, size } from "@floating-ui/dom";
 
 import useScrollBlock from "../../../hooks/__internal__/useScrollBlock";
 import {
   StyledSelectList,
   StyledSelectLoaderContainer,
-  StyledPopoverContainer,
   StyledSelectListTable,
   StyledSelectListTableHeader,
   StyledSelectListTableBody,
@@ -60,36 +59,12 @@ const SelectList = React.forwardRef(
     listContainerRef
   ) => {
     const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
-    const [listHeight, setListHeight] = useState(0);
-    const [listWidth, setListWidth] = useState(null);
     const [scrollbarWidth, setScrollbarWidth] = useState(0);
     const lastFilter = useRef("");
     const listRef = useRef();
     const tableRef = useRef();
     const listActionButtonRef = useRef();
     const { blockScroll, allowScroll } = useScrollBlock();
-
-    const updateListHeight = useCallback(() => {
-      if (isOpen) {
-        let newHeight = listRef.current.clientHeight;
-
-        if (listActionButtonRef.current) {
-          newHeight += listActionButtonRef.current.parentElement.clientHeight;
-        }
-
-        setListHeight(`${newHeight}px`);
-      }
-    }, [isOpen]);
-
-    const listCallbackRef = useCallback(
-      (element) => {
-        listRef.current = element;
-        if (element) {
-          setTimeout(updateListHeight, 0);
-        }
-      },
-      [updateListHeight]
-    );
 
     useEffect(() => {
       if (isOpen) {
@@ -317,24 +292,6 @@ const SelectList = React.forwardRef(
       [onListScrollBottom]
     );
 
-    const assignListWidth = useCallback(() => {
-      if (anchorElement) {
-        const inputBoundingRect = anchorElement.getBoundingClientRect();
-        const width = `${inputBoundingRect.width}px`;
-        setListWidth(width);
-      }
-    }, [anchorElement]);
-
-    useLayoutEffect(() => {
-      assignListWidth();
-      window.addEventListener("resize", assignListWidth);
-      return () => {
-        window.removeEventListener("resize", assignListWidth);
-      };
-    }, [assignListWidth]);
-
-    useLayoutEffect(updateListHeight, [children, updateListHeight]);
-
     useEffect(() => {
       const keyboardEvent = "keydown";
       const listElement = listRef.current;
@@ -416,6 +373,13 @@ const SelectList = React.forwardRef(
     const popoverMiddleware = useMemo(
       () => [
         offset(3),
+        size({
+          apply({ rects, elements }) {
+            Object.assign(elements.floating.style, {
+              width: `${rects.reference.width}px`,
+            });
+          },
+        }),
         ...(flipEnabled
           ? [
               flip({
@@ -449,57 +413,52 @@ const SelectList = React.forwardRef(
     }
 
     return (
-      <Popover
-        placement={listPlacement}
-        disablePortal={disablePortal}
-        reference={anchorRef}
-        middleware={popoverMiddleware}
-        isOpen={isOpen}
-        disableBackgroundUI
-        animationFrame
+      <SelectListContext.Provider
+        value={{
+          currentOptionsListIndex,
+          multiselectValues,
+        }}
       >
-        <StyledPopoverContainer
-          height={listHeight}
-          width={listWidth}
-          ref={listContainerRef}
+        <Popover
+          placement={listPlacement}
+          disablePortal={disablePortal}
+          reference={anchorRef}
+          middleware={popoverMiddleware}
+          isOpen={isOpen}
+          disableBackgroundUI
+          animationFrame
         >
-          <SelectListContext.Provider
-            value={{
-              currentOptionsListIndex,
-              multiselectValues,
-            }}
+          <StyledSelectListContainer
+            data-element="select-list-wrapper"
+            ref={listContainerRef}
+            {...listProps}
           >
-            <StyledSelectListContainer
-              data-element="select-list-wrapper"
-              {...listProps}
+            <StyledSelectList
+              id={id}
+              as={multiColumn ? "div" : "ul"}
+              aria-labelledby={labelId}
+              data-element="select-list"
+              role="listbox"
+              aria-multiselectable={multiselectValues ? true : undefined}
+              ref={listRef}
+              tabIndex="-1"
+              isLoading={isLoading}
+              multiColumn={multiColumn}
+              maxHeight={listMaxHeight}
             >
-              <StyledSelectList
-                id={id}
-                as={multiColumn ? "div" : "ul"}
-                aria-labelledby={labelId}
-                data-element="select-list"
-                role="listbox"
-                aria-multiselectable={multiselectValues ? true : undefined}
-                ref={listCallbackRef}
-                tabIndex="-1"
-                isLoading={isLoading}
-                multiColumn={multiColumn}
-                maxHeight={listMaxHeight}
-              >
-                {selectListContent}
-                {isLoading && loader()}
-              </StyledSelectList>
-              {listActionButton && (
-                <ListActionButton
-                  ref={listActionButtonRef}
-                  listActionButton={listActionButton}
-                  onListAction={onListAction}
-                />
-              )}
-            </StyledSelectListContainer>
-          </SelectListContext.Provider>
-        </StyledPopoverContainer>
-      </Popover>
+              {selectListContent}
+              {isLoading && loader()}
+            </StyledSelectList>
+            {listActionButton && (
+              <ListActionButton
+                ref={listActionButtonRef}
+                listActionButton={listActionButton}
+                onListAction={onListAction}
+              />
+            )}
+          </StyledSelectListContainer>
+        </Popover>
+      </SelectListContext.Provider>
     );
   }
 );

@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 
 import { space } from "styled-system";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
@@ -9,11 +8,16 @@ import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
 import { FieldsetStyle } from "../fieldset/fieldset.style";
 import StyledInlineInputs from "../inline-inputs/inline-inputs.style";
-import { FORM_BUTTON_ALIGNMENTS } from "./form.config";
+import { FormButtonAlignment } from "./form.config";
 import StyledSearch from "../search/search.style";
 import StyledTextarea from "../textarea/textarea.style";
 
-export const StyledFormContent = styled.div`
+interface StyledFormContentProps {
+  stickyFooter?: boolean;
+  isInModal?: boolean;
+}
+
+export const StyledFormContent = styled.div<StyledFormContentProps>`
   ${({ stickyFooter, isInModal }) => css`
     ${stickyFooter &&
     css`
@@ -23,7 +27,12 @@ export const StyledFormContent = styled.div`
   `}
 `;
 
-export const StyledFormFooter = styled.div`
+interface ButtonProps extends StyledFormContentProps {
+  buttonAlignment?: FormButtonAlignment;
+  fullWidthButtons?: boolean;
+}
+
+export const StyledFormFooter = styled.div<ButtonProps>`
   align-items: center;
   display: flex;
 
@@ -62,7 +71,7 @@ export const StyledFormFooter = styled.div`
   `}
 `;
 
-const formBottomMargins = (fieldSpacing) =>
+const formBottomMargins = (fieldSpacing: number) =>
   ({
     0: "var(--spacing000)",
     1: "var(--spacing100)",
@@ -70,13 +79,20 @@ const formBottomMargins = (fieldSpacing) =>
     3: "var(--spacing300)",
     4: "var(--spacing400)",
     5: "var(--spacing500)",
+    6: "var(--spacing600)",
     7: "var(--spacing700)",
   }[fieldSpacing]);
 
 // Accounts for height of the header of Modal parent, the height form footer and some additional spacing
 const HEIGHT_SPACING = 216;
 
-export const StyledForm = styled.form`
+interface StyledFormProps extends StyledFormContentProps {
+  height?: string;
+  fieldSpacing: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  isInSidebar?: boolean;
+}
+
+export const StyledForm = styled.form<StyledFormProps>`
   ${space}
 
   ${({ height }) =>
@@ -151,7 +167,7 @@ export const StyledForm = styled.form`
     `}
 `;
 
-export const StyledRightButtons = styled.div`
+export const StyledRightButtons = styled.div<ButtonProps>`
   display: flex;
   ${({ fullWidthButtons }) =>
     fullWidthButtons ? `margin-left: 0px;` : `margin-left: 16px;`}
@@ -167,7 +183,7 @@ export const StyledFullWidthButtons = styled.div`
   display: flex;
 `;
 
-export const StyledLeftButtons = styled.div`
+export const StyledLeftButtons = styled.div<ButtonProps>`
   display: flex;
   justify-content: flex-end;
   ${({ fullWidthButtons }) =>
@@ -179,25 +195,6 @@ export const StyledLeftButtons = styled.div`
   }
 `;
 
-StyledForm.propTypes = {
-  theme: PropTypes.object,
-  stickyFooter: PropTypes.bool,
-  fieldSpacing: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
-};
-
 StyledForm.defaultProps = {
   theme: baseTheme,
-};
-
-StyledLeftButtons.propTypes = {
-  buttonAlignment: PropTypes.oneOf(FORM_BUTTON_ALIGNMENTS),
-};
-
-StyledRightButtons.propTypes = {
-  buttonAlignment: PropTypes.oneOf(FORM_BUTTON_ALIGNMENTS),
-};
-
-StyledFormFooter.propTypes = {
-  buttonAlignment: PropTypes.oneOf(FORM_BUTTON_ALIGNMENTS),
-  stickyFooter: PropTypes.bool,
 };

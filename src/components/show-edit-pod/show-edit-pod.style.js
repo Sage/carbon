@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { StyledFormFooter } from "../form/form.style.js";
+import { StyledFormFooter } from "../form/form.style";
 import { StyledContent } from "../pod/pod.style.js";
 import Pod from "../pod";
 

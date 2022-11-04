@@ -1,5 +1,6 @@
 import { act } from "react-dom/test-utils";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
+import { StyledSubmenuWrapper } from "../submenu/submenu.style";
 
 const events = {
   space: {
@@ -8,8 +9,9 @@ const events = {
   },
 };
 
-const openSubmenu = (wrapper) => {
-  const menuWrapper = wrapper.find('[data-component="submenu-wrapper"]');
+const openSubmenu = (wrapper, index = 0) => {
+  const menuWrapper = wrapper.find(StyledSubmenuWrapper).at(index);
+
   const menuItem = menuWrapper.exists("a")
     ? menuWrapper.find("a")
     : menuWrapper.find("button");
@@ -17,7 +19,7 @@ const openSubmenu = (wrapper) => {
   menuItem.getDOMNode().focus();
 
   act(() => {
-    wrapper.find(StyledMenuItemWrapper).at(0).props().onKeyDown(events.space);
+    menuWrapper.find(StyledMenuItemWrapper).props().onKeyDown(events.space);
   });
 
   wrapper.update();

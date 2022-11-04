@@ -43,7 +43,7 @@ const enGB: Locale = {
           const isErrorPlural = isSingular(errors) && !warnings ? "is" : "are";
           const isWarningPlural = isSingular(warnings) ? "is" : "are";
 
-          if (errors && warnings && type === "warnings") {
+          if (errors && warnings && type === "warning") {
             return ["and", `${warnings} ${warningPlural}`];
           }
           if (errors) {

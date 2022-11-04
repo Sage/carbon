@@ -1,3 +1,24 @@
+### [111.8.3](https://github.com/Sage/carbon/compare/v111.8.2...v111.8.3) (2022-11-03)
+
+
+### Bug Fixes
+
+* **menu:** ensure only one submenu can be open at any one time ([285f6b4](https://github.com/Sage/carbon/commit/285f6b44e851f4ab65600db5aa7aad19d7d46d1a)), closes [#5229](https://github.com/Sage/carbon/issues/5229)
+
+### [111.8.2](https://github.com/Sage/carbon/compare/v111.8.1...v111.8.2) (2022-10-31)
+
+
+### Bug Fixes
+
+* **select:** fix select list positioning issues ([942c31b](https://github.com/Sage/carbon/commit/942c31b7839593e66b785420e86079d06d5c78d5))
+
+### [111.8.1](https://github.com/Sage/carbon/compare/v111.8.0...v111.8.1) (2022-10-27)
+
+
+### Bug Fixes
+
+* **definition-list:** correct font styling of dt and dd elements ([6a6f628](https://github.com/Sage/carbon/commit/6a6f628b75672a7c8b64ef8d869778c3a216c3e1))
+
 ## [111.8.0](https://github.com/Sage/carbon/compare/v111.7.0...v111.8.0) (2022-10-24)
 
 
