@@ -22,6 +22,7 @@ import StyledIcon from "../icon/icon.style";
 import { BUTTON_VARIANTS } from "./button.config";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
+import { string } from "prop-types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const render = (props: ButtonProps, renderer: any = shallow) => {
@@ -40,11 +41,34 @@ const sizesHeights: [SizeOptions, string][] = [
 ];
 
 const isMinorSizesPadding: [SizeOptions, string][] = [
-  ["small", "var(--spacing100) var(--spacing100)"],
-  ["medium", "var(var) var(--spacing150)"],
-  ["large", "var(var) var(--spacing200)"],
+  ["small", "var(--spacing000) var(--spacing100) var(--spacing000) var(--spacing100)"],
+  ["medium", "var(--spacing100)"],
+  ["large", "var(--spacing100)"],
 ];
 
+interface Types {
+  background?: string;
+  borderColor?: string;
+  color?:string;
+}
+
+const isMinorColors: [ButtonTypes, Types][] = [
+  ["primary", {
+    background: "var(--colorsActionMinor500)",
+    borderColor: "transparent",
+    color: "var(--colorsSemanticNegativeYang100)",
+  }],
+  ["secondary", {
+    background: "transparent",
+    borderColor: "var(--colorsActionMinor500)",
+    color: "var(--colorsActionMinor500)",
+  }],
+  ["tertiary", {
+    background: "transparent",
+    borderColor: "transparent",
+    color: "var(--colorsActionMinor500)",
+  }],
+];
 
 describe("ButtonWithForwardRef", () => {
   it("should display deprecation warning when the component is used once", () => {
@@ -119,6 +143,42 @@ describe("Button", () => {
   });
 
   describe( "Button Minor Colors ",() => {
+    it.each(isMinorColors)("when buttonType is %s", (buttonType, styles) => {
+      const wrapper = mount(
+        <Button isMinor buttonType={buttonType} >Foo</Button>
+      )
+      assertStyleMatch({...styles}, wrapper)    
+  });
+
+  describe( "Button Minor Colors for destructive and disabled",() => {
+    it('matches the style for the Button Minor destructive', () => {
+      const wrapper = render(
+        { children: "foo", isMinor: true },
+        TestRenderer.create
+      ).toJSON();
+      assertStyleMatch(
+        {
+          background: "transparent",
+          color: "var(--colorsActionMinor500)",
+        },
+        wrapper
+      );
+    });
+
+    it('matches the style for the Button Minor disabled', () => {
+      const wrapper = render(
+        { children: "foo", isMinor: true },
+        TestRenderer.create
+      ).toJSON();
+      assertStyleMatch(
+        {
+          background: "transparent",
+          color: "var(--colorsActionMinor500)",
+        },
+        wrapper
+      );
+    });
+  });
 
   });
 
