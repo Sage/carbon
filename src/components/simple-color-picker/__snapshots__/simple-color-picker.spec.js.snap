@@ -69,6 +69,42 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   display: block;
 }
 
+.c6 {
+  background: transparent;
+  border: none;
+  color: var(--colorsUtilityYin090);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: var(--fontSizes100);
+  outline: none;
+  padding: 0;
+  margin: 0;
+  width: 30px;
+}
+
+.c6:-webkit-autofill {
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.c6::-webkit-input-placeholder {
+  color: var(--colorsUtilityYin030);
+}
+
+.c6::-moz-placeholder {
+  color: var(--colorsUtilityYin030);
+}
+
+.c6:-ms-input-placeholder {
+  color: var(--colorsUtilityYin030);
+}
+
+.c6::placeholder {
+  color: var(--colorsUtilityYin030);
+}
+
 .c5 {
   width: var(--sizing700);
   height: var(--sizing700);
@@ -154,42 +190,6 @@ exports[`SimpleColorPicker renders as expected 1`] = `
 
 .c12 {
   display: block;
-}
-
-.c6 {
-  background: transparent;
-  border: none;
-  color: var(--colorsUtilityYin090);
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-size: var(--fontSizes100);
-  outline: none;
-  padding: 0;
-  margin: 0;
-  width: 30px;
-}
-
-.c6:-webkit-autofill {
-  background-clip: text;
-  -webkit-background-clip: text;
-}
-
-.c6::-webkit-input-placeholder {
-  color: var(--colorsUtilityYin030);
-}
-
-.c6::-moz-placeholder {
-  color: var(--colorsUtilityYin030);
-}
-
-.c6:-ms-input-placeholder {
-  color: var(--colorsUtilityYin030);
-}
-
-.c6::placeholder {
-  color: var(--colorsUtilityYin030);
 }
 
 .c7 {

@@ -118,7 +118,7 @@ export interface TextboxProps extends CommonTextboxProps {
 }
 
 export const Textbox = ({
-  align,
+  align = "left",
   autoFocus,
   children,
   disabled,
@@ -204,6 +204,11 @@ export const Textbox = ({
 
   const labelId = label ? externalLabelId || internalLabelId : "";
 
+  const hasIconInside = !!(
+    inputIcon ||
+    (validationIconId && !validationOnLabel)
+  );
+
   return (
     <TooltipProvider
       helpAriaLabel={helpAriaLabel}
@@ -255,6 +260,7 @@ export const Textbox = ({
             info={info}
             inputWidth={inputWidth || 100 - labelWidth}
             positionedChildren={positionedChildren}
+            hasIcon={hasIconInside}
           >
             {leftChildren}
             {prefix && (

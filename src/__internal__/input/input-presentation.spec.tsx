@@ -3,11 +3,11 @@ import TestRenderer from "react-test-renderer";
 import { mount, shallow, ReactWrapper } from "enzyme";
 import InputPresentation, {
   InputPresentationProps,
-  Sizes,
 } from "./input-presentation.component";
 import InputPresentationStyle, {
   StyledInputPresentationContainer,
 } from "./input-presentation.style";
+import StyledInput from "./input.style";
 import sizes from "./input-sizes.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { InputContext, InputGroupContext } from "../input-behaviour";
@@ -53,18 +53,52 @@ describe("InputPresentation", () => {
   });
 
   describe("style", () => {
-    describe.each(["small", "medium", "large"])(
+    describe.each(["small", "medium", "large"] as const)(
       "when %s provided",
-      (inputSize) => {
-        it(`has the right style for ${inputSize}-sized inputs`, () => {
-          const size = inputSize as Sizes;
+      (size) => {
+        it(`has the right style for ${size}-sized inputs`, () => {
+          const inputPresentation = render({ size, children: "Children" }).find(
+            InputPresentationStyle
+          );
+
           assertStyleMatch(
             {
-              minHeight: sizes[inputSize].height,
-              paddingLeft: sizes[inputSize].horizontalPadding,
-              paddingRight: sizes[inputSize].horizontalPadding,
+              minHeight: sizes[size].height,
             },
-            render({ size, children: "Children" }).find(InputPresentationStyle)
+            inputPresentation
+          );
+
+          assertStyleMatch(
+            {
+              padding: `0 ${sizes[size].horizontalPadding}`,
+            },
+            inputPresentation,
+            {
+              modifier: `${StyledInput}`,
+            }
+          );
+        });
+      }
+    );
+
+    describe.each(["left", "right"])(
+      "when has an icon and is %s aligned",
+      (align) => {
+        it("has the padding removed", () => {
+          const inputPresentation = render({
+            children: "Children",
+            hasIcon: true,
+            align,
+          }).find(InputPresentationStyle);
+          const padding = align === "left" ? "paddingRight" : "paddingLeft";
+          assertStyleMatch(
+            {
+              [padding]: "0",
+            },
+            inputPresentation,
+            {
+              modifier: `${StyledInput}`,
+            }
           );
         });
       }

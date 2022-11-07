@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import sizes from "./input-sizes.style";
+import StyledInput from "./input.style";
 import { CommonInputPresentationProps } from "./input-presentation.component";
 import { InputContextProps } from "../input-behaviour";
 import { CarbonProviderProps } from "../../components/carbon-provider";
@@ -53,7 +54,14 @@ const InputPresentationStyle = styled.div<
   Pick<InputContextProps, "hasFocus"> &
     Pick<
       CommonInputPresentationProps,
-      "align" | "disabled" | "readOnly" | "size" | "error" | "warning" | "info"
+      | "align"
+      | "disabled"
+      | "readOnly"
+      | "size"
+      | "error"
+      | "warning"
+      | "info"
+      | "hasIcon"
     > &
     Pick<CarbonProviderProps, "validationRedesignOptIn">
 >`
@@ -66,12 +74,16 @@ const InputPresentationStyle = styled.div<
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
-  ${({ size }) =>
+  ${({ size, hasIcon, align }) =>
     size &&
     css`
       min-height: ${sizes[size].height};
-      padding-left: ${sizes[size].horizontalPadding};
-      padding-right: ${sizes[size].horizontalPadding};
+
+      ${StyledInput} {
+        padding: 0 ${sizes[size].horizontalPadding};
+        ${hasIcon && align === "right" && "padding-left: 0;"}
+        ${hasIcon && align === "left" && "padding-right: 0;"}
+      }
     `}
 
   ${({ disabled }) =>
