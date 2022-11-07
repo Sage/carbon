@@ -6,6 +6,7 @@ import invariant from "invariant";
 import StyledTooltip from "./tooltip.style";
 import StyledPointer from "./tooltip-pointer.style";
 import { TooltipPositions, TOOLTIP_POSITIONS } from "./tooltip.config";
+import { ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 
@@ -28,7 +29,7 @@ export interface TooltipProps {
   /** Whether to to show the Tooltip */
   isVisible?: boolean;
   /** Sets position of the tooltip */
-  position?: TooltipPositions;
+  position?: ExplicitUnion<TooltipPositions>;
   /** Defines the message type */
   type?: string;
   /** Children elements */
@@ -44,7 +45,7 @@ export interface TooltipProps {
    * must be an array containing some or all of ["top", "bottom", "left", "right"]
    * (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements)
    */
-  flipOverrides?: TooltipPositions[];
+  flipOverrides?: ExplicitUnion<TooltipPositions>[];
   /** @ignore @private */
   target?: Element;
   /** @ignore @private */

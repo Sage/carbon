@@ -1,7 +1,8 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 
-export interface DuellingPicklistProps extends MarginProps {
+export interface DuellingPicklistProps extends Expand<MarginProps> {
   children?: React.ReactNode;
   /** Indicate if component is disabled */
   disabled?: boolean;

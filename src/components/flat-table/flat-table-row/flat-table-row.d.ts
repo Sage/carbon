@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ExplicitUnion } from "../../../__internal__/utils/helpers/types";
 import { TableBorderSize } from "..";
 
 export interface FlatTableRowProps {
@@ -15,7 +16,7 @@ export interface FlatTableRowProps {
   /** Sets the color of the bottom border in the row */
   horizontalBorderColor?: string;
   /** Sets the weight of the bottom border in the row */
-  horizontalBorderSize?: TableBorderSize;
+  horizontalBorderSize?: ExplicitUnion<TableBorderSize>;
   /** Function to handle click event. If provided the Component could be focused with tab key. */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
   /** Allows developers to manually control selected state for the row. */

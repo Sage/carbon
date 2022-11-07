@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ExplicitUnion } from "../../__internal__/utils/helpers/types";
 
 type ToastVariants = "error" | "info" | "success" | "warning" | "notice";
 
@@ -6,7 +7,7 @@ export interface ToastPropTypes {
   /** The rendered children of the component. */
   children: React.ReactNode;
   /** Customizes the appearance in the DLS theme */
-  variant?: ToastVariants;
+  variant?: ExplicitUnion<ToastVariants>;
   /** Custom className */
   className?: string;
   /** Custom id  */

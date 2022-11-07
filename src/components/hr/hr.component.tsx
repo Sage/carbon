@@ -1,10 +1,11 @@
 import React from "react";
 import { MarginProps } from "styled-system";
 
+import { Expand } from "../../__internal__/utils/helpers/types";
 import StyledHr from "./hr.style";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 
-export interface HrProps extends MarginProps {
+export interface HrProps extends Expand<MarginProps> {
   /** Breakpoint for adaptive left and right margins (below the breakpoint they go to 0).
    * Enables the adaptive behaviour when set */
   adaptiveMxBreakpoint?: number;

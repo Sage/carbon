@@ -3,6 +3,7 @@ import { SpaceProps } from "styled-system";
 
 import { SidebarContext } from "../sidebar/sidebar.component";
 import { ModalContext } from "../modal/modal.component";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import FormSummary from "./__internal__/form-summary.component";
 import {
   StyledForm,
@@ -14,7 +15,7 @@ import {
 } from "./form.style";
 import { FormButtonAlignment } from "./form.config";
 
-export interface FormProps extends SpaceProps {
+export interface FormProps extends Expand<SpaceProps> {
   /** Alignment of buttons */
   buttonAlignment?: FormButtonAlignment;
   /** Child elements */

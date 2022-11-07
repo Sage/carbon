@@ -2,13 +2,16 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { PaddingProps, FlexboxProps } from "styled-system";
 import { ThemeObject } from "style/themes/base";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import { baseTheme } from "../../style/themes";
 import StyledNavigationBar, {
   StyledNavigationBarProps,
 } from "../navigation-bar/navigation-bar.style";
 import Box from "../box";
 
-export interface GlobalHeaderProps extends PaddingProps, FlexboxProps {
+export interface GlobalHeaderProps
+  extends Expand<PaddingProps>,
+    Expand<FlexboxProps> {
   /** Child elements */
   children?: React.ReactNode;
   /** Logo to render */

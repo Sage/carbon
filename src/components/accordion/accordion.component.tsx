@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { SpaceProps } from "styled-system";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Events from "../../__internal__/utils/helpers/events";
 import {
@@ -19,7 +20,7 @@ import ValidationIcon from "../../__internal__/validations";
 
 export interface AccordionProps
   extends StyledAccordionContainerProps,
-    SpaceProps {
+    Expand<SpaceProps> {
   /** Width of the buttonHeading when it's set, defaults to 150px */
   buttonWidth?: number;
   children?: React.ReactNode;
@@ -32,7 +33,7 @@ export interface AccordionProps
   /** An error message to be displayed in the tooltip */
   error?: string;
   /** Styled system spacing props provided to Accordion Title */
-  headerSpacing?: SpaceProps;
+  headerSpacing?: Expand<SpaceProps>;
   id?: string;
   /** Sets icon type - accepted values: 'chevron_down' (default), 'dropdown' */
   iconType?: "chevron_down" | "dropdown";

@@ -1,8 +1,9 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import Tab from "./tab";
 
-export interface TabsProps extends MarginProps {
+export interface TabsProps extends Expand<MarginProps> {
   className?: string;
   /** Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered */
   renderHiddenTabs?: boolean;

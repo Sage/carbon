@@ -1,10 +1,13 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
+import { Expand, ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import { CommonCheckableInputProps } from "../../__internal__/checkable-input";
 
 export type LabelAlign = "left" | "right";
 
-export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
+export interface SwitchProps
+  extends CommonCheckableInputProps,
+    Expand<MarginProps> {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -16,7 +19,7 @@ export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   /** Set the default value of the Switch if component is meant to be used as uncontrolled */
   defaultChecked?: boolean;
   /** Text alignment of the label */
-  labelAlign?: LabelAlign;
+  labelAlign?: ExplicitUnion<LabelAlign>;
   /** When true label is inline */
   labelInline?: boolean;
   /** Triggers loading animation */

@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 
@@ -13,7 +14,7 @@ export interface StyledLinkProps {
   /** Sets the colour styling when component is rendered on a dark background */
   isDarkBackground?: boolean;
   /** Allows link styling to be updated for light or dark backgrounds */
-  variant?: Variants;
+  variant?: ExplicitUnion<Variants>;
 }
 interface PrivateStyledLinkProps {
   hasContent: boolean;

@@ -1,6 +1,7 @@
 import React from "react";
 import { SpaceProps } from "styled-system";
 import { isElement, isFragment } from "react-is";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import {
   StyledDl,
   StyledDtDiv,
@@ -14,7 +15,7 @@ import Dd from "./dd.component";
 import DlContext from "./__internal__/dl.context";
 
 export interface DlProps
-  extends SpaceProps,
+  extends Expand<SpaceProps>,
     StyledDlProps,
     StyledDtDivProps,
     StyledDdDivProps {

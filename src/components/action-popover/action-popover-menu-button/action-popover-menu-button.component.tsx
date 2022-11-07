@@ -1,5 +1,9 @@
 import React from "react";
 
+import {
+  ExplicitUnion,
+  Expand,
+} from "../../../__internal__/utils/helpers/types";
 import { MenuButtonOverrideWrapper } from "../action-popover.style";
 import Button from "../../button";
 import { ButtonTypes } from "../../button/button.component";
@@ -14,12 +18,12 @@ export type ActionPopoverMenuButtonAria = {
 
 export interface ActionPopoverMenuButtonProps {
   children?: string;
-  buttonType?: ButtonTypes;
-  iconType?: IconType;
+  buttonType?: ExplicitUnion<ButtonTypes>;
+  iconType?: ExplicitUnion<IconType>;
   iconPosition?: "after" | "before";
   size?: "small" | "medium" | "large";
   tabIndex: number;
-  ariaAttributes: ActionPopoverMenuButtonAria;
+  ariaAttributes: Expand<ActionPopoverMenuButtonAria>;
   "data-element": string;
 }
 

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { LayoutProps, FlexboxProps } from "styled-system";
+import { Expand, ExplicitUnion } from "../../__internal__/utils/helpers/types";
 
 type menuType = "light" | "dark" | "white" | "black";
 interface MenuContextProps {
@@ -14,11 +15,11 @@ interface MenuContextProps {
   inMenu: boolean;
 }
 
-export interface MenuProps extends LayoutProps, FlexboxProps {
+export interface MenuProps extends Expand<LayoutProps>, Expand<FlexboxProps> {
   /** Children elements */
   children: React.ReactNode;
   /** Defines the color scheme of the component */
-  menuType?: menuType;
+  menuType?: ExplicitUnion<menuType>;
 }
 
 declare const MenuContext: React.Context<MenuContextProps>;

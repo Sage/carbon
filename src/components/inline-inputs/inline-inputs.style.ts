@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import InputPresentation from "../../__internal__/input/input-presentation.style";
 
+import { ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import baseTheme from "../../style/themes/base";
 import { InlineInputsProps } from "./inline-inputs.component";
@@ -16,7 +17,7 @@ type GutterOptions =
   | "extra-large";
 interface StyledInlineInputProps {
   /** Gutter prop gets passed down to Row component if false gutter value is "none" */
-  gutter?: GutterOptions;
+  gutter?: ExplicitUnion<GutterOptions>;
 }
 
 export interface StyledContentContainerProps extends StyledInlineInputProps {

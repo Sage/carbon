@@ -1,7 +1,8 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 
-export interface TileSelectProps extends MarginProps {
+export interface TileSelectProps extends Expand<MarginProps> {
   /** title of the TileSelect */
   title?: string;
   /** adornment to be rendered next to the title */

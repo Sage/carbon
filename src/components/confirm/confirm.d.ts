@@ -1,5 +1,6 @@
-import { IconType } from "components/icon/icon-type";
 import * as React from "react";
+import { IconType } from "../icon/icon-type";
+import { ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import { DialogProps } from "../dialog";
 
 export interface ConfirmProps extends DialogProps {
@@ -28,11 +29,11 @@ export interface ConfirmProps extends DialogProps {
   /** Defines a cancel button Icon position related to the children: "before" | "after" */
   cancelButtonIconPosition?: "before" | "after";
   /** Defines an Icon type within the cancel button (see Icon for options) */
-  cancelButtonIconType?: IconType;
+  cancelButtonIconType?: ExplicitUnion<IconType>;
   /** Defines a cancel button Icon position related to the children: "before" | "after" */
   confirmButtonIconPosition?: "before" | "after";
   /** Defines an Icon type within the confirm button (see Icon for options) */
-  confirmButtonIconType?: IconType;
+  confirmButtonIconType?: ExplicitUnion<IconType>;
   /** Makes cancel button disabled */
   disableCancel?: boolean;
   /** Makes confirm button disabled */

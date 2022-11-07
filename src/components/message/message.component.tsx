@@ -4,6 +4,7 @@ import { MarginProps } from "styled-system";
 import MessageStyle from "./message.style";
 import TypeIcon from "./type-icon/type-icon.component";
 import MessageContent from "./message-content/message-content.component";
+import { Expand, ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import Icon from "../icon";
 import IconButton from "../icon-button";
@@ -12,7 +13,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 
 export type MessageVariant = "error" | "info" | "success" | "warning";
 
-export interface MessageProps extends MarginProps {
+export interface MessageProps extends Expand<MarginProps> {
   /** set content to component */
   children?: React.ReactNode;
   /** set custom class to component */
@@ -36,7 +37,7 @@ export interface MessageProps extends MarginProps {
   /** set background to be invisible */
   transparent?: boolean;
   /** set type of message based on new DLS standard */
-  variant?: MessageVariant;
+  variant?: ExplicitUnion<MessageVariant>;
 }
 
 export const Message = ({

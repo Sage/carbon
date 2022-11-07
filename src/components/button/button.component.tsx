@@ -4,6 +4,7 @@ import invariant from "invariant";
 
 import Icon, { IconType, IconProps } from "../icon";
 import StyledButton, { StyledButtonSubtext } from "./button.style";
+import { Expand, ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
@@ -18,15 +19,14 @@ export type ButtonTypes =
 
 export type SizeOptions = "small" | "medium" | "large";
 export type ButtonIconPosition = "before" | "after";
-
-export interface ButtonProps extends SpaceProps {
+export interface ButtonProps extends Expand<SpaceProps> {
   /**
    * Prop to specify the aria-label attribute of the component
    * Defaults to the iconType, when the component has only an icon
    */
   "aria-label"?: string;
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
-  buttonType?: ButtonTypes;
+  buttonType?: ExplicitUnion<ButtonTypes>;
   /** The text the button displays */
   children?: React.ReactNode;
   /** Name attribute */
@@ -45,13 +45,13 @@ export interface ButtonProps extends SpaceProps {
   /** Used to transform button into anchor */
   href?: string;
   /** Defines an Icon position related to the children: "before" | "after" */
-  iconPosition?: ButtonIconPosition;
+  iconPosition?: ExplicitUnion<ButtonIconPosition>;
   /** Provides a tooltip message when the icon is hovered. */
   iconTooltipMessage?: string;
   /** Provides positioning when the tooltip is displayed. */
-  iconTooltipPosition?: TooltipPositions;
+  iconTooltipPosition?: ExplicitUnion<TooltipPositions>;
   /** Defines an Icon type within the button */
-  iconType?: IconType;
+  iconType?: ExplicitUnion<IconType>;
   /** id attribute */
   id?: string;
   /** If provided, the text inside a button will not wrap */
@@ -69,7 +69,7 @@ export interface ButtonProps extends SpaceProps {
     event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>
   ) => void;
   /** Assigns a size to the button: "small" | "medium" | "large" */
-  size?: SizeOptions;
+  size?: ExplicitUnion<SizeOptions>;
   /** Second text child, renders under main text, only when size is "large" */
   subtext?: string;
   /** HTML button type property */

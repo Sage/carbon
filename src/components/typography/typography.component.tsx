@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { ColorProps, space, SpaceProps } from "styled-system";
+import { ExplicitUnion, Expand } from "../../__internal__/utils/helpers/types";
 import styledColor from "../../style/utils/color";
 import baseTheme from "../../style/themes/base";
 
@@ -26,9 +27,11 @@ const VARIANT_TYPES = [
   "ol",
 ] as const;
 type VariantTypes = typeof VARIANT_TYPES[number];
-export interface TypographyProps extends SpaceProps, ColorProps {
+export interface TypographyProps
+  extends Expand<SpaceProps>,
+    Expand<ColorProps> {
   /** Override the variant component */
-  as?: React.ElementType;
+  as?: ExplicitUnion<React.ElementType>;
   /** The visual style to apply to the component */
   variant?: VariantTypes;
   /** Override the variant font-size */

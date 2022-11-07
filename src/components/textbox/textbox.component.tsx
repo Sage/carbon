@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { MarginProps } from "styled-system";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { Expand, ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import {
   Input,
   InputPresentation,
@@ -24,7 +25,7 @@ import NumeralDateContext from "../numeral-date/numeral-date-context";
 
 export interface CommonTextboxProps
   extends ValidationProps,
-    MarginProps,
+    Expand<MarginProps>,
     Omit<CommonInputProps, "size"> {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
@@ -46,7 +47,7 @@ export interface CommonTextboxProps
   /** Unique identifier for the input. Will use a randomly generated GUID if none is provided */
   id?: string;
   /** Type of the icon that will be rendered next to the input */
-  inputIcon?: IconType;
+  inputIcon?: ExplicitUnion<IconType>;
   /** Optional handler for click event on Textbox icon */
   iconOnClick?: (
     ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>

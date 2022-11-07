@@ -8,6 +8,7 @@ import {
   GridColumnProps,
   GridRowProps,
 } from "styled-system";
+import { Expand, ExpandOnce } from "../../../__internal__/utils/helpers/types";
 
 export function getSpacing(prop?: PaddingProps[keyof PaddingProps]) {
   if (typeof prop === "number") {
@@ -42,7 +43,7 @@ export function getSpacing(prop?: PaddingProps[keyof PaddingProps]) {
   return String(prop);
 }
 
-interface GridProperties extends PaddingProps {
+interface GridProperties extends Expand<PaddingProps> {
   alignSelf?: string;
   justifySelf?: string;
   gridColumn?: GridColumnProps["gridColumn"];
@@ -54,8 +55,8 @@ interface ResponsiveSettings extends GridProperties {
   maxWidth?: string;
 }
 
-export interface StyledGridItemProps extends GridProperties {
-  responsiveSettings?: ResponsiveSettings[];
+export interface StyledGridItemProps extends Expand<GridProperties> {
+  responsiveSettings?: ExpandOnce<ResponsiveSettings>[];
 }
 
 function responsiveGridItem(responsiveSettings: ResponsiveSettings[]) {

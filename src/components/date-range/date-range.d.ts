@@ -1,5 +1,6 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import { DateInputProps } from "../date/date";
 
 export interface DateRangeChangeEvent {
@@ -17,9 +18,9 @@ export interface DateRangeChangeEvent {
   };
 }
 
-export interface DateRangeProps extends MarginProps {
+export interface DateRangeProps extends Expand<MarginProps> {
   /** Props for the child end Date component */
-  endDateProps?: Partial<DateInputProps>;
+  endDateProps?: Expand<Partial<DateInputProps>>;
   /** Optional label for endDate field */
   endLabel?: string;
   /**
@@ -47,11 +48,11 @@ export interface DateRangeProps extends MarginProps {
   /** An optional string prop to provide a name to the component */
   name?: string;
   /** Specify a callback triggered on change */
-  onChange: (ev: DateRangeChangeEvent) => void;
+  onChange: (ev: Expand<DateRangeChangeEvent>) => void;
   /** Specify a callback triggered on blur */
   onBlur?: (ev: DateRangeChangeEvent) => void;
   /** Props for the child start Date component */
-  startDateProps?: Partial<DateInputProps>;
+  startDateProps?: Expand<Partial<DateInputProps>>;
   /** Optional label for startDate field */
   startLabel?: string;
   /**

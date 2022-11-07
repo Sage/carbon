@@ -1,7 +1,8 @@
 import React, { useMemo } from "react";
-import { IconType } from "components/icon/icon-type";
+import { IconType } from "../icon/icon-type";
 
 import Icon from "../icon";
+import { ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import Event from "../../__internal__/utils/helpers/events";
 import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
@@ -11,7 +12,7 @@ export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
   /** An href for an anchor tag. */
   href?: string;
   /** An icon to display next to the link. */
-  icon?: IconType;
+  icon?: ExplicitUnion<IconType>;
   /** Function called when the mouse is clicked. */
   onClick?: (
     ev:

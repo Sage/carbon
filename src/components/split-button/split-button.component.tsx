@@ -14,6 +14,7 @@ import Button from "../button";
 import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
 import StyledSplitButtonChildrenContainer from "./split-button-children.style";
+import { Expand, ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import Events from "../../__internal__/utils/helpers/events";
 import guid from "../../__internal__/utils/helpers/guid";
 import Popover from "../../__internal__/popover";
@@ -28,7 +29,7 @@ const CONTENT_WIDTH_RATIO = 0.75;
 
 export interface SplitButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    MarginProps {
+    Expand<MarginProps> {
   /** Set align of the rendered content */
   align?: "left" | "right";
   /** Button type: "primary" | "secondary" */
@@ -44,7 +45,7 @@ export interface SplitButtonProps
   /** Defines an Icon position within the button: "before" | "after" */
   iconPosition?: "before" | "after";
   /** Defines an Icon type within the button */
-  iconType?: IconType;
+  iconType?: ExplicitUnion<IconType>;
   /** The size of the buttons in the SplitButton. */
   size?: "small" | "medium" | "large";
   /** Second text child, renders under main text, only when size is "large" */

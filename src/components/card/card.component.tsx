@@ -6,9 +6,10 @@ import StyledCard from "./card.style";
 import Icon from "../icon";
 import { CardRow, CardRowProps, CardFooter, CardFooterProps } from ".";
 import { CardSpacing } from "./card.config";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import Logger from "../../__internal__/utils/logger";
 
-export interface CardProps extends MarginProps {
+export interface CardProps extends Expand<MarginProps> {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-element"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */

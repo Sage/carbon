@@ -7,12 +7,13 @@ import {
   BackgroundProps,
   LayoutProps,
 } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import { baseTheme } from "../../style/themes";
 
 export interface StyledImageProps
-  extends MarginProps,
-    BackgroundProps,
-    LayoutProps {
+  extends Expand<MarginProps>,
+    Expand<BackgroundProps>,
+    Expand<LayoutProps> {
   /** HTML alt property to display when an img fails to load */
   alt?: string;
   /** Any valid file path, passing this will render the component as an img element */

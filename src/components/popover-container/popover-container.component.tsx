@@ -12,6 +12,7 @@ import {
   PopoverContainerOpenIcon,
 } from "./popover-container.style";
 import Icon from "../icon";
+import { Expand, ExpandOnce } from "../../__internal__/utils/helpers/types";
 import Popover from "../../__internal__/popover";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
@@ -83,19 +84,19 @@ export const renderClose = ({
   </PopoverContainerCloseIcon>
 );
 
-export interface PopoverContainerProps extends PaddingProps {
+export interface PopoverContainerProps extends Expand<PaddingProps> {
   /** A function that will render the open component
    *
    * `({tabIndex, isOpen, data-element, onClick, ref, aria-label}) => ()`
    *
    */
-  renderOpenComponent?: (args: RenderOpenProps) => JSX.Element;
+  renderOpenComponent?: (args: ExpandOnce<RenderOpenProps>) => JSX.Element;
   /** A function that will render the close component
    *
    * `({data-element, tabIndex, onClick, ref, aria-label}) => ()`
    *
    */
-  renderCloseComponent?: (args: RenderCloseProps) => JSX.Element;
+  renderCloseComponent?: (args: ExpandOnce<RenderCloseProps>) => JSX.Element;
   /** The content of the popover-container */
   children?: React.ReactNode;
   /** Sets rendering position of dialog */

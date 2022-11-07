@@ -1,8 +1,9 @@
 import * as React from "react";
+import { Expand, ExpandOnce } from "../../__internal__/utils/helpers/types";
 import { DraggableItemProps } from "./draggable-item";
 
 type DraggableContainerChild =
-  | React.ReactElement<DraggableItemProps>
+  | React.ReactElement<Expand<DraggableItemProps>>
   | boolean
   | null
   | undefined;
@@ -15,7 +16,9 @@ export interface DraggableContainerProps {
    *
    * `<DraggableItem />` is required to make `Draggable` works
    */
-  children?: DraggableContainerChild | DraggableContainerChild[];
+  children?:
+    | ExpandOnce<DraggableContainerChild>
+    | ExpandOnce<DraggableContainerChild>[];
 }
 
 declare function DraggableContainer(

@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledSearch from "./search.style";
 import StyledSearchButton, { StyledButtonIcon } from "./search-button.style";
@@ -18,7 +19,7 @@ export interface SearchEvent {
   };
 }
 
-export interface SearchProps extends ValidationProps, MarginProps {
+export interface SearchProps extends ValidationProps, Expand<MarginProps> {
   /** Prop to specify the aria-label of the search component */
   "aria-label"?: string;
   /** Prop for `uncontrolled` use */
@@ -32,11 +33,11 @@ export interface SearchProps extends ValidationProps, MarginProps {
   /** Prop for `onBlur` events */
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Prop for `onChange` events */
-  onChange?: (ev: SearchEvent) => void;
+  onChange?: (ev: Expand<SearchEvent>) => void;
   /** Prop for `onClick` events.
    *  `onClick` events are triggered when the `searchButton` is clicked
    */
-  onClick?: (ev: SearchEvent) => void;
+  onClick?: (ev: Expand<SearchEvent>) => void;
   /** Prop for `onFocus` events */
   onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Prop for `onKeyDown` events */

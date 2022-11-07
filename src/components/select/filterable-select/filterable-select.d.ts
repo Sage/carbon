@@ -1,5 +1,9 @@
 import * as React from "react";
 import { Side } from "@floating-ui/dom";
+import {
+  Expand,
+  ExplicitUnion,
+} from "../../../__internal__/utils/helpers/types";
 import Button from "../../button";
 import { FormInputPropTypes } from "../select-textbox/select-textbox";
 
@@ -20,7 +24,7 @@ export interface FilterableSelectProps
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
   /** True for default text button or a Button Component to be rendered */
-  listActionButton?: boolean | typeof Button;
+  listActionButton?: boolean | Expand<typeof Button>;
   /** When true component will work in multi column mode.
    * Children should consist of OptionRow components in this mode
    */
@@ -48,7 +52,7 @@ export interface FilterableSelectProps
   /** Maximum list height - defaults to 180 */
   listMaxHeight?: number;
   /** Placement of the select list in relation to the input element */
-  listPlacement?: Side;
+  listPlacement?: ExplicitUnion<Side>;
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
 }

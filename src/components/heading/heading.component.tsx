@@ -2,6 +2,7 @@ import React from "react";
 import { MarginProps } from "styled-system";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
@@ -20,7 +21,7 @@ import {
 } from "./heading.style";
 import useLocale from "../../hooks/__internal__/useLocale";
 
-export interface HeadingProps extends MarginProps, TagProps {
+export interface HeadingProps extends Expand<MarginProps>, TagProps {
   /** Child elements */
   children?: React.ReactNode;
   /** Defines the title for the heading. */

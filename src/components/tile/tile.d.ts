@@ -1,7 +1,8 @@
 import * as React from "react";
 import { SpaceProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 
-export interface TileProps extends SpaceProps {
+export interface TileProps extends Expand<SpaceProps> {
   /** Sets the theme of the tile - either 'tile', 'transparent' or 'active' */
   variant?: "tile" | "transparent" | "active";
   /**

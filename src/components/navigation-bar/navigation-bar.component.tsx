@@ -1,24 +1,27 @@
 import React from "react";
 import { PaddingProps, FlexboxProps } from "styled-system";
+import { Expand, ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import StyledNavigationBar from "./navigation-bar.style";
 
 export type Position = "sticky" | "fixed";
 export type Orientation = "top" | "bottom";
 export type NavigationType = "light" | "dark" | "white" | "black";
 
-export interface NavigationBarProps extends PaddingProps, FlexboxProps {
+export interface NavigationBarProps
+  extends Expand<PaddingProps>,
+    Expand<FlexboxProps> {
   children?: React.ReactNode;
   ariaLabel?: string;
   /** Color scheme of navigation component */
-  navigationType?: NavigationType;
+  navigationType?: ExplicitUnion<NavigationType>;
   /** If 'true' the children will not be visible */
   isLoading?: boolean;
   /** Defines whether the navigation bar should be positioned fixed or sticky */
-  position?: Position;
+  position?: ExplicitUnion<Position>;
   /** Defines the offset of navigation bar */
   offset?: string;
   /** Defines whether the navigation bar should be positioned top or bottom */
-  orientation?: Orientation;
+  orientation?: ExplicitUnion<Orientation>;
 }
 
 export const NavigationBar = ({

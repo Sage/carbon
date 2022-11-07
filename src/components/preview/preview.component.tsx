@@ -1,6 +1,7 @@
 import React from "react";
 import { MarginProps } from "styled-system";
 
+import { Expand } from "../../__internal__/utils/helpers/types";
 import PreviewPlaceholder, {
   PreviewPlaceholderProps,
 } from "./__internal__/preview-placeholder.component";
@@ -9,7 +10,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export interface PreviewProps
   extends Partial<Omit<PreviewPlaceholderProps, "index">>,
-    MarginProps {
+    Expand<MarginProps> {
   /** Children content to render in the component. */
   children?: React.ReactNode;
   /* Provides more control over when in a loading state. */

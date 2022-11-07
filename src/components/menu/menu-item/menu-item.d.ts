@@ -1,8 +1,14 @@
-import { IconType } from "components/icon/icon-type";
 import * as React from "react";
 import { FlexboxProps, LayoutProps } from "styled-system";
+import {
+  Expand,
+  ExplicitUnion,
+} from "../../../__internal__/utils/helpers/types";
+import { IconType } from "../icon/icon-type";
 
-export interface MenuItemBaseProps extends LayoutProps, FlexboxProps {
+export interface MenuItemBaseProps
+  extends Expand<LayoutProps>,
+    Expand<FlexboxProps> {
   /** Custom className */
   className?: string;
   /** onClick handler */
@@ -40,16 +46,21 @@ export interface MenuItemBaseProps extends LayoutProps, FlexboxProps {
 export interface MenuWithChildren extends MenuItemBaseProps {
   children: React.ReactNode;
   /** Either prop `icon` must be defined or this node must have children. */
-  icon?: IconType;
+  icon?: ExplicitUnion<IconType>;
 }
 
 export interface MenuWithIcon extends MenuItemBaseProps {
   /** Either prop `icon` must be defined or this node must have children. */
-  icon: IconType;
+  icon: ExplicitUnion<IconType>;
   children?: React.ReactNode;
 }
 
-export type MenuItemProps = MenuWithChildren | MenuWithIcon;
+type RawMenuItemProps = MenuWithChildren | MenuWithIcon;
+
+// need the below "trick" to get intellisense to work correctly with the individual props when hovering
+export type MenuItemProps = {
+  [K in keyof RawMenuItemProps]: RawMenuItemProps[K];
+};
 
 declare function MenuItem(props: MenuItemProps): JSX.Element;
 

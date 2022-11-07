@@ -1,7 +1,8 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 
-export interface FlatTableProps extends MarginProps {
+export interface FlatTableProps extends Expand<MarginProps> {
   /** The HTML id of the element that contains a description of this table. */
   ariaDescribedby?: string;
   /** A string to render as the table's caption */

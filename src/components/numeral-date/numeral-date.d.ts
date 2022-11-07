@@ -1,5 +1,6 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import { ValidationProps } from "../../__internal__/validations";
 
 interface DayMonthDate {
@@ -24,7 +25,7 @@ interface NumeralDateEvent {
   };
 }
 
-export interface NumeralDateProps extends ValidationProps, MarginProps {
+export interface NumeralDateProps extends ValidationProps, Expand<MarginProps> {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -51,9 +52,9 @@ export interface NumeralDateProps extends ValidationProps, MarginProps {
     | ["mm", "dd"]
     | ["mm", "yyyy"];
   /** Default value for use in uncontrolled mode  */
-  defaultValue?: DayMonthDate | MonthYearDate | FullDate;
+  defaultValue?: Expand<DayMonthDate | MonthYearDate | FullDate>;
   /**  Value for use in controlled mode  */
-  value?: DayMonthDate | MonthYearDate | FullDate;
+  value?: Expand<DayMonthDate | MonthYearDate | FullDate>;
   /** When true, enables the internal errors to be displayed */
   enableInternalError?: boolean;
   /** When true, enables the internal warnings to be displayed */
@@ -77,9 +78,9 @@ export interface NumeralDateProps extends ValidationProps, MarginProps {
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
   labelSpacing?: 1 | 2;
   /** Blur event handler */
-  onBlur?: (ev: NumeralDateEvent) => void;
+  onBlur?: (ev: Expand<NumeralDateEvent>) => void;
   /** Change event handler */
-  onChange?: (ev: NumeralDateEvent) => void;
+  onChange?: (ev: Expand<NumeralDateEvent>) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** Size of an input */

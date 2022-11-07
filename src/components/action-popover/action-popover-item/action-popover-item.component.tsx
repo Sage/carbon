@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import invariant from "invariant";
 
+import { ExplicitUnion } from "../../../__internal__/utils/helpers/types";
 import {
   MenuItemIcon,
   SubMenuItemIcon,
@@ -30,7 +31,7 @@ export interface ActionPopoverItemProps {
   /** allows to provide href prop */
   href?: string;
   /** The name of the icon to display next to the label */
-  icon?: IconType;
+  icon?: ExplicitUnion<IconType>;
   /** Callback to run when item is clicked */
   onClick?: (
     ev:

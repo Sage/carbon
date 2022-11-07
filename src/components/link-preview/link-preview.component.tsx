@@ -1,4 +1,5 @@
 import React from "react";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import {
   StyledLinkPreview,
   StyledPreviewWrapper,
@@ -26,7 +27,7 @@ export interface LinkPreviewProps {
   /** The description to be displayed */
   description?: string;
   /** The config for the image to be displayed */
-  image?: ImageShape;
+  image?: Expand<ImageShape>;
   /** Flag to trigger the loading animation */
   isLoading?: boolean;
   /** The callback to handle the deleting of a Preview, to hide the close button do not set this prop */

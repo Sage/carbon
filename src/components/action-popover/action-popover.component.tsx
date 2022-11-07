@@ -8,6 +8,7 @@ import React, {
 import { MarginProps } from "styled-system";
 import invariant from "invariant";
 
+import { Expand } from "../../__internal__/utils/helpers/types";
 import {
   MenuButton,
   ButtonIcon,
@@ -33,7 +34,7 @@ interface RenderButtonProps {
   };
 }
 
-export interface ActionPopoverProps extends MarginProps {
+export interface ActionPopoverProps extends Expand<MarginProps> {
   /** Children for popover component */
   children?: React.ReactNode;
   /** Horizontal alignment of menu items content */
@@ -47,7 +48,7 @@ export interface ActionPopoverProps extends MarginProps {
   /** Set whether the menu should open above or below the button */
   placement?: "bottom" | "top";
   /** Render a custom menu button to override default ellipsis icon */
-  renderButton?: (buttonProps: RenderButtonProps) => React.ReactNode;
+  renderButton?: (buttonProps: Expand<RenderButtonProps>) => React.ReactNode;
   /** Boolean to control whether menu should align to right */
   rightAlignMenu?: boolean;
 }

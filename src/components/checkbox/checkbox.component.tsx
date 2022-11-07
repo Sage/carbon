@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { MarginProps } from "styled-system";
 import CheckboxStyle from "./checkbox.style";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import CheckableInput, {
   CommonCheckableInputProps,
 } from "../../__internal__/checkable-input/checkable-input.component";
@@ -10,7 +11,9 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import { CheckboxGroupContext } from "./checkbox-group.component";
 
-export interface CheckboxProps extends CommonCheckableInputProps, MarginProps {
+export interface CheckboxProps
+  extends CommonCheckableInputProps,
+    Expand<MarginProps> {
   /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
   adaptiveSpacingBreakpoint?: number;
   /** Identifier used for testing purposes, applied to the root element of the component. */

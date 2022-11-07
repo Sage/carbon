@@ -1,5 +1,6 @@
 import * as React from "react";
 import { PaddingProps } from "styled-system";
+import { Expand } from "../../../__internal__/utils/helpers/types";
 
 export interface TabContextProps {
   setError?: (childId: string, hasError: boolean) => void;
@@ -7,7 +8,7 @@ export interface TabContextProps {
   setInfo?: (childId: string, hasInfo: boolean) => void;
 }
 
-export interface TabProps extends PaddingProps {
+export interface TabProps extends Expand<PaddingProps> {
   title?: string;
   /** A unique ID to identify this specific tab. */
   tabId: string;

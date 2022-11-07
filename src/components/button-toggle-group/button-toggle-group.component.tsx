@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import invariant from "invariant";
 
 import { MarginProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import { ValidationProps } from "../../__internal__/validations";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import FormField from "../../__internal__/form-field";
@@ -15,7 +16,7 @@ import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
 export interface ButtonToggleGroupProps
   extends ValidationProps,
-    MarginProps,
+    Expand<MarginProps>,
     TagProps {
   /** Unique id for the root element of the component */
   id: string;

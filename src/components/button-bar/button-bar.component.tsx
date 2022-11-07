@@ -2,11 +2,12 @@ import React, { useMemo } from "react";
 import invariant from "invariant";
 import { SpaceProps } from "styled-system";
 
+import { Expand } from "../../__internal__/utils/helpers/types";
 import StyledButtonBar from "./button-bar.style";
 import Button from "../button";
 import IconButton from "../icon-button";
 
-export interface ButtonBarProps extends SpaceProps {
+export interface ButtonBarProps extends Expand<SpaceProps> {
   children: React.ReactNode;
   /** Apply fullWidth style to the button bar */
   fullWidth?: boolean;

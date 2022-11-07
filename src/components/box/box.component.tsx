@@ -11,6 +11,7 @@ import {
   position,
   PositionProps,
 } from "styled-system";
+import { Expand, ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import BaseTheme from "../../style/themes/base";
 import styledColor from "../../style/utils/color";
 import boxConfig from "./box.config";
@@ -24,27 +25,27 @@ export type AllowedNumericalValues = typeof GAP_VALUES[number];
 export type Gap = AllowedNumericalValues | string;
 
 export interface BoxProps
-  extends SpaceProps,
-    LayoutProps,
-    FlexboxProps,
-    ColorProps,
-    Omit<PositionProps, "zIndex"> {
+  extends Expand<SpaceProps>,
+    Expand<LayoutProps>,
+    Expand<FlexboxProps>,
+    Expand<ColorProps>,
+    Expand<Omit<PositionProps, "zIndex">> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+  as?: ExplicitUnion<keyof JSX.IntrinsicElements | React.ComponentType<any>>;
   /** String to set Box content break strategy. Note "anywhere" is not supported in Safari */
-  overflowWrap?: OverflowWrap;
+  overflowWrap?: ExplicitUnion<OverflowWrap>;
   /** scroll styling attribute */
-  scrollVariant?: ScrollVariant;
+  scrollVariant?: ExplicitUnion<ScrollVariant>;
   /** set the box-sizing attribute of the Box component */
-  boxSizing?: BoxSizing;
+  boxSizing?: ExplicitUnion<BoxSizing>;
   /** Allows a tabindex to be specified */
   tabIndex?: number | string;
   /** Gap, an integer multiplier of the base spacing constant (8px) or any valid CSS string." */
-  gap?: Gap;
+  gap?: ExplicitUnion<Gap>;
   /** Column gap, an integer multiplier of the base spacing constant (8px) or any valid CSS string." */
-  columnGap?: Gap;
+  columnGap?: ExplicitUnion<Gap>;
   /** Row gap an integer multiplier of the base spacing constant (8px) or any valid CSS string." */
-  rowGap?: Gap;
+  rowGap?: ExplicitUnion<Gap>;
 }
 
 const Box = styled.div<BoxProps>`

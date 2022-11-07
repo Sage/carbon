@@ -3,6 +3,7 @@ import { MarginProps } from "styled-system";
 
 import { IconType } from "../icon";
 import Tooltip from "../tooltip";
+import { Expand, ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import PortraitGravatar from "./portrait-gravatar.component";
 import PortraitInitials from "./portrait-initials.component";
@@ -18,15 +19,15 @@ export type PortraitShapes = "circle" | "square";
 
 export type PortraitSizes = "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
 
-export interface PortraitBaseProps extends MarginProps {
+export interface PortraitBaseProps extends Expand<MarginProps> {
   /** The size of the Portrait. */
-  size?: PortraitSizes;
+  size?: ExplicitUnion<PortraitSizes>;
   /** The `alt` HTML string. */
   alt?: string;
   /** The shape of the Portrait. */
-  shape?: PortraitShapes;
+  shape?: ExplicitUnion<PortraitShapes>;
   /** Icon to be rendered as a fallback. */
-  iconType?: IconType;
+  iconType?: ExplicitUnion<IconType>;
   /** The initials to render in the Portrait. */
   initials?: string;
   /** Use a dark background. */
@@ -63,7 +64,12 @@ export interface PortraitWithSrc extends PortraitBaseProps {
   gravatar?: never;
 }
 
-export type PortraitProps = PortraitWithGravatar | PortraitWithSrc;
+export type RawPortraitProps = PortraitWithGravatar | PortraitWithSrc;
+
+// need the below "trick" to get intellisense to work correctly with the individual props when hovering
+export type PortraitProps = {
+  [K in keyof RawPortraitProps]: RawPortraitProps[K];
+};
 
 export const Portrait = ({
   alt = "",

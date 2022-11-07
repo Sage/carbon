@@ -1,4 +1,5 @@
 import { DayPickerProps } from "react-day-picker";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import { TextboxProps } from "../textbox";
 
 export interface DateChangeEvent {
@@ -39,11 +40,11 @@ export interface DateInputProps
   /** Maximum possible date YYYY-MM-DD */
   maxDate?: string;
   /** Specify a callback triggered on change */
-  onChange: (ev: DateChangeEvent) => void;
+  onChange: (ev: Expand<DateChangeEvent>) => void;
   /** The current date string */
   value: string;
   /** Pass any props that match the DayPickerProps interface to override default behaviors */
-  pickerProps?: DayPickerProps;
+  pickerProps?: Expand<DayPickerProps>;
 }
 
 declare function DateInput(props: DateInputProps): JSX.Element;

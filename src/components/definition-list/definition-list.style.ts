@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
+import { ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import StyledButton from "../button/button.style";
 import { baseTheme } from "../../style/themes";
 
@@ -41,7 +42,7 @@ StyledDl.defaultProps = {
 
 export interface StyledDtDivProps {
   /** This string will specify the text align styling of the `<dt></dt>`. */
-  dtTextAlign?: ElementAlignment;
+  dtTextAlign?: ExplicitUnion<ElementAlignment>;
 }
 
 export const StyledDtDiv = styled.div<StyledDtDivProps>`
@@ -57,7 +58,7 @@ StyledDtDiv.defaultProps = {
 
 export interface StyledDdDivProps {
   /** This string will specify the text align styling of the `<dd></dd>`. */
-  ddTextAlign?: ElementAlignment;
+  ddTextAlign?: ExplicitUnion<ElementAlignment>;
 }
 
 export const StyledDdDiv = styled.div<StyledDdDivProps>`

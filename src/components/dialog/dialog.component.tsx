@@ -6,6 +6,11 @@ import React, {
   useContext,
 } from "react";
 
+import {
+  ExplicitUnion,
+  Expand,
+  ExpandOnce,
+} from "../../__internal__/utils/helpers/types";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
 import Heading from "../heading";
@@ -35,9 +40,9 @@ type CustomRefObject<T> = {
 };
 
 export interface ContentPaddingInterface {
-  p?: PaddingValues;
-  py?: PaddingValues;
-  px?: PaddingValues;
+  p?: ExplicitUnion<PaddingValues>;
+  py?: ExplicitUnion<PaddingValues>;
+  px?: ExplicitUnion<PaddingValues>;
 }
 
 export interface DialogProps extends ModalProps, TagProps {
@@ -85,7 +90,7 @@ export interface DialogProps extends ModalProps, TagProps {
   /** Determines if the close icon is shown */
   showCloseIcon?: boolean;
   /** Size of dialog, default size is 750px */
-  size?: DialogSizes;
+  size?: ExplicitUnion<DialogSizes>;
   /** Subtitle displayed at top of dialog */
   subtitle?: string;
   /** Title displayed at top of dialog */
@@ -93,9 +98,9 @@ export interface DialogProps extends ModalProps, TagProps {
   /** The ARIA role to be applied to the Dialog container */
   role?: string;
   /** Padding to be set on the Dialog content */
-  contentPadding?: ContentPaddingInterface;
+  contentPadding?: Expand<ContentPaddingInterface>;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
-  focusableContainers?: CustomRefObject<HTMLElement>[];
+  focusableContainers?: ExpandOnce<CustomRefObject<HTMLElement>>[];
 }
 
 export const Dialog = ({

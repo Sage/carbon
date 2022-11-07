@@ -1,8 +1,9 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
 import { Editor, EditorState, ContentState } from "draft-js";
+import { Expand } from "../../__internal__/utils/helpers/types";
 
-export interface TextEditorProps extends MarginProps {
+export interface TextEditorProps extends Expand<MarginProps> {
   /** The maximum characters that the input will accept */
   characterLimit?: number;
   /** The text for the editor's label */

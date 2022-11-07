@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";
 
@@ -44,9 +45,9 @@ const StyledButtonToggleContentWrapper = styled.div`
 
 export interface StyledButtonToggleLabelProps {
   /** The icon to be rendered inside of the button */
-  buttonIcon?: IconType;
+  buttonIcon?: ExplicitUnion<IconType>;
   /** Sets the size of the buttonIcon (eg. large) */
-  buttonIconSize?: ButtonToggleIconSizes;
+  buttonIconSize?: ExplicitUnion<ButtonToggleIconSizes>;
   /** Disable all user interaction. */
   disabled?: boolean;
   /** ButtonToggle size */

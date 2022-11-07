@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { SpaceProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import { StyledDt } from "./definition-list.style";
 import DlContext from "./__internal__/dl.context";
 
-export interface DtProps extends SpaceProps {
+export interface DtProps extends Expand<SpaceProps> {
   /** Prop for what will render in the `<Dd></Dd>` tags */
   children: React.ReactNode;
 }

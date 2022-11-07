@@ -5,6 +5,7 @@ import { margin } from "styled-system";
 import iconUnicodes from "./icon-unicodes";
 import baseTheme, { ThemeObject } from "../../style/themes/base";
 import iconConfig from "./icon-config";
+import { ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import browserTypeCheck, {
   isSafari,
 } from "../../__internal__/utils/helpers/browser-type-check";
@@ -27,9 +28,9 @@ export interface StyledIconProps {
   /** Background colour, provide any color from palette or any valid css color value. */
   bg?: string;
   /** Background shape */
-  bgShape?: BackgroundShape;
+  bgShape?: ExplicitUnion<BackgroundShape>;
   /** Background size */
-  bgSize?: BgSize;
+  bgSize?: ExplicitUnion<BgSize>;
   /**
    * @private
    * @ignore
@@ -41,7 +42,7 @@ export interface StyledIconProps {
   /** Sets the icon in the disabled state */
   disabled?: boolean;
   /** Icon font size */
-  fontSize?: FontSize;
+  fontSize?: ExplicitUnion<FontSize>;
   /**
    * Icon type
    *

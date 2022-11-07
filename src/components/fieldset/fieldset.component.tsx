@@ -1,6 +1,7 @@
 import React from "react";
 import { MarginProps } from "styled-system";
 
+import { Expand } from "../../__internal__/utils/helpers/types";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import {
@@ -11,7 +12,9 @@ import {
 } from "./fieldset.style";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 
-export interface FieldsetProps extends StyledFieldsetProps, MarginProps {
+export interface FieldsetProps
+  extends StyledFieldsetProps,
+    Expand<MarginProps> {
   /** Child elements */
   children?: React.ReactNode;
   /** The text for the fieldsets legend element. */

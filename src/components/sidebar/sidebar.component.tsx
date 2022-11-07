@@ -5,6 +5,7 @@ import Modal from "../modal";
 import StyledSidebar from "./sidebar.style";
 import IconButton from "../icon-button";
 import Icon from "../icon";
+import { Expand, ExpandOnce } from "../../__internal__/utils/helpers/types";
 import FocusTrap from "../../__internal__/focus-trap";
 import SidebarHeader from "./__internal__/sidebar-header";
 import Box from "../box";
@@ -26,7 +27,7 @@ export interface SidebarContextProps {
 
 export const SidebarContext = React.createContext<SidebarContextProps>({});
 
-export interface SidebarProps extends PaddingProps, TagProps {
+export interface SidebarProps extends Expand<PaddingProps>, TagProps {
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby"?: string;
   /**
@@ -68,7 +69,7 @@ export interface SidebarProps extends PaddingProps, TagProps {
     | "large"
     | "extra-large";
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar */
-  focusableContainers?: CustomRefObject<HTMLElement>[];
+  focusableContainers?: ExpandOnce<CustomRefObject<HTMLElement>>[];
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
 }

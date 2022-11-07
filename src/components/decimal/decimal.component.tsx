@@ -8,6 +8,7 @@ import React, {
 import invariant from "invariant";
 
 import Textbox, { CommonTextboxProps } from "../textbox";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import LocaleContext from "../../__internal__/i18n-context";
 import usePrevious from "../../hooks/__internal__/usePrevious";
 
@@ -35,9 +36,9 @@ export interface DecimalProps
   /** The width of the input as a percentage */
   inputWidth?: number;
   /** Handler for change event if input is meant to be used as a controlled component */
-  onChange?: (ev: CustomEvent) => void;
+  onChange?: (ev: Expand<CustomEvent>) => void;
   /** Handler for blur event */
-  onBlur?: (ev: CustomEvent) => void;
+  onBlur?: (ev: Expand<CustomEvent>) => void;
   /** Handler for key press event */
   onKeyPress?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
   /** The input name */

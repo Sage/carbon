@@ -8,11 +8,12 @@ import Events from "../../__internal__/utils/helpers/events";
 import { TooltipContext } from "../../__internal__/tooltip-provider";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipPositions } from "../tooltip/tooltip.config";
+import { Expand, ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import guid from "../../__internal__/utils/helpers/guid";
 
-export interface HelpProps extends MarginProps {
+export interface HelpProps extends Expand<MarginProps> {
   /** Overrides the default 'as' attribute of the Help component */
-  as?: keyof JSX.IntrinsicElements;
+  as?: ExplicitUnion<keyof JSX.IntrinsicElements>;
   /** Aria label */
   ariaLabel?: string;
   /** The message to be displayed within the tooltip */
@@ -35,13 +36,13 @@ export interface HelpProps extends MarginProps {
    *  must be an array containing some or all of ["top", "bottom", "left", "right"]
    * (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements)
    */
-  tooltipFlipOverrides?: TooltipPositions[];
+  tooltipFlipOverrides?: ExplicitUnion<TooltipPositions>[];
   /** Id passed to the tooltip container, used for accessibility purposes */
   tooltipId?: string;
   /** Position of tooltip relative to target */
-  tooltipPosition?: TooltipPositions;
+  tooltipPosition?: ExplicitUnion<TooltipPositions>;
   /** Help Icon type */
-  type?: IconType;
+  type?: ExplicitUnion<IconType>;
   // any has been used here to allow rest props to be spread
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;

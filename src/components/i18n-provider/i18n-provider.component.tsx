@@ -1,11 +1,12 @@
 import React from "react";
 import merge from "lodash/merge";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import Context from "../../__internal__/i18n-context";
 import enGB from "../../locales/en-gb";
 import Locale from "../../locales";
 
 export interface I18nProviderProps {
-  locale?: Partial<Locale>;
+  locale?: Expand<Partial<Locale>>;
   children: React.ReactNode;
 }
 

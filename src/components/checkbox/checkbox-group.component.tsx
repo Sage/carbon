@@ -1,5 +1,6 @@
 import React from "react";
 import { MarginProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledCheckboxGroup from "./checkbox-group.style";
 import Fieldset from "../../__internal__/fieldset";
@@ -7,7 +8,9 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import { ValidationProps } from "../../__internal__/validations";
 
-export interface CheckboxGroupProps extends ValidationProps, MarginProps {
+export interface CheckboxGroupProps
+  extends ValidationProps,
+    Expand<MarginProps> {
   /** The content for the CheckboxGroup Legend */
   legend?: string;
   /** When true, legend is placed inline with the checkboxes */

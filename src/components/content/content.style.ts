@@ -1,14 +1,15 @@
 import styled, { css } from "styled-components";
 import { MarginProps, margin } from "styled-system";
 
+import { Expand, ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import { baseTheme } from "../../style/themes";
 
 export type AlignOptions = "left" | "center" | "right";
 export type VariantOptions = "primary" | "secondary";
 
-export interface StyledContentProps extends MarginProps {
+export interface StyledContentProps extends Expand<MarginProps> {
   /** Aligns the content (left, center or right) */
-  align?: AlignOptions;
+  align?: ExplicitUnion<AlignOptions>;
   /**
    * Over-rides the calculation of body width based on titleWidth.
    * Sometimes we need the body to be full width while keeping a title width similar to other widths
@@ -39,13 +40,13 @@ StyledContent.defaultProps = { theme: baseTheme };
 
 export interface StyledContentTitleProps {
   /** Aligns the content (left, center or right) */
-  align?: AlignOptions;
+  align?: ExplicitUnion<AlignOptions>;
   /** Displays the content inline with the title */
   inline?: boolean;
   /** Sets a custom width for the title element */
   titleWidth?: string;
   /** Applies a theme to the Content Value: primary, secondary */
-  variant?: VariantOptions;
+  variant?: ExplicitUnion<VariantOptions>;
 }
 
 const StyledContentTitle = styled.div<StyledContentTitleProps>`
@@ -74,7 +75,7 @@ const StyledContentTitle = styled.div<StyledContentTitleProps>`
 
 export interface StyledContentBodyProps {
   /** Aligns the content (left, center or right) */
-  align?: AlignOptions;
+  align?: ExplicitUnion<AlignOptions>;
   /**
    * Over-rides the calculation of body width based on titleWidth.
    * Sometimes we need the body to be full width while keeping a title width similar to other widths
@@ -85,7 +86,7 @@ export interface StyledContentBodyProps {
   /** Sets a custom width for the title element */
   titleWidth?: string;
   /** Applies a theme to the Content Value: primary, secondary */
-  variant?: VariantOptions;
+  variant?: ExplicitUnion<VariantOptions>;
 }
 
 const StyledContentBody = styled.div<StyledContentBodyProps>`

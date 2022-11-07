@@ -3,6 +3,7 @@ import { MarginProps } from "styled-system";
 import invariant from "invariant";
 import Tooltip from "../tooltip";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { Expand, ExplicitUnion } from "../../__internal__/utils/helpers/types";
 import { TooltipContext } from "../../__internal__/tooltip-provider";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledIcon, { StyledIconProps } from "./icon.style";
@@ -19,7 +20,9 @@ export type LegacyIconTypes =
   | "success"
   | "messages";
 
-export interface IconProps extends Omit<StyledIconProps, "type">, MarginProps {
+export interface IconProps
+  extends Omit<StyledIconProps, "type">,
+    Expand<MarginProps> {
   /** Set whether icon should be recognised by assistive technologies */
   "aria-hidden"?: boolean;
   /** Aria label for accessibility purposes */
@@ -31,7 +34,7 @@ export interface IconProps extends Omit<StyledIconProps, "type">, MarginProps {
   /** The message to be displayed within the tooltip */
   tooltipMessage?: React.ReactNode;
   /** The position to display the tooltip */
-  tooltipPosition?: TooltipPositions;
+  tooltipPosition?: ExplicitUnion<TooltipPositions>;
   /** Control whether the tooltip is visible */
   tooltipVisible?: boolean;
   /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
@@ -39,7 +42,7 @@ export interface IconProps extends Omit<StyledIconProps, "type">, MarginProps {
   /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipFontColor?: string;
   /** Overrides the default flip behaviour of the Tooltip */
-  tooltipFlipOverrides?: TooltipPositions[];
+  tooltipFlipOverrides?: ExplicitUnion<TooltipPositions>[];
   /** Id passed to the tooltip container, used for accessibility purposes */
   tooltipId?: string;
   /**
@@ -58,7 +61,7 @@ export interface IconProps extends Omit<StyledIconProps, "type">, MarginProps {
   tabIndex?: number;
 }
 
-const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
+const Icon = React.forwardRef<HTMLSpanElement, Expand<IconProps>>(
   (
     {
       "aria-hidden": ariaHidden,

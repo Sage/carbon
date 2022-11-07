@@ -1,10 +1,11 @@
 import React from "react";
 import { SpaceProps, GridProps } from "styled-system";
 
+import { Expand } from "../../../__internal__/utils/helpers/types";
 import StyledGridContainer from "./grid-container.style";
 
 export interface GridContainerProps
-  extends SpaceProps,
+  extends Expand<SpaceProps>,
     GridProps,
     React.HTMLAttributes<HTMLDivElement> {
   /** Defines the Components to be rendered within the GridContainer. Requires GridItemProps */

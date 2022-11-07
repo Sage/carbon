@@ -1,5 +1,6 @@
 import React from "react";
 import { MarginProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledLoaderBar, {
   InnerBar,
@@ -7,7 +8,9 @@ import StyledLoaderBar, {
   StyledLoaderBarProps,
 } from "./loader-bar.style";
 
-export interface LoaderBarProps extends StyledLoaderBarProps, MarginProps {}
+export interface LoaderBarProps
+  extends StyledLoaderBarProps,
+    Expand<MarginProps> {}
 
 export const LoaderBar = ({ size = "medium", ...rest }: LoaderBarProps) => {
   return (

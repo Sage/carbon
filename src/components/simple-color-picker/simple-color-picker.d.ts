@@ -1,17 +1,22 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
+import { Expand, ExpandOnce } from "../../__internal__/utils/helpers/types";
 import { ValidationProps } from "../../__internal__/validations";
 import { SimpleColorProps } from "./simple-color/simple-color";
 
 type SimpleColorPickerChild =
-  | React.ReactElement<SimpleColorProps>
+  | React.ReactElement<ExpandOnce<SimpleColorProps>>
   | boolean
   | null
   | undefined;
 
-export interface SimpleColorPickerProps extends ValidationProps, MarginProps {
+export interface SimpleColorPickerProps
+  extends ValidationProps,
+    Expand<MarginProps> {
   /** The SimpleColor components to be rendered in the group */
-  children?: SimpleColorPickerChild | SimpleColorPickerChild[];
+  children?:
+    | ExpandOnce<SimpleColorPickerChild>
+    | ExpandOnce<SimpleColorPickerChild>[];
   /** prop that represents childWidth */
   childWidth?: string;
   /** Should the onBlur callback prop be initially blocked? */

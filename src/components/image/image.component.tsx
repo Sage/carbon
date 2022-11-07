@@ -1,8 +1,14 @@
 import React from "react";
 import invariant from "invariant";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import { StyledImage, StyledImageProps } from "./image.style";
 
-export const Image = ({ alt, src, children, ...rest }: StyledImageProps) => {
+export const Image = ({
+  alt,
+  src,
+  children,
+  ...rest
+}: Expand<StyledImageProps>) => {
   invariant(
     !src || !children,
     "The 'Image' component renders as an 'img' element when the 'src' prop is used and therefore does not accept children."

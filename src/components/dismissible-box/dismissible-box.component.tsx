@@ -1,6 +1,7 @@
 import React from "react";
 import { SpaceProps } from "styled-system";
 
+import { Expand } from "../../__internal__/utils/helpers/types";
 import {
   StyledDismissibleBox,
   StyledDismissibleBoxProps,
@@ -10,7 +11,7 @@ import Icon from "../icon";
 import { BoxProps } from "../box";
 
 export interface DismissibleBoxProps
-  extends SpaceProps,
+  extends Expand<SpaceProps>,
     StyledDismissibleBoxProps,
     Omit<BoxProps, "display" | "justifyContent"> {
   /** The content to render in the component */

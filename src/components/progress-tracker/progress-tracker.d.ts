@@ -1,6 +1,7 @@
 import { MarginProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 
-export interface ProgressTrackerProps extends MarginProps {
+export interface ProgressTrackerProps extends Expand<MarginProps> {
   /** Specifies an aria-label to the component */
   "aria-label"?: string;
   /** Specifies the aria-describedby for the component */

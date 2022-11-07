@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { shade, meetsContrastGuidelines } from "polished";
 import { margin, MarginProps } from "styled-system";
 
+import { Expand } from "../../__internal__/utils/helpers/types";
 import styleConfig from "./pill.style.config";
 import { baseTheme } from "../../style/themes";
 import { ThemeObject } from "../../style/themes/base/base-theme.config";
@@ -9,7 +10,7 @@ import StyledIcon from "../icon/icon.style";
 import { toColor } from "../../style/utils/color";
 import getColorValue from "../../style/utils/get-color-value";
 
-export interface StyledPillProps extends MarginProps {
+export interface StyledPillProps extends Expand<MarginProps> {
   /** Override color variant, provide any color from palette or any valid css color value. */
   borderColor?: string;
   /** Sets the max-width of the pill. */

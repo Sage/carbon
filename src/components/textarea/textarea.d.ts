@@ -1,13 +1,14 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
 
+import { Expand } from "../../__internal__/utils/helpers/types";
 import { ValidationProps } from "../../__internal__/validations";
 import { CommonInputProps } from "../../__internal__/input";
 
 // TODO: Change characterLimit type to number - batch with other breaking changes
 export interface TextareaProps
   extends ValidationProps,
-    MarginProps,
+    Expand<MarginProps>,
     Omit<CommonInputProps, "size"> {
   /** Automatically focus the input on component mount */
   autoFocus?: boolean;

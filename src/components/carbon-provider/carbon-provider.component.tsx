@@ -1,6 +1,7 @@
 import React, { createContext } from "react";
 import { ThemeProvider } from "styled-components";
 
+import { Expand } from "../../__internal__/utils/helpers/types";
 import mintTheme from "../../style/themes/mint";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider";
 
@@ -9,7 +10,7 @@ import { ThemeObject } from "../../style/themes/base";
 import { TopModalContextProvider } from "./top-modal-context";
 
 export interface CarbonProviderProps {
-  theme?: Partial<ThemeObject>;
+  theme?: Expand<Partial<ThemeObject>>;
   children: React.ReactNode;
   validationRedesignOptIn?: boolean;
 }

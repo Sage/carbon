@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { padding, flexbox, PaddingProps, FlexboxProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import { baseTheme } from "../../style/themes";
 import {
   Position,
@@ -8,7 +9,7 @@ import {
 } from "./navigation-bar.component";
 
 export type StyledNavigationBarProps = PaddingProps &
-  FlexboxProps & {
+  Expand<FlexboxProps> & {
     /** Color scheme of navigation component */
     navigationType?: NavigationType;
     /** Defines whether the navigation bar should be positioned fixed or sticky */

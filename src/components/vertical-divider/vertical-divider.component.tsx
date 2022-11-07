@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { SpaceProps } from "styled-system";
+import { ExplicitUnion, Expand } from "../../__internal__/utils/helpers/types";
 import { MenuContext } from "../menu/menu.component";
 import { StyledVerticalWrapper, StyledDivider } from "./vertical-divider.style";
 
@@ -105,12 +106,12 @@ type TintRange =
   | 99
   | 100;
 
-export interface VerticalDividerProps extends SpaceProps {
+export interface VerticalDividerProps extends Expand<SpaceProps> {
   h?: number | string;
   height?: number | string;
   displayInline?: boolean;
   /** the supported rage is 1-100  */
-  tint?: TintRange;
+  tint?: ExplicitUnion<TintRange>;
 }
 
 const VerticalDivider = ({

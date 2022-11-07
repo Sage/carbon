@@ -2,6 +2,7 @@ import React, { useMemo, useCallback } from "react";
 import { MarginProps } from "styled-system";
 import invariant from "invariant";
 
+import { ExpandOnce, Expand } from "../../../__internal__/utils/helpers/types";
 import Events from "../../../__internal__/utils/helpers/events";
 import Accordion, {
   AccordionInternalProps,
@@ -19,8 +20,8 @@ type AccordionGroupChild =
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface AccordionGroupChildArray extends Array<AccordionGroupChild> {}
 
-export interface AccordionGroupProps extends MarginProps {
-  children?: AccordionGroupChild;
+export interface AccordionGroupProps extends Expand<MarginProps> {
+  children?: ExpandOnce<AccordionGroupChild>;
 }
 
 export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {

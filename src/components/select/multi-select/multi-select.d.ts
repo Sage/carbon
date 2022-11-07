@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Side } from "@floating-ui/dom";
+import { ExplicitUnion } from "../../../__internal__/utils/helpers/types";
 import { FormInputPropTypes } from "../select-textbox/select-textbox";
 
 export interface MultiSelectProps
@@ -43,7 +44,7 @@ export interface MultiSelectProps
   /** Maximum list height - defaults to 180 */
   listMaxHeight?: number;
   /** Placement of the select list in relation to the input element */
-  listPlacement?: Side;
+  listPlacement?: ExplicitUnion<Side>;
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
   /** Wraps the pill text when it would overflow the input width */

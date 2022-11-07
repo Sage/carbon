@@ -1,9 +1,10 @@
 import { MarginProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 import { CommonCheckableInputProps } from "../../__internal__/checkable-input";
 
 export interface RadioButtonProps
   extends CommonCheckableInputProps,
-    MarginProps {
+    Expand<MarginProps> {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */

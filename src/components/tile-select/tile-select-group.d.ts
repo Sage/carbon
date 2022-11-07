@@ -1,7 +1,8 @@
 import * as React from "react";
 import { MarginProps } from "styled-system";
+import { Expand } from "../../__internal__/utils/helpers/types";
 
-export interface TileSelectGroupProps extends MarginProps {
+export interface TileSelectGroupProps extends Expand<MarginProps> {
   /** The TileSelect components to be rendered in the group */
   children: React.ReactNode;
   /** The content for the TileSelectGroup Legend */
