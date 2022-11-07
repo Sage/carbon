@@ -74,27 +74,24 @@ function stylingForType({
 
     /* BUTTON MINOR */
     ${isMinor &&
-    size === "small" &&
     css`
-      min-height: 32px;
-      padding: var(--spacing000) var(--spacing100) var(--spacing000)
-        var(--spacing100);
+      ${size === "small" &&
+      css`
+        min-height: 32px;
+        padding: var(--spacing000) var(--spacing100) var(--spacing000)
+          var(--spacing100);
+      `}
+      ${size === "medium" &&
+      css`
+        padding-left: var(--spacing150);
+        padding-right: var(--spacing150);
+      `}
+    ${size === "large" &&
+      css`
+        padding-left: var(--spacing200);
+        padding-right: var(--spacing200);
+      `}
     `}
-
-    ${isMinor &&
-    size === "medium" &&
-    css`
-      padding-left: var(--spacing150);
-      padding-right: var(--spacing150);
-    `}
-    
-    ${isMinor &&
-    size === "large" &&
-    css`
-      padding-left: var(--spacing200);
-      padding-right: var(--spacing200);
-    `}
-
     ${iconOnly && stylingForIconOnly(size)}
   `;
 }

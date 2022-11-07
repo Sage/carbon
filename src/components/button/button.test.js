@@ -154,7 +154,6 @@ context("Test for Button component", () => {
     });
   });
 
-
   describe("check events for Button component", () => {
     let callback;
 
