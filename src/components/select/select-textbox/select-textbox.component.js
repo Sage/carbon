@@ -29,7 +29,7 @@ const SelectTextbox = ({
   isOpen,
   readOnly,
   placeholder,
-  size,
+  size = "medium",
   onClick,
   onFocus,
   onBlur,
@@ -133,6 +133,7 @@ const SelectTextbox = ({
         onClick={handleTextboxClick}
         disabled={disabled}
         readOnly={readOnly}
+        size={size}
         {...restProps}
       />
     );

@@ -1,3 +1,10 @@
+### [111.8.4](https://github.com/Sage/carbon/compare/v111.8.3...v111.8.4) (2022-11-07)
+
+
+### Bug Fixes
+
+* **textbox:** fix issue with click action not triggered when the component is slightly out of view ([6bef71b](https://github.com/Sage/carbon/commit/6bef71bf056a1d4326057247db1e38697fb444b9))
+
 ### [111.8.3](https://github.com/Sage/carbon/compare/v111.8.2...v111.8.3) (2022-11-03)
 
 

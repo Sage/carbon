@@ -452,8 +452,8 @@ context("Tests for Textarea component", () => {
     );
 
     it.each([
-      [true, 81],
-      [false, 40],
+      [true, 104],
+      [false, 64],
     ])(
       "should verify Textarea is displayed with expandable set to %s",
       (boolean, height) => {
