@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 import { margin } from "styled-system";
+
 import baseTheme from "../../style/themes/base";
 import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
@@ -9,9 +9,15 @@ import { StyledCheckableInput } from "../../__internal__/checkable-input/checkab
 import StyledSwitchSlider from "./__internal__/switch-slider.style";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import { FieldLineStyle } from "../../__internal__/form-field/form-field.style";
+import { SwitchProps } from "./switch.component";
+
+type StyledSwitchProps = Pick<
+  SwitchProps,
+  "fieldHelpInline" | "labelInline" | "reverse" | "size"
+>;
 
 const StyledSwitch = styled.div`
-  ${({ fieldHelpInline, labelInline, reverse, size }) => css`
+  ${({ fieldHelpInline, labelInline, reverse, size }: StyledSwitchProps) => css`
     ${margin}
     ${FieldLineStyle} {
       display: flex;
@@ -163,14 +169,6 @@ const StyledSwitch = styled.div`
     `}
   `}
 `;
-
-StyledSwitch.propTypes = {
-  disabled: PropTypes.bool,
-  fieldHelpInline: PropTypes.bool,
-  labelInline: PropTypes.bool,
-  reverse: PropTypes.bool,
-  size: PropTypes.string,
-};
 
 StyledSwitch.defaultProps = {
   theme: baseTheme,

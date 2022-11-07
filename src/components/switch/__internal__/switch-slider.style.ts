@@ -1,11 +1,26 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import StyledValidationIcon from "../../../__internal__/validations/validation-icon.style";
+import { SwitchSliderProps } from "./switch-slider.component";
+
+interface StyledSwitchSliderProps
+  extends Pick<
+    SwitchSliderProps,
+    "checked" | "disabled" | "size" | "error" | "warning"
+  > {
+  isLoading?: boolean;
+}
 
 const StyledSwitchSlider = styled.span`
-  ${({ checked, isLoading, disabled, size, error, warning }) => css`
+  ${({
+    checked,
+    isLoading,
+    disabled,
+    size,
+    error,
+    warning,
+  }: StyledSwitchSliderProps) => css`
     display: flex;
     font-size: 12px;
     font-weight: bold;
@@ -113,14 +128,5 @@ const StyledSwitchSlider = styled.span`
     }
   `}
 `;
-
-StyledSwitchSlider.propTypes = {
-  checked: PropTypes.bool,
-  disabled: PropTypes.bool,
-  size: PropTypes.string,
-  isLoading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  warning: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-};
 
 export default StyledSwitchSlider;

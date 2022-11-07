@@ -1,19 +1,18 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
-import Switch, { BaseSwitch } from "./switch.component";
+import Switch, { SwitchProps } from "./switch.component";
 
-<Meta
-  title="Switch/Test"
-  parameters={{
+export default {
+  title: "Switch/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     inputWidth: {
       control: {
         type: "range",
@@ -50,18 +49,21 @@ import Switch, { BaseSwitch } from "./switch.component";
     },
     fieldHelpSpecialCharacters: specialCharacters,
     labelSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+};
 
-export const SwitchStory = ({
+export const Default = ({
   fieldHelpSpecialCharacters,
   fieldHelp,
   labelSpecialCharacters,
   label,
   ...args
+}: Partial<SwitchProps> & {
+  fieldHelpSpecialCharacters: string;
+  labelSpecialCharacters: string;
 }) => {
   const [isChecked, setIsChecked] = useState(false);
-  const handleChange = (ev) => {
+  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = ev.target;
     setIsChecked(checked);
     action("change")(`checked: ${checked}`);
@@ -79,33 +81,22 @@ export const SwitchStory = ({
   );
 };
 
-# Switch
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      fieldHelp: "This text provides help for the input.",
-      fieldHelpInline: false,
-      label: "Switch on this component?",
-      labelHelp: "Switch off and on this component.",
-      helpAriaLabel: "Switch off and on this component.",
-      labelInline: false,
-      loading: false,
-      inputWidth: 0,
-      labelWidth: 0,
-      labelAlign: "left",
-      labelSpacing: 1,
-      reverse: BaseSwitch.defaultProps.reverse,
-      value: "test-value",
-      disabled: false,
-      size: "small",
-      fieldHelpSpecialCharacters: undefined,
-      labelSpecialCharacters: undefined,
-    }}
-  >
-    {SwitchStory.bind({})}
-  </Story>
-</Canvas>
+Default.args = {
+  fieldHelp: "This text provides help for the input.",
+  fieldHelpInline: false,
+  label: "Switch on this component?",
+  labelHelp: "Switch off and on this component.",
+  helpAriaLabel: "Switch off and on this component.",
+  labelInline: false,
+  loading: false,
+  inputWidth: 0,
+  labelWidth: 0,
+  labelAlign: "left",
+  labelSpacing: 1,
+  reverse: true,
+  value: "test-value",
+  disabled: false,
+  size: "small",
+  fieldHelpSpecialCharacters: undefined,
+  labelSpecialCharacters: undefined,
+};
