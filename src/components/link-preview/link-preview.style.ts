@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { StyledPreview } from "../preview/preview.style";
 import { StyledPreviewPlaceholder } from "../preview/__internal__/preview-placeholder.style";
 
-const StyledLinkPreview = styled.a`
+const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
   display: flex;
   margin: 8px;
   text-decoration: none;
@@ -32,7 +32,7 @@ const StyledCloseIconWrapper = styled.div`
   padding: 16px;
 `;
 
-const StyledPreviewWrapper = styled.div`
+const StyledPreviewWrapper = styled.div<{ isLoading: boolean }>`
   flex-grow: 1;
   padding: 16px;
 
