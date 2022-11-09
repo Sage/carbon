@@ -1,3 +1,10 @@
+### [111.8.5](https://github.com/Sage/carbon/compare/v111.8.4...v111.8.5) (2022-11-09)
+
+
+### Bug Fixes
+
+* **form:** fix form styling when inside a sidebar ([055b15d](https://github.com/Sage/carbon/commit/055b15d2e41c7fe8186768f60cdf831607be3b67)), closes [#5404](https://github.com/Sage/carbon/issues/5404)
+
 ### [111.8.4](https://github.com/Sage/carbon/compare/v111.8.3...v111.8.4) (2022-11-07)
 
 
