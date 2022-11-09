@@ -146,23 +146,6 @@ export const StyledForm = styled.form<StyledFormProps>`
       ${isInSidebar &&
       css`
         min-height: 100%;
-        ${StyledFormContent}.sticky {
-          padding-right: var(--spacing400);
-          padding-left: var(--spacing400);
-          padding-top: 27px;
-          margin-right: calc(-1 * var(--spacing400));
-          margin-left: calc(-1 * var(--spacing400));
-          margin-top: -27px;
-        }
-
-        ${StyledFormFooter}.sticky {
-          margin-left: calc(-1 * var(--spacing400));
-          margin-bottom: calc(-1 * var(--spacing400));
-          width: calc(100% + var(--spacing800));
-          padding-left: var(--spacing400);
-          padding-right: var(--spacing400);
-          bottom: -32px;
-        }
       `}
     `}
 `;
