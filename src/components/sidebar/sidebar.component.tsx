@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useContext } from "react";
-import { PaddingProps } from "styled-system";
+import { PaddingProps, WidthProps } from "styled-system";
 
 import Modal from "../modal";
 import StyledSidebar from "./sidebar.style";
@@ -26,7 +26,7 @@ export interface SidebarContextProps {
 
 export const SidebarContext = React.createContext<SidebarContextProps>({});
 
-export interface SidebarProps extends PaddingProps, TagProps {
+export interface SidebarProps extends PaddingProps, TagProps, WidthProps {
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby"?: string;
   /**
@@ -90,6 +90,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       role = "dialog",
       focusableContainers,
       focusableSelectors,
+      width,
       ...rest
     }: SidebarProps,
     ref
@@ -148,6 +149,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         onCancel={onCancel}
         role={role}
         {...filterStyledSystemPaddingProps(rest)}
+        width={width}
       >
         {header && <SidebarHeader id={headerId}>{header}</SidebarHeader>}
         {closeIcon()}

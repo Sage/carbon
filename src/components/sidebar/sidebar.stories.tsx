@@ -248,3 +248,26 @@ export const OtherFocusableContainers: ComponentStory<typeof Sidebar> = () => {
   );
 };
 OtherFocusableContainers.parameters = { chromatic: { disable: true } };
+
+export const CustomWidth: ComponentStory<typeof Sidebar> = () => {
+  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        aria-label="sidebar"
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        width="25%"
+      >
+        <div>
+          <Button buttonType="primary">Test</Button>
+          <Button buttonType="secondary" ml={2}>
+            Last
+          </Button>
+        </div>
+        Main Content
+      </Sidebar>
+    </>
+  );
+};

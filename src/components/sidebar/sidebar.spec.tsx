@@ -13,6 +13,7 @@ import Box from "../box";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
+  testStyledSystemWidth,
 } from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
 import Button from "../button";
@@ -23,6 +24,10 @@ jest.mock("../../__internal__/utils/helpers/guid");
 describe("Sidebar", () => {
   let wrapper: ReactWrapper;
   let spy: jest.Mock;
+
+  testStyledSystemWidth((props) => (
+    <StyledSidebar {...props}>Content</StyledSidebar>
+  ));
 
   beforeEach(() => {
     spy = jest.fn();

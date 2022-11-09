@@ -94,11 +94,20 @@ This may occasionally be useful with things like Toasts where they persist on th
   <Story name="other focusable containers" story={stories.OtherFocusableContainers} />
 </Canvas>
 
+### Custom width
+
+It is possible to set a custom width for the `Sidebar` via the `width` [prop](#props). 
+Setting this prop will override the preset width value defined via the `size` prop.
+
+<Canvas>
+  <Story name="custom width" story={stories.CustomWidth} />
+</Canvas>
+
 ## Props
 
 ### Sidebar
 
-<StyledSystemProps noHeader padding of={Sidebar} />
+<StyledSystemProps noHeader padding width of={Sidebar} />
 
 ## Translation keys
 
