@@ -4,6 +4,7 @@ import { baseTheme } from "../../../style/themes";
 import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import StyledSelect from "../select.style";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
+import StyledInput from "../../../__internal__/input/input.style";
 import sizes from "../../../__internal__/input/input-sizes.style";
 
 const StyledSelectPillContainer = styled.div`
@@ -20,7 +21,6 @@ const StyledSelectPillContainer = styled.div`
 
 const StyledSelectMultiSelect = styled(StyledSelect)`
   ${InputIconToggleStyle} {
-    margin-right: 0;
     position: absolute;
     right: 0;
     height: 100%;
@@ -28,7 +28,12 @@ const StyledSelectMultiSelect = styled(StyledSelect)`
 
   ${InputPresentationStyle} {
     padding-right: ${({ size }) => sizes[size].height};
+    padding-left: ${({ size }) => sizes[size].horizontalPadding};
     position: relative;
+
+    ${StyledInput} {
+      padding: 0;
+    }
   }
 `;
 

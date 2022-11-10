@@ -147,6 +147,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         data-element="sidebar"
         onCancel={onCancel}
         role={role}
+        {...filterStyledSystemPaddingProps(rest)}
       >
         {header && <SidebarHeader id={headerId}>{header}</SidebarHeader>}
         {closeIcon()}

@@ -20,14 +20,11 @@ jobs:
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
-        # run 5 copies of the current job in parallel
+        # run 2 copies of the current job in parallel
         containers:
           [
             1,
             2,
-            3,
-            4,
-            5,
           ]
     container: 
       image: cypress/browsers:node16.17.0-chrome106
@@ -85,9 +82,7 @@ jobs:
           group: ubuntu-regression
           quiet: true
           browser: chrome
-          spec: |
-            cypress/e2e/common/*
-            cypress/e2e/themes/*
+          spec: cypress/e2e/common/*
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

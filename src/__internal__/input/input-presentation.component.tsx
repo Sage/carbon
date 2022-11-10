@@ -20,6 +20,8 @@ export interface CommonInputPresentationProps extends ValidationProps {
   readOnly?: boolean;
   /** Size of an input */
   size?: Sizes;
+  /** If true, the component has an icon rendered inside */
+  hasIcon?: boolean;
 }
 
 export interface InputPresentationProps extends CommonInputPresentationProps {
@@ -38,6 +40,7 @@ const InputPresentation = ({
   error,
   warning,
   info,
+  hasIcon,
 }: InputPresentationProps): JSX.Element => {
   const { hasFocus, onMouseDown, onMouseEnter, onMouseLeave } = useContext(
     InputContext
@@ -76,6 +79,7 @@ const InputPresentation = ({
         error={error}
         info={info}
         validationRedesignOptIn={validationRedesignOptIn}
+        hasIcon={hasIcon}
       >
         {children}
       </InputPresentationStyle>

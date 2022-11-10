@@ -1,8 +1,14 @@
 import styled, { css } from "styled-components";
+import { PaddingProps } from "styled-system";
 
 import { SidebarProps } from "./sidebar.component";
 import baseTheme from "../../style/themes/base";
 import StyledIconButton from "../icon-button/icon-button.style";
+import {
+  calculateFormSpacingValues,
+  calculateWidthValue,
+} from "../../style/utils/form-style-utils";
+import { StyledFormContent, StyledFormFooter } from "../form/form.style";
 import { SIDEBAR_SIZES_CSS } from "./sidebar.config";
 
 type StyledSidebarProps = {
@@ -11,10 +17,21 @@ type StyledSidebarProps = {
   size?: SidebarProps["size"];
 };
 
-const StyledSidebar = styled.div<StyledSidebarProps>`
+const StyledSidebar = styled.div<StyledSidebarProps & PaddingProps>`
   // prevents outline being added in safari
   :focus {
     outline: none;
+  }
+
+  ${StyledFormContent} {
+    ${(props: StyledSidebarProps & PaddingProps) =>
+      calculateFormSpacingValues(props, true, "sidebar")}
+  }
+
+  ${StyledFormFooter}.sticky {
+    ${calculateWidthValue}
+    ${(props: StyledSidebarProps & PaddingProps) =>
+      calculateFormSpacingValues(props, false, "sidebar")}
   }
 
   ${({ onCancel, position, size, theme }) => css`

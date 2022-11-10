@@ -38,12 +38,13 @@ const MenuItem = ({
   onSubmenuClose,
   overrideColor,
   rel,
+  isFocused,
   ...rest
 }) => {
   const menuContext = useContext(MenuContext);
   const submenuContext = useContext(SubmenuContext);
   const ref = useRef(null);
-  const focusFromMenu = menuContext.isFocused;
+  const focusFromMenu = isFocused;
   const focusFromSubmenu = submenuContext.isFocused;
   const isChildSearch = useRef(false);
   const childRef = useRef();
@@ -269,6 +270,12 @@ MenuItem.propTypes = {
   onSubmenuClose: PropTypes.func,
   /** @ignore @private */
   overrideColor: PropTypes.bool,
+  /** @ignore @private */
+  isFocused: PropTypes.bool,
+  /** @ignore @private */
+  indexInMenu: PropTypes.number,
 };
+
+MenuItem.displayName = "MenuItem";
 
 export default MenuItem;

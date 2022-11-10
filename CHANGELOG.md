@@ -1,3 +1,24 @@
+### [111.8.5](https://github.com/Sage/carbon/compare/v111.8.4...v111.8.5) (2022-11-09)
+
+
+### Bug Fixes
+
+* **form:** fix form styling when inside a sidebar ([055b15d](https://github.com/Sage/carbon/commit/055b15d2e41c7fe8186768f60cdf831607be3b67)), closes [#5404](https://github.com/Sage/carbon/issues/5404)
+
+### [111.8.4](https://github.com/Sage/carbon/compare/v111.8.3...v111.8.4) (2022-11-07)
+
+
+### Bug Fixes
+
+* **textbox:** fix issue with click action not triggered when the component is slightly out of view ([6bef71b](https://github.com/Sage/carbon/commit/6bef71bf056a1d4326057247db1e38697fb444b9))
+
+### [111.8.3](https://github.com/Sage/carbon/compare/v111.8.2...v111.8.3) (2022-11-03)
+
+
+### Bug Fixes
+
+* **menu:** ensure only one submenu can be open at any one time ([285f6b4](https://github.com/Sage/carbon/commit/285f6b44e851f4ab65600db5aa7aad19d7d46d1a)), closes [#5229](https://github.com/Sage/carbon/issues/5229)
+
 ### [111.8.2](https://github.com/Sage/carbon/compare/v111.8.1...v111.8.2) (2022-10-31)
 
 

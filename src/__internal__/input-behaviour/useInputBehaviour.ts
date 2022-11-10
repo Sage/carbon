@@ -33,8 +33,11 @@ const useInputBehaviour = (
 
   // use mouse down rather than click to accommodate click and drag events too
   const onMouseDown = useCallback(() => {
-    // use a zero timeout to ensure focus is applied even on click and drag events
-    setTimeout(() => inputRef && inputRef.current && inputRef.current.focus());
+    requestAnimationFrame(() => {
+      inputRef?.current?.focus({
+        preventScroll: true,
+      });
+    });
   }, []);
 
   const onMouseEnter = useCallback(() => setHasMouseOver(true), []);
