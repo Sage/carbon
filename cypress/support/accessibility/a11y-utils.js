@@ -47,6 +47,7 @@ export default (from, end) => {
     if (
       !prepareUrl[0].startsWith("welcome") &&
       !prepareUrl[0].startsWith("documentation") &&
+      !prepareUrl[0].startsWith("contributing") &&
       !prepareUrl[0].startsWith("accordion") &&
       !prepareUrl[0].endsWith("test")
     ) {
