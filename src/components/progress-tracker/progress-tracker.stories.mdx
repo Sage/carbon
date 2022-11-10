@@ -98,6 +98,13 @@ This is an example of a `ProgressTracker` component with different colors depend
         progress={100}
         currentProgressLabel="100%"
       />
+      <ProgressTracker
+        size="large"
+        mt={2}
+        progress={100}
+        error={true}
+        errorLabel={'error'}
+      />
     </div>
   </Story>
 </Canvas>
@@ -115,6 +122,7 @@ percentages.
       <ProgressTracker progress={15} showDefaultLabels />
       <ProgressTracker mt={2} progress={50} showDefaultLabels />
       <ProgressTracker mt={2} progress={100} showDefaultLabels />
+      <ProgressTracker mt={2} progress={100} errorLabel={'error'} />
     </div>
   </Story>
 </Canvas>
@@ -142,6 +150,13 @@ It is possible to override the default `labelsPosition` to `"bottom"` when in a 
         labelsPosition="bottom"
         progress={100}
         showDefaultLabels
+      />
+      <ProgressTracker
+        mt={2}
+        labelsPosition="bottom"
+        progress={100}
+        error={true}
+        errorLabel={'error'}
       />
     </div>
   </Story>
@@ -172,6 +187,12 @@ This is an example of a `ProgressTracker` component with `currentProgressLabel` 
         progress={100}
         currentProgressLabel="$200"
         maxProgressLabel="$200"
+      />
+      <ProgressTracker
+        mt={2}
+        progress={100}
+        error={true}
+        errorLabel={'error'}
       />
     </div>
   </Story>
@@ -230,6 +251,13 @@ This is an example of a `ProgressTracker` component with the `"vertical"` `orien
       />
       <ProgressTracker
         orientation="vertical"
+        size="small"
+        progress={100}
+        error={true}
+        errorLabel={'error'}
+      />
+      <ProgressTracker
+        orientation="vertical"
         size="medium"
         progress={15}
         showDefaultLabels
@@ -248,6 +276,13 @@ This is an example of a `ProgressTracker` component with the `"vertical"` `orien
       />
       <ProgressTracker
         orientation="vertical"
+        size="medium"
+        progress={100}
+        error={true}
+        errorLabel={'error'}
+      />
+      <ProgressTracker
+        orientation="vertical"
         size="large"
         progress={15}
         showDefaultLabels
@@ -263,6 +298,13 @@ This is an example of a `ProgressTracker` component with the `"vertical"` `orien
         size="large"
         progress={100}
         showDefaultLabels
+      />
+      <ProgressTracker
+        orientation="vertical"
+        size="large"
+        progress={100}
+        error={true}
+        errorLabel={'error'}
       />
     </div>
   </Story>
@@ -297,6 +339,14 @@ It is possible to override the `direction` the inner progress bar moves to `"dow
       <ProgressTracker
         direction="down"
         orientation="vertical"
+        size="small"
+        progress={100}
+        error={true}
+        errorLabel={'error'}
+      />
+      <ProgressTracker
+        direction="down"
+        orientation="vertical"
         size="medium"
         progress={15}
         showDefaultLabels
@@ -318,6 +368,14 @@ It is possible to override the `direction` the inner progress bar moves to `"dow
       <ProgressTracker
         direction="down"
         orientation="vertical"
+        size="medium"
+        progress={100}
+        error={true}
+        errorLabel={'error'}
+      />
+      <ProgressTracker
+        direction="down"
+        orientation="vertical"
         size="large"
         progress={15}
         showDefaultLabels
@@ -335,6 +393,14 @@ It is possible to override the `direction` the inner progress bar moves to `"dow
         size="large"
         progress={100}
         showDefaultLabels
+      />
+      <ProgressTracker
+        direction="down"
+        orientation="vertical"
+        size="large"
+        progress={100}
+        error={true}
+        errorLabel={'error'}
       />
     </div>
   </Story>
@@ -369,6 +435,14 @@ It is possible to override the `labelsPosition` to `"left"` when in a `"vertical
       <ProgressTracker
         labelsPosition="left"
         orientation="vertical"
+        size="small"
+        progress={100}
+        error={true}
+        errorLabel={'error'}
+      />
+      <ProgressTracker
+        labelsPosition="left"
+        orientation="vertical"
         size="medium"
         progress={15}
         showDefaultLabels
@@ -390,6 +464,14 @@ It is possible to override the `labelsPosition` to `"left"` when in a `"vertical
       <ProgressTracker
         labelsPosition="left"
         orientation="vertical"
+        size="medium"
+        progress={100}
+        error={true}
+        errorLabel={'error'}
+      />
+      <ProgressTracker
+        labelsPosition="left"
+        orientation="vertical"
         size="large"
         progress={15}
         showDefaultLabels
@@ -407,6 +489,14 @@ It is possible to override the `labelsPosition` to `"left"` when in a `"vertical
         size="large"
         progress={100}
         showDefaultLabels
+      />
+      <ProgressTracker
+        labelsPosition="left"
+        orientation="vertical"
+        size="large"
+        progress={100}
+        error={true}
+        errorLabel={'error'}
       />
     </div>
   </Story>

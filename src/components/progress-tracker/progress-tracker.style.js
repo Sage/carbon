@@ -23,12 +23,13 @@ const StyledProgressTracker = styled.div`
 `;
 
 const StyledProgressBar = styled.span`
-  ${({ direction, isVertical, size }) => css`
+  ${({ direction, isVertical, size, progress, error }) => css`
     display: flex;
     position: relative;
     background-color: var(--colorsSemanticNeutral200);
-    border: 1px solid black;
+    border: 2px solid ${getBorderColour(progress, error)};
     border-radius: 25px;
+
 
     ${!isVertical &&
     css`
@@ -98,10 +99,10 @@ const StyledValuesLabel = styled.span`
 `;
 
 const InnerBar = styled.span`
-  ${({ isVertical, progress, size, length }) => css`
+  ${({ isVertical, progress, size, length, error }) => css`
     position: absolute;
     left: 0;
-    background-color: ${getInnerBarColour(progress)};
+    background-color: ${getBackgroundColour(progress, error)};
     border-radius: 25px;
 
     ${!isVertical &&
@@ -130,9 +131,16 @@ function getHeight(size) {
   }
 }
 
-function getInnerBarColour(progress) {
+function getBackgroundColour(progress, error) {
+  if (error === true ) return "var(--colorsSemanticNegative500)";
   if (progress >= 100) return "var(--colorsSemanticPositive500)";
   return "var(--colorsSemanticNeutral500)";
+}
+
+function getBorderColour(progress, error) {
+  if (error === true) return "var(--colorsSemanticNegative500)";
+  if (progress === 100) return "var(--colorsSemanticPositive500)";
+  else return "var(--colorsSemanticNeutral500)";
 }
 
 StyledProgressTracker.defaultProps = {

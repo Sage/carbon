@@ -25,10 +25,12 @@ const ProgressTracker = ({
   "aria-valuetext": ariaValueText,
   size = "medium",
   length = "256px",
+  error = false,
   progress = 0,
   showDefaultLabels = false,
   currentProgressLabel,
   maxProgressLabel,
+  errorLabel,
   orientation = "horizontal",
   direction = "up",
   labelsPosition,
@@ -58,7 +60,7 @@ const ProgressTracker = ({
   });
 
   const renderValueLabels = () => {
-    if (!showDefaultLabels && !currentProgressLabel && !maxProgressLabel) {
+    if (!showDefaultLabels && !currentProgressLabel && !maxProgressLabel && !errorLabel) {
       return null;
     }
 
@@ -66,7 +68,7 @@ const ProgressTracker = ({
       if (value) {
         return value;
       }
-      return showDefaultLabels ? defaultValue : undefined;
+      return showDefaultLabels ? defaultValue : errorLabel;
     };
 
     return (
@@ -116,12 +118,15 @@ const ProgressTracker = ({
         isVertical={isVertical}
         size={size}
         ref={barRef}
+        progress={progress}
+        error={error}
       >
         <InnerBar
           isVertical={isVertical}
           size={size}
           length={barLength}
           progress={progress}
+          error={error}
         />
       </StyledProgressBar>
       {!prefixLabels && renderValueLabels()}
@@ -151,12 +156,16 @@ ProgressTracker.propTypes = {
   length: PropTypes.string,
   /** Current progress (percentage). */
   progress: PropTypes.number,
+  /** If error occurs. */
+  error: PropTypes.bool,
   /** Flag to control whether the default value labels (as percentages) should be rendered. */
   showDefaultLabels: PropTypes.bool,
   /** Value to display as current progress. */
   currentProgressLabel: PropTypes.string,
   /** Value to display as the maximum progress limit. */
   maxProgressLabel: PropTypes.string,
+  /** Value to display as an error. */
+  errorLabel: PropTypes.string,
   /** The orientation of the component. */
   orientation: PropTypes.oneOf(["horizontal", "vertical"]),
   /** The direction the bar should move as progress increases, only applies in vertical orientation. */
