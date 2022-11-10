@@ -15,6 +15,8 @@ export interface FlatTableHeaderProps extends PaddingProps {
   rowspan?: number | string;
   /** Sets a custom vertical right border */
   verticalBorder?: TableBorderSize;
+  /** Sets the color of the right border */
+  verticalBorderColor?: string;
   /** Column width, pass a number to set a fixed width in pixels */
   width?: number;
 }

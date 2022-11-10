@@ -9,13 +9,17 @@ import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import cellSizes from "./cell-sizes.style";
 import Box from "../box";
 
+const HEADER_OVERLAY_INCREMENT = 3;
+const STICKY_FOOTER_OVERLAY_INCREMENT = 1;
+const ROW_HEADER_OVERLAY_INCREMENT = 5;
+
 const StyledTableContainer = styled.div`
   ${({ width, overflowX }) =>
     width &&
     css`
       width: ${width};
 
-      ${overflowX && `overflow-x: ${overflowX}`}
+      ${overflowX && `overflow-x: ${overflowX};`}
     `}
 `;
 
@@ -109,33 +113,48 @@ const StyledFlatTableWrapper = styled(Box)`
       case "light":
         return css`
           ${StyledFlatTableHeader},
-          ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
             background-color: var(--colorsUtilityMajor100);
             border-right: 1px solid var(--colorsUtilityMajor150);
             border-bottom-color: var(--colorsUtilityMajor150);
+          }
+          ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
+            background-color: var(--colorsUtilityMajor100);
+            border-bottom-color: var(--colorsUtilityMajor150);
+            border-right-color: var(--colorsUtilityMajor150);
+            border-left-color: var(--colorsUtilityMajor150);
           }
         `;
 
       case "transparent-base":
         return css`
           ${StyledFlatTableHeader},
-          ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
             background-color: var(--colorsUtilityMajor025);
             border-right: 1px solid var(--colorsUtilityMajor025);
             border-bottom-color: var(--colorsUtilityMajor100);
+          }
+          ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
+            background-color: var(--colorsUtilityMajor025);
+            border-bottom-color: var(--colorsUtilityMajor100);
+            border-right-color: var(--colorsUtilityMajor025);
+            border-left-color: var(--colorsUtilityMajor025);
           }
         `;
 
       case "transparent-white":
         return css`
           ${StyledFlatTableHeader},
-          ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
             background-color: var(--colorsUtilityYang100);
             border-right: 1px solid var(--colorsUtilityYang100);
             border-bottom-color: var(--colorsUtilityMajor100);
+          }
+          ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
+            background-color: var(--colorsUtilityYang100);
+            border-bottom-color: var(--colorsUtilityMajor100);
+            border-right-color: var(--colorsUtilityYang100);
+            border-left-color: var(--colorsUtilityYang100);
           }
         `;
       // default theme is "dark"
@@ -143,11 +162,18 @@ const StyledFlatTableWrapper = styled(Box)`
         return css`
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox},
           ${StyledFlatTableHeader},
-          ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
+          ${StyledFlatTableHead} {
             background-color: var(--colorsUtilityMajor400);
             border-right: 1px solid var(--colorsUtilityMajor300);
             color: var(--colorsUtilityYang100);
             border-bottom-color: var(--colorsUtilityMajor300);
+          }
+          ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
+            background-color: var(--colorsUtilityMajor400);
+            color: var(--colorsUtilityYang100);
+            border-bottom-color: var(--colorsUtilityMajor300);
+            border-right-color: var(--colorsUtilityMajor300);
+            border-left-color: var(--colorsUtilityMajor300);
           }
         `;
     }
@@ -165,21 +191,39 @@ const StyledFlatTableWrapper = styled(Box)`
       }
     `}
 
-  ${({ hasStickyHead }) =>
+  ${({ hasStickyHead, theme }) =>
     hasStickyHead &&
     css`
-      ${StyledFlatTableHead} th {
+      ${StyledFlatTableHead} {
         position: sticky;
-        z-index: ${({ theme }) => theme.zIndex.overlay};
-      }
-
-      ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
-      ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
-        z-index: ${({ theme }) => theme.zIndex.overlay + 2};
         top: 0;
         left: 0;
+        z-index: ${theme.zIndex.overlay + ROW_HEADER_OVERLAY_INCREMENT};
       }
     `}
+
+  ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
+  ${StyledFlatTableHeader}.isSticky,
+  ${StyledFlatTableHead} ${StyledFlatTableCheckbox}.isSticky {
+    z-index: ${({ theme }) =>
+      theme.zIndex.overlay + ROW_HEADER_OVERLAY_INCREMENT};
+  }
+
+  thead ${StyledFlatTableHeader}.isSticky, ${StyledFlatTableCheckbox}.isSticky {
+    border-right: none;
+  }
+
+  ${StyledFlatTableHeader}, ${StyledFlatTableCheckbox} {
+    z-index: ${({ theme }) => theme.zIndex.overlay + HEADER_OVERLAY_INCREMENT};
+  }
+
+  tbody
+    ${StyledFlatTableRowHeader},
+    ${StyledFlatTableCell}.isSticky,
+    tbody
+    ${StyledFlatTableCheckbox}.isSticky {
+    z-index: ${({ theme }) => theme.zIndex.overlay};
+  }
 `;
 
 StyledFlatTableWrapper.defaultProps = {
@@ -187,14 +231,18 @@ StyledFlatTableWrapper.defaultProps = {
 };
 
 const StyledFlatTableFooter = styled.div`
-  ${({ hasStickyFooter }) =>
+  ${({ hasStickyFooter, theme }) =>
     hasStickyFooter &&
     css`
       position: sticky;
       bottom: 0px;
-      z-index: ${baseTheme.zIndex.overlay + 1};
+      z-index: ${theme.zIndex.overlay + STICKY_FOOTER_OVERLAY_INCREMENT};
     `}
 `;
+
+StyledFlatTableFooter.defaultProps = {
+  theme: baseTheme,
+};
 
 export {
   StyledFlatTableWrapper,

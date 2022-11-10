@@ -12,26 +12,35 @@ const horizontalBorderSizes = {
   large: "4px",
 };
 
-const stickyColumnFocusStyling = (index, theme) => {
+const getLeftStickyStyling = (index) =>
+  index === 0 &&
+  css`
+    &:first-of-type::before {
+      border-left: 3px solid var(--colorsSemanticFocus500);
+    }
+  `;
+
+const getRightStickyStyling = (index, totalChildren) =>
+  index === totalChildren - 1 &&
+  css`
+    &:last-of-type {
+      border-right: 2px solid var(--colorsSemanticFocus500);
+    }
+  `;
+
+const stickyColumnFocusStyling = (theme) => {
   return `
-    border-left: 2px solid
-      ${
-        index === 0
-          ? "var(--colorsSemanticFocus500)"
-          : "var(--colorsUtilityMajor100)"
-      };
       width: calc(100% + 1px);
-      top: 0;
-      z-index: ${theme.zIndex.overlay + 2};
+      z-index: ${theme.zIndex.overlay};
       :before {
         content: "";
         border-top: 2px solid var(--colorsSemanticFocus500);
         border-bottom: 2px solid var(--colorsSemanticFocus500);
         display: block;
-        left: 0px;
+        left: -2px;
         top: 0px;
         height: calc(100% - 3px);
-        width: 101%;
+        width: 103%;
         position: absolute;
         z-index: ${theme.zIndex.overlay};
       }
@@ -56,6 +65,20 @@ const borderColor = (colorTheme) => {
   }
 };
 
+const verticalBorderColor = (colorTheme) => {
+  switch (colorTheme) {
+    case "transparent-base":
+      return "var(--colorsUtilityMajor025)";
+
+    case "transparent-white":
+      return "var(--colorsUtilityYang100)";
+
+    // default theme is "dark"
+    default:
+      return "var(--colorsUtilityMajor100)";
+  }
+};
+
 const StyledFlatTableRow = styled.tr`
   ${({
     bgColor,
@@ -64,7 +87,9 @@ const StyledFlatTableRow = styled.tr`
     stickyOffset,
     isRowInteractive,
     isFirstColumnInteractive,
-    rowHeaderIndex,
+    lhsRowHeaderIndex,
+    rhsRowHeaderIndex,
+    totalChildren,
     firstCellIndex,
     colorTheme,
     expandable,
@@ -118,6 +143,34 @@ const StyledFlatTableRow = styled.tr`
           border-bottom-color: ${customBorderColor};
         `}
       }
+
+      ${StyledFlatTableRowHeader} + td {
+        border-left: none;
+      }
+
+      ${lhsRowHeaderIndex !== -1 &&
+      css`
+        ${StyledFlatTableRowHeader}:nth-child(${lhsRowHeaderIndex + 1}) {
+          border-right: 2px solid ${verticalBorderColor(colorTheme)};
+        }
+      `}
+
+      ${rhsRowHeaderIndex !== -1 &&
+      css`
+        ${StyledFlatTableRowHeader}:nth-child(${rhsRowHeaderIndex + 1}) {
+          border-left: 2px solid ${verticalBorderColor(colorTheme)};
+        }
+        ${StyledFlatTableHeader}:nth-child(${rhsRowHeaderIndex}) {
+          border-right: none;
+        }
+      `}
+
+      ${rhsRowHeaderIndex === totalChildren - 1 &&
+      css`
+        td:last-of-type {
+          border-right: none;
+        }
+      `}
 
       ${StyledFlatTableHeader} {
         border-bottom: 1px solid ${borderColor(colorTheme)};
@@ -174,16 +227,26 @@ const StyledFlatTableRow = styled.tr`
             }
           }
 
-          ${StyledFlatTableRowHeader} {
-            ${stickyColumnFocusStyling(rowHeaderIndex, theme)}
+          td:first-of-type:not(:nth-child(${lhsRowHeaderIndex + 2}))::before {
+            border-left: 3px solid var(--colorsSemanticFocus500);
           }
 
-          ${![-1, 0].includes(rowHeaderIndex) &&
+          td:last-of-type:not(:nth-child(${rhsRowHeaderIndex})) {
+            border-right: 2px solid var(--colorsSemanticFocus500);
+          }
+
+          ${StyledFlatTableRowHeader} {
+            ${getLeftStickyStyling(lhsRowHeaderIndex)}
+            ${getRightStickyStyling(rhsRowHeaderIndex, totalChildren)}
+            ${stickyColumnFocusStyling(theme)}
+          }
+
+          ${![-1, 0].includes(lhsRowHeaderIndex) &&
           css`
-            ${Array.from({ length: rowHeaderIndex }).map((_, index) => {
+            ${Array.from({ length: lhsRowHeaderIndex }).map((_, index) => {
               return `
                 td:nth-of-type(${index + 1}) {
-                  ${stickyColumnFocusStyling(index, theme)}
+                  ${stickyColumnFocusStyling(theme)}
                 }
               `;
             })}
@@ -216,17 +279,6 @@ const StyledFlatTableRow = styled.tr`
         }
       `}
 
-      ${![-1, 0].includes(rowHeaderIndex) &&
-      css`
-        td:nth-of-type(${rowHeaderIndex + 1}) {
-          border-left: 1px solid
-            ${customBorderColor || "var(--colorsUtilityMajor100)"};
-        }
-
-        th:nth-of-type(${rowHeaderIndex + 2}) {
-          border-left: 1px solid ${customBorderColor || borderColor(colorTheme)};
-        }
-      `}
 
       ${applyBorderLeft &&
       css`

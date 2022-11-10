@@ -122,6 +122,46 @@ describe("FlatTableRowHeader", () => {
     });
   });
 
+  describe("when expandable prop is not set", () => {
+    describe("and onClick prop is set", () => {
+      it("should not call the onClick function when it is clicked", () => {
+        const onClickFn = jest.fn();
+        const wrapper = mount(
+          <table>
+            <thead>
+              <tr>
+                <FlatTableRowHeader onClick={onClickFn} />
+              </tr>
+            </thead>
+          </table>
+        );
+
+        wrapper.find(StyledFlatTableRowHeader).props().onClick();
+
+        expect(onClickFn).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("and onKeyDown prop is set", () => {
+      it("should not call the onKeyDown function when a key is pressed", () => {
+        const onKeyDownFn = jest.fn();
+        const wrapper = mount(
+          <table>
+            <thead>
+              <tr>
+                <FlatTableRowHeader onKeyDown={onKeyDownFn} />
+              </tr>
+            </thead>
+          </table>
+        );
+
+        wrapper.find(StyledFlatTableRowHeader).props().onKeyDown();
+
+        expect(onKeyDownFn).not.toHaveBeenCalled();
+      });
+    });
+  });
+
   describe("when truncate prop is true", () => {
     let wrapper;
     beforeEach(() => {
@@ -171,20 +211,30 @@ describe("FlatTableRowHeader", () => {
   });
 
   describe.each([
-    ["small", "1px"],
-    ["medium", "2px"],
-    ["large", "4px"],
+    ["small", "1px", "left"],
+    ["small", "1px", "right"],
+    ["medium", "2px", "left"],
+    ["medium", "2px", "right"],
+    ["large", "4px", "left"],
+    ["large", "4px", "right"],
   ])(
     "when the verticalBorder prop is set to %s",
-    (verticalBorder, expectedValue) => {
+    (verticalBorder, expectedValue, stickyAlignment) => {
       let wrapper;
 
-      it("it overrides the cell border-right-width", () => {
+      const targetedBorder = `border${
+        stickyAlignment === "left" ? "Right" : "Left"
+      }Width`;
+
+      it(`it overrides the cell ${targetedBorder}`, () => {
         wrapper = mount(
           <table>
             <thead>
               <tr>
-                <FlatTableRowHeader verticalBorder={verticalBorder}>
+                <FlatTableRowHeader
+                  stickyAlignment={stickyAlignment}
+                  verticalBorder={verticalBorder}
+                >
                   Foo
                 </FlatTableRowHeader>
               </tr>
@@ -193,7 +243,7 @@ describe("FlatTableRowHeader", () => {
         );
         assertStyleMatch(
           {
-            borderRightWidth: expectedValue,
+            [targetedBorder]: expectedValue,
           },
           wrapper,
           { modifier: "&&&&" }
@@ -203,19 +253,30 @@ describe("FlatTableRowHeader", () => {
   );
 
   describe.each([
-    ["goldTint10", "#FFBC1A"],
-    ["#000", "#000"],
+    ["red", "left"],
+    ["red", "right"],
+    ["#ffffff", "left"],
+    ["#ffffff", "right"],
+    ["--colorsUtilityMajor550", "left"],
+    ["--colorsUtilityMajor550", "right"],
   ])(
-    "when the verticalBorderColor prop is set to %s",
-    (verticalBorderColor, expectedValue) => {
+    "when the verticalBorderColor prop is set to %s and stickyAlignment is %s",
+    (verticalBorderColor, stickyAlignment) => {
       let wrapper;
 
-      it("it overrides the row header border-right-color", () => {
+      const targetedBorder = `border${
+        stickyAlignment === "left" ? "Right" : "Left"
+      }Color`;
+
+      it(`it overrides the cell ${targetedBorder}`, () => {
         wrapper = mount(
           <table>
             <thead>
               <tr>
-                <FlatTableRowHeader verticalBorderColor={verticalBorderColor}>
+                <FlatTableRowHeader
+                  stickyAlignment={stickyAlignment}
+                  verticalBorderColor={verticalBorderColor}
+                >
                   Foo
                 </FlatTableRowHeader>
               </tr>
@@ -224,7 +285,7 @@ describe("FlatTableRowHeader", () => {
         );
         assertStyleMatch(
           {
-            borderRightColor: expectedValue,
+            [targetedBorder]: verticalBorderColor,
           },
           wrapper,
           { modifier: "&&&&" }

@@ -326,7 +326,10 @@ Set the rows to be open by default.
 
 ### With row headers
 
-Rows with row headers can also be made expandable.
+Rows with row headers can also be made expandable. In the example below there is both a left and 
+right hand side sticky column. To set a column to be sticky on the left hand side set the 
+`stickyAlignment` prop to `left` (this is the default value) and for the right hand side sticky 
+columns set the prop to `right`.
 
 <Canvas>
   <Story name="row headers">
@@ -336,24 +339,23 @@ Rows with row headers can also be made expandable.
           <FlatTableRowHeader>Child one</FlatTableRowHeader>
           <FlatTableCell>York</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
-          <FlatTableCell>2</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">2</FlatTableRowHeader>
         </FlatTableRow>,
         <FlatTableRow>
           <FlatTableRowHeader>Child two</FlatTableRowHeader>
           <FlatTableCell>Edinburgh</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
-          <FlatTableCell>1</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">1</FlatTableRowHeader>
         </FlatTableRow>,
       ];
       return (
-        <div style={{ width: "380px", overflowX: "auto" }}>
-          <FlatTable>
+          <FlatTable width="380px" overflowX="auto">
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableRowHeader>Name</FlatTableRowHeader>
                 <FlatTableHeader>Location</FlatTableHeader>
                 <FlatTableHeader>Relationship Status</FlatTableHeader>
-                <FlatTableHeader>Dependents</FlatTableHeader>
+                <FlatTableRowHeader stickyAlignment="right">Dependents</FlatTableRowHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
@@ -361,29 +363,28 @@ Rows with row headers can also be made expandable.
                 <FlatTableRowHeader>John Doe</FlatTableRowHeader>
                 <FlatTableCell>London</FlatTableCell>
                 <FlatTableCell>Single</FlatTableCell>
-                <FlatTableCell>0</FlatTableCell>
+                <FlatTableRowHeader stickyAlignment="right">0</FlatTableRowHeader>
               </FlatTableRow>
               <FlatTableRow expandable subRows={SubRows}>
                 <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
                 <FlatTableCell>York</FlatTableCell>
                 <FlatTableCell>Married</FlatTableCell>
-                <FlatTableCell>2</FlatTableCell>
+                <FlatTableRowHeader stickyAlignment="right">2</FlatTableRowHeader>
               </FlatTableRow>
               <FlatTableRow expandable subRows={SubRows}>
                 <FlatTableRowHeader>John Smith</FlatTableRowHeader>
                 <FlatTableCell>Edinburgh</FlatTableCell>
                 <FlatTableCell>Single</FlatTableCell>
-                <FlatTableCell>1</FlatTableCell>
+                <FlatTableRowHeader stickyAlignment="right">1</FlatTableRowHeader>
               </FlatTableRow>
               <FlatTableRow expandable subRows={SubRows}>
                 <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
                 <FlatTableCell>Newcastle</FlatTableCell>
                 <FlatTableCell>Married</FlatTableCell>
-                <FlatTableCell>5</FlatTableCell>
+                <FlatTableRowHeader stickyAlignment="right">5</FlatTableRowHeader>
               </FlatTableRow>
             </FlatTableBody>
           </FlatTable>
-        </div>
       );
     }}
   </Story>

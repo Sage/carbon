@@ -4,11 +4,14 @@ import { StyledFlatTableRowHeader } from "../flat-table-row-header/flat-table-ro
 import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.style";
 
 const StyledFlatTableHead = styled.thead`
-  ${StyledFlatTableRowHeader}, ${StyledFlatTableCheckbox} {
-    border-left: none;
-    border-right: none;
-    font-weight: 700;
-    z-index: ${({ theme }) => theme.zIndex.overlay};
+  &&& {
+    ${StyledFlatTableCheckbox} {
+      border-left: none;
+      border-right: none;
+    }
+    ${StyledFlatTableRowHeader}, ${StyledFlatTableCheckbox} {
+      font-weight: 700;
+    }
   }
 `;
 

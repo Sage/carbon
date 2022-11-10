@@ -16,6 +16,7 @@ const StyledFlatTableCell = styled.td`
     theme,
     rowSpan,
     leftPosition,
+    rightPosition,
     makeCellSticky,
     colWidth,
     isTruncated,
@@ -83,7 +84,8 @@ const StyledFlatTableCell = styled.td`
 
     ${makeCellSticky &&
     css`
-      left: ${leftPosition}px;
+      ${leftPosition !== undefined && `left: ${leftPosition}px;`}
+      ${rightPosition !== undefined && `right: ${rightPosition}px;`}
       position: sticky;
     `}
 
