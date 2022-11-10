@@ -1,3 +1,17 @@
+## [111.9.0](https://github.com/Sage/carbon/compare/v111.8.5...v111.9.0) (2022-11-10)
+
+
+### Features
+
+* **flat-table-header:** add support for overriding the colour of the right border ([7267b56](https://github.com/Sage/carbon/commit/7267b56b11f076f202fbf8e8ddc8c392797bf9dc))
+* **flat-table-row-header:** add support for rendering a second right hand side sticky column ([70f1a3c](https://github.com/Sage/carbon/commit/70f1a3c73c72f659c2e9eae5bdc23d92bf384be5))
+
+
+### Bug Fixes
+
+* **flat-table:** ensure all table head is sticky when isStickyHead is used with rowSpan ([1733915](https://github.com/Sage/carbon/commit/1733915ab006591053bd1f9b90b5e210fc603826)), closes [#5576](https://github.com/Sage/carbon/issues/5576)
+* **flat-table:** ensure th elements within sticky thead overlap tbody elements when scrolling ([03340d4](https://github.com/Sage/carbon/commit/03340d4070d42bdd78b2a31a68424fef37ec2b17)), closes [#5459](https://github.com/Sage/carbon/issues/5459)
+
 ### [111.8.5](https://github.com/Sage/carbon/compare/v111.8.4...v111.8.5) (2022-11-09)
 
 
