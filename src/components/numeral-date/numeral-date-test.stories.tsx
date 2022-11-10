@@ -9,6 +9,7 @@ import {
   NumeralDateEvent,
   NumeralDateProps,
 } from "./numeral-date.component";
+import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Numeral Date/Test",
@@ -79,6 +80,21 @@ export const Validations = (args: NumeralDateProps<DayMonthDate>) => {
           {...args}
         />
       ))}
+      <h4>Validations as string on label</h4>
+      {validationTypes.map((validation) => (
+        <NumeralDate
+          key={`${validation}-string-on-label`}
+          onChange={handleChange}
+          label="Numeral date"
+          {...{ [validation]: "Message" }}
+          onBlur={handleBlur}
+          value={dateValue}
+          name="numeralDate_name"
+          id={`numeralDate_id_${validation}-string-label`}
+          validationOnLabel
+          {...args}
+        />
+      ))}
       <h4>Validations as boolean</h4>
       {validationTypes.map((validation) => (
         <NumeralDate
@@ -98,3 +114,49 @@ export const Validations = (args: NumeralDateProps<DayMonthDate>) => {
 };
 
 Validations.storyName = "validations";
+
+export const NewDesignValidations = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <h4>New designs validation</h4>
+      {["error", "warning"].map((validationType) =>
+        ["small", "medium", "large"].map((size) => (
+          <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+            <NumeralDate
+              label={`${size} - ${validationType}`}
+              {...{ [validationType]: "Message" }}
+              size={size as NumeralDateProps["size"]}
+              m={4}
+            />
+          </div>
+        ))
+      )}
+    </CarbonProvider>
+  );
+};
+
+NewDesignValidations.storyName = "new design validations";
+
+export const Required = () => {
+  return <NumeralDate label="Date of Birth" required />;
+};
+
+export const TooltipPosition = () => {
+  return (
+    <>
+      <NumeralDate
+        dateFormat={["dd", "mm", "yyyy"]}
+        error="Tooltip position set to top"
+        label="As string"
+        tooltipPosition="top"
+      />
+      <NumeralDate
+        dateFormat={["dd", "mm", "yyyy"]}
+        error="Tooltip position set to right"
+        label="As string - displayed on a label"
+        validationOnLabel
+        tooltipPosition="right"
+      />
+    </>
+  );
+};
