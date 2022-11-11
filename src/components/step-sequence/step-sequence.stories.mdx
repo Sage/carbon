@@ -1,7 +1,7 @@
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
-import { StepSequence, StepSequenceItem } from "./";
-import useMediaQuery from "../../hooks/useMediaQuery";
+import { StepSequence, StepSequenceItem } from ".";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import * as stories from "./step-sequence.stories.tsx";
 
 <Meta title="Step Sequence" parameters={{ info: { disable: true } }} />
 
@@ -35,234 +35,25 @@ import {
 ### Default
 
 <Canvas>
-  <Story name="default">
-    <StepSequence>
-      <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-      >
-        Name
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="2"
-        status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="3"
-        status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="4"
-        status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 5 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="5"
-        status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
-    </StepSequence>
-  </Story>
+  <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
 ### Vertical
 
 <Canvas>
-  <Story name="vertical">
-    <StepSequence orientation="vertical">
-      <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-      >
-        Name
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="2"
-        status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="3"
-        status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="4"
-        status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 5 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="5"
-        status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
-    </StepSequence>
-  </Story>
+  <Story name="vertical" story={stories.Vertical} />
 </Canvas>
 
 ### With hidden indicators
 
 <Canvas>
-  <Story name="with hidden indicators">
-    <StepSequence>
-      <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-      >
-        Name
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="2"
-        status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="3"
-        hideIndicator={true}
-        status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="4"
-        hideIndicator={true}
-        status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 5 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="5"
-        hideIndicator={true}
-        status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
-    </StepSequence>
-  </Story>
+  <Story name="with hidden indicators" story={stories.WithHiddenIndicators} />
 </Canvas>
 
 ### Responsive Example
 
 <Canvas>
-  <Story 
-    name="responsive"
-    parameters={
-      { 
-        chromatic: { 
-          viewports: [700] 
-        } 
-      }
-    }
-  >
-    {() => {
-      const displayVertical = useMediaQuery("(max-width: 760px)");
-      return (
-        <StepSequence orientation={displayVertical ? "vertical" : "horizontal"}>
-          <StepSequenceItem
-            aria-label="Step 1 of 5"
-            hiddenCompleteLabel="Complete"
-            hiddenCurrentLabel="Current"
-            indicator="1"
-            status="complete"
-          >
-            Name
-          </StepSequenceItem>
-          <StepSequenceItem
-            aria-label="Step 2 of 5"
-            hiddenCompleteLabel="Complete"
-            hiddenCurrentLabel="Current"
-            indicator="2"
-            status="complete"
-          >
-            Delivery Address
-          </StepSequenceItem>
-          <StepSequenceItem
-            aria-label="Step 3 of 5"
-            hiddenCompleteLabel="Complete"
-            hiddenCurrentLabel="Current"
-            indicator="3"
-            status="current"
-          >
-            Delivery Details
-          </StepSequenceItem>
-          <StepSequenceItem
-            aria-label="Step 4 of 5"
-            hiddenCompleteLabel="Complete"
-            hiddenCurrentLabel="Current"
-            indicator="4"
-            status="incomplete"
-          >
-            Payment
-          </StepSequenceItem>
-          <StepSequenceItem
-            aria-label="Step 5 of 5"
-            hiddenCompleteLabel="Complete"
-            hiddenCurrentLabel="Current"
-            indicator="5"
-            status="incomplete"
-          >
-            Confirm
-          </StepSequenceItem>
-        </StepSequence>
-      );
-    }}
-  </Story>
+  <Story name="responsive" story={stories.ResponsiveExample} />
 </Canvas>
 
 
