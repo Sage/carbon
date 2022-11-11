@@ -30,7 +30,7 @@ For the single most prominent call to action on the page (e.g. Save, Submit, Con
 <Canvas>
   <Story name="minor/primary">
     <>
-      <Button mt={2} buttonType="primary" isMinor={true} size="small">
+      <Button mt={2} ml={2} buttonType="primary" isMinor={true} size="small">
         Small
       </Button>
       <Button mt={2} buttonType="primary" isMinor={true} ml={2}>
@@ -48,7 +48,7 @@ Minor Primary buttons can be destructive.
 <Canvas>
   <Story name="minor/primary/destructive">
     <>
-      <Button mt={2} buttonType="primary" isMinor={true} destructive size="small">
+      <Button mt={2} ml={2} buttonType="primary" isMinor={true} destructive size="small">
         Small
       </Button>
       <Button mt={2} buttonType="primary" isMinor={true} destructive ml={2}>
@@ -66,7 +66,7 @@ Primary buttons can be disabled.
 <Canvas>
   <Story name="minor/primary/disabled">
     <>
-      <Button mt={2} buttonType="primary" isMinor={true} disabled size="small">
+      <Button mt={2} ml={2} buttonType="primary" isMinor={true} disabled size="small">
         Small
       </Button>
       <Button mt={2} buttonType="primary" isMinor={true} disabled ml={2}>
@@ -84,7 +84,7 @@ Minor Primary buttons can have an icon positioned before or after the text.
 <Canvas>
   <Story name="minor/primary/icon">
     <>
-      <Button mt={2} buttonType="primary" isMinor={true} iconType="print">
+      <Button mt={2} ml={2} buttonType="primary" isMinor={true} iconType="print">
         Medium
       </Button>
       <Button
@@ -129,7 +129,7 @@ Primary buttons can be set into `noWrap` mode to prevent text wrapping.
 
 <Canvas>
   <Story name="minor/primary/noWrap">
-    <Button mt={2} buttonType="primary" isMinor={true} noWrap>
+    <Button mt={2} ml={2} buttonType="primary" isMinor={true} noWrap>
       Long button text
     </Button>
   </Story>
@@ -363,7 +363,7 @@ Buttons can be rendered with just an icon.
       <Button mt={2} destructive ml={2} iconType="bin" aria-label="Delete" />
       <Button
         mt={2}
-        buttonType="disabled"
+        disabled
         size="large"
         ml={2}
         iconType="bin"
@@ -402,7 +402,7 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
       />
       <Button
         mt={2}
-        buttonType="disabled"
+        disabled
         size="large"
         ml={2}
         iconType="bin"

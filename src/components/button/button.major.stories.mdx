@@ -470,6 +470,7 @@ Buttons can be rendered with just an icon.
     <>
       <Button
         mt={2}
+        ml={2}
         buttonType="primary"
         size="small"
         iconType="bin"
@@ -478,7 +479,7 @@ Buttons can be rendered with just an icon.
       <Button mt={2} destructive ml={2} iconType="bin" aria-label="Delete" />
       <Button
         mt={2}
-        buttonType="disabled"
+        disabled
         size="large"
         ml={2}
         iconType="bin"
@@ -498,6 +499,7 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
     <>
       <Button
         mt={2}
+        ml={2}
         buttonType="primary"
         size="small"
         iconType="bin"
@@ -514,9 +516,9 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
       />
       <Button
         mt={2}
-        buttonType="disabled"
-        size="large"
         ml={2}
+        disabled
+        size="large"
         iconType="bin"
         iconTooltipMessage="This is a tooltip"
         aria-label="Delete"
