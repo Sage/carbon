@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import { singleSpecialCharacters } from "../../__internal__/utils/argTypes/specialCharacters";
@@ -7,31 +6,39 @@ import {
   commonTextboxArgTypes,
   getCommonTextboxArgs,
   getCommonTextboxArgsWithSpecialCaracters,
+  CommonTextboxArgs,
 } from "../textbox/textbox-test.stories";
-import GroupedCharacter from "./grouped-character.component";
+import GroupedCharacter, { CustomEvent } from "./grouped-character.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
-<Meta
-  title="GroupedCharacter/Test"
-  parameters={{
+export default {
+  title: "GroupedCharacter/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     ...commonTextboxArgTypes(),
     separatorSpecialCharacters: singleSpecialCharacters,
-  }}
-/>
+  },
+};
 
-export const GroupedCharacterStory = ({
+interface StoryArgs extends CommonTextboxArgs {
+  separatorSpecialCharacters: string;
+  separator: string;
+  groups: number[];
+}
+
+export const Default = ({
   separatorSpecialCharacters,
   separator,
+  groups,
   ...args
-}) => {
+}: StoryArgs) => {
   const [state, setState] = useState("");
-  const onChange = (ev) => {
+  const onChange = (ev: CustomEvent) => {
     setState(ev.target.value.rawValue);
     action("change")(ev);
   };
@@ -39,19 +46,29 @@ export const GroupedCharacterStory = ({
     <GroupedCharacter
       value={state}
       onChange={onChange}
+      groups={groups}
       separator={separator || separatorSpecialCharacters || " "}
       {...getCommonTextboxArgsWithSpecialCaracters(args)}
     />
   );
 };
 
-export const NewValidationStory = ({
+Default.storyName = "default";
+Default.args = {
+  groups: [2, 2, 4],
+  separator: "-",
+  separatorSpecialCharacters: undefined,
+  ...getCommonTextboxArgs(),
+};
+
+export const NewValidation = ({
   separatorSpecialCharacters,
   separator,
+  groups,
   ...args
-}) => {
+}: StoryArgs) => {
   const [state, setState] = useState("");
-  const onChange = (ev) => {
+  const onChange = (ev: CustomEvent) => {
     setState(ev.target.value.rawValue);
     action("change")(ev);
   };
@@ -61,6 +78,7 @@ export const NewValidationStory = ({
         value={state}
         m={2}
         onChange={onChange}
+        groups={groups}
         separator={separator || separatorSpecialCharacters || " "}
         {...getCommonTextboxArgsWithSpecialCaracters(args)}
       />
@@ -68,36 +86,10 @@ export const NewValidationStory = ({
   );
 };
 
-# Grouped Character
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      groups: [2, 2, 4],
-      separator: "-",
-      separatorSpecialCharacters: undefined,
-      ...getCommonTextboxArgs(),
-    }}
-  >
-    {GroupedCharacterStory.bind({})}
-  </Story>
-</Canvas>
-
-### New Validation
-
-<Canvas>
-  <Story
-    name="new validation"
-    args={{
-      groups: [2, 2, 4],
-      separator: "-",
-      separatorSpecialCharacters: undefined,
-      ...getCommonTextboxArgs(),
-    }}
-  >
-    {NewValidationStory.bind({})}
-  </Story>
-</Canvas>
+NewValidation.storyName = "new validation";
+NewValidation.args = {
+  groups: [2, 2, 4],
+  separator: "-",
+  separatorSpecialCharacters: undefined,
+  ...getCommonTextboxArgs(),
+};
