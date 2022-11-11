@@ -30,8 +30,8 @@ export default (
       isMinor
         ? `
     background: var(--colorsActionMinor500);
-    border-color: transparent;
-    ${makeColors("var(--colorsSemanticNegativeYang100)")};
+    border-color: var(--colorsActionMinorTransparent);
+    ${makeColors("var(--colorsActionMinorYang100)")};
     &:hover {
       background: var(--colorsActionMinor600);
     }
@@ -88,7 +88,7 @@ export default (
       border-color: var(--colorsActionMinor500);
       ${makeColors("var(--colorsActionMinor500)")};
       &:hover {
-        color: var(--colorsSemanticNegativeYang100);
+        color: var(--colorsActionMinorYang100);
         background: var(--colorsActionMinor600);
       }
     `
@@ -139,7 +139,7 @@ export default (
     padding: var(--spacing100);
     ${makeColors("var(--colorsActionMinor500)")};
     &:hover {
-      color: var(--colorsSemanticNegativeYang100);
+      color: var(--colorsActionMinorYang100);
       background: var(--colorsActionMinor600);
     }
   `

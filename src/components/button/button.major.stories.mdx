@@ -144,20 +144,11 @@ Secondary buttons are transparent, rather than white.
       <Button mt={2} size="small" ml={2}>
         Small
       </Button>
-      <Button mt={2} size="small" isMinor={true} ml={2}>
-        Minor
-      </Button>
       <Button mt={2} ml={2}>
         Medium
       </Button>
-      <Button mt={2} ml={2} isMinor={true}>
-        Minor
-      </Button>
       <Button mt={2} size="large" ml={2}>
         Large
-      </Button>
-      <Button mt={2} size="large" ml={2} isMinor={true}>
-        Minor
       </Button>
     </>
   </Story>
@@ -171,20 +162,11 @@ Secondary buttons can be destructive.
       <Button mt={2} destructive size="small" ml={2}>
         Small
       </Button>
-      <Button mt={2} destructive size="small" isMinor={true} ml={2}>
-        Minor
-      </Button>
       <Button mt={2} destructive ml={2}>
         Medium
       </Button>
-      <Button mt={2} destructive ml={2} isMinor={true}>
-        Minor
-      </Button>
       <Button mt={2} destructive size="large" ml={2}>
         Large
-      </Button>
-      <Button mt={2} destructive size="large" ml={2} isMinor={true}>
-        Minor
       </Button>
     </>
   </Story>
@@ -198,20 +180,11 @@ Secondary buttons can be disabled.
       <Button mt={2} size="small" disabled ml={2}>
         Small
       </Button>
-      <Button mt={2} size="small" disabled isMinor={true} ml={2}>
-        Minor
-      </Button>
       <Button mt={2} disabled ml={2}>
         Medium
       </Button>
-      <Button mt={2} disabled ml={2} isMinor={true}>
-        Minor
-      </Button>
       <Button mt={2} size="large" disabled ml={2}>
         Large
-      </Button>
-      <Button mt={2} size="large" disabled ml={2} isMinor={true}>
-        Minor
       </Button>
     </>
   </Story>
@@ -225,20 +198,11 @@ Secondary buttons can have an icon positioned before or after the text.
       <Button mt={2} iconType="print" ml={2}>
         Medium
       </Button>
-      <Button mt={2} iconType="print" isMinor={true} ml={2}>
-        Minor
-      </Button>
       <Button mt={2} destructive iconType="delete" iconPosition="after" ml={2}>
         Medium
       </Button>
-      <Button mt={2} destructive iconType="delete" iconPosition="after" ml={2} isMinor={true}>
-        Minor
-      </Button>
       <Button mt={2} disabled iconType="print" iconPosition="after" ml={2}>
         Medium
-      </Button>
-      <Button mt={2} disabled iconType="print" iconPosition="after" ml={2} isMinor={true}>
-        Minor
       </Button>
     </>
   </Story>
@@ -276,20 +240,11 @@ Tertiary or ‘ghost’ buttons are used for reversing actions, like ‘Cancel�
       <Button mt={2} buttonType="tertiary" size="small" ml={2}>
         Small
       </Button>
-      <Button mt={2} buttonType="tertiary" size="small" isMinor={true} ml={2}>
-        Minor
-      </Button>
       <Button mt={2} buttonType="tertiary" ml={2}>
         Medium
       </Button>
-      <Button mt={2} buttonType="tertiary" ml={2} isMinor={true}>
-        Minor
-      </Button>
       <Button mt={2} buttonType="tertiary" size="large" ml={2}>
         Large
-      </Button>
-      <Button mt={2} buttonType="tertiary" size="large" ml={2} isMinor={true}>
-        Minor
       </Button>
     </>
   </Story>
@@ -303,20 +258,11 @@ Tertiary buttons can be destructive.
       <Button mt={2} buttonType="tertiary" destructive size="small" ml={2}>
         Small
       </Button>
-      <Button mt={2} buttonType="tertiary" destructive size="small" isMinor={true} ml={2}>
-        Minor
-      </Button>
       <Button mt={2} buttonType="tertiary" destructive ml={2}>
         Medium
       </Button>
-      <Button mt={2} buttonType="tertiary" destructive ml={2} isMinor={true}>
-        Minor
-      </Button>
       <Button mt={2} buttonType="tertiary" destructive size="large" ml={2}>
         Large
-      </Button>
-      <Button mt={2} buttonType="tertiary" destructive size="large" ml={2} isMinor={true}>
-        Minor
       </Button>
     </>
   </Story>
@@ -330,20 +276,11 @@ Tertiary buttons can be disabled.
       <Button mt={2} buttonType="tertiary" disabled size="small" ml={2}>
         Small
       </Button>
-      <Button mt={2} buttonType="tertiary" disabled size="small" isMinor={true} ml={2}>
-        Minor
-      </Button>
       <Button mt={2} buttonType="tertiary" disabled ml={2}>
         Medium
       </Button>
-      <Button mt={2} buttonType="tertiary" disabled ml={2} isMinor={true}>
-        Minor
-      </Button>
       <Button mt={2} buttonType="tertiary" disabled size="large" ml={2}>
         Large
-      </Button>
-      <Button mt={2} buttonType="tertiary" disabled size="large" ml={2} isMinor={true}>
-        Minor
       </Button>
     </>
   </Story>
@@ -357,9 +294,6 @@ Tertiary buttons can have an icon positioned before or after the text.
       <Button mt={2} buttonType="tertiary" iconType="print" ml={2}>
         Medium
       </Button>
-      <Button mt={2} buttonType="tertiary" iconType="print" isMinor={true} ml={2}>
-        Minor
-      </Button>
       <Button
         mt={2}
         buttonType="tertiary"
@@ -373,34 +307,12 @@ Tertiary buttons can have an icon positioned before or after the text.
       <Button
         mt={2}
         buttonType="tertiary"
-        destructive
-        iconType="delete"
-        iconPosition="after"
-        ml={2}
-        isMinor={true}
-      >
-        Minor
-      </Button>
-      <Button
-        mt={2}
-        buttonType="tertiary"
         disabled
         iconType="print"
         iconPosition="after"
         ml={2}
       >
         Medium
-      </Button>
-           <Button
-        mt={2}
-        buttonType="tertiary"
-        disabled
-        iconType="print"
-        iconPosition="after"
-        ml={2}
-        isMinor={true}
-      >
-        Minor
       </Button>
     </>
   </Story>
@@ -566,7 +478,7 @@ Buttons can be rendered with just an icon.
       <Button mt={2} destructive ml={2} iconType="bin" aria-label="Delete" />
       <Button
         mt={2}
-        buttonType="dashed"
+        buttonType="disabled"
         size="large"
         ml={2}
         iconType="bin"
@@ -595,13 +507,14 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
       <Button
         destructive
         ml={2}
+        mt={2}
         iconType="bin"
         iconTooltipMessage="This is a tooltip"
         aria-label="Delete"
       />
       <Button
         mt={2}
-        buttonType="dashed"
+        buttonType="disabled"
         size="large"
         ml={2}
         iconType="bin"

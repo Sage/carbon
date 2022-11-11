@@ -68,7 +68,7 @@ function stylingForType({
     
     ${size === "large" &&
     css`
-      font-size: 16px;
+      font-size: var(--fontSizes200);
       min-height: 48px;
     `}
 
