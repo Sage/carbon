@@ -355,29 +355,6 @@ Tertiary buttons can be set to `noWrap` mode to prevent text wrapping.
   </Story>
 </Canvas>
 
-### Button as a link
-
-Passing in the `href` prop will render an anchor with `role="button"` and the Button styles. The `target` and `rel` props are also available.
-
-<Canvas>
-  <Story name="minor/as a link">
-    <Button mt={2} buttonType="primary" isMinor={true} href="/">
-      I'm a link
-    </Button>
-    <Button
-      mt={2}
-      buttonType="primary"
-      href="/"
-      target="_blank"
-      rel="noopener noreferrer"
-      isMinor={true}
-      ml={4}
-    >
-      Open in new tab
-    </Button>
-  </Story>
-</Canvas>
-
 ### Icon Only Button
 
 Buttons can be rendered with just an icon.
@@ -387,15 +364,17 @@ Buttons can be rendered with just an icon.
     <>
       <Button
         mt={2}
+        ml={2}
         buttonType="primary"
         size="small"
         iconType="bin"
         aria-label="Delete"
+        isMinor={true}
       />
       <Button mt={2} destructive ml={2} iconType="bin" aria-label="Delete" />
       <Button
         mt={2}
-        buttonType="dashed"
+        buttonType="disabled"
         size="large"
         ml={2}
         iconType="bin"
@@ -415,6 +394,7 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
     <>
       <Button
         mt={2}
+        ml={2}
         buttonType="primary"
         size="small"
         iconType="bin"
@@ -424,6 +404,7 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
       />
       <Button
         destructive
+        mt={2}
         ml={2}
         iconType="bin"
         iconTooltipMessage="This is a tooltip"
@@ -432,12 +413,11 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
       />
       <Button
         mt={2}
-        buttonType="dashed"
+        buttonType="disabled"
         size="large"
         ml={2}
         iconType="bin"
         iconTooltipMessage="This is a tooltip"
-        isMinor={true}
         aria-label="Delete"
       />
     </>
