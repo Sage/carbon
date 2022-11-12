@@ -30,7 +30,6 @@ const ProgressTracker = ({
   showDefaultLabels = false,
   currentProgressLabel,
   maxProgressLabel,
-  errorLabel,
   orientation = "horizontal",
   direction = "up",
   labelsPosition,
@@ -60,7 +59,7 @@ const ProgressTracker = ({
   });
 
   const renderValueLabels = () => {
-    if (!showDefaultLabels && !currentProgressLabel && !maxProgressLabel && !errorLabel) {
+    if (!showDefaultLabels && !currentProgressLabel && !maxProgressLabel) {
       return null;
     }
 
@@ -68,7 +67,7 @@ const ProgressTracker = ({
       if (value) {
         return value;
       }
-      return showDefaultLabels ? defaultValue : errorLabel;
+      return showDefaultLabels ? defaultValue : null;
     };
 
     return (
@@ -76,7 +75,7 @@ const ProgressTracker = ({
         {isVertical && direction === "up" && (
           <>
             <StyledValue isMaxValue>
-              {label(maxProgressLabel, "100%")}
+              {label(maxProgressLabel,"of 100%")}
             </StyledValue>
             <StyledValue>
               {label(currentProgressLabel, `${progress}%`)}
@@ -89,7 +88,7 @@ const ProgressTracker = ({
               {label(currentProgressLabel, `${progress}%`)}
             </StyledValue>
             <StyledValue isMaxValue>
-              {label(maxProgressLabel, "100%")}
+              {label(maxProgressLabel, "of 100%")}
             </StyledValue>
           </>
         )}
@@ -164,8 +163,6 @@ ProgressTracker.propTypes = {
   currentProgressLabel: PropTypes.string,
   /** Value to display as the maximum progress limit. */
   maxProgressLabel: PropTypes.string,
-  /** Value to display as an error. */
-  errorLabel: PropTypes.string,
   /** The orientation of the component. */
   orientation: PropTypes.oneOf(["horizontal", "vertical"]),
   /** The direction the bar should move as progress increases, only applies in vertical orientation. */

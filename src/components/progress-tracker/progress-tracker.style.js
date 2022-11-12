@@ -27,7 +27,7 @@ const StyledProgressBar = styled.span`
     display: flex;
     position: relative;
     background-color: var(--colorsSemanticNeutral200);
-    border: 2px solid ${getBorderColour(progress, error)};
+    border: 1px solid ${getBorderColour(progress, error)};
     border-radius: 25px;
 
 
@@ -62,7 +62,7 @@ const StyledValue = styled.span`
 const StyledValuesLabel = styled.span`
   text-align: start;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   ${({ isVertical, position }) => css`
     ${isVertical &&
     css`
