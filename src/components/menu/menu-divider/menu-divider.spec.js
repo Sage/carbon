@@ -12,6 +12,7 @@ import menuConfigVariants from "../menu.config";
 const menuContextValues = (menuType) => ({
   menuType,
   handleKeyDown: () => null,
+  setOpenSubmenuIndex: () => {},
 });
 
 describe("MenuDivider", () => {

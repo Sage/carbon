@@ -2,7 +2,6 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -61,25 +60,14 @@ const Tabs = ({
   );
 
   const previousSelectedTabId = useRef(selectedTabId);
-  const [selectedTabIdState, setSelectedTabIdState] = useState();
+  const [selectedTabIdState, setSelectedTabIdState] = useState(
+    selectedTabId || filteredChildren[0].props.tabId
+  );
   const [tabStopId, setTabStopId] = useState();
   const { isInSidebar } = useContext(DrawerSidebarContext);
   const [tabsErrors, setTabsErrors] = useState({});
   const [tabsWarnings, setTabsWarnings] = useState({});
   const [tabsInfos, setTabsInfos] = useState({});
-
-  useLayoutEffect(() => {
-    const selectedTab =
-      selectedTabId || Children.toArray(children)[0].props.tabId;
-
-    if (!tabIds.includes(selectedTabId)) {
-      setTabStopId(React.Children.toArray(children)[0].props.tabId);
-    } else {
-      setTabStopId(selectedTab);
-    }
-
-    setSelectedTabIdState(selectedTab);
-  }, [children, selectedTabId, tabIds]);
 
   const updateErrors = useCallback(
     (id, hasError) => {
@@ -303,27 +291,24 @@ const Tabs = ({
 
   /** Builds the single currently selected tab */
   const visibleTab = () => {
-    let tab;
+    const tab = filteredChildren.find((child) =>
+      isTabSelected(child.props.tabId)
+    );
 
-    filteredChildren.forEach((child) => {
-      if (isTabSelected(child.props.tabId)) {
-        tab = child;
-      }
-    });
-
-    return tab
-      ? cloneElement(tab, {
-          ...tab.props,
-          role: "tabpanel",
-          position,
-          isTabSelected: isTabSelected(tab.props.tabId),
-          key: `${tab.props.tabId}-tab`,
-          ariaLabelledby: `${tab.props.tabId}-tab`,
-          updateErrors,
-          updateWarnings,
-          updateInfos,
-        })
-      : null;
+    return (
+      tab &&
+      cloneElement(tab, {
+        ...tab.props,
+        role: "tabpanel",
+        position,
+        isTabSelected: isTabSelected(tab.props.tabId),
+        key: `${tab.props.tabId}-tab`,
+        ariaLabelledby: `${tab.props.tabId}-tab`,
+        updateErrors,
+        updateWarnings,
+        updateInfos,
+      })
+    );
   };
 
   /** Builds all tabs where non selected tabs have class of hidden */

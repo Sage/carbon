@@ -35,5 +35,5 @@ export const flatTableCaption = () => flatTable().find("caption");
 export const flatTablePageSizeSelect = () =>
   cy.get(FLAT_TABLE_PAGE_SIZE_SELECT);
 export const flatTablePageSelectListPosition = () =>
-  cy.get(FLAT_TABLE_PAGE_SELECT_LIST).parent();
+  cy.get(FLAT_TABLE_PAGE_SELECT_LIST);
 export const pageSelectInput = () => cy.get(PAGE_SELECT_INPUT);

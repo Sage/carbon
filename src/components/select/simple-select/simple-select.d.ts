@@ -3,7 +3,7 @@ import { Side } from "@floating-ui/dom";
 import { FormInputPropTypes } from "../select-textbox/select-textbox";
 
 export interface SimpleSelectProps
-  extends Omit<FormInputPropTypes, "defaultValue"> {
+  extends Omit<FormInputPropTypes, "defaultValue" | "value"> {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */

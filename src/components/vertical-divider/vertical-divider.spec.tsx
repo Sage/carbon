@@ -88,7 +88,14 @@ describe("VerticalDivider", () => {
 
   it("renders as an `li` element with `aria-hidden` when inside a Menu", () => {
     const { as, "aria-hidden": ariaHidden } = mount(
-      <MenuContext.Provider value={{ menuType: "light", inMenu: true }}>
+      <MenuContext.Provider
+        value={{
+          menuType: "light",
+          inMenu: true,
+          openSubmenuIndex: null,
+          setOpenSubmenuIndex: () => {},
+        }}
+      >
         <VerticalDivider />
       </MenuContext.Provider>
     )

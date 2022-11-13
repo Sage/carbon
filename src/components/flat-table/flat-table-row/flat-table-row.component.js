@@ -8,6 +8,7 @@ import React, {
   useState,
 } from "react";
 import PropTypes from "prop-types";
+import invariant from "invariant";
 
 import Event from "../../../__internal__/utils/helpers/events";
 import StyledFlatTableRow from "./flat-table-row.style";
@@ -47,37 +48,71 @@ const FlatTableRow = React.forwardRef(
     let rowRef = useRef();
     if (ref) rowRef = ref;
     const firstColumnExpandable = expandableArea === "firstColumn";
-    const [stickyCellWidths, setStickyCellWidths] = useState([]);
+    const [leftStickyCellWidths, setLeftStickyCellWidths] = useState([]);
+    const [rightStickyCellWidths, setRightStickyCellWidths] = useState([]);
     const [leftPositions, setLeftPositions] = useState([]);
+    const [rightPositions, setRightPositions] = useState([]);
     const childrenArray = useMemo(() => React.Children.toArray(children), [
       children,
     ]);
-    const rowHeaderIndex = useMemo(
+    const lhsRowHeaderIndex = useMemo(
       () =>
         childrenArray.findIndex(
-          (child) => child.type.displayName === FlatTableRowHeader.displayName
+          (child) =>
+            child.type.displayName === FlatTableRowHeader.displayName &&
+            child.props.stickyAlignment !== "right"
         ),
       [childrenArray]
     );
+    const rhsRowHeaderIndex = useMemo(
+      () =>
+        childrenArray.findIndex(
+          (child) =>
+            child.type.displayName === FlatTableRowHeader.displayName &&
+            child.props.stickyAlignment === "right"
+        ),
+      [childrenArray]
+    );
+
+    const noStickyColumnsOverlap = useMemo(() => {
+      const hasLhsColumn = lhsRowHeaderIndex !== -1;
+      const hasRhsColumn = rhsRowHeaderIndex !== -1;
+      if (!hasLhsColumn || !hasRhsColumn) return true;
+
+      return lhsRowHeaderIndex < rhsRowHeaderIndex;
+    }, [lhsRowHeaderIndex, rhsRowHeaderIndex]);
+
+    invariant(
+      noStickyColumnsOverlap,
+      `Do not render a right hand side \`${FlatTableRowHeader.displayName}\` before left hand side \`${FlatTableRowHeader.displayName}\``
+    );
+
     const themeContext = useContext(FlatTableThemeContext);
 
     const reportCellWidth = useCallback(
       (width, index) => {
-        const copiedArray = stickyCellWidths;
+        const isLeftSticky = index < lhsRowHeaderIndex;
+        const copiedArray = isLeftSticky
+          ? leftStickyCellWidths
+          : rightStickyCellWidths;
+
         if (copiedArray[index] !== undefined) {
           copiedArray[index] = width;
         } else {
           copiedArray.push(width);
         }
-        setStickyCellWidths(copiedArray);
+        if (isLeftSticky) {
+          setLeftStickyCellWidths(copiedArray);
+        } else {
+          setRightStickyCellWidths(copiedArray);
+        }
       },
-      [stickyCellWidths]
+      [lhsRowHeaderIndex, leftStickyCellWidths, rightStickyCellWidths]
     );
 
     let interactiveRowProps = {};
 
-    const firstCellIndex = () =>
-      childrenArray[0].type === FlatTableCheckbox ? 1 : 0;
+    const firstCellIndex = childrenArray[0].type === FlatTableCheckbox ? 1 : 0;
 
     const toggleExpanded = () => setIsExpanded(!isExpanded);
 
@@ -125,18 +160,36 @@ const FlatTableRow = React.forwardRef(
       }
     }
 
+    const buildPositionArray = (setter, widthsArray, length) => {
+      setter([
+        0,
+        ...Array.from({ length }).map(
+          (_, index) =>
+            widthsArray.slice(0, index + 1).reduce((a, b) => a + b, 0),
+          0
+        ),
+      ]);
+    };
+
     useLayoutEffect(() => {
-      if (stickyCellWidths.length && rowHeaderIndex !== -1) {
-        setLeftPositions([
-          0,
-          ...Array.from({ length: rowHeaderIndex }).map(
-            (_, index) =>
-              stickyCellWidths.slice(0, index + 1).reduce((a, b) => a + b, 0),
-            0
-          ),
-        ]);
+      if (leftStickyCellWidths.length && lhsRowHeaderIndex !== -1) {
+        buildPositionArray(
+          setLeftPositions,
+          leftStickyCellWidths,
+          lhsRowHeaderIndex
+        );
       }
-    }, [rowHeaderIndex, stickyCellWidths]);
+    }, [lhsRowHeaderIndex, leftStickyCellWidths]);
+
+    useLayoutEffect(() => {
+      if (rightStickyCellWidths.length && rhsRowHeaderIndex !== -1) {
+        buildPositionArray(
+          setRightPositions,
+          rightStickyCellWidths,
+          childrenArray.length - (rhsRowHeaderIndex + 1)
+        );
+      }
+    }, [rhsRowHeaderIndex, rightStickyCellWidths, childrenArray]);
 
     useEffect(() => {
       setIsExpanded(expanded);
@@ -152,9 +205,10 @@ const FlatTableRow = React.forwardRef(
         highlighted={highlighted}
         selected={selected}
         onClick={handleClick}
-        firstCellIndex={firstCellIndex()}
+        firstCellIndex={firstCellIndex}
         ref={rowRef}
-        rowHeaderIndex={rowHeaderIndex}
+        lhsRowHeaderIndex={lhsRowHeaderIndex}
+        rhsRowHeaderIndex={rhsRowHeaderIndex}
         colorTheme={themeContext.colorTheme}
         size={themeContext.size}
         stickyOffset={stickyOffset}
@@ -163,6 +217,7 @@ const FlatTableRow = React.forwardRef(
         horizontalBorderSize={horizontalBorderSize}
         applyBorderLeft={applyBorderLeft}
         draggable={draggable}
+        totalChildren={childrenArray.length}
         {...interactiveRowProps}
         {...rest}
       >
@@ -170,23 +225,23 @@ const FlatTableRow = React.forwardRef(
           return (
             child &&
             React.cloneElement(child, {
-              expandable: expandable && index === firstCellIndex(),
+              expandable: expandable && index === firstCellIndex,
               onClick:
-                expandable &&
-                index === firstCellIndex() &&
-                firstColumnExpandable
+                expandable && index === firstCellIndex && firstColumnExpandable
                   ? () => toggleExpanded()
                   : undefined,
               onKeyDown:
-                expandable &&
-                index === firstCellIndex() &&
-                firstColumnExpandable
+                expandable && index === firstCellIndex && firstColumnExpandable
                   ? handleCellKeyDown
                   : undefined,
               cellIndex: index,
               reportCellWidth:
-                index < rowHeaderIndex ? reportCellWidth : undefined,
+                index < lhsRowHeaderIndex ||
+                (rhsRowHeaderIndex !== -1 && index > rhsRowHeaderIndex)
+                  ? reportCellWidth
+                  : undefined,
               leftPosition: leftPositions[index],
+              rightPosition: rightPositions[childrenArray.length - (index + 1)],
               ...child.props,
             })
           );

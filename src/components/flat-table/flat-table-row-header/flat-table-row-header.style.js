@@ -16,10 +16,12 @@ const StyledFlatTableRowHeader = styled.th`
     theme,
     colWidth,
     leftPosition,
+    rightPosition,
     isTruncated,
     expandable,
     verticalBorder,
     verticalBorderColor,
+    stickyAlignment,
   }) => css`
     background-color: var(--colorsUtilityYang100);
     border: 1px solid var(--colorsUtilityMajor100);
@@ -58,16 +60,27 @@ const StyledFlatTableRowHeader = styled.th`
         ${padding}
       }
 
-      left: ${leftPosition}px;
+      ${leftPosition !== undefined &&
+      css`
+        left: ${leftPosition}px;
+      `}
+      ${rightPosition !== undefined &&
+      css`
+        right: ${rightPosition}px;
+      `}
 
       ${verticalBorder &&
       css`
-        border-right-width: ${verticalBorderSizes[verticalBorder]};
+        border-${stickyAlignment === "right" ? "left" : "right"}-width: ${
+        verticalBorderSizes[verticalBorder]
+      };
       `}
 
       ${verticalBorderColor &&
       css`
-        border-right-color: ${toColor(theme, verticalBorderColor)};
+        border-${
+          stickyAlignment === "right" ? "left" : "right"
+        }-color: ${toColor(theme, verticalBorderColor)};
       `}
     }
 

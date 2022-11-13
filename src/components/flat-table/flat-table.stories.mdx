@@ -150,7 +150,8 @@ const FlatTableCellWrapper = ({ customProp, ...rest }) => {
 
 ### With row headers
 
-Any cells preceding the `FlatTableRowHeader`s will automatically also be made sticky as seen in the example below.
+By default the `FlatTableRowHeader`'s `stickyAlignment` prop is set to `left`. 
+Any preceding cells will automatically also be made sticky as seen in the example below.
 
 <Canvas>
   <Story name="with row header" parameters={{ chromatic: { disable: true } }}>
@@ -192,6 +193,115 @@ Any cells preceding the `FlatTableRowHeader`s will automatically also be made st
           <FlatTableCell>Newcastle</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Canvas>
+
+### Using row headers to create left and right hand side sticky columns
+
+In order to have right hand side sticky columns you should set the `FlatTableRowHeader` `stickyAlignment` prop to `right`.
+Any columns to following it will also be sticky.
+
+By default the left hand side columns have the prop set to `left`.
+It is important to ensure any left hand side sticky cells are defined in the `table` before the right hand side ones.
+
+<Canvas>
+  <Story name="with multiple row headers">
+    <FlatTable width="680px" overflowX="auto">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Sticky Column</FlatTableHeader>
+          <FlatTableRowHeader>Sticky Column</FlatTableRowHeader>
+          <FlatTableHeader>Scrollable Column</FlatTableHeader>
+          <FlatTableHeader>Scrollable Column</FlatTableHeader>
+          <FlatTableHeader>Scrollable Column</FlatTableHeader>
+          <FlatTableRowHeader stickyAlignment="right">Sticky Column</FlatTableRowHeader>
+          <FlatTableHeader>Sticky Column</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
     </FlatTable>

@@ -27,6 +27,8 @@ export interface SelectTextProps {
   transparent?: boolean;
   /** Id of the Select Text element */
   textId?: string;
+  /** Component size */
+  size?: string;
 }
 
 declare function SelectText(props: SelectTextProps): JSX.Element;

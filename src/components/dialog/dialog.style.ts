@@ -3,6 +3,10 @@ import { padding as paddingFn } from "styled-system";
 
 import baseTheme from "../../style/themes/base";
 import {
+  calculateFormSpacingValues,
+  calculateWidthValue,
+} from "../../style/utils/form-style-utils";
+import {
   StyledForm,
   StyledFormFooter,
   StyledFormContent,
@@ -17,6 +21,7 @@ import {
   HORIZONTAL_PADDING,
   CONTENT_TOP_PADDING,
   CONTENT_BOTTOM_PADDING,
+  DialogSizes,
 } from "./dialog.config";
 import { ContentPaddingInterface } from "./dialog.component";
 
@@ -29,60 +34,6 @@ const dialogSizes = {
   "medium-large": "850px",
   large: "960px",
   "extra-large": "1080px",
-};
-
-interface PaddingValues {
-  paddingTop: number;
-  paddingBottom: number;
-  paddingLeft: number;
-  paddingRight: number;
-  padding: number;
-}
-
-const calculateWidthValue = (props: ContentPaddingInterface) => {
-  const { paddingLeft, paddingRight, padding }: PaddingValues = paddingFn(
-    props
-  );
-  const paddingValue = paddingLeft ?? paddingRight ?? padding;
-
-  return paddingValue === undefined ? HORIZONTAL_PADDING : paddingValue;
-};
-
-const calculateFormSpacingValues = (
-  props: ContentPaddingInterface,
-  isFormContent: boolean
-) => {
-  const {
-    paddingTop,
-    paddingBottom,
-    paddingLeft,
-    paddingRight,
-    padding,
-  }: PaddingValues = paddingFn(props);
-
-  const spacingTopValue = paddingTop ?? padding ?? CONTENT_TOP_PADDING;
-  const spacingRightValue = paddingRight ?? padding ?? HORIZONTAL_PADDING;
-  const spacingBottomValue = paddingBottom ?? padding ?? CONTENT_BOTTOM_PADDING;
-  const spacingLeftValue = paddingLeft ?? padding ?? HORIZONTAL_PADDING;
-
-  const setNegativeValue = (value: number) => `calc(-1px * ${value})`;
-
-  return {
-    "margin-left": setNegativeValue(spacingLeftValue),
-    "margin-right": setNegativeValue(spacingRightValue),
-
-    ...(isFormContent && {
-      "margin-top": setNegativeValue(spacingTopValue),
-      "padding-top": spacingTopValue,
-      "padding-bottom": spacingBottomValue,
-      "padding-left": spacingLeftValue,
-      "padding-right": spacingRightValue,
-    }),
-    ...(!isFormContent && {
-      "margin-bottom": setNegativeValue(spacingBottomValue),
-      bottom: setNegativeValue(spacingBottomValue),
-    }),
-  };
 };
 
 const calculatePaddingTopInnerContent = ({
@@ -98,7 +49,7 @@ const calculatePaddingTopInnerContent = ({
 
 type StyledDialogProps = {
   topMargin: number;
-  size?: keyof typeof dialogSizes;
+  size?: DialogSizes;
   dialogHeight?: string;
 };
 
@@ -138,7 +89,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   }
 
   ${StyledFormFooter}.sticky {
-    width: calc(100% + (2px * ${calculateWidthValue}));
+    ${calculateWidthValue};
     ${(props) => calculateFormSpacingValues(props, false)}
   }
 

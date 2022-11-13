@@ -19,6 +19,7 @@ import StyledHelp from "../help/help.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
+import StyledTextarea from "./textarea.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
@@ -64,6 +65,30 @@ describe("Textarea", () => {
       expect(wrapper.find(Input).text()).toEqual("Initial content");
     });
   });
+
+  it.each([
+    {
+      inputIcon: "search",
+    },
+    {
+      error: "error",
+    },
+    {
+      warning: "warning",
+    },
+    {
+      info: "info",
+    },
+  ])(
+    "pass hasIcon to InputPresentation when an icon is present inside",
+    (props) => {
+      wrapper = renderTextarea({
+        children: "mock content",
+        ...props,
+      });
+      expect(wrapper.find(StyledTextarea).props().hasIcon).toBe(true);
+    }
+  );
 
   describe.each(validationTypes)(
     "when %s validation prop is string",

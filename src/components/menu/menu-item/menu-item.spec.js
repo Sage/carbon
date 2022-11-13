@@ -33,11 +33,10 @@ const events = {
 const mockMenuhandleKeyDown = jest.fn();
 const mockSubmenuhandleKeyDown = jest.fn();
 
-const menuContextValues = (isFocused) => ({
+const menuContextValues = {
   handleKeyDown: mockMenuhandleKeyDown,
   menuType: "light",
-  isFocused,
-});
+};
 
 const submenuContextValues = (isFocused) => ({
   handleKeyDown: mockSubmenuhandleKeyDown,
@@ -50,8 +49,8 @@ describe("MenuItem", () => {
 
   const renderMenuContext = (isFocused, props) => {
     return mount(
-      <MenuContext.Provider value={menuContextValues(isFocused)}>
-        <MenuItem href="#" {...props}>
+      <MenuContext.Provider value={menuContextValues}>
+        <MenuItem href="#" isFocused={isFocused} {...props}>
           Item One
         </MenuItem>
       </MenuContext.Provider>,
@@ -61,7 +60,7 @@ describe("MenuItem", () => {
 
   const renderSubmenuContext = (props) => {
     return mount(
-      <MenuContext.Provider value={menuContextValues(false)}>
+      <MenuContext.Provider value={menuContextValues}>
         <SubmenuContext.Provider value={submenuContextValues(false)}>
           <MenuItem href="#" {...props}>
             Item One
@@ -704,4 +703,17 @@ describe("MenuItem", () => {
       consoleSpy.mockRestore();
     });
   });
+
+  it.each([
+    ["href", "https://carbon.sage.com"],
+    ["target", "_blank"],
+    ["rel", "noopener"],
+  ])(
+    "the %s prop should be passed as an attribute to the underlying HTML anchor element",
+    (prop, value) => {
+      wrapper = mount(<MenuItem {...{ [prop]: value }} />);
+      const anchor = wrapper.find("a").getDOMNode();
+      expect(anchor.getAttribute(prop)).toBe(value);
+    }
+  );
 });

@@ -1,40 +1,44 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+  useContext,
+} from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
 import Heading from "../heading";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+
 import {
   StyledDialog,
   StyledDialogTitle,
   StyledDialogContent,
   StyledDialogInnerContent,
 } from "./dialog.style";
+import { DialogSizes, TOP_MARGIN } from "./dialog.config";
+
 import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
-import { TOP_MARGIN } from "./dialog.config";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
+import TopModalContext from "../carbon-provider/top-modal-context";
 
-type PaddingValues = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+const PADDING_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const;
+type PaddingValues = typeof PADDING_VALUES[number];
+// TODO FE-5408 will investigate why React.RefObject<T> produces a failed prop type when current = null
+type CustomRefObject<T> = {
+  current?: T | null;
+};
 
 export interface ContentPaddingInterface {
   p?: PaddingValues;
   py?: PaddingValues;
   px?: PaddingValues;
 }
-
-type DialogSizes =
-  | "auto"
-  | "extra-small"
-  | "small"
-  | "medium-small"
-  | "medium"
-  | "medium-large"
-  | "large"
-  | "extra-large";
 
 export interface DialogProps extends ModalProps, TagProps {
   /** Custom class name  */
@@ -68,6 +72,8 @@ export interface DialogProps extends ModalProps, TagProps {
   ) => void;
   /** Optional reference to an element meant to be focused on open */
   focusFirstElement?: React.MutableRefObject<HTMLElement | null>;
+  /** Optional selector to identify the focusable elements, if not provided a default selector is used */
+  focusableSelectors?: string;
   /** Allows developers to specify a specific height for the dialog. */
   height?: string;
   /** Adds Help tooltip to Header */
@@ -89,7 +95,7 @@ export interface DialogProps extends ModalProps, TagProps {
   /** Padding to be set on the Dialog content */
   contentPadding?: ContentPaddingInterface;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
-  focusableContainers?: React.MutableRefObject<HTMLElement | null>[];
+  focusableContainers?: CustomRefObject<HTMLElement>[];
 }
 
 export const Dialog = ({
@@ -103,6 +109,7 @@ export const Dialog = ({
   subtitle,
   disableAutoFocus = false,
   focusFirstElement,
+  focusableSelectors,
   onCancel,
   showCloseIcon = true,
   bespokeFocusTrap,
@@ -122,6 +129,8 @@ export const Dialog = ({
   const { current: titleId } = useRef(createGuid());
   const { current: subtitleId } = useRef(createGuid());
   const hasStickyFooter = useIsStickyFooterForm(children);
+
+  const { topModal } = useContext(TopModalContext);
 
   const centerDialog = useCallback(() => {
     /* istanbul ignore if */
@@ -264,12 +273,13 @@ export const Dialog = ({
         autoFocus={!disableAutoFocus}
         focusFirstElement={focusFirstElement}
         bespokeTrap={bespokeFocusTrap}
+        focusableSelectors={focusableSelectors}
         wrapperRef={dialogRef}
         isOpen={open}
         additionalWrapperRefs={focusableContainers}
       >
         <StyledDialog
-          aria-modal
+          aria-modal={topModal?.contains(dialogRef.current) ? true : undefined}
           ref={dialogRef}
           topMargin={TOP_MARGIN}
           {...dialogProps}
