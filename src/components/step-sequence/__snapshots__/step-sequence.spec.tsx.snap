@@ -7,8 +7,8 @@ exports[`StepSequence renders correctly 1`] = `
   display: -ms-flexbox;
   display: flex;
   margin: 0;
-  padding: 18px;
   font-weight: bold;
+  padding: var(--spacing000);
 }
 
 .c1 {
@@ -121,12 +121,11 @@ exports[`StepSequence renders correctly with vertical orientation 1`] = `
   display: -ms-flexbox;
   display: flex;
   margin: 0;
-  padding: 18px;
   font-weight: bold;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  padding: 0;
+  padding: var(--spacing000);
 }
 
 .c1 {

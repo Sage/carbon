@@ -80,19 +80,15 @@ const StepSequenceItemCustom = ({ ...props }) => {
 
 context("Testing StepSequence component", () => {
   describe("should render StepSequence component", () => {
-    it.each([
-      ["horizontal", 18],
-      ["vertical", 0],
-    ])(
+    it.each(["horizontal", "vertical"])(
       "should render StepSequence with orientation set to %s",
-      (orientation, padding) => {
+      (orientation) => {
         CypressMountWithProviders(
           <StepSequenceComponent orientation={orientation} />
         );
 
         stepSequenceDataComponent()
-          .should("have.attr", "orientation", orientation)
-          .and("have.css", "padding-top", `${padding}px`);
+          .should("have.attr", "orientation", orientation);
 
         if (orientation === "vertical") {
           stepSequenceDataComponent().should(

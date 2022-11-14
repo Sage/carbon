@@ -3,7 +3,7 @@ import TestRenderer from "react-test-renderer";
 
 import StepSequence, { StepSequenceProps } from "./step-sequence.component";
 import StepSequenceItem from "./step-sequence-item/step-sequence-item.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
+import { testStyledSystemSpacing } from "../../__spec_helper__/test-utils";
 
 describe("StepSequence", () => {
   const wrapper = (props?: Partial<StepSequenceProps>) =>
@@ -29,7 +29,7 @@ describe("StepSequence", () => {
   });
 
   describe("styled system", () => {
-    testStyledSystemMargin((props) => (
+    testStyledSystemSpacing((props) => (
       <StepSequence {...props}>
         <div>test</div>
       </StepSequence>

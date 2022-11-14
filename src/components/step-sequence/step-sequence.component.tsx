@@ -1,7 +1,7 @@
 import React from "react";
 import { MarginProps } from "styled-system";
 
-import StepSequenceStyle from "./step-sequence.style";
+import StyledStepSequence from "./step-sequence.style";
 
 export const StepSequenceContext = React.createContext<{
   orientation: "horizontal" | "vertical";
@@ -20,15 +20,16 @@ export const StepSequence = ({
   ...props
 }: StepSequenceProps) => {
   return (
-    <StepSequenceStyle
+    <StyledStepSequence
       data-component="step-sequence"
       orientation={orientation}
+      p={0}
       {...props}
     >
       <StepSequenceContext.Provider value={{ orientation }}>
         {children}
       </StepSequenceContext.Provider>
-    </StepSequenceStyle>
+    </StyledStepSequence>
   );
 };
 
