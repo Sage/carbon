@@ -185,6 +185,14 @@ const FocusTrap = ({
           }
           setElementFocus(elementToFocus);
           ev.preventDefault();
+        } else if (activeElement === wrapperRef?.current) {
+          const elementToFocus = getNextElement(
+            lastElement as HTMLElement,
+            focusableElements,
+            ev.shiftKey
+          );
+          setElementFocus(elementToFocus);
+          ev.preventDefault();
         } else {
           const elementToFocus = getNextElement(
             activeElement,

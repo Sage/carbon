@@ -1,3 +1,10 @@
+### [111.9.1](https://github.com/Sage/carbon/compare/v111.9.0...v111.9.1) (2022-11-14)
+
+
+### Bug Fixes
+
+* **dialog, sidebar:** fix tabbing in nested modals ([ae82ef2](https://github.com/Sage/carbon/commit/ae82ef2c99d6d81b10fc222d350620634e50d171)), closes [#5445](https://github.com/Sage/carbon/issues/5445)
+
 ## [111.9.0](https://github.com/Sage/carbon/compare/v111.8.5...v111.9.0) (2022-11-10)
 
 

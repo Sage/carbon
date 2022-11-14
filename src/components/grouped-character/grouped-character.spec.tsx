@@ -1,12 +1,15 @@
 import React from "react";
-import { mount } from "enzyme";
+import { HTMLAttributes, mount, ReactWrapper } from "enzyme";
 
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
-import GroupedCharacter from "./grouped-character.component";
+import GroupedCharacter, {
+  GroupedCharacterProps,
+} from "./grouped-character.component";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import Label from "../../__internal__/label";
 
-const mountComponent = (props) => mount(<GroupedCharacter {...props} />);
+const mountComponent = (props: GroupedCharacterProps) =>
+  mount(<GroupedCharacter {...props} />);
 
 describe("GroupedCharacter", () => {
   jest.useFakeTimers();
@@ -22,7 +25,9 @@ describe("GroupedCharacter", () => {
   );
 
   describe("uncontrolled behaviour", () => {
-    let instance, input, onChange;
+    let instance: ReactWrapper;
+    let input: ReactWrapper<HTMLAttributes>;
+    let onChange: jest.Mock;
     beforeEach(() => {
       onChange = jest.fn();
 
@@ -51,7 +56,11 @@ describe("GroupedCharacter", () => {
   });
 
   describe("functionality", () => {
-    let instance, input, onChange, onBlur;
+    let instance: ReactWrapper;
+    let input: ReactWrapper<HTMLAttributes>;
+    let onChange: jest.Mock;
+    let onBlur: jest.Mock;
+
     beforeEach(() => {
       onChange = jest.fn();
       onBlur = jest.fn();
@@ -109,25 +118,6 @@ describe("GroupedCharacter", () => {
       expect(onBlur.mock.calls[1]).toBe(undefined);
     });
 
-    it("does not allow a separator string containing multiple characters", () => {
-      const consoleSpy = jest.spyOn(console, "error");
-      instance = mountComponent({
-        separator: "-=",
-        groups: basicGroupConfig,
-        value: valueString,
-        onChange,
-      });
-
-      // eslint-disable-next-line no-console
-      expect(console.error.mock.calls[0][2]).toBe(
-        "Invalid prop separator supplied to GroupedCharacter. Must be string of length 1."
-      );
-      input = instance.find("input");
-      expect(input.props().value).toEqual("12-34-5678");
-
-      consoleSpy.mockRestore();
-    });
-
     it("does not allow values of length greater than that allowed by the group config", () => {
       instance = mountComponent({
         separator,
@@ -158,20 +148,25 @@ describe("GroupedCharacter", () => {
   });
 
   describe("keydown events", () => {
-    const setCursorOn = (node, setSelectionRange) => (selectionEnd, value) =>
+    const setCursorOn = (node: ReactWrapper, setSelectionRange: jest.Mock) => (
+      selectionEnd: number,
+      value: string
+    ) =>
       node.simulate("change", {
         target: { selectionEnd, value, setSelectionRange },
       });
 
-    const assertSelectionRangeCalled = (selectionFn) => (position) =>
-      expect(selectionFn).toHaveBeenCalledWith(position, position);
+    const assertSelectionRangeCalled = (selectionFn: jest.Mock) => (
+      position: number
+    ) => expect(selectionFn).toHaveBeenCalledWith(position, position);
 
-    let setInputCursorTo,
-      assertInputCursorAt,
-      setSelectionRange,
-      instance,
-      input,
-      onChange;
+    let setInputCursorTo: (selectionEnd: number, value: string) => void;
+    let assertInputCursorAt: (position: number) => void;
+    let setSelectionRange: jest.Mock;
+
+    let instance: ReactWrapper;
+    let input: ReactWrapper;
+    let onChange: jest.Mock;
 
     beforeEach(() => {
       onChange = jest.fn();
@@ -228,7 +223,7 @@ describe("GroupedCharacter", () => {
   });
 
   describe("required", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeAll(() => {
       wrapper = mountComponent({
