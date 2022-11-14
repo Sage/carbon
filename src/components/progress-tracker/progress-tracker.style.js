@@ -52,6 +52,7 @@ const StyledProgressBar = styled.span`
 `;
 
 const StyledValue = styled.span`
+  flex-basis: 30px;
   color: var(--colorsUtilityYin090);
   ${({ isMaxValue }) => css`
     ${isMaxValue && `color: var(--colorsUtilityYin055);`}
@@ -62,6 +63,8 @@ const StyledValue = styled.span`
 const StyledValuesLabel = styled.span`
   text-align: start;
   display: flex;
+  /* flex-basis: auto; */
+  flex-grow: 2;
   justify-content: flex-start;
   ${({ isVertical, position }) => css`
     ${isVertical &&

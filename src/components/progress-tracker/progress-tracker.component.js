@@ -70,12 +70,18 @@ const ProgressTracker = ({
       return showDefaultLabels ? defaultValue : null;
     };
 
+ 
+    // const space =  /\s/g;
+    // const space =   new RegExp(/\s/g);
     return (
       <StyledValuesLabel position={labelsPosition} isVertical={isVertical}>
         {isVertical && direction === "up" && (
           <>
             <StyledValue isMaxValue>
-              {label(maxProgressLabel,"of 100%")}
+              <>
+              {label(maxProgressLabel, "of 100%")}
+            
+              </>
             </StyledValue>
             <StyledValue>
               {label(currentProgressLabel, `${progress}%`)}
