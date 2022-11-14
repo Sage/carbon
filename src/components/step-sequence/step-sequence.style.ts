@@ -14,6 +14,7 @@ const StyledStepSequence = styled.ol<
     orientation === "vertical" &&
     css`
       flex-direction: column;
+      height: 100%;
     `}
 
   ${space}

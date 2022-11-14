@@ -7,8 +7,8 @@ import StepSequenceItem, {
 } from "./step-sequence-item.component";
 import Icon from "../../icon";
 import {
-  StepSequenceItemHiddenLabelStyle,
-  StepSequenceItemIndicatorStyle,
+  StyledStepSequenceItemHiddenLabel,
+  StyledStepSequenceItemIndicator,
 } from "./step-sequence-item.style";
 
 describe("StepSequenceItem", () => {
@@ -40,10 +40,10 @@ describe("StepSequenceItem", () => {
         ...defaultProps,
         status: "complete",
       });
-      expect(wrapper.find(StepSequenceItemHiddenLabelStyle).exists()).toBe(
+      expect(wrapper.find(StyledStepSequenceItemHiddenLabel).exists()).toBe(
         true
       );
-      expect(wrapper.find(StepSequenceItemHiddenLabelStyle).text()).toEqual(
+      expect(wrapper.find(StyledStepSequenceItemHiddenLabel).text()).toEqual(
         "HiddenComplete"
       );
     });
@@ -68,10 +68,10 @@ describe("StepSequenceItem", () => {
         ...defaultProps,
         status: "current",
       });
-      expect(wrapper.find(StepSequenceItemHiddenLabelStyle).exists()).toBe(
+      expect(wrapper.find(StyledStepSequenceItemHiddenLabel).exists()).toBe(
         true
       );
-      expect(wrapper.find(StepSequenceItemHiddenLabelStyle).text()).toEqual(
+      expect(wrapper.find(StyledStepSequenceItemHiddenLabel).text()).toEqual(
         "HiddenCurrent"
       );
     });
@@ -82,7 +82,7 @@ describe("StepSequenceItem", () => {
           ...defaultProps,
           hideIndicator: true,
         });
-        expect(wrapper.find(StepSequenceItemIndicatorStyle).exists()).toBe(
+        expect(wrapper.find(StyledStepSequenceItemIndicator).exists()).toBe(
           false
         );
       });
