@@ -9,6 +9,7 @@ import MenuContext from "./menu.context";
 
 const Menu = ({ menuType = "light", children, ...rest }) => {
   const [focusedItemIndex, setFocusedItemIndex] = useState(undefined);
+  const [openSubmenuIndex, setOpenSubmenuIndex] = useState(null);
   const ref = useRef();
 
   const handleKeyDown = useCallback(
@@ -47,22 +48,29 @@ const Menu = ({ menuType = "light", children, ...rest }) => {
       ref={ref}
       role="list"
     >
-      {React.Children.map(children, (child, index) => {
-        const isFocused = focusedItemIndex === index;
+      <MenuContext.Provider
+        value={{
+          menuType,
+          handleKeyDown,
+          inMenu: true,
+          openSubmenuIndex,
+          setOpenSubmenuIndex,
+        }}
+      >
+        {React.Children.map(children, (child, index) => {
+          const isFocused = focusedItemIndex === index;
 
-        return (
-          <MenuContext.Provider
-            value={{
-              menuType,
-              handleKeyDown: (ev) => handleKeyDown(ev, index),
-              isFocused,
-              inMenu: true,
-            }}
-          >
-            {child}
-          </MenuContext.Provider>
-        );
-      })}
+          if (
+            React.isValidElement(child) &&
+            child.type.displayName === "MenuItem" &&
+            child.props.submenu
+          ) {
+            return React.cloneElement(child, { isFocused, indexInMenu: index });
+          }
+
+          return child;
+        })}
+      </MenuContext.Provider>
     </StyledMenuWrapper>
   );
 };

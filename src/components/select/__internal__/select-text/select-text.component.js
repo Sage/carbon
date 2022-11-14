@@ -12,6 +12,7 @@ const SelectText = ({
   readOnly,
   textId,
   transparent,
+  size = "medium",
 }) => {
   const hasPlaceholder = !disabled && !readOnly && !formattedValue;
 
@@ -33,6 +34,7 @@ const SelectText = ({
       role="button"
       tabIndex="-1"
       transparent={transparent}
+      size={size}
     >
       {hasPlaceholder ? placeholder : formattedValue}
     </StyledSelectText>
@@ -58,6 +60,8 @@ SelectText.propTypes = {
   transparent: PropTypes.bool,
   /** Id of the Select Text element */
   textId: PropTypes.string,
+  /** Component size */
+  size: PropTypes.string,
 };
 
 export default SelectText;

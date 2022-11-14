@@ -106,4 +106,30 @@ describe("FlatTableHeader", () => {
       });
     }
   );
+
+  describe.each([["red"], ["#ffffff"], ["--colorsUtilityMajor550"]])(
+    "when the verticalBorderColor prop is set to %s",
+    (verticalBorderColor) => {
+      let wrapper;
+
+      it("it overrides the header border-right-color", () => {
+        wrapper = mount(
+          <table>
+            <thead>
+              <tr>
+                <FlatTableHeader verticalBorderColor={verticalBorderColor} />
+              </tr>
+            </thead>
+          </table>
+        );
+        assertStyleMatch(
+          {
+            borderRightColor: verticalBorderColor,
+          },
+          wrapper,
+          { modifier: "&&&" }
+        );
+      });
+    }
+  );
 });
