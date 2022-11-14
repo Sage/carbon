@@ -99,6 +99,13 @@ export const Interactive: StoryFn = () => {
 };
 Interactive.parameters = { chromatic: { disable: true } };
 
+export const WithCustomBoxShadow = DefaultStory.bind({});
+WithCustomBoxShadow.args = {
+  boxShadow: "boxShadow400",
+  hoverBoxShadow: "boxShadow200",
+  interactive: true,
+};
+
 export const DifferentCardRowPadding: StoryFn = () => (
   <Card>
     <CardRow pt={2} pb={0}>
