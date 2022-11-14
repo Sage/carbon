@@ -14,20 +14,23 @@ interface MockComponentProps extends FocusTrapProps {
   tabIndex?: number;
   children: React.ReactNode;
   shouldFocusFirstElement?: boolean;
+  dataTestId?: string;
 }
 
 const WRAPPER_ID = "test wrapper";
+const SECOND_WRAPPER_ID = "test wrapper 2";
 const FIRST_ELEMENT = "first element";
 const BUTTON_ONE = "Test button One";
 const BUTTON_TWO = "Test button Two";
 const BUTTON_THREE = "Test button Three";
+const BUTTON_FOUR = "Test button Four";
 const RADIO_LABEL_ONE = "Radio one";
 const RADIO_LABEL_TWO = "Radio two";
 const RADIO_GROUP_ONE = "Radio group one";
 const RADIO_GROUP_TWO = "Radio group two";
 
-const tabPress = () =>
-  fireEvent.keyDown(screen.getByTestId(WRAPPER_ID), {
+const tabPress = (wrapperTestId = WRAPPER_ID) =>
+  fireEvent.keyDown(screen.getByTestId(wrapperTestId), {
     key: "Tab",
   });
 
@@ -48,6 +51,7 @@ const MockComponent = ({
   isAnimationComplete,
   tabIndex,
   shouldFocusFirstElement,
+  dataTestId = WRAPPER_ID,
   ...rest
 }: MockComponentProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -62,7 +66,7 @@ const MockComponent = ({
         isOpen
         focusFirstElement={shouldFocusFirstElement ? firstRef : undefined}
       >
-        <div ref={ref} data-testid={WRAPPER_ID} tabIndex={tabIndex}>
+        <div ref={ref} data-testid={dataTestId} tabIndex={tabIndex}>
           {React.Children.map(children, (child) => {
             const focusableChild = child as React.ReactElement;
 
@@ -748,8 +752,8 @@ describe("FocusTrap", () => {
                 {BUTTON_TWO}
               </button>
             </div>
-            <ChangingChild />
           </FocusTrap>
+          <ChangingChild />
         </ModalContext.Provider>
       );
       const additionalButton = screen.getByText(ADDITONAL_BUTTON);
@@ -795,6 +799,35 @@ describe("FocusTrap", () => {
 
       focusElement(screen.getByText(BUTTON_ONE));
       tabPress();
+      expect(screen.getByText(BUTTON_THREE)).toHaveFocus();
+    });
+  });
+
+  describe("when multiple focus traps are open at once", () => {
+    it("focus moves correctly between the elements of the currently-focused trap", () => {
+      render(
+        <>
+          <MockComponent dataTestId={WRAPPER_ID}>
+            <button type="button">{BUTTON_ONE}</button>
+            <button type="button">{BUTTON_TWO}</button>
+          </MockComponent>
+          <MockComponent dataTestId={SECOND_WRAPPER_ID}>
+            <button type="button">{BUTTON_THREE}</button>
+            <button type="button">{BUTTON_FOUR}</button>
+          </MockComponent>
+        </>
+      );
+
+      focusElement(screen.getByText(BUTTON_ONE));
+      tabPress(WRAPPER_ID);
+      expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
+      tabPress(WRAPPER_ID);
+      expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
+
+      focusElement(screen.getByText(BUTTON_THREE));
+      tabPress(SECOND_WRAPPER_ID);
+      expect(screen.getByText(BUTTON_FOUR)).toHaveFocus();
+      tabPress(SECOND_WRAPPER_ID);
       expect(screen.getByText(BUTTON_THREE)).toHaveFocus();
     });
   });
