@@ -10,9 +10,15 @@ import {
   StyledStepSequenceItemHiddenLabel,
   StyledStepSequenceItemIndicator,
 } from "./step-sequence-item.style";
+import { StepSequenceProps } from "../step-sequence.component";
+
+const orientations = ["horizontal", "vertical"] as const;
 
 describe("StepSequenceItem", () => {
-  const render = (props: Partial<StepSequenceItemProps>, renderer = mount) =>
+  const render = (
+    props: Partial<StepSequenceItemProps & StepSequenceProps>,
+    renderer = mount
+  ) =>
     renderer(
       <StepSequenceItem indicator="1" {...props}>
         Item
@@ -26,7 +32,61 @@ describe("StepSequenceItem", () => {
     hiddenCurrentLabel: "HiddenCurrent",
   };
 
-  describe("when complete", () => {
+  describe("when status is incomplete", () => {
+    it.each(orientations)(
+      "renders the correct styling when orientation is %s",
+      (orientation) => {
+        const wrapper = render({
+          ...defaultProps,
+          status: "incomplete",
+          orientation,
+        });
+        const side = orientation === "vertical" ? "Left" : "Top";
+        const border = `border${side}`;
+
+        assertStyleMatch(
+          {
+            [border]: "var(--sizing025) dashed var(--colorsUtilityYin055)",
+          },
+          wrapper,
+          { modifier: "::before" }
+        );
+      }
+    );
+  });
+
+  describe("when status is complete", () => {
+    it.each(orientations)(
+      "renders the correct styling when orientation is %s",
+      (orientation) => {
+        const wrapper = render({
+          ...defaultProps,
+          status: "complete",
+          orientation,
+        });
+        const side = orientation === "vertical" ? "Left" : "Top";
+        const borderColor = `border${side}Color`;
+        const borderStyle = `border${side}Style`;
+
+        assertStyleMatch(
+          {
+            color: "var(--colorsBaseTheme,var(--colorsSemanticPositive500))",
+          },
+          wrapper
+        );
+
+        assertStyleMatch(
+          {
+            [borderColor]:
+              "var( --colorsBaseTheme, var(--colorsSemanticPositive500) )",
+            [borderStyle]: "solid",
+          },
+          wrapper,
+          { modifier: "::before" }
+        );
+      }
+    );
+
     it("renders the tick item", () => {
       const wrapper = render({
         ...defaultProps,
@@ -49,19 +109,36 @@ describe("StepSequenceItem", () => {
     });
   });
 
-  describe("when current", () => {
-    it("renders the correct styling", () => {
-      const wrapper = render({
-        ...defaultProps,
-        status: "current",
-      });
-      assertStyleMatch(
-        {
-          color: "var(--colorsUtilityYin090)",
-        },
-        wrapper
-      );
-    });
+  describe("when status is current", () => {
+    it.each(orientations)(
+      "renders the correct styling when orientation is %s",
+      (orientation) => {
+        const wrapper = render({
+          ...defaultProps,
+          status: "current",
+          orientation,
+        });
+        const side = orientation === "vertical" ? "Left" : "Top";
+        const borderColor = `border${side}Color`;
+        const borderStyle = `border${side}Style`;
+
+        assertStyleMatch(
+          {
+            color: "var(--colorsUtilityYin090)",
+          },
+          wrapper
+        );
+
+        assertStyleMatch(
+          {
+            [borderColor]: "var(--colorsUtilityYin090)",
+            [borderStyle]: "solid",
+          },
+          wrapper,
+          { modifier: "::before" }
+        );
+      }
+    );
 
     it("renders the hidden label", () => {
       const wrapper = render({

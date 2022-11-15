@@ -87,8 +87,11 @@ context("Testing StepSequence component", () => {
           <StepSequenceComponent orientation={orientation} />
         );
 
-        stepSequenceDataComponent()
-          .should("have.attr", "orientation", orientation);
+        stepSequenceDataComponent().should(
+          "have.attr",
+          "orientation",
+          orientation
+        );
 
         if (orientation === "vertical") {
           stepSequenceDataComponent().should(
