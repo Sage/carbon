@@ -221,7 +221,7 @@ describe("Toast", () => {
           jest.useFakeTimers();
           const mockFn = jest.fn();
           wrapper.setProps({ timeout: 2000, onDismiss: mockFn });
-          jest.runTimersToTime(2000);
+          jest.advanceTimersByTime(2000);
           expect(mockFn).toHaveBeenCalledTimes(1);
         });
       });
@@ -237,7 +237,7 @@ describe("Toast", () => {
           jest.useFakeTimers();
           const mockFn = jest.fn();
           wrapper.setProps({ timeout: 2000, open: false, onDismiss: mockFn });
-          jest.runTimersToTime(2000);
+          jest.advanceTimersByTime(2000);
           expect(mockFn).not.toHaveBeenCalled();
         });
       });

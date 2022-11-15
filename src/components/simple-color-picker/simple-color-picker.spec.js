@@ -137,7 +137,7 @@ describe("SimpleColorPicker", () => {
         describe("when on first color ", () => {
           it("does change selection to last color", () => {
             const colorOne = wrapper.find(SimpleColor).at(0);
-            spyOn(
+            jest.spyOn(
               wrapper.find(SimpleColor).last().find("input").getDOMNode(),
               "click"
             );
@@ -181,7 +181,7 @@ describe("SimpleColorPicker", () => {
         });
         describe("when up is allowed due to multi rows", () => {
           it("changes selection on up key", () => {
-            spyOn(
+            jest.spyOn(
               wrapper.find(SimpleColor).first().find("input").getDOMNode(),
               "click"
             );
@@ -206,11 +206,11 @@ describe("SimpleColorPicker", () => {
 
         describe("when up is disallowed due to top row", () => {
           it("changes selection on up key", () => {
-            spyOn(
+            jest.spyOn(
               wrapper.find(SimpleColor).at(0).find("input").getDOMNode(),
               "click"
             );
-            spyOn(
+            jest.spyOn(
               wrapper.find(SimpleColor).at(1).find("input").getDOMNode(),
               "click"
             );
@@ -263,7 +263,7 @@ describe("SimpleColorPicker", () => {
           it("does change selection to first color", () => {
             const thirdColor = wrapper.find(SimpleColor).at(2);
 
-            spyOn(
+            jest.spyOn(
               wrapper.find(SimpleColor).first().find("input").getDOMNode(),
               "click"
             );
@@ -286,7 +286,7 @@ describe("SimpleColorPicker", () => {
 
         describe("when on 2nd color ", () => {
           it("changes selection on right key", () => {
-            spyOn(
+            jest.spyOn(
               wrapper.find(SimpleColor).last().find("input").getDOMNode(),
               "click"
             );
@@ -332,7 +332,7 @@ describe("SimpleColorPicker", () => {
         });
         describe("when down is allowed due to multi rows", () => {
           it("changes selection on down key", () => {
-            spyOn(
+            jest.spyOn(
               wrapper.find(SimpleColor).last().find("input").getDOMNode(),
               "click"
             );
@@ -359,11 +359,11 @@ describe("SimpleColorPicker", () => {
           it("changes selection on down key", () => {
             const thirdColor = wrapper.find(SimpleColor).at(2);
 
-            spyOn(
+            jest.spyOn(
               wrapper.find(SimpleColor).at(0).find("input").getDOMNode(),
               "click"
             );
-            spyOn(
+            jest.spyOn(
               wrapper.find(SimpleColor).at(1).find("input").getDOMNode(),
               "click"
             );

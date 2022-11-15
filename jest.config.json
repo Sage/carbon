@@ -4,6 +4,7 @@
     "raf/polyfill",
     "<rootDir>/enzyme.config.js"
   ],
+  "testEnvironment": "jsdom",
   "setupFilesAfterEnv": [
     "<rootDir>/src/__spec_helper__/index.ts",
     "<rootDir>/src/__spec_helper__/expect.ts",

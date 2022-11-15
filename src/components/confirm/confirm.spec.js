@@ -29,8 +29,8 @@ describe("Confirm", () => {
   let wrapper, onCancel, onConfirm;
 
   beforeEach(() => {
-    onCancel = jasmine.createSpy("cancel");
-    onConfirm = jasmine.createSpy("confirm");
+    onCancel = jest.fn();
+    onConfirm = jest.fn();
 
     wrapper = mount(
       <Confirm
@@ -61,8 +61,8 @@ describe("Confirm", () => {
 
   describe("confirmButtons", () => {
     beforeEach(() => {
-      onCancel = jasmine.createSpy("cancel");
-      onConfirm = jasmine.createSpy("confirm");
+      onCancel = jest.fn();
+      onConfirm = jest.fn();
 
       wrapper = mount(
         <Confirm
