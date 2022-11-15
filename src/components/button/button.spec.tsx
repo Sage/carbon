@@ -59,8 +59,8 @@ const isMinorColors: [ButtonTypes, Types][] = [
     "primary",
     {
       background: "var(--colorsActionMinor500)",
-      borderColor: "transparent",
-      color: "var(--colorsSemanticNegativeYang100)",
+      borderColor: "var(--colorsActionMinorTransparent)",
+      color: "var(--colorsActionMinorYang100)",
     },
   ],
   [
@@ -77,6 +77,12 @@ const isMinorColors: [ButtonTypes, Types][] = [
       background: "transparent",
       borderColor: "transparent",
       color: "var(--colorsActionMinor500)",
+    },
+  ],
+  [
+    "darkBackground",
+    {
+      borderColor: "transparent",
     },
   ],
 ];
@@ -191,7 +197,7 @@ describe("Button", () => {
         assertStyleMatch(
           {
             background: "transparent",
-            color: "var(--colorsActionMinor500)",
+            color: "var(--colorsActionMajor500)",
           },
           wrapper
         );
@@ -583,7 +589,10 @@ describe("Button", () => {
                   variant === "dashed"
                     ? "var(--colorsActionMinorYin030)"
                     : "var(--colorsActionMajorYin030)",
-                fontSize: size === "large" ? "16px" : "var(--fontSizes100)",
+                fontSize:
+                  size === "large"
+                    ? "var(--fontSizes200)"
+                    : "var(--fontSizes100)",
                 minHeight: height,
               },
               wrapper
@@ -618,7 +627,10 @@ describe("Button", () => {
                   variant === "dashed"
                     ? "var(--colorsActionMinorYin030)"
                     : "var(--colorsActionMajorYin030)",
-                fontSize: size === "large" ? "16px" : "var(--fontSizes100)",
+                fontSize:
+                  size === "large"
+                    ? "var(--fontSizes200)"
+                    : "var(--fontSizes100)",
                 minHeight: height,
               },
               wrapper
