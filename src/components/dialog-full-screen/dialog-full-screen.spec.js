@@ -33,7 +33,7 @@ describe("DialogFullScreen", () => {
   });
 
   it("should have aria-modal attribute on the dialog container", () => {
-    onCancel = jasmine.createSpy("cancel");
+    onCancel = jest.fn();
     wrapper = mount(
       <CarbonProvider>
         <DialogFullScreen
