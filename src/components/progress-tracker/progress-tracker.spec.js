@@ -121,6 +121,7 @@ describe("ProgressBar", () => {
           backgroundColor: "var(--colorsSemanticNeutral500)",
           width: "calc(256px * 0.5)",
           height: "var(--sizing100)",
+          borderRadius: "25px",
         },
         wrapper.find(InnerBar)
       );
@@ -284,7 +285,7 @@ describe("ProgressBar", () => {
           {
             textAlign: "start",
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "flex-start",
             [labelsPosition === "top" ? "paddingBottom" : "paddingTop"]: "4px",
           },
           wrapper.find(StyledValuesLabel)
@@ -330,7 +331,7 @@ describe("ProgressBar", () => {
               {
                 textAlign: "start",
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "flex-start",
                 flexDirection: "column",
                 paddingLeft: "4px",
               },
@@ -431,7 +432,7 @@ describe("ProgressBar", () => {
             {
               textAlign: "start",
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "flex-start",
               flexDirection: "column",
               [labelsPosition === "left"
                 ? "paddingRight"

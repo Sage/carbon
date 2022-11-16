@@ -206,17 +206,20 @@ and `maxProgressLabel` props and optionally setting the `showDefaultLabels` prop
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <ProgressTracker progress={15} currentProgressLabel="$50" />
+      <ProgressTracker mt={2} progress={50} currentProgressLabel="$50" />
       <ProgressTracker
         mt={2}
         progress={50}
         showDefaultLabels
         currentProgressLabel="$50"
+        description="Descriptive Text"
       />
       <ProgressTracker
         mt={2}
         maxProgressLabel="$200"
         progress={50}
         showDefaultLabels
+         description=" Descriptive Text "
       />
     </div>
   </Story>

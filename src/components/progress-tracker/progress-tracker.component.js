@@ -68,7 +68,7 @@ const ProgressTracker = ({
       if (value) {
         return value;
       }
-      return showDefaultLabels ? defaultValue : null;
+      return showDefaultLabels ? defaultValue : " ";
     };
 
     return (
@@ -76,9 +76,9 @@ const ProgressTracker = ({
         {isVertical && direction === "up" && (
           <>
             <StyledValue isMaxValue>
-              <>{label(maxProgressLabel, "of 100%")}</>
+              <>{label(maxProgressLabel, "100%")}</>
             </StyledValue>
-            <StyledValue description>
+            <StyledValue>
               {label(currentProgressLabel, `${progress}%`)}
             </StyledValue>
           </>
@@ -88,8 +88,13 @@ const ProgressTracker = ({
             <StyledValue>
               {label(currentProgressLabel, `${progress}%`)}
             </StyledValue>
-            <StyledValue isMaxValue description>
-              {label(maxProgressLabel, "of 100% Descriptive Text(optional)")}
+            {maxProgressLabel === "100%" ? (
+              <StyledValuesLabel>of</StyledValuesLabel>
+            ) : (
+              " "
+            )}
+            <StyledValue isMaxValue>
+              {label(maxProgressLabel, "100%" && description)}
             </StyledValue>
           </>
         )}

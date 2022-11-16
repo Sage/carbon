@@ -24,7 +24,7 @@ export default {
       },
     },
     currentProgressLabel: {
-      options: ["", "$100", "100ml"],
+      options: ["", "$100", "100ml", "error"],
       control: {
         type: "select",
       },

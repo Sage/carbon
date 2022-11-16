@@ -1955,9 +1955,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c0 {
-  padding-left: var(--spacing300);
-  padding-right: var(--spacing300);
-  margin: var(--spacing000);
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1977,6 +1974,9 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   justify-content: center;
   vertical-align: middle;
   outline-offset: 0;
+  padding-left: var(--spacing300);
+  padding-right: var(--spacing300);
+  margin: var(--spacing000);
   border: 2px solid transparent;
   box-sizing: border-box;
   font-weight: 600;
@@ -2216,9 +2216,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c0 {
-  padding-left: var(--spacing300);
-  padding-right: var(--spacing300);
-  margin: var(--spacing000);
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -2238,6 +2235,9 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   justify-content: center;
   vertical-align: middle;
   outline-offset: 0;
+  padding-left: var(--spacing300);
+  padding-right: var(--spacing300);
+  margin: var(--spacing000);
   border: 2px solid transparent;
   box-sizing: border-box;
   font-weight: 600;
