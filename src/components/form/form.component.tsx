@@ -1,5 +1,5 @@
 import React, { useRef, useContext } from "react";
-import { SpaceProps } from "styled-system";
+import { SpaceProps, PaddingProps } from "styled-system";
 
 import { SidebarContext } from "../sidebar/sidebar.component";
 import { ModalContext } from "../modal/modal.component";
@@ -41,6 +41,8 @@ export interface FormProps extends SpaceProps {
   height?: string;
   /** Applies styling for full width buttons. Please note that you will still need to pass the `fullWidth` prop to the button you compose */
   fullWidthButtons?: boolean;
+  /** Padding to be set on the form footer */
+  footerPadding?: PaddingProps;
 }
 
 export const Form = ({
@@ -57,12 +59,14 @@ export const Form = ({
   noValidate = true,
   height,
   fullWidthButtons = false,
+  footerPadding = {},
   ...rest
 }: FormProps) => {
   const { isInSidebar } = useContext(SidebarContext);
   const { isInModal } = useContext(ModalContext);
   const formRef = useRef<HTMLFormElement>(null);
   const formFooterRef = useRef<HTMLDivElement>(null);
+  const hasPadding = !!Object.keys(footerPadding).length;
 
   const renderFooter = !!(
     saveButton ||
@@ -71,6 +75,10 @@ export const Form = ({
     errorCount ||
     warningCount
   );
+
+  const classNames = `${stickyFooter ? "sticky" : ""} ${
+    hasPadding ? "padded" : ""
+  }`.trimEnd();
 
   return (
     <StyledForm
@@ -96,11 +104,12 @@ export const Form = ({
       {!fullWidthButtons && renderFooter && (
         <StyledFormFooter
           data-element="form-footer"
-          className={stickyFooter ? "sticky" : ""}
+          className={classNames}
           ref={formFooterRef}
           stickyFooter={stickyFooter}
           buttonAlignment={buttonAlignment}
           isInModal={isInModal}
+          {...footerPadding}
         >
           {leftSideButtons && (
             <StyledLeftButtons buttonAlignment={buttonAlignment}>
@@ -122,11 +131,12 @@ export const Form = ({
       {fullWidthButtons && renderFooter && (
         <StyledFormFooter
           data-element="form-footer"
-          className={stickyFooter ? "sticky" : ""}
+          className={classNames}
           ref={formFooterRef}
           stickyFooter={stickyFooter}
           buttonAlignment={buttonAlignment}
           fullWidthButtons={fullWidthButtons}
+          {...footerPadding}
         >
           {leftSideButtons && (
             <StyledLeftButtons fullWidthButtons={fullWidthButtons}>
