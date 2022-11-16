@@ -11,10 +11,13 @@ import {
   StyledValue,
 } from "./progress-tracker.style";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+import Logger from "../../__internal__/utils/logger";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
+
+let isDeprecationWarningTriggered = false;
 
 const ProgressTracker = ({
   "aria-label": ariaLabel = "progress tracker",
@@ -50,6 +53,13 @@ const ProgressTracker = ({
       setBarLength(`${barRef.current.offsetHeight}px`);
     }
   }, [barRef, orientation]);
+
+  if (!isDeprecationWarningTriggered && isVertical) {
+    isDeprecationWarningTriggered = true;
+    Logger.deprecate(
+      "The `isVertical` prop of `ProgressTracker` is now deprecated."
+    );
+  }
 
   useLayoutEffect(() => {
     updateBarLength();
