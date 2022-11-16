@@ -377,8 +377,14 @@ describe("Textarea", () => {
 });
 
 describe("componentWillUnmount", () => {
+  let removeEventListenerSpy;
+
   beforeEach(() => {
-    spyOn(window, "removeEventListener");
+    removeEventListenerSpy = jest.spyOn(window, "removeEventListener");
+  });
+
+  afterEach(() => {
+    removeEventListenerSpy.mockRestore();
   });
 
   describe("when textarea can be expanded", () => {
@@ -397,9 +403,9 @@ describe("componentWillUnmount", () => {
 
     it("removes the event listener from the window", () => {
       tmpWrapper.unmount();
-      expect(window.removeEventListener).toHaveBeenCalledWith(
+      expect(removeEventListenerSpy).toHaveBeenCalledWith(
         "resize",
-        jasmine.any(Function)
+        expect.any(Function)
       );
     });
   });
@@ -419,7 +425,9 @@ describe("componentWillUnmount", () => {
 
     it("does not remove event listener from the window", () => {
       tmpWrapper.unmount();
-      expect(window.removeEventListener).not.toHaveBeenCalled();
+      expect(
+        removeEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+      ).toHaveLength(0);
     });
   });
 

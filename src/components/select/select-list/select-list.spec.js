@@ -97,7 +97,7 @@ describe("SelectList", () => {
 
       describe("and it's the Enter key", () => {
         it("then should call a preventDefault function", () => {
-          const spy = spyOn(enterKeyDownEvent, "preventDefault");
+          const spy = jest.spyOn(enterKeyDownEvent, "preventDefault");
           testContainer.dispatchEvent(enterKeyDownEvent);
 
           expect(spy).toHaveBeenCalled();
@@ -666,6 +666,24 @@ describe("SelectList", () => {
       "clientWidth"
     );
 
+    afterAll(() => {
+      if (originalOffsetWidth) {
+        Object.defineProperty(
+          HTMLElement.prototype,
+          "offsetWidth",
+          originalOffsetWidth
+        );
+      }
+
+      if (originalClientWidth) {
+        Object.defineProperty(
+          HTMLElement.prototype,
+          "clientWidth",
+          originalClientWidth
+        );
+      }
+    });
+
     it("aligns the column if needed", () => {
       Object.defineProperty(HTMLElement.prototype, "offsetWidth", {
         configurable: true,
@@ -686,19 +704,6 @@ describe("SelectList", () => {
           modifier: "tr",
         }
       );
-
-      afterAll(() => {
-        Object.defineProperty(
-          HTMLElement.prototype,
-          "offsetWidth",
-          originalOffsetWidth
-        );
-        Object.defineProperty(
-          HTMLElement.prototype,
-          "clientWidth",
-          originalClientWidth
-        );
-      });
     });
   });
 
