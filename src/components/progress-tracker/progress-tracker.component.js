@@ -27,6 +27,7 @@ const ProgressTracker = ({
   length = "256px",
   error = false,
   progress = 0,
+  description,
   showDefaultLabels = false,
   currentProgressLabel,
   maxProgressLabel,
@@ -70,20 +71,14 @@ const ProgressTracker = ({
       return showDefaultLabels ? defaultValue : null;
     };
 
- 
-    // const space =  /\s/g;
-    // const space =   new RegExp(/\s/g);
     return (
       <StyledValuesLabel position={labelsPosition} isVertical={isVertical}>
         {isVertical && direction === "up" && (
           <>
             <StyledValue isMaxValue>
-              <>
-              {label(maxProgressLabel, "of 100%")}
-            
-              </>
+              <>{label(maxProgressLabel, "of 100%")}</>
             </StyledValue>
-            <StyledValue>
+            <StyledValue description>
               {label(currentProgressLabel, `${progress}%`)}
             </StyledValue>
           </>
@@ -93,8 +88,8 @@ const ProgressTracker = ({
             <StyledValue>
               {label(currentProgressLabel, `${progress}%`)}
             </StyledValue>
-            <StyledValue isMaxValue>
-              {label(maxProgressLabel, "of 100%")}
+            <StyledValue isMaxValue description>
+              {label(maxProgressLabel, "of 100% Descriptive Text(optional)")}
             </StyledValue>
           </>
         )}

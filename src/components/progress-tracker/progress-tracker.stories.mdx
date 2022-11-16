@@ -71,7 +71,6 @@ The length of the bar can be set to any valid css property. This sets the width 
   <Story name="custom bar length">
     <div style={{ display: "flex", justifyContent: "space-evenly" }}>
       <ProgressTracker progress={50} length="150px" />
-      <ProgressTracker orientation="vertical" progress={50} length="50px" />
     </div>
   </Story>
 </Canvas>
@@ -119,7 +118,7 @@ percentages.
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      <ProgressTracker progress={15} showDefaultLabels />
+      <ProgressTracker progress={15} showDefaultLabels descriprion="Descriptive text(optional)" />
       <ProgressTracker mt={2} progress={50} showDefaultLabels />
       <ProgressTracker mt={2} progress={100} showDefaultLabels />
       <ProgressTracker mt={2} progress={100} error={true} currentProgressLabel={'error'} />
@@ -207,296 +206,17 @@ and `maxProgressLabel` props and optionally setting the `showDefaultLabels` prop
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <ProgressTracker progress={15} currentProgressLabel="$50" />
-      <ProgressTracker mt={2} progress={50} maxProgressLabel="$200" />
       <ProgressTracker
         mt={2}
-        progress={15}
+        progress={50}
         showDefaultLabels
         currentProgressLabel="$50"
       />
       <ProgressTracker
         mt={2}
-        progress={50}
-        showDefaultLabels
         maxProgressLabel="$200"
-      />
-    </div>
-  </Story>
-</Canvas>
-
-### Orientation
-
-This is an example of a `ProgressTracker` component with the `"vertical"` `orientation`.
-
-<Canvas>
-  <Story name="orientation vertical">
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <ProgressTracker
-        orientation="vertical"
-        size="small"
-        progress={15}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        orientation="vertical"
-        size="small"
         progress={50}
         showDefaultLabels
-      />
-      <ProgressTracker
-        orientation="vertical"
-        size="small"
-        progress={100}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        orientation="vertical"
-        size="small"
-        progress={100}
-        error={true}
-        currentProgressLabel={'error'}
-      />
-      <ProgressTracker
-        orientation="vertical"
-        size="medium"
-        progress={15}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        orientation="vertical"
-        size="medium"
-        progress={50}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        orientation="vertical"
-        size="medium"
-        progress={100}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        orientation="vertical"
-        size="medium"
-        progress={100}
-        error={true}
-        currentProgressLabel={'error'}
-      />
-      <ProgressTracker
-        orientation="vertical"
-        size="large"
-        progress={15}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        orientation="vertical"
-        size="large"
-        progress={50}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        orientation="vertical"
-        size="large"
-        progress={100}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        orientation="vertical"
-        size="large"
-        progress={100}
-        error={true}
-        currentProgressLabel={'error'}
-      />
-    </div>
-  </Story>
-</Canvas>
-
-It is possible to override the `direction` the inner progress bar moves to `"down"`.
-
-<Canvas>
-  <Story name="orientation vertical - direction down">
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <ProgressTracker
-        direction="down"
-        orientation="vertical"
-        size="small"
-        progress={15}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        direction="down"
-        orientation="vertical"
-        size="small"
-        progress={50}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        direction="down"
-        orientation="vertical"
-        size="small"
-        progress={100}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        direction="down"
-        orientation="vertical"
-        size="small"
-        progress={100}
-        error={true}
-        currentProgressLabel={'error'}
-      />
-      <ProgressTracker
-        direction="down"
-        orientation="vertical"
-        size="medium"
-        progress={15}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        direction="down"
-        orientation="vertical"
-        size="medium"
-        progress={50}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        direction="down"
-        orientation="vertical"
-        size="medium"
-        progress={100}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        direction="down"
-        orientation="vertical"
-        size="medium"
-        progress={100}
-        error={true}
-        currentProgressLabel={'error'}
-      />
-      <ProgressTracker
-        direction="down"
-        orientation="vertical"
-        size="large"
-        progress={15}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        direction="down"
-        orientation="vertical"
-        size="large"
-        progress={50}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        direction="down"
-        orientation="vertical"
-        size="large"
-        progress={100}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        direction="down"
-        orientation="vertical"
-        size="large"
-        progress={100}
-        error={true}
-        currentProgressLabel={'error'}
-      />
-    </div>
-  </Story>
-</Canvas>
-
-It is possible to override the `labelsPosition` to `"left"` when in a `"vertical"` `orientation`.
-
-<Canvas>
-  <Story name="orientation vertical - labelsPosition left">
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <ProgressTracker
-        labelsPosition="left"
-        orientation="vertical"
-        size="small"
-        progress={15}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        labelsPosition="left"
-        orientation="vertical"
-        size="small"
-        progress={50}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        labelsPosition="left"
-        orientation="vertical"
-        size="small"
-        progress={100}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        labelsPosition="left"
-        orientation="vertical"
-        size="small"
-        progress={100}
-        error={true}
-        currentProgressLabel={'error'}
-      />
-      <ProgressTracker
-        labelsPosition="left"
-        orientation="vertical"
-        size="medium"
-        progress={15}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        labelsPosition="left"
-        orientation="vertical"
-        size="medium"
-        progress={50}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        labelsPosition="left"
-        orientation="vertical"
-        size="medium"
-        progress={100}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        labelsPosition="left"
-        orientation="vertical"
-        size="medium"
-        progress={100}
-        error={true}
-        currentProgressLabel={'error'}
-      />
-      <ProgressTracker
-        labelsPosition="left"
-        orientation="vertical"
-        size="large"
-        progress={15}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        labelsPosition="left"
-        orientation="vertical"
-        size="large"
-        progress={50}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        labelsPosition="left"
-        orientation="vertical"
-        size="large"
-        progress={100}
-        showDefaultLabels
-      />
-      <ProgressTracker
-        labelsPosition="left"
-        orientation="vertical"
-        size="large"
-        progress={100}
-        error={true}
-        currentProgressLabel={'error'}
       />
     </div>
   </Story>

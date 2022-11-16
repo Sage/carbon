@@ -30,7 +30,6 @@ const StyledProgressBar = styled.span`
     border: 1px solid ${getBorderColour(progress, error)};
     border-radius: 25px;
 
-
     ${!isVertical &&
     css`
       overflow-x: hidden;
@@ -55,7 +54,7 @@ const StyledValue = styled.span`
   flex-basis: 30px;
   color: var(--colorsUtilityYin090);
   ${({ isMaxValue }) => css`
-    ${isMaxValue && `color: var(--colorsUtilityYin055);`}
+    ${isMaxValue && `font-weight: bold;`}
     ${!isMaxValue && `font-weight: bold;`}
   `}
 `;
@@ -63,8 +62,6 @@ const StyledValue = styled.span`
 const StyledValuesLabel = styled.span`
   text-align: start;
   display: flex;
-  /* flex-basis: auto; */
-  flex-grow: 2;
   justify-content: flex-start;
   ${({ isVertical, position }) => css`
     ${isVertical &&
@@ -135,7 +132,7 @@ function getHeight(size) {
 }
 
 function getBackgroundColour(progress, error) {
-  if (error === true ) return "var(--colorsSemanticNegative500)";
+  if (error === true) return "var(--colorsSemanticNegative500)";
   if (progress >= 100) return "var(--colorsSemanticPositive500)";
   return "var(--colorsSemanticNeutral500)";
 }
@@ -143,7 +140,7 @@ function getBackgroundColour(progress, error) {
 function getBorderColour(progress, error) {
   if (error === true) return "var(--colorsSemanticNegative500)";
   if (progress === 100) return "var(--colorsSemanticPositive500)";
-  else return "var(--colorsSemanticNeutral500)";
+  return "var(--colorsSemanticNeutral500)";
 }
 
 StyledProgressTracker.defaultProps = {
