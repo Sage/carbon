@@ -73,7 +73,7 @@ describe("NumeralDate", () => {
     });
 
     it("does not throw an error if no dateFormat is passed", () => {
-      spyOn(global.console, "error");
+      jest.spyOn(global.console, "error");
       renderWrapper();
 
       // eslint-disable-next-line no-console
