@@ -171,27 +171,26 @@ This is an example of a `ProgressTracker` component with `currentProgressLabel` 
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <ProgressTracker
-        progress={25}
-        currentProgressLabel="$50"
-        maxProgressLabel="$200"
+        progress={50}
+        currentProgressLabel="$50 of 200$"
       />
       <ProgressTracker
         mt={2}
-        progress={50}
-        currentProgressLabel="$100"
-        maxProgressLabel="$200"
+        progress={70}
+        showDefaultLabels
+        currentProgressLabel="Step 3 of 5"
+        description="Adding VAT"
       />
       <ProgressTracker
         mt={2}
         progress={100}
         currentProgressLabel="$200"
-        maxProgressLabel="$200"
       />
       <ProgressTracker
         mt={2}
         progress={100}
         error={true}
-        currentProgressLabel={'error'}
+        currentProgressLabel="error"
       />
     </div>
   </Story>
@@ -205,21 +204,21 @@ and `maxProgressLabel` props and optionally setting the `showDefaultLabels` prop
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      <ProgressTracker progress={15} currentProgressLabel="$50" />
-      <ProgressTracker mt={2} progress={50} currentProgressLabel="$50" />
+      <ProgressTracker progress={15} currentProgressLabel="50%" />
+      <ProgressTracker mt={2} progress={50} currentProgressLabel="Step 3 of 5" />
       <ProgressTracker
         mt={2}
         progress={50}
         showDefaultLabels
-        currentProgressLabel="$50"
-        description="Descriptive Text"
+        currentProgressLabel="50%"
+        description="Adding VAT"
       />
       <ProgressTracker
         mt={2}
-        maxProgressLabel="$200"
         progress={50}
         showDefaultLabels
-         description=" Descriptive Text "
+        currentProgressLabel="Step 3 of 5 "
+        description=" Descriptive Text "
       />
     </div>
   </Story>
@@ -237,8 +236,7 @@ For more information on these props, please visit the W3 documentation on `role=
   <Story name="acessibility example">
     <div style={{ display: "flex", justifyContent: "space-around" }}>
       <ProgressTracker
-        currentProgressLabel="$100"
-        maxProgressLabel="$200"
+        currentProgressLabel="200%"
         progress={50}
         aria-valuemin={0}
         aria-valuenow={50}

@@ -278,6 +278,7 @@ describe("ProgressBar", () => {
 
       it("shows maximum progress limit correctly", () => {
         expect(wrapper.text().includes("100%")).toBeTruthy();
+        expect(wrapper.text().includes("error")).toBeTruthy();
       });
 
       it("renders the current progress labels as expected", () => {

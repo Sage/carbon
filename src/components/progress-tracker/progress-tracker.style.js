@@ -52,9 +52,8 @@ const StyledProgressBar = styled.span`
 
 const StyledValue = styled.span`
   flex-basis: 30px;
-  color: var(--colorsUtilityYin090);
+  color: "var(--colorsUtilityYin090);";
   ${({ isMaxValue }) => css`
-    ${isMaxValue && `font-weight: bold;`}
     ${!isMaxValue && `font-weight: bold;`}
   `}
 `;
