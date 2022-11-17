@@ -159,6 +159,27 @@ context("Tests for Decimal component", () => {
         .should("not.have.value", inputValue)
         .and("have.attr", "readOnly");
     });
+
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for Decimal component",
+      (maxWidth) => {
+        CypressMountWithProviders(<Decimal maxWidth={maxWidth} />);
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<Decimal maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
   });
 
   describe("check Decimal input", () => {

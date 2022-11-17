@@ -206,6 +206,27 @@ context("Tests for Textbox component", () => {
       }
     );
 
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for TextBox component",
+      (maxWidth) => {
+        CypressMountWithProviders(<TextboxComponent maxWidth={maxWidth} />);
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<TextboxComponent maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
+
     it("should render Textbox with required prop", () => {
       CypressMountWithProviders(<TextboxComponent required />);
 

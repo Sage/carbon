@@ -181,6 +181,29 @@ context("Tests for GroupedCharacter component", () => {
     );
   });
 
+  it.each(["10%", "30%", "50%", "80%", "100%"])(
+    "should check maxWidth as %s for GroupedCharacter component",
+    (maxWidth) => {
+      CypressMountWithProviders(
+        <GroupedCharacterComponent maxWidth={maxWidth} />
+      );
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", maxWidth);
+    }
+  );
+
+  it("when maxWidth has no value it should render as 100%", () => {
+    CypressMountWithProviders(<GroupedCharacterComponent maxWidth="" />);
+
+    getDataElementByValue("input")
+      .parent()
+      .parent()
+      .should("have.css", "max-width", "100%");
+  });
+
   describe("check events for GroupedCharacter component", () => {
     let callback;
 

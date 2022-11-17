@@ -103,6 +103,11 @@ export default {
         type: "number",
       },
     },
+    maxWidth: {
+      control: {
+        type: "text",
+      },
+    },
   },
   args: {
     expandable: false,

@@ -58,6 +58,11 @@ export interface CommonTextboxProps
   iconTabIndex?: number;
   /** The width of the input as a percentage */
   inputWidth?: number;
+  /**
+   * Prop for specifying the max width of the input.
+   * Leaving the `maxWidth` prop with no value will default the width to '100%'
+   */
+  maxWidth?: string;
   /** Additional child elements to display before the input */
   leftChildren?: React.ReactNode;
   /** Label content */
@@ -158,6 +163,7 @@ export const Textbox = ({
   validationOnLabel = false,
   labelWidth = 30,
   inputWidth,
+  maxWidth,
   prefix,
   adaptiveLabelBreakpoint,
   required,
@@ -220,6 +226,7 @@ export const Textbox = ({
       warning={warning}
       info={info}
       inputWidth={inputWidth || 100 - labelWidth}
+      maxWidth={maxWidth}
       positionedChildren={positionedChildren}
       hasIcon={hasIconInside}
     >

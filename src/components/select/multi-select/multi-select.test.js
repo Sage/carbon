@@ -700,6 +700,27 @@ context("Tests for Multi Select component", () => {
       }
     );
 
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for MultiSelect component",
+      (maxWidth) => {
+        CypressMountWithProviders(<MultiSelectComponent maxWidth={maxWidth} />);
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<MultiSelectComponent maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
+
     it("should not open the list with focus on Multi Select input", () => {
       CypressMountWithProviders(<MultiSelectComponent />);
 

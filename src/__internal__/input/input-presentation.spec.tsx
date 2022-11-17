@@ -115,6 +115,26 @@ describe("InputPresentation", () => {
       });
     });
 
+    describe("maxWidth", () => {
+      it("renders correctly with a custom maxWidth", () => {
+        assertStyleMatch(
+          {
+            maxWidth: "54%",
+          },
+          render({ maxWidth: "54%", children: "Children" })
+        );
+      });
+
+      it("renders with maxWidth as 100% when no maxWidth is specified", () => {
+        assertStyleMatch(
+          {
+            maxWidth: "100%",
+          },
+          render({ maxWidth: "", children: "Children" })
+        );
+      });
+    });
+
     describe.each([
       ["error", "var(--colorsSemanticNegative500)"],
       ["warning", "var(--colorsSemanticCaution500)"],
