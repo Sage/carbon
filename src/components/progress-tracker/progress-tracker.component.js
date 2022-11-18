@@ -54,10 +54,10 @@ const ProgressTracker = ({
     }
   }, [barRef, orientation]);
 
-  if (!isDeprecationWarningTriggered && isVertical) {
+  if (!isDeprecationWarningTriggered && orientation) {
     isDeprecationWarningTriggered = true;
     Logger.deprecate(
-      "The `isVertical` prop of `ProgressTracker` is now deprecated."
+      "The `orientation` prop of `ProgressTracker` is now deprecated."
     );
   }
 
@@ -98,12 +98,6 @@ const ProgressTracker = ({
             <StyledValue>
               {label(currentProgressLabel, `${progress}%`)}
             </StyledValue>
-            {/* <StyledValuesLabel>of</StyledValuesLabel> */}
-            {/* {maxProgressLabel === "100%" ? (
-              <StyledValuesLabel>of</StyledValuesLabel>
-            ) : (
-              " "
-            )} */}
             <StyledValue isMaxValue>
               {label(maxProgressLabel, "100%" && description)}
             </StyledValue>

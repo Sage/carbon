@@ -127,6 +127,17 @@ describe("ProgressBar", () => {
       );
     });
 
+
+    it("applies error background color when the error occurs", () => {
+      wrapper = mount(<ProgressBar progress={100} error={true} />);
+      assertStyleMatch(
+        {
+          backgroundColor: "var(--colorsSemanticNegative500)",
+        },
+        wrapper.find(InnerBar)
+      );
+    });
+
     describe("and orientation is vertical", () => {
       beforeEach(() => {
         wrapper = mount(<ProgressBar orientation="vertical" progress={50} />);
@@ -251,6 +262,7 @@ describe("ProgressBar", () => {
             backgroundColor: "var(--colorsSemanticNeutral500)",
             height: "calc(256px * 0.5)",
             width: "var(--sizing200)",
+            borderRadius: "25px",
           },
           wrapper.find(InnerBar)
         );
@@ -274,11 +286,6 @@ describe("ProgressBar", () => {
 
       it("shows current progress correctly", () => {
         expect(wrapper.text().includes("50%")).toBeTruthy();
-      });
-
-      it("shows maximum progress limit correctly", () => {
-        expect(wrapper.text().includes("100%")).toBeTruthy();
-        expect(wrapper.text().includes("error")).toBeTruthy();
       });
 
       it("renders the current progress labels as expected", () => {
@@ -311,8 +318,8 @@ describe("ProgressBar", () => {
             expect(wrapper.text().includes("50%")).toBeTruthy();
           });
 
-          it("shows maximum progress limit correctly", () => {
-            expect(wrapper.text().includes("100%")).toBeTruthy();
+          it("shows maximum progress limit or error message correctly", () => {
+            expect(wrapper.text().includes(["100%", "error"]));
           });
 
           it("applies expected styles to the wrapper", () => {
