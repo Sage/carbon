@@ -1,10 +1,9 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import { StyledLinkPreview } from "../link-preview/link-preview.style";
 
-const StyledNoteContent = styled.div`
+const StyledNoteContent = styled.div<{ hasPreview?: boolean }>`
   position: relative;
   width: 100%;
 
@@ -51,7 +50,7 @@ const StyledTitle = styled.header`
   padding-bottom: 16px;
 `;
 
-const StyledFooterContent = styled.div`
+const StyledFooterContent = styled.div<{ hasName: boolean }>`
   line-height: 21px;
   align-items: baseline;
   font-weight: bold;
@@ -102,7 +101,7 @@ const StyledFooter = styled.div`
   flex-wrap: wrap;
 `;
 
-const StyledNote = styled.div`
+const StyledNote = styled.div<{ width: number }>`
   ${({ width }) => css`
     background-color: var(--colorsUtilityYang100);
     border: 1px solid var(--colorsUtilityMajor100);
@@ -129,11 +128,6 @@ const StyledNote = styled.div`
 
   ${margin}
 `;
-
-StyledNote.propTypes = {
-  padding: PropTypes.string,
-  width: PropTypes.number,
-};
 
 StyledNote.defaultProps = {
   theme: baseTheme,
