@@ -4,6 +4,7 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import Switch from ".";
+import * as stories from "./switch.stories.tsx";
 
 <Meta title="Switch" parameters={{ info: { disable: true } }} />
 
@@ -45,53 +46,19 @@ The switch component uses `switch.on` and `switch.off` to retrieve the translati
 ### Default
 
 <Canvas>
-  <Story name="default">
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      return (
-        <Switch
-          label="Label"
-          name="switch-name"
-          checked={isChecked}
-          onChange={(e) => setIsChecked(e.target.checked)}
-        />
-      );
-    }}
-  </Story>
+  <Story story={stories.Default} name="default" />
 </Canvas>
 
 ### Sizes
 
 <Canvas>
-  <Story name="sizes">
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      const [isCheckedLarge, setIsCheckedLarge] = useState(false);
-      return ["small", "large"].map((size) => (
-        <Switch
-          label={size}
-          key={`switch-${size}`}
-          name={`switch-${size}`}
-          size={size}
-          checked={size === "large" ? isCheckedLarge : isChecked}
-          onChange={(e) =>
-            size === "large"
-              ? setIsCheckedLarge(e.target.checked)
-              : setIsChecked(e.target.checked)
-          }
-        />
-      ));
-    }}
-  </Story>
+  <Story story={stories.Sizes} name="sizes" />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled">
-    <Switch label="Disabled switch" disabled />
-    <Switch label="Disabled switch" disabled checked mt={2} />
-  </Story>
+  <Story story={stories.Disabled} name="disabled" />
 </Canvas>
 
 ### Required
@@ -99,129 +66,37 @@ The switch component uses `switch.on` and `switch.off` to retrieve the translati
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Canvas>
-  <Story name="Required">
-    {() => {
-      const [checked, setState] = useState(false);
-      return (
-        <Switch
-          label="Terms and Conditions"
-          name="required"
-          required
-          checked={checked}
-          onChange={(e) => setState((state) => !state)}
-        />
-      );
-    }}
-  </Story>
+  <Story story={stories.Required} name="Required" />
 </Canvas>
 
 ### Reversed
 
 <Canvas>
-  <Story name="reversed">
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      return (
-        <Switch
-          label="Reversed switch"
-          reverse={false}
-          onChange={(e) => setIsChecked((state) => !state)}
-        />
-      );
-    }}
-  </Story>
+  <Story story={stories.Reversed} name="reversed" />
 </Canvas>
 
 ### Loading
 
 <Canvas>
-  <Story name="loading">
-    {["small.on", "small.off", "large.on", "large.off"].map((variant, id) => {
-      const [isChecked, setIsChecked] = useState(variant.includes("on"));
-      const [size, checked] = variant.split(".");
-      return (
-        <Switch
-          key={id}
-          label={variant.replace(".", " ")}
-          size={size}
-          loading
-          checked={isChecked}
-          onChange={(e) => setIsChecked((state) => !state)}
-        />
-      );
-    })}
-    ;
-  </Story>
+  <Story story={stories.Loading} name="loading" />
 </Canvas>
 
 ### With labelInline
 
 <Canvas>
-  <Story name="With labelInline">
-    {() => {
-      const [isCheckedOne, setIsCheckedOne] = useState(false);
-      const [isCheckedTwo, setIsCheckedTwo] = useState(false);
-      return (
-        <>
-          <Switch
-            label="With labelInline"
-            labelInline
-            onChange={(e) => setIsCheckedOne((state) => !state)}
-          />
-          <Switch
-            label="With labelInline and reversed"
-            labelInline
-            reverse={false}
-            onChange={(e) => setIsCheckedTwo((state) => !state)}
-          />
-        </>
-      );
-    }}
-  </Story>
+  <Story story={stories.WithLabelInline} name="With labelInline" />
 </Canvas>
 
 ### With fieldHelp
 
 <Canvas>
-  <Story name="with fieldHelp">
-    {() => {
-      const [isCheckedOne, setIsCheckedOne] = useState(false);
-      const [isCheckedTwo, setIsCheckedTwo] = useState(false);
-      return (
-        <>
-          <Switch
-            label="With fieldHelp"
-            fieldHelp="This text provides help for the input."
-            onChange={(e) => setIsCheckedOne((state) => !state)}
-          />
-          <Switch
-            label="With inline fieldHelp"
-            fieldHelp="This text provides help for the input."
-            fieldHelpInline
-            onChange={(e) => setIsCheckedTwo((state) => !state)}
-          />
-        </>
-      );
-    }}
-  </Story>
+  <Story story={stories.WithFieldHelp} name="with fieldHelp" />
 </Canvas>
 
 ### With labelHelp
 
 <Canvas>
-  <Story name="with labelHelp">
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      return (
-        <Switch
-          label="With labelHelp"
-          labelHelp="This text provides more information for the label."
-          onChange={(e) => setIsChecked((state) => !state)}
-          helpAriaLabel="This text provides more information for the label."
-        />
-      );
-    }}
-  </Story>
+  <Story story={stories.WithLabelHelp} name="with labelHelp" />
 </Canvas>
 
 ### With margin
@@ -232,35 +107,7 @@ please visit the props table at the bottom of this page.
 [Visit Props Table](#props)
 
 <Canvas>
-  <Story name="with margin">
-    {() => {
-      const [isCheckedOne, setIsCheckedOne] = useState(false);
-      const [isCheckedTwo, setIsCheckedTwo] = useState(false);
-      const [isCheckedThree, setIsCheckedThree] = useState(false);
-      return (
-        <>
-          <Switch
-            label="With labelHelp"
-            labelHelp="This text provides more information for the label."
-            m={2}
-            onChange={(e) => setIsCheckedOne((state) => !state)}
-          />
-          <Switch
-            label="With labelHelp"
-            labelHelp="This text provides more information for the label."
-            m={4}
-            onChange={(e) => setIsCheckedTwo((state) => !state)}
-          />
-          <Switch
-            label="With labelHelp"
-            labelHelp="This text provides more information for the label."
-            m="9px"
-            onChange={(e) => setIsCheckedThree((state) => !state)}
-          />
-        </>
-      );
-    }}
-  </Story>
+  <Story story={stories.WithMargin} name="with margin" />
 </Canvas>
 
 ### Validations
@@ -276,111 +123,46 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 #### As a string
 
 <Canvas>
-  <Story name="single switch - string validation">
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      return ["error", "warning", "info"].map((type) => (
-        <Switch
-          id={`switch${type}`}
-          key={`switch-${type}`}
-          {...{ [type]: "Message" }}
-          label={`Example switch (${type})`}
-          name={`switch-${type}`}
-          onChange={(e) => setIsChecked((state) => !state)}
-        />
-      ));
-    }}
-  </Story>
+  <Story
+    story={stories.ValidationString}
+    name="single switch - string validation"
+  />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
 <Canvas>
   <Story
+    story={stories.ValidationStringTooltip}
     name="single switch - string validation - tooltipPosition overriden"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      return ["error", "warning", "info"].map((type) => (
-        <Switch
-          id={`switch${type}-tooltipPosition-override`}
-          key={`switch-${type}`}
-          {...{ [type]: "Message" }}
-          label={`Example switch (${type})`}
-          name={`switch-${type}-tooltipPosition-override`}
-          onChange={(e) => setIsChecked((state) => !state)}
-          tooltipPosition="top"
-        />
-      ));
-    }}
-  </Story>
+  />
 </Canvas>
 
 #### As a string with validationOnLabel
 
 <Canvas>
-  <Story name="single switch - string validation - validationOnLabel">
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      return ["error", "warning", "info"].map((type) => (
-        <Switch
-          id={`switch${type}-label`}
-          key={`switch-${type}-label`}
-          {...{ [type]: "Message" }}
-          label={`Example switch (${type})`}
-          name={`switch-${type}-label`}
-          validationOnLabel
-          onChange={(e) => setIsChecked((state) => !state)}
-        />
-      ));
-    }}
-  </Story>
+  <Story
+    story={stories.ValidationStringLabel}
+    name="single switch - string validation - validationOnLabel"
+  />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
 <Canvas>
   <Story
+    story={stories.ValidationStringLabelTooltip}
     name="single switch - string validation - validationOnLabel - tooltipPosition overriden"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      return ["error", "warning", "info"].map((type) => (
-        <Switch
-          id={`switch${type}-label-tooltipPosition-override`}
-          key={`switch-${type}-label`}
-          {...{ [type]: "Message" }}
-          label={`Example switch (${type})`}
-          name={`switch-${type}-label-tooltipPosition-override`}
-          validationOnLabel
-          onChange={(e) => setIsChecked((state) => !state)}
-          tooltipPosition="top"
-        />
-      ));
-    }}
-  </Story>
+  />
 </Canvas>
 
 #### As a boolean
 
 <Canvas>
-  <Story name="single switch - boolean validation">
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      return ["error", "warning", "info"].map((type) => (
-        <Switch
-          id={`switch_${type}-boolean`}
-          key={`switch-${type}-boolean`}
-          {...{ [type]: true }}
-          label={`Example switch (${type})`}
-          name={`switch-${type}-boolean`}
-          onChange={(e) => setIsChecked((state) => !state)}
-        />
-      ));
-    }}
-  </Story>
+  <Story
+    story={stories.ValidationBoolean}
+    name="single switch - boolean validation"
+  />
 </Canvas>
 
 ## Props
