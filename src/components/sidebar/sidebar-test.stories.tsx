@@ -54,6 +54,11 @@ export default {
         type: "boolean",
       },
     },
+    width: {
+      control: {
+        type: "text",
+      },
+    },
   },
 };
 
