@@ -1,3 +1,10 @@
+## [111.11.0](https://github.com/Sage/carbon/compare/v111.10.0...v111.11.0) (2022-11-21)
+
+
+### Features
+
+* **icon:** 3 new icons, box_arrow_left, u_turn_left and u_turn_right ([eac6021](https://github.com/Sage/carbon/commit/eac60215e0bb0214898a77764ce1659638c66a87))
+
 ## [111.10.0](https://github.com/Sage/carbon/compare/v111.9.1...v111.10.0) (2022-11-21)
 
 
