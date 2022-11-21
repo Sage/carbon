@@ -127,9 +127,8 @@ describe("ProgressBar", () => {
       );
     });
 
-
     it("applies error background color when the error occurs", () => {
-      wrapper = mount(<ProgressBar progress={100} error={true} />);
+      wrapper = mount(<ProgressBar progress={100} error />);
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsSemanticNegative500)",
