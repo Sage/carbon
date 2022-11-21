@@ -326,4 +326,5 @@ export const Textarea = ({
   );
 };
 
+export { Textarea as OriginalTextarea };
 export default Textarea;
