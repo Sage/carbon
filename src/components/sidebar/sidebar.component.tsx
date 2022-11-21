@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useContext } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import { PaddingProps, WidthProps } from "styled-system";
 
 import Modal from "../modal";
@@ -71,6 +71,8 @@ export interface SidebarProps extends PaddingProps, TagProps, WidthProps {
   focusableContainers?: CustomRefObject<HTMLElement>[];
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
+  /** Padding to be set on the Sidebar header */
+  headerPadding?: PaddingProps;
 }
 
 export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
@@ -91,6 +93,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       focusableContainers,
       focusableSelectors,
       width,
+      headerPadding = {},
       ...rest
     }: SidebarProps,
     ref
@@ -151,8 +154,16 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         {...filterStyledSystemPaddingProps(rest)}
         width={width}
       >
-        {header && <SidebarHeader id={headerId}>{header}</SidebarHeader>}
-        {closeIcon()}
+        {header && (
+          <SidebarHeader
+            closeIcon={closeIcon()}
+            {...headerPadding}
+            id={headerId}
+          >
+            {header}
+          </SidebarHeader>
+        )}
+        {!header && closeIcon()}
         <Box
           data-element="sidebar-content"
           pt="var(--spacing300)"
