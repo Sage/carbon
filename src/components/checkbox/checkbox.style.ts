@@ -12,7 +12,7 @@ import StyledValidationIcon from "../../__internal__/validations/validation-icon
 import baseTheme from "../../style/themes/base";
 import { ValidationProps } from "../../__internal__/validations";
 
-interface StyledCheckboxProps extends ValidationProps, MarginProps {
+export interface StyledCheckboxProps extends ValidationProps, MarginProps {
   disabled?: boolean;
   fieldHelpInline?: boolean;
   inputWidth?: number | string;
