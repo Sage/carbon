@@ -111,9 +111,22 @@ const SelectList = React.forwardRef(
       [onSelect]
     );
 
-    const childIds = useMemo(() => React.Children.map(children, () => guid()), [
-      children,
-    ]);
+    const childIdsRef = useRef(null);
+
+    // childIds should be stable except when children are added or removed - can't use useMemo
+    // as that isn't absolutely guaranteed to never rerun when dependencies haven't changed.
+    const setChildIds = () => {
+      childIdsRef.current = React.Children.map(children, () => guid());
+    };
+
+    if (
+      childIdsRef.current === null ||
+      childIdsRef.current.length !== React.Children.count(children)
+    ) {
+      setChildIds();
+    }
+
+    const childIds = childIdsRef.current;
 
     const childrenWithListProps = useMemo(
       () =>

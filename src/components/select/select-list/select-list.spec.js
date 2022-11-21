@@ -738,7 +738,7 @@ describe("SelectList", () => {
 
     beforeEach(() => {
       guidSpy.mockRestore();
-      wrapper = renderUnwrappedSelectList({ isOpen: false });
+      wrapper = renderSelectList({ isOpen: false });
       optionIds = wrapper
         .find(Option)
         .map((option) => option.getDOMNode().getAttribute("id"));
@@ -878,14 +878,4 @@ function getGroupedSelectList(props) {
   };
 
   return <WrapperComponent />;
-}
-
-function renderUnwrappedSelectList(props) {
-  return mount(
-    <SelectList {...props}>
-      <Option value="opt1" text="red" />
-      <Option value="opt2" text="green" />
-      <Option value="opt3" text="blue" />
-    </SelectList>
-  );
 }
