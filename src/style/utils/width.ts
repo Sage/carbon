@@ -7,5 +7,5 @@ import { layout, styleFn } from "styled-system";
  * That's why the purpose of this function is to pass only the`width` prop to the `layout` function.
  */
 
-export default ({ width }: Record<string, string>): styleFn =>
+export default ({ width }: Record<string, unknown>): styleFn =>
   layout({ width });

@@ -1,3 +1,10 @@
+## [111.10.0](https://github.com/Sage/carbon/compare/v111.9.1...v111.10.0) (2022-11-21)
+
+
+### Features
+
+* **sidebar:** add support for setting custom width ([f2995f8](https://github.com/Sage/carbon/commit/f2995f8564fb9d40ab2ee399dd972166d82aabbb))
+
 ### [111.9.1](https://github.com/Sage/carbon/compare/v111.9.0...v111.9.1) (2022-11-14)
 
 

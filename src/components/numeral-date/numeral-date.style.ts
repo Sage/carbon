@@ -4,7 +4,14 @@ import StyledIconSpan from "../../__internal__/input-icon-toggle/input-icon-togg
 import StyledInputPresentantion from "../../__internal__/input/input-presentation.style";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 
-export const StyledNumeralDate = styled.div`
+interface StyledDateFieldProps {
+  isEnd?: boolean;
+  isMiddle?: boolean;
+  isYearInput?: boolean;
+  hasValidationIcon?: boolean;
+}
+
+export const StyledNumeralDate = styled.div<{ name?: string }>`
   display: inline-flex;
   border: 1px solid transparent;
   height: 40px;
@@ -18,7 +25,7 @@ export const StyledNumeralDate = styled.div`
   }
 `;
 
-export const StyledDateField = styled.div`
+export const StyledDateField = styled.div<StyledDateFieldProps>`
   ${({ isYearInput, isEnd, hasValidationIcon, isMiddle }) => {
     const yearInputOrError = isYearInput || (isEnd && hasValidationIcon);
 

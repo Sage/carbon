@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import StatusWithTooltip from "./status.component";
+import StatusIcon from "./status-icon.component";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 
 const render = (props = {}) => {
@@ -8,9 +8,9 @@ const render = (props = {}) => {
     tooltipMessage: "foo",
   };
   return mount(
-    <StatusWithTooltip {...defaultProps} {...props}>
+    <StatusIcon {...defaultProps} {...props}>
       foo
-    </StatusWithTooltip>
+    </StatusIcon>
   );
 };
 
