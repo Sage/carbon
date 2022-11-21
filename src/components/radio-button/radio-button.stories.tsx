@@ -38,14 +38,6 @@ export const WithLegendAndLabels: ComponentStory<typeof RadioButton> = () => (
   </RadioButtonGroup>
 );
 
-export const Required: ComponentStory<typeof RadioButton> = () => (
-  <RadioButtonGroup name="required" legend="Radio group legend" required>
-    <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
-    <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
-    <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
-  </RadioButtonGroup>
-);
-
 export const WithInlineLegend: ComponentStory<typeof RadioButton> = () => (
   <RadioButtonGroup
     name="inline-legend-group"
@@ -264,111 +256,6 @@ export const WithLargeRadioButtons: ComponentStory<typeof RadioButton> = () => (
     />
   </RadioButtonGroup>
 );
-
-export const WithValidationsOnButtons: ComponentStory<
-  typeof RadioButton
-> = () => (
-  <RadioButtonGroup
-    name="validations-on-buttons-group"
-    onChange={() => console.log("change")}
-    legend="Radio group legend"
-  >
-    <RadioButton
-      id="validations-on-buttons-radio-1"
-      value="radio1"
-      label="Radio Option 1"
-      error="message"
-      fieldHelp="Some help text for this input."
-    />
-    <RadioButton
-      id="validations-on-buttons-radio-2"
-      value="radio2"
-      label="Radio Option 2"
-      warning="message"
-    />
-    <RadioButton
-      id="validations-on-buttons-radio-3"
-      value="radio3"
-      label="Radio Option 3"
-      info="message"
-    />
-  </RadioButtonGroup>
-);
-
-export const WithValidationsOnRadioGroup: ComponentStory<
-  typeof RadioButton
-> = () => (
-  <RadioButtonGroup
-    name="validations-on-group"
-    onChange={() => console.log("change")}
-    legend="Radio group legend"
-    error="Error message"
-  >
-    <RadioButton
-      id="validations-on-group-radio-1"
-      value="radio1"
-      label="Radio Option 1"
-    />
-    <RadioButton
-      id="validations-on-group-radio-2"
-      value="radio2"
-      label="Radio Option 2"
-    />
-    <RadioButton
-      id="validations-on-group-radio-3"
-      value="radio3"
-      label="Radio Option 3"
-    />
-  </RadioButtonGroup>
-);
-
-export const WithTooltipPosition: ComponentStory<typeof RadioButton> = () => (
-  <RadioButtonGroup
-    name="tooltip-position"
-    onChange={() => console.log("change")}
-    legend="Radio group legend"
-  >
-    <RadioButton
-      id="radio-1"
-      value="radio1"
-      label="Radio Option 1"
-      error="message"
-      tooltipPosition="right"
-    />
-  </RadioButtonGroup>
-);
-
-WithTooltipPosition.parameters = { chromatic: { disable: true } };
-
-export const WithTooltipPositionOnRadioGroup: ComponentStory<
-  typeof RadioButton
-> = () => (
-  <RadioButtonGroup
-    name="validations-on-group-group-tooltip-position-override"
-    onChange={() => console.log("change")}
-    legend="Radio group legend"
-    error="Error message"
-    tooltipPosition="top"
-  >
-    <RadioButton
-      id="validations-on-group-radio-1-tooltip-position-override"
-      value="radio1"
-      label="Radio Option 1"
-    />
-    <RadioButton
-      id="validations-on-group-radio-2-tooltip-position-override"
-      value="radio2"
-      label="Radio Option 2"
-    />
-    <RadioButton
-      id="validations-on-group-radio-3-tooltip-position-override"
-      value="radio3"
-      label="Radio Option 3"
-    />
-  </RadioButtonGroup>
-);
-
-WithTooltipPositionOnRadioGroup.parameters = { chromatic: { disable: true } };
 
 export const WithCustomStyledLabels: ComponentStory<
   typeof RadioButton
