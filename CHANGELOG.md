@@ -1,3 +1,23 @@
+## [111.12.0](https://github.com/Sage/carbon/compare/v111.11.0...v111.12.0) (2022-11-21)
+
+
+### Features
+
+* **step-sequence-item:** add new dashed line for incomplete steps ([4379f68](https://github.com/Sage/carbon/commit/4379f68aa97bc72b3890984e03ede7024b5d70fc))
+* **step-sequence:** remove default padding and add support for padding props interface ([a3d3c28](https://github.com/Sage/carbon/commit/a3d3c28c56ba8eeaf15088aa63ace41f2f689b82))
+
+
+### Bug Fixes
+
+* **step-sequence:** ensure elements flex to full height of container when vertically orientated ([2329cbe](https://github.com/Sage/carbon/commit/2329cbe00086bcf0ed13d041d8da2f5f4da97d46))
+
+## [111.11.0](https://github.com/Sage/carbon/compare/v111.10.0...v111.11.0) (2022-11-21)
+
+
+### Features
+
+* **icon:** 3 new icons, box_arrow_left, u_turn_left and u_turn_right ([eac6021](https://github.com/Sage/carbon/commit/eac60215e0bb0214898a77764ce1659638c66a87))
+
 ## [111.10.0](https://github.com/Sage/carbon/compare/v111.9.1...v111.10.0) (2022-11-21)
 
 

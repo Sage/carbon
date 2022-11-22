@@ -93,6 +93,7 @@ const actions = {
   bold: "\\e98c",
   italic: "\\e98b",
   undo: "\\e9aa",
+  box_arrow_left: "\\f006",
 };
 
 const batchActions = {
@@ -134,6 +135,8 @@ const navigation = {
   fit_width: "\\e908",
   ellipsis_horizontal: "\\e960",
   ellipsis_vertical: "\\e961",
+  u_turn_left: "\\f004",
+  u_turn_right: "\\f005",
 };
 
 const statusSymbols = {
