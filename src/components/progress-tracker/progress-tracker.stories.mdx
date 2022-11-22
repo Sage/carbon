@@ -193,7 +193,7 @@ This is an example of a `ProgressTracker` component with `currentProgressLabel` 
   </Story>
 </Canvas>
 
-It also possible to render the component with a mix of default and custom labels by only setting one of the `currentProgressLabel`
+It is also possible to render the component with a mix of default and custom labels by only setting one of the `currentProgressLabel`
 and `maxProgressLabel` props and optionally setting the `showDefaultLabels` prop.
 
 <Canvas>
@@ -201,7 +201,7 @@ and `maxProgressLabel` props and optionally setting the `showDefaultLabels` prop
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      <ProgressTracker progress={15} currentProgressLabel="50%" />
+      <ProgressTracker progress={50} currentProgressLabel="50%" />
       <ProgressTracker mt={2} progress={50} currentProgressLabel="Step 3 of 5" />
       <ProgressTracker
         mt={2}
@@ -233,7 +233,7 @@ For more information on these props, please visit the W3 documentation on `role=
   <Story name="acessibility example">
     <div style={{ display: "flex", justifyContent: "space-around" }}>
       <ProgressTracker
-        currentProgressLabel="200%"
+        currentProgressLabel="50%"
         progress={50}
         aria-valuemin={0}
         aria-valuenow={50}
