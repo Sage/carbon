@@ -58,7 +58,7 @@ const StyledValue = styled.span`
     css`
       font-weight: bold;
     `}
-    ${isMaxValue && `color: #0000008c`}
+    ${isMaxValue && `color: var(--colorsUtilityYin055)`}
   `}
 `;
 

@@ -84,21 +84,18 @@ This is an example of a `ProgressTracker` component with different colors depend
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      <ProgressTracker size="large" progress={15} currentProgressLabel="15%" />
+      <ProgressTracker progress={15} currentProgressLabel="15%" />
       <ProgressTracker
-        size="large"
         mt={2}
         progress={50}
         currentProgressLabel="50%"
       />
       <ProgressTracker
-        size="large"
         mt={2}
         progress={100}
         currentProgressLabel="100%"
       />
       <ProgressTracker
-        size="large"
         mt={2}
         progress={100}
         error={true}
@@ -218,7 +215,7 @@ and `maxProgressLabel` props and optionally setting the `showDefaultLabels` prop
         progress={50}
         showDefaultLabels
         currentProgressLabel="Step 3 of 5 "
-        description=" Descriptive Text "
+        description="Adding VAT"
       />
     </div>
   </Story>
