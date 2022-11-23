@@ -1,3 +1,10 @@
+### [111.12.2](https://github.com/Sage/carbon/compare/v111.12.1...v111.12.2) (2022-11-23)
+
+
+### Bug Fixes
+
+* **accordion:** update margin-left spacing values to use tokens when buttonHeading is used ([e4804e8](https://github.com/Sage/carbon/commit/e4804e813d4ad3ee4bf603ed8729eb526bf5a42c))
+
 ### [111.12.1](https://github.com/Sage/carbon/compare/v111.12.0...v111.12.1) (2022-11-23)
 
 
