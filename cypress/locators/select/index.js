@@ -44,7 +44,7 @@ export const boldedAndUnderlinedValue = (text) =>
   selectList()
     .find("tbody > tr:nth-child(1) > td:nth-child(2) > span")
     .contains(text);
-export const selectListPosition = () => cy.get(SELECT_LIST_WRAPPER).parent();
+export const selectListPosition = () => cy.get(SELECT_LIST_WRAPPER);
 export const selectText = () => getDataElementByValue(SELECT_TEXT);
 export const selectListCustomChild = (index) =>
   selectList().find(`li:nth-child(${index})`).find("span");

@@ -10,6 +10,7 @@ const FlatTableCheckbox = ({
   selectable = true,
   onClick,
   leftPosition,
+  rightPosition,
   cellIndex,
   reportCellWidth,
   ariaLabelledBy,
@@ -38,7 +39,9 @@ const FlatTableCheckbox = ({
     <StyledFlatTableCheckbox
       ref={ref}
       makeCellSticky={!!reportCellWidth}
-      leftPosition={leftPosition || 0}
+      className={reportCellWidth ? "isSticky" : undefined}
+      leftPosition={leftPosition}
+      rightPosition={rightPosition}
       data-element={dataElement}
       as={as}
       {...rest}
@@ -77,6 +80,12 @@ FlatTableCheckbox.propTypes = {
    * Sets the left position when sticky column found
    */
   leftPosition: PropTypes.number,
+  /**
+   * @private
+   * @ignore
+   * Sets the right position when sticky column found
+   */
+  rightPosition: PropTypes.number,
   /**
    * @private
    * @ignore

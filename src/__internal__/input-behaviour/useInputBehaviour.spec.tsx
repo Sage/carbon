@@ -78,15 +78,21 @@ describe("useInputBehaviour", () => {
     });
 
     it("focuses the element on mousedown event", () => {
-      jest.useFakeTimers();
+      const rafSpy = jest
+        .spyOn(window, "requestAnimationFrame")
+        .mockImplementation((callback: FrameRequestCallback): number => {
+          callback(0);
+          return 0;
+        });
+
       act(() => {
         wrapper.find(Input).props().onMouseDown();
       });
       wrapper.update();
-      jest.runAllTimers();
       expect(
         document.activeElement === wrapper.find(Input).getDOMNode()
       ).toEqual(true);
+      rafSpy.mockRestore();
     });
   });
 

@@ -13,14 +13,21 @@ import Box from "../box";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
+  testStyledSystemWidth,
 } from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
+import Button from "../button";
+import CarbonProvider from "../carbon-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 
 describe("Sidebar", () => {
   let wrapper: ReactWrapper;
   let spy: jest.Mock;
+
+  testStyledSystemWidth((props) => (
+    <StyledSidebar {...props}>Content</StyledSidebar>
+  ));
 
   beforeEach(() => {
     spy = jest.fn();
@@ -34,6 +41,25 @@ describe("Sidebar", () => {
   });
 
   describe("render", () => {
+    describe("when sidebar is open", () => {
+      it("has aria-modal attribute", () => {
+        wrapper = mount(
+          <CarbonProvider>
+            <Sidebar onCancel={spy} open>
+              <Button>Button</Button>
+              <Button>Button</Button>
+            </Sidebar>
+          </CarbonProvider>
+        );
+
+        expect(
+          wrapper.find(StyledSidebar).getDOMNode().getAttribute("aria-modal")
+        ).toBe("true");
+
+        wrapper.unmount();
+      });
+    });
+
     describe("when sidebar is closed", () => {
       it("sets all the correct classes", () => {
         wrapper = mount(<Sidebar open={false} onCancel={spy} />);
@@ -95,6 +121,23 @@ describe("Sidebar", () => {
         expect(
           wrapper.find('[data-element="modal-background"]').length
         ).toEqual(0);
+      });
+
+      it("does not have aria-modal attribute", () => {
+        wrapper = mount(
+          <CarbonProvider>
+            <Sidebar enableBackgroundUI onCancel={spy} open>
+              <Button>Button</Button>
+              <Button>Button</Button>
+            </Sidebar>
+          </CarbonProvider>
+        );
+
+        expect(
+          wrapper.find(StyledSidebar).getDOMNode().getAttribute("aria-modal")
+        ).toBe("false");
+
+        wrapper.unmount();
       });
     });
 

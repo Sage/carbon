@@ -27,6 +27,7 @@ import Form from "../form";
 import { StyledFormContent, StyledFormFooter } from "../form/form.style";
 import IconButton from "../icon-button";
 import Help from "../help";
+import CarbonProvider from "../carbon-provider";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -442,6 +443,30 @@ describe("Dialog", () => {
         ).toEqual(0);
       });
     });
+
+    it("should have aria-modal attribute on the dialog container", () => {
+      onCancel = jest.fn();
+      wrapper = mount(
+        <CarbonProvider>
+          <Dialog
+            onCancel={onCancel}
+            className="foo"
+            open
+            title="my title"
+            subtitle="my subtitle"
+          >
+            <Button>Button</Button>
+            <Button>Button</Button>
+          </Dialog>
+        </CarbonProvider>
+      );
+
+      expect(
+        wrapper.find(StyledDialog).getDOMNode().getAttribute("aria-modal")
+      ).toBe("true");
+
+      wrapper.unmount();
+    });
   });
 
   describe("when topMargin is passed to the StyledDialog", () => {
@@ -601,14 +626,17 @@ describe("Dialog", () => {
 
   describe("contentPadding", () => {
     const defaultPaddingValues = {
-      left: HORIZONTAL_PADDING,
-      right: HORIZONTAL_PADDING,
-      top: CONTENT_TOP_PADDING,
-      bottom: CONTENT_BOTTOM_PADDING,
+      left: `${HORIZONTAL_PADDING}px`,
+      right: `${HORIZONTAL_PADDING}px`,
+      top: `${CONTENT_TOP_PADDING}px`,
+      bottom: `${CONTENT_BOTTOM_PADDING}px`,
     };
 
-    const setNegativeValue = (tokenValue?: string | number) =>
-      `calc(-1px * ${tokenValue})`;
+    const setNegativeValue = (tokenValue?: string | number) => {
+      const stringValue =
+        typeof tokenValue === "number" ? `${tokenValue}px` : tokenValue;
+      return `calc(-1 * ${stringValue})`;
+    };
 
     const getValue = (value: number | undefined, isMargin?: boolean) => {
       const defaultValue = getDefaultValue(value);
@@ -629,7 +657,7 @@ describe("Dialog", () => {
       ) {
         return isMargin
           ? setNegativeValue(defaultPaddingValues[position])
-          : `${defaultPaddingValues[position]}px`;
+          : defaultPaddingValues[position];
       }
 
       return getValue(value, isMargin);
@@ -680,7 +708,7 @@ describe("Dialog", () => {
 
               const width =
                 value === undefined || !["p", "px"].includes(prop)
-                  ? HORIZONTAL_PADDING
+                  ? `${HORIZONTAL_PADDING}px`
                   : space[value];
 
               assertStyleMatch(
@@ -688,8 +716,7 @@ describe("Dialog", () => {
                   marginLeft: getFormSpacing(value, "left", prop, true),
                   marginRight: getFormSpacing(value, "right", prop, true),
                   marginBottom: getFormSpacing(value, "bottom", prop, true),
-                  bottom: getFormSpacing(value, "bottom", prop, true),
-                  width: `calc(100% + (2px * ${width}))`,
+                  width: `calc(100% + (${width} + ${width}))`,
                 },
                 wrapper.find(StyledDialog),
                 { modifier: `${StyledFormFooter}.sticky` }

@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import StyledCheckbox from "../../checkbox/checkbox.style";
 
 const StyledFlatTableCheckbox = styled.td`
-  ${({ as, leftPosition, makeCellSticky }) => css`
+  ${({ as, leftPosition, rightPosition, makeCellSticky }) => css`
     ${as === "td" &&
     css`
       background-color: var(--colorsUtilityYang100);
@@ -34,7 +34,6 @@ const StyledFlatTableCheckbox = styled.td`
       left: auto;
       padding: 0;
       text-align: left;
-      top: 0;
       user-select: none;
       vertical-align: middle;
       white-space: nowrap;
@@ -43,7 +42,8 @@ const StyledFlatTableCheckbox = styled.td`
     ${makeCellSticky &&
     css`
       top: auto;
-      left: ${leftPosition}px;
+      ${leftPosition !== undefined && `left: ${leftPosition}px;`}
+      ${rightPosition !== undefined && `right: ${rightPosition}px;`}
       position: sticky;
     `}
   `}

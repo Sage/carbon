@@ -49,8 +49,11 @@ const ToastStyle = styled(MessageStyle)`
     margin-right: ${isCenter ? "auto" : "30px"};
   `}
 
-  &${animationName}-appear,
-  &${animationName}-enter {
+  :focus {
+    outline: none;
+  }
+
+  &${animationName}-appear, &${animationName}-enter {
     opacity: 0;
     transform: scale(0.5);
   }

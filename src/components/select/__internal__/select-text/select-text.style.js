@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components";
+import sizes from "../../../../__internal__/input/input-sizes.style";
 
 const StyledSelectText = styled.span`
-  ${({ disabled, hasPlaceholder, readOnly, transparent }) => css`
+  ${({ disabled, hasPlaceholder, readOnly, transparent, size }) => css`
     align-items: center;
     display: inline-flex;
     flex-grow: 1;
@@ -13,6 +14,7 @@ const StyledSelectText = styled.span`
     white-space: nowrap;
     width: 30px;
     z-index: 1;
+    padding-left: ${sizes[size].horizontalPadding};
 
     ${transparent &&
     css`

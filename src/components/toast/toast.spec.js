@@ -1,5 +1,6 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
+import { act } from "react-dom/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
 import Toast from "./toast.component";
 import {
@@ -173,10 +174,23 @@ describe("Toast", () => {
         expect(icon.exists()).toBe(true);
       });
 
-      it("auto focuses the close icon", () => {
-        const icon = wrapper.find("[data-element='close']").first();
+      it("auto focuses the toast component", () => {
+        const toast = wrapper.find(ToastStyle);
 
-        expect(icon).toBeFocused();
+        expect(toast).toBeFocused();
+      });
+
+      it("sets a tabIndex on the toast component and removes onBlur", () => {
+        const toast = wrapper.find(ToastStyle);
+
+        expect(toast.getDOMNode().hasAttribute("tabIndex")).toBe(true);
+
+        act(() => {
+          toast.simulate("blur");
+        });
+        wrapper.update();
+
+        expect(toast.getDOMNode().hasAttribute("tabIndex")).toBe(false);
       });
 
       it("when the toast closes, focus is returned to the element it was on before the toast opened", () => {
@@ -198,11 +212,39 @@ describe("Toast", () => {
         button.getDOMNode().focus();
 
         wrapper.setProps({ open: true });
-        const icon = wrapper.find("[data-element='close']").first();
-        expect(icon).toBeFocused();
+        const toast = wrapper.find("[data-component='toast']").first();
+        expect(toast).toBeFocused();
 
         wrapper.setProps({ open: false });
+        wrapper.update();
         expect(button).toBeFocused();
+      });
+
+      it("when the toast closes and then re-opens the wrapper is focused again", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+        const WrapperComponent = (toastProps) => (
+          <>
+            <Button id="buttonId">A button</Button>
+            <Toast {...toastProps} />
+          </>
+        );
+
+        wrapper.unmount();
+        wrapper = mount(
+          <WrapperComponent onDismiss={onDismiss} open={false} />,
+          { attachTo: htmlElement }
+        );
+
+        wrapper.setProps({ open: true });
+        const toast = wrapper.find("[data-component='toast']").first();
+        expect(toast).toBeFocused();
+
+        wrapper.setProps({ open: false });
+        wrapper.update();
+
+        wrapper.setProps({ open: true });
+        expect(toast).toBeFocused();
       });
 
       describe("calls onDismiss method when", () => {
@@ -221,7 +263,7 @@ describe("Toast", () => {
           jest.useFakeTimers();
           const mockFn = jest.fn();
           wrapper.setProps({ timeout: 2000, onDismiss: mockFn });
-          jest.runTimersToTime(2000);
+          jest.advanceTimersByTime(2000);
           expect(mockFn).toHaveBeenCalledTimes(1);
         });
       });
@@ -237,20 +279,20 @@ describe("Toast", () => {
           jest.useFakeTimers();
           const mockFn = jest.fn();
           wrapper.setProps({ timeout: 2000, open: false, onDismiss: mockFn });
-          jest.runTimersToTime(2000);
+          jest.advanceTimersByTime(2000);
           expect(mockFn).not.toHaveBeenCalled();
         });
       });
 
       describe("with disableAutoFocus prop", () => {
-        it("does not auto focus the close icon", () => {
+        it("does not auto focus the Toast wrapper", () => {
           wrapper.unmount();
           wrapper = mount(
             <Toast open onDismiss={onDismiss} disableAutoFocus />
           );
-          const icon = wrapper.find("[data-element='close']").first();
-
-          expect(icon).not.toBeFocused();
+          const toast = wrapper.find(ToastStyle);
+          expect(toast.getDOMNode().hasAttribute("tabIndex")).toBe(false);
+          expect(toast).not.toBeFocused();
         });
 
         it("when the toast closes, focus is not returned to the element it was on before the toast opened", () => {

@@ -1,6 +1,7 @@
 import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 import {
+  flatTable,
   flatTableWrapper,
   flatTableHeaderCells,
   flatTableBodyRowByPosition,
@@ -58,10 +59,10 @@ Then("FlatTable header first cell is sticky", () => {
 });
 
 Then("FlatTable has sticky header", () => {
-  cy.wait(300, { log: DEBUG_FLAG }); // required because element needs to be loaded
-  flatTableHeaderCells().each(($el) => {
-    cy.wrap($el).should("have.css", "position", "sticky").and("be.visible");
-  });
+  flatTable()
+    .find("thead")
+    .should("have.css", "position", "sticky")
+    .and("be.visible");
 });
 
 Then("First/Last {int} header cells {word} visible", (count, state) => {

@@ -37,12 +37,14 @@ const MenuItem = ({
   onSubmenuOpen,
   onSubmenuClose,
   overrideColor,
+  rel,
+  isFocused,
   ...rest
 }) => {
   const menuContext = useContext(MenuContext);
   const submenuContext = useContext(SubmenuContext);
   const ref = useRef(null);
-  const focusFromMenu = menuContext.isFocused;
+  const focusFromMenu = isFocused;
   const focusFromSubmenu = submenuContext.isFocused;
   const isChildSearch = useRef(false);
   const childRef = useRef();
@@ -110,6 +112,7 @@ const MenuItem = ({
     className: classes,
     href,
     target,
+    rel,
     onClick:
       onClick || (isChildSearch.current ? updateFocusOnClick : undefined),
     icon,
@@ -242,6 +245,8 @@ MenuItem.propTypes = {
   onKeyDown: PropTypes.func,
   /** The target to use for the menu item. */
   target: PropTypes.string,
+  /** The rel attribute to be used for the underlying <a> tag */
+  rel: PropTypes.string,
   /** Flag to display the dropdown arrow when an item has a submenu */
   showDropdownArrow: PropTypes.bool,
   /** set the colour variant for a menuType */
@@ -265,6 +270,12 @@ MenuItem.propTypes = {
   onSubmenuClose: PropTypes.func,
   /** @ignore @private */
   overrideColor: PropTypes.bool,
+  /** @ignore @private */
+  isFocused: PropTypes.bool,
+  /** @ignore @private */
+  indexInMenu: PropTypes.number,
 };
+
+MenuItem.displayName = "MenuItem";
 
 export default MenuItem;

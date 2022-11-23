@@ -3,10 +3,7 @@ import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import GroupedCharacter from ".";
-import Textbox from "../textbox";
-import Button from "../button";
-import Box from "../box";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import * as stories from "./grouped-character.stories";
 
 <Meta title="GroupedCharacter" parameters={{ info: { disable: true } }} />
 
@@ -33,278 +30,70 @@ import GroupedCharacter from "carbon-react/lib/components/grouped-character";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    {() => {
-      const [state, setState] = useState("1231231");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-        console.log(target.value);
-      };
-      return (
-        <GroupedCharacter
-          label="GroupedCharacter"
-          value={state}
-          onChange={setValue}
-          groups={[2, 2, 3]}
-          separator="-"
-        />
-      );
-    }}
-  </Story>
+  <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
 ### Sizes
 
 <Canvas>
-  <Story name="sizes">
-    {() => {
-      const [state, setState] = useState({
-        small: "1231231",
-        medium: "1231231",
-        large: "1231231",
-      });
-      const handleChange = (size) => (e) => {
-        setState({ ...state, [size]: e.target.value.rawValue });
-      };
-      return ["small", "medium", "large"].map((size) => (
-        <GroupedCharacter
-          key={`GroupedCharacter - ${size}`}
-          label={`GroupedCharacter - ${size}`}
-          value={state[size]}
-          onChange={handleChange(size)}
-          groups={[2, 2, 3]}
-          separator="-"
-          size={size}
-          mb={2}
-        />
-      ));
-    }}
-  </Story>
+  <Story name="sizes" story={stories.Sizes} />
 </Canvas>
 
 ### AutoFocus
 
 <Canvas>
-  <Story name="autoFocus" parameters={{ chromatic: { disable: true } }}>
-    {() => {
-      const [state, setState] = useState("1231231");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return (
-        <GroupedCharacter
-          label="GroupedCharacter"
-          value={state}
-          onChange={setValue}
-          groups={[2, 2, 3]}
-          separator="-"
-          autoFocus
-        />
-      );
-    }}
-  </Story>
+  <Story name="autoFocus" story={stories.AutoFocus} />
 </Canvas>
 
 ### LabelAlign
 
 <Canvas>
-  <Story name="labelAlign">
-    {() => {
-      const [state, setState] = useState({
-        right: "1231231",
-        left: "1231231",
-      });
-      const handleChange = (alignment) => (e) => {
-        setState({ ...state, [alignment]: e.target.value.rawValue });
-      };
-      return ["right", "left"].map((alignment) => (
-        <GroupedCharacter
-          label="GroupedCharacter"
-          value={state[alignment]}
-          onChange={handleChange(alignment)}
-          groups={[2, 2, 3]}
-          separator="-"
-          labelInline
-          inputWidth={50}
-          key={alignment}
-          labelAlign={alignment}
-        />
-      ));
-    }}
-  </Story>
+  <Story name="labelAlign" story={stories.LabelAlign} />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled">
-    <GroupedCharacter
-      label="GroupedCharacter"
-      value="1231231"
-      groups={[2, 2, 3]}
-      separator="-"
-      disabled
-    />
-  </Story>
+  <Story story={stories.Disabled} name="disabled" />
 </Canvas>
 
 ### Various separators
 
 <Canvas>
-  <Story name="various separators">
-    {() => {
-      const [state, setState] = useState({
-        ".": "1231231",
-        ",": "1231231",
-        ", ": "1231231",
-        " ": "1231231",
-        "-": "1231231",
-        "/": "1231231",
-        "|": "1231231",
-      });
-      const handleChange = (separator) => (e) => {
-        setState({ ...state, [separator]: e.target.value.rawValue });
-      };
-      return [".", ",", " ", "-", "/", "|"].map((separator) => (
-        <GroupedCharacter
-          label="GroupedCharacter"
-          value={state[separator]}
-          onChange={handleChange(separator)}
-          groups={[2, 2, 3]}
-          separator={separator}
-          key={separator}
-        />
-      ));
-    }}
-  </Story>
+  <Story name="various separators" story={stories.VariousSeparators} />
 </Canvas>
 
 ### Various groups
 
 <Canvas>
-  <Story name="various groups">
-    {() => {
-      const [state, setState] = useState({
-        "2-2-3": "1231231",
-        "1-2-4": "1231231",
-        "3-2-2": "1231231",
-        "3-1-3": "1231231",
-      });
-      const handleChange = (group) => (e) => {
-        setState({ ...state, [group]: e.target.value.rawValue });
-      };
-      return [
-        [2, 2, 3],
-        [1, 2, 4],
-        [3, 2, 2],
-        [3, 1, 3],
-      ].map((group) => (
-        <GroupedCharacter
-          label="GroupedCharacter"
-          value={state[group.join("-")]}
-          onChange={handleChange(group.join("-"))}
-          groups={group}
-          separator="-"
-          key={group.join("-")}
-        />
-      ));
-    }}
-  </Story>
+  <Story name="various groups" story={stories.VariousGroups} />
 </Canvas>
 
 ### With labelInline
 
 <Canvas>
-  <Story name="with labelInline" parameters={{ chromatic: { disable: true } }}>
-    {() => {
-      const [state, setState] = useState("1231231");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return (
-        <GroupedCharacter
-          label="GroupedCharacter"
-          value={state}
-          onChange={setValue}
-          groups={[2, 2, 3]}
-          separator="-"
-          labelInline
-        />
-      );
-    }}
-  </Story>
+  <Story story={stories.LabelInline} name="with labelInline" />
 </Canvas>
 
 ### With custom labelWidth and inputWidth
 
 <Canvas>
-  <Story name="with custom labelWidth and inputWidth">
-    {() => {
-      const [state, setState] = useState("1231231");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return (
-        <GroupedCharacter
-          label="GroupedCharacter"
-          value={state}
-          onChange={setValue}
-          groups={[2, 2, 3]}
-          separator="-"
-          labelInline
-          labelWidth={50}
-          inputWidth={50}
-        />
-      );
-    }}
-  </Story>
+  <Story
+    story={stories.LabelInputWidth}
+    name="with custom labelWidth and inputWidth"
+  />
 </Canvas>
 
 ### With fieldHelp
 
 <Canvas>
-  <Story name="with fieldHelp">
-    {() => {
-      const [state, setState] = useState("1231231");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return (
-        <GroupedCharacter
-          label="GroupedCharacter"
-          value={state}
-          onChange={setValue}
-          groups={[2, 2, 3]}
-          separator="-"
-          fieldHelp="Help"
-        />
-      );
-    }}
-  </Story>
+  <Story story={stories.FieldHelp} name="with fieldHelp" />
 </Canvas>
 
 ### With labelHelp
 
 <Canvas>
-  <Story name="with labelHelp">
-    {() => {
-      const [state, setState] = useState("1231231");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return (
-        <GroupedCharacter
-          label="GroupedCharacter"
-          value={state}
-          onChange={setValue}
-          groups={[2, 2, 3]}
-          separator="-"
-          labelHelp="Help"
-          helpAriaLabel="Help"
-        />
-      );
-    }}
-  </Story>
+  <Story story={stories.LabelHelp} name="with labelHelp" />
 </Canvas>
 
 ### Required
@@ -312,24 +101,7 @@ import GroupedCharacter from "carbon-react/lib/components/grouped-character";
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Canvas>
-  <Story name="required">
-    {() => {
-      const [state, setState] = useState("1231231");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return (
-        <GroupedCharacter
-          label="GroupedCharacter"
-          value={state}
-          onChange={setValue}
-          groups={[2, 2, 3]}
-          separator="-"
-          required
-        />
-      );
-    }}
-  </Story>
+  <Story story={stories.Required} name="required" />
 </Canvas>
 
 ### Validations
@@ -345,40 +117,10 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 #### As a string
 
 <Canvas>
-  <Story name="validations - string - component">
-    {() => {
-      const [state, setState] = useState({
-        error: "1231231",
-        warning: "1231231",
-        info: "1231231",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value.rawValue });
-      };
-      return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <GroupedCharacter
-            label="GroupedCharacter"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            groups={[2, 2, 3]}
-            separator="-"
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <GroupedCharacter
-            label="GroupedCharacter - readOnly"
-            value="1231231"
-            groups={[2, 2, 3]}
-            separator="-"
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </div>
-      ));
-    }}
-  </Story>
+  <Story
+    name="validations - string - component"
+    story={stories.ValidationsStringComponent}
+  />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -386,74 +128,17 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      const [state, setState] = useState({
-        error: "1231231",
-        warning: "1231231",
-        info: "1231231",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value.rawValue });
-      };
-      return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <GroupedCharacter
-            label="GroupedCharacter"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            groups={[2, 2, 3]}
-            separator="-"
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-          />
-        </div>
-      ));
-    }}
-  </Story>
+    story={stories.ValidationsTooltip}
+  />
 </Canvas>
 
 #### As a string, displayed on label
 
 <Canvas>
-  <Story name="validations - string - label">
-    {() => {
-      const [state, setState] = useState({
-        error: "1231231",
-        warning: "1231231",
-        info: "1231231",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value.rawValue });
-      };
-      return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
-          <GroupedCharacter
-            label="GroupedCharacter"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            groups={[2, 2, 3]}
-            separator="-"
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <GroupedCharacter
-            label="GroupedCharacter - readOnly"
-            value="1231231"
-            groups={[2, 2, 3]}
-            separator="-"
-            validationOnLabel
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </div>
-      ));
-    }}
-  </Story>
+  <Story
+    name="validations - string - label"
+    story={stories.ValidationsStringLabel}
+  />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -461,122 +146,23 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      const [state, setState] = useState({
-        error: "1231231",
-        warning: "1231231",
-        info: "1231231",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value.rawValue });
-      };
-      return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
-          <GroupedCharacter
-            label="GroupedCharacter"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            groups={[2, 2, 3]}
-            separator="-"
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="top"
-          />
-        </div>
-      ));
-    }}
-  </Story>
+    story={stories.ValidationsTooltipLabel}
+  />
 </Canvas>
 
 #### New designs validation
 
 <Canvas>
-  <Story name="validations - string - new design">
-    {() => {
-      const [state, setState] = useState({
-        error: "1231231",
-        warning: "1231231",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value.rawValue });
-      };
-      return (
-        <CarbonProvider validationRedesignOptIn>
-          {["error", "warning"].map((validationType) =>
-            ["small", "medium", "large"].map((size) => (
-              <div
-                style={{ width: "296px" }}
-                key={`${size}-${validationType}-string-component`}
-              >
-                <GroupedCharacter
-                  label={`${size} - ${validationType}`}
-                  value={state[validationType]}
-                  onChange={handleChange(validationType)}
-                  groups={[2, 2, 3]}
-                  size={size}
-                  separator="-"
-                  {...{ [validationType]: "Message" }}
-                  m={4}
-                />
-                <GroupedCharacter
-                  label={`readOnly - ${size} - ${validationType}`}
-                  value="1231231"
-                  groups={[2, 2, 3]}
-                  size={size}
-                  separator="-"
-                  readOnly
-                  {...{ [validationType]: "Message" }}
-                  m={4}
-                />
-              </div>
-            ))
-          )}
-        </CarbonProvider>
-      );
-    }}
-  </Story>
+  <Story
+    name="validations - string - new design"
+    story={stories.ValidationsRedesign}
+  />
 </Canvas>
 
 #### As a boolean
 
 <Canvas>
-  <Story name="validations - boolean">
-    {() => {
-      const [state, setState] = useState({
-        error: "1231231",
-        warning: "1231231",
-        info: "1231231",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value.rawValue });
-      };
-      return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-boolean-component`}>
-          <GroupedCharacter
-            label="GroupedCharacter"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            groups={[2, 2, 3]}
-            separator="-"
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-          <GroupedCharacter
-            label="GroupedCharacter - readOnly"
-            value="1231231"
-            groups={[2, 2, 3]}
-            separator="-"
-            readOnly
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-        </div>
-      ));
-    }}
-  </Story>
+  <Story name="validations - boolean" story={stories.ValidationsBoolean} />
 </Canvas>
 
 ## Props
@@ -584,9 +170,5 @@ It is possible to use the `tooltipPosition` to override the default placement of
 ### GroupedCharacter
 
 <StyledSystemProps of={GroupedCharacter} noHeader margin />
-
-Due to the `Textbox` component being used internally by the `GroupedCharacter` component most of the `Textbox` props can be applied to `GroupedCharacter`
-
-<ArgsTable of={Textbox} />
 
 **Any other supplied props will be provided to the underlying HTML input element**

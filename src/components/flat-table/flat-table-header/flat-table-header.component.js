@@ -21,6 +21,7 @@ const FlatTableHeader = ({
   reportCellWidth,
   cellIndex,
   leftPosition,
+  rightPosition,
   ...rest
 }) => {
   const ref = useRef(null);
@@ -35,8 +36,10 @@ const FlatTableHeader = ({
   return (
     <StyledFlatTableHeader
       ref={ref}
-      leftPosition={leftPosition || 0}
+      leftPosition={leftPosition}
+      rightPosition={rightPosition}
       makeCellSticky={!!reportCellWidth}
+      className={reportCellWidth ? "isSticky" : undefined}
       align={align}
       colorTheme={colorTheme}
       data-element="flat-table-header"
@@ -70,6 +73,12 @@ FlatTableHeader.propTypes = {
    * Sets the left position when sticky column found
    */
   leftPosition: PropTypes.number,
+  /**
+   * @private
+   * @ignore
+   * Sets the right position when sticky column found
+   */
+  rightPosition: PropTypes.number,
   /**
    * @private
    * @ignore

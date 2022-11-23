@@ -41,9 +41,11 @@ const getRadioElementToFocus = (groupName: string, shiftKey: boolean) => {
   );
 
   if (selectedButton) {
-    return selectedButton;
+    return selectedButton as HTMLElement;
   }
-  return buttonsInGroup[shiftKey ? buttonsInGroup.length - 1 : 0];
+  return buttonsInGroup[
+    shiftKey ? buttonsInGroup.length - 1 : 0
+  ] as HTMLElement;
 };
 
 const getNextElement = (
@@ -52,6 +54,18 @@ const getNextElement = (
   shiftKey: boolean
 ) => {
   const currentIndex = focusableElements.indexOf(element);
+
+  if (currentIndex === -1) {
+    // we're not currently on a focusable element - most likely because the focusableElements come from a different focus trap!
+    // So we need to leave focus where it is.
+    // The exception is when the focus is on the document body - perhaps because the previously-focused element was dynamically removed.
+    // In that case focus the first element.
+    if (element === document.body) {
+      return focusableElements[0];
+    }
+    return element;
+  }
+
   const increment = shiftKey ? -1 : 1;
   let nextIndex = currentIndex;
   let foundElement;
@@ -70,7 +84,16 @@ const getNextElement = (
     if (nextElement === element) {
       // guard in case there is only one focusable element (or only a single radio group) in the trap.
       // If this happens we don't want to freeze the browser by looping forever, and it's OK to just focus
-      // the same element we're already on
+      // the same element we're already on.
+      // There is an exception though: if we're in a single radio group, we need to ensure we focus on
+      // the correct one. This may not be "element" if it's not currently focused (due to the focus actually
+      // being on a wrapper element and this function being called with the first/last element as "element").
+      if (isRadio(element) && document.activeElement !== element) {
+        return getRadioElementToFocus(
+          element.getAttribute("name") as string,
+          shiftKey
+        );
+      }
       return element;
     }
 

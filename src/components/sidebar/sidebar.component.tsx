@@ -1,5 +1,5 @@
-import React, { useRef, useCallback } from "react";
-import { PaddingProps } from "styled-system";
+import React, { useRef, useCallback, useContext } from "react";
+import { PaddingProps, WidthProps } from "styled-system";
 
 import Modal from "../modal";
 import StyledSidebar from "./sidebar.style";
@@ -13,6 +13,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
 import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
+import TopModalContext from "../carbon-provider/top-modal-context";
 
 // TODO FE-5408 will investigate why React.RefObject<T> produces a failed prop type when current = null
 type CustomRefObject<T> = {
@@ -25,7 +26,7 @@ export interface SidebarContextProps {
 
 export const SidebarContext = React.createContext<SidebarContextProps>({});
 
-export interface SidebarProps extends PaddingProps, TagProps {
+export interface SidebarProps extends PaddingProps, TagProps, WidthProps {
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby"?: string;
   /**
@@ -68,6 +69,8 @@ export interface SidebarProps extends PaddingProps, TagProps {
     | "extra-large";
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar */
   focusableContainers?: CustomRefObject<HTMLElement>[];
+  /** Optional selector to identify the focusable elements, if not provided a default selector is used */
+  focusableSelectors?: string;
 }
 
 export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
@@ -86,6 +89,8 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       onCancel,
       role = "dialog",
       focusableContainers,
+      focusableSelectors,
+      width,
       ...rest
     }: SidebarProps,
     ref
@@ -105,6 +110,8 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       },
       [ref]
     );
+
+    const { topModal } = useContext(TopModalContext);
 
     const closeIcon = () => {
       if (!onCancel) return null;
@@ -127,7 +134,9 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
 
     const sidebar = (
       <StyledSidebar
-        aria-modal={!enableBackgroundUI}
+        aria-modal={
+          !enableBackgroundUI && topModal?.contains(sidebarRef.current)
+        }
         aria-describedby={ariaDescribedBy}
         aria-label={ariaLabel}
         aria-labelledby={
@@ -139,6 +148,8 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         data-element="sidebar"
         onCancel={onCancel}
         role={role}
+        {...filterStyledSystemPaddingProps(rest)}
+        width={width}
       >
         {header && <SidebarHeader id={headerId}>{header}</SidebarHeader>}
         {closeIcon()}
@@ -174,6 +185,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             wrapperRef={sidebarRef}
             isOpen={open}
             additionalWrapperRefs={focusableContainers}
+            focusableSelectors={focusableSelectors}
           >
             {sidebar}
           </FocusTrap>

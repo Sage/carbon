@@ -145,7 +145,7 @@ describe("AnchorNavigation", () => {
 
       act(() => {
         window.dispatchEvent(new Event("scroll"));
-        jest.advanceTimersByTime(150);
+        jest.advanceTimersByTime(40);
       });
       wrapper.update();
       expectNavigationItemToBeSelected(index, wrapper);
