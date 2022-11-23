@@ -1,16 +1,20 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import { css } from "styled-components";
 
+import { ThemeObject } from "../../../style/themes/base";
 import {
   assertStyleMatch,
   carbonThemesJestTable,
 } from "../../../__spec_helper__/test-utils";
 import StyledLoader from "../../loader/loader.style";
 import StyledLoaderSquare from "../../loader/loader-square.style";
-import SwitchSliderPanel from "./switch-slider-panel.style";
+import SwitchSliderPanel, {
+  SwitchSliderPanelProps,
+} from "./switch-slider-panel.style";
 
-function render(props) {
+function render(
+  props?: SwitchSliderPanelProps & { theme?: string | Partial<ThemeObject> }
+) {
   return TestRenderer.create(<SwitchSliderPanel {...props} />);
 }
 
@@ -29,9 +33,7 @@ describe("SwitchSliderPanel", () => {
           },
           render({ isLoading: true }).toJSON(),
           {
-            modifier: css`
-              ${StyledLoader}
-            `,
+            modifier: `${StyledLoader}`,
           }
         );
       });
@@ -44,9 +46,7 @@ describe("SwitchSliderPanel", () => {
           },
           render({ isLoading: true, size: "large" }).toJSON(),
           {
-            modifier: css`
-              ${StyledLoader} ${StyledLoaderSquare}
-            `,
+            modifier: `${StyledLoader} ${StyledLoaderSquare}`,
           }
         );
       });

@@ -1,14 +1,31 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import { css, ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 
 import {
   assertStyleMatch,
   carbonThemesJestTable,
 } from "../../../__spec_helper__/test-utils";
 import Loader from "../../loader/loader.component";
-import SwitchSlider from "./switch-slider.component";
+import SwitchSlider, { SwitchSliderProps } from "./switch-slider.component";
 import SwitchSliderPanel from "./switch-slider-panel.style";
+import { ThemeObject } from "../../../style/themes/base";
+
+function render(props?: Partial<SwitchSliderProps>) {
+  return TestRenderer.create(<SwitchSlider {...props} />);
+}
+
+function renderWithTheme(
+  props: Partial<SwitchSliderProps>,
+  theme?: string | Partial<ThemeObject>,
+  renderer = TestRenderer.create
+) {
+  return renderer(
+    <ThemeProvider theme={theme}>
+      <SwitchSlider {...props} />
+    </ThemeProvider>
+  );
+}
 
 describe("SwitchSlider", () => {
   describe("base theme", () => {
@@ -110,9 +127,7 @@ describe("SwitchSlider", () => {
           },
           wrapper,
           {
-            modifier: css`
-              ${SwitchSliderPanel}
-            `,
+            modifier: `${SwitchSliderPanel}`,
           }
         );
       });
@@ -128,9 +143,7 @@ describe("SwitchSlider", () => {
           },
           wrapper,
           {
-            modifier: css`
-              ${SwitchSliderPanel}
-            `,
+            modifier: `${SwitchSliderPanel}`,
           }
         );
       });
@@ -235,9 +248,7 @@ describe("SwitchSlider", () => {
             },
             wrapper,
             {
-              modifier: css`
-                ${SwitchSliderPanel}
-              `,
+              modifier: `${SwitchSliderPanel}`,
             }
           );
         });
@@ -265,9 +276,7 @@ describe("SwitchSlider", () => {
             },
             wrapper,
             {
-              modifier: css`
-                ${SwitchSliderPanel}
-              `,
+              modifier: `${SwitchSliderPanel}`,
             }
           );
         });
@@ -275,15 +284,3 @@ describe("SwitchSlider", () => {
     }
   );
 });
-
-function render(props) {
-  return TestRenderer.create(<SwitchSlider {...props} />);
-}
-
-function renderWithTheme(props, theme, renderer = TestRenderer.create) {
-  return renderer(
-    <ThemeProvider theme={theme}>
-      <SwitchSlider {...props} />
-    </ThemeProvider>
-  );
-}
