@@ -1,3 +1,10 @@
+### [111.12.1](https://github.com/Sage/carbon/compare/v111.12.0...v111.12.1) (2022-11-23)
+
+
+### Bug Fixes
+
+* **toast:** ensure toast component has first focus when opened ([81d87fe](https://github.com/Sage/carbon/commit/81d87fe8e1c541c0aeb7185bd984defa6c50c5e6))
+
 ## [111.12.0](https://github.com/Sage/carbon/compare/v111.11.0...v111.12.0) (2022-11-21)
 
 
