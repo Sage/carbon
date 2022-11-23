@@ -141,6 +141,18 @@ Labels could be customized using the Typography Component
   <Story name="with custom styled label" story={stories.WithCustomStyledLabels} />
 </Canvas>
 
+### Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the `RadioButton` component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+Validation status could also be passed to the `RadioButtonGroup` component as a string or boolean. 
+
+For more information check our [Validations](?path=/docs/documentation-validations--radio-button-validation#grouped-inputs-examples) documentation page
+
 ## Props
 
 ### RadioButton
