@@ -18,6 +18,7 @@ import useInputAccessibility from "../../hooks/__internal__/useInputAccessibilit
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
+import Box from "../box";
 
 // TODO: Change characterLimit type to number - batch with other breaking changes
 export interface TextareaProps
@@ -226,6 +227,54 @@ export const Textarea = ({
     (validationIconId && !validationOnLabel)
   );
 
+  const input = (
+    <InputPresentation
+      size={size}
+      disabled={disabled}
+      readOnly={readOnly}
+      inputWidth={
+        typeof inputWidth === "number" ? inputWidth : 100 - labelWidth
+      }
+      error={error}
+      warning={warning}
+      info={info}
+    >
+      <Input
+        aria-invalid={!!error}
+        aria-labelledby={ariaLabelledBy}
+        aria-describedby={validationRedesignOptIn ? undefined : ariaDescribedBy}
+        autoFocus={autoFocus}
+        name={name}
+        value={value}
+        ref={inputRef}
+        maxLength={maxLength}
+        onChange={onChange}
+        disabled={disabled}
+        readOnly={readOnly}
+        placeholder={disabled ? "" : placeholder}
+        rows={rows}
+        cols={cols}
+        id={id}
+        as="textarea"
+        {...props}
+      />
+      {children}
+      <InputIconToggle
+        disabled={disabled}
+        readOnly={readOnly}
+        inputIcon={inputIcon}
+        size={size}
+        error={error}
+        warning={warning}
+        info={info}
+        validationIconId={
+          validationRedesignOptIn ? undefined : validationIconId
+        }
+        useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
+      />
+    </InputPresentation>
+  );
+
   return (
     <TooltipProvider
       tooltipPosition={tooltipPosition}
@@ -263,61 +312,17 @@ export const Textarea = ({
             {validationRedesignOptIn && labelHelp && (
               <StyledHintText>{labelHelp}</StyledHintText>
             )}
-            {validationRedesignOptIn && (
-              <ValidationMessage error={error} warning={warning} />
+            {validationRedesignOptIn ? (
+              <Box position="relative">
+                <ValidationMessage error={error} warning={warning} />
+                {(error || warning) && (
+                  <ErrorBorder warning={!!(!error && warning)} />
+                )}
+                {input}
+              </Box>
+            ) : (
+              input
             )}
-            <InputPresentation
-              size={size}
-              disabled={disabled}
-              readOnly={readOnly}
-              inputWidth={
-                typeof inputWidth === "number" ? inputWidth : 100 - labelWidth
-              }
-              error={error}
-              warning={warning}
-              info={info}
-            >
-              {validationRedesignOptIn && (error || warning) && (
-                <ErrorBorder warning={!!(!error && warning)} />
-              )}
-              <Input
-                aria-invalid={!!error}
-                aria-labelledby={ariaLabelledBy}
-                aria-describedby={
-                  validationRedesignOptIn ? undefined : ariaDescribedBy
-                }
-                autoFocus={autoFocus}
-                name={name}
-                value={value}
-                ref={inputRef}
-                maxLength={maxLength}
-                onChange={onChange}
-                disabled={disabled}
-                readOnly={readOnly}
-                placeholder={disabled ? "" : placeholder}
-                rows={rows}
-                cols={cols}
-                id={id}
-                as="textarea"
-                {...props}
-              />
-              {children}
-              <InputIconToggle
-                disabled={disabled}
-                readOnly={readOnly}
-                inputIcon={inputIcon}
-                size={size}
-                error={error}
-                warning={warning}
-                info={info}
-                validationIconId={
-                  validationRedesignOptIn ? undefined : validationIconId
-                }
-                useValidationIcon={
-                  !(validationRedesignOptIn || validationOnLabel)
-                }
-              />
-            </InputPresentation>
           </FormField>
           {characterCount}
         </StyledTextarea>
