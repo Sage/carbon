@@ -17,6 +17,8 @@ import {
   getComponent,
 } from "../../../cypress/locators/index";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import Toast from "../toast";
+import toastComponent from "../../../cypress/locators/toast";
 
 const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 
@@ -43,6 +45,23 @@ const DialogComponent = ({ children, ...props }) => {
         <Textbox label="Textbox1" value="Textbox1" />
         <Textbox label="Textbox2" value="Textbox2" />
         <Textbox label="Textbox3" value="Textbox3" />
+      </Dialog>
+    </>
+  );
+};
+
+const DialogComponentWithToast = () => {
+  const toastRef = React.useRef(null);
+  const [openToast, setOpenToast] = React.useState(false);
+  return (
+    <>
+      <Toast
+        ref={toastRef}
+        open={openToast}
+        onDismiss={() => setOpenToast(false)}
+      />
+      <Dialog additionalWrapperRefs={[toastRef]} open>
+        <Button onClick={() => setOpenToast(true)}>Open Toast</Button>
       </Dialog>
     </>
   );
@@ -271,6 +290,17 @@ context("Testing Dialog component", () => {
       buttonDataComponent().eq(0).should("be.focused");
       cy.get("body").tab({ shift: true });
       closeIconButton().should("be.focused");
+    });
+
+    it("focuses Toast wrapper when ref passed to additionalWrapperRefs and focuses button that triggered opening on close", () => {
+      CypressMountWithProviders(<DialogComponentWithToast />);
+
+      buttonDataComponent().click();
+      toastComponent().should("be.focused");
+      closeIconButton().click();
+      buttonDataComponent().should("be.focused");
+      buttonDataComponent().click();
+      toastComponent().should("be.focused");
     });
   });
 });

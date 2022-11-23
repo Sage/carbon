@@ -720,7 +720,7 @@ describe("FocusTrap", () => {
     it("should detect when additionalWrappers update and remove any elements no longer visible from focusableElements", async () => {
       const additionalRef = { current: null };
       const wrapperRef = { current: null };
-      const ADDITONAL_BUTTON = "Additional button";
+      const ADDITIONAL_BUTTON = "Additional button";
 
       const ChangingChild = () => {
         const [loading, setLoading] = useState(true);
@@ -732,7 +732,7 @@ describe("FocusTrap", () => {
         }, []);
 
         const children = loading ? (
-          <button type="button">{ADDITONAL_BUTTON}</button>
+          <button type="button">{ADDITIONAL_BUTTON}</button>
         ) : null;
 
         return <div ref={additionalRef}>{children}</div>;
@@ -756,7 +756,7 @@ describe("FocusTrap", () => {
           <ChangingChild />
         </ModalContext.Provider>
       );
-      const additionalButton = screen.getByText(ADDITONAL_BUTTON);
+      const additionalButton = screen.getByText(ADDITIONAL_BUTTON);
 
       tabPress();
       expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
