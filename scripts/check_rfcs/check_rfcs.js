@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+/* istanbul ignore file */
 const { Octokit } = require("@octokit/rest");
 const dotenv = require("dotenv");
 const chalk = require("chalk");
@@ -34,7 +35,7 @@ const getOpenRfcs = async () => {
 const getRfcTitle = (rfc) => rfc.title.split(": ")[1];
 
 const checkRfcs = async () => {
-  if (ci.BITRISE) {
+  if (ci.isCI && process.env.NODE_ENV !== "test") {
     return;
   }
 

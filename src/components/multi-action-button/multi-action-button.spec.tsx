@@ -43,6 +43,7 @@ function simulateBlur(container: ShallowWrapper | ReactWrapper) {
 
 describe("MultiActionButton", () => {
   let wrapper: ShallowWrapper | ReactWrapper;
+
   jest.useFakeTimers();
 
   testStyledSystemMargin((props) => (

@@ -1,6 +1,5 @@
-import * as React from "react";
 import { DayPickerProps } from "react-day-picker";
-import { TextboxProps } from "../textbox/textbox";
+import { TextboxProps } from "../textbox";
 
 export interface DateChangeEvent {
   target: {

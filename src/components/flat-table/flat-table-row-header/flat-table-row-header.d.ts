@@ -16,6 +16,8 @@ export interface FlatTableRowHeaderProps extends PaddingProps {
   verticalBorder?: TableBorderSize;
   /** Sets the color of the right border */
   verticalBorderColor?: string;
+  /** Defines whether the column should be sticky on the left or right hand side of the Table */
+  stickyAlignment?: "left" | "right";
 }
 
 declare function FlatTableRowHeader(

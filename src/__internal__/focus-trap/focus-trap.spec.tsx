@@ -14,19 +14,23 @@ interface MockComponentProps extends FocusTrapProps {
   tabIndex?: number;
   children: React.ReactNode;
   shouldFocusFirstElement?: boolean;
+  dataTestId?: string;
 }
 
 const WRAPPER_ID = "test wrapper";
+const SECOND_WRAPPER_ID = "test wrapper 2";
 const FIRST_ELEMENT = "first element";
 const BUTTON_ONE = "Test button One";
 const BUTTON_TWO = "Test button Two";
+const BUTTON_THREE = "Test button Three";
+const BUTTON_FOUR = "Test button Four";
 const RADIO_LABEL_ONE = "Radio one";
 const RADIO_LABEL_TWO = "Radio two";
 const RADIO_GROUP_ONE = "Radio group one";
 const RADIO_GROUP_TWO = "Radio group two";
 
-const tabPress = () =>
-  fireEvent.keyDown(screen.getByTestId(WRAPPER_ID), {
+const tabPress = (wrapperTestId = WRAPPER_ID) =>
+  fireEvent.keyDown(screen.getByTestId(wrapperTestId), {
     key: "Tab",
   });
 
@@ -47,6 +51,7 @@ const MockComponent = ({
   isAnimationComplete,
   tabIndex,
   shouldFocusFirstElement,
+  dataTestId = WRAPPER_ID,
   ...rest
 }: MockComponentProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -61,7 +66,7 @@ const MockComponent = ({
         isOpen
         focusFirstElement={shouldFocusFirstElement ? firstRef : undefined}
       >
-        <div ref={ref} data-testid={WRAPPER_ID} tabIndex={tabIndex}>
+        <div ref={ref} data-testid={dataTestId} tabIndex={tabIndex}>
           {React.Children.map(children, (child) => {
             const focusableChild = child as React.ReactElement;
 
@@ -715,7 +720,7 @@ describe("FocusTrap", () => {
     it("should detect when additionalWrappers update and remove any elements no longer visible from focusableElements", async () => {
       const additionalRef = { current: null };
       const wrapperRef = { current: null };
-      const ADDITONAL_BUTTON = "Additional button";
+      const ADDITIONAL_BUTTON = "Additional button";
 
       const ChangingChild = () => {
         const [loading, setLoading] = useState(true);
@@ -727,7 +732,7 @@ describe("FocusTrap", () => {
         }, []);
 
         const children = loading ? (
-          <button type="button">{ADDITONAL_BUTTON}</button>
+          <button type="button">{ADDITIONAL_BUTTON}</button>
         ) : null;
 
         return <div ref={additionalRef}>{children}</div>;
@@ -747,11 +752,11 @@ describe("FocusTrap", () => {
                 {BUTTON_TWO}
               </button>
             </div>
-            <ChangingChild />
           </FocusTrap>
+          <ChangingChild />
         </ModalContext.Provider>
       );
-      const additionalButton = screen.getByText(ADDITONAL_BUTTON);
+      const additionalButton = screen.getByText(ADDITIONAL_BUTTON);
 
       tabPress();
       expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
@@ -773,6 +778,57 @@ describe("FocusTrap", () => {
       expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
       tabPress();
       expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
+    });
+  });
+
+  describe("when using a custom focusable element selector", () => {
+    it("should only focus elements which meet the custom selector", () => {
+      render(
+        <MockComponent focusableSelectors="button.focusable-button">
+          <button type="button" className="focusable-button">
+            {BUTTON_ONE}
+          </button>
+          <button type="button" className="not-focusable-button">
+            {BUTTON_TWO}
+          </button>
+          <button type="button" className="focusable-button">
+            {BUTTON_THREE}
+          </button>
+        </MockComponent>
+      );
+
+      focusElement(screen.getByText(BUTTON_ONE));
+      tabPress();
+      expect(screen.getByText(BUTTON_THREE)).toHaveFocus();
+    });
+  });
+
+  describe("when multiple focus traps are open at once", () => {
+    it("focus moves correctly between the elements of the currently-focused trap", () => {
+      render(
+        <>
+          <MockComponent dataTestId={WRAPPER_ID}>
+            <button type="button">{BUTTON_ONE}</button>
+            <button type="button">{BUTTON_TWO}</button>
+          </MockComponent>
+          <MockComponent dataTestId={SECOND_WRAPPER_ID}>
+            <button type="button">{BUTTON_THREE}</button>
+            <button type="button">{BUTTON_FOUR}</button>
+          </MockComponent>
+        </>
+      );
+
+      focusElement(screen.getByText(BUTTON_ONE));
+      tabPress(WRAPPER_ID);
+      expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
+      tabPress(WRAPPER_ID);
+      expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
+
+      focusElement(screen.getByText(BUTTON_THREE));
+      tabPress(SECOND_WRAPPER_ID);
+      expect(screen.getByText(BUTTON_FOUR)).toHaveFocus();
+      tabPress(SECOND_WRAPPER_ID);
+      expect(screen.getByText(BUTTON_THREE)).toHaveFocus();
     });
   });
 });

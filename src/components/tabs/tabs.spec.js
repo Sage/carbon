@@ -158,6 +158,35 @@ describe("Tabs", () => {
     </Tabs>
   ));
 
+  // TODO move this test into cypress when FE-4580 is merged
+  describe("when children of a Tab update", () => {
+    it("does not update the selected tab", () => {
+      const MockComponent = ({ selectedTabId, updateChild }) => {
+        return (
+          <Tabs selectedTabId={selectedTabId}>
+            <Tab title="Tab Title 1" tabId="uniqueid1">
+              TabContent
+            </Tab>
+            <Tab title="Tab Title 2" tabId="uniqueid2">
+              {updateChild ? "Foo" : "Bar"}
+            </Tab>
+          </Tabs>
+        );
+      };
+      const wrapper = mount(
+        <MockComponent selectedTabId="uniqueid2" updateChild={false} />
+      );
+
+      expect(wrapper.find(StyledTab).last().prop("isTabSelected")).toBe(true);
+
+      wrapper.setProps({ updateChild: true });
+
+      expect(
+        wrapper.update().find(StyledTab).last().prop("isTabSelected")
+      ).toBe(true);
+    });
+  });
+
   describe("when `headerWidth` is provided", () => {
     describe.each(["35%", "100px", "5em"])(
       "and value of %s is provided",

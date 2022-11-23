@@ -8,7 +8,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
   font-weight: 700;
   left: auto;
   text-align: left;
-  top: 0;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -108,11 +107,18 @@ exports[`FlatTable when rendered with proper table data should have expected str
   min-width: 100%;
   table-layout: fixed;
   width: auto;
-  outline: 2px solid #0000;
 }
 
 .c5 [data-component="icon"]:not([color]) {
   color: var(--colorsActionMinor500);
+}
+
+.c5 .c6 + td {
+  border-left: none;
+}
+
+.c5 .c6:nth-child(1) {
+  border-right: 2px solid var(--colorsUtilityMajor100);
 }
 
 .c5 .c8 {
@@ -123,12 +129,14 @@ exports[`FlatTable when rendered with proper table data should have expected str
   border-left: 1px solid var(--colorsUtilityMajor400);
 }
 
-.c3 .c6,
-.c3 .c13 {
+.c3.c3.c3 .c13 {
   border-left: none;
   border-right: none;
+}
+
+.c3.c3.c3 .c6,
+.c3.c3.c3 .c13 {
   font-weight: 700;
-  z-index: 1000;
 }
 
 .c1 {
@@ -178,11 +186,41 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 .c0 .c2 .c13,
 .c0 .c8,
-.c0 .c2 .c6 {
+.c0 .c2 {
   background-color: var(--colorsUtilityMajor400);
   border-right: 1px solid var(--colorsUtilityMajor300);
   color: var(--colorsUtilityYang100);
   border-bottom-color: var(--colorsUtilityMajor300);
+}
+
+.c0 .c2 .c6 {
+  background-color: var(--colorsUtilityMajor400);
+  color: var(--colorsUtilityYang100);
+  border-bottom-color: var(--colorsUtilityMajor300);
+  border-right-color: var(--colorsUtilityMajor300);
+  border-left-color: var(--colorsUtilityMajor300);
+}
+
+.c0 .c2 .c6,
+.c0 .c8.isSticky,
+.c0 .c2 .c13.isSticky {
+  z-index: 1005;
+}
+
+.c0 thead .c8.isSticky,
+.c0 .c13.isSticky {
+  border-right: none;
+}
+
+.c0 .c8,
+.c0 .c13 {
+  z-index: 1003;
+}
+
+.c0 tbody .c6,
+.c0 .c10.isSticky,
+.c0 tbody .c13.isSticky {
+  z-index: 1000;
 }
 
 <div
@@ -212,6 +250,8 @@ exports[`FlatTable when rendered with proper table data should have expected str
           <th
             className="c6 c7"
             data-element="flat-table-row-header"
+            onClick={[Function]}
+            onKeyDown={[Function]}
           >
             <div
               className=""
@@ -255,6 +295,8 @@ exports[`FlatTable when rendered with proper table data should have expected str
           <th
             className="c6 c7"
             data-element="flat-table-row-header"
+            onClick={[Function]}
+            onKeyDown={[Function]}
           >
             <div
               className=""
@@ -303,6 +345,8 @@ exports[`FlatTable when rendered with proper table data should have expected str
           <th
             className="c6 c7"
             data-element="flat-table-row-header"
+            onClick={[Function]}
+            onKeyDown={[Function]}
           >
             <div
               className=""

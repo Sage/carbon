@@ -214,7 +214,7 @@ context("Test for DateInput component", () => {
       dateInputParent().click();
 
       dayPickerParent()
-        .should("have.attr", "data-popper-placement", `${position}-start`)
+        .should("have.attr", "data-floating-placement", `${position}-start`)
         .and("be.visible");
     });
 

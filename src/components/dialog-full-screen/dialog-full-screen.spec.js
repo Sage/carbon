@@ -7,13 +7,16 @@ import StyledDialogFullScreen from "./dialog-full-screen.style";
 import DialogFullScreen from "./dialog-full-screen.component";
 import StyledContent from "./content.style";
 import Button from "../button";
-import guid from "../../__internal__/utils/helpers/guid";
 import Heading from "../heading";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { StyledHeader, StyledHeading } from "../heading/heading.style";
 import Help from "../help";
+import Form from "../form";
+
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import guid from "../../__internal__/utils/helpers/guid";
+import CarbonProvider from "../carbon-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 
@@ -30,18 +33,20 @@ describe("DialogFullScreen", () => {
   });
 
   it("should have aria-modal attribute on the dialog container", () => {
-    onCancel = jasmine.createSpy("cancel");
+    onCancel = jest.fn();
     wrapper = mount(
-      <DialogFullScreen
-        onCancel={onCancel}
-        className="foo"
-        open
-        title="my title"
-        subtitle="my subtitle"
-      >
-        <Button>Button</Button>
-        <Button>Button</Button>
-      </DialogFullScreen>
+      <CarbonProvider>
+        <DialogFullScreen
+          onCancel={onCancel}
+          className="foo"
+          open
+          title="my title"
+          subtitle="my subtitle"
+        >
+          <Button>Button</Button>
+          <Button>Button</Button>
+        </DialogFullScreen>
+      </CarbonProvider>
     );
 
     expect(
@@ -56,10 +61,12 @@ describe("DialogFullScreen", () => {
 
   it("should not have aria-modal attribute on the dialog container if role is not `dialog`", () => {
     wrapper = mount(
-      <DialogFullScreen onCancel={onCancel} open title="my title" role="main">
-        <Button>Button</Button>
-        <Button>Button</Button>
-      </DialogFullScreen>
+      <CarbonProvider>
+        <DialogFullScreen onCancel={onCancel} open title="my title" role="main">
+          <Button>Button</Button>
+          <Button>Button</Button>
+        </DialogFullScreen>
+      </CarbonProvider>
     );
 
     expect(
@@ -493,10 +500,36 @@ describe("DialogFullScreen", () => {
     });
   });
 
+  describe("when the Form child has a sticky footer", () => {
+    it("it does not set overflow styling", () => {
+      wrapper = mount(
+        <DialogFullScreen open>
+          <Form stickyFooter />
+        </DialogFullScreen>
+      );
+
+      expect(wrapper.find(StyledContent)).not.toHaveStyleRule("overflow-y");
+    });
+  });
+
+  describe("when the Form child does not have a sticky footer", () => {
+    it("it sets overflow styling", () => {
+      wrapper = mount(
+        <DialogFullScreen open>
+          <Form />
+        </DialogFullScreen>
+      );
+
+      expect(wrapper.find(StyledContent)).toHaveStyleRule("overflow-y", "auto");
+    });
+  });
+
   describe("ARIA attributes", () => {
     it("by default, set role to `dialog` and aria-modal to true", () => {
       wrapper = mount(
-        <DialogFullScreen open onCancel={() => {}} onConfirm={() => {}} />
+        <CarbonProvider>
+          <DialogFullScreen open onCancel={() => {}} onConfirm={() => {}} />
+        </CarbonProvider>
       );
 
       expect(

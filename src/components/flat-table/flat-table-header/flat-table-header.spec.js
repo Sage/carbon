@@ -3,6 +3,8 @@ import { mount } from "enzyme";
 import FlatTableHeader from "./flat-table-header.component";
 import StyledFlatTableHeader from "./flat-table-header.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { FlatTableThemeContext } from "../flat-table.component";
+import getAlternativeBackgroundColor from "./flat-table-header-utils";
 
 describe("FlatTableHeader", () => {
   it("renders with proper width style rule when width prop is passed", () => {
@@ -49,25 +51,30 @@ describe("FlatTableHeader", () => {
   });
 
   describe('with the "alternativeBgColor" prop set', () => {
-    it('it overrides the header "background-color"', () => {
-      const wrapper = mount(
-        <table>
-          <thead>
-            <tr>
-              <FlatTableHeader alternativeBgColor />
-            </tr>
-          </thead>
-        </table>
-      );
+    it.each(["dark", "light", "transparent-white", "transparent-base"])(
+      'it overrides the header "background-color" with correspond color for %s themeColor"',
+      (colorTheme) => {
+        const wrapper = mount(
+          <FlatTableThemeContext.Provider value={{ colorTheme }}>
+            <table>
+              <thead>
+                <tr>
+                  <FlatTableHeader alternativeBgColor>test 1</FlatTableHeader>
+                </tr>
+              </thead>
+            </table>
+          </FlatTableThemeContext.Provider>
+        );
 
-      assertStyleMatch(
-        {
-          backgroundColor: "var(--colorsActionMinor550)",
-        },
-        wrapper.find(StyledFlatTableHeader),
-        { modifier: "&&&" }
-      );
-    });
+        assertStyleMatch(
+          {
+            backgroundColor: getAlternativeBackgroundColor(colorTheme),
+          },
+          wrapper.find(StyledFlatTableHeader),
+          { modifier: "&&&" }
+        );
+      }
+    );
   });
 
   describe.each([
@@ -92,6 +99,32 @@ describe("FlatTableHeader", () => {
         assertStyleMatch(
           {
             borderRightWidth: expectedValue,
+          },
+          wrapper,
+          { modifier: "&&&" }
+        );
+      });
+    }
+  );
+
+  describe.each([["red"], ["#ffffff"], ["--colorsUtilityMajor550"]])(
+    "when the verticalBorderColor prop is set to %s",
+    (verticalBorderColor) => {
+      let wrapper;
+
+      it("it overrides the header border-right-color", () => {
+        wrapper = mount(
+          <table>
+            <thead>
+              <tr>
+                <FlatTableHeader verticalBorderColor={verticalBorderColor} />
+              </tr>
+            </thead>
+          </table>
+        );
+        assertStyleMatch(
+          {
+            borderRightColor: verticalBorderColor,
           },
           wrapper,
           { modifier: "&&&" }

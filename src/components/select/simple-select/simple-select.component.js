@@ -43,6 +43,7 @@ const SimpleSelect = React.forwardRef(
       onBlur,
       disablePortal,
       isLoading,
+      listMaxHeight,
       onListScrollBottom,
       tableHeader,
       multiColumn,
@@ -50,7 +51,7 @@ const SimpleSelect = React.forwardRef(
       "data-component": dataComponent,
       "data-element": dataElement,
       "data-role": dataRole,
-      listPlacement = "bottom-start",
+      listPlacement = "bottom",
       flipEnabled = true,
       ...props
     },
@@ -391,6 +392,7 @@ const SimpleSelect = React.forwardRef(
         onSelectListClose={onSelectListClose}
         highlightedValue={selectedValue}
         disablePortal={disablePortal}
+        listMaxHeight={listMaxHeight}
         isLoading={isLoading}
         onListScrollBottom={onListScrollBottom}
         tableHeader={tableHeader}
@@ -467,24 +469,10 @@ SimpleSelect.propTypes = {
   onListScrollBottom: PropTypes.func,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Maximum list height - defaults to 180 */
+  listMaxHeight: PropTypes.number,
   /** Placement of the select list in relation to the input element */
-  listPlacement: PropTypes.oneOf([
-    "auto",
-    "auto-start",
-    "auto-end",
-    "top",
-    "top-start",
-    "top-end",
-    "bottom",
-    "bottom-start",
-    "bottom-end",
-    "right",
-    "right-start",
-    "right-end",
-    "left",
-    "left-start",
-    "left-end",
-  ]),
+  listPlacement: PropTypes.oneOf(["top", "bottom", "right", "left"]),
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled: PropTypes.bool,
 };

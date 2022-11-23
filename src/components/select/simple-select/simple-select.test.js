@@ -538,20 +538,29 @@ context("Tests for Simple Select component", () => {
         .should("have.attr", "data-role", testPropValue);
     });
 
-    it.each([["top"], ["bottom"], ["left"], ["right"]])(
+    it.each([
+      ["top", "200px", "0px", "0px", "0px"],
+      ["bottom", "0px", "0px", "0px", "0px"],
+      ["left", "200px", "0px", "200px", "0px"],
+      ["right", "200px", "0px", "0px", "200px"],
+    ])(
       "should render the help tooltip in the %s position",
-      (tooltipPositionValue) => {
+      (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
           <SimpleSelectComponent
             labelHelp="Help"
             tooltipPosition={tooltipPositionValue}
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
           />
         );
 
         helpIcon().trigger("mouseover");
         tooltipPreview()
           .should("be.visible")
-          .and("have.css", tooltipPositionValue);
+          .and("have.attr", "data-placement", tooltipPositionValue);
       }
     );
 
@@ -862,6 +871,17 @@ context("Tests for Simple Select component", () => {
       selectListOptionGroup("1").should("have.text", "Group one");
     });
 
+    it("should render option list with proper maxHeight value", () => {
+      const maxHeight = 200;
+      CypressMountWithProviders(
+        <SimpleSelectComponent listMaxHeight={maxHeight} />
+      );
+      selectText().click();
+      selectList()
+        .should("have.css", "max-height", `${maxHeight}px`)
+        .and("be.visible");
+    });
+
     it.each([
       ["top", "300px", "0px", "200px", "0px"],
       ["bottom", "0px", "0px", "0px", "0px"],
@@ -882,7 +902,7 @@ context("Tests for Simple Select component", () => {
 
         selectText().click();
         selectListPosition()
-          .should("have.attr", "data-popper-placement", position)
+          .should("have.attr", "data-floating-placement", position)
           .and("be.visible");
       }
     );
@@ -922,7 +942,7 @@ context("Tests for Simple Select component", () => {
 
         selectText().click();
         selectListPosition()
-          .should("have.attr", "data-popper-placement", flipPosition)
+          .should("have.attr", "data-floating-placement", flipPosition)
           .and("be.visible");
       }
     );
@@ -930,24 +950,18 @@ context("Tests for Simple Select component", () => {
     it.each([
       ["bottom", "0px", "0px", "0px", "0px"],
       ["top", "600px", "0px", "0px", "0px"],
-      ["right", "200px", "0px", "0px", "900px"],
-      ["left", "600px", "0px", "900px", "0px"],
+      ["bottom", "200px", "0px", "0px", "900px"],
+      ["top", "600px", "0px", "900px", "0px"],
     ])(
-      "should render list in %s position with the most space when listPosition is set to auto",
+      "should render list in %s position with the most space when listPosition is not set",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent
-            listPlacement="auto"
-            mt={top}
-            mb={bottom}
-            ml={left}
-            mr={right}
-          />
+          <SimpleSelectComponent mt={top} mb={bottom} ml={left} mr={right} />
         );
 
         selectText().click();
         selectListPosition()
-          .should("have.attr", "data-popper-placement", position)
+          .should("have.attr", "data-floating-placement", position)
           .and("be.visible");
       }
     );
@@ -970,6 +984,28 @@ context("Tests for Simple Select component", () => {
           .should("have.length", numberOfChildren);
       }
     );
+
+    it("should have correct hover state of list option", () => {
+      CypressMountWithProviders(<SimpleSelectComponent />);
+
+      const optionValue3 = "Blue";
+
+      selectText().click();
+      selectListText(optionValue3)
+        .realHover()
+        .should("have.css", "background-color", "rgb(204, 214, 219)");
+    });
+  });
+
+  describe("check height of Select list when opened", () => {
+    it("should not cut off any text with long option text", () => {
+      CypressMountWithProviders(<SimpleSelectWithLongWrappingTextComponent />);
+
+      selectText().click();
+      selectListWrapper()
+        .should("have.css", "height", "152px")
+        .and("be.visible");
+    });
   });
 
   describe("check events for Simple Select component", () => {
@@ -1043,7 +1079,7 @@ context("Tests for Simple Select component", () => {
       "should call onKeyDown event when %s key is pressed",
       (key) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent onKeyDownEnabled onKeyDown={callback} />
+          <SimpleSelectComponent onKeyDown={callback} />
         );
 
         commonDataElementInputPreview()
@@ -1055,16 +1091,5 @@ context("Tests for Simple Select component", () => {
           });
       }
     );
-  });
-
-  describe("check height of Select list when opened", () => {
-    it("should not cut off any text with long option text", () => {
-      CypressMountWithProviders(<SimpleSelectWithLongWrappingTextComponent />);
-
-      selectText().click();
-      selectListWrapper()
-        .should("have.css", "height", "152px")
-        .and("be.visible");
-    });
   });
 });

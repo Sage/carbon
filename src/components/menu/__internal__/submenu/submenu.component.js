@@ -38,13 +38,18 @@ const Submenu = React.forwardRef(
       onSubmenuOpen,
       onSubmenuClose,
       onClick,
+      indexInMenu,
       ...rest
     },
     ref
   ) => {
     const [blockDoubleFocus, setBlockDoubleFocus] = useState(false);
     const menuContext = useContext(MenuContext);
-    const { inFullscreenView } = menuContext;
+    const {
+      inFullscreenView,
+      openSubmenuIndex,
+      setOpenSubmenuIndex,
+    } = menuContext;
     const [submenuOpen, setSubmenuOpen] = useState(false);
     const [submenuFocusIndex, setSubmenuFocusIndex] = useState(undefined);
     const [characterString, setCharacterString] = useState("");
@@ -97,16 +102,26 @@ const Submenu = React.forwardRef(
 
     const openSubmenu = useCallback(() => {
       setSubmenuOpen(true);
+      setOpenSubmenuIndex(indexInMenu);
       if (onSubmenuOpen) onSubmenuOpen();
-    }, [onSubmenuOpen]);
+    }, [onSubmenuOpen, indexInMenu, setOpenSubmenuIndex]);
 
     const closeSubmenu = useCallback(() => {
       setSubmenuOpen(false);
+      if (openSubmenuIndex === indexInMenu) {
+        setOpenSubmenuIndex(null);
+      }
       if (onSubmenuClose) onSubmenuClose();
       setSubmenuFocusIndex(undefined);
       setBlockDoubleFocus(false);
       setCharacterString("");
-    }, [onSubmenuClose]);
+    }, [onSubmenuClose, setOpenSubmenuIndex, indexInMenu, openSubmenuIndex]);
+
+    useEffect(() => {
+      if (openSubmenuIndex !== indexInMenu) {
+        closeSubmenu();
+      }
+    }, [openSubmenuIndex, indexInMenu, closeSubmenu]);
 
     const handleKeyDown = useCallback(
       (event, index = submenuFocusIndex) => {
@@ -193,6 +208,12 @@ const Submenu = React.forwardRef(
             setCharacterString(`${characterString}${event.key.toLowerCase()}`);
           } else {
             setCharacterString("");
+          }
+
+          if (Events.isEnterKey(event)) {
+            /* timeout enforces that the "closeSubmenu" method will be run after 
+              the browser navigates to the specified href of the menu-item. */
+            setTimeout(() => closeSubmenu());
           }
 
           if (href && index === undefined) {
@@ -413,6 +434,8 @@ Submenu.propTypes = {
   onSubmenuClose: PropTypes.func,
   /** Callback triggered when the top-level menu item is clicked */
   onClick: PropTypes.func,
+  /** index of child in the parent menu */
+  indexInMenu: PropTypes.number,
 };
 
 export default Submenu;

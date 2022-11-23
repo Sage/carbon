@@ -2,21 +2,23 @@ import * as React from "react";
 import Toast from ".";
 import { TOAST_COLORS } from "./toast.config";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
 
 import toastComponent from "../../../cypress/locators/toast";
 import { closeIconButton, getComponent } from "../../../cypress/locators/index";
 
-import { pressESCKey } from "../../../cypress/support/helper";
+import { pressESCKey, pressTABKey } from "../../../cypress/support/helper";
 
 const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 const testData = "cypressData";
 const colorTypes = [
-  ["rgb(205, 56, 75)"],
+  ["rgb(203, 55, 74)"],
   ["rgb(51, 91, 112)"],
   ["rgb(0, 138, 33)"],
   ["rgb(239, 103, 0)"],
 ];
 
+// eslint-disable-next-line react/prop-types
 const ToastComponent = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = React.useState(true);
 
@@ -55,12 +57,10 @@ context("Testing Toast component", () => {
       toastComponent().should("not.exist");
     });
 
-    it("should render Toast component with focused close icon", () => {
+    it("should render Toast component with focus", () => {
       CypressMountWithProviders(<ToastComponent />);
 
-      closeIconButton()
-        .should("have.css", "outline-color", "rgb(255, 181, 0)")
-        .and("have.css", "outline-width", "3px");
+      toastComponent().should("be.focused");
     });
 
     it("should render Toast component with not focused close icon", () => {
@@ -155,6 +155,28 @@ context("Testing Toast component", () => {
       CypressMountWithProviders(<ToastComponent maxWidth="250px" />);
 
       toastComponent().should("have.css", "maxWidth", "250px");
+    });
+
+    it("should render Toast component with notice variant", () => {
+      CypressMountWithProviders(<ToastComponent variant="notice" open />);
+
+      toastComponent()
+        .then((toast) => {
+          expect(toast.css("background-color")).to.equals("rgb(51, 91, 112)");
+          expect(toast.css("box-shadow")).to.equals(
+            "rgba(0, 20, 29, 0.1) 0px 10px 30px 0px, rgba(0, 20, 29, 0.1) 0px 30px 60px 0px"
+          );
+        })
+        .and("be.visible");
+    });
+
+    it("should render Toast component with notice variant with focused close icon", () => {
+      CypressMountWithProviders(<ToastComponent variant="notice" open />);
+
+      pressTABKey(1);
+      closeIconButton().then(($el) => {
+        checkGoldenOutline($el);
+      });
     });
   });
 

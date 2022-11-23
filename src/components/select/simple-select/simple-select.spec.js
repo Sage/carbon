@@ -10,6 +10,7 @@ import SimpleSelect from "./simple-select.component";
 import Textbox from "../../textbox";
 import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
+import { StyledSelectList } from "../select-list/select-list.style";
 import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import Label from "../../../__internal__/label";
@@ -117,6 +118,16 @@ describe("SimpleSelect", () => {
       wrapper,
       { modifier: `${InputIconToggleStyle}` }
     );
+  });
+
+  describe("when listMaxHeight prop is provided", () => {
+    it("overrides default list max-height", () => {
+      mount(getSelect());
+      const wrapper = renderSelect({ listMaxHeight: 120, openOnFocus: true });
+
+      simulateSelectTextboxEvent(wrapper, "focus");
+      assertStyleMatch({ maxHeight: "120px" }, wrapper.find(StyledSelectList));
+    });
   });
 
   describe("when the transparent prop is set to true", () => {
@@ -383,30 +394,17 @@ describe("SimpleSelect", () => {
       });
     });
 
-    it.each([
-      "auto",
-      "auto-start",
-      "auto-end",
-      "top",
-      "top-start",
-      "top-end",
-      "bottom",
-      "bottom-start",
-      "bottom-end",
-      "right",
-      "right-start",
-      "right-end",
-      "left",
-      "left-start",
-      "left-end",
-    ])("the listPlacement prop should be passed", (listPlacement) => {
-      const wrapper = renderSelect({ listPlacement });
+    it.each(["top", "bottom", "right", "left"])(
+      "the listPlacement prop should be passed",
+      (listPlacement) => {
+        const wrapper = renderSelect({ listPlacement });
 
-      simulateSelectTextEvent(wrapper, "click");
-      expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
-        listPlacement
-      );
-    });
+        simulateSelectTextEvent(wrapper, "click");
+        expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
+          listPlacement
+        );
+      }
+    );
 
     it("the flipEnabled prop should be passed", () => {
       const wrapper = renderSelect({ flipEnabled: false });

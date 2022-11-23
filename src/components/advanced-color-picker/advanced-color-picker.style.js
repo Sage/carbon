@@ -4,8 +4,8 @@ import StyledAdvancedColorPickerCell from "./advanced-color-picker-cell.style";
 import { StyledColorOptions } from "../simple-color-picker/simple-color-picker.style";
 import StyledSimpleColor from "../simple-color-picker/simple-color/simple-color.style";
 import {
-  DialogContentStyle,
-  DialogInnerContentStyle,
+  StyledDialogContent,
+  StyledDialogInnerContent,
 } from "../dialog/dialog.style";
 import Dialog from "../dialog/dialog.component";
 import StyledIconButton from "../icon-button/icon-button.style";
@@ -47,11 +47,11 @@ const StyledAdvancedColorPickerPreview = styled.div`
 `;
 
 const DialogStyle = styled(Dialog)`
-  ${DialogContentStyle} {
+  ${StyledDialogContent} {
     padding: var(--spacing200);
   }
 
-  ${DialogInnerContentStyle} {
+  ${StyledDialogInnerContent} {
     padding: 0;
   }
 

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { margin } from "styled-system";
 
 import baseTheme from "../../style/themes/base";
+import StyledInput from "../../__internal__/input/input.style";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 
 const datePickerWidth = {
@@ -17,6 +18,10 @@ const StyledDateInput = styled.div`
   & ${StyledInputPresentation} {
     flex: none;
     width: ${({ size }) => datePickerWidth[size]};
+
+    ${StyledInput} {
+      margin-right: -8px;
+    }
   }
 `;
 

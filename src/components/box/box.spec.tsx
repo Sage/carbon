@@ -8,8 +8,19 @@ import {
   testStyledSystemPosition,
   assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
-import Box, { OverflowWrap, ScrollVariant, BoxSizing } from "./box.component";
+import Box, {
+  OverflowWrap,
+  ScrollVariant,
+  BoxSizing,
+  AllowedNumericalValues,
+  Gap,
+} from "./box.component";
 import boxConfig from "./box.config";
+
+const GAP_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as AllowedNumericalValues[];
+
+const getGapValue = (gap: number | string) =>
+  typeof gap === "number" ? `var(--spacing${gap}00)` : gap;
 
 describe("Box", () => {
   testStyledSystemSpacing((props) => <Box {...props} />);
@@ -69,6 +80,33 @@ describe("Box", () => {
       const wrapper = mount(<Box boxSizing={boxSizing} />);
 
       assertStyleMatch({ boxSizing }, wrapper);
+    }
+  );
+
+  it.each<Gap>([...GAP_VALUES, "20px", "20%", "20px 20%"])(
+    "has styles applied when gap is set to %s",
+    (gapValue) => {
+      const wrapper = mount(<Box display="flex" gap={gapValue} />);
+      const gap = getGapValue(gapValue);
+      assertStyleMatch({ gap }, wrapper);
+    }
+  );
+
+  it.each<Gap>([...GAP_VALUES, "20px", "20%"])(
+    "has styles applied when row-gap is set to %s",
+    (gapValue) => {
+      const wrapper = mount(<Box display="flex" rowGap={gapValue} />);
+      const rowGap = getGapValue(gapValue);
+      assertStyleMatch({ rowGap }, wrapper);
+    }
+  );
+
+  it.each<Gap>([...GAP_VALUES, "20px", "20%"])(
+    "has styles applied when column-gap is set to %s",
+    (gapValue) => {
+      const wrapper = mount(<Box display="flex" columnGap={gapValue} />);
+      const columnGap = getGapValue(gapValue);
+      assertStyleMatch({ columnGap }, wrapper);
     }
   );
 });

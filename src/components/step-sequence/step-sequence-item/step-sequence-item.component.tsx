@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import {
-  StepSequenceItemStyle,
-  StepSequenceItemContentStyle,
-  StepSequenceItemIndicatorStyle,
-  StepSequenceItemHiddenLabelStyle,
+  StyledStepSequenceItem,
+  StyledStepSequenceItemContent,
+  StyledStepSequenceItemIndicator,
+  StyledStepSequenceItemHiddenLabel,
 } from "./step-sequence-item.style";
 import Icon from "../../icon";
 import { StepSequenceContext } from "../step-sequence.component";
@@ -39,9 +39,9 @@ export const StepSequenceItem = ({
 
   const indicatorText = () => {
     return !hideIndicator ? (
-      <StepSequenceItemIndicatorStyle>
+      <StyledStepSequenceItemIndicator>
         {indicator}
-      </StepSequenceItemIndicatorStyle>
+      </StyledStepSequenceItemIndicator>
     ) : null;
   };
 
@@ -51,23 +51,23 @@ export const StepSequenceItem = ({
   const hiddenLabel = () => {
     if (hiddenCompleteLabel && status === "complete") {
       return (
-        <StepSequenceItemHiddenLabelStyle>
+        <StyledStepSequenceItemHiddenLabel>
           {hiddenCompleteLabel}
-        </StepSequenceItemHiddenLabelStyle>
+        </StyledStepSequenceItemHiddenLabel>
       );
     }
     if (hiddenCurrentLabel && status === "current") {
       return (
-        <StepSequenceItemHiddenLabelStyle>
+        <StyledStepSequenceItemHiddenLabel>
           {hiddenCurrentLabel}
-        </StepSequenceItemHiddenLabelStyle>
+        </StyledStepSequenceItemHiddenLabel>
       );
     }
     return null;
   };
 
   return (
-    <StepSequenceItemStyle
+    <StyledStepSequenceItem
       data-component="step-sequence-item"
       orientation={orientation}
       status={status}
@@ -76,11 +76,11 @@ export const StepSequenceItem = ({
       {...rest}
     >
       {hiddenLabel()}
-      <StepSequenceItemContentStyle>
+      <StyledStepSequenceItemContent>
         {icon()}
         <span>{children}</span>
-      </StepSequenceItemContentStyle>
-    </StepSequenceItemStyle>
+      </StyledStepSequenceItemContent>
+    </StyledStepSequenceItem>
   );
 };
 

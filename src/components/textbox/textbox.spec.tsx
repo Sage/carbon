@@ -1,6 +1,6 @@
 import React from "react";
 import { mount, ReactWrapper } from "enzyme";
-import Textbox from ".";
+import Textbox, { TextboxProps } from ".";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import {
   assertStyleMatch,
@@ -68,6 +68,26 @@ describe("Textbox", () => {
     expect(wrapper.find("input").prop("maxLength")).toBe(100);
   });
 
+  it.each([
+    {
+      inputIcon: "search",
+    },
+    {
+      error: "error",
+    },
+    {
+      warning: "warning",
+    },
+    {
+      info: "info",
+    },
+  ] as const)(
+    "pass hasIcon to InputPresentation when an icon is present inside",
+    (props: Partial<TextboxProps>) => {
+      const wrapper = mount(<Textbox value="test string" {...props} />);
+      expect(wrapper.find(InputPresentation).props().hasIcon).toBe(true);
+    }
+  );
   it("supports a separate onClick handler passing for the icon", () => {
     const onClick = jest.fn();
     const iconOnClick = jest.fn();
@@ -99,6 +119,7 @@ describe("Textbox", () => {
         expect(
           wrapper.find(InputPresentation).find(StyledValidationIcon).exists()
         ).toBe(true);
+        expect(wrapper.find(InputPresentation).props().hasIcon).toBe(true);
       }
     );
     it.each(validationTypes)(
@@ -111,6 +132,7 @@ describe("Textbox", () => {
         expect(
           wrapper.find(FormField).find(StyledValidationIcon).exists()
         ).toBe(true);
+        expect(wrapper.find(InputPresentation).props().hasIcon).toBe(false);
       }
     );
 

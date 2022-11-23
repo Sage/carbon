@@ -5,9 +5,7 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import Decimal from ".";
 import Textbox from "../textbox";
-import Button from "../button";
-import Box from "../box";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import * as stories from "./decimal.stories";
 
 <Meta title="Decimal Input" parameters={{ info: { disable: true } }} />
 
@@ -41,201 +39,70 @@ import Decimal from "carbon-react/lib/components/decimal";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    {() => {
-      const [state, setState] = useState("0.01");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return <Decimal label="Decimal" value={state} onChange={setValue} />;
-    }}
-  </Story>
+  <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
 ### Sizes
 
 <Canvas>
-  <Story name="sizes">
-    {() => {
-      const [state, setState] = useState({
-        small: "0.01",
-        medium: "0.01",
-        large: "0.01",
-      });
-      const handleChange = (size) => (e) => {
-        setState({ ...state, [size]: e.target.value.rawValue });
-      };
-      return ["small", "medium", "large"].map((size) => (
-        <Decimal
-          key={`Decimal - ${size}`}
-          label={`Decimal - ${size}`}
-          value={state[size]}
-          onChange={handleChange(size)}
-          size={size}
-          mb={2}
-        />
-      ));
-    }}
-  </Story>
+  <Story name="sizes" story={stories.Sizes} />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled">
-    <Decimal label="Decimal" value="0.01" disabled />
-  </Story>
+  <Story name="disabled" story={stories.Disabled} />
 </Canvas>
 
 ### LabelAlign
 
 <Canvas>
-  <Story name="labelAlign">
-    {() => {
-      const [state, setState] = useState({
-        right: "0.01",
-        left: "0.01",
-      });
-      const handleChange = (alignment) => (e) => {
-        setState({ ...state, [alignment]: e.target.value.rawValue });
-      };
-      return ["right", "left"].map((alignment) => (
-        <Decimal
-          label="Decimal"
-          labelInline
-          inputWidth={50}
-          key={alignment}
-          labelAlign={alignment}
-          value={state[alignment]}
-          onChange={handleChange(alignment)}
-        />
-      ));
-    }}
-  </Story>
+  <Story name="labelAlign" story={stories.LabelAlign} />
 </Canvas>
 
 ### ReadOnly
 
 <Canvas>
-  <Story name="readOnly">
-    <Decimal label="Decimal" value="0.01" readOnly />
-  </Story>
+  <Story name="readOnly" story={stories.ReadOnly} />
 </Canvas>
 
 ### Empty
 
 <Canvas>
-  <Story name="empty">
-    <Decimal label="Decimal" allowEmptyValue />
-  </Story>
+  <Story name="empty" story={stories.Empty} />
 </Canvas>
 
 ### With custom precision
 
 <Canvas>
-  <Story name="with custom precision">
-    {() => {
-      const [state, setState] = useState("0.0001");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return (
-        <Decimal
-          label="Decimal"
-          value={state}
-          onChange={setValue}
-          precision={4}
-        />
-      );
-    }}
-  </Story>
+  <Story name="with custom precision" story={stories.WithCustomPrecision} />
 </Canvas>
 
 ### With labelInline
 
 <Canvas>
-  <Story name="with labelInline" parameters={{ chromatic: { disable: true } }}>
-    {() => {
-      const [state, setState] = useState("0.01");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return (
-        <Decimal
-          label="Decimal"
-          value={state}
-          onChange={setValue}
-          labelInline
-        />
-      );
-    }}
-  </Story>
+  <Story name="with labelInline" story={stories.LabelInline} />
 </Canvas>
 
 ### With custom labelWidth and inputWidth
 
 <Canvas>
-  <Story name="with custom labelWidth and inputWidth">
-    {() => {
-      const [state, setState] = useState("0.01");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return (
-        <Decimal
-          label="Decimal"
-          value={state}
-          onChange={setValue}
-          labelInline
-          labelWidth={10}
-          inputWidth={90}
-        />
-      );
-    }}
-  </Story>
+  <Story
+    name="with custom labelWidth and inputWidth"
+    story={stories.WithCustomLabelWidthAndInputWidth}
+  />
 </Canvas>
 
 ### With fieldHelp
 
 <Canvas>
-  <Story name="with fieldHelp">
-    {() => {
-      const [state, setState] = useState("0.01");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return (
-        <Decimal
-          label="Decimal"
-          value={state}
-          onChange={setValue}
-          fieldHelp="Help"
-        />
-      );
-    }}
-  </Story>
+  <Story name="with fieldHelp" story={stories.WithFieldHelp} />
 </Canvas>
 
 ### With labelHelp
 
 <Canvas>
-  <Story name="with labelHelp">
-    {() => {
-      const [state, setState] = useState("0.01");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return (
-        <Decimal
-          label="Decimal"
-          value={state}
-          onChange={setValue}
-          labelHelp="Help"
-          helpAriaLabel="Help"
-        />
-      );
-    }}
-  </Story>
+  <Story name="with labelHelp" story={stories.WithLabelHelp} />
 </Canvas>
 
 ### Required
@@ -243,17 +110,7 @@ import Decimal from "carbon-react/lib/components/decimal";
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Canvas>
-  <Story name="required">
-    {() => {
-      const [state, setState] = useState("0.01");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return (
-        <Decimal label="Decimal" value={state} onChange={setValue} required />
-      );
-    }}
-  </Story>
+  <Story name="required" story={stories.Required} />
 </Canvas>
 
 ### Left aligned
@@ -262,22 +119,7 @@ You can use the `align` prop to choose how the the characters inside the compone
 In this example, `align` has been assigned the value `left`.
 
 <Canvas>
-  <Story name="left aligned">
-    {() => {
-      const [state, setState] = useState("0.01");
-      const setValue = ({ target }) => {
-        setState(target.value.rawValue);
-      };
-      return (
-        <Decimal
-          label="Decimal"
-          value={state}
-          onChange={setValue}
-          align="left"
-        />
-      );
-    }}
-  </Story>
+  <Story name="left aligned" story={stories.LeftAligned} />
 </Canvas>
 
 ### Validations
@@ -293,36 +135,10 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 #### As a string
 
 <Canvas>
-  <Story name="validations - string - component">
-    {() => {
-      const [state, setState] = useState({
-        error: "0.01",
-        warning: "0.01",
-        info: "0.01",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value.rawValue });
-      };
-      return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <Decimal
-            label="Decimal"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Decimal
-            label="Decimal - readOnly"
-            value="0.01"
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </div>
-      ));
-    }}
-  </Story>
+  <Story
+    name="validations - string - component"
+    story={stories.ValidationsStringComponent}
+  />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -330,68 +146,17 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      const [state, setState] = useState({
-        error: "0.01",
-        warning: "0.01",
-        info: "0.01",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value.rawValue });
-      };
-      return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <Decimal
-            label="Decimal"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-          />
-        </div>
-      ));
-    }}
-  </Story>
+    story={stories.ValidationsTooltip}
+  />
 </Canvas>
 
 #### As a string, displayed on label
 
 <Canvas>
-  <Story name="validations - string - label">
-    {() => {
-      const [state, setState] = useState({
-        error: "0.01",
-        warning: "0.01",
-        info: "0.01",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value.rawValue });
-      };
-      return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
-          <Decimal
-            label="Decimal"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Decimal
-            label="Decimal - readOnly"
-            value="0.01"
-            validationOnLabel
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </div>
-      ));
-    }}
-  </Story>
+  <Story
+    name="validations - string - label"
+    story={stories.ValidationsStringLabel}
+  />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -399,112 +164,23 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      const [state, setState] = useState({
-        error: "0.01",
-        warning: "0.01",
-        info: "0.01",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value.rawValue });
-      };
-      return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
-          <Decimal
-            label="Decimal"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-          />
-        </div>
-      ));
-    }}
-  </Story>
+    story={stories.ValidationsTooltipLabel}
+  />
 </Canvas>
 
 #### New designs validation
 
 <Canvas>
-  <Story name="validations - string - new design">
-    {() => {
-      const [state, setState] = useState({
-        error: "0.01",
-        warning: "0.01",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value.rawValue });
-      };
-      return (
-        <CarbonProvider validationRedesignOptIn>
-          {["error", "warning"].map((validationType) =>
-            ["small", "medium", "large"].map((size) => (
-              <div
-                style={{ width: "296px" }}
-                key={`${size}-${validationType}-string-component`}
-              >
-                <Decimal
-                  label={`${size} - ${validationType}`}
-                  value={state[validationType]}
-                  size={size}
-                  onChange={handleChange(validationType)}
-                  {...{ [validationType]: "Message" }}
-                  m={4}
-                />
-                <Decimal
-                  label={`readOnly - ${size} - ${validationType}`}
-                  value="0.01"
-                  size={size}
-                  readOnly
-                  {...{ [validationType]: "Message" }}
-                  m={4}
-                />
-              </div>
-            ))
-          )}
-        </CarbonProvider>
-      );
-    }}
-  </Story>
+  <Story
+    name="validations - string - new design"
+    story={stories.ValidationsRedesign}
+  />
 </Canvas>
 
 #### As a boolean
 
 <Canvas>
-  <Story name="validations - boolean">
-    {() => {
-      const [state, setState] = useState({
-        error: "0.01",
-        warning: "0.01",
-        info: "0.01",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value.rawValue });
-      };
-      return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-boolean-component`}>
-          <Decimal
-            label="Decimal"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-          <Decimal
-            label="Decimal - readOnly"
-            value="0.01"
-            readOnly
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-        </div>
-      ));
-    }}
-  </Story>
+  <Story name="validations - boolean" story={stories.ValidationsBoolean} />
 </Canvas>
 
 ## Props
@@ -512,10 +188,6 @@ It is possible to use the `tooltipPosition` to override the default placement of
 ### Decimal
 
 <StyledSystemProps of={Decimal} noHeader margin />
-
-Due to the `Textbox` component being used internally by the `Decimal` component, most of the `Textbox` props are applicable to `Decimal`
-
-<ArgsTable of={Textbox} />
 
 **Any other supplied props will be provided to the underlying HTML input element**
 

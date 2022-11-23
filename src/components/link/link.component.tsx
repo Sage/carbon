@@ -3,19 +3,15 @@ import { IconType } from "components/icon/icon-type";
 
 import Icon from "../icon";
 import Event from "../../__internal__/utils/helpers/events";
-import { StyledLink, StyledContent } from "./link.style";
+import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 
-export interface LinkProps extends React.AriaAttributes {
-  /** The disabled state of the link. */
-  disabled?: boolean;
+export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
   /** An href for an anchor tag. */
   href?: string;
   /** An icon to display next to the link. */
   icon?: IconType;
-  /** Which side of the link to the render the link. */
-  iconAlign?: "left" | "right";
   /** Function called when the mouse is clicked. */
   onClick?: (
     ev:
@@ -49,8 +45,6 @@ export interface LinkProps extends React.AriaAttributes {
   target?: string;
   /** Aria label for accessibility purposes */
   ariaLabel?: string;
-  /** Allows to create skip link */
-  isSkipLink?: boolean;
   /** allows to set rel property in <a> tag */
   rel?: string;
 }
@@ -76,6 +70,8 @@ export const Link = React.forwardRef<
       tooltipMessage,
       tooltipPosition,
       target,
+      variant = "default",
+      isDarkBackground,
       ...rest
     }: LinkProps,
     ref
@@ -100,6 +96,7 @@ export const Link = React.forwardRef<
         onClick(ev);
       }
     };
+
     const renderLinkIcon = (currentAlignment = "left") => {
       const hasProperAlignment = icon && iconAlign === currentAlignment;
 
@@ -107,7 +104,6 @@ export const Link = React.forwardRef<
         <Icon
           type={icon}
           bgSize="extra-small"
-          color="--colorsActionMajor500"
           disabled={disabled}
           ariaLabel={ariaLabel}
           tooltipMessage={tooltipMessage}
@@ -168,6 +164,8 @@ export const Link = React.forwardRef<
         className={className}
         iconAlign={iconAlign}
         hasContent={Boolean(children)}
+        variant={variant}
+        isDarkBackground={isDarkBackground}
         {...tagComponent("link", rest)}
         {...(isSkipLink && { "data-element": "skip-link" })}
       >

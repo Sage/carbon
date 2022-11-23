@@ -2,6 +2,7 @@ import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import styled from "styled-components";
 
 import Toast from ".";
+import Icon from "../icon";
 import { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import Button from "../button";
@@ -222,6 +223,55 @@ Toast variant is `success` by default
           </StyledButton>
           <Toast variant="warning" id="toast-variant-warning" open={isOpen}>
             My Info
+          </Toast>
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Notice
+
+When the "notice" variant is set, the Toast component is rendered at the bottom of the screen with alternative styling and animation.
+The "isCenter" and "maxWidth" props will be ignored in this variant.
+
+<Canvas>
+  <Story name="notice" parameters={{ info: { disable: true } }}>
+    {() => {
+      const [isOpen, setIsOpen] = useState(false);
+      const onDismissClick = (evt) => {
+        if (!isOpen) {
+          window.scrollTo(0, 0);
+        }
+        setIsOpen(!isOpen);
+      };
+      const handleToggle = () => {
+        if (!isOpen) {
+          window.scrollTo(0, 0);
+        }
+        setIsOpen(!isOpen);
+        action("open")(!isOpen);
+      };
+      const StyledButton = styled(Button)`
+        position: absolute;
+        display: block;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: ${isOpen ? "green" : "blue"};
+        border: ${isOpen ? "2px solid green" : "2px solid blue"};
+      `;
+      return (
+        <div id="wrapper-alternative">
+          <StyledButton
+            id="button-alternative"
+            key="button"
+            onClick={handleToggle}
+          >
+            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+          </StyledButton>
+          <Toast id="toast-alternative" open={isOpen} onDismiss={onDismissClick} variant="notice">
+            <Icon type="warning" color="--colorsSemanticNeutralYang100" /> My Info
           </Toast>
         </div>
       );

@@ -34,7 +34,7 @@ export interface TabsProps extends MarginProps {
    * The `id` property should match the `tabId`s for the rendered Tabs.
    */
   validationStatusOverride?: {
-    id?: {
+    [id: string]: {
       error?: boolean;
       warning?: boolean;
       info?: boolean;

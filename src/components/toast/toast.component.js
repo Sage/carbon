@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import classNames from "classnames";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import PropTypes from "prop-types";
@@ -34,6 +40,7 @@ const Toast = React.forwardRef(
     },
     ref
   ) => {
+    const isNotice = variant === "notice";
     const locale = useLocale();
 
     const toastRef = useRef();
@@ -42,6 +49,8 @@ const Toast = React.forwardRef(
     const closeIconRef = useRef();
 
     const focusedElementBeforeOpening = useRef();
+
+    const [tabIndex, setTabIndex] = useState(0);
 
     const refToPass = ref || toastRef;
 
@@ -72,13 +81,14 @@ const Toast = React.forwardRef(
     }, [onDismiss, open, timeout]);
 
     useEffect(() => {
-      if (onDismiss && !disableAutoFocus) {
+      if (!disableAutoFocus) {
         if (open) {
           focusedElementBeforeOpening.current = document.activeElement;
-          closeIconRef.current?.focus();
+          toastContentNodeRef.current?.focus();
         } else if (focusedElementBeforeOpening.current) {
           focusedElementBeforeOpening.current.focus();
           focusedElementBeforeOpening.current = undefined;
+          setTabIndex(0);
         }
       }
     }, [open, onDismiss, disableAutoFocus]);
@@ -119,20 +129,28 @@ const Toast = React.forwardRef(
       return (
         <CSSTransition
           enter
-          classNames="toast"
+          classNames={isNotice ? "toast-alternative" : "toast"}
           timeout={{ appear: 1600, enter: 1500, exit: 500 }}
           nodeRef={toastContentNodeRef}
         >
           <ToastStyle
+            isNotice={isNotice}
             className={componentClasses}
             {...tagComponent(restProps["data-component"] || "toast", restProps)}
             {...toastProps}
             ref={toastContentNodeRef}
+            {...(!disableAutoFocus && {
+              tabIndex,
+              onBlur: () => setTabIndex(undefined),
+            })}
           >
-            <TypeIcon variant={toastProps.variant}>
-              <Icon type={toastProps.variant} />
-            </TypeIcon>
+            {!isNotice && (
+              <TypeIcon variant={toastProps.variant}>
+                <Icon type={toastProps.variant} />
+              </TypeIcon>
+            )}
             <ToastContentStyle
+              isNotice={isNotice}
               variant={toastProps.variant}
               isDismiss={onDismiss}
             >
@@ -145,8 +163,8 @@ const Toast = React.forwardRef(
     }
 
     return (
-      <StyledPortal id={targetPortalId} isCenter={isCenter}>
-        <ToastWrapper isCenter={isCenter} ref={refToPass}>
+      <StyledPortal id={targetPortalId} isCenter={isCenter} isNotice={isNotice}>
+        <ToastWrapper isCenter={isCenter} ref={refToPass} isNotice={isNotice}>
           <TransitionGroup>{renderToastContent()}</TransitionGroup>
         </ToastWrapper>
       </StyledPortal>
@@ -156,7 +174,7 @@ const Toast = React.forwardRef(
 
 Toast.propTypes = {
   /** Customizes the appearance in the DLS theme */
-  variant: PropTypes.oneOf(["error", "info", "success", "warning"]),
+  variant: PropTypes.oneOf(["error", "info", "success", "warning", "notice"]),
   /** Custom className */
   className: PropTypes.string,
   /** Custom id  */

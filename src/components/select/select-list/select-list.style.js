@@ -1,23 +1,4 @@
 import styled, { css } from "styled-components";
-import { baseTheme } from "../../../style/themes";
-
-const overhang = 4;
-
-// TODO (design-tokens): no elovation/zindex tokens yet
-const StyledPopoverContainer = styled.div`
-  position: absolute;
-  z-index: ${({ theme }) => theme.zIndex.popover};
-  height: ${({ height }) => height};
-  width: calc(100% + ${2 * overhang}px);
-  ${({ width }) =>
-    css`
-      width: ${width};
-    `};
-`;
-
-StyledPopoverContainer.defaultProps = {
-  theme: baseTheme,
-};
 
 const StyledSelectList = styled.ul`
   ${({ isLoading, multiColumn }) => css`
@@ -26,7 +7,7 @@ const StyledSelectList = styled.ul`
     align-items: flex-start;
     flex-direction: column;
     list-style-type: none;
-    max-height: ${({ maxHeight }) => `${maxHeight}`};
+    max-height: ${({ maxHeight }) => `${maxHeight}`}px;
     margin: 0;
     outline: none;
     overflow-x: hidden;
@@ -117,7 +98,6 @@ const StyledSelectListTableBody = styled.tbody`
 `;
 
 export {
-  StyledPopoverContainer,
   StyledSelectList,
   StyledSelectLoaderContainer,
   StyledSelectListTable,

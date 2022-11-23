@@ -1,7 +1,7 @@
 const semver = require("semver");
 const chalk = require("chalk");
 
-const version = ">=14.16.0 14";
+const version = ">=16";
 if (!semver.satisfies(process.version, version)) {
   // eslint-disable-next-line no-console
   console.error(

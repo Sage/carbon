@@ -72,7 +72,6 @@ const Textarea = ({
 
   const expandTextarea = () => {
     const textarea = inputRef.current;
-
     if (textarea.scrollHeight > minHeight.current) {
       textarea.style.height = "0px";
       // Set the height so all content is shown
@@ -133,6 +132,11 @@ const Textarea = ({
     };
   }, [expandable]);
 
+  const hasIconInside = !!(
+    inputIcon ||
+    (validationIconId && !validationOnLabel)
+  );
+
   return (
     <TooltipProvider
       tooltipPosition={tooltipPosition}
@@ -144,6 +148,7 @@ const Textarea = ({
           data-component={dataComponent}
           data-role={dataRole}
           data-element={dataElement}
+          hasIcon={hasIconInside}
           {...filterStyledSystemMarginProps(props)}
         >
           <FormField

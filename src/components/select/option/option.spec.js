@@ -46,7 +46,7 @@ describe("Option", () => {
       const props = { value: "1", text: "foo" };
       expect(renderOption(props, mount)).toHaveStyleRule(
         "background-color",
-        "var(--colorsUtilityMajor200)",
+        "var(--colorsUtilityMajor100)",
         { modifier: ":hover" }
       );
     });
@@ -60,6 +60,17 @@ describe("Option", () => {
         </SelectListContext.Provider>
       );
       expect(wrapper.getDOMNode().getAttribute("aria-selected")).toBe("true");
+    });
+  });
+
+  describe("when the multiselectValues list is present but does not contain the element value", () => {
+    it("then the aria-selected attribute should be set to false", () => {
+      const wrapper = mount(
+        <SelectListContext.Provider value={{ multiselectValues: [1, 2] }}>
+          <Option value={3} text="foo" />
+        </SelectListContext.Provider>
+      );
+      expect(wrapper.getDOMNode().getAttribute("aria-selected")).toBe("false");
     });
   });
 

@@ -53,9 +53,10 @@ describe("DatePicker", () => {
       it("should have the correct overhang", () => {
         wrapper = render({ selectedDays: currentDate });
 
-        expect(
-          wrapper.find(Popover).props().modifiers[0].options.offset
-        ).toEqual([0, 3]);
+        expect(wrapper.find(Popover).props().middleware[0]).toMatchObject({
+          name: "offset",
+          options: 3,
+        });
       });
     });
   });

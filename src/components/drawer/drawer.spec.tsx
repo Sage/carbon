@@ -78,11 +78,11 @@ describe("Drawer", () => {
 
     it("cleans ups timers on unmount", () => {
       const wrapper = renderDrawer({ expanded: true });
-
+      const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
       wrapper.setProps({ expanded: false });
       wrapper.unmount();
 
-      expect(clearTimeout).toHaveBeenCalled();
+      expect(clearTimeoutSpy).toHaveBeenCalled();
     });
 
     it("is expanded by default", () => {

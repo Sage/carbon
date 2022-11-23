@@ -5,7 +5,6 @@ import { mount } from "enzyme";
 import SelectList from "./select-list.component";
 import {
   StyledSelectList,
-  StyledPopoverContainer,
   StyledSelectListTableHeader,
 } from "./select-list.style";
 import Option from "../option/option.component";
@@ -14,7 +13,6 @@ import OptionGroupHeader from "../option-group-header/option-group-header.compon
 import ListActionButton from "../list-action-button/list-action-button.component";
 import Loader from "../../loader";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import StyledSelectListContainer from "./select-list-container.style";
 import Popover from "../../../__internal__/popover";
 import * as guidModule from "../../../__internal__/utils/helpers/guid";
 import StyledOption from "../option/option.style";
@@ -99,7 +97,7 @@ describe("SelectList", () => {
 
       describe("and it's the Enter key", () => {
         it("then should call a preventDefault function", () => {
-          const spy = spyOn(enterKeyDownEvent, "preventDefault");
+          const spy = jest.spyOn(enterKeyDownEvent, "preventDefault");
           testContainer.dispatchEvent(enterKeyDownEvent);
 
           expect(spy).toHaveBeenCalled();
@@ -309,12 +307,7 @@ describe("SelectList", () => {
     const mockAnchorElement = document.createElement("div");
     const mockInput = document.createElement("input");
     mockAnchorElement.appendChild(mockInput);
-    const getBoundingClientRectMock = () => {
-      return {
-        width: 200,
-      };
-    };
-    mockAnchorElement.getBoundingClientRect = getBoundingClientRectMock;
+
     mockInput.focus = onFocusFn;
     testContainer.id = "enzymeContainer";
     document.body.appendChild(testContainer);
@@ -331,31 +324,6 @@ describe("SelectList", () => {
 
     afterAll(() => {
       document.body.removeChild(testContainer);
-    });
-
-    it('then the popover container should have expected "width" value', () => {
-      assertStyleMatch(
-        { width: "200px" },
-        wrapper.find(StyledPopoverContainer)
-      );
-    });
-
-    describe("and screen is resized", () => {
-      it("then the popover container width gets updated", () => {
-        mockAnchorElement.getBoundingClientRect = () => {
-          return {
-            width: 400,
-          };
-        };
-        act(() => {
-          window.dispatchEvent(new Event("resize"));
-        });
-        wrapper.update();
-        assertStyleMatch(
-          { width: "400px" },
-          wrapper.find(StyledPopoverContainer)
-        );
-      });
     });
 
     describe.each([
@@ -523,49 +491,6 @@ describe("SelectList", () => {
     });
   });
 
-  describe("when the children changes in the list", () => {
-    it("container height should be set to expected value", () => {
-      const testContainer = document.createElement("div");
-      testContainer.id = "enzymeContainer";
-      document.body.appendChild(testContainer);
-
-      const wrapper = mount(
-        getSelectList({
-          onListAction: () => {},
-        }),
-        { attachTo: testContainer }
-      );
-      const listElement = wrapper.find(StyledSelectList).getDOMNode();
-      jest
-        .spyOn(listElement, "clientHeight", "get")
-        .mockImplementation(() => 100);
-      wrapper
-        .setProps({
-          children: [
-            <Option value="opt1" text="red" />,
-            <Option value="opt2" text="green" />,
-            <Option value="opt3" text="blue" />,
-            <Option value="opt4" text="white" />,
-            <Option value="opt5" text="yellow" />,
-          ],
-        })
-        .update();
-
-      assertStyleMatch(
-        { height: "100px" },
-        wrapper.find(StyledSelectListContainer)
-      );
-
-      assertStyleMatch(
-        { height: "100px" },
-        wrapper.find(StyledPopoverContainer)
-      );
-
-      wrapper.detach();
-      document.body.removeChild(testContainer);
-    });
-  });
-
   describe("when the listActionButton prop is provided", () => {
     it("then the ListActionButton should be rendered", () => {
       const wrapper = renderSelectList({
@@ -629,75 +554,25 @@ describe("SelectList", () => {
         });
       });
     });
-
-    describe("and the children changes in the list", () => {
-      it("container height should be set to expected value", () => {
-        const testWrapper = document.createElement("div");
-        const wrapper = mount(
-          getSelectList({
-            listActionButton: true,
-            onListAction: () => {},
-          }),
-          { attachTo: testWrapper }
-        );
-        const listElement = wrapper.find(StyledSelectList).getDOMNode();
-        const listActionButtonElement = wrapper
-          .find(ListActionButton)
-          .getDOMNode();
-        jest
-          .spyOn(listElement, "clientHeight", "get")
-          .mockImplementation(() => 100);
-        jest
-          .spyOn(listActionButtonElement, "clientHeight", "get")
-          .mockImplementation(() => 50);
-        wrapper
-          .setProps({
-            children: [
-              <Option value="opt1" text="red" />,
-              <Option value="opt2" text="green" />,
-              <Option value="opt3" text="blue" />,
-              <Option value="opt4" text="white" />,
-              <Option value="opt5" text="yellow" />,
-            ],
-          })
-          .update();
-        assertStyleMatch(
-          { height: "150px" },
-          wrapper.find(StyledSelectListContainer)
-        );
-      });
-    });
-  });
-
-  describe("When SelectList has an option with wrapped text", () => {
-    it("should correctly calculate the height of the SelectList", () => {
-      const testWrapper = document.createElement("div");
-      const wrapper = mount(getSelectList({}), { attachTo: testWrapper });
-      const listElement = wrapper.find(StyledSelectList).getDOMNode();
-      jest
-        .spyOn(listElement, "clientHeight", "get")
-        .mockImplementation(() => 60);
-
-      wrapper
-        .setProps({
-          children: [
-            <Option
-              value="opt1"
-              text="This is to mimic a long piece of text that could be used in the Select Component and the text could be wrapped
-            but this is a virtual DOM so that will not happen"
-            />,
-          ],
-        })
-        .update();
-
-      assertStyleMatch(
-        { height: "60px" },
-        wrapper.find(StyledSelectListContainer)
-      );
-    });
   });
 
   describe("popover", () => {
+    it("renders Popover with correct props", () => {
+      const wrapper = renderSelectList();
+
+      expect(wrapper.find(Popover).props().disableBackgroundUI).toBe(true);
+      expect(wrapper.find(Popover).props().animationFrame).toBe(true);
+      expect(wrapper.find(Popover).props().middleware[0]).toMatchObject({
+        name: "offset",
+        options: 3,
+      });
+      expect(wrapper.find(Popover).props().middleware[1]).toMatchObject({
+        name: "size",
+      });
+      expect(wrapper.find(Popover).props().middleware[2]).toMatchObject({
+        name: "flip",
+      });
+    });
     it("renders SelectList as a child of Popover with disablePortal=undefined by default", () => {
       const wrapper = renderSelectList();
       expect(wrapper.find(Popover).find(StyledSelectList).exists()).toBe(true);
@@ -708,18 +583,6 @@ describe("SelectList", () => {
       const wrapper = renderSelectList({ disablePortal: true });
       expect(wrapper.find(Popover).find(StyledSelectList).exists()).toBe(true);
       expect(wrapper.find(Popover).props().disablePortal).toBe(true);
-    });
-
-    it("renders StyledSelectListContainer with bottom:0 style when placement is passed as top-start", () => {
-      const wrapper = mount(
-        <StyledSelectListContainer placement="top-start" />
-      );
-      assertStyleMatch(
-        {
-          bottom: "0",
-        },
-        wrapper
-      );
     });
 
     it.each([
@@ -803,6 +666,24 @@ describe("SelectList", () => {
       "clientWidth"
     );
 
+    afterAll(() => {
+      if (originalOffsetWidth) {
+        Object.defineProperty(
+          HTMLElement.prototype,
+          "offsetWidth",
+          originalOffsetWidth
+        );
+      }
+
+      if (originalClientWidth) {
+        Object.defineProperty(
+          HTMLElement.prototype,
+          "clientWidth",
+          originalClientWidth
+        );
+      }
+    });
+
     it("aligns the column if needed", () => {
       Object.defineProperty(HTMLElement.prototype, "offsetWidth", {
         configurable: true,
@@ -823,19 +704,6 @@ describe("SelectList", () => {
           modifier: "tr",
         }
       );
-
-      afterAll(() => {
-        Object.defineProperty(
-          HTMLElement.prototype,
-          "offsetWidth",
-          originalOffsetWidth
-        );
-        Object.defineProperty(
-          HTMLElement.prototype,
-          "clientWidth",
-          originalClientWidth
-        );
-      });
     });
   });
 

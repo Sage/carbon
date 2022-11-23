@@ -7,12 +7,12 @@ import React, {
   useMemo,
 } from "react";
 import PropTypes from "prop-types";
+import { flip, offset, size } from "@floating-ui/dom";
 
 import useScrollBlock from "../../../hooks/__internal__/useScrollBlock";
 import {
   StyledSelectList,
   StyledSelectLoaderContainer,
-  StyledPopoverContainer,
   StyledSelectListTable,
   StyledSelectListTableHeader,
   StyledSelectListTableBody,
@@ -30,24 +30,10 @@ import Option from "../option/option.component";
 import guid from "../../../__internal__/utils/helpers/guid";
 import SelectListContext from "../__internal__/select-list-context";
 
-const fixedPopoverModifiers = [
-  {
-    name: "offset",
-    options: {
-      offset: [0, 3],
-    },
-  },
-  {
-    name: "preventOverflow",
-    options: {
-      mainAxis: false,
-    },
-  },
-];
-
 const SelectList = React.forwardRef(
   (
     {
+      listMaxHeight = 180,
       listActionButton,
       id,
       labelId,
@@ -64,45 +50,21 @@ const SelectList = React.forwardRef(
       multiColumn,
       tableHeader,
       loaderDataRole,
-      listPlacement = "bottom-start",
+      listPlacement = "bottom",
       flipEnabled = true,
       isOpen,
+      multiselectValues,
       ...listProps
     },
     listContainerRef
   ) => {
     const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
-    const [listHeight, setListHeight] = useState(0);
-    const [listWidth, setListWidth] = useState(null);
     const [scrollbarWidth, setScrollbarWidth] = useState(0);
-    const placement = useRef("bottom");
     const lastFilter = useRef("");
     const listRef = useRef();
     const tableRef = useRef();
     const listActionButtonRef = useRef();
     const { blockScroll, allowScroll } = useScrollBlock();
-
-    const updateListHeight = useCallback(() => {
-      if (isOpen) {
-        let newHeight = listRef.current.clientHeight;
-
-        if (listActionButtonRef.current) {
-          newHeight += listActionButtonRef.current.parentElement.clientHeight;
-        }
-
-        setListHeight(`${newHeight}px`);
-      }
-    }, [isOpen]);
-
-    const listCallbackRef = useCallback(
-      (element) => {
-        listRef.current = element;
-        if (element) {
-          setTimeout(updateListHeight, 0);
-        }
-      },
-      [updateListHeight]
-    );
 
     useEffect(() => {
       if (isOpen) {
@@ -123,13 +85,6 @@ const SelectList = React.forwardRef(
         );
       }
     }, [multiColumn]);
-
-    const setPlacementCallback = useCallback(
-      (popper) => {
-        placement.current = popper.placement;
-      },
-      [placement]
-    );
 
     const anchorRef = useMemo(
       () => ({
@@ -337,24 +292,6 @@ const SelectList = React.forwardRef(
       [onListScrollBottom]
     );
 
-    const assignListWidth = useCallback(() => {
-      if (anchorElement) {
-        const inputBoundingRect = anchorElement.getBoundingClientRect();
-        const width = `${inputBoundingRect.width}px`;
-        setListWidth(width);
-      }
-    }, [anchorElement]);
-
-    useLayoutEffect(() => {
-      assignListWidth();
-      window.addEventListener("resize", assignListWidth);
-      return () => {
-        window.removeEventListener("resize", assignListWidth);
-      };
-    }, [assignListWidth]);
-
-    useLayoutEffect(updateListHeight, [children, updateListHeight]);
-
     useEffect(() => {
       const keyboardEvent = "keydown";
       const listElement = listRef.current;
@@ -433,13 +370,23 @@ const SelectList = React.forwardRef(
       }
     }, [children, currentOptionsListIndex, isLoading, lastOptionIndex]);
 
-    const popoverModifiers = useMemo(
+    const popoverMiddleware = useMemo(
       () => [
-        ...fixedPopoverModifiers,
-        {
-          name: "flip",
-          enabled: flipEnabled,
-        },
+        offset(3),
+        size({
+          apply({ rects, elements }) {
+            Object.assign(elements.floating.style, {
+              width: `${rects.reference.width}px`,
+            });
+          },
+        }),
+        ...(flipEnabled
+          ? [
+              flip({
+                fallbackStrategy: "initialPlacement",
+              }),
+            ]
+          : []),
       ],
       [flipEnabled]
     );
@@ -466,55 +413,52 @@ const SelectList = React.forwardRef(
     }
 
     return (
-      <Popover
-        placement={listPlacement}
-        disablePortal={disablePortal}
-        reference={anchorRef}
-        onFirstUpdate={setPlacementCallback}
-        modifiers={popoverModifiers}
-        isOpen={isOpen}
+      <SelectListContext.Provider
+        value={{
+          currentOptionsListIndex,
+          multiselectValues,
+        }}
       >
-        <StyledPopoverContainer
-          height={listHeight}
-          width={listWidth}
-          ref={listContainerRef}
+        <Popover
+          placement={listPlacement}
+          disablePortal={disablePortal}
+          reference={anchorRef}
+          middleware={popoverMiddleware}
+          isOpen={isOpen}
+          disableBackgroundUI
+          animationFrame
         >
-          <SelectListContext.Provider
-            value={{
-              currentOptionsListIndex,
-            }}
+          <StyledSelectListContainer
+            data-element="select-list-wrapper"
+            ref={listContainerRef}
+            {...listProps}
           >
-            <StyledSelectListContainer
-              data-element="select-list-wrapper"
-              height={listHeight}
-              placement={placement.current}
-              {...listProps}
+            <StyledSelectList
+              id={id}
+              as={multiColumn ? "div" : "ul"}
+              aria-labelledby={labelId}
+              data-element="select-list"
+              role="listbox"
+              aria-multiselectable={multiselectValues ? true : undefined}
+              ref={listRef}
+              tabIndex="-1"
+              isLoading={isLoading}
+              multiColumn={multiColumn}
+              maxHeight={listMaxHeight}
             >
-              <StyledSelectList
-                id={id}
-                as={multiColumn ? "div" : "ul"}
-                aria-labelledby={labelId}
-                data-element="select-list"
-                role="listbox"
-                ref={listCallbackRef}
-                tabIndex="-1"
-                isLoading={isLoading}
-                multiColumn={multiColumn}
-              >
-                {selectListContent}
-                {isLoading && loader()}
-              </StyledSelectList>
-              {listActionButton && (
-                <ListActionButton
-                  ref={listActionButtonRef}
-                  listActionButton={listActionButton}
-                  onListAction={onListAction}
-                />
-              )}
-            </StyledSelectListContainer>
-          </SelectListContext.Provider>
-        </StyledPopoverContainer>
-      </Popover>
+              {selectListContent}
+              {isLoading && loader()}
+            </StyledSelectList>
+            {listActionButton && (
+              <ListActionButton
+                ref={listActionButtonRef}
+                listActionButton={listActionButton}
+                onListAction={onListAction}
+              />
+            )}
+          </StyledSelectListContainer>
+        </Popover>
+      </SelectListContext.Provider>
     );
   }
 );
@@ -540,6 +484,8 @@ SelectList.propTypes = {
   highlightedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** True for default text button or a Button Component to be rendered */
   listActionButton: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
+  /** Maximum list height - defaults to 180 */
+  listMaxHeight: PropTypes.number,
   /** A callback for when the Action Button is triggered */
   onListAction: PropTypes.func,
   /** If true the loader animation is displayed below the last option */
@@ -553,29 +499,18 @@ SelectList.propTypes = {
   /** Data role for loader component */
   loaderDataRole: PropTypes.string,
   /** Placement of the select list relative to the input element */
-  listPlacement: PropTypes.oneOf([
-    "auto",
-    "auto-start",
-    "auto-end",
-    "top",
-    "top-start",
-    "top-end",
-    "bottom",
-    "bottom-start",
-    "bottom-end",
-    "right",
-    "right-start",
-    "right-end",
-    "left",
-    "left-start",
-    "left-end",
-  ]),
+  listPlacement: PropTypes.oneOf(["top", "bottom", "right", "left"]),
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled: PropTypes.bool,
   /** @private @ignore
    * Hides the list (with CSS display: none) if not set
    */
   isOpen: PropTypes.bool,
+  /** array of selected values, if rendered as part of a MultiSelect */
+  multiselectValues: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(PropTypes.object),
+  ]),
 };
 
 export default SelectList;

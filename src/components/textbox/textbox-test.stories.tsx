@@ -43,7 +43,7 @@ export const getCommonTextboxArgs = (
   };
 };
 
-type Args = {
+export interface CommonTextboxArgs {
   prefix: string;
   prefixSpecialCharacters: string;
   fieldHelp: string;
@@ -54,8 +54,11 @@ type Args = {
   labelHelpSpecialCharacters: string;
   placeholder: string;
   placeholderSpecialCharacters: string;
-};
-export const getCommonTextboxArgsWithSpecialCaracters = (args: Args) => {
+}
+
+export const getCommonTextboxArgsWithSpecialCaracters = (
+  args: CommonTextboxArgs
+) => {
   const {
     prefix,
     prefixSpecialCharacters,
@@ -139,7 +142,7 @@ export default {
   includeStories: ["Default", "Multiple", "NewValidation"],
 };
 
-export const Default = (args: Args) => {
+export const Default = (args: CommonTextboxArgs) => {
   const [state, setState] = useState("");
   const setValue = ({
     target: { value },
@@ -163,7 +166,7 @@ Default.storyName = "default";
 Default.argTypes = commonTextboxArgTypes();
 Default.args = getCommonTextboxArgs();
 
-export const Multiple = (args: Args) => (
+export const Multiple = (args: CommonTextboxArgs) => (
   <div style={{ width: "296px" }}>
     <Textbox m={2} {...getCommonTextboxArgsWithSpecialCaracters(args)} />
     <Textbox m={2} {...getCommonTextboxArgsWithSpecialCaracters(args)} />
@@ -174,7 +177,7 @@ Multiple.storyName = "multiple";
 Multiple.argTypes = commonTextboxArgTypes();
 Multiple.args = getCommonTextboxArgs();
 
-export const NewValidation = (args: Args) => {
+export const NewValidation = (args: CommonTextboxArgs) => {
   const [state, setState] = useState("");
   const setValue = ({
     target: { value },

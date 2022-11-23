@@ -31,8 +31,10 @@ exports[`InputPresentation renders presentational div and context provider for i
   width: 100%;
   margin: 0;
   min-height: var(--sizing500);
-  padding-left: var(--spacing150);
-  padding-right: var(--spacing150);
+}
+
+.c1 .c2 {
+  padding: 0 var(--spacing150);
 }
 
 .c1 input::-ms-clear {

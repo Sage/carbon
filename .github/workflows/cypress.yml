@@ -12,7 +12,7 @@ on:
 jobs:
   cypress:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -20,26 +20,15 @@ jobs:
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
-        # run 15 copies of the current job in parallel
+        # run 2 copies of the current job in parallel
         containers:
           [
             1,
             2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            13,
-            14,
-            15,
           ]
-    container: cypress/browsers:node14.17.6-slim-chrome100-ff99-edge
+    container: 
+      image: cypress/browsers:node16.17.0-chrome106
+      options: --user 1001
     steps:
       - id: get_pull
         uses: octokit/request-action@v2.x
@@ -93,9 +82,7 @@ jobs:
           group: ubuntu-regression
           quiet: true
           browser: chrome
-          spec: |
-            cypress/e2e/common/*
-            cypress/e2e/themes/*
+          spec: cypress/e2e/common/*
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -104,7 +91,7 @@ jobs:
 
   cypress-react:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -112,13 +99,18 @@ jobs:
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
-        # run 2 copy of the current job in parallel
+        # run 5 copy of the current job in parallel
         containers:
           [
             1,
             2,
+            3,
+            4,
+            5,
           ]
-    container: cypress/browsers:node14.17.6-slim-chrome100-ff99-edge
+    container: 
+      image: cypress/browsers:node16.17.0-chrome106
+      options: --user 1001
     steps:
       - id: get_pull
         uses: octokit/request-action@v2.x
@@ -189,7 +181,7 @@ jobs:
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
-        # run 10 copies of the current job in parallel
+        # run 7 copies of the current job in parallel
         containers:
           [
             1,
@@ -199,11 +191,10 @@ jobs:
             5,
             6,
             7,
-            8,
-            9,
-            10,
           ]
-    container: cypress/browsers:node14.17.6-slim-chrome100-ff99-edge
+    container: 
+      image: cypress/browsers:node16.17.0-chrome106
+      options: --user 1001
     steps:
       - id: get_pull
         uses: octokit/request-action@v2.x

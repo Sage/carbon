@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, createEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import useMenuKeyboardNavigation from ".";
 
@@ -24,8 +24,8 @@ const MockComponent = ({ hideCb }: MockComponentProps) => {
   const children = refs.map((ref, index) => {
     const childID = `${childButtonID}-${String(index)}`;
     return (
-      <button ref={ref} key={childID} data-testid={childID} type="button">
-        Button {index}
+      <button ref={ref} key={childID} type="button">
+        {childID}
       </button>
     );
   });
@@ -64,7 +64,7 @@ describe("useMenuKeyboardNavigation", () => {
       ctrlKey: modifier === "ctrlKey",
       metaKey: modifier === "metaKey",
     });
-    expect(screen.getByTestId(`${childButtonID}-2`)).toStrictEqual(
+    expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
       document.activeElement
     );
   });
@@ -84,7 +84,7 @@ describe("useMenuKeyboardNavigation", () => {
         ctrlKey: modifier === "ctrlKey",
         metaKey: modifier === "metaKey",
       });
-      expect(screen.getByTestId(`${childButtonID}-0`)).toStrictEqual(
+      expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
         document.activeElement
       );
     }
@@ -95,19 +95,19 @@ describe("useMenuKeyboardNavigation", () => {
     render(<MockComponent hideCb={hideCb} />);
 
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowDown" });
-    expect(screen.getByTestId(`${childButtonID}-0`)).toStrictEqual(
+    expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
       document.activeElement
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowDown" });
-    expect(screen.getByTestId(`${childButtonID}-1`)).toStrictEqual(
+    expect(screen.getByText(`${childButtonID}-1`)).toStrictEqual(
       document.activeElement
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowDown" });
-    expect(screen.getByTestId(`${childButtonID}-2`)).toStrictEqual(
+    expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
       document.activeElement
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowDown" });
-    expect(screen.getByTestId(`${childButtonID}-2`)).toStrictEqual(
+    expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
       document.activeElement
     );
   });
@@ -115,20 +115,20 @@ describe("useMenuKeyboardNavigation", () => {
   it("pressing ArrowUp key focuses the previous child in the list and does not loop when first one is reached", () => {
     const hideCb = jest.fn();
     render(<MockComponent hideCb={hideCb} />);
-    screen.getByTestId(`${childButtonID}-2`).focus();
-    expect(screen.getByTestId(`${childButtonID}-2`)).toStrictEqual(
+    screen.getByText(`${childButtonID}-2`).focus();
+    expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
       document.activeElement
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowUp" });
-    expect(screen.getByTestId(`${childButtonID}-1`)).toStrictEqual(
+    expect(screen.getByText(`${childButtonID}-1`)).toStrictEqual(
       document.activeElement
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowUp" });
-    expect(screen.getByTestId(`${childButtonID}-0`)).toStrictEqual(
+    expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
       document.activeElement
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowUp" });
-    expect(screen.getByTestId(`${childButtonID}-0`)).toStrictEqual(
+    expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
       document.activeElement
     );
   });
@@ -138,15 +138,15 @@ describe("useMenuKeyboardNavigation", () => {
     render(<MockComponent hideCb={hideCb} />);
 
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
-    expect(screen.getByTestId(`${childButtonID}-0`)).toStrictEqual(
+    expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
       document.activeElement
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
-    expect(screen.getByTestId(`${childButtonID}-1`)).toStrictEqual(
+    expect(screen.getByText(`${childButtonID}-1`)).toStrictEqual(
       document.activeElement
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
-    expect(screen.getByTestId(`${childButtonID}-2`)).toStrictEqual(
+    expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
       document.activeElement
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
@@ -160,22 +160,22 @@ describe("useMenuKeyboardNavigation", () => {
   it("pressing Shift + Tab key focuses the previous child in the list, closes the list when the first one is reached and focuses the main button", () => {
     const hideCb = jest.fn();
     render(<MockComponent hideCb={hideCb} />);
-    screen.getByTestId(`${childButtonID}-2`).focus();
-    expect(screen.getByTestId(`${childButtonID}-2`)).toStrictEqual(
+    screen.getByText(`${childButtonID}-2`).focus();
+    expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
       document.activeElement
     );
     fireEvent.keyDown(screen.getByTestId(containerID), {
       key: "Tab",
       shiftKey: true,
     });
-    expect(screen.getByTestId(`${childButtonID}-1`)).toStrictEqual(
+    expect(screen.getByText(`${childButtonID}-1`)).toStrictEqual(
       document.activeElement
     );
     fireEvent.keyDown(screen.getByTestId(containerID), {
       key: "Tab",
       shiftKey: true,
     });
-    expect(screen.getByTestId(`${childButtonID}-0`)).toStrictEqual(
+    expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
       document.activeElement
     );
     fireEvent.keyDown(screen.getByTestId(containerID), {
@@ -196,5 +196,71 @@ describe("useMenuKeyboardNavigation", () => {
     expect(screen.getByTestId(mainButtonID)).toStrictEqual(
       document.activeElement
     );
+  });
+
+  it("pressing Enter key does not trigger prevent default", () => {
+    const hideCb = jest.fn();
+    render(<MockComponent hideCb={hideCb} />);
+    const container = screen.getByTestId(containerID);
+    const keyDownEvent = createEvent.keyDown(container, { key: "Enter" });
+
+    fireEvent(container, keyDownEvent);
+
+    expect(keyDownEvent.defaultPrevented).toBe(false);
+  });
+
+  it("pressing Space key does not trigger prevent default", () => {
+    const hideCb = jest.fn();
+    render(<MockComponent hideCb={hideCb} />);
+    const container = screen.getByTestId(containerID);
+    const keyDownEvent = createEvent.keyDown(container, { key: " " });
+
+    fireEvent(container, keyDownEvent);
+
+    expect(keyDownEvent.defaultPrevented).toBe(false);
+  });
+
+  it("pressing ArrowDown key does trigger prevent default", () => {
+    const hideCb = jest.fn();
+    render(<MockComponent hideCb={hideCb} />);
+    const container = screen.getByTestId(containerID);
+    const keyDownEvent = createEvent.keyDown(container, { key: "ArrowDown" });
+
+    fireEvent(container, keyDownEvent);
+
+    expect(keyDownEvent.defaultPrevented).toBe(true);
+  });
+
+  it("pressing ArrowUp key does trigger prevent default", () => {
+    const hideCb = jest.fn();
+    render(<MockComponent hideCb={hideCb} />);
+    const container = screen.getByTestId(containerID);
+    const keyDownEvent = createEvent.keyDown(container, { key: "ArrowUp" });
+
+    fireEvent(container, keyDownEvent);
+
+    expect(keyDownEvent.defaultPrevented).toBe(true);
+  });
+
+  it("pressing End key does trigger prevent default", () => {
+    const hideCb = jest.fn();
+    render(<MockComponent hideCb={hideCb} />);
+    const container = screen.getByTestId(containerID);
+    const keyDownEvent = createEvent.keyDown(container, { key: "End" });
+
+    fireEvent(container, keyDownEvent);
+
+    expect(keyDownEvent.defaultPrevented).toBe(true);
+  });
+
+  it("pressing Home key does trigger prevent default", () => {
+    const hideCb = jest.fn();
+    render(<MockComponent hideCb={hideCb} />);
+    const container = screen.getByTestId(containerID);
+    const keyDownEvent = createEvent.keyDown(container, { key: "Home" });
+
+    fireEvent(container, keyDownEvent);
+
+    expect(keyDownEvent.defaultPrevented).toBe(true);
   });
 });

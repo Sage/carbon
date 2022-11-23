@@ -2,6 +2,7 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
 import OptionRow from "./option-row.component";
+import SelectListContext from "../__internal__/select-list-context";
 
 describe("OptionRow", () => {
   it("renders properly", () => {
@@ -26,12 +27,40 @@ describe("OptionRow", () => {
     });
   });
 
+  describe("when the multiselectValues list contains the element value", () => {
+    it("then the aria-selected attribute should be set to true", () => {
+      const wrapper = mount(
+        <SelectListContext.Provider value={{ multiselectValues: ["1"] }}>
+          <OptionRow id="1" value="1">
+            <td>foo</td>
+          </OptionRow>
+        </SelectListContext.Provider>
+      );
+      expect(wrapper.getDOMNode().getAttribute("aria-selected")).toBe("true");
+      wrapper.unmount();
+    });
+  });
+
+  describe("when the multiselectValues list does not contain the element value", () => {
+    it("then the aria-selected attribute should be set to false", () => {
+      const wrapper = mount(
+        <SelectListContext.Provider value={{ multiselectValues: ["1", "2"] }}>
+          <OptionRow id="3" value="3">
+            <td>foo</td>
+          </OptionRow>
+        </SelectListContext.Provider>
+      );
+      expect(wrapper.getDOMNode().getAttribute("aria-selected")).toBe("false");
+      wrapper.unmount();
+    });
+  });
+
   describe("when the element is hovered over", () => {
     it("then it should have expected background", () => {
       const props = { value: "1", text: "foo" };
       expect(renderOptionRow(props, mount)).toHaveStyleRule(
         "background-color",
-        "var(--colorsUtilityMajor200)",
+        "var(--colorsUtilityMajor100)",
         { modifier: ":hover" }
       );
     });

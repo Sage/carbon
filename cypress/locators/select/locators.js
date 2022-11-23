@@ -9,4 +9,4 @@ export const SELECT_INPUT = '[data-element="input"]';
 export const SELECT_LIST_WRAPPER = '[data-element="select-list-wrapper"]';
 export const SELECT_ELEMENT_INPUT = '[data-element="select-input"]';
 export const FILTERABLE_ADD_BUTTON = '[data-component="button"]';
-export const FILTERABLE_RESET_BUTTON = '[data-element="reset-button"]';
+export const SELECT_RESET_BUTTON = '[data-element="reset-button"]';

@@ -8,9 +8,11 @@ type ModalList = {
 declare global {
   interface Window {
     __CARBON_INTERNALS_MODAL_LIST?: ModalList;
+    __CARBON_INTERNALS_MODAL_SETTER_LIST?: ((
+      topModal: HTMLElement | null
+    ) => void)[];
   }
 }
-
 class ModalManagerInstance {
   private modalList: ModalList;
 
@@ -49,6 +51,7 @@ class ModalManagerInstance {
     }
 
     this.modalList.push({ modal, setTriggerRefocusFlag });
+    this.callTopModalSetters();
   };
 
   isTopmost(modal: HTMLElement | null) {
@@ -69,6 +72,7 @@ class ModalManagerInstance {
     }
 
     this.modalList.splice(modalIndex, 1);
+    this.callTopModalSetters();
 
     if (!this.modalList.length) {
       return;
@@ -84,6 +88,16 @@ class ModalManagerInstance {
   clearList() {
     window.__CARBON_INTERNALS_MODAL_LIST = [];
     this.modalList = window.__CARBON_INTERNALS_MODAL_LIST;
+    this.callTopModalSetters();
+  }
+
+  callTopModalSetters() {
+    if (window.__CARBON_INTERNALS_MODAL_SETTER_LIST) {
+      const topModal = this.getTopModal()?.modal || null;
+      for (const setTopModal of window.__CARBON_INTERNALS_MODAL_SETTER_LIST) {
+        setTopModal(topModal);
+      }
+    }
   }
 }
 

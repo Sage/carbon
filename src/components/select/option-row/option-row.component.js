@@ -9,12 +9,17 @@ const OptionRow = React.forwardRef(
       onSelect({ id, text, value });
     };
     const selectListContext = useContext(SelectListContext);
+    let isSelected = selectListContext.currentOptionsListIndex === index;
+
+    if (selectListContext.multiselectValues) {
+      isSelected = selectListContext.multiselectValues.includes(value);
+    }
 
     return (
       <StyledOptionRow
         id={id}
         ref={ref}
-        aria-selected={selectListContext.currentOptionsListIndex === index}
+        aria-selected={isSelected}
         data-component="option-row"
         onClick={handleClick}
         isHighlighted={selectListContext.currentOptionsListIndex === index}

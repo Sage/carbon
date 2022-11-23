@@ -2,11 +2,15 @@ import React, { useRef } from "react";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
-import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/test-utils";
 import FilterableSelect from "./filterable-select.component";
 import Textbox from "../../textbox";
 import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
+import { StyledSelectList } from "../select-list/select-list.style";
 import Button from "../../button";
 import Label from "../../../__internal__/label";
 import InputIconToggle from "../../../__internal__/input-icon-toggle";
@@ -43,6 +47,16 @@ describe("FilterableSelect", () => {
     const wrapper = mount(<WrapperComponent />);
 
     expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+  });
+
+  describe("when listMaxHeight prop is provided", () => {
+    it("overrides default list max-height", () => {
+      mount(getSelect());
+      const wrapper = renderSelect({ listMaxHeight: 120, openOnFocus: true });
+
+      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
+      assertStyleMatch({ maxHeight: "120px" }, wrapper.find(StyledSelectList));
+    });
   });
 
   it("when text is passed in placeholder prop, input element in textbox uses it as placeholder text", () => {
@@ -266,34 +280,21 @@ describe("FilterableSelect", () => {
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
       });
 
-      it.each([
-        "auto",
-        "auto-start",
-        "auto-end",
-        "top",
-        "top-start",
-        "top-end",
-        "bottom",
-        "bottom-start",
-        "bottom-end",
-        "right",
-        "right-start",
-        "right-end",
-        "left",
-        "left-start",
-        "left-end",
-      ])("the listPlacement prop should be passed", (listPlacement) => {
-        const wrapper = renderSelect({ listPlacement });
+      it.each(["top", "bottom", "right", "left"])(
+        "the listPlacement prop should be passed",
+        (listPlacement) => {
+          const wrapper = renderSelect({ listPlacement });
 
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
-        expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
-          listPlacement
-        );
-      });
+          wrapper
+            .find(Textbox)
+            .find('[type="dropdown"]')
+            .first()
+            .simulate("click");
+          expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
+            listPlacement
+          );
+        }
+      );
 
       it("the flipEnabled prop should be passed", () => {
         const wrapper = renderSelect({ flipEnabled: false });

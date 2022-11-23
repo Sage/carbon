@@ -82,7 +82,7 @@ describe("FlatTableRow", () => {
           position: "absolute",
           left: "0px",
           right: "0px",
-          top: "-1px",
+          top: "0",
           bottom: "0px",
           border: "2px solid var(--colorsSemanticFocus500)",
         },
@@ -106,6 +106,9 @@ describe("FlatTableRow", () => {
               <FlatTableRowHeader>test 1</FlatTableRowHeader>
               <FlatTableHeader>test 2</FlatTableHeader>
               <FlatTableCell>test 3</FlatTableCell>
+              <FlatTableRowHeader stickyAlignment="right">
+                test 4
+              </FlatTableRowHeader>
             </FlatTableRow>
           </thead>
         </table>
@@ -113,13 +116,22 @@ describe("FlatTableRow", () => {
 
       assertStyleMatch(
         {
-          borderBottom: "1px solid transparent",
-          borderLeft: "1px solid var(--colorsSemanticFocus500)",
-          backgroundClip: "padding-box",
-          zIndex: "1002",
+          borderLeft: "3px solid var(--colorsSemanticFocus500)",
         },
         wrapper,
-        { modifier: `:focus ${StyledFlatTableRowHeader}` }
+        {
+          modifier: `:focus ${StyledFlatTableRowHeader}:first-of-type::before`,
+        }
+      );
+
+      assertStyleMatch(
+        {
+          borderRight: "2px solid var(--colorsSemanticFocus500)",
+        },
+        wrapper,
+        {
+          modifier: `:focus ${StyledFlatTableRowHeader}:last-of-type`,
+        }
       );
 
       assertStyleMatch(
@@ -127,10 +139,10 @@ describe("FlatTableRow", () => {
           borderTop: "2px solid var(--colorsSemanticFocus500)",
           borderBottom: "2px solid var(--colorsSemanticFocus500)",
           display: "block",
-          left: "0px",
-          top: "-1px",
-          height: "calc(100% - 1px)",
-          width: "101%",
+          left: "-2px",
+          top: "0px",
+          height: "calc(100% - 3px)",
+          width: "103%",
           position: "absolute",
           zIndex: "1000",
         },
@@ -659,7 +671,97 @@ describe("FlatTableRow", () => {
       );
     });
 
-    it("applies the correct focus styling when the row is interactive", () => {
+    describe("and stickyAlignment is 'right'", () => {
+      it("sets any preceding columns to sticky as well", () => {
+        const wrapper = mount(
+          <table>
+            <thead>
+              <FlatTableRow>
+                <FlatTableHeader>test 1</FlatTableHeader>
+                <FlatTableCell>test 2</FlatTableCell>
+                <FlatTableRowHeader stickyAlignment="right">
+                  test 3
+                </FlatTableRowHeader>
+                <FlatTableCheckbox />
+                <FlatTableHeader>test 4</FlatTableHeader>
+                <FlatTableCell>test 5</FlatTableCell>
+              </FlatTableRow>
+            </thead>
+          </table>
+        );
+        act(() =>
+          wrapper.find(FlatTableHeader).at(1).props().reportCellWidth(200, 0)
+        );
+
+        assertStyleMatch(
+          {
+            position: undefined,
+          },
+          wrapper.find(StyledFlatTableHeader).at(0)
+        );
+
+        assertStyleMatch(
+          {
+            position: undefined,
+          },
+          wrapper.find(StyledFlatTableCell).at(0)
+        );
+
+        assertStyleMatch(
+          {
+            position: "sticky",
+          },
+          wrapper.find(StyledFlatTableCheckbox)
+        );
+
+        assertStyleMatch(
+          {
+            position: "sticky",
+          },
+          wrapper.find(StyledFlatTableHeader).at(1)
+        );
+
+        assertStyleMatch(
+          {
+            position: "sticky",
+          },
+          wrapper.find(StyledFlatTableCell).at(1)
+        );
+      });
+    });
+
+    it("throws an error when rhsRowHeaderIndex is less than lhsRowHeaderIndex", () => {
+      const mockGlobal = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => undefined);
+      const errorMessage = `Do not render a right hand side \`FlatTableRowHeader\` before left hand side \`FlatTableRowHeader\``;
+
+      expect(() => {
+        mount(
+          <table>
+            <thead>
+              <FlatTableRow>
+                <FlatTableHeader>test 1</FlatTableHeader>
+                <FlatTableCell>test 2</FlatTableCell>
+                <FlatTableCheckbox />
+                <FlatTableRowHeader stickyAlignment="right">
+                  test 3
+                </FlatTableRowHeader>
+                <FlatTableRowHeader stickyAlignment="left">
+                  test 3
+                </FlatTableRowHeader>
+                <FlatTableHeader>test 4</FlatTableHeader>
+                <FlatTableCell>test 5</FlatTableCell>
+              </FlatTableRow>
+            </thead>
+          </table>
+        );
+      }).toThrow(errorMessage);
+
+      mockGlobal.mockReset();
+    });
+
+    it("applies the correct styling when the row is interactive", () => {
       const wrapper = mount(
         <table>
           <thead>
@@ -677,63 +779,12 @@ describe("FlatTableRow", () => {
 
       assertStyleMatch(
         {
-          borderLeft: "1px solid var(--colorsUtilityMajor100)",
+          borderRight: "2px solid var(--colorsUtilityMajor100)",
         },
         wrapper,
-        { modifier: `:focus ${StyledFlatTableRowHeader}` }
-      );
-
-      assertStyleMatch(
-        {
-          borderLeft: "1px solid var(--colorsSemanticFocus500)",
-        },
-        wrapper,
-        { modifier: `:focus td:nth-of-type(1)` }
-      );
-
-      assertStyleMatch(
-        {
-          borderTop: "2px solid var(--colorsSemanticFocus500)",
-          borderBottom: "2px solid var(--colorsSemanticFocus500)",
-          display: "block",
-          left: "0px",
-          top: "-1px",
-          height: "calc(100% - 1px)",
-          width: "101%",
-          position: "absolute",
-          zIndex: "1000",
-        },
-        wrapper.find(FlatTableRow),
-        { modifier: `:focus td:nth-of-type(1):before` }
+        { modifier: `${StyledFlatTableRowHeader}:nth-child(4)` }
       );
     });
-
-    it.each(["dark", "light", "transparent-white", "transparent-base"])(
-      "applies the correct th styling when colorTheme is %s",
-      (colorTheme) => {
-        const wrapper = mount(
-          <FlatTableThemeContext.Provider value={{ colorTheme }}>
-            <table>
-              <thead>
-                <FlatTableRow onClick={() => {}}>
-                  <FlatTableHeader>test 1</FlatTableHeader>
-                  <FlatTableRowHeader>test 3</FlatTableRowHeader>
-                  <FlatTableHeader>test 4</FlatTableHeader>
-                </FlatTableRow>
-              </thead>
-            </table>
-          </FlatTableThemeContext.Provider>
-        );
-
-        assertStyleMatch(
-          {
-            borderLeft: `1px solid ${getThBorderColor(colorTheme)}`,
-          },
-          wrapper,
-          { modifier: `th:nth-of-type(3)` }
-        );
-      }
-    );
   });
 
   describe("when the row is expandable", () => {
@@ -1164,6 +1215,31 @@ describe("FlatTableRow", () => {
       }
     );
 
+    describe("when a right sticky column is rendered with no left sticky column", () => {
+      it("it applies the expected styling to the row header cell", () => {
+        const wrapper = mount(
+          <table>
+            <thead>
+              <FlatTableRow>
+                <FlatTableHeader>test 1</FlatTableHeader>
+                <FlatTableCell>test 2</FlatTableCell>
+                <FlatTableRowHeader stickyAlignment="right">
+                  test 3
+                </FlatTableRowHeader>
+              </FlatTableRow>
+            </thead>
+          </table>
+        );
+        assertStyleMatch(
+          {
+            borderLeft: "2px solid var(--colorsUtilityMajor100)",
+          },
+          wrapper,
+          { modifier: `${StyledFlatTableRowHeader}:nth-child(3)` }
+        );
+      });
+    });
+
     describe("when the size of the table is 'compact'", () => {
       it("should add the correct padding to child row cells", () => {
         const wrapper = mount(
@@ -1504,7 +1580,7 @@ describe("FlatTableRow", () => {
         </table>
       )
         .find(StyledFlatTableRow)
-        .prop("rowHeaderIndex");
+        .prop("lhsRowHeaderIndex");
 
       expect(rowHeaderIndex).toEqual(3);
     });
@@ -1537,21 +1613,4 @@ function renderRowWithContext(props = {}) {
       </table>
     </DrawerSidebarContext.Provider>
   );
-}
-
-function getThBorderColor(colorTheme) {
-  switch (colorTheme) {
-    case "light":
-      return "var(--colorsUtilityMajor100)";
-
-    case "transparent-base":
-      return "var(--colorsUtilityMajor025)";
-
-    case "transparent-white":
-      return "var(--colorsUtilityYang100)";
-
-    // default baseTheme is "dark"
-    default:
-      return "var(--colorsUtilityMajor400)";
-  }
 }

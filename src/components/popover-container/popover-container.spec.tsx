@@ -3,7 +3,6 @@ import React, { forwardRef } from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 import { Transition } from "react-transition-group";
-import { OffsetsFunction } from "@popperjs/core/lib/modifiers/offset";
 
 import Popover from "../../__internal__/popover";
 import {
@@ -185,21 +184,17 @@ describe("PopoverContainer", () => {
     it("should have the correct offset when shouldCoverButton is set to true", () => {
       wrapper = render({ shouldCoverButton: true, open: true });
 
-      expect(
-        wrapper.find(Popover).props().modifiers?.[0]?.options?.offset
-      ).not.toBe(undefined);
+      expect(wrapper.find(Popover).props().middleware?.[0]?.options).not.toBe(
+        undefined
+      );
 
-      const reference = { height: 40, width: 0, y: 0, x: 0 };
-      const placement = "bottom";
+      const rects = { reference: { height: 40, width: 0, y: 0, x: 0 } };
 
       expect(
-        (wrapper.find(Popover).props().modifiers?.[0]?.options
-          ?.offset as OffsetsFunction)({
-          placement,
-          reference,
-          popper: reference,
+        wrapper.find(Popover).props().middleware?.[0]?.options?.({
+          rects,
         })
-      ).toEqual([0, -40]);
+      ).toEqual({ mainAxis: -40 });
     });
 
     it.each([

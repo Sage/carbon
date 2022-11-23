@@ -95,6 +95,16 @@ describe("MultiSelect", () => {
     expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
   });
 
+  describe("when listMaxHeight prop is provided", () => {
+    it("overrides default list max-height", () => {
+      mount(getSelect());
+      const wrapper = renderSelect({ listMaxHeight: 120, openOnFocus: true });
+
+      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
+      assertStyleMatch({ maxHeight: "120px" }, wrapper.find(StyledSelectList));
+    });
+  });
+
   describe("disablePortal", () => {
     it("renders SelectList with a disablePortal prop assigned", () => {
       const wrapper = renderSelect({ disablePortal: true });
@@ -104,28 +114,17 @@ describe("MultiSelect", () => {
     });
   });
 
-  it.each([
-    "auto",
-    "auto-start",
-    "auto-end",
-    "top",
-    "top-start",
-    "top-end",
-    "bottom",
-    "bottom-start",
-    "bottom-end",
-    "right",
-    "right-start",
-    "right-end",
-    "left",
-    "left-start",
-    "left-end",
-  ])("the listPlacement prop should be passed", (listPlacement) => {
-    const wrapper = renderSelect({ listPlacement });
+  it.each(["top", "bottom", "right", "left"])(
+    "the listPlacement prop should be passed",
+    (listPlacement) => {
+      const wrapper = renderSelect({ listPlacement });
 
-    wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
-    expect(wrapper.find(SelectList).prop("listPlacement")).toBe(listPlacement);
-  });
+      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
+      expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
+        listPlacement
+      );
+    }
+  );
 
   it("the flipEnabled prop should be passed", () => {
     const wrapper = renderSelect({ flipEnabled: false });
@@ -941,6 +940,63 @@ describe("MultiSelect", () => {
       }).find(Pill);
 
       expect(pill.prop("wrapText")).toBe(true);
+    });
+  });
+});
+
+describe("aria-selected attribute for options", () => {
+  let wrapper;
+
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
+  describe("when controlled", () => {
+    beforeEach(() => {
+      wrapper = renderSelect({ value: ["opt1", "opt2"], onChange: () => {} });
+    });
+
+    it("the selected options have aria-selected=true", () => {
+      expect(
+        wrapper.find(Option).at(0).getDOMNode().getAttribute("aria-selected")
+      ).toBe("true");
+
+      expect(
+        wrapper.find(Option).at(1).getDOMNode().getAttribute("aria-selected")
+      ).toBe("true");
+    });
+
+    it("the not selected options have aria-selected=false", () => {
+      expect(
+        wrapper.find(Option).at(2).getDOMNode().getAttribute("aria-selected")
+      ).toBe("false");
+    });
+  });
+
+  describe("when uncontrolled", () => {
+    beforeEach(() => {
+      wrapper = renderSelect({ openOnFocus: true });
+      wrapper.find("input").simulate("focus");
+      act(() => {
+        wrapper.find(Option).first().simulate("click");
+        wrapper.find(Option).at(1).simulate("click");
+      });
+    });
+
+    it("the selected options have aria-selected=true", () => {
+      expect(
+        wrapper.find(Option).at(0).getDOMNode().getAttribute("aria-selected")
+      ).toBe("true");
+
+      expect(
+        wrapper.find(Option).at(1).getDOMNode().getAttribute("aria-selected")
+      ).toBe("true");
+    });
+
+    it("the not selected options have aria-selected=false", () => {
+      expect(
+        wrapper.find(Option).at(2).getDOMNode().getAttribute("aria-selected")
+      ).toBe("false");
     });
   });
 });

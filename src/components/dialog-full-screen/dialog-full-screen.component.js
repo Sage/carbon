@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import PropTypes from "prop-types";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
@@ -11,6 +11,8 @@ import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
+import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
+import TopModalContext from "../carbon-provider/top-modal-context";
 
 const DialogFullScreen = ({
   "aria-describedby": ariaDescribedBy,
@@ -32,6 +34,7 @@ const DialogFullScreen = ({
   help,
   role = "dialog",
   focusableContainers,
+  focusableSelectors,
   ...rest
 }) => {
   const locale = useLocale();
@@ -40,6 +43,9 @@ const DialogFullScreen = ({
   const headingRef = useRef(null);
   const { current: titleId } = useRef(createGuid());
   const { current: subtitleId } = useRef(createGuid());
+  const hasStickyFooter = useIsStickyFooterForm(children);
+
+  const { topModal } = useContext(TopModalContext);
 
   const closeIcon = () => {
     if (!showCloseIcon || !onCancel) return null;
@@ -56,7 +62,7 @@ const DialogFullScreen = ({
   };
 
   const dialogTitle = () => (
-    <FullScreenHeading hasContent={title} ref={headingRef}>
+    <FullScreenHeading hasContent={!!title} ref={headingRef}>
       {typeof title === "string" ? (
         <Heading
           data-element="dialog-title"
@@ -100,9 +106,14 @@ const DialogFullScreen = ({
         wrapperRef={dialogRef}
         isOpen={open}
         additionalWrapperRefs={focusableContainers}
+        focusableSelectors={focusableSelectors}
       >
         <StyledDialogFullScreen
-          aria-modal={role === "dialog" ? true : undefined}
+          aria-modal={
+            role === "dialog" && topModal?.contains(dialogRef.current)
+              ? true
+              : undefined
+          }
           {...ariaProps}
           ref={dialogRef}
           data-element="dialog-full-screen"
@@ -116,6 +127,7 @@ const DialogFullScreen = ({
             data-element="content"
             ref={contentRef}
             disableContentPadding={disableContentPadding}
+            hasStickyFooter={hasStickyFooter}
           >
             {children}
           </StyledContent>
@@ -181,6 +193,8 @@ DialogFullScreen.propTypes = {
   focusableContainers: PropTypes.arrayOf(
     PropTypes.shape({ current: PropTypes.any })
   ),
+  /** Optional selector to identify the focusable elements, if not provided a default selector is used */
+  focusableSelectors: PropTypes.string,
 };
 
 export default DialogFullScreen;

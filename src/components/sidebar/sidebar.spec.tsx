@@ -4,14 +4,20 @@ import React, { useRef } from "react";
 import Sidebar from "./sidebar.component";
 import Textbox from "../textbox";
 import StyledSidebar from "./sidebar.style";
-import {
-  assertStyleMatch,
-  testStyledSystemPadding,
-} from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
 import SidebarHeader from "./__internal__/sidebar-header/sidebar-header.component";
+import Form from "../form";
+import Box from "../box";
+
+import {
+  assertStyleMatch,
+  testStyledSystemPadding,
+  testStyledSystemWidth,
+} from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
+import Button from "../button";
+import CarbonProvider from "../carbon-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 
@@ -19,17 +25,14 @@ describe("Sidebar", () => {
   let wrapper: ReactWrapper;
   let spy: jest.Mock;
 
+  testStyledSystemWidth((props) => (
+    <StyledSidebar {...props}>Content</StyledSidebar>
+  ));
+
   beforeEach(() => {
     spy = jest.fn();
     wrapper = mount(
-      <Sidebar
-        open
-        title="Test"
-        className="custom-class"
-        data-role="baz"
-        data-element="bar"
-        onCancel={spy}
-      >
+      <Sidebar open data-role="baz" data-element="bar" onCancel={spy}>
         <Textbox />
         <Textbox />
         <Textbox />
@@ -38,6 +41,25 @@ describe("Sidebar", () => {
   });
 
   describe("render", () => {
+    describe("when sidebar is open", () => {
+      it("has aria-modal attribute", () => {
+        wrapper = mount(
+          <CarbonProvider>
+            <Sidebar onCancel={spy} open>
+              <Button>Button</Button>
+              <Button>Button</Button>
+            </Sidebar>
+          </CarbonProvider>
+        );
+
+        expect(
+          wrapper.find(StyledSidebar).getDOMNode().getAttribute("aria-modal")
+        ).toBe("true");
+
+        wrapper.unmount();
+      });
+    });
+
     describe("when sidebar is closed", () => {
       it("sets all the correct classes", () => {
         wrapper = mount(<Sidebar open={false} onCancel={spy} />);
@@ -99,6 +121,23 @@ describe("Sidebar", () => {
         expect(
           wrapper.find('[data-element="modal-background"]').length
         ).toEqual(0);
+      });
+
+      it("does not have aria-modal attribute", () => {
+        wrapper = mount(
+          <CarbonProvider>
+            <Sidebar enableBackgroundUI onCancel={spy} open>
+              <Button>Button</Button>
+              <Button>Button</Button>
+            </Sidebar>
+          </CarbonProvider>
+        );
+
+        expect(
+          wrapper.find(StyledSidebar).getDOMNode().getAttribute("aria-modal")
+        ).toBe("false");
+
+        wrapper.unmount();
       });
     });
 
@@ -238,6 +277,30 @@ describe("StyledSidebar", () => {
     wrapper.unmount();
 
     expect(ref.current).toBe(null);
+  });
+
+  describe("when the Form child has a sticky footer", () => {
+    it("does not set overflow styling", () => {
+      const wrapper = mount(
+        <Sidebar open>
+          <Form stickyFooter />
+        </Sidebar>
+      );
+
+      expect(wrapper.find(Box)).not.toHaveStyleRule("overflow");
+    });
+  });
+
+  describe("when the Form child does not have a sticky footer", () => {
+    it("sets overflow styling", () => {
+      const wrapper = mount(
+        <Sidebar open>
+          <Form />
+        </Sidebar>
+      );
+
+      expect(wrapper.find(Box)).toHaveStyleRule("overflow", "auto");
+    });
   });
 });
 

@@ -12,7 +12,7 @@ const StyledOptionRow = styled.tr`
     `}
 
   :hover {
-    background-color: var(--colorsUtilityMajor200);
+    background-color: var(--colorsUtilityMajor100);
   }
 
   td {

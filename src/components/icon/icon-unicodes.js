@@ -25,6 +25,7 @@ const primaryNavigation = {
   feedback: "\\e930",
   logout: "\\e92e",
   alert: "\\e90b",
+  alert_on: "\\f001",
   talk: "\\e95a",
 };
 
@@ -92,6 +93,7 @@ const actions = {
   bold: "\\e98c",
   italic: "\\e98b",
   undo: "\\e9aa",
+  box_arrow_left: "\\f006",
 };
 
 const batchActions = {
@@ -133,6 +135,8 @@ const navigation = {
   fit_width: "\\e908",
   ellipsis_horizontal: "\\e960",
   ellipsis_vertical: "\\e961",
+  u_turn_left: "\\f004",
+  u_turn_right: "\\f005",
 };
 
 const statusSymbols = {
@@ -140,6 +144,7 @@ const statusSymbols = {
   warning: "\\e924",
   tick: "\\e950",
   tick_circle: "\\e993",
+  tick_thick: "\\f003",
   draft: "\\e939",
   progressed: "\\e903",
   in_progress: "\\e920",
@@ -193,6 +198,7 @@ const misc = {
   envelope_dollar: "\\e9ab",
   envelope_euro: "\\e9a9",
   sage_coin: "\\e9ac",
+  palm_tree: "\\f002",
 };
 
 const legacyNames = {

@@ -25,6 +25,7 @@ const FlatTableCell = ({
   reportCellWidth,
   cellIndex,
   leftPosition,
+  rightPosition,
   width,
   truncate = false,
   title,
@@ -40,8 +41,10 @@ const FlatTableCell = ({
 
   return (
     <StyledFlatTableCell
-      leftPosition={leftPosition || 0}
+      leftPosition={leftPosition}
+      rightPosition={rightPosition}
       makeCellSticky={!!reportCellWidth}
+      className={reportCellWidth ? "isSticky" : undefined}
       ref={ref}
       align={align}
       data-element="flat-table-cell"
@@ -108,6 +111,12 @@ FlatTableCell.propTypes = {
    * Sets the left position when sticky column found
    */
   leftPosition: PropTypes.number,
+  /**
+   * @private
+   * @ignore
+   * Sets the right position when sticky column found
+   */
+  rightPosition: PropTypes.number,
   /**
    * @private
    * @ignore

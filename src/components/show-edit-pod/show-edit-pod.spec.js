@@ -250,7 +250,7 @@ describe("ShowEditPod", () => {
     });
 
     it("prevents default on passed event", () => {
-      const preventSpy = jasmine.createSpy("prevent");
+      const preventSpy = jest.fn();
       const ev = { preventDefault: preventSpy };
 
       wrapper.find(Form).props().onSubmit(ev);

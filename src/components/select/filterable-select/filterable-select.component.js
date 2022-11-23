@@ -38,6 +38,7 @@ const FilterableSelect = React.forwardRef(
       noResultsMessage,
       disablePortal,
       listActionButton,
+      listMaxHeight,
       onListAction,
       isLoading,
       disabled,
@@ -49,7 +50,7 @@ const FilterableSelect = React.forwardRef(
       "data-element": dataElement,
       "data-role": dataRole,
       tooltipPosition,
-      listPlacement = "bottom-start",
+      listPlacement = "bottom",
       flipEnabled = true,
       ...textboxProps
     },
@@ -506,6 +507,7 @@ const FilterableSelect = React.forwardRef(
         noResultsMessage={noResultsMessage}
         disablePortal={disablePortal}
         listActionButton={listActionButton}
+        listMaxHeight={listMaxHeight}
         onListAction={handleOnListAction}
         isLoading={isLoading}
         readOnly={readOnly}
@@ -523,7 +525,6 @@ const FilterableSelect = React.forwardRef(
 
     return (
       <StyledSelect
-        ref={containerRef}
         hasTextCursor
         readOnly={readOnly}
         disabled={disabled}
@@ -590,24 +591,10 @@ FilterableSelect.propTypes = {
   onListScrollBottom: PropTypes.func,
   /** Overrides the default tooltip position */
   tooltipPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  /** Maximum list height - defaults to 180 */
+  listMaxHeight: PropTypes.number,
   /** Placement of the select list in relation to the input element */
-  listPlacement: PropTypes.oneOf([
-    "auto",
-    "auto-start",
-    "auto-end",
-    "top",
-    "top-start",
-    "top-end",
-    "bottom",
-    "bottom-start",
-    "bottom-end",
-    "right",
-    "right-start",
-    "right-end",
-    "left",
-    "left-start",
-    "left-end",
-  ]),
+  listPlacement: PropTypes.oneOf(["top", "bottom", "right", "left"]),
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled: PropTypes.bool,
 };

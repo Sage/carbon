@@ -1,9 +1,10 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, useContext } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
 import StyledFlatTableHeader from "./flat-table-header.style";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
+import { FlatTableThemeContext } from "../flat-table.component";
 
 const paddingPropTypes = filterStyledSystemPaddingProps(
   styledSystemPropTypes.space
@@ -20,9 +21,11 @@ const FlatTableHeader = ({
   reportCellWidth,
   cellIndex,
   leftPosition,
+  rightPosition,
   ...rest
 }) => {
   const ref = useRef(null);
+  const { colorTheme } = useContext(FlatTableThemeContext);
 
   useLayoutEffect(() => {
     if (ref.current && reportCellWidth) {
@@ -33,9 +36,12 @@ const FlatTableHeader = ({
   return (
     <StyledFlatTableHeader
       ref={ref}
-      leftPosition={leftPosition || 0}
+      leftPosition={leftPosition}
+      rightPosition={rightPosition}
       makeCellSticky={!!reportCellWidth}
+      className={reportCellWidth ? "isSticky" : undefined}
       align={align}
+      colorTheme={colorTheme}
       data-element="flat-table-header"
       colSpan={colspan}
       rowSpan={rowspan}
@@ -67,6 +73,12 @@ FlatTableHeader.propTypes = {
    * Sets the left position when sticky column found
    */
   leftPosition: PropTypes.number,
+  /**
+   * @private
+   * @ignore
+   * Sets the right position when sticky column found
+   */
+  rightPosition: PropTypes.number,
   /**
    * @private
    * @ignore

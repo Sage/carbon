@@ -80,4 +80,6 @@ RadioButtonMapper.propTypes = {
   value: PropTypes.string,
 };
 
+RadioButtonMapper.displayName = "RadioButtonMapper";
+
 export default RadioButtonMapper;
