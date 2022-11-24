@@ -3,9 +3,10 @@ import Pill from "./pill.component";
 import { pillPreview } from "../../../cypress/locators/pill/index";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { closeIconButton } from "../../../cypress/locators/index";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const testData = "cypress_data";
+const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const testData = CHARACTERS.STANDARD;
 const warning = "rgb(242, 133, 51)";
 const neutral = "rgb(51, 91, 112)";
 const negative = "rgb(203, 55, 74)";

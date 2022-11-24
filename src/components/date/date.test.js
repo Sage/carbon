@@ -43,7 +43,12 @@ import {
 import { keyCode } from "../../../cypress/support/helper";
 import { verifyRequiredAsteriskForLabel } from "../../../cypress/support/component-helper/common-steps";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const DAY_PICKER_PREFIX = "DayPicker-Day--";
 const TODAY = Cypress.dayjs().format("ddd D MMM YYYY");
 const DATE_INPUT = Cypress.dayjs("2022-05-01").format("DD/MM/YYYY");
@@ -94,8 +99,6 @@ const DateInputCustom = ({ onChange, onBlur, ...props }) => {
     />
   );
 };
-
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 
 context("Test for DateInput component", () => {
   describe("check functionality for DateInput component", () => {
@@ -266,9 +269,9 @@ context("Test for DateInput component", () => {
     );
 
     it.each([
-      ["small", 29, 30.5],
-      ["medium", 37, 38.5],
-      ["large", 45, 46.5],
+      [SIZE.SMALL, 29, 30.5],
+      [SIZE.MEDIUM, 37, 38.5],
+      [SIZE.LARGE, 45, 46.5],
     ])("should check the %s of the DateInput", (size, minValue, maxValue) => {
       CypressMountWithProviders(<DateInputCustom size={size} />);
 

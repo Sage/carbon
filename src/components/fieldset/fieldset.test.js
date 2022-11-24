@@ -7,11 +7,15 @@ import Form from "../form/form.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../../cypress/locators/index";
 import { positionOfElement } from "../../../cypress/support/helper";
+import {
+  VALIDATION,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
 const specialCharacters = [
-  "legend",
-  "mp150ú¿¡üßä",
-  "!@#$%^*()_+-=~[];:.,?{}&\"'<>",
+  CHARACTERS.STANDARD,
+  CHARACTERS.DIACRITICS,
+  CHARACTERS.SPECIALCHARACTERS,
 ];
 
 const verifyCssProps = (element, cssProp, lessValue, greaterValue) => {
@@ -160,9 +164,9 @@ context("Testing Fieldset component", () => {
     );
 
     it.each([
-      ["rgb(203, 55, 74)", "error", true],
-      ["rgb(239, 103, 0)", "warning", true],
-      ["rgb(0, 96, 167)", "info", true],
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      [VALIDATION.INFO, "info", true],
       ["rgb(102, 132, 148)", "error", false],
       ["rgb(102, 132, 148)", "warning", false],
       ["rgb(102, 132, 148)", "info", false],

@@ -10,23 +10,18 @@ import {
 } from "../../../cypress/locators/confirm";
 import { getDataElementByValue, icon } from "../../../cypress/locators/index";
 import { positionOfElement, keyCode } from "../../../cypress/support/helper";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const testPropValue = "cypress_test";
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+
 const heights = [
   [0, "0"],
   [10, "10"],
   [999, "999"],
   [1500, "1500"],
-];
-const sizes = [
-  ["extra-small", 300],
-  ["small", 380],
-  ["medium-small", 540],
-  ["medium", 750],
-  ["medium-large", 850],
-  ["large", 960],
-  ["extra-large", 1080],
 ];
 const confirmButtonTypes = [
   ["primary", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
@@ -78,7 +73,7 @@ context("Testing Confirm component", () => {
       callback = cy.stub();
     });
 
-    it.each(specialCharacters)(
+    it.each(testData)(
       "should check confirm button text is %s",
       (confirmButtonText) => {
         CypressMountWithProviders(
@@ -89,7 +84,7 @@ context("Testing Confirm component", () => {
       }
     );
 
-    it.each(specialCharacters)(
+    it.each(testData)(
       "should check cancel button text is %s",
       (cancelButtonText) => {
         CypressMountWithProviders(
@@ -100,20 +95,17 @@ context("Testing Confirm component", () => {
       }
     );
 
-    it.each(specialCharacters)("should check title text is %s", (titleText) => {
+    it.each(testData)("should check title text is %s", (titleText) => {
       CypressMountWithProviders(<ConfirmComponent title={titleText} />);
 
       getDataElementByValue("title").should("have.text", titleText);
     });
 
-    it.each(specialCharacters)(
-      "should check subtitle text is %s",
-      (subTitleText) => {
-        CypressMountWithProviders(<ConfirmComponent subtitle={subTitleText} />);
+    it.each(testData)("should check subtitle text is %s", (subTitleText) => {
+      CypressMountWithProviders(<ConfirmComponent subtitle={subTitleText} />);
 
-        dialogSubtitle().should("have.text", subTitleText);
-      }
-    );
+      dialogSubtitle().should("have.text", subTitleText);
+    });
 
     it.each(heights)(
       "should check confirm height is %spx",
@@ -133,7 +125,15 @@ context("Testing Confirm component", () => {
       }
     );
 
-    it.each(sizes)(
+    it.each([
+      [SIZE.EXTRASMALL, 300],
+      [SIZE.SMALL, 380],
+      [SIZE.MEDIUMSMALL, 540],
+      [SIZE.MEDIUM, 750],
+      [SIZE.MEDIUMLARGE, 850],
+      [SIZE.LARGE, 960],
+      [SIZE.EXTRALARGE, 1080],
+    ])(
       "should check confirm size is %s with width of %spx",
       (sizeName, size) => {
         CypressMountWithProviders(<ConfirmComponent size={sizeName} />);
@@ -327,18 +327,26 @@ context("Testing Confirm component", () => {
 
     it("should render Confirm with aria-labelledby prop", () => {
       CypressMountWithProviders(
-        <Confirm open aria-labelledby={testPropValue} />
+        <Confirm open aria-labelledby={CHARACTERS.STANDARD} />
       );
 
-      dialogPreview().should("have.attr", "aria-labelledby", testPropValue);
+      dialogPreview().should(
+        "have.attr",
+        "aria-labelledby",
+        CHARACTERS.STANDARD
+      );
     });
 
     it("should render Confirm with aria-describedby prop", () => {
       CypressMountWithProviders(
-        <Confirm open aria-describedby={testPropValue} />
+        <Confirm open aria-describedby={CHARACTERS.STANDARD} />
       );
 
-      dialogPreview().should("have.attr", "aria-describedby", testPropValue);
+      dialogPreview().should(
+        "have.attr",
+        "aria-describedby",
+        CHARACTERS.STANDARD
+      );
     });
 
     it("should focus override first element", () => {

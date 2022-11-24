@@ -24,10 +24,14 @@ import {
   verifyRequiredAsteriskForLegend,
   verifyRequiredAsteriskForLabel,
 } from "../../../cypress/support/component-helper/common-steps";
+import {
+  SIZE,
+  VALIDATION,
+  COLOR,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const testData = "cypress_data";
-
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const CheckboxComponent = ({ ...props }) => {
   const [setIsChecked] = React.useState(false);
   return (
@@ -90,19 +94,31 @@ context("Testing Checkbox component", () => {
   describe("should render Checkbox component", () => {
     it("should render Checkbox component with data-component", () => {
       CypressMountWithProviders(
-        <CheckboxComponent data-component={testData} />
+        <CheckboxComponent data-component={CHARACTERS.STANDARD} />
       );
-      getComponent(testData).should("have.attr", "data-component", testData);
+      getComponent(CHARACTERS.STANDARD).should(
+        "have.attr",
+        "data-component",
+        CHARACTERS.STANDARD
+      );
     });
 
     it("should render Checkbox component with data-element", () => {
-      CypressMountWithProviders(<CheckboxComponent data-element={testData} />);
-      checkboxComponent().should("have.attr", "data-element", testData);
+      CypressMountWithProviders(
+        <CheckboxComponent data-element={CHARACTERS.STANDARD} />
+      );
+      checkboxComponent().should(
+        "have.attr",
+        "data-element",
+        CHARACTERS.STANDARD
+      );
     });
 
     it("should render Checkbox component with data-role", () => {
-      CypressMountWithProviders(<CheckboxComponent data-role={testData} />);
-      checkboxComponent().should("have.attr", "data-role", testData);
+      CypressMountWithProviders(
+        <CheckboxComponent data-role={CHARACTERS.STANDARD} />
+      );
+      checkboxComponent().should("have.attr", "data-role", CHARACTERS.STANDARD);
     });
 
     it.each([
@@ -117,7 +133,7 @@ context("Testing Checkbox component", () => {
     );
   });
 
-  it.each(specialCharacters)(
+  it.each(testData)(
     "should render Checkbox component with %s as a label",
     (label) => {
       CypressMountWithProviders(<CheckboxComponent label={label} />);
@@ -126,7 +142,7 @@ context("Testing Checkbox component", () => {
     }
   );
 
-  it.each(specialCharacters)(
+  it.each(testData)(
     "should render Checkbox component with %s as fieldHelp",
     (fieldHelp) => {
       CypressMountWithProviders(<CheckboxComponent fieldHelp={fieldHelp} />);
@@ -172,8 +188,8 @@ context("Testing Checkbox component", () => {
   );
 
   it("should render Checkbox component with id", () => {
-    CypressMountWithProviders(<CheckboxComponent id={testData} />);
-    checkboxRole().should("have.id", testData);
+    CypressMountWithProviders(<CheckboxComponent id={CHARACTERS.STANDARD} />);
+    checkboxRole().should("have.id", CHARACTERS.STANDARD);
   });
 
   it("should render Checkbox component with name", () => {
@@ -187,8 +203,8 @@ context("Testing Checkbox component", () => {
   });
 
   it.each([
-    ["small", "16"],
-    ["large", "24"],
+    [SIZE.SMALL, "16"],
+    [SIZE.LARGE, "24"],
   ])("should render Checkbox component with size set to %s", (size, width) => {
     CypressMountWithProviders(<CheckboxComponent size={size} />);
     checkboxRole().should("have.css", "height", `${width}px`);
@@ -242,19 +258,19 @@ context("Testing Checkbox component", () => {
   it("should render Checkbox component with error", () => {
     CypressMountWithProviders(<CheckboxComponent error />);
 
-    checkboxSvg().should("have.css", "border-bottom-color", "rgb(203, 55, 74)");
+    checkboxSvg().should("have.css", "border-bottom-color", VALIDATION.ERROR);
   });
 
   it("should render Checkbox component with warning", () => {
     CypressMountWithProviders(<CheckboxComponent warning />);
 
-    checkboxSvg().should("have.css", "border-bottom-color", "rgb(239, 103, 0)");
+    checkboxSvg().should("have.css", "border-bottom-color", VALIDATION.WARNING);
   });
 
   it("should render Checkbox component with info", () => {
     CypressMountWithProviders(<CheckboxComponent info />);
 
-    checkboxSvg().should("have.css", "border-bottom-color", "rgb(0, 96, 167)");
+    checkboxSvg().should("have.css", "border-bottom-color", VALIDATION.INFO);
   });
 
   it("should render Checkbox component with error message", () => {
@@ -321,7 +337,7 @@ context("Testing Checkbox component", () => {
     CypressMountWithProviders(<CheckboxComponent checked />);
     checkboxRole()
       .should("be.checked")
-      .should("have.css", "color", "rgb(0, 0, 0)");
+      .should("have.css", "color", COLOR.BLACK);
   });
 
   describe("should render CheckBox component and check events", () => {
@@ -390,7 +406,7 @@ context("Testing Checkbox component", () => {
     });
 
     describe("Testing CheckboxGroup component", () => {
-      it.each(specialCharacters)(
+      it.each(testData)(
         "should render CheckboxGroup component with %s as legend",
         (legendValue) => {
           CypressMountWithProviders(
@@ -406,7 +422,7 @@ context("Testing Checkbox component", () => {
         checkboxSvg().should(
           "have.css",
           "border-bottom-color",
-          "rgb(203, 55, 74)"
+          VALIDATION.ERROR
         );
       });
 
@@ -416,7 +432,7 @@ context("Testing Checkbox component", () => {
         checkboxSvg().should(
           "have.css",
           "border-bottom-color",
-          "rgb(239, 103, 0)"
+          VALIDATION.WARNING
         );
       });
 
@@ -426,7 +442,7 @@ context("Testing Checkbox component", () => {
         checkboxSvg().should(
           "have.css",
           "border-bottom-color",
-          "rgb(0, 96, 167)"
+          VALIDATION.INFO
         );
       });
 

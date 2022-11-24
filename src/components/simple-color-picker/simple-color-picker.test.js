@@ -20,6 +20,11 @@ import {
 
 import { keyCode } from "../../../cypress/support/helper";
 
+import {
+  VALIDATION,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
+
 const verifyBeforeColor = (element, color) =>
   getDataElementByValue(element).then(($els) => {
     // get Window reference from element
@@ -32,8 +37,8 @@ const verifyBeforeColor = (element, color) =>
     expect(colorVal).to.eq(color);
   });
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const testPropValue = "cypress_test";
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const testPropValue = CHARACTERS.STANDARD;
 const colors = [
   {
     color: "#FFFFFF",
@@ -75,12 +80,6 @@ const colors = [
     color: "#00DC00",
     label: "light blue",
   },
-];
-
-const validationTypes = [
-  ["error", "rgb(203, 55, 74)"],
-  ["warning", "rgb(239, 103, 0)"],
-  ["info", "rgb(0, 96, 167)"],
 ];
 
 const indexes = Array.from({ length: colors.length }).map((_, index) => index);
@@ -262,7 +261,11 @@ context("Testing SimpleColorPicker component", () => {
       verifyRequiredAsteriskForLegend();
     });
 
-    it.each(validationTypes)(
+    it.each([
+      ["error", VALIDATION.ERROR],
+      ["warning", VALIDATION.WARNING],
+      ["info", VALIDATION.INFO],
+    ])(
       "should render SimpleColorPicker and set type to %s and set as string",
       (type, color) => {
         CypressMountWithProviders(
@@ -282,7 +285,11 @@ context("Testing SimpleColorPicker component", () => {
       }
     );
 
-    it.each(validationTypes)(
+    it.each([
+      ["error", VALIDATION.ERROR],
+      ["warning", VALIDATION.WARNING],
+      ["info", VALIDATION.INFO],
+    ])(
       "should render SimpleColorPicker and set type to %s as string and have validationOnLegend prop",
       (type, color) => {
         CypressMountWithProviders(
@@ -305,7 +312,11 @@ context("Testing SimpleColorPicker component", () => {
       }
     );
 
-    it.each(validationTypes)(
+    it.each([
+      ["error", VALIDATION.ERROR],
+      ["warning", VALIDATION.WARNING],
+      ["info", VALIDATION.INFO],
+    ])(
       "should render SimpleColorPicker and set type to %s as boolean",
       (type, color) => {
         CypressMountWithProviders(

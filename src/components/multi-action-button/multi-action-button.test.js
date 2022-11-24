@@ -2,10 +2,8 @@ import * as React from "react";
 import MultiActionButton from "./multi-action-button.component";
 import Button from "../button";
 import { Accordion } from "../accordion";
-
 import { buttonSubtextPreview } from "../../../cypress/locators/button";
 import { pressTABKey, keyCode } from "../../../cypress/support/helper";
-
 import {
   multiActionButtonList,
   multiActionButtonListContainer,
@@ -14,10 +12,13 @@ import {
   multiActionButtonComponent,
 } from "../../../cypress/locators/multi-action-button";
 import { accordionDefaultTitle } from "../../../cypress/locators/accordion";
-
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const MultiActionButtonList = ({ ...props }) => {
   return (
     <div>
@@ -77,9 +78,9 @@ context("Tests for MultiActionButton component", () => {
     );
 
     it.each([
-      ["small", "32px"],
-      ["medium", "40px"],
-      ["large", "48px"],
+      [SIZE.SMALL, "32px"],
+      [SIZE.MEDIUM, "40px"],
+      [SIZE.LARGE, "48px"],
     ])("should render Multi Action Button with %s size", (size, height) => {
       CypressMountWithProviders(<MultiActionButtonList size={size} />);
 

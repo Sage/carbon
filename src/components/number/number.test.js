@@ -1,7 +1,6 @@
 import * as React from "react";
 import Number from "./number.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-
 import {
   getDataElementByValue,
   getElement,
@@ -12,10 +11,13 @@ import {
   commonInputPrefix,
   commonInputCharacterLimit,
 } from "../../../cypress/locators";
-
 import { verifyRequiredAsteriskForLabel } from "../../../cypress/support/component-helper/common-steps";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const NumberInputComponent = ({ onChange, ...props }) => {
   const [state, setState] = React.useState("");
@@ -165,9 +167,9 @@ context("Tests for Number component", () => {
     });
 
     it.each([
-      ["small", "32px"],
-      ["medium", "40px"],
-      ["large", "48px"],
+      [SIZE.SMALL, "32px"],
+      [SIZE.MEDIUM, "40px"],
+      [SIZE.LARGE, "48px"],
     ])(
       "should use %s as size and render Number with %s as height",
       (size, height) => {

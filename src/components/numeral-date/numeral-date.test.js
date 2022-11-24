@@ -18,7 +18,13 @@ import {
   numeralDateInputByPosition,
 } from "../../../cypress/locators/numeralDate";
 
-import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import {
+  CHARACTERS,
+  SIZE,
+  VALIDATION,
+} from "../../../cypress/support/component-helper/constants";
+
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const NumeralDateComponent = ({ ...props }) => {
   const [value, setValue] = React.useState({
@@ -88,7 +94,7 @@ context("Tests for NumeralDate component", () => {
       );
     });
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render NumeralDate with label prop set to %s",
       (label) => {
         CypressMountWithProviders(<NumeralDateComponent label={label} />);
@@ -123,7 +129,7 @@ context("Tests for NumeralDate component", () => {
       }
     );
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render NumeralDate with labelHelp prop set to %s",
       (labelHelp) => {
         CypressMountWithProviders(
@@ -333,9 +339,9 @@ context("Tests for NumeralDate component", () => {
     );
 
     it.each([
-      ["rgb(203, 55, 74)", "error", true],
-      ["rgb(239, 103, 0)", "warning", true],
-      ["rgb(0, 96, 167)", "info", true],
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      [VALIDATION.INFO, "info", true],
       ["rgb(102, 132, 148)", "error", false],
       ["rgb(102, 132, 148)", "warning", false],
       ["rgb(102, 132, 148)", "info", false],
@@ -366,9 +372,9 @@ context("Tests for NumeralDate component", () => {
     );
 
     it.each([
-      ["small", "30px"],
-      ["medium", "38px"],
-      ["large", "46px"],
+      [SIZE.SMALL, "30px"],
+      [SIZE.MEDIUM, "38px"],
+      [SIZE.LARGE, "46px"],
     ])(
       "should use %s as size and render NumeralDate with %s as height",
       (size, height) => {
@@ -398,7 +404,7 @@ context("Tests for NumeralDate component", () => {
       }
     );
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render NumeralDate with fieldHelp prop set to %s",
       (fieldHelp) => {
         CypressMountWithProviders(
