@@ -1,8 +1,6 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import Alert from ".";
-import Button from "../button/button.component";
+import React from "react";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { AlertComponentTest as AlertComponent } from "./alert-test.stories";
 
 import {
   alertChildren,
@@ -26,33 +24,6 @@ const sizes = [
   ["large", 960],
   ["extra-large", 1080],
 ];
-
-const AlertComponent = ({ children, ...props }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
-
-  return (
-    <>
-      <Button onClick={() => setIsOpen(!isOpen)}>Open Alert</Button>
-      <Alert
-        onCancel={() => setIsOpen(!isOpen)}
-        open={isOpen}
-        data-component="alert"
-        ariaRole="alertdialog"
-        {...props}
-      >
-        {children}
-      </Alert>
-    </>
-  );
-};
-
-/* 
-  added propType (we could specify what exactly we need)
-  when building the component with handlers
-*/
-AlertComponent.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 context("Testing Alert component", () => {
   describe("should render Alert component", () => {
@@ -165,6 +136,14 @@ context("Testing Alert component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("Accessibility tests for Alert component", () => {
+    it("should pass accessibility tests for Alert default story", () => {
+      CypressMountWithProviders(<AlertComponent />);
+
+      cy.checkAccessibility();
     });
   });
 });

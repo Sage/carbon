@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-
 import Alert from ".";
 import Button from "../button";
 
 export default {
   title: "Alert/Test",
+  includeStories: "DefaultStory",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -45,7 +45,7 @@ export const DefaultStory = ({
   subtitle,
   ...args
 }: AlertStoryProps) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const handleCancel = () => {
     setIsOpen(false);
     action("cancel")();
@@ -82,4 +82,30 @@ DefaultStory.story = {
     size: "extra-small",
     children: "This is an example of an alert",
   },
+};
+
+export const AlertComponentTest = ({
+  // eslint-disable-next-line react/prop-types
+  children = "This is an example of an alert",
+  ...props
+}) => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Alert</Button>
+      <Alert
+        onCancel={() => setIsOpen(false)}
+        title="Title"
+        disableEscKey={false}
+        height=""
+        subtitle=""
+        showCloseIcon
+        size="extra-small"
+        open={isOpen}
+        {...props}
+      >
+        {children}
+      </Alert>
+    </>
+  );
 };

@@ -6,7 +6,7 @@ import isChromatic from "../../../.storybook/isChromatic";
 
 const isOpenForChromatic = isChromatic();
 
-export const AlertComponent: ComponentStory<typeof Alert> = () => {
+const AlertComponent: ComponentStory<typeof Alert> = () => {
   const [isOpen, setIsOpen] = useState(isOpenForChromatic);
   return (
     <>
@@ -16,7 +16,7 @@ export const AlertComponent: ComponentStory<typeof Alert> = () => {
         title="Title"
         disableEscKey={false}
         height=""
-        subtitle=""
+        subtitle="Subtitle"
         showCloseIcon
         size="extra-small"
         open={isOpen}
@@ -27,28 +27,4 @@ export const AlertComponent: ComponentStory<typeof Alert> = () => {
   );
 };
 
-export const AlertComponentTest = ({
-  // eslint-disable-next-line react/prop-types
-  children = "This is an example of an alert",
-  ...props
-}) => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Alert</Button>
-      <Alert
-        onCancel={() => setIsOpen(false)}
-        title="Title"
-        disableEscKey={false}
-        height=""
-        subtitle=""
-        showCloseIcon
-        size="extra-small"
-        open={isOpen}
-        {...props}
-      >
-        {children}
-      </Alert>
-    </>
-  );
-};
+export default AlertComponent;
