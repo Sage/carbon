@@ -171,7 +171,9 @@ const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerPr
       ${!hasButtonProps &&
       css`
         ${StyledAccordionHeadingsContainer} {
-          margin-left: ${iconAlign === "right" ? "64px" : "32px"};
+          margin-left: ${iconAlign === "right"
+            ? "var(--spacing300)"
+            : "var(--spacing100)"};
         }
       `}
 
