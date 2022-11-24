@@ -1,3 +1,10 @@
+### [111.12.4](https://github.com/Sage/carbon/compare/v111.12.3...v111.12.4) (2022-11-24)
+
+
+### Bug Fixes
+
+* **date-picker:** correct css variable for disabled state and current date disable styling ([52de6e4](https://github.com/Sage/carbon/commit/52de6e452fe9f8bd57f195952b9a66f0af4c3c8a))
+
 ### [111.12.3](https://github.com/Sage/carbon/compare/v111.12.2...v111.12.3) (2022-11-24)
 
 
