@@ -1,3 +1,10 @@
+### [111.12.3](https://github.com/Sage/carbon/compare/v111.12.2...v111.12.3) (2022-11-24)
+
+
+### Bug Fixes
+
+* **loader-utils:** bumps version to remove critical security vulnerability ([4b0efb7](https://github.com/Sage/carbon/commit/4b0efb7635697cb9a99d71e6aafca563f7bbb6b5))
+
 ### [111.12.2](https://github.com/Sage/carbon/compare/v111.12.1...v111.12.2) (2022-11-23)
 
 
