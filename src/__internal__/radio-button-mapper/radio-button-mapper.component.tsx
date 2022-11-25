@@ -1,5 +1,30 @@
 import React, { useState, useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
+
+interface InputEvents {
+  /** Callback fired when each RadioButton is blurred */
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  /** Callback fired when the user selects a RadioButton */
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  /** Callback fired on mouse down */
+  onMouseDown?: (event: React.MouseEvent<HTMLInputElement>) => void;
+  /** Callback fired on key down */
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+}
+
+export interface RadioButtonMapperProps extends InputEvents {
+  /** The RadioButton objects to be rendered in the group */
+  children?: React.ReactNode;
+  /** Specifies the name prop to be applied to each button in the group */
+  name: string;
+  /** Value of the selected RadioButton */
+  value?: string;
+}
+
+export interface MappedChildProps {
+  defaultChecked?: boolean;
+  checked: boolean;
+  name: string;
+}
 
 const RadioButtonMapper = ({
   children,
@@ -9,14 +34,17 @@ const RadioButtonMapper = ({
   onMouseDown,
   onKeyDown,
   value,
-}) => {
+}: RadioButtonMapperProps) => {
   const filteredChildren = useMemo(() => React.Children.toArray(children), [
     children,
   ]);
   const anyChecked = useMemo(() => {
     let result = false;
     filteredChildren.forEach((child) => {
-      if (Object.prototype.hasOwnProperty.call(child.props, "defaultChecked")) {
+      if (
+        React.isValidElement(child) &&
+        Object.prototype.hasOwnProperty.call(child.props, "defaultChecked")
+      ) {
         result = true;
       }
     });
@@ -27,12 +55,11 @@ const RadioButtonMapper = ({
 
   const [checkedValue, setCheckedValue] = useState(false);
   const onChangeProp = useCallback(
-    (e) => {
-      if (onChange) {
-        onChange(e);
-      }
+    (event) => {
+      onChange?.(event);
+      /* istanbul ignore else */
       if (!isControlled) {
-        setCheckedValue(e.target.value);
+        setCheckedValue(event.target.value);
       }
     },
     [onChange, setCheckedValue, isControlled]
@@ -40,6 +67,11 @@ const RadioButtonMapper = ({
 
   const buttons = filteredChildren.map((child) => {
     let checked;
+
+    if (!React.isValidElement(child)) {
+      return child;
+    }
+
     if (isControlled) {
       // The user is controlling the input via the value prop
       checked = value === child.props.value;
@@ -51,7 +83,7 @@ const RadioButtonMapper = ({
       checked = checkedValue === child.props.value;
     }
 
-    return React.cloneElement(child, {
+    const childProps: MappedChildProps & InputEvents = {
       defaultChecked: undefined,
       checked,
       name,
@@ -59,25 +91,12 @@ const RadioButtonMapper = ({
       onMouseDown,
       onChange: onChangeProp,
       onKeyDown,
-    });
+    };
+
+    return React.cloneElement(child, childProps);
   });
 
-  return buttons;
-};
-
-RadioButtonMapper.propTypes = {
-  /** The RadioButton objects to be rendered in the group */
-  children: PropTypes.node,
-  /** Specifies the name prop to be applied to each button in the group */
-  name: PropTypes.string.isRequired,
-  /** Callback fired when each RadioButton is blurred */
-  onBlur: PropTypes.func,
-  /** Callback fired when the user selects a RadioButton */
-  onChange: PropTypes.func,
-  /** Callback fired on key down */
-  onKeyDown: PropTypes.func,
-  /** Value of the selected RadioButton */
-  value: PropTypes.string,
+  return <>{buttons}</>;
 };
 
 RadioButtonMapper.displayName = "RadioButtonMapper";
