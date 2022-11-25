@@ -284,9 +284,13 @@ const StyledDayPicker = styled.div`
 
   .DayPicker-Day--disabled,
   .DayPicker-Day--disabled:hover {
-    color: var(colorsActionMajorYin030);
+    color: var(--colorsActionMajorYin030);
     background-color: var(--colorsUtilityYang100);
     cursor: default;
+
+    &.DayPicker-Day--today {
+      background-color: var(--colorsActionMinor200);
+    }
   }
 
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {

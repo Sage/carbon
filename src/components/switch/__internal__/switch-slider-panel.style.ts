@@ -1,10 +1,16 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
+
 import StyledLoader from "../../loader/loader.style";
 import StyledLoaderSquare from "../../loader/loader-square.style";
+import { SwitchProps } from "../switch.component";
+
+export interface SwitchSliderPanelProps {
+  isLoading?: boolean;
+  size?: SwitchProps["size"];
+}
 
 const SwitchSliderPanel = styled.div`
-  ${({ isLoading, size }) => css`
+  ${({ isLoading, size }: SwitchSliderPanelProps) => css`
     border: 0;
     color: var(--colorsActionMinorYang100);
     margin: auto;
@@ -62,10 +68,5 @@ const SwitchSliderPanel = styled.div`
     `}
   `}
 `;
-
-SwitchSliderPanel.propTypes = {
-  isLoading: PropTypes.bool,
-  size: PropTypes.string,
-};
 
 export default SwitchSliderPanel;

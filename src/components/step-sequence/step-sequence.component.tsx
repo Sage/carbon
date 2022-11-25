@@ -1,13 +1,13 @@
 import React from "react";
-import { MarginProps } from "styled-system";
+import { SpaceProps } from "styled-system";
 
-import StepSequenceStyle from "./step-sequence.style";
+import StyledStepSequence from "./step-sequence.style";
 
 export const StepSequenceContext = React.createContext<{
   orientation: "horizontal" | "vertical";
 }>({ orientation: "horizontal" });
 
-export interface StepSequenceProps extends MarginProps {
+export interface StepSequenceProps extends SpaceProps {
   /** Step sequence items to be rendered */
   children: React.ReactNode;
   /** The direction that step sequence items should be rendered */
@@ -20,15 +20,16 @@ export const StepSequence = ({
   ...props
 }: StepSequenceProps) => {
   return (
-    <StepSequenceStyle
+    <StyledStepSequence
       data-component="step-sequence"
       orientation={orientation}
+      p={0}
       {...props}
     >
       <StepSequenceContext.Provider value={{ orientation }}>
         {children}
       </StepSequenceContext.Provider>
-    </StepSequenceStyle>
+    </StyledStepSequence>
   );
 };
 

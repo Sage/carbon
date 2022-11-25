@@ -1,9 +1,10 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { css, ThemeProvider } from "styled-components";
-import { mount } from "enzyme";
+import { ThemeProvider } from "styled-components";
+import { mount, ReactWrapper, MountRendererProps } from "enzyme";
 
-import Switch from ".";
+import { ThemeObject } from "style/themes/base";
+import Switch, { SwitchProps } from ".";
 import CheckableInput from "../../__internal__/checkable-input";
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
 import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
@@ -21,20 +22,23 @@ import StyledValidationIcon from "../../__internal__/validations/validation-icon
 import SwitchSliderPanel from "./__internal__/switch-slider-panel.style";
 import SwitchStyle from "./switch.style";
 import Label from "../../__internal__/label";
-import I18nProvider from "../i18n-provider";
+import I18nProvider, { I18nProviderProps } from "../i18n-provider";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 
+const mockedGuid = "guid-12345";
 jest.mock("../../__internal__/utils/helpers/guid");
-guid.mockImplementation(() => "guid-12345");
 
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 const statusColor = {
   warning: "var(--colorsSemanticCaution500)",
   error: "var(--colorsSemanticNegative500)",
 };
 
-const getLabel = (wrapper) => wrapper.find(SwitchSliderPanel).text();
-const wrappingComponent = (props) => (
+const getLabel = (wrapper: ReactWrapper) =>
+  wrapper.find(SwitchSliderPanel).text();
+
+const wrappingComponent = (props: I18nProviderProps) => (
   <I18nProvider
     {...props}
     locale={{
@@ -46,6 +50,29 @@ const wrappingComponent = (props) => (
     }}
   />
 );
+
+function render(
+  props?: SwitchProps,
+  renderer = mount,
+  params?: MountRendererProps
+) {
+  return renderer(
+    <Switch name="my-switch" value="test" onChange={() => {}} {...props} />,
+    params
+  );
+}
+
+function renderWithTheme(
+  props?: SwitchProps,
+  theme?: string | Partial<ThemeObject>,
+  renderer = mount
+) {
+  return renderer(
+    <ThemeProvider theme={theme}>
+      <Switch name="my-switch" value="test" onChange={() => {}} {...props} />
+    </ThemeProvider>
+  );
+}
 
 describe("Switch", () => {
   describe("Styled System", () => {
@@ -68,7 +95,9 @@ describe("Switch", () => {
       };
       const wrapper = render({ onChange: onChangeMock }, mount);
       act(() => {
-        wrapper.find(CheckableInput).prop("onChange")(event);
+        wrapper.find(CheckableInput).prop("onChange")?.(
+          event as React.ChangeEvent<HTMLInputElement>
+        );
       });
       expect(onChangeMock).toHaveBeenCalledWith(event);
       wrapper.update();
@@ -102,7 +131,9 @@ describe("Switch", () => {
       };
       const wrapper = render({ checked: false, onChange: onChangeMock }, mount);
       act(() => {
-        wrapper.find(CheckableInput).prop("onChange")(event);
+        wrapper.find(CheckableInput).prop("onChange")?.(
+          event as React.ChangeEvent<HTMLInputElement>
+        );
       });
       expect(onChangeMock).toHaveBeenCalledWith(event);
     });
@@ -134,9 +165,7 @@ describe("Switch", () => {
             },
             wrapper,
             {
-              modifier: css`
-                ${StyledLabelContainer}
-              `,
+              modifier: `${StyledLabelContainer}`,
             }
           );
         });
@@ -156,9 +185,7 @@ describe("Switch", () => {
             },
             wrapper,
             {
-              modifier: css`
-                ${FieldHelpStyle}
-              `,
+              modifier: `${FieldHelpStyle}`,
             }
           );
         });
@@ -178,9 +205,7 @@ describe("Switch", () => {
             },
             wrapper,
             {
-              modifier: css`
-                ${FieldHelpStyle}
-              `,
+              modifier: `${FieldHelpStyle}`,
             }
           );
         });
@@ -197,9 +222,7 @@ describe("Switch", () => {
           },
           wrapper,
           {
-            modifier: css`
-              ${FieldHelpStyle}
-            `,
+            modifier: `${FieldHelpStyle}`,
           }
         );
       });
@@ -214,9 +237,7 @@ describe("Switch", () => {
           },
           wrapper,
           {
-            modifier: css`
-              ${StyledLabelContainer}
-            `,
+            modifier: `${StyledLabelContainer}`,
           }
         );
       });
@@ -229,9 +250,7 @@ describe("Switch", () => {
           },
           wrapper,
           {
-            modifier: css`
-              ${FieldHelpStyle}
-            `,
+            modifier: `${FieldHelpStyle}`,
           }
         );
       });
@@ -298,9 +317,7 @@ describe("Switch", () => {
           },
           wrapper,
           {
-            modifier: css`
-              ${StyledCheckableInput}
-            `,
+            modifier: `${StyledCheckableInput}`,
           }
         );
       });
@@ -312,9 +329,7 @@ describe("Switch", () => {
           },
           wrapper,
           {
-            modifier: css`
-              ${StyledLabelContainer}
-            `,
+            modifier: `${StyledLabelContainer}`,
           }
         );
       });
@@ -326,9 +341,7 @@ describe("Switch", () => {
           },
           wrapper,
           {
-            modifier: css`
-              ${FieldHelpStyle}
-            `,
+            modifier: `${FieldHelpStyle}`,
           }
         );
       });
@@ -345,25 +358,19 @@ describe("Switch", () => {
 
         it("applies the correct CheckableInput styles", () => {
           assertStyleMatch(largeSizes, wrapper, {
-            modifier: css`
-              ${StyledCheckableInput}
-            `,
+            modifier: `${StyledCheckableInput}`,
           });
         });
 
         it("applies the correct HiddenCheckableInput styles", () => {
           assertStyleMatch(largeSizes, wrapper, {
-            modifier: css`
-              ${HiddenCheckableInputStyle}
-            `,
+            modifier: `${HiddenCheckableInputStyle}`,
           });
         });
 
         it("applies the correct SwitchSlider styles", () => {
           assertStyleMatch(largeSizes, wrapper, {
-            modifier: css`
-              ${StyledSwitchSlider}
-            `,
+            modifier: `${StyledSwitchSlider}`,
           });
         });
       });
@@ -380,9 +387,7 @@ describe("Switch", () => {
             },
             wrapper,
             {
-              modifier: css`
-                ${StyledLabelContainer}
-              `,
+              modifier: `${StyledLabelContainer}`,
             }
           );
         });
@@ -401,9 +406,7 @@ describe("Switch", () => {
               },
               wrapper,
               {
-                modifier: css`
-                  ${FieldHelpStyle}
-                `,
+                modifier: `${FieldHelpStyle}`,
               }
             );
           });
@@ -420,7 +423,7 @@ describe("Switch", () => {
       },
       mount
     );
-    const validationTypes = ["error", "warning"];
+    const validationTypes = ["error", "warning"] as const;
 
     beforeEach(() => {
       const props = {
@@ -567,9 +570,7 @@ describe("Switch", () => {
               },
               wrapper,
               {
-                modifier: css`
-                  ${`${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledSwitchSlider}`}
-                `,
+                modifier: `${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledSwitchSlider}`,
               }
             );
           });
@@ -579,7 +580,7 @@ describe("Switch", () => {
   );
 
   describe("required", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeAll(() => {
       wrapper = render({ required: true, label: "required" }, mount);
@@ -621,18 +622,3 @@ describe("translation", () => {
     expect(getLabel(wrapper)).toBe("de");
   });
 });
-
-function render(props, renderer = mount, params) {
-  return renderer(
-    <Switch name="my-switch" value="test" onChange={() => {}} {...props} />,
-    params
-  );
-}
-
-function renderWithTheme(props, theme, renderer = mount) {
-  return renderer(
-    <ThemeProvider theme={theme}>
-      <Switch name="my-switch" value="test" onChange={() => {}} {...props} />
-    </ThemeProvider>
-  );
-}

@@ -293,9 +293,14 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 
 .c0 .DayPicker-Day--disabled,
 .c0 .DayPicker-Day--disabled:hover {
-  color: var(colorsActionMajorYin030);
+  color: var(--colorsActionMajorYin030);
   background-color: var(--colorsUtilityYang100);
   cursor: default;
+}
+
+.c0 .DayPicker-Day--disabled.DayPicker-Day--today,
+.c0 .DayPicker-Day--disabled:hover.DayPicker-Day--today {
+  background-color: var(--colorsActionMinor200);
 }
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {

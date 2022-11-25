@@ -1,3 +1,44 @@
+### [111.12.4](https://github.com/Sage/carbon/compare/v111.12.3...v111.12.4) (2022-11-24)
+
+
+### Bug Fixes
+
+* **date-picker:** correct css variable for disabled state and current date disable styling ([52de6e4](https://github.com/Sage/carbon/commit/52de6e452fe9f8bd57f195952b9a66f0af4c3c8a))
+
+### [111.12.3](https://github.com/Sage/carbon/compare/v111.12.2...v111.12.3) (2022-11-24)
+
+
+### Bug Fixes
+
+* **loader-utils:** bumps version to remove critical security vulnerability ([4b0efb7](https://github.com/Sage/carbon/commit/4b0efb7635697cb9a99d71e6aafca563f7bbb6b5))
+
+### [111.12.2](https://github.com/Sage/carbon/compare/v111.12.1...v111.12.2) (2022-11-23)
+
+
+### Bug Fixes
+
+* **accordion:** update margin-left spacing values to use tokens when buttonHeading is used ([e4804e8](https://github.com/Sage/carbon/commit/e4804e813d4ad3ee4bf603ed8729eb526bf5a42c))
+
+### [111.12.1](https://github.com/Sage/carbon/compare/v111.12.0...v111.12.1) (2022-11-23)
+
+
+### Bug Fixes
+
+* **toast:** ensure toast component has first focus when opened ([81d87fe](https://github.com/Sage/carbon/commit/81d87fe8e1c541c0aeb7185bd984defa6c50c5e6))
+
+## [111.12.0](https://github.com/Sage/carbon/compare/v111.11.0...v111.12.0) (2022-11-21)
+
+
+### Features
+
+* **step-sequence-item:** add new dashed line for incomplete steps ([4379f68](https://github.com/Sage/carbon/commit/4379f68aa97bc72b3890984e03ede7024b5d70fc))
+* **step-sequence:** remove default padding and add support for padding props interface ([a3d3c28](https://github.com/Sage/carbon/commit/a3d3c28c56ba8eeaf15088aa63ace41f2f689b82))
+
+
+### Bug Fixes
+
+* **step-sequence:** ensure elements flex to full height of container when vertically orientated ([2329cbe](https://github.com/Sage/carbon/commit/2329cbe00086bcf0ed13d041d8da2f5f4da97d46))
+
 ## [111.11.0](https://github.com/Sage/carbon/compare/v111.10.0...v111.11.0) (2022-11-21)
 
 
