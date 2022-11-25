@@ -13,12 +13,7 @@ function makeColors(color: string) {
   `;
 }
 
-export default (
-  isDisabled?: boolean,
-  destructive?: boolean,
-  isMinor?: boolean,
-  size?: string
-) => ({
+export default (isDisabled?: boolean, destructive?: boolean) => ({
   primary: `
     background: var(--colorsActionMajor500);
     border-color: transparent;
@@ -26,18 +21,7 @@ export default (
     &:hover {
       background: var(--colorsActionMajor600);
     }
-    ${
-      isMinor
-        ? `
-    background: var(--colorsActionMinor500);
-    border-color: var(--colorsActionMinorTransparent);
-    ${makeColors("var(--colorsActionMinorYang100)")};
-    &:hover {
-      background: var(--colorsActionMinor600);
-    }
-  `
-        : ""
-    }
+
     ${
       isDisabled
         ? `
@@ -81,21 +65,6 @@ export default (
       }
 
       ${
-        isMinor
-          ? `
-      background: transparent;
-      padding: var(--spacing100);
-      border-color: var(--colorsActionMinor500);
-      ${makeColors("var(--colorsActionMinor500)")};
-      &:hover {
-        color: var(--colorsActionMinorYang100);
-        background: var(--colorsActionMinor600);
-      }
-    `
-          : ""
-      }
-
-      ${
         destructive
           ? `
         border-color: var(--colorsSemanticNegative500);
@@ -132,20 +101,6 @@ export default (
       ${makeColors("var(--colorsActionMajorYang100)")};
     }
 
-    ${
-      isMinor
-        ? `
-    background: transparent;
-    padding: var(--spacing100);
-    ${makeColors("var(--colorsActionMinor500)")};
-    &:hover {
-      color: var(--colorsActionMinorYang100);
-      background: var(--colorsActionMinor600);
-    }
-  `
-        : ""
-    }
-    
     ${
       destructive
         ? `

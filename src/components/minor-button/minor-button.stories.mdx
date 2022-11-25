@@ -1,8 +1,9 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import Button from ".";
+import Button from "../button";
+import MinorButton from ".";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta title="Button" parameters={{ info: { disable: true } }} />
+<Meta title="Minor Button" parameters={{ info: { disable: true } }} />
 
 # Button
 
@@ -18,7 +19,7 @@ Use it to submit a form (Save), to advance to the next step in a process (Next),
 ## Quickstart
 
 ```javascript
-import Button from "carbon-react/lib/components/button";
+import MinorButton from "carbon-react/lib/components/minor-button";
 ```
 
 ## Examples
@@ -30,15 +31,15 @@ For the single most prominent call to action on the page (e.g. Save, Submit, Con
 <Canvas>
   <Story name="minor/primary">
     <>
-      <Button mt={2} ml={2} buttonType="primary" isMinor={true} size="small">
+      <MinorButton mt={2} ml={2} buttonType="primary"  size="small">
         Small
-      </Button>
-      <Button mt={2} buttonType="primary" isMinor={true} ml={2}>
+      </MinorButton>
+      <MinorButton mt={2} buttonType="primary"  ml={2}>
         Medium
-      </Button>
-      <Button mt={2} buttonType="primary" isMinor={true} size="large" ml={2}>
+      </MinorButton>
+      <MinorButton mt={2} buttonType="primary"  size="large" ml={2}>
         Large
-      </Button>
+      </MinorButton>
     </>
   </Story>
 </Canvas>
@@ -48,15 +49,15 @@ Minor Primary buttons can be destructive.
 <Canvas>
   <Story name="minor/primary/destructive">
     <>
-      <Button mt={2} ml={2} buttonType="primary" isMinor={true} destructive size="small">
+      <MinorButton mt={2} ml={2} buttonType="primary"  destructive size="small">
         Small
-      </Button>
-      <Button mt={2} buttonType="primary" isMinor={true} destructive ml={2}>
+      </MinorButton>
+      <MinorButton mt={2} buttonType="primary"  destructive ml={2}>
         Medium
-      </Button>
-      <Button mt={2} buttonType="primary" isMinor={true} destructive size="large" ml={2}>
+      </MinorButton>
+      <MinorButton mt={2} buttonType="primary"  destructive size="large" ml={2}>
         Large
-      </Button>
+      </MinorButton>
     </>
   </Story>
 </Canvas>
@@ -66,15 +67,15 @@ Primary buttons can be disabled.
 <Canvas>
   <Story name="minor/primary/disabled">
     <>
-      <Button mt={2} ml={2} buttonType="primary" isMinor={true} disabled size="small">
+      <MinorButton mt={2} ml={2} buttonType="primary"  disabled size="small">
         Small
-      </Button>
-      <Button mt={2} buttonType="primary" isMinor={true} disabled ml={2}>
+      </MinorButton>
+      <MinorButton mt={2} buttonType="primary"  disabled ml={2}>
         Medium
-      </Button>
-      <Button mt={2} buttonType="primary" isMinor={true} disabled size="large" ml={2}>
+      </MinorButton>
+      <MinorButton mt={2} buttonType="primary"  disabled size="large" ml={2}>
         Large
-      </Button>
+      </MinorButton>
     </>
   </Story>
 </Canvas>
@@ -84,31 +85,29 @@ Minor Primary buttons can have an icon positioned before or after the text.
 <Canvas>
   <Story name="minor/primary/icon">
     <>
-      <Button mt={2} ml={2} buttonType="primary" isMinor={true} iconType="print">
+      <MinorButton mt={2} ml={2} buttonType="primary"  iconType="print">
         Medium
-      </Button>
-      <Button
+      </MinorButton>
+      <MinorButton
         mt={2}
         buttonType="primary"
         destructive
         iconType="delete"
         iconPosition="after"
         ml={2}
-        isMinor={true}
       >
         Medium
-      </Button>
-      <Button
+      </MinorButton>
+      <MinorButton
         mt={2}
         buttonType="primary"
         disabled
         iconType="print"
         iconPosition="after"
         ml={2}
-        isMinor={true}
       >
         Medium
-      </Button>
+      </MinorButton>
     </>
   </Story>
 </Canvas>
@@ -117,11 +116,9 @@ Primary buttons can be `fullWidth`.
 
 <Canvas>
   <Story name="minor/primary/full-width">
-    <>
-      <Button mt={2} buttonType="primary" isMinor={true} fullWidth>
-        Full Width
-      </Button>
-    </>
+    <MinorButton mt={2} buttonType="primary"  fullWidth>
+      Full Width
+    </MinorButton>
   </Story>
 </Canvas>
 
@@ -129,9 +126,9 @@ Primary buttons can be set into `noWrap` mode to prevent text wrapping.
 
 <Canvas>
   <Story name="minor/primary/noWrap">
-    <Button mt={2} ml={2} buttonType="primary" isMinor={true} noWrap>
+    <MinorButton mt={2} ml={2} buttonType="primary"  noWrap>
       Long button text
-    </Button>
+    </MinorButton>
   </Story>
 </Canvas>
 
@@ -143,15 +140,15 @@ Secondary buttons are transparent, rather than white.
 <Canvas>
   <Story name="minor/secondary">
     <>
-      <Button mt={2} size="small" isMinor={true} ml={2}>
+      <MinorButton mt={2} size="small"  ml={2}>
         Small
-      </Button>
-      <Button mt={2} ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} ml={2}>
         Medium
-      </Button>
-      <Button mt={2} size="large" ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} size="large" ml={2}>
         Large
-      </Button>
+      </MinorButton>
     </>
   </Story>
 </Canvas>
@@ -161,15 +158,15 @@ Minor Secondary buttons can be destructive.
 <Canvas>
   <Story name="minor/secondary/destructive">
     <>
-      <Button mt={2} destructive size="small" isMinor={true} ml={2}>
+      <MinorButton mt={2} destructive size="small"  ml={2}>
         Small
-      </Button>
-      <Button mt={2} destructive ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} destructive ml={2}>
         Medium
-      </Button>
-      <Button mt={2} destructive size="large" ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} destructive size="large" ml={2}>
         Large
-      </Button>
+      </MinorButton>
     </>
   </Story>
 </Canvas>
@@ -179,15 +176,15 @@ Minor Secondary buttons can be disabled.
 <Canvas>
   <Story name="minor/secondary/disabled">
     <>
-      <Button mt={2} size="small" disabled isMinor={true} ml={2}>
+      <MinorButton mt={2} size="small" disabled  ml={2}>
         Small
-      </Button>
-      <Button mt={2} disabled ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} disabled ml={2}>
         Medium
-      </Button>
-      <Button mt={2} size="large" disabled ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} size="large" disabled ml={2}>
         Large
-      </Button>
+      </MinorButton>
     </>
   </Story>
 </Canvas>
@@ -197,15 +194,15 @@ Secondary buttons can have an icon positioned before or after the text.
 <Canvas>
   <Story name="minor/secondary/icon">
     <>
-      <Button mt={2} iconType="print" isMinor={true} ml={2}>
+      <MinorButton mt={2} iconType="print"  ml={2}>
         Medium
-      </Button>
-      <Button mt={2} destructive iconType="delete" iconPosition="after" ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} destructive iconType="delete" iconPosition="after" ml={2}>
         Medium
-      </Button>
-      <Button mt={2} disabled iconType="print" iconPosition="after" ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} disabled iconType="print" iconPosition="after" ml={2}>
         Minor
-      </Button>
+      </MinorButton>
     </>
   </Story>
 </Canvas>
@@ -214,11 +211,9 @@ Secondary buttons can be `fullWidth`.
 
 <Canvas>
   <Story name="minor/secondary/full-width">
-    <>
-      <Button mt={2} buttonType="secondary" isMinor={true} fullWidth>
-        Full Width
-      </Button>
-    </>
+    <MinorButton mt={2} buttonType="secondary"  fullWidth>
+      Full Width
+    </MinorButton>
   </Story>
 </Canvas>
 
@@ -226,9 +221,9 @@ Minor Secondary buttons can be set into `noWrap` mode to prevent text wrapping.
 
 <Canvas>
   <Story name="minor/secondary/noWrap" parameters={{ chromatic: { disable: true } }}>
-    <Button mt={2} buttonType="secondary" isMinor={true} noWrap>
+    <MinorButton mt={2} buttonType="secondary"  noWrap>
       Long button text
-    </Button>
+    </MinorButton>
   </Story>
 </Canvas>
 
@@ -239,15 +234,15 @@ Minor Tertiary Buttons or ‘ghost’ buttons are used for reversing actions, li
 <Canvas>
   <Story name="minor/tertiary">
     <>
-      <Button mt={2} buttonType="tertiary" size="small" isMinor={true} ml={2}>
+      <MinorButton mt={2} buttonType="tertiary" size="small"  ml={2}>
         Small
-      </Button>
-      <Button mt={2} buttonType="tertiary" ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} buttonType="tertiary" ml={2}>
         Medium
-      </Button>
-      <Button mt={2} buttonType="tertiary" size="large" ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} buttonType="tertiary" size="large" ml={2}>
         Large
-      </Button>
+      </MinorButton>
     </>
   </Story>
 </Canvas>
@@ -257,15 +252,15 @@ Minor Tertiary buttons can be destructive.
 <Canvas>
   <Story name="minor/tertiary/destructive">
     <>
-      <Button mt={2} buttonType="tertiary" destructive size="small" isMinor={true} ml={2}>
+      <MinorButton mt={2} buttonType="tertiary" destructive size="small"  ml={2}>
         Small
-      </Button>
-      <Button mt={2} buttonType="tertiary" destructive ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} buttonType="tertiary" destructive ml={2}>
         Medium
-      </Button>
-      <Button mt={2} buttonType="tertiary" destructive size="large" ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} buttonType="tertiary" destructive size="large" ml={2}>
         Large
-      </Button>
+      </MinorButton>
     </>
   </Story>
 </Canvas>
@@ -275,15 +270,15 @@ Minor Tertiary buttons can be disabled.
 <Canvas>
   <Story name="minor/tertiary/disabled">
     <>
-      <Button mt={2} buttonType="tertiary" disabled size="small" isMinor={true} ml={2}>
+      <MinorButton mt={2} buttonType="tertiary" disabled size="small"  ml={2}>
         Small
-      </Button>
-      <Button mt={2} buttonType="tertiary" disabled ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} buttonType="tertiary" disabled ml={2}>
         Medium
-      </Button>
-      <Button mt={2} buttonType="tertiary" disabled size="large" ml={2} isMinor={true}>
+      </MinorButton>
+      <MinorButton mt={2} buttonType="tertiary" disabled size="large" ml={2}>
         Large
-      </Button>
+      </MinorButton>
     </>
   </Story>
 </Canvas>
@@ -293,31 +288,29 @@ Minor Tertiary buttons can have an icon positioned before or after the text.
 <Canvas>
   <Story name="minor/tertiary/icon">
     <>
-      <Button mt={2} buttonType="tertiary" iconType="print" isMinor={true} ml={2}>
+      <MinorButton mt={2} buttonType="tertiary" iconType="print"  ml={2}>
         Medium
-      </Button>
-      <Button
+      </MinorButton>
+      <MinorButton
         mt={2}
         buttonType="tertiary"
         destructive
         iconType="delete"
         iconPosition="after"
         ml={2}
-        isMinor={true}
       >
         Medium
-      </Button>
-      <Button
+      </MinorButton>
+      <MinorButton
         mt={2}
         buttonType="tertiary"
         disabled
         iconType="print"
         iconPosition="after"
         ml={2}
-        isMinor={true}
       >
         Medium
-      </Button>
+      </MinorButton>
     </>
   </Story>
 </Canvas>
@@ -326,11 +319,9 @@ Minor Tertiary buttons can be `fullWidth`.
 
 <Canvas>
   <Story name="minor/tertiary/full-width">
-    <>
-      <Button mt={2} buttonType="tertiary" isMinor={true} fullWidth>
-        Full Width
-      </Button>
-    </>
+    <MinorButton mt={2} buttonType="tertiary"  fullWidth>
+      Full Width
+    </MinorButton>
   </Story>
 </Canvas>
 
@@ -338,9 +329,9 @@ Tertiary buttons can be set to `noWrap` mode to prevent text wrapping.
 
 <Canvas>
   <Story name="minor/tertiary/noWrap" parameters={{ chromatic: { disable: true } }}>
-    <Button mt={2} buttonType="tertiary" isMinor={true} noWrap>
+    <MinorButton mt={2} buttonType="tertiary"  noWrap>
       Long button text
-    </Button>
+    </MinorButton>
   </Story>
 </Canvas>
 
@@ -351,17 +342,16 @@ Buttons can be rendered with just an icon.
 <Canvas>
   <Story name="minor/icon only button">
     <>
-      <Button
+      <MinorButton
         mt={2}
         ml={2}
         buttonType="primary"
         size="small"
         iconType="bin"
         aria-label="Delete"
-        isMinor={true}
       />
-      <Button mt={2} destructive ml={2} iconType="bin" aria-label="Delete" />
-      <Button
+      <MinorButton mt={2} destructive ml={2} iconType="bin" aria-label="Delete" />
+      <MinorButton
         mt={2}
         disabled
         size="large"
@@ -381,26 +371,24 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
     parameters={{ chromatic: { disable: true } }}
   >
     <>
-      <Button
+      <MinorButton
         mt={2}
         ml={2}
         buttonType="primary"
         size="small"
         iconType="bin"
         iconTooltipMessage="This is a tooltip"
-        isMinor={true}
         aria-label="Delete"
       />
-      <Button
+      <MinorButton
         destructive
         mt={2}
         ml={2}
         iconType="bin"
         iconTooltipMessage="This is a tooltip"
-        isMinor={true}
         aria-label="Delete"
       />
-      <Button
+      <MinorButton
         mt={2}
         disabled
         size="large"
