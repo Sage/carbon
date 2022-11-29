@@ -27,7 +27,7 @@ jobs:
             2,
           ]
     container: 
-      image: cypress/browsers:node16.17.0-chrome106
+      image: cypress/browsers:node18.12.0-chrome107
       options: --user 1001
     steps:
       - id: get_pull
@@ -109,7 +109,7 @@ jobs:
             5,
           ]
     container: 
-      image: cypress/browsers:node16.17.0-chrome106
+      image: cypress/browsers:node18.12.0-chrome107
       options: --user 1001
     steps:
       - id: get_pull
@@ -193,7 +193,7 @@ jobs:
             7,
           ]
     container: 
-      image: cypress/browsers:node16.17.0-chrome106
+      image: cypress/browsers:node18.12.0-chrome107
       options: --user 1001
     steps:
       - id: get_pull
@@ -238,7 +238,7 @@ jobs:
           npx cypress info
       - name: Prepare stories
         run: |
-          npm run build-storybook
+          npm run build-storybook-cypress
           npx sb extract
       - name: Cypress run
         uses: cypress-io/github-action@v4
