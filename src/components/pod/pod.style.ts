@@ -5,13 +5,13 @@ import { baseTheme } from "../../style/themes";
 import { StyledContent as StyledLinkContent } from "../link/link.style";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
-import { PodAlignment, PodSize, PodVariant } from "./pod.config";
 
-export interface StyledPodProps extends MarginProps {
-  alignTitle: PodAlignment;
-  internalEditButton?: boolean;
-  height?: string;
-}
+import { PodProps } from "./pod.component";
+import { PodSize, PodVariant } from "./pod.config";
+
+type StyledPodProps = MarginProps &
+  Pick<PodProps, "alignTitle" | "internalEditButton" | "height">;
+
 const StyledPod = styled.div<StyledPodProps>`
   ${margin}
   display: flex;
@@ -34,14 +34,13 @@ const blockBackgrounds = {
   tile: "var(--colorsUtilityYang100)",
 };
 
-export interface StyledBlockProps {
+interface StyledBlockProps
+  extends Pick<PodProps, "softDelete" | "internalEditButton"> {
   variant: PodVariant;
   noBorder: boolean;
-  softDelete?: boolean;
   hasButtons: boolean;
   contentTriggersEdit?: boolean;
   fullWidth?: boolean;
-  internalEditButton?: boolean;
   isHovered?: boolean;
   isFocused?: boolean;
 }
@@ -123,10 +122,7 @@ const contentPaddings = {
   "extra-large": "40px",
 };
 
-export interface StyledContentProps {
-  size: PodSize;
-}
-const StyledContent = styled.div<StyledContentProps>`
+const StyledContent = styled.div<{ size: PodSize }>`
   text-align: left;
   padding: ${({ size }) => contentPaddings[size]};
   flex-grow: 1;
@@ -140,10 +136,9 @@ const footerPaddings = {
   "extra-large": "24px 40px",
 };
 
-export interface StyledFooterProps {
+interface StyledFooterProps extends Pick<PodProps, "softDelete"> {
   variant: PodVariant;
   size: PodSize;
-  softDelete?: boolean;
 }
 const StyledFooter = styled.div<StyledFooterProps>`
   ${({ variant, size, softDelete }) => css`
@@ -159,10 +154,7 @@ const StyledFooter = styled.div<StyledFooterProps>`
   `}
 `;
 
-export interface StyledActionsContainerProps {
-  internalEditButton?: boolean;
-}
-const StyledActionsContainer = styled.div<StyledActionsContainerProps>`
+const StyledActionsContainer = styled.div<Pick<PodProps, "internalEditButton">>`
   display: flex;
   flex-direction: column;
 
@@ -192,10 +184,9 @@ const actionButtonBackgrounds = {
   tile: "var(--colorsActionMajorYang100)",
 };
 
-interface CommonPodButtonProps {
+interface CommonPodButtonProps extends Pick<PodProps, "internalEditButton"> {
   isHovered?: boolean;
   isFocused?: boolean;
-  internalEditButton?: boolean;
   size: PodSize;
   noBorder: boolean;
   variant: PodVariant;
@@ -384,9 +375,8 @@ const headerRightAlignMargins = {
   "extra-large": 30,
 };
 
-export interface StyledHeaderProps {
-  alignTitle: PodAlignment;
-  internalEditButton?: boolean;
+interface StyledHeaderProps
+  extends Pick<PodProps, "alignTitle" | "internalEditButton"> {
   size: PodSize;
 }
 const StyledHeader = styled.div<StyledHeaderProps>`
