@@ -6,6 +6,7 @@ import Portal from "../portal";
 import Events from "../../__internal__/utils/helpers/events";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 import { StyledModal, StyledModalBackground } from "./modal.style";
+import { TagProps } from "../../__internal__/utils/helpers/tags";
 
 export interface ModalContextProps {
   isInModal?: boolean;
@@ -15,7 +16,7 @@ export interface ModalContextProps {
 
 export const ModalContext = React.createContext<ModalContextProps>({});
 
-export interface ModalProps {
+export interface ModalProps extends TagProps {
   /** Custom class name  */
   className?: string;
   /** Modal content */

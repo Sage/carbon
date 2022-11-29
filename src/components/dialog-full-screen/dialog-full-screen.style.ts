@@ -10,7 +10,7 @@ import {
 } from "../heading/heading.style";
 import { StyledForm } from "../form/form.style";
 
-const StyledDialogFullScreen = styled.div`
+const StyledDialogFullScreen = styled.div<{ pagesStyling?: boolean }>`
   :focus {
     outline: none;
   }

@@ -1,8 +1,7 @@
 import React, { useRef, useContext } from "react";
-import PropTypes from "prop-types";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
-import Modal from "../modal";
+import Modal, { ModalProps } from "../modal";
 import Heading from "../heading";
 import FullScreenHeading from "../../__internal__/full-screen-heading";
 import StyledDialogFullScreen from "./dialog-full-screen.style";
@@ -14,11 +13,59 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
 import TopModalContext from "../carbon-provider/top-modal-context";
 
-const DialogFullScreen = ({
+export interface DialogFullScreenProps extends ModalProps {
+  /** Prop to specify the aria-describedby property of the DialogFullscreen component */
+  "aria-describedby"?: string;
+  /**
+   * Prop to specify the aria-label of the DialogFullscreen component.
+   * To be used only when the title prop is not defined, and the component is not labelled by any internal element.
+   */
+  "aria-label"?: string;
+  /**
+   * Prop to specify the aria-labelledby property of the DialogFullscreen component
+   * To be used when the title prop is a custom React Node,
+   * or the component is labelled by an internal element other than the title.
+   */
+  "aria-labelledby"?: string;
+  /** Child elements */
+  children?: React.ReactNode;
+  /** Reference to the scrollable content element */
+  contentRef?: React.ForwardedRef<HTMLDivElement>;
+  /** Disables auto focus functionality on child elements */
+  disableAutoFocus?: boolean;
+  /** remove padding from content */
+  disableContentPadding?: boolean;
+  /** Optional reference to an element meant to be focused on open */
+  focusFirstElement?: React.MutableRefObject<HTMLElement | null>;
+  /** Container for components to be displayed in the header */
+  headerChildren?: React.ReactNode;
+  /** Adds Help tooltip to Header */
+  help?: string;
+  /** For legacy styling when used with Pages component. Do not use this unless using Pages within a DialogFullScreen */
+  pagesStyling?: boolean;
+  /** Determines if the close icon is shown */
+  showCloseIcon?: boolean;
+  /** Subtitle displayed at top of dialog */
+  subtitle?: string;
+  /** Title displayed at top of dialog */
+  title?: React.ReactNode;
+  /** The ARIA role to be applied to the DialogFullscreen container */
+  role?: string;
+  /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
+  focusableContainers?: React.MutableRefObject<HTMLElement | null>[];
+  /** Optional selector to identify the focusable elements, if not provided a default selector is used */
+  focusableSelectors?: string;
+  /** A custom close event handler */
+  onCancel?: (
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLButtonElement>
+  ) => void;
+}
+
+export const DialogFullScreen = ({
   "aria-describedby": ariaDescribedBy,
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
-  disableAutoFocus,
+  disableAutoFocus = false,
   focusFirstElement,
   open,
   children,
@@ -26,7 +73,7 @@ const DialogFullScreen = ({
   subtitle,
   pagesStyling,
   headerChildren,
-  showCloseIcon,
+  showCloseIcon = true,
   disableContentPadding,
   disableEscKey,
   onCancel,
@@ -36,7 +83,7 @@ const DialogFullScreen = ({
   focusableContainers,
   focusableSelectors,
   ...rest
-}) => {
+}: DialogFullScreenProps) => {
   const locale = useLocale();
 
   const dialogRef = useRef(null);
@@ -135,66 +182,6 @@ const DialogFullScreen = ({
       </FocusTrap>
     </Modal>
   );
-};
-
-DialogFullScreen.defaultProps = {
-  showCloseIcon: true,
-  disableAutoFocus: false,
-};
-
-DialogFullScreen.propTypes = {
-  /** Prop to specify the aria-describedby property of the DialogFullscreen component */
-  "aria-describedby": PropTypes.string,
-  /**
-   * Prop to specify the aria-label of the DialogFullscreen component.
-   * To be used only when the title prop is not defined, and the component is not labelled by any internal element.
-   */
-  "aria-label": PropTypes.string,
-  /**
-   * Prop to specify the aria-labelledby property of the DialogFullscreen component
-   * To be used when the title prop is a custom React Node,
-   * or the component is labelled by an internal element other than the title.
-   */
-  "aria-labelledby": PropTypes.string,
-  /** Controls the open state of the component */
-  open: PropTypes.bool.isRequired,
-  /** A custom close event handler */
-  onCancel: PropTypes.func,
-  /** Optional reference to an element meant to be focused on open */
-  focusFirstElement: PropTypes.shape({ current: PropTypes.any }),
-  /** Disables auto focus functionality on child elements */
-  disableAutoFocus: PropTypes.bool,
-  /** Determines if the Esc Key closes the Dialog */
-  disableEscKey: PropTypes.bool,
-  /** Adds Help tooltip to Header */
-  help: PropTypes.string,
-  /** remove padding from content */
-  disableContentPadding: PropTypes.bool,
-  /** Child elements */
-  children: PropTypes.node,
-  /** Title displayed at top of dialog */
-  title: PropTypes.node,
-  /** Subtitle displayed at top of dialog */
-  subtitle: PropTypes.string,
-  /** Determines if the close icon is shown */
-  showCloseIcon: PropTypes.bool,
-  /** Container for components to be displayed in the header */
-  headerChildren: PropTypes.node,
-  /** For legacy styling when used with Pages component. Do not use this unless using Pages within a DialogFullScreen */
-  pagesStyling: PropTypes.bool,
-  /** Reference to the scrollable content element */
-  contentRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]),
-  /** The ARIA role to be applied to the DialogFullscreen container */
-  role: PropTypes.string,
-  /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
-  focusableContainers: PropTypes.arrayOf(
-    PropTypes.shape({ current: PropTypes.any })
-  ),
-  /** Optional selector to identify the focusable elements, if not provided a default selector is used */
-  focusableSelectors: PropTypes.string,
 };
 
 export default DialogFullScreen;

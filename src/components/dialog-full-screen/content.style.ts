@@ -1,7 +1,14 @@
 import styled, { css } from "styled-components";
+
 import { StyledFormFooter, StyledFormContent } from "../form/form.style";
 
-const StyledContent = styled.div`
+type StyledContentProps = {
+  hasHeader: boolean;
+  hasStickyFooter: boolean;
+  disableContentPadding?: boolean;
+};
+
+const StyledContent = styled.div<StyledContentProps>`
   ${({ hasStickyFooter }) =>
     !hasStickyFooter &&
     css`

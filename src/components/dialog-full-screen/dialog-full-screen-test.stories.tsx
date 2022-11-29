@@ -1,29 +1,36 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
-import DialogFullScreen from ".";
+import DialogFullScreen, { DialogFullScreenProps } from ".";
 import Dialog from "../dialog";
 import Button from "../button";
 import Form from "../form";
 
-<Meta
-  title="Dialog Full Screen/Test"
-  parameters={{
+export default {
+  title: "Dialog Full Screen/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     titleSpecialCharacters: specialCharacters,
     subtitleSpecialCharacters: specialCharacters,
     childrenSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+};
 
-export const DialogFullScreenStory = ({
+interface DefaultProps extends Partial<DialogFullScreenProps> {
+  stickyFooter?: boolean;
+  formHeight?: number;
+  childrenSpecialCharacters?: string;
+  titleSpecialCharacters?: string;
+  subtitleSpecialCharacters?: string;
+}
+
+export const Default = ({
   stickyFooter,
   formHeight,
   childrenSpecialCharacters,
@@ -33,19 +40,19 @@ export const DialogFullScreenStory = ({
   subtitleSpecialCharacters,
   subtitle,
   ...args
-}) => {
+}: DefaultProps) => {
   const [isOpen, setIsOpen] = useState(true);
+
   const handleCancel = () => {
     setIsOpen(false);
     action("cancel")();
   };
+
   const handleOpen = () => {
     setIsOpen(true);
     action("open")();
   };
-  const handleClick = (evt) => {
-    action("click")(evt);
-  };
+
   return (
     <>
       <Button onClick={handleOpen}>Open Dialog</Button>
@@ -73,25 +80,46 @@ export const DialogFullScreenStory = ({
   );
 };
 
-export const DialogFullScreenNestedStory = () => {
+Default.storyName = "default";
+Default.args = {
+  title: "Example Dialog",
+  titleSpecialCharacters: undefined,
+  subtitle: "Example Subtitle",
+  subtitleSpecialCharacters: undefined,
+  children: "Text Content",
+  childrenSpecialCharacters: undefined,
+  disableEscKey: false,
+  showCloseIcon: true,
+  formHeight: "2000px",
+  stickyFooter: false,
+  disableContentPadding: false,
+};
+
+export const Nested = () => {
   const [mainDialogOpen, setMainDialogOpen] = useState(false);
+
   const [nestedDialogOpen, setNestedDialogOpen] = useState(false);
+
   const handleMainDialogOpen = () => {
     setMainDialogOpen(true);
     action("main dialog open")();
   };
+
   const handleMainDialogCancel = () => {
     setMainDialogOpen(false);
     action("main dialog cancel")();
   };
+
   const handleNestedDialogOpen = () => {
     setNestedDialogOpen(true);
     action("nested dialog open")();
   };
+
   const handleNestedDialogCancel = () => {
     setNestedDialogOpen(false);
     action("nested dialog cancel")();
   };
+
   return (
     <>
       <Button onClick={handleMainDialogOpen}>Open Main Dialog</Button>
@@ -113,33 +141,4 @@ export const DialogFullScreenNestedStory = () => {
   );
 };
 
-# DialogFullScreen
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      title: "Example Dialog",
-      titleSpecialCharacters: undefined,
-      subtitle: "Example Subtitle",
-      subtitleSpecialCharacters: undefined,
-      children: "Text Content",
-      childrenSpecialCharacters: undefined,
-      disableEscKey: false,
-      showCloseIcon: true,
-      formHeight: "2000px",
-      stickyFooter: false,
-      disableContentPadding: false,
-    }}
-  >
-    {DialogFullScreenStory.bind({})}
-  </Story>
-</Canvas>
-
-### Nested
-
-<Canvas>
-  <Story name="nested">{DialogFullScreenNestedStory.bind({})}</Story>
-</Canvas>
+Nested.storyName = "nested";
