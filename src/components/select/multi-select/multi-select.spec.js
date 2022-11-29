@@ -16,6 +16,7 @@ import Label from "../../../__internal__/label";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
+import StyledSelectListContainer from "../select-list/select-list-container.style";
 
 describe("MultiSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
@@ -152,7 +153,10 @@ describe("MultiSelect", () => {
       const wrapper = renderSelect({ listMaxHeight: 120, openOnFocus: true });
 
       wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
-      assertStyleMatch({ maxHeight: "120px" }, wrapper.find(StyledSelectList));
+      assertStyleMatch(
+        { maxHeight: "120px" },
+        wrapper.find(StyledSelectListContainer)
+      );
     });
   });
 

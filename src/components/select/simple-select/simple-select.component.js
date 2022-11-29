@@ -57,6 +57,8 @@ const SimpleSelect = React.forwardRef(
       listPlacement = "bottom",
       flipEnabled = true,
       inputRef,
+      enableVirtualScroll,
+      virtualScrollOverscan,
       ...props
     },
     ref
@@ -422,6 +424,8 @@ const SimpleSelect = React.forwardRef(
         listPlacement={listPlacement}
         flipEnabled={flipEnabled}
         isOpen={isOpen}
+        enableVirtualScroll={enableVirtualScroll}
+        virtualScrollOverscan={virtualScrollOverscan}
       >
         {children}
       </SelectList>
@@ -496,6 +500,13 @@ SimpleSelect.propTypes = {
   listPlacement: PropTypes.oneOf(["top", "bottom", "right", "left"]),
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled: PropTypes.bool,
+  /** Set this prop to enable a virtualised list of options. If it is not used then all options will be in the
+   * DOM at all times, which may cause performance problems on very large lists */
+  enableVirtualScroll: PropTypes.bool,
+  /** The number of options to render into the DOM at once, either side of the currently-visible ones.
+   * Higher values make for smoother scrolling but may impact performance.
+   * Only used if the `enableVirtualScroll` prop is set. */
+  virtualScrollOverscan: PropTypes.number,
 };
 
 SimpleSelect.defaultProps = {

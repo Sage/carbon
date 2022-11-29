@@ -8,6 +8,8 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import { flip, offset, size } from "@floating-ui/dom";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import findLastIndex from "lodash/findLastIndex";
 
 import useScrollBlock from "../../../hooks/__internal__/useScrollBlock";
 import {
@@ -19,7 +21,6 @@ import {
 } from "./select-list.style";
 import Popover from "../../../__internal__/popover";
 import OptionRow from "../option-row/option-row.component";
-import updateListScrollTop from "./update-list-scroll";
 import getNextChildByText from "../utils/get-next-child-by-text";
 import getNextIndexByKey from "../utils/get-next-index-by-key";
 import isNavigationKey from "../utils/is-navigation-key";
@@ -29,6 +30,9 @@ import Loader from "../../loader";
 import Option from "../option/option.component";
 import guid from "../../../__internal__/utils/helpers/guid";
 import SelectListContext from "../__internal__/select-list-context";
+
+const TABLE_HEADER_HEIGHT = 48;
+const SCROLL_OPTIONS = { smoothScroll: false, align: "end" };
 
 const SelectList = React.forwardRef(
   (
@@ -54,6 +58,8 @@ const SelectList = React.forwardRef(
       flipEnabled = true,
       isOpen,
       multiselectValues,
+      enableVirtualScroll,
+      virtualScrollOverscan = 5,
       ...listProps
     },
     listContainerRef
@@ -65,6 +71,23 @@ const SelectList = React.forwardRef(
     const tableRef = useRef();
     const listActionButtonRef = useRef();
     const { blockScroll, allowScroll } = useScrollBlock();
+    const actionButtonHeight = useRef(0);
+
+    const overscan = enableVirtualScroll
+      ? virtualScrollOverscan
+      : React.Children.count(children);
+
+    const virtualizer = useVirtualizer({
+      count: React.Children.count(children),
+      getScrollElement: () => listContainerRef.current,
+      estimateSize: () => 40, // value doesn't really seem to matter since we're dynamically measuring, but 40px is the height of a single-line option
+      overscan,
+      paddingStart: multiColumn ? TABLE_HEADER_HEIGHT : 0,
+      scrollPaddingEnd: actionButtonHeight.current,
+    });
+
+    const items = virtualizer.getVirtualItems();
+    const listHeight = virtualizer.getTotalSize();
 
     useEffect(() => {
       if (isOpen) {
@@ -93,17 +116,6 @@ const SelectList = React.forwardRef(
       [anchorElement]
     );
 
-    const optionRefList = useMemo(
-      () =>
-        React.Children.map(children, (child) => {
-          if (child?.type === Option || child?.type === OptionRow) {
-            return React.createRef();
-          }
-          return null;
-        }).filter((child) => child),
-      [children]
-    );
-
     const handleSelect = useCallback(
       (optionData) => {
         onSelect({ ...optionData, selectionType: "click" });
@@ -119,51 +131,67 @@ const SelectList = React.forwardRef(
       childIdsRef.current = React.Children.map(children, () => guid());
     };
 
-    if (
-      childIdsRef.current === null ||
-      childIdsRef.current.length !== React.Children.count(children)
-    ) {
+    if (childIdsRef.current?.length !== React.Children.count(children)) {
       setChildIds();
     }
 
     const childIds = childIdsRef.current;
 
-    const childrenWithListProps = useMemo(
+    const childrenList = useMemo(() => React.Children.toArray(children), [
+      children,
+    ]);
+
+    const optionChildrenList = useMemo(
       () =>
-        React.Children.map(children, (child, index) => {
-          if (!child || (child.type !== Option && child.type !== OptionRow)) {
-            return child;
-          }
-
-          const newProps = {
-            index,
-            id: childIds[index],
-            onSelect: handleSelect,
-            hidden: isLoading && React.Children.count(children) === 1,
-            ref: optionRefList[index],
-          };
-
-          return React.cloneElement(child, newProps);
-        }),
-      [children, handleSelect, isLoading, optionRefList, childIds]
+        childrenList.filter(
+          (child) => child.type === Option || child.type === OptionRow
+        ),
+      [childrenList]
     );
 
-    const childrenList = useMemo(
-      () => React.Children.toArray(childrenWithListProps),
-      [childrenWithListProps]
+    const { measureElement } = virtualizer;
+
+    const measureCallback = (element) => {
+      // need a guard to prevent crash with too many rerenders when closing the list
+      if (isOpen) {
+        measureElement(element);
+      }
+    };
+
+    const renderedChildren = items.map((item) => {
+      const { index, start } = item;
+      const child = childrenList[index];
+
+      if (!child) {
+        return child;
+      }
+
+      const optionChildIndex = optionChildrenList.indexOf(child);
+      const isOption = optionChildIndex > -1;
+
+      const newProps = {
+        index,
+        id: childIds[index],
+        onSelect: handleSelect,
+        hidden: isLoading && childrenList.length === 1,
+        // these need to be inline styles rather than implemented in styled-components to avoid it generating thousands of classes
+        style: {
+          transform: `translateY(${start}px)`,
+        },
+        "aria-setsize": isOption ? optionChildrenList.length : undefined,
+        "aria-posinset": isOption ? optionChildIndex + 1 : undefined,
+        // needed to dynamically compute the size
+        ref: measureCallback,
+        "data-index": index,
+      };
+
+      return React.cloneElement(child, newProps);
+    });
+
+    const lastOptionIndex = findLastIndex(
+      childrenList,
+      (child) => child.type === Option || child.type === OptionRow
     );
-
-    const lastOptionIndex = useMemo(() => {
-      let lastIndex = 0;
-
-      childrenList.forEach((element, index) => {
-        if (element.type === Option || element.type === OptionRow) {
-          lastIndex = index;
-        }
-      });
-
-      return lastIndex;
-    }, [childrenList]);
 
     const getNextHighlightableItemIndex = useCallback(
       (key, indexOfHighlighted) => {
@@ -214,9 +242,14 @@ const SelectList = React.forwardRef(
           return;
         }
 
-        const { text, value, id: itemId } = childrenList[nextIndex].props;
+        const { text, value } = childrenList[nextIndex].props;
 
-        onSelect({ text, value, selectionType: "navigationKey", id: itemId });
+        onSelect({
+          text,
+          value,
+          selectionType: "navigationKey",
+          id: childIds[nextIndex],
+        });
       },
       [
         childrenList,
@@ -225,6 +258,7 @@ const SelectList = React.forwardRef(
         getNextHighlightableItemIndex,
         highlightedValue,
         onSelect,
+        childIds,
       ]
     );
 
@@ -270,9 +304,14 @@ const SelectList = React.forwardRef(
             return;
           }
 
-          const { id: itemId, text, value } = currentOption.props;
+          const { text, value } = currentOption.props;
 
-          onSelect({ id: itemId, text, value, selectionType: "enterKey" });
+          onSelect({
+            id: childIds[currentOptionsListIndex],
+            text,
+            value,
+            selectionType: "enterKey",
+          });
         } else if (isNavigationKey(key)) {
           focusOnAnchor();
           highlightNextItem(key);
@@ -288,6 +327,7 @@ const SelectList = React.forwardRef(
         highlightNextItem,
         focusOnAnchor,
         isOpen,
+        childIds,
       ]
     );
 
@@ -295,6 +335,7 @@ const SelectList = React.forwardRef(
       (event) => {
         const element = event.target;
 
+        /* istanbul ignore else */
         if (
           onListScrollBottom &&
           element.scrollHeight - element.scrollTop === element.clientHeight
@@ -307,7 +348,7 @@ const SelectList = React.forwardRef(
 
     useEffect(() => {
       const keyboardEvent = "keydown";
-      const listElement = listRef.current;
+      const listElement = listContainerRef.current;
 
       window.addEventListener(keyboardEvent, handleGlobalKeydown);
       listElement.addEventListener("scroll", handleListScroll);
@@ -316,7 +357,7 @@ const SelectList = React.forwardRef(
         window.removeEventListener(keyboardEvent, handleGlobalKeydown);
         listElement.removeEventListener("scroll", handleListScroll);
       };
-    }, [handleGlobalKeydown, handleListScroll]);
+    }, [handleGlobalKeydown, handleListScroll, listContainerRef]);
 
     useEffect(() => {
       if (!filterText || filterText === lastFilter.current) {
@@ -340,22 +381,10 @@ const SelectList = React.forwardRef(
 
         const indexOfMatch = getIndexOfMatch(match.props.value);
 
-        updateListScrollTop(
-          indexOfMatch,
-          multiColumn ? tableRef.current : listRef.current,
-          optionRefList
-        );
-
+        virtualizer.scrollToIndex(indexOfMatch, SCROLL_OPTIONS);
         return indexOfMatch;
       });
-    }, [
-      childrenList,
-      filterText,
-      getIndexOfMatch,
-      lastFilter,
-      multiColumn,
-      optionRefList,
-    ]);
+    }, [childrenList, filterText, getIndexOfMatch, virtualizer]);
 
     useEffect(() => {
       if (!highlightedValue) {
@@ -364,24 +393,37 @@ const SelectList = React.forwardRef(
       const indexOfMatch = getIndexOfMatch(highlightedValue);
 
       setCurrentOptionsListIndex(indexOfMatch);
-      updateListScrollTop(
-        indexOfMatch,
-        multiColumn ? tableRef.current : listRef.current,
-        optionRefList
-      );
+
+      virtualizer.scrollToIndex(indexOfMatch, SCROLL_OPTIONS);
+      // TODO: is there a better way than calling handleListScroll manually?
+      handleListScroll({ target: listContainerRef.current });
     }, [
-      childrenList,
       getIndexOfMatch,
       highlightedValue,
-      multiColumn,
-      optionRefList,
+      virtualizer,
+      handleListScroll,
+      listContainerRef,
     ]);
 
     useEffect(() => {
-      if (isLoading && currentOptionsListIndex === lastOptionIndex) {
-        listRef.current.scrollTop = listRef.current.scrollHeight;
+      if (
+        isLoading &&
+        currentOptionsListIndex === lastOptionIndex &&
+        lastOptionIndex > -1
+      ) {
+        virtualizer.scrollToIndex(lastOptionIndex, {
+          ...SCROLL_OPTIONS,
+          align: "start",
+        });
       }
-    }, [children, currentOptionsListIndex, isLoading, lastOptionIndex]);
+    }, [
+      children,
+      currentOptionsListIndex,
+      isLoading,
+      lastOptionIndex,
+      listContainerRef,
+      virtualizer,
+    ]);
 
     const popoverMiddleware = useMemo(
       () => [
@@ -404,13 +446,29 @@ const SelectList = React.forwardRef(
       [flipEnabled]
     );
 
-    const loader = () => (
-      <StyledSelectLoaderContainer key="loader" as={multiColumn ? "div" : "li"}>
-        <Loader data-role={loaderDataRole} />
-      </StyledSelectLoaderContainer>
-    );
+    const loader = () => {
+      return (
+        <StyledSelectLoaderContainer key="loader">
+          <Loader data-role={loaderDataRole} />
+        </StyledSelectLoaderContainer>
+      );
+    };
 
-    let selectListContent = childrenWithListProps;
+    let selectListContent = renderedChildren;
+
+    const listBoxProps = {
+      role: "listbox",
+      id,
+      "aria-labelledby": labelId,
+      "aria-multiselectable": multiselectValues ? true : undefined,
+    };
+
+    useLayoutEffect(() => {
+      if (listActionButton && isOpen) {
+        actionButtonHeight.current =
+          listActionButtonRef.current?.parentElement?.offsetHeight || 0;
+      }
+    }, [listActionButton, isOpen]);
 
     if (multiColumn) {
       selectListContent = (
@@ -418,8 +476,13 @@ const SelectList = React.forwardRef(
           <StyledSelectListTableHeader scrollbarWidth={scrollbarWidth}>
             {tableHeader}
           </StyledSelectListTableHeader>
-          <StyledSelectListTableBody ref={tableRef}>
-            {childrenWithListProps}
+          <StyledSelectListTableBody
+            {...listBoxProps}
+            aria-labelledby={labelId}
+            ref={tableRef}
+            listHeight={listHeight - TABLE_HEADER_HEIGHT}
+          >
+            {renderedChildren}
           </StyledSelectListTableBody>
         </StyledSelectListTable>
       );
@@ -444,24 +507,21 @@ const SelectList = React.forwardRef(
           <StyledSelectListContainer
             data-element="select-list-wrapper"
             ref={listContainerRef}
+            maxHeight={listMaxHeight + actionButtonHeight.current}
+            isLoading={isLoading}
             {...listProps}
           >
             <StyledSelectList
-              id={id}
               as={multiColumn ? "div" : "ul"}
-              aria-labelledby={labelId}
               data-element="select-list"
-              role="listbox"
-              aria-multiselectable={multiselectValues ? true : undefined}
+              {...(multiColumn ? {} : listBoxProps)}
               ref={listRef}
               tabIndex="-1"
-              isLoading={isLoading}
-              multiColumn={multiColumn}
-              maxHeight={listMaxHeight}
+              listHeight={multiColumn ? undefined : listHeight}
             >
               {selectListContent}
-              {isLoading && loader()}
             </StyledSelectList>
+            {isLoading && loader()}
             {listActionButton && (
               <ListActionButton
                 ref={listActionButtonRef}
@@ -524,6 +584,13 @@ SelectList.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.arrayOf(PropTypes.object),
   ]),
+  /** Set this prop to enable a virtualised list of options. If it is not used then all options will be in the
+   * DOM at all times, which may cause performance problems on very large lists */
+  enableVirtualScroll: PropTypes.bool,
+  /** The number of options to render into the DOM at once, either side of the currently-visible ones.
+   * Higher values make for smoother scrolling but may impact performance.
+   * Only used if the `enableVirtualScroll` prop is set. */
+  virtualScrollOverscan: PropTypes.number,
 };
 
 export default SelectList;
