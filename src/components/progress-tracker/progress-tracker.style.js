@@ -96,10 +96,10 @@ const StyledValuesLabel = styled.span`
 `;
 
 const InnerBar = styled.span`
-  ${({ isVertical, progress, size, length }) => css`
+  ${({ isVertical, progress, size, length, color }) => css`
     position: absolute;
     left: 0;
-    background-color: ${getInnerBarColour(progress)};
+    background-color: ${getInnerBarColour(progress, color)};
 
     ${!isVertical &&
     css`
@@ -127,7 +127,8 @@ function getHeight(size) {
   }
 }
 
-function getInnerBarColour(progress) {
+function getInnerBarColour(progress, color) {
+  if (color) return color;
   if (progress >= 100) return "var(--colorsSemanticPositive500)";
   return "var(--colorsSemanticNeutral500)";
 }

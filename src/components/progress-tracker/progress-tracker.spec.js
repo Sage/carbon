@@ -474,6 +474,30 @@ describe("ProgressBar", () => {
         wrapper.find(InnerBar)
       );
     });
+
+    it("applies the provided color value as background colour when it is in progress", () => {
+      wrapper = mount(
+        <ProgressBar orientation={orientation} progress={50} color="#123456" />
+      );
+      assertStyleMatch(
+        {
+          backgroundColor: "#123456",
+        },
+        wrapper.find(InnerBar)
+      );
+    });
+
+    it("applies the provided color value as background color when the progress is equal to 100", () => {
+      wrapper = mount(
+        <ProgressBar orientation={orientation} progress={100} color="#123456" />
+      );
+      assertStyleMatch(
+        {
+          backgroundColor: "#123456",
+        },
+        wrapper.find(InnerBar)
+      );
+    });
   });
 
   describe("Accessibility", () => {

@@ -35,6 +35,8 @@ export interface ProgressTrackerProps extends MarginProps {
    * Top/bottom apply to horizontal and left/right to vertical orientation.
    */
   labelsPosition?: "top" | "bottom" | "left" | "right";
+  /** Override color, provide any color from palette or any valid css color value. */
+  color?: string;
 }
 
 declare function ProgressTracker(props: ProgressTrackerProps): JSX.Element;

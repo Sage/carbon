@@ -53,6 +53,11 @@ export default {
         type: "select",
       },
     },
+    color: {
+      control: {
+        type: "text",
+      },
+    },
   },
 };
 

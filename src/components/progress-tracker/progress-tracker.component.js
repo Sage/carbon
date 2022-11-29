@@ -25,6 +25,7 @@ const ProgressTracker = ({
   "aria-valuetext": ariaValueText,
   size = "medium",
   length = "256px",
+  color,
   progress = 0,
   showDefaultLabels = false,
   currentProgressLabel,
@@ -127,6 +128,7 @@ const ProgressTracker = ({
           size={size}
           length={barLength}
           progress={progress}
+          color={color}
         />
       </StyledProgressBar>
       {!prefixLabels && renderValueLabels()}

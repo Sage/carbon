@@ -78,6 +78,21 @@ context("Tests for ProgressTracker component", () => {
       progressTrackerLine().should("have.css", "background-color", color);
     });
 
+    it.each([[12], [47], [100]])(
+      "render component with custom color, regardless of its progress value (%s%)",
+      (progress) => {
+        CypressMountWithProviders(
+          <ProgressTrackerComponent progress={progress} color="#123456" />
+        );
+
+        progressTrackerComponent()
+          .should("have.attr", "aria-valuenow", progress)
+          .and("be.visible");
+
+        progressTrackerLine().should("have.css", "background-color", "#123456");
+      }
+    );
+
     it.each([
       [true, "be.visible"],
       [false, "not.exist"],
