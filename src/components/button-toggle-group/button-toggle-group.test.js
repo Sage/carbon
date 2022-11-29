@@ -3,6 +3,7 @@ import ButtonToggle from "../button-toggle/button-toggle.component";
 import ButtonToggleGroup from "./button-toggle-group.component";
 import {
   buttonTogglePreview,
+  buttonToggleLabelPreview,
   buttonToggleInput,
 } from "../../../cypress/locators/button-toggle";
 import {
@@ -13,6 +14,7 @@ import {
 import { positionOfElement } from "../../../cypress/support/helper";
 import { getDataElementByValue, icon } from "../../../cypress/locators";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const specialCharacters = [
   "label",
@@ -346,6 +348,22 @@ context("Testing Button-Toggle-Group component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("should make css changes when fullWidth prop is passed", () => {
+    it("container div should auto flex", () => {
+      CypressMountWithProviders(<ButtonToggleGroupComponent fullWidth />);
+
+      buttonTogglePreview().should("have.css", "flex", "1 1 auto");
+    });
+
+    it("width of label should be 100% / 444px", () => {
+      CypressMountWithProviders(<ButtonToggleGroupComponent fullWidth />);
+
+      buttonToggleLabelPreview(1).then(($el) => {
+        useJQueryCssValueAndAssert($el, "width", 444);
+      });
     });
   });
 });
