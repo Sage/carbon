@@ -6,7 +6,7 @@ import Button from "../button";
 import Icon from "../icon";
 import isChromatic from "../../../.storybook/isChromatic";
 
-const isOpenForChromatic = isChromatic();
+const defaultOpenState = isChromatic();
 
 const StyledButton = styled(Button)<{ isOpen: boolean }>`
   position: absolute;
@@ -312,7 +312,7 @@ export const DismissibleWithTimeout = () => {
 };
 
 export const DismissibleWithoutAutoFocus = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   const onDismissClick = () => {
     if (!isOpen) {
       window.scrollTo(0, 0);
