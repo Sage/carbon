@@ -18,8 +18,12 @@ import {
 } from "../../../cypress/locators/pod";
 
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const PodComponent = ({ ...props }) => {
   return (
@@ -91,11 +95,11 @@ context("Testing Pod component", () => {
 
     it.each([
       ["none", 88, 45],
-      ["extra-small", 120, 61],
-      ["small", 120, 61],
-      ["medium", 136, 77],
-      ["large", 184, 93],
-      ["extra-large", 216, 125],
+      [SIZE.EXTRASMALL, 120, 61],
+      [SIZE.SMALL, 120, 61],
+      [SIZE.MEDIUM, 136, 77],
+      [SIZE.LARGE, 184, 93],
+      [SIZE.EXTRALARGE, 216, 125],
     ])(
       "should check %s size for Pod component when height is %s and width is %s",
       (size, height, width) => {

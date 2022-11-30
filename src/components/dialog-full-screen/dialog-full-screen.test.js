@@ -29,8 +29,9 @@ import {
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { contentElement } from "../../../cypress/locators/content/index";
 import { keyCode } from "../../../cypress/support/helper";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testAria = "cypress_aria";
 const mainDialogTitle = "Main Dialog";
 const nestedDialogTitle = "Nested Dialog";

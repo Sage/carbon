@@ -34,7 +34,10 @@ import {
   pressTABKey,
   continuePressingTABKey,
 } from "../../../cypress/support/helper";
-import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import {
+  CHARACTERS,
+  COLOR,
+} from "../../../cypress/support/component-helper/constants";
 import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -321,7 +324,7 @@ context("Testing Menu component", () => {
       ["white", "first", "rgb(255, 255, 255)"],
       ["light", "fifth", "rgb(230, 235, 237)"],
       ["dark", "ninth", "rgb(0, 50, 76)"],
-      ["black", "thirteenth", "rgb(0, 0, 0)"],
+      ["black", "thirteenth", COLOR.BLACK],
     ])("should verify Menu is %s menuType", (menuType, menuNumber, color) => {
       CypressMountWithProviders(<MenuComponent />);
 
@@ -891,7 +894,7 @@ context("Testing Menu component", () => {
       submenu().eq(0).children().should("have.css", "background-color", color);
     });
 
-    it("should verify Menu Item ariaLabel is set to cypress-data", () => {
+    it("should verify Menu Item ariaLabel is set to cypress_data", () => {
       CypressMountWithProviders(
         <MenuComponentItems ariaLabel={CHARACTERS.STANDARD} />
       );

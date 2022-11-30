@@ -10,9 +10,10 @@ import {
 } from "../../../cypress/locators/link-preview/index";
 import { keyCode } from "../../../cypress/support/helper";
 import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testCypress = "test-cypress";
 const urlProp = "./carbon-by-sage-logo.png";
 

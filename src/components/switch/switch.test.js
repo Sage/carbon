@@ -20,6 +20,7 @@ import { verifyRequiredAsteriskForLabel } from "../../../cypress/support/compone
 import {
   CHARACTERS,
   VALIDATION,
+  SIZE,
 } from "../../../cypress/support/component-helper/constants";
 
 const verifyBorderColor = (element, color) =>
@@ -378,8 +379,8 @@ context("Testing Switch component", () => {
     );
 
     it.each([
-      ["small", 60, 24],
-      ["large", 78, 40],
+      [SIZE.SMALL, 60, 24],
+      [SIZE.LARGE, 78, 40],
     ])("verify Switch component with size set to %s", (size, width, height) => {
       CypressMountWithProviders(<SwitchComponent size={size} />);
 

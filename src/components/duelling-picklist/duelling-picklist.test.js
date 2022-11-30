@@ -29,11 +29,12 @@ import {
   getDataElementByValue,
   tooltipPreview,
 } from "../../../cypress/locators";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
 const specialCharacters = [
-  "legend",
-  "mp150ú¿¡üßä",
-  "!@#$%^*()_+-=~[];:.,?{}&\"'<>",
+  CHARACTERS.STANDARD,
+  CHARACTERS.DIACRITICS,
+  CHARACTERS.SPECIALCHARACTERS,
 ];
 
 const DuellingPicklistComponent = ({ ...props }) => {

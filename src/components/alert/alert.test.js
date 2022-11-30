@@ -13,17 +13,12 @@ import {
   pressESCKeyOntoFocusedElement,
   closeIconButton,
 } from "../../../cypress/locators/index";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const sizes = [
-  ["extra-small", 300],
-  ["small", 380],
-  ["medium-small", 540],
-  ["medium", 750],
-  ["medium-large", 850],
-  ["large", 960],
-  ["extra-large", 1080],
-];
+const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 context("Testing Alert component", () => {
   describe("should render Alert component", () => {
@@ -108,7 +103,15 @@ context("Testing Alert component", () => {
       }
     );
 
-    it.each(sizes)(
+    it.each([
+      [SIZE.EXTRASMALL, 300],
+      [SIZE.SMALL, 380],
+      [SIZE.MEDIUMSMALL, 540],
+      [SIZE.MEDIUM, 750],
+      [SIZE.MEDIUMLARGE, 850],
+      [SIZE.LARGE, 960],
+      [SIZE.EXTRALARGE, 1080],
+    ])(
       "should render Alert component with %s as a size and has width property set to %s",
       (size, width) => {
         CypressMountWithProviders(

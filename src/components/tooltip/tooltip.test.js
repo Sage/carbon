@@ -6,14 +6,14 @@ import Tooltip from "./tooltip.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 import { tooltipPreview } from "../../../cypress/locators/tooltip/index";
+import {
+  SIZE,
+  COLOR,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const backgroundColors = [
-  "rgb(255, 156, 75)",
-  "rgb(205, 56, 75)",
-  "rgb(0, 0, 0)",
-  "rgb(105, 61, 57)",
-];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const backgroundColors = [COLOR.ORANGE, COLOR.RED, COLOR.BLACK, COLOR.BROWN];
 
 const TooltipComponent = ({ ...props }) => {
   const Component = forwardRef(({ children }, ref) => (
@@ -117,8 +117,8 @@ context("Tests for Tooltip component", () => {
     );
 
     it.each([
-      ["medium", 14],
-      ["large", 16],
+      [SIZE.MEDIUM, 14],
+      [SIZE.LARGE, 16],
     ])("should check %s size for Tooltip component", (size, fontSize) => {
       CypressMountWithProviders(<TooltipComponent size={size} />);
       tooltipPreview().should("have.css", "font-size", `${fontSize}px`);
@@ -156,9 +156,18 @@ context("Tests for Tooltip component", () => {
       "when tooltip has %s position and",
       (position) => {
         it.each([
-          ["small", { top: "5px", bottom: "5px", left: "5px", right: "5px" }],
-          ["medium", { top: "4px", bottom: "4px", left: "2px", right: "2px" }],
-          ["large", { top: "0px", bottom: "0px", left: "-2px", right: "-2px" }],
+          [
+            SIZE.SMALL,
+            { top: "5px", bottom: "5px", left: "5px", right: "5px" },
+          ],
+          [
+            SIZE.MEDIUM,
+            { top: "4px", bottom: "4px", left: "2px", right: "2px" },
+          ],
+          [
+            SIZE.LARGE,
+            { top: "0px", bottom: "0px", left: "-2px", right: "-2px" },
+          ],
         ])(
           "when inputSize is %s should have correct styles applied",
           (inputSize, offset) => {

@@ -117,7 +117,7 @@ context("Testing Sidebar component", () => {
         .and("have.css", "right", `${right}px`);
     });
 
-    it("verify Sidebar has aria-describedby cypress-data", () => {
+    it("verify Sidebar has aria-describedby cypress_data", () => {
       CypressMountWithProviders(
         <SidebarComponent aria-describedby={CHARACTERS.STANDARD} />
       );
@@ -129,7 +129,7 @@ context("Testing Sidebar component", () => {
       );
     });
 
-    it("verify Sidebar has aria-label cypress-data", () => {
+    it("verify Sidebar has aria-label cypress_data", () => {
       CypressMountWithProviders(
         <SidebarComponent aria-label={CHARACTERS.STANDARD} />
       );
@@ -137,7 +137,7 @@ context("Testing Sidebar component", () => {
       sidebarPreview().should("have.attr", "aria-label", CHARACTERS.STANDARD);
     });
 
-    it("verify Sidebar has aria-labelledby cypress-data", () => {
+    it("verify Sidebar has aria-labelledby cypress_data", () => {
       CypressMountWithProviders(
         <SidebarComponent aria-labelledby={CHARACTERS.STANDARD} />
       );
@@ -180,7 +180,7 @@ context("Testing Sidebar component", () => {
         .and("have.text", "Sidebar Header");
     });
 
-    it("verify Sidebar has role cypress-data", () => {
+    it("verify Sidebar has role cypress_data", () => {
       CypressMountWithProviders(
         <SidebarComponent role={CHARACTERS.STANDARD} />
       );
@@ -188,7 +188,7 @@ context("Testing Sidebar component", () => {
       sidebarPreview().should("have.attr", "role", CHARACTERS.STANDARD);
     });
 
-    it("verify Sidebar has data-element cypress-data", () => {
+    it("verify Sidebar has data-element cypress_data", () => {
       CypressMountWithProviders(
         <SidebarComponent data-element={CHARACTERS.STANDARD} />
       );
@@ -201,7 +201,7 @@ context("Testing Sidebar component", () => {
         .should("have.attr", "data-element", CHARACTERS.STANDARD);
     });
 
-    it("verify Sidebar has data-role cypress-data", () => {
+    it("verify Sidebar has data-role cypress_data", () => {
       CypressMountWithProviders(
         <SidebarComponent data-role={CHARACTERS.STANDARD} />
       );

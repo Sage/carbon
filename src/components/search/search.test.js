@@ -21,13 +21,17 @@ import {
 } from "../../../cypress/support/component-helper/common-steps";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { keyCode } from "../../../cypress/support/helper";
+import {
+  VALIDATION,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const testCypress = "test-cypress";
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const testCypress = CHARACTERS.STANDARD;
 const validationTypes = [
-  ["error", "rgb(203, 55, 74)"],
-  ["warning", "rgb(239, 103, 0)"],
-  ["info", "rgb(0, 96, 167)"],
+  ["error", VALIDATION.ERROR],
+  ["warning", VALIDATION.WARNING],
+  ["info", VALIDATION.INFO],
 ];
 
 const SearchComponent = ({ ...props }) => {
