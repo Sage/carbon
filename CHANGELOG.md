@@ -1,3 +1,10 @@
+### [111.12.5](https://github.com/Sage/carbon/compare/v111.12.4...v111.12.5) (2022-11-30)
+
+
+### Bug Fixes
+
+* **cypress:** update accessibility tests to ignore  mdx docs on contributing ([0a53d49](https://github.com/Sage/carbon/commit/0a53d494685fc43ce521bd5896b18a6da873c35a))
+
 ### [111.12.4](https://github.com/Sage/carbon/compare/v111.12.3...v111.12.4) (2022-11-24)
 
 
