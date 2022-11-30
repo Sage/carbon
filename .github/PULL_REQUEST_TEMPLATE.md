@@ -35,6 +35,7 @@ If applicable, add screenshots. You can paste these directly into GitHub.
 - [ ] Storybook added or updated if required
 - [ ] Translations added or updated (including creating or amending translation keys table in storybook) if required
 - [ ] Typescript `d.ts` file added or updated if required
+- [ ] Related docs have been updated if required
 
 #### QA
 

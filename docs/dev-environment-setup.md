@@ -1,20 +1,18 @@
 # Getting Your Dev Environment Started
 
 This guide will provide you with the information you need to be able to get started on your development journey.
-### Contents
 
-[Text Editor](#Text-Editor)
+## Contents
 
-[Useful Extensions to Install](#Useful-Extensions-to-Install)
-
-[Installing Node.js, NPM, and Git](#Installing-Nodejs-NPM-and-Git)
-
+- [Text Editor](#text-editor)
+- [Useful Extensions to Install](#useful-extensions-to-install)
+- [Installing Node.js, NPM, and Git](#installing-nodejs-npm-and-git)
 
 ## Text Editor
 
 VS Code is our preferred text editor and is available to be downloaded from [here](https://code.visualstudio.com/). We advise that you follow the installation instructions provided by Microsoft. The VS Code installation instructions can be found [here](https://code.visualstudio.com/docs/setup/mac) for Mac users and [here](https://code.visualstudio.com/docs/setup/windows) for Windows users.
 
-### Useful Extensions to Install
+## Useful Extensions to Install
 
 You can browse and install extensions from within VS Code. Simply bring up the Extensions view by clicking on the [Extensions icon](https://code.visualstudio.com/assets/docs/editor/extension-gallery/extensions-view-icon.png) in the Activity Bar on the side of VS Code or the View: Extensions command (⇧+⌘+X) on Mac or (shift+alt+x) on Windows.
 
@@ -22,60 +20,59 @@ To install an extension, click the Install button. Once the installation is comp
 
 Below we have compiled a list useful extensions to complement our development work with the Carbon library.
 
-#### Auto Close Tag
+### Auto Close Tag
 
 Automatically adds the closing tags for HTML and XML.
 
-#### Auto Rename Tag
+### Auto Rename Tag
 
 Automatically renames HTML and XML tags.
 
-#### CodeSnap
+### CodeSnap
 
 CodeSnap lets you take screenshots of your code and save them to a clipboard.
 
-#### Cucumber (Gherkin) Full Support
+### Cucumber (Gherkin) Full Support
 
 An extension to highlight syntax, autocomplete code and format your Cucumber code.
 
-#### Debugger for Chrome
+### Debugger for Chrome
 
 Debugs your JavaScript code in Chrome browser.
 
-#### Debugger for Firefox
+### Debugger for Firefox
 
 Debugs your JavaScript code in Firefox browser.
 
-#### ESLint
+### ESLint
 
 A code quality tool that checks your code for syntax errors and can automatically fix the syntax errors.
 
-#### GitLens
+### GitLens
 
 GitLens is a useful tool to help you see who made the last amendments to the code and the commit message that was provided.
 
-#### HTML CSS Support
+### HTML CSS Support
 
 A popular extension used for CSS support in HTML files.
 
-#### Rainbow Brackets
+### Rainbow Brackets
 
 This extension helps with visualising brackets in VS Code by giving each pair of brackets their own specific colour.
 
-#### React.js with Flow Types code snippets
+### React.js with Flow Types code snippets
 
 Provides a library of code shortcuts and code snippets for React.
 
-#### vscode-icons
+### vscode-icons
 
 This extension provides icons for each file type in VS Code
 
-#### vscode-styled-components
+### vscode-styled-components
 
 This extension helps with the readability of the code for styled-components. The tool highlights syntax and reports any syntax errors in the code.
 
-
-## Installing Node.js, NPM, and Git 
+## Installing Node.js, NPM, and Git
 
 ### Node.js & NPM
 
@@ -86,7 +83,7 @@ You can check your installation using `node --version` and `npm --v`.
 
 ### Git
 
-To find out if you already have a version of Git installed on your machine, simply run 
+To find out if you already have a version of Git installed on your machine, simply run
 `git --version` in your terminal or command line. If you have Git installed, you will receive a console output similar to this: `git version 2.23.0`
 
 If you do not have Git already installed, you can download the latest version of Git from [here](https://git-scm.com/downloads).
@@ -98,11 +95,13 @@ If you are new to Git, it can be a little overwhelming at first. Luckily there a
 #### Git Alias
 
 You need to add the following to ~/.gitconfig
-````
+
+````shell
 [alias]
         pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
         pr-clean = "!git checkout master ; git for-each-ref refs/heads/pr/* --format=\"%(refname)\" | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
 ````
+
 This allows you to review PRs very easily. For example, if you are reviewing [https://github.com/Sage/carbon/pull/2408/](https://github.com/Sage/carbon/pull/2408/), you can use `git pr 2408` which will check out a new branch named pr/2408. This gives you the ability to review, change branches, merge and make experimental changes. The second command `git pr-clean` removes all branches that start with pr/. This is a useful for housekeeping of branches.
 
 #### GPG Verification
