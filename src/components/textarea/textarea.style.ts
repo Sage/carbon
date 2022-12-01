@@ -8,7 +8,14 @@ import BaseTheme from "../../style/themes/base";
 
 export const MIN_HEIGHT = 64;
 
-const StyledTextarea = styled.div`
+export interface StyledTextAreaProps {
+  /** When true, label is placed in line an input */
+  labelInline?: boolean;
+  /** When true, adjusts padding for icon */
+  hasIcon?: boolean;
+}
+
+const StyledTextarea = styled.div<StyledTextAreaProps>`
   ${margin};
 
   ${StyledInput} {
