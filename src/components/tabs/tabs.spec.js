@@ -17,6 +17,8 @@ import {
 } from "../../__spec_helper__/test-utils";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import { DrawerSidebarContext } from "../drawer";
+import Textbox from "../textbox";
+import ValidationIcon from "../../__internal__/validations";
 
 function render(props, mountOptions) {
   return mount(
@@ -930,5 +932,43 @@ describe("Tabs", () => {
         rootTagTest(wrapper, "tabs", "bar", "baz");
       });
     });
+  });
+
+  describe("when children of Tab have validation failures", () => {
+    const MockComponent = ({ show = true, error, warning, info }) => (
+      <Tabs data-element="bar" data-role="baz">
+        <Tab
+          tabId="1"
+          title="Test"
+          errorMessage=""
+          warningMessage=""
+          infoMessage=""
+        >
+          {show && (
+            <Textbox
+              value="foo"
+              onChange={() => {}}
+              error={error}
+              warning={warning}
+              info={info}
+            />
+          )}
+        </Tab>
+      </Tabs>
+    );
+
+    it.each(["error", "warning", "info"])(
+      "any %s failure in a child component is correctly reported in the TabTitle",
+      (validation) => {
+        const validationProp = { [validation]: true };
+        const wrapper = mount(<MockComponent {...validationProp} />);
+
+        expect(wrapper.find(ValidationIcon).exists()).toBe(true);
+
+        wrapper.setProps({ show: false });
+        wrapper.update();
+        expect(wrapper.update().find(ValidationIcon).exists()).toBe(false);
+      }
+    );
   });
 });
