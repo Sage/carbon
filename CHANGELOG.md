@@ -1,3 +1,10 @@
+### [111.12.6](https://github.com/Sage/carbon/compare/v111.12.5...v111.12.6) (2022-12-01)
+
+
+### Bug Fixes
+
+* **date-range:** update styles so validation and label text wrap if they exceed input width ([014a5b3](https://github.com/Sage/carbon/commit/014a5b311cdaf770472801b6981069a00fe3ba9e)), closes [#5431](https://github.com/Sage/carbon/issues/5431)
+
 ### [111.12.5](https://github.com/Sage/carbon/compare/v111.12.4...v111.12.5) (2022-11-30)
 
 

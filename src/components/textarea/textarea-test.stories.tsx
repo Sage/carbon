@@ -4,7 +4,16 @@ import React, { useState } from "react";
 import specialCharacters, {
   number,
 } from "../../__internal__/utils/argTypes/specialCharacters";
-import Textarea from ".";
+import Textarea, { TextareaProps } from ".";
+
+interface TextareaTestProps extends TextareaProps {
+  placeholderSpecialCharacters?: string;
+  labelSpecialCharacters?: string;
+  labelHelp?: string;
+  labelHelpSpecialCharacters?: string;
+  characterLimitSpecialCharacters?: string;
+  fieldHelpSpecialCharacters?: string;
+}
 
 export default {
   title: "Textarea/Test",
@@ -135,9 +144,11 @@ export const Default = ({
   fieldHelp,
   fieldHelpSpecialCharacters,
   ...args
-}) => {
+}: TextareaTestProps) => {
   const [state, setState] = useState("");
-  const handleChange = ({ target: { value } }) => {
+  const handleChange = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
     setState(value);
   };
   return (
