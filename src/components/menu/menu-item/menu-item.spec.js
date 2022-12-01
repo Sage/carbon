@@ -18,6 +18,8 @@ import StyledIcon from "../../icon/icon.style";
 import Icon from "../../icon/icon.component";
 import { StyledMenuItem } from "../menu.style";
 import menuConfigVariants from "../menu.config";
+import IconButton from "../../icon-button";
+import StyledIconButton from "../../icon-button/icon-button.style";
 
 const events = {
   enter: {
@@ -141,6 +143,61 @@ describe("MenuItem", () => {
             backgroundColor: menuConfigVariants[menuType].background,
           },
           wrapper.find(StyledMenuItemWrapper)
+        );
+      });
+
+      it.each([
+        ["button", "onClick"],
+        ["a", "href"],
+      ])(
+        "should not set padding on the %s element if no %s passed",
+        (element) => {
+          wrapper = mount(
+            <MenuContext.Provider value={{ menuType }}>
+              <MenuItem>Item one</MenuItem>
+            </MenuContext.Provider>
+          );
+
+          expect(
+            wrapper.find(StyledMenuItemWrapper)
+          ).not.toHaveStyleRule("padding", "0 16px", { modifier: element });
+        }
+      );
+
+      it("applies the expected styling overrides when an IconButton is rendered as a child", () => {
+        wrapper = mount(
+          <MenuContext.Provider value={{ menuType }}>
+            <MenuItem>
+              <IconButton>
+                <Icon type="home" />
+              </IconButton>
+            </MenuItem>
+          </MenuContext.Provider>
+        );
+
+        assertStyleMatch(
+          {
+            display: "inline-flex",
+            marginRight: "0",
+          },
+          wrapper.find(StyledMenuItemWrapper),
+          { modifier: `${StyledIconButton} > span` }
+        );
+
+        assertStyleMatch(
+          {
+            outline: "none",
+          },
+          wrapper.find(StyledMenuItemWrapper),
+          { modifier: `${StyledIconButton}:focus` }
+        );
+
+        assertStyleMatch(
+          {
+            color: menuConfigVariants[menuType].color,
+          },
+          wrapper.find(StyledMenuItemWrapper),
+          { modifier: `${StyledIconButton}:focus [data-component="icon"]` }
         );
       });
 
