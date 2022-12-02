@@ -1,6 +1,7 @@
 import React from "react";
 import Profile from "./profile.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import { PROFILE_SIZES } from "./profile.config";
 
@@ -77,9 +78,10 @@ context("Tests for Profile component", () => {
       CypressMountWithProviders(
         <Profile email="johnsmith@sage.com" name="John Smith" size={size} />
       );
-      initialPreview()
-        .should("have.css", "height", `${heightAndWidth}px`)
-        .and("have.css", "width", `${heightAndWidth}px`);
+      initialPreview().then(($el) => {
+        useJQueryCssValueAndAssert($el, "height", heightAndWidth);
+        useJQueryCssValueAndAssert($el, "width", heightAndWidth);
+      });
     });
 
     it.each([
@@ -95,9 +97,10 @@ context("Tests for Profile component", () => {
             name={name}
           />
         );
-        initialPreview()
-          .should("have.css", "height", "38px")
-          .and("have.css", "width", "38px");
+        initialPreview().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", 38);
+          useJQueryCssValueAndAssert($el, "width", 38);
+        });
       }
     );
   });

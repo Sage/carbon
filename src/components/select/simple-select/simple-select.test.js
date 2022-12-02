@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import SimpleSelect from "./simple-select.component";
 import Option from "../option/option.component";
 import OptionRow from "../option-row/option-row.component";
@@ -36,7 +36,10 @@ import {
 
 import { loader } from "../../../../cypress/locators/loader";
 
-import { verifyRequiredAsteriskForLabel } from "../../../../cypress/support/component-helper/common-steps";
+import {
+  useJQueryCssValueAndAssert,
+  verifyRequiredAsteriskForLabel,
+} from "../../../../cypress/support/component-helper/common-steps";
 
 import { keyCode, positionOfElement } from "../../../../cypress/support/helper";
 import {
@@ -647,9 +650,9 @@ context("Tests for Simple Select component", () => {
     );
 
     it.each([
-      ["10", "90", "135px", "1215px"],
-      ["30", "70", "405px", "945px"],
-      ["80", "20", "1080px", "270px"],
+      ["10", "90", 135, 1229],
+      ["30", "70", 409, 956],
+      ["80", "20", 1092, 273],
     ])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
@@ -663,11 +666,15 @@ context("Tests for Simple Select component", () => {
 
         getDataElementByValue("label")
           .parent()
-          .should("have.css", "width", labelRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", labelRatio);
+          });
 
         getDataElementByValue("input")
           .parent()
-          .should("have.css", "width", inputRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", inputRatio);
+          });
       }
     );
 
@@ -909,9 +916,9 @@ context("Tests for Simple Select component", () => {
     });
 
     it.each([
-      ["top", "300px", "0px", "200px", "0px"],
-      ["bottom", "0px", "0px", "0px", "0px"],
-      ["left", "200px", "0px", "500px", "0px"],
+      ["top", "300px", "0px", "200px", "20px"],
+      ["bottom", "0px", "0px", "0px", "20px"],
+      ["left", "200px", "0px", "500px", "20px"],
       ["right", "200px", "0px", "0px", "500px"],
     ])(
       "should render list in %s position when margins are top %s, bottom %s, left %s and right %s",
@@ -934,10 +941,10 @@ context("Tests for Simple Select component", () => {
     );
 
     it.each([
-      ["top", "0px", "0px", "0px", "0px"],
-      ["bottom", "600px", "0px", "0px", "0px"],
+      ["top", "0px", "0px", "0px", "20px"],
+      ["bottom", "600px", "0px", "0px", "20px"],
       ["left", "200px", "0px", "0px", "900px"],
-      ["right", "200px", "0px", "500px", "0px"],
+      ["right", "200px", "0px", "500px", "20px"],
     ])(
       "should flip list to opposite position when there is not enough space to render it in %s position",
       (position, top, bottom, left, right) => {
@@ -974,10 +981,10 @@ context("Tests for Simple Select component", () => {
     );
 
     it.each([
-      ["bottom", "0px", "0px", "0px", "0px"],
-      ["top", "600px", "0px", "0px", "0px"],
+      ["bottom", "0px", "0px", "0px", "20px"],
+      ["top", "600px", "0px", "0px", "20px"],
       ["bottom", "200px", "0px", "0px", "900px"],
-      ["top", "600px", "0px", "900px", "0px"],
+      ["top", "600px", "0px", "900px", "20px"],
     ])(
       "should render list in %s position with the most space when listPosition is not set",
       (position, top, bottom, left, right) => {

@@ -68,10 +68,10 @@ context("Tests for Form component", () => {
     );
 
     it.each([
-      [0, 287],
-      [3, 335],
-      [5, 367],
-      [7, 407],
+      [0, 281],
+      [3, 329],
+      [5, 361],
+      [7, 401],
     ])(
       "should check fieldSpacing as %s for Form component",
       (fieldSpacing, formHeight) => {
@@ -179,17 +179,20 @@ context("Tests for Form component", () => {
       }
     );
 
-    it.each(["30px", "100px", "200px"])(
-      "should check height for Form component",
-      (height) => {
-        CypressMountWithProviders(<FormComponent height={height} />);
-        formPreview().should("have.css", "height", height);
-      }
-    );
+    it.each([
+      ["30px", 30],
+      ["100px", 100],
+      ["200px", 200],
+    ])("should check height for Form component", (height, heightVal) => {
+      CypressMountWithProviders(<FormComponent height={height} />);
+      formPreview().then(($el) => {
+        useJQueryCssValueAndAssert($el, "height", heightVal);
+      });
+    });
 
     it.each([
       [false, 98],
-      [true, 1349],
+      [true, 1366],
     ])(
       "should check when fullWidthButtons set as %s, the buttonWidth is %s for Form component",
       (bool, buttonWidth) => {

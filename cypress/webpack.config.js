@@ -22,15 +22,7 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/i,
-        use: [
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 2,
-              sourceMap: true,
-            },
-          },
-        ],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(woff|woff2)$/,

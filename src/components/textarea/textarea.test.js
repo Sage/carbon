@@ -5,7 +5,7 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import {
   verifyRequiredAsteriskForLabel,
   checkGoldenOutline,
-  parseToIntElement,
+  useJQueryCssValueAndAssert,
 } from "../../../cypress/support/component-helper/common-steps";
 
 import {
@@ -143,9 +143,9 @@ context("Tests for Textarea component", () => {
     );
 
     it.each([
-      ["10", "90", "135px", "1215px"],
-      ["30", "70", "405px", "945px"],
-      ["80", "20", "1080px", "270px"],
+      ["10", "90", 135, 1229],
+      ["30", "70", 409, 956],
+      ["80", "20", 1092, 273],
     ])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
@@ -159,11 +159,15 @@ context("Tests for Textarea component", () => {
 
         getDataElementByValue("label")
           .parent()
-          .should("have.css", "width", labelRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", labelRatio);
+          });
 
         getDataElementByValue("input")
           .parent()
-          .should("have.css", "width", inputRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", inputRatio);
+          });
       }
     );
 
@@ -479,7 +483,7 @@ context("Tests for Textarea component", () => {
     );
 
     it.each([
-      [true, 104],
+      [true, 106],
       [false, 64],
     ])(
       "should verify Textarea is displayed with expandable set to %s",
@@ -488,9 +492,12 @@ context("Tests for Textarea component", () => {
 
         textareaChildren()
           .type("t{enter}e{enter}s{enter}t{enter}")
+          .wait(50)
           .then(($el) => {
-            const value = parseToIntElement($el.css("height"));
-            expect(value).to.be.within(height - 1, height + 1);
+            expect(parseInt($el.css("height"))).to.be.within(
+              height - 3,
+              height + 3
+            );
           });
       }
     );

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
   accordion,
@@ -14,7 +14,10 @@ import {
   ACCORDION_ADD_CONTENT,
   ACCORDION_REMOVE_CONTENT,
 } from "../../../cypress/locators/accordion/locators";
-import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
+import {
+  checkGoldenOutline,
+  useJQueryCssValueAndAssert,
+} from "../../../cypress/support/component-helper/common-steps";
 import {
   SIZE,
   CHARACTERS,
@@ -200,16 +203,16 @@ context("Testing Accordion component", () => {
     );
 
     it.each([
-      [SIZE.SMALL, "24px"],
-      [SIZE.LARGE, "46px"],
+      [SIZE.SMALL, 24],
+      [SIZE.LARGE, 45],
     ])(
       "should render Accordion component with %s as a size and has height property set to %s",
       (size, height) => {
         CypressMountWithProviders(<AccordionComponent size={size} />);
 
-        accordionTitleContainer()
-          .should("have.css", "height")
-          .and("contain", height);
+        accordionTitleContainer().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+        });
       }
     );
 
@@ -263,7 +266,9 @@ context("Testing Accordion component", () => {
     it.each(accWidths)("should check Accordion width is %s", (widths) => {
       CypressMountWithProviders(<AccordionComponent width={widths} />);
 
-      accordion().should("have.css", "width").and("equal", widths);
+      accordion().then(($el) => {
+        useJQueryCssValueAndAssert($el, "width", parseInt(widths));
+      });
     });
 
     it("should verify Accordion has an error message in the tooltip", () => {
@@ -389,15 +394,25 @@ context("Testing Accordion component", () => {
   describe("should change content height when children change", () => {
     it("should have proper height", () => {
       CypressMountWithProviders(<DynamicContent />);
-      accordionContent().parent().should("have.css", "height", "78px");
+      accordionContent().then(($el) => {
+        useJQueryCssValueAndAssert($el, "height", 49);
+      });
       getDataElementByValue(ACCORDION_ADD_CONTENT).click();
-      accordionContent().parent().should("have.css", "height", "96px");
+      accordionContent().then(($el) => {
+        useJQueryCssValueAndAssert($el, "height", 66);
+      });
       getDataElementByValue(ACCORDION_ADD_CONTENT).click();
-      accordionContent().parent().should("have.css", "height", "114px");
+      accordionContent().then(($el) => {
+        useJQueryCssValueAndAssert($el, "height", 83);
+      });
       getDataElementByValue(ACCORDION_REMOVE_CONTENT).click();
-      accordionContent().parent().should("have.css", "height", "96px");
+      accordionContent().then(($el) => {
+        useJQueryCssValueAndAssert($el, "height", 66);
+      });
       getDataElementByValue(ACCORDION_REMOVE_CONTENT).click();
-      accordionContent().parent().should("have.css", "height", "78px");
+      accordionContent().then(($el) => {
+        useJQueryCssValueAndAssert($el, "height", 49);
+      });
     });
   });
 

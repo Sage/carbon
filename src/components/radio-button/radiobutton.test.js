@@ -27,7 +27,10 @@ import {
   tooltipPreview,
 } from "../../../cypress/locators/index";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-import { verifyRequiredAsteriskForLegend } from "../../../cypress/support/component-helper/common-steps";
+import {
+  useJQueryCssValueAndAssert,
+  verifyRequiredAsteriskForLegend,
+} from "../../../cypress/support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const radioContainerWidth = 400;
@@ -206,14 +209,16 @@ context("Testing RadioButton component", () => {
   });
 
   it.each([
-    [SIZE.SMALL, "16"],
-    [SIZE.LARGE, "24"],
+    [SIZE.SMALL, 16],
+    [SIZE.LARGE, 24],
   ])(
     "should render Radiobutton component with size set to %s",
-    (size, width) => {
+    (size, heightAndWidth) => {
       CypressMountWithProviders(<RadiobuttonComponent size={size} />);
-      radiobuttonRole().should("have.css", "height", `${width}px`);
-      radiobuttonRole().should("have.css", "width", `${width}px`);
+      radiobuttonRole().then(($el) => {
+        useJQueryCssValueAndAssert($el, "height", heightAndWidth);
+        useJQueryCssValueAndAssert($el, "width", heightAndWidth);
+      });
     }
   );
 
@@ -249,7 +254,9 @@ context("Testing RadioButton component", () => {
           : radioContainerWidth * (labelWidth / 100);
       radiobuttonLabel()
         .parent()
-        .should("have.css", "width", `${parentWidth}px`);
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", parentWidth);
+        });
     }
   );
 
@@ -267,7 +274,9 @@ context("Testing RadioButton component", () => {
           : radioContainerWidth * (inputWidth / 100);
       radiobuttonRole()
         .parent()
-        .should("have.css", "width", `${parentWidth}px`);
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", parentWidth);
+        });
     }
   );
 

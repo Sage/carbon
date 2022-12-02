@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Content from "./content.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
@@ -6,13 +6,11 @@ import {
   contentTitle,
   contentBody,
 } from "../../../cypress/locators/content/index";
-import {
-  COLOR,
-  CHARACTERS,
-} from "../../../cypress/support/component-helper/constants";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const totalWidth = 1350;
+const totalWidth = 1366;
 
 const ContentComponent = ({ ...props }) => {
   return (
@@ -25,7 +23,7 @@ const ContentComponent = ({ ...props }) => {
 context("Tests for Content component", () => {
   describe("should check Content component properties", () => {
     it.each([
-      ["primary", COLOR.BLACK],
+      ["primary", "rgba(0, 0, 0, 0.9)"],
       ["secondary", "rgba(0, 0, 0, 0.55)"],
     ])(
       "should check %s as variant for Content component",
@@ -72,7 +70,9 @@ context("Tests for Content component", () => {
       "should check %s% width for Content component",
       (titleWidth, computedWidth) => {
         CypressMountWithProviders(<ContentComponent titleWidth={titleWidth} />);
-        contentTitle().should("have.css", "width", `${computedWidth - 30}px`);
+        contentTitle().then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", computedWidth - 30);
+        });
       }
     );
 
@@ -88,11 +88,13 @@ context("Tests for Content component", () => {
             bodyFullWidth={bodyFullWidth}
           />
         );
-        contentBody().should(
-          "have.css",
-          "width",
-          bodyFullWidth ? `${totalWidth}px` : `${computedWidth}px`
-        );
+        contentBody().then(($el) => {
+          useJQueryCssValueAndAssert(
+            $el,
+            "width",
+            bodyFullWidth ? totalWidth : computedWidth
+          );
+        });
       }
     );
   });
