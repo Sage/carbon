@@ -34,7 +34,7 @@ import {
   AccordionGroupDefault,
   AccordionGroupValidation,
   AccordionWithDefinitionList,
-} from "./accordion.stories.tsx";
+} from "./accordion-test.stories";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const accWidths = [["700px"], ["900px"], ["1100px"], ["1300px"]];
