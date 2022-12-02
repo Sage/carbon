@@ -1,3 +1,10 @@
+### [111.12.7](https://github.com/Sage/carbon/compare/v111.12.6...v111.12.7) (2022-12-02)
+
+
+### Bug Fixes
+
+* added missing focus trap props to sidebar and full-width-dialog ([a0335bc](https://github.com/Sage/carbon/commit/a0335bc38b9f0d42d2b59a353e00d574c4082393))
+
 ### [111.12.6](https://github.com/Sage/carbon/compare/v111.12.5...v111.12.6) (2022-12-01)
 
 
