@@ -671,6 +671,29 @@ context("Tests for Simple Select component", () => {
       }
     );
 
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for SimpleSelect component",
+      (maxWidth) => {
+        CypressMountWithProviders(
+          <SimpleSelectComponent maxWidth={maxWidth} />
+        );
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<SimpleSelectComponent maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
+
     it("should open the list with mouse click on Select input", () => {
       CypressMountWithProviders(<SimpleSelectComponent />);
 

@@ -808,6 +808,29 @@ context("Tests for Filterable Select component", () => {
       }
     );
 
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for FilterableSelect component",
+      (maxWidth) => {
+        CypressMountWithProviders(
+          <FilterableSelectComponent maxWidth={maxWidth} />
+        );
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<FilterableSelectComponent maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
+
     it("should not open the list with focus on Filterable Select input", () => {
       CypressMountWithProviders(<FilterableSelectComponent />);
 

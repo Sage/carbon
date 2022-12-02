@@ -138,6 +138,38 @@ context("Test for Search component", () => {
     );
 
     it.each([
+      ["10%", "134px"],
+      ["34%", "458px"],
+      ["70%", "944px"],
+      ["100%", "1348px"],
+    ])(
+      "should render Search with maxWidth prop set to %s",
+      (widthInPercentage, widthVal) => {
+        CypressMountWithProviders(
+          <SearchComponent maxWidth={widthInPercentage} />
+        );
+
+        searchDefault().then(($el) => {
+          expect($el[0].getBoundingClientRect().width).to.be.within(
+            parseToIntElement(widthVal),
+            parseToIntElement(widthVal) + 2
+          );
+        });
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<SearchComponent maxWidth="" />);
+
+      searchDefault().then(($el) => {
+        expect($el[0].getBoundingClientRect().width).to.be.within(
+          parseToIntElement("1348"),
+          parseToIntElement("1348") + 2
+        );
+      });
+    });
+
+    it.each([
       ["default", "rgb(102, 132, 148)"],
       ["dark", "rgb(153, 173, 183)"],
     ])(

@@ -14,6 +14,7 @@ import { StyledSelectList } from "../select-list/select-list.style";
 import Pill from "../../pill";
 import Label from "../../../__internal__/label";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
+import { InputPresentation } from "../../../__internal__/input";
 
 describe("MultiSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
@@ -1004,6 +1005,30 @@ describe("aria-selected attribute for options", () => {
 describe("coverage filler for else path", () => {
   const wrapper = renderSelect();
   wrapper.find("input").simulate("blur");
+});
+
+describe("when maxWidth is passed", () => {
+  it("should be passed to InputPresentation", () => {
+    const wrapper = renderSelect({ maxWidth: "67%" });
+
+    assertStyleMatch(
+      {
+        maxWidth: "67%",
+      },
+      wrapper.find(InputPresentation)
+    );
+  });
+
+  it("renders with maxWidth as 100% when no maxWidth is specified", () => {
+    const wrapper = renderSelect({ maxWidth: "" });
+
+    assertStyleMatch(
+      {
+        maxWidth: "100%",
+      },
+      wrapper.find(InputPresentation)
+    );
+  });
 });
 
 function renderSelect(props = {}, renderer = mount) {

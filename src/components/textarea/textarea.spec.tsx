@@ -375,6 +375,29 @@ describe("Textarea", () => {
       expect(wrapper.find(InputPresentation).props().inputWidth).toBe(55);
     });
   });
+
+  describe("when maxWidth is passed", () => {
+    it("should be passed to InputPresentation", () => {
+      wrapper = renderTextarea({ maxWidth: "67%" });
+
+      assertStyleMatch(
+        {
+          maxWidth: "67%",
+        },
+        wrapper.find(InputPresentation)
+      );
+    });
+
+    it("renders with maxWidth as 100% when no maxWidth is specified", () => {
+      wrapper = renderTextarea({ maxWidth: "" });
+      assertStyleMatch(
+        {
+          maxWidth: "100%",
+        },
+        wrapper.find(InputPresentation)
+      );
+    });
+  });
 });
 
 describe("componentWillUnmount", () => {

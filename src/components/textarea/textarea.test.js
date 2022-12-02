@@ -199,6 +199,27 @@ context("Tests for Textarea component", () => {
       }
     );
 
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for TextArea component",
+      (maxWidth) => {
+        CypressMountWithProviders(<TextareaComponent maxWidth={maxWidth} />);
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<TextareaComponent maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
+
     it.each([
       ["11", "11"],
       ["10", "10"],
