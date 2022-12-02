@@ -1,3 +1,10 @@
+## [111.13.0](https://github.com/Sage/carbon/compare/v111.12.7...v111.13.0) (2022-12-02)
+
+
+### Features
+
+* **textarea, textbox:** surface maxWidth prop on components ([544a050](https://github.com/Sage/carbon/commit/544a050142b0e437aabccfdc78e8c31872795115)), closes [#5494](https://github.com/Sage/carbon/issues/5494) [#5234](https://github.com/Sage/carbon/issues/5234)
+
 ### [111.12.7](https://github.com/Sage/carbon/compare/v111.12.6...v111.12.7) (2022-12-02)
 
 
