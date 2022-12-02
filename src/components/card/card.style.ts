@@ -17,6 +17,7 @@ export interface StyledCardProps extends MarginProps {
   cardWidth: string;
   interactive: boolean;
   draggable: boolean;
+  height?: string;
   spacing: CardSpacing;
   boxShadow?: BoxShadowsType;
   hoverBoxShadow?: BoxShadowsType;
@@ -26,6 +27,7 @@ const StyledCard = styled.div<StyledCardProps>`
     cardWidth,
     interactive,
     draggable,
+    height,
     spacing,
     boxShadow = "boxShadow050",
     hoverBoxShadow = "boxShadow100",
@@ -34,12 +36,16 @@ const StyledCard = styled.div<StyledCardProps>`
     border: none;
     box-shadow: var(--${boxShadow});
     color: var(--colorsUtilityYin090);
+    display: flex;
+    flex-direction: column;
+    height: ${height};
+    justify-content: space-between;
     margin: 25px;
+    outline: none;
     padding: ${paddingSizes[spacing]};
     transition: all 0.3s ease-in-out;
     vertical-align: top;
     width: ${cardWidth};
-    outline: none;
     ${margin}
 
     ${interactive &&
