@@ -53,8 +53,10 @@ const StyledProgressBar = styled.span`
 const StyledValue = styled.span`
   flex-basis: 30px;
   margin-right: 8px;
-  ${({ isMaxValue }) => css`
+  ${({ isMaxValue, foo }) => css`
+    ${console.log(foo, "here is foo")}
     ${!isMaxValue &&
+    foo &&
     css`
       font-weight: bold;
     `}
