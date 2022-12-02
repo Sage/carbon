@@ -1,3 +1,6 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { RadioButtonGroup, RadioButton } from "../src/components/radio-button";
+
 <Meta title="Documentation/Validations" />
 
 # Getting started with validations, Formik and Yup
@@ -54,25 +57,73 @@ Passing validation props on a group component will display a validation icon on 
 
 The interface is the same - it's up to the consumer to decide whether to display validation on the group label/legend or on the individual component.
 
-```js
-<RadioButtonGroup
-  legend="Legend"
-  name="name"
-  value={value}
-  onChange={onChange}
-  error="Validation on group legend"
->
-  <RadioButton value="1" />
-  <RadioButton value="2" />
-</RadioButtonGroup>
-```
+The `required` prop will work, when passed to the wrapper component.
 
-```js
-<RadioButtonGroup name="name" value={value} onChange={onChange}>
-  <RadioButton value="1" error="Validation on first grouped component" />
-  <RadioButton value="2" />
-</RadioButtonGroup>
-```
+#### Grouped inputs examples
+
+<Canvas>
+  <Story name="radio button required">
+    <RadioButtonGroup name="required" legend="Radio group legend" required>
+      <RadioButton id="required-radio-1" value="radio1" label="Radio Option 1" />
+      <RadioButton id="required-radio-2" value="radio2" label="Radio Option 2" />
+      <RadioButton id="required-radio-3" value="radio3" label="Radio Option 3" />
+    </RadioButtonGroup>
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="radio button validation">
+    <RadioButtonGroup
+      legend="Validation on buttons"
+      name="name"
+    >
+      <RadioButton
+        id="validations-on-buttons-radio-1"
+        value="radio1"
+        label="Radio Option 1"
+        error="message"
+      />
+      <RadioButton
+        id="validations-on-buttons-radio-2"
+        value="radio2"
+        label="Radio Option 2"
+        warning="message"
+      />
+      <RadioButton
+        id="validations-on-buttons-radio-3"
+        value="radio3"
+        label="Radio Option 3"
+        info="message"
+      />
+    </RadioButtonGroup>
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="radio button legend validation">
+    <RadioButtonGroup
+      legend="Validation on the legend"
+      name="name"
+      error="Validation on group legend"
+    >
+      <RadioButton
+        id="validations-on-legend-radio-1"
+        value="radio1"
+        label="Radio Option 1"
+      />
+      <RadioButton
+        id="validations-on-legend-radio-2"
+        value="radio2"
+        label="Radio Option 2"
+      />
+      <RadioButton
+        id="validations-on-legend-radio-3"
+        value="radio3"
+        label="Radio Option 3"
+      />
+    </RadioButtonGroup>
+  </Story>
+</Canvas>
 
 ### Validation icon placement
 

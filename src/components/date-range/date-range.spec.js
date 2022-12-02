@@ -13,9 +13,17 @@ import {
 import StyledDateRange from "./date-range.style";
 import StyledDateInput from "../date/date.style";
 import Tooltip from "../tooltip";
+import { FieldLineStyle } from "../../__internal__/form-field/form-field.style";
+import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
+import StyledLabel from "../../__internal__/label/label.style";
 
 const initialValues = ["10/10/2016", "11/11/2016"];
 const updatedValues = ["12/12/2012", "13/12/2012"];
+const datePickerWidths = {
+  large: "140px",
+  medium: "135px",
+  small: "120px",
+};
 
 describe("DateRange", () => {
   let wrapper;
@@ -734,6 +742,36 @@ describe("StyledDateRange", () => {
 
       expect(position).toEqual("top");
     });
+  });
+
+  describe("validation layout", () => {
+    it.each(["small", "medium", "large"])(
+      "sets the maxWidth of the %s Date input wrappers to the expected value",
+      (size) => {
+        const maxWidth = datePickerWidths[size];
+
+        const dateInputs = mount(
+          <DateRange
+            value={["", ""]}
+            onChange={() => {}}
+            startDateProps={{ size }}
+            endDateProps={{ size }}
+          />
+        ).find(DateInput);
+
+        dateInputs.forEach((dateInput) => {
+          assertStyleMatch({ maxWidth }, dateInput, {
+            modifier: `${FieldLineStyle}`,
+          });
+          assertStyleMatch({ overflowWrap: "anywhere" }, dateInput, {
+            modifier: `${StyledValidationMessage}`,
+          });
+          assertStyleMatch({ overflowWrap: "anywhere" }, dateInput, {
+            modifier: `${StyledLabel}`,
+          });
+        });
+      }
+    );
   });
 });
 

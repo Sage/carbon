@@ -1,8 +1,9 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import { RadioButtonGroup, RadioButton, PrivateRadioButton } from ".";
+import { RadioButtonGroup, RadioButton } from ".";
 import Typography from "../typography";
+import * as stories from "./radio-button.stories";
 
 <Meta title="RadioButton" parameters={{ info: { disable: true } }} />
 
@@ -43,57 +44,20 @@ Disabled or read-only radio buttons might be difficult for a user to distinguish
 
 ## Examples
 
+### Default
+
+<Canvas>
+  <Story name="default" story={stories.Default} />
+</Canvas>
+
 ### With legend and labels
 
 A legend can be set for the group, and each radio button can have a label.
 
 <Canvas>
-  <Story name="with legend and labels">
-    <RadioButtonGroup
-      name="legend-and-labels-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
-      <RadioButton
-        id="legend-and-labels-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        labelHelp="first option"
-      />
-      <RadioButton
-        id="legend-and-labels-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        labelHelp="second option"
-      />
-      <RadioButton
-        id="legend-and-labels-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        labelHelp="third option"
-      />
-    </RadioButtonGroup>
-  </Story>
+  <Story name="with legend and labels" story={stories.WithLegendAndLabels} />
 </Canvas>
 
-### Required
-
-You can use the `required` prop to indicate if the field is mandatory.
-
-<Canvas>
-  <Story name="required">
-    <RadioButtonGroup
-      name="required-group"
-      onChange={() => console.log("change")}
-      legend="Paperless Billing"
-      required
-    >
-      <RadioButton value="y" label="Yes" />
-      <RadioButton value="n" label="No" />
-      <RadioButton value="d" label="Debts only" />
-    </RadioButtonGroup>
-  </Story>
-</Canvas>
 
 ### With inline legend
 
@@ -102,31 +66,7 @@ The legend can be made inline. Its width can be changed with the `legendWidth` p
 The spacing between the legend and the radio buttons can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, so therefore `8px` or `16px`. The default is `2` for this prop.
 
 <Canvas>
-  <Story name="with inline legend">
-    <RadioButtonGroup
-      name="inline-legend-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-      legendInline
-      legendWidth={10}
-    >
-      <RadioButton
-        id="inline-legend-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-      />
-      <RadioButton
-        id="inline-legend-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-      />
-      <RadioButton
-        id="inline-legend-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-      />
-    </RadioButtonGroup>
-  </Story>
+  <Story name="with inline legend" story={stories.WithInlineLegend} />
 </Canvas>
 
 ### With left margin
@@ -134,30 +74,7 @@ The spacing between the legend and the radio buttons can be changed with the `le
 A `ml` prop can be supplied to align the `RadioButtonGroup` with above and below components. This prop is a CSS string.
 
 <Canvas>
-  <Story name="with left margin">
-    <RadioButtonGroup
-      name="left-margin-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-      ml="20%"
-    >
-      <RadioButton
-        id="left-margin-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-      />
-      <RadioButton
-        id="left-margin-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-      />
-      <RadioButton
-        id="left-margin-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-      />
-    </RadioButtonGroup>
-  </Story>
+  <Story name="with left margin" story={stories.WithLeftMargin} />
 </Canvas>
 
 ### Enable adaptive behaviour
@@ -165,35 +82,7 @@ A `ml` prop can be supplied to align the `RadioButtonGroup` with above and below
 Passing in the `adaptiveLegendBreakpoint` and `adaptiveSpacingBreakpoint` props will enable the adaptive behaviour.
 
 <Canvas>
-  <Story
-    name="enable adaptive behaviour"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <RadioButtonGroup
-      name="enable-adaptive-behaviour-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-      ml="20%"
-      adaptiveLegendBreakpoint={960}
-      adaptiveSpacingBreakpoint={960}
-    >
-      <RadioButton
-        id="enable-adaptive-behaviour-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-      />
-      <RadioButton
-        id="enable-adaptive-behaviour-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-      />
-      <RadioButton
-        id="enable-adaptive-behaviour-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-      />
-    </RadioButtonGroup>
-  </Story>
+  <Story name="enable adaptive behaviour" story={stories.EnableAdaptiveBehaviour} />
 </Canvas>
 
 ### Different label spacing
@@ -201,30 +90,7 @@ Passing in the `adaptiveLegendBreakpoint` and `adaptiveSpacingBreakpoint` props 
 The spacing between radio buttons and their labels can be changed with the `labelSpacing` prop. Similarly to the `legendSpacing` prop, this is a number which is multiplied by the base theme spacing constant. It defaults to `1` which is therefore `8px`.
 
 <Canvas>
-  <Story name="different label spacing">
-    <RadioButtonGroup
-      name="different-label-spacing-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-      labelSpacing={2}
-    >
-      <RadioButton
-        id="different-label-spacing-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-      />
-      <RadioButton
-        id="different-label-spacing-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-      />
-      <RadioButton
-        id="different-label-spacing-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-      />
-    </RadioButtonGroup>
-  </Story>
+  <Story name="different label spacing" story={stories.DifferentLabelSpacing} />
 </Canvas>
 
 ### Inline radio buttons
@@ -232,18 +98,7 @@ The spacing between radio buttons and their labels can be changed with the `labe
 The radio buttons can be made inline with the `inline` prop.
 
 <Canvas>
-  <Story name="inline radio buttons">
-    <RadioButtonGroup
-      name="inline-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-      inline
-    >
-      <RadioButton id="inline-radio-1" value="radio1" label="Radio Option 1" />
-      <RadioButton id="inline-radio-2" value="radio2" label="Radio Option 2" />
-      <RadioButton id="inline-radio-3" value="radio3" label="Radio Option 3" />
-    </RadioButtonGroup>
-  </Story>
+  <Story name="inline radio buttons" story={stories.InlineRadioButtons} />
 </Canvas>
 
 ### Reverse radio buttons
@@ -251,32 +106,7 @@ The radio buttons can be made inline with the `inline` prop.
 The radio buttons and labels can be flipped around using the `reverse` prop on each radio button. The same spacing options between the label and radio button as above apply.
 
 <Canvas>
-  <Story name="reverse radio buttons">
-    <RadioButtonGroup
-      name="reverse-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
-      <RadioButton
-        id="reverse-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        reverse
-      />
-      <RadioButton
-        id="reverse-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        reverse
-      />
-      <RadioButton
-        id="reverse-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        reverse
-      />
-    </RadioButtonGroup>
-  </Story>
+  <Story name="reverse radio buttons" story={stories.ReverseRadioButtons} />
 </Canvas>
 
 ### Disable radio buttons
@@ -284,32 +114,7 @@ The radio buttons and labels can be flipped around using the `reverse` prop on e
 The radio buttons and labels can be disabled using the `disabled` prop on each radio button.
 
 <Canvas>
-  <Story name="disable radio buttons">
-    <RadioButtonGroup
-      name="disable-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
-      <RadioButton
-        id="disable-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        disabled
-      />
-      <RadioButton
-        id="disable-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        disabled
-      />
-      <RadioButton
-        id="disable-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        disabled
-      />
-    </RadioButtonGroup>
-  </Story>
+  <Story name="disable radio buttons" story={stories.DisableRadioButtons} />
 </Canvas>
 
 ### With field help
@@ -317,32 +122,7 @@ The radio buttons and labels can be disabled using the `disabled` prop on each r
 Help text for each input can be added with the `fieldHelp` prop on `RadioButton`. This can be made inline with the `fieldHelpInline` prop.
 
 <Canvas>
-  <Story name="with field help">
-    <RadioButtonGroup
-      name="field-help-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
-      <RadioButton
-        id="field-help-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        fieldHelp="Some help text for this input."
-      />
-      <RadioButton
-        id="field-help-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        fieldHelp="Some help text for this input."
-      />
-      <RadioButton
-        id="field-help-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        fieldHelp="Some help text for this input."
-      />
-    </RadioButtonGroup>
-  </Story>
+  <Story name="with field help" story={stories.WithFieldHelp} />
 </Canvas>
 
 ### With large radio buttons
@@ -350,156 +130,7 @@ Help text for each input can be added with the `fieldHelp` prop on `RadioButton`
 Passing in `large` for the `size` prop on each radio button will increase the size of the button.
 
 <Canvas>
-  <Story name="with large radio buttons">
-    <RadioButtonGroup
-      name="large-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
-      <RadioButton
-        id="large-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        size="large"
-        fieldHelp="Some help text for this input."
-      />
-      <RadioButton
-        id="large-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        size="large"
-        fieldHelp="Some help text for this input."
-      />
-      <RadioButton
-        id="large-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        size="large"
-        fieldHelp="Some help text for this input."
-      />
-    </RadioButtonGroup>
-  </Story>
-</Canvas>
-
-### With validations on radio buttons
-
-Validations can be added to the radio buttons as strings or booleans.
-
-<Canvas>
-  <Story name="with validations on buttons">
-    <RadioButtonGroup
-      name="validations-on-buttons-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
-      <RadioButton
-        id="validations-on-buttons-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        error="message"
-        fieldHelp="Some help text for this input."
-      />
-      <RadioButton
-        id="validations-on-buttons-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        warning="message"
-      />
-      <RadioButton
-        id="validations-on-buttons-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        info="message"
-      />
-    </RadioButtonGroup>
-  </Story>
-</Canvas>
-
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
-
-<Canvas>
-  <Story
-    name="with validations on buttons - tooltipPosition overriden"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <RadioButtonGroup
-      name="validations-on-buttons-group-tooltip-position-override"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
-      <RadioButton
-        id="validations-on-buttons-radio-1-tooltip-position-override"
-        value="radio1"
-        label="Radio Option 1"
-        error="message"
-        tooltipPosition="right"
-      />
-    </RadioButtonGroup>
-  </Story>
-</Canvas>
-
-### With validations on radio group
-
-Validations can be added to the radio group as a string or boolean.
-
-<Canvas>
-  <Story name="with validations on group">
-    <RadioButtonGroup
-      name="validations-on-group-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-      error="Error message"
-    >
-      <RadioButton
-        id="validations-on-group-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-      />
-      <RadioButton
-        id="validations-on-group-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-      />
-      <RadioButton
-        id="validations-on-group-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-      />
-    </RadioButtonGroup>
-  </Story>
-</Canvas>
-
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
-
-<Canvas>
-  <Story
-    name="with validations on group - tooltipPosition overriden"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <RadioButtonGroup
-      name="validations-on-group-group-tooltip-position-override"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-      error="Error message"
-      tooltipPosition="top"
-    >
-      <RadioButton
-        id="validations-on-group-radio-1-tooltip-position-override"
-        value="radio1"
-        label="Radio Option 1"
-      />
-      <RadioButton
-        id="validations-on-group-radio-2-tooltip-position-override"
-        value="radio2"
-        label="Radio Option 2"
-      />
-      <RadioButton
-        id="validations-on-group-radio-3-tooltip-position-override"
-        value="radio3"
-        label="Radio Option 3"
-      />
-    </RadioButtonGroup>
-  </Story>
+  <Story name="with large radio buttons" story={stories.WithLargeRadioButtons} />
 </Canvas>
 
 ### With custom styled labels
@@ -507,54 +138,26 @@ It is possible to use the `tooltipPosition` to override the default placement of
 Labels could be customized using the Typography Component
 
 <Canvas>
-  <Story name="with custom styled label">
-    <RadioButtonGroup
-      name="custom-styled-label-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
-      <RadioButton
-        id="custom-styled-label-radio-1"
-        value="radio1"
-        label={
-          <>
-            <Typography variant="b">Bold </Typography>
-            <Typography as="span">regular </Typography>
-            <Typography variant="em">emphasized</Typography>
-          </>
-        }
-      />
-      <RadioButton
-        id="custom-styled-label-radio-2"
-        value="radio2"
-        label={
-          <>
-            <Typography variant="b">Bold </Typography>
-            <Typography as="span">regular </Typography>
-            <Typography variant="em">emphasized</Typography>
-          </>
-        }
-      />
-      <RadioButton
-        id="custom-styled-label-radio-3"
-        value="radio3"
-        label={
-          <>
-            <Typography variant="b">Bold </Typography>
-            <Typography as="span">regular </Typography>
-            <Typography variant="em">emphasized</Typography>
-          </>
-        }
-      />
-    </RadioButtonGroup>
-  </Story>
+  <Story name="with custom styled label" story={stories.WithCustomStyledLabels} />
 </Canvas>
+
+### Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the `RadioButton` component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+Validation status could also be passed to the `RadioButtonGroup` component as a string or boolean. 
+
+For more information check our [Validations](?path=/docs/documentation-validations--radio-button-validation#grouped-inputs-examples) documentation page
 
 ## Props
 
 ### RadioButton
 
-<StyledSystemProps of={PrivateRadioButton} margin noHeader />
+<StyledSystemProps of={RadioButton} margin noHeader />
 
 **Any other supplied props will be provided to the underlying HTML input element**
 

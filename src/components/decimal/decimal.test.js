@@ -9,6 +9,8 @@ import {
   commonDataElementInputPreview,
 } from "../../../cypress/locators/index";
 
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+
 context("Tests for Decimal component", () => {
   describe("check props for Decimal component", () => {
     const input = [
@@ -160,7 +162,7 @@ context("Tests for Decimal component", () => {
   });
 
   describe("check Decimal input", () => {
-    const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+    const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
     it.each(testData)(
       "check label renders properly with %s as specific value",

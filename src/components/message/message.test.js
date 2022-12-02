@@ -14,8 +14,12 @@ import {
   messageDismissIcon,
   variantPreview,
 } from "../../../cypress/locators/message/index";
+import {
+  VALIDATION,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const MessageComponent = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -33,9 +37,9 @@ context("Tests for Message component", () => {
   describe("should check Message component properties", () => {
     it.each([
       ["info", "rgb(51, 91, 112)"],
-      ["error", "rgb(203, 55, 74)"],
+      ["error", VALIDATION.ERROR],
       ["success", "rgb(0, 138, 33)"],
-      ["warning", "rgb(239, 103, 0)"],
+      ["warning", VALIDATION.WARNING],
     ])(
       "should check %s variant for Message component",
       (variant, backgroundColor) => {

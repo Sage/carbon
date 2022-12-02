@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { ThemeProvider } from "styled-components";
-import TestRenderer from "react-test-renderer";
 import { RadioButton, RadioButtonGroup } from ".";
 import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
@@ -14,29 +13,33 @@ import RadioButtonStyle from "./radio-button.style";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 
+const mockedGuid = "mocked-guid";
 jest.mock("../../__internal__/utils/helpers/guid");
-guid.mockImplementation(() => "guid-12345");
 
-function render(props = {}, theme = mintTheme, renderer = mount) {
-  const { error, info, warning, ...buttonProps } = props;
-  const groupProps = {
-    error,
-    info,
-    warning,
-    name: "radio-button-name",
-  };
+(guid as jest.MockedFunction<typeof guid>).mockReturnValue(mockedGuid);
+
+function renderRadioButton(
+  buttonProps = {},
+  validations = {},
+  theme = mintTheme,
+  renderer = mount
+) {
   return renderer(
     <ThemeProvider theme={theme}>
-      <RadioButtonGroup name="my-radio-group" {...groupProps}>
-        <RadioButton name="my-radio" value="test" {...buttonProps} />
+      <RadioButtonGroup name="radio-button-group" {...validations}>
+        <RadioButton value="test" {...buttonProps} />
       </RadioButtonGroup>
     </ThemeProvider>
   );
 }
 
-const getRadioButton = (wrapper) => wrapper.find(RadioButton);
+const getRadioButton = (wrapper: ReactWrapper) => wrapper.find(RadioButton);
 
-const validationTypes = ["error", "warning", "info"];
+const validationTypes: ("error" | "warning" | "info")[] = [
+  "error",
+  "warning",
+  "info",
+];
 const borderColorsByValidationTypes = {
   error: "var(--colorsSemanticNegative500)",
   warning: "var(--colorsSemanticCaution500)",
@@ -46,48 +49,44 @@ const borderColorsByValidationTypes = {
 describe("RadioButton", () => {
   describe("propTypes", () => {
     it("does not allow a children prop", () => {
-      const consoleSpy = jest.spyOn(console, "error");
-      render({ children: "someChildren" });
+      const consoleSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
       const expected =
-        "Forbidden prop `children` supplied to `RadioButton`. " +
         "This component is meant to be used as a self-closing tag. " +
         "You should probably use the label prop instead.";
-      // eslint-disable-next-line no-console
-      expect(console.error.mock.calls[0][2]).toBe(expected);
+
+      expect(() => renderRadioButton({ children: "someChildren" })).toThrow(
+        expected
+      );
 
       consoleSpy.mockRestore();
     });
   });
 
   it("the input ref should be forwarded", () => {
-    let ref;
-    const WrapperComponent = () => {
-      ref = useRef();
+    let mockRef: React.RefObject<HTMLInputElement> | undefined;
 
-      return <RadioButton name="my-radio" value="test" ref={ref} />;
+    const WrapperComponent = () => {
+      mockRef = useRef<HTMLInputElement>(null);
+
+      return <RadioButton name="my-radio" value="test" ref={mockRef} />;
     };
+
     const wrapper = mount(<WrapperComponent />);
 
-    expect(ref.current).toEqual(
+    expect(mockRef?.current).toBe(
       wrapper.find(HiddenCheckableInputStyle).getDOMNode()
     );
   });
 
-  describe("base", () => {
-    it("renders as expected", () => {
-      expect(
-        render({}, mintTheme, TestRenderer.create).toJSON()
-      ).toMatchSnapshot();
-    });
-  });
-
   describe("when disabled === true", () => {
     describe("default", () => {
-      const wrapper = render({ disabled: true });
+      const wrapper = renderRadioButton({ disabled: true });
 
       it("disables the input", () => {
         const radioInput = wrapper.find("input");
-        expect(radioInput.getDOMNode().disabled).toBe(true);
+        expect(radioInput.getDOMNode<HTMLInputElement>().disabled).toBe(true);
       });
 
       it("applies the correct circle styles", () => {
@@ -112,7 +111,7 @@ describe("RadioButton", () => {
 
   describe('when size === "large"', () => {
     describe("default", () => {
-      const wrapper = getRadioButton(render({ size: "large" }));
+      const wrapper = getRadioButton(renderRadioButton({ size: "large" }));
       const dimensions = { height: "24px", width: "24px" };
 
       it("applies the correct input styles", () => {
@@ -145,7 +144,7 @@ describe("RadioButton", () => {
     describe("and reverse === true", () => {
       describe("default", () => {
         const wrapper = getRadioButton(
-          render({ reverse: true, size: "large" })
+          renderRadioButton({ reverse: true, size: "large" })
         );
 
         it("applies the correct FieldHelp styles", () => {
@@ -157,7 +156,7 @@ describe("RadioButton", () => {
 
       describe("and fieldHelpInline === true", () => {
         it("does not apply padding changes to FieldHelp", () => {
-          const wrapper = render({
+          const wrapper = renderRadioButton({
             fieldHelpInline: true,
             reverse: true,
             size: "large",
@@ -173,7 +172,7 @@ describe("RadioButton", () => {
   describe("validations", () => {
     describe.each(validationTypes)("%s === true", (type) => {
       it("show correct border on radio", () => {
-        const wrapper = render({ [type]: true });
+        const wrapper = renderRadioButton({}, { [type]: true });
         const borderWidth = type === "error" ? 2 : 1;
         assertStyleMatch(
           {
@@ -187,7 +186,7 @@ describe("RadioButton", () => {
 
     describe.each(validationTypes)('%s === "string"', (type) => {
       it("show correct border on radio", () => {
-        const wrapper = render({ [type]: "Message" });
+        const wrapper = renderRadioButton({}, { [type]: "Message" });
         const borderWidth = type === "error" ? 2 : 1;
         assertStyleMatch(
           {

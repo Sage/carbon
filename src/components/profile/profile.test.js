@@ -12,6 +12,8 @@ import {
   initialPreview,
 } from "../../../cypress/locators/profile/index";
 
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+
 context("Tests for Profile component", () => {
   describe("should check Profile component properties", () => {
     it("should set className for Profile component", () => {
@@ -21,7 +23,7 @@ context("Tests for Profile component", () => {
       profilePreview().should("have.class", "profile-cypress-classname");
     });
 
-    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+    it.each(testData)(
       "should set email out of scope to %s for Profile component",
       (email) => {
         CypressMountWithProviders(
@@ -35,19 +37,16 @@ context("Tests for Profile component", () => {
       }
     );
 
-    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
-      "should set name to %s for Profile component",
-      (name) => {
-        CypressMountWithProviders(
-          <Profile
-            email="johnsmith@sage.com"
-            name={name}
-            src="https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404"
-          />
-        );
-        namePreview().should("have.text", name);
-      }
-    );
+    it.each(testData)("should set name to %s for Profile component", (name) => {
+      CypressMountWithProviders(
+        <Profile
+          email="johnsmith@sage.com"
+          name={name}
+          src="https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404"
+        />
+      );
+      namePreview().should("have.text", name);
+    });
 
     it.each([
       [

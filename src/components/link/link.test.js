@@ -10,9 +10,10 @@ import {
 } from "../../../cypress/locators";
 import { skipLink } from "../../../cypress/locators/link/index";
 import { keyCode } from "../../../cypress/support/helper";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testCypress = "test-cypress";
 
 const LinkComponent = ({ ...props }) => {

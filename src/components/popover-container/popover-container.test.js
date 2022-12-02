@@ -18,8 +18,9 @@ import {
 } from "../../../cypress/locators/select/index";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { keyCode } from "../../../cypress/support/helper";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testCypress = "test-cypress";
 
 const PopoverContainerComponent = ({ ...props }) => {

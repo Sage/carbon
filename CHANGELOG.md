@@ -1,3 +1,31 @@
+### [111.12.6](https://github.com/Sage/carbon/compare/v111.12.5...v111.12.6) (2022-12-01)
+
+
+### Bug Fixes
+
+* **date-range:** update styles so validation and label text wrap if they exceed input width ([014a5b3](https://github.com/Sage/carbon/commit/014a5b311cdaf770472801b6981069a00fe3ba9e)), closes [#5431](https://github.com/Sage/carbon/issues/5431)
+
+### [111.12.5](https://github.com/Sage/carbon/compare/v111.12.4...v111.12.5) (2022-11-30)
+
+
+### Bug Fixes
+
+* **cypress:** update accessibility tests to ignore  mdx docs on contributing ([0a53d49](https://github.com/Sage/carbon/commit/0a53d494685fc43ce521bd5896b18a6da873c35a))
+
+### [111.12.4](https://github.com/Sage/carbon/compare/v111.12.3...v111.12.4) (2022-11-24)
+
+
+### Bug Fixes
+
+* **date-picker:** correct css variable for disabled state and current date disable styling ([52de6e4](https://github.com/Sage/carbon/commit/52de6e452fe9f8bd57f195952b9a66f0af4c3c8a))
+
+### [111.12.3](https://github.com/Sage/carbon/compare/v111.12.2...v111.12.3) (2022-11-24)
+
+
+### Bug Fixes
+
+* **loader-utils:** bumps version to remove critical security vulnerability ([4b0efb7](https://github.com/Sage/carbon/commit/4b0efb7635697cb9a99d71e6aafca563f7bbb6b5))
+
 ### [111.12.2](https://github.com/Sage/carbon/compare/v111.12.1...v111.12.2) (2022-11-23)
 
 

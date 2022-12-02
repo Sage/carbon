@@ -16,10 +16,10 @@ import {
   splitMainButton,
 } from "../../../cypress/locators/split-button";
 import { accordionDefaultTitle } from "../../../cypress/locators/accordion";
-
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const SplitButtonList = ({ ...props }) => {
   return (

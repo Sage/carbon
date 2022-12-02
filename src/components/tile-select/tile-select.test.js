@@ -19,6 +19,8 @@ import {
 
 import { getComponent, getElement } from "../../../cypress/locators/index";
 
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+
 const TileSelectComponent = ({ multiSelect, ...props }) => {
   const [value, setValue] = React.useState(null);
   return (
@@ -266,7 +268,7 @@ const TileSelectGroupComponent = ({ ...props }) => {
 
 context("Tests for TileSelect component", () => {
   describe("check props for TileSelect component", () => {
-    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+    it.each(testData)(
       "should check title as %s for TileSelect component",
       (title) => {
         CypressMountWithProviders(<TileSelectComponent title={title} />);
@@ -286,7 +288,7 @@ context("Tests for TileSelect component", () => {
       }
     );
 
-    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+    it.each(testData)(
       "should check subtitle as %s for TileSelect component",
       (subtitle) => {
         CypressMountWithProviders(<TileSelectComponent subtitle={subtitle} />);
@@ -294,7 +296,7 @@ context("Tests for TileSelect component", () => {
       }
     );
 
-    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+    it.each(testData)(
       "should check description as %s for TileSelect component",
       (description) => {
         CypressMountWithProviders(
@@ -323,7 +325,7 @@ context("Tests for TileSelect component", () => {
       }
     );
 
-    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+    it.each(testData)(
       "should check id as %s for TileSelect component",
       (id) => {
         CypressMountWithProviders(<TileSelectComponent id={id} />);
@@ -331,7 +333,7 @@ context("Tests for TileSelect component", () => {
       }
     );
 
-    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+    it.each(testData)(
       "should check name as %s for TileSelect component",
       (name) => {
         CypressMountWithProviders(<TileSelect name={name} />);
@@ -351,7 +353,7 @@ context("Tests for TileSelect component", () => {
       inputElement().should("have.attr", "aria-checked", "false");
     });
 
-    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+    it.each(testData)(
       "should check className as %s for TileSelect component",
       (className) => {
         CypressMountWithProviders(
@@ -381,7 +383,7 @@ context("Tests for TileSelect component", () => {
         .and("have.text", "Footer Button");
     });
 
-    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+    it.each(testData)(
       "should check prefixAdornment as %s for TileSelect component",
       (PrefixAdornment) => {
         CypressMountWithProviders(
@@ -455,7 +457,7 @@ context("Tests for TileSelect component", () => {
     }
   );
 
-  it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+  it.each(testData)(
     "should check accordionContent as %s for TileSelect component",
     (accordionContent) => {
       CypressMountWithProviders(
@@ -504,7 +506,7 @@ describe("check props for ActionButtonAdornment", () => {
 });
 
 describe("check props for TileSelectGroup component", () => {
-  it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+  it.each(testData)(
     "should check name as %s for TileSelect component",
     (name) => {
       CypressMountWithProviders(<TileSelectGroupComponent name={name} />);
@@ -512,7 +514,7 @@ describe("check props for TileSelectGroup component", () => {
     }
   );
 
-  it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+  it.each(testData)(
     "should check legend as %s for TileSelectGroup component",
     (legend) => {
       CypressMountWithProviders(<TileSelectGroupComponent legend={legend} />);
@@ -520,7 +522,7 @@ describe("check props for TileSelectGroup component", () => {
     }
   );
 
-  it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+  it.each(testData)(
     "should check description as %s for TileSelectGroup component",
     (description) => {
       CypressMountWithProviders(
@@ -535,7 +537,7 @@ describe("check props for TileSelectGroup component", () => {
     inputElement().should("have.attr", "value", "1");
   });
 
-  it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+  it.each(testData)(
     "should check children as %s for TileSelectGroup component",
     (characters) => {
       CypressMountWithProviders(

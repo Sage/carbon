@@ -9,7 +9,9 @@ import {
 
 import { icon } from "../../../cypress/locators";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 context("Tests for Detail component", () => {
   describe("check Detail component text input", () => {
