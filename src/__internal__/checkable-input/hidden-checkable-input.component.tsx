@@ -38,74 +38,81 @@ export interface HiddenCheckableInputProps
   role?: string;
 }
 
-const HiddenCheckableInput = ({
-  name,
-  checked,
-  type,
-  value,
-  inputRef,
-  onChange,
-  autoFocus,
-  role,
-  ...props
-}: HiddenCheckableInputProps) => {
-  const {
-    onBlur,
-    onFocus,
-    onMouseEnter,
-    onMouseLeave,
-    ariaLabelledBy,
-  } = useContext(InputContext);
-  const {
-    onBlur: onBlurGroup,
-    onFocus: onFocusGroup,
-    onMouseEnter: onMouseEnterGroup,
-    onMouseLeave: onMouseLeaveGroup,
-  } = useContext(InputGroupContext);
+const HiddenCheckableInput = React.forwardRef(
+  (
+    {
+      name,
+      checked,
+      type,
+      value,
+      inputRef,
+      onChange,
+      autoFocus,
+      role,
+      ...props
+    }: HiddenCheckableInputProps,
+    ref: React.ForwardedRef<HTMLInputElement>
+  ) => {
+    const {
+      onBlur,
+      onFocus,
+      onMouseEnter,
+      onMouseLeave,
+      ariaLabelledBy,
+    } = useContext(InputContext);
+    const {
+      onBlur: onBlurGroup,
+      onFocus: onFocusGroup,
+      onMouseEnter: onMouseEnterGroup,
+      onMouseLeave: onMouseLeaveGroup,
+    } = useContext(InputGroupContext);
 
-  const handleFocus = (ev: React.FocusEvent<HTMLInputElement>) => {
-    if (props.onFocus) props.onFocus(ev);
-    if (onFocus) onFocus();
-    if (onFocusGroup) onFocusGroup();
-  };
+    const handleFocus = (ev: React.FocusEvent<HTMLInputElement>) => {
+      if (props.onFocus) props.onFocus(ev);
+      if (onFocus) onFocus();
+      if (onFocusGroup) onFocusGroup();
+    };
 
-  const handleBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
-    if (props.onBlur) props.onBlur(ev);
-    if (onBlur) onBlur();
-    if (onBlurGroup) onBlurGroup();
-  };
+    const handleBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
+      if (props.onBlur) props.onBlur(ev);
+      if (onBlur) onBlur();
+      if (onBlurGroup) onBlurGroup();
+    };
 
-  const handleMouseEnter = (ev: React.MouseEvent<HTMLInputElement>) => {
-    if (props.onMouseEnter) props.onMouseEnter(ev);
-    if (onMouseEnter) onMouseEnter();
-    if (onMouseEnterGroup) onMouseEnterGroup();
-  };
+    const handleMouseEnter = (ev: React.MouseEvent<HTMLInputElement>) => {
+      if (props.onMouseEnter) props.onMouseEnter(ev);
+      if (onMouseEnter) onMouseEnter();
+      if (onMouseEnterGroup) onMouseEnterGroup();
+    };
 
-  const handleMouseLeave = (ev: React.MouseEvent<HTMLInputElement>) => {
-    if (props.onMouseLeave) props.onMouseLeave(ev);
-    if (onMouseLeave) onMouseLeave();
-    if (onMouseLeaveGroup) onMouseLeaveGroup();
-  };
+    const handleMouseLeave = (ev: React.MouseEvent<HTMLInputElement>) => {
+      if (props.onMouseLeave) props.onMouseLeave(ev);
+      if (onMouseLeave) onMouseLeave();
+      if (onMouseLeaveGroup) onMouseLeaveGroup();
+    };
 
-  return (
-    <HiddenCheckableInputStyle
-      autoFocus={autoFocus}
-      aria-checked={checked}
-      checked={checked}
-      name={name}
-      role={role || type}
-      type={type}
-      value={value}
-      {...props}
-      {...(ariaLabelledBy && { "aria-labelledby": ariaLabelledBy })}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onChange={onChange}
-      ref={inputRef}
-    />
-  );
-};
+    return (
+      <HiddenCheckableInputStyle
+        autoFocus={autoFocus}
+        aria-checked={checked}
+        checked={checked}
+        name={name}
+        role={role || type}
+        type={type}
+        value={value}
+        {...props}
+        {...(ariaLabelledBy && { "aria-labelledby": ariaLabelledBy })}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onChange={onChange}
+        ref={ref || inputRef}
+      />
+    );
+  }
+);
+
+HiddenCheckableInput.displayName = "HiddenCheckableInput";
 
 export default React.memo(HiddenCheckableInput);
