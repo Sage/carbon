@@ -19,6 +19,8 @@ import {
 } from "../../../cypress/locators/note";
 import { actionPopoverWrapper } from "../../../cypress/locators/action-popover";
 
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+
 const NoteComponent = ({ text, ...props }) => {
   const initialValue = text
     ? EditorState.createWithContent(ContentState.createFromText(text))
@@ -100,7 +102,7 @@ context("Tests for Note component", () => {
       actionPopoverWrapper().should("be.visible");
     });
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render Note with title prop set to %s",
       (title) => {
         CypressMountWithProviders(<NoteComponent title={title} />);
@@ -109,14 +111,11 @@ context("Tests for Note component", () => {
       }
     );
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
-      "should render Note with name prop set to %s",
-      (name) => {
-        CypressMountWithProviders(<NoteComponent name={name} />);
+    it.each(testData)("should render Note with name prop set to %s", (name) => {
+      CypressMountWithProviders(<NoteComponent name={name} />);
 
-        noteFooterCreatedBy().should("have.text", name);
-      }
-    );
+      noteFooterCreatedBy().should("have.text", name);
+    });
 
     it("should render Note with createdDate prop", () => {
       const createdDate = "25 June 2022, 11:57 AM";
@@ -126,7 +125,7 @@ context("Tests for Note component", () => {
       noteFooterChangeTime().should("have.text", createdDate);
     });
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render Note with status prop set to %s",
       (value) => {
         CypressMountWithProviders(

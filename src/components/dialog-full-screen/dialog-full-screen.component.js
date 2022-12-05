@@ -20,6 +20,7 @@ const DialogFullScreen = ({
   "aria-labelledby": ariaLabelledBy,
   disableAutoFocus,
   focusFirstElement,
+  bespokeFocusTrap,
   open,
   children,
   title,
@@ -103,6 +104,7 @@ const DialogFullScreen = ({
       <FocusTrap
         autoFocus={!disableAutoFocus}
         focusFirstElement={focusFirstElement}
+        bespokeTrap={bespokeFocusTrap}
         wrapperRef={dialogRef}
         isOpen={open}
         additionalWrapperRefs={focusableContainers}
@@ -164,6 +166,12 @@ DialogFullScreen.propTypes = {
   focusFirstElement: PropTypes.shape({ current: PropTypes.any }),
   /** Disables auto focus functionality on child elements */
   disableAutoFocus: PropTypes.bool,
+  /**
+   * Function to replace focus trap
+   * @ignore
+   * @private
+   */
+  bespokeFocusTrap: PropTypes.func,
   /** Determines if the Esc Key closes the Dialog */
   disableEscKey: PropTypes.bool,
   /** Adds Help tooltip to Header */

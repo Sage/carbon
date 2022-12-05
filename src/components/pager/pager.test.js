@@ -21,8 +21,9 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import { keyCode } from "../../../cypress/support/helper";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const records = [
   {
     id: "1",

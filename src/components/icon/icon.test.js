@@ -2,14 +2,14 @@ import * as React from "react";
 import Icon from "./icon.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { icon, getDataElementByValue } from "../../../cypress/locators";
+import {
+  SIZE,
+  COLOR,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const colorData = [
-  "rgb(255, 156, 75)",
-  "rgb(205, 56, 75)",
-  "rgb(0, 0, 0)",
-  "rgb(105, 61, 57)",
-];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const colorData = [COLOR.ORANGE, COLOR.RED, COLOR.BLACK, COLOR.BROWN];
 
 const IconComponent = ({ ...props }) => {
   return <Icon type="add" tooltipVisible {...props} />;
@@ -47,11 +47,11 @@ context("Tests for Icon component", () => {
     );
 
     it.each([
-      ["extra-small", 16],
-      ["small", 24],
-      ["medium", 32],
-      ["large", 40],
-      ["extra-large", 56],
+      [SIZE.EXTRASMALL, 16],
+      [SIZE.SMALL, 24],
+      [SIZE.MEDIUM, 32],
+      [SIZE.LARGE, 40],
+      [SIZE.EXTRALARGE, 56],
     ])("should check %s bgSize for Icon component", (size, pixelSize) => {
       CypressMountWithProviders(<IconComponent bgSize={size} />);
       icon()
@@ -73,10 +73,10 @@ context("Tests for Icon component", () => {
     });
 
     it.each([
-      ["small", 24],
-      ["medium", 32],
-      ["large", 40],
-      ["extra-large", 56],
+      [SIZE.SMALL, 24],
+      [SIZE.MEDIUM, 32],
+      [SIZE.LARGE, 40],
+      [SIZE.EXTRALARGE, 56],
     ])("should check %s fontSize for Icon component", (fontSize, pixelSize) => {
       CypressMountWithProviders(<IconComponent fontSize={fontSize} />);
       icon()

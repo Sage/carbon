@@ -17,8 +17,12 @@ import {
   draggableContainer,
   columnCard,
 } from "../../../cypress/locators/card/index";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const textAlignment = ["center", "left", "right"];
 
 const CardComponent = ({ ...props }) => {
@@ -216,9 +220,9 @@ const CardTextAlignment = ({ ...props }) => {
 context("Tests for Card component", () => {
   describe("should check Card component properties", () => {
     it.each([
-      ["small", 24],
-      ["medium", 32],
-      ["large", 48],
+      [SIZE.SMALL, 24],
+      [SIZE.MEDIUM, 32],
+      [SIZE.LARGE, 48],
     ])(
       "should check %s spacing and padding for Card component ",
       (spacing, paddings) => {

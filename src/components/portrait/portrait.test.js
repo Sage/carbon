@@ -10,14 +10,20 @@ import {
   portraitInitials,
   portraitImage,
 } from "../../../cypress/locators/portrait";
+import {
+  SIZE,
+  VALIDATION,
+  COLOR,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const colors = [
-  ["orange", "rgb(255, 156, 75)"],
-  ["red", "rgb(205, 56, 75)"],
-  ["black", "rgb(0, 0, 0)"],
-  ["brown", "rgb(105, 61, 57)"],
+  ["orange", COLOR.ORANGE],
+  ["red", COLOR.RED],
+  ["black", COLOR.BLACK],
+  ["brown", COLOR.BROWN],
 ];
 
 const testImage =
@@ -188,13 +194,13 @@ context("Tests for Portrait component", () => {
       getDataElementByValue("tooltip").and(
         "have.css",
         "background-color",
-        "rgb(203, 55, 74)"
+        VALIDATION.ERROR
       );
     });
 
     it.each([
-      ["medium", "14px"],
-      ["large", "16px"],
+      [SIZE.MEDIUM, "14px"],
+      [SIZE.LARGE, "16px"],
     ])(
       "should render Portrait with the tooltip in the %s size",
       (tooltipSize, fontSize) => {

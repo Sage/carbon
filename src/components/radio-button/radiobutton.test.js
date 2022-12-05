@@ -29,6 +29,7 @@ import {
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { verifyRequiredAsteriskForLegend } from "../../../cypress/support/component-helper/common-steps";
 
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const radioContainerWidth = 400;
 const radioInputWidth = 16;
 const labelContainerWidth = 40;
@@ -129,7 +130,7 @@ context("Testing RadioButton component", () => {
     );
   });
 
-  it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+  it.each(testData)(
     "should render Radiobutton component with %s as a label",
     (label) => {
       CypressMountWithProviders(<RadiobuttonComponent label={label} />);
@@ -138,7 +139,7 @@ context("Testing RadioButton component", () => {
     }
   );
 
-  it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+  it.each(testData)(
     "should render Radiobutton component with %s as fieldHelp",
     (fieldHelp) => {
       CypressMountWithProviders(<RadiobuttonComponent fieldHelp={fieldHelp} />);
@@ -428,7 +429,7 @@ context("Testing RadioButton component", () => {
     });
 
     describe("Testing RadiobuttonGroup component", () => {
-      it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+      it.each(testData)(
         "should render RadiobuttonGroup component with %s as legend",
         (legendValue) => {
           CypressMountWithProviders(

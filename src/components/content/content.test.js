@@ -6,9 +6,13 @@ import {
   contentTitle,
   contentBody,
 } from "../../../cypress/locators/content/index";
+import {
+  COLOR,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const totalWidth = 1350;
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 
 const ContentComponent = ({ ...props }) => {
   return (
@@ -21,7 +25,7 @@ const ContentComponent = ({ ...props }) => {
 context("Tests for Content component", () => {
   describe("should check Content component properties", () => {
     it.each([
-      ["primary", "rgb(0, 0, 0)"],
+      ["primary", COLOR.BLACK],
       ["secondary", "rgba(0, 0, 0, 0.55)"],
     ])(
       "should check %s as variant for Content component",

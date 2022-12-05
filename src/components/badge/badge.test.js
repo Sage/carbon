@@ -7,6 +7,7 @@ import {
   badgeCounter,
   badgeCrossIcon,
 } from "../../../cypress/locators/badge";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
 const BadgeComponent = ({ ...props }) => {
   return (
@@ -48,7 +49,7 @@ context("Testing Badge component", () => {
       }
     );
 
-    it.each([[0], [-12], ["test"], ["!@#$%^*()_+-=~[];:.,?{}&\"'<>"]])(
+    it.each([[0], [-12], ["test"], [CHARACTERS.SPECIALCHARACTERS]])(
       "should check Badge counter is not visible when using %s param",
       (incorectValue) => {
         CypressMountWithProviders(<BadgeComponent counter={incorectValue} />);

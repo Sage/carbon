@@ -1,3 +1,24 @@
+## [111.13.0](https://github.com/Sage/carbon/compare/v111.12.7...v111.13.0) (2022-12-02)
+
+
+### Features
+
+* **textarea, textbox:** surface maxWidth prop on components ([544a050](https://github.com/Sage/carbon/commit/544a050142b0e437aabccfdc78e8c31872795115)), closes [#5494](https://github.com/Sage/carbon/issues/5494) [#5234](https://github.com/Sage/carbon/issues/5234)
+
+### [111.12.7](https://github.com/Sage/carbon/compare/v111.12.6...v111.12.7) (2022-12-02)
+
+
+### Bug Fixes
+
+* added missing focus trap props to sidebar and full-width-dialog ([a0335bc](https://github.com/Sage/carbon/commit/a0335bc38b9f0d42d2b59a353e00d574c4082393))
+
+### [111.12.6](https://github.com/Sage/carbon/compare/v111.12.5...v111.12.6) (2022-12-01)
+
+
+### Bug Fixes
+
+* **date-range:** update styles so validation and label text wrap if they exceed input width ([014a5b3](https://github.com/Sage/carbon/commit/014a5b311cdaf770472801b6981069a00fe3ba9e)), closes [#5431](https://github.com/Sage/carbon/issues/5431)
+
 ### [111.12.5](https://github.com/Sage/carbon/compare/v111.12.4...v111.12.5) (2022-11-30)
 
 

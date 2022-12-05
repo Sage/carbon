@@ -1,16 +1,15 @@
-import * as React from "react";
+import React from "react";
 import Toast from ".";
 import { TOAST_COLORS } from "./toast.config";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
-
 import toastComponent from "../../../cypress/locators/toast";
-import { closeIconButton, getComponent } from "../../../cypress/locators/index";
-
 import { pressESCKey, pressTABKey } from "../../../cypress/support/helper";
+import { closeIconButton, getComponent } from "../../../cypress/locators/index";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const testData = "cypressData";
+const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const testData = CHARACTERS.STANDARD;
 const colorTypes = [
   ["rgb(203, 55, 74)"],
   ["rgb(51, 91, 112)"],

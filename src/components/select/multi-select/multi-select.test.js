@@ -41,6 +41,10 @@ import { loader } from "../../../../cypress/locators/loader";
 import { verifyRequiredAsteriskForLabel } from "../../../../cypress/support/component-helper/common-steps";
 
 import { keyCode, positionOfElement } from "../../../../cypress/support/helper";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../../cypress/support/component-helper/constants";
 
 const MultiSelectComponent = ({ ...props }) => {
   const [value, setValue] = React.useState([]);
@@ -463,8 +467,8 @@ const MultiSelectCustomColorComponent = ({ ...props }) => {
   );
 };
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const testPropValue = "cypress_test";
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const testPropValue = CHARACTERS.STANDARD;
 const columns = 3;
 const option1 = "Green";
 const option2 = "Purple";
@@ -597,9 +601,9 @@ context("Tests for Multi Select component", () => {
     });
 
     it.each([
-      ["small", "32px"],
-      ["medium", "40px"],
-      ["large", "48px"],
+      [SIZE.SMALL, "32px"],
+      [SIZE.MEDIUM, "40px"],
+      [SIZE.LARGE, "48px"],
     ])(
       "should use %s as size and render Multi Select with %s as height",
       (size, height) => {
@@ -695,6 +699,27 @@ context("Tests for Multi Select component", () => {
           .should("have.css", "width", inputRatio);
       }
     );
+
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for MultiSelect component",
+      (maxWidth) => {
+        CypressMountWithProviders(<MultiSelectComponent maxWidth={maxWidth} />);
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<MultiSelectComponent maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
 
     it("should not open the list with focus on Multi Select input", () => {
       CypressMountWithProviders(<MultiSelectComponent />);

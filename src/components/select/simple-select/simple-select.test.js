@@ -39,8 +39,13 @@ import { loader } from "../../../../cypress/locators/loader";
 import { verifyRequiredAsteriskForLabel } from "../../../../cypress/support/component-helper/common-steps";
 
 import { keyCode, positionOfElement } from "../../../../cypress/support/helper";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const testPropValue = CHARACTERS.STANDARD;
 
 const SimpleSelectComponent = ({ ...props }) => {
   const [value, setValue] = React.useState("");
@@ -469,8 +474,6 @@ const SimpleSelectWithLongWrappingTextComponent = () => (
   </Box>
 );
 
-const testPropValue = "cypress_test";
-
 context("Tests for Simple Select component", () => {
   describe("check props for Simple Select component", () => {
     it.each(testData)(
@@ -505,7 +508,7 @@ context("Tests for Simple Select component", () => {
       }
     );
 
-    it("should render Simple Select with data-component prop set to Cypress-Test", () => {
+    it("should render Simple Select with data-component prop set to cypress_data", () => {
       CypressMountWithProviders(
         <SimpleSelectComponent data-component={testPropValue} />
       );
@@ -516,7 +519,7 @@ context("Tests for Simple Select component", () => {
         .should("have.attr", "data-component", testPropValue);
     });
 
-    it("should render Simple Select with data-element prop set to Cypress-Test", () => {
+    it("should render Simple Select with data-element prop set to cypress_data", () => {
       CypressMountWithProviders(
         <SimpleSelectComponent data-element={testPropValue} />
       );
@@ -527,7 +530,7 @@ context("Tests for Simple Select component", () => {
         .should("have.attr", "data-element", testPropValue);
     });
 
-    it("should render Simple Select with data-role prop set to Cypress-Test", () => {
+    it("should render Simple Select with data-role prop set to cypress_data", () => {
       CypressMountWithProviders(
         <SimpleSelectComponent data-role={testPropValue} />
       );
@@ -592,9 +595,9 @@ context("Tests for Simple Select component", () => {
     });
 
     it.each([
-      ["small", "32px"],
-      ["medium", "40px"],
-      ["large", "48px"],
+      [SIZE.SMALL, "32px"],
+      [SIZE.MEDIUM, "40px"],
+      [SIZE.LARGE, "48px"],
     ])(
       "should use %s as size and render Simple Select with %s as height",
       (size, height) => {
@@ -667,6 +670,29 @@ context("Tests for Simple Select component", () => {
           .should("have.css", "width", inputRatio);
       }
     );
+
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for SimpleSelect component",
+      (maxWidth) => {
+        CypressMountWithProviders(
+          <SimpleSelectComponent maxWidth={maxWidth} />
+        );
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<SimpleSelectComponent maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
 
     it("should open the list with mouse click on Select input", () => {
       CypressMountWithProviders(<SimpleSelectComponent />);

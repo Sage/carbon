@@ -50,6 +50,11 @@ export interface SearchProps extends ValidationProps, MarginProps {
    * Leaving the `searchWidth` prop with no value will default the width to '100%'
    */
   searchWidth?: string;
+  /**
+   * Prop for specifying the max-width of the input.
+   * Leaving the `maxWidth` prop with no value will default the width to '100%'
+   */
+  maxWidth?: string;
   /** Prop for active search threshold. This must be a positive number */
   threshold?: number;
   /** Prop for `controlled` use */
@@ -74,6 +79,7 @@ export const Search = ({
   name,
   threshold = 3,
   searchWidth,
+  maxWidth,
   searchButton,
   placeholder,
   variant = "default",
@@ -229,6 +235,7 @@ export const Search = ({
     <StyledSearch
       isFocused={isFocused}
       searchWidth={searchWidth}
+      maxWidth={maxWidth}
       searchIsActive={searchIsActive}
       searchHasValue={!isControlled ? !!searchValue?.length : !!value?.length}
       showSearchButton={searchButton}

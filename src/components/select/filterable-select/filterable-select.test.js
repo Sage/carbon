@@ -43,6 +43,11 @@ import { keyCode, positionOfElement } from "../../../../cypress/support/helper";
 
 import { alertDialogPreview } from "../../../../cypress/locators/dialog";
 
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../../cypress/support/component-helper/constants";
+
 const FilterableSelectComponent = ({ ...props }) => {
   const [value, setValue] = React.useState("");
 
@@ -566,8 +571,8 @@ const FilterableSelectListActionEventComponent = ({ ...props }) => {
   );
 };
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const testPropValue = "cypress_test";
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const testPropValue = CHARACTERS.STANDARD;
 const addElementText = "Add a New Element";
 const columns = 3;
 const icon = "add";
@@ -704,9 +709,9 @@ context("Tests for Filterable Select component", () => {
     });
 
     it.each([
-      ["small", "32px"],
-      ["medium", "40px"],
-      ["large", "48px"],
+      [SIZE.SMALL, "32px"],
+      [SIZE.MEDIUM, "40px"],
+      [SIZE.LARGE, "48px"],
     ])(
       "should use %s as size and render Filterable Select with %s as height",
       (size, height) => {
@@ -802,6 +807,29 @@ context("Tests for Filterable Select component", () => {
           .should("have.css", "width", inputRatio);
       }
     );
+
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for FilterableSelect component",
+      (maxWidth) => {
+        CypressMountWithProviders(
+          <FilterableSelectComponent maxWidth={maxWidth} />
+        );
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<FilterableSelectComponent maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
 
     it("should not open the list with focus on Filterable Select input", () => {
       CypressMountWithProviders(<FilterableSelectComponent />);
