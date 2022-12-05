@@ -1,54 +1,16 @@
-import styled, { css } from "styled-components";
-
-import StyledIcon from "../icon/icon.style";
-import StyledLoaderSquare from "../loader/loader-square.style";
+import styled from "styled-components";
 import Breadcrumbs from "./breadcrumbs.component";
 
-function makeColors(color: string) {
-  return `
-  color: ${color};
-  ${StyledIcon} {
-    color: ${color};
-  }
-  ${StyledLoaderSquare} {
-    background-color: ${color};
-  }
-  `;
-}
-
-const StyledBreadcrumbs = styled(Breadcrumbs)`
-  ${({ buttonType, destructive, disabled }) =>
-    !destructive &&
-    !disabled &&
-    css`
-      ${buttonType === "primary" &&
-      `
-      background: var(--colorsActionMinor500);
-      border-color: var(--colorsActionMinorTransparent);
-      ${makeColors("var(--colorsActionMinorYang100)")}
-      &:hover {
-        background: var(--colorsActionMinor600);
-      }
-    `}
-    `}
-  ${({ size }) => css`
-    ${size === "small" &&
-    `
-      min-height: 32px;
-      padding: var(--spacing000) var(--spacing100) var(--spacing000)
-        var(--spacing100);
-    `}
-    ${size === "medium" &&
-    `
-      padding-left: var(--spacing150);
-      padding-right: var(--spacing150);
-    `}
-    ${size === "large" &&
-    `
-      padding-left: var(--spacing200);
-      padding-right: var(--spacing200);
-    `}
-  `}
+const StyledBreadcrumbsWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+  background-color: pink;
 `;
 
-export default StyledBreadcrumbs;
+const StyledBreadcrumbs = styled(Breadcrumbs)`
+  padding: 0;
+  color: green;
+  font-size: 25px;
+`;
+
+export { StyledBreadcrumbsWrapper, StyledBreadcrumbs };

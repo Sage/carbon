@@ -1,6 +1,5 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
-import { shallow, mount, ShallowWrapper, ReactWrapper } from "enzyme";
+import { shallow } from "enzyme";
 import Breadcrumbs from "./breadcrumbs.component";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

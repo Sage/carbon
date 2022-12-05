@@ -1,13 +1,12 @@
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
-import Breadcrumb from ".";
-import Link from "./link";
+import Breadcrumbs from ".";
 
-<Meta title="Breadcrumb" parameters={{ info: { disable: true } }} />
+<Meta title="Breadcrumbs" parameters={{ info: { disable: true } }} />
 
-# Breadcrumb
+# Breadcrumbs
 
-Breadcrumbs allow users to make selections from a range of values.
+Breadcrumbs are a secondary navigation aid that helps users easily understand their location.
 
 ## Contents
 
@@ -15,7 +14,9 @@ Breadcrumbs allow users to make selections from a range of values.
 - [Examples](#examples)
 - [Props](#props)
 
-## Quickstart
+## Quick Start
+
+To use Breadcrumbs component you need to import `Breadcrumbs` and use another component as a child.
 
 ```javascript
 import Breadcrumbs from "carbon-react/lib/components/breadcrumbs";
@@ -23,124 +24,22 @@ import Breadcrumbs from "carbon-react/lib/components/breadcrumbs";
 
 ## Examples
 
-### Simple Breadcrumbs
-
-Breadcrumbs allow users to make selections from a range of values.
+### Breadcrumbs
 
 <Canvas>
-  <Story name="breadcrumbs">
-    <>
-        <Breadcrumbs>
-            <Link href="www.sage.com" onClick={handleClick}>
-                Breadcrumb
-            </Link>
-            <Link href="www.sage.com" onClick={handleClick}>
-                Breadcrumb
-            </Link>
-        </Breadcrumbs>
-    </>
+  <Story name="default">
+    <div>
+      <Breadcrumbs>Here are breadcrumbs</Breadcrumbs>
+    </div>
   </Story>
 </Canvas>
 
-Active last breadcrumb.
+### Breadcrumbs
 
-<Canvas>
-  <Story name="breadcrumb">
-    <>
-        <Breadcrumbs>
-            <Link href="www.sage.com" onClick={handleClick}>
-                Breadcrumb
-            </Link>
-            <Link href="www.sage.com" onClick={handleClick}>
-                Breadcrumb
-            </Link>
-            <Link
-                href="www.sage.com"
-                onClick={handleClick}
-            >
-                Breadcrumb
-            </Link>
-        </Breadcrumbs>
-    </>
-  </Story>
-</Canvas>
-
-Breadcrumb.
-
-<Canvas>
-  <Story name="breadcrumb">
-    <>
-        <Breadcrumbs>
-            <Link href="www.sage.com" onClick={handleClick}>
-                Breadcrumb
-            </Link>
-            <Link href="www.sage.com" onClick={handleClick}>
-                Breadcrumb
-            </Link>
-            <Text>Breadcrumb</Text>
-        </Breadcrumbs>
-        <Breadcrumbs separator="-">
-            <Link href="www.sage.com" onClick={handleClick}>
-                Breadcrumb
-            </Link>
-            <Link href="www.sage.com" onClick={handleClick}>
-          Core
-        </Link>
-        <Text>Breadcrumb</Text>
-        </Breadcrumbs>
-        <Breadcrumbs>
-            <Link href="www.sage.com" onClick={handleClick}>
-                Breadcrumb
-            </Link>
-            <Link href="www.sage.com" onClick={handleClick}>
-                Breadcrumb
-            </Link>
-        <Text>Breadcrumb</Text>
-        </Breadcrumbs>
-    </>
-  </Story>
-</Canvas>
-
-Breadcrumbs with icons.
-
-<Canvas>
-  <Story name="breadcrumb">
-        <Breadcrumbs>
-            <Link href="www.sage.com" onClick={handleClick} size="small" iconType="bin">
-                Breadcrumb
-            </Link>
-            <Link href="www.sage.com" onClick={handleClick} size="small" iconType="bin">
-                Breadcrumb
-            </Link>
-                Breadcrumb
-        </Breadcrumbs>
-  </Story>
-</Canvas>
-
-Collapsed breadcrumbs.
-
-<Canvas>
-  <Story name="breadcrumb">
-    <Breadcrumbs maxItems={2} aria-label="breadcrumb">
-        <Link href="www.sage.com" onClick={handleClick}>
-            Breadcrumb
-        </Link>
-        <Link href="www.sage.com" onClick={handleClick}>
-            Breadcrumb
-        </Link>
-        <Link href="www.sage.com" onClick={handleClick}>
-            Breadcrumb
-        </Link>
-        <Link href="www.sage.com" onClick={handleClick}>
-            Breadcrumb
-        </Link>
-        <Typography color="textPrimary">Belts</Typography>
-    </Breadcrumbs>
-  </Story>
-</Canvas>
+Breadcrumbs
 
 ## Props
 
-### Breadcrumb
+### Breadcrumbs
 
-<ArgsTable of={Breadcrumb} />
+<ArgsTable of={Breadcrumbs} />

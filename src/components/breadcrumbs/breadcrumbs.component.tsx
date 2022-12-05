@@ -1,10 +1,13 @@
 import React from "react";
-import StyledBreadcrumbs from "./breadcrumbs.style";
+import {
+  StyledBreadcrumbs,
+  StyledBreadcrumbsWrapper,
+} from "./breadcrumbs.style";
 
-export const Breadcrumbs = ({ ...rest }) => (
-  <StyledBreadcrumbs {...rest}>HERE IS MY COMPONENT</StyledBreadcrumbs>
+export const Breadcrumbs = () => (
+  <StyledBreadcrumbsWrapper>
+    <StyledBreadcrumbs>Breadcrumb 1</StyledBreadcrumbs>
+  </StyledBreadcrumbsWrapper>
 );
-
-Breadcrumbs.displayName = "Breadcrumbs";
 
 export default Breadcrumbs;
