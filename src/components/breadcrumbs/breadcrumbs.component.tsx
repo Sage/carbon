@@ -1,7 +1,6 @@
 import React from "react";
 import { StyledBreadcrumbs, StyledBreadcrumbsWrapper, StyledDivider } from "./breadcrumbs.style";
 import Link from "../link";
-import VerticalDivider from "../vertical-divider";
 
 
 export const Breadcrumbs = () => (

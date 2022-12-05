@@ -9,6 +9,7 @@ const StyledBreadcrumbsWrapper = styled.div`
 
 const StyledDivider = styled(VerticalDivider)`
   transform: skewX(-25deg);
+  padding: var(--spacing100);
 `;
 
 const StyledBreadcrumbs = styled.div`
