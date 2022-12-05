@@ -7,6 +7,7 @@ import CheckableInput from "../../__internal__/checkable-input/checkable-input.c
 import RadioButtonSvg from "./radio-button-svg.component";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import Logger from "../../__internal__/utils/logger";
 
 interface InternalRadioButtonProps {
   inline?: boolean;
@@ -33,6 +34,8 @@ export interface RadioButtonProps
   /** Aria label for rendered help component */
   helpAriaLabel?: string;
 }
+
+let deprecateInputRefWarnTriggered = false;
 
 export const RadioButton = React.forwardRef<
   HTMLInputElement,
@@ -69,6 +72,7 @@ export const RadioButton = React.forwardRef<
       "data-element": dataElement,
       "data-role": dataRole,
       helpAriaLabel,
+      inputRef,
       ...props
     }: RadioButtonProps & InternalRadioButtonProps,
     ref
@@ -86,6 +90,13 @@ export const RadioButton = React.forwardRef<
       },
       [onChange]
     );
+
+    if (!deprecateInputRefWarnTriggered && inputRef) {
+      deprecateInputRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `inputRef` prop in `RadioButton` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
 
     const commonProps = {
       disabled,
@@ -122,6 +133,7 @@ export const RadioButton = React.forwardRef<
       reverse: !reverse,
       required,
       inputRef: ref,
+      ref,
       ...props,
     };
 
