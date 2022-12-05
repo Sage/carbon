@@ -241,3 +241,9 @@ Visual.args = {
   children: "My text",
   childrenSpecialCharacters: undefined,
 };
+Visual.parameters = {
+  chromatic: {
+    disable: false,
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
