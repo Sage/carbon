@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import VerticalDivider from "../vertical-divider";
 
 const StyledBreadcrumbsWrapper = styled.div`
   position: relative;
@@ -6,14 +7,13 @@ const StyledBreadcrumbsWrapper = styled.div`
   flex-direction: row;
 `;
 
-const StyledSlash = styled.div`
-  content: '\002F';
+const StyledDivider = styled(VerticalDivider)`
+  transform: skewX(-25deg);
 `;
 
 const StyledBreadcrumbs = styled.div`
-  padding: 0;
-  color: green;
-  font-size: 25px;
+  color: black;
+  font-size: 16px;
 `;
 
-export { StyledBreadcrumbsWrapper, StyledBreadcrumbs, StyledSlash };
+export { StyledBreadcrumbsWrapper, StyledBreadcrumbs, StyledDivider };

@@ -1,13 +1,14 @@
 import React from "react";
-import { StyledBreadcrumbs, StyledBreadcrumbsWrapper, StyledSlash } from "./breadcrumbs.style";
+import { StyledBreadcrumbs, StyledBreadcrumbsWrapper, StyledDivider } from "./breadcrumbs.style";
 import Link from "../link";
+import VerticalDivider from "../vertical-divider";
 
 
 export const Breadcrumbs = () => (
       <StyledBreadcrumbsWrapper>
-        <StyledBreadcrumbs><Link>Breadcrumb 1</Link></StyledBreadcrumbs><StyledSlash></StyledSlash>
-        <StyledBreadcrumbs><Link>Breadcrumb 2</Link></StyledBreadcrumbs><span>/</span>
-        <StyledBreadcrumbs><Link>Breadcrumb 3</Link></StyledBreadcrumbs><span>/</span>
+        <StyledBreadcrumbs><Link>Breadcrumb 1</Link></StyledBreadcrumbs><StyledDivider tint={70} px={2} h={10}></StyledDivider>
+        <StyledBreadcrumbs><Link>Breadcrumb 2</Link></StyledBreadcrumbs><StyledDivider tint={70} px={2} h={10}></StyledDivider>
+        <StyledBreadcrumbs><Link>Breadcrumb 3</Link></StyledBreadcrumbs><StyledDivider tint={70} px={2} h={10}></StyledDivider>
         <StyledBreadcrumbs>Current Page</StyledBreadcrumbs>
       </StyledBreadcrumbsWrapper>
 );
