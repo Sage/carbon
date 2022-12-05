@@ -1,16 +1,19 @@
 import styled from "styled-components";
-import Breadcrumbs from "./breadcrumbs.component";
 
 const StyledBreadcrumbsWrapper = styled.div`
   position: relative;
-  display: inline-block;
-  background-color: pink;
+  display: flex;
+  flex-direction: row;
 `;
 
-const StyledBreadcrumbs = styled(Breadcrumbs)`
+const StyledSlash = styled.div`
+  content: '\002F';
+`;
+
+const StyledBreadcrumbs = styled.div`
   padding: 0;
   color: green;
   font-size: 25px;
 `;
 
-export { StyledBreadcrumbsWrapper, StyledBreadcrumbs };
+export { StyledBreadcrumbsWrapper, StyledBreadcrumbs, StyledSlash };
