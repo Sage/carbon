@@ -9,12 +9,15 @@ import Select from "../select/simple-select/simple-select.component";
 import SelectList from "../select/select-list/select-list.component";
 import {
   StyledPagerLinkStyles,
+  StyledPagerNavInner,
   StyledPagerSizeOptionsInner,
   StyledPagerSummary,
   StyledSelectContainer,
 } from "./pager.style";
 import NumberInput from "../number";
 import StyledOption from "../select/option/option.style";
+import Form from "../form";
+import StyledFormField from "../../__internal__/form-field/form-field.style";
 import I18nProvider from "../i18n-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -556,6 +559,21 @@ describe("Pager", () => {
 
         expect(onPagination).not.toHaveBeenCalledWith();
       });
+    });
+  });
+
+  describe("when inside a form", () => {
+    it("the current page field has the correct styles", () => {
+      const wrapper = mount(
+        <Form>
+          <Pager totalRecords={25} currentPage={1} pageSize={5} showPageCount />
+        </Form>
+      );
+      assertStyleMatch(
+        { marginBottom: "0" },
+        wrapper.find(StyledPagerNavInner),
+        { modifier: `${StyledFormField}` }
+      );
     });
   });
 });
