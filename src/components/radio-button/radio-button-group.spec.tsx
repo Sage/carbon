@@ -1,6 +1,5 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import {
   assertStyleMatch,
   mockMatchMedia,
@@ -10,11 +9,14 @@ import RadioButtonGroupStyle from "./radio-button-group.style";
 import Fieldset from "../../__internal__/fieldset";
 import Label from "../../__internal__/label";
 import Tooltip from "../tooltip";
+import { RadioButtonGroupProps } from "./radio-button-group.component";
 
 const buttonValues = ["test-1", "test-2"];
-const name = "test-group";
 
-function render(props, renderer = TestRenderer.create) {
+function renderRadioButtonGroup({
+  name = "test-group",
+  ...props
+}: Partial<RadioButtonGroupProps>) {
   const children = buttonValues.map((value, index) => (
     <RadioButton
       id={`rId-${index}`}
@@ -24,7 +26,7 @@ function render(props, renderer = TestRenderer.create) {
     />
   ));
 
-  return renderer(
+  return mount(
     <RadioButtonGroup
       name={name}
       legend="Test RadioButtonGroup Legend"
@@ -38,10 +40,6 @@ function render(props, renderer = TestRenderer.create) {
 }
 
 describe("RadioButtonGroup", () => {
-  it("renders as expected", () => {
-    expect(render({})).toMatchSnapshot();
-  });
-
   describe("with an inline legend", () => {
     describe("when adaptiveLegendBreakpoint prop is set", () => {
       describe("when screen bigger than breakpoint", () => {
@@ -50,14 +48,11 @@ describe("RadioButtonGroup", () => {
         });
 
         it("should pass legendInline to Fieldset", () => {
-          const wrapper = render(
-            {
-              legend: "Legend",
-              legendInline: true,
-              adaptiveLegendBreakpoint: 1000,
-            },
-            mount
-          );
+          const wrapper = renderRadioButtonGroup({
+            legend: "Legend",
+            legendInline: true,
+            adaptiveLegendBreakpoint: 1000,
+          });
 
           expect(wrapper.find(Fieldset).props().inline).toEqual(true);
         });
@@ -69,14 +64,11 @@ describe("RadioButtonGroup", () => {
         });
 
         it("should pass legendInline to Fieldset", () => {
-          const wrapper = render(
-            {
-              legend: "Legend",
-              legendInline: true,
-              adaptiveLegendBreakpoint: 1000,
-            },
-            mount
-          );
+          const wrapper = renderRadioButtonGroup({
+            legend: "Legend",
+            legendInline: true,
+            adaptiveLegendBreakpoint: 1000,
+          });
 
           expect(wrapper.find(Fieldset).props().inline).toEqual(false);
         });
@@ -92,15 +84,12 @@ describe("RadioButtonGroup", () => {
         });
 
         it("should pass the correct margin to Fieldset", () => {
-          const wrapper = render(
-            {
-              legend: "Legend",
-              legendInline: true,
-              adaptiveSpacingBreakpoint: 1000,
-              ml: "10%",
-            },
-            mount
-          );
+          const wrapper = renderRadioButtonGroup({
+            legend: "Legend",
+            legendInline: true,
+            adaptiveSpacingBreakpoint: 1000,
+            ml: "10%",
+          });
 
           expect(wrapper.find(Fieldset).props().ml).toEqual("10%");
         });
@@ -112,15 +101,12 @@ describe("RadioButtonGroup", () => {
         });
 
         it('should pass "0" to Fieldset', () => {
-          const wrapper = render(
-            {
-              legend: "Legend",
-              legendInline: true,
-              adaptiveSpacingBreakpoint: 1000,
-              ml: "10%",
-            },
-            mount
-          );
+          const wrapper = renderRadioButtonGroup({
+            legend: "Legend",
+            legendInline: true,
+            adaptiveSpacingBreakpoint: 1000,
+            ml: "10%",
+          });
 
           expect(wrapper.find(Fieldset).props().ml).toEqual(undefined);
         });
@@ -150,25 +136,29 @@ describe("RadioButtonGroup", () => {
     ])(
       "when %s is passed as %s it is passed as boolean to RadioButton",
       (type, value) => {
-        const wrapper = render({ [type]: value }, mount);
+        const wrapper = renderRadioButtonGroup({ [type]: true });
         wrapper
           .find(RadioButton)
-          .forEach((node) => expect(node.props()[type]).toBe(true));
+          .forEach((node) =>
+            expect(node.props()[type as "error" | "warning" | "info"]).toBe(
+              true
+            )
+          );
       }
     );
 
     it("blocks the group behaviour if no validation set on group", () => {
-      const wrapper = render({}, mount);
+      const wrapper = renderRadioButtonGroup({});
       expect(wrapper.find(Fieldset).props().blockGroupBehaviour).toEqual(true);
     });
   });
 
   describe("required", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeAll(() => {
       wrapper = mount(
-        <RadioButtonGroup name="radio" label="Group Label" required>
+        <RadioButtonGroup name="radio" legend="Group Label" required>
           <RadioButton label="off" value="test" />
           <RadioButton label="on" value="test" />
         </RadioButtonGroup>
@@ -197,14 +187,38 @@ describe("RadioButtonGroup", () => {
 
   describe("tooltipPosition", () => {
     it("overrides the default position when value is passed", () => {
-      const { position } = render(
-        { error: "message", tooltipPosition: "bottom" },
-        mount
-      )
+      const { position } = renderRadioButtonGroup({
+        error: "message",
+        tooltipPosition: "bottom",
+      })
         .find(Tooltip)
         .props();
 
       expect(position).toEqual("bottom");
+    });
+  });
+
+  describe("when children are passed in an array", () => {
+    it("should render the list correctly", () => {
+      const radioGroup = mount(
+        <RadioButtonGroup
+          name="foo"
+          legend="Test RadioButtonGroup Legend"
+          onBlur={jest.fn()}
+          onChange={jest.fn()}
+        >
+          {[
+            <RadioButton key="radio1" defaultChecked name="foo" value="foo" />,
+            null,
+            undefined,
+            "foo",
+            <RadioButton key="radio2" name="bar" value="bar" />,
+          ]}
+        </RadioButtonGroup>
+      );
+
+      expect(radioGroup.find(RadioButton).at(0).props().checked).toBe(true);
+      expect(radioGroup.find(RadioButton).at(1).props().checked).toBe(false);
     });
   });
 });

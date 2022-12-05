@@ -1,3 +1,45 @@
+## [111.13.0](https://github.com/Sage/carbon/compare/v111.12.7...v111.13.0) (2022-12-02)
+
+
+### Features
+
+* **textarea, textbox:** surface maxWidth prop on components ([544a050](https://github.com/Sage/carbon/commit/544a050142b0e437aabccfdc78e8c31872795115)), closes [#5494](https://github.com/Sage/carbon/issues/5494) [#5234](https://github.com/Sage/carbon/issues/5234)
+
+### [111.12.7](https://github.com/Sage/carbon/compare/v111.12.6...v111.12.7) (2022-12-02)
+
+
+### Bug Fixes
+
+* added missing focus trap props to sidebar and full-width-dialog ([a0335bc](https://github.com/Sage/carbon/commit/a0335bc38b9f0d42d2b59a353e00d574c4082393))
+
+### [111.12.6](https://github.com/Sage/carbon/compare/v111.12.5...v111.12.6) (2022-12-01)
+
+
+### Bug Fixes
+
+* **date-range:** update styles so validation and label text wrap if they exceed input width ([014a5b3](https://github.com/Sage/carbon/commit/014a5b311cdaf770472801b6981069a00fe3ba9e)), closes [#5431](https://github.com/Sage/carbon/issues/5431)
+
+### [111.12.5](https://github.com/Sage/carbon/compare/v111.12.4...v111.12.5) (2022-11-30)
+
+
+### Bug Fixes
+
+* **cypress:** update accessibility tests to ignore  mdx docs on contributing ([0a53d49](https://github.com/Sage/carbon/commit/0a53d494685fc43ce521bd5896b18a6da873c35a))
+
+### [111.12.4](https://github.com/Sage/carbon/compare/v111.12.3...v111.12.4) (2022-11-24)
+
+
+### Bug Fixes
+
+* **date-picker:** correct css variable for disabled state and current date disable styling ([52de6e4](https://github.com/Sage/carbon/commit/52de6e452fe9f8bd57f195952b9a66f0af4c3c8a))
+
+### [111.12.3](https://github.com/Sage/carbon/compare/v111.12.2...v111.12.3) (2022-11-24)
+
+
+### Bug Fixes
+
+* **loader-utils:** bumps version to remove critical security vulnerability ([4b0efb7](https://github.com/Sage/carbon/commit/4b0efb7635697cb9a99d71e6aafca563f7bbb6b5))
+
 ### [111.12.2](https://github.com/Sage/carbon/compare/v111.12.1...v111.12.2) (2022-11-23)
 
 

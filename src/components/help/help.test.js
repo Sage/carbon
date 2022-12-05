@@ -6,8 +6,12 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import { getDataElementByValue, getComponent } from "../../../cypress/locators";
 
 import { keyCode } from "../../../cypress/support/helper";
+import {
+  COLOR,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const tooltipText = "Some helpful text goes here";
 const errorMsg = (msg, param) => sprintf(msg, param, "");
 
@@ -129,10 +133,10 @@ context("Tests for Help component", () => {
     );
 
     it.each([
-      ["orange", "rgb(255, 156, 75)"],
-      ["red", "rgb(205, 56, 75)"],
-      ["black", "rgb(0, 0, 0)"],
-      ["brown", "rgb(105, 61, 57)"],
+      ["orange", COLOR.ORANGE],
+      ["red", COLOR.RED],
+      ["black", COLOR.BLACK],
+      ["brown", COLOR.BROWN],
     ])(
       "should check tooltip background-color as %s for Help component",
       (name, color) => {
@@ -150,10 +154,10 @@ context("Tests for Help component", () => {
     );
 
     it.each([
-      ["orange", "rgb(255, 156, 75)"],
-      ["red", "rgb(205, 56, 75)"],
-      ["black", "rgb(0, 0, 0)"],
-      ["brown", "rgb(105, 61, 57)"],
+      ["orange", COLOR.ORANGE],
+      ["red", COLOR.RED],
+      ["black", COLOR.BLACK],
+      ["brown", COLOR.BROWN],
     ])(
       "should check tooltip font color as %s for Help component",
       (name, color) => {

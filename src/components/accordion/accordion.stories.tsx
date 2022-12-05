@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { ComponentStory } from "@storybook/react";
 import Accordion from "./accordion.component";
 import AccordionGroup from "./accordion-group/accordion-group.component";
 import Box from "../box/box.component";
@@ -20,16 +21,9 @@ interface ValidationObject {
 
 type Validations = keyof ValidationObject;
 
-// stories for component testing
-export const AccordionComponent = ({ ...props }) => {
+export const AccordionDefault: ComponentStory<typeof Accordion> = () => {
   return (
-    <Accordion
-      onChange={() => {}}
-      subTitle="Sub Title"
-      title="Title"
-      width="100%"
-      {...props}
-    >
+    <Accordion title="Heading">
       <div>Content</div>
       <div>Content</div>
       <div>Content</div>
@@ -37,177 +31,151 @@ export const AccordionComponent = ({ ...props }) => {
   );
 };
 
-export const AccordionWithIcon = () => {
-  const [errors] = React.useState({
-    one: errorVal,
-  });
-  const [warnings] = React.useState({
-    one: warningVal,
-  });
-
-  const [expanded, setExpanded] = React.useState({
-    one: false,
-  });
-
+export const WithDisableContentPadding: ComponentStory<
+  typeof Accordion
+> = () => {
   return (
-    <AccordionGroup>
-      <Accordion
-        title="Heading"
-        expanded={expanded.one}
-        onChange={() =>
-          setExpanded((previousState) => ({
-            ...previousState,
-            one: !previousState.one,
-          }))
-        }
-        error={errors.one}
-        warning={warnings.one}
-      >
-        <Checkbox label="Add error" />
-      </Accordion>
-    </AccordionGroup>
+    <Accordion disableContentPadding title="Heading">
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
   );
 };
 
-export const AccordionGroupWithError = () => {
-  const [errors] = React.useState({
-    one: errorVal,
-    two: errorVal,
-    three: errorVal,
-  });
-
+export const Transparent: ComponentStory<typeof Accordion> = () => {
   return (
-    <div
-      style={{
-        marginTop: "16px",
-      }}
-    >
-      <AccordionGroup>
-        <Accordion title="Heading" error={errors.one}>
-          <div style={{ padding: "8px" }}>
-            <Checkbox label="Add error" error={!!errors.one} />
-          </div>
-        </Accordion>
-      </AccordionGroup>
-    </div>
+    <Accordion scheme="transparent" title="Heading">
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
   );
 };
 
-export const AccordionGroupWithWarning = () => {
-  const [warnings] = React.useState({
-    one: warningVal,
-  });
-
+export const Small: ComponentStory<typeof Accordion> = () => {
   return (
-    <div
-      style={{
-        marginTop: "16px",
-      }}
-    >
-      <AccordionGroup>
-        <Accordion title="Heading" warning={warnings.one}>
-          <div style={{ padding: "8px" }}>
-            <Checkbox label="Add warning" warning={!!warnings.one} />
-          </div>
-        </Accordion>
-      </AccordionGroup>
-    </div>
+    <Accordion size="small" title="Heading">
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
   );
 };
 
-export const AccordionGroupWithInfo = () => {
-  const [infos] = React.useState({
-    one: infoVal,
-  });
-
+export const Subtitle: ComponentStory<typeof Accordion> = () => {
   return (
-    <div
-      style={{
-        marginTop: "16px",
-      }}
-    >
-      <AccordionGroup>
-        <Accordion title="Heading" info={infos.one}>
-          <div style={{ padding: "8px" }}>
-            <Checkbox label="Add info" info={!!infos.one} />
-          </div>
-        </Accordion>
-      </AccordionGroup>
-    </div>
+    <Accordion subTitle="Sub title" title="Heading">
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
   );
 };
 
-export const AccordionGroupComponent = () => {
+export const Fullborder: ComponentStory<typeof Accordion> = () => {
   return (
-    <AccordionGroup>
-      <Accordion title="First Accordion" onChange={() => {}} width="100%">
-        <Box p={2}>
-          <Textbox label="Textbox in an Accordion" />
-        </Box>
-      </Accordion>
-      <Accordion title="Second Accordion" onChange={() => {}} width="100%">
-        <Box p={2}>
-          <Box height="100px" bg="primary" />
-        </Box>
-      </Accordion>
-      <Accordion title="Third Accordion" onChange={() => {}} width="100%">
-        <div>Content</div>
-      </Accordion>
-    </AccordionGroup>
+    <Accordion borders="full" title="Heading">
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
   );
 };
 
-export const DynamicContent = () => {
-  const [contentCount, setContentCount] = React.useState(3);
-  const modifyContentCount = (modifier: number) => {
-    if (modifier === 1) {
-      setContentCount(contentCount + 1);
-    }
-    if (modifier === -1 && contentCount > 0) {
-      setContentCount(contentCount - 1);
-    }
-  };
+export const LeftAlignedIcon: ComponentStory<typeof Accordion> = () => {
+  return (
+    <Accordion iconAlign="left" title="Heading">
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
+  );
+};
+
+export const DifferentWidth: ComponentStory<typeof Accordion> = () => {
+  return (
+    <Accordion width="500px" title="Heading">
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
+  );
+};
+
+export const WithDifferentPaddingAndMargin: ComponentStory<
+  typeof Accordion
+> = () => {
   return (
     <>
-      <Button data-element="add-content" onClick={() => modifyContentCount(1)}>
-        Add content
-      </Button>
-      <Button
-        data-element="remove-content"
-        onClick={() => modifyContentCount(-1)}
-        ml={2}
-      >
-        Remove content
-      </Button>
-      <Accordion title="Title" defaultExpanded>
-        {Array.from(Array(contentCount).keys()).map((value) => (
-          <div key={value}>Content</div>
-        ))}
+      <Accordion m={0} p={0} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion m={1} p={1} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion m={2} p={2} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion m={3} p={3} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion m={4} p={4} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion m={5} p={5} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion m={6} p={6} title="Accordion">
+        <div>content</div>
       </Accordion>
     </>
   );
 };
 
-// stories from storybook to import
-export const AccordionDefault = ({ ...props }) => {
+export const WithDifferentPaddingAndMarginInAccordionTitle: ComponentStory<
+  typeof Accordion
+> = () => {
   return (
-    <Accordion title="Heading" {...props}>
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
-    </Accordion>
+    <>
+      <Accordion headerSpacing={{ p: 0 }} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion headerSpacing={{ p: 1 }} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion headerSpacing={{ p: 2 }} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion headerSpacing={{ p: 3 }} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion headerSpacing={{ p: 4 }} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion headerSpacing={{ p: 5 }} title="Accordion">
+        <div>content</div>
+      </Accordion>
+      <Accordion headerSpacing={{ p: 6 }} title="Accordion">
+        <div>content</div>
+      </Accordion>
+    </>
   );
 };
 
-export const AccordionWithBoxAndDifferentPaddings = () => {
+export const WithBoxComponentAndDifferentPaddings: ComponentStory<
+  typeof Accordion
+> = () => {
+  const [isOpen, setOpen] = useState(true);
   return (
-    <Box>
+    <>
       <Accordion
-        expanded
-        disableContentPadding
-        headerSpacing={{
-          p: 2,
+        expanded={isOpen}
+        onChange={() => {
+          setOpen(!isOpen);
         }}
+        disableContentPadding
+        headerSpacing={{ p: 2 }}
         title="Accordion controlled"
       >
         <Box p={2} pr="21px">
@@ -232,9 +200,7 @@ export const AccordionWithBoxAndDifferentPaddings = () => {
       </Accordion>
       <Accordion
         disableContentPadding
-        headerSpacing={{
-          p: 3,
-        }}
+        headerSpacing={{ p: 3 }}
         title="Accordion with a very long title Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in ornare neque. Maecenas pellentesque et erat tincidunt mollis. 
                 Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula. "
       >
@@ -258,17 +224,63 @@ export const AccordionWithBoxAndDifferentPaddings = () => {
           </div>
         </Box>
       </Accordion>
-    </Box>
+      <Accordion
+        disableContentPadding
+        headerSpacing={{ p: 4 }}
+        title="Accordion"
+      >
+        <Box p={4} pr="37px">
+          <Box bg="gray">
+            This is example content inside of the Box component with gray
+            background
+          </Box>
+          <div>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
+            ornare neque. Maecenas pellentesque et erat tincidunt mollis. Etiam
+            diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula.
+            Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl.
+            Donec semper odio elit, tempus ultrices est molestie id. Ut sit amet
+            sollicitudin ipsum, eu tristique ligula. Praesent velit velit,
+            finibus ut odio sit amet, fringilla iaculis lacus. Aliquam facilisis
+            libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit,
+            ac molestie ante dapibus. Ut molestie auctor turpis, quis ultrices
+            ante aliquet eu. Aenean et condimentum arcu, non malesuada elit.
+            Cras a magna vestibulum, semper tortor id, molestie eros.
+          </div>
+        </Box>
+      </Accordion>
+      <Accordion
+        disableContentPadding
+        headerSpacing={{ p: 5 }}
+        title="Accordion"
+      >
+        <Box p={5} pr="45px">
+          <Box bg="gray">
+            This is example content inside of the Box component with gray
+            background
+          </Box>
+          <div>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
+            ornare neque. Maecenas pellentesque et erat tincidunt mollis. Etiam
+            diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula.
+            Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl.
+            Donec semper odio elit, tempus ultrices est molestie id. Ut sit amet
+            sollicitudin ipsum, eu tristique ligula. Praesent velit velit,
+            finibus ut odio sit amet, fringilla iaculis lacus. Aliquam facilisis
+            libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit,
+            ac molestie ante dapibus. Ut molestie auctor turpis, quis ultrices
+            ante aliquet eu. Aenean et condimentum arcu, non malesuada elit.
+            Cras a magna vestibulum, semper tortor id, molestie eros.
+          </div>
+        </Box>
+      </Accordion>
+    </>
   );
 };
 
-export const AccordionOpeningButton = () => {
+export const OpeningButton: ComponentStory<typeof Accordion> = () => {
   return (
-    <div
-      style={{
-        margin: "8px",
-      }}
-    >
+    <div style={{ margin: "8px" }}>
       <Accordion
         title="More info"
         openTitle="Less info"
@@ -304,9 +316,7 @@ export const AccordionOpeningButton = () => {
         title="More info"
         openTitle="Less info"
         buttonHeading
-        headerSpacing={{
-          px: 0,
-        }}
+        headerSpacing={{ px: 0 }}
         buttonWidth={96}
       >
         <div>Content</div>
@@ -322,9 +332,7 @@ export const AccordionOpeningButton = () => {
         iconAlign="left"
         buttonHeading
         buttonWidth={120}
-        headerSpacing={{
-          px: 1,
-        }}
+        headerSpacing={{ px: 1 }}
       >
         <div>Content</div>
         <div>Content</div>
@@ -334,7 +342,7 @@ export const AccordionOpeningButton = () => {
   );
 };
 
-export const AccordionGroupDefault = () => {
+export const Grouped: ComponentStory<typeof Accordion> = () => {
   return (
     <AccordionGroup>
       <Accordion title="First Accordion">
@@ -358,23 +366,23 @@ export const AccordionGroupDefault = () => {
   );
 };
 
-export const AccordionGroupValidation = () => {
-  const [errors, setErrors] = React.useState({
+export const WithValidationIcon: ComponentStory<typeof Accordion> = () => {
+  const [errors, setErrors] = useState({
     one: errorVal,
     two: errorVal,
     three: errorVal,
   });
-  const [warnings, setWarnings] = React.useState({
+  const [warnings, setWarnings] = useState({
     one: warningVal,
     two: warningVal,
     three: warningVal,
   });
-  const [infos, setInfos] = React.useState({
+  const [infos, setInfos] = useState({
     one: infoVal,
     two: infoVal,
     three: infoVal,
   });
-  const [expanded, setExpanded] = React.useState({
+  const [expanded, setExpanded] = useState({
     one: false,
     two: false,
     three: true,
@@ -387,11 +395,10 @@ export const AccordionGroupValidation = () => {
     msg: string
   ) => {
     const update = type[id] ? undefined : msg;
-    setter((previous: ValidationObject) => ({ ...previous, [id]: update }));
+    setter((previous) => ({ ...previous, [id]: update }));
   };
-
   return (
-    <Box>
+    <div style={{ marginTop: "16px" }}>
       <AccordionGroup>
         <Accordion
           title="Heading"
@@ -406,11 +413,7 @@ export const AccordionGroupValidation = () => {
           warning={warnings.one}
           info={infos.one}
         >
-          <div
-            style={{
-              padding: "8px",
-            }}
-          >
+          <div style={{ padding: "8px" }}>
             <Checkbox
               label="Add error"
               error={!!errors.one}
@@ -445,11 +448,7 @@ export const AccordionGroupValidation = () => {
           warning={warnings.two}
           info={infos.two}
         >
-          <div
-            style={{
-              padding: "8px",
-            }}
-          >
+          <div style={{ padding: "8px" }}>
             <Checkbox
               label="Add error"
               error={!!errors.two}
@@ -484,11 +483,7 @@ export const AccordionGroupValidation = () => {
           warning={warnings.three}
           info={infos.three}
         >
-          <div
-            style={{
-              padding: "8px",
-            }}
-          >
+          <div style={{ padding: "8px" }}>
             <Checkbox
               label="Add error"
               error={!!errors.three}
@@ -510,11 +505,37 @@ export const AccordionGroupValidation = () => {
           </div>
         </Accordion>
       </AccordionGroup>
-    </Box>
+    </div>
   );
 };
 
-export const AccordionWithDefinitionList = () => {
+export const WithDynamicContent: ComponentStory<typeof Accordion> = () => {
+  const [contentCount, setContentCount] = useState(3);
+  const modifyContentCount = (modifier: number) => {
+    if (modifier === 1) {
+      setContentCount(contentCount + 1);
+    }
+    if (modifier === -1 && contentCount > 0) {
+      setContentCount(contentCount - 1);
+    }
+  };
+
+  return (
+    <>
+      <Button onClick={() => modifyContentCount(1)}>Add content</Button>
+      <Button onClick={() => modifyContentCount(-1)} ml={2}>
+        Remove content
+      </Button>
+      <Accordion title="Title">
+        {Array.from(Array(contentCount).keys()).map((value) => (
+          <div key={value}>Content</div>
+        ))}
+      </Accordion>
+    </>
+  );
+};
+
+export const WithDefinitionList: ComponentStory<typeof Accordion> = () => {
   return (
     <Accordion title="Heading" expanded>
       <Dl>

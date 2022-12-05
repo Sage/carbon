@@ -91,6 +91,11 @@ WithCustomLabelWidthAndInputWidth.args = {
   labelInline: true,
 };
 
+export const WithCustomMaxWidth = DefaultStory.bind({});
+WithCustomMaxWidth.args = {
+  maxWidth: "50%",
+};
+
 export const WithFieldHelp = DefaultStory.bind({});
 WithFieldHelp.args = { fieldHelp: "Help" };
 

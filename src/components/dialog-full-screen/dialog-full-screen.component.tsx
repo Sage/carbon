@@ -37,6 +37,16 @@ export interface DialogFullScreenProps extends ModalProps {
   disableContentPadding?: boolean;
   /** Optional reference to an element meant to be focused on open */
   focusFirstElement?: React.MutableRefObject<HTMLElement | null>;
+  /**
+   * Function to replace focus trap
+   * @ignore
+   * @private
+   */
+  bespokeFocusTrap?: (
+    ev: KeyboardEvent,
+    firstElement?: HTMLElement,
+    lastElement?: HTMLElement
+  ) => void;
   /** Container for components to be displayed in the header */
   headerChildren?: React.ReactNode;
   /** Adds Help tooltip to Header */
@@ -67,6 +77,7 @@ export const DialogFullScreen = ({
   "aria-labelledby": ariaLabelledBy,
   disableAutoFocus = false,
   focusFirstElement,
+  bespokeFocusTrap,
   open,
   children,
   title,
@@ -150,6 +161,7 @@ export const DialogFullScreen = ({
       <FocusTrap
         autoFocus={!disableAutoFocus}
         focusFirstElement={focusFirstElement}
+        bespokeTrap={bespokeFocusTrap}
         wrapperRef={dialogRef}
         isOpen={open}
         additionalWrapperRefs={focusableContainers}

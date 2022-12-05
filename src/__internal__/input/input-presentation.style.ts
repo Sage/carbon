@@ -6,11 +6,12 @@ import { InputContextProps } from "../input-behaviour";
 import { CarbonProviderProps } from "../../components/carbon-provider";
 
 export const StyledInputPresentationContainer = styled.div<
-  Pick<CommonInputPresentationProps, "inputWidth">
+  Pick<CommonInputPresentationProps, "inputWidth" | "maxWidth">
 >`
   flex: 0 0 ${({ inputWidth }) => inputWidth}%;
   display: flex;
   position: relative;
+  max-width: ${({ maxWidth }) => (maxWidth ? `${maxWidth}` : "100%")};
 `;
 
 function stylingForValidations({

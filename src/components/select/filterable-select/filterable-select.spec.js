@@ -15,6 +15,7 @@ import Button from "../../button";
 import Label from "../../../__internal__/label";
 import InputIconToggle from "../../../__internal__/input-icon-toggle";
 import guid from "../../../__internal__/utils/helpers/guid";
+import { InputPresentation } from "../../../__internal__/input";
 
 jest.mock("../../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -1044,6 +1045,30 @@ describe("FilterableSelect", () => {
 describe("coverage filler for else path", () => {
   const wrapper = renderSelect();
   wrapper.find("input").simulate("blur");
+});
+
+describe("when maxWidth is passed", () => {
+  it("should be passed to InputPresentation", () => {
+    const wrapper = renderSelect({ maxWidth: "67%" });
+
+    assertStyleMatch(
+      {
+        maxWidth: "67%",
+      },
+      wrapper.find(InputPresentation)
+    );
+  });
+
+  it("renders with maxWidth as 100% when no maxWidth is specified", () => {
+    const wrapper = renderSelect({ maxWidth: "" });
+
+    assertStyleMatch(
+      {
+        maxWidth: "100%",
+      },
+      wrapper.find(InputPresentation)
+    );
+  });
 });
 
 function renderSelect(props = {}, renderer = mount) {

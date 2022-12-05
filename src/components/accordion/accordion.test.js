@@ -15,7 +15,10 @@ import {
   ACCORDION_REMOVE_CONTENT,
 } from "../../../cypress/locators/accordion/locators";
 import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
-import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
 import {
   AccordionComponent,
@@ -31,12 +34,9 @@ import {
   AccordionGroupDefault,
   AccordionGroupValidation,
   AccordionWithDefinitionList,
-} from "./accordion.stories.tsx";
+} from "./accordion-test.stories";
 
-const sizes = [
-  ["small", "24px"],
-  ["large", "46px"],
-];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const accWidths = [["700px"], ["900px"], ["1100px"], ["1300px"]];
 
 context("Testing Accordion component", () => {
@@ -181,7 +181,7 @@ context("Testing Accordion component", () => {
       }
     );
 
-    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+    it.each(testData)(
       "should render Accordion component with %s as a title",
       (titleValue) => {
         CypressMountWithProviders(<AccordionComponent title={titleValue} />);
@@ -190,7 +190,7 @@ context("Testing Accordion component", () => {
       }
     );
 
-    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+    it.each(testData)(
       "should render Accordion component with %s as a subtitle",
       (titleValue) => {
         CypressMountWithProviders(<AccordionComponent subTitle={titleValue} />);
@@ -199,7 +199,10 @@ context("Testing Accordion component", () => {
       }
     );
 
-    it.each(sizes)(
+    it.each([
+      [SIZE.SMALL, "24px"],
+      [SIZE.LARGE, "46px"],
+    ])(
       "should render Accordion component with %s as a size and has height property set to %s",
       (size, height) => {
         CypressMountWithProviders(<AccordionComponent size={size} />);

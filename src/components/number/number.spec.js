@@ -3,6 +3,8 @@ import { mount } from "enzyme";
 import Number from "./number.component";
 import Textbox from "../textbox";
 import Label from "../../__internal__/label";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import InputPresentation from "../../__internal__/input/input-presentation.component";
 
 describe("Number Input", () => {
   let wrapper, input, onChangeFn, onKeyDownFn;
@@ -125,6 +127,29 @@ describe("Number Input", () => {
     it("the isRequired prop is passed to the label", () => {
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
+    });
+  });
+
+  describe("when maxWidth is passed", () => {
+    it("should be passed to InputPresentation", () => {
+      wrapper = renderNumberInput({ maxWidth: "67%" });
+
+      assertStyleMatch(
+        {
+          maxWidth: "67%",
+        },
+        wrapper.find(InputPresentation)
+      );
+    });
+
+    it("renders with maxWidth as 100% when no maxWidth is specified", () => {
+      wrapper = renderNumberInput({ maxWidth: "" });
+      assertStyleMatch(
+        {
+          maxWidth: "100%",
+        },
+        wrapper.find(InputPresentation)
+      );
     });
   });
 });

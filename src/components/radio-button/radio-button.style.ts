@@ -8,8 +8,14 @@ import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/c
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import baseTheme from "../../style/themes/base";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
+import { RadioButtonProps } from "./radio-button.component";
 
-const RadioButtonStyle = styled(CheckboxStyle)`
+const RadioButtonStyle = styled(CheckboxStyle)<
+  Pick<
+    RadioButtonProps,
+    "disabled" | "fieldHelpInline" | "reverse" | "size"
+  > & { inline?: boolean }
+>`
   ${({ disabled, fieldHelpInline, reverse, size, inline }) => css`
     margin-bottom: var(--spacing150);
 

@@ -1,12 +1,12 @@
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { mount, ReactWrapper, shallow } from "enzyme";
 
 import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import CharacterCount from "../../__internal__/character-count";
-import Textarea from ".";
+import Textarea, { TextareaProps } from ".";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
 import { Input } from "../../__internal__/input";
 import FormField from "../../__internal__/form-field";
@@ -23,18 +23,22 @@ import StyledTextarea from "./textarea.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
-guid.mockImplementation(() => mockedGuid);
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
+
+function renderTextarea(props?: TextareaProps, renderer = mount) {
+  return renderer(<Textarea name="textarea" {...props} />);
+}
 
 describe("Textarea", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   testStyledSystemMargin((props) => <Textarea {...props} />);
   describe("when textarea is rendered with default props", () => {
-    let textarea;
+    let textarea: HTMLInputElement;
 
     beforeAll(() => {
       wrapper = renderTextarea();
-      textarea = wrapper.find("textarea").instance();
+      textarea = wrapper.find("textarea").getDOMNode();
     });
 
     it("the height of the textarea should remain unchanged", () => {
@@ -79,7 +83,7 @@ describe("Textarea", () => {
     {
       info: "info",
     },
-  ])(
+  ] as const)(
     "pass hasIcon to InputPresentation when an icon is present inside",
     (props) => {
       wrapper = renderTextarea({
@@ -249,9 +253,11 @@ describe("Textarea", () => {
                 />
               );
 
-              expect(textarea.find(Input).prop("aria-describedby")).toBe(
-                `${id}-field-help ${id}-validation-icon`
-              );
+              it('should render a valid "aria-describedby"', () => {
+                expect(textarea.find(Input).prop("aria-describedby")).toBe(
+                  `${id}-field-help ${id}-validation-icon`
+                );
+              });
             }
           );
         });
@@ -260,36 +266,31 @@ describe("Textarea", () => {
   });
 
   describe('when the "expandable" prop is set to "true"', () => {
-    let textarea, textareaInstance;
+    let textarea: HTMLInputElement;
 
     beforeEach(() => {
       wrapper = renderTextarea({ expandable: true });
-      textarea = wrapper.find("textarea");
-      textareaInstance = textarea.instance();
+      textarea = wrapper.find("textarea").getDOMNode();
     });
 
     it("then on window resize the height of the textarea should be the same as it's scrollHeight", () => {
       const expectedScrollHeight = 500;
 
       jest
-        .spyOn(textareaInstance, "scrollHeight", "get")
+        .spyOn(textarea, "scrollHeight", "get")
         .mockImplementation(() => expectedScrollHeight);
       window.dispatchEvent(new Event("resize"));
-      expect(textareaInstance.style.height).toEqual(
-        `${expectedScrollHeight}px`
-      );
+      expect(textarea.style.height).toEqual(`${expectedScrollHeight}px`);
     });
 
     it("then on component update the height of the textarea should be the same as it's scrollHeight", () => {
       const expectedScrollHeight = 500;
 
       jest
-        .spyOn(textareaInstance, "scrollHeight", "get")
+        .spyOn(textarea, "scrollHeight", "get")
         .mockImplementation(() => expectedScrollHeight);
       wrapper.setProps({ value: "abc" });
-      expect(textareaInstance.style.height).toEqual(
-        `${expectedScrollHeight}px`
-      );
+      expect(textarea.style.height).toEqual(`${expectedScrollHeight}px`);
     });
   });
 
@@ -374,10 +375,33 @@ describe("Textarea", () => {
       expect(wrapper.find(InputPresentation).props().inputWidth).toBe(55);
     });
   });
+
+  describe("when maxWidth is passed", () => {
+    it("should be passed to InputPresentation", () => {
+      wrapper = renderTextarea({ maxWidth: "67%" });
+
+      assertStyleMatch(
+        {
+          maxWidth: "67%",
+        },
+        wrapper.find(InputPresentation)
+      );
+    });
+
+    it("renders with maxWidth as 100% when no maxWidth is specified", () => {
+      wrapper = renderTextarea({ maxWidth: "" });
+      assertStyleMatch(
+        {
+          maxWidth: "100%",
+        },
+        wrapper.find(InputPresentation)
+      );
+    });
+  });
 });
 
 describe("componentWillUnmount", () => {
-  let removeEventListenerSpy;
+  let removeEventListenerSpy: jest.SpyInstance;
 
   beforeEach(() => {
     removeEventListenerSpy = jest.spyOn(window, "removeEventListener");
@@ -432,7 +456,7 @@ describe("componentWillUnmount", () => {
   });
 
   describe("required", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeAll(() => {
       wrapper = renderTextarea({ required: true, label: "required" }, mount);
@@ -450,7 +474,7 @@ describe("componentWillUnmount", () => {
   });
 
   describe("new validations", () => {
-    const renderWithNewValidations = ({ error, warning }) =>
+    const renderWithNewValidations = ({ error, warning }: TextareaProps) =>
       mount(
         <CarbonProvider validationRedesignOptIn>
           <Textarea
@@ -460,7 +484,6 @@ describe("componentWillUnmount", () => {
             labelAlign="left"
             labelInline
             labelWidth={100}
-            reverse
           />
         </CarbonProvider>
       );
@@ -517,7 +540,3 @@ describe("componentWillUnmount", () => {
     });
   });
 });
-
-function renderTextarea(props, renderer = mount) {
-  return renderer(<Textarea name="textarea" {...props} />);
-}

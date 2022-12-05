@@ -6,6 +6,8 @@ export interface CommonInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   /* The default value alignment on the input */
   align?: "right" | "left";
+  /** Override the variant component */
+  as?: React.ElementType;
   /** If true the Component will be focused when rendered */
   autoFocus?: boolean;
   /** If true, the component will be disabled */
@@ -35,10 +37,14 @@ export interface CommonInputProps
 }
 
 export interface InputProps extends CommonInputProps {
+  /** The visible width of the text control, in average character widths */
+  cols?: number;
   /** Integer to determine a timeout for the defered callback */
   deferTimeout?: number;
   /** Defered callback to be called after the onChange event */
   onChangeDeferred?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  /** The number of visible text lines for the control */
+  rows?: number;
   /** HTML type attribute of the input */
   type?: string;
 }

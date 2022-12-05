@@ -14,6 +14,7 @@ interface StyledSearchProps {
   searchHasValue?: boolean;
   searchIsActive?: boolean;
   searchWidth?: string;
+  maxWidth?: string;
   showSearchButton?: boolean;
   variant?: string;
 }
@@ -22,6 +23,7 @@ const StyledSearch = styled.div<StyledSearchProps>`
   ${({
     isFocused,
     searchWidth,
+    maxWidth,
     searchIsActive,
     searchHasValue,
     showSearchButton,
@@ -41,6 +43,7 @@ const StyledSearch = styled.div<StyledSearchProps>`
     return css`
       ${margin}
       width: ${searchWidth ? `${searchWidth}` : "100%"};
+      max-width: ${maxWidth ? `${maxWidth}` : "100%"};
       padding-bottom: 2px;
       background-color: transparent;
       border-bottom: 2px solid ${variantColor};
