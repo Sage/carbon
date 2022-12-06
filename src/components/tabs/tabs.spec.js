@@ -971,4 +971,117 @@ describe("Tabs", () => {
       }
     );
   });
+
+  describe.each(["error", "warning", "info"])(
+    "showValidationsSummary",
+    (validation) => {
+      it(`passes the ${validation} validation failures from the child inputs to the Tab's title when they are strings`, () => {
+        const message = mount(
+          <Tabs data-element="bar" data-role="baz" showValidationsSummary>
+            <Tab tabId="1" title="Test">
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: validation }}
+              />
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: validation }}
+              />
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: validation }}
+              />
+            </Tab>
+          </Tabs>
+        )
+          .find(TabTitle)
+          .prop(`${validation}Message`);
+
+        expect(message).toEqual(
+          `• ${validation}\n• ${validation}\n• ${validation}`
+        );
+      });
+
+      it(`does not pass the ${validation} validation failures from the child inputs to the Tab's title when they are not strings`, () => {
+        const message = mount(
+          <Tabs data-element="bar" data-role="baz" showValidationsSummary>
+            <Tab tabId="1" title="Test">
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: validation }}
+              />
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: validation }}
+              />
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: true }}
+              />
+            </Tab>
+          </Tabs>
+        )
+          .find(TabTitle)
+          .prop(`${validation}Message`);
+
+        expect(message).toEqual(`• ${validation}\n• ${validation}`);
+      });
+
+      it(`does not add a "•" when there is only one string ${validation} validation failure`, () => {
+        const message = mount(
+          <Tabs data-element="bar" data-role="baz" showValidationsSummary>
+            <Tab tabId="1" title="Test">
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: validation }}
+              />
+            </Tab>
+          </Tabs>
+        )
+          .find(TabTitle)
+          .prop(`${validation}Message`);
+
+        expect(message).toEqual(validation);
+      });
+
+      it(`passes the ${validation}Message if there is only boolean ${validation} validation failures`, () => {
+        const message = mount(
+          <Tabs data-element="bar" data-role="baz" showValidationsSummary>
+            <Tab
+              tabId="1"
+              title="Test"
+              {...{ [`${validation}Message`]: `${validation} message` }}
+            >
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: true }}
+              />
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: true }}
+              />
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: true }}
+              />
+            </Tab>
+          </Tabs>
+        )
+          .find(TabTitle)
+          .prop(`${validation}Message`);
+
+        expect(message).toEqual(`${validation} message`);
+      });
+    }
+  );
 });

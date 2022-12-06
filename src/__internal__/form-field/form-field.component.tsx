@@ -143,9 +143,9 @@ const FormField = ({
   }, []);
 
   useEffect(() => {
-    if (setError) setError(id, !!error);
-    if (setWarning) setWarning(id, !!warning);
-    if (setInfo) setInfo(id, !!info);
+    if (setError) setError(id, error);
+    if (setWarning) setWarning(id, warning);
+    if (setInfo) setInfo(id, info);
 
     return () => {
       if (!isMounted.current) {

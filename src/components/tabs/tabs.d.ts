@@ -40,6 +40,10 @@ export interface TabsProps extends MarginProps {
       info?: boolean;
     };
   };
+  /** When this prop is set any string validation failures in the children of each Tab
+   * will be summaraised in the Tooltip next to the Tab title
+   */
+  showValidationsSummary?: boolean;
 }
 
 declare function Tabs(props: TabsProps): JSX.Element;

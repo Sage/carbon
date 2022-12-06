@@ -2,9 +2,9 @@ import * as React from "react";
 import { PaddingProps } from "styled-system";
 
 export interface TabContextProps {
-  setError?: (childId: string, hasError: boolean) => void;
-  setWarning?: (childId: string, hasWarning: boolean) => void;
-  setInfo?: (childId: string, hasInfo: boolean) => void;
+  setError?: (childId: string, error?: boolean | string) => void;
+  setWarning?: (childId: string, warning?: boolean | string) => void;
+  setInfo?: (childId: string, info?: boolean | string) => void;
 }
 
 export interface TabProps extends PaddingProps {

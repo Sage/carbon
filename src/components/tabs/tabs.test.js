@@ -187,6 +187,32 @@ const TabsComponentValidations = ({ ...props }) => {
 };
 
 // eslint-disable-next-line react/prop-types
+const TabsComponentWithValidationsSummary = ({ validation }) => {
+  return (
+    <div
+      style={{
+        padding: "4px",
+      }}
+    >
+      <Tabs align="left" position="top" showValidationsSummary>
+        <Tab
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-1"
+          title="Tab 1"
+          key="tab-1"
+        >
+          <Checkbox label="foo" {...validation} />
+          <Checkbox label="foo" {...validation} />
+          <Checkbox label="foo" {...validation} />
+        </Tab>
+      </Tabs>
+    </div>
+  );
+};
+
+// eslint-disable-next-line react/prop-types
 const TabsComponentValidationsUnregistering = ({ validation }) => {
   const [show, setShow] = React.useState(true);
 
@@ -591,6 +617,26 @@ context("Testing Tabs component", () => {
           .trigger("mouseover")
           .then(() => {
             tooltipPreview().should("have.text", validationMessage);
+          });
+      }
+    );
+
+    it.each(["error", "warning", "info"])(
+      "should verify when the ValidationIcon is hovered over that a summary of the %s messages is displayed",
+      (validationMessage) => {
+        const validation = { [validationMessage]: validationMessage };
+
+        CypressMountWithProviders(
+          <TabsComponentWithValidationsSummary validation={validation} />
+        );
+
+        tabById(1)
+          .trigger("mouseover")
+          .then(() => {
+            tooltipPreview().should(
+              "have.text",
+              `• ${validationMessage}\n• ${validationMessage}\n• ${validationMessage}`
+            );
           });
       }
     );
