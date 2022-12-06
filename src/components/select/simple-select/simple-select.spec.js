@@ -14,6 +14,7 @@ import { StyledSelectList } from "../select-list/select-list.style";
 import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import Label from "../../../__internal__/label";
+import { InputPresentation } from "../../../__internal__/input";
 
 describe("SimpleSelect", () => {
   describe("when an HTML element is clicked when the SelectList is open", () => {
@@ -844,6 +845,30 @@ describe("SimpleSelect", () => {
 describe("coverage filler for else path", () => {
   const wrapper = renderSelect();
   simulateKeyDown(wrapper, "F1");
+});
+
+describe("when maxWidth is passed", () => {
+  it("should be passed to InputPresentation", () => {
+    const wrapper = renderSelect({ maxWidth: "67%" });
+
+    assertStyleMatch(
+      {
+        maxWidth: "67%",
+      },
+      wrapper.find(InputPresentation)
+    );
+  });
+
+  it("renders with maxWidth as 100% when no maxWidth is specified", () => {
+    const wrapper = renderSelect({ maxWidth: "" });
+
+    assertStyleMatch(
+      {
+        maxWidth: "100%",
+      },
+      wrapper.find(InputPresentation)
+    );
+  });
 });
 
 function simulateKeyDown(container, key, options = {}) {

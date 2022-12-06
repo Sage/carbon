@@ -5,11 +5,15 @@ import { Menu, MenuItem } from "../menu";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 import navigationBar from "../../../cypress/locators/navigation-bar";
+import {
+  COLOR,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const testData = "cypressData";
+const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const testData = CHARACTERS.STANDARD;
 const variants = [
-  ["black", "rgb(0, 0, 0)"],
+  ["black", COLOR.BLACK],
   ["light", "rgb(230, 235, 237)"],
   ["white", "rgb(255, 255, 255)"],
   ["dark", "rgb(0, 50, 76)"],

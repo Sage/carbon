@@ -1,8 +1,6 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import Alert from ".";
-import Button from "../button/button.component";
+import React from "react";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { AlertComponentTest as AlertComponent } from "./alert-test.stories";
 
 import {
   alertChildren,
@@ -15,44 +13,12 @@ import {
   pressESCKeyOntoFocusedElement,
   closeIconButton,
 } from "../../../cypress/locators/index";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const sizes = [
-  ["extra-small", 300],
-  ["small", 380],
-  ["medium-small", 540],
-  ["medium", 750],
-  ["medium-large", 850],
-  ["large", 960],
-  ["extra-large", 1080],
-];
-
-const AlertComponent = ({ children, ...props }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
-
-  return (
-    <>
-      <Button onClick={() => setIsOpen(!isOpen)}>Open Alert</Button>
-      <Alert
-        onCancel={() => setIsOpen(!isOpen)}
-        open={isOpen}
-        data-component="alert"
-        ariaRole="alertdialog"
-        {...props}
-      >
-        {children}
-      </Alert>
-    </>
-  );
-};
-
-/* 
-  added propType (we could specify what exactly we need)
-  when building the component with handlers
-*/
-AlertComponent.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 context("Testing Alert component", () => {
   describe("should render Alert component", () => {
@@ -137,7 +103,15 @@ context("Testing Alert component", () => {
       }
     );
 
-    it.each(sizes)(
+    it.each([
+      [SIZE.EXTRASMALL, 300],
+      [SIZE.SMALL, 380],
+      [SIZE.MEDIUMSMALL, 540],
+      [SIZE.MEDIUM, 750],
+      [SIZE.MEDIUMLARGE, 850],
+      [SIZE.LARGE, 960],
+      [SIZE.EXTRALARGE, 1080],
+    ])(
       "should render Alert component with %s as a size and has width property set to %s",
       (size, width) => {
         CypressMountWithProviders(
@@ -165,6 +139,14 @@ context("Testing Alert component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("Accessibility tests for Alert component", () => {
+    it("should pass accessibility tests for Alert default story", () => {
+      CypressMountWithProviders(<AlertComponent />);
+
+      cy.checkAccessibility();
     });
   });
 });

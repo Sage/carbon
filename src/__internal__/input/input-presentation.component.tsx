@@ -16,6 +16,11 @@ export interface CommonInputPresentationProps extends ValidationProps {
   align?: string;
   /** The width of the input as a percentage */
   inputWidth?: number;
+  /**
+   * Prop for specifying the max-width of the input.
+   * Leaving the `maxWidth` prop with no value will default the width to '100%'
+   */
+  maxWidth?: string;
   /** If true, the component will be read-only */
   readOnly?: boolean;
   /** Size of an input */
@@ -33,6 +38,7 @@ const InputPresentation = ({
   children,
   positionedChildren,
   inputWidth,
+  maxWidth,
   align,
   disabled,
   readOnly,
@@ -63,7 +69,10 @@ const InputPresentation = ({
   };
 
   return (
-    <StyledInputPresentationContainer inputWidth={inputWidth}>
+    <StyledInputPresentationContainer
+      inputWidth={inputWidth}
+      maxWidth={maxWidth}
+    >
       {positionedChildren}
       <InputPresentationStyle
         hasFocus={hasFocus}

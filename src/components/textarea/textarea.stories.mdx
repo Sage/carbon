@@ -7,6 +7,8 @@ import { OriginalTextarea } from "./textarea.component";
 import Box from "../box";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
+import * as stories from "./textarea.stories";
+
 <Meta title="Textarea" parameters={{ info: { disable: true } }} />
 
 # Textarea
@@ -30,96 +32,50 @@ import Textarea from "carbon-react/lib/components/textarea";
 ## Examples
 
 ### Default
-
 <Canvas>
-  <Story name="default">
-    {() => {
-      const [state, setState] = useState("");
-      const setValue = ({ target }) => {
-        setState(target.value);
-      };
-      return <Textarea label="Textarea" value={state} onChange={setValue} />;
-    }}
-  </Story>
+  <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled">
-    <Textarea label="Textarea" disabled />
-  </Story>
+  <Story name="disabled" story={stories.DisabledStory} />
 </Canvas>
 
 ### Label Align
 
 <Canvas>
-  <Story name="label Align">
-    {() =>
-      ["right", "left"].map((alignment) => (
-        <Textarea
-          label="Textarea"
-          labelInline
-          inputWidth={50}
-          key={alignment}
-          labelAlign={alignment}
-        />
-      ))
-    }
-  </Story>
+  <Story name="label Align" story={stories.LabelAlignStory} />
 </Canvas>
 
 ### ReadOnly
 
 <Canvas>
-  <Story name="readOnly">
-    <Textarea label="Textarea" readOnly />
-  </Story>
+  <Story name="readOnly" story={stories.ReadOnlyStory} />
 </Canvas>
 
 ### AutoFocus
 
 <Canvas>
-  <Story name="autoFocus" parameters={{ chromatic: { disable: true } }}>
-    <Textarea label="Textarea" autoFocus />
-  </Story>
+  <Story
+    name="autoFocus"
+    story={stories.AutoFocusStory}
+  />
 </Canvas>
 
 ### Expandable
 
 <Canvas>
-  <Story name="expandable" parameters={{ chromatic: { disable: true } }}>
-    {() => {
-      const [value, setValue] = useState("");
-      return (
-        <Textarea
-          label="Textarea"
-          expandable
-          value={value}
-          onChange={({ target }) => setValue(target.value)}
-        />
-      );
-    }}
-  </Story>
+  <Story
+    name="expandable"
+    story={stories.ExpandableStory}
+  />
 </Canvas>
 
 ### With characterLimit
 
 <Canvas>
-  <Story name="with characterLimit">
-    {() => {
-      const [value, setValue] = useState("");
-      return (
-        <Textarea
-          label="Textarea"
-          expandable
-          value={value}
-          onChange={({ target }) => setValue(target.value)}
-          characterLimit="50"
-        />
-      );
-    }}
-  </Story>
+  <Story name="with characterLimit" story={stories.CharacterLimitStory} />
 </Canvas>
 
 ### With characterLimit - not enforced
@@ -127,55 +83,41 @@ import Textarea from "carbon-react/lib/components/textarea";
 <Canvas>
   <Story
     name="with characterLimit - not enforced"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      const [value, setValue] = useState("");
-      return (
-        <Textarea
-          label="Textarea"
-          expandable
-          value={value}
-          onChange={({ target }) => setValue(target.value)}
-          characterLimit="50"
-          enforceCharacterLimit={false}
-          warnOverLimit
-        />
-      );
-    }}
-  </Story>
+    story={stories.UnenforcedCharacterLimitStory}
+  />
 </Canvas>
 
 ### With labelInline
 
 <Canvas>
-  <Story name="with labelInline">
-    <Textarea label="Textarea" labelInline />
-  </Story>
+  <Story name="with labelInline" story={stories.LabelInlineStory} />
 </Canvas>
 
 ### With custom labelWidth and inputWidth
 
 <Canvas>
-  <Story name="with custom labelWidth and inputWidth">
-    <Textarea label="Textarea" labelInline labelWidth={50} inputWidth={50} />
-  </Story>
+  <Story
+    name="with custom labelWidth and inputWidth"
+    story={stories.CustomWidthStory}
+  />
+</Canvas>
+
+### With custom maxWidth
+
+<Canvas>
+  <Story name="with maxWidth" story={stories.MaxWidthStory} />
 </Canvas>
 
 ### With fieldHelp
 
 <Canvas>
-  <Story name="with fieldHelp">
-    <Textarea label="Textarea" fieldHelp="Help" />
-  </Story>
+  <Story name="with fieldHelp" story={stories.FieldHelpStory} />
 </Canvas>
 
 ### With labelHelp
 
 <Canvas>
-  <Story name="with labelHelp">
-    <Textarea label="Textarea" labelHelp="Help" helpAriaLabel="Help" />
-  </Story>
+  <Story name="with labelHelp" story={stories.LabelHelpStory} />
 </Canvas>
 
 ### Required
@@ -183,9 +125,7 @@ import Textarea from "carbon-react/lib/components/textarea";
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Canvas>
-  <Story name="required">
-    <Textarea label="Textarea" required />
-  </Story>
+  <Story name="required" story={stories.RequiredStory} />
 </Canvas>
 
 ### Validations
@@ -201,25 +141,10 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 #### As a string
 
 <Canvas>
-  <Story name="validations - string - component">
-    {() =>
-      ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <Textarea
-            label="Textarea"
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Textarea
-            label="Textarea - readOnly"
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </div>
-      ))
-    }
-  </Story>
+  <Story
+    name="validations - string - component"
+    story={stories.ValidationStringStory}
+  />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -227,47 +152,14 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() =>
-      ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <Textarea
-            label="Textarea"
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-          />
-        </div>
-      ))
-    }
-  </Story>
+    story={stories.ValidationStringPositionStory}
+  />
 </Canvas>
 
 #### As a string, displayed on label
 
 <Canvas>
-  <Story name="validations - string - label">
-    {() =>
-      ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
-          <Textarea
-            label="Textarea"
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Textarea
-            label="Textarea - readOnly"
-            validationOnLabel
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </div>
-      ))
-    }
-  </Story>
+  <Story name="validations - string - label" story={stories.ValidationLabelStory} />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -275,69 +167,20 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() =>
-      ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
-          <Textarea
-            label="Textarea"
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="top"
-          />
-        </div>
-      ))
-    }
-  </Story>
+    story={stories.ValidationLabelPositionStory}
+  />
 </Canvas>
 
 #### New designs validation
 
 <Canvas>
-  <Story name="validations - string - new design">
-    <CarbonProvider validationRedesignOptIn>
-      {["error", "warning"].map((validationType) => (
-        <div
-          style={{ width: "296px" }}
-          key={`${validationType}-string-component`}
-        >
-          <Textarea
-            label={`${validationType}`}
-            {...{ [validationType]: "Message" }}
-            m={4}
-          />
-          <Textarea
-            label={`readOnly - ${validationType}`}
-            readOnly
-            {...{ [validationType]: "Message" }}
-            m={4}
-          />
-        </div>
-      ))}
-    </CarbonProvider>
-  </Story>
+  <Story name="validations - string - new design" story={stories.NewDesignValidationStory}/>
 </Canvas>
 
 #### As a boolean
 
 <Canvas>
-  <Story name="validations - boolean">
-    {() =>
-      ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-boolean-component`}>
-          <Textarea label="Textarea" {...{ [validationType]: true }} mb={2} />
-          <Textarea
-            label="Textarea - readOnly"
-            readOnly
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-        </div>
-      ))
-    }
-  </Story>
+  <Story name="validations - boolean" story={stories.ValidationBooleanStory}/>
 </Canvas>
 
 ## Props

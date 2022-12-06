@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Loader from "./loader.component";
 import Button from "../button/button.component";
 import { LOADER_SIZES } from "./loader.config";
@@ -7,7 +7,10 @@ import { loader, loaderInsideButton } from "../../../cypress/locators/loader";
 
 import { positionOfElement } from "../../../cypress/support/helper";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
+import {
+  checkGoldenOutline,
+  useJQueryCssValueAndAssert,
+} from "../../../cypress/support/component-helper/common-steps";
 
 const LoaderInsideButton = ({ ...props }) => {
   return (
@@ -23,25 +26,31 @@ context("Test for Loader component", () => {
       [LOADER_SIZES[0], 12, 6],
       [LOADER_SIZES[1], 16, 8],
       [LOADER_SIZES[2], 20, 8],
-    ])("should render Loader using %s as size", (size, height, margin) => {
-      CypressMountWithProviders(<Loader size={size} />);
+    ])(
+      "should render Loader using %s as size",
+      (size, heightAndWidth, margin) => {
+        CypressMountWithProviders(<Loader size={size} />);
 
-      loader(positionOfElement("first"))
-        .should("have.css", "height", `${height}px`)
-        .and("have.css", "width", `${height}px`)
-        .and("have.css", "margin-right", `${margin}px`)
-        .and("have.css", "animation-delay", "0s");
-      loader(positionOfElement("second"))
-        .should("have.css", "height", `${height}px`)
-        .and("have.css", "width", `${height}px`)
-        .and("have.css", "margin-right", `${margin}px`)
-        .and("have.css", "animation-delay", "0.2s");
-      loader(positionOfElement("third"))
-        .should("have.css", "height", `${height}px`)
-        .and("have.css", "width", `${height}px`)
-        .and("have.css", "margin-right", "0px")
-        .and("have.css", "animation-delay", "0.4s");
-    });
+        loader(positionOfElement("first")).then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", heightAndWidth);
+          useJQueryCssValueAndAssert($el, "width", heightAndWidth);
+          useJQueryCssValueAndAssert($el, "margin-right", margin);
+          expect($el.css("animation-delay")).to.equals("0s");
+        });
+        loader(positionOfElement("second")).then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", heightAndWidth);
+          useJQueryCssValueAndAssert($el, "width", heightAndWidth);
+          useJQueryCssValueAndAssert($el, "margin-right", margin);
+          expect($el.css("animation-delay")).to.equals("0.2s");
+        });
+        loader(positionOfElement("third")).then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", heightAndWidth);
+          useJQueryCssValueAndAssert($el, "width", heightAndWidth);
+          expect($el.css("margin-right")).to.equals("0px");
+          expect($el.css("animation-delay")).to.equals("0.4s");
+        });
+      }
+    );
 
     it.each([
       [LOADER_SIZES[0], 100],
@@ -50,9 +59,10 @@ context("Test for Loader component", () => {
     ])("should render Loader using %s as size in Button", (size, width) => {
       CypressMountWithProviders(<LoaderInsideButton size={size} />);
 
-      loaderInsideButton()
-        .should("have.css", "height", "40px")
-        .and("have.css", "width", `${width}px`);
+      loaderInsideButton().then(($el) => {
+        expect($el.css("height")).to.equals("40px");
+        useJQueryCssValueAndAssert($el, "width", width);
+      });
     });
 
     it("should render Loader inside the Button component with correct color", () => {

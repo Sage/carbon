@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import * as React from "react";
+import React from "react";
 import ButtonBar from ".";
 import Button from "../button";
 import {
@@ -11,6 +10,7 @@ import { buttonDataComponent } from "../../../cypress/locators/button";
 
 import { icon } from "../../../cypress/locators";
 import { positionOfElement, keyCode } from "../../../cypress/support/helper";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 const ButtonBarCustom = ({ onClick, ...props }) => {
@@ -66,8 +66,9 @@ context("Test for Button-Bar component", () => {
 
       buttonDataComponent()
         .parent()
-        .should("have.css", "width")
-        .and("eq", "1350px");
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", 1366);
+        });
     });
 
     describe("check events for Button-Bar component", () => {

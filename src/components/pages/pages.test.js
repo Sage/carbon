@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Pages, { Page } from "./pages.component";
 import DialogFullScreen from "../dialog-full-screen/dialog-full-screen.component";
 import Button from "../button/button.component";

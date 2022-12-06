@@ -5,6 +5,7 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import {
   verifyRequiredAsteriskForLabel,
   checkGoldenOutline,
+  useJQueryCssValueAndAssert,
 } from "../../../cypress/support/component-helper/common-steps";
 
 import {
@@ -17,7 +18,11 @@ import {
   fieldHelpPreview,
   getElement,
 } from "../../../cypress/locators";
-import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import {
+  CHARACTERS,
+  SIZE,
+  VALIDATION,
+} from "../../../cypress/support/component-helper/constants";
 
 import {
   textbox,
@@ -27,6 +32,8 @@ import {
 
 import { keyCode } from "../../../cypress/support/helper";
 import Button from "../button/button.component";
+
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const verifyOptional = (element) =>
   element.then(($els) => {
@@ -116,7 +123,7 @@ context("Tests for Textbox component", () => {
       textboxInput().should("have.attr", "id", CHARACTERS.STANDARD);
     });
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render Textbox with label prop set to %s",
       (label) => {
         CypressMountWithProviders(<TextboxComponent label={label} />);
@@ -151,7 +158,7 @@ context("Tests for Textbox component", () => {
       }
     );
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render Textbox with labelHelp prop",
       (labelHelp) => {
         CypressMountWithProviders(
@@ -180,9 +187,9 @@ context("Tests for Textbox component", () => {
     );
 
     it.each([
-      ["10", "90", "135px", "1215px"],
-      ["30", "70", "405px", "945px"],
-      ["80", "20", "1080px", "270px"],
+      ["10", "90", 135, 1229],
+      ["30", "70", 409, 956],
+      ["80", "20", 1092, 273],
     ])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
@@ -192,13 +199,38 @@ context("Tests for Textbox component", () => {
 
         getDataElementByValue("label")
           .parent()
-          .should("have.css", "width", labelRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", labelRatio);
+          });
 
         getDataElementByValue("input")
           .parent()
-          .should("have.css", "width", inputRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", inputRatio);
+          });
       }
     );
+
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for TextBox component",
+      (maxWidth) => {
+        CypressMountWithProviders(<TextboxComponent maxWidth={maxWidth} />);
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<TextboxComponent maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
 
     it("should render Textbox with required prop", () => {
       CypressMountWithProviders(<TextboxComponent required />);
@@ -269,7 +301,7 @@ context("Tests for Textbox component", () => {
       textboxInput().should("be.disabled").and("have.attr", "disabled");
     });
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render Textbox with placeholder prop set to %s",
       (placeholder) => {
         CypressMountWithProviders(
@@ -340,9 +372,9 @@ context("Tests for Textbox component", () => {
     );
 
     it.each([
-      ["rgb(203, 55, 74)", "error", true],
-      ["rgb(239, 103, 0)", "warning", true],
-      ["rgb(0, 96, 167)", "info", true],
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      [VALIDATION.INFO, "info", true],
       ["rgb(102, 132, 148)", "error", false],
       ["rgb(102, 132, 148)", "warning", false],
       ["rgb(102, 132, 148)", "info", false],
@@ -372,14 +404,14 @@ context("Tests for Textbox component", () => {
         .and("be.visible");
     });
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render Textbox with prefix prop set to %s",
       (prefix) => {
         CypressMountWithProviders(<TextboxComponent prefix={prefix} />);
 
         textboxPrefix()
           .should("have.text", prefix)
-          .and("have.css", "font-size", "16px")
+          .and("have.css", "font-size", "14px")
           .and("have.css", "font-weight", "900")
           .and("have.css", "margin-right", "8px");
       }
@@ -409,9 +441,9 @@ context("Tests for Textbox component", () => {
     );
 
     it.each([
-      ["small", "32px"],
-      ["medium", "40px"],
-      ["large", "48px"],
+      [SIZE.SMALL, "32px"],
+      [SIZE.MEDIUM, "40px"],
+      [SIZE.LARGE, "48px"],
     ])(
       "should use %s as size and render Textbox with %s as height",
       (size, height) => {
@@ -466,7 +498,7 @@ context("Tests for Textbox component", () => {
         .and("have.attr", "for", `${CHARACTERS.STANDARD}_cy`);
     });
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render Textbox with fieldHelp prop set to %s",
       (fieldHelp) => {
         CypressMountWithProviders(<TextboxComponent fieldHelp={fieldHelp} />);
@@ -549,7 +581,7 @@ context("Tests for Textbox component", () => {
       textboxInput().should("be.focused");
     });
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should input into Textbox and verify the value",
       (input) => {
         CypressMountWithProviders(<TextboxComponent />);

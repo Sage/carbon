@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Dialog from "./dialog.component";
 import {
   dialogTitle,
@@ -19,8 +19,13 @@ import {
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import Toast from "../toast";
 import toastComponent from "../../../cypress/locators/toast";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const getInput = (index) => cy.get('[data-element="input"]').eq(index);
 
@@ -69,7 +74,7 @@ const DialogComponentWithToast = () => {
 
 context("Testing Dialog component", () => {
   describe("should render Dialog component with props", () => {
-    it.each([[0], [1], [100], [1000]])(
+    it.each([0, 1, 100, 1000])(
       "should render Dialog component with %s as a height parameter",
       (height) => {
         CypressMountWithProviders(<DialogComponent height={`${height}px`} />);
@@ -83,9 +88,9 @@ context("Testing Dialog component", () => {
           resultHeight = height;
         }
 
-        dialogPreview()
-          .should("have.css", "height")
-          .and("contain", resultHeight);
+        dialogPreview().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", resultHeight);
+        });
       }
     );
 
@@ -110,21 +115,21 @@ context("Testing Dialog component", () => {
     );
 
     it.each([
-      ["extra-small", 300],
-      ["small", 380],
-      ["medium-small", 540],
-      ["medium", 750],
-      ["medium-large", 850],
-      ["large", 960],
-      ["extra-large", 1080],
+      [SIZE.EXTRASMALL, 300],
+      [SIZE.SMALL, 380],
+      [SIZE.MEDIUMSMALL, 540],
+      [SIZE.MEDIUM, 750],
+      [SIZE.MEDIUMLARGE, 850],
+      [SIZE.LARGE, 960],
+      [SIZE.EXTRALARGE, 1080],
     ])(
       "should render Dialog component with %s as a size and has width property set to %s",
       (size, width) => {
         CypressMountWithProviders(<DialogComponent size={size} />);
 
-        dialogPreview()
-          .should("have.css", "width")
-          .and("contain", `${width}px`);
+        dialogPreview().then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", width);
+        });
       }
     );
 

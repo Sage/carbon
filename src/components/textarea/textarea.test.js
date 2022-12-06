@@ -5,7 +5,7 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import {
   verifyRequiredAsteriskForLabel,
   checkGoldenOutline,
-  parseToIntElement,
+  useJQueryCssValueAndAssert,
 } from "../../../cypress/support/component-helper/common-steps";
 
 import {
@@ -18,11 +18,17 @@ import {
   fieldHelpPreview,
   getElement,
 } from "../../../cypress/locators";
-import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import {
+  CHARACTERS,
+  SIZE,
+  VALIDATION,
+} from "../../../cypress/support/component-helper/constants";
 
 import { textarea, textareaChildren } from "../../../cypress/locators/textarea";
 
 import { keyCode } from "../../../cypress/support/helper";
+
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const TextareaComponent = ({ ...props }) => {
   const [state, setState] = React.useState("");
@@ -73,7 +79,7 @@ context("Tests for Textarea component", () => {
       textareaChildren().should("have.attr", "id", CHARACTERS.STANDARD);
     });
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render Textarea with label prop set to %s",
       (label) => {
         CypressMountWithProviders(<TextareaComponent label={label} />);
@@ -108,7 +114,7 @@ context("Tests for Textarea component", () => {
       }
     );
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render Textarea with labelHelp prop set to %s",
       (labelHelp) => {
         CypressMountWithProviders(
@@ -137,9 +143,9 @@ context("Tests for Textarea component", () => {
     );
 
     it.each([
-      ["10", "90", "135px", "1215px"],
-      ["30", "70", "405px", "945px"],
-      ["80", "20", "1080px", "270px"],
+      ["10", "90", 135, 1229],
+      ["30", "70", 409, 956],
+      ["80", "20", 1092, 273],
     ])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
@@ -153,11 +159,15 @@ context("Tests for Textarea component", () => {
 
         getDataElementByValue("label")
           .parent()
-          .should("have.css", "width", labelRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", labelRatio);
+          });
 
         getDataElementByValue("input")
           .parent()
-          .should("have.css", "width", inputRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", inputRatio);
+          });
       }
     );
 
@@ -192,6 +202,27 @@ context("Tests for Textarea component", () => {
           });
       }
     );
+
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for TextArea component",
+      (maxWidth) => {
+        CypressMountWithProviders(<TextareaComponent maxWidth={maxWidth} />);
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<TextareaComponent maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
 
     it.each([
       ["11", "11"],
@@ -230,7 +261,7 @@ context("Tests for Textarea component", () => {
       textareaChildren().should("be.disabled").and("have.attr", "disabled");
     });
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render Textarea with placeholder prop set to %s",
       (placeholder) => {
         CypressMountWithProviders(
@@ -301,9 +332,9 @@ context("Tests for Textarea component", () => {
     );
 
     it.each([
-      ["rgb(203, 55, 74)", "error", true],
-      ["rgb(239, 103, 0)", "warning", true],
-      ["rgb(0, 96, 167)", "info", true],
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      [VALIDATION.INFO, "info", true],
       ["rgb(102, 132, 148)", "error", false],
       ["rgb(102, 132, 148)", "warning", false],
       ["rgb(102, 132, 148)", "info", false],
@@ -323,9 +354,9 @@ context("Tests for Textarea component", () => {
     );
 
     it.each([
-      ["small", "32px"],
-      ["medium", "40px"],
-      ["large", "48px"],
+      [SIZE.SMALL, "32px"],
+      [SIZE.MEDIUM, "40px"],
+      [SIZE.LARGE, "48px"],
     ])(
       "should use %s as size and render Textarea with %s as height",
       (size, height) => {
@@ -355,7 +386,7 @@ context("Tests for Textarea component", () => {
       }
     );
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render Textarea with fieldHelp prop set to %s",
       (fieldHelp) => {
         CypressMountWithProviders(<TextareaComponent fieldHelp={fieldHelp} />);
@@ -415,7 +446,7 @@ context("Tests for Textarea component", () => {
       }
     );
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should input into Textarea and verify the value",
       (input) => {
         CypressMountWithProviders(<TextareaComponent />);
@@ -424,7 +455,7 @@ context("Tests for Textarea component", () => {
       }
     );
 
-    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+    it.each(testData)(
       "should render Textarea with value prop set to %s",
       (value) => {
         CypressMountWithProviders(<TextareaComponent value={value} />);
@@ -452,7 +483,7 @@ context("Tests for Textarea component", () => {
     );
 
     it.each([
-      [true, 104],
+      [true, 106],
       [false, 64],
     ])(
       "should verify Textarea is displayed with expandable set to %s",
@@ -461,9 +492,12 @@ context("Tests for Textarea component", () => {
 
         textareaChildren()
           .type("t{enter}e{enter}s{enter}t{enter}")
+          .wait(50)
           .then(($el) => {
-            const value = parseToIntElement($el.css("height"));
-            expect(value).to.be.within(height - 1, height + 1);
+            expect(parseInt($el.css("height"))).to.be.within(
+              height - 3,
+              height + 3
+            );
           });
       }
     );

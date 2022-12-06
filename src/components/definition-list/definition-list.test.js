@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Dl from "./dl.component";
 import Dt from "./dt.component";
 import Dd from "./dd.component";
@@ -8,16 +8,18 @@ import Hr from "../hr/hr.component";
 import Typography from "../typography/typography.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../../cypress/locators/index";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const specialCharacters = [
-  "text",
-  "mp150ú¿¡üßä",
-  "!@#$%^*()_+-=~[];:.,?{}&\"'<>",
+  CHARACTERS.STANDARD,
+  CHARACTERS.DIACRITICS,
+  CHARACTERS.SPECIALCHARACTERS,
 ];
 const widths = [
-  [135, 1215, 10, 90],
-  [675, 675, 50, 50],
-  [1215, 135, 90, 10],
+  [135, 1229, 10, 90],
+  [683, 683, 50, 50],
+  [1229, 135, 90, 10],
 ];
 const alignValue = ["left", "center", "right"];
 
@@ -92,11 +94,15 @@ context("Testing Definition List component", () => {
 
         getDataElementByValue("dl")
           .children()
-          .should("have.css", "width", `${dtPixels}px`);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", dtPixels);
+          });
         getDataElementByValue("dl")
           .children()
           .eq(1)
-          .should("have.css", "width", `${ddPixels}px`);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", ddPixels);
+          });
       }
     );
 
@@ -135,11 +141,15 @@ context("Testing Definition List component", () => {
 
       getDataElementByValue("dt")
         .should("have.css", "text-align", "left")
-        .and("have.css", "width", "1350px");
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", 1366);
+        });
       getDataElementByValue("dd")
         .should("have.css", "text-align", "left")
         .and("have.css", "margin-left", "0px")
-        .and("have.css", "width", "1350px");
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", 1366);
+        });
     });
 
     it("should check Definition List definition is displayed with a tick icon", () => {

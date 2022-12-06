@@ -1,11 +1,9 @@
-import * as React from "react";
+import React from "react";
 import MultiActionButton from "./multi-action-button.component";
 import Button from "../button";
 import { Accordion } from "../accordion";
-
 import { buttonSubtextPreview } from "../../../cypress/locators/button";
 import { pressTABKey, keyCode } from "../../../cypress/support/helper";
-
 import {
   multiActionButtonList,
   multiActionButtonListContainer,
@@ -14,10 +12,14 @@ import {
   multiActionButtonComponent,
 } from "../../../cypress/locators/multi-action-button";
 import { accordionDefaultTitle } from "../../../cypress/locators/accordion";
-
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const MultiActionButtonList = ({ ...props }) => {
   return (
     <div>
@@ -77,15 +79,15 @@ context("Tests for MultiActionButton component", () => {
     );
 
     it.each([
-      ["small", "32px"],
-      ["medium", "40px"],
-      ["large", "48px"],
+      [SIZE.SMALL, 32],
+      [SIZE.MEDIUM, 40],
+      [SIZE.LARGE, 48],
     ])("should render Multi Action Button with %s size", (size, height) => {
       CypressMountWithProviders(<MultiActionButtonList size={size} />);
 
-      multiActionButtonComponent()
-        .should("have.css", "height")
-        .and("contain", height);
+      multiActionButtonComponent().then(($el) => {
+        useJQueryCssValueAndAssert($el, "height", height);
+      });
     });
 
     it.each(["left", "right"])(
@@ -133,7 +135,14 @@ context("Tests for MultiActionButton component", () => {
       pressTABKey(1);
       multiActionButtonComponent()
         .children()
-        .should("have.css", "border", "3px solid rgb(255, 181, 0)");
+        .then(($el) => {
+          const values = $el.css("border").split(" ");
+          expect(parseInt(values[0])).to.be.within(1, 3);
+          expect(values[1]).to.equals("solid");
+          expect(`${values[2]}${values[3]}${values[4]}`.trim()).to.equals(
+            "rgb(255,181,0)"
+          );
+        });
     });
 
     it("should render Multi Action Button with specific background colour when hovering", () => {

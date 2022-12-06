@@ -329,6 +329,7 @@ const DateInput = ({
       data-element={dataElement}
       data-role={dataRole}
       {...filterStyledSystemMarginProps(rest)}
+      applyDateRangeStyling={!!inputRefMap}
     >
       <Textbox
         {...filterOutStyledSystemSpacingProps(rest)}

@@ -1,7 +1,11 @@
 export const SIZE = {
+  EXTRASMALL: "extra-small",
   SMALL: "small",
+  MEDIUMSMALL: "medium-small",
   MEDIUM: "medium",
+  MEDIUMLARGE: "medium-large",
   LARGE: "large",
+  EXTRALARGE: "extra-large",
 };
 
 export const VALIDATION = {
@@ -12,6 +16,9 @@ export const VALIDATION = {
 
 export const COLOR = {
   BLACK: "rgb(0, 0, 0)",
+  RED: "rgb(205, 56, 75)",
+  ORANGE: "rgb(255, 156, 75)",
+  BROWN: "rgb(105, 61, 57)",
 };
 
 export const CHARACTERS = {

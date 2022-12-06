@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import ShowEditPod from "./show-edit-pod.component";
 import Textbox from "../textbox/textbox.component";
 import Content from "../content/content.component";
@@ -22,8 +22,10 @@ import {
 import { contentPreview } from "../../../cypress/locators/content";
 
 import { getDataElementByValue } from "../../../cypress/locators/index";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { checkOutlineCss } from "../../../cypress/support/component-helper/common-steps";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const ShowEditPodComponent = ({ ...props }) => {
   return (
@@ -65,13 +67,21 @@ context("Testing ShowEditPod component", () => {
     );
 
     it.each([
-      [true, "1px solid rgb(204, 214, 219)"],
-      [false, "0px none rgb(0, 0, 0)"],
+      [true, 1, "solid", "rgb(204, 214, 219)"],
+      [false, 0, "none", "rgba(0, 0, 0, 0.9)"],
     ])(
       "should check when border is %s for ShowEditPod component",
-      (boolVal, border) => {
+      (boolVal, borderWidth, borderStyle, borderColor) => {
         CypressMountWithProviders(<ShowEditPodComponent border={boolVal} />);
-        showEditPod().should("have.css", "border", border);
+        showEditPod().then((elem) => {
+          checkOutlineCss(
+            elem,
+            borderWidth,
+            "border",
+            borderStyle,
+            borderColor
+          );
+        });
       }
     );
 

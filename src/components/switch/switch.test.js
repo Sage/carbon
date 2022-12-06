@@ -1,4 +1,5 @@
 import React from "react";
+import Box from "../box";
 import Switch from "./switch.component";
 import {
   switchDataComponent,
@@ -16,10 +17,14 @@ import {
   getDataElementByValue,
 } from "../../../cypress/locators/index";
 import { keyCode } from "../../../cypress/support/helper";
-import { verifyRequiredAsteriskForLabel } from "../../../cypress/support/component-helper/common-steps";
+import {
+  useJQueryCssValueAndAssert,
+  verifyRequiredAsteriskForLabel,
+} from "../../../cypress/support/component-helper/common-steps";
 import {
   CHARACTERS,
   VALIDATION,
+  SIZE,
 } from "../../../cypress/support/component-helper/constants";
 
 const verifyBorderColor = (element, color) =>
@@ -207,7 +212,7 @@ context("Testing Switch component", () => {
 
     it.each([
       [true, "have.css", 24, 0, 8],
-      [false, "not.have.css", 18, 8, 0],
+      [false, "not.have.css", 16, 8, 0],
     ])(
       "verify Switch component with labelInline prop %s",
       (boolVal, have, height, margin, padding) => {
@@ -216,16 +221,18 @@ context("Testing Switch component", () => {
         switchLabel()
           .parent()
           .should(have, "box-sizing", "border-box")
-          .and("have.css", "height", `${height}px`)
-          .and("have.css", "margin-bottom", `${margin}px`)
-          .and("have.css", "padding-right", `${padding}px`);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "height", height);
+            useJQueryCssValueAndAssert($el, "margin-bottom", margin);
+            useJQueryCssValueAndAssert($el, "padding-right", padding);
+          });
       }
     );
 
     it.each([
-      ["10", 128],
-      ["30", 385],
-      ["80", 1028],
+      ["10", 130],
+      ["30", 390],
+      ["80", 1041],
     ])(
       "verify Switch with labelWidth %s and render it with correct label width ratio",
       (labelWidth, labelRatio) => {
@@ -233,19 +240,16 @@ context("Testing Switch component", () => {
 
         switchLabel()
           .parent()
-          .invoke("css", "width")
-          .then(parseFloat)
           .then(($el) => {
-            expect($el).to.be.gte(labelRatio);
-            expect($el).to.be.lt(labelRatio + 1);
+            useJQueryCssValueAndAssert($el, "width", labelRatio);
           });
       }
     );
 
     it.each([
-      ["90", 1157],
-      ["70", 900],
-      ["20", 257],
+      ["90", 1171],
+      ["70", 911],
+      ["20", 260],
     ])(
       "verify Switch with inputWidth %s and render it with correct input width ratio",
       (inputWidth, inputRatio) => {
@@ -255,11 +259,8 @@ context("Testing Switch component", () => {
 
         switchInput()
           .parent()
-          .invoke("css", "width")
-          .then(parseFloat)
           .then(($el) => {
-            expect($el).to.be.gte(inputRatio);
-            expect($el).to.be.lt(inputRatio + 1);
+            useJQueryCssValueAndAssert($el, "width", inputRatio);
           });
       }
     );
@@ -282,7 +283,7 @@ context("Testing Switch component", () => {
 
     it.each([
       [1, 8],
-      [2, 16],
+      [2, 17],
     ])("verify Switch component with labelSpacing %s", (spacing, padding) => {
       CypressMountWithProviders(
         <SwitchComponent labelInline label="label" labelSpacing={spacing} />
@@ -290,7 +291,9 @@ context("Testing Switch component", () => {
 
       switchLabel()
         .parent()
-        .should("have.css", "padding-right", `${padding}px`);
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "padding-right", padding);
+        });
     });
 
     it("verify Switch component with name", () => {
@@ -378,13 +381,15 @@ context("Testing Switch component", () => {
     );
 
     it.each([
-      ["small", 60, 24],
-      ["large", 78, 40],
+      [SIZE.SMALL, 60, 24],
+      [SIZE.LARGE, 78, 40],
     ])("verify Switch component with size set to %s", (size, width, height) => {
       CypressMountWithProviders(<SwitchComponent size={size} />);
 
-      switchInput().should("have.css", "width", `${width}px`);
-      switchInput().should("have.css", "height", `${height}px`);
+      switchInput().then(($el) => {
+        useJQueryCssValueAndAssert($el, "height", height);
+        useJQueryCssValueAndAssert($el, "width", width);
+      });
     });
 
     it("verify Switch component with value prop", () => {
@@ -395,7 +400,7 @@ context("Testing Switch component", () => {
     it.each([
       ["inline", 399, "have.css", 24],
       ["inline", 400, "have.css", 24],
-      ["not inline", 401, "not.have.css", 18],
+      ["not inline", 401, "not.have.css", 16],
     ])(
       "check Switch label is %s with adaptiveLabelBreakpoint %s and viewport 400",
       (displayValue, breakpoint, attribute, height) => {
@@ -408,7 +413,9 @@ context("Testing Switch component", () => {
         switchLabel()
           .parent()
           .should(attribute, "box-sizing", "border-box")
-          .and("have.css", "height", `${height}px`);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "height", height);
+          });
       }
     );
 
@@ -422,7 +429,12 @@ context("Testing Switch component", () => {
       "verify Switch component with tooltip positioned to the %s",
       (position) => {
         CypressMountWithProviders(
-          <SwitchComponent labelHelp="Switch info" tooltipPosition={position} />
+          <Box m="250px">
+            <SwitchComponent
+              labelHelp="Switch info"
+              tooltipPosition={position}
+            />
+          </Box>
         );
         switchIcon().trigger("mouseover");
         tooltipPreview()

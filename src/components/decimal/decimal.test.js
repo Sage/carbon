@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Decimal from "./decimal.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
@@ -8,6 +8,8 @@ import {
   tooltipPreview,
   commonDataElementInputPreview,
 } from "../../../cypress/locators/index";
+
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
 context("Tests for Decimal component", () => {
   describe("check props for Decimal component", () => {
@@ -157,10 +159,31 @@ context("Tests for Decimal component", () => {
         .should("not.have.value", inputValue)
         .and("have.attr", "readOnly");
     });
+
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for Decimal component",
+      (maxWidth) => {
+        CypressMountWithProviders(<Decimal maxWidth={maxWidth} />);
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<Decimal maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
   });
 
   describe("check Decimal input", () => {
-    const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+    const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
     it.each(testData)(
       "check label renders properly with %s as specific value",

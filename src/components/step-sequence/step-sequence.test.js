@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import StepSequence from "./step-sequence.component";
 import StepSequenceItem from "./step-sequence-item/step-sequence-item.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -8,8 +8,9 @@ import {
   stepSequenceDataComponentItem,
 } from "../../../cypress/locators/step-sequence";
 import { ICON } from "../../../cypress/locators/locators";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const StepSequenceComponent = ({ ...props }) => {
   return (

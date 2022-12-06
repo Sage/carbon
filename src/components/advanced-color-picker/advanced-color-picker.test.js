@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import AdvancedColorPicker from ".";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
@@ -14,6 +14,7 @@ import { alertDialogPreview as advancedColorPickerParent } from "../../../cypres
 import { closeIconButton } from "../../../cypress/locators";
 
 import { keyCode } from "../../../cypress/support/helper";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
 const AdvancedColorPickerCustom = ({ onChange, ...props }) => {
   const [open, setOpen] = React.useState(true);
@@ -114,7 +115,7 @@ context("Testing AdvancedColorPicker component", () => {
   });
 
   describe("should render AdvancedColorPicker component and check props", () => {
-    const testPropValue = "cypress_test";
+    const testPropValue = CHARACTERS.STANDARD;
     const colors = [
       { value: "#111222", label: "superBlack" },
       { value: "#333555", label: "black" },
