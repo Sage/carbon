@@ -98,8 +98,8 @@ This is an example of a `ProgressTracker` component with different colors depend
       <ProgressTracker
         mt={2}
         progress={100}
-        error={true}
-        currentProgressLabel={'error'}
+        error
+        currentProgressLabel="error"
       />
     </div>
   </Story>
@@ -118,7 +118,7 @@ percentages.
       <ProgressTracker progress={15} showDefaultLabels descriprion="Descriptive text(optional)" />
       <ProgressTracker mt={2} progress={50} showDefaultLabels />
       <ProgressTracker mt={2} progress={100} showDefaultLabels />
-      <ProgressTracker mt={2} progress={100} error={true} currentProgressLabel={'error'} />
+      <ProgressTracker mt={2} progress={100} error={true} currentProgressLabel="error" />
     </div>
   </Story>
 </Canvas>
@@ -151,8 +151,8 @@ It is possible to override the default `labelsPosition` to `"bottom"` when in a 
         mt={2}
         labelsPosition="bottom"
         progress={100}
-        error={true}
-        currentProgressLabel={'error'}
+        error
+        currentProgressLabel="error"
       />
     </div>
   </Story>
@@ -186,7 +186,7 @@ This is an example of a `ProgressTracker` component with `currentProgressLabel` 
       <ProgressTracker
         mt={2}
         progress={100}
-        error={true}
+        error
         currentProgressLabel="error"
       />
     </div>

@@ -53,10 +53,9 @@ const StyledProgressBar = styled.span`
 const StyledValue = styled.span`
   flex-basis: 30px;
   margin-right: 8px;
-  ${({ isMaxValue, foo }) => css`
-    ${console.log(foo, "here is foo")}
+  ${({ isMaxValue, titleLabel }) => css`
     ${!isMaxValue &&
-    foo &&
+    titleLabel &&
     css`
       font-weight: bold;
     `}
@@ -137,13 +136,13 @@ function getHeight(size) {
 }
 
 function getBackgroundColour(progress, error) {
-  if (error === true) return "var(--colorsSemanticNegative500)";
+  if (error) return "var(--colorsSemanticNegative500)";
   if (progress >= 100) return "var(--colorsSemanticPositive500)";
   return "var(--colorsSemanticNeutral500)";
 }
 
 function getBorderColour(progress, error) {
-  if (error === true) return "var(--colorsSemanticNegative500)";
+  if (error) return "var(--colorsSemanticNegative500)";
   if (progress === 100) return "var(--colorsSemanticPositive500)";
   return "var(--colorsSemanticNeutral500)";
 }

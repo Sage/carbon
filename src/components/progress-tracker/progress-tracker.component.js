@@ -78,7 +78,7 @@ const ProgressTracker = ({
       if (value) {
         return value;
       }
-      return showDefaultLabels ? defaultValue : null;
+      return showDefaultLabels ? defaultValue : undefined;
     };
 
     return (
@@ -89,7 +89,7 @@ const ProgressTracker = ({
               isMaxValue
               valueOf={typeof maxProgressLabel === "string"}
             >
-              <>{label(maxProgressLabel, "100%")}</>
+              {label(maxProgressLabel, "100%")}
             </StyledValue>
             <StyledValue valueOf={typeof currentProgressLabel === "string"}>
               {label(currentProgressLabel, `${progress}%`)}
