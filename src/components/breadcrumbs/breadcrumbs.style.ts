@@ -13,8 +13,8 @@ const StyledDivider = styled(VerticalDivider)`
 `;
 
 const StyledBreadcrumbs = styled.div`
-  color: black;
-  font-size: 16px;
+  color: var(--colorsUtilityYin90);
+  font-size: var(--fontSizes100);
 `;
 
 export { StyledBreadcrumbsWrapper, StyledBreadcrumbs, StyledDivider };
