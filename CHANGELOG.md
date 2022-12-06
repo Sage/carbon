@@ -1,3 +1,10 @@
+### [111.13.1](https://github.com/Sage/carbon/compare/v111.13.0...v111.13.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* **pager:** ensure there is no margin-bottom on page number input ([f5f1637](https://github.com/Sage/carbon/commit/f5f1637e822ec102fac7761c9e4a35e39642426f)), closes [#5650](https://github.com/Sage/carbon/issues/5650)
+
 ## [111.13.0](https://github.com/Sage/carbon/compare/v111.12.7...v111.13.0) (2022-12-02)
 
 

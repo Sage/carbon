@@ -1,8 +1,8 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow, mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
-import Toast from "./toast.component";
+import Toast, { ToastProps } from "./toast.component";
 import {
   ToastStyle,
   ToastContentStyle,
@@ -22,12 +22,14 @@ import {
 jest.mock("../../__internal__/utils/helpers/guid");
 
 describe("Toast", () => {
-  guid.mockImplementation(() => "guid-12345");
+  (guid as jest.MockedFunction<typeof guid>).mockImplementation(
+    () => "guid-12345"
+  );
 
   describe("modal manager", () => {
     jest.spyOn(ModalManager, "addModal");
     const removeModalSpy = jest.spyOn(ModalManager, "removeModal");
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     describe("when component mounts", () => {
       beforeEach(() => {
@@ -42,14 +44,14 @@ describe("Toast", () => {
         wrapper.unmount();
       });
 
-      it("it is added to modal manager", () => {
+      it("is added to modal manager", () => {
         const toast = wrapper.find(ToastWrapper).getDOMNode();
         expect(ModalManager.addModal).toHaveBeenCalledWith(toast, undefined);
       });
     });
 
     describe("when component unmounts", () => {
-      it("it is removed from modal manager", () => {
+      it("is removed from modal manager", () => {
         removeModalSpy.mockClear();
         wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
         const toast = wrapper.find(ToastWrapper).getDOMNode();
@@ -60,7 +62,7 @@ describe("Toast", () => {
   });
 
   describe("when toast is closed", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     afterEach(() => {
       wrapper.unmount();
@@ -81,7 +83,7 @@ describe("Toast", () => {
       expect(wrapper.prop("open")).toEqual(false);
     });
 
-    it("it is removed from modal manager", () => {
+    it("is removed from modal manager", () => {
       wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
       const toast = wrapper.find(ToastWrapper).getDOMNode();
       wrapper.setProps({ open: false });
@@ -104,7 +106,7 @@ describe("Toast", () => {
   });
 
   describe("when toast is open", () => {
-    let wrapper;
+    let wrapper: ShallowWrapper | ReactWrapper;
 
     describe("with prop isCenter", () => {
       afterEach(() => {
@@ -141,13 +143,21 @@ describe("Toast", () => {
     });
 
     it("renders the component with correct classes", () => {
-      wrapper = shallow(<Toast open className="exampleClass" />);
+      wrapper = shallow(
+        <Toast open className="exampleClass">
+          Child
+        </Toast>
+      );
       expect(wrapper.find(".exampleClass")).toHaveLength(1);
     });
 
     it("renders the component with correct id", () => {
       const toastId = "toast-id";
-      wrapper = shallow(<Toast open id={toastId} />);
+      wrapper = shallow(
+        <Toast open id={toastId}>
+          Child
+        </Toast>
+      );
       expect(wrapper.find('[data-component="toast"]').prop("id")).toBe(toastId);
     });
 
@@ -157,11 +167,15 @@ describe("Toast", () => {
     });
 
     describe("with onDismiss prop", () => {
-      let onDismiss;
+      let onDismiss: jest.Mock;
 
       beforeEach(() => {
         onDismiss = jest.fn();
-        wrapper = mount(<Toast open onDismiss={onDismiss} />);
+        wrapper = mount(
+          <Toast open onDismiss={onDismiss}>
+            Child
+          </Toast>
+        );
       });
 
       afterEach(() => {
@@ -196,10 +210,10 @@ describe("Toast", () => {
       it("when the toast closes, focus is returned to the element it was on before the toast opened", () => {
         const element = document.createElement("div");
         const htmlElement = document.body.appendChild(element);
-        const WrapperComponent = (toastProps) => (
+        const WrapperComponent = (toastProps: Partial<ToastProps>) => (
           <>
             <Button id="buttonId">A button</Button>
-            <Toast {...toastProps} />
+            <Toast {...toastProps}>Child</Toast>
           </>
         );
 
@@ -209,7 +223,7 @@ describe("Toast", () => {
           { attachTo: htmlElement }
         );
         const button = wrapper.find("#buttonId").first();
-        button.getDOMNode().focus();
+        (button.getDOMNode() as HTMLButtonElement).focus();
 
         wrapper.setProps({ open: true });
         const toast = wrapper.find("[data-component='toast']").first();
@@ -223,10 +237,10 @@ describe("Toast", () => {
       it("when the toast closes and then re-opens the wrapper is focused again", () => {
         const element = document.createElement("div");
         const htmlElement = document.body.appendChild(element);
-        const WrapperComponent = (toastProps) => (
+        const WrapperComponent = (toastProps: Partial<ToastProps>) => (
           <>
             <Button id="buttonId">A button</Button>
-            <Toast {...toastProps} />
+            <Toast {...toastProps}>Child</Toast>
           </>
         );
 
@@ -288,7 +302,9 @@ describe("Toast", () => {
         it("does not auto focus the Toast wrapper", () => {
           wrapper.unmount();
           wrapper = mount(
-            <Toast open onDismiss={onDismiss} disableAutoFocus />
+            <Toast open onDismiss={onDismiss} disableAutoFocus>
+              Child
+            </Toast>
           );
           const toast = wrapper.find(ToastStyle);
           expect(toast.getDOMNode().hasAttribute("tabIndex")).toBe(false);
@@ -298,10 +314,10 @@ describe("Toast", () => {
         it("when the toast closes, focus is not returned to the element it was on before the toast opened", () => {
           const element = document.createElement("div");
           const htmlElement = document.body.appendChild(element);
-          const WrapperComponent = (toastProps) => (
+          const WrapperComponent = (toastProps: Partial<ToastProps>) => (
             <>
               <Button id="buttonId">A button</Button>
-              <Toast {...toastProps} />
+              <Toast {...toastProps}>Child</Toast>
             </>
           );
 
@@ -317,7 +333,7 @@ describe("Toast", () => {
 
           wrapper.setProps({ open: true });
           const icon = wrapper.find("[data-element='close']").first();
-          icon.getDOMNode().focus();
+          (icon.getDOMNode() as HTMLElement).focus();
 
           wrapper.setProps({ open: false });
           const button = wrapper.find("#buttonId").first();
@@ -332,7 +348,11 @@ describe("Toast", () => {
 
     describe("on component", () => {
       it("include correct component, element and role data tags", () => {
-        wrapper = shallow(<Toast data-element="bar" data-role="baz" />);
+        wrapper = shallow(
+          <Toast data-element="bar" data-role="baz">
+            Child
+          </Toast>
+        );
 
         rootTagTest(
           wrapper.find('[data-component="toast"]'),
@@ -344,28 +364,32 @@ describe("Toast", () => {
     });
 
     describe("on internal elements", () => {
-      wrapper = mount(<Toast open onDismiss={() => {}} />);
+      wrapper = mount(
+        <Toast open onDismiss={() => {}}>
+          Child
+        </Toast>
+      );
       elementsTagTest(wrapper.find(IconButton).first().find("span"), ["close"]);
       wrapper.unmount();
     });
   });
 
   describe("when toast has specified maximum width", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     afterEach(() => {
       wrapper.unmount();
     });
 
     it("should render ToastStyle with correct maxWidth", () => {
-      wrapper = mount(<Toast maxWidth="200px" />);
+      wrapper = mount(<Toast maxWidth="200px">Child</Toast>);
       assertStyleMatch({ maxWidth: "200px" }, wrapper.find(ToastStyle));
     });
   });
 
   describe("when isNotice prop is set", () => {
     const onDismissFn = jest.fn();
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = mount(
@@ -395,17 +419,39 @@ describe("Toast", () => {
       expect(wrapper.find(TypeIcon).exists()).toBe(false);
     });
   });
+
+  it("does not throw when ref is a function", () => {
+    expect(() => {
+      mount(
+        <Toast isCenter onDismiss={() => {}} ref={(ref) => ref}>
+          foobar
+        </Toast>
+      );
+    }).not.toThrow();
+  });
+
+  it("passes ref propery", () => {
+    const ref = { current: null };
+
+    const wrapper = mount(
+      <Toast isCenter onDismiss={() => {}} ref={ref}>
+        foobar
+      </Toast>
+    );
+
+    expect(ref.current).toBe(wrapper.find(ToastWrapper).getDOMNode());
+  });
 });
 
 describe("ToastStyle", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   afterEach(() => {
     wrapper.unmount();
   });
 
   it("should render with correct style based on default theme", () => {
-    wrapper = mount(<ToastStyle variant="help" open />);
+    wrapper = mount(<ToastStyle variant="success" />);
 
     assertStyleMatch(
       {
@@ -422,8 +468,8 @@ describe("ToastStyle", () => {
   });
 
   describe("when the toast is displayed", () => {
-    let escapeKeyEvent;
-    let onDismissFn;
+    let escapeKeyEvent: KeyboardEvent;
+    let onDismissFn: jest.Mock;
 
     beforeEach(() => {
       escapeKeyEvent = new KeyboardEvent("keyup", {
@@ -431,7 +477,11 @@ describe("ToastStyle", () => {
         bubbles: true,
       });
       onDismissFn = jest.fn();
-      wrapper = mount(<Toast open onDismiss={onDismissFn} />);
+      wrapper = mount(
+        <Toast open onDismiss={onDismissFn}>
+          Child
+        </Toast>
+      );
     });
 
     describe("and the esc key is released", () => {
@@ -463,14 +513,14 @@ describe("ToastStyle", () => {
 });
 
 describe("TestContentStyle", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   afterEach(() => {
     wrapper.unmount();
   });
 
   it("should render with correct style based on default theme", () => {
-    wrapper = mount(<ToastContentStyle variant="help" open />);
+    wrapper = mount(<ToastContentStyle />);
 
     assertStyleMatch(
       {
