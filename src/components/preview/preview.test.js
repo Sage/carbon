@@ -6,8 +6,9 @@ import {
   previewComponent,
   lineComponent,
 } from "../../../cypress/locators/preview/index";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const pixelsData = [256, 275, 300];
 
 const PreviewComponent = ({ ...props }) => {

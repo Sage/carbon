@@ -8,18 +8,10 @@ import {
 import { icon } from "../../../cypress/locators";
 import { positionOfElement } from "../../../cypress/support/helper";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-
-const specialCharacters = [
-  "label",
-  "mp150ú¿¡üßä",
-  "!@#$%^*()_+-=~[];:.,?{}&\"'<>",
-];
-const sizes = [
-  ["small", 32],
-  ["medium", 40],
-  ["large", 48],
-];
-const testPropValue = "cypress_test";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
 const ButtonToggleComponent = ({ children, ...props }) => {
   return (
@@ -68,10 +60,14 @@ context("Testing Button-Toggle component", () => {
 
     it("should render Button-Toggle with aria-labelledby prop", () => {
       CypressMountWithProviders(
-        <ButtonToggleComponent aria-labelledby={testPropValue} />
+        <ButtonToggleComponent aria-labelledby={CHARACTERS.STANDARD} />
       );
 
-      buttonToggleInput().should("have.attr", "aria-labelledby", testPropValue);
+      buttonToggleInput().should(
+        "have.attr",
+        "aria-labelledby",
+        CHARACTERS.STANDARD
+      );
     });
 
     it.each([
@@ -86,43 +82,49 @@ context("Testing Button-Toggle component", () => {
       }
     );
 
-    it("should render Button-Toggle with data-component prop set to Cypress-Test", () => {
+    it("should render Button-Toggle with data-component prop set to cypress_data", () => {
       CypressMountWithProviders(
-        <ButtonToggleComponent data-component={testPropValue} />
+        <ButtonToggleComponent data-component={CHARACTERS.STANDARD} />
       );
 
       buttonToggleInput()
         .parent()
-        .should("have.attr", "data-component", testPropValue);
+        .should("have.attr", "data-component", CHARACTERS.STANDARD);
     });
 
-    it("should render Button-Toggle with data-element prop set to Cypress-Test", () => {
+    it("should render Button-Toggle with data-element prop set to cypress_data", () => {
       CypressMountWithProviders(
-        <ButtonToggleComponent data-element={testPropValue} />
+        <ButtonToggleComponent data-element={CHARACTERS.STANDARD} />
       );
 
       buttonToggleInput()
         .parent()
-        .should("have.attr", "data-element", testPropValue);
+        .should("have.attr", "data-element", CHARACTERS.STANDARD);
     });
 
-    it("should render Button-Toggle with data-role prop set to Cypress-Test", () => {
+    it("should render Button-Toggle with data-role prop set to cypress_data", () => {
       CypressMountWithProviders(
-        <ButtonToggleComponent data-role={testPropValue} />
+        <ButtonToggleComponent data-role={CHARACTERS.STANDARD} />
       );
 
       buttonToggleInput()
         .parent()
-        .should("have.attr", "data-role", testPropValue);
+        .should("have.attr", "data-role", CHARACTERS.STANDARD);
     });
 
-    it("should render Button-Toggle with name prop set to Cypress-Test", () => {
-      CypressMountWithProviders(<ButtonToggleComponent name={testPropValue} />);
+    it("should render Button-Toggle with name prop set to cypress_data", () => {
+      CypressMountWithProviders(
+        <ButtonToggleComponent name={CHARACTERS.STANDARD} />
+      );
 
-      buttonToggleInput().should("have.attr", "name", testPropValue);
+      buttonToggleInput().should("have.attr", "name", CHARACTERS.STANDARD);
     });
 
-    it.each(sizes)(
+    it.each([
+      [SIZE.SMALL, 32],
+      [SIZE.MEDIUM, 40],
+      [SIZE.LARGE, 48],
+    ])(
       "should check when prop is %s that Button-Toggle height is %s",
       (size, height) => {
         CypressMountWithProviders(
@@ -147,7 +149,7 @@ context("Testing Button-Toggle component", () => {
       }
     );
 
-    it.each(["small", "medium", "large"])(
+    it.each([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE])(
       "should check that Button-Toggle icon size is %s",
       (iconSize) => {
         CypressMountWithProviders(
@@ -177,7 +179,11 @@ context("Testing Button-Toggle component", () => {
       }
     );
 
-    it.each(specialCharacters)(
+    it.each([
+      CHARACTERS.STANDARD,
+      CHARACTERS.DIACRITICS,
+      CHARACTERS.SPECIALCHARACTERS,
+    ])(
       "should check Button-Toggle text is %s when Children prop is set to %s",
       (labelText) => {
         CypressMountWithProviders(<ButtonToggle>{labelText}</ButtonToggle>);
@@ -189,12 +195,12 @@ context("Testing Button-Toggle component", () => {
       }
     );
 
-    it("should render Button-Toggle with Value set to Cypress-Test", () => {
+    it("should render Button-Toggle with Value set to cypress_data", () => {
       CypressMountWithProviders(
-        <ButtonToggleComponent value={testPropValue} />
+        <ButtonToggleComponent value={CHARACTERS.STANDARD} />
       );
 
-      buttonToggleInput().should("have.attr", "value", testPropValue);
+      buttonToggleInput().should("have.attr", "value", CHARACTERS.STANDARD);
     });
   });
 

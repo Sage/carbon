@@ -349,6 +349,30 @@ describe("Textbox", () => {
     });
   });
 
+  describe("when maxWidth is passed", () => {
+    it("should be passed to InputPresentation", () => {
+      const wrapper = mount(<Textbox maxWidth="67%" />);
+
+      assertStyleMatch(
+        {
+          maxWidth: "67%",
+        },
+        wrapper.find(InputPresentation)
+      );
+    });
+
+    it("renders with maxWidth as 100% when no maxWidth is specified", () => {
+      const wrapper = mount(<Textbox maxWidth="" />);
+
+      assertStyleMatch(
+        {
+          maxWidth: "100%",
+        },
+        wrapper.find(InputPresentation)
+      );
+    });
+  });
+
   describe("new validations", () => {
     const renderWithNewValidations = ({
       error,

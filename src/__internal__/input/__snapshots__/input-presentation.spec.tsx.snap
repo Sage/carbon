@@ -10,6 +10,7 @@ exports[`InputPresentation renders presentational div and context provider for i
   display: -ms-flexbox;
   display: flex;
   position: relative;
+  max-width: 100%;
 }
 
 .c1 {

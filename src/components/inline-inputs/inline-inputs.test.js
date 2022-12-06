@@ -5,7 +5,6 @@ import SimpleSelect from "../select/simple-select/simple-select.component";
 import Option from "../select/option/option.component";
 import InlineInputs from "./inline-inputs.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-
 import {
   inlineInputContainer,
   inlineInputsPreview,
@@ -13,8 +12,12 @@ import {
   inlinelabelWidth,
   inlineChildren,
 } from "../../../cypress/locators/inline-inputs/index";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const InlineInputComponent = ({ ...props }) => {
   return (
@@ -39,13 +42,13 @@ context("Tests for InlineInputs component", () => {
   describe("should check InlineInputs component properties", () => {
     it.each([
       ["none", 0],
-      ["extra-small", -8],
-      ["small", -16],
-      ["medium-small", -20],
-      ["medium", -24],
-      ["medium-large", -28],
-      ["large", -32],
-      ["extra-large", -40],
+      [SIZE.EXTRASMALL, -8],
+      [SIZE.SMALL, -16],
+      [SIZE.MEDIUMSMALL, -20],
+      [SIZE.MEDIUM, -24],
+      [SIZE.MEDIUMLARGE, -28],
+      [SIZE.LARGE, -32],
+      [SIZE.EXTRALARGE, -40],
     ])(
       "should check when gutter size is %s for InlineInputs component",
       (size, gutterMargin) => {

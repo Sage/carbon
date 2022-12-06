@@ -21,6 +21,7 @@ import { ErrorBorder, StyledHintText } from "./textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 import NumeralDateContext from "../numeral-date/numeral-date-context";
+import Box from "../box";
 
 export interface CommonTextboxProps
   extends ValidationProps,
@@ -57,6 +58,11 @@ export interface CommonTextboxProps
   iconTabIndex?: number;
   /** The width of the input as a percentage */
   inputWidth?: number;
+  /**
+   * Prop for specifying the max width of the input.
+   * Leaving the `maxWidth` prop with no value will default the width to '100%'
+   */
+  maxWidth?: string;
   /** Additional child elements to display before the input */
   leftChildren?: React.ReactNode;
   /** Label content */
@@ -157,6 +163,7 @@ export const Textbox = ({
   validationOnLabel = false,
   labelWidth = 30,
   inputWidth,
+  maxWidth,
   prefix,
   adaptiveLabelBreakpoint,
   required,
@@ -209,6 +216,69 @@ export const Textbox = ({
     (validationIconId && !validationOnLabel)
   );
 
+  const input = (
+    <InputPresentation
+      align={align}
+      disabled={disabled}
+      readOnly={readOnly}
+      size={size}
+      error={error}
+      warning={warning}
+      info={info}
+      inputWidth={inputWidth || 100 - labelWidth}
+      maxWidth={maxWidth}
+      positionedChildren={positionedChildren}
+      hasIcon={hasIconInside}
+    >
+      {leftChildren}
+      {prefix && (
+        <StyledPrefix data-element="textbox-prefix">{prefix}</StyledPrefix>
+      )}
+      <Input
+        {...(required && { required })}
+        align={align}
+        aria-invalid={!!error}
+        aria-labelledby={labelId}
+        aria-describedby={validationRedesignOptIn ? undefined : ariaDescribedBy}
+        autoFocus={autoFocus}
+        deferTimeout={deferTimeout}
+        disabled={disabled}
+        id={uniqueId}
+        inputRef={inputRef}
+        name={uniqueName}
+        onBlur={onBlur}
+        onChange={onChange}
+        onChangeDeferred={onChangeDeferred}
+        onClick={onClick}
+        onFocus={onFocus}
+        onMouseDown={onMouseDown}
+        placeholder={disabled || readOnly ? "" : placeholder}
+        readOnly={readOnly}
+        value={typeof formattedValue === "string" ? formattedValue : value}
+        maxLength={maxLength}
+        {...props}
+      />
+      {children}
+      <InputIconToggle
+        align={align}
+        disabled={disabled}
+        error={error}
+        iconTabIndex={iconTabIndex}
+        info={info}
+        inputIcon={inputIcon}
+        onClick={iconOnClick || onClick}
+        onMouseDown={iconOnMouseDown || onMouseDown}
+        readOnly={readOnly}
+        size={size}
+        useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
+        warning={warning}
+        validationIconId={
+          validationRedesignOptIn ? undefined : validationIconId
+        }
+      />
+    </InputPresentation>
+  );
+
   return (
     <TooltipProvider
       helpAriaLabel={helpAriaLabel}
@@ -247,81 +317,17 @@ export const Textbox = ({
           {validationRedesignOptIn && labelHelp && (
             <StyledHintText>{labelHelp}</StyledHintText>
           )}
-          {validationRedesignOptIn && (
-            <ValidationMessage error={error} warning={warning} />
-          )}
-          <InputPresentation
-            align={align}
-            disabled={disabled}
-            readOnly={readOnly}
-            size={size}
-            error={error}
-            warning={warning}
-            info={info}
-            inputWidth={inputWidth || 100 - labelWidth}
-            positionedChildren={positionedChildren}
-            hasIcon={hasIconInside}
-          >
-            {leftChildren}
-            {prefix && (
-              <StyledPrefix data-element="textbox-prefix">
-                {prefix}
-              </StyledPrefix>
-            )}
-            {validationRedesignOptIn &&
-              !disableErrorBorder &&
-              (error || warning) && (
+          {validationRedesignOptIn ? (
+            <Box position="relative">
+              <ValidationMessage error={error} warning={warning} />
+              {!disableErrorBorder && (error || warning) && (
                 <ErrorBorder warning={!!(!error && warning)} />
               )}
-            <Input
-              {...(required && { required })}
-              align={align}
-              aria-invalid={!!error}
-              aria-labelledby={labelId}
-              aria-describedby={
-                validationRedesignOptIn ? undefined : ariaDescribedBy
-              }
-              autoFocus={autoFocus}
-              deferTimeout={deferTimeout}
-              disabled={disabled}
-              id={uniqueId}
-              inputRef={inputRef}
-              name={uniqueName}
-              onBlur={onBlur}
-              onChange={onChange}
-              onChangeDeferred={onChangeDeferred}
-              onClick={onClick}
-              onFocus={onFocus}
-              onMouseDown={onMouseDown}
-              placeholder={disabled || readOnly ? "" : placeholder}
-              readOnly={readOnly}
-              value={
-                typeof formattedValue === "string" ? formattedValue : value
-              }
-              maxLength={maxLength}
-              {...props}
-            />
-            {children}
-            <InputIconToggle
-              align={align}
-              disabled={disabled}
-              error={error}
-              iconTabIndex={iconTabIndex}
-              info={info}
-              inputIcon={inputIcon}
-              onClick={iconOnClick || onClick}
-              onMouseDown={iconOnMouseDown || onMouseDown}
-              readOnly={readOnly}
-              size={size}
-              useValidationIcon={
-                !(validationRedesignOptIn || validationOnLabel)
-              }
-              warning={warning}
-              validationIconId={
-                validationRedesignOptIn ? undefined : validationIconId
-              }
-            />
-          </InputPresentation>
+              {input}
+            </Box>
+          ) : (
+            input
+          )}
         </FormField>
         {characterCount}
       </InputBehaviour>

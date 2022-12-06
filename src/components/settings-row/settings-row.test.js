@@ -8,8 +8,9 @@ import {
   settingsRowChildren,
   settingsRowDescription,
 } from "../../../cypress/locators/settings-row/index";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const SettingsRowComponent = ({ ...props }) => {
   return <SettingsRow title="title" description="description" {...props} />;

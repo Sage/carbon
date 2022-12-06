@@ -8,11 +8,12 @@ import Hr from "../hr/hr.component";
 import Typography from "../typography/typography.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../../cypress/locators/index";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
 const specialCharacters = [
-  "text",
-  "mp150ú¿¡üßä",
-  "!@#$%^*()_+-=~[];:.,?{}&\"'<>",
+  CHARACTERS.STANDARD,
+  CHARACTERS.DIACRITICS,
+  CHARACTERS.SPECIALCHARACTERS,
 ];
 const widths = [
   [135, 1215, 10, 90],

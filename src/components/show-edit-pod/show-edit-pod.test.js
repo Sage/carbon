@@ -22,8 +22,9 @@ import {
 import { contentPreview } from "../../../cypress/locators/content";
 
 import { getDataElementByValue } from "../../../cypress/locators/index";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const ShowEditPodComponent = ({ ...props }) => {
   return (

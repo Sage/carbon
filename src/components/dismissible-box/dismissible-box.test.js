@@ -8,7 +8,7 @@ import point from "../../../.assets/point.svg";
 import dismissibleBoxDataComponent from "../../../cypress/locators/dismissible-box";
 import { icon } from "../../../cypress/locators/index.js";
 import { keyCode } from "../../../cypress/support/helper";
-
+import { COLOR } from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 const DismissibleBoxCustomComponent = ({ ...props }) => {
@@ -28,7 +28,7 @@ const DismissibleBoxCustomComponent = ({ ...props }) => {
 context("Test for DismissibleBox component", () => {
   describe("check props for DismissibleBox component", () => {
     it.each([
-      [true, "rgb(0, 0, 0)"],
+      [true, COLOR.BLACK],
       [false, "rgb(204, 214, 219)"],
     ])(
       "should render DismissibleBox with hasBorderLeftHighlight prop set to %s",

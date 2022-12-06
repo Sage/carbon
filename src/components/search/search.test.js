@@ -21,13 +21,17 @@ import {
 } from "../../../cypress/support/component-helper/common-steps";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { keyCode } from "../../../cypress/support/helper";
+import {
+  VALIDATION,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const testCypress = "test-cypress";
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const testCypress = CHARACTERS.STANDARD;
 const validationTypes = [
-  ["error", "rgb(203, 55, 74)"],
-  ["warning", "rgb(239, 103, 0)"],
-  ["info", "rgb(0, 96, 167)"],
+  ["error", VALIDATION.ERROR],
+  ["warning", VALIDATION.WARNING],
+  ["info", VALIDATION.INFO],
 ];
 
 const SearchComponent = ({ ...props }) => {
@@ -132,6 +136,38 @@ context("Test for Search component", () => {
         });
       }
     );
+
+    it.each([
+      ["10%", "134px"],
+      ["34%", "458px"],
+      ["70%", "944px"],
+      ["100%", "1348px"],
+    ])(
+      "should render Search with maxWidth prop set to %s",
+      (widthInPercentage, widthVal) => {
+        CypressMountWithProviders(
+          <SearchComponent maxWidth={widthInPercentage} />
+        );
+
+        searchDefault().then(($el) => {
+          expect($el[0].getBoundingClientRect().width).to.be.within(
+            parseToIntElement(widthVal),
+            parseToIntElement(widthVal) + 2
+          );
+        });
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<SearchComponent maxWidth="" />);
+
+      searchDefault().then(($el) => {
+        expect($el[0].getBoundingClientRect().width).to.be.within(
+          parseToIntElement("1348"),
+          parseToIntElement("1348") + 2
+        );
+      });
+    });
 
     it.each([
       ["default", "rgb(102, 132, 148)"],

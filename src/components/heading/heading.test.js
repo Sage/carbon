@@ -15,7 +15,9 @@ import { pillPreview } from "../../../cypress/locators/pill";
 
 import { getDataElementByValue, getComponent } from "../../../cypress/locators";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+
+const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testData = ["https://carbon.sage.com/"];
 
 const HeadingComponent = ({ ...props }) => {

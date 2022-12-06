@@ -1,15 +1,28 @@
 import React from "react";
 import { HTMLAttributes, mount, ReactWrapper } from "enzyme";
 
-import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 import GroupedCharacter, {
   GroupedCharacterProps,
 } from "./grouped-character.component";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import Label from "../../__internal__/label";
+import { InputPresentation } from "../../__internal__/input";
 
 const mountComponent = (props: GroupedCharacterProps) =>
   mount(<GroupedCharacter {...props} />);
+
+function renderGroupedCharacter(
+  props: Partial<GroupedCharacterProps>,
+  renderer = mount
+) {
+  return renderer(
+    <GroupedCharacter groups={[2, 2, 3]} separator="-" {...props} />
+  );
+}
 
 describe("GroupedCharacter", () => {
   jest.useFakeTimers();
@@ -243,6 +256,30 @@ describe("GroupedCharacter", () => {
     it("the isRequired prop is passed to the label", () => {
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
+    });
+  });
+
+  describe("when maxWidth is passed", () => {
+    it("should be passed to InputPresentation", () => {
+      const wrapper = renderGroupedCharacter({ maxWidth: "67%" });
+
+      assertStyleMatch(
+        {
+          maxWidth: "67%",
+        },
+        wrapper.find(InputPresentation)
+      );
+    });
+
+    it("renders with maxWidth as 100% when no maxWidth is specified", () => {
+      const wrapper = renderGroupedCharacter({ maxWidth: "" });
+
+      assertStyleMatch(
+        {
+          maxWidth: "100%",
+        },
+        wrapper.find(InputPresentation)
+      );
     });
   });
 });

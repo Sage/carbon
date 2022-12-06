@@ -8,8 +8,9 @@ import {
   stepSequenceDataComponentItem,
 } from "../../../cypress/locators/step-sequence";
 import { ICON } from "../../../cypress/locators/locators";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const StepSequenceComponent = ({ ...props }) => {
   return (
