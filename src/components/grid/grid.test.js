@@ -1,9 +1,10 @@
-import * as React from "react";
+import React from "react";
 import GridContainer from "./grid-container/grid-container.component";
 import GridItem from "./grid-item/grid-item.component";
 import { gridItem, gridContainer } from "../../../cypress/locators/grid";
 import Pod from "../pod";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const viewportSize = (sizeOfViewport) => {
   switch (sizeOfViewport) {
@@ -71,9 +72,9 @@ const GridLayoutExample = () => {
 context("Testing Grid component", () => {
   describe("should render Grid component", () => {
     it.each([
-      [1, "auto / auto", "1 / 13", 1862],
-      [2, "2 / 3", "1 / 6", 752],
-      [3, "4 / 5", "7 / 13", 911],
+      [1, "auto / auto", "1 / 13", 1877],
+      [2, "2 / 3", "1 / 6", 759],
+      [3, "4 / 5", "7 / 13", 918],
     ])(
       "when viewport size is default, grid item %s should have correct grid-row, grid-column and width",
       (itemNumber, row, col, expectedWidth) => {
@@ -84,18 +85,15 @@ context("Testing Grid component", () => {
           .should("have.css", "grid-row", row)
           .should("have.css", "grid-column", col)
           .then(($element) =>
-            expect(parseFloat($element.css("width"))).to.be.within(
-              expectedWidth,
-              expectedWidth + 1
-            )
+            useJQueryCssValueAndAssert($element, "width", expectedWidth)
           );
       }
     );
 
     it.each([
-      [1, "auto / auto", "1 / 13", 551],
-      [2, "2 / 3", "1 / 6", 220],
-      [3, "4 / 5", "7 / 13", 267],
+      [1, "auto / auto", "1 / 13", 566],
+      [2, "2 / 3", "1 / 6", 227],
+      [3, "4 / 5", "7 / 13", 274],
     ])(
       "when viewport size is extra small, grid item %s should have correct grid-row, grid-column and width",
       (itemNumber, row, col, expectedWidth) => {
@@ -105,19 +103,16 @@ context("Testing Grid component", () => {
         gridItem(itemNumber - 1)
           .should("have.css", "grid-row", row)
           .should("have.css", "grid-column", col)
-          .then(($element) =>
-            expect(parseFloat($element.css("width"))).to.be.within(
-              expectedWidth,
-              expectedWidth + 1
-            )
-          );
+          .then(($element) => {
+            useJQueryCssValueAndAssert($element, "width", expectedWidth);
+          });
       }
     );
 
     it.each([
-      [1, "auto / auto", "1 / 13", 895],
-      [2, "2 / 3", "1 / 6", 363],
-      [3, "4 / 5", "7 / 13", 439],
+      [1, "auto / auto", "1 / 13", 910],
+      [2, "2 / 3", "1 / 6", 370],
+      [3, "4 / 5", "7 / 13", 447],
     ])(
       "when viewport size is small, grid item %s should have correct grid-row, grid-column and width",
       (itemNumber, row, col, expectedWidth) => {
@@ -127,19 +122,16 @@ context("Testing Grid component", () => {
         gridItem(itemNumber - 1)
           .should("have.css", "grid-row", row)
           .should("have.css", "grid-column", col)
-          .then(($element) =>
-            expect(parseFloat($element.css("width"))).to.be.within(
-              expectedWidth,
-              expectedWidth + 1
-            )
-          );
+          .then(($element) => {
+            useJQueryCssValueAndAssert($element, "width", expectedWidth);
+          });
       }
     );
 
     it.each([
-      [1, "auto / auto", "1 / 13", 1179],
-      [2, "2 / 3", "1 / 6", 477],
-      [3, "4 / 5", "7 / 13", 577],
+      [1, "auto / auto", "1 / 13", 1194],
+      [2, "2 / 3", "1 / 6", 483],
+      [3, "4 / 5", "7 / 13", 585],
     ])(
       "when viewport size is medium, grid item %s should have correct grid-row, grid-column and width",
       (itemNumber, row, col, expectedWidth) => {
@@ -149,19 +141,16 @@ context("Testing Grid component", () => {
         gridItem(itemNumber - 1)
           .should("have.css", "grid-row", row)
           .should("have.css", "grid-column", col)
-          .then(($element) =>
-            expect(parseFloat($element.css("width"))).to.be.within(
-              expectedWidth,
-              expectedWidth + 1
-            )
-          );
+          .then(($element) => {
+            useJQueryCssValueAndAssert($element, "width", expectedWidth);
+          });
       }
     );
 
     it.each([
-      [1, "auto / auto", "1 / 13", 1824],
-      [2, "2 / 3", "1 / 6", 746],
-      [3, "4 / 5", "7 / 13", 900],
+      [1, "auto / auto", "1 / 13", 1840],
+      [2, "2 / 3", "1 / 6", 752],
+      [3, "4 / 5", "7 / 13", 908],
     ])(
       "when viewport size is large, grid item %s should have correct grid-row, grid-column and width",
       (itemNumber, row, col, expectedWidth) => {
@@ -171,19 +160,16 @@ context("Testing Grid component", () => {
         gridItem(itemNumber - 1)
           .should("have.css", "grid-row", row)
           .should("have.css", "grid-column", col)
-          .then(($element) =>
-            expect(parseFloat($element.css("width"))).to.be.within(
-              expectedWidth,
-              expectedWidth + 1
-            )
-          );
+          .then(($element) => {
+            useJQueryCssValueAndAssert($element, "width", expectedWidth);
+          });
       }
     );
 
     it.each([
-      [1, "auto / auto", "1 / 13", 1826],
-      [2, "2 / 3", "1 / 6", 737],
-      [3, "4 / 5", "7 / 13", 893],
+      [1, "auto / auto", "1 / 13", 1842],
+      [2, "2 / 3", "1 / 6", 744],
+      [3, "4 / 5", "7 / 13", 901],
     ])(
       "when viewport size is extra large, grid item %s should have correct grid-row, grid-column and width",
       (itemNumber, row, col, expectedWidth) => {
@@ -193,12 +179,9 @@ context("Testing Grid component", () => {
         gridItem(itemNumber - 1)
           .should("have.css", "grid-row", row)
           .should("have.css", "grid-column", col)
-          .then(($element) =>
-            expect(parseFloat($element.css("width"))).to.be.within(
-              expectedWidth,
-              expectedWidth + 1
-            )
-          );
+          .then(($element) => {
+            useJQueryCssValueAndAssert($element, "width", expectedWidth);
+          });
       }
     );
 
@@ -215,9 +198,10 @@ context("Testing Grid component", () => {
 
         viewportSize(size);
 
-        gridContainer()
-          .should("have.css", "padding-left", `${padding}px`)
-          .and("have.css", "row-gap", `${gridGap}px`);
+        gridContainer().then(($element) => {
+          useJQueryCssValueAndAssert($element, "padding-left", padding);
+          useJQueryCssValueAndAssert($element, "row-gap", gridGap);
+        });
       }
     );
 
@@ -360,7 +344,7 @@ context("Testing Grid component", () => {
         .and("have.css", "align-self", "stretch")
         .and("have.css", "justify-self", "stretch")
         .then(($element) =>
-          expect(parseFloat($element.css("width"))).to.be.within(623, 624)
+          expect(parseFloat($element.css("width"))).to.be.within(630, 632)
         );
       gridItem(1)
         .should("have.css", "grid-column", "6 / 13")
@@ -368,7 +352,7 @@ context("Testing Grid component", () => {
         .and("have.css", "align-self", "end")
         .and("have.css", "justify-self", "end")
         .then(($element) =>
-          expect(parseFloat($element.css("width"))).to.be.within(75, 76)
+          expect(parseFloat($element.css("width"))).to.be.within(72, 74)
         );
       gridItem(2)
         .should("have.css", "grid-column", "1 / 13")
@@ -376,7 +360,7 @@ context("Testing Grid component", () => {
         .and("have.css", "align-self", "start")
         .and("have.css", "justify-self", "stretch")
         .then(($element) =>
-          expect(parseFloat($element.css("width"))).to.be.within(1270, 1271)
+          expect(parseFloat($element.css("width"))).to.be.within(1285, 1288)
         );
     });
   });

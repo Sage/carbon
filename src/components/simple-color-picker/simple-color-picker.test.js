@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { SimpleColor, SimpleColorPicker } from ".";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
@@ -229,8 +229,8 @@ context("Testing SimpleColorPicker component", () => {
     );
 
     it.each([
-      ["300", "75", 97, 41, 241],
-      ["100", "60", 329, 273, 9],
+      ["300", "75", 89, 33, 233],
+      ["100", "60", 321, 265, 1],
     ])(
       "should render SimpleColorPicker with childWidth prop set to %s",
       (maxWidth, childWidth, bottomLess, topLess, leftLess) => {

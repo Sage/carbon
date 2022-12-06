@@ -1,7 +1,8 @@
-import * as React from "react";
+import React from "react";
 import Box from "./box.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../../cypress/locators";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const colorConstants = [
   ["red", "rgb(255, 0, 0)", "#FF0000"],
@@ -17,20 +18,20 @@ const bgConstants = [
 
 const widthConstants = [
   ["135px", 0.1, 135],
-  ["675px", 0.5, 675],
-  ["1350px", 1, 1350],
+  ["683px", 0.5, 683],
+  ["1366px", 1, 1366],
 ];
 
 const heightConstants = [
   ["135px", 135],
-  ["675px", 675],
-  ["1350px", 1350],
+  ["683px", 683],
+  ["1366px", 1366],
 ];
 
 const sizeConstants = [
   ["135px", 0.1, 135],
-  ["675px", 0.5, 675],
-  ["1350px", 1, 1350],
+  ["683px", 0.5, 683],
+  ["1366px", 1, 1366],
 ];
 
 const BoxComponent = ({ ...props }) => {
@@ -245,7 +246,9 @@ context("Testing Box component", () => {
 
         getDataElementByValue("box")
           .should("have.attr", "width", percentage)
-          .and("have.css", "width", width);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", parseInt(width));
+          });
       }
     );
 
@@ -256,7 +259,9 @@ context("Testing Box component", () => {
 
         getDataElementByValue("box")
           .should("have.attr", "width", number)
-          .and("have.css", "width", width);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", parseInt(width));
+          });
       }
     );
 
@@ -267,7 +272,9 @@ context("Testing Box component", () => {
 
         getDataElementByValue("box")
           .should("have.attr", "width", width)
-          .and("have.css", "width", width);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", parseInt(width));
+          });
       }
     );
 
@@ -280,7 +287,9 @@ context("Testing Box component", () => {
 
         getDataElementByValue("box")
           .should("have.attr", "height", number)
-          .and("have.css", "height", height);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "height", parseInt(height));
+          });
       }
     );
 
@@ -293,7 +302,9 @@ context("Testing Box component", () => {
 
         getDataElementByValue("box")
           .should("have.attr", "height", height)
-          .and("have.css", "height", height);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "height", parseInt(height));
+          });
       }
     );
 
@@ -302,9 +313,10 @@ context("Testing Box component", () => {
       (pixels, percentage, number) => {
         CypressMountWithProviders(<BoxComponent size={number} />);
 
-        getDataElementByValue("box")
-          .should("have.css", "width", pixels)
-          .and("have.css", "height", pixels);
+        getDataElementByValue("box").then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", parseInt(pixels));
+          useJQueryCssValueAndAssert($el, "height", parseInt(pixels));
+        });
       }
     );
 
@@ -313,9 +325,10 @@ context("Testing Box component", () => {
       (pixels) => {
         CypressMountWithProviders(<BoxComponent size={pixels} />);
 
-        getDataElementByValue("box")
-          .should("have.css", "width", pixels)
-          .and("have.css", "height", pixels);
+        getDataElementByValue("box").then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", parseInt(pixels));
+          useJQueryCssValueAndAssert($el, "height", parseInt(pixels));
+        });
       }
     );
 
@@ -381,8 +394,8 @@ context("Testing Box component", () => {
     );
 
     it.each([
-      [200, "300px"],
-      [400, "400px"],
+      [200, 300],
+      [400, 400],
     ])(
       "should verify when Width is set to %s that Box width is not less than minWidth %s",
       (width, minWidth) => {
@@ -390,13 +403,15 @@ context("Testing Box component", () => {
           <BoxComponent minWidth={300} width={width} />
         );
 
-        getDataElementByValue("box").should("have.css", "width", minWidth);
+        getDataElementByValue("box").then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", minWidth);
+        });
       }
     );
 
     it.each([
-      ["200px", "300px"],
-      ["400px", "400px"],
+      ["200px", 300],
+      ["400px", 400],
     ])(
       "should verify when Width is set to %s that Box width is not less than minWidth %s",
       (width, minWidth) => {
@@ -404,13 +419,15 @@ context("Testing Box component", () => {
           <BoxComponent minWidth={300} width={width} />
         );
 
-        getDataElementByValue("box").should("have.css", "width", minWidth);
+        getDataElementByValue("box").then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", minWidth);
+        });
       }
     );
 
     it.each([
-      [0.1, "300px"],
-      [0.3, "405px"],
+      [0.1, 300],
+      [0.3, 409],
     ])(
       "should verify when Width is set to %s that Box width is not less than minWidth %s",
       (width, minWidth) => {
@@ -418,13 +435,15 @@ context("Testing Box component", () => {
           <BoxComponent minWidth={300} width={width} />
         );
 
-        getDataElementByValue("box").should("have.css", "width", minWidth);
+        getDataElementByValue("box").then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", minWidth);
+        });
       }
     );
 
     it.each([
-      [400, "400px"],
-      [800, "600px"],
+      [400, 400],
+      [800, 600],
     ])(
       "should verify when Width is set to %s that Box width is not more than maxWidth %s",
       (width, maxWidth) => {
@@ -432,13 +451,15 @@ context("Testing Box component", () => {
           <BoxComponent maxWidth={600} width={width} />
         );
 
-        getDataElementByValue("box").should("have.css", "width", maxWidth);
+        getDataElementByValue("box").then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", maxWidth);
+        });
       }
     );
 
     it.each([
-      ["400px", "400px"],
-      ["800px", "600px"],
+      ["400px", 400],
+      ["800px", 600],
     ])(
       "should verify when Width is set to %s that Box width is not more than maxWidth %s",
       (width, maxWidth) => {
@@ -446,13 +467,15 @@ context("Testing Box component", () => {
           <BoxComponent maxWidth={600} width={width} />
         );
 
-        getDataElementByValue("box").should("have.css", "width", maxWidth);
+        getDataElementByValue("box").then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", maxWidth);
+        });
       }
     );
 
     it.each([
-      [0.1, "135px"],
-      [0.5, "600px"],
+      [0.1, 135],
+      [0.5, 600],
     ])(
       "should verify when Width is set to %s that Box width is not more than maxWidth %s",
       (width, maxWidth) => {
@@ -460,13 +483,15 @@ context("Testing Box component", () => {
           <BoxComponent maxWidth={600} width={width} />
         );
 
-        getDataElementByValue("box").should("have.css", "width", maxWidth);
+        getDataElementByValue("box").then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", maxWidth);
+        });
       }
     );
 
     it.each([
-      [400, "600px"],
-      [800, "800px"],
+      [400, 600],
+      [800, 800],
     ])(
       "should verify when Height is set to %s that Box height is not less than minHeight %s",
       (height, minHeight) => {
@@ -474,13 +499,15 @@ context("Testing Box component", () => {
           <BoxComponent minHeight={600} height={height} />
         );
 
-        getDataElementByValue("box").should("have.css", "height", minHeight);
+        getDataElementByValue("box").then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", minHeight);
+        });
       }
     );
 
     it.each([
-      ["400px", "600px"],
-      ["800px", "800px"],
+      ["400px", 600],
+      ["800px", 800],
     ])(
       "should verify when Height is set to %s that Box height is not less than minHeight %s",
       (height, minHeight) => {
@@ -488,13 +515,15 @@ context("Testing Box component", () => {
           <BoxComponent minHeight={600} height={height} />
         );
 
-        getDataElementByValue("box").should("have.css", "height", minHeight);
+        getDataElementByValue("box").then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", minHeight);
+        });
       }
     );
 
     it.each([
-      [400, "400px"],
-      [800, "600px"],
+      [400, 400],
+      [800, 600],
     ])(
       "should verify when Height is set to %s that Box height is not more than maxHeight %s",
       (height, maxHeight) => {
@@ -502,13 +531,15 @@ context("Testing Box component", () => {
           <BoxComponent maxHeight={600} height={height} />
         );
 
-        getDataElementByValue("box").should("have.css", "height", maxHeight);
+        getDataElementByValue("box").then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", maxHeight);
+        });
       }
     );
 
     it.each([
-      ["400px", "400px"],
-      ["800px", "600px"],
+      ["400px", 400],
+      ["800px", 600],
     ])(
       "should verify when Height is set to %s that Box height is not more than maxHeight %s",
       (height, maxHeight) => {
@@ -516,7 +547,9 @@ context("Testing Box component", () => {
           <BoxComponent maxHeight={600} height={height} />
         );
 
-        getDataElementByValue("box").should("have.css", "height", maxHeight);
+        getDataElementByValue("box").then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", maxHeight);
+        });
       }
     );
 

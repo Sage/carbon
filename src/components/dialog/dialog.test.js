@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Dialog from "./dialog.component";
 import {
   dialogTitle,
@@ -23,6 +23,7 @@ import {
   SIZE,
   CHARACTERS,
 } from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -73,7 +74,7 @@ const DialogComponentWithToast = () => {
 
 context("Testing Dialog component", () => {
   describe("should render Dialog component with props", () => {
-    it.each([[0], [1], [100], [1000]])(
+    it.each([0, 1, 100, 1000])(
       "should render Dialog component with %s as a height parameter",
       (height) => {
         CypressMountWithProviders(<DialogComponent height={`${height}px`} />);
@@ -87,9 +88,9 @@ context("Testing Dialog component", () => {
           resultHeight = height;
         }
 
-        dialogPreview()
-          .should("have.css", "height")
-          .and("contain", resultHeight);
+        dialogPreview().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", resultHeight);
+        });
       }
     );
 
@@ -126,9 +127,9 @@ context("Testing Dialog component", () => {
       (size, width) => {
         CypressMountWithProviders(<DialogComponent size={size} />);
 
-        dialogPreview()
-          .should("have.css", "width")
-          .and("contain", `${width}px`);
+        dialogPreview().then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", width);
+        });
       }
     );
 

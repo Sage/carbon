@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Box from "../box";
 import Button from "../button";
 import { Checkbox } from "../checkbox";
@@ -16,6 +16,7 @@ import { stickyFooter } from "../../../cypress/locators";
 
 import { positionOfElement } from "../../../cypress/support/helper";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const DrawerCustom = ({ ...props }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
@@ -121,9 +122,9 @@ context("Test for Drawer component", () => {
       drawer()
         .children()
         .first()
-        .invoke("width")
-        .should("be.greaterThan", 877)
-        .and("be.lessThan", 878);
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", 887);
+        });
     });
 
     it("should render component with custom backgroundColor", () => {

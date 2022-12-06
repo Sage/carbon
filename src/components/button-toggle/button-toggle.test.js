@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import ButtonToggle from "./button-toggle.component";
 import {
   buttonToggleLabelPreview,
@@ -12,6 +12,7 @@ import {
   SIZE,
   CHARACTERS,
 } from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const ButtonToggleComponent = ({ children, ...props }) => {
   return (
@@ -131,7 +132,9 @@ context("Testing Button-Toggle component", () => {
           <ButtonToggleComponent size={size}> {size}</ButtonToggleComponent>
         );
 
-        buttonTogglePreview().should("have.css", "height", `${height}px`);
+        buttonTogglePreview().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+        });
       }
     );
 

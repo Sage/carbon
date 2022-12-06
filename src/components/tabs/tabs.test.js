@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Tabs, Tab } from "./tabs.component";
 import { tabById, tabContentById } from "../../../cypress/locators/tabs";
 import Box from "../box/box.component";
@@ -12,6 +12,7 @@ import {
 import { keyCode } from "../../../cypress/support/helper";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const TabsComponent = ({ ...props }) => {
   return (
@@ -321,7 +322,9 @@ context("Testing Tabs component", () => {
       tabById(1)
         .parent()
         .should("have.css", "flex-direction", flex)
-        .and("have.css", "height", `${height}px`);
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+        });
     });
 
     it.each([
@@ -332,20 +335,16 @@ context("Testing Tabs component", () => {
       (size, flex, height, width) => {
         CypressMountWithProviders(<TabsComponent size={size} />);
 
-        tabById(1)
-          .should("have.css", "height", `${height}px`)
-          .invoke("css", "width")
-          .then(parseFloat)
-          .then(($el) => {
-            expect($el).to.be.gte(width);
-            expect($el).to.be.lt(width + 1);
-          });
+        tabById(1).then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+          useJQueryCssValueAndAssert($el, "width", width);
+        });
       }
     );
 
     it.each([
-      ["extended", true, 1342],
-      ["trimmed", false, 337],
+      ["extended", true, 1358],
+      ["trimmed", false, 333],
     ])(
       "should verify Tabs dividing line is %s when extendedLine prop is %s",
       (state, bool, width) => {
@@ -353,11 +352,11 @@ context("Testing Tabs component", () => {
 
         tabById(1)
           .parent()
-          .invoke("css", "width")
-          .then(parseFloat)
           .then(($el) => {
-            expect($el).to.be.gte(width);
-            expect($el).to.be.lt(width + 1);
+            expect(parseInt($el.css("width"))).to.be.within(
+              width - 3,
+              width + 3
+            );
           });
       }
     );
@@ -405,7 +404,12 @@ context("Testing Tabs component", () => {
         <TabsComponent headerWidth="440px" align="left" position="left" />
       );
 
-      tabById(1).parent().parent().should("have.css", "width", "440px");
+      tabById(1)
+        .parent()
+        .parent()
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", 440);
+        });
     });
 
     it.each([
