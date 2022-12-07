@@ -46,6 +46,20 @@ export interface SidebarProps extends PaddingProps, TagProps, WidthProps {
   disableEscKey?: boolean;
   /** Set this prop to false to hide the translucent background when the dialog is open. */
   enableBackgroundUI?: boolean;
+  /** Optional reference to an element meant to be focused on open */
+  focusFirstElement?: React.MutableRefObject<HTMLElement | null>;
+  /* Disables auto focus functionality on child elements */
+  disableAutoFocus?: boolean;
+  /**
+   * Function to replace focus trap
+   * @ignore
+   * @private
+   */
+  bespokeFocusTrap?: (
+    ev: KeyboardEvent,
+    firstElement?: HTMLElement,
+    lastElement?: HTMLElement
+  ) => void;
   /** Node that will be used as sidebar header. */
   header?: React.ReactNode;
   /** A custom close event handler */
@@ -82,6 +96,8 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledBy,
       open,
+      bespokeFocusTrap,
+      disableAutoFocus = false,
       disableEscKey = false,
       enableBackgroundUI = false,
       header,
@@ -90,6 +106,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       children,
       onCancel,
       role = "dialog",
+      focusFirstElement,
       focusableContainers,
       focusableSelectors,
       width,
@@ -197,6 +214,9 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             isOpen={open}
             additionalWrapperRefs={focusableContainers}
             focusableSelectors={focusableSelectors}
+            focusFirstElement={focusFirstElement}
+            autoFocus={!disableAutoFocus}
+            bespokeTrap={bespokeFocusTrap}
           >
             {sidebar}
           </FocusTrap>

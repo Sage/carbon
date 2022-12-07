@@ -150,14 +150,14 @@ export const Default = (args: CommonTextboxArgs) => {
     setState(value);
   };
   return (
-    <div style={{ width: "296px" }}>
+    <div>
       <Textbox
         m={2}
         onClick={action("onClick")}
+        maxWidth="70%"
         iconOnClick={action("iconOnClick")}
         value={state}
         onChange={setValue}
-        {...getCommonTextboxArgsWithSpecialCaracters(args)}
       />
     </div>
   );

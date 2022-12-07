@@ -11,6 +11,7 @@ import {
   position,
   PositionProps,
 } from "styled-system";
+import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import BaseTheme from "../../style/themes/base";
 import styledColor from "../../style/utils/color";
 import boxConfig from "./box.config";
@@ -22,6 +23,9 @@ export type ScrollVariant = "light" | "dark";
 export type BoxSizing = "content-box" | "border-box";
 export type AllowedNumericalValues = typeof GAP_VALUES[number];
 export type Gap = AllowedNumericalValues | string;
+
+type DesignTokensType = keyof typeof DesignTokens;
+type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 
 export interface BoxProps
   extends SpaceProps,
@@ -45,9 +49,11 @@ export interface BoxProps
   columnGap?: Gap;
   /** Row gap an integer multiplier of the base spacing constant (8px) or any valid CSS string." */
   rowGap?: Gap;
+  /** Design Token for Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Box component. */
+  boxShadow?: BoxShadowsType;
 }
 
-const Box = styled.div<BoxProps>`
+export const Box = styled.div<BoxProps>`
   ${space}
   ${layout}
   ${flexbox}
@@ -103,6 +109,12 @@ const Box = styled.div<BoxProps>`
         row-gap: ${boxConfig.gap(rowGap)};
       `}
     `};
+
+  ${({ boxShadow }) =>
+    boxShadow &&
+    css`
+      box-shadow: var(--${boxShadow});
+    `}
 `;
 
 Box.defaultProps = {

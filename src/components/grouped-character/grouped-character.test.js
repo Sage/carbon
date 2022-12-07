@@ -1,17 +1,19 @@
-import * as React from "react";
+import React from "react";
 import GroupedCharacter from "./grouped-character.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-
 import {
   fieldHelpPreview,
   getDataElementByValue,
   tooltipPreview,
   commonDataElementInputPreview,
 } from "../../../cypress/locators/index";
-
 import { verifyRequiredAsteriskForLabel } from "../../../cypress/support/component-helper/common-steps";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const GroupedCharacterComponent = ({ onChange, ...props }) => {
   const [state, setState] = React.useState("");
@@ -38,9 +40,9 @@ const GroupedCharacterComponent = ({ onChange, ...props }) => {
 context("Tests for GroupedCharacter component", () => {
   describe("check props for GroupedCharacter component", () => {
     it.each([
-      ["small", "32px"],
-      ["medium", "40px"],
-      ["large", "48px"],
+      [SIZE.SMALL, "32px"],
+      [SIZE.MEDIUM, "40px"],
+      [SIZE.LARGE, "48px"],
     ])(
       "should use %s as size and render it with %s as height",
       (size, height) => {
@@ -177,6 +179,29 @@ context("Tests for GroupedCharacter component", () => {
           .and("have.css", "justify-content", `flex-${cssProp}`);
       }
     );
+  });
+
+  it.each(["10%", "30%", "50%", "80%", "100%"])(
+    "should check maxWidth as %s for GroupedCharacter component",
+    (maxWidth) => {
+      CypressMountWithProviders(
+        <GroupedCharacterComponent maxWidth={maxWidth} />
+      );
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", maxWidth);
+    }
+  );
+
+  it("when maxWidth has no value it should render as 100%", () => {
+    CypressMountWithProviders(<GroupedCharacterComponent maxWidth="" />);
+
+    getDataElementByValue("input")
+      .parent()
+      .parent()
+      .should("have.css", "max-width", "100%");
   });
 
   describe("check events for GroupedCharacter component", () => {

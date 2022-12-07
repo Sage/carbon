@@ -16,10 +16,6 @@ import Icon from "../icon";
 import TextBox from "../textbox";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
-function renderSearch(props: SearchProps) {
-  return mount(<Search {...props} />);
-}
-
 describe("Search", () => {
   let wrapper: ReactWrapper;
   let onBlur: jest.Mock;
@@ -29,6 +25,10 @@ describe("Search", () => {
   let onKeyDown: jest.Mock;
 
   testStyledSystemMargin((props) => <Search value="" {...props} />);
+
+  function renderSearch(props: SearchProps) {
+    return mount(<Search {...props} />);
+  }
 
   describe("styles", () => {
     it("matches the expected styles", () => {
@@ -581,6 +581,26 @@ describe("Search", () => {
       const input = wrapper.find("input");
       input.simulate("keydown", keyDownParams);
       expect(stopPropagationFn).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("when maxWidth is passed", () => {
+    it("should be passed to InputPresentation", () => {
+      assertStyleMatch(
+        {
+          maxWidth: "67%",
+        },
+        renderSearch({ value: "search", maxWidth: "67%" })
+      );
+    });
+
+    it("renders with maxWidth as 100% when no maxWidth is specified", () => {
+      assertStyleMatch(
+        {
+          maxWidth: "100%",
+        },
+        renderSearch({ value: "search", maxWidth: "" })
+      );
     });
   });
 });

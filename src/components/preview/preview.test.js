@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Preview from ".";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { cyRoot } from "../../../cypress/locators/index";
@@ -6,8 +6,10 @@ import {
   previewComponent,
   lineComponent,
 } from "../../../cypress/locators/preview/index";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const pixelsData = [256, 275, 300];
 
 const PreviewComponent = ({ ...props }) => {
@@ -20,7 +22,9 @@ context("Tests for Preview component", () => {
       "should check height as %spx for Preview component",
       (height) => {
         CypressMountWithProviders(<PreviewComponent height={`${height}px`} />);
-        previewComponent().should("have.css", "height", `${height}px`);
+        previewComponent().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+        });
       }
     );
 
@@ -28,7 +32,9 @@ context("Tests for Preview component", () => {
       "should check width as %spx for Preview component",
       (width) => {
         CypressMountWithProviders(<PreviewComponent width={`${width}px`} />);
-        previewComponent().should("have.css", "width", `${width}px`);
+        previewComponent().then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", width);
+        });
       }
     );
 

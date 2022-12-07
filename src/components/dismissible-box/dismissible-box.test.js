@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import DismissibleBox from "./dismissible-box.component";
 import Box from "../box/box.component";
 import Typography from "../typography/typography.component";
@@ -8,8 +8,8 @@ import point from "../../../.assets/point.svg";
 import dismissibleBoxDataComponent from "../../../cypress/locators/dismissible-box";
 import { icon } from "../../../cypress/locators/index.js";
 import { keyCode } from "../../../cypress/support/helper";
-
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const DismissibleBoxCustomComponent = ({ ...props }) => {
   return (
@@ -28,7 +28,7 @@ const DismissibleBoxCustomComponent = ({ ...props }) => {
 context("Test for DismissibleBox component", () => {
   describe("check props for DismissibleBox component", () => {
     it.each([
-      [true, "rgb(0, 0, 0)"],
+      [true, "rgba(0, 0, 0, 0.9)"],
       [false, "rgb(204, 214, 219)"],
     ])(
       "should render DismissibleBox with hasBorderLeftHighlight prop set to %s",
@@ -45,7 +45,7 @@ context("Test for DismissibleBox component", () => {
       }
     );
 
-    it.each([[150], [350]])(
+    it.each([150, 350])(
       "should render DismissibleBox with width prop set to %s",
       (width) => {
         CypressMountWithProviders(
@@ -54,7 +54,9 @@ context("Test for DismissibleBox component", () => {
 
         dismissibleBoxDataComponent()
           .should("have.attr", "width", `${width}px`)
-          .and("have.css", "width", `${width}px`);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", width);
+          });
       }
     );
 

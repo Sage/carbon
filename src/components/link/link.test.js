@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+import Box from "../box";
 import Link from "./link.component";
 
 import {
@@ -10,9 +11,10 @@ import {
 } from "../../../cypress/locators";
 import { skipLink } from "../../../cypress/locators/link/index";
 import { keyCode } from "../../../cypress/support/helper";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testCypress = "test-cypress";
 
 const LinkComponent = ({ ...props }) => {
@@ -86,11 +88,13 @@ context("Test for Link component", () => {
       "should render Link with tooltipPosition prop set to %s",
       (tooltipPosition) => {
         CypressMountWithProviders(
-          <LinkComponent
-            icon="add"
-            tooltipMessage={testCypress}
-            tooltipPosition={tooltipPosition}
-          />
+          <Box m="250px">
+            <LinkComponent
+              icon="add"
+              tooltipMessage={testCypress}
+              tooltipPosition={tooltipPosition}
+            />
+          </Box>
         );
 
         icon().realHover();

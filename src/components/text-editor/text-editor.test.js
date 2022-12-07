@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import * as React from "react";
+import React from "react";
 import TextEditor, {
   TextEditorState as EditorState,
   TextEditorContentState as ContentState,
@@ -17,6 +17,10 @@ import {
 import { getDataElementByValue } from "../../../cypress/locators";
 import { positionOfElement, keyCode } from "../../../cypress/support/helper";
 import { verifyRequiredAsteriskForLabel } from "../../../cypress/support/component-helper/common-steps";
+import {
+  VALIDATION,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 const TextEditorCustom = ({ text, onChange, onLinkAdded, ...props }) => {
@@ -89,7 +93,7 @@ const longText =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 const longTextAssert =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ";
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 context("Test for TextEditor component", () => {
   describe("check functionality for TextEditor component", () => {
@@ -277,9 +281,9 @@ context("Test for TextEditor component", () => {
       });
 
       it.each([
-        ["error", 0, "rgb(203, 55, 74)"],
-        ["warning", 5, "rgb(239, 103, 0)"],
-        ["info", 10, "rgb(0, 96, 167)"],
+        ["error", 0, VALIDATION.ERROR],
+        ["warning", 5, VALIDATION.WARNING],
+        ["info", 10, VALIDATION.INFO],
       ])("should show %s validation state", (state, times, color) => {
         CypressMountWithProviders(<TextEditorCustomValidation />);
 

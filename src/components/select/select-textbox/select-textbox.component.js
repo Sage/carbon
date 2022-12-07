@@ -200,6 +200,11 @@ const formInputPropTypes = {
   /** Width of an input in percentage. Works only when labelInline is true */
   inputWidth: PropTypes.number,
   /**
+   * Prop for specifying the max-width of the input.
+   * Leaving the `maxWidth` prop with no value will default the width to '100%'
+   */
+  maxWidth: PropTypes.string,
+  /**
    * @ignore
    * @private
    * If true, the select is open

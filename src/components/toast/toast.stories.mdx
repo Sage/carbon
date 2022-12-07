@@ -2,14 +2,8 @@ import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import styled from "styled-components";
 
 import Toast from ".";
-import Icon from "../icon";
-import { useState } from "react";
-import { action } from "@storybook/addon-actions";
-import Button from "../button";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
-import isChromatic from "../../../.storybook/isChromatic";
-
-export const isOpenForChromatic = isChromatic();
+import * as stories from "./toast.stories";
 
 <Meta
   title="Toast"
@@ -77,157 +71,25 @@ Please note, by clicking a `toggle preview` button it will open example toast at
 Toast variant is `success` by default
 
 <Canvas>
-  <Story name="default" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [isOpen, setIsOpen] = useState(false);
-      const handleToggle = () => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-        action("open")(!isOpen);
-      };
-      const StyledButton = styled(Button)`
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: ${isOpen ? "green" : "blue"};
-        border: ${isOpen ? "2px solid green" : "2px solid blue"};
-      `;
-      return (
-        <div id="wrapper-default">
-          <StyledButton id="button-default" key="button" onClick={handleToggle}>
-            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-          </StyledButton>
-          <Toast id="toast-default" variant="success" open={isOpen}>
-            My message
-          </Toast>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Info
 
 <Canvas>
-  <Story name="info" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [isOpen, setIsOpen] = useState(false);
-      const handleToggle = () => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-        action("open")(!isOpen);
-      };
-      const StyledButton = styled(Button)`
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: ${isOpen ? "green" : "blue"};
-        border: ${isOpen ? "2px solid green" : "2px solid blue"};
-      `;
-      return (
-        <div id="wrapper-variant-info">
-          <StyledButton
-            id="button-variant-info"
-            key="button"
-            onClick={handleToggle}
-          >
-            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-          </StyledButton>
-          <Toast variant="info" id="toast-variant-info" open={isOpen}>
-            My Info
-          </Toast>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="info" story={stories.Info} />
 </Canvas>
 
 ### Error
 
 <Canvas>
-  <Story name="error" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [isOpen, setIsOpen] = useState(false);
-      const handleToggle = () => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-        action("open")(!isOpen);
-      };
-      const StyledButton = styled(Button)`
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: ${isOpen ? "green" : "blue"};
-        border: ${isOpen ? "2px solid green" : "2px solid blue"};
-      `;
-      return (
-        <div id="wrapper-variant-error">
-          <StyledButton
-            id="button-variant-error"
-            key="button"
-            onClick={handleToggle}
-          >
-            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-          </StyledButton>
-          <Toast variant="error" id="toast-variant-error" open={isOpen}>
-            My Info
-          </Toast>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="error" story={stories.Error} />
 </Canvas>
 
 ### Warning
 
 <Canvas>
-  <Story name="warning" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [isOpen, setIsOpen] = useState(false);
-      const handleToggle = () => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-        action("open")(!isOpen);
-      };
-      const StyledButton = styled(Button)`
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: ${isOpen ? "green" : "blue"};
-        border: ${isOpen ? "2px solid green" : "2px solid blue"};
-      `;
-      return (
-        <div id="wrapper-variant-warning">
-          <StyledButton
-            id="button-variant-warning"
-            key="button"
-            onClick={handleToggle}
-          >
-            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-          </StyledButton>
-          <Toast variant="warning" id="toast-variant-warning" open={isOpen}>
-            My Info
-          </Toast>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="warning" story={stories.Warning} />
 </Canvas>
 
 ### Notice
@@ -236,204 +98,25 @@ When the "notice" variant is set, the Toast component is rendered at the bottom 
 The "isCenter" and "maxWidth" props will be ignored in this variant.
 
 <Canvas>
-  <Story name="notice" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [isOpen, setIsOpen] = useState(false);
-      const onDismissClick = (evt) => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-      };
-      const handleToggle = () => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-        action("open")(!isOpen);
-      };
-      const StyledButton = styled(Button)`
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: ${isOpen ? "green" : "blue"};
-        border: ${isOpen ? "2px solid green" : "2px solid blue"};
-      `;
-      return (
-        <div id="wrapper-alternative">
-          <StyledButton
-            id="button-alternative"
-            key="button"
-            onClick={handleToggle}
-          >
-            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-          </StyledButton>
-          <Toast id="toast-alternative" open={isOpen} onDismiss={onDismissClick} variant="notice">
-            <Icon type="warning" color="--colorsSemanticNeutralYang100" /> My Info
-          </Toast>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="notice" story={stories.Notice} />
 </Canvas>
 
 ### Variant Left Aligned
 
 <Canvas>
-  <Story name="left aligned" parameters={{ info: { disable: true } }}>
-    {() => {
-      const onDismissClick = (evt) => {
-        setIsOpen(!isOpen);
-        action("click")(evt);
-      };
-      const [isOpen, setIsOpen] = useState(false);
-      const handleToggle = () => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-        action("open")(!isOpen);
-      };
-      const StyledButton = styled(Button)`
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: ${isOpen ? "green" : "blue"};
-        border: ${isOpen ? "2px solid green" : "2px solid blue"};
-      `;
-      return (
-        <div id="wrapper-left-aligned">
-          <StyledButton
-            id="button-left-aligned"
-            key="button"
-            onClick={handleToggle}
-          >
-            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-          </StyledButton>
-          <Toast
-            variant="warning"
-            id="toast-left-aligned"
-            open={isOpen}
-            onDismiss={onDismissClick}
-            isCenter={false}
-          >
-            My text
-          </Toast>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="left aligned" story={stories.LeftAligned} />
 </Canvas>
 
 ### Custom max width
 
 <Canvas>
-  <Story name="custom-max-width" parameters={{ info: { disable: true } }}>
-    {() => {
-      const onDismissClick = (evt) => {
-        setIsOpen(!isOpen);
-        action("click")(evt);
-      };
-      const [isOpen, setIsOpen] = useState(false);
-      const handleToggle = () => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-        action("open")(!isOpen);
-      };
-      const StyledButton = styled(Button)`
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: ${isOpen ? "green" : "blue"};
-        border: ${isOpen ? "2px solid green" : "2px solid blue"};
-      `;
-      return (
-        <div id="wrapper-custom-width">
-          <StyledButton
-            id="button-custom-width"
-            key="button"
-            onClick={handleToggle}
-          >
-            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-          </StyledButton>
-          <Toast
-            variant="warning"
-            id="toast-custom-width"
-            open={isOpen}
-            onDismiss={onDismissClick}
-            isCenter={true}
-            maxWidth="550px"
-          >
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
-            cupiditate doloremque earum, excepturi ipsum libero provident sint?
-            Animi aperiam atque consectetur error, facilis minima perferendis
-            perspiciatis quas quo, soluta voluptatibus?
-          </Toast>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="custom-max-width" story={stories.CustomMaxWidth} />
 </Canvas>
 
 ### Dismissible
 
 <Canvas>
-  <Story name="dismissible" parameters={{ info: { disable: true } }}>
-    {() => {
-      const onDismissClick = (evt) => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-        action("click")(evt);
-      };
-      const [isOpen, setIsOpen] = useState(false);
-      const handleToggle = () => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-        action("open")(!isOpen);
-      };
-      const StyledButton = styled(Button)`
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: ${isOpen ? "green" : "blue"};
-        border: ${isOpen ? "2px solid green" : "2px solid blue"};
-      `;
-      return (
-        <div id="wrapper-dismissible">
-          <StyledButton
-            id="button-toast-dismissible"
-            key="button"
-            onClick={handleToggle}
-          >
-            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-          </StyledButton>
-          <Toast
-            variant="warning"
-            id="toast-dismissible"
-            open={isOpen}
-            onDismiss={onDismissClick}
-            isCenter={true}
-          >
-            My text
-          </Toast>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="dismissible" story={stories.Dismissible} />
 </Canvas>
 
 ### Dismissible with timeout
@@ -441,56 +124,8 @@ The "isCenter" and "maxWidth" props will be ignored in this variant.
 <Canvas>
   <Story
     name="dismissible-with-timeout"
-    parameters={{ info: { disable: true } }}
-  >
-    {() => {
-      const onDismissClick = (evt) => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-        action("click")(evt);
-      };
-      const [isOpen, setIsOpen] = useState(false);
-      const handleToggle = () => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-        action("open")(!isOpen);
-      };
-      const StyledButton = styled(Button)`
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: ${isOpen ? "green" : "blue"};
-        border: ${isOpen ? "2px solid green" : "2px solid blue"};
-      `;
-      return (
-        <div id="wrapper-dismissible">
-          <StyledButton
-            id="button-toast-dismissible"
-            key="button"
-            onClick={handleToggle}
-          >
-            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-          </StyledButton>
-          <Toast
-            variant="warning"
-            id="toast-dismissible"
-            open={isOpen}
-            onDismiss={onDismissClick}
-            isCenter={true}
-            timeout={2000}
-          >
-            My text
-          </Toast>
-        </div>
-      );
-    }}
-  </Story>
+    story={stories.DismissibleWithTimeout}
+  />
 </Canvas>
 
 ### Dismissible without autoFocus
@@ -498,54 +133,8 @@ The "isCenter" and "maxWidth" props will be ignored in this variant.
 <Canvas>
   <Story
     name="dismissible without autoFocus"
-    parameters={{ info: { disable: true } }}
-  >
-    {() => {
-      const onDismissClick = (evt) => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-      };
-      const [isOpen, setIsOpen] = useState(isOpenForChromatic);
-      const handleToggle = () => {
-        if (!isOpen) {
-          window.scrollTo(0, 0);
-        }
-        setIsOpen(!isOpen);
-      };
-      const StyledButton = styled(Button)`
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: ${isOpen ? "green" : "blue"};
-        border: ${isOpen ? "2px solid green" : "2px solid blue"};
-      `;
-      return (
-        <div id="wrapper-dismissible">
-          <StyledButton
-            id="button-toast-dismissible"
-            key="button"
-            onClick={handleToggle}
-          >
-            Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-          </StyledButton>
-          <Toast
-            variant="warning"
-            id="toast-dismissible"
-            open={isOpen}
-            onDismiss={onDismissClick}
-            isCenter={true}
-            disableAutoFocus
-          >
-            My text
-          </Toast>
-        </div>
-      );
-    }}
-  </Story>
+    story={stories.DismissibleWithoutAutoFocus}
+  />
 </Canvas>
 
 ### Grouped Delayed (stacking)
@@ -553,83 +142,7 @@ The "isCenter" and "maxWidth" props will be ignored in this variant.
 One second delay
 
 <Canvas>
-  <Story name="stacked-delayed" parameters={{ info: { disable: true } }}>
-    {() => {
-      const onDismissClickA = (evt) => {
-        setIsOpenA(!isOpenA);
-        action("click")(evt);
-      };
-      const onDismissClickB = (evt) => {
-        setIsOpenB(!isOpenB);
-        action("click")(evt);
-      };
-      const [isOpenA, setIsOpenA] = useState(false);
-      const [isOpenB, setIsOpenB] = useState(false);
-      const [buttonDisabled, setButtonDisabled] = useState(false);
-      const handleToggle = () => {
-        if (!isOpenA) {
-          window.scrollTo(0, 0);
-        }
-        if (!isOpenA && !isOpenB) {
-          setIsOpenA(true);
-          setButtonDisabled(true);
-          setTimeout(() => {
-            setIsOpenB(true);
-            setButtonDisabled(false);
-          }, 1000);
-          action("open")(true);
-        } else {
-          setButtonDisabled(true);
-          setIsOpenA(false);
-          setTimeout(() => {
-            setIsOpenB(false);
-            setButtonDisabled(false);
-          }, 1000);
-        }
-      };
-      const StyledButton = styled(Button)`
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: ${isOpenA || isOpenB ? "green" : "blue"};
-        border: ${isOpenA || isOpenB ? "2px solid green" : "2px solid blue"};
-      `;
-      return (
-        <div id="wrapper-stacked-delayed">
-          <StyledButton
-            id="button-stacked-delayed"
-            key="button"
-            onClick={handleToggle}
-            disabled={buttonDisabled}
-          >
-            Toggle - Preview is: {isOpenA || isOpenB ? "ON" : "OFF"}
-          </StyledButton>
-          <Toast
-            id="toast-stacked-delayed-a"
-            variant="warning"
-            open={isOpenA}
-            onDismiss={onDismissClickA}
-            isCenter={true}
-            targetPortalId="stacked-delay"
-          >
-            My toast A
-          </Toast>
-          <Toast
-            id="toast-stacked-delayed-b"
-            variant="error"
-            open={isOpenB}
-            onDismiss={onDismissClickB}
-            isCenter={true}
-            targetPortalId="stacked-delay"
-          >
-            My toast B
-          </Toast>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="stacked-delayed" story={stories.StackedDelayed} />
 </Canvas>
 
 ### Grouped (stacking)
@@ -637,69 +150,7 @@ One second delay
 Please use `targetPortalId` prop to group multiple toasts so that they stack.
 
 <Canvas>
-  <Story name="stacked" parameters={{ info: { disable: true } }}>
-    {() => {
-      const onDismissClickA = (evt) => {
-        setIsOpenA(!isOpenA);
-        action("click")(evt);
-      };
-      const onDismissClickB = (evt) => {
-        setIsOpenB(!isOpenB);
-        action("click")(evt);
-      };
-      const [isOpenA, setIsOpenA] = useState(false);
-      const [isOpenB, setIsOpenB] = useState(false);
-      const handleToggle = () => {
-        if (!isOpenA) {
-          window.scrollTo(0, 0);
-        }
-        if (!isOpenA && !isOpenB) {
-          setIsOpenA(true);
-          setIsOpenB(true);
-          action("open")(true);
-        } else {
-          setIsOpenA(false);
-          setIsOpenB(false);
-        }
-      };
-      const StyledButton = styled(Button)`
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: ${isOpenA || isOpenB ? "green" : "blue"};
-        border: ${isOpenA || isOpenB ? "2px solid green" : "2px solid blue"};
-      `;
-      return (
-        <div id="wrapper-stacked">
-          <StyledButton id="button-stacked" key="button" onClick={handleToggle}>
-            Toggle - Preview is: {isOpenA || isOpenB ? "ON" : "OFF"}
-          </StyledButton>
-          <Toast
-            id="toast-stacked-a"
-            variant="success"
-            open={isOpenA}
-            onDismiss={onDismissClickA}
-            isCenter={true}
-            targetPortalId="stacked"
-          >
-            My Toast A
-          </Toast>
-          <Toast
-            id="toast-stacked-b"
-            variant="warning"
-            open={isOpenB}
-            onDismiss={onDismissClickB}
-            isCenter={true}
-            targetPortalId="stacked"
-          >
-            My Toast B
-          </Toast>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="stacked" story={stories.Stacked} />
 </Canvas>
 
 ## Props

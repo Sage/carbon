@@ -1,8 +1,9 @@
-import * as React from "react";
+import React from "react";
 import ButtonToggle from "../button-toggle/button-toggle.component";
 import ButtonToggleGroup from "./button-toggle-group.component";
 import {
   buttonTogglePreview,
+  buttonToggleLabelPreview,
   buttonToggleInput,
 } from "../../../cypress/locators/button-toggle";
 import {
@@ -12,14 +13,14 @@ import {
 } from "../../../cypress/locators/button-toggle-group";
 import { positionOfElement } from "../../../cypress/support/helper";
 import { getDataElementByValue, icon } from "../../../cypress/locators";
+import {
+  VALIDATION,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
-const specialCharacters = [
-  "label",
-  "mp150ú¿¡üßä",
-  "!@#$%^*()_+-=~[];:.,?{}&\"'<>",
-];
-const testPropValue = "cypress_test";
+const testPropValue = CHARACTERS.STANDARD;
 
 const ButtonToggleGroupComponent = ({ ...props }) => {
   return (
@@ -71,7 +72,7 @@ const ButtonToggleGroupDefaultChecked = () => {
 
 context("Testing Button-Toggle-Group component", () => {
   describe("should render Button-Toggle-Group component", () => {
-    it("should render Button-Toggle-Group with data-component prop set to Cypress-Test", () => {
+    it("should render Button-Toggle-Group with data-component prop set to cypress_data", () => {
       CypressMountWithProviders(
         <ButtonToggleGroupComponent data-component={testPropValue} />
       );
@@ -81,7 +82,7 @@ context("Testing Button-Toggle-Group component", () => {
         .should("have.attr", "data-component", testPropValue);
     });
 
-    it("should render Button-Toggle-Group with data-element prop set to Cypress-Test", () => {
+    it("should render Button-Toggle-Group with data-element prop set to cypress_data", () => {
       CypressMountWithProviders(
         <ButtonToggleGroupComponent data-element={testPropValue} />
       );
@@ -89,7 +90,7 @@ context("Testing Button-Toggle-Group component", () => {
       buttonToggleGroup().should("have.attr", "data-element", testPropValue);
     });
 
-    it("should render Button-Toggle-Group with data-role prop set to Cypress-Test", () => {
+    it("should render Button-Toggle-Group with data-role prop set to cypress_data", () => {
       CypressMountWithProviders(
         <ButtonToggleGroupComponent data-role={testPropValue} />
       );
@@ -97,7 +98,7 @@ context("Testing Button-Toggle-Group component", () => {
       buttonToggleGroup().should("have.attr", "data-role", testPropValue);
     });
 
-    it("should render Button-Toggle-Group with all button toggle input name props set to Cypress-Test", () => {
+    it("should render Button-Toggle-Group with all button toggle input name props set to cypress_data", () => {
       CypressMountWithProviders(
         <ButtonToggleGroupComponent name={testPropValue} />
       );
@@ -108,9 +109,9 @@ context("Testing Button-Toggle-Group component", () => {
     });
 
     it.each([
-      ["error", "Error Message", "", "", "rgb(203, 55, 74)"],
-      ["warning", "", "Warning Message", "", "rgb(239, 103, 0)"],
-      ["info", "", "", "Info Message", "rgb(0, 96, 167)"],
+      ["error", "Error Message", "", "", VALIDATION.ERROR],
+      ["warning", "", "Warning Message", "", VALIDATION.WARNING],
+      ["info", "", "", "Info Message", VALIDATION.INFO],
     ])(
       "should render Button-Toggle-Group with %s icon",
       (prop, errorMessage, warningMessage, infoMessage, bottomColor) => {
@@ -153,18 +154,19 @@ context("Testing Button-Toggle-Group component", () => {
         .should("have.attr", "data-element", "info");
     });
 
-    it.each(specialCharacters)(
-      "should render Button-Toggle-Group with %s as label",
-      (labelText) => {
-        CypressMountWithProviders(
-          <ButtonToggleGroupComponent label={labelText} />
-        );
+    it.each([
+      CHARACTERS.STANDARD,
+      CHARACTERS.DIACRITICS,
+      CHARACTERS.SPECIALCHARACTERS,
+    ])("should render Button-Toggle-Group with %s as label", (labelText) => {
+      CypressMountWithProviders(
+        <ButtonToggleGroupComponent label={labelText} />
+      );
 
-        buttonToggleGroup().should("contain.text", labelText);
-      }
-    );
+      buttonToggleGroup().should("contain.text", labelText);
+    });
 
-    it("should render Button-Toggle-Group with tooltip set to Cypress-Test", () => {
+    it("should render Button-Toggle-Group with tooltip set to cypress_data", () => {
       CypressMountWithProviders(
         <ButtonToggleGroupComponent labelHelp={testPropValue} />
       );
@@ -175,7 +177,11 @@ context("Testing Button-Toggle-Group component", () => {
         .and("has.text", testPropValue);
     });
 
-    it.each(specialCharacters)(
+    it.each([
+      CHARACTERS.STANDARD,
+      CHARACTERS.DIACRITICS,
+      CHARACTERS.SPECIALCHARACTERS,
+    ])(
       "should render Button-Toggle-Group with %s as field help text",
       (fieldHelpText) => {
         CypressMountWithProviders(
@@ -264,9 +270,9 @@ context("Testing Button-Toggle-Group component", () => {
     });
 
     it.each([
-      [25, "337.5px"],
-      [50, "675px"],
-      [100, "1350px"],
+      [25, 341],
+      [50, 683],
+      [100, 1366],
     ])(
       "should render Button-Toggle-Group with labelWidth prop of %s and width of %s",
       (labelWidth, width) => {
@@ -277,7 +283,9 @@ context("Testing Button-Toggle-Group component", () => {
         buttonToggleInput()
           .parent()
           .parent()
-          .should("have.css", "width", width);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", width);
+          });
       }
     );
 
@@ -346,6 +354,22 @@ context("Testing Button-Toggle-Group component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("should make css changes when fullWidth prop is passed", () => {
+    it("container div should auto flex", () => {
+      CypressMountWithProviders(<ButtonToggleGroupComponent fullWidth />);
+
+      buttonTogglePreview().should("have.css", "flex", "1 1 auto");
+    });
+
+    it("width of label should be 100% / 450px", () => {
+      CypressMountWithProviders(<ButtonToggleGroupComponent fullWidth />);
+
+      buttonToggleLabelPreview(1).then(($el) => {
+        useJQueryCssValueAndAssert($el, "width", 450);
+      });
     });
   });
 });

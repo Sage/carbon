@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import * as React from "react";
+import React from "react";
 import DateRange from "./date-range.component";
 
 import { getDataElementByValue, icon } from "../../../cypress/locators";
@@ -15,6 +15,10 @@ import {
   INFO_ICON,
   WARNING_ICON,
 } from "../../../cypress/locators/locators";
+import {
+  VALIDATION,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
 
 const testCypressText = "test_cypress";
 
@@ -54,12 +58,9 @@ const DateRangeCustom = ({ onChange, onBlur, ...props }) => {
   );
 };
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const START_DATE_RANGE_INDEX = 0;
 const END_DATE_RANGE_INDEX = 1;
-const ERROR_COLOUR = "rgb(203, 55, 74)";
-const WARN_COLOUR = "rgb(239, 103, 0)";
-const INFO_COLOUR = "rgb(0, 96, 167)";
 
 const checkInputColor = (index, color) => {
   dateRangeComponentInput(index)
@@ -103,7 +104,7 @@ context("Test for DateRange component", () => {
           .find(ICON)
           .realHover();
         getDataElementByValue("tooltip").should("have.text", startError);
-        checkInputColor(START_DATE_RANGE_INDEX, ERROR_COLOUR);
+        checkInputColor(START_DATE_RANGE_INDEX, VALIDATION.ERROR);
       }
     );
 
@@ -117,7 +118,7 @@ context("Test for DateRange component", () => {
           .find(ICON)
           .realHover();
         getDataElementByValue("tooltip").should("have.text", endError);
-        checkInputColor(END_DATE_RANGE_INDEX, ERROR_COLOUR);
+        checkInputColor(END_DATE_RANGE_INDEX, VALIDATION.ERROR);
       }
     );
 
@@ -133,7 +134,7 @@ context("Test for DateRange component", () => {
           .find(ICON)
           .realHover();
         getDataElementByValue("tooltip").should("have.text", startWarning);
-        checkInputColor(START_DATE_RANGE_INDEX, WARN_COLOUR);
+        checkInputColor(START_DATE_RANGE_INDEX, VALIDATION.WARNING);
       }
     );
 
@@ -147,7 +148,7 @@ context("Test for DateRange component", () => {
           .find(ICON)
           .realHover();
         getDataElementByValue("tooltip").should("have.text", endWarning);
-        checkInputColor(END_DATE_RANGE_INDEX, WARN_COLOUR);
+        checkInputColor(END_DATE_RANGE_INDEX, VALIDATION.WARNING);
       }
     );
 
@@ -161,7 +162,7 @@ context("Test for DateRange component", () => {
           .find(ICON)
           .realHover();
         getDataElementByValue("tooltip").should("have.text", startInfo);
-        checkInputColor(START_DATE_RANGE_INDEX, INFO_COLOUR);
+        checkInputColor(START_DATE_RANGE_INDEX, VALIDATION.INFO);
       }
     );
 
@@ -175,44 +176,44 @@ context("Test for DateRange component", () => {
           .find(ICON)
           .realHover();
         getDataElementByValue("tooltip").should("have.text", endInfo);
-        checkInputColor(END_DATE_RANGE_INDEX, INFO_COLOUR);
+        checkInputColor(END_DATE_RANGE_INDEX, VALIDATION.INFO);
       }
     );
 
     it("should check the startError as boolean", () => {
       CypressMountWithProviders(<DateRangeCustom startError />);
 
-      checkInputColor(START_DATE_RANGE_INDEX, ERROR_COLOUR);
+      checkInputColor(START_DATE_RANGE_INDEX, VALIDATION.ERROR);
     });
 
     it("should check the endError as boolean", () => {
       CypressMountWithProviders(<DateRangeCustom endError />);
 
-      checkInputColor(END_DATE_RANGE_INDEX, ERROR_COLOUR);
+      checkInputColor(END_DATE_RANGE_INDEX, VALIDATION.ERROR);
     });
 
     it("should check the startWarning as boolean", () => {
       CypressMountWithProviders(<DateRangeCustom startWarning />);
 
-      checkInputColor(START_DATE_RANGE_INDEX, WARN_COLOUR);
+      checkInputColor(START_DATE_RANGE_INDEX, VALIDATION.WARNING);
     });
 
     it("should check the endWarning as boolean", () => {
       CypressMountWithProviders(<DateRangeCustom endWarning />);
 
-      checkInputColor(END_DATE_RANGE_INDEX, WARN_COLOUR);
+      checkInputColor(END_DATE_RANGE_INDEX, VALIDATION.WARNING);
     });
 
     it("should check the startInfo as boolean", () => {
       CypressMountWithProviders(<DateRangeCustom startInfo />);
 
-      checkInputColor(START_DATE_RANGE_INDEX, INFO_COLOUR);
+      checkInputColor(START_DATE_RANGE_INDEX, VALIDATION.INFO);
     });
 
     it("should check the endInfo as boolean", () => {
       CypressMountWithProviders(<DateRangeCustom endInfo />);
 
-      checkInputColor(END_DATE_RANGE_INDEX, INFO_COLOUR);
+      checkInputColor(END_DATE_RANGE_INDEX, VALIDATION.INFO);
     });
 
     it.each(testData)(

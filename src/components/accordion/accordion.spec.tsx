@@ -498,8 +498,8 @@ describe("Accordion", () => {
     });
 
     it.each([
-      ["left", "32px"],
-      ["right", "64px"],
+      ["left", "var(--spacing100)"],
+      ["right", "var(--spacing300)"],
     ])(
       "should set the icon position of the button correctly",
       (iconPosition, marginValue) => {

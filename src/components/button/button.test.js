@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Button from "./button.component";
 
 import {
@@ -8,9 +8,11 @@ import {
 
 import { icon, tooltipPreview } from "../../../cypress/locators";
 import { positionOfElement, keyCode } from "../../../cypress/support/helper";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const ButtonDifferentTypes = ({ ...props }) => {
   return (
@@ -90,7 +92,9 @@ context("Test for Button component", () => {
     it("should render Button with full width", () => {
       CypressMountWithProviders(<Button fullWidth>Foo</Button>);
 
-      buttonDataComponent().should("have.css", "width").and("eq", "1350px");
+      buttonDataComponent().then(($el) => {
+        useJQueryCssValueAndAssert($el, "width", 1365);
+      });
     });
 
     it.each([

@@ -1,16 +1,15 @@
-import * as React from "react";
+import React from "react";
 import Toast from ".";
 import { TOAST_COLORS } from "./toast.config";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-
-import toastComponent from "../../../cypress/locators/toast";
-import { closeIconButton, getComponent } from "../../../cypress/locators/index";
-
-import { pressESCKey } from "../../../cypress/support/helper";
 import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
+import toastComponent from "../../../cypress/locators/toast";
+import { pressESCKey, pressTABKey } from "../../../cypress/support/helper";
+import { closeIconButton, getComponent } from "../../../cypress/locators/index";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
-const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
-const testData = "cypressData";
+const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const testData = CHARACTERS.STANDARD;
 const colorTypes = [
   ["rgb(203, 55, 74)"],
   ["rgb(51, 91, 112)"],
@@ -18,6 +17,7 @@ const colorTypes = [
   ["rgb(239, 103, 0)"],
 ];
 
+// eslint-disable-next-line react/prop-types
 const ToastComponent = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = React.useState(true);
 
@@ -56,12 +56,10 @@ context("Testing Toast component", () => {
       toastComponent().should("not.exist");
     });
 
-    it("should render Toast component with focused close icon", () => {
+    it("should render Toast component with focus", () => {
       CypressMountWithProviders(<ToastComponent />);
 
-      closeIconButton().then(($el) => {
-        checkGoldenOutline($el);
-      });
+      toastComponent().should("be.focused");
     });
 
     it("should render Toast component with not focused close icon", () => {
@@ -174,6 +172,7 @@ context("Testing Toast component", () => {
     it("should render Toast component with notice variant with focused close icon", () => {
       CypressMountWithProviders(<ToastComponent variant="notice" open />);
 
+      pressTABKey(1);
       closeIconButton().then(($el) => {
         checkGoldenOutline($el);
       });

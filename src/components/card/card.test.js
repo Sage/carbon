@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
-import * as React from "react";
+import React, { useState } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useState } from "react";
 import { Card, CardRow, CardFooter, CardColumn } from ".";
 
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -17,8 +16,13 @@ import {
   draggableContainer,
   columnCard,
 } from "../../../cypress/locators/card/index";
+import {
+  SIZE,
+  CHARACTERS,
+} from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const textAlignment = ["center", "left", "right"];
 
 const CardComponent = ({ ...props }) => {
@@ -216,16 +220,17 @@ const CardTextAlignment = ({ ...props }) => {
 context("Tests for Card component", () => {
   describe("should check Card component properties", () => {
     it.each([
-      ["small", 24],
-      ["medium", 32],
-      ["large", 48],
+      [SIZE.SMALL, 24],
+      [SIZE.MEDIUM, 32],
+      [SIZE.LARGE, 48],
     ])(
       "should check %s spacing and padding for Card component ",
       (spacing, paddings) => {
         CypressMountWithProviders(<CardComponent spacing={spacing} />);
-        card()
-          .should("have.css", "padding-left", `${paddings}px`)
-          .and("have.css", "padding-right", `${paddings}px`);
+        card().then(($el) => {
+          useJQueryCssValueAndAssert($el, "padding-left", paddings);
+          useJQueryCssValueAndAssert($el, "padding-right", paddings);
+        });
       }
     );
 
@@ -241,7 +246,9 @@ context("Tests for Card component", () => {
       "should check %s width for Card component",
       (width) => {
         CypressMountWithProviders(<CardComponent cardWidth={`${width}px`} />);
-        card().should("have.css", "width", `${width}px`);
+        card().then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", width);
+        });
       }
     );
 
@@ -287,6 +294,29 @@ context("Tests for Card component", () => {
           "have.css",
           "box-shadow",
           "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px"
+        );
+    });
+
+    it("should allow custom boxShadow and hoverBoxShadow prop values", () => {
+      CypressMountWithProviders(
+        <CardComponent
+          boxShadow="boxShadow400"
+          hoverBoxShadow="boxShadow200"
+          interactive
+        />
+      );
+      card().should(
+        "have.css",
+        "box-shadow",
+        "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px"
+      );
+      card().realHover();
+      card()
+        .should("have.css", "cursor", "pointer")
+        .and(
+          "have.css",
+          "box-shadow",
+          "rgba(0, 20, 30, 0.2) 0px 10px 20px 0px, rgba(0, 20, 30, 0.1) 0px 20px 40px 0px"
         );
     });
 

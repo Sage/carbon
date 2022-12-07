@@ -8,6 +8,7 @@ import {
   nextArrow,
   firstArrow,
   lastArrow,
+  currentPageWrapper,
   currentPageInput,
   pagerSummary,
   pageSelectElement,
@@ -21,8 +22,10 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import { keyCode } from "../../../cypress/support/helper";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import Form from "../form";
 
-const testData = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const records = [
   {
     id: "1",
@@ -135,6 +138,14 @@ const PagerComponentResponsive = () => {
       {...responsiveProps()}
       pageSizeSelectionOptions={records}
     />
+  );
+};
+
+const PagerInForm = () => {
+  return (
+    <Form>
+      <PagerComponent />
+    </Form>
   );
 };
 
@@ -530,5 +541,13 @@ context("Test for Pager component", () => {
           });
       }
     );
+  });
+
+  describe("when inside a form component", () => {
+    it("should have no bottom margin", () => {
+      CypressMountWithProviders(<PagerInForm />);
+
+      currentPageWrapper().should("have.css", "margin-bottom", "0px");
+    });
   });
 });
