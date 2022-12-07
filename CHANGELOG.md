@@ -1,3 +1,11 @@
+## [111.16.0](https://github.com/Sage/carbon/compare/v111.15.0...v111.16.0) (2022-12-07)
+
+
+### Features
+
+* **form:** surface padding interface on Form footer via footerPadding prop ([1c29e01](https://github.com/Sage/carbon/commit/1c29e018e0fdca033e2f9b860e8f7c2b5f22ab69))
+* **sidebar:** add support for overriding the padding in header ([0040efb](https://github.com/Sage/carbon/commit/0040efba3db1e44ac32bc5a674b6fe63bde1e4a8))
+
 ## [111.15.0](https://github.com/Sage/carbon/compare/v111.14.0...v111.15.0) (2022-12-07)
 
 
