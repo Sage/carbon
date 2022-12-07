@@ -50,6 +50,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("contributing") &&
       !prepareUrl[0].startsWith("accordion") &&
       !prepareUrl[0].startsWith("alert") &&
+      !prepareUrl[0].startsWith("action-popover") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);
