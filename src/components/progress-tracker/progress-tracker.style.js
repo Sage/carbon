@@ -53,20 +53,25 @@ const StyledProgressBar = styled.span`
 const StyledValue = styled.span`
   flex-basis: 30px;
   margin-right: 8px;
-  ${({ isMaxValue, titleLabel }) => css`
-    ${!isMaxValue &&
-    titleLabel &&
+  ${({ isMaxValue, hasDescription }) => css`
+    ${isMaxValue ? "color: var(--colorsUtilityYin055)" : "font-weight: bold;"}
+    ${hasDescription &&
     css`
-      font-weight: bold;
+      > span {
+        font-weight: normal;
+      }
+      span & span {
+        margin-left: 8px;
+      }
     `}
-    ${isMaxValue && `color: var(--colorsUtilityYin055)`}
   `}
 `;
 
 const StyledValuesLabel = styled.span`
   text-align: start;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
   ${({ isVertical, position }) => css`
     ${isVertical &&
     css`

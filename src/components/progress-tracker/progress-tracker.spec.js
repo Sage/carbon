@@ -292,7 +292,7 @@ describe("ProgressBar", () => {
           {
             textAlign: "start",
             display: "flex",
-            justifyContent: "flex-start",
+            justifyContent: "space-between",
             [labelsPosition === "top" ? "paddingBottom" : "paddingTop"]: "4px",
           },
           wrapper.find(StyledValuesLabel)
@@ -338,7 +338,7 @@ describe("ProgressBar", () => {
               {
                 textAlign: "start",
                 display: "flex",
-                justifyContent: "flex-start",
+                justifyContent: "space-between",
                 flexDirection: "column",
                 paddingLeft: "4px",
               },
@@ -439,7 +439,7 @@ describe("ProgressBar", () => {
             {
               textAlign: "start",
               display: "flex",
-              justifyContent: "flex-start",
+              justifyContent: "space-between",
               flexDirection: "column",
               [labelsPosition === "left"
                 ? "paddingRight"

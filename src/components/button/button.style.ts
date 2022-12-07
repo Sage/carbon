@@ -77,7 +77,6 @@ type StyledButtonProps = SpaceProps &
   };
 
 const StyledButton = styled.button<StyledButtonProps>`
-  ${space}
   ${({ disabled, noWrap }) => css`
     align-items: center;
     cursor: ${disabled ? "not-allowed" : "pointer"};
@@ -87,6 +86,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     justify-content: center;
     vertical-align: middle;
     outline-offset: 0;
+    ${space}
     ${stylingForType}
   `}
 

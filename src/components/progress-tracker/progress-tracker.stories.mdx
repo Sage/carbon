@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import ProgressTracker from ".";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import Typography from "../typography";
 
 <Meta title="Progress Tracker" parameters={{ info: { disable: true } }} />
 
@@ -169,13 +170,12 @@ This is an example of a `ProgressTracker` component with `currentProgressLabel` 
     >
       <ProgressTracker
         progress={50}
-        currentProgressLabel="$50 of $200"
+        currentProgressLabel={<Typography display="inline"><Typography variant="b">$50 </Typography>of <Typography variant="b">$200</Typography></Typography>}
       />
       <ProgressTracker
         mt={2}
         progress={70}
-        showDefaultLabels
-        currentProgressLabel={<p><strong>Step 3 </strong>of <strong>5</strong></p>}
+        currentProgressLabel={<Typography display="inline"><Typography variant="b">Step 3 </Typography>of <Typography variant="b">5</Typography></Typography>}
         description="Adding VAT"
       />
       <ProgressTracker
