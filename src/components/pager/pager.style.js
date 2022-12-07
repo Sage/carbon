@@ -97,7 +97,7 @@ const StyledPagerNavInner = styled.div`
   align-items: center;
   padding: 0 12px;
 
-  & ${StyledFormField} {
+  && ${StyledFormField} {
     margin-bottom: 0;
   }
 `;

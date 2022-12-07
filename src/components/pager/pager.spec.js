@@ -572,7 +572,7 @@ describe("Pager", () => {
       assertStyleMatch(
         { marginBottom: "0" },
         wrapper.find(StyledPagerNavInner),
-        { modifier: `${StyledFormField}` }
+        { modifier: `&& ${StyledFormField}` }
       );
     });
   });
