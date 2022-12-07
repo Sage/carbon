@@ -1,15 +1,29 @@
 import styled, { css } from "styled-components";
-import { StyledButtonToggleLabel } from "../button-toggle/button-toggle.style";
+import {
+  StyledButtonToggleLabel,
+  StyledButtonToggle,
+} from "../button-toggle/button-toggle.style";
 import ValidationIconStyle from "../../__internal__/validations/validation-icon.style";
 
 import { ButtonToggleGroupProps } from ".";
 import { ValidationProps } from "../../__internal__/validations";
 
 type StyledButtonToggleGroupProps = ValidationProps &
-  Pick<ButtonToggleGroupProps, "inputWidth">;
+  Pick<ButtonToggleGroupProps, "inputWidth" | "fullWidth">;
 
 const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
   display: flex;
+
+  ${({ fullWidth }) =>
+    fullWidth &&
+    css`
+      ${StyledButtonToggleLabel} {
+        width: 100%;
+      }
+      ${StyledButtonToggle} {
+        flex: auto;
+      }
+    `};
 
   ${({ inputWidth }) =>
     inputWidth &&

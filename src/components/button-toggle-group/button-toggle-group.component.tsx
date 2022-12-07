@@ -41,6 +41,8 @@ export interface ButtonToggleGroupProps
   labelInline?: boolean;
   /** The percentage width of the label. */
   labelWidth?: number;
+  /** If true all ButtonToggle children will flex to the full width of the ButtonToggleGroup parent */
+  fullWidth?: boolean;
   /** The alignment for the text in the label. */
   labelAlign?: "left" | "right";
   /** Callback triggered by blur event on the input. */
@@ -64,6 +66,7 @@ const ButtonToggleGroup = ({
   labelHelp,
   labelSpacing,
   inputWidth,
+  fullWidth,
   fieldHelp,
   fieldHelpInline,
   labelInline,
@@ -127,6 +130,7 @@ const ButtonToggleGroup = ({
             aria-label={label}
             role="radiogroup"
             inputWidth={inputWidth}
+            fullWidth={fullWidth}
             {...validationProps}
           >
             <RadioButtonMapper

@@ -5,7 +5,10 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import { StyledButtonToggleLabel } from "../button-toggle/button-toggle.style";
+import {
+  StyledButtonToggleLabel,
+  StyledButtonToggle,
+} from "../button-toggle/button-toggle.style";
 import Label from "../../__internal__/label";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import ValidationIcon, {
@@ -67,6 +70,30 @@ describe("ButtonToggleGroup", () => {
         width: "48%",
       },
       wrapper.find(StyledButtonToggleGroup)
+    );
+  });
+
+  describe("when fullWidth is true", () => {
+    it("renders container with flex: auto", () => {
+      const wrapper = render({ fullWidth: true });
+      assertStyleMatch(
+        {
+          flex: "auto",
+        },
+        wrapper.find(StyledButtonToggleGroup),
+        { modifier: `${StyledButtonToggle}` }
+      );
+    });
+  });
+
+  it("renders label with width: 100%", () => {
+    const wrapper = render({ fullWidth: true });
+    assertStyleMatch(
+      {
+        width: "100%",
+      },
+      wrapper.find(StyledButtonToggleGroup),
+      { modifier: `${StyledButtonToggleLabel}` }
     );
   });
 
