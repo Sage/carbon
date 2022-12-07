@@ -1,3 +1,10 @@
+### [111.13.2](https://github.com/Sage/carbon/compare/v111.13.1...v111.13.2) (2022-12-07)
+
+
+### Bug Fixes
+
+* **pager:** fix bottom margin of number input when inside a form ([242d29c](https://github.com/Sage/carbon/commit/242d29c9a5f49b1979547d57a20f3ddb117ffce0)), closes [#5650](https://github.com/Sage/carbon/issues/5650)
+
 ### [111.13.1](https://github.com/Sage/carbon/compare/v111.13.0...v111.13.1) (2022-12-05)
 
 
