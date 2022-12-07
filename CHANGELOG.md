@@ -1,3 +1,11 @@
+## [111.15.0](https://github.com/Sage/carbon/compare/v111.14.0...v111.15.0) (2022-12-07)
+
+
+### Features
+
+* **box:** add props for custom box shadow ([3bc3f6d](https://github.com/Sage/carbon/commit/3bc3f6dd95ab410463c43a509f23f07edf4cfb2c))
+* **card:** add props for custom box shadows ([17f1931](https://github.com/Sage/carbon/commit/17f193180b402d79b063f4ebb433b2461e973f49))
+
 ## [111.14.0](https://github.com/Sage/carbon/compare/v111.13.2...v111.14.0) (2022-12-07)
 
 
