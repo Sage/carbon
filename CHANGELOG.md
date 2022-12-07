@@ -1,3 +1,10 @@
+## [111.14.0](https://github.com/Sage/carbon/compare/v111.13.2...v111.14.0) (2022-12-07)
+
+
+### Features
+
+* **button-toggle-group:** surface fullWidth prop to ensure children flex to container width ([b41324c](https://github.com/Sage/carbon/commit/b41324c9f077ac34f0401ddc0ed9182601b3aed9)), closes [#5490](https://github.com/Sage/carbon/issues/5490)
+
 ### [111.13.2](https://github.com/Sage/carbon/compare/v111.13.1...v111.13.2) (2022-12-07)
 
 
