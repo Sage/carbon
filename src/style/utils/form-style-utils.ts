@@ -125,8 +125,13 @@ export const calculateFormSpacingValues = (
         }
       : {
           "margin-bottom": setNegativeValue(spacingBottomValue),
-          "padding-left": isSidebar ? SIDEBAR_LEFT_PADDING : undefined,
-          "padding-right": isSidebar ? SIDEBAR_RIGHT_PADDING : undefined,
+          ...(isSidebar && {
+            // if footer already has custom padding do not set
+            ":not(.padded)": {
+              "padding-left": SIDEBAR_LEFT_PADDING,
+              "padding-right": SIDEBAR_RIGHT_PADDING,
+            },
+          }),
         }),
   };
 };
