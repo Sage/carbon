@@ -23,11 +23,28 @@ export const parseToIntElement = (elem) => {
   return parseInt(inputString);
 };
 
-export const checkGoldenOutline = (elem, outlineWidthPx = 3) => {
-  const outlineWidth = parseToIntElement(elem.css("outline-width"));
-  expect(elem.css("outline-color")).to.equals("rgb(255, 181, 0)");
-  expect(elem.css("outline-style")).to.equals("solid");
-  expect(outlineWidth).to.be.within(outlineWidthPx - 1, outlineWidth + 1);
+export const checkGoldenOutline = (
+  elem,
+  outlineWidthPx = 3,
+  outline = "outline"
+) => {
+  const outlineWidth = parseToIntElement(elem.css(`${outline}-width`));
+  expect(elem.css(`${outline}-color`)).to.equals("rgb(255, 181, 0)");
+  expect(elem.css(`${outline}-style`)).to.equals("solid");
+  expect(outlineWidth).to.be.within(outlineWidthPx - 1, outlineWidthPx + 1);
+};
+
+export const checkOutlineCss = (
+  elem,
+  outlineWidthPx = 2,
+  outline = "outline",
+  style = "solid",
+  color = ""
+) => {
+  const outlineWidth = parseInt(elem.css(`${outline}-width`));
+  expect(elem.css(`${outline}-color`)).to.equals(color);
+  expect(elem.css(`${outline}-style`)).to.equals(style);
+  expect(outlineWidth).to.be.within(outlineWidthPx - 1, outlineWidthPx + 1);
 };
 
 export const splitByDotAndParseToIntElement = (elem) => {

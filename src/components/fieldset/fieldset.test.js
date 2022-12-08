@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Fieldset from "./fieldset.component";
 import legendPreview from "../../../cypress/locators/fieldset";
 import Textbox from "../textbox/textbox.component";
@@ -11,22 +11,13 @@ import {
   VALIDATION,
   CHARACTERS,
 } from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const specialCharacters = [
   CHARACTERS.STANDARD,
   CHARACTERS.DIACRITICS,
   CHARACTERS.SPECIALCHARACTERS,
 ];
-
-const verifyCssProps = (element, cssProp, lessValue, greaterValue) => {
-  getDataElementByValue(element)
-    .invoke("css", cssProp)
-    .then(parseFloat)
-    .then(($el) => {
-      expect($el).to.be.gte(lessValue);
-      expect($el).to.be.lt(greaterValue);
-    });
-};
 
 const FieldsetComponent = ({ ...props }) => {
   return (
@@ -93,16 +84,20 @@ context("Testing Fieldset component", () => {
     });
 
     it.each([
-      ["inline", true, 36, 39, 78],
-      ["as a column", false, 18, 76, 919],
+      ["inline", true, 33, 37, 73],
+      ["as a column", false, 16, 70, 930],
     ])(
       "should verify Fieldset is displayed %s if inline prop is %s",
       (state, bool, labelHeight, labelWidth, inputWidth) => {
         CypressMountWithProviders(<FieldsetComponent inline={bool} />);
 
-        verifyCssProps("label", "height", labelHeight, labelHeight + 1);
-        verifyCssProps("label", "width", labelWidth, labelWidth + 1);
-        verifyCssProps("input", "width", inputWidth, inputWidth + 1);
+        getDataElementByValue("label").then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", labelHeight);
+          useJQueryCssValueAndAssert($el, "width", labelWidth);
+        });
+        getDataElementByValue("input").then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", inputWidth);
+        });
       }
     );
 

@@ -1,9 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { mount as enzymeMount, ReactWrapper } from "enzyme";
+import { InputPresentation } from "../../__internal__/input";
 
 import Decimal, { DecimalProps, CustomEvent } from "./decimal.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import Textbox from "../textbox/textbox.component";
 import Label from "../../__internal__/label";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
@@ -1455,6 +1459,29 @@ describe("Decimal", () => {
     it("the isRequired prop is passed to the label", () => {
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
+    });
+  });
+
+  describe("when maxWidth is passed", () => {
+    it("should be passed to InputPresentation", () => {
+      mount(<Decimal maxWidth="67%" />);
+
+      assertStyleMatch(
+        {
+          maxWidth: "67%",
+        },
+        wrapper.find(InputPresentation)
+      );
+    });
+
+    it("renders with maxWidth as 100% when no maxWidth is specified", () => {
+      mount(<Decimal maxWidth="" />);
+      assertStyleMatch(
+        {
+          maxWidth: "100%",
+        },
+        wrapper.find(InputPresentation)
+      );
     });
   });
 });

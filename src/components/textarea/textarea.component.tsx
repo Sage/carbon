@@ -69,6 +69,11 @@ export interface TextareaProps
   inputIcon?: IconType;
   /** Width of an input in percentage. Works only when labelInline is true */
   inputWidth?: number;
+  /**
+   * Prop for specifying the max width of the input.
+   * Leaving the `maxWidth` prop with no value will default the width to '100%'
+   */
+  maxWidth?: string;
   /** The content of the label for the input */
   label?: string;
   /** Inline label alignment */
@@ -140,6 +145,7 @@ export const Textarea = ({
   validationOnLabel = false,
   adaptiveLabelBreakpoint,
   inputWidth,
+  maxWidth,
   labelWidth = 30,
   tooltipPosition,
   value,
@@ -235,6 +241,7 @@ export const Textarea = ({
       inputWidth={
         typeof inputWidth === "number" ? inputWidth : 100 - labelWidth
       }
+      maxWidth={maxWidth}
       error={error}
       warning={warning}
       info={info}

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import * as React from "react";
+import React from "react";
 import DateRange from "./date-range.component";
 
 import { getDataElementByValue, icon } from "../../../cypress/locators";

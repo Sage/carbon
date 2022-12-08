@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Badge from "./badge.component";
 import Button from "../button/button.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -61,8 +61,8 @@ context("Testing Badge component", () => {
     it("badge should display cross icon when hovered over", () => {
       CypressMountWithProviders(<BadgeComponent counter="99" />);
 
-      badge().realHover();
       badge()
+        .realHover()
         .should("have.css", "background")
         .then(($el) => {
           expect($el).contains("rgb(0, 126, 69)");

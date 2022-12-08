@@ -1,8 +1,9 @@
-import * as React from "react";
+import React from "react";
 import LoaderBar from "./loader-bar.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import loaderBar from "../../../cypress/locators/loader-bar/index";
 import { SIZE } from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 context("Tests for LoaderBar component", () => {
   describe("should check LoaderBar component properties", () => {
@@ -13,13 +14,19 @@ context("Tests for LoaderBar component", () => {
     ])("should check %s size for LoaderBar component", (size, height) => {
       CypressMountWithProviders(<LoaderBar size={size} mt={2} />);
 
-      loaderBar().children().should("have.css", "height", `${height}px`);
+      loaderBar()
+        .children()
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+        });
       loaderBar()
         .children()
         .children()
-        .should("have.css", "height", `${height}px`)
-        .and("have.css", "animation-duration", "2s")
-        .and("have.css", "animation-play-state", "running");
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+          expect($el.css("animation-duration")).to.equals("2s");
+          expect($el.css("animation-play-state")).to.equals("running");
+        });
     });
   });
 });

@@ -100,6 +100,10 @@ export const FieldHelpStory: ComponentStory<typeof Textarea> = () => {
   return <Textarea label="Textarea" fieldHelp="Help" />;
 };
 
+export const MaxWidthStory: ComponentStory<typeof Textarea> = () => {
+  return <Textarea label="Textarea" maxWidth="70%" />;
+};
+
 export const LabelHelpStory: ComponentStory<typeof Textarea> = () => {
   return <Textarea label="Textarea" labelHelp="Help" helpAriaLabel="Help" />;
 };

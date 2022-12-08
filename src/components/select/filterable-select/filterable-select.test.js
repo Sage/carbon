@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import FilterableSelect from "./filterable-select.component";
 import Option from "../option/option.component";
 import OptionRow from "../option-row/option-row.component";
@@ -37,7 +37,10 @@ import {
 
 import { loader } from "../../../../cypress/locators/loader";
 
-import { verifyRequiredAsteriskForLabel } from "../../../../cypress/support/component-helper/common-steps";
+import {
+  useJQueryCssValueAndAssert,
+  verifyRequiredAsteriskForLabel,
+} from "../../../../cypress/support/component-helper/common-steps";
 
 import { keyCode, positionOfElement } from "../../../../cypress/support/helper";
 
@@ -709,9 +712,9 @@ context("Tests for Filterable Select component", () => {
     });
 
     it.each([
-      [SIZE.SMALL, "32px"],
-      [SIZE.MEDIUM, "40px"],
-      [SIZE.LARGE, "48px"],
+      [SIZE.SMALL, 32],
+      [SIZE.MEDIUM, 40],
+      [SIZE.LARGE, 48],
     ])(
       "should use %s as size and render Filterable Select with %s as height",
       (size, height) => {
@@ -719,7 +722,9 @@ context("Tests for Filterable Select component", () => {
 
         commonDataElementInputPreview()
           .parent()
-          .should("have.css", "min-height", height);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "min-height", height);
+          });
       }
     );
 
@@ -784,9 +789,9 @@ context("Tests for Filterable Select component", () => {
     );
 
     it.each([
-      ["10", "90", "135px", "1215px"],
-      ["30", "70", "405px", "945px"],
-      ["80", "20", "1080px", "270px"],
+      ["10", "90", 135, 1229],
+      ["30", "70", 409, 956],
+      ["80", "20", 1092, 273],
     ])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
@@ -800,13 +805,40 @@ context("Tests for Filterable Select component", () => {
 
         getDataElementByValue("label")
           .parent()
-          .should("have.css", "width", labelRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", labelRatio);
+          });
 
         getDataElementByValue("input")
           .parent()
-          .should("have.css", "width", inputRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", inputRatio);
+          });
       }
     );
+
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for FilterableSelect component",
+      (maxWidth) => {
+        CypressMountWithProviders(
+          <FilterableSelectComponent maxWidth={maxWidth} />
+        );
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<FilterableSelectComponent maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
 
     it("should not open the list with focus on Filterable Select input", () => {
       CypressMountWithProviders(<FilterableSelectComponent />);
@@ -1049,10 +1081,10 @@ context("Tests for Filterable Select component", () => {
     });
 
     it.each([
-      ["top", "0px", "0px", "0px", "0px"],
-      ["bottom", "600px", "0px", "0px", "0px"],
+      ["top", "0px", "0px", "0px", "20px"],
+      ["bottom", "600px", "0px", "0px", "20px"],
       ["left", "200px", "0px", "0px", "900px"],
-      ["right", "200px", "0px", "500px", "0px"],
+      ["right", "200px", "0px", "500px", "20px"],
     ])(
       "should flip list to opposite position when there is not enough space to render it in %s position",
       (position, top, bottom, left, right) => {
@@ -1092,10 +1124,10 @@ context("Tests for Filterable Select component", () => {
     );
 
     it.each([
-      ["bottom", "0px", "0px", "0px", "0px"],
-      ["top", "600px", "0px", "0px", "0px"],
+      ["bottom", "0px", "0px", "0px", "20px"],
+      ["top", "600px", "0px", "0px", "20px"],
       ["bottom", "200px", "0px", "0px", "900px"],
-      ["top", "600px", "0px", "900px", "0px"],
+      ["top", "600px", "0px", "900px", "20px"],
     ])(
       "should render list in %s position with the most space when listPosition is not set",
       (position, top, bottom, left, right) => {

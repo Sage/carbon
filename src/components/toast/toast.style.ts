@@ -8,27 +8,28 @@ import Portal from "../portal/portal";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 
-const StyledPortal = styled(Portal)`
-  ${({ theme }) => css`
+const StyledPortal = styled(Portal)<{
+  isCenter?: boolean;
+  isNotice?: boolean;
+}>`
+  ${({ theme, isCenter, isNotice }) => css`
     position: fixed;
     top: 0;
 
     z-index: ${theme.zIndex.notification};
 
-    ${({ isCenter }) =>
-      isCenter &&
-      css`
-        margin-left: 50%;
-        transform: translateX(-50%);
-      `}
+    ${isCenter &&
+    css`
+      margin-left: 50%;
+      transform: translateX(-50%);
+    `}
 
-    ${({ isNotice }) =>
-      isNotice &&
-      css`
-        bottom: 0;
-        top: auto;
-        width: 100%;
-      `}
+    ${isNotice &&
+    css`
+      bottom: 0;
+      top: auto;
+      width: 100%;
+    `}
   `}
 `;
 
@@ -38,7 +39,11 @@ StyledPortal.defaultProps = {
 
 const animationName = ".toast";
 const alternativeAnimationName = ".toast-alternative";
-const ToastStyle = styled(MessageStyle)`
+const ToastStyle = styled(MessageStyle)<{
+  maxWidth?: string;
+  isCenter?: boolean;
+  isNotice?: boolean;
+}>`
   ${({ maxWidth, isCenter }) => css`
     box-shadow: 0 10px 30px 0 rgba(0, 20, 29, 0.1),
       0 30px 60px 0 rgba(0, 20, 29, 0.1);
@@ -121,7 +126,10 @@ const ToastStyle = styled(MessageStyle)`
     `}
 `;
 
-const ToastContentStyle = styled(MessageContentStyle)`
+const ToastContentStyle = styled(MessageContentStyle)<{
+  isNotice?: boolean;
+  isDismiss?: boolean;
+}>`
   padding: 8px 16px 8px 16px;
 
   ${({ isNotice }) =>
@@ -139,7 +147,10 @@ const ToastContentStyle = styled(MessageContentStyle)`
     `}
 `;
 
-const ToastWrapper = styled.div`
+const ToastWrapper = styled.div<{
+  isCenter?: boolean;
+  isNotice?: boolean;
+}>`
   ${({ isCenter }) =>
     isCenter &&
     css`

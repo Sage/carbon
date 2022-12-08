@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useContext } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import { PaddingProps, WidthProps } from "styled-system";
 
 import Modal from "../modal";
@@ -46,6 +46,20 @@ export interface SidebarProps extends PaddingProps, TagProps, WidthProps {
   disableEscKey?: boolean;
   /** Set this prop to false to hide the translucent background when the dialog is open. */
   enableBackgroundUI?: boolean;
+  /** Optional reference to an element meant to be focused on open */
+  focusFirstElement?: React.MutableRefObject<HTMLElement | null>;
+  /* Disables auto focus functionality on child elements */
+  disableAutoFocus?: boolean;
+  /**
+   * Function to replace focus trap
+   * @ignore
+   * @private
+   */
+  bespokeFocusTrap?: (
+    ev: KeyboardEvent,
+    firstElement?: HTMLElement,
+    lastElement?: HTMLElement
+  ) => void;
   /** Node that will be used as sidebar header. */
   header?: React.ReactNode;
   /** A custom close event handler */
@@ -71,6 +85,8 @@ export interface SidebarProps extends PaddingProps, TagProps, WidthProps {
   focusableContainers?: CustomRefObject<HTMLElement>[];
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
+  /** Padding to be set on the Sidebar header */
+  headerPadding?: PaddingProps;
 }
 
 export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
@@ -80,6 +96,8 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledBy,
       open,
+      bespokeFocusTrap,
+      disableAutoFocus = false,
       disableEscKey = false,
       enableBackgroundUI = false,
       header,
@@ -88,9 +106,11 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       children,
       onCancel,
       role = "dialog",
+      focusFirstElement,
       focusableContainers,
       focusableSelectors,
       width,
+      headerPadding = {},
       ...rest
     }: SidebarProps,
     ref
@@ -151,8 +171,16 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         {...filterStyledSystemPaddingProps(rest)}
         width={width}
       >
-        {header && <SidebarHeader id={headerId}>{header}</SidebarHeader>}
-        {closeIcon()}
+        {header && (
+          <SidebarHeader
+            closeIcon={closeIcon()}
+            {...headerPadding}
+            id={headerId}
+          >
+            {header}
+          </SidebarHeader>
+        )}
+        {!header && closeIcon()}
         <Box
           data-element="sidebar-content"
           pt="var(--spacing300)"
@@ -186,6 +214,9 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             isOpen={open}
             additionalWrapperRefs={focusableContainers}
             focusableSelectors={focusableSelectors}
+            focusFirstElement={focusFirstElement}
+            autoFocus={!disableAutoFocus}
+            bespokeTrap={bespokeFocusTrap}
           >
             {sidebar}
           </FocusTrap>

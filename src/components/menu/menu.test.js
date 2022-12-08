@@ -38,7 +38,10 @@ import {
   CHARACTERS,
   COLOR,
 } from "../../../cypress/support/component-helper/constants";
-import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
+import {
+  checkGoldenOutline,
+  useJQueryCssValueAndAssert,
+} from "../../../cypress/support/component-helper/common-steps";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
@@ -341,7 +344,9 @@ context("Testing Menu component", () => {
       CypressMountWithProviders(<MenuComponent size={divider} />);
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
-      menuDivider().should("have.css", "height", `${size}px`);
+      menuDivider().then(($el) => {
+        useJQueryCssValueAndAssert($el, "height", size);
+      });
     });
 
     it("should verify Menu Segment Title is visible within a submenu", () => {
@@ -476,7 +481,11 @@ context("Testing Menu component", () => {
 
       submenu().eq(positionOfElement("first")).trigger("mouseover");
       innerMenu(positionOfElement("second"), span).then(($item) => {
-        submenuBlock().should("have.css", "width", `${$item.width()}px`);
+        submenuBlock()
+          // .then($el => {
+          //   useJQueryCssValueAndAssert($el, "width", i)
+          // })
+          .should("have.css", "width", `${$item.width()}px`);
       });
     });
 
@@ -503,9 +512,9 @@ context("Testing Menu component", () => {
     });
 
     it.each([
-      ["float", 0.3, 405],
-      ["float", 0.6, 810],
-      ["float", 1.0, 1350],
+      ["float", 0.3, 409],
+      ["float", 0.6, 819],
+      ["float", 1.0, 1366],
       ["number", 350, 350],
       ["number", 900, 900],
       ["number", 1350, 1350],
@@ -517,7 +526,9 @@ context("Testing Menu component", () => {
       (type, width, pixels) => {
         CypressMountWithProviders(<MenuComponent width={width} />);
 
-        menu().should("have.css", "width", `${pixels}px`);
+        menu().then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", pixels);
+        });
       }
     );
 
@@ -533,7 +544,9 @@ context("Testing Menu component", () => {
       (type, propValue, pixels) => {
         CypressMountWithProviders(<MenuComponent height={propValue} />);
 
-        menu().should("have.css", "height", `${pixels}px`);
+        menu().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", pixels);
+        });
       }
     );
 
@@ -549,7 +562,9 @@ context("Testing Menu component", () => {
           <MenuComponent minWidth={minWidth} width={width} />
         );
 
-        menu().should("have.css", "width", `${pixels}px`);
+        menu().then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", pixels);
+        });
       }
     );
 
@@ -565,7 +580,9 @@ context("Testing Menu component", () => {
           <MenuComponent maxWidth={maxWidth} width={width} />
         );
 
-        menu().should("have.css", "width", `${pixels}px`);
+        menu().then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", pixels);
+        });
       }
     );
 
@@ -581,7 +598,9 @@ context("Testing Menu component", () => {
           <MenuComponent minHeight={minHeight} height={height} />
         );
 
-        menu().should("have.css", "height", `${pixels}px`);
+        menu().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", pixels);
+        });
       }
     );
 
@@ -597,7 +616,9 @@ context("Testing Menu component", () => {
           <MenuComponent maxHeight={maxHeight} height={height} />
         );
 
-        menu().should("have.css", "height", `${pixels}px`);
+        menu().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", pixels);
+        });
       }
     );
 
@@ -606,8 +627,10 @@ context("Testing Menu component", () => {
       (size) => {
         CypressMountWithProviders(<MenuComponent size={size} />);
 
-        menu().should("have.css", "width", `${size}px`);
-        menu().should("have.css", "height", `${size}px`);
+        menu().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", size);
+          useJQueryCssValueAndAssert($el, "width", size);
+        });
       }
     );
 
@@ -907,8 +930,8 @@ context("Testing Menu component", () => {
     });
 
     it.each([
-      ["default", 1, 16, 116],
-      ["large", 4, 0, 148],
+      ["default", 1, 16, 121],
+      ["large", 4, 0, 153],
     ])(
       "should verify that a Menu size is %s",
       (size, height, margin, width) => {
@@ -925,15 +948,11 @@ context("Testing Menu component", () => {
         );
 
         submenu().eq(positionOfElement("first")).trigger("mouseover");
-        menuDivider()
-          .should("have.css", "height", `${height}px`)
-          .and("have.css", "margin-left", `${margin}px`)
-          .invoke("css", "width")
-          .then(parseFloat)
-          .then(($el) => {
-            expect($el).to.be.gte(width);
-            expect($el).to.be.lt(width + 1);
-          });
+        menuDivider().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+          useJQueryCssValueAndAssert($el, "margin-left", margin);
+          useJQueryCssValueAndAssert($el, "width", width);
+        });
       }
     );
 
@@ -948,7 +967,9 @@ context("Testing Menu component", () => {
         CypressMountWithProviders(<MenuComponentScrollable height={height} />);
 
         submenu().eq(positionOfElement("first"), div).trigger("mouseover");
-        scrollBlock().should("have.css", "height", `${pixels}px`);
+        scrollBlock().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", pixels);
+        });
       }
     );
 

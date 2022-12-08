@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Number from "./number.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
@@ -11,7 +11,10 @@ import {
   commonInputPrefix,
   commonInputCharacterLimit,
 } from "../../../cypress/locators";
-import { verifyRequiredAsteriskForLabel } from "../../../cypress/support/component-helper/common-steps";
+import {
+  useJQueryCssValueAndAssert,
+  verifyRequiredAsteriskForLabel,
+} from "../../../cypress/support/component-helper/common-steps";
 import {
   SIZE,
   CHARACTERS,
@@ -219,9 +222,9 @@ context("Tests for Number component", () => {
     );
 
     it.each([
-      ["10", "90", "135px", "1215px"],
-      ["30", "70", "405px", "945px"],
-      ["80", "20", "1080px", "270px"],
+      ["10", "90", 135, 1229],
+      ["30", "70", 409, 956],
+      ["80", "20", 1092, 273],
     ])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
@@ -235,13 +238,38 @@ context("Tests for Number component", () => {
 
         getDataElementByValue("label")
           .parent()
-          .should("have.css", "width", labelRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", labelRatio);
+          });
 
         getDataElementByValue("input")
           .parent()
-          .should("have.css", "width", inputRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", inputRatio);
+          });
       }
     );
+  });
+
+  it.each(["10%", "30%", "50%", "80%", "100%"])(
+    "should check maxWidth as %s for Number component",
+    (maxWidth) => {
+      CypressMountWithProviders(<NumberInputComponent maxWidth={maxWidth} />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", maxWidth);
+    }
+  );
+
+  it("when maxWidth has no value it should render as 100%", () => {
+    CypressMountWithProviders(<NumberInputComponent maxWidth="" />);
+
+    getDataElementByValue("input")
+      .parent()
+      .parent()
+      .should("have.css", "max-width", "100%");
   });
 
   describe("check events for Number component", () => {

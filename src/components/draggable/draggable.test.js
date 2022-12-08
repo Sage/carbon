@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import DraggableContainer from "./draggable-container.component";
 import DraggableItem from "./draggable-item.component";
 import { Checkbox } from "../checkbox";

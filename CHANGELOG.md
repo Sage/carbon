@@ -1,3 +1,54 @@
+## [111.16.0](https://github.com/Sage/carbon/compare/v111.15.0...v111.16.0) (2022-12-07)
+
+
+### Features
+
+* **form:** surface padding interface on Form footer via footerPadding prop ([1c29e01](https://github.com/Sage/carbon/commit/1c29e018e0fdca033e2f9b860e8f7c2b5f22ab69))
+* **sidebar:** add support for overriding the padding in header ([0040efb](https://github.com/Sage/carbon/commit/0040efba3db1e44ac32bc5a674b6fe63bde1e4a8))
+
+## [111.15.0](https://github.com/Sage/carbon/compare/v111.14.0...v111.15.0) (2022-12-07)
+
+
+### Features
+
+* **box:** add props for custom box shadow ([3bc3f6d](https://github.com/Sage/carbon/commit/3bc3f6dd95ab410463c43a509f23f07edf4cfb2c))
+* **card:** add props for custom box shadows ([17f1931](https://github.com/Sage/carbon/commit/17f193180b402d79b063f4ebb433b2461e973f49))
+
+## [111.14.0](https://github.com/Sage/carbon/compare/v111.13.2...v111.14.0) (2022-12-07)
+
+
+### Features
+
+* **button-toggle-group:** surface fullWidth prop to ensure children flex to container width ([b41324c](https://github.com/Sage/carbon/commit/b41324c9f077ac34f0401ddc0ed9182601b3aed9)), closes [#5490](https://github.com/Sage/carbon/issues/5490)
+
+### [111.13.2](https://github.com/Sage/carbon/compare/v111.13.1...v111.13.2) (2022-12-07)
+
+
+### Bug Fixes
+
+* **pager:** fix bottom margin of number input when inside a form ([242d29c](https://github.com/Sage/carbon/commit/242d29c9a5f49b1979547d57a20f3ddb117ffce0)), closes [#5650](https://github.com/Sage/carbon/issues/5650)
+
+### [111.13.1](https://github.com/Sage/carbon/compare/v111.13.0...v111.13.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* **pager:** ensure there is no margin-bottom on page number input ([f5f1637](https://github.com/Sage/carbon/commit/f5f1637e822ec102fac7761c9e4a35e39642426f)), closes [#5650](https://github.com/Sage/carbon/issues/5650)
+
+## [111.13.0](https://github.com/Sage/carbon/compare/v111.12.7...v111.13.0) (2022-12-02)
+
+
+### Features
+
+* **textarea, textbox:** surface maxWidth prop on components ([544a050](https://github.com/Sage/carbon/commit/544a050142b0e437aabccfdc78e8c31872795115)), closes [#5494](https://github.com/Sage/carbon/issues/5494) [#5234](https://github.com/Sage/carbon/issues/5234)
+
+### [111.12.7](https://github.com/Sage/carbon/compare/v111.12.6...v111.12.7) (2022-12-02)
+
+
+### Bug Fixes
+
+* added missing focus trap props to sidebar and full-width-dialog ([a0335bc](https://github.com/Sage/carbon/commit/a0335bc38b9f0d42d2b59a353e00d574c4082393))
+
 ### [111.12.6](https://github.com/Sage/carbon/compare/v111.12.5...v111.12.6) (2022-12-01)
 
 

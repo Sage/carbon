@@ -2,6 +2,7 @@ import React from "react";
 import Portrait from "./portrait.component";
 import Box from "../box";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 import { icon, getDataElementByValue } from "../../../cypress/locators";
 import { PORTRAIT_SIZES, PORTRAIT_SIZE_PARAMS } from "./portrait.config";
 
@@ -78,9 +79,10 @@ context("Tests for Portrait component", () => {
       "should check %s size for Portrait component",
       (size, heightAndWidth) => {
         CypressMountWithProviders(<Portrait size={size} />);
-        portraitPreview()
-          .should("have.css", "height", `${heightAndWidth}px`)
-          .and("have.css", "width", `${heightAndWidth}px`);
+        portraitPreview().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", heightAndWidth);
+          useJQueryCssValueAndAssert($el, "width", heightAndWidth);
+        });
       }
     );
 
@@ -114,9 +116,10 @@ context("Tests for Portrait component", () => {
       "should check initials for %s in Portrait component",
       (name, passInitials) => {
         CypressMountWithProviders(<Portrait initials={passInitials} />);
-        portraitInitials()
-          .should("have.css", "height", "38px")
-          .and("have.css", "width", "38px");
+        portraitInitials().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", 38);
+          useJQueryCssValueAndAssert($el, "width", 38);
+        });
       }
     );
 
@@ -209,7 +212,9 @@ context("Tests for Portrait component", () => {
         );
         getDataElementByValue("tooltip")
           .should("be.visible")
-          .and("have.css", "font-size", fontSize);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "font-size", parseInt(fontSize));
+          });
       }
     );
 

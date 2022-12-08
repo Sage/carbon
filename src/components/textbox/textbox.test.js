@@ -5,6 +5,7 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import {
   verifyRequiredAsteriskForLabel,
   checkGoldenOutline,
+  useJQueryCssValueAndAssert,
 } from "../../../cypress/support/component-helper/common-steps";
 
 import {
@@ -186,9 +187,9 @@ context("Tests for Textbox component", () => {
     );
 
     it.each([
-      ["10", "90", "135px", "1215px"],
-      ["30", "70", "405px", "945px"],
-      ["80", "20", "1080px", "270px"],
+      ["10", "90", 135, 1229],
+      ["30", "70", 409, 956],
+      ["80", "20", 1092, 273],
     ])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
@@ -198,13 +199,38 @@ context("Tests for Textbox component", () => {
 
         getDataElementByValue("label")
           .parent()
-          .should("have.css", "width", labelRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", labelRatio);
+          });
 
         getDataElementByValue("input")
           .parent()
-          .should("have.css", "width", inputRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", inputRatio);
+          });
       }
     );
+
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for TextBox component",
+      (maxWidth) => {
+        CypressMountWithProviders(<TextboxComponent maxWidth={maxWidth} />);
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(<TextboxComponent maxWidth="" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
+    });
 
     it("should render Textbox with required prop", () => {
       CypressMountWithProviders(<TextboxComponent required />);
@@ -385,7 +411,7 @@ context("Tests for Textbox component", () => {
 
         textboxPrefix()
           .should("have.text", prefix)
-          .and("have.css", "font-size", "16px")
+          .and("have.css", "font-size", "14px")
           .and("have.css", "font-weight", "900")
           .and("have.css", "margin-right", "8px");
       }
