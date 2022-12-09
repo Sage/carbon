@@ -2,21 +2,7 @@
 import React from "react";
 import path from "path";
 
-import {
-  ActionPopover,
-  ActionPopoverDivider,
-  ActionPopoverItem,
-  ActionPopoverMenu,
-  ActionPopoverMenuButton,
-} from ".";
-import {
-  FlatTable,
-  FlatTableHead,
-  FlatTableBody,
-  FlatTableRow,
-  FlatTableHeader,
-  FlatTableCell,
-} from "../flat-table";
+import { ActionPopoverMenuButton } from ".";
 import { Accordion } from "../accordion";
 
 import { accordionDefaultTitle } from "../../../cypress/locators/accordion";
@@ -36,198 +22,33 @@ import { buttonDataComponent } from "../../../cypress/locators/button";
 
 import { keyCode } from "../../../cypress/support/helper";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-
-const ActionPopoverCustom = (props) => {
-  const submenu = (
-    <ActionPopoverMenu>
-      <ActionPopoverItem
-        data-element="submenu1"
-        onClick={() => props.onClick("sub menu item 1")}
-      >
-        Sub Menu 1
-      </ActionPopoverItem>
-      <ActionPopoverItem onClick={() => props.onClick("sub menu item 2")}>
-        Sub Menu 2
-      </ActionPopoverItem>
-      <ActionPopoverItem disabled>Sub Menu 3</ActionPopoverItem>
-    </ActionPopoverMenu>
-  );
-
-  const submenuWithIcons = (
-    <ActionPopoverMenu>
-      <ActionPopoverItem icon="graph">Sub Menu 1</ActionPopoverItem>
-      <ActionPopoverItem icon="add">Sub Menu 2</ActionPopoverItem>
-      <ActionPopoverItem icon="print" disabled>
-        Sub Menu 3
-      </ActionPopoverItem>
-    </ActionPopoverMenu>
-  );
-
-  return (
-    <div
-      style={{
-        marginTop: "40px",
-        height: "275px",
-      }}
-    >
-      <FlatTable isZebra>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>First Name</FlatTableHeader>
-            <FlatTableHeader>Last Name</FlatTableHeader>
-            <FlatTableHeader>&nbsp;</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>John</FlatTableCell>
-            <FlatTableCell>Doe</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover>
-                <ActionPopoverItem
-                  disabled
-                  icon="graph"
-                  submenu={submenu}
-                  onClick={() => props.onClick("Business")}
-                >
-                  Business
-                </ActionPopoverItem>
-                <ActionPopoverItem
-                  icon="email"
-                  onClick={() => props.onClick("Email Invoice")}
-                >
-                  Email Invoice
-                </ActionPopoverItem>
-                <ActionPopoverItem
-                  icon="print"
-                  onClick={() => props.onClick("Print Invoice")}
-                  submenu={submenu}
-                >
-                  Print Invoice
-                </ActionPopoverItem>
-                <ActionPopoverItem
-                  icon="pdf"
-                  onClick={() => props.onClick("Download PDF")}
-                  submenu={submenu}
-                >
-                  Download PDF
-                </ActionPopoverItem>
-                <ActionPopoverItem
-                  icon="csv"
-                  onClick={() => props.onClick("Download CSV")}
-                >
-                  Download CSV
-                </ActionPopoverItem>
-                <ActionPopoverDivider />
-                <ActionPopoverItem icon="delete" {...props}>
-                  Delete
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Jane</FlatTableCell>
-            <FlatTableCell>Smith</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover>
-                <ActionPopoverItem
-                  download
-                  onClick={() => props.onClick("Download")}
-                  icon="download"
-                  href="example-img.jpg"
-                >
-                  Download
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Bob</FlatTableCell>
-            <FlatTableCell>Jones</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover>
-                <ActionPopoverItem
-                  icon="csv"
-                  onClick={() => props.onClick("Download CSV")}
-                  submenu={submenuWithIcons}
-                >
-                  Download CSV
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
-    </div>
-  );
-};
-
-const ActionPopoverWithProps = ({ ...props }) => {
-  return (
-    <div
-      style={{
-        height: "250px",
-      }}
-    >
-      <FlatTable>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>First Name</FlatTableHeader>
-            <FlatTableHeader>Last Name</FlatTableHeader>
-            <FlatTableHeader>&nbsp;</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>John</FlatTableCell>
-            <FlatTableCell>Doe</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover {...props}>
-                <ActionPopoverItem icon="email" disabled onClick={() => {}}>
-                  Email Invoice
-                </ActionPopoverItem>
-                <ActionPopoverDivider />
-                <ActionPopoverItem onClick={() => {}} icon="delete">
-                  Delete
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
-    </div>
-  );
-};
-
-const ActionPopoverMenuWithProps = ({ ...props }) => {
-  return (
-    <ActionPopover>
-      <ActionPopoverItem
-        submenu={
-          <ActionPopoverMenu {...props}>
-            <ActionPopoverItem icon="graph">Sub Menu 1</ActionPopoverItem>
-            <ActionPopoverItem icon="add">Sub Menu 2</ActionPopoverItem>
-            <ActionPopoverItem icon="print" disabled>
-              Sub Menu 3
-            </ActionPopoverItem>
-          </ActionPopoverMenu>
-        }
-      >
-        Sub Menu 1
-      </ActionPopoverItem>
-      <ActionPopoverItem>Sub Menu 2</ActionPopoverItem>
-    </ActionPopover>
-  );
-};
-
-const ActionPopoverProps = ({ ...props }) => {
-  return (
-    <ActionPopover {...props}>
-      <ActionPopoverItem>Sub Menu 1</ActionPopoverItem>
-      <ActionPopoverItem>Sub Menu 2</ActionPopoverItem>
-    </ActionPopover>
-  );
-};
+import {
+  ActionPopoverCustom,
+  ActionPopoverWithProps,
+  ActionPopoverMenuWithProps,
+  ActionPopoverProps,
+} from "./action-popover-test.stories.tsx";
+import {
+  ActionPopoverComponent,
+  ActionPopoverComponentIcons,
+  ActionPopoverComponentDisabledItems,
+  ActionPopoverComponentMenuRightAligned,
+  ActionPopoverComponentContentAlignedRight,
+  ActionPopoverComponentNoIcons,
+  ActionPopoverComponentCustomMenuButton,
+  ActionPopoverComponentSubmenu,
+  ActionPopoverComponentDisabledSubmenu,
+  ActionPopoverComponentSubmenuAlignedRight,
+  ActionPopoverComponentMenuOpeningAbove,
+  ActionPopoverComponentKeyboardNavigation,
+  ActionPopoverComponentKeyboardNaviationLeftAlignedSubmenu,
+  ActionPopoverComponentKeyboardNaviationRightAlignedSubmenu,
+  ActionPopoverComponentAdditionalOptions,
+  ActionPopoverComponentDownloadButton,
+  ActionPopoverComponentInOverflowHiddenContainer,
+  ActionPopoverComponentInFlatTable,
+  ActionPopoverComponentOpeningAModal,
+} from "./action-popover.stories.tsx";
 
 context("Test for ActionPopover component", () => {
   describe("check functionality for ActionPopover component", () => {
@@ -748,6 +569,170 @@ context("Test for ActionPopover component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("Accessibility tests for ActionPopover", () => {
+    it("should pass accessibility tests for ActionPopover with custom button", () => {
+      CypressMountWithProviders(
+        <ActionPopoverWithProps
+          renderButton={() => (
+            <ActionPopoverMenuButton
+              buttonType="tertiary"
+              iconType="dropdown"
+              iconPosition="after"
+              size="small"
+            >
+              More
+            </ActionPopoverMenuButton>
+          )}
+        />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover default", () => {
+      CypressMountWithProviders(<ActionPopoverComponent />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with Icons", () => {
+      CypressMountWithProviders(<ActionPopoverComponentIcons />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with disabled items", () => {
+      CypressMountWithProviders(<ActionPopoverComponentDisabledItems />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with menu right aligned", () => {
+      CypressMountWithProviders(<ActionPopoverComponentMenuRightAligned />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with item content right aligned", () => {
+      CypressMountWithProviders(<ActionPopoverComponentContentAlignedRight />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with no icons", () => {
+      CypressMountWithProviders(<ActionPopoverComponentNoIcons />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with custom menu button", () => {
+      CypressMountWithProviders(<ActionPopoverComponentCustomMenuButton />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with submenu", () => {
+      CypressMountWithProviders(<ActionPopoverComponentSubmenu />);
+
+      actionPopoverButton().eq(0).click();
+      actionPopoverInnerItem(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with disabled submenu", () => {
+      CypressMountWithProviders(<ActionPopoverComponentDisabledSubmenu />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with submenu aligned right", () => {
+      CypressMountWithProviders(<ActionPopoverComponentSubmenuAlignedRight />);
+
+      actionPopoverButton().eq(0).click();
+      actionPopoverInnerItem(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with menu opening above", () => {
+      CypressMountWithProviders(<ActionPopoverComponentMenuOpeningAbove />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with keyboard navigation", () => {
+      CypressMountWithProviders(<ActionPopoverComponentKeyboardNavigation />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with keyboard navigation in left aligned submenu", () => {
+      CypressMountWithProviders(
+        <ActionPopoverComponentKeyboardNaviationLeftAlignedSubmenu />
+      );
+
+      actionPopoverButton().eq(0).click();
+      actionPopoverInnerItem(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with keyboard navigation in right aligned submenu", () => {
+      CypressMountWithProviders(
+        <ActionPopoverComponentKeyboardNaviationRightAlignedSubmenu />
+      );
+
+      actionPopoverButton().eq(0).click();
+      actionPopoverInnerItem(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with additional options", () => {
+      CypressMountWithProviders(<ActionPopoverComponentAdditionalOptions />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover with download button", () => {
+      CypressMountWithProviders(<ActionPopoverComponentDownloadButton />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover in overflow hidden container", () => {
+      CypressMountWithProviders(
+        <ActionPopoverComponentInOverflowHiddenContainer />
+      );
+
+      getDataElementByValue("accordion-icon").click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover in FlatTable", () => {
+      CypressMountWithProviders(<ActionPopoverComponentInFlatTable />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ActionPopover opening a modal", () => {
+      CypressMountWithProviders(<ActionPopoverComponentOpeningAModal />);
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
     });
   });
 });
