@@ -23,6 +23,7 @@ export interface ActionPopoverMenuButtonProps {
   buttonType?: ButtonTypes;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-element": string;
+  /** Content of the button */
   children?: string;
   /** Defines an Icon position related to the children: "before" | "after" */
   iconPosition?: ButtonIconPosition;
