@@ -1,13 +1,6 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import classNames from "classnames";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import PropTypes from "prop-types";
+
 import Icon from "../icon";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import {
@@ -22,7 +15,41 @@ import Events from "../../__internal__/utils/helpers/events";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 
-const Toast = React.forwardRef(
+type ToastVariants = "error" | "info" | "success" | "warning" | "notice";
+
+export interface ToastProps {
+  /** The rendered children of the component. */
+  children: React.ReactNode;
+  /** Customizes the appearance in the DLS theme */
+  variant?: ToastVariants;
+  /** Custom className */
+  className?: string;
+  /** Custom id  */
+  id?: string;
+  /** Component name */
+  "data-component"?: string;
+  /** Determines if the Toast is open. */
+  open?: boolean;
+  /** Callback for when dismissed. */
+  onDismiss?: (
+    ev?:
+      | KeyboardEvent
+      | React.KeyboardEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>
+  ) => void;
+  /** Time for Toast to remain on screen */
+  timeout?: string | number;
+  /** Centers the Toast on the screen */
+  isCenter?: boolean;
+  /** Target Portal ID where the Toast will render */
+  targetPortalId?: string;
+  /** Maximum toast width */
+  maxWidth?: string;
+  /** Disables auto focus functionality when the Toast has a close icon */
+  disableAutoFocus?: boolean;
+}
+
+export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
   (
     {
       children,
@@ -34,32 +61,31 @@ const Toast = React.forwardRef(
       open = true,
       targetPortalId,
       timeout,
-      variant,
+      variant = "success",
       disableAutoFocus,
       ...restProps
-    },
+    }: ToastProps,
     ref
   ) => {
     const isNotice = variant === "notice";
     const locale = useLocale();
 
-    const toastRef = useRef();
-    const timer = useRef();
-    const toastContentNodeRef = useRef();
-    const closeIconRef = useRef();
+    const toastRef = useRef<HTMLDivElement | null>(null);
+    const timer = useRef<null | ReturnType<typeof setTimeout>>(null);
+    const toastContentNodeRef = useRef<HTMLDivElement | null>(null);
+    const closeIconRef = useRef<HTMLButtonElement | null>(null);
 
-    const focusedElementBeforeOpening = useRef();
+    const focusedElementBeforeOpening = useRef<HTMLElement | null>(null);
 
-    const [tabIndex, setTabIndex] = useState(0);
+    const [tabIndex, setTabIndex] = useState<number | undefined>(0);
 
-    const refToPass = ref || toastRef;
-
-    const componentClasses = useMemo(() => {
-      return classNames(className);
-    }, [className]);
+    let refToPass = toastRef;
+    if (ref && typeof ref === "object" && "current" in ref) {
+      refToPass = ref;
+    }
 
     const dismissToast = useCallback(
-      (ev) => {
+      (ev: KeyboardEvent) => {
         if (onDismiss && Events.isEscKey(ev)) {
           ev.stopImmediatePropagation();
           onDismiss(ev);
@@ -71,23 +97,24 @@ const Toast = React.forwardRef(
     useModalManager(open, dismissToast, refToPass);
 
     useEffect(() => {
-      clearTimeout(timer.current);
+      /* istanbul ignore next */
+      if (timer.current) clearTimeout(timer.current);
 
       if (!timeout || !open || !onDismiss) {
         return;
       }
 
-      timer.current = setTimeout(() => onDismiss(), timeout);
+      timer.current = setTimeout(() => onDismiss(), +timeout);
     }, [onDismiss, open, timeout]);
 
     useEffect(() => {
       if (!disableAutoFocus) {
         if (open) {
-          focusedElementBeforeOpening.current = document.activeElement;
+          focusedElementBeforeOpening.current = document.activeElement as HTMLElement | null;
           toastContentNodeRef.current?.focus();
         } else if (focusedElementBeforeOpening.current) {
           focusedElementBeforeOpening.current.focus();
-          focusedElementBeforeOpening.current = undefined;
+          focusedElementBeforeOpening.current = null;
           setTabIndex(0);
         }
       }
@@ -119,12 +146,11 @@ const Toast = React.forwardRef(
     function renderToastContent() {
       if (!open) return null;
 
-      const toastProps = {
-        isCenter,
-        variant: variant || "success",
-        id,
-        maxWidth,
-      };
+      let toastVariant;
+
+      if (variant !== "notice") {
+        toastVariant = variant;
+      }
 
       return (
         <CSSTransition
@@ -135,25 +161,24 @@ const Toast = React.forwardRef(
         >
           <ToastStyle
             isNotice={isNotice}
-            className={componentClasses}
+            className={className}
             {...tagComponent(restProps["data-component"] || "toast", restProps)}
-            {...toastProps}
+            isCenter={isCenter}
+            variant={toastVariant}
+            id={id}
+            maxWidth={maxWidth}
             ref={toastContentNodeRef}
             {...(!disableAutoFocus && {
               tabIndex,
               onBlur: () => setTabIndex(undefined),
             })}
           >
-            {!isNotice && (
-              <TypeIcon variant={toastProps.variant}>
-                <Icon type={toastProps.variant} />
+            {variant !== "notice" && (
+              <TypeIcon variant={variant}>
+                <Icon type={variant} />
               </TypeIcon>
             )}
-            <ToastContentStyle
-              isNotice={isNotice}
-              variant={toastProps.variant}
-              isDismiss={onDismiss}
-            >
+            <ToastContentStyle isNotice={isNotice} isDismiss={!!onDismiss}>
               {children}
             </ToastContentStyle>
             {renderCloseIcon()}
@@ -172,31 +197,6 @@ const Toast = React.forwardRef(
   }
 );
 
-Toast.propTypes = {
-  /** Customizes the appearance in the DLS theme */
-  variant: PropTypes.oneOf(["error", "info", "success", "warning", "notice"]),
-  /** Custom className */
-  className: PropTypes.string,
-  /** Custom id  */
-  id: PropTypes.string,
-  /** Component name */
-  "data-component": PropTypes.string,
-  /** The rendered children of the component. */
-  children: PropTypes.node,
-  /** Determines if the Toast is open. */
-  open: PropTypes.bool,
-  /** Callback for when dismissed. */
-  onDismiss: PropTypes.func,
-  /** Time for Toast to remain on screen */
-  timeout: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Centers the Toast on the screen */
-  isCenter: PropTypes.bool,
-  /** Target Portal ID where the Toast will render */
-  targetPortalId: PropTypes.string,
-  /** Maximum toast width */
-  maxWidth: PropTypes.string,
-  /** Disables auto focus functionality when the Toast has a close icon */
-  disableAutoFocus: PropTypes.bool,
-};
+Toast.displayName = "Toast";
 
 export default Toast;

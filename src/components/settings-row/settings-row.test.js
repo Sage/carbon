@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Link from "../link";
 import SettingsRow from "./settings-row.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -9,6 +9,7 @@ import {
   settingsRowDescription,
 } from "../../../cypress/locators/settings-row/index";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { checkOutlineCss } from "../../../cypress/support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -53,10 +54,17 @@ context("Tests for SettingsRow component", () => {
       "should check when divider property is %s for SettingsRow component",
       (bool) => {
         CypressMountWithProviders(<SettingsRowComponent divider={bool} />);
-        if (bool === true) {
-          settingsRowPreview()
-            .should("have.css", "border-bottom", "1px solid rgb(230, 235, 237)")
-            .and("have.css", "padding-bottom", "30px");
+        if (bool) {
+          settingsRowPreview().then((elem) => {
+            checkOutlineCss(
+              elem,
+              1,
+              "border-bottom",
+              "solid",
+              "rgb(230, 235, 237)"
+            );
+            expect(elem.css("padding-bottom")).to.equals("30px");
+          });
         } else {
           settingsRowPreview()
             .should(

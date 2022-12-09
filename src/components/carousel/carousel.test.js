@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Carousel, Slide } from ".";
 import Box from "../box/box.component";
 import Typography from "../typography/typography.component";

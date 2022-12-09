@@ -109,6 +109,35 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
   </Story>
 </Canvas>
 
+### With fullWidth
+
+When the `fullWidth` prop is `true`, the buttons will expand in size to take up the full width of the container.
+
+<Canvas>
+  <Story name="fullWidth" parameters={{ info: { disable: true } }}>
+    <ButtonToggleGroup
+      id="button-toggle-group-fullWidth-id"
+      name="button-toggle-group-fullWidth"
+      fullWidth
+      label="fullWidth example"
+      labelHelp="help message"
+      helpAriaLabel="Help"
+      fieldHelp="field help mesage"
+      onChange={() => {}}
+    >
+      <ButtonToggle value="foo" grouped>
+        Foo
+      </ButtonToggle>
+      <ButtonToggle value="bar" grouped>
+        Bar
+      </ButtonToggle>
+      <ButtonToggle value="baz" grouped>
+        Baz
+      </ButtonToggle>
+    </ButtonToggleGroup>
+  </Story>
+</Canvas>
+
 ### With field help inline
 
 <Canvas>

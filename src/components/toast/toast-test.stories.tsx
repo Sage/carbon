@@ -1,36 +1,45 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
-import Toast from ".";
+import Toast, { ToastProps } from ".";
 import Button from "../button";
 import Icon from "../icon";
 import { TOAST_COLORS } from "./toast.config";
 
-<Meta
-  title="Toast/Test"
-  parameters={{
+export default {
+  title: "Toast/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     childrenSpecialCharacters: specialCharacters,
-  }}
-/>
+  },
+};
 
-export const ToastStory = ({
+interface DefaultStoryProps extends Partial<ToastProps> {
+  childrenSpecialCharacters?: string;
+  scrollablePage?: boolean;
+}
+
+export const Default = ({
   children,
   childrenSpecialCharacters,
   scrollablePage,
   ...args
-}) => {
+}: DefaultStoryProps) => {
   const [isOpen, setIsOpen] = useState(true);
-  const onDismissClick = (evt) => {
+  const onDismissClick = (
+    ev?:
+      | KeyboardEvent
+      | React.KeyboardEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     setIsOpen(!isOpen);
-    action("click")(evt);
+    action("click")(ev);
   };
   const handleOpen = () => {
     setIsOpen(!isOpen);
@@ -43,9 +52,10 @@ export const ToastStory = ({
           id="toast-dismissible"
           open={isOpen}
           onDismiss={onDismissClick}
-          children={children || childrenSpecialCharacters}
           {...args}
-        />
+        >
+          {children || childrenSpecialCharacters}
+        </Toast>
       </div>
     );
   }
@@ -56,18 +66,39 @@ export const ToastStory = ({
         id="toast-dismissible"
         open={isOpen}
         onDismiss={onDismissClick}
-        children={children || childrenSpecialCharacters}
         {...args}
-      />
+      >
+        {children || childrenSpecialCharacters}
+      </Toast>
     </>
   );
 };
+Default.storyName = "default";
+Default.args = {
+  children: "My text",
+  childrenSpecialCharacters: undefined,
+  timeout: 0,
+  variant: "success",
+  isCenter: true,
+  scrollablePage: false,
+};
+Default.argTypes = {
+  variant: {
+    options: TOAST_COLORS,
+    control: {
+      type: "select",
+    },
+  },
+};
 
-export const ToastVisualStory = ({
+interface VisualStoryProps extends Partial<ToastProps> {
+  childrenSpecialCharacters?: string;
+}
+export const Visual = ({
   children,
   childrenSpecialCharacters,
   ...args
-}) => {
+}: VisualStoryProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const onDismissClick = () => {
     setIsOpen(!isOpen);
@@ -81,15 +112,13 @@ export const ToastVisualStory = ({
         open={isOpen}
         onDismiss={onDismissClick}
         targetPortalId="visual"
-        children={children || childrenSpecialCharacters}
         {...args}
-      />
-      <Toast
-        variant="info"
-        targetPortalId="visual"
-        children={children || childrenSpecialCharacters}
-        {...args}
-      />
+      >
+        {children || childrenSpecialCharacters}
+      </Toast>
+      <Toast variant="info" targetPortalId="visual" {...args}>
+        {children || childrenSpecialCharacters}
+      </Toast>
       <Toast
         variant="error"
         targetPortalId="visual"
@@ -131,17 +160,19 @@ export const ToastVisualStory = ({
         onDismiss={onDismissClick}
         targetPortalId="visual-left-aligned"
         isCenter={false}
-        children={children || childrenSpecialCharacters}
         {...args}
-      />
+      >
+        {children || childrenSpecialCharacters}
+      </Toast>
       <Toast
         variant="info"
         targetPortalId="visual-left-aligned"
-        isOpen={isOpen}
+        open={isOpen}
         isCenter={false}
-        children={children || childrenSpecialCharacters}
         {...args}
-      />
+      >
+        {children || childrenSpecialCharacters}
+      </Toast>
       <Toast
         variant="error"
         targetPortalId="visual-left-aligned"
@@ -205,50 +236,14 @@ export const ToastVisualStory = ({
   );
 };
 
-# Toast
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      children: "My text",
-      childrenSpecialCharacters: undefined,
-      timeout: 0,
-      variant: "success",
-      isCenter: true,
-      scrollablePage: false,
-    }}
-    argTypes={{
-      variant: {
-        options: TOAST_COLORS,
-        control: {
-          type: "select",
-        },
-      },
-    }}
-  >
-    {ToastStory.bind({})}
-  </Story>
-</Canvas>
-
-### Visual
-
-<Canvas>
-  <Story
-    name="visual"
-    args={{
-      children: "My text",
-      childrenSpecialCharacters: undefined,
-    }}
-    parameters={{
-      chromatic: {
-        disable: false,
-      },
-      themeProvider: { chromatic: { theme: "sage" } },
-    }}
-  >
-    {ToastVisualStory.bind({})}
-  </Story>
-</Canvas>
+Visual.storyName = "visual";
+Visual.args = {
+  children: "My text",
+  childrenSpecialCharacters: undefined,
+};
+Visual.parameters = {
+  chromatic: {
+    disable: false,
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
+};

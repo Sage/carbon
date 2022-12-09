@@ -1,7 +1,8 @@
-import * as React from "react";
+import React from "react";
 import Pill from "./pill.component";
 import { pillPreview } from "../../../cypress/locators/pill/index";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { checkOutlineCss } from "../../../cypress/support/component-helper/common-steps";
 import { closeIconButton } from "../../../cypress/locators/index";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
@@ -59,7 +60,9 @@ context("Testing Pill component", () => {
         );
 
         pillPreview()
-          .should("have.css", "border", `2px solid ${output}`)
+          .then((elem) => {
+            checkOutlineCss(elem, 1, "border", "solid", output);
+          })
           .should("have.css", "background-color", transparent);
       }
     );
@@ -88,9 +91,10 @@ context("Testing Pill component", () => {
           </PillComponent>
         );
 
-        pillPreview()
-          .should("have.css", "border", `2px solid ${output}`)
-          .should("have.css", "background-color", output);
+        pillPreview().then((elem) => {
+          checkOutlineCss(elem, 1, "border", "solid", output);
+          expect(elem.css("background-color")).to.equals(output);
+        });
       }
     );
 
@@ -103,7 +107,9 @@ context("Testing Pill component", () => {
         CypressMountWithProviders(
           <PillComponent pillRole={role}>{role}</PillComponent>
         );
-        pillPreview().should("have.css", "border", `2px solid ${output}`);
+        pillPreview().then((elem) => {
+          checkOutlineCss(elem, 1, "border", "solid", output);
+        });
       }
     );
 
@@ -127,7 +133,9 @@ context("Testing Pill component", () => {
           </PillComponent>
         );
 
-        pillPreview().should("have.css", "border", `2px solid ${output}`);
+        pillPreview().then((elem) => {
+          checkOutlineCss(elem, 1, "border", "solid", output);
+        });
       }
     );
 

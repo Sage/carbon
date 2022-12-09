@@ -89,7 +89,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   }
 
   ${StyledFormFooter}.sticky {
-    ${calculateWidthValue};
+    ${calculateWidthValue}
     ${(props) => calculateFormSpacingValues(props, false)}
   }
 

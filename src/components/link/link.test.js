@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+import Box from "../box";
 import Link from "./link.component";
 
 import {
@@ -87,11 +88,13 @@ context("Test for Link component", () => {
       "should render Link with tooltipPosition prop set to %s",
       (tooltipPosition) => {
         CypressMountWithProviders(
-          <LinkComponent
-            icon="add"
-            tooltipMessage={testCypress}
-            tooltipPosition={tooltipPosition}
-          />
+          <Box m="250px">
+            <LinkComponent
+              icon="add"
+              tooltipMessage={testCypress}
+              tooltipPosition={tooltipPosition}
+            />
+          </Box>
         );
 
         icon().realHover();

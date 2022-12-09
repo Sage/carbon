@@ -1,5 +1,6 @@
-import * as React from "react";
+import React from "react";
 import { sprintf } from "sprintf-js";
+import Box from "../box";
 import Help from "./help.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
@@ -174,9 +175,11 @@ context("Tests for Help component", () => {
       "should check flip position to the %s for Help component",
       (position) => {
         CypressMountWithProviders(
-          <HelpComponent isFocused tooltipFlipOverrides={[position]}>
-            {`This tooltip is positioned ${position}`}
-          </HelpComponent>
+          <Box m="50px">
+            <HelpComponent isFocused tooltipFlipOverrides={[position]}>
+              {`This tooltip is positioned ${position}`}
+            </HelpComponent>
+          </Box>
         );
         cy.viewport(700, 120);
         cy.scrollTo(50, 50);

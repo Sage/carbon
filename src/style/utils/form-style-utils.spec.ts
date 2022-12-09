@@ -358,8 +358,10 @@ describe("calculateFormSpacingValues", () => {
         "margin-left": "calc(-1 * 20px)",
         "margin-right": "calc(-1 * 30px)",
         "margin-bottom": "calc(-1 * 50px)",
-        "padding-left": SIDEBAR_LEFT_PADDING,
-        "padding-right": SIDEBAR_RIGHT_PADDING,
+        ":not(.padded)": {
+          "padding-left": SIDEBAR_LEFT_PADDING,
+          "padding-right": SIDEBAR_RIGHT_PADDING,
+        },
       });
     });
 
@@ -374,8 +376,10 @@ describe("calculateFormSpacingValues", () => {
         "margin-left": "calc(-1 * 20px)",
         "margin-right": "calc(-1 * 30px)",
         "margin-bottom": "calc(-1 * 50px)",
-        "padding-left": SIDEBAR_LEFT_PADDING,
-        "padding-right": SIDEBAR_RIGHT_PADDING,
+        ":not(.padded)": {
+          "padding-left": SIDEBAR_LEFT_PADDING,
+          "padding-right": SIDEBAR_RIGHT_PADDING,
+        },
       });
     });
 
@@ -390,8 +394,10 @@ describe("calculateFormSpacingValues", () => {
         "margin-left": "calc(-1 * 20px)",
         "margin-right": "calc(-1 * 30px)",
         "margin-bottom": `calc(-1 * ${SIDEBAR_BOTTOM_SPACING})`,
-        "padding-left": SIDEBAR_LEFT_PADDING,
-        "padding-right": SIDEBAR_RIGHT_PADDING,
+        ":not(.padded)": {
+          "padding-left": SIDEBAR_LEFT_PADDING,
+          "padding-right": SIDEBAR_RIGHT_PADDING,
+        },
       });
     });
 
@@ -406,8 +412,10 @@ describe("calculateFormSpacingValues", () => {
         "margin-left": `calc(-1 * ${HORIZONTAL_PADDING}px)`,
         "margin-right": "calc(-1 * 30px)",
         "margin-bottom": "calc(-1 * 50px)",
-        "padding-left": SIDEBAR_LEFT_PADDING,
-        "padding-right": SIDEBAR_RIGHT_PADDING,
+        ":not(.padded)": {
+          "padding-left": SIDEBAR_LEFT_PADDING,
+          "padding-right": SIDEBAR_RIGHT_PADDING,
+        },
       });
     });
 
@@ -422,8 +430,10 @@ describe("calculateFormSpacingValues", () => {
         "margin-left": "calc(-1 * 20px)",
         "margin-right": `calc(-1 * ${HORIZONTAL_PADDING}px)`,
         "margin-bottom": "calc(-1 * 50px)",
-        "padding-left": SIDEBAR_LEFT_PADDING,
-        "padding-right": SIDEBAR_RIGHT_PADDING,
+        ":not(.padded)": {
+          "padding-left": SIDEBAR_LEFT_PADDING,
+          "padding-right": SIDEBAR_RIGHT_PADDING,
+        },
       });
     });
   });
