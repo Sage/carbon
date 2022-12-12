@@ -20,6 +20,7 @@ const business = {
 
 const primaryNavigation = {
   home: "\\e929",
+  dashboard: "\\f007",
   settings: "\\e91a",
   search: "\\e92f",
   feedback: "\\e930",
