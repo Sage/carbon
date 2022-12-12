@@ -1,8 +1,8 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
-import Confirm from "./confirm.component";
+import Confirm, { ConfirmProps } from ".";
 import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";
 import Button from "../button/button.component";
 import { mintTheme } from "../../style/themes";
@@ -14,7 +14,7 @@ import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
-guid.mockImplementation(() => "guid-123");
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => "guid-123");
 
 const buttonTypes = [
   "primary",
@@ -22,11 +22,13 @@ const buttonTypes = [
   "tertiary",
   "dashed",
   "darkBackground",
-];
-const buttonIconPositions = ["before", "after"];
+] as const;
+const buttonIconPositions = ["before", "after"] as const;
 
 describe("Confirm", () => {
-  let wrapper, onCancel, onConfirm;
+  let wrapper: ReactWrapper<ConfirmProps>;
+  let onCancel: jest.Mock;
+  let onConfirm: jest.Mock;
 
   beforeEach(() => {
     onCancel = jest.fn();
@@ -96,7 +98,7 @@ describe("Confirm", () => {
     });
 
     describe("when `disableCancel` prop is provided", () => {
-      let escapeKeyEvent;
+      let escapeKeyEvent: KeyboardEvent;
       const onCancelFn = jest.fn();
 
       beforeEach(() => {
@@ -152,32 +154,18 @@ describe("Confirm", () => {
       });
     });
 
-    it("should not render IconButton if `disableCancel` is provided", () => {
+    it("should render disabled IconButton if `disableCancel` is provided", () => {
       wrapper = mount(
         <Confirm
-          shlowCloseIcon
-          onClose={() => {}}
+          showCloseIcon
+          onCancel={() => {}}
           onConfirm={() => {}}
           open
           disableCancel
         />
       );
 
-      expect(wrapper.find(IconButton).exists()).toBe(false);
-    });
-
-    it("should not render IconButton if `disableCancel` is provided", () => {
-      wrapper = mount(
-        <Confirm
-          shlowCloseIcon
-          onClose={() => {}}
-          onConfirm={() => {}}
-          open
-          disableCancel
-        />
-      );
-
-      expect(wrapper.find(IconButton).exists()).toBe(false);
+      expect(wrapper.find(IconButton).props().disabled).toBe(true);
     });
 
     describe("when custom labels are not defined", () => {
@@ -345,7 +333,7 @@ describe("Confirm", () => {
 
       const confirmButton = wrapper
         .find(Button)
-        .find('[data-element="confirm"]')
+        .filter('[data-element="confirm"]')
         .at(0);
 
       expect(confirmButton.props().destructive).toBeTruthy();
@@ -365,7 +353,7 @@ describe("Confirm", () => {
 
       const cancelButton = wrapper
         .find(Button)
-        .find('[data-element="cancel"]')
+        .filter('[data-element="cancel"]')
         .at(0);
 
       expect(cancelButton.props().destructive).toBeTruthy();
@@ -380,7 +368,10 @@ describe("Confirm", () => {
           open
         />
       );
-      const button = wrapper.find(Button).find('[data-element="cancel"]').at(0);
+      const button = wrapper
+        .find(Button)
+        .filter('[data-element="cancel"]')
+        .at(0);
 
       expect(button.props().buttonType).toBe(buttonType);
     });
@@ -396,7 +387,7 @@ describe("Confirm", () => {
       );
       const button = wrapper
         .find(Button)
-        .find('[data-element="confirm"]')
+        .filter('[data-element="confirm"]')
         .at(0);
 
       expect(button.props().buttonType).toBe(buttonType);
@@ -413,7 +404,7 @@ describe("Confirm", () => {
       );
       const button = wrapper
         .find(Button)
-        .find('[data-element="confirm"]')
+        .filter('[data-element="confirm"]')
         .at(0);
 
       expect(button.props().iconType).toBe("bin");
@@ -428,7 +419,10 @@ describe("Confirm", () => {
           open
         />
       );
-      const button = wrapper.find(Button).find('[data-element="cancel"]').at(0);
+      const button = wrapper
+        .find(Button)
+        .filter('[data-element="cancel"]')
+        .at(0);
 
       expect(button.props().iconType).toBe("bin");
     });
@@ -447,7 +441,7 @@ describe("Confirm", () => {
         );
         const button = wrapper
           .find(Button)
-          .find('[data-element="cancel"]')
+          .filter('[data-element="cancel"]')
           .at(0);
 
         expect(button.props().iconPosition).toBe(position);
@@ -468,7 +462,7 @@ describe("Confirm", () => {
         );
         const button = wrapper
           .find(Button)
-          .find('[data-element="confirm"]')
+          .filter('[data-element="confirm"]')
           .at(0);
 
         expect(button.props().iconPosition).toBe(position);
