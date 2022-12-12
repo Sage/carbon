@@ -8,7 +8,7 @@ const paddingPropTypes = filterStyledSystemPaddingProps(
   styledSystemPropTypes.space
 );
 
-const TileFooter = ({ variant, children, ...props }) => {
+export const TileFooter = ({ variant, children, ...props }) => {
   return (
     <StyledTileFooter data-component="tile-footer" variant={variant} {...props}>
       {children}
@@ -18,8 +18,8 @@ const TileFooter = ({ variant, children, ...props }) => {
 
 TileFooter.propTypes = {
   ...paddingPropTypes,
-  /** set which background color variant should be used */
-  variant: PropTypes.oneOf(["default", "transparent"]),
+  /** Sets which background color variant should be used */
+  variant: PropTypes.oneOf(["default", "black", "transparent"]),
   children: PropTypes.node,
 };
 

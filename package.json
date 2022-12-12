@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "111.16.0",
+  "version": "111.17.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -44,7 +44,7 @@
   },
   "homepage": "https://carbon.sage.com",
   "peerDependencies": {
-    "@sage/design-tokens": "^2.41.0",
+    "@sage/design-tokens": "^2.52.0",
     "draft-js": "^0.11.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -64,7 +64,7 @@
     "@bahmutov/cypress-esbuild-preprocessor": "^2.1.3",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@sage/design-tokens": "^2.41.0",
+    "@sage/design-tokens": "^2.52.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/exec": "^6.0.2",
     "@semantic-release/git": "^10.0.1",

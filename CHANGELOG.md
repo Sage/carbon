@@ -1,3 +1,10 @@
+## [111.17.0](https://github.com/Sage/carbon/compare/v111.16.0...v111.17.0) (2022-12-12)
+
+
+### Features
+
+* **tile:** add black variant to footer and add border options to component ([06c7dcf](https://github.com/Sage/carbon/commit/06c7dcf4734733cec20d48ac225c6b2d54c71149))
+
 ## [111.16.0](https://github.com/Sage/carbon/compare/v111.15.0...v111.16.0) (2022-12-07)
 
 
