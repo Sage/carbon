@@ -6,8 +6,22 @@ import Label from "../../__internal__/label";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
 
+function renderNumberInput(props, renderer = mount) {
+  return renderer(<Number {...props} />);
+}
+
+function setTextSelection(wrapper, selectionStart, selectionEnd) {
+  wrapper
+    .find("input")
+    .simulate("keyDown", { target: { selectionStart, selectionEnd } });
+}
+
 describe("Number Input", () => {
-  let wrapper, input, onChangeFn, onKeyDownFn;
+  let wrapper;
+  let input;
+
+  const onChangeFn = jest.fn();
+  const onKeyDownFn = jest.fn();
   const selectionStart = 2;
   const selectionEnd = 4;
   const defaultInputValue = "123456789";
@@ -25,7 +39,7 @@ describe("Number Input", () => {
       ["a negative integer", "-123456789"],
     ])("%s", (desc, newValue) => {
       beforeEach(() => {
-        onChangeFn = jest.fn();
+        onChangeFn.mockClear();
         jest.useFakeTimers();
 
         wrapper = renderNumberInput({
@@ -35,32 +49,30 @@ describe("Number Input", () => {
       });
 
       it("calls the onChange method", () => {
-        simulateInputChange(wrapper, newValue);
+        input = wrapper.find("input");
+        input.simulate("change", { target: { value: newValue } });
         expect(onChangeFn).toHaveBeenCalled();
       });
     });
 
     describe.each(["10.5", "abc"])("a non integer like %s", (newValue) => {
-      let inputInstance;
-
       describe("with the value prop not defined", () => {
         beforeEach(() => {
-          onChangeFn = jest.fn();
+          onChangeFn.mockClear();
           wrapper = renderNumberInput({});
           input = wrapper.find("input");
-          inputInstance = input.instance();
-          inputInstance.value = newValue;
+          input.getDOMNode().value = newValue;
           input.simulate("change");
         });
 
         it("input value should be an empty string", () => {
-          expect(inputInstance.value).toBe("");
+          expect(input.getDOMNode().value).toBe("");
         });
       });
 
       describe("with the value prop defined", () => {
         beforeEach(() => {
-          onChangeFn = jest.fn();
+          onChangeFn.mockClear();
           jest.useFakeTimers();
 
           wrapper = renderNumberInput({
@@ -70,8 +82,7 @@ describe("Number Input", () => {
 
           setTextSelection(wrapper, selectionStart, selectionEnd);
           input = wrapper.find("input");
-          inputInstance = input.instance();
-          inputInstance.value = newValue;
+          input.getDOMNode().value = newValue;
           input.simulate("change");
         });
 
@@ -81,12 +92,12 @@ describe("Number Input", () => {
 
         describe("and when the value prop is defined", () => {
           it("input value is the same as in the prop", () => {
-            expect(inputInstance.value).toEqual(defaultInputValue);
+            expect(input.getDOMNode().value).toEqual(defaultInputValue);
           });
 
           it("input's selection start and end are the same as set in the component", () => {
-            expect(inputInstance.selectionStart).toBe(selectionStart);
-            expect(inputInstance.selectionEnd).toBe(selectionEnd);
+            expect(input.getDOMNode().selectionStart).toBe(selectionStart);
+            expect(input.getDOMNode().selectionEnd).toBe(selectionEnd);
           });
         });
       });
@@ -97,7 +108,7 @@ describe("Number Input", () => {
     const keyDownParams = { target: { selectionStart, selectionEnd } };
 
     beforeEach(() => {
-      onKeyDownFn = jest.fn();
+      onKeyDownFn.mockClear();
       wrapper = renderNumberInput({
         value: defaultInputValue,
       });
@@ -153,19 +164,3 @@ describe("Number Input", () => {
     });
   });
 });
-
-function renderNumberInput(props, renderer = mount) {
-  return renderer(<Number {...props} />);
-}
-
-function simulateInputChange(wrapper, value) {
-  const input = wrapper.find("input");
-  input.instance().value = value;
-  input.simulate("change");
-}
-
-function setTextSelection(wrapper, selectionStart, selectionEnd) {
-  wrapper
-    .find("input")
-    .simulate("keyDown", { target: { selectionStart, selectionEnd } });
-}
