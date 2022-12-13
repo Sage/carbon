@@ -12,6 +12,7 @@ import {
   PositionProps,
 } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
+import Logger from "../../__internal__/utils/logger";
 import BaseTheme from "../../style/themes/base";
 import styledColor from "../../style/utils/color";
 import boxConfig from "./box.config";
@@ -53,7 +54,19 @@ export interface BoxProps
   boxShadow?: BoxShadowsType;
 }
 
+let isDeprecationWarningTriggered = false;
+
 export const Box = styled.div<BoxProps>`
+  ${() => {
+    if (!isDeprecationWarningTriggered) {
+      isDeprecationWarningTriggered = true;
+      Logger.deprecate(
+        "Previous props that could be spread to the `Box` component are being removed. Only props documented in the intefaces will be supported."
+      );
+    }
+    return css``;
+  }}
+
   ${space}
   ${layout}
   ${flexbox}
