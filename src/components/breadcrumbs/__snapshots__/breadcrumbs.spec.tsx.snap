@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumbs renders as expected 1`] = `
+<Breadcrumbs
+  bc={true}
+  breadCrumbs={
+    Array [
+      <Crumb
+        color={true}
+        href="#"
+        isCurrent={true}
+      >
+        Crumb 1
+      </Crumb>,
+      <Crumb
+        color={true}
+        href="#"
+        isCurrent={true}
+      >
+        Crumb 2
+      </Crumb>,
+      <Crumb
+        color={true}
+        href="#"
+        isCurrent={true}
+      >
+        Crumb 3
+      </Crumb>,
+      <Crumb
+        color={true}
+        href="#"
+        isCurrent={true}
+      >
+        Crumb 4
+      </Crumb>,
+    ]
+  }
+  i={true}
+/>
+`;

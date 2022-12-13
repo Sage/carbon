@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import VerticalDivider from "../vertical-divider";
 
 const StyledBreadcrumbsWrapper = styled.div`
   position: relative;
@@ -8,9 +7,14 @@ const StyledBreadcrumbsWrapper = styled.div`
   flex-direction: row;
 `;
 
-const StyledDivider = styled(VerticalDivider)`
-  transform: skewX(-25deg);
-  padding: 5px 5px 0px 5px;
+const BreadcrumbsContainer = styled.div`
+display: flex;
+flex-wrap: wrap;
+`
+
+const BreadcrumbDivider = styled.div`
+  margin-left: 8px;
+  margin-right: 8px;;
 `;
 
 const StyledBreadcrumbs = styled.div`
@@ -18,4 +22,4 @@ const StyledBreadcrumbs = styled.div`
   font-size: var(--fontSizes100);
 `;
 
-export { StyledBreadcrumbsWrapper, StyledBreadcrumbs, StyledDivider };
+export { StyledBreadcrumbsWrapper, StyledBreadcrumbs, BreadcrumbDivider, BreadcrumbsContainer };

@@ -38,7 +38,12 @@ import Breadcrumbs from "carbon-react/lib/components/breadcrumbs";
 <Canvas>
   <Story name="default">
     <div>
-      <Breadcrumbs/>
+      <BreadcrumbsWrapper>
+          <Crumb href="#" isCurrent color>Crumb 1</Crumb>,
+          <Crumb href="#" isCurrent color>Crumb 2</Crumb>, 
+          <Crumb href="#" isCurrent color>Crumb 3</Crumb>,
+          <Crumb isCurrent href="#" color>Crumb 4</Crumb>
+      </BreadcrumbsWrapper>
     </div>
   </Story>
 </Canvas>

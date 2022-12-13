@@ -1,12 +1,26 @@
 import React from "react";
-import { shallow } from "enzyme";
 import Breadcrumbs from "./breadcrumbs.component";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
+import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
+import TestRenderer from "react-test-renderer";
+import BreadcrumbsWrapper from "./breadcrumbs.component";
+import BreadcrumbsContainer from "./breadcrumbs.component";
+import Crumb from "./breadcrumbs.component";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const render = (renderer: any = shallow) => {
-  return renderer(<Breadcrumbs />);
-};
+function render(props = {}, renderer: any = typeof shallow) {
+  return renderer(<Breadcrumbs {...props}/>);
+}
 
 describe("Breadcrumbs", () => {
-  describe("Renders", () => {});
+  it("renders as expected", () => {
+    expect(
+      noThemeSnapshot(shallow(<BreadcrumbsWrapper/>))
+    ).toMatchSnapshot();
+  });
 });
+
+
+
+
+
