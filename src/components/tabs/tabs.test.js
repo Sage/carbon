@@ -186,6 +186,72 @@ const TabsComponentValidations = ({ ...props }) => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
+const TabsComponentWithValidationsSummary = ({ validation }) => {
+  return (
+    <div
+      style={{
+        padding: "4px",
+      }}
+    >
+      <Tabs align="left" position="top" showValidationsSummary>
+        <Tab
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-1"
+          title="Tab 1"
+          key="tab-1"
+        >
+          <Checkbox label="foo" {...validation} />
+          <Checkbox label="foo" {...validation} />
+          <Checkbox label="foo" {...validation} />
+        </Tab>
+      </Tabs>
+    </div>
+  );
+};
+
+// eslint-disable-next-line react/prop-types
+const TabsComponentValidationsUnregistering = ({ validation }) => {
+  const [show, setShow] = React.useState(true);
+
+  return (
+    <div
+      style={{
+        padding: "4px",
+      }}
+    >
+      <button
+        data-element="foo-button"
+        type="button"
+        onClick={() => setShow(false)}
+      >
+        Hide Tab Child
+      </button>
+      <Tabs align="left" position="top">
+        <Tab
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-1"
+          title="Tab 1"
+          key="tab-1"
+        >
+          {show && (
+            <Checkbox
+              label="Add error"
+              onChange={() => {}}
+              checked
+              {...validation}
+            />
+          )}
+        </Tab>
+      </Tabs>
+    </div>
+  );
+};
+
 const TabsValidationOverride = () => {
   const [validation, setValidation] = React.useState({
     error: true,
@@ -552,6 +618,41 @@ context("Testing Tabs component", () => {
           .then(() => {
             tooltipPreview().should("have.text", validationMessage);
           });
+      }
+    );
+
+    it.each(["error", "warning", "info"])(
+      "should verify when the ValidationIcon is hovered over that a summary of the %s messages is displayed",
+      (validationMessage) => {
+        const validation = { [validationMessage]: validationMessage };
+
+        CypressMountWithProviders(
+          <TabsComponentWithValidationsSummary validation={validation} />
+        );
+
+        tabById(1)
+          .trigger("mouseover")
+          .then(() => {
+            tooltipPreview().should(
+              "have.text",
+              `• ${validationMessage}\n• ${validationMessage}\n• ${validationMessage}`
+            );
+          });
+      }
+    );
+
+    it.each(["error", "warning", "info"])(
+      "should no longer report the any validation failures of children no longer mounted",
+      (type) => {
+        const validation = { [type]: true };
+
+        CypressMountWithProviders(
+          <TabsComponentValidationsUnregistering validation={validation} />
+        );
+
+        getDataElementByValue("foo-button").click();
+
+        tabById(1).children().children().should("not.exist");
       }
     );
 
