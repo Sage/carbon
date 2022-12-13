@@ -1,3 +1,10 @@
+## [111.18.0](https://github.com/Sage/carbon/compare/v111.17.0...v111.18.0) (2022-12-13)
+
+
+### Features
+
+* **card:** add height prop ([e8d7d21](https://github.com/Sage/carbon/commit/e8d7d21900d3f81aca4a197a98cab034c7de6373))
+
 ## [111.17.0](https://github.com/Sage/carbon/compare/v111.16.0...v111.17.0) (2022-12-12)
 
 
