@@ -55,6 +55,9 @@ LargeSpacing.args = { spacing: "large" };
 export const WithCardWidthProvided = DefaultStory.bind({});
 WithCardWidthProvided.args = { cardWidth: "500px" };
 
+export const WithCustomHeight = DefaultStory.bind({});
+WithCustomHeight.args = { height: "500px" };
+
 export const Interactive: StoryFn = () => {
   const [clickCounter, setClickCounter] = useState(0);
   return (

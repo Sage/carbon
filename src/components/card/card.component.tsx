@@ -30,6 +30,8 @@ export interface CardProps extends MarginProps {
   children: React.ReactNode;
   /** Flag to indicate if card is draggable */
   draggable?: boolean;
+  /** Height of the component (any valid CSS value) */
+  height?: string;
   /** Flag to indicate if card is interactive */
   interactive?: boolean;
   /** Size of card for applying padding */
@@ -54,6 +56,7 @@ const Card = ({
   children,
   cardWidth = "500px",
   draggable,
+  height,
   interactive,
   spacing = "medium",
   boxShadow,
@@ -117,6 +120,7 @@ const Card = ({
       boxShadow={boxShadow}
       hoverBoxShadow={hoverBoxShadow}
       onClick={interactive && !draggable ? action : undefined}
+      height={height}
       {...(interactive && { tabIndex: 0, type: "button" })}
       {...filterStyledSystemMarginProps(rest)}
     >
