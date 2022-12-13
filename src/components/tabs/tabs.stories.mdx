@@ -1761,6 +1761,92 @@ CSS string.
   </Story>
 </Canvas>
 
+### With string validations summarised
+
+By default the strings passed to `errorMessage`, `warningMessage` and `infoMessage` props are what is 
+used in the validation tooltip. However, setting the `showValidationsSumary` prop allows for the 
+summarising of validation messages from the children of a given `Tab`. You can see an example of this 
+by hovering your mouse pointer over the `ValidationIcon`s in the example below.
+
+<Canvas>
+  <Story name="with string validations summarised" parameters={{ chromatic: { disable: true } }}>
+    {() => {
+      const [errors, setErrors] = useState({
+        one: 'This is an error',
+        two: 'Here is another error'
+      });
+      const [warnings, setWarnings] = useState({
+        one: 'This is a warning',
+        two: 'Here is another warning'
+      });
+      const [infos, setInfos] = useState({ 
+        one: 'This is an info', 
+        two: 'Here is another info'
+      });
+      return (
+        <div style={{ padding: "4px" }}>
+          <Tabs align="left" position="top" showValidationsSummary>
+            <Tab
+              tabId="tab-1"
+              title="Tab 1"
+              key="tab-1"
+            >
+              <Checkbox
+                label="Error 1"
+                error={errors.one}
+                onChange={e => e.target.checked ? setErrors({ ...errors, one: 'This is an error' }) : setErrors({ ...errors, one: '' })}
+                checked={errors.one}
+              />
+              <Checkbox
+                label="Error 2"
+                error={errors.two}
+                onChange={e => e.target.checked ? setErrors({ ...errors, two: 'Here is another error' }) : setErrors({ ...errors, two: '' })}
+                checked={errors.two}
+              />
+            </Tab>
+            <Tab
+              tabId="tab-2"
+              title="Tab 2"
+              key="tab-2"
+            >
+              <Checkbox
+                label="Warning 1"
+                warning={warnings.one}
+                onChange={e => e.target.checked ? setWarnings({ ...warnings, one: 'This is a warning' }) : setWarnings({ ...warnings, one: '' })}
+                checked={warnings.one}
+              />
+              <Checkbox
+                label="Warning 2"
+                warning={warnings.two}
+                onChange={e => e.target.checked ? setWarnings({ ...warnings, two: 'Here is another warning' }) : setWarnings({ ...warnings, two: '' })}
+                checked={warnings.two}
+              />
+            </Tab>
+            <Tab
+              tabId="tab-3"
+              title="Tab 3"
+              key="tab-3"
+            >
+              <Checkbox
+                label="Info 1"
+                info={infos.one}
+                onChange={e => e.target.checked ? setInfos({ ...infos, one: true }) : setInfos({ ...infos, one: '' })}
+                checked={infos.one}
+              />
+              <Checkbox
+                label="Info 2"
+                info={infos.two}
+                onChange={e => e.target.checked ? setInfos({ ...infos, two: 'This is a warning' }) : setInfos({ ...infos, two: '' })}
+                checked={infos.two}
+              />
+            </Tab>
+          </Tabs>
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
 ### Integrating with an external history
 
 It is possible to integrate the `Tabs` component with an external `history` to manipulate the location when a given `Tab`

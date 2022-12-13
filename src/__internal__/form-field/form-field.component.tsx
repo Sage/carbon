@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react";
 
 import { ValidationProps } from "__internal__/validations";
 import { MarginProps } from "styled-system";
@@ -126,10 +132,28 @@ const FormField = ({
     TabContext
   );
 
+  const isMounted = useRef(false);
+
+  useLayoutEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   useEffect(() => {
-    if (setError) setError(id, !!error);
-    if (setWarning) setWarning(id, !!warning);
-    if (setInfo) setInfo(id, !!info);
+    if (setError) setError(id, error);
+    if (setWarning) setWarning(id, warning);
+    if (setInfo) setInfo(id, info);
+
+    return () => {
+      if (!isMounted.current) {
+        if (setError && error) setError(id, false);
+        if (setWarning && warning) setWarning(id, false);
+        if (setInfo && info) setInfo(id, false);
+      }
+    };
   }, [id, setError, setWarning, setInfo, error, warning, info]);
 
   const marginProps = filterStyledSystemMarginProps(rest);

@@ -4,6 +4,23 @@ import { space } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import computeWidth from "../../style/utils/width";
 
+const getBorderColor = (borderVariant) => {
+  switch (borderVariant) {
+    case "selected":
+      return "var(--colorsUtilityYin100)";
+    case "positive":
+      return "var(--colorsSemanticPositive500)";
+    case "negative":
+      return "var(--colorsSemanticNegative500)";
+    case "caution":
+      return "var(--colorsSemanticCaution500)";
+    case "info":
+      return "var(--colorsSemanticInfo500)";
+    default:
+      return "var(--colorsUtilityMajor100)";
+  }
+};
+
 const TileContent = styled.div`
   ${({ isHorizontal, isVertical, width }) => css`
     ${space}
@@ -57,11 +74,17 @@ const TileContent = styled.div`
 `;
 
 const StyledTile = styled.div`
-  ${({ isHorizontal, tileTheme, width }) => css`
+  ${({
+    isHorizontal,
+    tileTheme,
+    width,
+    borderWidth = "borderWidth100",
+    borderVariant,
+  }) => css`
     ${space}
 
     box-sizing: border-box;
-    border: 1px solid var(--colorsUtilityMajor100);
+    border: var(--${borderWidth}) solid ${getBorderColor(borderVariant)};
 
     ${tileTheme === "tile" &&
     css`
@@ -104,6 +127,8 @@ StyledTile.propTypes = {
   padding: PropTypes.string,
   tileTheme: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  borderWidth: PropTypes.string,
+  borderVariant: PropTypes.string,
 };
 
 StyledTile.defaultProps = {

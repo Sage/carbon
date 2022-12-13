@@ -1,3 +1,29 @@
+## [111.19.0](https://github.com/Sage/carbon/compare/v111.18.0...v111.19.0) (2022-12-13)
+
+
+### Features
+
+* **tabs:** add showValidationsSummary prop to support rendering a summary of validation failures ([bce64c6](https://github.com/Sage/carbon/commit/bce64c66d22087dff89dc738a94ea2e7da756ee0)), closes [#5618](https://github.com/Sage/carbon/issues/5618)
+
+
+### Bug Fixes
+
+* **tab:** ensure that validation failures are no longer reported when children unmount ([4b67d47](https://github.com/Sage/carbon/commit/4b67d4738c8ed4ff603b9f6e61fcd0fccb05c8b6)), closes [#5591](https://github.com/Sage/carbon/issues/5591)
+
+## [111.18.0](https://github.com/Sage/carbon/compare/v111.17.0...v111.18.0) (2022-12-13)
+
+
+### Features
+
+* **card:** add height prop ([e8d7d21](https://github.com/Sage/carbon/commit/e8d7d21900d3f81aca4a197a98cab034c7de6373))
+
+## [111.17.0](https://github.com/Sage/carbon/compare/v111.16.0...v111.17.0) (2022-12-12)
+
+
+### Features
+
+* **tile:** add black variant to footer and add border options to component ([06c7dcf](https://github.com/Sage/carbon/commit/06c7dcf4734733cec20d48ac225c6b2d54c71149))
+
 ## [111.16.0](https://github.com/Sage/carbon/compare/v111.15.0...v111.16.0) (2022-12-07)
 
 

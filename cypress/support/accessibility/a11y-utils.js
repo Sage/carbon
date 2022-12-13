@@ -49,6 +49,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("contributing") &&
       !prepareUrl[0].startsWith("documentation") &&
       !prepareUrl[0].startsWith("accordion") &&
+      !prepareUrl[0].startsWith("content") &&
       !prepareUrl[0].startsWith("alert") &&
       !prepareUrl[0].startsWith("action-popover") &&
       !prepareUrl[0].startsWith("loader-bar") &&
@@ -62,7 +63,7 @@ export default (from, end) => {
   urlList = urlList.slice(from, end);
 
   context("Accessibility tests", () => {
-    describe("Should render storybook component", () => {
+    describe("should render storybook component", () => {
       it.each(urlList)(
         "should render %s component with %s story and have no accessibility violations",
         (componentName, storyName) => {
