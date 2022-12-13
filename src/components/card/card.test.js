@@ -328,6 +328,16 @@ context("Tests for Card component", () => {
       }
     );
 
+    it.each([375, 535, 777])(
+      "should check %s height for Card component",
+      (height) => {
+        CypressMountWithProviders(<CardComponent height={`${height}px`} />);
+        card().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+        });
+      }
+    );
+
     it("should call onClick callback when a click event is triggered", () => {
       const setClickCounter = cy.stub();
 
