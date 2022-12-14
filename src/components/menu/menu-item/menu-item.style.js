@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { StyledLink } from "../../link/link.style";
-import IconStyle from "../../icon/icon.style";
+import StyledIcon from "../../icon/icon.style";
+import StyledIconButton from "../../icon-button/icon-button.style";
 import menuConfigVariants from "../menu.config";
 
 const StyledMenuItemWrapper = styled.a`
@@ -18,6 +19,7 @@ const StyledMenuItemWrapper = styled.a`
     inFullscreenView,
     overrideColor,
     as,
+    asPassiveItem,
   }) => css`
     display: inline-block;
     font-size: 14px;
@@ -85,11 +87,31 @@ const StyledMenuItemWrapper = styled.a`
       `
     }
 
-    a,
-    ${StyledLink} a,
-    button,
-    ${StyledLink} button {
-      padding: 0 16px;
+    ${
+      asPassiveItem
+        ? `
+        ${StyledIconButton} {
+          > span {
+            display: inline-flex;
+            margin-right: 0;
+          }
+
+          :focus {
+            outline: none;
+            [data-component="icon"] {
+              color: ${menuConfigVariants[menuType].color};
+            }
+          }
+        }
+      `
+        : `
+        a,
+        ${StyledLink} a,
+        button,
+        ${StyledLink} button {
+          padding: 0 16px;
+        }
+      `
     }
 
     button,
@@ -112,7 +134,7 @@ const StyledMenuItemWrapper = styled.a`
         color: ${menuConfigVariants[menuType].color};
       }
 
-      ${IconStyle} {
+      ${StyledIcon} {
         bottom: 1px;
       }
     }
@@ -226,7 +248,7 @@ const StyledMenuItemWrapper = styled.a`
         ${showDropdownArrow &&
         css`
           > a,
-          > button {
+          > button:not(${StyledIconButton}) {
             padding-right: 32px;
           }
 

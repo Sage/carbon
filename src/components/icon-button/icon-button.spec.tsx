@@ -6,7 +6,7 @@ import IconButton from ".";
 import Message from "../message";
 import {
   assertStyleMatch,
-  testStyledSystemMargin,
+  testStyledSystemSpacing,
 } from "../../__spec_helper__/test-utils";
 import StyledIconButton from "./icon-button.style";
 import Icon from "../icon";
@@ -95,11 +95,16 @@ describe("IconButton component", () => {
     });
 
     describe("styled system", () => {
-      testStyledSystemMargin((props) => (
-        <IconButton onAction={() => {}} {...props}>
-          <Icon type="home" />
-        </IconButton>
-      ));
+      testStyledSystemSpacing(
+        (props) => (
+          <IconButton onAction={() => {}} {...props}>
+            <Icon type="home" />
+          </IconButton>
+        ),
+        { p: 0 },
+        undefined,
+        { modifier: "&&" }
+      );
     });
 
     describe("on baseTheme", () => {
