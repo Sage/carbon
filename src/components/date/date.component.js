@@ -56,6 +56,7 @@ const DateInput = ({
 }) => {
   const wrapperRef = useRef();
   const parentRef = useRef();
+  const pickerRef = useRef();
   const inputRef = useRef();
   const alreadyFocused = useRef(false);
   const isBlurBlocked = useRef(false);
@@ -210,7 +211,10 @@ const DateInput = ({
     }
 
     if (Events.isTabKey(ev)) {
-      setOpen(false);
+      if (Events.isShiftKey(ev)) {
+        setOpen(false);
+      } else if (!disablePortal) pickerRef.current?.focus();
+
       alreadyFocused.current = false;
     }
   };
@@ -364,6 +368,8 @@ const DateInput = ({
         maxDate={maxDate}
         pickerMouseDown={handlePickerMouseDown}
         open={open}
+        ref={pickerRef}
+        setOpen={setOpen}
       />
     </StyledDateInput>
   );

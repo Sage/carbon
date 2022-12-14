@@ -9,6 +9,8 @@ import useLocale from "../../../../hooks/__internal__/useLocale";
 import Navbar from "../navbar";
 import Weekday from "../weekday";
 import StyledDayPicker from "./day-picker.style";
+import Events from "../../../../__internal__/utils/helpers/events";
+import { defaultFocusableSelectors } from "../../../../__internal__/focus-trap/focus-trap-utils";
 
 const popoverMiddleware = [
   offset(3),
@@ -29,6 +31,7 @@ const DatePicker = React.forwardRef(
       pickerMouseDown,
       pickerProps,
       open,
+      setOpen,
     },
     ref
   ) => {
@@ -97,7 +100,26 @@ const DatePicker = React.forwardRef(
         middleware={popoverMiddleware}
         disablePortal={disablePortal}
       >
-        <StyledDayPicker ref={ref} onMouseDown={pickerMouseDown}>
+        <StyledDayPicker
+          onKeyDown={(ev) => {
+            if (Events.isEscKey(ev)) {
+              inputElement.current?.querySelector("input")?.focus();
+            }
+
+            if (
+              ref.current?.querySelector(".DayPicker-wrapper") ===
+                document.activeElement &&
+              Events.isTabKey(ev) &&
+              Events.isShiftKey(ev)
+            ) {
+              ev.preventDefault();
+              inputElement.current?.querySelector("input")?.focus();
+            }
+          }}
+          ref={ref}
+          tabIndex={-1}
+          onMouseDown={pickerMouseDown}
+        >
           <DayPicker
             month={selectedDays}
             months={monthsLong}
@@ -121,6 +143,23 @@ const DatePicker = React.forwardRef(
             inline
             locale={l.locale()}
             localeUtils={{ formatDay }}
+            onDayKeyDown={(_, __, ev) => {
+              if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
+                ev.preventDefault();
+
+                const elements = Array.from(
+                  document.querySelectorAll(defaultFocusableSelectors)
+                ).filter((el) => Number(el.tabIndex) !== -1);
+
+                const inputIndex = elements.indexOf(
+                  inputElement.current?.querySelector("input")
+                );
+
+                // // timeout enforces that the "hide" method will be run after browser focuses on the next element
+                setTimeout(() => setOpen(false), 0);
+                elements[inputIndex + 1]?.focus();
+              }
+            }}
             {...pickerProps}
           />
         </StyledDayPicker>
@@ -148,6 +187,7 @@ DatePicker.propTypes = {
   pickerMouseDown: PropTypes.func,
   /** Sets whether the picker should be displayed */
   open: PropTypes.bool,
+  setOpen: PropTypes.func,
 };
 
 export default DatePicker;

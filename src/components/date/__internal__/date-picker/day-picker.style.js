@@ -184,6 +184,10 @@ const StyledDayPicker = styled.div`
   width: 352px;
   z-index: ${({ theme }) => theme.zIndex.popover};
 
+  :focus {
+    outline: none;
+  }
+
   .DayPicker {
     z-index: 1000;
     top: calc(100% + 1px);
