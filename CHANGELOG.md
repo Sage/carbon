@@ -1,3 +1,15 @@
+## [111.20.0](https://github.com/Sage/carbon/compare/v111.19.0...v111.20.0) (2022-12-14)
+
+
+### Features
+
+* **icon-button:** add padding interface to component ([2aba921](https://github.com/Sage/carbon/commit/2aba9219ef4f233b8b0ac023d26f4a6c8dabd873))
+
+
+### Bug Fixes
+
+* **menu-item:** prevent default padding on button/anchor inside MenuItem if no onClick/href set ([45195c6](https://github.com/Sage/carbon/commit/45195c6926da7a679b4898c9c2187ac9d7d32595)), closes [#5640](https://github.com/Sage/carbon/issues/5640)
+
 ## [111.19.0](https://github.com/Sage/carbon/compare/v111.18.0...v111.19.0) (2022-12-13)
 
 
