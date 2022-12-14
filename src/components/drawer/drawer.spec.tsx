@@ -608,7 +608,9 @@ describe("Drawer", () => {
         const [isExpanded, setIsExpanded] = React.useState(expanded);
         return (
           <>
-            <Button onClick={() => setIsExpanded((p) => !p)}>Expand</Button>
+            <Button href="elo" onClick={() => setIsExpanded((p) => !p)}>
+              Expand
+            </Button>
             <Drawer sidebar="foo" expanded={isExpanded}>
               content body content body content body content body content body
               content body content body
@@ -648,7 +650,7 @@ describe("Drawer", () => {
           wrapper
             .find(Button)
             .props()
-            .onClick?.({} as React.MouseEvent<HTMLButtonElement>);
+            .onClick?.({} as React.MouseEvent<HTMLAnchorElement>);
           jest.runAllTimers();
         });
 

@@ -31,27 +31,27 @@ const Tab = ({
   const [tabInfos, setTabInfos] = useState({});
 
   const setError = useCallback(
-    (childId, hasError) => {
-      if (tabErrors[childId] !== hasError) {
-        setTabErrors({ ...tabErrors, [childId]: hasError });
+    (childId, error) => {
+      if (tabErrors[childId] !== error) {
+        setTabErrors({ ...tabErrors, [childId]: error });
       }
     },
     [tabErrors]
   );
 
   const setWarning = useCallback(
-    (childId, hasWarning) => {
-      if (tabWarnings[childId] !== hasWarning) {
-        setTabWarnings({ ...tabWarnings, [childId]: hasWarning });
+    (childId, warning) => {
+      if (tabWarnings[childId] !== warning) {
+        setTabWarnings({ ...tabWarnings, [childId]: warning });
       }
     },
     [tabWarnings]
   );
 
   const setInfo = useCallback(
-    (childId, hasInfo) => {
-      if (tabInfos[childId] !== hasInfo) {
-        setTabInfos({ ...tabInfos, [childId]: hasInfo });
+    (childId, info) => {
+      if (tabInfos[childId] !== info) {
+        setTabInfos({ ...tabInfos, [childId]: info });
       }
     },
     [tabInfos]

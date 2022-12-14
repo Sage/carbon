@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import { MarginProps } from "styled-system";
+import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 import StyledCard from "./card.style";
@@ -7,6 +8,9 @@ import Icon from "../icon";
 import { CardRow, CardRowProps, CardFooter, CardFooterProps } from ".";
 import { CardSpacing } from "./card.config";
 import Logger from "../../__internal__/utils/logger";
+
+type DesignTokensType = keyof typeof DesignTokens;
+type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 
 export interface CardProps extends MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -26,10 +30,16 @@ export interface CardProps extends MarginProps {
   children: React.ReactNode;
   /** Flag to indicate if card is draggable */
   draggable?: boolean;
+  /** Height of the component (any valid CSS value) */
+  height?: string;
   /** Flag to indicate if card is interactive */
   interactive?: boolean;
   /** Size of card for applying padding */
   spacing?: CardSpacing;
+  /** Design token for custom Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Card component. */
+  boxShadow?: BoxShadowsType;
+  /** Design token for custom Box Shadow on hover. Interactive prop must be True. Note: please check that the box shadow design token you are using is compatible with the Card component. */
+  hoverBoxShadow?: BoxShadowsType;
 }
 
 function hasDisplayName(child: React.ReactElement, displayName: string) {
@@ -46,8 +56,11 @@ const Card = ({
   children,
   cardWidth = "500px",
   draggable,
+  height,
   interactive,
   spacing = "medium",
+  boxShadow,
+  hoverBoxShadow,
   ...rest
 }: CardProps) => {
   if (!isDeprecationWarningTriggered && oldDataRole) {
@@ -104,7 +117,10 @@ const Card = ({
       interactive={!!interactive}
       draggable={!!draggable}
       spacing={spacing}
+      boxShadow={boxShadow}
+      hoverBoxShadow={hoverBoxShadow}
       onClick={interactive && !draggable ? action : undefined}
+      height={height}
       {...(interactive && { tabIndex: 0, type: "button" })}
       {...filterStyledSystemMarginProps(rest)}
     >

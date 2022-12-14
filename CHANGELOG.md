@@ -1,3 +1,52 @@
+## [111.19.0](https://github.com/Sage/carbon/compare/v111.18.0...v111.19.0) (2022-12-13)
+
+
+### Features
+
+* **tabs:** add showValidationsSummary prop to support rendering a summary of validation failures ([bce64c6](https://github.com/Sage/carbon/commit/bce64c66d22087dff89dc738a94ea2e7da756ee0)), closes [#5618](https://github.com/Sage/carbon/issues/5618)
+
+
+### Bug Fixes
+
+* **tab:** ensure that validation failures are no longer reported when children unmount ([4b67d47](https://github.com/Sage/carbon/commit/4b67d4738c8ed4ff603b9f6e61fcd0fccb05c8b6)), closes [#5591](https://github.com/Sage/carbon/issues/5591)
+
+## [111.18.0](https://github.com/Sage/carbon/compare/v111.17.0...v111.18.0) (2022-12-13)
+
+
+### Features
+
+* **card:** add height prop ([e8d7d21](https://github.com/Sage/carbon/commit/e8d7d21900d3f81aca4a197a98cab034c7de6373))
+
+## [111.17.0](https://github.com/Sage/carbon/compare/v111.16.0...v111.17.0) (2022-12-12)
+
+
+### Features
+
+* **tile:** add black variant to footer and add border options to component ([06c7dcf](https://github.com/Sage/carbon/commit/06c7dcf4734733cec20d48ac225c6b2d54c71149))
+
+## [111.16.0](https://github.com/Sage/carbon/compare/v111.15.0...v111.16.0) (2022-12-07)
+
+
+### Features
+
+* **form:** surface padding interface on Form footer via footerPadding prop ([1c29e01](https://github.com/Sage/carbon/commit/1c29e018e0fdca033e2f9b860e8f7c2b5f22ab69))
+* **sidebar:** add support for overriding the padding in header ([0040efb](https://github.com/Sage/carbon/commit/0040efba3db1e44ac32bc5a674b6fe63bde1e4a8))
+
+## [111.15.0](https://github.com/Sage/carbon/compare/v111.14.0...v111.15.0) (2022-12-07)
+
+
+### Features
+
+* **box:** add props for custom box shadow ([3bc3f6d](https://github.com/Sage/carbon/commit/3bc3f6dd95ab410463c43a509f23f07edf4cfb2c))
+* **card:** add props for custom box shadows ([17f1931](https://github.com/Sage/carbon/commit/17f193180b402d79b063f4ebb433b2461e973f49))
+
+## [111.14.0](https://github.com/Sage/carbon/compare/v111.13.2...v111.14.0) (2022-12-07)
+
+
+### Features
+
+* **button-toggle-group:** surface fullWidth prop to ensure children flex to container width ([b41324c](https://github.com/Sage/carbon/commit/b41324c9f077ac34f0401ddc0ed9182601b3aed9)), closes [#5490](https://github.com/Sage/carbon/issues/5490)
+
 ### [111.13.2](https://github.com/Sage/carbon/compare/v111.13.1...v111.13.2) (2022-12-07)
 
 

@@ -77,7 +77,7 @@ describe("Tile", () => {
         assertStyleMatch(
           {
             backgroundColor: "var(--colorsUtilityYang100)",
-            border: "1px solid var(--colorsUtilityMajor100)",
+            border: "var(--borderWidth100) solid var(--colorsUtilityMajor100)",
           },
           wrapper
         );
@@ -100,6 +100,48 @@ describe("Tile", () => {
           wrapper
         );
       });
+    });
+
+    describe("custom borders", () => {
+      it.each([
+        ["selected", "colorsUtilityYin100"],
+        ["positive", "colorsSemanticPositive500"],
+        ["negative", "colorsSemanticNegative500"],
+        ["caution", "colorsSemanticCaution500"],
+        ["info", "colorsSemanticInfo500"],
+      ])(
+        "renders with expected border when borderVariant is set to %s",
+        (borderVariant, borderVariantToken) => {
+          const wrapper = render({ borderVariant }).toJSON();
+
+          assertStyleMatch(
+            {
+              border: `var(--borderWidth100) solid var(--${borderVariantToken})`,
+            },
+            wrapper
+          );
+        }
+      );
+
+      it.each([
+        "borderWidth000",
+        "borderWidth100",
+        "borderWidth200",
+        "borderWidth300",
+        "borderWidth400",
+      ])(
+        "renders with expected border width when borderWidth set to %s",
+        (borderWidth) => {
+          const wrapper = render({ borderWidth }).toJSON();
+
+          assertStyleMatch(
+            {
+              border: `var(--${borderWidth}) solid var(--colorsUtilityMajor100)`,
+            },
+            wrapper
+          );
+        }
+      );
     });
 
     describe("orientation", () => {

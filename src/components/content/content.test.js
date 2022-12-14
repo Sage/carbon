@@ -1,6 +1,6 @@
 import React from "react";
-import Content from "./content.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { ContentComponentTest as ContentComponent } from "./content-test.stories";
 
 import {
   contentTitle,
@@ -11,14 +11,6 @@ import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-h
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const totalWidth = 1366;
-
-const ContentComponent = ({ ...props }) => {
-  return (
-    <Content title="Title" {...props}>
-      This is an example of some content
-    </Content>
-  );
-};
 
 context("Tests for Content component", () => {
   describe("should check Content component properties", () => {
@@ -36,7 +28,9 @@ context("Tests for Content component", () => {
     it.each(testData)(
       "should check %s as children for Content component",
       (children) => {
-        CypressMountWithProviders(<Content title="Title">{children}</Content>);
+        CypressMountWithProviders(
+          <ContentComponent title="Title">{children}</ContentComponent>
+        );
         contentBody().should("have.text", children);
       }
     );
@@ -97,5 +91,12 @@ context("Tests for Content component", () => {
         });
       }
     );
+  });
+
+  describe("Accessibility tests for Content component", () => {
+    it("should pass accessibilty tests for Content default story", () => {
+      CypressMountWithProviders(<ContentComponent />);
+      cy.checkAccessibility();
+    });
   });
 });

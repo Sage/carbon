@@ -15,6 +15,9 @@ import { Checkbox } from "../checkbox";
 import Hr from "../../components/hr";
 import Switch from "../switch";
 import InlineInputs from "../inline-inputs";
+import isChromatic from "../../../.storybook/isChromatic";
+
+const isOpenForChromatic = isChromatic();
 
 export const DefaultWithStickyFooter = () => (
   <Form
@@ -650,3 +653,34 @@ export const WithLabelsInline = () => (
     </InlineInputs>
   </Form>
 );
+
+export const WithCustomFooterPadding = () => {
+  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
+      <Dialog
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title="Form in Dialog"
+        subtitle="With custom footer padding"
+      >
+        <Form
+          onSubmit={() => console.log("submit")}
+          leftSideButtons={
+            <Button onClick={() => console.log("cancel")}>Cancel</Button>
+          }
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+          stickyFooter
+          footerPadding={{ px: 8 }}
+        >
+          <Textbox label="Textbox" />
+        </Form>
+      </Dialog>
+    </>
+  );
+};

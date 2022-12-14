@@ -297,11 +297,44 @@ context("Tests for Card component", () => {
         );
     });
 
+    it("should allow custom boxShadow and hoverBoxShadow prop values", () => {
+      CypressMountWithProviders(
+        <CardComponent
+          boxShadow="boxShadow400"
+          hoverBoxShadow="boxShadow200"
+          interactive
+        />
+      );
+      card().should(
+        "have.css",
+        "box-shadow",
+        "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px"
+      );
+      card().realHover();
+      card()
+        .should("have.css", "cursor", "pointer")
+        .and(
+          "have.css",
+          "box-shadow",
+          "rgba(0, 20, 30, 0.2) 0px 10px 20px 0px, rgba(0, 20, 30, 0.1) 0px 20px 40px 0px"
+        );
+    });
+
     it.each(textAlignment)(
       "should check %s alignment for Card component",
       (align) => {
         CypressMountWithProviders(<CardTextAlignment align={align} />);
         columnCard().should("have.css", "text-align", align);
+      }
+    );
+
+    it.each([375, 535, 777])(
+      "should check %s height for Card component",
+      (height) => {
+        CypressMountWithProviders(<CardComponent height={`${height}px`} />);
+        card().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+        });
       }
     );
 
