@@ -1,42 +1,46 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
+import { ComponentMeta } from "@storybook/react";
 
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Number from "./number.component";
 import {
+  CommonTextboxArgs,
   commonTextboxArgTypes,
   getCommonTextboxArgs,
   getCommonTextboxArgsWithSpecialCaracters,
 } from "../textbox/textbox-test.stories";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
-<Meta
-  title="Number Input/Test"
-  parameters={{
+export default {
+  title: "Number Input/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     deferTimeout: {
       control: {
         type: "number",
       },
     },
     ...commonTextboxArgTypes(),
-  }}
-/>
+  },
+} as ComponentMeta<typeof Number>;
 
-export const NumberStory = ({
+export const Default = ({
   onKeyDownEnabled,
   onChangeDeferredEnabled,
   ...args
+}: CommonTextboxArgs & {
+  onKeyDownEnabled: boolean;
+  onChangeDeferredEnabled: boolean;
 }) => {
   const [state, setState] = useState("");
-  const setValue = (ev) => {
-    action("onChange")(ev);
-    setState(ev.target.value);
+  const setValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    action("onChange")(event);
+    setState(event.target.value);
   };
   return (
     <Number
@@ -51,15 +55,26 @@ export const NumberStory = ({
   );
 };
 
+Default.storyName = "default";
+Default.args = {
+  onChangeDeferredEnabled: false,
+  onKeyDownEnabled: false,
+  deferTimeout: undefined,
+  ...getCommonTextboxArgs(),
+};
+
 export const NewValidationStory = ({
   onKeyDownEnabled,
   onChangeDeferredEnabled,
   ...args
+}: CommonTextboxArgs & {
+  onKeyDownEnabled: boolean;
+  onChangeDeferredEnabled: boolean;
 }) => {
   const [state, setState] = useState("");
-  const setValue = (ev) => {
-    action("onChange")(ev);
-    setState(ev.target.value);
+  const setValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    action("onChange")(event);
+    setState(event.target.value);
   };
   return (
     <CarbonProvider validationRedesignOptIn>
@@ -77,36 +92,10 @@ export const NewValidationStory = ({
   );
 };
 
-# Number
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      onChangeDeferredEnabled: false,
-      onKeyDownEnabled: false,
-      deferTimeout: undefined,
-      ...getCommonTextboxArgs(),
-    }}
-  >
-    {NumberStory.bind({})}
-  </Story>
-</Canvas>
-
-### New Validation
-
-<Canvas>
-  <Story
-    name="new validation"
-    args={{
-      onChangeDeferredEnabled: false,
-      onKeyDownEnabled: false,
-      deferTimeout: undefined,
-      ...getCommonTextboxArgs(),
-    }}
-  >
-    {NewValidationStory.bind({})}
-  </Story>
-</Canvas>
+NewValidationStory.storyName = "new validation";
+NewValidationStory.args = {
+  onChangeDeferredEnabled: false,
+  onKeyDownEnabled: false,
+  deferTimeout: undefined,
+  ...getCommonTextboxArgs(),
+};

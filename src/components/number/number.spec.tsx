@@ -1,24 +1,28 @@
 import React from "react";
-import { mount } from "enzyme";
-import Number from "./number.component";
+import { mount, ReactWrapper } from "enzyme";
+import Number, { NumberProps } from "./number.component";
 import Textbox from "../textbox";
 import Label from "../../__internal__/label";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
 
-function renderNumberInput(props, renderer = mount) {
-  return renderer(<Number {...props} />);
+function renderNumberInput(props: NumberProps) {
+  return mount(<Number {...props} />);
 }
 
-function setTextSelection(wrapper, selectionStart, selectionEnd) {
+function setTextSelection(
+  wrapper: ReactWrapper,
+  selectionStart: number,
+  selectionEnd: number
+) {
   wrapper
     .find("input")
     .simulate("keyDown", { target: { selectionStart, selectionEnd } });
 }
 
 describe("Number Input", () => {
-  let wrapper;
-  let input;
+  let wrapper: ReactWrapper;
+  let input: ReactWrapper;
 
   const onChangeFn = jest.fn();
   const onKeyDownFn = jest.fn();
@@ -61,12 +65,12 @@ describe("Number Input", () => {
           onChangeFn.mockClear();
           wrapper = renderNumberInput({});
           input = wrapper.find("input");
-          input.getDOMNode().value = newValue;
+          input.getDOMNode<HTMLInputElement>().value = newValue;
           input.simulate("change");
         });
 
         it("input value should be an empty string", () => {
-          expect(input.getDOMNode().value).toBe("");
+          expect(input.getDOMNode<HTMLInputElement>().value).toBe("");
         });
       });
 
@@ -82,7 +86,7 @@ describe("Number Input", () => {
 
           setTextSelection(wrapper, selectionStart, selectionEnd);
           input = wrapper.find("input");
-          input.getDOMNode().value = newValue;
+          input.getDOMNode<HTMLInputElement>().value = newValue;
           input.simulate("change");
         });
 
@@ -92,12 +96,18 @@ describe("Number Input", () => {
 
         describe("and when the value prop is defined", () => {
           it("input value is the same as in the prop", () => {
-            expect(input.getDOMNode().value).toEqual(defaultInputValue);
+            expect(input.getDOMNode<HTMLInputElement>().value).toEqual(
+              defaultInputValue
+            );
           });
 
           it("input's selection start and end are the same as set in the component", () => {
-            expect(input.getDOMNode().selectionStart).toBe(selectionStart);
-            expect(input.getDOMNode().selectionEnd).toBe(selectionEnd);
+            expect(input.getDOMNode<HTMLInputElement>().selectionStart).toBe(
+              selectionStart
+            );
+            expect(input.getDOMNode<HTMLInputElement>().selectionEnd).toBe(
+              selectionEnd
+            );
           });
         });
       });
