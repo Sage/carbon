@@ -1,6 +1,5 @@
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
-
-import Breadcrumbs from ".";
+import {Breadcrumbs, Crumb} from "./index";
 import Link from "../link";
 
 <Meta title="Breadcrumbs" parameters={{ info: { disable: true } }} />
@@ -25,10 +24,10 @@ Breadcrumbs are a secondary navigation aid that helps users easily understand th
 
 ## Quick Start
 
-To use Breadcrumbs component you need to import `Breadcrumbs` and use `Link` component as a child.
+To use Breadcrumbs component you need to import `Breadcrumbs` and pass an array of `Crumb`s.
 
 ```javascript
-import Breadcrumbs from "carbon-react/lib/components/breadcrumbs";
+import {Breadcrumbs, Crumb} from "carbon-react/lib/components/breadcrumbs";
 ```
 
 ## Examples
@@ -37,14 +36,12 @@ import Breadcrumbs from "carbon-react/lib/components/breadcrumbs";
 
 <Canvas>
   <Story name="default">
-    <div>
-      <BreadcrumbsWrapper>
-          <Crumb href="#" isCurrent color>Crumb 1</Crumb>,
-          <Crumb href="#" isCurrent color>Crumb 2</Crumb>, 
-          <Crumb href="#" isCurrent color>Crumb 3</Crumb>,
-          <Crumb isCurrent href="#" color>Crumb 4</Crumb>
-      </BreadcrumbsWrapper>
-    </div>
+    <Breadcrumbs>
+      <Crumb text="Crumb 1" href="#" />
+      <Crumb text="Crumb 2" href="#" />
+      <Crumb text="Crumb 3" href="#" />
+      <Crumb text="Crumb 4" href="#" isCurrent />
+    </Breadcrumbs>
   </Story>
 </Canvas>
 
@@ -53,3 +50,7 @@ import Breadcrumbs from "carbon-react/lib/components/breadcrumbs";
 ### Breadcrumbs
 
 <ArgsTable of={Breadcrumbs} />
+
+### Crumb
+
+<ArgsTable of={Crumb} />
