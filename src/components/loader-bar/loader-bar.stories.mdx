@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
-import LoaderBar from ".";
-import Button from "../button";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import LoaderBar from ".";
+
+import * as stories from "./loader-bar.stories.tsx";
 
 <Meta
   title="Loader Bar"
@@ -28,7 +30,6 @@ Import `LoaderBar` into the project.
 ```javascript
 import LoaderBar from "carbon-react/lib/components/loader-bar";
 ```
-
 ## Examples
 
 ## Default bar
@@ -36,9 +37,7 @@ import LoaderBar from "carbon-react/lib/components/loader-bar";
 This example of the LoaderBar component demonstrates how it will appear as default.
 
 <Canvas>
-  <Story name="default">
-    <LoaderBar mt={2} />
-  </Story>
+  <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
 ### Small bar
@@ -46,9 +45,7 @@ This example of the LoaderBar component demonstrates how it will appear as defau
 This is an example of a small LoaderBar component.
 
 <Canvas>
-  <Story name="small">
-    <LoaderBar size="small" mt={2} />
-  </Story>
+  <Story name="small" story={stories.SmallStoryLoaderbar} />
 </Canvas>
 
 ### Large bar
@@ -56,13 +53,11 @@ This is an example of a small LoaderBar component.
 This is an example of a large LoaderBar component.
 
 <Canvas>
-  <Story name="large">
-    <LoaderBar size="large" mt={2} />
-  </Story>
+  <Story name="large" story={stories.LargeStoryLoaderbar} />
 </Canvas>
 
 ## Props
 
 ### LoaderBar
 
-<ArgsTable of={LoaderBar} />
+<StyledSystemProps margin of={LoaderBar} />

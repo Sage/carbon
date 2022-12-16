@@ -133,10 +133,9 @@ const MenuItem = ({
     maxWidth && typeof title === "string" ? title : "";
 
   const itemMaxWidth = !inFullscreenView ? maxWidth : undefined;
+  const asPassiveItem = !(onClick || href);
 
   if (submenu) {
-    const asPassiveItem = !(onClick || href);
-
     return (
       <StyledMenuItem
         data-component="menu-item"
@@ -187,6 +186,7 @@ const MenuItem = ({
         ariaLabel={ariaLabel}
         maxWidth={maxWidth}
         inFullscreenView={inFullscreenView}
+        asPassiveItem={asPassiveItem}
       >
         {clonedChildren}
       </StyledMenuItemWrapper>

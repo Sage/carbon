@@ -17,6 +17,8 @@ import {
 } from "../../__spec_helper__/test-utils";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import { DrawerSidebarContext } from "../drawer";
+import Textbox from "../textbox";
+import ValidationIcon from "../../__internal__/validations";
 
 function render(props, mountOptions) {
   return mount(
@@ -931,4 +933,155 @@ describe("Tabs", () => {
       });
     });
   });
+
+  describe("when children of Tab have validation failures", () => {
+    const MockComponent = ({ show = true, error, warning, info }) => (
+      <Tabs data-element="bar" data-role="baz">
+        <Tab
+          tabId="1"
+          title="Test"
+          errorMessage=""
+          warningMessage=""
+          infoMessage=""
+        >
+          {show && (
+            <Textbox
+              value="foo"
+              onChange={() => {}}
+              error={error}
+              warning={warning}
+              info={info}
+            />
+          )}
+        </Tab>
+      </Tabs>
+    );
+
+    it.each(["error", "warning", "info"])(
+      "any %s failure in a child component is correctly reported in the TabTitle",
+      (validation) => {
+        const validationProp = { [validation]: true };
+        const wrapper = mount(<MockComponent {...validationProp} />);
+
+        expect(wrapper.find(ValidationIcon).exists()).toBe(true);
+
+        wrapper.setProps({ show: false });
+        wrapper.update();
+        expect(wrapper.update().find(ValidationIcon).exists()).toBe(false);
+      }
+    );
+  });
+
+  describe.each(["error", "warning", "info"])(
+    "showValidationsSummary",
+    (validation) => {
+      it(`passes the ${validation} validation failures from the child inputs to the Tab's title when they are strings`, () => {
+        const message = mount(
+          <Tabs data-element="bar" data-role="baz" showValidationsSummary>
+            <Tab tabId="1" title="Test">
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: validation }}
+              />
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: validation }}
+              />
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: validation }}
+              />
+            </Tab>
+          </Tabs>
+        )
+          .find(TabTitle)
+          .prop(`${validation}Message`);
+
+        expect(message).toEqual(
+          `• ${validation}\n• ${validation}\n• ${validation}`
+        );
+      });
+
+      it(`does not pass the ${validation} validation failures from the child inputs to the Tab's title when they are not strings`, () => {
+        const message = mount(
+          <Tabs data-element="bar" data-role="baz" showValidationsSummary>
+            <Tab tabId="1" title="Test">
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: validation }}
+              />
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: validation }}
+              />
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: true }}
+              />
+            </Tab>
+          </Tabs>
+        )
+          .find(TabTitle)
+          .prop(`${validation}Message`);
+
+        expect(message).toEqual(`• ${validation}\n• ${validation}`);
+      });
+
+      it(`does not add a "•" when there is only one string ${validation} validation failure`, () => {
+        const message = mount(
+          <Tabs data-element="bar" data-role="baz" showValidationsSummary>
+            <Tab tabId="1" title="Test">
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: validation }}
+              />
+            </Tab>
+          </Tabs>
+        )
+          .find(TabTitle)
+          .prop(`${validation}Message`);
+
+        expect(message).toEqual(validation);
+      });
+
+      it(`passes the ${validation}Message if there is only boolean ${validation} validation failures`, () => {
+        const message = mount(
+          <Tabs data-element="bar" data-role="baz" showValidationsSummary>
+            <Tab
+              tabId="1"
+              title="Test"
+              {...{ [`${validation}Message`]: `${validation} message` }}
+            >
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: true }}
+              />
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: true }}
+              />
+              <Textbox
+                value="foo"
+                onChange={() => {}}
+                {...{ [validation]: true }}
+              />
+            </Tab>
+          </Tabs>
+        )
+          .find(TabTitle)
+          .prop(`${validation}Message`);
+
+        expect(message).toEqual(`${validation} message`);
+      });
+    }
+  );
 });

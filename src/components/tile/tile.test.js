@@ -1,10 +1,10 @@
 import React from "react";
-import Tile from "./tile.component";
+import Tile from ".";
 import Content from "../content";
 import { Dl, Dt, Dd } from "../definition-list";
 import Accordion from "../accordion/accordion.component";
 import Button from "../button/button.component";
-import TileFooter from "./tile-footer/tile-footer.component";
+import TileFooter from "./tile-footer";
 import Typography from "../typography/typography.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../../cypress/locators/index";
@@ -195,8 +195,9 @@ context("Tests for Tile component", () => {
     );
 
     it.each([
-      ["default", "rgb(242, 245, 246)"],
+      ["default", "rgb(204, 214, 219)"],
       ["transparent", "rgba(0, 0, 0, 0)"],
+      ["black", "rgb(0, 0, 0)"],
     ])(
       "should check tile footer variant as %s for Tile component",
       (variant, backGroundColor) => {
@@ -242,5 +243,38 @@ context("Tests for Tile component", () => {
         useJQueryCssValueAndAssert($el, "width", dtWidth);
       });
     });
+
+    it.each([
+      ["default", "rgb(204, 214, 219)"],
+      ["selected", "rgb(0, 0, 0)"],
+      ["positive", "rgb(0, 138, 33)"],
+      ["negative", "rgb(203, 55, 74)"],
+      ["caution", "rgb(239, 103, 0)"],
+      ["info", "rgb(0, 96, 167)"],
+    ])(
+      "should check border variant as %s for tile component",
+      (borderVariant, borderColor) => {
+        CypressMountWithProviders(
+          <TileComponent borderVariant={borderVariant} />
+        );
+        tile().should("have.css", "border-color", borderColor);
+      }
+    );
+
+    it.each([
+      ["borderWidth000", 0],
+      ["borderWidth100", 1],
+      ["borderWidth200", 2],
+      ["borderWidth300", 3],
+      ["borderWidth400", 4],
+    ])(
+      "should check border width as %s for tile component",
+      (borderWidth, pixelWidth) => {
+        CypressMountWithProviders(<TileComponent borderWidth={borderWidth} />);
+        tile().then(($el) => {
+          useJQueryCssValueAndAssert($el, "border-width", pixelWidth);
+        });
+      }
+    );
   });
 });

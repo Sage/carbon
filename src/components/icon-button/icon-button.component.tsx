@@ -1,13 +1,12 @@
 import React, { useState, useCallback } from "react";
-import { MarginProps } from "styled-system";
+import { SpaceProps } from "styled-system";
 
 import Events from "../../__internal__/utils/helpers/events";
 import StyledIconButton from "./icon-button.style";
 import { IconProps } from "../icon";
-import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
-export interface IconButtonProps extends MarginProps {
+export interface IconButtonProps extends SpaceProps {
   /** Prop to specify the aria-label of the icon-button component */
   "aria-label"?: string;
   /** Icon meant to be rendered, should be an Icon component */
@@ -42,7 +41,6 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     ref
   ) => {
     const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
-    const marginProps = filterStyledSystemMarginProps(rest);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
       if (Events.isEnterKey(e) || Events.isSpaceKey(e)) {
@@ -69,13 +67,13 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 
     return (
       <StyledIconButton
+        p={0}
         {...rest}
         aria-label={ariaLabel}
         onKeyDown={handleKeyDown}
         onClick={handleOnClick}
         ref={setRefs}
         disabled={disabled}
-        {...marginProps}
       >
         <TooltipProvider
           disabled={disabled}

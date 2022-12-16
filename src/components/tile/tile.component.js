@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import { StyledTile, TileContent } from "./tile.style.js";
 
-const Tile = ({
+export const Tile = ({
   variant = "tile",
   p = 3,
   children,
@@ -55,6 +55,8 @@ const Tile = ({
   );
 };
 
+/** TODO: When we convert this to typescript, dynamically pull the border tokens for borderWidth
+ * See how the Box component does this with boxShadows for an example */
 Tile.propTypes = {
   /** Styled system spacing props */
   ...propTypes.space,
@@ -75,6 +77,23 @@ Tile.propTypes = {
    * If unset or zero, this will default to 100%.
    */
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /** Sets the border width by using these design tokens */
+  borderWidth: PropTypes.oneOf([
+    "borderWidth000",
+    "borderWidth100",
+    "borderWidth200",
+    "borderWidth300",
+    "borderWidth400",
+  ]),
+  /** Sets the border variant that should be used */
+  borderVariant: PropTypes.oneOf([
+    "default",
+    "selected",
+    "positive",
+    "negative",
+    "caution",
+    "info",
+  ]),
 };
 
 export default Tile;

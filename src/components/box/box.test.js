@@ -834,5 +834,14 @@ context("Testing Box component", () => {
         );
       }
     );
+
+    it("should allow custom boxShadow prop values", () => {
+      CypressMountWithProviders(<BoxComponent boxShadow="boxShadow400" />);
+      getDataElementByValue("box").should(
+        "have.css",
+        "box-shadow",
+        "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px"
+      );
+    });
   });
 });

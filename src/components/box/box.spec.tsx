@@ -109,4 +109,14 @@ describe("Box", () => {
       assertStyleMatch({ columnGap }, wrapper);
     }
   );
+
+  it("has styles applied when boxShadow is set", () => {
+    const wrapper = mount(<Box boxShadow="boxShadow100" />);
+    assertStyleMatch(
+      {
+        boxShadow: "var(--boxShadow100)",
+      },
+      wrapper
+    );
+  });
 });
