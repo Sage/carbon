@@ -1,3 +1,10 @@
+### [111.21.1](https://github.com/Sage/carbon/compare/v111.21.0...v111.21.1) (2022-12-16)
+
+
+### Bug Fixes
+
+* **pager:** correctly associate labels to input fields ([8407813](https://github.com/Sage/carbon/commit/84078135ba6f67cddb7f081597781d93e1687a2b)), closes [#5284](https://github.com/Sage/carbon/issues/5284) [#5632](https://github.com/Sage/carbon/issues/5632)
+
 ## [111.21.0](https://github.com/Sage/carbon/compare/v111.20.0...v111.21.0) (2022-12-16)
 
 
