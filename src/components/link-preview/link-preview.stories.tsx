@@ -15,16 +15,7 @@ export const DefaultStory: ComponentStory<typeof LinkPreview> = () => {
 
 export const LinkPreviewLoadingState: ComponentStory<
   typeof LinkPreview
-> = () => {
-  return (
-    <LinkPreview
-      title="This is an example of a title"
-      url="https://www.sage.com"
-      description="Captain, why are we out here chasing comets?"
-      isLoading
-    />
-  );
-};
+> = () => <LinkPreview isLoading />;
 
 export const LinkPreviewCloseIcon: ComponentStory<typeof LinkPreview> = () => {
   return (
