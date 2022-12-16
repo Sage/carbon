@@ -213,8 +213,9 @@ const DateInput = ({
     if (Events.isTabKey(ev)) {
       if (Events.isShiftKey(ev)) {
         setOpen(false);
-      } else if (!disablePortal) pickerRef.current?.focus();
-
+      } else if (!disablePortal) {
+        pickerRef.current?.querySelector(".DayPicker-wrapper")?.focus();
+      }
       alreadyFocused.current = false;
     }
   };

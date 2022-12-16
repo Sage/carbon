@@ -107,7 +107,7 @@ const DatePicker = React.forwardRef(
             }
 
             if (
-              ref.current?.querySelector(".DayPicker-wrapper") ===
+              ref.current?.querySelector(".DayPicker-NavBar button") ===
                 document.activeElement &&
               Events.isTabKey(ev) &&
               Events.isShiftKey(ev)
