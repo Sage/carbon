@@ -1,3 +1,10 @@
+## [111.21.0](https://github.com/Sage/carbon/compare/v111.20.0...v111.21.0) (2022-12-16)
+
+
+### Features
+
+* **multi-action-button:** surface width prop to allow width to be set for component ([0056bbe](https://github.com/Sage/carbon/commit/0056bbe5f743b78ebfafacbb0befc69f3883a991)), closes [#5547](https://github.com/Sage/carbon/issues/5547) [#5672](https://github.com/Sage/carbon/issues/5672)
+
 ## [111.20.0](https://github.com/Sage/carbon/compare/v111.19.0...v111.20.0) (2022-12-14)
 
 
