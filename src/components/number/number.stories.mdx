@@ -5,6 +5,7 @@ import Number from ".";
 import Textbox from "../textbox";
 import Box from "../box";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import * as stories from "./number.stories.tsx";
 
 <Meta title="Number Input" parameters={{ info: { disable: true } }} />
 
@@ -29,142 +30,67 @@ import Number from "carbon-react/lib/components/number";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    {() => {
-      const [state, setState] = useState("123456");
-      const setValue = ({ target }) => {
-        setState(target.value);
-        console.log(target.value);
-      };
-      return <Number label="Number" value={state} onChange={setValue} />;
-    }}
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Sizes
 
 <Canvas>
-  <Story name="sizes">
-    {() =>
-      ["small", "medium", "large"].map((size) => (
-        <Number
-          key={`Number - ${size}`}
-          label={`Number - ${size}`}
-          value="123456"
-          size={size}
-          mb={2}
-        />
-      ))
-    }
-  </Story>
+  <Story name="sizes" story={stories.Sizes} />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled">
-    <Number label="Number" value="123456" disabled />
-  </Story>
+  <Story name="disabled" story={stories.Disabled} />
 </Canvas>
 
 ### ReadOnly
 
 <Canvas>
-  <Story name="readOnly">
-    <Number label="Number" value="123456" readOnly />
-  </Story>
+  <Story name="readOnly" story={stories.ReadOnly} />
 </Canvas>
 
 ### AutoFocus
 
 <Canvas>
-  <Story name="autoFocus" parameters={{ chromatic: { disable: true } }}>
-    <Number label="Number" value="123456" autoFocus />
-  </Story>
+  <Story name="autoFocus" story={stories.AutoFocus} />
 </Canvas>
 
 ### With labelInline
 
 <Canvas>
-  <Story name="with labelInline" parameters={{ chromatic: { disable: true } }}>
-    <Number label="Number" value="123456" labelInline />
-  </Story>
+  <Story name="with labelInline" story={stories.WithLabelInline} />
 </Canvas>
 
 ### With label Align
 
 <Canvas>
-  <Story name="with labelAlign">
-    {() =>
-      ["right", "left"].map((alignment) => (
-        <Number
-          label="Number"
-          labelInline
-          value="123456"
-          inputWidth={50}
-          key={alignment}
-          labelAlign={alignment}
-        />
-      ))
-    }
-  </Story>
+  <Story name="with labelAlign" story={stories.WithLabelAlign} />
 </Canvas>
 
 ### With custom labelWidth and inputWidth
 
 <Canvas>
-  <Story name="with custom labelWidth and inputWidth">
-    <Number
-      label="Number"
-      value="123456"
-      labelInline
-      labelWidth={50}
-      inputWidth={50}
-    />
-  </Story>
+  <Story name="with custom labelWidth and inputWidth" story={stories.WithCustomLabelWidthAndInputWidth} />
 </Canvas>
 
 ### With custom maxWidth
 
 <Canvas>
-  <Story name="with custom maxWidth">
-    <Number
-      label="Number"
-      value="123456"
-      maxWidth="50%"
-    />
-  </Story>
+  <Story name="with custom maxWidth" story={stories.WithCustomMaxWidth} />
 </Canvas>
 
 ### With fieldHelp
 
 <Canvas>
-  <Story name="with fieldHelp">
-    <Number label="Number" value="123456" fieldHelp="Help" />
-  </Story>
+  <Story name="with fieldHelp" story={stories.WithFieldHelp} />
 </Canvas>
 
 ### With labelHelp
 
 <Canvas>
-  <Story name="with labelHelp">
-    <Number
-      label="Number"
-      value="123456"
-      labelHelp="Help"
-      helpAriaLabel="Help"
-    />
-  </Story>
-</Canvas>
-
-### Required
-
-You can use the `required` prop to indicate if the field is mandatory.
-
-<Canvas>
-  <Story name="required">
-    <Number label="Number" value="123456" required />
-  </Story>
+  <Story name="with labelHelp" story={stories.WithLabelHelp} />
 </Canvas>
 
 ### Validations
