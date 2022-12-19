@@ -88,25 +88,48 @@ describe("SimpleSelect", () => {
     );
   });
 
-  it("the input ref should be forwarded", () => {
-    let mockRef;
+  describe("with a ref", () => {
+    it("the input ref should be forwarded", () => {
+      let mockRef;
 
-    const WrapperComponent = () => {
-      mockRef = useRef();
+      const WrapperComponent = () => {
+        mockRef = useRef();
 
-      return (
-        <SimpleSelect name="testSelect" id="testSelect" ref={mockRef}>
-          <Option value="opt1" text="red" />
-          <Option value="opt2" text="green" />
-          <Option value="opt3" text="blue" />
-          <Option value="opt4" text="black" />
-        </SimpleSelect>
-      );
-    };
+        return (
+          <SimpleSelect name="testSelect" id="testSelect" ref={mockRef}>
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </SimpleSelect>
+        );
+      };
 
-    const wrapper = mount(<WrapperComponent />);
+      const wrapper = mount(<WrapperComponent />);
 
-    expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+      expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("the input callback ref should be called with the DOM element", () => {
+      let mockRef;
+
+      const WrapperComponent = () => {
+        mockRef = jest.fn();
+
+        return (
+          <SimpleSelect name="testSelect" id="testSelect" ref={mockRef}>
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </SimpleSelect>
+        );
+      };
+
+      const wrapper = mount(<WrapperComponent />);
+
+      expect(mockRef).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
   });
 
   it("the input toggle icon should have proper left margin", () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef } from "react";
+import React, { useEffect, useContext, useRef, useCallback } from "react";
 import StyledInput from "./input.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 
@@ -93,17 +93,26 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const context = useContext(InputContext);
     const groupContext = useContext(InputGroupContext);
     const deferredTimeout = useRef<null | ReturnType<typeof setTimeout>>(null);
-    let input = useRef<HTMLInputElement>(null);
+    let input = useRef<HTMLInputElement | null>(null);
 
-    if (ref) {
-      input = ref as React.MutableRefObject<HTMLInputElement>;
+    if (ref && "current" in ref) {
+      input = ref;
     }
 
-    useEffect(() => {
-      if (autoFocus && input.current) {
-        input.current.focus();
-      }
-    }, [autoFocus, input]);
+    const callbackRef = useCallback(
+      (element) => {
+        input.current = element;
+
+        if (typeof ref === "function") {
+          ref(element);
+        }
+
+        if (autoFocus && element) {
+          element.focus();
+        }
+      },
+      [autoFocus, ref]
+    );
 
     useEffect(() => {
       if (inputRef) {
@@ -186,7 +195,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         name={name}
         type={type}
         id={id || name}
-        ref={input}
+        ref={callbackRef}
         data-element="input"
         onFocus={handleFocus}
         onBlur={handleBlur}

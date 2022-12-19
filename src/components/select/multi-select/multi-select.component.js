@@ -63,9 +63,10 @@ const MultiSelect = React.forwardRef(
       listMaxHeight,
       flipEnabled = true,
       wrapPillText = true,
+      inputRef,
       ...textboxProps
     },
-    inputRef
+    ref
   ) => {
     const [activeDescendantId, setActiveDescendantId] = useState();
     const selectListId = useRef(guid());
@@ -464,13 +465,22 @@ const MultiSelect = React.forwardRef(
       });
     }
 
-    function assignInput(input) {
-      setTextboxRef(input.current);
+    const assignInput = useCallback(
+      (element) => {
+        setTextboxRef(element);
 
-      if (inputRef) {
-        inputRef.current = input.current;
-      }
-    }
+        if (inputRef || !ref) {
+          return;
+        }
+
+        if (typeof ref === "function") {
+          ref(element);
+        } else {
+          ref.current = element;
+        }
+      },
+      [ref, inputRef]
+    );
 
     function getTextboxProps() {
       return {
@@ -480,7 +490,7 @@ const MultiSelect = React.forwardRef(
         readOnly,
         placeholder: placeholderOverride,
         leftChildren: mapValuesToPills,
-        inputRef: assignInput,
+        ref: assignInput,
         formattedValue: textValue,
         selectedValue: actualValue,
         onClick: handleTextboxClick,
@@ -493,6 +503,7 @@ const MultiSelect = React.forwardRef(
         onChange: handleTextboxChange,
         tooltipPosition,
         size,
+        inputRef,
         ...filterOutStyledSystemSpacingProps(textboxProps),
       };
     }

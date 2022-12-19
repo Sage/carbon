@@ -75,25 +75,59 @@ describe("MultiSelect", () => {
     });
   });
 
-  it("the input ref should be forwarded", () => {
-    let mockRef;
+  describe("with a ref", () => {
+    it("the input ref should be forwarded", () => {
+      let mockRef;
 
-    const WrapperComponent = () => {
-      mockRef = useRef();
+      const WrapperComponent = () => {
+        mockRef = useRef();
 
-      return (
-        <MultiSelect name="testSelect" id="testSelect" ref={mockRef}>
-          <Option value="opt1" text="red" />
-          <Option value="opt2" text="green" />
-          <Option value="opt3" text="blue" />
-          <Option value="opt4" text="black" />
-        </MultiSelect>
-      );
-    };
+        return (
+          <MultiSelect name="testSelect" id="testSelect" ref={mockRef}>
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </MultiSelect>
+        );
+      };
 
-    const wrapper = mount(<WrapperComponent />);
+      const wrapper = mount(<WrapperComponent />);
 
-    expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+      expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("the input callback ref should be called with the DOM element", () => {
+      let mockRef;
+
+      const WrapperComponent = () => {
+        mockRef = jest.fn();
+
+        return (
+          <MultiSelect name="testSelect" id="testSelect" ref={mockRef}>
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </MultiSelect>
+        );
+      };
+
+      const wrapper = mount(<WrapperComponent />);
+
+      expect(mockRef).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
+  });
+
+  describe("when the inputRef function prop is specified", () => {
+    it("then the input reference should be returned on call", () => {
+      const inputRefFn = jest.fn();
+      const wrapper = renderSelect({ inputRef: inputRefFn });
+
+      expect(inputRefFn).toHaveBeenCalledWith({
+        current: wrapper.find("input").getDOMNode(),
+      });
+    });
   });
 
   describe("when listMaxHeight prop is provided", () => {

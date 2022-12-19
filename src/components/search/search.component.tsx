@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
 import { filterStyledSystemMarginProps } from "../../style/utils";
@@ -222,11 +222,14 @@ export const Search = ({
     }
   };
 
-  const assignInput = (input: React.RefObject<HTMLInputElement>) => {
-    if (inputRef) {
-      inputRef.current = input?.current;
-    }
-  };
+  const assignInput = useCallback(
+    (input: HTMLInputElement | null) => {
+      if (inputRef) {
+        inputRef.current = input;
+      }
+    },
+    [inputRef]
+  );
 
   const isSearchTyped =
     isFocused || (!isControlled ? !!searchValue.length : !!value.length);
@@ -259,7 +262,7 @@ export const Search = ({
         onBlur={handleBlur}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        inputRef={assignInput}
+        ref={assignInput}
         tabIndex={tabIndex}
         error={error}
         warning={warning}

@@ -52,9 +52,10 @@ const FilterableSelect = React.forwardRef(
       tooltipPosition,
       listPlacement = "bottom",
       flipEnabled = true,
+      inputRef,
       ...textboxProps
     },
-    inputRef
+    ref
   ) => {
     const [activeDescendantId, setActiveDescendantId] = useState();
     const selectListId = useRef(guid());
@@ -462,13 +463,22 @@ const FilterableSelect = React.forwardRef(
       onListAction();
     }
 
-    function assignInput(input) {
-      setTextboxRef(input.current);
+    const assignInput = useCallback(
+      (element) => {
+        setTextboxRef(element);
 
-      if (inputRef) {
-        inputRef.current = input.current;
-      }
-    }
+        if (inputRef || !ref) {
+          return;
+        }
+
+        if (typeof ref === "function") {
+          ref(element);
+        } else {
+          ref.current = element;
+        }
+      },
+      [ref, inputRef]
+    );
 
     function getTextboxProps() {
       return {
@@ -477,7 +487,7 @@ const FilterableSelect = React.forwardRef(
         label,
         disabled,
         readOnly,
-        inputRef: assignInput,
+        ref: assignInput,
         selectedValue,
         formattedValue: textValue,
         onClick: handleTextboxClick,
@@ -489,6 +499,7 @@ const FilterableSelect = React.forwardRef(
         onChange: handleTextboxChange,
         onMouseDown: handleTextboxMouseDown,
         tooltipPosition,
+        inputRef,
         ...filterOutStyledSystemSpacingProps(textboxProps),
       };
     }

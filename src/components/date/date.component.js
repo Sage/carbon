@@ -1,4 +1,11 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 import {
@@ -254,16 +261,19 @@ const DateInput = ({
     handleClickInside(ev);
   };
 
-  const assignInput = (input) => {
-    inputRef.current = input.current;
-    parentRef.current = input.current.parentElement;
+  const assignInput = useCallback(
+    (inputElement) => {
+      inputRef.current = inputElement;
+      parentRef.current = inputElement?.parentElement;
 
-    if (inputRefMap && inputRefMap[inputName]?.setOpen !== setOpen) {
-      setInputRefMap({
-        [inputName]: { isBlurBlocked, setOpen },
-      });
-    }
-  };
+      if (inputRefMap && inputRefMap[inputName]?.setOpen !== setOpen) {
+        setInputRefMap({
+          [inputName]: { isBlurBlocked, setOpen },
+        });
+      }
+    },
+    [inputName, inputRefMap, setInputRefMap]
+  );
 
   useEffect(() => {
     const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
@@ -344,7 +354,7 @@ const DateInput = ({
         iconOnMouseDown={handleIconMouseDown}
         inputIcon="calendar"
         labelInline={labelInline}
-        inputRef={assignInput}
+        ref={assignInput}
         adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
         tooltipPosition={tooltipPosition}
         helpAriaLabel={helpAriaLabel}

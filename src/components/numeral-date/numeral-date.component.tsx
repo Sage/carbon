@@ -383,8 +383,8 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                       onChange={(e) =>
                         handleChange(e, datePart as keyof NumeralDateObject)
                       }
-                      inputRef={(ref) => {
-                        refs.current[index] = ref;
+                      ref={(element) => {
+                        refs.current[index] = { current: element };
                       }}
                       onBlur={() =>
                         handleBlur(datePart as keyof NumeralDateObject)

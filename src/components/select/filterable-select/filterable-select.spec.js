@@ -29,25 +29,48 @@ describe("FilterableSelect", () => {
     expect(wrapper.find(Textbox).prop("type")).toBe("text");
   });
 
-  it("the input ref should be forwarded", () => {
-    let mockRef;
+  describe("with a ref", () => {
+    it("the input ref should be forwarded", () => {
+      let mockRef;
 
-    const WrapperComponent = () => {
-      mockRef = useRef();
+      const WrapperComponent = () => {
+        mockRef = useRef();
 
-      return (
-        <FilterableSelect name="testSelect" id="testSelect" ref={mockRef}>
-          <Option value="opt1" text="red" />
-          <Option value="opt2" text="green" />
-          <Option value="opt3" text="blue" />
-          <Option value="opt4" text="black" />
-        </FilterableSelect>
-      );
-    };
+        return (
+          <FilterableSelect name="testSelect" id="testSelect" ref={mockRef}>
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </FilterableSelect>
+        );
+      };
 
-    const wrapper = mount(<WrapperComponent />);
+      const wrapper = mount(<WrapperComponent />);
 
-    expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+      expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("the input callback ref should be called with the DOM element", () => {
+      let mockRef;
+
+      const WrapperComponent = () => {
+        mockRef = jest.fn();
+
+        return (
+          <FilterableSelect name="testSelect" id="testSelect" ref={mockRef}>
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </FilterableSelect>
+        );
+      };
+
+      const wrapper = mount(<WrapperComponent />);
+
+      expect(mockRef).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
   });
 
   describe("when listMaxHeight prop is provided", () => {
