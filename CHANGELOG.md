@@ -1,3 +1,10 @@
+## [111.22.0](https://github.com/Sage/carbon/compare/v111.21.1...v111.22.0) (2022-12-19)
+
+
+### Features
+
+* **icon:** 1 new icon added dashboard ([9dec617](https://github.com/Sage/carbon/commit/9dec617f963d521a1ee7cff32df155809031a5e6))
+
 ### [111.21.1](https://github.com/Sage/carbon/compare/v111.21.0...v111.21.1) (2022-12-16)
 
 
