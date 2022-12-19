@@ -47,6 +47,15 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
   <Story name="disabled" story={stories.Disabled} />
 </Canvas>
 
+### Custom width
+
+Numbers from 0-1 are converted to percentage widths. Numbers greater than 1 are converted to pixel values. 
+String values are passed as raw CSS values. `size` prop can still be used to set desired height.
+
+<Canvas>
+  <Story name="custom width" story={stories.CustomWidth} />
+</Canvas>
+
 ### Button types
 
 <Canvas>
@@ -84,8 +93,8 @@ Subtext only works when `size` is `large`
 
 ### MultiActionButton
 
-<StyledSystemProps of={MultiActionButton} margin noHeader />
+<StyledSystemProps of={MultiActionButton} width noHeader margin/>
 
 ### Button
 
-<ArgsTable of={Button} />
+<ArgsTable of={Button} exclude={["fullWidth"]} />

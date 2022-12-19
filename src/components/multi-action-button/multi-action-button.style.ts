@@ -3,8 +3,10 @@ import { margin } from "styled-system";
 import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
+import { MultiActionButtonProps } from "./multi-action-button.component";
+import computeWidth from "../../style/utils/width";
 
-type StyledMultiActionButtonProps = {
+type StyledMultiActionButtonProps = Pick<MultiActionButtonProps, "width"> & {
   displayed: boolean;
 };
 
@@ -13,6 +15,16 @@ const StyledMultiActionButton = styled.div<StyledMultiActionButtonProps>`
 
   display: inline-block;
   position: relative;
+
+  ${({ width }) =>
+    width &&
+    css`
+    ${computeWidth({ width })}
+
+    ${StyledButton} {
+      width: 100%
+      justify-content: space-between;
+    }`}
 
   & > ${StyledButton} {
     margin: 0;
