@@ -9,7 +9,6 @@ import NumberInput from "../../number";
 import Events from "../../../__internal__/utils/helpers/events";
 import createGuid from "../../../__internal__/utils/helpers/guid";
 import PagerNavigationLink from "./pager-navigation-link.component";
-import Label from "../../../__internal__/label";
 import useLocale from "../../../hooks/__internal__/useLocale";
 
 const PagerNavigation = ({
@@ -109,19 +108,19 @@ const PagerNavigation = ({
       {!hasOnePage && renderButtonsBeforeCount()}
       {showPageCount && (
         <StyledPagerNavInner>
-          <StyledPagerNoSelect>{l.pager.pageX()}</StyledPagerNoSelect>
-          <Label htmlFor={currentPageId}>
-            <NumberInput
-              value={currentPage.toString()}
-              data-element="current-page"
-              onChange={handleCurrentPageChange}
-              onBlur={handlePageInputChange}
-              id={currentPageId}
-              onKeyUp={(ev) =>
-                Events.isEnterKey(ev) ? handlePageInputChange(ev) : false
-              }
-            />
-          </Label>
+          <label htmlFor={currentPageId}>
+            <StyledPagerNoSelect>{l.pager.pageX()}</StyledPagerNoSelect>
+          </label>
+          <NumberInput
+            value={currentPage.toString()}
+            data-element="current-page"
+            onChange={handleCurrentPageChange}
+            onBlur={handlePageInputChange}
+            id={currentPageId}
+            onKeyUp={(ev) =>
+              Events.isEnterKey(ev) ? handlePageInputChange(ev) : false
+            }
+          />
           <StyledPagerNoSelect>{l.pager.ofY(pageCount)}</StyledPagerNoSelect>
         </StyledPagerNavInner>
       )}

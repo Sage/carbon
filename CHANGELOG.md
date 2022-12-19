@@ -1,3 +1,29 @@
+### [111.21.1](https://github.com/Sage/carbon/compare/v111.21.0...v111.21.1) (2022-12-16)
+
+
+### Bug Fixes
+
+* **pager:** correctly associate labels to input fields ([8407813](https://github.com/Sage/carbon/commit/84078135ba6f67cddb7f081597781d93e1687a2b)), closes [#5284](https://github.com/Sage/carbon/issues/5284) [#5632](https://github.com/Sage/carbon/issues/5632)
+
+## [111.21.0](https://github.com/Sage/carbon/compare/v111.20.0...v111.21.0) (2022-12-16)
+
+
+### Features
+
+* **multi-action-button:** surface width prop to allow width to be set for component ([0056bbe](https://github.com/Sage/carbon/commit/0056bbe5f743b78ebfafacbb0befc69f3883a991)), closes [#5547](https://github.com/Sage/carbon/issues/5547) [#5672](https://github.com/Sage/carbon/issues/5672)
+
+## [111.20.0](https://github.com/Sage/carbon/compare/v111.19.0...v111.20.0) (2022-12-14)
+
+
+### Features
+
+* **icon-button:** add padding interface to component ([2aba921](https://github.com/Sage/carbon/commit/2aba9219ef4f233b8b0ac023d26f4a6c8dabd873))
+
+
+### Bug Fixes
+
+* **menu-item:** prevent default padding on button/anchor inside MenuItem if no onClick/href set ([45195c6](https://github.com/Sage/carbon/commit/45195c6926da7a679b4898c9c2187ac9d7d32595)), closes [#5640](https://github.com/Sage/carbon/issues/5640)
+
 ## [111.19.0](https://github.com/Sage/carbon/compare/v111.18.0...v111.19.0) (2022-12-13)
 
 
