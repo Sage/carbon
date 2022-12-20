@@ -1,6 +1,4 @@
 import React from "react";
-import Badge from "./badge.component";
-import Button from "../button/button.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
   badge,
@@ -8,21 +6,7 @@ import {
   badgeCrossIcon,
 } from "../../../cypress/locators/badge";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
-
-const BadgeComponent = ({ ...props }) => {
-  return (
-    <Badge {...props}>
-      <Button
-        style={{
-          marginRight: 0,
-        }}
-        buttonType="tertiary"
-      >
-        Filter
-      </Button>
-    </Badge>
-  );
-};
+import { BadgeComponentTest as BadgeComponent } from "./badge-test.stories";
 
 context("Testing Badge component", () => {
   describe("should render Badge component", () => {
@@ -83,6 +67,17 @@ context("Testing Badge component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+  describe("Accessibility tests for Badge component", () => {
+    it("should pass accessibilty tests for Badge default story", () => {
+      CypressMountWithProviders(<BadgeComponent counter="9" />);
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for click event", () => {
+      CypressMountWithProviders(<BadgeComponent onClick={() => {}} />);
+      cy.checkAccessibility();
     });
   });
 });

@@ -54,6 +54,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("action-popover") &&
       !prepareUrl[0].startsWith("loader-bar") &&
       !prepareUrl[0].startsWith("link-preview") &&
+      !prepareUrl[0].startsWith("badge") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);
