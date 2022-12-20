@@ -113,7 +113,7 @@ export interface VerticalDividerProps extends SpaceProps {
   tint?: TintRange;
 }
 
-const VerticalDivider = ({
+export const VerticalDivider = ({
   h,
   height,
   displayInline = false,
