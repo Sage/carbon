@@ -158,6 +158,7 @@ export const Default = (args: CommonTextboxArgs) => {
         iconOnClick={action("iconOnClick")}
         value={state}
         onChange={setValue}
+        {...getCommonTextboxArgsWithSpecialCaracters(args)}
       />
     </div>
   );
