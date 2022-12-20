@@ -14,10 +14,10 @@ import Loader from "../loader";
 import Toast from "../toast";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
-const isOpenForChromatic = isChromatic();
+const defaultOpenState = isChromatic();
 
 export const DefaultStory: StoryFn = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
@@ -61,7 +61,7 @@ export const DefaultStory: StoryFn = () => {
 };
 
 export const Editable: StoryFn = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [isDisabled, setIsDisabled] = useState(true);
   const [radioValue, setRadioValue] = useState("1");
 
@@ -130,7 +130,7 @@ export const Editable: StoryFn = () => {
 Editable.parameters = { chromatic: { disable: true } };
 
 export const WithHelp: StoryFn = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
@@ -170,7 +170,7 @@ export const WithHelp: StoryFn = () => {
 
 export const DynamicContent: StoryFn = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
 
   const handleOpen = () => {
     setIsLoading(true);
@@ -268,7 +268,7 @@ FocusingADifferentFirstElement.parameters = {
 };
 
 export const OverridingContentPadding: StoryFn = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
@@ -383,7 +383,7 @@ OtherFocusableContainers.parameters = {
 };
 
 export const Responsive: StoryFn = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   const largeScreen = useMediaQuery("(min-width: 1260px)");
   const mediumScreen = useMediaQuery("(min-width: 960px)");
   const smallScreen = useMediaQuery("(min-width: 600px)");

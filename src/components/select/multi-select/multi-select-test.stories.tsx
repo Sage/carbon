@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MultiSelect, Option } from "..";
+import partialAction from "../../../__internal__/utils/storybook/partial-action";
 
 export default {
   component: MultiSelect,
@@ -18,6 +19,7 @@ const Template = () => {
   const handleActivityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length <= MAX_SELECTIONS_ALLOWED) {
       setSelectedPills((event.target.value as unknown) as string[]);
+      partialAction("onChange");
     }
   };
   return (
@@ -25,6 +27,12 @@ const Template = () => {
       name="testing"
       value={selectedPills}
       onChange={handleActivityChange}
+      onOpen={partialAction("onOpen")}
+      onClick={partialAction("onClick")}
+      onFilterChange={partialAction("onFilterChange")}
+      onFocus={partialAction("onFocus")}
+      onBlur={partialAction("onBlur")}
+      onKeyDown={partialAction("onKeyDown")}
       disablePortal
       openOnFocus
       label="Test"

@@ -1,5 +1,4 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import { action } from "@storybook/addon-actions";
 import { ArgsTable } from "@storybook/components";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -89,11 +88,8 @@ import {
 <Canvas>
   <Story name="with getOrder callback">
     {() => {
-      const handleUpdate = (items) => {
-        action("onUpdate")(items);
-      };
       return (
-        <DraggableContainer getOrder={handleUpdate}>
+        <DraggableContainer getOrder={() => {}}>
           <DraggableItem key="1" id={1}>
             <Checkbox label="Draggable Label One" />
           </DraggableItem>
