@@ -18,6 +18,7 @@ import {
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import { DrawerSidebarContext } from "../drawer";
 import Textbox from "../textbox";
+import NumeralDate from "../numeral-date";
 import ValidationIcon from "../../__internal__/validations";
 
 function render(props, mountOptions) {
@@ -186,6 +187,26 @@ describe("Tabs", () => {
       expect(
         wrapper.update().find(StyledTab).last().prop("isTabSelected")
       ).toBe(true);
+    });
+  });
+
+  describe("when used with NumeralDate as a child", () => {
+    it("should not throw", () => {
+      expect(() => {
+        mount(
+          <Tabs align="left" position="top">
+            <Tab tabId="tab-1" title="Tab 1" key="tab-1">
+              <NumeralDate
+                dateFormat={["dd", "mm", "yyyy"]}
+                error="Tooltip position set to top"
+                label="As string"
+                tooltipPosition="top"
+              />
+              <Textbox error="error" />
+            </Tab>
+          </Tabs>
+        );
+      }).not.toThrow();
     });
   });
 
