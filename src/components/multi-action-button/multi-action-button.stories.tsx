@@ -44,6 +44,19 @@ export const Sizes = () => {
   );
 };
 
+export const CustomWidth: ComponentStory<typeof MultiActionButton> = (args) => (
+  <MultiActionButton {...args}>
+    <Button href="#">Button 1</Button>
+    <Button>Button 2</Button>
+    <Button>Button 3</Button>
+  </MultiActionButton>
+);
+
+CustomWidth.args = {
+  text: "Multi Action Button",
+  width: 0.7,
+};
+
 export const ButtonTypes = () => {
   return (["primary", "secondary", "tertiary"] as const).map(
     (buttonType: MultiActionButtonProps["buttonType"]) => (

@@ -10,10 +10,10 @@ import Textbox from "../textbox";
 
 import isChromatic from "../../../.storybook/isChromatic";
 
-const isOpenForChromatic = isChromatic();
+const defaultOpenState = isChromatic();
 
 export const DefaultStory: ComponentStory<typeof Sidebar> = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -37,7 +37,7 @@ export const DefaultStory: ComponentStory<typeof Sidebar> = () => {
 export const CustomPaddingAroundContent: ComponentStory<
   typeof Sidebar
 > = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -55,7 +55,7 @@ export const CustomPaddingAroundContent: ComponentStory<
 };
 
 export const WithHeader: ComponentStory<typeof Sidebar> = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -77,7 +77,7 @@ export const WithHeader: ComponentStory<typeof Sidebar> = () => {
 };
 
 export const WithScroll: ComponentStory<typeof Sidebar> = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -99,7 +99,7 @@ export const WithScroll: ComponentStory<typeof Sidebar> = () => {
 };
 
 export const WithTypography: ComponentStory<typeof Sidebar> = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -250,7 +250,7 @@ export const OtherFocusableContainers: ComponentStory<typeof Sidebar> = () => {
 OtherFocusableContainers.parameters = { chromatic: { disable: true } };
 
 export const CustomWidth: ComponentStory<typeof Sidebar> = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -275,7 +275,7 @@ export const CustomWidth: ComponentStory<typeof Sidebar> = () => {
 export const WithHeaderAndFooterPadding: ComponentStory<
   typeof Sidebar
 > = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>

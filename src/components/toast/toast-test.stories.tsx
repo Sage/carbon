@@ -43,6 +43,7 @@ export const Default = ({
   };
   const handleOpen = () => {
     setIsOpen(!isOpen);
+    action("open")(!isOpen);
   };
   if (scrollablePage) {
     return (

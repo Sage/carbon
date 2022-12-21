@@ -121,6 +121,7 @@ export const ICONS: IconType[] = [
   "cross",
   "cross_circle",
   "csv",
+  "dashboard",
   "delete",
   "delivery",
   "disconnect",
