@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
-import * as React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Button from "../button";
 import Message from "./message.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";

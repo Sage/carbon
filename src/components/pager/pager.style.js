@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import StyledInput from "../../__internal__/input/input.style";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
+import StyledFormField from "../../__internal__/form-field/form-field.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import StyledSelectText from "../select/__internal__/select-text/select-text.style";
 import Link from "../link";
@@ -78,7 +79,7 @@ const StyledPagerNavigation = styled.div`
 
   && ${StyledInputPresentation} {
     padding: 0;
-    margin: 8px 4px 0 4px;
+    margin: 4px;
     height: 26px;
     line-height: 26px;
     min-height: 24px;
@@ -95,6 +96,11 @@ const StyledPagerNavInner = styled.div`
   display: flex;
   align-items: center;
   padding: 0 12px;
+  margin: 4px 0;
+
+  && ${StyledFormField} {
+    margin-bottom: 0;
+  }
 `;
 
 const StyledPagerLinkStyles = styled(Link)`
@@ -106,6 +112,7 @@ const StyledPagerLinkStyles = styled(Link)`
 const StyledPagerNoSelect = styled.div`
   user-select: none;
   white-space: nowrap;
+  font-weight: normal;
 `;
 
 const StyledPagerSummary = styled.div`

@@ -38,7 +38,10 @@ exports[`BatchSelection component should render correctly 1`] = `
 .c3 {
   background: transparent;
   border: none;
-  padding: 0;
+}
+
+.c3.c3 {
+  padding: var(--spacing000);
 }
 
 .c3:focus {

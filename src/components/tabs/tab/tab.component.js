@@ -30,32 +30,23 @@ const Tab = ({
   const [tabWarnings, setTabWarnings] = useState({});
   const [tabInfos, setTabInfos] = useState({});
 
-  const setError = useCallback(
-    (childId, hasError) => {
-      if (tabErrors[childId] !== hasError) {
-        setTabErrors({ ...tabErrors, [childId]: hasError });
-      }
-    },
-    [tabErrors]
-  );
+  const setError = useCallback((childId, error) => {
+    setTabErrors((state) =>
+      state[childId] !== error ? { ...state, [childId]: error } : state
+    );
+  }, []);
 
-  const setWarning = useCallback(
-    (childId, hasWarning) => {
-      if (tabWarnings[childId] !== hasWarning) {
-        setTabWarnings({ ...tabWarnings, [childId]: hasWarning });
-      }
-    },
-    [tabWarnings]
-  );
+  const setWarning = useCallback((childId, warning) => {
+    setTabWarnings((state) =>
+      state[childId] !== warning ? { ...state, [childId]: warning } : state
+    );
+  }, []);
 
-  const setInfo = useCallback(
-    (childId, hasInfo) => {
-      if (tabInfos[childId] !== hasInfo) {
-        setTabInfos({ ...tabInfos, [childId]: hasInfo });
-      }
-    },
-    [tabInfos]
-  );
+  const setInfo = useCallback((childId, info) => {
+    setTabInfos((state) =>
+      state[childId] !== info ? { ...state, [childId]: info } : state
+    );
+  }, []);
 
   useEffect(() => {
     if (updateErrors) {

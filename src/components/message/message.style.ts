@@ -13,7 +13,7 @@ const messageVariants = {
 };
 
 type MessageStyleProps = {
-  variant: MessageVariant;
+  variant?: MessageVariant;
   transparent?: boolean;
 };
 
@@ -22,7 +22,7 @@ const MessageStyle = styled.div<MessageStyleProps & MarginProps>`
   display: flex;
   justify-content: flex-start;
   align-content: center;
-  border: 1px solid ${({ variant }) => messageVariants[variant]};
+  border: 1px solid ${({ variant }) => variant && messageVariants[variant]};
   background-color: var(--colorsUtilityYang100);
   min-height: 38px;
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import TileFooter from "./tile-footer.component";
+import TileFooter from ".";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
@@ -27,24 +27,27 @@ describe("TileFooter", () => {
   it("should render correct background as default", () => {
     assertStyleMatch(
       {
-        background: "var(--colorsUtilityMajor025)",
+        background: "var(--colorsUtilityMajor100)",
       },
       wrapper.find(StyledTileFooter)
     );
   });
 
-  it("should render correct background if `default` variant is provided", () => {
-    wrapper = renderWrapper({ variant: "default" });
+  it.each([
+    ["default", "var(--colorsUtilityMajor100)"],
+    ["black", "var(--colorsUtilityYin100)"],
+    ["transparent", "transparent"],
+  ])(
+    "should render correct background when variant prop is %s",
+    (tileVariant, tileVariantToken) => {
+      wrapper = renderWrapper({ variant: tileVariant });
 
-    assertStyleMatch(
-      {
-        background: "var(--colorsUtilityMajor025)",
-      },
-      wrapper.find(StyledTileFooter)
-    );
-  });
-
-  it("should render correct background if `transparent` variant is provided", () => {
-    wrapper = renderWrapper({ variant: "transparent" });
-  });
+      assertStyleMatch(
+        {
+          background: tileVariantToken,
+        },
+        wrapper.find(StyledTileFooter)
+      );
+    }
+  );
 });

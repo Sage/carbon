@@ -1,31 +1,21 @@
-import * as React from "react";
-import Content from "./content.component";
+import React from "react";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { ContentComponentTest as ContentComponent } from "./content-test.stories";
 
 import {
   contentTitle,
   contentBody,
 } from "../../../cypress/locators/content/index";
-import {
-  COLOR,
-  CHARACTERS,
-} from "../../../cypress/support/component-helper/constants";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const totalWidth = 1350;
-
-const ContentComponent = ({ ...props }) => {
-  return (
-    <Content title="Title" {...props}>
-      This is an example of some content
-    </Content>
-  );
-};
+const totalWidth = 1366;
 
 context("Tests for Content component", () => {
   describe("should check Content component properties", () => {
     it.each([
-      ["primary", COLOR.BLACK],
+      ["primary", "rgba(0, 0, 0, 0.9)"],
       ["secondary", "rgba(0, 0, 0, 0.55)"],
     ])(
       "should check %s as variant for Content component",
@@ -38,7 +28,9 @@ context("Tests for Content component", () => {
     it.each(testData)(
       "should check %s as children for Content component",
       (children) => {
-        CypressMountWithProviders(<Content title="Title">{children}</Content>);
+        CypressMountWithProviders(
+          <ContentComponent title="Title">{children}</ContentComponent>
+        );
         contentBody().should("have.text", children);
       }
     );
@@ -72,7 +64,9 @@ context("Tests for Content component", () => {
       "should check %s% width for Content component",
       (titleWidth, computedWidth) => {
         CypressMountWithProviders(<ContentComponent titleWidth={titleWidth} />);
-        contentTitle().should("have.css", "width", `${computedWidth - 30}px`);
+        contentTitle().then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", computedWidth - 30);
+        });
       }
     );
 
@@ -88,12 +82,21 @@ context("Tests for Content component", () => {
             bodyFullWidth={bodyFullWidth}
           />
         );
-        contentBody().should(
-          "have.css",
-          "width",
-          bodyFullWidth ? `${totalWidth}px` : `${computedWidth}px`
-        );
+        contentBody().then(($el) => {
+          useJQueryCssValueAndAssert(
+            $el,
+            "width",
+            bodyFullWidth ? totalWidth : computedWidth
+          );
+        });
       }
     );
+  });
+
+  describe("Accessibility tests for Content component", () => {
+    it("should pass accessibilty tests for Content default story", () => {
+      CypressMountWithProviders(<ContentComponent />);
+      cy.checkAccessibility();
+    });
   });
 });

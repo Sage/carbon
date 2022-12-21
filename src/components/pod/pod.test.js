@@ -17,7 +17,10 @@ import {
   podEdit,
 } from "../../../cypress/locators/pod";
 
-import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
+import {
+  checkOutlineCss,
+  useJQueryCssValueAndAssert,
+} from "../../../cypress/support/component-helper/common-steps";
 import {
   SIZE,
   CHARACTERS,
@@ -65,13 +68,15 @@ const SoftDeletePodWithChildren = () => (
 context("Testing Pod component", () => {
   describe("should render Pod component", () => {
     it.each([
-      [true, "1px solid rgb(204, 214, 219)"],
-      [false, "0px none rgb(0, 0, 0)"],
+      [true, 1, "solid", "rgb(204, 214, 219)"],
+      [false, 0, "none", "rgba(0, 0, 0, 0.9)"],
     ])(
       "should check when border is %s the border value is %s for Pod component ",
-      (boolVal, border) => {
+      (boolVal, px, style, color) => {
         CypressMountWithProviders(<PodComponent border={boolVal} />);
-        podBlock().should("have.css", "border", border);
+        podBlock().then((elem) => {
+          checkOutlineCss(elem, px, "border", style, color);
+        });
       }
     );
 
@@ -94,12 +99,12 @@ context("Testing Pod component", () => {
     );
 
     it.each([
-      ["none", 88, 45],
-      [SIZE.EXTRASMALL, 120, 61],
-      [SIZE.SMALL, 120, 61],
-      [SIZE.MEDIUM, 136, 77],
-      [SIZE.LARGE, 184, 93],
-      [SIZE.EXTRALARGE, 216, 125],
+      ["none", 88, 50],
+      [SIZE.EXTRASMALL, 120, 66],
+      [SIZE.SMALL, 120, 66],
+      [SIZE.MEDIUM, 136, 82],
+      [SIZE.LARGE, 184, 98],
+      [SIZE.EXTRALARGE, 216, 130],
     ])(
       "should check %s size for Pod component when height is %s and width is %s",
       (size, height, width) => {
@@ -177,8 +182,8 @@ context("Testing Pod component", () => {
     );
 
     it.each([
-      [false, 77],
-      [true, 1291],
+      [false, 82],
+      [true, 1308],
     ])(
       "should check when editContentFullWidth is %s for Pod component",
       (boolVal, width) => {
@@ -223,8 +228,8 @@ context("Testing Pod component", () => {
     );
 
     it.each([
-      [true, 1349, "rgba(0, 0, 0, 0)"],
-      [false, 77, "rgb(0, 103, 56)"],
+      [true, 1366, "rgba(0, 0, 0, 0)"],
+      [false, 82, "rgb(0, 103, 56)"],
     ])(
       "should check the width value when internalEditButton is %s for Pod component",
       (boolVal, width, color) => {
@@ -243,7 +248,9 @@ context("Testing Pod component", () => {
       "should render Pod component with correct height when height prop is %s",
       (height) => {
         CypressMountWithProviders(<PodComponent height={height} />);
-        podComponent().should("have.css", "height", `${height}px`);
+        podComponent().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+        });
       }
     );
 

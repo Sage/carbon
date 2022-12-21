@@ -1,5 +1,5 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import { ArgsTable } from "@storybook/components";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import { ArgsTable as SimpleArgsTable } from "@storybook/components";
 
 import Box from ".";
 import Form from "../form";
@@ -84,6 +84,14 @@ Please note that in order to see the `position: fixed` Box, you will need to vie
         This is some sample text
       </Box>
     </Box>
+  </Story>
+</Canvas>
+
+### Box Shadow
+
+<Canvas>
+  <Story name="box shadow" parameters={{ info: { disable: true } }}>
+    <Box m={3} p={3} height="100px" bg="secondary" boxShadow="boxShadow200"></Box>
   </Story>
 </Canvas>
 
@@ -371,27 +379,17 @@ If no `scrollVariant` prop is set then the scroll bar will resort to the browser
 <StyledSystemProps spacing color flexBox hasGapProps layout position noHeader />
 
 <ArgsTable
+  of={Box}
+  exclude={[
+    "as",
+    "ref",
+    "forwardedAs",
+    "theme"
+  ]}
+/>
+
+<SimpleArgsTable
   rows={[
-    {
-      name: "overflowWrap",
-      type: { summary: "break-word | anywhere" },
-      description:
-        'String to set Box content break strategy. Note "anywhere" is not supported in Safari and IE11',
-      required: false,
-      defaultValue: "",
-    },
-    {
-      name: "scrollVariant",
-      type: { summary: "dark | light" },
-      description: "String to denote which style variant to use for scrollbars",
-      required: false,
-    },
-    {
-      name: "boxSizing",
-      type: { summary: "content-box | border-box" },
-      description: "Set the box-sizing attribute of the Box component",
-      required: false,
-    },
     {
       name: "tabIndex",
       type: { summary: "number | string" },

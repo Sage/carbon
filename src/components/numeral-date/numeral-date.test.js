@@ -2,7 +2,10 @@ import React from "react";
 import NumeralDate from ".";
 import Box from "../box";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-import { verifyRequiredAsteriskForLabel } from "../../../cypress/support/component-helper/common-steps";
+import {
+  useJQueryCssValueAndAssert,
+  verifyRequiredAsteriskForLabel,
+} from "../../../cypress/support/component-helper/common-steps";
 
 import {
   getComponent,
@@ -158,9 +161,9 @@ context("Tests for NumeralDate component", () => {
     );
 
     it.each([
-      ["10", "135px"],
-      ["30", "405px"],
-      ["80", "1080px"],
+      ["10", 135],
+      ["30", 409],
+      ["80", 1092],
     ])(
       "should use %s as labelWidth and render it with correct label ratio",
       (label, labelRatio) => {
@@ -170,7 +173,9 @@ context("Tests for NumeralDate component", () => {
 
         getDataElementByValue("label")
           .parent()
-          .should("have.css", "width", labelRatio);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", labelRatio);
+          });
       }
     );
 
@@ -372,15 +377,17 @@ context("Tests for NumeralDate component", () => {
     );
 
     it.each([
-      [SIZE.SMALL, "30px"],
-      [SIZE.MEDIUM, "38px"],
-      [SIZE.LARGE, "46px"],
+      [SIZE.SMALL, 30],
+      [SIZE.MEDIUM, 38],
+      [SIZE.LARGE, 46],
     ])(
       "should use %s as size and render NumeralDate with %s as height",
       (size, height) => {
         CypressMountWithProviders(<NumeralDateComponent size={size} />);
 
-        numeralDateInputByPosition(0).should("have.css", "height", height);
+        numeralDateInputByPosition(0).then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+        });
       }
     );
 

@@ -15,6 +15,7 @@ import { keyCode } from "../../../cypress/support/helper";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import { SIDEBAR_SIZES, SIDEBAR_SIZES_CSS } from "./sidebar.config";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const CUSTOM_SELECTOR = "button, .focusable-container input";
 
@@ -112,9 +113,10 @@ context("Testing Sidebar component", () => {
     ])("verify Sidebar position is %s", (boolVal, left, right) => {
       CypressMountWithProviders(<SidebarComponent position={boolVal} />);
 
-      sidebarPreview()
-        .should("have.css", "left", `${left}px`)
-        .and("have.css", "right", `${right}px`);
+      sidebarPreview().then(($el) => {
+        useJQueryCssValueAndAssert($el, "left", left);
+        useJQueryCssValueAndAssert($el, "right", right);
+      });
     });
 
     it("verify Sidebar has aria-describedby cypress_data", () => {
@@ -160,7 +162,9 @@ context("Testing Sidebar component", () => {
     ])("verify Sidebar size is %s", (size, width) => {
       CypressMountWithProviders(<SidebarComponent size={size} />);
 
-      sidebarPreview().should("have.css", "width", width);
+      sidebarPreview().then(($el) => {
+        useJQueryCssValueAndAssert($el, "width", parseInt(width));
+      });
     });
 
     it("verify Sidebar has header", () => {

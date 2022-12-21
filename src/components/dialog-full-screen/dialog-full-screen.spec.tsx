@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import Modal from "../modal";
 import FullScreenHeading from "../../__internal__/full-screen-heading";
 import StyledFullScreenHeading from "../../__internal__/full-screen-heading/full-screen-heading.style";
@@ -21,10 +21,12 @@ import CarbonProvider from "../carbon-provider";
 jest.mock("../../__internal__/utils/helpers/guid");
 
 describe("DialogFullScreen", () => {
-  guid.mockImplementation(() => "guid-12345");
+  (guid as jest.MockedFunction<typeof guid>).mockImplementation(
+    () => "guid-12345"
+  );
 
-  let wrapper;
-  let onCancel;
+  let wrapper: ReactWrapper;
+  let onCancel: jest.Mock;
 
   afterEach(() => {
     if (wrapper.exists(DialogFullScreen)) {
@@ -81,10 +83,12 @@ describe("DialogFullScreen", () => {
 
   describe("contentRef", () => {
     it("the content ref should be forwarded", () => {
-      let mockRef;
+      let mockRef: React.MutableRefObject<HTMLDivElement | null> = {
+        current: null,
+      };
 
       const WrapperComponent = () => {
-        mockRef = useRef();
+        mockRef = useRef<HTMLDivElement | null>(null);
 
         return (
           <DialogFullScreen
@@ -103,7 +107,7 @@ describe("DialogFullScreen", () => {
 
       wrapper = mount(<WrapperComponent />);
 
-      expect(mockRef.current).toBe(wrapper.find(StyledContent).getDOMNode());
+      expect(mockRef?.current).toBe(wrapper.find(StyledContent).getDOMNode());
 
       wrapper.unmount();
     });
@@ -148,7 +152,7 @@ describe("DialogFullScreen", () => {
     it("should focus on the element passes as focusFirstElement prop", () => {
       jest.useFakeTimers();
       const Component = () => {
-        const secondInputRef = useRef(null);
+        const secondInputRef = useRef<HTMLInputElement | null>(null);
         return (
           <DialogFullScreen focusFirstElement={secondInputRef} open>
             <input type="text" />
@@ -230,9 +234,7 @@ describe("DialogFullScreen", () => {
 
   describe("onClosing", () => {
     beforeEach(() => {
-      wrapper = mount(
-        <DialogFullScreen style={{ overflow: "auto" }} open={false} />
-      );
+      wrapper = mount(<DialogFullScreen open={false} />);
     });
 
     afterEach(() => {
@@ -251,9 +253,7 @@ describe("DialogFullScreen", () => {
 
   describe("on unmount", () => {
     beforeEach(() => {
-      wrapper = mount(
-        <DialogFullScreen style={{ overflow: "auto" }} open={false} />
-      );
+      wrapper = mount(<DialogFullScreen open={false} />);
     });
 
     it("recovers an original overflow", () => {
@@ -268,11 +268,11 @@ describe("DialogFullScreen", () => {
 
   describe("dialogTitle", () => {
     describe("is a string", () => {
-      let mockIds;
+      let mockIds: string[];
 
       it("renders the title within a heading", () => {
         mockIds = ["foo", "baz"];
-        guid
+        (guid as jest.MockedFunction<typeof guid>)
           .mockImplementationOnce(() => mockIds[0])
           .mockImplementationOnce(() => mockIds[1]);
         wrapper = mount(
@@ -341,7 +341,6 @@ describe("DialogFullScreen", () => {
           <DialogFullScreen
             open
             onCancel={() => {}}
-            onConfirm={() => {}}
             title="Test"
             data-role="baz"
             data-element="bar"
@@ -362,7 +361,6 @@ describe("DialogFullScreen", () => {
         <DialogFullScreen
           open
           onCancel={() => {}}
-          onConfirm={() => {}}
           title="Test"
           data-role="baz"
           data-element="bar"
@@ -380,7 +378,6 @@ describe("DialogFullScreen", () => {
       wrapper = mount(
         <DialogFullScreen
           open
-          onConfirm={() => {}}
           title="Test"
           data-role="baz"
           data-element="bar"
@@ -398,7 +395,6 @@ describe("DialogFullScreen", () => {
         <DialogFullScreen
           open
           onCancel={() => {}}
-          onConfirm={() => {}}
           title="Test"
           data-role="baz"
           data-element="bar"
@@ -418,7 +414,6 @@ describe("DialogFullScreen", () => {
         <DialogFullScreen
           open
           onCancel={() => {}}
-          onConfirm={() => {}}
           title="Test"
           data-role="baz"
           data-element="bar"
@@ -440,7 +435,6 @@ describe("DialogFullScreen", () => {
         <DialogFullScreen
           open
           onCancel={() => {}}
-          onConfirm={() => {}}
           data-role="baz"
           data-element="bar"
           pagesStyling
@@ -501,7 +495,7 @@ describe("DialogFullScreen", () => {
   });
 
   describe("when the Form child has a sticky footer", () => {
-    it("it does not set overflow styling", () => {
+    it("does not set overflow styling", () => {
       wrapper = mount(
         <DialogFullScreen open>
           <Form stickyFooter />
@@ -513,7 +507,7 @@ describe("DialogFullScreen", () => {
   });
 
   describe("when the Form child does not have a sticky footer", () => {
-    it("it sets overflow styling", () => {
+    it("sets overflow styling", () => {
       wrapper = mount(
         <DialogFullScreen open>
           <Form />
@@ -528,7 +522,7 @@ describe("DialogFullScreen", () => {
     it("by default, set role to `dialog` and aria-modal to true", () => {
       wrapper = mount(
         <CarbonProvider>
-          <DialogFullScreen open onCancel={() => {}} onConfirm={() => {}} />
+          <DialogFullScreen open onCancel={() => {}} />
         </CarbonProvider>
       );
 
@@ -552,7 +546,6 @@ describe("DialogFullScreen", () => {
           <DialogFullScreen
             open
             onCancel={() => {}}
-            onConfirm={() => {}}
             data-role="baz"
             data-element="bar"
             title="Test"
@@ -576,7 +569,6 @@ describe("DialogFullScreen", () => {
           <DialogFullScreen
             open
             onCancel={() => {}}
-            onConfirm={() => {}}
             data-role="baz"
             data-element="bar"
             subtitle="Subtitle"
@@ -603,7 +595,6 @@ describe("DialogFullScreen", () => {
             aria-labelledby={titleId}
             open
             onCancel={() => {}}
-            onConfirm={() => {}}
             data-role="baz"
             data-element="bar"
             title={<div id={titleId}>Foo</div>}
@@ -628,7 +619,6 @@ describe("DialogFullScreen", () => {
           <DialogFullScreen
             open
             onCancel={() => {}}
-            onConfirm={() => {}}
             data-role="baz"
             data-element="bar"
             role={dialogRole}
@@ -652,7 +642,6 @@ describe("DialogFullScreen", () => {
           <DialogFullScreen
             open
             onCancel={() => {}}
-            onConfirm={() => {}}
             data-role="baz"
             data-element="bar"
             aria-label={label}
@@ -672,8 +661,8 @@ describe("DialogFullScreen", () => {
 });
 
 describe("closeIcon", () => {
-  let wrapper;
-  let onCancel;
+  let wrapper: ReactWrapper;
+  let onCancel: jest.Mock;
 
   beforeEach(() => {
     jest.restoreAllMocks();
@@ -683,7 +672,6 @@ describe("closeIcon", () => {
       <DialogFullScreen
         open
         onCancel={onCancel}
-        onConfirm={() => {}}
         title="Test"
         data-role="baz"
         data-element="bar"

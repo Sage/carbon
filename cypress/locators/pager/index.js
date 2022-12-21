@@ -9,6 +9,7 @@ import {
   PAGER_LAST_ARROW,
   SHOW_LABEL_BEFORE,
   PAGE_SIZE_LABEL_AFTER,
+  CURRENT_PAGE,
 } from "./locators";
 import { COMMMON_DATA_ELEMENT_INPUT } from "../locators";
 import { getDataElementByValue } from "..";
@@ -19,6 +20,7 @@ export const pageSelect = () =>
   cy.get(PAGE_SELECT).find(COMMMON_DATA_ELEMENT_INPUT);
 export const pageSelectElement = () => cy.get(PAGE_SELECT);
 export const maxPages = () => cy.get(MAX_PAGES);
+export const currentPageWrapper = () => cy.get(CURRENT_PAGE);
 export const currentPageInput = () => cy.get(PAGER_SUMMARY).find("input");
 export const previousArrow = () =>
   getDataElementByValue(`${COMMON_PART_OF_PAGER_LINK}${PAGER_PREVIOUS_ARROW}`);

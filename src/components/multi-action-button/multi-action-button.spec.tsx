@@ -672,4 +672,30 @@ describe("MultiActionButton", () => {
       expect(tempWrapper.contains("Some string")).toBe(true);
     });
   });
+
+  describe("when width is passed", () => {
+    it("justify-content on StyledButton set to space-between", () => {
+      wrapper = render({ width: "100%" }, mount);
+
+      assertStyleMatch(
+        {
+          justifyContent: "space-between",
+        },
+        wrapper.find(StyledMultiActionButton),
+        { modifier: `${StyledButton}` }
+      );
+    });
+
+    it("width on StyledButton set to 100%", () => {
+      wrapper = render({ width: "100%" }, mount);
+
+      assertStyleMatch(
+        {
+          width: "100%",
+        },
+        wrapper.find(StyledMultiActionButton),
+        { modifier: `${StyledButton}` }
+      );
+    });
+  });
 });

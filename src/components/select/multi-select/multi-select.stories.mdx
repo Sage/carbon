@@ -3,7 +3,6 @@ import LinkTo from "@storybook/addon-links/react";
 import { useState, useRef } from "react";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
-import partialAction from "../../../../.storybook/utils/partial-action";
 import Button from "../../button";
 import SelectTextbox from "../select-textbox/select-textbox.component";
 import { MultiSelect, Option, OptionRow } from "../";
@@ -47,13 +46,6 @@ you can filter through the existing options leaving only those that match the te
       id="simple"
       label="color"
       labelInline
-      onOpen={partialAction("onOpen")}
-      onChange={partialAction("onChange")}
-      onClick={partialAction("onClick")}
-      onFilterChange={partialAction("onFilterChange")}
-      onFocus={partialAction("onFocus")}
-      onBlur={partialAction("onBlur")}
-      onKeyDown={partialAction("onKeyDown")}
     >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
@@ -560,13 +552,6 @@ In this example the `maxWidth` prop is 50%.
               id={`${size} - ${validationType}`}
               label={`${size} - ${validationType}`}
               labelInline
-              onOpen={partialAction("onOpen")}
-              onChange={partialAction("onChange")}
-              onClick={partialAction("onClick")}
-              onFilterChange={partialAction("onFilterChange")}
-              onFocus={partialAction("onFocus")}
-              onBlur={partialAction("onBlur")}
-              onKeyDown={partialAction("onKeyDown")}
               size={size}
               {...{ [validationType]: "Message" }}
               m={4}
@@ -588,13 +573,6 @@ In this example the `maxWidth` prop is 50%.
               id={`readOnly - ${size} - ${validationType}`}
               label={`readOnly - ${size} - ${validationType}`}
               labelInline
-              onOpen={partialAction("onOpen")}
-              onChange={partialAction("onChange")}
-              onClick={partialAction("onClick")}
-              onFilterChange={partialAction("onFilterChange")}
-              onFocus={partialAction("onFocus")}
-              onBlur={partialAction("onBlur")}
-              onKeyDown={partialAction("onKeyDown")}
               size={size}
               {...{ [validationType]: "Message" }}
               readOnly
@@ -631,13 +609,6 @@ setting the `wrapPillText` prop to false.
         name="long-pill-text-wrapped"
         id="long-pill-text-wrapped"
         label="long pill text wrapped"
-        onOpen={partialAction("onOpen")}
-        onChange={partialAction("onChange")}
-        onClick={partialAction("onClick")}
-        onFilterChange={partialAction("onFilterChange")}
-        onFocus={partialAction("onFocus")}
-        onBlur={partialAction("onBlur")}
-        onKeyDown={partialAction("onKeyDown")}
         wrapPillText
         defaultValue={["1"]}
       >

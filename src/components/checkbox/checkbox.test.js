@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
-import * as React from "react";
+import React from "react";
+import Box from "../box";
 import Checkbox from "./checkbox.component";
 import CheckboxGroup from "./checkbox-group.component";
 import {
@@ -23,6 +24,7 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import {
   verifyRequiredAsteriskForLegend,
   verifyRequiredAsteriskForLabel,
+  useJQueryCssValueAndAssert,
 } from "../../../cypress/support/component-helper/common-steps";
 import {
   SIZE,
@@ -203,13 +205,18 @@ context("Testing Checkbox component", () => {
   });
 
   it.each([
-    [SIZE.SMALL, "16"],
-    [SIZE.LARGE, "24"],
-  ])("should render Checkbox component with size set to %s", (size, width) => {
-    CypressMountWithProviders(<CheckboxComponent size={size} />);
-    checkboxRole().should("have.css", "height", `${width}px`);
-    checkboxRole().should("have.css", "width", `${width}px`);
-  });
+    [SIZE.SMALL, 16],
+    [SIZE.LARGE, 24],
+  ])(
+    "should render Checkbox component with size set to %s",
+    (size, sizeInPx) => {
+      CypressMountWithProviders(<CheckboxComponent size={size} />);
+      checkboxRole().then(($el) => {
+        useJQueryCssValueAndAssert($el, "height", sizeInPx);
+        useJQueryCssValueAndAssert($el, "width", sizeInPx);
+      });
+    }
+  );
 
   it.each([
     [1, "8px"],
@@ -224,9 +231,9 @@ context("Testing Checkbox component", () => {
   );
 
   it.each([
-    ["10", "90", "135px", "1215px"],
-    ["30", "70", "405px", "945px"],
-    ["80", "20", "1080px", "270px"],
+    ["10", "90", 135, 1229],
+    ["30", "70", 409, 956],
+    ["80", "20", 1092, 273],
   ])(
     "should render Checkbox using %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
     (labelWidth, inputWidth, labelRatio, inputRatio) => {
@@ -238,8 +245,16 @@ context("Testing Checkbox component", () => {
         />
       );
 
-      checkboxLabel().parent().should("have.css", "width", labelRatio);
-      checkboxRole().parent().should("have.css", "width", inputRatio);
+      checkboxLabel()
+        .parent()
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", labelRatio);
+        });
+      checkboxRole()
+        .parent()
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", inputRatio);
+        });
     }
   );
 
@@ -321,10 +336,12 @@ context("Testing Checkbox component", () => {
     "should render CheckboxComponent component with tooltip positioned to the %s",
     (position) => {
       CypressMountWithProviders(
-        <CheckboxComponent
-          labelHelp="Tooltip info"
-          tooltipPosition={position}
-        />
+        <Box m="250px">
+          <CheckboxComponent
+            labelHelp="Tooltip info"
+            tooltipPosition={position}
+          />
+        </Box>
       );
       checkboxIcon().trigger("mouseover");
       tooltipPreview()

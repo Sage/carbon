@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Tabs, Tab } from "./tabs.component";
 import { tabById, tabContentById } from "../../../cypress/locators/tabs";
 import Box from "../box/box.component";
@@ -12,6 +12,7 @@ import {
 import { keyCode } from "../../../cypress/support/helper";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const TabsComponent = ({ ...props }) => {
   return (
@@ -185,6 +186,72 @@ const TabsComponentValidations = ({ ...props }) => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
+const TabsComponentWithValidationsSummary = ({ validation }) => {
+  return (
+    <div
+      style={{
+        padding: "4px",
+      }}
+    >
+      <Tabs align="left" position="top" showValidationsSummary>
+        <Tab
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-1"
+          title="Tab 1"
+          key="tab-1"
+        >
+          <Checkbox label="foo" {...validation} />
+          <Checkbox label="foo" {...validation} />
+          <Checkbox label="foo" {...validation} />
+        </Tab>
+      </Tabs>
+    </div>
+  );
+};
+
+// eslint-disable-next-line react/prop-types
+const TabsComponentValidationsUnregistering = ({ validation }) => {
+  const [show, setShow] = React.useState(true);
+
+  return (
+    <div
+      style={{
+        padding: "4px",
+      }}
+    >
+      <button
+        data-element="foo-button"
+        type="button"
+        onClick={() => setShow(false)}
+      >
+        Hide Tab Child
+      </button>
+      <Tabs align="left" position="top">
+        <Tab
+          errorMessage="error"
+          warningMessage="warning"
+          infoMessage="info"
+          tabId="tab-1"
+          title="Tab 1"
+          key="tab-1"
+        >
+          {show && (
+            <Checkbox
+              label="Add error"
+              onChange={() => {}}
+              checked
+              {...validation}
+            />
+          )}
+        </Tab>
+      </Tabs>
+    </div>
+  );
+};
+
 const TabsValidationOverride = () => {
   const [validation, setValidation] = React.useState({
     error: true,
@@ -321,7 +388,9 @@ context("Testing Tabs component", () => {
       tabById(1)
         .parent()
         .should("have.css", "flex-direction", flex)
-        .and("have.css", "height", `${height}px`);
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+        });
     });
 
     it.each([
@@ -332,20 +401,16 @@ context("Testing Tabs component", () => {
       (size, flex, height, width) => {
         CypressMountWithProviders(<TabsComponent size={size} />);
 
-        tabById(1)
-          .should("have.css", "height", `${height}px`)
-          .invoke("css", "width")
-          .then(parseFloat)
-          .then(($el) => {
-            expect($el).to.be.gte(width);
-            expect($el).to.be.lt(width + 1);
-          });
+        tabById(1).then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", height);
+          useJQueryCssValueAndAssert($el, "width", width);
+        });
       }
     );
 
     it.each([
-      ["extended", true, 1342],
-      ["trimmed", false, 337],
+      ["extended", true, 1358],
+      ["trimmed", false, 333],
     ])(
       "should verify Tabs dividing line is %s when extendedLine prop is %s",
       (state, bool, width) => {
@@ -353,11 +418,11 @@ context("Testing Tabs component", () => {
 
         tabById(1)
           .parent()
-          .invoke("css", "width")
-          .then(parseFloat)
           .then(($el) => {
-            expect($el).to.be.gte(width);
-            expect($el).to.be.lt(width + 1);
+            expect(parseInt($el.css("width"))).to.be.within(
+              width - 3,
+              width + 3
+            );
           });
       }
     );
@@ -405,7 +470,12 @@ context("Testing Tabs component", () => {
         <TabsComponent headerWidth="440px" align="left" position="left" />
       );
 
-      tabById(1).parent().parent().should("have.css", "width", "440px");
+      tabById(1)
+        .parent()
+        .parent()
+        .then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", 440);
+        });
     });
 
     it.each([
@@ -548,6 +618,41 @@ context("Testing Tabs component", () => {
           .then(() => {
             tooltipPreview().should("have.text", validationMessage);
           });
+      }
+    );
+
+    it.each(["error", "warning", "info"])(
+      "should verify when the ValidationIcon is hovered over that a summary of the %s messages is displayed",
+      (validationMessage) => {
+        const validation = { [validationMessage]: validationMessage };
+
+        CypressMountWithProviders(
+          <TabsComponentWithValidationsSummary validation={validation} />
+        );
+
+        tabById(1)
+          .trigger("mouseover")
+          .then(() => {
+            tooltipPreview().should(
+              "have.text",
+              `• ${validationMessage}\n• ${validationMessage}\n• ${validationMessage}`
+            );
+          });
+      }
+    );
+
+    it.each(["error", "warning", "info"])(
+      "should no longer report the any validation failures of children no longer mounted",
+      (type) => {
+        const validation = { [type]: true };
+
+        CypressMountWithProviders(
+          <TabsComponentValidationsUnregistering validation={validation} />
+        );
+
+        getDataElementByValue("foo-button").click();
+
+        tabById(1).children().children().should("not.exist");
       }
     );
 

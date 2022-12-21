@@ -4,6 +4,7 @@ import { mount, shallow, ReactWrapper, ShallowWrapper } from "enzyme";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
+  testStyledSystemPadding,
 } from "../../__spec_helper__/test-utils";
 import Form from "./form.component";
 import {
@@ -653,6 +654,30 @@ describe("Form", () => {
       expect(wrapper.find(StyledFormFooter).props().stickyFooter).toEqual(
         false
       );
+    });
+  });
+
+  describe("footerPadding", () => {
+    testStyledSystemPadding(
+      (props) => (
+        <Form
+          saveButton={<button type="submit">foo</button>}
+          footerPadding={props}
+        />
+      ),
+      undefined,
+      (component) => component.find(StyledFormFooter)
+    );
+
+    it("sets the 'padded' class on the footer", () => {
+      const footer = mount(
+        <Form
+          saveButton={<button type="submit">Save</button>}
+          footerPadding={{ p: 0 }}
+        />
+      ).find(StyledFormFooter);
+
+      expect(footer.hasClass("padded")).toBe(true);
     });
   });
 });

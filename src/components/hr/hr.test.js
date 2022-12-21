@@ -2,6 +2,7 @@ import React from "react";
 import Hr from "./hr.component";
 import hrComponent from "../../../cypress/locators/hr";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 context("Testing Hr component", () => {
   describe("check props for Hr component", () => {
@@ -14,8 +15,8 @@ context("Testing Hr component", () => {
     });
 
     it.each([
-      ["799", 78, 313],
-      ["800", 78, 313],
+      ["799", 78, 320],
+      ["800", 78, 320],
       ["801", 0, 0],
     ])(
       "verify Hr component adaptiveMxBreakpoint prop sets left and right margins to 0px when larger than viewport",
@@ -32,20 +33,10 @@ context("Testing Hr component", () => {
           />
         );
 
-        hrComponent()
-          .invoke("css", "margin-left")
-          .then(parseFloat)
-          .then(($el) => {
-            expect($el).to.be.gte(leftMargin);
-            expect($el).to.be.lt(leftMargin + 1);
-          });
-        hrComponent()
-          .invoke("css", "margin-right")
-          .then(parseFloat)
-          .then(($el) => {
-            expect($el).to.be.gte(rightMargin);
-            expect($el).to.be.lt(rightMargin + 1);
-          });
+        hrComponent().then(($el) => {
+          useJQueryCssValueAndAssert($el, "margin-left", leftMargin);
+          useJQueryCssValueAndAssert($el, "margin-right", rightMargin);
+        });
       }
     );
   });

@@ -1,18 +1,34 @@
 import React from "react";
+import { PaddingProps } from "styled-system";
+import StyledSidebarHeader from "./sidebar-header.style";
 
-import SidebarHeaderStyle from "./sidebar-header.style";
-
-interface SidebarHeaderProps {
+export interface SidebarHeaderProps extends PaddingProps {
   /** This component supports children. */
   children?: React.ReactNode;
   /** A custom id. */
   id: string;
+  /** Close icon button to be rendered */
+  closeIcon?: React.ReactNode;
 }
 
-const SidebarHeader = ({ children, id }: SidebarHeaderProps) => (
-  <SidebarHeaderStyle id={id} data-component="sidebar-header">
+const SidebarHeader = ({
+  children,
+  id,
+  closeIcon,
+  ...rest
+}: SidebarHeaderProps) => (
+  <StyledSidebarHeader
+    hasClose={!!closeIcon}
+    id={id}
+    data-component="sidebar-header"
+    p="27px 32px 32px"
+    {...rest}
+  >
     {children}
-  </SidebarHeaderStyle>
+    {closeIcon}
+  </StyledSidebarHeader>
 );
+
+SidebarHeader.displayName = "SidebarHeader";
 
 export default SidebarHeader;

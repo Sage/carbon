@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Meta, Story, Canvas, Props } from "@storybook/addon-docs";
-import { action } from "@storybook/addon-actions";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import ButtonToggle from "../button-toggle";
@@ -44,7 +43,6 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       labelHelp="help message"
       helpAriaLabel="Help"
       fieldHelp="field help message"
-      onChange={action("onChange")}
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
@@ -61,7 +59,6 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       const [value, setValue] = useState("bar");
       function onChangeHandler(event) {
         setValue(event.target.value);
-        action("value set");
       }
       return (
         <ButtonToggleGroup
@@ -91,6 +88,35 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
       id="button-toggle-group-grouped-id"
       name="button-toggle-group-grouped"
       label="Grouped example"
+      labelHelp="help message"
+      helpAriaLabel="Help"
+      fieldHelp="field help mesage"
+      onChange={() => {}}
+    >
+      <ButtonToggle value="foo" grouped>
+        Foo
+      </ButtonToggle>
+      <ButtonToggle value="bar" grouped>
+        Bar
+      </ButtonToggle>
+      <ButtonToggle value="baz" grouped>
+        Baz
+      </ButtonToggle>
+    </ButtonToggleGroup>
+  </Story>
+</Canvas>
+
+### With fullWidth
+
+When the `fullWidth` prop is `true`, the buttons will expand in size to take up the full width of the container.
+
+<Canvas>
+  <Story name="fullWidth" parameters={{ info: { disable: true } }}>
+    <ButtonToggleGroup
+      id="button-toggle-group-fullWidth-id"
+      name="button-toggle-group-fullWidth"
+      fullWidth
+      label="fullWidth example"
       labelHelp="help message"
       helpAriaLabel="Help"
       fieldHelp="field help mesage"

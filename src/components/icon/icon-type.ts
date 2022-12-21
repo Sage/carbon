@@ -72,6 +72,7 @@ export type IconType =
   | "cross"
   | "cross_circle"
   | "csv"
+  | "dashboard"
   | "delete"
   | "delivery"
   | "disputed"

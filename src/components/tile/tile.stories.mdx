@@ -1,7 +1,6 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import { action } from "@storybook/addon-actions";
 
 import Tile from ".";
 
@@ -19,7 +18,12 @@ import Icon from "../icon";
 import VerticalDivider from "../vertical-divider";
 import Hr from "../hr";
 
-<Meta title="Tile" parameters={{ info: { disable: true } }} />
+<Meta
+  title="Tile"
+  parameters={{
+    info: { disable: true },
+  }}
+/>
 
 # Tile
 
@@ -168,6 +172,23 @@ The Tile component can be also have a vertical layout.
           </TileFooter>
         </Content>
       </Tile>
+      <Box my={3} />
+      <Tile px={0} pb={0} orientation="vertical" width={400}>
+        <Content>
+          <Box px={3}>
+            <Typography pb={2} variant="h4" fontWeight="bold">
+              Example header
+            </Typography>
+            <Typography>
+              Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+              tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor
+              nisi ex voluptate occaecat veniam. Magna aliqua velit aliquip
+              dolore pariatur nostrud deserunt amet.
+            </Typography>
+          </Box>
+          <TileFooter p={2} variant="black" />
+        </Content>
+      </Tile>
     </div>
   </Story>
 </Canvas>
@@ -252,6 +273,125 @@ Please note that it will not have any effect if the Tile orientation is set to `
         Test Body Three
       </Content>
     </Tile>
+  </Story>
+</Canvas>
+
+### Custom borders
+
+You can set the `borderVariant` property to alter the border colour as well as the border width with the `borderWidth` property.
+
+<Canvas>
+  <Story parameters={{ chromatic: { disable: false }, themeProvider: { chromatic: { theme: "sage" } }, }} name="custom borders">
+    <div>
+      <Tile
+        orientation="vertical"
+        width={400}
+        borderWidth="borderWidth200"
+        borderVariant="selected"
+      >
+        <Content>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Selected variant
+          </Typography>
+          <Typography>
+            Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+            tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor nisi
+            ex voluptate occaecat veniam. Magna aliqua velit aliquip dolore
+            pariatur nostrud deserunt amet.
+          </Typography>
+        </Content>
+      </Tile>
+      <Box my={3} />
+      <Tile
+        orientation="vertical"
+        width={400}
+        borderWidth="borderWidth200"
+        borderVariant="positive"
+      >
+        <Content>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Positive variant
+          </Typography>
+          <Typography>
+            Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+            tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor nisi
+            ex voluptate occaecat veniam. Magna aliqua velit aliquip dolore
+            pariatur nostrud deserunt amet.
+          </Typography>
+        </Content>
+      </Tile>
+      <Box my={3} />
+      <Tile
+        orientation="vertical"
+        width={400}
+        borderWidth="borderWidth200"
+        borderVariant="negative"
+      >
+        <Content>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Negative variant
+          </Typography>
+          <Typography>
+            Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+            tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor nisi
+            ex voluptate occaecat veniam. Magna aliqua velit aliquip dolore
+            pariatur nostrud deserunt amet.
+          </Typography>
+        </Content>
+      </Tile>
+      <Box my={3} />
+      <Tile
+        orientation="vertical"
+        width={400}
+        borderWidth="borderWidth300"
+        borderVariant="caution"
+      >
+        <Content>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Caution variant
+          </Typography>
+          <Typography>
+            Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+            tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor nisi
+            ex voluptate occaecat veniam. Magna aliqua velit aliquip dolore
+            pariatur nostrud deserunt amet.
+          </Typography>
+        </Content>
+      </Tile>
+      <Box my={3} />
+      <Tile orientation="vertical" width={400} borderWidth="borderWidth100">
+        <Content>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Default/neutral variant
+          </Typography>
+          <Typography>
+            Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+            tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor nisi
+            ex voluptate occaecat veniam. Magna aliqua velit aliquip dolore
+            pariatur nostrud deserunt amet.
+          </Typography>
+        </Content>
+      </Tile>
+      <Box my={3} />
+      <Tile
+        orientation="vertical"
+        width={400}
+        borderWidth="borderWidth400"
+        borderVariant="info"
+      >
+        <Content>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Info variant
+          </Typography>
+          <Typography>
+            Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+            tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor nisi
+            ex voluptate occaecat veniam. Magna aliqua velit aliquip dolore
+            pariatur nostrud deserunt amet.
+          </Typography>
+        </Content>
+      </Tile>
+    </div>
   </Story>
 </Canvas>
 

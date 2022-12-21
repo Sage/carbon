@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import DialogFullScreen from "./dialog-full-screen.component";
 import Dialog from "../dialog/dialog.component";

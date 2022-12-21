@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import BatchSelection from "./batch-selection.component";
 import IconButton from "../icon-button/icon-button.component";
 import { positionOfElement } from "../../../cypress/support/helper";
