@@ -15,7 +15,9 @@ export interface CommonInputProps
   /** HTML id attribute of the input */
   id?: string;
   /** A callback to retrieve the input reference */
-  inputRef?: (input: React.RefObject<HTMLInputElement>) => void;
+  inputRef?: (
+    input: React.RefObject<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   /** Name of the input */
   name?: string;
   /** Specify a callback triggered on blur */
@@ -49,7 +51,9 @@ export interface InputProps extends CommonInputProps {
   type?: string;
 }
 
-function selectTextOnFocus(input: React.RefObject<HTMLInputElement>) {
+function selectTextOnFocus(
+  input: React.RefObject<HTMLInputElement | HTMLTextAreaElement>
+) {
   // setTimeout is required so the dom has a chance to place the cursor in the input
   setTimeout(() => {
     if (input?.current) {
@@ -68,7 +72,10 @@ function selectTextOnFocus(input: React.RefObject<HTMLInputElement>) {
   });
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const Input = React.forwardRef<
+  HTMLInputElement | HTMLTextAreaElement,
+  InputProps
+>(
   (
     {
       align,
@@ -93,7 +100,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const context = useContext(InputContext);
     const groupContext = useContext(InputGroupContext);
     const deferredTimeout = useRef<null | ReturnType<typeof setTimeout>>(null);
-    let input = useRef<HTMLInputElement | null>(null);
+    let input = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
 
     if (ref && "current" in ref) {
       input = ref;
