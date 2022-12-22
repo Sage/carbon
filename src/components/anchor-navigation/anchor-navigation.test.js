@@ -1,74 +1,15 @@
 import React from "react";
 import {
-  AnchorNavigation,
-  AnchorNavigationItem,
-  AnchorSectionDivider,
-} from ".";
-import Textbox from "../textbox";
+  AnchorNavigationComponent,
+  InFullScreenDialogStory,
+} from "./anchor-navigation-test.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 import {
   anchorNavigationStickyNavigation,
   anchorNavigationStickyMainPage,
 } from "../../../cypress/locators/anchor-navigation";
-
-const Content = ({ title, noTextbox }) => (
-  <>
-    <div>
-      <h2>{title}</h2>
-      {!noTextbox && <Textbox label={title} />}
-      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
-      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
-      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
-      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
-      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
-      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
-    </div>
-  </>
-);
-
-const AnchorNavigationComponent = () => {
-  const ref1 = React.useRef();
-  const ref2 = React.useRef();
-  const ref3 = React.useRef();
-  const ref4 = React.useRef();
-  const ref5 = React.useRef();
-  return (
-    <AnchorNavigation
-      stickyNavigation={
-        <>
-          <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
-          <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
-          <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
-          <AnchorNavigationItem target={ref4}>
-            Navigation item with very long label
-          </AnchorNavigationItem>
-          <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
-        </>
-      }
-    >
-      <div ref={ref1}>
-        <Content title="First section" />
-      </div>
-      <AnchorSectionDivider />
-      <div ref={ref2}>
-        <Content title="Second section" />
-      </div>
-      <AnchorSectionDivider />
-      <div ref={ref3}>
-        <Content noTextbox title="Third section" />
-      </div>
-      <AnchorSectionDivider />
-      <div ref={ref4}>
-        <Content title="Fourth section" />
-      </div>
-      <AnchorSectionDivider />
-      <div ref={ref5}>
-        <Content title="Fifth section" />
-      </div>
-    </AnchorNavigation>
-  );
-};
+import { getDataElementByValue } from "../../../cypress/locators";
 
 context("Testing AnchorNavigation component", () => {
   describe("should render AnchorNavigation component", () => {
@@ -101,5 +42,23 @@ context("Testing AnchorNavigation component", () => {
         anchorNavigationStickyMainPage(sectionName).should("be.visible");
       }
     );
+  });
+
+  describe("Accessibility tests for Anchor Navigation component", () => {
+    it("should pass accessibility tests for Anchor Navigation default story", () => {
+      CypressMountWithProviders(<AnchorNavigationComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Anchor Navigation in full screen dialog", () => {
+      CypressMountWithProviders(<InFullScreenDialogStory />);
+
+      getDataElementByValue("main-text")
+        .click()
+        .then(() => {
+          cy.checkAccessibility();
+        });
+    });
   });
 });
