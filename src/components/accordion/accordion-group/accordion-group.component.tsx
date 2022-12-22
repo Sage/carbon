@@ -20,6 +20,7 @@ type AccordionGroupChild =
 interface AccordionGroupChildArray extends Array<AccordionGroupChild> {}
 
 export interface AccordionGroupProps extends MarginProps {
+  /** An Accordion or list of Accordion components to be rendered inside the AccordionGroup */
   children?: AccordionGroupChild;
 }
 
@@ -109,5 +110,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
     </StyledAccordionGroup>
   );
 };
+
+AccordionGroup.displayName = "AccordionGroup";
 
 export default AccordionGroup;

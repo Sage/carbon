@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ComponentStory } from "@storybook/react";
-import Accordion from "./accordion.component";
-import AccordionGroup from "./accordion-group/accordion-group.component";
+import { Accordion, AccordionGroup } from ".";
 import Box from "../box/box.component";
 import Button from "../button/button.component";
 import { Checkbox } from "../checkbox";

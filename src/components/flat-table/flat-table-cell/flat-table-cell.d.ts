@@ -5,6 +5,7 @@ import { TableBorderSize } from "..";
 export interface FlatTableCellProps extends PaddingProps {
   /** Content alignment */
   align?: "left" | "center" | "right";
+  /** Cell content */
   children?: React.ReactNode | string;
   /** Number of columns that a cell should span */
   colspan?: number | string;
