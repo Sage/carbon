@@ -9,6 +9,11 @@ import {
 } from "./simple-color.style";
 import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import guid from "../../../__internal__/utils/helpers/guid";
+
+const mockedGuid = "guid-12345";
+jest.mock("../../../__internal__/utils/helpers/guid");
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 function render(props?: SimpleColorProps) {
   return mount(<SimpleColor name="color-picker" value="#0073C2" {...props} />);
@@ -100,5 +105,10 @@ describe("ColorOption", () => {
       wrapper.find(StyledTickIcon),
       { modifier: "::before" }
     );
+  });
+
+  it("assigns unique id to an input element when id prop is not passed", () => {
+    const wrapper = render();
+    expect(wrapper.find("input").getDOMNode().id).toEqual(mockedGuid);
   });
 });

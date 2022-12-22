@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 
+import guid from "../../../__internal__/utils/helpers/guid";
 import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import {
   StyledSimpleColor,
@@ -46,6 +47,8 @@ export const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
       ...rest
     } = props;
 
+    const { current: inputId } = useRef(id || guid());
+
     return (
       <StyledSimpleColor
         className={className}
@@ -62,7 +65,7 @@ export const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
           value={value}
           aria-checked={checked}
           ref={ref}
-          id={id}
+          id={inputId}
           defaultChecked={defaultChecked}
           {...rest}
         />
