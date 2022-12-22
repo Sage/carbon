@@ -527,7 +527,8 @@ context("Testing Accordion component", () => {
       cy.checkAccessibility();
     });
 
-    it("should pass accessibility tests for AccordionGroupValidation", () => {
+    // FE-5090 to fix the issue with aria-label for span
+    it.skip("should pass accessibility tests for AccordionGroupValidation", () => {
       CypressMountWithProviders(<AccordionGroupValidation />);
 
       cy.checkAccessibility();
