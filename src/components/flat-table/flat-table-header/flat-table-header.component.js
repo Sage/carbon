@@ -60,6 +60,7 @@ FlatTableHeader.propTypes = {
   ...paddingPropTypes,
   /** Content alignment */
   align: PropTypes.oneOf(["center", "left", "right"]),
+  /** Header content */
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   /** Number of columns that a header cell should span */
   colspan: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
