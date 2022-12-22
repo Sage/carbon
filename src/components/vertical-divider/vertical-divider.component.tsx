@@ -106,10 +106,16 @@ type TintRange =
   | 100;
 
 export interface VerticalDividerProps extends SpaceProps {
+  /** Shorthand for the height attribute */
   h?: number | string;
+  /** Height attribute of the component */
   height?: number | string;
+  /**
+   * Sets the display: inline css attribute on the component
+   * To be used in non-flex containers.
+   */
   displayInline?: boolean;
-  /** the supported rage is 1-100  */
+  /** Custom tint of the divider, the supported rage is 1-100 */
   tint?: TintRange;
 }
 
@@ -136,5 +142,7 @@ export const VerticalDivider = ({
     </StyledVerticalWrapper>
   );
 };
+
+VerticalDivider.displayName = "VerticalDivider";
 
 export default VerticalDivider;
