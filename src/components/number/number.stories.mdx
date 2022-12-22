@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Number from ".";
 import Textbox from "../textbox";
 import Box from "../box";
@@ -109,6 +110,6 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 
 Due to the `Textbox` component being used internally by the `Number` component all the props of `Textbox` can be applied to `Number` as well.
 
-<ArgsTable of={Textbox} />
+<StyledSystemProps of={Textbox} noHeader margin />
 
 **Any other supplied props will be provided to the underlying HTML input element**
