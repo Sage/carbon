@@ -38,6 +38,7 @@ const Tabs = ({
   variant = "default",
   validationStatusOverride,
   headerWidth,
+  showValidationsSummary,
   ...rest
 }) => {
   /** The children nodes converted into an Array */
@@ -69,32 +70,17 @@ const Tabs = ({
   const [tabsWarnings, setTabsWarnings] = useState({});
   const [tabsInfos, setTabsInfos] = useState({});
 
-  const updateErrors = useCallback(
-    (id, hasError) => {
-      if (tabsErrors[id] !== hasError) {
-        setTabsErrors({ ...tabsErrors, [id]: hasError });
-      }
-    },
-    [tabsErrors]
-  );
+  const updateErrors = useCallback((id, error) => {
+    setTabsErrors((state) => ({ ...state, [id]: error }));
+  }, []);
 
-  const updateWarnings = useCallback(
-    (id, hasWarning) => {
-      if (tabsWarnings[id] !== hasWarning) {
-        setTabsWarnings({ ...tabsWarnings, [id]: hasWarning });
-      }
-    },
-    [tabsWarnings]
-  );
+  const updateWarnings = useCallback((id, warning) => {
+    setTabsWarnings((state) => ({ ...state, [id]: warning }));
+  }, []);
 
-  const updateInfos = useCallback(
-    (id, hasInfo) => {
-      if (tabsInfos[id] !== hasInfo) {
-        setTabsInfos({ ...tabsInfos, [id]: hasInfo });
-      }
-    },
-    [tabsInfos]
-  );
+  const updateInfos = useCallback((id, info) => {
+    setTabsInfos((state) => ({ ...state, [id]: info }));
+  }, []);
 
   /** Returns true/false for if the given tab id is selected. */
   const isTabSelected = useCallback((tabId) => tabId === selectedTabIdState, [
@@ -206,19 +192,16 @@ const Tabs = ({
         customLayout,
       } = child.props;
       const refId = `${tabId}-tab`;
+      const errors = tabsErrors[tabId];
+      const warnings = tabsWarnings[tabId];
+      const infos = tabsInfos[tabId];
 
-      const errors = tabsErrors[tabId]
-        ? Object.entries(tabsErrors[tabId]).filter((tab) => tab[1] === true)
-            .length
-        : 0;
-      const warnings = tabsWarnings[tabId]
-        ? Object.entries(tabsWarnings[tabId]).filter((tab) => tab[1] === true)
-            .length
-        : 0;
-      const infos = tabsInfos[tabId]
-        ? Object.entries(tabsInfos[tabId]).filter((tab) => tab[1] === true)
-            .length
-        : 0;
+      const errorsCount =
+        errors && Object.entries(errors).filter((tab) => tab[1]).length;
+      const warningsCount =
+        warnings && Object.entries(warnings).filter((tab) => tab[1]).length;
+      const infosCount =
+        infos && Object.entries(infos).filter((tab) => tab[1]).length;
 
       const hasOverride =
         validationStatusOverride && validationStatusOverride[tabId];
@@ -228,15 +211,31 @@ const Tabs = ({
         hasOverride && validationStatusOverride[tabId].warning;
       const infoOverride = hasOverride && validationStatusOverride[tabId].info;
       const tabHasError =
-        errorOverride !== undefined ? errorOverride : errors > 0;
+        errorOverride !== undefined ? errorOverride : !!errorsCount;
       const tabHasWarning =
         warningOverride !== undefined
           ? warningOverride
-          : warnings > 0 && !tabHasError;
+          : !!warningsCount && !tabHasError;
       const tabHasInfo =
         infoOverride !== undefined
           ? infoOverride
-          : infos > 0 && !tabHasError && !tabHasWarning;
+          : !!infosCount && !tabHasError && !tabHasWarning;
+
+      const getValidationMessage = (message, validations = {}) => {
+        const summaryOfMessages = Object.values(validations).filter(
+          (value) => value && typeof value === "string"
+        );
+
+        if (!showValidationsSummary || !summaryOfMessages.length) {
+          return message;
+        }
+
+        if (summaryOfMessages.length === 1) {
+          return summaryOfMessages[0];
+        }
+
+        return summaryOfMessages.map((value) => `• ${value}`).join("\n");
+      };
 
       const tabTitle = (
         <TabTitle
@@ -259,9 +258,9 @@ const Tabs = ({
           borders={borders !== "off"}
           siblings={siblings}
           titlePosition={titlePosition}
-          errorMessage={errorMessage}
-          warningMessage={warningMessage}
-          infoMessage={infoMessage}
+          errorMessage={getValidationMessage(errorMessage, errors)}
+          warningMessage={getValidationMessage(warningMessage, warnings)}
+          infoMessage={getValidationMessage(infoMessage, infos)}
           alternateStyling={variant === "alternate"}
           noLeftBorder={["no left side", "no sides"].includes(borders)}
           noRightBorder={["no right side", "no sides"].includes(borders)}
@@ -408,6 +407,10 @@ Tabs.propTypes = {
       info: PropTypes.bool,
     }),
   }),
+  /** When this prop is set any string validation failures in the children of each Tab
+   * will be summaraised in the Tooltip next to the Tab title
+   */
+  showValidationsSummary: PropTypes.bool,
 };
 
 export { Tabs, Tab };

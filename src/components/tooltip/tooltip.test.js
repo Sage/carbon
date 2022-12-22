@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/button-has-type */
-import * as React from "react";
-import { forwardRef } from "react";
+import React, { forwardRef } from "react";
 import Tooltip from "./tooltip.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 

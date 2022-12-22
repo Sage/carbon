@@ -52,6 +52,16 @@ describe("Card", () => {
     }
   );
 
+  it("renders with box shadow style when boxShadow is set", () => {
+    const wrapper = render({ boxShadow: "boxShadow400" });
+    assertStyleMatch(
+      {
+        boxShadow: "var(--boxShadow400)",
+      },
+      wrapper.find(StyledCard)
+    );
+  });
+
   describe("when spacing prop is not set, styled-system props are used", () => {
     it("there is only one child row", () => {
       const wrapper = mount(
@@ -153,6 +163,26 @@ describe("Card", () => {
         { modifier: `&${selector}` }
       );
     });
+
+    it.each([
+      ["hovered over", ":hover"],
+      ["focused", ":focus"],
+    ])(
+      "render with custom hover box shadow values when Card is %s",
+      (_, selector) => {
+        const wrapper = render({
+          interactive: true,
+          hoverBoxShadow: "boxShadow200",
+        });
+        assertStyleMatch(
+          {
+            boxShadow: "var(--boxShadow200)",
+          },
+          wrapper.find(StyledCard),
+          { modifier: `&${selector}` }
+        );
+      }
+    );
   });
 
   describe("when draggable prop is true", () => {

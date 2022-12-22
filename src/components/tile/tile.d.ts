@@ -24,6 +24,21 @@ export interface TileProps extends SpaceProps {
    * If unset or zero, this will default to 100%.
    */
   width?: string | number;
+  /** Sets the border width by using these design tokens */
+  borderWidth?:
+    | "borderWidth000"
+    | "borderWidth100"
+    | "borderWidth200"
+    | "borderWidth300"
+    | "borderWidth400";
+  /** Sets the border variant that should be used */
+  borderVariant?:
+    | "default"
+    | "selected"
+    | "positive"
+    | "negative"
+    | "caution"
+    | "info";
 }
 
 declare function Tile(props: TileProps): JSX.Element;

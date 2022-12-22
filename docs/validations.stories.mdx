@@ -1,7 +1,15 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import Textbox from "../src/components/textbox";
+import DateRange from "../src/components/date-range";
 import { RadioButtonGroup, RadioButton } from "../src/components/radio-button";
 
-<Meta title="Documentation/Validations" />
+<Meta
+  title="Documentation/Validations"
+  parameters={{
+    info: { disable: true },
+    chromatic: { disable: true },
+  }}
+/>
 
 # Getting started with validations, Formik and Yup
 
@@ -27,52 +35,40 @@ Each input component which supports validations accepts following props - `error
 
 Passing a `string` to these props will display a border along with a validation icon and tooltip; this `string` value will be displayed as the tooltip message.
 
-```js
-<Textbox name="name" value={value} onChange={onChange} error="Message" />
-```
+<Canvas>
+  <Story name="string validation">
+    <Textbox name="name" value="value" error="Message" />
+  </Story>
+</Canvas>
 
 Passing a `boolean` to these props will display a border and validation icon without the additional tooltip information.
 
-```js
-<Textbox name="name" value={value} onChange={onChange} error={true} />
-```
+<Canvas>
+  <Story name="boolean validation">
+    <Textbox name="name" value="value" error={true} />
+  </Story>
+</Canvas>
 
 The only exception from this is the `DateRange` component which displays separate validation statuses on either `start` or `end` dates - to achieve this the `DateRange` component accepts `startError`, `endError`, `startWarning`, `endWarning`, `startInfo` and `endInfo` props.
 
-```js
-<DateRange
-  name="name"
-  value={value}
-  onChange={onChange}
-  startError="Start message"
-  endError="End message"
-/>
-```
+<Canvas>
+  <Story name="date range validation">
+    <DateRange
+      name="name"
+      onChange={() => {}}
+      startError="Start message"
+      endError="End message"
+      value={["01/10/2016", "30/10/2016"]}
+    />
+  </Story>
+</Canvas>
 
 ### Grouped inputs
 
 Grouping components like `RadioButtonGroup`, `CheckboxGroup`, `ButtonToggleGroup` and `SimpleColorPicker` support validations too.
 
-Passing validation props on a group component will display a validation icon on the group label/legend and apply proper styles to the grouped inputs.
-
-The interface is the same - it's up to the consumer to decide whether to display validation on the group label/legend or on the individual component.
-
-The `required` prop will work, when passed to the wrapper component.
-
-#### Grouped inputs examples
-
 <Canvas>
-  <Story name="radio button required">
-    <RadioButtonGroup name="required" legend="Radio group legend" required>
-      <RadioButton id="required-radio-1" value="radio1" label="Radio Option 1" />
-      <RadioButton id="required-radio-2" value="radio2" label="Radio Option 2" />
-      <RadioButton id="required-radio-3" value="radio3" label="Radio Option 3" />
-    </RadioButtonGroup>
-  </Story>
-</Canvas>
-
-<Canvas>
-  <Story name="radio button validation">
+  <Story name="grouped input validation">
     <RadioButtonGroup
       legend="Validation on buttons"
       name="name"
@@ -99,8 +95,10 @@ The `required` prop will work, when passed to the wrapper component.
   </Story>
 </Canvas>
 
+Passing validation props on a group component will display a validation icon on the group label/legend and apply proper styles to the grouped inputs.
+
 <Canvas>
-  <Story name="radio button legend validation">
+  <Story name="grouped legend validation">
     <RadioButtonGroup
       legend="Validation on the legend"
       name="name"
@@ -121,6 +119,20 @@ The `required` prop will work, when passed to the wrapper component.
         value="radio3"
         label="Radio Option 3"
       />
+    </RadioButtonGroup>
+  </Story>
+</Canvas>
+
+The interface is the same - it's up to the consumer to decide whether to display validation on the group label/legend or on the individual component.
+
+The `required` prop will work, when passed to the wrapper component.
+
+<Canvas>
+  <Story name="grouped required">
+    <RadioButtonGroup name="required" legend="Example of required" required>
+      <RadioButton id="required-radio-1" value="radio1" label="Radio Option 1" />
+      <RadioButton id="required-radio-2" value="radio2" label="Radio Option 2" />
+      <RadioButton id="required-radio-3" value="radio3" label="Radio Option 3" />
     </RadioButtonGroup>
   </Story>
 </Canvas>

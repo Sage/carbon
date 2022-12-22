@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import StepSequence from "./step-sequence.component";
 import StepSequenceItem from "./step-sequence-item/step-sequence-item.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";

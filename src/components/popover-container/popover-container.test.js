@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import PopoverContainer from "./popover-container.component";
 import Button from "../button";
 import Portrait from "../portrait";
@@ -93,11 +93,11 @@ context("Test for Popover Container component", () => {
     );
 
     it.each([
-      ["left", "132px 910px 560px 108px"],
-      ["right", "132px 108px 560px 910px"],
+      ["left", 123, 918, 568, 100],
+      ["right", 123, 100, 568, 918],
     ])(
       "should render Popover Container with position prop set to %s",
-      (position, insetValue) => {
+      (position, inset0, inset1, inset2, inset3) => {
         CypressMountWithProviders(
           <div
             style={{
@@ -109,16 +109,22 @@ context("Test for Popover Container component", () => {
           </div>
         );
 
-        popoverContainerContent().should("have.css", "inset", insetValue);
+        popoverContainerContent().then(($el) => {
+          const inset = $el.css("inset").split(" ");
+          expect(parseInt(inset[0])).to.be.within(inset0 - 1, inset0 + 1);
+          expect(parseInt(inset[1])).to.be.within(inset1 - 1, inset1 + 1);
+          expect(parseInt(inset[2])).to.be.within(inset2 - 1, inset2 + 1);
+          expect(parseInt(inset[3])).to.be.within(inset3 - 1, inset3 + 1);
+        });
       }
     );
 
     it.each([
-      ["left", "148px 910px 544px 108px"],
-      ["right", "148px 108px 544px 910px"],
+      ["left", 140, 918, 552, 100],
+      ["right", 140, 100, 552, 918],
     ])(
       "should render Popover Container with position prop set to %s when custom open component is used",
-      (position, insetValue) => {
+      (position, inset0, inset1, inset2, inset3) => {
         CypressMountWithProviders(
           <div
             style={{
@@ -135,7 +141,13 @@ context("Test for Popover Container component", () => {
           </div>
         );
 
-        popoverContainerContent().should("have.css", "inset", insetValue);
+        popoverContainerContent().then(($el) => {
+          const inset = $el.css("inset").split(" ");
+          expect(parseInt(inset[0])).to.be.within(inset0 - 1, inset0 + 1);
+          expect(parseInt(inset[1])).to.be.within(inset1 - 1, inset1 + 1);
+          expect(parseInt(inset[2])).to.be.within(inset2 - 1, inset2 + 1);
+          expect(parseInt(inset[3])).to.be.within(inset3 - 1, inset3 + 1);
+        });
       }
     );
 
@@ -247,7 +259,7 @@ context("Test for Popover Container component", () => {
       }
     );
 
-    it.each([["Enter"], ["Space"]])(
+    it.each(["Enter", "Space"])(
       "should open Popover Container using %s keyboard key",
       (key) => {
         CypressMountWithProviders(
@@ -261,7 +273,7 @@ context("Test for Popover Container component", () => {
       }
     );
 
-    it.each([["Enter"], ["Space"]])(
+    it.each(["Enter", "Space"])(
       "should close Popover Container using %s keyboard key",
       (key) => {
         CypressMountWithProviders(

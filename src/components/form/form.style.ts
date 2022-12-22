@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { space } from "styled-system";
+import { space, padding } from "styled-system";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 import { StyledFieldset } from "../../__internal__/fieldset/fieldset.style";
 
@@ -69,7 +69,13 @@ export const StyledFormFooter = styled.div<ButtonProps>`
       align-items: stretch;
     `}
   `}
+
+  ${padding}
 `;
+
+StyledFormFooter.defaultProps = {
+  theme: baseTheme,
+};
 
 const formBottomMargins = (fieldSpacing: number) =>
   ({

@@ -1,8 +1,9 @@
-import * as React from "react";
+import React from "react";
 import ButtonToggle from "../button-toggle/button-toggle.component";
 import ButtonToggleGroup from "./button-toggle-group.component";
 import {
   buttonTogglePreview,
+  buttonToggleLabelPreview,
   buttonToggleInput,
 } from "../../../cypress/locators/button-toggle";
 import {
@@ -16,6 +17,7 @@ import {
   VALIDATION,
   CHARACTERS,
 } from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 const testPropValue = CHARACTERS.STANDARD;
@@ -268,9 +270,9 @@ context("Testing Button-Toggle-Group component", () => {
     });
 
     it.each([
-      [25, "337.5px"],
-      [50, "675px"],
-      [100, "1350px"],
+      [25, 341],
+      [50, 683],
+      [100, 1366],
     ])(
       "should render Button-Toggle-Group with labelWidth prop of %s and width of %s",
       (labelWidth, width) => {
@@ -281,7 +283,9 @@ context("Testing Button-Toggle-Group component", () => {
         buttonToggleInput()
           .parent()
           .parent()
-          .should("have.css", "width", width);
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", width);
+          });
       }
     );
 
@@ -350,6 +354,22 @@ context("Testing Button-Toggle-Group component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("should make css changes when fullWidth prop is passed", () => {
+    it("container div should auto flex", () => {
+      CypressMountWithProviders(<ButtonToggleGroupComponent fullWidth />);
+
+      buttonTogglePreview().should("have.css", "flex", "1 1 auto");
+    });
+
+    it("width of label should be 100% / 450px", () => {
+      CypressMountWithProviders(<ButtonToggleGroupComponent fullWidth />);
+
+      buttonToggleLabelPreview(1).then(($el) => {
+        useJQueryCssValueAndAssert($el, "width", 450);
+      });
     });
   });
 });

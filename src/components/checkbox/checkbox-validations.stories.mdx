@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import * as stories from "./checkbox-validations.stories";
 
 import { Checkbox, CheckboxGroup } from ".";
 
-<Meta title="Checkbox/Validations" parameters={{ info: { disable: true } }} />
+<Meta title="Checkbox/Test" parameters={{ info: { disable: true } }} />
 
 ## Validations
 
@@ -18,19 +18,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 ### As a string applied to single Checkbox
 
 <Canvas>
-  <Story name="single checkbox - string validation">
-    {() =>
-      ["error", "warning", "info"].map((type) => (
-        <Checkbox
-          id={`checkbox_${type}`}
-          key={`checkbox-${type}`}
-          {...{ [type]: "Message" }}
-          label={`Example checkbox (${type})`}
-          name={`checkbox-${type}`}
-        />
-      ))
-    }
-  </Story>
+  <Story name="single checkbox - string validation" story={stories.StringValidation} />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -38,67 +26,20 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="single checkbox - with tooltipPosition overriden - string validation"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() =>
-      ["error", "warning", "info"].map((type) => (
-        <Checkbox
-          id={`checkbox_${type}-tooltipPosition-override`}
-          key={`checkbox-${type}`}
-          {...{ [type]: "Message" }}
-          label={`Example checkbox (${type})`}
-          name={`checkbox-${type}-tooltipPosition-override`}
-          tooltipPosition="bottom"
-        />
-      ))
-    }
-  </Story>
+    story={stories.StringValidationWithTooltipPosition}
+  />
 </Canvas>
 
 ### As a boolean applied to single Checkbox
 
 <Canvas>
-  <Story name="single checkbox - boolean validation">
-    {() =>
-      ["error", "warning", "info"].map((type) => (
-        <Checkbox
-          id={`checkbox_${type}-boolean`}
-          key={`checkbox-${type}-boolean`}
-          {...{ [type]: true }}
-          label={`Example checkbox (${type})`}
-          name={`checkbox-${type}-boolean`}
-        />
-      ))
-    }
-  </Story>
+  <Story name="single checkbox - boolean validation" story={stories.BooleanValidation} />
 </Canvas>
 
 ### As a string applied to CheckboxGroup
 
 <Canvas>
-  <Story name="group checkbox - string validation">
-    {() =>
-      ["error", "warning", "info"].map((type) => (
-        <div key={`checkbox-group-${type}`} style={{ marginBottom: 16 }}>
-          <CheckboxGroup
-            id={`checkbox-group-${type}`}
-            name={`checkbox-group-${type}`}
-            {...{ [type]: "Message" }}
-            legend={`Group ${type}`}
-          >
-            {["One", "Two", "Three"].map((label) => (
-              <Checkbox
-                id={`checkbox_${type}-${label}`}
-                key={`checkbox_${type}-${label}`}
-                name={`checkbox_${type}-${label}`}
-                label={label}
-              />
-            ))}
-          </CheckboxGroup>
-        </div>
-      ))
-    }
-  </Story>
+  <Story name="group checkbox - string validation" story={stories.CheckboxGroupStringValidation} />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -106,63 +47,14 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="group checkbox - with tooltipPosition overriden - string validation"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() =>
-      ["error", "warning", "info"].map((type) => (
-        <div key={`checkbox-group-${type}`} style={{ marginBottom: 16 }}>
-          <CheckboxGroup
-            id={`checkbox-group-${type}`}
-            name={`checkbox-group-${type}`}
-            {...{ [type]: "Message" }}
-            legend={`Group ${type}`}
-            tooltipPosition="bottom"
-          >
-            {["One", "Two", "Three"].map((label) => (
-              <Checkbox
-                id={`checkbox_${type}-${label}-tooltipPosition-override`}
-                key={`checkbox_${type}-${label}`}
-                name={`checkbox_${type}-${label}-tooltipPosition-override`}
-                label={label}
-              />
-            ))}
-          </CheckboxGroup>
-        </div>
-      ))
-    }
-  </Story>
+    story={stories.CheckboxGroupStringValidationTooltipPosition}
+  />
 </Canvas>
 
 ### As a boolean applied to CheckboxGroup
 
 <Canvas>
-  <Story name="group checkbox - boolean validation">
-    {() =>
-      ["error", "warning", "info"].map((type) => (
-        <div
-          key={`checkbox-group-${type}-boolean`}
-          style={{ marginBottom: 16 }}
-        >
-          <CheckboxGroup
-            id={`checkbox-group-${type}-boolean`}
-            name={`checkbox-group-${type}-boolean`}
-            key={`checkbox-group-${type}-boolean`}
-            {...{ [type]: true }}
-            legend={`Group ${type}`}
-          >
-            {["One", "Two", "Three"].map((label) => (
-              <Checkbox
-                id={`checkbox_${type}-${label}-boolean`}
-                key={`checkbox_${type}-${label}-boolean`}
-                name={`checkbox_${type}-${label}-boolean`}
-                label={label}
-              />
-            ))}
-          </CheckboxGroup>
-        </div>
-      ))
-    }
-  </Story>
+  <Story name="group checkbox - boolean validation" story={stories.CheckboxGroupBooleanValidation} />
 </Canvas>
 
 ### Required
@@ -170,18 +62,5 @@ It is possible to use the `tooltipPosition` to override the default placement of
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Canvas>
-  <Story name="required">
-    {() => {
-      const [checked, setChecked] = useState(false);
-      return (
-        <Checkbox
-          label="I agree to the Terms and Conditions"
-          name="required"
-          required
-          checked={checked}
-          onChange={(e) => setChecked((checked) => !checked)}
-        />
-      );
-    }}
-  </Story>
+  <Story name="required" story={stories.Required} />
 </Canvas>

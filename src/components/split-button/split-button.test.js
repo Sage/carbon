@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import SplitButton from "./split-button.component";
 import Button from "../button";
 import { Accordion } from "../accordion";

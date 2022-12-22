@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Confirm from "./confirm.component";
 import Button from "../button/button.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -14,9 +14,9 @@ import {
   SIZE,
   CHARACTERS,
 } from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
 const heights = [
   [0, "0"],
   [10, "10"],
@@ -108,7 +108,7 @@ context("Testing Confirm component", () => {
     });
 
     it.each(heights)(
-      "should check confirm height is %spx",
+      "should check Confirm height is %spx",
       (heightnumber, heightstring) => {
         CypressMountWithProviders(<ConfirmComponent height={heightstring} />);
 
@@ -121,7 +121,9 @@ context("Testing Confirm component", () => {
           resultHeight = heightnumber;
         }
 
-        dialogPreview().should("have.css", "height", `${resultHeight}px`);
+        dialogPreview().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", resultHeight);
+        });
       }
     );
 
@@ -138,7 +140,9 @@ context("Testing Confirm component", () => {
       (sizeName, size) => {
         CypressMountWithProviders(<ConfirmComponent size={sizeName} />);
 
-        dialogPreview().should("have.css", "width", `${size}px`);
+        dialogPreview().then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", size);
+        });
       }
     );
 

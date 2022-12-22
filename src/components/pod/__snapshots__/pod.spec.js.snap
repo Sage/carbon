@@ -84,7 +84,10 @@ exports[`ActionButtons StyledDeleteButton when isHovered prop is set should matc
 .c0 {
   background: transparent;
   border: none;
-  padding: 0;
+}
+
+.c0.c0 {
+  padding: var(--spacing000);
 }
 
 .c0:focus {
@@ -602,7 +605,10 @@ exports[`ActionButtons StyledUndoButton when isHovered prop is set should match 
 .c0 {
   background: transparent;
   border: none;
-  padding: 0;
+}
+
+.c0.c0 {
+  padding: var(--spacing000);
 }
 
 .c0:focus {

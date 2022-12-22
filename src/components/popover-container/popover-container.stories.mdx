@@ -16,7 +16,7 @@ import Badge from "../badge";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import isChromatic from "../../../.storybook/isChromatic";
 
-export const isOpenForChromatic = isChromatic();
+export const defaultOpenState = isChromatic();
 
 <Meta title="Popover Container" />
 
@@ -60,7 +60,7 @@ Use the `title` prop to set a title within the `PopoverContainer`.
 <Canvas>
   <Story name="title" parameters={{ info: { disable: true } }}>
     {() => {
-      const [open, setOpen] = useState(isOpenForChromatic);
+      const [open, setOpen] = useState(defaultOpenState);
       const onOpen = () => setOpen(true);
       const onClose = () => setOpen(false);
       return (
@@ -89,7 +89,7 @@ of the screen.
 <Canvas>
   <Story name="position" parameters={{ info: { disable: true } }}>
     {() => {
-      const [open, setOpen] = useState(isOpenForChromatic);
+      const [open, setOpen] = useState(defaultOpenState);
       const onOpen = () => setOpen(true);
       const onClose = () => setOpen(false);
       return (
@@ -118,7 +118,7 @@ Use the `shouldCoverButton` prop to hide the open button when the `PopoverContai
 <Canvas>
   <Story name="cover button" parameters={{ info: { disable: true } }}>
     {() => {
-      const [open, setOpen] = useState(isOpenForChromatic);
+      const [open, setOpen] = useState(defaultOpenState);
       const onOpen = () => setOpen(true);
       const onClose = () => setOpen(false);
       return (
@@ -249,7 +249,7 @@ You can easily use many different components to create your own composition.
 <Canvas>
   <Story name="complex" parameters={{ info: { disable: true } }}>
     {() => {
-      const [open, setOpen] = useState(isOpenForChromatic);
+      const [open, setOpen] = useState(defaultOpenState);
       const onOpen = () => setOpen(true);
       const onClose = () => setOpen(false);
       return (

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Heading from "./heading.component";
 import Pill from "../../components/pill";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -143,8 +143,13 @@ context("Testing Heading component", () => {
       "should check when separator is %s for Heading component",
       (boolVal) => {
         CypressMountWithProviders(<HeadingComponent separator={boolVal} />);
-        if (boolVal === true) {
-          separatorPreview().should("have.css", "border-width", "2px 1px 1px");
+        if (boolVal) {
+          separatorPreview().then(($el) => {
+            const [first, second, third] = $el.css("border-width").split(" ");
+            expect(parseInt(first)).to.be.within(1, 2);
+            expect(parseInt(second)).to.be.within(0, 1);
+            expect(parseInt(third)).to.be.within(0, 1);
+          });
         } else {
           separatorPreview().should("not.exist");
         }

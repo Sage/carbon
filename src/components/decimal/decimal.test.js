@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Decimal from "./decimal.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 

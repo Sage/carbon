@@ -1,6 +1,5 @@
 import { useMemo, useState, useCallback, useContext } from "react";
 import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
-import { action } from "@storybook/addon-actions";
 import styled from "styled-components";
 
 import { Checkbox } from "../checkbox";
@@ -734,7 +733,6 @@ Use the `expandedWidth` prop to alter the width of the open `Drawer`.
       const [isExpanded, setIsExpanded] = useState(false);
       const onChangeHandler = useCallback(() => {
         setIsExpanded(!isExpanded);
-        action("expansionToggled");
       }, [isExpanded]);
       return (
         <div>
@@ -778,7 +776,6 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
       const [isExpanded, setIsExpanded] = useState(false);
       const onChangeHandler = useCallback(() => {
         setIsExpanded(!isExpanded);
-        action("expansionToggled");
       }, [isExpanded]);
       return (
         <div>
@@ -827,7 +824,6 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
       const [isExpanded, setIsExpanded] = useState(false);
       const onChangeHandler = useCallback(() => {
         setIsExpanded(!isExpanded);
-        action("expansionToggled");
       }, [isExpanded]);
       return (
         <div>
@@ -918,7 +914,6 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
       };
       const onChangeHandler = useCallback(() => {
         setIsExpanded(!isExpanded);
-        action("expansionToggled");
       }, [isExpanded]);
       const NavigationContainer = styled.div`
         display: flex;

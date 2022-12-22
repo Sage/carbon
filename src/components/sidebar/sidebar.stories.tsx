@@ -10,10 +10,10 @@ import Textbox from "../textbox";
 
 import isChromatic from "../../../.storybook/isChromatic";
 
-const isOpenForChromatic = isChromatic();
+const defaultOpenState = isChromatic();
 
 export const DefaultStory: ComponentStory<typeof Sidebar> = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -37,7 +37,7 @@ export const DefaultStory: ComponentStory<typeof Sidebar> = () => {
 export const CustomPaddingAroundContent: ComponentStory<
   typeof Sidebar
 > = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -55,7 +55,7 @@ export const CustomPaddingAroundContent: ComponentStory<
 };
 
 export const WithHeader: ComponentStory<typeof Sidebar> = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -77,7 +77,7 @@ export const WithHeader: ComponentStory<typeof Sidebar> = () => {
 };
 
 export const WithScroll: ComponentStory<typeof Sidebar> = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -99,7 +99,7 @@ export const WithScroll: ComponentStory<typeof Sidebar> = () => {
 };
 
 export const WithTypography: ComponentStory<typeof Sidebar> = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -250,7 +250,7 @@ export const OtherFocusableContainers: ComponentStory<typeof Sidebar> = () => {
 OtherFocusableContainers.parameters = { chromatic: { disable: true } };
 
 export const CustomWidth: ComponentStory<typeof Sidebar> = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -267,6 +267,49 @@ export const CustomWidth: ComponentStory<typeof Sidebar> = () => {
           </Button>
         </div>
         Main Content
+      </Sidebar>
+    </>
+  );
+};
+
+export const WithHeaderAndFooterPadding: ComponentStory<
+  typeof Sidebar
+> = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        aria-label="sidebar"
+        position="left"
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header={<Typography variant="h3">Sidebar Header</Typography>}
+        p={2}
+        headerPadding={{ p: 2 }}
+      >
+        <Form
+          rightSideButtons={<Button>Action button</Button>}
+          stickyFooter
+          buttonAlignment="right"
+          footerPadding={{ p: 2 }}
+        >
+          <Typography variant="p">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lectus
+            massa, suscipit vitae pellentesque quis, facilisis non ante.
+            Curabitur fringilla sapien non ante elementum venenatis. Curabitur
+            viverra, massa ac congue imperdiet, purus ligula dictum quam, id
+            tincidunt diam risus quis eros. Vivamus semper sem ac tempor
+            malesuada. Proin nec sollicitudin mi. Nunc egestas ipsum ac lorem
+            pretium blandit. Quisque ac ultricies lacus. Phasellus vel enim id
+            est ornare finibus eget vitae ipsum. Maecenas non accumsan dolor.
+            Morbi sed mauris mollis lorem finibus feugiat. Maecenas scelerisque
+            nec orci ac finibus. Nulla dictum, quam vel gravida lobortis, nisl
+            eros vulputate augue, eget malesuada lacus elit sed leo. In a ex id
+            metus vulputate sollicitudin at eget neque. Aliquam cursus quis odio
+            in consequat.
+          </Typography>
+        </Form>
       </Sidebar>
     </>
   );

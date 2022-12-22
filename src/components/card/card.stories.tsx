@@ -55,6 +55,9 @@ LargeSpacing.args = { spacing: "large" };
 export const WithCardWidthProvided = DefaultStory.bind({});
 WithCardWidthProvided.args = { cardWidth: "500px" };
 
+export const WithCustomHeight = DefaultStory.bind({});
+WithCustomHeight.args = { height: "500px" };
+
 export const Interactive: StoryFn = () => {
   const [clickCounter, setClickCounter] = useState(0);
   return (
@@ -98,6 +101,13 @@ export const Interactive: StoryFn = () => {
   );
 };
 Interactive.parameters = { chromatic: { disable: true } };
+
+export const WithCustomBoxShadow = DefaultStory.bind({});
+WithCustomBoxShadow.args = {
+  boxShadow: "boxShadow400",
+  hoverBoxShadow: "boxShadow200",
+  interactive: true,
+};
 
 export const DifferentCardRowPadding: StoryFn = () => (
   <Card>

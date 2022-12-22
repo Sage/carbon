@@ -10,7 +10,7 @@ interface PortalContextProps {
 
 export const PortalContext = React.createContext<PortalContextProps>({});
 
-interface PortalProps {
+export interface PortalProps {
   /** The content of the portal. */
   children?: React.ReactNode;
   /** Classname attached to portal container. */

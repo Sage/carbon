@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Textbox from "../textbox/textbox.component";
 import Decimal from "../decimal/decimal.component";
 import SimpleSelect from "../select/simple-select/simple-select.component";

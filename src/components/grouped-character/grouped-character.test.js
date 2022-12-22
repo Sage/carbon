@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import GroupedCharacter from "./grouped-character.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
