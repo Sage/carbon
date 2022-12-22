@@ -18,7 +18,7 @@ export interface FieldsetProps extends StyledFieldsetProps, MarginProps {
   legend?: string;
 }
 
-const Fieldset = ({
+export const Fieldset = ({
   children,
   inline = false,
   legend,
@@ -50,5 +50,7 @@ const Fieldset = ({
     </NewValidationContext.Provider>
   );
 };
+
+Fieldset.displayName = "Fieldset";
 
 export default Fieldset;
