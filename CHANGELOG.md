@@ -1,3 +1,10 @@
+### [111.22.2](https://github.com/Sage/carbon/compare/v111.22.1...v111.22.2) (2022-12-23)
+
+
+### Bug Fixes
+
+* **simple-color-picker:** make simple-color ids unique ([678d838](https://github.com/Sage/carbon/commit/678d8388aff4a1264e266265cec2f487f938b399))
+
 ### [111.22.1](https://github.com/Sage/carbon/compare/v111.22.0...v111.22.1) (2022-12-21)
 
 
