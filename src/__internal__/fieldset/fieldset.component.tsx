@@ -10,6 +10,8 @@ import ValidationIcon from "../validations/validation-icon.component";
 import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
 
 export interface FieldsetProps extends MarginProps {
+  /** Role */
+  role?: string;
   /** Fieldset content */
   children: React.ReactNode;
   /** The content for the Fieldset Legend */

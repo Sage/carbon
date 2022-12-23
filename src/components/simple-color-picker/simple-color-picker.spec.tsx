@@ -1,14 +1,17 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
-import { mount } from "enzyme";
-import { SimpleColor, SimpleColorPicker } from ".";
+import { mount, ReactWrapper } from "enzyme";
+import {
+  SimpleColor,
+  SimpleColorPicker,
+  SimpleColorProps,
+  SimpleColorPickerProps,
+} from ".";
 import { StyledColorOptions } from "./simple-color-picker.style";
 import { StyledLegend } from "../../__internal__/fieldset/fieldset.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-  expectConsoleOutput as expectError,
 } from "../../__spec_helper__/test-utils";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import Fieldset from "../../__internal__/fieldset";
@@ -27,7 +30,10 @@ const validationVariants = {
 
 const name = "test-group";
 
-function render(props, childProps) {
+function getComponent(
+  props?: Partial<SimpleColorPickerProps>,
+  childProps?: Partial<SimpleColorProps>
+) {
   const children = colorValues.map((color, index) => {
     return (
       <SimpleColor
@@ -41,7 +47,7 @@ function render(props, childProps) {
     );
   });
 
-  return mount(
+  return (
     <SimpleColorPicker
       name={name}
       legend="SimpleColorPicker Legend"
@@ -49,16 +55,20 @@ function render(props, childProps) {
       {...props}
     >
       {children}
-    </SimpleColorPicker>,
-    { attachTo: document.getElementById("enzymeContainer") }
+    </SimpleColorPicker>
   );
 }
 
-describe("SimpleColorPicker", () => {
-  it("renders as expected", () => {
-    expect(TestRenderer.create(render())).toMatchSnapshot();
+function render(
+  props?: Partial<SimpleColorPickerProps>,
+  childProps?: Partial<SimpleColorProps>
+) {
+  return mount(getComponent(props, childProps), {
+    attachTo: document.getElementById("enzymeContainer"),
   });
+}
 
+describe("SimpleColorPicker", () => {
   describe("Styled System", () => {
     testStyledSystemMargin((props) => (
       <SimpleColorPicker
@@ -71,19 +81,23 @@ describe("SimpleColorPicker", () => {
     ));
   });
 
-  describe("it renders children in rows based on maxWidth and childWith", () => {
-    let wrapper, onChange, secondColor;
+  describe("it renders children in rows based on maxWidth and childWidth", () => {
+    let wrapper: ReactWrapper;
+    let onChange: jest.Mock;
+    let secondColor: ReactWrapper<
+      SimpleColorProps & React.RefAttributes<HTMLInputElement>
+    >;
 
     describe("onKeyDown", () => {
       beforeEach(() => {
         onChange = jest.fn();
-        wrapper = render({ maxWidth: "58", childWith: "58", onChange });
+        wrapper = render({ maxWidth: "100", childWidth: "100", onChange });
       });
       it("fires onKeyDown callback if provided", () => {
         const onKeyDown = jest.fn();
         wrapper = render({
-          maxWidth: "58",
-          childWith: "58",
+          maxWidth: "100",
+          childWidth: "100",
           onChange,
           onKeyDown,
         });
@@ -116,14 +130,14 @@ describe("SimpleColorPicker", () => {
       });
 
       describe("on left key", () => {
-        let container;
+        let container: HTMLDivElement | null;
         beforeEach(() => {
           container = document.createElement("div");
           container.id = "enzymeContainer";
           document.body.appendChild(container);
           wrapper = render({
-            maxWidth: "58",
-            childWith: "58",
+            maxWidth: "100",
+            childWidth: "100",
             onChange,
           });
         });
@@ -134,11 +148,15 @@ describe("SimpleColorPicker", () => {
 
           container = null;
         });
-        describe("when on first color ", () => {
+        describe("when on first color", () => {
           it("does change selection to last color", () => {
             const colorOne = wrapper.find(SimpleColor).at(0);
             jest.spyOn(
-              wrapper.find(SimpleColor).last().find("input").getDOMNode(),
+              wrapper
+                .find(SimpleColor)
+                .last()
+                .find("input")
+                .getDOMNode() as HTMLInputElement,
               "click"
             );
 
@@ -150,10 +168,14 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              wrapper.find(SimpleColor).last().find("input").getDOMNode().click
+              (wrapper
+                .find(SimpleColor)
+                .last()
+                .find("input")
+                .getDOMNode() as HTMLInputElement).click
             ).toHaveBeenCalled();
 
-            expect(document.activeElement.getAttribute("value")).toBe(
+            expect(document.activeElement?.getAttribute("value")).toBe(
               wrapper.find(SimpleColor).last().prop("value")
             );
           });
@@ -161,14 +183,14 @@ describe("SimpleColorPicker", () => {
       });
 
       describe("on up key", () => {
-        let container;
+        let container: HTMLDivElement | null;
         beforeEach(() => {
           container = document.createElement("div");
           container.id = "enzymeContainer";
           document.body.appendChild(container);
           wrapper = render({
-            maxWidth: "58",
-            childWith: "58",
+            maxWidth: "100",
+            childWidth: "100",
             onChange,
           });
         });
@@ -182,7 +204,11 @@ describe("SimpleColorPicker", () => {
         describe("when up is allowed due to multi rows", () => {
           it("changes selection on up key", () => {
             jest.spyOn(
-              wrapper.find(SimpleColor).first().find("input").getDOMNode(),
+              wrapper
+                .find(SimpleColor)
+                .first()
+                .find("input")
+                .getDOMNode() as HTMLInputElement,
               "click"
             );
             secondColor = wrapper.find(SimpleColor).at(1);
@@ -195,10 +221,14 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              wrapper.find(SimpleColor).first().find("input").getDOMNode().click
+              (wrapper
+                .find(SimpleColor)
+                .first()
+                .find("input")
+                .getDOMNode() as HTMLInputElement).click
             ).toHaveBeenCalled();
 
-            expect(document.activeElement.getAttribute("value")).toBe(
+            expect(document.activeElement?.getAttribute("value")).toBe(
               colorValues[0].color
             );
           });
@@ -207,11 +237,19 @@ describe("SimpleColorPicker", () => {
         describe("when up is disallowed due to top row", () => {
           it("changes selection on up key", () => {
             jest.spyOn(
-              wrapper.find(SimpleColor).at(0).find("input").getDOMNode(),
+              wrapper
+                .find(SimpleColor)
+                .at(0)
+                .find("input")
+                .getDOMNode() as HTMLInputElement,
               "click"
             );
             jest.spyOn(
-              wrapper.find(SimpleColor).at(1).find("input").getDOMNode(),
+              wrapper
+                .find(SimpleColor)
+                .at(1)
+                .find("input")
+                .getDOMNode() as HTMLInputElement,
               "click"
             );
             secondColor = wrapper.find(SimpleColor).at(0);
@@ -225,13 +263,21 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              wrapper.find(SimpleColor).at(0).find("input").getDOMNode().click
+              (wrapper
+                .find(SimpleColor)
+                .at(0)
+                .find("input")
+                .getDOMNode() as HTMLInputElement).click
             ).not.toHaveBeenCalled();
             expect(
-              wrapper.find(SimpleColor).at(1).find("input").getDOMNode().click
+              (wrapper
+                .find(SimpleColor)
+                .at(1)
+                .find("input")
+                .getDOMNode() as HTMLInputElement).click
             ).not.toHaveBeenCalled();
 
-            expect(document.activeElement.getAttribute("value")).toBe(
+            expect(document.activeElement?.getAttribute("value")).toBe(
               colorValues[0].color
             );
             expect(onChange).not.toHaveBeenCalled();
@@ -240,15 +286,15 @@ describe("SimpleColorPicker", () => {
       });
 
       describe("on right key", () => {
-        let container;
+        let container: HTMLDivElement | null;
         beforeEach(() => {
           onChange = jest.fn();
           container = document.createElement("div");
           container.id = "enzymeContainer";
           document.body.appendChild(container);
           wrapper = render({
-            maxWidth: "58",
-            childWith: "58",
+            maxWidth: "100",
+            childWidth: "100",
             onChange,
           });
         });
@@ -259,12 +305,16 @@ describe("SimpleColorPicker", () => {
 
           container = null;
         });
-        describe("when on last color ", () => {
+        describe("when on last color", () => {
           it("does change selection to first color", () => {
             const thirdColor = wrapper.find(SimpleColor).at(2);
 
             jest.spyOn(
-              wrapper.find(SimpleColor).first().find("input").getDOMNode(),
+              wrapper
+                .find(SimpleColor)
+                .first()
+                .find("input")
+                .getDOMNode() as HTMLInputElement,
               "click"
             );
 
@@ -276,18 +326,26 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              wrapper.find(SimpleColor).first().find("input").getDOMNode().click
+              (wrapper
+                .find(SimpleColor)
+                .first()
+                .find("input")
+                .getDOMNode() as HTMLInputElement).click
             ).toHaveBeenCalled();
-            expect(document.activeElement.getAttribute("value")).toBe(
+            expect(document.activeElement?.getAttribute("value")).toBe(
               wrapper.find(SimpleColor).first().prop("value")
             );
           });
         });
 
-        describe("when on 2nd color ", () => {
+        describe("when on 2nd color", () => {
           it("changes selection on right key", () => {
             jest.spyOn(
-              wrapper.find(SimpleColor).last().find("input").getDOMNode(),
+              wrapper
+                .find(SimpleColor)
+                .last()
+                .find("input")
+                .getDOMNode() as HTMLInputElement,
               "click"
             );
             secondColor = wrapper.find(SimpleColor).at(1);
@@ -300,10 +358,14 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              wrapper.find(SimpleColor).last().find("input").getDOMNode().click
+              (wrapper
+                .find(SimpleColor)
+                .last()
+                .find("input")
+                .getDOMNode() as HTMLInputElement).click
             ).toHaveBeenCalled();
 
-            expect(document.activeElement.getAttribute("value")).toBe(
+            expect(document.activeElement?.getAttribute("value")).toBe(
               colorValues[2].color
             );
           });
@@ -311,15 +373,15 @@ describe("SimpleColorPicker", () => {
       });
 
       describe("on down key", () => {
-        let container;
+        let container: HTMLDivElement | null;
         beforeEach(() => {
           onChange = jest.fn();
           container = document.createElement("div");
           container.id = "enzymeContainer";
           document.body.appendChild(container);
           wrapper = render({
-            maxWidth: "58",
-            childWith: "58",
+            maxWidth: "100",
+            childWidth: "100",
             onChange,
           });
         });
@@ -333,7 +395,11 @@ describe("SimpleColorPicker", () => {
         describe("when down is allowed due to multi rows", () => {
           it("changes selection on down key", () => {
             jest.spyOn(
-              wrapper.find(SimpleColor).last().find("input").getDOMNode(),
+              wrapper
+                .find(SimpleColor)
+                .last()
+                .find("input")
+                .getDOMNode() as HTMLInputElement,
               "click"
             );
             secondColor = wrapper.find(SimpleColor).at(1);
@@ -346,10 +412,14 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              wrapper.find(SimpleColor).last().find("input").getDOMNode().click
+              (wrapper
+                .find(SimpleColor)
+                .last()
+                .find("input")
+                .getDOMNode() as HTMLInputElement).click
             ).toHaveBeenCalled();
 
-            expect(document.activeElement.getAttribute("value")).toBe(
+            expect(document.activeElement?.getAttribute("value")).toBe(
               colorValues[2].color
             );
           });
@@ -360,11 +430,19 @@ describe("SimpleColorPicker", () => {
             const thirdColor = wrapper.find(SimpleColor).at(2);
 
             jest.spyOn(
-              wrapper.find(SimpleColor).at(0).find("input").getDOMNode(),
+              wrapper
+                .find(SimpleColor)
+                .at(0)
+                .find("input")
+                .getDOMNode() as HTMLInputElement,
               "click"
             );
             jest.spyOn(
-              wrapper.find(SimpleColor).at(1).find("input").getDOMNode(),
+              wrapper
+                .find(SimpleColor)
+                .at(1)
+                .find("input")
+                .getDOMNode() as HTMLInputElement,
               "click"
             );
 
@@ -377,12 +455,20 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              wrapper.find(SimpleColor).at(0).find("input").getDOMNode().click
+              (wrapper
+                .find(SimpleColor)
+                .at(0)
+                .find("input")
+                .getDOMNode() as HTMLInputElement).click
             ).not.toHaveBeenCalled();
             expect(
-              wrapper.find(SimpleColor).at(1).find("input").getDOMNode().click
+              (wrapper
+                .find(SimpleColor)
+                .at(1)
+                .find("input")
+                .getDOMNode() as HTMLInputElement).click
             ).not.toHaveBeenCalled();
-            expect(document.activeElement.getAttribute("value")).toBe(
+            expect(document.activeElement?.getAttribute("value")).toBe(
               colorValues[2].color
             );
             expect(onChange).not.toHaveBeenCalled();
@@ -393,7 +479,7 @@ describe("SimpleColorPicker", () => {
 
     describe("renders two rows", () => {
       it("confirms that last color has data-down attribute false", () => {
-        wrapper = render({ maxWidth: "120", childWith: "58" });
+        wrapper = render({ maxWidth: "180", childWidth: "78" });
         const colorFirst = wrapper.find(SimpleColor).first();
         const colorLast = wrapper.find(SimpleColor).last();
         expect(colorFirst.prop("data-down")).toBeTruthy();
@@ -403,16 +489,19 @@ describe("SimpleColorPicker", () => {
   });
 
   describe("events", () => {
-    let wrapper, onBlur, documentMousedownCallback, fireDocumentMousedown;
+    let wrapper: ReactWrapper;
+    let onBlur: jest.Mock;
+    let documentMousedownCallback: EventListener;
+    let fireDocumentMousedown: () => void;
 
     beforeEach(() => {
       document.addEventListener = jest.fn((eventName, callback) => {
         if (eventName === "mousedown") {
-          documentMousedownCallback = callback;
+          documentMousedownCallback = callback as EventListener;
         }
       });
       fireDocumentMousedown = () => {
-        const customEvent = { target: document };
+        const customEvent = ({ target: document } as unknown) as Event;
         act(() => {
           documentMousedownCallback(customEvent);
         });
@@ -480,7 +569,9 @@ describe("SimpleColorPicker", () => {
             .first()
             .find("input")
             .first();
-          const customEvent = { target: firstSCinput.getDOMNode() };
+          const customEvent = ({
+            target: firstSCinput.getDOMNode(),
+          } as unknown) as Event;
           documentMousedownCallback(customEvent);
           expect(onBlur).not.toHaveBeenCalled();
         });
@@ -525,7 +616,7 @@ describe("SimpleColorPicker", () => {
   });
 
   describe("validations", () => {
-    const validationTypes = ["error", "warning", "info"];
+    const validationTypes = ["error", "warning", "info"] as const;
 
     describe.each(validationTypes)("when %s passed as string", (type) => {
       it("renders validation icon by the input", () => {
@@ -575,26 +666,21 @@ describe("SimpleColorPicker", () => {
     });
   });
 
-  describe("propTypes", () => {
-    it("validates the incorrect children prop", () => {
-      const errorMessage =
-        "Warning: Failed prop type: `SimpleColorPicker` only accepts children of" +
-        " type `SimpleColor`.\n    at SimpleColorPicker";
-
-      const assert = expectError(errorMessage);
+  it("validates the incorrect children prop", () => {
+    expect(() => {
       mount(
         <SimpleColorPicker name={name} legend="SimpleColorPicker Legend">
           <p>Invalid children</p>
           <p>Invalid children</p>
         </SimpleColorPicker>
       );
-
-      assert();
-    });
+    }).toThrow(
+      "SimpleColorPicker accepts only children of type `SimpleColor`."
+    );
   });
 
   describe("required", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = render({ required: true });

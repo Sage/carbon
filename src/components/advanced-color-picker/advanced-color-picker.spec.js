@@ -1,16 +1,16 @@
 import React from "react";
 import { config } from "react-transition-group";
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
 import { act } from "react-test-renderer";
 import AdvancedColorPicker from "./advanced-color-picker.component";
 import Dialog from "../dialog/dialog.component";
 import { SimpleColor } from "../simple-color-picker";
+import { StyledColorSampleBox } from "../simple-color-picker/simple-color/simple-color.style";
 import guid from "../../__internal__/utils/helpers/guid";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 import { ModalContext } from "../modal/modal.component";
 
 config.disabled = true;
@@ -84,14 +84,6 @@ describe("AdvancedColorPicker", () => {
     <AdvancedColorPicker {...requiredProps} {...props} />
   ));
 
-  describe("when uncontrolled", () => {
-    it("should render internal composition to match uncontrolled snapshot", () => {
-      expect(
-        noThemeSnapshot(shallow(<AdvancedColorPicker {...requiredProps} />))
-      ).toMatchSnapshot();
-    });
-  });
-
   describe("when controlled", () => {
     describe("when dialog is open", () => {
       jest.useFakeTimers();
@@ -150,11 +142,8 @@ describe("AdvancedColorPicker", () => {
             expect(document.activeElement).toBe(simpleColors[0]);
 
             const simpleColor = wrapper.find(SimpleColor).at(0);
-            const colorPreviewCell = simpleColor
-              .find("ColorSampleBox")
-              .first()
-              .find("div")
-              .first();
+            const colorPreviewCell = simpleColor.find(StyledColorSampleBox);
+
             expect(document.activeElement.getAttribute("value")).toBe(
               wrapper.find(SimpleColor).at(0).prop("value")
             );
