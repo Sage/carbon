@@ -1,19 +1,15 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
-import PagerNavigation from "./pager-navigation.component";
-import { StyledPagerLinkStyles, StyledPagerNavInner } from "../pager.style";
+import PagerNavigation, {
+  PagerNavigationProps,
+} from "./pager-navigation.component";
+import { StyledPagerLink, StyledPagerNavInner } from "../pager.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledInputPresentation from "../../../__internal__/input/input-presentation.style";
 import StyledInput from "../../../__internal__/input/input.style";
 
-const pageSizeSelectionOptions = [
-  { id: "10", name: 10 },
-  { id: "25", name: 25 },
-  { id: "50", name: 50 },
-];
-
-function render(props = {}, renderType = shallow) {
-  props.setCurrentThemeName = () => {};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function render(props: PagerNavigationProps, renderType: any = shallow) {
   return renderType(<PagerNavigation {...props} />);
 }
 
@@ -24,16 +20,11 @@ describe("Pager Navigation", () => {
     onPagination: () => true,
     pageSize: 10,
     pageCount: 10,
+    setCurrentPage: () => {},
   };
 
   it("renders the Pager Navigation correctly with the Mint Theme", () => {
-    const wrapper = render(
-      {
-        ...props,
-        onPagination: () => true,
-      },
-      mount
-    );
+    const wrapper = render(props, mount);
 
     assertStyleMatch(
       {
@@ -77,16 +68,14 @@ describe("Pager Navigation", () => {
         {
           onPagination: () => true,
           pageSize: 10,
-          showPageSizeSelection: true,
-          pageSizeSelectionOptions,
           currentPage: 1,
           pageCount: 3,
-          totalRecords: 1,
           onFirst,
+          setCurrentPage: () => {},
         },
         mount
       );
-      const navLinks = wrapper.find(StyledPagerLinkStyles);
+      const navLinks = wrapper.find(StyledPagerLink);
       const first = navLinks.first();
       first.simulate("click");
       expect(onFirst).toBeCalledTimes(0);

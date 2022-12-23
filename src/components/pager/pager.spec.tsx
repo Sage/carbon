@@ -1,14 +1,14 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper, MountRendererProps } from "enzyme";
 import { act } from "react-dom/test-utils";
 
 import guid from "../../__internal__/utils/helpers/guid";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import Pager from "./pager.component";
-import Select from "../select/simple-select/simple-select.component";
+import Pager, { PagerProps } from "./pager.component";
+import { Select } from "../select";
 import SelectList from "../select/select-list/select-list.component";
 import {
-  StyledPagerLinkStyles,
+  StyledPagerLink,
   StyledPagerNavInner,
   StyledPagerSizeOptionsInner,
   StyledPagerSummary,
@@ -21,20 +21,28 @@ import StyledFormField from "../../__internal__/form-field/form-field.style";
 import I18nProvider from "../i18n-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid");
-guid.mockImplementation(() => "guid-12345");
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(
+  () => "guid-12345"
+);
 
-const isSingular = (count) =>
+const isSingular = (count: string | number) =>
   (typeof count === "string" ? parseInt(count) : count) === 1;
 
-const wrappingComponent = (props) => (
+const wrappingComponent = (props: { children: React.ReactNode }) => (
   <I18nProvider
     {...props}
     locale={{
       locale: () => "fr",
       pager: {
         show: () => "Spectacle",
-        records: (count) =>
+        records: (count: string | number) =>
           `${count} ${isSingular(count) ? "article" : "articles"}`,
+        first: () => "First",
+        last: () => "Last",
+        next: () => "Next",
+        previous: () => "Previous",
+        pageX: () => "Page",
+        ofY: (count) => `of ${count}`,
       },
     }}
   />
@@ -46,8 +54,8 @@ const pageSizeSelectionOptions = [
   { id: "100", name: 100 },
 ];
 
-function render(props = {}, renderType = mount, params) {
-  return renderType(<Pager onPagination={jest.fn()} {...props} />, params);
+function render(props: PagerProps, params?: MountRendererProps) {
+  return mount(<Pager {...props} />, params);
 }
 
 describe("Pager", () => {
@@ -60,13 +68,18 @@ describe("Pager", () => {
   };
 
   it("sets total records to 0 by default", () => {
-    const wrapper = render();
+    const wrapper = render({
+      ...props,
+      pageSize: undefined,
+      totalRecords: undefined,
+    });
     expect(wrapper.find(StyledPagerSummary).text()).toBe("0 items");
   });
 
   describe("sets size selector value a type of string", () => {
     it("when page size prop is a type of number", () => {
       const wrapper = render({
+        ...props,
         showPageSizeSelection: true,
         pageSize: 10,
       });
@@ -75,6 +88,7 @@ describe("Pager", () => {
 
     it("when page size prop is a type of string", () => {
       const wrapper = render({
+        ...props,
         showPageSizeSelection: true,
         pageSize: "10",
       });
@@ -83,7 +97,12 @@ describe("Pager", () => {
   });
 
   describe("Navigate correctly on link click", () => {
-    let wrapper, onPagination, onNext, onPrevious, onFirst, onLast;
+    let wrapper: ReactWrapper;
+    let onPagination: jest.Mock;
+    let onNext: jest.Mock;
+    let onPrevious: jest.Mock;
+    let onFirst: jest.Mock;
+    let onLast: jest.Mock;
 
     beforeEach(() => {
       onPagination = jest.fn();
@@ -95,23 +114,20 @@ describe("Pager", () => {
 
     afterEach(() => wrapper.unmount());
 
-    const getWrapper = (otherProps) =>
-      render(
-        {
-          ...props,
-          onNext,
-          onPrevious,
-          onFirst,
-          onLast,
-          onPagination,
-          ...otherProps,
-        },
-        mount
-      );
+    const getWrapper = (otherProps?: Partial<PagerProps>) =>
+      render({
+        ...props,
+        onNext,
+        onPrevious,
+        onFirst,
+        onLast,
+        onPagination,
+        ...otherProps,
+      });
 
     it("disables the next and last link if on last page", () => {
       wrapper = getWrapper({ currentPage: 10 });
-      const navLinks = wrapper.find(StyledPagerLinkStyles);
+      const navLinks = wrapper.find(StyledPagerLink);
       const last = navLinks.last();
       const next = navLinks.at(2);
       last.simulate("click");
@@ -121,7 +137,7 @@ describe("Pager", () => {
 
     it("disables the prev and first link if on first page", () => {
       wrapper = getWrapper({ currentPage: 1 });
-      const navLinks = wrapper.find(StyledPagerLinkStyles);
+      const navLinks = wrapper.find(StyledPagerLink);
       const first = navLinks.first();
       const prev = navLinks.at(1);
       first.simulate("click");
@@ -131,13 +147,13 @@ describe("Pager", () => {
 
     it("does not render the navigation buttons if theres only one page", () => {
       wrapper = getWrapper({ currentPage: 1, totalRecords: 5 });
-      const navLinks = wrapper.find(StyledPagerLinkStyles);
+      const navLinks = wrapper.find(StyledPagerLink);
       expect(navLinks.exists()).toBeFalsy();
     });
 
     it("does not render the 'First' and 'Last' navigation buttons if theres only two pages", () => {
       wrapper = getWrapper({ currentPage: 1, totalRecords: 20 });
-      const navLinks = wrapper.find(StyledPagerLinkStyles);
+      const navLinks = wrapper.find(StyledPagerLink);
       expect(navLinks.length).toEqual(2);
       expect(navLinks.first().find("button").text()).toEqual("Previous");
       expect(navLinks.last().find("button").text()).toEqual("Next");
@@ -145,7 +161,7 @@ describe("Pager", () => {
 
     it("changes page correctly on clicking first link", () => {
       wrapper = getWrapper({ currentPage: 10 });
-      const navLinks = wrapper.find(StyledPagerLinkStyles);
+      const navLinks = wrapper.find(StyledPagerLink);
       const first = navLinks.first();
       first.find("button").simulate("click");
       expect(onFirst).toHaveBeenCalledTimes(1);
@@ -153,7 +169,7 @@ describe("Pager", () => {
 
     it("changes page correctly on clicking prev link", () => {
       wrapper = getWrapper({ currentPage: 3 });
-      const navLinks = wrapper.find(StyledPagerLinkStyles);
+      const navLinks = wrapper.find(StyledPagerLink);
       const prev = navLinks.at(1);
       prev.find("button").simulate("click");
       expect(onPrevious).toHaveBeenCalledTimes(1);
@@ -161,7 +177,7 @@ describe("Pager", () => {
 
     it("changes page correctly on clicking next link", () => {
       wrapper = getWrapper({ currentPage: 3 });
-      const navLinks = wrapper.find(StyledPagerLinkStyles);
+      const navLinks = wrapper.find(StyledPagerLink);
       const next = navLinks.at(2);
       next.find("button").simulate("click");
       expect(onNext).toHaveBeenCalledTimes(1);
@@ -169,7 +185,7 @@ describe("Pager", () => {
 
     it("next link is disabled on when on last page", () => {
       wrapper = getWrapper({ currentPage: 10 });
-      const navLinks = wrapper.find(StyledPagerLinkStyles);
+      const navLinks = wrapper.find(StyledPagerLink);
       const next = navLinks.at(2);
       next.find("button").simulate("click");
       expect(onNext).toHaveBeenCalledTimes(0);
@@ -177,7 +193,7 @@ describe("Pager", () => {
 
     it("changes page correctly on clicking last link", () => {
       wrapper = getWrapper({ currentPage: 3 });
-      const navLinks = wrapper.find(StyledPagerLinkStyles);
+      const navLinks = wrapper.find(StyledPagerLink);
       const last = navLinks.last();
       last.find("button").simulate("click");
       expect(onLast).toHaveBeenCalledTimes(1);
@@ -194,16 +210,13 @@ describe("Pager", () => {
 
   describe("when invalid totalRecords", () => {
     it("defaults currentPage to last page given its on last page", () => {
-      const wrapper = render(
-        {
-          ...props,
-          pageSize: 10,
-          totalRecords: 100,
-          currentPage: 10,
-          showPageSizeSelection: true,
-        },
-        mount
-      );
+      const wrapper = render({
+        ...props,
+        pageSize: 10,
+        totalRecords: 100,
+        currentPage: 10,
+        showPageSizeSelection: true,
+      });
 
       const input = wrapper.find(NumberInput).find("input");
       input.simulate("keyup", { key: "Enter", target: { value: -100 } });
@@ -211,16 +224,13 @@ describe("Pager", () => {
     });
 
     it("defaults currentPage to 1 given currentPage is not last page", () => {
-      const wrapper = render(
-        {
-          ...props,
-          pageSize: 10,
-          totalRecords: 100,
-          currentPage: 1,
-          showPageSizeSelection: true,
-        },
-        mount
-      );
+      const wrapper = render({
+        ...props,
+        pageSize: 10,
+        totalRecords: 100,
+        currentPage: 1,
+        showPageSizeSelection: true,
+      });
 
       const input = wrapper.find(NumberInput).find("input");
       input.simulate("keyup", { key: "Enter", target: { value: -100 } });
@@ -228,16 +238,13 @@ describe("Pager", () => {
     });
 
     it("defaults currentPage to first page", () => {
-      const wrapper = render(
-        {
-          ...props,
-          pageSize: 10,
-          totalRecords: -100,
-          currentPage: 10,
-          showPageSizeSelection: true,
-        },
-        mount
-      );
+      const wrapper = render({
+        ...props,
+        pageSize: 10,
+        totalRecords: -100,
+        currentPage: 10,
+        showPageSizeSelection: true,
+      });
 
       const input = wrapper.find(NumberInput).find("input");
       expect(input.prop("value")).toBe("1");
@@ -245,20 +252,20 @@ describe("Pager", () => {
   });
 
   it("updates correctly if new current page value is higher than page count", () => {
-    const wrapper = render({ ...props, currentPage: 10 }, mount);
+    const wrapper = render({ ...props, currentPage: 10 });
     const input = wrapper.find(NumberInput).find("input");
     input.simulate("keyup", { key: "Enter", target: { value: 200 } });
     expect(input.prop("value")).toBe("10");
   });
 
   describe("conditional rendering of elements", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     afterEach(() => wrapper.unmount());
 
     it("does not renders pageSizeSelection by default", () => {
       wrapper = render({
-        totalRecords: 100,
+        totalRecords: "100",
         pageSize: 10,
         onPagination: () => true,
       });
@@ -269,14 +276,14 @@ describe("Pager", () => {
       wrapper = render({ ...props, onPagination: () => true });
       expect(
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
-          .textContent
+          ?.textContent
       ).toEqual(
         wrapper.find(StyledPagerSizeOptionsInner).find("span").first().text()
       );
       expect(wrapper.find(StyledPagerSizeOptionsInner).exists()).toBeTruthy();
       expect(
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
-          .textContent
+          ?.textContent
       ).toEqual(
         wrapper.find(StyledPagerSizeOptionsInner).find("div").last().text()
       );
@@ -295,7 +302,7 @@ describe("Pager", () => {
 
       expect(
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
-          .textContent
+          ?.textContent
       ).toEqual(
         wrapper.find(StyledPagerSizeOptionsInner).find("div").last().text()
       );
@@ -309,7 +316,7 @@ describe("Pager", () => {
       });
       expect(
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
-          .textContent
+          ?.textContent
       ).toEqual(
         wrapper.find(StyledPagerSizeOptionsInner).find("span").first().text()
       );
@@ -330,7 +337,12 @@ describe("Pager", () => {
   });
 
   describe("callbacks work as expected", () => {
-    let wrapper, onNext, onFirst, onPrevious, onLast, callbacks;
+    let wrapper: ReactWrapper;
+    let onNext: jest.Mock;
+    let onFirst: jest.Mock;
+    let onPrevious: jest.Mock;
+    let onLast: jest.Mock;
+    let callbacks: Record<string, jest.Mock>;
 
     beforeEach(() => {
       onNext = jest.fn();
@@ -359,7 +371,7 @@ describe("Pager", () => {
     it.each([["next"], ["previous"], ["first"], ["last"]])(
       "calls %s callback",
       (call) => {
-        const navLinks = wrapper.find(StyledPagerLinkStyles);
+        const navLinks = wrapper.find(StyledPagerLink);
         const element = navLinks.find(
           `[data-element="pager-link-${call}"] button`
         );
@@ -385,7 +397,7 @@ describe("Pager", () => {
           totalRecords: 100,
         });
         const pager = wrapper.find(Pager);
-        const navLinks = pager.find(StyledPagerLinkStyles);
+        const navLinks = pager.find(StyledPagerLink);
         const element = navLinks.find(
           `[data-element="pager-link-${call}"] button`
         );
@@ -398,12 +410,12 @@ describe("Pager", () => {
   });
 
   describe("i18n", () => {
-    const getShow = (wrapper) =>
+    const getShow = (wrapper: ReactWrapper) =>
       wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
-        .textContent;
-    const getRecords = (wrapper) =>
+        ?.textContent;
+    const getRecords = (wrapper: ReactWrapper) =>
       wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
-        .textContent;
+        ?.textContent;
 
     describe("default", () => {
       it("show", () => {
@@ -420,25 +432,21 @@ describe("Pager", () => {
 
     describe("fr", () => {
       it("show", () => {
-        const wrapper = render({ ...props }, mount, { wrappingComponent });
+        const wrapper = render({ ...props }, { wrappingComponent });
         expect(getShow(wrapper)).toBe("Spectacle");
       });
 
       it("records", () => {
         expect(
           getRecords(
-            render({ ...props, pageSize: "100" }, mount, { wrappingComponent })
+            render({ ...props, pageSize: "100" }, { wrappingComponent })
           )
         ).toBe("100 articles");
         expect(
-          getRecords(
-            render({ ...props, pageSize: "1" }, mount, { wrappingComponent })
-          )
+          getRecords(render({ ...props, pageSize: "1" }, { wrappingComponent }))
         ).toBe("1 article");
         expect(
-          getRecords(
-            render({ ...props, pageSize: "0" }, mount, { wrappingComponent })
-          )
+          getRecords(render({ ...props, pageSize: "0" }, { wrappingComponent }))
         ).toBe("0 articles");
       });
     });
@@ -447,7 +455,7 @@ describe("Pager", () => {
   describe("DLS theme", () => {
     describe("Pager styling", () => {
       it("matches the expected style", () => {
-        const wrapper = render({ ...props }, mount);
+        const wrapper = render({ ...props });
 
         assertStyleMatch(
           {
@@ -464,8 +472,8 @@ describe("Pager", () => {
         );
       });
 
-      it("matches the expected style", () => {
-        const wrapper = render({ ...props, variant: "alternate" }, mount);
+      it("matches the expected style for alternate variant", () => {
+        const wrapper = render({ ...props, variant: "alternate" });
 
         assertStyleMatch(
           {
@@ -477,8 +485,8 @@ describe("Pager", () => {
     });
 
     describe("Size Selector", () => {
-      let onPagination;
-      let wrapper;
+      let onPagination: jest.Mock;
+      let wrapper: ReactWrapper;
 
       const selectOptions = {
         value: 25,
@@ -488,14 +496,11 @@ describe("Pager", () => {
       beforeEach(() => {
         onPagination = jest.fn();
 
-        wrapper = render(
-          {
-            ...props,
-            currentPage: 4,
-            onPagination,
-          },
-          mount
-        );
+        wrapper = render({
+          ...props,
+          currentPage: 4,
+          onPagination,
+        });
       });
 
       it("should not fire onPagination when user blur out from component", () => {
@@ -503,8 +508,10 @@ describe("Pager", () => {
           wrapper.find(Select).find("input").simulate("click");
         });
 
-        wrapper.find(Select).props().onBlur();
-        expect(onPagination).not.toHaveBeenCalled();
+        wrapper
+          .find(Select)
+          .props()
+          .onBlur?.({} as React.FocusEvent<HTMLInputElement>);
       });
 
       it("should update if option is clicked", () => {
@@ -539,7 +546,10 @@ describe("Pager", () => {
           wrapper
             .find(Select)
             .props()
-            .onKeyDown({ key: "Enter", target: selectOptions });
+            .onKeyDown?.(({
+              key: "Enter",
+              target: selectOptions,
+            } as unknown) as React.KeyboardEvent<HTMLInputElement>);
         });
 
         act(() => {
@@ -554,7 +564,10 @@ describe("Pager", () => {
           wrapper
             .find(Select)
             .props()
-            .onKeyDown({ key: "a", target: selectOptions });
+            .onKeyDown?.(({
+              key: "a",
+              target: selectOptions,
+            } as unknown) as React.KeyboardEvent<HTMLInputElement>);
         });
 
         expect(onPagination).not.toHaveBeenCalledWith();
@@ -566,7 +579,13 @@ describe("Pager", () => {
     it("the current page field has the correct styles", () => {
       const wrapper = mount(
         <Form>
-          <Pager totalRecords={25} currentPage={1} pageSize={5} showPageCount />
+          <Pager
+            totalRecords={25}
+            currentPage={1}
+            pageSize={5}
+            showPageCount
+            onPagination={() => {}}
+          />
         </Form>
       );
       assertStyleMatch(

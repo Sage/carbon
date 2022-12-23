@@ -1,9 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
-import PropTypes from "prop-types";
 
-import { Select } from "../select";
+import { Select, Option } from "../select";
 import PagerNavigation from "./__internal__/pager-navigation.component";
-import Option from "../select/option/option.component";
 import useLocale from "../../hooks/__internal__/useLocale";
 import {
   StyledPagerContainer,
@@ -14,7 +12,65 @@ import {
 } from "./pager.style";
 import Events from "../../__internal__/utils/helpers/events";
 
-const Pager = ({
+type PageSizeOption = {
+  id: string;
+  name: number;
+};
+
+export interface PagerProps {
+  /** Function called when pager changes (PageSize, Current Page) */
+  onPagination: (pageSize: number, currentPage: number, origin: string) => void;
+  /** Callback function for next link */
+  onNext?: (
+    ev:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>
+  ) => void;
+  /** Callback function for first link */
+  onFirst?: (
+    ev:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>
+  ) => void;
+  /** Callback function for previous link */
+  onPrevious?: (
+    ev:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>
+  ) => void;
+  /** Callback function for last link */
+  onLast?: (
+    ev:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>
+  ) => void;
+  /** Current visible page */
+  currentPage?: number | string;
+  /** Total number of records */
+  totalRecords?: number | string;
+  /** Pagination page size */
+  pageSize?: number | string;
+  /** Should the page size selection dropdown be shown */
+  showPageSizeSelection?: boolean;
+  /** Set of page size options */
+  pageSizeSelectionOptions?: PageSizeOption[];
+  /** Should the label before the page size selection dropdown be shown */
+  showPageSizeLabelBefore?: boolean;
+  /** Should the label after the page size selection dropdown be shown */
+  showPageSizeLabelAfter?: boolean;
+  /** Should the total records label be shown */
+  showTotalRecords?: boolean;
+  /** Should the `First` and `Last` navigation button be shown */
+  showFirstAndLastButtons?: boolean;
+  /** Should the `Previous` and `Next` navigation button be shown */
+  showPreviousAndNextButtons?: boolean;
+  /** Should the page count input be shown */
+  showPageCount?: boolean;
+  /** What variant the Pager background should be */
+  variant?: "default" | "alternate";
+}
+
+export const Pager = ({
   currentPage = 1,
   pageSizeSelectionOptions = [
     { id: "10", name: 10 },
@@ -38,39 +94,43 @@ const Pager = ({
   showPageCount = true,
   variant = "default",
   ...rest
-}) => {
+}: PagerProps) => {
   const l = useLocale();
-  const [page, setPage] = useState(currentPage);
-  const [currentPageSize, setCurrentPageSize] = useState(pageSize);
-  const [value, setValue] = useState(pageSize);
+  const [page, setPage] = useState<number>(+currentPage);
+  const [currentPageSize, setCurrentPageSize] = useState<number>(+pageSize);
+  const [value, setValue] = useState<number>(+pageSize);
 
   const getPageCount = useCallback(() => {
-    if (Number(totalRecords) < 0 || Number.isNaN(Number(totalRecords))) {
+    if (+totalRecords < 0 || Number.isNaN(+totalRecords)) {
       return 1;
     }
-    return Math.ceil(totalRecords / currentPageSize);
+    return Math.ceil(+totalRecords / currentPageSize);
   }, [totalRecords, currentPageSize]);
 
   const [pageCount, setPageCount] = useState(getPageCount());
 
   useEffect(() => {
-    setCurrentPageSize(Number(pageSize));
-    setValue(pageSize);
+    setCurrentPageSize(+pageSize);
+    setValue(+pageSize);
   }, [pageSize]);
 
   useEffect(() => {
     const maxPage = getPageCount();
     setPageCount(maxPage);
 
-    if (Number(currentPage) > maxPage) {
+    if (+currentPage > maxPage) {
       setPage(maxPage);
     } else {
-      setPage(Number(currentPage));
+      setPage(+currentPage);
     }
   }, [currentPageSize, pageCount, currentPage, totalRecords, getPageCount]);
 
   const handleOnFirst = useCallback(
-    (e) => {
+    (
+      e:
+        | React.MouseEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+    ) => {
       setPage(1);
 
       if (onFirst) {
@@ -81,7 +141,11 @@ const Pager = ({
   );
 
   const handleOnLast = useCallback(
-    (e) => {
+    (
+      e:
+        | React.MouseEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+    ) => {
       setPage(pageCount);
 
       if (onLast) {
@@ -92,7 +156,11 @@ const Pager = ({
   );
 
   const handleOnNext = useCallback(
-    (e) => {
+    (
+      e:
+        | React.MouseEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+    ) => {
       const nextPage = page + 1;
       setPage(nextPage);
 
@@ -104,7 +172,11 @@ const Pager = ({
   );
 
   const handleOnPrevious = useCallback(
-    (e) => {
+    (
+      e:
+        | React.MouseEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+    ) => {
       const previousPage = page - 1;
       setPage(previousPage);
 
@@ -118,14 +190,15 @@ const Pager = ({
   const handleOnPagination = useCallback(
     (e) => {
       setValue(e.target.value);
-      setCurrentPageSize(Number(e.target.value));
-      onPagination(1, Number(e.target.value), "page-select");
+      setCurrentPageSize(+e.target.value);
+      onPagination(1, +e.target.value, "page-select");
     },
     [onPagination]
   );
 
   const handleKeyDown = useCallback(
-    (e) => Events.isEnterKey(e) && handleOnPagination(e),
+    (e: React.KeyboardEvent<HTMLInputElement>) =>
+      Events.isEnterKey(e) && handleOnPagination(e),
     [handleOnPagination]
   );
 
@@ -134,7 +207,7 @@ const Pager = ({
       <StyledSelectContainer>
         <Select
           value={String(value)}
-          onChange={(ev) => setValue(ev.target.value)}
+          onChange={(ev) => setValue(+ev.target.value)}
           onBlur={() => setValue(currentPageSize)}
           onKeyDown={handleKeyDown}
           data-element="page-select"
@@ -189,48 +262,6 @@ const Pager = ({
       <StyledPagerSummary>{renderTotalRecords()}</StyledPagerSummary>
     </StyledPagerContainer>
   );
-};
-
-Pager.propTypes = {
-  /** Function called when pager changes (PageSize, Current Page) */
-  onPagination: PropTypes.func.isRequired,
-  /** Callback function for next link */
-  onNext: PropTypes.func,
-  /** Callback function for first link */
-  onFirst: PropTypes.func,
-  /** Callback function for previous link */
-  onPrevious: PropTypes.func,
-  /** Callback function for last link */
-  onLast: PropTypes.func,
-  /** Current visible page */
-  currentPage: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /** Total number of records */
-  totalRecords: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /** Pagination page size */
-  pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /** Set of page size options */
-  pageSizeSelectionOptions: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    })
-  ),
-  /** Should the page size selection dropdown be shown */
-  showPageSizeSelection: PropTypes.bool,
-  /** Should the label before the page size selection dropdown be shown */
-  showPageSizeLabelBefore: PropTypes.bool,
-  /** Should the label after the page size selection dropdown be shown */
-  showPageSizeLabelAfter: PropTypes.bool,
-  /** Should the total records label be shown */
-  showTotalRecords: PropTypes.bool,
-  /** Should the `First` and `Last` navigation button be shown */
-  showFirstAndLastButtons: PropTypes.bool,
-  /** Should the `Previous` and `Next` navigation button be shown */
-  showPreviousAndNextButtons: PropTypes.bool,
-  /** Should the page count input be shown */
-  showPageCount: PropTypes.bool,
-  /** What variant the Pager background should be */
-  variant: PropTypes.oneOf(["default", "alternate"]),
 };
 
 export default Pager;

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import PropTypes from "prop-types";
+
 import {
   StyledPagerNavigation,
   StyledPagerNavInner,
@@ -11,6 +11,49 @@ import createGuid from "../../../__internal__/utils/helpers/guid";
 import PagerNavigationLink from "./pager-navigation-link.component";
 import Label from "../../../__internal__/label";
 import useLocale from "../../../hooks/__internal__/useLocale";
+
+export interface PagerNavigationProps {
+  /** Current visible page */
+  currentPage: number;
+  /** Pagination page size */
+  pageSize: number;
+  /* Count of all of the pages */
+  pageCount: number;
+  /** Sets the current page being shown */
+  setCurrentPage: (page: number) => void;
+  /** Callback function for next link */
+  onNext?: (
+    ev:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>
+  ) => void;
+  /** Callback function for first link */
+  onFirst?: (
+    ev:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>
+  ) => void;
+  /** Callback function for previous link */
+  onPrevious?: (
+    ev:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>
+  ) => void;
+  /** Callback function for last link */
+  onLast?: (
+    ev:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>
+  ) => void;
+  /** onPagination Callback triggered when a change is triggered */
+  onPagination: (pageSize: number, currentPage: number, origin: string) => void;
+  /** Should the `First` and `Last` navigation buttons be shown */
+  showFirstAndLastButtons?: boolean;
+  /** Should the `Next` and `Previous` navigation buttons be shown */
+  showPreviousAndNextButtons?: boolean;
+  /** Should the page count input be shown */
+  showPageCount?: boolean;
+}
 
 const PagerNavigation = ({
   pageSize,
@@ -25,7 +68,7 @@ const PagerNavigation = ({
   showFirstAndLastButtons = true,
   showPreviousAndNextButtons = true,
   showPageCount = true,
-}) => {
+}: PagerNavigationProps) => {
   const l = useLocale();
   const guid = useRef(createGuid());
   const currentPageId = `Pager_${guid.current}`;
@@ -38,32 +81,37 @@ const PagerNavigation = ({
     onPagination,
   };
 
-  const handlePageInputChange = (ev) => {
+  const handlePageInputChange = (
+    ev:
+      | React.KeyboardEvent<HTMLInputElement>
+      | React.FocusEvent<HTMLInputElement>
+  ) => {
+    const pageNumber = +(ev.target as HTMLInputElement).value;
     if (pageCount === 0) {
       setCurrentPage(0);
       onPagination(0, pageSize, "input");
-      return "0";
+      return 0;
     }
 
-    if (Number(ev.target.value) <= 0 || Number.isNaN(Number(ev.target.value))) {
+    if (pageNumber <= 0 || Number.isNaN(pageNumber)) {
       setCurrentPage(1);
       onPagination(1, pageSize, "input");
-      return "1";
+      return 1;
     }
 
-    if (Number(ev.target.value) > pageCount) {
+    if (pageNumber > pageCount) {
       setCurrentPage(pageCount);
       onPagination(pageCount, pageSize, "input");
       return pageCount;
     }
 
-    setCurrentPage(Number(ev.target.value));
-    onPagination(Number(ev.target.value), pageSize, "input");
-    return ev.target.value;
+    setCurrentPage(pageNumber);
+    onPagination(pageNumber, pageSize, "input");
+    return pageNumber;
   };
 
-  const handleCurrentPageChange = (e) => {
-    setCurrentPage(e.target.value);
+  const handleCurrentPageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentPage(+e.target.value);
   };
 
   const renderButtonsBeforeCount = () => (
@@ -128,34 +176,6 @@ const PagerNavigation = ({
       {!hasOnePage && renderButtonsAfterCount()}
     </StyledPagerNavigation>
   );
-};
-
-PagerNavigation.propTypes = {
-  /** Current visible page */
-  currentPage: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-    .isRequired,
-  /** Pagination page size */
-  pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /* Count of all of the pages */
-  pageCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /** Sets the current page being shown */
-  setCurrentPage: PropTypes.func,
-  /** onFirst Callback triggered when first link is triggered */
-  onFirst: PropTypes.func,
-  /** onPrevious Callback triggered when previous link is triggered */
-  onPrevious: PropTypes.func,
-  /** onNext Callback triggered when next link is triggered */
-  onNext: PropTypes.func,
-  /** onLast Callback triggered when last link is triggered */
-  onLast: PropTypes.func,
-  /** onPagination Callback triggered when a change is triggered */
-  onPagination: PropTypes.func,
-  /** Should the `First` and `Last` navigation buttons be shown */
-  showFirstAndLastButtons: PropTypes.bool,
-  /** Should the `Next` and `Previous` navigation buttons be shown */
-  showPreviousAndNextButtons: PropTypes.bool,
-  /** Should the page count input be shown */
-  showPageCount: PropTypes.bool,
 };
 
 export default PagerNavigation;

@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+
+import { PagerProps } from ".";
 import StyledInput from "../../__internal__/input/input.style";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
@@ -17,7 +19,7 @@ const StyledSelectContainer = styled.div`
   }
 `;
 
-const StyledPagerContainer = styled.div`
+const StyledPagerContainer = styled.div<Pick<PagerProps, "variant">>`
   display: flex;
   justify-content: space-between;
   padding: 0px 24px;
@@ -102,7 +104,7 @@ const StyledPagerNavInner = styled.div`
   }
 `;
 
-const StyledPagerLinkStyles = styled(Link)`
+const StyledPagerLink = styled(Link)`
   padding: 0 10px;
   margin-left: 7px;
   margin-right: 7px;
@@ -125,7 +127,7 @@ export {
   StyledPagerSizeOptionsInner,
   StyledPagerNavigation,
   StyledPagerNavInner,
-  StyledPagerLinkStyles,
+  StyledPagerLink,
   StyledPagerNoSelect,
   StyledPagerSummary,
   StyledSelectContainer,
