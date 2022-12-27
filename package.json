@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "111.20.0",
+  "version": "111.22.2",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -100,7 +100,7 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
-    "axe-core": "^3.5.5",
+    "axe-core": "^4.6.1",
     "babel-eslint": "10.0.3",
     "babel-jest": "^26.6.3",
     "babel-plugin-dev-expression": "^0.2.3",

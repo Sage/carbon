@@ -278,7 +278,7 @@ describe("Pager", () => {
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
           ?.textContent
       ).toEqual(
-        wrapper.find(StyledPagerSizeOptionsInner).find("span").first().text()
+        wrapper.find(StyledPagerSizeOptionsInner).find("label").first().text()
       );
       expect(wrapper.find(StyledPagerSizeOptionsInner).exists()).toBeTruthy();
       expect(
@@ -318,7 +318,7 @@ describe("Pager", () => {
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
           ?.textContent
       ).toEqual(
-        wrapper.find(StyledPagerSizeOptionsInner).find("span").first().text()
+        wrapper.find(StyledPagerSizeOptionsInner).find("label").first().text()
       );
       expect(
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild

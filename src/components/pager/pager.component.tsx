@@ -1,8 +1,9 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 
 import { Select, Option } from "../select";
 import PagerNavigation from "./__internal__/pager-navigation.component";
 import useLocale from "../../hooks/__internal__/useLocale";
+import createGuid from "../../__internal__/utils/helpers/guid";
 import {
   StyledPagerContainer,
   StyledPagerSizeOptions,
@@ -99,6 +100,9 @@ export const Pager = ({
   const [page, setPage] = useState<number>(+currentPage);
   const [currentPageSize, setCurrentPageSize] = useState<number>(+pageSize);
   const [value, setValue] = useState<number>(+pageSize);
+
+  const guid = useRef(createGuid());
+  const pageSizeSelectId = `Pager_size_selector_${guid.current}`;
 
   const getPageCount = useCallback(() => {
     if (+totalRecords < 0 || Number.isNaN(+totalRecords)) {
@@ -211,6 +215,7 @@ export const Pager = ({
           onBlur={() => setValue(currentPageSize)}
           onKeyDown={handleKeyDown}
           data-element="page-select"
+          id={pageSizeSelectId}
         >
           {pageSizeSelectionOptions.map((sizeOption) => (
             <Option
@@ -229,7 +234,9 @@ export const Pager = ({
     return (
       showPageSizeSelection && (
         <StyledPagerSizeOptionsInner>
-          {showPageSizeLabelBefore && <span>{l.pager.show()}</span>}
+          {showPageSizeLabelBefore && (
+            <label htmlFor={pageSizeSelectId}>{l.pager.show()}</label>
+          )}
           {sizeSelector()}
           {showPageSizeLabelAfter && (
             <div>{l.pager.records(currentPageSize, false)}</div>

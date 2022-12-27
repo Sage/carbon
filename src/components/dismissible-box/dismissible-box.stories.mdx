@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
-import { action } from "@storybook/addon-actions";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import DismissibleBox from ".";
@@ -36,7 +35,7 @@ import DismissibleBox from "carbon-react/lib/components/dismissible-box";
 <Canvas>
   <Story name="light variant">
     <Box p={2}>
-      <DismissibleBox onClose={(e) => action("onClose")(e)}>
+      <DismissibleBox onClose={() => {}}>
         <Box display="flex">
           <Typography mb={0}>
             Well, that's certainly good to know. Your head is not an artifact!
@@ -67,7 +66,7 @@ import DismissibleBox from "carbon-react/lib/components/dismissible-box";
 <Canvas>
   <Story name="dark variant">
     <Box p={2}>
-      <DismissibleBox variant="dark" onClose={(e) => action("onClose")(e)}>
+      <DismissibleBox variant="dark" onClose={() => {}}>
         <Box display="flex">
           <Typography mb={0}>
             Well, that's certainly good to know. Your head is not an artifact!
@@ -104,7 +103,7 @@ of this functionality.
       <DismissibleBox
         mb={2}
         hasBorderLeftHighlight={false}
-        onClose={(e) => action("onClose")(e)}
+        onClose={() => {}}
       >
         <Box display="flex">
           <Typography mb={0}>
@@ -138,7 +137,7 @@ It is also possible to override the `width` of the component: by default it will
 <Canvas>
   <Story name="width overridden">
     <Box p={2}>
-      <DismissibleBox width="650px" onClose={(e) => action("onClose")(e)}>
+      <DismissibleBox width="650px" onClose={() => {}}>
         <Box display="flex">
           <Typography mb={0}>
             Well, that's certainly good to know. Your head is not an artifact!

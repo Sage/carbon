@@ -1,6 +1,5 @@
 import React from "react";
-import LinkPreview from "./link-preview.component";
-
+import { LinkPreviewComponentTest as LinkPreviewComponent } from "./link-preview-test.stories";
 import { getComponent } from "../../../cypress/locators";
 import {
   linkPreview,
@@ -16,17 +15,6 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testCypress = "test-cypress";
 const urlProp = "./carbon-by-sage-logo.png";
-
-const LinkPreviewComponent = ({ ...props }) => {
-  return (
-    <LinkPreview
-      title="This is an example of a title"
-      url="https://www.sage.com"
-      description="Captain, why are we out here chasing comets?"
-      {...props}
-    />
-  );
-};
 
 context("Test for Link Preview component", () => {
   describe("check props for Link Preview component", () => {
@@ -156,5 +144,22 @@ context("Test for Link Preview component", () => {
           });
       }
     );
+  });
+  describe("Accessibility tests for LinkPreview component", () => {
+    it("should pass accessibilty tests for LinkPreview default story", () => {
+      CypressMountWithProviders(<LinkPreviewComponent />);
+      cy.checkAccessibility();
+    });
+    it("should pass accessibility tests for loading state", () => {
+      CypressMountWithProviders(<LinkPreviewComponent isLoading />);
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for close icon", () => {
+      CypressMountWithProviders(
+        <LinkPreviewComponent onClose={() => cy.log("click")} />
+      );
+      cy.checkAccessibility();
+    });
   });
 });

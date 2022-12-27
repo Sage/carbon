@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useRef, useMemo } from "react";
-
+import { WidthProps } from "styled-system";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { SplitButtonProps } from "../split-button";
 import {
@@ -16,7 +16,8 @@ import {
 import useMenuKeyboardNavigation from "../../hooks/__internal__/useMenuKeyboardNavigation";
 
 export interface MultiActionButtonProps
-  extends Omit<SplitButtonProps, "buttonType"> {
+  extends WidthProps,
+    Omit<SplitButtonProps, "buttonType"> {
   /** Button type: "primary" | "secondary" | "tertiary" */
   buttonType?: "primary" | "secondary" | "tertiary";
   /** Second text child, renders under main text, only when size is "large" */
@@ -31,6 +32,7 @@ export const MultiActionButton = ({
   children,
   text,
   subtext,
+  width,
   "data-element": dataElement,
   "data-role": dataRole,
   ...rest
@@ -155,6 +157,7 @@ export const MultiActionButton = ({
       data-element={dataElement}
       data-role={dataRole}
       displayed={showAdditionalButtons}
+      width={width}
       {...filterStyledSystemMarginProps(rest)}
     >
       <Button
