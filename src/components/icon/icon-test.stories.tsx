@@ -129,3 +129,6 @@ export const All = () => (
     <Icon type="add" color="white" bg="rgb(0, 123, 10)" />
   </>
 );
+
+Default.storyName = "default";
+All.storyName = "all";

@@ -1,6 +1,4 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import { ICONS } from "../icon/icon-config";
 import Detail from "./detail.component";
 
@@ -19,21 +17,17 @@ import Detail from "./detail.component";
         type: "select",
       },
     },
-    footnoteSpecialCharacters: specialCharacters,
-    childrenSpecialCharacters: specialCharacters,
   }}
 />
 
 export const DetailStory = ({
   footnote,
-  footnoteSpecialCharacters,
   children,
-  childrenSpecialCharacters,
   ...args
 }) => (
   <Detail
-    footnote={footnote || footnoteSpecialCharacters}
-    children={children || childrenSpecialCharacters}
+    footnote={footnote}
+    children={children}
     {...args}
   />
 );
@@ -48,9 +42,7 @@ export const DetailStory = ({
     args={{
       icon: null,
       footnote: "This detail may require a footnote.",
-      footnoteSpecialCharacters: undefined,
       children: "An example of a detail.",
-      childrenSpecialCharacters: undefined,
     }}
   >
     {DetailStory.bind({})}

@@ -1,6 +1,4 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import NavigationBar from "./navigation-bar.component";
 
 <Meta
@@ -11,17 +9,13 @@ import NavigationBar from "./navigation-bar.component";
       disable: true,
     },
   }}
-  argTypes={{
-    childrenSpecialCharacters: specialCharacters,
-  }}
 />
 
 export const NavigationBarStory = ({
   children,
-  childrenSpecialCharacters,
   ...args
 }) => (
-  <NavigationBar children={children || childrenSpecialCharacters} {...args} />
+  <NavigationBar children={children} {...args} />
 );
 
 # Navigation Bar
@@ -33,7 +27,6 @@ export const NavigationBarStory = ({
     name="default"
     args={{
       children: "Example content",
-      childrenSpecialCharacters: undefined,
     }}
   >
     {NavigationBarStory.bind({})}

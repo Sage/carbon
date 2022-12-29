@@ -1,7 +1,5 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Pager, { PagerProps } from ".";
 
 export default {
@@ -25,17 +23,10 @@ export default {
         type: "select",
       },
     },
-    totalRecordsSpecialCharacters: specialCharacters,
   },
 };
 
-export const Default = ({
-  totalRecords,
-  totalRecordsSpecialCharacters,
-  ...args
-}: Partial<PagerProps> & {
-  totalRecordsSpecialCharacters: string;
-}) => {
+export const Default = ({ totalRecords, ...args }: Partial<PagerProps>) => {
   const handlePagination = (
     pageSize: number,
     currentPage: number,
@@ -85,7 +76,7 @@ export const Default = ({
       onPrevious={handleOnPrevious}
       onFirst={handleOnFirst}
       onLast={handleOnLast}
-      totalRecords={totalRecords || totalRecordsSpecialCharacters}
+      totalRecords={totalRecords}
       {...args}
     />
   );
@@ -94,7 +85,6 @@ export const Default = ({
 Default.storyName = "default";
 Default.args = {
   totalRecords: "100",
-  totalRecordsSpecialCharacters: undefined,
   showPageSizeSelection: false,
   pageSize: 10,
   currentPage: "1",
