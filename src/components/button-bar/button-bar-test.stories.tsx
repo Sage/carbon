@@ -1,6 +1,4 @@
 import React from "react";
-import { action } from "@storybook/addon-actions";
-
 import Button from "../button";
 import ButtonBar from ".";
 import IconButton from "../icon-button";
@@ -12,6 +10,7 @@ import {
 
 export default {
   title: "Button Bar/Test",
+  includeStories: ["Default", "Preview"],
   parameters: {
     info: { disable: true },
     chromatic: { disable: true },
@@ -36,7 +35,7 @@ const commonArgsButtonBar = {
 };
 
 export const Default = ({ ...args }) => (
-  <ButtonBar onClick={action("click")} {...args}>
+  <ButtonBar {...args}>
     <Button iconType="search">Example Button</Button>
     <Button iconType="pdf">Example Button</Button>
     <Button iconType="csv">Example Button</Button>
@@ -58,7 +57,7 @@ export const Preview = () => {
         </IconButton>
       </ButtonBar>
       {BUTTON_BAR_SIZES.map((size) => (
-        <ButtonBar key={size} size={size} ml={2} mt={2}>
+        <ButtonBar key={`${size}-key`} size={size} ml={2} mt={2}>
           <Button iconType="pdf" />
           <Button iconType="csv" />
           <Button iconType="search" />
