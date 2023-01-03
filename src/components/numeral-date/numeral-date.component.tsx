@@ -120,6 +120,18 @@ export interface NumeralDateProps<DateType extends NumeralDateObject = FullDate>
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Aria label for rendered help component */
   helpAriaLabel?: string;
+  /**
+   * A React ref to pass to the input corresponding to the day
+   */
+  dayRef?: React.ForwardedRef<HTMLInputElement>;
+  /**
+   * A React ref to pass to the input corresponding to the month
+   */
+  monthRef?: React.ForwardedRef<HTMLInputElement>;
+  /**
+   * A React ref to pass to the input corresponding to the year
+   */
+  yearRef?: React.ForwardedRef<HTMLInputElement>;
 }
 
 export type ValidDateFormat = typeof ALLOWED_DATE_FORMATS[number];
@@ -178,6 +190,9 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   enableInternalWarning,
   tooltipPosition,
   helpAriaLabel,
+  dayRef,
+  monthRef,
+  yearRef,
   ...rest
 }: NumeralDateProps<DateType>) => {
   const l = useLocale();
@@ -187,7 +202,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   const isControlled = useRef(value !== undefined);
   const initialValue = isControlled.current ? value : defaultValue;
 
-  const refs = useRef(dateFormat.map(() => React.createRef()));
+  const refs = useRef<(HTMLInputElement | null)[]>(dateFormat.map(() => null));
 
   const [internalMessages, setInternalMessages] = useState<DateType>({
     ...((Object.fromEntries(
@@ -290,7 +305,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
     }
     setTimeout(() => {
       const hasBlurred = !refs.current.find(
-        (ref) => ref.current === document.activeElement
+        (ref) => ref === document.activeElement
       );
       /* istanbul ignore else */
       if (onBlur && hasBlurred) {
@@ -362,6 +377,23 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
               const hasValidationIcon =
                 isStringValidation && !!validation.length;
 
+              let inputRef: React.ForwardedRef<HTMLInputElement> | undefined;
+
+              switch (datePart.slice(0, 2)) {
+                case "dd":
+                  inputRef = dayRef;
+                  break;
+                case "mm":
+                  inputRef = monthRef;
+                  break;
+                case "yy":
+                  inputRef = yearRef;
+                  break;
+                /* istanbul ignore next */
+                default:
+                  break;
+              }
+
               return (
                 <NumeralDateContext.Provider
                   value={{ disableErrorBorder: index !== 0 }}
@@ -384,7 +416,15 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                         handleChange(e, datePart as keyof NumeralDateObject)
                       }
                       ref={(element) => {
-                        refs.current[index] = { current: element };
+                        refs.current[index] = element;
+                        if (!inputRef) {
+                          return;
+                        }
+                        if (typeof inputRef === "function") {
+                          inputRef(element);
+                        } else {
+                          inputRef.current = element;
+                        }
                       }}
                       onBlur={() =>
                         handleBlur(datePart as keyof NumeralDateObject)
