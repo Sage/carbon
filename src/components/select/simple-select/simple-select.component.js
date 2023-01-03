@@ -22,6 +22,9 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import getNextChildByText from "../utils/get-next-child-by-text";
 import isExpectedOption from "../utils/is-expected-option";
 import isNavigationKey from "../utils/is-navigation-key";
+import Logger from "../../../__internal__/utils/logger";
+
+let deprecateInputRefWarnTriggered = false;
 
 const SimpleSelect = React.forwardRef(
   (
@@ -75,6 +78,13 @@ const SimpleSelect = React.forwardRef(
     const [selectedValue, setSelectedValue] = useState(
       value || defaultValue || ""
     );
+
+    if (!deprecateInputRefWarnTriggered && inputRef) {
+      deprecateInputRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `inputRef` prop in `Select` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
 
     const childOptions = useMemo(() => React.Children.toArray(children), [
       children,

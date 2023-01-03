@@ -15,6 +15,7 @@ import Pill from "../../pill";
 import Label from "../../../__internal__/label";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import { InputPresentation } from "../../../__internal__/input";
+import Logger from "../../../__internal__/utils/logger";
 
 describe("MultiSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
@@ -120,6 +121,21 @@ describe("MultiSelect", () => {
   });
 
   describe("when the inputRef function prop is specified", () => {
+    it("should display deprecation warning when the inputRef prop is usedll", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      const inputRefFn = jest.fn();
+      const wrapper = renderSelect({ inputRef: inputRefFn });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `MultiSelect` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      loggerSpy.mockRestore();
+    });
+
     it("then the input reference should be returned on call", () => {
       const inputRefFn = jest.fn();
       const wrapper = renderSelect({ inputRef: inputRefFn });

@@ -15,6 +15,9 @@ import StyledSelect from "../select.style";
 import SelectList from "../select-list/select-list.component";
 import isExpectedOption from "../utils/is-expected-option";
 import isNavigationKey from "../utils/is-navigation-key";
+import Logger from "../../../__internal__/utils/logger";
+
+let deprecateInputRefWarnTriggered = false;
 
 const FilterableSelectList = withFilter(SelectList);
 
@@ -74,6 +77,13 @@ const FilterableSelect = React.forwardRef(
     );
     const [highlightedValue, setHighlightedValue] = useState("");
     const [filterText, setFilterText] = useState("");
+
+    if (!deprecateInputRefWarnTriggered && inputRef) {
+      deprecateInputRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `inputRef` prop in `FilterableSelect` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
 
     const createCustomEvent = useCallback(
       (newValue) => {

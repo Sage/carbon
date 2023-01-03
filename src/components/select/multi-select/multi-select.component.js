@@ -27,6 +27,9 @@ import Pill from "../../pill";
 import isExpectedOption from "../utils/is-expected-option";
 import isExpectedValue from "../utils/is-expected-value";
 import isNavigationKey from "../utils/is-navigation-key";
+import Logger from "../../../__internal__/utils/logger";
+
+let deprecateInputRefWarnTriggered = false;
 
 const FilterableSelectList = withFilter(SelectList);
 
@@ -90,6 +93,13 @@ const MultiSelect = React.forwardRef(
     const [placeholderOverride, setPlaceholderOverride] = useState();
 
     const actualValue = isControlled.current ? value : selectedValue;
+
+    if (!deprecateInputRefWarnTriggered && inputRef) {
+      deprecateInputRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `inputRef` prop in `MultiSelect` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
 
     const setOpen = useCallback(() => {
       setOpenState((isAlreadyOpen) => {
