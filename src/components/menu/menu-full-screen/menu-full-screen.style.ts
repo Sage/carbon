@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { baseTheme } from "../../../style/themes";
 import StyledIconButton from "../../icon-button/icon-button.style";
-import Box from "../../box";
+import StyledBox from "../../box/box.style";
 import StyledSearch from "../../search/search.style";
 import StyledIcon from "../../icon/icon.style";
 import StyledButton from "../../button/button.style";
@@ -90,7 +90,7 @@ const StyledMenuFullscreen = styled.div<StyledMenuFullScreenProps>`
     `}
   `}
 
-  ${Box} {
+  ${StyledBox} {
     &::-webkit-scrollbar {
       width: 16px;
     }

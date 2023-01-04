@@ -61,7 +61,6 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
       overflowY="auto"
       role="navigation"
       scrollVariant="light"
-      theme="[ theme object ]"
     >
       <ContextProvider
         value={
