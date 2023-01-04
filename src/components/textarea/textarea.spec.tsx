@@ -671,7 +671,7 @@ describe("componentWillUnmount", () => {
       );
 
       wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
       loggerSpy.mockRestore();
     });
 

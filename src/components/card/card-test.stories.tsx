@@ -234,13 +234,7 @@ export const DraggableExample = () => {
 
   return (
     <Box width="700px" height="450px">
-      <Box
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-      >
+      <Box display="flex" flexDirection="row" justifyContent="space-around">
         <DndProvider backend={HTML5Backend}>
           <Column
             title={columnNames.PRODUCT_ONE}

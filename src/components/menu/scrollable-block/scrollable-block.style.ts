@@ -3,7 +3,7 @@ import StyledMenuItemWrapper from "../menu-item/menu-item.style";
 import menuConfigVariants from "../menu.config";
 import { MenuType } from "../menu.context";
 import { VariantType } from "../menu-item";
-import Box from "../../box/box.component";
+import StyledBox from "../../box/box.style";
 import { StyledMenuItem } from "../menu.style";
 import { StyledLink } from "../../link/link.style";
 
@@ -20,7 +20,7 @@ const StyledScrollableBlock = styled.li<StyledScrollableBlockProps>`
         : menuConfigVariants[menuType].alternate};
     }
 
-    ${Box} {
+    ${StyledBox} {
       border-radius: var(--borderRadius000);
       border-bottom-left-radius: var(--borderRadius100);
 

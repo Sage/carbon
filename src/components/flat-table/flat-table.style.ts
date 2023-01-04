@@ -7,7 +7,7 @@ import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.s
 import { baseTheme } from "../../style/themes";
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import cellSizes from "./cell-sizes.style";
-import Box from "../box";
+import StyledBox from "../box/box.style";
 import { StyledPagerContainer } from "../pager/pager.style";
 import { FlatTableProps } from "./flat-table.component";
 import { DrawerSidebarContextProps } from "../drawer";
@@ -112,7 +112,7 @@ interface StyledFlatTableWrapperProps
   firstColRowSpanIndex: number;
 }
 
-const StyledFlatTableWrapper = styled(Box)<StyledFlatTableWrapperProps>`
+const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
   border-top-left-radius: var(--borderRadius100);
   border-top-right-radius: var(--borderRadius100);
   ${({ hasStickyFooter, hasHorizontalScrollbar }) =>

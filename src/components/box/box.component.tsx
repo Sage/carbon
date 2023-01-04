@@ -1,21 +1,19 @@
 import React from "react";
-import styled, { css } from "styled-components";
 import {
-  space,
   SpaceProps,
-  layout,
   LayoutProps,
-  flexbox,
   FlexboxProps,
-  ColorProps,
-  position as positionFn,
   PositionProps,
 } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
-import Logger from "../../__internal__/utils/logger";
-import BaseTheme from "../../style/themes/base";
-import styledColor from "../../style/utils/color";
-import boxConfig from "./box.config";
+import {
+  filterStyledSystemMarginProps,
+  filterStyledSystemPaddingProps,
+  filterStyledSystemLayoutProps,
+  filterStyledSystemFlexboxProps,
+} from "../../style/utils";
+import StyledBox from "./box.style";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 const GAP_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const;
 
@@ -33,18 +31,24 @@ export interface BoxProps
   extends SpaceProps,
     LayoutProps,
     FlexboxProps,
-    ColorProps,
+    TagProps,
     Omit<PositionProps, "zIndex"> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+  /** Set the ID attribute of the Box component */
+  id?: string;
+  /** Content to be rendered inside the Box component */
+  children?: React.ReactNode;
+  /** Set the Role attribute of the Box component */
+  role?: string;
   /** String to set Box content break strategy. Note "anywhere" is not supported in Safari */
   overflowWrap?: OverflowWrap;
-  /** scroll styling attribute */
+  /** Scroll styling attribute */
   scrollVariant?: ScrollVariant;
-  /** set the box-sizing attribute of the Box component */
+  /** Set the box-sizing attribute of the Box component */
   boxSizing?: BoxSizing;
   /** Allows a tabindex to be specified */
-  tabIndex?: number | string;
+  tabIndex?: number;
   /** Gap, an integer multiplier of the base spacing constant (8px) or any valid CSS string." */
   gap?: Gap;
   /** Column gap, an integer multiplier of the base spacing constant (8px) or any valid CSS string." */
@@ -55,103 +59,75 @@ export interface BoxProps
   boxShadow?: BoxShadowsType;
   /** Design Token for Border Radius. Note: please check that the border radius design token you are using is compatible with the Box component. **This prop will not do anything if you have the roundedCornerOptOut flag set in the CarbonProvider** */
   borderRadius?: BorderRadiusType;
+  /** @private @ignore */
+  className?: string;
+  /** Set the color attribute of the Box component */
+  color?: string;
+  /** Set the bg attribute of the Box component */
+  bg?: string;
+  /** Set the backgroundColor attribute of the Box component */
+  backgroundColor?: string;
+  /** Set the opacity attribute of the Box component */
+  opacity?: string | number;
 }
 
-let isDeprecationWarningTriggered = false;
-
-const calculatePosition = (props: Omit<PositionProps, "zIndex">) => {
-  const { position, ...rest } = positionFn(props);
-
-  return {
-    position,
-    zIndex: ["sticky", "fixed"].includes(position) ? 1 : undefined,
-    ...rest,
-  };
-};
-
-export const Box = styled.div<BoxProps>`
-  ${() => {
-    if (!isDeprecationWarningTriggered) {
-      isDeprecationWarningTriggered = true;
-      Logger.deprecate(
-        "Previous props that could be spread to the `Box` component are being removed. Only props documented in the intefaces will be supported."
-      );
-    }
-    return css``;
-  }}
-
-  ${space}
-  ${layout}
-  ${flexbox}
-  ${calculatePosition}
-
-  ${({ theme, borderRadius = "borderRadius000" }) =>
-    !theme.roundedCornersOptOut &&
-    css`
-      border-radius: var(--${borderRadius});
-    `}
-
-  ${({ color, bg, backgroundColor, ...rest }) =>
-    styledColor({ color, bg, backgroundColor, ...rest })}
-
-  ${({ overflowWrap }) =>
-    overflowWrap &&
-    css`
-      overflow-wrap: ${overflowWrap};
-    `}
-
-  ${({ scrollVariant }) =>
-    scrollVariant &&
-    css`
-      scrollbar-color: ${boxConfig[scrollVariant].thumb}
-        ${boxConfig[scrollVariant].track};
-
-      &::-webkit-scrollbar {
-        width: 8px;
-      }
-      &::-webkit-scrollbar-track {
-        background-color: ${boxConfig[scrollVariant].track};
-      }
-      &::-webkit-scrollbar-thumb {
-        background-color: ${boxConfig[scrollVariant].thumb};
-      }
-    `}
-
-  ${({ boxSizing }) =>
-    boxSizing &&
-    css`
-      box-sizing: ${boxSizing};
-    `}
-
-    ${({ display, gap, columnGap, rowGap }) =>
-    (display === "flex" || display === "inline-flex") &&
-    css`
-      ${gap !== undefined &&
-      css`
-        gap: ${boxConfig.gap(gap)};
-      `}
-
-      ${columnGap !== undefined &&
-      css`
-        column-gap: ${boxConfig.gap(columnGap)};
-      `}
-
-      ${rowGap !== undefined &&
-      css`
-        row-gap: ${boxConfig.gap(rowGap)};
-      `}
-    `};
-
-  ${({ boxShadow }) =>
-    boxShadow &&
-    css`
-      box-shadow: var(--${boxShadow});
-    `}
-`;
-
-Box.defaultProps = {
-  theme: BaseTheme,
-};
+export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
+  (
+    {
+      "data-component": dataComponent,
+      as,
+      id,
+      role,
+      overflowWrap,
+      scrollVariant,
+      boxSizing,
+      tabIndex,
+      gap,
+      columnGap,
+      rowGap,
+      className,
+      children,
+      bg,
+      backgroundColor,
+      boxShadow,
+      borderRadius,
+      color,
+      opacity,
+      ...rest
+    }: BoxProps,
+    ref
+  ) => {
+    return (
+      <StyledBox
+        as={as}
+        id={id}
+        role={role}
+        overflowWrap={overflowWrap}
+        scrollVariant={scrollVariant}
+        boxSizing={boxSizing}
+        gap={gap}
+        columnGap={columnGap}
+        rowGap={rowGap}
+        tabIndex={tabIndex}
+        className={className}
+        ref={ref}
+        bg={bg}
+        backgroundColor={backgroundColor}
+        boxShadow={boxShadow}
+        borderRadius={borderRadius}
+        color={color}
+        opacity={opacity}
+        {...tagComponent(dataComponent, rest)}
+        {...filterStyledSystemMarginProps(rest)}
+        {...filterStyledSystemPaddingProps(rest)}
+        {...filterStyledSystemFlexboxProps(rest)}
+        {...filterStyledSystemLayoutProps(rest)}
+      >
+        {children}
+      </StyledBox>
+    );
+  }
+);
 
 Box.displayName = "Box";
 export default Box;
