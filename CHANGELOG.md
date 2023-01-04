@@ -1,3 +1,10 @@
+### [111.22.3](https://github.com/Sage/carbon/compare/v111.22.2...v111.22.3) (2023-01-04)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** ensure no crash when clicking outside a submenu ([c1f2bdb](https://github.com/Sage/carbon/commit/c1f2bdbe8ef28be5de2f79398091876cfc491255)), closes [#5682](https://github.com/Sage/carbon/issues/5682)
+
 ### [111.22.2](https://github.com/Sage/carbon/compare/v111.22.1...v111.22.2) (2022-12-23)
 
 
