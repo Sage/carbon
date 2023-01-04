@@ -81,7 +81,7 @@ export const CardComponent = (props: Partial<CardProps>) => {
       </CardRow>
       <CardRow>
         <CardColumn>
-          <Typography fontSize="16px" m={0} weight="bold">
+          <Typography fontSize="16px" m={0} fontWeight="bold">
             Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />
@@ -259,7 +259,7 @@ export const CardTextAlignment = ({ ...props }) => {
     <Card>
       <CardRow>
         <CardColumn {...props}>
-          <Typography fontSize="16px" m={0} weight="bold">
+          <Typography fontSize="16px" m={0} fontWeight="bold">
             Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />
