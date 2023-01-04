@@ -1,8 +1,9 @@
 import styled, { css } from "styled-components";
 import { padding } from "styled-system";
 import { baseTheme } from "../../../style/themes";
+import { TileFooterProps } from "./tile-footer.component";
 
-const getBackgroundColor = (variant) => {
+const getBackgroundColor = (variant: TileFooterProps["variant"]) => {
   switch (variant) {
     case "transparent":
       return "transparent";
@@ -13,7 +14,7 @@ const getBackgroundColor = (variant) => {
   }
 };
 
-const StyledTileFooter = styled.div`
+const StyledTileFooter = styled.div<{ variant: TileFooterProps["variant"] }>`
   ${padding}
 
   ${({ variant }) => css`

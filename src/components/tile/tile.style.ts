@@ -1,10 +1,21 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-import { space } from "styled-system";
+import { space, SpaceProps } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import computeWidth from "../../style/utils/width";
+import { TileProps } from "./tile.component";
 
-const getBorderColor = (borderVariant) => {
+type StyledTileProps = Pick<
+  TileProps,
+  "borderWidth" | "borderVariant" | "variant" | "width"
+> & { isHorizontal?: boolean } & SpaceProps;
+
+interface TileContentProps {
+  isHorizontal?: boolean;
+  isVertical?: boolean;
+  width?: string | number;
+}
+
+const getBorderColor = (borderVariant: TileProps["borderVariant"]) => {
   switch (borderVariant) {
     case "selected":
       return "var(--colorsUtilityYin100)";
@@ -21,7 +32,7 @@ const getBorderColor = (borderVariant) => {
   }
 };
 
-const TileContent = styled.div`
+const TileContent = styled.div<TileContentProps>`
   ${({ isHorizontal, isVertical, width }) => css`
     ${space}
 
@@ -68,35 +79,35 @@ const TileContent = styled.div`
     ${width &&
     css`
       flex-grow: 0;
-      ${computeWidth}
+      ${computeWidth({ width })}
     `}
   `}
 `;
 
-const StyledTile = styled.div`
+const StyledTile = styled.div<StyledTileProps>`
   ${({
-    isHorizontal,
-    tileTheme,
-    width,
-    borderWidth = "borderWidth100",
     borderVariant,
+    borderWidth = "borderWidth100",
+    isHorizontal,
+    variant,
+    width,
   }) => css`
     ${space}
 
     box-sizing: border-box;
     border: var(--${borderWidth}) solid ${getBorderColor(borderVariant)};
 
-    ${tileTheme === "tile" &&
+    ${variant === "tile" &&
     css`
       background-color: var(--colorsUtilityYang100);
     `}
 
-    ${tileTheme === "transparent" &&
+    ${variant === "transparent" &&
     css`
       background-color: transparent;
     `}
 
-    ${tileTheme === "active" &&
+    ${variant === "active" &&
     css`
       background-color: var(--colorsActionMajor025);
       border-color: var(--colorsActionMajor500);
@@ -109,26 +120,13 @@ const StyledTile = styled.div`
 
     ${width &&
     css`
-      ${computeWidth}
+      ${computeWidth({ width })}
     `}
   `}
 `;
 
-TileContent.propTypes = {
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-};
-
 TileContent.defaultProps = {
   theme: baseTheme,
-};
-
-StyledTile.propTypes = {
-  orientation: PropTypes.string,
-  padding: PropTypes.string,
-  tileTheme: PropTypes.string,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  borderWidth: PropTypes.string,
-  borderVariant: PropTypes.string,
 };
 
 StyledTile.defaultProps = {

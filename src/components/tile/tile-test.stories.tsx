@@ -1,6 +1,5 @@
 import React from "react";
-import Tile from ".";
-import { TileProps } from "./tile";
+import Tile, { TileProps } from ".";
 import Content from "../content";
 import { TILE_ORIENTATIONS, TILE_THEMES } from "./tile.config";
 
