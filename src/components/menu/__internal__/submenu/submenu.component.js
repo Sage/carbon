@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React, {
   useCallback,
   useEffect,
@@ -14,11 +13,16 @@ import { StyledSubmenu, StyledSubmenuWrapper } from "./submenu.style";
 import Link from "../../../link";
 import Events from "../../../../__internal__/utils/helpers/events";
 import MenuContext from "../../menu.context";
-import MenuItem from "../../menu-item";
 import { characterNavigation } from "../keyboard-navigation";
-import ScrollableBlock from "../../scrollable-block";
 import SubmenuContext from "./submenu.context";
 import useClickAwayListener from "../../../../hooks/__internal__/useClickAwayListener";
+import guid from "../../../../__internal__/utils/helpers/guid";
+import {
+  SCROLLABLE_BLOCK,
+  SCROLLABLE_BLOCK_PARENT,
+  BLOCK_INDEX_SELECTOR,
+  ALL_CHILDREN_SELECTOR,
+} from "../locators";
 
 const Submenu = React.forwardRef(
   (
@@ -38,54 +42,55 @@ const Submenu = React.forwardRef(
       onSubmenuOpen,
       onSubmenuClose,
       onClick,
-      indexInMenu,
       ...rest
     },
     ref
   ) => {
-    const [blockDoubleFocus, setBlockDoubleFocus] = useState(false);
+    const submenuRef = useRef(null);
+    const submenuId = useRef(guid());
     const menuContext = useContext(MenuContext);
-    const {
-      inFullscreenView,
-      openSubmenuIndex,
-      setOpenSubmenuIndex,
-    } = menuContext;
+    const { inFullscreenView, openSubmenuId, setOpenSubmenuId } = menuContext;
     const [submenuOpen, setSubmenuOpen] = useState(false);
-    const [submenuFocusIndex, setSubmenuFocusIndex] = useState(undefined);
+    const [submenuFocusId, setSubmenuFocusId] = useState(null);
+    const [submenuItemIds, setSubmenuItemIds] = useState([]);
     const [characterString, setCharacterString] = useState("");
-    const formattedChildren = React.Children.map(children, (child) => {
-      if (child.type === ScrollableBlock) {
-        const blockChildren = [...child.props.children];
+    const shiftTabPressed = useRef(false);
 
-        if (child.props.parent) {
-          blockChildren.unshift(<MenuItem>{child.props.parent}</MenuItem>);
-        }
+    const registerItem = useCallback((id) => {
+      setSubmenuItemIds((prevState) => {
+        return [...prevState, id];
+      });
+    }, []);
 
-        return blockChildren;
-      }
+    const unregisterItem = useCallback((id) => {
+      setSubmenuItemIds((prevState) => {
+        return prevState.filter((itemId) => itemId !== id);
+      });
+    }, []);
 
-      return child;
-    });
-
-    const arrayOfFormattedChildren = React.Children.toArray(formattedChildren);
-
-    const numberOfChildren = useMemo(
-      () => React.Children.count(formattedChildren),
-      [formattedChildren]
-    );
+    const numberOfChildren = submenuItemIds.length;
 
     const blockIndex = useMemo(() => {
-      const childrenArray = React.Children.toArray(children);
-      let index = childrenArray.findIndex(
-        (item) => item.type === ScrollableBlock
-      );
+      if (submenuOpen && numberOfChildren) {
+        const childrenArray = Array.from(
+          submenuRef.current?.querySelectorAll(BLOCK_INDEX_SELECTOR)
+        );
 
-      if (childrenArray[index]?.props.parent) {
-        index += 1;
+        const scrollableBlock = submenuRef.current?.querySelector(
+          `[data-component='${SCROLLABLE_BLOCK}']`
+        );
+
+        const index = childrenArray.indexOf(scrollableBlock);
+
+        return scrollableBlock?.querySelector(
+          `[data-component='${SCROLLABLE_BLOCK_PARENT}']`
+        )
+          ? index + 1
+          : index;
       }
 
-      return index;
-    }, [children]);
+      return -1;
+    }, [submenuOpen, numberOfChildren]);
 
     const characterTimer = useRef();
 
@@ -102,29 +107,39 @@ const Submenu = React.forwardRef(
 
     const openSubmenu = useCallback(() => {
       setSubmenuOpen(true);
-      setOpenSubmenuIndex(indexInMenu);
-      if (onSubmenuOpen) onSubmenuOpen();
-    }, [onSubmenuOpen, indexInMenu, setOpenSubmenuIndex]);
+      setOpenSubmenuId(submenuId.current);
+      if (onSubmenuOpen) {
+        onSubmenuOpen();
+      }
+    }, [onSubmenuOpen, setOpenSubmenuId]);
 
     const closeSubmenu = useCallback(() => {
+      shiftTabPressed.current = false;
       setSubmenuOpen(false);
-      if (openSubmenuIndex === indexInMenu) {
-        setOpenSubmenuIndex(null);
+      setSubmenuFocusId(null);
+      if (onSubmenuClose) {
+        onSubmenuClose();
       }
-      if (onSubmenuClose) onSubmenuClose();
-      setSubmenuFocusIndex(undefined);
-      setBlockDoubleFocus(false);
       setCharacterString("");
-    }, [onSubmenuClose, setOpenSubmenuIndex, indexInMenu, openSubmenuIndex]);
+    }, [onSubmenuClose]);
 
     useEffect(() => {
-      if (openSubmenuIndex !== indexInMenu) {
+      if (openSubmenuId && openSubmenuId !== submenuId.current) {
         closeSubmenu();
       }
-    }, [openSubmenuIndex, indexInMenu, closeSubmenu]);
+    }, [openSubmenuId, closeSubmenu]);
+
+    const findCurrentIndex = useCallback(
+      (id) => {
+        const index = submenuItemIds.findIndex((itemId) => itemId === id);
+
+        return index === -1 ? 0 : index;
+      },
+      [submenuItemIds]
+    );
 
     const handleKeyDown = useCallback(
-      (event, index = submenuFocusIndex) => {
+      (event) => {
         if (!submenuOpen) {
           if (
             Events.isEnterKey(event) ||
@@ -134,50 +149,61 @@ const Submenu = React.forwardRef(
           ) {
             event.preventDefault();
             openSubmenu();
-            if (!href) {
-              setSubmenuFocusIndex(0);
-            }
-          }
-
-          if (!event.defaultPrevented) {
-            menuContext.handleKeyDown(event);
           }
         }
 
         if (submenuOpen) {
+          const index = findCurrentIndex(submenuFocusId);
           let nextIndex = index;
+
+          if (href && !submenuFocusId) {
+            if (
+              Events.isDownKey(event) ||
+              Events.isUpKey(event) ||
+              (Events.isTabKey(event) && !Events.isShiftKey(event))
+            ) {
+              event.preventDefault();
+              setSubmenuFocusId(submenuItemIds[0]);
+              return;
+            }
+          }
+
           if (Events.isTabKey(event) && !Events.isShiftKey(event)) {
-            if (index === numberOfChildren - 1) {
+            if (nextIndex === numberOfChildren - 1) {
               closeSubmenu();
               return;
             }
-            nextIndex = index + 1;
-            setBlockDoubleFocus(true);
+
+            shiftTabPressed.current = false;
+            nextIndex += 1;
           }
 
           if (Events.isTabKey(event) && Events.isShiftKey(event)) {
-            if (index === 0) {
+            if (nextIndex === 0) {
               closeSubmenu();
               return;
             }
-            nextIndex = index - 1;
-            setBlockDoubleFocus(true);
+
+            shiftTabPressed.current = true;
+            nextIndex -= 1;
           }
 
           if (Events.isDownKey(event)) {
             event.preventDefault();
-            if (index < numberOfChildren - 1) {
-              nextIndex = index + 1;
+            shiftTabPressed.current = false;
+
+            if (nextIndex < numberOfChildren - 1) {
+              nextIndex += 1;
             }
-            setBlockDoubleFocus(false);
           }
 
           if (Events.isUpKey(event)) {
             event.preventDefault();
-            if (index > 0) {
-              nextIndex = index - 1;
+            shiftTabPressed.current = false;
+
+            if (nextIndex > 0) {
+              nextIndex -= 1;
             }
-            setBlockDoubleFocus(false);
           }
 
           if (Events.isEscKey(event)) {
@@ -188,16 +214,19 @@ const Submenu = React.forwardRef(
 
           if (Events.isHomeKey(event)) {
             event.preventDefault();
+            shiftTabPressed.current = false;
             nextIndex = 0;
           }
 
           if (Events.isEndKey(event)) {
             event.preventDefault();
+            shiftTabPressed.current = false;
             nextIndex = numberOfChildren - 1;
           }
 
           if (event.key.length === 1) {
             event.stopPropagation();
+            shiftTabPressed.current = false;
 
             if (characterTimer.current) {
               restartCharacterTimeout();
@@ -216,47 +245,23 @@ const Submenu = React.forwardRef(
             setTimeout(() => closeSubmenu());
           }
 
-          if (href && index === undefined) {
-            if (
-              Events.isEnterKey(event) ||
-              (Events.isTabKey(event) && Events.isShiftKey(event))
-            ) {
-              closeSubmenu();
-              return;
-            }
-
-            if (
-              Events.isSpaceKey(event) ||
-              Events.isDownKey(event) ||
-              Events.isUpKey(event) ||
-              Events.isTabKey(event)
-            ) {
-              nextIndex = 0;
-            }
+          if (href && Events.isEnterKey(event)) {
+            closeSubmenu();
+            return;
           }
 
-          // Defensive check in case an unhandled key event from a child component
-          // has bubbled up
-          if (!nextIndex && nextIndex !== 0) return;
-
-          // Check that next index contains a MenuItem
-          // If not, call handleKeyDown again
-          const nextChild = arrayOfFormattedChildren[nextIndex];
-
-          if (nextChild?.type === MenuItem) {
-            setSubmenuFocusIndex(nextIndex);
-          } else {
-            handleKeyDown(event, nextIndex);
+          if (nextIndex !== index) {
+            setSubmenuFocusId(submenuItemIds[nextIndex]);
           }
         }
       },
       [
-        submenuFocusIndex,
+        submenuItemIds,
         submenuOpen,
         href,
-        menuContext,
-        arrayOfFormattedChildren,
         numberOfChildren,
+        submenuFocusId,
+        findCurrentIndex,
         openSubmenu,
         closeSubmenu,
         onKeyDown,
@@ -265,6 +270,12 @@ const Submenu = React.forwardRef(
         startCharacterTimeout,
       ]
     );
+
+    useEffect(() => {
+      if (submenuOpen && !href && !submenuFocusId && submenuItemIds.length) {
+        setSubmenuFocusId(submenuItemIds[0]);
+      }
+    }, [submenuOpen, href, submenuFocusId, submenuItemIds]);
 
     const handleClickAway = () => {
       document.removeEventListener("click", handleClickAway);
@@ -281,16 +292,16 @@ const Submenu = React.forwardRef(
 
     useEffect(() => {
       if (characterString !== "") {
-        const nextIndex = characterNavigation(
-          characterString,
-          React.Children.toArray(formattedChildren),
-          submenuFocusIndex
+        const submenuChildren = Array.from(
+          submenuRef.current?.querySelectorAll(ALL_CHILDREN_SELECTOR)
         );
+        const nextItem = characterNavigation(characterString, submenuChildren);
 
-        setSubmenuFocusIndex(nextIndex);
+        if (nextItem) {
+          setSubmenuFocusId(nextItem.id);
+        }
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [characterString]);
+    }, [characterString, submenuItemIds]);
 
     const handleClickInside = useClickAwayListener(handleClickAway);
 
@@ -322,19 +333,19 @@ const Submenu = React.forwardRef(
             variant={variant}
             menuType={menuContext.menuType}
             inFullscreenView={inFullscreenView}
+            ref={submenuRef}
           >
-            {React.Children.map(children, (child, index) => (
-              <SubmenuContext.Provider
-                value={{
-                  isFocused: submenuFocusIndex === index,
-                  focusIndex: submenuFocusIndex,
-                  handleKeyDown,
-                  blockIndex,
-                }}
-              >
-                {child}
-              </SubmenuContext.Provider>
-            ))}
+            <SubmenuContext.Provider
+              value={{
+                handleKeyDown,
+                blockIndex,
+                registerItem,
+                unregisterItem,
+                updateFocusId: setSubmenuFocusId,
+              }}
+            >
+              {children}
+            </SubmenuContext.Provider>
           </StyledSubmenu>
         </StyledSubmenuWrapper>
       );
@@ -347,6 +358,7 @@ const Submenu = React.forwardRef(
         onMouseLeave={() => closeSubmenu()}
         isSubmenuOpen={submenuOpen}
         onClick={handleClickInside}
+        ref={submenuRef}
       >
         <StyledMenuItemWrapper
           {...rest}
@@ -378,20 +390,19 @@ const Submenu = React.forwardRef(
             menuType={menuContext.menuType}
             role={blockIndex === 0 ? "presentation" : "list"}
           >
-            {React.Children.map(children, (child, index) => (
-              <SubmenuContext.Provider
-                value={{
-                  isFocused: !blockDoubleFocus && submenuFocusIndex === index,
-                  focusIndex: submenuFocusIndex,
-                  handleKeyDown,
-                  blockIndex,
-                  updateFocusIndex: setSubmenuFocusIndex,
-                  itemIndex: child.type === MenuItem ? index : undefined,
-                }}
-              >
-                {child}
-              </SubmenuContext.Provider>
-            ))}
+            <SubmenuContext.Provider
+              value={{
+                submenuFocusId,
+                handleKeyDown,
+                blockIndex,
+                registerItem,
+                unregisterItem,
+                updateFocusId: setSubmenuFocusId,
+                shiftTabPressed: shiftTabPressed.current,
+              }}
+            >
+              {children}
+            </SubmenuContext.Provider>
           </StyledSubmenu>
         )}
       </StyledSubmenuWrapper>
@@ -434,8 +445,6 @@ Submenu.propTypes = {
   onSubmenuClose: PropTypes.func,
   /** Callback triggered when the top-level menu item is clicked */
   onClick: PropTypes.func,
-  /** index of child in the parent menu */
-  indexInMenu: PropTypes.number,
 };
 
 export default Submenu;

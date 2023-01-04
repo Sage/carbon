@@ -93,7 +93,6 @@ const MenuFullscreen = ({
                     inFullscreenView: true,
                     menuType,
                     inMenu: true,
-                    setOpenSubmenuIndex: () => {},
                   }}
                 >
                   {React.Children.map(children, (child, index) => (
