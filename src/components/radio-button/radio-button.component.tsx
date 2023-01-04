@@ -33,6 +33,8 @@ export interface RadioButtonProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Aria label for rendered help component */
   helpAriaLabel?: string;
+  /** A callback to retrieve the input reference (deprecated) */
+  inputRef?: React.Ref<HTMLInputElement>;
 }
 
 let deprecateInputRefWarnTriggered = false;
@@ -132,8 +134,7 @@ export const RadioButton = React.forwardRef<
        */
       reverse: !reverse,
       required,
-      inputRef: ref,
-      ref,
+      ref: ref || inputRef,
       ...props,
     };
 

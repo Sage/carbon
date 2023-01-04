@@ -26,8 +26,6 @@ export interface CommonHiddenCheckableInputProps
   onMouseEnter?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** Value of the input */
   value?: string;
-  /** A callback to retrieve the input reference */
-  inputRef?: React.Ref<HTMLInputElement>;
 }
 
 export interface HiddenCheckableInputProps
@@ -45,7 +43,6 @@ const HiddenCheckableInput = React.forwardRef(
       checked,
       type,
       value,
-      inputRef,
       onChange,
       autoFocus,
       role,
@@ -107,7 +104,7 @@ const HiddenCheckableInput = React.forwardRef(
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onChange={onChange}
-        ref={ref || inputRef}
+        ref={ref}
       />
     );
   }

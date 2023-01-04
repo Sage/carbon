@@ -36,6 +36,8 @@ export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Aria label for rendered help component */
   helpAriaLabel?: string;
+  /** A callback to retrieve the input reference (deprecated) */
+  inputRef?: React.Ref<HTMLInputElement>;
 }
 
 let deprecateInputRefWarnTriggered = false;
@@ -152,6 +154,7 @@ export const Switch = React.forwardRef(
       role: "switch",
       reverse: !reverse, // switched to preserve backward compatibility
       validationOnLabel: shouldValidationBeOnLabel && !disabled,
+      ref: ref || inputRef,
       ...rest,
     };
 
