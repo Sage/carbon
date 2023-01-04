@@ -1,6 +1,7 @@
 import "./commands";
 import "cypress-each";
 import "cypress-real-events/support";
+import "cypress-axe";
 import { mount } from "cypress/react";
 import DEBUG_FLAG from "./e2e";
 import { CY_ROOT } from "../locators/locators";
@@ -37,31 +38,11 @@ Cypress.Commands.add("checkAccessibility", () => {
     },
   };
 
-  const terminalLog = (violations) => {
-    cy.task(
-      "log",
-      `${violations.length} accessibility violation${
-        violations.length === 1 ? "" : "s"
-      } ${violations.length === 1 ? "was" : "were"} detected`
-    );
-    // pluck specific keys to keep the table readable
-    const violationData = violations.map(
-      ({ id, impact, description, nodes }) => ({
-        id,
-        impact,
-        description,
-        nodes: nodes.length,
-      })
-    );
-
-    cy.task("table", violationData);
-  };
-
   cy.get(CY_ROOT).then((root) => {
     root.addClass("cypress_axe_class");
   });
 
   return cy.injectAxe().then(() => {
-    cy.checkA11y(".cypress_axe_class", A11YOptions, terminalLog);
+    cy.checkA11y(".cypress_axe_class", A11YOptions);
   });
 });

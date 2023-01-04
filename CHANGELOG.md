@@ -1,3 +1,17 @@
+### [111.22.2](https://github.com/Sage/carbon/compare/v111.22.1...v111.22.2) (2022-12-23)
+
+
+### Bug Fixes
+
+* **simple-color-picker:** make simple-color ids unique ([678d838](https://github.com/Sage/carbon/commit/678d8388aff4a1264e266265cec2f487f938b399))
+
+### [111.22.1](https://github.com/Sage/carbon/compare/v111.22.0...v111.22.1) (2022-12-21)
+
+
+### Bug Fixes
+
+* **tabs:** fix an issue with infinite rerender when numeral date is rendered as a child ([0b046f0](https://github.com/Sage/carbon/commit/0b046f0d507d43e1bf050394c53e5913dfbfe383))
+
 ## [111.22.0](https://github.com/Sage/carbon/compare/v111.21.1...v111.22.0) (2022-12-19)
 
 

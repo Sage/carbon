@@ -81,6 +81,7 @@ FlatTableRowHeader.propTypes = {
   ...paddingPropTypes,
   /** Content alignment */
   align: PropTypes.oneOf(["center", "left", "right"]),
+  /** RowHeader content */
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   /** Column width, pass a number to set a fixed width in pixels */
   width: PropTypes.number,

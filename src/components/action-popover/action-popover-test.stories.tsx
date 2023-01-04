@@ -260,7 +260,7 @@ export const ActionPopoverWithProps = ({ ...props }) => {
           <FlatTableRow>
             <FlatTableHeader>First Name</FlatTableHeader>
             <FlatTableHeader>Last Name</FlatTableHeader>
-            <FlatTableHeader>&nbsp;</FlatTableHeader>
+            <FlatTableHeader>Third Column</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
