@@ -1,6 +1,7 @@
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import LinkPreview from ".";
+import * as stories from "./link-preview.stories.tsx";
 
 <Meta title="Link Preview" parameters={{ info: { disable: true } }} />
 
@@ -27,13 +28,7 @@ be focused via tabbing and pressing enter or clicking will open the target in a 
 props which can be seen in the table below. If no `image` props are passed a placeholder will be used.
 
 <Canvas>
-  <Story name="default">
-    <LinkPreview
-      title="This is an example of a title"
-      url="https://www.sage.com"
-      description="Captain, why are we out here chasing comets? I'd like to think that I haven't changed those things, sir. Computer, lights up! Not if I weaken first. Damage report! Yesterday I did not know how to eat gagh. The Federation's gone; the Borg is everywhere! We know you're dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Our neural pathways have become accustomed to your sensory input patterns. Wouldn't that bring about chaos?"
-    />
-  </Story>
+  <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
 ### With loading state
@@ -42,9 +37,7 @@ If no `url` is passed or the `isLoading` prop is true the component will display
 renders as a `div` element: it cannot be focused via tabbing and clicking will not trigger anything.
 
 <Canvas>
-  <Story name="with loading state">
-    <LinkPreview isLoading />
-  </Story>
+  <Story name="with loading state" story={stories.LinkPreviewLoadingState} />
 </Canvas>
 
 ### With close icon
@@ -54,19 +47,11 @@ a close icon and pass the callback to it. The icon can be focused via tabbing an
 via pressing enter or space when focused.
 
 <Canvas>
-  <Story name="with close icon">
-    <LinkPreview
-      as="div"
-      onClose={() => console.log("close icon clicked")}
-      title="This is an example of a title"
-      url="https://www.sage.com"
-      description="Captain, why are we out here chasing comets? I'd like to think that I haven't changed those things, sir. Computer, lights up! Not if I weaken first. Damage report! Yesterday I did not know how to eat gagh. The Federation's gone; the Borg is everywhere! We know you're dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Our neural pathways have become accustomed to your sensory input patterns. Wouldn't that bring about chaos?"
-    />
-  </Story>
+  <Story name="with close icon" story={stories.LinkPreviewCloseIcon} />
 </Canvas>
 
 ## Props
 
 ### LinkPreview
 
-<ArgsTable of={LinkPreview} />
+<StyledSystemProps margin of={LinkPreview} />

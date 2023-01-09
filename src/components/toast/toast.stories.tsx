@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { action } from "@storybook/addon-actions";
 import styled from "styled-components";
 
 import Toast from ".";
@@ -7,7 +6,7 @@ import Button from "../button";
 import Icon from "../icon";
 import isChromatic from "../../../.storybook/isChromatic";
 
-const isOpenForChromatic = isChromatic();
+const defaultOpenState = isChromatic();
 
 const StyledButton = styled(Button)<{ isOpen: boolean }>`
   position: absolute;
@@ -26,7 +25,6 @@ export const Default = () => {
       window.scrollTo(0, 0);
     }
     setIsOpen(!isOpen);
-    action("open")(!isOpen);
   };
 
   return (
@@ -53,7 +51,6 @@ export const Info = () => {
       window.scrollTo(0, 0);
     }
     setIsOpen(!isOpen);
-    action("open")(!isOpen);
   };
 
   return (
@@ -80,7 +77,6 @@ export const Error = () => {
       window.scrollTo(0, 0);
     }
     setIsOpen(!isOpen);
-    action("open")(!isOpen);
   };
 
   return (
@@ -107,7 +103,6 @@ export const Warning = () => {
       window.scrollTo(0, 0);
     }
     setIsOpen(!isOpen);
-    action("open")(!isOpen);
   };
 
   return (
@@ -140,7 +135,6 @@ export const Notice = () => {
       window.scrollTo(0, 0);
     }
     setIsOpen(!isOpen);
-    action("open")(!isOpen);
   };
 
   return (
@@ -167,21 +161,14 @@ export const Notice = () => {
 
 export const LeftAligned = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const onDismissClick = (
-    ev?:
-      | KeyboardEvent
-      | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onDismissClick = () => {
     setIsOpen(!isOpen);
-    action("click")(ev);
   };
   const handleToggle = () => {
     if (!isOpen) {
       window.scrollTo(0, 0);
     }
     setIsOpen(!isOpen);
-    action("open")(!isOpen);
   };
 
   return (
@@ -209,21 +196,14 @@ export const LeftAligned = () => {
 
 export const CustomMaxWidth = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const onDismissClick = (
-    ev?:
-      | KeyboardEvent
-      | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onDismissClick = () => {
     setIsOpen(!isOpen);
-    action("click")(ev);
   };
   const handleToggle = () => {
     if (!isOpen) {
       window.scrollTo(0, 0);
     }
     setIsOpen(!isOpen);
-    action("open")(!isOpen);
   };
 
   return (
@@ -255,24 +235,17 @@ export const CustomMaxWidth = () => {
 
 export const Dismissible = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const onDismissClick = (
-    ev?:
-      | KeyboardEvent
-      | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onDismissClick = () => {
     if (!isOpen) {
       window.scrollTo(0, 0);
     }
     setIsOpen(!isOpen);
-    action("click")(ev);
   };
   const handleToggle = () => {
     if (!isOpen) {
       window.scrollTo(0, 0);
     }
     setIsOpen(!isOpen);
-    action("open")(!isOpen);
   };
 
   return (
@@ -301,24 +274,17 @@ export const Dismissible = () => {
 export const DismissibleWithTimeout = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const onDismissClick = (
-    ev?:
-      | KeyboardEvent
-      | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onDismissClick = () => {
     if (!isOpen) {
       window.scrollTo(0, 0);
     }
     setIsOpen(!isOpen);
-    action("click")(ev);
   };
   const handleToggle = () => {
     if (!isOpen) {
       window.scrollTo(0, 0);
     }
     setIsOpen(!isOpen);
-    action("open")(!isOpen);
   };
 
   return (
@@ -346,7 +312,7 @@ export const DismissibleWithTimeout = () => {
 };
 
 export const DismissibleWithoutAutoFocus = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   const onDismissClick = () => {
     if (!isOpen) {
       window.scrollTo(0, 0);
@@ -389,23 +355,11 @@ export const StackedDelayed = () => {
   const [isOpenB, setIsOpenB] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
-  const onDismissClickA = (
-    ev?:
-      | KeyboardEvent
-      | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onDismissClickA = () => {
     setIsOpenA(!isOpenA);
-    action("click")(ev);
   };
-  const onDismissClickB = (
-    ev?:
-      | KeyboardEvent
-      | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onDismissClickB = () => {
     setIsOpenB(!isOpenB);
-    action("click")(ev);
   };
 
   const handleToggle = () => {
@@ -419,7 +373,6 @@ export const StackedDelayed = () => {
         setIsOpenB(true);
         setButtonDisabled(false);
       }, 1000);
-      action("open")(true);
     } else {
       setButtonDisabled(true);
       setIsOpenA(false);
@@ -468,23 +421,11 @@ export const StackedDelayed = () => {
 export const Stacked = () => {
   const [isOpenA, setIsOpenA] = useState(false);
   const [isOpenB, setIsOpenB] = useState(false);
-  const onDismissClickA = (
-    ev?:
-      | KeyboardEvent
-      | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onDismissClickA = () => {
     setIsOpenA(!isOpenA);
-    action("click")(ev);
   };
-  const onDismissClickB = (
-    ev?:
-      | KeyboardEvent
-      | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onDismissClickB = () => {
     setIsOpenB(!isOpenB);
-    action("click")(ev);
   };
 
   const handleToggle = () => {
@@ -494,7 +435,6 @@ export const Stacked = () => {
     if (!isOpenA && !isOpenB) {
       setIsOpenA(true);
       setIsOpenB(true);
-      action("open")(true);
     } else {
       setIsOpenA(false);
       setIsOpenB(false);

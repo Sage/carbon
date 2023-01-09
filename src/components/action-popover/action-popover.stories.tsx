@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { ComponentStory } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
 import {
   ActionPopover,
   ActionPopoverDivider,
@@ -26,26 +25,22 @@ export const ActionPopoverComponent: ComponentStory<
 > = () => {
   const submenu = (
     <ActionPopoverMenu>
-      <ActionPopoverItem onClick={action("sub menu 1")}>
-        Sub Menu 1
-      </ActionPopoverItem>
-      <ActionPopoverItem onClick={action("sub menu 2")}>
-        Sub Menu 2
-      </ActionPopoverItem>
-      <ActionPopoverItem disabled onClick={action("sub menu 3")}>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+      <ActionPopoverItem disabled onClick={() => {}}>
         Sub Menu 3
       </ActionPopoverItem>
     </ActionPopoverMenu>
   );
   const submenuWithIcons = (
     <ActionPopoverMenu>
-      <ActionPopoverItem icon="graph" onClick={action("sub menu 1")}>
+      <ActionPopoverItem icon="graph" onClick={() => {}}>
         Sub Menu 1
       </ActionPopoverItem>
-      <ActionPopoverItem icon="add" onClick={action("sub menu 2")}>
+      <ActionPopoverItem icon="add" onClick={() => {}}>
         Sub Menu 2
       </ActionPopoverItem>
-      <ActionPopoverItem icon="print" disabled onClick={action("sub menu 3")}>
+      <ActionPopoverItem icon="print" disabled onClick={() => {}}>
         Sub Menu 3
       </ActionPopoverItem>
     </ActionPopoverMenu>
@@ -53,45 +48,34 @@ export const ActionPopoverComponent: ComponentStory<
   return (
     <div style={{ marginTop: "40px", height: "275px" }}>
       <Box>
-        <ActionPopover
-          onOpen={action("popover opened")}
-          onClose={action("popover closed")}
-        >
+        <ActionPopover onOpen={() => {}} onClose={() => {}}>
           <ActionPopoverItem
             disabled
             icon="graph"
             submenu={submenu}
-            onClick={action("email")}
+            onClick={() => {}}
           >
             Business
           </ActionPopoverItem>
-          <ActionPopoverItem icon="email" onClick={action("email")}>
+          <ActionPopoverItem icon="email" onClick={() => {}}>
             Email Invoice
           </ActionPopoverItem>
-          <ActionPopoverItem
-            icon="print"
-            onClick={action("print")}
-            submenu={submenu}
-          >
+          <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
             Print Invoice
           </ActionPopoverItem>
-          <ActionPopoverItem
-            icon="pdf"
-            submenu={submenu}
-            onClick={action("pdf")}
-          >
+          <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
             Download PDF
           </ActionPopoverItem>
-          <ActionPopoverItem icon="csv" onClick={action("csv")}>
+          <ActionPopoverItem icon="csv" onClick={() => {}}>
             Download CSV
           </ActionPopoverItem>
           <ActionPopoverDivider />
-          <ActionPopoverItem icon="delete" onClick={action("delete")}>
+          <ActionPopoverItem icon="delete" onClick={() => {}}>
             Delete
           </ActionPopoverItem>
         </ActionPopover>
         <ActionPopover>
-          <ActionPopoverItem icon="csv" onClick={action("csv")}>
+          <ActionPopoverItem icon="csv" onClick={() => {}}>
             Download CSV
           </ActionPopoverItem>
         </ActionPopover>
@@ -99,7 +83,7 @@ export const ActionPopoverComponent: ComponentStory<
           <ActionPopoverItem
             icon="csv"
             submenu={submenuWithIcons}
-            onClick={action("csv")}
+            onClick={() => {}}
           >
             Download CSV
           </ActionPopoverItem>

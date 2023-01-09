@@ -2,6 +2,10 @@ import * as React from "react";
 import { MarginProps } from "styled-system";
 
 export interface DuellingPicklistProps extends MarginProps {
+  /**
+   * Content of the component, should contain two Picklist children
+   * and a PicklistDivider
+   */
   children?: React.ReactNode;
   /** Indicate if component is disabled */
   disabled?: boolean;

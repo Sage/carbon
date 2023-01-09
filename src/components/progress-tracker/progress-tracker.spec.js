@@ -14,11 +14,13 @@ import {
 } from "../../__spec_helper__/test-utils";
 import ProgressBar from "./progress-tracker.component";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
 
 describe("ProgressBar", () => {
   let wrapper;
+  let loggerSpy;
 
   const originalOffsetHeight = Object.getOwnPropertyDescriptor(
     HTMLElement.prototype,
@@ -28,6 +30,13 @@ describe("ProgressBar", () => {
     HTMLElement.prototype,
     "offsetWidth"
   );
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+  });
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
 
   beforeAll(() => {
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
@@ -54,6 +63,23 @@ describe("ProgressBar", () => {
   });
 
   testStyledSystemMargin((props) => <ProgressBar {...props} />);
+
+  describe("deprecation warning", () => {
+    it("should be called only once when the `orientation` or `direction` props are set", () => {
+      wrapper = mount(
+        <>
+          <ProgressBar direction="up" />
+          <ProgressBar orientation="vertical" />
+        </>
+      );
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `orientation` and `direction` props in `ProgressTracker` component are deprecated and will soon be removed."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
 
   it("renders component as expected", () => {
     wrapper = mount(<ProgressBar />);

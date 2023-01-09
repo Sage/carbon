@@ -4,12 +4,16 @@ import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import { SlideStyle } from "./slide.style";
 
 export interface SlideProps {
+  /** Content of the Slide */
   children?: React.ReactNode;
+  /** Accepts a callback function which is triggered on Slide click */
   onClick?: (ev: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const Slide = (props: SlideProps) => (
+export const Slide = (props: SlideProps) => (
   <SlideStyle {...props} {...tagComponent("slide", props)} />
 );
+
+Slide.displayName = "Slide";
 
 export default Slide;

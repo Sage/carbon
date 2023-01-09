@@ -5,6 +5,7 @@ import LinkPreview from "./link-preview.component";
 
 export default {
   title: "Link Preview/Test",
+  includeStories: "Default",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -24,3 +25,14 @@ export const Default = () => (
 );
 
 Default.storyName = "default";
+
+export const LinkPreviewComponentTest = ({ ...props }) => {
+  return (
+    <LinkPreview
+      title="This is an example of a title"
+      url="https://www.sage.com"
+      description="Captain, why are we out here chasing comets?"
+      {...props}
+    />
+  );
+};

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
-import { action } from "@storybook/addon-actions";
 import LinkTo from "@storybook/addon-links/react";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import {
   ActionPopover,
   ActionPopoverItem,
   ActionPopoverMenu,
+  ActionPopoverMenuButton,
 } from ".";
 
 import * as stories from "./action-popover.stories";
@@ -252,6 +252,10 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
 ### ActionPopoverMenu Props
 
 <ArgsTable of={ActionPopoverMenu} />
+
+### ActionPopoverMenuButton Props
+
+<ArgsTable of={ActionPopoverMenuButton} />
 
 ### ActionPopoverItem Props
 
