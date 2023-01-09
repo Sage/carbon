@@ -1,3 +1,10 @@
+### [112.0.1](https://github.com/Sage/carbon/compare/v112.0.0...v112.0.1) (2023-01-09)
+
+
+### Bug Fixes
+
+* **tabs:** ensure arrow navigation is correct when Tabs are used within Drawer ([150d67e](https://github.com/Sage/carbon/commit/150d67e4d443ce18f1d0b8f3767825e361adf24b)), closes [#5597](https://github.com/Sage/carbon/issues/5597)
+
 ## [112.0.0](https://github.com/Sage/carbon/compare/v111.22.4...v112.0.0) (2023-01-09)
 
 
