@@ -19,6 +19,7 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
+import Logger from "../../__internal__/utils/logger";
 
 const variantColors = {
   primary: {
@@ -64,6 +65,46 @@ function assertAbsolutePositioning(
 describe("Pod", () => {
   describe("margins", () =>
     testStyledSystemMargin((props) => <Pod {...props} />));
+
+  describe("deprecation warnings", () => {
+    let mockConsole: jest.SpyInstance;
+    let loggerSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      // Mock console.warn to prevent warning from appearing in console while tests are running
+      mockConsole = jest
+        .spyOn(global.console, "warn")
+        .mockImplementation(() => undefined);
+    });
+
+    afterEach(() => {
+      mockConsole.mockRestore();
+    });
+
+    it("when onEdit prop is a string, raise deprecation warning once in the console", () => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+      mount(<Pod onEdit="foobar.com">Example Pod</Pod>);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Support for passing strings to the `onEdit` prop of the `Pod` component is now deprecated. Please only pass event handlers to `onEdit`."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+      loggerSpy.mockClear();
+    });
+
+    it("when onEdit prop is an object, raise deprecation warning once in the console", () => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+      mount(<Pod onEdit={{ href: "foobar.com" }}>Example Pod</Pod>);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Support for passing objects to the `onEdit` prop of the `Pod` component is now deprecated. Please only pass event handlers to `onEdit`."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+      loggerSpy.mockClear();
+    });
+  });
 
   it("renders children correctly when text %s is passed as a child", () => {
     const text = "Pod content";
@@ -445,45 +486,27 @@ describe("Pod", () => {
       );
     });
 
-    it("and is a string, render edit button as a link with its href set to the string", () => {
-      const onEdit = "someString";
+    it("clicking on the edit button invokes onEdit event handler", () => {
+      const onEdit = jest.fn();
       const wrapper = render({ onEdit });
-      expect(wrapper.find(`a[href='${onEdit}']`).exists()).toBeTruthy();
+      wrapper.find('a[data-element="edit"]').simulate("click");
+      expect(onEdit).toHaveBeenCalled();
     });
 
-    it("and is an object, render edit button as a link with the included properties", () => {
-      const onEdit = {
-        href: "someString",
-      };
+    it("pressing enter key on the edit button invokes onEdit", () => {
+      const onEdit = jest.fn();
       const wrapper = render({ onEdit });
-      expect(wrapper.find(`a[href='${onEdit.href}']`).exists()).toBeTruthy();
+      wrapper
+        .find('a[data-element="edit"]')
+        .simulate("keydown", { key: "Enter" });
+      expect(onEdit).toHaveBeenCalled();
     });
 
-    describe("and is an event handler", () => {
-      it("clicking on the edit button invokes onEdit", () => {
-        const onEdit = jest.fn();
-        const wrapper = render({ onEdit });
-        wrapper.find('a[data-element="edit"]').simulate("click");
-        expect(onEdit).toHaveBeenCalled();
-      });
-
-      it("pressing enter key on the edit button invokes onEdit", () => {
-        const onEdit = jest.fn();
-        const wrapper = render({ onEdit });
-        wrapper
-          .find('a[data-element="edit"]')
-          .simulate("keydown", { key: "Enter" });
-        expect(onEdit).toHaveBeenCalled();
-      });
-
-      it("pressing a non-enter key on the edit button does not invoke onEdit", () => {
-        const onEdit = jest.fn();
-        const wrapper = render({ onEdit });
-        wrapper
-          .find('a[data-element="edit"]')
-          .simulate("keydown", { key: "a" });
-        expect(onEdit).not.toHaveBeenCalled();
-      });
+    it("pressing a non-enter key on the edit button does not invoke onEdit", () => {
+      const onEdit = jest.fn();
+      const wrapper = render({ onEdit });
+      wrapper.find('a[data-element="edit"]').simulate("keydown", { key: "a" });
+      expect(onEdit).not.toHaveBeenCalled();
     });
 
     describe.each([

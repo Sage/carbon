@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { MarginProps } from "styled-system";
+import Logger from "../../__internal__/utils/logger";
 import useLocale from "../../hooks/__internal__/useLocale";
 
 import {
@@ -72,6 +73,9 @@ export interface PodProps extends MarginProps {
   internalEditButton?: boolean;
 }
 
+let deprecationOnEditStringWarnTriggered = false;
+let deprecationOnEditObjectWarnTriggered = false;
+
 const Pod = React.forwardRef<HTMLDivElement, PodProps>(
   (
     {
@@ -99,6 +103,20 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
     }: PodProps,
     ref
   ) => {
+    if (!deprecationOnEditStringWarnTriggered && typeof onEdit === "string") {
+      deprecationOnEditStringWarnTriggered = true;
+      Logger.deprecate(
+        "Support for passing strings to the `onEdit` prop of the `Pod` component is now deprecated. Please only pass event handlers to `onEdit`."
+      );
+    }
+
+    if (!deprecationOnEditObjectWarnTriggered && typeof onEdit === "object") {
+      deprecationOnEditObjectWarnTriggered = true;
+      Logger.deprecate(
+        "Support for passing objects to the `onEdit` prop of the `Pod` component is now deprecated. Please only pass event handlers to `onEdit`."
+      );
+    }
+
     const [isEditFocused, setEditFocused] = useState(false);
     const [isEditHovered, setEditHovered] = useState(false);
     const [isDeleteFocused, setDeleteFocused] = useState(false);
