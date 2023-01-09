@@ -79,6 +79,7 @@ FlatTableCell.propTypes = {
   ...paddingPropTypes,
   /** Content alignment */
   align: PropTypes.oneOf(["center", "left", "right"]),
+  /** Cell content */
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   /** Number of columns that a cell should span */
   colspan: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

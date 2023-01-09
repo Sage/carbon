@@ -8,6 +8,7 @@ export interface FlatTableHeaderProps extends PaddingProps {
   align?: "left" | "center" | "right";
   /** If true sets alternative background color */
   alternativeBgColor?: boolean;
+  /** Header content */
   children?: React.ReactNode | string;
   /** Number of columns that a header cell should span */
   colspan?: number | string;

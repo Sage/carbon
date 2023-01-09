@@ -2,7 +2,6 @@ import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import { useState, useRef } from "react";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
-import partialAction from "../../../../.storybook/utils/partial-action";
 
 import Button from "../../button";
 import Dialog from "../../dialog";
@@ -49,13 +48,6 @@ you can filter through the existing options leaving only those that match the te
       id="simple"
       label="color"
       labelInline
-      onOpen={partialAction("onOpen")}
-      onChange={partialAction("onChange")}
-      onClick={partialAction("onClick")}
-      onFilterChange={partialAction("onFilterChange")}
-      onFocus={partialAction("onFocus")}
-      onBlur={partialAction("onBlur")}
-      onKeyDown={partialAction("onKeyDown")}
     >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
@@ -135,7 +127,6 @@ You can use `listMaxHeight` prop to override default max height value of select 
       const [value, setValue] = useState("");
       function onChangeHandler(event) {
         setValue(event.target.value);
-        partialAction("value set")(event);
       }
       function clearValue() {
         setValue("");
@@ -625,13 +616,6 @@ In this example the `maxWidth` prop is 50%.
       id="simple"
       label="color"
       maxWidth="50%"
-      onOpen={partialAction("onOpen")}
-      onChange={partialAction("onChange")}
-      onClick={partialAction("onClick")}
-      onFilterChange={partialAction("onFilterChange")}
-      onFocus={partialAction("onFocus")}
-      onBlur={partialAction("onBlur")}
-      onKeyDown={partialAction("onKeyDown")}
     >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
@@ -789,12 +773,6 @@ If there is no `id` prop specified on an object, then the exact objects will be 
               id={`${size} - ${validationType}`}
               label={`${size} - ${validationType}`}
               labelInline
-              onOpen={partialAction("onOpen")}
-              onChange={partialAction("onChange", { depth: 2 })}
-              onClick={partialAction("onClick", { depth: 2 })}
-              onFocus={partialAction("onFocus", { depth: 2 })}
-              onBlur={partialAction("onBlur", { depth: 2 })}
-              onKeyDown={partialAction("onKeyDown", { depth: 2 })}
               size={size}
               {...{ [validationType]: "Message" }}
               m={4}
@@ -816,12 +794,6 @@ If there is no `id` prop specified on an object, then the exact objects will be 
               id={`readOnly - ${size} - ${validationType}`}
               label={`readOnly - ${size} - ${validationType}`}
               labelInline
-              onOpen={partialAction("onOpen")}
-              onChange={partialAction("onChange", { depth: 2 })}
-              onClick={partialAction("onClick", { depth: 2 })}
-              onFocus={partialAction("onFocus", { depth: 2 })}
-              onBlur={partialAction("onBlur", { depth: 2 })}
-              onKeyDown={partialAction("onKeyDown", { depth: 2 })}
               size={size}
               {...{ [validationType]: "Message" }}
               readOnly

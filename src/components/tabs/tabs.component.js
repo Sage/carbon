@@ -70,32 +70,17 @@ const Tabs = ({
   const [tabsWarnings, setTabsWarnings] = useState({});
   const [tabsInfos, setTabsInfos] = useState({});
 
-  const updateErrors = useCallback(
-    (id, error) => {
-      if (tabsErrors[id] !== error) {
-        setTabsErrors({ ...tabsErrors, [id]: error });
-      }
-    },
-    [tabsErrors]
-  );
+  const updateErrors = useCallback((id, error) => {
+    setTabsErrors((state) => ({ ...state, [id]: error }));
+  }, []);
 
-  const updateWarnings = useCallback(
-    (id, warning) => {
-      if (tabsWarnings[id] !== warning) {
-        setTabsWarnings({ ...tabsWarnings, [id]: warning });
-      }
-    },
-    [tabsWarnings]
-  );
+  const updateWarnings = useCallback((id, warning) => {
+    setTabsWarnings((state) => ({ ...state, [id]: warning }));
+  }, []);
 
-  const updateInfos = useCallback(
-    (id, info) => {
-      if (tabsInfos[id] !== info) {
-        setTabsInfos({ ...tabsInfos, [id]: info });
-      }
-    },
-    [tabsInfos]
-  );
+  const updateInfos = useCallback((id, info) => {
+    setTabsInfos((state) => ({ ...state, [id]: info }));
+  }, []);
 
   /** Returns true/false for if the given tab id is selected. */
   const isTabSelected = useCallback((tabId) => tabId === selectedTabIdState, [

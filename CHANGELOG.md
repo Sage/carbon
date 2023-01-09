@@ -1,3 +1,45 @@
+### [111.22.4](https://github.com/Sage/carbon/compare/v111.22.3...v111.22.4) (2023-01-06)
+
+
+### Bug Fixes
+
+* **progress-tracker:** add deprecation warnings for orientation and direction props ([db4d936](https://github.com/Sage/carbon/commit/db4d93635f88dbaa273174994491362ef4019df1))
+
+### [111.22.3](https://github.com/Sage/carbon/compare/v111.22.2...v111.22.3) (2023-01-04)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** ensure no crash when clicking outside a submenu ([c1f2bdb](https://github.com/Sage/carbon/commit/c1f2bdbe8ef28be5de2f79398091876cfc491255)), closes [#5682](https://github.com/Sage/carbon/issues/5682)
+
+### [111.22.2](https://github.com/Sage/carbon/compare/v111.22.1...v111.22.2) (2022-12-23)
+
+
+### Bug Fixes
+
+* **simple-color-picker:** make simple-color ids unique ([678d838](https://github.com/Sage/carbon/commit/678d8388aff4a1264e266265cec2f487f938b399))
+
+### [111.22.1](https://github.com/Sage/carbon/compare/v111.22.0...v111.22.1) (2022-12-21)
+
+
+### Bug Fixes
+
+* **tabs:** fix an issue with infinite rerender when numeral date is rendered as a child ([0b046f0](https://github.com/Sage/carbon/commit/0b046f0d507d43e1bf050394c53e5913dfbfe383))
+
+## [111.22.0](https://github.com/Sage/carbon/compare/v111.21.1...v111.22.0) (2022-12-19)
+
+
+### Features
+
+* **icon:** 1 new icon added dashboard ([9dec617](https://github.com/Sage/carbon/commit/9dec617f963d521a1ee7cff32df155809031a5e6))
+
+### [111.21.1](https://github.com/Sage/carbon/compare/v111.21.0...v111.21.1) (2022-12-16)
+
+
+### Bug Fixes
+
+* **pager:** correctly associate labels to input fields ([8407813](https://github.com/Sage/carbon/commit/84078135ba6f67cddb7f081597781d93e1687a2b)), closes [#5284](https://github.com/Sage/carbon/issues/5284) [#5632](https://github.com/Sage/carbon/issues/5632)
+
 ## [111.21.0](https://github.com/Sage/carbon/compare/v111.20.0...v111.21.0) (2022-12-16)
 
 

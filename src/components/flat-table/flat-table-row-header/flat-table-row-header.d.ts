@@ -5,6 +5,7 @@ import { TableBorderSize } from "..";
 export interface FlatTableRowHeaderProps extends PaddingProps {
   /** Content alignment */
   align?: string;
+  /** RowHeader content */
   children?: React.ReactNode | string;
   /** Column width, pass a number to set a fixed width in pixels */
   width?: number;
