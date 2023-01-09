@@ -1,3 +1,10 @@
+### [112.0.2](https://github.com/Sage/carbon/compare/v112.0.1...v112.0.2) (2023-01-09)
+
+
+### Bug Fixes
+
+* **textbox:** fix incorrect margin on prefix ([7a4200a](https://github.com/Sage/carbon/commit/7a4200a694a9a1b243e699339f5a3b9f6aac4942)), closes [#5646](https://github.com/Sage/carbon/issues/5646)
+
 ### [112.0.1](https://github.com/Sage/carbon/compare/v112.0.0...v112.0.1) (2023-01-09)
 
 
