@@ -13,6 +13,7 @@ import { keyCode } from "../../../cypress/support/helper";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
+import { DrawerSidebarContext } from "../drawer";
 
 const TabsComponent = ({ ...props }) => {
   return (
@@ -667,43 +668,145 @@ context("Testing Tabs component", () => {
   });
 
   describe("check events for Tabs component", () => {
-    let callback;
+    describe("when position: top", () => {
+      let callback;
 
-    beforeEach(() => {
-      callback = cy.stub();
+      beforeEach(() => {
+        callback = cy.stub();
+      });
+
+      it("should call onTabChange callback when a click event is triggered", () => {
+        CypressMountWithProviders(<TabsComponent onTabChange={callback} />);
+
+        tabById(2)
+          .click()
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      });
+
+      it("should call onTabChange callback when right arrow key event is triggered", () => {
+        CypressMountWithProviders(<TabsComponent onTabChange={callback} />);
+
+        tabById(1)
+          .trigger("keydown", keyCode("rightarrow"))
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      });
+
+      it("should call onTabChange callback when left arrow key event is triggered", () => {
+        CypressMountWithProviders(<TabsComponent onTabChange={callback} />);
+
+        tabById(2)
+          .trigger("keydown", keyCode("leftarrow"))
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      });
     });
 
-    it("should call onTabChange callback when a click event is triggered", () => {
-      CypressMountWithProviders(<TabsComponent onTabChange={callback} />);
+    describe("when position: left", () => {
+      let callback;
 
-      tabById(2)
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      beforeEach(() => {
+        callback = cy.stub();
+      });
+
+      it("should call onTabChange callback when a click event is triggered", () => {
+        CypressMountWithProviders(
+          <TabsComponent position="left" onTabChange={callback} />
+        );
+
+        tabById(2)
+          .click()
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      });
+
+      it("should call onTabChange callback when down arrow key event is triggered", () => {
+        CypressMountWithProviders(
+          <TabsComponent position="left" onTabChange={callback} />
+        );
+
+        tabById(1)
+          .trigger("keydown", keyCode("downarrow"))
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      });
+
+      it("should call onTabChange callback when up arrow key event is triggered", () => {
+        CypressMountWithProviders(
+          <TabsComponent position="left" onTabChange={callback} />
+        );
+
+        tabById(2)
+          .trigger("keydown", keyCode("uparrow"))
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      });
     });
 
-    it("should call onTabChange callback when right arrow key event is triggered", () => {
-      CypressMountWithProviders(<TabsComponent onTabChange={callback} />);
+    describe("when inSidebar: true", () => {
+      let callback;
 
-      tabById(1)
-        .trigger("keydown", keyCode("rightarrow"))
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
-    });
+      beforeEach(() => {
+        callback = cy.stub();
+      });
 
-    it("should call onTabChange callback when left arrow key event is triggered", () => {
-      CypressMountWithProviders(<TabsComponent onTabChange={callback} />);
+      it("should call onTabChange callback when a click event is triggered", () => {
+        CypressMountWithProviders(
+          <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
+            <TabsComponent onTabChange={callback} />
+          </DrawerSidebarContext.Provider>
+        );
 
-      tabById(2)
-        .trigger("keydown", keyCode("leftarrow"))
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+        tabById(2)
+          .click()
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      });
+
+      it("should call onTabChange callback when down arrow key event is triggered", () => {
+        CypressMountWithProviders(
+          <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
+            <TabsComponent onTabChange={callback} />
+          </DrawerSidebarContext.Provider>
+        );
+
+        tabById(1)
+          .trigger("keydown", keyCode("downarrow"))
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      });
+
+      it("should call onTabChange callback when up arrow key event is triggered", () => {
+        CypressMountWithProviders(
+          <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
+            <TabsComponent onTabChange={callback} />
+          </DrawerSidebarContext.Provider>
+        );
+
+        tabById(2)
+          .trigger("keydown", keyCode("uparrow"))
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            expect(callback).to.have.been.calledOnce;
+          });
+      });
     });
   });
 });
