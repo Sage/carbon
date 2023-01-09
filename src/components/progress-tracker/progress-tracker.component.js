@@ -11,6 +11,9 @@ import {
   StyledValue,
 } from "./progress-tracker.style";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedWarningTriggered = false;
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -29,29 +32,39 @@ const ProgressTracker = ({
   showDefaultLabels = false,
   currentProgressLabel,
   maxProgressLabel,
-  orientation = "horizontal",
-  direction = "up",
+  orientation,
+  direction,
   labelsPosition,
   ...rest
 }) => {
+  if (!deprecatedWarningTriggered && (orientation || direction)) {
+    deprecatedWarningTriggered = true;
+    Logger.deprecate(
+      "The `orientation` and `direction` props in `ProgressTracker` component are deprecated and will soon be removed."
+    );
+  }
+
+  const internalOrientation = orientation || "horizontal";
+  const internalDirection = direction || "up";
+
   const barRef = useRef();
   const [barLength, setBarLength] = useState(0);
-  const isVertical = orientation === "vertical";
+  const isVertical = internalOrientation === "vertical";
   const prefixLabels =
     (!isVertical && labelsPosition !== "bottom") ||
     (isVertical && labelsPosition === "left");
 
   const updateBarLength = useCallback(() => {
-    if (orientation === "horizontal") {
+    if (internalOrientation === "horizontal") {
       setBarLength(`${barRef.current.offsetWidth}px`);
     } else {
       setBarLength(`${barRef.current.offsetHeight}px`);
     }
-  }, [barRef, orientation]);
+  }, [barRef, internalOrientation]);
 
   useLayoutEffect(() => {
     updateBarLength();
-  }, [barRef, orientation, updateBarLength]);
+  }, [barRef, internalOrientation, updateBarLength]);
 
   useResizeObserver(barRef, () => {
     updateBarLength();
@@ -71,7 +84,7 @@ const ProgressTracker = ({
 
     return (
       <StyledValuesLabel position={labelsPosition} isVertical={isVertical}>
-        {isVertical && direction === "up" && (
+        {isVertical && internalDirection === "up" && (
           <>
             <StyledValue isMaxValue>
               {label(maxProgressLabel, "100%")}
@@ -81,7 +94,7 @@ const ProgressTracker = ({
             </StyledValue>
           </>
         )}
-        {(direction === "down" || !isVertical) && (
+        {(internalDirection === "down" || !isVertical) && (
           <>
             <StyledValue>
               {label(currentProgressLabel, `${progress}%`)}
@@ -117,7 +130,7 @@ const ProgressTracker = ({
     >
       {prefixLabels && renderValueLabels()}
       <StyledProgressBar
-        direction={isVertical ? direction : undefined}
+        direction={isVertical ? internalDirection : undefined}
         isVertical={isVertical}
         size={size}
         ref={barRef}

@@ -88,20 +88,23 @@ const MenuFullscreen = ({
                 role="list"
                 inFullscreenView
               >
-                {React.Children.map(children, (child, index) => (
-                  <MenuContext.Provider
-                    value={{
-                      inFullscreenView: true,
-                      menuType,
-                      inMenu: true,
-                    }}
-                  >
-                    {child}
-                    {index < React.Children.count(children) - 1 && (
-                      <MenuDivider />
-                    )}
-                  </MenuContext.Provider>
-                ))}
+                <MenuContext.Provider
+                  value={{
+                    inFullscreenView: true,
+                    menuType,
+                    inMenu: true,
+                    setOpenSubmenuIndex: () => {},
+                  }}
+                >
+                  {React.Children.map(children, (child, index) => (
+                    <>
+                      {child}
+                      {index < React.Children.count(children) - 1 && (
+                        <MenuDivider />
+                      )}
+                    </>
+                  ))}
+                </MenuContext.Provider>
               </StyledMenuWrapper>
             </Box>
           </StyledMenuFullscreen>

@@ -1,3 +1,28 @@
+## [112.0.0](https://github.com/Sage/carbon/compare/v111.22.4...v112.0.0) (2023-01-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pager:** onNext, onFirst, OnPrevious and onLast Pager prop types have been changed
+
+### Code Refactoring
+
+* **pager:** convert component to typescript ([3233d4c](https://github.com/Sage/carbon/commit/3233d4ce6b7e0d5acfeddbc45025c8d359c23d7b))
+
+### [111.22.4](https://github.com/Sage/carbon/compare/v111.22.3...v111.22.4) (2023-01-06)
+
+
+### Bug Fixes
+
+* **progress-tracker:** add deprecation warnings for orientation and direction props ([db4d936](https://github.com/Sage/carbon/commit/db4d93635f88dbaa273174994491362ef4019df1))
+
+### [111.22.3](https://github.com/Sage/carbon/compare/v111.22.2...v111.22.3) (2023-01-04)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** ensure no crash when clicking outside a submenu ([c1f2bdb](https://github.com/Sage/carbon/commit/c1f2bdbe8ef28be5de2f79398091876cfc491255)), closes [#5682](https://github.com/Sage/carbon/issues/5682)
+
 ### [111.22.2](https://github.com/Sage/carbon/compare/v111.22.1...v111.22.2) (2022-12-23)
 
 
