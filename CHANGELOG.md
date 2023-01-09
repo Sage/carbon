@@ -1,3 +1,14 @@
+## [112.0.0](https://github.com/Sage/carbon/compare/v111.22.4...v112.0.0) (2023-01-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pager:** onNext, onFirst, OnPrevious and onLast Pager prop types have been changed
+
+### Code Refactoring
+
+* **pager:** convert component to typescript ([3233d4c](https://github.com/Sage/carbon/commit/3233d4ce6b7e0d5acfeddbc45025c8d359c23d7b))
+
 ### [111.22.4](https://github.com/Sage/carbon/compare/v111.22.3...v111.22.4) (2023-01-06)
 
 
