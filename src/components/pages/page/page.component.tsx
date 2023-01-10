@@ -12,11 +12,13 @@ export interface PageProps extends PaddingProps {
   title: React.ReactNode;
   /** This component supports children. */
   children: React.ReactNode;
+  /** The ARIA role to be applied to the component */
+  role?: string;
   /** @ignore @private */
   transitionName?: () => string;
 }
 
-const Page = ({ title, children, ...rest }: PageProps) => {
+const Page = ({ role, title, children, ...rest }: PageProps) => {
   const styledPageNodeRef = useRef(null);
   const { transitionName } = rest;
   return (
@@ -31,7 +33,11 @@ const Page = ({ title, children, ...rest }: PageProps) => {
       nodeRef={styledPageNodeRef}
       {...rest}
     >
-      <StyledPage {...tagComponent("page", rest)} ref={styledPageNodeRef}>
+      <StyledPage
+        {...tagComponent("page", rest)}
+        ref={styledPageNodeRef}
+        role={role}
+      >
         <FullScreenHeading hasContent>{title}</FullScreenHeading>
         <StyledPageContent
           data-element="carbon-page-content"
