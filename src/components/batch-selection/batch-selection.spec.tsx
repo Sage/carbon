@@ -1,20 +1,30 @@
 import React from "react";
-import { mount } from "enzyme";
-import TestRenderer from "react-test-renderer";
+import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
+
+import BatchSelection, { BatchSelectionProps } from ".";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
-import BatchSelection from ".";
+
 import Icon from "../icon";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 
-describe("BatchSelection component", () => {
-  let wrapper;
+function renderBatchSelection(
+  props: Omit<BatchSelectionProps, "children">,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  renderer: any = mount
+) {
+  return renderer(
+    <BatchSelection {...props}>
+      <IconButton onAction={() => {}}>
+        <Icon type="edit" />
+      </IconButton>
+    </BatchSelection>
+  );
+}
 
-  it("should render correctly", () => {
-    wrapper = renderBatchSelection({ selectedCount: 3 }, TestRenderer.create);
-    expect(wrapper).toMatchSnapshot();
-  });
+describe("BatchSelection component", () => {
+  let wrapper: ReactWrapper | ShallowWrapper;
 
   describe('when the colorTheme is "dark"', () => {
     beforeEach(() => {
@@ -120,13 +130,3 @@ describe("BatchSelection component", () => {
     });
   });
 });
-
-function renderBatchSelection(props = {}, renderer = mount) {
-  return renderer(
-    <BatchSelection {...props}>
-      <IconButton onAction={() => {}}>
-        <Icon type="edit" />
-      </IconButton>
-    </BatchSelection>
-  );
-}

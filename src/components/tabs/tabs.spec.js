@@ -594,364 +594,443 @@ describe("Tabs", () => {
     });
   });
 
-  describe("With one Tab", () => {
-    it("renders as the visible tab", () => {
-      const tab = mount(
-        <Tabs renderHiddenTabs={false}>
-          <Tab
-            errorMessage=""
-            warningMessage=""
-            infoMessage=""
-            title="Tab Title 1"
-            tabId="uniqueid1"
-          >
-            <div />
-          </Tab>
-        </Tabs>
-      ).find(Tab);
+  describe("when in Drawer sidebar", () => {
+    let container;
+    let wrapper;
 
-      expect(tab.props().isTabSelected).toEqual(true);
-      expect(tab.props().title).toEqual("Tab Title 1");
-      expect(tab.props().tabId).toEqual("uniqueid1");
+    beforeEach(() => {
+      container = document.createElement("div");
+      container.id = "enzymeContainer";
+      document.body.appendChild(container);
+
+      wrapper = mount(
+        <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
+          <Tabs>
+            <Tab
+              title="Tab Title 1"
+              tabId="uniqueid1"
+              errorMessage=""
+              warningMessage=""
+              infoMessage=""
+            />
+            <Tab
+              title="Tab Title 2"
+              tabId="uniqueid2"
+              errorMessage=""
+              warningMessage=""
+              infoMessage=""
+            />
+            <Tab
+              title="Tab Title 3"
+              tabId="uniqueid3"
+              errorMessage=""
+              warningMessage=""
+              infoMessage=""
+            />
+          </Tabs>
+        </DrawerSidebarContext.Provider>,
+        {
+          attachTo: document.getElementById("enzymeContainer"),
+        }
+      );
+    });
+
+    afterEach(() => {
+      if (container?.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+
+      container = null;
+
+      wrapper?.unmount();
+    });
+
+    it.each([0, 1, 2])(
+      "updates to make the next Tab visible when the down key is pressed",
+      (index) => {
+        act(() => {
+          simulate.keydown.pressArrowDown(wrapper.find(TabTitle).at(index));
+        });
+        wrapper.update();
+        const newIndex = index === 2 ? 0 : index + 1;
+
+        expect(
+          wrapper.find(StyledTabTitle).at(newIndex).getDOMNode()
+        ).toBeFocused();
+      }
+    );
+
+    it.each([0, 1, 2])(
+      "updates to make the next Tab visible when the up key is pressed",
+      (index) => {
+        act(() => {
+          simulate.keydown.pressArrowUp(wrapper.find(TabTitle).at(index));
+        });
+        wrapper.update();
+        const newIndex = index === 0 ? 2 : index - 1;
+
+        expect(
+          wrapper.find(StyledTabTitle).at(newIndex).getDOMNode()
+        ).toBeFocused();
+      }
+    );
+  });
+});
+
+describe("With one Tab", () => {
+  it("renders as the visible tab", () => {
+    const tab = mount(
+      <Tabs renderHiddenTabs={false}>
+        <Tab
+          errorMessage=""
+          warningMessage=""
+          infoMessage=""
+          title="Tab Title 1"
+          tabId="uniqueid1"
+        >
+          <div />
+        </Tab>
+      </Tabs>
+    ).find(Tab);
+
+    expect(tab.props().isTabSelected).toEqual(true);
+    expect(tab.props().title).toEqual("Tab Title 1");
+    expect(tab.props().tabId).toEqual("uniqueid1");
+  });
+});
+
+describe("Validation", () => {
+  const updateProps = (wrapper, props) => {
+    wrapper.setProps({
+      errors: { ...wrapper.props().errors, ...props.errors },
+      warnings: { ...wrapper.props().warnings, ...props.warnings },
+      infos: { ...wrapper.props().infos, ...props.infos },
+    });
+    wrapper.update();
+  };
+
+  describe("When a Tab child has an error", () => {
+    it('sets "tabHasError" to false when a Tab has no errors', () => {
+      const tabTitle = mount(<MockWrapper />).find(TabTitle);
+
+      expect(tabTitle.at(0).props().error).toEqual(false);
+      expect(tabTitle.at(1).props().error).toEqual(false);
+    });
+
+    it('sets "tabHasError" to true when a Tab has errors', () => {
+      const tabTitle = mount(<MockWrapper errors={{ one: true }} />).find(
+        TabTitle
+      );
+
+      expect(tabTitle.at(0).props().error).toEqual(true);
+      expect(tabTitle.at(1).props().error).toEqual(false);
+    });
+
+    it('sets "tabHasError" to true for any Tab that has an error', () => {
+      const tabTitle = mount(
+        <MockWrapper errors={{ one: true, three: true }} />
+      ).find(TabTitle);
+
+      expect(tabTitle.at(0).props().error).toEqual(true);
+      expect(tabTitle.at(1).props().error).toEqual(true);
+    });
+
+    it('maintains "tabHasError" status when Tab children update', () => {
+      const wrapper = mount(
+        <MockWrapper errors={{ one: true, three: true }} />
+      );
+      updateProps(wrapper, { errors: { two: true, three: false } });
+      let tabTitle = wrapper.find(TabTitle);
+      expect(tabTitle.at(0).props().error).toEqual(true);
+      expect(tabTitle.at(1).props().error).toEqual(false);
+      updateProps(wrapper, { errors: { one: false, two: false } });
+      tabTitle = wrapper.find(TabTitle);
+      expect(tabTitle.at(0).props().error).toEqual(false);
+    });
+
+    it('does not set warnings and infos if "tabHasErrors" is true', () => {
+      const tabTitle = mount(
+        <MockWrapper
+          errors={{ one: true, three: true }}
+          warnings={{ one: true, three: true }}
+          infos={{ one: true, three: true }}
+        />
+      ).find(TabTitle);
+
+      expect(tabTitle.at(0).props().error).toEqual(true);
+      expect(tabTitle.at(1).props().error).toEqual(true);
+      expect(tabTitle.at(0).props().warning).toEqual(false);
+      expect(tabTitle.at(1).props().warning).toEqual(false);
+      expect(tabTitle.at(0).props().info).toEqual(false);
+      expect(tabTitle.at(1).props().info).toEqual(false);
     });
   });
 
-  describe("Validation", () => {
-    const updateProps = (wrapper, props) => {
-      wrapper.setProps({
-        errors: { ...wrapper.props().errors, ...props.errors },
-        warnings: { ...wrapper.props().warnings, ...props.warnings },
-        infos: { ...wrapper.props().infos, ...props.infos },
+  describe("When a Tab child has an error and a warning", () => {
+    it('sets "tabHasWarning" to false when a Tab has no warnings', () => {
+      const tabTitle = mount(<MockWrapper />).find(TabTitle);
+
+      expect(tabTitle.at(0).props().warning).toEqual(false);
+      expect(tabTitle.at(1).props().warning).toEqual(false);
+    });
+
+    it('does not set "tabHasWarning" when "tabHasError" is true', () => {
+      const tabTitle = mount(
+        <MockWrapper errors={{ one: true }} warnings={{ one: true }} />
+      ).find(TabTitle);
+
+      expect(tabTitle.at(0).props().error).toEqual(true);
+      expect(tabTitle.at(0).props().warning).toEqual(false);
+    });
+  });
+
+  describe("When a Tab child has a warning and no errors", () => {
+    it('sets "tabHasWarning" is true and "tabHasError" is falsy', () => {
+      const tabTitle = mount(<MockWrapper warnings={{ one: true }} />).find(
+        TabTitle
+      );
+
+      expect(tabTitle.at(0).props().warning).toEqual(true);
+      expect(tabTitle.at(1).props().warning).toEqual(false);
+    });
+
+    it('sets "tabHasWarning" for each Tab that has warning and "tabHasError" is falsy', () => {
+      const tabTitle = mount(
+        <MockWrapper warnings={{ one: true, three: true }} />
+      ).find(TabTitle);
+
+      expect(tabTitle.at(0).props().warning).toEqual(true);
+      expect(tabTitle.at(1).props().warning).toEqual(true);
+    });
+
+    it('maintains "tabHasWarning" status when Tab children update', () => {
+      const wrapper = mount(
+        <MockWrapper warnings={{ one: true, three: true }} />
+      );
+      updateProps(wrapper, { warnings: { two: true, three: false } });
+      let tabTitle = wrapper.find(TabTitle);
+      expect(tabTitle.at(0).props().warning).toEqual(true);
+      expect(tabTitle.at(1).props().warning).toEqual(false);
+      updateProps(wrapper, { warnings: { one: false, two: false } });
+      tabTitle = wrapper.find(TabTitle);
+      expect(tabTitle.at(0).props().warning).toEqual(false);
+    });
+  });
+
+  describe("When a Tab child has an info and no errors or warnings", () => {
+    it('sets "tabHasWarning" is true and "tabHasError" is falsy', () => {
+      const tabTitle = mount(<MockWrapper infos={{ one: true }} />).find(
+        TabTitle
+      );
+
+      expect(tabTitle.at(0).props().info).toEqual(true);
+      expect(tabTitle.at(1).props().info).toEqual(false);
+    });
+
+    it('sets "tabHasInfo" for each Tab that has info and "tabHasError" and "tabHasWarning" are falsy', () => {
+      const tabTitle = mount(
+        <MockWrapper infos={{ one: true, three: true }} />
+      ).find(TabTitle);
+
+      expect(tabTitle.at(0).props().info).toEqual(true);
+      expect(tabTitle.at(1).props().info).toEqual(true);
+    });
+
+    it('maintains "tabHasInfo" status when Tab children update', () => {
+      const wrapper = mount(<MockWrapper infos={{ one: true, three: true }} />);
+      updateProps(wrapper, { infos: { two: true, three: false } });
+      let tabTitle = wrapper.find(TabTitle);
+      expect(tabTitle.at(0).props().info).toEqual(true);
+      expect(tabTitle.at(1).props().info).toEqual(false);
+      updateProps(wrapper, { infos: { one: false, two: false } });
+      tabTitle = wrapper.find(TabTitle);
+      expect(tabTitle.at(0).props().info).toEqual(false);
+    });
+  });
+
+  describe("custom targeting", () => {
+    it("supports overriding the targeted content", () => {
+      const wrapper = mount(
+        <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
+          <Tabs>
+            <Tab
+              title="Tab Title 1"
+              tabId="uniqueid1"
+              errorMessage=""
+              warningMessage=""
+              infoMessage=""
+            >
+              TabContent
+            </Tab>
+          </Tabs>
+        </DrawerSidebarContext.Provider>
+      );
+      act(() => {
+        wrapper
+          .find(TabTitle)
+          .props()
+          .onClick({
+            type: "click",
+            target: { dataset: { tabid: "uniqueid1" } },
+          });
       });
-      wrapper.update();
+      expect(wrapper.find(Tab).exists()).toEqual(false);
+    });
+  });
+
+  describe("validation status overrides", () => {
+    it('sets "tabHasError" to true when override is set', () => {
+      const tabTitle = mount(
+        <MockWrapper
+          errors={{ one: false, three: true }}
+          validationStatusOverride={{
+            uniqueid1: { error: true },
+            uniqueid2: { error: false },
+          }}
+        />
+      ).find(TabTitle);
+
+      expect(tabTitle.at(0).props().error).toEqual(true);
+      expect(tabTitle.at(1).props().error).toEqual(false);
+    });
+
+    it('sets "tabHasWarning" to true when override is set', () => {
+      const tabTitle = mount(
+        <MockWrapper
+          warnings={{ one: false, three: true }}
+          validationStatusOverride={{
+            uniqueid1: { warning: true },
+            uniqueid2: { warning: false },
+          }}
+        />
+      ).find(TabTitle);
+
+      expect(tabTitle.at(0).props().warning).toEqual(true);
+      expect(tabTitle.at(1).props().warning).toEqual(false);
+    });
+
+    it('sets "tabHasInfo" to true when override is set', () => {
+      const tabTitle = mount(
+        <MockWrapper
+          infos={{ one: false, three: true }}
+          validationStatusOverride={{
+            uniqueid1: { info: true },
+            uniqueid2: { info: false },
+          }}
+        />
+      ).find(TabTitle);
+
+      expect(tabTitle.at(0).props().info).toEqual(true);
+      expect(tabTitle.at(1).props().info).toEqual(false);
+    });
+  });
+
+  describe("Keyboard behaviour", () => {
+    let container;
+    let wrapper;
+    const tabTitles = ["tab-1", "tab-2", "tab-3"];
+
+    const ConditionalChildrenMock = () => {
+      const [showAllTabs, setShowAllTabs] = React.useState(true);
+
+      const generateTab = (tabTitle) => (
+        <Tab title={tabTitle} tabId={tabTitle} key={tabTitle}>
+          {tabTitle}
+        </Tab>
+      );
+
+      return (
+        <>
+          <button
+            id="foo"
+            type="button"
+            onClick={() => setShowAllTabs((prev) => !prev)}
+          >
+            Toggle children
+          </button>
+          <Tabs>
+            {!showAllTabs && generateTab(tabTitles[0])}
+            {showAllTabs && tabTitles.map((tabTitle) => generateTab(tabTitle))}
+          </Tabs>
+        </>
+      );
     };
 
-    describe("When a Tab child has an error", () => {
-      it('sets "tabHasError" to false when a Tab has no errors', () => {
-        const tabTitle = mount(<MockWrapper />).find(TabTitle);
+    beforeEach(() => {
+      container = document.createElement("div");
+      container.id = "enzymeContainer";
+      document.body.appendChild(container);
 
-        expect(tabTitle.at(0).props().error).toEqual(false);
-        expect(tabTitle.at(1).props().error).toEqual(false);
-      });
-
-      it('sets "tabHasError" to true when a Tab has errors', () => {
-        const tabTitle = mount(<MockWrapper errors={{ one: true }} />).find(
-          TabTitle
-        );
-
-        expect(tabTitle.at(0).props().error).toEqual(true);
-        expect(tabTitle.at(1).props().error).toEqual(false);
-      });
-
-      it('sets "tabHasError" to true for any Tab that has an error', () => {
-        const tabTitle = mount(
-          <MockWrapper errors={{ one: true, three: true }} />
-        ).find(TabTitle);
-
-        expect(tabTitle.at(0).props().error).toEqual(true);
-        expect(tabTitle.at(1).props().error).toEqual(true);
-      });
-
-      it('maintains "tabHasError" status when Tab children update', () => {
-        const wrapper = mount(
-          <MockWrapper errors={{ one: true, three: true }} />
-        );
-        updateProps(wrapper, { errors: { two: true, three: false } });
-        let tabTitle = wrapper.find(TabTitle);
-        expect(tabTitle.at(0).props().error).toEqual(true);
-        expect(tabTitle.at(1).props().error).toEqual(false);
-        updateProps(wrapper, { errors: { one: false, two: false } });
-        tabTitle = wrapper.find(TabTitle);
-        expect(tabTitle.at(0).props().error).toEqual(false);
-      });
-
-      it('does not set warnings and infos if "tabHasErrors" is true', () => {
-        const tabTitle = mount(
-          <MockWrapper
-            errors={{ one: true, three: true }}
-            warnings={{ one: true, three: true }}
-            infos={{ one: true, three: true }}
-          />
-        ).find(TabTitle);
-
-        expect(tabTitle.at(0).props().error).toEqual(true);
-        expect(tabTitle.at(1).props().error).toEqual(true);
-        expect(tabTitle.at(0).props().warning).toEqual(false);
-        expect(tabTitle.at(1).props().warning).toEqual(false);
-        expect(tabTitle.at(0).props().info).toEqual(false);
-        expect(tabTitle.at(1).props().info).toEqual(false);
+      wrapper = mount(<ConditionalChildrenMock />, {
+        attachTo: document.getElementById("enzymeContainer"),
       });
     });
 
-    describe("When a Tab child has an error and a warning", () => {
-      it('sets "tabHasWarning" to false when a Tab has no warnings', () => {
-        const tabTitle = mount(<MockWrapper />).find(TabTitle);
+    afterEach(() => {
+      if (container?.parentNode) {
+        container.parentNode.removeChild(container);
+      }
 
-        expect(tabTitle.at(0).props().warning).toEqual(false);
-        expect(tabTitle.at(1).props().warning).toEqual(false);
-      });
-
-      it('does not set "tabHasWarning" when "tabHasError" is true', () => {
-        const tabTitle = mount(
-          <MockWrapper errors={{ one: true }} warnings={{ one: true }} />
-        ).find(TabTitle);
-
-        expect(tabTitle.at(0).props().error).toEqual(true);
-        expect(tabTitle.at(0).props().warning).toEqual(false);
-      });
+      container = null;
     });
 
-    describe("When a Tab child has a warning and no errors", () => {
-      it('sets "tabHasWarning" is true and "tabHasError" is falsy', () => {
-        const tabTitle = mount(<MockWrapper warnings={{ one: true }} />).find(
-          TabTitle
-        );
-
-        expect(tabTitle.at(0).props().warning).toEqual(true);
-        expect(tabTitle.at(1).props().warning).toEqual(false);
+    const runFocusExpectations = (keyDown, array) =>
+      array.forEach((index) => {
+        const child = wrapper.update().find(StyledTabTitle).at(index);
+        expect(child.getDOMNode()).toBeFocused();
+        simulate.keydown[keyDown](child);
       });
 
-      it('sets "tabHasWarning" for each Tab that has warning and "tabHasError" is falsy', () => {
-        const tabTitle = mount(
-          <MockWrapper warnings={{ one: true, three: true }} />
-        ).find(TabTitle);
-
-        expect(tabTitle.at(0).props().warning).toEqual(true);
-        expect(tabTitle.at(1).props().warning).toEqual(true);
+    const toggleChildren = () => {
+      act(() => {
+        wrapper.find("#foo").prop("onClick")();
       });
 
-      it('maintains "tabHasWarning" status when Tab children update', () => {
-        const wrapper = mount(
-          <MockWrapper warnings={{ one: true, three: true }} />
-        );
-        updateProps(wrapper, { warnings: { two: true, three: false } });
-        let tabTitle = wrapper.find(TabTitle);
-        expect(tabTitle.at(0).props().warning).toEqual(true);
-        expect(tabTitle.at(1).props().warning).toEqual(false);
-        updateProps(wrapper, { warnings: { one: false, two: false } });
-        tabTitle = wrapper.find(TabTitle);
-        expect(tabTitle.at(0).props().warning).toEqual(false);
-      });
-    });
+      expect(wrapper.update().find(StyledTabTitle).length).toEqual(1);
 
-    describe("When a Tab child has an info and no errors or warnings", () => {
-      it('sets "tabHasWarning" is true and "tabHasError" is falsy', () => {
-        const tabTitle = mount(<MockWrapper infos={{ one: true }} />).find(
-          TabTitle
-        );
-
-        expect(tabTitle.at(0).props().info).toEqual(true);
-        expect(tabTitle.at(1).props().info).toEqual(false);
+      act(() => {
+        wrapper.find("#foo").prop("onClick")();
       });
 
-      it('sets "tabHasInfo" for each Tab that has info and "tabHasError" and "tabHasWarning" are falsy', () => {
-        const tabTitle = mount(
-          <MockWrapper infos={{ one: true, three: true }} />
-        ).find(TabTitle);
+      expect(wrapper.update().find(StyledTabTitle).length).toEqual(3);
+    };
 
-        expect(tabTitle.at(0).props().info).toEqual(true);
-        expect(tabTitle.at(1).props().info).toEqual(true);
-      });
+    it("is consistent when navigating with the arrow keys and the composition of the children changes", () => {
+      wrapper.find(StyledTabTitle).first().getDOMNode().focus();
 
-      it('maintains "tabHasInfo" status when Tab children update', () => {
-        const wrapper = mount(
-          <MockWrapper infos={{ one: true, three: true }} />
-        );
-        updateProps(wrapper, { infos: { two: true, three: false } });
-        let tabTitle = wrapper.find(TabTitle);
-        expect(tabTitle.at(0).props().info).toEqual(true);
-        expect(tabTitle.at(1).props().info).toEqual(false);
-        updateProps(wrapper, { infos: { one: false, two: false } });
-        tabTitle = wrapper.find(TabTitle);
-        expect(tabTitle.at(0).props().info).toEqual(false);
-      });
-    });
+      runFocusExpectations("pressArrowLeft", [0, 2, 1, 0, 2]);
 
-    describe("custom targeting", () => {
-      it("supports overriding the targeted content", () => {
-        const wrapper = mount(
-          <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
-            <Tabs>
-              <Tab
-                title="Tab Title 1"
-                tabId="uniqueid1"
-                errorMessage=""
-                warningMessage=""
-                infoMessage=""
-              >
-                TabContent
-              </Tab>
-            </Tabs>
-          </DrawerSidebarContext.Provider>
-        );
-        act(() => {
-          wrapper
-            .find(TabTitle)
-            .props()
-            .onClick({
-              type: "click",
-              target: { dataset: { tabid: "uniqueid1" } },
-            });
-        });
-        expect(wrapper.find(Tab).exists()).toEqual(false);
-      });
-    });
+      toggleChildren();
 
-    describe("validation status overrides", () => {
-      it('sets "tabHasError" to true when override is set', () => {
-        const tabTitle = mount(
-          <MockWrapper
-            errors={{ one: false, three: true }}
-            validationStatusOverride={{
-              uniqueid1: { error: true },
-              uniqueid2: { error: false },
-            }}
-          />
-        ).find(TabTitle);
+      wrapper.find(StyledTabTitle).first().getDOMNode().focus();
 
-        expect(tabTitle.at(0).props().error).toEqual(true);
-        expect(tabTitle.at(1).props().error).toEqual(false);
-      });
+      runFocusExpectations("pressArrowLeft", [0, 2, 1, 0, 2]);
 
-      it('sets "tabHasWarning" to true when override is set', () => {
-        const tabTitle = mount(
-          <MockWrapper
-            warnings={{ one: false, three: true }}
-            validationStatusOverride={{
-              uniqueid1: { warning: true },
-              uniqueid2: { warning: false },
-            }}
-          />
-        ).find(TabTitle);
+      toggleChildren();
 
-        expect(tabTitle.at(0).props().warning).toEqual(true);
-        expect(tabTitle.at(1).props().warning).toEqual(false);
-      });
+      wrapper.find(StyledTabTitle).first().getDOMNode().focus();
 
-      it('sets "tabHasInfo" to true when override is set', () => {
-        const tabTitle = mount(
-          <MockWrapper
-            infos={{ one: false, three: true }}
-            validationStatusOverride={{
-              uniqueid1: { info: true },
-              uniqueid2: { info: false },
-            }}
-          />
-        ).find(TabTitle);
-
-        expect(tabTitle.at(0).props().info).toEqual(true);
-        expect(tabTitle.at(1).props().info).toEqual(false);
-      });
-    });
-
-    describe("Keyboard behaviour", () => {
-      let container;
-      let wrapper;
-      const tabTitles = ["tab-1", "tab-2", "tab-3"];
-
-      const ConditionalChildrenMock = () => {
-        const [showAllTabs, setShowAllTabs] = React.useState(true);
-
-        const generateTab = (tabTitle) => (
-          <Tab title={tabTitle} tabId={tabTitle} key={tabTitle}>
-            {tabTitle}
-          </Tab>
-        );
-
-        return (
-          <>
-            <button
-              id="foo"
-              type="button"
-              onClick={() => setShowAllTabs((prev) => !prev)}
-            >
-              Toggle children
-            </button>
-            <Tabs>
-              {!showAllTabs && generateTab(tabTitles[0])}
-              {showAllTabs &&
-                tabTitles.map((tabTitle) => generateTab(tabTitle))}
-            </Tabs>
-          </>
-        );
-      };
-
-      beforeEach(() => {
-        container = document.createElement("div");
-        container.id = "enzymeContainer";
-        document.body.appendChild(container);
-
-        wrapper = mount(<ConditionalChildrenMock />, {
-          attachTo: document.getElementById("enzymeContainer"),
-        });
-      });
-
-      afterEach(() => {
-        if (container?.parentNode) {
-          container.parentNode.removeChild(container);
-        }
-
-        container = null;
-      });
-
-      const runFocusExpectations = (keyDown, array) =>
-        array.forEach((index) => {
-          const child = wrapper.update().find(StyledTabTitle).at(index);
-          expect(child.getDOMNode()).toBeFocused();
-          simulate.keydown[keyDown](child);
-        });
-
-      const toggleChildren = () => {
-        act(() => {
-          wrapper.find("#foo").prop("onClick")();
-        });
-
-        expect(wrapper.update().find(StyledTabTitle).length).toEqual(1);
-
-        act(() => {
-          wrapper.find("#foo").prop("onClick")();
-        });
-
-        expect(wrapper.update().find(StyledTabTitle).length).toEqual(3);
-      };
-
-      it("is consistent when navigating with the arrow keys and the composition of the children changes", () => {
-        wrapper.find(StyledTabTitle).first().getDOMNode().focus();
-
-        runFocusExpectations("pressArrowLeft", [0, 2, 1, 0, 2]);
-
-        toggleChildren();
-
-        wrapper.find(StyledTabTitle).first().getDOMNode().focus();
-
-        runFocusExpectations("pressArrowLeft", [0, 2, 1, 0, 2]);
-
-        toggleChildren();
-
-        wrapper.find(StyledTabTitle).first().getDOMNode().focus();
-
-        runFocusExpectations("pressArrowRight", [0, 1, 2, 0]);
-      });
+      runFocusExpectations("pressArrowRight", [0, 1, 2, 0]);
     });
   });
+});
 
-  describe("tags", () => {
-    describe("on component", () => {
-      const wrapper = shallow(
-        <Tabs data-element="bar" data-role="baz">
-          <Tab
-            tabId="1"
-            title="Test"
-            errorMessage=""
-            warningMessage=""
-            infoMessage=""
-          />
-        </Tabs>
-      ).find(StyledTabs);
+describe("tags", () => {
+  describe("on component", () => {
+    const wrapper = shallow(
+      <Tabs data-element="bar" data-role="baz">
+        <Tab
+          tabId="1"
+          title="Test"
+          errorMessage=""
+          warningMessage=""
+          infoMessage=""
+        />
+      </Tabs>
+    ).find(StyledTabs);
 
-      it("include correct component, element and role data tags", () => {
-        rootTagTest(wrapper, "tabs", "bar", "baz");
-      });
+    it("include correct component, element and role data tags", () => {
+      rootTagTest(wrapper, "tabs", "bar", "baz");
     });
   });
 
