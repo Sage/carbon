@@ -1,3 +1,10 @@
+### [112.0.3](https://github.com/Sage/carbon/compare/v112.0.2...v112.0.3) (2023-01-10)
+
+
+### Bug Fixes
+
+* **page:** replace incorrect article tag with div ([3622ed9](https://github.com/Sage/carbon/commit/3622ed99046f986aceba8f0e0b5c144689526b60))
+
 ### [112.0.2](https://github.com/Sage/carbon/compare/v112.0.1...v112.0.2) (2023-01-09)
 
 
