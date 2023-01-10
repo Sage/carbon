@@ -217,6 +217,48 @@ describe("TabTitle", () => {
     });
   });
 
+  describe("when inside a Drawer sidebar", () => {
+    it('applies proper styling when size is "large" and isTabSelected is true', () => {
+      wrapper = render(
+        {
+          isInSidebar: true,
+          size: "large",
+          borders: true,
+          isTabSelected: true,
+        },
+        mount
+      );
+      wrapper.simulate("focus");
+      assertStyleMatch(
+        {
+          outline: "var(--borderWidth300) solid var(--colorsSemanticFocus500)",
+        },
+        wrapper.find(StyledTabTitle),
+        { modifier: ":focus" }
+      );
+    });
+
+    it('applies proper styling when size is not "large" and isTabSelected is true', () => {
+      wrapper = render(
+        {
+          isInSidebar: true,
+          borders: true,
+          isTabSelected: true,
+          size: "default",
+        },
+        mount
+      );
+      wrapper.simulate("focus");
+      assertStyleMatch(
+        {
+          outline: "var(--borderWidth300) solid var(--colorsSemanticFocus500)",
+        },
+        wrapper.find(StyledTabTitle),
+        { modifier: ":focus" }
+      );
+    });
+  });
+
   describe('when position prop is set to "left"', () => {
     it("applies proper styles", () => {
       wrapper = render({ position: "left" }, mount);
