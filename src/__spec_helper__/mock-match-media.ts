@@ -1,6 +1,6 @@
 let mocked = false;
 let _matches = false;
-const removeListener = jest.fn();
+const removeEventListener = jest.fn();
 
 export const setupMatchMediaMock = () => {
   if (!global.window) {
@@ -13,8 +13,8 @@ export const setupMatchMediaMock = () => {
       matches: _matches,
       media: query,
       onchange: null,
-      addListener: noop,
-      removeListener,
+      addEventListener: noop,
+      removeEventListener,
       dispatchEvent: noop,
     }),
   });
@@ -28,5 +28,5 @@ export const mockMatchMedia = (matches: boolean) => {
     );
   }
   _matches = matches;
-  return { removeListener };
+  return { removeEventListener };
 };
