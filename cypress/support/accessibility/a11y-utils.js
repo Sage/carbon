@@ -49,6 +49,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("contributing") &&
       !prepareUrl[0].startsWith("documentation") &&
       !prepareUrl[0].startsWith("accordion") &&
+      !prepareUrl[0].startsWith("confirm") &&
       !prepareUrl[0].startsWith("content") &&
       !prepareUrl[0].startsWith("alert") &&
       !prepareUrl[0].startsWith("action-popover") &&
