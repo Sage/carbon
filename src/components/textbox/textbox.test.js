@@ -413,7 +413,7 @@ context("Tests for Textbox component", () => {
           .should("have.text", prefix)
           .and("have.css", "font-size", "14px")
           .and("have.css", "font-weight", "900")
-          .and("have.css", "margin-right", "8px");
+          .and("have.css", "margin-left", "12px");
       }
     );
 

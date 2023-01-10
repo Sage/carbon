@@ -11,6 +11,11 @@ export interface OptionProps {
   borderColor?: string;
   /** MultiSelect only - fill Pill background with color */
   fill?: boolean;
+  /**
+   * @private
+   * @ignore
+   * OnClick callback */
+  onClick?: (ev: React.MouseEvent<HTMLLIElement>) => void;
 }
 
 declare function Option(
