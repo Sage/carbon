@@ -70,32 +70,17 @@ const Tabs = ({
   const [tabsWarnings, setTabsWarnings] = useState({});
   const [tabsInfos, setTabsInfos] = useState({});
 
-  const updateErrors = useCallback(
-    (id, error) => {
-      if (tabsErrors[id] !== error) {
-        setTabsErrors({ ...tabsErrors, [id]: error });
-      }
-    },
-    [tabsErrors]
-  );
+  const updateErrors = useCallback((id, error) => {
+    setTabsErrors((state) => ({ ...state, [id]: error }));
+  }, []);
 
-  const updateWarnings = useCallback(
-    (id, warning) => {
-      if (tabsWarnings[id] !== warning) {
-        setTabsWarnings({ ...tabsWarnings, [id]: warning });
-      }
-    },
-    [tabsWarnings]
-  );
+  const updateWarnings = useCallback((id, warning) => {
+    setTabsWarnings((state) => ({ ...state, [id]: warning }));
+  }, []);
 
-  const updateInfos = useCallback(
-    (id, info) => {
-      if (tabsInfos[id] !== info) {
-        setTabsInfos({ ...tabsInfos, [id]: info });
-      }
-    },
-    [tabsInfos]
-  );
+  const updateInfos = useCallback((id, info) => {
+    setTabsInfos((state) => ({ ...state, [id]: info }));
+  }, []);
 
   /** Returns true/false for if the given tab id is selected. */
   const isTabSelected = useCallback((tabId) => tabId === selectedTabIdState, [
@@ -144,9 +129,6 @@ const Tabs = ({
     selectedTabIdState,
   ]);
 
-  /** Determines if the tab titles are in a vertical format. */
-  const isVertical = (currentPosition) => currentPosition === "left";
-
   /** Handles the changing of tabs with the mouse */
   const handleTabClick = (ev) => {
     if (Event.isEventType(ev, "keydown")) {
@@ -179,7 +161,7 @@ const Tabs = ({
   /** Handles the keyboard navigation of tabs */
   const handleKeyDown = (index) => {
     return (event) => {
-      const isTabVertical = isVertical(position);
+      const isTabVertical = isInSidebar || position === "left";
       const isUp = isTabVertical && Event.isUpKey(event);
       const isDown = isTabVertical && Event.isDownKey(event);
       const isLeft = !isTabVertical && Event.isLeftKey(event);

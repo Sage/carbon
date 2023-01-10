@@ -191,19 +191,6 @@ describe("Textbox", () => {
     });
   });
 
-  describe("Prefix", () => {
-    it("should have expected styles", () => {
-      assertStyleMatch(
-        {
-          alignSelf: "center",
-          fontWeight: "900",
-          marginRight: "8px",
-        },
-        mount(<StyledPrefix>abc</StyledPrefix>)
-      );
-    });
-  });
-
   describe("positionedChildren", () => {
     it("passes positionedChildren prop to the InputPresentation component", () => {
       const Component = () => <div />;

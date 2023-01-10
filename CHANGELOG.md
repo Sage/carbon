@@ -1,3 +1,63 @@
+### [112.0.3](https://github.com/Sage/carbon/compare/v112.0.2...v112.0.3) (2023-01-10)
+
+
+### Bug Fixes
+
+* **page:** replace incorrect article tag with div ([3622ed9](https://github.com/Sage/carbon/commit/3622ed99046f986aceba8f0e0b5c144689526b60))
+
+### [112.0.2](https://github.com/Sage/carbon/compare/v112.0.1...v112.0.2) (2023-01-09)
+
+
+### Bug Fixes
+
+* **textbox:** fix incorrect margin on prefix ([7a4200a](https://github.com/Sage/carbon/commit/7a4200a694a9a1b243e699339f5a3b9f6aac4942)), closes [#5646](https://github.com/Sage/carbon/issues/5646)
+
+### [112.0.1](https://github.com/Sage/carbon/compare/v112.0.0...v112.0.1) (2023-01-09)
+
+
+### Bug Fixes
+
+* **tabs:** ensure arrow navigation is correct when Tabs are used within Drawer ([150d67e](https://github.com/Sage/carbon/commit/150d67e4d443ce18f1d0b8f3767825e361adf24b)), closes [#5597](https://github.com/Sage/carbon/issues/5597)
+
+## [112.0.0](https://github.com/Sage/carbon/compare/v111.22.4...v112.0.0) (2023-01-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pager:** onNext, onFirst, OnPrevious and onLast Pager prop types have been changed
+
+### Code Refactoring
+
+* **pager:** convert component to typescript ([3233d4c](https://github.com/Sage/carbon/commit/3233d4ce6b7e0d5acfeddbc45025c8d359c23d7b))
+
+### [111.22.4](https://github.com/Sage/carbon/compare/v111.22.3...v111.22.4) (2023-01-06)
+
+
+### Bug Fixes
+
+* **progress-tracker:** add deprecation warnings for orientation and direction props ([db4d936](https://github.com/Sage/carbon/commit/db4d93635f88dbaa273174994491362ef4019df1))
+
+### [111.22.3](https://github.com/Sage/carbon/compare/v111.22.2...v111.22.3) (2023-01-04)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** ensure no crash when clicking outside a submenu ([c1f2bdb](https://github.com/Sage/carbon/commit/c1f2bdbe8ef28be5de2f79398091876cfc491255)), closes [#5682](https://github.com/Sage/carbon/issues/5682)
+
+### [111.22.2](https://github.com/Sage/carbon/compare/v111.22.1...v111.22.2) (2022-12-23)
+
+
+### Bug Fixes
+
+* **simple-color-picker:** make simple-color ids unique ([678d838](https://github.com/Sage/carbon/commit/678d8388aff4a1264e266265cec2f487f938b399))
+
+### [111.22.1](https://github.com/Sage/carbon/compare/v111.22.0...v111.22.1) (2022-12-21)
+
+
+### Bug Fixes
+
+* **tabs:** fix an issue with infinite rerender when numeral date is rendered as a child ([0b046f0](https://github.com/Sage/carbon/commit/0b046f0d507d43e1bf050394c53e5913dfbfe383))
+
 ## [111.22.0](https://github.com/Sage/carbon/compare/v111.21.1...v111.22.0) (2022-12-19)
 
 

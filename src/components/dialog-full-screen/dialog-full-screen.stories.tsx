@@ -20,7 +20,7 @@ import { Dl, Dt, Dd } from "../definition-list";
 import Toast from "../toast";
 import isChromatic from "../../../.storybook/isChromatic";
 
-const isOpenForChromatic = isChromatic();
+const defaultOpenState = isChromatic();
 
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,7 +79,7 @@ export const Default = () => {
 Default.parameters = { chromatic: { disable: true } };
 
 export const WithComplexExample = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [activeTab, setActiveTab] = useState("tab-1");
   const padding40 = useMediaQuery("(min-width: 1260px)");
   const padding32 = useMediaQuery("(min-width: 960px)");
@@ -564,7 +564,7 @@ export const WithDisableContentPadding = () => {
 WithDisableContentPadding.parameters = { chromatic: { disable: true } };
 
 export const WithHeaderChildren = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
   const verticalMargin = aboveBreakpoint ? "26px" : 0;
   const HeaderChildren = (
@@ -613,7 +613,7 @@ export const WithHeaderChildren = () => {
 WithDisableContentPadding.parameters = { viewports: [500, 1400] };
 
 export const WithHelp = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open DialogFullScreen</Button>

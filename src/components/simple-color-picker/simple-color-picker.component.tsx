@@ -1,0 +1,323 @@
+import React, {
+  useCallback,
+  useState,
+  useRef,
+  useMemo,
+  useEffect,
+} from "react";
+import { MarginProps } from "styled-system";
+import invariant from "invariant";
+
+import Events from "../../__internal__/utils/helpers/events";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import Fieldset from "../../__internal__/fieldset";
+import SimpleColor, { SimpleColorProps } from "./simple-color";
+import RadioButtonMapper from "../../__internal__/radio-button-mapper/radio-button-mapper.component";
+import { StyledContent, StyledColorOptions } from "./simple-color-picker.style";
+import ValidationIcon from "../../__internal__/validations/validation-icon.component";
+import { InputGroupContext } from "../../__internal__/input-behaviour";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+import { ValidationProps } from "../../__internal__/validations";
+
+export interface SimpleColorPickerProps extends ValidationProps, MarginProps {
+  /** The SimpleColor components to be rendered in the group */
+  children?: React.ReactNode;
+  /** prop that represents childWidth */
+  childWidth?: string | number;
+  /** Should the onBlur callback prop be initially blocked? */
+  isBlurBlocked?: boolean;
+  /** The content for the Legend */
+  legend: string;
+  /** prop that sets max-width in css */
+  maxWidth?: string | number;
+  /** The name to apply to the input. */
+  name: string;
+  /** Prop for `onChange` events */
+  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  /** Prop for `onKeyDown` events */
+  onKeyDown?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
+  /** Prop for `onBlur` events */
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
+  /** Flag to configure component as mandatory */
+  required?: boolean;
+  /** When true, validation icon will be placed on legend instead of being placed by the input */
+  validationOnLegend?: boolean;
+  /** The currently selected color. */
+  value?: string;
+}
+
+export const SimpleColorPicker = (props: SimpleColorPickerProps) => {
+  const {
+    children,
+    error,
+    warning,
+    info,
+    name,
+    legend,
+    onChange,
+    onBlur,
+    onKeyDown,
+    value,
+    isBlurBlocked = false,
+    maxWidth = 300,
+    childWidth = 58,
+    validationOnLegend,
+    required,
+    ...rest
+  } = props;
+
+  const hasProperChildren = useMemo(() => {
+    let hasSimpleColorChildren = true;
+
+    React.Children.toArray(children).forEach((child) => {
+      if (
+        typeof child === "string" ||
+        (React.isValidElement(child) &&
+          (child.type as React.FunctionComponent).displayName !== "SimpleColor")
+      ) {
+        hasSimpleColorChildren = false;
+      }
+    });
+
+    return hasSimpleColorChildren;
+  }, [children]);
+
+  invariant(
+    hasProperChildren,
+    `SimpleColorPicker accepts only children of type \`${SimpleColor.displayName}\`.`
+  );
+
+  const filteredChildren = useMemo(
+    () =>
+      React.Children.toArray(children).filter((child) =>
+        React.isValidElement(child)
+      ) as React.FunctionComponentElement<
+        SimpleColorProps & { ref: React.RefObject<HTMLInputElement> }
+      >[],
+    [children]
+  );
+
+  const internalRef = useRef<HTMLDivElement | null>(null);
+  const [blurBlocked, setIsBlurBlocked] = useState(isBlurBlocked);
+  const [focusedElement, setFocusedElement] = useState<EventTarget | null>(
+    null
+  );
+  const itemsPerRow = Math.floor(+maxWidth / +childWidth);
+  const rowCount = Math.ceil(filteredChildren?.length / itemsPerRow);
+  let blankSlots = itemsPerRow * rowCount - filteredChildren?.length;
+  let currentRow = 1;
+  let loopCounter = 1;
+
+  const gridItemRefs = useMemo<React.RefObject<HTMLInputElement>[]>(
+    () =>
+      filteredChildren.map(
+        (child) => child.ref || React.createRef<HTMLInputElement>()
+      ),
+    [filteredChildren]
+  );
+
+  const navigationGrid = filteredChildren.map((child, index) => {
+    const allowUp = currentRow !== 1;
+    let allowDown = false;
+
+    if (currentRow + 1 === rowCount && blankSlots - itemsPerRow < 0) {
+      allowDown = true;
+      blankSlots += 1;
+    } else if (
+      currentRow + 1 !== rowCount &&
+      currentRow !== rowCount &&
+      rowCount > 1
+    ) {
+      allowDown = true;
+    }
+
+    if (loopCounter === itemsPerRow) {
+      loopCounter = 0;
+      currentRow += 1;
+    }
+
+    let upItem;
+
+    if (allowUp) {
+      upItem = index - itemsPerRow;
+    }
+
+    let downItem;
+
+    if (allowDown) {
+      downItem = itemsPerRow + index;
+    }
+
+    const childProps = {
+      ref: gridItemRefs[index],
+      "data-up": allowUp,
+      "data-down": allowDown,
+      "data-item-up": upItem,
+      "data-item-down": downItem,
+      required,
+    };
+
+    loopCounter += 1;
+
+    return React.cloneElement(child, childProps);
+  });
+
+  const onKeyDownHandler = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (onKeyDown) {
+        onKeyDown(e);
+      }
+
+      const arrowKeys = [
+        Events.isLeftKey(e),
+        Events.isUpKey(e),
+        Events.isRightKey(e),
+        Events.isDownKey(e),
+      ];
+
+      if (!arrowKeys.includes(true)) return;
+
+      e.preventDefault();
+
+      let itemIndex: number | null = null;
+
+      const target = e.target as HTMLInputElement;
+
+      if (Events.isUpKey(e)) {
+        if (target.getAttribute("data-up") !== "true") return;
+        itemIndex = +(target.getAttribute("data-item-up") as string);
+      } else if (Events.isDownKey(e)) {
+        if (target.getAttribute("data-down") !== "true") return;
+        itemIndex = +(target.getAttribute("data-item-down") as string);
+      }
+
+      if (Events.isLeftKey(e) || Events.isRightKey(e)) {
+        const position = (
+          element: React.FunctionComponentElement<
+            SimpleColorProps & { ref: React.RefObject<HTMLInputElement> }
+          >
+        ) => {
+          return target.getAttribute("value") === element.props.value;
+        };
+
+        if (Events.isLeftKey(e)) {
+          itemIndex = navigationGrid.findIndex(position) - 1;
+        } else {
+          itemIndex = navigationGrid.findIndex(position) + 1;
+        }
+
+        if (itemIndex < 0) {
+          itemIndex = navigationGrid.length - 1;
+        } else if (itemIndex > navigationGrid.length - 1) {
+          itemIndex = 0;
+        }
+      }
+
+      /* istanbul ignore else */
+      if (itemIndex !== null) {
+        const item = gridItemRefs[itemIndex].current;
+        item?.focus();
+        item?.click();
+      }
+    },
+    [onKeyDown, navigationGrid, gridItemRefs]
+  );
+
+  const handleClickOutside = (ev: MouseEvent | KeyboardEvent) => {
+    if (
+      internalRef.current &&
+      ev.target &&
+      !internalRef.current.contains(ev.target as Node)
+    ) {
+      setIsBlurBlocked(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleClickOutside);
+    };
+  });
+
+  const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
+    ev.preventDefault();
+
+    if (!blurBlocked && onBlur) {
+      onBlur(ev);
+    }
+  };
+
+  const handleOnMouseDown = (ev: React.MouseEvent<HTMLElement>) => {
+    setIsBlurBlocked(true);
+
+    // If the mousedown event occurred on the currently-focused <SimpleColor>
+    if (focusedElement !== null && focusedElement === ev.target) {
+      ev.preventDefault();
+
+      // If a different <SimpleColor> is currently focused
+    } else if (focusedElement !== null) {
+      ev.preventDefault();
+      setIsBlurBlocked(false);
+      setFocusedElement(ev.target);
+
+      // If no <SimpleColor> is currently focused
+    } else {
+      setIsBlurBlocked(true);
+      setFocusedElement(ev.target);
+    }
+  };
+
+  const validationProps = {
+    error,
+    warning,
+    info,
+  };
+
+  return (
+    <Fieldset
+      role="radiogroup"
+      legend={legend}
+      isRequired={required}
+      {...(validationOnLegend && validationProps)}
+      {...tagComponent("simple-color-picker", props)}
+      {...filterStyledSystemMarginProps(rest)}
+    >
+      <StyledContent>
+        <InputGroupContext.Consumer>
+          {({ onMouseEnter, onMouseLeave }) => (
+            <StyledColorOptions
+              maxWidth={maxWidth}
+              childWidth={childWidth}
+              ref={internalRef}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+              {...validationProps}
+            >
+              <RadioButtonMapper
+                name={name}
+                value={value}
+                onChange={onChange}
+                onMouseDown={handleOnMouseDown}
+                onKeyDown={onKeyDownHandler}
+                onBlur={handleOnBlur}
+              >
+                {navigationGrid}
+              </RadioButtonMapper>
+            </StyledColorOptions>
+          )}
+        </InputGroupContext.Consumer>
+        {!validationOnLegend && (
+          <ValidationIcon
+            {...validationProps}
+            tooltipFlipOverrides={["top", "bottom"]}
+          />
+        )}
+      </StyledContent>
+    </Fieldset>
+  );
+};
+
+export default SimpleColorPicker;

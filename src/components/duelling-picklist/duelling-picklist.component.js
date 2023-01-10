@@ -90,6 +90,10 @@ const DuellingPicklist = ({
 
 DuellingPicklist.propTypes = {
   ...marginPropTypes,
+  /**
+   * Content of the component, should contain two Picklist children
+   * and a PicklistDivider
+   */
   children: (props, propName) => {
     const prop = props[propName];
     let error;

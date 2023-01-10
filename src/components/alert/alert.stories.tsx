@@ -4,10 +4,10 @@ import Alert from ".";
 import Button from "../button";
 import isChromatic from "../../../.storybook/isChromatic";
 
-const isOpenForChromatic = isChromatic();
+const defaultOpenState = isChromatic();
 
 const AlertComponent: ComponentStory<typeof Alert> = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Alert</Button>

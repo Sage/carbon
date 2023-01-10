@@ -124,7 +124,7 @@ const yearValuesGreaterThan69 = Array.from({ length: 30 }).map(
 
 describe("utils", () => {
   beforeAll(() => {
-    MockDate.set("2022-01-01");
+    MockDate.set(`${currentYear}-01-01`);
   });
 
   afterAll(() => {

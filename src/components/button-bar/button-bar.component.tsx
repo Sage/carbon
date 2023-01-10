@@ -7,6 +7,7 @@ import Button from "../button";
 import IconButton from "../icon-button";
 
 export interface ButtonBarProps extends SpaceProps {
+  /** Button or IconButton Elements, to be rendered inside the component */
   children: React.ReactNode;
   /** Apply fullWidth style to the button bar */
   fullWidth?: boolean;
@@ -16,7 +17,7 @@ export interface ButtonBarProps extends SpaceProps {
   size?: "small" | "medium" | "large";
 }
 
-const ButtonBar = ({
+export const ButtonBar = ({
   children,
   size = "medium",
   iconPosition = "before",
@@ -65,5 +66,7 @@ const ButtonBar = ({
     </StyledButtonBar>
   );
 };
+
+ButtonBar.displayName = "ButtonBar";
 
 export default ButtonBar;
