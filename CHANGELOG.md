@@ -1,3 +1,10 @@
+### [112.0.4](https://github.com/Sage/carbon/compare/v112.0.3...v112.0.4) (2023-01-10)
+
+
+### Bug Fixes
+
+* **tab-title:** ensure focus outline is present when Tabs are used within Drawer ([1f191dc](https://github.com/Sage/carbon/commit/1f191dc2438ac685a2201df9751ce3da2f356244)), closes [#5598](https://github.com/Sage/carbon/issues/5598)
+
 ### [112.0.3](https://github.com/Sage/carbon/compare/v112.0.2...v112.0.3) (2023-01-10)
 
 
