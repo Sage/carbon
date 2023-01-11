@@ -150,6 +150,16 @@ describe("Inline Inputs", () => {
     });
   });
 
+  describe("when a required prop is passed in", () => {
+    beforeEach(() => {
+      wrapper = render({ label: "foo", required: true });
+    });
+
+    it("then the isRequired prop should be passed to the label", () => {
+      expect(wrapper.find(Label).props().isRequired).toBe(true);
+    });
+  });
+
   describe("when the inputWidth prop is not passed in", () => {
     beforeEach(() => {
       wrapper = render({});
