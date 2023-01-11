@@ -13,6 +13,7 @@ import { keyCode } from "../../../cypress/support/helper";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
+import { ICON } from "../../../cypress/locators/locators";
 import { DrawerSidebarContext } from "../drawer";
 
 const TabsComponent = ({ ...props }) => {
@@ -595,13 +596,7 @@ context("Testing Tabs component", () => {
       (id, validation) => {
         CypressMountWithProviders(<TabsComponentValidations />);
 
-        tabById(id)
-          .children()
-          .children(1)
-          .children()
-          .children()
-          .should("have.attr", "data-component", "icon")
-          .and("have.attr", "type", validation);
+        tabById(id).find(ICON).and("have.attr", "type", validation);
       }
     );
 

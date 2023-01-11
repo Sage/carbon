@@ -1,9 +1,8 @@
 import styled, { css, keyframes } from "styled-components";
-import { Placement } from "tippy.js";
 
 import baseTheme, { ThemeObject } from "../../style/themes/base";
 import { toColor } from "../../style/utils/color";
-import { TooltipProps, InputSizes } from "./tooltip.component";
+import { TooltipProps } from "./tooltip.component";
 
 const fadeIn = keyframes`
   0% {
@@ -22,60 +21,15 @@ const tooltipColor = (theme: ThemeObject, bgColor?: string, type?: string) => {
     : "var(--colorsSemanticNeutral500)";
 };
 
-const tooltipOffset = (
-  position: Placement,
-  inputSize?: InputSizes,
-  isPartOfInput?: boolean
-) => {
-  if (!isPartOfInput) {
-    return { [position]: "1px" };
-  }
-
-  switch (inputSize) {
-    case "small":
-      return `
-        ${position}: 5px;
-        @-moz-document url-prefix() { 
-          ${position}: ${["top", "bottom"].includes(position) ? "7px" : "6px"};
-        }
-      `;
-    case "large":
-      return `
-        ${position}: ${["top", "bottom"].includes(position) ? "0px" : "-2px"};
-        @-moz-document url-prefix() { 
-          ${position}: -1px;
-        }
-      `;
-    default:
-      return `
-        ${position}: ${["top", "bottom"].includes(position) ? "4px" : "2px"};
-        @-moz-document url-prefix() { 
-          ${position}: 4px;
-        }
-      `;
-  }
-};
-
-interface StyledTooltipProps
-  extends Omit<TooltipProps, "children" | "message" | "position"> {
-  position: Placement;
-}
-
-const StyledTooltip = styled.div<StyledTooltipProps>`
-  ${({
-    position,
-    size,
-    theme,
-    type,
-    isPartOfInput,
-    inputSize = "medium",
-    bgColor,
-    fontColor,
-  }) => css`
+const StyledTooltip = styled.div<
+  Pick<TooltipProps, "size" | "type" | "bgColor" | "fontColor">
+>`
+  ${({ size, theme, type, bgColor, fontColor }) => css`
     bottom: auto;
     right: auto;
     max-width: 300px;
-    position: relative;
+    width: max-content;
+    position: absolute;
     animation: ${fadeIn} 0.2s linear;
     z-index: ${theme.zIndex
       .popover}; // TODO (tokens): implement elevation tokens - FE-4437
@@ -91,7 +45,6 @@ const StyledTooltip = styled.div<StyledTooltipProps>`
     line-height: 1.5rem;
     font-weight: 400;
     background-color: ${tooltipColor(theme, bgColor, type)};
-    ${tooltipOffset(position, inputSize, isPartOfInput)};
   `}
 `;
 

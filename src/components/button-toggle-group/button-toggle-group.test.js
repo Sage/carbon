@@ -11,6 +11,8 @@ import {
   buttonToggleGroupHelp,
   buttonToggleGroupHelpIcon,
 } from "../../../cypress/locators/button-toggle-group";
+import { RADIOGROUP_ROLE } from "../../../cypress/locators/radiobutton/locators.js";
+import { ICON } from "../../../cypress/locators/locators.js";
 import { positionOfElement } from "../../../cypress/support/helper";
 import { getDataElementByValue, icon } from "../../../cypress/locators";
 import {
@@ -124,12 +126,8 @@ context("Testing Button-Toggle-Group component", () => {
         );
 
         buttonToggleGroup()
-          .children()
-          .children()
-          .eq(1)
-          .children()
-          .eq(3)
-          .children()
+          .find(RADIOGROUP_ROLE)
+          .find(ICON)
           .should("have.attr", "type", prop);
         icon().parent().should("have.attr", "data-component", "help");
         buttonTogglePreview()
@@ -144,13 +142,9 @@ context("Testing Button-Toggle-Group component", () => {
         <ButtonToggleGroupComponent info="Info Message" validationOnLabel />
       );
 
-      buttonToggleGroup()
-        .children()
-        .children()
-        .children()
-        .eq(1)
-        .children()
-        .children()
+      getDataElementByValue("label")
+        .parent()
+        .find(ICON)
         .should("have.attr", "data-element", "info");
     });
 
