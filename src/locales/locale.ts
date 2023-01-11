@@ -53,7 +53,7 @@ interface Locale {
   };
   pager: {
     show: () => string;
-    records: (count: number | string, showNumber: boolean) => string;
+    records: (count: number | string, showNumber?: boolean) => string;
     first: () => string;
     last: () => string;
     next: () => string;

@@ -94,7 +94,7 @@ interface RenderChildrenProps
     | "iconTooltipPosition"
   > {
   buttonType: ButtonTypes;
-  tooltipTarget?: Element;
+  tooltipTarget?: HTMLElement;
 }
 
 function renderChildren({

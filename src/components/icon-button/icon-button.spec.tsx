@@ -13,11 +13,6 @@ import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 
-jest.mock("@tippyjs/react/headless", () => ({
-  __esModule: true,
-  default: ({ children }: { children: React.ReactNode }) => children,
-}));
-
 describe("IconButton component", () => {
   let wrapper: ReactWrapper;
   let onDismiss: jest.Mock;

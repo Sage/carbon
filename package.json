@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "111.22.3",
+  "version": "113.0.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -164,10 +164,10 @@
     "webpack-dev-server": "^4.0.0"
   },
   "dependencies": {
-    "@floating-ui/dom": "^1.0.2",
+    "@floating-ui/dom": "^1.0.7",
+    "@floating-ui/react-dom": "^1.0.1",
     "@octokit/rest": "^18.12.0",
     "@styled-system/prop-types": "^5.1.5",
-    "@tippyjs/react": "^4.2.5",
     "@types/styled-system": "^5.1.11",
     "chalk": "^4.1.1",
     "ci-info": "^3.3.2",

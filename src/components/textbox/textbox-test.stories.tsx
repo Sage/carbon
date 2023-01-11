@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
-import Textbox from ".";
+import Textbox, { TextboxProps } from ".";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ICONS } from "../icon/icon-config";
 
@@ -139,7 +139,7 @@ export default {
       disable: true,
     },
   },
-  includeStories: ["Default", "Multiple", "NewValidation"],
+  includeStories: ["Default", "Multiple", "NewValidation", "PrefixWithSizes"],
 };
 
 export const Default = (args: CommonTextboxArgs) => {
@@ -158,6 +158,7 @@ export const Default = (args: CommonTextboxArgs) => {
         iconOnClick={action("iconOnClick")}
         value={state}
         onChange={setValue}
+        {...getCommonTextboxArgsWithSpecialCaracters(args)}
       />
     </div>
   );
@@ -201,3 +202,22 @@ export const NewValidation = (args: CommonTextboxArgs) => {
 NewValidation.storyName = "new validation";
 NewValidation.argTypes = commonTextboxArgTypes(true);
 NewValidation.args = getCommonTextboxArgs(true);
+
+export const PrefixWithSizes = () => {
+  return (
+    <>
+      {["small", "medium", "large"].map((size) => (
+        <Textbox
+          key={`Textbox - ${size}`}
+          label={`Textbox - ${size}`}
+          defaultValue="Textbox"
+          prefix="prefix"
+          size={size as TextboxProps["size"]}
+          mb={2}
+        />
+      ))}
+    </>
+  );
+};
+
+PrefixWithSizes.storyName = "prefix with sizes";

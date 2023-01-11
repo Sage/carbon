@@ -1,3 +1,60 @@
+## [113.0.0](https://github.com/Sage/carbon/compare/v112.0.4...v113.0.0) (2023-01-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tooltip:** jest versions lower than 27 are no longer supported and might break unit tests
+
+### Code Refactoring
+
+* **tooltip:** make tooltips use floating-ui package ([afc5bf5](https://github.com/Sage/carbon/commit/afc5bf53f6a037512350177937c5f5509a452a2d))
+
+### [112.0.4](https://github.com/Sage/carbon/compare/v112.0.3...v112.0.4) (2023-01-10)
+
+
+### Bug Fixes
+
+* **tab-title:** ensure focus outline is present when Tabs are used within Drawer ([1f191dc](https://github.com/Sage/carbon/commit/1f191dc2438ac685a2201df9751ce3da2f356244)), closes [#5598](https://github.com/Sage/carbon/issues/5598)
+
+### [112.0.3](https://github.com/Sage/carbon/compare/v112.0.2...v112.0.3) (2023-01-10)
+
+
+### Bug Fixes
+
+* **page:** replace incorrect article tag with div ([3622ed9](https://github.com/Sage/carbon/commit/3622ed99046f986aceba8f0e0b5c144689526b60))
+
+### [112.0.2](https://github.com/Sage/carbon/compare/v112.0.1...v112.0.2) (2023-01-09)
+
+
+### Bug Fixes
+
+* **textbox:** fix incorrect margin on prefix ([7a4200a](https://github.com/Sage/carbon/commit/7a4200a694a9a1b243e699339f5a3b9f6aac4942)), closes [#5646](https://github.com/Sage/carbon/issues/5646)
+
+### [112.0.1](https://github.com/Sage/carbon/compare/v112.0.0...v112.0.1) (2023-01-09)
+
+
+### Bug Fixes
+
+* **tabs:** ensure arrow navigation is correct when Tabs are used within Drawer ([150d67e](https://github.com/Sage/carbon/commit/150d67e4d443ce18f1d0b8f3767825e361adf24b)), closes [#5597](https://github.com/Sage/carbon/issues/5597)
+
+## [112.0.0](https://github.com/Sage/carbon/compare/v111.22.4...v112.0.0) (2023-01-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pager:** onNext, onFirst, OnPrevious and onLast Pager prop types have been changed
+
+### Code Refactoring
+
+* **pager:** convert component to typescript ([3233d4c](https://github.com/Sage/carbon/commit/3233d4ce6b7e0d5acfeddbc45025c8d359c23d7b))
+
+### [111.22.4](https://github.com/Sage/carbon/compare/v111.22.3...v111.22.4) (2023-01-06)
+
+
+### Bug Fixes
+
+* **progress-tracker:** add deprecation warnings for orientation and direction props ([db4d936](https://github.com/Sage/carbon/commit/db4d93635f88dbaa273174994491362ef4019df1))
+
 ### [111.22.3](https://github.com/Sage/carbon/compare/v111.22.2...v111.22.3) (2023-01-04)
 
 

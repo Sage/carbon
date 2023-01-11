@@ -10,8 +10,8 @@ import {
 
 export interface UseFloatingProps {
   isOpen?: boolean;
-  reference: React.RefObject<HTMLElement>;
-  floating: React.RefObject<HTMLElement>;
+  reference: React.RefObject<HTMLElement | null>;
+  floating: React.RefObject<HTMLElement | null>;
   strategy?: Strategy;
   middleware?: Middleware[];
   placement?: Placement;

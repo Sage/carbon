@@ -12,6 +12,7 @@ import {
   CHARACTERS,
 } from "../../../cypress/support/component-helper/constants";
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
+import { ICON } from "../../../cypress/locators/locators";
 
 const specialCharacters = [
   CHARACTERS.STANDARD,
@@ -121,11 +122,8 @@ context("Testing Fieldset component", () => {
         getDataElementByValue("input")
           .eq(positionOfElement("first"))
           .parent()
-          .children(1)
-          .children()
-          .children()
-          .should("have.attr", "data-component", "icon")
-          .and("have.attr", "data-element", type);
+          .find(ICON)
+          .should("have.attr", "data-element", type);
       }
     );
 
@@ -150,11 +148,8 @@ context("Testing Fieldset component", () => {
         getDataElementByValue("label")
           .eq(positionOfElement("first"))
           .parent()
-          .children(1)
-          .children()
-          .children()
-          .should("have.attr", "data-component", "icon")
-          .and("have.attr", "data-element", type);
+          .find(ICON)
+          .should("have.attr", "data-element", type);
       }
     );
 
