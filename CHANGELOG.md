@@ -1,3 +1,10 @@
+### [113.0.1](https://github.com/Sage/carbon/compare/v113.0.0...v113.0.1) (2023-01-11)
+
+
+### Bug Fixes
+
+* **dialog:** fix incorrect focus trap behaviour when ag-grid is rendered inside ([d44b2d9](https://github.com/Sage/carbon/commit/d44b2d99d1c6f591d4bdd2473117da5d2c6e1dd3))
+
 ## [113.0.0](https://github.com/Sage/carbon/compare/v112.0.4...v113.0.0) (2023-01-11)
 
 
