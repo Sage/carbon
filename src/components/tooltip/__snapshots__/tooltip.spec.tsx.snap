@@ -1,105 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tooltip controlled matches snapshot when isVisible is false 1`] = `
-<ForwardRef(TippyWrapper)
-  delay={100}
-  placement="top"
-  plugins={
-    Array [
-      Object {
-        "defaultValue": false,
-        "fn": [Function],
-        "name": "sticky",
-      },
-    ]
-  }
-  popperOptions={
-    Object {
-      "modifiers": Array [
-        Object {
-          "name": "computeStyles",
-          "options": Object {
-            "gpuAcceleration": false,
-          },
-        },
-      ],
-    }
-  }
-  render={[Function]}
-  sticky={true}
-  visible={false}
->
-  <div>
+<div>
+  <div
+    data-testid="tooltip-target"
+  >
     foo
   </div>
-</ForwardRef(TippyWrapper)>
+</div>
 `;
 
 exports[`Tooltip controlled matches snapshot when isVisible is true 1`] = `
-<ForwardRef(TippyWrapper)
-  delay={100}
-  placement="top"
-  plugins={
-    Array [
-      Object {
-        "defaultValue": false,
-        "fn": [Function],
-        "name": "sticky",
-      },
-    ]
-  }
-  popperOptions={
-    Object {
-      "modifiers": Array [
-        Object {
-          "name": "computeStyles",
-          "options": Object {
-            "gpuAcceleration": false,
-          },
-        },
-      ],
-    }
-  }
-  render={[Function]}
-  sticky={true}
-  visible={true}
->
-  <div>
+<div>
+  <div
+    data-testid="tooltip-target"
+  >
     foo
   </div>
-</ForwardRef(TippyWrapper)>
-`;
-
-exports[`Tooltip default props matches snapshot 1`] = `
-<ForwardRef(TippyWrapper)
-  delay={100}
-  placement="top"
-  plugins={
-    Array [
-      Object {
-        "defaultValue": false,
-        "fn": [Function],
-        "name": "sticky",
-      },
-    ]
-  }
-  popperOptions={
-    Object {
-      "modifiers": Array [
-        Object {
-          "name": "computeStyles",
-          "options": Object {
-            "gpuAcceleration": false,
-          },
-        },
-      ],
-    }
-  }
-  render={[Function]}
-  sticky={true}
->
-  <div>
-    foo
-  </div>
-</ForwardRef(TippyWrapper)>
+  <span
+    data-portal-entrance="guid-12345"
+  />
+</div>
 `;

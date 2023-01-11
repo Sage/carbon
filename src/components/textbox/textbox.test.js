@@ -32,6 +32,7 @@ import {
 
 import { keyCode } from "../../../cypress/support/helper";
 import Button from "../button/button.component";
+import { ICON } from "../../../cypress/locators/locators";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -340,12 +341,7 @@ context("Tests for Textbox component", () => {
           />
         );
 
-        textbox()
-          .children(1)
-          .children()
-          .children()
-          .should("have.attr", "data-component", "icon")
-          .and("have.attr", "data-element", type);
+        textbox().find(ICON).should("have.attr", "data-element", type);
       }
     );
 
@@ -363,11 +359,8 @@ context("Tests for Textbox component", () => {
 
         getDataElementByValue("label")
           .parent()
-          .children(1)
-          .children()
-          .children()
-          .should("have.attr", "data-component", "icon")
-          .and("have.attr", "data-element", type);
+          .find(ICON)
+          .should("have.attr", "data-element", type);
       }
     );
 

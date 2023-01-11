@@ -17,11 +17,6 @@ import ToolbarButton from "./toolbar-button/toolbar-button.component";
 import Tooltip from "../../../tooltip";
 import I18nProvider from "../../../i18n-provider";
 
-jest.mock("@tippyjs/react/headless", () => ({
-  __esModule: true,
-  default: ({ children }) => children,
-}));
-
 const setInlineStyle = jest.fn();
 const setBlockStyle = jest.fn();
 

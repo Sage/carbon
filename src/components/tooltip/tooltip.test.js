@@ -1,54 +1,89 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/button-has-type */
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import Tooltip from "./tooltip.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
-import { tooltipPreview } from "../../../cypress/locators/tooltip/index";
+import {
+  tooltipPreview,
+  tooltipTrigger,
+  tooltipTriggerToggle,
+} from "../../../cypress/locators/tooltip/index";
 import {
   SIZE,
   COLOR,
   CHARACTERS,
 } from "../../../cypress/support/component-helper/constants";
+import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const backgroundColors = [COLOR.ORANGE, COLOR.RED, COLOR.BLACK, COLOR.BROWN];
 
-const TooltipComponent = ({ ...props }) => {
-  const Component = forwardRef(({ children }, ref) => (
-    <button
-      tabIndex="0"
-      style={{
-        backgroundColor: "#00815D",
-        color: "white",
-        cursor: "pointer",
-        border: "none",
-        padding: "8px",
-      }}
-      ref={ref}
-    >
-      {children}
-    </button>
-  ));
+const Button = forwardRef(({ children }, ref) => (
+  <button
+    tabIndex="0"
+    data-component="tooltip-trigger"
+    style={{
+      backgroundColor: "#00815D",
+      color: "white",
+      cursor: "pointer",
+      border: "none",
+      padding: "8px",
+    }}
+    ref={ref}
+  >
+    {children}
+  </button>
+));
+
+const SecondaryButton = forwardRef(({ children }, ref) => (
+  <button tabIndex="0" data-component="tooltip-trigger" ref={ref}>
+    {children}
+  </button>
+));
+
+const TooltipComponent = ({ ...props }) => (
+  <div
+    style={{
+      padding: "60px 60px 60px 160px",
+    }}
+  >
+    <Tooltip message="I am a tooltip!" isVisible {...props}>
+      <Button>target</Button>
+    </Tooltip>
+  </div>
+);
+
+const UncontrolledTooltipComponent = () => (
+  <div
+    style={{
+      padding: "60px 60px 60px 160px",
+    }}
+  >
+    <Tooltip message="I am a tooltip!">
+      <Button>target</Button>
+    </Tooltip>
+  </div>
+);
+
+const TooltipWithChangingTargetComponent = () => {
+  const [displayOther, setDisplayOther] = useState(false);
+
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-        }}
+      <button
+        data-component="tooltip-trigger-toggle"
+        onClick={() => setDisplayOther(!displayOther)}
       >
-        {" "}
-        {}
-      </div>
-      <div
-        style={{
-          padding: "60px 60px 60px 160px",
-        }}
-      >
-        <Tooltip message="I am a tooltip!" isVisible {...props}>
-          <Component>target</Component>
-        </Tooltip>
-      </div>
+        Change target
+      </button>
+      <Tooltip message="I am a tooltip!">
+        {displayOther ? (
+          <SecondaryButton>Secondary target</SecondaryButton>
+        ) : (
+          <Button>Target</Button>
+        )}
+      </Tooltip>
     </>
   );
 };
@@ -155,18 +190,9 @@ context("Tests for Tooltip component", () => {
       "when tooltip has %s position and",
       (position) => {
         it.each([
-          [
-            SIZE.SMALL,
-            { top: "5px", bottom: "5px", left: "5px", right: "5px" },
-          ],
-          [
-            SIZE.MEDIUM,
-            { top: "4px", bottom: "4px", left: "2px", right: "2px" },
-          ],
-          [
-            SIZE.LARGE,
-            { top: "0px", bottom: "0px", left: "-2px", right: "-2px" },
-          ],
+          [SIZE.SMALL, { top: 15, bottom: 631, left: 47, right: 1040 }],
+          [SIZE.MEDIUM, { top: 14, bottom: 630, left: 44, right: 1037 }],
+          [SIZE.LARGE, { top: 10, bottom: 626, left: 40, right: 1033 }],
         ])(
           "when inputSize is %s should have correct styles applied",
           (inputSize, offset) => {
@@ -177,12 +203,63 @@ context("Tests for Tooltip component", () => {
                 position={position}
               />
             );
-            tooltipPreview()
-              .should("have.css", position, offset[position])
-              .and("be.visible");
+            tooltipPreview().then(($el) => {
+              useJQueryCssValueAndAssert($el, position, offset[position]);
+              Cypress.dom.isVisible($el);
+            });
           }
         );
       }
     );
+
+    it("should show tooltip when target is hovered", () => {
+      CypressMountWithProviders(<UncontrolledTooltipComponent />);
+      tooltipPreview().should("not.exist");
+      tooltipTrigger().trigger("mouseenter");
+      tooltipPreview().should("be.visible");
+    });
+
+    it("should hide tooltip when mouse leaves target", () => {
+      CypressMountWithProviders(<UncontrolledTooltipComponent />);
+      tooltipPreview().should("not.exist");
+      tooltipTrigger().trigger("mouseenter");
+      tooltipPreview().should("be.visible");
+      tooltipTrigger().trigger("mouseleave");
+      tooltipPreview().should("not.exist");
+    });
+
+    it("should show tooltip when target is focused", () => {
+      CypressMountWithProviders(<UncontrolledTooltipComponent />);
+      tooltipPreview().should("not.exist");
+      tooltipTrigger().focus();
+      tooltipPreview().should("be.visible");
+    });
+
+    it("should hide tooltip when target is blurred", () => {
+      CypressMountWithProviders(<UncontrolledTooltipComponent />);
+      tooltipPreview().should("not.exist");
+      tooltipTrigger().focus();
+      tooltipPreview().should("be.visible");
+      tooltipTrigger().blur();
+      tooltipPreview().should("not.exist");
+    });
+
+    it("new tooltip target should still trigger tooltip visibility", () => {
+      CypressMountWithProviders(<TooltipWithChangingTargetComponent />);
+      tooltipTrigger().should("have.text", "Target");
+
+      tooltipTrigger().trigger("mouseenter");
+      tooltipPreview().should("be.visible");
+      tooltipTrigger().trigger("mouseleave");
+      tooltipPreview().should("not.exist");
+
+      tooltipTriggerToggle().click();
+      tooltipTrigger().should("have.text", "Secondary target");
+
+      tooltipTrigger().trigger("mouseenter");
+      tooltipPreview().should("be.visible");
+      tooltipTrigger().trigger("mouseleave");
+      tooltipPreview().should("not.exist");
+    });
   });
 });

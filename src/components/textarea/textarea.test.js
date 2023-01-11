@@ -27,6 +27,7 @@ import {
 import { textarea, textareaChildren } from "../../../cypress/locators/textarea";
 
 import { keyCode } from "../../../cypress/support/helper";
+import { ICON } from "../../../cypress/locators/locators";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -300,12 +301,7 @@ context("Tests for Textarea component", () => {
           />
         );
 
-        textarea()
-          .children(1)
-          .children()
-          .children()
-          .should("have.attr", "data-component", "icon")
-          .and("have.attr", "data-element", type);
+        textarea().find(ICON).should("have.attr", "data-element", type);
       }
     );
 
@@ -323,11 +319,8 @@ context("Tests for Textarea component", () => {
 
         getDataElementByValue("label")
           .parent()
-          .children(1)
-          .children()
-          .children()
-          .should("have.attr", "data-component", "icon")
-          .and("have.attr", "data-element", type);
+          .find(ICON)
+          .should("have.attr", "data-element", type);
       }
     );
 
