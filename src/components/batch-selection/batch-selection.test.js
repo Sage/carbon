@@ -91,4 +91,30 @@ context("Tests for BatchSelection component", () => {
       }
     );
   });
+
+  describe("should check accessibility for Batch Selection", () => {
+    it.each(["dark", "light", "white", "transparent"])(
+      "check accessibility for BatchSelection component with %s colorTheme",
+      (colorTheme) => {
+        CypressMountWithProviders(
+          <BatchSelection colorTheme={colorTheme} selectedCount={3} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check accessibility for hidden BatchSelection", () => {
+      CypressMountWithProviders(<BatchSelection hidden selectedCount={3} />);
+
+      cy.checkAccessibility();
+    });
+
+    // FE-4609
+    it.skip("should check accessibility for disabled BatchSelection", () => {
+      CypressMountWithProviders(<BatchSelection disabled selectedCount={3} />);
+
+      cy.checkAccessibility();
+    });
+  });
 });

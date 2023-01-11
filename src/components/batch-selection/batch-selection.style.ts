@@ -1,8 +1,12 @@
 import styled, { css } from "styled-components";
+
 import StyledIconButton from "../icon-button/icon-button.style";
 import StyledIcon from "../icon/icon.style";
+import { BatchSelectionProps } from ".";
 
-const StyledBatchSelection = styled.div`
+const StyledBatchSelection = styled.div<
+  Pick<BatchSelectionProps, "disabled" | "colorTheme" | "hidden">
+>`
   ${({ disabled, colorTheme, hidden }) => css`
     align-items: center;
     display: inline-flex;
