@@ -37,6 +37,8 @@ export interface InlineInputsProps
   htmlFor?: string;
   /** Defines the label text for the heading. */
   label?: string;
+  /** Flag to configure component as mandatory. */
+  required?: boolean;
 }
 
 export const InlineInputsContext: React.Context<InlineInputsContextProps> = React.createContext(
@@ -69,6 +71,7 @@ const InlineInputs = ({
   inputWidth,
   labelInline = true,
   labelWidth,
+  required,
 }: InlineInputsProps) => {
   const labelId = useRef(createGuid());
   const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
@@ -81,7 +84,12 @@ const InlineInputs = ({
     if (!label) return null;
 
     return (
-      <Label labelId={labelId.current} inline={inlineLabel} htmlFor={htmlFor}>
+      <Label
+        labelId={labelId.current}
+        inline={inlineLabel}
+        htmlFor={htmlFor}
+        isRequired={required}
+      >
         {label}
       </Label>
     );
