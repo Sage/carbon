@@ -1,3 +1,14 @@
+## [113.0.0](https://github.com/Sage/carbon/compare/v112.0.4...v113.0.0) (2023-01-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tooltip:** jest versions lower than 27 are no longer supported and might break unit tests
+
+### Code Refactoring
+
+* **tooltip:** make tooltips use floating-ui package ([afc5bf5](https://github.com/Sage/carbon/commit/afc5bf53f6a037512350177937c5f5509a452a2d))
+
 ### [112.0.4](https://github.com/Sage/carbon/compare/v112.0.3...v112.0.4) (2023-01-10)
 
 
