@@ -1,3 +1,10 @@
+### [113.0.2](https://github.com/Sage/carbon/compare/v113.0.1...v113.0.2) (2023-01-12)
+
+
+### Bug Fixes
+
+* **form:** update onSubmit type ([03fd976](https://github.com/Sage/carbon/commit/03fd976504c8943ada57df92d1b0d6537a7e4c76)), closes [#5659](https://github.com/Sage/carbon/issues/5659)
+
 ### [113.0.1](https://github.com/Sage/carbon/compare/v113.0.0...v113.0.1) (2023-01-11)
 
 
