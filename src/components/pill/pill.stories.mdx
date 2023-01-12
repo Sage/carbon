@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Pill from ".";
 import Box from "../box";
+import Button from "../button";
 
 <Meta title="Pill" parameters={{ info: { disable: true } }} />
 
@@ -51,6 +53,57 @@ language-specific and support for every `lang` attrribute is not universal.
         Hyphe&shy;nated&shy;pill
       </Pill>
     </Box>
+  </Story>
+</Canvas>
+
+### With remove button
+
+When a callback in the onDelete prop is provided, a remove button will be rendered
+and click on it will trigger that callback.
+
+<Canvas>
+  <Story name="with remove button">
+    {() => {
+      const [isPillVisible, setIsPillVisible] = useState(true);
+      const hidePill = () => setIsPillVisible(false);
+      const showPill = () => setIsPillVisible(true);
+      return (
+        <>
+          <Button onClick={showPill}>Reset example</Button>
+          <Box m={1}>
+          {isPillVisible &&
+            <Pill onDelete={hidePill}>
+              Pill
+            </Pill>
+          }
+          </Box>
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### With custom remove button aria-label
+
+By default the aria-label of the remove button will be set to "remove pill".
+That attribute could be customized to increase accessibility by providing unique button descriptions
+in the `ariaLabelOfRemoveButton` prop.
+
+<Canvas>
+  <Story name="with custom remove button aria-label" parameters={{ chromatic: { disable: true } }}>
+    {() => {
+      const noop = () => {};
+      return (
+        <>
+          <Pill onDelete={noop} ariaLabelOfRemoveButton="remove green">
+            Green
+          </Pill>
+          <Pill onDelete={noop} ariaLabelOfRemoveButton="remove blue">
+            Blue
+          </Pill>
+        </>
+      );
+    }}
   </Story>
 </Canvas>
 
