@@ -72,6 +72,27 @@ import Textbox from "carbon-react/lib/components/textbox";
   </Story>
 </Canvas>
 
+### Prefix
+
+<Canvas>
+  <Story name="prefix">
+    {() => {
+      const [state, setState] = useState("Textbox");
+      const setValue = ({ target }) => {
+        setState(target.value);
+      };
+      return (
+        <Textbox
+          label="Textbox"
+          value={state}
+          onChange={setValue}
+          prefix="prefix"
+        />
+      );
+    }}
+  </Story>
+</Canvas>
+
 ### Sizes
 
 <Canvas>

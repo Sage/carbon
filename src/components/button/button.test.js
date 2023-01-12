@@ -6,7 +6,7 @@ import {
   buttonDataComponent,
 } from "../../../cypress/locators/button";
 
-import { icon, tooltipPreview } from "../../../cypress/locators";
+import { cyRoot, icon, tooltipPreview } from "../../../cypress/locators";
 import { positionOfElement, keyCode } from "../../../cypress/support/helper";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -70,6 +70,7 @@ context("Test for Button component", () => {
 
         buttonDataComponent().children().last().realHover();
         tooltipPreview().should("have.text", tooltipMessage);
+        cyRoot().realHover({ position: "topLeft" });
       }
     );
 

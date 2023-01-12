@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 
 import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Button from "../button";
-import Confirm, { ConfirmProps } from ".";
+import Confirm, { ConfirmProps } from "./confirm.component";
 import { CONFIRM_SIZES } from "./confirm.config";
 
 export default {
@@ -115,4 +115,29 @@ Default.args = {
   disableConfirm: false,
   disableCancel: false,
   cancelButtonType: "secondary",
+};
+
+export const ConfirmComponent = ({ ...props }) => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
+      <Confirm
+        title="Are you sure?"
+        subtitle="Subtitle"
+        showCloseIcon
+        open={isOpen}
+        onConfirm={() => setIsOpen(false)}
+        onCancel={() => setIsOpen(false)}
+        {...props}
+      >
+        <button data-element="default-focused" type="button">
+          default focused
+        </button>
+        <button data-element="override-focused" type="button">
+          override focused
+        </button>
+      </Confirm>
+    </>
+  );
 };

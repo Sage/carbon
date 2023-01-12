@@ -7,6 +7,7 @@ import {
   getDataElementByValue,
   tooltipPreview,
   commonDataElementInputPreview,
+  cyRoot,
 } from "../../../cypress/locators/index";
 
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
@@ -212,6 +213,7 @@ context("Tests for Decimal component", () => {
 
         getDataElementByValue("question").trigger("mouseover");
         tooltipPreview().should("have.text", specificValue);
+        cyRoot().realHover({ position: "topLeft" });
       }
     );
 
