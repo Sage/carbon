@@ -161,47 +161,31 @@ const FocusTrap = ({
         return;
       }
 
+      if (ev.key !== "Tab") return;
+
+      if (!focusableElements?.length) {
+        /* Block the trap */
+        ev.preventDefault();
+        return;
+      }
+
       const activeElement = document.activeElement as HTMLElement;
 
-      if (ev.key === "Tab") {
-        if (!focusableElements?.length) {
-          /* Block the trap */
-          ev.preventDefault();
-        } else if (ev.shiftKey) {
-          /* shift + tab */
-          let elementToFocus;
-          if (activeElement === wrapperRef?.current) {
-            elementToFocus = getNextElement(
-              firstElement as HTMLElement,
-              focusableElements,
-              ev.shiftKey
-            );
-          } else {
-            elementToFocus = getNextElement(
-              activeElement,
-              focusableElements,
-              ev.shiftKey
-            );
-          }
-          setElementFocus(elementToFocus);
-          ev.preventDefault();
-        } else if (activeElement === wrapperRef?.current) {
-          const elementToFocus = getNextElement(
-            lastElement as HTMLElement,
-            focusableElements,
-            ev.shiftKey
-          );
-          setElementFocus(elementToFocus);
-          ev.preventDefault();
-        } else {
-          const elementToFocus = getNextElement(
-            activeElement,
-            focusableElements,
-            ev.shiftKey
-          );
-          setElementFocus(elementToFocus);
-          ev.preventDefault();
-        }
+      const isWrapperFocused = activeElement === wrapperRef?.current;
+
+      const elementWhenWrapperFocused = ev.shiftKey
+        ? (firstElement as HTMLElement)
+        : (lastElement as HTMLElement);
+
+      const elementToFocus = getNextElement(
+        isWrapperFocused ? elementWhenWrapperFocused : activeElement,
+        focusableElements,
+        ev.shiftKey
+      );
+
+      if (elementToFocus) {
+        setElementFocus(elementToFocus);
+        ev.preventDefault();
       }
     };
 
@@ -273,7 +257,23 @@ const FocusTrap = ({
     );
   });
 
-  return <div ref={trapRef}>{clonedChildren}</div>;
+  return (
+    <div ref={trapRef}>
+      <div
+        data-element="tab-guard-top"
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+        tabIndex={0}
+        onFocus={() => setElementFocus(lastElement as HTMLElement)}
+      />
+      {clonedChildren}
+      <div
+        data-element="tab-guard-bottom"
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+        tabIndex={0}
+        onFocus={() => setElementFocus(firstElement as HTMLElement)}
+      />
+    </div>
+  );
 };
 
 export default FocusTrap;

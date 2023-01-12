@@ -63,7 +63,7 @@ const getNextElement = (
     if (element === document.body) {
       return focusableElements[0];
     }
-    return element;
+    return undefined;
   }
 
   const increment = shiftKey ? -1 : 1;

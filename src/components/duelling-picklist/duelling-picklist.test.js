@@ -30,6 +30,7 @@ import {
   tooltipPreview,
 } from "../../../cypress/locators";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { ICON } from "../../../cypress/locators/locators";
 
 const specialCharacters = [
   CHARACTERS.STANDARD,
@@ -867,8 +868,7 @@ context("Testing Duelling-Picklist component", () => {
           backColor
         );
         unassignedPicklistItems()
-          .children()
-          .eq(1)
+          .find(ICON)
           .should(attribute, "data-element", state);
       }
     );

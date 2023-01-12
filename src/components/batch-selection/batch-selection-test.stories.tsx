@@ -1,8 +1,7 @@
 import React from "react";
-import BatchSelection from ".";
+import BatchSelection, { BatchSelectionProps } from ".";
 import IconButton from "../icon-button";
 import Icon from "../icon";
-import { BatchSelectionProps } from "./batch-selection";
 
 export default {
   title: "Batch Selection/Test",
@@ -22,28 +21,24 @@ export default {
   },
 };
 
-export const DefaultStory = ({ ...args }: BatchSelectionProps) => {
-  return (
-    <BatchSelection {...args}>
-      <IconButton onAction={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  );
-};
+export const Default = (args: Omit<BatchSelectionProps, "children">) => (
+  <BatchSelection {...args}>
+    <IconButton onAction={() => {}}>
+      <Icon type="csv" />
+    </IconButton>
+    <IconButton onAction={() => {}}>
+      <Icon type="bin" />
+    </IconButton>
+    <IconButton onAction={() => {}}>
+      <Icon type="pdf" />
+    </IconButton>
+  </BatchSelection>
+);
 
-DefaultStory.storyName = "default";
-DefaultStory.story = {
-  args: {
-    disabled: false,
-    hidden: false,
-    selectedCount: 0,
-    colorTheme: "transparent",
-  },
+Default.storyName = "default";
+Default.args = {
+  disabled: false,
+  hidden: false,
+  selectedCount: 0,
+  colorTheme: "transparent",
 };

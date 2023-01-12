@@ -20,7 +20,11 @@ import {
   SIZE,
   CHARACTERS,
 } from "../../../cypress/support/component-helper/constants";
-import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
+import {
+  useJQueryCssValueAndAssert,
+  disableTheAnimationAndTransitions,
+} from "../../../cypress/support/component-helper/common-steps";
+import { cyRoot } from "../../../cypress/locators";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const textAlignment = ["center", "left", "right"];
@@ -295,9 +299,14 @@ context("Tests for Card component", () => {
           "box-shadow",
           "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px"
         );
+
+      // to reset hover()
+      cyRoot().realHover({ position: "topLeft" });
     });
 
     it("should allow custom boxShadow and hoverBoxShadow prop values", () => {
+      disableTheAnimationAndTransitions();
+
       CypressMountWithProviders(
         <CardComponent
           boxShadow="boxShadow400"
@@ -305,19 +314,26 @@ context("Tests for Card component", () => {
           interactive
         />
       );
+
       card().should(
         "have.css",
         "box-shadow",
         "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px"
       );
-      card().realHover();
+
       card()
-        .should("have.css", "cursor", "pointer")
-        .and(
-          "have.css",
-          "box-shadow",
-          "rgba(0, 20, 30, 0.2) 0px 10px 20px 0px, rgba(0, 20, 30, 0.1) 0px 20px 40px 0px"
-        );
+        .realHover()
+        .wait(50)
+        .then(($el) => {
+          expect($el).to.have.css("cursor", "pointer");
+          expect($el).to.have.css(
+            "box-shadow",
+            "rgba(0, 20, 30, 0.2) 0px 10px 20px 0px, rgba(0, 20, 30, 0.1) 0px 20px 40px 0px"
+          );
+        });
+
+      // to reset hover()
+      cyRoot().realHover({ position: "topLeft" });
     });
 
     it.each(textAlignment)(

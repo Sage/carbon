@@ -1,9 +1,8 @@
 import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
-import { useState } from "react";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import Pager from ".";
-import useMediaQuery from "../../hooks/useMediaQuery";
+import * as stories from "./pager.stories.tsx";
 
 <Meta
   title="Pager"
@@ -34,44 +33,13 @@ import Pager from "carbon-react/lib/components/pager";
 ### Default
 
 <Canvas>
-  <Story
-    name="default"
-    args={{
-      totalRecords: "100",
-      showPageSizeSelection: false,
-      currentPage: "1",
-      pageSizeSelectionOptions: [
-        { id: "1", name: 1 },
-        { id: "10", name: 10 },
-        { id: "25", name: 25 },
-        { id: "50", name: 50 },
-        { id: "100", name: 100 },
-      ],
-    }}
-    argTypes={{
-      pageSize: {
-        options: [1, 10, 25, 50, 100],
-        control: {
-          type: "select",
-        },
-      },
-    }}
-  >
-    {(args) => {
-      return <Pager onPagination={() => {}} {...args} />;
-    }}
-  </Story>
+  <Story story={stories.Default} name="default" />
 </Canvas>
 
 ### With disabled Page Size Selection
 
 <Canvas>
-  <Story
-    name="disabled page size"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <Pager totalRecords={100} onPagination={() => {}} />
-  </Story>
+  <Story name="disabled page size" story={stories.DisabledPageSize} />
 </Canvas>
 
 ### Hiding Pager elements
@@ -82,15 +50,7 @@ In the example below the `First` and `Last` buttons and `totalRecords` label hav
 `showFirstAndLastButtons` and `showTotalRecords` props to false.
 
 <Canvas>
-  <Story name="hiding pager elements">
-    <Pager
-      totalRecords={100}
-      onPagination={() => {}}
-      showFirstAndLastButtons={false}
-      showTotalRecords={false}
-      showPageSizeSelection={true}
-    />
-  </Story>
+  <Story name="hiding pager elements" story={stories.HidingPagerElements} />
 </Canvas>
 
 ### Smart elements
@@ -100,13 +60,7 @@ and as such the navigation buttons are not neccessary and therefore not rendered
 records for two pages, the `First` and `Last` buttons are not needed and as a result will not render.
 
 <Canvas>
-  <Story name="smart functionality">
-    <>
-      <Pager totalRecords={10} onPagination={() => {}} />
-      <br />
-      <Pager totalRecords={20} onPagination={() => {}} />
-    </>
-  </Story>
+  <Story name="smart functionality" story={stories.SmartFunctionality} />
 </Canvas>
 
 ### Loading state
@@ -114,9 +68,7 @@ records for two pages, the `First` and `Last` buttons are not needed and as a re
 When no totalRecords provided.
 
 <Canvas>
-  <Story name="loading state">
-    <Pager onPagination={() => {}} />
-  </Story>
+  <Story name="loading state" story={stories.LoadingState} />
 </Canvas>
 
 ### Custom pageSizeSelectionOptions
@@ -126,20 +78,8 @@ Shows 1, 2 or 5 items per page.
 <Canvas>
   <Story
     name="page size selection options"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <Pager
-      onPagination={() => {}}
-      totalRecords={100}
-      showPageSizeSelection={true}
-      pageSizeSelectionOptions={[
-        { id: "1", name: 1 },
-        { id: "2", name: 2 },
-        { id: "5", name: 5 },
-      ]}
-      pageSize={1}
-    />
-  </Story>
+    story={stories.PageSizeSelectionOptions}
+  />
 </Canvas>
 
 ### With currentPage pre-set to last page
@@ -147,30 +87,13 @@ Shows 1, 2 or 5 items per page.
 Due to the fact that it is last page, next and last links are disabled.
 
 <Canvas>
-  <Story
-    name="current page last page"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <Pager
-      onPagination={() => {}}
-      totalRecords={100}
-      showPageSizeSelection={true}
-      currentPage={10}
-    />
-  </Story>
+  <Story name="current page last page" story={stories.CurrentPageLastPage} />
 </Canvas>
 
 ### With currentPage pre-set to page 5
 
 <Canvas>
-  <Story name="current page" parameters={{ chromatic: { disable: true } }}>
-    <Pager
-      onPagination={() => {}}
-      totalRecords={100}
-      showPageSizeSelection={true}
-      currentPage={5}
-    />
-  </Story>
+  <Story name="current page" story={stories.CurrentPage} />
 </Canvas>
 
 ### Custom responsive example
@@ -182,72 +105,8 @@ using full-screen mode with device or viewport emulation.
 <Canvas>
   <Story
     name="using custom responsive settings"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      const query1 = useMediaQuery("(max-width: 1000px)");
-      const query2 = useMediaQuery("(max-width: 900px)");
-      const query3 = useMediaQuery("(max-width: 800px)");
-      const query4 = useMediaQuery("(max-width: 700px)");
-      const query5 = useMediaQuery("(max-width: 600px)");
-      const responsiveProps = () => {
-        if (query5) {
-          return {
-            showPageSizeSelection: false,
-            showTotalRecords: false,
-            showFirstAndLastButtons: false,
-          };
-        }
-        if (query4) {
-          return {
-            showFirstAndLastButtons: false,
-            showTotalRecords: false,
-            showPageSizeLabelBefore: false,
-            showPageSizeLabelAfter: false,
-          };
-        }
-        if (query3) {
-          return {
-            showFirstAndLastButtons: false,
-            showTotalRecords: false,
-            showPageSizeLabelBefore: false,
-            showPageSizeLabelAfter: false,
-          };
-        }
-        if (query2) {
-          return {
-            showFirstAndLastButtons: false,
-            showTotalRecords: false,
-          };
-        }
-        if (query1) {
-          return {
-            showPageSizeSelection: true,
-            showFirstAndLastButtons: false,
-          };
-        }
-        return {
-          showPageSizeSelection: true,
-        };
-      };
-      return (
-        <Pager
-          totalRecords={1000}
-          pageSize={10}
-          currentPage={1}
-          onPagination={() => {}}
-          {...responsiveProps()}
-          pageSizeSelectionOptions={[
-            { id: "1", name: 1 },
-            { id: "10", name: 10 },
-            { id: "25", name: 25 },
-            { id: "50", name: 50 },
-            { id: "100", name: 100 },
-          ]}
-        />
-      );
-    }}
-  </Story>
+    story={stories.UsingCustomResponsiveSettings}
+  />
 </Canvas>
 
 ## Props
