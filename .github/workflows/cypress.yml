@@ -159,7 +159,7 @@ jobs:
           npx cypress info
       - name: Prepare stories
         run: |
-          npm run build-storybook-cypress
+          npm run build-storybook
           npx sb extract
       - name: Cypress run
         uses: cypress-io/github-action@v4
