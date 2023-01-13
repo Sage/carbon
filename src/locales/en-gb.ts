@@ -59,6 +59,12 @@ const enGB: Locale = {
   heading: {
     backLinkAriaLabel: () => "Back",
   },
+  link: {
+    skipLinkLabel: () => "Skip to main content",
+  },
+  loader: {
+    loading: () => "Loading",
+  },
   message: {
     closeButtonAriaLabel: () => "Close",
   },
@@ -92,9 +98,6 @@ const enGB: Locale = {
     actionButtonText: () => "Add New Item",
     placeholder: () => "Please Select...",
     noResultsForTerm: (term) => `No results for "${term}"`,
-  },
-  link: {
-    skipLinkLabel: () => "Skip to main content",
   },
   sidebar: {
     ariaLabels: {

@@ -59,6 +59,12 @@ const plPL: Locale = {
   heading: {
     backLinkAriaLabel: () => "Wstecz",
   },
+  link: {
+    skipLinkLabel: () => "Przejdź do treści",
+  },
+  loader: {
+    loading: () => "Ładowanie",
+  },
   message: {
     closeButtonAriaLabel: () => "Zamknij",
   },
@@ -92,9 +98,6 @@ const plPL: Locale = {
     actionButtonText: () => "Dodaj nowy element",
     placeholder: () => "Proszę wybierz...",
     noResultsForTerm: (term) => `Brak wyników dla "${term}"`,
-  },
-  link: {
-    skipLinkLabel: () => "Przejdź do treści",
   },
   sidebar: {
     ariaLabels: {
