@@ -54,7 +54,11 @@ const TileSelectGroup = (props) => {
       multiSelect={multiSelect}
       {...filterStyledSystemMarginProps(rest)}
     >
-      <StyledGroupDescription>{description}</StyledGroupDescription>
+      {description ? (
+        <StyledGroupDescription data-element="tile-select-group-description">
+          {description}
+        </StyledGroupDescription>
+      ) : null}
       <div>{tiles}</div>
     </StyledTileSelectFieldset>
   );
