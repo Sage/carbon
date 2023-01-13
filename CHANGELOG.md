@@ -1,3 +1,10 @@
+### [113.0.3](https://github.com/Sage/carbon/compare/v113.0.2...v113.0.3) (2023-01-13)
+
+
+### Bug Fixes
+
+* **tile-select-group:** implement conditional rendering for the description prop ([f271d25](https://github.com/Sage/carbon/commit/f271d258133e4ac69e00b357b0483052a3dc4933)), closes [#5699](https://github.com/Sage/carbon/issues/5699)
+
 ### [113.0.2](https://github.com/Sage/carbon/compare/v113.0.1...v113.0.2) (2023-01-12)
 
 
