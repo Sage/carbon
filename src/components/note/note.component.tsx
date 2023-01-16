@@ -88,13 +88,15 @@ export const Note = ({
   return (
     <EditorContext.Provider value={{ onLinkAdded, editMode: false }}>
       <StyledNote width={width} {...rest} data-component="note">
-        {title && <StyledTitle>{title}</StyledTitle>}
+        {title && (
+          <StyledTitle hasInlineControl={!!inlineControl}>{title}</StyledTitle>
+        )}
 
         {inlineControl && (
           <StyledInlineControl>{inlineControl}</StyledInlineControl>
         )}
 
-        <StyledNoteContent>
+        <StyledNoteContent hasInlineControl={!!inlineControl}>
           <Editor
             readOnly
             editorState={getDecoratedValue(noteContent)}
@@ -111,7 +113,10 @@ export const Note = ({
             : preview
         )}
         {createdDate && (
-          <StyledNoteContent hasPreview={!!React.Children.count(previews)}>
+          <StyledNoteContent
+            hasPreview={!!React.Children.count(previews)}
+            hasInlineControl={!!inlineControl}
+          >
             <StyledFooter>
               {name && (
                 <StyledFooterContent hasName={!!name}>
