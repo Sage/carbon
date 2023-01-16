@@ -1,7 +1,6 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
 
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Button from ".";
 import { ICONS } from "../icon/icon-config";
 import {
@@ -50,8 +49,6 @@ export const commonArgTypes = {
       type: "text",
     },
   },
-  subtextSpecialCharacters: specialCharacters,
-  childrenSpecialCharacters: specialCharacters,
 };
 
 export const commonArgs = {
@@ -65,43 +62,37 @@ export const commonArgs = {
   destructive: false,
   noWrap: false,
   iconPosition: "before",
-  subtextSpecialCharacters: undefined,
-  childrenSpecialCharacters: undefined,
 };
 
 export const ButtonStory = ({
   subtext,
-  subtextSpecialCharacters,
   children,
-  childrenSpecialCharacters,
   ...args
 }) => (
   <Button
     onClick={action("click")}
-    subtext={subtext || subtextSpecialCharacters}
-    children={children || childrenSpecialCharacters}
+    subtext={subtext}
+    children={children}
     {...args}
   />
 );
 
 export const ButtonAsASiblingStory = ({
   subtext,
-  subtextSpecialCharacters,
   children,
-  childrenSpecialCharacters,
   ...args
 }) => {
   return (
     <div>
       <Button
-        subtext={subtext || subtextSpecialCharacters}
-        children={children || childrenSpecialCharacters}
+        subtext={subtext}
+        children={children}
         {...args}
         onClick={action("click")}
       />
       <Button
-        subtext={subtext || subtextSpecialCharacters}
-        children={children || childrenSpecialCharacters}
+        subtext={subtext}
+        children={children}
         {...args}
         onClick={action("click")}
         ml={2}

@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import {
   FlatTable,
   FlatTableHead,
@@ -185,7 +183,6 @@ export const FlatTableStory = ({
   verticalBorder,
   verticalBorderColor,
   caption,
-  captionSpecialCharacters,
   ...args
 }) => {
   const processed = getTableData();
@@ -211,7 +208,7 @@ export const FlatTableStory = ({
     <div style={tableSizeConstraints}>
       <FlatTable
         hasStickyHead={hasStickyHead}
-        caption={caption || captionSpecialCharacters}
+        caption={caption}
         {...args}
       >
         <FlatTableHead>
@@ -301,7 +298,6 @@ export const FlatTableStory = ({
           type: "select",
         },
       },
-      captionSpecialCharacters: specialCharacters,
     }}
     args={{
       ariaDescribedby: "",
@@ -309,8 +305,6 @@ export const FlatTableStory = ({
       hasHeaderRow: false,
       hasClickableRows: false,
       caption: "",
-      captionSpecialCharacters: undefined,
-      specialCharacters: undefined,
       colorTheme: "dark",
       firstColumnWidth: 150,
       secondColumnWidth: 120,

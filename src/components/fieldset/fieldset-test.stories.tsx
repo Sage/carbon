@@ -1,7 +1,5 @@
 import React from "react";
 import { ComponentMeta } from "@storybook/react";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Fieldset from "./fieldset.component";
 import Textbox from "../textbox";
 
@@ -13,22 +11,15 @@ export default {
       disable: true,
     },
   },
-  argTypes: {
-    legendSpecialCharacters: specialCharacters,
-  },
 } as ComponentMeta<typeof Fieldset>;
 
 type FieldsetStoryProps = {
   legend?: string;
-  legendSpecialCharacters?: string;
 };
 
-export const DefaultStory = ({
-  legend,
-  legendSpecialCharacters,
-}: FieldsetStoryProps) => {
+export const DefaultStory = ({ legend }: FieldsetStoryProps) => {
   return (
-    <Fieldset legend={legend || legendSpecialCharacters}>
+    <Fieldset legend={legend}>
       <Textbox
         label="First Name"
         labelInline
@@ -55,8 +46,3 @@ export const DefaultStory = ({
 };
 
 DefaultStory.storyName = "default";
-DefaultStory.parameters = {
-  args: {
-    legendSpecialCharacters: undefined,
-  },
-};

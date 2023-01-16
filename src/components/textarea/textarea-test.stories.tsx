@@ -1,18 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-
-import specialCharacters, {
-  number,
-} from "../../__internal__/utils/argTypes/specialCharacters";
 import Textarea, { TextareaProps } from ".";
 
 interface TextareaTestProps extends TextareaProps {
-  placeholderSpecialCharacters?: string;
-  labelSpecialCharacters?: string;
   labelHelp?: string;
-  labelHelpSpecialCharacters?: string;
-  characterLimitSpecialCharacters?: string;
-  fieldHelpSpecialCharacters?: string;
 }
 
 export default {
@@ -67,17 +58,6 @@ export default {
         type: "number",
       },
     },
-    placeholderSpecialCharacters: specialCharacters,
-    labelSpecialCharacters: specialCharacters,
-    labelHelpSpecialCharacters: specialCharacters,
-    characterLimitSpecialCharacters: {
-      options: [...specialCharacters.options, ...number.options],
-      mapping: {
-        ...specialCharacters.mapping,
-        ...number.mapping,
-      },
-    },
-    fieldHelpSpecialCharacters: specialCharacters,
     children: {
       control: {
         type: "text",
@@ -129,25 +109,15 @@ export default {
     labelAlign: undefined,
     adaptiveLabelBreakpoint: undefined,
     required: false,
-    placeholderSpecialCharacters: undefined,
-    labelSpecialCharacters: undefined,
-    labelHelpSpecialCharacters: undefined,
-    characterLimitSpecialCharacters: undefined,
-    fieldHelpSpecialCharacters: undefined,
   },
 };
 
 export const Default = ({
   placeholder,
-  placeholderSpecialCharacters,
   label,
-  labelSpecialCharacters,
   labelHelp,
-  labelHelpSpecialCharacters,
   characterLimit,
-  characterLimitSpecialCharacters,
   fieldHelp,
-  fieldHelpSpecialCharacters,
   ...args
 }: TextareaTestProps) => {
   const [state, setState] = useState("");
@@ -162,12 +132,14 @@ export const Default = ({
       name="textarea"
       onChange={handleChange}
       value={state}
-      placeholder={placeholder || placeholderSpecialCharacters}
-      label={label || labelSpecialCharacters}
-      labelHelp={labelHelp || labelHelpSpecialCharacters}
-      helpAriaLabel={labelHelp || labelHelpSpecialCharacters}
-      characterLimit={characterLimit ?? characterLimitSpecialCharacters}
-      fieldHelp={fieldHelp || fieldHelpSpecialCharacters}
+      placeholder={placeholder}
+      label={label}
+      labelHelp={labelHelp}
+      helpAriaLabel={labelHelp}
+      characterLimit={characterLimit}
+      fieldHelp={fieldHelp}
     />
   );
 };
+
+Default.storyName = "default";

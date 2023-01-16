@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Switch, { SwitchProps } from "./switch.component";
 
 export default {
@@ -47,21 +45,14 @@ export default {
         type: "select",
       },
     },
-    fieldHelpSpecialCharacters: specialCharacters,
-    labelSpecialCharacters: specialCharacters,
   },
 };
 
 export const Default = ({
-  fieldHelpSpecialCharacters,
   fieldHelp,
-  labelSpecialCharacters,
   label,
   ...args
-}: Partial<SwitchProps> & {
-  fieldHelpSpecialCharacters: string;
-  labelSpecialCharacters: string;
-}) => {
+}: Partial<SwitchProps>) => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = ev.target;
@@ -74,13 +65,14 @@ export const Default = ({
       name="switch-default"
       checked={isChecked}
       onBlur={action("onBlur")}
-      fieldHelp={fieldHelp || fieldHelpSpecialCharacters}
-      label={label || labelSpecialCharacters}
+      fieldHelp={fieldHelp}
+      label={label}
       {...args}
     />
   );
 };
 
+Default.storyName = "default";
 Default.args = {
   fieldHelp: "This text provides help for the input.",
   fieldHelpInline: false,
@@ -97,6 +89,4 @@ Default.args = {
   value: "test-value",
   disabled: false,
   size: "small",
-  fieldHelpSpecialCharacters: undefined,
-  labelSpecialCharacters: undefined,
 };

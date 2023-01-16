@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Dialog, { DialogProps } from "./dialog.component";
 import Form from "../form";
 import Textbox from "../textbox";
@@ -26,23 +24,17 @@ export default {
         type: "select",
       },
     },
-    titleSpecialCharacters: specialCharacters,
-    subtitleSpecialCharacters: specialCharacters,
   },
 };
 
 interface StoryProps {
   stickyFooter: boolean;
-  titleSpecialCharacters: string;
-  subtitleSpecialCharacters: string;
 }
 
 export const Default = ({
   stickyFooter,
   title,
-  titleSpecialCharacters,
   subtitle,
-  subtitleSpecialCharacters,
   ...args
 }: Partial<DialogProps> & StoryProps) => {
   const [date, setDate] = useState("01/06/2020");
@@ -109,8 +101,8 @@ export const Default = ({
       <Dialog
         open={isOpen}
         onCancel={handleCancel}
-        title={title || titleSpecialCharacters}
-        subtitle={subtitle || subtitleSpecialCharacters}
+        title={title}
+        subtitle={subtitle}
         {...args}
       >
         <Form
@@ -158,9 +150,7 @@ Default.storyName = "default";
 Default.args = {
   height: "",
   title: "Example Dialog",
-  titleSpecialCharacters: undefined,
   subtitle: "Example Subtitle",
-  subtitleSpecialCharacters: undefined,
   size: "medium",
   showCloseIcon: true,
   disableEscKey: false,
