@@ -10,6 +10,6 @@ export const SHOW_EDIT_POD_SAVE_BUTTON = 'button[data-element="submit-button"]';
 export const SHOW_EDIT_POD_DELETE_BUTTON = "button[data-element=delete-button]";
 export const SHOW_EDIT_POD_TITLE = "h4[data-element=title]";
 export const SHOW_EDIT_POD_EDIT_BUTTON = 'a[data-element="edit"]';
-export const SHOW_EDIT_POD_UNDO_BUTTON = "button[data-element=undo-container]";
+export const SHOW_EDIT_POD_UNDO_BUTTON = "button[data-element=undo]";
 export const SHOW_EDIT_POD_TRANSITION_NAME =
   'div[class="test_cypress-enter-done"]';

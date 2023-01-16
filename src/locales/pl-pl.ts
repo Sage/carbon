@@ -85,6 +85,9 @@ const plPL: Locale = {
   progressTracker: {
     of: () => "z",
   },
+  pod: {
+    undo: () => "Cofnąć",
+  },
   select: {
     actionButtonText: () => "Dodaj nowy element",
     placeholder: () => "Proszę wybierz...",

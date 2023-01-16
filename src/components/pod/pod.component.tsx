@@ -228,11 +228,12 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
           >
             {softDelete && onUndo && (
               <StyledUndoButton
+                aria-label={l.pod.undo()}
                 onMouseEnter={() => setUndoHovered(true)}
                 onMouseLeave={() => setUndoHovered(false)}
                 onFocus={() => setUndoFocused(true)}
                 onBlur={() => setUndoFocused(false)}
-                data-element="undo-container"
+                data-element="undo"
                 internalEditButton={internalEditButton}
                 isFocused={isUndoFocused}
                 isHovered={isUndoHovered}
@@ -263,11 +264,12 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
             )}
             {!softDelete && onDelete && (
               <StyledDeleteButton
+                aria-label={l.actions.delete()}
+                data-element="delete"
                 onMouseEnter={() => setDeleteHovered(true)}
                 onMouseLeave={() => setDeleteHovered(false)}
                 onFocus={() => setDeleteFocused(true)}
                 onBlur={() => setDeleteFocused(false)}
-                data-element="delete"
                 internalEditButton={internalEditButton}
                 isFocused={isDeleteFocused}
                 isHovered={isDeleteHovered}
