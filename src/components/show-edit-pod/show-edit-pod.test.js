@@ -6,7 +6,7 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 
 import {
   showEditPod,
-  showEditPodClassName,
+  showEditPodBlock,
   showEditPodContentForm,
   showEditPodHideDeleteButton,
   showEditPodFormFooter,
@@ -60,7 +60,7 @@ context("Testing ShowEditPod component", () => {
       "should check %s variant for ShowEditPod component",
       (variant, color, boxShadow) => {
         CypressMountWithProviders(<ShowEditPodComponent variant={variant} />);
-        showEditPod()
+        showEditPodBlock()
           .should("have.css", "background-color", color)
           .and("have.css", "box-shadow", boxShadow);
       }
@@ -73,7 +73,7 @@ context("Testing ShowEditPod component", () => {
       "should check when border is %s for ShowEditPod component",
       (boolVal, borderWidth, borderStyle, borderColor) => {
         CypressMountWithProviders(<ShowEditPodComponent border={boolVal} />);
-        showEditPod().then((elem) => {
+        showEditPodBlock().then((elem) => {
           checkOutlineCss(
             elem,
             borderWidth,
@@ -104,7 +104,7 @@ context("Testing ShowEditPod component", () => {
         CypressMountWithProviders(
           <ShowEditPodComponent className={className} />
         );
-        showEditPodClassName().should("have.class", className);
+        showEditPod().should("have.class", className);
       }
     );
 
@@ -128,7 +128,11 @@ context("Testing ShowEditPod component", () => {
         CypressMountWithProviders(
           <UndoShowEditPodComponent softDelete={boolVal} />
         );
-        showEditPod().should("have.css", "background-color", backgroundColor);
+        showEditPodBlock().should(
+          "have.css",
+          "background-color",
+          backgroundColor
+        );
         showEditPodUndoButton().should(state);
       }
     );

@@ -1,19 +1,25 @@
 import styled, { css } from "styled-components";
-import { margin } from "styled-system";
+import { margin, MarginProps } from "styled-system";
 
 import { baseTheme } from "../../style/themes";
 import Link from "../link";
 import { StyledContent as StyledLinkContent } from "../link/link.style";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
+import { PodAlignment, PodSize, PodVariant } from "./pod.config";
 
-const StyledPod = styled.div`
+export interface StyledPodProps extends MarginProps {
+  alignTitle: PodAlignment;
+  internalEditButton?: boolean;
+  height?: string;
+}
+const StyledPod = styled.div<StyledPodProps>`
+  ${margin}
   display: flex;
   align-items: flex-start;
   width: 100%;
   text-align: ${({ alignTitle }) => alignTitle};
   ${({ internalEditButton }) => internalEditButton && "position: relative"};
-  ${margin}
   ${({ height }) => height && `height: ${height}`};
 
   &:focus {
@@ -21,16 +27,26 @@ const StyledPod = styled.div`
   }
 `;
 
-const blockBackgrounds = (variant) =>
-  ({
-    primary: "var(--colorsUtilityYang100)",
-    secondary: "var(--colorsUtilityMajor025)",
-    tertiary: "var(--colorsUtilityMajor040)",
-    transparent: "var(--colorsUtilityMajorTransparent)",
-    tile: "var(--colorsUtilityYang100)",
-  }[variant]);
+const blockBackgrounds = {
+  primary: "var(--colorsUtilityYang100)",
+  secondary: "var(--colorsUtilityMajor025)",
+  tertiary: "var(--colorsUtilityMajor040)",
+  transparent: "var(--colorsUtilityMajorTransparent)",
+  tile: "var(--colorsUtilityYang100)",
+};
 
-const StyledBlock = styled.div`
+export interface StyledBlockProps {
+  variant: PodVariant;
+  noBorder: boolean;
+  softDelete?: boolean;
+  hasButtons: boolean;
+  contentTriggersEdit?: boolean;
+  fullWidth?: boolean;
+  internalEditButton?: boolean;
+  isHovered?: boolean;
+  isFocused?: boolean;
+}
+const StyledBlock = styled.div<StyledBlockProps>`
   ${({
     variant,
     softDelete,
@@ -46,7 +62,7 @@ const StyledBlock = styled.div`
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      background-color: ${blockBackgrounds(variant)};
+      background-color: ${blockBackgrounds[variant]};
       width: 100%;
       height: 100%;
 
@@ -111,7 +127,10 @@ const contentPaddings = {
   "extra-large": "40px",
 };
 
-const StyledContent = styled.div`
+export interface StyledContentProps {
+  size: PodSize;
+}
+const StyledContent = styled.div<StyledContentProps>`
   text-align: left;
   padding: ${({ size }) => contentPaddings[size]};
   flex-grow: 1;
@@ -125,25 +144,29 @@ const footerPaddings = {
   "extra-large": "24px 40px",
 };
 
-const StyledFooter = styled.div`
+export interface StyledFooterProps {
+  variant: PodVariant;
+  size: PodSize;
+  softDelete?: boolean;
+}
+const StyledFooter = styled.div<StyledFooterProps>`
   ${({ variant, size, softDelete }) => css`
     background-color: var(--colorsUtilityMajor025);
     box-shadow: inset 0px 1px 1px 0 rgba(0, 0, 0, 0.1);
     color: var(--colorsUtilityYin090);
     padding: ${footerPaddings[size]};
 
-    ${softDelete &&
-    css`
-      color: var(--colorsUtilityYin055);
-    `}
+    ${softDelete && `color: var(--colorsUtilityYin055)`};
 
     ${variant === "tile" &&
-    css`
-      border-top: 1px solid var(--colorsUtilityMajor100);
-    `};
+    `border-top: 1px solid var(--colorsUtilityMajor100)`};
   `}
 `;
-const StyledActionsContainer = styled.div`
+
+export interface StyledActionsContainerProps {
+  internalEditButton?: boolean;
+}
+const StyledActionsContainer = styled.div<StyledActionsContainerProps>`
   display: flex;
   flex-direction: column;
 
@@ -165,14 +188,25 @@ const actionButtonPaddings = {
   "extra-large": 16,
 };
 
-const actionButtonBackgrounds = (variant) =>
-  ({
-    primary: "var(--colorsActionMajorYang100)",
-    secondary: "var(--colorsActionMinor050)",
-    tertiary: "var(--colorsActionMinor100)",
-    transparent: "var(--colorsActionMajorTransparent)",
-    tile: "var(--colorsActionMajorYang100)",
-  }[variant]);
+const actionButtonBackgrounds = {
+  primary: "var(--colorsActionMajorYang100)",
+  secondary: "var(--colorsActionMinor050)",
+  tertiary: "var(--colorsActionMinor100)",
+  transparent: "var(--colorsActionMajorTransparent)",
+  tile: "var(--colorsActionMajorYang100)",
+};
+
+export interface StyledPodButton {
+  size: PodSize;
+  variant: PodVariant;
+  noBorder: boolean;
+  isFocused?: boolean;
+  isHovered?: boolean;
+  internalEditButton?: boolean;
+  iconColor?: string;
+  hoverBackgroundColor?: string;
+  displayOnlyOnHover?: boolean;
+}
 
 const getButtonStyles = ({
   size,
@@ -183,16 +217,16 @@ const getButtonStyles = ({
   internalEditButton,
   iconColor,
   hoverBackgroundColor,
-}) => css`
+}: StyledPodButton) => css`
   cursor: pointer;
-  background-color: ${actionButtonBackgrounds(variant)};
+  background-color: ${actionButtonBackgrounds[variant || "primary"]};
   border: 1px solid var(--colorsActionMinor200);
   margin-left: 8px;
   margin-bottom: 8px;
   box-sizing: content-box;
   width: 16px;
   height: 16px;
-  padding: ${actionButtonPaddings[size]}px;
+  padding: ${actionButtonPaddings[size || "medium"]}px;
 
   ${StyledIcon} {
     top: -2px;
@@ -224,12 +258,12 @@ const getButtonStyles = ({
   css`
     outline: 3px solid var(--colorsSemanticFocus500);
     border: none;
-    padding: ${actionButtonPaddings[size] +
+    padding: ${actionButtonPaddings[size || "medium"] +
     (noBorder || internalEditButton ? 0 : 1)}px;
   `};
 `;
 
-const StyledEditAction = styled(Link)`
+const StyledEditAction = styled(Link)<StyledPodButton>`
   && > a,
   && button {
     ${({ displayOnlyOnHover, isHovered, isFocused }) =>
@@ -249,7 +283,7 @@ const StyledEditAction = styled(Link)`
   }
 `;
 
-const StyledDeleteButton = styled(IconButton)`
+const StyledDeleteButton = styled(IconButton)<StyledPodButton>`
   && {
     ${({ displayOnlyOnHover }) => displayOnlyOnHover && "display: none;"}
     ${(props) =>
@@ -261,7 +295,7 @@ const StyledDeleteButton = styled(IconButton)`
   }
 `;
 
-const StyledUndoButton = styled(IconButton)`
+const StyledUndoButton = styled(IconButton)<StyledPodButton>`
   && {
     ${({ displayOnlyOnHover, isHovered, isFocused }) =>
       displayOnlyOnHover && !(isHovered || isFocused) && "display: none;"}
@@ -282,7 +316,12 @@ const headerRightAlignMargins = {
   "extra-large": 30,
 };
 
-const StyledHeader = styled.div`
+export interface StyledHeaderProps {
+  alignTitle: PodAlignment;
+  internalEditButton?: boolean;
+  size: PodSize;
+}
+const StyledHeader = styled.div<StyledHeaderProps>`
   ${({ alignTitle, internalEditButton, size }) => css`
     margin-bottom: 24px;
     text-align: ${alignTitle};

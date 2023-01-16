@@ -3,7 +3,6 @@ import { shallow, mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
 
 import Pod from "./pod.component";
-import Button from "../button";
 import Icon from "../icon";
 import {
   StyledBlock,
@@ -16,7 +15,7 @@ import {
   StyledTitle,
   StyledDeleteButton,
   StyledUndoButton,
-} from "./pod.style.js";
+} from "./pod.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -25,7 +24,8 @@ import {
   elementsTagTest,
   rootTagTest,
 } from "../../__internal__/utils/helpers/tags/tags-specs";
-import LocaleContext from "../../__internal__/i18n-context";
+
+const specialCharacters = ["mp150ú¿¡üßä", "!@#$%^*()_+-=~[];:.,?{}&\"'<>"];
 
 describe("Pod", () => {
   let instance;
@@ -42,59 +42,62 @@ describe("Pod", () => {
       expect(wrapper.find(StyledHeader).exists()).toBeFalsy();
     });
 
-    it("renders title when title is passed as a prop", () => {
-      wrapper.setProps({ title: "Title" });
-      expect(wrapper.find(StyledTitle).props().children).toEqual("Title");
+    it.each(specialCharacters)("renders title when title is %s", (title) => {
+      wrapper.setProps({ title });
+      expect(wrapper.find(StyledTitle).prop("children")).toEqual(title);
     });
 
-    it("renders subtitle when subtitle is passed as a prop", () => {
-      wrapper.setProps({ title: "Title", subtitle: "Subtitle" });
-      expect(wrapper.find(StyledSubtitle).props().children).toEqual("Subtitle");
-    });
+    it.each(specialCharacters)(
+      "renders subtitle when subtitle is %s",
+      (subtitle) => {
+        wrapper.setProps({ title: "Title", subtitle });
+        expect(wrapper.find(StyledSubtitle).prop("children")).toEqual(subtitle);
+      }
+    );
   });
 
   describe("podFooter", () => {
-    it("renders footer when footer prop is passed", () => {
-      wrapper.setProps({ footer: "Footer" });
-      expect(wrapper.find(StyledFooter).props().children).toEqual("Footer");
-    });
+    it.each(specialCharacters)(
+      "renders footer when footer prop is %s",
+      (footer) => {
+        wrapper.setProps({ footer });
+        expect(wrapper.find(StyledFooter).prop("children")).toEqual(footer);
+      }
+    );
 
     it("does not render footer when footer prop is not passed", () => {
-      expect(wrapper.find(StyledFooter).exists()).toEqual(false);
+      expect(wrapper.find(StyledFooter).exists()).toBeFalsy();
     });
   });
 
   describe("delete action button", () => {
     it("renders delete action button when onDelete prop is passed", () => {
       wrapper.setProps({ onDelete: () => {} });
-      expect(wrapper.find(StyledDeleteButton).exists()).toEqual(true);
+      expect(wrapper.find(StyledDeleteButton).exists()).toBeTruthy();
     });
 
     it("does not render delete action button when onDelete prop is not passed", () => {
-      expect(wrapper.find(StyledDeleteButton).exists()).toEqual(false);
+      expect(wrapper.find(StyledDeleteButton).exists()).toBeFalsy();
     });
 
     it("onDelete prop function gets invoked by clicking delete action button", () => {
-      const event = { preventDefault: () => {} };
       const onDelete = jest.fn();
       wrapper.setProps({ onDelete });
-      wrapper.find(StyledDeleteButton).props().onAction(event);
+      wrapper.find(StyledDeleteButton).simulate("click");
       expect(onDelete).toHaveBeenCalled();
     });
 
     it("onDelete prop function gets invoked by pressing enter key", () => {
-      const event = { preventDefault: () => {}, key: "Enter", type: "keydown" };
       const onDelete = jest.fn();
       wrapper.setProps({ onDelete });
-      wrapper.find(StyledDeleteButton).props().onKeyDown(event);
+      wrapper.find(StyledDeleteButton).simulate("keydown", { key: "Enter" });
       expect(onDelete).toHaveBeenCalled();
     });
 
-    it("onEdit prop function is not invoked by pressing non-enter key", () => {
-      const event = { preventDefault: () => {}, key: "a", type: "keydown" };
+    it("onDelete prop function is not invoked by pressing non-enter key", () => {
       const onDelete = jest.fn();
       wrapper.setProps({ onDelete });
-      wrapper.find(StyledDeleteButton).props().onKeyDown(event);
+      wrapper.find(StyledDeleteButton).simulate("keydown", { key: "a" });
       expect(onDelete).not.toHaveBeenCalled();
     });
 
@@ -113,15 +116,15 @@ describe("Pod", () => {
 
       it(`then the element should have the ${propName} prop set to true`, () => {
         wrapper.find(StyledDeleteButton).simulate(eventType);
-        expect(wrapper.find(StyledDeleteButton).prop(propName)).toBe(true);
+        expect(wrapper.find(StyledDeleteButton).prop(propName)).toBeTruthy();
       });
 
       describe(`and then ${nextEventType} is triggered`, () => {
         it(`then the element should have the ${propName} prop set to false`, () => {
           wrapper.find(StyledDeleteButton).simulate(eventType);
-          expect(wrapper.find(StyledDeleteButton).prop(propName)).toBe(true);
+          expect(wrapper.find(StyledDeleteButton).prop(propName)).toBeTruthy();
           wrapper.find(StyledDeleteButton).simulate(nextEventType);
-          expect(wrapper.find(StyledDeleteButton).prop(propName)).toBe(false);
+          expect(wrapper.find(StyledDeleteButton).prop(propName)).toBeFalsy();
         });
       });
     });
@@ -130,34 +133,31 @@ describe("Pod", () => {
   describe("undo action button", () => {
     it("renders undo action button when onUndo and softDelete props are passed", () => {
       wrapper.setProps({ onUndo: () => {}, softDelete: true });
-      expect(wrapper.find(StyledUndoButton).exists()).toEqual(true);
+      expect(wrapper.find(StyledUndoButton).exists()).toBeTruthy();
     });
 
     it("does not render delete action button when onDelete prop is not passed", () => {
-      expect(wrapper.find(StyledUndoButton).exists()).toEqual(false);
+      expect(wrapper.find(StyledUndoButton).exists()).toBeFalsy();
     });
 
-    it("onDelete prop function gets invoked by clicking delete action button", () => {
-      const event = { preventDefault: () => {} };
+    it("onUndo prop function gets invoked by clicking delete action button", () => {
       const onUndo = jest.fn();
       wrapper.setProps({ onUndo, softDelete: true });
-      wrapper.find(StyledUndoButton).props().onAction(event);
+      wrapper.find(StyledUndoButton).simulate("click");
       expect(onUndo).toHaveBeenCalled();
     });
 
-    it("onDelete prop function gets invoked by pressing enter key", () => {
-      const event = { preventDefault: () => {}, key: "Enter", type: "keydown" };
+    it("onUndo prop function gets invoked by pressing enter key", () => {
       const onUndo = jest.fn();
       wrapper.setProps({ onUndo, softDelete: true });
-      wrapper.find(StyledUndoButton).props().onKeyDown(event);
+      wrapper.find(StyledUndoButton).simulate("keydown", { key: "Enter" });
       expect(onUndo).toHaveBeenCalled();
     });
 
-    it("onEdit prop function is not invoked by pressing non-enter key", () => {
-      const event = { preventDefault: () => {}, key: "a", type: "keydown" };
+    it("onUndo prop function is not invoked by pressing non-enter key", () => {
       const onUndo = jest.fn();
       wrapper.setProps({ onUndo, softDelete: true });
-      wrapper.find(StyledUndoButton).props().onKeyDown(event);
+      wrapper.find(StyledUndoButton).simulate("keydown", { key: "a" });
       expect(onUndo).not.toHaveBeenCalled();
     });
 
@@ -179,15 +179,15 @@ describe("Pod", () => {
 
       it(`then the element should have the ${propName} prop set to true`, () => {
         wrapper.find(StyledUndoButton).simulate(eventType);
-        expect(wrapper.find(StyledUndoButton).prop(propName)).toBe(true);
+        expect(wrapper.find(StyledUndoButton).prop(propName)).toBeTruthy();
       });
 
       describe(`and then ${nextEventType} is triggered`, () => {
         it(`then the element should have the ${propName} prop set to false`, () => {
           wrapper.find(StyledUndoButton).simulate(eventType);
-          expect(wrapper.find(StyledUndoButton).prop(propName)).toBe(true);
+          expect(wrapper.find(StyledUndoButton).prop(propName)).toBeTruthy();
           wrapper.find(StyledUndoButton).simulate(nextEventType);
-          expect(wrapper.find(StyledUndoButton).prop(propName)).toBe(false);
+          expect(wrapper.find(StyledUndoButton).prop(propName)).toBeFalsy();
         });
       });
     });
@@ -196,16 +196,16 @@ describe("Pod", () => {
   describe("edit action button", () => {
     it("renders edit action button when onEdit prop is passed", () => {
       wrapper.setProps({ onEdit: () => {} });
-      expect(wrapper.find(StyledEditAction).exists()).toEqual(true);
+      expect(wrapper.find(StyledEditAction).exists()).toBeTruthy();
     });
 
     it("does not render edit action button when onEdit prop is not passed", () => {
-      expect(wrapper.find(StyledEditAction).exists()).toEqual(false);
+      expect(wrapper.find(StyledEditAction).exists()).toBeFalsy();
     });
 
-    it("edit action button has a `to` prop if onEdit is a string", () => {
+    it("edit action button has a `href` prop if onEdit is a string", () => {
       wrapper.setProps({ onEdit: "someString" });
-      expect(wrapper.find(StyledEditAction).props().to).toEqual("someString");
+      expect(wrapper.find(StyledEditAction).prop("href")).toEqual("someString");
     });
 
     it("if onEdit prop is an object then it is spread on edit action button as props", () => {
@@ -218,26 +218,27 @@ describe("Pod", () => {
     });
 
     it("if onEdit prop is a function it gets invoked by clicking edit action button container", () => {
-      const event = { preventDefault: () => {} };
       const onEdit = jest.fn();
       wrapper.setProps({ onEdit });
-      wrapper.find('[data-element="edit-container"]').props().onClick(event);
+      wrapper.find('[data-element="edit-container"]').simulate("click");
       expect(onEdit).toHaveBeenCalled();
     });
 
     it("if onEdit prop is a function it gets invoked by pressing enter key", () => {
-      const event = { preventDefault: () => {}, key: "Enter", type: "keydown" };
       const onEdit = jest.fn();
       wrapper.setProps({ onEdit });
-      wrapper.find('[data-element="edit-container"]').props().onKeyDown(event);
+      wrapper
+        .find('[data-element="edit-container"]')
+        .simulate("keydown", { key: "Enter" });
       expect(onEdit).toHaveBeenCalled();
     });
 
     it("if onEdit prop is a function it is not invoked by pressing non-enter key", () => {
-      const event = { preventDefault: () => {}, key: "a", type: "keydown" };
       const onEdit = jest.fn();
       wrapper.setProps({ onEdit });
-      wrapper.find('[data-element="edit-container"]').props().onKeyDown(event);
+      wrapper
+        .find('[data-element="edit-container"]')
+        .simulate("keydown", { key: "a" });
       expect(onEdit).not.toHaveBeenCalled();
     });
   });
@@ -364,6 +365,14 @@ describe("Pod", () => {
   });
 
   describe("render", () => {
+    it.each(specialCharacters)(
+      "renders children correctly when text %s is passed as a child",
+      (text) => {
+        wrapper.setProps({ children: text });
+        expect(wrapper.find(StyledPod).text()).toEqual(text);
+      }
+    );
+
     it("applies all props to the pod", () => {
       const someRandomProps = {
         prop1: "value1",
@@ -377,18 +386,6 @@ describe("Pod", () => {
     it("does not apply title prop to containing elements", () => {
       instance = shallow(<Pod title="some-title" />);
       expect(wrapper.is("[title]")).toBe(false);
-    });
-
-    it("renders all children passed to it", () => {
-      instance = mount(
-        <Pod>
-          <Button>Button</Button>
-          <Button>Button</Button>
-          <Button>Button</Button>
-        </Pod>
-      );
-
-      expect(instance.find(Button).length).toEqual(3);
     });
   });
 
@@ -432,7 +429,7 @@ describe("Pod", () => {
         />
       );
 
-      elementsTagTest(tagWrapper.find(LocaleContext.Consumer).dive(), ["edit"]);
+      elementsTagTest(tagWrapper.find(StyledEditAction), ["edit"]);
       elementsTagTest(tagWrapper, ["footer", "subtitle", "title"]);
     });
   });

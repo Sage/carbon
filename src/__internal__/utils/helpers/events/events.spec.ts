@@ -18,6 +18,18 @@ describe("Events", () => {
       });
     });
   });
+  describe("isKeyboardEvent", () => {
+    it.each(["keyup", "keydown", "keypress"])(
+      "returns true when event type is %s",
+      (type) => {
+        expect(Events.isKeyboardEvent({ type } as Event)).toBeTruthy();
+      }
+    );
+
+    it("returns false when event type is not a keyboard event type", () => {
+      expect(Events.isKeyboardEvent({ type: "click" } as Event)).toBeFalsy();
+    });
+  });
 
   describe("isEnterOrSpaceKey", () => {
     describe("when event is not a key up event", () => {
