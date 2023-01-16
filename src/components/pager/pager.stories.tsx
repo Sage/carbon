@@ -29,6 +29,33 @@ Default.argTypes = {
   },
 };
 
+export const HideDisabledElements: ComponentStory<typeof Pager> = (
+  args: PagerProps
+) => <Pager {...args} />;
+
+HideDisabledElements.args = {
+  totalRecords: "100",
+  hideDisabledElements: true,
+  showPageSizeSelection: false,
+  currentPage: "1",
+  pageSizeSelectionOptions: [
+    { id: "1", name: 1 },
+    { id: "10", name: 10 },
+    { id: "25", name: 25 },
+    { id: "50", name: 50 },
+    { id: "100", name: 100 },
+  ],
+};
+
+HideDisabledElements.argTypes = {
+  pageSize: {
+    options: [1, 10, 25, 50, 100],
+    control: {
+      type: "select",
+    },
+  },
+};
+
 export const DisabledPageSize = Default.bind({});
 DisabledPageSize.parameters = { chromatic: { disable: true } };
 DisabledPageSize.args = {
