@@ -202,38 +202,46 @@ Please note that it will not have any effect if the Tile orientation is set to `
 
 <Canvas>
   <Story name="custom Widths">
+    <div>
     <Tile variant="tile" orientation="horizontal" width="75%">
+        <Content title="Test Title">
+          Test Body
+        </Content>
+      </Tile>
+      <Box my={3} />
+      <Tile variant="tile" orientation="horizontal" width={1/4}>
+        <Content title="Test Title">
+          Test Body
+        </Content>
+      </Tile>
+      <Box my={3} />
+      <Tile variant="tile" orientation="horizontal" width={150}>
+        <Content title="Test Title">
+          Test Body
+        </Content>
+      </Tile>
+      <Box my={3} />
+      <Tile variant="tile" orientation="horizontal">
       <Content
-        align="left"
-        variant="primary"
-        bodyFullWidth={false}
-        inline={false}
-        title="Test Title One"
-        width="40%"
+          title="Test Title 1"
+          width="30%"
       >
         Test Body One
       </Content>
       <Content
-        align="left"
-        variant="primary"
-        bodyFullWidth={false}
-        inline={false}
-        title="Test Title Two"
-        width="80%"
+          title="Test Title 2"
+          width={150}
       >
         Test Body Two
       </Content>
       <Content
-        align="left"
-        variant="primary"
-        bodyFullWidth={false}
-        inline={false}
-        title="Test Title Three"
-        width="120%"
+          title="Test Title 3"
+          width={1/4}
       >
         Test Body Three
       </Content>
     </Tile>
+    </div>
   </Story>
 </Canvas>
 
