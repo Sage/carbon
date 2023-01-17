@@ -111,13 +111,13 @@ context("Tests for Help component", () => {
       }
     );
 
-    it.each([
-      ["carbon", "https://carbon.sage.com"],
-      ["google", "https://www.google.com"],
-    ])("should check %s href for Help component", (name, link) => {
-      CypressMountWithProviders(<HelpComponent href={link} />);
-      getComponent("help").should("have.attr", "href", link);
-    });
+    it.each(["https://carbon.sage.com", "google", "https://www.google.com"])(
+      "should check %s href for Help component",
+      (link) => {
+        CypressMountWithProviders(<HelpComponent href={link} />);
+        getComponent("help").should("have.attr", "href", link);
+      }
+    );
 
     it.each([true, false])(
       "should check when isFocused is %s for Help component",
@@ -133,14 +133,9 @@ context("Tests for Help component", () => {
       }
     );
 
-    it.each([
-      ["orange", COLOR.ORANGE],
-      ["red", COLOR.RED],
-      ["black", COLOR.BLACK],
-      ["brown", COLOR.BROWN],
-    ])(
+    it.each([COLOR.ORANGE, COLOR.RED, COLOR.BLACK, COLOR.BROWN])(
       "should check tooltip background-color as %s for Help component",
-      (name, color) => {
+      (color) => {
         CypressMountWithProviders(
           <HelpComponent tooltipBgColor={color} isFocused>
             {tooltipText}
@@ -154,14 +149,9 @@ context("Tests for Help component", () => {
       }
     );
 
-    it.each([
-      ["orange", COLOR.ORANGE],
-      ["red", COLOR.RED],
-      ["black", COLOR.BLACK],
-      ["brown", COLOR.BROWN],
-    ])(
+    it.each([COLOR.ORANGE, COLOR.RED, COLOR.BLACK, COLOR.BROWN])(
       "should check tooltip font color as %s for Help component",
-      (name, color) => {
+      (color) => {
         CypressMountWithProviders(
           <HelpComponent tooltipFontColor={color} isFocused>
             {tooltipText}
@@ -196,7 +186,7 @@ context("Tests for Help component", () => {
       (id) => {
         CypressMountWithProviders(
           <HelpComponent tooltipId={id} isFocused>
-            {tooltipText}{" "}
+            {tooltipText}
           </HelpComponent>
         );
         getDataElementByValue("tooltip").should("have.id", id);
@@ -216,6 +206,139 @@ context("Tests for Help component", () => {
       (icon) => {
         CypressMountWithProviders(<HelpComponent isFocused type={icon} />);
         getComponent("icon").should("have.attr", "type", icon);
+      }
+    );
+  });
+
+  describe("Accessibility tests for Help component", () => {
+    it.each(testData)(
+      "should check %s as helpId for accessibility tests",
+      (id) => {
+        CypressMountWithProviders(<HelpComponent helpId={id} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check className as %s for accessibility tests",
+      (classname) => {
+        CypressMountWithProviders(<HelpComponent className={classname} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check %s as children for accessibility tests",
+      (children) => {
+        CypressMountWithProviders(<Help> {children} </Help>);
+        cy.checkAccessibility();
+      }
+    );
+
+    // FE-5625
+    describe.skip("check accessibility for tabIndex", () => {
+      it.each(["-1", "0", "1"])(
+        "should check tabIndex as %s for accessibility tests",
+        (tabIndex) => {
+          CypressMountWithProviders(<HelpComponent tabIndex={tabIndex} />);
+          cy.checkAccessibility();
+        }
+      );
+    });
+
+    it.each(["bottom", "left", "right", "top"])(
+      "should check tooltipPosition as %s for accessibility tests",
+      (position) => {
+        CypressMountWithProviders(
+          <HelpComponent tooltipPosition={position} isFocused>
+            {`This tooltip is positioned ${position}`}
+          </HelpComponent>
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["https://carbon.sage.com", "https://www.google.com"])(
+      "should check href as %s for accessibility tests",
+      (name, link) => {
+        CypressMountWithProviders(<HelpComponent href={link} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "should check isFocused as %s for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <HelpComponent isFocused={boolVal}>{tooltipText}</HelpComponent>
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([COLOR.ORANGE, COLOR.RED, COLOR.BLACK, COLOR.BROWN])(
+      "should check tooltipBgColor as %s for accessibility tests",
+      (color) => {
+        CypressMountWithProviders(
+          <HelpComponent tooltipBgColor={color} isFocused>
+            {tooltipText}
+          </HelpComponent>
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([COLOR.ORANGE, COLOR.RED, COLOR.BLACK, COLOR.BROWN])(
+      "should check tooltipFontColor as %s for accessibility tests",
+      (color) => {
+        CypressMountWithProviders(
+          <HelpComponent tooltipFontColor={color} isFocused>
+            {tooltipText}
+          </HelpComponent>
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["top", "bottom", "right", "left"])(
+      "should check tooltipFlipOverrides position as %s for accessibility tests",
+      (position) => {
+        CypressMountWithProviders(
+          <Box m="50px">
+            <HelpComponent isFocused tooltipFlipOverrides={[position]}>
+              {`This tooltip is positioned ${position}`}
+            </HelpComponent>
+          </Box>
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check tooltipId as %s for accessibility tests",
+      (id) => {
+        CypressMountWithProviders(
+          <HelpComponent tooltipId={id} isFocused>
+            {tooltipText}
+          </HelpComponent>
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check ariaLabel as %s for accessibility tests",
+      (label) => {
+        CypressMountWithProviders(<HelpComponent ariaLabel={label} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["error", "add", "minus", "settings"])(
+      "should check type as %s for accessibility tests",
+      (icon) => {
+        CypressMountWithProviders(<HelpComponent isFocused type={icon} />);
+        cy.checkAccessibility();
       }
     );
   });
