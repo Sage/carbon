@@ -1,17 +1,8 @@
 import styled, { css } from "styled-components";
-import { Placement } from "tippy.js";
 
 import baseTheme, { ThemeObject } from "../../style/themes/base";
 import { toColor } from "../../style/utils/color";
-
-interface StyledTooltipPointer {
-  /** Sets position of the tooltip */
-  position?: Placement;
-  /** Defines the message type */
-  type?: string;
-  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
-  bgColor?: string;
-}
+import { TooltipProps } from "./tooltip.component";
 
 const pointerColor = (theme: ThemeObject, bgColor?: string, type?: string) => {
   if (bgColor) return toColor(theme, bgColor);
@@ -19,61 +10,21 @@ const pointerColor = (theme: ThemeObject, bgColor?: string, type?: string) => {
     ? "var(--colorsSemanticNegative500)"
     : "var(--colorsSemanticNeutral500)";
 };
-const StyledTooltipPointer = styled.div<StyledTooltipPointer>`
-  ${({ position, theme, type, bgColor }) => css`
+
+const StyledTooltipPointer = styled.div<Pick<TooltipProps, "type" | "bgColor">>`
+  ${({ theme, type, bgColor }) => css`
+    z-index: ${theme.zIndex
+      .popover}; // TODO (tokens): implement elevation tokens - FE-4437
+    background: ${pointerColor(theme, bgColor, type)};
     position: absolute;
-    width: 0;
-    height: 0;
-
-    ${position === "top" &&
-    css`
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-top: 8px solid ${pointerColor(theme, bgColor, type)};
-      bottom: calc(-1 * var(--spacing100));
-      @-moz-document url-prefix() {
-        bottom: -7px;
-      }
-    `}
-
-    ${position === "bottom" &&
-    css`
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-bottom: 8px solid ${pointerColor(theme, bgColor, type)};
-      top: calc(-1 * var(--spacing100));
-      @-moz-document url-prefix() {
-        top: -7px;
-      }
-    `}
-
-    ${position === "right" &&
-    css`
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent;
-      border-right: 8px solid ${pointerColor(theme, bgColor, type)};
-      left: calc(-1 * var(--spacing100));
-      @-moz-document url-prefix() {
-        left: -7px;
-      }
-    `}
-
-    ${position === "left" &&
-    css`
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent;
-      border-left: 8px solid ${pointerColor(theme, bgColor, type)};
-      right: calc(-1 * var(--spacing100));
-      @-moz-document url-prefix() {
-        right: -7px;
-      }
-    `}
+    width: 12px;
+    height: 12px;
+    transform: rotate(45deg);
   `}
 `;
 
 StyledTooltipPointer.defaultProps = {
   theme: baseTheme,
-  position: "top",
 };
 
 export default StyledTooltipPointer;

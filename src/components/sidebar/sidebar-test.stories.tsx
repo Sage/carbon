@@ -85,6 +85,7 @@ export const Default = (args: Partial<SidebarProps>) => {
   );
 };
 
+Default.storyName = "default";
 Default.args = {
   position: "right",
   size: "medium",

@@ -84,8 +84,12 @@ describe("checkRfcs script", () => {
 
   it("should not run the script when being run in CI", async () => {
     ci.isCI = true;
+    const OLD_ENV = process.env.NODE_ENV;
+    process.env.NODE_ENV = "NOT-TEST";
     await checkRfcs();
 
     expect(consoleLogMock).not.toHaveBeenCalled();
+
+    process.env.NODE_ENV = OLD_ENV;
   });
 });

@@ -1,18 +1,31 @@
 import React from "react";
-import PropTypes from "prop-types";
+
 import useLocale from "../../hooks/__internal__/useLocale";
 import {
   StyledBatchSelection,
   StyledSelectionCount,
 } from "./batch-selection.style";
 
-const BatchSelection = ({
+export interface BatchSelectionProps {
+  /** Content to be rendered after selected count */
+  children: React.ReactNode;
+  /** Color of the background, transparent if not defined */
+  colorTheme?: "dark" | "light" | "white" | "transparent";
+  /** If true disables all user interaction */
+  disabled?: boolean;
+  /** Hidden if true */
+  hidden?: boolean;
+  /** Number of selected elements */
+  selectedCount: number;
+}
+
+export const BatchSelection = ({
   disabled,
   children,
-  colorTheme,
+  colorTheme = "transparent",
   selectedCount,
   hidden,
-}) => {
+}: BatchSelectionProps) => {
   const l = useLocale();
 
   return (
@@ -28,23 +41,6 @@ const BatchSelection = ({
       {children}
     </StyledBatchSelection>
   );
-};
-
-BatchSelection.propTypes = {
-  /** Content to be rendered after selected count */
-  children: PropTypes.node.isRequired,
-  /** Number of selected elements */
-  selectedCount: PropTypes.number.isRequired,
-  /** Color of the background, transparent if not defined */
-  colorTheme: PropTypes.oneOf(["dark", "light", "white", "transparent"]),
-  /** If true disables all user interaction */
-  disabled: PropTypes.bool,
-  /** Hidden if true */
-  hidden: PropTypes.bool,
-};
-
-BatchSelection.defaultProps = {
-  colorTheme: "transparent",
 };
 
 export default BatchSelection;

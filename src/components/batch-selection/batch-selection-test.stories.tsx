@@ -1,29 +1,27 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import { action } from "@storybook/addon-actions";
-
-import BatchSelection from ".";
+import React from "react";
+import BatchSelection, { BatchSelectionProps } from ".";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 
-<Meta
-  title="Batch Selection/Test"
-  parameters={{
+export default {
+  title: "Batch Selection/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     colorTheme: {
       options: ["dark", "light", "white", "transparent"],
       control: {
         type: "select",
       },
     },
-  }}
-/>
+  },
+};
 
-export const BatchSelectionStory = (args) => (
+export const Default = (args: Omit<BatchSelectionProps, "children">) => (
   <BatchSelection {...args}>
     <IconButton onAction={() => {}}>
       <Icon type="csv" />
@@ -37,20 +35,10 @@ export const BatchSelectionStory = (args) => (
   </BatchSelection>
 );
 
-# Batch Selection
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      disabled: false,
-      hidden: false,
-      selectedCount: 0,
-      colorTheme: "transparent",
-    }}
-  >
-    {BatchSelectionStory.bind({})}
-  </Story>
-</Canvas>
+Default.storyName = "default";
+Default.args = {
+  disabled: false,
+  hidden: false,
+  selectedCount: 0,
+  colorTheme: "transparent",
+};

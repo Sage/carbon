@@ -8,15 +8,6 @@ import StyledHelp from "./help.style";
 import Tooltip from "../tooltip";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 
-interface MockTippyContent {
-  children: typeof Icon;
-}
-
-jest.mock("@tippyjs/react/headless", () => ({
-  __esModule: true,
-  default: ({ children }: MockTippyContent) => children,
-}));
-
 function renderHelp(props: HelpProps = {}) {
   const { children } = props;
   return <Help {...props}>{children || "Helpful Content"}</Help>;

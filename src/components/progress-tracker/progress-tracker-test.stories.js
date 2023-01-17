@@ -24,7 +24,7 @@ export default {
       },
     },
     currentProgressLabel: {
-      options: ["", "$100", "100ml"],
+      options: ["", "$100", "100ml", "error"],
       control: {
         type: "select",
       },
@@ -35,20 +35,8 @@ export default {
         type: "select",
       },
     },
-    orientation: {
-      options: ["horizontal", "vertical"],
-      control: {
-        type: "select",
-      },
-    },
-    direction: {
-      options: ["up", "down"],
-      control: {
-        type: "select",
-      },
-    },
     labelsPosition: {
-      options: ["top", "bottom", "left", "right"],
+      options: ["top", "bottom"],
       control: {
         type: "select",
       },

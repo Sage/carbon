@@ -26,6 +26,7 @@ import {
   SIZE,
   VALIDATION,
 } from "../../../cypress/support/component-helper/constants";
+import { ICON } from "../../../cypress/locators/locators";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -220,8 +221,7 @@ context("Tests for NumeralDate component", () => {
 
         numeralDateInputByPosition(2)
           .parent()
-          .find("span > span > span")
-          .should("have.attr", "data-component", "icon")
+          .find(ICON)
           .and("have.attr", "data-element", type);
       }
     );
@@ -240,10 +240,7 @@ context("Tests for NumeralDate component", () => {
 
         getDataElementByValue("label")
           .parent()
-          .children()
-          .eq(1)
-          .find("span > span")
-          .should("have.attr", "data-component", "icon")
+          .find(ICON)
           .and("have.attr", "data-element", type);
       }
     );
@@ -280,8 +277,7 @@ context("Tests for NumeralDate component", () => {
         numeralDateInputByPosition(inputIndex).type(errorInput).blur();
         numeralDateInputByPosition(2)
           .parent()
-          .find("span > span > span")
-          .should("have.attr", "data-component", "icon")
+          .find(ICON)
           .and("have.attr", "data-element", "error");
         errorIcon().realHover();
         tooltipPreview().should("contain.text", tooltipText);
@@ -304,8 +300,7 @@ context("Tests for NumeralDate component", () => {
         numeralDateInputByPosition(inputIndex).type(errorInput).blur();
         numeralDateInputByPosition(2)
           .parent()
-          .find("span > span > span")
-          .should("have.attr", "data-component", "icon")
+          .find(ICON)
           .and("have.attr", "data-element", "warning");
         warningIcon().realHover();
         tooltipPreview().should("contain.text", tooltipText);

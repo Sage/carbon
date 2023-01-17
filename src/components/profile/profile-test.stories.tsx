@@ -1,8 +1,4 @@
 import React from "react";
-
-import specialCharacters, {
-  email as testEmail,
-} from "../../__internal__/utils/argTypes/specialCharacters";
 import Profile, { ProfileProps } from "./profile.component";
 import { PROFILE_SIZES } from "./profile.config";
 
@@ -21,34 +17,11 @@ export default {
         options: PROFILE_SIZES,
       },
     },
-    emailSpecialCharacters: {
-      options: [...specialCharacters.options, ...testEmail.options],
-      mapping: {
-        ...specialCharacters.mapping,
-        ...testEmail.mapping,
-      },
-    },
-    nameSpecialCharacters: specialCharacters,
   },
 };
 
-interface DefaultStoryProps extends ProfileProps {
-  emailSpecialCharacters: string;
-  nameSpecialCharacters: string;
-}
-
-export const DefaultStory = ({
-  email,
-  emailSpecialCharacters,
-  name,
-  nameSpecialCharacters,
-  ...args
-}: DefaultStoryProps) => (
-  <Profile
-    email={email || emailSpecialCharacters}
-    name={name || nameSpecialCharacters}
-    {...args}
-  />
+export const DefaultStory = ({ email, name, ...args }: ProfileProps) => (
+  <Profile email={email} name={name} {...args} />
 );
 
 DefaultStory.story = {
@@ -59,7 +32,5 @@ DefaultStory.story = {
     size: PROFILE_SIZES[0],
     name: "John Smith",
     src: "",
-    emailSpecialCharacters: undefined,
-    nameSpecialCharacters: undefined,
   },
 };

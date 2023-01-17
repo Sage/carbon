@@ -26,6 +26,7 @@ import {
   VALIDATION,
   SIZE,
 } from "../../../cypress/support/component-helper/constants";
+import { ICON } from "../../../cypress/locators/locators";
 
 const verifyBorderColor = (element, color) =>
   element.then(($els) => {
@@ -352,11 +353,7 @@ context("Testing Switch component", () => {
         switchLabel()
           .eq(position)
           .parent()
-          .children()
-          .eq(1)
-          .children()
-          .children()
-          .should("have.attr", "data-component", "icon")
+          .find(ICON)
           .and("have.attr", "data-element", validation);
       }
     );

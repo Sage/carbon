@@ -31,15 +31,7 @@ interface MismatchedPairs {
   rendersAs: IconType;
 }
 
-interface MockTippyContent {
-  children: typeof Icon;
-}
-
 jest.mock("../../__internal__/utils/helpers/browser-type-check");
-jest.mock("@tippyjs/react/headless", () => ({
-  __esModule: true,
-  default: ({ children }: MockTippyContent) => children,
-}));
 
 const mockBrowserTypeCheck = (browserTypeCheck as unknown) as jest.MockedFunction<
   () => boolean

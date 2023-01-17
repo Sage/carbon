@@ -1,5 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
+import { act } from "react-dom/test-utils";
 
 import { MenuItem } from "..";
 import MenuFullscreen from ".";
@@ -244,6 +245,23 @@ describe("MenuFullscreen", () => {
       element.dispatchEvent(endEvent);
 
       expect(wrapper.find(StyledMenuFullscreen)).toBeFocused();
+    });
+  });
+
+  describe("when clicking outside a submenu", () => {
+    it("the app does not crash", () => {
+      wrapper = mount(<TestMenu isOpen />);
+
+      const clickOutsideSubmenu = () =>
+        act(() => {
+          wrapper
+            .find(StyledMenuItem)
+            .at(0)
+            .getDOMNode()
+            .dispatchEvent(new MouseEvent("click", { bubbles: true }));
+        });
+
+      expect(clickOutsideSubmenu).not.toThrow();
     });
   });
 });

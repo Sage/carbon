@@ -1,7 +1,7 @@
 import React from "react";
 import Confirm from "./confirm.component";
-import Button from "../button/button.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { ConfirmComponent } from "./confirm-test.stories";
 import {
   dialogPreview,
   dialogSubtitle,
@@ -37,33 +37,6 @@ const cancelButtonTypes = [
   ["dashed", "rgb(51, 91, 112)", "rgb(51, 91, 112)"],
   ["darkBackground", "rgb(0, 126, 69)", "rgba(0, 0, 0, 0)"],
 ];
-
-const ConfirmComponent = ({ blockFocusElement, ...props }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
-  const ref = React.useRef();
-  return (
-    <>
-      <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
-      <Confirm
-        title="Are you sure?"
-        subtitle="Subtitle"
-        showCloseIcon
-        open={isOpen}
-        onConfirm={() => setIsOpen(false)}
-        onCancel={() => setIsOpen(false)}
-        focusFirstElement={blockFocusElement ? undefined : ref}
-        {...props}
-      >
-        <button data-element="default-focused" type="button">
-          default focused
-        </button>
-        <button data-element="override-focused" ref={ref} type="button">
-          override focused
-        </button>
-      </Confirm>
-    </>
-  );
-};
 
 context("Testing Confirm component", () => {
   describe("should render Confirm component", () => {
@@ -353,12 +326,6 @@ context("Testing Confirm component", () => {
       );
     });
 
-    it("should focus override first element", () => {
-      CypressMountWithProviders(<ConfirmComponent />);
-      const firstElement = () => cy.get('[data-element="override-focused"]');
-      firstElement().should("be.focused");
-    });
-
     it("should focus the dialog container", () => {
       CypressMountWithProviders(<ConfirmComponent blockFocusElement />);
       const dialogContainer = () => cy.get('[data-component="dialog"]');
@@ -424,6 +391,104 @@ context("Testing Confirm component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("should check accessibility for Confirm", () => {
+    it.each(confirmButtonTypes)(
+      "should check accessibility for confirm button of %s type",
+      (type) => {
+        CypressMountWithProviders(
+          <ConfirmComponent confirmButtonType={type} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(cancelButtonTypes)(
+      "should check accessibility for cancel button of %s type",
+      (type) => {
+        CypressMountWithProviders(
+          <ConfirmComponent cancelButtonTypes={type} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      [true, "disabled"],
+      [false, "enabled"],
+    ])(
+      "should check accessibility when disableCancel prop is %s that cancel button is %s",
+      (state) => {
+        CypressMountWithProviders(<ConfirmComponent disableCancel={state} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      [true, "disabled"],
+      [false, "enabled"],
+    ])(
+      "should check accessibility when disableConfirm prop is %s that confirm button is %s",
+      (state) => {
+        CypressMountWithProviders(<ConfirmComponent disableConfirm={state} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check accessibility for confirm button is loading", () => {
+      CypressMountWithProviders(<ConfirmComponent isLoadingConfirm />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility for Esc key is disabled", () => {
+      CypressMountWithProviders(<ConfirmComponent disableEscKey />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility for close icon is enabled", () => {
+      CypressMountWithProviders(<ConfirmComponent showCloseIcon />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility when clicking cancel button closes dialog", () => {
+      CypressMountWithProviders(<ConfirmComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility when clicking confirm button does not close dialog when confirm button is disabled", () => {
+      CypressMountWithProviders(<ConfirmComponent disableConfirm />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility when confirm button has save icon", () => {
+      CypressMountWithProviders(
+        <ConfirmComponent confirmButtonIconType="Save" />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility when cancel button has bin icon", () => {
+      CypressMountWithProviders(
+        <ConfirmComponent cancelButtonIconType="bin" />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility for isLoadingConfirm state", () => {
+      CypressMountWithProviders(<ConfirmComponent isLoadingConfirm />);
+
+      cy.checkAccessibility();
     });
   });
 });

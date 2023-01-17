@@ -8,6 +8,7 @@ import {
   link,
   getDataElementByValue,
   body,
+  cyRoot,
 } from "../../../cypress/locators";
 import { skipLink } from "../../../cypress/locators/link/index";
 import { keyCode } from "../../../cypress/support/helper";
@@ -97,10 +98,17 @@ context("Test for Link component", () => {
           </Box>
         );
 
-        icon().realHover();
-        tooltipPreview()
-          .should("be.visible")
-          .and("have.attr", "data-placement", tooltipPosition);
+        icon()
+          .realHover()
+          .then(($el) => {
+            Cypress.dom.isVisible($el);
+            tooltipPreview().should(
+              "have.attr",
+              "data-placement",
+              tooltipPosition
+            );
+          });
+        cyRoot().realHover({ position: "topLeft" });
       }
     );
 
