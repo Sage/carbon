@@ -1,6 +1,8 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
+
+import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent from "../../__internal__/utils/helpers/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import {
@@ -9,11 +11,9 @@ import {
   StyledValuesLabel,
   StyledProgressTracker,
   StyledValue,
+  StyledDescription,
 } from "./progress-tracker.style";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedWarningTriggered = false;
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -28,50 +28,35 @@ const ProgressTracker = ({
   "aria-valuetext": ariaValueText,
   size = "medium",
   length = "256px",
+  error = false,
   progress = 0,
+  description,
   showDefaultLabels = false,
   currentProgressLabel,
+  customValuePreposition,
   maxProgressLabel,
-  orientation,
-  direction,
   labelsPosition,
   ...rest
 }) => {
-  if (!deprecatedWarningTriggered && (orientation || direction)) {
-    deprecatedWarningTriggered = true;
-    Logger.deprecate(
-      "The `orientation` and `direction` props in `ProgressTracker` component are deprecated and will soon be removed."
-    );
-  }
-
-  const internalOrientation = orientation || "horizontal";
-  const internalDirection = direction || "up";
-
+  const l = useLocale();
   const barRef = useRef();
   const [barLength, setBarLength] = useState(0);
-  const isVertical = internalOrientation === "vertical";
-  const prefixLabels =
-    (!isVertical && labelsPosition !== "bottom") ||
-    (isVertical && labelsPosition === "left");
+  const prefixLabels = labelsPosition !== "bottom";
 
   const updateBarLength = useCallback(() => {
-    if (internalOrientation === "horizontal") {
-      setBarLength(`${barRef.current.offsetWidth}px`);
-    } else {
-      setBarLength(`${barRef.current.offsetHeight}px`);
-    }
-  }, [barRef, internalOrientation]);
+    setBarLength(`${barRef.current.offsetWidth}px`);
+  }, []);
 
   useLayoutEffect(() => {
     updateBarLength();
-  }, [barRef, internalOrientation, updateBarLength]);
+  }, [updateBarLength]);
 
   useResizeObserver(barRef, () => {
     updateBarLength();
   });
 
   const renderValueLabels = () => {
-    if (!showDefaultLabels && !currentProgressLabel && !maxProgressLabel) {
+    if (!showDefaultLabels && !currentProgressLabel) {
       return null;
     }
 
@@ -79,31 +64,31 @@ const ProgressTracker = ({
       if (value) {
         return value;
       }
+
       return showDefaultLabels ? defaultValue : undefined;
     };
 
+    const displayedCurrentProgressLabel = label(
+      currentProgressLabel,
+      `${progress}%`
+    );
+
+    const displayedMaxProgressLabel = label(maxProgressLabel, "100%");
+
     return (
-      <StyledValuesLabel position={labelsPosition} isVertical={isVertical}>
-        {isVertical && internalDirection === "up" && (
+      <StyledValuesLabel position={labelsPosition} size={size}>
+        {displayedCurrentProgressLabel && (
+          <StyledValue>{displayedCurrentProgressLabel}</StyledValue>
+        )}
+
+        {displayedMaxProgressLabel && (
           <>
-            <StyledValue isMaxValue>
-              {label(maxProgressLabel, "100%")}
-            </StyledValue>
-            <StyledValue>
-              {label(currentProgressLabel, `${progress}%`)}
-            </StyledValue>
+            <span>{customValuePreposition || l.progressTracker.of()}</span>
+            <StyledValue>{displayedMaxProgressLabel}</StyledValue>
           </>
         )}
-        {(internalDirection === "down" || !isVertical) && (
-          <>
-            <StyledValue>
-              {label(currentProgressLabel, `${progress}%`)}
-            </StyledValue>
-            <StyledValue isMaxValue>
-              {label(maxProgressLabel, "100%")}
-            </StyledValue>
-          </>
-        )}
+
+        {description && <StyledDescription>{description}</StyledDescription>}
       </StyledValuesLabel>
     );
   };
@@ -115,7 +100,6 @@ const ProgressTracker = ({
     <StyledProgressTracker
       size={size}
       length={length}
-      isVertical={isVertical}
       {...rest}
       {...tagComponent("progress-bar", rest)}
       role="progressbar"
@@ -130,16 +114,16 @@ const ProgressTracker = ({
     >
       {prefixLabels && renderValueLabels()}
       <StyledProgressBar
-        direction={isVertical ? internalDirection : undefined}
-        isVertical={isVertical}
         size={size}
         ref={barRef}
+        progress={progress}
+        error={error}
       >
         <InnerBar
-          isVertical={isVertical}
           size={size}
           length={barLength}
           progress={progress}
+          error={error}
         />
       </StyledProgressBar>
       {!prefixLabels && renderValueLabels()}
@@ -169,21 +153,23 @@ ProgressTracker.propTypes = {
   length: PropTypes.string,
   /** Current progress (percentage). */
   progress: PropTypes.number,
+  /** If error occurs. */
+  error: PropTypes.bool,
   /** Flag to control whether the default value labels (as percentages) should be rendered. */
+  description: PropTypes.string,
+  /** Value to add a description to the label */
   showDefaultLabels: PropTypes.bool,
   /** Value to display as current progress. */
   currentProgressLabel: PropTypes.string,
   /** Value to display as the maximum progress limit. */
   maxProgressLabel: PropTypes.string,
-  /** The orientation of the component. */
-  orientation: PropTypes.oneOf(["horizontal", "vertical"]),
-  /** The direction the bar should move as progress increases, only applies in vertical orientation. */
-  direction: PropTypes.oneOf(["up", "down"]),
+  /** Value of the preposition defined between Value1 and Value2 on the label. */
+  customValuePreposition: PropTypes.string,
   /**
    * The position the value label are rendered in.
    * Top/bottom apply to horizontal and left/right to vertical orientation.
    */
-  labelsPosition: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+  labelsPosition: PropTypes.oneOf(["top", "bottom"]),
 };
 
 export default ProgressTracker;

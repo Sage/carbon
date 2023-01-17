@@ -7,4 +7,6 @@ export const progressTrackerLine = (index = 1) =>
 export const progressTrackerMinVal = (index = 0) =>
   progressTrackerComponent().children().eq(index).find("span").eq(0);
 export const progressTrackerMaxVal = (index = 0) =>
+  progressTrackerComponent().children().eq(index).find("span").eq(2);
+export const progressTrackerCustomValuePreposition = (index = 0) =>
   progressTrackerComponent().children().eq(index).find("span").eq(1);

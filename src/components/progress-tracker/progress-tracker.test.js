@@ -1,6 +1,7 @@
 import React from "react";
 import ProgressTracker from ".";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { checkOutlineCss } from "../../../cypress/support/component-helper/common-steps";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import { PROGRESS_TRACKER_SIZES } from "./progress-tracker.config";
 
@@ -9,6 +10,7 @@ import {
   progressTrackerLine,
   progressTrackerMinVal,
   progressTrackerMaxVal,
+  progressTrackerCustomValuePreposition,
 } from "../../../cypress/locators/progress-tracker";
 
 const ProgressTrackerComponent = ({ ...props }) => {
@@ -78,6 +80,24 @@ context("Tests for ProgressTracker component", () => {
       progressTrackerLine().should("have.css", "background-color", color);
     });
 
+    it("render component with error prop", () => {
+      CypressMountWithProviders(
+        <ProgressTrackerComponent error showDefaultLabels progress={35} />
+      );
+
+      progressTrackerLine().should(
+        "have.css",
+        "background-color",
+        "rgb(203, 55, 74)"
+      );
+
+      progressTrackerLine()
+        .parent()
+        .then(($el) => {
+          checkOutlineCss($el, 1, "border", "solid", "rgb(203, 55, 74)");
+        });
+    });
+
     it.each([
       [true, "be.visible"],
       [false, "not.exist"],
@@ -117,43 +137,20 @@ context("Tests for ProgressTracker component", () => {
       }
     );
 
-    it.each([
-      ["horizontal", "width", 150, "block"],
-      ["vertical", "height", 50, "flex"],
-    ])(
-      "render component with orientation is set to %s",
-      (orientation, css, cssVal, displayVal) => {
-        CypressMountWithProviders(
-          <ProgressTrackerComponent orientation={orientation} />
-        );
-
-        progressTrackerComponent().then(($el) => {
-          const val = parseInt($el.css(css));
-
-          expect(val).to.be.within(val - 1, val + 1);
-          expect($el.css("display")).to.equals(displayVal);
-        });
-      }
-    );
-
-    it.each([
-      ["up", "flex-end"],
-      ["down", "normal"],
-    ])(
-      "render component with direction is set to %s",
-      (direction, assertion) => {
+    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+      "render component with customValuePreposition is set to %s",
+      (customValuePreposition) => {
         CypressMountWithProviders(
           <ProgressTrackerComponent
-            orientation="vertical"
-            labelsPosition="left"
-            direction={direction}
+            customValuePreposition={customValuePreposition}
+            showDefaultLabels
           />
         );
 
-        progressTrackerLine()
-          .parent()
-          .should("have.attr", "direction", direction)
-          .and("have.css", "align-items", assertion);
+        progressTrackerCustomValuePreposition().should(
+          "have.text",
+          customValuePreposition
+        );
       }
     );
 
@@ -161,35 +158,14 @@ context("Tests for ProgressTracker component", () => {
       ["top", 0],
       ["bottom", 1],
     ])(
-      "render component with labelsPosition is set to %s when orientation is horizontal",
+      "render component with labelsPosition is set to %s",
       (labelsPosition, index) => {
         CypressMountWithProviders(
-          <ProgressTrackerComponent
-            orientation="horizontal"
-            labelsPosition={labelsPosition}
-          />
+          <ProgressTrackerComponent labelsPosition={labelsPosition} />
         );
 
         progressTrackerMinVal(index).should("have.text", "50%");
         progressTrackerMaxVal(index).should("have.text", "100%");
-      }
-    );
-
-    it.each([
-      ["left", 0],
-      ["right", 1],
-    ])(
-      "render component with labelsPosition is set to %s when orientation is vertical",
-      (labelsPosition, index) => {
-        CypressMountWithProviders(
-          <ProgressTrackerComponent
-            orientation="vertical"
-            labelsPosition={labelsPosition}
-          />
-        );
-
-        progressTrackerMinVal(index).should("have.text", "100%");
-        progressTrackerMaxVal(index).should("have.text", "50%");
       }
     );
   });

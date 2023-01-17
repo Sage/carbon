@@ -61,6 +61,9 @@ interface Locale {
     pageX: () => string;
     ofY: (count: string | number) => string;
   };
+  progressTracker: {
+    of: () => string;
+  };
   select: {
     actionButtonText: () => string;
     placeholder: () => string;
