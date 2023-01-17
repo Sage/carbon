@@ -63,6 +63,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("badge") &&
       !prepareUrl[0].startsWith("advanced-color-picker") &&
       !prepareUrl[0].startsWith("preview") &&
+      !prepareUrl[0].startsWith("detail") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);
