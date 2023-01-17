@@ -1,3 +1,15 @@
+## [114.0.0](https://github.com/Sage/carbon/compare/v113.0.3...v114.0.0) (2023-01-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **progress-tracker:** The orientation and direction props of the component are no longer available.
+The component is now meant to be used only in a horizontal.
+
+### Features
+
+* **progress-tracker:** implement component redesign ([7c0e936](https://github.com/Sage/carbon/commit/7c0e936b132ee74521068ec48b4063757efdeb62))
+
 ### [113.0.3](https://github.com/Sage/carbon/compare/v113.0.2...v113.0.3) (2023-01-13)
 
 
