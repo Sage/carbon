@@ -1,7 +1,5 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Button from "../button";
 import Box from "../box";
 import { ICONS } from "../icon/icon-config";
@@ -52,8 +50,6 @@ export default {
         type: "select",
       },
     },
-    textSpecialCharacters: specialCharacters,
-    subtextSpecialCharacters: specialCharacters,
   },
 };
 
@@ -63,9 +59,7 @@ export const SplitButtonStory = ({
   dataElement,
   dataRole,
   text,
-  textSpecialCharacters,
   subtext,
-  subtextSpecialCharacters,
   iconType,
   iconPosition,
   ...args
@@ -77,8 +71,8 @@ export const SplitButtonStory = ({
         buttonType={buttonType}
         data-element={dataElement}
         data-role={dataRole}
-        text={text || textSpecialCharacters}
-        subtext={subtext || subtextSpecialCharacters}
+        text={text}
+        subtext={subtext}
         iconType={iconType}
         iconPosition={iconPosition}
         {...args}
@@ -110,8 +104,6 @@ SplitButtonStory.story = {
     size: "medium",
     align: "left",
     text: "Example Split Button",
-    textSpecialCharacters: undefined,
     subtext: "",
-    subtextSpecialCharacters: undefined,
   },
 };

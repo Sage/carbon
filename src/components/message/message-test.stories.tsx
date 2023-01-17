@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Button from "../button";
 import Message, { MessageProps } from "./message.component";
 
@@ -20,23 +18,10 @@ export default {
         type: "select",
       },
     },
-    titleSpecialCharacters: specialCharacters,
-    childrenSpecialCharacters: specialCharacters,
   },
 };
 
-interface DefaultProps extends Partial<MessageProps> {
-  titleSpecialCharacters?: string;
-  childrenSpecialCharacters?: string;
-}
-
-export const Default = ({
-  titleSpecialCharacters,
-  title,
-  childrenSpecialCharacters,
-  children,
-  ...args
-}: DefaultProps) => {
+export const Default = ({ title, children, ...args }: MessageProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const onDismiss = (
     evt:
@@ -53,13 +38,8 @@ export const Default = ({
   return (
     <>
       <Button onClick={handleOpen}>Open Message</Button>
-      <Message
-        open={isOpen}
-        onDismiss={onDismiss}
-        title={title || titleSpecialCharacters}
-        {...args}
-      >
-        {children || childrenSpecialCharacters}
+      <Message open={isOpen} onDismiss={onDismiss} title={title} {...args}>
+        {children}
       </Message>
     </>
   );
@@ -73,6 +53,4 @@ Default.args = {
   transparent: false,
   children: "This is some information from the Message Component.",
   showCloseIcon: true,
-  titleSpecialCharacters: undefined,
-  childrenSpecialCharacters: undefined,
 };

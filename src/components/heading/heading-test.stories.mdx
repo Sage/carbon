@@ -1,6 +1,5 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Heading from "./heading.component";
 
 <Meta
@@ -11,39 +10,25 @@ import Heading from "./heading.component";
       disable: true,
     },
   }}
-  argTypes={{
-    titleSpecialCharacters: specialCharacters,
-    childrenSpecialCharacters: specialCharacters,
-    subheaderSpecialCharacters: specialCharacters,
-    helpSpecialCharacters: specialCharacters,
-    helpLinkSpecialCharacters: specialCharacters,
-    backLinkSpecialCharacters: specialCharacters,
-  }}
 />
 
 export const HeadingStory = ({
-  titleSpecialCharacters,
   title,
-  childrenSpecialCharacters,
   children,
-  subheaderSpecialCharacters,
   subheader,
-  helpSpecialCharacters,
   help,
-  helpLinkSpecialCharacters,
   helpLink,
-  backLinkSpecialCharacters,
   backLink,
   ...args
 }) => {
   return (
     <Heading
-      title={title || titleSpecialCharacters}
-      children={children || childrenSpecialCharacters}
-      subheader={subheader || subheaderSpecialCharacters}
-      help={help || helpSpecialCharacters}
-      helpLink={helpLink || helpLinkSpecialCharacters}
-      backLink={backLink || backLinkSpecialCharacters}
+      title={title}
+      children={children}
+      subheader={subheader}
+      help={help}
+      helpLink={helpLink}
+      backLink={backLink}
       {...args}
     />
   );
@@ -58,17 +43,11 @@ export const HeadingStory = ({
     name="default"
     args={{
       title: "This is a heading",
-      titleSpecialCharacters: undefined,
       children: "This is content beneath a heading",
-      childrenSpecialCharacters: undefined,
       subheader: "This is a subheading",
-      subheaderSpecialCharacters: undefined,
       help: "",
-      helpSpecialCharacters: undefined,
       helpLink: "",
-      helpLinkSpecialCharacters: undefined,
       backLink: "",
-      backLinkSpecialCharacters: undefined,
       divider: true,
       separator: false,
     }}

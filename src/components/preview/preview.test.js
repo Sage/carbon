@@ -65,4 +65,46 @@ context("Tests for Preview component", () => {
       }
     );
   });
+
+  describe("Accessibility tests for Preview component", () => {
+    it.each(pixelsData)(
+      "should pass accessibilty tests for Preview height story",
+      (height) => {
+        CypressMountWithProviders(<PreviewComponent height={`${height}px`} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(pixelsData)(
+      "should pass accessibilty tests for Preview width story",
+      (width) => {
+        CypressMountWithProviders(<PreviewComponent width={`${width}px`} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should pass accessibilty tests for Preview default story",
+      (children) => {
+        CypressMountWithProviders(<Preview>{children}</Preview>);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "should pass accessibilty tests for Preview loading state",
+      (bool) => {
+        CypressMountWithProviders(<PreviewComponent loading={bool} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([5, 6, 8, 10])(
+      "should pass accessibilty tests for Preview lines story",
+      (line) => {
+        CypressMountWithProviders(<PreviewComponent lines={line} />);
+        cy.checkAccessibility();
+      }
+    );
+  });
 });

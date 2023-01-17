@@ -99,6 +99,7 @@ export const Default = (args) => {
   );
 };
 
+Default.storyName = "default";
 Default.args = {
   mt: 0,
   listPlacement: undefined,
@@ -160,3 +161,5 @@ export const DelayedReposition = () => {
     </Dialog>
   );
 };
+
+DelayedReposition.storyName = "delayed reposition";

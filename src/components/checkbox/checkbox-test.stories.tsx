@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import { Checkbox, CheckboxProps } from ".";
-
-interface StoryProps {
-  labelSpecialCharacters?: string;
-  fieldHelpSpecialCharacters?: string;
-  labelHelpSpecialCharacters?: string;
-}
 
 export default {
   title: "Checkbox/Test",
@@ -52,21 +45,15 @@ export default {
         type: "number",
       },
     },
-    labelSpecialCharacters: specialCharacters,
-    fieldHelpSpecialCharacters: specialCharacters,
-    labelHelpSpecialCharacters: specialCharacters,
   },
 };
 
 export const Default = ({
   label,
-  labelSpecialCharacters,
   fieldHelp,
-  fieldHelpSpecialCharacters,
   labelHelp,
-  labelHelpSpecialCharacters,
   ...args
-}: CheckboxProps & StoryProps) => {
+}: CheckboxProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = event.target;
@@ -78,10 +65,10 @@ export const Default = ({
       onChange={handleChange}
       checked={isChecked}
       onBlur={action("onBlur")}
-      label={label || labelSpecialCharacters}
-      fieldHelp={fieldHelp || fieldHelpSpecialCharacters}
-      labelHelp={labelHelp || labelHelpSpecialCharacters}
-      helpAriaLabel={(labelHelp as string) || labelHelpSpecialCharacters}
+      label={label}
+      fieldHelp={fieldHelp}
+      labelHelp={labelHelp}
+      helpAriaLabel={labelHelp as string}
       {...args}
     />
   );
@@ -92,15 +79,12 @@ Default.storyName = "default";
 Default.args = {
   key: "",
   label: "Example Checkbox",
-  labelSpecialCharacters: undefined,
   autoFocus: false,
   disabled: false,
   fieldHelp: "This text provides help for the input.",
-  fieldHelpSpecialCharacters: undefined,
   fieldHelpInline: false,
   reverse: false,
   labelHelp: "This text provides more information for the label.",
-  labelHelpSpecialCharacters: undefined,
   inputWidth: 0,
   labelWidth: 0,
   labelSpacing: 1,

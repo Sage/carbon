@@ -1,6 +1,4 @@
 import React from "react";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import StepSequence, { StepSequenceProps } from "./step-sequence.component";
 import StepSequenceItem, {
   StepSequenceItemProps,
@@ -84,71 +82,44 @@ export const StepSequenceStory = (args: Partial<StepSequenceProps>) => (
   </StepSequence>
 );
 
-StepSequenceStory.storyName = "Step Sequence";
+StepSequenceStory.storyName = "step sequence";
 StepSequenceStory.args = {
   orientation: "horizontal",
 };
 
 interface StepSequenceItemStoryProps extends StepSequenceItemProps {
-  indicatorSpecialCharacters?: string;
   hideIndicator?: boolean;
-  hiddenCompleteLabelSpecialCharacters?: string;
-  hiddenCurrentLabelSpecialCharacters?: string;
-  ariaLabelSpecialCharacters?: string;
-  childrenSpecialCharacters?: string;
 }
 
 export const StepSequenceItemStory = ({
-  indicatorSpecialCharacters,
   indicator,
   hideIndicator,
-  hiddenCompleteLabelSpecialCharacters,
   hiddenCompleteLabel,
-  hiddenCurrentLabelSpecialCharacters,
   hiddenCurrentLabel,
-  ariaLabelSpecialCharacters,
   ariaLabel,
-  childrenSpecialCharacters,
   children,
   ...args
 }: StepSequenceItemStoryProps) => (
   <StepSequenceItem
-    indicator={indicator || indicatorSpecialCharacters || "1"}
+    indicator={indicator || "1"}
     hideIndicator={hideIndicator}
-    hiddenCompleteLabel={
-      hiddenCompleteLabel || hiddenCompleteLabelSpecialCharacters
-    }
-    hiddenCurrentLabel={
-      hiddenCurrentLabel || hiddenCurrentLabelSpecialCharacters
-    }
-    aria-label={ariaLabel || ariaLabelSpecialCharacters}
+    hiddenCompleteLabel={hiddenCompleteLabel}
+    hiddenCurrentLabel={hiddenCurrentLabel}
+    aria-label={ariaLabel}
     {...args}
   >
-    {children || childrenSpecialCharacters}
+    {children}
   </StepSequenceItem>
 );
 
-StepSequenceItemStory.storyName = "Step Sequence Item";
-
-StepSequenceItemStory.argTypes = {
-  indicatorSpecialCharacters: specialCharacters,
-  hiddenCompleteLabelSpecialCharacters: specialCharacters,
-  hiddenCurrentLabelSpecialCharacters: specialCharacters,
-  ariaLabelSpecialCharacters: specialCharacters,
-  childrenSpecialCharacters: specialCharacters,
-};
+StepSequenceItemStory.storyName = "step sequence item";
 
 StepSequenceItemStory.args = {
   indicator: "1",
   hideIndicator: false,
-  indicatorSpecialCharacters: undefined,
   status: "incomplete",
   hiddenCompleteLabel: "",
-  hiddenCompleteLabelSpecialCharacters: undefined,
   hiddenCurrentLabel: "",
-  hiddenCurrentLabelSpecialCharacters: undefined,
   ariaLabel: "Step 1 of 5",
-  ariaLabelSpecialCharacters: undefined,
   children: "Step Label",
-  childrenSpecialCharacters: undefined,
 };

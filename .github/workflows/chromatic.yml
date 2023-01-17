@@ -42,6 +42,6 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v1
         with:
-          node-version: ">=16.17.0 16"
+          node-version: ">=18.12.1 18"
       - run: npm ci
       - run: npx chromatic@latest --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }} --exit-once-uploaded --branch-name="${{ needs.check.outputs.branch_name }}"
