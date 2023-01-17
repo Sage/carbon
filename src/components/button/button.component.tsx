@@ -165,6 +165,7 @@ RenderChildrenProps) {
 }
 
 let deprecatedForwardRefWarnTriggered = false;
+let deprecatedDashedButtonWarnTriggered = false;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -210,9 +211,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       );
     }
 
-    const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
-
     const buttonType = buttonTypeProp;
+
+    if (!deprecatedDashedButtonWarnTriggered && buttonType === "dashed") {
+      deprecatedDashedButtonWarnTriggered = true;
+      Logger.deprecate(
+        "The `dashed` variant of the `buttonType` prop for `Button` component is deprecated and will soon be removed."
+      );
+    }
+
+    const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
 
     let paddingX;
 
