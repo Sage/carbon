@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Search from ".";
 import { SearchEvent } from "./search.component";
 
@@ -20,18 +18,10 @@ export default {
         type: "select",
       },
     },
-    placeholderSpecialCharacters: specialCharacters,
   },
 };
 
-export const Default = ({
-  placeholder,
-  placeholderSpecialCharacters,
-  ...args
-}: {
-  placeholder?: string;
-  placeholderSpecialCharacters?: string;
-}) => {
+export const Default = ({ placeholder, ...args }: { placeholder?: string }) => {
   const [value, setValue] = useState("");
   const handleChange = (event: SearchEvent) => {
     setValue(event.target.value);
@@ -58,7 +48,7 @@ export const Default = ({
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
       value={value}
-      placeholder={placeholder || placeholderSpecialCharacters}
+      placeholder={placeholder}
       name="search_name"
       id="search_id"
       {...args}
@@ -70,7 +60,6 @@ Default.storyName = "default";
 
 Default.args = {
   placeholder: "Search...",
-  placeholderSpecialCharacters: undefined,
   searchButton: true,
   searchWidth: "",
   threshold: 3,

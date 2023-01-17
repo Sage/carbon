@@ -53,13 +53,16 @@ interface Locale {
   };
   pager: {
     show: () => string;
-    records: (count: number | string, showNumber: boolean) => string;
+    records: (count: number | string, showNumber?: boolean) => string;
     first: () => string;
     last: () => string;
     next: () => string;
     previous: () => string;
     pageX: () => string;
     ofY: (count: string | number) => string;
+  };
+  progressTracker: {
+    of: () => string;
   };
   select: {
     actionButtonText: () => string;

@@ -1,7 +1,5 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Pod from "./pod.component";
 import { POD_ALIGNMENTS, POD_SIZES, POD_THEMES } from "./pod.config";
 
@@ -32,10 +30,6 @@ import { POD_ALIGNMENTS, POD_SIZES, POD_THEMES } from "./pod.config";
         type: "select",
       },
     },
-    childrenSpecialCharacters: specialCharacters,
-    titleSpecialCharacters: specialCharacters,
-    subtitleSpecialCharacters: specialCharacters,
-    footerSpecialCharacters: specialCharacters,
   }}
 />
 
@@ -44,23 +38,19 @@ export const PodStory = ({
   onDelete,
   onUndo,
   children,
-  childrenSpecialCharacters,
   title,
-  titleSpecialCharacters,
   subtitle,
-  subtitleSpecialCharacters,
   footer,
-  footerSpecialCharacters,
   ...args
 }) => (
   <Pod
     onEdit={onEdit ? action("edit") : undefined}
     onDelete={onDelete ? action("delete") : undefined}
     onUndo={onUndo ? action("undo") : undefined}
-    children={children || childrenSpecialCharacters}
-    title={title || titleSpecialCharacters}
-    subtitle={subtitle || subtitleSpecialCharacters}
-    footer={footer || footerSpecialCharacters}
+    children={children}
+    title={title}
+    subtitle={subtitle}
+    footer={footer}
     {...args}
   />
 );
@@ -75,15 +65,11 @@ export const PodStory = ({
     args={{
       border: true,
       children: "This is some example content for a Pod",
-      childrenSpecialCharacters: undefined,
       size: "medium",
       title: "",
-      titleSpecialCharacters: undefined,
       subtitle: "",
-      subtitleSpecialCharacters: undefined,
       alignTitle: "left",
       footer: "",
-      footerSpecialCharacters: undefined,
       onEdit: false,
       onDelete: false,
       onUndo: false,

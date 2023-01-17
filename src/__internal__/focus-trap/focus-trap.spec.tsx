@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+
 import { act } from "react-dom/test-utils";
 
 import FocusTrap, { FocusTrapProps } from "./focus-trap.component";
@@ -828,6 +830,96 @@ describe("FocusTrap", () => {
       tabPress(SECOND_WRAPPER_ID);
       expect(screen.getByText(BUTTON_FOUR)).toHaveFocus();
       tabPress(SECOND_WRAPPER_ID);
+      expect(screen.getByText(BUTTON_THREE)).toHaveFocus();
+    });
+  });
+
+  describe("when focuses an element that programatically focuses another nonfocusable element", () => {
+    it("should allow focusing out from the focused element", async () => {
+      const user = userEvent.setup({ delay: null });
+
+      const ProgramaticallyFocusesNextElement = () => {
+        const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+        return (
+          <button
+            type="button"
+            ref={buttonRef}
+            onFocus={() => {
+              (buttonRef.current
+                ?.nextElementSibling as HTMLButtonElement)?.focus();
+            }}
+          >
+            Click to focus next element
+          </button>
+        );
+      };
+
+      render(
+        <MockComponent>
+          <button type="button">{BUTTON_ONE}</button>
+          <button type="button">{BUTTON_TWO}</button>
+          <ProgramaticallyFocusesNextElement />
+          <button type="button" tabIndex={-1}>
+            {BUTTON_THREE}
+          </button>
+          <button type="button">{BUTTON_FOUR}</button>
+        </MockComponent>
+      );
+
+      await user.tab();
+      expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
+
+      await user.tab();
+      expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
+
+      await user.tab();
+      expect(screen.getByText(BUTTON_THREE)).toHaveFocus();
+
+      await user.tab();
+      expect(screen.getByText(BUTTON_FOUR)).toHaveFocus();
+
+      await user.tab();
+      expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
+    });
+  });
+
+  describe("when the the focus is on a non focusable element that is the last element", () => {
+    it("should focus the first focusable element", async () => {
+      const user = userEvent.setup({ delay: null });
+
+      render(
+        <MockComponent>
+          <button type="button">{BUTTON_ONE}</button>
+          <button type="button">{BUTTON_TWO}</button>
+          <button type="button" tabIndex={-1}>
+            {BUTTON_THREE}
+          </button>
+        </MockComponent>
+      );
+
+      focusElement(screen.getByText(BUTTON_THREE));
+      await user.tab();
+      expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
+    });
+  });
+
+  describe("when the the focus is on a non focusable element that is the first element", () => {
+    it("should focus the last focusable element", async () => {
+      const user = userEvent.setup({ delay: null });
+
+      render(
+        <MockComponent>
+          <button type="button" tabIndex={-1}>
+            {BUTTON_ONE}
+          </button>
+          <button type="button">{BUTTON_TWO}</button>
+          <button type="button">{BUTTON_THREE}</button>
+        </MockComponent>
+      );
+
+      focusElement(screen.getByText(BUTTON_ONE));
+      await user.tab({ shift: true });
       expect(screen.getByText(BUTTON_THREE)).toHaveFocus();
     });
   });

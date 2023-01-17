@@ -5,7 +5,7 @@ import Box from "../box";
 import LinkPreview from "../link-preview";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-import { tooltipPreview } from "../../../cypress/locators";
+import { cyRoot, tooltipPreview } from "../../../cypress/locators";
 import { linkPreview } from "../../../cypress/locators/link-preview/index";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
@@ -139,6 +139,7 @@ context("Tests for Note component", () => {
 
         noteStatus().should("have.text", value).realHover();
         tooltipPreview().should("have.text", CHARACTERS.STANDARD);
+        cyRoot().realHover({ position: "topLeft" });
       }
     );
 

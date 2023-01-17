@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import { SimpleColorPicker, SimpleColor } from ".";
 
 export default {
@@ -12,26 +10,18 @@ export default {
       disable: true,
     },
   },
-  argTypes: {
-    nameSpecialCharacters: specialCharacters,
-    legendSpecialCharacters: specialCharacters,
-  },
 };
 
 type DefaultStoryProps = {
   availableColors: Record<string, string>[];
   name: string;
-  nameSpecialCharacters: string;
   legend: string;
-  legendSpecialCharacters: string;
 };
 
 export const Default = ({
   availableColors,
   name,
-  nameSpecialCharacters,
   legend,
-  legendSpecialCharacters,
   ...args
 }: DefaultStoryProps) => {
   const [state, setState] = useState("");
@@ -45,8 +35,8 @@ export const Default = ({
       onChange={onChange}
       onBlur={(ev) => action("Blur")(ev)}
       value={state}
-      name={name || nameSpecialCharacters}
-      legend={legend || legendSpecialCharacters}
+      name={name}
+      legend={legend}
       {...args}
     >
       {availableColors.map(({ color, label }) => (
@@ -66,9 +56,7 @@ Default.storyName = "default";
 Default.args = {
   required: false,
   name: "basicPicker",
-  nameSpecialCharacters: undefined,
   legend: "Pick a colour",
-  legendSpecialCharacters: undefined,
   availableColors: [
     { color: "transparent", label: "transparent" },
     { color: "#0073C1", label: "blue" },

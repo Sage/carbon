@@ -18,15 +18,20 @@
 
 [Debugging Cypress](#debugging-cypress)
 
-- [Pre-requisites](#pre-requisites)
-
-- [Replicating GitHub Actions](#replicating-github-actions)
-
-  - [Cypress open](#cypress-open)
-
-  - [Cypress run](#cypress-run)
-
-- [Running a custom image](#running-a-custom-image)
+- [Getting Started with Cypress](#getting-started-with-cypress)
+  - [Contents](#contents)
+  - [Installation](#installation)
+  - [Running Tests](#running-tests)
+    - [Cypress test suite](#cypress-test-suite)
+    - [Legacy accessibility tests](#legacy-accessibility-tests)
+  - [Continuous Integration (CI)](#continuous-integration-ci)
+    - [GitHub Actions](#github-actions)
+  - [Debugging Cypress](#debugging-cypress)
+    - [Pre-requisites](#pre-requisites)
+    - [Replicating GitHub Actions](#replicating-github-actions)
+      - [Cypress open](#cypress-open)
+      - [Cypress run](#cypress-run)
+    - [Running a custom image](#running-a-custom-image)
 
 ## Installation
 
@@ -37,44 +42,35 @@ We use the [Cypress.io](https://www.cypress.io) testing framework for functional
 
 ## Running Tests
 
-Storybook must be running before Cypress tests can be run:
+We have implemented a new approach for cypress tests, using cypress-react framework. There is no need to start Storybook for this kind of integration tests. They include the refactored accessibility tests.
 
-1. Run Storybook `npm start`.
-2. Open a new terminal in the root path of the project.
-3. Run Cypress using the runner with `npx cypress open` or `npm run test:cypress`, then select the type e2e testing and then the required feature file. Test results can be seen directly in the Cypress Test Runner UI.
-4. To run specific Cypress tests at the command line (headless browser for continuous integration) use: `npx cypress run --e2e --spec 'cypress/e2e/[tests-type]/[fileName](.feature|.test.js)'`. Test results can be seen in the console run summary.
+### Cypress test suite
+
+1. Open a new terminal in the root path of the project.
+2. To run Cypress using the `cypress` runner, run `npx cypress open --component`, select the type Component Testing and then the required test file. Test results can be seen directly in the Cypress Test Runner UI.
+3. To run the suite of Cypress tests in CI mode, run `npx cypress run --component`. Test results can be seen in the console run summary.
+4. To run specific Cypress tests at the command line (headless browser for continuous integration) run `npx cypress run --component --spec './src/components/[component]/[fileName].test.js'`. Test results can be seen in the console run summary.
 5. To run in the Chrome/Firefox browser add `--browser chrome` or `--browser firefox` to the above command.
 
-### Run cypress react tests
+### Legacy accessibility tests
 
-We have implemented new approach for cypress tests, using cypress-react framework. There is no need to start storybook for this kind of integration tests.
+Storybook must be built and running before Cypress can run.
 
-1. Run `npx cypress open --component` to open `cypress` runner or
-   run `npx cypress run --component` to run `tests` in `CI` mode.
+1. Run `npm run build-storybook` to build the static-storybook folder.
+2. Run `npx sb extract` to generate the `stories.js` file.
+3. Run `npm start` to `start` Storybook and the `cypress` runner.
+4. `wait-on http://localhost:9001` - waits until Storybook is up and running and is ready to run tests.
+5. To run the accessibility tests using the `cypress` runner, run `npx cypress open --e2e`, select the type E2E Testing and then the required test file. Test results can be seen directly in the Cypress Test Runner UI.
+6. To run the accessibility tests in CI mode, run `npx cypress run --e2e --browser chrome --spec './cypress/e2e/accessibility/*.test.js'`. Test results can be seen in the console run summary.
 
 ## Continuous Integration (CI)
 
 Every commit/pull request in the repository initiates a Cypress test run using GitHub Actions.
 
-### Build Storybook (only accessibility tests)
-
-Storybook must be built and running before cypress can run.
-
-1. Run `npm run build-storybook` to build the static-storybook folder.
-2. Run `npx sb extract` to generate the `stories.js` file.
-
-### Start Storybook
-
-Storybook must be running before cypress can run.
-
-1. `npm start` - runs Storybook (regular tests) or run `npx http-server storybook-static -p 9001` to serve `static` folder as a Storybook server for `accessibility` tests (we already had built the static folder so no need to `start` storybook separatelly).
-2. `wait-on http://localhost:9001` - waits until Storybook is up and running and is ready to run tests (`CI` only).
-
 ### GitHub Actions
 1. `cypress.yml`
-- `npx cypress run --browser chrome --parallel -–record --spec './cypress/e2e/**/*.feature'` - runs the complete test suite (except `accessibility`).
-- `npx cypress run --component --browser chrome --parallel -–record --spec './src/components/**/*.test.js' --group ubuntu-cypress-react` - runs the `cypress react` suite.
-- `npx cypress run --browser chrome --parallel -–record --spec './cypress/e2e/accessibility/*.test.js'` - runs the `accessibility` test suite only.
+- `npx cypress run --component --browser chrome --parallel -–record --spec './src/components/**/*.test.js' --group ubuntu-cypress-react` - runs the complete test suite including refactored accessibility tests.
+- `npx cypress run --e2e --browser chrome --parallel -–record --spec './cypress/e2e/accessibility/*.test.js'` - runs the legacy `accessibility` test suite only that has not yet been refactored. Note, Storybook must be built and running as detailed in [Legacy accessibility tests](#legacy-accessibility-tests) before this can be run.
 
 The build result can be seen in GitHub in the pull request/branch and the detailed results can be seen in the [Cypress.io dashboard](https://dashboard.cypress.io/projects/8458bb/runs) or in GitHub Actions, both linked from the pull request/branch checks.
 
@@ -82,15 +78,14 @@ NOTE: If the tests failed for a reason such as if there is an issue with GitHub 
 
 ## Debugging Cypress
 
-Sometimes it is necessary to run cypress locally on a specific version of chrome to verify that a bug is fixed. This is difficult to do on your host system but it is possible using docker.
+Sometimes it is necessary to run Cypress locally on a specific version of Chrome to verify that a bug is fixed. This is difficult to do on your host system but it is possible using docker.
 
 ### Pre-requisites
 
 Before starting please ensure you have the latest version of [docker](https://docs.docker.com/get-docker/) installed.
 
-You will need to be able to access storybook, either from https://carbon.sage.com or from your local machine.
-If you are using your local machine, please run `npm ci`. Once complete you can use `npm start` or if you have limited RAM
-you can use `npm run build-storybook && npm run start:static` which will build the storybook and serve it without starting the storybook development server.
+You will need to be able to access Storybook, either from https://carbon.sage.com or from your local machine.
+If you are using your local machine, please run `npm ci`. Run `npm run build-storybook && npm run start:static` which will build the Storybook and serve it without starting the Storybook development server.
 
 ### Replicating GitHub Actions
 

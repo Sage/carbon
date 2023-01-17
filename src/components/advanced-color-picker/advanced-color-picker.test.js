@@ -1,18 +1,15 @@
 import React from "react";
-import AdvancedColorPicker from ".";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-
+import AdvancedColorPicker from "./advanced-color-picker.component";
 import {
   simpleColorPicker,
   advancedColorPickerCell,
   advancedColorPicker,
   simpleColorPickerInput,
+  simpleColorPickerComponent,
 } from "../../../cypress/locators/advanced-color-picker";
-
 import { alertDialogPreview as advancedColorPickerParent } from "../../../cypress/locators/dialog";
-
 import { closeIconButton } from "../../../cypress/locators";
-
 import { keyCode } from "../../../cypress/support/helper";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
@@ -88,17 +85,13 @@ context("Testing AdvancedColorPicker component", () => {
       simpleColorPickerInput(7).should("be.focused");
     });
 
-    it("should close AdvancedColorPicker using Space on selected color", () => {
-      simpleColorPicker(7).trigger("keydown", keyCode("Space"));
-
-      simpleColorPicker(0).should("not.exist");
-    });
-
-    it("should close AdvancedColorPicker using Enter on selected color", () => {
-      simpleColorPicker(7).trigger("keydown", keyCode("Enter"));
-
-      simpleColorPicker(0).should("not.exist");
-    });
+    it.each(["Space", "Enter"])(
+      "should close AdvancedColorPicker using %s on selected color",
+      (key) => {
+        simpleColorPicker(7).trigger("keydown", keyCode(key));
+        simpleColorPickerComponent().should("not.exist");
+      }
+    );
 
     it.each([1, 2, 3])(
       "should confirm dedicated %s color was selected",
@@ -293,6 +286,15 @@ context("Testing AdvancedColorPicker component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("Accessibility tests for AdvancedColorPicker component", () => {
+    // Test skipped because of issue FE-5591
+    it.skip("should pass accessibility tests for AdvancedColorPicker default", () => {
+      CypressMountWithProviders(<AdvancedColorPickerCustom />);
+
+      cy.checkAccessibility();
     });
   });
 });

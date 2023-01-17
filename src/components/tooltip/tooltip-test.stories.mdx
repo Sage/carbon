@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Tooltip from ".";
 import { TOOLTIP_POSITIONS } from "./tooltip.config";
 
@@ -48,12 +46,10 @@ import { TOOLTIP_POSITIONS } from "./tooltip.config";
         type: "text",
       },
     },
-    messageSpecialCharacters: specialCharacters,
   }}
 />
 
 export const TooltipStory = ({
-  messageSpecialCharacters,
   message,
   isVisible,
   flipOverrides,
@@ -72,7 +68,7 @@ export const TooltipStory = ({
       <Tooltip
         isVisible={stateVisible || isVisible}
         flipOverrides={flipOverrides && [flipOverrides]}
-        message={message || messageSpecialCharacters}
+        message={message}
         {...args}
       >
         <div
@@ -114,7 +110,6 @@ export const TooltipStory = ({
       isVisible: true,
       message:
         "I'm a helpful tooltip that can display additional information to a user.",
-      messageSpecialCharacters: undefined,
       type: "default",
       size: "medium",
       bgColor: undefined,

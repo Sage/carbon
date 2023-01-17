@@ -26,15 +26,13 @@ export interface ProgressTrackerProps extends MarginProps {
   currentProgressLabel?: string;
   /** Value to display as the maximum progress limit. */
   maxProgressLabel?: string;
-  /** The orientation of the component. */
-  orientation?: "horizontal" | "vertical";
-  /** The direction the bar should move as progress increases, only applies in vertical orientation. */
-  direction?: "up" | "down";
   /**
    * The position the value label are rendered in.
    * Top/bottom apply to horizontal and left/right to vertical orientation.
    */
-  labelsPosition?: "top" | "bottom" | "left" | "right";
+  labelsPosition?: "top" | "bottom";
+  /** Value of the preposition defined between Value1 and Value2 on the label. */
+  customValuePreposition?: string;
 }
 
 declare function ProgressTracker(props: ProgressTrackerProps): JSX.Element;

@@ -13,7 +13,7 @@ export default {
   },
 };
 
-const Template = () => {
+export const Default = () => {
   const MAX_SELECTIONS_ALLOWED = 2;
   const [selectedPills, setSelectedPills] = useState([] as string[]);
   const handleActivityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,4 +52,4 @@ const Template = () => {
   );
 };
 
-export const Default = Template.bind({});
+Default.storyName = "default";

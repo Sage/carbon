@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import DateRange from "./date-range.component";
 
 <Meta
@@ -13,10 +11,6 @@ import DateRange from "./date-range.component";
       disable: true,
     },
   }}
-  argTypes={{
-    startLabelSpecialCharacters: specialCharacters,
-    endLabelSpecialCharacters: specialCharacters,
-  }}
 />
 
 export const DateRangeStory = ({
@@ -24,9 +18,7 @@ export const DateRangeStory = ({
   allowEmptyValueOnStartDate,
   allowEmptyValueOnEndDate,
   startLabel,
-  startLabelSpecialCharacters,
   endLabel,
-  endLabelSpecialCharacters,
   ...args
 }) => {
   const [state, setState] = useState(initialDates);
@@ -49,8 +41,8 @@ export const DateRangeStory = ({
       endDateProps={{
         allowEmptyValue: allowEmptyValueOnEndDate,
       }}
-      startLabel={startLabel || startLabelSpecialCharacters}
-      endLabel={endLabel || endLabelSpecialCharacters}
+      startLabel={startLabel}
+      endLabel={endLabel}
       {...args}
     />
   );
@@ -70,8 +62,6 @@ export const DateRangeStory = ({
       allowEmptyValueOnStartDate: undefined,
       allowEmptyValueOnEndDate: undefined,
       labelsInline: false,
-      startLabelSpecialCharacters: undefined,
-      endLabelSpecialCharacters: undefined,
     }}
   >
     {DateRangeStory.bind({})}
@@ -88,8 +78,6 @@ export const DateRangeStory = ({
       allowEmptyValueOnStartDate: true,
       allowEmptyValueOnEndDate: true,
       labelsInline: false,
-      startLabelSpecialCharacters: undefined,
-      endLabelSpecialCharacters: undefined,
     }}
   >
     {DateRangeStory.bind({})}

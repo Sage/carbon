@@ -1,7 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import ButtonToggle from ".";
 
 export default {
@@ -12,19 +11,9 @@ export default {
       disable: true,
     },
   },
-  argTypes: {
-    childrenSpecialCharacters: specialCharacters,
-  },
 };
 
-export const Default = ({
-  children,
-  childrenSpecialCharacters,
-  ...args
-}: {
-  children: string;
-  childrenSpecialCharacters: string;
-}) => (
+export const Default = ({ children, ...args }: { children: string }) => (
   <div>
     <ButtonToggle
       name="new-button-toggle"
@@ -32,8 +21,9 @@ export const Default = ({
       onChange={() => action("onChange")("foo")}
       onFocus={() => action("onFocus")("foo")}
       onBlur={() => action("onBlur")("foo")}
+      {...args}
     >
-      {childrenSpecialCharacters || children}
+      {children}
     </ButtonToggle>
     <ButtonToggle
       name="new-button-toggle"
@@ -41,8 +31,9 @@ export const Default = ({
       onChange={() => action("onChange")("bar")}
       onFocus={() => action("onFocus")("bar")}
       onBlur={() => action("onBlur")("bar")}
+      {...args}
     >
-      {childrenSpecialCharacters || children}
+      {children}
     </ButtonToggle>
     <ButtonToggle
       name="new-button-toggle"
@@ -50,8 +41,9 @@ export const Default = ({
       onChange={() => action("onChange")("baz")}
       onFocus={() => action("onFocus")("baz")}
       onBlur={() => action("onBlur")("baz")}
+      {...args}
     >
-      {childrenSpecialCharacters || children}
+      {children}
     </ButtonToggle>
   </div>
 );
@@ -59,5 +51,4 @@ export const Default = ({
 Default.storyName = "default";
 Default.args = {
   children: "Options",
-  childrenSpecialCharacters: undefined,
 };

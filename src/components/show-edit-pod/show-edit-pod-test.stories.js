@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import ShowEditPod from "./show-edit-pod.component";
 import Content from "../content";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Textbox from "../textbox";
 import Fieldset from "../fieldset";
 import {
@@ -34,37 +32,25 @@ export default {
         type: "select",
       },
     },
-    cancelTextSpecialCharacters: specialCharacters,
-    deleteTextSpecialCharacters: specialCharacters,
-    saveTextSpecialCharacters: specialCharacters,
-    titleSpecialCharacters: specialCharacters,
   },
   args: {
     border: false,
     buttonAlign: "right",
     cancel: true,
     cancelText: "Cancel",
-    cancelTextSpecialCharacters: undefined,
     deleteText: "Delete",
-    deleteTextSpecialCharacters: undefined,
     saveText: "Save",
-    saveTextSpecialCharacters: undefined,
     saving: false,
     title: "Person",
-    titleSpecialCharacters: undefined,
     transitionName: "carbon-show-edit-pod__transition",
     variant: "transparent",
   },
 };
 
-const ShowEditPodStory = ({
-  cancelTextSpecialCharacters,
+export const Default = ({
   cancelText,
-  deleteTextSpecialCharacters,
   deleteText,
-  saveTextSpecialCharacters,
   saveText,
-  titleSpecialCharacters,
   title,
   ...args
 }) => {
@@ -129,10 +115,10 @@ const ShowEditPodStory = ({
         </Fieldset>
       }
       onSave={onSave}
-      cancelText={cancelTextSpecialCharacters || cancelText}
-      deleteText={deleteTextSpecialCharacters || deleteText}
-      saveText={saveTextSpecialCharacters || saveText}
-      title={titleSpecialCharacters || title}
+      cancelText={cancelText}
+      deleteText={deleteText}
+      saveText={saveText}
+      title={title}
     >
       {fieldProps.map(({ key, label }) => (
         <Content key={key} title={label}>
@@ -143,4 +129,4 @@ const ShowEditPodStory = ({
   );
 };
 
-export const Default = ShowEditPodStory.bind({});
+Default.storyName = "default";

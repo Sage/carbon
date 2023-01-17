@@ -1,7 +1,7 @@
 import React from "react";
 import Icon from "./icon.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-import { icon, getDataElementByValue } from "../../../cypress/locators";
+import { icon, getDataElementByValue, cyRoot } from "../../../cypress/locators";
 import {
   SIZE,
   COLOR,
@@ -136,7 +136,8 @@ context("Tests for Icon component", () => {
         icon().realHover();
         getDataElementByValue("tooltip")
           .should("be.visible")
-          .contains(tooltipMessage);
+          .and("contain.text", tooltipMessage);
+        cyRoot().realHover({ position: "topLeft" });
       }
     );
 

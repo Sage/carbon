@@ -82,6 +82,9 @@ const plPL: Locale = {
     pageX: () => "Strona",
     ofY: (count) => `z ${count}`,
   },
+  progressTracker: {
+    of: () => "z",
+  },
   select: {
     actionButtonText: () => "Dodaj nowy element",
     placeholder: () => "Proszę wybierz...",
