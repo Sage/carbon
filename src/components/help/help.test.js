@@ -48,7 +48,7 @@ context("Tests for Help component", () => {
         getComponent("help").realHover();
         getDataElementByValue("tooltip")
           .should("be.visible")
-          .contains(children);
+          .and("contain.text", children);
       }
     );
 

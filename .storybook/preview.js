@@ -6,7 +6,6 @@ import { configureActions } from "@storybook/addon-actions";
 
 import "../src/style/fonts.css";
 import "./style/story-root.css";
-import "cypress-storybook/react";
 
 // Temporary fix for issue mentioned in FE-2565 ticket
 // Should be solved by the storybook team in foreseeable future

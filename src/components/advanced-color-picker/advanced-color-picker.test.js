@@ -6,6 +6,7 @@ import {
   advancedColorPickerCell,
   advancedColorPicker,
   simpleColorPickerInput,
+  simpleColorPickerComponent,
 } from "../../../cypress/locators/advanced-color-picker";
 import { alertDialogPreview as advancedColorPickerParent } from "../../../cypress/locators/dialog";
 import { closeIconButton } from "../../../cypress/locators";
@@ -84,17 +85,13 @@ context("Testing AdvancedColorPicker component", () => {
       simpleColorPickerInput(7).should("be.focused");
     });
 
-    it("should close AdvancedColorPicker using Space on selected color", () => {
-      simpleColorPicker(7).trigger("keydown", keyCode("Space"));
-
-      simpleColorPicker(0).should("not.exist");
-    });
-
-    it("should close AdvancedColorPicker using Enter on selected color", () => {
-      simpleColorPicker(7).trigger("keydown", keyCode("Enter"));
-
-      simpleColorPicker(0).should("not.exist");
-    });
+    it.each(["Space", "Enter"])(
+      "should close AdvancedColorPicker using %s on selected color",
+      (key) => {
+        simpleColorPicker(7).trigger("keydown", keyCode(key));
+        simpleColorPickerComponent().should("not.exist");
+      }
+    );
 
     it.each([1, 2, 3])(
       "should confirm dedicated %s color was selected",
