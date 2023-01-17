@@ -66,10 +66,10 @@ export interface PodProps extends MarginProps {
   displayEditButtonOnHover?: boolean;
   /** Determines if clicking the pod content calls the onEdit action */
   triggerEditOnContent?: boolean;
-  /** Resets edit button styles to an older version */
-  internalEditButton?: boolean;
   /** Sets Pod height, number is changed to pixels and string is passed as raw css value */
   height?: string | number;
+  /** Renders edit button inside the pod if it exists. */
+  internalEditButton?: boolean;
 }
 
 const Pod = React.forwardRef<HTMLDivElement, PodProps>(
@@ -189,7 +189,7 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
                 )}
               </StyledHeader>
             )}
-            <div>{children}</div>
+            {children}
           </StyledContent>
 
           {footer && (
@@ -227,22 +227,21 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
               </StyledUndoButton>
             )}
             {!softDelete && onEdit && (
-              <div {...editEvents} data-element="edit-container">
-                <StyledEditAction
-                  data-element="edit"
-                  displayOnlyOnHover={displayEditButtonOnHover}
-                  icon="edit"
-                  internalEditButton={internalEditButton}
-                  isFocused={isEditFocused}
-                  isHovered={isEditHovered}
-                  noBorder={!border}
-                  size={size}
-                  variant={variant}
-                  {...(typeof onEdit === "string" ? { href: onEdit } : onEdit)}
-                >
-                  {l.actions.edit()}
-                </StyledEditAction>
-              </div>
+              <StyledEditAction
+                {...editEvents}
+                aria-label={l.actions.edit()}
+                data-element="edit"
+                displayOnlyOnHover={displayEditButtonOnHover}
+                internalEditButton={internalEditButton}
+                isFocused={isEditFocused}
+                isHovered={isEditHovered}
+                noBorder={!border}
+                size={size}
+                variant={variant}
+                {...(typeof onEdit === "string" ? { href: onEdit } : onEdit)}
+              >
+                <Icon type="edit" />
+              </StyledEditAction>
             )}
             {!softDelete && onDelete && (
               <StyledDeleteButton
@@ -252,7 +251,6 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
                 onBlur={() => setDeleteFocused(false)}
                 data-element="delete"
                 internalEditButton={internalEditButton}
-                displayOnlyOnHover={displayEditButtonOnHover}
                 isFocused={isDeleteFocused}
                 isHovered={isDeleteHovered}
                 noBorder={!border}

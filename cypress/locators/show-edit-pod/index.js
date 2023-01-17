@@ -8,7 +8,7 @@ import {
   SHOW_EDIT_POD_SAVE_BUTTON,
   SHOW_EDIT_POD_DELETE_BUTTON,
   SHOW_EDIT_POD_TITLE,
-  SHOW_EDIT_POD_EDIT_CONTAINER,
+  SHOW_EDIT_POD_EDIT_BUTTON,
   SHOW_EDIT_POD_UNDO_BUTTON,
   SHOW_EDIT_POD_TRANSITION_NAME,
 } from "./locators";
@@ -26,8 +26,7 @@ export const showEditPodSaveButton = () => cy.get(SHOW_EDIT_POD_SAVE_BUTTON);
 export const showEditPodDeleteButton = () =>
   cy.get(SHOW_EDIT_POD_DELETE_BUTTON);
 export const showEditPodTitle = () => cy.get(SHOW_EDIT_POD_TITLE);
-export const showEditPodEditContainer = () =>
-  cy.get(SHOW_EDIT_POD_EDIT_CONTAINER);
+export const showEditPodEditButton = () => cy.get(SHOW_EDIT_POD_EDIT_BUTTON);
 export const showEditPodUndoButton = () => cy.get(SHOW_EDIT_POD_UNDO_BUTTON);
 export const showEditPodTransitionName = () =>
   cy.get(SHOW_EDIT_POD_TRANSITION_NAME);

@@ -1,20 +1,21 @@
 import React from "react";
-import Pod from "./pod.component";
+import Pod from ".";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import Content from "../content";
 
 import {
-  podBlock,
   podComponent,
+  podBlock,
   podTitle,
   podSubTitle,
-  podFooter,
-  podSoftDelete,
   podContent,
-  podEditContainer,
-  podDelete,
-  podUndo,
+  podFooter,
   podEdit,
+  podEditIcon,
+  podDelete,
+  podDeleteIcon,
+  podUndo,
+  podUndoIcon,
 } from "../../../cypress/locators/pod";
 
 import {
@@ -28,7 +29,7 @@ import {
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
-const PodComponent = ({ ...props }) => {
+const PodExample = ({ ...props }) => {
   return (
     <Pod
       title="Title"
@@ -36,29 +37,25 @@ const PodComponent = ({ ...props }) => {
       footer="Footer"
       onEdit={() => {}}
       onDelete={() => {}}
-      mb={3}
       {...props}
     />
   );
 };
 
-const SoftDeletePodComponent = ({ ...props }) => {
+const SoftDeleteExample = ({ ...props }) => {
   return (
     <Pod
       title="Title"
       subtitle="Subtitle"
-      description="Description"
       footer="Footer"
       onUndo={() => {}}
       softDelete
       {...props}
-    >
-      Soft delete state
-    </Pod>
+    />
   );
 };
 
-const SoftDeletePodWithChildren = () => (
+const SoftDeleteExampleWithChildren = () => (
   <Pod softDelete onUndo={() => {}}>
     Content
     <Content>More content</Content>
@@ -66,238 +63,315 @@ const SoftDeletePodWithChildren = () => (
 );
 
 context("Testing Pod component", () => {
-  describe("should render Pod component", () => {
+  it.each([
+    [true, 1, "solid", "rgb(204, 214, 219)"],
+    [false, 0, "none", "rgba(0, 0, 0, 0.9)"],
+  ])(
+    "should check when border is %s the border value is %s for Pod component ",
+    (boolVal, px, style, color) => {
+      CypressMountWithProviders(<PodExample border={boolVal} />);
+      podBlock().then((elem) => {
+        checkOutlineCss(elem, px, "border", style, color);
+      });
+    }
+  );
+
+  it.each(specialCharacters)(
+    "should check children as %s for Pod component",
+    (children) => {
+      CypressMountWithProviders(<PodExample>{children}</PodExample>);
+      cy.contains(children);
+      podContent().should("have.css", "text-align", "left");
+    }
+  );
+
+  it.each(specialCharacters)(
+    "should check className as %s for Pod component",
+    (className) => {
+      CypressMountWithProviders(<PodExample className={className} />);
+      podComponent().should("have.class", className);
+    }
+  );
+
+  it.each([
+    [SIZE.EXTRASMALL, 120, 66],
+    [SIZE.SMALL, 120, 66],
+    [SIZE.MEDIUM, 136, 82],
+    [SIZE.LARGE, 184, 98],
+    [SIZE.EXTRALARGE, 216, 130],
+  ])(
+    "should check %s size for Pod component when height is %s and width is %s",
+    (size, expectedHeight, expectedWidth) => {
+      CypressMountWithProviders(<PodExample size={size} />);
+      podBlock().then(($element) => {
+        useJQueryCssValueAndAssert($element, "height", expectedHeight);
+        useJQueryCssValueAndAssert($element, "width", expectedWidth);
+      });
+    }
+  );
+
+  it.each([
+    ["primary", "rgb(255, 255, 255)", "none"],
+    ["secondary", "rgb(242, 245, 246)", "none"],
+    ["tertiary", "rgb(237, 241, 242)", "none"],
+    ["tile", "rgb(255, 255, 255)", "rgba(2, 18, 36, 0.2) 0px 2px 3px 0px"],
+    ["transparent", "rgba(0, 0, 0, 0)", "none"],
+  ])(
+    "should check %s variant for Pod component when the color is %s and boxShadow is %s",
+    (variant, color, boxShadow) => {
+      CypressMountWithProviders(<PodExample variant={variant} />);
+
+      podBlock()
+        .should("have.css", "background-color", `${color}`)
+        .and("have.css", "box-shadow", boxShadow);
+    }
+  );
+
+  it.each(specialCharacters)(
+    "should check title as %s for Pod component",
+    (title) => {
+      CypressMountWithProviders(<PodExample title={title} />);
+      podTitle().should("have.text", title);
+    }
+  );
+
+  it.each(specialCharacters)(
+    "should check subtitle as %s for Pod component",
+    (subtitle) => {
+      CypressMountWithProviders(<PodExample subtitle={subtitle} />);
+      podSubTitle().should("have.text", subtitle);
+    }
+  );
+
+  it.each(["left", "center", "right"])(
+    "should check title alignment for Pod component when text is aligned to the %s",
+    (alignTitle) => {
+      CypressMountWithProviders(<PodExample alignTitle={alignTitle} />);
+      podTitle().should("have.css", "text-align", alignTitle);
+    }
+  );
+
+  it.each(specialCharacters)(
+    "should check footer text as %s for Pod component",
+    (footerText) => {
+      CypressMountWithProviders(<PodExample footer={footerText} />);
+      podFooter().should("have.text", footerText).and("be.visible");
+    }
+  );
+
+  it.each([100, 200, 300])(
+    "should render Pod component with correct height when height prop is %s",
+    (height) => {
+      CypressMountWithProviders(<PodExample height={height} />);
+      podComponent().should("have.css", "height", `${height}px`);
+    }
+  );
+
+  it.each([
+    [false, 82],
+    [true, 1308],
+  ])(
+    "should check when editContentFullWidth is %s for Pod component",
+    (boolVal, expectedWidth) => {
+      CypressMountWithProviders(<PodExample editContentFullWidth={boolVal} />);
+      podBlock().then(($element) => {
+        useJQueryCssValueAndAssert($element, "width", expectedWidth);
+      });
+    }
+  );
+
+  it.each([
+    [true, "rgb(0, 103, 56)"],
+    [false, "rgb(255, 255, 255)"],
+  ])(
+    "when triggerEditOnContent is %s and Pod component is hovered, background colours are correct",
+    (boolVal, color) => {
+      CypressMountWithProviders(<PodExample triggerEditOnContent={boolVal} />);
+
+      podBlock().should("have.css", "background-color", "rgb(255, 255, 255)");
+      podBlock().realHover().should("have.css", "background-color", color);
+      podEdit().should("have.css", "background-color", color);
+    }
+  );
+
+  describe("when onDelete prop is passed", () => {
+    it("should call onDelete callback when a click event is triggered for Pod component", () => {
+      const callback = cy.stub();
+      CypressMountWithProviders(<PodExample onDelete={callback} />);
+      podDelete()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          expect(callback).to.have.been.calledOnce;
+        });
+    });
+
+    it("when delete button is focused and internalEditButton prop is true, delete button and Pod component have correct border styles", () => {
+      CypressMountWithProviders(
+        <Pod onDelete={() => {}} internalEditButton>
+          Content
+        </Pod>
+      );
+
+      podDelete().focus();
+
+      podDelete().should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
+      podBlock().should("have.css", "border", "1px solid rgb(204, 214, 219)");
+    });
+
+    it("when delete button is hovered over and internalEditButton prop is true, delete button does not have default hover colours ", () => {
+      CypressMountWithProviders(
+        <Pod onDelete={() => {}} internalEditButton>
+          Content
+        </Pod>
+      );
+
+      podDelete()
+        .trigger("mouseover")
+        .should("not.have.css", "background-color", "rgb(164, 45, 60)");
+      podDeleteIcon().should("not.have.css", "color", "rgb(255, 255, 255)");
+    });
+  });
+
+  describe("when onEdit prop is passed", () => {
+    it("when displayEditButtonOnHover is true, edit button is only visible when user clicks on Pod component", () => {
+      CypressMountWithProviders(
+        <Pod onEdit={() => {}} displayEditButtonOnHover>
+          Content
+        </Pod>
+      );
+      podEdit().should("not.be.visible");
+      podContent().click();
+      podEdit().should("be.visible");
+    });
+
+    it("when displayEditButtonOnHover is true, edit button is only visible when Pod component is hovered over", () => {
+      CypressMountWithProviders(
+        <Pod onEdit={() => {}} displayEditButtonOnHover>
+          Content
+        </Pod>
+      );
+
+      podEdit().should("not.be.visible");
+      podBlock().trigger("mouseover");
+      podEdit().should("be.visible");
+    });
+
+    it("when displayEditButtonOnHover is true, edit button is only visible when Pod component is focused", () => {
+      CypressMountWithProviders(
+        <Pod onEdit={() => {}} displayEditButtonOnHover>
+          Content
+        </Pod>
+      );
+
+      podEdit().should("not.be.visible");
+      podBlock().focus();
+      podEdit().should("be.visible");
+    });
+
+    it("when displayEditButtonOnHover is false, edit button should be rendered", () => {
+      CypressMountWithProviders(
+        <PodExample displayEditButtonOnHover={false} />
+      );
+      podEdit().should("be.visible");
+    });
+
+    it("when internalEditButton is true, edit button does not have default hover colours when hovered over", () => {
+      CypressMountWithProviders(
+        <Pod onEdit={() => {}} internalEditButton>
+          Content
+        </Pod>
+      );
+
+      podEdit()
+        .trigger("mouseover")
+        .should("not.have.css", "background-color", "rgb(0, 103, 56)");
+      podEditIcon().should("not.have.css", "color", "rgb(255, 255, 255)");
+    });
+
     it.each([
-      [true, 1, "solid", "rgb(204, 214, 219)"],
-      [false, 0, "none", "rgba(0, 0, 0, 0.9)"],
+      [true, 1366],
+      [false, 82],
     ])(
-      "should check when border is %s the border value is %s for Pod component ",
-      (boolVal, px, style, color) => {
-        CypressMountWithProviders(<PodComponent border={boolVal} />);
-        podBlock().then((elem) => {
-          checkOutlineCss(elem, px, "border", style, color);
+      "when internalEditButton is %s for Pod component, width value is correct",
+      (boolVal, expectedWidth) => {
+        CypressMountWithProviders(<PodExample internalEditButton={boolVal} />);
+        podBlock().then(($element) => {
+          useJQueryCssValueAndAssert($element, "width", expectedWidth);
         });
       }
     );
 
-    it.each(specialCharacters)(
-      "should check children as %s for Pod component",
-      (children) => {
-        CypressMountWithProviders(<PodComponent>{children}</PodComponent>);
-        podContent()
-          .should("have.css", "text-align", "left")
-          .contains(children);
-      }
-    );
-
-    it.each(specialCharacters)(
-      "should check className as %s for Pod component",
-      (className) => {
-        CypressMountWithProviders(<PodComponent className={className} />);
-        podComponent().should("have.class", className);
-      }
-    );
-
     it.each([
-      ["none", 88, 50],
-      [SIZE.EXTRASMALL, 120, 66],
-      [SIZE.SMALL, 120, 66],
-      [SIZE.MEDIUM, 136, 82],
-      [SIZE.LARGE, 184, 98],
-      [SIZE.EXTRALARGE, 216, 130],
+      [true, "rgba(0, 0, 0, 0)"],
+      [false, "rgb(0, 103, 56)"],
     ])(
-      "should check %s size for Pod component when height is %s and width is %s",
-      (size, height, width) => {
-        CypressMountWithProviders(<PodComponent size={size} />);
-        podBlock().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", height);
-          useJQueryCssValueAndAssert($el, "width", width);
-        });
+      "when internalEditButton is %s and edit button is hovered, Pod background colours are correct",
+      (boolVal, color) => {
+        CypressMountWithProviders(
+          <Pod onEdit={() => {}} internalEditButton={boolVal}>
+            Content
+          </Pod>
+        );
+
+        podBlock().should("have.css", "background-color", "rgb(255, 255, 255)");
+        podEdit().realHover();
+        podEdit().should("have.css", "background-color", color);
       }
     );
+  });
 
-    it.each([
-      ["primary", "rgb(255, 255, 255)", "none"],
-      ["secondary", "rgb(242, 245, 246)", "none"],
-      ["tertiary", "rgb(237, 241, 242)", "none"],
-      ["tile", "rgb(255, 255, 255)", "rgba(2, 18, 36, 0.2) 0px 2px 3px 0px"],
-      ["transparent", "rgba(0, 0, 0, 0)", "none"],
-    ])(
-      "should check %s variant for Pod component when the color is %s and boxShadow is %s",
-      (variant, color, boxShadow) => {
-        CypressMountWithProviders(<PodComponent variant={variant} />);
-        podBlock()
-          .should(
-            "have.css",
-            "back-ground",
-            `${color} none repeat scroll 0% 0% / auto padding-box border-box`
-          )
-          .and("have.css", "box-shadow", boxShadow);
-      }
-    );
-
-    it.each(specialCharacters)(
-      "should check title as %s for Pod component",
-      (title) => {
-        CypressMountWithProviders(<PodComponent title={title} />);
-        podTitle().should("have.text", title);
-      }
-    );
-
-    it.each(specialCharacters)(
-      "should check subtitle as %s for Pod component",
-      (subtitle) => {
-        CypressMountWithProviders(<PodComponent subtitle={subtitle} />);
-        podSubTitle().should("have.text", subtitle);
-      }
-    );
-
-    it.each(["left", "center", "right"])(
-      "should check title alignment for Pod component when text is aligned to the %s",
-      (alignTitle) => {
-        CypressMountWithProviders(<PodComponent alignTitle={alignTitle} />);
-        podTitle().should("have.css", "text-align", alignTitle);
-      }
-    );
-
-    it.each(specialCharacters)(
-      "should check footer text as %s for Pod component",
-      (footerText) => {
-        CypressMountWithProviders(<PodComponent footer={footerText} />);
-        podFooter().should("have.text", footerText).and("be.visible");
-      }
-    );
-
+  describe("when onUndo and softDelete props are passed", () => {
     it.each([
       [true, "be.visible"],
       [false, "not.exist"],
     ])(
       "should check visibility of undo button when softDelete is %s",
       (boolVal, state) => {
-        CypressMountWithProviders(
-          <SoftDeletePodComponent softDelete={boolVal} />
-        );
-        podSoftDelete().should(state);
+        CypressMountWithProviders(<SoftDeleteExample softDelete={boolVal} />);
+        podUndo().should(state);
       }
     );
 
-    it.each([
-      [false, 82],
-      [true, 1308],
-    ])(
-      "should check when editContentFullWidth is %s for Pod component",
-      (boolVal, width) => {
-        CypressMountWithProviders(
-          <PodComponent editContentFullWidth={boolVal} />
-        );
-        podBlock().then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", width);
+    it("should call onUndo callback when a click event is triggered for Pod component", () => {
+      const callback = cy.stub();
+      CypressMountWithProviders(<SoftDeleteExample onUndo={callback} />);
+      podUndo()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          expect(callback).to.have.been.calledOnce;
         });
-      }
-    );
-
-    it("should check edit button is only visible when user clicks on Pod component and displayEditButtonOnHover is true", () => {
-      CypressMountWithProviders(<PodComponent displayEditButtonOnHover />);
-      podEditContainer().should("not.be.visible");
-
-      podContent().click();
-      podEditContainer().should("be.visible");
-      podDelete().should("not.be.visible");
     });
 
-    it("should check edit and delete buttons are visible on first render when displayEditButtonOnHover is false", () => {
+    it("undo button does not have default hover colours when hovered over and internalEditButton prop is true", () => {
       CypressMountWithProviders(
-        <PodComponent displayEditButtonOnHover={false} />
+        <Pod onUndo={() => {}} softDelete internalEditButton>
+          Content
+        </Pod>
       );
-      podEditContainer().should("be.visible");
-      podDelete().should("be.visible");
+
+      podUndo()
+        .trigger("mouseover")
+        .should("not.have.css", "background-color", "rgb(0, 103, 56)");
+      podUndoIcon().should("not.have.css", "color", "rgb(255, 255, 255)");
     });
 
-    it.each([
-      [true, "rgb(0, 103, 56)"],
-      [false, "rgb(255, 255, 255)"],
-    ])(
-      "should check when triggerEditOnContent is %s for Pod component",
-      (boolVal, color) => {
-        CypressMountWithProviders(
-          <PodComponent triggerEditOnContent={boolVal} />
-        );
-        podBlock().realHover().and("have.css", "background-color", color);
-        podEdit().should("have.css", "background-color", color);
-      }
-    );
+    it("renders block with correct background colour", () => {
+      const blockBackgroundColor = "rgb(230, 235, 237)";
 
-    it.each([
-      [true, 1366, "rgba(0, 0, 0, 0)"],
-      [false, 82, "rgb(0, 103, 56)"],
-    ])(
-      "should check the width value when internalEditButton is %s for Pod component",
-      (boolVal, width, color) => {
-        CypressMountWithProviders(
-          <PodComponent internalEditButton={boolVal} />
-        );
-        podBlock().then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", width);
-        });
-        podEdit().realHover().and("have.css", "background-color", color);
-        podBlock().should("have.css", "background-color", "rgb(217, 224, 228)");
-      }
-    );
+      CypressMountWithProviders(<SoftDeleteExampleWithChildren />);
 
-    it.each([100, 200, 300])(
-      "should render Pod component with correct height when height prop is %s",
-      (height) => {
-        CypressMountWithProviders(<PodComponent height={height} />);
-        podComponent().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", height);
-        });
-      }
-    );
-
-    describe("should render Pod component for event tests", () => {
-      let callback;
-      beforeEach(() => {
-        callback = cy.stub();
-      });
-
-      it("should call onDelete callback when a click event is triggered for Pod component", () => {
-        CypressMountWithProviders(<PodComponent onDelete={callback} />);
-        podDelete()
-          .click()
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
-      });
-
-      it("should call onUndo callback when a click event is triggered for Pod component", () => {
-        CypressMountWithProviders(<SoftDeletePodComponent onUndo={callback} />);
-        podUndo()
-          .click()
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
-      });
+      podBlock().should("have.css", "background-color", blockBackgroundColor);
     });
 
-    describe("When softDelete is true", () => {
-      it("renders block with correct background colour", () => {
-        const blockBackgroundColor = "rgb(230, 235, 237)";
+    it("renders children with correct text colours", () => {
+      const childrenColor = "rgba(0, 0, 0, 0.65)";
 
-        CypressMountWithProviders(<SoftDeletePodWithChildren />);
+      CypressMountWithProviders(<SoftDeleteExampleWithChildren />);
 
-        podBlock().should("have.css", "background-color", blockBackgroundColor);
-      });
-
-      it("renders text of children with correct colours", () => {
-        const childrenColor = "rgba(0, 0, 0, 0.65)";
-
-        CypressMountWithProviders(<SoftDeletePodWithChildren />);
-
-        cy.contains("Content").should("have.css", "color", childrenColor);
-        cy.contains("More content").should("have.css", "color", childrenColor);
-      });
+      cy.contains("Content").should("have.css", "color", childrenColor);
+      cy.contains("More content").should("have.css", "color", childrenColor);
     });
   });
 });

@@ -14,7 +14,7 @@ import {
   showEditPodSaveButton,
   showEditPodDeleteButton,
   showEditPodTitle,
-  showEditPodEditContainer,
+  showEditPodEditButton,
   showEditPodUndoButton,
   showEditPodTransitionName,
 } from "../../../cypress/locators/show-edit-pod";
@@ -254,7 +254,7 @@ context("Testing ShowEditPod component", () => {
       CypressMountWithProviders(
         <ShowEditPodComponent transitionName="test_cypress" />
       );
-      showEditPodEditContainer().click();
+      showEditPodEditButton().click();
       showEditPodTransitionName().should(
         "have.class",
         "test_cypress-enter-done"
@@ -268,10 +268,10 @@ context("Testing ShowEditPod component", () => {
         callback = cy.stub();
       });
 
-      it("should call onEdit callback when a click event is triggered for ShowEditPod component", () => {
+      it("should call onEdit callback when edit button is clicked", () => {
         CypressMountWithProviders(<ShowEditPodComponent onEdit={callback} />);
 
-        showEditPodEditContainer()
+        showEditPodEditButton()
           .click()
           .then(() => {
             // eslint-disable-next-line no-unused-expressions
@@ -279,7 +279,7 @@ context("Testing ShowEditPod component", () => {
           });
       });
 
-      it("should call onDelete callback when a click event is triggered for ShowEditPod component", () => {
+      it("should call onDelete callback when delete button is clicked", () => {
         CypressMountWithProviders(
           <ShowEditPodComponent editing onDelete={callback} />
         );
@@ -291,7 +291,7 @@ context("Testing ShowEditPod component", () => {
           });
       });
 
-      it("should call onUndo callback when a click event is triggered for ShowEditPod component", () => {
+      it("should call onUndo callback when undo button is clicked", () => {
         CypressMountWithProviders(
           <UndoShowEditPodComponent onUndo={callback} />
         );

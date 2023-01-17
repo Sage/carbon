@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { margin, MarginProps } from "styled-system";
 
 import { baseTheme } from "../../style/themes";
-import Link from "../link";
 import { StyledContent as StyledLinkContent } from "../link/link.style";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
@@ -93,19 +92,16 @@ const StyledBlock = styled.div<StyledBlockProps>`
         `}
       `}
 
-      ${isFocused &&
-      (!internalEditButton || contentTriggersEdit) &&
-      css`
-        outline: 3px solid var(--colorsSemanticFocus500);
-        border: none;
-        ${noBorder ? "" : "padding: 1px"};
-      `};
-
-      ${!isFocused &&
-      (!internalEditButton || contentTriggersEdit) &&
-      css`
-        outline: none;
-      `};
+      ${(!internalEditButton || contentTriggersEdit) &&
+      (isFocused
+        ? css`
+            outline: 3px solid var(--colorsSemanticFocus500);
+            border: none;
+            padding: ${noBorder ? 0 : 1}px;
+          `
+        : css`
+            outline: none;
+          `)}
 
       ${softDelete &&
       css`
@@ -180,12 +176,12 @@ const StyledActionsContainer = styled.div<StyledActionsContainerProps>`
     `}
 `;
 
-const actionButtonPaddings = {
-  "extra-small": 8,
-  small: 8,
-  medium: 16,
-  large: 16,
-  "extra-large": 16,
+const actionButtonSizes = {
+  "extra-small": 34,
+  small: 34,
+  medium: 50,
+  large: 50,
+  "extra-large": 50,
 };
 
 const actionButtonBackgrounds = {
@@ -196,85 +192,76 @@ const actionButtonBackgrounds = {
   tile: "var(--colorsActionMajorYang100)",
 };
 
-export interface StyledPodButton {
-  size: PodSize;
-  variant: PodVariant;
-  noBorder: boolean;
-  isFocused?: boolean;
+interface CommonPodButtonProps {
   isHovered?: boolean;
+  isFocused?: boolean;
   internalEditButton?: boolean;
-  iconColor?: string;
-  hoverBackgroundColor?: string;
+  size: PodSize;
+  noBorder: boolean;
+  variant: PodVariant;
+}
+
+interface StyledEditActionProps extends CommonPodButtonProps {
   displayOnlyOnHover?: boolean;
 }
 
-const getButtonStyles = ({
-  size,
-  variant,
-  noBorder,
-  isFocused,
-  isHovered,
-  internalEditButton,
-  iconColor,
-  hoverBackgroundColor,
-}: StyledPodButton) => css`
-  cursor: pointer;
-  background-color: ${actionButtonBackgrounds[variant || "primary"]};
-  border: 1px solid var(--colorsActionMinor200);
-  margin-left: 8px;
-  margin-bottom: 8px;
-  box-sizing: content-box;
-  width: 16px;
-  height: 16px;
-  padding: ${actionButtonPaddings[size || "medium"]}px;
+const StyledEditAction = styled.a<StyledEditActionProps>`
+  && {
+    ${({
+      displayOnlyOnHover,
+      isHovered,
+      isFocused,
+      variant,
+      size,
+      internalEditButton,
+      noBorder,
+    }) => css`
+      cursor: pointer;
+      background-color: ${actionButtonBackgrounds[variant]};
+      border: 1px solid var(--colorsActionMinor200);
+      margin-left: 8px;
+      margin-bottom: 8px;
+      box-sizing: border-box;
+      height: ${`${actionButtonSizes[size]}px`};
+      width: ${`${actionButtonSizes[size]}px`};
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  ${StyledIcon} {
-    top: -2px;
-    height: 16px;
-    width: 16px;
-    color: ${iconColor};
-  }
+      ${StyledIcon} {
+        top: -2px;
+        height: 16px;
+        width: 16px;
+        color: var(--colorsActionMajor500);
+      }
 
-  ${noBorder && "border: none;"}
+      ${displayOnlyOnHover && !(isHovered || isFocused) && "display: none"}
 
-  ${internalEditButton &&
-  css`
-    border: none;
-    background: var(--colorsActionMajorTransparent);
-  `}
+      ${noBorder && "border: none;"}
+
+      ${internalEditButton &&
+      css`
+        border: none;
+        background: var(--colorsActionMajorTransparent);
+      `}
     
-  ${(isHovered || isFocused) &&
-  !internalEditButton &&
-  css`
-    background-color: ${hoverBackgroundColor};
-    color: var(--colorsActionMajorYang100);
+      ${(isHovered || isFocused) &&
+      !internalEditButton &&
+      css`
+        background-color: var(--colorsActionMajor600);
+        color: var(--colorsActionMajorYang100);
 
-    ${StyledIcon} {
-      color: var(--colorsActionMajorYang100);
-    }
-  `}
-  
-  ${isFocused &&
-  css`
-    outline: 3px solid var(--colorsSemanticFocus500);
-    border: none;
-    padding: ${actionButtonPaddings[size || "medium"] +
-    (noBorder || internalEditButton ? 0 : 1)}px;
-  `};
-`;
-
-const StyledEditAction = styled(Link)<StyledPodButton>`
-  && > a,
-  && button {
-    ${({ displayOnlyOnHover, isHovered, isFocused }) =>
-      displayOnlyOnHover && !(isHovered || isFocused) && "display: none;"}
-
-    ${(props) =>
-      getButtonStyles({
-        ...props,
-        iconColor: "var(--colorsActionMajor500)",
-        hoverBackgroundColor: "var(--colorsActionMajor600)",
-      })}
+        ${StyledIcon} {
+          color: var(--colorsActionMajorYang100);
+        }
+      `}
+      
+      ${isFocused &&
+      css`
+        outline: 3px solid var(--colorsSemanticFocus500);
+        border: none;
+      `};
+    `};
   }
 
   ${StyledLinkContent} {
@@ -283,28 +270,109 @@ const StyledEditAction = styled(Link)<StyledPodButton>`
   }
 `;
 
-const StyledDeleteButton = styled(IconButton)<StyledPodButton>`
+const StyledDeleteButton = styled(IconButton)<CommonPodButtonProps>`
   && {
-    ${({ displayOnlyOnHover }) => displayOnlyOnHover && "display: none;"}
-    ${(props) =>
-      getButtonStyles({
-        ...props,
-        iconColor: "var(--colorsSemanticNegative500)",
-        hoverBackgroundColor: "var(--colorsSemanticNegative600)",
-      })}
+    ${({
+      noBorder,
+      internalEditButton,
+      isHovered,
+      isFocused,
+      variant,
+      size,
+    }) => css`
+      cursor: pointer;
+      background-color: ${actionButtonBackgrounds[variant]};
+      border: ${noBorder ? "none" : "1px solid var(--colorsActionMinor200)"};
+      margin-left: 8px;
+      margin-bottom: 8px;
+      box-sizing: border-box;
+      height: ${`${actionButtonSizes[size]}px`};
+      width: ${`${actionButtonSizes[size]}px`};
+
+      ${StyledIcon} {
+        top: -2px;
+        height: 16px;
+        width: 16px;
+        color: var(--colorsSemanticNegative500);
+      }
+
+      ${internalEditButton &&
+      css`
+        border: none;
+        background: var(--colorsActionMajorTransparent);
+      `}
+
+      ${(isHovered || isFocused) &&
+      !internalEditButton &&
+      css`
+        background-color: var(--colorsSemanticNegative600);
+        color: var(--colorsActionMajorYang100);
+
+        ${StyledIcon} {
+          color: var(--colorsActionMajorYang100);
+        }
+      `}
+  
+      ${isFocused &&
+      css`
+        outline: 3px solid var(--colorsSemanticFocus500);
+        border: none;
+      `};
+    `}
   }
 `;
 
-const StyledUndoButton = styled(IconButton)<StyledPodButton>`
+const StyledUndoButton = styled(IconButton)<CommonPodButtonProps>`
   && {
-    ${({ displayOnlyOnHover, isHovered, isFocused }) =>
-      displayOnlyOnHover && !(isHovered || isFocused) && "display: none;"}
-    ${(props) =>
-      getButtonStyles({
-        ...props,
-        iconColor: "var(--colorsActionMajor500)",
-        hoverBackgroundColor: "var(--colorsActionMajor600)",
-      })}
+    ${({
+      isHovered,
+      isFocused,
+      variant,
+      size,
+      noBorder,
+      internalEditButton,
+    }) => css`
+      cursor: pointer;
+      background-color: ${actionButtonBackgrounds[variant]};
+      border: 1px solid var(--colorsActionMinor200);
+      margin-left: 8px;
+      margin-bottom: 8px;
+      box-sizing: border-box;
+      height: ${`${actionButtonSizes[size]}px`};
+      width: ${`${actionButtonSizes[size]}px`};
+
+      ${StyledIcon} {
+        top: -2px;
+        height: 16px;
+        width: 16px;
+        color: var(--colorsActionMajor500);
+      }
+
+      ${noBorder && "border: none;"}
+
+      ${internalEditButton &&
+      css`
+        border: none;
+        background: var(--colorsActionMajorTransparent);
+      `}
+    
+    ${(isHovered || isFocused) &&
+      !internalEditButton &&
+      css`
+        background-color: var(--colorsActionMajor600);
+        color: var(--colorsActionMajorYang100);
+
+        ${StyledIcon} {
+          color: var(--colorsActionMajorYang100);
+        }
+      `}
+    
+    ${isFocused &&
+      css`
+        outline: 3px solid var(--colorsSemanticFocus500);
+        border: none;
+      `};
+    `}
   }
 `;
 
