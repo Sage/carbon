@@ -11,9 +11,9 @@ export default function useMediaQuery(queryInput: string): boolean {
       setMatch(queryList.matches);
     };
     updateMatch();
-    queryList.addListener(updateMatch);
+    queryList.addEventListener("change", updateMatch);
     return () => {
-      queryList.removeListener(updateMatch);
+      queryList.removeEventListener("change", updateMatch);
     };
   }, [query]);
 
