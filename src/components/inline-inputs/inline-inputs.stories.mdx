@@ -1,6 +1,4 @@
 import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import InlineInputs from ".";
 import Textbox from "../textbox";
 import Decimal from "../decimal";
@@ -21,7 +19,6 @@ import Box from "../box";
         type: "select",
       },
     },
-    labelSpecialCharacters: specialCharacters,
   }}
 />
 
@@ -51,10 +48,9 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
     args={{
       gutter: "none",
       label: "Inline Inputs",
-      labelSpecialCharacters: undefined,
     }}
   >
-    {({ label, labelSpecialCharacters, ...args }) => {
+    {({ label, ...args }) => {
       let validationProps = {};
       validationProps = {
         hasWarning: true,
@@ -70,7 +66,7 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
         setSelectValue(ev.target.value);
       };
       return (
-        <InlineInputs label={label || labelSpecialCharacters} {...args}>
+        <InlineInputs label={label} {...args}>
           <Textbox {...validationProps} />
           <Decimal value={decimalValue} onChange={handleDecimalChange} />
           <Select value={selectValue} onChange={handleSelectChange}>
@@ -100,14 +96,13 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
     args={{
       gutter: "none",
       label: "My Inline Inputs",
-      labelSpecialCharacters: undefined,
     }}
   >
-    {({ label, labelSpecialCharacters, ...args }) => {
+    {({ label, ...args }) => {
       return (
         <Box p={4}>
           <InlineInputs
-            label={label || labelSpecialCharacters}
+            label={label}
             adaptiveLabelBreakpoint={768}
             labelWidth={30}
             {...args}

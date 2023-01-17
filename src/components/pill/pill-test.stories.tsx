@@ -1,7 +1,5 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Pill from "./pill.component";
 
 export default {
@@ -36,25 +34,18 @@ export default {
         type: "text",
       },
     },
-    childrenSpecialCharacters: specialCharacters,
   },
 };
 
 type PillStoryArgs = {
   children: string;
-  childrenSpecialCharacters: string;
   onDelete: boolean;
 };
 
-export const Default = ({
-  children,
-  childrenSpecialCharacters,
-  onDelete,
-  ...args
-}: PillStoryArgs) => {
+export const Default = ({ children, onDelete, ...args }: PillStoryArgs) => {
   return (
     <Pill onDelete={onDelete ? action("delete") : undefined} {...args}>
-      {children || childrenSpecialCharacters}
+      {children}
     </Pill>
   );
 };
@@ -67,7 +58,6 @@ Default.story = {
     mt: 0,
     mb: 0,
     children: "Pill",
-    childrenSpecialCharacters: undefined,
     borderColor: undefined,
     fill: false,
     onDelete: false,

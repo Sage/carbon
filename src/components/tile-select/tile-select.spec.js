@@ -13,11 +13,13 @@ import {
   StyledSubtitle,
   StyledAdornment,
   StyledDescription,
+  StyledGroupDescription,
   StyledTitleContainer,
   StyledFocusWrapper,
   StyledFooterWrapper,
   StyledAccordionFooterWrapper,
 } from "./tile-select.style";
+
 import Button from "../button";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
@@ -41,6 +43,15 @@ describe("TileSelect", () => {
 
   const render = (props) => {
     wrapper = mount(<TileSelect {...props} />);
+  };
+
+  const renderWithTitleSelectGroup = (props) => {
+    wrapper = mount(
+      <TileSelectGroup name="tile-select-group" {...props}>
+        <TileSelect />
+        <TileSelect />
+      </TileSelectGroup>
+    );
   };
 
   beforeEach(() => {
@@ -163,6 +174,19 @@ describe("TileSelect", () => {
     expect(wrapper.find(StyledDescription).prop("children")).toStrictEqual(
       <strong>description</strong>
     );
+  });
+
+  it("renders group description as p element when description prop is passed as string", () => {
+    renderWithTitleSelectGroup({ description: "description" });
+    expect(wrapper.find(StyledGroupDescription).prop("as")).toBe(undefined);
+    expect(wrapper.find(StyledGroupDescription).prop("children")).toBe(
+      "description"
+    );
+  });
+
+  it("does not render group description element, as description prop is undefined", () => {
+    renderWithTitleSelectGroup();
+    expect(wrapper.find(StyledGroupDescription).exists()).toEqual(false);
   });
 
   describe("styles", () => {

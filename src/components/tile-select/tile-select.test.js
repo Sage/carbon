@@ -17,7 +17,11 @@ import {
   legendStyleComponent,
 } from "../../../cypress/locators/tileSelect/index";
 
-import { getComponent, getElement } from "../../../cypress/locators/index";
+import {
+  getComponent,
+  getElement,
+  getDataElementByValue,
+} from "../../../cypress/locators/index";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -54,11 +58,7 @@ const MultiTileSelectGroupComponent = ({ ...props }) => {
   const [value3, setValue3] = React.useState(false);
   const [value4, setValue4] = React.useState(false);
   return (
-    <TileSelectGroup
-      legend="Tile Select"
-      description="Pick any number of available options"
-      {...props}
-    >
+    <TileSelectGroup legend="Tile Select" {...props}>
       <TileSelect
         value="1"
         name="multi-1"
@@ -305,6 +305,22 @@ context("Tests for TileSelect component", () => {
         descElement().should("have.text", description);
       }
     );
+
+    it("p element should be rendered when a description is passed to TileSelectGroup component", () => {
+      CypressMountWithProviders(
+        <MultiTileSelectGroupComponent description="foo" />
+      );
+      getDataElementByValue("tile-select-group-description")
+        .should("exist")
+        .and("be.visible");
+    });
+
+    it("p element should not be rendered when no description is passed to TileSelectGroup component", () => {
+      CypressMountWithProviders(<MultiTileSelectGroupComponent />);
+      getDataElementByValue("tile-select-group-description").should(
+        "not.exist"
+      );
+    });
 
     it.each([
       [false, "rgba(0, 0, 0, 0.9)"],

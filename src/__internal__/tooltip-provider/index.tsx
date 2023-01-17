@@ -11,7 +11,7 @@ interface TooltipProviderProps {
   focusable?: boolean;
   tooltipVisible?: boolean;
   disabled?: boolean;
-  target?: Element;
+  target?: HTMLElement;
 }
 interface ToolbarContextProps extends Omit<TooltipProviderProps, "children"> {
   tooltipId?: {

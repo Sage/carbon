@@ -232,7 +232,9 @@ export const Textbox = ({
     >
       {leftChildren}
       {prefix && (
-        <StyledPrefix data-element="textbox-prefix">{prefix}</StyledPrefix>
+        <StyledPrefix data-element="textbox-prefix" size={size}>
+          {prefix}
+        </StyledPrefix>
       )}
       <Input
         {...(required && { required })}

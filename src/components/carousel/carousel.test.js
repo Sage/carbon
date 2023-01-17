@@ -1,7 +1,5 @@
 import React from "react";
-import { Carousel, Slide } from ".";
-import Box from "../box/box.component";
-import Typography from "../typography/typography.component";
+import { CarouselComponent } from "./carousel-test.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
   slide,
@@ -22,75 +20,6 @@ function clickCarouselButton(direction) {
       throw new Error("Direction can be only left or right");
   }
 }
-
-const CarouselComponent = ({ ...props }) => {
-  return (
-    <Carousel {...props}>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          bg="#003349"
-        >
-          <Typography variant="h1" color="#090">
-            Slide 1
-          </Typography>
-        </Box>
-      </Slide>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Typography variant="h1">Full clickable slide</Typography>
-        </Box>
-      </Slide>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          bg="#69418f"
-        >
-          <Typography variant="h1" color="#fff">
-            Slide 3
-          </Typography>
-        </Box>
-      </Slide>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          bg="#69418f"
-        >
-          <Typography variant="h1" color="#fff">
-            Slide 4
-          </Typography>
-        </Box>
-      </Slide>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          bg="#69418f"
-        >
-          <Typography variant="h1" color="#fff">
-            Slide 5
-          </Typography>
-        </Box>
-      </Slide>
-    </Carousel>
-  );
-};
 
 context("Testing Carousel component", () => {
   describe("should render Carousel component", () => {
@@ -241,6 +170,14 @@ context("Testing Carousel component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("should check accessibility for Carousel component", () => {
+    it("should check accessibility for default Carousel component", () => {
+      CypressMountWithProviders(<CarouselComponent />);
+
+      cy.checkAccessibility();
     });
   });
 });

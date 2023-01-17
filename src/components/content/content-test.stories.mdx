@@ -1,6 +1,4 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Content from ".";
 
 <Meta
@@ -24,21 +22,17 @@ import Content from ".";
         type: "select",
       },
     },
-    childrenSpecialCharacters: specialCharacters,
-    titleSpecialCharacters: specialCharacters,
   }}
 />
 
 export const ContentStory = ({
   children,
-  childrenSpecialCharacters,
   title,
-  titleSpecialCharacters,
   ...args
 }) => (
   <Content
-    title={title || titleSpecialCharacters}
-    children={children || childrenSpecialCharacters}
+    title={title}
+    children={children}
     {...args}
   />
 );
@@ -52,9 +46,7 @@ export const ContentStory = ({
     name="default"
     args={{
       children: "An example of some content.",
-      childrenSpecialCharacters: undefined,
       title: "Content Component",
-      titleSpecialCharacters: undefined,
       variant: undefined,
       inline: false,
       align: undefined,

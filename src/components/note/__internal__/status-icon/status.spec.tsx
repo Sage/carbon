@@ -1,6 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
-import StatusIcon from "./status-icon.component";
+import StatusWithTooltip from "./status-icon.component";
+import StyledStatusIconWrapper from "./status-icon.style";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 
 const render = (props = {}) => {
@@ -8,9 +9,9 @@ const render = (props = {}) => {
     tooltipMessage: "foo",
   };
   return mount(
-    <StatusIcon {...defaultProps} {...props}>
+    <StatusWithTooltip {...defaultProps} {...props}>
       foo
-    </StatusIcon>
+    </StatusWithTooltip>
   );
 };
 
@@ -23,7 +24,7 @@ describe("ContentWithTooltip", () => {
           left: "-4px",
           position: "relative",
         },
-        wrapper
+        wrapper.find(StyledStatusIconWrapper)
       );
 
       assertStyleMatch(
@@ -31,7 +32,7 @@ describe("ContentWithTooltip", () => {
           content: '""',
           marginRight: "-6px",
         },
-        wrapper,
+        wrapper.find(StyledStatusIconWrapper),
         { modifier: ":before" }
       );
     });

@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import PopoverContainer from "./popover-container.component";
 import { Select, Option } from "../select";
 
@@ -13,20 +11,11 @@ export default {
       disable: true,
     },
   },
-  argTypes: {
-    titleSpecialCharacters: specialCharacters,
-  },
 };
 
-export const Default = ({
-  title,
-  titleSpecialCharacters,
-  open,
-}: {
-  title?: string;
-  titleSpecialCharacters?: string;
-  open: boolean;
-}) => <PopoverContainer title={title || titleSpecialCharacters} open={open} />;
+export const Default = ({ title, open }: { title?: string; open: boolean }) => (
+  <PopoverContainer title={title} open={open} />
+);
 
 export const WithSelect = () => {
   return (
@@ -54,7 +43,6 @@ Default.story = {
   name: "default",
   args: {
     title: "Title",
-    titleSpecialCharacters: undefined,
     open: true,
   },
 };

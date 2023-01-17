@@ -28,7 +28,7 @@ export interface FormProps extends SpaceProps {
   /** Disable HTML5 validation */
   noValidate?: boolean;
   /** Callback passed to the form element */
-  onSubmit?: React.FormEventHandler;
+  onSubmit?: React.FormEventHandler<HTMLFormElement>;
   /** Additional buttons rendered on the right side of the save button */
   rightSideButtons?: React.ReactNode;
   /** Save button to be rendered */

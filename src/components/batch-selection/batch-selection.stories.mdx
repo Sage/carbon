@@ -3,8 +3,7 @@ import TranslationKeysTable from "../../../.storybook/utils/translation-keys-tab
 
 import BatchSelection from ".";
 import IconButton from "../icon-button";
-import Icon from "../icon";
-import Link from "../link";
+import * as stories from "./batch-selection.stories";
 
 <Meta title="Batch Selection" parameters={{ info: { disable: true } }} />
 
@@ -33,94 +32,31 @@ import IconButton from "carbon-react/lib/components/icon-button";
 ### Basic usage
 
 <Canvas>
-  <Story name="default">
-    <BatchSelection selectedCount={0}>
-      <span style={{ paddingRight: "5px" }}>
-        (<Link>Select All 38 items</Link>)
-      </span>
-      <IconButton onAction={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### On dark background
 
 <Canvas>
-  <Story name="dark">
-    <BatchSelection selectedCount={1} colorTheme="dark">
-      <IconButton onAction={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  </Story>
+  <Story name="dark" story={stories.Dark} />
 </Canvas>
 
 ### On light background
 
 <Canvas>
-  <Story name="light">
-    <BatchSelection selectedCount={2} colorTheme="light">
-      <IconButton onAction={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  </Story>
+  <Story name="light" story={stories.Light} />
 </Canvas>
 
 ### On white background
 
 <Canvas>
-  <Story name="white">
-    <BatchSelection selectedCount={3} colorTheme="white">
-      <IconButton onAction={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  </Story>
+  <Story name="white" story={stories.White} />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled">
-    <BatchSelection selectedCount={4} disabled>
-      <IconButton onAction={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  </Story>
+  <Story name="disabled" story={stories.Disabled} />
 </Canvas>
 
 ## Props

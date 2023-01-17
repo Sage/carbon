@@ -1,8 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { ComponentMeta } from "@storybook/react";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import { ICONS } from "../icon/icon-config";
 import { LINK_ALIGNMENTS, LINK_POSITIONS, LINK_VARIANTS } from "./link.config";
 import Link, { LinkProps } from "./link.component";
@@ -40,23 +38,17 @@ export default {
         type: "select",
       },
     },
-    childrenSpecialCharacters: specialCharacters,
-    hrefSpecialCharacters: specialCharacters,
   },
 } as ComponentMeta<typeof Link>;
 
 interface LinkStoryProps extends LinkProps {
   hasOnClick: boolean;
-  childrenSpecialCharacters: string;
-  hrefSpecialCharacters: string;
 }
 
 export const DefaultStory = ({
   hasOnClick,
   children,
-  childrenSpecialCharacters,
   href,
-  hrefSpecialCharacters,
   variant,
   isDarkBackground,
   ...args
@@ -65,12 +57,12 @@ export const DefaultStory = ({
   const link = (
     <Link
       onClick={hasOnClick ? action("click") : undefined}
-      href={href || hrefSpecialCharacters}
+      href={href}
       variant={variant}
       isDarkBackground={isDarkBackground}
       {...args}
     >
-      {children || childrenSpecialCharacters}
+      {children}
     </Link>
   );
   return (
@@ -98,8 +90,6 @@ DefaultStory.args = {
   tooltipPosition: "bottom",
   hasOnClick: false,
   target: "_blank",
-  childrenSpecialCharacters: undefined,
-  hrefSpecialCharacters: undefined,
   variant: "default",
   isDarkBackground: false,
 };

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import DialogFullScreen, { DialogFullScreenProps } from ".";
 import Dialog from "../dialog";
 import Button from "../button";
@@ -15,29 +13,18 @@ export default {
       disable: true,
     },
   },
-  argTypes: {
-    titleSpecialCharacters: specialCharacters,
-    subtitleSpecialCharacters: specialCharacters,
-    childrenSpecialCharacters: specialCharacters,
-  },
 };
 
 interface DefaultProps extends Partial<DialogFullScreenProps> {
   stickyFooter?: boolean;
   formHeight?: number;
-  childrenSpecialCharacters?: string;
-  titleSpecialCharacters?: string;
-  subtitleSpecialCharacters?: string;
 }
 
 export const Default = ({
   stickyFooter,
   formHeight,
-  childrenSpecialCharacters,
   children,
-  titleSpecialCharacters,
   title,
-  subtitleSpecialCharacters,
   subtitle,
   ...args
 }: DefaultProps) => {
@@ -59,8 +46,8 @@ export const Default = ({
       <DialogFullScreen
         onCancel={handleCancel}
         open={isOpen}
-        title={title || titleSpecialCharacters}
-        subtitle={subtitle || subtitleSpecialCharacters}
+        title={title}
+        subtitle={subtitle}
         {...args}
       >
         <Form
@@ -72,7 +59,7 @@ export const Default = ({
             </Button>
           }
         >
-          {children || childrenSpecialCharacters || ""}
+          {children || ""}
           <div style={{ height: formHeight }} />
         </Form>
       </DialogFullScreen>
@@ -83,11 +70,8 @@ export const Default = ({
 Default.storyName = "default";
 Default.args = {
   title: "Example Dialog",
-  titleSpecialCharacters: undefined,
   subtitle: "Example Subtitle",
-  subtitleSpecialCharacters: undefined,
   children: "Text Content",
-  childrenSpecialCharacters: undefined,
   disableEscKey: false,
   showCloseIcon: true,
   formHeight: "2000px",

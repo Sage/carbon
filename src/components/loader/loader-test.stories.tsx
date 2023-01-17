@@ -54,6 +54,7 @@ export const Default = ({
   return <Loader size={size} />;
 };
 
+Default.storyName = "default";
 Default.args = {
   size: "medium",
 };
