@@ -1,3 +1,16 @@
+## [114.1.0](https://github.com/Sage/carbon/compare/v114.0.0...v114.1.0) (2023-01-18)
+
+
+### Features
+
+* **pod:** deprecate support for passing strings and objects to the `onEdit` prop ([ce3b46e](https://github.com/Sage/carbon/commit/ce3b46e771718e37d055cfc63e22a3c361554db6))
+
+
+### Bug Fixes
+
+* **pod:** add accessible names to delete and undo buttons ([abb9025](https://github.com/Sage/carbon/commit/abb90257c986b6ae57cd7d0ec9ef908f8fa8ec10))
+* **pod:** remove footer aligning when alignTitle is set ([20f3532](https://github.com/Sage/carbon/commit/20f3532f5f53be91c8a3003a36b802e9b1c2ee0d))
+
 ## [114.0.0](https://github.com/Sage/carbon/compare/v113.0.3...v114.0.0) (2023-01-17)
 
 
