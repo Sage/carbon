@@ -6,7 +6,7 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 
 import {
   showEditPod,
-  showEditPodClassName,
+  showEditPodBlock,
   showEditPodContentForm,
   showEditPodHideDeleteButton,
   showEditPodFormFooter,
@@ -14,7 +14,7 @@ import {
   showEditPodSaveButton,
   showEditPodDeleteButton,
   showEditPodTitle,
-  showEditPodEditContainer,
+  showEditPodEditButton,
   showEditPodUndoButton,
   showEditPodTransitionName,
 } from "../../../cypress/locators/show-edit-pod";
@@ -60,7 +60,7 @@ context("Testing ShowEditPod component", () => {
       "should check %s variant for ShowEditPod component",
       (variant, color, boxShadow) => {
         CypressMountWithProviders(<ShowEditPodComponent variant={variant} />);
-        showEditPod()
+        showEditPodBlock()
           .should("have.css", "background-color", color)
           .and("have.css", "box-shadow", boxShadow);
       }
@@ -73,7 +73,7 @@ context("Testing ShowEditPod component", () => {
       "should check when border is %s for ShowEditPod component",
       (boolVal, borderWidth, borderStyle, borderColor) => {
         CypressMountWithProviders(<ShowEditPodComponent border={boolVal} />);
-        showEditPod().then((elem) => {
+        showEditPodBlock().then((elem) => {
           checkOutlineCss(
             elem,
             borderWidth,
@@ -104,7 +104,7 @@ context("Testing ShowEditPod component", () => {
         CypressMountWithProviders(
           <ShowEditPodComponent className={className} />
         );
-        showEditPodClassName().should("have.class", className);
+        showEditPod().should("have.class", className);
       }
     );
 
@@ -128,7 +128,11 @@ context("Testing ShowEditPod component", () => {
         CypressMountWithProviders(
           <UndoShowEditPodComponent softDelete={boolVal} />
         );
-        showEditPod().should("have.css", "background-color", backgroundColor);
+        showEditPodBlock().should(
+          "have.css",
+          "background-color",
+          backgroundColor
+        );
         showEditPodUndoButton().should(state);
       }
     );
@@ -250,7 +254,7 @@ context("Testing ShowEditPod component", () => {
       CypressMountWithProviders(
         <ShowEditPodComponent transitionName="test_cypress" />
       );
-      showEditPodEditContainer().click();
+      showEditPodEditButton().click();
       showEditPodTransitionName().should(
         "have.class",
         "test_cypress-enter-done"
@@ -264,10 +268,10 @@ context("Testing ShowEditPod component", () => {
         callback = cy.stub();
       });
 
-      it("should call onEdit callback when a click event is triggered for ShowEditPod component", () => {
+      it("should call onEdit callback when edit button is clicked", () => {
         CypressMountWithProviders(<ShowEditPodComponent onEdit={callback} />);
 
-        showEditPodEditContainer()
+        showEditPodEditButton()
           .click()
           .then(() => {
             // eslint-disable-next-line no-unused-expressions
@@ -275,7 +279,7 @@ context("Testing ShowEditPod component", () => {
           });
       });
 
-      it("should call onDelete callback when a click event is triggered for ShowEditPod component", () => {
+      it("should call onDelete callback when delete button is clicked", () => {
         CypressMountWithProviders(
           <ShowEditPodComponent editing onDelete={callback} />
         );
@@ -287,7 +291,7 @@ context("Testing ShowEditPod component", () => {
           });
       });
 
-      it("should call onUndo callback when a click event is triggered for ShowEditPod component", () => {
+      it("should call onUndo callback when undo button is clicked", () => {
         CypressMountWithProviders(
           <UndoShowEditPodComponent onUndo={callback} />
         );

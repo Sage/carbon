@@ -85,6 +85,9 @@ const enGB: Locale = {
   progressTracker: {
     of: () => "of",
   },
+  pod: {
+    undo: () => "Undo",
+  },
   select: {
     actionButtonText: () => "Add New Item",
     placeholder: () => "Please Select...",
