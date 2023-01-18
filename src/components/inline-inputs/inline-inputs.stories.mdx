@@ -117,6 +117,24 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
   </Story>
 </Canvas>
 
+## required
+
+<Canvas>
+  <Story name="required" parameters={{ controls: { disable: true }}}>
+    {() => {
+      return (
+        <InlineInputs
+          label="Inline Inputs"
+          required
+        >
+          <Textbox />
+          <Textbox />
+        </InlineInputs>
+      );
+    }}
+  </Story>
+</Canvas>
+
 ## Props
 
 ### InlineInputs
