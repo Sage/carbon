@@ -83,6 +83,7 @@ const Input = React.forwardRef<
       disabled,
       readOnly,
       autoFocus,
+      // TODO: remove inputRef prop from this component (and props interface) when it has been removed from all exposed input components
       inputRef,
       onClick,
       onChangeDeferred,
