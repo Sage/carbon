@@ -1,3 +1,10 @@
+## [114.2.0](https://github.com/Sage/carbon/compare/v114.1.0...v114.2.0) (2023-01-18)
+
+
+### Features
+
+* **inline-inputs:** add required prop ([d1b12a2](https://github.com/Sage/carbon/commit/d1b12a2db05fbb910e581c73878b694bc492b1ea)), closes [#4625](https://github.com/Sage/carbon/issues/4625)
+
 ## [114.1.0](https://github.com/Sage/carbon/compare/v114.0.0...v114.1.0) (2023-01-18)
 
 
