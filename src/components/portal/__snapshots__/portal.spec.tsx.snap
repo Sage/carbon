@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa jJoQaW\\"><p>john</p></div></div>"`;
+exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa kKjgTs\\"><p>john</p></div></div>"`;
 
-exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa jJoQaW\\"><span>a1</span></div><div class=\\"sc-bdVaJa jJoQaW\\"><span>a2</span></div></div>"`;
+exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa kKjgTs\\"><span>a1</span></div><div class=\\"sc-bdVaJa kKjgTs\\"><span>a2</span></div></div>"`;
 
-exports[`Portal when using default node then the portal will mount on body 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa jJoQaW\\"><span class=\\"sc-bxivhb lbAINf\\" data-element=\\"tick\\" font-size=\\"small\\" tabindex=\\"0\\" type=\\"tick\\" data-component=\\"icon\\"></span></div></div>"`;
+exports[`Portal when using default node then the portal will mount on body 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa kKjgTs\\"><span class=\\"sc-bxivhb lbAINf\\" data-element=\\"tick\\" font-size=\\"small\\" tabindex=\\"0\\" type=\\"tick\\" data-component=\\"icon\\"></span></div></div>"`;
 
 exports[`Portal when using default node to match snapshot 1`] = `
 <span
@@ -39,11 +39,11 @@ exports[`Portal when using default node to match snapshot 1`] = `
           },
           "compatibility": Object {
             "borderRadius000": "0px",
+            "borderRadius010": "1px",
             "borderRadius025": "2px",
             "borderRadius050": "4px",
             "borderRadius100": "8px",
             "borderRadius200": "16px",
-            "borderRadius300": "24px",
             "borderRadius400": "32px",
             "borderRadiusCircle": "50%",
             "borderWidth000": "0px",
@@ -100,6 +100,10 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "colorsActionReadOnly400": "#f2f5f6ff",
             "colorsActionReadOnly500": "#e6ebedff",
             "colorsActionReadOnly600": "#ccd6dbff",
+            "colorsComponentsLeftnavWinterStandardBackground": "#262626ff",
+            "colorsComponentsLeftnavWinterStandardContent": "#ffffffff",
+            "colorsComponentsLeftnavWinterStandardHover": "#007e45ff",
+            "colorsComponentsLeftnavWinterStandardSelected": "#ffffff4d",
             "colorsComponentsMenuAutumnChild400": "#19475eff",
             "colorsComponentsMenuAutumnChild500": "#001926ff",
             "colorsComponentsMenuAutumnChild600": "#007e45ff",
@@ -169,6 +173,7 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "colorsComponentsMenuWinterStandard600": "#007e45ff",
             "colorsComponentsMenuWinterStandard700": "#262626ff",
             "colorsComponentsMenuWinterStandard800": "#262626ff",
+            "colorsComponentsMenuYang030": "#ffffff4d",
             "colorsComponentsMenuYang080": "#ffffffcc",
             "colorsComponentsMenuYang100": "#ffffffff",
             "colorsComponentsMenuYin065": "#000000a6",
@@ -339,6 +344,7 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "spacing110": "9px",
             "spacing125": "10px",
             "spacing150": "12px",
+            "spacing175": "14px",
             "spacing200": "16px",
             "spacing250": "20px",
             "spacing300": "24px",
@@ -437,6 +443,9 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "typographyMessageHeadingM": "700 14px/150% Sage UI",
             "typographyMessageTextL": "400 16px/150% Sage UI",
             "typographyMessageTextM": "400 14px/150% Sage UI",
+            "typographyPageStateParagraphM": "400 16px/150% Sage UI",
+            "typographyPageStateSubtitleM": "500 18px/150% Sage UI",
+            "typographyPageStateTitleM": "700 24px/125% Sage UI",
             "typographyPaginationLabelM": "400 13px/150% Sage UI",
             "typographyPillLabelL": "500 14px/150% Sage UI",
             "typographyPillLabelM": "500 12px/150% Sage UI",
