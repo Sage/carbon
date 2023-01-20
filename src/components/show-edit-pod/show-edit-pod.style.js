@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { StyledFormFooter } from "../form/form.style";
-import { StyledContent } from "../pod/pod.style.js";
+import { StyledContent } from "../pod/pod.style";
 import Pod from "../pod";
 
 const StyledPod = styled(Pod)`
