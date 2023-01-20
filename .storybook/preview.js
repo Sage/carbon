@@ -93,7 +93,7 @@ export const globalTypes = {
       ],
     },
   },
-  // Remove Theme menu from Storybook toolbar
+  // Remove Theme menu from Storybook toolbar.
   // ...globalThemeProvider,
 };
 
