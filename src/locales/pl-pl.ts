@@ -127,6 +127,11 @@ const plPL: Locale = {
       close: () => "Zamknij",
     },
   },
+  verticalMenuFullScreen: {
+    ariaLabels: {
+      close: () => "Zamknij",
+    },
+  },
 };
 
 export default plPL;
