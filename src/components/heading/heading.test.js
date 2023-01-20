@@ -13,7 +13,11 @@ import {
 
 import { pillPreview } from "../../../cypress/locators/pill";
 
-import { getDataElementByValue, getComponent } from "../../../cypress/locators";
+import {
+  getDataElementByValue,
+  getComponent,
+  cyRoot,
+} from "../../../cypress/locators";
 
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
@@ -38,7 +42,7 @@ context("Testing Heading component", () => {
         CypressMountWithProviders(
           <HeadingComponent> {children} </HeadingComponent>
         );
-        headingPreview().contains(children);
+        headingPreview().should("contain.text", children);
       }
     );
 
@@ -81,7 +85,9 @@ context("Testing Heading component", () => {
         getComponent("help").realHover();
         getDataElementByValue("tooltip")
           .should("be.visible")
-          .contains(helpText);
+          .and("contain.text", helpText);
+
+        cyRoot().realHover({ position: "topLeft" });
       }
     );
 

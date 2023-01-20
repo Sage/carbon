@@ -1,5 +1,6 @@
 import {
   SHOW_EDIT_POD,
+  SHOW_EDIT_POD_BLOCK,
   SHOW_EDIT_POD_CONTENT_FORM,
   SHOW_EDIT_POD_HIDE_DELETE_BUTTON,
   SHOW_EDIT_POD_FORM_FOOTER,
@@ -7,14 +8,14 @@ import {
   SHOW_EDIT_POD_SAVE_BUTTON,
   SHOW_EDIT_POD_DELETE_BUTTON,
   SHOW_EDIT_POD_TITLE,
-  SHOW_EDIT_POD_EDIT_CONTAINER,
+  SHOW_EDIT_POD_EDIT_BUTTON,
   SHOW_EDIT_POD_UNDO_BUTTON,
   SHOW_EDIT_POD_TRANSITION_NAME,
 } from "./locators";
 
 // component preview locators
-export const showEditPod = () => cy.get(SHOW_EDIT_POD).find("div");
-export const showEditPodClassName = () => cy.get(SHOW_EDIT_POD);
+export const showEditPod = () => cy.get(SHOW_EDIT_POD);
+export const showEditPodBlock = () => cy.get(SHOW_EDIT_POD_BLOCK);
 export const showEditPodContentForm = () => cy.get(SHOW_EDIT_POD_CONTENT_FORM);
 export const showEditPodHideDeleteButton = () =>
   cy.get(SHOW_EDIT_POD_HIDE_DELETE_BUTTON);
@@ -25,8 +26,7 @@ export const showEditPodSaveButton = () => cy.get(SHOW_EDIT_POD_SAVE_BUTTON);
 export const showEditPodDeleteButton = () =>
   cy.get(SHOW_EDIT_POD_DELETE_BUTTON);
 export const showEditPodTitle = () => cy.get(SHOW_EDIT_POD_TITLE);
-export const showEditPodEditContainer = () =>
-  cy.get(SHOW_EDIT_POD_EDIT_CONTAINER);
+export const showEditPodEditButton = () => cy.get(SHOW_EDIT_POD_EDIT_BUTTON);
 export const showEditPodUndoButton = () => cy.get(SHOW_EDIT_POD_UNDO_BUTTON);
 export const showEditPodTransitionName = () =>
   cy.get(SHOW_EDIT_POD_TRANSITION_NAME);

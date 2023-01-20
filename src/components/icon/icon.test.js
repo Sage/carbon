@@ -136,7 +136,7 @@ context("Tests for Icon component", () => {
         icon().realHover();
         getDataElementByValue("tooltip")
           .should("be.visible")
-          .contains(tooltipMessage);
+          .and("contain.text", tooltipMessage);
         cyRoot().realHover({ position: "topLeft" });
       }
     );

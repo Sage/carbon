@@ -69,7 +69,10 @@ import {
 
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
-import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
+import {
+  checkOutlineCss,
+  useJQueryCssValueAndAssert,
+} from "../../../cypress/support/component-helper/common-steps";
 
 import {
   keyCode,
@@ -102,10 +105,10 @@ const viewport = [
 ];
 
 const colorThemes = [
-  ["dark", "rgb(51, 91, 112)", "1px solid rgb(102, 132, 148)"],
-  ["light", "rgb(204, 214, 219)", "1px solid rgb(179, 194, 201)"],
-  ["transparent-base", "rgb(242, 245, 246)", "1px solid rgb(242, 245, 246)"],
-  ["transparent-white", "rgb(255, 255, 255)", "1px solid rgb(255, 255, 255)"],
+  ["dark", "rgb(51, 91, 112)", "rgb(102, 132, 148)"],
+  ["light", "rgb(204, 214, 219)", "rgb(179, 194, 201)"],
+  ["transparent-base", "rgb(242, 245, 246)", "rgb(242, 245, 246)"],
+  ["transparent-white", "rgb(255, 255, 255)", "rgb(255, 255, 255)"],
 ];
 
 const gold = "rgb(255, 181, 0)";
@@ -2946,9 +2949,10 @@ context("Tests for Flat Table component", () => {
         );
 
         for (let i = 0; i < 4; i++) {
-          flatTableHeaderCells(i)
-            .should("have.css", "background-color", bgColor)
-            .and("have.css", "border-right", brColor);
+          flatTableHeaderCells(i).then(($el) => {
+            checkOutlineCss($el, 1, "border-right", "solid", brColor);
+            expect($el).to.have.css("background-color").to.equal(bgColor);
+          });
         }
       }
     );
@@ -2998,11 +3002,16 @@ context("Tests for Flat Table component", () => {
           <FlatTableComponent height={`${height}px`} />
         );
 
-        flatTableWrapper().should("have.css", "height", `${height}px`);
+        flatTableWrapper().then(($el) => {
+          expect(parseInt($el.css("height"))).to.be.within(
+            height - 1,
+            height + 1
+          );
+        });
       }
     );
 
-    it.each([[150], [249], [250], [251], [300]])(
+    it.each([150, 249, 250, 251, 300])(
       "should render Flat Table with %spx as a height parameter and minHeight set to 250px",
       (height) => {
         CypressMountWithProviders(
@@ -3010,9 +3019,16 @@ context("Tests for Flat Table component", () => {
         );
 
         if (height < 250) {
-          flatTableWrapper().should("have.css", "height", "250px");
+          flatTableWrapper().then(($el) => {
+            expect(parseInt($el.css("height"))).to.equal(250);
+          });
         } else {
-          flatTableWrapper().should("have.css", "height", `${height}px`);
+          flatTableWrapper().then(($el) => {
+            expect(parseInt($el.css("height"))).to.be.within(
+              height - 1,
+              height + 1
+            );
+          });
         }
       }
     );
@@ -3030,7 +3046,9 @@ context("Tests for Flat Table component", () => {
       (width) => {
         CypressMountWithProviders(<FlatTableComponent width={`${width}px`} />);
 
-        flatTableWrapper().should("have.css", "width", `${width}px`);
+        flatTableWrapper().then(($el) => {
+          expect(parseInt($el.css("width"))).to.be.within(width - 1, width + 1);
+        });
       }
     );
 

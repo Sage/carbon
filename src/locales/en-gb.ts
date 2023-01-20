@@ -82,6 +82,12 @@ const enGB: Locale = {
     pageX: () => "Page",
     ofY: (count) => `of ${count}`,
   },
+  progressTracker: {
+    of: () => "of",
+  },
+  pod: {
+    undo: () => "Undo",
+  },
   select: {
     actionButtonText: () => "Add New Item",
     placeholder: () => "Please Select...",

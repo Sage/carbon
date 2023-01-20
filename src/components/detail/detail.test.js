@@ -41,4 +41,24 @@ context("Tests for Detail component", () => {
       icon().should("have.attr", "type", "chevron_up").and("be.visible");
     });
   });
+
+  describe("Accessibility tests for Detail component", () => {
+    it("should pass accessibility tests for Detail default story", () => {
+      CypressMountWithProviders(<Detail />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Detail component with footnote", () => {
+      CypressMountWithProviders(<Detail footnote="footnote"> "detail"</Detail>);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Detail component with icon on preview set to chevron_up", () => {
+      CypressMountWithProviders(<Detail icon="chevron_up" />);
+
+      cy.checkAccessibility();
+    });
+  });
 });

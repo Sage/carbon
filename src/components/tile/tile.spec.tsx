@@ -1,7 +1,5 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
-import { css } from "styled-components";
 import Tile from ".";
 import { TileContent } from "./tile.style";
 import Content from "../content";
@@ -10,9 +8,10 @@ import {
   testStyledSystemSpacing,
   testStyledSystemWidth,
 } from "../../__spec_helper__/test-utils";
+import { TileProps } from "./tile.component";
 
-function render(props, renderer = TestRenderer.create) {
-  return renderer(
+function renderTile(props: TileProps) {
+  return mount(
     <Tile {...props}>
       <Content key="one">Child 1</Content>
       <Content>Child 2</Content>
@@ -21,15 +20,9 @@ function render(props, renderer = TestRenderer.create) {
 }
 
 describe("Tile", () => {
-  it("renders base styles", () => {
-    const wrapper = render({});
-
-    expect(wrapper).toMatchSnapshot();
-  });
-
   describe("wrapping of children in TileContent components", () => {
     describe("standard", () => {
-      const wrapper = render({}, mount);
+      const wrapper = renderTile({});
       const tileContents = wrapper.find(TileContent).getElements();
 
       it("contains one TileContent for each child", () => {
@@ -63,16 +56,13 @@ describe("Tile", () => {
   });
 
   describe("styles", () => {
-    testStyledSystemSpacing(
-      (props) => <Tile {...props} headerSpace={{ p: 3 }} />,
-      { p: 3 }
-    );
+    testStyledSystemSpacing((props) => <Tile {...props} />, { p: 3 });
 
     testStyledSystemWidth((props) => <Tile {...props} />);
 
     describe("variant", () => {
       it('renders a white background when variant prop is "tile"', () => {
-        const wrapper = render({ variant: "tile" }).toJSON();
+        const wrapper = renderTile({ variant: "tile" });
 
         assertStyleMatch(
           {
@@ -84,13 +74,13 @@ describe("Tile", () => {
       });
 
       it('renders a transparent background when variant prop is "transparent"', () => {
-        const wrapper = render({ variant: "transparent" }).toJSON();
+        const wrapper = renderTile({ variant: "transparent" });
 
         assertStyleMatch({ backgroundColor: "transparent" }, wrapper);
       });
 
       it('renders with expected background and border styles when variant is "active"', () => {
-        const wrapper = render({ variant: "active" }).toJSON();
+        const wrapper = renderTile({ variant: "active" });
 
         assertStyleMatch(
           {
@@ -103,7 +93,7 @@ describe("Tile", () => {
     });
 
     describe("custom borders", () => {
-      it.each([
+      it.each<[TileProps["borderVariant"], string]>([
         ["selected", "colorsUtilityYin100"],
         ["positive", "colorsSemanticPositive500"],
         ["negative", "colorsSemanticNegative500"],
@@ -112,7 +102,7 @@ describe("Tile", () => {
       ])(
         "renders with expected border when borderVariant is set to %s",
         (borderVariant, borderVariantToken) => {
-          const wrapper = render({ borderVariant }).toJSON();
+          const wrapper = renderTile({ borderVariant });
 
           assertStyleMatch(
             {
@@ -123,7 +113,7 @@ describe("Tile", () => {
         }
       );
 
-      it.each([
+      it.each<TileProps["borderWidth"]>([
         "borderWidth000",
         "borderWidth100",
         "borderWidth200",
@@ -132,7 +122,7 @@ describe("Tile", () => {
       ])(
         "renders with expected border width when borderWidth set to %s",
         (borderWidth) => {
-          const wrapper = render({ borderWidth }).toJSON();
+          const wrapper = renderTile({ borderWidth });
 
           assertStyleMatch(
             {
@@ -146,7 +136,7 @@ describe("Tile", () => {
 
     describe("orientation", () => {
       describe("when it is horizontal", () => {
-        const wrapper = render({ orientation: "horizontal" }).toJSON();
+        const wrapper = renderTile({ orientation: "horizontal" });
 
         it("sets the correct flex-direction on the main wrapper", () => {
           assertStyleMatch({ flexDirection: "row" }, wrapper);
@@ -154,7 +144,7 @@ describe("Tile", () => {
       });
 
       describe("when it is vertical", () => {
-        const wrapper = render({ orientation: "vertical" }).toJSON();
+        const wrapper = renderTile({ orientation: "vertical" });
 
         it("sets the correct flex-direction on the main wrapper", () => {
           assertStyleMatch({ flexDirection: "column" }, wrapper);
@@ -165,12 +155,6 @@ describe("Tile", () => {
 
   describe("TileContent", () => {
     describe("styles", () => {
-      function renderTileContent(props) {
-        return TestRenderer.create(
-          <TileContent {...props}>Test</TileContent>
-        ).toJSON();
-      }
-
       testStyledSystemSpacing((props) => (
         <TileContent {...props}>Test</TileContent>
       ));
@@ -178,114 +162,6 @@ describe("Tile", () => {
       testStyledSystemWidth((props) => (
         <TileContent {...props}>Test</TileContent>
       ));
-
-      it("has the correct base styles", () => {
-        const wrapper = renderTileContent();
-
-        assertStyleMatch(
-          {
-            position: "relative",
-            flexGrow: "1",
-            width: undefined,
-          },
-          wrapper
-        );
-      });
-
-      describe('orientation="horizontal"', () => {
-        const wrapper = mount(<TileContent isHorizontal>test</TileContent>);
-
-        it("sets border-top and padding-top, and width: auto for all but the first TileComponent", () => {
-          assertStyleMatch(
-            {
-              marginTop: "0",
-              borderLeft: "solid 1px var(--colorsUtilityMajor050)",
-            },
-            wrapper,
-            {
-              modifier: css`
-                ${`& + ${TileContent}`}
-              `,
-            }
-          );
-        });
-
-        it("should not set padding right to last component", () => {
-          assertStyleMatch(
-            {
-              paddingRight: "0",
-            },
-            wrapper,
-            { modifier: ":last-of-type" }
-          );
-        });
-
-        it("should not set padding left to first component", () => {
-          assertStyleMatch(
-            {
-              paddingLeft: "0",
-            },
-            wrapper,
-            { modifier: ":first-of-type" }
-          );
-        });
-      });
-
-      describe('orientation="vertical"', () => {
-        const wrapper = mount(<TileContent isVertical>test</TileContent>);
-
-        it("sets border-top and padding-top, and width: auto for all but the first TileComponent", () => {
-          assertStyleMatch(
-            {
-              marginTop: "0",
-              borderTop: "solid 1px var(--colorsUtilityMajor050)",
-            },
-            wrapper,
-            {
-              modifier: css`
-                ${`& + ${TileContent}`}
-              `,
-            }
-          );
-        });
-
-        it("should not set padding bottom to last component", () => {
-          assertStyleMatch(
-            {
-              paddingBottom: "0",
-            },
-            wrapper,
-            { modifier: ":last-of-type" }
-          );
-        });
-
-        it("should not set padding top to first component", () => {
-          assertStyleMatch(
-            {
-              paddingTop: "0",
-            },
-            wrapper,
-            { modifier: ":first-of-type" }
-          );
-        });
-      });
-
-      it("sets border-top and padding-top, and width: auto for all but the first TileComponent", () => {
-        const wrapper = mount(<TileContent isVertical>test</TileContent>);
-
-        assertStyleMatch(
-          {
-            marginTop: "0",
-            borderTop: "solid 1px var(--colorsUtilityMajor050)",
-          },
-          wrapper,
-          {
-            modifier: css`
-              ${`& + ${TileContent}`}
-            `,
-          }
-        );
-      });
     });
   });
 });

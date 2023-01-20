@@ -5,10 +5,10 @@ services:
   install:
     image: "cypress/browsers:node18.12.0-chrome106-ff106"
     command: npx cypress install
-    working_dir: /e2e
+    working_dir: /component
     volumes:
       - cache:/root/.cache/Cypress
-      - ../:/e2e
+      - ../:/component
     profiles:
       - install
   # Open Cypress and attach to a X11 server
@@ -20,10 +20,10 @@ services:
     environment:
       - CYPRESS_baseUrl=http://host.docker.internal:9001/
       - DISPLAY=host.docker.internal:0
-    command: npx cypress open
-    working_dir: /e2e
+    command: npx cypress open --component
+    working_dir: /component
     volumes:
-      - ../:/e2e
+      - ../:/component
       - cache:/root/.cache/Cypress/
     profiles:
       - open
@@ -37,12 +37,12 @@ services:
     environment:
       - CYPRESS_baseUrl=http://host.docker.internal:9001/
       - CYPRESS_RECORD_KEY=${CYPRESS_RECORD_KEY}
-    command: npx cypress run --record --parallel --browser chrome --ci-build-id ${BUILD_ID}
+    command: npx cypress run --component --record --parallel --browser chrome --ci-build-id ${BUILD_ID}
     # Run specific Cypress test(s) using the Cypress dashboard
     # command: npx cypress run --record --parallel --browser chrome --ci-build-id ${BUILD_ID} --spec cypress/features/regression/accessibility/accessibility*
-    working_dir: /e2e
+    working_dir: /component
     volumes:
-      - ../:/e2e
+      - ../:/component
       - cache:/root/.cache/Cypress/
     profiles:
       - run

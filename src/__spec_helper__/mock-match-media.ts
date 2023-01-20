@@ -1,6 +1,6 @@
 let mocked = false;
 let _matches = false;
-const removeListener = jest.fn();
+const removeEventListener = jest.fn();
 
 export const setupMatchMediaMock = () => {
   if (!global.window) {
@@ -9,24 +9,24 @@ export const setupMatchMediaMock = () => {
   const noop = () => {};
   Object.defineProperty(global.window, "matchMedia", {
     writable: true,
-    value: (query) => ({
+    value: (query: string) => ({
       matches: _matches,
       media: query,
       onchange: null,
-      addListener: noop,
-      removeListener,
+      addEventListener: noop,
+      removeEventListener,
       dispatchEvent: noop,
     }),
   });
   mocked = true;
 };
 
-export const mockMatchMedia = (matches) => {
+export const mockMatchMedia = (matches: boolean) => {
   if (!mocked) {
     throw new Error(
       "window.matchMedia has not been mocked. Did you call setupMatchMediaMock()?"
     );
   }
   _matches = matches;
-  return { removeListener };
+  return { removeEventListener };
 };

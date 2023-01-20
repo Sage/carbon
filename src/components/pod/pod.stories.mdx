@@ -1,15 +1,13 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import LinkTo from "@storybook/addon-links/react";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
-import Pod from "./";
-import Heading from "../heading";
-import Button from "../button";
-import Typography from "../typography";
-import { GridContainer, GridItem } from "../grid";
+import * as stories from "./pod.stories.tsx";
+import Pod from ".";
 
-<Meta title="Pod" parameters={{ info: { disable: true } }} />
+<Meta title="Pod" component={Pod} parameters={{ info: { disable: true } }} />
 
 # Pod
 
@@ -45,34 +43,22 @@ Set the pod to flex to the width of its content, or take up the full width of it
 
 ## Related Components
 
-- Editing a number of closely related inputs? [Try Fieldset](/?path=/docs/fieldset-address-fieldset-examples--canada "Fieldset").
-- Filling in a broad series of inputs? [Try Form](/?path=/docs/form--default-with-sticky-footer "Form").
-- Using Fieldset and Pod components together? [Try Show/Edit Pod](/?path=/docs/showeditpod--default-story "Show/Edit Pod").
+- Editing a number of closely related inputs? <LinkTo kind="FieldSet" story="default">Try FieldSet</LinkTo>.
+- Filling in a broad series of inputs? <LinkTo kind="Form" story="default with sticky footer">Try Form</LinkTo>.
+- Using Fieldset and Pod components together? <LinkTo kind="ShowEditPod" story="default">Try Show/Edit Pod</LinkTo>.
 
 ## Examples
 
 ### Default
 
 <Canvas>
-  <Story name="default">
-    <Pod title="Title">Content</Pod>
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Custom height
 
 <Canvas>
-  <Story name="with custom height">
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      description="Description"
-      footer="Footer"
-      height={350}
-    >
-      Content
-    </Pod>
-  </Story>
+  <Story name="with custom height" story={stories.WithCustomHeight} />
 </Canvas>
 
 ### Even height
@@ -81,278 +67,97 @@ If you want to have the same height of the Pods based on the highest one, use `G
 and then set `height` prop to `100%` on each `Pod` so that it fills the entire height of `GridItem`
 
 <Canvas>
-  <Story name="even height multiple Pods">
-    <GridContainer>
-      <GridItem gridColumn="1/5">
-        <Pod height="100%">
-          <Typography variant="big" mb={2}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus PageMa
-            ker including versions of Lorem Ipsum.
-          </Typography>
-        </Pod>
-      </GridItem>
-      <GridItem gridColumn="5/9">
-        <Pod height="100%">
-          <Typography mb={2}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software lie Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </Typography>
-        </Pod>
-      </GridItem>
-      <GridItem gridColumn="9/13">
-        <Pod height="100%">
-          <Typography mb={2}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </Typography>
-        </Pod>
-      </GridItem>
-    </GridContainer>
-  </Story>
+  <Story
+    name="even height multiple Pods"
+    story={stories.EvenHeightMultiplePods}
+  />
 </Canvas>
 
 ### With subtitle and footer
 
 <Canvas>
-  <Story name="with subtitle and footer">
-    <Pod title="Title" subtitle="Subtitle" footer="Footer">
-      Content
-    </Pod>
-  </Story>
+  <Story
+    name="with subtitle and footer"
+    story={stories.WithSubtitleAndFooter}
+  />
 </Canvas>
 
 ### Without border
 
 <Canvas>
-  <Story name="without border">
-    <Pod title="Title" subtitle="Subtitle" footer="Footer" border={false}>
-      Content
-    </Pod>
-  </Story>
+  <Story name="without border" story={stories.WithoutBorder} />
 </Canvas>
 
 ### With edit button
 
 <Canvas>
-  <Story name="with edit button" parameters={{ chromatic: { disable: true } }}>
-    <Pod title="Title" subtitle="Subtitle" footer="Footer" onEdit={() => {}}>
-      Content
-    </Pod>
-  </Story>
+  <Story name="with edit button" story={stories.WithEditButton} />
 </Canvas>
 
 ### With delete button
 
 <Canvas>
-  <Story
-    name="with delete button"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      description="Description"
-      footer="Footer"
-      onEdit={() => {}}
-      onDelete={() => {}}
-      onUndo={() => {}}
-    >
-      Content
-    </Pod>
-  </Story>
+  <Story name="with delete button" story={stories.WithDeleteButton} />
 </Canvas>
 
 ### Soft delete state
 
 <Canvas>
-  <Story name="soft delete state" parameters={{ chromatic: { disable: true } }}>
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      description="Description"
-      footer="Footer"
-      onUndo={() => {}}
-      softDelete
-    >
-      Soft delete state
-    </Pod>
-  </Story>
+  <Story name="soft delete state" story={stories.SoftDeleteState} />
 </Canvas>
 
 ### With edit button and displayEditButtonOnHover
 
 <Canvas>
   <Story
-    parameters={{ chromatic: { disable: true } }}
     name="with displayEditButtonOnHover"
-  >
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      footer="Footer"
-      onEdit={() => {}}
-      onDelete={() => {}}
-      displayEditButtonOnHover
-    >
-      Content
-    </Pod>
-  </Story>
+    story={stories.WithDisplayEditButtonOnHover}
+  />
 </Canvas>
 
 ### With edit button and editContentFullWidth
 
 <Canvas>
-  <Story name="with editContentFullWidth">
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      footer="Footer"
-      onEdit={() => {}}
-      onDelete={() => {}}
-      editContentFullWidth
-    >
-      Content
-    </Pod>
-  </Story>
+  <Story
+    name="with editContentFullWidth"
+    story={stories.WithEditContentFullWidth}
+  />
 </Canvas>
 
 ### With internal edit button
 
 <Canvas>
-  <Story name="with internal edit button">
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      footer="Footer"
-      internalEditButton
-      onEdit={() => {}}
-      onDelete={() => {}}
-    >
-      Content
-    </Pod>
-  </Story>
+  <Story
+    name="with internal edit button"
+    story={stories.WithInternalEditButton}
+  />
 </Canvas>
 
 ### With different variants
 
 <Canvas>
-  <Story name="with different variants">
-    {() =>
-      ["primary", "secondary", "tertiary", "tile", "transparent"].map(
-        (variant) => (
-          <Pod
-            key={variant}
-            title="Title"
-            subtitle="Subtitle"
-            footer="Footer"
-            onEdit={() => {}}
-            onDelete={() => {}}
-            variant={variant}
-            mb={3}
-          >
-            {variant}
-          </Pod>
-        )
-      )
-    }
-  </Story>
+  <Story name="with different variants" story={stories.WithDifferentVariants} />
 </Canvas>
 
 ### With different sizes
 
 <Canvas>
-  <Story name="with different sizes">
-    {() =>
-      ["extra-small", "small", "medium", "large", "extra-large"].map((size) => (
-        <Pod
-          key={size}
-          title="Title"
-          subtitle="Subtitle"
-          footer="Footer"
-          onEdit={() => {}}
-          onDelete={() => {}}
-          size={size}
-          mb={3}
-        >
-          {size}
-        </Pod>
-      ))
-    }
-  </Story>
+  <Story name="with different sizes" story={stories.WithDifferentSizes} />
 </Canvas>
 
 ### With different title alignments
 
 <Canvas>
-  <Story name="with different title alignments">
-    {() =>
-      ["left", "center", "right"].map((alignment) => (
-        <Pod
-          key={alignment}
-          title="Title"
-          subtitle="Subtitle"
-          footer="Footer"
-          onEdit={() => {}}
-          alignTitle={alignment}
-          mb={3}
-        >
-          {alignment}
-        </Pod>
-      ))
-    }
-  </Story>
+  <Story
+    name="with different title alignments"
+    story={stories.WithDifferentTitleAlignments}
+  />
 </Canvas>
 
 ### Address pod
 
 <Canvas>
-  <Story name="address example">
-    <Pod internalEditButton variant="tertiary">
-      <Box>
-        <Typography variant="h5" fontWeight="700">
-          Unit 1
-        </Typography>
-        <Typography m={0}>South Nelson Industrial Estate</Typography>
-        <Typography m={0}>Cramlington</Typography>
-        <Typography m={0}>NE23 1WF</Typography>
-        <Typography m={0}>United Kingdom</Typography>
-      </Box>
-      <Button buttonType="tertiary" size="small" mt={1} px={0}>
-        Select a different address
-      </Button>
-      <div style={{ position: "absolute", right: "8px", top: "8px" }}>
-        <Button
-          buttonType="tertiary"
-          size="small"
-          iconType="edit"
-          iconPosition="after"
-        >
-          Edit
-        </Button>
-      </div>
-    </Pod>
-  </Story>
+  <Story name="address example" story={stories.AddressExample} />
 </Canvas>
 
 ## Props
@@ -370,7 +175,19 @@ The following keys are available to override the translations for this component
   translationData={[
     {
       name: "actions.edit",
-      description: "The text for edit action button",
+      description: "The text for edit button",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "actions.delete",
+      description: "The text for delete button",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "pod.undo",
+      description: "The text for undo button",
       type: "func",
       returnType: "string",
     },
