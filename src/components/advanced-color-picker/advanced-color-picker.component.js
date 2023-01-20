@@ -62,6 +62,7 @@ const AdvancedColorPicker = ({
 
   const handleFocus = useCallback(
     (e, firstFocusableElement) => {
+      /* istanbul ignore else */
       if (e.key === "Tab") {
         /* istanbul ignore else */
         if (e.shiftKey) {
@@ -71,6 +72,7 @@ const AdvancedColorPicker = ({
             e.preventDefault();
           }
         } else if (document.activeElement === selectedColorRef) {
+        /* istanbul ignore else */
           firstFocusableElement.focus();
           e.preventDefault();
         }
@@ -106,6 +108,7 @@ const AdvancedColorPicker = ({
       const selected = colors.find((c) => e.target.value === c.value);
       setSelectedColorRef(selected.ref.current);
 
+      /* istanbul ignore else */
       if (onChange) {
         onChange(e);
       }

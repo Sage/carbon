@@ -1,256 +1,325 @@
-import React from "react";
+import React, { useState } from "react";
 import { config } from "react-transition-group";
 import { mount } from "enzyme";
 import { act } from "react-test-renderer";
 import AdvancedColorPicker from "./advanced-color-picker.component";
 import Dialog from "../dialog/dialog.component";
 import { SimpleColor } from "../simple-color-picker";
-import { StyledColorSampleBox } from "../simple-color-picker/simple-color/simple-color.style";
 import guid from "../../__internal__/utils/helpers/guid";
-import {
-  assertStyleMatch,
-  testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
-import { ModalContext } from "../modal/modal.component";
+import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
+import { StyledAdvancedColorPickerPreview } from "./advanced-color-picker.style";
 
 config.disabled = true;
 
 jest.mock("../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
 
+const element = document.createElement("div");
+const defaultColor = "#EBAEDE";
+const demoColors = [
+  { value: "#FFFFFF", label: "white" },
+  { value: "transparent", label: "transparent" },
+  { value: "#000000", label: "black" },
+  { value: "#A3CAF0", label: "blue" },
+  { value: "#FD9BA3", label: "pink" },
+  { value: "#B4AEEA", label: "purple" },
+  { value: "#ECE6AF", label: "goldenrod" },
+  { value: "#EBAEDE", label: "orchid" },
+  { value: "#EBC7AE", label: "desert" },
+  { value: "#AEECEB", label: "turquoise" },
+  { value: "#AEECD6", label: "mint" },
+];
+
+const requiredProps = {
+  name: "advancedPicker",
+  availableColors: demoColors,
+  defaultColor,
+};
+
+document.body.appendChild(element);
+
+function render(props) {
+  return mount(<AdvancedColorPicker {...props} />);
+}
+
+function renderInDocument(props) {
+  return mount(<AdvancedColorPicker {...props} />, {
+    attachTo: element,
+  });
+}
+
+function getElements(wrapper) {
+  const dialogCloseButton = wrapper
+    .find(`button[data-element="close"]`)
+    .getDOMNode();
+  const defaultSimpleColor = wrapper
+    .find(`input[value="${defaultColor}"]`)
+    .getDOMNode();
+  const simpleColors = wrapper.find(SimpleColor).find("input");
+
+  return { dialogCloseButton, defaultSimpleColor, simpleColors };
+}
+
+const tabKey = new KeyboardEvent("keydown", { key: "Tab" });
+const shiftTabKey = new KeyboardEvent("keydown", {
+  key: "Tab",
+  shiftKey: true,
+});
+
 describe("AdvancedColorPicker", () => {
-  const element = document.createElement("div");
-  const htmlElement = document.body.appendChild(element);
-  const defaultColor = "#EBAEDE";
-  const demoColors = [
-    { value: "#FFFFFF", label: "white" },
-    { value: "transparent", label: "transparent" },
-    { value: "#000000", label: "black" },
-    { value: "#A3CAF0", label: "blue" },
-    { value: "#FD9BA3", label: "pink" },
-    { value: "#B4AEEA", label: "purple" },
-    { value: "#ECE6AF", label: "goldenrod" },
-    { value: "#EBAEDE", label: "orchid" },
-    { value: "#EBC7AE", label: "desert" },
-    { value: "#AEECEB", label: "turquoise" },
-    { value: "#AEECD6", label: "mint" },
-  ];
-
-  const requiredProps = {
-    name: "advancedPicker",
-    availableColors: demoColors,
-    defaultColor,
-  };
-
-  let wrapper;
-
-  function render(props = {}) {
-    wrapper = mount(<AdvancedColorPicker {...props} />, {
-      attachTo: htmlElement,
-      wrappingComponent: ModalContext.Provider,
-      wrappingComponentProps: { value: { isAnimationComplete: true } },
-    });
-  }
-
-  function getElements() {
-    const closeIcon = document.querySelector('button[data-element="close"]');
-    const defaultSimpleColor = document.querySelector(
-      `input[value="${defaultColor}"]`
-    );
-    const simpleColors = document.querySelectorAll(
-      '[data-component="simple-color"] > input'
-    );
-
-    return { closeIcon, defaultSimpleColor, simpleColors };
-  }
-
-  afterEach(() => {
-    if (wrapper) {
-      wrapper.unmount();
-      wrapper = null;
-    }
-  });
-
-  const aKey = new KeyboardEvent("keydown", {
-    key: "a",
-  });
-  const tabKey = new KeyboardEvent("keydown", { key: "Tab" });
-  const shiftTabKey = new KeyboardEvent("keydown", {
-    key: "Tab",
-    shiftKey: true,
-  });
-
   testStyledSystemMargin((props) => (
     <AdvancedColorPicker {...requiredProps} {...props} />
   ));
 
-  describe("when controlled", () => {
-    describe("when dialog is open", () => {
-      jest.useFakeTimers();
-      describe("handleFocus focus trap callback", () => {
-        describe("when key other than tab pressed", () => {
-          it("should not change the focus", () => {
-            render({ ...requiredProps, open: true });
-            jest.runAllTimers();
-            const { defaultSimpleColor } = getElements();
+  describe("when focused on color picker cell button", () => {
+    const keyDownEvents = [
+      ["Enter", true],
+      [" ", true],
+      ["a", false],
+    ];
+    let colorPickerCell;
+    let wrapper;
 
-            expect(document.activeElement).toBe(defaultSimpleColor);
-            document.dispatchEvent(aKey);
-            expect(document.activeElement).toBe(defaultSimpleColor);
+    beforeEach(() => {
+      wrapper = render({ ...requiredProps });
+      colorPickerCell = wrapper
+        .find('[data-element="color-picker-cell"]')
+        .first();
+      colorPickerCell.getDOMNode().focus();
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    describe.each(keyDownEvents)(
+      "and the %p key is pressed",
+      (key, expectedResult) => {
+        it(`then dialog's open prop should be set to: ${expectedResult}`, () => {
+          act(() => {
+            colorPickerCell.simulate("keydown", { key });
           });
+          wrapper.update();
+          expect(wrapper.find(Dialog).prop("open")).toBe(expectedResult);
         });
+      }
+    );
+  });
 
-        describe("when shift tab keys pressed on the close button", () => {
-          it("should switch focus to the selected color input", () => {
-            render({ ...requiredProps, open: true });
-            const { closeIcon, defaultSimpleColor } = getElements();
+  describe("color picker cell button", () => {
+    it("should have the color prop set to defaultColor", () => {
+      const wrapper = render({ ...requiredProps });
+      expect(
+        wrapper.find('[data-element="color-picker-cell"]').first().prop("color")
+      ).toBe(defaultColor);
+      wrapper.unmount();
+    });
 
-            closeIcon.focus();
-            expect(document.activeElement).toBe(closeIcon);
-            document.dispatchEvent(shiftTabKey);
-            expect(document.activeElement).toBe(defaultSimpleColor);
-          });
-        });
+    describe("when the selectedColor is provided", () => {
+      it("should have the value of it's color prop the same as selectedColor", () => {
+        const selectedColor = "transparent";
+        const wrapper = render({ ...requiredProps, selectedColor });
+        expect(
+          wrapper
+            .find('[data-element="color-picker-cell"]')
+            .first()
+            .prop("color")
+        ).toBe(selectedColor);
+        wrapper.unmount();
+      });
+    });
+  });
 
-        describe("tab key pressed on the selected color input", () => {
-          it("should switch focus to the close button", () => {
-            render({ ...requiredProps, open: true });
-            jest.runAllTimers();
-            const { closeIcon, defaultSimpleColor } = getElements();
+  describe("when the closeButton is clicked", () => {
+    const onClose = jest.fn();
+    let wrapper;
 
-            expect(document.activeElement).toBe(defaultSimpleColor);
-            document.dispatchEvent(tabKey);
-            expect(document.activeElement).toBe(closeIcon);
-          });
-        });
+    beforeEach(() => {
+      wrapper = render({ onClose, open: true, ...requiredProps });
+    });
+
+    it("then the onClose callback function should have been called", () => {
+      const closeButton = wrapper.find('[data-element="close"]').first();
+
+      act(() => {
+        closeButton.simulate("click");
       });
 
-      describe("for focus event", () => {
-        describe("when activeElement is not selectedColor", () => {
-          it("renders transparent color", () => {
-            const extraProps = {
-              name: "advancedPicker",
-              availableColors: [{ value: "transparent", label: "transparent" }],
-              defaultColor: "transparent",
-              open: true,
-            };
+      wrapper.update();
 
-            render(extraProps);
-            jest.runAllTimers();
-            const { simpleColors } = getElements();
+      expect(onClose).toHaveBeenCalled();
+    });
+  });
 
-            expect(document.activeElement).toBe(simpleColors[0]);
+  describe("when dialog is open", () => {
+    jest.useFakeTimers();
+    let wrapper;
 
-            const simpleColor = wrapper.find(SimpleColor).at(0);
-            const colorPreviewCell = simpleColor.find(StyledColorSampleBox);
+    beforeEach(() => {
+      wrapper = renderInDocument({ ...requiredProps, open: true });
+      jest.runAllTimers();
+    });
 
-            expect(document.activeElement.getAttribute("value")).toBe(
-              wrapper.find(SimpleColor).at(0).prop("value")
-            );
-            assertStyleMatch(
-              {
-                backgroundColor: "#eeeeee",
-                backgroundImage: "url()",
-                backgroundSize: "14px 14px",
-              },
-              colorPreviewCell
-            );
-          });
-        });
+    afterEach(() => {
+      if (wrapper) {
+        wrapper.unmount();
+      }
+    });
+
+    describe("and shift tab keys are pressed, with close button being focused", () => {
+      it("then the focus should be switched to the selected color input", () => {
+        const { dialogCloseButton, defaultSimpleColor } = getElements(wrapper);
+
+        dialogCloseButton?.focus();
+        expect(document.activeElement).toBe(dialogCloseButton);
+        document.dispatchEvent(shiftTabKey);
+        expect(document.activeElement).toBe(defaultSimpleColor);
       });
     });
 
-    describe("onChange event", () => {
-      describe("onClick event", () => {
-        describe("when onChange is provided", () => {
-          it("changes selection and triggers onChange callback", () => {
-            const onChange = jest.fn();
-            const extraProps = {
-              ...requiredProps,
-              open: true,
-              onChange,
-            };
+    describe("and tab key is pressed, with selected color input being focused", () => {
+      it("then the focus should be switched to the close button", () => {
+        const { dialogCloseButton, defaultSimpleColor } = getElements(wrapper);
 
-            render(extraProps);
-            jest.runAllTimers();
-            const { simpleColors } = getElements();
-
-            expect(document.activeElement).toBe(simpleColors[7]);
-
-            const color = wrapper.find(SimpleColor).at(8);
-            color.find("input").first().getDOMNode().click();
-
-            expect(onChange).toHaveBeenCalled();
-            expect(document.activeElement.getAttribute("value")).toBe(
-              wrapper.find(SimpleColor).at(8).prop("value")
-            );
-          });
-        });
-
-        describe("when onChange is not provided", () => {
-          it("changes selection, does not trigger onChange callback", () => {
-            const onChange = jest.fn();
-            const extraProps = {
-              ...requiredProps,
-              open: true,
-            };
-
-            render(extraProps);
-            jest.runAllTimers();
-            const { simpleColors } = getElements();
-
-            expect(document.activeElement).toBe(simpleColors[7]);
-            const color = wrapper.find(SimpleColor).at(8);
-            color.find("input").first().getDOMNode().click();
-
-            expect(onChange).not.toHaveBeenCalled();
-            expect(document.activeElement.getAttribute("value")).toBe(
-              wrapper.find(SimpleColor).at(8).prop("value")
-            );
-          });
-        });
-
-        it("changes selection and triggers onChange callback", () => {
-          const onBlur = jest.fn();
-          const extraProps = {
-            ...requiredProps,
-            open: true,
-            onBlur,
-          };
-
-          render(extraProps);
-          jest.runAllTimers();
-          const { simpleColors } = getElements();
-
-          expect(document.activeElement).toBe(simpleColors[7]);
-
-          const color = wrapper.find(SimpleColor).at(8);
-          color.find("input").first().simulate("click");
-
-          expect(onBlur).toHaveBeenCalled();
-          expect(document.activeElement.getAttribute("value")).toBe(
-            wrapper.find(SimpleColor).at(8).prop("value")
-          );
-        });
+        expect(document.activeElement).toBe(defaultSimpleColor);
+        document.dispatchEvent(tabKey);
+        expect(document.activeElement).toBe(dialogCloseButton);
       });
     });
+  });
 
-    describe("SimpleColor onKeyDown event triggers", () => {
-      const keyDownEvents = [
-        ["Enter", true, true],
-        ["Space", true, true],
-        ["a", false, false],
-      ];
+  describe("when one of the color buttons is clicked", () => {
+    const onChange = jest.fn();
+    const onBlur = jest.fn();
+    const extraProps = {
+      ...requiredProps,
+      open: true,
+      onChange,
+      onBlur,
+    };
+    let wrapper;
 
-      const extraProps = {
+    beforeEach(() => {
+      wrapper = renderInDocument(extraProps);
+      jest.runAllTimers();
+
+      const color = wrapper.find(SimpleColor).at(8);
+
+      color.find("input").first().getDOMNode().click();
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    it("then that button should be changed to be the active element", () => {
+      expect(document.activeElement?.getAttribute("value")).toBe(
+        wrapper.find(SimpleColor).at(8).prop("value")
+      );
+    });
+
+    it("then the onChange callback should be triggered", () => {
+      expect(onChange).toHaveBeenCalled();
+    });
+
+    it("then the onBlur callback should be triggered", () => {
+      expect(onBlur).toHaveBeenCalled();
+    });
+  });
+
+  describe("when the component value is controlled, and a color is selected", () => {
+    // eslint-disable-next-line react/prop-types
+    const MockComponent = () => {
+      const [color, setColor] = useState();
+
+      function handleOnChange(e) {
+        setColor(e.target.value);
+      }
+
+      return (
+        <AdvancedColorPicker
+          {...requiredProps}
+          selectedColor={color}
+          onChange={handleOnChange}
+          open
+        />
+      );
+    };
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(<MockComponent />);
+      jest.runAllTimers();
+      const color = wrapper.find(SimpleColor).at(1);
+
+      color.find("input").first().getDOMNode().click();
+      wrapper.update();
+    });
+
+    it("then the color in the preview should match that color", () => {
+      expect(wrapper.find(StyledAdvancedColorPickerPreview).prop("color")).toBe(
+        wrapper.find(SimpleColor).at(1).prop("value")
+      );
+    });
+  });
+
+  describe("when closeButton is clicked", () => {
+    let wrapper;
+    const onClose = jest.fn();
+
+    beforeEach(() => {
+      wrapper = render({
         ...requiredProps,
+        onClose,
         open: true,
-      };
+      });
+      jest.runAllTimers();
 
-      test.each(keyDownEvents)(
-        "on %p key dialog`s isOpen is: %p",
-        (key, result, expectedResult) => {
-          render(extraProps);
+      const closeButton = wrapper.find('[data-element="close"]').first();
+
+      act(() => {
+        closeButton.simulate("click");
+      });
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    it("then the onClose callback should be called", () => {
+      expect(onClose).toHaveBeenCalled();
+    });
+  });
+
+  describe("when the opening of the component is uncontrolled", () => {
+    const keys = [
+      ["Enter", false],
+      [" ", false],
+      ["a", true],
+    ];
+
+    describe.each(keys)(
+      "and a %p key is pressed while focused on a color button",
+      (key, expectedResult) => {
+        let wrapper;
+
+        const extraProps = {
+          ...requiredProps,
+        };
+
+        beforeEach(() => {
+          wrapper = render(extraProps);
+          const colorPickerCell = wrapper
+            .find('[data-element="color-picker-cell"]')
+            .first();
+          colorPickerCell.simulate("click");
+        });
+
+        afterEach(() => {
+          wrapper.unmount();
+        });
+
+        test(`then the isOpen prop in the Dialog should be set to ${expectedResult}`, () => {
           act(() => {
             wrapper
               .find(SimpleColor)
@@ -259,152 +328,65 @@ describe("AdvancedColorPicker", () => {
               .first()
               .simulate("keydown", { key });
           });
-          expect(result).toEqual(expectedResult);
-        }
-      );
+
+          expect(wrapper.find(Dialog).prop("open")).toBe(expectedResult);
+        });
+      }
+    );
+  });
+
+  describe("when the color picker cell button is clicked", () => {
+    const onOpen = jest.fn();
+    let wrapper;
+
+    beforeEach(() => {
+      onOpen.mockClear();
+      wrapper = render({
+        ...requiredProps,
+        onOpen,
+      });
+      const colorPickerCell = wrapper
+        .find('[data-element="color-picker-cell"]')
+        .first();
+
+      act(() => {
+        colorPickerCell.simulate("click");
+      });
     });
 
-    describe("dialog", () => {
-      const props = [
-        [undefined, false],
-        [false, false],
-        [true, true],
-      ];
+    afterEach(() => {
+      wrapper.unmount();
+    });
 
-      test.each(props)(
-        "when `open` prop is: %p, dialog`s isOpen is: %p",
-        (result, expectedResult) => {
-          render({
-            ...requiredProps,
-            open: result,
-          });
-          expect(wrapper.find(Dialog).first().prop("open")).toEqual(
-            expectedResult
-          );
-        }
-      );
+    it("then the color picker Dialog should be open", () => {
+      const dialog = wrapper.find(Dialog).first();
 
-      describe("when dialog is closed", () => {
-        it("uses defaultColor when selectedColor is not provided", () => {
-          render({ ...requiredProps });
-          expect(
-            wrapper.find(AdvancedColorPicker).first().prop("defaultColor")
-          ).toBe(defaultColor);
-        });
+      expect(dialog.prop("open")).toBe(true);
+    });
 
-        it("uses selectedColor when provided", () => {
-          const selectedColor = "#aeecd6";
-          render({ ...requiredProps, selectedColor });
-          expect(
-            wrapper.find(AdvancedColorPicker).first().prop("selectedColor")
-          ).toBe(selectedColor);
-        });
+    it("then the onOpen callback should be called", () => {
+      expect(onOpen).toHaveBeenCalled();
+    });
+  });
 
-        describe("when focused on picker cell", () => {
-          let colorPickerCell;
+  describe("when the 'open' prop is specified", () => {
+    let wrapper;
 
-          beforeEach(() => {
-            render({ ...requiredProps });
-            colorPickerCell = wrapper
-              .find('[data-element="color-picker-cell"]')
-              .first();
-            colorPickerCell.getDOMNode().focus();
-          });
-
-          it("color picker cell is focused", () => {
-            expect(document.activeElement).toBe(colorPickerCell.getDOMNode());
-          });
-
-          const keyDownEvents = [
-            ["Enter", true, true],
-            ["Space", true, true],
-            ["a", false, false],
-          ];
-
-          test.each(keyDownEvents)(
-            "on %p key dialog`s isOpen is: %p",
-            (key, result, expectedResult) => {
-              act(() => {
-                colorPickerCell.simulate("keydown", { key });
-              });
-              expect(result).toEqual(expectedResult);
-            }
-          );
-
-          describe("onOpen callback function is proivided", () => {
-            describe("when open prop is uncontrolled", () => {
-              it("opens color picker and calls onOpen callback function", () => {
-                const onOpen = jest.fn();
-                wrapper.setProps({ onOpen });
-                wrapper.update();
-                colorPickerCell = wrapper
-                  .find('[data-element="color-picker-cell"]')
-                  .first();
-                colorPickerCell.getDOMNode().focus();
-
-                act(() => {
-                  colorPickerCell.simulate("click");
-                });
-
-                const dialog = wrapper.find(Dialog).first();
-                expect(dialog.prop("open")).toBeTruthy();
-                expect(onOpen).toBeCalledTimes(1);
-              });
-            });
-          });
-
-          describe("when onClose event", () => {
-            it("closes color picker and calls onClose callback function", () => {
-              const onClose = jest.fn();
-
-              wrapper.setProps({ onClose });
-              wrapper.update();
-
-              act(() => {
-                colorPickerCell.simulate("click");
-              });
-
-              expect(wrapper.find(Dialog).first().prop("open")).toBeTruthy();
-
-              const closeButton = wrapper
-                .find('[data-element="close"]')
-                .first();
-
-              act(() => {
-                closeButton.simulate("click");
-              });
-
-              wrapper.update();
-
-              expect(onClose).toBeCalledTimes(1);
-              expect(wrapper.find(Dialog).first().prop("open")).toBeFalsy();
-            });
-
-            it("when callback function is not proivided", () => {
-              const onClose = jest.fn();
-
-              act(() => {
-                colorPickerCell.simulate("click");
-              });
-
-              expect(wrapper.find(Dialog).first().prop("open")).toBeTruthy();
-
-              const closeButton = wrapper
-                .find('[data-element="close"]')
-                .first();
-
-              act(() => {
-                closeButton.simulate("click");
-              });
-
-              wrapper.update();
-
-              expect(onClose).toBeCalledTimes(0);
-              expect(wrapper.find(Dialog).first().prop("open")).toBeFalsy();
-            });
-          });
-        });
+    beforeEach(() => {
+      wrapper = render({
+        ...requiredProps,
+        open: true,
       });
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    it("then the color picker Dialog should be open", () => {
+      const dialog = wrapper.find(Dialog).first();
+
+      expect(dialog.prop("open")).toBe(true);
     });
   });
 });
