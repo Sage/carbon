@@ -2,6 +2,7 @@ import { addons, types } from "@storybook/addons";
 import sageTheme from "./sageTheme";
 import { ADDON_ID, TOOL_ID } from "./version-picker/constants";
 import { VersionPicker } from "./version-picker";
+import "./titleAddon";
 
 addons.setConfig({
   theme: sageTheme,
