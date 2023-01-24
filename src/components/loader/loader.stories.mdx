@@ -4,6 +4,7 @@ import Loader from ".";
 import Button from "../button/button.component";
 import Box from "../box";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 <Meta
   title="Loader"
@@ -96,7 +97,7 @@ please remember to pass the `isInsideButton` prop to the `Loader` component.
     <Button ml={2} buttonType="dashed" aria-label="Loading">
       <Loader isInsideButton />
     </Button>
-    <Box mt={2} height="72px" width="152px" bg="#000000">
+    <Box id="dark-background" mt={2} p={2} width="fit-content" bg="#000000">
       <Button m={2} buttonType="darkBackground" aria-label="Loading">
         <Loader isInsideButton />
       </Button>
@@ -109,3 +110,20 @@ please remember to pass the `isInsideButton` prop to the `Loader` component.
 ### Loader
 
 <StyledSystemProps of={Loader} noHeader margin />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object
+to the [i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "loader.loading",
+      description:
+        "An accessible name for `Loader`. This will also be used as alternative text to replace the loading animation - if the user requests for minimal motion-based animation (via their OS accessibility settings).",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

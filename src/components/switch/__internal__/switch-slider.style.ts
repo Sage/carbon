@@ -31,6 +31,7 @@ const StyledSwitchSlider = styled.span`
     text-transform: uppercase;
     top: 0;
     width: 60px;
+    min-width: fit-content;
     z-index: 2;
     border-radius: 90px;
     border-style: solid;
