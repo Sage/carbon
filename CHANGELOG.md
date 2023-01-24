@@ -1,3 +1,10 @@
+## [114.3.0](https://github.com/Sage/carbon/compare/v114.2.1...v114.3.0) (2023-01-24)
+
+
+### Features
+
+* **pill:** add functionality to define custom aria-label in remove button ([4225f09](https://github.com/Sage/carbon/commit/4225f0959c3cc5012ed6ab826613be5ba58383da)), closes [#5715](https://github.com/Sage/carbon/issues/5715)
+
 ### [114.2.1](https://github.com/Sage/carbon/compare/v114.2.0...v114.2.1) (2023-01-24)
 
 
