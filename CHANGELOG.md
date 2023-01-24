@@ -1,3 +1,10 @@
+### [114.2.1](https://github.com/Sage/carbon/compare/v114.2.0...v114.2.1) (2023-01-24)
+
+
+### Bug Fixes
+
+* **note:** fix text overlapping inlineControl button ([7d92187](https://github.com/Sage/carbon/commit/7d92187383d0f53dc071833e2f885fab8748d025)), closes [#5734](https://github.com/Sage/carbon/issues/5734)
+
 ## [114.2.0](https://github.com/Sage/carbon/compare/v114.1.0...v114.2.0) (2023-01-18)
 
 
