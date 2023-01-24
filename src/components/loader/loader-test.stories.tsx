@@ -58,3 +58,11 @@ Default.storyName = "default";
 Default.args = {
   size: "medium",
 };
+
+export const LoaderInsideButtonTest = ({ ...props }) => {
+  return (
+    <Button buttonType="primary" aria-label="Loading">
+      <Loader isInsideButton {...props} />
+    </Button>
+  );
+};
