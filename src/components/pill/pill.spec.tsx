@@ -64,6 +64,27 @@ describe("Pill", () => {
     });
   });
 
+  describe("when the removeButtonAriaLabel prop is passed to the component", () => {
+    let wrapper: ReactWrapper;
+    const customRemoveButtonAriaLabel = "remove custom pill";
+
+    beforeEach(() => {
+      wrapper = mount(
+        renderPillComponent({
+          children: "My Text",
+          onDelete: () => {},
+          ariaLabelOfRemoveButton: customRemoveButtonAriaLabel,
+        })
+      );
+    });
+
+    it("renders with the given children", () => {
+      expect(wrapper.find(IconButton).prop("aria-label")).toEqual(
+        customRemoveButtonAriaLabel
+      );
+    });
+  });
+
   describe("when the component is deletable", () => {
     describe('onDelete adds "close" icon to component', () => {
       let wrapper: ReactWrapper | ShallowWrapper;
