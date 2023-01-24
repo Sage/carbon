@@ -3,7 +3,10 @@ import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import { StyledLinkPreview } from "../link-preview/link-preview.style";
 
-const StyledNoteContent = styled.div<{ hasPreview?: boolean }>`
+const StyledNoteContent = styled.div<{
+  hasInlineControl: boolean;
+  hasPreview?: boolean;
+}>`
   position: relative;
   width: 100%;
 
@@ -34,6 +37,8 @@ const StyledNoteContent = styled.div<{ hasPreview?: boolean }>`
       margin-top: var(--spacing200);
     `}
   `}
+
+  ${({ hasInlineControl }) => hasInlineControl && "margin-right: 24px;"}
 `;
 
 const StyledInlineControl = styled.div`
@@ -43,11 +48,13 @@ const StyledInlineControl = styled.div`
   z-index: 100;
 `;
 
-const StyledTitle = styled.header`
+const StyledTitle = styled.header<{ hasInlineControl: boolean }>`
   font-weight: 900;
   font-size: 16px;
   line-height: 21px;
   padding-bottom: 16px;
+
+  ${({ hasInlineControl }) => hasInlineControl && "margin-right: 24px;"}
 `;
 
 const StyledFooterContent = styled.div<{ hasName: boolean }>`
