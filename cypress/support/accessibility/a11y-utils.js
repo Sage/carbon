@@ -69,6 +69,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("toast") &&
       !prepareUrl[0].startsWith("dialog-full-screen") &&
       !prepareUrl[0].startsWith("verticalmenu") &&
+      !prepareUrl[0].startsWith("message") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);
