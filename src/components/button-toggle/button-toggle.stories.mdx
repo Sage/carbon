@@ -2,18 +2,24 @@ import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import ButtonToggle from ".";
 import ButtonToggleGroup from "../button-toggle-group";
-import LinkTo from "@storybook/addon-links/react";
 
 <Meta title="Button Toggle" parameters={{ info: { disable: true } }} />
 
 # Button Toggle
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/996a28-button-toggle/b/7384f9"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component
+</a>
 
 Press one of the buttons to make selection. This component should be used when user has to make a choice between a small number of options.
 
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
 
@@ -23,8 +29,6 @@ Press one of the buttons to make selection. This component should be used when u
 import ButtonToggle from "carbon-react/lib/components/button-toggle";
 import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
 ```
-
-## Designer Notes
 
 - You should use the <LinkTo kind="Button Toggle Group" story="default">ButtonToggleGroup component</LinkTo> if you need to wrap multiple `ButtonToggle` components together.
 - An icon could be added to make the meaning of an option clearer.
