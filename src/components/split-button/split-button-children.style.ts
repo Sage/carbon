@@ -9,6 +9,7 @@ type StyledSplitButtonChildrenContainerProps = {
 };
 
 const StyledSplitButtonChildrenContainer = styled.div<StyledSplitButtonChildrenContainerProps>`
+  border-radius: var(--borderRadius100);
   ${({ theme, align, minWidth }) => css`
     background-color: var(--colorsActionMajorYang100);
     min-width: ${minWidth}px;
@@ -30,6 +31,20 @@ const StyledSplitButtonChildrenContainer = styled.div<StyledSplitButtonChildrenC
       &:hover {
         color: var(--colorsActionMajorYang100);
         background-color: var(--colorsActionMajor600);
+        overflow: hidden;
+        border-radius: 0px;
+        :first-of-type {
+          border-top-left-radius: var(--borderRadius100);
+          border-top-right-radius: var(--borderRadius100);
+          border-bottom-right-radius: var(--borderRadius000);
+          border-bottom-left-radius: var(--borderRadius000);
+        }
+        :last-of-type {
+          border-top-left-radius: var(--borderRadius000);
+          border-top-right-radius: var(--borderRadius000);
+          border-bottom-right-radius: var(--borderRadius100);
+          border-bottom-left-radius: var(--borderRadius100);
+        }
       }
 
       & + & {

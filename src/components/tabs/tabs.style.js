@@ -9,6 +9,11 @@ const StyledTabs = styled.div`
   ${({ position, inSidebar, headerWidth }) => css`
     color: var(--colorsActionMinorYin090);
 
+    span {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
     ${position === "left" &&
     css`
       ${headerWidth &&

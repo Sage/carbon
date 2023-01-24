@@ -13,6 +13,7 @@ type StyledButtonToggleGroupProps = ValidationProps &
 
 const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
   display: flex;
+  overflow: hidden;
 
   ${({ fullWidth }) =>
     fullWidth &&

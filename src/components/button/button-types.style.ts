@@ -16,19 +16,23 @@ function makeColors(color: string) {
 export default (isDisabled?: boolean, destructive?: boolean) => ({
   primary: `
     background: var(--colorsActionMajor500);
+    border-radius: var(--borderRadius400);
     border-color: transparent;
     ${makeColors("var(--colorsActionMajorYang100)")};
     &:hover {
       background: var(--colorsActionMajor600);
+      border-radius: var(--borderRadius400);
     }
 
     ${
       isDisabled
         ? `
     background: var(--colorsActionDisabled500);
+    border-radius: var(--borderRadius400);
     ${makeColors("var(--colorsActionMajorYin030)")};
     &:hover {
       background: var(--colorsActionDisabled500);
+      border-radius: var(--borderRadius400);
     }
   `
         : ""
@@ -37,18 +41,22 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
     ${
       destructive
         ? `background: var(--colorsSemanticNegative500);
+        border-radius: var(--borderRadius400);
     ${makeColors("var(--colorsSemanticNegativeYang100)")};
     &:hover {
       background: var(--colorsSemanticNegative600);
+      border-radius: var(--borderRadius400);
     }
 
     ${
       isDisabled
         ? `
       background: var(--colorsActionDisabled500);
+      border-radius: var(--borderRadius400);
       ${makeColors("var(--colorsActionMajorYin030)")};
       &:hover {
         background: var(--colorsActionDisabled500);
+        border-radius: var(--borderRadius400);
       }
     `
         : ""
@@ -59,9 +67,11 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
   secondary: `
       background: transparent;
       border-color: var(--colorsActionMajor500);
+      border-radius: var(--borderRadius400);
       ${makeColors("var(--colorsActionMajor500)")};
       &:hover {
         background: var(--colorsActionMajor600);
+        border-radius: var(--borderRadius400);
         border-color: var(--colorsActionMajorTransparent);
         ${makeColors("var(--colorsActionMajorYang100)")};
       }
@@ -70,9 +80,11 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
         destructive
           ? `
         border-color: var(--colorsSemanticNegative500);
+        border-radius: var(--borderRadius400);
         ${makeColors("var(--colorsSemanticNegative500)")}
         &:hover {
           background: var(--colorsSemanticNegative600);
+          border-radius: var(--borderRadius400);
           border-color: var(--colorsSemanticNegativeTransparent);
           ${makeColors("var(--colorsSemanticNegativeYang100)")};
         }
@@ -84,9 +96,11 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
         isDisabled
           ? `
         border-color: var(--colorsActionDisabled500);
+        border-radius: var(--borderRadius400);
         ${makeColors("var(--colorsActionMajorYin030)")};
         &:hover {
           background: transparent;
+          border-radius: var(--borderRadius400);
           border-color: var(--colorsActionDisabled500);
           ${makeColors("var(--colorsActionMajorYin030)")};
         }
@@ -100,6 +114,7 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
     ${makeColors("var(--colorsActionMajor500)")};
     &:hover {
       background: var(--colorsActionMajor600);
+      border-radius: var(--borderRadius400);
       ${makeColors("var(--colorsActionMajorYang100)")};
     }
 
@@ -107,8 +122,10 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
       destructive
         ? `
       ${makeColors("var(--colorsSemanticNegative500)")};
+      border-radius: var(--borderRadius400);
       &:hover {
         background: var(--colorsSemanticNegative600);
+        border-radius: var(--borderRadius400);
         ${makeColors("var(--colorsSemanticNegativeYang100)")};
       }
       `
@@ -119,8 +136,10 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
       isDisabled
         ? `
       ${makeColors("var(--colorsActionMajorYin030)")};
+      border-radius: var(--borderRadius400);
       &:hover {
         background: var(--colorsActionMajorTransparent);
+        border-radius: var(--borderRadius400);
         ${makeColors("var(--colorsActionMajorYin030)")};
       }
     `
@@ -161,6 +180,7 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
     ${makeColors("var(--colorsActionMajor500)")};
     &:hover {
       background: var(--colorsActionMajor600);
+      border-radius: var(--borderRadius400);
       ${makeColors("var(--colorsActionMajorYang100)")}
     }
     
@@ -168,9 +188,11 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
       isDisabled
         ? `
       background: var(--colorsActionDisabled500);
+      border-radius: var(--borderRadius400);
       ${makeColors("var(--colorsActionMajorYin030)")};
       &:hover {
         background: var(--colorsActionDisabled500);
+        border-radius: var(--borderRadius400);
         ${makeColors("var(--colorsActionMajorYin030)")};
       }
     `

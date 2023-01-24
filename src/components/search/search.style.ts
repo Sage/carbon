@@ -59,6 +59,7 @@ const StyledSearch = styled.div<StyledSearchProps>`
       ${(isFocused || searchHasValue) &&
       css`
         border-color: transparent;
+        border-top-right-radius: var(--borderRadius100);
         transition: background 0.2s ease;
         :hover {
           border-color: transparent;
@@ -109,6 +110,21 @@ const StyledSearch = styled.div<StyledSearchProps>`
           color: var(--colorsUtilityYang100);
         `}
       }
+
+      [role="presentation"] {
+        border-bottom-right-radius: var(--borderRadius000);
+        border-top-right-radius: var(--borderRadius000);
+        border-bottom-left-radius: var(--borderRadius050);
+        border-top-left-radius: var(--borderRadius050);
+      }
+
+      ${showSearchButton &&
+      css`
+        border-bottom-right-radius: var(--borderRadius000);
+        border-top-right-radius: var(--borderRadius000);
+        border-bottom-left-radius: var(--borderRadius050);
+        border-top-left-radius: var(--borderRadius050);
+      `}
 
       ${StyledInputPresentation} {
         background-color: ${searchHasValue || isFocused

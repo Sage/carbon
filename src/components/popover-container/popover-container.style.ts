@@ -26,6 +26,7 @@ const PopoverContainerContentStyle = styled.div<PopoverContainerContentStyleProp
   ${padding}
 
   background: var(--colorsUtilityYang100);
+  border-radius: var(--borderRadius100);
   box-shadow: var(--boxShadow100);
   min-width: 300px;
   position: absolute;

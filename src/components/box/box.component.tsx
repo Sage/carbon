@@ -82,6 +82,8 @@ export const Box = styled.div<BoxProps>`
   ${flexbox}
   ${calculatePosition}
 
+  border-radius: var(--borderRadius100);
+
   ${({ color, bg, backgroundColor, ...rest }) =>
     styledColor({ color, bg, backgroundColor, ...rest })}
 

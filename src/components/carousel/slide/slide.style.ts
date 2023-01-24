@@ -6,6 +6,7 @@ const SlideStyle = styled.div`
     display: inline-block;
     width: 100%;
     z-index: 10;
+    border-radius: var(--borderRadius100);
 
     transition: 0.5s;
     min-width: 80%;
@@ -18,6 +19,7 @@ const SlideStyle = styled.div`
     ${onClick &&
     css`
       :hover {
+        border-radius: 8px;
         transition: all 0.2s ease-in;
         transform: scale(1.02);
         cursor: pointer;

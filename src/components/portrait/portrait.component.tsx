@@ -14,7 +14,7 @@ import {
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
-export type PortraitShapes = "circle" | "square";
+export type PortraitShapes = "circle";
 
 export type PortraitSizes = "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
 
@@ -71,7 +71,7 @@ export const Portrait = ({
   gravatar,
   iconType = "individual",
   initials,
-  shape = "square",
+  shape = "circle",
   size = "M",
   src,
   onClick,

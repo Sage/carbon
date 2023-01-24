@@ -82,7 +82,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
     }
 
     return css`
-      border-radius: 12px;
+      border-radius: var(--borderRadius025);
       font-size: 10px;
       letter-spacing: 0.7px;
       font-weight: 600;
@@ -107,11 +107,13 @@ const StyledPill = styled.span<AllStyledPillProps>`
       ${inFill &&
       css`
         background-color: ${pillColor};
+        border-radius: var(--borderRadius025);
       `}
 
       ${!inFill &&
       css`
         color: var(--colorsUtilityYin090);
+        border-radius: var(--borderRadius025);
       `}
 
       ${size === "S" &&
@@ -119,6 +121,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
         min-height: 16px;
         line-height: 16px;
         font-size: 10px;
+        border-radius: var(--borderRadius025);
       `}
 
       ${size === "M" &&
@@ -126,6 +129,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
         min-height: 20px;
         line-height: 20px;
         font-size: 12px;
+        border-radius: var(--borderRadius025);
       `}
 
       ${size === "L" &&
@@ -133,6 +137,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
         min-height: 24px;
         line-height: 24px;
         font-size: 14px;
+        border-radius: var(--borderRadius025);
       `}
 
       ${size === "XL" &&
@@ -140,13 +145,14 @@ const StyledPill = styled.span<AllStyledPillProps>`
         min-height: 26px;
         line-height: 26px;
         font-size: 16px;
+        border-radius: var(--borderRadius025);
       `}
 
       ${isDeletable &&
       css`
         button {
           -webkit-appearance: none;
-          border-radius: 0 6px 6px 0;
+          border-radius: 0 var(--borderRadius025) var(--borderRadius025) 0;
           border: none;
           bottom: 0;
           font-size: 100%;
@@ -205,10 +211,11 @@ const StyledPill = styled.span<AllStyledPillProps>`
         ${size === "S" &&
         css`
           padding: 0 24px 0 7px;
+          border-radius: var(--borderRadius025);
 
           button {
             padding: 0;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 2px 2px 0;
             line-height: 14px;
 
             ${addStyleToPillIcon("7px")}
@@ -218,12 +225,12 @@ const StyledPill = styled.span<AllStyledPillProps>`
         ${size === "M" &&
         css`
           padding: 0 32px 0 11px;
-          border-radius: 12px;
+          border-radius: var(--borderRadius025);
 
           button {
             width: 24px;
             padding: 0;
-            border-radius: 0 10px 10px 0;
+            border-radius: 0 var(--borderRadius025) var(--borderRadius025) 0;
             line-height: 15px;
 
             ${addStyleToPillIcon("10px")}
@@ -233,12 +240,12 @@ const StyledPill = styled.span<AllStyledPillProps>`
         ${size === "L" &&
         css`
           padding: 0 36px 0 15px;
-          border-radius: 13px;
+          border-radius: var(--borderRadius025);
 
           button {
             width: 28px;
             padding: 0;
-            border-radius: 0 11px 11px 0;
+            border-radius: 0 var(--borderRadius025) var(--borderRadius025) 0;
             line-height: 16px;
 
             ${addStyleToPillIcon("12px")}
@@ -248,12 +255,12 @@ const StyledPill = styled.span<AllStyledPillProps>`
         ${size === "XL" &&
         css`
           padding: 0 41px 0 19px;
-          border-radius: 15px;
+          border-radius: var(--borderRadius025);
 
           button {
             width: 32px;
             padding: 0;
-            border-radius: 0 12px 12px 0;
+            border-radius: 0 var(--borderRadius025) var(--borderRadius025) 0;
             line-height: 18px;
 
             ${addStyleToPillIcon("13px")}
@@ -269,42 +276,43 @@ const StyledPill = styled.span<AllStyledPillProps>`
 
           button {
             padding: 0;
+            border-radius: var(--borderRadius025);
           }
         `}
 
         ${size === "M" &&
         css`
           padding: 0 11px;
-          border-radius: 12px;
+          border-radius: var(--borderRadius025);
 
           button {
             width: 24px;
             padding: 0;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 var(--borderRadius025) var(--borderRadius025) 0;
           }
         `}
 
         ${size === "L" &&
         css`
           padding: 0 15px;
-          border-radius: 13px;
+          border-radius: var(--borderRadius025);
 
           button {
             width: 28px;
             padding: 0;
-            border-radius: 0 10px 10px 0;
+            border-radius: 0 var(--borderRadius025) var(--borderRadius025) 0;
           }
         `}
 
         ${size === "XL" &&
         css`
           padding: 0 19px;
-          border-radius: 15px;
+          border-radius: var(--borderRadius025);
 
           button {
             width: 32px;
             padding: 0;
-            border-radius: 0 12px 12px 0;
+            border-radius: 0 var(--borderRadius025) var(--borderRadius025) 0;
           }
         `}
       `}

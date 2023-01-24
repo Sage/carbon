@@ -69,6 +69,14 @@ const DialogStyle = styled(Dialog)`
     }
   }
 
+  [data-element="color-picker-preview"] {
+    border-radius: var(--borderRadius050);
+  }
+
+  [data-element="input"] {
+    border-radius: var(--borderRadius050);
+  }
+
   ${StyledColorOptions} {
     border: none;
   }

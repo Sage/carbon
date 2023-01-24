@@ -8,6 +8,14 @@ const StyledPod = styled(Pod)`
     margin-top: 24px;
   }
 
+  button[data-element="delete"] {
+    border-radius: var(--borderRadius100);
+  }
+
+  a[data-element="edit"] {
+    border-radius: var(--borderRadius100);
+  }
+
   ${StyledContent} {
     padding: 16px;
   }

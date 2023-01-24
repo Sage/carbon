@@ -23,13 +23,11 @@ const StyledMenuWrapper = styled.ul`
       display: inline-block;
       vertical-align: bottom;
       background-color: ${menuConfigVariants[menuType].background};
-
       ${menuType === "dark" &&
       css`
         color: ${menuConfigVariants[menuType].color};
       `}
     `}
-
     ${StyledDivider} {
       position: relative;
       top: -1px;
@@ -47,13 +45,11 @@ const StyledMenuItem = styled.li`
       display: list-item;
     `}
   `}
-
     ${({ inFullscreenView }) =>
     inFullscreenView &&
     css`
       padding-top: 16px;
       padding-bottom: 16px;
-
       a,
       ${StyledLink} a,
       button,

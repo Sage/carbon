@@ -20,6 +20,7 @@ import {
   CarouselSelectorLabelStyle,
   CarouselWrapperStyle,
   CarouselSliderWrapper,
+  StyledBox,
 } from "./carousel.style";
 import guid from "../../__internal__/utils/helpers/guid";
 

@@ -14,6 +14,7 @@ interface StyledDateFieldProps {
 export const StyledNumeralDate = styled.div<{ name?: string }>`
   display: inline-flex;
   border: 1px solid transparent;
+  border-radius: 0px;
   height: 40px;
   font-size: 14px;
   font-weight: 400;
@@ -34,6 +35,17 @@ export const StyledDateField = styled.div<StyledDateFieldProps>`
         position: relative;
         width: ${yearInputOrError ? "78px;" : "58px;"};
         text-align: center;
+
+        :first-of-type {
+        border-top-left-radius: var(--borderRadius100);
+        border-bottom-left-radius: var(--borderRadius100);
+        }
+  
+        :last-of-type {
+        border-top-right-radius: var(--borderRadius100);
+        border-bottom-right-radius: var(--borderRadius100);
+        }
+        
 
         ${
           (isMiddle || isEnd) &&

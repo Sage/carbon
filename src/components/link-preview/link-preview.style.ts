@@ -10,6 +10,7 @@ const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
 
   ${({ as }) => css`
     border: 1px solid var(--colorsUtilityMajor050);
+    border-radius: var(--borderRadius100);
     background-color: var(--colorsUtilityMajor025);
     color: var(--colorsUtilityYin090);
 
@@ -45,6 +46,11 @@ const StyledPreviewWrapper = styled.div<{ isLoading: boolean }>`
         height: 100%;
       }
     `}
+
+  ${StyledPreviewPlaceholder} {
+    border-top-left-radius: var(--borderRadius100);
+    border-bottom-left-radius: var(--borderRadius100);
+  }
 
   ${StyledPreviewPlaceholder}:first-of-type {
     margin-top: 8px;

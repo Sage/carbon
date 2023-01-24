@@ -37,6 +37,7 @@ const CarouselStyledIconRight = styled(CarouselStyledIcon)`
 const CarouselButtonStyle = styled.button.attrs({ type: "button" })`
   ${({ disabled }) => css`
     border: none;
+    border-radius: var(--borderRadius100);
     width: 40px;
     height: 64px;
     border-width: var(--borderWidth200);
@@ -92,6 +93,7 @@ const CarouselSelectorInputStyle = styled.input`
 
 const CarouselSelectorLabelStyle = styled.label`
   display: inline-block;
+  border-radius: var(--borderRadius100);
   width: 10px;
   height: 10px;
   background: var(--colorsActionMinor200);

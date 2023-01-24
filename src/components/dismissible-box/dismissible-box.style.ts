@@ -16,6 +16,7 @@ const StyledDismissibleBox = styled(Box)<StyledDismissibleBoxProps>`
       : "var(--colorsUtilityMajor050)"};
 
     border: 1px solid var(--colorsUtilityMajor100);
+    border-radius: var(--borderRadius100);
     display: flex;
     justify-content: space-between;
     word-break: break-word;

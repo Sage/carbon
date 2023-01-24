@@ -4,6 +4,11 @@ import { baseTheme } from "../../../style/themes";
 const StyledSelectListContainer = styled.div`
   background-color: white;
   box-shadow: var(--boxShadow100);
+<<<<<<< HEAD
+=======
+  border-radius: var(--borderRadius050);
+  overflow: hidden;
+>>>>>>> 5b5e3826e (style: select list and checkbox fixed)
   animation: fadeIn 250ms ease-out;
   position: absolute;
   z-index: ${({ theme }) => theme.zIndex.popover};

@@ -28,7 +28,6 @@ const StyledTableContainer = styled.div`
 
 const StyledFlatTable = styled.table`
   border-collapse: separate;
-  border-radius: 0px;
   border-spacing: 0;
   width: 100%;
 
@@ -51,6 +50,14 @@ const StyledFlatTable = styled.table`
     return css`
       ${StyledFlatTableRow} {
         height: ${height};
+      }
+
+      ${StyledFlatTableHeader}:first-child {
+        border-top-left-radius: var(--borderRadius100);
+      }
+
+      ${StyledFlatTableHeader}:last-child {
+        border-top-right-radius: var(--borderRadius100);
       }
 
       ${StyledFlatTableCell} > div,
@@ -89,6 +96,23 @@ StyledFlatTable.defaultProps = {
 };
 
 const StyledFlatTableWrapper = styled(Box)`
+  tbody {
+    tr:last-of-type {
+      td:first-of-type {
+        border-bottom-left-radius: var(--borderRadius100);
+      }
+      th:first-of-type {
+        border-bottom-left-radius: var(--borderRadius100);
+      }
+      td:last-of-type {
+        border-bottom-right-radius: var(--borderRadius100);
+      }
+      th:last-of-type {
+        border-bottom-right-radius: var(--borderRadius100);
+      }
+    }
+  }
+
   ${({ isInSidebar }) =>
     css`
       box-sizing: border-box;
@@ -225,6 +249,14 @@ const StyledFlatTableWrapper = styled(Box)`
     tbody
     ${StyledFlatTableCheckbox}.isSticky {
     z-index: ${({ theme }) => theme.zIndex.overlay};
+  }
+
+  tr > td:last-of-type {
+    border-radius: var(--borderRadius100);
+  }
+
+  tr > td:first-of-type {
+    border-radius: var(--borderRadius100);
   }
 `;
 

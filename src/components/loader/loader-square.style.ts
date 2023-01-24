@@ -23,25 +23,30 @@ const loaderAnimation = keyframes`
 const getDimentions = (size: StyledLoaderSquareProps["size"]) => {
   let width;
   let marginRight;
+  let borderRadius;
 
   switch (size) {
     case "medium":
       width = "16px";
       marginRight = "8px";
+      borderRadius = "6px";
       break;
     case "large":
       width = "20px";
       marginRight = "8px";
+      borderRadius = "12px";
       break;
     default:
       width = "12px";
       marginRight = "6px";
+      borderRadius = "12px";
   }
 
   return css`
     width: ${width};
     height: ${width};
     margin-right: ${marginRight};
+    border-radius: ${borderRadius};
   `;
 };
 

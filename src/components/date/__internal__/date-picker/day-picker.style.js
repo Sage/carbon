@@ -5,6 +5,7 @@ import baseTheme from "../../../../style/themes/base";
 const addReactDayPickerStyles = () => `
   .DayPicker {
     display: inline-block;
+    border-radius: var(--borderRadius050);
   }
 
   .DayPicker-wrapper {
@@ -203,6 +204,7 @@ const StyledDayPicker = styled.div`
 
   .DayPicker:focus {
     outline: none;
+    border-radius: var(--borderRadius050);
   }
 
   .DayPicker abbr[title] {
@@ -214,6 +216,7 @@ const StyledDayPicker = styled.div`
     padding: 0;
     &:focus {
       outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+      border-radius: var(--borderRadius050);
     }
   }
 
@@ -256,10 +259,12 @@ const StyledDayPicker = styled.div`
     &:hover {
       background-color: var(--colorsActionMinor050);
       color: var(--colorsActionMajorYin090);
+      border-radius: var(--borderRadius050);
     }
 
     &:focus {
       outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+      border-radius: var(--borderRadius050);
     }
 
     + * {
@@ -296,6 +301,7 @@ const StyledDayPicker = styled.div`
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
     background-color: var(--colorsActionMajor500);
     color: var(--colorsUtilityYang100);
+    border-radius: var(--borderRadius050);
   }
 
   .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
