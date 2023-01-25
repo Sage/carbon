@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "./sidebar.component";
 import { sidebarPreview } from "../../../cypress/locators/sidebar";
+import { SidebarComponent } from "./sidebar-test.stories";
 import {
   backgroundUILocator,
   closeIconButton,
@@ -18,35 +19,6 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const CUSTOM_SELECTOR = "button, .focusable-container input";
-
-const SidebarComponent = ({ ...props }) => {
-  return (
-    <>
-      <Sidebar
-        aria-label="sidebar"
-        onCancel={function noRefCheck() {}}
-        open
-        position="right"
-        size="medium"
-        {...props}
-      >
-        <div>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
-            Last
-          </Button>
-        </div>
-        <div
-          style={{
-            marginBottom: 3000,
-          }}
-        >
-          Main content
-        </div>
-      </Sidebar>
-    </>
-  );
-};
 
 const SidebarComponentFocusable = ({ ...props }) => {
   const [setIsDialogOpen] = React.useState(false);
@@ -269,6 +241,47 @@ context("Testing Sidebar component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("should render Sidebar component and check accessibility issues", () => {
+    it("should check sidebar accessibility", () => {
+      CypressMountWithProviders(<SidebarComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(["left", "right"])(
+      "should check accessibility when sidebar position is %s",
+      (boolVal) => {
+        CypressMountWithProviders(<SidebarComponent position={boolVal} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check accessibility when sidebar has header", () => {
+      CypressMountWithProviders(
+        <SidebarComponent
+          header={<Typography variant="h3">Sidebar Header</Typography>}
+        />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it.each([
+      SIDEBAR_SIZES[0],
+      SIDEBAR_SIZES[1],
+      SIDEBAR_SIZES[2],
+      SIDEBAR_SIZES[3],
+      SIDEBAR_SIZES[4],
+      SIDEBAR_SIZES[5],
+      SIDEBAR_SIZES[6],
+    ])("should check accessibility when sidebar size is %s", (size) => {
+      CypressMountWithProviders(<SidebarComponent size={size} />);
+
+      cy.checkAccessibility();
     });
   });
 });
