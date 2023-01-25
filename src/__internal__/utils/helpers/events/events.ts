@@ -1,3 +1,4 @@
+import React from "react";
 import composedPath from "./composedPath";
 
 /**
@@ -16,6 +17,15 @@ const Events = {
    * */
   isEventType: (ev: React.SyntheticEvent | Event, type: string): boolean => {
     return ev.type === type;
+  },
+
+  /**
+   * Determines if event is a keyboard event
+   */
+  isKeyboardEvent: (
+    ev: React.SyntheticEvent | Event
+  ): ev is React.KeyboardEvent | KeyboardEvent => {
+    return ["keydown", "keypress", "keyup"].includes(ev.type);
   },
 
   /**

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Toast, { ToastProps } from ".";
 import Button from "../button";
 import Icon from "../icon";
@@ -9,25 +7,21 @@ import { TOAST_COLORS } from "./toast.config";
 
 export default {
   title: "Toast/Test",
+  includeStories: ["Default", "Visual"],
   parameters: {
     info: { disable: true },
     chromatic: {
       disable: true,
     },
   },
-  argTypes: {
-    childrenSpecialCharacters: specialCharacters,
-  },
 };
 
 interface DefaultStoryProps extends Partial<ToastProps> {
-  childrenSpecialCharacters?: string;
   scrollablePage?: boolean;
 }
 
 export const Default = ({
   children,
-  childrenSpecialCharacters,
   scrollablePage,
   ...args
 }: DefaultStoryProps) => {
@@ -55,7 +49,7 @@ export const Default = ({
           onDismiss={onDismissClick}
           {...args}
         >
-          {children || childrenSpecialCharacters}
+          {children}
         </Toast>
       </div>
     );
@@ -69,7 +63,7 @@ export const Default = ({
         onDismiss={onDismissClick}
         {...args}
       >
-        {children || childrenSpecialCharacters}
+        {children}
       </Toast>
     </>
   );
@@ -77,7 +71,6 @@ export const Default = ({
 Default.storyName = "default";
 Default.args = {
   children: "My text",
-  childrenSpecialCharacters: undefined,
   timeout: 0,
   variant: "success",
   isCenter: true,
@@ -92,14 +85,7 @@ Default.argTypes = {
   },
 };
 
-interface VisualStoryProps extends Partial<ToastProps> {
-  childrenSpecialCharacters?: string;
-}
-export const Visual = ({
-  children,
-  childrenSpecialCharacters,
-  ...args
-}: VisualStoryProps) => {
+export const Visual = ({ children, ...args }: Partial<ToastProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   const onDismissClick = () => {
     setIsOpen(!isOpen);
@@ -115,10 +101,10 @@ export const Visual = ({
         targetPortalId="visual"
         {...args}
       >
-        {children || childrenSpecialCharacters}
+        {children}
       </Toast>
       <Toast variant="info" targetPortalId="visual" {...args}>
-        {children || childrenSpecialCharacters}
+        {children}
       </Toast>
       <Toast
         variant="error"
@@ -163,7 +149,7 @@ export const Visual = ({
         isCenter={false}
         {...args}
       >
-        {children || childrenSpecialCharacters}
+        {children}
       </Toast>
       <Toast
         variant="info"
@@ -172,7 +158,7 @@ export const Visual = ({
         isCenter={false}
         {...args}
       >
-        {children || childrenSpecialCharacters}
+        {children}
       </Toast>
       <Toast
         variant="error"
@@ -240,11 +226,31 @@ export const Visual = ({
 Visual.storyName = "visual";
 Visual.args = {
   children: "My text",
-  childrenSpecialCharacters: undefined,
 };
 Visual.parameters = {
   chromatic: {
     disable: false,
   },
   themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const ToastComponent = ({
+  children = "Toast",
+  ...props
+}: Partial<ToastProps>) => {
+  const [isOpen, setIsOpen] = React.useState(true);
+
+  return (
+    <>
+      <Toast
+        variant="info"
+        id="toast-cypress"
+        open={isOpen}
+        onDismiss={() => setIsOpen(!isOpen)}
+        {...props}
+      >
+        {children}
+      </Toast>
+    </>
+  );
 };

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Button from "../button";
 import Confirm, { ConfirmProps } from "./confirm.component";
 import { CONFIRM_SIZES } from "./confirm.config";
@@ -33,47 +32,29 @@ export default {
         type: "select",
       },
     },
-    cancelLabelSpecialCharacters: specialCharacters,
-    confirmLabelSpecialCharacters: specialCharacters,
-    subtitleSpecialCharacters: specialCharacters,
-    titleSpecialCharacters: specialCharacters,
-    childrenSpecialCharacters: specialCharacters,
   },
 };
 
-interface DefaultStoryProps extends Partial<ConfirmProps> {
-  cancelLabelSpecialCharacters?: string;
-  confirmLabelSpecialCharacters?: string;
-  subtitleSpecialCharacters?: string;
-  titleSpecialCharacters?: string;
-  childrenSpecialCharacters?: string;
-}
-
 export const Default = ({
   cancelLabel,
-  cancelLabelSpecialCharacters,
   confirmLabel,
-  confirmLabelSpecialCharacters,
   subtitle,
-  subtitleSpecialCharacters,
   title,
-  titleSpecialCharacters,
   children,
-  childrenSpecialCharacters,
   ...args
-}: DefaultStoryProps) => {
-  const [isOpen, setIsOpen] = useState(true);
+}: Partial<ConfirmProps>) => {
+  const [isOpen, setIsOpen] = useState(false);
   const handleCancel = () => {
-    action("cancel")();
     setIsOpen(false);
+    action("cancel")();
   };
   const handleOpen = () => {
-    action("open")();
     setIsOpen(true);
+    action("open")();
   };
   const handleConfirm = () => {
-    action("confirm")();
     setIsOpen(false);
+    action("confirm")();
   };
   return (
     <>
@@ -82,34 +63,30 @@ export const Default = ({
         open={isOpen}
         onConfirm={handleConfirm}
         onCancel={handleCancel}
-        cancelLabel={cancelLabel || cancelLabelSpecialCharacters}
-        confirmLabel={confirmLabel || confirmLabelSpecialCharacters}
-        subtitle={subtitle || subtitleSpecialCharacters}
-        title={title || titleSpecialCharacters}
+        cancelLabel={cancelLabel}
+        confirmLabel={confirmLabel}
+        subtitle={subtitle}
+        title={title}
         {...args}
       >
-        {children || childrenSpecialCharacters}
+        {children}
       </Confirm>
     </>
   );
 };
 
+Default.storyName = "default";
 Default.args = {
   children: "This is an example of a confirm.",
-  childrenSpecialCharacters: undefined,
   title: "Are you sure?",
-  titleSpecialCharacters: undefined,
   disableEscKey: false,
   height: "",
   subtitle: "",
-  subtitleSpecialCharacters: undefined,
   size: "extra-small",
   showCloseIcon: false,
   disableAutoFocus: false,
   confirmLabel: "",
-  confirmLabelSpecialCharacters: undefined,
   cancelLabel: "",
-  cancelLabelSpecialCharacters: undefined,
   iconType: null,
   isLoadingConfirm: false,
   disableConfirm: false,

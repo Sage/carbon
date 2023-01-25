@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import Textbox, { TextboxProps } from ".";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ICONS } from "../icon/icon-config";
@@ -16,17 +14,12 @@ export const getCommonTextboxArgs = (
     readOnly: disabledDefault,
     autoFocus: autoFocusDefault,
     prefix: "",
-    prefixSpecialCharacters: undefined,
     label: isNewValidation ? "Label - new validation" : "Label",
-    labelSpecialCharacters: undefined,
     labelHelp: "",
-    labelHelpSpecialCharacters: undefined,
     placeholder: "",
-    placeholderSpecialCharacters: undefined,
     adaptiveLabelBreakpoint: undefined,
     ...(!isNewValidation && {
       fieldHelp: "",
-      fieldHelpSpecialCharacters: undefined,
       labelInline: false,
       labelWidth: 30,
       inputWidth: 70,
@@ -45,40 +38,24 @@ export const getCommonTextboxArgs = (
 
 export interface CommonTextboxArgs {
   prefix: string;
-  prefixSpecialCharacters: string;
   fieldHelp: string;
-  fieldHelpSpecialCharacters: string;
   label: string;
-  labelSpecialCharacters: string;
   labelHelp: string;
-  labelHelpSpecialCharacters: string;
   placeholder: string;
-  placeholderSpecialCharacters: string;
 }
 
 export const getCommonTextboxArgsWithSpecialCaracters = (
   args: CommonTextboxArgs
 ) => {
-  const {
-    prefix,
-    prefixSpecialCharacters,
-    fieldHelp,
-    fieldHelpSpecialCharacters,
-    label,
-    labelSpecialCharacters,
-    labelHelp,
-    labelHelpSpecialCharacters,
-    placeholder,
-    placeholderSpecialCharacters,
-  } = args;
+  const { prefix, fieldHelp, label, labelHelp, placeholder } = args;
   return {
     ...args,
-    prefix: prefix || prefixSpecialCharacters,
-    fieldHelp: fieldHelp || fieldHelpSpecialCharacters,
-    label: label || labelSpecialCharacters,
-    labelHelp: labelHelp || labelHelpSpecialCharacters,
-    helpAriaLabel: labelHelp || labelHelpSpecialCharacters,
-    placeholder: placeholder || placeholderSpecialCharacters,
+    prefix,
+    fieldHelp,
+    label,
+    labelHelp,
+    helpAriaLabel: labelHelp,
+    placeholder,
   };
 };
 
@@ -118,17 +95,12 @@ export const commonTextboxArgTypes = (isNewValidation?: boolean) => ({
         step: 1,
       },
     },
-    fieldHelpSpecialCharacters: specialCharacters,
   }),
   adaptiveLabelBreakpoint: {
     control: {
       type: "number",
     },
   },
-  prefixSpecialCharacters: specialCharacters,
-  labelSpecialCharacters: specialCharacters,
-  labelHelpSpecialCharacters: specialCharacters,
-  placeholderSpecialCharacters: specialCharacters,
 });
 
 export default {

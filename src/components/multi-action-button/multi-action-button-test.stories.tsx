@@ -1,8 +1,5 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
-
 import MultiActionButton, {
   MultiActionButtonProps,
 } from "./multi-action-button.component";
@@ -40,8 +37,6 @@ export default {
         type: "select",
       },
     },
-    textSpecialCharacters: specialCharacters,
-    subtextSpecialCharacters: specialCharacters,
   },
 };
 
@@ -49,23 +44,19 @@ type MultiActionButtonStoryArgs = {
   buttonType?: MultiActionButtonProps["buttonType"];
   textContent: string;
   text: string;
-  textSpecialCharacters: string;
   subtext: string;
-  subtextSpecialCharacters: string;
 };
 
 export const MultiActionButtonStory = ({
   buttonType,
   text,
-  textSpecialCharacters,
   subtext,
-  subtextSpecialCharacters,
   ...args
 }: MultiActionButtonStoryArgs) => (
   <MultiActionButton
     buttonType={buttonType}
-    text={text || textSpecialCharacters}
-    subtext={subtext || subtextSpecialCharacters}
+    text={text}
+    subtext={subtext}
     onClick={action("click")}
     {...args}
   >
@@ -83,7 +74,5 @@ MultiActionButtonStory.story = {
     size: "medium",
     subtext: "",
     text: "Example Multi Action Button",
-    textSpecialCharacters: undefined,
-    subtextSpecialCharacters: undefined,
   },
 };

@@ -32,7 +32,7 @@ describe("ShowEditPod", () => {
     it("sets focus on the pod DOM node", () => {
       const focusedElement = document.activeElement;
 
-      expect(focusedElement.dataset.component).toBe("pod");
+      expect(focusedElement.dataset.component).toBe("show-edit-pod");
     });
 
     it("displays the Edit Form", () => {
@@ -154,7 +154,7 @@ describe("ShowEditPod", () => {
         it("sets focus on the pod DOM node", () => {
           const focusedElement = document.activeElement;
 
-          expect(focusedElement.dataset.component).toBe("pod");
+          expect(focusedElement.dataset.component).toBe("show-edit-pod");
         });
       });
     });

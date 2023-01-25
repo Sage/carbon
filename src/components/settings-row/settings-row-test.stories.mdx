@@ -1,6 +1,4 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-
-import specialCharacters from "../../__internal__/utils/argTypes/specialCharacters";
 import SettingsRow from ".";
 
 <Meta
@@ -11,26 +9,18 @@ import SettingsRow from ".";
       disable: true,
     },
   }}
-  argTypes={{
-    childrenSpecialCharacters: specialCharacters,
-    descriptionSpecialCharacters: specialCharacters,
-    titleSpecialCharacters: specialCharacters,
-  }}
 />
 
 export const SettingsRowStory = ({
-  childrenSpecialCharacters,
   children,
-  descriptionSpecialCharacters,
   description,
-  titleSpecialCharacters,
   title,
   ...args
 }) => (
   <SettingsRow
-    children={children || childrenSpecialCharacters}
-    description={description || descriptionSpecialCharacters}
-    title={title || titleSpecialCharacters}
+    children={children}
+    description={description}
+    title={title}
     {...args}
   />
 );
@@ -48,9 +38,6 @@ export const SettingsRowStory = ({
         "This provides more information about what this group of settings are for.",
       divider: true,
       title: "A GROUP OF SETTINGS",
-      childrenSpecialCharacters: undefined,
-      descriptionSpecialCharacters: undefined,
-      titleSpecialCharacters: undefined,
     }}
   >
     {SettingsRowStory.bind({})}
