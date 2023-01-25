@@ -85,15 +85,17 @@ export const globalTypes = {
     name: "Locale",
     description: "Internationalization locale",
     defaultValue: "en-GB",
-    toolbar: {
-      icon: "globe",
-      items: [
-        { value: "en-GB", right: "🇬🇧", title: "English" },
-        { value: "pl-PL", right: "🇵🇱", title: "Polski" },
-      ],
-    },
+    // Remove language menu (EN-PL) from Storybook docs.
+    // toolbar: {
+    //   icon: "globe",
+    //   items: [
+    //     { value: "en-GB", right: "🇬🇧", title: "English" },
+    //     { value: "pl-PL", right: "🇵🇱", title: "Polski" },
+    //   ],
+    // },
   },
-  ...globalThemeProvider,
+  // Remove Theme menu from Storybook docs.
+  // ...globalThemeProvider,
 };
 
 export const decorators = [
