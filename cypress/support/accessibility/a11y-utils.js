@@ -67,6 +67,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("detail") &&
       !prepareUrl[0].startsWith("help") &&
       !prepareUrl[0].startsWith("toast") &&
+      !prepareUrl[0].startsWith("sidebar") &&
       !prepareUrl[0].startsWith("dialog-full-screen") &&
       !prepareUrl[0].startsWith("verticalmenu") &&
       !prepareUrl[0].endsWith("test")
