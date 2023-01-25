@@ -30,7 +30,7 @@ export default create({
   inputTextColor: "rgba(0,0,0,0.9)",
   inputBorderRadius: 0,
 
-  brandTitle: "Sage DS in Carbon",
+  brandTitle: "Carbon by Sage",
   brandUrl: "https://carbon.sage.com",
   brandImage: "carbon-by-sage-logo.png",
 });
