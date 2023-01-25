@@ -15,10 +15,17 @@ import * as stories from "./sidebar.stories.tsx";
 
 # Sidebar
 
-## Contents
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/925533-sidebar"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
+
+# <h2>Contents</h2>
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
 - [Related Components](#related-components)
 - [Examples](#examples)
 - [Props](#props)
@@ -29,21 +36,9 @@ import * as stories from "./sidebar.stories.tsx";
 import Sidebar from "carbon-react/lib/components/sidebar";
 ```
 
-## Designer Notes
+- Sidebar is positioned on the right hand screen of the window by default. To position the sidebar on the left hand side pass `position='left'` to the component.
 
-Useful to perform an action in context without navigating the user to a separate page.
-
-Useful if the user might need to refer back to the page behind the sidebar. For example, the user could select from a list of clients on the page, with detailed information on the client loading in the sidebar.
-
-Several pre-set widths are available, and the height of the sidebar is always 100%. It’s best to avoid sidebars that are taller than the user’s viewport height, as a scroll would hide some information. Typical user viewport heights can be as little as 650 pixels.
-
-Choose whether a dark tint is applied behind the dialog which helps to focus the user on the sidebar, but don’t select this option if the user needs to refer back to the underlying page.
-
-Sidebar is positioned on the right hand screen of the window by default.
-To position the sidebar on the left hand side pass `position='left'` to the component.
-
-The background behind the sidebar is disabled by default. To allow the user to interact
-with all the UI pass `enableBackgroundUI={ true }` to the component
+- The background behind the sidebar is disabled by default. To allow the user to interact with all the UI pass `enableBackgroundUI={ true }` to the component
 
 ## Related Components
 
@@ -55,7 +50,7 @@ with all the UI pass `enableBackgroundUI={ true }` to the component
 ### Default
 
 <Canvas>
-  <Story name="default" story={stories.DefaultStory} />
+  <Story name="default" story={stories.DefaultStory}/>
 </Canvas>
 
 ### Custom padding around content

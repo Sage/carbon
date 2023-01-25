@@ -2,19 +2,25 @@ import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
 
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
-import Link from ".";
 import * as stories from "./link.stories";
 
 <Meta title="Link" component={Link} parameters={{ info: { disable: true }, controls: { disable: true } }} />
 
 # Link
 
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/16ff08-link"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
+
 Navigates the user to another location.
 
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
 
@@ -25,16 +31,9 @@ Import `Link` into the project.
 ```javascript
 import Link from "carbon-react/lib/components/link";
 ```
-
-## Designer Notes
-
-To use `Link` with a routing library see our documentation on this here: <LinkTo kind="Documentation/Usage with routing" story="page">Usage with routing</LinkTo>
-
-Avoid using links for commands (performing an action like saving a form) - use them for navigating the user to a new location.
-If you’re navigating the user away from your site, consider using an icon after the link, and open the link in a new window, so the user doesn’t lose their place.
-To make the meaning of a link clearer, you can add an icon before it. Just name one of the Carbon icons.
-Make your link names meaningful - for example, instead of ‘Click here’, try ‘Download Invoice 001’.
-WCAG guidelines recommend that Color is not used as the only visual means of conveying information, indicating an action. Carbon applies bold weight, but you could also use text decoration.
+To use Link with a routing library see our documentation on this here: <Link href="https://carbon.sage.com/?path=/docs/documentation-usage-with-routing--page"
+    target="_blank"
+    rel="noreferrer noopener">Usage with routing</Link>
 
 ## Examples
 
