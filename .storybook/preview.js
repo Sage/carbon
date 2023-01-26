@@ -93,6 +93,7 @@ export const globalTypes = {
       ],
     },
   },
+  // test
   ...globalThemeProvider,
 };
 
