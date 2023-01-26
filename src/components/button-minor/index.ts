@@ -1,2 +1,2 @@
 export { default } from "./button-minor.component";
-export type { ButtonProps as ButtonMinorProps } from "../button";
+export type { ButtonMinorProps } from "./button-minor.component";

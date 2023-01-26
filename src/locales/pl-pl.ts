@@ -166,6 +166,11 @@ const plPL: Locale = {
     pageX: () => "Strona",
     ofY: (count) => `z ${count}`,
   },
+  password: {
+    ariaLiveShownMessage: () =>
+      "Zostało wyświetlone Twoje hasło. Skup się na haśle, aby je odczytać, jeśli jest to bezpieczne.",
+    ariaLiveHiddenMessage: () => "Twoje hasło jest obecnie ukryte.",
+  },
   progressTracker: {
     of: () => "z",
   },
