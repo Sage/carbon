@@ -1,3 +1,10 @@
+## [114.5.0](https://github.com/Sage/carbon/compare/v114.4.0...v114.5.0) (2023-01-26)
+
+
+### Features
+
+* **icon:** 20 new icons added to the icon font ([5b343c9](https://github.com/Sage/carbon/commit/5b343c9814506a5bdfec1a005735ee172a4cc1ca))
+
 ## [114.4.0](https://github.com/Sage/carbon/compare/v114.3.0...v114.4.0) (2023-01-25)
 
 
