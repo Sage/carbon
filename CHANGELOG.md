@@ -1,3 +1,10 @@
+### [114.5.1](https://github.com/Sage/carbon/compare/v114.5.0...v114.5.1) (2023-01-26)
+
+
+### Bug Fixes
+
+* **dialog:** remove left offset on small screens ([1b8d9ec](https://github.com/Sage/carbon/commit/1b8d9ecce0e4579de5c11a309819915992a4f633)), closes [#5549](https://github.com/Sage/carbon/issues/5549)
+
 ## [114.5.0](https://github.com/Sage/carbon/compare/v114.4.0...v114.5.0) (2023-01-26)
 
 
