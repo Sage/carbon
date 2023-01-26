@@ -52,6 +52,8 @@ export interface PagerNavigationProps {
   showPreviousAndNextButtons?: boolean;
   /** Should the page count input be shown */
   showPageCount?: boolean;
+  /** If true, sets css property visibility: hidden on all disabled elements  */
+  hideDisabledElements?: boolean;
 }
 
 const PagerNavigation = ({
@@ -67,6 +69,7 @@ const PagerNavigation = ({
   showFirstAndLastButtons = true,
   showPreviousAndNextButtons = true,
   showPageCount = true,
+  hideDisabledElements = false,
 }: PagerNavigationProps) => {
   const l = useLocale();
   const guid = useRef(createGuid());
@@ -118,6 +121,7 @@ const PagerNavigation = ({
       {!hasTwoPages && showFirstAndLastButtons && (
         <PagerNavigationLink
           type="first"
+          hideDisabledElements={hideDisabledElements}
           onClick={onFirst}
           {...pagerNavigationProps}
         />
@@ -125,6 +129,7 @@ const PagerNavigation = ({
       {showPreviousAndNextButtons && (
         <PagerNavigationLink
           type="previous"
+          hideDisabledElements={hideDisabledElements}
           onClick={onPrevious}
           {...pagerNavigationProps}
         />
@@ -137,6 +142,7 @@ const PagerNavigation = ({
       {showPreviousAndNextButtons && (
         <PagerNavigationLink
           type="next"
+          hideDisabledElements={hideDisabledElements}
           onClick={onNext}
           {...pagerNavigationProps}
         />
@@ -144,6 +150,7 @@ const PagerNavigation = ({
       {!hasTwoPages && showFirstAndLastButtons && (
         <PagerNavigationLink
           type="last"
+          hideDisabledElements={hideDisabledElements}
           onClick={onLast}
           {...pagerNavigationProps}
         />

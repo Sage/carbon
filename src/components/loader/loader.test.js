@@ -1,6 +1,7 @@
 import React from "react";
 import Loader from "./loader.component";
-import Button from "../button/button.component";
+
+import { LoaderInsideButtonTest as LoaderInsideButton } from "./loader-test.stories";
 import { LOADER_SIZES } from "./loader.config";
 
 import { loader, loaderInsideButton } from "../../../cypress/locators/loader";
@@ -11,14 +12,6 @@ import {
   checkGoldenOutline,
   useJQueryCssValueAndAssert,
 } from "../../../cypress/support/component-helper/common-steps";
-
-const LoaderInsideButton = ({ ...props }) => {
-  return (
-    <Button buttonType="primary" aria-label="Loading">
-      <Loader isInsideButton {...props} />
-    </Button>
-  );
-};
 
 context("Test for Loader component", () => {
   describe("check props for Loader component", () => {
@@ -119,6 +112,19 @@ context("Test for Loader component", () => {
         .then(($el) => {
           checkGoldenOutline($el);
         });
+    });
+  });
+
+  describe("Accessibility tests for Loader component", () => {
+    it("should pass accessibilty tests for Loader default story", () => {
+      CypressMountWithProviders(<Loader />);
+
+      cy.checkAccessibility();
+    });
+    it("should pass accessibility tests for loading state", () => {
+      CypressMountWithProviders(<LoaderInsideButton />);
+
+      cy.checkAccessibility();
     });
   });
 });

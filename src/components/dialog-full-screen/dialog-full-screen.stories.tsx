@@ -78,7 +78,7 @@ export const Default = () => {
 };
 Default.parameters = { chromatic: { disable: true } };
 
-export const WithComplexExample = () => {
+export const WithComplexExample = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [activeTab, setActiveTab] = useState("tab-1");
   const padding40 = useMediaQuery("(min-width: 1260px)");
@@ -514,6 +514,7 @@ export const WithComplexExample = () => {
         disableEscKey={false}
         showCloseIcon
         disableContentPadding
+        {...props}
       >
         <Drawer sidebar={SidebarContent}>
           <Box p={5}>{showCorrectContent()}</Box>
@@ -523,7 +524,7 @@ export const WithComplexExample = () => {
   );
 };
 
-export const WithDisableContentPadding = () => {
+export const WithDisableContentPadding = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -535,6 +536,7 @@ export const WithDisableContentPadding = () => {
         title="Title"
         subtitle="Subtitle"
         disableContentPadding
+        {...props}
       >
         <Form
           stickyFooter
@@ -563,7 +565,7 @@ export const WithDisableContentPadding = () => {
 };
 WithDisableContentPadding.parameters = { chromatic: { disable: true } };
 
-export const WithHeaderChildren = () => {
+export const WithHeaderChildren = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
   const verticalMargin = aboveBreakpoint ? "26px" : 0;
@@ -584,6 +586,7 @@ export const WithHeaderChildren = () => {
         title="An example of a long header"
         subtitle="Subtitle"
         headerChildren={HeaderChildren}
+        {...props}
       >
         <Form
           stickyFooter
@@ -612,7 +615,7 @@ export const WithHeaderChildren = () => {
 };
 WithDisableContentPadding.parameters = { viewports: [500, 1400] };
 
-export const WithHelp = () => {
+export const WithHelp = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -623,6 +626,7 @@ export const WithHelp = () => {
         title="An example of a long header"
         subtitle="Subtitle"
         help="Some help text"
+        {...props}
       >
         <Form
           stickyFooter
@@ -650,7 +654,7 @@ export const WithHelp = () => {
   );
 };
 
-export const WithHideableHeaderChildren = () => {
+export const WithHideableHeaderChildren = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
   const verticalMargin = aboveBreakpoint ? "26px" : 0;
@@ -694,6 +698,7 @@ export const WithHideableHeaderChildren = () => {
             ? HeaderChildrenAboveBreakpoint
             : HeaderChildrenBelowBreakpoint
         }
+        {...props}
       >
         <Form
           stickyFooter
@@ -722,7 +727,7 @@ export const WithHideableHeaderChildren = () => {
 };
 WithHideableHeaderChildren.parameters = { chromatic: { disable: true } };
 
-export const WithBox = () => {
+export const WithBox = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -732,6 +737,7 @@ export const WithBox = () => {
         onCancel={() => setIsOpen(false)}
         title="Title"
         subtitle="Subtitle"
+        {...props}
       >
         <Box p="0px 40px">
           <Form
@@ -762,7 +768,7 @@ export const WithBox = () => {
 };
 WithBox.parameters = { chromatic: { disable: true } };
 
-export const FocusingADifferentFirstElement = () => {
+export const FocusingADifferentFirstElement = ({ ...props }) => {
   const [isOpenOne, setIsOpenOne] = useState(false);
   const [isOpenTwo, setIsOpenTwo] = useState(false);
   const ref = useRef<HTMLButtonElement | null>(null);
@@ -777,6 +783,7 @@ export const FocusingADifferentFirstElement = () => {
         onCancel={() => setIsOpenOne(false)}
         title="Title"
         subtitle="Subtitle"
+        {...props}
       >
         <p>Focus an element that doesnt support autofocus</p>
         <div
@@ -823,7 +830,7 @@ export const FocusingADifferentFirstElement = () => {
 };
 FocusingADifferentFirstElement.parameters = { chromatic: { disable: true } };
 
-export const OtherFocusableContainers = () => {
+export const OtherFocusableContainers = ({ ...props }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isToast1Open, setIsToast1Open] = useState(false);
   const [isToast2Open, setIsToast2Open] = useState(false);
@@ -840,6 +847,7 @@ export const OtherFocusableContainers = () => {
         title="Title"
         subtitle="Subtitle"
         focusableContainers={[toast1Ref, toast2Ref]}
+        {...props}
       >
         <Form
           stickyFooter
