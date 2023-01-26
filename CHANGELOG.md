@@ -1,3 +1,10 @@
+## [114.4.0](https://github.com/Sage/carbon/compare/v114.3.0...v114.4.0) (2023-01-25)
+
+
+### Features
+
+* **pager:** surface hideDisabledElements prop to ensure disabled elements are hidden ([8dc34d5](https://github.com/Sage/carbon/commit/8dc34d5d0cd21a34c3fac84c6bbade11d5773034))
+
 ## [114.3.0](https://github.com/Sage/carbon/compare/v114.2.1...v114.3.0) (2023-01-24)
 
 
