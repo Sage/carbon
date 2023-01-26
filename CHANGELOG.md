@@ -1,3 +1,10 @@
+## [114.6.0](https://github.com/Sage/carbon/compare/v114.5.1...v114.6.0) (2023-01-26)
+
+
+### Features
+
+* add new VerticalMenu component ([819d65d](https://github.com/Sage/carbon/commit/819d65d077b4c28d216cf96f753b1fcc6ee96b61))
+
 ### [114.5.1](https://github.com/Sage/carbon/compare/v114.5.0...v114.5.1) (2023-01-26)
 
 
