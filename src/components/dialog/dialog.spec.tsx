@@ -253,8 +253,8 @@ describe("Dialog", () => {
       });
     });
 
-    describe("when dialog is less than 20px from the side", () => {
-      it("sets left position to 20px on open", () => {
+    describe("when dialog is less than 0px from the side", () => {
+      it("sets left position to 0px on open", () => {
         jest
           .spyOn(Element.prototype, "getBoundingClientRect")
           .mockImplementation(
@@ -272,10 +272,10 @@ describe("Dialog", () => {
 
         expect(
           (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.left
-        ).toEqual("20px");
+        ).toEqual("0px");
       });
 
-      it("sets left position to 20px on resize", () => {
+      it("sets left position to 0px on resize", () => {
         wrapper = mount(
           <Dialog open>
             <div />
@@ -299,7 +299,7 @@ describe("Dialog", () => {
 
         expect(
           (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.left
-        ).toEqual("20px");
+        ).toEqual("0px");
       });
     });
   });
