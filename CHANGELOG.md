@@ -1,3 +1,10 @@
+### [114.6.1](https://github.com/Sage/carbon/compare/v114.6.0...v114.6.1) (2023-01-27)
+
+
+### Bug Fixes
+
+* **text-editor:** add tabIndex 0 to editor container and update types for value and onChange ([61ab635](https://github.com/Sage/carbon/commit/61ab635575f0b95f9e53366657e547e64f16b862)), closes [#5685](https://github.com/Sage/carbon/issues/5685)
+
 ## [114.6.0](https://github.com/Sage/carbon/compare/v114.5.1...v114.6.0) (2023-01-26)
 
 
