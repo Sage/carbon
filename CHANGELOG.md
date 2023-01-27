@@ -1,3 +1,12 @@
+## [114.7.0](https://github.com/Sage/carbon/compare/v114.6.1...v114.7.0) (2023-01-27)
+
+
+### Features
+
+* **loader-bar:** display loading message if reduced motion preference is detected ([0b2c0c1](https://github.com/Sage/carbon/commit/0b2c0c133eafb618c02ff22a523de40df4a02ede))
+* **loader:** add locale translation for loading message ([1b50d3b](https://github.com/Sage/carbon/commit/1b50d3b663537b0b4e825f0b666f19494ffffffb))
+* **loader:** display loading message if reduced motion preference is detected ([e9d2192](https://github.com/Sage/carbon/commit/e9d2192102d3f22ce605e6a27b4a418b39858750))
+
 ### [114.6.1](https://github.com/Sage/carbon/compare/v114.6.0...v114.6.1) (2023-01-27)
 
 
