@@ -15,7 +15,7 @@ There is no code in Carbon to implement a specific routing library, we aim to le
 React Router is one of the most popular routing libraries so we have provided examples below to help with implementing Carbon components as links using both v5 and v6 of this library. There are small but important differences in the implementation of each version.
 
 **Important:** Whichever Routing library you use, when adding `onClick` handlers to `Link` and `MenuItem` components to handle routing, it is important that the `href` prop is also
-provided to ensure the component renders as an HTML `<a>` tag rather than a `<button>`. 
+provided to ensure the component renders as an HTML `<a>` tag rather than a `<button>`.
 
 ## Usage with React Router v5
 
@@ -77,30 +77,24 @@ const CarbonTabsWithReactRouter = ({ children }) => {
 };
 
 const Home = () => (
-  <div>
-    <CarbonButtonWithReactRouter to="settings">
-      Settings
-    </CarbonButtonWithReactRouter>
-  </div>
+  <CarbonButtonWithReactRouter to="settings">
+    Settings
+  </CarbonButtonWithReactRouter>
 );
 
 const Settings = () => (
-  <div>
-    <CarbonLinkWithReactRouter to="/">Home</CarbonLinkWithReactRouter>
-  </div>
+  <CarbonLinkWithReactRouter to="/">Home</CarbonLinkWithReactRouter>
 );
 
 const Overview = () => (
-  <div>
-    <CarbonTabsWithReactRouter>
-      <Tab tabId="tab-1" title="Tab 1" key="tab-1">
-        Content for tab 1
-      </Tab>
-      <Tab tabId="tab-2" title="Tab 2" key="tab-2">
-        Content for tab 2
-      </Tab>
-    </CarbonTabsWithReactRouter>
-  </div>
+  <CarbonTabsWithReactRouter>
+    <Tab tabId="tab-1" title="Tab 1" key="tab-1">
+      Content for tab 1
+    </Tab>
+    <Tab tabId="tab-2" title="Tab 2" key="tab-2">
+      Content for tab 2
+    </Tab>
+  </CarbonTabsWithReactRouter>
 );
 
 const App = () => (
@@ -174,30 +168,24 @@ const CarbonTabsWithReactRouter = ({ children }) => {
 };
 
 const Home = () => (
-  <div>
-    <CarbonButtonWithReactRouter to="settings">
-      Settings
-    </CarbonButtonWithReactRouter>
-  </div>
+  <CarbonButtonWithReactRouter to="settings">
+    Settings
+  </CarbonButtonWithReactRouter>
 );
 
 const Settings = () => (
-  <div>
-    <CarbonLinkWithReactRouter to="/">Home</CarbonLinkWithReactRouter>
-  </div>
+  <CarbonLinkWithReactRouter to="/">Home</CarbonLinkWithReactRouter>
 );
 
 const Overview = () => (
-  <div>
-    <CarbonTabsWithReactRouter>
-      <Tab tabId="tab-1" title="Tab 1" key="tab-1">
-        Content for tab 1
-      </Tab>
-      <Tab tabId="tab-2" title="Tab 2" key="tab-2">
-        Content for tab 2
-      </Tab>
-    </CarbonTabsWithReactRouter>
-  </div>
+  <CarbonTabsWithReactRouter>
+    <Tab tabId="tab-1" title="Tab 1" key="tab-1">
+      Content for tab 1
+    </Tab>
+    <Tab tabId="tab-2" title="Tab 2" key="tab-2">
+      Content for tab 2
+    </Tab>
+  </CarbonTabsWithReactRouter>
 );
 
 const App = () => (
