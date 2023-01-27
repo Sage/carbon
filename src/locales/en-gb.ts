@@ -130,6 +130,11 @@ const enGB: Locale = {
       close: () => "Close",
     },
   },
+  verticalMenuFullScreen: {
+    ariaLabels: {
+      close: () => "Close",
+    },
+  },
 };
 
 export default enGB;

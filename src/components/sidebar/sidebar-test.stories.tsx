@@ -92,3 +92,31 @@ Default.args = {
   enableBackgroundUI: false,
   disableEscKey: false,
 };
+
+export const SidebarComponent = ({ ...props }) => {
+  return (
+    <>
+      <Sidebar
+        aria-label="sidebar"
+        open
+        position="right"
+        size="medium"
+        {...props}
+      >
+        <div>
+          <Button buttonType="primary">Test</Button>
+          <Button buttonType="secondary" ml={2}>
+            Last
+          </Button>
+        </div>
+        <div
+          style={{
+            marginBottom: 3000,
+          }}
+        >
+          Main content
+        </div>
+      </Sidebar>
+    </>
+  );
+};

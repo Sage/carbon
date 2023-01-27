@@ -8,6 +8,10 @@ import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-ico
 import StyledSelectText from "../select/__internal__/select-text/select-text.style";
 import Link from "../link";
 
+interface StyledPagerProps {
+  hideDisabledButtons?: boolean;
+}
+
 const StyledSelectContainer = styled.div`
   height: 26px;
   width: 55px;
@@ -105,10 +109,20 @@ const StyledPagerNavInner = styled.div`
   }
 `;
 
-const StyledPagerLink = styled(Link)`
+const StyledPagerLink = styled(Link)<
+  Pick<StyledPagerProps, "hideDisabledButtons">
+>`
   padding: 0 10px;
   margin-left: 7px;
   margin-right: 7px;
+
+  ${({ hideDisabledButtons }) =>
+    hideDisabledButtons &&
+    css`
+      & {
+        visibility: hidden;
+      }
+    `}
 `;
 
 const StyledPagerNoSelect = styled.div`
