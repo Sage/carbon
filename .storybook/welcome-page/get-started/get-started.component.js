@@ -10,9 +10,9 @@ import Button from "../../../src/components/button";
 const GetStarted = () => (
   <Wrapper>
     <GetStartedWrapper>
-      <Text>Ready to Get Started?</Text>
+      <Text>Ready to get started?</Text>
       <CheckoutText>
-        Check out the Github repository or download Carbon
+        Check out the GitHub repository or download Carbon
       </CheckoutText>
       <Button
         buttonType="darkBackground"
