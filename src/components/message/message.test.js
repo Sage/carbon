@@ -145,4 +145,83 @@ context("Tests for Message component", () => {
         });
     });
   });
+
+  describe("Accessibility tests for Message component", () => {
+    it.each(["info", "error", "success", "warning"])(
+      "should check %s as variant for accessibility tests",
+      (variant) => {
+        CypressMountWithProviders(<MessageComponent variant={variant} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check %s as children for accessibility tests",
+      (stringValue) => {
+        CypressMountWithProviders(<Message>{stringValue}</Message>);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check %s as className for accessibility tests",
+      (className) => {
+        CypressMountWithProviders(<MessageComponent className={className} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)("should check %s as id for accessibility tests", (id) => {
+      CypressMountWithProviders(<MessageComponent id={id} />);
+      cy.checkAccessibility();
+    });
+
+    it.each([true, false])(
+      "should check open value is %s for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(<MessageComponent open={boolVal} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check %s as title for accessibility tests",
+      (title) => {
+        CypressMountWithProviders(<MessageComponent title={title} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "should check transparent value is %s for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(<MessageComponent transparent={boolVal} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "should check showCloseIcon value is %s for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(<MessageComponent showCloseIcon={boolVal} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check %s as closeButtonAriaLabel for accessibility tests",
+      (ariaLabel) => {
+        CypressMountWithProviders(
+          <MessageComponent closeButtonAriaLabel={ariaLabel} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check onDismiss for accessibility tests", () => {
+      const callback = cy.stub();
+      CypressMountWithProviders(<MessageComponent onDismiss={callback} />);
+      cy.checkAccessibility();
+    });
+  });
 });
