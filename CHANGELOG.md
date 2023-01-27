@@ -1,3 +1,45 @@
+## [114.6.0](https://github.com/Sage/carbon/compare/v114.5.1...v114.6.0) (2023-01-26)
+
+
+### Features
+
+* add new VerticalMenu component ([819d65d](https://github.com/Sage/carbon/commit/819d65d077b4c28d216cf96f753b1fcc6ee96b61))
+
+### [114.5.1](https://github.com/Sage/carbon/compare/v114.5.0...v114.5.1) (2023-01-26)
+
+
+### Bug Fixes
+
+* **dialog:** remove left offset on small screens ([1b8d9ec](https://github.com/Sage/carbon/commit/1b8d9ecce0e4579de5c11a309819915992a4f633)), closes [#5549](https://github.com/Sage/carbon/issues/5549)
+
+## [114.5.0](https://github.com/Sage/carbon/compare/v114.4.0...v114.5.0) (2023-01-26)
+
+
+### Features
+
+* **icon:** 20 new icons added to the icon font ([5b343c9](https://github.com/Sage/carbon/commit/5b343c9814506a5bdfec1a005735ee172a4cc1ca))
+
+## [114.4.0](https://github.com/Sage/carbon/compare/v114.3.0...v114.4.0) (2023-01-25)
+
+
+### Features
+
+* **pager:** surface hideDisabledElements prop to ensure disabled elements are hidden ([8dc34d5](https://github.com/Sage/carbon/commit/8dc34d5d0cd21a34c3fac84c6bbade11d5773034))
+
+## [114.3.0](https://github.com/Sage/carbon/compare/v114.2.1...v114.3.0) (2023-01-24)
+
+
+### Features
+
+* **pill:** add functionality to define custom aria-label in remove button ([4225f09](https://github.com/Sage/carbon/commit/4225f0959c3cc5012ed6ab826613be5ba58383da)), closes [#5715](https://github.com/Sage/carbon/issues/5715)
+
+### [114.2.1](https://github.com/Sage/carbon/compare/v114.2.0...v114.2.1) (2023-01-24)
+
+
+### Bug Fixes
+
+* **note:** fix text overlapping inlineControl button ([7d92187](https://github.com/Sage/carbon/commit/7d92187383d0f53dc071833e2f885fab8748d025)), closes [#5734](https://github.com/Sage/carbon/issues/5734)
+
 ## [114.2.0](https://github.com/Sage/carbon/compare/v114.1.0...v114.2.0) (2023-01-18)
 
 

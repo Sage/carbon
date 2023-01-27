@@ -321,6 +321,45 @@ context("Test for Pager component", () => {
         });
       }
     );
+
+    it.each([
+      [true, "not.be.visible"],
+      [false, "be.visible"],
+    ])(
+      "pager links are rendered as intended when hideDisabledElements is set to %s and currentPage is 1",
+      (boolVal, assertion) => {
+        CypressMountWithProviders(
+          <PagerComponent currentPage={1} hideDisabledElements={boolVal} />
+        );
+
+        firstArrow().should(assertion);
+        previousArrow().should(assertion);
+      }
+    );
+
+    it.each([
+      [true, "not.be.visible"],
+      [false, "be.visible"],
+    ])(
+      "pager links are rendered as intended when hideDisabledElements is set to %s and currentPage is 10",
+      (boolVal, assertion) => {
+        CypressMountWithProviders(
+          <PagerComponent currentPage={10} hideDisabledElements={boolVal} />
+        );
+
+        nextArrow().should(assertion);
+        lastArrow().should(assertion);
+      }
+    );
+
+    it("both pager links are rendered when hideDisabledElements is set to true, but currenPage is above 1", () => {
+      CypressMountWithProviders(
+        <PagerComponent currentPage={7} hideDisabledElements />
+      );
+
+      firstArrow().should("be.visible");
+      previousArrow().should("be.visible");
+    });
   });
 
   describe("check funtionality for Pager component", () => {

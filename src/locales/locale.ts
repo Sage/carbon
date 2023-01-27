@@ -106,6 +106,11 @@ interface Locale {
       close: () => string;
     };
   };
+  verticalMenuFullScreen: {
+    ariaLabels: {
+      close: () => string;
+    };
+  };
 }
 
 export default Locale;

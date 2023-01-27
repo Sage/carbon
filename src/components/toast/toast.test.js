@@ -1,5 +1,5 @@
 import React from "react";
-import Toast from ".";
+import { ToastComponent } from "./toast-test.stories";
 import { TOAST_COLORS } from "./toast.config";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
@@ -16,25 +16,6 @@ const colorTypes = [
   ["rgb(0, 138, 33)"],
   ["rgb(239, 103, 0)"],
 ];
-
-// eslint-disable-next-line react/prop-types
-const ToastComponent = ({ children, ...props }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
-
-  return (
-    <>
-      <Toast
-        variant="info"
-        id="toast-cypress"
-        open={isOpen}
-        onDismiss={() => setIsOpen(!isOpen)}
-        {...props}
-      >
-        {children}
-      </Toast>
-    </>
-  );
-};
 
 context("Testing Toast component", () => {
   describe("should render Toast component", () => {
@@ -205,6 +186,34 @@ context("Testing Toast component", () => {
         // eslint-disable-next-line no-unused-expressions
         expect(callback).to.have.been.calledOnce;
       });
+    });
+  });
+
+  describe("should render Toast component and check accessibility issues", () => {
+    it.each([
+      TOAST_COLORS[0],
+      TOAST_COLORS[1],
+      TOAST_COLORS[2],
+      TOAST_COLORS[3],
+    ])(
+      "should render Toast component with %s variant and check accessibility",
+      (variant) => {
+        CypressMountWithProviders(<ToastComponent variant={variant} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should render Toast component with notice variant and check accessibility", () => {
+      CypressMountWithProviders(<ToastComponent variant="notice" open />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should render Toast component with maxWidth prop and check accessibility", () => {
+      CypressMountWithProviders(<ToastComponent maxWidth="250px" />);
+
+      cy.checkAccessibility();
     });
   });
 });

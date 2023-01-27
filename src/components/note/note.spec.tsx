@@ -301,6 +301,30 @@ describe("Note", () => {
     });
   });
 
+  describe("when the inlineControl prop is set", () => {
+    const inlineControl = (
+      <ActionPopover>
+        <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+      </ActionPopover>
+    );
+    const wrapper = renderNote({ inlineControl, title: "foo" });
+
+    it.each([
+      ["Note Title", StyledTitle],
+      ["Note Content", StyledNoteContent],
+    ])(
+      "should add margin-left in %s to make space for inlineControl button",
+      (name, element) => {
+        assertStyleMatch(
+          {
+            marginRight: "24px",
+          },
+          wrapper.find(element)
+        );
+      }
+    );
+  });
+
   describe("Link Previews", () => {
     it("renders any LinkPreviews passed in via the `previews` prop passed as an array", () => {
       const previews = [
