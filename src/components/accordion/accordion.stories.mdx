@@ -29,9 +29,9 @@ import {
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/028f94-accordion/b/3614a6"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 Accordions are a good progressive disclosure technique - initially showing only top-level information, but allowing the user quick access to more on request. But, they can confuse users sometimes, so use them sparingly.
@@ -61,7 +61,7 @@ import { Accordion } from "carbon-react/lib/components/accordion";
 
 const MyComponent = () => (
   <Accordion onChange={onChange} expanded={expanded} title="Title">
-    <p>Content as a children</p>
+    Content as a children
   </Accordion>
 );
 ```
@@ -74,7 +74,7 @@ import { Accordion } from "carbon-react/lib/components/accordion";
 
 const MyComponent = () => (
   <Accordion onChange={onChange} defaultExpanded={true} title="Title">
-    <p>Content as a children</p>
+    Content as a children
   </Accordion>
 );
 ```
@@ -106,8 +106,8 @@ Accordion without padding inside of the content.
 Transparent scheme has transparent background.
 
 <Canvas>
-  <Story 
-    name="transparent" 
+  <Story
+    name="transparent"
     parameters={{ chromatic: { disable: true } }}
     story={Transparent}
   />
@@ -118,10 +118,7 @@ Transparent scheme has transparent background.
 Small version has a smaller heading and less padding.
 
 <Canvas>
-  <Story 
-    name="small"
-    story={Small}
-  />
+  <Story name="small" story={Small} />
 </Canvas>
 
 ### Sub title
@@ -129,10 +126,7 @@ Small version has a smaller heading and less padding.
 A sub title can be added when the size is large (default).
 
 <Canvas>
-  <Story 
-    name="sub title" 
-    story={Subtitle}
-  />
+  <Story name="sub title" story={Subtitle} />
 </Canvas>
 
 ### Full border
@@ -140,10 +134,7 @@ A sub title can be added when the size is large (default).
 The accordion can have side borders along with the default top and bottom.
 
 <Canvas>
-  <Story 
-    name="full border"
-    story={Fullborder}
-  />
+  <Story name="full border" story={Fullborder} />
 </Canvas>
 
 ### Left aligned icon
@@ -151,10 +142,7 @@ The accordion can have side borders along with the default top and bottom.
 The accordion icon can be left aligned.
 
 <Canvas>
-  <Story 
-    name="icon left"
-    story={LeftAlignedIcon}
-  />
+  <Story name="icon left" story={LeftAlignedIcon} />
 </Canvas>
 
 ### Different width
@@ -162,10 +150,7 @@ The accordion icon can be left aligned.
 The default width of 100% can be overriden.
 
 <Canvas>
-  <Story 
-    name="different width"
-    story={DifferentWidth}
-  />
+  <Story name="different width" story={DifferentWidth} />
 </Canvas>
 
 ### With different padding and margin
@@ -173,7 +158,7 @@ The default width of 100% can be overriden.
 Showing the different paddings and margins
 
 <Canvas>
-  <Story 
+  <Story
     name="with different padding and margin"
     story={WithDifferentPaddingAndMargin}
   />
@@ -184,7 +169,7 @@ Showing the different paddings and margins
 Showing the different paddings and margins within the accordion title
 
 <Canvas>
-  <Story 
+  <Story
     name="with different padding and margin in Accordion title"
     story={WithDifferentPaddingAndMarginInAccordionTitle}
   />
@@ -211,10 +196,7 @@ can be used to override the spacing styles.
 This is not currently designed to be used within a form using validation.
 
 <Canvas>
-  <Story
-    name="opening button"
-    story={OpeningButton}
-  />
+  <Story name="opening button" story={OpeningButton} />
 </Canvas>
 
 ### Grouped
@@ -224,10 +206,7 @@ To achieve proper keyboard accessibility as described in `W3` sources it is requ
 `AccordionGroup`.
 
 <Canvas>
-  <Story
-    name="grouped" 
-    story={Grouped}
-  />
+  <Story name="grouped" story={Grouped} />
 </Canvas>
 
 ### With validation icon
@@ -236,10 +215,7 @@ The `ValidationIcon` can be displayed in the `Accordion` header by passing in a 
 `warning` or `info` props. This message will be displayed as in the tooltip.
 
 <Canvas>
-  <Story
-    name="validation icon"
-    story={WithValidationIcon}
-  />
+  <Story name="validation icon" story={WithValidationIcon} />
 </Canvas>
 
 ### With dynamic content
@@ -247,10 +223,7 @@ The `ValidationIcon` can be displayed in the `Accordion` header by passing in a 
 Accordion adjust it's height properly when it's content is being dynamically changed
 
 <Canvas>
-  <Story
-    name="with dynamic content"
-    story={WithDynamicContent}
-  />
+  <Story name="with dynamic content" story={WithDynamicContent} />
 </Canvas>
 
 ### With a definition list

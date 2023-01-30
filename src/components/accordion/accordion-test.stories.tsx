@@ -63,9 +63,9 @@ export const Default = ({ ...args }) => (
       ...args,
     }}
   >
-    <div>Content</div>
-    <div>Content</div>
-    <div>Content</div>
+    <Box>Content</Box>
+    <Box>Content</Box>
+    <Box>Content</Box>
   </Accordion>
 );
 
@@ -85,9 +85,9 @@ export const Grouped = () => (
     </Accordion>
     <Accordion title="Third Accordion" onChange={action("expansionToggled")}>
       <Box p={2}>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
+        <Box>Content</Box>
+        <Box>Content</Box>
+        <Box>Content</Box>
       </Box>
     </Accordion>
   </AccordionGroup>
@@ -117,9 +117,9 @@ export const AccordionComponent = ({ ...props }) => {
       width="100%"
       {...props}
     >
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
+      <Box>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
     </Accordion>
   );
 };
@@ -164,19 +164,15 @@ export const AccordionGroupWithError = () => {
   });
 
   return (
-    <div
-      style={{
-        marginTop: "16px",
-      }}
-    >
+    <Box mt="16px">
       <AccordionGroup>
         <Accordion title="Heading" error={errors.one}>
-          <div style={{ padding: "8px" }}>
+          <Box p="8px">
             <Checkbox label="Add error" error={!!errors.one} />
-          </div>
+          </Box>
         </Accordion>
       </AccordionGroup>
-    </div>
+    </Box>
   );
 };
 
@@ -186,19 +182,15 @@ export const AccordionGroupWithWarning = () => {
   });
 
   return (
-    <div
-      style={{
-        marginTop: "16px",
-      }}
-    >
+    <Box mt="16px">
       <AccordionGroup>
         <Accordion title="Heading" warning={warnings.one}>
-          <div style={{ padding: "8px" }}>
+          <Box p="8px">
             <Checkbox label="Add warning" warning={!!warnings.one} />
-          </div>
+          </Box>
         </Accordion>
       </AccordionGroup>
-    </div>
+    </Box>
   );
 };
 
@@ -208,19 +200,15 @@ export const AccordionGroupWithInfo = () => {
   });
 
   return (
-    <div
-      style={{
-        marginTop: "16px",
-      }}
-    >
+    <Box mt="16px">
       <AccordionGroup>
         <Accordion title="Heading" info={infos.one}>
-          <div style={{ padding: "8px" }}>
+          <Box p="8px">
             <Checkbox label="Add info" info={!!infos.one} />
-          </div>
+          </Box>
         </Accordion>
       </AccordionGroup>
-    </div>
+    </Box>
   );
 };
 
@@ -238,7 +226,7 @@ export const AccordionGroupComponent = () => {
         </Box>
       </Accordion>
       <Accordion title="Third Accordion" onChange={() => {}} width="100%">
-        <div>Content</div>
+        <Box>Content</Box>
       </Accordion>
     </AccordionGroup>
   );
@@ -268,7 +256,7 @@ export const DynamicContent = () => {
       </Button>
       <Accordion title="Title" defaultExpanded>
         {Array.from(Array(contentCount).keys()).map((value) => (
-          <div key={value}>Content</div>
+          <Box key={value}>Content</Box>
         ))}
       </Accordion>
     </>
@@ -279,9 +267,9 @@ export const DynamicContent = () => {
 export const AccordionDefault = ({ ...props }) => {
   return (
     <Accordion title="Heading" {...props}>
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
+      <Box>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
     </Accordion>
   );
 };
@@ -302,7 +290,7 @@ export const AccordionWithBoxAndDifferentPaddings = () => {
             This is example content inside of the Box component with gray
             background
           </Box>
-          <div>
+          <Box>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
             ornare neque. Maecenas pellentesque et erat tincidunt mollis. Etiam
             diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula.
@@ -314,7 +302,7 @@ export const AccordionWithBoxAndDifferentPaddings = () => {
             ac molestie ante dapibus. Ut molestie auctor turpis, quis ultrices
             ante aliquet eu. Aenean et condimentum arcu, non malesuada elit.
             Cras a magna vestibulum, semper tortor id, molestie eros.
-          </div>
+          </Box>
         </Box>
       </Accordion>
       <Accordion
@@ -330,7 +318,7 @@ export const AccordionWithBoxAndDifferentPaddings = () => {
             This is example content inside of the Box component with gray
             background
           </Box>
-          <div>
+          <Box>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
             ornare neque. Maecenas pellentesque et erat tincidunt mollis. Etiam
             diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula.
@@ -342,7 +330,7 @@ export const AccordionWithBoxAndDifferentPaddings = () => {
             ac molestie ante dapibus. Ut molestie auctor turpis, quis ultrices
             ante aliquet eu. Aenean et condimentum arcu, non malesuada elit.
             Cras a magna vestibulum, semper tortor id, molestie eros.
-          </div>
+          </Box>
         </Box>
       </Accordion>
     </Box>
@@ -351,11 +339,7 @@ export const AccordionWithBoxAndDifferentPaddings = () => {
 
 export const AccordionOpeningButton = () => {
   return (
-    <div
-      style={{
-        margin: "8px",
-      }}
-    >
+    <Box m="8px">
       <Accordion
         title="More info"
         openTitle="Less info"
@@ -366,11 +350,10 @@ export const AccordionOpeningButton = () => {
         buttonWidth={200}
         error="hello"
       >
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
+        <Box>Content</Box>
+        <Box>Content</Box>
+        <Box>Content</Box>
       </Accordion>
-      <br />
       <Accordion
         title="More info"
         openTitle="Less info"
@@ -380,11 +363,10 @@ export const AccordionOpeningButton = () => {
         buttonHeading
         buttonWidth={200}
       >
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
+        <Box>Content</Box>
+        <Box>Content</Box>
+        <Box>Content</Box>
       </Accordion>
-      <br />
       <Accordion
         scheme="transparent"
         borders="none"
@@ -396,11 +378,10 @@ export const AccordionOpeningButton = () => {
         }}
         buttonWidth={96}
       >
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
+        <Box>Content</Box>
+        <Box>Content</Box>
+        <Box>Content</Box>
       </Accordion>
-      <br />
       <Accordion
         scheme="transparent"
         borders="none"
@@ -413,11 +394,11 @@ export const AccordionOpeningButton = () => {
           px: 1,
         }}
       >
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
+        <Box>Content</Box>
+        <Box>Content</Box>
+        <Box>Content</Box>
       </Accordion>
-    </div>
+    </Box>
   );
 };
 
@@ -436,9 +417,9 @@ export const AccordionGroupDefault = () => {
       </Accordion>
       <Accordion title="Third Accordion">
         <Box p={2}>
-          <div>Content</div>
-          <div>Content</div>
-          <div>Content</div>
+          <Box>Content</Box>
+          <Box>Content</Box>
+          <Box>Content</Box>
         </Box>
       </Accordion>
     </AccordionGroup>
@@ -493,11 +474,7 @@ export const AccordionGroupValidation = () => {
           warning={warnings.one}
           info={infos.one}
         >
-          <div
-            style={{
-              padding: "8px",
-            }}
-          >
+          <Box p="8px">
             <Checkbox
               label="Add error"
               error={!!errors.one}
@@ -516,7 +493,7 @@ export const AccordionGroupValidation = () => {
               info={!!infos.one}
               onChange={() => handleChange("one", infos, setInfos, "info")}
             />
-          </div>
+          </Box>
         </Accordion>
         <Accordion
           title="Heading"
@@ -532,11 +509,7 @@ export const AccordionGroupValidation = () => {
           warning={warnings.two}
           info={infos.two}
         >
-          <div
-            style={{
-              padding: "8px",
-            }}
-          >
+          <Box p="8px">
             <Checkbox
               label="Add error"
               error={!!errors.two}
@@ -555,7 +528,7 @@ export const AccordionGroupValidation = () => {
               info={!!infos.two}
               onChange={() => handleChange("two", infos, setInfos, "info")}
             />
-          </div>
+          </Box>
         </Accordion>
         <Accordion
           title="Heading"
@@ -571,11 +544,7 @@ export const AccordionGroupValidation = () => {
           warning={warnings.three}
           info={infos.three}
         >
-          <div
-            style={{
-              padding: "8px",
-            }}
-          >
+          <Box p="8px">
             <Checkbox
               label="Add error"
               error={!!errors.three}
@@ -594,7 +563,7 @@ export const AccordionGroupValidation = () => {
               info={!!infos.three}
               onChange={() => handleChange("three", infos, setInfos, "info")}
             />
-          </div>
+          </Box>
         </Accordion>
       </AccordionGroup>
     </Box>
