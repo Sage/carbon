@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import { config } from "react-transition-group";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-test-renderer";
-import AdvancedColorPicker from "./advanced-color-picker.component";
+import AdvancedColorPicker, {
+  AdvancedColorPickerProps,
+} from "./advanced-color-picker.component";
 import Dialog from "../dialog/dialog.component";
 import { SimpleColor } from "../simple-color-picker";
 import guid from "../../__internal__/utils/helpers/guid";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 import { StyledAdvancedColorPickerPreview } from "./advanced-color-picker.style";
 
+const mockedGuid = "mocked-guid";
+
 config.disabled = true;
 
 jest.mock("../../__internal__/utils/helpers/guid");
-guid.mockImplementation(() => "guid-12345");
+(guid as jest.MockedFunction<typeof guid>).mockReturnValue(mockedGuid);
 
 const element = document.createElement("div");
 const defaultColor = "#EBAEDE";
@@ -38,18 +42,18 @@ const requiredProps = {
 
 document.body.appendChild(element);
 
-function render(props) {
+function render(props: AdvancedColorPickerProps) {
   return mount(<AdvancedColorPicker {...props} />);
 }
 
-function renderInDocument(props) {
+function renderInDocument(props: AdvancedColorPickerProps) {
   return mount(<AdvancedColorPicker {...props} />, {
     attachTo: element,
   });
 }
 
-function getElements(wrapper) {
-  const dialogCloseButton = wrapper
+function getElements(wrapper: ReactWrapper) {
+  const dialogCloseButton: HTMLButtonElement = wrapper
     .find(`button[data-element="close"]`)
     .getDOMNode();
   const defaultSimpleColor = wrapper
@@ -77,15 +81,15 @@ describe("AdvancedColorPicker", () => {
       [" ", true],
       ["a", false],
     ];
-    let colorPickerCell;
-    let wrapper;
+    let colorPickerCell: ReactWrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = render({ ...requiredProps });
       colorPickerCell = wrapper
         .find('[data-element="color-picker-cell"]')
         .first();
-      colorPickerCell.getDOMNode().focus();
+      colorPickerCell.getDOMNode<HTMLButtonElement>().focus();
     });
 
     afterEach(() => {
@@ -132,7 +136,7 @@ describe("AdvancedColorPicker", () => {
 
   describe("when the closeButton is clicked", () => {
     const onClose = jest.fn();
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = render({ onClose, open: true, ...requiredProps });
@@ -153,7 +157,7 @@ describe("AdvancedColorPicker", () => {
 
   describe("when dialog is open", () => {
     jest.useFakeTimers();
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = renderInDocument({ ...requiredProps, open: true });
@@ -197,7 +201,7 @@ describe("AdvancedColorPicker", () => {
       onChange,
       onBlur,
     };
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = renderInDocument(extraProps);
@@ -205,7 +209,7 @@ describe("AdvancedColorPicker", () => {
 
       const color = wrapper.find(SimpleColor).at(8);
 
-      color.find("input").first().getDOMNode().click();
+      color.find("input").first().getDOMNode<HTMLInputElement>().click();
     });
 
     afterEach(() => {
@@ -230,9 +234,9 @@ describe("AdvancedColorPicker", () => {
   describe("when the component value is controlled, and a color is selected", () => {
     // eslint-disable-next-line react/prop-types
     const MockComponent = () => {
-      const [color, setColor] = useState();
+      const [color, setColor] = useState<string>();
 
-      function handleOnChange(e) {
+      function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
         setColor(e.target.value);
       }
 
@@ -245,14 +249,14 @@ describe("AdvancedColorPicker", () => {
         />
       );
     };
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = mount(<MockComponent />);
       jest.runAllTimers();
       const color = wrapper.find(SimpleColor).at(1);
 
-      color.find("input").first().getDOMNode().click();
+      color.find("input").first().getDOMNode<HTMLInputElement>().click();
       wrapper.update();
     });
 
@@ -264,7 +268,7 @@ describe("AdvancedColorPicker", () => {
   });
 
   describe("when closeButton is clicked", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
     const onClose = jest.fn();
 
     beforeEach(() => {
@@ -301,7 +305,7 @@ describe("AdvancedColorPicker", () => {
     describe.each(keys)(
       "and a %p key is pressed while focused on a color button",
       (key, expectedResult) => {
-        let wrapper;
+        let wrapper: ReactWrapper;
 
         const extraProps = {
           ...requiredProps,
@@ -337,7 +341,7 @@ describe("AdvancedColorPicker", () => {
 
   describe("when the color picker cell button is clicked", () => {
     const onOpen = jest.fn();
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       onOpen.mockClear();
@@ -370,7 +374,7 @@ describe("AdvancedColorPicker", () => {
   });
 
   describe("when the 'open' prop is specified", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       wrapper = render({
