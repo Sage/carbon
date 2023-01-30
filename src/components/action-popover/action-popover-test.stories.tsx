@@ -15,6 +15,7 @@ import {
   FlatTableHeader,
   FlatTableCell,
 } from "../flat-table";
+import Box from "../box";
 
 export default {
   title: "Action Popover/Test",
@@ -55,7 +56,7 @@ export const Default = () => {
     </ActionPopoverMenu>
   );
   return (
-    <div style={{ marginTop: "40px", height: "275px" }}>
+    <Box mt="40px" height="275px">
       <FlatTable isZebra>
         <FlatTableHead>
           <FlatTableRow>
@@ -136,7 +137,7 @@ export const Default = () => {
           </FlatTableRow>
         </FlatTableBody>
       </FlatTable>
-    </div>
+    </Box>
   );
 };
 
@@ -164,12 +165,7 @@ export const ActionPopoverCustom = ({ ...props }) => {
   );
 
   return (
-    <div
-      style={{
-        marginTop: "40px",
-        height: "275px",
-      }}
-    >
+    <Box mt="40px" height="275px">
       <FlatTable isZebra>
         <FlatTableHead>
           <FlatTableRow>
@@ -244,17 +240,13 @@ export const ActionPopoverCustom = ({ ...props }) => {
           </FlatTableRow>
         </FlatTableBody>
       </FlatTable>
-    </div>
+    </Box>
   );
 };
 
 export const ActionPopoverWithProps = ({ ...props }) => {
   return (
-    <div
-      style={{
-        height: "250px",
-      }}
-    >
+    <Box height="250px">
       <FlatTable>
         <FlatTableHead>
           <FlatTableRow>
@@ -281,7 +273,7 @@ export const ActionPopoverWithProps = ({ ...props }) => {
           </FlatTableRow>
         </FlatTableBody>
       </FlatTable>
-    </div>
+    </Box>
   );
 };
 

@@ -46,50 +46,48 @@ export const ActionPopoverComponent: ComponentStory<
     </ActionPopoverMenu>
   );
   return (
-    <div style={{ marginTop: "40px", height: "275px" }}>
-      <Box>
-        <ActionPopover onOpen={() => {}} onClose={() => {}}>
-          <ActionPopoverItem
-            disabled
-            icon="graph"
-            submenu={submenu}
-            onClick={() => {}}
-          >
-            Business
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="email" onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
-            Print Invoice
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
-            Download PDF
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="csv" onClick={() => {}}>
-            Download CSV
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem icon="delete" onClick={() => {}}>
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-        <ActionPopover>
-          <ActionPopoverItem icon="csv" onClick={() => {}}>
-            Download CSV
-          </ActionPopoverItem>
-        </ActionPopover>
-        <ActionPopover>
-          <ActionPopoverItem
-            icon="csv"
-            submenu={submenuWithIcons}
-            onClick={() => {}}
-          >
-            Download CSV
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box mt="40px" height="275px">
+      <ActionPopover onOpen={() => {}} onClose={() => {}}>
+        <ActionPopoverItem
+          disabled
+          icon="graph"
+          submenu={submenu}
+          onClick={() => {}}
+        >
+          Business
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
+          Print Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem icon="delete" onClick={() => {}}>
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+      <ActionPopover>
+        <ActionPopoverItem icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+      </ActionPopover>
+      <ActionPopover>
+        <ActionPopoverItem
+          icon="csv"
+          submenu={submenuWithIcons}
+          onClick={() => {}}
+        >
+          Download CSV
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -97,19 +95,17 @@ export const ActionPopoverComponentIcons: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem icon="email" onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height="250px">
+      <ActionPopover>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -117,19 +113,17 @@ export const ActionPopoverComponentDisabledItems: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem icon="email" disabled onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height="250px">
+      <ActionPopover>
+        <ActionPopoverItem icon="email" disabled onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -137,19 +131,17 @@ export const ActionPopoverComponentMenuRightAligned: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover rightAlignMenu>
-          <ActionPopoverItem icon="email" disabled onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height="250px">
+      <ActionPopover rightAlignMenu>
+        <ActionPopoverItem icon="email" disabled onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -157,15 +149,13 @@ export const ActionPopoverComponentContentAlignedRight: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover horizontalAlignment="right">
-          <ActionPopoverItem icon="email">Email Invoice</ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem icon="delete">Delete</ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height="250px">
+      <ActionPopover horizontalAlignment="right">
+        <ActionPopoverItem icon="email">Email Invoice</ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem icon="delete">Delete</ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -173,17 +163,13 @@ export const ActionPopoverComponentNoIcons: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height="250px">
+      <ActionPopover>
+        <ActionPopoverItem onClick={() => {}}>Email Invoice</ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -191,52 +177,50 @@ export const ActionPopoverComponentCustomMenuButton: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover
-          renderButton={({
-            tabIndex,
-            "data-element": dataElement,
-            ariaAttributes,
-          }) => (
-            <ActionPopoverMenuButton
-              buttonType="tertiary"
-              iconType="dropdown"
-              iconPosition="after"
-              size="small"
-              tabIndex={tabIndex}
-              data-element={dataElement}
-              ariaAttributes={ariaAttributes}
-            >
-              More
-            </ActionPopoverMenuButton>
-          )}
-        >
-          <ActionPopoverItem icon="email" onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-        <ActionPopover
-          renderButton={({ "data-element": dataElement }) => (
-            <Link onClick={() => {}} data-element={dataElement}>
-              More
-            </Link>
-          )}
-        >
-          <ActionPopoverItem icon="email" onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height="250px">
+      <ActionPopover
+        renderButton={({
+          tabIndex,
+          "data-element": dataElement,
+          ariaAttributes,
+        }) => (
+          <ActionPopoverMenuButton
+            buttonType="tertiary"
+            iconType="dropdown"
+            iconPosition="after"
+            size="small"
+            tabIndex={tabIndex}
+            data-element={dataElement}
+            ariaAttributes={ariaAttributes}
+          >
+            More
+          </ActionPopoverMenuButton>
+        )}
+      >
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+      <ActionPopover
+        renderButton={({ "data-element": dataElement }) => (
+          <Link onClick={() => {}} data-element={dataElement}>
+            More
+          </Link>
+        )}
+      >
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -244,28 +228,26 @@ export const ActionPopoverComponentSubmenu: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem
-            icon="print"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
-                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Print
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height="250px">
+      <ActionPopover>
+        <ActionPopoverItem
+          icon="print"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Print
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -273,29 +255,27 @@ export const ActionPopoverComponentDisabledSubmenu: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem
-            disabled
-            icon="print"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
-                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Print
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height="250px">
+      <ActionPopover>
+        <ActionPopoverItem
+          disabled
+          icon="print"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Print
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -303,32 +283,30 @@ export const ActionPopoverComponentSubmenuAlignedRight: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem
-            icon="print"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon="csv" onClick={() => {}}>
-                  CSV
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                  PDF
-                </ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Print
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height="250px">
+      <ActionPopover>
+        <ActionPopoverItem
+          icon="print"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem icon="csv" onClick={() => {}}>
+                CSV
+              </ActionPopoverItem>
+              <ActionPopoverItem icon="pdf" onClick={() => {}}>
+                PDF
+              </ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Print
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -336,28 +314,26 @@ export const ActionPopoverComponentMenuOpeningAbove: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ paddingTop: "120px", height: "250px" }}>
-      <Box>
-        <ActionPopover placement="top">
-          <ActionPopoverItem
-            icon="print"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
-                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Print
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box pt="120px" height="250px">
+      <ActionPopover placement="top">
+        <ActionPopoverItem
+          icon="print"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Print
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -365,25 +341,23 @@ export const ActionPopoverComponentKeyboardNavigation: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem icon="email" onClick={() => {}}>
-            Email Invoice
-          </ActionPopoverItem>
-          <ActionPopoverItem disabled icon="csv" onClick={() => {}}>
-            Download CSV
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="pdf" onClick={() => {}}>
-            Download PDF
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height="250px">
+      <ActionPopover>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem disabled icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="pdf" onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -391,48 +365,46 @@ export const ActionPopoverComponentKeyboardNaviationLeftAlignedSubmenu: Componen
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem
-            icon="csv"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon="csv" onClick={() => {}}>
-                  CSV
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                  PDF
-                </ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Download
-          </ActionPopoverItem>
-          <ActionPopoverItem
-            icon="pdf"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon="csv" onClick={() => {}}>
-                  CSV
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                  PDF
-                </ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Print
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height="250px">
+      <ActionPopover>
+        <ActionPopoverItem
+          icon="csv"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem icon="csv" onClick={() => {}}>
+                CSV
+              </ActionPopoverItem>
+              <ActionPopoverItem icon="pdf" onClick={() => {}}>
+                PDF
+              </ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Download
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          icon="pdf"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem icon="csv" onClick={() => {}}>
+                CSV
+              </ActionPopoverItem>
+              <ActionPopoverItem icon="pdf" onClick={() => {}}>
+                PDF
+              </ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Print
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -440,48 +412,46 @@ export const ActionPopoverComponentKeyboardNaviationRightAlignedSubmenu: Compone
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ height: "250px" }}>
-      <Box>
-        <ActionPopover>
-          <ActionPopoverItem
-            icon="csv"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon="csv" onClick={() => {}}>
-                  CSV
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                  PDF
-                </ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Download
-          </ActionPopoverItem>
-          <ActionPopoverItem
-            icon="pdf"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon="csv" onClick={() => {}}>
-                  CSV
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                  PDF
-                </ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Print
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </div>
+    <Box height="250px">
+      <ActionPopover>
+        <ActionPopoverItem
+          icon="csv"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem icon="csv" onClick={() => {}}>
+                CSV
+              </ActionPopoverItem>
+              <ActionPopoverItem icon="pdf" onClick={() => {}}>
+                PDF
+              </ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Download
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          icon="pdf"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem icon="csv" onClick={() => {}}>
+                CSV
+              </ActionPopoverItem>
+              <ActionPopoverItem icon="pdf" onClick={() => {}}>
+                PDF
+              </ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Print
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
 
@@ -489,9 +459,44 @@ export const ActionPopoverComponentAdditionalOptions: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (
-    <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
-      <Box>
-        <ActionPopover rightAlignMenu>
+    <Box mt="40px" height="275px" maxWidth="800px">
+      <ActionPopover rightAlignMenu>
+        <ActionPopoverItem onClick={() => {}}>Enroll Device</ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Assign Owner</ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}}>Manage Devices</ActionPopoverItem>
+      </ActionPopover>
+    </Box>
+  );
+};
+
+export const ActionPopoverComponentDownloadButton: ComponentStory<
+  typeof ActionPopover
+> = () => {
+  return (
+    <Box mt="40px" height="275px" maxWidth="800px">
+      <ActionPopover rightAlignMenu>
+        <ActionPopoverItem download icon="download" href="example-img.jpg">
+          Download
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="settings" onClick={() => {}}>
+          Assign Owner
+        </ActionPopoverItem>
+        <ActionPopoverItem disabled icon="download" href="example-img.jpg">
+          Download
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
+  );
+};
+
+export const ActionPopoverComponentInOverflowHiddenContainer: ComponentStory<
+  typeof ActionPopover
+> = () => {
+  return (
+    <Box mt="40px" height="275px" maxWidth="800px">
+      <Accordion title="Heading">
+        <ActionPopover>
           <ActionPopoverItem onClick={() => {}}>
             Enroll Device
           </ActionPopoverItem>
@@ -501,79 +506,28 @@ export const ActionPopoverComponentAdditionalOptions: ComponentStory<
             Manage Devices
           </ActionPopoverItem>
         </ActionPopover>
-      </Box>
-    </div>
-  );
-};
-
-export const ActionPopoverComponentDownloadButton: ComponentStory<
-  typeof ActionPopover
-> = () => {
-  return (
-    <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
-      <Box>
-        <ActionPopover rightAlignMenu>
-          <ActionPopoverItem download icon="download" href="example-img.jpg">
-            Download
+        <ActionPopover>
+          <ActionPopoverItem onClick={() => {}}>
+            Enroll Device
           </ActionPopoverItem>
-          <ActionPopoverItem icon="settings" onClick={() => {}}>
-            Assign Owner
-          </ActionPopoverItem>
-          <ActionPopoverItem disabled icon="download" href="example-img.jpg">
-            Download
+          <ActionPopoverItem onClick={() => {}}>Assign Owner</ActionPopoverItem>
+          <ActionPopoverDivider />
+          <ActionPopoverItem onClick={() => {}}>
+            Manage Devices
           </ActionPopoverItem>
         </ActionPopover>
-      </Box>
-    </div>
-  );
-};
-
-export const ActionPopoverComponentInOverflowHiddenContainer: ComponentStory<
-  typeof ActionPopover
-> = () => {
-  return (
-    <div style={{ marginTop: "40px", height: "275px", maxWidth: "800px" }}>
-      <Accordion title="Heading">
-        <Box>
-          <ActionPopover>
-            <ActionPopoverItem onClick={() => {}}>
-              Enroll Device
-            </ActionPopoverItem>
-            <ActionPopoverItem onClick={() => {}}>
-              Assign Owner
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}}>
-              Manage Devices
-            </ActionPopoverItem>
-          </ActionPopover>
-          <ActionPopover>
-            <ActionPopoverItem onClick={() => {}}>
-              Enroll Device
-            </ActionPopoverItem>
-            <ActionPopoverItem onClick={() => {}}>
-              Assign Owner
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}}>
-              Manage Devices
-            </ActionPopoverItem>
-          </ActionPopover>
-          <ActionPopover>
-            <ActionPopoverItem onClick={() => {}}>
-              Enroll Device
-            </ActionPopoverItem>
-            <ActionPopoverItem onClick={() => {}}>
-              Assign Owner
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}}>
-              Manage Devices
-            </ActionPopoverItem>
-          </ActionPopover>
-        </Box>
+        <ActionPopover>
+          <ActionPopoverItem onClick={() => {}}>
+            Enroll Device
+          </ActionPopoverItem>
+          <ActionPopoverItem onClick={() => {}}>Assign Owner</ActionPopoverItem>
+          <ActionPopoverDivider />
+          <ActionPopoverItem onClick={() => {}}>
+            Manage Devices
+          </ActionPopoverItem>
+        </ActionPopover>
       </Accordion>
-    </div>
+    </Box>
   );
 };
 
@@ -585,7 +539,7 @@ export const ActionPopoverComponentInFlatTable: ComponentStory<
     setHighlightedRow(id);
   };
   return (
-    <div style={{ paddingTop: "120px", height: "250px" }}>
+    <Box pt="120px" height="250px">
       <FlatTable>
         <FlatTableHead>
           <FlatTableRow>
@@ -668,7 +622,7 @@ export const ActionPopoverComponentInFlatTable: ComponentStory<
           </FlatTableRow>
         </FlatTableBody>
       </FlatTable>
-    </div>
+    </Box>
   );
 };
 
@@ -679,27 +633,25 @@ export const ActionPopoverComponentOpeningAModal: ComponentStory<
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <Box>
-        <ActionPopover
-          renderButton={({ ...props }) => (
-            <ActionPopoverMenuButton {...props}>
-              Open Actions
-            </ActionPopoverMenuButton>
-          )}
+      <ActionPopover
+        renderButton={({ ...props }) => (
+          <ActionPopoverMenuButton {...props}>
+            Open Actions
+          </ActionPopoverMenuButton>
+        )}
+      >
+        <ActionPopoverItem
+          onClick={() => {
+            setIsOpen(!isOpen);
+            setIsConfirmOpen(isConfirmOpen);
+          }}
         >
-          <ActionPopoverItem
-            onClick={() => {
-              setIsOpen(!isOpen);
-              setIsConfirmOpen(isConfirmOpen);
-            }}
-          >
-            Open Confirm Dialog
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="settings" onClick={() => {}}>
-            Do Nothing
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
+          Open Confirm Dialog
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="settings" onClick={() => {}}>
+          Do Nothing
+        </ActionPopoverItem>
+      </ActionPopover>
       <Confirm
         title="Are you sure?"
         subtitle="Subtitle"
