@@ -72,7 +72,7 @@ const AdvancedColorPicker = ({
             e.preventDefault();
           }
         } else if (document.activeElement === selectedColorRef) {
-        /* istanbul ignore else */
+          /* istanbul ignore else */
           firstFocusableElement.focus();
           e.preventDefault();
         }
