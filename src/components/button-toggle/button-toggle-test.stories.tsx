@@ -2,6 +2,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 
 import ButtonToggle from ".";
+import ButtonToggleGroup from "../button-toggle-group";
 
 export default {
   title: "Button Toggle/Test",
@@ -14,7 +15,7 @@ export default {
 };
 
 export const Default = ({ children, ...args }: { children: string }) => (
-  <div>
+  <ButtonToggleGroup id="button-toggle-group" name="button-toggle-group">
     <ButtonToggle
       name="new-button-toggle"
       key="button-toggle-1"
@@ -45,7 +46,7 @@ export const Default = ({ children, ...args }: { children: string }) => (
     >
       {children}
     </ButtonToggle>
-  </div>
+  </ButtonToggleGroup>
 );
 
 Default.storyName = "default";
