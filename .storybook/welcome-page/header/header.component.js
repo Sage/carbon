@@ -15,11 +15,11 @@ const Header = () => (
         <div>
           <h1>
             Carbon is a library of React components for building great web
-            applications.
+            applications
           </h1>
           <h2>
-            Carbon is Open Source. It’s hosted, developed, and maintained on
-            Github.
+            Carbon is open source. It's hosted, developed, and maintained on
+            GitHub.
           </h2>
         </div>
         <CodeButtonWrapper>

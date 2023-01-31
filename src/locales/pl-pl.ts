@@ -59,6 +59,12 @@ const plPL: Locale = {
   heading: {
     backLinkAriaLabel: () => "Wstecz",
   },
+  link: {
+    skipLinkLabel: () => "Przejdź do treści",
+  },
+  loader: {
+    loading: () => "Ładowanie",
+  },
   message: {
     closeButtonAriaLabel: () => "Zamknij",
   },
@@ -93,9 +99,6 @@ const plPL: Locale = {
     placeholder: () => "Proszę wybierz...",
     noResultsForTerm: (term) => `Brak wyników dla "${term}"`,
   },
-  link: {
-    skipLinkLabel: () => "Przejdź do treści",
-  },
   sidebar: {
     ariaLabels: {
       close: () => "Zamknij",
@@ -123,6 +126,11 @@ const plPL: Locale = {
     deselect: () => "Odznacz",
   },
   toast: {
+    ariaLabels: {
+      close: () => "Zamknij",
+    },
+  },
+  verticalMenuFullScreen: {
     ariaLabels: {
       close: () => "Zamknij",
     },

@@ -59,6 +59,12 @@ const enGB: Locale = {
   heading: {
     backLinkAriaLabel: () => "Back",
   },
+  link: {
+    skipLinkLabel: () => "Skip to main content",
+  },
+  loader: {
+    loading: () => "Loading",
+  },
   message: {
     closeButtonAriaLabel: () => "Close",
   },
@@ -93,9 +99,6 @@ const enGB: Locale = {
     placeholder: () => "Please Select...",
     noResultsForTerm: (term) => `No results for "${term}"`,
   },
-  link: {
-    skipLinkLabel: () => "Skip to main content",
-  },
   sidebar: {
     ariaLabels: {
       close: () => "Close",
@@ -123,6 +126,11 @@ const enGB: Locale = {
     deselect: () => "Deselect",
   },
   toast: {
+    ariaLabels: {
+      close: () => "Close",
+    },
+  },
+  verticalMenuFullScreen: {
     ariaLabels: {
       close: () => "Close",
     },

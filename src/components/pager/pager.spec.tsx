@@ -159,6 +159,46 @@ describe("Pager", () => {
       expect(navLinks.last().find("button").text()).toEqual("Next");
     });
 
+    it("when current page is 1 and hideDisabledElements is true, first set of pager links are hidden", () => {
+      wrapper = getWrapper({ hideDisabledElements: true, currentPage: 1 });
+
+      assertStyleMatch(
+        {
+          visibility: "hidden",
+        },
+        wrapper.find(StyledPagerLink).first()
+      );
+    });
+
+    it("when current page is 10 and hideDisabledElements is true, second set of pager links are hidden", () => {
+      wrapper = getWrapper({ hideDisabledElements: true, currentPage: 10 });
+
+      assertStyleMatch(
+        {
+          visibility: "hidden",
+        },
+        wrapper.find(StyledPagerLink).at(2)
+      );
+    });
+
+    it("when current page is between 1-10 and hideDisabledElements is true, both sets of pager links are displayed as normal", () => {
+      wrapper = getWrapper({ hideDisabledElements: true, currentPage: 7 });
+
+      assertStyleMatch(
+        {
+          visibility: undefined,
+        },
+        wrapper.find(StyledPagerLink).first()
+      );
+
+      assertStyleMatch(
+        {
+          visibility: undefined,
+        },
+        wrapper.find(StyledPagerLink).at(2)
+      );
+    });
+
     it("changes page correctly on clicking first link", () => {
       wrapper = getWrapper({ currentPage: 10 });
       const navLinks = wrapper.find(StyledPagerLink);
