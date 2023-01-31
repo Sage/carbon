@@ -26,9 +26,9 @@ import {
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/496ff6-anchor-navigation/b/285c84"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 Easily navigate through long scrollable content.
@@ -43,7 +43,7 @@ Easily navigate through long scrollable content.
 
 To use `AnchorNavigation` import `AnchorNavigation`, `AnchorNavigationItem` and `AnchorSectionDivider` from Carbon.
 
-```javascript
+```typescript
 import {
   AnchorNavigation,
   AnchorNavigationItem,
@@ -62,40 +62,36 @@ import {
 
 - **It is necessary to maintain `stickyNavigation` prop structure as shown below**
 
-```javascript
-const MyComponent = () => (
-  const ref1 = React.createRef();
-  const ref2 = React.createRef();
-  const ref3 = React.createRef();
+```typescript
+const MyComponent = () => {
+  const ref1 = React.useRef<HTMLDivElement>(null);
+  const ref2 = React.useRef<HTMLDivElement>(null);
+  const ref3 = React.useRef<HTMLDivElement>(null);
 
-  <AnchorNavigation
-    stickyNavigation={
-      <>
-        <AnchorNavigationItem target={ ref1 }>
-          First
-        </AnchorNavigationItem>
-        <AnchorNavigationItem target={ ref2 }>
-          Second
-        </AnchorNavigationItem>
-        <AnchorNavigationItem target={ ref3 }>
-          Third
-        </AnchorNavigationItem>
-      </>
-    }
-  >
-    <div ref={ ref1 }>
-      <h2>Section 1</h2>
-    </div>
-    <AnchorSectionDivider />
-    <div ref={ ref2 }>
-      <h2>Section 2</h2>
-    </div>
-    <AnchorSectionDivider />
-    <div ref={ ref3 }>
-      <h2>Section 3</h2>
-    </div>
-  </AnchorNavigation>
-);
+  return (
+    <AnchorNavigation
+      stickyNavigation={
+        <>
+          <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
+          <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
+          <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
+        </>
+      }
+    >
+      <Box ref={ref1}>
+        <Typography variant="h2">Section 1</Typography>
+      </Box>
+      <AnchorSectionDivider />
+      <Box ref={ref2}>
+        <Typography variant="h2">Section 2</Typography>
+      </Box>
+      <AnchorSectionDivider />
+      <Box ref={ref3}>
+        <Typography variant="h2">Section 3</Typography>
+      </Box>
+    </AnchorNavigation>
+  );
+};
 ```
 
 ## Examples

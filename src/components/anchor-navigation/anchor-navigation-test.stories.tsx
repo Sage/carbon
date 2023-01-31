@@ -10,6 +10,8 @@ import {
   AnchorSectionDivider,
   AnchorNavigationItem,
 } from ".";
+import Box from "../box";
+import Typography from "../typography";
 
 export default {
   component: AnchorNavigation,
@@ -27,18 +29,28 @@ interface ContentProps {
   noTextbox?: boolean;
 }
 const Content = ({ title, noTextbox }: ContentProps) => (
-  <>
-    <div>
-      <h2>{title}</h2>
-      {!noTextbox && <Textbox label={title} />}
-      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
-      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
-      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
-      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
-      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
-      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
-    </div>
-  </>
+  <Box>
+    <Typography variant="h2">{title}</Typography>
+    {!noTextbox && <Textbox label={title} />}
+    <Box mt="30px" mb="30px">
+      Content
+    </Box>
+    <Box mt="30px" mb="30px">
+      Content
+    </Box>
+    <Box mt="30px" mb="30px">
+      Content
+    </Box>
+    <Box mt="30px" mb="30px">
+      Content
+    </Box>
+    <Box mt="30px" mb="30px">
+      Content
+    </Box>
+    <Box mt="30px" mb="30px">
+      Content
+    </Box>
+  </Box>
 );
 
 export const DefaultStory: ComponentStory<typeof AnchorNavigation> = () => {
@@ -61,25 +73,25 @@ export const DefaultStory: ComponentStory<typeof AnchorNavigation> = () => {
         </>
       }
     >
-      <div ref={ref1}>
+      <Box ref={ref1}>
         <Content title="First section" />
-      </div>
+      </Box>
       <AnchorSectionDivider />
-      <div ref={ref2}>
+      <Box ref={ref2}>
         <Content title="Second section" />
-      </div>
+      </Box>
       <AnchorSectionDivider />
-      <div ref={ref3}>
+      <Box ref={ref3}>
         <Content noTextbox title="Third section" />
-      </div>
+      </Box>
       <AnchorSectionDivider />
-      <div ref={ref4}>
+      <Box ref={ref4}>
         <Content title="Fourth section" />
-      </div>
+      </Box>
       <AnchorSectionDivider />
-      <div ref={ref5}>
+      <Box ref={ref5}>
         <Content title="Fifth section" />
-      </div>
+      </Box>
     </AnchorNavigation>
   );
 };
@@ -116,25 +128,25 @@ export const InFullScreenDialogStory: ComponentStory<
             </>
           }
         >
-          <div ref={ref1}>
+          <Box ref={ref1}>
             <Content title="First section" />
-          </div>
+          </Box>
           <AnchorSectionDivider />
-          <div ref={ref2}>
+          <Box ref={ref2}>
             <Content title="Second section" />
-          </div>
+          </Box>
           <AnchorSectionDivider />
-          <div ref={ref3}>
+          <Box ref={ref3}>
             <Content noTextbox title="Third section" />
-          </div>
+          </Box>
           <AnchorSectionDivider />
-          <div ref={ref4}>
+          <Box ref={ref4}>
             <Content title="Fourth section" />
-          </div>
+          </Box>
           <AnchorSectionDivider />
-          <div ref={ref5}>
+          <Box ref={ref5}>
             <Content title="Fifth section" />
-          </div>
+          </Box>
         </AnchorNavigation>
       </DialogFullScreen>
     </>
@@ -162,25 +174,25 @@ export const AnchorNavigationComponent = () => {
         </>
       }
     >
-      <div ref={ref1}>
+      <Box ref={ref1}>
         <Content title="First section" />
-      </div>
+      </Box>
       <AnchorSectionDivider />
-      <div ref={ref2}>
+      <Box ref={ref2}>
         <Content title="Second section" />
-      </div>
+      </Box>
       <AnchorSectionDivider />
-      <div ref={ref3}>
+      <Box ref={ref3}>
         <Content noTextbox title="Third section" />
-      </div>
+      </Box>
       <AnchorSectionDivider />
-      <div ref={ref4}>
+      <Box ref={ref4}>
         <Content title="Fourth section" />
-      </div>
+      </Box>
       <AnchorSectionDivider />
-      <div ref={ref5}>
+      <Box ref={ref5}>
         <Content title="Fifth section" />
-      </div>
+      </Box>
     </AnchorNavigation>
   );
 };
