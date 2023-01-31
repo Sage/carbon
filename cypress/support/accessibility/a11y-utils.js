@@ -67,6 +67,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("dialog-full-screen") &&
       !prepareUrl[0].startsWith("verticalmenu") &&
       !prepareUrl[0].startsWith("message") &&
+      !prepareUrl[0].startsWith("card") &&
       !prepareUrl[0].startsWith("date-input") &&
       !prepareUrl[0].endsWith("test")
     ) {

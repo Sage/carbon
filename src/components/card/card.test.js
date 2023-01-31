@@ -1,15 +1,25 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { Card, CardRow, CardFooter, CardColumn } from ".";
-
+import React from "react";
+import { Card } from ".";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-import Link from "../link";
-import Heading from "../heading";
-import Typography from "../typography";
-import Icon from "../icon";
-import Box from "../box";
+import {
+  CardComponent,
+  DraggableExample,
+  CardTextAlignment,
+} from "./card-test.stories";
+import {
+  SmallSpacing,
+  LargeSpacing,
+  WithCardWidthProvided,
+  WithCustomHeight,
+  Interactive,
+  WithCustomBoxShadow,
+  DifferentCardRowPadding,
+  DifferentCardFooterPadding,
+  MoreExamplesOfCardFooter,
+  WithStringAsChild,
+  WithDraggable,
+} from "./card.stories.tsx";
 import {
   card,
   draggableCard,
@@ -28,198 +38,6 @@ import { cyRoot } from "../../../cypress/locators";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const textAlignment = ["center", "left", "right"];
-
-const CardComponent = ({ ...props }) => {
-  return (
-    <Card {...props}>
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Stripe - [account name]" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            user.name@sage.com
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
-          <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} weight="bold">
-            Stripe Balance
-          </Typography>
-          <Heading title="£ 0.00" divider={false} />
-          <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
-        </CardColumn>
-      </CardRow>
-      <CardFooter>
-        <CardColumn>
-          <Link icon="link" href="https://carbon.sage.com/">
-            View Stripe Dashboard
-          </Link>
-        </CardColumn>
-      </CardFooter>
-    </Card>
-  );
-};
-
-const DraggableExample = () => {
-  const columnNames = {
-    PRODUCT_ONE: "Product One",
-    PRODUCT_TWO: "Product Two",
-  };
-
-  const ITEM_TYPE = "Card";
-
-  const MovableItem = ({ "data-element": dataElement, name, changeColumn }) => {
-    const [{ isDragging }, drag] = useDrag({
-      type: ITEM_TYPE,
-      item: { name },
-      collect: (monitor) => ({
-        isDragging: monitor.isDragging(),
-      }),
-      end: (_, monitor) => {
-        const dropResult = monitor.getDropResult();
-        if (!dropResult) return;
-        changeColumn(dropResult.column);
-      },
-    });
-
-    return (
-      <Box
-        ref={drag}
-        opacity={isDragging ? 0.4 : 1}
-        width="80%"
-        height="100px"
-        margin="16px auto"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Card draggable data-element={dataElement}>
-          <CardRow pt={0}>
-            <CardColumn align="left">
-              <Heading title={name} divider={false} />
-              <Typography>user.name@sage.com</Typography>
-            </CardColumn>
-            <CardColumn align="right">
-              <Icon type="image" />
-            </CardColumn>
-          </CardRow>
-        </Card>
-      </Box>
-    );
-  };
-
-  const Column = ({ "data-element": dataElement, children, title }) => {
-    const [{ isOver }, drop] = useDrop({
-      accept: ITEM_TYPE,
-      drop: () => ({ column: title }),
-      collect: (monitor) => ({
-        isOver: monitor.isOver(),
-      }),
-    });
-
-    return (
-      <Box
-        ref={drop}
-        backgroundColor={
-          isOver
-            ? "var(--colorsActionMajor500)"
-            : "var(--colorsUtilityMajor075)"
-        }
-        data-element={dataElement}
-        height="max-content"
-        minHeight="100px"
-        width="260px"
-        display="flex"
-        justifyContent="center"
-        flexWrap="wrap"
-        m={2}
-        py={2}
-      >
-        <Typography
-          variant="b"
-          color={isOver ? "var(--colorsGray000)" : undefined}
-        >
-          {title}
-        </Typography>
-        {children}
-      </Box>
-    );
-  };
-
-  const [cards, setCards] = useState([
-    { id: 0, name: "Item 1", column: columnNames.PRODUCT_ONE },
-    { id: 1, name: "Item 2", column: columnNames.PRODUCT_ONE },
-    { id: 2, name: "Item 3", column: columnNames.PRODUCT_TWO },
-    { id: 3, name: "Item 4", column: columnNames.PRODUCT_ONE },
-  ]);
-
-  const changeItemColumn = (id, column) => {
-    setCards((prevState) =>
-      prevState.map((c) => ({
-        ...c,
-        column: c.id === id ? column : c.column,
-      }))
-    );
-  };
-
-  const returnColumnItems = (column) =>
-    cards
-      .filter((c) => c.column === column)
-      .map(({ id, name }) => (
-        <MovableItem
-          key={id}
-          name={name}
-          changeColumn={(newColumn) => changeItemColumn(id, newColumn)}
-          data-element={`draggable-card-${id}`}
-        />
-      ));
-
-  return (
-    <Box width="700px" height="450px">
-      <Box
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-      >
-        <DndProvider backend={HTML5Backend}>
-          <Column
-            title={columnNames.PRODUCT_ONE}
-            data-element="draggable-container-1"
-          >
-            {returnColumnItems(columnNames.PRODUCT_ONE)}
-          </Column>
-          <Column
-            title={columnNames.PRODUCT_TWO}
-            data-element="draggable-container-2"
-          >
-            {returnColumnItems(columnNames.PRODUCT_TWO)}
-          </Column>
-        </DndProvider>
-      </Box>
-    </Box>
-  );
-};
-
-const CardTextAlignment = ({ ...props }) => {
-  return (
-    <Card>
-      <CardRow>
-        <CardColumn {...props}>
-          <Typography fontSize="16px" m={0} weight="bold">
-            Stripe Balance
-          </Typography>
-          <Heading title="£ 0.00" divider={false} />
-          <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
-        </CardColumn>
-      </CardRow>
-    </Card>
-  );
-};
 
 context("Tests for Card component", () => {
   describe("should check Card component properties", () => {
@@ -366,6 +184,80 @@ context("Tests for Card component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(setClickCounter).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("Accessibility tests for Card component", () => {
+    it("should pass accessibility tests for Card default story", () => {
+      CypressMountWithProviders(<CardComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Card with small spacing", () => {
+      CypressMountWithProviders(<SmallSpacing />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Card with large spacing", () => {
+      CypressMountWithProviders(<LargeSpacing />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Card with width provided", () => {
+      CypressMountWithProviders(<WithCardWidthProvided />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Card with custom height", () => {
+      CypressMountWithProviders(<WithCustomHeight />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for interactive Card", () => {
+      CypressMountWithProviders(<Interactive />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Card with custom box shadow", () => {
+      CypressMountWithProviders(<WithCustomBoxShadow />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Card with different card row padding", () => {
+      CypressMountWithProviders(<DifferentCardRowPadding />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Card with different card footer padding", () => {
+      CypressMountWithProviders(<DifferentCardFooterPadding />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Card with more examples of footer", () => {
+      CypressMountWithProviders(<MoreExamplesOfCardFooter />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Card with string as a child", () => {
+      CypressMountWithProviders(<WithStringAsChild />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for draggable Card", () => {
+      CypressMountWithProviders(<WithDraggable />);
+
+      cy.checkAccessibility();
     });
   });
 });
