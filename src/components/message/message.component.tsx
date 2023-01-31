@@ -61,7 +61,7 @@ export const Message = ({
       <IconButton
         data-element="close"
         aria-label={closeButtonAriaLabel || l.message.closeButtonAriaLabel()}
-        onAction={onDismiss}
+        onClick={onDismiss}
       >
         <Icon type="close" />
       </IconButton>

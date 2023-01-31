@@ -135,7 +135,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         <IconButton
           aria-label={locale.toast.ariaLabels.close()}
           data-element="close"
-          onAction={onDismiss}
+          onClick={onDismiss}
           ref={closeIconRef}
         >
           <Icon type="close" />

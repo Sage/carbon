@@ -138,7 +138,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       return (
         <IconButton
           aria-label={locale.sidebar.ariaLabels.close()}
-          onAction={onCancel}
+          onClick={onCancel}
           data-element="close"
         >
           <Icon type="close" />

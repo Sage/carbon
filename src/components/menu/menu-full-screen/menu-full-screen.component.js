@@ -67,7 +67,7 @@ const MenuFullscreen = ({
             >
               <IconButton
                 aria-label="menu fullscreen close button"
-                onAction={onClose}
+                onClick={onClose}
                 data-element="close"
               >
                 <Icon type="close" color={iconColors[menuType]} />
