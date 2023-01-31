@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { ComponentStory, StoryFn } from "@storybook/react";
 
 import Decimal, { DecimalProps, CustomEvent } from ".";
+
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import Box from "../box";
 
 export const DefaultStory: ComponentStory<typeof Decimal> = (args) => {
   const [state, setState] = useState("0.01");
@@ -129,7 +131,7 @@ export const Validations: StoryFn = (
   return (
     <>
       {(["error", "warning", "info"] as const).map((validationType) => (
-        <div key={`${validationType}`}>
+        <Box key={`${validationType}`}>
           <Decimal
             label="Decimal"
             value={state[validationType]}
@@ -146,7 +148,7 @@ export const Validations: StoryFn = (
             mb={2}
             {...args}
           />
-        </div>
+        </Box>
       ))}
     </>
   );
@@ -180,7 +182,7 @@ export const ValidationsRedesign = () => {
     <CarbonProvider validationRedesignOptIn>
       {(["error", "warning"] as const).map((validationType) =>
         (["small", "medium", "large"] as const).map((size) => (
-          <div style={{ width: "296px" }} key={`${size}-${validationType}`}>
+          <Box width="296px" key={`${size}-${validationType}`}>
             <Decimal
               label={`${size} - ${validationType}`}
               value={state[validationType]}
@@ -197,7 +199,7 @@ export const ValidationsRedesign = () => {
               {...{ [validationType]: "Message" }}
               m={4}
             />
-          </div>
+          </Box>
         ))
       )}
     </CarbonProvider>
@@ -216,7 +218,7 @@ export const ValidationsTooltip: ComponentStory<typeof Decimal> = (args) => {
   return (
     <>
       {(["error", "warning", "info"] as const).map((validationType) => (
-        <div key={`${validationType}`}>
+        <Box key={`${validationType}`}>
           <Decimal
             label="Decimal"
             value={state[validationType]}
@@ -226,7 +228,7 @@ export const ValidationsTooltip: ComponentStory<typeof Decimal> = (args) => {
             tooltipPosition="bottom"
             {...args}
           />
-        </div>
+        </Box>
       ))}
     </>
   );

@@ -9,7 +9,9 @@ import {
   getCommonTextboxArgs,
   getCommonTextboxArgsWithSpecialCaracters,
 } from "../textbox/textbox-test.stories";
+
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import Typography from "../typography";
 
 export default {
   title: "Decimal Input/Test",
@@ -155,11 +157,14 @@ export const DecimalCustomOnChangeStory = (args: CommonTextboxArgs) => {
     setState(newValue);
   };
   return (
-    <div>
-      If you try to type `22.222`, the onChange should block the last `2` from
-      being entered and you should see `22.22` in the textbox. The recommended
-      approach for manipulating input values is to use validation. However, it
-      is also possible to manipulate this via the onChange function like so:
+    <>
+      <Typography>
+        If you try to type `22.222`, the onChange should block the last `2` from
+        being entered and you should see `22.22` in the textbox. The recommended
+        approach for manipulating input values is to use validation. However, it
+        is also possible to manipulate this via the onChange function like the
+        following
+      </Typography>
       <Decimal
         mt={2}
         value={state}
@@ -167,7 +172,7 @@ export const DecimalCustomOnChangeStory = (args: CommonTextboxArgs) => {
         onBlur={action("onBlur")}
         {...getCommonTextboxArgsWithSpecialCaracters(args)}
       />
-    </div>
+    </>
   );
 };
 DecimalCustomOnChangeStory.storyName = "custom onChange";
