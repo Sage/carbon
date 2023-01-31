@@ -18,9 +18,9 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/11ef00-date-picker"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 - If the date is likely to be close to today (e.g. an invoice due date), then a datepicker may be useful. If the date is likely to be far in the past (e.g. a date of birth), then it may be better to use separate inputs for day, month, and year or use a NumeralDate component.
@@ -93,6 +93,8 @@ be used to set the input value like in the example below, although the component
 
 ### AutoFocus
 
+Automatically focus on `DateInput` when it is first rendered.
+
 <Canvas>
   <Story
     name="autoFocus"
@@ -100,6 +102,13 @@ be used to set the input value like in the example below, although the component
       themeProvider: { chromatic: { fourColumnLayout: true } },
       chromatic: { viewports: [1800] },
     }}
+    decorators={[
+      (Story) => (
+        <div style={{ height: 450, width: 450 }}>
+          <Story />
+        </div>
+      ),
+    ]}
   >
     {() => {
       const [state, setState] = useState("01/10/2016");
@@ -107,9 +116,7 @@ be used to set the input value like in the example below, although the component
         setState(target.value.formattedValue);
       };
       return (
-        <div style={{ height: 450, width: 450 }}>
-          <DateInput label="Date" value={state} onChange={setValue} autoFocus />
-        </div>
+        <DateInput label="Date" value={state} onChange={setValue} autoFocus />
       );
     }}
   </Story>
@@ -332,7 +339,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
         setState2(target.value.formattedValue);
       };
       return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
+        <Box key={`${validationType}-string-component`}>
           <DateInput
             label="Date"
             value={state1}
@@ -348,7 +355,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
             {...{ [validationType]: "Message" }}
             mb={2}
           />
-        </div>
+        </Box>
       ));
     }}
   </Story>
@@ -367,7 +374,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
         setState(target.value.formattedValue);
       };
       return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
+        <Box key={`${validationType}-string-component`}>
           <DateInput
             label="Date"
             value={state}
@@ -376,7 +383,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
             mb={2}
             tooltipPosition="top"
           />
-        </div>
+        </Box>
       ));
     }}
   </Story>
@@ -396,7 +403,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
         setState2(target.value.formattedValue);
       };
       return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
+        <Box key={`${validationType}-string-label`}>
           <DateInput
             label="Date"
             value={state1}
@@ -414,7 +421,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
             {...{ [validationType]: "Message" }}
             mb={2}
           />
-        </div>
+        </Box>
       ));
     }}
   </Story>
@@ -433,7 +440,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
         setState(target.value.formattedValue);
       };
       return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
+        <Box key={`${validationType}-string-component`}>
           <DateInput
             label="Date"
             value={state}
@@ -443,7 +450,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
             mb={2}
             tooltipPosition="top"
           />
-        </div>
+        </Box>
       ));
     }}
   </Story>
@@ -466,10 +473,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
         <CarbonProvider validationRedesignOptIn>
           {["error", "warning"].map((validationType) =>
             ["small", "medium", "large"].map((size) => (
-              <div
-                style={{ width: "296px" }}
-                key={`${size}-${validationType}-string-label`}
-              >
+              <Box width="296px" key={`${size}-${validationType}-string-label`}>
                 <DateInput
                   label={`${size} - ${validationType}`}
                   value={state1}
@@ -489,7 +493,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
                   {...{ [validationType]: "Message" }}
                   m={4}
                 />
-              </div>
+              </Box>
             ))
           )}
         </CarbonProvider>
@@ -512,7 +516,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
         setState2(target.value.formattedValue);
       };
       return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-boolean-component`}>
+        <Box key={`${validationType}-boolean-component`}>
           <DateInput
             label="Date"
             value={state1}
@@ -526,7 +530,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
             readOnly
             {...{ [validationType]: true }}
           />
-        </div>
+        </Box>
       ));
     }}
   </Story>
@@ -558,7 +562,7 @@ The example below will display an error if an invalid date or a date with a year
         }
       };
       return (
-        <div>
+        <Box>
           <DateInput
             label="Date"
             value={state}
@@ -571,7 +575,7 @@ The example below will display an error if an invalid date or a date with a year
               validationState.includes("Warning") ? validationState : undefined
             }
           />
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -597,7 +601,7 @@ the German (`de`) locale whilst the second is for a Chinese (`zh-CN`) locale. Re
         setState2(target.value.formattedValue);
       };
       return (
-        <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <Box display="flex" justifyContent="space-around">
           <I18nProvider
             locale={{
               locale: () => "de-DE",
@@ -622,7 +626,7 @@ the German (`de`) locale whilst the second is for a Chinese (`zh-CN`) locale. Re
               onChange={handleChange2}
             />
           </I18nProvider>
-        </div>
+        </Box>
       );
     }}
   </Story>
