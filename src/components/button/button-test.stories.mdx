@@ -9,6 +9,8 @@ import {
   BUTTON_VARIANTS,
 } from "./button.config";
 
+import Box from "../box";
+
 <Meta
   title="Button/Test"
   parameters={{
@@ -64,11 +66,7 @@ export const commonArgs = {
   iconPosition: "before",
 };
 
-export const ButtonStory = ({
-  subtext,
-  children,
-  ...args
-}) => (
+export const ButtonStory = ({ subtext, children, ...args }) => (
   <Button
     onClick={action("click")}
     subtext={subtext}
@@ -77,13 +75,9 @@ export const ButtonStory = ({
   />
 );
 
-export const ButtonAsASiblingStory = ({
-  subtext,
-  children,
-  ...args
-}) => {
+export const ButtonAsASiblingStory = ({ subtext, children, ...args }) => {
   return (
-    <div>
+    <Box>
       <Button
         subtext={subtext}
         children={children}
@@ -97,7 +91,7 @@ export const ButtonAsASiblingStory = ({
         onClick={action("click")}
         ml={2}
       />
-    </div>
+    </Box>
   );
 };
 
@@ -107,7 +101,7 @@ export const generateButtons = (buttonType, iconPosition) => {
       {["", "bin"].map((iconType) => {
         const props = { iconPosition, buttonType, iconType };
         return (
-          <div key={`${buttonType}-${iconPosition}-${iconType}`}>
+          <Box key={`${buttonType}-${iconPosition}-${iconType}`}>
             {BUTTON_SIZES.map((size) => (
               <React.Fragment
                 key={`${buttonType}-${iconPosition}-${iconType}-${size}`}
@@ -170,7 +164,7 @@ export const generateButtons = (buttonType, iconPosition) => {
                 )}
               </React.Fragment>
             ))}
-          </div>
+          </Box>
         );
       })}
     </>
@@ -183,7 +177,7 @@ export const NoWrapButtonsStory = ({ noWrap }) => {
       {BUTTON_VARIANTS.map((buttonType) => {
         return BUTTON_SIZES.map((size) => {
           return (
-            <div style={{ width: 100 }}>
+            <Box width="100px">
               <Button buttonType={buttonType} noWrap={noWrap} size={size}>
                 Long button text
               </Button>
@@ -223,7 +217,7 @@ export const NoWrapButtonsStory = ({ noWrap }) => {
               >
                 Long button text
               </Button>
-            </div>
+            </Box>
           );
         });
       })}
@@ -238,14 +232,14 @@ export const IconOnlyButtonsStory = () => {
       {BUTTON_VARIANTS.map((buttonType) => {
         return BUTTON_SIZES.map((size) => {
           return (
-            <div style={{ width: 100 }}>
+            <Box width="100px">
               <Button
                 buttonType={buttonType}
                 size={size}
                 iconType={binIcon}
                 aria-label={binIcon}
               />
-            </div>
+            </Box>
           );
         });
       })}
