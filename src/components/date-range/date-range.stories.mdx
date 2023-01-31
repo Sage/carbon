@@ -15,9 +15,9 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/4122f0-date-range"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 Captures a start and end date.
@@ -234,8 +234,8 @@ It is possible to use the `tooltipPosition` to override the default placement of
 
 #### New designs validation
 
-Longer validation strings that would exceed the input width will wrap to a new line. Inputs 
-should remain aligned but labels may no longer be when a string wraps. Label text that would 
+Longer validation strings that would exceed the input width will wrap to a new line. Inputs
+should remain aligned but labels may no longer be when a string wraps. Label text that would
 exceed the input widht will also wrap to a new line.
 
 <Canvas>
@@ -252,8 +252,14 @@ exceed the input widht will also wrap to a new line.
       return (
         <CarbonProvider validationRedesignOptIn>
           {[
-            { startError: "Start error with long text string", endError: "End error" },
-            { startWarning: "Start warning", endWarning: "End warning with long text string" },
+            {
+              startError: "Start error with long text string",
+              endError: "End error",
+            },
+            {
+              startWarning: "Start warning",
+              endWarning: "End warning with long text string",
+            },
           ].map((validation) => (
             <DateRange
               key={`${Object.keys(validation)[0]}-string-component`}
@@ -355,21 +361,19 @@ the French locale. Required locales can be imported like so `import { fr } from 
         setState(newValue);
       };
       return (
-        <div>
-          <I18nProvider
-            locale={{
-              locale: () => "fr-FR",
-              date: { dateFnsLocale: () => fr },
-            }}
-          >
-            <DateRange
-              startLabel="Start"
-              endLabel="End"
-              value={state}
-              onChange={handleChange}
-            />
-          </I18nProvider>
-        </div>
+        <I18nProvider
+          locale={{
+            locale: () => "fr-FR",
+            date: { dateFnsLocale: () => fr },
+          }}
+        >
+          <DateRange
+            startLabel="Start"
+            endLabel="End"
+            value={state}
+            onChange={handleChange}
+          />
+        </I18nProvider>
       );
     }}
   </Story>
