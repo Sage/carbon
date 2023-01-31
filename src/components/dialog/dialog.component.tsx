@@ -153,8 +153,8 @@ export const Dialog = ({
       midPointY = TOP_MARGIN;
     }
 
-    if (midPointX < TOP_MARGIN) {
-      midPointX = TOP_MARGIN;
+    if (midPointX < 0) {
+      midPointX = 0;
     }
 
     dialogRef.current.style.top = `${midPointY}px`;

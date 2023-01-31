@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { MarginProps } from "styled-system";
 
-import SwitchStyle from "./switch.style";
+import StyledSwitch from "./switch.style";
 import CheckableInput, {
   CommonCheckableInputProps,
 } from "../../__internal__/checkable-input";
@@ -145,11 +145,11 @@ export const Switch = ({
       helpAriaLabel={helpAriaLabel}
       tooltipPosition={tooltipPosition}
     >
-      <SwitchStyle {...switchStyleProps}>
+      <StyledSwitch {...switchStyleProps}>
         <CheckableInput {...inputProps}>
           <SwitchSlider {...switchSliderProps} />
         </CheckableInput>
-      </SwitchStyle>
+      </StyledSwitch>
     </TooltipProvider>
   );
 };

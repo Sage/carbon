@@ -1,4 +1,5 @@
 import React from "react";
+import { EditorState } from "draft-js";
 import Dialog from "./dialog.component";
 import {
   dialogTitle,
@@ -7,6 +8,11 @@ import {
 } from "../../../cypress/locators/dialog";
 import Button from "../button";
 import Textbox from "../textbox";
+import TextEditor from "../text-editor";
+import {
+  textEditorInput,
+  textEditorToolbar,
+} from "../../../cypress/locators/text-editor";
 import { keyCode } from "../../../cypress/support/helper";
 import { buttonDataComponent } from "../../../cypress/locators/button";
 import {
@@ -67,6 +73,30 @@ const DialogComponentWithToast = () => {
       />
       <Dialog additionalWrapperRefs={[toastRef]} open>
         <Button onClick={() => setOpenToast(true)}>Open Toast</Button>
+      </Dialog>
+    </>
+  );
+};
+
+// eslint-disable-next-line react/prop-types
+const DialogComponentWithTextEditor = ({ children, ...props }) => {
+  const [isOpen, setIsOpen] = React.useState(true);
+  return (
+    <>
+      <Dialog
+        open={isOpen}
+        showCloseIcon
+        onCancel={() => setIsOpen(false)}
+        {...props}
+      >
+        <Textbox label="Textbox1" value="Textbox1" />
+        <Textbox label="Textbox2" value="Textbox2" />
+        <TextEditor
+          onChange={() => {}}
+          value={EditorState.createEmpty()}
+          labelText="Text Editor Label"
+        />
+        <Textbox label="Textbox3" value="Textbox3" />
       </Dialog>
     </>
   );
@@ -277,6 +307,22 @@ context("Testing Dialog component", () => {
       closeIconButton().should("be.focused");
     });
 
+    it("should render Dialog component and trap focus in it when text editor and other inputs are tabbed through", () => {
+      CypressMountWithProviders(<DialogComponentWithTextEditor />);
+      cy.get("body").tab();
+      closeIconButton().should("be.focused");
+      cy.get("body").tab();
+      getInput(0).should("be.focused");
+      cy.get("body").tab();
+      getInput(1).should("be.focused");
+      cy.get("body").tab();
+      textEditorInput().should("be.focused");
+      cy.get("body").tab();
+      textEditorToolbar("bold").should("be.focused");
+      cy.get("body").tab();
+      getInput(2).should("be.focused");
+    });
+
     it("should render Dialog component and trap focus in it when the inputs are back tabbed through", () => {
       CypressMountWithProviders(
         <DialogComponent focusFirstElement={undefined} />
@@ -293,6 +339,24 @@ context("Testing Dialog component", () => {
       buttonDataComponent().eq(1).should("be.focused");
       cy.get("body").tab({ shift: true });
       buttonDataComponent().eq(0).should("be.focused");
+      cy.get("body").tab({ shift: true });
+      closeIconButton().should("be.focused");
+    });
+
+    it("should render Dialog component and trap focus in it when the text editor and other inputs are back tabbed through", () => {
+      CypressMountWithProviders(<DialogComponentWithTextEditor />);
+      cy.get("body").tab();
+      closeIconButton().should("be.focused");
+      cy.get("body").tab({ shift: true });
+      getInput(2).should("be.focused");
+      cy.get("body").tab({ shift: true });
+      textEditorToolbar("bold").should("be.focused");
+      cy.get("body").tab({ shift: true });
+      textEditorInput().should("be.focused");
+      cy.get("body").tab({ shift: true });
+      getInput(1).should("be.focused");
+      cy.get("body").tab({ shift: true });
+      getInput(0).should("be.focused");
       cy.get("body").tab({ shift: true });
       closeIconButton().should("be.focused");
     });

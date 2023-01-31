@@ -29,6 +29,7 @@ const StyledSwitch = styled.div`
       box-sizing: border-box;
       height: 24px;
       width: 60px;
+      min-width: fit-content;
       flex-basis: 100%;
       margin-left: 0;
     }
@@ -139,6 +140,7 @@ const StyledSwitch = styled.div`
       ${StyledCheckableInput}, ${HiddenCheckableInputStyle}, ${StyledSwitchSlider} {
         height: 40px;
         width: 78px;
+        min-width: fit-content;
       }
 
       ${labelInline &&

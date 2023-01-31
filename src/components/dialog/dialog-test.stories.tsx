@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
+import { EditorState } from "draft-js";
+
 import Dialog, { DialogProps } from "./dialog.component";
 import Form from "../form";
 import Textbox from "../textbox";
@@ -7,6 +9,7 @@ import Button from "../button";
 import DateInput from "../date";
 import { Checkbox } from "../checkbox";
 import { Select, Option } from "../select";
+import TextEditor from "../text-editor";
 import { DIALOG_SIZES } from "./dialog.config";
 
 export default {
@@ -48,6 +51,10 @@ export const Default = ({
   const handleOpen = (evt: React.MouseEvent<HTMLElement>) => {
     setIsOpen(true);
     action("open")(evt);
+  };
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const handleEditorChange = (newState: EditorState) => {
+    setEditorState(newState);
   };
   const selectOptions = [
     {
@@ -137,6 +144,12 @@ export const Default = ({
             label="Pet's birthday"
             value={date}
             onChange={(e) => setDate(e.target.value.rawValue)}
+          />
+          <TextEditor
+            onChange={handleEditorChange}
+            value={editorState}
+            labelText="Additonal notes"
+            mb={1}
           />
           <Checkbox name="checkbox" label="Do you like my Dog" />
           <div>This is an example of a dialog with a Form as content</div>
