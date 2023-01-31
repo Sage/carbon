@@ -1,3 +1,40 @@
+## [114.7.0](https://github.com/Sage/carbon/compare/v114.6.1...v114.7.0) (2023-01-27)
+
+
+### Features
+
+* **loader-bar:** display loading message if reduced motion preference is detected ([0b2c0c1](https://github.com/Sage/carbon/commit/0b2c0c133eafb618c02ff22a523de40df4a02ede))
+* **loader:** add locale translation for loading message ([1b50d3b](https://github.com/Sage/carbon/commit/1b50d3b663537b0b4e825f0b666f19494ffffffb))
+* **loader:** display loading message if reduced motion preference is detected ([e9d2192](https://github.com/Sage/carbon/commit/e9d2192102d3f22ce605e6a27b4a418b39858750))
+
+### [114.6.1](https://github.com/Sage/carbon/compare/v114.6.0...v114.6.1) (2023-01-27)
+
+
+### Bug Fixes
+
+* **text-editor:** add tabIndex 0 to editor container and update types for value and onChange ([61ab635](https://github.com/Sage/carbon/commit/61ab635575f0b95f9e53366657e547e64f16b862)), closes [#5685](https://github.com/Sage/carbon/issues/5685)
+
+## [114.6.0](https://github.com/Sage/carbon/compare/v114.5.1...v114.6.0) (2023-01-26)
+
+
+### Features
+
+* add new VerticalMenu component ([819d65d](https://github.com/Sage/carbon/commit/819d65d077b4c28d216cf96f753b1fcc6ee96b61))
+
+### [114.5.1](https://github.com/Sage/carbon/compare/v114.5.0...v114.5.1) (2023-01-26)
+
+
+### Bug Fixes
+
+* **dialog:** remove left offset on small screens ([1b8d9ec](https://github.com/Sage/carbon/commit/1b8d9ecce0e4579de5c11a309819915992a4f633)), closes [#5549](https://github.com/Sage/carbon/issues/5549)
+
+## [114.5.0](https://github.com/Sage/carbon/compare/v114.4.0...v114.5.0) (2023-01-26)
+
+
+### Features
+
+* **icon:** 20 new icons added to the icon font ([5b343c9](https://github.com/Sage/carbon/commit/5b343c9814506a5bdfec1a005735ee172a4cc1ca))
+
 ## [114.4.0](https://github.com/Sage/carbon/compare/v114.3.0...v114.4.0) (2023-01-25)
 
 

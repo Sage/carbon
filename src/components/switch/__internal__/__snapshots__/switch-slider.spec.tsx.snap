@@ -34,6 +34,9 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   text-transform: uppercase;
   top: 0;
   width: 60px;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
   z-index: 2;
   border-radius: 90px;
   border-style: solid;
