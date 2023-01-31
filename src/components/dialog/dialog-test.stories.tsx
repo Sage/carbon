@@ -8,6 +8,8 @@ import DateInput from "../date";
 import { Checkbox } from "../checkbox";
 import { Select, Option } from "../select";
 import { DIALOG_SIZES } from "./dialog.config";
+import Box from "../box";
+import Typography from "../typography";
 
 export default {
   title: "Dialog/Test",
@@ -96,7 +98,7 @@ export const Default = ({
     },
   ];
   return (
-    <div>
+    <Box>
       <Button onClick={handleOpen}>Open Dialog</Button>
       <Dialog
         open={isOpen}
@@ -139,10 +141,12 @@ export const Default = ({
             onChange={(e) => setDate(e.target.value.rawValue)}
           />
           <Checkbox name="checkbox" label="Do you like my Dog" />
-          <div>This is an example of a dialog with a Form as content</div>
+          <Typography>
+            This is an example of a dialog with a Form as content
+          </Typography>
         </Form>
       </Dialog>
-    </div>
+    </Box>
   );
 };
 
