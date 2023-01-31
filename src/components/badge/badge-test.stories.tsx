@@ -2,7 +2,9 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 
 import Badge from "./badge.component";
+
 import Button from "../button";
+import Box from "../box";
 
 export default {
   title: "Badge/Test",
@@ -23,13 +25,13 @@ export const DefaultStory = ({ counter, ...args }: BadgeStoryProps) => {
     action("click")();
   };
   return (
-    <div style={{ margin: "40px" }}>
+    <Box m="40px">
       <Badge onClick={handleClick} counter={counter} {...args}>
         <Button mr={0} buttonType="tertiary">
           Filter
         </Button>
       </Badge>
-    </div>
+    </Box>
   );
 };
 
