@@ -2,6 +2,7 @@ import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import { ArgsTable as SimpleArgsTable } from "@storybook/components";
 
 import Box from ".";
+
 import Form from "../form";
 import Button from "../button";
 import Textbox from "../textbox";
@@ -43,28 +44,44 @@ import Box from "carbon-react/lib/components/box";
 ### Position
 
 Please note that in order to see the `position: fixed` Box, you will need to view this example in the `Canvas` tab.
+
 <Canvas>
-  <Story 
-    name="position" 
-    parameters={{ info: { disable: true } }}
-  >
-    <Box 
+  <Story name="position" parameters={{ info: { disable: true } }}>
+    <Box
       display="inline-block"
       size="350px"
       overflow="auto"
       scrollVariant="light"
       mr="20px"
       bg="secondary"
-    > 
-        <Box width="400px" height="80px" m={2} bg="primary" position="sticky" top="0" tabIndex="0">
-          <Typography color="white">This box has position sticky</Typography>
-          <Button buttonType="primary" destructive>Button</Button>
-        </Box>
-      <Box size="500px">
-      </Box>
-      <Box width="400px" height="80px" m={2} bg="primary" position="sticky" bottom="0">
+    >
+      <Box
+        width="400px"
+        height="80px"
+        m={2}
+        bg="primary"
+        position="sticky"
+        top="0"
+        tabIndex="0"
+      >
         <Typography color="white">This box has position sticky</Typography>
-        <Button buttonType="primary" destructive>Button</Button>
+        <Button buttonType="primary" destructive>
+          Button
+        </Button>
+      </Box>
+      <Box size="500px"></Box>
+      <Box
+        width="400px"
+        height="80px"
+        m={2}
+        bg="primary"
+        position="sticky"
+        bottom="0"
+      >
+        <Typography color="white">This box has position sticky</Typography>
+        <Button buttonType="primary" destructive>
+          Button
+        </Button>
       </Box>
     </Box>
     <Box size="500px" position="fixed" right="0" bg="primary">
@@ -91,7 +108,13 @@ Please note that in order to see the `position: fixed` Box, you will need to vie
 
 <Canvas>
   <Story name="box shadow" parameters={{ info: { disable: true } }}>
-    <Box m={3} p={3} height="100px" bg="secondary" boxShadow="boxShadow200"></Box>
+    <Box
+      m={3}
+      p={3}
+      height="100px"
+      bg="secondary"
+      boxShadow="boxShadow200"
+    ></Box>
   </Story>
 </Canvas>
 
@@ -99,135 +122,89 @@ Please note that in order to see the `position: fixed` Box, you will need to vie
 
 <Canvas>
   <Story name="flex" parameters={{ info: { disable: true } }}>
-    <div>
-      <Box
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="stretch"
-        m="5px"
-      >
-        <Box width="100px" height="100px" bg="primary"></Box>
-        <Box width="100px" height="100px" bg="primary"></Box>
-        <Box width="100px" height="100px" bg="primary"></Box>
-      </Box>
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="space-between"
-        alignItems="stretch"
-        height="400px"
-        m="5px"
-      >
-        <Box width="100px" height="100px" bg="primary"></Box>
-        <Box width="100px" height="100px" bg="primary"></Box>
-        <Box width="100px" height="100px" bg="primary"></Box>
-      </Box>
-    </div>
+    <Box
+      display="flex"
+      flexDirection="row"
+      justifyContent="space-between"
+      alignItems="stretch"
+      m="5px"
+    >
+      <Box width="100px" height="100px" bg="primary"></Box>
+      <Box width="100px" height="100px" bg="primary"></Box>
+      <Box width="100px" height="100px" bg="primary"></Box>
+    </Box>
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
+      alignItems="stretch"
+      height="400px"
+      m="5px"
+    >
+      <Box width="100px" height="100px" bg="primary"></Box>
+      <Box width="100px" height="100px" bg="primary"></Box>
+      <Box width="100px" height="100px" bg="primary"></Box>
+    </Box>
   </Story>
 </Canvas>
 
 ### Gap
 
-The `Box` component also supports the `gap`, `column-gap` and `row-gap` properties when its `display` property is set to either 
-`flex` or `inline-flex`. See the [prop table](#props) below for more information on the types it accepts. Below is an example of 
+The `Box` component also supports the `gap`, `column-gap` and `row-gap` properties when its `display` property is set to either
+`flex` or `inline-flex`. See the [prop table](#props) below for more information on the types it accepts. Below is an example of
 how these props can be used.
 
 <Canvas>
   <Story name="flex gap" parameters={{ info: { disable: true } }}>
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-    >
-      <Box
-        display="flex"
-        columnGap={1}
-      >
-        <Box
-          display="flex"
-          flexDirection="column"
-          rowGap={2}
-        >
+    <Box display="flex" flexDirection="column" gap={2}>
+      <Box display="flex" columnGap={1}>
+        <Box display="flex" flexDirection="column" rowGap={2}>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
         </Box>
-        <Box
-          display="flex"
-          flexDirection="column"
-          rowGap={3}
-        >
+        <Box display="flex" flexDirection="column" rowGap={3}>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
         </Box>
-        <Box
-          display="flex"
-          flexDirection="column"
-          rowGap={4}
-        >
+        <Box display="flex" flexDirection="column" rowGap={4}>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
         </Box>
-        <Box
-          display="flex"
-          flexDirection="column"
-          rowGap={5}
-        >
+        <Box display="flex" flexDirection="column" rowGap={5}>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
         </Box>
-        <Box
-          display="flex"
-          flexDirection="column"
-          rowGap={6}
-        >
+        <Box display="flex" flexDirection="column" rowGap={6}>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
         </Box>
-        <Box
-          display="flex"
-          flexDirection="column"
-          rowGap={7}
-        >
+        <Box display="flex" flexDirection="column" rowGap={7}>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
         </Box>
-        <Box
-          display="flex"
-          flexDirection="column"
-          rowGap={8}
-        >
+        <Box display="flex" flexDirection="column" rowGap={8}>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
           <Box width="100px" height="100px" bg="primary"></Box>
         </Box>
       </Box>
-      <Box
-        display="flex"
-        gap={4}
-      >
+      <Box display="flex" gap={4}>
         <Box width="100px" height="100px" bg="primary"></Box>
         <Box width="100px" height="100px" bg="primary"></Box>
         <Box width="100px" height="100px" bg="primary"></Box>
       </Box>
-      <Box
-        display="flex"
-        gap={8}
-      >
+      <Box display="flex" gap={8}>
         <Box width="100px" height="100px" bg="primary"></Box>
         <Box width="100px" height="100px" bg="primary"></Box>
         <Box width="100px" height="100px" bg="primary"></Box>
       </Box>
-      <Box
-        display="flex"
-        gap="72px"
-      >
+      <Box display="flex" gap="72px">
         <Box width="100px" height="100px" bg="primary"></Box>
         <Box width="100px" height="100px" bg="primary"></Box>
         <Box width="100px" height="100px" bg="primary"></Box>
@@ -275,24 +252,13 @@ Use the `overflowWrap` prop to apply `overflow-wrap: break-word` to the content 
     name="overflow wrap"
     parameters={{ info: { disable: true }, chromatic: { disable: true } }}
   >
-    <div style={{ display: "inline-flex" }}>
-      <div
-        style={{
-          border: "solid 1px #00815D",
-          width: "min-content",
-          marginRight: "20px",
-        }}
-      >
-        <Box p={1} overflowWrap="break-word" width="100px">
-          WithOverflowWrap
-        </Box>
-      </div>
-      <div style={{ border: "solid 1px #00815D", width: "min-content" }}>
-        <Box p={1} width="100px">
-          WithoutOverflowWrap
-        </Box>
-      </div>
-    </div>
+    <Box
+      bg="var(--colorsUtilityMajor050)"
+      overflowWrap="break-word"
+      width="100px"
+    >
+      <Typography>WithOverflowWrap</Typography>
+    </Box>
   </Story>
 </Canvas>
 
@@ -306,13 +272,41 @@ If no `scrollVariant` prop is set then the scroll bar will resort to the browser
     name="scroll"
     parameters={{ info: { disable: true }, chromatic: { disable: true } }}
   >
-    <div>
+    <Box
+      display="inline-block"
+      size="150px"
+      overflow="auto"
+      scrollVariant="light"
+      mr="20px"
+    >
+      <Box
+        width="100px"
+        height="100px"
+        bg="primary"
+        display="inline-block"
+        m="5px"
+      ></Box>
+      <Box
+        width="100px"
+        height="100px"
+        bg="primary"
+        display="inline-block"
+        m="5px"
+      ></Box>
+      <Box
+        width="100px"
+        height="100px"
+        bg="primary"
+        display="inline-block"
+        m="5px"
+      ></Box>
+    </Box>
+    <Box bg="var(--colorsUtilityMajor800)" display="inline-block">
       <Box
         display="inline-block"
         size="150px"
         overflow="auto"
-        scrollVariant="light"
-        mr="20px"
+        scrollVariant="dark"
       >
         <Box
           width="100px"
@@ -336,39 +330,7 @@ If no `scrollVariant` prop is set then the scroll bar will resort to the browser
           m="5px"
         ></Box>
       </Box>
-      <div
-        style={{ backgroundColor: "rgb(0, 26, 37)", display: "inline-block" }}
-      >
-        <Box
-          display="inline-block"
-          size="150px"
-          overflow="auto"
-          scrollVariant="dark"
-        >
-          <Box
-            width="100px"
-            height="100px"
-            bg="primary"
-            display="inline-block"
-            m="5px"
-          ></Box>
-          <Box
-            width="100px"
-            height="100px"
-            bg="primary"
-            display="inline-block"
-            m="5px"
-          ></Box>
-          <Box
-            width="100px"
-            height="100px"
-            bg="primary"
-            display="inline-block"
-            m="5px"
-          ></Box>
-        </Box>
-      </div>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -378,15 +340,7 @@ If no `scrollVariant` prop is set then the scroll bar will resort to the browser
 
 <StyledSystemProps spacing color flexBox hasGapProps layout position noHeader />
 
-<ArgsTable
-  of={Box}
-  exclude={[
-    "as",
-    "ref",
-    "forwardedAs",
-    "theme"
-  ]}
-/>
+<ArgsTable of={Box} exclude={["as", "ref", "forwardedAs", "theme"]} />
 
 <SimpleArgsTable
   rows={[
