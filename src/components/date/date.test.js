@@ -2,6 +2,7 @@
 import React from "react";
 import Confirm from "../confirm";
 import DateInput from "./date.component";
+import CarbonProvider from "../carbon-provider";
 import {
   enUS,
   zhCN,
@@ -46,6 +47,7 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import {
   SIZE,
   CHARACTERS,
+  VALIDATION,
 } from "../../../cypress/support/component-helper/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -97,6 +99,49 @@ const DateInputCustom = ({ onChange, onBlur, ...props }) => {
       onBlur={handleOnBlur}
       {...props}
     />
+  );
+};
+
+const DateInputValidationNewDesign = () => {
+  const [state1, setState1] = React.useState("01/10/2016");
+  const setValue1 = ({ target }) => {
+    setState1(target.value.formattedValue);
+  };
+  const [state2, setState2] = React.useState("01/10/2016");
+  const setValue2 = ({ target }) => {
+    setState2(target.value.formattedValue);
+  };
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      {["error", "warning"].map((validationType) =>
+        ["small", "medium", "large"].map((size) => (
+          <div
+            style={{ width: "296px" }}
+            key={`${size}-${validationType}-string-label`}
+          >
+            <DateInput
+              label={`${size} - ${validationType}`}
+              value={state1}
+              onChange={setValue1}
+              validationOnLabel
+              size={size}
+              {...{ [validationType]: "Message" }}
+              m={4}
+            />
+            <DateInput
+              label={`readOnly - ${size} - ${validationType}`}
+              value={state2}
+              onChange={setValue2}
+              validationOnLabel
+              size={size}
+              readOnly
+              {...{ [validationType]: "Message" }}
+              m={4}
+            />
+          </div>
+        ))
+      )}
+    </CarbonProvider>
   );
 };
 
@@ -574,6 +619,145 @@ context("Test for DateInput component", () => {
         })
         .should("have.attr", "value")
         .and("be.empty");
+    });
+  });
+
+  describe("should check accessibility for the component", () => {
+    it("should check accessibility the default component", () => {
+      CypressMountWithProviders(<DateInputCustom />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility the default component with open prop", () => {
+      CypressMountWithProviders(<DateInputCustom open />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE])(
+      "should check accessibility with size set to %s",
+      (size) => {
+        CypressMountWithProviders(<DateInputCustom size={size} open />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check accessibility for component with autoFocus prop", () => {
+      CypressMountWithProviders(<DateInputCustom autoFocus />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility for component with disabled prop", () => {
+      CypressMountWithProviders(<DateInputCustom disabled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility for component with readOnly prop", () => {
+      CypressMountWithProviders(<DateInputCustom readOnly />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(testData)(
+      "should check accessibility with the fieldHelp renders %s",
+      (fieldHelp) => {
+        CypressMountWithProviders(<DateInputCustom fieldHelp={fieldHelp} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check accessibility with the label renders %s",
+      (label) => {
+        CypressMountWithProviders(<DateInputCustom label={label} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["left", "right"])(
+      "should check accessibility with the label align is set to %s",
+      (labelAlign) => {
+        CypressMountWithProviders(
+          <DateInputCustom
+            labelAlign={labelAlign}
+            labelHelp="labelHelp"
+            labelInline
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check accessibility for component with required prop", () => {
+      CypressMountWithProviders(<DateInputCustom required />);
+
+      cy.checkAccessibility();
+    });
+
+    // FE-5382
+    describe.skip("skip for each test", () => {
+      it.each(["error", "warning", "info"])(
+        "should check accessibility for DateInput with %s validation icon on label",
+        (type) => {
+          CypressMountWithProviders(
+            <DateInputCustom
+              labelInline
+              labelAlign="right"
+              validationOnLabel
+              {...{ [type]: "Message" }}
+            />
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(["error", "warning", "info"])(
+        "should check accessibility for DateInput with %s validation icon",
+        (type) => {
+          CypressMountWithProviders(
+            <DateInputCustom
+              labelInline
+              labelAlign="right"
+              {...{ [type]: "Message" }}
+            />
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+    });
+
+    it.each([
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      [VALIDATION.INFO, "info", true],
+    ])(
+      "should check accessibility for DateInput is %s when validation is %s and boolean prop is %s",
+      (borderColor, type, bool) => {
+        CypressMountWithProviders(
+          <DateInputCustom
+            labelInline
+            labelAlign="right"
+            {...{ [type]: bool }}
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check accessibility for component with new validation", () => {
+      CypressMountWithProviders(<DateInputValidationNewDesign />);
+
+      cy.checkAccessibility();
     });
   });
 });
