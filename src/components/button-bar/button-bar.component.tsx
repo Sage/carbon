@@ -1,21 +1,23 @@
-import React, { useMemo } from "react";
-import invariant from "invariant";
+import React from "react";
 import { SpaceProps } from "styled-system";
-
 import StyledButtonBar from "./button-bar.style";
-import Button from "../button";
-import IconButton from "../icon-button";
 
-export interface ButtonBarProps extends SpaceProps {
-  /** Button or IconButton Elements, to be rendered inside the component */
-  children: React.ReactNode;
+export interface ButtonBarContextProps {
   /** Apply fullWidth style to the button bar */
   fullWidth?: boolean;
   /** Defines an Icon position for buttons: "before" | "after" */
   iconPosition?: "before" | "after";
   /** Assigns a size to the buttons: "small" | "medium" | "large" */
   size?: "small" | "medium" | "large";
+  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
+  buttonType?: "primary" | "secondary" | "primary";
 }
+export interface ButtonBarProps extends ButtonBarContextProps, SpaceProps {
+  /** Button or IconButton Elements, to be rendered inside the component */
+  children: React.ReactNode;
+}
+
+export const ButtonBarContext = React.createContext<ButtonBarContextProps>({});
 
 export const ButtonBar = ({
   children,
@@ -23,49 +25,15 @@ export const ButtonBar = ({
   iconPosition = "before",
   fullWidth = false,
   ...rest
-}: ButtonBarProps) => {
-  const hasProperChildren = useMemo(() => {
-    const incorrectChild = React.Children.toArray(children).find(
-      (child: React.ReactNode) => {
-        if (!React.isValidElement(child)) {
-          return true;
-        }
-
-        return child.type !== Button && child.type !== IconButton;
-      }
-    );
-
-    return !incorrectChild;
-  }, [children]);
-
-  invariant(
-    hasProperChildren,
-    "ButtonBar accepts only `Button` or `IconButton` elements."
-  );
-
-  const getBtnProps = (child: React.ReactElement) => {
-    const btnProps = {
-      ...child.props,
-      buttonType: "secondary",
-      size,
-      iconPosition,
-      fullWidth,
-      "aria-label":
-        child.type === IconButton
-          ? child.props?.ariaLabel || child.props?.children?.props?.type
-          : "",
-    };
-    return btnProps;
-  };
-
-  return (
-    <StyledButtonBar {...rest} fullWidth={fullWidth} size={size}>
-      {React.Children.map(children as React.ReactElement[], (child) => (
-        <child.type {...getBtnProps(child)} />
-      ))}
-    </StyledButtonBar>
-  );
-};
+}: ButtonBarProps) => (
+  <StyledButtonBar {...rest} fullWidth={fullWidth} size={size}>
+    <ButtonBarContext.Provider
+      value={{ buttonType: "secondary", size, iconPosition, fullWidth }}
+    >
+      {children}
+    </ButtonBarContext.Provider>
+  </StyledButtonBar>
+);
 
 ButtonBar.displayName = "ButtonBar";
 
