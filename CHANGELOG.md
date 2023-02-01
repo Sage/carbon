@@ -1,3 +1,10 @@
+### [114.7.1](https://github.com/Sage/carbon/compare/v114.7.0...v114.7.1) (2023-02-01)
+
+
+### Bug Fixes
+
+* **button-bar, button, icon-button:** remove invariant and implement context to pass props ([da29af1](https://github.com/Sage/carbon/commit/da29af1c08365c1b18ebed8763c8ab9ab0fb54a4)), closes [#5669](https://github.com/Sage/carbon/issues/5669)
+
 ## [114.7.0](https://github.com/Sage/carbon/compare/v114.6.1...v114.7.0) (2023-01-27)
 
 
