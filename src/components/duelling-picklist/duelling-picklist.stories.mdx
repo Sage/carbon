@@ -7,6 +7,9 @@ import PicklistPlaceholder from "./picklist-placeholder/picklist-placeholder.com
 import DuellingPicklist from "./duelling-picklist.component";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
+import Box from "../box";
+import Typography from "../typography";
+
 import {
   Default,
   AlternativeSearch,
@@ -48,15 +51,15 @@ import {
 - It also accepts `leftLabel` and `rightLabel` props of type string which will be rendered above the corresponding `PickList`.
 
 - Similarly to labels, `leftControls` and `rightControls` props accept a node to be rendered between the labels and the `Picklist`.
-This is a suitable place for components like `Search` or `Filter` used to manipulate displayed data.
-To display an overlay over whole `DuellingPicklist` content pass a `disabled` prop set to true.
+  This is a suitable place for components like `Search` or `Filter` used to manipulate displayed data.
+  To display an overlay over whole `DuellingPicklist` content pass a `disabled` prop set to true.
 
 - `Picklist` wraps a list of `PicklistItem`, applies enter transition animations and provides an extended keyboard navigation (up/down/home/end keys).
 
 - `PicklistDivider` as name states is a component meant to visually divide two `PickList`. It is optional, the spacing between the two picklists will be equal with or without it.
 
 - `PicklistItem` is a component meant to visually represent one of the iterable entities. It can be of a type `add` or `remove`.
-It invokes passed `onChange` method with passed `item` prop as an argument when either `add` or `remove` icon is clicked or `space` or `enter` pressed when whole `PicklistItem` is focused.
+  It invokes passed `onChange` method with passed `item` prop as an argument when either `add` or `remove` icon is clicked or `space` or `enter` pressed when whole `PicklistItem` is focused.
 
 - `PicklistPlaceholder` can be used to display the content of its `text` prop. It is meant to be passed as a `placeholder` prop in `Picklist` component.
 
@@ -101,78 +104,106 @@ Same as above but as a children of `Dialog` component.
 ### Add item
 
 <Canvas>
-  <Story name="add item">
-    <ul>
-      <PicklistItem type="add" item={1} onChange={() => null}>
-        <div style={{ display: "flex", width: "100%" }}>
-          <div style={{ width: "50%" }}>
-            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-              Title for Item
-            </p>
-          </div>
-        </div>
-      </PicklistItem>
-    </ul>
+  <Story
+    name="add item"
+    decorators={[
+      (Story) => (
+        <ul>
+          <Story />
+        </ul>
+      ),
+    ]}
+  >
+    <PicklistItem type="add" item={1} onChange={() => null}>
+      <Box display="flex" width="100%">
+        <Box width="50%">
+          <Typography fontWeight="bold" margin={0} ml={"24px"}>
+            Title for Item
+          </Typography>
+        </Box>
+      </Box>
+    </PicklistItem>
   </Story>
 </Canvas>
 
 ### Remove item
 
 <Canvas>
-  <Story name="remove item">
-    <ul>
-      <PicklistItem type="remove" item={1} onChange={() => null}>
-        <div style={{ display: "flex", width: "100%" }}>
-          <div style={{ width: "50%" }}>
-            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-              Title for Item
-            </p>
-          </div>
-        </div>
-      </PicklistItem>
-    </ul>
+  <Story
+    name="remove item"
+    decorators={[
+      (Story) => (
+        <ul>
+          <Story />
+        </ul>
+      ),
+    ]}
+  >
+    <PicklistItem type="remove" item={1} onChange={() => null}>
+      <Box display="flex" width="100%">
+        <Box width="50%">
+          <Typography fontWeight="bold" margin={0} ml={"24px"}>
+            Title for Item
+          </Typography>
+        </Box>
+      </Box>
+    </PicklistItem>
   </Story>
 </Canvas>
 
 ### Locked
 
 <Canvas>
-  <Story name="locked">
-    <ul>
-      <PicklistItem type="add" item={1} onChange={() => null} locked>
-        <div style={{ display: "flex", width: "100%" }}>
-          <div style={{ width: "50%" }}>
-            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-              Title for Item
-            </p>
-          </div>
-        </div>
-      </PicklistItem>
-    </ul>
+  <Story
+    name="locked"
+    decorators={[
+      (Story) => (
+        <ul>
+          <Story />
+        </ul>
+      ),
+    ]}
+  >
+    <PicklistItem type="add" item={1} onChange={() => null} locked>
+      <Box display="flex" width="100%">
+        <Box width="50%">
+          <Typography fontWeight="bold" margin={0} ml={"24px"}>
+            Title for Item
+          </Typography>
+        </Box>
+      </Box>
+    </PicklistItem>
   </Story>
 </Canvas>
 
 ### Custom tooltip message
 
 <Canvas>
-  <Story name="custom tooltip message">
-    <ul>
-      <PicklistItem
-        type="add"
-        item={1}
-        onChange={() => null}
-        locked
-        tooltipMessage="This is a custom locked tooltip message"
-      >
-        <div style={{ display: "flex", width: "100%" }}>
-          <div style={{ width: "50%" }}>
-            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-              Title for Item
-            </p>
-          </div>
-        </div>
-      </PicklistItem>
-    </ul>
+  <Story
+    name="custom tooltip message"
+    decorators={[
+      (Story) => (
+        <ul>
+          <Story />
+        </ul>
+      ),
+    ]}
+  >
+    <PicklistItem
+      type="add"
+      item={1}
+      onChange={() => null}
+      locked
+      tooltipMessage="This is a custom locked tooltip message"
+    >
+      <Box display="flex" width="100%">
+        <Box width="50%">
+          <Typography fontWeight="bold" margin={0} ml={"24px"}>
+            Title for Item
+          </Typography>
+        </Box>
+      </Box>
+    </PicklistItem>
   </Story>
 </Canvas>
 

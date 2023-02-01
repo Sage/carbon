@@ -101,16 +101,16 @@ export const Default = () => {
       if (item) {
         items.push(
           <PicklistItem key={key} type={type} item={item} onChange={handler}>
-            <div style={{ display: "flex", width: "100%" }}>
-              <div style={{ width: "50%" }}>
-                <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+            <Box display="flex" width="100%">
+              <Box width="50%">
+                <Typography fontWeight="bold" margin={0} ml={24}>
                   {item.title}
-                </p>
-              </div>
-              <div style={{ width: "50%" }}>
-                <p style={{ margin: 0 }}>{item.description}</p>
-              </div>
-            </div>
+                </Typography>
+              </Box>
+              <Box width="50%">
+                <Typography m={0}>{item.description}</Typography>
+              </Box>
+            </Box>
           </PicklistItem>
         );
       }
@@ -140,7 +140,7 @@ export const Default = () => {
       >
         <Picklist
           disabled={isEachItemSelected}
-          placeholder={<div>Your own placeholder</div>}
+          placeholder={<Box>Your own placeholder</Box>}
         >
           {renderItems(
             isSearchMode ? notSelectedSearch : notSelectedItems,
@@ -236,16 +236,16 @@ export const AlternativeSearch = () => {
       if (item) {
         items.push(
           <PicklistItem key={key} type={type} item={item} onChange={handler}>
-            <div style={{ display: "flex", width: "100%" }}>
-              <div style={{ width: "50%" }}>
-                <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+            <Box display="flex" width="100%">
+              <Box width="50%">
+                <Typography fontWeight="bold" margin={0} ml={24}>
                   {item.title}
-                </p>
-              </div>
-              <div style={{ width: "50%" }}>
-                <p style={{ margin: 0 }}>{item.description}</p>
-              </div>
-            </div>
+                </Typography>
+              </Box>
+              <Box width="50%">
+                <Typography m={0}>{item.description}</Typography>
+              </Box>
+            </Box>
           </PicklistItem>
         );
       }
@@ -277,7 +277,7 @@ export const AlternativeSearch = () => {
       >
         <Picklist
           disabled={isEachItemSelected}
-          placeholder={<div>Your own placeholder</div>}
+          placeholder={<Box>Your own placeholder</Box>}
         >
           {renderItems(
             isSearchMode ? notSelectedSearch : notSelectedItems,
@@ -424,11 +424,11 @@ export const Grouped = () => {
     return list.map((item) => {
       return (
         <PicklistItem key={item.key} type={type} item={item} onChange={handler}>
-          <div style={{ display: "flex", width: "100%" }}>
-            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+          <Box display="flex" width="100%">
+            <Typography fontWeight="bold" margin={0} ml={24}>
               {item.title}
-            </p>
-          </div>
+            </Typography>
+          </Box>
         </PicklistItem>
       );
     });
