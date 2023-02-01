@@ -1,12 +1,14 @@
 import React from "react";
-import { Default as ButtonBarCustom } from "./button-bar-test.stories";
+import {
+  Default as ButtonBarCustom,
+  DefaultWithWrapper as ButtonBarWithWrapper,
+} from "./button-bar-test.stories";
 import {
   BUTTON_BAR_SIZES,
   BUTTON_BAR_ICON_POSITIONS,
 } from "./button-bar.config";
 
 import { buttonDataComponent } from "../../../cypress/locators/button";
-
 import { icon } from "../../../cypress/locators";
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -75,6 +77,67 @@ context("Test for Button-Bar component", () => {
       CypressMountWithProviders(<ButtonBarCustom fullWidth />);
 
       cy.checkAccessibility();
+    });
+  });
+
+  describe("check ButtonBar can be navigated using a keyboard", () => {
+    it("should verify ButtonBar with wrapped components can be navigated using keyboard", () => {
+      CypressMountWithProviders(<ButtonBarCustom />);
+
+      buttonDataComponent().eq(0).focus();
+      buttonDataComponent().eq(0).tab();
+      buttonDataComponent().eq(1).should("be.focused");
+      buttonDataComponent().eq(0).should("not.be.focused");
+      buttonDataComponent().eq(1).tab();
+      buttonDataComponent().eq(2).should("be.focused");
+      buttonDataComponent().eq(1).should("not.be.focused");
+    });
+  });
+
+  describe("when custom Button wrapper components are used as children in ButtonBar", () => {
+    it("Button size is small when the size prop is set to small and passed to ButtonBar", () => {
+      CypressMountWithProviders(<ButtonBarWithWrapper size="small" />);
+
+      buttonDataComponent().then(($el) => {
+        useJQueryCssValueAndAssert($el, "width", 81);
+      });
+    });
+
+    it("Button is fullWidth when the fullWidth prop is passed to ButtonBar", () => {
+      CypressMountWithProviders(<ButtonBarWithWrapper fullWidth />);
+
+      buttonDataComponent().then(($el) => {
+        useJQueryCssValueAndAssert($el, "width", 339);
+      });
+    });
+
+    it.each([
+      ["after", "left"],
+      ["before", "right"],
+    ])(
+      "Button Icon position is %s text when the iconPosition is set and passed to ButtonBar",
+      (iconPosition, margin) => {
+        CypressMountWithProviders(
+          <ButtonBarWithWrapper iconPosition={iconPosition} />
+        );
+
+        icon().should("have.css", `margin-${margin}`, "8px");
+      }
+    );
+
+    it("should verify ButtonBar with wrapped components can be navigated using keyboard", () => {
+      CypressMountWithProviders(<ButtonBarWithWrapper />);
+
+      buttonDataComponent().eq(0).focus();
+      buttonDataComponent().eq(0).tab();
+      buttonDataComponent().eq(1).should("be.focused");
+      buttonDataComponent().eq(0).should("not.be.focused");
+      buttonDataComponent().eq(1).tab();
+      buttonDataComponent().eq(2).should("be.focused");
+      buttonDataComponent().eq(1).should("not.be.focused");
+      buttonDataComponent().eq(2).tab();
+      icon().eq(3).parent().should("be.focused");
+      buttonDataComponent().eq(2).should("not.be.focused");
     });
   });
 });
