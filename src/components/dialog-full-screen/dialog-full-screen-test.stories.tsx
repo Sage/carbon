@@ -8,6 +8,7 @@ import Textbox from "../textbox";
 import Pill from "../pill";
 import Box from "../box";
 import CarbonProvider from "../carbon-provider";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 export default {
   title: "Dialog Full Screen/Test",
@@ -64,8 +65,7 @@ export const DefaultStory = ({
             </Button>
           }
         >
-          {children || ""}
-          <div style={{ height: formHeight }} />
+          <Box height={formHeight}>{children || ""}</Box>
         </Form>
       </DialogFullScreen>
     </>
@@ -236,18 +236,17 @@ export const MultipleDialogsInDifferentProviders = () => {
 
 export const DialogFullScreenWithHeaderChildren = () => {
   const [isOpen, setIsOpen] = React.useState(true);
+  const isLargeScreen = useMediaQuery("(min-width: 568px)");
+
   const HeaderChildren = (
-    <div
-      style={{
-        margin: `$min-width: 568px 0 26px`,
-      }}
-    >
+    <Box margin={`${isLargeScreen ? "26px" : 0} 0px`}>
       <Pill fill>A pill</Pill>
       <Pill fill ml={2} mr={1}>
         Another pill
       </Pill>
-    </div>
+    </Box>
   );
+
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open DialogFullScreen</Button>
@@ -269,9 +268,9 @@ export const DialogFullScreenWithHeaderChildren = () => {
             </Button>
           }
         >
-          <div>
+          <Box>
             This is an example of a full screen Dialog with a Form as content
-          </div>
+          </Box>
           <Textbox label="First Name" />
           <Textbox label="Middle Name" />
           <Textbox label="Surname" />

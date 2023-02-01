@@ -44,9 +44,9 @@ export const Default = () => {
             </Button>
           }
         >
-          <div>
+          <Box>
             This is an example of a full screen Dialog with a Form as content
-          </div>
+          </Box>
           <Textbox label="First Name" />
           <Textbox label="Middle Name" />
           <Textbox label="Surname" />
@@ -96,14 +96,10 @@ export const WithComplexExample = ({ ...props }) => {
     }
     return 2;
   };
-  const aboveBreakpoint = useMediaQuery("(min-width: 411px)");
-  const verticalMargin = aboveBreakpoint ? "26px" : 0;
+  const isLargerScreen = useMediaQuery("(min-width: 411px)");
+
   const HeaderChildren = (
-    <div
-      style={{
-        margin: `${verticalMargin} 0 26px`,
-      }}
-    >
+    <Box margin={`${isLargerScreen ? "26px" : 0} 0px`}>
       <Box display="flex">
         <Pill fill>A pill</Pill>
         <Pill fill ml={2} mr={1}>
@@ -113,10 +109,10 @@ export const WithComplexExample = ({ ...props }) => {
           <ActionPopoverItem onClick={() => {}}>Example Item</ActionPopoverItem>
         </ActionPopover>
       </Box>
-    </div>
+    </Box>
   );
   const SidebarContent = (
-    <div style={{ height: "600px" }}>
+    <Box height="600px">
       <Box pl={setCorrectPadding()}>
         <Typography
           display="block"
@@ -273,10 +269,10 @@ export const WithComplexExample = ({ ...props }) => {
           key="tab-5"
           customLayout={
             <Box pl={setCorrectPadding()} pr={1} py={2}>
-              <div style={{ display: "flex" }}>
-                <div style={{ flexGrow: 1 }}>
-                  <Typography variant="b">Example text</Typography>
-                </div>
+              <Box display="flex">
+                <Box flexGrow={1}>
+                  <Typography fontWeight="bold">Example text</Typography>
+                </Box>
                 <IconButton onAction={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
@@ -285,7 +281,7 @@ export const WithComplexExample = ({ ...props }) => {
                     Example Item
                   </ActionPopoverItem>
                 </ActionPopover>
-              </div>
+              </Box>
             </Box>
           }
         >
@@ -297,26 +293,26 @@ export const WithComplexExample = ({ ...props }) => {
           key="tab-6"
           customLayout={
             <Box pl={setCorrectPadding()} pr={1} py={2}>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <div style={{ flexGrow: 1 }}>
+              <Box display="flex" justifyContent="space-between">
+                <Box flexGrow={1}>
                   <Typography variant="b">Example text</Typography>
-                </div>
+                </Box>
                 <ActionPopover>
                   <ActionPopoverItem onClick={() => {}}>
                     Example Item
                   </ActionPopoverItem>
                 </ActionPopover>
-              </div>
+              </Box>
             </Box>
           }
         >
           Content for tab 3
         </Tab>
       </Tabs>
-    </div>
+    </Box>
   );
   const ContentOne = (
-    <div>
+    <Box>
       <Accordion
         borders="none"
         title={<Typography variant="h2">Example one details</Typography>}
@@ -338,10 +334,10 @@ export const WithComplexExample = ({ ...props }) => {
           </Dd>
           <Dt>Main and registered address</Dt>
           <Dd>
-            <div>Example Text Address</div>
-            <div>Example Text Address</div>
-            <div>Example Text Address</div>
-            <div>Example Text Address</div>
+            <Box>Example Text Address</Box>
+            <Box>Example Text Address</Box>
+            <Box>Example Text Address</Box>
+            <Box>Example Text Address</Box>
             <Box py={2}>
               <Link
                 href="https://www.google.com/"
@@ -358,20 +354,20 @@ export const WithComplexExample = ({ ...props }) => {
         borders="none"
         title={<Typography variant="h2">Example one products</Typography>}
       >
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
       </Accordion>
-    </div>
+    </Box>
   );
   const ContentTwo = (
-    <div>
+    <Box>
       <Accordion
         borders="none"
         title={<Typography variant="h2">Example two details</Typography>}
@@ -393,11 +389,11 @@ export const WithComplexExample = ({ ...props }) => {
           </Dd>
           <Dt>Main and registered address</Dt>
           <Dd>
-            <div>Example Text Address</div>
-            <div>Example Text Address</div>
-            <div>Example Text Address</div>
-            <div>Example Text Address</div>
-            <div style={{ padding: "16px 0" }}>
+            <Box>Example Text Address</Box>
+            <Box>Example Text Address</Box>
+            <Box>Example Text Address</Box>
+            <Box>Example Text Address</Box>
+            <Box padding="16px 0">
               <Link
                 href="https://www.google.com/"
                 icon="link"
@@ -405,7 +401,7 @@ export const WithComplexExample = ({ ...props }) => {
               >
                 View in Google Maps
               </Link>
-            </div>
+            </Box>
           </Dd>
         </Dl>
       </Accordion>
@@ -413,20 +409,20 @@ export const WithComplexExample = ({ ...props }) => {
         borders="none"
         title={<Typography variant="h2">Example two products</Typography>}
       >
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
       </Accordion>
-    </div>
+    </Box>
   );
   const ContentThree = (
-    <div>
+    <Box>
       <Accordion
         borders="none"
         title={<Typography variant="h2">Example three details</Typography>}
@@ -448,11 +444,11 @@ export const WithComplexExample = ({ ...props }) => {
           </Dd>
           <Dt>Main and registered address</Dt>
           <Dd>
-            <div>Example Text Address</div>
-            <div>Example Text Address</div>
-            <div>Example Text Address</div>
-            <div>Example Text Address</div>
-            <div style={{ padding: "16px 0" }}>
+            <Box>Example Text Address</Box>
+            <Box>Example Text Address</Box>
+            <Box>Example Text Address</Box>
+            <Box>Example Text Address</Box>
+            <Box padding="16px 0">
               <Link
                 href="https://www.google.com/"
                 icon="link"
@@ -460,7 +456,7 @@ export const WithComplexExample = ({ ...props }) => {
               >
                 View in Google Maps
               </Link>
-            </div>
+            </Box>
           </Dd>
         </Dl>
       </Accordion>
@@ -468,17 +464,17 @@ export const WithComplexExample = ({ ...props }) => {
         borders="none"
         title={<Typography variant="h2">Example three products</Typography>}
       >
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
-        <div>Example Product Content</div>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
+        <Box>Example Product Content</Box>
       </Accordion>
-    </div>
+    </Box>
   );
   const showCorrectContent = () => {
     switch (activeTab) {
@@ -502,7 +498,7 @@ export const WithComplexExample = ({ ...props }) => {
   };
 
   return (
-    <div>
+    <Box>
       <Button onClick={handleOpen}>Open DialogFullScreen</Button>
       <DialogFullScreen
         open={isOpen}
@@ -520,7 +516,7 @@ export const WithComplexExample = ({ ...props }) => {
           <Box p={5}>{showCorrectContent()}</Box>
         </Drawer>
       </DialogFullScreen>
-    </div>
+    </Box>
   );
 };
 
@@ -549,9 +545,9 @@ export const WithDisableContentPadding = ({ ...props }) => {
             </Button>
           }
         >
-          <div>
+          <Box>
             This is an example of a full screen Dialog with a Form as content
-          </div>
+          </Box>
           <Textbox label="First Name" />
           <Textbox label="Middle Name" />
           <Textbox label="Surname" />
@@ -567,16 +563,17 @@ WithDisableContentPadding.parameters = { chromatic: { disable: true } };
 
 export const WithHeaderChildren = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
-  const verticalMargin = aboveBreakpoint ? "26px" : 0;
+  const isLargeScreen = useMediaQuery("(min-width: 568px)");
+
   const HeaderChildren = (
-    <div style={{ margin: `${verticalMargin} 0 26px` }}>
+    <Box margin={`${isLargeScreen ? "26px" : 0} 0 26px`}>
       <Pill fill>A pill</Pill>
       <Pill fill ml={2} mr={1}>
         Another pill
       </Pill>
-    </div>
+    </Box>
   );
+
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open DialogFullScreen</Button>
@@ -599,9 +596,9 @@ export const WithHeaderChildren = ({ ...props }) => {
             </Button>
           }
         >
-          <div>
+          <Box>
             This is an example of a full screen Dialog with a Form as content
-          </div>
+          </Box>
           <Textbox label="First Name" />
           <Textbox label="Middle Name" />
           <Textbox label="Surname" />
@@ -639,9 +636,9 @@ export const WithHelp = ({ ...props }) => {
             </Button>
           }
         >
-          <div>
+          <Box>
             This is an example of a full screen Dialog with a Form as content
-          </div>
+          </Box>
           <Textbox label="First Name" />
           <Textbox label="Middle Name" />
           <Textbox label="Surname" />
@@ -656,17 +653,17 @@ export const WithHelp = ({ ...props }) => {
 
 export const WithHideableHeaderChildren = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
-  const verticalMargin = aboveBreakpoint ? "26px" : 0;
-  const HeaderChildrenAboveBreakpoint = (
-    <div style={{ margin: `${verticalMargin} 0 26px` }}>
+  const isLargeScreen = useMediaQuery("(min-width: 568px)");
+
+  const HeaderChildrenLargeScreenView = (
+    <Box margin="26px 0 26px">
       <Pill fill>A pill</Pill>
       <Pill fill ml={2} mr={1}>
         Another pill
       </Pill>
-    </div>
+    </Box>
   );
-  const HeaderChildrenBelowBreakpoint = (
+  const HeaderChildrenSmallScreenView = (
     <Accordion
       title="More info"
       openTitle="Less info"
@@ -694,9 +691,9 @@ export const WithHideableHeaderChildren = ({ ...props }) => {
         title="An example of a long header"
         subtitle="Subtitle"
         headerChildren={
-          aboveBreakpoint
-            ? HeaderChildrenAboveBreakpoint
-            : HeaderChildrenBelowBreakpoint
+          isLargeScreen
+            ? HeaderChildrenLargeScreenView
+            : HeaderChildrenSmallScreenView
         }
         {...props}
       >
@@ -711,9 +708,9 @@ export const WithHideableHeaderChildren = ({ ...props }) => {
             </Button>
           }
         >
-          <div>
+          <Box>
             This is an example of a full screen Dialog with a Form as content
-          </div>
+          </Box>
           <Textbox label="First Name" />
           <Textbox label="Middle Name" />
           <Textbox label="Surname" />
@@ -751,9 +748,9 @@ export const WithBox = ({ ...props }) => {
               </Button>
             }
           >
-            <div>
+            <Box>
               This is an example of a full screen Dialog with a Form as content
-            </div>
+            </Box>
             <Textbox label="First Name" />
             <Textbox label="Middle Name" />
             <Textbox label="Surname" />
@@ -785,20 +782,18 @@ export const FocusingADifferentFirstElement = ({ ...props }) => {
         subtitle="Subtitle"
         {...props}
       >
-        <p>Focus an element that doesnt support autofocus</p>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-around",
-            height: "150px",
-          }}
+        <Typography>Focus an element that doesnt support autofocus</Typography>
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-around"
+          height="150px"
         >
           <Button onClick={() => setIsOpenOne(false)}>Not focused</Button>
           <Button forwardRef={ref} onClick={() => setIsOpenOne(false)}>
             This should be focused first now
           </Button>
-        </div>
+        </Box>
         <Textbox label="Not Focused" />
       </DialogFullScreen>
       <Button ml={2} onClick={() => setIsOpenTwo(true)}>
@@ -811,18 +806,16 @@ export const FocusingADifferentFirstElement = ({ ...props }) => {
         title="Title"
         subtitle="Subtitle"
       >
-        <p>Focus an element that supports autoFocus</p>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-around",
-            height: "150px",
-          }}
+        <Typography>Focus an element that supports autoFocus</Typography>
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-around"
+          height="150px"
         >
           <Button onClick={() => setIsOpenTwo(false)}>Not focused</Button>
           <Button onClick={() => setIsOpenTwo(false)}>Not focused</Button>
-        </div>
+        </Box>
         <Textbox label="This should be focused first now" autoFocus />
       </DialogFullScreen>
     </>
