@@ -222,10 +222,10 @@ context("Testing Sidebar component", () => {
     it("should render Sidebar with first input and button as focusableSelectors", () => {
       CypressMountWithProviders(<SidebarComponentFocusable />);
 
-      sidebarPreview().trigger("keydown", keyCode("Tab"));
-      sidebarPreview().trigger("keydown", keyCode("Tab"));
+      sidebarPreview().tab();
+      cy.focused().tab();
       getDataElementByValue("input").eq(0).should("be.focused");
-      sidebarPreview().trigger("keydown", keyCode("Tab"));
+      cy.focused().tab();
       getDataElementByValue("input").eq(1).should("not.be.focused");
       getDataElementByValue("open-toast").should("be.focused");
     });

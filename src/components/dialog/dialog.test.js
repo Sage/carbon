@@ -229,17 +229,17 @@ context("Testing Dialog component", () => {
       );
       cy.get("body").tab();
       closeIconButton().should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       buttonDataComponent().eq(0).should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       buttonDataComponent().eq(1).should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       getInput(0).should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       getInput(1).should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       getInput(2).should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       closeIconButton().should("be.focused");
     });
 
@@ -263,19 +263,18 @@ context("Testing Dialog component", () => {
       CypressMountWithProviders(
         <stories.DialogComponent focusFirstElement={undefined} />
       );
-      cy.get("body").tab();
-      closeIconButton().should("be.focused");
-      cy.get("body").tab({ shift: true });
+      dialogPreview().should("be.focused");
+      cy.focused().tab({ shift: true });
       getInput(2).should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       getInput(1).should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       getInput(0).should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       buttonDataComponent().eq(1).should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       buttonDataComponent().eq(0).should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       closeIconButton().should("be.focused");
     });
 

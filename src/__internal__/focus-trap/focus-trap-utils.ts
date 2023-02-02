@@ -1,3 +1,7 @@
+type CustomRefObject<T> = {
+  current?: T | null;
+};
+
 const defaultFocusableSelectors =
   'button:not([disabled]), [href], input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]';
 
@@ -124,4 +128,122 @@ const getNextElement = (
   return foundElement as HTMLElement;
 };
 
-export { defaultFocusableSelectors, getNextElement, setElementFocus };
+const onTabGuardFocus = (
+  trapWrappers: CustomRefObject<HTMLElement>[],
+  focusableSelectors: string | undefined,
+  position: "top" | "bottom"
+) => (guardWrapperRef: CustomRefObject<HTMLElement>) => () => {
+  const isTop = position === "top";
+  const currentIndex = trapWrappers.indexOf(guardWrapperRef);
+  let index = currentIndex;
+  let nextWrapper, allFocusableElementsInNextWrapper: NodeList | undefined;
+
+  do {
+    index += isTop ? -1 : 1;
+    if (index < 0) {
+      index += trapWrappers.length;
+    }
+    if (index >= trapWrappers.length) {
+      index -= trapWrappers.length;
+    }
+    nextWrapper = trapWrappers[index];
+    allFocusableElementsInNextWrapper = nextWrapper?.current?.querySelectorAll(
+      focusableSelectors || defaultFocusableSelectors
+    );
+  } while (
+    index !== currentIndex &&
+    !allFocusableElementsInNextWrapper?.length
+  );
+
+  const toFocus = allFocusableElementsInNextWrapper?.[
+    isTop ? allFocusableElementsInNextWrapper.length - 1 : 0
+  ] as HTMLElement;
+
+  if (isRadio(toFocus)) {
+    const radioToFocus = getRadioElementToFocus(
+      toFocus.getAttribute("name") as string,
+      isTop
+    );
+    setElementFocus(radioToFocus);
+  } else {
+    setElementFocus(toFocus);
+  }
+};
+
+const trapFunction = (
+  ev: KeyboardEvent,
+  defaultFocusableElements: HTMLElement[],
+  isWrapperFocused: boolean,
+  focusableSelectors?: string,
+  bespokeTrap?: (
+    event: KeyboardEvent,
+    firstElement?: HTMLElement,
+    lastElement?: HTMLElement
+  ) => void
+) => {
+  const customFocusableElements = focusableSelectors
+    ? defaultFocusableElements.filter((element) =>
+        element.matches(focusableSelectors)
+      )
+    : defaultFocusableElements;
+
+  const firstElement = customFocusableElements[0];
+  const lastElement =
+    customFocusableElements[customFocusableElements.length - 1];
+
+  if (bespokeTrap) {
+    bespokeTrap(ev, firstElement, lastElement);
+    return;
+  }
+
+  if (ev.key !== "Tab") return;
+
+  if (!customFocusableElements?.length) {
+    /* Block the trap */
+    ev.preventDefault();
+    return;
+  }
+
+  const activeElement = document.activeElement as HTMLElement;
+
+  // special case if focus is on document body
+  if (activeElement === document.body) {
+    // TODO: fix this to only work if we're in the top modal [FE-5620]
+    ev.preventDefault();
+    setElementFocus(firstElement as HTMLElement);
+  }
+
+  if (!focusableSelectors) {
+    return;
+  }
+
+  const elementWhenWrapperFocused = ev.shiftKey
+    ? (firstElement as HTMLElement)
+    : (lastElement as HTMLElement);
+
+  const elementToFocus = getNextElement(
+    isWrapperFocused ? elementWhenWrapperFocused : activeElement,
+    customFocusableElements,
+    ev.shiftKey
+  );
+
+  const defaultNextElement = getNextElement(
+    isWrapperFocused ? elementWhenWrapperFocused : activeElement,
+    defaultFocusableElements as HTMLElement[],
+    ev.shiftKey
+  );
+
+  if (elementToFocus && elementToFocus !== defaultNextElement) {
+    // if next element would match the custom selector anyway, then no need to prevent default
+    setElementFocus(elementToFocus);
+    ev.preventDefault();
+  }
+};
+
+export {
+  defaultFocusableSelectors,
+  getNextElement,
+  setElementFocus,
+  onTabGuardFocus,
+  trapFunction,
+};
