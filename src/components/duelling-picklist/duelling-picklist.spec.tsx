@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { CSSTransition } from "react-transition-group";
 import { act } from "react-dom/test-utils";
 
@@ -11,9 +11,11 @@ import {
   DuellingPicklist,
   Picklist,
   PicklistItem,
+  PicklistItemProps,
   PicklistDivider,
   PicklistPlaceholder,
   PicklistGroup,
+  DuellingPicklistProps,
 } from ".";
 import {
   StyledDuellingPicklistOverlay,
@@ -29,17 +31,21 @@ import {
   StyledPicklistGroup,
 } from "./picklist-group/picklist-group.style";
 import { StyledPicklist } from "./picklist/picklist.style";
-import { areEqual } from "./picklist/picklist.component";
 import StyledPicklistDivider from "./picklist-divider/picklist-divider.style";
 
 const EmptyComponent = () => <div />;
 
 describe("DuellingPicklist", () => {
-  let wrapper;
-  let onAdd;
-  let onRemove;
+  let wrapper: ReactWrapper;
+  let onAdd: jest.Mock;
+  let onRemove: jest.Mock;
 
-  const notSelectedItems = [
+  type PicklistItemType = {
+    key: string;
+    title: string;
+  };
+
+  const notSelectedItems: PicklistItemType[] = [
     { key: "1", title: "content 1" },
     { key: "2", title: "content 2" },
     { key: "3", title: "content 3" },
@@ -48,7 +54,7 @@ describe("DuellingPicklist", () => {
     { key: "6", title: "content 6" },
   ];
 
-  const selectedItems = [
+  const selectedItems: PicklistItemType[] = [
     { key: "1", title: "content 1" },
     { key: "2", title: "content 2" },
     { key: "3", title: "content 3" },
@@ -67,6 +73,13 @@ describe("DuellingPicklist", () => {
     groupB: [4],
   };
 
+  interface RenderType extends DuellingPicklistProps {
+    selected?: PicklistItemType[];
+    notSelected?: PicklistItemType[];
+    divider?: boolean;
+    placeholder?: React.ReactNode;
+  }
+
   const render = ({
     disabled,
     selected = selectedItems,
@@ -77,7 +90,7 @@ describe("DuellingPicklist", () => {
     rightLabel,
     placeholder,
     divider = true,
-  }) => {
+  }: RenderType) => {
     wrapper = mount(
       <DuellingPicklist
         disabled={disabled}
@@ -132,7 +145,7 @@ describe("DuellingPicklist", () => {
     leftLabel,
     rightLabel,
     placeholder,
-  }) => {
+  }: RenderType) => {
     wrapper = mount(
       <DuellingPicklist
         disabled={disabled}
@@ -172,7 +185,7 @@ describe("DuellingPicklist", () => {
   };
 
   // eslint-disable-next-line react/prop-types
-  const MockComponent = ({ grouped }) => {
+  const MockComponent = ({ grouped }: { grouped?: boolean }) => {
     const [notSelectedListItems, setNotSelectedItems] = useState([0, 1, 2]);
     const [selectedListItems, setSelectedItems] = useState([3, 4, 5]);
     const [notSelectedListGroups, setNotSelectedGroups] = useState(
@@ -180,7 +193,7 @@ describe("DuellingPicklist", () => {
     );
     const [selectedListGroups, setSelectedGroups] = useState(selectedGroups);
 
-    const addItem = (item) => {
+    const addItem = (item: PicklistItemProps["item"]) => {
       const index = notSelectedListItems.findIndex(
         (listItem) => listItem === item
       );
@@ -194,7 +207,7 @@ describe("DuellingPicklist", () => {
       setSelectedItems([...selectedListItems, selectedItem]);
     };
 
-    const removeItem = (item) => {
+    const removeItem = (item: PicklistItemProps["item"]) => {
       const index = selectedListItems.findIndex(
         (listItem) => listItem === item
       );
@@ -205,7 +218,7 @@ describe("DuellingPicklist", () => {
       setNotSelectedItems([...notSelectedListItems, notSelectedItem]);
     };
 
-    const addGroup = (group) => {
+    const addGroup = (group: "groupA" | "groupB") => {
       if (selectedGroups[group]) {
         setSelectedGroups({
           ...selectedGroups,
@@ -223,7 +236,7 @@ describe("DuellingPicklist", () => {
       setNotSelectedGroups({ ...notSelectedGroups, [group]: undefined });
     };
 
-    const removeGroup = (group) => {
+    const removeGroup = (group: "groupA" | "groupB") => {
       if (notSelectedGroups[group]) {
         setNotSelectedGroups({
           ...notSelectedGroups,
@@ -436,7 +449,7 @@ describe("DuellingPicklist", () => {
   });
 
   describe("functionality", () => {
-    let container;
+    let container: HTMLDivElement | null;
     beforeEach(() => {
       container = document.createElement("div");
       container.id = "enzymeContainer";
@@ -611,35 +624,23 @@ describe("DuellingPicklist", () => {
           .find(ControlComp)
       ).toHaveLength(1);
     });
+  });
 
-    describe("re-render", () => {
-      it.each([
-        ["happens when number of children is changed", [<div />], false],
-        [
-          "does not happen when number of children stays the same",
-          [<div />, <div />],
-          true,
-        ],
-      ])("%s", (desc, children, isEqual) => {
-        const prevProps = { children: [<div />, <div />] };
-        const nextProps = { children };
-        expect(areEqual(prevProps, nextProps)).toBe(isEqual);
-      });
-
-      it.each([
-        ["happens when disabled prop is changed", false],
-        ["does not happen when disabled prop stays the same", true],
-      ])("%s", (desc, disabled) => {
-        const prevProps = { children: [<div />], disabled: true };
-        const nextProps = { children: [<div />], disabled };
-        expect(areEqual(prevProps, nextProps)).toBe(disabled);
-      });
+  describe("children", () => {
+    it("does not throw when incorrect children provided", () => {
+      expect(() => {
+        mount(
+          <DuellingPicklist>
+            <Picklist>invalid</Picklist>
+          </DuellingPicklist>
+        );
+      }).not.toThrow();
     });
   });
 
   describe("focus behaviour", () => {
     describe("without groups", () => {
-      let container;
+      let container: HTMLDivElement | null = null;
       beforeEach(() => {
         container = document.createElement("div");
         container.id = "enzymeContainer";
@@ -739,7 +740,7 @@ describe("DuellingPicklist", () => {
     });
 
     describe("with groups", () => {
-      let container;
+      let container: HTMLDivElement | null = null;
       beforeEach(() => {
         container = document.createElement("div");
         container.id = "enzymeContainer";
@@ -856,25 +857,6 @@ describe("DuellingPicklist", () => {
           ).toBeFocused();
         }
       );
-    });
-  });
-
-  describe("children", () => {
-    it("should throw an error if there are not two Picklist components", () => {
-      const consoleSpy = jest
-        .spyOn(global.console, "error")
-        .mockImplementation(() => {});
-      mount(
-        <DuellingPicklist>
-          <div>foo</div>
-        </DuellingPicklist>
-      );
-
-      // eslint-disable-next-line no-console
-      expect(console.error.mock.calls[0][2]).toBe(
-        "`children` must have two `Picklist`s"
-      );
-      consoleSpy.mockRestore();
     });
   });
 });

@@ -1,8 +1,12 @@
 import styled, { css } from "styled-components";
 import Button from "../../button";
 import { StyledButton } from "../picklist-item/picklist-item.style";
+import { PicklistGroupProps } from "./picklist-group.component";
 
-const StyledGroupWrapper = styled.li`
+const StyledGroupWrapper = styled.li<{
+  highlighted: boolean;
+  type: PicklistGroupProps["type"];
+}>`
   ${({ highlighted, type }) => css`
     &:not(:first-of-type) {
       margin-top: 16px;
@@ -31,7 +35,11 @@ const StyledPicklistGroup = styled.li`
   margin-bottom: 4px;
 `;
 
-const StyledGroupButton = styled(Button)`
+const StyledGroupButton = styled(Button)<{
+  onMouseEnter: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onMouseLeave: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  iconType: PicklistGroupProps["type"];
+}>`
   ${({ iconType }) => css`
     padding: 0;
     margin-right: 0;
