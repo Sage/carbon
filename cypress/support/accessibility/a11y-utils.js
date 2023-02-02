@@ -71,6 +71,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("card") &&
       !prepareUrl[0].startsWith("date-input") &&
       !prepareUrl[0].startsWith("step-sequence") &&
+      !prepareUrl[0].startsWith("button-toggle") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);

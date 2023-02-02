@@ -1,5 +1,6 @@
 import React from "react";
 import ButtonToggle from "./button-toggle.component";
+import { ButtonToggleComponent } from "./button-toggle-test.stories";
 import {
   buttonToggleLabelPreview,
   buttonTogglePreview,
@@ -13,41 +14,6 @@ import {
   CHARACTERS,
 } from "../../../cypress/support/component-helper/constants";
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
-
-const ButtonToggleComponent = ({ children, ...props }) => {
-  return (
-    <div>
-      <ButtonToggle
-        name="button-toggle-one"
-        label="Default example"
-        onBlur={function noRefCheck() {}}
-        onChange={function noRefCheck() {}}
-        onFocus={function noRefCheck() {}}
-        {...props}
-      >
-        First
-      </ButtonToggle>
-      <ButtonToggle
-        name="button-toggle-two"
-        onBlur={function noRefCheck() {}}
-        onChange={function noRefCheck() {}}
-        onFocus={function noRefCheck() {}}
-        {...props}
-      >
-        Second
-      </ButtonToggle>
-      <ButtonToggle
-        name="button-toggle-three"
-        onBlur={function noRefCheck() {}}
-        onChange={function noRefCheck() {}}
-        onFocus={function noRefCheck() {}}
-        {...props}
-      >
-        Third
-      </ButtonToggle>
-    </div>
-  );
-};
 
 context("Testing Button-Toggle component", () => {
   describe("should render Button-Toggle component", () => {
@@ -264,5 +230,51 @@ context("Testing Button-Toggle component", () => {
           expect(callback).to.have.been.calledOnce;
         });
     });
+  });
+
+  describe("Accessibility tests for Button-Toggle component", () => {
+    it("should pass accessibility tests for Button-Toggle default story", () => {
+      CypressMountWithProviders(<ButtonToggleComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Button-Toggle disabled", () => {
+      CypressMountWithProviders(<ButtonToggleComponent disabled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Button-Toggle grouped", () => {
+      CypressMountWithProviders(<ButtonToggleComponent grouped />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([
+      [SIZE.SMALL, 32],
+      [SIZE.MEDIUM, 40],
+      [SIZE.LARGE, 48],
+    ])("should pass accessibility tests for Button-Toggle %s", (size) => {
+      CypressMountWithProviders(
+        <ButtonToggleComponent size={size}> {size}</ButtonToggleComponent>
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it.each(["add", "share", "tick"])(
+      "should pass accessibility tests for Button-Toggle with %s icon",
+      (type) => {
+        CypressMountWithProviders(
+          <ButtonToggleComponent buttonIcon={type} buttonIconSize="large">
+            {" "}
+            {type}
+          </ButtonToggleComponent>
+        );
+
+        cy.checkAccessibility();
+      }
+    );
   });
 });
