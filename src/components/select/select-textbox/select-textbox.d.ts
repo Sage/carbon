@@ -8,6 +8,10 @@ export interface FormInputPropTypes
     Omit<CommonTextboxProps, "onClick"> {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
+  /** Prop to specify the aria-label attribute of the component input */
+  ariaLabel?: string;
+  /** Prop to specify the aria-labeledby property of the component input */
+  ariaLabelledBy?: string;
   /** If true the Component will be focused when rendered */
   autoFocus?: boolean;
   /** If true, the component will be disabled */
