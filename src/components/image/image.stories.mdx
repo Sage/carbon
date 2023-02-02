@@ -58,6 +58,17 @@ To hide the component completely - meaning hidden visually and from being access
   <Story name="with hidden prop" story={stories.WithHiddenProp} />
 </Canvas>
 
+### Decorative Image
+
+There may be a use case where a decorative image is required. Decorative images do not add information to the content of a page. 
+For example, a decorative image might be included to make the website more visually attractive. 
+
+In these cases, an empty alt text should be provided (alt="") so that they can be ignored by assistive technologies, such as screen readers.
+
+<Canvas>
+  <Story name="decorative" story={stories.DecorativeStory} />
+</Canvas>
+
 ### Custom responsive behaviour
 
 It is possible to conditionally change the props based on defined breakpoints in the example below. This example is best
