@@ -36,6 +36,8 @@ const FilterableSelectList = withFilter(SelectList);
 const MultiSelect = React.forwardRef(
   (
     {
+      "aria-label": ariaLabel,
+      "aria-labelledby": ariaLabelledby,
       value,
       defaultValue,
       id,
@@ -578,10 +580,13 @@ const MultiSelect = React.forwardRef(
           >
             {accessibilityLabel}
           </StyledAccessibilityLabelContainer>
+
           <SelectTextbox
             accessibilityLabelId={accessibilityLabelId.current}
             activeDescendantId={activeDescendantId}
             aria-controls={selectListId.current}
+            ariaLabel={ariaLabel}
+            ariaLabelledby={ariaLabelledby}
             hasTextCursor
             isOpen={isOpen}
             labelId={labelId}
@@ -597,6 +602,10 @@ const MultiSelect = React.forwardRef(
 
 MultiSelect.propTypes = {
   ...formInputPropTypes,
+  /** Prop to specify the aria-label attribute of the component input */
+  "aria-label": PropTypes.string,
+  /** Prop to specify the aria-labeledby property of the component input */
+  "aria-labelledby": PropTypes.string,
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component": PropTypes.string,
   /** Identifier used for testing purposes, applied to the root element of the component. */
