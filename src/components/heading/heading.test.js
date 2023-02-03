@@ -1,5 +1,5 @@
 import React from "react";
-import Heading from "./heading.component";
+import { HeadingComponent } from "./heading-test.stories";
 import Pill from "../../components/pill";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
@@ -23,16 +23,6 @@ import { CHARACTERS } from "../../../cypress/support/component-helper/constants"
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testData = ["https://carbon.sage.com/"];
-
-const HeadingComponent = ({ ...props }) => {
-  return (
-    <Heading
-      title="This is a Title"
-      subheader="This is a subheader"
-      {...props}
-    />
-  );
-};
 
 context("Testing Heading component", () => {
   describe("should render Heading component", () => {
@@ -161,5 +151,132 @@ context("Testing Heading component", () => {
         }
       }
     );
+
+    describe("should render Heading component and check accessibility issues", () => {
+      it("should check heading accessibility", () => {
+        CypressMountWithProviders(<HeadingComponent />);
+
+        cy.checkAccessibility();
+      });
+
+      it.each(specialCharacters)(
+        "should check accessibility when children as %s for Heading component",
+        (children) => {
+          CypressMountWithProviders(
+            <HeadingComponent> {children} </HeadingComponent>
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(specialCharacters)(
+        "should check accessibility when title as %s for Heading component",
+        (titleText) => {
+          CypressMountWithProviders(<HeadingComponent title={titleText} />);
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(specialCharacters)(
+        "should check accessibility when titleId as %s for Heading component",
+        (titleId) => {
+          CypressMountWithProviders(<HeadingComponent titleId={titleId} />);
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(specialCharacters)(
+        "should check accessibility when subheader as %s for Heading component",
+        (subheader) => {
+          CypressMountWithProviders(<HeadingComponent subheader={subheader} />);
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(specialCharacters)(
+        "should check accessibility when subtitleId as %s for Heading component",
+        (subtitleId) => {
+          CypressMountWithProviders(
+            <HeadingComponent subtitleId={subtitleId} />
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(specialCharacters)(
+        "should check accessibility when help text as %s for Heading component",
+        (helpText) => {
+          CypressMountWithProviders(<HeadingComponent help={helpText} />);
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(specialCharacters)(
+        "should check accessibility when helpAriaLabel as %s for Heading component",
+        (ariaLabel) => {
+          CypressMountWithProviders(
+            <HeadingComponent
+              help="This is a Title"
+              helpAriaLabel={ariaLabel}
+            />
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(specialCharacters)(
+        "should check accessibility when pill for Heading component",
+        (pillText) => {
+          CypressMountWithProviders(
+            <HeadingComponent pills={<Pill>{pillText}</Pill>} />
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(testData)(
+        "should check accessibility when %s as help link for Heading component",
+        (helpLink) => {
+          CypressMountWithProviders(<HeadingComponent helpLink={helpLink} />);
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(testData)(
+        "should check accessibility when %s as back link for Heading component",
+        (backLink) => {
+          CypressMountWithProviders(<HeadingComponent backLink={backLink} />);
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each([true, false])(
+        "should check accessibility when separator is %s for Heading component",
+        (boolVal) => {
+          CypressMountWithProviders(<HeadingComponent separator={boolVal} />);
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each([true, false])(
+        "should check accessibility when separator is %s for Heading component",
+        (boolVal) => {
+          CypressMountWithProviders(<HeadingComponent divider={boolVal} />);
+
+          cy.checkAccessibility();
+        }
+      );
+    });
   });
 });

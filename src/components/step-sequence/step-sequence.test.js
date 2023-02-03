@@ -1,6 +1,8 @@
 import React from "react";
-import StepSequence from "./step-sequence.component";
-import StepSequenceItem from "./step-sequence-item/step-sequence-item.component";
+import {
+  StepSequenceComponent,
+  StepSequenceItemCustom,
+} from "./step-sequence-test.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
   stepSequenceItemIndicator,
@@ -11,73 +13,6 @@ import { ICON } from "../../../cypress/locators/locators";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
-const StepSequenceComponent = ({ ...props }) => {
-  return (
-    <StepSequence {...props}>
-      <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-      >
-        Name
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="2"
-        status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="3"
-        status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="4"
-        status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 5 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="5"
-        status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
-    </StepSequence>
-  );
-};
-
-const StepSequenceItemCustom = ({ ...props }) => {
-  return (
-    <StepSequenceItem
-      aria-label="Step 1 of 5"
-      hiddenCompleteLabel="Complete"
-      hiddenCurrentLabel="Current"
-      indicator="1"
-      status="complete"
-      {...props}
-    >
-      Name
-    </StepSequenceItem>
-  );
-};
 
 context("Testing StepSequence component", () => {
   describe("should render StepSequence component", () => {
@@ -210,5 +145,88 @@ context("Testing StepSequence component", () => {
           .should("have.length", spanCount);
       }
     );
+  });
+
+  describe("Accessibility tests for StepSequence component", () => {
+    it.each(["horizontal", "vertical"])(
+      "should check %s orientation for accessibility tests",
+      (orientation) => {
+        CypressMountWithProviders(
+          <StepSequenceComponent orientation={orientation} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    describe("check StepSequenceItem component for accessibility tests", () => {
+      it("should check StepSequenceItem with children for accessibility tests", () => {
+        CypressMountWithProviders(<StepSequenceItemCustom />);
+        cy.checkAccessibility();
+      });
+
+      it.each([["-100"], ["0"], ["999"], testData[0], testData[1]])(
+        "should check StepSequenceItem with indicator set to %s for accessibility tests",
+        (indicator) => {
+          CypressMountWithProviders(
+            <StepSequenceItemCustom status="incomplete" indicator={indicator} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(testData)(
+        "should check StepSequenceItem with ariaLabel set to %s for accessibility tests",
+        (ariaLabel) => {
+          CypressMountWithProviders(
+            <StepSequenceItemCustom aria-label={ariaLabel} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(["complete", "current", "incomplete"])(
+        "should check StepSequenceItem with status set to %s for accessibility tests",
+        (status) => {
+          CypressMountWithProviders(<StepSequenceItemCustom status={status} />);
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(testData)(
+        "should check StepSequenceItem with hiddenCompleteLabel set to %s for accessibility tests",
+        (hiddenCompleteLabel) => {
+          CypressMountWithProviders(
+            <StepSequenceItemCustom
+              status="complete"
+              hiddenCompleteLabel={hiddenCompleteLabel}
+            />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(testData)(
+        "should check StepSequenceItem with hiddenCurrentLabel set to %s for accessibility tests",
+        (hiddenCurrentLabel) => {
+          CypressMountWithProviders(
+            <StepSequenceItemCustom
+              status="current"
+              hiddenCurrentLabel={hiddenCurrentLabel}
+            />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(["complete", "current", "incomplete"])(
+        "should check StepSequenceItem with hideIndicator prop and status set to %s for accessibility tests",
+        (status) => {
+          CypressMountWithProviders(
+            <StepSequenceItemCustom status={status} hideIndicator />
+          );
+          cy.checkAccessibility();
+        }
+      );
+    });
   });
 });
