@@ -15,6 +15,9 @@ import StyledSelect from "../select.style";
 import SelectList from "../select-list/select-list.component";
 import isExpectedOption from "../utils/is-expected-option";
 import isNavigationKey from "../utils/is-navigation-key";
+import Logger from "../../../__internal__/utils/logger";
+
+let deprecateInputRefWarnTriggered = false;
 
 const FilterableSelectList = withFilter(SelectList);
 
@@ -52,9 +55,10 @@ const FilterableSelect = React.forwardRef(
       tooltipPosition,
       listPlacement = "bottom",
       flipEnabled = true,
+      inputRef,
       ...textboxProps
     },
-    inputRef
+    ref
   ) => {
     const [activeDescendantId, setActiveDescendantId] = useState();
     const selectListId = useRef(guid());
@@ -73,6 +77,13 @@ const FilterableSelect = React.forwardRef(
     );
     const [highlightedValue, setHighlightedValue] = useState("");
     const [filterText, setFilterText] = useState("");
+
+    if (!deprecateInputRefWarnTriggered && inputRef) {
+      deprecateInputRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `inputRef` prop in `FilterableSelect` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
 
     const createCustomEvent = useCallback(
       (newValue) => {
@@ -462,13 +473,22 @@ const FilterableSelect = React.forwardRef(
       onListAction();
     }
 
-    function assignInput(input) {
-      setTextboxRef(input.current);
+    const assignInput = useCallback(
+      (element) => {
+        setTextboxRef(element);
 
-      if (inputRef) {
-        inputRef.current = input.current;
-      }
-    }
+        if (inputRef || !ref) {
+          return;
+        }
+
+        if (typeof ref === "function") {
+          ref(element);
+        } else {
+          ref.current = element;
+        }
+      },
+      [ref, inputRef]
+    );
 
     function getTextboxProps() {
       return {
@@ -477,7 +497,7 @@ const FilterableSelect = React.forwardRef(
         label,
         disabled,
         readOnly,
-        inputRef: assignInput,
+        ref: assignInput,
         selectedValue,
         formattedValue: textValue,
         onClick: handleTextboxClick,
@@ -489,6 +509,7 @@ const FilterableSelect = React.forwardRef(
         onChange: handleTextboxChange,
         onMouseDown: handleTextboxMouseDown,
         tooltipPosition,
+        inputRef,
         ...filterOutStyledSystemSpacingProps(textboxProps),
       };
     }

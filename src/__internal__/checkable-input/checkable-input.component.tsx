@@ -62,119 +62,125 @@ export interface CheckableInputProps extends CommonCheckableInputProps {
   labelInline?: boolean;
 }
 
-const CheckableInput = ({
-  ariaLabelledBy: externalAriaLabelledBy,
-  autoFocus,
-  checked,
-  children,
-  disabled,
-  error,
-  fieldHelp,
-  fieldHelpInline,
-  info,
-  id: inputId,
-  inputRef,
-  type,
-  value,
-  inputWidth,
-  label,
-  labelAlign,
-  labelHelp,
-  labelInline = true,
-  labelSpacing = 1,
-  labelWidth,
-  name,
-  onBlur,
-  onChange,
-  onFocus,
-  required,
-  reverse = false,
-  validationOnLabel,
-  warning,
-  ...props
-}: CheckableInputProps) => {
-  const { current: id } = useRef(inputId || guid());
+const CheckableInput = React.forwardRef(
+  (
+    {
+      ariaLabelledBy: externalAriaLabelledBy,
+      autoFocus,
+      checked,
+      children,
+      disabled,
+      error,
+      fieldHelp,
+      fieldHelpInline,
+      info,
+      id: inputId,
+      type,
+      value,
+      inputWidth,
+      label,
+      labelAlign,
+      labelHelp,
+      labelInline = true,
+      labelSpacing = 1,
+      labelWidth,
+      name,
+      onBlur,
+      onChange,
+      onFocus,
+      required,
+      reverse = false,
+      validationOnLabel,
+      warning,
+      ...props
+    }: CheckableInputProps,
+    ref: React.ForwardedRef<HTMLInputElement>
+  ) => {
+    const { current: id } = useRef(inputId || guid());
 
-  const {
-    labelId,
-    fieldHelpId,
-    validationIconId,
-    ariaDescribedBy,
-    ariaLabelledBy,
-  } = useInputAccessibility({
-    id,
-    error,
-    warning,
-    info,
-    label,
-    fieldHelp,
-  });
+    const {
+      labelId,
+      fieldHelpId,
+      validationIconId,
+      ariaDescribedBy,
+      ariaLabelledBy,
+    } = useInputAccessibility({
+      id,
+      error,
+      warning,
+      info,
+      label,
+      fieldHelp,
+    });
 
-  const isRadio = type === "radio";
+    const isRadio = type === "radio";
 
-  const formFieldProps = {
-    disabled,
-    error,
-    fieldHelp,
-    fieldHelpInline,
-    fieldHelpId,
-    id,
-    info,
-    label,
-    labelAlign,
-    labelHelp,
-    labelHelpIcon: "info" as const,
-    labelId,
-    labelInline,
-    labelSpacing,
-    name: id,
-    reverse,
-    warning,
-    validationIconId,
-    // We don't want an asterisk on each radio control, only the legend
-    // However, we still want the input element to receive the required prop
-    isRequired: isRadio ? undefined : required,
-    useValidationIcon: validationOnLabel,
-  };
+    const formFieldProps = {
+      disabled,
+      error,
+      fieldHelp,
+      fieldHelpInline,
+      fieldHelpId,
+      id,
+      info,
+      label,
+      labelAlign,
+      labelHelp,
+      labelHelpIcon: "info" as const,
+      labelId,
+      labelInline,
+      labelSpacing,
+      name: id,
+      reverse,
+      warning,
+      validationIconId,
+      // We don't want an asterisk on each radio control, only the legend
+      // However, we still want the input element to receive the required prop
+      isRequired: isRadio ? undefined : required,
+      useValidationIcon: validationOnLabel,
+    };
 
-  const inputProps = {
-    "aria-describedby": ariaDescribedBy,
-    "aria-labelledby": externalAriaLabelledBy || ariaLabelledBy,
-    "aria-invalid": !!error,
-    autoFocus,
-    checked,
-    disabled,
-    id,
-    inputRef,
-    type,
-    value,
-    name,
-    onBlur,
-    onChange,
-    onFocus,
-    required,
-    ...props,
-  };
+    const inputProps = {
+      "aria-describedby": ariaDescribedBy,
+      "aria-labelledby": externalAriaLabelledBy || ariaLabelledBy,
+      "aria-invalid": !!error,
+      autoFocus,
+      checked,
+      disabled,
+      id,
+      type,
+      value,
+      name,
+      onBlur,
+      onChange,
+      onFocus,
+      required,
+      ref,
+      ...props,
+    };
 
-  return (
-    <StyledCheckableInputWrapper
-      disabled={disabled}
-      fieldHelpInline={fieldHelpInline}
-      inputWidth={inputWidth}
-      labelWidth={labelWidth}
-      labelInline={labelInline}
-      reverse={reverse}
-    >
-      <InputBehaviour>
-        <FormField {...formFieldProps}>
-          <StyledCheckableInput>
-            <HiddenCheckableInput {...inputProps} />
-            {children}
-          </StyledCheckableInput>
-        </FormField>
-      </InputBehaviour>
-    </StyledCheckableInputWrapper>
-  );
-};
+    return (
+      <StyledCheckableInputWrapper
+        disabled={disabled}
+        fieldHelpInline={fieldHelpInline}
+        inputWidth={inputWidth}
+        labelWidth={labelWidth}
+        labelInline={labelInline}
+        reverse={reverse}
+      >
+        <InputBehaviour>
+          <FormField {...formFieldProps}>
+            <StyledCheckableInput>
+              <HiddenCheckableInput {...inputProps} />
+              {children}
+            </StyledCheckableInput>
+          </FormField>
+        </InputBehaviour>
+      </StyledCheckableInputWrapper>
+    );
+  }
+);
+
+CheckableInput.displayName = "CheckableInput";
 
 export default CheckableInput;
