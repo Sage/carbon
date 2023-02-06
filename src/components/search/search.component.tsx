@@ -9,6 +9,7 @@ import Icon, { IconType } from "../icon";
 import Textbox from "../textbox";
 import Button from "../button";
 import { ValidationProps } from "../../__internal__/validations";
+import Logger from "../../__internal__/utils/logger";
 
 export interface SearchEvent {
   target: {
@@ -67,218 +68,229 @@ export interface SearchProps extends ValidationProps, MarginProps {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
-export const Search = ({
-  defaultValue,
-  onChange,
-  onClick,
-  onFocus,
-  onBlur,
-  onKeyDown,
-  value,
-  id,
-  name,
-  threshold = 3,
-  searchWidth,
-  maxWidth,
-  searchButton,
-  placeholder,
-  variant = "default",
-  "aria-label": ariaLabel = "search",
-  inputRef,
-  tabIndex,
-  error,
-  warning,
-  info,
-  tooltipPosition,
-  ...rest
-}: SearchProps) => {
-  const isControlled = value !== undefined;
-  const initialValue = isControlled ? value : defaultValue;
+let deprecateInputRefWarnTriggered = false;
 
-  invariant(
-    typeof initialValue === "string",
-    "This component has no initial value"
-  );
+export const Search = React.forwardRef(
+  (
+    {
+      defaultValue,
+      onChange,
+      onClick,
+      onFocus,
+      onBlur,
+      onKeyDown,
+      value,
+      id,
+      name,
+      threshold = 3,
+      searchWidth,
+      maxWidth,
+      searchButton,
+      placeholder,
+      variant = "default",
+      "aria-label": ariaLabel = "search",
+      inputRef,
+      tabIndex,
+      error,
+      warning,
+      info,
+      tooltipPosition,
+      ...rest
+    }: SearchProps,
+    ref: React.ForwardedRef<HTMLInputElement>
+  ) => {
+    const isControlled = value !== undefined;
+    const initialValue = isControlled ? value : defaultValue;
 
-  invariant(
-    threshold === undefined || (typeof threshold === "number" && threshold > 0),
-    "Threshold must be a positive number"
-  );
+    if (!deprecateInputRefWarnTriggered && inputRef) {
+      deprecateInputRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `inputRef` prop in `Search` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
 
-  const [searchValue, setSearchValue] = useState(initialValue);
-  const [isFocused, setIsFocused] = useState(false);
-  const [searchIsActive, setSearchIsActive] = useState(
-    initialValue.length >= threshold
-  );
-
-  useEffect(() => {
-    setSearchIsActive(
-      !isControlled
-        ? searchValue.length >= threshold
-        : value.length >= threshold
+    invariant(
+      typeof initialValue === "string",
+      "This component has no initial value"
     );
-  }, [isControlled, searchValue, threshold, value]);
 
-  const [iconType, iconTabIndex] = useMemo<
-    [IconType | undefined, number]
-  >(() => {
-    const isSearchValueEmpty = !isControlled
-      ? searchValue.length === 0
-      : value.length === 0;
-    const isFocusedOrActive =
-      isFocused ||
-      searchIsActive ||
-      inputRef?.current === document.activeElement;
+    invariant(
+      threshold === undefined ||
+        (typeof threshold === "number" && threshold > 0),
+      "Threshold must be a positive number"
+    );
 
-    if (!isSearchValueEmpty) {
-      return ["cross", 0];
+    const [searchValue, setSearchValue] = useState(initialValue);
+    const [isFocused, setIsFocused] = useState(false);
+    const [searchIsActive, setSearchIsActive] = useState(
+      initialValue.length >= threshold
+    );
+
+    useEffect(() => {
+      setSearchIsActive(
+        !isControlled
+          ? searchValue.length >= threshold
+          : value.length >= threshold
+      );
+    }, [isControlled, searchValue, threshold, value]);
+
+    const [iconType, iconTabIndex] = useMemo<
+      [IconType | undefined, number]
+    >(() => {
+      const isSearchValueEmpty = !isControlled
+        ? searchValue.length === 0
+        : value.length === 0;
+      const isFocusedOrActive =
+        isFocused ||
+        searchIsActive ||
+        inputRef?.current === document.activeElement;
+
+      if (!isSearchValueEmpty) {
+        return ["cross", 0];
+      }
+
+      if (
+        !isFocusedOrActive ||
+        threshold === 0 ||
+        (!searchButton && isSearchValueEmpty)
+      ) {
+        return ["search", -1];
+      }
+
+      return [undefined, -1];
+    }, [
+      isControlled,
+      searchValue,
+      value,
+      isFocused,
+      searchIsActive,
+      threshold,
+      searchButton,
+      inputRef,
+    ]);
+
+    let buttonProps = {};
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (onChange) {
+        onChange(event);
+      }
+
+      if (!isControlled) {
+        setSearchValue(event.target.value);
+      }
+    };
+
+    const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(true);
+      if (onFocus) {
+        onFocus(event);
+      }
+    };
+
+    if (searchButton && onClick) {
+      buttonProps = {
+        onClick: () => {
+          onClick({
+            target: {
+              name,
+              id,
+              value: !isControlled ? searchValue : value,
+            },
+          });
+        },
+      };
     }
 
-    if (
-      !isFocusedOrActive ||
-      threshold === 0 ||
-      (!searchButton && isSearchValueEmpty)
-    ) {
-      return ["search", -1];
-    }
-
-    return [undefined, -1];
-  }, [
-    isControlled,
-    searchValue,
-    value,
-    isFocused,
-    searchIsActive,
-    threshold,
-    searchButton,
-    inputRef,
-  ]);
-
-  let buttonProps = {};
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (onChange) {
-      onChange(event);
-    }
-
-    if (!isControlled) {
-      setSearchValue(event.target.value);
-    }
-  };
-
-  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-    setIsFocused(true);
-    if (onFocus) {
-      onFocus(event);
-    }
-  };
-
-  if (searchButton && onClick) {
-    buttonProps = {
-      onClick: () => {
-        onClick({
+    const handleIconClick = () => {
+      setSearchValue("");
+      if (onChange) {
+        onChange({
           target: {
-            name,
-            id,
-            value: !isControlled ? searchValue : value,
+            ...(name && { name }),
+            ...(id && { id }),
+            value: "",
           },
         });
-      },
+      }
     };
+
+    const handleMouseDown = (event: React.MouseEvent<HTMLElement>) => {
+      event.preventDefault();
+    };
+
+    const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(false);
+
+      if (onBlur) {
+        onBlur(event);
+      }
+    };
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key.length === 1) {
+        event.stopPropagation();
+      }
+
+      if (onKeyDown) {
+        onKeyDown(event);
+      }
+    };
+
+    const isSearchTyped =
+      isFocused || (!isControlled ? !!searchValue.length : !!value.length);
+
+    return (
+      <StyledSearch
+        isFocused={isFocused}
+        searchWidth={searchWidth}
+        maxWidth={maxWidth}
+        searchIsActive={searchIsActive}
+        searchHasValue={!isControlled ? !!searchValue?.length : !!value?.length}
+        showSearchButton={searchButton}
+        variant={variant}
+        mb={0}
+        {...filterStyledSystemMarginProps(rest)}
+        {...tagComponent("search", rest)}
+        id={id}
+        name={name}
+        {...rest}
+      >
+        <Textbox
+          placeholder={placeholder}
+          value={!isControlled ? searchValue : value}
+          inputIcon={iconType}
+          iconTabIndex={iconTabIndex}
+          iconOnClick={handleIconClick}
+          iconOnMouseDown={handleMouseDown}
+          aria-label={ariaLabel}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          ref={ref || inputRef}
+          tabIndex={tabIndex}
+          error={error}
+          warning={warning}
+          info={info}
+          tooltipPosition={tooltipPosition}
+        />
+        {searchButton && (
+          <StyledSearchButton>
+            {isSearchTyped && (
+              <Button size="medium" px="16px" {...buttonProps}>
+                <StyledButtonIcon>
+                  <Icon type="search" />
+                </StyledButtonIcon>
+              </Button>
+            )}
+          </StyledSearchButton>
+        )}
+      </StyledSearch>
+    );
   }
+);
 
-  const handleIconClick = () => {
-    setSearchValue("");
-    if (onChange) {
-      onChange({
-        target: {
-          ...(name && { name }),
-          ...(id && { id }),
-          value: "",
-        },
-      });
-    }
-  };
-
-  const handleMouseDown = (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-  };
-
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    setIsFocused(false);
-
-    if (onBlur) {
-      onBlur(event);
-    }
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key.length === 1) {
-      event.stopPropagation();
-    }
-
-    if (onKeyDown) {
-      onKeyDown(event);
-    }
-  };
-
-  const assignInput = (input: React.RefObject<HTMLInputElement>) => {
-    if (inputRef) {
-      inputRef.current = input?.current;
-    }
-  };
-
-  const isSearchTyped =
-    isFocused || (!isControlled ? !!searchValue.length : !!value.length);
-
-  return (
-    <StyledSearch
-      isFocused={isFocused}
-      searchWidth={searchWidth}
-      maxWidth={maxWidth}
-      searchIsActive={searchIsActive}
-      searchHasValue={!isControlled ? !!searchValue?.length : !!value?.length}
-      showSearchButton={searchButton}
-      variant={variant}
-      mb={0}
-      {...filterStyledSystemMarginProps(rest)}
-      {...tagComponent("search", rest)}
-      id={id}
-      name={name}
-      {...rest}
-    >
-      <Textbox
-        placeholder={placeholder}
-        value={!isControlled ? searchValue : value}
-        inputIcon={iconType}
-        iconTabIndex={iconTabIndex}
-        iconOnClick={handleIconClick}
-        iconOnMouseDown={handleMouseDown}
-        aria-label={ariaLabel}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        inputRef={assignInput}
-        tabIndex={tabIndex}
-        error={error}
-        warning={warning}
-        info={info}
-        tooltipPosition={tooltipPosition}
-      />
-      {searchButton && (
-        <StyledSearchButton>
-          {isSearchTyped && (
-            <Button size="medium" px="16px" {...buttonProps}>
-              <StyledButtonIcon>
-                <Icon type="search" />
-              </StyledButtonIcon>
-            </Button>
-          )}
-        </StyledSearchButton>
-      )}
-    </StyledSearch>
-  );
-};
+Search.displayName = "Search";
 
 export default Search;

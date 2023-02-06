@@ -183,9 +183,7 @@ const AdvancedColorPicker = ({
               aria-label={label}
               id={value}
               defaultChecked={value === currentColor}
-              inputRef={(input) => {
-                ref.current = input.current;
-              }}
+              ref={ref}
             />
           ))}
         </SimpleColorPicker>

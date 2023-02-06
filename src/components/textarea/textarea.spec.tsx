@@ -20,12 +20,16 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 import StyledTextarea from "./textarea.style";
+import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
-function renderTextarea(props?: TextareaProps, renderer = mount) {
+function renderTextarea(
+  props?: TextareaProps & React.RefAttributes<HTMLTextAreaElement>,
+  renderer = mount
+) {
   return renderer(<Textarea name="textarea" {...props} />);
 }
 
@@ -537,6 +541,46 @@ describe("componentWillUnmount", () => {
         expect(wrapper.find(ErrorBorder).exists()).toEqual(true);
         expect(wrapper.find(StyledValidationMessage).exists()).toEqual(true);
       });
+    });
+  });
+
+  describe("refs", () => {
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      const ref = () => {};
+
+      const wrapper = renderTextarea({ inputRef: ref });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `Textarea` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+      loggerSpy.mockRestore();
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      const wrapper = renderTextarea({ ref });
+
+      expect(ref.current).toBe(wrapper.find("textarea").getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      const wrapper = renderTextarea({ ref });
+
+      expect(ref).toHaveBeenCalledWith(wrapper.find("textarea").getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      const wrapper = renderTextarea({ ref });
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
     });
   });
 });

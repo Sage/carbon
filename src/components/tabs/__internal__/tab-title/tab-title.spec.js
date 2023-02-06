@@ -51,17 +51,23 @@ describe("TabTitle", () => {
   });
 
   describe("attributes", () => {
-    wrapper = render();
     it('role equals "tab"', () => {
+      wrapper = render();
       expect(wrapper.find("[role='tab']").exists()).toEqual(true);
     });
     it('data-element equals "select-tab"', () => {
+      wrapper = render();
       expect(wrapper.find("[data-element='select-tab']").exists()).toEqual(
         true
       );
     });
     it("data-tabid equals tabId", () => {
+      wrapper = render();
       expect(wrapper.find("[data-tabid='uniqueid1']").exists()).toEqual(true);
+    });
+    it("when 'data-role' is set, pass to title element", () => {
+      wrapper = render({ "data-role": "foobar" });
+      expect(wrapper.find("[data-role='foobar']").exists()).toBeTruthy();
     });
   });
 
