@@ -5,6 +5,8 @@ export interface TabTitleContextProps {
 }
 
 export interface TabTitleProps {
+  /** Identifier used for testing purposes */
+  "data-role"?: string;
   title: string;
   id?: string;
   dataTabId?: string;

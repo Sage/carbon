@@ -1034,6 +1034,24 @@ describe("tags", () => {
     });
   });
 
+  it("when child Tab has `data-role` prop set, renders corresponding tab title with that `data-role`", () => {
+    const dataRole = "foobar";
+    const wrapper = mount(
+      <Tabs>
+        <Tab
+          titleProps={{
+            "data-role": dataRole,
+          }}
+          title="Tab Title 1"
+          tabId="uniqueid"
+        >
+          Content for Tab 1
+        </Tab>
+      </Tabs>
+    );
+    expect(wrapper.find(TabTitle).prop("data-role")).toEqual(dataRole);
+  });
+
   describe("when children of Tab have validation failures", () => {
     const MockComponent = ({ show = true, error, warning, info }) => (
       <Tabs data-element="bar" data-role="baz">
