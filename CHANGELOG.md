@@ -1,3 +1,10 @@
+## [114.9.0](https://github.com/Sage/carbon/compare/v114.8.0...v114.9.0) (2023-02-06)
+
+
+### Features
+
+* **tab:** introduce titleProps for passing props to corresponding title ([3a0c4e7](https://github.com/Sage/carbon/commit/3a0c4e783f2c49dd2abaebb84e09c6e4f08ff87d))
+
 ## [114.8.0](https://github.com/Sage/carbon/compare/v114.7.1...v114.8.0) (2023-02-03)
 
 
