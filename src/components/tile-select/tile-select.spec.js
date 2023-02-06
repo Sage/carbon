@@ -27,6 +27,7 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
+import Logger from "../../__internal__/utils/logger";
 
 const radioValues = ["val1", "val2", "val3"];
 
@@ -451,6 +452,46 @@ describe("TileSelect", () => {
         wrapper.find(StyledAccordionFooterWrapper),
         { modifier: 'span[data-element="chevron_down"]' }
       );
+    });
+  });
+
+  describe("refs", () => {
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      const ref = () => {};
+
+      render({ inputRef: ref });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `TileSelect` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+      loggerSpy.mockRestore();
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      render({ ref });
+
+      expect(ref.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      render({ ref });
+
+      expect(ref).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      render({ ref });
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
     });
   });
 });

@@ -32,6 +32,8 @@ const DateRange = ({
   tooltipPosition,
   validationOnLabel,
   value,
+  startRef,
+  endRef,
   ...rest
 }) => {
   const l = useLocale();
@@ -258,6 +260,7 @@ const DateRange = ({
           data-element="start-date"
           labelWidth={inlineLabelWidth} // Textbox only applies this when labelsInLine prop is true
           tooltipPosition={tooltipPosition}
+          ref={startRef}
         />
         <DateInput
           {...dateProps("end")}
@@ -265,6 +268,7 @@ const DateRange = ({
           data-element="end-date"
           labelWidth={inlineLabelWidth} // Textbox only applies this when labelsInLine prop is true
           tooltipPosition={tooltipPosition}
+          ref={endRef}
         />
       </DateRangeContext.Provider>
     </StyledDateRange>
@@ -303,6 +307,13 @@ DateRange.propTypes = {
   Pass string to display icon, tooltip and blue border
   Pass true boolean to only display blue border */
   startInfo: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /**
+   * A React ref to pass to the first of the two Date Input fields
+   */
+  startRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(HTMLInputElement) }),
+  ]),
   /** Indicate that error has occurred on end date
   Pass string to display icon, tooltip and red border
   Pass true boolean to only display red border */
@@ -315,6 +326,13 @@ DateRange.propTypes = {
   Pass string to display icon, tooltip and blue border
   Pass true boolean to only display blue border */
   endInfo: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /**
+   * A React ref to pass to the second of the two Date Input fields
+   */
+  endRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(HTMLInputElement) }),
+  ]),
   /** When true, validation icons will be placed on labels instead of being placed on the inputs */
   validationOnLabel: PropTypes.bool,
   /**

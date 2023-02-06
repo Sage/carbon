@@ -21,6 +21,7 @@ import createGuid from "../../__internal__/utils/helpers/guid";
 import { ErrorBorder, StyledHintText } from "./textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import Logger from "../../__internal__/utils/logger";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -41,6 +42,47 @@ describe("Textbox", () => {
     const wrapper = mount(<Textbox value="test string" characterLimit={100} />);
 
     expect(wrapper.find(CharacterCount).text()).toBe("11/100");
+  });
+
+  describe("refs", () => {
+    let wrapper: ReactWrapper;
+
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      const ref = () => {};
+
+      wrapper = mount(<Textbox inputRef={ref} />);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `Textbox` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+      loggerSpy.mockRestore();
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      wrapper = mount(<Textbox ref={ref} />);
+
+      expect(ref.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      wrapper = mount(<Textbox ref={ref} />);
+
+      expect(ref).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      wrapper = mount(<Textbox ref={ref} />);
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
+    });
   });
 
   it("renders a counter with an over limit warning", () => {

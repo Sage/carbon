@@ -15,6 +15,7 @@ import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import Label from "../../../__internal__/label";
 import { InputPresentation } from "../../../__internal__/input";
+import Logger from "../../../__internal__/utils/logger";
 
 describe("SimpleSelect", () => {
   describe("when an HTML element is clicked when the SelectList is open", () => {
@@ -88,25 +89,48 @@ describe("SimpleSelect", () => {
     );
   });
 
-  it("the input ref should be forwarded", () => {
-    let mockRef;
+  describe("with a ref", () => {
+    it("the input ref should be forwarded", () => {
+      let mockRef;
 
-    const WrapperComponent = () => {
-      mockRef = useRef();
+      const WrapperComponent = () => {
+        mockRef = useRef();
 
-      return (
-        <SimpleSelect name="testSelect" id="testSelect" ref={mockRef}>
-          <Option value="opt1" text="red" />
-          <Option value="opt2" text="green" />
-          <Option value="opt3" text="blue" />
-          <Option value="opt4" text="black" />
-        </SimpleSelect>
-      );
-    };
+        return (
+          <SimpleSelect name="testSelect" id="testSelect" ref={mockRef}>
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </SimpleSelect>
+        );
+      };
 
-    const wrapper = mount(<WrapperComponent />);
+      const wrapper = mount(<WrapperComponent />);
 
-    expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+      expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("the input callback ref should be called with the DOM element", () => {
+      let mockRef;
+
+      const WrapperComponent = () => {
+        mockRef = jest.fn();
+
+        return (
+          <SimpleSelect name="testSelect" id="testSelect" ref={mockRef}>
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </SimpleSelect>
+        );
+      };
+
+      const wrapper = mount(<WrapperComponent />);
+
+      expect(mockRef).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
   });
 
   it("the input toggle icon should have proper left margin", () => {
@@ -159,6 +183,21 @@ describe("SimpleSelect", () => {
   });
 
   describe("when the inputRef prop is specified", () => {
+    it("should display deprecation warning when the inputRef prop is usedll", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      const inputRefFn = jest.fn();
+      const wrapper = renderSelect({ inputRef: inputRefFn });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `Select` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      loggerSpy.mockRestore();
+    });
+
     it("then the input reference should be returned on call", () => {
       const inputRefFn = jest.fn();
       const wrapper = renderSelect({ inputRef: inputRefFn });

@@ -53,7 +53,9 @@ describe("DateRange", () => {
   });
 
   afterEach(() => {
-    wrapper.unmount();
+    if (wrapper.exists()) {
+      wrapper.unmount();
+    }
   });
 
   testStyledSystemMargin((props) => (
@@ -677,6 +679,62 @@ describe("DateRange", () => {
         expect(
           wrapper.find('DateInput[data-element="end-date"]').exists()
         ).toBeTruthy();
+      });
+    });
+  });
+
+  describe("ref props", () => {
+    describe("startRef", () => {
+      it("accepts as a ref object", () => {
+        const ref = { current: null };
+        wrapper = renderDateRange({ startRef: ref }, mount);
+
+        expect(ref.current).toBe(wrapper.find("input").at(0).getDOMNode());
+      });
+
+      it("accepts as a ref callback", () => {
+        const ref = jest.fn();
+        wrapper = renderDateRange({ startRef: ref }, mount);
+
+        expect(ref).toHaveBeenCalledWith(
+          wrapper.find("input").at(0).getDOMNode()
+        );
+      });
+
+      it("sets ref to empty after unmount", () => {
+        const ref = { current: null };
+        wrapper = renderDateRange({ startRef: ref }, mount);
+
+        wrapper.unmount();
+
+        expect(ref.current).toBe(null);
+      });
+    });
+
+    describe("endRef", () => {
+      it("accepts as a ref object", () => {
+        const ref = { current: null };
+        wrapper = renderDateRange({ endRef: ref }, mount);
+
+        expect(ref.current).toBe(wrapper.find("input").at(1).getDOMNode());
+      });
+
+      it("accepts as a ref callback", () => {
+        const ref = jest.fn();
+        wrapper = renderDateRange({ endRef: ref }, mount);
+
+        expect(ref).toHaveBeenCalledWith(
+          wrapper.find("input").at(1).getDOMNode()
+        );
+      });
+
+      it("sets ref to empty after unmount", () => {
+        const ref = { current: null };
+        wrapper = renderDateRange({ endRef: ref }, mount);
+
+        wrapper.unmount();
+
+        expect(ref.current).toBe(null);
       });
     });
   });
