@@ -1,3 +1,10 @@
+### [114.9.1](https://github.com/Sage/carbon/compare/v114.9.0...v114.9.1) (2023-02-06)
+
+
+### Bug Fixes
+
+* **popover:** prevent from crashing when rendered in sidebar ([a03c84f](https://github.com/Sage/carbon/commit/a03c84f1d540cdff51d9b5c305e64e286743d4f7))
+
 ## [114.9.0](https://github.com/Sage/carbon/compare/v114.8.0...v114.9.0) (2023-02-06)
 
 
