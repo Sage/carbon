@@ -24,6 +24,7 @@ const Tab = ({
   updateInfos,
   href,
   title,
+  titleProps,
   ...rest
 }) => {
   const [tabErrors, setTabErrors] = useState({});
@@ -120,6 +121,11 @@ Tab.propTypes = {
   titlePosition: PropTypes.oneOf(["before", "after"]),
   /** Allows Tab to be a link */
   href: PropTypes.string,
+  /** Additional props to be passed to the Tab's corresponding title */
+  titleProps: PropTypes.shape({
+    /** Identifier used for testing purposes */
+    "data-role": PropTypes.string,
+  }),
 };
 
 export { TabContext };

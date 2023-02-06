@@ -81,8 +81,8 @@ const Popover = ({
 
   useEffect(() => {
     return () => {
-      if (!disablePortal) {
-        mountNode.removeChild(elementDOM.current as HTMLDivElement);
+      if (!disablePortal && elementDOM.current) {
+        mountNode.removeChild(elementDOM.current);
         elementDOM.current = null;
       }
     };

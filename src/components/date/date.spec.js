@@ -39,6 +39,7 @@ import {
   // eslint-disable-next-line import/named
   enUS as enUSLocale,
 } from "../../locales/date-fns-locales";
+import Logger from "../../__internal__/utils/logger";
 
 const locales = {
   "en-GB": {
@@ -89,7 +90,13 @@ describe("Date", () => {
   let onFocusFn;
 
   // eslint-disable-next-line react/prop-types
-  const MockComponent = ({ emptyValue, eventValues = () => {}, ...rest }) => {
+  const MockComponent = ({
+    emptyValue,
+    eventValues = () => {},
+    refToBeForwarded,
+    inputRef,
+    ...rest
+  }) => {
     const [val, setVal] = useState(emptyValue ? "" : "02/02/2022");
     return (
       <DateInput
@@ -105,6 +112,8 @@ describe("Date", () => {
         allowEmptyValue={emptyValue}
         name="Foo"
         id="Bar"
+        ref={refToBeForwarded}
+        inputRef={inputRef}
       />
     );
   };
@@ -124,6 +133,47 @@ describe("Date", () => {
         mount(<StyledDateInput size={size} />),
         { modifier: `& ${StyledInputPresentation}` }
       );
+    });
+  });
+
+  describe("refs", () => {
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      const ref = () => {};
+
+      wrapper = mount(<MockComponent inputRef={ref} />);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `DateInput` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      loggerSpy.mockRestore();
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      wrapper = mount(<MockComponent refToBeForwarded={ref} />);
+
+      expect(ref.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      wrapper = mount(<MockComponent refToBeForwarded={ref} />);
+
+      expect(ref).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      wrapper = mount(<MockComponent refToBeForwarded={ref} />);
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
     });
   });
 
