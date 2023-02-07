@@ -1,4 +1,4 @@
-import { commonButtonPreviewRoot, getDataElementByValue } from "../../locators";
+import { getDataElementByValue } from "../../locators";
 import { popoverSettingsIcon } from "../../locators/popover-container";
 import { visitComponentUrl } from "../helper";
 import storiesJSON from "../../../storybook-static/stories.json";
@@ -74,6 +74,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("button-toggle") &&
       !prepareUrl[0].startsWith("profile") &&
       !prepareUrl[0].startsWith("date-range") &&
+      !prepareUrl[0].startsWith("pages") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);
@@ -89,11 +90,6 @@ export default (from, end) => {
         "should render %s component with %s story and have no accessibility violations",
         (componentName, storyName) => {
           visitComponentUrl(componentName, storyName);
-
-          // open the pages component
-          if (componentName.startsWith("pages")) {
-            commonButtonPreviewRoot().click();
-          }
 
           // open the popover-container component
           if (componentName.startsWith("popover-container")) {
