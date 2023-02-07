@@ -1,3 +1,10 @@
+## [114.10.0](https://github.com/Sage/carbon/compare/v114.9.1...v114.10.0) (2023-02-07)
+
+
+### Features
+
+* **draggable:** adds dragged item id to getColumns callback of draggable component ([8355480](https://github.com/Sage/carbon/commit/835548046223f1c297d58713f45379e394fe0af3))
+
 ### [114.9.1](https://github.com/Sage/carbon/compare/v114.9.0...v114.9.1) (2023-02-06)
 
 
