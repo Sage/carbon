@@ -6,6 +6,7 @@ import ButtonToggleGroup from ".";
 
 export default {
   title: "Button Toggle Group/Test",
+  includeStories: "DefaultStory",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -39,3 +40,53 @@ export const DefaultStory = () => {
 };
 
 DefaultStory.storyName = "default";
+
+export const ButtonToggleGroupComponent = ({ ...props }) => {
+  return (
+    <div>
+      <ButtonToggleGroup
+        id="button-toggle-group-default-id"
+        name="button-toggle-group-default"
+        label="Default example"
+        labelHelp="help message"
+        helpAriaLabel="Help"
+        fieldHelp="field help message"
+        onChange={function noRefCheck() {
+          ("");
+        }}
+        {...props}
+      >
+        <ButtonToggle key="foo" value="foo">
+          Foo
+        </ButtonToggle>
+        <ButtonToggle key="bar" value="bar">
+          Bar
+        </ButtonToggle>
+        <ButtonToggle key="baz" value="baz">
+          Baz
+        </ButtonToggle>
+      </ButtonToggleGroup>
+    </div>
+  );
+};
+
+export const ButtonToggleGroupDefaultChecked = () => {
+  return (
+    <div>
+      <ButtonToggleGroup
+        fieldHelp="field help mesage"
+        helpAriaLabel="Help"
+        id="button-toggle-group-controlled-id-sage"
+        label="Controlled example"
+        labelHelp="help message"
+        name="button-toggle-group-controlled-sage"
+      >
+        <ButtonToggle value="foo">Foo</ButtonToggle>
+        <ButtonToggle value="bar" defaultChecked>
+          Bar
+        </ButtonToggle>
+        <ButtonToggle value="baz">Baz</ButtonToggle>
+      </ButtonToggleGroup>
+    </div>
+  );
+};

@@ -1,6 +1,5 @@
 import React from "react";
-import ButtonToggle from "../button-toggle/button-toggle.component";
-import ButtonToggleGroup from "./button-toggle-group.component";
+import * as stories from "./button-toggle-group-test.stories";
 import {
   buttonTogglePreview,
   buttonToggleLabelPreview,
@@ -24,59 +23,11 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 
 const testPropValue = CHARACTERS.STANDARD;
 
-const ButtonToggleGroupComponent = ({ ...props }) => {
-  return (
-    <div>
-      <ButtonToggleGroup
-        id="button-toggle-group-default-id"
-        name="button-toggle-group-default"
-        label="Default example"
-        labelHelp="help message"
-        helpAriaLabel="Help"
-        fieldHelp="field help message"
-        onChange={function noRefCheck() {}}
-        {...props}
-      >
-        <ButtonToggle key="foo" value="foo">
-          Foo
-        </ButtonToggle>
-        <ButtonToggle key="bar" value="bar">
-          Bar
-        </ButtonToggle>
-        <ButtonToggle key="baz" value="baz">
-          Baz
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    </div>
-  );
-};
-
-const ButtonToggleGroupDefaultChecked = () => {
-  return (
-    <div>
-      <ButtonToggleGroup
-        fieldHelp="field help mesage"
-        helpAriaLabel="Help"
-        id="button-toggle-group-controlled-id-sage"
-        label="Controlled example"
-        labelHelp="help message"
-        name="button-toggle-group-controlled-sage"
-      >
-        <ButtonToggle value="foo">Foo</ButtonToggle>
-        <ButtonToggle value="bar" defaultChecked>
-          Bar
-        </ButtonToggle>
-        <ButtonToggle value="baz">Baz</ButtonToggle>
-      </ButtonToggleGroup>
-    </div>
-  );
-};
-
 context("Testing Button-Toggle-Group component", () => {
   describe("should render Button-Toggle-Group component", () => {
     it("should render Button-Toggle-Group with data-component prop set to cypress_data", () => {
       CypressMountWithProviders(
-        <ButtonToggleGroupComponent data-component={testPropValue} />
+        <stories.ButtonToggleGroupComponent data-component={testPropValue} />
       );
 
       buttonToggleGroupHelp()
@@ -86,7 +37,7 @@ context("Testing Button-Toggle-Group component", () => {
 
     it("should render Button-Toggle-Group with data-element prop set to cypress_data", () => {
       CypressMountWithProviders(
-        <ButtonToggleGroupComponent data-element={testPropValue} />
+        <stories.ButtonToggleGroupComponent data-element={testPropValue} />
       );
 
       buttonToggleGroup().should("have.attr", "data-element", testPropValue);
@@ -94,7 +45,7 @@ context("Testing Button-Toggle-Group component", () => {
 
     it("should render Button-Toggle-Group with data-role prop set to cypress_data", () => {
       CypressMountWithProviders(
-        <ButtonToggleGroupComponent data-role={testPropValue} />
+        <stories.ButtonToggleGroupComponent data-role={testPropValue} />
       );
 
       buttonToggleGroup().should("have.attr", "data-role", testPropValue);
@@ -102,7 +53,7 @@ context("Testing Button-Toggle-Group component", () => {
 
     it("should render Button-Toggle-Group with all button toggle input name props set to cypress_data", () => {
       CypressMountWithProviders(
-        <ButtonToggleGroupComponent name={testPropValue} />
+        <stories.ButtonToggleGroupComponent name={testPropValue} />
       );
 
       buttonToggleInput().eq(0).should("have.attr", "name", testPropValue);
@@ -118,7 +69,7 @@ context("Testing Button-Toggle-Group component", () => {
       "should render Button-Toggle-Group with %s icon",
       (prop, errorMessage, warningMessage, infoMessage, bottomColor) => {
         CypressMountWithProviders(
-          <ButtonToggleGroupComponent
+          <stories.ButtonToggleGroupComponent
             error={errorMessage}
             warning={warningMessage}
             info={infoMessage}
@@ -139,7 +90,10 @@ context("Testing Button-Toggle-Group component", () => {
 
     it("should render Button-Toggle-Group with validation icon on label", () => {
       CypressMountWithProviders(
-        <ButtonToggleGroupComponent info="Info Message" validationOnLabel />
+        <stories.ButtonToggleGroupComponent
+          info="Info Message"
+          validationOnLabel
+        />
       );
 
       getDataElementByValue("label")
@@ -154,7 +108,7 @@ context("Testing Button-Toggle-Group component", () => {
       CHARACTERS.SPECIALCHARACTERS,
     ])("should render Button-Toggle-Group with %s as label", (labelText) => {
       CypressMountWithProviders(
-        <ButtonToggleGroupComponent label={labelText} />
+        <stories.ButtonToggleGroupComponent label={labelText} />
       );
 
       buttonToggleGroup().should("contain.text", labelText);
@@ -162,7 +116,7 @@ context("Testing Button-Toggle-Group component", () => {
 
     it("should render Button-Toggle-Group with tooltip set to cypress_data", () => {
       CypressMountWithProviders(
-        <ButtonToggleGroupComponent labelHelp={testPropValue} />
+        <stories.ButtonToggleGroupComponent labelHelp={testPropValue} />
       );
 
       buttonToggleGroup().find('[data-element="question"]').realHover();
@@ -179,7 +133,7 @@ context("Testing Button-Toggle-Group component", () => {
       "should render Button-Toggle-Group with %s as field help text",
       (fieldHelpText) => {
         CypressMountWithProviders(
-          <ButtonToggleGroupComponent fieldHelp={fieldHelpText} />
+          <stories.ButtonToggleGroupComponent fieldHelp={fieldHelpText} />
         );
 
         buttonToggleGroupHelp().should("have.text", fieldHelpText);
@@ -193,7 +147,7 @@ context("Testing Button-Toggle-Group component", () => {
       "should render Button-Toggle-Group with field help %s if fieldHelpInline is %s",
       (alignment, state) => {
         CypressMountWithProviders(
-          <ButtonToggleGroupComponent
+          <stories.ButtonToggleGroupComponent
             fieldHelp="fieldHelpText"
             fieldHelpInline={state}
           />
@@ -222,7 +176,7 @@ context("Testing Button-Toggle-Group component", () => {
       "should render Button-Toggle-Group with label %s if labelInline is %s",
       (alignment, state) => {
         CypressMountWithProviders(
-          <ButtonToggleGroupComponent labelInline={state} />
+          <stories.ButtonToggleGroupComponent labelInline={state} />
         );
 
         if (state === true) {
@@ -248,7 +202,10 @@ context("Testing Button-Toggle-Group component", () => {
       "should render Button-Toggle-Group with label inline and %s aligned",
       (alignment, condition, css, flex) => {
         CypressMountWithProviders(
-          <ButtonToggleGroupComponent labelInline labelAlign={alignment} />
+          <stories.ButtonToggleGroupComponent
+            labelInline
+            labelAlign={alignment}
+          />
         );
 
         buttonToggleGroup().children().children().should(condition, css, flex);
@@ -256,7 +213,7 @@ context("Testing Button-Toggle-Group component", () => {
     );
 
     it("should render Button-Toggle-Group with second button toggle checked", () => {
-      CypressMountWithProviders(<ButtonToggleGroupDefaultChecked />);
+      CypressMountWithProviders(<stories.ButtonToggleGroupDefaultChecked />);
 
       buttonToggleInput()
         .eq(positionOfElement("second"))
@@ -271,7 +228,7 @@ context("Testing Button-Toggle-Group component", () => {
       "should render Button-Toggle-Group with labelWidth prop of %s and width of %s",
       (labelWidth, width) => {
         CypressMountWithProviders(
-          <ButtonToggleGroupComponent inputWidth={labelWidth} />
+          <stories.ButtonToggleGroupComponent inputWidth={labelWidth} />
         );
 
         buttonToggleInput()
@@ -283,9 +240,9 @@ context("Testing Button-Toggle-Group component", () => {
       }
     );
 
-    it("should render Button-Toggle-Group with label width = %s", () => {
+    it("should render Button-Toggle-Group with helpAriaLabel set to cypress_data", () => {
       CypressMountWithProviders(
-        <ButtonToggleGroupComponent helpAriaLabel={testPropValue} />
+        <stories.ButtonToggleGroupComponent helpAriaLabel={testPropValue} />
       );
 
       buttonToggleGroupHelpIcon().should(
@@ -302,7 +259,10 @@ context("Testing Button-Toggle-Group component", () => {
       "should render Button-Toggle-Group with padding of %s if labelSpacing prop is %s",
       (padding, spacing) => {
         CypressMountWithProviders(
-          <ButtonToggleGroupComponent labelInline labelSpacing={spacing} />
+          <stories.ButtonToggleGroupComponent
+            labelInline
+            labelSpacing={spacing}
+          />
         );
 
         buttonToggleGroup()
@@ -322,7 +282,7 @@ context("Testing Button-Toggle-Group component", () => {
 
     it("should call onChange callback when a click event is triggered", () => {
       CypressMountWithProviders(
-        <ButtonToggleGroupComponent onChange={callback} />
+        <stories.ButtonToggleGroupComponent onChange={callback} />
       );
 
       buttonTogglePreview()
@@ -336,7 +296,7 @@ context("Testing Button-Toggle-Group component", () => {
 
     it("should call onBlur callback when a blur event is triggered", () => {
       CypressMountWithProviders(
-        <ButtonToggleGroupComponent onBlur={callback} />
+        <stories.ButtonToggleGroupComponent onBlur={callback} />
       );
 
       buttonToggleInput().eq(positionOfElement("first")).focus();
@@ -353,17 +313,99 @@ context("Testing Button-Toggle-Group component", () => {
 
   describe("should make css changes when fullWidth prop is passed", () => {
     it("container div should auto flex", () => {
-      CypressMountWithProviders(<ButtonToggleGroupComponent fullWidth />);
+      CypressMountWithProviders(
+        <stories.ButtonToggleGroupComponent fullWidth />
+      );
 
       buttonTogglePreview().should("have.css", "flex", "1 1 auto");
     });
 
     it("width of label should be 100% / 450px", () => {
-      CypressMountWithProviders(<ButtonToggleGroupComponent fullWidth />);
+      CypressMountWithProviders(
+        <stories.ButtonToggleGroupComponent fullWidth />
+      );
 
       buttonToggleLabelPreview(1).then(($el) => {
         useJQueryCssValueAndAssert($el, "width", 450);
       });
+    });
+  });
+
+  describe("Accessibility tests for Button-Toggle-Group component", () => {
+    it("should pass accessibility tests for Button-Toggle-Group default story", () => {
+      CypressMountWithProviders(<stories.ButtonToggleGroupComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Button-Toggle-Group with second button toggle checked", () => {
+      CypressMountWithProviders(<stories.ButtonToggleGroupDefaultChecked />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([
+      ["inline", true],
+      ["outline", false],
+    ])(
+      "should pass accessibility tests for Button-Toggle-Group with label %s if labelInline is %s",
+      (alignment, state) => {
+        CypressMountWithProviders(
+          <stories.ButtonToggleGroupComponent labelInline={state} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["left", "right"])(
+      "should pass accessibility tests for Button-Toggle-Group with label inline and %s aligned",
+      (alignment) => {
+        CypressMountWithProviders(
+          <stories.ButtonToggleGroupComponent
+            labelInline
+            labelAlign={alignment}
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([1, 2])(
+      "should pass accessibility tests for Button-Toggle-Group with labelSpacing prop set to %s",
+      (padding, spacing) => {
+        CypressMountWithProviders(
+          <stories.ButtonToggleGroupComponent
+            labelInline
+            labelSpacing={spacing}
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    // FE-5382
+    describe.skip("skip", () => {
+      it.each([
+        ["error", "Error Message", "", ""],
+        ["warning", "", "Warning Message", ""],
+        ["info", "", "", "Info Message"],
+      ])(
+        "should pass accessibility tests for Button-Toggle-Group with %s icon",
+        (prop, errorMessage, warningMessage, infoMessage) => {
+          CypressMountWithProviders(
+            <stories.ButtonToggleGroupComponent
+              error={errorMessage}
+              warning={warningMessage}
+              info={infoMessage}
+            />
+          );
+
+          cy.checkAccessibility();
+        }
+      );
     });
   });
 });
