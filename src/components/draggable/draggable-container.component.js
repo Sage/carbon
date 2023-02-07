@@ -13,8 +13,8 @@ const marginPropTypes = filterStyledSystemMarginProps(styledSystemPropTypes);
 const DropTarget = ({ children, getOrder, ...rest }) => {
   const [, drop] = useDrop({
     accept: "draggableItem",
-    drop() {
-      getOrder();
+    drop(item) {
+      getOrder(item?.id);
     },
   });
 
@@ -60,7 +60,7 @@ const DraggableContainer = ({ children, getOrder, ...rest }) => {
     setDraggableItems(copyOfDraggableItems);
   };
 
-  const getItemsId = () => {
+  const getItemsId = (item) => {
     if (!getOrder) {
       return;
     }
@@ -69,7 +69,7 @@ const DraggableContainer = ({ children, getOrder, ...rest }) => {
       (draggableItem) => draggableItem.props.id
     );
 
-    getOrder(draggableItemIds);
+    getOrder(draggableItemIds, item);
   };
 
   const marginProps = filterStyledSystemMarginProps(rest);
