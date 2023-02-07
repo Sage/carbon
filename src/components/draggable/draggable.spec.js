@@ -75,8 +75,8 @@ describe("Draggable", () => {
 
   it("should return an array with id's", () => {
     wrapper.setProps({ getOrder });
-    wrapper.find("DropTarget").at(0).props().getOrder();
-    expect(getOrder).toHaveBeenCalledWith([1, 2]);
+    wrapper.find("DropTarget").at(0).props().getOrder(2);
+    expect(getOrder).toHaveBeenCalledWith([1, 2], 2);
   });
 
   it("should return an array if getOrder is not passed to the component", () => {
@@ -266,9 +266,10 @@ describe("Draggable", () => {
 
 describe("Draggable Checkbox", () => {
   let mountNode;
+  let getOrder = jest.fn();
 
   beforeEach(() => {
-    const getOrder = jest.fn();
+    getOrder = jest.fn();
     const component = (
       <DraggableContainer getOrder={getOrder}>
         <DraggableItem key="1" id={1}>
@@ -328,6 +329,28 @@ describe("Draggable Checkbox", () => {
         "Draggable Label Three",
         "Draggable Label One",
       ]);
+    });
+
+    it("forwards the new order and dropped item's id to the getColumns() function", () => {
+      const tableCells1 = getTableCells();
+      const startingNode1 = tableCells1[0];
+      const endingNode1 = tableCells1[2];
+      expect(getOrder).not.toHaveBeenCalled();
+      act(() => {
+        startingNode1.dispatchEvent(
+          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
+        );
+
+        endingNode1.dispatchEvent(
+          createBubbledEvent("dragover", { clientX: 0, clientY: 1 })
+        );
+
+        endingNode1.dispatchEvent(
+          createBubbledEvent("drop", { clientX: 0, clientY: 1 })
+        );
+      });
+
+      expect(getOrder).toHaveBeenCalledWith([1, 2, 3], "1");
     });
 
     it("can drag without drop", () => {
