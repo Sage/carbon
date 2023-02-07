@@ -62,11 +62,6 @@ const getNextElement = (
   if (currentIndex === -1) {
     // we're not currently on a focusable element - most likely because the focusableElements come from a different focus trap!
     // So we need to leave focus where it is.
-    // The exception is when the focus is on the document body - perhaps because the previously-focused element was dynamically removed.
-    // In that case focus the first element.
-    if (element === document.body) {
-      return focusableElements[0];
-    }
     return undefined;
   }
 
@@ -208,9 +203,9 @@ const trapFunction = (
 
   // special case if focus is on document body
   if (activeElement === document.body) {
-    // TODO: fix this to only work if we're in the top modal [FE-5620]
     ev.preventDefault();
     setElementFocus(firstElement as HTMLElement);
+    return;
   }
 
   if (!focusableSelectors) {

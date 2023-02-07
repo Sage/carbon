@@ -7,6 +7,7 @@ import { act } from "react-dom/test-utils";
 import FocusTrap, { FocusTrapProps } from "./focus-trap.component";
 import { RadioButton, RadioButtonGroup } from "../../components/radio-button";
 import { ModalContext } from "../../components/modal/modal.component";
+import TopModalContext from "../../components/carbon-provider/top-modal-context";
 
 jest.useFakeTimers();
 
@@ -1275,6 +1276,64 @@ describe("FocusTrap", () => {
       await tabPress();
       expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
       expect(callIfDefaultPrevented).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("topModalContext", () => {
+    const PLAIN_TEXT_CONTENT = "I am some irrelevant text";
+    const OUTSIDE_BUTTON = "Outside button";
+    describe("when focus is lost to the document body", () => {
+      const ComponentWithTopModalContext = ({
+        trapIsTopModal,
+      }: {
+        trapIsTopModal: boolean;
+      }) => {
+        const [topModal, setTopModal] = useState<HTMLElement | null>(null);
+        const trapModalRef = (element: HTMLElement | null) => {
+          if (trapIsTopModal) {
+            setTopModal(element);
+          }
+        };
+        const otherModalRef = (element: HTMLElement | null) => {
+          if (!trapIsTopModal) {
+            setTopModal(element);
+          }
+        };
+        const trapWrapper = useRef(null);
+        return (
+          <TopModalContext.Provider value={{ topModal }}>
+            <p>{PLAIN_TEXT_CONTENT}</p>
+            <button type="button">{OUTSIDE_BUTTON}</button>
+            <div ref={trapModalRef}>
+              <FocusTrap wrapperRef={trapWrapper}>
+                <div ref={trapWrapper}>
+                  <button type="button">{BUTTON_ONE}</button>
+                  <button type="button">{BUTTON_TWO}</button>
+                </div>
+              </FocusTrap>
+            </div>
+            <div ref={otherModalRef}>
+              <button type="button">{BUTTON_THREE}</button>
+            </div>
+          </TopModalContext.Provider>
+        );
+      };
+
+      it("when the focus trap is in the top modal, tabbing puts focus on the first focusable element", async () => {
+        render(<ComponentWithTopModalContext trapIsTopModal />);
+        fireEvent.click(screen.getByText(PLAIN_TEXT_CONTENT));
+        expect(document.body).toBeFocused();
+        await tabPress();
+        expect(screen.getByText(BUTTON_ONE)).toBeFocused();
+      });
+
+      it("when the focus trap is not in the top modal, tabbing does not do anything", async () => {
+        render(<ComponentWithTopModalContext trapIsTopModal={false} />);
+        fireEvent.click(screen.getByText(PLAIN_TEXT_CONTENT));
+        expect(document.body).toBeFocused();
+        await tabPress();
+        expect(screen.getByText(OUTSIDE_BUTTON)).toBeFocused();
+      });
     });
   });
 });
