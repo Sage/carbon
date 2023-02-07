@@ -23,12 +23,19 @@ import {
 
 # Anchor Navigation
 
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/496ff6-anchor-navigation/b/285c84"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
+
 Easily navigate through long scrollable content.
 
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
 
@@ -44,18 +51,16 @@ import {
 } from "carbon-react/lib/components/anchor-navigation";
 ```
 
-## Designer Notes
+- Create `refs` which will be used internally in `AnchorNavigation` to measure positions of the elements.
 
-Create `refs` which will be used internally in `AnchorNavigation` to measure positions of the elements.
+- Pass proper structure of `AnchorNavigationItem`'s with assigned `refs` to `stickyNavigation` prop.
 
-Pass proper structure of `AnchorNavigationItem`'s with assigned `refs` to `stickyNavigation` prop.
+- Pass children where elements which are meant to serve as sections have `refs` assigned.
+- Keep in mind that to assign a `ref` to a component it either has to be a `Class` component or it has to be wrapped in `React.forwardRef()` in case of a function component.
 
-Pass children where elements which are meant to serve as sections have `refs` assigned.
-Keep in mind that to assign a `ref` to a component it either has to be a `Class` component or it has to be wrapped in `React.forwardRef()` in case of a function component.
+- **It is necessary to maintain the same order of navigation items and children when assigning the `refs`**
 
-**It is necessary to maintain the same order of navigation items and children when assigning the `refs`**
-
-**It is necessary to maintain `stickyNavigation` prop structure as shown below**
+- **It is necessary to maintain `stickyNavigation` prop structure as shown below**
 
 ```javascript
 const MyComponent = () => (

@@ -25,6 +25,8 @@ export interface PillProps extends StyledPillProps {
   ) => void;
   /** Sets the type of pill in use. */
   pillRole?: "tag" | "status";
+  /** Sets custom aria-label attribute on the remove button */
+  ariaLabelOfRemoveButton?: string;
 }
 
 export const Pill = ({
@@ -38,6 +40,7 @@ export const Pill = ({
   onDelete,
   pillRole = "tag",
   size = "M",
+  ariaLabelOfRemoveButton = "remove pill",
   ...rest
 }: PillProps) => (
   <StyledPill
@@ -55,7 +58,11 @@ export const Pill = ({
   >
     {children}
     {onDelete && (
-      <IconButton onAction={onDelete} data-element="close" aria-label="close">
+      <IconButton
+        onAction={onDelete}
+        data-element="close"
+        aria-label={ariaLabelOfRemoveButton}
+      >
         <Icon type="cross" />
       </IconButton>
     )}

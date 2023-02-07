@@ -5,6 +5,7 @@ import ButtonToggle from ".";
 
 export default {
   title: "Button Toggle/Test",
+  includeStories: "DefaultStory",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -13,7 +14,7 @@ export default {
   },
 };
 
-export const Default = ({ children, ...args }: { children: string }) => (
+export const DefaultStory = ({ children, ...args }: { children: string }) => (
   <div>
     <ButtonToggle
       name="new-button-toggle"
@@ -48,7 +49,60 @@ export const Default = ({ children, ...args }: { children: string }) => (
   </div>
 );
 
-Default.storyName = "default";
-Default.args = {
-  children: "Options",
+DefaultStory.storyName = "default";
+
+export const ButtonToggleComponent = ({
+  // eslint-disable-next-line react/prop-types
+  children = "This is an example of an alert",
+  ...props
+}) => {
+  return (
+    <div>
+      <ButtonToggle
+        name="button-toggle-one"
+        onBlur={function noRefCheck() {
+          ("");
+        }}
+        onChange={function noRefCheck() {
+          ("");
+        }}
+        onFocus={function noRefCheck() {
+          ("");
+        }}
+        {...props}
+      >
+        {children}
+      </ButtonToggle>
+      <ButtonToggle
+        name="button-toggle-two"
+        onBlur={function noRefCheck() {
+          ("");
+        }}
+        onChange={function noRefCheck() {
+          ("");
+        }}
+        onFocus={function noRefCheck() {
+          ("");
+        }}
+        {...props}
+      >
+        Second
+      </ButtonToggle>
+      <ButtonToggle
+        name="button-toggle-three"
+        onBlur={function noRefCheck() {
+          ("");
+        }}
+        onChange={function noRefCheck() {
+          ("");
+        }}
+        onFocus={function noRefCheck() {
+          ("");
+        }}
+        {...props}
+      >
+        Third
+      </ButtonToggle>
+    </div>
+  );
 };

@@ -34,6 +34,27 @@ const commonArgsButtonBar = {
   iconPosition: "before",
 };
 
+export const DefaultWithWrapper = ({ ...args }) => {
+  const WrappedComponent = () => {
+    return (
+      <>
+        <Button iconType="bin">bar</Button>
+        <Button iconType="csv">bar</Button>
+        <Button iconType="pdf">bar</Button>
+      </>
+    );
+  };
+
+  return (
+    <ButtonBar {...args}>
+      <WrappedComponent />
+      <IconButton onAction={() => undefined}>
+        <Icon type="csv" />
+      </IconButton>
+    </ButtonBar>
+  );
+};
+
 export const Default = ({ ...args }) => (
   <ButtonBar {...args}>
     <Button iconType="search">Example Button</Button>

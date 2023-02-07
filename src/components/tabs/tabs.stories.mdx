@@ -1,23 +1,32 @@
 import { Meta, Canvas, Story } from "@storybook/addon-docs";
+import { ArgsTable } from "@storybook/components";
 import LinkTo from "@storybook/addon-links/react";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import { useState, useRef } from "react";
 import { Tabs, Tab } from "./tabs.component";
 import { Checkbox } from "../checkbox";
 import Icon from "../icon";
 import Pill from "../pill";
-import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Box from "../box";
 
 <Meta title="Tabs" parameters={{ info: { disable: true } }} />
 
 # Tabs
 
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/54468c-tab"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+>
+  Product Design System component
+</a>
+
 Switch between content panes or filtered views of tables.
 
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
 - [Related Components](#related-components)
 - [Examples](#examples)
 - [Props](#props)
@@ -28,7 +37,8 @@ Switch between content panes or filtered views of tables.
 import { Tabs, Tab } from "carbon-react/lib/components/tabs";
 ```
 
-## Designer Notes
+- Navigating the hierarchy of the app? [Try Menu](https://carbon.sage.com/?path=/docs/menu)
+- Positioning your primary navigation? [Try Navigation Bar](https://carbon.sage.com/?path=/docs/navigation-bar)
 
 - Switch between variants of a page or different tables (e.g. separate tables showing unread and read emails).
 - There are two `position` options:
@@ -40,11 +50,6 @@ import { Tabs, Tab } from "carbon-react/lib/components/tabs";
 - Only use tabs if there’s more than one, and show the content of one tab by default. Avoid multiple rows of tabs,
   nested tabs, or using vertical and horizontal tabs at the same time.
 - To use `Tabs` with a routing library see our documentation on this here: <LinkTo kind="Documentation/Usage with routing" story="page">Usage with routing</LinkTo>
-
-## Related Components
-
-- Navigating the hierarchy of the app? [Try Menu](https://carbon.sage.com/?path=/docs/menu)
-- Positioning your primary navigation? [Try Navigation Bar](https://carbon.sage.com/?path=/docs/navigation-bar)
 
 ## Examples
 
@@ -1763,80 +1768,98 @@ CSS string.
 
 ### With string validations summarised
 
-By default the strings passed to `errorMessage`, `warningMessage` and `infoMessage` props are what is 
-used in the validation tooltip. However, setting the `showValidationsSumary` prop allows for the 
-summarising of validation messages from the children of a given `Tab`. You can see an example of this 
+By default the strings passed to `errorMessage`, `warningMessage` and `infoMessage` props are what is
+used in the validation tooltip. However, setting the `showValidationsSumary` prop allows for the
+summarising of validation messages from the children of a given `Tab`. You can see an example of this
 by hovering your mouse pointer over the `ValidationIcon`s in the example below.
 
 <Canvas>
-  <Story name="with string validations summarised" parameters={{ chromatic: { disable: true } }}>
+  <Story
+    name="with string validations summarised"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [errors, setErrors] = useState({
-        one: 'This is an error',
-        two: 'Here is another error'
+        one: "This is an error",
+        two: "Here is another error",
       });
       const [warnings, setWarnings] = useState({
-        one: 'This is a warning',
-        two: 'Here is another warning'
+        one: "This is a warning",
+        two: "Here is another warning",
       });
-      const [infos, setInfos] = useState({ 
-        one: 'This is an info', 
-        two: 'Here is another info'
+      const [infos, setInfos] = useState({
+        one: "This is an info",
+        two: "Here is another info",
       });
       return (
         <div style={{ padding: "4px" }}>
           <Tabs align="left" position="top" showValidationsSummary>
-            <Tab
-              tabId="tab-1"
-              title="Tab 1"
-              key="tab-1"
-            >
+            <Tab tabId="tab-1" title="Tab 1" key="tab-1">
               <Checkbox
                 label="Error 1"
                 error={errors.one}
-                onChange={e => e.target.checked ? setErrors({ ...errors, one: 'This is an error' }) : setErrors({ ...errors, one: '' })}
+                onChange={(e) =>
+                  e.target.checked
+                    ? setErrors({ ...errors, one: "This is an error" })
+                    : setErrors({ ...errors, one: "" })
+                }
                 checked={errors.one}
               />
               <Checkbox
                 label="Error 2"
                 error={errors.two}
-                onChange={e => e.target.checked ? setErrors({ ...errors, two: 'Here is another error' }) : setErrors({ ...errors, two: '' })}
+                onChange={(e) =>
+                  e.target.checked
+                    ? setErrors({ ...errors, two: "Here is another error" })
+                    : setErrors({ ...errors, two: "" })
+                }
                 checked={errors.two}
               />
             </Tab>
-            <Tab
-              tabId="tab-2"
-              title="Tab 2"
-              key="tab-2"
-            >
+            <Tab tabId="tab-2" title="Tab 2" key="tab-2">
               <Checkbox
                 label="Warning 1"
                 warning={warnings.one}
-                onChange={e => e.target.checked ? setWarnings({ ...warnings, one: 'This is a warning' }) : setWarnings({ ...warnings, one: '' })}
+                onChange={(e) =>
+                  e.target.checked
+                    ? setWarnings({ ...warnings, one: "This is a warning" })
+                    : setWarnings({ ...warnings, one: "" })
+                }
                 checked={warnings.one}
               />
               <Checkbox
                 label="Warning 2"
                 warning={warnings.two}
-                onChange={e => e.target.checked ? setWarnings({ ...warnings, two: 'Here is another warning' }) : setWarnings({ ...warnings, two: '' })}
+                onChange={(e) =>
+                  e.target.checked
+                    ? setWarnings({
+                        ...warnings,
+                        two: "Here is another warning",
+                      })
+                    : setWarnings({ ...warnings, two: "" })
+                }
                 checked={warnings.two}
               />
             </Tab>
-            <Tab
-              tabId="tab-3"
-              title="Tab 3"
-              key="tab-3"
-            >
+            <Tab tabId="tab-3" title="Tab 3" key="tab-3">
               <Checkbox
                 label="Info 1"
                 info={infos.one}
-                onChange={e => e.target.checked ? setInfos({ ...infos, one: true }) : setInfos({ ...infos, one: '' })}
+                onChange={(e) =>
+                  e.target.checked
+                    ? setInfos({ ...infos, one: true })
+                    : setInfos({ ...infos, one: "" })
+                }
                 checked={infos.one}
               />
               <Checkbox
                 label="Info 2"
                 info={infos.two}
-                onChange={e => e.target.checked ? setInfos({ ...infos, two: 'This is a warning' }) : setInfos({ ...infos, two: '' })}
+                onChange={(e) =>
+                  e.target.checked
+                    ? setInfos({ ...infos, two: "This is a warning" })
+                    : setInfos({ ...infos, two: "" })
+                }
                 checked={infos.two}
               />
             </Tab>
@@ -1920,3 +1943,15 @@ const App = () => {
 ### Tab
 
 <StyledSystemProps of={Tab} padding noHeader />
+
+#### `titleProps`
+
+<ArgsTable
+  rows={[
+    {
+      name: "data-role",
+      type: { summary: "string" },
+      description: "Identifier used for testing purposes",
+    },
+  ]}
+/>

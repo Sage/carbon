@@ -15,6 +15,7 @@ import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
 import TextBox from "../textbox";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
+import Logger from "../../__internal__/utils/logger";
 
 describe("Search", () => {
   let wrapper: ReactWrapper;
@@ -26,7 +27,9 @@ describe("Search", () => {
 
   testStyledSystemMargin((props) => <Search value="" {...props} />);
 
-  function renderSearch(props: SearchProps) {
+  function renderSearch(
+    props: SearchProps & React.RefAttributes<HTMLInputElement>
+  ) {
     return mount(<Search {...props} />);
   }
 
@@ -601,6 +604,46 @@ describe("Search", () => {
         },
         renderSearch({ value: "search", maxWidth: "" })
       );
+    });
+  });
+
+  describe("refs", () => {
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      const ref = { current: null };
+
+      wrapper = renderSearch({ inputRef: ref, value: "" });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `Search` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+      loggerSpy.mockRestore();
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      wrapper = renderSearch({ ref, value: "" });
+
+      expect(ref.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      wrapper = renderSearch({ ref, value: "" });
+
+      expect(ref).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      wrapper = renderSearch({ ref, value: "" });
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
     });
   });
 });

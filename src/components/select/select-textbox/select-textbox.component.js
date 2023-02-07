@@ -20,149 +20,155 @@ const floatingMiddleware = [
   }),
 ];
 
-const SelectTextbox = ({
-  accessibilityLabelId,
-  labelId,
-  "aria-controls": ariaControls,
-  value,
-  disabled,
-  isOpen,
-  readOnly,
-  placeholder,
-  size = "medium",
-  onClick,
-  onFocus,
-  onBlur,
-  onChange,
-  selectedValue,
-  required,
-  textboxRef,
-  hasTextCursor,
-  transparent,
-  activeDescendantId,
-  ...restProps
-}) => {
-  const reference = useMemo(
-    () => ({
-      current: textboxRef?.parentElement.parentElement,
-    }),
-    [textboxRef]
-  );
-
-  const floating = useMemo(
-    () => ({
-      current: textboxRef?.parentElement,
-    }),
-    [textboxRef]
-  );
-
-  useFloating({
-    isOpen,
-    reference,
-    floating,
-    strategy: "fixed",
-    animationFrame: true,
-    middleware: floatingMiddleware,
-  });
-
-  const l = useLocale();
-  const textId = useRef(guid());
-
-  function handleTextboxClick(event) {
-    if (disabled || readOnly) {
-      return;
-    }
-
-    onClick(event);
-  }
-
-  function handleTextboxFocus(event) {
-    if (disabled || readOnly) {
-      return;
-    }
-
-    if (onFocus) {
-      onFocus(event);
-    }
-  }
-
-  function handleTextboxBlur(event) {
-    if (onBlur) {
-      onBlur(event);
-    }
-  }
-
-  function getTextboxProps() {
-    return {
-      disabled,
-      readOnly,
-      required,
-      onClick: handleTextboxClick,
-      onFocus: handleTextboxFocus,
-      onBlur: handleTextboxBlur,
+const SelectTextbox = React.forwardRef(
+  (
+    {
+      accessibilityLabelId,
       labelId,
-      type: "text",
-      ...restProps,
-    };
-  }
-
-  function getInputAriaAttributes() {
-    const joinIds = (...ids) =>
-      ids.filter((item) => item !== undefined).join(" ");
-    const ariaLabelledby = hasTextCursor
-      ? joinIds(labelId, accessibilityLabelId)
-      : joinIds(labelId, textId.current);
-
-    return {
-      "aria-expanded": readOnly ? undefined : isOpen,
-      "aria-labelledby": ariaLabelledby || undefined,
-      "aria-activedescendant": activeDescendantId,
       "aria-controls": ariaControls,
-      "aria-autocomplete": hasTextCursor ? "both" : undefined,
-      role: readOnly ? undefined : "combobox",
-    };
-  }
+      value,
+      disabled,
+      isOpen,
+      readOnly,
+      placeholder,
+      size = "medium",
+      onClick,
+      onFocus,
+      onBlur,
+      onChange,
+      selectedValue,
+      required,
+      textboxRef,
+      hasTextCursor,
+      transparent,
+      activeDescendantId,
+      ...restProps
+    },
+    ref
+  ) => {
+    const reference = useMemo(
+      () => ({
+        current: textboxRef?.parentElement.parentElement,
+      }),
+      [textboxRef]
+    );
 
-  function renderSelectText() {
+    const floating = useMemo(
+      () => ({
+        current: textboxRef?.parentElement,
+      }),
+      [textboxRef]
+    );
+
+    useFloating({
+      isOpen,
+      reference,
+      floating,
+      strategy: "fixed",
+      animationFrame: true,
+      middleware: floatingMiddleware,
+    });
+
+    const l = useLocale();
+    const textId = useRef(guid());
+
+    function handleTextboxClick(event) {
+      if (disabled || readOnly) {
+        return;
+      }
+
+      onClick(event);
+    }
+
+    function handleTextboxFocus(event) {
+      if (disabled || readOnly) {
+        return;
+      }
+
+      if (onFocus) {
+        onFocus(event);
+      }
+    }
+
+    function handleTextboxBlur(event) {
+      if (onBlur) {
+        onBlur(event);
+      }
+    }
+
+    function getTextboxProps() {
+      return {
+        disabled,
+        readOnly,
+        required,
+        onClick: handleTextboxClick,
+        onFocus: handleTextboxFocus,
+        onBlur: handleTextboxBlur,
+        labelId,
+        type: "text",
+        ref,
+        ...restProps,
+      };
+    }
+
+    function getInputAriaAttributes() {
+      const joinIds = (...ids) =>
+        ids.filter((item) => item !== undefined).join(" ");
+      const ariaLabelledby = hasTextCursor
+        ? joinIds(labelId, accessibilityLabelId)
+        : joinIds(labelId, textId.current);
+
+      return {
+        "aria-expanded": readOnly ? undefined : isOpen,
+        "aria-labelledby": ariaLabelledby || undefined,
+        "aria-activedescendant": activeDescendantId,
+        "aria-controls": ariaControls,
+        "aria-autocomplete": hasTextCursor ? "both" : undefined,
+        role: readOnly ? undefined : "combobox",
+      };
+    }
+
+    function renderSelectText() {
+      return (
+        <SelectText
+          textId={textId.current}
+          transparent={transparent}
+          onKeyDown={handleSelectTextKeydown}
+          placeholder={placeholder || l.select.placeholder()}
+          onClick={handleTextboxClick}
+          disabled={disabled}
+          readOnly={readOnly}
+          size={size}
+          {...restProps}
+        />
+      );
+    }
+
+    function handleSelectTextKeydown(event) {
+      if (event.key.length === 1) {
+        onChange({ target: { value: event.key } });
+      }
+    }
+
     return (
-      <SelectText
-        textId={textId.current}
-        transparent={transparent}
-        onKeyDown={handleSelectTextKeydown}
-        placeholder={placeholder || l.select.placeholder()}
-        onClick={handleTextboxClick}
-        disabled={disabled}
-        readOnly={readOnly}
+      <Textbox
+        data-element="select-input"
+        inputIcon="dropdown"
+        autoComplete="off"
         size={size}
-        {...restProps}
-      />
+        onChange={onChange}
+        value={selectedValue}
+        placeholder={
+          hasTextCursor ? placeholder || l.select.placeholder() : undefined
+        }
+        {...getInputAriaAttributes()}
+        {...getTextboxProps()}
+      >
+        {!hasTextCursor && renderSelectText()}
+      </Textbox>
     );
   }
-
-  function handleSelectTextKeydown(event) {
-    if (event.key.length === 1) {
-      onChange({ target: { value: event.key } });
-    }
-  }
-
-  return (
-    <Textbox
-      data-element="select-input"
-      inputIcon="dropdown"
-      autoComplete="off"
-      size={size}
-      onChange={onChange}
-      value={selectedValue}
-      placeholder={
-        hasTextCursor ? placeholder || l.select.placeholder() : undefined
-      }
-      {...getInputAriaAttributes()}
-      {...getTextboxProps()}
-    >
-      {!hasTextCursor && renderSelectText()}
-    </Textbox>
-  );
-};
+);
 
 const formInputPropTypes = {
   /**
@@ -259,6 +265,8 @@ SelectTextbox.propTypes = {
     PropTypes.arrayOf(PropTypes.object),
   ]),
 };
+
+SelectTextbox.displayName = "SelectTextbox";
 
 export default SelectTextbox;
 export { formInputPropTypes };

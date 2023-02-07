@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useContext } from "react";
 import { SpaceProps } from "styled-system";
 import invariant from "invariant";
 
@@ -8,6 +8,7 @@ import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
 import { TooltipPositions } from "../tooltip/tooltip.config";
+import { ButtonBarContext } from "../button-bar/button-bar.component";
 
 export type ButtonTypes =
   | "primary"
@@ -165,11 +166,12 @@ RenderChildrenProps) {
 }
 
 let deprecatedForwardRefWarnTriggered = false;
+let deprecatedDashedButtonWarnTriggered = false;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      size = "medium",
+      size: sizeProp = "medium",
       subtext = "",
       children,
       forwardRef,
@@ -178,7 +180,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       destructive = false,
       buttonType: buttonTypeProp = "secondary",
       iconType,
-      iconPosition = "before",
+      iconPosition: iconPositionProp = "before",
       href,
       m = 0,
       px,
@@ -187,11 +189,23 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       rel,
       iconTooltipMessage,
       iconTooltipPosition,
-      fullWidth = false,
+      fullWidth: fullWidthProp = false,
       ...rest
     }: ButtonProps,
     ref
   ) => {
+    const {
+      buttonType: buttonTypeContext,
+      size: sizeContext,
+      iconPosition: iconPositionContext,
+      fullWidth: fullWidthContext,
+    } = useContext(ButtonBarContext);
+
+    const buttonType = buttonTypeContext || buttonTypeProp;
+    const size = sizeContext || sizeProp;
+    const iconPosition = iconPositionContext || iconPositionProp;
+    const fullWidth = fullWidthContext || fullWidthProp;
+
     invariant(
       !!(children || iconType),
       "Either prop `iconType` must be defined or this node must have children."
@@ -210,9 +224,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       );
     }
 
-    const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
+    if (!deprecatedDashedButtonWarnTriggered && buttonType === "dashed") {
+      deprecatedDashedButtonWarnTriggered = true;
+      Logger.deprecate(
+        "The `dashed` variant of the `buttonType` prop for `Button` component is deprecated and will soon be removed."
+      );
+    }
 
-    const buttonType = buttonTypeProp;
+    const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
 
     let paddingX;
 

@@ -28,7 +28,7 @@ More details about how we test can be found in our [Testing Guide](docs/testing-
 
 ### Where to find known issues
 
-We use [Github Issues](https://github.com/Sage/carbon/issues) to keep track of incoming bugs and enhancement requests. Before you raise a new issue, please have a look to see if your problem does not already exist.
+We use [GitHub Issues](https://github.com/Sage/carbon/issues) to keep track of incoming bugs and enhancement requests. Before you raise a new issue, please have a look to see if your problem does not already exist.
 
 ### Reporting an issue
 
@@ -102,4 +102,4 @@ For contributors external to Sage, we require a CLA to be signed before we can a
 ## Have a question?
 
 - Internal **Sage** contributors are invited to post in our #carbon Slack channel.
-- External contributors are invited to use our [Github Issues](https://github.com/sage/carbon/issues) page.
+- External contributors are invited to use our [GitHub Issues](https://github.com/sage/carbon/issues) page.

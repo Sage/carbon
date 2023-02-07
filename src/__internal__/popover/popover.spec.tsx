@@ -3,6 +3,11 @@ import ReactDOM from "react-dom";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 
+import Button from "../../components/button";
+import Pages, { Page } from "../../components/pages";
+import { FilterableSelect, Option } from "../../components/select";
+import Sidebar from "../../components/sidebar";
+
 import Popover, { PopoverProps } from "./popover.component";
 import Dialog from "../../components/dialog";
 import { StyledBackdrop } from "./popover.style";
@@ -48,6 +53,66 @@ const InDialog = ({
         )}
       </div>
     </Dialog>
+  );
+};
+
+const A = () => (
+  <Page p={0} title="Page 1">
+    Test 1
+    <FilterableSelect
+      defaultValue="1"
+      name="simple"
+      id="simple"
+      label="color"
+      labelInline
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </FilterableSelect>
+  </Page>
+);
+
+const B = () => (
+  <Page p={0} title="Page 2">
+    Test 2
+    <FilterableSelect name="simple" id="simple" label="color" labelInline>
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </FilterableSelect>
+  </Page>
+);
+
+const InSidebar = () => {
+  const [pageIndex, setPageIndex] = useState(0);
+  const switchPageIndex = () => setPageIndex((state) => (state ? 0 : 1));
+
+  const View = pageIndex === 0 ? A : B;
+
+  return (
+    <Sidebar open>
+      <Button onClick={switchPageIndex}>Switch pages</Button>
+      <Pages pageIndex={0}>
+        <View key={pageIndex} />
+      </Pages>
+    </Sidebar>
   );
 };
 
@@ -215,6 +280,21 @@ describe("Popover", () => {
     it("when not provided, the popover content is visible", () => {
       wrapper = mount(<Component />);
       expect(wrapper.find("#popover-children").getDOMNode()).toBeVisible();
+    });
+  });
+
+  describe("when unmounted and mounted in Sidebar component", () => {
+    it("should not throw error", () => {
+      const consoleErrorSpy = jest.spyOn(console, "error");
+
+      const wrapper = mount(<InSidebar />);
+
+      wrapper.find("button").simulate("click");
+      wrapper.find("button").simulate("click");
+      wrapper.find("button").simulate("click");
+
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
+      consoleErrorSpy.mockRestore();
     });
   });
 });

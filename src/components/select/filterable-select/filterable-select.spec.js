@@ -16,6 +16,7 @@ import Label from "../../../__internal__/label";
 import InputIconToggle from "../../../__internal__/input-icon-toggle";
 import guid from "../../../__internal__/utils/helpers/guid";
 import { InputPresentation } from "../../../__internal__/input";
+import Logger from "../../../__internal__/utils/logger";
 
 jest.mock("../../../__internal__/utils/helpers/guid");
 guid.mockImplementation(() => "guid-12345");
@@ -29,25 +30,48 @@ describe("FilterableSelect", () => {
     expect(wrapper.find(Textbox).prop("type")).toBe("text");
   });
 
-  it("the input ref should be forwarded", () => {
-    let mockRef;
+  describe("with a ref", () => {
+    it("the input ref should be forwarded", () => {
+      let mockRef;
 
-    const WrapperComponent = () => {
-      mockRef = useRef();
+      const WrapperComponent = () => {
+        mockRef = useRef();
 
-      return (
-        <FilterableSelect name="testSelect" id="testSelect" ref={mockRef}>
-          <Option value="opt1" text="red" />
-          <Option value="opt2" text="green" />
-          <Option value="opt3" text="blue" />
-          <Option value="opt4" text="black" />
-        </FilterableSelect>
-      );
-    };
+        return (
+          <FilterableSelect name="testSelect" id="testSelect" ref={mockRef}>
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </FilterableSelect>
+        );
+      };
 
-    const wrapper = mount(<WrapperComponent />);
+      const wrapper = mount(<WrapperComponent />);
 
-    expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+      expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("the input callback ref should be called with the DOM element", () => {
+      let mockRef;
+
+      const WrapperComponent = () => {
+        mockRef = jest.fn();
+
+        return (
+          <FilterableSelect name="testSelect" id="testSelect" ref={mockRef}>
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </FilterableSelect>
+        );
+      };
+
+      const wrapper = mount(<WrapperComponent />);
+
+      expect(mockRef).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
   });
 
   describe("when listMaxHeight prop is provided", () => {
@@ -98,6 +122,21 @@ describe("FilterableSelect", () => {
   });
 
   describe("when the inputRef function prop is specified", () => {
+    it("should display deprecation warning when the inputRef prop is usedll", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      const inputRefFn = jest.fn();
+      const wrapper = renderSelect({ inputRef: inputRefFn });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `FilterableSelect` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      loggerSpy.mockRestore();
+    });
+
     it("then the input reference should be returned on call", () => {
       const inputRefFn = jest.fn();
       const wrapper = renderSelect({ inputRef: inputRefFn });

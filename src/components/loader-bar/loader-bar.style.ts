@@ -3,7 +3,7 @@ import { margin, MarginProps } from "styled-system";
 import baseTheme from "../../style/themes/base";
 
 export interface StyledLoaderBarProps {
-  /** Size of the loaderBar. */
+  /** Size of the LoaderBar. */
   size?: "small" | "medium" | "large";
 }
 
@@ -23,9 +23,6 @@ const INNER_BAR_LENGTH = "128px";
 const StyledLoader = styled.div<StyledLoaderBarProps & MarginProps>`
   ${margin}
   text-align: center;
-  white-space: nowrap;
-  line-height: 0;
-  font-size: 0;
 `;
 
 const innerBarAnimation = keyframes`

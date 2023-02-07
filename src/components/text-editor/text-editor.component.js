@@ -342,6 +342,7 @@ const TextEditor = React.forwardRef(
                 ariaDescribedBy={labelId.current}
                 blockStyleFn={blockStyleFn}
                 keyBindingFn={keyBindingFn}
+                tabIndex={0}
               />
               {React.Children.map(previews, (preview) => {
                 const { onClose } = preview.props;

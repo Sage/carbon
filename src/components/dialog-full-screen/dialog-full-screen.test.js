@@ -1,13 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
-import DialogFullScreen from "./dialog-full-screen.component";
-import Dialog from "../dialog/dialog.component";
-import Button from "../button";
-import Textbox from "../textbox";
-import Pill from "../pill";
-import Form from "../form";
-import Box from "../box";
-import CarbonProvider from "../carbon-provider";
+import {
+  DialogFullScreenComponent,
+  NestedDialog,
+  MultipleDialogsInDifferentProviders,
+  DialogFullScreenWithHeaderChildren,
+  mainDialogTitle,
+  nestedDialogTitle,
+} from "./dialog-full-screen-test.stories";
+import {
+  Default as DefaultDocsStory,
+  WithComplexExample,
+  WithDisableContentPadding,
+  WithHeaderChildren,
+  WithHelp,
+  WithHideableHeaderChildren,
+  WithBox,
+  FocusingADifferentFirstElement,
+  OtherFocusableContainers,
+} from "./dialog-full-screen.stories.tsx";
 import {
   dialogTitle,
   dialogSubtitle,
@@ -26,6 +37,7 @@ import {
   getComponent,
   getElement,
 } from "../../../cypress/locators/index";
+import { buttonDataComponent } from "../../../cypress/locators/button";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { contentElement } from "../../../cypress/locators/content/index";
 import { keyCode } from "../../../cypress/support/helper";
@@ -33,155 +45,6 @@ import { CHARACTERS } from "../../../cypress/support/component-helper/constants"
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testAria = "cypress_aria";
-const mainDialogTitle = "Main Dialog";
-const nestedDialogTitle = "Nested Dialog";
-const DialogFullScreenComponent = ({ children, ...props }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
-  const ref = React.useRef();
-  return (
-    <>
-      <DialogFullScreen
-        open={isOpen}
-        showCloseIcon
-        onCancel={() => setIsOpen(false)}
-        focusFirstElement={ref}
-        {...props}
-      >
-        <Button onClick={() => setIsOpen(false)}>Not focused</Button>
-        <Button forwardRef={ref} onClick={() => setIsOpen(false)}>
-          This should be focused first now
-        </Button>
-
-        <Textbox label="Textbox1" value="Textbox1" />
-        <Textbox label="Textbox2" value="Textbox2" />
-        <Textbox label="Textbox3" value="Textbox3" />
-        <Form>{children}</Form>
-      </DialogFullScreen>
-    </>
-  );
-};
-
-const NestedDialog = () => {
-  const [mainDialogOpen, setMainDialogOpen] = React.useState(false);
-  const [nestedDialogOpen, setNestedDialogOpen] = React.useState(false);
-
-  const handleMainDialogOpen = () => {
-    setMainDialogOpen(true);
-  };
-
-  const handleMainDialogCancel = () => {
-    setMainDialogOpen(false);
-  };
-
-  const handleNestedDialogOpen = () => {
-    setNestedDialogOpen(true);
-  };
-
-  const handleNestedDialogCancel = () => {
-    setNestedDialogOpen(false);
-  };
-
-  return (
-    <>
-      <Button onClick={handleMainDialogOpen}>Open Main Dialog</Button>
-      <DialogFullScreen
-        open={mainDialogOpen}
-        onCancel={handleMainDialogCancel}
-        title={mainDialogTitle}
-      >
-        <Button onClick={handleNestedDialogOpen}>Open Nested Dialog</Button>
-        <Dialog
-          open={nestedDialogOpen}
-          onCancel={handleNestedDialogCancel}
-          title={nestedDialogTitle}
-        >
-          Nested Dialog Content
-        </Dialog>
-      </DialogFullScreen>
-    </>
-  );
-};
-
-const MultipleDialogsInDifferentProviders = () => {
-  const [isModal1Open, setIsModal1Open] = React.useState(false);
-  const [isModal2Open, setIsModal2Open] = React.useState(false);
-  return (
-    <>
-      <CarbonProvider>
-        <Box>
-          <Button onClick={() => setIsModal1Open(true)}>Open Modal 1</Button>
-          <DialogFullScreen
-            title="Full Screen Dialog"
-            open={isModal1Open}
-            onCancel={() => setIsModal1Open(false)}
-          >
-            This is Modal 1
-            <Button onClick={() => setIsModal2Open(true)}>Open Modal 2</Button>
-          </DialogFullScreen>
-        </Box>
-      </CarbonProvider>
-      <CarbonProvider>
-        <Box>
-          <Dialog open={isModal2Open} onCancel={() => setIsModal2Open(false)}>
-            This is Modal 2
-          </Dialog>
-        </Box>
-      </CarbonProvider>
-    </>
-  );
-};
-
-const DialogFullScreenWithHeaderChildren = () => {
-  const [isOpen, setIsOpen] = React.useState(true);
-  const HeaderChildren = (
-    <div
-      style={{
-        margin: `$min-width: 568px 0 26px`,
-      }}
-    >
-      <Pill as="help" fill>
-        A pill
-      </Pill>
-      <Pill as="info" fill ml={2} mr={1}>
-        Another pill
-      </Pill>
-    </div>
-  );
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open DialogFullScreen</Button>
-      <DialogFullScreen
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="An example of a long header"
-        subtitle="Subtitle"
-        headerChildren={HeaderChildren}
-      >
-        <Form
-          stickyFooter
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-        >
-          <div>
-            This is an example of a full screen Dialog with a Form as content
-          </div>
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
-        </Form>
-      </DialogFullScreen>
-    </>
-  );
-};
 
 DialogFullScreenComponent.propTypes = {
   children: PropTypes.node.isRequired,
@@ -412,6 +275,95 @@ context("Testing DialogFullScreen component", () => {
       contentElement()
         .should("have.css", "padding-right", "0px")
         .should("have.css", "padding-bottom", "0px");
+    });
+  });
+
+  describe("should check accessibility for Dialog Full Screen", () => {
+    it("should check accessibility for default Dialog Full Screen component", () => {
+      CypressMountWithProviders(<DefaultDocsStory />);
+
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should check accessibility for default Dialog Full Screen with complex example", () => {
+      CypressMountWithProviders(<WithComplexExample />);
+
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should check accessibility for default Dialog Full Screen with disabled content padding", () => {
+      CypressMountWithProviders(<WithDisableContentPadding />);
+
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should check accessibility for default Dialog Full Screen component with header children", () => {
+      CypressMountWithProviders(<WithHeaderChildren />);
+
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should check accessibility for default Dialog Full Screen component with help", () => {
+      CypressMountWithProviders(<WithHelp />);
+
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should check accessibility for default Dialog Full Screen component with hideable header children", () => {
+      CypressMountWithProviders(<WithHideableHeaderChildren />);
+
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should check accessibility for default Dialog Full Screen component with box", () => {
+      CypressMountWithProviders(<WithBox />);
+
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should check accessibility for default Dialog Full Screen component using autoFocus", () => {
+      CypressMountWithProviders(<FocusingADifferentFirstElement />);
+
+      buttonDataComponent()
+        .contains("Open Demo using focusFirstElement")
+        .click()
+        .then(() => cy.checkAccessibility());
+      closeIconButton().click();
+
+      buttonDataComponent()
+        .contains("Open Demo using autoFocus")
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should check accessibility for default Dialog Full Screen component with other focusable containers", () => {
+      CypressMountWithProviders(<OtherFocusableContainers />);
+
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
     });
   });
 });

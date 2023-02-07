@@ -41,6 +41,12 @@ interface Locale {
   heading: {
     backLinkAriaLabel: () => string;
   };
+  link: {
+    skipLinkLabel: () => string;
+  };
+  loader: {
+    loading: () => string;
+  };
   message: {
     closeButtonAriaLabel: () => string;
   };
@@ -72,9 +78,6 @@ interface Locale {
     placeholder: () => string;
     noResultsForTerm: (term: string) => string;
   };
-  link: {
-    skipLinkLabel: () => string;
-  };
   sidebar: {
     ariaLabels: {
       close: () => string;
@@ -102,6 +105,11 @@ interface Locale {
     deselect: () => string;
   };
   toast: {
+    ariaLabels: {
+      close: () => string;
+    };
+  };
+  verticalMenuFullScreen: {
     ariaLabels: {
       close: () => string;
     };
