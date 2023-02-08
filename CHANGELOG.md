@@ -1,3 +1,10 @@
+## [114.11.0](https://github.com/Sage/carbon/compare/v114.10.1...v114.11.0) (2023-02-08)
+
+
+### Features
+
+* **minor-button:** add new MinorButton component ([c032d2e](https://github.com/Sage/carbon/commit/c032d2e0797371c9650871e93ecd79e53e6f76c3))
+
 ### [114.10.1](https://github.com/Sage/carbon/compare/v114.10.0...v114.10.1) (2023-02-08)
 
 
