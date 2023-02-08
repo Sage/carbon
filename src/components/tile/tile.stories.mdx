@@ -54,11 +54,21 @@ By default, the Tile component will have a horizontal layout.
 
 <Canvas>
   <Story name="default">
-    <Tile>
-      <Content title="Test Title One">Test Body One</Content>
-      <Content title="Test Title Two">Test Body Two</Content>
-      <Content title="Test Title Three">Test Body Three</Content>
-    </Tile>
+    {() => {
+      const TileContent1 = () => {
+        return <p>Content 1</p>;
+      };
+      const TileContent2 = () => {
+        return null;
+      };
+      return (
+        <Tile orientation="vertical">
+        <TileContent1 />
+        <TileContent2 />
+        foo
+      </Tile>
+      )
+    }}
   </Story>
 </Canvas>
 

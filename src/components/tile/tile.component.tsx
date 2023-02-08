@@ -57,6 +57,15 @@ export const Tile = ({
     const { width: contentWidth, ...childProps } = child.props;
     const key = child.key || `tile-content-${index + 1}`;
 
+    if (
+      typeof child?.type === "function" &&
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      !child?.type()
+    ) {
+      return null;
+    }
+
     return (
       <TileContent
         key={key}
