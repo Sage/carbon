@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { TooltipPositions } from "components/tooltip/tooltip.config";
+import { TooltipPositions } from "../../components/tooltip/tooltip.config";
 import Help from "../../components/help";
 import StyledLabel, {
   StyledLabelContainer,
