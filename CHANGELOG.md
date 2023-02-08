@@ -1,3 +1,10 @@
+### [114.10.1](https://github.com/Sage/carbon/compare/v114.10.0...v114.10.1) (2023-02-08)
+
+
+### Bug Fixes
+
+* **flat-table:** fix misaligned pager ([4bda19a](https://github.com/Sage/carbon/commit/4bda19adb0a00f56e63b4f11edf911f4fb232a05))
+
 ## [114.10.0](https://github.com/Sage/carbon/compare/v114.9.1...v114.10.0) (2023-02-07)
 
 
