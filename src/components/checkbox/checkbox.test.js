@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import * as React from "react";
+import React from "react";
 import Checkbox from "./checkbox.component";
 import CheckboxGroup from "./checkbox-group.component";
 import {
@@ -61,6 +61,7 @@ const CheckboxGroupComponent = ({ children, ...props }) => {
         id="checkboxgroup"
         name="checkboxgroup"
         legend="Test CheckboxGroup Label"
+        data-component="checkboxgroup"
         {...props}
       >
         <Checkbox
@@ -73,7 +74,7 @@ const CheckboxGroupComponent = ({ children, ...props }) => {
         />
         <Checkbox
           label="Optional"
-          id="checkbox-Required"
+          id="checkbox-Optional"
           key="checkbox-Required"
           name="checkbox-Required"
           checked={() => setIsChecked(false)}
@@ -551,6 +552,80 @@ context("Testing Checkbox component", () => {
         );
 
         verifyRequiredAsteriskForLegend();
+      });
+    });
+
+    describe("Accessibility tests for Checkbox component", () => {
+      it("should pass accessibilty tests for Checkbox default story", () => {
+        CypressMountWithProviders(<CheckboxComponent />);
+        cy.checkAccessibility();
+      });
+
+      it.each([
+        ["small", "16"],
+        ["large", "24"],
+      ])("should pass accessibilty tests for Checkbox sizes story", (size) => {
+        CypressMountWithProviders(<CheckboxComponent size={size} />);
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibilty tests for Checkbox disabled story", () => {
+        CypressMountWithProviders(<CheckboxComponent disabled />);
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibilty tests for Checkbox reversed story", () => {
+        CypressMountWithProviders(<CheckboxComponent reverse />);
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibilty tests for Checkbox fieldHelp story", () => {
+        CypressMountWithProviders(
+          <CheckboxComponent fieldHelp="This is field help" />
+        );
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibilty tests for Checkbox labelHelp story", () => {
+        CypressMountWithProviders(
+          <CheckboxComponent
+            label="Label For CheckBox"
+            labelHelp="Label Help"
+            helpAriaLabel="This text provides more information for the label"
+          />
+        );
+
+        checkboxIcon().trigger("mouseover");
+        cy.checkAccessibility();
+      });
+
+      it.each([
+        ["10", "90"],
+        ["30", "70"],
+      ])(
+        "should pass accessibilty tests for Checkbox custom label width story",
+        (width, inputWidth) => {
+          CypressMountWithProviders(
+            <CheckboxComponent
+              labelInline
+              labelWidth={width}
+              inputWidth={inputWidth}
+            />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it("should pass accessibilty tests for Checkbox group story", () => {
+        CypressMountWithProviders(<CheckboxGroupComponent />);
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibilty tests for Checkbox group with inline legend story", () => {
+        CypressMountWithProviders(
+          <CheckboxGroupComponent legend="CheckBox Legend" legendInline />
+        );
+        cy.checkAccessibility();
       });
     });
   });
