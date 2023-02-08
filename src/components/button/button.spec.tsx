@@ -33,6 +33,7 @@ const sizesPadding: [SizeOptions, string][] = [
   ["medium", "24px"],
   ["large", "32px"],
 ];
+
 const sizesHeights: [SizeOptions, string][] = [
   ["small", "32px"],
   ["medium", "40px"],
@@ -509,7 +510,10 @@ describe("Button", () => {
                   variant === "dashed"
                     ? "var(--colorsActionMinorYin030)"
                     : "var(--colorsActionMajorYin030)",
-                fontSize: size === "large" ? "16px" : "var(--fontSizes100)",
+                fontSize:
+                  size === "large"
+                    ? "var(--fontSizes200)"
+                    : "var(--fontSizes100)",
                 minHeight: height,
               },
               wrapper
@@ -544,7 +548,10 @@ describe("Button", () => {
                   variant === "dashed"
                     ? "var(--colorsActionMinorYin030)"
                     : "var(--colorsActionMajorYin030)",
-                fontSize: size === "large" ? "16px" : "var(--fontSizes100)",
+                fontSize:
+                  size === "large"
+                    ? "var(--fontSizes200)"
+                    : "var(--fontSizes100)",
                 minHeight: height,
               },
               wrapper
