@@ -12,6 +12,7 @@ import mintTheme from "../../style/themes/mint";
 import RadioButtonStyle from "./radio-button.style";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
+import Logger from "../../__internal__/utils/logger";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -78,6 +79,21 @@ describe("RadioButton", () => {
     expect(mockRef?.current).toBe(
       wrapper.find(HiddenCheckableInputStyle).getDOMNode()
     );
+  });
+
+  it("should display deprecation warning when the inputRef prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    const ref = { current: null };
+
+    const wrapper = mount(<RadioButton inputRef={ref} value="test" />);
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `inputRef` prop in `RadioButton` component is deprecated and will soon be removed. Please use `ref` instead."
+    );
+
+    wrapper.setProps({ prop1: true });
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+    loggerSpy.mockRestore();
   });
 
   describe("when disabled === true", () => {

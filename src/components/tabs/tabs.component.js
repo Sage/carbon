@@ -187,6 +187,7 @@ const Tabs = ({
         infoMessage,
         href,
         customLayout,
+        titleProps,
       } = child.props;
       const refId = `${tabId}-tab`;
       const errors = tabsErrors[tabId];
@@ -234,8 +235,9 @@ const Tabs = ({
         return summaryOfMessages.map((value) => `• ${value}`).join("\n");
       };
 
-      const tabTitle = (
+      return (
         <TabTitle
+          {...titleProps}
           position={isInSidebar ? "left" : position}
           className={child.props.className || ""}
           dataTabId={tabId}
@@ -266,8 +268,6 @@ const Tabs = ({
           align={align}
         />
       );
-
-      return tabTitle;
     });
 
     return (
@@ -285,37 +285,32 @@ const Tabs = ({
     );
   };
 
-  /** Builds the single currently selected tab */
-  const visibleTab = () => {
-    const tab = filteredChildren.find((child) =>
-      isTabSelected(child.props.tabId)
-    );
-
-    return (
-      tab &&
-      cloneElement(tab, {
-        ...tab.props,
-        role: "tabpanel",
-        position,
-        isTabSelected: isTabSelected(tab.props.tabId),
-        key: `${tab.props.tabId}-tab`,
-        ariaLabelledby: `${tab.props.tabId}-tab`,
-        updateErrors,
-        updateWarnings,
-        updateInfos,
-      })
-    );
-  };
-
   /** Builds all tabs where non selected tabs have class of hidden */
   const renderTabs = () => {
     if (isInSidebar) return null;
 
     if (!renderHiddenTabs) {
-      return visibleTab();
+      const tab = filteredChildren.find((child) =>
+        isTabSelected(child.props.tabId)
+      );
+
+      return (
+        tab &&
+        cloneElement(tab, {
+          ...tab.props,
+          role: "tabpanel",
+          position,
+          isTabSelected: isTabSelected(tab.props.tabId),
+          key: `${tab.props.tabId}-tab`,
+          ariaLabelledby: `${tab.props.tabId}-tab`,
+          updateErrors,
+          updateWarnings,
+          updateInfos,
+        })
+      );
     }
 
-    const tabs = filteredChildren.map((child) => {
+    return filteredChildren.map((child) => {
       return cloneElement(child, {
         ...child.props,
         role: "tabpanel",
@@ -328,8 +323,6 @@ const Tabs = ({
         updateInfos,
       });
     });
-
-    return tabs;
   };
 
   return (

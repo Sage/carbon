@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { MarginProps } from "styled-system";
+
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import {
   StyledDuellingPicklistOverlay,
@@ -10,14 +10,28 @@ import {
   StyledControlsContainer,
   StyledControl,
 } from "./duelling-picklist.style";
-import { Picklist } from "./picklist/picklist.component";
-import FocusContext from "./duelling-picklist.context";
+import { Picklist, PicklistProps } from "./picklist/picklist.component";
+import FocusContext, { FocusContextType } from "./duelling-picklist.context";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+export interface DuellingPicklistProps extends MarginProps {
+  /**
+   * Content of the component, should contain two Picklist children
+   * and a PicklistDivider
+   */
+  children?: React.ReactNode;
+  /** Indicate if component is disabled */
+  disabled?: boolean;
+  /** Place for components like Search or Filter placed above the left list */
+  leftControls?: React.ReactNode;
+  /** Left list label */
+  leftLabel?: string;
+  /** Place for components like Search or Filter placed above the right list */
+  rightControls?: React.ReactNode;
+  /** Right list label */
+  rightLabel?: string;
+}
 
-const DuellingPicklist = ({
+export const DuellingPicklist = ({
   children,
   disabled,
   leftControls,
@@ -25,13 +39,19 @@ const DuellingPicklist = ({
   leftLabel,
   rightLabel,
   ...rest
-}) => {
+}: DuellingPicklistProps) => {
   const shouldDisplayLabels = leftLabel || rightLabel;
   const shouldDisplayControls = leftControls || rightControls;
-  const [elementToFocus, setElementToFocus] = useState({});
+  const [elementToFocus, setElementToFocus] = useState<
+    FocusContextType["elementToFocus"]
+  >({});
   let pickListIndex = 0;
 
-  const addElementToFocus = (itemIndex, listIndex, groupIndex) => {
+  const addElementToFocus = (
+    itemIndex?: number,
+    listIndex?: number,
+    groupIndex?: number
+  ) => {
     setElementToFocus({ itemIndex, listIndex, groupIndex });
   };
 
@@ -41,14 +61,14 @@ const DuellingPicklist = ({
     return index;
   };
 
-  const clonedChildren = React.Children.map(
-    children,
-    (child) =>
-      child &&
-      React.cloneElement(child, {
-        index: child.type === Picklist ? getIndex() : undefined,
-      })
-  );
+  const clonedChildren = React.Children.map(children, (child) => {
+    if (React.isValidElement<PicklistProps>(child) && child.type === Picklist) {
+      return React.cloneElement(child, {
+        index: getIndex(),
+      });
+    }
+    return child;
+  });
 
   return (
     <StyledDuellingPicklistOverlay
@@ -86,40 +106,6 @@ const DuellingPicklist = ({
       </FocusContext.Provider>
     </StyledDuellingPicklistOverlay>
   );
-};
-
-DuellingPicklist.propTypes = {
-  ...marginPropTypes,
-  /**
-   * Content of the component, should contain two Picklist children
-   * and a PicklistDivider
-   */
-  children: (props, propName) => {
-    const prop = props[propName];
-    let error;
-
-    if (
-      !prop ||
-      !Array.isArray(prop) ||
-      prop.filter((el) => el.type === Picklist).length !== 2
-    ) {
-      error = new Error(
-        `\`${propName}\` must have two \`${Picklist.displayName}\`s`
-      );
-    }
-
-    return error;
-  },
-  /** Indicate if component is disabled */
-  disabled: PropTypes.bool,
-  /** Place for components like Search or Filter placed above the left list */
-  leftControls: PropTypes.node,
-  /** Place for components like Search or Filter placed above the right list */
-  rightControls: PropTypes.node,
-  /** Left list label */
-  leftLabel: PropTypes.string,
-  /** Right list label */
-  rightLabel: PropTypes.string,
 };
 
 export default DuellingPicklist;

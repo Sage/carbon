@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useRef } from "react";
-import PropTypes from "prop-types";
 import { CSSTransition } from "react-transition-group";
 
 import {
@@ -10,15 +9,43 @@ import {
 import FocusContext from "../duelling-picklist.context";
 import Events from "../../../__internal__/utils/helpers/events";
 
-const PicklistItem = React.forwardRef(
+type Item = Record<string, unknown> | string | number;
+
+export interface PicklistItemProps {
+  /** Item content */
+  children: React.ReactNode;
+  /** Define if item is of type add or remove */
+  type: "add" | "remove";
+  /** Handler invoked when add/remove button is clicked or when space/enter is pressed on the whole item */
+  onChange: (item: Item) => void;
+  /** Value passed to the onChange handler - can be a string, a number or an object */
+  item: Item;
+  /** Disable the item */
+  locked?: boolean;
+  /** Tooltip message for the locked icon (only present when locked prop is true) */
+  tooltipMessage?: string;
+  /** @private @ignore */
+  index?: number;
+  /** @private @ignore */
+  groupIndex?: number;
+  /** @private @ignore */
+  listIndex?: number;
+  /** @private @ignore */
+  isLastItem?: boolean;
+  /** @private @ignore */
+  isLastGroup?: boolean;
+}
+
+export const PicklistItem = React.forwardRef<
+  HTMLButtonElement,
+  PicklistItemProps
+>(
   (
     {
       children,
       type,
-      disabled,
       onChange,
       item,
-      highlighted,
       locked,
       tooltipMessage = "This item is locked and can not be moved",
       index,
@@ -26,12 +53,12 @@ const PicklistItem = React.forwardRef(
       groupIndex,
       isLastGroup,
       isLastItem,
-      ...rest
-    },
+      ...transitionGroupProps
+    }: PicklistItemProps,
     ref
   ) => {
     const { setElementToFocus } = useContext(FocusContext);
-    const picklistItemNodeRef = useRef();
+    const picklistItemNodeRef = useRef<HTMLLIElement | null>(null);
 
     const calculateFocusIndex = useCallback(() => {
       if (isLastItem) {
@@ -81,7 +108,7 @@ const PicklistItem = React.forwardRef(
           exit: 0,
         }}
         classNames="picklist-item"
-        {...rest}
+        {...transitionGroupProps}
         {...(type === "add" ? { enter: false } : {})}
         nodeRef={picklistItemNodeRef}
       >
@@ -98,7 +125,6 @@ const PicklistItem = React.forwardRef(
               destructive={type === "remove"}
               iconType={type}
               onClick={handleClick}
-              highlighted={highlighted}
               ref={ref}
             />
           )}
@@ -111,37 +137,6 @@ const PicklistItem = React.forwardRef(
   }
 );
 
-PicklistItem.propTypes = {
-  /** Item content */
-  children: PropTypes.node.isRequired,
-  /** Define if item is of type add or remove */
-  type: PropTypes.oneOf(["add", "remove"]).isRequired,
-  /** Indicate if component is disabled */
-  disabled: PropTypes.bool,
-  /** Handler invoked when add/remove button is clicked or when space/enter is pressed on the whole item */
-  onChange: PropTypes.func.isRequired,
-  /** Value passed to the onChange handler */
-  item: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
-  /** Disable the item */
-  locked: PropTypes.bool,
-  /** Tooltip message for the locked icon (only present when locked prop is true) */
-  tooltipMessage: PropTypes.string,
-  /** @private @ignore */
-  highlighted: PropTypes.bool,
-  /** @private @ignore */
-  index: PropTypes.number,
-  /** @private @ignore */
-  groupIndex: PropTypes.number,
-  /** @private @ignore */
-  listIndex: PropTypes.number,
-  /** @private @ignore */
-  isLastItem: PropTypes.bool,
-  /** @private @ignore */
-  isLastGroup: PropTypes.bool,
-};
+PicklistItem.displayName = "PicklistItem";
 
 export default PicklistItem;

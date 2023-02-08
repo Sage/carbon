@@ -8,6 +8,7 @@ import createGuid from "../../__internal__/utils/helpers/guid";
 import Button from "../button";
 import Box from "../box";
 import Accordion from "./__internal__/accordion";
+import Logger from "../../__internal__/utils/logger";
 
 import {
   StyledTileSelectContainer,
@@ -31,166 +32,183 @@ const marginPropTypes = filterStyledSystemMarginProps(
 
 const checkPropTypeIsNode = (prop) => typeof prop !== "string" && { as: "div" };
 
-const TileSelect = ({
-  onChange,
-  onBlur,
-  onFocus,
-  value,
-  name,
-  checked,
-  className,
-  disabled,
-  title,
-  subtitle,
-  description,
-  titleAdornment,
-  type,
-  id,
-  customActionButton,
-  actionButtonAdornment,
-  footer,
-  prefixAdornment,
-  additionalInformation,
-  accordionContent,
-  accordionControl,
-  accordionExpanded,
-  ...rest
-}) => {
-  const l = useLocale();
-  const [hasFocus, setHasFocus] = useState(false);
-  const handleDeselect = () =>
-    onChange({
-      target: {
-        ...(name && { name }),
-        ...(id && { id }),
-        value: null,
-        checked: false,
-      },
-    });
+let deprecateInputRefWarnTriggered = false;
 
-  const renderActionButton = () => (
-    <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
-      {customActionButton && customActionButton(handleDeselect)}
-      {!customActionButton && checked && (
-        <Button
-          buttonType="tertiary"
-          size="small"
-          disabled={disabled}
-          onClick={handleDeselect}
-        >
-          {l.tileSelect.deselect()}
-        </Button>
-      )}
-      {actionButtonAdornment}
-    </StyledDeselectWrapper>
-  );
+const TileSelect = React.forwardRef(
+  (
+    {
+      onChange,
+      onBlur,
+      onFocus,
+      value,
+      name,
+      checked,
+      className,
+      disabled,
+      title,
+      subtitle,
+      description,
+      titleAdornment,
+      type,
+      id,
+      customActionButton,
+      actionButtonAdornment,
+      footer,
+      prefixAdornment,
+      additionalInformation,
+      accordionContent,
+      accordionControl,
+      accordionExpanded,
+      inputRef,
+      ...rest
+    },
+    ref
+  ) => {
+    const l = useLocale();
+    const [hasFocus, setHasFocus] = useState(false);
+    const handleDeselect = () =>
+      onChange({
+        target: {
+          ...(name && { name }),
+          ...(id && { id }),
+          value: null,
+          checked: false,
+        },
+      });
 
-  useEffect(() => {
-    if (disabled && hasFocus) {
-      setHasFocus(false);
+    if (!deprecateInputRefWarnTriggered && inputRef) {
+      deprecateInputRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `inputRef` prop in `TileSelect` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
     }
-  }, [disabled, hasFocus]);
 
-  const guid = useRef(createGuid());
-  const contentId = `AccordionContent_${guid.current}`;
-  const controlId = `AccordionControl_${guid.current}`;
-
-  return (
-    <StyledTileSelectContainer
-      checked={checked}
-      className={className}
-      disabled={disabled}
-      {...tagComponent("tile-select", rest)}
-      {...filterStyledSystemMarginProps(rest)}
-    >
-      <StyledFocusWrapper hasFocus={hasFocus} checked={checked}>
-        <StyledTileSelectInput
-          onChange={onChange}
-          onBlur={(ev) => {
-            setHasFocus(false);
-            /* istanbul ignore else */
-            if (onBlur) onBlur(ev);
-          }}
-          onFocus={(ev) => {
-            setHasFocus(true);
-            /* istanbul ignore else */
-            if (onFocus) onFocus(ev);
-          }}
-          checked={checked}
-          name={name}
-          type={type}
-          value={value}
-          disabled={disabled}
-          aria-checked={checked}
-          id={id}
-          {...rest}
-        />
-        <StyledTileSelect disabled={disabled} checked={checked}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            flexDirection="row-reverse"
+    const renderActionButton = () => (
+      <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
+        {customActionButton && customActionButton(handleDeselect)}
+        {!customActionButton && checked && (
+          <Button
+            buttonType="tertiary"
+            size="small"
+            disabled={disabled}
+            onClick={handleDeselect}
           >
-            {(customActionButton || checked) && renderActionButton()}
-            <Box flexGrow="1">
-              <StyledTitleContainer>
-                {title && (
-                  <StyledTitle {...checkPropTypeIsNode(title)}>
-                    {title}
-                  </StyledTitle>
-                )}
+            {l.tileSelect.deselect()}
+          </Button>
+        )}
+        {actionButtonAdornment}
+      </StyledDeselectWrapper>
+    );
 
-                {subtitle && (
-                  <StyledSubtitle {...checkPropTypeIsNode(subtitle)}>
-                    {subtitle}
-                  </StyledSubtitle>
-                )}
+    useEffect(() => {
+      if (disabled && hasFocus) {
+        setHasFocus(false);
+      }
+    }, [disabled, hasFocus]);
 
-                {titleAdornment && (
-                  <StyledAdornment
-                    hasAdditionalInformation={!!additionalInformation}
+    const guid = useRef(createGuid());
+    const contentId = `AccordionContent_${guid.current}`;
+    const controlId = `AccordionControl_${guid.current}`;
+
+    return (
+      <StyledTileSelectContainer
+        checked={checked}
+        className={className}
+        disabled={disabled}
+        {...tagComponent("tile-select", rest)}
+        {...filterStyledSystemMarginProps(rest)}
+      >
+        <StyledFocusWrapper hasFocus={hasFocus} checked={checked}>
+          <StyledTileSelectInput
+            onChange={onChange}
+            onBlur={(ev) => {
+              setHasFocus(false);
+              /* istanbul ignore else */
+              if (onBlur) onBlur(ev);
+            }}
+            onFocus={(ev) => {
+              setHasFocus(true);
+              /* istanbul ignore else */
+              if (onFocus) onFocus(ev);
+            }}
+            checked={checked}
+            name={name}
+            type={type}
+            value={value}
+            disabled={disabled}
+            aria-checked={checked}
+            id={id}
+            inputRef={inputRef}
+            ref={ref}
+            {...rest}
+          />
+          <StyledTileSelect disabled={disabled} checked={checked}>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              flexDirection="row-reverse"
+            >
+              {(customActionButton || checked) && renderActionButton()}
+              <Box flexGrow="1">
+                <StyledTitleContainer>
+                  {title && (
+                    <StyledTitle {...checkPropTypeIsNode(title)}>
+                      {title}
+                    </StyledTitle>
+                  )}
+
+                  {subtitle && (
+                    <StyledSubtitle {...checkPropTypeIsNode(subtitle)}>
+                      {subtitle}
+                    </StyledSubtitle>
+                  )}
+
+                  {titleAdornment && (
+                    <StyledAdornment
+                      hasAdditionalInformation={!!additionalInformation}
+                    >
+                      {titleAdornment}
+                    </StyledAdornment>
+                  )}
+                </StyledTitleContainer>
+                {additionalInformation && <div>{additionalInformation}</div>}
+                <StyledDescription {...checkPropTypeIsNode(description)}>
+                  {description}
+                </StyledDescription>
+                {footer && <StyledFooterWrapper>{footer}</StyledFooterWrapper>}
+                {accordionContent && accordionControl && (
+                  <StyledAccordionFooterWrapper
+                    accordionExpanded={accordionExpanded}
                   >
-                    {titleAdornment}
-                  </StyledAdornment>
+                    {accordionControl(controlId, contentId)}
+                  </StyledAccordionFooterWrapper>
                 )}
-              </StyledTitleContainer>
-              {additionalInformation && <div>{additionalInformation}</div>}
-              <StyledDescription {...checkPropTypeIsNode(description)}>
-                {description}
-              </StyledDescription>
-              {footer && <StyledFooterWrapper>{footer}</StyledFooterWrapper>}
-              {accordionContent && accordionControl && (
-                <StyledAccordionFooterWrapper
-                  accordionExpanded={accordionExpanded}
+              </Box>
+              {prefixAdornment && (
+                <Box
+                  data-element="prefix-adornment"
+                  mr={3}
+                  opacity={disabled ? "0.3" : undefined}
                 >
-                  {accordionControl(controlId, contentId)}
-                </StyledAccordionFooterWrapper>
+                  {prefixAdornment}
+                </Box>
               )}
             </Box>
-            {prefixAdornment && (
-              <Box
-                data-element="prefix-adornment"
-                mr={3}
-                opacity={disabled ? "0.3" : undefined}
-              >
-                {prefixAdornment}
-              </Box>
-            )}
-          </Box>
-        </StyledTileSelect>
-        {accordionContent && (
-          <Accordion
-            contentId={contentId}
-            controlId={controlId}
-            expanded={accordionExpanded}
-          >
-            {accordionContent}
-          </Accordion>
-        )}
-      </StyledFocusWrapper>
-    </StyledTileSelectContainer>
-  );
-};
+          </StyledTileSelect>
+          {accordionContent && (
+            <Accordion
+              contentId={contentId}
+              controlId={controlId}
+              expanded={accordionExpanded}
+            >
+              {accordionContent}
+            </Accordion>
+          )}
+        </StyledFocusWrapper>
+      </StyledTileSelectContainer>
+    );
+  }
+);
 
 TileSelect.defaultProps = {
   checked: false,

@@ -1,3 +1,49 @@
+## [114.10.0](https://github.com/Sage/carbon/compare/v114.9.1...v114.10.0) (2023-02-07)
+
+
+### Features
+
+* **draggable:** adds dragged item id to getColumns callback of draggable component ([8355480](https://github.com/Sage/carbon/commit/835548046223f1c297d58713f45379e394fe0af3))
+
+### [114.9.1](https://github.com/Sage/carbon/compare/v114.9.0...v114.9.1) (2023-02-06)
+
+
+### Bug Fixes
+
+* **popover:** prevent from crashing when rendered in sidebar ([a03c84f](https://github.com/Sage/carbon/commit/a03c84f1d540cdff51d9b5c305e64e286743d4f7))
+
+## [114.9.0](https://github.com/Sage/carbon/compare/v114.8.0...v114.9.0) (2023-02-06)
+
+
+### Features
+
+* **tab:** introduce titleProps for passing props to corresponding title ([3a0c4e7](https://github.com/Sage/carbon/commit/3a0c4e783f2c49dd2abaebb84e09c6e4f08ff87d))
+
+## [114.8.0](https://github.com/Sage/carbon/compare/v114.7.1...v114.8.0) (2023-02-03)
+
+
+### Features
+
+* **checkbox:** use React.forwardRef and deprecate inputRef prop ([9817fe6](https://github.com/Sage/carbon/commit/9817fe61784e7d9b4413995a38115c16c2d149dd)), closes [#5564](https://github.com/Sage/carbon/issues/5564)
+* **date-range:** add startRef and endRef props ([656662e](https://github.com/Sage/carbon/commit/656662e5db4e5464c6f493717049cd3e823994bd)), closes [#5564](https://github.com/Sage/carbon/issues/5564)
+* **date:** use React.forwardRef and deprecate inputRef prop ([fdaf540](https://github.com/Sage/carbon/commit/fdaf54066c62c7b6b01295417f94d00c7cab68d1)), closes [#5564](https://github.com/Sage/carbon/issues/5564)
+* **decimal:** useReact.forwardRef and deprecate inputRef prop ([d1876d3](https://github.com/Sage/carbon/commit/d1876d32bbc4040326f50f0c4aa2732e5fe9727e)), closes [#5564](https://github.com/Sage/carbon/issues/5564)
+* **grouped-character:** use React.forwardRef and deprecate inputRef prop ([3737d54](https://github.com/Sage/carbon/commit/3737d540200ffa3156095b6053109c0e94c78ef2)), closes [#5564](https://github.com/Sage/carbon/issues/5564)
+* **number:** use React.forwardRef and deprecate inputRef prop ([8d0215d](https://github.com/Sage/carbon/commit/8d0215d4de4cf6d8ec41c708c7d91007e07bc03b)), closes [#5564](https://github.com/Sage/carbon/issues/5564)
+* **numeral-date:** add props to give refs to each input ([df20e7d](https://github.com/Sage/carbon/commit/df20e7defc2cad9b9d039fbd81db857504d8cde7)), closes [#5564](https://github.com/Sage/carbon/issues/5564)
+* **radio-button:** deprecate inputRef prop ([171daa7](https://github.com/Sage/carbon/commit/171daa70581e5e281872c8151c9b85b1867ed5e7)), closes [#5564](https://github.com/Sage/carbon/issues/5564)
+* **search:** use React.forwardRef and deprecate inputRef prop ([832c44d](https://github.com/Sage/carbon/commit/832c44dc8a136e6ae843e4d53854f645d7c776bf)), closes [#5564](https://github.com/Sage/carbon/issues/5564)
+* **select:** deprecate inputRef prop ([708cd10](https://github.com/Sage/carbon/commit/708cd10895564588251f61b27d474185e333146b))
+* **switch:** use React.forwardRef and deprecate inputRef prop ([e2f2945](https://github.com/Sage/carbon/commit/e2f29455f748ae0b32570fe1192eb26efaa8380d)), closes [#5564](https://github.com/Sage/carbon/issues/5564)
+* **textarea:** use React.forwardRef and deprecate inputRef prop ([afce55f](https://github.com/Sage/carbon/commit/afce55f6f4c31d7e3d0f1a1ea8a63c263894b3d7)), closes [#5564](https://github.com/Sage/carbon/issues/5564)
+* **textbox:** use React.forwardRef and deprecate inputRef prop ([17c9e2e](https://github.com/Sage/carbon/commit/17c9e2e0a1914953e9aaef581febc44e23dc9c0a)), closes [#5564](https://github.com/Sage/carbon/issues/5564)
+* **tile-select:** use React.forwardRef and deprecate inputRef prop ([774aa1a](https://github.com/Sage/carbon/commit/774aa1aac9d5a8bce84a4456eb3a186eeeda9d61)), closes [#5564](https://github.com/Sage/carbon/issues/5564)
+
+
+### Bug Fixes
+
+* remove internal use of inputRef prop in components ([3745ade](https://github.com/Sage/carbon/commit/3745ade5d3ada3b3ab507d526913354e863ca3b3))
+
 ### [114.7.1](https://github.com/Sage/carbon/compare/v114.7.0...v114.7.1) (2023-02-01)
 
 

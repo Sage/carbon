@@ -22,6 +22,9 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import getNextChildByText from "../utils/get-next-child-by-text";
 import isExpectedOption from "../utils/is-expected-option";
 import isNavigationKey from "../utils/is-navigation-key";
+import Logger from "../../../__internal__/utils/logger";
+
+let deprecateInputRefWarnTriggered = false;
 
 const SimpleSelect = React.forwardRef(
   (
@@ -53,9 +56,10 @@ const SimpleSelect = React.forwardRef(
       "data-role": dataRole,
       listPlacement = "bottom",
       flipEnabled = true,
+      inputRef,
       ...props
     },
-    inputRef
+    ref
   ) => {
     const selectListId = useRef(guid());
     const labelId = useRef(guid());
@@ -74,6 +78,13 @@ const SimpleSelect = React.forwardRef(
     const [selectedValue, setSelectedValue] = useState(
       value || defaultValue || ""
     );
+
+    if (!deprecateInputRefWarnTriggered && inputRef) {
+      deprecateInputRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `inputRef` prop in `Select` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
 
     const childOptions = useMemo(() => React.Children.toArray(children), [
       children,
@@ -353,13 +364,22 @@ const SimpleSelect = React.forwardRef(
       setOpenState(false);
     }
 
-    function assignInput(input) {
-      setTextboxRef(input.current);
+    const assignInput = useCallback(
+      (element) => {
+        setTextboxRef(element);
 
-      if (inputRef) {
-        inputRef.current = input.current;
-      }
-    }
+        if (inputRef || !ref) {
+          return;
+        }
+
+        if (typeof ref === "function") {
+          ref(element);
+        } else {
+          ref.current = element;
+        }
+      },
+      [ref, inputRef]
+    );
 
     function getTextboxProps() {
       return {
@@ -367,7 +387,7 @@ const SimpleSelect = React.forwardRef(
         name,
         disabled,
         readOnly,
-        inputRef: assignInput,
+        ref: assignInput,
         selectedValue,
         formattedValue: textValue,
         onClick: handleTextboxClick,
@@ -378,6 +398,7 @@ const SimpleSelect = React.forwardRef(
         onBlur: handleTextboxBlur,
         tooltipPosition,
         transparent,
+        inputRef,
         ...filterOutStyledSystemSpacingProps(props),
       };
     }
