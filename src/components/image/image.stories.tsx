@@ -104,3 +104,8 @@ CustomResponsiveBehaviour.parameters = {
   chromatic: { disable: true },
   info: { disable: true },
 };
+
+export const DecorativeStory: StoryFn = () => (
+  <Image alt="" src={pointSvg} decorative />
+);
+DecorativeStory.parameters = { info: { disable: true } };
