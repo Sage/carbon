@@ -23,13 +23,13 @@ export default {
 
 export const Default = (args: Omit<BatchSelectionProps, "children">) => (
   <BatchSelection {...args}>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="csv" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="bin" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="pdf" />
     </IconButton>
   </BatchSelection>

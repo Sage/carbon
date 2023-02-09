@@ -146,7 +146,7 @@ export const WithComplexExample = () => {
                   <Typography variant="b">Example text</Typography>
                   <Typography mb={0}>Example text without bold</Typography>
                 </Box>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -171,7 +171,7 @@ export const WithComplexExample = () => {
                   <Typography variant="b">Example text</Typography>
                   <Typography mb={0}>Example text without bold</Typography>
                 </Box>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -196,7 +196,7 @@ export const WithComplexExample = () => {
                   <Typography variant="b">Example text</Typography>
                   <Typography mb={0}>Example text without bold</Typography>
                 </Box>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -253,7 +253,7 @@ export const WithComplexExample = () => {
                     Primary
                   </Pill>
                 </Box>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -277,7 +277,7 @@ export const WithComplexExample = () => {
                 <div style={{ flexGrow: 1 }}>
                   <Typography variant="b">Example text</Typography>
                 </div>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
