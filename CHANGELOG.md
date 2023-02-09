@@ -1,3 +1,10 @@
+## [114.12.0](https://github.com/Sage/carbon/compare/v114.11.0...v114.12.0) (2023-02-09)
+
+
+### Features
+
+* **image:** add decorative prop to component ([166e859](https://github.com/Sage/carbon/commit/166e8590f59ef6b129bba6fce867f31b4e378e62))
+
 ## [114.11.0](https://github.com/Sage/carbon/compare/v114.10.1...v114.11.0) (2023-02-08)
 
 
