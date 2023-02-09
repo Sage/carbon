@@ -1,5 +1,5 @@
 import React from "react";
-import Profile from "./profile.component";
+import { ProfileComponentTest as ProfileComponent } from "./profile-test.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
@@ -17,20 +17,19 @@ const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 context("Tests for Profile component", () => {
   describe("should check Profile component properties", () => {
-    it("should set className for Profile component", () => {
+    it("should check className for Profile component", () => {
       CypressMountWithProviders(
-        <Profile className="profile-cypress-classname" />
+        <ProfileComponent className="profile-cypress-classname" />
       );
       profilePreview().should("have.class", "profile-cypress-classname");
     });
 
     it.each(testData)(
-      "should set email out of scope to %s for Profile component",
+      "should check email as %s for Profile component",
       (email) => {
         CypressMountWithProviders(
-          <Profile
+          <ProfileComponent
             email={email}
-            name="John Smith"
             src="https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404"
           />
         );
@@ -38,16 +37,18 @@ context("Tests for Profile component", () => {
       }
     );
 
-    it.each(testData)("should set name to %s for Profile component", (name) => {
-      CypressMountWithProviders(
-        <Profile
-          email="johnsmith@sage.com"
-          name={name}
-          src="https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404"
-        />
-      );
-      namePreview().should("have.text", name);
-    });
+    it.each(testData)(
+      "should check name as %s for Profile component",
+      (name) => {
+        CypressMountWithProviders(
+          <ProfileComponent
+            name={name}
+            src="https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404"
+          />
+        );
+        namePreview().should("have.text", name);
+      }
+    );
 
     it.each([
       [
@@ -57,9 +58,7 @@ context("Tests for Profile component", () => {
         "https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404",
       ],
     ])("should check avatar for Profile component", (srcImage) => {
-      CypressMountWithProviders(
-        <Profile email="email@email.com" name="John Doe" src={srcImage} />
-      );
+      CypressMountWithProviders(<ProfileComponent src={srcImage} />);
       avatarPreview()
         .should("have.css", "height", "40px")
         .and("have.css", "width", "40px");
@@ -75,9 +74,7 @@ context("Tests for Profile component", () => {
       [PROFILE_SIZES[5], 102],
       [PROFILE_SIZES[6], 126],
     ])("should check %s size for Profile component", (size, heightAndWidth) => {
-      CypressMountWithProviders(
-        <Profile email="johnsmith@sage.com" name="John Smith" size={size} />
-      );
+      CypressMountWithProviders(<ProfileComponent size={size} />);
       initialPreview().then(($el) => {
         useJQueryCssValueAndAssert($el, "height", heightAndWidth);
         useJQueryCssValueAndAssert($el, "width", heightAndWidth);
@@ -91,16 +88,85 @@ context("Tests for Profile component", () => {
       "should check initials for %s in Profile component",
       (name, passInitials) => {
         CypressMountWithProviders(
-          <Profile
-            email="email@email.com"
-            initials={passInitials}
-            name={name}
-          />
+          <ProfileComponent initials={passInitials} name={name} />
         );
         initialPreview().then(($el) => {
           useJQueryCssValueAndAssert($el, "height", 38);
           useJQueryCssValueAndAssert($el, "width", 38);
         });
+      }
+    );
+  });
+
+  describe("Accessibility tests for Profile component", () => {
+    it("should check className as %s for accessibility tests", () => {
+      CypressMountWithProviders(
+        <ProfileComponent className="profile-cypress-classname" />
+      );
+      cy.checkAccessibility();
+    });
+
+    it.each(testData)(
+      "should check email as %s for accessibility tests",
+      (email) => {
+        CypressMountWithProviders(
+          <ProfileComponent
+            email={email}
+            src="https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404"
+          />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check name as %s for accessibility tests",
+      (name) => {
+        CypressMountWithProviders(
+          <ProfileComponent
+            name={name}
+            src="https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404"
+          />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      [
+        "https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light",
+      ],
+      [
+        "https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404",
+      ],
+    ])("should check src image as %s for accessibility tests", (srcImage) => {
+      CypressMountWithProviders(<ProfileComponent src={srcImage} />);
+      cy.checkAccessibility();
+    });
+
+    it.each([
+      PROFILE_SIZES[0],
+      PROFILE_SIZES[1],
+      PROFILE_SIZES[2],
+      PROFILE_SIZES[3],
+      PROFILE_SIZES[4],
+      PROFILE_SIZES[5],
+      PROFILE_SIZES[6],
+    ])("should check profile size as %s for accessibility tests", (size) => {
+      CypressMountWithProviders(<ProfileComponent size={size} />);
+      cy.checkAccessibility();
+    });
+
+    it.each([
+      ["Dan Jin", "DJ"],
+      ["Sid Ford", "SF"],
+    ])(
+      "should check %s initials as %s for accessibility tests",
+      (name, passInitials) => {
+        CypressMountWithProviders(
+          <ProfileComponent initials={passInitials} name={name} />
+        );
+        cy.checkAccessibility();
       }
     );
   });

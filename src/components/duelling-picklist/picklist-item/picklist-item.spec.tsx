@@ -1,23 +1,17 @@
 import React from "react";
 import { mount } from "enzyme";
 
-import PicklistItem from "./picklist-item.component";
+import PicklistItem, { PicklistItemProps } from "./picklist-item.component";
 import { StyledButton } from "./picklist-item.style";
 import StyledIcon from "../../icon/icon.style";
 import FocusContext from "../duelling-picklist.context";
 
-const handleKeyboardAccessibilityFn = jest.fn();
 const setElementToFocus = jest.fn();
 
-const render = (props) => {
+const render = (props: Omit<PicklistItemProps, "children">) => {
   return mount(
-    <FocusContext.Provider value={{ setElementToFocus }}>
-      <PicklistItem
-        handleKeyboardAccessibility={handleKeyboardAccessibilityFn}
-        {...props}
-      >
-        Item content
-      </PicklistItem>
+    <FocusContext.Provider value={{ elementToFocus: {}, setElementToFocus }}>
+      <PicklistItem {...props}>Item content</PicklistItem>
     </FocusContext.Provider>
   );
 };

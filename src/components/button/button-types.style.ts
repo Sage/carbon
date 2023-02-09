@@ -79,7 +79,7 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
       `
           : ""
       }
-
+      
       ${
         isDisabled
           ? `
@@ -163,7 +163,7 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
       background: var(--colorsActionMajor600);
       ${makeColors("var(--colorsActionMajorYang100)")}
     }
-
+    
     ${
       isDisabled
         ? `

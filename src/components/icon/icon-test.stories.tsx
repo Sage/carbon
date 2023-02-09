@@ -132,3 +132,11 @@ export const All = () => (
 
 Default.storyName = "default";
 All.storyName = "all";
+All.story = {
+  parameters: {
+    chromatic: {
+      disable: false,
+    },
+    themeProvider: { chromatic: { theme: "sage" } },
+  },
+};

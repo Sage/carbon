@@ -3,7 +3,7 @@ import Button from "../../button";
 import Icon from "../../icon";
 import StyledIcon from "../../icon/icon.style";
 
-const StyledPicklistItem = styled.li`
+const StyledPicklistItem = styled.li<{ locked?: boolean }>`
   ${({ locked }) => css`
     display: flex;
     align-items: center;

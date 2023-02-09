@@ -1,7 +1,7 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { shallow, mount, ShallowWrapper, ReactWrapper } from "enzyme";
-import Icon from "components/icon";
+import Icon from "../icon";
 import Help, { HelpProps } from "./help.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledHelp from "./help.style";

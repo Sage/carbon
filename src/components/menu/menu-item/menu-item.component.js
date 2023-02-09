@@ -124,9 +124,7 @@ const MenuItem = ({
   };
 
   const clonedChildren = isChildSearch.current
-    ? childrenItems.map((child) =>
-        React.cloneElement(child, { inputRef: childRef })
-      )
+    ? childrenItems.map((child) => React.cloneElement(child, { ref: childRef }))
     : children;
 
   const getTitle = (title) =>

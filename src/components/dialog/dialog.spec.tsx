@@ -2,7 +2,7 @@ import React from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 
-import { space } from "style/themes/base/base-theme.config";
+import { space } from "../../style/themes/base/base-theme.config";
 import guid from "../../__internal__/utils/helpers/guid";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Dialog, { DialogProps } from "./dialog.component";

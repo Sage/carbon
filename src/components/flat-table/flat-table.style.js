@@ -14,6 +14,9 @@ const STICKY_FOOTER_OVERLAY_INCREMENT = 1;
 const ROW_HEADER_OVERLAY_INCREMENT = 5;
 
 const StyledTableContainer = styled.div`
+  display: grid;
+  grid-auto-rows: min-content;
+
   ${({ width, overflowX }) =>
     width &&
     css`
@@ -27,7 +30,6 @@ const StyledFlatTable = styled.table`
   border-collapse: separate;
   border-radius: 0px;
   border-spacing: 0;
-  min-width: 100%;
   width: 100%;
 
   ${({ caption }) =>

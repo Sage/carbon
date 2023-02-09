@@ -1,6 +1,6 @@
-import { ThemeObject } from "style/themes/base";
 import styled from "styled-components";
 import { baseTheme } from "../../themes";
+import { ThemeObject } from "../../themes/base";
 import generateCssVariables from "../generate-css-variables.util";
 
 /**
