@@ -23,6 +23,7 @@ import { Tabs, Tab } from "../tabs";
 import Typography from "../typography";
 import Box from "../box";
 import Pager from "../pager";
+import Link from "../link";
 
 <Meta
   title="Drawer"
@@ -34,9 +35,9 @@ import Pager from "../pager";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/77fb82-drawer/b/665a20"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 Drawer is a two column layout container.
@@ -61,22 +62,16 @@ import Drawer from "carbon-react/lib/components/drawer";
 
 <Canvas>
   <Story name="default">
-    <div style={{ height: "200px" }}>
+    <Box height="200px">
       <Drawer
         expandedWidth="40%"
         animationDuration="0.5s"
-        sidebar={
-          <ul>
-            <li>link a</li>
-            <li>link b</li>
-            <li>link c</li>
-          </ul>
-        }
+        sidebar={<Typography>Any sidebar content goes here.</Typography>}
       >
         content body content body content body content body content body content
         body content body
       </Drawer>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -94,13 +89,7 @@ import Drawer from "carbon-react/lib/components/drawer";
       <Drawer
         height="230px"
         defaultExpanded
-        sidebar={
-          <ul>
-            <li>link a</li>
-            <li>link b</li>
-            <li>link c</li>
-          </ul>
-        }
+        sidebar={<Typography>Any sidebar content goes here.</Typography>}
         {...args}
       >
         content body content body content body content body content body content
@@ -122,22 +111,16 @@ import Drawer from "carbon-react/lib/components/drawer";
     }}
   >
     {(args) => (
-      <div style={{ height: "200px" }}>
+      <Box height="200px">
         <Drawer
           id="background-color-red-drawer"
-          sidebar={
-            <ul>
-              <li>link a</li>
-              <li>link b</li>
-              <li>link c</li>
-            </ul>
-          }
+          sidebar={<Typography>Any sidebar content goes here.</Typography>}
           {...args}
         >
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
+      </Box>
     )}
   </Story>
 </Canvas>
@@ -156,21 +139,15 @@ Note: parent container background-color is set to red for demonstration purpose.
     }}
   >
     {(args) => (
-      <div style={{ height: "200px", backgroundColor: "#FF0000" }}>
+      <Box height="200px" bgColor="#FF0000">
         <Drawer
           {...args}
-          sidebar={
-            <ul>
-              <li>link a</li>
-              <li>link b</li>
-              <li>link c</li>
-            </ul>
-          }
+          sidebar={<Typography>Any sidebar content goes here.</Typography>}
         >
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
+      </Box>
     )}
   </Story>
 </Canvas>
@@ -189,21 +166,15 @@ Note: parent container background-color is set to red for demonstration purpose.
     }}
   >
     {(args) => (
-      <div style={{ height: "200px", backgroundColor: "#FF0000" }}>
+      <Box height="200px" bgColor="#FF0000">
         <Drawer
-          sidebar={
-            <ul>
-              <li>link a</li>
-              <li>link b</li>
-              <li>link c</li>
-            </ul>
-          }
+          sidebar={<Typography>Any sidebar content goes here.</Typography>}
           {...args}
         >
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
+      </Box>
     )}
   </Story>
 </Canvas>
@@ -212,23 +183,21 @@ Note: parent container background-color is set to red for demonstration purpose.
 
 <Canvas>
   <Story name="title">
-    <div style={{ height: "200px" }}>
+    <Box height="200px">
       <Drawer
         expandedWidth="40%"
         animationDuration="0.5s"
         title={<Typography variant="h2">Drawer title</Typography>}
         sidebar={
-          <ul>
-            <li>link a</li>
-            <li>link b</li>
-            <li>link c</li>
-          </ul>
+          <Box px="var(--spacing500)">
+            <Typography>Any sidebar content goes here.</Typography>
+          </Box>
         }
       >
         content body content body content body content body content body content
         body content body
       </Drawer>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -243,23 +212,17 @@ Note: parent container background-color is set to red for demonstration purpose.
     }}
   >
     {(args) => (
-      <div style={{ height: "200px" }}>
+      <Box height="200px">
         <Drawer
           id="with-controls"
           showControls={true}
-          sidebar={
-            <ul>
-              <li>link a</li>
-              <li>link b</li>
-              <li>link c</li>
-            </ul>
-          }
+          sidebar={<Typography>Any sidebar content goes here.</Typography>}
           {...args}
         >
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
+      </Box>
     )}
   </Story>
 </Canvas>
@@ -268,7 +231,7 @@ Note: parent container background-color is set to red for demonstration purpose.
 
 <Canvas>
   <Story name="with sticky header">
-    <div style={{ height: "400px" }}>
+    <Box height="400px">
       <Drawer
         title={<Typography variant="h2">Drawer title</Typography>}
         stickyHeader
@@ -338,7 +301,7 @@ Note: parent container background-color is set to red for demonstration purpose.
         content body content body content body content body content body content
         body content body
       </Drawer>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -346,7 +309,7 @@ Note: parent container background-color is set to red for demonstration purpose.
 
 <Canvas>
   <Story name="with footer">
-    <div style={{ height: "400px" }}>
+    <Box height="400px">
       <Drawer
         title={<Typography variant="h2">Drawer title</Typography>}
         stickyHeader
@@ -424,7 +387,7 @@ Note: parent container background-color is set to red for demonstration purpose.
         content body content body content body content body content body content
         body content body
       </Drawer>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -432,7 +395,7 @@ Note: parent container background-color is set to red for demonstration purpose.
 
 <Canvas>
   <Story name="with sticky footer">
-    <div style={{ height: "400px" }}>
+    <Box height="400px">
       <Drawer
         title={<Typography variant="h2">Drawer title</Typography>}
         stickyHeader
@@ -511,7 +474,7 @@ Note: parent container background-color is set to red for demonstration purpose.
         content body content body content body content body content body content
         body content body
       </Drawer>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -573,7 +536,7 @@ Note: parent container background-color is set to red for demonstration purpose.
         setCurrentPage(newPage);
       };
       return (
-        <div>
+        <Box>
           <Drawer
             defaultExpanded
             sidebar={
@@ -611,7 +574,7 @@ Note: parent container background-color is set to red for demonstration purpose.
             content body content body content body content body content body
             content body content body
           </Drawer>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -628,15 +591,9 @@ Note: parent container background-color is set to red for demonstration purpose.
     }}
   >
     {(args) => (
-      <div style={{ height: "200px" }}>
+      <Box height="200px">
         <Drawer
-          sidebar={
-            <ul>
-              <li>link a</li>
-              <li>link b</li>
-              <li>link c</li>
-            </ul>
-          }
+          sidebar={<Typography>Any sidebar content goes here.</Typography>}
           {...args}
         >
           <FlatTable>
@@ -726,7 +683,7 @@ Note: parent container background-color is set to red for demonstration purpose.
             </FlatTableBody>
           </FlatTable>
         </Drawer>
-      </div>
+      </Box>
     )}
   </Story>
 </Canvas>
@@ -743,32 +700,32 @@ Use the `expandedWidth` prop to alter the width of the open `Drawer`.
         setIsExpanded(!isExpanded);
       }, [isExpanded]);
       return (
-        <div>
-          <p>
+        <Box>
+          <Typography>
             Note: if you experience glitchy animation on `Drawer` component,
             please open canvas in new window (2nd icon in top right corner)
-          </p>
-          <div style={{ height: "200px" }}>
+          </Typography>
+          <Box height="200px">
             <Drawer
               id="expanded-width-62-drawer"
-              title={<h2>Controllage Usage Drawer</h2>}
+              title={
+                <Typography variant="h2">Controllage Usage Drawer</Typography>
+              }
               showControls
               expandedWidth="62%"
               expanded={true}
               onChange={onChangeHandler}
               sidebar={
-                <ul>
-                  <li>link a</li>
-                  <li>link b</li>
-                  <li>link c</li>
-                </ul>
+                <Box px="var(--spacing500)">
+                  <Typography>Any sidebar content goes here.</Typography>
+                </Box>
               }
             >
               content body content body content body content body content body
               content body content body
             </Drawer>
-          </div>
-        </div>
+          </Box>
+        </Box>
       );
     }}
   </Story>
@@ -786,33 +743,33 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
         setIsExpanded(!isExpanded);
       }, [isExpanded]);
       return (
-        <div>
-          <p>
+        <Box>
+          <Typography>
             Note: if you experience glitchy animation on `Drawer` component,
             please open canvas in new window (2nd icon in top right corner)
-          </p>
-          <div style={{ height: "200px" }}>
+          </Typography>
+          <Box height="200px">
             <Drawer
               id="three-second-animation-drawer"
-              title={<h2>Controllage Usage Drawer</h2>}
+              title={
+                <Typography variant="h2">Controllage Usage Drawer</Typography>
+              }
               showControls
               expandedWidth="40%"
               animationDuration="3s"
               expanded={isExpanded}
               onChange={onChangeHandler}
               sidebar={
-                <ul>
-                  <li>link a</li>
-                  <li>link b</li>
-                  <li>link c</li>
-                </ul>
+                <Box px="var(--spacing500)">
+                  <Typography>Any sidebar content goes here.</Typography>
+                </Box>
               }
             >
               content body content body content body content body content body
               content body content body
             </Drawer>
-          </div>
-        </div>
+          </Box>
+        </Box>
       );
     }}
   </Story>
@@ -834,33 +791,33 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
         setIsExpanded(!isExpanded);
       }, [isExpanded]);
       return (
-        <div>
-          <p>
+        <Box>
+          <Typography>
             Note: if you experience glitchy animation on `Drawer` component,
             please open canvas in new window (2nd icon in top right corner)
-          </p>
-          <div style={{ height: "200px" }}>
+          </Typography>
+          <Box height="200px">
             <Drawer
               id="controlled-drawer"
               backgroundColor="#FFF000"
-              title={<h2>Controlled Usage Drawer</h2>}
+              title={
+                <Typography variant="h2">Controlled Usage Drawer</Typography>
+              }
               showControls
               expanded={isExpanded}
               onChange={onChangeHandler}
               sidebar={
-                <ul>
-                  <li>link a</li>
-                  <li>link b</li>
-                  <li>link c</li>
-                </ul>
+                <Box px="var(--spacing500)">
+                  <Typography>Any sidebar content goes here.</Typography>
+                </Box>
               }
               {...args}
             >
               content body content body content body content body content body
               content body content body
             </Drawer>
-          </div>
-        </div>
+          </Box>
+        </Box>
       );
     }}
   </Story>
@@ -942,12 +899,12 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
       }, []);
       const showPickedUpData = (data) => {
         if (!data) {
-          return <div>click on any row to show some data</div>;
+          return <Box>click on any row to show some data</Box>;
         }
         return (
-          <div style={{ paddingLeft: "24px", paddingTop: "24px" }}>
+          <Box pl="24px" pt="24px">
             <Heading title={data.ColumnA.name} divider={false} />
-          </div>
+          </Box>
         );
       };
       const createBodyData = (type) => {
@@ -980,11 +937,11 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
             key={dataItem.ColumnA.name}
           >
             <FlatTableCell>
-              <div>{dataItem.ColumnA.name}</div>
+              <Box>{dataItem.ColumnA.name}</Box>
             </FlatTableCell>
             <FlatTableCell>
               {dataItem.ColumnB.map((role) => (
-                <div key={role}>{`${role}, `}</div>
+                <Box key={role}>{`${role}, `}</Box>
               ))}
             </FlatTableCell>
           </FlatTableRow>
@@ -1004,7 +961,7 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
             expanded={isExpanded}
             onChange={onChangeHandler}
             sidebar={
-              <div>
+              <Box>
                 <NavigationContainer>
                   <Search value="" placeholder="Search" searchWidth="40%" />
                   <PopoverContainer
@@ -1027,11 +984,7 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
                   >
                     This is example component of Popover Container
                   </PopoverContainer>
-                  <Button
-                    onClick={handleDialogOpen}
-                    style={{ marginLeft: "auto" }}
-                    buttonType="primary"
-                  >
+                  <Button onClick={handleDialogOpen} buttonType="primary">
                     Add User
                   </Button>
                 </NavigationContainer>
@@ -1048,7 +1001,7 @@ Use the `animationDuration` prop to alter the speed of the `Drawer` opening/clos
                   </FlatTableHead>
                   <FlatTableBody>{createBodyData(sortType)}</FlatTableBody>
                 </FlatTable>
-              </div>
+              </Box>
             }
           >
             {showPickedUpData(pickedUpData)}
@@ -1108,7 +1061,7 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
         },
       };
       return (
-        <div style={{ height: "200px" }}>
+        <Box height="200px">
           <Drawer
             id="with-tab-controls"
             expandedWidth="30%"
@@ -1163,8 +1116,8 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
               </Tabs>
             }
           >
-            <div>
-              <div style={{ display: active === "tab-1" ? "block" : "none" }}>
+            <Box>
+              <Box display={active === "tab-1" ? "block" : "none"}>
                 <Tabs setLocation={false} extendedLine={false}>
                   <Tab
                     errorMessage="error"
@@ -1203,8 +1156,8 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     Content 4
                   </Tab>
                 </Tabs>
-              </div>
-              <div style={{ display: active === "tab-2" ? "block" : "none" }}>
+              </Box>
+              <Box display={active === "tab-2" ? "block" : "none"}>
                 <Tabs setLocation={false} extendedLine={false}>
                   <Tab
                     errorMessage="error"
@@ -1243,8 +1196,8 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     Content 8
                   </Tab>
                 </Tabs>
-              </div>
-              <div style={{ display: active === "tab-3" ? "block" : "none" }}>
+              </Box>
+              <Box display={active === "tab-3" ? "block" : "none"}>
                 <Tabs setLocation={false} extendedLine={false}>
                   <Tab
                     errorMessage="error"
@@ -1283,13 +1236,8 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     Content 12
                   </Tab>
                 </Tabs>
-              </div>
-              <div
-                style={{
-                  display: active === "tab-4" ? "block" : "none",
-                  padding: "4px",
-                }}
-              >
+              </Box>
+              <Box p="4px" display={active === "tab-4" ? "block" : "none"}>
                 <Checkbox
                   label="Add error"
                   error={errors.four}
@@ -1307,8 +1255,8 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                   info={infos.four}
                   onChange={() => setInfos({ ...infos, four: !infos.four })}
                 />
-              </div>
-              <div style={{ display: active === "tab-5" ? "block" : "none" }}>
+              </Box>
+              <Box display={active === "tab-5" ? "block" : "none"}>
                 <Tabs setLocation={false} extendedLine={false}>
                   <Tab
                     errorMessage="error"
@@ -1347,8 +1295,8 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     Content 16
                   </Tab>
                 </Tabs>
-              </div>
-              <div style={{ display: active === "tab-6" ? "block" : "none" }}>
+              </Box>
+              <Box display={active === "tab-6" ? "block" : "none"}>
                 <Tabs setLocation={false} extendedLine={false}>
                   <Tab
                     errorMessage="error"
@@ -1387,10 +1335,10 @@ You will need to override the targeting when using Tabs inside of the Drawer's s
                     Content 20
                   </Tab>
                 </Tabs>
-              </div>
-            </div>
+              </Box>
+            </Box>
           </Drawer>
-        </div>
+        </Box>
       );
     }}
   </Story>

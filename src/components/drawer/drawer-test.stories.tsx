@@ -32,24 +32,18 @@ export const DrawerStory = () => {
     action("expansionToggled");
   }, [isExpanded]);
   return (
-    <div>
-      <div style={{ height: "200px", marginBottom: "20px" }}>
+    <Box>
+      <Box height="200px" mb="20px">
         <Drawer
           expandedWidth="40%"
           animationDuration="0.5s"
-          sidebar={
-            <ul>
-              <li>link a</li>
-              <li>link b</li>
-              <li>link c</li>
-            </ul>
-          }
+          sidebar={<Typography>Any sidebar content goes here.</Typography>}
         >
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
-      <div style={{ height: "200px", marginBottom: "20px" }}>
+      </Box>
+      <Box height="200px" mb="20px">
         <Drawer
           defaultExpanded
           expandedWidth="20%"
@@ -146,18 +140,12 @@ export const DrawerStory = () => {
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
-      <div style={{ height: "200px", marginBottom: "20px" }}>
+      </Box>
+      <Box height="200px" mb="20px">
         <Drawer
           expandedWidth="20%"
           animationDuration="0.5s"
-          sidebar={
-            <ul>
-              <li>link a</li>
-              <li>link b</li>
-              <li>link c</li>
-            </ul>
-          }
+          sidebar={<Typography>Any sidebar content goes here.</Typography>}
         >
           <FlatTable>
             <FlatTableHead>
@@ -246,78 +234,58 @@ export const DrawerStory = () => {
             </FlatTableBody>
           </FlatTable>
         </Drawer>
-      </div>
-      <div style={{ height: "200px", marginBottom: "20px" }}>
+      </Box>
+      <Box height="200px" mb="20px">
         <Drawer
           expandedWidth="40%"
           animationDuration="0.5s"
           expanded={isExpanded}
           onChange={onChangeHandler}
-          sidebar={
-            <ul>
-              <li>link a</li>
-              <li>link b</li>
-              <li>link c</li>
-            </ul>
-          }
+          sidebar={<Typography>Any sidebar content goes here.</Typography>}
         >
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
-      <div style={{ height: "200px", marginBottom: "20px" }}>
+      </Box>
+      <Box height="200px" mb="20px">
         <Drawer
           defaultExpanded
           expandedWidth="40%"
           animationDuration="0.5s"
-          sidebar={
-            <ul>
-              <li>link a</li>
-              <li>link b</li>
-              <li>link c</li>
-            </ul>
-          }
+          sidebar={<Typography>Any sidebar content goes here.</Typography>}
         >
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
-      <div style={{ height: "200px", marginBottom: "20px" }}>
+      </Box>
+      <Box height="200px" mb="20px">
         <Drawer
           expandedWidth="40%"
           animationDuration="0.5s"
           backgroundColor="#FF0000"
-          sidebar={
-            <ul>
-              <li>link a</li>
-              <li>link b</li>
-              <li>link c</li>
-            </ul>
-          }
+          sidebar={<Typography>Any sidebar content goes here.</Typography>}
         >
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
-      <div style={{ height: "200px", marginBottom: "20px" }}>
+      </Box>
+      <Box height="200px" mb="20px">
         <Drawer
           title="My custom title"
           showControls
           expandedWidth="40%"
           animationDuration="0.5s"
           sidebar={
-            <ul>
-              <li>link a</li>
-              <li>link b</li>
-              <li>link c</li>
-            </ul>
+            <Box px="var(--spacing500)">
+              <Typography>Any sidebar content goes here.</Typography>
+            </Box>
           }
         >
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
-      <div style={{ height: "400px", marginBottom: "20px" }}>
+      </Box>
+      <Box height="400px" mb="20px">
         <Drawer
           title={<Typography variant="h2">Drawer title</Typography>}
           stickyHeader
@@ -387,8 +355,8 @@ export const DrawerStory = () => {
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
-      <div style={{ height: "400px", marginBottom: "20px" }}>
+      </Box>
+      <Box height="400px" mb="20px">
         <Drawer
           title={<Typography variant="h2">Drawer title</Typography>}
           stickyHeader
@@ -467,8 +435,8 @@ export const DrawerStory = () => {
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
