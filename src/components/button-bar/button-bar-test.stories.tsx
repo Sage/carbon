@@ -48,7 +48,7 @@ export const DefaultWithWrapper = ({ ...args }) => {
   return (
     <ButtonBar {...args}>
       <WrappedComponent />
-      <IconButton onAction={() => undefined}>
+      <IconButton onClick={() => undefined}>
         <Icon type="csv" />
       </IconButton>
     </ButtonBar>
@@ -67,13 +67,13 @@ export const Preview = () => {
   return (
     <>
       <ButtonBar ml={2} mt={2}>
-        <IconButton onAction={() => {}}>
+        <IconButton onClick={() => {}}>
           <Icon type="pdf" />
         </IconButton>
-        <IconButton onAction={() => {}}>
+        <IconButton onClick={() => {}}>
           <Icon type="csv" />
         </IconButton>
-        <IconButton onAction={() => {}}>
+        <IconButton onClick={() => {}}>
           <Icon type="search" />
         </IconButton>
       </ButtonBar>

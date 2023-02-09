@@ -26,7 +26,7 @@ const renderButtonWithIconBar = (icons: IconType[], props = {}) => {
   const buttons = [];
   for (const icon of icons) {
     buttons.push(
-      <IconButton onAction={() => undefined}>
+      <IconButton onClick={() => {}}>
         <Icon type={icon} />
       </IconButton>
     );
@@ -141,7 +141,7 @@ describe("Button Bar", () => {
     it("renders an icon correctly", () => {
       const wrapper = mount(
         <ButtonBar>
-          <IconButton onAction={() => undefined}>
+          <IconButton onClick={() => {}}>
             <Icon type="csv" />
           </IconButton>
         </ButtonBar>
@@ -161,7 +161,7 @@ describe("Button Bar", () => {
       const wrapper = mount(
         <ButtonBar>
           <Button>bar</Button>
-          <IconButton onAction={() => undefined}>
+          <IconButton onClick={() => undefined}>
             <Icon type="csv" />
           </IconButton>
         </ButtonBar>
@@ -175,7 +175,7 @@ describe("Button Bar", () => {
       const wrapper = mount(
         <ButtonBar>
           <Button>bar</Button>
-          <IconButton aria-label="foobar" onAction={() => undefined}>
+          <IconButton aria-label="foobar" onClick={() => undefined}>
             <Icon type="csv" />
           </IconButton>
         </ButtonBar>
@@ -208,7 +208,7 @@ describe("Button Bar", () => {
         const wrapper = mount(
           <ButtonBar {...buttonBarProps}>
             <WrappedComponent />
-            <IconButton onAction={() => undefined}>
+            <IconButton onClick={() => undefined}>
               <Icon type="csv" />
             </IconButton>
           </ButtonBar>

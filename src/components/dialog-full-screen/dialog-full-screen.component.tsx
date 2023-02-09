@@ -112,7 +112,7 @@ export const DialogFullScreen = ({
       <IconButton
         data-element="close"
         aria-label={locale.dialogFullScreen.ariaLabels.close()}
-        onAction={onCancel}
+        onClick={onCancel}
       >
         <Icon type="close" />
       </IconButton>

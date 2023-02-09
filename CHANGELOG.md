@@ -1,3 +1,10 @@
+### [114.12.1](https://github.com/Sage/carbon/compare/v114.12.0...v114.12.1) (2023-02-09)
+
+
+### Bug Fixes
+
+* **icon-button:** use onClick instead of onAction to ensure keyboard behaviour is handled by default ([ed31161](https://github.com/Sage/carbon/commit/ed3116154c4ffc263bdaaf2398db6f906ff369b9)), closes [#5791](https://github.com/Sage/carbon/issues/5791)
+
 ## [114.12.0](https://github.com/Sage/carbon/compare/v114.11.0...v114.12.0) (2023-02-09)
 
 

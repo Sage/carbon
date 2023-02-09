@@ -95,7 +95,7 @@ export const LinkPreview = ({
         <StyledCloseIconWrapper>
           <IconButton
             aria-label="link preview close button"
-            onAction={() => onClose(url)}
+            onClick={() => onClose(url)}
           >
             <Icon type="close" />
           </IconButton>
