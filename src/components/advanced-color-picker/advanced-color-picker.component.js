@@ -32,31 +32,39 @@ const AdvancedColorPicker = ({
   ...props
 }) => {
   const isOpen = open || false;
+  const [colors, setColors] = useState();
   const [dialogOpen, setDialogOpen] = useState();
   const currentColor = selectedColor || defaultColor;
-  const [selectedColorRef, setSelectedColorRef] = useState();
+  const [selectedColorRef, setSelectedColorRef] = useState(null);
 
-  const gridItemRefs = useRef(
-    Array.from(
-      {
-        length: availableColors.length,
-      },
-      () => React.createRef()
-    )
+  const simpleColorPickerData = useRef();
+
+  useEffect(
+    () =>
+      setColors(
+        availableColors.map(({ value, label }, index) => {
+          return {
+            value,
+            label,
+            getRef: () =>
+              /* istanbul ignore next */
+              simpleColorPickerData.current
+                ? simpleColorPickerData.current.gridItemRefs[index]
+                : null,
+          };
+        })
+      ),
+    [availableColors]
   );
-
-  const colors = availableColors.map(({ value, label }, index) => {
-    return {
-      value,
-      label,
-      ref: gridItemRefs.current[index],
-    };
-  });
 
   useEffect(() => {
     if (dialogOpen || isOpen) {
-      const selected = colors.find((c) => currentColor === c.value);
-      setSelectedColorRef(selected.ref.current);
+      const newColor = colors?.find((c) => currentColor === c.value);
+
+      /* istanbul ignore else */
+      if (newColor) {
+        setSelectedColorRef(newColor.getRef());
+      }
     }
   }, [colors, currentColor, dialogOpen, isOpen]);
 
@@ -67,7 +75,10 @@ const AdvancedColorPicker = ({
         /* istanbul ignore else */
         if (e.shiftKey) {
           /* istanbul ignore else */
-          if (document.activeElement === firstFocusableElement) {
+          if (
+            document.activeElement === firstFocusableElement &&
+            selectedColorRef
+          ) {
             selectedColorRef.focus();
             e.preventDefault();
           }
@@ -105,8 +116,12 @@ const AdvancedColorPicker = ({
 
   const handleOnChange = useCallback(
     (e) => {
-      const selected = colors.find((c) => e.target.value === c.value);
-      setSelectedColorRef(selected.ref.current);
+      const newColor = colors?.find((c) => e.target.value === c.value);
+
+      /* istanbul ignore else */
+      if (newColor) {
+        setSelectedColorRef(newColor.ref);
+      }
 
       /* istanbul ignore else */
       if (onChange) {
@@ -178,15 +193,15 @@ const AdvancedColorPicker = ({
           onChange={handleOnChange}
           onBlur={handleOnBlur}
           onKeyDown={handleColorOnKeyDown}
+          ref={simpleColorPickerData}
         >
-          {colors.map(({ value, label, ref }) => (
+          {colors?.map(({ value, label }) => (
             <SimpleColor
               value={value}
               key={value}
               aria-label={label}
               id={value}
               defaultChecked={value === currentColor}
-              ref={ref}
             />
           ))}
         </SimpleColorPicker>
