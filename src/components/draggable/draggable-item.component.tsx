@@ -1,12 +1,35 @@
 import React from "react";
 import { useDrop, useDrag } from "react-dnd";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { PaddingProps } from "styled-system";
 
 import { filterStyledSystemPaddingProps } from "../../style/utils";
-import { StyledDraggableItem } from "./draggable-item.style";
+import { StyledDraggableItem, StyledIcon } from "./draggable-item.style";
 
-const paddingPropTypes = filterStyledSystemPaddingProps(styledSystemPropTypes);
+export interface DraggableItemProps extends PaddingProps {
+  /**
+   * The id of the `DraggableItem`.
+   *
+   * Use this prop to make `Draggable` work
+   */
+  id: number | string;
+  /** The content of the component. */
+  children: React.ReactNode;
+  /**
+   * @private
+   * @ignore
+   */
+  findItem?: (
+    id: string | number
+  ) => { DraggableItemProps: React.ReactElement; index: number };
+  /**
+   * @private
+   * @ignore
+   */
+  moveItem?: (
+    droppedId: string | number,
+    overIndex: number | undefined
+  ) => void;
+}
 
 const DraggableItem = ({
   id,
@@ -15,8 +38,12 @@ const DraggableItem = ({
   children,
   py = 1,
   ...rest
-}) => {
-  const originalIndex = findItem(id).index;
+}: DraggableItemProps): JSX.Element => {
+  let originalIndex;
+  // istanbul ignore else
+  if (findItem) {
+    originalIndex = findItem(id)?.index;
+  }
   const [{ isDragging }, drag] = useDrag({
     type: "draggableItem",
     item: { id, originalIndex },
@@ -26,19 +53,27 @@ const DraggableItem = ({
     end: (dropResult, monitor) => {
       const { id: droppedId, originalIndex: oIndex } = monitor.getItem();
       const didDrop = monitor.didDrop();
-      if (!didDrop) {
+      if (!didDrop && moveItem) {
         moveItem(droppedId, oIndex);
       }
     },
   });
 
+  interface DragItem {
+    index: number;
+    id: string;
+  }
+
   const [, drop] = useDrop({
     accept: "draggableItem",
     canDrop: () => false,
-    hover({ id: draggedId }) {
-      if (draggedId !== id) {
+    hover(item: DragItem) {
+      if (item?.id !== id && findItem) {
         const { index: overIndex } = findItem(id);
-        moveItem(draggedId, overIndex);
+        // istanbul ignore else
+        if (moveItem) {
+          moveItem(item?.id, overIndex);
+        }
       }
     },
   });
@@ -54,30 +89,9 @@ const DraggableItem = ({
       {...paddingProps}
     >
       {children}
+      <StyledIcon type="drag" />
     </StyledDraggableItem>
   );
-};
-
-DraggableItem.propTypes = {
-  ...paddingPropTypes,
-  /**
-   * The id of the `DraggableItem`.
-   *
-   * Use this prop to make `Draggable` works
-   */
-  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  /** The content of the component. */
-  children: PropTypes.node.isRequired,
-  /**
-   * @private
-   * @ignore
-   */
-  findItem: PropTypes.func,
-  /**
-   * @private
-   * @ignore
-   */
-  moveItem: PropTypes.func,
 };
 
 DraggableItem.displayName = "DraggableItem";
