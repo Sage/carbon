@@ -801,7 +801,7 @@ describe("MultiSelect", () => {
     };
 
     describe("and an option is selected", () => {
-      it("then the onChange prop should be called with expected value", () => {
+      it("then the onChange prop should be called once with expected value", () => {
         const onChangeFn = jest.fn();
         const wrapper = renderSelect({ value: ["opt1"], onChange: onChangeFn });
 
@@ -816,6 +816,7 @@ describe("MultiSelect", () => {
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
+        expect(onChangeFn).toHaveBeenCalledTimes(1);
         expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
       });
     });

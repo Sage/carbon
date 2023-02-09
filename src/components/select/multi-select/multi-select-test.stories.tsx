@@ -19,7 +19,7 @@ export const Default = () => {
   const handleActivityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length <= MAX_SELECTIONS_ALLOWED) {
       setSelectedPills((event.target.value as unknown) as string[]);
-      partialAction("onChange");
+      partialAction("onChange")();
     }
   };
   return (
