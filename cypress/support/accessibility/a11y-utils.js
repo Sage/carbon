@@ -77,6 +77,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("date-range") &&
       !prepareUrl[0].startsWith("pages") &&
       !prepareUrl[0].startsWith("button-toggle-group") &&
+      !prepareUrl[0].startsWith("progress-tracker") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);
