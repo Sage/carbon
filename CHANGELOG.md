@@ -1,3 +1,10 @@
+### [114.12.2](https://github.com/Sage/carbon/compare/v114.12.1...v114.12.2) (2023-02-10)
+
+
+### Bug Fixes
+
+* **box:** ensure z-index is set when sticky or fixed positioned ([7385e53](https://github.com/Sage/carbon/commit/7385e53a8f7137a9e907ae568de19b80cfb9ee00)), closes [#5572](https://github.com/Sage/carbon/issues/5572)
+
 ### [114.12.1](https://github.com/Sage/carbon/compare/v114.12.0...v114.12.1) (2023-02-09)
 
 
