@@ -5,6 +5,8 @@ import { HELP_POSITIONS } from "./help.config";
 import { ICONS } from "../icon/icon-config";
 import Help from "./help.component";
 
+import Box from "../box";
+
 export default {
   title: "Help/Test",
   parameters: {
@@ -53,17 +55,17 @@ export const Default = ({
     ? [tooltipFlipOverrides]
     : undefined;
   return (
-    <div style={{ margin: "200px" }}>
+    <Box m="200px">
       <Help
         tooltipFlipOverrides={flipOverrides}
-        // eslint-disable-next-line react/no-children-prop
-        children={children}
         href={href}
         ariaLabel={children as string}
         value={children}
         {...args}
-      />
-    </div>
+      >
+        {children}
+      </Help>
+    </Box>
   );
 };
 
