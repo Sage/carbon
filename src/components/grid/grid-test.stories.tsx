@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 
-import Pod from "../pod";
 import { GridContainer, GridItem } from ".";
+
+import Pod from "../pod";
+import Box from "../box";
 
 export default {
   title: "Grid/Test",
@@ -72,7 +74,7 @@ export const Default = ({
 
 export const Visual = () => {
   return (
-    <div>
+    <Box>
       <GridContainer>
         <GridItem alignSelf="stretch" justifySelf="stretch">
           <Pod alignTitle="left" border variant="primary">
@@ -217,7 +219,7 @@ export const Visual = () => {
           </Pod>
         </GridItem>
       </GridContainer>
-    </div>
+    </Box>
   );
 };
 

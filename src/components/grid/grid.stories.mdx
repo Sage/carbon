@@ -5,6 +5,7 @@ import Pod from "../pod";
 import { GridContainer, GridItem } from ".";
 import { Dl, Dt, Dd } from "../definition-list";
 import Button from "../button";
+import Box from "../box";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Grid" parameters={{ chromatic: { disable: true } }} />
@@ -14,9 +15,9 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/58ef5d-grid-system"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 The Carbon responsive grid system is a layout component that provides guidance on how components should be positioned within a user interface, adapting to screen size and orientation.
@@ -118,7 +119,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 
 <Canvas>
   <Story name="justify" parameters={{ info: { disable: true } }}>
-    <div id="grid-justify">
+    <Box>
       <GridContainer>
         <GridItem alignSelf="stretch" justifySelf="left">
           <Pod alignTitle="left" border padding="medium" variant="primary">
@@ -136,7 +137,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
           </Pod>
         </GridItem>
       </GridContainer>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -146,7 +147,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 
 <Canvas>
   <Story name="align" parameters={{ info: { disable: true } }}>
-    <div id="grid-align">
+    <Box>
       <GridContainer>
         <GridItem alignSelf="end" justifySelf="left" gridColumn="1 / 1">
           <Pod alignTitle="left" border padding="medium" variant="primary">
@@ -175,7 +176,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
           </Pod>
         </GridItem>
       </GridContainer>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -374,7 +375,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
     name="subgrid"
     parameters={{ info: { disable: true }, chromatic: { disable: true } }}
   >
-    <div id="grid-align">
+    <Box>
       <GridContainer>
         <GridItem justifySelf="left" gridColumn="1 / 1">
           <Pod
@@ -432,7 +433,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
           </Pod>
         </GridItem>
       </GridContainer>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
