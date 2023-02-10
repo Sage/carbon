@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
-import { IconType } from "components/icon/icon-type";
 
-import Icon from "../icon";
+import Icon, { IconType } from "../icon";
 import Event from "../../__internal__/utils/helpers/events";
 import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";

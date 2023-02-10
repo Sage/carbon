@@ -240,7 +240,7 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
                 noBorder={!border}
                 size={size}
                 variant={variant}
-                onAction={processPodAction(onUndo)}
+                onClick={processPodAction(onUndo)}
               >
                 <Icon type="undo" />
               </StyledUndoButton>
@@ -276,7 +276,7 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
                 noBorder={!border}
                 size={size}
                 variant={variant}
-                onAction={processPodAction(onDelete)}
+                onClick={processPodAction(onDelete)}
               >
                 <Icon type="delete" />
               </StyledDeleteButton>

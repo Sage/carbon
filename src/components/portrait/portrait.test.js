@@ -1,5 +1,8 @@
 import React from "react";
-import Portrait from "./portrait.component";
+import {
+  PortraitDefaultComponent,
+  PortraitComponent,
+} from "./portrait-test.stories";
 import Box from "../box";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
@@ -35,21 +38,12 @@ const imageURL = [
   "https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404",
 ];
 
-const PortraitComponent = ({ ...props }) => {
-  return (
-    <Portrait
-      tooltipMessage="Rebecca Smith"
-      tooltipIsVisible
-      src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
-      {...props}
-    />
-  );
-};
-
 context("Tests for Portrait component", () => {
   describe("check props for Portrait component", () => {
     it("should check gravatar for Portrait component", () => {
-      CypressMountWithProviders(<Portrait gravatar="chris.barber@sage.com" />);
+      CypressMountWithProviders(
+        <PortraitDefaultComponent gravatar="chris.barber@sage.com" />
+      );
       portraitPreview()
         .should("have.css", "height", "40px")
         .and("have.css", "width", "40px");
@@ -59,7 +53,7 @@ context("Tests for Portrait component", () => {
     it.each(imageURL)(
       "should check custom image url for Portrait component",
       (srcImage) => {
-        CypressMountWithProviders(<Portrait src={srcImage} />);
+        CypressMountWithProviders(<PortraitDefaultComponent src={srcImage} />);
         portraitPreview()
           .should("have.css", "height", "40px")
           .and("have.css", "width", "40px");
@@ -78,7 +72,7 @@ context("Tests for Portrait component", () => {
     ])(
       "should check %s size for Portrait component",
       (size, heightAndWidth) => {
-        CypressMountWithProviders(<Portrait size={size} />);
+        CypressMountWithProviders(<PortraitDefaultComponent size={size} />);
         portraitPreview().then(($el) => {
           useJQueryCssValueAndAssert($el, "height", heightAndWidth);
           useJQueryCssValueAndAssert($el, "width", heightAndWidth);
@@ -88,7 +82,7 @@ context("Tests for Portrait component", () => {
 
     it("should check alt text for %s in Portrait component", () => {
       CypressMountWithProviders(
-        <Portrait alt="cypress-test" src={testImage} />
+        <PortraitDefaultComponent src={testImage} alt="cypress-test" />
       );
       portraitImage().should("have.attr", "alt", "cypress-test");
     });
@@ -97,14 +91,16 @@ context("Tests for Portrait component", () => {
       ["square", "0px"],
       ["circle", "50%"],
     ])("should check %s shape for Portrait component", (shape, radius) => {
-      CypressMountWithProviders(<Portrait shape={shape} />);
+      CypressMountWithProviders(<PortraitDefaultComponent shape={shape} />);
       portraitPreview().children().should("have.css", "border-radius", radius);
     });
 
     it.each(["error", "warning", "info"])(
       "should check %s icon for Portrait component",
       (iconType) => {
-        CypressMountWithProviders(<Portrait iconType={iconType} />);
+        CypressMountWithProviders(
+          <PortraitDefaultComponent iconType={iconType} />
+        );
         icon().should("have.attr", "data-element", iconType).and("be.visible");
       }
     );
@@ -112,10 +108,13 @@ context("Tests for Portrait component", () => {
     it.each([
       ["Kate Wool", "KW"],
       ["Jane Col", "JC"],
+      ["Luke Peter Smith", "LPS"],
     ])(
       "should check initials for %s in Portrait component",
       (name, passInitials) => {
-        CypressMountWithProviders(<Portrait initials={passInitials} />);
+        CypressMountWithProviders(
+          <PortraitDefaultComponent initials={passInitials} />
+        );
         portraitInitials().then(($el) => {
           useJQueryCssValueAndAssert($el, "height", 38);
           useJQueryCssValueAndAssert($el, "width", 38);
@@ -129,7 +128,9 @@ context("Tests for Portrait component", () => {
     ])(
       "should check when dark background colour set to % in Portrait component",
       (boolValue, color) => {
-        CypressMountWithProviders(<Portrait darkBackground={boolValue} />);
+        CypressMountWithProviders(
+          <PortraitDefaultComponent darkBackground={boolValue} />
+        );
         portraitPreview()
           .children()
           .should("have.css", "background-color", color);
@@ -248,7 +249,9 @@ context("Tests for Portrait component", () => {
       });
 
       it("should call onClick callback when a click event is triggered for Portrait component", () => {
-        CypressMountWithProviders(<Portrait onClick={callback} />);
+        CypressMountWithProviders(
+          <PortraitDefaultComponent onClick={callback} />
+        );
 
         portraitPreview()
           .click()
@@ -256,6 +259,175 @@ context("Tests for Portrait component", () => {
             // eslint-disable-next-line no-unused-expressions
             expect(callback).to.have.been.calledOnce;
           });
+      });
+    });
+  });
+
+  describe("Accessibility tests for Portrait component", () => {
+    it("should check gravatar for accessibility tests", () => {
+      CypressMountWithProviders(
+        <PortraitDefaultComponent gravatar="chris.barber@sage.com" />
+      );
+      cy.checkAccessibility();
+    });
+
+    it.each(imageURL)(
+      "should check custom image url for accessibility tests",
+      (srcImage) => {
+        CypressMountWithProviders(<PortraitDefaultComponent src={srcImage} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      PORTRAIT_SIZES[0],
+      PORTRAIT_SIZES[1],
+      PORTRAIT_SIZES[2],
+      PORTRAIT_SIZES[3],
+      PORTRAIT_SIZES[4],
+      PORTRAIT_SIZES[5],
+      PORTRAIT_SIZES[6],
+    ])("should check %s size for accessibility tests", (size) => {
+      CypressMountWithProviders(<PortraitDefaultComponent size={size} />);
+      cy.checkAccessibility();
+    });
+
+    it("should check alt text for accessibility tests", () => {
+      CypressMountWithProviders(
+        <PortraitDefaultComponent alt="cypress-test" />
+      );
+      cy.checkAccessibility();
+    });
+
+    it.each(["square", "circle"])(
+      "should check %s shape for accessibility tests",
+      (shape) => {
+        CypressMountWithProviders(<PortraitDefaultComponent shape={shape} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["error", "warning", "info"])(
+      "should check %s icon for accessibility tests",
+      (iconType) => {
+        CypressMountWithProviders(
+          <PortraitDefaultComponent iconType={iconType} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["KW", "JC", "LPS"])(
+      "should check initials for %s for accessibility tests",
+      (passInitials) => {
+        CypressMountWithProviders(
+          <PortraitDefaultComponent initials={passInitials} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([false, true])(
+      "should check when dark background colour set to % for accessibility tests",
+      (boolValue) => {
+        CypressMountWithProviders(
+          <PortraitDefaultComponent darkBackground={boolValue} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check tooltipMessage as %s for accessibility tests",
+      (tooltipMessage) => {
+        CypressMountWithProviders(
+          <PortraitComponent tooltipMessage={tooltipMessage} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check tooltipId as %s for accessibility tests",
+      (tooltipId) => {
+        CypressMountWithProviders(<PortraitComponent tooltipId={tooltipId} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check when tooltip visibility is true for accessibility tests", () => {
+      CypressMountWithProviders(<PortraitComponent tooltipIsVisible />);
+      cy.checkAccessibility();
+    });
+
+    it("should check when tooltip visibility is false for accessibility tests", () => {
+      CypressMountWithProviders(<PortraitComponent tooltipIsVisible={false} />);
+      cy.checkAccessibility();
+    });
+
+    it.each(["top", "bottom", "left", "right"])(
+      "should render Portrait with the tooltip in the %s position for accessibility tests",
+      (tooltipPosition) => {
+        CypressMountWithProviders(
+          <Box width="700px" height="108px">
+            <div
+              style={{
+                padding: "200px",
+              }}
+            >
+              <PortraitComponent tooltipPosition={tooltipPosition} />
+            </div>
+          </Box>
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check error tooltipType for accessibility tests", () => {
+      CypressMountWithProviders(<PortraitComponent tooltipType="error" />);
+      cy.checkAccessibility();
+    });
+
+    it.each([SIZE.MEDIUM, SIZE.LARGE])(
+      "should render Portrait with the tooltip in the %s size for accessibility tests",
+      (tooltipSize) => {
+        CypressMountWithProviders(
+          <PortraitComponent tooltipSize={tooltipSize} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([COLOR.ORANGE, COLOR.RED, COLOR.BLACK, COLOR.BROWN])(
+      "should check tooltip background-color as %s for accessibility tests",
+      (color) => {
+        CypressMountWithProviders(<PortraitComponent tooltipBgColor={color} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([COLOR.ORANGE, COLOR.RED, COLOR.BLACK, COLOR.BROWN])(
+      "should check tooltip font color as %s for accessibility tests",
+      (color) => {
+        CypressMountWithProviders(
+          <PortraitComponent tooltipFontColor={color} isFocused />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    describe("should check event for accessibility tests", () => {
+      let callback;
+
+      beforeEach(() => {
+        callback = cy.stub();
+      });
+
+      it("should call onClick callback when a click event is triggered for accessibility tests", () => {
+        CypressMountWithProviders(
+          <PortraitDefaultComponent onClick={callback} />
+        );
+        cy.checkAccessibility();
       });
     });
   });

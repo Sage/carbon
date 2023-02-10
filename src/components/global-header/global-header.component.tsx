@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { PaddingProps, FlexboxProps } from "styled-system";
-import { ThemeObject } from "style/themes/base";
+import { ThemeObject } from "../../style/themes/base";
 import { baseTheme } from "../../style/themes";
 import StyledNavigationBar, {
   StyledNavigationBarProps,

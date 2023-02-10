@@ -10,13 +10,13 @@ export const Default = () => (
     <Button size="small" mx={1} buttonType="secondary">
       Select All 38 items
     </Button>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="csv" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="bin" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="pdf" />
     </IconButton>
   </BatchSelection>
@@ -24,13 +24,13 @@ export const Default = () => (
 
 export const Dark = () => (
   <BatchSelection selectedCount={1} colorTheme="dark">
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="csv" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="bin" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="pdf" />
     </IconButton>
   </BatchSelection>
@@ -38,13 +38,13 @@ export const Dark = () => (
 
 export const Light = () => (
   <BatchSelection selectedCount={2} colorTheme="light">
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="csv" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="bin" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="pdf" />
     </IconButton>
   </BatchSelection>
@@ -52,13 +52,13 @@ export const Light = () => (
 
 export const White = () => (
   <BatchSelection selectedCount={3} colorTheme="white">
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="csv" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="bin" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="pdf" />
     </IconButton>
   </BatchSelection>
@@ -66,13 +66,13 @@ export const White = () => (
 
 export const Disabled = () => (
   <BatchSelection selectedCount={4} disabled>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="csv" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="bin" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="pdf" />
     </IconButton>
   </BatchSelection>

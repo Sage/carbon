@@ -16,7 +16,7 @@ function renderBatchSelection(
 ) {
   return renderer(
     <BatchSelection {...props}>
-      <IconButton onAction={() => {}}>
+      <IconButton onClick={() => {}}>
         <Icon type="edit" />
       </IconButton>
     </BatchSelection>

@@ -2,9 +2,9 @@ import React from "react";
 import { shallow, mount, ShallowWrapper, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 import TestRenderer from "react-test-renderer";
+import { space } from "../../style/themes/base/base-theme.config";
 
-import Icon from "components/icon";
-import { space } from "style/themes/base/base-theme.config";
+import Icon from "../icon";
 import Button, {
   ButtonProps,
   ButtonTypes,
@@ -33,6 +33,7 @@ const sizesPadding: [SizeOptions, string][] = [
   ["medium", "24px"],
   ["large", "32px"],
 ];
+
 const sizesHeights: [SizeOptions, string][] = [
   ["small", "32px"],
   ["medium", "40px"],
@@ -509,7 +510,10 @@ describe("Button", () => {
                   variant === "dashed"
                     ? "var(--colorsActionMinorYin030)"
                     : "var(--colorsActionMajorYin030)",
-                fontSize: size === "large" ? "16px" : "var(--fontSizes100)",
+                fontSize:
+                  size === "large"
+                    ? "var(--fontSizes200)"
+                    : "var(--fontSizes100)",
                 minHeight: height,
               },
               wrapper
@@ -544,7 +548,10 @@ describe("Button", () => {
                   variant === "dashed"
                     ? "var(--colorsActionMinorYin030)"
                     : "var(--colorsActionMajorYin030)",
-                fontSize: size === "large" ? "16px" : "var(--fontSizes100)",
+                fontSize:
+                  size === "large"
+                    ? "var(--fontSizes200)"
+                    : "var(--fontSizes100)",
                 minHeight: height,
               },
               wrapper

@@ -79,7 +79,7 @@ export const VerticalMenuFullScreen = ({
           >
             <IconButton
               aria-label={l.verticalMenuFullScreen.ariaLabels.close()}
-              onAction={onClose}
+              onClick={onClose}
               data-element="close"
             >
               <Icon

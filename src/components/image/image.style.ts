@@ -15,6 +15,8 @@ export interface StyledImageProps
     LayoutProps {
   /** HTML alt property to display when an img fails to load */
   alt?: string;
+  /** Prop to specify if the image is decorative  */
+  decorative?: boolean;
   /** Any valid file path, passing this will render the component as an img element */
   src?: string;
   /** HTML hidden property to indicate whether to remain hidden visually and from screen readers */

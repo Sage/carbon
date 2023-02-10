@@ -3,7 +3,7 @@ import { act } from "react-dom/test-utils";
 import { ThemeProvider } from "styled-components";
 import { mount, ReactWrapper, MountRendererProps } from "enzyme";
 
-import { ThemeObject } from "style/themes/base";
+import { ThemeObject } from "../../style/themes/base";
 import Switch, { SwitchProps } from ".";
 import CheckableInput from "../../__internal__/checkable-input";
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";

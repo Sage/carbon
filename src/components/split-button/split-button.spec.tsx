@@ -4,7 +4,7 @@ import TestRenderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
 
 import { ThemeProvider } from "styled-components";
-import { ThemeObject } from "style/themes/base";
+import { ThemeObject } from "../../style/themes/base";
 import SplitButton from "./split-button.component";
 import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";

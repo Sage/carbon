@@ -205,7 +205,7 @@ export const Dialog = ({
       <IconButton
         data-element="close"
         aria-label={locale.dialog.ariaLabels.close()}
-        onAction={onCancel}
+        onClick={onCancel}
         disabled={disableClose}
       >
         <Icon type="close" />
