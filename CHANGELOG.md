@@ -1,3 +1,10 @@
+### [114.12.3](https://github.com/Sage/carbon/compare/v114.12.2...v114.12.3) (2023-02-10)
+
+
+### Bug Fixes
+
+* **multi-select:** fix onchange callback being called twice on option select ([d1b8581](https://github.com/Sage/carbon/commit/d1b858133147a1b76132202feaad701da0405750))
+
 ### [114.12.2](https://github.com/Sage/carbon/compare/v114.12.1...v114.12.2) (2023-02-10)
 
 
