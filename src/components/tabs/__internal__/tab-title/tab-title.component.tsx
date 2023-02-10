@@ -275,6 +275,7 @@ const TabTitle = React.forwardRef(
     ) : (
       <StyledTabTitleButton
         {...titleWrapperProps}
+        type="button"
         ref={ref as React.ForwardedRef<HTMLButtonElement>}
       >
         {titleChildren}
