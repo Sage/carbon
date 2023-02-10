@@ -13,9 +13,9 @@ import { ICONS } from "./icon-config";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/53fdcc-product-ui-icons"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 Carbon comes with more than 100 standard icons to choose from. See [list of icons](#list-of-icons) for full reference.
@@ -62,7 +62,7 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColo
 
 <Canvas>
   <Story name="with tooltip" parameters={{ chromatic: { disable: true } }}>
-    <div style={{ margin: 60, display: "inline" }}>
+    <Box m="60px" display="inline">
       <Icon
         mr={8}
         type="add"
@@ -100,7 +100,7 @@ such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColo
         tooltipFlipOverrides={["right", "left"]}
         ariaLabel="Icon with tooltip"
       />
-    </div>
+    </Box>
   </Story>
 </Canvas>
 

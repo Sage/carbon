@@ -9,6 +9,8 @@ import {
 } from "./icon-config";
 import Icon from ".";
 
+import Box from "../box";
+
 export default {
   title: "Icon/Test",
   parameters: {
@@ -68,7 +70,7 @@ export const Default = ({ ...args }) => {
     : undefined;
 
   return (
-    <div style={{ margin: 100 }}>
+    <Box m="100px">
       <Icon
         {...{
           tooltipMessage: "",
@@ -89,7 +91,7 @@ export const Default = ({ ...args }) => {
           ...args,
         }}
       />
-    </div>
+    </Box>
   );
 };
 
