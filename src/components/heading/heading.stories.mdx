@@ -9,6 +9,7 @@ import Dt from "../definition-list/dt.component";
 import Dd from "../definition-list/dd.component";
 import Button from "../button/button.component";
 import Pill from "../pill/pill.component";
+import Box from "../box";
 
 <Meta title="Heading" parameters={{ info: { disable: true } }} />
 
@@ -174,13 +175,13 @@ In this example, the Heading component has the Tile component and the Definition
 
 <Canvas>
   <Story name="with help">
-    <div style={{ margin: "16px" }}>
+    <Box m="16px">
       <Heading
         title="This is a Title"
         subheader="This is a subheader"
         help="This should be helpful"
       />
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -188,14 +189,14 @@ In this example, the Heading component has the Tile component and the Definition
 
 <Canvas>
   <Story name="with help and pill">
-    <div style={{ margin: "16px" }}>
+    <Box m="16px">
       <Heading
         title="This is a Title"
         subheader="This is a subheader"
         help="This should be helpful"
         pills={<Pill>Pill</Pill>}
       />
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -203,14 +204,14 @@ In this example, the Heading component has the Tile component and the Definition
 
 <Canvas>
   <Story name="with help link" parameters={{ chromatic: { disable: true } }}>
-    <div style={{ margin: "16px" }}>
+    <Box m="16px">
       <Heading
         title="This is a Title"
         subheader="This is a subheader"
         help="This should be helpful"
         helpLink="https://carbon.sage.com"
       />
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
