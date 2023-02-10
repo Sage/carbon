@@ -43,7 +43,7 @@ import {
   verifyRequiredAsteriskForLabel,
 } from "../../../../cypress/support/component-helper/common-steps";
 
-import { keyCode, positionOfElement } from "../../../../cypress/support/helper";
+import { positionOfElement } from "../../../../cypress/support/helper";
 import {
   SIZE,
   CHARACTERS,
@@ -770,7 +770,7 @@ context("Tests for Multi Select component", () => {
 
       dropdownButton().click();
       selectList().should("be.visible");
-      selectInput().tab();
+      selectInput().realPress("Tab");
       selectInput().should("have.attr", "aria-expanded", "false");
       selectList().should("not.be.visible");
     });
@@ -780,7 +780,7 @@ context("Tests for Multi Select component", () => {
 
       dropdownButton().click();
       selectList().should("be.visible");
-      selectInput().trigger("keydown", { ...keyCode("Esc") });
+      selectInput().realPress("Escape");
       selectInput().should("have.attr", "aria-expanded", "false");
       selectList().should("not.be.visible");
     });
@@ -796,8 +796,8 @@ context("Tests for Multi Select component", () => {
     });
 
     it.each([
-      ["open", "downarrow"],
-      ["open", "uparrow"],
+      ["open", "ArrowDown"],
+      ["open", "ArrowUp"],
       ["open", "Home"],
       ["open", "End"],
       ["not open", "Enter"],
@@ -807,7 +807,7 @@ context("Tests for Multi Select component", () => {
         CypressMountWithProviders(<MultiSelectComponent />);
 
         commonDataElementInputPreview().focus();
-        selectInput().trigger("keydown", { ...keyCode(key), force: true });
+        selectInput().realPress(key);
         if (state === "open") {
           selectList().should("be.visible");
         } else {
@@ -950,8 +950,7 @@ context("Tests for Multi Select component", () => {
       selectList().should("be.visible");
     });
 
-    // FE-5332 logged for bug in master preventing editing of pills when object set as value
-    it.skip("should open correct list and select one when an object is already set as a value", () => {
+    it("should open correct list and select one when an object is already set as a value", () => {
       CypressMountWithProviders(<MultiSelectObjectAsValueComponent />);
 
       multiSelectPill().should("have.attr", "title", option1);
@@ -1183,7 +1182,7 @@ context("Tests for Multi Select component", () => {
       );
 
       multiSelectPill().should("have.attr", "title", "White");
-      commonDataElementInputPreview().type("{backspace}");
+      commonDataElementInputPreview().focus().realPress("Backspace");
       multiSelectPill().should("not.exist");
     });
 
@@ -1264,7 +1263,7 @@ context("Tests for Multi Select component", () => {
         });
     });
 
-    it("should call onChange event when a list option is selected", () => {
+    it("should call onChange event once when a list option is selected", () => {
       CypressMountWithProviders(<MultiSelectComponent onChange={callback} />);
 
       const position = "first";
@@ -1275,13 +1274,13 @@ context("Tests for Multi Select component", () => {
         .click()
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledWith({
+          expect(callback).to.have.been.calledOnceWith({
             target: { value: option },
           });
         });
     });
 
-    it.each([["downarrow"], ["uparrow"]])(
+    it.each(["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Enter"])(
       "should call onKeyDown event when %s key is pressed",
       (key) => {
         CypressMountWithProviders(
@@ -1290,7 +1289,7 @@ context("Tests for Multi Select component", () => {
 
         commonDataElementInputPreview()
           .focus()
-          .trigger("keydown", { ...keyCode(key), force: true })
+          .realPress(key)
           .then(() => {
             // eslint-disable-next-line no-unused-expressions
             expect(callback).to.have.been.calledOnce;
