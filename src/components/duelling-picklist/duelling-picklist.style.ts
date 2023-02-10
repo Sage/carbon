@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import { baseTheme } from "../../style/themes";
 
-const StyledDuellingPicklistOverlay = styled.div`
+const StyledDuellingPicklistOverlay = styled.div<{ disabled?: boolean }>`
   ${margin}
 
   transition: opacity 0.3s;

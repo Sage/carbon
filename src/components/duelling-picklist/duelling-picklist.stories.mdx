@@ -7,17 +7,10 @@ import PicklistPlaceholder from "./picklist-placeholder/picklist-placeholder.com
 import DuellingPicklist from "./duelling-picklist.component";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import {
-  Default,
-  AlternativeSearch,
-  Grouped,
-  InDialog,
-} from "./duelling-picklist-test.stories";
+import { Default } from "./duelling-picklist-test.stories";
+import * as stories from "./duelling-picklist.stories";
 
-<Meta
-  title="DuellingPicklist"
-  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
-/>
+<Meta title="DuellingPicklist" parameters={{ info: { disable: true } }} />
 
 # Duelling Picklist
 
@@ -48,15 +41,15 @@ import {
 - It also accepts `leftLabel` and `rightLabel` props of type string which will be rendered above the corresponding `PickList`.
 
 - Similarly to labels, `leftControls` and `rightControls` props accept a node to be rendered between the labels and the `Picklist`.
-This is a suitable place for components like `Search` or `Filter` used to manipulate displayed data.
-To display an overlay over whole `DuellingPicklist` content pass a `disabled` prop set to true.
+  This is a suitable place for components like `Search` or `Filter` used to manipulate displayed data.
+  To display an overlay over whole `DuellingPicklist` content pass a `disabled` prop set to true.
 
 - `Picklist` wraps a list of `PicklistItem`, applies enter transition animations and provides an extended keyboard navigation (up/down/home/end keys).
 
 - `PicklistDivider` as name states is a component meant to visually divide two `PickList`. It is optional, the spacing between the two picklists will be equal with or without it.
 
 - `PicklistItem` is a component meant to visually represent one of the iterable entities. It can be of a type `add` or `remove`.
-It invokes passed `onChange` method with passed `item` prop as an argument when either `add` or `remove` icon is clicked or `space` or `enter` pressed when whole `PicklistItem` is focused.
+  It invokes passed `onChange` method with passed `item` prop as an argument when either `add` or `remove` icon is clicked or `space` or `enter` pressed when whole `PicklistItem` is focused.
 
 - `PicklistPlaceholder` can be used to display the content of its `text` prop. It is meant to be passed as a `placeholder` prop in `Picklist` component.
 
@@ -67,7 +60,7 @@ It invokes passed `onChange` method with passed `item` prop as an argument when 
 Example of composed Duelling Picklist components with order preservation and search implemented.
 
 <Canvas>
-  <Story name="default">{Default.bind({})}</Story>
+  <Story name="default" story={Default} />
 </Canvas>
 
 ### Alternative search placement
@@ -75,9 +68,10 @@ Example of composed Duelling Picklist components with order preservation and sea
 The `Search` component can be placed outside of the picklist controls and positioned anywhere as required. This example also shows the option of not using a `PicklistDivider`.
 
 <Canvas>
-  <Story name="alternative search placement">
-    {AlternativeSearch.bind({})}
-  </Story>
+  <Story
+    name="alternative search placement"
+    story={stories.AlternativeSearch}
+  />
 </Canvas>
 
 ### Grouped
@@ -85,7 +79,7 @@ The `Search` component can be placed outside of the picklist controls and positi
 Picklist items can be organised into selectable groups. Whole groups can be moved from one list to another at once, or group items can be moved individually.
 
 <Canvas>
-  <Story name="grouped">{Grouped.bind({})}</Story>
+  <Story name="grouped" story={stories.Grouped} />
 </Canvas>
 
 ### In Dialog
@@ -93,7 +87,7 @@ Picklist items can be organised into selectable groups. Whole groups can be move
 Same as above but as a children of `Dialog` component.
 
 <Canvas>
-  <Story name="in dialog">{InDialog.bind({})}</Story>
+  <Story name="in dialog" story={stories.InDialog} />
 </Canvas>
 
 ## PicklistItem Examples
@@ -101,79 +95,25 @@ Same as above but as a children of `Dialog` component.
 ### Add item
 
 <Canvas>
-  <Story name="add item">
-    <ul>
-      <PicklistItem type="add" item={1} onChange={() => null}>
-        <div style={{ display: "flex", width: "100%" }}>
-          <div style={{ width: "50%" }}>
-            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-              Title for Item
-            </p>
-          </div>
-        </div>
-      </PicklistItem>
-    </ul>
-  </Story>
+  <Story name="add item" story={stories.AddItem} />
 </Canvas>
 
 ### Remove item
 
 <Canvas>
-  <Story name="remove item">
-    <ul>
-      <PicklistItem type="remove" item={1} onChange={() => null}>
-        <div style={{ display: "flex", width: "100%" }}>
-          <div style={{ width: "50%" }}>
-            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-              Title for Item
-            </p>
-          </div>
-        </div>
-      </PicklistItem>
-    </ul>
-  </Story>
+  <Story name="remove item" story={stories.RemoveItem} />
 </Canvas>
 
 ### Locked
 
 <Canvas>
-  <Story name="locked">
-    <ul>
-      <PicklistItem type="add" item={1} onChange={() => null} locked>
-        <div style={{ display: "flex", width: "100%" }}>
-          <div style={{ width: "50%" }}>
-            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-              Title for Item
-            </p>
-          </div>
-        </div>
-      </PicklistItem>
-    </ul>
-  </Story>
+  <Story name="locked" story={stories.Locked} />
 </Canvas>
 
 ### Custom tooltip message
 
 <Canvas>
-  <Story name="custom tooltip message">
-    <ul>
-      <PicklistItem
-        type="add"
-        item={1}
-        onChange={() => null}
-        locked
-        tooltipMessage="This is a custom locked tooltip message"
-      >
-        <div style={{ display: "flex", width: "100%" }}>
-          <div style={{ width: "50%" }}>
-            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-              Title for Item
-            </p>
-          </div>
-        </div>
-      </PicklistItem>
-    </ul>
-  </Story>
+  <Story name="custom tooltip message" story={stories.CustomTooltipMessage} />
 </Canvas>
 
 ## Props:

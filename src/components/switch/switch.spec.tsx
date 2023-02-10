@@ -3,7 +3,7 @@ import { act } from "react-dom/test-utils";
 import { ThemeProvider } from "styled-components";
 import { mount, ReactWrapper, MountRendererProps } from "enzyme";
 
-import { ThemeObject } from "style/themes/base";
+import { ThemeObject } from "../../style/themes/base";
 import Switch, { SwitchProps } from ".";
 import CheckableInput from "../../__internal__/checkable-input";
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
@@ -25,6 +25,7 @@ import Label from "../../__internal__/label";
 import I18nProvider, { I18nProviderProps } from "../i18n-provider";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
+import Logger from "../../__internal__/utils/logger";
 
 const mockedGuid = "guid-12345";
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -52,7 +53,7 @@ const wrappingComponent = (props: I18nProviderProps) => (
 );
 
 function render(
-  props?: SwitchProps,
+  props?: SwitchProps & { ref?: React.ForwardedRef<HTMLInputElement> },
   renderer = mount,
   params?: MountRendererProps
 ) {
@@ -77,6 +78,47 @@ function renderWithTheme(
 describe("Switch", () => {
   describe("Styled System", () => {
     testStyledSystemMargin((props) => <Switch {...props} />);
+  });
+
+  describe("refs", () => {
+    let wrapper: ReactWrapper;
+
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      const ref = { current: null };
+
+      wrapper = render({ inputRef: ref });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `Switch` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+      loggerSpy.mockRestore();
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      wrapper = render({ ref });
+
+      expect(ref.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      wrapper = render({ ref });
+
+      expect(ref).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      wrapper = render({ ref });
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
+    });
   });
 
   describe("uncontrolled behaviour", () => {

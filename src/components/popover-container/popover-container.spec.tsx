@@ -109,7 +109,7 @@ describe("PopoverContainer", () => {
     expect(wrapper.find(Transition).props().in).toBe(false);
 
     act(() => {
-      wrapper.find(PopoverContainerOpenIcon).props().onAction();
+      wrapper.find(PopoverContainerOpenIcon).props().onClick();
     });
 
     wrapper.update();
@@ -162,7 +162,7 @@ describe("PopoverContainer", () => {
 
   it("`shouldCoverButton` should be false by default", () => {
     act(() => {
-      wrapper.find(PopoverContainerOpenIcon).props().onAction();
+      wrapper.find(PopoverContainerOpenIcon).props().onClick();
     });
 
     wrapper.update();
@@ -219,7 +219,7 @@ describe("PopoverContainer", () => {
               open: true,
             });
 
-            wrapper.find(PopoverContainerOpenIcon).props().onAction();
+            wrapper.find(PopoverContainerOpenIcon).props().onClick();
           }).not.toThrow();
         });
       });
@@ -232,7 +232,7 @@ describe("PopoverContainer", () => {
             onClose: onCloseFn,
           });
 
-          wrapper.find(PopoverContainerOpenIcon).props().onAction();
+          wrapper.find(PopoverContainerOpenIcon).props().onClick();
           expect(onCloseFn).toHaveBeenCalled();
         });
 
@@ -243,7 +243,7 @@ describe("PopoverContainer", () => {
             onClose: onCloseFn,
           });
 
-          wrapper.find(PopoverContainerCloseIcon).props().onAction();
+          wrapper.find(PopoverContainerCloseIcon).props().onClick();
           expect(onCloseFn).toHaveBeenCalled();
         });
       });
@@ -258,7 +258,7 @@ describe("PopoverContainer", () => {
             onOpen: onOpenFn,
           });
 
-          wrapper.find(PopoverContainerOpenIcon).props().onAction();
+          wrapper.find(PopoverContainerOpenIcon).props().onClick();
           expect(onOpenFn).toHaveBeenCalled();
         });
       });
@@ -270,7 +270,7 @@ describe("PopoverContainer", () => {
               open: false,
             });
 
-            wrapper.find(PopoverContainerOpenIcon).props().onAction();
+            wrapper.find(PopoverContainerOpenIcon).props().onClick();
           }).not.toThrow();
         });
       });
@@ -293,7 +293,7 @@ describe("PopoverContainer", () => {
       wrapper = render();
 
       act(() => {
-        wrapper.find(PopoverContainerOpenIcon).props().onAction();
+        wrapper.find(PopoverContainerOpenIcon).props().onClick();
       });
 
       wrapper.update();
@@ -304,7 +304,7 @@ describe("PopoverContainer", () => {
       wrapper = render();
 
       act(() => {
-        wrapper.find(PopoverContainerOpenIcon).props().onAction();
+        wrapper.find(PopoverContainerOpenIcon).props().onClick();
       });
 
       wrapper.update();
@@ -380,7 +380,7 @@ describe("PopoverContainer", () => {
         wrapper.update();
 
         act(() => {
-          wrapper.find(PopoverContainerCloseIcon).props().onAction();
+          wrapper.find(PopoverContainerCloseIcon).props().onClick();
         });
 
         wrapper.update();
@@ -445,7 +445,7 @@ describe("PopoverContainer", () => {
         expect(wrapper.find(MyOpenButton).text()).toBe("isOpen is true");
 
         act(() => {
-          wrapper.find(PopoverContainerCloseIcon).props().onAction();
+          wrapper.find(PopoverContainerCloseIcon).props().onClick();
         });
 
         wrapper.update();
@@ -558,13 +558,13 @@ describe("PopoverContainer", () => {
         wrapper = renderAttached();
 
         act(() => {
-          wrapper.find(PopoverContainerOpenIcon).props().onAction();
+          wrapper.find(PopoverContainerOpenIcon).props().onClick();
         });
 
         wrapper.update();
 
         act(() => {
-          wrapper.find(PopoverContainerCloseIcon).props().onAction();
+          wrapper.find(PopoverContainerCloseIcon).props().onClick();
         });
 
         wrapper.update();
@@ -578,7 +578,7 @@ describe("PopoverContainer", () => {
 describe("PopoverContainerOpenIcon", () => {
   it("should render correct style", () => {
     const wrapper = mount(
-      <PopoverContainerOpenIcon onAction={() => {}}>
+      <PopoverContainerOpenIcon onClick={() => {}}>
         <Icon type="settings" />
       </PopoverContainerOpenIcon>
     );
@@ -669,7 +669,7 @@ describe("open state when click event triggered", () => {
   it("should close the container when uncontrolled and target is outside wrapper element", () => {
     const wrapper = render({});
     act(() => {
-      wrapper.find(PopoverContainerOpenIcon).props().onAction();
+      wrapper.find(PopoverContainerOpenIcon).props().onClick();
     });
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
       undefined
@@ -685,7 +685,7 @@ describe("open state when click event triggered", () => {
   it("should not close the container when uncontrolled and target is inside wrapper element", () => {
     const wrapper = render({});
     act(() => {
-      wrapper.find(PopoverContainerOpenIcon).props().onAction();
+      wrapper.find(PopoverContainerOpenIcon).props().onClick();
     });
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
       undefined

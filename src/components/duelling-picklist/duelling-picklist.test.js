@@ -2,13 +2,9 @@ import React from "react";
 import DuellingPicklist from "./duelling-picklist.component";
 import { Picklist } from "./picklist/picklist.component";
 import PicklistItem from "./picklist-item/picklist-item.component";
-import PicklistGroup from "./picklist-group/picklist-group.component";
 import PicklistPlaceholder from "./picklist-placeholder/picklist-placeholder.component";
-import PicklistDivider from "./picklist-divider/picklist-divider.component";
 import Search from "../search/search.component";
-import Box from "../box/box.component";
-import Checkbox from "../checkbox/checkbox.component";
-import Typography from "../typography/typography.component";
+
 import {
   assignedPicklist,
   unassignedPicklistItems,
@@ -30,6 +26,7 @@ import {
   tooltipPreview,
 } from "../../../cypress/locators";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { Grouped, AlternativeSearch } from "./duelling-picklist.stories";
 import { ICON } from "../../../cypress/locators/locators";
 
 const specialCharacters = [
@@ -175,397 +172,6 @@ const DuellingPicklistComponent = ({ ...props }) => {
         </Picklist>
       </DuellingPicklist>
     </div>
-  );
-};
-
-const DuellingPicklistComponentAlternateSearch = ({ ...props }) => {
-  const mockData = React.useMemo(() => {
-    const arr = [];
-    for (let i = 0; i < 10; i++) {
-      const data = {
-        key: i.toString(),
-        title: `Content ${i + 1}`,
-        description: `Description ${i + 1}`,
-      };
-      arr.push(data);
-    }
-    return arr;
-  }, []);
-  const allItems = React.useMemo(() => {
-    return mockData.reduce((obj, item) => {
-      obj[item.key] = item;
-      return obj;
-    }, {});
-  }, [mockData]);
-  const [isEachItemSelected, setIsEachItemSelected] = React.useState(false);
-  const [order] = React.useState(mockData.map(({ key }) => key));
-  const [notSelectedItems, setNotSelectedItems] = React.useState(allItems);
-  const [notSelectedSearch, setNotSelectedSearch] = React.useState({});
-  const [selectedItems, setSelectedItems] = React.useState({});
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const isSearchMode = Boolean(searchQuery.length);
-  const onAdd = React.useCallback(
-    (item) => {
-      const { [item.key]: removed, ...rest } = notSelectedItems;
-      setNotSelectedItems(rest);
-      setSelectedItems({ ...selectedItems, [item.key]: item });
-      const { [item.key]: removed2, ...rest2 } = notSelectedSearch;
-      setNotSelectedSearch(rest2);
-    },
-    [notSelectedItems, notSelectedSearch, selectedItems]
-  );
-  const onRemove = React.useCallback(
-    (item) => {
-      const { [item.key]: removed, ...rest } = selectedItems;
-      setSelectedItems(rest);
-      setNotSelectedItems({ ...notSelectedItems, [item.key]: item });
-      if (isSearchMode && item.title.includes(searchQuery)) {
-        setNotSelectedSearch({ ...notSelectedSearch, [item.key]: item });
-      }
-    },
-    [
-      isSearchMode,
-      notSelectedItems,
-      notSelectedSearch,
-      searchQuery,
-      selectedItems,
-    ]
-  );
-  const handleSearch = React.useCallback(
-    (ev) => {
-      setSearchQuery(ev.target.value);
-      const tempNotSelectedItems = Object.keys(notSelectedItems).reduce(
-        (items, key) => {
-          const item = notSelectedItems[key];
-          if (item.title.includes(ev.target.value)) {
-            items[item.key] = item;
-          }
-          return items;
-        },
-        {}
-      );
-      setNotSelectedSearch(tempNotSelectedItems);
-    },
-    [notSelectedItems]
-  );
-  const renderItems = (list, type, handler) =>
-    order.reduce((items, key) => {
-      const item = list[key];
-      if (item) {
-        items.push(
-          <PicklistItem
-            key={key}
-            type={type}
-            item={item}
-            onChange={handler}
-            {...props}
-          >
-            <div style={{ display: "flex", width: "100%" }}>
-              <div style={{ width: "50%" }}>
-                <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-                  {item.title}
-                </p>
-              </div>
-              <div style={{ width: "50%" }}>
-                <p style={{ margin: 0 }}>{item.description}</p>
-              </div>
-            </div>
-          </PicklistItem>
-        );
-      }
-      return items;
-    }, []);
-  return (
-    <div>
-      <Box display="flex" alignItems="center" justifyContent="space-between">
-        <Checkbox
-          onChange={() => setIsEachItemSelected(!isEachItemSelected)}
-          checked={isEachItemSelected}
-          label="Picklist Access"
-        />
-        <Box width="calc(50% + 80px)">
-          <Search
-            tabIndex={isEachItemSelected ? -1 : 0}
-            placeholder="Search"
-            name="search_name"
-            onChange={handleSearch}
-            value={searchQuery}
-            id="search_id"
-          />
-        </Box>
-      </Box>
-      <DuellingPicklist
-        leftLabel={`List 1 (${Object.keys(notSelectedItems).length})`}
-        rightLabel={`List 2 (${Object.keys(selectedItems).length})`}
-        disabled={isEachItemSelected}
-        {...props}
-      >
-        <Picklist
-          disabled={isEachItemSelected}
-          placeholder={<PicklistPlaceholder text="Unassigned list empty" />}
-          index="100"
-          {...props}
-        >
-          {renderItems(
-            isSearchMode ? notSelectedSearch : notSelectedItems,
-            "add",
-            onAdd
-          )}
-        </Picklist>
-        <Picklist
-          disabled={isEachItemSelected}
-          placeholder={<PicklistPlaceholder text="Nothing to see here" />}
-          {...props}
-        >
-          {renderItems(selectedItems, "remove", onRemove)}
-        </Picklist>
-      </DuellingPicklist>
-    </div>
-  );
-};
-
-const DuellingPicklistComponentGrouped = ({ ...props }) => {
-  const mockData = {
-    groupA: [
-      {
-        key: 1,
-        title: "Content 1",
-        groupindex: 0,
-      },
-      {
-        key: 2,
-        title: "Content 2",
-        groupindex: 1,
-      },
-      {
-        key: 3,
-        title: "Content 3",
-        groupindex: 2,
-      },
-    ],
-    groupB: [
-      {
-        key: 4,
-        title: "Content 4",
-        groupindex: 3,
-      },
-    ],
-    groupC: [
-      {
-        key: 5,
-        title: "Content 5",
-      },
-      {
-        key: 6,
-        title: "Content 6",
-      },
-    ],
-  };
-  const [notSelectedItems, setNotSelectedItems] = React.useState(mockData);
-  const [selectedItems, setSelectedItems] = React.useState({});
-  const getItemGroup = React.useCallback(
-    (item) => {
-      let group;
-      for (const [key, value] of Object.entries(mockData)) {
-        if (value.filter((data) => data.key === item.key).length > 0)
-          group = key;
-      }
-      return group;
-    },
-    [mockData]
-  );
-  const onAdd = React.useCallback(
-    (item) => {
-      const itemGroup = getItemGroup(item);
-      const { [itemGroup]: group, ...rest } = notSelectedItems;
-      const itemIndex = group.indexOf(item);
-      group.splice(itemIndex, 1);
-      if (group.length > 0) {
-        setNotSelectedItems({
-          ...rest,
-          [itemGroup]: group,
-        });
-      } else {
-        setNotSelectedItems({
-          ...rest,
-        });
-      }
-      if (selectedItems[itemGroup]) {
-        setSelectedItems({
-          ...selectedItems,
-          [itemGroup]: [...selectedItems[itemGroup], item],
-        });
-      } else {
-        setSelectedItems({
-          ...selectedItems,
-          [itemGroup]: [item],
-        });
-      }
-    },
-    [notSelectedItems, selectedItems, getItemGroup]
-  );
-  const onRemove = React.useCallback(
-    (item) => {
-      const itemGroup = getItemGroup(item);
-      const { [itemGroup]: group, ...rest } = selectedItems;
-      const itemIndex = group.indexOf(item);
-      group.splice(itemIndex, 1);
-      if (group.length > 0) {
-        setSelectedItems({
-          ...rest,
-          [itemGroup]: group,
-        });
-      } else {
-        setSelectedItems({
-          ...rest,
-        });
-      }
-      if (notSelectedItems[itemGroup]) {
-        setNotSelectedItems({
-          ...notSelectedItems,
-          [itemGroup]: [...notSelectedItems[itemGroup], item],
-        });
-      } else {
-        setNotSelectedItems({
-          ...notSelectedItems,
-          [itemGroup]: [item],
-        });
-      }
-    },
-    [notSelectedItems, selectedItems, getItemGroup]
-  );
-  const addGroup = React.useCallback(
-    (group) => {
-      const { [group]: removed, ...rest } = notSelectedItems;
-      setNotSelectedItems(rest);
-      setSelectedItems({ ...selectedItems, [group]: mockData[group] });
-    },
-    [mockData, notSelectedItems, selectedItems]
-  );
-  const removeGroup = React.useCallback(
-    (group) => {
-      const { [group]: removed, ...rest } = selectedItems;
-      setSelectedItems(rest);
-      setNotSelectedItems({ ...notSelectedItems, [group]: mockData[group] });
-    },
-    [mockData, notSelectedItems, selectedItems]
-  );
-  const renderItems = (list, type, handler) => {
-    if (!list) return null;
-    list.sort((a, b) => a.key - b.key);
-    return list.map((item) => {
-      return (
-        <PicklistItem key={item.key} type={type} item={item} onChange={handler}>
-          <div style={{ display: "flex", width: "100%" }}>
-            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-              {item.title}
-            </p>
-          </div>
-        </PicklistItem>
-      );
-    });
-  };
-  const getTotalItems = (items) => {
-    let total = 0;
-    const groups = Object.values(items);
-    groups.forEach((item) => {
-      total += item.length;
-    });
-    return total;
-  };
-  return (
-    <>
-      <DuellingPicklist
-        leftLabel={`List 1 (${getTotalItems(notSelectedItems)})`}
-        rightLabel={`List 2 (${getTotalItems(selectedItems)})`}
-      >
-        <Picklist
-          placeholder={<PicklistPlaceholder text="Nothing to see here" />}
-        >
-          {notSelectedItems.groupA && (
-            <PicklistGroup
-              title={<Typography variant="b">Group A</Typography>}
-              type="add"
-              highlighted
-              onChange={() => addGroup("groupA")}
-            >
-              <PicklistItem key={1} type="add" onChange={onAdd} {...props}>
-                <div style={{ display: "flex", width: "100%" }}>
-                  <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-                    Item 1
-                  </p>
-                </div>
-              </PicklistItem>
-              <PicklistItem key={2} type="add" onChange={onAdd} {...props}>
-                <div style={{ display: "flex", width: "100%" }}>
-                  <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-                    Item 2
-                  </p>
-                </div>
-              </PicklistItem>
-              <PicklistItem key={3} type="add" onChange={onAdd} {...props}>
-                <div style={{ display: "flex", width: "100%" }}>
-                  <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-                    Item 3
-                  </p>
-                </div>
-              </PicklistItem>
-            </PicklistGroup>
-          )}
-          {notSelectedItems.groupB && (
-            <PicklistGroup
-              title={<Typography variant="b">Group B</Typography>}
-              type="add"
-              onChange={() => addGroup("groupB")}
-            >
-              {renderItems(notSelectedItems.groupB, "add", onAdd)}
-            </PicklistGroup>
-          )}
-          {notSelectedItems.groupC && (
-            <PicklistGroup
-              title={<Typography variant="b">Group C</Typography>}
-              type="add"
-              onChange={() => addGroup("groupC")}
-            >
-              {renderItems(notSelectedItems.groupC, "add", onAdd)}
-            </PicklistGroup>
-          )}
-        </Picklist>
-        <PicklistDivider />
-        <Picklist
-          placeholder={<PicklistPlaceholder text="Nothing to see here" />}
-        >
-          {selectedItems.groupA && (
-            <PicklistGroup
-              title={<Typography variant="b">Group A</Typography>}
-              type="remove"
-              onChange={() => removeGroup("groupA")}
-              {...props}
-            >
-              {renderItems(selectedItems.groupA, "remove", onRemove)}
-            </PicklistGroup>
-          )}
-          {selectedItems.groupB && (
-            <PicklistGroup
-              title={<Typography variant="b">Group B</Typography>}
-              type="remove"
-              onChange={() => removeGroup("groupB")}
-            >
-              {renderItems(selectedItems.groupB, "remove", onRemove)}
-            </PicklistGroup>
-          )}
-          {selectedItems.groupC && (
-            <PicklistGroup
-              title={<Typography variant="b">Group C</Typography>}
-              type="remove"
-              onChange={() => removeGroup("groupC")}
-            >
-              {renderItems(selectedItems.groupC, "remove", onRemove)}
-            </PicklistGroup>
-          )}
-        </Picklist>
-      </DuellingPicklist>
-    </>
   );
 };
 
@@ -888,13 +494,13 @@ context("Testing Duelling-Picklist component", () => {
 
   describe("should render Duelling-Picklist with external searchbar and access checkbox", () => {
     it.each([
-      ["Content", 10],
-      ["Content 1", 2],
+      ["Content", 20],
+      ["Content 1", 11],
       ["Content 10", 1],
     ])(
       "should verify picklist search field can be placed outside the Duelling-Picklist",
       (searchString, results) => {
-        CypressMountWithProviders(<DuellingPicklistComponentAlternateSearch />);
+        CypressMountWithProviders(<AlternativeSearch />);
 
         getDataElementByValue("input").type(searchString);
         unassignedPicklistItems().should("have.length", results);
@@ -902,14 +508,14 @@ context("Testing Duelling-Picklist component", () => {
     );
 
     it("should verify Duelling-Picklist is disabled when access checkox is checked", () => {
-      CypressMountWithProviders(<DuellingPicklistComponentAlternateSearch />);
+      CypressMountWithProviders(<AlternativeSearch />);
 
       checkBox().check();
       duellingPicklistComponent().should("have.attr", "disabled");
     });
 
     it("should verify Duelling-Picklist is re-enabled when access checkbox is unchecked", () => {
-      CypressMountWithProviders(<DuellingPicklistComponentAlternateSearch />);
+      CypressMountWithProviders(<AlternativeSearch />);
 
       checkBox().check();
       duellingPicklistComponent().should("have.attr", "disabled");
@@ -920,19 +526,19 @@ context("Testing Duelling-Picklist component", () => {
 
   describe("should render Duelling-Picklist with items grouped and a picklist divider", () => {
     it("should verify Duelling-Picklist is displayed with divider", () => {
-      CypressMountWithProviders(<DuellingPicklistComponentGrouped />);
+      CypressMountWithProviders(<Grouped />);
 
       getDataElementByValue("picklist-divider");
     });
 
     it("should verify Duelling-Picklist is displayed in groups with group label", () => {
-      CypressMountWithProviders(<DuellingPicklistComponentGrouped />);
+      CypressMountWithProviders(<Grouped />);
 
       picklistGroup().children().eq(0).should("have.text", "Group A");
     });
 
     it("should verify all items in a group are added to assigned picklist when group add button is clicked", () => {
-      CypressMountWithProviders(<DuellingPicklistComponentGrouped />);
+      CypressMountWithProviders(<Grouped />);
 
       picklistGroup().children().eq(1).click();
       assignedPicklistItems().should("have.length", "3");
@@ -940,7 +546,7 @@ context("Testing Duelling-Picklist component", () => {
     });
 
     it("should verify all items in a group are removed from assigned picklist when group remove button is clicked", () => {
-      CypressMountWithProviders(<DuellingPicklistComponentGrouped />);
+      CypressMountWithProviders(<Grouped />);
 
       picklistGroup().children().eq(1).click();
       unassignedPicklistItems().should("have.length", "3");

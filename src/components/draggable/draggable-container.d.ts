@@ -9,7 +9,10 @@ type DraggableContainerChild =
 
 export interface DraggableContainerProps {
   /** Callback fired when order is changed */
-  getOrder?: (draggableItemIds: number[]) => void;
+  getOrder?: (
+    draggableItemIds: (number | string)[],
+    movedItemId: string | number
+  ) => void;
   /**
    * The content of the component
    *

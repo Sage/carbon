@@ -252,16 +252,16 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
           justifyContent="space-around"
         >
           <Box flexGrow={1}>
-            <IconButton aria-label="Phone icon button" onAction={() => {}}>
+            <IconButton aria-label="Phone icon button" onClick={() => {}}>
               <Icon bgSize="medium" type="phone" />
             </IconButton>
-            <IconButton aria-label="Phone icon button" onAction={() => {}}>
+            <IconButton aria-label="Phone icon button" onClick={() => {}}>
               <Icon bgSize="medium" type="phone" />
             </IconButton>
-            <IconButton aria-label="Phone icon button" onAction={() => {}}>
+            <IconButton aria-label="Phone icon button" onClick={() => {}}>
               <Icon bgSize="medium" type="phone" />
             </IconButton>
-            <IconButton aria-label="Phone icon button" onAction={() => {}}>
+            <IconButton aria-label="Phone icon button" onClick={() => {}}>
               <Icon bgSize="medium" type="phone" />
             </IconButton>
           </Box>

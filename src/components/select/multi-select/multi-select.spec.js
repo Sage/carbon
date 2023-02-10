@@ -15,6 +15,7 @@ import Pill from "../../pill";
 import Label from "../../../__internal__/label";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import { InputPresentation } from "../../../__internal__/input";
+import Logger from "../../../__internal__/utils/logger";
 
 describe("MultiSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
@@ -75,25 +76,74 @@ describe("MultiSelect", () => {
     });
   });
 
-  it("the input ref should be forwarded", () => {
-    let mockRef;
+  describe("with a ref", () => {
+    it("the input ref should be forwarded", () => {
+      let mockRef;
 
-    const WrapperComponent = () => {
-      mockRef = useRef();
+      const WrapperComponent = () => {
+        mockRef = useRef();
 
-      return (
-        <MultiSelect name="testSelect" id="testSelect" ref={mockRef}>
-          <Option value="opt1" text="red" />
-          <Option value="opt2" text="green" />
-          <Option value="opt3" text="blue" />
-          <Option value="opt4" text="black" />
-        </MultiSelect>
+        return (
+          <MultiSelect name="testSelect" id="testSelect" ref={mockRef}>
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </MultiSelect>
+        );
+      };
+
+      const wrapper = mount(<WrapperComponent />);
+
+      expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("the input callback ref should be called with the DOM element", () => {
+      let mockRef;
+
+      const WrapperComponent = () => {
+        mockRef = jest.fn();
+
+        return (
+          <MultiSelect name="testSelect" id="testSelect" ref={mockRef}>
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </MultiSelect>
+        );
+      };
+
+      const wrapper = mount(<WrapperComponent />);
+
+      expect(mockRef).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
+  });
+
+  describe("when the inputRef function prop is specified", () => {
+    it("should display deprecation warning when the inputRef prop is usedll", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      const inputRefFn = jest.fn();
+      const wrapper = renderSelect({ inputRef: inputRefFn });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `MultiSelect` component is deprecated and will soon be removed. Please use `ref` instead."
       );
-    };
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      loggerSpy.mockRestore();
+    });
 
-    const wrapper = mount(<WrapperComponent />);
+    it("then the input reference should be returned on call", () => {
+      const inputRefFn = jest.fn();
+      const wrapper = renderSelect({ inputRef: inputRefFn });
 
-    expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+      expect(inputRefFn).toHaveBeenCalledWith({
+        current: wrapper.find("input").getDOMNode(),
+      });
+    });
   });
 
   describe("when listMaxHeight prop is provided", () => {

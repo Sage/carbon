@@ -19,12 +19,10 @@ const Component = (props) => {
   const [textboxRef, setTextboxRef] = useState();
 
   function assignInput(input) {
-    setTextboxRef(input.current);
+    setTextboxRef(input);
   }
 
-  return (
-    <SelectTextbox textboxRef={textboxRef} inputRef={assignInput} {...props} />
-  );
+  return <SelectTextbox textboxRef={textboxRef} ref={assignInput} {...props} />;
 };
 
 describe("SelectTextbox", () => {

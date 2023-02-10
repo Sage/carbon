@@ -9,7 +9,7 @@ import { keyCode } from "../../../cypress/support/helper";
 
 const IconButtonComponent = ({ ...props }) => {
   return (
-    <IconButton aria-label="icon-button" onAction={() => {}} {...props}>
+    <IconButton aria-label="icon-button" onClick={() => {}} {...props}>
       <Icon type="home" />
     </IconButton>
   );
@@ -102,8 +102,8 @@ context("Tests for IconButton component", () => {
         });
     });
 
-    it("should call onAction callback when a click event is triggered", () => {
-      CypressMountWithProviders(<IconButtonComponent onAction={callback} />);
+    it("should call onClick callback when a click event is triggered", () => {
+      CypressMountWithProviders(<IconButtonComponent onClick={callback} />);
 
       icon()
         .parent()
@@ -115,9 +115,9 @@ context("Tests for IconButton component", () => {
     });
 
     it.each(["Space", "Enter"])(
-      "should call onAction callback when a keydown event is triggered with %s",
+      "should call onClick callback when a keydown event is triggered with %s",
       (key) => {
-        CypressMountWithProviders(<IconButtonComponent onAction={callback} />);
+        CypressMountWithProviders(<IconButtonComponent onClick={callback} />);
 
         icon()
           .parent()
