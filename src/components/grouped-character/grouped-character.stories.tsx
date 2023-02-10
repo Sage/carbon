@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { ComponentStory, StoryFn } from "@storybook/react";
 
 import GroupedCharacter, { GroupedCharacterProps, CustomEvent } from ".";
+
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import Box from "../box";
 
 export const DefaultStory = () => {
   const [state, setState] = useState("1231231");
@@ -285,7 +287,7 @@ export const Validations: StoryFn = (
   return (
     <>
       {(["error", "warning", "info"] as const).map((validationType) => (
-        <div key={`${validationType}-string-component`}>
+        <Box key={`${validationType}-string-component`}>
           <GroupedCharacter
             label="GroupedCharacter"
             value={state[validationType]}
@@ -306,7 +308,7 @@ export const Validations: StoryFn = (
             mb={2}
             {...args}
           />
-        </div>
+        </Box>
       ))}
     </>
   );
@@ -342,10 +344,7 @@ export const ValidationsRedesign = () => {
     <CarbonProvider validationRedesignOptIn>
       {(["error", "warning"] as const).map((validationType) =>
         (["small", "medium", "large"] as const).map((size) => (
-          <div
-            style={{ width: "296px" }}
-            key={`${size}-${validationType}-string-component`}
-          >
+          <Box key={`${size}-${validationType}-string-component`} width="296px">
             <GroupedCharacter
               label={`${size} - ${validationType}`}
               value={state[validationType]}
@@ -366,7 +365,7 @@ export const ValidationsRedesign = () => {
               {...{ [validationType]: "Message" }}
               m={4}
             />
-          </div>
+          </Box>
         ))
       )}
     </CarbonProvider>
@@ -389,7 +388,7 @@ export const ValidationsTooltip: ComponentStory<typeof GroupedCharacter> = (
   return (
     <>
       {(["error", "warning", "info"] as const).map((validationType) => (
-        <div key={`${validationType}-string-label`}>
+        <Box key={`${validationType}-string-label`}>
           <GroupedCharacter
             label="GroupedCharacter"
             value={state[validationType]}
@@ -401,7 +400,7 @@ export const ValidationsTooltip: ComponentStory<typeof GroupedCharacter> = (
             groups={[2, 2, 3]}
             separator="-"
           />
-        </div>
+        </Box>
       ))}
     </>
   );
