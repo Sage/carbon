@@ -1,11 +1,13 @@
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import { ArgsTable as SimpleArgsTable } from "@storybook/components";
 
-import Box from ".";
-import * as stories from "./box.stories";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta title="Box" parameters={{ info: { disable: true } }}/>
+import Box from ".";
+
+import * as stories from "./box.stories";
+
+<Meta title="Box" parameters={{ info: { disable: true } }} />
 
 # Box
 
@@ -30,17 +32,15 @@ import Box from "carbon-react/lib/components/box";
 ### Spacing
 
 <Canvas>
-  <Story name="spacing" story={stories.Spacing}/>
+  <Story name="spacing" story={stories.Spacing} />
 </Canvas>
 
 ### Position
 
 Please note that in order to see the `position: fixed` Box, you will need to view this example in the `Canvas` tab.
+
 <Canvas>
-  <Story 
-    name="position"
-    story={stories.Position}
-  />
+  <Story name="position" story={stories.Position} />
 </Canvas>
 
 ### Color
@@ -63,8 +63,8 @@ Please note that in order to see the `position: fixed` Box, you will need to vie
 
 ### Gap
 
-The `Box` component also supports the `gap`, `column-gap` and `row-gap` properties when its `display` property is set to either 
-`flex` or `inline-flex`. See the [prop table](#props) below for more information on the types it accepts. Below is an example of 
+The `Box` component also supports the `gap`, `column-gap` and `row-gap` properties when its `display` property is set to either
+`flex` or `inline-flex`. See the [prop table](#props) below for more information on the types it accepts. Below is an example of
 how these props can be used.
 
 <Canvas>
@@ -82,9 +82,7 @@ how these props can be used.
 Use the `overflowWrap` prop to apply `overflow-wrap: break-word` to the content within the `Box` wrapper.
 
 <Canvas>
-  <Story
-    name="overflow wrap"
-    parameters={{ chromatic: { disableSnapshot: true } }} story={stories.OverflowWrap} />
+  <Story name="overflow wrap" story={stories.OverflowWrap} />
 </Canvas>
 
 ### Scroll
@@ -93,10 +91,7 @@ Use the `scrollVariant` prop to indicate which theme scrollbar you would like to
 If no `scrollVariant` prop is set then the scroll bar will resort to the browser default.
 
 <Canvas>
-  <Story
-    name="scroll"
-    parameters={{ chromatic: { disableSnapshot: true } }}
-    story={stories.Scroll} />
+  <Story name="scroll" story={stories.Scroll} />
 </Canvas>
 
 ## Props
@@ -105,15 +100,7 @@ If no `scrollVariant` prop is set then the scroll bar will resort to the browser
 
 <StyledSystemProps spacing color flexBox hasGapProps layout position noHeader />
 
-<ArgsTable
-  of={Box}
-  exclude={[
-    "as",
-    "ref",
-    "forwardedAs",
-    "theme"
-  ]}
-/>
+<ArgsTable of={Box} exclude={["as", "ref", "forwardedAs", "theme", "gap", "columnGap", "rowGap"]} />
 
 <SimpleArgsTable
   rows={[
