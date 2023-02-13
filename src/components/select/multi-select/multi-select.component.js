@@ -442,10 +442,6 @@ const MultiSelect = React.forwardRef(
         const isAlreadySelected =
           actualValue.findIndex((val) => isExpectedValue(val, newValue)) !== -1;
 
-        if (!isAlreadySelected && isControlled.current && onChange) {
-          onChange(createCustomEvent([...actualValue, newValue]));
-        }
-
         textboxRef.focus();
         isMouseDownReported.current = false;
 
@@ -457,7 +453,7 @@ const MultiSelect = React.forwardRef(
           return [...previousValue, newValue];
         });
       },
-      [createCustomEvent, onChange, textboxRef, actualValue, updateValue]
+      [textboxRef, actualValue, updateValue]
     );
 
     function onSelectListClose() {
