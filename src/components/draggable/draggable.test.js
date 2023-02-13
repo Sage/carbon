@@ -134,4 +134,28 @@ context("Test for Draggable component", () => {
         });
     });
   });
+
+  describe("accessibility tests for Draggable component", () => {
+    it("should pass accessibility tests for Draggable default", () => {
+      CypressMountWithProviders(<DraggableCustom />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Draggable with different containers", () => {
+      CypressMountWithProviders(<DraggableDifferentContainers />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Draggable with getOrder callback", () => {
+      const callback = cy.stub();
+
+      CypressMountWithProviders(
+        <DraggableDifferentContainers getOrder={callback} />
+      );
+
+      cy.checkAccessibility();
+    });
+  });
 });
