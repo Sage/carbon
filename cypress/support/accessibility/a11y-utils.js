@@ -52,6 +52,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("anchor-navigation") &&
       !prepareUrl[0].startsWith("loader") &&
       !prepareUrl[0].startsWith("loader-bar") &&
+      !prepareUrl[0].startsWith("link") &&
       !prepareUrl[0].startsWith("link-preview") &&
       !prepareUrl[0].startsWith("verticaldivider") &&
       !prepareUrl[0].startsWith("button-bar") &&
