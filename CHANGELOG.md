@@ -1,3 +1,10 @@
+### [114.12.4](https://github.com/Sage/carbon/compare/v114.12.3...v114.12.4) (2023-02-13)
+
+
+### Bug Fixes
+
+* **date:** update abbreviated day translations in picker component for German locale ([fef59f0](https://github.com/Sage/carbon/commit/fef59f0477da6a4aecc81c7804da7a45038d68f0)), closes [#5786](https://github.com/Sage/carbon/issues/5786)
+
 ### [114.12.3](https://github.com/Sage/carbon/compare/v114.12.2...v114.12.3) (2023-02-10)
 
 
