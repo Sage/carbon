@@ -218,7 +218,7 @@ context("Tests for MultiActionButton component", () => {
   });
 
   describe("when nested inside of a Dialog component", () => {
-    it("should not close the Dialog when SplitButton is closed by pressing an escape key", () => {
+    it("should not close the Dialog when Multi Action Button is closed by pressing an escape key", () => {
       CypressMountWithProviders(<MultiActionNestedInDialog />);
       multiActionButtonComponent().trigger("mouseover");
       multiActionButtonList()
@@ -226,11 +226,11 @@ context("Tests for MultiActionButton component", () => {
         .should("have.text", "Example Button")
         .and("be.visible");
 
-      multiActionButtonComponent().type("{esc}");
+      multiActionButton().trigger("keyup", keyCode("Esc"));
       multiActionButtonListContainer().should("not.exist");
       alertDialogPreview().should("exist");
 
-      multiActionButtonComponent().type("{esc}");
+      multiActionButton().trigger("keyup", keyCode("Esc"));
       alertDialogPreview().should("not.exist");
     });
   });
@@ -517,6 +517,19 @@ describe.each(["Enter", "Space", "downarrow"])(
     });
   }
 );
+
+describe("clicking the main button", () => {
+  it("should open the additional buttons", () => {
+    CypressMountWithProviders(<MultiActionButtonList />);
+
+    multiActionButton()
+      .eq(0)
+      .trigger("click")
+      .then(() => {
+        multiActionButtonList().should("be.visible");
+      });
+  });
+});
 
 // https://github.com/cypress-io/cypress/issues/21511
 describe("should check colors for MultiActionButton component", () => {

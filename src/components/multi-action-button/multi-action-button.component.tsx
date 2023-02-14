@@ -34,6 +34,7 @@ export const MultiActionButton = ({
   text,
   subtext,
   width,
+  onClick,
   "data-element": dataElement,
   "data-role": dataRole,
   ...rest
@@ -115,11 +116,24 @@ export const MultiActionButton = ({
     }
   };
 
+  const handleInsideClick = useClickAwayListener(hideButtons);
+
+  const handleClick = (
+    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => {
+    showButtons();
+    handleInsideClick();
+    if (onClick) {
+      onClick(ev as React.MouseEvent<HTMLButtonElement>);
+    }
+  };
+
   const mainButtonProps = {
     disabled,
     displayed: showAdditionalButtons,
     onTouchStart: showButtons,
     onKeyDown: handleMainButtonKeyDown,
+    onClick: handleClick,
     buttonType,
     size,
     subtext,
@@ -143,8 +157,6 @@ export const MultiActionButton = ({
     </Popover>
   );
 
-  const handleClick = useClickAwayListener(hideButtons);
-
   const hideButtonsIfTriggerNotFocused = useCallback(() => {
     if (buttonRef.current === document.activeElement) return;
     setShowAdditionalButtons(false);
@@ -154,9 +166,7 @@ export const MultiActionButton = ({
 
   return (
     <StyledMultiActionButton
-      aria-haspopup="true"
       onMouseLeave={hideButtonsIfTriggerNotFocused}
-      onClick={handleClick}
       ref={ref}
       data-component="multi-action-button"
       data-element={dataElement}
