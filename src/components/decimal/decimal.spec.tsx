@@ -12,6 +12,7 @@ import Textbox from "../textbox/textbox.component";
 import Label from "../../__internal__/label";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import I18nProvider from "../i18n-provider";
+import Logger from "../../__internal__/utils/logger";
 
 // These have been written in a way that we can change our testing library or component implementation with relative
 // ease without having to touch the tests.
@@ -142,7 +143,7 @@ describe("Decimal", () => {
   afterEach(() => {
     document.body.removeChild(container as HTMLDivElement);
     container = null;
-    if (wrapper) {
+    if (wrapper?.exists()) {
       wrapper.unmount();
     }
   });
@@ -1384,6 +1385,49 @@ describe("Decimal", () => {
           },
         })
       );
+    });
+  });
+
+  describe("refs", () => {
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      const ref = () => {};
+
+      wrapper = enzymeMount(<Decimal inputRef={ref} />);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `Decimal` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      loggerSpy.mockRestore();
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      wrapper = enzymeMount(<Decimal ref={ref} />);
+      const { input } = getElements();
+
+      expect(ref.current).toBe(input.getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      wrapper = enzymeMount(<Decimal ref={ref} />);
+      const { input } = getElements();
+
+      expect(ref).toHaveBeenCalledWith(input.getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      wrapper = enzymeMount(<Decimal ref={ref} />);
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
     });
   });
 

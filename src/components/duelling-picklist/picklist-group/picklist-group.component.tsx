@@ -5,7 +5,6 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import PropTypes from "prop-types";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import {
@@ -17,9 +16,38 @@ import {
 import FocusContext from "../duelling-picklist.context";
 import Events from "../../../__internal__/utils/helpers/events";
 
-const PicklistGroup = React.forwardRef(
+export interface PicklistGroupProps {
+  /** Group title */
+  title: React.ReactNode;
+  /** Item content */
+  children: React.ReactNode;
+  /** Define if item is of type add or remove */
+  type: "add" | "remove";
+  /** Handler invoked when add/remove button is clicked or when space/enter is pressed on the whole item */
+  onChange: () => void;
+  /** @private @ignore */
+  index?: number;
+  /** @private @ignore */
+  listIndex?: number;
+  /** @private @ignore */
+  isLastGroup?: boolean;
+}
+
+export const PicklistGroup = React.forwardRef<
+  HTMLButtonElement,
+  PicklistGroupProps
+>(
   (
-    { title, children, type, onChange, index, listIndex, isLastGroup, ...rest },
+    {
+      title,
+      children,
+      type,
+      onChange,
+      index,
+      listIndex,
+      isLastGroup,
+      ...transitionGroupProps
+    }: PicklistGroupProps,
     ref
   ) => {
     const { setElementToFocus, elementToFocus } = useContext(FocusContext);
@@ -49,31 +77,38 @@ const PicklistGroup = React.forwardRef(
           {
             length: filteredChildren.length,
           },
-          () => React.createRef()
+          () => React.createRef<HTMLLIElement>()
         ),
       [filteredChildren.length]
     );
 
-    const content = React.Children.map(
+    const content = React.Children.map<React.ReactNode, React.ReactNode>(
       children,
-      (child, childIndex) =>
-        child &&
-        React.cloneElement(child, {
+      (child, childIndex) => {
+        if (!React.isValidElement(child)) {
+          return child;
+        }
+
+        const props = {
           ref: refs[childIndex],
           index: childIndex,
           listIndex,
           groupIndex: index,
           isLastGroup,
           isLastItem: childIndex === filteredChildren.length - 1,
-        })
+        };
+
+        return React.cloneElement(child, props);
+      }
     );
 
     useEffect(() => {
       if (
-        index === elementToFocus?.groupIndex &&
-        listIndex === elementToFocus?.listIndex
+        elementToFocus.groupIndex === index &&
+        elementToFocus.listIndex === listIndex &&
+        elementToFocus.itemIndex !== undefined
       ) {
-        refs[elementToFocus?.itemIndex].current.focus();
+        refs[elementToFocus.itemIndex].current?.focus();
         setElementToFocus();
       }
     }, [
@@ -93,7 +128,7 @@ const PicklistGroup = React.forwardRef(
           exit: 0,
         }}
         classNames="picklist-group"
-        {...rest}
+        {...transitionGroupProps}
         {...(type === "add" ? { enter: false } : {})}
       >
         <StyledGroupWrapper highlighted={highlighted} type={type}>
@@ -123,21 +158,6 @@ const PicklistGroup = React.forwardRef(
   }
 );
 
-PicklistGroup.propTypes = {
-  /** Group title */
-  title: PropTypes.node.isRequired,
-  /** Item content */
-  children: PropTypes.node.isRequired,
-  /** Define if item is of type add or remove */
-  type: PropTypes.oneOf(["add", "remove"]).isRequired,
-  /** Handler invoked when add/remove button is clicked or when space/enter is pressed on the whole item */
-  onChange: PropTypes.func.isRequired,
-  /** @private @ignore */
-  index: PropTypes.number,
-  /** @private @ignore */
-  listIndex: PropTypes.number,
-  /** @private @ignore */
-  isLastGroup: PropTypes.bool,
-};
+PicklistGroup.displayName = "PicklistGroup";
 
 export default PicklistGroup;

@@ -20,6 +20,7 @@ const TabTitle = React.forwardRef(
     {
       isTabSelected,
       dataTabId,
+      "data-role": dataRole,
       title,
       position = "top",
       error,
@@ -136,6 +137,7 @@ const TabTitle = React.forwardRef(
             aria-selected={isTabSelected}
             data-element="select-tab"
             data-tabid={dataTabId}
+            data-role={dataRole}
             role="tab"
             position={position}
             isTabSelected={isTabSelected}
@@ -235,6 +237,8 @@ TabTitle.propTypes = {
   isTabSelected: PropTypes.bool,
   position: PropTypes.oneOf(["top", "left"]),
   className: PropTypes.string,
+  /** Identifier used for testing purposes */
+  "data-role": PropTypes.string,
   dataTabId: PropTypes.string,
   id: PropTypes.string,
   onClick: PropTypes.func,

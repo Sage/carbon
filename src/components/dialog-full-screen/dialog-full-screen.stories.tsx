@@ -78,7 +78,7 @@ export const Default = () => {
 };
 Default.parameters = { chromatic: { disable: true } };
 
-export const WithComplexExample = ({ ...props }) => {
+export const WithComplexExample = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [activeTab, setActiveTab] = useState("tab-1");
   const padding40 = useMediaQuery("(min-width: 1260px)");
@@ -146,7 +146,7 @@ export const WithComplexExample = ({ ...props }) => {
                   <Typography variant="b">Example text</Typography>
                   <Typography mb={0}>Example text without bold</Typography>
                 </Box>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -171,7 +171,7 @@ export const WithComplexExample = ({ ...props }) => {
                   <Typography variant="b">Example text</Typography>
                   <Typography mb={0}>Example text without bold</Typography>
                 </Box>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -196,7 +196,7 @@ export const WithComplexExample = ({ ...props }) => {
                   <Typography variant="b">Example text</Typography>
                   <Typography mb={0}>Example text without bold</Typography>
                 </Box>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -253,7 +253,7 @@ export const WithComplexExample = ({ ...props }) => {
                     Primary
                   </Pill>
                 </Box>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -277,7 +277,7 @@ export const WithComplexExample = ({ ...props }) => {
                 <div style={{ flexGrow: 1 }}>
                   <Typography variant="b">Example text</Typography>
                 </div>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -514,7 +514,6 @@ export const WithComplexExample = ({ ...props }) => {
         disableEscKey={false}
         showCloseIcon
         disableContentPadding
-        {...props}
       >
         <Drawer sidebar={SidebarContent}>
           <Box p={5}>{showCorrectContent()}</Box>
@@ -524,7 +523,7 @@ export const WithComplexExample = ({ ...props }) => {
   );
 };
 
-export const WithDisableContentPadding = ({ ...props }) => {
+export const WithDisableContentPadding = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -536,7 +535,6 @@ export const WithDisableContentPadding = ({ ...props }) => {
         title="Title"
         subtitle="Subtitle"
         disableContentPadding
-        {...props}
       >
         <Form
           stickyFooter
@@ -565,7 +563,7 @@ export const WithDisableContentPadding = ({ ...props }) => {
 };
 WithDisableContentPadding.parameters = { chromatic: { disable: true } };
 
-export const WithHeaderChildren = ({ ...props }) => {
+export const WithHeaderChildren = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
   const verticalMargin = aboveBreakpoint ? "26px" : 0;
@@ -586,7 +584,6 @@ export const WithHeaderChildren = ({ ...props }) => {
         title="An example of a long header"
         subtitle="Subtitle"
         headerChildren={HeaderChildren}
-        {...props}
       >
         <Form
           stickyFooter
@@ -615,7 +612,7 @@ export const WithHeaderChildren = ({ ...props }) => {
 };
 WithDisableContentPadding.parameters = { viewports: [500, 1400] };
 
-export const WithHelp = ({ ...props }) => {
+export const WithHelp = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -626,7 +623,6 @@ export const WithHelp = ({ ...props }) => {
         title="An example of a long header"
         subtitle="Subtitle"
         help="Some help text"
-        {...props}
       >
         <Form
           stickyFooter
@@ -654,7 +650,7 @@ export const WithHelp = ({ ...props }) => {
   );
 };
 
-export const WithHideableHeaderChildren = ({ ...props }) => {
+export const WithHideableHeaderChildren = () => {
   const [isOpen, setIsOpen] = useState(false);
   const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
   const verticalMargin = aboveBreakpoint ? "26px" : 0;
@@ -698,7 +694,6 @@ export const WithHideableHeaderChildren = ({ ...props }) => {
             ? HeaderChildrenAboveBreakpoint
             : HeaderChildrenBelowBreakpoint
         }
-        {...props}
       >
         <Form
           stickyFooter
@@ -727,7 +722,7 @@ export const WithHideableHeaderChildren = ({ ...props }) => {
 };
 WithHideableHeaderChildren.parameters = { chromatic: { disable: true } };
 
-export const WithBox = ({ ...props }) => {
+export const WithBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -737,7 +732,6 @@ export const WithBox = ({ ...props }) => {
         onCancel={() => setIsOpen(false)}
         title="Title"
         subtitle="Subtitle"
-        {...props}
       >
         <Box p="0px 40px">
           <Form
@@ -768,7 +762,7 @@ export const WithBox = ({ ...props }) => {
 };
 WithBox.parameters = { chromatic: { disable: true } };
 
-export const FocusingADifferentFirstElement = ({ ...props }) => {
+export const FocusingADifferentFirstElement = () => {
   const [isOpenOne, setIsOpenOne] = useState(false);
   const [isOpenTwo, setIsOpenTwo] = useState(false);
   const ref = useRef<HTMLButtonElement | null>(null);
@@ -783,7 +777,6 @@ export const FocusingADifferentFirstElement = ({ ...props }) => {
         onCancel={() => setIsOpenOne(false)}
         title="Title"
         subtitle="Subtitle"
-        {...props}
       >
         <p>Focus an element that doesnt support autofocus</p>
         <div
@@ -830,7 +823,7 @@ export const FocusingADifferentFirstElement = ({ ...props }) => {
 };
 FocusingADifferentFirstElement.parameters = { chromatic: { disable: true } };
 
-export const OtherFocusableContainers = ({ ...props }) => {
+export const OtherFocusableContainers = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isToast1Open, setIsToast1Open] = useState(false);
   const [isToast2Open, setIsToast2Open] = useState(false);
@@ -847,7 +840,6 @@ export const OtherFocusableContainers = ({ ...props }) => {
         title="Title"
         subtitle="Subtitle"
         focusableContainers={[toast1Ref, toast2Ref]}
-        {...props}
       >
         <Form
           stickyFooter

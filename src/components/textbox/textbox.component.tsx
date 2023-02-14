@@ -22,6 +22,7 @@ import ValidationMessage from "../../__internal__/validation-message";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 import NumeralDateContext from "../numeral-date/numeral-date-context";
 import Box from "../box";
+import Logger from "../../__internal__/utils/logger";
 
 export interface CommonTextboxProps
   extends ValidationProps,
@@ -123,218 +124,237 @@ export interface TextboxProps extends CommonTextboxProps {
   warnOverLimit?: boolean;
 }
 
-export const Textbox = ({
-  align = "left",
-  autoFocus,
-  children,
-  disabled,
-  inputIcon,
-  leftChildren,
-  labelId: externalLabelId,
-  label,
-  labelAlign,
-  labelHelp,
-  labelInline,
-  labelSpacing,
-  id,
-  formattedValue,
-  fieldHelp,
-  error,
-  warning,
-  info,
-  name,
-  reverse,
-  size = "medium",
-  value,
-  readOnly,
-  placeholder,
-  inputRef,
-  onBlur,
-  onClick,
-  onFocus,
-  onChange,
-  onMouseDown,
-  onChangeDeferred,
-  deferTimeout,
-  isOptional,
-  iconOnClick,
-  iconOnMouseDown,
-  iconTabIndex,
-  validationOnLabel = false,
-  labelWidth = 30,
-  inputWidth,
-  maxWidth,
-  prefix,
-  adaptiveLabelBreakpoint,
-  required,
-  positionedChildren,
-  tooltipPosition,
-  "data-component": dataComponent,
-  "data-element": dataElement,
-  "data-role": dataRole,
-  enforceCharacterLimit = true,
-  characterLimit,
-  warnOverLimit = false,
-  helpAriaLabel,
-  ...props
-}: TextboxProps) => {
-  const characterCountValue = typeof value === "string" ? value : "";
-  const [maxLength, characterCount] = useCharacterCount(
-    characterCountValue,
-    // TODO: Can be removed after the characterLimit type is changed to number
-    typeof characterLimit === "string"
-      ? parseInt(characterLimit, 10)
-      : characterLimit,
-    warnOverLimit,
-    enforceCharacterLimit
-  );
-  const { validationRedesignOptIn } = useContext(NewValidationContext);
-  const { disableErrorBorder } = useContext(NumeralDateContext);
-  const computeLabelPropValues = <T,>(prop: T): undefined | T =>
-    validationRedesignOptIn ? undefined : prop;
+let deprecateInputRefWarnTriggered = false;
 
-  const [uniqueId, uniqueName] = useUniqueId(id, name);
+export const Textbox = React.forwardRef(
+  (
+    {
+      align = "left",
+      autoFocus,
+      children,
+      disabled,
+      inputIcon,
+      leftChildren,
+      labelId: externalLabelId,
+      label,
+      labelAlign,
+      labelHelp,
+      labelInline,
+      labelSpacing,
+      id,
+      formattedValue,
+      fieldHelp,
+      error,
+      warning,
+      info,
+      name,
+      reverse,
+      size = "medium",
+      value,
+      readOnly,
+      placeholder,
+      inputRef,
+      onBlur,
+      onClick,
+      onFocus,
+      onChange,
+      onMouseDown,
+      onChangeDeferred,
+      deferTimeout,
+      isOptional,
+      iconOnClick,
+      iconOnMouseDown,
+      iconTabIndex,
+      validationOnLabel = false,
+      labelWidth = 30,
+      inputWidth,
+      maxWidth,
+      prefix,
+      adaptiveLabelBreakpoint,
+      required,
+      positionedChildren,
+      tooltipPosition,
+      "data-component": dataComponent,
+      "data-element": dataElement,
+      "data-role": dataRole,
+      enforceCharacterLimit = true,
+      characterLimit,
+      warnOverLimit = false,
+      helpAriaLabel,
+      ...props
+    }: TextboxProps,
+    ref: React.ForwardedRef<HTMLInputElement>
+  ) => {
+    const characterCountValue = typeof value === "string" ? value : "";
+    const [maxLength, characterCount] = useCharacterCount(
+      characterCountValue,
+      // TODO: Can be removed after the characterLimit type is changed to number
+      typeof characterLimit === "string"
+        ? parseInt(characterLimit, 10)
+        : characterLimit,
+      warnOverLimit,
+      enforceCharacterLimit
+    );
+    const { validationRedesignOptIn } = useContext(NewValidationContext);
+    const { disableErrorBorder } = useContext(NumeralDateContext);
+    const computeLabelPropValues = <T,>(prop: T): undefined | T =>
+      validationRedesignOptIn ? undefined : prop;
 
-  const {
-    labelId: internalLabelId,
-    validationIconId,
-    fieldHelpId,
-    ariaDescribedBy,
-  } = useInputAccessibility({
-    id: uniqueId,
-    error,
-    warning,
-    info,
-    label,
-    fieldHelp,
-  });
+    const [uniqueId, uniqueName] = useUniqueId(id, name);
 
-  const labelId = label ? externalLabelId || internalLabelId : "";
+    if (!deprecateInputRefWarnTriggered && inputRef) {
+      deprecateInputRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `inputRef` prop in `Textbox` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
 
-  const hasIconInside = !!(
-    inputIcon ||
-    (validationIconId && !validationOnLabel)
-  );
+    const {
+      labelId: internalLabelId,
+      validationIconId,
+      fieldHelpId,
+      ariaDescribedBy,
+    } = useInputAccessibility({
+      id: uniqueId,
+      error,
+      warning,
+      info,
+      label,
+      fieldHelp,
+    });
 
-  const input = (
-    <InputPresentation
-      align={align}
-      disabled={disabled}
-      readOnly={readOnly}
-      size={size}
-      error={error}
-      warning={warning}
-      info={info}
-      inputWidth={inputWidth || 100 - labelWidth}
-      maxWidth={maxWidth}
-      positionedChildren={positionedChildren}
-      hasIcon={hasIconInside}
-    >
-      {leftChildren}
-      {prefix && (
-        <StyledPrefix data-element="textbox-prefix" size={size}>
-          {prefix}
-        </StyledPrefix>
-      )}
-      <Input
-        {...(required && { required })}
-        align={align}
-        aria-invalid={!!error}
-        aria-labelledby={labelId}
-        aria-describedby={validationRedesignOptIn ? undefined : ariaDescribedBy}
-        autoFocus={autoFocus}
-        deferTimeout={deferTimeout}
-        disabled={disabled}
-        id={uniqueId}
-        inputRef={inputRef}
-        name={uniqueName}
-        onBlur={onBlur}
-        onChange={onChange}
-        onChangeDeferred={onChangeDeferred}
-        onClick={onClick}
-        onFocus={onFocus}
-        onMouseDown={onMouseDown}
-        placeholder={disabled || readOnly ? "" : placeholder}
-        readOnly={readOnly}
-        value={typeof formattedValue === "string" ? formattedValue : value}
-        maxLength={maxLength}
-        {...props}
-      />
-      {children}
-      <InputIconToggle
+    const labelId = label ? externalLabelId || internalLabelId : "";
+
+    const hasIconInside = !!(
+      inputIcon ||
+      (validationIconId && !validationOnLabel)
+    );
+
+    const input = (
+      <InputPresentation
         align={align}
         disabled={disabled}
-        error={error}
-        iconTabIndex={iconTabIndex}
-        info={info}
-        inputIcon={inputIcon}
-        onClick={iconOnClick || onClick}
-        onMouseDown={iconOnMouseDown || onMouseDown}
         readOnly={readOnly}
         size={size}
-        useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
+        error={error}
         warning={warning}
-        validationIconId={
-          validationRedesignOptIn ? undefined : validationIconId
-        }
-      />
-    </InputPresentation>
-  );
-
-  return (
-    <TooltipProvider
-      helpAriaLabel={helpAriaLabel}
-      tooltipPosition={tooltipPosition}
-    >
-      <InputBehaviour>
-        <FormField
+        info={info}
+        inputWidth={inputWidth || 100 - labelWidth}
+        maxWidth={maxWidth}
+        positionedChildren={positionedChildren}
+        hasIcon={hasIconInside}
+      >
+        {leftChildren}
+        {prefix && (
+          <StyledPrefix data-element="textbox-prefix" size={size}>
+            {prefix}
+          </StyledPrefix>
+        )}
+        <Input
+          {...(required && { required })}
+          align={align}
+          aria-invalid={!!error}
+          aria-labelledby={labelId}
+          aria-describedby={
+            validationRedesignOptIn ? undefined : ariaDescribedBy
+          }
+          autoFocus={autoFocus}
+          deferTimeout={deferTimeout}
           disabled={disabled}
-          fieldHelpId={fieldHelpId}
-          fieldHelp={computeLabelPropValues(fieldHelp)}
-          error={error}
-          warning={warning}
-          info={info}
-          label={label}
-          labelId={labelId}
-          labelAlign={computeLabelPropValues(labelAlign)}
-          labelHelp={computeLabelPropValues(labelHelp)}
-          labelInline={computeLabelPropValues(labelInline)}
-          labelSpacing={labelSpacing}
-          labelWidth={computeLabelPropValues(labelWidth)}
           id={uniqueId}
-          reverse={computeLabelPropValues(reverse)}
-          isOptional={isOptional}
-          useValidationIcon={computeLabelPropValues(validationOnLabel)}
-          adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-          isRequired={required}
-          data-component={dataComponent}
-          data-role={dataRole}
-          data-element={dataElement}
+          inputRef={inputRef}
+          ref={ref}
+          name={uniqueName}
+          onBlur={onBlur}
+          onChange={onChange}
+          onChangeDeferred={onChangeDeferred}
+          onClick={onClick}
+          onFocus={onFocus}
+          onMouseDown={onMouseDown}
+          placeholder={disabled || readOnly ? "" : placeholder}
+          readOnly={readOnly}
+          value={typeof formattedValue === "string" ? formattedValue : value}
+          maxLength={maxLength}
+          {...props}
+        />
+        {children}
+        <InputIconToggle
+          align={align}
+          disabled={disabled}
+          error={error}
+          iconTabIndex={iconTabIndex}
+          info={info}
+          inputIcon={inputIcon}
+          onClick={iconOnClick || onClick}
+          onMouseDown={iconOnMouseDown || onMouseDown}
+          readOnly={readOnly}
+          size={size}
+          useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
+          warning={warning}
           validationIconId={
             validationRedesignOptIn ? undefined : validationIconId
           }
-          validationRedesignOptIn={validationRedesignOptIn}
-          {...filterStyledSystemMarginProps(props)}
-        >
-          {validationRedesignOptIn && labelHelp && (
-            <StyledHintText>{labelHelp}</StyledHintText>
-          )}
-          {validationRedesignOptIn ? (
-            <Box position="relative">
-              <ValidationMessage error={error} warning={warning} />
-              {!disableErrorBorder && (error || warning) && (
-                <ErrorBorder warning={!!(!error && warning)} />
-              )}
-              {input}
-            </Box>
-          ) : (
-            input
-          )}
-        </FormField>
-        {characterCount}
-      </InputBehaviour>
-    </TooltipProvider>
-  );
-};
+        />
+      </InputPresentation>
+    );
+
+    return (
+      <TooltipProvider
+        helpAriaLabel={helpAriaLabel}
+        tooltipPosition={tooltipPosition}
+      >
+        <InputBehaviour>
+          <FormField
+            disabled={disabled}
+            fieldHelpId={fieldHelpId}
+            fieldHelp={computeLabelPropValues(fieldHelp)}
+            error={error}
+            warning={warning}
+            info={info}
+            label={label}
+            labelId={labelId}
+            labelAlign={computeLabelPropValues(labelAlign)}
+            labelHelp={computeLabelPropValues(labelHelp)}
+            labelInline={computeLabelPropValues(labelInline)}
+            labelSpacing={labelSpacing}
+            labelWidth={computeLabelPropValues(labelWidth)}
+            id={uniqueId}
+            reverse={computeLabelPropValues(reverse)}
+            isOptional={isOptional}
+            useValidationIcon={computeLabelPropValues(validationOnLabel)}
+            adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+            isRequired={required}
+            data-component={dataComponent}
+            data-role={dataRole}
+            data-element={dataElement}
+            validationIconId={
+              validationRedesignOptIn ? undefined : validationIconId
+            }
+            validationRedesignOptIn={validationRedesignOptIn}
+            {...filterStyledSystemMarginProps(props)}
+          >
+            {validationRedesignOptIn && labelHelp && (
+              <StyledHintText>{labelHelp}</StyledHintText>
+            )}
+            {validationRedesignOptIn ? (
+              <Box position="relative">
+                <ValidationMessage error={error} warning={warning} />
+                {!disableErrorBorder && (error || warning) && (
+                  <ErrorBorder warning={!!(!error && warning)} />
+                )}
+                {input}
+              </Box>
+            ) : (
+              input
+            )}
+          </FormField>
+          {characterCount}
+        </InputBehaviour>
+      </TooltipProvider>
+    );
+  }
+);
+
+Textbox.displayName = "Textbox";
 
 export default Textbox;

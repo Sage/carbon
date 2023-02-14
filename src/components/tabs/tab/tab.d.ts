@@ -32,6 +32,11 @@ export interface TabProps extends PaddingProps {
   href?: string;
   /** Overrides default layout with a one defined in this prop */
   customLayout?: React.ReactNode;
+  /** Additional props to be passed to the Tab's corresponding title. */
+  titleProps?: {
+    /** Identifier used for testing purposes */
+    "data-role"?: string;
+  };
 }
 
 export interface TabAllProps {

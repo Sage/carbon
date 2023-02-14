@@ -6,9 +6,10 @@ import React, {
   useRef,
 } from "react";
 
-import { ValidationProps } from "__internal__/validations";
 import { MarginProps } from "styled-system";
 import invariant from "invariant";
+
+import { ValidationProps } from "../validations";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
 import Label from "../label";

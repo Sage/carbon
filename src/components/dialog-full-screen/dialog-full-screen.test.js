@@ -9,6 +9,7 @@ import {
   nestedDialogTitle,
 } from "./dialog-full-screen-test.stories";
 import {
+  Default as DefaultDocsStory,
   WithComplexExample,
   WithDisableContentPadding,
   WithHeaderChildren,
@@ -36,6 +37,7 @@ import {
   getComponent,
   getElement,
 } from "../../../cypress/locators/index";
+import { buttonDataComponent } from "../../../cypress/locators/button";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { contentElement } from "../../../cypress/locators/content/index";
 import { keyCode } from "../../../cypress/support/helper";
@@ -278,57 +280,90 @@ context("Testing DialogFullScreen component", () => {
 
   describe("should check accessibility for Dialog Full Screen", () => {
     it("should check accessibility for default Dialog Full Screen component", () => {
-      CypressMountWithProviders(<DialogFullScreenComponent open />);
+      CypressMountWithProviders(<DefaultDocsStory />);
 
-      cy.checkAccessibility();
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
     });
 
     it("should check accessibility for default Dialog Full Screen with complex example", () => {
-      CypressMountWithProviders(<WithComplexExample open />);
+      CypressMountWithProviders(<WithComplexExample />);
 
-      cy.checkAccessibility();
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
     });
 
     it("should check accessibility for default Dialog Full Screen with disabled content padding", () => {
-      CypressMountWithProviders(<WithDisableContentPadding open />);
+      CypressMountWithProviders(<WithDisableContentPadding />);
 
-      cy.checkAccessibility();
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
     });
 
     it("should check accessibility for default Dialog Full Screen component with header children", () => {
-      CypressMountWithProviders(<WithHeaderChildren open />);
+      CypressMountWithProviders(<WithHeaderChildren />);
 
-      cy.checkAccessibility();
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
     });
 
     it("should check accessibility for default Dialog Full Screen component with help", () => {
-      CypressMountWithProviders(<WithHelp open />);
+      CypressMountWithProviders(<WithHelp />);
 
-      cy.checkAccessibility();
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
     });
 
     it("should check accessibility for default Dialog Full Screen component with hideable header children", () => {
-      CypressMountWithProviders(<WithHideableHeaderChildren open />);
+      CypressMountWithProviders(<WithHideableHeaderChildren />);
 
-      cy.checkAccessibility();
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
     });
 
     it("should check accessibility for default Dialog Full Screen component with box", () => {
-      CypressMountWithProviders(<WithBox open />);
+      CypressMountWithProviders(<WithBox />);
 
-      cy.checkAccessibility();
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
     });
 
     it("should check accessibility for default Dialog Full Screen component using autoFocus", () => {
-      CypressMountWithProviders(<FocusingADifferentFirstElement open />);
+      CypressMountWithProviders(<FocusingADifferentFirstElement />);
 
-      cy.checkAccessibility();
+      buttonDataComponent()
+        .contains("Open Demo using focusFirstElement")
+        .click()
+        .then(() => cy.checkAccessibility());
+      closeIconButton().click();
+
+      buttonDataComponent()
+        .contains("Open Demo using autoFocus")
+        .click()
+        .then(() => cy.checkAccessibility());
     });
 
     it("should check accessibility for default Dialog Full Screen component with other focusable containers", () => {
-      CypressMountWithProviders(<OtherFocusableContainers open />);
+      CypressMountWithProviders(<OtherFocusableContainers />);
 
-      cy.checkAccessibility();
+      buttonDataComponent()
+        .contains("Open DialogFullScreen")
+        .click()
+        .then(() => cy.checkAccessibility());
     });
   });
 });

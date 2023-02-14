@@ -959,13 +959,13 @@ const FlatTableColorRowSelectableComponent = ({ ...props }) => {
         disabled={selectedCount === 0}
         selectedCount={selectedCount}
       >
-        <IconButton aria-label="csv" onAction={() => {}}>
+        <IconButton aria-label="csv" onClick={() => {}}>
           <Icon type="csv" />
         </IconButton>
-        <IconButton aria-label="delete" onAction={() => {}}>
+        <IconButton aria-label="delete" onClick={() => {}}>
           <Icon type="bin" />
         </IconButton>
-        <IconButton aria-label="pdf" onAction={() => {}}>
+        <IconButton aria-label="pdf" onClick={() => {}}>
           <Icon type="pdf" />
         </IconButton>
       </BatchSelection>
@@ -1081,13 +1081,13 @@ const FlatTableCheckboxComponent = ({ ...props }) => {
         disabled={selectedCount === 0}
         selectedCount={selectedCount}
       >
-        <IconButton aria-label="csv" onAction={() => {}}>
+        <IconButton aria-label="csv" onClick={() => {}}>
           <Icon type="csv" />
         </IconButton>
-        <IconButton aria-label="delete" onAction={() => {}}>
+        <IconButton aria-label="delete" onClick={() => {}}>
           <Icon type="bin" />
         </IconButton>
-        <IconButton aria-label="pdf" onAction={() => {}}>
+        <IconButton aria-label="pdf" onClick={() => {}}>
           <Icon type="pdf" />
         </IconButton>
       </BatchSelection>
@@ -1218,13 +1218,13 @@ const FlatTableHighlightableComponent = ({ ...props }) => {
         disabled={selectedCount === 0}
         selectedCount={selectedCount}
       >
-        <IconButton aria-label="csv" onAction={() => {}}>
+        <IconButton aria-label="csv" onClick={() => {}}>
           <Icon type="csv" />
         </IconButton>
-        <IconButton aria-label="delete" onAction={() => {}}>
+        <IconButton aria-label="delete" onClick={() => {}}>
           <Icon type="bin" />
         </IconButton>
-        <IconButton aria-label="pdf" onAction={() => {}}>
+        <IconButton aria-label="pdf" onClick={() => {}}>
           <Icon type="pdf" />
         </IconButton>
       </BatchSelection>
@@ -2023,13 +2023,13 @@ const FlatTableAllSubrowSelectableComponent = () => {
         disabled={selectedCount === 0}
         selectedCount={selectedCount}
       >
-        <IconButton aria-label="download as csv" onAction={() => {}}>
+        <IconButton aria-label="download as csv" onClick={() => {}}>
           <Icon type="csv" />
         </IconButton>
-        <IconButton aria-label="bin" onAction={() => {}}>
+        <IconButton aria-label="bin" onClick={() => {}}>
           <Icon type="bin" />
         </IconButton>
-        <IconButton aria-label="download as pdf" onAction={() => {}}>
+        <IconButton aria-label="download as pdf" onClick={() => {}}>
           <Icon type="pdf" />
         </IconButton>
       </BatchSelection>
@@ -2210,13 +2210,13 @@ const FlatTableParentSubrowSelectableComponent = () => {
         disabled={selectedCount === 0}
         selectedCount={selectedCount}
       >
-        <IconButton aria-label="download as csv" onAction={() => {}}>
+        <IconButton aria-label="download as csv" onClick={() => {}}>
           <Icon type="csv" />
         </IconButton>
-        <IconButton aria-label="bin" onAction={() => {}}>
+        <IconButton aria-label="bin" onClick={() => {}}>
           <Icon type="bin" />
         </IconButton>
-        <IconButton aria-label="download as pdf" onAction={() => {}}>
+        <IconButton aria-label="download as pdf" onClick={() => {}}>
           <Icon type="pdf" />
         </IconButton>
       </BatchSelection>
@@ -2431,13 +2431,13 @@ const FlatTableChildSubrowSelectableComponent = () => {
         disabled={selectedCount === 0}
         selectedCount={selectedCount}
       >
-        <IconButton aria-label="download as csv" onAction={() => {}}>
+        <IconButton aria-label="download as csv" onClick={() => {}}>
           <Icon type="csv" />
         </IconButton>
-        <IconButton aria-label="bin" onAction={() => {}}>
+        <IconButton aria-label="bin" onClick={() => {}}>
           <Icon type="bin" />
         </IconButton>
-        <IconButton aria-label="download as pdf" onAction={() => {}}>
+        <IconButton aria-label="download as pdf" onClick={() => {}}>
           <Icon type="pdf" />
         </IconButton>
       </BatchSelection>

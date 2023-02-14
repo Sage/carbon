@@ -136,14 +136,16 @@ RenderChildrenProps) {
       {iconType && iconPosition === "before" && children && (
         <Icon type={iconType} {...iconProps} />
       )}
-      <span>
-        <span data-element="main-text">{children}</span>
-        {size === "large" && (
-          <StyledButtonSubtext data-element="subtext">
-            {subtext}
-          </StyledButtonSubtext>
-        )}
-      </span>
+      {children && (
+        <span>
+          <span data-element="main-text">{children}</span>
+          {size === "large" && (
+            <StyledButtonSubtext data-element="subtext">
+              {subtext}
+            </StyledButtonSubtext>
+          )}
+        </span>
+      )}
       {iconType && !children && (
         <TooltipProvider
           disabled={disabled}

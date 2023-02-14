@@ -40,6 +40,10 @@ export interface DateRangeProps extends MarginProps {
    * Pass true boolean to only display orange border
    */
   endWarning?: boolean | string;
+  /**
+   * A React ref to pass to the second of the two Date Input fields
+   */
+  endRef?: React.ForwardedRef<HTMLInputElement>;
   /** An optional string prop to provide an id to the component */
   id?: string;
   /** Display labels inline */
@@ -71,6 +75,10 @@ export interface DateRangeProps extends MarginProps {
    * Pass true boolean to only display blue border
    */
   startInfo?: boolean | string;
+  /**
+   * A React ref to pass to the first of the two Date Input fields
+   */
+  startRef?: React.ForwardedRef<HTMLInputElement>;
   /** An array containing the value of startDate and endDate */
   value: string[];
   /** When true, validation icons will be placed on labels instead of being placed on the inputs */

@@ -549,4 +549,114 @@ describe("NumeralDate", () => {
       });
     });
   });
+
+  describe("ref props", () => {
+    describe("dayRef", () => {
+      it("accepts as a ref object", () => {
+        const ref = { current: null };
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          dayRef: ref,
+        });
+
+        expect(ref.current).toBe(wrapper.find("input").at(0).getDOMNode());
+      });
+
+      it("accepts as a ref callback", () => {
+        const ref = jest.fn();
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          dayRef: ref,
+        });
+
+        expect(ref).toHaveBeenCalledWith(
+          wrapper.find("input").at(0).getDOMNode()
+        );
+      });
+
+      it("sets ref to empty after unmount", () => {
+        const ref = { current: null };
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          dayRef: ref,
+        });
+
+        wrapper.unmount();
+
+        expect(ref.current).toBe(null);
+      });
+    });
+
+    describe("monthRef", () => {
+      it("accepts as a ref object", () => {
+        const ref = { current: null };
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          monthRef: ref,
+        });
+
+        expect(ref.current).toBe(wrapper.find("input").at(1).getDOMNode());
+      });
+
+      it("accepts as a ref callback", () => {
+        const ref = jest.fn();
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          monthRef: ref,
+        });
+
+        expect(ref).toHaveBeenCalledWith(
+          wrapper.find("input").at(1).getDOMNode()
+        );
+      });
+
+      it("sets ref to empty after unmount", () => {
+        const ref = { current: null };
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          monthRef: ref,
+        });
+
+        wrapper.unmount();
+
+        expect(ref.current).toBe(null);
+      });
+    });
+
+    describe("yearRef", () => {
+      it("accepts as a ref object", () => {
+        const ref = { current: null };
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          yearRef: ref,
+        });
+
+        expect(ref.current).toBe(wrapper.find("input").at(2).getDOMNode());
+      });
+
+      it("accepts as a ref callback", () => {
+        const ref = jest.fn();
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          yearRef: ref,
+        });
+
+        expect(ref).toHaveBeenCalledWith(
+          wrapper.find("input").at(2).getDOMNode()
+        );
+      });
+
+      it("sets ref to empty after unmount", () => {
+        const ref = { current: null };
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          yearRef: ref,
+        });
+
+        wrapper.unmount();
+
+        expect(ref.current).toBe(null);
+      });
+    });
+  });
 });

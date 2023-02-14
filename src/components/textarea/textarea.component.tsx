@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from "react";
+import React, { useRef, useEffect, useContext, useCallback } from "react";
 import { MarginProps } from "styled-system";
 
 import { IconType } from "../icon";
@@ -19,6 +19,7 @@ import { NewValidationContext } from "../carbon-provider/carbon-provider.compone
 import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import Box from "../box";
+import Logger from "../../__internal__/utils/logger";
 
 // TODO: Change characterLimit type to number - batch with other breaking changes
 export interface TextareaProps
@@ -116,227 +117,267 @@ export interface TextareaProps
   warning?: boolean | string;
 }
 
-export const Textarea = ({
-  autoFocus,
-  fieldHelp,
-  label,
-  size,
-  children,
-  characterLimit,
-  enforceCharacterLimit = true,
-  warnOverLimit = false,
-  onChange,
-  disabled = false,
-  labelInline,
-  labelAlign,
-  labelHelp,
-  labelSpacing,
-  inputIcon,
-  id: idProp,
-  error,
-  warning,
-  info,
-  name,
-  readOnly = false,
-  placeholder,
-  expandable = false,
-  rows,
-  cols,
-  validationOnLabel = false,
-  adaptiveLabelBreakpoint,
-  inputWidth,
-  maxWidth,
-  labelWidth = 30,
-  tooltipPosition,
-  value,
-  "data-component": dataComponent,
-  "data-element": dataElement,
-  "data-role": dataRole,
-  helpAriaLabel,
-  ...props
-}: TextareaProps) => {
-  const { validationRedesignOptIn } = useContext(NewValidationContext);
-  const computeLabelPropValues = <T,>(prop: T): undefined | T =>
-    validationRedesignOptIn ? undefined : prop;
+let deprecateInputRefWarnTriggered = false;
 
-  const { current: id } = useRef(idProp || guid());
+export const Textarea = React.forwardRef(
+  (
+    {
+      autoFocus,
+      fieldHelp,
+      label,
+      size,
+      children,
+      characterLimit,
+      enforceCharacterLimit = true,
+      warnOverLimit = false,
+      onChange,
+      disabled = false,
+      labelInline,
+      labelAlign,
+      labelHelp,
+      labelSpacing,
+      inputIcon,
+      id: idProp,
+      error,
+      warning,
+      info,
+      name,
+      readOnly = false,
+      placeholder,
+      expandable = false,
+      rows,
+      cols,
+      validationOnLabel = false,
+      adaptiveLabelBreakpoint,
+      inputWidth,
+      maxWidth,
+      labelWidth = 30,
+      tooltipPosition,
+      value,
+      "data-component": dataComponent,
+      "data-element": dataElement,
+      "data-role": dataRole,
+      helpAriaLabel,
+      inputRef,
+      ...props
+    }: TextareaProps,
+    ref: React.ForwardedRef<HTMLTextAreaElement>
+  ) => {
+    const { validationRedesignOptIn } = useContext(NewValidationContext);
+    const computeLabelPropValues = <T,>(prop: T): undefined | T =>
+      validationRedesignOptIn ? undefined : prop;
 
-  const inputRef = useRef<HTMLInputElement>(null);
+    const { current: id } = useRef(idProp || guid());
 
-  const minHeight = useRef(MIN_HEIGHT);
+    const internalRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const expandTextarea = () => {
-    const textarea = inputRef.current;
+    const callbackRef = useCallback(
+      (inputElement: HTMLTextAreaElement | null) => {
+        internalRef.current = inputElement;
 
-    if (textarea?.scrollHeight && textarea?.scrollHeight > minHeight.current) {
-      textarea.style.height = "0px";
-      // Set the height so all content is shown
-      textarea.style.height = `${Math.max(
-        textarea.scrollHeight,
-        minHeight.current
-      )}px`;
-    }
-  };
+        if (!ref) {
+          return;
+        }
 
-  const {
-    labelId,
-    validationIconId,
-    fieldHelpId,
-    ariaDescribedBy,
-    ariaLabelledBy,
-  } = useInputAccessibility({
-    id,
-    error,
-    warning,
-    info,
-    label,
-    fieldHelp,
-  });
+        if ("current" in ref) {
+          ref.current = inputElement;
+        } else {
+          ref(inputElement);
+        }
+      },
+      [ref]
+    );
 
-  const [maxLength, characterCount] = useCharacterCount(
-    value,
-    // TODO: Can be removed after the characterLimit type is changed to number
-    typeof characterLimit === "string"
-      ? parseInt(characterLimit, 10)
-      : characterLimit,
-    warnOverLimit,
-    enforceCharacterLimit
-  );
-
-  useEffect(() => {
-    if (rows) {
-      minHeight.current = inputRef?.current?.scrollHeight || 0;
-    }
-  }, [rows]);
-
-  useEffect(() => {
-    if (expandable) {
-      expandTextarea();
-    }
-  });
-
-  useEffect(() => {
-    if (expandable) {
-      window.addEventListener("resize", expandTextarea);
-      minHeight.current = inputRef?.current?.clientHeight || 0;
+    if (!deprecateInputRefWarnTriggered && inputRef) {
+      deprecateInputRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `inputRef` prop in `Textarea` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
     }
 
-    return () => {
-      if (expandable) {
-        window.removeEventListener("resize", expandTextarea);
+    const minHeight = useRef(MIN_HEIGHT);
+
+    const expandTextarea = () => {
+      const textarea = internalRef.current;
+
+      if (
+        textarea?.scrollHeight &&
+        textarea?.scrollHeight > minHeight.current
+      ) {
+        textarea.style.height = "0px";
+        // Set the height so all content is shown
+        textarea.style.height = `${Math.max(
+          textarea.scrollHeight,
+          minHeight.current
+        )}px`;
       }
     };
-  }, [expandable]);
 
-  const hasIconInside = !!(
-    inputIcon ||
-    (validationIconId && !validationOnLabel)
-  );
+    const {
+      labelId,
+      validationIconId,
+      fieldHelpId,
+      ariaDescribedBy,
+      ariaLabelledBy,
+    } = useInputAccessibility({
+      id,
+      error,
+      warning,
+      info,
+      label,
+      fieldHelp,
+    });
 
-  const input = (
-    <InputPresentation
-      size={size}
-      disabled={disabled}
-      readOnly={readOnly}
-      inputWidth={
-        typeof inputWidth === "number" ? inputWidth : 100 - labelWidth
+    const [maxLength, characterCount] = useCharacterCount(
+      value,
+      // TODO: Can be removed after the characterLimit type is changed to number
+      typeof characterLimit === "string"
+        ? parseInt(characterLimit, 10)
+        : characterLimit,
+      warnOverLimit,
+      enforceCharacterLimit
+    );
+
+    useEffect(() => {
+      if (rows) {
+        minHeight.current = internalRef?.current?.scrollHeight || 0;
       }
-      maxWidth={maxWidth}
-      error={error}
-      warning={warning}
-      info={info}
-    >
-      <Input
-        aria-invalid={!!error}
-        aria-labelledby={ariaLabelledBy}
-        aria-describedby={validationRedesignOptIn ? undefined : ariaDescribedBy}
-        autoFocus={autoFocus}
-        name={name}
-        value={value}
-        ref={inputRef}
-        maxLength={maxLength}
-        onChange={onChange}
-        disabled={disabled}
-        readOnly={readOnly}
-        placeholder={disabled ? "" : placeholder}
-        rows={rows}
-        cols={cols}
-        id={id}
-        as="textarea"
-        {...props}
-      />
-      {children}
-      <InputIconToggle
-        disabled={disabled}
-        readOnly={readOnly}
-        inputIcon={inputIcon}
+    }, [rows]);
+
+    useEffect(() => {
+      if (expandable) {
+        expandTextarea();
+      }
+    });
+
+    useEffect(() => {
+      if (expandable) {
+        window.addEventListener("resize", expandTextarea);
+        minHeight.current = internalRef?.current?.clientHeight || 0;
+      }
+
+      return () => {
+        if (expandable) {
+          window.removeEventListener("resize", expandTextarea);
+        }
+      };
+    }, [expandable]);
+
+    const hasIconInside = !!(
+      inputIcon ||
+      (validationIconId && !validationOnLabel)
+    );
+
+    const input = (
+      <InputPresentation
         size={size}
+        disabled={disabled}
+        readOnly={readOnly}
+        inputWidth={
+          typeof inputWidth === "number" ? inputWidth : 100 - labelWidth
+        }
+        maxWidth={maxWidth}
         error={error}
         warning={warning}
         info={info}
-        validationIconId={
-          validationRedesignOptIn ? undefined : validationIconId
-        }
-        useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
-      />
-    </InputPresentation>
-  );
+      >
+        <Input
+          aria-invalid={!!error}
+          aria-labelledby={ariaLabelledBy}
+          aria-describedby={
+            validationRedesignOptIn ? undefined : ariaDescribedBy
+          }
+          autoFocus={autoFocus}
+          name={name}
+          value={value}
+          ref={callbackRef}
+          maxLength={maxLength}
+          onChange={onChange}
+          disabled={disabled}
+          readOnly={readOnly}
+          placeholder={disabled ? "" : placeholder}
+          rows={rows}
+          cols={cols}
+          id={id}
+          as="textarea"
+          inputRef={inputRef}
+          {...props}
+        />
+        {children}
+        <InputIconToggle
+          disabled={disabled}
+          readOnly={readOnly}
+          inputIcon={inputIcon}
+          size={size}
+          error={error}
+          warning={warning}
+          info={info}
+          validationIconId={
+            validationRedesignOptIn ? undefined : validationIconId
+          }
+          useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
+        />
+      </InputPresentation>
+    );
 
-  return (
-    <TooltipProvider
-      tooltipPosition={tooltipPosition}
-      helpAriaLabel={helpAriaLabel}
-    >
-      <InputBehaviour>
-        <StyledTextarea
-          labelInline={labelInline}
-          data-component={dataComponent}
-          data-role={dataRole}
-          data-element={dataElement}
-          hasIcon={hasIconInside}
-          {...filterStyledSystemMarginProps(props)}
-        >
-          <FormField
-            fieldHelp={computeLabelPropValues(fieldHelp)}
-            fieldHelpId={fieldHelpId}
-            error={error}
-            warning={warning}
-            info={info}
-            label={label}
-            labelId={labelId}
-            disabled={disabled}
-            id={id}
-            labelInline={computeLabelPropValues(labelInline)}
-            labelAlign={computeLabelPropValues(labelAlign)}
-            labelWidth={computeLabelPropValues(labelWidth)}
-            labelHelp={computeLabelPropValues(labelHelp)}
-            labelSpacing={labelSpacing}
-            isRequired={props.required}
-            useValidationIcon={computeLabelPropValues(validationOnLabel)}
-            adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-            validationRedesignOptIn={validationRedesignOptIn}
+    return (
+      <TooltipProvider
+        tooltipPosition={tooltipPosition}
+        helpAriaLabel={helpAriaLabel}
+      >
+        <InputBehaviour>
+          <StyledTextarea
+            labelInline={labelInline}
+            data-component={dataComponent}
+            data-role={dataRole}
+            data-element={dataElement}
+            hasIcon={hasIconInside}
+            {...filterStyledSystemMarginProps(props)}
           >
-            {validationRedesignOptIn && labelHelp && (
-              <StyledHintText>{labelHelp}</StyledHintText>
-            )}
-            {validationRedesignOptIn ? (
-              <Box position="relative">
-                <ValidationMessage error={error} warning={warning} />
-                {(error || warning) && (
-                  <ErrorBorder warning={!!(!error && warning)} />
-                )}
-                {input}
-              </Box>
-            ) : (
-              input
-            )}
-          </FormField>
-          {characterCount}
-        </StyledTextarea>
-      </InputBehaviour>
-    </TooltipProvider>
-  );
-};
+            <FormField
+              fieldHelp={computeLabelPropValues(fieldHelp)}
+              fieldHelpId={fieldHelpId}
+              error={error}
+              warning={warning}
+              info={info}
+              label={label}
+              labelId={labelId}
+              disabled={disabled}
+              id={id}
+              labelInline={computeLabelPropValues(labelInline)}
+              labelAlign={computeLabelPropValues(labelAlign)}
+              labelWidth={computeLabelPropValues(labelWidth)}
+              labelHelp={computeLabelPropValues(labelHelp)}
+              labelSpacing={labelSpacing}
+              isRequired={props.required}
+              useValidationIcon={computeLabelPropValues(validationOnLabel)}
+              adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+              validationRedesignOptIn={validationRedesignOptIn}
+            >
+              {validationRedesignOptIn && labelHelp && (
+                <StyledHintText>{labelHelp}</StyledHintText>
+              )}
+              {validationRedesignOptIn ? (
+                <Box position="relative">
+                  <ValidationMessage error={error} warning={warning} />
+                  {(error || warning) && (
+                    <ErrorBorder warning={!!(!error && warning)} />
+                  )}
+                  {input}
+                </Box>
+              ) : (
+                input
+              )}
+            </FormField>
+            {characterCount}
+          </StyledTextarea>
+        </InputBehaviour>
+      </TooltipProvider>
+    );
+  }
+);
+
+Textarea.displayName = "Textarea";
 
 export { Textarea as OriginalTextarea };
 export default Textarea;
