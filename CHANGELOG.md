@@ -1,3 +1,10 @@
+## [114.13.0](https://github.com/Sage/carbon/compare/v114.12.4...v114.13.0) (2023-02-14)
+
+
+### Features
+
+* **anchor-navigation:** changed behaviour to improve accessibility ([251bd9c](https://github.com/Sage/carbon/commit/251bd9cf7d8e075ae51714bcd8d814944ab7e853)), closes [#5283](https://github.com/Sage/carbon/issues/5283)
+
 ### [114.12.4](https://github.com/Sage/carbon/compare/v114.12.3...v114.12.4) (2023-02-13)
 
 
