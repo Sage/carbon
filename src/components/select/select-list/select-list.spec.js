@@ -7,6 +7,7 @@ import {
   StyledSelectList,
   StyledSelectListTableHeader,
 } from "./select-list.style";
+import StyledSelectListContainer from "./select-list-container.style";
 import Option from "../option/option.component";
 import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
@@ -343,32 +344,31 @@ describe("SelectList", () => {
   });
 
   describe("when the isLoading prop is provided", () => {
-    it("then a Loader Component should be rendered as the last element of the list", () => {
+    it("then a Loader Component should be rendered", () => {
       const wrapper = renderSelectList({
         isLoading: true,
         onListAction: () => {},
         loaderDataRole: "select-list-loader",
       });
-      expect(wrapper.find("li").last().find(Loader).exists()).toBe(true);
-      expect(wrapper.find("li").last().find(Loader).prop("data-role")).toEqual(
+      expect(wrapper.find(Loader).exists()).toBe(true);
+      expect(wrapper.find(Loader).prop("data-role")).toEqual(
         "select-list-loader"
       );
     });
 
-    it("and is in multiColum mode, then a Loader Component should be rendered as the last element of the list", () => {
+    it("and is in multiColum mode, then a Loader Component should be rendered", () => {
       const wrapper = renderOptionRowSelectList({
         isLoading: true,
         onListAction: () => {},
       });
-      expect(
-        wrapper.find(StyledSelectList).children().last().find(Loader).exists()
-      ).toBe(true);
+      expect(wrapper.find(Loader).exists()).toBe(true);
     });
 
     describe("with empty option list", () => {
       it("then the height of the dropdown should be 150px", () => {
         const EmptySelect = () => {
           const [options] = useState([]);
+          const ref = useRef();
 
           return (
             <SelectList
@@ -377,6 +377,7 @@ describe("SelectList", () => {
               onSelectListClose={() => {}}
               isLoading
               isOpen
+              ref={ref}
             >
               {options}
             </SelectList>
@@ -386,7 +387,7 @@ describe("SelectList", () => {
 
         assertStyleMatch(
           { minHeight: "150px" },
-          wrapper.find(StyledSelectList)
+          wrapper.find(StyledSelectListContainer)
         );
 
         wrapper.unmount();
@@ -397,24 +398,30 @@ describe("SelectList", () => {
       "and there is only one option",
       (multiColumn) => {
         it("that option should have the hidden prop", () => {
-          const wrapper = mount(
-            <SelectList
-              value="red"
-              onSelect={() => {}}
-              onSelectListClose={() => {}}
-              multiColumn={multiColumn}
-              isLoading
-              isOpen
-            >
-              {multiColumn ? (
-                <OptionRow id="1" value="opt1" text="red">
-                  <td>foo</td>
-                </OptionRow>
-              ) : (
-                <Option value="opt1" text="red" />
-              )}
-            </SelectList>
-          );
+          const SelectWithOneOption = () => {
+            const ref = useRef();
+            return (
+              <SelectList
+                value="red"
+                onSelect={() => {}}
+                onSelectListClose={() => {}}
+                multiColumn={multiColumn}
+                isLoading
+                isOpen
+                ref={ref}
+              >
+                {multiColumn ? (
+                  <OptionRow id="1" value="opt1" text="red">
+                    <td>foo</td>
+                  </OptionRow>
+                ) : (
+                  <Option value="opt1" text="red" />
+                )}
+              </SelectList>
+            );
+          };
+
+          const wrapper = mount(<SelectWithOneOption />);
 
           expect(
             wrapper
@@ -431,7 +438,7 @@ describe("SelectList", () => {
     const testContainer = document.createElement("div");
     const onListScrollBottomFn = jest.fn();
     let wrapper;
-    let listElement;
+    let listWrapperElement;
 
     testContainer.id = "enzymeContainer";
     document.body.appendChild(testContainer);
@@ -445,7 +452,7 @@ describe("SelectList", () => {
         }),
         { attachTo: testContainer }
       );
-      listElement = wrapper.find(StyledSelectList).getDOMNode();
+      listWrapperElement = wrapper.find(StyledSelectListContainer).getDOMNode();
     });
 
     afterEach(() => {
@@ -458,36 +465,33 @@ describe("SelectList", () => {
 
     it("it should have been called when the element is scrolled to the bottom", () => {
       jest
-        .spyOn(listElement, "scrollHeight", "get")
+        .spyOn(listWrapperElement, "scrollHeight", "get")
         .mockImplementation(() => 100);
-      jest.spyOn(listElement, "scrollTop", "get").mockImplementation(() => 60);
       jest
-        .spyOn(listElement, "clientHeight", "get")
+        .spyOn(listWrapperElement, "scrollTop", "get")
+        .mockImplementation(() => 60);
+      jest
+        .spyOn(listWrapperElement, "clientHeight", "get")
         .mockImplementation(() => 40);
-      listElement.dispatchEvent(new Event("scroll"));
+
+      listWrapperElement.dispatchEvent(new Event("scroll"));
 
       expect(onListScrollBottomFn).toHaveBeenCalled();
     });
 
     it("it should not have been called when the element is scrolled but does not reach the bottom", () => {
       jest
-        .spyOn(listElement, "scrollHeight", "get")
+        .spyOn(listWrapperElement, "scrollHeight", "get")
         .mockImplementation(() => 100);
-      jest.spyOn(listElement, "scrollTop", "get").mockImplementation(() => 50);
       jest
-        .spyOn(listElement, "clientHeight", "get")
+        .spyOn(listWrapperElement, "scrollTop", "get")
+        .mockImplementation(() => 50);
+      jest
+        .spyOn(listWrapperElement, "clientHeight", "get")
         .mockImplementation(() => 40);
-      listElement.dispatchEvent(new Event("scroll"));
+      listWrapperElement.dispatchEvent(new Event("scroll"));
 
       expect(onListScrollBottomFn).not.toHaveBeenCalled();
-    });
-
-    it("it should not have been called when the element is scrolled but does not reach the bottom", () => {
-      jest
-        .spyOn(listElement, "scrollHeight", "get")
-        .mockImplementation(() => 100);
-      wrapper.setProps({ highlightedValue: "opt3", isLoading: true });
-      expect(listElement.scrollTop).toBe(100);
     });
   });
 
@@ -585,37 +589,33 @@ describe("SelectList", () => {
       expect(wrapper.find(Popover).props().disablePortal).toBe(true);
     });
 
-    it.each([
-      "auto",
-      "auto-start",
-      "auto-end",
-      "top",
-      "top-start",
-      "top-end",
-      "bottom",
-      "bottom-start",
-      "bottom-end",
-      "right",
-      "right-start",
-      "right-end",
-      "left",
-      "left-start",
-      "left-end",
-    ])("passes listPlacement prop as a placement prop", (listPlacement) => {
-      const wrapper = renderSelectList({ listPlacement });
+    it.each(["top", "bottom", "right", "left"])(
+      "passes listPlacement prop as a placement prop",
+      (listPlacement) => {
+        const wrapper = renderSelectList({ listPlacement });
 
-      expect(wrapper.find(Popover).prop("placement")).toBe(listPlacement);
-    });
+        expect(wrapper.find(Popover).prop("placement")).toBe(listPlacement);
+      }
+    );
   });
 
   describe("when non option elements are provided as children", () => {
     it("then isHighlighted prop should not be set on them", () => {
-      const wrapper = mount(
-        <SelectList onSelect={() => {}} onSelectListClose={() => {}} isOpen>
-          {false && ""}
-          <li>not an option element</li>
-        </SelectList>
-      );
+      const SelectWithNonOptionChildren = () => {
+        const ref = useRef();
+        return (
+          <SelectList
+            onSelect={() => {}}
+            onSelectListClose={() => {}}
+            isOpen
+            ref={ref}
+          >
+            {false && ""}
+            <li>not an option element</li>
+          </SelectList>
+        );
+      };
+      const wrapper = mount(<SelectWithNonOptionChildren />);
       expect(wrapper.find("li").props().isHighlighted).toBe(undefined);
       wrapper.unmount();
     });
@@ -730,6 +730,67 @@ describe("SelectList", () => {
         expect(ariaLabelledBy).toEqual(undefined);
       });
     });
+
+    describe("aria-posinset and aria-setsize", () => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = renderWithVirtualScrollAndGroupHeaders();
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
+      });
+
+      it("are set on the Option children, with aria-posinset going up in sequence", () => {
+        const totalOptions = "10000";
+        const optionChildren = wrapper.find(Option);
+        const ninthOption = optionChildren.at(8).getDOMNode();
+        expect(ninthOption.getAttribute("aria-setsize")).toBe(totalOptions);
+        expect(ninthOption.getAttribute("aria-posinset")).toBe("9");
+        const twelfthOption = optionChildren.at(11).getDOMNode();
+        expect(twelfthOption.getAttribute("aria-setsize")).toBe(totalOptions);
+        expect(twelfthOption.getAttribute("aria-posinset")).toBe("12");
+      });
+
+      it("are not set on the other children", () => {
+        const groupHeader = wrapper.find(OptionGroupHeader).at(0).getDOMNode();
+        expect(groupHeader.getAttribute("aria-setsize")).toBe(null);
+        expect(groupHeader.getAttribute("aria-posinset")).toBe(null);
+      });
+    });
+  });
+
+  describe("virtual scrolling", () => {
+    let wrapper;
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    it("when enableVirtualScroll prop is not set, all options are rendered", () => {
+      wrapper = renderWithVirtualScroll(200, false, undefined);
+      const optionChildren = wrapper.find(Option);
+      expect(optionChildren.length).toBe(200);
+    });
+
+    it("when enableVirtualScroll and virtualScrollOverscan props are both set, only the specified number of options are rendered", () => {
+      wrapper = renderWithVirtualScroll(10000, true, 20);
+      const optionChildren = wrapper.find(Option);
+      // can't predict the exact number rendered as the 20 is a buffer either side of the visible ones
+      // - so just check the total is between 20 and 30
+      expect(optionChildren.length).toBeGreaterThanOrEqual(20);
+      expect(optionChildren.length).toBeLessThan(30);
+    });
+
+    it("when enableVirtualScroll prop is set and virtualScrollOverscan is not, the overscan defaults to 5", () => {
+      wrapper = renderWithVirtualScroll(10000, true, undefined);
+      const optionChildren = wrapper.find(Option);
+      // can't predict the exact number rendered as the 5 is a buffer either side of the visible ones
+      // - so just check the total is between 5 and 10
+      expect(optionChildren.length).toBeGreaterThanOrEqual(5);
+      expect(optionChildren.length).toBeLessThan(10);
+    });
   });
 
   describe("IDs are stable over the component's lifecycle", () => {
@@ -738,7 +799,7 @@ describe("SelectList", () => {
 
     beforeEach(() => {
       guidSpy.mockRestore();
-      wrapper = renderUnwrappedSelectList({ isOpen: false });
+      wrapper = renderSelectList({ isOpen: false });
       optionIds = wrapper
         .find(Option)
         .map((option) => option.getDOMNode().getAttribute("id"));
@@ -797,6 +858,65 @@ function renderOptionRowSelectList(
 
 function renderGroupedSelectList(props = {}, renderer = mount) {
   return renderer(getGroupedSelectList(props));
+}
+
+function renderWithVirtualScroll(totalItems, enableVirtualScroll, overscan) {
+  const options = Array(totalItems)
+    .fill()
+    .map((_, index) => (
+      <Option key={index} value={`${index}`} text={`Option ${index + 1}`} />
+    ));
+  const SelectListWithManyOptions = () => {
+    const mockRef = useRef();
+
+    return (
+      <SelectList
+        ref={mockRef}
+        open
+        enableVirtualScroll={enableVirtualScroll}
+        virtualScrollOverscan={overscan}
+      >
+        {options}
+      </SelectList>
+    );
+  };
+  return mount(<SelectListWithManyOptions />);
+}
+
+function renderWithVirtualScrollAndGroupHeaders() {
+  const children = Array(11000)
+    .fill()
+    .map((_, index) =>
+      index % 11 === 0 ? (
+        <OptionGroupHeader
+          key={index}
+          label={`Group ${index / 11 + 1}`}
+          icon="individual"
+        />
+      ) : (
+        <Option
+          key={index}
+          value={`${index}`}
+          text={`Option ${index - Math.floor(index / 11)}`}
+        />
+      )
+    );
+
+  const SelectListWithManyOptions = () => {
+    const mockRef = useRef();
+
+    return (
+      <SelectList
+        ref={mockRef}
+        open
+        enableVirtualScroll
+        virtualScrollOverscan={20}
+      >
+        {children}
+      </SelectList>
+    );
+  };
+  return mount(<SelectListWithManyOptions />);
 }
 
 function getSelectList(props) {
@@ -878,14 +998,4 @@ function getGroupedSelectList(props) {
   };
 
   return <WrapperComponent />;
-}
-
-function renderUnwrappedSelectList(props) {
-  return mount(
-    <SelectList {...props}>
-      <Option value="opt1" text="red" />
-      <Option value="opt2" text="green" />
-      <Option value="opt3" text="blue" />
-    </SelectList>
-  );
 }

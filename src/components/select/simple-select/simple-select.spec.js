@@ -10,7 +10,7 @@ import SimpleSelect from "./simple-select.component";
 import Textbox from "../../textbox";
 import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
-import { StyledSelectList } from "../select-list/select-list.style";
+import StyledSelectListContainer from "../select-list/select-list-container.style";
 import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import Label from "../../../__internal__/label";
@@ -151,7 +151,10 @@ describe("SimpleSelect", () => {
       const wrapper = renderSelect({ listMaxHeight: 120, openOnFocus: true });
 
       simulateSelectTextboxEvent(wrapper, "focus");
-      assertStyleMatch({ maxHeight: "120px" }, wrapper.find(StyledSelectList));
+      assertStyleMatch(
+        { maxHeight: "120px" },
+        wrapper.find(StyledSelectListContainer)
+      );
     });
   });
 

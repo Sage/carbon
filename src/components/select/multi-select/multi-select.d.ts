@@ -48,6 +48,13 @@ export interface MultiSelectProps
   flipEnabled?: boolean;
   /** Wraps the pill text when it would overflow the input width */
   wrapPillText?: boolean;
+  /** Set this prop to enable a virtualised list of options. If it is not used then all options will be in the
+   * DOM at all times, which may cause performance problems on very large lists */
+  enableVirtualScroll?: boolean;
+  /** The number of options to render into the DOM at once, either side of the currently-visible ones.
+   * Higher values make for smoother scrolling but may impact performance.
+   * Only used if the `enableVirtualScroll` prop is set. */
+  virtualScrollOverscan?: number;
 }
 
 declare function MultiSelect(

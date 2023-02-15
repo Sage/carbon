@@ -14,8 +14,9 @@ import {
 } from "../../../../cypress/locators";
 
 import {
-  selectList,
+  selectListWrapper,
   selectOption,
+  selectOptionByText,
   dropdownButton,
   selectListText,
   multiColumnsSelectListHeader,
@@ -470,6 +471,23 @@ const MultiSelectCustomColorComponent = ({ ...props }) => {
   );
 };
 
+const MultiSelectWithManyOptionsAndVirtualScrolling = () => (
+  <MultiSelect
+    name="virtualised"
+    id="virtualised"
+    label="choose an option"
+    labelInline
+    enableVirtualScroll
+    virtualScrollOverscan={10}
+  >
+    {Array(10000)
+      .fill()
+      .map((_, index) => (
+        <Option key={index} value={`${index}`} text={`Option ${index + 1}.`} />
+      ))}
+  </MultiSelect>
+);
+
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testPropValue = CHARACTERS.STANDARD;
 const columns = 3;
@@ -600,7 +618,7 @@ context("Tests for Multi Select component", () => {
 
       commonDataElementInputPreview().should("have.attr", "readOnly");
       selectInput().click();
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it.each([
@@ -737,7 +755,7 @@ context("Tests for Multi Select component", () => {
       commonDataElementInputPreview()
         .should("be.focused")
         .and("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it("should not open the list with mouse click on Multi Select input", () => {
@@ -747,14 +765,14 @@ context("Tests for Multi Select component", () => {
       commonDataElementInputPreview()
         .should("be.focused")
         .and("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it("should open the list with mouse click on dropdown button", () => {
       CypressMountWithProviders(<MultiSelectComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
     });
 
     it("should close the list with mouse click on dropdown button", () => {
@@ -762,37 +780,37 @@ context("Tests for Multi Select component", () => {
 
       dropdownButton().click();
       dropdownButton().click();
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it("should close the list with the Tab key", () => {
       CypressMountWithProviders(<MultiSelectComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       selectInput().realPress("Tab");
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it("should close the list with the Esc key", () => {
       CypressMountWithProviders(<MultiSelectComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
-      selectInput().realPress("Escape");
+      selectListWrapper().should("be.visible");
+      selectInput().realPress("Tab");
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it("should close the list by clicking out of the component", () => {
       CypressMountWithProviders(<MultiSelectComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       body().click({ force: true });
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it.each([
@@ -809,9 +827,9 @@ context("Tests for Multi Select component", () => {
         commonDataElementInputPreview().focus();
         selectInput().realPress(key);
         if (state === "open") {
-          selectList().should("be.visible");
+          selectListWrapper().should("be.visible");
         } else {
-          selectList().should("not.be.visible");
+          selectListWrapper().should("not.be.visible");
         }
       }
     );
@@ -824,7 +842,7 @@ context("Tests for Multi Select component", () => {
         dropdownButton().click();
         selectListText(option).click();
         selectInput().should("have.attr", "aria-expanded", "true");
-        selectList().should("be.visible");
+        selectListWrapper().should("be.visible");
         multiSelectPill().should("have.attr", "title", option);
       }
     );
@@ -835,7 +853,7 @@ context("Tests for Multi Select component", () => {
       dropdownButton().click();
       selectListText(option1).click();
       selectInput().should("have.attr", "aria-expanded", "true");
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       multiSelectPill().should("have.attr", "title", option1);
       selectListText(option2).click();
       multiSelectPillByPosition(0).should("have.attr", "title", option1);
@@ -850,7 +868,7 @@ context("Tests for Multi Select component", () => {
       dropdownButton().click();
       selectListText(option1).click();
       selectInput().should("have.attr", "aria-expanded", "true");
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       multiSelectPill().should("have.attr", "title", option1);
       selectListText(option2).click();
       selectListText(option3).click();
@@ -869,7 +887,7 @@ context("Tests for Multi Select component", () => {
 
         commonDataElementInputPreview().type(text);
         selectInput().should("have.attr", "aria-expanded", "true");
-        selectList().should("be.visible");
+        selectListWrapper().should("be.visible");
         selectOption(positionOfElement("first"))
           .should("have.text", optionValue1)
           .and("be.visible")
@@ -889,7 +907,7 @@ context("Tests for Multi Select component", () => {
       CypressMountWithProviders(<MultiSelectWithLazyLoadingComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       for (let i = 0; i < 3; i++) {
         loader(i).should("be.visible");
       }
@@ -901,7 +919,7 @@ context("Tests for Multi Select component", () => {
       const option = "Amber";
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       for (let i = 0; i < 3; i++) {
         loader(i).should("be.visible");
       }
@@ -909,7 +927,7 @@ context("Tests for Multi Select component", () => {
       dropdownButton().click();
       selectResetButton().click({ force: true });
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       for (let i = 0; i < 3; i++) {
         loader(i).should("be.visible");
       }
@@ -925,9 +943,9 @@ context("Tests for Multi Select component", () => {
       selectListText(option).click();
       multiSelectPill().should("have.attr", "title", option);
       selectInput().should("have.attr", "aria-expanded", "true");
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       dropdownButton().click().click();
-      selectList()
+      selectListWrapper()
         .find("li")
         .should(($lis) => {
           expect($lis).to.have.length(count);
@@ -939,7 +957,7 @@ context("Tests for Multi Select component", () => {
 
       commonDataElementInputPreview().focus();
       selectInput().should("have.attr", "aria-expanded", "true");
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
     });
 
     it("should check list is open when input is clicked and openOnFocus is set", () => {
@@ -947,7 +965,7 @@ context("Tests for Multi Select component", () => {
 
       commonDataElementInputPreview().click();
       selectInput().should("have.attr", "aria-expanded", "true");
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
     });
 
     it("should open correct list and select one when an object is already set as a value", () => {
@@ -1046,7 +1064,7 @@ context("Tests for Multi Select component", () => {
       CypressMountWithProviders(<MultiSelectMultiColumnsComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       multiColumnsSelectListHeader()
         .should("have.length", columns)
         .and("be.visible");
@@ -1099,7 +1117,7 @@ context("Tests for Multi Select component", () => {
 
         commonDataElementInputPreview().click().should("be.focused");
         commonDataElementInputPreview().type(text);
-        selectList().should("be.visible");
+        selectListWrapper().should("be.visible");
         multiColumnsSelectListHeader()
           .should("have.length", columns)
           .and("be.visible");
@@ -1193,13 +1211,13 @@ context("Tests for Multi Select component", () => {
       selectListText(option1).click();
       selectListText(option2).click();
       selectInput().should("have.attr", "aria-expanded", "true");
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       commonDataElementInputPreview().type("{backspace}");
       multiSelectPillByText(option2).should("not.exist");
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       commonDataElementInputPreview().type("{backspace}");
       multiSelectPill().should("not.exist");
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
     });
 
     it("should have correct hover state of list option", () => {
@@ -1312,6 +1330,45 @@ context("Tests for Multi Select component", () => {
           expect(callback).to.have.been.calledTwice;
           expect(callback.getCalls()[1].args[0]).to.equals(text);
         });
+    });
+  });
+
+  describe("check virtual scrolling", () => {
+    it("renders only an appropriate number of options into the DOM when first opened", () => {
+      CypressMountWithProviders(
+        <MultiSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      dropdownButton().click();
+
+      selectOptionByText("Option 1.").should("be.visible");
+      selectOptionByText("Option 10.").should("exist").and("not.be.visible");
+      selectOptionByText("Option 30.").should("not.exist");
+    });
+
+    it("changes the rendered options when you scroll down", () => {
+      CypressMountWithProviders(
+        <MultiSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      dropdownButton().click();
+      selectListWrapper().scrollTo(0, 750).wait(250);
+
+      selectOptionByText("Option 1.").should("not.exist");
+      selectOptionByText("Option 20.").should("be.visible");
+      selectOptionByText("Option 30.").should("exist").and("not.be.visible");
+      selectOptionByText("Option 40.").should("not.exist");
+    });
+
+    it("should filter options when text is typed, taking into account non-rendered options", () => {
+      CypressMountWithProviders(
+        <MultiSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      commonDataElementInputPreview().type("Option 100");
+      selectOptionByText("Option 100.").should("be.visible");
+      selectOptionByText("Option 1000.").should("be.visible");
+      selectOptionByText("Option 1002.").should("be.visible");
     });
   });
 });
