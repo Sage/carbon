@@ -76,7 +76,7 @@ const AdvancedColorPicker = ({
 
   const simpleColorPickerData = useRef<{
     gridItemRefs: Array<HTMLInputElement | null>;
-  }>();
+  }>(null);
 
   const colors = availableColors.map(({ value, label }, index) => {
     return {
