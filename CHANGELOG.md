@@ -1,3 +1,10 @@
+### [114.13.2](https://github.com/Sage/carbon/compare/v114.13.1...v114.13.2) (2023-02-15)
+
+
+### Bug Fixes
+
+* **menu, submenu:** refactor components to remove children iteration and cloning ([5530a8f](https://github.com/Sage/carbon/commit/5530a8ffc9d00008217a55d9446fb2b71e6dfbeb)), closes [#5592](https://github.com/Sage/carbon/issues/5592)
+
 ### [114.13.1](https://github.com/Sage/carbon/compare/v114.13.0...v114.13.1) (2023-02-14)
 
 
