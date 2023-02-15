@@ -1,12 +1,11 @@
 import React from "react";
-import { ComponentMeta } from "@storybook/react";
 
 import Pod, { PodProps } from "./pod.component";
 import { POD_ALIGNMENTS, POD_SIZES, POD_VARIANTS } from "./pod.config";
 
 export default {
-  component: Pod,
   title: "Pod/Test",
+  includeStories: "Default",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -53,7 +52,7 @@ export default {
     onDelete: { action: "onDelete", control: false },
     onUndo: { action: "onUndo", control: false },
   },
-} as ComponentMeta<typeof Pod>;
+};
 
 export const Default = ({ children, ...args }: PodProps) => (
   <Pod {...args}>{children}</Pod>
@@ -75,4 +74,21 @@ Default.args = {
   internalEditButton: false,
   softDelete: false,
   triggerEditOnContent: false,
+};
+
+export const PodExample = ({ ...props }) => {
+  return (
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      footer="Footer"
+      onEdit={() => {}}
+      onDelete={() => {}}
+      {...props}
+    />
+  );
+};
+
+export const PodDefault = ({ ...props }) => {
+  return <Pod title="Title" {...props} />;
 };
