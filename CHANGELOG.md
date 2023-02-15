@@ -1,3 +1,15 @@
+## [114.14.0](https://github.com/Sage/carbon/compare/v114.13.2...v114.14.0) (2023-02-15)
+
+
+### Features
+
+* **select:** add virtual scrolling support ([a1048d7](https://github.com/Sage/carbon/commit/a1048d779b6fe81dd9930202cbaa443fd9ee153c)), closes [#5492](https://github.com/Sage/carbon/issues/5492)
+
+
+### Bug Fixes
+
+* **select:** ensure IDs of select options remain stable on prop changes ([c35fe3f](https://github.com/Sage/carbon/commit/c35fe3f2a54b1b0c55b4046dbc9dc2193c9f3ef4))
+
 ### [114.13.2](https://github.com/Sage/carbon/compare/v114.13.1...v114.13.2) (2023-02-15)
 
 
