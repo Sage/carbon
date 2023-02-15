@@ -1,12 +1,12 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import { ComponentMeta } from "@storybook/react";
 import { ICONS } from "../icon/icon-config";
 import { PORTRAIT_SHAPES, PORTRAIT_SIZES } from "./portrait.config";
 import Portrait, { PortraitProps } from "./portrait.component";
 
 export default {
   title: "Portrait/Test",
+  includeStories: "Default",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -33,7 +33,7 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof Portrait>;
+};
 
 export const Default = ({ alt, ...args }: PortraitProps) => (
   <Portrait onClick={action("click")} alt={alt} {...args} />
@@ -49,4 +49,19 @@ Default.args = {
   iconType: undefined,
   size: "M",
   shape: "square",
+};
+
+export const PortraitDefaultComponent = ({ ...props }) => {
+  return <Portrait {...props} />;
+};
+
+export const PortraitComponent = ({ ...props }) => {
+  return (
+    <Portrait
+      tooltipMessage="Rebecca Smith"
+      tooltipIsVisible
+      src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
+      {...props}
+    />
+  );
 };

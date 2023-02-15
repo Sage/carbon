@@ -18,6 +18,10 @@ const StyledNavigation = styled.ul`
 const StyledContent = styled.div`
   flex: 1;
   margin-left: 32px;
+
+  [data-carbon-anchornav-ref="true"]:focus {
+    outline: none;
+  }
 `;
 
 export { StyledAnchorNavigation, StyledNavigation, StyledContent };

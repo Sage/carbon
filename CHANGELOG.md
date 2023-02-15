@@ -1,3 +1,38 @@
+### [114.13.1](https://github.com/Sage/carbon/compare/v114.13.0...v114.13.1) (2023-02-14)
+
+
+### Bug Fixes
+
+* trigger release ([e2c853b](https://github.com/Sage/carbon/commit/e2c853bf32fa5200e4ba916e0311a40ae4be85eb))
+
+## [114.13.0](https://github.com/Sage/carbon/compare/v114.12.4...v114.13.0) (2023-02-14)
+
+
+### Features
+
+* **anchor-navigation:** changed behaviour to improve accessibility ([251bd9c](https://github.com/Sage/carbon/commit/251bd9cf7d8e075ae51714bcd8d814944ab7e853)), closes [#5283](https://github.com/Sage/carbon/issues/5283)
+
+### [114.12.4](https://github.com/Sage/carbon/compare/v114.12.3...v114.12.4) (2023-02-13)
+
+
+### Bug Fixes
+
+* **date:** update abbreviated day translations in picker component for German locale ([fef59f0](https://github.com/Sage/carbon/commit/fef59f0477da6a4aecc81c7804da7a45038d68f0)), closes [#5786](https://github.com/Sage/carbon/issues/5786)
+
+### [114.12.3](https://github.com/Sage/carbon/compare/v114.12.2...v114.12.3) (2023-02-10)
+
+
+### Bug Fixes
+
+* **multi-select:** fix onchange callback being called twice on option select ([d1b8581](https://github.com/Sage/carbon/commit/d1b858133147a1b76132202feaad701da0405750))
+
+### [114.12.2](https://github.com/Sage/carbon/compare/v114.12.1...v114.12.2) (2023-02-10)
+
+
+### Bug Fixes
+
+* **box:** ensure z-index is set when sticky or fixed positioned ([7385e53](https://github.com/Sage/carbon/commit/7385e53a8f7137a9e907ae568de19b80cfb9ee00)), closes [#5572](https://github.com/Sage/carbon/issues/5572)
+
 ### [114.12.1](https://github.com/Sage/carbon/compare/v114.12.0...v114.12.1) (2023-02-09)
 
 
