@@ -34,10 +34,13 @@ const events = {
 
 const mockMenuhandleKeyDown = jest.fn();
 const mockSubmenuhandleKeyDown = jest.fn();
+const updateFocusId = jest.fn();
 
 const menuContextValues = {
   handleKeyDown: mockMenuhandleKeyDown,
   menuType: "light",
+  updateFocusId,
+  setOpenSubmenuId: () => {},
 };
 
 const submenuContextValues = (isFocused) => ({
@@ -49,10 +52,12 @@ describe("MenuItem", () => {
   let container;
   let wrapper;
 
-  const renderMenuContext = (isFocused, props) => {
+  const renderMenuContext = (props, additionalContextValues = {}) => {
     return mount(
-      <MenuContext.Provider value={menuContextValues}>
-        <MenuItem href="#" isFocused={isFocused} {...props}>
+      <MenuContext.Provider
+        value={{ ...menuContextValues, ...additionalContextValues }}
+      >
+        <MenuItem href="#" {...props}>
           Item One
         </MenuItem>
       </MenuContext.Provider>,
@@ -620,22 +625,11 @@ describe("MenuItem", () => {
     });
   });
 
-  describe("when focused from menu context", () => {
-    let menuItem;
-
-    it("should be focused", () => {
-      wrapper = renderMenuContext(true);
-      menuItem = wrapper.find(MenuItem).find("a");
-
-      expect(menuItem).toBeFocused();
-    });
-  });
-
   describe("handleKeyDown", () => {
     describe("when onKeyDown prop passed in", () => {
       it("should call onKeyDown", () => {
         const onKeyDownFn = jest.fn();
-        wrapper = renderMenuContext(false, { onKeyDown: onKeyDownFn });
+        wrapper = renderMenuContext({ onKeyDown: onKeyDownFn });
 
         act(() => {
           wrapper
@@ -653,7 +647,7 @@ describe("MenuItem", () => {
 
     describe("when escape key pressed", () => {
       it("should focus the current menu item", () => {
-        wrapper = renderMenuContext(false);
+        wrapper = renderMenuContext();
 
         act(() => {
           wrapper
