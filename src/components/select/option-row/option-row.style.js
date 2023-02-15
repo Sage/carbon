@@ -2,6 +2,10 @@ import styled, { css } from "styled-components";
 
 const StyledOptionRow = styled.tr`
   cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 
   ${({ hidden }) => hidden && "display: none;"}
 

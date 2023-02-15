@@ -1,44 +1,40 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useCallback, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 
 import { StyledMenuWrapper } from "./menu.style";
-import { menuKeyboardNavigation } from "./__internal__/keyboard-navigation";
-import Events from "../../__internal__/utils/helpers/events";
 import MenuContext from "./menu.context";
+import { menuKeyboardNavigation } from "./__internal__/keyboard-navigation";
+import { MENU_ITEM_CHILDREN_LOCATOR } from "./__internal__/locators";
 
 const Menu = ({ menuType = "light", children, ...rest }) => {
-  const [focusedItemIndex, setFocusedItemIndex] = useState(undefined);
-  const [openSubmenuIndex, setOpenSubmenuIndex] = useState(null);
+  const [openSubmenuId, setOpenSubmenuId] = useState(null);
   const ref = useRef();
+  const [focusId, setFocusId] = useState(undefined);
+  const [itemIds, setItemIds] = useState([]);
 
-  const handleKeyDown = useCallback(
-    (event) => {
-      const newIndex = menuKeyboardNavigation(
-        event,
-        React.Children.toArray(children)
-      );
-
-      setFocusedItemIndex(newIndex);
-    },
-    [children]
-  );
-
-  const onClickOutside = useCallback((event) => {
-    // Reset the state of the menu when clicking elsewhere
-    if (!Events.composedPath(event).includes(ref.current)) {
-      setFocusedItemIndex(undefined);
-      document.removeEventListener("click", onClickOutside);
-    }
+  const registerItem = useCallback((id) => {
+    setItemIds((prevState) => {
+      return [...prevState, id];
+    });
   }, []);
 
-  useEffect(() => {
-    document.addEventListener("click", onClickOutside);
+  const unregisterItem = useCallback((id) => {
+    setItemIds((prevState) => {
+      return prevState.filter((itemId) => itemId !== id);
+    });
+  }, []);
 
-    return function cleanup() {
-      document.removeEventListener("click", onClickOutside);
-    };
-  });
+  const handleKeyDown = (event) => {
+    /* istanbul ignore else */
+    if (ref.current) {
+      const focusableItems = Array.from(
+        ref.current.querySelectorAll(MENU_ITEM_CHILDREN_LOCATOR)
+      );
+      const newIndex = menuKeyboardNavigation(event, focusableItems);
+      setFocusId(itemIds[newIndex]);
+    }
+  };
 
   return (
     <StyledMenuWrapper
@@ -47,29 +43,20 @@ const Menu = ({ menuType = "light", children, ...rest }) => {
       {...rest}
       ref={ref}
       role="list"
+      onKeyDown={handleKeyDown}
     >
       <MenuContext.Provider
         value={{
           menuType,
-          handleKeyDown,
           inMenu: true,
-          openSubmenuIndex,
-          setOpenSubmenuIndex,
+          openSubmenuId,
+          setOpenSubmenuId,
+          focusId,
+          registerItem,
+          unregisterItem,
         }}
       >
-        {React.Children.map(children, (child, index) => {
-          const isFocused = focusedItemIndex === index;
-
-          if (
-            React.isValidElement(child) &&
-            child.type.displayName === "MenuItem" &&
-            child.props.submenu
-          ) {
-            return React.cloneElement(child, { isFocused, indexInMenu: index });
-          }
-
-          return child;
-        })}
+        {children}
       </MenuContext.Provider>
     </StyledMenuWrapper>
   );

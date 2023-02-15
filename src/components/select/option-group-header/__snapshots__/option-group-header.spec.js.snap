@@ -3,9 +3,10 @@
 exports[`OptionGroupHeader renders properly 1`] = `
 .c0 {
   box-sizing: border-box;
-  height: 26px;
-  margin: 16px 0 0;
+  position: absolute;
+  height: 40px;
   padding-left: 16px;
+  padding-top: 16px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -82,9 +83,10 @@ exports[`OptionGroupHeader when icon prop is set then it should display the icon
 
 .c0 {
   box-sizing: border-box;
-  height: 26px;
-  margin: 16px 0 0;
+  position: absolute;
+  height: 40px;
   padding-left: 16px;
+  padding-top: 16px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

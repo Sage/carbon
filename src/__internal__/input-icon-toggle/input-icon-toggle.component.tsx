@@ -84,6 +84,7 @@ const InputIconToggle = ({
         onBlur={onBlur}
         onMouseDown={onMouseDown}
         tabIndex={iconTabIndex}
+        data-element="input-icon-toggle"
       >
         <Icon type={type} />
       </InputIconToggleStyle>

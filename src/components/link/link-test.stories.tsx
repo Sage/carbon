@@ -1,12 +1,12 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import { ComponentMeta } from "@storybook/react";
 import { ICONS } from "../icon/icon-config";
 import { LINK_ALIGNMENTS, LINK_POSITIONS, LINK_VARIANTS } from "./link.config";
 import Link, { LinkProps } from "./link.component";
 
 export default {
   title: "Link/Test",
+  includeStories: "DefaultStory",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -39,7 +39,7 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof Link>;
+};
 
 interface LinkStoryProps extends LinkProps {
   hasOnClick: boolean;
@@ -92,4 +92,18 @@ DefaultStory.args = {
   target: "_blank",
   variant: "default",
   isDarkBackground: false,
+};
+
+export const LinkComponent = ({ ...props }) => {
+  return (
+    <div
+      style={{
+        margin: "100px",
+      }}
+    >
+      <Link href="#foo" target="_blank" rel="noreferrer noopener" {...props}>
+        This is a link
+      </Link>
+    </div>
+  );
 };

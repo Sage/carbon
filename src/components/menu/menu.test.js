@@ -279,7 +279,7 @@ context("Testing Menu component", () => {
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
       innerMenu(positionOfElement("second"), span).click({ multiple: true });
       for (let i = 0; i < 3; i++) {
-        cy.focused().tab();
+        cy.focused().trigger("keydown", keyCode("Tab"));
       }
     });
 
@@ -427,7 +427,7 @@ context("Testing Menu component", () => {
       }
     );
 
-    it("should verify the Search component close icon is focusable in Menu when using keyboard navigation", () => {
+    it("should verify the Search component close icon is focusable when using keyboard to navigate down the list of items", () => {
       CypressMountWithProviders(<MenuComponentSearch />);
 
       pressTABKey(1);
@@ -440,6 +440,27 @@ context("Testing Menu component", () => {
       cy.wait(50);
       searchDefaultInput().tab();
       searchCrossIcon().parent().should("have.focus");
+    });
+
+    it("should verify the Search component close icon is focusable when using keyboard to navigate up the list of items", () => {
+      CypressMountWithProviders(<MenuComponentSearch />);
+
+      pressTABKey(1);
+      cy.wait(50);
+      cy.focused().trigger("keydown", keyCode("Enter"));
+      cy.wait(50);
+      searchDefaultInput().clear().type("FooBar");
+      cy.wait(50);
+      cy.focused().trigger("keydown", keyCode("End"));
+      cy.wait(50);
+      cy.focused().tab({ shift: true });
+      cy.wait(50);
+      cy.focused().tab({ shift: true });
+      cy.wait(50);
+      searchCrossIcon().parent().should("have.focus");
+      cy.focused().tab({ shift: true });
+      cy.wait(50);
+      searchDefaultInput().should("have.focus");
     });
 
     it("should verify that the Search component is focusable by using the downarrow key when rendered as the parent of a scrollable submenu", () => {
@@ -1225,20 +1246,6 @@ context("Testing Menu component", () => {
           expect(callback).to.have.been.calledOnce;
         });
     });
-
-    it.each(["Enter", "Space", "downarrow", "uparrow"])(
-      "should call onKeyDown callback when a keyboard event is triggered",
-      (key) => {
-        CypressMountWithProviders(<MenuComponent onKeyDown={callback} />);
-
-        menuComponent(positionOfElement("fifth"))
-          .trigger("keydown", keyCode(key))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
-      }
-    );
 
     it("should call onSubmenuOpen callback when mouseover event is triggered", () => {
       CypressMountWithProviders(

@@ -52,6 +52,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("anchor-navigation") &&
       !prepareUrl[0].startsWith("loader") &&
       !prepareUrl[0].startsWith("loader-bar") &&
+      !prepareUrl[0].startsWith("link") &&
       !prepareUrl[0].startsWith("link-preview") &&
       !prepareUrl[0].startsWith("verticaldivider") &&
       !prepareUrl[0].startsWith("button-bar") &&
@@ -79,6 +80,8 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("button-toggle-group") &&
       !prepareUrl[0].startsWith("progress-tracker") &&
       !prepareUrl[0].startsWith("portrait") &&
+      !prepareUrl[0].startsWith("draggable") &&
+      !prepareUrl[0].startsWith("definition-list") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);

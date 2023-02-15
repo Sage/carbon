@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 import MenuContext from "../menu.context";
 import MenuItem from "../menu-item";
-import SubmenuContext from "../__internal__/submenu/submenu.context";
 import StyledScrollableBlock from "./scrollable-block.style";
 import Box from "../../box";
 
@@ -15,9 +14,7 @@ const ScrollableBlock = ({
   parentVariant,
   ...rest
 }) => {
-  const menuContext = useContext(MenuContext);
-  const submenuContext = useContext(SubmenuContext);
-  const { blockIndex, focusIndex, handleKeyDown } = submenuContext;
+  const { menuType } = useContext(MenuContext);
 
   const scrollVariants = {
     light: "light",
@@ -29,42 +26,30 @@ const ScrollableBlock = ({
   return (
     <StyledScrollableBlock
       data-component="submenu-scrollable-block"
-      menuType={menuContext.menuType}
+      menuType={menuType}
       variant={variant}
       {...rest}
     >
       {parent && (
-        <MenuItem overrideColor variant={parentVariant} as="div" href="#">
+        <MenuItem
+          data-component="scrollable-block-parent"
+          overrideColor
+          variant={parentVariant}
+          as="div"
+          href="#"
+        >
           {parent}
         </MenuItem>
       )}
       <Box
         overflowY="scroll"
-        scrollVariant={scrollVariants[menuContext.menuType]}
+        scrollVariant={scrollVariants[menuType]}
         height={height}
         p={0}
         as="ul"
         role="list"
       >
-        {React.Children.map(children, (child, index) => {
-          let isFocused = false;
-          const blockItemFocused = focusIndex >= blockIndex;
-
-          if (blockItemFocused) {
-            isFocused = focusIndex - blockIndex === index;
-          }
-
-          return (
-            <SubmenuContext.Provider
-              value={{
-                isFocused,
-                handleKeyDown,
-              }}
-            >
-              {child}
-            </SubmenuContext.Provider>
-          );
-        })}
+        {children}
       </Box>
     </StyledScrollableBlock>
   );
