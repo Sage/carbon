@@ -2,12 +2,9 @@ import React from "react";
 import { ComponentMeta } from "@storybook/react";
 
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import Box from "../box";
 import Number, { NumberProps } from "./number.component";
-import {
-  CommonTextboxArgs,
-  commonTextboxArgTypes,
-  getCommonTextboxArgs,
-} from "../textbox/textbox-test.stories";
+import { commonTextboxArgTypes } from "../textbox/textbox-test.stories";
 
 export default {
   title: "Number Input/Test",
@@ -27,7 +24,7 @@ export default {
 export const StringValidation = () => (
   <>
     {["error", "warning", "info"].map((validationType) => (
-      <div key={`${validationType}-string-component`}>
+      <React.Fragment key={`${validationType}-string-component`}>
         <Number
           label="Number"
           value="123456"
@@ -41,7 +38,7 @@ export const StringValidation = () => (
           {...{ [validationType]: "Message" }}
           mb={2}
         />
-      </div>
+      </React.Fragment>
     ))}
   </>
 );
@@ -51,7 +48,7 @@ StringValidation.storyName = "string validation";
 export const StringValidationWithTooltipPositionOverriden = () => (
   <>
     {["error", "warning", "info"].map((validationType) => (
-      <div key={`${validationType}-string-component`}>
+      <React.Fragment key={`${validationType}-string-component`}>
         <Number
           label="Number"
           value="123456"
@@ -59,7 +56,7 @@ export const StringValidationWithTooltipPositionOverriden = () => (
           mb={2}
           tooltipPosition="bottom"
         />
-      </div>
+      </React.Fragment>
     ))}
   </>
 );
@@ -70,7 +67,7 @@ StringValidationWithTooltipPositionOverriden.storyName =
 export const StringValidationOnLabel = () => (
   <>
     {["error", "warning", "info"].map((validationType) => (
-      <div key={`${validationType}-string-label`}>
+      <React.Fragment key={`${validationType}-string-label`}>
         <Number
           label="Number"
           value="123456"
@@ -86,7 +83,7 @@ export const StringValidationOnLabel = () => (
           {...{ [validationType]: "Message" }}
           mb={2}
         />
-      </div>
+      </React.Fragment>
     ))}
   </>
 );
@@ -96,7 +93,7 @@ StringValidationOnLabel.storyName = "string validation on label";
 export const StringValidationOnLabelWithTooltipPositionOverriden = () => (
   <>
     {["error", "warning", "info"].map((validationType) => (
-      <div key={`${validationType}-string-label`}>
+      <React.Fragment key={`${validationType}-string-label`}>
         <Number
           label="Number"
           value="123456"
@@ -105,7 +102,7 @@ export const StringValidationOnLabelWithTooltipPositionOverriden = () => (
           mb={2}
           tooltipPosition="top"
         />
-      </div>
+      </React.Fragment>
     ))}
   </>
 );
@@ -116,7 +113,7 @@ StringValidationOnLabel.storyName =
 export const BooleanValidation = () => (
   <>
     {["error", "warning", "info"].map((validationType) => (
-      <div key={`${validationType}-boolean-component`}>
+      <React.Fragment key={`${validationType}-boolean-component`}>
         <Number
           label="Number"
           value="123456"
@@ -130,29 +127,19 @@ export const BooleanValidation = () => (
           {...{ [validationType]: true }}
           mb={2}
         />
-      </div>
+      </React.Fragment>
     ))}
   </>
 );
 
 BooleanValidation.storyName = "boolean validation";
 
-export const NewValidation = ({
-  onKeyDownEnabled,
-  onChangeDeferredEnabled,
-  ...args
-}: CommonTextboxArgs & {
-  onKeyDownEnabled: boolean;
-  onChangeDeferredEnabled: boolean;
-}) => {
+export const NewValidation = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
       {["error", "warning"].map((validationType) =>
         ["small", "medium", "large"].map((size) => (
-          <div
-            style={{ width: "296px" }}
-            key={`${size}-${validationType}-string-component`}
-          >
+          <Box key={`${size}-${validationType}-string-component`} width="296px">
             <Number
               label={`${size} - ${validationType}`}
               value="123456"
@@ -168,7 +155,7 @@ export const NewValidation = ({
               {...{ [validationType]: "Message" }}
               m={4}
             />
-          </div>
+          </Box>
         ))
       )}
     </CarbonProvider>
@@ -176,9 +163,3 @@ export const NewValidation = ({
 };
 
 NewValidation.storyName = "new validation";
-NewValidation.args = {
-  onChangeDeferredEnabled: false,
-  onKeyDownEnabled: false,
-  deferTimeout: undefined,
-  ...getCommonTextboxArgs(),
-};
