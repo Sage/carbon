@@ -4,6 +4,7 @@ import { ComponentMeta } from "@storybook/react";
 import { ICONS } from "../icon/icon-config";
 import { LINK_ALIGNMENTS, LINK_POSITIONS, LINK_VARIANTS } from "./link.config";
 import Link, { LinkProps } from "./link.component";
+import Box from "../box";
 
 export default {
   title: "Link/Test",
@@ -66,16 +67,9 @@ export const DefaultStory = ({
     </Link>
   );
   return (
-    <div
-      style={{
-        margin: "64px",
-        backgroundColor,
-        width: "fit-content",
-        padding: "8px",
-      }}
-    >
+    <Box m="64px" p="8px" backgroundColor={backgroundColor} width="fit-content">
       {link}
-    </div>
+    </Box>
   );
 };
 

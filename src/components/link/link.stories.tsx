@@ -28,16 +28,16 @@ WithIcon.parameters = { chromatic: { disable: true } };
 
 export const WithIconAlign = () => {
   return (["left", "right"] as const).map((align) => (
-    <div key={align} style={{ margin: "64px" }}>
+    <Box key={align} m="64px">
       <Link icon="settings" iconAlign={align} href="#foo">
         This is a link
       </Link>
-    </div>
+    </Box>
   ));
 };
 
 export const WithTooltip = () => (
-  <div style={{ margin: "64px" }}>
+  <Box m="64px">
     <Link
       icon="settings"
       tooltipMessage="This is a tooltip message"
@@ -45,7 +45,7 @@ export const WithTooltip = () => (
     >
       This is a link
     </Link>
-  </div>
+  </Box>
 );
 
 WithTooltip.parameters = { chromatic: { disable: true } };
@@ -97,7 +97,7 @@ export const WithOnClick = () => (
 WithOnClick.parameters = { chromatic: { disable: true } };
 
 export const Variants = () => (
-  <>
+  <Box display="flex" flexDirection="column" gap="20px">
     <Link
       href="https://carbon.sage.com"
       target="_blank"
@@ -106,8 +106,6 @@ export const Variants = () => (
     >
       This is a link
     </Link>
-    <br />
-    <br />
     <Link
       href="https://carbon.sage.com"
       target="_blank"
@@ -116,19 +114,18 @@ export const Variants = () => (
     >
       This is a link
     </Link>
-  </>
+  </Box>
 );
 
 export const OnADarkBackground = () => (
-  <div
-    style={{
-      backgroundColor: "#000000",
-      width: "max-content",
-      padding: "20px 10px",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    }}
+  <Box
+    backgroundColor="var(--colorsYin100)"
+    width="max-content"
+    p="20px 10px"
+    display="flex"
+    flexDirection="column"
+    gap="20px"
+    alignItems="center"
   >
     <Link
       href="https://carbon.sage.com"
@@ -140,13 +137,11 @@ export const OnADarkBackground = () => (
     </Link>
     {(["left", "right"] as const).map((align) => (
       <React.Fragment key={`${align}-default-variant`}>
-        <br />
         <Link icon="settings" isDarkBackground iconAlign={align} href="#foo">
           This is a link
         </Link>
       </React.Fragment>
     ))}
-    <br />
     <Link
       href="https://carbon.sage.com"
       target="_blank"
@@ -158,7 +153,6 @@ export const OnADarkBackground = () => (
     </Link>
     {(["left", "right"] as const).map((align) => (
       <React.Fragment key={`${align}-negative-variant`}>
-        <br />
         <Link
           icon="settings"
           isDarkBackground
@@ -170,7 +164,6 @@ export const OnADarkBackground = () => (
         </Link>
       </React.Fragment>
     ))}
-    <br />
     <Link
       href="https://carbon.sage.com"
       target="_blank"
@@ -182,7 +175,6 @@ export const OnADarkBackground = () => (
     </Link>
     {(["left", "right"] as const).map((align) => (
       <React.Fragment key={`${align}-neutral-variant`}>
-        <br />
         <Link
           icon="settings"
           isDarkBackground
@@ -194,9 +186,8 @@ export const OnADarkBackground = () => (
         </Link>
       </React.Fragment>
     ))}
-    <br />
-    <Link isDarkBackground disabled>
+    <Link href="#foo" isDarkBackground disabled>
       This is a link
     </Link>
-  </div>
+  </Box>
 );

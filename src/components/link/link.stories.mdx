@@ -4,16 +4,20 @@ import LinkTo from "@storybook/addon-links/react";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import * as stories from "./link.stories";
 
-<Meta title="Link" component={Link} parameters={{ info: { disable: true }, controls: { disable: true } }} />
+<Meta
+  title="Link"
+  component={Link}
+  parameters={{ info: { disable: true }, controls: { disable: true } }}
+/>
 
 # Link
 
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/16ff08-link"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 Navigates the user to another location.
@@ -31,6 +35,7 @@ Import `Link` into the project.
 ```javascript
 import Link from "carbon-react/lib/components/link";
 ```
+
 To use Link with a routing library see our documentation on this here: <Link href="https://carbon.sage.com/?path=/docs/documentation-usage-with-routing--page"
     target="_blank"
     rel="noreferrer noopener">Usage with routing</Link>
@@ -44,7 +49,7 @@ By default an anchor element will be rendered.
 `target` and `rel` props will be passed down to the anchor element when provided.
 
 <Canvas>
-  <Story name="default" story={stories.DefaultStory}/>
+  <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
 ### Disabled
@@ -113,17 +118,18 @@ perform client-side routing, but still provide the `href` to render an HTML link
 ### variants
 
 Setting the `variant` prop to either `negative` or `neutral` enables overriding of the `default` styling of the `Link` component.
+
 <Canvas>
   <Story name="variants" story={stories.Variants} />
 </Canvas>
 
 ### On a dark background
- 
-When the `Link` component is rendered on a dark background, the `isDarkBackground` prop can be used to update the colour styling 
-to ensure there is enough contrast. 
+
+When the `Link` component is rendered on a dark background, the `isDarkBackground` prop can be used to update the colour styling
+to ensure there is enough contrast.
 
 <Canvas>
-  <Story name="on a dark background" story={stories.OnADarkBackground}/>
+  <Story name="on a dark background" story={stories.OnADarkBackground} />
 </Canvas>
 
 ## Props
