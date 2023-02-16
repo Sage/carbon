@@ -83,6 +83,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("portrait") &&
       !prepareUrl[0].startsWith("draggable") &&
       !prepareUrl[0].startsWith("definition-list") &&
+      !prepareUrl[0].startsWith("decimal") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);
