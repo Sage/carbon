@@ -80,7 +80,7 @@ export const DefaultStory = ({ initialPageIndex }: PageStoryProps) => {
     }
   };
   return (
-    <div>
+    <>
       <Button onClick={handleOpen}>Open Preview</Button>
       <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
         <Pages initialpageIndex={initialPageIndex} pageIndex={pageIndex}>
@@ -115,7 +115,7 @@ export const DefaultStory = ({ initialPageIndex }: PageStoryProps) => {
           </Page>
         </Pages>
       </DialogFullScreen>
-    </div>
+    </>
   );
 };
 
