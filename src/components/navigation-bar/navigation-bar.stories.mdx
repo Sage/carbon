@@ -11,9 +11,9 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/36c339-navigation-bar"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 This component is used as a wrapper for the Menu component when used as a navigation layout.
@@ -115,9 +115,9 @@ valid CSS string.
     name="content max width using Box"
     decorators={[
       (Story) => (
-        <div style={{ height: 200 }}>
+        <Box height="200px">
           <Story />
-        </div>
+        </Box>
       ),
     ]}
   >
@@ -161,7 +161,7 @@ Then the `orientation` relative to the top/bottom can be offset using the `offse
     name="sticky"
     parameters={{ docs: { inlineStories: false, iframeHeight: 250 } }}
   >
-    <div id="sticky-container" style={{ height: "250px" }}>
+    <Box id="sticky-container" height="250px">
       <NavigationBar
         position="sticky"
         orientation="top"
@@ -192,12 +192,7 @@ Then the `orientation` relative to the top/bottom can be offset using the `offse
           </Menu>
         </Box>
       </NavigationBar>
-      <div
-        style={{
-          height: "1000px",
-          background: "green",
-        }}
-      />
+      <Box height="1000px" backgroundColor="var(--colorsYin075)" />
       <NavigationBar
         position="sticky"
         orientation="bottom"
@@ -221,7 +216,7 @@ Then the `orientation` relative to the top/bottom can be offset using the `offse
           </Menu>
         </Box>
       </NavigationBar>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -266,12 +261,7 @@ top/bottom can be offset using the `offset` prop.
         </MenuItem>
       </Menu>
     </NavigationBar>
-    <div
-      style={{
-        height: "1000px",
-        background: "green",
-      }}
-    />
+    <Box height="1000px" backgroundColor="var(--colorsYin075)" />
     <NavigationBar
       position="fixed"
       orientation="bottom"
