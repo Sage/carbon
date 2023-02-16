@@ -1310,8 +1310,8 @@ context("Tests for Multi Select component", () => {
         .type(text)
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledTwice;
-          expect(callback.getCalls()[1].args[0]).to.equals(text);
+          expect(callback).to.have.been.calledOnce;
+          expect(callback).to.have.been.calledWith(text);
         });
     });
   });
