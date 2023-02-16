@@ -12,6 +12,8 @@ import {
   ActionPopoverItem,
 } from "../action-popover";
 import LinkPreview from "../link-preview";
+import Box from "../box";
+
 import Note from "./note.component";
 
 export const Default: ComponentStory<typeof Note> = () => {
@@ -19,13 +21,13 @@ export const Default: ComponentStory<typeof Note> = () => {
     ContentState.createFromText("Here is some plain text content")
   );
   return (
-    <div style={{ height: 200, width: "50%" }}>
+    <Box height="200px" width="50%">
       <Note
         name="Lauren Smith"
         noteContent={noteContent}
         createdDate="23 May 2020, 12:08 PM"
       />
-    </div>
+    </Box>
   );
 };
 
@@ -42,13 +44,13 @@ export const WithRichText: ComponentStory<typeof Note> = () => {
   );
   const noteContent = EditorState.createWithContent(content);
   return (
-    <div style={{ height: 300, width: "50%" }}>
+    <Box height="300px" width="50%">
       <Note
         noteContent={noteContent}
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
       />
-    </div>
+    </Box>
   );
 };
 
@@ -65,14 +67,14 @@ export const WithTitle: ComponentStory<typeof Note> = () => {
   );
   const noteContent = EditorState.createWithContent(content);
   return (
-    <div style={{ height: 300, width: "50%" }}>
+    <Box height="300px" width="50%">
       <Note
         title="Here is a Title"
         noteContent={noteContent}
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
       />
-    </div>
+    </Box>
   );
 };
 
@@ -96,7 +98,7 @@ export const WithInlineControls: ComponentStory<typeof Note> = () => {
     </ActionPopover>
   );
   return (
-    <div style={{ height: 300, width: "50%" }}>
+    <Box height="300px" width="50%">
       <Note
         title="Here is a Title"
         inlineControl={inlineControl}
@@ -104,7 +106,7 @@ export const WithInlineControls: ComponentStory<typeof Note> = () => {
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
       />
-    </div>
+    </Box>
   );
 };
 
@@ -128,7 +130,7 @@ export const WithStatus: ComponentStory<typeof Note> = () => {
     </ActionPopover>
   );
   return (
-    <div style={{ height: 300, width: "50%" }}>
+    <Box height="300px" width="50%">
       <Note
         title="Here is a Title"
         inlineControl={inlineControl}
@@ -137,7 +139,7 @@ export const WithStatus: ComponentStory<typeof Note> = () => {
         status={{ text: "Edited", timeStamp: "23 May 2020, 12:08 PM" }}
         noteContent={noteContent}
       />
-    </div>
+    </Box>
   );
 };
 
@@ -189,7 +191,7 @@ export const WithPreviews: ComponentStory<typeof Note> = () => {
     />,
   ];
   return (
-    <div style={{ width: "50%" }}>
+    <Box width="50%">
       <Note
         title="Here is a Title"
         inlineControl={inlineControl}
@@ -199,7 +201,7 @@ export const WithPreviews: ComponentStory<typeof Note> = () => {
         noteContent={noteContent}
         previews={previews}
       />
-    </div>
+    </Box>
   );
 };
 
@@ -208,7 +210,7 @@ export const WithMargin: ComponentStory<typeof Note> = () => {
     ContentState.createFromText("Here is some plain text content")
   );
   return (
-    <div style={{ width: "50%" }}>
+    <Box width="50%">
       <Note
         name="Lauren Smith"
         noteContent={noteContent}
@@ -239,6 +241,6 @@ export const WithMargin: ComponentStory<typeof Note> = () => {
         createdDate="23 May 2020, 12:08 PM"
         m="32px"
       />
-    </div>
+    </Box>
   );
 };
