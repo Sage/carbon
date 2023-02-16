@@ -96,7 +96,7 @@ describe("Form", () => {
         wrapper = mount(
           <Form fieldSpacing={spacing}>
             <Textbox />
-            <Textarea characterLimit="50" />
+            <Textarea characterLimit={50} />
             <RadioButtonGroup name="bar">
               <RadioButton value="1" />
             </RadioButtonGroup>
@@ -157,7 +157,7 @@ describe("Form", () => {
         wrapper = mount(
           <Form fieldSpacing={spacing}>
             <Textbox my={1} />
-            <Textarea characterLimit="50" my={1} />
+            <Textarea characterLimit={50} my={1} />
             <Button my={1}>Foo</Button>
             <RadioButtonGroup name="bar" my={1}>
               <RadioButton value="1" />

@@ -15,13 +15,16 @@ import StyledTextarea, { MIN_HEIGHT } from "./textarea.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
-import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
+import {
+  ErrorBorder,
+  StyledHintText,
+  StyledInputHint,
+} from "../textbox/textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import Box from "../box";
 import Logger from "../../__internal__/utils/logger";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
-// TODO: Change characterLimit type to number - batch with other breaking changes
 export interface TextareaProps
   extends ValidationProps,
     MarginProps,
@@ -41,7 +44,7 @@ export interface TextareaProps
   /** Automatically focus the input on component mount */
   autoFocus?: boolean;
   /** Character limit of the textarea */
-  characterLimit?: string | number;
+  characterLimit?: number;
   /** Type of the icon that will be rendered next to the input */
   children?: React.ReactNode;
   /** The visible width of the text control, in average character widths */
@@ -56,6 +59,8 @@ export interface TextareaProps
   error?: boolean | string;
   /** Allows the Textareas Height to change based on user input */
   expandable?: boolean;
+  /** A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. */
+  inputHint?: string;
   /** Help content to be displayed under an input */
   fieldHelp?: React.ReactNode;
   /** Aria label for rendered help component */
@@ -111,8 +116,6 @@ export interface TextareaProps
   validationOnLabel?: boolean;
   /** The value of the Textbox */
   value?: string;
-  /** Whether to display the character count message in red */
-  warnOverLimit?: boolean;
   /** Indicate that warning has occurred
   Pass string to display icon, tooltip and orange border
   Pass true boolean to only display orange border */
@@ -126,13 +129,13 @@ export const Textarea = React.forwardRef(
     {
       "aria-labelledby": ariaLabelledBy,
       autoFocus,
+      inputHint,
       fieldHelp,
       label,
       size,
       children,
       characterLimit,
       enforceCharacterLimit = true,
-      warnOverLimit = false,
       onChange,
       disabled = false,
       labelInline,
@@ -230,15 +233,12 @@ export const Textarea = React.forwardRef(
       fieldHelp,
     });
 
-    const [maxLength, characterCount] = useCharacterCount(
-      value,
-      // TODO: Can be removed after the characterLimit type is changed to number
-      typeof characterLimit === "string"
-        ? parseInt(characterLimit, 10)
-        : characterLimit,
-      warnOverLimit,
-      enforceCharacterLimit
-    );
+    const [
+      maxLength,
+      characterCount,
+      characterCountHintId,
+      characterCountHint,
+    ] = useCharacterCount(value, characterLimit, enforceCharacterLimit);
 
     useEffect(() => {
       if (rows) {
@@ -270,6 +270,27 @@ export const Textarea = React.forwardRef(
       (validationIconId && !validationOnLabel)
     );
 
+    const hintId = useRef(guid());
+
+    const characterCountHintIdValue = characterCount
+      ? characterCountHintId
+      : undefined;
+
+    const inputHintIdValue = inputHint ? hintId.current : undefined;
+
+    const hintIdValue = characterLimit
+      ? characterCountHintIdValue
+      : inputHintIdValue;
+
+    const ariaDescribedByValues = [
+      validationRedesignOptIn ? undefined : ariaDescribedBy,
+      hintIdValue,
+    ];
+
+    const ariaDescribedByValue = ariaDescribedByValues
+      .filter(Boolean)
+      .join(" ");
+
     const input = (
       <InputPresentation
         size={size}
@@ -286,9 +307,7 @@ export const Textarea = React.forwardRef(
         <Input
           aria-invalid={!!error}
           aria-labelledby={ariaLabelledBy}
-          aria-describedby={
-            validationRedesignOptIn ? undefined : ariaDescribedBy
-          }
+          aria-describedby={ariaDescribedByValue}
           autoFocus={autoFocus}
           name={name}
           value={value}
@@ -358,6 +377,11 @@ export const Textarea = React.forwardRef(
               adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
               validationRedesignOptIn={validationRedesignOptIn}
             >
+              {characterLimit || inputHint ? (
+                <StyledInputHint id={hintIdValue} data-element="input-hint">
+                  {characterCountHint || inputHint}
+                </StyledInputHint>
+              ) : null}
               {validationRedesignOptIn && labelHelp && (
                 <StyledHintText>{labelHelp}</StyledHintText>
               )}

@@ -28,6 +28,7 @@
   "coveragePathIgnorePatterns": [
     "node_modules",
     "src/__spec_helper__",
+    "src/locales",
     "lib",
     "esm"
   ],

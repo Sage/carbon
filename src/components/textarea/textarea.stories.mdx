@@ -95,6 +95,22 @@ import Textarea from "carbon-react/lib/components/textarea";
   />
 </Canvas>
 
+### with characterLimit - with translations
+
+Various translations can be applied to both the hint message which appears before the input, and the character 
+counter below the input. 
+
+These translations have been split up to include a number which represents the current character count which
+is over/under the set `characterLimit`. Please see below how this has been achieved with a French translation.
+Include the formatted number count wherever makes sense for the language you're translating too.
+
+<Canvas>
+  <Story 
+    name="with characterLimit with translations" 
+    story={stories.TranslationsCharacterLimitStory}
+  />
+</Canvas>
+
 ### With labelInline
 
 <Canvas>
