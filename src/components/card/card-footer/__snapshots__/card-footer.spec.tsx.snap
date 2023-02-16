@@ -87,10 +87,6 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
   display: block;
 }
 
-.c1 {
-  display: inline-block;
-}
-
 .c1 a,
 .c1 button {
   font-size: 14px;
@@ -121,7 +117,6 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
 .c1 button {
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  display: inline-block;
 }
 
 .c1 a .c2,

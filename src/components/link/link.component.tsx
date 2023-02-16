@@ -1,6 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 
 import Icon, { IconType } from "../icon";
+import MenuContext from "../menu/menu.context";
 import Event from "../../__internal__/utils/helpers/events";
 import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
@@ -79,6 +80,7 @@ export const Link = React.forwardRef<
     ref
   ) => {
     const l = useLocale();
+    const { inMenu } = useContext(MenuContext);
     const handleOnKeyDown = (
       ev:
         | React.KeyboardEvent<HTMLAnchorElement>
@@ -174,6 +176,7 @@ export const Link = React.forwardRef<
         hasContent={Boolean(children)}
         variant={variant}
         isDarkBackground={isDarkBackground}
+        isMenuItem={inMenu}
         {...tagComponent("link", rest)}
         {...(isSkipLink && { "data-element": "skip-link" })}
       >
