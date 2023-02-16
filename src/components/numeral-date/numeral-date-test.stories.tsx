@@ -10,6 +10,7 @@ import {
   NumeralDateProps,
 } from "./numeral-date.component";
 import CarbonProvider from "../carbon-provider";
+import Typography from "../typography";
 
 export default {
   title: "Numeral Date/Test",
@@ -66,7 +67,7 @@ export const Validations = (args: NumeralDateProps<DayMonthDate>) => {
   };
   return (
     <>
-      <h4>Validations as string</h4>
+      <Typography variant="h4">Validations as string</Typography>
       {validationTypes.map((validation) => (
         <NumeralDate<DayMonthDate>
           key={`${validation}-string`}
@@ -80,7 +81,7 @@ export const Validations = (args: NumeralDateProps<DayMonthDate>) => {
           {...args}
         />
       ))}
-      <h4>Validations as string on label</h4>
+      <Typography variant="h4">Validations as string on label</Typography>
       {validationTypes.map((validation) => (
         <NumeralDate
           key={`${validation}-string-on-label`}
@@ -95,7 +96,7 @@ export const Validations = (args: NumeralDateProps<DayMonthDate>) => {
           {...args}
         />
       ))}
-      <h4>Validations as boolean</h4>
+      <Typography variant="h4">Validations as boolean</Typography>
       {validationTypes.map((validation) => (
         <NumeralDate
           key={`${validation}-boolean`}
@@ -118,17 +119,16 @@ Validations.storyName = "validations";
 export const NewDesignValidations = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
-      <h4>New designs validation</h4>
       {["error", "warning"].map((validationType) =>
         ["small", "medium", "large"].map((size) => (
-          <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+          <Box key={`${validationType}-${size}`} width="296px">
             <NumeralDate
               label={`${size} - ${validationType}`}
               {...{ [validationType]: "Message" }}
               size={size as NumeralDateProps["size"]}
               m={4}
             />
-          </div>
+          </Box>
         ))
       )}
     </CarbonProvider>
