@@ -2,6 +2,7 @@
 import React from "react";
 import PopoverContainer from "./popover-container.component";
 import { Select, Option } from "../select";
+import Box from "../box";
 
 export default {
   title: "Popover Container/Test",
@@ -19,7 +20,7 @@ export const Default = ({ title, open }: { title?: string; open: boolean }) => (
 
 export const WithSelect = () => {
   return (
-    <div style={{ height: 100 }}>
+    <Box height="100px">
       <PopoverContainer
         containerAriaLabel="popover-container"
         openButtonAriaLabel="open"
@@ -31,7 +32,7 @@ export const WithSelect = () => {
           <Option value="blue" text="blue" />
         </Select>
       </PopoverContainer>
-    </div>
+    </Box>
   );
 };
 

@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { Meta, Canvas, Story } from "@storybook/addon-docs";
 import { ArgsTable as Props } from "@storybook/addon-docs";
 
 import PopoverContainer, {
@@ -15,6 +15,7 @@ import Pill from "../pill";
 import Badge from "../badge";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import isChromatic from "../../../.storybook/isChromatic";
+import Box from "../box";
 
 export const defaultOpenState = isChromatic();
 
@@ -40,14 +41,14 @@ import PopoverContainer from "carbon-react/lib/components/popover-container";
 
 <Canvas>
   <Story name="default" parameters={{ info: { disable: true } }}>
-    <div style={{ height: 100 }}>
+    <Box height="100px">
       <PopoverContainer
         containerAriaLabel="popover-container"
         openButtonAriaLabel="open"
       >
         Contents
       </PopoverContainer>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -64,7 +65,7 @@ Use the `title` prop to set a title within the `PopoverContainer`.
       const onOpen = () => setOpen(true);
       const onClose = () => setOpen(false);
       return (
-        <div style={{ height: 100 }}>
+        <Box height="100px">
           <PopoverContainer
             title="With a title"
             open={open}
@@ -73,7 +74,7 @@ Use the `title` prop to set a title within the `PopoverContainer`.
           >
             Contents
           </PopoverContainer>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -93,7 +94,7 @@ of the screen.
       const onOpen = () => setOpen(true);
       const onClose = () => setOpen(false);
       return (
-        <div style={{ height: 150, float: "right", clear: "right" }}>
+        <Box height="150px" display="flex" justifyContent="flex-end">
           <PopoverContainer
             title="Right Aligned"
             position="left"
@@ -103,7 +104,7 @@ of the screen.
           >
             Contents
           </PopoverContainer>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -122,7 +123,7 @@ Use the `shouldCoverButton` prop to hide the open button when the `PopoverContai
       const onOpen = () => setOpen(true);
       const onClose = () => setOpen(false);
       return (
-        <div style={{ height: 100 }}>
+        <Box height="100px">
           <PopoverContainer
             title="Cover Button"
             shouldCoverButton
@@ -132,7 +133,7 @@ Use the `shouldCoverButton` prop to hide the open button when the `PopoverContai
           >
             Contents
           </PopoverContainer>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -154,7 +155,7 @@ These props use a render prop pattern - https://reactjs.org/docs/render-props.ht
 
 <Canvas>
   <Story name="render props" parameters={{ info: { disable: true } }}>
-    <div style={{ height: 250 }}>
+    <Box height="250px">
       <PopoverContainer
         title="Custom Open &amp; Close Button"
         renderOpenComponent={({
@@ -203,7 +204,7 @@ These props use a render prop pattern - https://reactjs.org/docs/render-props.ht
       >
         Content
       </PopoverContainer>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -220,7 +221,7 @@ You can use the `open`, `onOpen` and `onClose` props to control the open state o
       const onOpen = () => setOpen(true);
       const onClose = () => setOpen(false);
       return (
-        <div style={{ height: 150 }}>
+        <Box height="150px">
           <Button onClick={onOpen}>Open Popover</Button>
           <Button onClick={onClose} ml={2}>
             Close Popover
@@ -234,7 +235,7 @@ You can use the `open`, `onOpen` and `onClose` props to control the open state o
           >
             Contents
           </PopoverContainer>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -253,7 +254,7 @@ You can easily use many different components to create your own composition.
       const onOpen = () => setOpen(true);
       const onClose = () => setOpen(false);
       return (
-        <div style={{ height: 330 }}>
+        <Box height="330px">
           <PopoverContainer
             title="Popover Container Title"
             open={open}
@@ -261,10 +262,10 @@ You can easily use many different components to create your own composition.
             onClose={onClose}
           >
             <Link>This is example link text</Link>
-            <div style={{ padding: "25px 0 15px 0" }}>
+            <Box p="25px 0 15px 0">
               <Button>Small</Button>
               <Button ml={2}>Compact</Button>
-            </div>
+            </Box>
             <DraggableContainer>
               <DraggableItem key="1" id={1}>
                 <Checkbox name="one" label="Draggable Label One" />
@@ -280,7 +281,7 @@ You can easily use many different components to create your own composition.
               </DraggableItem>
             </DraggableContainer>
           </PopoverContainer>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -369,7 +370,7 @@ You can do it easly in this way:
         });
       };
       return (
-        <div style={{ height: 280 }}>
+        <Box height="280px">
           <PopoverContainer
             title="How to create Filter component"
             open={open}
@@ -398,7 +399,7 @@ You can do it easly in this way:
             </Button>
           </PopoverContainer>
           {renderPills()}
-        </div>
+        </Box>
       );
     }}
   </Story>
