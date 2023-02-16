@@ -99,7 +99,7 @@ context("Tests for Profile component", () => {
   });
 
   describe("Accessibility tests for Profile component", () => {
-    it("should check className as %s for accessibility tests", () => {
+    it("should check className for accessibility tests", () => {
       CypressMountWithProviders(
         <ProfileComponent className="profile-cypress-classname" />
       );

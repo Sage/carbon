@@ -11,10 +11,25 @@ import {
   progressTrackerMinVal,
   progressTrackerMaxVal,
   progressTrackerCustomValuePreposition,
+  progressTrackerDescription,
 } from "../../../cypress/locators/progress-tracker";
 
 const ProgressTrackerComponent = ({ ...props }) => {
   return <ProgressTracker progress={50} showDefaultLabels {...props} />;
+};
+
+const DEFAULT_PROP_VALUE = 50;
+
+const checkPropName = (propName) =>
+  propName.endsWith("now") &&
+  propName.endsWith("min") &&
+  propName.endsWith("max");
+
+const getProps = (propName, shouldBeDefault) => {
+  if (!shouldBeDefault) {
+    return { [propName]: DEFAULT_PROP_VALUE };
+  }
+  return { [propName]: CHARACTERS.STANDARD };
 };
 
 context("Tests for ProgressTracker component", () => {
@@ -28,15 +43,15 @@ context("Tests for ProgressTracker component", () => {
       "aria-valuetext",
     ])("when %s prop is passed", (propName) => {
       it(`verify that the ${propName} is set to cypress-standard`, () => {
-        const props = { [propName]: CHARACTERS.STANDARD };
+        const isNowMinOrMax = checkPropName(propName);
+        const props = getProps(propName, isNowMinOrMax);
+        const assertion = !isNowMinOrMax
+          ? DEFAULT_PROP_VALUE
+          : CHARACTERS.STANDARD;
 
         CypressMountWithProviders(<ProgressTrackerComponent {...props} />);
 
-        progressTrackerComponent().should(
-          "have.attr",
-          propName,
-          CHARACTERS.STANDARD
-        );
+        progressTrackerComponent().should("have.attr", propName, assertion);
       });
     });
 
@@ -166,6 +181,152 @@ context("Tests for ProgressTracker component", () => {
 
         progressTrackerMinVal(index).should("have.text", "50%");
         progressTrackerMaxVal(index).should("have.text", "100%");
+      }
+    );
+
+    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+      "render component with description prop set to %s",
+      (description) => {
+        CypressMountWithProviders(
+          <ProgressTrackerComponent
+            showDefaultLabels
+            description={description}
+          />
+        );
+
+        progressTrackerDescription().should("have.text", description);
+      }
+    );
+  });
+
+  describe("should check accessibility tests for progress tracker component", () => {
+    describe.each([
+      "aria-label",
+      "aria-describedby",
+      "aria-valuenow",
+      "aria-valuemin",
+      "aria-valuemax",
+      "aria-valuetext",
+    ])("when %s prop is passed", (propName) => {
+      it(`check the accessibility when the ${propName} is set to cypress-standard`, () => {
+        const isNowMinOrMax = checkPropName(propName);
+        const props = getProps(propName, isNowMinOrMax);
+
+        CypressMountWithProviders(<ProgressTrackerComponent {...props} />);
+
+        cy.checkAccessibility();
+      });
+    });
+
+    it.each([
+      PROGRESS_TRACKER_SIZES[0],
+      PROGRESS_TRACKER_SIZES[1],
+      PROGRESS_TRACKER_SIZES[2],
+    ])(
+      "should check the accessibility when component is rendered with %s size",
+      (size) => {
+        CypressMountWithProviders(<ProgressTrackerComponent size={size} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["150px", "350px", "550px"])(
+      "should check the accessibility when component is rendered %s length",
+      (length) => {
+        CypressMountWithProviders(<ProgressTrackerComponent length={length} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([12, 47, 100])(
+      "should check the accessibility when component is rendered with %s% of progress",
+      (progress) => {
+        CypressMountWithProviders(
+          <ProgressTrackerComponent progress={progress} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check the accessibility when component is rendered with error prop", () => {
+      CypressMountWithProviders(
+        <ProgressTrackerComponent error showDefaultLabels progress={35} />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it.each([true, false])(
+      "should check the accessibility when component is rendered with showDefaultLabels is set to %s",
+      (boolean) => {
+        CypressMountWithProviders(
+          <ProgressTrackerComponent showDefaultLabels={boolean} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+      "should check the accessibility when component is rendered with currentProgressLabel is set to %s",
+      (currentProgressLabel) => {
+        CypressMountWithProviders(
+          <ProgressTrackerComponent
+            currentProgressLabel={currentProgressLabel}
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+      "should check the accessibility when component is rendered with maxProgressLabel is set to %s",
+      (maxProgressLabel) => {
+        CypressMountWithProviders(
+          <ProgressTrackerComponent maxProgressLabel={maxProgressLabel} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+      "should check the accessibility when component is rendered with customValuePreposition is set to %s",
+      (customValuePreposition) => {
+        CypressMountWithProviders(
+          <ProgressTrackerComponent
+            customValuePreposition={customValuePreposition}
+            showDefaultLabels
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["top", "bottom"])(
+      "should check the accessibility when component is rendered with labelsPosition is set to %s",
+      (labelsPosition) => {
+        CypressMountWithProviders(
+          <ProgressTrackerComponent labelsPosition={labelsPosition} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+      "should check the accessibility when component is rendered with description prop set to %s",
+      (description) => {
+        CypressMountWithProviders(
+          <ProgressTrackerComponent description={description} />
+        );
+
+        cy.checkAccessibility();
       }
     );
   });

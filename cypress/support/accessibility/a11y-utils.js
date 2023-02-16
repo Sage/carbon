@@ -52,9 +52,11 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("anchor-navigation") &&
       !prepareUrl[0].startsWith("loader") &&
       !prepareUrl[0].startsWith("loader-bar") &&
+      !prepareUrl[0].startsWith("link") &&
       !prepareUrl[0].startsWith("link-preview") &&
       !prepareUrl[0].startsWith("verticaldivider") &&
       !prepareUrl[0].startsWith("button-bar") &&
+      !prepareUrl[0].startsWith("button-minor") &&
       !prepareUrl[0].startsWith("batch-selection") &&
       !prepareUrl[0].startsWith("carousel") &&
       !prepareUrl[0].startsWith("badge") &&
@@ -75,7 +77,13 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("profile") &&
       !prepareUrl[0].startsWith("date-range") &&
       !prepareUrl[0].startsWith("pages") &&
+      !prepareUrl[0].startsWith("pod") &&
       !prepareUrl[0].startsWith("button-toggle-group") &&
+      !prepareUrl[0].startsWith("progress-tracker") &&
+      !prepareUrl[0].startsWith("portrait") &&
+      !prepareUrl[0].startsWith("draggable") &&
+      !prepareUrl[0].startsWith("definition-list") &&
+      !prepareUrl[0].startsWith("decimal") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);

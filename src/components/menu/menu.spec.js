@@ -157,11 +157,7 @@ describe("Menu", () => {
         ).toBeFocused();
 
         act(() => {
-          menuWrapper
-            .find(StyledMenuItemWrapper)
-            .at(0)
-            .props()
-            .onKeyDown(events.end);
+          menuWrapper.find(StyledMenuWrapper).props().onKeyDown(events.end);
         });
 
         menuWrapper.update();

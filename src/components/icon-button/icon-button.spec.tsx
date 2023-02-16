@@ -12,17 +12,66 @@ import StyledIconButton from "./icon-button.style";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import Logger from "../../__internal__/utils/logger";
+
+jest.mock("../../__internal__/utils/logger");
 
 describe("IconButton component", () => {
   let wrapper: ReactWrapper;
   let onDismiss: jest.Mock;
+
+  describe("deprecation warning", () => {
+    it("should display deprecation warning when the onAction is passed to the component is used once", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      mount(
+        <IconButton aria-label="icon-button" onAction={() => {}}>
+          <Icon type="home" />
+        </IconButton>
+      );
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `onAction` callback for the `IconButton` component is deprecated and will soon be removed. Please use `onClick` instead"
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("invariant", () => {
+    let consoleSpy: jest.SpyInstance;
+    beforeEach(() => {
+      consoleSpy = jest
+        .spyOn(global.console, "error")
+        .mockImplementation(() => undefined);
+    });
+
+    afterEach(() => {
+      consoleSpy.mockReset();
+    });
+
+    it("throws when onAction & onClick are both used", () => {
+      expect(() => {
+        wrapper = mount(
+          <IconButton
+            aria-label="icon-button"
+            onAction={() => {}}
+            onClick={() => {}}
+          >
+            <Icon type="home" />
+          </IconButton>
+        );
+      }).toThrow(
+        "onClick and onAction have both been set, please use onClick as onAction will soon be deprecated"
+      );
+    });
+  });
 
   describe("refs", () => {
     it("accepts ref as a ref object", () => {
       const ref = { current: null };
 
       wrapper = mount(
-        <IconButton onAction={() => {}} ref={ref}>
+        <IconButton onClick={() => {}} ref={ref}>
           <Icon type="home" tooltipMessage="foo" />
         </IconButton>
       );
@@ -35,7 +84,7 @@ describe("IconButton component", () => {
     it("accepts ref as a ref callback", () => {
       const ref = jest.fn();
       wrapper = mount(
-        <IconButton onAction={() => {}} ref={ref}>
+        <IconButton onClick={() => {}} ref={ref}>
           <Icon type="home" tooltipMessage="foo" />
         </IconButton>
       );
@@ -50,7 +99,7 @@ describe("IconButton component", () => {
     it("sets ref to empty after unmount", () => {
       const ref = { current: null };
       wrapper = mount(
-        <IconButton onAction={() => {}} ref={ref}>
+        <IconButton onClick={() => {}} ref={ref}>
           <Icon type="home" tooltipMessage="foo" />
         </IconButton>
       );
@@ -66,7 +115,7 @@ describe("IconButton component", () => {
   describe("tooltip", () => {
     it("renders TooltipProvider with correct props", () => {
       wrapper = mount(
-        <IconButton onAction={() => {}} disabled>
+        <IconButton onClick={() => {}} disabled>
           <Icon type="home" tooltipMessage="foo" />
         </IconButton>
       );
@@ -92,7 +141,7 @@ describe("IconButton component", () => {
     describe("styled system", () => {
       testStyledSystemSpacing(
         (props) => (
-          <IconButton onAction={() => {}} {...props}>
+          <IconButton onClick={() => {}} {...props}>
             <Icon type="home" />
           </IconButton>
         ),
@@ -117,7 +166,7 @@ describe("IconButton component", () => {
     describe("if disabled prop provided", () => {
       it("should have `not allowed` cursor property", () => {
         wrapper = mount(
-          <IconButton onAction={() => {}} disabled>
+          <IconButton onClick={() => {}} disabled>
             <Icon type="home" />
           </IconButton>
         );
@@ -167,13 +216,26 @@ describe("IconButton component", () => {
         foundIconButton.simulate("click");
         expect(onDismiss).toHaveBeenCalledTimes(1);
       });
+
+      it("triggers `onClick` function", () => {
+        const onClickFn = jest.fn();
+
+        wrapper = mount(
+          <IconButton aria-label="icon-button" onClick={onClickFn}>
+            <Icon type="home" />
+          </IconButton>
+        );
+
+        wrapper.simulate("click");
+        expect(onClickFn).toHaveBeenCalledTimes(1);
+      });
     });
   });
 
   describe("Icon child has a tooltip", () => {
     beforeEach(() => {
       wrapper = mount(
-        <IconButton onAction={() => {}}>
+        <IconButton onClick={() => {}}>
           <Icon type="home" tooltipMessage="foo" />
         </IconButton>
       );
@@ -196,7 +258,7 @@ describe("IconButton component", () => {
             onBlur={blurMock}
             onMouseEnter={mouseEnterMock}
             onMouseLeave={mouseLeaveMock}
-            onAction={() => {}}
+            onClick={() => {}}
           >
             <Icon type="home" tooltipMessage="foo" />
           </IconButton>
@@ -233,7 +295,7 @@ describe("IconButton component", () => {
     describe("when disabled", () => {
       beforeEach(() => {
         wrapper = mount(
-          <IconButton disabled onAction={() => {}}>
+          <IconButton disabled onClick={() => {}}>
             <Icon type="home" tooltipMessage="foo" />
           </IconButton>
         );

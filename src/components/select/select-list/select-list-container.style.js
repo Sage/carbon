@@ -4,10 +4,16 @@ import { baseTheme } from "../../../style/themes";
 const StyledSelectListContainer = styled.div`
   background-color: white;
   box-shadow: var(--boxShadow100);
-  overflow: hidden;
   animation: fadeIn 250ms ease-out;
   position: absolute;
   z-index: ${({ theme }) => theme.zIndex.popover};
+  max-height: ${({ maxHeight }) => `${maxHeight}px`};
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  ${({ isLoading }) => isLoading && "min-height: 150px"};
 
   @keyframes fadeIn {
     0% {

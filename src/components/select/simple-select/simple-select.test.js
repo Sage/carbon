@@ -18,9 +18,9 @@ import {
 import {
   selectText,
   selectInput,
-  selectList,
   selectListWrapper,
   selectOption,
+  selectOptionByText,
   dropdownButton,
   selectListText,
   multiColumnsSelectListHeader,
@@ -32,6 +32,7 @@ import {
   selectListPosition,
   selectDataComponent,
   selectElementInput,
+  multiColumnsSelectListRowAt,
 } from "../../../../cypress/locators/select";
 
 import { loader } from "../../../../cypress/locators/loader";
@@ -477,6 +478,23 @@ const SimpleSelectWithLongWrappingTextComponent = () => (
   </Box>
 );
 
+const SimpleSelectWithManyOptionsAndVirtualScrolling = () => (
+  <SimpleSelect
+    name="virtualised"
+    id="virtualised"
+    label="choose an option"
+    labelInline
+    enableVirtualScroll
+    virtualScrollOverscan={10}
+  >
+    {Array(10000)
+      .fill()
+      .map((_, index) => (
+        <Option key={index} value={`${index}`} text={`Option ${index + 1}.`} />
+      ))}
+  </SimpleSelect>
+);
+
 context("Tests for Simple Select component", () => {
   describe("check props for Simple Select component", () => {
     it.each(testData)(
@@ -584,7 +602,7 @@ context("Tests for Simple Select component", () => {
       selectText().click();
       commonDataElementInputPreview().should("have.attr", "readOnly");
       selectText().should("have.attr", "aria-hidden", "true");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it("should render Simple Select as transparent", () => {
@@ -710,44 +728,44 @@ context("Tests for Simple Select component", () => {
         "aria-expanded",
         "true"
       );
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
     });
 
     it("should open the list with mouse click on dropdown button", () => {
       CypressMountWithProviders(<SimpleSelectComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
     });
 
     it("should close the list with the Tab key", () => {
       CypressMountWithProviders(<SimpleSelectComponent />);
 
       selectText().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       selectInput().tab();
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it("should close the list with the Esc key", () => {
       CypressMountWithProviders(<SimpleSelectComponent />);
 
       selectText().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       selectText().trigger("keydown", { ...keyCode("Esc") });
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it("should close the list by clicking out of the component", () => {
       CypressMountWithProviders(<SimpleSelectComponent />);
 
       selectText().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       body().realClick();
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it.each([["downarrow"], ["uparrow"], ["Space"], ["Home"], ["End"]])(
@@ -757,7 +775,7 @@ context("Tests for Simple Select component", () => {
 
         commonDataElementInputPreview().focus();
         selectInput().trigger("keydown", { ...keyCode(key), force: true });
-        selectList().should("be.visible");
+        selectListWrapper().should("be.visible");
       }
     );
 
@@ -770,7 +788,7 @@ context("Tests for Simple Select component", () => {
         selectListText(option).click();
         getDataElementByValue("input").should("have.attr", "value", option);
         selectInput().should("have.attr", "aria-expanded", "false");
-        selectList().should("not.be.visible");
+        selectListWrapper().should("not.be.visible");
       }
     );
 
@@ -784,8 +802,8 @@ context("Tests for Simple Select component", () => {
       const optionValue11 = "Yellow";
 
       selectText().click();
-      selectList().should("be.visible");
-      selectList().scrollTo("bottom");
+      selectListWrapper().should("be.visible");
+      selectListWrapper().scrollTo("bottom");
       selectListText(optionValue8).should("be.visible");
       selectListText(optionValue9).should("be.visible");
       selectListText(optionValue10).should("be.visible");
@@ -796,29 +814,79 @@ context("Tests for Simple Select component", () => {
       CypressMountWithProviders(<SimpleSelectWithLazyLoadingComponent />);
 
       selectText().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       for (let i = 0; i < 3; i++) {
         loader(i).should("be.visible");
       }
     });
 
-    it("should render a lazy loaded option when the infinte scroll prop is set", () => {
+    it("should render a lazy loaded option when the infinite scroll prop is set", () => {
       CypressMountWithProviders(<SimpleSelectWithInfiniteScrollComponent />);
 
       const option = "Lazy Loaded A1";
 
       selectText().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       for (let i = 0; i < 3; i++) {
         loader(i).should("be.visible");
       }
-      selectList().scrollTo("bottom").wait(250);
-      selectList().scrollTo("bottom");
-      selectList().should("be.visible");
+      selectListWrapper().scrollTo("bottom").wait(250);
+      selectListWrapper().scrollTo("bottom");
+      selectListWrapper().should("be.visible");
       for (let i = 0; i < 3; i++) {
         loader(i).should("be.visible");
       }
-      selectListText(option).should("be.visible");
+      selectListText(option).should("exist");
+    });
+
+    it("infinite scroll example should not cycle back to the start when using down arrow key", () => {
+      CypressMountWithProviders(<SimpleSelectWithInfiniteScrollComponent />);
+
+      const pressDownArrow = () =>
+        commonDataElementInputPreview().trigger("keydown", {
+          ...keyCode("downarrow"),
+          force: true,
+        });
+
+      commonDataElementInputPreview().focus();
+
+      pressDownArrow();
+
+      selectListText("Amber").should("exist");
+
+      for (let i = 0; i < 5; i++) {
+        pressDownArrow();
+      }
+
+      selectListText("Lazy Loaded A1").should("exist");
+
+      // run this 10 times to try to catch any intermitted failures
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 3; j++) {
+          pressDownArrow();
+        }
+        selectListText("Amber").should("not.be.visible");
+      }
+    });
+
+    it("keyboard navigation should work correctly in multicolumn mode and ensure the selected option is visible", () => {
+      CypressMountWithProviders(<SimpleSelectMultipleColumnsComponent />);
+
+      const pressDownArrow = () =>
+        commonDataElementInputPreview().trigger("keydown", {
+          ...keyCode("downarrow"),
+          force: true,
+        });
+
+      commonDataElementInputPreview().focus();
+
+      for (let i = 0; i < 3; i++) {
+        pressDownArrow();
+      }
+
+      getDataElementByValue("input").should("have.attr", "value", "Jill Moe");
+
+      multiColumnsSelectListRowAt(4).should("be.visible");
     });
 
     it("should open correct list and select one when an object is already set as a value", () => {
@@ -844,7 +912,7 @@ context("Tests for Simple Select component", () => {
       const columns = 3;
 
       selectText().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       multiColumnsSelectListHeader()
         .should("have.length", columns)
         .and("be.visible");
@@ -889,7 +957,7 @@ context("Tests for Simple Select component", () => {
         );
 
         selectText().click();
-        selectList().should("be.visible");
+        selectListWrapper().should("be.visible");
         selectListCustomChild(option)
           .should("have.attr", "type", type)
           .and("have.attr", "color", color);
@@ -900,7 +968,7 @@ context("Tests for Simple Select component", () => {
       CypressMountWithProviders(<SimpleSelectGroupComponent />);
 
       selectText().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       selectListOptionGroup("1").should("have.text", "Group one");
     });
 
@@ -910,7 +978,7 @@ context("Tests for Simple Select component", () => {
         <SimpleSelectComponent listMaxHeight={maxHeight} />
       );
       selectText().click();
-      selectList()
+      selectListWrapper()
         .should("have.css", "max-height", `${maxHeight}px`)
         .and("be.visible");
     });
@@ -1124,5 +1192,33 @@ context("Tests for Simple Select component", () => {
           });
       }
     );
+  });
+
+  describe("check virtual scrolling", () => {
+    it("renders only an appropriate number of options into the DOM when first opened", () => {
+      CypressMountWithProviders(
+        <SimpleSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      selectText().click();
+
+      selectOptionByText("Option 1.").should("be.visible");
+      selectOptionByText("Option 10.").should("exist").and("not.be.visible");
+      selectOptionByText("Option 30.").should("not.exist");
+    });
+
+    it("changes the rendered options when you scroll down", () => {
+      CypressMountWithProviders(
+        <SimpleSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      selectText().click();
+      selectListWrapper().scrollTo(0, 750).wait(250);
+
+      selectOptionByText("Option 1.").should("not.exist");
+      selectOptionByText("Option 20.").should("be.visible");
+      selectOptionByText("Option 30.").should("exist").and("not.be.visible");
+      selectOptionByText("Option 40.").should("not.exist");
+    });
   });
 });

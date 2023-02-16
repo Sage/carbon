@@ -1,40 +1,29 @@
 import styled, { css } from "styled-components";
 
 const StyledSelectList = styled.ul`
-  ${({ isLoading, multiColumn }) => css`
+  ${({ listHeight }) => css`
     box-sizing: border-box;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
     list-style-type: none;
-    max-height: ${({ maxHeight }) => `${maxHeight}`}px;
     margin: 0;
     outline: none;
-    overflow-x: hidden;
-    overflow-y: ${multiColumn ? "hidden" : "auto"};
     padding: 0;
-
-    ${
-      isLoading &&
-      css`
-        min-height: 150px;
-      `
-    }}
+    position: relative;
+    width: 100%;
+    ${listHeight === undefined ? "" : `height: ${listHeight}px;`}
   `}
 `;
 
-StyledSelectList.defaultProps = {
-  maxHeight: "180px",
-};
-
-const StyledSelectLoaderContainer = styled.li`
+const StyledSelectLoaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-grow: 1;
   padding-top: 24px;
   padding-bottom: 24px;
   width: 100%;
+  flex-grow: 1;
 `;
 
 const StyledSelectListTable = styled.table`
@@ -45,6 +34,7 @@ const StyledSelectListTable = styled.table`
   min-width: 100%;
   white-space: nowrap;
   height: 180px;
+  overflow-y: auto;
 
   thead,
   tr {
@@ -57,6 +47,10 @@ const StyledSelectListTable = styled.table`
 // TODO (design-tokens): to match current style for border bottom colorsUtilityMajor100
 const StyledSelectListTableHeader = styled.thead`
   border-bottom: 1px solid var(--colorsUtilityMajor050);
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1;
 
   tr {
     width: ${({ scrollbarWidth }) => `calc(100% - ${scrollbarWidth}px)`};
@@ -91,10 +85,10 @@ const StyledSelectListTableHeader = styled.thead`
 
 const StyledSelectListTableBody = styled.tbody`
   display: block;
-  overflow-y: auto;
   width: 100%;
   table-layout: fixed;
-  max-height: 132px;
+  width: 100%;
+  height: ${({ listHeight }) => `${listHeight}px`};
 `;
 
 export {

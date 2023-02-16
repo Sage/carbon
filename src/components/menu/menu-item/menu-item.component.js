@@ -16,7 +16,7 @@ import MenuContext from "../menu.context";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
 import { StyledMenuItem } from "../menu.style";
-import Search from "../../search";
+import guid from "../../../__internal__/utils/helpers/guid";
 
 const MenuItem = ({
   submenu,
@@ -38,40 +38,85 @@ const MenuItem = ({
   onSubmenuClose,
   overrideColor,
   rel,
-  isFocused,
   ...rest
 }) => {
-  const menuContext = useContext(MenuContext);
+  const {
+    inFullscreenView,
+    registerItem,
+    unregisterItem,
+    focusId,
+    menuType,
+    openSubmenuId,
+  } = useContext(MenuContext);
+  const menuItemId = useRef(guid());
   const submenuContext = useContext(SubmenuContext);
+  const {
+    registerItem: registerSubmenuItem,
+    unregisterItem: unregisterSubmenuItem,
+    submenuFocusId,
+    updateFocusId: updateSubmenuFocusId,
+    handleKeyDown: handleSubmenuKeyDown,
+    shiftTabPressed,
+  } = submenuContext;
   const ref = useRef(null);
-  const focusFromMenu = isFocused;
-  const focusFromSubmenu = submenuContext.isFocused;
-  const isChildSearch = useRef(false);
-  const childRef = useRef();
-  const { inFullscreenView } = menuContext;
-  const childrenItems = React.Children.map(children, (child) => {
-    if (child?.type === Search) {
-      isChildSearch.current = true;
-    }
+  const focusFromMenu = focusId === menuItemId.current;
+  const focusFromSubmenu = submenuFocusId
+    ? submenuFocusId === menuItemId.current
+    : undefined;
+  const inputRef = useRef(null);
+  const inputIcon = useRef(null);
 
-    return child;
-  });
+  inputIcon.current = ref.current?.querySelector(
+    "[data-element='input-icon-toggle']"
+  );
+  inputRef.current = ref.current?.querySelector("[data-element='input']");
+  const focusRef = inputRef.current ? inputRef : ref;
 
-  const focusRef = isChildSearch.current ? childRef : ref;
   useEffect(() => {
-    if (focusFromSubmenu === undefined && focusFromMenu) {
+    const id = menuItemId.current;
+    if (registerSubmenuItem) {
+      registerSubmenuItem(id);
+    } else if (registerItem) {
+      registerItem(id);
+    }
+
+    return () => {
+      if (unregisterSubmenuItem) {
+        unregisterSubmenuItem(id);
+      } else if (unregisterItem) {
+        unregisterItem(id);
+      }
+    };
+  }, [
+    registerSubmenuItem,
+    registerItem,
+    unregisterSubmenuItem,
+    unregisterItem,
+  ]);
+
+  useEffect(() => {
+    if (!openSubmenuId && focusFromSubmenu === undefined && focusFromMenu) {
       focusRef.current.focus();
-    } else if (focusFromSubmenu) {
+    } else if (
+      focusFromSubmenu &&
+      !(shiftTabPressed && inputIcon.current?.getAttribute("tabindex") === "0")
+    ) {
       focusRef.current.focus();
     }
-  }, [focusFromMenu, focusFromSubmenu, focusRef]);
+  }, [
+    openSubmenuId,
+    focusFromMenu,
+    focusFromSubmenu,
+    inputIcon,
+    shiftTabPressed,
+    focusRef,
+  ]);
 
   const updateFocusOnClick = useCallback(() => {
-    /* istanbul ignore else */
-    if (submenuContext.updateFocusIndex) {
-      submenuContext.updateFocusIndex(submenuContext.itemIndex);
+    if (updateSubmenuFocusId) {
+      updateSubmenuFocusId(menuItemId.current);
     }
-  }, [submenuContext]);
+  }, [updateSubmenuFocusId]);
 
   const handleKeyDown = useCallback(
     (event) => {
@@ -83,21 +128,26 @@ const MenuItem = ({
         ref.current.focus();
       }
 
-      if (submenuContext.handleKeyDown !== undefined) {
-        if (
-          !(
-            isChildSearch.current &&
-            document.activeElement === focusRef.current &&
-            focusRef.current?.value
-          )
-        ) {
-          submenuContext.handleKeyDown(event);
-        }
-      } else {
-        menuContext.handleKeyDown(event);
+      const shouldFocusIcon =
+        inputIcon.current?.getAttribute("tabindex") === "0" &&
+        document.activeElement === inputRef.current &&
+        inputRef.current?.value;
+
+      // let natural tab order move focus if input icon is tabbable
+      if (
+        Events.isTabKey(event) &&
+        ((!Events.isShiftKey(event) && shouldFocusIcon) ||
+          (Events.isShiftKey(event) &&
+            document.activeElement === inputIcon.current))
+      ) {
+        return;
+      }
+
+      if (handleSubmenuKeyDown) {
+        handleSubmenuKeyDown(event);
       }
     },
-    [focusRef, menuContext, onKeyDown, submenuContext]
+    [onKeyDown, handleSubmenuKeyDown, inputIcon]
   );
 
   const classes = useMemo(
@@ -113,8 +163,7 @@ const MenuItem = ({
     href,
     target,
     rel,
-    onClick:
-      onClick || (isChildSearch.current ? updateFocusOnClick : undefined),
+    onClick: onClick || (inputRef.current ? updateFocusOnClick : undefined),
     icon,
     selected,
     variant,
@@ -123,12 +172,8 @@ const MenuItem = ({
     ref,
   };
 
-  const clonedChildren = isChildSearch.current
-    ? childrenItems.map((child) => React.cloneElement(child, { ref: childRef }))
-    : children;
-
   const getTitle = (title) =>
-    maxWidth && typeof title === "string" ? title : "";
+    maxWidth && typeof title === "string" ? title : undefined;
 
   const itemMaxWidth = !inFullscreenView ? maxWidth : undefined;
   const asPassiveItem = !(onClick || href);
@@ -137,13 +182,14 @@ const MenuItem = ({
     return (
       <StyledMenuItem
         data-component="menu-item"
-        menuType={menuContext.menuType}
+        menuType={menuType}
         display="inline-block"
         title={getTitle(submenu)}
         maxWidth={itemMaxWidth}
         onClick={updateFocusOnClick}
         {...rest}
         inFullscreenView={inFullscreenView}
+        id={menuItemId.current}
       >
         <Submenu
           {...(typeof submenu !== "boolean" && { title: submenu })}
@@ -158,7 +204,7 @@ const MenuItem = ({
           {...elementProps}
           {...rest}
         >
-          {childrenItems}
+          {children}
         </Submenu>
       </StyledMenuItem>
     );
@@ -167,26 +213,28 @@ const MenuItem = ({
   return (
     <StyledMenuItem
       data-component="menu-item"
-      menuType={menuContext.menuType}
-      inSubmenu={submenuContext.handleKeyDown !== undefined}
+      menuType={menuType}
+      inSubmenu={!!handleSubmenuKeyDown}
       display="inline-block"
       title={getTitle(children)}
       maxWidth={itemMaxWidth}
       {...rest}
       inFullscreenView={inFullscreenView && !Object.keys(submenuContext).length}
       menuOpen={menuOpen}
+      id={menuItemId.current}
     >
       <StyledMenuItemWrapper
-        as={isChildSearch.current ? "div" : Link}
-        isSearch={isChildSearch.current}
-        menuType={menuContext.menuType}
+        as={inputRef.current ? "div" : Link}
+        isSearch={inputRef.current}
+        menuType={menuType}
         {...elementProps}
         ariaLabel={ariaLabel}
         maxWidth={maxWidth}
         inFullscreenView={inFullscreenView}
         asPassiveItem={asPassiveItem}
+        placeholderTabIndex={asPassiveItem}
       >
-        {clonedChildren}
+        {children}
       </StyledMenuItemWrapper>
     </StyledMenuItem>
   );
@@ -269,9 +317,7 @@ MenuItem.propTypes = {
   /** @ignore @private */
   overrideColor: PropTypes.bool,
   /** @ignore @private */
-  isFocused: PropTypes.bool,
-  /** @ignore @private */
-  indexInMenu: PropTypes.number,
+  "data-component": PropTypes.string,
 };
 
 MenuItem.displayName = "MenuItem";

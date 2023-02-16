@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
-import { IconType } from "components/icon/icon-type";
+import { IconType } from "../icon";
 
 import BaseTheme from "../../style/themes/base";
 import buttonTypes from "./button-types.style";
@@ -64,9 +64,10 @@ function stylingForType({
     
     ${size === "large" &&
     css`
-      font-size: 16px;
+      font-size: var(--fontSizes200);
       min-height: 48px;
     `}
+
     ${iconOnly && stylingForIconOnly(size)}
   `;
 }
@@ -95,7 +96,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     css`
       width: 100%;
     `}
-
+    
   ${({ iconOnly, iconPosition, iconType }) => css`
     ${StyledIcon} {
       margin-left: ${!iconOnly && iconPosition === "after"

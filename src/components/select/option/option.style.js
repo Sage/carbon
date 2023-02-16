@@ -8,6 +8,10 @@ const StyledOption = styled.li`
   padding: 12px 16px;
   width: 100%;
   user-select: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 
   ${({ isHighlighted }) =>
     isHighlighted &&

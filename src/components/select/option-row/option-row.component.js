@@ -4,7 +4,10 @@ import StyledOptionRow from "./option-row.style";
 import SelectListContext from "../__internal__/select-list-context";
 
 const OptionRow = React.forwardRef(
-  ({ id, text, children, onSelect, value, index, hidden }, ref) => {
+  (
+    { id, text, children, onSelect, value, index, hidden, style, ...rest },
+    ref
+  ) => {
     const handleClick = () => {
       onSelect({ id, text, value });
     };
@@ -25,6 +28,8 @@ const OptionRow = React.forwardRef(
         isHighlighted={selectListContext.currentOptionsListIndex === index}
         role="option"
         hidden={hidden}
+        style={style}
+        {...rest}
       >
         {children}
       </StyledOptionRow>
@@ -60,6 +65,11 @@ OptionRow.propTypes = {
    * @ignore
    * True when option should be hidden from the view (prop added by the SelectList component) */
   hidden: PropTypes.bool,
+  /**
+   * @private
+   * @ignore
+   * object containing CSS styles to be passed to the underlying DOM element */
+  style: PropTypes.object,
 };
 
 export default OptionRow;

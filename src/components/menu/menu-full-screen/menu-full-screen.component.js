@@ -67,7 +67,7 @@ const MenuFullscreen = ({
             >
               <IconButton
                 aria-label="menu fullscreen close button"
-                onAction={onClose}
+                onClick={onClose}
                 data-element="close"
               >
                 <Icon type="close" color={iconColors[menuType]} />
@@ -93,7 +93,6 @@ const MenuFullscreen = ({
                     inFullscreenView: true,
                     menuType,
                     inMenu: true,
-                    setOpenSubmenuIndex: () => {},
                   }}
                 >
                   {React.Children.map(children, (child, index) => (

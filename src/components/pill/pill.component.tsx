@@ -59,7 +59,7 @@ export const Pill = ({
     {children}
     {onDelete && (
       <IconButton
-        onAction={onDelete}
+        onClick={onDelete}
         data-element="close"
         aria-label={ariaLabelOfRemoveButton}
       >

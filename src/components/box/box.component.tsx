@@ -8,7 +8,7 @@ import {
   flexbox,
   FlexboxProps,
   ColorProps,
-  position,
+  position as positionFn,
   PositionProps,
 } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
@@ -56,6 +56,16 @@ export interface BoxProps
 
 let isDeprecationWarningTriggered = false;
 
+const calculatePosition = (props: Omit<PositionProps, "zIndex">) => {
+  const { position, ...rest } = positionFn(props);
+
+  return {
+    position,
+    zIndex: ["sticky", "fixed"].includes(position) ? 1 : undefined,
+    ...rest,
+  };
+};
+
 export const Box = styled.div<BoxProps>`
   ${() => {
     if (!isDeprecationWarningTriggered) {
@@ -70,7 +80,7 @@ export const Box = styled.div<BoxProps>`
   ${space}
   ${layout}
   ${flexbox}
-  ${position}
+  ${calculatePosition}
 
   ${({ color, bg, backgroundColor, ...rest }) =>
     styledColor({ color, bg, backgroundColor, ...rest })}

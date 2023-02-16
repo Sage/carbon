@@ -68,6 +68,8 @@ const MultiSelect = React.forwardRef(
       flipEnabled = true,
       wrapPillText = true,
       inputRef,
+      enableVirtualScroll,
+      virtualScrollOverscan,
       ...textboxProps
     },
     ref
@@ -449,10 +451,6 @@ const MultiSelect = React.forwardRef(
         const isAlreadySelected =
           actualValue.findIndex((val) => isExpectedValue(val, newValue)) !== -1;
 
-        if (!isAlreadySelected && isControlled.current && onChange) {
-          onChange(createCustomEvent([...actualValue, newValue]));
-        }
-
         textboxRef.focus();
         isMouseDownReported.current = false;
 
@@ -464,7 +462,7 @@ const MultiSelect = React.forwardRef(
           return [...previousValue, newValue];
         });
       },
-      [createCustomEvent, onChange, textboxRef, actualValue, updateValue]
+      [textboxRef, actualValue, updateValue]
     );
 
     function onSelectListClose() {
@@ -547,6 +545,8 @@ const MultiSelect = React.forwardRef(
         loaderDataRole="multi-select-list-loader"
         multiselectValues={actualValue}
         isOpen={isOpen}
+        enableVirtualScroll={enableVirtualScroll}
+        virtualScrollOverscan={virtualScrollOverscan}
       >
         {children}
       </FilterableSelectList>
@@ -636,6 +636,13 @@ MultiSelect.propTypes = {
   flipEnabled: PropTypes.bool,
   /** Wraps the pill text when it would overflow the input width */
   wrapPillText: PropTypes.bool,
+  /** Set this prop to enable a virtualised list of options. If it is not used then all options will be in the
+   * DOM at all times, which may cause performance problems on very large lists */
+  enableVirtualScroll: PropTypes.bool,
+  /** The number of options to render into the DOM at once, either side of the currently-visible ones.
+   * Higher values make for smoother scrolling but may impact performance.
+   * Only used if the `enableVirtualScroll` prop is set. */
+  virtualScrollOverscan: PropTypes.number,
 };
 
 MultiSelect.defaultProps = {

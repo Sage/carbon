@@ -1,7 +1,7 @@
-import React, { useMemo } from "react";
-import { IconType } from "components/icon/icon-type";
+import React, { useContext, useMemo } from "react";
 
-import Icon from "../icon";
+import Icon, { IconType } from "../icon";
+import MenuContext from "../menu/menu.context";
 import Event from "../../__internal__/utils/helpers/events";
 import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
@@ -47,6 +47,8 @@ export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
   ariaLabel?: string;
   /** allows to set rel property in <a> tag */
   rel?: string;
+  /** @ignore @private internal prop to be set when no href or onClick passed */
+  placeholderTabIndex?: boolean;
 }
 
 export const Link = React.forwardRef<
@@ -72,11 +74,13 @@ export const Link = React.forwardRef<
       target,
       variant = "default",
       isDarkBackground,
+      placeholderTabIndex,
       ...rest
     }: LinkProps,
     ref
   ) => {
     const l = useLocale();
+    const { inMenu } = useContext(MenuContext);
     const handleOnKeyDown = (
       ev:
         | React.KeyboardEvent<HTMLAnchorElement>
@@ -135,6 +139,7 @@ export const Link = React.forwardRef<
       "aria-label": ariaLabel,
       ...ariaProps,
     };
+
     const createLinkBasedOnType = () => {
       let type = "a";
 
@@ -144,7 +149,12 @@ export const Link = React.forwardRef<
 
       return React.createElement(
         type,
-        componentProps,
+        {
+          ...componentProps,
+          ...(placeholderTabIndex &&
+            href === undefined &&
+            !onClick && { tabIndex: -1 }),
+        },
         <>
           {renderLinkIcon()}
 
@@ -166,6 +176,7 @@ export const Link = React.forwardRef<
         hasContent={Boolean(children)}
         variant={variant}
         isDarkBackground={isDarkBackground}
+        isMenuItem={inMenu}
         {...tagComponent("link", rest)}
         {...(isSkipLink && { "data-element": "skip-link" })}
       >
