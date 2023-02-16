@@ -613,8 +613,8 @@ describe("Link", () => {
           value={{
             inMenu: true,
             menuType: "",
-            openSubmenuIndex: null,
-            setOpenSubmenuIndex: () => {},
+            openSubmenuId: null,
+            setOpenSubmenuId: () => {},
           }}
         >
           <Link href="foo.com" />
