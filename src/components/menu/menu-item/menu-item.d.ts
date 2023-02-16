@@ -31,10 +31,14 @@ export interface MenuItemBaseProps extends LayoutProps, FlexboxProps {
   onSubmenuOpen?: () => void;
   /** Callback triggered when submenu closes. Only valid with submenu prop */
   onSubmenuClose?: () => void;
-  /** @ignore @private
-  private prop, used inside ScrollableBlock to ensure the MenuItem's color variant overrides the CSS
-  for other MenuItems inside the block */
+  /** 
+    @ignore @private
+    private prop, used inside ScrollableBlock to ensure the MenuItem's color variant overrides the CSS
+    for other MenuItems inside the block
+   */
   overrideColor?: boolean;
+  /** @private @ignore */
+  "data-component"?: string;
 }
 
 export interface MenuWithChildren extends MenuItemBaseProps {

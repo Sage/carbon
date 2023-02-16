@@ -92,8 +92,8 @@ describe("VerticalDivider", () => {
         value={{
           menuType: "light",
           inMenu: true,
-          openSubmenuIndex: null,
-          setOpenSubmenuIndex: () => {},
+          openSubmenuId: null,
+          setOpenSubmenuId: () => {},
         }}
       >
         <VerticalDivider />

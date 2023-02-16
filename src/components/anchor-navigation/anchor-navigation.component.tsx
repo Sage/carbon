@@ -4,12 +4,12 @@ import React, {
   useEffect,
   useMemo,
   useCallback,
-  createRef,
 } from "react";
 import { isFragment } from "react-is";
 import invariant from "invariant";
 import throttle from "lodash/throttle";
 
+import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
 import Event from "../../__internal__/utils/helpers/events";
 import {
   StyledAnchorNavigation,
@@ -74,15 +74,6 @@ const AnchorNavigation = ({
     )
   );
 
-  const anchorRefs = useRef(
-    Array.from(
-      {
-        length: React.Children.count(stickyNavigation.props.children),
-      },
-      () => createRef<HTMLAnchorElement>()
-    )
-  );
-
   const contentRef = useRef<HTMLDivElement>(null);
 
   const navigationRef = useRef<HTMLUListElement>(null);
@@ -130,12 +121,15 @@ const AnchorNavigation = ({
         if (isUserScroll.current) {
           setSelectedAnchorBasedOnScroll();
         } else {
-          if (isUserScrollTimer.current !== undefined)
+          if (isUserScrollTimer.current !== undefined) {
             window.clearTimeout(isUserScrollTimer.current);
-
-          isUserScrollTimer.current = setTimeout(() => {
-            isUserScroll.current = true;
-          }, SCROLL_THROTTLE + 50);
+          }
+          isUserScrollTimer.current = setTimeout(
+            /* istanbul ignore next */ () => {
+              isUserScroll.current = true;
+            },
+            SCROLL_THROTTLE + 50
+          );
         }
       }, SCROLL_THROTTLE),
     [setSelectedAnchorBasedOnScroll]
@@ -146,15 +140,12 @@ const AnchorNavigation = ({
     return () => window.removeEventListener("scroll", scrollHandler, true);
   }, [scrollHandler]);
 
-  const focusFirstFocusableChild = (section: HTMLElement) => {
-    const defaultFocusableSelectors =
-      'button, [href], input:not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])';
-    const firstFocusableElement = section.querySelector<HTMLElement>(
-      defaultFocusableSelectors
-    );
-    if (firstFocusableElement) {
-      firstFocusableElement.focus({ preventScroll: true });
+  const focusSection = (section: HTMLElement) => {
+    if (!section.matches(defaultFocusableSelectors)) {
+      section.setAttribute("tabindex", "-1");
     }
+
+    section.focus({ preventScroll: true });
   };
 
   const scrollToSection = (index: number): void => {
@@ -164,7 +155,15 @@ const AnchorNavigation = ({
     // function is called only after component is rendered, so ref cannot hold a null value
     if (sectionToScroll === null) return;
 
-    focusFirstFocusableChild(sectionToScroll);
+    // ensure section has the appropriate element to remove the default focus styles.
+    // Can ignore else branch because there's no harm in setting this to "true" twice (it can't hold any other value),
+    // but it's probably more efficient not to.
+    // istanbul ignore else
+    if (!sectionToScroll.dataset.carbonAnchornavRef) {
+      sectionToScroll.dataset.carbonAnchornavRef = "true";
+    }
+
+    focusSection(sectionToScroll);
 
     // workaround due to preventScroll focus method option on firefox not working consistently
     window.setTimeout(() => {
@@ -176,13 +175,6 @@ const AnchorNavigation = ({
       });
       setSelectedIndex(index);
     }, 10);
-  };
-
-  const focusNavItem = (index: number): void => {
-    const noOfRefs = anchorRefs.current.length;
-    anchorRefs.current[
-      ((index % noOfRefs) + noOfRefs) % noOfRefs
-    ].current?.focus();
   };
 
   const handleClick = (
@@ -197,12 +189,7 @@ const AnchorNavigation = ({
     event: React.KeyboardEvent<HTMLAnchorElement>,
     index: number
   ): void => {
-    event.preventDefault();
-    if (Event.isUpKey(event)) {
-      focusNavItem(index - 1);
-    } else if (Event.isDownKey(event)) {
-      focusNavItem(index + 1);
-    } else if (Event.isEnterKey(event) || Event.isSpaceKey(event)) {
+    if (Event.isEnterKey(event)) {
       scrollToSection(index);
     }
   };
@@ -215,13 +202,12 @@ const AnchorNavigation = ({
       >
         {React.Children.map(stickyNavigation.props.children, (child, index) =>
           React.cloneElement(child, {
+            href: child.props.href || "#", // need to pass an href to ensure the link is tabbable by default
             isSelected: index === selectedIndex,
-            tabIndex: index === selectedIndex ? 0 : -1,
             onClick: (event: React.MouseEvent<HTMLAnchorElement>) =>
               handleClick(event, index),
             onKeyDown: (event: React.KeyboardEvent<HTMLAnchorElement>) =>
               handleKeyDown(event, index),
-            ref: anchorRefs.current[index],
           })
         )}
       </StyledNavigation>

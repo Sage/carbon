@@ -11,6 +11,7 @@ import {
   progressTrackerMinVal,
   progressTrackerMaxVal,
   progressTrackerCustomValuePreposition,
+  progressTrackerDescription,
 } from "../../../cypress/locators/progress-tracker";
 
 const ProgressTrackerComponent = ({ ...props }) => {
@@ -182,6 +183,20 @@ context("Tests for ProgressTracker component", () => {
         progressTrackerMaxVal(index).should("have.text", "100%");
       }
     );
+
+    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+      "render component with description prop set to %s",
+      (description) => {
+        CypressMountWithProviders(
+          <ProgressTrackerComponent
+            showDefaultLabels
+            description={description}
+          />
+        );
+
+        progressTrackerDescription().should("have.text", description);
+      }
+    );
   });
 
   describe("should check accessibility tests for progress tracker component", () => {
@@ -298,6 +313,17 @@ context("Tests for ProgressTracker component", () => {
       (labelsPosition) => {
         CypressMountWithProviders(
           <ProgressTrackerComponent labelsPosition={labelsPosition} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+      "should check the accessibility when component is rendered with description prop set to %s",
+      (description) => {
+        CypressMountWithProviders(
+          <ProgressTrackerComponent description={description} />
         );
 
         cy.checkAccessibility();

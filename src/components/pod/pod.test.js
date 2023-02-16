@@ -1,7 +1,8 @@
 import React from "react";
 import Pod from ".";
-import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import Content from "../content";
+import { PodExample, PodDefault } from "./pod-test.stories";
+import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 import {
   podComponent,
@@ -28,19 +29,6 @@ import {
 } from "../../../cypress/support/component-helper/constants";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
-const PodExample = ({ ...props }) => {
-  return (
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      footer="Footer"
-      onEdit={() => {}}
-      onDelete={() => {}}
-      {...props}
-    />
-  );
-};
 
 const SoftDeleteExample = ({ ...props }) => {
   return (
@@ -372,6 +360,128 @@ context("Testing Pod component", () => {
 
       cy.contains("Content").should("have.css", "color", childrenColor);
       cy.contains("More content").should("have.css", "color", childrenColor);
+    });
+  });
+
+  describe("should render Pod component and check accessibility", () => {
+    it("should check accessibility for pod component", () => {
+      CypressMountWithProviders(<PodDefault />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(["primary", "secondary", "tertiary", "tile", "transparent"])(
+      "should check %s variant accessibility for Pod component",
+      (variant) => {
+        CypressMountWithProviders(<PodDefault variant={variant} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["left", "center", "right"])(
+      "should check title alignment accessbility for Pod component when text is aligned to the %s",
+      (alignTitle) => {
+        CypressMountWithProviders(<PodDefault alignTitle={alignTitle} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      SIZE.EXTRASMALL,
+      SIZE.SMALL,
+      SIZE.MEDIUM,
+      SIZE.LARGE,
+      SIZE.EXTRALARGE,
+    ])(
+      "should check accessbility when size is %s for Pod component",
+      (size) => {
+        CypressMountWithProviders(<PodDefault size={size} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "when internalEditButton is %s for Pod component, check accessbility",
+      (boolVal) => {
+        CypressMountWithProviders(<PodDefault internalEditButton={boolVal} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([false, true])(
+      "should check accessibility when editContentFullWidth is %s for Pod component",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <PodDefault editContentFullWidth={boolVal} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(specialCharacters)(
+      "should check accessbility when title is %s for Pod component",
+      (title) => {
+        CypressMountWithProviders(<PodDefault title={title} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(specialCharacters)(
+      "should check accessbility when subtitle is %s for Pod component",
+      (subtitle) => {
+        CypressMountWithProviders(<PodDefault subtitle={subtitle} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(specialCharacters)(
+      "should check accessibility when footer text is %s for Pod component",
+      (footerText) => {
+        CypressMountWithProviders(<PodDefault footer={footerText} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["100px", "200px", "300px"])(
+      "should check accessibility with correct height when height prop is %s for pod component",
+      (height) => {
+        CypressMountWithProviders(<PodDefault height={height} />);
+
+        cy.checkAccessibility();
+      }
+    );
+    it("should check accessibility when delete button is focused and internalEditButton prop is true", () => {
+      CypressMountWithProviders(
+        <Pod onDelete={() => {}} internalEditButton>
+          Content
+        </Pod>
+      );
+
+      podDelete().focus();
+      cy.checkAccessibility();
+    });
+
+    it.each([true, false])(
+      "should check accessbility when softDelete is %s",
+      (boolVal) => {
+        CypressMountWithProviders(<SoftDeleteExample softDelete={boolVal} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check accessbility for SoftDelete with chidlren", () => {
+      CypressMountWithProviders(<SoftDeleteExampleWithChildren />);
+
+      cy.checkAccessibility();
     });
   });
 });

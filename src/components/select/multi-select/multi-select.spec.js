@@ -16,6 +16,7 @@ import Label from "../../../__internal__/label";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
+import StyledSelectListContainer from "../select-list/select-list-container.style";
 
 describe("MultiSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
@@ -152,7 +153,10 @@ describe("MultiSelect", () => {
       const wrapper = renderSelect({ listMaxHeight: 120, openOnFocus: true });
 
       wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
-      assertStyleMatch({ maxHeight: "120px" }, wrapper.find(StyledSelectList));
+      assertStyleMatch(
+        { maxHeight: "120px" },
+        wrapper.find(StyledSelectListContainer)
+      );
     });
   });
 
@@ -851,7 +855,7 @@ describe("MultiSelect", () => {
     };
 
     describe("and an option is selected", () => {
-      it("then the onChange prop should be called with expected value", () => {
+      it("then the onChange prop should be called once with expected value", () => {
         const onChangeFn = jest.fn();
         const wrapper = renderSelect({ value: ["opt1"], onChange: onChangeFn });
 
@@ -866,6 +870,7 @@ describe("MultiSelect", () => {
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
+        expect(onChangeFn).toHaveBeenCalledTimes(1);
         expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
       });
     });

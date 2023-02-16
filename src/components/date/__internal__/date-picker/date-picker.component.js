@@ -54,20 +54,19 @@ const DatePicker = React.forwardRef(
       () => Array.from({ length: 7 }).map((_, i) => localize.day(i)),
       [localize]
     );
-    const weekdaysShort = useMemo(
-      () =>
-        Array.from({ length: 7 }).map((_, i) =>
-          localize
-            .day(
-              i,
-              ["de", "pl"].filter((str) => l.locale().includes(str)).length
-                ? { width: "wide" }
-                : { width: "abbreviated" }
-            )
-            .substring(0, 3)
-        ),
-      [l, localize]
-    );
+    const weekdaysShort = useMemo(() => {
+      const isGivenLocale = (str) => l.locale().includes(str);
+      return Array.from({ length: 7 }).map((_, i) =>
+        localize
+          .day(
+            i,
+            ["de", "pl"].some(isGivenLocale)
+              ? { width: "wide" }
+              : { width: "abbreviated" }
+          )
+          .substring(0, isGivenLocale("de") ? 2 : 3)
+      );
+    }, [l, localize]);
 
     const handleDayClick = (date, { disabled }, ev) => {
       if (!disabled) {

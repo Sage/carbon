@@ -618,6 +618,30 @@ setting the `wrapPillText` prop to false.
   </Story>
 </Canvas>
 
+### Virtual scrolling
+
+The `enableVirtualScroll` prop can be used to enable "virtual scrolling" to only render a few options into the DOM at any one time.
+This allows an unlimited amount of children to be passed with little impact on rendering performance.
+
+By default this will render 5 not-currently-visible options into the DOM on either side of the currently-visible ones - this value can
+be customised if desired using the `virtualScrollOverscan` prop. Higher values will make scrolling smoother but may negatively impact performance.
+
+<Canvas>
+  <Story name="virtualised">
+    {() => {
+      const colors = ["Amber", "Black", "Blue", "Brown", "Green", "Orange", "Pink", "Purple", "Red", "White", "Yellow"];
+      const options = Array(10000).fill().map(
+        (_, index) => <Option key={index} value={`${index}`} text={`${colors[index % colors.length]} - option ${index+1}`} />
+      );
+      return (
+        <MultiSelect name="virtualised" id="virtualised" label="choose an option" labelInline enableVirtualScroll virtualScrollOverscan={20}>
+          {options}
+        </MultiSelect>
+      );
+    }}
+  </Story>
+</Canvas>
+
 ## Props
 
 ### Multi Select

@@ -1,5 +1,6 @@
 import React from "react";
 import Decimal from "./decimal.component";
+import * as stories from "./decimal.stories.tsx";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 import {
@@ -316,6 +317,119 @@ context("Tests for Decimal component", () => {
             callback.getCalls()[0].args[0].target.value.formattedValue
           ).to.equals("123.00");
         });
+    });
+  });
+
+  describe("Accessibility tests for Decimal component", () => {
+    it("should pass accessibility tests for Decimal with different input sizes", () => {
+      CypressMountWithProviders(<stories.Sizes />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Decimal with label aligned left", () => {
+      CypressMountWithProviders(<stories.LabelAlign />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Decimal with custom precision", () => {
+      CypressMountWithProviders(<stories.WithCustomPrecision />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Decimal with custom label width and input width", () => {
+      CypressMountWithProviders(<stories.WithCustomLabelWidthAndInputWidth />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Decimal with custom max width", () => {
+      CypressMountWithProviders(<stories.WithCustomMaxWidth />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Decimal with field help", () => {
+      CypressMountWithProviders(<stories.WithFieldHelp fieldHelp="Help" />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Decimal with label help", () => {
+      CypressMountWithProviders(<stories.WithLabelHelp labelHelp="Help" />);
+
+      getDataElementByValue("question")
+        .trigger("mouseover")
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Decimal required", () => {
+      CypressMountWithProviders(<stories.Required />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Decimal left aligned", () => {
+      CypressMountWithProviders(<stories.LeftAligned />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Decimal with validation", () => {
+      CypressMountWithProviders(<stories.Validations />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Decimal validations redesigned", () => {
+      CypressMountWithProviders(<stories.ValidationsRedesign />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Decimal default", () => {
+      CypressMountWithProviders(
+        <Decimal
+          label="Decimal"
+          onChange={function noRefCheck() {}}
+          value="0.01"
+        />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Decimal with readOnly prop", () => {
+      CypressMountWithProviders(
+        <Decimal
+          label="Decimal"
+          onChange={function noRefCheck() {}}
+          value="0.01"
+          readOnly
+        />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    // FE-5382
+    describe.skip("skip", () => {
+      it("should pass accessibility tests for Decimal with tooltip", () => {
+        CypressMountWithProviders(<stories.ValidationsTooltip />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Decimal with tooltip label", () => {
+        CypressMountWithProviders(<stories.ValidationsTooltipLabel />);
+
+        cy.checkAccessibility();
+      });
     });
   });
 });

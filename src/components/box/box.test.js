@@ -3,6 +3,8 @@ import Box from "./box.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../../cypress/locators";
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
+import RadioButton, { RadioButtonGroup } from "../radio-button";
+import { radiobuttonComponent } from "../../../cypress/locators/radiobutton";
 
 const colorConstants = [
   ["red", "rgb(255, 0, 0)", "#FF0000"],
@@ -106,6 +108,24 @@ const verifyScrollbarVariant = (variant, thumbColor, trackColor) =>
     expect(colorValueThumb).to.eq(thumbColor);
     expect(colorValueTrack).to.eq(trackColor);
   });
+
+const BoxComponentSticky = () => {
+  return (
+    <Box data-element="scrollable-box" height="95vh" overflowY="auto">
+      <Box position="sticky" top="0px" height="100px" bg="black">
+        foo
+      </Box>
+      <Box>
+        <Box height="100px">Foo</Box>
+        <RadioButtonGroup inline legend="test" name="test-group">
+          <RadioButton id="test-1" value="1" label="first" size="large" />
+          <RadioButton id="test-2" value="2" label="second" size="large" />
+        </RadioButtonGroup>
+        <Box height="110vh">Foo</Box>
+      </Box>
+    </Box>
+  );
+};
 
 context("Testing Box component", () => {
   describe("should render Box component", () => {
@@ -842,6 +862,14 @@ context("Testing Box component", () => {
         "box-shadow",
         "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px"
       );
+    });
+
+    it("should not render inputs over a Box with position sticky", () => {
+      cy.viewport(900, 200);
+      CypressMountWithProviders(<BoxComponentSticky />);
+
+      getDataElementByValue("scrollable-box").scrollTo(0, 300);
+      radiobuttonComponent().should("not.be.visible");
     });
   });
 });
