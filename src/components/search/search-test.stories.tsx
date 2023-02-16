@@ -5,6 +5,7 @@ import { SearchEvent } from "./search.component";
 
 export default {
   title: "Search/Test",
+  includeStories: "Default",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -64,4 +65,17 @@ Default.args = {
   searchWidth: "",
   threshold: 3,
   variant: undefined,
+};
+
+export const SearchComponent = ({ ...props }) => {
+  const [value, setValue] = React.useState("");
+
+  return (
+    <Search
+      placeholder="Search..."
+      onChange={(e) => setValue(e.target.value)}
+      value={value}
+      {...props}
+    />
+  );
 };
