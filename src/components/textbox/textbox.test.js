@@ -1,5 +1,6 @@
 import React from "react";
-import Textbox from ".";
+import * as stories from "./textbox-test.stories";
+import * as defaultStories from "./textbox.stories";
 import Box from "../box";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
@@ -48,50 +49,17 @@ const verifyOptional = (element) =>
     expect(contentValue).to.eq('"(optional)"');
   });
 
-const TextboxComponent = ({ ...props }) => {
-  const [state, setState] = React.useState("Textbox");
-
-  const setValue = ({ target }) => {
-    setState(target.value);
-  };
-
-  return (
-    <Textbox label="Textbox" value={state} onChange={setValue} {...props} />
-  );
-};
-
-const TextboxComponentInputRef = () => {
-  const ref = React.useRef(null);
-
-  return (
-    <Box margin="0 25px">
-      <Button
-        onClick={() => {
-          if (ref.current) ref.current.focus();
-        }}
-      >
-        Focus Textbox
-      </Button>
-      <TextboxComponent
-        inputRef={(el) => {
-          ref.current = el.current;
-        }}
-      />
-    </Box>
-  );
-};
-
 context("Tests for Textbox component", () => {
   describe("check props for Textbox component", () => {
     it("should render Textbox with isOptional prop", () => {
-      CypressMountWithProviders(<TextboxComponent isOptional />);
+      CypressMountWithProviders(<stories.TextboxComponent isOptional />);
 
       verifyOptional(getDataElementByValue("label").parent());
     });
 
     it("should render Textbox with data-component prop", () => {
       CypressMountWithProviders(
-        <TextboxComponent data-component={CHARACTERS.STANDARD} />
+        <stories.TextboxComponent data-component={CHARACTERS.STANDARD} />
       );
 
       getComponent(CHARACTERS.STANDARD).should("be.visible");
@@ -99,7 +67,7 @@ context("Tests for Textbox component", () => {
 
     it("should render Textbox with data-element prop", () => {
       CypressMountWithProviders(
-        <TextboxComponent data-element={CHARACTERS.STANDARD} />
+        <stories.TextboxComponent data-element={CHARACTERS.STANDARD} />
       );
       cyRoot()
         .children()
@@ -109,7 +77,7 @@ context("Tests for Textbox component", () => {
 
     it("should render Textbox with data-role prop", () => {
       CypressMountWithProviders(
-        <TextboxComponent data-role={CHARACTERS.STANDARD} />
+        <stories.TextboxComponent data-role={CHARACTERS.STANDARD} />
       );
 
       cyRoot()
@@ -119,7 +87,9 @@ context("Tests for Textbox component", () => {
     });
 
     it("should render Textbox with id prop", () => {
-      CypressMountWithProviders(<TextboxComponent id={CHARACTERS.STANDARD} />);
+      CypressMountWithProviders(
+        <stories.TextboxComponent id={CHARACTERS.STANDARD} />
+      );
 
       textboxInput().should("have.attr", "id", CHARACTERS.STANDARD);
     });
@@ -127,14 +97,14 @@ context("Tests for Textbox component", () => {
     it.each(testData)(
       "should render Textbox with label prop set to %s",
       (label) => {
-        CypressMountWithProviders(<TextboxComponent label={label} />);
+        CypressMountWithProviders(<stories.TextboxComponent label={label} />);
 
         getDataElementByValue("label").should("have.text", label);
       }
     );
 
     it("should render Textbox with labelInline prop", () => {
-      CypressMountWithProviders(<TextboxComponent labelInline />);
+      CypressMountWithProviders(<stories.TextboxComponent labelInline />);
 
       getDataElementByValue("label")
         .parent()
@@ -148,7 +118,7 @@ context("Tests for Textbox component", () => {
       "should render Textbox with labelAlign prop set to %s",
       (labelAlign, cssValue) => {
         CypressMountWithProviders(
-          <TextboxComponent labelInline labelAlign={labelAlign} />
+          <stories.TextboxComponent labelInline labelAlign={labelAlign} />
         );
 
         getDataElementByValue("label")
@@ -163,7 +133,7 @@ context("Tests for Textbox component", () => {
       "should render Textbox with labelHelp prop",
       (labelHelp) => {
         CypressMountWithProviders(
-          <TextboxComponent labelInline labelHelp={labelHelp} />
+          <stories.TextboxComponent labelInline labelHelp={labelHelp} />
         );
 
         getDataElementByValue("question").trigger("mouseover");
@@ -178,7 +148,7 @@ context("Tests for Textbox component", () => {
       "should render Textbox with labelSpacing prop set to %s",
       (spacing, padding) => {
         CypressMountWithProviders(
-          <TextboxComponent labelInline labelSpacing={spacing} />
+          <stories.TextboxComponent labelInline labelSpacing={spacing} />
         );
 
         getDataElementByValue("label")
@@ -195,7 +165,11 @@ context("Tests for Textbox component", () => {
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
         CypressMountWithProviders(
-          <TextboxComponent labelInline labelWidth={label} inputWidth={input} />
+          <stories.TextboxComponent
+            labelInline
+            labelWidth={label}
+            inputWidth={input}
+          />
         );
 
         getDataElementByValue("label")
@@ -215,7 +189,9 @@ context("Tests for Textbox component", () => {
     it.each(["10%", "30%", "50%", "80%", "100%"])(
       "should check maxWidth as %s for TextBox component",
       (maxWidth) => {
-        CypressMountWithProviders(<TextboxComponent maxWidth={maxWidth} />);
+        CypressMountWithProviders(
+          <stories.TextboxComponent maxWidth={maxWidth} />
+        );
 
         getDataElementByValue("input")
           .parent()
@@ -225,7 +201,7 @@ context("Tests for Textbox component", () => {
     );
 
     it("when maxWidth has no value it should render as 100%", () => {
-      CypressMountWithProviders(<TextboxComponent maxWidth="" />);
+      CypressMountWithProviders(<stories.TextboxComponent maxWidth="" />);
 
       getDataElementByValue("input")
         .parent()
@@ -234,7 +210,7 @@ context("Tests for Textbox component", () => {
     });
 
     it("should render Textbox with required prop", () => {
-      CypressMountWithProviders(<TextboxComponent required />);
+      CypressMountWithProviders(<stories.TextboxComponent required />);
 
       verifyRequiredAsteriskForLabel();
     });
@@ -248,7 +224,7 @@ context("Tests for Textbox component", () => {
         const inputValue = "12345678901";
 
         CypressMountWithProviders(
-          <TextboxComponent
+          <stories.TextboxComponent
             enforceCharacterLimit={false}
             warnOverLimit
             characterLimit={limit}
@@ -272,7 +248,10 @@ context("Tests for Textbox component", () => {
       "should input %s characters and enforce character limit of %s in Textbox",
       (charactersUsed, limit) => {
         CypressMountWithProviders(
-          <TextboxComponent enforceCharacterLimit characterLimit={limit} />
+          <stories.TextboxComponent
+            enforceCharacterLimit
+            characterLimit={limit}
+          />
         );
 
         const inputValue = "12345678901";
@@ -290,14 +269,14 @@ context("Tests for Textbox component", () => {
 
     it("should render Textbox with name prop", () => {
       CypressMountWithProviders(
-        <TextboxComponent name={CHARACTERS.STANDARD} />
+        <stories.TextboxComponent name={CHARACTERS.STANDARD} />
       );
 
       textboxInput().should("have.attr", "name", CHARACTERS.STANDARD);
     });
 
     it("should render Textbox with disabled prop", () => {
-      CypressMountWithProviders(<TextboxComponent disabled />);
+      CypressMountWithProviders(<stories.TextboxComponent disabled />);
 
       textboxInput().should("be.disabled").and("have.attr", "disabled");
     });
@@ -306,7 +285,7 @@ context("Tests for Textbox component", () => {
       "should render Textbox with placeholder prop set to %s",
       (placeholder) => {
         CypressMountWithProviders(
-          <TextboxComponent placeholder={placeholder} />
+          <stories.TextboxComponent placeholder={placeholder} />
         );
 
         textboxInput().should("have.attr", "placeholder", placeholder);
@@ -314,7 +293,7 @@ context("Tests for Textbox component", () => {
     );
 
     it("should render Textbox with autoFocus prop", () => {
-      CypressMountWithProviders(<TextboxComponent autoFocus />);
+      CypressMountWithProviders(<stories.TextboxComponent autoFocus />);
 
       body().tab();
       textboxInput()
@@ -325,7 +304,7 @@ context("Tests for Textbox component", () => {
     });
 
     it("should render Textbox with readOnly prop", () => {
-      CypressMountWithProviders(<TextboxComponent readOnly />);
+      CypressMountWithProviders(<stories.TextboxComponent readOnly />);
 
       textboxInput().and("have.attr", "readOnly");
     });
@@ -334,7 +313,7 @@ context("Tests for Textbox component", () => {
       "should verify Textbox is displayed with %s validation icon on input",
       (type) => {
         CypressMountWithProviders(
-          <TextboxComponent
+          <stories.TextboxComponent
             labelInline
             labelAlign="right"
             {...{ [type]: "Message" }}
@@ -349,7 +328,7 @@ context("Tests for Textbox component", () => {
       "should verify Textbox is displayed with %s validation icon on label",
       (type) => {
         CypressMountWithProviders(
-          <TextboxComponent
+          <stories.TextboxComponent
             labelInline
             labelAlign="right"
             validationOnLabel
@@ -375,7 +354,7 @@ context("Tests for Textbox component", () => {
       "should verify Textbox input border colour is %s when validation is %s and boolean prop is %s",
       (borderColor, type, bool) => {
         CypressMountWithProviders(
-          <TextboxComponent
+          <stories.TextboxComponent
             labelInline
             labelAlign="right"
             {...{ [type]: bool }}
@@ -388,7 +367,7 @@ context("Tests for Textbox component", () => {
 
     it("should render Textbox with leftChildren prop", () => {
       CypressMountWithProviders(
-        <TextboxComponent leftChildren={<Button>Test</Button>} />
+        <stories.TextboxComponent leftChildren={<Button>Test</Button>} />
       );
 
       textbox()
@@ -400,7 +379,7 @@ context("Tests for Textbox component", () => {
     it.each(testData)(
       "should render Textbox with prefix prop set to %s",
       (prefix) => {
-        CypressMountWithProviders(<TextboxComponent prefix={prefix} />);
+        CypressMountWithProviders(<stories.TextboxComponent prefix={prefix} />);
 
         textboxPrefix()
           .should("have.text", prefix)
@@ -416,7 +395,9 @@ context("Tests for Textbox component", () => {
     ])(
       "should render Textbox with reverse prop set to %s",
       (boolean, firstElement, secondElement) => {
-        CypressMountWithProviders(<TextboxComponent reverse={boolean} />);
+        CypressMountWithProviders(
+          <stories.TextboxComponent reverse={boolean} />
+        );
 
         getDataElementByValue("label").parent().parent().as("startPoint");
 
@@ -440,7 +421,7 @@ context("Tests for Textbox component", () => {
     ])(
       "should use %s as size and render Textbox with %s as height",
       (size, height) => {
-        CypressMountWithProviders(<TextboxComponent size={size} />);
+        CypressMountWithProviders(<stories.TextboxComponent size={size} />);
 
         textbox().should("have.css", "min-height", height);
       }
@@ -448,7 +429,7 @@ context("Tests for Textbox component", () => {
 
     it("should render Textbox with positionedChildren prop", () => {
       CypressMountWithProviders(
-        <TextboxComponent positionedChildren={<Button>Test</Button>} />
+        <stories.TextboxComponent positionedChildren={<Button>Test</Button>} />
       );
 
       textbox()
@@ -468,7 +449,7 @@ context("Tests for Textbox component", () => {
         cy.viewport(400, 300);
 
         CypressMountWithProviders(
-          <TextboxComponent adaptiveLabelBreakpoint={breakpoint} />
+          <stories.TextboxComponent adaptiveLabelBreakpoint={breakpoint} />
         );
 
         getDataElementByValue("label")
@@ -480,7 +461,7 @@ context("Tests for Textbox component", () => {
 
     it("should render Textbox with labelId prop", () => {
       CypressMountWithProviders(
-        <TextboxComponent
+        <stories.TextboxComponent
           id={`${CHARACTERS.STANDARD}_cy`}
           labelId={CHARACTERS.STANDARD}
         />
@@ -494,7 +475,9 @@ context("Tests for Textbox component", () => {
     it.each(testData)(
       "should render Textbox with fieldHelp prop set to %s",
       (fieldHelp) => {
-        CypressMountWithProviders(<TextboxComponent fieldHelp={fieldHelp} />);
+        CypressMountWithProviders(
+          <stories.TextboxComponent fieldHelp={fieldHelp} />
+        );
 
         fieldHelpPreview().should("have.text", fieldHelp);
       }
@@ -502,7 +485,7 @@ context("Tests for Textbox component", () => {
 
     it("should render Textbox with formattedValue prop", () => {
       CypressMountWithProviders(
-        <TextboxComponent formattedValue={CHARACTERS.STANDARD} />
+        <stories.TextboxComponent formattedValue={CHARACTERS.STANDARD} />
       );
 
       textboxInput().should("have.attr", "value", CHARACTERS.STANDARD);
@@ -511,7 +494,9 @@ context("Tests for Textbox component", () => {
     it.each(["add", "filter", "play"])(
       "should render Textbox with inputIcon prop set to %s",
       (icon) => {
-        CypressMountWithProviders(<TextboxComponent inputIcon={icon} />);
+        CypressMountWithProviders(
+          <stories.TextboxComponent inputIcon={icon} />
+        );
 
         getElement(icon).and("be.visible");
       }
@@ -519,7 +504,7 @@ context("Tests for Textbox component", () => {
 
     it("should render Textbox with iconTabIndex prop", () => {
       CypressMountWithProviders(
-        <TextboxComponent iconTabIndex={25} inputIcon="add" />
+        <stories.TextboxComponent iconTabIndex={25} inputIcon="add" />
       );
 
       getDataElementByValue("add").parent().should("have.attr", "tabindex", 25);
@@ -530,7 +515,7 @@ context("Tests for Textbox component", () => {
       (position) => {
         CypressMountWithProviders(
           <Box m="250px">
-            <TextboxComponent
+            <stories.TextboxComponent
               error={CHARACTERS.STANDARD}
               tooltipPosition={position}
             />
@@ -545,7 +530,7 @@ context("Tests for Textbox component", () => {
 
     it("should render Textbox with helpAriaLabel prop", () => {
       CypressMountWithProviders(
-        <TextboxComponent
+        <stories.TextboxComponent
           labelHelp="field help"
           helpAriaLabel={CHARACTERS.STANDARD}
         />
@@ -561,14 +546,14 @@ context("Tests for Textbox component", () => {
     it.each(["left", "right"])(
       "should render Textbox with align prop set to %s",
       (align) => {
-        CypressMountWithProviders(<TextboxComponent align={align} />);
+        CypressMountWithProviders(<stories.TextboxComponent align={align} />);
 
         textboxInput().should("have.css", "text-align", align);
       }
     );
 
     it("should render Textbox with inputRef prop and focus the input via click on ref component", () => {
-      CypressMountWithProviders(<TextboxComponentInputRef />);
+      CypressMountWithProviders(<stories.TextboxComponentInputRef />);
 
       getComponent("button").click();
       textboxInput().should("be.focused");
@@ -577,7 +562,7 @@ context("Tests for Textbox component", () => {
     it.each(testData)(
       "should input into Textbox and verify the value",
       (input) => {
-        CypressMountWithProviders(<TextboxComponent />);
+        CypressMountWithProviders(<stories.TextboxComponent />);
 
         textboxInput().type(input).should("have.attr", "value", input);
       }
@@ -592,7 +577,9 @@ context("Tests for Textbox component", () => {
     });
 
     it("should call onChange callback when a type event is triggered", () => {
-      CypressMountWithProviders(<TextboxComponent onChange={callback} />);
+      CypressMountWithProviders(
+        <stories.TextboxComponent onChange={callback} />
+      );
 
       textboxInput()
         .type(inputValue)
@@ -603,7 +590,7 @@ context("Tests for Textbox component", () => {
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
-      CypressMountWithProviders(<TextboxComponent onBlur={callback} />);
+      CypressMountWithProviders(<stories.TextboxComponent onBlur={callback} />);
 
       textboxInput()
         .click()
@@ -615,7 +602,9 @@ context("Tests for Textbox component", () => {
     });
 
     it("should call onClick callback when a click event is triggered", () => {
-      CypressMountWithProviders(<TextboxComponent onClick={callback} />);
+      CypressMountWithProviders(
+        <stories.TextboxComponent onClick={callback} />
+      );
 
       textboxInput()
         .click()
@@ -626,7 +615,9 @@ context("Tests for Textbox component", () => {
     });
 
     it("should call onFocus callback when a focus event is triggered", () => {
-      CypressMountWithProviders(<TextboxComponent onFocus={callback} />);
+      CypressMountWithProviders(
+        <stories.TextboxComponent onFocus={callback} />
+      );
 
       textboxInput()
         .focus()
@@ -637,7 +628,9 @@ context("Tests for Textbox component", () => {
     });
 
     it("should call onMouseDown callback when a mousedown event is triggered", () => {
-      CypressMountWithProviders(<TextboxComponent onMouseDown={callback} />);
+      CypressMountWithProviders(
+        <stories.TextboxComponent onMouseDown={callback} />
+      );
 
       textboxInput()
         .trigger("mousedown")
@@ -649,7 +642,7 @@ context("Tests for Textbox component", () => {
 
     it("should call iconOnMouseDown callback when a click event is triggered", () => {
       CypressMountWithProviders(
-        <TextboxComponent iconOnMouseDown={callback} inputIcon="add" />
+        <stories.TextboxComponent iconOnMouseDown={callback} inputIcon="add" />
       );
 
       getComponent("icon")
@@ -662,7 +655,7 @@ context("Tests for Textbox component", () => {
 
     it("should call iconOnClick callback when a click event is triggered", () => {
       CypressMountWithProviders(
-        <TextboxComponent iconOnClick={callback} inputIcon="add" />
+        <stories.TextboxComponent iconOnClick={callback} inputIcon="add" />
       );
 
       getComponent("icon")
@@ -676,7 +669,7 @@ context("Tests for Textbox component", () => {
       "should call iconOnClick callback when %s key is triggered",
       (key) => {
         CypressMountWithProviders(
-          <TextboxComponent
+          <stories.TextboxComponent
             inputIcon="home"
             iconOnClick={callback}
             iconTabIndex="0"
@@ -695,7 +688,9 @@ context("Tests for Textbox component", () => {
     it.each([["Enter"], ["Space"]])(
       "should call onKeyDown callback when %s key is triggered",
       (key) => {
-        CypressMountWithProviders(<TextboxComponent onKeyDown={callback} />);
+        CypressMountWithProviders(
+          <stories.TextboxComponent onKeyDown={callback} />
+        );
 
         textboxInput()
           .focus()
@@ -718,7 +713,7 @@ context("Tests for Textbox component", () => {
         const callbackOnChangeDeff = cy.stub();
 
         CypressMountWithProviders(
-          <TextboxComponent
+          <stories.TextboxComponent
             deferTimeout={timeout}
             onChange={callbackOnChange}
             onChangeDeferred={callbackOnChangeDeff}
@@ -744,5 +739,145 @@ context("Tests for Textbox component", () => {
           });
       }
     );
+  });
+
+  describe("Accessibility tests for Textbox component", () => {
+    it("should pass accessibility tests for Textbox default story", () => {
+      CypressMountWithProviders(<defaultStories.Default />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox autoFocus story", () => {
+      CypressMountWithProviders(<defaultStories.AutoFocus />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox characterCounter story", () => {
+      CypressMountWithProviders(<defaultStories.CharacterCounter />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox disabled story", () => {
+      CypressMountWithProviders(<defaultStories.Disabled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox LabelAlign story", () => {
+      CypressMountWithProviders(<defaultStories.LabelAlign />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox Margins story", () => {
+      CypressMountWithProviders(<defaultStories.Margins />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox NewDesignsValidation story", () => {
+      CypressMountWithProviders(<defaultStories.NewDesignsValidation />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox Prefix story", () => {
+      CypressMountWithProviders(<defaultStories.Prefix />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox ReadOnly story", () => {
+      CypressMountWithProviders(<defaultStories.ReadOnly />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox Required story", () => {
+      CypressMountWithProviders(<defaultStories.Required />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox Sizes story", () => {
+      CypressMountWithProviders(<defaultStories.Sizes />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox ValidationsAsABoolean story", () => {
+      CypressMountWithProviders(<defaultStories.ValidationsAsABoolean />);
+
+      cy.checkAccessibility();
+    });
+
+    // FE-5382
+    it.skip("should pass accessibility tests for Textbox ValidationsAsAString story", () => {
+      CypressMountWithProviders(<defaultStories.ValidationsAsAString />);
+
+      cy.checkAccessibility();
+    });
+
+    // FE-5382
+    it.skip("should pass accessibility tests for Textbox ValidationsAsAStringDisplayedOnLabel story", () => {
+      CypressMountWithProviders(
+        <defaultStories.ValidationsAsAStringDisplayedOnLabel />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    // FE-5382
+    it.skip("should pass accessibility tests for Textbox ValidationsAsAStringWithTooltipCustom story", () => {
+      CypressMountWithProviders(
+        <defaultStories.ValidationsAsAStringWithTooltipCustom />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    // FE-5382
+    it.skip("should pass accessibility tests for Textbox ValidationsAsAStringWithTooltipDefault story", () => {
+      CypressMountWithProviders(
+        <defaultStories.ValidationsAsAStringWithTooltipDefault />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox WithCustomLabelWidthAndInputWidth story", () => {
+      CypressMountWithProviders(
+        <defaultStories.WithCustomLabelWidthAndInputWidth />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox WithCustomMaxWidth story", () => {
+      CypressMountWithProviders(<defaultStories.WithCustomMaxWidth />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox WithFieldHelp story", () => {
+      CypressMountWithProviders(<defaultStories.WithFieldHelp />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox WithLabelHelp story", () => {
+      CypressMountWithProviders(<defaultStories.WithLabelHelp />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textbox WithLabelInline story", () => {
+      CypressMountWithProviders(<defaultStories.WithLabelInline />);
+
+      cy.checkAccessibility();
+    });
   });
 });
