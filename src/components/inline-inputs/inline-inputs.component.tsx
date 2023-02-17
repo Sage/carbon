@@ -7,10 +7,10 @@ import StyledInlineInputs, {
   StyledContentContainerProps,
   StyledInlineInputsProps,
 } from "./inline-inputs.style";
-
+import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
-import { filterStyledSystemMarginProps } from "../../style/utils";
+import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
 interface InlineInputsContextProps {
   ariaLabelledBy?: string;
@@ -99,7 +99,7 @@ const InlineInputs = ({
     );
   }
 
-  const marginProps = filterStyledSystemMarginProps(rest);
+  const marginProps = useFormSpacing(rest);
 
   return (
     <StyledInlineInputs
@@ -116,7 +116,9 @@ const InlineInputs = ({
         data-element="inline-inputs-container"
         inputWidth={inputWidth}
       >
-        {columnWrapper(children, gutter, label ? labelId.current : undefined)}
+        <FormSpacingProvider marginBottom={undefined}>
+          {columnWrapper(children, gutter, label ? labelId.current : undefined)}
+        </FormSpacingProvider>
       </StyledContentContainer>
     </StyledInlineInputs>
   );

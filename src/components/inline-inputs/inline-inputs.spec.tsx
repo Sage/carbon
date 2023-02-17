@@ -16,6 +16,7 @@ import StyledInlineInputs, {
 } from "./inline-inputs.style";
 import InputPresentation from "../../__internal__/input/input-presentation.style";
 import guid from "../../__internal__/utils/helpers/guid";
+import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
@@ -213,6 +214,7 @@ describe("Inline Inputs", () => {
       expect(
         mount(<InlineInputs />)
           .find(StyledContentContainer)
+          .find(FormSpacingProvider)
           .prop("children")
       ).toBe(null);
     });

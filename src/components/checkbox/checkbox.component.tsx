@@ -1,15 +1,16 @@
 import React, { useContext } from "react";
 import { MarginProps } from "styled-system";
+
 import CheckboxStyle from "./checkbox.style";
 import CheckableInput, {
   CommonCheckableInputProps,
 } from "../../__internal__/checkable-input/checkable-input.component";
 import CheckboxSvg from "./checkbox-svg.component";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
-import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import { CheckboxGroupContext } from "./checkbox-group.component";
 import Logger from "../../__internal__/utils/logger";
+import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
 export interface CheckboxProps extends CommonCheckableInputProps, MarginProps {
   /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
@@ -72,7 +73,7 @@ export const Checkbox = React.forwardRef(
       "data-role": dataRole,
       helpAriaLabel,
       inputRef,
-      ...props
+      ...rest
     }: CheckboxProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
@@ -80,11 +81,12 @@ export const Checkbox = React.forwardRef(
     const adaptiveSpacingSmallScreen = !!(
       adaptiveSpacingBreakpoint && !largeScreen
     );
+    const checkboxGroupContext = useContext(CheckboxGroupContext);
     const {
       error: contextError,
       warning: contextWarning,
       info: contextInfo,
-    } = useContext(CheckboxGroupContext);
+    } = checkboxGroupContext;
 
     if (!deprecateInputRefWarnTriggered && inputRef) {
       deprecateInputRefWarnTriggered = true;
@@ -120,8 +122,10 @@ export const Checkbox = React.forwardRef(
       labelWidth,
       tooltipPosition,
       ref: ref || inputRef,
-      ...props,
+      ...rest,
     };
+
+    const marginProps = useFormSpacing(rest);
 
     return (
       <TooltipProvider
@@ -142,7 +146,7 @@ export const Checkbox = React.forwardRef(
           fieldHelpInline={fieldHelpInline}
           reverse={reverse}
           size={size}
-          {...filterStyledSystemMarginProps(props)}
+          {...marginProps}
         >
           <CheckableInput {...inputProps}>
             <CheckboxSvg />
