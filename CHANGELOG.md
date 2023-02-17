@@ -1,3 +1,11 @@
+### [114.14.1](https://github.com/Sage/carbon/compare/v114.14.0...v114.14.1) (2023-02-16)
+
+
+### Bug Fixes
+
+* **link:** change display to inline so that text can wrap ([aa35ee5](https://github.com/Sage/carbon/commit/aa35ee52dd78e00945a3308972ca06ca1ab1c7ee)), closes [#5774](https://github.com/Sage/carbon/issues/5774)
+* types in MenuContext provider in link test ([4c51a6c](https://github.com/Sage/carbon/commit/4c51a6cff00be815c05dc99e805e8f4e455256cf))
+
 ## [114.14.0](https://github.com/Sage/carbon/compare/v114.13.2...v114.14.0) (2023-02-15)
 
 

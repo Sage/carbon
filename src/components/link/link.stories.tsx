@@ -200,3 +200,17 @@ export const OnADarkBackground = () => (
     </Link>
   </div>
 );
+
+export const Wrapping = () => {
+  return (
+    <Box padding="25px" width="250px" backgroundColor="--colorsUtilityMajor025">
+      <Typography>We&apos;ll be sorry to see you go</Typography>
+      <Typography>
+        If your subscription isn&apos;t quite right, we can help you{" "}
+        <Link href="http://carbon.sage.com" target="_blank">
+          find one that suits your business needs (new tab)
+        </Link>
+      </Typography>
+    </Box>
+  );
+};
