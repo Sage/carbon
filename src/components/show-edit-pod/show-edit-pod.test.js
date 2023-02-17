@@ -1,5 +1,9 @@
 import React from "react";
-import ShowEditPod from "./show-edit-pod.component";
+import {
+  ShowEditPodComponent,
+  ShowEditPodAccessibilityComponent,
+  UndoShowEditPodComponent,
+} from "./show-edit-pod-test.stories";
 import Textbox from "../textbox/textbox.component";
 import Content from "../content/content.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -26,27 +30,6 @@ import { CHARACTERS } from "../../../cypress/support/component-helper/constants"
 import { checkOutlineCss } from "../../../cypress/support/component-helper/common-steps";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
-const ShowEditPodComponent = ({ ...props }) => {
-  return (
-    <ShowEditPod
-      title="Title"
-      onEdit={() => {}}
-      onDelete={() => {}}
-      saveText="Save"
-      deleteText="Delete"
-      cancelText="Cancel"
-      editFields={<Textbox label="Field" labelInline labelAlign="right" />}
-      {...props}
-    />
-  );
-};
-
-const UndoShowEditPodComponent = ({ ...props }) => {
-  return (
-    <ShowEditPod title="With borders" onUndo={() => {}} softDelete {...props} />
-  );
-};
 
 context("Testing ShowEditPod component", () => {
   describe("should render ShowEditPod component", () => {
@@ -325,6 +308,214 @@ context("Testing ShowEditPod component", () => {
             // eslint-disable-next-line no-unused-expressions
             expect(callback).to.have.been.calledOnce;
           });
+      });
+    });
+
+    describe.only("Accessibility tests for ShowEditPod component", () => {
+      it.each(["primary", "secondary", "tertiary", "tile", "transparent"])(
+        "should check %s variant for accessibility tests",
+        (variant) => {
+          CypressMountWithProviders(
+            <ShowEditPodAccessibilityComponent variant={variant} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each([true, false])(
+        "should check when border is %s for accessibility tests",
+        (boolVal) => {
+          CypressMountWithProviders(
+            <ShowEditPodAccessibilityComponent border={boolVal} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(specialCharacters)(
+        "should check children as %s for accessibility tests",
+        (children) => {
+          CypressMountWithProviders(
+            <ShowEditPodAccessibilityComponent>
+              {" "}
+              <Content title="Content title">{children}</Content>{" "}
+            </ShowEditPodAccessibilityComponent>
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(specialCharacters)(
+        "should check className as %s for accessibility tests",
+        (className) => {
+          CypressMountWithProviders(
+            <ShowEditPodAccessibilityComponent className={className} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each([
+        [true, "be.visible"],
+        [false, "not.exist"],
+      ])(
+        "should check when editing is %s for accessibility tests",
+        (boolVal) => {
+          CypressMountWithProviders(
+            <ShowEditPodAccessibilityComponent editing={boolVal} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each([false, true])(
+        "should check when softDelete is %s for accessibility tests",
+        (boolVal) => {
+          CypressMountWithProviders(
+            <UndoShowEditPodComponent softDelete={boolVal} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each([false, true])(
+        "should check when hideDeleteButtonInViewMode is %s for accessibility tests",
+        (boolVal) => {
+          CypressMountWithProviders(
+            <ShowEditPodAccessibilityComponent
+              hideDeleteButtonInViewMode={boolVal}
+            />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it("should check editFields in textbox component for accessibility tests", () => {
+        CypressMountWithProviders(
+          <ShowEditPodComponent
+            editing
+            editFields={<Textbox label="Field" />}
+          />
+        );
+        cy.checkAccessibility();
+      });
+
+      it.each(["right", "left"])(
+        "should check when buttonAlign is %s for accessibility tests",
+        (align) => {
+          CypressMountWithProviders(
+            <ShowEditPodComponent editing buttonAlign={align} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each([false, true])(
+        "should check when cancel button is %s for accessibility tests",
+        (boolVal) => {
+          CypressMountWithProviders(
+            <ShowEditPodComponent editing cancel={boolVal} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(specialCharacters)(
+        "should check cancelText as %s for accessibility tests",
+        (cancelText) => {
+          CypressMountWithProviders(
+            <ShowEditPodComponent editing cancelText={cancelText} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(specialCharacters)(
+        "should check saveText as %s for for accessibility tests",
+        (saveText) => {
+          CypressMountWithProviders(
+            <ShowEditPodComponent editing saveText={saveText} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(specialCharacters)(
+        "should check deleteText as %s for accessibility tests",
+        (deleteText) => {
+          CypressMountWithProviders(
+            <ShowEditPodComponent editing deleteText={deleteText} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each([false, true])(
+        "should check saving state is %s for accessibility tests",
+        (boolVal) => {
+          CypressMountWithProviders(
+            <ShowEditPodComponent editing saving={boolVal} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(specialCharacters)(
+        "should check title as %s for accessibility tests",
+        (title) => {
+          CypressMountWithProviders(
+            <ShowEditPodAccessibilityComponent title={title} />
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it("should check transitionName for accessibility tests", () => {
+        CypressMountWithProviders(
+          <ShowEditPodAccessibilityComponent transitionName="test_cypress" />
+        );
+        cy.checkAccessibility();
+      });
+
+      describe("should check ShowEditPod events for accessibility tests", () => {
+        let callback;
+
+        beforeEach(() => {
+          callback = cy.stub();
+        });
+
+        // it("should call onEdit callback when edit button is clicked for accessibility tests", () => {
+        //   CypressMountWithProviders(<showEditPod onEdit={callback} />);
+        //   cy.checkAccessibility();
+        // });
+
+        it("should call onDelete callback when delete button is clicked for accessibility tests", () => {
+          CypressMountWithProviders(
+            <ShowEditPodComponent editing onDelete={callback} />
+          );
+          cy.checkAccessibility();
+        });
+
+        it("should call onUndo callback when undo button is clicked for accessibility tests", () => {
+          CypressMountWithProviders(
+            <UndoShowEditPodComponent onUndo={callback} />
+          );
+          cy.checkAccessibility();
+        });
+
+        it("should call onSave callback when a click event is triggered for accessibility tests", () => {
+          CypressMountWithProviders(
+            <ShowEditPodComponent editing onSave={callback} />
+          );
+          cy.checkAccessibility();
+        });
+
+        it("should call onCancel callback when a click event is triggered for accessibility tests", () => {
+          CypressMountWithProviders(
+            <ShowEditPodComponent editing onCancel={callback} />
+          );
+          cy.checkAccessibility();
+        });
       });
     });
   });

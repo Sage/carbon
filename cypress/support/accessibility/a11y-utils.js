@@ -85,6 +85,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("definition-list") &&
       !prepareUrl[0].startsWith("decimal") &&
       !prepareUrl[0].startsWith("box") &&
+      !prepareUrl[0].startsWith("show-edit-pod") &&
       !prepareUrl[0].startsWith("carbon-provider") &&
       !prepareUrl[0].endsWith("test")
     ) {

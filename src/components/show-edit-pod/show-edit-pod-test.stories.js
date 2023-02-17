@@ -12,6 +12,7 @@ import {
 
 export default {
   component: ShowEditPod,
+  includeStories: "Default",
   title: "ShowEditPod/Test",
   parameters: {
     info: { disable: true },
@@ -130,3 +131,38 @@ export const Default = ({
 };
 
 Default.storyName = "default";
+
+export const ShowEditPodComponent = ({ ...props }) => {
+  return (
+    <ShowEditPod
+      title="Title"
+      onEdit={() => {}}
+      onDelete={() => {}}
+      saveText="Save"
+      deleteText="Delete"
+      cancelText="Cancel"
+      editFields={<Textbox label="Field" labelInline labelAlign="right" />}
+      {...props}
+    />
+  );
+};
+
+export const ShowEditPodAccessibilityComponent = ({ ...props }) => {
+  return (
+    <ShowEditPod
+      title="Title"
+      onDelete={() => {}}
+      saveText="Save"
+      deleteText="Delete"
+      cancelText="Cancel"
+      editFields={<Textbox label="Field" labelInline labelAlign="right" />}
+      {...props}
+    />
+  );
+};
+
+export const UndoShowEditPodComponent = ({ ...props }) => {
+  return (
+    <ShowEditPod title="With borders" onUndo={() => {}} softDelete {...props} />
+  );
+};
