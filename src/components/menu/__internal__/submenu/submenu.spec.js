@@ -136,7 +136,7 @@ describe("Submenu component", () => {
     });
 
     describe("on mouse over", () => {
-      it("should open the submenu", () => {
+      it("should open the submenu but not focus the first item", () => {
         wrapper = render("light");
         expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
 
@@ -151,7 +151,11 @@ describe("Submenu component", () => {
 
         expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
         expect(
-          wrapper.find(StyledMenuItemWrapper).at(1).find("a")
+          wrapper
+            .find(StyledSubmenu)
+            .find(StyledMenuItemWrapper)
+            .at(0)
+            .find("a")
         ).not.toBeFocused();
       });
     });
