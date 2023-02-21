@@ -1,3 +1,10 @@
+## [114.16.0](https://github.com/Sage/carbon/compare/v114.15.0...v114.16.0) (2023-02-21)
+
+
+### Features
+
+* **settings-row,heading:** surface headingType prop on components ([7f53917](https://github.com/Sage/carbon/commit/7f53917b6aeafe57f534bbd493afec2c676e2ac7)), closes [#5723](https://github.com/Sage/carbon/issues/5723)
+
 ## [114.15.0](https://github.com/Sage/carbon/compare/v114.14.1...v114.15.0) (2023-02-21)
 
 
