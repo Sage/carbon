@@ -1,3 +1,16 @@
+## [114.15.0](https://github.com/Sage/carbon/compare/v114.14.1...v114.15.0) (2023-02-21)
+
+
+### Features
+
+* add internal useStableCallback hook ([d1e96bc](https://github.com/Sage/carbon/commit/d1e96bc348dd9cd8aeaa15d16fa6ce5104944756))
+
+
+### Bug Fixes
+
+* **filterable-select:** resolve issue with multiple execution of onOpen and onFilterChange callbacks ([65a9cef](https://github.com/Sage/carbon/commit/65a9cef560723f9c23220ca8db0be69b7bf6b77c))
+* **multi-select:** resolve issue with multiple execution of onFilterChange callback ([f0112a7](https://github.com/Sage/carbon/commit/f0112a72f73a4a56b748d12e10be4546bf381c41))
+
 ### [114.14.1](https://github.com/Sage/carbon/compare/v114.14.0...v114.14.1) (2023-02-16)
 
 
