@@ -17,6 +17,7 @@ const marginPropTypes = filterStyledSystemMarginProps(
 
 const SettingsRow = ({
   title,
+  headingType = "h3",
   description,
   children,
   className,
@@ -28,6 +29,7 @@ const SettingsRow = ({
 
     return (
       <Heading
+        headingType={headingType}
         title={title}
         subheader={description}
         separator={description !== undefined}
@@ -58,6 +60,8 @@ SettingsRow.propTypes = {
   className: PropTypes.string,
   /**  A title for this group of settings. */
   title: PropTypes.string,
+  /** Defines the HTML heading element of the `title` within the component. */
+  headingType: PropTypes.oneOf(["h1", "h2", "h3", "h4", "h5"]),
   /**  A string or JSX object that provides a short description about the group of settings. */
   description: PropTypes.node,
   /** Shows a divider below the component. */
