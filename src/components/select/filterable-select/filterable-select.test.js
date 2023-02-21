@@ -1375,7 +1375,20 @@ context("Tests for Filterable Select component", () => {
         });
     });
 
-    it("should call onOpen when Filterable Select is opened", () => {
+    it("should call onOpen when Filterable Select is opened by focusing the input", () => {
+      CypressMountWithProviders(
+        <FilterableSelectComponent openOnFocus onOpen={callback} />
+      );
+
+      commonDataElementInputPreview()
+        .focus()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.wrap(callback).should("have.been.calledOnce");
+        });
+    });
+
+    it("should call onOpen when Filterable Select is opened by clicking on Icon", () => {
       CypressMountWithProviders(
         <FilterableSelectComponent onOpen={callback} />
       );
@@ -1450,8 +1463,8 @@ context("Tests for Filterable Select component", () => {
         .type(text)
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledTwice;
-          expect(callback.getCalls()[1].args[0]).to.equals(text);
+          expect(callback).to.have.been.calledOnce;
+          expect(callback).to.have.been.calledWith(text);
         });
     });
 

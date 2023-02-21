@@ -1,6 +1,7 @@
 import React from "react";
-import Textarea from ".";
+import { TextareaComponent } from "./textarea-test.stories";
 import Box from "../box";
+import * as stories from "./textarea.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
   verifyRequiredAsteriskForLabel,
@@ -30,18 +31,6 @@ import { keyCode } from "../../../cypress/support/helper";
 import { ICON } from "../../../cypress/locators/locators";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
-const TextareaComponent = ({ ...props }) => {
-  const [state, setState] = React.useState("");
-
-  const setValue = ({ target }) => {
-    setState(target.value);
-  };
-
-  return (
-    <Textarea label="Textarea" value={state} onChange={setValue} {...props} />
-  );
-};
 
 context("Tests for Textarea component", () => {
   describe("check props for Textarea component", () => {
@@ -611,5 +600,131 @@ context("Tests for Textarea component", () => {
           });
       }
     );
+  });
+
+  describe("Accessibility tests for Textarea component", () => {
+    it("should pass accessibility tests for Textarea default story", () => {
+      CypressMountWithProviders(<stories.DefaultStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea AutoFocusStory", () => {
+      CypressMountWithProviders(<stories.AutoFocusStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea CharacterLimitStory", () => {
+      CypressMountWithProviders(<stories.CharacterLimitStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea CustomWidthStory", () => {
+      CypressMountWithProviders(<stories.CustomWidthStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea DisabledStory", () => {
+      CypressMountWithProviders(<stories.DisabledStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea ExpandableStory", () => {
+      CypressMountWithProviders(<stories.ExpandableStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea FieldHelpStory", () => {
+      CypressMountWithProviders(<stories.FieldHelpStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea LabelAlignStory", () => {
+      CypressMountWithProviders(<stories.LabelAlignStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea LabelHelpStory", () => {
+      CypressMountWithProviders(<stories.LabelHelpStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea LabelInlineStory", () => {
+      CypressMountWithProviders(<stories.LabelInlineStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea MaxWidthStory", () => {
+      CypressMountWithProviders(<stories.MaxWidthStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea NewDesignValidationStory", () => {
+      CypressMountWithProviders(<stories.NewDesignValidationStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea ReadOnlyStory", () => {
+      CypressMountWithProviders(<stories.ReadOnlyStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea RequiredStory", () => {
+      CypressMountWithProviders(<stories.RequiredStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea UnenforcedCharacterLimitStory", () => {
+      CypressMountWithProviders(<stories.UnenforcedCharacterLimitStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Textarea ValidationBooleanStory", () => {
+      CypressMountWithProviders(<stories.ValidationBooleanStory />);
+
+      cy.checkAccessibility();
+    });
+
+    // FE-5382
+    it.skip("should pass accessibility tests for Textarea ValidationLabelPositionStory", () => {
+      CypressMountWithProviders(<stories.ValidationLabelPositionStory />);
+
+      cy.checkAccessibility();
+    });
+
+    // FE-5382
+    it.skip("should pass accessibility tests for Textarea ValidationLabelStory", () => {
+      CypressMountWithProviders(<stories.ValidationLabelStory />);
+
+      cy.checkAccessibility();
+    });
+
+    // FE-5382
+    it.skip("should pass accessibility tests for Textarea ValidationStringPositionStory", () => {
+      CypressMountWithProviders(<stories.ValidationStringPositionStory />);
+
+      cy.checkAccessibility();
+    });
+
+    // FE-5382
+    it.skip("should pass accessibility tests for Textarea ValidationStringStory", () => {
+      CypressMountWithProviders(<stories.ValidationStringStory />);
+
+      cy.checkAccessibility();
+    });
   });
 });
