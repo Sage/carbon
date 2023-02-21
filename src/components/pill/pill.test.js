@@ -125,7 +125,7 @@ context("Testing Pill component", () => {
       ["#123456", hexBlue, "rgb(18, 52, 86)"],
       [green, green, "rgb(0, 123, 10)"],
     ])(
-      "should render Pill component with borderColor set to %s.",
+      "should render Pill component with borderColor set to %s",
       (colourDescription, color, output) => {
         CypressMountWithProviders(
           <PillComponent pillRole="status" borderColor={color}>
@@ -213,6 +213,113 @@ context("Testing Pill component", () => {
             expect(callback).to.have.been.calledOnce;
           });
       });
+    });
+
+    describe("Accessibility tests for Pill component", () => {
+      it.each(specialCharacters)(
+        "should render Pill using %s as label for accessibility tests",
+        (label) => {
+          CypressMountWithProviders(<PillComponent>{label}</PillComponent>);
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(["warning", "neutral", "negative", "positive"])(
+        "should render Pill component with colorVariant set to %s for accessibility tests",
+        (color) => {
+          CypressMountWithProviders(
+            <PillComponent pillRole="status" colorVariant={color}>
+              Pill
+            </PillComponent>
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it("should render Pill component with data-element for accessibility tests", () => {
+        CypressMountWithProviders(<PillComponent data-element={testData} />);
+        cy.checkAccessibility();
+      });
+
+      it("should render Pill component with data-role for accessibility tests", () => {
+        CypressMountWithProviders(<PillComponent data-role={testData} />);
+        cy.checkAccessibility();
+      });
+
+      it.each(["warning", "neutral", "negative", "positive"])(
+        "should render Pill component with color fill to %s for accessibility tests",
+        (color) => {
+          CypressMountWithProviders(
+            <PillComponent pillRole="status" colorVariant={color} fill>
+              Pill
+            </PillComponent>
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(["tag", "status"])(
+        "should render Dialog component with pillRole set to %s for accessibility tests",
+        (role) => {
+          CypressMountWithProviders(
+            <PillComponent pillRole={role}>{role}</PillComponent>
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(["20px", "100px"])(
+        "should render Pill component with maxWidth set to %s for accessibility tests",
+        (maxWidth) => {
+          CypressMountWithProviders(
+            <Pill maxWidth={maxWidth}>Pill with a long label</Pill>
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each([small, medium, large, extraLarge])(
+        "should render Pill component with size set to %s for accessibility tests",
+        (size) => {
+          CypressMountWithProviders(<Pill size={size}>Pill</Pill>);
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each([
+        [true, "break-spaces"],
+        [false, "nowrap"],
+      ])(
+        "should render Pill component with wrapText set to %s for accessibility tests",
+        (booleanState) => {
+          CypressMountWithProviders(
+            <Pill maxWidth="44px" wrapText={booleanState}>
+              Wrapped pill
+            </Pill>
+          );
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each([
+        colorsSemanticCaution500,
+        blackOpacity65,
+        brilliantGreenShade20,
+        red,
+        hexBlue,
+        green,
+      ])(
+        "should render Pill component with borderColor set to %s for accessibility tests",
+        (color) => {
+          CypressMountWithProviders(
+            <PillComponent pillRole="status" borderColor={color}>
+              Pill
+            </PillComponent>
+          );
+          cy.checkAccessibility();
+        }
+      );
     });
   });
 });

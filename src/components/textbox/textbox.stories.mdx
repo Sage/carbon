@@ -4,6 +4,7 @@ import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import Textbox from ".";
+import * as stories from "./textbox.stories";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 <Meta title="Textbox" parameters={{ info: { disable: true } }} />
@@ -45,175 +46,79 @@ import Textbox from "carbon-react/lib/components/textbox";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    {() => {
-      const [state, setState] = useState("Textbox");
-      const setValue = ({ target }) => {
-        setState(target.value);
-      };
-      return <Textbox label="Textbox" value={state} onChange={setValue} />;
-    }}
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Character counter
 
 <Canvas>
-  <Story name="character counter">
-    {() => {
-      const [state, setState] = useState("Textbox");
-      const setValue = ({ target }) => {
-        setState(target.value);
-      };
-      return (
-        <Textbox
-          label="Textbox"
-          value={state}
-          onChange={setValue}
-          characterLimit="10"
-          enforceCharacterLimit={false}
-          warnOverLimit
-        />
-      );
-    }}
-  </Story>
+  <Story name="character counter" story={stories.CharacterCounter} />
 </Canvas>
 
 ### Prefix
 
 <Canvas>
-  <Story name="prefix">
-    {() => {
-      const [state, setState] = useState("Textbox");
-      const setValue = ({ target }) => {
-        setState(target.value);
-      };
-      return (
-        <Textbox
-          label="Textbox"
-          value={state}
-          onChange={setValue}
-          prefix="prefix"
-        />
-      );
-    }}
-  </Story>
+  <Story name="prefix" story={stories.Prefix} />
 </Canvas>
 
 ### Sizes
 
 <Canvas>
-  <Story name="sizes">
-    {() =>
-      ["small", "medium", "large"].map((size) => (
-        <Textbox
-          key={`Textbox - ${size}`}
-          label={`Textbox - ${size}`}
-          defaultValue="Textbox"
-          size={size}
-          mb={2}
-        />
-      ))
-    }
-  </Story>
+  <Story name="sizes" story={stories.Sizes} />
 </Canvas>
 
 ### Margins
 
 <Canvas>
-  <Story name="margins">
-    {() => {
-      const [state, setState] = useState("Textbox");
-      const setValue = ({ target }) => {
-        setState(target.value);
-      };
-      return (
-        <Textbox label="Textbox" value={state} onChange={setValue} m={4} />
-      );
-    }}
-  </Story>
+  <Story name="margins" story={stories.Margins} />
 </Canvas>
 
 ### AutoFocus
 
 <Canvas>
-  <Story name="autoFocus" parameters={{ chromatic: { disable: true } }}>
-    <>
-      <Textbox label="Textbox" value="Textbox" autoFocus />
-      <Textbox label="Textbox" value="Textbox" autoFocus />
-    </>
-  </Story>
+  <Story name="autoFocus" parameters={{ chromatic: { disable: true } }} story={stories.AutoFocus} />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled">
-    <Textbox label="Textbox" value="Textbox" disabled />
-  </Story>
+  <Story name="disabled" story={stories.Disabled} />
 </Canvas>
 
 ### ReadOnly
 
 <Canvas>
-  <Story name="readOnly">
-    <Textbox label="Textbox" value="Textbox" readOnly />
-  </Story>
+  <Story name="readOnly" story={stories.ReadOnly} />
 </Canvas>
 
 ### With labelInline
 
 <Canvas>
-  <Story name="with labelInline" parameters={{ chromatic: { disable: true } }}>
-    <Textbox label="Textbox" value="Textbox" labelInline />
-  </Story>
+  <Story name="with labelInline" parameters={{ chromatic: { disable: true } }} story={stories.WithLabelInline} />
 </Canvas>
 
 ### With custom labelWidth and inputWidth
 
 <Canvas>
-  <Story name="with custom labelWidth and inputWidth">
-    <Textbox
-      label="Textbox"
-      value="Textbox"
-      labelInline
-      labelWidth={50}
-      inputWidth={50}
-    />
-  </Story>
+  <Story name="with custom labelWidth and inputWidth" story={stories.WithCustomLabelWidthAndInputWidth} />
 </Canvas>
 
 ### With custom maxWidth
 
 <Canvas>
-  <Story name="with custom maxWidth">
-    <Textbox
-      label="Textbox"
-      value="Textbox"
-      maxWidth="50%"
-    />
-  </Story>
+  <Story name="with custom maxWidth" story={stories.WithCustomMaxWidth} />
 </Canvas>
 
 ### With fieldHelp
 
 <Canvas>
-  <Story name="with fieldHelp">
-    <Textbox label="Textbox" value="Textbox" fieldHelp="Help" />
-  </Story>
+  <Story name="with fieldHelp" story={stories.WithFieldHelp} />
 </Canvas>
 
 ### With labelHelp
 
 <Canvas>
-  <Story name="with labelHelp">
-    <Textbox
-      label="Textbox"
-      value="Textbox"
-      labelHelp="Help"
-      helpAriaLabel="Help"
-    />
-  </Story>
+  <Story name="with labelHelp" story={stories.WithLabelHelp} />
 </Canvas>
 
 ### Required
@@ -221,28 +126,13 @@ import Textbox from "carbon-react/lib/components/textbox";
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Canvas>
-  <Story name="required">
-    <Textbox label="Textbox" value="Textbox" required />
-  </Story>
+  <Story name="required" story={stories.Required} />
 </Canvas>
 
 ### LabelAlign
 
 <Canvas>
-  <Story name="labelAlign">
-    {() =>
-      ["right", "left"].map((alignment) => (
-        <Textbox
-          label="Textbox"
-          value="Textbox"
-          labelInline
-          inputWidth={50}
-          key={alignment}
-          labelAlign={alignment}
-        />
-      ))
-    }
-  </Story>
+  <Story name="labelAlign" story={stories.LabelAlign} />
 </Canvas>
 
 ### Validations
@@ -258,27 +148,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 #### As a string
 
 <Canvas>
-  <Story name="validations - string - component">
-    {() =>
-      ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Textbox
-            label="Textbox - readOnly"
-            value="Textbox"
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </div>
-      ))
-    }
-  </Story>
+  <Story name="validations - string - component" story={stories.ValidationsAsAString} />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -287,85 +157,20 @@ It is possible to use the `tooltipPosition` to override the default placement of
   <Story
     name="validations - string - with tooltipPosition overriden - component"
     parameters={{ chromatic: { disable: true } }}
-  >
-    {() =>
-      ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-          />
-        </div>
-      ))
-    }
-  </Story>
+    story={stories.ValidationsAsAStringWithTooltipCustom}
+  />
 </Canvas>
 
 #### As a string, displayed on label
 
 <Canvas>
-  <Story name="validations - string - label">
-    {() =>
-      ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Textbox
-            label="Textbox - readOnly"
-            value="Textbox"
-            validationOnLabel
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </div>
-      ))
-    }
-  </Story>
+  <Story name="validations - string - label" story={stories.ValidationsAsAStringDisplayedOnLabel} />
 </Canvas>
 
 #### New designs validation
 
 <Canvas>
-  <Story name="validations - string - new design">
-    {() => (
-      <>
-        <CarbonProvider validationRedesignOptIn>
-          {["error", "warning"].map((validationType) =>
-            ["small", "medium", "large"].map((size) => (
-              <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
-                <Textbox
-                  m={4}
-                  label={`${size} - ${validationType}`}
-                  defaultValue="Textbox"
-                  labelHelp="Hint text (optional)"
-                  size={size}
-                  {...{ [validationType]: "Message" }}
-                />
-                <Textbox
-                  m={4}
-                  label={`readOnly - ${size} - ${validationType}`}
-                  defaultValue="Textbox"
-                  size={size}
-                  labelHelp="Hint text (optional)"
-                  readOnly
-                  {...{ [validationType]: "Message" }}
-                />
-              </div>
-            ))
-          )}
-        </CarbonProvider>
-      </>
-    )}
-  </Story>
+  <Story name="validations - string - new design" story={stories.NewDesignsValidation} />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -374,48 +179,14 @@ It is possible to use the `tooltipPosition` to override the default placement of
   <Story
     name="validations - string - with tooltipPosition overriden - label"
     parameters={{ chromatic: { disable: true } }}
-  >
-    {() =>
-      ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-          />
-        </div>
-      ))
-    }
-  </Story>
+    story={stories.ValidationsAsAStringWithTooltipDefault}
+  />
 </Canvas>
 
 #### As a boolean
 
 <Canvas>
-  <Story name="validations - boolean">
-    {() =>
-      ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-boolean-component`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-          <Textbox
-            label="Textbox - readOnly"
-            value="Textbox"
-            readOnly
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-        </div>
-      ))
-    }
-  </Story>
+  <Story name="validations - boolean" story={stories.ValidationsAsABoolean} />
 </Canvas>
 
 ## Props

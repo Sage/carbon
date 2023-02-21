@@ -2,7 +2,11 @@
 import React from "react";
 import Box from "../box";
 import Checkbox from "./checkbox.component";
-import CheckboxGroup from "./checkbox-group.component";
+import {
+  CheckboxComponent,
+  CheckboxGroupComponent,
+} from "./checkbox-test.stories.tsx";
+import * as stories from "./checkbox.stories.tsx";
 import {
   checkboxComponent,
   checkboxRole,
@@ -34,63 +38,6 @@ import {
 } from "../../../cypress/support/component-helper/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const CheckboxComponent = ({ ...props }) => {
-  const [setIsChecked] = React.useState(false);
-  return (
-    <>
-      <div
-        style={{
-          marginTop: "64px",
-        }}
-      >
-        <Checkbox
-          label="Checkbox 1"
-          checked={() => setIsChecked(false)}
-          onChange={(e) => setIsChecked(e.target.checked)}
-          {...props}
-        />
-      </div>
-    </>
-  );
-};
-
-const CheckboxGroupComponent = ({ children, ...props }) => {
-  const [setIsChecked] = React.useState(false);
-  return (
-    <div
-      style={{
-        marginTop: "64px",
-        marginLeft: "64px",
-      }}
-    >
-      <CheckboxGroup
-        id="checkboxgroup"
-        name="checkboxgroup"
-        legend="Test CheckboxGroup Label"
-        {...props}
-      >
-        <Checkbox
-          label="Required"
-          id="checkbox-Required"
-          key="checkbox-Required"
-          name="checkbox-Required"
-          checked={() => setIsChecked(false)}
-          onChange={(e) => setIsChecked(e.target.checked)}
-        />
-        <Checkbox
-          label="Optional"
-          id="checkbox-Required"
-          key="checkbox-Required"
-          name="checkbox-Required"
-          checked={() => setIsChecked(false)}
-          onChange={(e) => setIsChecked(e.target.checked)}
-        />
-
-        {children}
-      </CheckboxGroup>
-    </div>
-  );
-};
 
 context("Testing Checkbox component", () => {
   describe("should render Checkbox component", () => {
@@ -585,6 +532,229 @@ context("Testing Checkbox component", () => {
 
         verifyRequiredAsteriskForLegend();
       });
+    });
+  });
+
+  describe("should check accessibility for Checkbox", () => {
+    it.each([true, false])(
+      "should pass accessibility tests for Checkbox component with checked state set to %s",
+      (booleanValue) => {
+        CypressMountWithProviders(<CheckboxComponent checked={booleanValue} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibility tests for Checkbox component with fieldHelp", () => {
+      CypressMountWithProviders(
+        <CheckboxComponent fieldHelp="Inline fieldhelp" />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Checkbox component with inline fieldHelp", () => {
+      CypressMountWithProviders(
+        <CheckboxComponent fieldHelp="Inline fieldhelp" fieldHelpInline />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Checkbox component with help icon", () => {
+      CypressMountWithProviders(
+        <CheckboxComponent label="Label For CheckBox" labelHelp="Label Help" />
+      );
+
+      checkboxIcon()
+        .trigger("mouseover")
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Checkbox disabled", () => {
+      CypressMountWithProviders(<CheckboxComponent disabled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Checkbox with different sizes", () => {
+      CypressMountWithProviders(<stories.Sizes />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Checkbox reversed", () => {
+      CypressMountWithProviders(<stories.Reversed />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Checkbox with custom label width", () => {
+      CypressMountWithProviders(<stories.WithCustomLabelWidth />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([1, 2])(
+      "should pass accessibility tests for Checkbox component with %s as labelSpacing",
+      (spacing) => {
+        CypressMountWithProviders(<CheckboxComponent labelSpacing={spacing} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibility tests for Checkbox component as a required field", () => {
+      CypressMountWithProviders(
+        <CheckboxComponent label="Required Checkbox" required />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Checkbox component with autoFocus", () => {
+      CypressMountWithProviders(<CheckboxComponent autoFocus />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(["bottom", "left", "right", "top"])(
+      "should render CheckboxComponent component with tooltip positioned to the %s",
+      (position) => {
+        CypressMountWithProviders(
+          <Box m="250px">
+            <CheckboxComponent
+              labelHelp="Tooltip info"
+              tooltipPosition={position}
+            />
+          </Box>
+        );
+
+        checkboxIcon()
+          .trigger("mouseover")
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            cy.checkAccessibility();
+          });
+      }
+    );
+
+    // FE-5382
+    describe.skip("skip", () => {
+      it("should pass accessibility tests for Checkbox component with error message", () => {
+        CypressMountWithProviders(
+          <CheckboxComponent error="Error has occurred" />
+        );
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Checkbox component with warning message", () => {
+        CypressMountWithProviders(
+          <CheckboxComponent warning="Warning has occurred" />
+        );
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Checkbox component with info message", () => {
+        CypressMountWithProviders(
+          <CheckboxComponent info="Info has occurred" />
+        );
+
+        cy.checkAccessibility();
+      });
+    });
+  });
+
+  describe("should check accessibility for Checkbox Group", () => {
+    it("should pass accessibility tests for CheckboxGroup component with !@#$%^*()_+-=~[];:.,?{}&\"'<> as legend", () => {
+      CypressMountWithProviders(
+        <CheckboxGroupComponent legend={CHARACTERS.SPECIALCHARACTERS} />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it.each(["left", "right"])(
+      "should pass accessibility tests for CheckboxGroup component with inline legend aligned to %s",
+      (position) => {
+        CypressMountWithProviders(
+          <CheckboxGroupComponent
+            legend="CheckBox Legend"
+            legendWidth={20}
+            legendAlign={position}
+            legendInline
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([20, 40])(
+      "should pass accessibility tests for CheckboxGroup component with inline legend width set to %s",
+      (width) => {
+        CypressMountWithProviders(
+          <CheckboxGroupComponent
+            legend="CheckBox Legend"
+            legendWidth={width}
+            legendInline
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([1, 2])(
+      "should pass accessibility tests for CheckboxGroup component with legendSpacing set to %s",
+      (spacing) => {
+        CypressMountWithProviders(
+          <CheckboxGroupComponent
+            legend="AVeryVeryLongLegend"
+            legendSpacing={spacing}
+            legendWidth="10"
+            legendInline
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibility tests for CheckboxGroup component as a required field", () => {
+      CypressMountWithProviders(
+        <CheckboxGroupComponent legend="Required CheckboxGroup" required />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    // FE-5382
+    describe.skip("skip", () => {
+      it.each(["top", "bottom", "left", "right"])(
+        "should pass accessibility tests for CheckboxGroupComponent component with tooltip positioned to the %s",
+        (position) => {
+          CypressMountWithProviders(
+            <CheckboxGroupComponent
+              legend="Checkbox Legend"
+              error="Something is wrong"
+              tooltipPosition={position}
+            />
+          );
+
+          checkboxGroupIcon()
+            .trigger("mouseover")
+            .then(() => {
+              // eslint-disable-next-line no-unused-expressions
+              cy.checkAccessibility();
+            });
+        }
+      );
     });
   });
 });
