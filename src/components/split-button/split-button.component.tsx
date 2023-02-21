@@ -83,15 +83,14 @@ export const SplitButton = ({
   const [minWidth, setMinWidth] = useState(0);
 
   const hideButtons = useCallback(() => {
-    if (toggleButton.current === document.activeElement) return;
-
     setShowAdditionalButtons(false);
   }, []);
 
   const handleKeyDown = useMenuKeyboardNavigation(
     toggleButton,
     buttonChildrenRefs,
-    hideButtons
+    hideButtons,
+    showAdditionalButtons
   );
 
   function showButtons() {
@@ -124,16 +123,19 @@ export const SplitButton = ({
       setTimeout(() => {
         buttonChildrenRefs[0]?.current?.focus();
       }, 0);
-    } else if (Events.isEscKey(ev)) {
-      setShowAdditionalButtons(false);
-      ev.preventDefault();
     }
   }
 
+  const hideButtonsIfTriggerNotFocused = useCallback(() => {
+    if (toggleButton.current === document.activeElement) return;
+
+    setShowAdditionalButtons(false);
+  }, []);
+
   const mainButtonProps = {
-    onMouseEnter: hideButtons,
-    onFocus: hideButtons,
-    onTouchStart: hideButtons,
+    onMouseEnter: hideButtonsIfTriggerNotFocused,
+    onFocus: hideButtonsIfTriggerNotFocused,
+    onTouchStart: hideButtonsIfTriggerNotFocused,
     iconPosition,
     buttonType,
     disabled,
@@ -247,7 +249,7 @@ export const SplitButton = ({
   return (
     <StyledSplitButton
       aria-haspopup="true"
-      onMouseLeave={hideButtons}
+      onMouseLeave={hideButtonsIfTriggerNotFocused}
       onClick={handleClick}
       ref={splitButtonNode}
       {...componentTags()}
