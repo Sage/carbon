@@ -1,9 +1,14 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import Icon from "../icon";
+
 import Help from ".";
 
-<Meta title="Help" parameters={{ info: { disable: true } }} />
+import * as stories from "./help.stories";
+
+<Meta
+  title="Help"
+  parameters={{ info: { disable: true }, chromatic: { disableSnapshot: true } }}
+/>
 
 # Help
 
@@ -30,11 +35,7 @@ import Help from "carbon-react/lib/components/help";
 ### Default
 
 <Canvas>
-  <Story name="default" parameters={{ chromatic: { disableSnapshot: true } }}>
-    <div style={{ margin: "64px" }}>
-      <Help>Some helpful text goes here</Help>
-    </div>
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Help with Tooltip custom message
@@ -42,16 +43,8 @@ import Help from "carbon-react/lib/components/help";
 <Canvas>
   <Story
     name="with Tooltip custom message"
-    parameters={{ chromatic: { disableSnapshot: true } }}
-  >
-    <div style={{ margin: "64px" }}>
-      <Help>
-        <Icon type="add" color="red" />
-        <Icon type="add" color="green" />
-        <Icon type="add" color="blue" /> Some <em>helpful</em> text goes here
-      </Help>
-    </div>
-  </Story>
+    story={stories.WithTooltipCustomMessage}
+  />
 </Canvas>
 
 ### Help with Tooltip Position
@@ -60,17 +53,7 @@ The tooltip can be position `right`, `left`, `top` or `bottom`.
 Hover over the help component to see the different positions.
 
 <Canvas>
-  <Story name="with Tooltip Position">
-    {() => {
-      return ["right", "left", "top", "bottom"].map((position) => (
-        <div style={{ margin: "64px 300px" }}>
-          <Help tooltipPosition={position} isFocused={true}>
-            {`This tooltip is positioned ${position}`}
-          </Help>
-        </div>
-      ));
-    }}
-  </Story>
+  <Story name="with Tooltip Position" story={stories.WithTooltipPosition} />
 </Canvas>
 
 ### Help with Tooltip color overrides
@@ -81,14 +64,8 @@ props accept and valid css color value.
 <Canvas>
   <Story
     name="with Tooltip color overrides"
-    parameters={{ chromatic: { disableSnapshot: true } }}
-  >
-    <div style={{ margin: "64px 300px" }}>
-      <Help tooltipBgColor="lightblue" tooltipFontColor="black">
-        The background and font color are overridden
-      </Help>
-    </div>
-  </Story>
+    story={stories.WithTooltipColorOverrides}
+  />
 </Canvas>
 
 ## Help with Icons
@@ -96,17 +73,7 @@ props accept and valid css color value.
 Using the `type` prop, different icons can be specified. In this example type has been assigned `error`, `add`, `minus` and `settings`
 
 <Canvas>
-  <Story name="with Icons" parameters={{ chromatic: { disableSnapshot: true } }}>
-    {() => {
-      return ["error", "add", "minus", "settings"].map((icon) => (
-        <div style={{ margin: "64px" }}>
-          <Help type={`${icon}`}>
-            {`This is the Help component with the ${icon} icon`}
-          </Help>
-        </div>
-      ));
-    }}
-  </Story>
+  <Story name="with Icons" story={stories.WithIcons} />
 </Canvas>
 
 ## Help with href
@@ -114,13 +81,7 @@ Using the `type` prop, different icons can be specified. In this example type ha
 Using the `href` prop, a link can be specified.
 
 <Canvas>
-  <Story name="with href" parameters={{ chromatic: { disableSnapshot: true } }}>
-    <div style={{ margin: "64px" }}>
-      <Help href="https://carbon.sage.com">
-        This is the Help component with a href.
-      </Help>
-    </div>
-  </Story>
+  <Story name="with href" story={stories.WithHref} />
 </Canvas>
 
 ## Props
