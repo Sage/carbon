@@ -68,7 +68,7 @@ export const WithNoLeftBorderHighlight: ComponentStory<
 export const WidthOverridden: ComponentStory<typeof DismissibleBox> = () => {
   return (
     <Box p={2}>
-      <DismissibleBox mb={2} hasBorderLeftHighlight={false} onClose={() => {}}>
+      <DismissibleBox width="650px" onClose={() => {}}>
         <Box display="flex">
           <Typography mb={0}>{children}</Typography>
           <VerticalDivider p={0} px={2} />
