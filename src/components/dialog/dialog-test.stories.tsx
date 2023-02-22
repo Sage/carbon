@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { action } from "@storybook/addon-actions";
 import { EditorState } from "draft-js";
 
@@ -7,6 +7,7 @@ import Form from "../form";
 import Textbox from "../textbox";
 import Button from "../button";
 import DateInput from "../date";
+import Toast from "../toast";
 import { Checkbox } from "../checkbox";
 import { Select, Option } from "../select";
 import TextEditor from "../text-editor";
@@ -14,6 +15,7 @@ import { DIALOG_SIZES } from "./dialog.config";
 
 export default {
   title: "Dialog/Test",
+  includeStories: "DefaultStory",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -168,4 +170,100 @@ Default.args = {
   showCloseIcon: true,
   disableEscKey: false,
   stickyFooter: false,
+};
+
+<<<<<<< HEAD
+// eslint-disable-next-line react/prop-types
+export const DialogComponent = ({
+  // eslint-disable-next-line react/prop-types
+  children = "This is an example of a dialog",
+  ...props
+}) => {
+  const [isOpen, setIsOpen] = React.useState(true);
+=======
+export const DialogComponent = ({
+  children = "This is an example of a dialog",
+  ...props
+}: Partial<DialogProps> & StoryProps) => {
+  const [isOpen, setIsOpen] = useState(true);
+>>>>>>> 028705288... test(dialog): add accessibility tests
+  const ref = useRef<HTMLButtonElement | null>(null);
+  return (
+    <>
+      <Dialog
+        open={isOpen}
+        showCloseIcon
+        onCancel={() => setIsOpen(false)}
+        focusFirstElement={ref}
+        {...props}
+      >
+<<<<<<< HEAD
+=======
+        {children}
+>>>>>>> 028705288... test(dialog): add accessibility tests
+        <Button onClick={() => setIsOpen(false)}>Not focused</Button>
+        <Button forwardRef={ref} onClick={() => setIsOpen(false)}>
+          This should be focused first now
+        </Button>
+
+        <Textbox label="Textbox1" value="Textbox1" />
+        <Textbox label="Textbox2" value="Textbox2" />
+        <Textbox label="Textbox3" value="Textbox3" />
+      </Dialog>
+    </>
+  );
+};
+
+export const DialogComponentWithToast = () => {
+  const toastRef = useRef(null);
+<<<<<<< HEAD
+  const [openToast, setOpenToast] = React.useState(false);
+=======
+  const [openToast, setOpenToast] = useState(false);
+>>>>>>> 028705288... test(dialog): add accessibility tests
+  return (
+    <>
+      <Toast
+        ref={toastRef}
+        open={openToast}
+        onDismiss={() => setOpenToast(false)}
+      >
+        Toast message 1
+      </Toast>
+      <Dialog open>
+        <Button onClick={() => setOpenToast(true)}>Open Toast</Button>
+      </Dialog>
+    </>
+  );
+};
+
+<<<<<<< HEAD
+// eslint-disable-next-line react/prop-types
+export const DialogComponentWithTextEditor = ({ ...props }) => {
+  const [isOpen, setIsOpen] = React.useState(true);
+=======
+export const DialogComponentWithTextEditor = ({
+  ...props
+}: Partial<DialogProps> & StoryProps) => {
+  const [isOpen, setIsOpen] = useState(true);
+>>>>>>> 028705288... test(dialog): add accessibility tests
+  return (
+    <>
+      <Dialog
+        open={isOpen}
+        showCloseIcon
+        onCancel={() => setIsOpen(false)}
+        {...props}
+      >
+        <Textbox label="Textbox1" value="Textbox1" />
+        <Textbox label="Textbox2" value="Textbox2" />
+        <TextEditor
+          onChange={() => {}}
+          value={EditorState.createEmpty()}
+          labelText="Text Editor Label"
+        />
+        <Textbox label="Textbox3" value="Textbox3" />
+      </Dialog>
+    </>
+  );
 };
