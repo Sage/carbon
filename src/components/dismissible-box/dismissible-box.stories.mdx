@@ -4,10 +4,7 @@ import LinkTo from "@storybook/addon-links/react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import DismissibleBox from ".";
-import Box from "../box";
-import Typography from "../typography";
-import VerticalDivider from "../vertical-divider";
-import Image from "../image";
+import * as stories from "./dismissible-box.stories";
 
 <Meta title="Dismissible Box" parameters={{ info: { disable: true } }} />
 
@@ -33,63 +30,13 @@ import DismissibleBox from "carbon-react/lib/components/dismissible-box";
 ### Default - Light variant
 
 <Canvas>
-  <Story name="light variant">
-    <Box p={2}>
-      <DismissibleBox onClose={() => {}}>
-        <Box display="flex">
-          <Typography mb={0}>
-            Well, that's certainly good to know. Your head is not an artifact!
-            Maybe if we felt any human loss as keenly as we feel one of those
-            close to us, human history would be far less bloody. Wouldn't that
-            bring about chaos? Shields up! Rrrrred alert! Travel time to the
-            nearest starbase? I'm afraid I still don't understand, sir. You
-            enjoyed that. The Enterprise computer system is controlled by three
-            primary main processor cores, cross-linked with a redundant
-            melacortz ramistat, fourteen kiloquad interface modules. Well,
-            that's certainly good to know. Your head is not an artifact! Rrrrred
-            alert! Rrrrred alert! Rrrrred alert!
-          </Typography>
-          <VerticalDivider p={0} px={2} />
-          <Image
-            alt="Example alt text"
-            src={require("../../../.assets/point.svg")}
-            width="120px"
-          />
-        </Box>
-      </DismissibleBox>
-    </Box>
-  </Story>
+  <Story name="light variant" story={stories.DefaultLightVariant} />
 </Canvas>
 
 ### Dark variant
 
 <Canvas>
-  <Story name="dark variant">
-    <Box p={2}>
-      <DismissibleBox variant="dark" onClose={() => {}}>
-        <Box display="flex">
-          <Typography mb={0}>
-            Well, that's certainly good to know. Your head is not an artifact!
-            Maybe if we felt any human loss as keenly as we feel one of those
-            close to us, human history would be far less bloody. Wouldn't that
-            bring about chaos? Shields up! Rrrrred alert! Travel time to the
-            nearest starbase? I'm afraid I still don't understand, sir. You
-            enjoyed that. The Enterprise computer system is controlled by three
-            primary main processor cores, cross-linked with a redundant
-            melacortz ramistat, fourteen kiloquad interface modules. Well,
-            that's certainly good to know. Your head is not an artifact! Rrrrred
-            alert! Rrrrred alert! Rrrrred alert!
-          </Typography>
-          <VerticalDivider p={0} px={2} />
-          <Image
-            alt="Example alt text"
-            src={require("../../../.assets/point.svg")}
-            width="120px"
-          />
-        </Box>
-      </DismissibleBox>
-    </Box>
-  </Story>
+  <Story name="dark variant" story={stories.DefaultDarkVariant} />
 </Canvas>
 
 ### With no left border highlight
@@ -98,36 +45,7 @@ By default the component will be rendered with a thicker left border highlight, 
 of this functionality.
 
 <Canvas>
-  <Story name="with no left border highlight">
-    <Box p={2}>
-      <DismissibleBox
-        mb={2}
-        hasBorderLeftHighlight={false}
-        onClose={() => {}}
-      >
-        <Box display="flex">
-          <Typography mb={0}>
-            Well, that's certainly good to know. Your head is not an artifact!
-            Maybe if we felt any human loss as keenly as we feel one of those
-            close to us, human history would be far less bloody. Wouldn't that
-            bring about chaos? Shields up! Rrrrred alert! Travel time to the
-            nearest starbase? I'm afraid I still don't understand, sir. You
-            enjoyed that. The Enterprise computer system is controlled by three
-            primary main processor cores, cross-linked with a redundant
-            melacortz ramistat, fourteen kiloquad interface modules. Well,
-            that's certainly good to know. Your head is not an artifact! Rrrrred
-            alert! Rrrrred alert! Rrrrred alert!
-          </Typography>
-          <VerticalDivider p={0} px={2} />
-          <Image
-            alt="Example alt text"
-            src={require("../../../.assets/point.svg")}
-            width="120px"
-          />
-        </Box>
-      </DismissibleBox>
-    </Box>
-  </Story>
+  <Story name="with no left border highlight" story={stories.WithNoLeftBorderHighlight} />
 </Canvas>
 
 ### Width overridden
@@ -135,32 +53,7 @@ of this functionality.
 It is also possible to override the `width` of the component: by default it will fill any available space.
 
 <Canvas>
-  <Story name="width overridden">
-    <Box p={2}>
-      <DismissibleBox width="650px" onClose={() => {}}>
-        <Box display="flex">
-          <Typography mb={0}>
-            Well, that's certainly good to know. Your head is not an artifact!
-            Maybe if we felt any human loss as keenly as we feel one of those
-            close to us, human history would be far less bloody. Wouldn't that
-            bring about chaos? Shields up! Rrrrred alert! Travel time to the
-            nearest starbase? I'm afraid I still don't understand, sir. You
-            enjoyed that. The Enterprise computer system is controlled by three
-            primary main processor cores, cross-linked with a redundant
-            melacortz ramistat, fourteen kiloquad interface modules. Well,
-            that's certainly good to know. Your head is not an artifact! Rrrrred
-            alert! Rrrrred alert! Rrrrred alert!
-          </Typography>
-          <VerticalDivider p={0} px={2} />
-          <Image
-            alt="Example alt text"
-            src={require("../../../.assets/point.svg")}
-            width="120px"
-          />
-        </Box>
-      </DismissibleBox>
-    </Box>
-  </Story>
+  <Story name="width overridden" story={stories.WidthOverridden} />
 </Canvas>
 
 ## Props
