@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "../box";
-import Link from "./link.component";
+import { LinkComponent } from "./link-test.stories";
 
 import {
   icon,
@@ -17,20 +17,6 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testCypress = "test-cypress";
-
-const LinkComponent = ({ ...props }) => {
-  return (
-    <div
-      style={{
-        margin: "100px",
-      }}
-    >
-      <Link href="#foo" target="_blank" rel="noreferrer noopener" {...props}>
-        This is a link
-      </Link>
-    </div>
-  );
-};
 
 context("Test for Link component", () => {
   describe("check props for Link component", () => {
@@ -85,7 +71,7 @@ context("Test for Link component", () => {
       tooltipPreview().should("have.text", testCypress);
     });
 
-    it.each([["top"], ["bottom"], ["left"], ["right"]])(
+    it.each(["top", "bottom", "left", "right"])(
       "should render Link with tooltipPosition prop set to %s",
       (tooltipPosition) => {
         CypressMountWithProviders(
@@ -112,7 +98,7 @@ context("Test for Link component", () => {
       }
     );
 
-    it.each([["_blank"], ["_self"], ["_parent"], ["_top"]])(
+    it.each(["_blank", "_self", "_parent", "_top"])(
       "should render Link with target prop set to %s",
       (target) => {
         CypressMountWithProviders(<LinkComponent target={target} />);
@@ -127,7 +113,7 @@ context("Test for Link component", () => {
       link().children().should("have.attr", "aria-label", testCypress);
     });
 
-    it.each([["noopener"], ["noreferrer"], ["opener"]])(
+    it.each(["noopener", "noreferrer", "opener"])(
       "should render Link with rel prop set to %s",
       (rel) => {
         CypressMountWithProviders(<LinkComponent rel={rel} />);
@@ -238,6 +224,102 @@ context("Test for Link component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+
+    describe("should render Link component and check accessibility", () => {
+      it("should check accessibility for link component", () => {
+        CypressMountWithProviders(<LinkComponent />);
+
+        cy.checkAccessibility();
+      });
+
+      // FE-4647
+      describe.skip("skip", () => {
+        it("should render Link disabled and check accessibility", () => {
+          CypressMountWithProviders(<LinkComponent disabled />);
+
+          cy.checkAccessibility();
+        });
+
+        it("should render Link with dark background and check accessibility", () => {
+          CypressMountWithProviders(<LinkComponent isDarkBackground />);
+
+          cy.checkAccessibility();
+        });
+      });
+
+      it("should render Link with icon and check accessibility", () => {
+        CypressMountWithProviders(<LinkComponent icon="add" />);
+
+        cy.checkAccessibility();
+      });
+
+      it.each(["left", "right"])(
+        "should render Link with iconAlign prop set to %s and check accessibility",
+        (iconAlign) => {
+          CypressMountWithProviders(
+            <LinkComponent icon="add" iconAlign={iconAlign} />
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it("should render Link with href prop and check accessibility", () => {
+        CypressMountWithProviders(<LinkComponent href={testCypress} />);
+
+        cy.checkAccessibility();
+      });
+
+      it.each(["top", "bottom", "left", "right"])(
+        "should render Link with tooltipPosition prop set to %s and check accessibility",
+        (tooltipPosition) => {
+          CypressMountWithProviders(
+            <Box m="250px">
+              <LinkComponent
+                icon="add"
+                tooltipMessage={testCypress}
+                tooltipPosition={tooltipPosition}
+              />
+            </Box>
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(["_blank", "_self", "_parent", "_top"])(
+        "should render Link with target prop set to %s and check accessibility",
+        (target) => {
+          CypressMountWithProviders(<LinkComponent target={target} />);
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it("should render Link with ariaLabel prop and check accessibility", () => {
+        CypressMountWithProviders(<LinkComponent ariaLabel={testCypress} />);
+
+        cy.checkAccessibility();
+      });
+
+      it.each(["noopener", "noreferrer", "opener"])(
+        "should render Link with rel prop set to %s and check accessibility",
+        (rel) => {
+          CypressMountWithProviders(<LinkComponent rel={rel} />);
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(["default", "negative", "neutral"])(
+        "should render Link with variant prop set to %s and check accessibility",
+        (variant) => {
+          CypressMountWithProviders(<LinkComponent variant={variant} />);
+
+          cy.checkAccessibility();
+        }
+      );
     });
   });
 });

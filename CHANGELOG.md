@@ -1,3 +1,85 @@
+## [114.16.0](https://github.com/Sage/carbon/compare/v114.15.0...v114.16.0) (2023-02-21)
+
+
+### Features
+
+* **settings-row,heading:** surface headingType prop on components ([7f53917](https://github.com/Sage/carbon/commit/7f53917b6aeafe57f534bbd493afec2c676e2ac7)), closes [#5723](https://github.com/Sage/carbon/issues/5723)
+
+## [114.15.0](https://github.com/Sage/carbon/compare/v114.14.1...v114.15.0) (2023-02-21)
+
+
+### Features
+
+* add internal useStableCallback hook ([d1e96bc](https://github.com/Sage/carbon/commit/d1e96bc348dd9cd8aeaa15d16fa6ce5104944756))
+
+
+### Bug Fixes
+
+* **filterable-select:** resolve issue with multiple execution of onOpen and onFilterChange callbacks ([65a9cef](https://github.com/Sage/carbon/commit/65a9cef560723f9c23220ca8db0be69b7bf6b77c))
+* **multi-select:** resolve issue with multiple execution of onFilterChange callback ([f0112a7](https://github.com/Sage/carbon/commit/f0112a72f73a4a56b748d12e10be4546bf381c41))
+
+### [114.14.1](https://github.com/Sage/carbon/compare/v114.14.0...v114.14.1) (2023-02-16)
+
+
+### Bug Fixes
+
+* **link:** change display to inline so that text can wrap ([aa35ee5](https://github.com/Sage/carbon/commit/aa35ee52dd78e00945a3308972ca06ca1ab1c7ee)), closes [#5774](https://github.com/Sage/carbon/issues/5774)
+* types in MenuContext provider in link test ([4c51a6c](https://github.com/Sage/carbon/commit/4c51a6cff00be815c05dc99e805e8f4e455256cf))
+
+## [114.14.0](https://github.com/Sage/carbon/compare/v114.13.2...v114.14.0) (2023-02-15)
+
+
+### Features
+
+* **select:** add virtual scrolling support ([a1048d7](https://github.com/Sage/carbon/commit/a1048d779b6fe81dd9930202cbaa443fd9ee153c)), closes [#5492](https://github.com/Sage/carbon/issues/5492)
+
+
+### Bug Fixes
+
+* **select:** ensure IDs of select options remain stable on prop changes ([c35fe3f](https://github.com/Sage/carbon/commit/c35fe3f2a54b1b0c55b4046dbc9dc2193c9f3ef4))
+
+### [114.13.2](https://github.com/Sage/carbon/compare/v114.13.1...v114.13.2) (2023-02-15)
+
+
+### Bug Fixes
+
+* **menu, submenu:** refactor components to remove children iteration and cloning ([5530a8f](https://github.com/Sage/carbon/commit/5530a8ffc9d00008217a55d9446fb2b71e6dfbeb)), closes [#5592](https://github.com/Sage/carbon/issues/5592)
+
+### [114.13.1](https://github.com/Sage/carbon/compare/v114.13.0...v114.13.1) (2023-02-14)
+
+
+### Bug Fixes
+
+* trigger release ([e2c853b](https://github.com/Sage/carbon/commit/e2c853bf32fa5200e4ba916e0311a40ae4be85eb))
+
+## [114.13.0](https://github.com/Sage/carbon/compare/v114.12.4...v114.13.0) (2023-02-14)
+
+
+### Features
+
+* **anchor-navigation:** changed behaviour to improve accessibility ([251bd9c](https://github.com/Sage/carbon/commit/251bd9cf7d8e075ae51714bcd8d814944ab7e853)), closes [#5283](https://github.com/Sage/carbon/issues/5283)
+
+### [114.12.4](https://github.com/Sage/carbon/compare/v114.12.3...v114.12.4) (2023-02-13)
+
+
+### Bug Fixes
+
+* **date:** update abbreviated day translations in picker component for German locale ([fef59f0](https://github.com/Sage/carbon/commit/fef59f0477da6a4aecc81c7804da7a45038d68f0)), closes [#5786](https://github.com/Sage/carbon/issues/5786)
+
+### [114.12.3](https://github.com/Sage/carbon/compare/v114.12.2...v114.12.3) (2023-02-10)
+
+
+### Bug Fixes
+
+* **multi-select:** fix onchange callback being called twice on option select ([d1b8581](https://github.com/Sage/carbon/commit/d1b858133147a1b76132202feaad701da0405750))
+
+### [114.12.2](https://github.com/Sage/carbon/compare/v114.12.1...v114.12.2) (2023-02-10)
+
+
+### Bug Fixes
+
+* **box:** ensure z-index is set when sticky or fixed positioned ([7385e53](https://github.com/Sage/carbon/commit/7385e53a8f7137a9e907ae568de19b80cfb9ee00)), closes [#5572](https://github.com/Sage/carbon/issues/5572)
+
 ### [114.12.1](https://github.com/Sage/carbon/compare/v114.12.0...v114.12.1) (2023-02-09)
 
 

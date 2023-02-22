@@ -555,8 +555,8 @@ This prop will be called every time a user scrolls to the bottom of the list.
         preventLoading.current = true;
         setIsLoading(true);
         setTimeout(() => {
-          setIsLoading(false);
           setOptionList(asyncList);
+          setIsLoading(false);
         }, 2000);
       }
       function onLazyLoading() {
@@ -568,8 +568,8 @@ This prop will be called every time a user scrolls to the bottom of the list.
         setTimeout(() => {
           preventLazyLoading.current = false;
           lazyLoadingCounter.current += 1;
-          setIsLoading(false);
           setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
+          setIsLoading(false);
         }, 2000);
       }
       function clearData() {
@@ -810,6 +810,30 @@ If there is no `id` prop specified on an object, then the exact objects will be 
         ))
       )}
     </CarbonProvider>
+  </Story>
+</Canvas>
+
+### Virtual scrolling
+
+The `enableVirtualScroll` prop can be used to enable "virtual scrolling" to only render a few options into the DOM at any one time.
+This allows an unlimited amount of children to be passed with little impact on rendering performance.
+
+By default this will render 5 not-currently-visible options into the DOM on either side of the currently-visible ones - this value can
+be customised if desired using the `virtualScrollOverscan` prop. Higher values will make scrolling smoother but may negatively impact performance.
+
+<Canvas>
+  <Story name="virtualised">
+    {() => {
+      const colors = ["Amber", "Black", "Blue", "Brown", "Green", "Orange", "Pink", "Purple", "Red", "White", "Yellow"];
+      const options = Array(10000).fill().map(
+        (_, index) => <Option key={index} value={`${index}`} text={`${colors[index % colors.length]} - option ${index+1}`} />
+      );
+      return (
+        <FilterableSelect name="virtualised" id="virtualised" label="choose an option" labelInline enableVirtualScroll virtualScrollOverscan={20}>
+          {options}
+        </FilterableSelect>
+      );
+    }}
   </Story>
 </Canvas>
 

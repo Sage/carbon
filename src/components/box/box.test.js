@@ -1,8 +1,11 @@
 import React from "react";
-import Box from "./box.component";
+import * as testStories from "./box-test.stories";
+import * as stories from "./box.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../../cypress/locators";
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
+
+import { radiobuttonComponent } from "../../../cypress/locators/radiobutton";
 
 const colorConstants = [
   ["red", "rgb(255, 0, 0)", "#FF0000"],
@@ -34,65 +37,6 @@ const sizeConstants = [
   ["1366px", 1, 1366],
 ];
 
-const BoxComponent = ({ ...props }) => {
-  return (
-    <Box
-      m={3}
-      p={3}
-      width={400}
-      height={400}
-      data-element="box"
-      bg="primary"
-      color="red"
-      {...props}
-    >
-      This is some sample text
-    </Box>
-  );
-};
-
-const BoxComponentMulti = ({ ...props }) => {
-  return (
-    <div>
-      <Box display="flex" data-element="box" bg="blue" {...props}>
-        <Box
-          width="100px"
-          height="100px"
-          bg="primary"
-          color="yellow"
-          data-element="boxone"
-          {...props}
-        >
-          {" "}
-          Supercalifrajilisticexpialidocious Word{" "}
-        </Box>
-        <Box
-          width="100px"
-          height="100px"
-          bg="primary"
-          color="yellow"
-          data-element="boxtwo"
-          {...props}
-        >
-          {" "}
-          Box Two Box Two Box Two Box Two Box Two{" "}
-        </Box>
-        <Box
-          width="100px"
-          height="100px"
-          bg="primary"
-          color="yellow"
-          data-element="boxthree"
-          {...props}
-        >
-          {" "}
-          Box Three Box Three Box Three Box Three{" "}
-        </Box>
-      </Box>
-    </div>
-  );
-};
-
 const verifyScrollbarVariant = (variant, thumbColor, trackColor) =>
   getDataElementByValue("boxone").then(($els) => {
     // get Window reference from element
@@ -112,7 +56,7 @@ context("Testing Box component", () => {
     it.each(colorConstants)(
       "should verify Box text is %s when color prop is passed as string",
       (color, rgbValue) => {
-        CypressMountWithProviders(<BoxComponent color={color} />);
+        CypressMountWithProviders(<testStories.Default color={color} />);
 
         getDataElementByValue("box")
           .should("have.attr", "color", color)
@@ -123,7 +67,7 @@ context("Testing Box component", () => {
     it.each(colorConstants)(
       "should verify Box text is %s when color prop passed as RGB value",
       (color, rgbValue) => {
-        CypressMountWithProviders(<BoxComponent color={rgbValue} />);
+        CypressMountWithProviders(<testStories.Default color={rgbValue} />);
 
         getDataElementByValue("box")
           .should("have.attr", "color", rgbValue)
@@ -134,7 +78,7 @@ context("Testing Box component", () => {
     it.each(colorConstants)(
       "should verify Box text is %s when color prop passed as hex",
       (color, rgbValue, hexValue) => {
-        CypressMountWithProviders(<BoxComponent color={hexValue} />);
+        CypressMountWithProviders(<testStories.Default color={hexValue} />);
 
         getDataElementByValue("box")
           .should("have.attr", "color", hexValue)
@@ -145,7 +89,7 @@ context("Testing Box component", () => {
     it.each(bgConstants)(
       "should verify Box bg prop passed as string",
       (color, rgbValue) => {
-        CypressMountWithProviders(<BoxComponent bg={color} />);
+        CypressMountWithProviders(<testStories.Default bg={color} />);
 
         getDataElementByValue("box").should(
           "have.css",
@@ -158,7 +102,7 @@ context("Testing Box component", () => {
     it.each(bgConstants)(
       "should verify Box bg prop passed as RGB value",
       (color, rgbValue) => {
-        CypressMountWithProviders(<BoxComponent bg={rgbValue} />);
+        CypressMountWithProviders(<testStories.Default bg={rgbValue} />);
 
         getDataElementByValue("box").should(
           "have.css",
@@ -171,7 +115,7 @@ context("Testing Box component", () => {
     it.each(bgConstants)(
       "should verify Box bg prop passed as hex value",
       (color, rgbValue, hexValue) => {
-        CypressMountWithProviders(<BoxComponent bg={hexValue} />);
+        CypressMountWithProviders(<testStories.Default bg={hexValue} />);
 
         getDataElementByValue("box").should(
           "have.css",
@@ -185,7 +129,7 @@ context("Testing Box component", () => {
       "should verify Box backgroundColor prop passed as string",
       (color, rgbValue) => {
         CypressMountWithProviders(
-          <BoxComponent bg="" backgroundColor={color} />
+          <testStories.Default bg="" backgroundColor={color} />
         );
 
         getDataElementByValue("box").should(
@@ -200,7 +144,7 @@ context("Testing Box component", () => {
       "should verify Box backgroundColor prop passed as RGB value",
       (color, rgbValue) => {
         CypressMountWithProviders(
-          <BoxComponent bg="" backgroundColor={rgbValue} />
+          <testStories.Default bg="" backgroundColor={rgbValue} />
         );
 
         getDataElementByValue("box").should(
@@ -215,7 +159,7 @@ context("Testing Box component", () => {
       "should verify Box backgroundColor prop passed as hex value",
       (color, rgbValue, hexValue) => {
         CypressMountWithProviders(
-          <BoxComponent bg="" backgroundColor={hexValue} />
+          <testStories.Default bg="" backgroundColor={hexValue} />
         );
 
         getDataElementByValue("box").should(
@@ -230,7 +174,7 @@ context("Testing Box component", () => {
       "should verify Box opacity is %s",
       (opacity) => {
         CypressMountWithProviders(
-          <BoxComponent bg="primary" opacity={opacity} />
+          <testStories.Default bg="primary" opacity={opacity} />
         );
 
         getDataElementByValue("box").should("have.css", "opacity", opacity);
@@ -241,7 +185,7 @@ context("Testing Box component", () => {
       "should verify Box width is %s when prop is passed as a percentage",
       (width, percentage) => {
         CypressMountWithProviders(
-          <BoxComponent bg="primary" width={percentage} />
+          <testStories.Default bg="primary" width={percentage} />
         );
 
         getDataElementByValue("box")
@@ -255,7 +199,9 @@ context("Testing Box component", () => {
     it.each(widthConstants)(
       "should verify Box width is %s when prop is passed as a number",
       (width, percentage, number) => {
-        CypressMountWithProviders(<BoxComponent bg="primary" width={number} />);
+        CypressMountWithProviders(
+          <testStories.Default bg="primary" width={number} />
+        );
 
         getDataElementByValue("box")
           .should("have.attr", "width", number)
@@ -268,7 +214,9 @@ context("Testing Box component", () => {
     it.each(widthConstants)(
       "should verify Box width is %s when prop is passed as a string",
       (width) => {
-        CypressMountWithProviders(<BoxComponent bg="primary" width={width} />);
+        CypressMountWithProviders(
+          <testStories.Default bg="primary" width={width} />
+        );
 
         getDataElementByValue("box")
           .should("have.attr", "width", width)
@@ -282,7 +230,7 @@ context("Testing Box component", () => {
       "should verify Box height is %s when prop is passed as a number",
       (height, number) => {
         CypressMountWithProviders(
-          <BoxComponent bg="primary" height={number} />
+          <testStories.Default bg="primary" height={number} />
         );
 
         getDataElementByValue("box")
@@ -297,7 +245,7 @@ context("Testing Box component", () => {
       "should verify Box height is %s when prop is passed as a string",
       (height) => {
         CypressMountWithProviders(
-          <BoxComponent bg="primary" height={height} />
+          <testStories.Default bg="primary" height={height} />
         );
 
         getDataElementByValue("box")
@@ -311,7 +259,7 @@ context("Testing Box component", () => {
     it.each(sizeConstants)(
       "should verify Box height and width are %s when size prop is passed as a number",
       (pixels, percentage, number) => {
-        CypressMountWithProviders(<BoxComponent size={number} />);
+        CypressMountWithProviders(<testStories.Default size={number} />);
 
         getDataElementByValue("box").then(($el) => {
           useJQueryCssValueAndAssert($el, "width", parseInt(pixels));
@@ -323,7 +271,7 @@ context("Testing Box component", () => {
     it.each(sizeConstants)(
       "should verify Box height and width are %s when size prop is passed as a string",
       (pixels) => {
-        CypressMountWithProviders(<BoxComponent size={pixels} />);
+        CypressMountWithProviders(<testStories.Default size={pixels} />);
 
         getDataElementByValue("box").then(($el) => {
           useJQueryCssValueAndAssert($el, "width", parseInt(pixels));
@@ -335,7 +283,7 @@ context("Testing Box component", () => {
     it.each(["block", "inline-block", "flex", "contents", "list-item", "none"])(
       "should verify Box display is %s",
       (display) => {
-        CypressMountWithProviders(<BoxComponent display={display} />);
+        CypressMountWithProviders(<testStories.Default display={display} />);
 
         getDataElementByValue("box")
           .should("have.attr", "display", display)
@@ -354,7 +302,7 @@ context("Testing Box component", () => {
       "top",
     ])("should verify Box alignItmes is %s", (alignment) => {
       CypressMountWithProviders(
-        <BoxComponentMulti verticalAlign={alignment} />
+        <testStories.BoxComponentMulti verticalAlign={alignment} />
       );
 
       getDataElementByValue("box").should(
@@ -367,7 +315,7 @@ context("Testing Box component", () => {
     it.each(["auto", "clip", "hidden", "scroll", "visible"])(
       "should verify Box overflow is %s",
       (overflow) => {
-        CypressMountWithProviders(<BoxComponent overflow={overflow} />);
+        CypressMountWithProviders(<testStories.Default overflow={overflow} />);
 
         getDataElementByValue("box")
           .should("have.attr", "overflow", overflow)
@@ -378,7 +326,7 @@ context("Testing Box component", () => {
     it.each(["auto", "clip", "hidden", "scroll", "visible"])(
       "should verify Box overflowX is %s",
       (overflow) => {
-        CypressMountWithProviders(<BoxComponent overflowX={overflow} />);
+        CypressMountWithProviders(<testStories.Default overflowX={overflow} />);
 
         getDataElementByValue("box").should("have.css", "overflow-x", overflow);
       }
@@ -387,7 +335,7 @@ context("Testing Box component", () => {
     it.each(["auto", "clip", "hidden", "scroll", "visible"])(
       "should verify Box overflowY is %s",
       (overflow) => {
-        CypressMountWithProviders(<BoxComponent overflowY={overflow} />);
+        CypressMountWithProviders(<testStories.Default overflowY={overflow} />);
 
         getDataElementByValue("box").should("have.css", "overflow-y", overflow);
       }
@@ -400,7 +348,7 @@ context("Testing Box component", () => {
       "should verify when Width is set to %s that Box width is not less than minWidth %s",
       (width, minWidth) => {
         CypressMountWithProviders(
-          <BoxComponent minWidth={300} width={width} />
+          <testStories.Default minWidth={300} width={width} />
         );
 
         getDataElementByValue("box").then(($el) => {
@@ -416,7 +364,7 @@ context("Testing Box component", () => {
       "should verify when Width is set to %s that Box width is not less than minWidth %s",
       (width, minWidth) => {
         CypressMountWithProviders(
-          <BoxComponent minWidth={300} width={width} />
+          <testStories.Default minWidth={300} width={width} />
         );
 
         getDataElementByValue("box").then(($el) => {
@@ -432,7 +380,7 @@ context("Testing Box component", () => {
       "should verify when Width is set to %s that Box width is not less than minWidth %s",
       (width, minWidth) => {
         CypressMountWithProviders(
-          <BoxComponent minWidth={300} width={width} />
+          <testStories.Default minWidth={300} width={width} />
         );
 
         getDataElementByValue("box").then(($el) => {
@@ -448,7 +396,7 @@ context("Testing Box component", () => {
       "should verify when Width is set to %s that Box width is not more than maxWidth %s",
       (width, maxWidth) => {
         CypressMountWithProviders(
-          <BoxComponent maxWidth={600} width={width} />
+          <testStories.Default maxWidth={600} width={width} />
         );
 
         getDataElementByValue("box").then(($el) => {
@@ -464,7 +412,7 @@ context("Testing Box component", () => {
       "should verify when Width is set to %s that Box width is not more than maxWidth %s",
       (width, maxWidth) => {
         CypressMountWithProviders(
-          <BoxComponent maxWidth={600} width={width} />
+          <testStories.Default maxWidth={600} width={width} />
         );
 
         getDataElementByValue("box").then(($el) => {
@@ -480,7 +428,7 @@ context("Testing Box component", () => {
       "should verify when Width is set to %s that Box width is not more than maxWidth %s",
       (width, maxWidth) => {
         CypressMountWithProviders(
-          <BoxComponent maxWidth={600} width={width} />
+          <testStories.Default maxWidth={600} width={width} />
         );
 
         getDataElementByValue("box").then(($el) => {
@@ -496,7 +444,7 @@ context("Testing Box component", () => {
       "should verify when Height is set to %s that Box height is not less than minHeight %s",
       (height, minHeight) => {
         CypressMountWithProviders(
-          <BoxComponent minHeight={600} height={height} />
+          <testStories.Default minHeight={600} height={height} />
         );
 
         getDataElementByValue("box").then(($el) => {
@@ -512,7 +460,7 @@ context("Testing Box component", () => {
       "should verify when Height is set to %s that Box height is not less than minHeight %s",
       (height, minHeight) => {
         CypressMountWithProviders(
-          <BoxComponent minHeight={600} height={height} />
+          <testStories.Default minHeight={600} height={height} />
         );
 
         getDataElementByValue("box").then(($el) => {
@@ -528,7 +476,7 @@ context("Testing Box component", () => {
       "should verify when Height is set to %s that Box height is not more than maxHeight %s",
       (height, maxHeight) => {
         CypressMountWithProviders(
-          <BoxComponent maxHeight={600} height={height} />
+          <testStories.Default maxHeight={600} height={height} />
         );
 
         getDataElementByValue("box").then(($el) => {
@@ -544,7 +492,7 @@ context("Testing Box component", () => {
       "should verify when Height is set to %s that Box height is not more than maxHeight %s",
       (height, maxHeight) => {
         CypressMountWithProviders(
-          <BoxComponent maxHeight={600} height={height} />
+          <testStories.Default maxHeight={600} height={height} />
         );
 
         getDataElementByValue("box").then(($el) => {
@@ -561,7 +509,9 @@ context("Testing Box component", () => {
       "flex-start",
       "flex-end",
     ])("should verify Box alignItmes is %s", (alignment) => {
-      CypressMountWithProviders(<BoxComponentMulti alignItems={alignment} />);
+      CypressMountWithProviders(
+        <testStories.BoxComponentMulti alignItems={alignment} />
+      );
 
       getDataElementByValue("box").should("have.css", "align-items", alignment);
     });
@@ -576,7 +526,9 @@ context("Testing Box component", () => {
       "space-around",
       "stretch",
     ])("should verify Box alignContent is %s", (alignment) => {
-      CypressMountWithProviders(<BoxComponentMulti alignContent={alignment} />);
+      CypressMountWithProviders(
+        <testStories.BoxComponentMulti alignContent={alignment} />
+      );
 
       getDataElementByValue("box").should(
         "have.css",
@@ -594,7 +546,9 @@ context("Testing Box component", () => {
       "normal",
       "stretch",
     ])("should verify Box justifyItems is %s", (justified) => {
-      CypressMountWithProviders(<BoxComponentMulti justifyItems={justified} />);
+      CypressMountWithProviders(
+        <testStories.BoxComponentMulti justifyItems={justified} />
+      );
 
       getDataElementByValue("box").should(
         "have.css",
@@ -615,7 +569,7 @@ context("Testing Box component", () => {
       "stretch",
     ])("should verify Box justifyContent is %s", (justified) => {
       CypressMountWithProviders(
-        <BoxComponentMulti justifyContent={justified} />
+        <testStories.BoxComponentMulti justifyContent={justified} />
       );
 
       getDataElementByValue("box").should(
@@ -628,7 +582,9 @@ context("Testing Box component", () => {
     it.each(["nowrap", "wrap", "wrap-reverse"])(
       "should verify Box flex wrap is %s",
       (wrap) => {
-        CypressMountWithProviders(<BoxComponentMulti flexWrap={wrap} />);
+        CypressMountWithProviders(
+          <testStories.BoxComponentMulti flexWrap={wrap} />
+        );
 
         getDataElementByValue("box").should("have.css", "flex-wrap", wrap);
       }
@@ -638,7 +594,7 @@ context("Testing Box component", () => {
       "should verify Box flex direction is %s",
       (direction) => {
         CypressMountWithProviders(
-          <BoxComponentMulti flexDirection={direction} />
+          <testStories.BoxComponentMulti flexDirection={direction} />
         );
 
         getDataElementByValue("boxone").should(
@@ -652,7 +608,9 @@ context("Testing Box component", () => {
     it.each(["auto", "content", "fit-content", "max-content", "min-content"])(
       "should verify Box flex is %s",
       (flex) => {
-        CypressMountWithProviders(<BoxComponentMulti flex={flex} />);
+        CypressMountWithProviders(
+          <testStories.BoxComponentMulti flex={flex} />
+        );
 
         getDataElementByValue("box").should("have.css", "flex-basis", flex);
       }
@@ -664,7 +622,7 @@ context("Testing Box component", () => {
       [100, "100"],
     ])("should verify Box flex grow is %s", (value, growText) => {
       CypressMountWithProviders(
-        <BoxComponentMulti flex="auto" flexGrow={value} />
+        <testStories.BoxComponentMulti flex="auto" flexGrow={value} />
       );
 
       getDataElementByValue("box").should("have.css", "flex-grow", growText);
@@ -676,7 +634,7 @@ context("Testing Box component", () => {
       [100, "100"],
     ])("should verify Box flex shrink is %s", (value, shrinkText) => {
       CypressMountWithProviders(
-        <BoxComponentMulti flex="auto" flexShrink={value} />
+        <testStories.BoxComponentMulti flex="auto" flexShrink={value} />
       );
 
       getDataElementByValue("box").should(
@@ -689,7 +647,9 @@ context("Testing Box component", () => {
     it.each(["auto", "content", "fit-content", "max-content", "min-content"])(
       "should verify Box flex basis is %s",
       (basis) => {
-        CypressMountWithProviders(<BoxComponentMulti flexBasis={basis} />);
+        CypressMountWithProviders(
+          <testStories.BoxComponentMulti flexBasis={basis} />
+        );
 
         getDataElementByValue("box").should("have.css", "flex-basis", basis);
       }
@@ -706,7 +666,9 @@ context("Testing Box component", () => {
       "flex-start",
       "flex-end",
     ])("should verify Box justifySelf is %s", (justify) => {
-      CypressMountWithProviders(<BoxComponentMulti justifySelf={justify} />);
+      CypressMountWithProviders(
+        <testStories.BoxComponentMulti justifySelf={justify} />
+      );
 
       getDataElementByValue("box").should("have.css", "justify-self", justify);
     });
@@ -720,7 +682,9 @@ context("Testing Box component", () => {
       "flex-start",
       "flex-end",
     ])("should verify Box alignSelf is %s", (align) => {
-      CypressMountWithProviders(<BoxComponentMulti alignSelf={align} />);
+      CypressMountWithProviders(
+        <testStories.BoxComponentMulti alignSelf={align} />
+      );
 
       getDataElementByValue("box").should("have.css", "align-self", align);
     });
@@ -730,7 +694,9 @@ context("Testing Box component", () => {
       [50, "50"],
       [100, "100"],
     ])("should verify Box order is %s", (value, orderText) => {
-      CypressMountWithProviders(<BoxComponentMulti order={value} />);
+      CypressMountWithProviders(
+        <testStories.BoxComponentMulti order={value} />
+      );
 
       getDataElementByValue("box").should("have.css", "order", orderText);
     });
@@ -738,7 +704,9 @@ context("Testing Box component", () => {
     it.each(["break-word", "anywhere"])(
       "should verify Box overflow wrap is %s",
       (wrap) => {
-        CypressMountWithProviders(<BoxComponentMulti overflowWrap={wrap} />);
+        CypressMountWithProviders(
+          <testStories.BoxComponentMulti overflowWrap={wrap} />
+        );
 
         getDataElementByValue("box").should("have.css", "overflow-wrap", wrap);
       }
@@ -749,7 +717,7 @@ context("Testing Box component", () => {
       ["dark", "rgb(153, 173, 183)", "rgb(51, 91, 112)"],
     ])("should verify Box scrollbar variant is %s", (variant, thumb, track) => {
       CypressMountWithProviders(
-        <BoxComponentMulti
+        <testStories.BoxComponentMulti
           display="inline-block"
           size="150px"
           overflow="auto"
@@ -765,7 +733,7 @@ context("Testing Box component", () => {
       "should verify Box position is %s",
       (value) => {
         CypressMountWithProviders(
-          <BoxComponent
+          <testStories.Default
             top="0px"
             left="0px"
             right="0px"
@@ -785,7 +753,9 @@ context("Testing Box component", () => {
     it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, "20%", "20px"])(
       "should verify gap prop sets expected CSS on Box",
       (gap) => {
-        CypressMountWithProviders(<BoxComponent display="flex" gap={gap} />);
+        CypressMountWithProviders(
+          <testStories.Default display="flex" gap={gap} />
+        );
 
         getDataElementByValue("box").should(
           "have.css",
@@ -805,7 +775,7 @@ context("Testing Box component", () => {
       "should verify rowGap prop sets expected CSS on Box and overrides gap if set",
       (rowGap) => {
         CypressMountWithProviders(
-          <BoxComponent display="flex" rowGap={rowGap} gap={8} />
+          <testStories.Default display="flex" rowGap={rowGap} gap={8} />
         );
 
         getDataElementByValue("box").should(
@@ -822,7 +792,7 @@ context("Testing Box component", () => {
       "should verify columnGap prop sets expected CSS on Box and overrides gap if set",
       (columnGap) => {
         CypressMountWithProviders(
-          <BoxComponent display="flex" columnGap={columnGap} gap={8} />
+          <testStories.Default display="flex" columnGap={columnGap} gap={8} />
         );
 
         getDataElementByValue("box").should("have.css", "row-gap", "64px");
@@ -836,12 +806,84 @@ context("Testing Box component", () => {
     );
 
     it("should allow custom boxShadow prop values", () => {
-      CypressMountWithProviders(<BoxComponent boxShadow="boxShadow400" />);
+      CypressMountWithProviders(
+        <testStories.Default boxShadow="boxShadow400" />
+      );
       getDataElementByValue("box").should(
         "have.css",
         "box-shadow",
         "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px"
       );
+    });
+
+    it("should not render inputs over a Box with position sticky", () => {
+      cy.viewport(900, 200);
+      CypressMountWithProviders(<testStories.BoxComponentSticky />);
+
+      getDataElementByValue("scrollable-box").scrollTo(0, 300);
+      radiobuttonComponent().should("not.be.visible");
+    });
+  });
+
+  describe("Accessibility tests for Box", () => {
+    it("should pass accessibility tests for BoxDefault", () => {
+      CypressMountWithProviders(<testStories.Default />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for BoxShadow story", () => {
+      CypressMountWithProviders(<stories.BoxShadow />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Color story", () => {
+      CypressMountWithProviders(<stories.Color />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Flex story", () => {
+      CypressMountWithProviders(<stories.Flex />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Gap story", () => {
+      CypressMountWithProviders(<stories.Gap />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Layout story", () => {
+      CypressMountWithProviders(<stories.Layout />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for OverflowWrap story", () => {
+      CypressMountWithProviders(<stories.OverflowWrap />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Position story", () => {
+      CypressMountWithProviders(<stories.Position />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Scroll story", () => {
+      CypressMountWithProviders(<stories.Scroll />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Spacing story", () => {
+      CypressMountWithProviders(<stories.Spacing />);
+
+      cy.checkAccessibility();
     });
   });
 });

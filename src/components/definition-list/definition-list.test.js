@@ -215,4 +215,108 @@ context("Testing Definition List component", () => {
         .should("have.attr", "data-component", "dl");
     });
   });
+
+  describe("Accessibility tests for Definition List component", () => {
+    it.each(alignValue)(
+      "should pass accessibility tests for Definition List when text is %s aligned",
+      (align) => {
+        CypressMountWithProviders(
+          <DLComponent dtTextAlign={align} ddTextAlign="right" />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(alignValue)(
+      "should pass accessibility tests for Definition List when DD text is %s aligned",
+      (align) => {
+        CypressMountWithProviders(<DLComponent ddTextAlign={align} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(widths)(
+      "should pass the accessibility tests when text width is %spx and definition width is %spx, %s%/%s% of the Definition List width",
+      (dtPixels, ddPixels, dtPercent) => {
+        CypressMountWithProviders(<DLComponent w={dtPercent} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(specialCharacters)(
+      "should pass accessibility tests for Definition List if text is %s when children prop is set to %s",
+      (text) => {
+        CypressMountWithProviders(
+          <Dl>
+            <Dt>{text}</Dt>
+            <Dd>Definition</Dd>
+          </Dl>
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(specialCharacters)(
+      "should pass accessibility tests for Definition List if is %s when children prop is set to %s",
+      (definition) => {
+        CypressMountWithProviders(
+          <Dl>
+            <Dt>Text</Dt>
+            <Dd data-element="dd">{definition}</Dd>
+          </Dl>
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibility tests for Definition List when text is displayed as a single column", () => {
+      CypressMountWithProviders(
+        <DLComponent dtTextAlign="left" asSingleColumn />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Definition List when definition is displayed with a tick icon", () => {
+      CypressMountWithProviders(
+        <Dl>
+          <Dt>Text</Dt>
+          <Dd data-element="dd">
+            <Box display="inline-flex" alignItems="center">
+              <Box mr={1}>Details example</Box>
+              <Icon type="tick" />
+            </Box>
+          </Dd>
+        </Dl>
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Definition List is displayed with children inside React fragment", () => {
+      CypressMountWithProviders(
+        <Dl>
+          {true && (
+            <>
+              <Dt>Text inside React Fragment</Dt>
+              <Dd data-element="dd">Description inside React Fragment</Dd>
+            </>
+          )}
+        </Dl>
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Definition List within a box combined with typography and hr components", () => {
+      CypressMountWithProviders(<DLBoxComponent />);
+
+      cy.checkAccessibility();
+    });
+  });
 });

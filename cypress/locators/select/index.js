@@ -20,6 +20,8 @@ export const selectDataComponent = (component) =>
   cy.get(`[data-component="${component}-select"]`);
 export const selectList = () => cy.get(SELECT_LIST);
 export const selectOption = (index) => cy.get(SELECT_OPTIONS).eq(index);
+export const selectOptionByText = (text) =>
+  cy.get(SELECT_OPTIONS).contains(text);
 export const selectOptionRow = (index) => cy.get(SELECT_OPTION_ROWS).eq(index);
 export const dropdownButton = () => cy.get(DROPDOWN_BUTTON);
 export const selectInput = () => cy.get(SELECT_INPUT);
@@ -36,8 +38,9 @@ export const multiColumnsSelectListHeaderColumn = (index) =>
   selectList().find(`thead > tr > th:nth-child(${index})`);
 export const multiColumnsSelectListBody = () =>
   selectList().find("tbody > tr:nth-child(3) > td");
-export const multiColumnsSelectListRow = () =>
-  selectList().find("tbody > tr:nth-child(2)");
+export const multiColumnsSelectListRowAt = (index) =>
+  selectList().find(`tbody > tr:nth-child(${index})`);
+export const multiColumnsSelectListRow = () => multiColumnsSelectListRowAt(2);
 export const multiColumnsSelectListNoResultsMessage = (text) =>
   selectList().find("tbody > tr > td").contains(`No results for "${text}"`);
 export const boldedAndUnderlinedValue = (text) =>

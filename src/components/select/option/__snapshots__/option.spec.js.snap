@@ -11,6 +11,10 @@ exports[`Option renders properly 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: var(--colorsUtilityMajor200);
 }
 
@@ -40,6 +44,10 @@ exports[`Option when no children are provided renders with the text prop as chil
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: var(--colorsUtilityMajor200);
 }
 

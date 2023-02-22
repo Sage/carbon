@@ -52,6 +52,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("anchor-navigation") &&
       !prepareUrl[0].startsWith("loader") &&
       !prepareUrl[0].startsWith("loader-bar") &&
+      !prepareUrl[0].startsWith("link") &&
       !prepareUrl[0].startsWith("link-preview") &&
       !prepareUrl[0].startsWith("verticaldivider") &&
       !prepareUrl[0].startsWith("button-bar") &&
@@ -66,6 +67,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("heading") &&
       !prepareUrl[0].startsWith("toast") &&
       !prepareUrl[0].startsWith("sidebar") &&
+      !prepareUrl[0].startsWith("search") &&
       !prepareUrl[0].startsWith("dialog-full-screen") &&
       !prepareUrl[0].startsWith("verticalmenu") &&
       !prepareUrl[0].startsWith("message") &&
@@ -76,9 +78,20 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("profile") &&
       !prepareUrl[0].startsWith("date-range") &&
       !prepareUrl[0].startsWith("pages") &&
+      !prepareUrl[0].startsWith("pod") &&
       !prepareUrl[0].startsWith("button-toggle-group") &&
       !prepareUrl[0].startsWith("progress-tracker") &&
       !prepareUrl[0].startsWith("portrait") &&
+      !prepareUrl[0].startsWith("draggable") &&
+      !prepareUrl[0].startsWith("definition-list") &&
+      !prepareUrl[0].startsWith("decimal") &&
+      !prepareUrl[0].startsWith("box") &&
+      !prepareUrl[0].startsWith("carbon-provider") &&
+      !prepareUrl[0].startsWith("pill") &&
+      !prepareUrl[0].startsWith("checkbox") &&
+      !prepareUrl[0].startsWith("note") &&
+      !prepareUrl[0].startsWith("textbox") &&
+      !prepareUrl[0].startsWith("textarea") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);

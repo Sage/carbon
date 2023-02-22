@@ -15,8 +15,9 @@ import {
 } from "../../../../cypress/locators";
 
 import {
-  selectList,
+  selectListWrapper,
   selectOption,
+  selectOptionByText,
   dropdownButton,
   selectListText,
   multiColumnsSelectListHeader,
@@ -480,6 +481,11 @@ const FilterableSelectWithActionButtonComponent = () => {
     <Option text="Blue" value="blue" key="Blue" />,
     <Option text="Brown" value="brown" key="Brown" />,
     <Option text="Green" value="green" key="Green" />,
+    <Option text="Amber" value="amber1" key="Amber1" />,
+    <Option text="Black" value="black1" key="Black1" />,
+    <Option text="Blue" value="blue1" key="Blue1" />,
+    <Option text="Brown" value="brown1" key="Brown1" />,
+    <Option text="Green" value="green1" key="Green1" />,
   ]);
 
   function addNew() {
@@ -573,6 +579,23 @@ const FilterableSelectListActionEventComponent = ({ ...props }) => {
     </FilterableSelect>
   );
 };
+
+const FilterableSelectWithManyOptionsAndVirtualScrolling = () => (
+  <FilterableSelect
+    name="virtualised"
+    id="virtualised"
+    label="choose an option"
+    labelInline
+    enableVirtualScroll
+    virtualScrollOverscan={10}
+  >
+    {Array(10000)
+      .fill()
+      .map((_, index) => (
+        <Option key={index} value={`${index}`} text={`Option ${index + 1}.`} />
+      ))}
+  </FilterableSelect>
+);
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testPropValue = CHARACTERS.STANDARD;
@@ -708,7 +731,7 @@ context("Tests for Filterable Select component", () => {
 
       commonDataElementInputPreview().should("have.attr", "readOnly");
       selectInput().click();
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it.each([
@@ -847,7 +870,7 @@ context("Tests for Filterable Select component", () => {
       commonDataElementInputPreview()
         .should("be.focused")
         .and("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it("should not open the list with mouse click on Filterable Select input", () => {
@@ -857,14 +880,14 @@ context("Tests for Filterable Select component", () => {
       commonDataElementInputPreview()
         .should("be.focused")
         .and("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it("should open the list with mouse click on dropdown button", () => {
       CypressMountWithProviders(<FilterableSelectComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
     });
 
     it("should close the list with mouse click on dropdown button", () => {
@@ -872,37 +895,37 @@ context("Tests for Filterable Select component", () => {
 
       dropdownButton().click();
       dropdownButton().click();
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it("should close the list with the Tab key", () => {
       CypressMountWithProviders(<FilterableSelectComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       selectInput().tab();
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it("should close the list with the Esc key", () => {
       CypressMountWithProviders(<FilterableSelectComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       selectInput().trigger("keydown", { ...keyCode("Esc") });
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it("should close the list by clicking out of the component", () => {
       CypressMountWithProviders(<FilterableSelectComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       body().click({ force: true });
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
     });
 
     it.each([
@@ -919,9 +942,9 @@ context("Tests for Filterable Select component", () => {
         commonDataElementInputPreview().focus();
         selectInput().trigger("keydown", { ...keyCode(key), force: true });
         if (state === "open") {
-          selectList().should("be.visible");
+          selectListWrapper().should("be.visible");
         } else {
-          selectList().should("not.be.visible");
+          selectListWrapper().should("not.be.visible");
         }
       }
     );
@@ -935,7 +958,7 @@ context("Tests for Filterable Select component", () => {
         selectListText(option).click();
         getDataElementByValue("input").should("have.attr", "value", option);
         selectInput().should("have.attr", "aria-expanded", "false");
-        selectList().should("not.be.visible");
+        selectListWrapper().should("not.be.visible");
       }
     );
 
@@ -949,7 +972,7 @@ context("Tests for Filterable Select component", () => {
 
         commonDataElementInputPreview().type(text);
         selectInput().should("have.attr", "aria-expanded", "true");
-        selectList().should("be.visible");
+        selectListWrapper().should("be.visible");
         selectOption(positionOfElement("first"))
           .should("have.text", optionValue1)
           .and("be.visible")
@@ -969,7 +992,7 @@ context("Tests for Filterable Select component", () => {
       CypressMountWithProviders(<FilterableSelectWithLazyLoadingComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       for (let i = 0; i < 3; i++) {
         loader(i).should("be.visible");
       }
@@ -982,7 +1005,7 @@ context("Tests for Filterable Select component", () => {
       const option = "Amber";
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       for (let i = 0; i < 3; i++) {
         loader(i).should("be.visible");
       }
@@ -990,7 +1013,7 @@ context("Tests for Filterable Select component", () => {
       dropdownButton().click();
       selectResetButton().click({ force: true });
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       for (let i = 0; i < 3; i++) {
         loader(i).should("be.visible");
       }
@@ -1004,17 +1027,17 @@ context("Tests for Filterable Select component", () => {
       const option = "Lazy Loaded A1";
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       for (let i = 0; i < 3; i++) {
         loader(i).should("be.visible");
       }
-      selectList().scrollTo("bottom").wait(250);
-      selectList().scrollTo("bottom");
-      selectList().should("be.visible");
+      selectListWrapper().scrollTo("bottom").wait(250);
+      selectListWrapper().scrollTo("bottom");
+      selectListWrapper().should("be.visible");
       for (let i = 0; i < 3; i++) {
         loader(i).should("be.visible");
       }
-      selectListText(option).should("be.visible");
+      selectListText(option).should("exist");
     });
 
     it("should list options when value is set and select list is opened again", () => {
@@ -1027,9 +1050,9 @@ context("Tests for Filterable Select component", () => {
       selectListText(option).click();
       getDataElementByValue("input").should("have.attr", "value", option);
       selectInput().should("have.attr", "aria-expanded", "false");
-      selectList().should("not.be.visible");
+      selectListWrapper().should("not.be.visible");
       dropdownButton().click();
-      selectList()
+      selectListWrapper()
         .find("li")
         .should(($lis) => {
           expect($lis).to.have.length(count);
@@ -1041,7 +1064,7 @@ context("Tests for Filterable Select component", () => {
 
       commonDataElementInputPreview().focus();
       selectInput().should("have.attr", "aria-expanded", "true");
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
     });
 
     it("should check list is open when input is clicked and openOnFocus is set", () => {
@@ -1049,7 +1072,7 @@ context("Tests for Filterable Select component", () => {
 
       commonDataElementInputPreview().click();
       selectInput().should("have.attr", "aria-expanded", "true");
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
     });
 
     it("should open correct list and select one when an object is already set as a value", () => {
@@ -1075,7 +1098,7 @@ context("Tests for Filterable Select component", () => {
         <FilterableSelectComponent listMaxHeight={maxHeight} />
       );
       dropdownButton().click();
-      selectList()
+      selectListWrapper()
         .should("have.css", "max-height", `${maxHeight}px`)
         .and("be.visible");
     });
@@ -1170,7 +1193,7 @@ context("Tests for Filterable Select component", () => {
       CypressMountWithProviders(<FilterableSelectMultiColumnsComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       multiColumnsSelectListHeader()
         .should("have.length", columns)
         .and("be.visible");
@@ -1223,7 +1246,7 @@ context("Tests for Filterable Select component", () => {
 
       commonDataElementInputPreview().click().should("be.focused");
       commonDataElementInputPreview().type(text);
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       multiColumnsSelectListHeader()
         .should("have.length", columns)
         .and("be.visible");
@@ -1236,7 +1259,7 @@ context("Tests for Filterable Select component", () => {
       );
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       multiColumnsSelectListHeader()
         .should("have.length", columns)
         .and("be.visible");
@@ -1244,10 +1267,10 @@ context("Tests for Filterable Select component", () => {
         .should("have.length", columns)
         .and("be.visible");
       filterableSelectAddElementButton()
-        .should("be.visible")
+        .should("exist")
         .and("have.text", addElementText);
       filterableSelectButtonIcon()
-        .should("be.visible")
+        .should("exist")
         .and("have.attr", "type", icon);
     });
 
@@ -1255,25 +1278,54 @@ context("Tests for Filterable Select component", () => {
       CypressMountWithProviders(<FilterableSelectWithActionButtonComponent />);
 
       dropdownButton().click();
-      selectList().should("be.visible");
+      selectListWrapper().should("be.visible");
       filterableSelectAddElementButton()
-        .should("be.visible")
+        .should("exist")
         .and("have.text", addElementText);
       filterableSelectButtonIcon()
-        .should("be.visible")
+        .should("exist")
         .and("have.attr", "type", icon);
       filterableSelectAddElementButton().click();
       alertDialogPreview().should("be.visible");
     });
 
+    it("should render list options with an action button that is visible without scrolling and without affecting the list height", () => {
+      CypressMountWithProviders(<FilterableSelectWithActionButtonComponent />);
+
+      dropdownButton().click();
+      selectListWrapper().should("be.visible");
+
+      filterableSelectAddElementButton().should("be.visible");
+
+      selectListWrapper().then((wrapperElement) => {
+        const actualHeight = parseInt(wrapperElement.css("height"));
+        expect(actualHeight).to.be.above(220);
+        expect(actualHeight).to.be.below(250);
+      });
+    });
+
+    it("when navigating with the keyboard, the selected option is not hidden behind an action button", () => {
+      CypressMountWithProviders(<FilterableSelectWithActionButtonComponent />);
+
+      dropdownButton().click();
+
+      for (let i = 0; i < 5; i++) {
+        commonDataElementInputPreview()
+          .focus()
+          .trigger("keydown", { ...keyCode("downarrow"), force: true });
+      }
+
+      selectOptionByText("Green").should("be.visible");
+    });
+
     it("should add new list option from Add new Dialog", () => {
       CypressMountWithProviders(<FilterableSelectWithActionButtonComponent />);
 
-      const newOption = "New5";
+      const newOption = "New10";
 
       dropdownButton().click();
-      selectList().should("be.visible");
-      filterableSelectAddElementButton().should("be.visible").click();
+      selectListWrapper().should("be.visible");
+      filterableSelectAddElementButton().should("exist").click();
       alertDialogPreview().should("be.visible");
       filterableSelectAddNewButton().should("be.visible").click();
       getDataElementByValue("input").should("have.attr", "value", newOption);
@@ -1323,7 +1375,20 @@ context("Tests for Filterable Select component", () => {
         });
     });
 
-    it("should call onOpen when Filterable Select is opened", () => {
+    it("should call onOpen when Filterable Select is opened by focusing the input", () => {
+      CypressMountWithProviders(
+        <FilterableSelectComponent openOnFocus onOpen={callback} />
+      );
+
+      commonDataElementInputPreview()
+        .focus()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.wrap(callback).should("have.been.calledOnce");
+        });
+    });
+
+    it("should call onOpen when Filterable Select is opened by clicking on Icon", () => {
       CypressMountWithProviders(
         <FilterableSelectComponent onOpen={callback} />
       );
@@ -1398,8 +1463,8 @@ context("Tests for Filterable Select component", () => {
         .type(text)
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledTwice;
-          expect(callback.getCalls()[1].args[0]).to.equals(text);
+          expect(callback).to.have.been.calledOnce;
+          expect(callback).to.have.been.calledWith(text);
         });
     });
 
@@ -1423,13 +1488,52 @@ context("Tests for Filterable Select component", () => {
       );
 
       dropdownButton().click();
-      selectList()
+      selectListWrapper()
         .scrollTo("bottom")
         .wait(250)
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("check virtual scrolling", () => {
+    it("renders only an appropriate number of options into the DOM when first opened", () => {
+      CypressMountWithProviders(
+        <FilterableSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      dropdownButton().click();
+
+      selectOptionByText("Option 1.").should("be.visible");
+      selectOptionByText("Option 10.").should("exist").and("not.be.visible");
+      selectOptionByText("Option 30.").should("not.exist");
+    });
+
+    it("changes the rendered options when you scroll down", () => {
+      CypressMountWithProviders(
+        <FilterableSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      dropdownButton().click();
+      selectListWrapper().scrollTo(0, 750).wait(250);
+
+      selectOptionByText("Option 1.").should("not.exist");
+      selectOptionByText("Option 20.").should("be.visible");
+      selectOptionByText("Option 30.").should("exist").and("not.be.visible");
+      selectOptionByText("Option 40.").should("not.exist");
+    });
+
+    it("should filter options when text is typed, taking into account non-rendered options", () => {
+      CypressMountWithProviders(
+        <FilterableSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      commonDataElementInputPreview().type("Option 100");
+      selectOptionByText("Option 100.").should("be.visible");
+      selectOptionByText("Option 1000.").should("be.visible");
+      selectOptionByText("Option 1002.").should("be.visible");
     });
   });
 });

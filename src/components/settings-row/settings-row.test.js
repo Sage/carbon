@@ -27,6 +27,21 @@ context("Tests for SettingsRow component", () => {
       }
     );
 
+    it.each(["h1", "h2", "h3", "h4", "h5"])(
+      "should check HTML heading element is correct when headingType is %s",
+      (headingType) => {
+        CypressMountWithProviders(
+          <SettingsRowComponent
+            headingType={headingType}
+            title="foo"
+            description="bar"
+          />
+        );
+
+        cy.get(headingType).contains("foo");
+      }
+    );
+
     it.each(testData)(
       "should check %s as description for SettingsRow component",
       (description) => {

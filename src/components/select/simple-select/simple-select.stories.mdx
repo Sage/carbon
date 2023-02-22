@@ -421,8 +421,8 @@ This prop will be called every time a user scrolls to the bottom of the list.
         preventLoading.current = true;
         setIsLoading(true);
         setTimeout(() => {
-          setIsLoading(false);
           setOptionList(asyncList);
+          setIsLoading(false);
         }, 2000);
       }
       function onLazyLoading() {
@@ -434,8 +434,8 @@ This prop will be called every time a user scrolls to the bottom of the list.
         setTimeout(() => {
           preventLazyLoading.current = false;
           lazyLoadingCounter.current += 1;
-          setIsLoading(false);
           setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
+          setIsLoading(false);
         }, 2000);
       }
       function clearData() {
@@ -771,6 +771,62 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
         ))
       )}
     </CarbonProvider>
+  </Story>
+</Canvas>
+
+### Virtual scrolling
+
+The `enableVirtualScroll` prop can be used to enable "virtual scrolling" to only render a few options into the DOM at any one time.
+This allows an unlimited amount of children to be passed with little impact on rendering performance.
+
+By default this will render 5 not-currently-visible options into the DOM on either side of the currently-visible ones - this value can
+be customised if desired using the `virtualScrollOverscan` prop. Higher values will make scrolling smoother but may negatively impact performance.
+
+<Canvas>
+  <Story name="virtualised">
+    <Select name="virtualised" id="virtualised" label="choose an option" labelInline enableVirtualScroll virtualScrollOverscan={20}>
+      {Array(10000).fill().map((_, index) => <Option key={index} value={`${index}`} text={`Option ${index + 1}`} />)}
+    </Select>
+  </Story>
+</Canvas>
+
+### With multiple columns and virtualisation
+
+<Canvas>
+  <Story
+    name="with multiple columns and virtualisation"
+    parameters={{ chromatic: { disable: true } }}
+  >
+    <Select
+      name="withMultipleColumnsAndVirtualisation"
+      id="withMultipleColumnsAndVirtualisation"
+      label="choose an option"
+      multiColumn
+      defaultValue="2"
+      enableVirtualScroll
+      tableHeader={
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Occupation</th>
+        </tr>
+      }
+    >
+      {Array(500)
+        .fill()
+        .map((_, index) => (
+          <OptionRow
+            key={index}
+            id={`option-row-${index}`}
+            value={`${index}`}
+            text={`Option ${index + 1}`}
+          >
+            <td>{`John ${index + 1}`}</td>
+            <td>{`Doe ${index + 1}`}</td>
+            <td>{`Welder ${index + 1}`}</td>
+          </OptionRow>
+        ))}
+    </Select>
   </Story>
 </Canvas>
 

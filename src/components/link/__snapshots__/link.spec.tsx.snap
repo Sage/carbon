@@ -6,6 +6,7 @@ exports[`Link renders as expected 1`] = `
   disabled={false}
   hasContent={true}
   iconAlign="left"
+  isMenuItem={false}
   theme="[ theme object ]"
   variant="default"
 >

@@ -20,6 +20,7 @@ describe("SettingsRow", () => {
   describe("render", () => {
     const name = "foobar-row";
     const title = "Some Title";
+    const description = <span>Some descriptive text</span>;
     const childId = "my_child";
     const children = <span id={childId} />;
     let wrapper = shallow(
@@ -58,7 +59,6 @@ describe("SettingsRow", () => {
     });
 
     describe("when description is provided", () => {
-      const description = <span>Some descriptive text</span>;
       let head;
 
       beforeEach(() => {
@@ -75,6 +75,25 @@ describe("SettingsRow", () => {
       it("passes true as separator prop", () => {
         expect(head.prop("separator")).toBeTruthy();
       });
+    });
+
+    describe("when headingType prop is provided", () => {
+      it.each(["h1", "h2", "h3", "h4", "h5"])(
+        "HTML heading element is correct when headingType is %s",
+        (headingType) => {
+          wrapper = mount(
+            <SettingsRow
+              headingType={headingType}
+              title={title}
+              description={description}
+            >
+              Content for settings
+            </SettingsRow>
+          );
+
+          expect(wrapper.find(headingType).text()).toBe(title);
+        }
+      );
     });
 
     describe("when title is not provided", () => {

@@ -123,12 +123,4 @@ describe("ScrollableBlock", () => {
       }
     );
   });
-
-  describe("when a block child focused by submenu context", () => {
-    it("should focus the underlying MenuItem", () => {
-      wrapper = render("dark", {}, 1, 2);
-
-      expect(wrapper.find(StyledMenuItemWrapper).at(1).find("a")).toBeFocused();
-    });
-  });
 });

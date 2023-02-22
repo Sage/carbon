@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
-import { Checkbox, CheckboxProps } from ".";
+import { Checkbox, CheckboxProps, CheckboxGroup } from ".";
 
 export default {
   title: "Checkbox/Test",
+  includeStories: "Default",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -93,4 +94,54 @@ Default.args = {
   ml: "0",
   adaptiveSpacingBreakpoint: undefined,
   required: false,
+};
+
+export const CheckboxComponent = ({ ...props }) => {
+  const [isChecked, setIsChecked] = useState(false);
+  return (
+    <>
+      <div
+        style={{
+          marginTop: "64px",
+        }}
+      >
+        <Checkbox
+          label="Checkbox 1"
+          checked={isChecked}
+          onChange={(e) => setIsChecked(e.target.checked)}
+          {...props}
+        />
+      </div>
+    </>
+  );
+};
+
+export const CheckboxGroupComponent = ({
+  // eslint-disable-next-line react/prop-types
+  children = "This is an example of a checkbox",
+  ...props
+}) => {
+  const [isChecked, setIsChecked] = useState(false);
+  return (
+    <div
+      style={{
+        marginTop: "64px",
+        marginLeft: "64px",
+      }}
+    >
+      <CheckboxGroup legend="Test CheckboxGroup Label" {...props}>
+        {["One", "Two", "Three"].map((label) => (
+          <Checkbox
+            label={label}
+            id={`checkbox-group-${label}`}
+            key={`checkbox-group-${label}`}
+            name={`checkbox-group-${label}`}
+            checked={isChecked}
+            onChange={(e) => setIsChecked(e.target.checked)}
+          />
+        ))}
+        {children}
+      </CheckboxGroup>
+    </div>
+  );
 };

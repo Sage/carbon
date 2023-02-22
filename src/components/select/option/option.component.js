@@ -4,7 +4,21 @@ import StyledOption from "./option.style";
 import SelectListContext from "../__internal__/select-list-context";
 
 const Option = React.forwardRef(
-  ({ text, children, onSelect, value, id, index, hidden, onClick }, ref) => {
+  (
+    {
+      text,
+      children,
+      onSelect,
+      value,
+      id,
+      index,
+      hidden,
+      onClick,
+      style,
+      ...rest
+    },
+    ref
+  ) => {
     const selectListContext = useContext(SelectListContext);
     let isSelected = selectListContext.currentOptionsListIndex === index;
 
@@ -31,6 +45,8 @@ const Option = React.forwardRef(
         isHighlighted={selectListContext.currentOptionsListIndex === index}
         role="option"
         hidden={hidden}
+        style={style}
+        {...rest}
       >
         {children || text}
       </StyledOption>
@@ -77,6 +93,11 @@ Option.propTypes = {
   /** MultiSelect only - fill Pill background with color */
   // eslint-disable-next-line react/no-unused-prop-types
   fill: PropTypes.bool,
+  /**
+   * @private
+   * @ignore
+   * object containing CSS styles to be passed to the underlying list-item */
+  style: PropTypes.object,
 };
 
 export default Option;

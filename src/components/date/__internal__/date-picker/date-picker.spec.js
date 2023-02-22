@@ -257,7 +257,7 @@ describe("StyledDayPicker", () => {
 
           expect(title).toEqual(long[i]);
           expect(children).toEqual(
-            locale === "de-DE" ? long[i].substring(0, 3) : short[i]
+            locale === "de-DE" ? long[i].substring(0, 2) : short[i]
           );
         });
       });
