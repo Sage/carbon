@@ -1,8 +1,9 @@
 import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import { useState, forwardRef } from "react";
+
 import Tooltip from ".";
-import Icon from "../icon";
-import Button from "../button";
+
+import * as stories from "./tooltip.stories";
 
 <Meta
   title="Tooltip"
@@ -45,32 +46,7 @@ is focused or hovered. The default `position` is "top" and `size` is "M". The `m
 tooltip and it and the `children` prop are required.
 
 <Canvas>
-  <Story name="default">
-    {() => {
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
-      return (
-        <div style={{ padding: "60px" }}>
-          <Tooltip message="I am a tooltip!">
-            <Component>target</Component>
-          </Tooltip>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Controlled
@@ -78,40 +54,7 @@ tooltip and it and the `children` prop are required.
 The Tooltip can also be controlled via the `isVisible` prop.
 
 <Canvas>
-  <Story name="controlled">
-    {() => {
-      const [isVisible, setIsVisible] = useState(false);
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
-      return (
-        <>
-          <div style={{ display: "flex" }}>
-            <Button onClick={() => setIsVisible(!isVisible)}>
-              Toggle tooltip
-            </Button>
-          </div>
-          <div style={{ padding: "60px" }}>
-            <Tooltip message="I am a tooltip!" isVisible={isVisible}>
-              <Component>target</Component>
-            </Tooltip>
-          </div>
-        </>
-      );
-    }}
-  </Story>
+  <Story name="controlled" story={stories.Controlled} />
 </Canvas>
 
 ### Positioning
@@ -122,43 +65,7 @@ the target element when a user scrolls. The flipping and tracking features can b
 (ideally in the canvas tab) and scrolling.
 
 <Canvas>
-  <Story name="positioning">
-    {() => {
-      const [position, setPosition] = useState("top");
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
-      return (
-        <>
-          <div style={{ display: "flex" }}>
-            <Button onClick={() => setPosition("top")}>Top Position</Button>
-            <Button onClick={() => setPosition("bottom")}>
-              Bottom Position
-            </Button>
-            <Button onClick={() => setPosition("left")}>Left Position</Button>
-            <Button onClick={() => setPosition("right")}>Right Position</Button>
-          </div>
-          <div style={{ padding: "60px 60px 60px 160px" }}>
-            <Tooltip message="I am a tooltip!" isVisible position={position}>
-              <Component>target</Component>
-            </Tooltip>
-          </div>
-        </>
-      );
-    }}
-  </Story>
+  <Story name="positioning" story={stories.Positioning} />
 </Canvas>
 
 ### Overriding the default flip behaviour
@@ -171,68 +78,13 @@ Tooltip "bottom" intitially, then flip to "right" when there is not enough room 
 when there is no space to render to the right anymore.
 
 <Canvas>
-  <Story name="flip behaviour overrides">
-    {() => {
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
-      return (
-        <div style={{ padding: "60px 0px 60px 250px" }}>
-          <Tooltip
-            message="I am a tooltip!"
-            isVisible
-            position="bottom"
-            flipOverrides={["right", "left"]}
-          >
-            <Component>target</Component>
-          </Tooltip>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="flip behaviour overrides" story={stories.FlipBehviourOverrides} />
 </Canvas>
 
 ### Large tooltip
 
 <Canvas>
-  <Story name="large tooltip">
-    {() => {
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
-      return (
-        <div style={{ padding: "60px" }}>
-          <Tooltip message="I am a tooltip!" size="large">
-            <Component>target</Component>
-          </Tooltip>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="large tooltip" story={stories.LargeTooltip} />
 </Canvas>
 
 ### Types
@@ -241,39 +93,7 @@ The `Tooltip` can be rendered as two different `type`s which will alter the colo
 or if no value is passed it will default to a black background.
 
 <Canvas>
-  <Story name="types">
-    {() => {
-      const [type, setType] = useState(undefined);
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
-      return (
-        <>
-          <div style={{ display: "flex" }}>
-            <Button onClick={() => setType(undefined)}>Default Type</Button>
-            <Button onClick={() => setType("error")}>Error Type</Button>
-          </div>
-          <div style={{ padding: "60px" }}>
-            <Tooltip message="I am a tooltip!" type={type}>
-              <Component>target</Component>
-            </Tooltip>
-          </div>
-        </>
-      );
-    }}
-  </Story>
+  <Story name="types" story={stories.Types} />
 </Canvas>
 
 ### Color overrides
@@ -282,36 +102,7 @@ The `Tooltip` background and font color can be overridden via the `bgColor` and 
 css value. Any values passed to the `bgColor` prop will override the color applied by the `type`
 
 <Canvas>
-  <Story name="color overrides">
-    {() => {
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
-      return (
-        <div style={{ padding: "60px" }}>
-          <Tooltip
-            message="I am a tooltip!"
-            bgColor="lightblue"
-            fontColor="--colorsUtilityYin090"
-          >
-            <Component>target</Component>
-          </Tooltip>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="color overrides" story={stories.ColorOverrides} />
 </Canvas>
 
 ## Props
