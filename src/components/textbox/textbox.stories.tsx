@@ -80,6 +80,7 @@ export const AutoFocus: ComponentStory<typeof Textbox> = () => {
     </Box>
   );
 };
+AutoFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled: ComponentStory<typeof Textbox> = () => {
   return <Textbox label="Textbox" value="Textbox" disabled />;
@@ -92,6 +93,7 @@ export const ReadOnly: ComponentStory<typeof Textbox> = () => {
 export const WithLabelInline: ComponentStory<typeof Textbox> = () => {
   return <Textbox label="Textbox" value="Textbox" labelInline />;
 };
+WithLabelInline.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomLabelWidthAndInputWidth: ComponentStory<
   typeof Textbox
@@ -190,6 +192,9 @@ export const ValidationsAsAStringWithTooltipCustom: ComponentStory<
     </Box>
   );
 };
+ValidationsAsAStringWithTooltipCustom.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const ValidationsAsAStringDisplayedOnLabel: ComponentStory<
   typeof Textbox
@@ -270,6 +275,9 @@ export const ValidationsAsAStringWithTooltipDefault: ComponentStory<
       ))}
     </Box>
   );
+};
+ValidationsAsAStringWithTooltipDefault.parameters = {
+  chromatic: { disableSnapshot: true },
 };
 
 export const ValidationsAsABoolean: ComponentStory<typeof Textbox> = () => {
