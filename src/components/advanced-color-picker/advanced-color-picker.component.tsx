@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { MarginProps } from "styled-system";
 import {
   StyledAdvancedColorPickerWrapper,
   StyledAdvancedColorPickerCell,
@@ -11,62 +10,107 @@ import { SimpleColorPicker, SimpleColor } from "../simple-color-picker";
 import Events from "../../__internal__/utils/helpers/events";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+export interface AdvancedColor {
+  label: string;
+  value: string;
+}
+
+export interface AdvancedColorPickerProps extends MarginProps {
+  /** Prop to specify the aria-describedby property of the component */
+  "aria-describedby"?: string;
+  /**
+   * Prop to specify the aria-label of the component.
+   * To be used only when the title prop is not defined, and the component is not labelled by any internal element.
+   */
+  "aria-label"?: string;
+  /**
+   * Prop to specify the aria-labeledby property of the component
+   * To be used when the title prop is a custom React Node,
+   * or the component is labelled by an internal element other than the title.
+   */
+  "aria-labelledby"?: string;
+  /** Prop for `availableColors` containing array of objects of colors */
+  availableColors: AdvancedColor[];
+  /** Prop for `defaultColor` containing the default color for `uncontrolled` use */
+  defaultColor: string;
+  /** Specifies the name prop to be applied to each color in the group */
+  name: string;
+  /** Prop for `onBlur` event */
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
+  /** Prop for `onChange` event */
+  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  /** Prop for `onClose` event */
+  onClose?: (ev: React.MouseEvent<HTMLElement>) => void;
+  /** Prop for `onOpen` event */
+  onOpen?: (ev: React.MouseEvent<HTMLElement>) => void;
+  /** Prop for `open` status */
+  open?: boolean;
+  /** The ARIA role to be applied to the component container */
+  role?: string;
+  /** Prop for `selectedColor` containing pre-selected color for `controlled` use */
+  selectedColor?: string;
+}
 
 const AdvancedColorPicker = ({
   "aria-describedby": ariaDescribedBy,
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
+  availableColors,
+  defaultColor,
   name,
-  open,
   onOpen,
   onClose,
   onChange,
   onBlur,
-  availableColors,
-  defaultColor,
-  selectedColor,
+  open = false,
   role,
+  selectedColor,
   ...props
-}) => {
-  const isOpen = open || false;
-  const [dialogOpen, setDialogOpen] = useState();
+}: AdvancedColorPickerProps) => {
+  const [dialogOpen, setDialogOpen] = useState<boolean>();
   const currentColor = selectedColor || defaultColor;
-  const [selectedColorRef, setSelectedColorRef] = useState();
+  const [
+    selectedColorRef,
+    setSelectedColorRef,
+  ] = useState<HTMLInputElement | null>(null);
 
-  const gridItemRefs = useRef(
-    Array.from(
-      {
-        length: availableColors.length,
-      },
-      () => React.createRef()
-    )
-  );
+  const simpleColorPickerData = useRef<{
+    gridItemRefs: Array<HTMLInputElement | null>;
+  }>(null);
 
   const colors = availableColors.map(({ value, label }, index) => {
     return {
       value,
       label,
-      ref: gridItemRefs.current[index],
+      getRef: () =>
+        /* Fallback to null to satisfy the TypeScript compiler */
+        /* istanbul ignore next */
+        simpleColorPickerData.current
+          ? simpleColorPickerData.current.gridItemRefs[index]
+          : null,
     };
   });
 
   useEffect(() => {
-    if (dialogOpen || isOpen) {
-      const selected = colors.find((c) => currentColor === c.value);
-      setSelectedColorRef(selected.ref.current);
+    if (dialogOpen || open) {
+      const newColor = colors?.find((c) => currentColor === c.value);
+
+      /* istanbul ignore else */
+      if (newColor) {
+        setSelectedColorRef(newColor.getRef());
+      }
     }
-  }, [colors, currentColor, dialogOpen, isOpen]);
+  }, [colors, currentColor, dialogOpen, open]);
 
   const handleFocus = useCallback(
     (e, firstFocusableElement) => {
+      /* istanbul ignore else */
       if (e.key === "Tab") {
-        /* istanbul ignore else */
         if (e.shiftKey) {
-          /* istanbul ignore else */
-          if (document.activeElement === firstFocusableElement) {
+          if (
+            document.activeElement === firstFocusableElement &&
+            selectedColorRef
+          ) {
             selectedColorRef.focus();
             e.preventDefault();
           }
@@ -103,9 +147,14 @@ const AdvancedColorPicker = ({
 
   const handleOnChange = useCallback(
     (e) => {
-      const selected = colors.find((c) => e.target.value === c.value);
-      setSelectedColorRef(selected.ref.current);
+      const newColor = colors?.find((c) => e.target.value === c.value);
 
+      /* istanbul ignore else */
+      if (newColor) {
+        setSelectedColorRef(newColor.getRef());
+      }
+
+      /* istanbul ignore else */
       if (onChange) {
         onChange(e);
       }
@@ -152,13 +201,13 @@ const AdvancedColorPicker = ({
         onClick={handleOnOpen}
         onKeyDown={handleOnKeyDown}
         color={currentColor}
-        tabIndex="0"
+        tabIndex={0}
       />
       <DialogStyle
         aria-describedby={ariaDescribedBy}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
-        open={dialogOpen || isOpen}
+        open={dialogOpen || open}
         size="auto"
         onCancel={handleOnClose}
         bespokeFocusTrap={handleFocus}
@@ -175,59 +224,21 @@ const AdvancedColorPicker = ({
           onChange={handleOnChange}
           onBlur={handleOnBlur}
           onKeyDown={handleColorOnKeyDown}
+          ref={simpleColorPickerData}
         >
-          {colors.map(({ value, label, ref }) => (
+          {colors?.map(({ value, label }) => (
             <SimpleColor
               value={value}
               key={value}
               aria-label={label}
               id={value}
               defaultChecked={value === currentColor}
-              ref={ref}
             />
           ))}
         </SimpleColorPicker>
       </DialogStyle>
     </StyledAdvancedColorPickerWrapper>
   );
-};
-
-AdvancedColorPicker.propTypes = {
-  /** Filtered styled system margin props */
-  ...marginPropTypes,
-  /** Prop to specify the aria-describedby property of the component */
-  "aria-describedby": PropTypes.string,
-  /**
-   * Prop to specify the aria-label of the component.
-   * To be used only when the title prop is not defined, and the component is not labelled by any internal element.
-   */
-  "aria-label": PropTypes.string,
-  /**
-   * Prop to specify the aria-labeledby property of the component
-   * To be used when the title prop is a custom React Node,
-   * or the component is labelled by an internal element other than the title.
-   */
-  "aria-labelledby": PropTypes.string,
-  /** Specifies the name prop to be applied to each color in the group */
-  name: PropTypes.string.isRequired,
-  /** Prop for `availableColors` containing array of objects of colors */
-  availableColors: PropTypes.array.isRequired,
-  /** Prop for `defaultColor` containing the default color for `uncontrolled` use */
-  defaultColor: PropTypes.string.isRequired,
-  /** Prop for `selectedColor` containing pre-selected color for `controlled` use */
-  selectedColor: PropTypes.string,
-  /** Prop for `onChange` event */
-  onChange: PropTypes.func,
-  /** Prop for `onOpen` event */
-  onOpen: PropTypes.func,
-  /** Prop for `onClose` event */
-  onClose: PropTypes.func,
-  /** Prop for `open` status */
-  open: PropTypes.bool,
-  /** Prop for `onBlur` event */
-  onBlur: PropTypes.func,
-  /** The ARIA role to be applied to the container */
-  role: PropTypes.string,
 };
 
 export default AdvancedColorPicker;

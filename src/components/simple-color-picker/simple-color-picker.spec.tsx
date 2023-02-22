@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { act } from "react-dom/test-utils";
 import { mount, ReactWrapper } from "enzyme";
 import {
@@ -6,6 +6,7 @@ import {
   SimpleColorPicker,
   SimpleColorProps,
   SimpleColorPickerProps,
+  SimpleColorPickerRef,
 } from ".";
 import { StyledColorOptions } from "./simple-color-picker.style";
 import { StyledLegend } from "../../__internal__/fieldset/fieldset.style";
@@ -31,7 +32,8 @@ const validationVariants = {
 const name = "test-group";
 
 function getComponent(
-  props?: Partial<SimpleColorPickerProps>,
+  props?: Partial<SimpleColorPickerProps> &
+    React.RefAttributes<SimpleColorPickerRef>,
   childProps?: Partial<SimpleColorProps>
 ) {
   const children = colorValues.map((color, index) => {
@@ -676,6 +678,31 @@ describe("SimpleColorPicker", () => {
       );
     }).toThrow(
       "SimpleColorPicker accepts only children of type `SimpleColor`."
+    );
+  });
+
+  it("returns a list of inputs in the ref", () => {
+    let outsideRef;
+
+    const MockComponent = () => {
+      const simpleColorPickerData = useRef<{
+        gridItemRefs: Array<HTMLInputElement | null>;
+      }>(null);
+
+      useEffect(() => {
+        outsideRef = simpleColorPickerData.current;
+      }, []);
+
+      return getComponent({ ref: simpleColorPickerData });
+    };
+
+    const wrapper = mount(<MockComponent />);
+    const inputs = wrapper.find("input").map((element) => element.getDOMNode());
+
+    expect(outsideRef).toEqual(
+      expect.objectContaining({
+        gridItemRefs: expect.arrayContaining(inputs),
+      })
     );
   });
 
