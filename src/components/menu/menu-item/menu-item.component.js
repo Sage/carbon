@@ -163,7 +163,7 @@ const MenuItem = ({
     href,
     target,
     rel,
-    onClick: onClick || (inputRef.current ? updateFocusOnClick : undefined),
+    onClick,
     icon,
     selected,
     variant,
@@ -222,6 +222,7 @@ const MenuItem = ({
       inFullscreenView={inFullscreenView && !Object.keys(submenuContext).length}
       menuOpen={menuOpen}
       id={menuItemId.current}
+      onClick={updateFocusOnClick}
     >
       <StyledMenuItemWrapper
         as={inputRef.current ? "div" : Link}
