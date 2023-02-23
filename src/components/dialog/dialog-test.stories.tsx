@@ -172,21 +172,11 @@ Default.args = {
   stickyFooter: false,
 };
 
-<<<<<<< HEAD
-// eslint-disable-next-line react/prop-types
-export const DialogComponent = ({
-  // eslint-disable-next-line react/prop-types
-  children = "This is an example of a dialog",
-  ...props
-}) => {
-  const [isOpen, setIsOpen] = React.useState(true);
-=======
 export const DialogComponent = ({
   children = "This is an example of a dialog",
   ...props
 }: Partial<DialogProps> & StoryProps) => {
   const [isOpen, setIsOpen] = useState(true);
->>>>>>> 028705288... test(dialog): add accessibility tests
   const ref = useRef<HTMLButtonElement | null>(null);
   return (
     <>
@@ -197,10 +187,7 @@ export const DialogComponent = ({
         focusFirstElement={ref}
         {...props}
       >
-<<<<<<< HEAD
-=======
         {children}
->>>>>>> 028705288... test(dialog): add accessibility tests
         <Button onClick={() => setIsOpen(false)}>Not focused</Button>
         <Button forwardRef={ref} onClick={() => setIsOpen(false)}>
           This should be focused first now
@@ -216,11 +203,7 @@ export const DialogComponent = ({
 
 export const DialogComponentWithToast = () => {
   const toastRef = useRef(null);
-<<<<<<< HEAD
-  const [openToast, setOpenToast] = React.useState(false);
-=======
   const [openToast, setOpenToast] = useState(false);
->>>>>>> 028705288... test(dialog): add accessibility tests
   return (
     <>
       <Toast
@@ -237,16 +220,10 @@ export const DialogComponentWithToast = () => {
   );
 };
 
-<<<<<<< HEAD
-// eslint-disable-next-line react/prop-types
-export const DialogComponentWithTextEditor = ({ ...props }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
-=======
 export const DialogComponentWithTextEditor = ({
   ...props
 }: Partial<DialogProps> & StoryProps) => {
   const [isOpen, setIsOpen] = useState(true);
->>>>>>> 028705288... test(dialog): add accessibility tests
   return (
     <>
       <Dialog
