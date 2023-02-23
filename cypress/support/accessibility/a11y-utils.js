@@ -92,10 +92,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("note") &&
       !prepareUrl[0].startsWith("textbox") &&
       !prepareUrl[0].startsWith("textarea") &&
-<<<<<<< HEAD
       !prepareUrl[0].startsWith("dismissible-box") &&
-=======
->>>>>>> 028705288... test(dialog): add accessibility tests
       !prepareUrl[0].startsWith("dialog") &&
       !prepareUrl[0].endsWith("test")
     ) {
