@@ -1,3 +1,30 @@
+## [114.17.0](https://github.com/Sage/carbon/compare/v114.16.0...v114.17.0) (2023-02-22)
+
+
+### Features
+
+* **simple-color-picker:** add forwardRef that returns all color inputs ([ea29b7c](https://github.com/Sage/carbon/commit/ea29b7cdff61776298bbb4556e5c6433252b8934))
+
+## [114.16.0](https://github.com/Sage/carbon/compare/v114.15.0...v114.16.0) (2023-02-21)
+
+
+### Features
+
+* **settings-row,heading:** surface headingType prop on components ([7f53917](https://github.com/Sage/carbon/commit/7f53917b6aeafe57f534bbd493afec2c676e2ac7)), closes [#5723](https://github.com/Sage/carbon/issues/5723)
+
+## [114.15.0](https://github.com/Sage/carbon/compare/v114.14.1...v114.15.0) (2023-02-21)
+
+
+### Features
+
+* add internal useStableCallback hook ([d1e96bc](https://github.com/Sage/carbon/commit/d1e96bc348dd9cd8aeaa15d16fa6ce5104944756))
+
+
+### Bug Fixes
+
+* **filterable-select:** resolve issue with multiple execution of onOpen and onFilterChange callbacks ([65a9cef](https://github.com/Sage/carbon/commit/65a9cef560723f9c23220ca8db0be69b7bf6b77c))
+* **multi-select:** resolve issue with multiple execution of onFilterChange callback ([f0112a7](https://github.com/Sage/carbon/commit/f0112a72f73a4a56b748d12e10be4546bf381c41))
+
 ### [114.14.1](https://github.com/Sage/carbon/compare/v114.14.0...v114.14.1) (2023-02-16)
 
 

@@ -20,7 +20,7 @@ import {
 import usePrevious from "../../hooks/__internal__/usePrevious";
 
 // TODO investigate why React.RefObject<T> produces a failed prop type when current = null
-type CustomRefObject<T> = {
+export type CustomRefObject<T> = {
   current?: T | null;
 };
 
@@ -28,7 +28,7 @@ export interface FocusTrapProps {
   children: React.ReactNode;
   autoFocus?: boolean;
   /** provide a custom first element to focus */
-  focusFirstElement?: CustomRefObject<HTMLElement> | HTMLElement;
+  focusFirstElement?: CustomRefObject<HTMLElement> | HTMLElement | null;
   /** a custom callback that will override the default focus trap behaviour */
   bespokeTrap?: (
     ev: KeyboardEvent,

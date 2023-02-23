@@ -67,6 +67,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("heading") &&
       !prepareUrl[0].startsWith("toast") &&
       !prepareUrl[0].startsWith("sidebar") &&
+      !prepareUrl[0].startsWith("search") &&
       !prepareUrl[0].startsWith("dialog-full-screen") &&
       !prepareUrl[0].startsWith("verticalmenu") &&
       !prepareUrl[0].startsWith("message") &&
@@ -89,6 +90,9 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("pill") &&
       !prepareUrl[0].startsWith("checkbox") &&
       !prepareUrl[0].startsWith("note") &&
+      !prepareUrl[0].startsWith("textbox") &&
+      !prepareUrl[0].startsWith("textarea") &&
+      !prepareUrl[0].startsWith("dismissible-box") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);

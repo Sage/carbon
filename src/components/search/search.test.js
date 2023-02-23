@@ -1,5 +1,6 @@
 import React from "react";
 import Search from "./search.component";
+import { SearchComponent } from "./search-test.stories";
 import Box from "../box";
 
 import {
@@ -33,19 +34,6 @@ const validationTypes = [
   ["warning", VALIDATION.WARNING],
   ["info", VALIDATION.INFO],
 ];
-
-const SearchComponent = ({ ...props }) => {
-  const [value, setValue] = React.useState("");
-
-  return (
-    <Search
-      placeholder="Search..."
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-      {...props}
-    />
-  );
-};
 
 context("Test for Search component", () => {
   describe("check props for Search component", () => {
@@ -255,7 +243,7 @@ context("Test for Search component", () => {
       }
     );
 
-    it.each([["top"], ["bottom"], ["left"], ["right"]])(
+    it.each(["top", "bottom", "left", "right"])(
       "should render Search with the tooltip in the %s position",
       (tooltipPositionValue) => {
         CypressMountWithProviders(
@@ -401,6 +389,156 @@ context("Test for Search component", () => {
             // eslint-disable-next-line no-unused-expressions
             expect(callback).to.have.been.calledOnce;
           });
+      }
+    );
+  });
+  describe("Accessibility tests for Search", () => {
+    it.each(testData)(
+      "should check accessibility for Search with placeholder using %s as special characters",
+      (placeholder) => {
+        CypressMountWithProviders(
+          <SearchComponent placeholder={placeholder} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check accessibility for Search with defaultValue prop", () => {
+      CypressMountWithProviders(<Search defaultValue={testCypress} />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility for Search with value prop", () => {
+      CypressMountWithProviders(<SearchComponent value={testCypress} />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility for Search with id prop", () => {
+      CypressMountWithProviders(<SearchComponent id={testCypress} />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility for Search with name prop", () => {
+      CypressMountWithProviders(<SearchComponent name={testCypress} />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility for Search with aria-label prop", () => {
+      CypressMountWithProviders(<SearchComponent aria-label={testCypress} />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility for searchButton", () => {
+      CypressMountWithProviders(<SearchComponent searchButton />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(["34%", "70%"])(
+      "should check accessibility for Search with searchWidth prop set to %s",
+      (widthInPercentage) => {
+        CypressMountWithProviders(
+          <SearchComponent searchWidth={widthInPercentage} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["475px", "250px"])(
+      "should check accessibility for Search with searchWidth prop set to %s",
+      (width) => {
+        CypressMountWithProviders(<SearchComponent searchWidth={width} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["10%", "34%", "70%", "100%"])(
+      "should check accessibility for Search with maxWidth prop set to %s",
+      (widthInPercentage) => {
+        CypressMountWithProviders(
+          <SearchComponent maxWidth={widthInPercentage} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check accessibility for Search with tabIndex prop", () => {
+      CypressMountWithProviders(<SearchComponent tabIndex={-5} />);
+
+      cy.checkAccessibility();
+    });
+
+    // FE-4670
+    describe.skip("should render Search component", () => {
+      it.each(validationTypes)(
+        "should check accessibility for Search and set type to %s as string",
+        (type) => {
+          CypressMountWithProviders(
+            <SearchComponent {...{ [type]: "Message" }} />
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(["top", "bottom", "left", "right"])(
+        "should check accessibility for Search with the tooltip in the %s position",
+        (tooltipPositionValue) => {
+          CypressMountWithProviders(
+            <Box width="700px" height="108px">
+              <div
+                style={{
+                  padding: "100px",
+                }}
+              >
+                <SearchComponent
+                  error={testCypress}
+                  tooltipPosition={tooltipPositionValue}
+                />
+              </div>
+            </Box>
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(["default", "dark"])(
+        "should check accessibility for Search with variant prop set to %s",
+        (variant) => {
+          CypressMountWithProviders(
+            <Box width="700px" height="108px">
+              <div
+                style={{
+                  padding: "32px",
+                  backgroundColor: "#003349",
+                }}
+              >
+                <SearchComponent variant={variant} />
+              </div>
+            </Box>
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+    });
+
+    it.each(validationTypes)(
+      "should check accessibility for Search and set type to %s as boolean",
+      (type) => {
+        CypressMountWithProviders(<SearchComponent {...{ [type]: true }} />);
+
+        cy.checkAccessibility();
       }
     );
   });

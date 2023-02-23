@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
@@ -809,8 +809,8 @@ describe("MultiSelect", () => {
     });
   });
 
-  describe('when the "onFilter" prop has been passed and the input text changed', () => {
-    it("then that prop should be called", () => {
+  describe('when the "onFilter" prop has been passed', () => {
+    it("then that prop should be invoked when the input text has changed", () => {
       const filterText = "foo";
       const onFilterChangeFn = jest.fn();
       const wrapper = renderSelect({ onFilterChange: onFilterChangeFn });
@@ -819,6 +819,35 @@ describe("MultiSelect", () => {
         .find("input")
         .simulate("change", { target: { value: filterText } });
       expect(onFilterChangeFn).toHaveBeenCalledWith(filterText);
+    });
+
+    it("then it should not be invoked when the component rerenders", () => {
+      const Component = () => {
+        const [onFilterChangeCalled, setOnFilterChangeCalled] = useState(false);
+
+        return (
+          <>
+            <div id="on-filter-called">
+              {onFilterChangeCalled ? "true" : "false"}
+            </div>
+            <MultiSelect
+              name="testSelect"
+              id="testSelect"
+              onFilterChange={() => setOnFilterChangeCalled(true)}
+            >
+              <Option value="opt1" text="red" />
+              <Option value="opt2" text="green" />
+              <Option value="opt3" text="blue" />
+              <Option value="opt4" text="black" />
+            </MultiSelect>
+          </>
+        );
+      };
+
+      const wrapper = mount(<Component />);
+      expect(wrapper.find("#on-filter-called").text()).toBe("false");
+      wrapper.setProps({});
+      expect(wrapper.find("#on-filter-called").text()).toBe("false");
     });
   });
 

@@ -2,10 +2,9 @@ import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { useState } from "react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Search from ".";
-import Button from "../button";
-import Box from "../box";
+import * as stories from "./search.stories";
 
-<Meta title="Search" />
+<Meta title="Search" parameters={{ info: { disable: true } }}/>
 
 # Search
 
@@ -38,69 +37,37 @@ import Search from "carbon-react/lib/components/search";
 ### Search without Search Button and default width
 
 <Canvas>
-  <Story name="default" parameters={{ info: { disable: true } }}>
-    <Search placeholder="Search..." defaultValue="" />
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Search can be controlled
 
 <Canvas>
-  <Story name="controlled" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [value, setValue] = useState("");
-      return (
-        <div>
-          <Button onClick={() => setValue("")}>Clear value</Button>
-          <Button onClick={() => setValue("test value")} ml={2}>
-            Set value
-          </Button>
-          <Search
-            id="test"
-            name="test"
-            placeholder="Search..."
-            onChange={(e) => setValue(e.target.value)}
-            value={value}
-            searchButton
-          />
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="controlled" story={stories.Controlled} />
 </Canvas>
 
 ### Search with Search Button and default width
 
 <Canvas>
-  <Story name="with SearchButton" parameters={{ info: { disable: true } }}>
-    <Search defaultValue="Here is some text" searchButton />
-  </Story>
+  <Story name="with SearchButton" story={stories.WithSearchButton} />
 </Canvas>
 
 ### Search without Search Button, default width and colour background
 
 <Canvas style={{ backgroundColor: "#e6ebed" }}>
   <Story
-    name="default with colour background"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
-  >
-    <Search placeholder="Search..." defaultValue="" />
-  </Story>
+    name="default with colour background" 
+    story={stories.DefaultWithColourBackground} 
+  />
 </Canvas>
 
 ### Search with Search Button, default width and colour background
 
 <Canvas style={{ backgroundColor: "#e6ebed" }}>
   <Story
-    name="with SearchButton and colour background"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
-  >
-    <Search
-      placeholder="Search..."
-      defaultValue="Here is some text"
-      searchButton
-    />
-  </Story>
+    name="with SearchButton and colour background" 
+    story={stories.WithSearchButtonAndColourBackground} 
+  />
 </Canvas>
 
 ### Search without Search Button and custom width
@@ -108,9 +75,7 @@ import Search from "carbon-react/lib/components/search";
 In this example the `searchWidth` prop is 375px.
 
 <Canvas>
-  <Story name="custom Width using px" parameters={{ info: { disable: true } }}>
-    <Search placeholder="Search..." defaultValue="" searchWidth="375px" />
-  </Story>
+  <Story name="custom Width using px" story={stories.CustomWidthUsingPx} />
 </Canvas>
 
 ### Search with Search Button and custom width
@@ -120,10 +85,8 @@ In this example the `searchWidth` prop is 375px.
 <Canvas>
   <Story
     name="with SearchButton and Custom Width using px"
-    parameters={{ info: { disable: true } }}
-  >
-    <Search defaultValue="Here is some text" searchButton searchWidth="375px" />
-  </Story>
+    story={stories.WithSearchButtonAndCustomWidthUsingPx} 
+  />
 </Canvas>
 
 ### Search without Search Button and custom width
@@ -131,9 +94,10 @@ In this example the `searchWidth` prop is 375px.
 In this example the `searchWidth` prop is 70%.
 
 <Canvas>
-  <Story name="custom Width using %" parameters={{ info: { disable: true } }}>
-    <Search placeholder="Search..." defaultValue="" searchWidth="70%" />
-  </Story>
+  <Story 
+    name="custom Width using %" 
+    story={stories.CustomWidthUsingPercentage} 
+  />
 </Canvas>
 
 ### Search with Search Button and custom width
@@ -143,10 +107,8 @@ In this example the `searchWidth` prop is 70%.
 <Canvas>
   <Story
     name="with SearchButton and Custom Width using %"
-    parameters={{ info: { disable: true } }}
-  >
-    <Search defaultValue="Here is some text" searchButton searchWidth="70%" />
-  </Story>
+    story={stories.WithSearchButtonAndCustomWidthUsingPercentage} 
+  />
 </Canvas>
 
 ### With custom maxWidth
@@ -156,10 +118,8 @@ In this example the `maxWidth` prop is 50%.
 <Canvas>
   <Story 
     name="with custom maxWidth"
-    parameters={{ info: { disable: true } }}
-  >
-    <Search defaultValue="Here is some text" searchButton maxWidth="50%" />
-  </Story>
+    story={stories.WithCustomMaxWidth} 
+  />
 </Canvas>
 
 ### Search with Alternative Styling
@@ -167,18 +127,7 @@ In this example the `maxWidth` prop is 50%.
 In this example the `variant` prop is "dark" and `searchButton` is true.
 
 <Canvas>
-  <Story name="with Alt Styling" parameters={{ info: { disable: true } }}>
-    <Box width="700px" height="108px">
-      <div style={{ padding: "32px", backgroundColor: "#003349" }}>
-        <Search
-          placeholder="Search..."
-          defaultValue="Here is some text"
-          searchButton
-          variant="dark"
-        />
-      </div>
-    </Box>
-  </Story>
+  <Story name="with Alt Styling" story={stories.WithAltStyling} />
 </Canvas>
 
 ### Search with Alternative Styling and No Button
@@ -188,14 +137,8 @@ In this example the `variant` prop is "dark" and no search button is present.
 <Canvas>
   <Story
     name="with Alt Styling and no button"
-    parameters={{ info: { disable: true } }}
-  >
-    <Box width="700px" height="108px">
-      <div style={{ padding: "32px", backgroundColor: "#003349" }}>
-        <Search placeholder="Search..." defaultValue="" variant="dark" />
-      </div>
-    </Box>
-  </Story>
+    story={stories.WithAltStylingAndNoButton} 
+  />
 </Canvas>
 
 ### Validations
@@ -211,29 +154,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 #### As a string
 
 <Canvas>
-  <Story name="validations - string - component">
-    {() => {
-      const [state, setState] = useState({
-        error: "<foo>",
-        warning: "<foo>",
-        info: "<foo>",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value });
-      };
-      return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <Search
-            label="Search"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            searchButton
-            {...{ [validationType]: "Invalid characters" }}
-          />
-        </div>
-      ));
-    }}
-  </Story>
+  <Story name="validations - string - component" story={stories.ValidationsStringComponent} />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -241,59 +162,15 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      const [state, setState] = useState({
-        error: "<foo>",
-        warning: "<foo>",
-        info: "<foo>",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value });
-      };
-      return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <Search
-            label="Search"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            searchButton
-            {...{ [validationType]: "Invalid characters" }}
-            tooltipPosition="bottom"
-          />
-        </div>
-      ));
-    }}
-  </Story>
+    story={stories.ValidationsStringWithTooltipPositionOverridenComponent} 
+  />
+   
 </Canvas>
 
 #### As a boolean
 
 <Canvas>
-  <Story name="validations - boolean">
-    {() => {
-      const [state, setState] = useState({
-        error: "<foo>",
-        warning: "<foo>",
-        info: "<foo>",
-      });
-      const handleChange = (validation) => (e) => {
-        setState({ ...state, [validation]: e.target.value });
-      };
-      return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-boolean-component`}>
-          <Search
-            label="Search"
-            value={state[validationType]}
-            searchButton
-            onChange={handleChange(validationType)}
-            {...{ [validationType]: true }}
-          />
-        </div>
-      ));
-    }}
-  </Story>
+  <Story name="validations - boolean" story={stories.ValidationsBoolean} />
 </Canvas>
 
 ## Props
