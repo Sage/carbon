@@ -13,7 +13,7 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export default {
   title: "Decimal Input/Test",
-  includeStories: "DefaultStory",
+  includeStories: "DecimalStory",
   parameters: {
     info: { disable: true },
     chromatic: {
