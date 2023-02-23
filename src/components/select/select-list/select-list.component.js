@@ -12,6 +12,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import findLastIndex from "lodash/findLastIndex";
 
 import useScrollBlock from "../../../hooks/__internal__/useScrollBlock";
+import useModalManager from "../../../hooks/__internal__/useModalManager";
 import {
   StyledSelectList,
   StyledSelectLoaderContainer,
@@ -292,7 +293,7 @@ const SelectList = React.forwardRef(
 
         if (key === "Tab" && listActionButton) {
           handleActionButtonTab(event, isActionButtonFocused);
-        } else if (key === "Tab" || key === "Escape") {
+        } else if (key === "Tab") {
           onSelectListClose();
         } else if (key === "Enter" && !isActionButtonFocused) {
           event.preventDefault();
@@ -330,6 +331,17 @@ const SelectList = React.forwardRef(
         childIds,
       ]
     );
+
+    const handleEscapeKey = useCallback(
+      (event) => {
+        if (event.key === "Escape") {
+          onSelectListClose();
+        }
+      },
+      [onSelectListClose]
+    );
+
+    useModalManager(isOpen, handleEscapeKey, listRef);
 
     const handleListScroll = useCallback(
       (event) => {
