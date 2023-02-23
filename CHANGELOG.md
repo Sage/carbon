@@ -1,3 +1,11 @@
+### [114.17.1](https://github.com/Sage/carbon/compare/v114.17.0...v114.17.1) (2023-02-23)
+
+
+### Bug Fixes
+
+* **menu-item:** maintain focus order when submenu child item is clicked ([a9c7d06](https://github.com/Sage/carbon/commit/a9c7d063922fe3e757f3afd556152d6a7ef7d5b3)), closes [#5850](https://github.com/Sage/carbon/issues/5850)
+* **submenu:** ensure first submenu child item is not focused when opened via mouseover ([d429c0f](https://github.com/Sage/carbon/commit/d429c0fc9cd0f31b7b4b07ed3594cad9346afbc4))
+
 ## [114.17.0](https://github.com/Sage/carbon/compare/v114.16.0...v114.17.0) (2023-02-22)
 
 
