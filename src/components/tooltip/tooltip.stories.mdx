@@ -3,6 +3,9 @@ import { useState, forwardRef } from "react";
 import Tooltip from ".";
 import Icon from "../icon";
 import Button from "../button";
+import Box from "../box";
+import Switch from "../switch";
+import { RadioButton, RadioButtonGroup } from "../radio-button";
 
 <Meta
   title="Tooltip"
@@ -14,9 +17,9 @@ import Button from "../button";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/93ac95-tooltip"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 The `Tooltip` component is built using `tippyjs` to support features such as dynamic positioning where the tooltip will
@@ -46,30 +49,13 @@ tooltip and it and the `children` prop are required.
 
 <Canvas>
   <Story name="default">
-    {() => {
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
-      return (
-        <div style={{ padding: "60px" }}>
-          <Tooltip message="I am a tooltip!">
-            <Component>target</Component>
-          </Tooltip>
-        </div>
-      );
-    }}
+    {() => (
+      <Box p="50px">
+        <Tooltip message="I am a tooltip!">
+          <Button onClick={() => {}}>Hover or focus me!</Button>
+        </Tooltip>
+      </Box>
+    )}
   </Story>
 </Canvas>
 
@@ -81,33 +67,18 @@ The Tooltip can also be controlled via the `isVisible` prop.
   <Story name="controlled">
     {() => {
       const [isVisible, setIsVisible] = useState(false);
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
       return (
         <>
-          <div style={{ display: "flex" }}>
-            <Button onClick={() => setIsVisible(!isVisible)}>
-              Toggle tooltip
-            </Button>
-          </div>
-          <div style={{ padding: "60px" }}>
-            <Tooltip message="I am a tooltip!" isVisible={isVisible}>
-              <Component>target</Component>
-            </Tooltip>
-          </div>
+          <Switch
+            mb="80px"
+            label="Toggle tooltip visibility"
+            name="toggle-tooltip-visibility"
+            checked={isVisible}
+            onChange={() => setIsVisible(!isVisible)}
+          />
+          <Tooltip message="I am a tooltip!" isVisible={isVisible}>
+            <Button onClick={() => {}}>Target</Button>
+          </Tooltip>
         </>
       );
     }}
@@ -125,37 +96,42 @@ the target element when a user scrolls. The flipping and tracking features can b
   <Story name="positioning">
     {() => {
       const [position, setPosition] = useState("top");
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
       return (
-        <>
-          <div style={{ display: "flex" }}>
-            <Button onClick={() => setPosition("top")}>Top Position</Button>
-            <Button onClick={() => setPosition("bottom")}>
-              Bottom Position
-            </Button>
-            <Button onClick={() => setPosition("left")}>Left Position</Button>
-            <Button onClick={() => setPosition("right")}>Right Position</Button>
-          </div>
-          <div style={{ padding: "60px 60px 60px 160px" }}>
+        <Box display="flex" justifyContent="center">
+          <Box p="50px" display="flex" flexDirection="column">
+            <RadioButtonGroup
+              mb="80px"
+              name="position-options"
+              legend="Select the position for the target tooltip"
+              value={position}
+              onChange={(ev) => setPosition(ev.target.value)}
+            >
+              <RadioButton
+                value="top"
+                label="Top"
+                checked={position === "top"}
+              />
+              <RadioButton
+                value="bottom"
+                label="Bottom"
+                checked={position === "bottom"}
+              />
+              <RadioButton
+                value="left"
+                label="Left"
+                checked={position === "left"}
+              />
+              <RadioButton
+                value="right"
+                label="Right"
+                checked={position === "right"}
+              />
+            </RadioButtonGroup>
             <Tooltip message="I am a tooltip!" isVisible position={position}>
-              <Component>target</Component>
+              <Button onClick={() => {}}>Target</Button>
             </Tooltip>
-          </div>
-        </>
+          </Box>
+        </Box>
       );
     }}
   </Story>
@@ -173,32 +149,17 @@ when there is no space to render to the right anymore.
 <Canvas>
   <Story name="flip behaviour overrides">
     {() => {
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
       return (
-        <div style={{ padding: "60px 0px 60px 250px" }}>
+        <Box p="50px">
           <Tooltip
             message="I am a tooltip!"
             isVisible
             position="bottom"
             flipOverrides={["right", "left"]}
           >
-            <Component>target</Component>
+            <Button onClick={() => {}}>Target</Button>
           </Tooltip>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -209,27 +170,12 @@ when there is no space to render to the right anymore.
 <Canvas>
   <Story name="large tooltip">
     {() => {
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
       return (
-        <div style={{ padding: "60px" }}>
+        <Box p="50px">
           <Tooltip message="I am a tooltip!" size="large">
-            <Component>target</Component>
+            <Button onClick={() => {}}>Hover or focus me!</Button>
           </Tooltip>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -243,33 +189,33 @@ or if no value is passed it will default to a black background.
 <Canvas>
   <Story name="types">
     {() => {
-      const [type, setType] = useState(undefined);
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
+      const [isErrorTooltip, setIsErrorTooltip] = useState(false);
       return (
         <>
-          <div style={{ display: "flex" }}>
-            <Button onClick={() => setType(undefined)}>Default Type</Button>
-            <Button onClick={() => setType("error")}>Error Type</Button>
-          </div>
-          <div style={{ padding: "60px" }}>
-            <Tooltip message="I am a tooltip!" type={type}>
-              <Component>target</Component>
-            </Tooltip>
-          </div>
+          <RadioButtonGroup
+            mb="60px"
+            name="type-options"
+            legend="Select type of tooltip to render"
+            value={isErrorTooltip ? "error" : "normal"}
+            onChange={(ev) => setIsErrorTooltip(ev.target.value === "error")}
+          >
+            <RadioButton
+              label="Normal tooltip"
+              value="normal"
+              checked={!isErrorTooltip}
+            />
+            <RadioButton
+              label="Error tooltip"
+              value="error"
+              checked={isErrorTooltip}
+            />
+          </RadioButtonGroup>
+          <Tooltip
+            message="I am a tooltip!"
+            type={isErrorTooltip ? "error" : undefined}
+          >
+            <Button onClick={() => {}}>Hover or focus me!</Button>
+          </Tooltip>
         </>
       );
     }}
@@ -284,31 +230,16 @@ css value. Any values passed to the `bgColor` prop will override the color appli
 <Canvas>
   <Story name="color overrides">
     {() => {
-      const Component = forwardRef(({ children }, ref) => (
-        <button
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            cursor: "pointer",
-            border: "none",
-            padding: "8px",
-          }}
-          ref={ref}
-        >
-          {children}
-        </button>
-      ));
       return (
-        <div style={{ padding: "60px" }}>
+        <Box p="50px">
           <Tooltip
             message="I am a tooltip!"
             bgColor="lightblue"
             fontColor="--colorsUtilityYin090"
           >
-            <Component>target</Component>
+            <Button onClick={() => {}}>Hover or focus me!</Button>
           </Tooltip>
-        </div>
+        </Box>
       );
     }}
   </Story>
