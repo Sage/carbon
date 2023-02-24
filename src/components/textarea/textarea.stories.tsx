@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ComponentStory } from "@storybook/react";
 
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import Box from "../box";
 
 import Textarea from ".";
 
@@ -116,7 +117,7 @@ export const ValidationStringStory: ComponentStory<typeof Textarea> = () => {
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
+        <React.Fragment key={`${validationType}-string-component`}>
           <Textarea
             label="Textarea"
             {...{ [validationType]: "Message" }}
@@ -128,7 +129,7 @@ export const ValidationStringStory: ComponentStory<typeof Textarea> = () => {
             {...{ [validationType]: "Message" }}
             mb={2}
           />
-        </div>
+        </React.Fragment>
       ))}
     </>
   );
@@ -140,14 +141,14 @@ export const ValidationStringPositionStory: ComponentStory<
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
+        <React.Fragment key={`${validationType}-string-component`}>
           <Textarea
             label="Textarea"
             {...{ [validationType]: "Message" }}
             mb={2}
             tooltipPosition="bottom"
           />
-        </div>
+        </React.Fragment>
       ))}
     </>
   );
@@ -158,7 +159,7 @@ export const ValidationLabelStory: ComponentStory<typeof Textarea> = () => {
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
+        <React.Fragment key={`${validationType}-string-label`}>
           <Textarea
             label="Textarea"
             validationOnLabel
@@ -172,7 +173,7 @@ export const ValidationLabelStory: ComponentStory<typeof Textarea> = () => {
             {...{ [validationType]: "Message" }}
             mb={2}
           />
-        </div>
+        </React.Fragment>
       ))}
     </>
   );
@@ -184,7 +185,7 @@ export const ValidationLabelPositionStory: ComponentStory<
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
+        <React.Fragment key={`${validationType}-string-label`}>
           <Textarea
             label="Textarea"
             validationOnLabel
@@ -192,7 +193,7 @@ export const ValidationLabelPositionStory: ComponentStory<
             mb={2}
             tooltipPosition="top"
           />
-        </div>
+        </React.Fragment>
       ))}
     </>
   );
@@ -203,10 +204,7 @@ export const NewDesignValidationStory: ComponentStory<typeof Textarea> = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
       {["error", "warning"].map((validationType) => (
-        <div
-          style={{ width: "296px" }}
-          key={`${validationType}-string-component`}
-        >
+        <Box width="296px" key={`${validationType}-string-component`}>
           <Textarea
             label={`${validationType}`}
             {...{ [validationType]: "Message" }}
@@ -218,7 +216,7 @@ export const NewDesignValidationStory: ComponentStory<typeof Textarea> = () => {
             {...{ [validationType]: "Message" }}
             m={4}
           />
-        </div>
+        </Box>
       ))}
     </CarbonProvider>
   );
@@ -228,7 +226,7 @@ export const ValidationBooleanStory: ComponentStory<typeof Textarea> = () => {
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-boolean-component`}>
+        <React.Fragment key={`${validationType}-boolean-component`}>
           <Textarea label="Textarea" {...{ [validationType]: true }} mb={2} />
           <Textarea
             label="Textarea - readOnly"
@@ -236,7 +234,7 @@ export const ValidationBooleanStory: ComponentStory<typeof Textarea> = () => {
             {...{ [validationType]: true }}
             mb={2}
           />
-        </div>
+        </React.Fragment>
       ))}
     </>
   );
