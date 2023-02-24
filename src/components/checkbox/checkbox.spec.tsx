@@ -16,6 +16,7 @@ import Label from "../../__internal__/label";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import Logger from "../../__internal__/utils/logger";
+import checkableInput from "../../__internal__/checkable-input";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
@@ -585,6 +586,15 @@ describe("Checkbox", () => {
       const help = wrapper.find(StyledHelp);
 
       expect(help.prop("aria-label")).toEqual(text);
+    });
+  });
+
+  describe("aria-labelledby", () => {
+    it("should be passed down to the CheckableInput", () => {
+      const labelId = "foo";
+      const wrapper = renderCheckbox({ "aria-labelledby": labelId });
+
+      expect(wrapper.find(checkableInput).prop("ariaLabelledBy")).toBe(labelId);
     });
   });
 

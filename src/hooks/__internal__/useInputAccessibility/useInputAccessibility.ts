@@ -17,7 +17,6 @@ export default function useInputAccessibility({
   validationIconId?: string;
   fieldHelpId?: string;
   ariaDescribedBy?: string;
-  ariaLabelledBy?: string;
 } {
   const labelId = label ? `${id}-label` : undefined;
 
@@ -33,13 +32,10 @@ export default function useInputAccessibility({
     .filter(Boolean)
     .join(" ");
 
-  const ariaLabelledBy = labelId;
-
   return {
     labelId,
     validationIconId,
     fieldHelpId,
     ariaDescribedBy,
-    ariaLabelledBy,
   };
 }

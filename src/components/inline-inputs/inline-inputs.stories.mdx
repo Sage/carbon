@@ -67,9 +67,9 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
         setSelectValue(ev.target.value);
       };
       return (
-        <InlineInputs label={label} {...args}>
-          <Textbox {...validationProps} />
-          <Decimal value={decimalValue} onChange={handleDecimalChange} />
+        <InlineInputs label={label} labelId="inline-inputs-default" {...args}>
+          <Textbox aria-labelledby="inline-inputs-default" {...validationProps} />
+          <Decimal aria-labelledby="inline-inputs-default" value={decimalValue} onChange={handleDecimalChange} />
           <Select value={selectValue} onChange={handleSelectChange}>
             <Option text="Amber" value="1" />
             <Option text="Black" value="2" />
@@ -104,12 +104,13 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
         <Box p={4}>
           <InlineInputs
             label={label}
+            labelId="inline-inputs-adaptive"
             adaptiveLabelBreakpoint={768}
             labelWidth={30}
             {...args}
           >
-            <Textbox />
-            <Textbox />
+            <Textbox aria-labelledby="inline-inputs-adaptive" />
+            <Textbox aria-labelledby="inline-inputs-adaptive" />
           </InlineInputs>
           <Textbox label="My Textbox" adaptiveLabelBreakpoint={768} />
         </Box>
@@ -126,10 +127,11 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
       return (
         <InlineInputs
           label="Inline Inputs"
+          labelId="inline-inputs-required"
           required
         >
-          <Textbox />
-          <Textbox />
+          <Textbox aria-labelledby="inline-inputs-required" />
+          <Textbox aria-labelledby="inline-inputs-required" />
         </InlineInputs>
       );
     }}
