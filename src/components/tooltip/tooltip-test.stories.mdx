@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import Tooltip from ".";
+import Button from "../button";
 import { TOOLTIP_POSITIONS } from "./tooltip.config";
 
 <Meta
@@ -57,44 +58,23 @@ export const TooltipStory = ({
 }) => {
   const [stateVisible, setStateVisible] = useState(undefined);
   return (
-    <div
-      style={{
-        margin: "200px 400px",
-        width: 350,
-        height: 250,
-        overflow: "auto",
-      }}
+    <Tooltip
+      isVisible={stateVisible || isVisible}
+      flipOverrides={flipOverrides && [flipOverrides]}
+      message={message}
+      {...args}
     >
-      <Tooltip
-        isVisible={stateVisible || isVisible}
-        flipOverrides={flipOverrides && [flipOverrides]}
-        message={message}
-        {...args}
+      <Button
+        {...(isVisible === false && {
+          onMouseOver: () => setStateVisible(true),
+          onMouseLeave: () => setStateVisible(false),
+          onFocus: () => setStateVisible(true),
+          onBlur: () => setStateVisible(false),
+        })}
       >
-        <div
-          tabIndex="0"
-          style={{
-            backgroundColor: "#00815D",
-            color: "white",
-            width: "42px",
-            height: "26px",
-            position: "relative",
-            outline: "none",
-            cursor: "pointer",
-          }}
-          {...(isVisible === false && {
-            onMouseOver: () => setStateVisible(true),
-            onMouseLeave: () => setStateVisible(false),
-            onFocus: () => setStateVisible(true),
-            onBlur: () => setStateVisible(false),
-          })}
-        >
-          <span style={{ position: "absolute", top: "4px", left: "2px" }}>
-            target
-          </span>
-        </div>
-      </Tooltip>
-    </div>
+        Hover me!
+      </Button>
+    </Tooltip>
   );
 };
 
