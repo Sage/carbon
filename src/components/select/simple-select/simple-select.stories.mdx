@@ -4,6 +4,7 @@ import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-
 
 import { useState, useRef } from "react";
 import { Select, Option, OptionRow, OptionGroupHeader } from "../";
+import Box from "../../box";
 import Button from "../../button";
 import Icon from "../../icon";
 import SelectTextbox from "../select-textbox/select-textbox.component";
@@ -16,9 +17,9 @@ import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/464d11-dropdown-select/b/51c4c7"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 Select one of available options from the drop-down menu. Simple Select is a Carbon styled equivalent of HTML Select Element.
@@ -158,7 +159,7 @@ You can use `listMaxHeight` prop to override default max height value of select 
         setValue("");
       }
       return (
-        <div>
+        <>
           <Button onClick={clearValue} mb={2}>
             clear
           </Button>
@@ -180,7 +181,7 @@ You can use `listMaxHeight` prop to override default max height value of select 
             <Option text="White" value="10" />
             <Option text="Yellow" value="11" />
           </Select>
-        </div>
+        </>
       );
     }}
   </Story>
@@ -267,7 +268,7 @@ If there is no `id` prop specified on an object, then the exact objects will be 
         setValue({});
       }
       return (
-        <div>
+        <>
           <Button onClick={clearValue} mb={2}>
             clear
           </Button>
@@ -279,7 +280,7 @@ If there is no `id` prop specified on an object, then the exact objects will be 
           >
             {optionList.current}
           </Select>
-        </div>
+        </>
       );
     }}
   </Story>
@@ -348,7 +349,7 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
         preventLoading.current = false;
       }
       return (
-        <div>
+        <>
           <Button onClick={clearData} mb={2}>
             reset
           </Button>
@@ -363,7 +364,7 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
           >
             {optionList}
           </Select>
-        </div>
+        </>
       );
     }}
   </Story>
@@ -444,7 +445,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
         preventLoading.current = false;
       }
       return (
-        <div>
+        <>
           <Button onClick={clearData} mb={2}>
             reset
           </Button>
@@ -460,7 +461,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
           >
             {optionList}
           </Select>
-        </div>
+        </>
       );
     }}
   </Story>
@@ -723,7 +724,7 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
     <CarbonProvider validationRedesignOptIn>
       {["error", "warning"].map((validationType) =>
         ["small", "medium", "large"].map((size) => (
-          <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+          <Box width="296px" key={`${validationType}-${size}`}>
             <Select
               name="simple"
               id={`${size} - ${validationType}`}
@@ -767,7 +768,7 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
               <Option text="White" value="10" />
               <Option text="Yellow" value="11" />
             </Select>
-          </div>
+          </Box>
         ))
       )}
     </CarbonProvider>

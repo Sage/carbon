@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
 
+import Box from "../../box";
 import Button from "../../button";
 import Dialog from "../../dialog";
 import { FilterableSelect, Option, OptionRow } from "../";
@@ -28,6 +29,7 @@ Filterable Select is a Carbon styled implementation of WAI-ARIA Combobox with In
 ```javascript
 import { FilterableSelect, Option } from "carbon-react/lib/components/select";
 ```
+
 Always insert `Option` Components inside the `FilterableSelect`, analogous to the `<select>` and `<option>` HTML Elements.
 
 If you type printable characters in the Textbox, you can filter through the existing options leaving only those that match the text you typed.
@@ -38,12 +40,7 @@ If you type printable characters in the Textbox, you can filter through the exis
 
 <Canvas>
   <Story name="default">
-    <FilterableSelect
-      name="simple"
-      id="simple"
-      label="color"
-      labelInline
-    >
+    <FilterableSelect name="simple" id="simple" label="color" labelInline>
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -127,7 +124,7 @@ You can use `listMaxHeight` prop to override default max height value of select 
         setValue("");
       }
       return (
-        <div>
+        <>
           <Button onClick={clearValue} mb={2}>
             clear
           </Button>
@@ -150,7 +147,7 @@ You can use `listMaxHeight` prop to override default max height value of select 
             <Option text="White" value="10" />
             <Option text="Yellow" value="11" />
           </FilterableSelect>
-        </div>
+        </>
       );
     }}
   </Story>
@@ -482,7 +479,7 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
         preventLoading.current = false;
       }
       return (
-        <div>
+        <>
           <Button onClick={clearData} mb={2}>
             reset
           </Button>
@@ -497,7 +494,7 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
           >
             {optionList}
           </FilterableSelect>
-        </div>
+        </>
       );
     }}
   </Story>
@@ -578,7 +575,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
         preventLoading.current = false;
       }
       return (
-        <div>
+        <>
           <Button onClick={clearData} mb={2}>
             reset
           </Button>
@@ -594,7 +591,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
           >
             {optionList}
           </FilterableSelect>
-        </div>
+        </>
       );
     }}
   </Story>
@@ -606,12 +603,7 @@ In this example the `maxWidth` prop is 50%.
 
 <Canvas>
   <Story name="with custom maxWidth">
-    <FilterableSelect
-      name="simple"
-      id="simple"
-      label="color"
-      maxWidth="50%"
-    >
+    <FilterableSelect name="simple" id="simple" label="color" maxWidth="50%">
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -626,7 +618,6 @@ In this example the `maxWidth` prop is 50%.
     </FilterableSelect>
   </Story>
 </Canvas>
-
 
 ### Required
 
@@ -736,7 +727,7 @@ If there is no `id` prop specified on an object, then the exact objects will be 
         setValue({});
       }
       return (
-        <div>
+        <>
           <Button onClick={clearValue} mb={2}>
             clear
           </Button>
@@ -749,7 +740,7 @@ If there is no `id` prop specified on an object, then the exact objects will be 
           >
             {optionList.current}
           </FilterableSelect>
-        </div>
+        </>
       );
     }}
   </Story>
@@ -762,7 +753,7 @@ If there is no `id` prop specified on an object, then the exact objects will be 
     <CarbonProvider validationRedesignOptIn>
       {["error", "warning"].map((validationType) =>
         ["small", "medium", "large"].map((size) => (
-          <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+          <Box width="296px" key={`${validationType}-${size}`}>
             <FilterableSelect
               name="filterable"
               id={`${size} - ${validationType}`}
@@ -806,7 +797,7 @@ If there is no `id` prop specified on an object, then the exact objects will be 
               <Option text="White" value="10" />
               <Option text="Yellow" value="11" />
             </FilterableSelect>
-          </div>
+          </Box>
         ))
       )}
     </CarbonProvider>

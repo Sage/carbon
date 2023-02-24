@@ -1,5 +1,6 @@
 import { Meta, Canvas, Story } from "@storybook/addon-docs";
 import { Select, Option } from "../";
+import Box from "../../box";
 
 <Meta title="Select/Sizes" />
 
@@ -11,7 +12,7 @@ import { Select, Option } from "../";
 
 <Canvas>
   <Story name="small" parameters={{ info: { disable: true } }}>
-    <div style={{ height: "250px" }}>
+    <Box height="250px">
       <Select name="small" id="small" defaultValue="3" size="small">
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -25,7 +26,7 @@ import { Select, Option } from "../";
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
       </Select>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -33,7 +34,7 @@ import { Select, Option } from "../";
 
 <Canvas>
   <Story name="medium" parameters={{ info: { disable: true } }}>
-    <div style={{ height: "250px" }}>
+    <Box height="250px">
       <Select name="medium" id="medium" defaultValue="3" size="medium">
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -47,7 +48,7 @@ import { Select, Option } from "../";
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
       </Select>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -55,7 +56,7 @@ import { Select, Option } from "../";
 
 <Canvas>
   <Story name="large" parameters={{ info: { disable: true } }}>
-    <div style={{ height: "250px" }}>
+    <Box height="250px">
       <Select name="large" id="large" defaultValue="3" size="large">
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -69,6 +70,6 @@ import { Select, Option } from "../";
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
       </Select>
-    </div>
+    </Box>
   </Story>
 </Canvas>
