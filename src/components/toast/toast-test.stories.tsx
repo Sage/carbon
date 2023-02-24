@@ -4,6 +4,7 @@ import Toast, { ToastProps } from ".";
 import Button from "../button";
 import Icon from "../icon";
 import { TOAST_COLORS } from "./toast.config";
+import Box from "../box";
 
 export default {
   title: "Toast/Test",
@@ -41,7 +42,7 @@ export const Default = ({
   };
   if (scrollablePage) {
     return (
-      <div style={{ height: "150vh", overflow: "auto" }}>
+      <Box height="150vh" overflow="auto">
         <Button onClick={handleOpen}>Open Toast</Button>
         <Toast
           id="toast-dismissible"
@@ -51,7 +52,7 @@ export const Default = ({
         >
           {children}
         </Toast>
-      </div>
+      </Box>
     );
   }
   return (
@@ -91,7 +92,7 @@ export const Visual = ({ children, ...args }: Partial<ToastProps>) => {
     setIsOpen(!isOpen);
   };
   return (
-    <div>
+    <>
       {/* centered examples */}
       <Toast
         variant="info"
@@ -219,7 +220,7 @@ export const Visual = ({ children, ...args }: Partial<ToastProps>) => {
       >
         <Icon type="warning" color="--colorsSemanticNeutralYang100" /> Notice
       </Toast>
-    </div>
+    </>
   );
 };
 
