@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { ComponentStory } from "@storybook/react";
+import Box from "../box";
 
 import Typography, { List, ListItem } from ".";
 
@@ -97,19 +98,24 @@ VariantsStory.parameters = { info: { disable: true } };
 
 export const TruncateStory: ComponentStory<typeof Fragment> = () => (
   <>
-    <div style={{ height: "80px", width: "80px", backgroundColor: "yellow" }}>
+    <Box height="80px" width="80px" backgroundColor="var(--colorsYin030)">
       <Typography truncate>
         The is an example of using the truncate prop. This is an example of some
         text with applied.
       </Typography>
-    </div>
-    <div style={{ height: "80px", width: "80px", backgroundColor: "red" }}>
-      <Typography truncate variant="b" display="block">
+    </Box>
+    <Box height="80px" width="80px" backgroundColor="var(--colorsYin090)">
+      <Typography
+        truncate
+        variant="b"
+        color="var(--colorsUtilityYang100)"
+        display="block"
+      >
         The is an example of using the truncate prop with an inline element.
         Changing the display type to be a block element allows it to actually
         truncate.
       </Typography>
-    </div>
+    </Box>
   </>
 );
 TruncateStory.parameters = { info: { disable: true } };
