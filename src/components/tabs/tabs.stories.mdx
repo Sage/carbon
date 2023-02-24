@@ -15,9 +15,9 @@ import Box from "../box";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/54468c-tab"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 Switch between content panes or filtered views of tables.
@@ -59,7 +59,7 @@ The tabs widget also allows you to select a tab on page load. By default this is
   <Story name="default">
     {() => {
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs align="left" position="top">
             <Tab
               errorMessage="error"
@@ -112,7 +112,7 @@ The tabs widget also allows you to select a tab on page load. By default this is
               Content for tab 5
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -124,7 +124,7 @@ The tabs widget also allows you to select a tab on page load. By default this is
   <Story name="positioned top aligned right">
     {() => {
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs align="right" position="top">
             <Tab
               errorMessage="error"
@@ -177,7 +177,7 @@ The tabs widget also allows you to select a tab on page load. By default this is
               Content for tab 5
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -189,7 +189,7 @@ The tabs widget also allows you to select a tab on page load. By default this is
   <Story name="positioned left and aligned left">
     {() => {
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs align="left" position="left">
             <Tab
               errorMessage="error"
@@ -242,7 +242,7 @@ The tabs widget also allows you to select a tab on page load. By default this is
               Content for tab 5
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -254,7 +254,7 @@ The tabs widget also allows you to select a tab on page load. By default this is
   <Story name="positioned left and aligned right">
     {() => {
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs align="right" position="left">
             <Tab
               errorMessage="error"
@@ -307,7 +307,7 @@ The tabs widget also allows you to select a tab on page load. By default this is
               Content for tab 5
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -321,7 +321,7 @@ To set a different tab on page load pass a `tabId` to the `selectedTabId` prop a
   <Story name="with link as a tab">
     {() => {
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs selectedTabId="tab-2" align="left" position="top">
             <Tab
               errorMessage="error"
@@ -355,7 +355,7 @@ To set a different tab on page load pass a `tabId` to the `selectedTabId` prop a
               Content for tab 3
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -369,7 +369,7 @@ To set a different tab on page load pass a `tabId` to the `selectedTabId` prop a
   <Story name="with specified tab visible">
     {() => {
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs selectedTabId="tab-2" align="left" position="top">
             <Tab
               errorMessage="error"
@@ -422,7 +422,7 @@ To set a different tab on page load pass a `tabId` to the `selectedTabId` prop a
               Content for tab 5
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -435,7 +435,7 @@ is set to "true".
 
 <Canvas>
   <Story name="without extended dividing line">
-    <div style={{ padding: "4px" }}>
+    <Box p="4px">
       <Tabs extendedLine={false} align="left" position="top">
         <Tab
           errorMessage="error"
@@ -488,7 +488,7 @@ is set to "true".
           Content for tab 5
         </Tab>
       </Tabs>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -500,7 +500,7 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
 
 <Canvas>
   <Story name="with large tabs positioned top">
-    <div style={{ padding: "4px" }}>
+    <Box p="4px">
       <Tabs size="large" align="left" position="top">
         <Tab
           errorMessage="error"
@@ -553,7 +553,7 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
           Content for tab 5
         </Tab>
       </Tabs>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -561,7 +561,7 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
 
 <Canvas>
   <Story name="with large tabs positioned left">
-    <div style={{ padding: "4px" }}>
+    <Box p="4px">
       <Tabs size="large" align="left" position="left">
         <Tab
           errorMessage="error"
@@ -614,7 +614,7 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
           Content for tab 5
         </Tab>
       </Tabs>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -627,7 +627,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 
 <Canvas>
   <Story name="with borders positioned top">
-    <div style={{ padding: "4px" }}>
+    <Box p="4px">
       <Tabs borders="on" align="left">
         <Tab
           errorMessage="error"
@@ -680,7 +680,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
           Content for tab 5
         </Tab>
       </Tabs>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -688,7 +688,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 
 <Canvas>
   <Story name="with no sides positioned top">
-    <div style={{ padding: "4px" }}>
+    <Box p="4px">
       <Tabs borders="no sides" align="left">
         <Tab
           errorMessage="error"
@@ -741,7 +741,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
           Content for tab 5
         </Tab>
       </Tabs>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -749,7 +749,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 
 <Canvas>
   <Story name="with borders positioned left">
-    <div style={{ padding: "4px" }}>
+    <Box p="4px">
       <Tabs borders="on" align="left" position="left">
         <Tab
           errorMessage="error"
@@ -802,7 +802,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
           Content for tab 5
         </Tab>
       </Tabs>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -810,7 +810,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 
 <Canvas>
   <Story name="with no sides positioned left">
-    <div style={{ padding: "4px" }}>
+    <Box p="4px">
       <Tabs borders="no sides" align="left" position="left">
         <Tab
           errorMessage="error"
@@ -863,7 +863,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
           Content for tab 5
         </Tab>
       </Tabs>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -884,7 +884,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
       });
       const [infos, setInfos] = useState({ one: true, two: true, three: true });
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs align="left" position="top">
             <Tab
               errorMessage="error"
@@ -971,7 +971,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
               />
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -992,7 +992,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
       });
       const [infos, setInfos] = useState({ one: true, two: true, three: true });
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs size="large" align="left" position="top">
             <Tab
               errorMessage="error"
@@ -1079,7 +1079,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
               />
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -1100,7 +1100,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
       });
       const [infos, setInfos] = useState({ one: true, two: true, three: true });
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs align="left" position="left">
             <Tab
               errorMessage="error"
@@ -1187,7 +1187,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
               />
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -1208,7 +1208,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
       });
       const [infos, setInfos] = useState({ one: true, two: true, three: true });
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs size="large" align="left" position="left">
             <Tab
               errorMessage="error"
@@ -1295,7 +1295,7 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
               />
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -1315,7 +1315,7 @@ can be used to render the `title` "before" (default) or "after" the additional e
         three: false,
       });
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs align="left" position="top">
             <Tab
               errorMessage="error"
@@ -1376,7 +1376,7 @@ can be used to render the `title` "before" (default) or "after" the additional e
               />
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -1391,7 +1391,7 @@ can be used to render the `title` "before" (default) or "after" the additional e
         three: false,
       });
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs size="large" align="left" position="top">
             <Tab
               errorMessage="error"
@@ -1452,7 +1452,7 @@ can be used to render the `title` "before" (default) or "after" the additional e
               />
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -1472,7 +1472,7 @@ prop to the `Tab` component.
         three: false,
       });
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs size="default" align="left" position="left">
             <Tab
               errorMessage="error"
@@ -1565,7 +1565,7 @@ prop to the `Tab` component.
               />
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -1584,7 +1584,7 @@ By setting the `variant` prop to "alternate" it is possible to apply some additi
         three: false,
       });
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs variant="alternate" align="left" position="left">
             <Tab
               errorMessage="error"
@@ -1629,7 +1629,7 @@ By setting the `variant` prop to "alternate" it is possible to apply some additi
               />
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -1643,7 +1643,7 @@ The `headerWidth` prop works only if prop `position` is set to `left`.
   <Story name="with headerWidth">
     {() => {
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs headerWidth="400px" align="left" position="left">
             <Tab
               errorMessage="error"
@@ -1688,7 +1688,7 @@ The `headerWidth` prop works only if prop `position` is set to `left`.
               Content for tab 2
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -1704,7 +1704,7 @@ CSS string.
   <Story name="with custom spacing">
     {() => {
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs m={8} align="left" position="top">
             <Tab
               errorMessage="error"
@@ -1758,7 +1758,7 @@ CSS string.
               Content for tab 5
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -1766,85 +1766,103 @@ CSS string.
 
 ### With string validations summarised
 
-By default the strings passed to `errorMessage`, `warningMessage` and `infoMessage` props are what is 
-used in the validation tooltip. However, setting the `showValidationsSumary` prop allows for the 
-summarising of validation messages from the children of a given `Tab`. You can see an example of this 
+By default the strings passed to `errorMessage`, `warningMessage` and `infoMessage` props are what is
+used in the validation tooltip. However, setting the `showValidationsSumary` prop allows for the
+summarising of validation messages from the children of a given `Tab`. You can see an example of this
 by hovering your mouse pointer over the `ValidationIcon`s in the example below.
 
 <Canvas>
-  <Story name="with string validations summarised" parameters={{ chromatic: { disable: true } }}>
+  <Story
+    name="with string validations summarised"
+    parameters={{ chromatic: { disable: true } }}
+  >
     {() => {
       const [errors, setErrors] = useState({
-        one: 'This is an error',
-        two: 'Here is another error'
+        one: "This is an error",
+        two: "Here is another error",
       });
       const [warnings, setWarnings] = useState({
-        one: 'This is a warning',
-        two: 'Here is another warning'
+        one: "This is a warning",
+        two: "Here is another warning",
       });
-      const [infos, setInfos] = useState({ 
-        one: 'This is an info', 
-        two: 'Here is another info'
+      const [infos, setInfos] = useState({
+        one: "This is an info",
+        two: "Here is another info",
       });
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <Tabs align="left" position="top" showValidationsSummary>
-            <Tab
-              tabId="tab-1"
-              title="Tab 1"
-              key="tab-1"
-            >
+            <Tab tabId="tab-1" title="Tab 1" key="tab-1">
               <Checkbox
                 label="Error 1"
                 error={errors.one}
-                onChange={e => e.target.checked ? setErrors({ ...errors, one: 'This is an error' }) : setErrors({ ...errors, one: '' })}
+                onChange={(e) =>
+                  e.target.checked
+                    ? setErrors({ ...errors, one: "This is an error" })
+                    : setErrors({ ...errors, one: "" })
+                }
                 checked={errors.one}
               />
               <Checkbox
                 label="Error 2"
                 error={errors.two}
-                onChange={e => e.target.checked ? setErrors({ ...errors, two: 'Here is another error' }) : setErrors({ ...errors, two: '' })}
+                onChange={(e) =>
+                  e.target.checked
+                    ? setErrors({ ...errors, two: "Here is another error" })
+                    : setErrors({ ...errors, two: "" })
+                }
                 checked={errors.two}
               />
             </Tab>
-            <Tab
-              tabId="tab-2"
-              title="Tab 2"
-              key="tab-2"
-            >
+            <Tab tabId="tab-2" title="Tab 2" key="tab-2">
               <Checkbox
                 label="Warning 1"
                 warning={warnings.one}
-                onChange={e => e.target.checked ? setWarnings({ ...warnings, one: 'This is a warning' }) : setWarnings({ ...warnings, one: '' })}
+                onChange={(e) =>
+                  e.target.checked
+                    ? setWarnings({ ...warnings, one: "This is a warning" })
+                    : setWarnings({ ...warnings, one: "" })
+                }
                 checked={warnings.one}
               />
               <Checkbox
                 label="Warning 2"
                 warning={warnings.two}
-                onChange={e => e.target.checked ? setWarnings({ ...warnings, two: 'Here is another warning' }) : setWarnings({ ...warnings, two: '' })}
+                onChange={(e) =>
+                  e.target.checked
+                    ? setWarnings({
+                        ...warnings,
+                        two: "Here is another warning",
+                      })
+                    : setWarnings({ ...warnings, two: "" })
+                }
                 checked={warnings.two}
               />
             </Tab>
-            <Tab
-              tabId="tab-3"
-              title="Tab 3"
-              key="tab-3"
-            >
+            <Tab tabId="tab-3" title="Tab 3" key="tab-3">
               <Checkbox
                 label="Info 1"
                 info={infos.one}
-                onChange={e => e.target.checked ? setInfos({ ...infos, one: true }) : setInfos({ ...infos, one: '' })}
+                onChange={(e) =>
+                  e.target.checked
+                    ? setInfos({ ...infos, one: true })
+                    : setInfos({ ...infos, one: "" })
+                }
                 checked={infos.one}
               />
               <Checkbox
                 label="Info 2"
                 info={infos.two}
-                onChange={e => e.target.checked ? setInfos({ ...infos, two: 'This is a warning' }) : setInfos({ ...infos, two: '' })}
+                onChange={(e) =>
+                  e.target.checked
+                    ? setInfos({ ...infos, two: "This is a warning" })
+                    : setInfos({ ...infos, two: "" })
+                }
                 checked={infos.two}
               />
             </Tab>
           </Tabs>
-        </div>
+        </Box>
       );
     }}
   </Story>
