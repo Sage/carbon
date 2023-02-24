@@ -80,7 +80,7 @@ The Tile component can be also have a vertical layout.
 
 <Canvas>
   <Story name="with TileFooter">
-    <div>
+    <>
       <Tile orientation="vertical" width={400}>
         <Content>
           <Typography pb={2} variant="h4" fontWeight="bold">
@@ -189,7 +189,7 @@ The Tile component can be also have a vertical layout.
           <TileFooter p={2} variant="black" />
         </Content>
       </Tile>
-    </div>
+    </>
   </Story>
 </Canvas>
 
@@ -202,46 +202,31 @@ Please note that it will not have any effect if the Tile orientation is set to `
 
 <Canvas>
   <Story name="custom Widths">
-    <div>
-    <Tile variant="tile" orientation="horizontal" width="75%">
-        <Content title="Test Title">
-          Test Body
-        </Content>
+    <>
+      <Tile variant="tile" orientation="horizontal" width="75%">
+        <Content title="Test Title">Test Body</Content>
       </Tile>
       <Box my={3} />
-      <Tile variant="tile" orientation="horizontal" width={1/4}>
-        <Content title="Test Title">
-          Test Body
-        </Content>
+      <Tile variant="tile" orientation="horizontal" width={1 / 4}>
+        <Content title="Test Title">Test Body</Content>
       </Tile>
       <Box my={3} />
       <Tile variant="tile" orientation="horizontal" width={150}>
-        <Content title="Test Title">
-          Test Body
-        </Content>
+        <Content title="Test Title">Test Body</Content>
       </Tile>
       <Box my={3} />
       <Tile variant="tile" orientation="horizontal">
-      <Content
-          title="Test Title 1"
-          width="30%"
-      >
-        Test Body One
-      </Content>
-      <Content
-          title="Test Title 2"
-          width={150}
-      >
-        Test Body Two
-      </Content>
-      <Content
-          title="Test Title 3"
-          width={1/4}
-      >
-        Test Body Three
-      </Content>
-    </Tile>
-    </div>
+        <Content title="Test Title 1" width="30%">
+          Test Body One
+        </Content>
+        <Content title="Test Title 2" width={150}>
+          Test Body Two
+        </Content>
+        <Content title="Test Title 3" width={1 / 4}>
+          Test Body Three
+        </Content>
+      </Tile>
+    </>
   </Story>
 </Canvas>
 
@@ -289,8 +274,14 @@ Please note that it will not have any effect if the Tile orientation is set to `
 You can set the `borderVariant` property to alter the border colour as well as the border width with the `borderWidth` property.
 
 <Canvas>
-  <Story parameters={{ chromatic: { disable: false }, themeProvider: { chromatic: { theme: "sage" } }, }} name="custom borders">
-    <div>
+  <Story
+    parameters={{
+      chromatic: { disable: false },
+      themeProvider: { chromatic: { theme: "sage" } },
+    }}
+    name="custom borders"
+  >
+    <>
       <Tile
         orientation="vertical"
         width={400}
@@ -399,7 +390,7 @@ You can set the `borderVariant` property to alter the border colour as well as t
           </Typography>
         </Content>
       </Tile>
-    </div>
+    </>
   </Story>
 </Canvas>
 
