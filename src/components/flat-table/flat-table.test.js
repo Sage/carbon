@@ -79,11 +79,10 @@ import {
   positionOfElement,
   pressTABKey,
   pressShiftTABKey,
+  getRotationAngle,
 } from "../../../cypress/support/helper";
 
 const { _, $ } = Cypress;
-
-const transform = "matrix(6.12323e-17, -1, 1, 6.12323e-17, 0, 0)";
 
 const sizes = [
   ["compact", "8px", "13px", 24],
@@ -3984,7 +3983,9 @@ context("Tests for Flat Table component", () => {
     it("should render Flat Table with expandable rows expanded by mouse, subrows not accessible", () => {
       CypressMountWithProviders(<FlatTableNoAccSubRowComponent />);
 
-      flatTableExpandableIcon(0).should("have.css", "transform", transform);
+      flatTableExpandableIcon(0)
+        .should("have.css", "transform")
+        .then((cssString) => expect(getRotationAngle(cssString)).to.equal(-90));
       flatTableSubrows().should("not.exist");
       flatTableBodyRowByPosition(0).click();
       flatTableSubrowByPosition(0).should("exist");
@@ -3999,7 +4000,9 @@ context("Tests for Flat Table component", () => {
     it("should render Flat Table with expandable rows expanded by Spacebar, subrows not accessible", () => {
       CypressMountWithProviders(<FlatTableNoAccSubRowComponent />);
 
-      flatTableExpandableIcon(0).should("have.css", "transform", transform);
+      flatTableExpandableIcon(0)
+        .should("have.css", "transform")
+        .then((cssString) => expect(getRotationAngle(cssString)).to.equal(-90));
       flatTableSubrows().should("not.exist");
       flatTableBodyRowByPosition(0)
         .focus()
@@ -4016,7 +4019,9 @@ context("Tests for Flat Table component", () => {
     it("should render Flat Table with expandable rows expanded by Enter key, subrows not accessible", () => {
       CypressMountWithProviders(<FlatTableNoAccSubRowComponent />);
 
-      flatTableExpandableIcon(0).should("have.css", "transform", transform);
+      flatTableExpandableIcon(0)
+        .should("have.css", "transform")
+        .then((cssString) => expect(getRotationAngle(cssString)).to.equal(-90));
       flatTableSubrows().should("not.exist");
       flatTableBodyRowByPosition(0)
         .focus()
@@ -4041,7 +4046,9 @@ context("Tests for Flat Table component", () => {
     it("should render Flat Table with expandable rows expanded by mouse, can tab to subrows", () => {
       CypressMountWithProviders(<FlatTableAccSubRowComponent />);
 
-      flatTableExpandableIcon(0).should("have.css", "transform", transform);
+      flatTableExpandableIcon(0)
+        .should("have.css", "transform")
+        .then((cssString) => expect(getRotationAngle(cssString)).to.equal(-90));
       flatTableSubrows().should("not.exist");
       flatTableBodyRowByPosition(0).click();
       flatTableSubrowByPosition(0).should("exist");
@@ -4089,7 +4096,9 @@ context("Tests for Flat Table component", () => {
     it("should render Flat Table expandable by any column in the row", () => {
       CypressMountWithProviders(<FlatTableNoAccSubRowComponent />);
 
-      flatTableExpandableIcon(0).should("have.css", "transform", transform);
+      flatTableExpandableIcon(0)
+        .should("have.css", "transform")
+        .then((cssString) => expect(getRotationAngle(cssString)).to.equal(-90));
 
       for (let i = 0; i < 4; i++) {
         flatTableSubrows().should("not.exist");
@@ -4102,7 +4111,9 @@ context("Tests for Flat Table component", () => {
     it("should render Flat Table expandable by first column only by mouse", () => {
       CypressMountWithProviders(<FlatTableFirstColExpandableComponent />);
 
-      flatTableExpandableIcon(0).should("have.css", "transform", transform);
+      flatTableExpandableIcon(0)
+        .should("have.css", "transform")
+        .then((cssString) => expect(getRotationAngle(cssString)).to.equal(-90));
       flatTableSubrows().should("not.exist");
 
       for (let i = 1; i < 4; i++) {
@@ -4118,7 +4129,9 @@ context("Tests for Flat Table component", () => {
     it("should render Flat Table expandable by first column only by Spacebar", () => {
       CypressMountWithProviders(<FlatTableFirstColExpandableComponent />);
 
-      flatTableExpandableIcon(0).should("have.css", "transform", transform);
+      flatTableExpandableIcon(0)
+        .should("have.css", "transform")
+        .then((cssString) => expect(getRotationAngle(cssString)).to.equal(-90));
       flatTableSubrows().should("not.exist");
       flatTableCell(0).focus().trigger("keydown", keyCode("Space"));
       flatTableSubrowByPosition(0).should("exist");
@@ -4128,7 +4141,9 @@ context("Tests for Flat Table component", () => {
     it("should render Flat Table expandable by first column only by Enter key", () => {
       CypressMountWithProviders(<FlatTableFirstColExpandableComponent />);
 
-      flatTableExpandableIcon(0).should("have.css", "transform", transform);
+      flatTableExpandableIcon(0)
+        .should("have.css", "transform")
+        .then((cssString) => expect(getRotationAngle(cssString)).to.equal(-90));
       flatTableSubrows().should("not.exist");
       flatTableCell(0).focus().trigger("keydown", keyCode("Enter"));
       flatTableSubrowByPosition(0).should("exist");
@@ -4138,10 +4153,10 @@ context("Tests for Flat Table component", () => {
     it("should render Flat Table with all expandable rows expanded", () => {
       CypressMountWithProviders(<FlatTableAlreadyExpandedComponent />);
 
-      flatTableExpandableIcon(0).should("not.have.css", transform);
-      flatTableExpandableIcon(12).should("not.have.css", transform);
-      flatTableExpandableIcon(24).should("not.have.css", transform);
-      flatTableExpandableIcon(36).should("not.have.css", transform);
+      flatTableExpandableIcon(0).should("have.css", "transform", "none");
+      flatTableExpandableIcon(12).should("have.css", "transform", "none");
+      flatTableExpandableIcon(24).should("have.css", "transform", "none");
+      flatTableExpandableIcon(36).should("have.css", "transform", "none");
       flatTableSubrows().should("exist");
     });
 
