@@ -13,9 +13,9 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/60f854-text-input/b/007c6c"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 Captures a single line of text.
@@ -187,11 +187,7 @@ import Textbox from "carbon-react/lib/components/textbox";
 
 <Canvas>
   <Story name="with custom maxWidth">
-    <Textbox
-      label="Textbox"
-      value="Textbox"
-      maxWidth="50%"
-    />
+    <Textbox label="Textbox" value="Textbox" maxWidth="50%" />
   </Story>
 </Canvas>
 
@@ -261,7 +257,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   <Story name="validations - string - component">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
+        <Box key={`${validationType}-string-component`}>
           <Textbox
             label="Textbox"
             value="Textbox"
@@ -275,7 +271,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
             {...{ [validationType]: "Message" }}
             mb={2}
           />
-        </div>
+        </Box>
       ))
     }
   </Story>
@@ -290,7 +286,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
   >
     {() =>
       ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
+        <Box key={`${validationType}-string-component`}>
           <Textbox
             label="Textbox"
             value="Textbox"
@@ -298,7 +294,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
             mb={2}
             tooltipPosition="bottom"
           />
-        </div>
+        </Box>
       ))
     }
   </Story>
@@ -310,7 +306,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
   <Story name="validations - string - label">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
+        <Box key={`${validationType}-string-label`}>
           <Textbox
             label="Textbox"
             value="Textbox"
@@ -326,7 +322,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
             {...{ [validationType]: "Message" }}
             mb={2}
           />
-        </div>
+        </Box>
       ))
     }
   </Story>
@@ -341,7 +337,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
         <CarbonProvider validationRedesignOptIn>
           {["error", "warning"].map((validationType) =>
             ["small", "medium", "large"].map((size) => (
-              <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+              <Box width="296px" key={`${validationType}-${size}`}>
                 <Textbox
                   m={4}
                   label={`${size} - ${validationType}`}
@@ -359,7 +355,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
                   readOnly
                   {...{ [validationType]: "Message" }}
                 />
-              </div>
+              </Box>
             ))
           )}
         </CarbonProvider>
@@ -377,7 +373,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
   >
     {() =>
       ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
+        <Box key={`${validationType}-string-label`}>
           <Textbox
             label="Textbox"
             value="Textbox"
@@ -386,7 +382,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
             mb={2}
             tooltipPosition="bottom"
           />
-        </div>
+        </Box>
       ))
     }
   </Story>
@@ -398,7 +394,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
   <Story name="validations - boolean">
     {() =>
       ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-boolean-component`}>
+        <Box key={`${validationType}-boolean-component`}>
           <Textbox
             label="Textbox"
             value="Textbox"
@@ -412,7 +408,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
             {...{ [validationType]: true }}
             mb={2}
           />
-        </div>
+        </Box>
       ))
     }
   </Story>

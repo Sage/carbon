@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import Textbox, { TextboxProps } from ".";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import Box from "../box";
 import { ICONS } from "../icon/icon-config";
 
 export const getCommonTextboxArgs = (
@@ -122,17 +123,15 @@ export const Default = (args: CommonTextboxArgs) => {
     setState(value);
   };
   return (
-    <div>
-      <Textbox
-        m={2}
-        onClick={action("onClick")}
-        maxWidth="70%"
-        iconOnClick={action("iconOnClick")}
-        value={state}
-        onChange={setValue}
-        {...getCommonTextboxArgsWithSpecialCaracters(args)}
-      />
-    </div>
+    <Textbox
+      m={2}
+      onClick={action("onClick")}
+      maxWidth="70%"
+      iconOnClick={action("iconOnClick")}
+      value={state}
+      onChange={setValue}
+      {...getCommonTextboxArgsWithSpecialCaracters(args)}
+    />
   );
 };
 Default.storyName = "default";
@@ -140,10 +139,10 @@ Default.argTypes = commonTextboxArgTypes();
 Default.args = getCommonTextboxArgs();
 
 export const Multiple = (args: CommonTextboxArgs) => (
-  <div style={{ width: "296px" }}>
+  <Box width="296px">
     <Textbox m={2} {...getCommonTextboxArgsWithSpecialCaracters(args)} />
     <Textbox m={2} {...getCommonTextboxArgsWithSpecialCaracters(args)} />
-  </div>
+  </Box>
 );
 
 Multiple.storyName = "multiple";
@@ -158,7 +157,7 @@ export const NewValidation = (args: CommonTextboxArgs) => {
     setState(value);
   };
   return (
-    <div style={{ width: "296px" }}>
+    <Box width="296px">
       <CarbonProvider validationRedesignOptIn>
         <Textbox
           m={2}
@@ -167,7 +166,7 @@ export const NewValidation = (args: CommonTextboxArgs) => {
           onChange={setValue}
         />
       </CarbonProvider>
-    </div>
+    </Box>
   );
 };
 
