@@ -7,6 +7,7 @@ import Typography from "../typography";
 import Form from "../form";
 import Toast from "../toast";
 import Textbox from "../textbox";
+import Box from "../box";
 
 import isChromatic from "../../../.storybook/isChromatic";
 
@@ -22,12 +23,12 @@ export const DefaultStory: ComponentStory<typeof Sidebar> = () => {
         open={isOpen}
         onCancel={() => setIsOpen(false)}
       >
-        <div>
+        <>
           <Button buttonType="primary">Test</Button>
           <Button buttonType="secondary" ml={2}>
             Last
           </Button>
-        </div>
+        </>
         Main Content
       </Sidebar>
     </>
@@ -42,12 +43,12 @@ export const CustomPaddingAroundContent: ComponentStory<
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
       <Sidebar open={isOpen} onCancel={() => setIsOpen(false)} p={0}>
-        <div>
+        <>
           <Button buttonType="primary">Test</Button>
           <Button buttonType="secondary" ml={2}>
             Last
           </Button>
-        </div>
+        </>
         Main Content
       </Sidebar>
     </>
@@ -64,12 +65,12 @@ export const WithHeader: ComponentStory<typeof Sidebar> = () => {
         onCancel={() => setIsOpen(false)}
         header={<Typography variant="h3">Sidebar header</Typography>}
       >
-        <div>
+        <>
           <Button buttonType="primary">Test</Button>
           <Button buttonType="secondary" ml={2}>
             Last
           </Button>
-        </div>
+        </>
         Main Content
       </Sidebar>
     </>
@@ -86,13 +87,13 @@ export const WithScroll: ComponentStory<typeof Sidebar> = () => {
         onCancel={() => setIsOpen(false)}
         header={<Typography variant="h3">Sidebar header</Typography>}
       >
-        <div>
+        <>
           <Button buttonType="primary">Test</Button>
           <Button buttonType="secondary" ml={2}>
             Last
           </Button>
-        </div>
-        <div style={{ marginBottom: 3000 }}>Long content</div>
+        </>
+        <Box mb="3000px">Long content</Box>
       </Sidebar>
     </>
   );
@@ -260,12 +261,12 @@ export const CustomWidth: ComponentStory<typeof Sidebar> = () => {
         onCancel={() => setIsOpen(false)}
         width="25%"
       >
-        <div>
+        <>
           <Button buttonType="primary">Test</Button>
           <Button buttonType="secondary" ml={2}>
             Last
           </Button>
-        </div>
+        </>
         Main Content
       </Sidebar>
     </>

@@ -4,6 +4,7 @@ import { action } from "@storybook/addon-actions";
 import Button from "../button";
 import Sidebar, { SidebarProps } from ".";
 import { SIDEBAR_ALIGNMENTS, SIDEBAR_SIZES } from "./sidebar.config";
+import Box from "../box";
 
 export default {
   component: Sidebar,
@@ -73,13 +74,13 @@ export const Default = (args: Partial<SidebarProps>) => {
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
       <Sidebar {...args} aria-label="sidebar" open={isOpen} onCancel={onCancel}>
-        <div>
+        <>
           <Button buttonType="primary">Test</Button>
           <Button buttonType="secondary" ml={2}>
             Last
           </Button>
-        </div>
-        <div style={{ marginBottom: 3000 }}>Main content</div>
+        </>
+        <Box mb="3000px">Main content</Box>
       </Sidebar>
     </>
   );
@@ -103,19 +104,13 @@ export const SidebarComponent = ({ ...props }) => {
         size="medium"
         {...props}
       >
-        <div>
+        <>
           <Button buttonType="primary">Test</Button>
           <Button buttonType="secondary" ml={2}>
             Last
           </Button>
-        </div>
-        <div
-          style={{
-            marginBottom: 3000,
-          }}
-        >
-          Main content
-        </div>
+        </>
+        <Box mb="3000px">Main content</Box>
       </Sidebar>
     </>
   );

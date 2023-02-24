@@ -18,12 +18,14 @@ import * as stories from "./sidebar.stories.tsx";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/925533-sidebar"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
-# <h2>Contents</h2>
+An aside panel displayed as a modal when opened by the user.
+
+## Contents
 
 - [Quick Start](#quick-start)
 - [Related Components](#related-components)
@@ -50,13 +52,16 @@ import Sidebar from "carbon-react/lib/components/sidebar";
 ### Default
 
 <Canvas>
-  <Story name="default" story={stories.DefaultStory}/>
+  <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
 ### Custom padding around content
 
 <Canvas>
-  <Story name="custom padding around content" story={stories.CustomPaddingAroundContent} />
+  <Story
+    name="custom padding around content"
+    story={stories.CustomPaddingAroundContent}
+  />
 </Canvas>
 
 ### With header
@@ -86,22 +91,28 @@ This may occasionally be useful with things like Toasts where they persist on th
 (In the example below, try clicking the cancel and/or save buttons and notice how you can navigate across one or both toasts as well as the sidebar using the keyboard.)
 
 <Canvas>
-  <Story name="other focusable containers" story={stories.OtherFocusableContainers} />
+  <Story
+    name="other focusable containers"
+    story={stories.OtherFocusableContainers}
+  />
 </Canvas>
 
 ### Custom width
 
-It is possible to set a custom width for the `Sidebar` via the `width` [prop](#props). 
+It is possible to set a custom width for the `Sidebar` via the `width` [prop](#props).
 Setting this prop will override the preset width value defined via the `size` prop.
 
 <Canvas>
   <Story name="custom width" story={stories.CustomWidth} />
 </Canvas>
 
-### With header and footer padding overridden 
+### With header and footer padding overridden
 
 <Canvas>
-  <Story name="with header and footer padding" story={stories.WithHeaderAndFooterPadding} />
+  <Story
+    name="with header and footer padding"
+    story={stories.WithHeaderAndFooterPadding}
+  />
 </Canvas>
 
 ## Props
