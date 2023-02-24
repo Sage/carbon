@@ -8,6 +8,7 @@ import TextEditor, {
   TextEditorContentState as ContentState,
 } from "./text-editor.component";
 import Button from "../button";
+import Box from "../box";
 import EditorLinkPreview from "../link-preview";
 
 <Meta title="Text Editor" parameters={{ info: { disable: true } }} />
@@ -56,7 +57,7 @@ You can use the `required` prop to indicate if the field is mandatory.
     {() => {
       const [value, setValue] = useState(EditorState.createEmpty());
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <TextEditor
             onChange={(newValue) => {
               setValue(newValue);
@@ -64,7 +65,7 @@ You can use the `required` prop to indicate if the field is mandatory.
             value={value}
             labelText="Text Editor Label"
           />
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -89,7 +90,7 @@ editor can expects.
         )
       );
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <TextEditor
             onChange={(newValue) => {
               setValue(newValue);
@@ -98,7 +99,7 @@ editor can expects.
             labelText="Text Editor Label"
             required
           />
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -116,7 +117,7 @@ otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` 
       const [value, setValue] = useState(EditorState.createEmpty());
       const ref = useRef(null);
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <TextEditor
             onChange={(newValue) => {
               setValue(newValue);
@@ -143,7 +144,7 @@ otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` 
             ]}
             labelText="Text Editor Label"
           />
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -164,7 +165,7 @@ will prevent any input that would cause the content length to exceed it.
       const limit = 100;
       const ref = useRef(null);
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <TextEditor
             onChange={(newValue) => {
               setValue(newValue);
@@ -175,7 +176,7 @@ will prevent any input that would cause the content length to exceed it.
             labelText="Text Editor Label"
             characterLimit={limit}
           />
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -199,7 +200,7 @@ this status.
       const contentLength = value.getCurrentContent().getPlainText().length;
       const ref = useRef(null);
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <TextEditor
             onChange={(newValue) => {
               setValue(newValue);
@@ -214,7 +215,7 @@ this status.
             }
             info={limit - contentLength <= 15 ? "There is an info" : undefined}
           />
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -243,7 +244,7 @@ The content is too long.
 Maybe try writing a little bit less?`
           : undefined;
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <TextEditor
             onChange={(newValue) => {
               setValue(newValue);
@@ -254,7 +255,7 @@ Maybe try writing a little bit less?`
             characterLimit={limit}
             error={error}
           />
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -270,7 +271,7 @@ which is multiplied by the line-height (21px).
     {() => {
       const [value, setValue] = useState(EditorState.createEmpty());
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <TextEditor
             onChange={(newValue) => {
               setValue(newValue);
@@ -279,7 +280,7 @@ which is multiplied by the line-height (21px).
             labelText="Text Editor Label"
             rows={2}
           />
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -316,9 +317,8 @@ icon. This example has mocked some functionality: previews will display for any 
       };
       const checkValidDomain = (url) => {
         const domainsWhitelist = [".com", ".co.uk", ".org", ".net"];
-        const result = domainsWhitelist.filter((domain) =>
-          url.endsWith(domain)
-        ).length;
+        const result = domainsWhitelist.filter((domain) => url.endsWith(domain))
+          .length;
         return !!result;
       };
       const addUrl = (reportedUrl) => {
@@ -346,7 +346,7 @@ icon. This example has mocked some functionality: previews will display for any 
         }
       };
       return (
-        <div style={{ padding: "4px" }}>
+        <Box p="4px">
           <TextEditor
             onChange={(newValue) => {
               setValue(newValue);
@@ -357,7 +357,7 @@ icon. This example has mocked some functionality: previews will display for any 
             previews={previews.current}
             onLinkAdded={addUrl}
           />
-        </div>
+        </Box>
       );
     }}
   </Story>
