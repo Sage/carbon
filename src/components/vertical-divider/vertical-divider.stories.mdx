@@ -7,6 +7,7 @@ import Button from "../button";
 import Tile from "../tile";
 import Content from "../content";
 import Icon from "../icon";
+import Box from "../box";
 import { GridContainer, GridItem } from "../grid";
 import { Menu, MenuItem, MenuDivider, MenuVerticalDivider } from "../menu";
 import {
@@ -46,33 +47,34 @@ import VerticalDivider from "carbon-react/lib/components/vertical-divider";
 
 By default the VerticalDivider has a height of `100%` and padding of `24px`.
 
-export const Square = styled.div`
-  height: ${({ size }) => size || "56px"};
-  width: ${({ size }) => size || "56px"};
-  background-color: ${({ theme }) => theme.colors.primary};
-`;
-
 <Canvas>
   <Story name="default">
-    <div style={{ display: "inline-flex" }}>
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-    </div>
+    {() => {
+      const Square = () => (
+        <Box height="56px" width="56px" backgroundColor="var(--colorsYin090)" />
+      );
+      return (
+        <Box display="inline-flex">
+          <Square />
+          <VerticalDivider />
+          <Square />
+          <VerticalDivider />
+          <Square />
+          <VerticalDivider />
+          <Square />
+          <VerticalDivider />
+          <Square />
+          <VerticalDivider />
+          <Square />
+          <VerticalDivider />
+          <Square />
+          <VerticalDivider />
+          <Square />
+          <VerticalDivider />
+          <Square />
+        </Box>
+      );
+    }}
   </Story>
 </Canvas>
 
@@ -83,13 +85,11 @@ if passing a number the height will be set in pixels; if passing a string you wi
 
 <Canvas>
   <Story name="in a flex container">
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: 24,
-      }}
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="24px"
     >
       <Icon type="home" />
       <VerticalDivider h={16} />
@@ -108,7 +108,7 @@ if passing a number the height will be set in pixels; if passing a string you wi
       <Icon type="chevron_down" />
       <VerticalDivider h={16} />
       <Icon type="edit" />
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -122,14 +122,7 @@ add the css attribute `display: inline;` to the component.
     name="in a non-flex container"
     parameters={{ chromatic: { disable: true } }}
   >
-    <div
-      style={{
-        display: "inline-block",
-        width: "620px",
-        height: "auto",
-        margin: "0px 180px",
-      }}
-    >
+    <Box display="inline-block" width="620px" height="auto" margin="0px 180px">
       <Icon type="home" />
       <VerticalDivider displayInline />
       <Icon type="settings" />
@@ -147,7 +140,7 @@ add the css attribute `display: inline;` to the component.
       <Icon type="chevron_down" />
       <VerticalDivider displayInline />
       <Icon type="edit" />
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -159,49 +152,56 @@ theme spacing which is `8px`, or any valid CSS string. The default for the `p` p
 
 <Canvas>
   <Story name="with custom spacing and height">
-    <div style={{ display: "inline-flex" }}>
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={1} pb={1} />
-        <Square />
-      </div>
-      <VerticalDivider pl={1} pr={1} h={185} />
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={2} pb={2} />
-        <Square />
-      </div>
-      <VerticalDivider pl={2} pr={2} h={200} />
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={3} pb={3} />
-        <Square />
-      </div>
-      <VerticalDivider pl={3} pr={3} h={215} />
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={4} pb={4} />
-        <Square />
-      </div>
-      <VerticalDivider pl={4} pr={4} h={230} />
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={5} pb={5} />
-        <Square />
-      </div>
-      <VerticalDivider pl={5} pr={5} h={245} />
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={6} pb={6} />
-        <Square />
-      </div>
-      <VerticalDivider pl={6} pr={6} h={260} />
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={7} pb={7} />
-        <Square />
-      </div>
-    </div>
+    {() => {
+      const Square = () => (
+        <Box height="56px" width="56px" backgroundColor="var(--colorsYin090)" />
+      );
+      return (
+        <Box display="inline-flex">
+          <Box>
+            <Square />
+            <VerticalDivider h="100px" pt={1} pb={1} />
+            <Square />
+          </Box>
+          <VerticalDivider pl={1} pr={1} h={185} />
+          <Box>
+            <Square />
+            <VerticalDivider h="100px" pt={2} pb={2} />
+            <Square />
+          </Box>
+          <VerticalDivider pl={2} pr={2} h={200} />
+          <Box>
+            <Square />
+            <VerticalDivider h="100px" pt={3} pb={3} />
+            <Square />
+          </Box>
+          <VerticalDivider pl={3} pr={3} h={215} />
+          <Box>
+            <Square />
+            <VerticalDivider h="100px" pt={4} pb={4} />
+            <Square />
+          </Box>
+          <VerticalDivider pl={4} pr={4} h={230} />
+          <Box>
+            <Square />
+            <VerticalDivider h="100px" pt={5} pb={5} />
+            <Square />
+          </Box>
+          <VerticalDivider pl={5} pr={5} h={245} />
+          <Box>
+            <Square />
+            <VerticalDivider h="100px" pt={6} pb={6} />
+            <Square />
+          </Box>
+          <VerticalDivider pl={6} pr={6} h={260} />
+          <Box>
+            <Square />
+            <VerticalDivider h="100px" pt={7} pb={7} />
+            <Square />
+          </Box>
+        </Box>
+      );
+    }}
   </Story>
 </Canvas>
 
@@ -212,17 +212,24 @@ applied to the slate.
 
 <Canvas>
   <Story name="with custom tint">
-    <div style={{ display: "inline-flex" }}>
-      <Square />
-      <VerticalDivider tint={20} />
-      <Square />
-      <VerticalDivider tint={75} />
-      <Square />
-      <VerticalDivider tint={80} />
-      <Square />
-      <VerticalDivider tint={90} />
-      <Square />
-    </div>
+    {() => {
+      const Square = () => (
+        <Box height="56px" width="56px" backgroundColor="var(--colorsYin090)" />
+      );
+      return (
+        <Box display="inline-flex">
+          <Square />
+          <VerticalDivider tint={20} />
+          <Square />
+          <VerticalDivider tint={75} />
+          <Square />
+          <VerticalDivider tint={80} />
+          <Square />
+          <VerticalDivider tint={90} />
+          <Square />
+        </Box>
+      );
+    }}
   </Story>
 </Canvas>
 
@@ -232,11 +239,14 @@ applied to the slate.
   <Story name="in a dialog" parameters={{ chromatic: { disable: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
+      const Square = () => (
+        <Box height="56px" width="56px" backgroundColor="var(--colorsYin090)" />
+      );
       return (
         <>
           <Button onClick={() => setIsOpen(true)}>Click Me</Button>
           <Dialog title="Title" open={isOpen} onCancel={() => setIsOpen(false)}>
-            <div style={{ display: "inline-flex" }}>
+            <Box display="inline-flex">
               <Square />
               <VerticalDivider />
               <Square />
@@ -250,7 +260,7 @@ applied to the slate.
               <Square />
               <VerticalDivider />
               <Square />
-            </div>
+            </Box>
           </Dialog>
         </>
       );
@@ -262,28 +272,35 @@ applied to the slate.
 
 <Canvas>
   <Story name="in a tile">
-    <Tile width={800} orientation="vertical">
-      <Content title="Test Title One">Test Body One</Content>
-      <div style={{ display: "inline-flex", height: 40 }}>
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-      </div>
-    </Tile>
+    {() => {
+      const Square = () => (
+        <Box height="40px" width="40px" backgroundColor="var(--colorsYin090)" />
+      );
+      return (
+        <Tile width={800} orientation="vertical">
+          <Content title="Test Title One">Test Body One</Content>
+          <Box display="inline-flex" height="40px">
+            <Square />
+            <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+            <Square />
+            <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+            <Square />
+            <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+            <Square />
+            <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+            <Square />
+            <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+            <Square />
+            <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+            <Square />
+            <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+            <Square />
+            <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+            <Square />
+          </Box>
+        </Tile>
+      );
+    }}
   </Story>
 </Canvas>
 
@@ -293,55 +310,61 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 
 <Canvas>
   <Story name="in grid container" parameters={{ info: { disable: true } }}>
-    <GridContainer>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="1"
-        gridColumn="1 / 2"
-        gridRow="1 / 2"
-      >
-        <Square size="40px" />
-        <VerticalDivider h={100} />
-        <Square size="40px" />
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="3 / 4"
-        gridRow="1 /2 "
-      >
-        <VerticalDivider h={180} />
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="5 / 6"
-        gridRow="1 / 2"
-      >
-        <Square size="40px" />
-        <VerticalDivider h={100} />
-        <Square size="40px" />
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="7 / 8"
-        gridRow="1 / 2"
-      >
-        <VerticalDivider h={180} />
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="9 / 10"
-        gridRow="1 / 2"
-      >
-        <Square size="40px" />
-        <VerticalDivider h={100} />
-        <Square size="40px" />
-      </GridItem>
-    </GridContainer>
+    {() => {
+      const Square = () => (
+        <Box height="40px" width="40px" backgroundColor="var(--colorsYin090)" />
+      );
+      return (
+        <GridContainer>
+          <GridItem
+            alignSelf="stretch"
+            justifySelf="stretch"
+            gridColumn="1 / 2"
+            gridRow="1 / 2"
+          >
+            <Square />
+            <VerticalDivider h={100} />
+            <Square />
+          </GridItem>
+          <GridItem
+            alignSelf="stretch"
+            justifySelf="stretch"
+            gridColumn="3 / 4"
+            gridRow="1 /2 "
+          >
+            <VerticalDivider h={180} />
+          </GridItem>
+          <GridItem
+            alignSelf="stretch"
+            justifySelf="stretch"
+            gridColumn="5 / 6"
+            gridRow="1 / 2"
+          >
+            <Square />
+            <VerticalDivider h={100} />
+            <Square />
+          </GridItem>
+          <GridItem
+            alignSelf="stretch"
+            justifySelf="stretch"
+            gridColumn="7 / 8"
+            gridRow="1 / 2"
+          >
+            <VerticalDivider h={180} />
+          </GridItem>
+          <GridItem
+            alignSelf="stretch"
+            justifySelf="stretch"
+            gridColumn="9 / 10"
+            gridRow="1 / 2"
+          >
+            <Square />
+            <VerticalDivider h={100} />
+            <Square />
+          </GridItem>
+        </GridContainer>
+      );
+    }}
   </Story>
 </Canvas>
 
@@ -380,7 +403,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 
 <Canvas>
   <Story name="in a menu">
-    <div style={{ minHeight: 120 }}>
+    <Box minHeight="120px">
       <Menu menuType="dark">
         <MenuItem href="#">Menu Item One</MenuItem>
         <VerticalDivider height={24} p={1} tint={20} />
@@ -389,7 +412,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
           <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
       </Menu>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
