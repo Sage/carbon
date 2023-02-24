@@ -12,9 +12,9 @@ import Box from "../box";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/64709e-search"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 This search component should be used if you require the user to conduct a search.
@@ -50,7 +50,7 @@ import Search from "carbon-react/lib/components/search";
     {() => {
       const [value, setValue] = useState("");
       return (
-        <div>
+        <>
           <Button onClick={() => setValue("")}>Clear value</Button>
           <Button onClick={() => setValue("test value")} ml={2}>
             Set value
@@ -63,7 +63,7 @@ import Search from "carbon-react/lib/components/search";
             value={value}
             searchButton
           />
-        </div>
+        </>
       );
     }}
   </Story>
@@ -154,10 +154,7 @@ In this example the `searchWidth` prop is 70%.
 In this example the `maxWidth` prop is 50%.
 
 <Canvas>
-  <Story 
-    name="with custom maxWidth"
-    parameters={{ info: { disable: true } }}
-  >
+  <Story name="with custom maxWidth" parameters={{ info: { disable: true } }}>
     <Search defaultValue="Here is some text" searchButton maxWidth="50%" />
   </Story>
 </Canvas>
@@ -169,14 +166,14 @@ In this example the `variant` prop is "dark" and `searchButton` is true.
 <Canvas>
   <Story name="with Alt Styling" parameters={{ info: { disable: true } }}>
     <Box width="700px" height="108px">
-      <div style={{ padding: "32px", backgroundColor: "#003349" }}>
+      <Box p="32px" backgroundColor="var(--colorsYin100)">
         <Search
           placeholder="Search..."
           defaultValue="Here is some text"
           searchButton
           variant="dark"
         />
-      </div>
+      </Box>
     </Box>
   </Story>
 </Canvas>
@@ -191,9 +188,9 @@ In this example the `variant` prop is "dark" and no search button is present.
     parameters={{ info: { disable: true } }}
   >
     <Box width="700px" height="108px">
-      <div style={{ padding: "32px", backgroundColor: "#003349" }}>
+      <Box p="32px" backgroundColor="var(--colorsYin100)">
         <Search placeholder="Search..." defaultValue="" variant="dark" />
-      </div>
+      </Box>
     </Box>
   </Story>
 </Canvas>
@@ -222,7 +219,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
         setState({ ...state, [validation]: e.target.value });
       };
       return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
+        <React.Fragment key={`${validationType}-string-component`}>
           <Search
             label="Search"
             value={state[validationType]}
@@ -230,7 +227,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
             searchButton
             {...{ [validationType]: "Invalid characters" }}
           />
-        </div>
+        </React.Fragment>
       ));
     }}
   </Story>
@@ -253,7 +250,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
         setState({ ...state, [validation]: e.target.value });
       };
       return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
+        <React.Fragment key={`${validationType}-string-component`}>
           <Search
             label="Search"
             value={state[validationType]}
@@ -262,7 +259,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
             {...{ [validationType]: "Invalid characters" }}
             tooltipPosition="bottom"
           />
-        </div>
+        </React.Fragment>
       ));
     }}
   </Story>
@@ -282,7 +279,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
         setState({ ...state, [validation]: e.target.value });
       };
       return ["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-boolean-component`}>
+        <React.Fragment key={`${validationType}-boolean-component`}>
           <Search
             label="Search"
             value={state[validationType]}
@@ -290,7 +287,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
             onChange={handleChange(validationType)}
             {...{ [validationType]: true }}
           />
-        </div>
+        </React.Fragment>
       ));
     }}
   </Story>
