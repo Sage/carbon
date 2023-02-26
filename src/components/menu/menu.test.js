@@ -47,6 +47,7 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 
 const span = "span";
 const div = "div";
+const button = "button";
 
 const MenuComponent = ({ ...props }) => {
   return (
@@ -307,6 +308,20 @@ context("Testing Menu component", () => {
       innerMenu(positionOfElement("fifth"), span).click({ multiple: true });
       cy.focused().trigger("keydown", keyCode("uparrow"));
       cy.focused().trigger("keydown", keyCode("uparrow"));
+    });
+
+    it("should verify a the first submenu item is focused using keyboard tabbing after the parent item was clicked", () => {
+      CypressMountWithProviders(<MenuComponent />);
+
+      submenu().eq(positionOfElement("first"), button).click();
+      cy.focused().tab();
+    });
+
+    it("should verify a the first submenu item is focused using keyboard down arrow after the parent item was clicked", () => {
+      CypressMountWithProviders(<MenuComponent />);
+
+      submenu().eq(positionOfElement("first"), button).click();
+      cy.focused().trigger("keydown", keyCode("downarrow"));
     });
 
     it("should verify number and type of elements in submenu", () => {
