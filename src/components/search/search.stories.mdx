@@ -1,19 +1,21 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { useState } from "react";
+
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import Search from ".";
 import * as stories from "./search.stories";
 
-<Meta title="Search" parameters={{ info: { disable: true } }}/>
+<Meta title="Search" parameters={{ info: { disable: true } }} />
 
 # Search
 
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/64709e-search"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 This search component should be used if you require the user to conduct a search.
@@ -56,8 +58,8 @@ import Search from "carbon-react/lib/components/search";
 
 <Canvas style={{ backgroundColor: "#e6ebed" }}>
   <Story
-    name="default with colour background" 
-    story={stories.DefaultWithColourBackground} 
+    name="default with colour background"
+    story={stories.DefaultWithColourBackground}
   />
 </Canvas>
 
@@ -65,8 +67,8 @@ import Search from "carbon-react/lib/components/search";
 
 <Canvas style={{ backgroundColor: "#e6ebed" }}>
   <Story
-    name="with SearchButton and colour background" 
-    story={stories.WithSearchButtonAndColourBackground} 
+    name="with SearchButton and colour background"
+    story={stories.WithSearchButtonAndColourBackground}
   />
 </Canvas>
 
@@ -85,7 +87,7 @@ In this example the `searchWidth` prop is 375px.
 <Canvas>
   <Story
     name="with SearchButton and Custom Width using px"
-    story={stories.WithSearchButtonAndCustomWidthUsingPx} 
+    story={stories.WithSearchButtonAndCustomWidthUsingPx}
   />
 </Canvas>
 
@@ -94,9 +96,9 @@ In this example the `searchWidth` prop is 375px.
 In this example the `searchWidth` prop is 70%.
 
 <Canvas>
-  <Story 
-    name="custom Width using %" 
-    story={stories.CustomWidthUsingPercentage} 
+  <Story
+    name="custom Width using %"
+    story={stories.CustomWidthUsingPercentage}
   />
 </Canvas>
 
@@ -107,7 +109,7 @@ In this example the `searchWidth` prop is 70%.
 <Canvas>
   <Story
     name="with SearchButton and Custom Width using %"
-    story={stories.WithSearchButtonAndCustomWidthUsingPercentage} 
+    story={stories.WithSearchButtonAndCustomWidthUsingPercentage}
   />
 </Canvas>
 
@@ -116,10 +118,7 @@ In this example the `searchWidth` prop is 70%.
 In this example the `maxWidth` prop is 50%.
 
 <Canvas>
-  <Story 
-    name="with custom maxWidth"
-    story={stories.WithCustomMaxWidth} 
-  />
+  <Story name="with custom maxWidth" story={stories.WithCustomMaxWidth} />
 </Canvas>
 
 ### Search with Alternative Styling
@@ -137,7 +136,7 @@ In this example the `variant` prop is "dark" and no search button is present.
 <Canvas>
   <Story
     name="with Alt Styling and no button"
-    story={stories.WithAltStylingAndNoButton} 
+    story={stories.WithAltStylingAndNoButton}
   />
 </Canvas>
 
@@ -154,7 +153,10 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 #### As a string
 
 <Canvas>
-  <Story name="validations - string - component" story={stories.ValidationsStringComponent} />
+  <Story
+    name="validations - string - component"
+    story={stories.ValidationsStringComponent}
+  />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -162,9 +164,8 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
-    story={stories.ValidationsStringWithTooltipPositionOverridenComponent} 
+    story={stories.ValidationsStringWithTooltipPositionOverridenComponent}
   />
-   
 </Canvas>
 
 #### As a boolean
