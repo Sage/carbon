@@ -104,7 +104,7 @@
     "babel-eslint": "10.0.3",
     "babel-jest": "^26.6.3",
     "babel-plugin-dev-expression": "^0.2.3",
-    "browserslist": "^4.16.6",
+    "browserslist": "^4.21.5",
     "chromatic": "^6.0.5",
     "commitizen": "^4.2.5",
     "conventional-changelog-conventionalcommits": "^4.5.0",
