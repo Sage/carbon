@@ -1,25 +1,26 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React from "react";
 import { action } from "@storybook/addon-actions";
 
-import Button from ".";
+import Button, { ButtonProps } from ".";
+import Box from "../box";
 import { ICONS } from "../icon/icon-config";
 import {
   BUTTON_ICON_POSITIONS,
   BUTTON_SIZES,
   BUTTON_VARIANTS,
 } from "./button.config";
+import { ButtonIconPosition, ButtonTypes } from "./button.component";
 
-<Meta
-  title="Button/Test"
-  parameters={{
+export default {
+  title: "Button/Test",
+  excludeStories: ["ButtonDifferentTypes", "generateButtons"],
+  parameters: {
     info: { disable: true },
-    chromatic: {
-      disable: false,
-    },
-  }}
-/>
+    chromatic: { disable: true },
+  },
+};
 
-export const commonArgTypes = {
+const commonArgTypes = {
   size: {
     options: BUTTON_SIZES,
     control: {
@@ -51,7 +52,7 @@ export const commonArgTypes = {
   },
 };
 
-export const commonArgs = {
+const commonArgs = {
   size: "medium",
   children: "Example Button",
   disabled: false,
@@ -68,46 +69,63 @@ export const ButtonStory = ({
   subtext,
   children,
   ...args
-}) => (
-  <Button
-    onClick={action("click")}
-    subtext={subtext}
-    children={children}
-    {...args}
-  />
+}: Partial<ButtonProps>) => (
+  <Button onClick={action("click")} subtext={subtext} {...args}>
+    {children}
+  </Button>
 );
+
+ButtonStory.story = {
+  name: "default",
+  args: {
+    ...commonArgs,
+  },
+  argTypes: {
+    ...commonArgTypes,
+  },
+};
 
 export const ButtonAsASiblingStory = ({
   subtext,
   children,
   ...args
-}) => {
+}: Partial<ButtonProps>) => {
   return (
     <div>
-      <Button
-        subtext={subtext}
-        children={children}
-        {...args}
-        onClick={action("click")}
-      />
-      <Button
-        subtext={subtext}
-        children={children}
-        {...args}
-        onClick={action("click")}
-        ml={2}
-      />
+      <Button subtext={subtext} {...args} onClick={action("click")}>
+        {children}
+      </Button>
+      <Button subtext={subtext} {...args} onClick={action("click")} ml={2}>
+        {children}
+      </Button>
     </div>
   );
 };
 
-export const generateButtons = (buttonType, iconPosition) => {
+ButtonAsASiblingStory.story = {
+  name: "default as siblings",
+  args: {
+    ...commonArgs,
+  },
+  argTypes: {
+    ...commonArgTypes,
+  },
+};
+
+export const generateButtons = (
+  buttonType: ButtonTypes,
+  iconPosition: ButtonIconPosition
+) => {
   return (
-    <>
-      {["", "bin"].map((iconType) => {
-        const props = { iconPosition, buttonType, iconType };
+    <Box>
+      {(["add", "bin"] as const).map((iconType) => {
+        const props: Partial<ButtonProps> = {
+          buttonType,
+          iconPosition,
+          iconType,
+        };
         return (
-          <div key={`${buttonType}-${iconPosition}-${iconType}`}>
+          <React.Fragment key={`${buttonType}-${iconPosition}-${iconType}`}>
             {BUTTON_SIZES.map((size) => (
               <React.Fragment
                 key={`${buttonType}-${iconPosition}-${iconType}-${size}`}
@@ -170,92 +188,100 @@ export const generateButtons = (buttonType, iconPosition) => {
                 )}
               </React.Fragment>
             ))}
-          </div>
+          </React.Fragment>
         );
       })}
-    </>
+    </Box>
   );
 };
 
-export const NoWrapButtonsStory = ({ noWrap }) => {
+export const NoWrapButtonsStory = ({ noWrap }: Partial<ButtonProps>) => {
   return (
-    <>
+    <Box>
       {BUTTON_VARIANTS.map((buttonType) => {
         return BUTTON_SIZES.map((size) => {
           return (
-            <div style={{ width: 100 }}>
-              <Button buttonType={buttonType} noWrap={noWrap} size={size}>
-                Long button text
-              </Button>
-              <Button
-                buttonType={buttonType}
-                noWrap={noWrap}
-                size={size}
-                iconType="bin"
-              >
-                Long button text
-              </Button>
-              <Button
-                buttonType={buttonType}
-                noWrap={noWrap}
-                size={size}
-                iconType="bin"
-                iconPosition="after"
-              >
-                Long button text
-              </Button>
-              <Button
-                buttonType={buttonType}
-                noWrap={noWrap}
-                size="large"
-                iconType="bin"
-                subtext="Even longer button subtext"
-              >
-                Long button text
-              </Button>
-              <Button
-                buttonType={buttonType}
-                noWrap={noWrap}
-                size="large"
-                iconType="bin"
-                iconPosition="after"
-                subtext="Even longer button subtext"
-              >
-                Long button text
-              </Button>
-            </div>
+            <React.Fragment key={`${buttonType}-${size}`}>
+              <Box style={{ width: 100 }}>
+                <Button buttonType={buttonType} noWrap={noWrap} size={size}>
+                  Long button text
+                </Button>
+                <Button
+                  buttonType={buttonType}
+                  noWrap={noWrap}
+                  size={size}
+                  iconType="bin"
+                >
+                  Long button text
+                </Button>
+                <Button
+                  buttonType={buttonType}
+                  noWrap={noWrap}
+                  size={size}
+                  iconType="bin"
+                  iconPosition="after"
+                >
+                  Long button text
+                </Button>
+                <Button
+                  buttonType={buttonType}
+                  noWrap={noWrap}
+                  size="large"
+                  iconType="bin"
+                  subtext="Even longer button subtext"
+                >
+                  Long button text
+                </Button>
+                <Button
+                  buttonType={buttonType}
+                  noWrap={noWrap}
+                  size="large"
+                  iconType="bin"
+                  iconPosition="after"
+                  subtext="Even longer button subtext"
+                >
+                  Long button text
+                </Button>
+              </Box>
+            </React.Fragment>
           );
         });
       })}
-    </>
+    </Box>
   );
 };
+
+NoWrapButtonsStory.storyName = "noWrap";
 
 export const IconOnlyButtonsStory = () => {
   const binIcon = "bin";
   return (
-    <>
+    <Box>
       {BUTTON_VARIANTS.map((buttonType) => {
         return BUTTON_SIZES.map((size) => {
           return (
-            <div style={{ width: 100 }}>
-              <Button
-                buttonType={buttonType}
-                size={size}
-                iconType={binIcon}
-                aria-label={binIcon}
-              />
-            </div>
+            <React.Fragment key={`${buttonType}-${size}`}>
+              <Box style={{ width: 100 }}>
+                <Button
+                  buttonType={buttonType}
+                  size={size}
+                  iconType={binIcon}
+                  aria-label={binIcon}
+                />
+              </Box>
+            </React.Fragment>
           );
         });
       })}
-    </>
+    </Box>
   );
 };
 
+IconOnlyButtonsStory.storyName = "icon button";
+
 export const FullWidthButtonsStory = () => {
   return (
-    <>
+    <Box>
       {BUTTON_VARIANTS.map((buttonType) => {
         const props = { buttonType, fullWidth: true };
         return (
@@ -279,7 +305,7 @@ export const FullWidthButtonsStory = () => {
                   {size}
                 </Button>
                 {size === "large" && (
-                  <>
+                  <Box>
                     <Button
                       key="subtext"
                       size={size}
@@ -310,7 +336,7 @@ export const FullWidthButtonsStory = () => {
                     >
                       {size}
                     </Button>
-                  </>
+                  </Box>
                 )}
               </React.Fragment>
             ))}
@@ -449,186 +475,87 @@ export const FullWidthButtonsStory = () => {
           </React.Fragment>
         );
       })}
-    </>
+    </Box>
   );
 };
 
-# Button
+FullWidthButtonsStory.storyName = "fullWidth";
 
-### Default
+export const ButtonIconBefore = () => {
+  return <Box>{generateButtons("primary", "before")}</Box>;
+};
 
-<Canvas>
-  <Story
-    name="default"
-    argTypes={commonArgTypes}
-    args={commonArgs}
-    parameters={{
-      chromatic: {
-        disable: true,
-      },
-    }}
-  >
-    {ButtonStory.bind({})}
-  </Story>
-</Canvas>
+ButtonIconBefore.storyName = "primary icon before";
 
-### As a sibling
+export const ButtonIconAfter = () => {
+  return <Box>{generateButtons("primary", "after")}</Box>;
+};
 
-<Canvas>
-  <Story
-    name="as a sibling"
-    args={commonArgs}
-    parameters={{
-      chromatic: {
-        disable: true,
-      },
-    }}
-    argTypes={commonArgTypes}
-  >
-    {ButtonAsASiblingStory.bind({})}
-  </Story>
-</Canvas>
+ButtonIconAfter.storyName = "primary icon after";
 
-### Primary buttons icons before
+export const SecondaryButtonIconBefore = () => {
+  return <Box>{generateButtons("secondary", "before")}</Box>;
+};
 
-<Canvas>
-  <Story
-    name="primary buttons icons before"
-    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
-  >
-    {generateButtons("primary", "before")}
-  </Story>
-</Canvas>
+SecondaryButtonIconBefore.storyName = "secondary icon before";
 
-### Primary buttons icons after
+export const SecondaryButtonIconAfter = () => {
+  return <Box>{generateButtons("secondary", "after")}</Box>;
+};
 
-<Canvas>
-  <Story
-    name="primary buttons icons after"
-    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
-  >
-    {generateButtons("primary", "after")}
-  </Story>
-</Canvas>
+SecondaryButtonIconAfter.storyName = "secondary icon after";
 
-### Secondary buttons icons before
+export const TertiaryButtonIconBefore = () => {
+  return <Box>{generateButtons("tertiary", "before")}</Box>;
+};
 
-<Canvas>
-  <Story
-    name="secondary buttons icons before"
-    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
-  >
-    {generateButtons("secondary", "before")}
-  </Story>
-</Canvas>
+TertiaryButtonIconBefore.storyName = "tertiary icon before";
 
-### Secondary buttons icons after
+export const TertiaryButtonIconAfter = () => {
+  return <Box>{generateButtons("tertiary", "after")}</Box>;
+};
 
-<Canvas>
-  <Story
-    name="secondary buttons icons after"
-    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
-  >
-    {generateButtons("secondary", "after")}
-  </Story>
-</Canvas>
+TertiaryButtonIconAfter.storyName = "tertiary icon after";
 
-### Tertiary buttons icons before
+export const DashedButtonIconBefore = () => {
+  return <Box>{generateButtons("dashed", "before")}</Box>;
+};
 
-<Canvas>
-  <Story
-    name="tertiary buttons icons before"
-    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
-  >
-    {generateButtons("tertiary", "before")}
-  </Story>
-</Canvas>
+DashedButtonIconBefore.storyName = "dashed icon before";
 
-### Tertiary buttons icons after
+export const DashedButtonIconAfter = () => {
+  return <Box>{generateButtons("dashed", "after")}</Box>;
+};
 
-<Canvas>
-  <Story
-    name="tertiary buttons icons after"
-    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
-  >
-    {generateButtons("tertiary", "after")}
-  </Story>
-</Canvas>
+DashedButtonIconAfter.storyName = "dashed icon after";
 
-### Dashed buttons icons before
+export const DarkBackgroundButtonIconBefore = () => {
+  return <Box>{generateButtons("darkBackground", "before")}</Box>;
+};
 
-<Canvas>
-  <Story
-    name="dashed buttons icons before"
-    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
-  >
-    {generateButtons("dashed", "before")}
-  </Story>
-</Canvas>
+DarkBackgroundButtonIconBefore.storyName = "darkBackground icon before";
 
-### Dashed buttons icons after
+export const DarkBackgroundButtonIconAfter = () => {
+  return <Box>{generateButtons("darkBackground", "after")}</Box>;
+};
 
-<Canvas>
-  <Story
-    name="dashed buttons icons after"
-    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
-  >
-    {generateButtons("dashed", "after")}
-  </Story>
-</Canvas>
+DarkBackgroundButtonIconAfter.storyName = "darkBackground icon after";
 
-### Dark background buttons icons before
-
-<Canvas>
-  <Story
-    name="dark background buttons icons before"
-    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
-  >
-    {generateButtons("darkBackground", "before")}
-  </Story>
-</Canvas>
-
-### Dark background buttons icons after
-
-<Canvas>
-  <Story
-    name="dark background buttons icons after"
-    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
-  >
-    {generateButtons("darkBackground", "after")}
-  </Story>
-</Canvas>
-
-### Full width buttons
-
-<Canvas>
-  <Story
-    name="full width buttons"
-    parameters={{ themeProvider: { chromatic: { theme: "sage" } } }}
-  >
-    {FullWidthButtonsStory.bind({})}
-  </Story>
-</Canvas>
-
-### No wrap buttons
-
-<Canvas>
-  <Story name="no wrap buttons" args={{ noWrap: true }}>
-    {NoWrapButtonsStory.bind({})}
-  </Story>
-</Canvas>
-
-### Icon only buttons
-
-<Canvas>
-  <Story
-    name="icon only buttons"
-    parameters={{
-      chromatic: {
-        disable: true,
-      },
-    }}
-  >
-    {IconOnlyButtonsStory.bind({})}
-  </Story>
-</Canvas>
+export const ButtonDifferentTypes = ({ ...props }) => {
+  return (
+    <div>
+      <Button buttonType="primary" {...props}>
+        Primary
+      </Button>
+      <Button buttonType="secondary" {...props}>
+        Secondary
+      </Button>
+      <Button buttonType="tertiary" {...props}>
+        Tertiary
+      </Button>
+      <Button buttonType="dashed" {...props}>
+        Dashed
+      </Button>
+    </div>
+  );
+};

@@ -1,5 +1,6 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import Button from ".";
+import * as stories from "./button.stories"
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta title="Button" parameters={{ info: { disable: true } }} />
@@ -36,109 +37,37 @@ import Button from "carbon-react/lib/components/button";
 For the single most prominent call to action on the page (e.g. Save, Submit, Continue).
 
 <Canvas>
-  <Story name="primary">
-    <>
-      <Button mt={2} buttonType="primary" size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} buttonType="primary" ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="primary" size="large" ml={2}>
-        Large
-      </Button>
-    </>
-  </Story>
+  <Story name="primary" story={stories.PrimaryButton} />
 </Canvas>
 
 Primary buttons can be destructive.
 
 <Canvas>
-  <Story name="primary/destructive">
-    <>
-      <Button mt={2} buttonType="primary" destructive size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} buttonType="primary" destructive ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="primary" destructive size="large" ml={2}>
-        Large
-      </Button>
-    </>
-  </Story>
+  <Story name="primary/destructive" story={stories.PrimaryButtonDestructive} />
 </Canvas>
 
 Primary buttons can be disabled.
 
 <Canvas>
-  <Story name="primary/disabled">
-    <>
-      <Button mt={2} buttonType="primary" disabled size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} buttonType="primary" disabled ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="primary" disabled size="large" ml={2}>
-        Large
-      </Button>
-    </>
-  </Story>
+  <Story name="primary/disabled" story={stories.PrimaryButtonDisabled} />
 </Canvas>
 
 Primary buttons can have an icon positioned before or after the text.
 
 <Canvas>
-  <Story name="primary/icon">
-    <>
-      <Button ml={2} mt={2} buttonType="primary" iconType="print">
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="primary"
-        destructive
-        iconType="delete"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="primary"
-        disabled
-        iconType="print"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-      </>
-  </Story>
+  <Story name="primary/icon" story={stories.PrimaryButtonIcon} />
 </Canvas>
 
 Primary buttons can be `fullWidth`.
 
 <Canvas>
-  <Story name="primary/full-width">
-    <>
-      <Button mt={2} buttonType="primary" fullWidth>
-        Full Width
-      </Button>
-    </>
-  </Story>
+  <Story name="primary/full-width" story={stories.PrimaryButtonFullWitdth} />
 </Canvas>
 
 Primary buttons can be set into `noWrap` mode to prevent text wrapping.
 
 <Canvas>
-  <Story name="primary/noWrap">
-    <Button ml={2} mt={2} buttonType="primary" noWrap>
-      Long button text
-    </Button>
-  </Story>
+  <Story name="primary/noWrap" story={stories.PrimaryButtonNoWrap} />
 </Canvas>
 
 ### Secondary Buttons
@@ -147,95 +76,37 @@ Less prominent, there can be multiple secondary buttons on a page.
 Secondary buttons are transparent, rather than white.
 
 <Canvas>
-  <Story name="secondary">
-    <>
-      <Button mt={2} size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} size="large" ml={2}>
-        Large
-      </Button>
-    </>
-  </Story>
+  <Story name="secondary" story={stories.SecondaryButton} />
 </Canvas>
 
 Secondary buttons can be destructive.
 
 <Canvas>
-  <Story name="secondary/destructive">
-    <>
-      <Button mt={2} destructive size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} destructive ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} destructive size="large" ml={2}>
-        Large
-      </Button>
-    </>
-  </Story>
+  <Story name="secondary/destructive" story={stories.SecondaryButtonDestructive} />
 </Canvas>
 
 Secondary buttons can be disabled.
 
 <Canvas>
-  <Story name="secondary/disabled">
-    <>
-      <Button mt={2} size="small" disabled ml={2}>
-        Small
-      </Button>
-      <Button mt={2} disabled ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} size="large" disabled ml={2}>
-        Large
-      </Button>
-    </>
-  </Story>
+  <Story name="secondary/disabled" story={stories.SecondaryButtonDisabled} />
 </Canvas>
 
 Secondary buttons can have an icon positioned before or after the text.
 
 <Canvas>
-  <Story name="secondary/icon">
-    <>
-      <Button mt={2} iconType="print" ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} destructive iconType="delete" iconPosition="after" ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} disabled iconType="print" iconPosition="after" ml={2}>
-        Medium
-      </Button>
-    </>
-  </Story>
+  <Story name="secondary/icon" story={stories.SecondaryButtonIcon} />
 </Canvas>
 
 Secondary buttons can be `fullWidth`.
 
 <Canvas>
-  <Story name="secondary/full-width">
-    <>
-      <Button mt={2} buttonType="secondary" fullWidth>
-        Full Width
-      </Button>
-    </>
-  </Story>
+  <Story name="secondary/full-width" story={stories.SecondaryFullWidth} />
 </Canvas>
 
 Secondary buttons can be set into `noWrap` mode to prevent text wrapping.
 
 <Canvas>
-  <Story name="secondary/noWrap" parameters={{ chromatic: { disable: true } }}>
-    <Button ml={2} mt={2} buttonType="secondary" noWrap>
-      Long button text
-    </Button>
-  </Story>
+  <Story name="secondary/noWrap" parameters={{ chromatic: { disable: true } }} story={stories.SecondaryNoWrap} />
 </Canvas>
 
 ### Tertiary Buttons
@@ -243,109 +114,37 @@ Secondary buttons can be set into `noWrap` mode to prevent text wrapping.
 Tertiary or ‘ghost’ buttons are used for reversing actions, like ‘Cancel’ or ‘Back’.
 
 <Canvas>
-  <Story name="tertiary">
-    <>
-      <Button mt={2} buttonType="tertiary" size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} buttonType="tertiary" ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="tertiary" size="large" ml={2}>
-        Large
-      </Button>
-    </>
-  </Story>
+  <Story name="tertiary" story={stories.TertiaryButton} />
 </Canvas>
 
 Tertiary buttons can be destructive.
 
 <Canvas>
-  <Story name="tertiary/destructive">
-    <>
-      <Button mt={2} buttonType="tertiary" destructive size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} buttonType="tertiary" destructive ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="tertiary" destructive size="large" ml={2}>
-        Large
-      </Button>
-    </>
-  </Story>
+  <Story name="tertiary/destructive" story={stories.TertiaryButtonDestructive} />
 </Canvas>
 
 Tertiary buttons can be disabled.
 
 <Canvas>
-  <Story name="tertiary/disabled">
-    <>
-      <Button mt={2} buttonType="tertiary" disabled size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} buttonType="tertiary" disabled ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="tertiary" disabled size="large" ml={2}>
-        Large
-      </Button>
-    </>
-  </Story>
+  <Story name="tertiary/disabled" story={stories.TertiaryButtonDisabled} />
 </Canvas>
 
 Tertiary buttons can have an icon positioned before or after the text.
 
 <Canvas>
-  <Story name="tertiary/icon">
-    <>
-      <Button mt={2} buttonType="tertiary" iconType="print" ml={2}>
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="tertiary"
-        destructive
-        iconType="delete"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="tertiary"
-        disabled
-        iconType="print"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-    </>
-  </Story>
+  <Story name="tertiary/icon" story={stories.TertiaryButtonIcon} />
 </Canvas>
 
 Tertiary buttons can be `fullWidth`.
 
 <Canvas>
-  <Story name="tertiary/full-width">
-    <>
-      <Button mt={2} buttonType="tertiary" fullWidth>
-        Full Width
-      </Button>
-    </>
-  </Story>
+  <Story name="tertiary/full-width" story={stories.TertiaryButtonFullWitdth} />
 </Canvas>
 
 Tertiary buttons can be set to `noWrap` mode to prevent text wrapping.
 
 <Canvas>
-  <Story name="tertiary/noWrap" parameters={{ chromatic: { disable: true } }}>
-    <Button ml={2} mt={2} buttonType="tertiary" noWrap>
-      Long button text
-    </Button>
-  </Story>
+  <Story name="tertiary/noWrap" parameters={{ chromatic: { disable: true } }} story={stories.TertiaryButtonNoWrap} />
 </Canvas>
 
 ### Dashed Buttons
@@ -353,98 +152,63 @@ Tertiary buttons can be set to `noWrap` mode to prevent text wrapping.
 Dashed buttons are used for adding new content that replaces empty states.
 
 <Canvas>
-  <Story name="dashed">
-    <>
-      <Button mt={2} buttonType="dashed" size="small">
-        Small
-      </Button>
-      <Button mt={2} buttonType="dashed" ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="dashed" size="large" ml={2}>
-        Large
-      </Button>
-    </>
-  </Story>
+  <Story name="dashed" story={stories.DashedButton} />
 </Canvas>
 
 Dashed buttons can be disabled.
 
 <Canvas>
-  <Story name="dashed/disabled">
-    <>
-      <Button mt={2} buttonType="dashed" disabled size="small">
-        Small
-      </Button>
-      <Button mt={2} buttonType="dashed" disabled ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="dashed" disabled size="large" ml={2}>
-        Large
-      </Button>
-    </>
-  </Story>
+  <Story name="dashed/disabled" story={stories.DashedButtonDisabled} />
 </Canvas>
 
 Dashed buttons can have an icon positioned before or after the text.
 
 <Canvas>
-  <Story name="dashed/icon">
-    <>
-      <Button mt={2} buttonType="dashed" iconType="add" size="small">
-        Small
-      </Button>
-      <Button
-        mt={2}
-        buttonType="dashed"
-        iconType="add"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="dashed"
-        disabled
-        iconType="add"
-        size="small"
-        ml={2}
-      >
-        Small
-      </Button>
-      <Button
-        mt={2}
-        buttonType="dashed"
-        disabled
-        iconType="add"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-    </>
-  </Story>
+  <Story name="dashed/icon" story={stories.DashedButtonIcon} />
 </Canvas>
 
 Dashed buttons can be `fullWidth`.
 
 <Canvas>
-  <Story name="dashed/full-width">
-    <Button mt={2} buttonType="dashed" fullWidth>
-      Full Width
-    </Button>
-  </Story>
+  <Story name="dashed/full-width" story={stories.DashedButtonFullWidth} />
 </Canvas>
 
 Dashed buttons can be set to `noWrap` mode to prevent text wrapping.
 
 <Canvas>
-  <Story name="dashed/noWrap" parameters={{ chromatic: { disable: true } }}>
-    <Button mt={2} buttonType="dashed" noWrap>
-      Long button text
-    </Button>
-  </Story>
+  <Story name="dashed/noWrap" parameters={{ chromatic: { disable: true } }} story={stories.DashedButtonNoWrap} />
+</Canvas>
+
+### Dark Background Buttons
+
+Dark Background buttons are used for adding new content that replaces empty states.
+
+<Canvas>
+  <Story name="darkBackground" story={stories.DarkBackgroundButton} />
+</Canvas>
+
+Dark Background buttons can be disabled.
+
+<Canvas>
+  <Story name="darkBackground/disabled" story={stories.DarkBackgroundButtonDisabled} />
+</Canvas>
+
+Dark Background buttons can have an icon positioned before or after the text.
+
+<Canvas>
+  <Story name="darkBackground/icon" story={stories.DarkBackgroundButtonIcon} />
+</Canvas>
+
+Dark Background buttons can be `fullWidth`.
+
+<Canvas>
+  <Story name="darkBackground/full-width" story={stories.DarkBackgroundButtonFullWidth} />
+</Canvas>
+
+Dark Background buttons can be set to `noWrap` mode to prevent text wrapping.
+
+<Canvas>
+  <Story name="darkBackground/noWrap" parameters={{ chromatic: { disable: true } }} story={stories.DarkBackgroundButtonNoWrap} />
 </Canvas>
 
 ### Button as a link
@@ -452,21 +216,7 @@ Dashed buttons can be set to `noWrap` mode to prevent text wrapping.
 Passing in the `href` prop will render an anchor with `role="button"` and the Button styles. The `target` and `rel` props are also available.
 
 <Canvas>
-  <Story name="as a link">
-    <Button ml={2} mt={2} buttonType="primary" href="/">
-      I'm a link
-    </Button>
-    <Button
-      mt={2}
-      buttonType="primary"
-      href="/"
-      target="_blank"
-      rel="noopener noreferrer"
-      ml={4}
-    >
-      Open in new tab
-    </Button>
-  </Story>
+  <Story name="as a link" story={stories.ButtonAsALink} />
 </Canvas>
 
 ### Icon Only Button
@@ -474,27 +224,7 @@ Passing in the `href` prop will render an anchor with `role="button"` and the Bu
 Buttons can be rendered with just an icon.
 
 <Canvas>
-  <Story name="icon only button">
-    <>
-      <Button
-        mt={2}
-        ml={2}
-        buttonType="primary"
-        size="small"
-        iconType="bin"
-        aria-label="Delete"
-      />
-      <Button mt={2} destructive ml={2} iconType="bin" aria-label="Delete" />
-      <Button
-        mt={2}
-        disabled
-        size="large"
-        ml={2}
-        iconType="bin"
-        aria-label="Delete"
-      />
-    </>
-  </Story>
+  <Story name="icon only button" story={stories.ButtonIconOnly} />
 </Canvas>
 
 Icon only buttons can also display a tooltip message when the icon is hovered over. This can be acheived by passing a string to the `iconTooltipMessage` prop.
@@ -503,36 +233,8 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
   <Story
     name="icon only button with tooltip"
     parameters={{ chromatic: { disable: true } }}
-  >
-    <>
-      <Button
-        mt={2}
-        ml={2}
-        buttonType="primary"
-        size="small"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <Button
-        destructive
-        ml={2}
-        mt={2}
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <Button
-        mt={2}
-        ml={2}
-        disabled
-        size="large"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-    </>
-  </Story>
+    story={stories.ButtonIconTooltipMessage}
+    />
 </Canvas>
 
 ## Props
