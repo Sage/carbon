@@ -326,9 +326,9 @@ Set the rows to be open by default.
 
 ### With row headers
 
-Rows with row headers can also be made expandable. In the example below there is both a left and 
-right hand side sticky column. To set a column to be sticky on the left hand side set the 
-`stickyAlignment` prop to `left` (this is the default value) and for the right hand side sticky 
+Rows with row headers can also be made expandable. In the example below there is both a left and
+right hand side sticky column. To set a column to be sticky on the left hand side set the
+`stickyAlignment` prop to `left` (this is the default value) and for the right hand side sticky
 columns set the prop to `right`.
 
 <Canvas>
@@ -349,42 +349,44 @@ columns set the prop to `right`.
         </FlatTableRow>,
       ];
       return (
-          <FlatTable width="380px" overflowX="auto">
-            <FlatTableHead>
-              <FlatTableRow>
-                <FlatTableRowHeader>Name</FlatTableRowHeader>
-                <FlatTableHeader>Location</FlatTableHeader>
-                <FlatTableHeader>Relationship Status</FlatTableHeader>
-                <FlatTableRowHeader stickyAlignment="right">Dependents</FlatTableRowHeader>
-              </FlatTableRow>
-            </FlatTableHead>
-            <FlatTableBody>
-              <FlatTableRow expandable subRows={SubRows}>
-                <FlatTableRowHeader>John Doe</FlatTableRowHeader>
-                <FlatTableCell>London</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
-                <FlatTableRowHeader stickyAlignment="right">0</FlatTableRowHeader>
-              </FlatTableRow>
-              <FlatTableRow expandable subRows={SubRows}>
-                <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
-                <FlatTableCell>York</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
-                <FlatTableRowHeader stickyAlignment="right">2</FlatTableRowHeader>
-              </FlatTableRow>
-              <FlatTableRow expandable subRows={SubRows}>
-                <FlatTableRowHeader>John Smith</FlatTableRowHeader>
-                <FlatTableCell>Edinburgh</FlatTableCell>
-                <FlatTableCell>Single</FlatTableCell>
-                <FlatTableRowHeader stickyAlignment="right">1</FlatTableRowHeader>
-              </FlatTableRow>
-              <FlatTableRow expandable subRows={SubRows}>
-                <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
-                <FlatTableCell>Newcastle</FlatTableCell>
-                <FlatTableCell>Married</FlatTableCell>
-                <FlatTableRowHeader stickyAlignment="right">5</FlatTableRowHeader>
-              </FlatTableRow>
-            </FlatTableBody>
-          </FlatTable>
+        <FlatTable width="380px" overflowX="auto">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableRowHeader>Name</FlatTableRowHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableRowHeader stickyAlignment="right">
+                Dependents
+              </FlatTableRowHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableRowHeader>John Doe</FlatTableRowHeader>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableRowHeader stickyAlignment="right">0</FlatTableRowHeader>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableRowHeader stickyAlignment="right">2</FlatTableRowHeader>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableRowHeader>John Smith</FlatTableRowHeader>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableRowHeader stickyAlignment="right">1</FlatTableRowHeader>
+            </FlatTableRow>
+            <FlatTableRow expandable subRows={SubRows}>
+              <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableRowHeader stickyAlignment="right">5</FlatTableRowHeader>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
       );
     }}
   </Story>
@@ -415,7 +417,7 @@ In this example `Child one` has `pl={8}` and `Child two` has `pl={5}` as well as
         </FlatTableRow>,
       ];
       return (
-        <div style={{ width: "380px", overflowX: "auto" }}>
+        <Box width="380px" overflowX="auto">
           <FlatTable>
             <FlatTableHead>
               <FlatTableRow>
@@ -452,7 +454,7 @@ In this example `Child one` has `pl={8}` and `Child two` has `pl={5}` as well as
               </FlatTableRow>
             </FlatTableBody>
           </FlatTable>
-        </div>
+        </Box>
       );
     }}
   </Story>
@@ -1459,7 +1461,7 @@ truncated styling applied, this is because of the caret icon that is rendered wi
         ];
       };
       return (
-        <div>
+        <Box>
           {["compact", "small", "medium", "large", "extraLarge"].map(
             (size, index) => (
               <Box mb={3} key={index}>
@@ -1574,7 +1576,7 @@ truncated styling applied, this is because of the caret icon that is rendered wi
               </Box>
             )
           )}
-        </div>
+        </Box>
       );
     }}
   </Story>

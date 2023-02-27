@@ -13,6 +13,8 @@ import {
 } from ".";
 import guid from "../../__internal__/utils/helpers/guid";
 import Link from "../link";
+import Typography from "../typography";
+import Box from "../box";
 import { FLAT_TABLE_SIZES, FLAT_TABLE_THEMES } from "./flat-table.config";
 import { FlatTableSortableStory } from "./flat-table.stories.mdx";
 
@@ -80,7 +82,10 @@ export const getYear = (i) => 2020 - i;
 export const rowData = (i) => ({
   employee: (
     <>
-      <h5 style={{ margin: 0 }}>{names[i]}</h5>000000{i + 10}
+      <Typography variant="h5" fontWeight="bold" m={0}>
+        {names[i]}
+      </Typography>
+      000000{i + 10}
     </>
   ),
   location: i % 2 === 0 ? "Newcastle" : "Barcelona",
@@ -205,12 +210,8 @@ export const FlatTableStory = ({
     rowWithInputs = getRowWithInputs(onClickFn, hasHeaderRow);
   }
   return (
-    <div style={tableSizeConstraints}>
-      <FlatTable
-        hasStickyHead={hasStickyHead}
-        caption={caption}
-        {...args}
-      >
+    <Box {...tableSizeConstraints}>
+      <FlatTable hasStickyHead={hasStickyHead} caption={caption} {...args}>
         <FlatTableHead>
           <FlatTableRow
             key={processed.headData.id}
@@ -268,7 +269,7 @@ export const FlatTableStory = ({
           ))}
         </FlatTableBody>
       </FlatTable>
-    </div>
+    </Box>
   );
 };
 
@@ -350,7 +351,7 @@ export const FlatTableStory = ({
           <FlatTableCell>Edinburgh</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>1</FlatTableCell>
-        </FlatTableRow>
+        </FlatTableRow>,
       ];
       return (
         <FlatTable>
