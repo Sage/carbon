@@ -465,10 +465,10 @@ const MultiSelect = React.forwardRef(
       [textboxRef, actualValue, updateValue]
     );
 
-    function onSelectListClose() {
+    const onSelectListClose = useCallback(() => {
       setOpenState(false);
       setFilterText("");
-    }
+    }, []);
 
     function findElementWithMatchingText(textToMatch, list) {
       return list.find((child) => {

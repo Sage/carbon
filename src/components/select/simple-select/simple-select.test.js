@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SimpleSelect from "./simple-select.component";
 import Option from "../option/option.component";
 import OptionRow from "../option-row/option-row.component";
@@ -6,6 +6,7 @@ import OptionGroupHeader from "../option-group-header/option-group-header.compon
 import Icon from "../../icon/icon.component";
 import Box from "../../box";
 import CypressMountWithProviders from "../../../../cypress/support/component-helper/cypress-mount";
+import Dialog from "../../dialog";
 
 import {
   getDataElementByValue,
@@ -33,7 +34,9 @@ import {
   selectDataComponent,
   selectElementInput,
   multiColumnsSelectListRowAt,
+  selectList,
 } from "../../../../cypress/locators/select";
+import { alertDialogPreview } from "../../../../cypress/locators/dialog";
 
 import { loader } from "../../../../cypress/locators/loader";
 
@@ -495,6 +498,20 @@ const SimpleSelectWithManyOptionsAndVirtualScrolling = () => (
   </SimpleSelect>
 );
 
+const SimpleSelectNestedInDialog = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
+      <SimpleSelect name="testSelect" id="testSelect">
+        <Option value="opt1" text="red" />
+        <Option value="opt2" text="green" />
+        <Option value="opt3" text="blue" />
+        <Option value="opt4" text="black" />
+      </SimpleSelect>
+    </Dialog>
+  );
+};
+
 context("Tests for Simple Select component", () => {
   describe("check props for Simple Select component", () => {
     it.each(testData)(
@@ -753,7 +770,7 @@ context("Tests for Simple Select component", () => {
 
       selectText().click();
       selectListWrapper().should("be.visible");
-      selectText().trigger("keydown", { ...keyCode("Esc") });
+      selectText().type("{esc}", { force: true });
       selectInput().should("have.attr", "aria-expanded", "false");
       selectListWrapper().should("not.be.visible");
     });
@@ -1219,6 +1236,26 @@ context("Tests for Simple Select component", () => {
       selectOptionByText("Option 20.").should("be.visible");
       selectOptionByText("Option 30.").should("exist").and("not.be.visible");
       selectOptionByText("Option 40.").should("not.exist");
+    });
+  });
+
+  describe("when nested inside of a Dialog component", () => {
+    it("should not close the Dialog when Select is closed by pressing an escape key", () => {
+      CypressMountWithProviders(<SimpleSelectNestedInDialog />);
+
+      selectText().click();
+      commonDataElementInputPreview()
+        .type("{esc}", { force: true })
+        .then(() => {
+          selectList().should("not.be.visible");
+          alertDialogPreview().should("exist");
+        });
+
+      commonDataElementInputPreview()
+        .type("{esc}", { force: true })
+        .then(() => {
+          alertDialogPreview().should("not.exist");
+        });
     });
   });
 });
