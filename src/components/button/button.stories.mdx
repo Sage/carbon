@@ -3,7 +3,7 @@ import Button from ".";
 import * as stories from "./button.stories"
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta title="Button" parameters={{ info: { disable: true } }} />
+<Meta title="Button" parameters={{ info: { disable: true }, chromatic: { disableSnapshot: true } }} />
 
 # Button
 
@@ -106,7 +106,7 @@ Secondary buttons can be `fullWidth`.
 Secondary buttons can be set into `noWrap` mode to prevent text wrapping.
 
 <Canvas>
-  <Story name="secondary/noWrap" parameters={{ chromatic: { disable: true } }} story={stories.SecondaryNoWrap} />
+  <Story name="secondary/noWrap" parameters={{  }} story={stories.SecondaryNoWrap} />
 </Canvas>
 
 ### Tertiary Buttons
@@ -144,7 +144,7 @@ Tertiary buttons can be `fullWidth`.
 Tertiary buttons can be set to `noWrap` mode to prevent text wrapping.
 
 <Canvas>
-  <Story name="tertiary/noWrap" parameters={{ chromatic: { disable: true } }} story={stories.TertiaryButtonNoWrap} />
+  <Story name="tertiary/noWrap" story={stories.TertiaryButtonNoWrap} />
 </Canvas>
 
 ### Dashed Buttons
@@ -176,7 +176,7 @@ Dashed buttons can be `fullWidth`.
 Dashed buttons can be set to `noWrap` mode to prevent text wrapping.
 
 <Canvas>
-  <Story name="dashed/noWrap" parameters={{ chromatic: { disable: true } }} story={stories.DashedButtonNoWrap} />
+  <Story name="dashed/noWrap" story={stories.DashedButtonNoWrap} />
 </Canvas>
 
 ### Dark Background Buttons
@@ -208,7 +208,7 @@ Dark Background buttons can be `fullWidth`.
 Dark Background buttons can be set to `noWrap` mode to prevent text wrapping.
 
 <Canvas>
-  <Story name="darkBackground/noWrap" parameters={{ chromatic: { disable: true } }} story={stories.DarkBackgroundButtonNoWrap} />
+  <Story name="darkBackground/noWrap" story={stories.DarkBackgroundButtonNoWrap} />
 </Canvas>
 
 ### Button as a link
@@ -232,7 +232,6 @@ Icon only buttons can also display a tooltip message when the icon is hovered ov
 <Canvas>
   <Story
     name="icon only button with tooltip"
-    parameters={{ chromatic: { disable: true } }}
     story={stories.ButtonIconTooltipMessage}
     />
 </Canvas>

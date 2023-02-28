@@ -95,7 +95,7 @@ export const EnablingAdaptiveBehaviour: ComponentStory<
 };
 
 EnablingAdaptiveBehaviour.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };
 
 export const WithLabelHelp: ComponentStory<typeof NumeralDate> = () => {

@@ -14,7 +14,7 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta
   title="Action Popover"
-  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+  parameters={{ info: { disable: true }, chromatic: { disableSnapshot: true } }}
 />
 
 # ActionPopover
@@ -230,7 +230,7 @@ used actions, in this example "manage devices".
 It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
 
 <Canvas>
-  <Story name="in FlatTable" parameters={{ chromatic: { disable: true } }} story={stories.ActionPopoverComponentInFlatTable} />
+  <Story name="in FlatTable" story={stories.ActionPopoverComponentInFlatTable} />
 </Canvas>
 
 ## Action opening a Modal

@@ -7,7 +7,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
 };
@@ -107,7 +107,7 @@ export const ValidationsStringComponent = () => {
 
 ValidationsStringComponent.parameters = {
   chromatic: {
-    disable: false,
+    disableSnapshot: false,
   },
 };
 
@@ -148,7 +148,7 @@ export const ValidationsStringLabel = () => {
 
 ValidationsStringLabel.parameters = {
   chromatic: {
-    disable: false,
+    disableSnapshot: false,
   },
 };
 
@@ -188,6 +188,6 @@ export const ValidationsBoolean = () => {
 
 ValidationsBoolean.parameters = {
   chromatic: {
-    disable: false,
+    disableSnapshot: false,
   },
 };

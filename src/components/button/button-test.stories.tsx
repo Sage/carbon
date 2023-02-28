@@ -13,10 +13,14 @@ import { ButtonIconPosition, ButtonTypes } from "./button.component";
 
 export default {
   title: "Button/Test",
-  excludeStories: ["ButtonDifferentTypes", "generateButtons"],
+  excludeStories: [
+    "ButtonDifferentTypes",
+    "generateButtons",
+    "generateFullWidthButtonsStory",
+    "generateButtonsNoWrapStory",
+  ],
   parameters: {
     info: { disable: true },
-    chromatic: { disable: true },
   },
 };
 
@@ -195,63 +199,77 @@ export const generateButtons = (
   );
 };
 
-export const NoWrapButtonsStory = ({ noWrap }: Partial<ButtonProps>) => {
-  return (
-    <Box>
-      {BUTTON_VARIANTS.map((buttonType) => {
-        return BUTTON_SIZES.map((size) => {
-          return (
-            <React.Fragment key={`${buttonType}-${size}`}>
-              <Box style={{ width: 100 }}>
-                <Button buttonType={buttonType} noWrap={noWrap} size={size}>
-                  Long button text
-                </Button>
-                <Button
-                  buttonType={buttonType}
-                  noWrap={noWrap}
-                  size={size}
-                  iconType="bin"
-                >
-                  Long button text
-                </Button>
-                <Button
-                  buttonType={buttonType}
-                  noWrap={noWrap}
-                  size={size}
-                  iconType="bin"
-                  iconPosition="after"
-                >
-                  Long button text
-                </Button>
-                <Button
-                  buttonType={buttonType}
-                  noWrap={noWrap}
-                  size="large"
-                  iconType="bin"
-                  subtext="Even longer button subtext"
-                >
-                  Long button text
-                </Button>
-                <Button
-                  buttonType={buttonType}
-                  noWrap={noWrap}
-                  size="large"
-                  iconType="bin"
-                  iconPosition="after"
-                  subtext="Even longer button subtext"
-                >
-                  Long button text
-                </Button>
-              </Box>
-            </React.Fragment>
-          );
-        });
-      })}
-    </Box>
-  );
+export const generateButtonsNoWrapStory = (buttonType: ButtonTypes) => {
+  return BUTTON_SIZES.map((size) => {
+    return (
+      <div key={`${buttonType}-${size}`}>
+        <Box style={{ width: 100 }}>
+          <Button buttonType={buttonType} noWrap size={size}>
+            Long button text
+          </Button>
+          <Button buttonType={buttonType} size={size} iconType="bin">
+            Long button text
+          </Button>
+          <Button
+            buttonType={buttonType}
+            size={size}
+            iconType="bin"
+            iconPosition="after"
+          >
+            Long button text
+          </Button>
+          <Button
+            buttonType={buttonType}
+            size="large"
+            iconType="bin"
+            subtext="Even longer button subtext"
+          >
+            Long button text
+          </Button>
+          <Button
+            buttonType={buttonType}
+            size="large"
+            iconType="bin"
+            iconPosition="after"
+            subtext="Even longer button subtext"
+          >
+            Long button text
+          </Button>
+        </Box>
+      </div>
+    );
+  });
 };
 
-NoWrapButtonsStory.storyName = "noWrap";
+export const NoWrapPrimaryButtonsStory = () => {
+  return <Box>{generateButtonsNoWrapStory("primary")}</Box>;
+};
+
+NoWrapPrimaryButtonsStory.storyName = "noWrap primary";
+
+export const NoWrapSecondaryButtonsStory = () => {
+  return <Box>{generateButtonsNoWrapStory("secondary")}</Box>;
+};
+
+NoWrapSecondaryButtonsStory.storyName = "noWrap secondary";
+
+export const NoWrapTertiaryButtonsStory = () => {
+  return <Box>{generateButtonsNoWrapStory("tertiary")}</Box>;
+};
+
+NoWrapTertiaryButtonsStory.storyName = "noWrap tertiary";
+
+export const NoWrapDashedButtonsStory = () => {
+  return <Box>{generateButtonsNoWrapStory("dashed")}</Box>;
+};
+
+NoWrapDashedButtonsStory.storyName = "noWrap dashed";
+
+export const NoWrapDarkBackgroundButtonsStory = () => {
+  return <Box>{generateButtonsNoWrapStory("darkBackground")}</Box>;
+};
+
+NoWrapDarkBackgroundButtonsStory.storyName = "noWrap darkBackground";
 
 export const IconOnlyButtonsStory = () => {
   const binIcon = "bin";
@@ -260,7 +278,7 @@ export const IconOnlyButtonsStory = () => {
       {BUTTON_VARIANTS.map((buttonType) => {
         return BUTTON_SIZES.map((size) => {
           return (
-            <React.Fragment key={`${buttonType}-${size}`}>
+            <div key={`${buttonType}-${size}`}>
               <Box style={{ width: 100 }}>
                 <Button
                   buttonType={buttonType}
@@ -269,7 +287,7 @@ export const IconOnlyButtonsStory = () => {
                   aria-label={binIcon}
                 />
               </Box>
-            </React.Fragment>
+            </div>
           );
         });
       })}
@@ -279,153 +297,118 @@ export const IconOnlyButtonsStory = () => {
 
 IconOnlyButtonsStory.storyName = "icon button";
 
-export const FullWidthButtonsStory = () => {
+export const generateFullWidthButtonsStory = (buttonType: ButtonTypes) => {
+  const props = { buttonType, fullWidth: true };
   return (
     <Box>
-      {BUTTON_VARIANTS.map((buttonType) => {
-        const props = { buttonType, fullWidth: true };
-        return (
-          <React.Fragment key={`${buttonType}-${buttonType}`}>
-            {BUTTON_SIZES.map((size) => (
-              <React.Fragment key={`${buttonType}-${buttonType}-${size}`}>
-                <Button key="basic" size={size} {...props} ml={2}>
-                  {size}
-                </Button>
-                <Button key="basic-icon" size={size} {...props} iconType="bin">
-                  {size}
-                </Button>
+      <div key={`${buttonType}-${buttonType}`}>
+        {BUTTON_SIZES.map((size) => (
+          <div key={`${buttonType}-${buttonType}-${size}`}>
+            <Button key="basic" size={size} {...props} ml={2}>
+              {size}
+            </Button>
+            <Button key="basic-icon" size={size} {...props} iconType="bin">
+              {size}
+            </Button>
+            <Button
+              key="basic-icon-after"
+              size={size}
+              {...props}
+              iconType="bin"
+              iconPosition="after"
+              ml={2}
+            >
+              {size}
+            </Button>
+            {size === "large" && (
+              <Box>
                 <Button
-                  key="basic-icon-after"
+                  key="subtext"
                   size={size}
+                  subtext="line two"
                   {...props}
-                  iconType="bin"
-                  iconPosition="after"
                   ml={2}
                 >
                   {size}
                 </Button>
-                {size === "large" && (
-                  <Box>
-                    <Button
-                      key="subtext"
-                      size={size}
-                      subtext="line two"
-                      {...props}
-                      ml={2}
-                    >
-                      {size}
-                    </Button>
-                    <Button
-                      key="subtext-icon"
-                      size={size}
-                      subtext="line two"
-                      iconType="bin"
-                      {...props}
-                      ml={2}
-                    >
-                      {size}
-                    </Button>
-                    <Button
-                      key="subtext-icon-after"
-                      size={size}
-                      subtext="line two"
-                      iconType="bin"
-                      iconPosition="after"
-                      {...props}
-                      ml={2}
-                    >
-                      {size}
-                    </Button>
-                  </Box>
-                )}
-              </React.Fragment>
-            ))}
-            {BUTTON_SIZES.map((size) => (
-              <React.Fragment
-                key={`${buttonType}-${buttonType}-${size}-destructive`}
-              >
-                <Button key="basic" size={size} destructive {...props} ml={2}>
+                <Button
+                  key="subtext-icon"
+                  size={size}
+                  subtext="line two"
+                  iconType="bin"
+                  {...props}
+                  ml={2}
+                >
                   {size}
                 </Button>
                 <Button
-                  key="basic-icon"
+                  key="subtext-icon-after"
+                  size={size}
+                  subtext="line two"
+                  iconType="bin"
+                  iconPosition="after"
+                  {...props}
+                  ml={2}
+                >
+                  {size}
+                </Button>
+              </Box>
+            )}
+          </div>
+        ))}
+        {BUTTON_SIZES.map((size) => (
+          <div key={`${buttonType}-${buttonType}-${size}-destructive`}>
+            <Button key="basic" size={size} destructive {...props} ml={2}>
+              {size}
+            </Button>
+            <Button
+              key="basic-icon"
+              size={size}
+              destructive
+              iconType="bin"
+              {...props}
+              ml={2}
+            >
+              {size}
+            </Button>
+            <Button
+              key="basic-icon-after"
+              size={size}
+              destructive
+              iconType="bin"
+              iconPosition="after"
+              {...props}
+            >
+              {size}
+            </Button>
+            {size === "large" && (
+              <>
+                <Button
+                  key="subtext"
                   size={size}
                   destructive
-                  iconType="bin"
+                  subtext="line two"
                   {...props}
                   ml={2}
                 >
                   {size}
                 </Button>
                 <Button
-                  key="basic-icon-after"
+                  key="subtext-icon"
                   size={size}
                   destructive
-                  iconType="bin"
-                  iconPosition="after"
-                  {...props}
-                >
-                  {size}
-                </Button>
-                {size === "large" && (
-                  <>
-                    <Button
-                      key="subtext"
-                      size={size}
-                      destructive
-                      subtext="line two"
-                      {...props}
-                      ml={2}
-                    >
-                      {size}
-                    </Button>
-                    <Button
-                      key="subtext-icon"
-                      size={size}
-                      destructive
-                      subtext="line two"
-                      iconType="bin"
-                      {...props}
-                      ml={2}
-                    >
-                      {size}
-                    </Button>
-                    <Button
-                      key="subtext-icon-after"
-                      size={size}
-                      destructive
-                      subtext="line two"
-                      iconType="bin"
-                      iconPosition="after"
-                      {...props}
-                      ml={2}
-                    >
-                      {size}
-                    </Button>
-                  </>
-                )}
-              </React.Fragment>
-            ))}
-            {BUTTON_SIZES.map((size) => (
-              <React.Fragment
-                key={`${buttonType}-${buttonType}-${size}-disabled`}
-              >
-                <Button key="basic" size={size} disabled {...props} ml={2}>
-                  {size}
-                </Button>
-                <Button
-                  key="basic-icon"
-                  size={size}
-                  disabled
+                  subtext="line two"
                   iconType="bin"
                   {...props}
+                  ml={2}
                 >
                   {size}
                 </Button>
                 <Button
-                  key="basic-icon-after"
+                  key="subtext-icon-after"
                   size={size}
-                  disabled
+                  destructive
+                  subtext="line two"
                   iconType="bin"
                   iconPosition="after"
                   {...props}
@@ -433,53 +416,108 @@ export const FullWidthButtonsStory = () => {
                 >
                   {size}
                 </Button>
-                {size === "large" && (
-                  <>
-                    <Button
-                      key="subtext"
-                      size={size}
-                      disabled
-                      subtext="line two"
-                      {...props}
-                      ml={2}
-                    >
-                      {size}
-                    </Button>
-                    <Button
-                      key="subtext-icon"
-                      size={size}
-                      disabled
-                      subtext="line two"
-                      iconType="bin"
-                      {...props}
-                      ml={2}
-                    >
-                      {size}
-                    </Button>
-                    <Button
-                      key="subtext-icon-after"
-                      size={size}
-                      disabled
-                      subtext="line two"
-                      iconType="bin"
-                      iconPosition="after"
-                      {...props}
-                      ml={2}
-                    >
-                      {size}
-                    </Button>
-                  </>
-                )}
-              </React.Fragment>
-            ))}
-          </React.Fragment>
-        );
-      })}
+              </>
+            )}
+          </div>
+        ))}
+        {BUTTON_SIZES.map((size) => (
+          <div key={`${buttonType}-${buttonType}-${size}-disabled`}>
+            <Button key="basic" size={size} disabled {...props} ml={2}>
+              {size}
+            </Button>
+            <Button
+              key="basic-icon"
+              size={size}
+              disabled
+              iconType="bin"
+              {...props}
+            >
+              {size}
+            </Button>
+            <Button
+              key="basic-icon-after"
+              size={size}
+              disabled
+              iconType="bin"
+              iconPosition="after"
+              {...props}
+              ml={2}
+            >
+              {size}
+            </Button>
+            {size === "large" && (
+              <>
+                <Button
+                  key="subtext"
+                  size={size}
+                  disabled
+                  subtext="line two"
+                  {...props}
+                  ml={2}
+                >
+                  {size}
+                </Button>
+                <Button
+                  key="subtext-icon"
+                  size={size}
+                  disabled
+                  subtext="line two"
+                  iconType="bin"
+                  {...props}
+                  ml={2}
+                >
+                  {size}
+                </Button>
+                <Button
+                  key="subtext-icon-after"
+                  size={size}
+                  disabled
+                  subtext="line two"
+                  iconType="bin"
+                  iconPosition="after"
+                  {...props}
+                  ml={2}
+                >
+                  {size}
+                </Button>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
     </Box>
   );
 };
 
-FullWidthButtonsStory.storyName = "fullWidth";
+export const FullWidthPrimaryButtonsStory = () => {
+  return <Box>{generateFullWidthButtonsStory("primary")}</Box>;
+};
+
+FullWidthPrimaryButtonsStory.storyName = "fullWidth primary";
+
+export const FullWidthSecondaryButtonsStory = () => {
+  return <Box>{generateFullWidthButtonsStory("secondary")}</Box>;
+};
+
+FullWidthSecondaryButtonsStory.storyName = "fullWidth secondary";
+
+export const FullWidthTertiaryButtonsStory = () => {
+  return <Box>{generateFullWidthButtonsStory("tertiary")}</Box>;
+};
+
+FullWidthTertiaryButtonsStory.storyName = "fullWidth tertiary";
+
+export const FullWidthDashedButtonsStory = () => {
+  return <Box>{generateFullWidthButtonsStory("dashed")}</Box>;
+};
+
+FullWidthDashedButtonsStory.storyName = "fullWidth dashed";
+
+export const FullWidthDarkBackgroundButtonsStory = () => {
+  return <Box>{generateFullWidthButtonsStory("darkBackground")}</Box>;
+};
+
+FullWidthDarkBackgroundButtonsStory.storyName = "fullWidth darkBackground";
 
 export const ButtonIconBefore = () => {
   return <Box>{generateButtons("primary", "before")}</Box>;

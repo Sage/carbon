@@ -76,7 +76,7 @@ import Textbox from "carbon-react/lib/components/textbox";
 ### AutoFocus
 
 <Canvas>
-  <Story name="autoFocus" parameters={{ chromatic: { disable: true } }} story={stories.AutoFocus} />
+  <Story name="autoFocus" parameters={{ chromatic: { disableSnapshot: true } }} story={stories.AutoFocus} />
 </Canvas>
 
 ### Disabled
@@ -94,7 +94,7 @@ import Textbox from "carbon-react/lib/components/textbox";
 ### With labelInline
 
 <Canvas>
-  <Story name="with labelInline" parameters={{ chromatic: { disable: true } }} story={stories.WithLabelInline} />
+  <Story name="with labelInline" parameters={{ chromatic: { disableSnapshot: true } }} story={stories.WithLabelInline} />
 </Canvas>
 
 ### With custom labelWidth and inputWidth
@@ -156,7 +156,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
     story={stories.ValidationsAsAStringWithTooltipCustom}
   />
 </Canvas>
@@ -178,7 +178,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
     story={stories.ValidationsAsAStringWithTooltipDefault}
   />
 </Canvas>
