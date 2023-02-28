@@ -51,6 +51,7 @@ const FlatTable = ({
           data-component="flat-table-wrapper"
           isInSidebar={isInSidebar}
           hasStickyHead={hasStickyHead}
+          hasFooter={Boolean(footer)}
           colorTheme={colorTheme}
           minHeight={minHeight}
           overflowY={

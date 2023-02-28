@@ -52,14 +52,6 @@ const StyledFlatTable = styled.table`
         height: ${height};
       }
 
-      ${StyledFlatTableHeader}:first-child {
-        border-top-left-radius: var(--borderRadius100);
-      }
-
-      ${StyledFlatTableHeader}:last-child {
-        border-top-right-radius: var(--borderRadius100);
-      }
-
       ${StyledFlatTableCell} > div,
       ${StyledFlatTableHeader} > div,
       ${StyledFlatTableRowHeader} > div,
@@ -96,22 +88,6 @@ StyledFlatTable.defaultProps = {
 };
 
 const StyledFlatTableWrapper = styled(Box)`
-  tbody {
-    tr:last-of-type {
-      td:first-of-type {
-        border-bottom-left-radius: var(--borderRadius100);
-      }
-      th:first-of-type {
-        border-bottom-left-radius: var(--borderRadius100);
-      }
-      td:last-of-type {
-        border-bottom-right-radius: var(--borderRadius100);
-      }
-      th:last-of-type {
-        border-bottom-right-radius: var(--borderRadius100);
-      }
-    }
-  }
 
   ${({ isInSidebar }) =>
     css`
@@ -208,6 +184,9 @@ const StyledFlatTableWrapper = styled(Box)`
   ${({ isInSidebar }) =>
     isInSidebar &&
     css`
+      ${StyledFlatTableHead} {
+        background-color: var(--colorsUtilityMajor040);
+      }
       ${StyledFlatTableHeader}, ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
       ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
         background-color: var(--colorsUtilityMajor040);
@@ -243,6 +222,17 @@ const StyledFlatTableWrapper = styled(Box)`
     z-index: ${({ theme }) => theme.zIndex.overlay + HEADER_OVERLAY_INCREMENT};
   }
 
+  thead {
+    & ${StyledFlatTableRow}:first-of-type {
+      & th:first-child {
+        border-top-left-radius: var(--borderRadius100);
+      }
+      & th:last-child {
+        border-top-right-radius: var(--borderRadius100);
+      }
+    }
+  }
+
   tbody
     ${StyledFlatTableRowHeader},
     ${StyledFlatTableCell}.isSticky,
@@ -251,13 +241,19 @@ const StyledFlatTableWrapper = styled(Box)`
     z-index: ${({ theme }) => theme.zIndex.overlay};
   }
 
-  tr > td:last-of-type {
-    border-radius: var(--borderRadius100);
+  ${({ hasFooter }) => !hasFooter && css`
+  tbody {
+    & ${StyledFlatTableRow}:last-of-type {
+      & td:first-child, & th:first-child {
+        border-bottom-left-radius: var(--borderRadius100);
+      }
+      & td:last-child, & th:last-child {
+        border-bottom-right-radius: var(--borderRadius100);
+      }
+    }
   }
-
-  tr > td:first-of-type {
-    border-radius: var(--borderRadius100);
-  }
+  `}
+  
 `;
 
 StyledFlatTableWrapper.defaultProps = {

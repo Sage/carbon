@@ -77,6 +77,8 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
     white-space: nowrap;
     z-index: ${theme.zIndex.popover};
     box-shadow: var(--boxShadow100);
+    border-bottom-left-radius: var(--borderRadius100);
+    border-bottom-right-radius: var(--borderRadius100);
 
     ${StyledIcon} {
       margin-left: 0;
@@ -111,6 +113,11 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
       & + & {
         margin-top: 3px;
       }
+    }
+
+    ${StyledButton}:last-child {
+      border-bottom-left-radius: var(--borderRadius100);
+      border-bottom-right-radius: var(--borderRadius100);
     }
   `}
 `;

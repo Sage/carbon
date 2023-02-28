@@ -111,6 +111,7 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
   tertiary: `
     background: transparent;
     border-color: transparent;
+    border-radius: var(--borderRadius400);
     ${makeColors("var(--colorsActionMajor500)")};
     &:hover {
       background: var(--colorsActionMajor600);
