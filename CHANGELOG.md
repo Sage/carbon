@@ -1,3 +1,10 @@
+### [114.17.2](https://github.com/Sage/carbon/compare/v114.17.1...v114.17.2) (2023-02-28)
+
+
+### Bug Fixes
+
+* **select:** resolve issue with Select component closing parent Dialog on escape key press ([eeaba5f](https://github.com/Sage/carbon/commit/eeaba5f349cf5b9175929500a5bafb51b181f85a))
+
 ### [114.17.1](https://github.com/Sage/carbon/compare/v114.17.0...v114.17.1) (2023-02-23)
 
 
