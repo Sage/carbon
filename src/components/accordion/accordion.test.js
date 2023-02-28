@@ -8,7 +8,11 @@ import {
   accordionTitleContainerByPosition,
   accordionContent,
 } from "../../../cypress/locators/accordion";
-import { positionOfElement, keyCode } from "../../../cypress/support/helper";
+import {
+  positionOfElement,
+  keyCode,
+  getRotationAngle,
+} from "../../../cypress/support/helper";
 import { getDataElementByValue } from "../../../cypress/locators";
 import {
   ACCORDION_ADD_CONTENT,
@@ -92,10 +96,9 @@ context("Testing Accordion component", () => {
         accordionIcon()
           .should("have.attr", "type", iconType)
           .and("be.visible")
-          .and(
-            "have.css",
-            "transform",
-            "matrix(6.12323e-17, 1, -1, 6.12323e-17, 0, 0)"
+          .and("have.css", "transform")
+          .then((cssString) =>
+            expect(getRotationAngle(cssString)).to.equal(90)
           );
       }
     );
@@ -110,11 +113,7 @@ context("Testing Accordion component", () => {
         accordionIcon()
           .should("have.attr", "type", iconType)
           .and("be.visible")
-          .and(
-            "not.have.css",
-            "transform",
-            "matrix(6.12323e-17, 1, -1, 6.12323e-17, 0, 0)"
-          );
+          .and("have.css", "transform", "none");
       }
     );
 
