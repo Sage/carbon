@@ -18,3 +18,4 @@ src/style-config/assets.scss
 storybook-static/
 cypress/fixtures/example*
 cypress/screenshots
+cypress/downloads

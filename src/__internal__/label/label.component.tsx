@@ -16,6 +16,8 @@ export interface LabelProps
   extends ValidationProps,
     StyledLabelProps,
     StyledLabelContainerProps {
+  /* To use a different HTML element other than <label> */
+  as?: "span" | "label";
   /** Children elements */
   children?: React.ReactNode;
   /** A message that the Help component will display */
@@ -55,6 +57,7 @@ const tooltipPosition = ({
 
 export const Label = ({
   align = "right",
+  as = "label",
   children,
   disabled,
   error,
@@ -150,10 +153,11 @@ export const Label = ({
         data-element="label"
         disabled={disabled}
         id={labelId}
-        htmlFor={htmlFor}
+        {...(as === "label" ? { htmlFor } : {})}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         isRequired={isRequired}
+        as={as}
       >
         {children}
       </StyledLabel>
