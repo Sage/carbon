@@ -273,14 +273,40 @@ context("Testing Menu component", () => {
       lastSubmenuElement("li").should("be.visible");
     });
 
-    it("should verify a submenu can be navigated using keyboard", () => {
+    it("should verify a submenu can be navigated using keyboard tabbing after an item was clicked", () => {
       CypressMountWithProviders(<MenuComponent />);
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
-      innerMenu(positionOfElement("second"), span).click({ multiple: true });
-      for (let i = 0; i < 3; i++) {
-        cy.focused().trigger("keydown", keyCode("Tab"));
-      }
+      innerMenu(positionOfElement("third"), span).click({ multiple: true });
+      cy.focused().tab();
+      cy.focused().tab();
+    });
+
+    it("should verify a submenu can be navigated using keyboard down arrow after an item was clicked", () => {
+      CypressMountWithProviders(<MenuComponent />);
+
+      submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+      innerMenu(positionOfElement("third"), span).click({ multiple: true });
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+    });
+
+    it("should verify a submenu can be navigated using keyboard shift + tabbing after an item was clicked", () => {
+      CypressMountWithProviders(<MenuComponent />);
+
+      submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+      innerMenu(positionOfElement("fifth"), span).click({ multiple: true });
+      cy.focused().tab({ shift: true });
+      cy.focused().tab({ shift: true });
+    });
+
+    it("should verify a submenu can be navigated using keyboard up arrow after an item was clicked", () => {
+      CypressMountWithProviders(<MenuComponent />);
+
+      submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+      innerMenu(positionOfElement("fifth"), span).click({ multiple: true });
+      cy.focused().trigger("keydown", keyCode("uparrow"));
+      cy.focused().trigger("keydown", keyCode("uparrow"));
     });
 
     it("should verify number and type of elements in submenu", () => {

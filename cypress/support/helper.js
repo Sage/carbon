@@ -176,3 +176,18 @@ export function keyCode(type) {
     pageup: { key: "PageUp", keyCode: 33, which: 33 },
   }[type];
 }
+
+// converts from a "matrix(a, b, c, d, e, f)" string output from a CSS transform: rotate
+// to the actual rotation angle, while accounting for rounding errors in the calculation.
+// Adapted from https://css-tricks.com/get-value-of-css-rotation-through-javascript/
+export function getRotationAngle(cssTransformString) {
+  const matrixValues = cssTransformString
+    .split("(")[1]
+    .split(")")[0]
+    .split(",")
+    .map(Number);
+  const [a, b] = matrixValues;
+  const angleInRadians = Math.atan2(b, a);
+  const angleInDegrees = angleInRadians * (180 / Math.PI);
+  return Math.round(angleInDegrees);
+}

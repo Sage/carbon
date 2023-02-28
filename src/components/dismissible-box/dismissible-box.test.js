@@ -1,29 +1,11 @@
 import React from "react";
-import DismissibleBox from "./dismissible-box.component";
-import Box from "../box/box.component";
-import Typography from "../typography/typography.component";
-import VerticalDivider from "../vertical-divider/vertical-divider.component";
-import Image from "../image/image.component";
-import point from "../../../.assets/point.svg";
+import { Default as DismissibleBoxCustomComponent } from "./dismissible-box-test.stories";
+import * as stories from "./dismissible-box.stories";
 import dismissibleBoxDataComponent from "../../../cypress/locators/dismissible-box";
 import { icon } from "../../../cypress/locators/index.js";
 import { keyCode } from "../../../cypress/support/helper";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
-
-const DismissibleBoxCustomComponent = ({ ...props }) => {
-  return (
-    <Box p={2}>
-      <DismissibleBox onClose={() => {}} {...props}>
-        <Box display="flex">
-          <Typography mb={0}>Hello All!</Typography>
-          <VerticalDivider p={0} px={2} />
-          <Image alt="Example alt text" src={point} width="120px" />
-        </Box>
-      </DismissibleBox>
-    </Box>
-  );
-};
 
 context("Test for DismissibleBox component", () => {
   describe("check props for DismissibleBox component", () => {
@@ -113,6 +95,32 @@ context("Test for DismissibleBox component", () => {
             });
         }
       );
+    });
+  });
+
+  describe("Accessibility tests for DismissibleBox", () => {
+    it("should pass accessibility tests for DismissibleBox DefaultDarkVariant story", () => {
+      CypressMountWithProviders(<stories.DefaultDarkVariant />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DismissibleBox DefaultLightVariant story", () => {
+      CypressMountWithProviders(<stories.DefaultLightVariant />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DismissibleBox WidthOverridden story", () => {
+      CypressMountWithProviders(<stories.WidthOverridden />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DismissibleBox WithNoLeftBorderHighlight story", () => {
+      CypressMountWithProviders(<stories.WithNoLeftBorderHighlight />);
+
+      cy.checkAccessibility();
     });
   });
 });

@@ -28,6 +28,7 @@ import isExpectedOption from "../utils/is-expected-option";
 import isExpectedValue from "../utils/is-expected-value";
 import isNavigationKey from "../utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
+import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 
 let deprecateInputRefWarnTriggered = false;
 
@@ -44,7 +45,7 @@ const MultiSelect = React.forwardRef(
       readOnly,
       children,
       onOpen,
-      onFilterChange,
+      onFilterChange: onFilterChangeProp,
       onChange,
       onClick,
       onFocus,
@@ -328,11 +329,17 @@ const MultiSelect = React.forwardRef(
       };
     }, [handleGlobalClick]);
 
+    const onFilterChange = useStableCallback(onFilterChangeProp);
+    const isFirstRender = useRef(true);
     useEffect(() => {
-      if (onFilterChange) {
+      if (onFilterChange && !isFirstRender.current) {
         onFilterChange(filterText);
       }
-    }, [filterText, onFilterChange]);
+    }, [onFilterChange, filterText]);
+
+    useEffect(() => {
+      isFirstRender.current = false;
+    }, []);
 
     function handleTextboxClick(event) {
       isMouseDownReported.current = false;

@@ -4,6 +4,7 @@ import Switch, { SwitchProps } from "./switch.component";
 
 export default {
   title: "Switch/Test",
+  includeStories: "Default",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -89,4 +90,26 @@ Default.args = {
   value: "test-value",
   disabled: false,
   size: "small",
+};
+
+export const SwitchComponent = ({ ...props }) => {
+  const [isChecked, setIsChecked] = React.useState(false);
+  return (
+    <>
+      <div
+        style={{
+          marginTop: "64px",
+          marginLeft: "64px",
+        }}
+      >
+        <Switch
+          label="Label"
+          name="switch-name"
+          checked={isChecked}
+          onChange={(e) => setIsChecked(e.target.checked)}
+          {...props}
+        />
+      </div>
+    </>
+  );
 };
