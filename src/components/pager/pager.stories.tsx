@@ -57,7 +57,7 @@ HideDisabledElements.argTypes = {
 };
 
 export const DisabledPageSize = Default.bind({});
-DisabledPageSize.parameters = { chromatic: { disable: true } };
+DisabledPageSize.parameters = { chromatic: { disableSnapshot: true } };
 DisabledPageSize.args = {
   totalRecords: "100",
   onPagination: () => {},
@@ -88,7 +88,7 @@ LoadingState.args = {
 };
 
 export const PageSizeSelectionOptions = Default.bind({});
-PageSizeSelectionOptions.parameters = { chromatic: { disable: true } };
+PageSizeSelectionOptions.parameters = { chromatic: { disableSnapshot: true } };
 PageSizeSelectionOptions.args = {
   onPagination: () => {},
   totalRecords: 100,
@@ -102,7 +102,7 @@ PageSizeSelectionOptions.args = {
 };
 
 export const CurrentPageLastPage = Default.bind({});
-CurrentPageLastPage.parameters = { chromatic: { disable: true } };
+CurrentPageLastPage.parameters = { chromatic: { disableSnapshot: true } };
 CurrentPageLastPage.args = {
   onPagination: () => {},
   totalRecords: 100,
@@ -111,7 +111,7 @@ CurrentPageLastPage.args = {
 };
 
 export const CurrentPage = Default.bind({});
-CurrentPage.parameters = { chromatic: { disable: true } };
+CurrentPage.parameters = { chromatic: { disableSnapshot: true } };
 CurrentPage.args = {
   onPagination: () => {},
   totalRecords: 100,
@@ -182,4 +182,6 @@ export const UsingCustomResponsiveSettings = () => {
     />
   );
 };
-UsingCustomResponsiveSettings.parameters = { chromatic: { disable: true } };
+UsingCustomResponsiveSettings.parameters = {
+  chromatic: { disableSnapshot: true },
+};

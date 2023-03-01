@@ -36,7 +36,7 @@ import SplitButton from "carbon-react/lib/components/split-button";
 ### Default
 
 <Canvas>
-  <Story name="default" parameters={{ chromatic: { disable: true } }}>
+  <Story name="default" parameters={{ chromatic: { disableSnapshot: true } }}>
     <SplitButton text="Split button">
       <Button>Button 1</Button>
       <Button>Button 2</Button>
@@ -95,7 +95,7 @@ import SplitButton from "carbon-react/lib/components/split-button";
 ### Alignment
 
 <Canvas>
-  <Story name="align" parameters={{ chromatic: { disable: true } }}>
+  <Story name="align" parameters={{ chromatic: { disableSnapshot: true } }}>
     {["left", "right"].map((align) => (
       <Box key={align} mb={3}>
         <SplitButton align={align} text={`Split button - ${align}`}>
@@ -147,7 +147,7 @@ Subtext only works when `size` is `large`
 <Canvas>
   <Story
     name="in overflow hidden container"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     <Accordion title="Heading">
       <Box p={4}>

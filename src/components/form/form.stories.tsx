@@ -280,7 +280,7 @@ export const InDialog = () => {
   );
 };
 
-InDialog.parameters = { chromatic: { disable: true } };
+InDialog.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogWithStickyFooter = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -386,7 +386,7 @@ export const InDialogWithStickyFooter = () => {
   );
 };
 
-InDialogWithStickyFooter.parameters = { chromatic: { disable: true } };
+InDialogWithStickyFooter.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogFullScreen = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -418,7 +418,7 @@ export const InDialogFullScreen = () => {
   );
 };
 
-InDialogFullScreen.parameters = { chromatic: { disable: true } };
+InDialogFullScreen.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogFullScreenWithStickyFooter = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -475,7 +475,7 @@ export const InDialogFullScreenWithStickyFooter = () => {
 };
 
 InDialogFullScreenWithStickyFooter.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };
 
 export const FormAlignmentExample = () => {

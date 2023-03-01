@@ -61,7 +61,7 @@ The Icon supports rendering tooltips internally, just pass a node to `tooltipMes
 such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColor` and `tooltipFlipOverrides` are also surfaced.
 
 <Canvas>
-  <Story name="with tooltip" parameters={{ chromatic: { disable: true } }}>
+  <Story name="with tooltip" parameters={{ chromatic: { disableSnapshot: true } }}>
     <div style={{ margin: 60, display: "inline" }}>
       <Icon
         mr={8}
@@ -142,7 +142,7 @@ See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo>
 <Canvas>
   <Story
     name="custom colors"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+    parameters={{ info: { disable: true }, chromatic: { disableSnapshot: true } }}
   >
     <>
       <Box mb={1}>
@@ -179,7 +179,7 @@ It's **required** that the `type` prop is specified (even if it's `"none"`).
 <Canvas>
   <Story
     name="list of icons"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+    parameters={{ info: { disable: true }, chromatic: { disableSnapshot: true } }}
   >
     <Box m={2}>
       {ICONS.sort().map((type) => {

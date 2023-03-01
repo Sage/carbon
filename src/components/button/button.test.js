@@ -1,5 +1,7 @@
 import React from "react";
 import Button from "./button.component";
+import * as stories from "./button-test.stories";
+import * as storiesDefault from "./button.stories";
 
 import {
   buttonSubtextPreview,
@@ -13,25 +15,6 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
-const ButtonDifferentTypes = ({ ...props }) => {
-  return (
-    <div>
-      <Button buttonType="primary" {...props}>
-        Primary
-      </Button>
-      <Button buttonType="secondary" {...props}>
-        Secondary
-      </Button>
-      <Button buttonType="tertiary" {...props}>
-        Tertiary
-      </Button>
-      <Button buttonType="dashed" {...props}>
-        Dashed
-      </Button>
-    </div>
-  );
-};
 
 context("Test for Button component", () => {
   describe("Check props for Button component", () => {
@@ -123,7 +106,7 @@ context("Test for Button component", () => {
     );
 
     it("should check Button is disabled", () => {
-      CypressMountWithProviders(<ButtonDifferentTypes disabled />);
+      CypressMountWithProviders(<stories.ButtonDifferentTypes disabled />);
 
       buttonDataComponent()
         .eq(positionOfElement("first"))
@@ -144,7 +127,7 @@ context("Test for Button component", () => {
     });
 
     it("should check Button is enabled", () => {
-      CypressMountWithProviders(<ButtonDifferentTypes />);
+      CypressMountWithProviders(<stories.ButtonDifferentTypes />);
 
       buttonDataComponent().eq(positionOfElement("first")).should("be.enabled");
       buttonDataComponent()
@@ -208,6 +191,218 @@ context("Test for Button component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("Accessibility tests for Button", () => {
+    it("should pass accessibility tests for ButtonStory", () => {
+      CypressMountWithProviders(
+        <stories.ButtonStory>{CHARACTERS.STANDARD}</stories.ButtonStory>
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ButtonAsASiblingStory", () => {
+      CypressMountWithProviders(
+        <stories.ButtonAsASiblingStory>
+          {CHARACTERS.STANDARD}
+        </stories.ButtonAsASiblingStory>
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ButtonIconBefore", () => {
+      CypressMountWithProviders(<stories.ButtonIconBefore />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for ButtonIconAfter", () => {
+      CypressMountWithProviders(<stories.ButtonIconAfter />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for PrimaryButtonDestructive", () => {
+      CypressMountWithProviders(<storiesDefault.PrimaryButtonDestructive />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for PrimaryButtonDisabled", () => {
+      CypressMountWithProviders(<storiesDefault.PrimaryButtonDisabled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for PrimaryButtonFullWitdth", () => {
+      CypressMountWithProviders(<storiesDefault.PrimaryButtonFullWitdth />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for PrimaryButtonNoWrap", () => {
+      CypressMountWithProviders(<storiesDefault.PrimaryButtonNoWrap />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for SecondaryButtonIconAfter", () => {
+      CypressMountWithProviders(<stories.SecondaryButtonIconAfter />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for SecondaryButtonIconBefore", () => {
+      CypressMountWithProviders(<stories.SecondaryButtonIconBefore />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for SecondaryButtonDestructive", () => {
+      CypressMountWithProviders(<storiesDefault.SecondaryButtonDestructive />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for SecondaryButtonDisabled", () => {
+      CypressMountWithProviders(<storiesDefault.SecondaryButtonDisabled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for SecondaryFullWidth", () => {
+      CypressMountWithProviders(<storiesDefault.SecondaryFullWidth />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for SecondaryNoWrap", () => {
+      CypressMountWithProviders(<storiesDefault.SecondaryNoWrap />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DashedButtonIconAfter", () => {
+      CypressMountWithProviders(<stories.DashedButtonIconAfter />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DashedButtonIconBefore", () => {
+      CypressMountWithProviders(<stories.DashedButtonIconBefore />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DashedButtonDisabled", () => {
+      CypressMountWithProviders(<storiesDefault.DashedButtonDisabled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DashedButtonFullWidth", () => {
+      CypressMountWithProviders(<storiesDefault.DashedButtonFullWidth />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DashedButtonNoWrap", () => {
+      CypressMountWithProviders(<storiesDefault.DashedButtonNoWrap />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DarkBackgroundButtonIconBefore", () => {
+      CypressMountWithProviders(<stories.DarkBackgroundButtonIconBefore />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DarkBackgroundButtonIconAfter", () => {
+      CypressMountWithProviders(<stories.DarkBackgroundButtonIconAfter />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DarkBackgroundButtonDisabled", () => {
+      CypressMountWithProviders(
+        <storiesDefault.DarkBackgroundButtonDisabled />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DarkBackgroundButtonFullWidth", () => {
+      CypressMountWithProviders(
+        <storiesDefault.DarkBackgroundButtonFullWidth />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DarkBackgroundButtonNoWrap", () => {
+      CypressMountWithProviders(<storiesDefault.DarkBackgroundButtonNoWrap />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for TertiaryButtonIconBefore", () => {
+      CypressMountWithProviders(<stories.TertiaryButtonIconBefore />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for TertiaryButtonIconAfter", () => {
+      CypressMountWithProviders(<stories.TertiaryButtonIconAfter />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for TertiaryButtonDestructive", () => {
+      CypressMountWithProviders(<storiesDefault.TertiaryButtonDestructive />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for TertiaryButtonDisabled", () => {
+      CypressMountWithProviders(<storiesDefault.TertiaryButtonDisabled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for TertiaryButtonFullWitdth", () => {
+      CypressMountWithProviders(<storiesDefault.TertiaryButtonFullWitdth />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for TertiaryButtonFullWitdth", () => {
+      CypressMountWithProviders(<storiesDefault.TertiaryButtonNoWrap />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for fullWidth story", () => {
+      CypressMountWithProviders(<Button fullWidth>Foo</Button>);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for iconOnly story", () => {
+      CypressMountWithProviders(
+        <Button buttonType="primary" iconType="bin" aria-label="bin-icon" />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for noWrap story", () => {
+      CypressMountWithProviders(<Button noWrap>Foo</Button>);
+
+      cy.checkAccessibility();
     });
   });
 });

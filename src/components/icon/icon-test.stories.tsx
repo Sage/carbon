@@ -14,7 +14,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -135,7 +135,7 @@ All.storyName = "all";
 All.story = {
   parameters: {
     chromatic: {
-      disable: false,
+      disableSnapshot: false,
     },
     themeProvider: { chromatic: { theme: "sage" } },
   },

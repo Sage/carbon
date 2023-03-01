@@ -20,7 +20,7 @@ DefaultStory.args = {
   text: "Multi Action Button",
 };
 
-DefaultStory.parameters = { chromatic: { disable: true } };
+DefaultStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled = DefaultStory.bind({});
 Disabled.args = {
@@ -90,7 +90,7 @@ export const Alignment = () => {
     )
   );
 };
-Alignment.parameters = { chromatic: { disable: true } };
+Alignment.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Subtext = DefaultStory.bind({});
 Subtext.args = {
@@ -128,5 +128,5 @@ export const InOverflowHiddenContainer = () => {
   );
 };
 InOverflowHiddenContainer.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };
