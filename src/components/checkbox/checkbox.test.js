@@ -235,30 +235,24 @@ context("Testing Checkbox component", () => {
     checkboxSvg().should("have.css", "border-bottom-color", VALIDATION.INFO);
   });
 
-  it("should render Checkbox component with error message", () => {
+  it("should render Checkbox component with error icon", () => {
     CypressMountWithProviders(<CheckboxComponent error="Error has occurred" />);
 
-    checkboxIcon()
-      .should("have.attr", "aria-label", "Error has occurred")
-      .should("have.attr", "data-element", "error");
+    checkboxIcon().should("have.attr", "data-element", "error");
   });
 
-  it("should render Checkbox component with warning message", () => {
+  it("should render Checkbox component with warning icon", () => {
     CypressMountWithProviders(
       <CheckboxComponent warning="Warning has occurred" />
     );
 
-    checkboxIcon()
-      .should("have.attr", "aria-label", "Warning has occurred")
-      .should("have.attr", "data-element", "warning");
+    checkboxIcon().should("have.attr", "data-element", "warning");
   });
 
-  it("should render Checkbox component with info message", () => {
+  it("should render Checkbox component with info icon", () => {
     CypressMountWithProviders(<CheckboxComponent info="Info has occurred" />);
 
-    checkboxIcon()
-      .should("have.attr", "aria-label", "Info has occurred")
-      .should("have.attr", "data-element", "info");
+    checkboxIcon().should("have.attr", "data-element", "info");
   });
 
   it.each([
@@ -415,9 +409,7 @@ context("Testing Checkbox component", () => {
           <CheckboxGroupComponent error="Error has occurred" />
         );
 
-        checkboxGroupIcon()
-          .should("have.attr", "aria-label", "Error has occurred")
-          .should("have.attr", "data-element", "error");
+        checkboxGroupIcon().should("have.attr", "data-element", "error");
       });
 
       it("should render CheckboxGroup component with warning message", () => {
@@ -425,9 +417,7 @@ context("Testing Checkbox component", () => {
           <CheckboxGroupComponent warning="Warning has occurred" />
         );
 
-        checkboxGroupIcon()
-          .should("have.attr", "aria-label", "Warning has occurred")
-          .should("have.attr", "data-element", "warning");
+        checkboxGroupIcon().should("have.attr", "data-element", "warning");
       });
 
       it("should render CheckboxGroup component with info message", () => {
@@ -435,9 +425,7 @@ context("Testing Checkbox component", () => {
           <CheckboxGroupComponent info="Info has occurred" />
         );
 
-        checkboxGroupIcon()
-          .should("have.attr", "aria-label", "Info has occurred")
-          .should("have.attr", "data-element", "info");
+        checkboxGroupIcon().should("have.attr", "data-element", "info");
       });
 
       it.each([

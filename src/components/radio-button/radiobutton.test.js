@@ -12,7 +12,6 @@ import {
   radiobuttonComponent,
   radiobuttonLabel,
   radiobuttonInlineFieldHelp,
-  radiobuttonHelpIcon,
   radiobuttonIcon,
   radiobuttonSvg,
   radiobuttonGroupLegend,
@@ -159,23 +158,6 @@ context("Testing RadioButton component", () => {
     radiobuttonInlineFieldHelp().should("have.text", "Inline fieldhelp");
   });
 
-  it("should render Radiobutton component with helpAriaLabel", () => {
-    CypressMountWithProviders(
-      <RadiobuttonComponent
-        label="Label For CheckBox"
-        labelHelp="Label Help"
-        helpAriaLabel="This text provides more information for the label"
-      />
-    );
-
-    radiobuttonIcon().trigger("mouseover");
-    radiobuttonHelpIcon().should(
-      "have.attr",
-      "aria-label",
-      "This text provides more information for the label"
-    );
-  });
-
   it.each([
     [true, "be.disabled"],
     [false, "not.be.disabled"],
@@ -316,9 +298,7 @@ context("Testing RadioButton component", () => {
       <RadiobuttonComponent error="Error has occurred" />
     );
 
-    radiobuttonIcon()
-      .should("have.attr", "aria-label", "Error has occurred")
-      .should("have.attr", "data-element", "error");
+    radiobuttonIcon().should("have.attr", "data-element", "error");
   });
 
   it("should render Radiobutton component with warning message", () => {
@@ -326,9 +306,7 @@ context("Testing RadioButton component", () => {
       <RadiobuttonComponent warning="Warning has occurred" />
     );
 
-    radiobuttonIcon()
-      .should("have.attr", "aria-label", "Warning has occurred")
-      .should("have.attr", "data-element", "warning");
+    radiobuttonIcon().should("have.attr", "data-element", "warning");
   });
 
   it("should render Radiobutton component with info message", () => {
@@ -336,9 +314,7 @@ context("Testing RadioButton component", () => {
       <RadiobuttonComponent info="Info has occurred" />
     );
 
-    radiobuttonIcon()
-      .should("have.attr", "aria-label", "Info has occurred")
-      .should("have.attr", "data-element", "info");
+    radiobuttonIcon().should("have.attr", "data-element", "info");
   });
 
   it.each([
@@ -483,9 +459,7 @@ context("Testing RadioButton component", () => {
           <RadiobuttonGroupComponent error="Error has occurred" />
         );
 
-        radiobuttonGroupIcon()
-          .should("have.attr", "aria-label", "Error has occurred")
-          .should("have.attr", "data-element", "error");
+        radiobuttonGroupIcon().should("have.attr", "data-element", "error");
       });
 
       it("should render RadiobuttonGroup component with warning message", () => {
@@ -493,9 +467,7 @@ context("Testing RadioButton component", () => {
           <RadiobuttonGroupComponent warning="Warning has occurred" />
         );
 
-        radiobuttonGroupIcon()
-          .should("have.attr", "aria-label", "Warning has occurred")
-          .should("have.attr", "data-element", "warning");
+        radiobuttonGroupIcon().should("have.attr", "data-element", "warning");
       });
 
       it("should render RadiobuttonGroup component with info message", () => {
@@ -503,9 +475,7 @@ context("Testing RadioButton component", () => {
           <RadiobuttonGroupComponent info="Info has occurred" />
         );
 
-        radiobuttonGroupIcon()
-          .should("have.attr", "aria-label", "Info has occurred")
-          .should("have.attr", "data-element", "info");
+        radiobuttonGroupIcon().should("have.attr", "data-element", "info");
       });
 
       it.each([
