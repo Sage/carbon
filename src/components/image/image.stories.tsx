@@ -101,7 +101,7 @@ export const CustomResponsiveBehaviour: StoryFn = () => {
   );
 };
 CustomResponsiveBehaviour.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
   info: { disable: true },
 };
 

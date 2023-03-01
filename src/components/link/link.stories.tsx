@@ -24,7 +24,7 @@ export const WithIcon = () => (
   </Link>
 );
 
-WithIcon.parameters = { chromatic: { disable: true } };
+WithIcon.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIconAlign = () => {
   return (["left", "right"] as const).map((align) => (
@@ -48,7 +48,7 @@ export const WithTooltip = () => (
   </div>
 );
 
-WithTooltip.parameters = { chromatic: { disable: true } };
+WithTooltip.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIsSkipLink = () => (
   <>
@@ -86,7 +86,7 @@ export const WithIsSkipLink = () => (
   </>
 );
 
-WithIsSkipLink.parameters = { chromatic: { disable: true } };
+WithIsSkipLink.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithOnClick = () => (
   <Link onClick={() => {}}>
@@ -94,7 +94,7 @@ export const WithOnClick = () => (
   </Link>
 );
 
-WithOnClick.parameters = { chromatic: { disable: true } };
+WithOnClick.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Variants = () => (
   <>

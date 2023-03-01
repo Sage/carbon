@@ -22,7 +22,7 @@ export default {
     },
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {

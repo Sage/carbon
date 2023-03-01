@@ -30,7 +30,7 @@ import Help from "carbon-react/lib/components/help";
 ### Default
 
 <Canvas>
-  <Story name="default" parameters={{ chromatic: { disable: true } }}>
+  <Story name="default" parameters={{ chromatic: { disableSnapshot: true } }}>
     <div style={{ margin: "64px" }}>
       <Help>Some helpful text goes here</Help>
     </div>
@@ -42,7 +42,7 @@ import Help from "carbon-react/lib/components/help";
 <Canvas>
   <Story
     name="with Tooltip custom message"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     <div style={{ margin: "64px" }}>
       <Help>
@@ -81,7 +81,7 @@ props accept and valid css color value.
 <Canvas>
   <Story
     name="with Tooltip color overrides"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     <div style={{ margin: "64px 300px" }}>
       <Help tooltipBgColor="lightblue" tooltipFontColor="black">
@@ -96,7 +96,7 @@ props accept and valid css color value.
 Using the `type` prop, different icons can be specified. In this example type has been assigned `error`, `add`, `minus` and `settings`
 
 <Canvas>
-  <Story name="with Icons" parameters={{ chromatic: { disable: true } }}>
+  <Story name="with Icons" parameters={{ chromatic: { disableSnapshot: true } }}>
     {() => {
       return ["error", "add", "minus", "settings"].map((icon) => (
         <div style={{ margin: "64px" }}>
@@ -114,7 +114,7 @@ Using the `type` prop, different icons can be specified. In this example type ha
 Using the `href` prop, a link can be specified.
 
 <Canvas>
-  <Story name="with href" parameters={{ chromatic: { disable: true } }}>
+  <Story name="with href" parameters={{ chromatic: { disableSnapshot: true } }}>
     <div style={{ margin: "64px" }}>
       <Help href="https://carbon.sage.com">
         This is the Help component with a href.

@@ -13,7 +13,7 @@ export default {
   includeStories: ["Default", "Preview"],
   parameters: {
     info: { disable: true },
-    chromatic: { disable: true },
+    chromatic: { disableSnapshot: true },
   },
 };
 
@@ -141,7 +141,7 @@ Preview.story = {
   name: "visual",
   parameters: {
     chromatic: {
-      disable: false,
+      disableSnapshot: false,
     },
   },
 };

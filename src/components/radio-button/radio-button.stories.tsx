@@ -106,7 +106,7 @@ export const EnableAdaptiveBehaviour: ComponentStory<
   </RadioButtonGroup>
 );
 
-EnableAdaptiveBehaviour.parameters = { chromatic: { disable: true } };
+EnableAdaptiveBehaviour.parameters = { chromatic: { disableSnapshot: true } };
 
 export const DifferentLabelSpacing: ComponentStory<typeof RadioButton> = () => (
   <RadioButtonGroup

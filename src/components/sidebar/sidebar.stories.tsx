@@ -247,7 +247,7 @@ export const OtherFocusableContainers: ComponentStory<typeof Sidebar> = () => {
     </>
   );
 };
-OtherFocusableContainers.parameters = { chromatic: { disable: true } };
+OtherFocusableContainers.parameters = { chromatic: { disableSnapshot: true } };
 
 export const CustomWidth: ComponentStory<typeof Sidebar> = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);

@@ -331,7 +331,7 @@ export const InDialog = () => {
 InDialog.storyName = "in dialog";
 InDialog.parameters = {
   chromatic: {
-    disable: true,
+    disableSnapshot: true,
   },
 };
 
@@ -406,6 +406,6 @@ export const CustomTooltipMessage = () => (
 CustomTooltipMessage.storyName = "custom tooltip message";
 CustomTooltipMessage.parameters = {
   chromatic: {
-    disable: true,
+    disableSnapshot: true,
   },
 };
