@@ -14,7 +14,7 @@ export default {
   includeStories: "DefaultStory",
   parameters: {
     info: { disable: true },
-    chromatic: { disable: true },
+    chromatic: { disableSnapshot: true },
   },
 };
 const commonArgTypesButtonMinor = {

@@ -17,7 +17,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
 } as ComponentMeta<typeof AnchorNavigation>;

@@ -88,7 +88,7 @@ _CAUTION: Direct children of `Dl` can only be `<React.Fragment />`, `Dt` or `Dd`
 <Canvas>
   <Story
     name="with conditional rendering"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     <Dl>
       <Dt>First</Dt>
@@ -134,7 +134,7 @@ such as `Typography` and `Hr`.
 <Canvas>
   <Story
     name="multiple single columns with segments"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     <Box width="65%" px={2} pt={4} pb={3}>
       <Box width="90%">

@@ -120,7 +120,7 @@ add the css attribute `display: inline;` to the component.
 <Canvas>
   <Story
     name="in a non-flex container"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     <div
       style={{
@@ -229,7 +229,7 @@ applied to the slate.
 ### In a Dialog
 
 <Canvas>
-  <Story name="in a dialog" parameters={{ chromatic: { disable: true } }}>
+  <Story name="in a dialog" parameters={{ chromatic: { disableSnapshot: true } }}>
     {() => {
       const [isOpen, setIsOpen] = useState(false);
       return (

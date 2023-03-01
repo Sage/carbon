@@ -82,7 +82,7 @@ export const WithCustomPrecision = () => {
 
 export const LabelInline = DefaultStory.bind({});
 LabelInline.args = { labelInline: true };
-LabelInline.parameters = { chromatic: { disable: true } };
+LabelInline.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomLabelWidthAndInputWidth = DefaultStory.bind({});
 WithCustomLabelWidthAndInputWidth.args = {
@@ -232,8 +232,8 @@ export const ValidationsTooltip: ComponentStory<typeof Decimal> = (args) => {
   );
 };
 
-ValidationsTooltip.parameters = { chromatic: { disable: true } };
+ValidationsTooltip.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ValidationsTooltipLabel = ValidationsTooltip.bind({});
 ValidationsTooltipLabel.args = { validationOnLabel: true };
-ValidationsTooltipLabel.parameters = { chromatic: { disable: true } };
+ValidationsTooltipLabel.parameters = { chromatic: { disableSnapshot: true } };

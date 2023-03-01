@@ -55,7 +55,7 @@ import {
 ### Default
 
 <Canvas>
-  <Story name="default" parameters={{ chromatic: { disable: true } }}>
+  <Story name="default" parameters={{ chromatic: { disableSnapshot: true } }}>
     <Box mb={150}>
       {["white", "light", "dark", "black"].map((menuType) => (
         <div key={menuType}>
@@ -114,7 +114,7 @@ import {
 ### Divider
 
 <Canvas>
-  <Story name="divider" parameters={{ chromatic: { disable: true } }}>
+  <Story name="divider" parameters={{ chromatic: { disableSnapshot: true } }}>
     <Box mb={150}>
       {["white", "light", "dark", "black"].map((menuType) => (
         <div key={menuType}>
@@ -140,7 +140,7 @@ import {
 ### Large divider
 
 <Canvas>
-  <Story name="large divider" parameters={{ chromatic: { disable: true } }}>
+  <Story name="large divider" parameters={{ chromatic: { disableSnapshot: true } }}>
     <Box mb={150}>
       {["white", "light", "dark", "black"].map((menuType) => (
         <div key={menuType}>
@@ -166,7 +166,7 @@ import {
 ### Segment title
 
 <Canvas>
-  <Story name="segment title" parameters={{ chromatic: { disable: true } }}>
+  <Story name="segment title" parameters={{ chromatic: { disableSnapshot: true } }}>
     <Box mb={150}>
       {["white", "light", "dark", "black"].map((menuType) => (
         <div key={menuType}>
@@ -192,7 +192,7 @@ import {
 ### With alternate colour variant
 
 <Canvas>
-  <Story name="alternate colour" parameters={{ chromatic: { disable: true } }}>
+  <Story name="alternate colour" parameters={{ chromatic: { disableSnapshot: true } }}>
     <Box mb={150}>
       {["white", "light", "dark", "black"].map((menuType) => (
         <div key={menuType}>
@@ -225,7 +225,7 @@ import {
 ### Submenu options
 
 <Canvas>
-  <Story name="submenu options" parameters={{ chromatic: { disable: true } }}>
+  <Story name="submenu options" parameters={{ chromatic: { disableSnapshot: true } }}>
     <Box mb={150}>
       {["white", "light", "dark", "black"].map((menuType) => (
         <div key={menuType}>
@@ -264,7 +264,7 @@ import {
 <Canvas>
   <Story
     name="submenu direction left"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     <div style={{ minHeight: "150px" }}>
       <Menu>
@@ -344,7 +344,7 @@ If you need to split out a submenu into a separate component, it must be done as
 <Canvas>
   <Story
     name="submenu separate component"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const MySubMenu = (
@@ -371,7 +371,7 @@ If you need to split out a submenu into a separate component, it must be done as
 In order to align text and icons within a submenu a `Box` component will need to be used to adjust the margin of the content.
 
 <Canvas>
-  <Story name="button icon" parameters={{ chromatic: { disable: true } }}>
+  <Story name="button icon" parameters={{ chromatic: { disableSnapshot: true } }}>
     <div style={{ minHeight: "250px" }}>
       <Menu menuType="dark">
         <MenuItem icon="settings" submenu="Settings">
@@ -402,7 +402,7 @@ Note that only one `ScrollableBlock` can be used within a single submenu.
 <Canvas>
   <Story
     name="scrollable submenu"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     <Box mb={150}>
       {["white", "light", "dark", "black"].map((menuType) => (
@@ -464,7 +464,7 @@ item that is not connected to the Search - in this example there is a clear sema
 scrollable list so the `parent` prop should be used to ensure screenreaders make the relationship clear to their users.
 
 <Canvas>
-  <Story name="scrollable submenu with parent item" parameters={{ chromatic: { disable: true } }}>
+  <Story name="scrollable submenu with parent item" parameters={{ chromatic: { disableSnapshot: true } }}>
     {() => {
       const items = [
         "apple",
@@ -524,7 +524,7 @@ scrollable list so the `parent` prop should be used to ensure screenreaders make
 <Canvas>
   <Story
     name="submenu with search"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     <Box mb={150}>
       {["white", "light", "dark", "black"].map((menuType) => (
@@ -593,7 +593,7 @@ at the different breakpoints.
 <Canvas>
   <Story
     name="responsive composition"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const isBelowBreakpoint1 = useMediaQuery("(max-width: 1200px)");
@@ -666,7 +666,7 @@ trigger when the screen size is smaller than `1200px`. Please note the `MenuItem
 as such any `maxWidth` value passed will not be set when they are children of `MenuFullscreen`.
 
 <Canvas>
-  <Story name="fullscreen view" parameters={{ chromatic: { disable: true } }}>
+  <Story name="fullscreen view" parameters={{ chromatic: { disableSnapshot: true } }}>
     {() => {
       const [menuOpen, setMenuOpen] = useState({
         light: false,

@@ -98,7 +98,7 @@ That attribute could be customized to increase accessibility by providing unique
 in the `ariaLabelOfRemoveButton` prop.
 
 <Canvas>
-  <Story name="with custom remove button aria-label" parameters={{ chromatic: { disable: true } }}>
+  <Story name="with custom remove button aria-label" parameters={{ chromatic: { disableSnapshot: true } }}>
     {() => {
       const noop = () => {};
       return (
@@ -606,7 +606,7 @@ It's possible to change the color of the Pill by using the `borderColor` prop. I
 See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo> for more information.
 
 <Canvas>
-  <Story name="custom colors" parameters={{ chromatic: { disable: true } }}>
+  <Story name="custom colors" parameters={{ chromatic: { disableSnapshot: true } }}>
     {() => {
       const noop = () => {};
       return (

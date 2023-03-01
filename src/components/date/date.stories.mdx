@@ -50,7 +50,7 @@ in the backend and for running validations: it will either return a valid ISO st
 be used to set the input value like in the example below, although the component can be initialised with an ISO formatted string.
 
 <Canvas>
-  <Story name="default" parameters={{ chromatic: { disable: true } }}>
+  <Story name="default" parameters={{ chromatic: { disableSnapshot: true } }}>
     {() => {
       const [state, setState] = useState("04/04/2019");
       const setValue = ({ target }) => {
@@ -271,7 +271,7 @@ be used to set the input value like in the example below, although the component
 <Canvas>
   <Story
     name="with disabled portal"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [state, setState] = useState("01/10/2016");
@@ -359,7 +359,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [state, setState] = useState("01/10/2016");
@@ -425,7 +425,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [state, setState] = useState("01/10/2016");
@@ -539,7 +539,7 @@ The example below will display an error if an invalid date or a date with a year
 <Canvas>
   <Story
     name="validations - example implementation"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [state, setState] = useState("05/04/2022");
@@ -585,7 +585,7 @@ the German (`de`) locale whilst the second is for a Chinese (`zh-CN`) locale. Re
 <Canvas>
   <Story
     name="locale override - example implementation"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [state, setState] = useState("2022-04-05");

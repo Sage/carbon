@@ -84,7 +84,7 @@ export const WithEditButton: ComponentStory<typeof Pod> = () => (
     Content
   </Pod>
 );
-WithEditButton.parameters = { chromatic: { disable: true } };
+WithEditButton.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDeleteButton: ComponentStory<typeof Pod> = () => (
   <Pod
@@ -98,7 +98,7 @@ export const WithDeleteButton: ComponentStory<typeof Pod> = () => (
     Content
   </Pod>
 );
-WithDeleteButton.parameters = { chromatic: { disable: true } };
+WithDeleteButton.parameters = { chromatic: { disableSnapshot: true } };
 
 export const SoftDeleteState: ComponentStory<typeof Pod> = () => (
   <Pod
@@ -111,7 +111,7 @@ export const SoftDeleteState: ComponentStory<typeof Pod> = () => (
     Soft delete state
   </Pod>
 );
-SoftDeleteState.parameters = { chromatic: { disable: true } };
+SoftDeleteState.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDisplayEditButtonOnHover: ComponentStory<typeof Pod> = () => (
   <Pod
@@ -124,7 +124,9 @@ export const WithDisplayEditButtonOnHover: ComponentStory<typeof Pod> = () => (
     Content
   </Pod>
 );
-WithDisplayEditButtonOnHover.parameters = { chromatic: { disable: true } };
+WithDisplayEditButtonOnHover.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const WithEditContentFullWidth: ComponentStory<typeof Pod> = () => (
   <Pod

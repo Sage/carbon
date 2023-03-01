@@ -174,7 +174,7 @@ ValidationStringTooltip.args = {
   tooltipPosition: "top",
 };
 ValidationStringTooltip.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };
 
 export const ValidationStringLabel = Validation.bind({});
@@ -187,7 +187,7 @@ ValidationStringLabelTooltip.args = {
   tooltipPosition: "top",
 };
 ValidationStringLabelTooltip.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };
 
 export const ValidationBoolean = Validation.bind({});

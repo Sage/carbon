@@ -100,7 +100,7 @@ export const Interactive: StoryFn = () => {
     </Box>
   );
 };
-Interactive.parameters = { chromatic: { disable: true } };
+Interactive.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomBoxShadow = DefaultStory.bind({});
 WithCustomBoxShadow.args = {
@@ -149,7 +149,7 @@ export const DifferentCardRowPadding: StoryFn = () => (
     </CardFooter>
   </Card>
 );
-DifferentCardRowPadding.parameters = { chromatic: { disable: true } };
+DifferentCardRowPadding.parameters = { chromatic: { disableSnapshot: true } };
 
 export const DifferentCardFooterPadding: StoryFn = () => (
   <Box>
@@ -239,7 +239,9 @@ export const DifferentCardFooterPadding: StoryFn = () => (
     </Card>
   </Box>
 );
-DifferentCardFooterPadding.parameters = { chromatic: { disable: true } };
+DifferentCardFooterPadding.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const MoreExamplesOfCardFooter: StoryFn = () => (
   <Box>
@@ -367,7 +369,7 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
 export const WithStringAsChild: StoryFn = () => (
   <Card>String passed as child</Card>
 );
-WithStringAsChild.parameters = { chromatic: { disable: true } };
+WithStringAsChild.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDraggable: StoryFn = () => {
   const columnNames = {
@@ -539,4 +541,4 @@ export const WithDraggable: StoryFn = () => {
   };
   return <App />;
 };
-WithDraggable.parameters = { chromatic: { disable: true } };
+WithDraggable.parameters = { chromatic: { disableSnapshot: true } };
