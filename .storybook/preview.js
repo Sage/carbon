@@ -74,7 +74,6 @@ export const parameters = {
       },
     },
   },
-  chromatic: { disableSnapshot: false },
   viewport: { viewports: customViewports },
   actions: { argTypesRegex: "^on[A-Z].*" },
   viewMode: process.env.STORYBOOK_VIEW_MODE,
