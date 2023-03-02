@@ -230,6 +230,16 @@ context("Testing Sidebar component", () => {
       getDataElementByValue("open-toast").should("be.focused");
     });
 
+    it("should return focus to the Toast within Sidebar after non-focusable content has been selected", () => {
+      CypressMountWithProviders(<SidebarComponentFocusable />);
+
+      getComponent("toast").should("not.exist");
+      getDataElementByValue("open-toast").click();
+      getComponent("toast").should("exist");
+      cy.get("body").click().tab();
+      closeIconButton().eq(1).should("be.focused");
+    });
+
     it("should call onCancel callback when a click event is triggered", () => {
       const callback = cy.stub();
 
