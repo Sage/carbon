@@ -95,6 +95,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("textarea") &&
       !prepareUrl[0].startsWith("dismissible-box") &&
       !prepareUrl[0].startsWith("dialog") &&
+      !prepareUrl[0].startsWith("number-input") &&
       !prepareUrl[0].startsWith("button") &&
       !prepareUrl[0].startsWith("icon") &&
       !prepareUrl[0].startsWith("pager") &&
