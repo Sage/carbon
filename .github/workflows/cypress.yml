@@ -30,7 +30,7 @@ jobs:
             5,
           ]
     container: 
-      image: cypress/browsers:node18.12.0-chrome107
+      image: cypress/browsers:node-18.14.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
       options: --user 1001
     steps:
       - id: get_pull
@@ -114,7 +114,7 @@ jobs:
             7,
           ]
     container: 
-      image: cypress/browsers:node18.12.0-chrome107
+      image: cypress/browsers:node-18.14.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
       options: --user 1001
     steps:
       - id: get_pull

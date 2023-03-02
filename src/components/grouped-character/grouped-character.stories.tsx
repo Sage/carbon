@@ -67,7 +67,7 @@ export const AutoFocus = () => {
     />
   );
 };
-AutoFocus.parameters = { chromatic: { disable: true } };
+AutoFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled = () => {
   const [state, setState] = useState("1231231");
@@ -107,7 +107,7 @@ export const LabelInline = () => {
     />
   );
 };
-LabelInline.parameters = { chromatic: { disable: true } };
+LabelInline.parameters = { chromatic: { disableSnapshot: true } };
 
 export const LabelInputWidth = () => {
   const [state, setState] = useState("1231231");
@@ -406,8 +406,8 @@ export const ValidationsTooltip: ComponentStory<typeof GroupedCharacter> = (
     </>
   );
 };
-ValidationsTooltip.parameters = { chromatic: { disable: true } };
+ValidationsTooltip.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ValidationsTooltipLabel = ValidationsTooltip.bind({});
 ValidationsTooltipLabel.args = { validationOnLabel: true };
-ValidationsTooltipLabel.parameters = { chromatic: { disable: true } };
+ValidationsTooltipLabel.parameters = { chromatic: { disableSnapshot: true } };

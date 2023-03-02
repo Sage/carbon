@@ -84,7 +84,7 @@ Use the `overflowWrap` prop to apply `overflow-wrap: break-word` to the content 
 <Canvas>
   <Story
     name="overflow wrap"
-    parameters={{ chromatic: { disable: true } }} story={stories.OverflowWrap} />
+    parameters={{ chromatic: { disableSnapshot: true } }} story={stories.OverflowWrap} />
 </Canvas>
 
 ### Scroll
@@ -95,7 +95,7 @@ If no `scrollVariant` prop is set then the scroll bar will resort to the browser
 <Canvas>
   <Story
     name="scroll"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
     story={stories.Scroll} />
 </Canvas>
 

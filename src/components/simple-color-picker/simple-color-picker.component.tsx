@@ -4,6 +4,8 @@ import React, {
   useRef,
   useMemo,
   useEffect,
+  RefAttributes,
+  useImperativeHandle,
 } from "react";
 import { MarginProps } from "styled-system";
 import invariant from "invariant";
@@ -46,7 +48,15 @@ export interface SimpleColorPickerProps extends ValidationProps, MarginProps {
   value?: string;
 }
 
-export const SimpleColorPicker = (props: SimpleColorPickerProps) => {
+export interface SimpleColorPickerRef {
+  /** List of color input HTML refs */
+  gridItemRefs: (HTMLInputElement | null)[];
+}
+
+export const SimpleColorPicker = React.forwardRef<
+  SimpleColorPickerRef,
+  SimpleColorPickerProps
+>((props: SimpleColorPickerProps, ref) => {
   const {
     children,
     error,
@@ -92,7 +102,7 @@ export const SimpleColorPicker = (props: SimpleColorPickerProps) => {
       React.Children.toArray(children).filter((child) =>
         React.isValidElement(child)
       ) as React.FunctionComponentElement<
-        SimpleColorProps & { ref: React.RefObject<HTMLInputElement> }
+        SimpleColorProps & RefAttributes<HTMLInputElement>
       >[],
     [children]
   );
@@ -108,13 +118,7 @@ export const SimpleColorPicker = (props: SimpleColorPickerProps) => {
   let currentRow = 1;
   let loopCounter = 1;
 
-  const gridItemRefs = useMemo<React.RefObject<HTMLInputElement>[]>(
-    () =>
-      filteredChildren.map(
-        (child) => child.ref || React.createRef<HTMLInputElement>()
-      ),
-    [filteredChildren]
-  );
+  const gridItemRefs = useRef<Array<HTMLInputElement | null>>([]);
 
   const navigationGrid = filteredChildren.map((child, index) => {
     const allowUp = currentRow !== 1;
@@ -149,7 +153,9 @@ export const SimpleColorPicker = (props: SimpleColorPickerProps) => {
     }
 
     const childProps = {
-      ref: gridItemRefs[index],
+      ref: (element: HTMLInputElement | null) => {
+        gridItemRefs.current[index] = element;
+      },
       "data-up": allowUp,
       "data-down": allowDown,
       "data-item-up": upItem,
@@ -161,6 +167,19 @@ export const SimpleColorPicker = (props: SimpleColorPickerProps) => {
 
     return React.cloneElement(child, childProps);
   });
+
+  useImperativeHandle(ref, () => ({ gridItemRefs: gridItemRefs.current }), [
+    gridItemRefs,
+  ]);
+
+  const getElementPosition = useCallback(
+    (target: HTMLInputElement) => {
+      return navigationGrid.findIndex((element) => {
+        return target.getAttribute("value") === element.props.value;
+      });
+    },
+    [navigationGrid]
+  );
 
   const onKeyDownHandler = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -192,18 +211,10 @@ export const SimpleColorPicker = (props: SimpleColorPickerProps) => {
       }
 
       if (Events.isLeftKey(e) || Events.isRightKey(e)) {
-        const position = (
-          element: React.FunctionComponentElement<
-            SimpleColorProps & { ref: React.RefObject<HTMLInputElement> }
-          >
-        ) => {
-          return target.getAttribute("value") === element.props.value;
-        };
-
         if (Events.isLeftKey(e)) {
-          itemIndex = navigationGrid.findIndex(position) - 1;
+          itemIndex = getElementPosition(target) - 1;
         } else {
-          itemIndex = navigationGrid.findIndex(position) + 1;
+          itemIndex = getElementPosition(target) + 1;
         }
 
         if (itemIndex < 0) {
@@ -215,12 +226,13 @@ export const SimpleColorPicker = (props: SimpleColorPickerProps) => {
 
       /* istanbul ignore else */
       if (itemIndex !== null) {
-        const item = gridItemRefs[itemIndex].current;
+        const item = gridItemRefs.current[itemIndex];
+
         item?.focus();
         item?.click();
       }
     },
-    [onKeyDown, navigationGrid, gridItemRefs]
+    [onKeyDown, navigationGrid, getElementPosition]
   );
 
   const handleClickOutside = (ev: MouseEvent | KeyboardEvent) => {
@@ -318,6 +330,8 @@ export const SimpleColorPicker = (props: SimpleColorPickerProps) => {
       </StyledContent>
     </Fieldset>
   );
-};
+});
+
+SimpleColorPicker.displayName = "SimpleColorPicker";
 
 export default SimpleColorPicker;

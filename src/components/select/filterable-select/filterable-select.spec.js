@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 
@@ -939,8 +939,8 @@ describe("FilterableSelect", () => {
     });
   });
 
-  describe('when the "onFilter" prop has been passed and the input text changed', () => {
-    it("then that prop should be called", () => {
+  describe('when the "onFilterChange" prop has been passed', () => {
+    it("then that prop should be invoked when the input text has changed", () => {
       const filterText = "foo";
       const onFilterChangeFn = jest.fn();
       const wrapper = renderSelect({ onFilterChange: onFilterChangeFn });
@@ -949,6 +949,35 @@ describe("FilterableSelect", () => {
         .find("input")
         .simulate("change", { target: { value: filterText } });
       expect(onFilterChangeFn).toHaveBeenCalledWith(filterText);
+    });
+
+    it("then it should not be invoked when the component rerenders", () => {
+      const Component = () => {
+        const [onFilterChangeCalled, setOnFilterChangeCalled] = useState(false);
+
+        return (
+          <>
+            <div id="on-filter-called">
+              {onFilterChangeCalled ? "true" : "false"}
+            </div>
+            <FilterableSelect
+              name="testSelect"
+              id="testSelect"
+              onFilterChange={() => setOnFilterChangeCalled(true)}
+            >
+              <Option value="opt1" text="red" />
+              <Option value="opt2" text="green" />
+              <Option value="opt3" text="blue" />
+              <Option value="opt4" text="black" />
+            </FilterableSelect>
+          </>
+        );
+      };
+
+      const wrapper = mount(<Component />);
+      expect(wrapper.find("#on-filter-called").text()).toBe("false");
+      wrapper.setProps({});
+      expect(wrapper.find("#on-filter-called").text()).toBe("false");
     });
   });
 
@@ -1007,6 +1036,40 @@ describe("FilterableSelect", () => {
           expect(onOpenFn).toHaveBeenCalled();
         });
 
+        it("then it should not be invoked when the component rerenders", () => {
+          const Component = () => {
+            const [callCounter, setCallCounter] = useState(0);
+
+            return (
+              <>
+                <div id="call-counter">{callCounter}</div>
+                <FilterableSelect
+                  name="testSelect"
+                  id="testSelect"
+                  openOnFocus
+                  onOpen={() => {
+                    if (callCounter < 2) {
+                      setCallCounter(callCounter + 1);
+                    }
+                  }}
+                >
+                  <Option value="opt1" text="red" />
+                  <Option value="opt2" text="green" />
+                  <Option value="opt3" text="blue" />
+                  <Option value="opt4" text="black" />
+                </FilterableSelect>
+              </>
+            );
+          };
+
+          wrapper = mount(<Component />);
+          expect(wrapper.find("#call-counter").text()).toBe("0");
+          wrapper.find("input").simulate("focus");
+          expect(wrapper.find("#call-counter").text()).toBe("1");
+          wrapper.setProps({});
+          expect(wrapper.find("#call-counter").text()).toBe("1");
+        });
+
         describe("and with the SelectList already open", () => {
           it("then that prop should not be called", () => {
             wrapper.find("input").simulate("focus");
@@ -1021,7 +1084,7 @@ describe("FilterableSelect", () => {
 
         describe("and the focus triggered by mouseDown on the input", () => {
           it("then that prop should have been called", () => {
-            wrapper.find("input").simulate("mouseDown");
+            wrapper.find("input").simulate("mousedown");
             wrapper.find("input").simulate("focus");
             expect(onOpenFn).toHaveBeenCalled();
           });
@@ -1033,15 +1096,14 @@ describe("FilterableSelect", () => {
       describe('with the "onOpen" prop passed', () => {
         const onOpenFn = jest.fn();
         const wrapper = renderSelect({ onOpen: onOpenFn, openOnFocus: true });
-
-        it("then that prop should have been called", () => {
+        it("then that prop should not have been called", () => {
           wrapper
             .find(Textbox)
             .find('[type="dropdown"]')
             .first()
-            .simulate("mouseDown");
+            .simulate("mousedown");
           wrapper.find("input").simulate("focus");
-          expect(onOpenFn).toHaveBeenCalled();
+          expect(onOpenFn).not.toHaveBeenCalled();
         });
       });
     });

@@ -1,11 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
-import {
-  StyledHeader,
-  StyledHeadingTitle,
-  StyledSeparator,
-} from "../heading/heading.style";
+import { StyledHeader, StyledSeparator } from "../heading/heading.style";
 
 export const StyledSettingsRow = styled.div`
   ${margin}
@@ -27,15 +23,6 @@ export const StyledSettingsRow = styled.div`
 
   ${StyledHeader} {
     margin-bottom: 0;
-  }
-
-  ${StyledHeadingTitle} {
-    color: var(--colorsUtilityYin090);
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 18px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
   }
 
   ${StyledSeparator} {

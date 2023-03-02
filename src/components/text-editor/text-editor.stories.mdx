@@ -157,7 +157,7 @@ will prevent any input that would cause the content length to exceed it.
 <Canvas>
   <Story
     name="with optional character limit"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [value, setValue] = useState(EditorState.createEmpty());
@@ -225,7 +225,7 @@ With use of `template strings` it is possible to pass multiline validation messa
 <Canvas>
   <Story
     name="with multiline validation"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [value, setValue] = useState(

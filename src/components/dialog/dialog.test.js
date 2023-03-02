@@ -1,14 +1,12 @@
 import React from "react";
-import { EditorState } from "draft-js";
-import Dialog from "./dialog.component";
+import * as stories from "./dialog-test.stories";
+import * as defaultStories from "./dialog.stories";
 import {
   dialogTitle,
   dialogSubtitle,
   alertDialogPreview as dialogPreview,
+  openPreviewButton,
 } from "../../../cypress/locators/dialog";
-import Button from "../button";
-import Textbox from "../textbox";
-import TextEditor from "../text-editor";
 import {
   textEditorInput,
   textEditorToolbar,
@@ -23,7 +21,6 @@ import {
   getComponent,
 } from "../../../cypress/locators/index";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-import Toast from "../toast";
 import toastComponent from "../../../cypress/locators/toast";
 import {
   SIZE,
@@ -35,79 +32,14 @@ const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const getInput = (index) => cy.get('[data-element="input"]').eq(index);
 
-// eslint-disable-next-line react/prop-types
-const DialogComponent = ({ children, ...props }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
-  const ref = React.useRef();
-  return (
-    <>
-      <Dialog
-        open={isOpen}
-        showCloseIcon
-        onCancel={() => setIsOpen(false)}
-        focusFirstElement={ref}
-        {...props}
-      >
-        <Button onClick={() => setIsOpen(false)}>Not focused</Button>
-        <Button forwardRef={ref} onClick={() => setIsOpen(false)}>
-          This should be focused first now
-        </Button>
-
-        <Textbox label="Textbox1" value="Textbox1" />
-        <Textbox label="Textbox2" value="Textbox2" />
-        <Textbox label="Textbox3" value="Textbox3" />
-      </Dialog>
-    </>
-  );
-};
-
-const DialogComponentWithToast = () => {
-  const toastRef = React.useRef(null);
-  const [openToast, setOpenToast] = React.useState(false);
-  return (
-    <>
-      <Toast
-        ref={toastRef}
-        open={openToast}
-        onDismiss={() => setOpenToast(false)}
-      />
-      <Dialog additionalWrapperRefs={[toastRef]} open>
-        <Button onClick={() => setOpenToast(true)}>Open Toast</Button>
-      </Dialog>
-    </>
-  );
-};
-
-// eslint-disable-next-line react/prop-types
-const DialogComponentWithTextEditor = ({ children, ...props }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
-  return (
-    <>
-      <Dialog
-        open={isOpen}
-        showCloseIcon
-        onCancel={() => setIsOpen(false)}
-        {...props}
-      >
-        <Textbox label="Textbox1" value="Textbox1" />
-        <Textbox label="Textbox2" value="Textbox2" />
-        <TextEditor
-          onChange={() => {}}
-          value={EditorState.createEmpty()}
-          labelText="Text Editor Label"
-        />
-        <Textbox label="Textbox3" value="Textbox3" />
-      </Dialog>
-    </>
-  );
-};
-
 context("Testing Dialog component", () => {
   describe("should render Dialog component with props", () => {
     it.each([0, 1, 100, 1000])(
       "should render Dialog component with %s as a height parameter",
       (height) => {
-        CypressMountWithProviders(<DialogComponent height={`${height}px`} />);
+        CypressMountWithProviders(
+          <stories.DialogComponent height={`${height}px`} />
+        );
 
         const { viewportHeight } = Cypress.config();
 
@@ -127,7 +59,7 @@ context("Testing Dialog component", () => {
     it.each(specialCharacters)(
       "should render Dialog using %s as a title",
       (title) => {
-        CypressMountWithProviders(<DialogComponent title={title} />);
+        CypressMountWithProviders(<stories.DialogComponent title={title} />);
 
         dialogTitle().should("have.text", title);
       }
@@ -137,7 +69,7 @@ context("Testing Dialog component", () => {
       "should render Dialog using %s as a subtitle",
       (subtitle) => {
         CypressMountWithProviders(
-          <DialogComponent title="Sample dialog" subtitle={subtitle} />
+          <stories.DialogComponent title="Sample dialog" subtitle={subtitle} />
         );
 
         dialogSubtitle().should("have.text", subtitle);
@@ -155,7 +87,7 @@ context("Testing Dialog component", () => {
     ])(
       "should render Dialog component with %s as a size and has width property set to %s",
       (size, width) => {
-        CypressMountWithProviders(<DialogComponent size={size} />);
+        CypressMountWithProviders(<stories.DialogComponent size={size} />);
 
         dialogPreview().then(($el) => {
           useJQueryCssValueAndAssert($el, "width", width);
@@ -164,13 +96,15 @@ context("Testing Dialog component", () => {
     );
 
     it("should not render close icon when ShowCloseIcon is set to false", () => {
-      CypressMountWithProviders(<DialogComponent showCloseIcon={false} />);
+      CypressMountWithProviders(
+        <stories.DialogComponent showCloseIcon={false} />
+      );
 
       closeIconButton().should("not.exist");
     });
 
     it("should render close icon when ShowCloseIcon is set to true. When you click the CloseIcon the Dialog is closed", () => {
-      CypressMountWithProviders(<DialogComponent />);
+      CypressMountWithProviders(<stories.DialogComponent />);
       dialogPreview().should("exist");
       closeIconButton().click();
       cy.wait(1000);
@@ -178,14 +112,14 @@ context("Testing Dialog component", () => {
     });
 
     it("should render Dialog with enabledEscKey prop and should be closed after clicking Escape button", () => {
-      CypressMountWithProviders(<DialogComponent />);
+      CypressMountWithProviders(<stories.DialogComponent />);
       dialogPreview().should("exist");
       dialogPreview().trigger("keyup", keyCode("Esc"));
       dialogPreview().should("not.exist");
     });
 
     it("should render Dialog with disabledEscKey prop and not be closed after clicking Escape button", () => {
-      CypressMountWithProviders(<DialogComponent disableEscKey />);
+      CypressMountWithProviders(<stories.DialogComponent disableEscKey />);
 
       dialogPreview().should("exist");
       dialogPreview().trigger("keyup", keyCode("Esc"));
@@ -195,7 +129,9 @@ context("Testing Dialog component", () => {
     it("should call the cancel action after the CloseIcon is clicked", () => {
       const callback = cy.stub();
 
-      CypressMountWithProviders(<DialogComponent onCancel={callback} />);
+      CypressMountWithProviders(
+        <stories.DialogComponent onCancel={callback} />
+      );
 
       closeIconButton()
         .click()
@@ -208,7 +144,7 @@ context("Testing Dialog component", () => {
     it.each([["top"], ["topRight"], ["right"]])(
       "should remain open Dialog opened after click on background outside at the %s position",
       (position) => {
-        CypressMountWithProviders(<DialogComponent />);
+        CypressMountWithProviders(<stories.DialogComponent />);
 
         dialogPreview().should("exist");
         backgroundUILocator().click(position, { force: true });
@@ -218,7 +154,7 @@ context("Testing Dialog component", () => {
 
     it("should render Dialog component with aria-label", () => {
       CypressMountWithProviders(
-        <DialogComponent aria-label="aria label for dialog" />
+        <stories.DialogComponent aria-label="aria label for dialog" />
       );
       getComponent("dialog")
         .eq(1)
@@ -228,7 +164,7 @@ context("Testing Dialog component", () => {
 
     it("should render Dialog component with aria-describedby", () => {
       CypressMountWithProviders(
-        <DialogComponent aria-describedby="aria description" />
+        <stories.DialogComponent aria-describedby="aria description" />
       );
 
       getComponent("dialog")
@@ -239,7 +175,7 @@ context("Testing Dialog component", () => {
 
     it("should render Dialog component with aria-labelledby", () => {
       CypressMountWithProviders(
-        <DialogComponent aria-labelledby="33c4cb62-2e16-91f4-e939-4d2f09987d4c" />
+        <stories.DialogComponent aria-labelledby="33c4cb62-2e16-91f4-e939-4d2f09987d4c" />
       );
 
       getComponent("dialog")
@@ -250,14 +186,14 @@ context("Testing Dialog component", () => {
 
     it("should render Dialog component with className", () => {
       CypressMountWithProviders(
-        <DialogComponent className="dialog classname" />
+        <stories.DialogComponent className="dialog classname" />
       );
       getComponent("dialog").should("have.class", "dialog classname");
     });
 
     it("should render Dialog component with role", () => {
       // eslint-disable-next-line jsx-a11y/aria-role
-      CypressMountWithProviders(<DialogComponent role="dialog" />);
+      CypressMountWithProviders(<stories.DialogComponent role="dialog" />);
       getComponent("dialog")
         .eq(1)
         .should("have.attr", "role")
@@ -265,31 +201,31 @@ context("Testing Dialog component", () => {
     });
 
     it("should render Dialog component with DisableClose", () => {
-      CypressMountWithProviders(<DialogComponent disableClose />);
+      CypressMountWithProviders(<stories.DialogComponent disableClose />);
       closeIconButton().should("be.disabled").and("have.attr", "disabled");
     });
 
     it("should render Dialog component with help", () => {
       CypressMountWithProviders(
-        <DialogComponent title="Sample Dialog" help="Some help text" />
+        <stories.DialogComponent title="Sample Dialog" help="Some help text" />
       );
       getDataElementByValue("question").trigger("mouseover");
       tooltipPreview().should("have.text", "Some help text");
     });
 
     it("should render Dialog component using focusFirstElement", () => {
-      CypressMountWithProviders(<DialogComponent />);
+      CypressMountWithProviders(<stories.DialogComponent />);
       buttonDataComponent().eq(1).should("be.focused");
     });
 
     it("should render Dialog component disabling autofocus", () => {
-      CypressMountWithProviders(<DialogComponent disableAutoFocus />);
+      CypressMountWithProviders(<stories.DialogComponent disableAutoFocus />);
       buttonDataComponent().eq(1).should("not.be.focused");
     });
 
     it("should render Dialog component and trap focus in it when the inputs are tabbed through", () => {
       CypressMountWithProviders(
-        <DialogComponent focusFirstElement={undefined} />
+        <stories.DialogComponent focusFirstElement={undefined} />
       );
       cy.get("body").tab();
       closeIconButton().should("be.focused");
@@ -308,7 +244,7 @@ context("Testing Dialog component", () => {
     });
 
     it("should render Dialog component and trap focus in it when text editor and other inputs are tabbed through", () => {
-      CypressMountWithProviders(<DialogComponentWithTextEditor />);
+      CypressMountWithProviders(<stories.DialogComponentWithTextEditor />);
       cy.get("body").tab();
       closeIconButton().should("be.focused");
       cy.get("body").tab();
@@ -325,7 +261,7 @@ context("Testing Dialog component", () => {
 
     it("should render Dialog component and trap focus in it when the inputs are back tabbed through", () => {
       CypressMountWithProviders(
-        <DialogComponent focusFirstElement={undefined} />
+        <stories.DialogComponent focusFirstElement={undefined} />
       );
       cy.get("body").tab();
       closeIconButton().should("be.focused");
@@ -344,7 +280,7 @@ context("Testing Dialog component", () => {
     });
 
     it("should render Dialog component and trap focus in it when the text editor and other inputs are back tabbed through", () => {
-      CypressMountWithProviders(<DialogComponentWithTextEditor />);
+      CypressMountWithProviders(<stories.DialogComponentWithTextEditor />);
       cy.get("body").tab();
       closeIconButton().should("be.focused");
       cy.get("body").tab({ shift: true });
@@ -362,7 +298,7 @@ context("Testing Dialog component", () => {
     });
 
     it("focuses Toast wrapper when ref passed to additionalWrapperRefs and focuses button that triggered opening on close", () => {
-      CypressMountWithProviders(<DialogComponentWithToast />);
+      CypressMountWithProviders(<stories.DialogComponentWithToast />);
 
       buttonDataComponent().click();
       toastComponent().should("be.focused");
@@ -370,6 +306,187 @@ context("Testing Dialog component", () => {
       buttonDataComponent().should("be.focused");
       buttonDataComponent().click();
       toastComponent().should("be.focused");
+    });
+  });
+
+  describe("Accessibility tests for Dialog component", () => {
+    it("should pass accessibility tests for Dialog default story", () => {
+      CypressMountWithProviders(<stories.DialogComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([0, 1, 100, 1000])(
+      "should pass accessibility tests for Dialog component with %s as a height parameter",
+      (height) => {
+        CypressMountWithProviders(
+          <stories.DialogComponent height={`${height}px`} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(specialCharacters)(
+      "should pass accessibility tests for Dialog using %s as a title",
+      (title) => {
+        CypressMountWithProviders(<stories.DialogComponent title={title} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(specialCharacters)(
+      "should pass accessibility tests for Dialog using %s as a subtitle",
+      (subtitle) => {
+        CypressMountWithProviders(
+          <stories.DialogComponent title="Sample dialog" subtitle={subtitle} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      SIZE.EXTRASMALL,
+      SIZE.SMALL,
+      SIZE.MEDIUMSMALL,
+      SIZE.MEDIUM,
+      SIZE.MEDIUMLARGE,
+      SIZE.LARGE,
+      SIZE.EXTRALARGE,
+    ])(
+      "should pass accessibility tests for Dialog component with %s as a size",
+      (size) => {
+        CypressMountWithProviders(<stories.DialogComponent size={size} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibility tests for ShowCloseIcon is set to false", () => {
+      CypressMountWithProviders(
+        <stories.DialogComponent showCloseIcon={false} />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Dialog component with DisableClose", () => {
+      CypressMountWithProviders(<stories.DialogComponent disableClose />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Dialog component with help", () => {
+      CypressMountWithProviders(
+        <stories.DialogComponent title="Sample Dialog" help="Some help text" />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Dialog component using focusFirstElement", () => {
+      CypressMountWithProviders(<stories.DialogComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Dialog component disabling autofocus", () => {
+      CypressMountWithProviders(<stories.DialogComponent disableAutoFocus />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Dialog component with Toast", () => {
+      CypressMountWithProviders(<stories.DialogComponentWithToast />);
+
+      buttonDataComponent()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog Editable story", () => {
+      CypressMountWithProviders(<defaultStories.Editable />);
+
+      openPreviewButton()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog WithHelp story", () => {
+      CypressMountWithProviders(<defaultStories.WithHelp />);
+
+      openPreviewButton()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog DynamicContent story", () => {
+      CypressMountWithProviders(<defaultStories.DynamicContent />);
+
+      openPreviewButton()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog FocusingADifferentFirstElement story", () => {
+      CypressMountWithProviders(
+        <defaultStories.FocusingADifferentFirstElement />
+      );
+
+      getComponent("button")
+        .eq(0)
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog OverridingContentPadding story", () => {
+      CypressMountWithProviders(<defaultStories.OverridingContentPadding />);
+
+      openPreviewButton()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog OtherFocusableContainers story", () => {
+      CypressMountWithProviders(<defaultStories.OtherFocusableContainers />);
+
+      openPreviewButton()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog Responsive story", () => {
+      CypressMountWithProviders(<defaultStories.Responsive />);
+
+      openPreviewButton()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
     });
   });
 });

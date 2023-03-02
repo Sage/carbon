@@ -20,6 +20,7 @@ import {
 } from "./heading.style";
 import useLocale from "../../hooks/__internal__/useLocale";
 
+export type HeadingType = "h1" | "h2" | "h3" | "h4" | "h5";
 export interface HeadingProps extends MarginProps, TagProps {
   /** Child elements */
   children?: React.ReactNode;
@@ -31,6 +32,8 @@ export interface HeadingProps extends MarginProps, TagProps {
   subheader?: React.ReactNode;
   /** Defines the subtitle id for the heading. */
   subtitleId?: string;
+  /** Defines the HTML heading element of the title. */
+  headingType?: HeadingType;
   /** Defines the help text for the heading. */
   help?: string;
   /** Defines the help link for the heading. */
@@ -66,6 +69,7 @@ export const Heading = ({
   separator = false,
   subheader,
   subtitleId,
+  headingType = "h1",
   title,
   titleId,
   ...rest
@@ -141,7 +145,7 @@ export const Heading = ({
         <StyledHeaderContent>
           <StyledHeadingTitle
             withMargin={!!pills || !!help}
-            variant="h1"
+            variant={headingType}
             data-element="title"
             id={titleId}
           >

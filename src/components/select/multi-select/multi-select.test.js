@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import MultiSelect from "./multi-select.component";
 import Option from "../option/option.component";
 import OptionRow from "../option-row/option-row.component";
 import Button from "../../button/button.component";
 import CypressMountWithProviders from "../../../../cypress/support/component-helper/cypress-mount";
+import Dialog from "../../dialog";
 
 import {
   getDataElementByValue,
@@ -14,6 +15,7 @@ import {
 } from "../../../../cypress/locators";
 
 import {
+  selectList,
   selectListWrapper,
   selectOption,
   selectOptionByText,
@@ -38,6 +40,8 @@ import {
 import { pillCloseIcon } from "../../../../cypress/locators/pill";
 
 import { loader } from "../../../../cypress/locators/loader";
+
+import { alertDialogPreview } from "../../../../cypress/locators/dialog";
 
 import {
   useJQueryCssValueAndAssert,
@@ -487,6 +491,20 @@ const MultiSelectWithManyOptionsAndVirtualScrolling = () => (
       ))}
   </MultiSelect>
 );
+
+const MultiSelectNestedInDialog = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
+      <MultiSelect name="testSelect" id="testSelect">
+        <Option value="opt1" text="red" />
+        <Option value="opt2" text="green" />
+        <Option value="opt3" text="blue" />
+        <Option value="opt4" text="black" />
+      </MultiSelect>
+    </Dialog>
+  );
+};
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testPropValue = CHARACTERS.STANDARD;
@@ -1327,8 +1345,8 @@ context("Tests for Multi Select component", () => {
         .type(text)
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledTwice;
-          expect(callback.getCalls()[1].args[0]).to.equals(text);
+          expect(callback).to.have.been.calledOnce;
+          expect(callback).to.have.been.calledWith(text);
         });
     });
   });
@@ -1369,6 +1387,26 @@ context("Tests for Multi Select component", () => {
       selectOptionByText("Option 100.").should("be.visible");
       selectOptionByText("Option 1000.").should("be.visible");
       selectOptionByText("Option 1002.").should("be.visible");
+    });
+  });
+
+  describe("when nested inside of a Dialog component", () => {
+    it("should not close the Dialog when Select is closed by pressing an escape key", () => {
+      CypressMountWithProviders(<MultiSelectNestedInDialog />);
+
+      dropdownButton().click();
+      commonDataElementInputPreview()
+        .type("{esc}", { force: true })
+        .then(() => {
+          selectList().should("not.be.visible");
+          alertDialogPreview().should("exist");
+        });
+
+      commonDataElementInputPreview()
+        .type("{esc}", { force: true })
+        .then(() => {
+          alertDialogPreview().should("not.exist");
+        });
     });
   });
 });

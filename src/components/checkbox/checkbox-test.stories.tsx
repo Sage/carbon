@@ -9,7 +9,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: false,
+      disableSnapshot: false,
     },
   },
   argTypes: {

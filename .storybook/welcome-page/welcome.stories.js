@@ -12,7 +12,7 @@ export default {
       showPanel: false,
     },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
     viewMode: "canvas",
   },

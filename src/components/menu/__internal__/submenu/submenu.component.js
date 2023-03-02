@@ -55,6 +55,7 @@ const Submenu = React.forwardRef(
     const [submenuItemIds, setSubmenuItemIds] = useState([]);
     const [characterString, setCharacterString] = useState("");
     const shiftTabPressed = useRef(false);
+    const focusFirstMenuItemOnOpen = useRef(false);
 
     const registerItem = useCallback((id) => {
       setSubmenuItemIds((prevState) => {
@@ -133,7 +134,7 @@ const Submenu = React.forwardRef(
       (id) => {
         const index = submenuItemIds.findIndex((itemId) => itemId === id);
 
-        return index === -1 ? 0 : index;
+        return index;
       },
       [submenuItemIds]
     );
@@ -149,6 +150,7 @@ const Submenu = React.forwardRef(
           ) {
             event.preventDefault();
             openSubmenu();
+            focusFirstMenuItemOnOpen.current = !href;
           }
         }
 
@@ -179,7 +181,7 @@ const Submenu = React.forwardRef(
           }
 
           if (Events.isTabKey(event) && Events.isShiftKey(event)) {
-            if (nextIndex === 0) {
+            if (nextIndex <= 0) {
               closeSubmenu();
               return;
             }
@@ -272,10 +274,16 @@ const Submenu = React.forwardRef(
     );
 
     useEffect(() => {
-      if (submenuOpen && !href && !submenuFocusId && submenuItemIds.length) {
+      if (
+        focusFirstMenuItemOnOpen.current &&
+        submenuOpen &&
+        !submenuFocusId &&
+        submenuItemIds.length
+      ) {
+        focusFirstMenuItemOnOpen.current = false;
         setSubmenuFocusId(submenuItemIds[0]);
       }
-    }, [submenuOpen, href, submenuFocusId, submenuItemIds]);
+    }, [submenuOpen, submenuFocusId, submenuItemIds]);
 
     const handleClickAway = () => {
       document.removeEventListener("click", handleClickAway);
