@@ -11,7 +11,7 @@ describe("useInputAccessibility", () => {
   it("returns all aria related props when all arguments are passed", () => {
     expect(useInputAccessibility({ id, label, fieldHelp })).toMatchObject({
       labelId: `${id}-label`,
-      validationIconId: undefined,
+      validationId: undefined,
       fieldHelpId: `${id}-field-help`,
       ariaDescribedBy: `${id}-field-help`,
     });
@@ -20,7 +20,7 @@ describe("useInputAccessibility", () => {
   it("returns aria props without labelId when label is not provided", () => {
     expect(useInputAccessibility({ id, fieldHelp })).toMatchObject({
       labelId: undefined,
-      validationIconId: undefined,
+      validationId: undefined,
       fieldHelpId: `${id}-field-help`,
       ariaDescribedBy: `${id}-field-help`,
     });
@@ -31,9 +31,9 @@ describe("useInputAccessibility", () => {
     (key) => {
       expect(useInputAccessibility({ id, [key]: key })).toMatchObject({
         labelId: undefined,
-        validationIconId: `${id}-validation-icon`,
+        validationId: `${id}-validation`,
         fieldHelpId: undefined,
-        ariaDescribedBy: `${id}-validation-icon`,
+        ariaDescribedBy: `${id}-validation`,
       });
     }
   );

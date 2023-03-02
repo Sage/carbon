@@ -66,4 +66,11 @@ describe("ValidationMessage component", () => {
     wrapper = render({});
     expect(wrapper.text()).toEqual("");
   });
+
+  it("validationId should be passed to the message", () => {
+    const mockId = "foo";
+    wrapper = render({ validationId: mockId, error: "bar" });
+
+    expect(wrapper.find(StyledValidationMessage).prop("id")).toEqual(mockId);
+  });
 });

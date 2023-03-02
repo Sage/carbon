@@ -105,12 +105,12 @@ describe("CheckableInput", () => {
             it('should render a valid "aria-describedby"', () => {
               expect(
                 wrapper.find(HiddenCheckableInputStyle).prop("aria-describedby")
-              ).toBe(`${id}-validation-icon`);
+              ).toBe(`${id}-validation`);
             });
 
             it("should pass validationIconId prop to FormField", () => {
               expect(wrapper.find(FormField).prop("validationIconId")).toBe(
-                `${id}-validation-icon`
+                `${id}-validation`
               );
             });
           }
@@ -152,7 +152,7 @@ describe("CheckableInput", () => {
                 hiddenCheckableInputStyle
                   .find(HiddenCheckableInputStyle)
                   .prop("aria-describedby")
-              ).toBe(`${id}-field-help ${id}-validation-icon`);
+              ).toBe(`${id}-field-help ${id}-validation`);
             }
           );
         });

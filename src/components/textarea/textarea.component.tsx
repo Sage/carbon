@@ -221,7 +221,7 @@ export const Textarea = React.forwardRef(
 
     const {
       labelId,
-      validationIconId,
+      validationId,
       fieldHelpId,
       ariaDescribedBy,
     } = useInputAccessibility({
@@ -265,10 +265,7 @@ export const Textarea = React.forwardRef(
       };
     }, [expandable]);
 
-    const hasIconInside = !!(
-      inputIcon ||
-      (validationIconId && !validationOnLabel)
-    );
+    const hasIconInside = !!(inputIcon || (validationId && !validationOnLabel));
 
     const hintId = useRef(guid());
 
@@ -282,12 +279,7 @@ export const Textarea = React.forwardRef(
       ? characterCountHintIdValue
       : inputHintIdValue;
 
-    const ariaDescribedByValues = [
-      validationRedesignOptIn ? undefined : ariaDescribedBy,
-      hintIdValue,
-    ];
-
-    const ariaDescribedByValue = ariaDescribedByValues
+    const combinedAriaDescribedBy = [ariaDescribedBy, hintIdValue]
       .filter(Boolean)
       .join(" ");
 
@@ -307,7 +299,7 @@ export const Textarea = React.forwardRef(
         <Input
           aria-invalid={!!error}
           aria-labelledby={ariaLabelledBy}
-          aria-describedby={ariaDescribedByValue}
+          aria-describedby={combinedAriaDescribedBy}
           autoFocus={autoFocus}
           name={name}
           value={value}
@@ -333,9 +325,7 @@ export const Textarea = React.forwardRef(
           error={error}
           warning={warning}
           info={info}
-          validationIconId={
-            validationRedesignOptIn ? undefined : validationIconId
-          }
+          validationIconId={validationRedesignOptIn ? undefined : validationId}
           useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
         />
       </InputPresentation>

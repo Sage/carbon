@@ -215,7 +215,7 @@ describe("Textarea", () => {
 
             it('should render a valid "aria-describedby"', () => {
               expect(textarea.find(Input).prop("aria-describedby")).toBe(
-                `${id}-validation-icon`
+                `${id}-validation`
               );
             });
           }
@@ -273,7 +273,7 @@ describe("Textarea", () => {
 
               it('should render a valid "aria-describedby"', () => {
                 expect(textarea.find(Input).prop("aria-describedby")).toBe(
-                  `${id}-field-help ${id}-validation-icon`
+                  `${id}-field-help ${id}-validation`
                 );
               });
             }

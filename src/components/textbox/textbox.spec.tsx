@@ -332,7 +332,7 @@ describe("Textbox", () => {
             );
             it('should render a valid "aria-describedby"', () => {
               expect(wrapper.find(Input).prop("aria-describedby")).toBe(
-                `${id}-validation-icon`
+                `${id}-validation`
               );
             });
           }
@@ -365,7 +365,7 @@ describe("Textbox", () => {
               );
 
               expect(wrapper.find(Input).prop("aria-describedby")).toBe(
-                `${id}-field-help ${id}-validation-icon`
+                `${id}-field-help ${id}-validation`
               );
             }
           );

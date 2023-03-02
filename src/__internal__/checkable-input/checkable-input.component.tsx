@@ -101,7 +101,7 @@ const CheckableInput = React.forwardRef(
     const {
       labelId,
       fieldHelpId,
-      validationIconId,
+      validationId,
       ariaDescribedBy,
     } = useInputAccessibility({
       id,
@@ -132,7 +132,7 @@ const CheckableInput = React.forwardRef(
       name: id,
       reverse,
       warning,
-      validationIconId,
+      validationIconId: validationId,
       // We don't want an asterisk on each radio control, only the legend
       // However, we still want the input element to receive the required prop
       isRequired: isRadio ? undefined : required,
