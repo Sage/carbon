@@ -40,12 +40,12 @@ export const ReadOnly: ComponentStory<typeof Number> = () => (
 export const AutoFocus: ComponentStory<typeof Number> = () => (
   <Number label="Number" value="123456" autoFocus />
 );
-AutoFocus.parameters = { chromatic: { disable: true } };
+AutoFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithLabelInline: ComponentStory<typeof Number> = () => (
   <Number label="Number" value="123456" labelInline />
 );
-WithLabelInline.parameters = { chromatic: { disable: true } };
+WithLabelInline.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithLabelAlign: ComponentStory<typeof Number> = () => {
   const alignments: NumberProps["align"][] = ["right", "left"];

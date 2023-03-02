@@ -16,7 +16,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
 };
@@ -171,8 +171,3 @@ export const Default = () => {
 };
 
 Default.storyName = "default";
-Default.parameters = {
-  chromatic: {
-    disable: true,
-  },
-};

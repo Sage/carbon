@@ -162,7 +162,7 @@ By default the `FlatTableRowHeader`'s `stickyAlignment` prop is set to `left`.
 Any preceding cells will automatically also be made sticky as seen in the example below.
 
 <Canvas>
-  <Story name="with row header" parameters={{ chromatic: { disable: true } }}>
+  <Story name="with row header" parameters={{ chromatic: { disableSnapshot: true } }}>
     <FlatTable width="380px" overflowX="auto">
       <FlatTableHead>
         <FlatTableRow>
@@ -323,7 +323,7 @@ To allow horizontal scrolling, set the `width` and `overflowX` props as shown be
 <Canvas>
   <Story
     name="with horizontal scrolling"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     <FlatTable
       width="380px"
@@ -773,7 +773,7 @@ is a string. However, if the passed children are not a string it is possible to 
 It is possible to have one or any number of header rows set to sticky.
 
 <Canvas>
-  <Story name="with sticky head" parameters={{ chromatic: { disable: true } }}>
+  <Story name="with sticky head" parameters={{ chromatic: { disableSnapshot: true } }}>
     <div style={{ height: "150px" }}>
       <FlatTable hasStickyHead>
         <FlatTableHead>
@@ -929,7 +929,7 @@ Is it possible to combine the `stickyHead` prop along with the `rowSpan` and `co
 <Canvas>
   <Story
     name="with sticky footer"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const rows = [
@@ -1026,7 +1026,7 @@ remains sticky.
 <Canvas>
   <Story
     name="with sticky footer inside of larger div"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const rows = [
@@ -1097,7 +1097,7 @@ remains sticky.
 By using the `hasMaxHeight` prop you can automatically apply a max-height of 100% to the FlatTable.
 
 <Canvas>
-  <Story name="with hasMaxHeight" parameters={{ chromatic: { disable: true } }}>
+  <Story name="with hasMaxHeight" parameters={{ chromatic: { disableSnapshot: true } }}>
     {() => {
       const rows = [
         <FlatTableRow key="0">
@@ -1166,7 +1166,7 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
 <Canvas>
   <Story
     name="with clickable rows"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     <FlatTable>
       <FlatTableHead>
@@ -1437,7 +1437,7 @@ If a given action is available for some, but not all, selected rows, then the ac
 Where icons are used for batch actions, they have text labels too, or tooltips to make their function clear. There are always confirmation dialogs for destructive actions, or those difficult to undo.
 
 <Canvas>
-  <Story name="selectable rows" parameters={{ chromatic: { disable: true } }}>
+  <Story name="selectable rows" parameters={{ chromatic: { disableSnapshot: true } }}>
     {() => {
       const [selectAll, setSelectAll] = useState(false);
       const [selectedRows, setSelectedRows] = useState({
@@ -1561,7 +1561,7 @@ It is possible to utilise the selected and onClick props on the FlatTableRow to 
 <Canvas>
   <Story
     name="highlightable rows"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [highlightedRow, setHighlightedRow] = useState("");
@@ -1633,7 +1633,7 @@ It is also possible to integrate selection of multiple rows and the highlighting
 <Canvas>
   <Story
     name="selectable and highlightable rows"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [selectAll, setSelectAll] = useState(false);
@@ -2072,7 +2072,7 @@ of the button control.
 <Canvas>
   <Story
     name="when a child of sidebar"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [selectAll, setSelectAll] = useState(false);
@@ -2316,7 +2316,7 @@ The `FlatTableRow` relies on specific child composition to identify sticky colum
 <Canvas>
   <Story
     name="wrapping row headers"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const FlatTableRowHeaderWrapper = ({ children, ...rest }) => (

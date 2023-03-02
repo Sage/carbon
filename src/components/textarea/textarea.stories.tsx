@@ -40,7 +40,7 @@ export const ReadOnlyStory: ComponentStory<typeof Textarea> = () => {
 export const AutoFocusStory: ComponentStory<typeof Textarea> = () => {
   return <Textarea label="Textarea" autoFocus />;
 };
-AutoFocusStory.parameters = { chromatic: { disable: true } };
+AutoFocusStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ExpandableStory: ComponentStory<typeof Textarea> = () => {
   const [value, setValue] = useState("");
@@ -53,7 +53,7 @@ export const ExpandableStory: ComponentStory<typeof Textarea> = () => {
     />
   );
 };
-ExpandableStory.parameters = { chromatic: { disable: true } };
+ExpandableStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const CharacterLimitStory: ComponentStory<typeof Textarea> = () => {
   const [value, setValue] = useState("");
@@ -84,7 +84,9 @@ export const UnenforcedCharacterLimitStory: ComponentStory<
     />
   );
 };
-UnenforcedCharacterLimitStory.parameters = { chromatic: { disable: true } };
+UnenforcedCharacterLimitStory.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const LabelInlineStory: ComponentStory<typeof Textarea> = () => {
   return <Textarea label="Textarea" labelInline />;
@@ -152,7 +154,9 @@ export const ValidationStringPositionStory: ComponentStory<
     </>
   );
 };
-ValidationStringPositionStory.parameters = { chromatic: { disable: true } };
+ValidationStringPositionStory.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const ValidationLabelStory: ComponentStory<typeof Textarea> = () => {
   return (
@@ -197,7 +201,9 @@ export const ValidationLabelPositionStory: ComponentStory<
     </>
   );
 };
-ValidationLabelPositionStory.parameters = { chromatic: { disable: true } };
+ValidationLabelPositionStory.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const NewDesignValidationStory: ComponentStory<typeof Textarea> = () => {
   return (

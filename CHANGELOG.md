@@ -1,3 +1,17 @@
+### [114.17.3](https://github.com/Sage/carbon/compare/v114.17.2...v114.17.3) (2023-03-01)
+
+
+### Bug Fixes
+
+* **submenu:** ensure focus order is correct when submenu parent item is clicked first ([2377e5a](https://github.com/Sage/carbon/commit/2377e5ab15ee892dfa846022bdc933ffc426cfa2)), closes [#5850](https://github.com/Sage/carbon/issues/5850)
+
+### [114.17.2](https://github.com/Sage/carbon/compare/v114.17.1...v114.17.2) (2023-02-28)
+
+
+### Bug Fixes
+
+* **select:** resolve issue with Select component closing parent Dialog on escape key press ([eeaba5f](https://github.com/Sage/carbon/commit/eeaba5f349cf5b9175929500a5bafb51b181f85a))
+
 ### [114.17.1](https://github.com/Sage/carbon/compare/v114.17.0...v114.17.1) (2023-02-23)
 
 

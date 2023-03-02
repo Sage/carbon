@@ -362,9 +362,9 @@ const SimpleSelect = React.forwardRef(
       }
     }
 
-    function onSelectListClose() {
+    const onSelectListClose = useCallback(() => {
       setOpenState(false);
-    }
+    }, []);
 
     const assignInput = useCallback(
       (element) => {

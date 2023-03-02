@@ -116,7 +116,7 @@ You can use `listMaxHeight` prop to override default max height value of select 
 ### Controlled Usage
 
 <Canvas>
-  <Story name="controlled" parameters={{ chromatic: { disable: true } }}>
+  <Story name="controlled" parameters={{ chromatic: { disableSnapshot: true } }}>
     {() => {
       const [value, setValue] = useState([]);
       function onChangeHandler(event) {
@@ -150,7 +150,7 @@ You can use `listMaxHeight` prop to override default max height value of select 
 ### Open on focus
 
 <Canvas>
-  <Story name="openOnFocus" parameters={{ chromatic: { disable: true } }}>
+  <Story name="openOnFocus" parameters={{ chromatic: { disableSnapshot: true } }}>
     <MultiSelect name="openOnFocus" id="openOnFocus" openOnFocus>
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
@@ -224,7 +224,7 @@ You can use `listMaxHeight` prop to override default max height value of select 
 <Canvas>
   <Story
     name="withDisabledPortal"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     <MultiSelect
       disablePortal
@@ -252,7 +252,7 @@ You can use `listMaxHeight` prop to override default max height value of select 
 <Canvas>
   <Story
     name="with multiple columns"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     <MultiSelect
       name="withMultipleColumns"
@@ -331,7 +331,7 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 <Canvas>
   <Story
     name="with object as value"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [value, setValue] = useState([
@@ -426,7 +426,7 @@ When `isLoading` prop is passed, a loader will be appended at the end of the Sel
 <Canvas>
   <Story
     name="with isLoading prop"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       let preventLoading = useRef(false);

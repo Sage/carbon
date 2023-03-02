@@ -7,7 +7,7 @@ import { Dl, Dt, Dd } from "../definition-list";
 import Button from "../button";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta title="Grid" parameters={{ chromatic: { disable: true } }} />
+<Meta title="Grid" parameters={{ chromatic: { disableSnapshot: true } }} />
 
 # Grid
 
@@ -186,7 +186,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 <Canvas>
   <Story
     name="custom spacings"
-    parameters={{ info: { disable: true }, chromatic: { disable: false } }}
+    parameters={{ info: { disable: true }, chromatic: { disableSnapshot: false } }}
   >
     <GridContainer p="20px" gridGap="5px">
       <GridItem
@@ -372,7 +372,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 <Canvas>
   <Story
     name="subgrid"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+    parameters={{ info: { disable: true }, chromatic: { disableSnapshot: true } }}
   >
     <div id="grid-align">
       <GridContainer>

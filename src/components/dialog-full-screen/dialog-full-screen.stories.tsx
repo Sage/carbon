@@ -76,7 +76,7 @@ export const Default = () => {
     </>
   );
 };
-Default.parameters = { chromatic: { disable: true } };
+Default.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithComplexExample = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -561,7 +561,7 @@ export const WithDisableContentPadding = () => {
     </>
   );
 };
-WithDisableContentPadding.parameters = { chromatic: { disable: true } };
+WithDisableContentPadding.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithHeaderChildren = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -720,7 +720,9 @@ export const WithHideableHeaderChildren = () => {
     </>
   );
 };
-WithHideableHeaderChildren.parameters = { chromatic: { disable: true } };
+WithHideableHeaderChildren.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const WithBox = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -760,7 +762,7 @@ export const WithBox = () => {
     </>
   );
 };
-WithBox.parameters = { chromatic: { disable: true } };
+WithBox.parameters = { chromatic: { disableSnapshot: true } };
 
 export const FocusingADifferentFirstElement = () => {
   const [isOpenOne, setIsOpenOne] = useState(false);
@@ -821,7 +823,9 @@ export const FocusingADifferentFirstElement = () => {
     </>
   );
 };
-FocusingADifferentFirstElement.parameters = { chromatic: { disable: true } };
+FocusingADifferentFirstElement.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const OtherFocusableContainers = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -890,4 +894,4 @@ export const OtherFocusableContainers = () => {
     </>
   );
 };
-OtherFocusableContainers.parameters = { chromatic: { disable: true } };
+OtherFocusableContainers.parameters = { chromatic: { disableSnapshot: true } };

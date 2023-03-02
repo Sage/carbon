@@ -127,7 +127,7 @@ export const Editable: StoryFn = () => {
     </>
   );
 };
-Editable.parameters = { chromatic: { disable: true } };
+Editable.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithHelp: StoryFn = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -206,7 +206,7 @@ export const DynamicContent: StoryFn = () => {
     </>
   );
 };
-DynamicContent.parameters = { chromatic: { disable: true } };
+DynamicContent.parameters = { chromatic: { disableSnapshot: true } };
 
 export const FocusingADifferentFirstElement: StoryFn = () => {
   const [isOpenOne, setIsOpenOne] = useState(false);
@@ -264,7 +264,7 @@ export const FocusingADifferentFirstElement: StoryFn = () => {
   );
 };
 FocusingADifferentFirstElement.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };
 
 export const OverridingContentPadding: StoryFn = () => {
@@ -379,7 +379,7 @@ export const OtherFocusableContainers: StoryFn = () => {
   );
 };
 OtherFocusableContainers.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };
 
 export const Responsive: StoryFn = () => {
