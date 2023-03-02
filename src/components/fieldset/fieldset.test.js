@@ -1,8 +1,8 @@
 import React from "react";
 import Fieldset from "./fieldset.component";
+import { FieldsetComponent } from "./fieldset-test.stories";
 import legendPreview from "../../../cypress/locators/fieldset";
 import Textbox from "../textbox/textbox.component";
-import Checkbox from "../checkbox/checkbox.component";
 import Form from "../form/form.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../../cypress/locators/index";
@@ -19,53 +19,6 @@ const specialCharacters = [
   CHARACTERS.DIACRITICS,
   CHARACTERS.SPECIALCHARACTERS,
 ];
-
-const FieldsetComponent = ({ ...props }) => {
-  return (
-    <div>
-      <Fieldset legend="Fieldset" {...props}>
-        <Textbox
-          label="First Name"
-          labelInline
-          labelAlign="right"
-          labelWidth={30}
-        />
-        <Textbox
-          label="Last Name"
-          labelInline
-          labelAlign="right"
-          labelWidth={30}
-        />
-        <Textbox
-          label="Address"
-          labelInline
-          labelAlign="right"
-          labelWidth={30}
-        />
-        <Checkbox
-          label="Checkbox"
-          labelAlign="right"
-          labelWidth={30}
-          labelSpacing={2}
-          reverse
-        />
-        <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
-        <Textbox
-          label="Country"
-          labelInline
-          labelAlign="right"
-          labelWidth={30}
-        />
-        <Textbox
-          label="Telephone"
-          labelInline
-          labelAlign="right"
-          labelWidth={30}
-        />
-      </Fieldset>
-    </div>
-  );
-};
 
 context("Testing Fieldset component", () => {
   describe("should render Fieldset component", () => {
@@ -207,5 +160,125 @@ context("Testing Fieldset component", () => {
           .and("have.css", "margin-bottom", `${margin}px`);
       }
     );
+  });
+
+  describe("Accessibility tests for Fieldset component", () => {
+    it("should pass accessibility tests for Fieldset default story", () => {
+      CypressMountWithProviders(<FieldsetComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(specialCharacters)(
+      "should pass accessibility tests for Fieldset when preview text is %s",
+      (chars) => {
+        CypressMountWithProviders(<FieldsetComponent legend={chars} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      ["inline", true],
+      ["as a column", false],
+    ])(
+      "should pass accessibility tests for Fieldset when displayed %s",
+      (state, bool) => {
+        CypressMountWithProviders(<FieldsetComponent inline={bool} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      [VALIDATION.INFO, "info", true],
+      ["rgb(102, 132, 148)", "error", false],
+      ["rgb(102, 132, 148)", "warning", false],
+      ["rgb(102, 132, 148)", "info", false],
+    ])(
+      "should pass accessibility tests for Fieldset with input border colour %s when validation is %s and boolean prop is %s",
+      (borderColor, type, bool) => {
+        CypressMountWithProviders(
+          <Fieldset
+            key={`${type}-boolean`}
+            legend={`Fieldset ${type} as boolean`}
+          >
+            <Textbox
+              label="Address"
+              labelInline
+              labelAlign="right"
+              {...{ [type]: bool }}
+            />
+          </Fieldset>
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([0, 4, 7])(
+      "should pass accessibility tests for Fieldset displayed inside a Form when field spacing is %s",
+      (spacing) => {
+        CypressMountWithProviders(
+          <Form fieldSpacing={spacing} data-element="form">
+            <Fieldset>
+              <Textbox label="Fieldset 1 Field 1" labelInline />
+              <Textbox label="Fieldset 1 Field 2" labelInline />
+            </Fieldset>
+            <Textbox label="Separate Field" labelInline />
+          </Form>
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    // FE-5382
+    describe.skip("skip", () => {
+      it.each(["error", "warning", "info"])(
+        "should pass accessibility tests for Fieldset with %s validation icon on input",
+        (type) => {
+          CypressMountWithProviders(
+            <Fieldset
+              key={`${type}-string-component`}
+              legend={`Fieldset ${type} on component`}
+            >
+              <Textbox
+                label="Address"
+                labelInline
+                labelAlign="right"
+                {...{ [type]: "Message" }}
+              />
+            </Fieldset>
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(["error", "warning", "info"])(
+        "should pass accessibility tests for Fieldset with %s validation icon on label",
+        (type) => {
+          CypressMountWithProviders(
+            <Fieldset
+              key={`${type}-string-label`}
+              legend={`Fieldset ${type} on label`}
+            >
+              <Textbox
+                label="Address"
+                labelInline
+                labelAlign="right"
+                validationOnLabel
+                {...{ [type]: "Message" }}
+              />
+            </Fieldset>
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+    });
   });
 });
