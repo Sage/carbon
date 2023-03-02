@@ -134,7 +134,7 @@ const Submenu = React.forwardRef(
       (id) => {
         const index = submenuItemIds.findIndex((itemId) => itemId === id);
 
-        return index === -1 ? 0 : index;
+        return index;
       },
       [submenuItemIds]
     );
@@ -181,7 +181,7 @@ const Submenu = React.forwardRef(
           }
 
           if (Events.isTabKey(event) && Events.isShiftKey(event)) {
-            if (nextIndex === 0) {
+            if (nextIndex <= 0) {
               closeSubmenu();
               return;
             }

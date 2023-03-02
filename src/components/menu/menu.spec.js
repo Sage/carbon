@@ -16,13 +16,24 @@ import {
   assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
 import openSubmenu from "./__internal__/spec-helper";
-import { StyledSubmenu } from "./__internal__/submenu/submenu.style";
+import {
+  StyledSubmenu,
+  StyledSubmenuWrapper,
+} from "./__internal__/submenu/submenu.style";
 import StyledMenuItemWrapper from "./menu-item/menu-item.style";
 import menuConfigVariants from "./menu.config";
 
 const events = {
   end: {
     key: "End",
+    preventDefault: jest.fn(),
+  },
+  tab: {
+    key: "Tab",
+    preventDefault: jest.fn(),
+  },
+  arrowDown: {
+    key: "ArrowDown",
     preventDefault: jest.fn(),
   },
 };
@@ -242,5 +253,48 @@ describe("Menu", () => {
       expect(openSubmenus.length).toEqual(1);
       expect(openSubmenus.at(0).html()).toContain("submenu 2");
     });
+  });
+
+  describe("when clicking a submenu parent item", () => {
+    it.each(["tab", "arrowDown"])(
+      "should move focus to the first item in the submenu when %s key pressed",
+      (key) => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        wrapper = mount(
+          <Menu>
+            <MenuItem submenu="submenu 1">
+              <MenuItem href="#">submenu 1 item 1</MenuItem>
+              <MenuItem href="#">submenu 1 item 2</MenuItem>
+            </MenuItem>
+          </Menu>,
+          { attachTo: htmlElement }
+        );
+
+        const menuItem = wrapper
+          .find(StyledSubmenuWrapper)
+          .first()
+          .find("button");
+
+        openSubmenu(wrapper, 0);
+
+        act(() => {
+          menuItem.props().onClick();
+        });
+
+        wrapper.update();
+
+        act(() => {
+          menuItem.props().onKeyDown(events[key]);
+        });
+
+        wrapper.update();
+
+        expect(
+          wrapper.find(StyledMenuItemWrapper).at(1).find("a")
+        ).toBeFocused();
+      }
+    );
   });
 });

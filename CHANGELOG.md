@@ -1,3 +1,19 @@
+### [114.17.4](https://github.com/Sage/carbon/compare/v114.17.3...v114.17.4) (2023-03-02)
+
+
+### Bug Fixes
+
+* make internal menu keyboard navigation hook use useModalManager ([cf004c9](https://github.com/Sage/carbon/commit/cf004c92c4e1a9370037040a9f1c8850e855591a))
+* **multi-action-button:** resolve issue with component closing parent Dialog on escape key press ([1bed27c](https://github.com/Sage/carbon/commit/1bed27ca6210547410da0ed7bd01d4fdc2110e2f))
+* **split-button:** resolve issue with component closing parent Dialog on escape key press ([cb7900a](https://github.com/Sage/carbon/commit/cb7900a7ed1ded14e7d19a6f54735c08553257e5))
+
+### [114.17.3](https://github.com/Sage/carbon/compare/v114.17.2...v114.17.3) (2023-03-01)
+
+
+### Bug Fixes
+
+* **submenu:** ensure focus order is correct when submenu parent item is clicked first ([2377e5a](https://github.com/Sage/carbon/commit/2377e5ab15ee892dfa846022bdc933ffc426cfa2)), closes [#5850](https://github.com/Sage/carbon/issues/5850)
+
 ### [114.17.2](https://github.com/Sage/carbon/compare/v114.17.1...v114.17.2) (2023-02-28)
 
 

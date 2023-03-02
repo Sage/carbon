@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import SplitButton from "./split-button.component";
 import Button from "../button";
 import { Accordion } from "../accordion";
+import Dialog from "../dialog";
 
 import { buttonSubtextPreview } from "../../../cypress/locators/button";
 import { keyCode, positionOfElement } from "../../../cypress/support/helper";
@@ -16,6 +17,7 @@ import {
   splitMainButton,
 } from "../../../cypress/locators/split-button";
 import { accordionDefaultTitle } from "../../../cypress/locators/accordion";
+import { alertDialogPreview } from "../../../cypress/locators/dialog";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
@@ -28,6 +30,19 @@ const SplitButtonList = ({ ...props }) => {
       <Button>Button 2</Button>
       <Button>Button 3</Button>
     </SplitButton>
+  );
+};
+
+const SplitButtonNestedInDialog = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
+      <SplitButton text="default text">
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </SplitButton>
+    </Dialog>
   );
 };
 
@@ -409,7 +424,7 @@ context("Tests for Split Button component", () => {
 
       splitToggleButton().eq(0).click();
       additionalButton(1).focus();
-      splitToggleButton().eq(0).trigger("keydown", keyCode("Esc"));
+      splitToggleButton().eq(0).type("{esc}");
       additionalButtonsContainer().should("not.exist");
     });
   });
@@ -450,5 +465,22 @@ context("Tests for Split Button component", () => {
         cy.get("@button").should("have.css", "border-color", borderColor);
       }
     );
+  });
+
+  describe("when nested inside of a Dialog component", () => {
+    it("should not close the Dialog when SplitButton is closed by pressing an escape key", () => {
+      CypressMountWithProviders(<SplitButtonNestedInDialog />);
+
+      splitToggleButton().eq(0).click();
+      additionalButtonsContainer().should("exist");
+
+      additionalButton(1).focus();
+      splitToggleButton().eq(0).type("{esc}");
+      additionalButtonsContainer().should("not.exist");
+      alertDialogPreview().should("exist");
+
+      splitToggleButton().eq(0).type("{esc}");
+      alertDialogPreview().should("not.exist");
+    });
   });
 });

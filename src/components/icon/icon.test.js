@@ -1,5 +1,5 @@
 import React from "react";
-import Icon from "./icon.component";
+import { IconComponent, IconTooltipComponent } from "./icon-test.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { icon, getDataElementByValue, cyRoot } from "../../../cypress/locators";
 import {
@@ -11,31 +11,6 @@ import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-h
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const colorData = [COLOR.ORANGE, COLOR.RED, COLOR.BLACK, COLOR.BROWN];
-
-const IconComponent = ({ ...props }) => {
-  return <Icon type="add" tooltipVisible {...props} />;
-};
-
-const IconTooltipComponent = ({ ...props }) => {
-  return (
-    <div
-      style={{
-        marginLeft: "300px",
-        marginRight: "64px",
-        marginTop: "64px",
-        marginBottom: "64px",
-      }}
-    >
-      <Icon
-        type="add"
-        tooltipVisible
-        tooltipMessage="Hey I'm a tooltip with a different position!"
-        {...props}
-      />
-      ;
-    </div>
-  );
-};
 
 context("Tests for Icon component", () => {
   describe("should check Icon component properties", () => {
@@ -191,6 +166,7 @@ context("Tests for Icon component", () => {
         );
       }
     );
+
     it.each(testData)(
       "should check tooltip id as %s for Icon component",
       (tooltipId) => {
@@ -236,6 +212,177 @@ context("Tests for Icon component", () => {
     it.each(testData)("should check id as %s for Icon component", (id) => {
       CypressMountWithProviders(<IconComponent id={id} />);
       icon().should("have.id", id);
+    });
+  });
+
+  describe("Accessibility tests for Icon component", () => {
+    it.each(["error", "add", "admin", "alert"])(
+      "should check %s type for accessibilty tests",
+      (iconType) => {
+        CypressMountWithProviders(<IconComponent type={iconType} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      SIZE.EXTRASMALL,
+      SIZE.SMALL,
+      SIZE.MEDIUM,
+      SIZE.LARGE,
+      SIZE.EXTRALARGE,
+    ])("should check %s bgSize for accessibilty tests", (size) => {
+      CypressMountWithProviders(<IconComponent bgSize={size} />);
+      cy.checkAccessibility();
+    });
+
+    it.each(["circle", "rounded-rect", "square"])(
+      "should check bgShape as %s for accessibilty tests",
+      (bgShape) => {
+        CypressMountWithProviders(<IconComponent bgShape={bgShape} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE, SIZE.EXTRALARGE])(
+      "should check %s fontSize for accessibilty tests",
+      (fontSize) => {
+        CypressMountWithProviders(<IconComponent fontSize={fontSize} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(colorData)(
+      "should check %s background color for accessibilty tests",
+      (backgroundColor) => {
+        CypressMountWithProviders(<IconComponent bg={backgroundColor} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(colorData)(
+      "should check icon color as %s for accessibilty tests",
+      (iconColor) => {
+        CypressMountWithProviders(<IconComponent color={iconColor} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "should check when disabled is %s for accessibilty tests",
+      (bool) => {
+        CypressMountWithProviders(<IconComponent disabled={bool} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["true", "false"])(
+      "should check when aria-hidden is %s for accessibilty tests",
+      (bool) => {
+        CypressMountWithProviders(<IconComponent aria-hidden={bool} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check tooltipMessage as %s for accessibilty tests",
+      (tooltipMessage) => {
+        CypressMountWithProviders(
+          <IconTooltipComponent tooltipMessage={tooltipMessage} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["bottom", "left", "right", "top"])(
+      "should check %s position of tooltip for accessibilty tests",
+      (position) => {
+        CypressMountWithProviders(
+          <IconTooltipComponent tooltipPosition={position} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "should check when tooltip visibility is %s for accessibilty tests",
+      (bool) => {
+        CypressMountWithProviders(
+          <IconTooltipComponent tooltipVisible={bool} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(colorData)(
+      "should check tooltip background-color as %s for accessibilty tests",
+      (tooltipBgColor) => {
+        CypressMountWithProviders(
+          <IconTooltipComponent tooltipBgColor={tooltipBgColor} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(colorData)(
+      "should check tooltip font color as %s for accessibilty tests",
+      (tooltipFontColor) => {
+        CypressMountWithProviders(
+          <IconTooltipComponent tooltipFontColor={tooltipFontColor} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check tooltip id as %s for accessibilty tests",
+      (tooltipId) => {
+        CypressMountWithProviders(
+          <IconTooltipComponent tooltipId={tooltipId} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      ["left", "bottom"],
+      ["top", "bottom"],
+      ["left", "top"],
+      ["bottom", "top"],
+      ["bottom", "left"],
+      ["bottom", "right"],
+      ["top", "left"],
+      ["top", "right"],
+      ["right", "bottom"],
+      ["right", "top"],
+    ])(
+      "should check flip position to the %s when tooltip position is %s and scrolling to the %s side for accessibilty tests",
+      (flipPosition, tooltipPosition) => {
+        CypressMountWithProviders(
+          <div style={{ padding: "60px 60px 60px 60px" }}>
+            <IconTooltipComponent
+              tooltipFlipOverrides={[flipPosition]}
+              tooltipPosition={tooltipPosition}
+            />
+          </div>
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)("should check id as %s for accessibilty tests", (id) => {
+      CypressMountWithProviders(<IconComponent id={id} />);
+      cy.checkAccessibility();
+    });
+
+    // FE-4643
+    describe.skip("Accessibility tests for ariaLabel", () => {
+      it.each(testData)(
+        "should check ariaLabel as %s for accessibilty tests",
+        (ariaLabel) => {
+          CypressMountWithProviders(<IconComponent ariaLabel={ariaLabel} />);
+          cy.checkAccessibility();
+        }
+      );
     });
   });
 });

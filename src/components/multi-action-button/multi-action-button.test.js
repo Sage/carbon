@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import MultiActionButton from "./multi-action-button.component";
 import Button from "../button";
 import { Accordion } from "../accordion";
+import Dialog from "../dialog";
+
 import { buttonSubtextPreview } from "../../../cypress/locators/button";
 import { pressTABKey, keyCode } from "../../../cypress/support/helper";
 import {
@@ -12,6 +14,7 @@ import {
   multiActionButtonComponent,
 } from "../../../cypress/locators/multi-action-button";
 import { accordionDefaultTitle } from "../../../cypress/locators/accordion";
+import { alertDialogPreview } from "../../../cypress/locators/dialog";
 import {
   SIZE,
   CHARACTERS,
@@ -29,6 +32,19 @@ const MultiActionButtonList = ({ ...props }) => {
         <Button>Short</Button>
       </MultiActionButton>
     </div>
+  );
+};
+
+const MultiActionNestedInDialog = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
+      <MultiActionButton text="default text">
+        <Button>Example Button</Button>
+        <Button>Example Button with long text</Button>
+        <Button>Short</Button>
+      </MultiActionButton>
+    </Dialog>
   );
 };
 
@@ -198,6 +214,24 @@ context("Tests for MultiActionButton component", () => {
       multiActionButton().then(($el) => {
         useJQueryCssValueAndAssert($el, "width", 956);
       });
+    });
+  });
+
+  describe("when nested inside of a Dialog component", () => {
+    it("should not close the Dialog when SplitButton is closed by pressing an escape key", () => {
+      CypressMountWithProviders(<MultiActionNestedInDialog />);
+      multiActionButtonComponent().trigger("mouseover");
+      multiActionButtonList()
+        .eq(0)
+        .should("have.text", "Example Button")
+        .and("be.visible");
+
+      multiActionButtonComponent().type("{esc}");
+      multiActionButtonListContainer().should("not.exist");
+      alertDialogPreview().should("exist");
+
+      multiActionButtonComponent().type("{esc}");
+      alertDialogPreview().should("not.exist");
     });
   });
 });
@@ -447,7 +481,7 @@ describe("pressing esc while MultiActionButton is open", () => {
       .trigger("mouseover")
       .then(() => {
         multiActionButtonList().eq(1).focus();
-        multiActionButton().eq(0).trigger("keydown", keyCode("Esc"));
+        multiActionButtonComponent().type("{esc}");
         multiActionButtonListContainer().should("not.exist");
       });
   });
