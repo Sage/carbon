@@ -134,6 +134,11 @@ function openAdditionalButtons(container: ShallowWrapper | ReactWrapper) {
   toggleButton.simulate("keydown", { key: "ArrowDown" });
 }
 
+const escapeKeyUpEvent = new KeyboardEvent("keyup", {
+  key: "Escape",
+  bubbles: true,
+});
+
 describe("SplitButton", () => {
   let wrapper: ShallowWrapper | ReactWrapper;
   let toggle: ShallowWrapper | ReactWrapper;
@@ -842,9 +847,7 @@ describe("SplitButton", () => {
         wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
       ).toBeTruthy();
       act(() => {
-        wrapper
-          .find(StyledSplitButtonChildrenContainer)
-          .simulate("keydown", { key: "Escape" });
+        container?.dispatchEvent(escapeKeyUpEvent);
       });
       expect(
         wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
@@ -862,7 +865,7 @@ describe("SplitButton", () => {
         wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
       ).toBeTruthy();
       act(() => {
-        toggleButton.simulate("keydown", { key: "Escape" });
+        container?.dispatchEvent(escapeKeyUpEvent);
       });
       expect(
         wrapper.update().find(StyledSplitButtonChildrenContainer).exists()

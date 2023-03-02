@@ -41,6 +41,11 @@ function simulateBlur(container: ShallowWrapper | ReactWrapper) {
   });
 }
 
+const escapeKeyUpEvent = new KeyboardEvent("keyup", {
+  key: "Escape",
+  bubbles: true,
+});
+
 describe("MultiActionButton", () => {
   let wrapper: ShallowWrapper | ReactWrapper;
 
@@ -318,9 +323,7 @@ describe("MultiActionButton", () => {
         wrapper.update().find(StyledButtonChildrenContainer).exists()
       ).toBeTruthy();
       act(() => {
-        wrapper
-          .find(StyledButtonChildrenContainer)
-          .simulate("keydown", { key: "Escape" });
+        container?.dispatchEvent(escapeKeyUpEvent);
       });
       expect(
         wrapper.update().find(StyledButtonChildrenContainer).exists()
@@ -340,7 +343,7 @@ describe("MultiActionButton", () => {
         wrapper.update().find(StyledButtonChildrenContainer).exists()
       ).toBeTruthy();
       act(() => {
-        mainButton.simulate("keydown", { key: "Escape" });
+        container?.dispatchEvent(escapeKeyUpEvent);
       });
       expect(
         wrapper.update().find(StyledButtonChildrenContainer).exists()

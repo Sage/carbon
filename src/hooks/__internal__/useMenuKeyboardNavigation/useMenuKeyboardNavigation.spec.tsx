@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { render, screen, fireEvent, createEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import useMenuKeyboardNavigation from ".";
 
 const containerID = "buttons-container";
@@ -30,7 +29,7 @@ const MockComponent = ({ hideCb }: MockComponentProps) => {
     );
   });
 
-  const handleKeyDown = useMenuKeyboardNavigation(mainRef, refs, hideCb);
+  const handleKeyDown = useMenuKeyboardNavigation(mainRef, refs, hideCb, true);
 
   return (
     <>
@@ -191,7 +190,7 @@ describe("useMenuKeyboardNavigation", () => {
   it("pressing Escape key calls the hide callback and focuses the main button", () => {
     const hideCb = jest.fn();
     render(<MockComponent hideCb={hideCb} />);
-    fireEvent.keyDown(screen.getByTestId(containerID), { key: "Escape" });
+    fireEvent.keyUp(screen.getByTestId(containerID), { key: "Escape" });
     expect(hideCb).toHaveBeenCalled();
     expect(screen.getByTestId(mainButtonID)).toStrictEqual(
       document.activeElement
