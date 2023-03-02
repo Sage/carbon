@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { MarginProps } from "styled-system";
 import Label from "../../__internal__/label";
 import StyledInlineInputs, {
   StyledContentContainer,
@@ -9,6 +10,7 @@ import StyledInlineInputs, {
 
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 interface InlineInputsContextProps {
   ariaLabelledBy?: string;
@@ -25,7 +27,8 @@ type GutterOptions =
   | "extra-large";
 
 export interface InlineInputsProps
-  extends StyledContentContainerProps,
+  extends MarginProps,
+    StyledContentContainerProps,
     StyledInlineInputsProps {
   /** Breakpoint for adaptive label (inline label change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
@@ -72,6 +75,7 @@ const InlineInputs = ({
   labelInline = true,
   labelWidth,
   required,
+  ...rest
 }: InlineInputsProps) => {
   const labelId = useRef(createGuid());
   const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
@@ -95,6 +99,8 @@ const InlineInputs = ({
     );
   }
 
+  const marginProps = filterStyledSystemMarginProps(rest);
+
   return (
     <StyledInlineInputs
       gutter={gutter}
@@ -102,6 +108,7 @@ const InlineInputs = ({
       className={className}
       labelWidth={labelWidth}
       labelInline={inlineLabel}
+      {...marginProps}
     >
       {renderLabel()}
       <StyledContentContainer

@@ -7,6 +7,7 @@ import InlineInputs, { InlineInputsProps } from "./inline-inputs.component";
 import {
   assertStyleMatch,
   mockMatchMedia,
+  testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import StyledInlineInputs, {
@@ -33,6 +34,8 @@ function render(props: InlineInputsProps = {}) {
 
 describe("Inline Inputs", () => {
   let wrapper: ReactWrapper;
+
+  testStyledSystemMargin((props) => <InlineInputs {...props} />);
 
   describe("when a className prop is passed in", () => {
     it("renders with main class", () => {
