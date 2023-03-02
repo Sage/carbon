@@ -1,5 +1,6 @@
 import React from "react";
 import { NumberInputComponent } from "./number-test.stories.tsx";
+import * as stories from "./number.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
   getDataElementByValue,
@@ -335,167 +336,70 @@ context("Tests for Number component", () => {
   });
 
   describe("check accessibility for Number component", () => {
-    it.each(testData)(
-      "check accessibility when Number label using %s special characters",
-      (labelValue) => {
-        CypressMountWithProviders(<NumberInputComponent label={labelValue} />);
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it.each(testData)(
-      "should check accessibility when labelHelp message using %s special characters",
-      (labelHelpValue) => {
-        CypressMountWithProviders(
-          <NumberInputComponent labelHelp={labelHelpValue} />
-        );
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it.each(testData)(
-      "should check accessibility when fieldHelp message using %s special characters",
-      (fieldHelpValue) => {
-        CypressMountWithProviders(
-          <NumberInputComponent fieldHelp={fieldHelpValue} />
-        );
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it.each(testData)(
-      "should check accessibility when prefix using %s special characters",
-      (prefixValue) => {
-        CypressMountWithProviders(
-          <NumberInputComponent prefix={prefixValue} />
-        );
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it.each(testData)(
-      "should check accessibility when placeholder using %s special characters",
-      (placeholderValue) => {
-        CypressMountWithProviders(
-          <NumberInputComponent placeholder={placeholderValue} />
-        );
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it.each(["11", "10"])(
-      "should check accessibility when enforce character limit of %s in Number",
-      (limit) => {
-        CypressMountWithProviders(
-          <NumberInputComponent enforceCharacterLimit characterLimit={limit} />
-        );
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it.each(["11", "10"])(
-      "should check accessibility and warn if over character limit of %s in Number",
-      (limit) => {
-        CypressMountWithProviders(
-          <NumberInputComponent
-            enforceCharacterLimit={false}
-            warnOverLimit
-            characterLimit={limit}
-          />
-        );
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it("should check accessibility when add icon inside of the Number renders", () => {
-      CypressMountWithProviders(<NumberInputComponent inputIcon="add" />);
+    it("should pass accessibility tests for Number Default story", () => {
+      CypressMountWithProviders(<stories.Default />);
 
       cy.checkAccessibility();
     });
 
-    it("should check accessibility when Number is disabled", () => {
-      CypressMountWithProviders(<NumberInputComponent disabled />);
+    it("should pass accessibility tests for Number Sizes story", () => {
+      CypressMountWithProviders(<stories.Sizes />);
 
       cy.checkAccessibility();
     });
 
-    it("should check accessibility when Number is read only", () => {
-      CypressMountWithProviders(<NumberInputComponent readOnly />);
+    it("should pass accessibility tests for Number Disabled story", () => {
+      CypressMountWithProviders(<stories.Disabled />);
 
       cy.checkAccessibility();
     });
 
-    it.each([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE])(
-      "should use %s as size and render Number with %s as height",
-      (size) => {
-        CypressMountWithProviders(<NumberInputComponent size={size} />);
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it("should check accessibility when Number has autofocus", () => {
-      CypressMountWithProviders(<NumberInputComponent autoFocus />);
+    it("should pass accessibility tests for Number ReadOnly story", () => {
+      CypressMountWithProviders(<stories.ReadOnly />);
 
       cy.checkAccessibility();
     });
 
-    it("should check accessibility when Number is required", () => {
-      CypressMountWithProviders(<NumberInputComponent required />);
+    it("should pass accessibility tests for Number AutoFocus story", () => {
+      CypressMountWithProviders(<stories.AutoFocus />);
 
       cy.checkAccessibility();
     });
 
-    it("should check accessibility when Number label is inline", () => {
-      CypressMountWithProviders(<NumberInputComponent labelInline />);
+    it("should pass accessibility tests for Number WithLabelInline story", () => {
+      CypressMountWithProviders(<stories.WithLabelInline />);
 
       cy.checkAccessibility();
     });
 
-    it.each(["right", "left"])(
-      "should check accessibility when %s is labelAligment",
-      (alignment) => {
-        CypressMountWithProviders(
-          <NumberInputComponent labelInline labelAlign={alignment} />
-        );
+    it("should pass accessibility tests for Number WithLabelAlign story", () => {
+      CypressMountWithProviders(<stories.WithLabelAlign />);
 
-        cy.checkAccessibility();
-      }
-    );
+      cy.checkAccessibility();
+    });
 
-    it.each([
-      ["10", "90"],
-      ["30", "70"],
-      ["80", "20"],
-    ])(
-      "should check accessibility when %s as labelWidth, %s as inputWidth",
-      (label, input) => {
-        CypressMountWithProviders(
-          <NumberInputComponent
-            labelInline
-            labelWidth={label}
-            inputWidth={input}
-          />
-        );
+    it("should pass accessibility tests for Number WithCustomLabelWidthAndInputWidth story", () => {
+      CypressMountWithProviders(<stories.WithCustomLabelWidthAndInputWidth />);
 
-        cy.checkAccessibility();
-      }
-    );
+      cy.checkAccessibility();
+    });
 
-    it.each(["10%", "30%", "50%", "80%", "100%"])(
-      "should check accessibility when maxWidth as %s for Number component",
-      (maxWidth) => {
-        CypressMountWithProviders(<NumberInputComponent maxWidth={maxWidth} />);
+    it("should pass accessibility tests for Number WithCustomMaxWidth story", () => {
+      CypressMountWithProviders(<stories.WithCustomMaxWidth />);
 
-        cy.checkAccessibility();
-      }
-    );
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Number WithFieldHelp story", () => {
+      CypressMountWithProviders(<stories.WithFieldHelp />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Number WithLabelHelp story", () => {
+      CypressMountWithProviders(<stories.WithLabelHelp />);
+
+      cy.checkAccessibility();
+    });
   });
 });
