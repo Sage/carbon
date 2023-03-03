@@ -1,9 +1,8 @@
 import React from "react";
+import { DrawerCustom } from "./drawer-test.stories.tsx";
 import Box from "../box";
 import Button from "../button";
 import { Checkbox } from "../checkbox";
-import Drawer from "./drawer.component";
-import Typography from "../typography";
 
 import {
   drawer,
@@ -17,31 +16,6 @@ import { stickyFooter } from "../../../cypress/locators";
 import { positionOfElement } from "../../../cypress/support/helper";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
-
-const DrawerCustom = ({ ...props }) => {
-  const [isExpanded, setIsExpanded] = React.useState(false);
-  const onChangeHandler = React.useCallback(() => {
-    setIsExpanded(!isExpanded);
-  }, [isExpanded]);
-
-  return (
-    <Drawer
-      id="drawer"
-      onChange={onChangeHandler}
-      sidebar={
-        <ul>
-          <li>link a</li>
-          <li>link b</li>
-          <li>link c</li>
-        </ul>
-      }
-      title={<Typography variant="h2">Drawer title</Typography>}
-      {...props}
-    >
-      content body for Drawer
-    </Drawer>
-  );
-};
 
 context("Test for Drawer component", () => {
   describe("check props for Drawer component", () => {
@@ -72,7 +46,7 @@ context("Test for Drawer component", () => {
       }
     );
 
-    it.each([["3s"], ["15s"]])(
+    it.each(["3s", "15s"])(
       "should check animation time is set to %s",
       (animationDuration) => {
         CypressMountWithProviders(
@@ -448,6 +422,223 @@ context("Test for Drawer component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("Accessibility tests for Drawer", () => {
+    it.each([
+      ["expanded", 0],
+      ["not expanded", 1],
+    ])(
+      "should pass accessibility tests for Drawer when chevron is %s",
+      (state, times) => {
+        CypressMountWithProviders(<DrawerCustom showControls />);
+
+        for (let i = 0; i < times; i++) {
+          drawerToggle().click().wait(500);
+        }
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["3s", "15s"])(
+      "should pass accessibility tests for Drawer when animation time is set to %s",
+      (animationDuration) => {
+        CypressMountWithProviders(
+          <DrawerCustom showControls animationDuration={animationDuration} />
+        );
+
+        drawerToggle().click().wait(500);
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibility tests for Drawer when closed by default", () => {
+      CypressMountWithProviders(<DrawerCustom defaultExpanded={false} />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Drawer when expanded prop is true", () => {
+      CypressMountWithProviders(<DrawerCustom expanded />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Drawer with custom sidebar", () => {
+      CypressMountWithProviders(
+        <DrawerCustom
+          sidebar={
+            <ul>
+              <li>cypress</li>
+            </ul>
+          }
+        />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Drawer with custom expandedWidth", () => {
+      CypressMountWithProviders(<DrawerCustom expandedWidth="65%" />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Drawer with custom backgroundColor", () => {
+      CypressMountWithProviders(<DrawerCustom backgroundColor="#FF0000" />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Drawer with custom height", () => {
+      CypressMountWithProviders(<DrawerCustom height="75%" />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Drawer with custom title", () => {
+      CypressMountWithProviders(<DrawerCustom title="cypress_title" />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Drawer with custom footer", () => {
+      CypressMountWithProviders(
+        <div
+          style={{
+            height: "200px",
+          }}
+        >
+          <DrawerCustom
+            sidebar={
+              <Box mb={9}>
+                <Checkbox
+                  label="Example checkbox"
+                  name="checkbox-default"
+                  ml="40px"
+                  mt="40px"
+                />
+                <Checkbox
+                  label="Example checkbox"
+                  name="checkbox-default"
+                  ml="40px"
+                  mt="40px"
+                />
+                <Checkbox
+                  label="Example checkbox"
+                  name="checkbox-default"
+                  ml="40px"
+                  mt="40px"
+                />
+              </Box>
+            }
+            footer={
+              <Box>
+                <Button mr="16px">Cancel</Button>
+                <Button buttonType="primary" type="submit">
+                  Action
+                </Button>
+              </Box>
+            }
+          />
+        </div>
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Drawer custom stickyFooter", () => {
+      CypressMountWithProviders(
+        <div
+          style={{
+            height: "200px",
+          }}
+        >
+          <DrawerCustom
+            sidebar={
+              <Box mb={9}>
+                <Checkbox
+                  label="Example checkbox"
+                  name="checkbox-default"
+                  ml="40px"
+                  mt="40px"
+                />
+                <Checkbox
+                  label="Example checkbox"
+                  name="checkbox-default"
+                  ml="40px"
+                  mt="40px"
+                />
+                <Checkbox
+                  label="Example checkbox"
+                  name="checkbox-default"
+                  ml="40px"
+                  mt="40px"
+                />
+              </Box>
+            }
+            footer={
+              <Box>
+                <Button mr="16px">Cancel</Button>
+                <Button buttonType="primary" type="submit">
+                  Action
+                </Button>
+              </Box>
+            }
+            stickyFooter
+          />
+        </div>
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Drawer with custom stickyHeader", () => {
+      CypressMountWithProviders(
+        <div
+          style={{
+            height: "200px",
+          }}
+        >
+          <DrawerCustom
+            sidebar={
+              <Box mb={9}>
+                <Checkbox
+                  label="Example checkbox"
+                  name="checkbox-default"
+                  ml="40px"
+                  mt="40px"
+                />
+                <Checkbox
+                  label="Example checkbox"
+                  name="checkbox-default"
+                  ml="40px"
+                  mt="40px"
+                />
+                <Checkbox
+                  label="Example checkbox"
+                  name="checkbox-default"
+                  ml="40px"
+                  mt="40px"
+                />
+              </Box>
+            }
+            footer={
+              <Box>
+                <Button mr="16px">Cancel</Button>
+                <Button buttonType="primary" type="submit">
+                  Action
+                </Button>
+              </Box>
+            }
+            stickyHeader
+          />
+        </div>
+      );
+
+      cy.checkAccessibility();
     });
   });
 });
