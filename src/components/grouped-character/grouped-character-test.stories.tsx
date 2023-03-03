@@ -11,6 +11,7 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export default {
   title: "GroupedCharacter/Test",
+  includeStories: "Default",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -76,4 +77,22 @@ NewValidation.args = {
   groups: [2, 2, 4],
   separator: "-",
   ...getCommonTextboxArgs(),
+};
+
+export const GroupedCharacterComponent = ({ ...props }) => {
+  const [state, setState] = React.useState("");
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
+  };
+
+  return (
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value={state}
+      onChange={setValue}
+      groups={[2, 2, 3]}
+      separator="-"
+      {...props}
+    />
+  );
 };
