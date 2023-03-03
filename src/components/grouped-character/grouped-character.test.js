@@ -1,4 +1,5 @@
 import React from "react";
+import GroupedCharacter from "./grouped-character.component";
 import { GroupedCharacterComponent } from "./grouped-character-test.stories.tsx";
 import * as stories from "./grouped-character.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -15,6 +16,28 @@ import {
 } from "../../../cypress/support/component-helper/constants";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+
+const GroupedCharacterGroup = ({ onChange, ...props }) => {
+  const [state, setState] = React.useState("");
+
+  const setValue = ({ target }) => {
+    setState(target.value.rawValue);
+    if (onChange) {
+      onChange(target);
+    }
+  };
+
+  return (
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value={state}
+      onChange={setValue}
+      groups={[2, 2, 3]}
+      separator="-"
+      {...props}
+    />
+  );
+};
 
 context("Tests for GroupedCharacter component", () => {
   describe("check props for GroupedCharacter component", () => {
@@ -201,7 +224,7 @@ context("Tests for GroupedCharacter component", () => {
       "should call onChange callback when a type event is triggered using %s as groups and %s as inputValue and return %s as formattedValue",
       (groups, inputValue, rawValue, formattedValue, callbackIndex) => {
         CypressMountWithProviders(
-          <GroupedCharacterComponent onChange={callback} groups={groups} />
+          <GroupedCharacterGroup onChange={callback} groups={groups} />
         );
 
         commonDataElementInputPreview()
@@ -353,3 +376,4 @@ context("Tests for GroupedCharacter component", () => {
     });
   });
 });
+
