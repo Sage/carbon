@@ -1,3 +1,10 @@
+### [114.17.6](https://github.com/Sage/carbon/compare/v114.17.5...v114.17.6) (2023-03-03)
+
+
+### Bug Fixes
+
+* **deps:** move esbuild to dev dependency ([7c55ec6](https://github.com/Sage/carbon/commit/7c55ec612a331e0254e25ff928b426bb3e115220))
+
 ### [114.17.5](https://github.com/Sage/carbon/compare/v114.17.4...v114.17.5) (2023-03-03)
 
 
