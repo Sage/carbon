@@ -1,3 +1,10 @@
+### [114.17.5](https://github.com/Sage/carbon/compare/v114.17.4...v114.17.5) (2023-03-03)
+
+
+### Bug Fixes
+
+* **page:** remove additional box padding ([6554158](https://github.com/Sage/carbon/commit/655415881af57651d9b0956846b0ed254acaa447)), closes [#5857](https://github.com/Sage/carbon/issues/5857)
+
 ### [114.17.4](https://github.com/Sage/carbon/compare/v114.17.3...v114.17.4) (2023-03-02)
 
 
