@@ -1,7 +1,9 @@
 import React from "react";
-import Form from "../form/form.component";
+import Form from "./form.component";
+import { FormComponent } from "./form-test.stories";
 import Textbox from "../textbox/textbox.component";
 import Button from "../button/button.component";
+import * as stories from "./form.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 import { getElement, getComponent } from "../../../cypress/locators/index";
@@ -10,23 +12,7 @@ import {
   formFooterComponent,
   formButtonComponent,
 } from "../../../cypress/locators/form/index";
-
-const FormComponent = ({ ...props }) => {
-  return (
-    <Form
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      {...props}
-    >
-      <Textbox label="Textbox1" />
-      <Textbox label="Textbox2" />
-      <Textbox label="Textbox3" />
-    </Form>
-  );
-};
+import { dataComponentButtonByText } from "../../../cypress/locators/pages";
 
 context("Tests for Form component", () => {
   describe("check props for Form component", () => {
@@ -211,5 +197,119 @@ context("Tests for Form component", () => {
         });
       }
     );
+  });
+
+  describe("Accessibility tests for Form component", () => {
+    it("should pass accessibility tests for DefaultWithStickyFooter story", () => {
+      CypressMountWithProviders(<stories.DefaultWithStickyFooter />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for FormAlignmentExample story", () => {
+      CypressMountWithProviders(<stories.FormAlignmentExample />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for InDialog story", () => {
+      CypressMountWithProviders(<stories.InDialog />);
+
+      dataComponentButtonByText("Open Preview")
+        .click()
+        .then(() => {
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for InDialogFullScreen story", () => {
+      CypressMountWithProviders(<stories.InDialogFullScreen />);
+
+      dataComponentButtonByText("Open Preview")
+        .click()
+        .then(() => {
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for InDialogFullScreenWithStickyFooter story", () => {
+      CypressMountWithProviders(<stories.InDialogFullScreenWithStickyFooter />);
+
+      dataComponentButtonByText("Open Preview")
+        .click()
+        .then(() => {
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for InDialogWithStickyFooter story", () => {
+      CypressMountWithProviders(<stories.InDialogWithStickyFooter />);
+
+      dataComponentButtonByText("Open Preview")
+        .click()
+        .then(() => {
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for OverrideFieldSpacing story", () => {
+      CypressMountWithProviders(<stories.OverrideFieldSpacing />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for WithAdditionalButtons story", () => {
+      CypressMountWithProviders(<stories.WithAdditionalButtons />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for WithBothErrorsAndWarningsSummary story", () => {
+      CypressMountWithProviders(<stories.WithBothErrorsAndWarningsSummary />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for WithButtonsAlignedToTheLeft story", () => {
+      CypressMountWithProviders(<stories.WithButtonsAlignedToTheLeft />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for WithCustomFooterPadding story", () => {
+      CypressMountWithProviders(<stories.WithCustomFooterPadding />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for WithDifferentSpacing story", () => {
+      CypressMountWithProviders(<stories.WithDifferentSpacing />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for WithErrorsSummary story", () => {
+      CypressMountWithProviders(<stories.WithErrorsSummary />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for WithFullWidthButtons story", () => {
+      CypressMountWithProviders(<stories.WithFullWidthButtons />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for WithLabelsInline story", () => {
+      CypressMountWithProviders(<stories.WithLabelsInline />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for WithWarningsSummary story", () => {
+      CypressMountWithProviders(<stories.WithWarningsSummary />);
+
+      cy.checkAccessibility();
+    });
   });
 });
