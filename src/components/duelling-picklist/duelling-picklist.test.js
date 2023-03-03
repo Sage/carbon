@@ -1,10 +1,9 @@
 import React from "react";
-import DuellingPicklist from "./duelling-picklist.component";
-import { Picklist } from "./picklist/picklist.component";
-import PicklistItem from "./picklist-item/picklist-item.component";
+import {
+  DuellingPicklistComponent,
+  DuellingPicklistComponentPicklistProps,
+} from "./duelling-picklist-test.stories";
 import PicklistPlaceholder from "./picklist-placeholder/picklist-placeholder.component";
-import Search from "../search/search.component";
-
 import {
   assignedPicklist,
   unassignedPicklistItems,
@@ -26,7 +25,7 @@ import {
   tooltipPreview,
 } from "../../../cypress/locators";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
-import { Grouped, AlternativeSearch } from "./duelling-picklist.stories";
+import * as stories from "./duelling-picklist.stories";
 import { ICON } from "../../../cypress/locators/locators";
 
 const specialCharacters = [
@@ -34,259 +33,6 @@ const specialCharacters = [
   CHARACTERS.DIACRITICS,
   CHARACTERS.SPECIALCHARACTERS,
 ];
-
-const DuellingPicklistComponent = ({ ...props }) => {
-  const mockData = React.useMemo(() => {
-    const arr = [];
-    for (let i = 0; i < 10; i++) {
-      const data = {
-        key: i.toString(),
-        title: `Content ${i + 1}`,
-        description: `Description ${i + 1}`,
-      };
-      arr.push(data);
-    }
-    return arr;
-  }, []);
-  const allItems = React.useMemo(() => {
-    return mockData.reduce((obj, item) => {
-      obj[item.key] = item;
-      return obj;
-    }, {});
-  }, [mockData]);
-  const [isEachItemSelected] = React.useState(false);
-  const [order] = React.useState(mockData.map(({ key }) => key));
-  const [notSelectedItems, setNotSelectedItems] = React.useState(allItems);
-  const [notSelectedSearch, setNotSelectedSearch] = React.useState({});
-  const [selectedItems, setSelectedItems] = React.useState({});
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const isSearchMode = Boolean(searchQuery.length);
-  const onAdd = React.useCallback(
-    (item) => {
-      const { [item.key]: removed, ...rest } = notSelectedItems;
-      setNotSelectedItems(rest);
-      setSelectedItems({ ...selectedItems, [item.key]: item });
-      const { [item.key]: removed2, ...rest2 } = notSelectedSearch;
-      setNotSelectedSearch(rest2);
-    },
-    [notSelectedItems, notSelectedSearch, selectedItems]
-  );
-  const onRemove = React.useCallback(
-    (item) => {
-      const { [item.key]: removed, ...rest } = selectedItems;
-      setSelectedItems(rest);
-      setNotSelectedItems({ ...notSelectedItems, [item.key]: item });
-      if (isSearchMode && item.title.includes(searchQuery)) {
-        setNotSelectedSearch({ ...notSelectedSearch, [item.key]: item });
-      }
-    },
-    [
-      isSearchMode,
-      notSelectedItems,
-      notSelectedSearch,
-      searchQuery,
-      selectedItems,
-    ]
-  );
-  const handleSearch = React.useCallback(
-    (ev) => {
-      setSearchQuery(ev.target.value);
-      const tempNotSelectedItems = Object.keys(notSelectedItems).reduce(
-        (items, key) => {
-          const item = notSelectedItems[key];
-          if (item.title.includes(ev.target.value)) {
-            items[item.key] = item;
-          }
-          return items;
-        },
-        {}
-      );
-      setNotSelectedSearch(tempNotSelectedItems);
-    },
-    [notSelectedItems]
-  );
-  const renderItems = (list, type, handler) =>
-    order.reduce((items, key) => {
-      const item = list[key];
-      if (item) {
-        items.push(
-          <PicklistItem key={key} type={type} item={item} onChange={handler}>
-            <div style={{ display: "flex", width: "100%" }}>
-              <div style={{ width: "50%" }}>
-                <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-                  {item.title}
-                </p>
-              </div>
-              <div style={{ width: "50%" }}>
-                <p style={{ margin: 0 }}>{item.description}</p>
-              </div>
-            </div>
-          </PicklistItem>
-        );
-      }
-      return items;
-    }, []);
-  return (
-    <div>
-      <DuellingPicklist
-        leftLabel={`List 1 (${Object.keys(notSelectedItems).length})`}
-        rightLabel={`List 2 (${Object.keys(selectedItems).length})`}
-        disabled={isEachItemSelected}
-        leftControls={
-          <Search
-            tabIndex={isEachItemSelected ? -1 : 0}
-            placeholder="Search"
-            name="search_name"
-            onChange={handleSearch}
-            value={searchQuery}
-            id="search_id"
-          />
-        }
-        rightControls={
-          <Search
-            tabIndex={isEachItemSelected ? -1 : 0}
-            placeholder="Search"
-            name="search_name"
-            onChange={handleSearch}
-            value={searchQuery}
-            id="search_id"
-          />
-        }
-        {...props}
-      >
-        <Picklist
-          disabled={isEachItemSelected}
-          placeholder={<PicklistPlaceholder text="Unassigned list empty" />}
-        >
-          {renderItems(
-            isSearchMode ? notSelectedSearch : notSelectedItems,
-            "add",
-            onAdd
-          )}
-        </Picklist>
-        <Picklist
-          disabled={isEachItemSelected}
-          placeholder={<PicklistPlaceholder text="Nothing to see here" />}
-        >
-          {renderItems(selectedItems, "remove", onRemove)}
-        </Picklist>
-      </DuellingPicklist>
-    </div>
-  );
-};
-
-const DuellingPicklistComponentPicklistProps = ({ ...props }) => {
-  const mockData = React.useMemo(() => {
-    const arr = [];
-    for (let i = 0; i < 10; i++) {
-      const data = {
-        key: i.toString(),
-        title: `Content ${i + 1}`,
-        description: `Description ${i + 1}`,
-      };
-      arr.push(data);
-    }
-    return arr;
-  }, []);
-  const allItems = React.useMemo(() => {
-    return mockData.reduce((obj, item) => {
-      obj[item.key] = item;
-      return obj;
-    }, {});
-  }, [mockData]);
-  const [isEachItemSelected] = React.useState(false);
-  const [order] = React.useState(mockData.map(({ key }) => key));
-  const [notSelectedItems, setNotSelectedItems] = React.useState(allItems);
-  const [notSelectedSearch, setNotSelectedSearch] = React.useState({});
-  const [selectedItems, setSelectedItems] = React.useState({});
-  const [searchQuery] = React.useState("");
-  const isSearchMode = Boolean(searchQuery.length);
-  const onAdd = React.useCallback(
-    (item) => {
-      const { [item.key]: removed, ...rest } = notSelectedItems;
-      setNotSelectedItems(rest);
-      setSelectedItems({ ...selectedItems, [item.key]: item });
-      const { [item.key]: removed2, ...rest2 } = notSelectedSearch;
-      setNotSelectedSearch(rest2);
-    },
-    [notSelectedItems, notSelectedSearch, selectedItems]
-  );
-  const onRemove = React.useCallback(
-    (item) => {
-      const { [item.key]: removed, ...rest } = selectedItems;
-      setSelectedItems(rest);
-      setNotSelectedItems({ ...notSelectedItems, [item.key]: item });
-      if (isSearchMode && item.title.includes(searchQuery)) {
-        setNotSelectedSearch({ ...notSelectedSearch, [item.key]: item });
-      }
-    },
-    [
-      isSearchMode,
-      notSelectedItems,
-      notSelectedSearch,
-      searchQuery,
-      selectedItems,
-    ]
-  );
-  const renderItems = (list, type, handler) =>
-    order.reduce((items, key) => {
-      const item = list[key];
-      if (item) {
-        items.push(
-          <PicklistItem
-            key={key}
-            type={type}
-            item={item}
-            onChange={handler}
-            {...props}
-          >
-            <div style={{ display: "flex", width: "100%" }}>
-              <div style={{ width: "50%" }}>
-                <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
-                  {item.title}
-                </p>
-              </div>
-              <div style={{ width: "50%" }}>
-                <p style={{ margin: 0 }}>{item.description}</p>
-              </div>
-            </div>
-          </PicklistItem>
-        );
-      }
-      return items;
-    }, []);
-  return (
-    <div>
-      <DuellingPicklist
-        leftLabel={`List 1 (${Object.keys(notSelectedItems).length})`}
-        rightLabel={`List 2 (${Object.keys(selectedItems).length})`}
-        disabled={isEachItemSelected}
-      >
-        <Picklist
-          disabled={isEachItemSelected}
-          placeholder={<PicklistPlaceholder text="Unassigned list empty" />}
-          {...props}
-        >
-          {renderItems(
-            isSearchMode ? notSelectedSearch : notSelectedItems,
-            "add",
-            onAdd
-          )}
-        </Picklist>
-        <Picklist
-          disabled={isEachItemSelected}
-          placeholder={<PicklistPlaceholder text="Nothing to see here" />}
-        >
-          {renderItems(
-            isSearchMode ? notSelectedSearch : notSelectedItems,
-            "remove",
-            onRemove
-          )}
-        </Picklist>
-      </DuellingPicklist>
-    </div>
-  );
-};
 
 context("Testing Duelling-Picklist component", () => {
   describe("should render Duelling-Picklist component", () => {
@@ -500,7 +246,7 @@ context("Testing Duelling-Picklist component", () => {
     ])(
       "should verify picklist search field can be placed outside the Duelling-Picklist",
       (searchString, results) => {
-        CypressMountWithProviders(<AlternativeSearch />);
+        CypressMountWithProviders(<stories.AlternativeSearch />);
 
         getDataElementByValue("input").type(searchString);
         unassignedPicklistItems().should("have.length", results);
@@ -508,14 +254,14 @@ context("Testing Duelling-Picklist component", () => {
     );
 
     it("should verify Duelling-Picklist is disabled when access checkox is checked", () => {
-      CypressMountWithProviders(<AlternativeSearch />);
+      CypressMountWithProviders(<stories.AlternativeSearch />);
 
       checkBox().check();
       duellingPicklistComponent().should("have.attr", "disabled");
     });
 
     it("should verify Duelling-Picklist is re-enabled when access checkbox is unchecked", () => {
-      CypressMountWithProviders(<AlternativeSearch />);
+      CypressMountWithProviders(<stories.AlternativeSearch />);
 
       checkBox().check();
       duellingPicklistComponent().should("have.attr", "disabled");
@@ -526,19 +272,19 @@ context("Testing Duelling-Picklist component", () => {
 
   describe("should render Duelling-Picklist with items grouped and a picklist divider", () => {
     it("should verify Duelling-Picklist is displayed with divider", () => {
-      CypressMountWithProviders(<Grouped />);
+      CypressMountWithProviders(<stories.Grouped />);
 
       getDataElementByValue("picklist-divider");
     });
 
     it("should verify Duelling-Picklist is displayed in groups with group label", () => {
-      CypressMountWithProviders(<Grouped />);
+      CypressMountWithProviders(<stories.Grouped />);
 
       picklistGroup().children().eq(0).should("have.text", "Group A");
     });
 
     it("should verify all items in a group are added to assigned picklist when group add button is clicked", () => {
-      CypressMountWithProviders(<Grouped />);
+      CypressMountWithProviders(<stories.Grouped />);
 
       picklistGroup().children().eq(1).click();
       assignedPicklistItems().should("have.length", "3");
@@ -546,7 +292,7 @@ context("Testing Duelling-Picklist component", () => {
     });
 
     it("should verify all items in a group are removed from assigned picklist when group remove button is clicked", () => {
-      CypressMountWithProviders(<Grouped />);
+      CypressMountWithProviders(<stories.Grouped />);
 
       picklistGroup().children().eq(1).click();
       unassignedPicklistItems().should("have.length", "3");
@@ -621,5 +367,74 @@ context("Testing Duelling-Picklist component", () => {
           });
       }
     );
+  });
+
+  describe("Accessibility tests for Duelling-Picklist component", () => {
+    it("should pass accessibility tests for Duelling-Picklist default story", () => {
+      CypressMountWithProviders(<DuellingPicklistComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Duelling-Picklist AlternativeSearch story", () => {
+      CypressMountWithProviders(<stories.AlternativeSearch />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Duelling-Picklist Grouped story", () => {
+      CypressMountWithProviders(<stories.Grouped />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Duelling-Picklist InDialog story", () => {
+      CypressMountWithProviders(<stories.InDialog />);
+
+      getDataElementByValue("main-text")
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Duelling-Picklist AddItem story", () => {
+      CypressMountWithProviders(<stories.AddItem />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Duelling-Picklist RemoveItem story", () => {
+      CypressMountWithProviders(<stories.RemoveItem />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Duelling-Picklist Locked story", () => {
+      CypressMountWithProviders(<stories.Locked />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Duelling-Picklist CustomTooltipMessage story", () => {
+      CypressMountWithProviders(<stories.CustomTooltipMessage />);
+
+      getDataElementByValue("locked")
+        .realHover()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    // FE-5711
+    describe.skip("skip", () => {
+      it("should pass accessibility tests for Duelling-Picklist disabled", () => {
+        CypressMountWithProviders(<DuellingPicklistComponent disabled />);
+
+        cy.checkAccessibility();
+      });
+    });
   });
 });
