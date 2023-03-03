@@ -1,13 +1,34 @@
 import { useCallback, useMemo } from "react";
 import Events from "../../../__internal__/utils/helpers/events";
 import { defaultFocusableSelectors } from "../../../__internal__/focus-trap/focus-trap-utils";
+import useModalManager from "../useModalManager";
 
 export default (
   mainControlRef: React.RefObject<HTMLButtonElement>,
   childrenRefs: React.RefObject<HTMLButtonElement>[],
-  hide: () => void
+  hide: () => void,
+  isOpen: boolean
 ) => {
   const childrenLength = useMemo(() => childrenRefs.length, [childrenRefs]);
+
+  const refocusMainControl = useCallback(() => {
+    hide();
+    mainControlRef.current?.focus();
+  }, [hide, mainControlRef]);
+
+  const handleEscapeKey = useCallback(
+    (e) => {
+      /* istanbul ignore else */
+      if (Events.isEscKey(e)) {
+        refocusMainControl();
+      }
+    },
+    [refocusMainControl]
+  );
+
+  // useModalmanager is used here to handle the escape key
+  // and to ensure that closing the menu does not close the modal
+  useModalManager(isOpen, handleEscapeKey, mainControlRef);
 
   const handleKeyDown = useCallback(
     (ev) => {
@@ -19,11 +40,6 @@ export default (
         (node) => node.current === document.activeElement
       );
       let nextIndex = -1;
-
-      const refocusMainControl = () => {
-        hide();
-        mainControlRef.current?.focus();
-      };
 
       const arrowModifierPressed = ev.ctrlKey || ev.metaKey;
 
@@ -85,12 +101,8 @@ export default (
       if (nextIndex > -1) {
         childrenRefs[nextIndex].current?.focus();
       }
-
-      if (Events.isEscKey(ev)) {
-        refocusMainControl();
-      }
     },
-    [childrenLength, hide, childrenRefs, mainControlRef]
+    [childrenLength, hide, refocusMainControl, childrenRefs, mainControlRef]
   );
 
   return handleKeyDown;
