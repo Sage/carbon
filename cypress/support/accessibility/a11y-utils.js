@@ -100,6 +100,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("icon") &&
       !prepareUrl[0].startsWith("pager") &&
       !prepareUrl[0].startsWith("fieldset") &&
+      !prepareUrl[0].startsWith("form") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);
