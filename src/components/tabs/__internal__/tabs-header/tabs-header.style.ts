@@ -1,14 +1,23 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
+import { TabHeaderProps } from "./tabs-header.component";
 
-const computeLineWidth = ({ alternateStyling, isInSidebar, position }) => {
+const computeLineWidth = ({
+  alternateStyling,
+  isInSidebar,
+  position,
+}: Pick<TabHeaderProps, "alternateStyling" | "isInSidebar" | "position">) => {
   if (isInSidebar && position === "left") {
     return "0px";
   }
   return alternateStyling ? "-1px" : "-2px";
 };
 
-const StyledTabsHeaderWrapper = styled.div`
+type StyledTabsHeaderWrapperProps = Pick<
+  TabHeaderProps,
+  "position" | "isInSidebar"
+>;
+
+const StyledTabsHeaderWrapper = styled.div<StyledTabsHeaderWrapperProps>`
   ${({ position, isInSidebar }) =>
     position === "left" &&
     css`
@@ -30,10 +39,20 @@ const StyledTabsHeaderWrapper = styled.div`
     `}
 `;
 
-const StyledTabsHeaderList = styled.div`
+export type StyledTabsHeaderListProps = Pick<
+  TabHeaderProps,
+  | "align"
+  | "alternateStyling"
+  | "extendedLine"
+  | "noRightBorder"
+  | "isInSidebar"
+  | "position"
+>;
+
+const StyledTabsHeaderList = styled.div<StyledTabsHeaderListProps>`
   display: flex;
   box-shadow: inset 0px ${computeLineWidth} 0px 0px var(--colorsActionMinor100);
-  ${({ extendedLine }) =>
+  ${({ extendedLine = true }) =>
     !extendedLine &&
     css`
       width: fit-content;
@@ -43,14 +62,14 @@ const StyledTabsHeaderList = styled.div`
   margin: 0;
   padding: 0;
 
-  ${({ align }) =>
+  ${({ align = "left" }) =>
     align === "right" &&
     css`
       justify-content: flex-end;
       text-align: right;
     `}
 
-  ${({ position, noRightBorder }) =>
+  ${({ position = "top", noRightBorder, align = "left" }) =>
     position === "left" &&
     css`
       flex-direction: column;
@@ -61,33 +80,11 @@ const StyledTabsHeaderList = styled.div`
         box-shadow: none;
       `}
 
-      ${({ align }) =>
-        align === "right" &&
-        css`
-          justify-content: flex-start;
-        `}
+      ${align === "right" &&
+      css`
+        justify-content: flex-start;
+      `}
     `}
 `;
-
-StyledTabsHeaderWrapper.defaultProps = {
-  position: "top",
-};
-
-StyledTabsHeaderWrapper.propTypes = {
-  position: PropTypes.oneOf(["top", "left"]),
-  isInSidebar: PropTypes.bool,
-};
-
-StyledTabsHeaderList.defaultProps = {
-  align: "left",
-  position: "top",
-  extendedLine: true,
-};
-
-StyledTabsHeaderList.propTypes = {
-  align: PropTypes.oneOf(["left", "right"]),
-  position: PropTypes.oneOf(["top", "left"]),
-  isInSidebar: PropTypes.bool,
-};
 
 export { StyledTabsHeaderWrapper, StyledTabsHeaderList };

@@ -1,9 +1,9 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
-import Tab from "./tab.component";
+import Tab, { TabProps } from ".";
 import Textbox from "../../textbox";
-import StyledTab from "./tab.style";
+import StyledTab, { StyledTabProps } from "./tab.style";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
@@ -12,7 +12,7 @@ import {
 const updateErrors = jest.fn();
 const updateWarnings = jest.fn();
 const tabId = "uniqueid1";
-function render(props) {
+function render(props: Partial<TabProps> = {}) {
   return mount(
     <Tab
       errorMessage="error"
@@ -28,7 +28,12 @@ function render(props) {
   );
 }
 
-function renderWithValidation(props) {
+function renderWithValidation(
+  props: Partial<TabProps> & {
+    id?: string;
+    validations: Record<string, string | boolean>;
+  }
+) {
   return mount(
     <Tab
       errorMessage="error"
@@ -48,17 +53,15 @@ function renderWithValidation(props) {
   );
 }
 
-function renderStyles(props) {
-  return TestRenderer.create(
-    <StyledTab title="Tab Title 1" dataTabId="uniqueid1" {...props} />
-  );
+function renderStyles(props: StyledTabProps = {}) {
+  return TestRenderer.create(<StyledTab title="Tab Title 1" {...props} />);
 }
 
 describe("Tab", () => {
   let wrapper;
 
   testStyledSystemPadding((props) => (
-    <Tab title="Tab Title 1" tabId="uniqueid1" isTabSelected {...props}>
+    <Tab title="Tab Title 1" tabId={tabId} isTabSelected {...props}>
       TabContent
     </Tab>
   ));
@@ -67,7 +70,7 @@ describe("Tab", () => {
     <Tab
       position="left"
       title="Tab Title 1"
-      tabId="uniqueid1"
+      tabId={tabId}
       isTabSelected
       {...props}
     >

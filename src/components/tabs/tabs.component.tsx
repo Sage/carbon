@@ -8,9 +8,9 @@ import React, {
   createRef,
   cloneElement,
   Children,
+  ReactElement,
 } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { MarginProps } from "styled-system";
 import Tab from "./tab";
 import Event from "../../__internal__/utils/helpers/events";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
@@ -18,11 +18,51 @@ import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
 import { DrawerSidebarContext } from "../drawer";
-import { filterStyledSystemMarginProps } from "../../style/utils";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+export interface TabsProps extends MarginProps {
+  /** @ignore @private */
+  className?: string;
+  /** Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered */
+  renderHiddenTabs?: boolean;
+  /** Allows manual control over the currently selected tab. */
+  selectedTabId?: string;
+  /** The child elements of Tabs need to be Tab components. */
+  children: React.ReactNode;
+  /** Sets the alignment of the tab titles. Possible values include. */
+  align?: "left" | "right";
+  /** A callback for when a tab is changed. You can use this to manually control
+   * tab changing or to fire other events when a tab is changed.
+   */
+  onTabChange?: (tabId: string) => void;
+  /** The position of the tab title. */
+  position?: "top" | "left";
+  /** Sets size of the tab titles. */
+  size?: "default" | "large";
+  /** Sets the divider of the tab titles header to extend the full width of the parent. */
+  extendedLine?: boolean;
+  /** Adds a combination of borders to the tab titles. */
+  borders?: "off" | "on" | "no left side" | "no right side" | "no sides";
+  /** Adds an alternate styling variant to the tab titles. */
+  variant?: "default" | "alternate";
+  /** sets width to the tab headers. Can be any valid CSS string.
+   * The headerWidth prop works only for `position="left"`
+   */
+  headerWidth?: string;
+  /** An object to support overriding validation statuses, when the Tabs have custom targets for example.
+   * The `id` property should match the `tabId`s for the rendered Tabs.
+   */
+  validationStatusOverride?: {
+    [id: string]: {
+      error?: boolean;
+      warning?: boolean;
+      info?: boolean;
+    };
+  };
+  /** When this prop is set any string validation failures in the children of each Tab
+   * will be summaraised in the Tooltip next to the Tab title
+   */
+  showValidationsSummary?: boolean;
+}
 
 const Tabs = ({
   align = "left",
@@ -40,12 +80,19 @@ const Tabs = ({
   headerWidth,
   showValidationsSummary,
   ...rest
-}) => {
+}: TabsProps) => {
+  if (position !== "left" && headerWidth !== undefined) {
+    // eslint-disable-next-line no-console
+    console.error(
+      "Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left"
+    );
+  }
+
   /** The children nodes converted into an Array */
   const filteredChildren = useMemo(
     () => Children.toArray(children).filter((child) => child),
     [children]
-  );
+  ) as ReactElement[];
 
   /** Array of the tabIds for the child nodes */
   const tabIds = useMemo(
@@ -54,21 +101,27 @@ const Tabs = ({
   );
 
   /** Array of refs to the TabTitle nodes */
-  const tabRefs = useMemo(
+  const tabRefs = useMemo<React.RefObject<HTMLElement>[]>(
     () =>
       Array.from({ length: filteredChildren.length }).map(() => createRef()),
     [filteredChildren.length]
   );
 
   const previousSelectedTabId = useRef(selectedTabId);
-  const [selectedTabIdState, setSelectedTabIdState] = useState(
-    selectedTabId || filteredChildren[0].props.tabId
-  );
+  const [selectedTabIdState, setSelectedTabIdState] = useState<
+    string | undefined
+  >(selectedTabId || filteredChildren[0].props.tabId);
   const [tabStopId, setTabStopId] = useState();
   const { isInSidebar } = useContext(DrawerSidebarContext);
-  const [tabsErrors, setTabsErrors] = useState({});
-  const [tabsWarnings, setTabsWarnings] = useState({});
-  const [tabsInfos, setTabsInfos] = useState({});
+  const [tabsErrors, setTabsErrors] = useState<
+    Record<string, Record<string, string | boolean>>
+  >({});
+  const [tabsWarnings, setTabsWarnings] = useState<
+    Record<string, Record<string, string | boolean>>
+  >({});
+  const [tabsInfos, setTabsInfos] = useState<
+    Record<string, Record<string, string | boolean>>
+  >({});
 
   const updateErrors = useCallback((id, error) => {
     setTabsErrors((state) => ({ ...state, [id]: error }));
@@ -106,7 +159,10 @@ const Tabs = ({
   );
 
   const blurPreviousSelectedTab = useCallback(() => {
-    const previousTabIndex = tabIds.indexOf(previousSelectedTabId.current);
+    const { current } = previousSelectedTabId;
+    const previousTabIndex = current
+      ? tabIds.indexOf(current)
+      : /* istanbul ignore next */ -1;
     /* istanbul ignore else */
     if (previousTabIndex !== -1) {
       const previousTabRef = tabRefs[previousTabIndex];
@@ -130,20 +186,20 @@ const Tabs = ({
   ]);
 
   /** Handles the changing of tabs with the mouse */
-  const handleTabClick = (ev) => {
+  const handleTabClick = (ev: React.MouseEvent<HTMLElement>) => {
     if (Event.isEventType(ev, "keydown")) {
       return;
     }
-    const { tabid } = ev.target.dataset;
+    const { tabid } = (ev.target as HTMLElement).dataset;
 
     updateVisibleTab(tabid);
   };
 
   /** Focuses the tab for the reference specified */
-  const focusTab = (ref) => ref.current.focus();
+  const focusTab = (ref: React.RefObject<HTMLElement>) => ref.current?.focus();
 
   /** Will trigger the tab at the given index. */
-  const goToTab = (event, index) => {
+  const goToTab = (event: React.KeyboardEvent<HTMLElement>, index: number) => {
     event.preventDefault();
     let newIndex = index;
 
@@ -159,8 +215,8 @@ const Tabs = ({
   };
 
   /** Handles the keyboard navigation of tabs */
-  const handleKeyDown = (index) => {
-    return (event) => {
+  const handleKeyDown = (index: number) => {
+    return (event: React.KeyboardEvent<HTMLElement>) => {
       const isTabVertical = isInSidebar || position === "left";
       const isUp = isTabVertical && Event.isUpKey(event);
       const isDown = isTabVertical && Event.isDownKey(event);
@@ -219,10 +275,13 @@ const Tabs = ({
           ? infoOverride
           : !!infosCount && !tabHasError && !tabHasWarning;
 
-      const getValidationMessage = (message, validations = {}) => {
+      const getValidationMessage = (
+        message: string | undefined,
+        validations: Record<string, string | boolean> = {}
+      ): string | undefined => {
         const summaryOfMessages = Object.values(validations).filter(
           (value) => value && typeof value === "string"
-        );
+        ) as string[];
 
         if (!showValidationsSummary || !summaryOfMessages.length) {
           return message;
@@ -246,7 +305,7 @@ const Tabs = ({
           onClick={handleTabClick}
           onKeyDown={handleKeyDown(index)}
           ref={tabRefs[index]}
-          tabIndex={isTabSelected(tabId) || hasTabStop(tabId) ? "0" : "-1"}
+          tabIndex={isTabSelected(tabId) || hasTabStop(tabId) ? 0 : -1}
           title={title}
           href={href}
           isTabSelected={isTabSelected(tabId)}
@@ -329,8 +388,6 @@ const Tabs = ({
     <StyledTabs
       className={className}
       position={isInSidebar ? "left" : position}
-      updateErrors={updateErrors}
-      updateWarnings={updateWarnings}
       {...tagComponent("tabs", rest)}
       isInSidebar={isInSidebar}
       headerWidth={headerWidth}
@@ -340,67 +397,6 @@ const Tabs = ({
       {renderTabs()}
     </StyledTabs>
   );
-};
-
-Tabs.propTypes = {
-  ...marginPropTypes,
-  /** @ignore @private */
-  className: PropTypes.string,
-  /** Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered */
-  renderHiddenTabs: PropTypes.bool,
-  /** Allows manual control over the currently selected tab. */
-  selectedTabId: PropTypes.string,
-  /** The child elements of Tabs need to be Tab components. */
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
-  /** Sets the alignment of the tab titles. Possible values include. */
-  align: PropTypes.oneOf(["left", "right"]),
-  /** A callback for when a tab is changed. You can use this to manually control
-   * tab changing or to fire other events when a tab is changed. */
-  onTabChange: PropTypes.func,
-  /** The position of the tab title. */
-  position: PropTypes.oneOf(["top", "left"]),
-  /** Sets size of the tab titles. */
-  size: PropTypes.oneOf(["default", "large"]),
-  /** Sets the divider of the tab titles header to extend the full width of the parent. */
-  extendedLine: PropTypes.bool,
-  /** Adds a combination of borders to the tab titles. */
-  borders: PropTypes.oneOf([
-    "off",
-    "on",
-    "no left side",
-    "no right side",
-    "no sides",
-  ]),
-  /** sets width to the tab headers. Can be any valid CSS string.
-   * The headerWidth prop works only for `position="left"`
-   */
-  headerWidth: (props, propName, componentName) => {
-    if (props.position !== "left" && props[propName] !== undefined) {
-      return new Error(
-        `Invalid usage of prop ${propName} in ${componentName}. The ${propName} can be used only if position is set to left`
-      );
-    }
-
-    return null;
-  },
-  /** Adds an alternate styling variant to the tab titles. */
-  variant: PropTypes.oneOf(["default", "alternate"]),
-  /** An object to support overriding validation statuses, when the Tabs have custom targets for example.
-   * The `id` property should match the `tabId`s for the rendered Tabs. */
-  validationStatusOverride: PropTypes.shape({
-    id: PropTypes.shape({
-      error: PropTypes.bool,
-      warning: PropTypes.bool,
-      info: PropTypes.bool,
-    }),
-  }),
-  /** When this prop is set any string validation failures in the children of each Tab
-   * will be summaraised in the Tooltip next to the Tab title
-   */
-  showValidationsSummary: PropTypes.bool,
 };
 
 export { Tabs, Tab };

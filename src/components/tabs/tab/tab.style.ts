@@ -1,12 +1,16 @@
 import styled, { css } from "styled-components";
-import propTypes from "prop-types";
 import { padding } from "styled-system";
-import BaseTheme from "../../../style/themes/base";
+import BaseTheme, { ThemeObject } from "../../../style/themes/base";
+import { TabProps } from ".";
 
-const StyledTab = styled.div`
+export type StyledTabProps = Pick<TabProps, "position" | "isTabSelected"> & {
+  theme?: ThemeObject;
+};
+
+const StyledTab = styled.div<StyledTabProps>`
   display: none;
 
-  ${({ isTabSelected, position }) =>
+  ${({ isTabSelected, position = "top" }) =>
     isTabSelected &&
     css`
       display: block;
@@ -21,12 +25,7 @@ const StyledTab = styled.div`
 `;
 
 StyledTab.defaultProps = {
-  position: "top",
   theme: BaseTheme,
-};
-
-StyledTab.propTypes = {
-  position: propTypes.oneOf(["top", "left"]),
 };
 
 export default StyledTab;

@@ -1,23 +1,25 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
-import TabsHeader from "./tabs-header.component";
+import TabsHeader, { TabHeaderProps } from "./tabs-header.component";
 import {
   StyledTabsHeaderWrapper,
   StyledTabsHeaderList,
+  StyledTabsHeaderListProps,
 } from "./tabs-header.style";
 import TabTitle from "../tab-title/tab-title.component";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 
-function render(props, renderer = shallow) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function render(props: Partial<TabHeaderProps> = {}, renderer: any = shallow) {
   return renderer(
     <TabsHeader {...props}>
-      <TabTitle title="title-1" tabId="tabId-1" />
-      <TabTitle title="title-2" tabId="tabId-2" />
+      <TabTitle title="title-1" onClick={() => {}} onKeyDown={() => {}} />
+      <TabTitle title="title-2" onClick={() => {}} onKeyDown={() => {}} />
     </TabsHeader>
   );
 }
 
-function renderStyles(props) {
+function renderStyles(props: Partial<StyledTabsHeaderListProps> = {}) {
   return mount(<StyledTabsHeaderList {...props} />);
 }
 
@@ -34,10 +36,6 @@ describe("TabsHeader", () => {
       },
       renderStyles()
     );
-  });
-
-  it("renders children correctly", () => {
-    expect(render().find(StyledTabsHeaderList).children()).toHaveLength(2);
   });
 
   it("renders children correctly", () => {

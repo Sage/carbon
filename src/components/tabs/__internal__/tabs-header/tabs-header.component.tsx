@@ -1,9 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
   StyledTabsHeaderWrapper,
   StyledTabsHeaderList,
 } from "./tabs-header.style";
+
+export interface TabHeaderProps {
+  role?: string;
+  position?: "top" | "left";
+  extendedLine?: boolean;
+  noRightBorder?: boolean;
+  alternateStyling?: boolean;
+  isInSidebar?: boolean;
+  children: React.ReactNode;
+  align?: "left" | "right";
+}
 
 const TabsHeader = ({
   align = "left",
@@ -14,7 +24,7 @@ const TabsHeader = ({
   alternateStyling,
   noRightBorder = false,
   isInSidebar = false,
-}) => {
+}: TabHeaderProps) => {
   return (
     <StyledTabsHeaderWrapper isInSidebar={isInSidebar} position={position}>
       <StyledTabsHeaderList
@@ -30,17 +40,6 @@ const TabsHeader = ({
       </StyledTabsHeaderList>
     </StyledTabsHeaderWrapper>
   );
-};
-
-TabsHeader.propTypes = {
-  align: PropTypes.oneOf(["left", "right"]),
-  children: PropTypes.node.isRequired,
-  position: PropTypes.oneOf(["top", "left"]),
-  role: PropTypes.string,
-  extendedLine: PropTypes.bool,
-  alternateStyling: PropTypes.bool,
-  noRightBorder: PropTypes.bool,
-  isInSidebar: PropTypes.bool,
 };
 
 export default TabsHeader;

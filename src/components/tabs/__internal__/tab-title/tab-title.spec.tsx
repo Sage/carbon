@@ -1,10 +1,10 @@
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
-import { css } from "styled-components";
-import TabTitle from "./tab-title.component";
+import TabTitle, { TabTitleProps } from "./tab-title.component";
 import {
-  StyledTabTitle,
+  StyledTabTitleButton,
+  StyledTabTitleLink,
   StyledTitleContent,
   StyledLayoutWrapper,
   StyledSelectedIndicator,
@@ -16,16 +16,34 @@ import StyledValidationIcon from "../../../../__internal__/validations/validatio
 import Icon from "../../../icon";
 import StyledIcon from "../../../icon/icon.style";
 import Tooltip from "../../../tooltip";
+import { ThemeObject } from "../../../../style/themes/base";
 
-function render(props, renderer = shallow, container = {}) {
+function render(
+  props: Partial<TabTitleProps> & {
+    theme?: Partial<ThemeObject>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ref?: React.ForwardedRef<any>;
+  } = {},
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  renderer: any = shallow,
+  container = {}
+) {
   return renderer(
-    <TabTitle title="Tab Title 1" dataTabId="uniqueid1" {...props} />,
+    <TabTitle
+      onClick={() => {}}
+      onKeyDown={() => {}}
+      title="Tab Title 1"
+      dataTabId="uniqueid1"
+      {...props}
+    />,
     container
   );
 }
 
+const TEST_SIBLINGS = [<span key="foo">foo</span>, <span key="bar">bar</span>];
+
 describe("TabTitle", () => {
-  let wrapper;
+  let wrapper: ReactWrapper | ShallowWrapper;
   it("renders as expected", () => {
     assertStyleMatch(
       {
@@ -34,7 +52,7 @@ describe("TabTitle", () => {
         fontWeight: "bold",
         height: "var(--sizing500)",
       },
-      render({}, mount).find(StyledTabTitle)
+      render({}, mount).find(StyledTabTitleButton)
     );
   });
 
@@ -80,7 +98,7 @@ describe("TabTitle", () => {
       );
       assertStyleMatch(
         { height: "var(--sizing600)" },
-        wrapper.find(StyledTabTitle)
+        wrapper.find(StyledTabTitleButton)
       );
     });
   });
@@ -91,7 +109,7 @@ describe("TabTitle", () => {
       global.open = jest.fn();
 
       wrapper
-        .find(StyledTabTitle)
+        .find(StyledTabTitleLink)
         .props()
         .onKeyDown({ key: " ", stopPropagation: () => {} });
       expect(global.open).toHaveBeenCalledWith("randomUrl", "_blank");
@@ -105,13 +123,14 @@ describe("TabTitle", () => {
           title="Tab Title 1"
           dataTabId="uniqueid1"
           onClick={() => {}}
+          onKeyDown={() => {}}
         >
           <StyledTitleContent />
         </TabTitle>
       );
       global.open = jest.fn();
       wrapper
-        .find(StyledTabTitle)
+        .find(StyledTabTitleLink)
         .props()
         .onClick({ stopPropagation: () => {}, preventDefault: () => {} });
       expect(global.open).toHaveBeenCalledWith("randomUrl", "_blank");
@@ -125,7 +144,7 @@ describe("TabTitle", () => {
       global.open = jest.fn();
 
       wrapper
-        .find(StyledTabTitle)
+        .find(StyledTabTitleButton)
         .props()
         .onKeyDown({ key: " ", stopPropagation: () => {} });
       expect(global.open).not.toHaveBeenCalled();
@@ -150,7 +169,7 @@ describe("TabTitle", () => {
           {
             marginLeft: "-1px",
           },
-          wrapper.find(StyledTabTitle),
+          wrapper.find(StyledTabTitleButton),
           { modifier: ":nth-of-type(n + 1)" }
         );
       });
@@ -166,7 +185,7 @@ describe("TabTitle", () => {
             outline:
               "var(--borderWidth300) solid var(--colorsSemanticFocus500)",
           },
-          wrapper.find(StyledTabTitle),
+          wrapper.find(StyledTabTitleButton),
           { modifier: ":focus" }
         );
 
@@ -199,7 +218,7 @@ describe("TabTitle", () => {
             outline:
               "var(--borderWidth300) solid var(--colorsSemanticFocus500)",
           },
-          wrapper.find(StyledTabTitle),
+          wrapper.find(StyledTabTitleButton),
           { modifier: ":focus" }
         );
 
@@ -239,7 +258,7 @@ describe("TabTitle", () => {
         {
           outline: "var(--borderWidth300) solid var(--colorsSemanticFocus500)",
         },
-        wrapper.find(StyledTabTitle),
+        wrapper.find(StyledTabTitleButton),
         { modifier: ":focus" }
       );
     });
@@ -259,7 +278,7 @@ describe("TabTitle", () => {
         {
           outline: "var(--borderWidth300) solid var(--colorsSemanticFocus500)",
         },
-        wrapper.find(StyledTabTitle),
+        wrapper.find(StyledTabTitleButton),
         { modifier: ":focus" }
       );
     });
@@ -277,14 +296,14 @@ describe("TabTitle", () => {
           height: "auto",
           marginLeft: "0px",
         },
-        wrapper.find(StyledTabTitle)
+        wrapper.find(StyledTabTitleButton)
       );
 
       assertStyleMatch(
         {
           background: "var(--colorsActionMinor100)",
         },
-        wrapper.find(StyledTabTitle),
+        wrapper.find(StyledTabTitleButton),
         { modifier: ":hover" }
       );
 
@@ -292,7 +311,7 @@ describe("TabTitle", () => {
         {
           marginTop: "0",
         },
-        wrapper.find(StyledTabTitle),
+        wrapper.find(StyledTabTitleButton),
         { modifier: ":first-child" }
       );
     });
@@ -348,7 +367,7 @@ describe("TabTitle", () => {
             {
               marginTop: "-1px",
             },
-            wrapper.find(StyledTabTitle),
+            wrapper.find(StyledTabTitleButton),
             { modifier: ":nth-of-type(n + 1)" }
           );
 
@@ -381,7 +400,7 @@ describe("TabTitle", () => {
           color: "var(--colorsActionMajorYin090)",
           backgroundColor: "var(--colorsActionMajorYang100)",
         },
-        wrapper.find(StyledTabTitle)
+        wrapper.find(StyledTabTitleButton)
       );
 
       assertStyleMatch(
@@ -390,7 +409,7 @@ describe("TabTitle", () => {
           borderBottomColor: "var(--colorsActionMajor500)",
           color: "var(--colorsActionMajorYin090)",
         },
-        wrapper.find(StyledTabTitle),
+        wrapper.find(StyledTabTitleButton),
         { modifier: ":hover" }
       );
     });
@@ -418,14 +437,14 @@ describe("TabTitle", () => {
           {
             backgroundColor: "var(--colorsActionMajorYang100)",
           },
-          wrapper.find(StyledTabTitle)
+          wrapper.find(StyledTabTitleButton)
         );
 
         assertStyleMatch(
           {
             backgroundColor: "var(--colorsActionMajorYang100)",
           },
-          wrapper.find(StyledTabTitle),
+          wrapper.find(StyledTabTitleButton),
           { modifier: ":hover" }
         );
       });
@@ -462,7 +481,7 @@ describe("TabTitle", () => {
         {
           color: "var(--colorsActionMinorYin090)",
         },
-        wrapper.find(StyledTabTitle)
+        wrapper.find(StyledTabTitleButton)
       );
 
       assertStyleMatch(
@@ -471,7 +490,7 @@ describe("TabTitle", () => {
           color: "var(--colorsActionMinorYin090)",
           outline: "none",
         },
-        wrapper.find(StyledTabTitle),
+        wrapper.find(StyledTabTitleButton),
         { modifier: ":hover" }
       );
     });
@@ -482,7 +501,7 @@ describe("TabTitle", () => {
       wrapper = render(
         {
           title: "Tab 1",
-          siblings: [<span>foo</span>, <span>bar</span>],
+          siblings: TEST_SIBLINGS,
           titlePosition: "before",
         },
         mount
@@ -504,7 +523,7 @@ describe("TabTitle", () => {
       wrapper = render(
         {
           title: "Tab 1",
-          siblings: [<span>foo</span>, <span>bar</span>],
+          siblings: TEST_SIBLINGS,
           titlePosition: "after",
         },
         mount
@@ -525,7 +544,7 @@ describe("TabTitle", () => {
       wrapper = render(
         {
           title: "Tab 1",
-          siblings: [<span>foo</span>, <span>bar</span>],
+          siblings: TEST_SIBLINGS,
           titlePosition: "before",
           isTabSelected: true,
           position: "left",
@@ -549,7 +568,7 @@ describe("TabTitle", () => {
       wrapper = render(
         {
           title: "Tab 1",
-          siblings: [<span>foo</span>, <span>bar</span>],
+          siblings: TEST_SIBLINGS,
           titlePosition: "before",
           size: "large",
         },
@@ -571,7 +590,7 @@ describe("TabTitle", () => {
       wrapper = render(
         {
           title: "Tab 1",
-          siblings: [<span>foo</span>, <span>bar</span>],
+          siblings: TEST_SIBLINGS,
           titlePosition: "before",
           size: "large",
           position: "left",
@@ -660,9 +679,7 @@ describe("TabTitle", () => {
           },
           wrapper.find(StyledLayoutWrapper),
           {
-            modifier: css`
-              ${StyledValidationIcon} ${StyledIcon}
-            `,
+            modifier: `${StyledValidationIcon} ${StyledIcon}`,
           }
         );
       });
@@ -795,9 +812,7 @@ describe("TabTitle", () => {
           },
           wrapper.find(StyledLayoutWrapper),
           {
-            modifier: css`
-              ${StyledValidationIcon} ${StyledIcon}
-            `,
+            modifier: `${StyledValidationIcon} ${StyledIcon}`,
           }
         );
       });
@@ -925,9 +940,7 @@ describe("TabTitle", () => {
           },
           wrapper.find(StyledLayoutWrapper),
           {
-            modifier: css`
-              ${StyledValidationIcon} ${StyledIcon}
-            `,
+            modifier: `${StyledValidationIcon} ${StyledIcon}`,
           }
         );
       });
@@ -1027,7 +1040,7 @@ describe("TabTitle", () => {
 
   describe("setting alternateStyling prop", () => {
     describe("when TabTitle is selected, focused or hovered", () => {
-      it.each(["default", "large"])(
+      it.each(["default", "large"] as const)(
         "applies the correct background-color when size is %s",
         (size) => {
           wrapper = render({ alternateStyling: true, size }, mount);
@@ -1035,7 +1048,7 @@ describe("TabTitle", () => {
             {
               backgroundColor: "var(--colorsActionMinor200)",
             },
-            wrapper.find(StyledTabTitle),
+            wrapper.find(StyledTabTitleButton),
             { modifier: ":focus" }
           );
 
@@ -1043,7 +1056,7 @@ describe("TabTitle", () => {
             {
               backgroundColor: "var(--colorsActionMinor250)",
             },
-            wrapper.find(StyledTabTitle),
+            wrapper.find(StyledTabTitleButton),
             { modifier: ":hover" }
           );
 
@@ -1054,7 +1067,7 @@ describe("TabTitle", () => {
             render(
               { alternateStyling: true, isTabSelected: true, size },
               mount
-            ).find(StyledTabTitle)
+            ).find(StyledTabTitleButton)
           );
         }
       );
@@ -1066,7 +1079,7 @@ describe("TabTitle", () => {
           {
             borderRightColor: "var(--colorsActionMinor100)",
           },
-          wrapper.find(StyledTabTitle),
+          wrapper.find(StyledTabTitleButton),
           { modifier: ":hover" }
         );
       });
@@ -1102,14 +1115,14 @@ describe("TabTitle", () => {
           {
             borderRightColor: "var(--colorsActionMinor100)",
           },
-          wrapper.find(StyledTabTitle)
+          wrapper.find(StyledTabTitleButton)
         );
 
         assertStyleMatch(
           {
             borderRightColor: "var(--colorsActionMinor100)",
           },
-          wrapper.find(StyledTabTitle),
+          wrapper.find(StyledTabTitleButton),
           { modifier: ":hover" }
         );
       });
@@ -1132,7 +1145,7 @@ describe("TabTitle", () => {
       );
 
       wrapper
-        .find(StyledTabTitle)
+        .find(StyledTabTitleButton)
         .props()
         .onClick({ stopPropagation, target: {}, preventDefault });
       expect(onClick).toHaveBeenCalledWith(customEvent);
@@ -1351,7 +1364,7 @@ describe("TabTitle", () => {
   });
 
   describe("TabTitleContext", () => {
-    let container;
+    let container: HTMLDivElement | null;
 
     beforeEach(() => {
       container = document.createElement("div");
@@ -1360,7 +1373,7 @@ describe("TabTitle", () => {
 
       wrapper = render(
         {
-          siblings: [<Icon tooltipMessage="foo" type="home" />],
+          siblings: [<Icon key="foo" tooltipMessage="foo" type="home" />],
           ref: { current: null },
         },
         mount,
@@ -1380,7 +1393,7 @@ describe("TabTitle", () => {
 
     it("sets showTooltip to true when the TabTitle is focused", () => {
       act(() => {
-        wrapper.find(StyledTabTitle).prop("onFocus")();
+        wrapper.find(StyledTabTitleButton).prop("onFocus")();
       });
 
       expect(wrapper.update().find(Tooltip).prop("isVisible")).toBe(true);
@@ -1388,7 +1401,7 @@ describe("TabTitle", () => {
 
     it("sets showTooltip to true when the TabTitle is hovered", () => {
       act(() => {
-        wrapper.find(StyledTabTitle).prop("onMouseOver")();
+        wrapper.find(StyledTabTitleButton).prop("onMouseOver")();
       });
 
       expect(wrapper.update().find(Tooltip).prop("isVisible")).toBe(true);
@@ -1396,8 +1409,8 @@ describe("TabTitle", () => {
 
     it("sets showTooltip to false when the TabTitle is blurred", () => {
       act(() => {
-        wrapper.find(StyledTabTitle).prop("onFocus")();
-        wrapper.update().find(StyledTabTitle).prop("onBlur")();
+        wrapper.find(StyledTabTitleButton).prop("onFocus")();
+        wrapper.update().find(StyledTabTitleButton).prop("onBlur")();
       });
 
       expect(wrapper.update().find(Tooltip).prop("isVisible")).toBe(false);
@@ -1405,8 +1418,8 @@ describe("TabTitle", () => {
 
     it("sets showTooltip to false when the TabTitle is not hovered", () => {
       act(() => {
-        wrapper.find(StyledTabTitle).prop("onMouseOver")();
-        wrapper.update().find(StyledTabTitle).prop("onMouseLeave")();
+        wrapper.find(StyledTabTitleButton).prop("onMouseOver")();
+        wrapper.update().find(StyledTabTitleButton).prop("onMouseLeave")();
       });
 
       expect(wrapper.update().find(Tooltip).prop("isVisible")).toBe(false);
@@ -1414,8 +1427,8 @@ describe("TabTitle", () => {
 
     it("does not set showTooltip to false when TabTitle is blurred but still hovered with mouse", () => {
       act(() => {
-        wrapper.find(StyledTabTitle).prop("onMouseOver")();
-        wrapper.update().find(StyledTabTitle).prop("onBlur")();
+        wrapper.find(StyledTabTitleButton).prop("onMouseOver")();
+        wrapper.update().find(StyledTabTitleButton).prop("onBlur")();
       });
 
       expect(wrapper.update().find(Tooltip).prop("isVisible")).toBe(true);

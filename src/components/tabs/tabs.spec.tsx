@@ -1,15 +1,14 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useContext } from "react";
-import { mount, shallow } from "enzyme";
+import { mount, shallow, MountRendererProps, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
-import { css } from "styled-components";
 import TabTitle from "./__internal__/tab-title/tab-title.component";
-import { Tabs, Tab } from "./tabs.component";
+import { Tabs, Tab, TabsProps } from ".";
 import { TabContext } from "./tab/index";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
-import StyledTabs from "./tabs.style";
+import StyledTabs, { StyledTabsProps } from "./tabs.style";
 import StyledTab from "./tab/tab.style";
-import { StyledTabTitle } from "./__internal__/tab-title/tab-title.style";
+import { StyledTabTitleButton } from "./__internal__/tab-title/tab-title.style";
 import {
   assertStyleMatch,
   simulate,
@@ -19,9 +18,21 @@ import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.
 import { DrawerSidebarContext } from "../drawer";
 import Textbox from "../textbox";
 import NumeralDate from "../numeral-date";
-import ValidationIcon from "../../__internal__/validations";
+import ValidationIcon, {
+  ValidationProps,
+} from "../../__internal__/validations";
 
-function render(props, mountOptions) {
+const mockTarget = (tabid: string) =>
+  (({ dataset: { tabid } } as unknown) as HTMLElement);
+const mockEvent = (type: string, tabId: string) =>
+  (({ type, target: mockTarget(tabId) } as unknown) as React.MouseEvent<
+    HTMLButtonElement | HTMLAnchorElement
+  >);
+
+function render(
+  props: Partial<TabsProps> = {},
+  mountOptions: MountRendererProps = {}
+) {
   return mount(
     <Tabs {...props}>
       <Tab
@@ -56,17 +67,29 @@ function render(props, mountOptions) {
   );
 }
 
-function renderStyles(props) {
+function renderStyles(props: StyledTabsProps) {
   return mount(<StyledTabs {...props} />);
 }
 
-const TabChildren = ({ id, error, warning, info, text }) => {
+interface MockValidationProps {
+  one?: string | boolean;
+  two?: string | boolean;
+  three?: string | boolean;
+  four?: string | boolean;
+}
+
+interface TabChildrenProps extends ValidationProps {
+  id: string;
+  text?: string | boolean;
+}
+
+const TabChildren = ({ id, error, warning, info, text }: TabChildrenProps) => {
   const context = useContext(TabContext);
 
   useEffect(() => {
-    context.setError(id, !!error);
-    context.setWarning(id, !!warning);
-    context.setInfo(id, !!info);
+    context.setError?.(id, !!error);
+    context.setWarning?.(id, !!warning);
+    context.setInfo?.(id, !!info);
   }, [id, context, error, warning, info]);
 
   return (
@@ -76,13 +99,19 @@ const TabChildren = ({ id, error, warning, info, text }) => {
   );
 };
 
+type MockWrapperProps = Partial<TabsProps> & {
+  errors?: MockValidationProps;
+  warnings?: MockValidationProps;
+  infos?: MockValidationProps;
+};
+
 const MockWrapper = ({
   errors = {},
   warnings = {},
   infos = {},
   validationStatusOverride = undefined,
   renderHiddenTabs = true,
-}) => {
+}: MockWrapperProps) => {
   return (
     <Tabs
       validationStatusOverride={validationStatusOverride}
@@ -164,7 +193,13 @@ describe("Tabs", () => {
   // TODO move this test into cypress when FE-4580 is merged
   describe("when children of a Tab update", () => {
     it("does not update the selected tab", () => {
-      const MockComponent = ({ selectedTabId, updateChild }) => {
+      const MockComponent = ({
+        selectedTabId,
+        updateChild,
+      }: {
+        selectedTabId?: string;
+        updateChild: boolean;
+      }) => {
         return (
           <Tabs selectedTabId={selectedTabId}>
             <Tab title="Tab Title 1" tabId="uniqueid1">
@@ -229,9 +264,7 @@ describe("Tabs", () => {
             },
             wrapper,
             {
-              modifier: css`
-                ${StyledTabsHeaderWrapper}
-              `,
+              modifier: `${StyledTabsHeaderWrapper}`,
             }
           );
 
@@ -241,9 +274,7 @@ describe("Tabs", () => {
             },
             wrapper,
             {
-              modifier: css`
-                ${StyledTab}
-              `,
+              modifier: `${StyledTab}`,
             }
           );
         });
@@ -252,7 +283,7 @@ describe("Tabs", () => {
   });
 
   describe('when `headerWidth` is provided, and `position="top"`', () => {
-    it(" should render console error", () => {
+    it("should render console error", () => {
       const consoleSpy = jest
         .spyOn(global.console, "error")
         .mockImplementation(() => {});
@@ -265,8 +296,7 @@ describe("Tabs", () => {
         </Tabs>
       );
 
-      // eslint-disable-next-line no-console
-      expect(console.error.mock.calls[0][2]).toBe(
+      expect(consoleSpy).toHaveBeenCalledWith(
         "Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left"
       );
 
@@ -314,8 +344,8 @@ describe("Tabs", () => {
               title="Tab Title 1"
               tabId="uniqueid1"
             >
-              <div name="foo" />
-              <div name="bar" />
+              <div id="foo" />
+              <div id="bar" />
             </Tab>
             <Tab
               errorMessage=""
@@ -324,8 +354,8 @@ describe("Tabs", () => {
               title="Tab Title 2"
               tabId="uniqueid2"
             >
-              <div name="baz" />
-              <div name="bax" />
+              <div id="baz" />
+              <div id="bax" />
             </Tab>
             <Tab
               errorMessage=""
@@ -334,8 +364,8 @@ describe("Tabs", () => {
               title="Tab Title 3"
               tabId="uniqueid3"
             >
-              <div name="baz" />
-              <div name="bax" />
+              <div id="baz" />
+              <div id="bax" />
             </Tab>
           </Tabs>
         ).find(Tab);
@@ -346,7 +376,7 @@ describe("Tabs", () => {
         expect(tab.props().tabId).toEqual("uniqueid1");
       });
 
-      it.each(["error", "warning", "info"])(
+      it.each(["error", "warning", "info"] as const)(
         "adds the correct %s state to the tab header",
         (validation) => {
           const validationProp = {
@@ -373,8 +403,8 @@ describe("Tabs", () => {
               title="Tab Title 1"
               tabId="uniqueid1"
             >
-              <div name="foo" />
-              <div name="bar" />
+              <div id="foo" />
+              <div id="bar" />
             </Tab>
             <Tab
               errorMessage=""
@@ -383,8 +413,8 @@ describe("Tabs", () => {
               title="Tab Title 2"
               tabId="uniqueid2"
             >
-              <div name="baz" />
-              <div name="bax" />
+              <div id="baz" />
+              <div id="bax" />
             </Tab>
             <Tab
               errorMessage=""
@@ -393,8 +423,8 @@ describe("Tabs", () => {
               title="Tab Title 3"
               tabId="uniqueid3"
             >
-              <div name="baz" />
-              <div name="bax" />
+              <div id="baz" />
+              <div id="bax" />
             </Tab>
           </Tabs>
         ).find(Tab);
@@ -415,10 +445,7 @@ describe("Tabs", () => {
           .find(TabTitle)
           .at(1)
           .props()
-          .onClick({
-            type: "keydown",
-            target: { dataset: { tabid: "uniqueid2" } },
-          });
+          .onClick(mockEvent("keydown", "uniqueid2"));
       });
       wrapper.update();
       expect(wrapper.find(Tab).at(1).props().isTabSelected).toEqual(false);
@@ -431,10 +458,7 @@ describe("Tabs", () => {
           .find(TabTitle)
           .at(1)
           .props()
-          .onClick({
-            type: "click",
-            target: { dataset: { tabid: "uniqueid2" } },
-          });
+          .onClick(mockEvent("click", "uniqueid2"));
       });
       wrapper.update();
       expect(wrapper.find(Tab).at(1).props().isTabSelected).toEqual(true);
@@ -448,10 +472,7 @@ describe("Tabs", () => {
           .find(TabTitle)
           .at(1)
           .props()
-          .onClick({
-            type: "click",
-            target: { dataset: { tabid: "uniqueid2" } },
-          });
+          .onClick(mockEvent("click", "uniqueid2"));
       });
       wrapper.update();
       expect(onTabChange).toHaveBeenCalledTimes(1);
@@ -476,23 +497,26 @@ describe("Tabs", () => {
       const wrapper = render(
         { selectedTabId: "uniqueid1" },
         {
-          attachTo: document.querySelector("#container"),
+          attachTo: document.querySelector("#container") as HTMLElement,
         }
       );
 
       act(() => {
-        wrapper.find(StyledTabTitle).at(0).getDOMNode().focus();
+        (wrapper
+          .find(StyledTabTitleButton)
+          .at(0)
+          .getDOMNode() as HTMLElement).focus();
       });
 
       expect(document.activeElement).toBe(
-        wrapper.find(StyledTabTitle).at(0).getDOMNode()
+        wrapper.find(StyledTabTitleButton).at(0).getDOMNode()
       );
 
       wrapper.setProps({ selectedTabId: "uniqueid2" });
       wrapper.update();
 
       expect(document.activeElement).not.toBe(
-        wrapper.find(StyledTabTitle).at(0).getDOMNode()
+        wrapper.find(StyledTabTitleButton).at(0).getDOMNode()
       );
 
       wrapper.detach();
@@ -507,10 +531,7 @@ describe("Tabs", () => {
           .find(TabTitle)
           .at(1)
           .props()
-          .onClick({
-            type: "click",
-            target: { dataset: { tabid: "uniqueid2" } },
-          });
+          .onClick(mockEvent("click", "uniqueid2"));
       });
       wrapper.update();
       wrapper.setProps({ selectedTabId: "uniqueid2" });
@@ -595,8 +616,8 @@ describe("Tabs", () => {
   });
 
   describe("when in Drawer sidebar", () => {
-    let container;
-    let wrapper;
+    let container: HTMLElement | null;
+    let wrapper: ReactWrapper;
 
     beforeEach(() => {
       container = document.createElement("div");
@@ -655,7 +676,7 @@ describe("Tabs", () => {
         const newIndex = index === 2 ? 0 : index + 1;
 
         expect(
-          wrapper.find(StyledTabTitle).at(newIndex).getDOMNode()
+          wrapper.find(StyledTabTitleButton).at(newIndex).getDOMNode()
         ).toBeFocused();
       }
     );
@@ -670,7 +691,7 @@ describe("Tabs", () => {
         const newIndex = index === 0 ? 2 : index - 1;
 
         expect(
-          wrapper.find(StyledTabTitle).at(newIndex).getDOMNode()
+          wrapper.find(StyledTabTitleButton).at(newIndex).getDOMNode()
         ).toBeFocused();
       }
     );
@@ -700,7 +721,10 @@ describe("With one Tab", () => {
 });
 
 describe("Validation", () => {
-  const updateProps = (wrapper, props) => {
+  const updateProps = (
+    wrapper: ReactWrapper<MockWrapperProps>,
+    props: MockWrapperProps
+  ) => {
     wrapper.setProps({
       errors: { ...wrapper.props().errors, ...props.errors },
       warnings: { ...wrapper.props().warnings, ...props.warnings },
@@ -866,13 +890,7 @@ describe("Validation", () => {
         </DrawerSidebarContext.Provider>
       );
       act(() => {
-        wrapper
-          .find(TabTitle)
-          .props()
-          .onClick({
-            type: "click",
-            target: { dataset: { tabid: "uniqueid1" } },
-          });
+        wrapper.find(TabTitle).props().onClick(mockEvent("click", "uniqueid1"));
       });
       expect(wrapper.find(Tab).exists()).toEqual(false);
     });
@@ -926,14 +944,14 @@ describe("Validation", () => {
   });
 
   describe("Keyboard behaviour", () => {
-    let container;
-    let wrapper;
+    let container: HTMLElement | null;
+    let wrapper: ReactWrapper;
     const tabTitles = ["tab-1", "tab-2", "tab-3"];
 
     const ConditionalChildrenMock = () => {
       const [showAllTabs, setShowAllTabs] = React.useState(true);
 
-      const generateTab = (tabTitle) => (
+      const generateTab = (tabTitle: string) => (
         <Tab title={tabTitle} tabId={tabTitle} key={tabTitle}>
           {tabTitle}
         </Tab>
@@ -974,41 +992,50 @@ describe("Validation", () => {
       container = null;
     });
 
-    const runFocusExpectations = (keyDown, array) =>
+    const runFocusExpectations = (keyDown: string, array: number[]) =>
       array.forEach((index) => {
-        const child = wrapper.update().find(StyledTabTitle).at(index);
+        const child = wrapper.update().find(StyledTabTitleButton).at(index);
         expect(child.getDOMNode()).toBeFocused();
         simulate.keydown[keyDown](child);
       });
 
     const toggleChildren = () => {
       act(() => {
-        wrapper.find("#foo").prop("onClick")();
+        wrapper.find("#foo").simulate("click");
       });
 
-      expect(wrapper.update().find(StyledTabTitle).length).toEqual(1);
+      expect(wrapper.update().find(StyledTabTitleButton).length).toEqual(1);
 
       act(() => {
-        wrapper.find("#foo").prop("onClick")();
+        wrapper.find("#foo").simulate("click");
       });
 
-      expect(wrapper.update().find(StyledTabTitle).length).toEqual(3);
+      expect(wrapper.update().find(StyledTabTitleButton).length).toEqual(3);
     };
 
     it("is consistent when navigating with the arrow keys and the composition of the children changes", () => {
-      wrapper.find(StyledTabTitle).first().getDOMNode().focus();
+      (wrapper
+        .find(StyledTabTitleButton)
+        .first()
+        .getDOMNode() as HTMLElement).focus();
 
       runFocusExpectations("pressArrowLeft", [0, 2, 1, 0, 2]);
 
       toggleChildren();
 
-      wrapper.find(StyledTabTitle).first().getDOMNode().focus();
+      (wrapper
+        .find(StyledTabTitleButton)
+        .first()
+        .getDOMNode() as HTMLElement).focus();
 
       runFocusExpectations("pressArrowLeft", [0, 2, 1, 0, 2]);
 
       toggleChildren();
 
-      wrapper.find(StyledTabTitle).first().getDOMNode().focus();
+      (wrapper
+        .find(StyledTabTitleButton)
+        .first()
+        .getDOMNode() as HTMLElement).focus();
 
       runFocusExpectations("pressArrowRight", [0, 1, 2, 0]);
     });
@@ -1053,7 +1080,12 @@ describe("tags", () => {
   });
 
   describe("when children of Tab have validation failures", () => {
-    const MockComponent = ({ show = true, error, warning, info }) => (
+    const MockComponent = ({
+      show = true,
+      error,
+      warning,
+      info,
+    }: ValidationProps & { show?: boolean }) => (
       <Tabs data-element="bar" data-role="baz">
         <Tab
           tabId="1"
