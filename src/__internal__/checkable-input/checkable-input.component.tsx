@@ -5,7 +5,7 @@ import {
   StyledCheckableInputWrapper,
 } from "./checkable-input.style";
 import { InputBehaviour } from "../input-behaviour";
-import FormField from "../form-field";
+import FormField, { FormFieldProps } from "../form-field";
 import HiddenCheckableInput, {
   CommonHiddenCheckableInputProps,
 } from "./hidden-checkable-input.component";
@@ -114,7 +114,7 @@ const CheckableInput = React.forwardRef(
 
     const isRadio = type === "radio";
 
-    const formFieldProps = {
+    const formFieldProps: FormFieldProps = {
       disabled,
       error,
       fieldHelp,
@@ -129,7 +129,6 @@ const CheckableInput = React.forwardRef(
       labelId,
       labelInline,
       labelSpacing,
-      name: id,
       reverse,
       warning,
       validationIconId: validationId,
