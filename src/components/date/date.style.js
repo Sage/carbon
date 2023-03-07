@@ -20,19 +20,20 @@ const StyledDateInput = styled.div`
 
   & ${StyledInputPresentation} {
     flex: none;
-    width: ${({ size }) => datePickerWidth[size]};
+    width: ${({ inputWidth, maxWidth, size }) =>
+      maxWidth || inputWidth ? "" : datePickerWidth[size]};
 
     ${StyledInput} {
       margin-right: -8px;
     }
   }
 
-  ${({ applyDateRangeStyling, size, labelInline }) =>
+  ${({ applyDateRangeStyling, maxWidth, size, labelInline }) =>
     applyDateRangeStyling &&
     !labelInline &&
     css`
       ${FieldLineStyle} {
-        max-width: ${datePickerWidth[size]};
+        max-width: ${maxWidth || datePickerWidth[size]}};
       }
 
       ${StyledValidationMessage}, ${StyledLabel} {
