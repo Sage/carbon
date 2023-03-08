@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { action } from "@storybook/addon-actions";
 import Textbox, { TextboxProps } from ".";
+import Box from "../box";
+import Button from "../button";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ICONS } from "../icon/icon-config";
 
@@ -108,7 +110,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   includeStories: ["Default", "Multiple", "NewValidation", "PrefixWithSizes"],
@@ -193,3 +195,40 @@ export const PrefixWithSizes = () => {
 };
 
 PrefixWithSizes.storyName = "prefix with sizes";
+
+export const TextboxComponent = ({ ...props }) => {
+  const [state, setState] = useState("Textbox");
+
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+
+  return (
+    <Textbox label="Textbox" value={state} onChange={setValue} {...props} />
+  );
+};
+
+export const TextboxComponentInputRef = () => {
+  const ref = useRef(null);
+
+  return (
+    <Box margin="0 25px">
+      <Button
+        onClick={() => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          if (ref.current) ref.current.focus();
+        }}
+      >
+        Focus Textbox
+      </Button>
+      <TextboxComponent
+        inputRef={(el: React.ChangeEvent<HTMLInputElement>) => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          ref.current = el.current;
+        }}
+      />
+    </Box>
+  );
+};

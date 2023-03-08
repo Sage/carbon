@@ -57,9 +57,6 @@ module.exports = defineConfig({
       webpackConfig,
     },
     watchForFileChanges: true,
-    specPattern: [
-      "./src/components/**/*.test.js",
-      "./cypress/componentTheme/themes.test.js",
-    ],
+    specPattern: "./src/components/**/*.test.js",
   },
 });

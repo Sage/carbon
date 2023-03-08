@@ -1,6 +1,8 @@
 import React from "react";
 import Box from "../box";
 import Switch from "./switch.component";
+import { WithMargin } from "./switch.stories.tsx";
+import { SwitchComponent } from "./switch-test.stories";
 import {
   switchDataComponent,
   switchInput,
@@ -28,6 +30,13 @@ import {
 } from "../../../cypress/support/component-helper/constants";
 import { ICON } from "../../../cypress/locators/locators";
 
+const testCypress = CHARACTERS.STANDARD;
+const validationTypes = [
+  ["error", VALIDATION.ERROR],
+  ["warning", VALIDATION.WARNING],
+  ["info", VALIDATION.INFO],
+];
+
 const verifyBorderColor = (element, color) =>
   element.then(($els) => {
     // get Window reference from element
@@ -39,28 +48,6 @@ const verifyBorderColor = (element, color) =>
     // the returned value will have double quotes around it, but this is correct
     expect(contentValue).to.eq(color);
   });
-
-const SwitchComponent = ({ ...props }) => {
-  const [isChecked, setIsChecked] = React.useState(false);
-  return (
-    <>
-      <div
-        style={{
-          marginTop: "64px",
-          marginLeft: "64px",
-        }}
-      >
-        <Switch
-          label="Label"
-          name="switch-name"
-          checked={isChecked}
-          onChange={(e) => setIsChecked(e.target.checked)}
-          {...props}
-        />
-      </div>
-    </>
-  );
-};
 
 const SwitchComponentValidations = ({ ...props }) => {
   const [setIsChecked] = React.useState(false);
@@ -273,7 +260,7 @@ context("Testing Switch component", () => {
       switchLabel().parent().should("have.css", "align-items", "right");
     });
 
-    it("verify Checkbox component with labelHelp", () => {
+    it("verify Switch component with labelHelp", () => {
       CypressMountWithProviders(
         <SwitchComponent label="Label For Switch" labelHelp="Label Help" />
       );
@@ -538,6 +525,314 @@ context("Testing Switch component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("Accessibility tests for Switch", () => {
+    it.each([
+      CHARACTERS.STANDARD,
+      CHARACTERS.DIACRITICS,
+      CHARACTERS.SPECIALCHARACTERS,
+    ])(
+      "check Switch component accessibility with %s as fieldHelp",
+      (fieldHelp) => {
+        CypressMountWithProviders(<SwitchComponent fieldHelp={fieldHelp} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      CHARACTERS.STANDARD,
+      CHARACTERS.DIACRITICS,
+      CHARACTERS.SPECIALCHARACTERS,
+    ])("check Switch component accessibility with %s as a label", (label) => {
+      CypressMountWithProviders(<SwitchComponent label={label} />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([true, false])(
+      "check Switch component accessibility with loading prop %s",
+      (boolVal) => {
+        CypressMountWithProviders(<SwitchComponent loading={boolVal} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("check Switch component accessibility with data-component", () => {
+      CypressMountWithProviders(
+        <SwitchComponent data-component={CHARACTERS.STANDARD} />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("check Switch component accessibility with data-element", () => {
+      CypressMountWithProviders(
+        <SwitchComponent data-element={CHARACTERS.STANDARD} />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("check Switch component accessibility with data-role", () => {
+      CypressMountWithProviders(
+        <SwitchComponent data-role={CHARACTERS.STANDARD} />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("check Switch component accessibility with autoFocus", () => {
+      CypressMountWithProviders(<SwitchComponent autoFocus />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([true, false])(
+      "check Switch component accessibility with checked state set to %s",
+      (boolVal) => {
+        CypressMountWithProviders(<SwitchComponent checked={boolVal} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "check Switch component accessibility with disabled prop %s",
+      (boolVal) => {
+        CypressMountWithProviders(<SwitchComponent disabled={boolVal} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "check Switch component accessibility with inline fieldHelp is %s",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <SwitchComponent
+            fieldHelp="Inline fieldhelp"
+            fieldHelpInline={boolVal}
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("check Switch component accessibility with id", () => {
+      CypressMountWithProviders(<SwitchComponent id={CHARACTERS.STANDARD} />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([true, false])(
+      "check Switch component accessibility with labelInline prop %s",
+      (boolVal) => {
+        CypressMountWithProviders(<SwitchComponent labelInline={boolVal} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["10", "30", "80"])(
+      "check Switch component accessibility with labelWidth %s",
+      (labelWidth) => {
+        CypressMountWithProviders(<SwitchComponent labelWidth={labelWidth} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["90", "70", "20"])(
+      "check Switch component accessibility with inputWidth %s",
+      (inputWidth) => {
+        CypressMountWithProviders(
+          <SwitchComponent labelInline inputWidth={inputWidth} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("check Switch component accessibility with labelAlign to right", () => {
+      CypressMountWithProviders(<SwitchComponent labelAlign="right" />);
+
+      cy.checkAccessibility();
+    });
+
+    it("check Switch component accessibility with labelHelp", () => {
+      CypressMountWithProviders(
+        <SwitchComponent label="Label For Switch" labelHelp="Label Help" />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it.each([1, 2])(
+      "check Switch component accessibility with labelSpacing %s",
+      (spacing) => {
+        CypressMountWithProviders(
+          <SwitchComponent labelInline label="label" labelSpacing={spacing} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("check Switch component accessibility with name", () => {
+      CypressMountWithProviders(<SwitchComponent name={CHARACTERS.STANDARD} />);
+
+      cy.checkAccessibility();
+    });
+
+    // FE-4678
+    describe.skip("should check Switch component validation accessibility", () => {
+      it("check Switch component accessibility with validation", () => {
+        CypressMountWithProviders(<SwitchComponentValidations />);
+
+        cy.checkAccessibility();
+      });
+
+      it("check Switch component accessibility with validation on label", () => {
+        CypressMountWithProviders(
+          <SwitchComponentValidations validationOnLabel />
+        );
+
+        cy.checkAccessibility();
+      });
+
+      it.each(validationTypes)(
+        "should check accessibility for Switch and set type to %s as string",
+        (type) => {
+          CypressMountWithProviders(
+            <SwitchComponent {...{ [type]: "Message" }} />
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+
+      it.each(["top", "bottom", "left", "right"])(
+        "should check accessibility for Switch with the tooltip in the %s position",
+        (tooltipPositionValue) => {
+          CypressMountWithProviders(
+            <Box width="700px" height="108px">
+              <div
+                style={{
+                  padding: "100px",
+                }}
+              >
+                <SwitchComponent
+                  error={testCypress}
+                  tooltipPosition={tooltipPositionValue}
+                />
+              </div>
+            </Box>
+          );
+
+          cy.checkAccessibility();
+        }
+      );
+    });
+
+    it.each([true, false])(
+      "check Switch component accessibility reverse set to %s",
+      (boolVal) => {
+        CypressMountWithProviders(<SwitchComponent reverse={boolVal} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([SIZE.SMALL, SIZE.LARGE])(
+      "check Switch component accessibility with size set to %s",
+      (size) => {
+        CypressMountWithProviders(<SwitchComponent size={size} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("check Switch component accessibility with value prop", () => {
+      CypressMountWithProviders(<SwitchComponent value="switchvalue" />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([399, 400, 401])(
+      "check Switch component accessibility when label is inline with adaptiveLabelBreakpoint %s",
+      (breakpoint) => {
+        cy.viewport(400, 300);
+
+        CypressMountWithProviders(
+          <SwitchComponent labelInline adaptiveLabelBreakpoint={breakpoint} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("check Switch component accessibility as a required field", () => {
+      CypressMountWithProviders(<SwitchComponent required />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(["bottom", "left", "right", "top"])(
+      "check Switch component accessibility with tooltip positioned to the %s",
+      (position) => {
+        CypressMountWithProviders(
+          <Box m="250px">
+            <SwitchComponent
+              labelHelp="Switch info"
+              tooltipPosition={position}
+            />
+          </Box>
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("check Switch component accessibility with helpAriaLabel", () => {
+      CypressMountWithProviders(
+        <SwitchComponent
+          labelHelp="Label Help"
+          helpAriaLabel="This text provides more information for the label"
+        />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it.each([true, false])(
+      "check Switch component accessibility with defaultChecked %s",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <Switch label="Label" name="switch-name" defaultChecked={boolVal} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(validationTypes)(
+      "should check accessibility for Switch and set type to %s as boolean",
+      (type) => {
+        CypressMountWithProviders(<SwitchComponent {...{ [type]: true }} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("check Switch component accessibility with Margin", () => {
+      CypressMountWithProviders(<WithMargin />);
+
+      cy.checkAccessibility();
     });
   });
 });

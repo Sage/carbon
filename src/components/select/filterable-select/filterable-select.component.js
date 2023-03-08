@@ -2,10 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import invariant from "invariant";
 
-import {
-  filterStyledSystemMarginProps,
-  filterOutStyledSystemSpacingProps,
-} from "../../../style/utils";
+import { filterOutStyledSystemSpacingProps } from "../../../style/utils";
 import SelectTextbox, {
   formInputPropTypes,
 } from "../select-textbox/select-textbox.component";
@@ -16,6 +13,8 @@ import SelectList from "../select-list/select-list.component";
 import isExpectedOption from "../utils/is-expected-option";
 import isNavigationKey from "../utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
+import useStableCallback from "../../../hooks/__internal__/useStableCallback";
+import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 
 let deprecateInputRefWarnTriggered = false;
 
@@ -30,9 +29,9 @@ const FilterableSelect = React.forwardRef(
       name,
       label,
       children,
-      onOpen,
+      onOpen: onOpenProp,
       onChange,
-      onFilterChange,
+      onFilterChange: onFilterChangeProp,
       onClick,
       onKeyDown,
       onFocus,
@@ -283,13 +282,14 @@ const FilterableSelect = React.forwardRef(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value, onChange, children]);
 
+    const onOpen = useStableCallback(onOpenProp);
     useEffect(() => {
       if (!isOpen) {
         setFilterText("");
       } else if (onOpen) {
         onOpen();
       }
-    }, [isOpen, onOpen]);
+    }, [onOpen, isOpen]);
 
     useEffect(() => {
       const hasListActionButton = listActionButton !== undefined;
@@ -310,11 +310,17 @@ const FilterableSelect = React.forwardRef(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value, children]);
 
+    const onFilterChange = useStableCallback(onFilterChangeProp);
+    const isFirstRender = useRef(true);
     useEffect(() => {
-      if (onFilterChange) {
+      if (onFilterChange && !isFirstRender.current) {
         onFilterChange(filterText);
       }
-    }, [filterText, onFilterChange]);
+    }, [onFilterChange, filterText]);
+
+    useEffect(() => {
+      isFirstRender.current = false;
+    }, []);
 
     useEffect(() => {
       const clickEvent = "click";
@@ -411,9 +417,6 @@ const FilterableSelect = React.forwardRef(
             return true;
           }
 
-          if (onOpen) {
-            onOpen();
-          }
           if (onFocus && !isInputFocused.current) {
             triggerFocus();
             isInputFocused.current = true;
@@ -548,6 +551,8 @@ const FilterableSelect = React.forwardRef(
       </FilterableSelectList>
     );
 
+    const marginProps = useFormSpacing(textboxProps);
+
     return (
       <StyledSelect
         hasTextCursor
@@ -557,7 +562,7 @@ const FilterableSelect = React.forwardRef(
         data-role={dataRole}
         data-element={dataElement}
         isOpen={isOpen}
-        {...filterStyledSystemMarginProps(textboxProps)}
+        {...marginProps}
       >
         <div ref={containerRef}>
           <SelectTextbox

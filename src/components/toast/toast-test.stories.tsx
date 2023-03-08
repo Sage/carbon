@@ -11,7 +11,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
 };
@@ -229,7 +229,7 @@ Visual.args = {
 };
 Visual.parameters = {
   chromatic: {
-    disable: false,
+    disableSnapshot: false,
   },
   themeProvider: { chromatic: { theme: "sage" } },
 };

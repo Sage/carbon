@@ -20,7 +20,7 @@ import {
 } from "./dialog.style";
 import { DialogSizes, TOP_MARGIN } from "./dialog.config";
 
-import FocusTrap from "../../__internal__/focus-trap";
+import FocusTrap, { CustomRefObject } from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
@@ -29,10 +29,6 @@ import TopModalContext from "../carbon-provider/top-modal-context";
 
 const PADDING_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const;
 type PaddingValues = typeof PADDING_VALUES[number];
-// TODO FE-5408 will investigate why React.RefObject<T> produces a failed prop type when current = null
-type CustomRefObject<T> = {
-  current?: T | null;
-};
 
 export interface ContentPaddingInterface {
   p?: PaddingValues;
@@ -71,7 +67,7 @@ export interface DialogProps extends ModalProps, TagProps {
     lastElement?: HTMLElement
   ) => void;
   /** Optional reference to an element meant to be focused on open */
-  focusFirstElement?: React.MutableRefObject<HTMLElement | null>;
+  focusFirstElement?: CustomRefObject<HTMLElement> | HTMLElement | null;
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
   /** Allows developers to specify a specific height for the dialog. */

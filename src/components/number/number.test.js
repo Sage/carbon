@@ -1,5 +1,6 @@
 import React from "react";
-import Number from "./number.component";
+import { NumberInputComponent } from "./number-test.stories.tsx";
+import * as stories from "./number.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
   getDataElementByValue,
@@ -21,19 +22,6 @@ import {
 } from "../../../cypress/support/component-helper/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
-const NumberInputComponent = ({ onChange, ...props }) => {
-  const [state, setState] = React.useState("");
-
-  const setValue = ({ target }) => {
-    setState(target.value);
-    if (onChange) {
-      onChange(target);
-    }
-  };
-
-  return <Number label="Number" value={state} onChange={setValue} {...props} />;
-};
 
 context("Tests for Number component", () => {
   describe("check props for Number component", () => {
@@ -345,5 +333,73 @@ context("Tests for Number component", () => {
           });
       }
     );
+  });
+
+  describe("check accessibility for Number component", () => {
+    it("should pass accessibility tests for Number Default story", () => {
+      CypressMountWithProviders(<stories.Default />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Number Sizes story", () => {
+      CypressMountWithProviders(<stories.Sizes />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Number Disabled story", () => {
+      CypressMountWithProviders(<stories.Disabled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Number ReadOnly story", () => {
+      CypressMountWithProviders(<stories.ReadOnly />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Number AutoFocus story", () => {
+      CypressMountWithProviders(<stories.AutoFocus />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Number WithLabelInline story", () => {
+      CypressMountWithProviders(<stories.WithLabelInline />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Number WithLabelAlign story", () => {
+      CypressMountWithProviders(<stories.WithLabelAlign />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Number WithCustomLabelWidthAndInputWidth story", () => {
+      CypressMountWithProviders(<stories.WithCustomLabelWidthAndInputWidth />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Number WithCustomMaxWidth story", () => {
+      CypressMountWithProviders(<stories.WithCustomMaxWidth />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Number WithFieldHelp story", () => {
+      CypressMountWithProviders(<stories.WithFieldHelp />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Number WithLabelHelp story", () => {
+      CypressMountWithProviders(<stories.WithLabelHelp />);
+
+      cy.checkAccessibility();
+    });
   });
 });

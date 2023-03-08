@@ -169,7 +169,7 @@ const CheckableInput = React.forwardRef(
         reverse={reverse}
       >
         <InputBehaviour>
-          <FormField {...formFieldProps}>
+          <FormField {...formFieldProps} my={0}>
             <StyledCheckableInput>
               <HiddenCheckableInput {...inputProps} />
               {children}

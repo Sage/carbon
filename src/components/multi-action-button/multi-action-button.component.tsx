@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useRef, useMemo } from "react";
 import { WidthProps } from "styled-system";
+
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { SplitButtonProps } from "../split-button";
 import {
@@ -51,7 +52,6 @@ export const MultiActionButton = ({
   const [minWidth, setMinWidth] = useState(0);
 
   const hideButtons = useCallback(() => {
-    if (buttonRef.current === document.activeElement) return;
     setShowAdditionalButtons(false);
   }, []);
 
@@ -89,7 +89,8 @@ export const MultiActionButton = ({
   const handleKeyDown = useMenuKeyboardNavigation(
     buttonRef,
     buttonChildrenRefs,
-    hideButtons
+    hideButtons,
+    showAdditionalButtons
   );
 
   const handleMainButtonKeyDown = (
@@ -111,9 +112,6 @@ export const MultiActionButton = ({
       setTimeout(() => {
         buttonChildrenRefs[0]?.current?.focus();
       }, 0);
-    } else if (Events.isEscKey(ev)) {
-      ev.preventDefault();
-      setShowAdditionalButtons(false);
     }
   };
 
@@ -147,10 +145,17 @@ export const MultiActionButton = ({
 
   const handleClick = useClickAwayListener(hideButtons);
 
+  const hideButtonsIfTriggerNotFocused = useCallback(() => {
+    if (buttonRef.current === document.activeElement) return;
+    setShowAdditionalButtons(false);
+  }, []);
+
+  const marginProps = filterStyledSystemMarginProps(rest);
+
   return (
     <StyledMultiActionButton
       aria-haspopup="true"
-      onMouseLeave={hideButtons}
+      onMouseLeave={hideButtonsIfTriggerNotFocused}
       onClick={handleClick}
       ref={ref}
       data-component="multi-action-button"
@@ -158,7 +163,7 @@ export const MultiActionButton = ({
       data-role={dataRole}
       displayed={showAdditionalButtons}
       width={width}
-      {...filterStyledSystemMarginProps(rest)}
+      {...marginProps}
     >
       <Button
         aria-haspopup="true"

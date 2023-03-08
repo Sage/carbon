@@ -152,6 +152,19 @@ context("Testing Heading component", () => {
       }
     );
 
+    describe("when headingType prop is provided", () => {
+      it.each(["h1", "h2", "h3", "h4", "h5"])(
+        "should check HTML heading element is correct when headingType is %s",
+        (headingType) => {
+          CypressMountWithProviders(
+            <HeadingComponent headingType={headingType} title="foo" />
+          );
+
+          cy.get(headingType).contains("foo");
+        }
+      );
+    });
+
     describe("should render Heading component and check accessibility issues", () => {
       it("should check heading accessibility", () => {
         CypressMountWithProviders(<HeadingComponent />);

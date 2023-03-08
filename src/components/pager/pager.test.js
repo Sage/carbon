@@ -1,5 +1,15 @@
 import React from "react";
-import Pager from "./pager.component";
+import { selectListWrapper } from "../../../cypress/locators/select/index";
+import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { keyCode } from "../../../cypress/support/helper";
+import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
+import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+
+import {
+  PagerComponent,
+  PagerComponentResponsive,
+  PagerInForm,
+} from "./pager-test.stories";
 
 import {
   pageSelect,
@@ -17,37 +27,8 @@ import {
   currentPageSection,
   pager,
 } from "../../../cypress/locators/pager/index";
-import { selectListWrapper } from "../../../cypress/locators/select/index";
-import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-import { keyCode } from "../../../cypress/support/helper";
-import useMediaQuery from "../../hooks/useMediaQuery";
-import { checkGoldenOutline } from "../../../cypress/support/component-helper/common-steps";
-import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
-import Form from "../form";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const records = [
-  {
-    id: "1",
-    name: 1,
-  },
-  {
-    id: "10",
-    name: 10,
-  },
-  {
-    id: "25",
-    name: 25,
-  },
-  {
-    id: "50",
-    name: 50,
-  },
-  {
-    id: "100",
-    name: 100,
-  },
-];
 
 const recordsDiff = [
   {
@@ -63,91 +44,6 @@ const recordsDiff = [
     name: 819,
   },
 ];
-
-const PagerComponent = ({ ...props }) => {
-  return (
-    <Pager
-      currentPage="1"
-      onPagination={() => {}}
-      pageSizeSelectionOptions={records}
-      totalRecords="100"
-      {...props}
-    />
-  );
-};
-
-const PagerComponentResponsive = () => {
-  const query1 = useMediaQuery("(max-width: 1000px)");
-  const query2 = useMediaQuery("(max-width: 900px)");
-  const query3 = useMediaQuery("(max-width: 800px)");
-  const query4 = useMediaQuery("(max-width: 700px)");
-  const query5 = useMediaQuery("(max-width: 600px)");
-
-  const responsiveProps = () => {
-    if (query5) {
-      return {
-        showPageSizeSelection: false,
-        showTotalRecords: false,
-        showFirstAndLastButtons: false,
-      };
-    }
-
-    if (query4) {
-      return {
-        showFirstAndLastButtons: false,
-        showTotalRecords: false,
-        showPageSizeLabelBefore: false,
-        showPageSizeLabelAfter: false,
-      };
-    }
-
-    if (query3) {
-      return {
-        showFirstAndLastButtons: false,
-        showTotalRecords: false,
-        showPageSizeLabelBefore: false,
-        showPageSizeLabelAfter: false,
-      };
-    }
-
-    if (query2) {
-      return {
-        showFirstAndLastButtons: false,
-        showTotalRecords: false,
-      };
-    }
-
-    if (query1) {
-      return {
-        showPageSizeSelection: true,
-        showFirstAndLastButtons: false,
-      };
-    }
-
-    return {
-      showPageSizeSelection: true,
-    };
-  };
-
-  return (
-    <Pager
-      totalRecords={1000}
-      pageSize={10}
-      currentPage={1}
-      onPagination={() => {}}
-      {...responsiveProps()}
-      pageSizeSelectionOptions={records}
-    />
-  );
-};
-
-const PagerInForm = () => {
-  return (
-    <Form>
-      <PagerComponent />
-    </Form>
-  );
-};
 
 context("Test for Pager component", () => {
   describe("check props for Pager component", () => {
@@ -356,7 +252,6 @@ context("Test for Pager component", () => {
       CypressMountWithProviders(
         <PagerComponent currentPage={7} hideDisabledElements />
       );
-
       firstArrow().should("be.visible");
       previousArrow().should("be.visible");
     });
@@ -587,6 +482,200 @@ context("Test for Pager component", () => {
       CypressMountWithProviders(<PagerInForm />);
 
       currentPageWrapper().should("have.css", "margin-bottom", "0px");
+    });
+  });
+
+  describe("Accessibility tests for Pager component", () => {
+    it.each([2, 5, 7])(
+      "should render Pager with currentPage prop set to %s for accessibility tests",
+      (currentPage) => {
+        CypressMountWithProviders(<PagerComponent currentPage={currentPage} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([50, 100, 235])(
+      "should render Pager with totalRecords prop set to %s for accessibility tests",
+      (totalRecords) => {
+        CypressMountWithProviders(
+          <PagerComponent totalRecords={totalRecords} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([1, 10, 25, 100])(
+      "should render Pager with pageSize prop set to %s for accessibility tests",
+      (pageSizeVal) => {
+        CypressMountWithProviders(
+          <PagerComponent pageSize={pageSizeVal} showPageSizeSelection />
+        );
+        cy.checkAccessibility();
+      }
+    );
+    it("should render Pager with pageSizeSelectionOptions prop for accessibility tests", () => {
+      CypressMountWithProviders(
+        <PagerComponent
+          pageSizeSelectionOptions={recordsDiff}
+          showPageSizeSelection
+        />
+      );
+      cy.checkAccessibility();
+    });
+
+    it.each([true, false])(
+      "should render Pager with showPageSizeSelection prop set to %s for accessibility tests",
+      (bool) => {
+        CypressMountWithProviders(
+          <PagerComponent showPageSizeSelection={bool} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "should render Pager with showPageSizeLabelAfter prop set to %s for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <PagerComponent
+            showPageSizeLabelAfter={boolVal}
+            showPageSizeSelection
+          />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "should render Pager with showTotalRecords prop set to %s for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <PagerComponent showTotalRecords={boolVal} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "should render Pager with showFirstAndLastButtons prop set to %s for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <PagerComponent showFirstAndLastButtons={boolVal} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "should render Pager with showPreviousAndNextButtons prop set to %s for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <PagerComponent showPreviousAndNextButtons={boolVal} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "should render Pager with showPageCount prop set to %s for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(<PagerComponent showPageCount={boolVal} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["default", "alternate"])(
+      "should render Pager with variant prop set to %s for accessibility tests",
+      (variant) => {
+        CypressMountWithProviders(<PagerComponent variant={variant} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "pager links are rendered as intended when hideDisabledElements is set to %s and currentPage is 1 for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <PagerComponent currentPage={1} hideDisabledElements={boolVal} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([true, false])(
+      "pager links are rendered as intended when hideDisabledElements is set to %s and currentPage is 10 for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <PagerComponent currentPage={10} hideDisabledElements={boolVal} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it("both pager links are rendered when hideDisabledElements is set to true, but currenPage is above 1 for accessibility tests", () => {
+      CypressMountWithProviders(
+        <PagerComponent currentPage={7} hideDisabledElements />
+      );
+      cy.checkAccessibility();
+    });
+
+    it.each([-1, -10, -100, testData[0], testData[1]])(
+      "should set totalRecords out of scope to %s for accessibility tests",
+      (totalRecords) => {
+        CypressMountWithProviders(
+          <PagerComponent totalRecords={totalRecords} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should disable nextArrow and lastArrow buttons after clicking on lastArrow button for accessibility tests", () => {
+      CypressMountWithProviders(<PagerComponent currentPage={3} />);
+      lastArrow().click();
+      cy.checkAccessibility();
+    });
+
+    it("should disable firstArrow and previousArrow buttons after clicking on firstArrow button for accessibility tests", () => {
+      CypressMountWithProviders(<PagerComponent currentPage={3} />);
+      firstArrow().click();
+      cy.checkAccessibility();
+    });
+
+    it("should disable firstArrow and previousArrow buttons after clicking on previousArrow button for accessibility tests", () => {
+      CypressMountWithProviders(<PagerComponent currentPage={2} />);
+      previousArrow().click();
+      cy.checkAccessibility();
+    });
+
+    it("should disable firstArrow and previousArrow buttons after clicking on nextArrow button for accessibility tests", () => {
+      CypressMountWithProviders(<PagerComponent currentPage={9} />);
+      nextArrow().click();
+      cy.checkAccessibility();
+    });
+
+    it.each([1001, 901, 701, 601, 45])(
+      "should render Pager in %s px width for accessibility tests",
+      (viewportWidth) => {
+        cy.viewport(viewportWidth, 768);
+        CypressMountWithProviders(<PagerComponentResponsive />);
+        cy.checkAccessibility();
+      }
+    );
+
+    // FE-4659
+    describe.skip("should render Pager component for accessibility tests", () => {
+      it.each([true, false])(
+        "should render Pager with showPageSizeLabelBefore prop set to %s for accessibility tests",
+        (boolVal) => {
+          CypressMountWithProviders(
+            <PagerComponent
+              showPageSizeLabelBefore={boolVal}
+              showPageSizeSelection
+            />
+          );
+          cy.checkAccessibility();
+        }
+      );
     });
   });
 });

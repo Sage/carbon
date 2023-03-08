@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FilterableSelect from "./filterable-select.component";
 import Option from "../option/option.component";
 import OptionRow from "../option-row/option-row.component";
@@ -15,6 +15,7 @@ import {
 } from "../../../../cypress/locators";
 
 import {
+  selectList,
   selectListWrapper,
   selectOption,
   selectOptionByText,
@@ -38,14 +39,14 @@ import {
 
 import { loader } from "../../../../cypress/locators/loader";
 
+import { alertDialogPreview } from "../../../../cypress/locators/dialog";
+
 import {
   useJQueryCssValueAndAssert,
   verifyRequiredAsteriskForLabel,
 } from "../../../../cypress/support/component-helper/common-steps";
 
 import { keyCode, positionOfElement } from "../../../../cypress/support/helper";
-
-import { alertDialogPreview } from "../../../../cypress/locators/dialog";
 
 import {
   SIZE,
@@ -597,6 +598,20 @@ const FilterableSelectWithManyOptionsAndVirtualScrolling = () => (
   </FilterableSelect>
 );
 
+const FilterableSelectNestedInDialog = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
+      <FilterableSelect name="testSelect" id="testSelect">
+        <Option value="opt1" text="red" />
+        <Option value="opt2" text="green" />
+        <Option value="opt3" text="blue" />
+        <Option value="opt4" text="black" />
+      </FilterableSelect>
+    </Dialog>
+  );
+};
+
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testPropValue = CHARACTERS.STANDARD;
 const addElementText = "Add a New Element";
@@ -913,7 +928,7 @@ context("Tests for Filterable Select component", () => {
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
-      selectInput().trigger("keydown", { ...keyCode("Esc") });
+      selectInput().type("{esc}", { force: true });
       selectInput().should("have.attr", "aria-expanded", "false");
       selectListWrapper().should("not.be.visible");
     });
@@ -1375,7 +1390,20 @@ context("Tests for Filterable Select component", () => {
         });
     });
 
-    it("should call onOpen when Filterable Select is opened", () => {
+    it("should call onOpen when Filterable Select is opened by focusing the input", () => {
+      CypressMountWithProviders(
+        <FilterableSelectComponent openOnFocus onOpen={callback} />
+      );
+
+      commonDataElementInputPreview()
+        .focus()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.wrap(callback).should("have.been.calledOnce");
+        });
+    });
+
+    it("should call onOpen when Filterable Select is opened by clicking on Icon", () => {
       CypressMountWithProviders(
         <FilterableSelectComponent onOpen={callback} />
       );
@@ -1450,8 +1478,8 @@ context("Tests for Filterable Select component", () => {
         .type(text)
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledTwice;
-          expect(callback.getCalls()[1].args[0]).to.equals(text);
+          expect(callback).to.have.been.calledOnce;
+          expect(callback).to.have.been.calledWith(text);
         });
     });
 
@@ -1521,6 +1549,26 @@ context("Tests for Filterable Select component", () => {
       selectOptionByText("Option 100.").should("be.visible");
       selectOptionByText("Option 1000.").should("be.visible");
       selectOptionByText("Option 1002.").should("be.visible");
+    });
+  });
+
+  describe("when nested inside of a Dialog component", () => {
+    it("should not close the Dialog when Select is closed by pressing an escape key", () => {
+      CypressMountWithProviders(<FilterableSelectNestedInDialog />);
+
+      dropdownButton().click();
+      commonDataElementInputPreview()
+        .type("{esc}", { force: true })
+        .then(() => {
+          selectList().should("not.be.visible");
+          alertDialogPreview().should("exist");
+        });
+
+      commonDataElementInputPreview()
+        .type("{esc}", { force: true })
+        .then(() => {
+          alertDialogPreview().should("not.exist");
+        });
     });
   });
 });

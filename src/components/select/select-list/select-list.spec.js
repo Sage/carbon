@@ -23,7 +23,7 @@ const mockedGuid = "guid-12345";
 const guidSpy = jest.spyOn(guidModule, "default");
 guidSpy.mockImplementation(() => "guid-12345");
 
-const escapeKeyDownEvent = new KeyboardEvent("keydown", {
+const escapeKeyUpEvent = new KeyboardEvent("keyup", {
   key: "Escape",
   bubbles: true,
 });
@@ -49,6 +49,10 @@ const homeKeyDownEvent = new KeyboardEvent("keydown", {
 });
 const endKeyDownEvent = new KeyboardEvent("keydown", {
   key: "End",
+  bubbles: true,
+});
+const spaceKeyUpEvent = new KeyboardEvent("keyup", {
+  key: "Space",
   bubbles: true,
 });
 
@@ -86,13 +90,20 @@ describe("SelectList", () => {
       });
 
       describe.each([
-        ["Escape", escapeKeyDownEvent],
+        ["Escape", escapeKeyUpEvent],
         ["Tab", tabKeyDownEvent],
         ["Enter", enterKeyDownEvent],
       ])("and it's the %s key", (_, keyEvent) => {
         it("then the onSelectListClose prop should be called", () => {
           testContainer.dispatchEvent(keyEvent);
           expect(onSelectListCloseFn).toHaveBeenCalled();
+        });
+      });
+
+      describe("and it's a Space key", () => {
+        it("then the onSelectListClose prop should not be called", () => {
+          testContainer.dispatchEvent(spaceKeyUpEvent);
+          expect(onSelectListCloseFn).not.toHaveBeenCalled();
         });
       });
 

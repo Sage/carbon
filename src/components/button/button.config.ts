@@ -1,4 +1,8 @@
-import { ButtonTypes } from "./button.component";
+import {
+  ButtonTypes,
+  ButtonIconPosition,
+  SizeOptions,
+} from "./button.component";
 
 export const BUTTON_VARIANTS: ButtonTypes[] = [
   "primary",
@@ -7,5 +11,5 @@ export const BUTTON_VARIANTS: ButtonTypes[] = [
   "dashed",
   "darkBackground",
 ];
-export const BUTTON_SIZES = ["small", "medium", "large"];
-export const BUTTON_ICON_POSITIONS = ["before", "after"];
+export const BUTTON_SIZES: SizeOptions[] = ["small", "medium", "large"];
+export const BUTTON_ICON_POSITIONS: ButtonIconPosition[] = ["before", "after"];

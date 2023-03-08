@@ -280,7 +280,7 @@ export const InDialog = () => {
   );
 };
 
-InDialog.parameters = { chromatic: { disable: true } };
+InDialog.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogWithStickyFooter = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -386,7 +386,7 @@ export const InDialogWithStickyFooter = () => {
   );
 };
 
-InDialogWithStickyFooter.parameters = { chromatic: { disable: true } };
+InDialogWithStickyFooter.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogFullScreen = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -418,7 +418,7 @@ export const InDialogFullScreen = () => {
   );
 };
 
-InDialogFullScreen.parameters = { chromatic: { disable: true } };
+InDialogFullScreen.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogFullScreenWithStickyFooter = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -475,7 +475,7 @@ export const InDialogFullScreenWithStickyFooter = () => {
 };
 
 InDialogFullScreenWithStickyFooter.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };
 
 export const FormAlignmentExample = () => {
@@ -521,7 +521,6 @@ export const FormAlignmentExample = () => {
         legendInline
         legendWidth={10}
         legendSpacing={2}
-        mb={2}
       >
         <RadioButton
           id="group-1-input-1"
@@ -549,7 +548,6 @@ export const FormAlignmentExample = () => {
         onChange={() => console.log("RADIO CHANGE")}
         legend="Legend above"
         ml="10%"
-        mb={2}
       >
         <RadioButton
           id="group-2-input-1"

@@ -11,10 +11,11 @@ import Icon from ".";
 
 export default {
   title: "Icon/Test",
+  includeStories: ["Default", "All"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -135,8 +136,33 @@ All.storyName = "all";
 All.story = {
   parameters: {
     chromatic: {
-      disable: false,
+      disableSnapshot: false,
     },
     themeProvider: { chromatic: { theme: "sage" } },
   },
+};
+
+export const IconComponent = ({ ...props }) => {
+  return <Icon type="add" tooltipVisible {...props} />;
+};
+
+export const IconTooltipComponent = ({ ...props }) => {
+  return (
+    <div
+      style={{
+        marginLeft: "300px",
+        marginRight: "64px",
+        marginTop: "64px",
+        marginBottom: "64px",
+      }}
+    >
+      <Icon
+        type="add"
+        tooltipVisible
+        tooltipMessage="Hey I'm a tooltip with a different position!"
+        {...props}
+      />
+      ;
+    </div>
+  );
 };

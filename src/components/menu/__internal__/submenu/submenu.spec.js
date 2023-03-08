@@ -7,6 +7,7 @@ import { MenuItem } from "../..";
 import MenuContext from "../../menu.context";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import { StyledSubmenu } from "./submenu.style";
+import { StyledMenuItem } from "../../menu.style";
 import MenuDivider from "../../menu-divider/menu-divider.component";
 import Submenu from "./submenu.component";
 import ScrollableBlock from "../../scrollable-block";
@@ -135,7 +136,7 @@ describe("Submenu component", () => {
     });
 
     describe("on mouse over", () => {
-      it("should open the submenu", () => {
+      it("should open the submenu but not focus the first item", () => {
         wrapper = render("light");
         expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
 
@@ -149,6 +150,13 @@ describe("Submenu component", () => {
         wrapper.update();
 
         expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
+        expect(
+          wrapper
+            .find(StyledSubmenu)
+            .find(StyledMenuItemWrapper)
+            .at(0)
+            .find("a")
+        ).not.toBeFocused();
       });
     });
 
@@ -698,6 +706,72 @@ describe("Submenu component", () => {
         });
 
         wrapper.update();
+      });
+
+      describe("clicking a submenu item", () => {
+        it.each(["tab", "arrowDown"])(
+          "should move focus and any subsequent presses of the %s key should update focus as expected",
+          (key) => {
+            act(() => {
+              wrapper
+                .find(StyledSubmenu)
+                .find(StyledMenuItem)
+                .at(1)
+                .props()
+                .onClick();
+            });
+
+            wrapper.update();
+
+            act(() => {
+              wrapper
+                .find(StyledMenuItemWrapper)
+                .at(1)
+                .props()
+                .onKeyDown(events[key]);
+            });
+
+            wrapper.update();
+
+            expect(
+              wrapper.find(StyledMenuItemWrapper).at(3).find("a")
+            ).toBeFocused();
+          }
+        );
+
+        it.each(["shiftTab", "arrowUp"])(
+          "should focus the item and any subsequent presses of the %s key should update focus as expected",
+          (key) => {
+            act(() => {
+              wrapper
+                .find(StyledSubmenu)
+                .find(StyledMenuItem)
+                .at(1)
+                .props()
+                .onClick();
+            });
+
+            wrapper.update();
+
+            act(() => {
+              wrapper
+                .find(StyledMenuItemWrapper)
+                .at(1)
+                .props()
+                .onKeyDown(events[key]);
+            });
+
+            wrapper.update();
+
+            expect(
+              wrapper
+                .find(StyledSubmenu)
+                .find(StyledMenuItemWrapper)
+                .at(0)
+                .find("a")
+            ).toBeFocused();
+          }
+        );
       });
 
       describe("when down key pressed", () => {

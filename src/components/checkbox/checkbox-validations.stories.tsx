@@ -60,7 +60,7 @@ export const StringValidationWithTooltipPosition: ComponentStory<
 );
 
 StringValidationWithTooltipPosition.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };
 
 export const BooleanValidation: ComponentStory<typeof Checkbox> = () => (
@@ -232,7 +232,7 @@ export const CheckboxGroupStringValidationTooltipPosition: ComponentStory<
 );
 
 CheckboxGroupStringValidationTooltipPosition.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };
 
 export const CheckboxGroupBooleanValidation: ComponentStory<

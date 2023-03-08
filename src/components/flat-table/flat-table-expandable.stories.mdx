@@ -120,7 +120,7 @@ below.
 <Canvas>
   <Story
     name="keyboard accessible subrows"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const SubRows = [
@@ -186,7 +186,7 @@ Only clicking on the first column can expand the row with this option set.
 <Canvas>
   <Story
     name="expandable by first column only"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const SubRows = [
@@ -813,7 +813,7 @@ By writing your own selectable logic, the parent rows only can be made selectabl
 <Canvas>
   <Story
     name="parent only selectable"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [selectAll, setSelectAll] = useState(false);
@@ -1304,7 +1304,7 @@ truncated styling applied, this is because of the caret icon that is rendered wi
 ### Controlled
 
 <Canvas>
-  <Story name="controlled" parameters={{ chromatic: { disable: true } }}>
+  <Story name="controlled" parameters={{ chromatic: { disableSnapshot: true } }}>
     {() => {
       const [expanded, setExpanded] = useState(true);
       const SubRows = [

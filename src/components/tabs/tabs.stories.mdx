@@ -1776,7 +1776,7 @@ by hovering your mouse pointer over the `ValidationIcon`s in the example below.
 <Canvas>
   <Story
     name="with string validations summarised"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [errors, setErrors] = useState({

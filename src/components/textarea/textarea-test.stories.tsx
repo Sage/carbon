@@ -8,10 +8,11 @@ interface TextareaTestProps extends TextareaProps {
 
 export default {
   title: "Textarea/Test",
+  includeStories: "Default",
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -143,3 +144,15 @@ export const Default = ({
 };
 
 Default.storyName = "default";
+
+export const TextareaComponent = ({ ...props }) => {
+  const [state, setState] = React.useState("");
+
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+
+  return (
+    <Textarea label="Textarea" value={state} onChange={setValue} {...props} />
+  );
+};

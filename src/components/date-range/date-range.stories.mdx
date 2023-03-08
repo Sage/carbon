@@ -134,7 +134,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
@@ -201,7 +201,7 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
@@ -343,7 +343,7 @@ the French locale. Required locales can be imported like so `import { fr } from 
 <Canvas>
   <Story
     name="locale override - example implementation"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
   >
     {() => {
       const [state, setState] = useState(["01/10/2016", "30/10/2016"]);

@@ -1,3 +1,94 @@
+### [114.18.1](https://github.com/Sage/carbon/compare/v114.18.0...v114.18.1) (2023-03-08)
+
+
+### Bug Fixes
+
+* workaround to generate valid `icon-unicodes.d.ts` ([42752d7](https://github.com/Sage/carbon/commit/42752d73bd4c809d6b2e0a7705c773d12a1e59fe))
+
+## [114.18.0](https://github.com/Sage/carbon/compare/v114.17.6...v114.18.0) (2023-03-08)
+
+
+### Features
+
+* **inline-inputs:** add margin interface ([681a284](https://github.com/Sage/carbon/commit/681a2848ec947537eef54a39eb325e5947009922))
+
+
+### Bug Fixes
+
+* **form:** ensure any custom margin-bottom applied to inputs override fieldSpacing ([96a1222](https://github.com/Sage/carbon/commit/96a12222426d9107dde0d911371faf0cfe506978)), closes [#5681](https://github.com/Sage/carbon/issues/5681)
+
+### [114.17.6](https://github.com/Sage/carbon/compare/v114.17.5...v114.17.6) (2023-03-03)
+
+
+### Bug Fixes
+
+* **deps:** move esbuild to dev dependency ([7c55ec6](https://github.com/Sage/carbon/commit/7c55ec612a331e0254e25ff928b426bb3e115220))
+
+### [114.17.5](https://github.com/Sage/carbon/compare/v114.17.4...v114.17.5) (2023-03-03)
+
+
+### Bug Fixes
+
+* **page:** remove additional box padding ([6554158](https://github.com/Sage/carbon/commit/655415881af57651d9b0956846b0ed254acaa447)), closes [#5857](https://github.com/Sage/carbon/issues/5857)
+
+### [114.17.4](https://github.com/Sage/carbon/compare/v114.17.3...v114.17.4) (2023-03-02)
+
+
+### Bug Fixes
+
+* make internal menu keyboard navigation hook use useModalManager ([cf004c9](https://github.com/Sage/carbon/commit/cf004c92c4e1a9370037040a9f1c8850e855591a))
+* **multi-action-button:** resolve issue with component closing parent Dialog on escape key press ([1bed27c](https://github.com/Sage/carbon/commit/1bed27ca6210547410da0ed7bd01d4fdc2110e2f))
+* **split-button:** resolve issue with component closing parent Dialog on escape key press ([cb7900a](https://github.com/Sage/carbon/commit/cb7900a7ed1ded14e7d19a6f54735c08553257e5))
+
+### [114.17.3](https://github.com/Sage/carbon/compare/v114.17.2...v114.17.3) (2023-03-01)
+
+
+### Bug Fixes
+
+* **submenu:** ensure focus order is correct when submenu parent item is clicked first ([2377e5a](https://github.com/Sage/carbon/commit/2377e5ab15ee892dfa846022bdc933ffc426cfa2)), closes [#5850](https://github.com/Sage/carbon/issues/5850)
+
+### [114.17.2](https://github.com/Sage/carbon/compare/v114.17.1...v114.17.2) (2023-02-28)
+
+
+### Bug Fixes
+
+* **select:** resolve issue with Select component closing parent Dialog on escape key press ([eeaba5f](https://github.com/Sage/carbon/commit/eeaba5f349cf5b9175929500a5bafb51b181f85a))
+
+### [114.17.1](https://github.com/Sage/carbon/compare/v114.17.0...v114.17.1) (2023-02-23)
+
+
+### Bug Fixes
+
+* **menu-item:** maintain focus order when submenu child item is clicked ([a9c7d06](https://github.com/Sage/carbon/commit/a9c7d063922fe3e757f3afd556152d6a7ef7d5b3)), closes [#5850](https://github.com/Sage/carbon/issues/5850)
+* **submenu:** ensure first submenu child item is not focused when opened via mouseover ([d429c0f](https://github.com/Sage/carbon/commit/d429c0fc9cd0f31b7b4b07ed3594cad9346afbc4))
+
+## [114.17.0](https://github.com/Sage/carbon/compare/v114.16.0...v114.17.0) (2023-02-22)
+
+
+### Features
+
+* **simple-color-picker:** add forwardRef that returns all color inputs ([ea29b7c](https://github.com/Sage/carbon/commit/ea29b7cdff61776298bbb4556e5c6433252b8934))
+
+## [114.16.0](https://github.com/Sage/carbon/compare/v114.15.0...v114.16.0) (2023-02-21)
+
+
+### Features
+
+* **settings-row,heading:** surface headingType prop on components ([7f53917](https://github.com/Sage/carbon/commit/7f53917b6aeafe57f534bbd493afec2c676e2ac7)), closes [#5723](https://github.com/Sage/carbon/issues/5723)
+
+## [114.15.0](https://github.com/Sage/carbon/compare/v114.14.1...v114.15.0) (2023-02-21)
+
+
+### Features
+
+* add internal useStableCallback hook ([d1e96bc](https://github.com/Sage/carbon/commit/d1e96bc348dd9cd8aeaa15d16fa6ce5104944756))
+
+
+### Bug Fixes
+
+* **filterable-select:** resolve issue with multiple execution of onOpen and onFilterChange callbacks ([65a9cef](https://github.com/Sage/carbon/commit/65a9cef560723f9c23220ca8db0be69b7bf6b77c))
+* **multi-select:** resolve issue with multiple execution of onFilterChange callback ([f0112a7](https://github.com/Sage/carbon/commit/f0112a72f73a4a56b748d12e10be4546bf381c41))
+
 ### [114.14.1](https://github.com/Sage/carbon/compare/v114.14.0...v114.14.1) (2023-02-16)
 
 

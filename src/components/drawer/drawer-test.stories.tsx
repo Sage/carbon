@@ -17,15 +17,16 @@ import Button from "../button";
 
 export default {
   title: "Drawer/Test",
+  includeStories: "Default",
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: false,
+      disableSnapshot: false,
     },
   },
 };
 
-export const DrawerStory = () => {
+export const DefaultStory = () => {
   const [isExpanded, setIsExpanded] = useState(true);
   const onChangeHandler = useCallback(() => {
     setIsExpanded(!isExpanded);
@@ -472,4 +473,28 @@ export const DrawerStory = () => {
   );
 };
 
-DrawerStory.storyName = "visual";
+DefaultStory.storyName = "default";
+
+export const DrawerCustom = ({ ...props }) => {
+  const [isExpanded, setIsExpanded] = React.useState(false);
+  const onChangeHandler = React.useCallback(() => {
+    setIsExpanded(!isExpanded);
+  }, [isExpanded]);
+
+  return (
+    <Drawer
+      onChange={onChangeHandler}
+      sidebar={
+        <ul>
+          <li>link a</li>
+          <li>link b</li>
+          <li>link c</li>
+        </ul>
+      }
+      title={<Typography variant="h2">Drawer title</Typography>}
+      {...props}
+    >
+      content body for Drawer
+    </Drawer>
+  );
+};

@@ -9,10 +9,7 @@ import PropTypes from "prop-types";
 import propTypes from "@styled-system/prop-types";
 import invariant from "invariant";
 
-import {
-  filterStyledSystemMarginProps,
-  filterOutStyledSystemSpacingProps,
-} from "../../../style/utils";
+import { filterOutStyledSystemSpacingProps } from "../../../style/utils";
 import StyledSelect from "../select.style";
 import SelectTextbox, {
   formInputPropTypes,
@@ -23,6 +20,7 @@ import getNextChildByText from "../utils/get-next-child-by-text";
 import isExpectedOption from "../utils/is-expected-option";
 import isNavigationKey from "../utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
+import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 
 let deprecateInputRefWarnTriggered = false;
 
@@ -362,9 +360,9 @@ const SimpleSelect = React.forwardRef(
       }
     }
 
-    function onSelectListClose() {
+    const onSelectListClose = useCallback(() => {
       setOpenState(false);
-    }
+    }, []);
 
     const assignInput = useCallback(
       (element) => {
@@ -431,6 +429,8 @@ const SimpleSelect = React.forwardRef(
       </SelectList>
     );
 
+    const marginProps = useFormSpacing(props);
+
     return (
       <StyledSelect
         transparent={transparent}
@@ -440,7 +440,7 @@ const SimpleSelect = React.forwardRef(
         data-role={dataRole}
         data-element={dataElement}
         isOpen={isOpen}
-        {...filterStyledSystemMarginProps(props)}
+        {...marginProps}
       >
         <div ref={containerRef}>
           <SelectTextbox

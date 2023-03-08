@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import InputPresentation from "../../__internal__/input/input-presentation.style";
-
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import baseTheme from "../../style/themes/base";
 import { InlineInputsProps } from "./inline-inputs.component";
@@ -73,6 +73,8 @@ const StyledContentContainer = styled.div<InlineInputsProps>`
 `;
 
 const StyledInlineInputs = styled.div<InlineInputsProps>`
+  ${margin}
+
   display: ${({ labelInline }) => (labelInline ? `flex` : `block`)};
   align-items: center;
 
