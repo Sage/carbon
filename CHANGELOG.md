@@ -1,3 +1,10 @@
+### [114.18.1](https://github.com/Sage/carbon/compare/v114.18.0...v114.18.1) (2023-03-08)
+
+
+### Bug Fixes
+
+* workaround to generate valid `icon-unicodes.d.ts` ([42752d7](https://github.com/Sage/carbon/commit/42752d73bd4c809d6b2e0a7705c773d12a1e59fe))
+
 ## [114.18.0](https://github.com/Sage/carbon/compare/v114.17.6...v114.18.0) (2023-03-08)
 
 
