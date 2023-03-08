@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useRef, useMemo } from "react";
 import { WidthProps } from "styled-system";
+
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { SplitButtonProps } from "../split-button";
 import {
@@ -149,6 +150,8 @@ export const MultiActionButton = ({
     setShowAdditionalButtons(false);
   }, []);
 
+  const marginProps = filterStyledSystemMarginProps(rest);
+
   return (
     <StyledMultiActionButton
       aria-haspopup="true"
@@ -160,7 +163,7 @@ export const MultiActionButton = ({
       data-role={dataRole}
       displayed={showAdditionalButtons}
       width={width}
-      {...filterStyledSystemMarginProps(rest)}
+      {...marginProps}
     >
       <Button
         aria-haspopup="true"

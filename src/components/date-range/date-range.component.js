@@ -255,6 +255,7 @@ const DateRange = ({
         value={{ inputRefMap, setInputRefMap: updateInputMap }}
       >
         <DateInput
+          my={0} // prevents any form spacing being applied
           {...dateProps("start")}
           onFocus={() => handleFocus("end")}
           data-element="start-date"
@@ -263,6 +264,7 @@ const DateRange = ({
           ref={startRef}
         />
         <DateInput
+          my={0} // prevents any form spacing being applied
           {...dateProps("end")}
           onFocus={() => handleFocus("start")}
           data-element="end-date"

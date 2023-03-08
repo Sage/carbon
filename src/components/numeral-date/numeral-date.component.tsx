@@ -16,6 +16,7 @@ import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 import NumeralDateContext from "./numeral-date-context";
+import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 
 export const ALLOWED_DATE_FORMATS = [
   ["dd", "mm", "yyyy"],
@@ -406,43 +407,45 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                     isEnd={isEnd}
                     hasValidationIcon={hasValidationIcon}
                   >
-                    <Textbox
-                      {...(index === 0 && { id: uniqueId })}
-                      disabled={disabled}
-                      readOnly={readOnly}
-                      placeholder={datePart}
-                      value={dateValue[datePart as keyof NumeralDateObject]}
-                      onChange={(e) =>
-                        handleChange(e, datePart as keyof NumeralDateObject)
-                      }
-                      ref={(element) => {
-                        refs.current[index] = element;
-                        if (!inputRef) {
-                          return;
+                    <FormSpacingProvider marginBottom={undefined}>
+                      <Textbox
+                        {...(index === 0 && { id: uniqueId })}
+                        disabled={disabled}
+                        readOnly={readOnly}
+                        placeholder={datePart}
+                        value={dateValue[datePart as keyof NumeralDateObject]}
+                        onChange={(e) =>
+                          handleChange(e, datePart as keyof NumeralDateObject)
                         }
-                        if (typeof inputRef === "function") {
-                          inputRef(element);
-                        } else {
-                          inputRef.current = element;
+                        ref={(element) => {
+                          refs.current[index] = element;
+                          if (!inputRef) {
+                            return;
+                          }
+                          if (typeof inputRef === "function") {
+                            inputRef(element);
+                          } else {
+                            inputRef.current = element;
+                          }
+                        }}
+                        onBlur={() =>
+                          handleBlur(datePart as keyof NumeralDateObject)
                         }
-                      }}
-                      onBlur={() =>
-                        handleBlur(datePart as keyof NumeralDateObject)
-                      }
-                      error={!!internalError}
-                      warning={!!internalWarning}
-                      info={!!info}
-                      {...(required && { required })}
-                      {...(isEnd &&
-                        !validationRedesignOptIn &&
-                        !validationOnLabel && {
-                          error: internalError,
-                          warning: internalWarning,
-                          info,
-                        })}
-                      size={size}
-                      tooltipPosition={tooltipPosition}
-                    />
+                        error={!!internalError}
+                        warning={!!internalWarning}
+                        info={!!info}
+                        {...(required && { required })}
+                        {...(isEnd &&
+                          !validationRedesignOptIn &&
+                          !validationOnLabel && {
+                            error: internalError,
+                            warning: internalWarning,
+                            info,
+                          })}
+                        size={size}
+                        tooltipPosition={tooltipPosition}
+                      />
+                    </FormSpacingProvider>
                   </StyledDateField>
                 </NumeralDateContext.Provider>
               );

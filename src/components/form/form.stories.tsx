@@ -521,7 +521,6 @@ export const FormAlignmentExample = () => {
         legendInline
         legendWidth={10}
         legendSpacing={2}
-        mb={2}
       >
         <RadioButton
           id="group-1-input-1"
@@ -549,7 +548,6 @@ export const FormAlignmentExample = () => {
         onChange={() => console.log("RADIO CHANGE")}
         legend="Legend above"
         ml="10%"
-        mb={2}
       >
         <RadioButton
           id="group-2-input-1"

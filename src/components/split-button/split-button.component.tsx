@@ -245,6 +245,7 @@ export const SplitButton = ({
   }
 
   const handleClick = useClickAwayListener(hideButtons);
+  const marginProps = filterStyledSystemMarginProps(rest);
 
   return (
     <StyledSplitButton
@@ -253,7 +254,7 @@ export const SplitButton = ({
       onClick={handleClick}
       ref={splitButtonNode}
       {...componentTags()}
-      {...filterStyledSystemMarginProps(rest)}
+      {...marginProps}
     >
       {renderMainButton()}
       {renderAdditionalButtons()}
