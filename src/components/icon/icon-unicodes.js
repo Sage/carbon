@@ -230,8 +230,14 @@ const legacyNames = {
   analysis: statusSymbols.chart_line,
   graph: statusSymbols.chart_line,
   basket: batchActions.cart,
-  bin: batchActions.delete,
-  bulk_destroy: batchActions.delete,
+  // `tsc` emits an invalid .d.ts file if we're using normal property access (.delete):
+  // it tries to use `delete` as an identifier, but `delete` is a reserved keyword.
+  // By using ["delete"] instead, tsc generates a different - valid - .d.ts file
+  // See also: https://github.com/microsoft/TypeScript/issues/53111
+  /* eslint-disable-next-line dot-notation */
+  bin: batchActions["delete"],
+  /* eslint-disable-next-line dot-notation */
+  bulk_destroy: batchActions["delete"],
   caret_down: actions.dropdown,
   collaborate: actions.share,
   contacts: business.people,
