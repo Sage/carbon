@@ -1,3 +1,15 @@
+## [114.18.0](https://github.com/Sage/carbon/compare/v114.17.6...v114.18.0) (2023-03-08)
+
+
+### Features
+
+* **inline-inputs:** add margin interface ([681a284](https://github.com/Sage/carbon/commit/681a2848ec947537eef54a39eb325e5947009922))
+
+
+### Bug Fixes
+
+* **form:** ensure any custom margin-bottom applied to inputs override fieldSpacing ([96a1222](https://github.com/Sage/carbon/commit/96a12222426d9107dde0d911371faf0cfe506978)), closes [#5681](https://github.com/Sage/carbon/issues/5681)
+
 ### [114.17.6](https://github.com/Sage/carbon/compare/v114.17.5...v114.17.6) (2023-03-03)
 
 
