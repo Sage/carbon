@@ -1,9 +1,18 @@
 import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import LinkTo from "@storybook/addon-links/react";
+
 import ButtonToggle from ".";
 import ButtonToggleGroup from "../button-toggle-group";
+import Box from "../box";
 
-<Meta title="Button Toggle" parameters={{ info: { disable: true } }} />
+<Meta 
+  title="Button Toggle"
+  parameters={{
+    info: { disable: true },
+    themeProvider: { chromatic: { theme: "sage" } },
+  }}
+/>
 
 # Button Toggle
 
@@ -50,6 +59,23 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
         Baz
       </ButtonToggle>
     </ButtonToggleGroup>
+  </Story>
+</Canvas>
+
+### Default with wrapped text
+
+<Canvas>
+  <Story name="default with wrapped text">
+    <Box margin={4} width="250px">
+      <ButtonToggleGroup id="button-toggle-group-id" name="options">
+        <ButtonToggle name="default" value="wraps" grouped>
+        Some text that wraps
+        </ButtonToggle>
+        <ButtonToggle name="default" value="foobar" grouped>
+        FooBar
+        </ButtonToggle>
+      </ButtonToggleGroup>
+    </Box>
   </Story>
 </Canvas>
 
