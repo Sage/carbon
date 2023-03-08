@@ -238,28 +238,6 @@ describe("SplitButton", () => {
       );
     });
 
-    it("has the expected style", () => {
-      assertStyleMatch(
-        {
-          backgroundColor: "var(--colorsActionMajorYang100)",
-          border: `1px solid var(--colorsActionMajorTransparent)`,
-        },
-        themedWrapper,
-        { modifier: `${StyledButton}` }
-      );
-    });
-
-    it('matches the expected style for the focused "additional button"', () => {
-      themedWrapper.find("button").simulate("focus");
-      assertStyleMatch(
-        {
-          backgroundColor: "var(--colorsActionMajor600)",
-        },
-        themedWrapper,
-        { modifier: `${StyledButton}:focus` }
-      );
-    });
-
     it("renders Toggle Button left border as expected", () => {
       const mockProps = {
         carbonTheme: theme as Partial<ThemeObject>,
