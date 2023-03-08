@@ -6,6 +6,7 @@ import Fieldset from "../../__internal__/fieldset";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import { ValidationProps } from "../../__internal__/validations";
+import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 
 export interface CheckboxGroupProps extends ValidationProps, MarginProps {
   /** The content for the CheckboxGroup Legend */
@@ -72,7 +73,9 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
               info: !!info,
             }}
           >
-            {children}
+            <FormSpacingProvider marginBottom={undefined}>
+              {children}
+            </FormSpacingProvider>
           </CheckboxGroupContext.Provider>
         </StyledCheckboxGroup>
       </Fieldset>

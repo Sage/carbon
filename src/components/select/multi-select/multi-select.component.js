@@ -8,10 +8,7 @@ import React, {
 import PropTypes from "prop-types";
 import invariant from "invariant";
 
-import {
-  filterStyledSystemMarginProps,
-  filterOutStyledSystemSpacingProps,
-} from "../../../style/utils";
+import { filterOutStyledSystemSpacingProps } from "../../../style/utils";
 import SelectTextbox, {
   formInputPropTypes,
 } from "../select-textbox/select-textbox.component";
@@ -29,6 +26,7 @@ import isExpectedValue from "../utils/is-expected-value";
 import isNavigationKey from "../utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
 import useStableCallback from "../../../hooks/__internal__/useStableCallback";
+import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 
 let deprecateInputRefWarnTriggered = false;
 
@@ -552,6 +550,8 @@ const MultiSelect = React.forwardRef(
       </FilterableSelectList>
     );
 
+    const marginProps = useFormSpacing(textboxProps);
+
     return (
       <StyledSelectMultiSelect
         disabled={disabled}
@@ -562,7 +562,7 @@ const MultiSelect = React.forwardRef(
         data-role={dataRole}
         data-element={dataElement}
         isOpen={isOpen}
-        {...filterStyledSystemMarginProps(textboxProps)}
+        {...marginProps}
       >
         <div ref={containerRef}>
           <StyledAccessibilityLabelContainer

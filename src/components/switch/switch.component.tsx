@@ -8,8 +8,8 @@ import CheckableInput, {
 import SwitchSlider from "./__internal__/switch-slider.component";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import { filterStyledSystemMarginProps } from "../../style/utils";
 import Logger from "../../__internal__/utils/logger";
+import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
 export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -108,6 +108,8 @@ export const Switch = React.forwardRef(
     const shouldValidationBeOnLabel =
       labelInline && !reverse ? true : validationOnLabel;
 
+    const marginProps = useFormSpacing(rest);
+
     const switchStyleProps = {
       "data-component": dataComponent,
       "data-role": dataRole,
@@ -118,7 +120,7 @@ export const Switch = React.forwardRef(
       labelSpacing,
       reverse: !reverse, // switched to preserve backward compatibility
       size,
-      ...filterStyledSystemMarginProps(rest),
+      ...marginProps,
     };
 
     const switchSliderProps = {

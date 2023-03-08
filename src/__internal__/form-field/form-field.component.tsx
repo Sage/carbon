@@ -10,7 +10,6 @@ import { MarginProps } from "styled-system";
 import invariant from "invariant";
 
 import { ValidationProps } from "../validations";
-import { filterStyledSystemMarginProps } from "../../style/utils";
 import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
 import Label from "../label";
 import FieldHelp from "../field-help";
@@ -18,6 +17,7 @@ import tagComponent, { TagProps } from "../utils/helpers/tags/tags";
 import { TabContext, TabContextProps } from "../../components/tabs/tab";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { IconType } from "../../components/icon";
+import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
 interface CommonFormFieldProps extends MarginProps, ValidationProps {
   /** If true, the component will be disabled */
@@ -132,7 +132,7 @@ const FormField = ({
   const { setError, setWarning, setInfo } = useContext<TabContextProps>(
     TabContext
   );
-
+  const marginProps = useFormSpacing(rest);
   const isMounted = useRef(false);
 
   useLayoutEffect(() => {
@@ -156,8 +156,6 @@ const FormField = ({
       }
     };
   }, [id, setError, setWarning, setInfo, error, warning, info]);
-
-  const marginProps = filterStyledSystemMarginProps(rest);
 
   const fieldHelp = fieldHelpContent ? (
     <FieldHelp
