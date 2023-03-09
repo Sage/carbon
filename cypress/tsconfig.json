@@ -1,16 +1,20 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
-    "baseUrl": "../node_modules",
-    "outDir": "dist",
+    "noEmit": true,
     "types": [
       "cypress",
       "cypress-real-events",
       "cypress-axe",
       "cypress-each"
-    ]
+    ],
   },
   "include": [
-    "**/*.*"
-  ]
+    "../src/global.d.ts",
+    "../node_modules/cypress",
+    "../node_modules/cypress-plugin-tab",
+    "../cypress.config.ts",
+    "./**/*.ts*"
+  ],
+  "exclude": []
 }
