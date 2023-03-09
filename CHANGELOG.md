@@ -1,3 +1,11 @@
+### [114.18.2](https://github.com/Sage/carbon/compare/v114.18.1...v114.18.2) (2023-03-09)
+
+
+### Bug Fixes
+
+* **multi-action-button:** resolve an issue with styles being overriden in child buttons ([b581624](https://github.com/Sage/carbon/commit/b581624ac6a9fffb53cf74c8e3bbdaad48b85122))
+* **split-button:** resolve an issue with styles being overriden in child buttons ([0e27765](https://github.com/Sage/carbon/commit/0e27765e8aedf4c7e6de44ccfd3f6db0b2cb8fdd))
+
 ### [114.18.1](https://github.com/Sage/carbon/compare/v114.18.0...v114.18.1) (2023-03-08)
 
 
