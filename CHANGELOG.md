@@ -1,3 +1,36 @@
+### [114.18.1](https://github.com/Sage/carbon/compare/v114.18.0...v114.18.1) (2023-03-08)
+
+
+### Bug Fixes
+
+* workaround to generate valid `icon-unicodes.d.ts` ([42752d7](https://github.com/Sage/carbon/commit/42752d73bd4c809d6b2e0a7705c773d12a1e59fe))
+
+## [114.18.0](https://github.com/Sage/carbon/compare/v114.17.6...v114.18.0) (2023-03-08)
+
+
+### Features
+
+* **inline-inputs:** add margin interface ([681a284](https://github.com/Sage/carbon/commit/681a2848ec947537eef54a39eb325e5947009922))
+
+
+### Bug Fixes
+
+* **form:** ensure any custom margin-bottom applied to inputs override fieldSpacing ([96a1222](https://github.com/Sage/carbon/commit/96a12222426d9107dde0d911371faf0cfe506978)), closes [#5681](https://github.com/Sage/carbon/issues/5681)
+
+### [114.17.6](https://github.com/Sage/carbon/compare/v114.17.5...v114.17.6) (2023-03-03)
+
+
+### Bug Fixes
+
+* **deps:** move esbuild to dev dependency ([7c55ec6](https://github.com/Sage/carbon/commit/7c55ec612a331e0254e25ff928b426bb3e115220))
+
+### [114.17.5](https://github.com/Sage/carbon/compare/v114.17.4...v114.17.5) (2023-03-03)
+
+
+### Bug Fixes
+
+* **page:** remove additional box padding ([6554158](https://github.com/Sage/carbon/commit/655415881af57651d9b0956846b0ed254acaa447)), closes [#5857](https://github.com/Sage/carbon/issues/5857)
+
 ### [114.17.4](https://github.com/Sage/carbon/compare/v114.17.3...v114.17.4) (2023-03-02)
 
 

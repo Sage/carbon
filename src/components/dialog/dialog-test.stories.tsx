@@ -15,7 +15,7 @@ import { DIALOG_SIZES } from "./dialog.config";
 
 export default {
   title: "Dialog/Test",
-  includeStories: "DefaultStory",
+  includeStories: "Default",
   parameters: {
     info: { disable: true },
     chromatic: {

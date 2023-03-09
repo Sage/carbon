@@ -41,7 +41,7 @@ const Page = ({ role, title, children, ...rest }: PageProps) => {
         <FullScreenHeading hasContent>{title}</FullScreenHeading>
         <StyledPageContent
           data-element="carbon-page-content"
-          p="30px 40px"
+          p="34px 40px"
           {...filterStyledSystemPaddingProps(rest)}
         >
           <Box
@@ -49,7 +49,6 @@ const Page = ({ role, title, children, ...rest }: PageProps) => {
             maxWidth="100%"
             minWidth="auto"
             margin="0 auto"
-            padding="4px 0px"
           >
             {children}
           </Box>

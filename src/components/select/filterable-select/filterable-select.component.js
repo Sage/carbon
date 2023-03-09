@@ -2,10 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import invariant from "invariant";
 
-import {
-  filterStyledSystemMarginProps,
-  filterOutStyledSystemSpacingProps,
-} from "../../../style/utils";
+import { filterOutStyledSystemSpacingProps } from "../../../style/utils";
 import SelectTextbox, {
   formInputPropTypes,
 } from "../select-textbox/select-textbox.component";
@@ -17,6 +14,7 @@ import isExpectedOption from "../utils/is-expected-option";
 import isNavigationKey from "../utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
 import useStableCallback from "../../../hooks/__internal__/useStableCallback";
+import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 
 let deprecateInputRefWarnTriggered = false;
 
@@ -553,6 +551,8 @@ const FilterableSelect = React.forwardRef(
       </FilterableSelectList>
     );
 
+    const marginProps = useFormSpacing(textboxProps);
+
     return (
       <StyledSelect
         hasTextCursor
@@ -562,7 +562,7 @@ const FilterableSelect = React.forwardRef(
         data-role={dataRole}
         data-element={dataElement}
         isOpen={isOpen}
-        {...filterStyledSystemMarginProps(textboxProps)}
+        {...marginProps}
       >
         <div ref={containerRef}>
           <SelectTextbox

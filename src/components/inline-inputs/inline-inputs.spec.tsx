@@ -7,6 +7,7 @@ import InlineInputs, { InlineInputsProps } from "./inline-inputs.component";
 import {
   assertStyleMatch,
   mockMatchMedia,
+  testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import StyledInlineInputs, {
@@ -15,6 +16,7 @@ import StyledInlineInputs, {
 } from "./inline-inputs.style";
 import InputPresentation from "../../__internal__/input/input-presentation.style";
 import guid from "../../__internal__/utils/helpers/guid";
+import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
@@ -33,6 +35,8 @@ function render(props: InlineInputsProps = {}) {
 
 describe("Inline Inputs", () => {
   let wrapper: ReactWrapper;
+
+  testStyledSystemMargin((props) => <InlineInputs {...props} />);
 
   describe("when a className prop is passed in", () => {
     it("renders with main class", () => {
@@ -210,6 +214,7 @@ describe("Inline Inputs", () => {
       expect(
         mount(<InlineInputs />)
           .find(StyledContentContainer)
+          .find(FormSpacingProvider)
           .prop("children")
       ).toBe(null);
     });

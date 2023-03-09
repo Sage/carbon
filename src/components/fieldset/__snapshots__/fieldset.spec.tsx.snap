@@ -17,7 +17,9 @@ exports[`Fieldset renders correctly 1`] = `
       data-component="fieldset-style"
       inline={false}
     >
-      <Textbox />
+      <FormSpacingProvider>
+        <Textbox />
+      </FormSpacingProvider>
     </styled.div>
   </styled.fieldset>
 </ContextProvider>
