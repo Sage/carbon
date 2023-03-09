@@ -32,6 +32,7 @@ import DatePicker from "./__internal__/date-picker";
 import DateRangeContext from "../date-range/date-range.context";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import Logger from "../../__internal__/utils/logger";
+import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
@@ -358,6 +359,8 @@ const DateInput = React.forwardRef(
       return value;
     };
 
+    const marginProps = useFormSpacing(rest);
+
     return (
       <StyledDateInput
         ref={wrapperRef}
@@ -367,7 +370,7 @@ const DateInput = React.forwardRef(
         data-component={dataComponent || "date"}
         data-element={dataElement}
         data-role={dataRole}
-        {...filterStyledSystemMarginProps(rest)}
+        {...marginProps}
         applyDateRangeStyling={!!inputRefMap}
       >
         <Textbox
@@ -392,6 +395,7 @@ const DateInput = React.forwardRef(
           size={size}
           disabled={disabled}
           readOnly={readOnly}
+          m={0}
         />
         <DatePicker
           disablePortal={disablePortal}

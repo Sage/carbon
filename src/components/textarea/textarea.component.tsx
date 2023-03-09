@@ -9,7 +9,6 @@ import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
 
 import Input from "../../__internal__/input/input.component";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
-import { filterStyledSystemMarginProps } from "../../style/utils";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import guid from "../../__internal__/utils/helpers/guid";
 import StyledTextarea, { MIN_HEIGHT } from "./textarea.style";
@@ -20,6 +19,7 @@ import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import Box from "../box";
 import Logger from "../../__internal__/utils/logger";
+import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
 // TODO: Change characterLimit type to number - batch with other breaking changes
 export interface TextareaProps
@@ -159,7 +159,7 @@ export const Textarea = React.forwardRef(
       "data-role": dataRole,
       helpAriaLabel,
       inputRef,
-      ...props
+      ...rest
     }: TextareaProps,
     ref: React.ForwardedRef<HTMLTextAreaElement>
   ) => {
@@ -301,7 +301,7 @@ export const Textarea = React.forwardRef(
           id={id}
           as="textarea"
           inputRef={inputRef}
-          {...props}
+          {...rest}
         />
         {children}
         <InputIconToggle
@@ -320,6 +320,8 @@ export const Textarea = React.forwardRef(
       </InputPresentation>
     );
 
+    const marginProps = useFormSpacing(rest);
+
     return (
       <TooltipProvider
         tooltipPosition={tooltipPosition}
@@ -332,7 +334,7 @@ export const Textarea = React.forwardRef(
             data-role={dataRole}
             data-element={dataElement}
             hasIcon={hasIconInside}
-            {...filterStyledSystemMarginProps(props)}
+            {...marginProps}
           >
             <FormField
               fieldHelp={computeLabelPropValues(fieldHelp)}
@@ -349,7 +351,7 @@ export const Textarea = React.forwardRef(
               labelWidth={computeLabelPropValues(labelWidth)}
               labelHelp={computeLabelPropValues(labelHelp)}
               labelSpacing={labelSpacing}
-              isRequired={props.required}
+              isRequired={rest.required}
               useValidationIcon={computeLabelPropValues(validationOnLabel)}
               adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
               validationRedesignOptIn={validationRedesignOptIn}

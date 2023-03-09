@@ -1,3 +1,30 @@
+### [114.18.2](https://github.com/Sage/carbon/compare/v114.18.1...v114.18.2) (2023-03-09)
+
+
+### Bug Fixes
+
+* **multi-action-button:** resolve an issue with styles being overriden in child buttons ([b581624](https://github.com/Sage/carbon/commit/b581624ac6a9fffb53cf74c8e3bbdaad48b85122))
+* **split-button:** resolve an issue with styles being overriden in child buttons ([0e27765](https://github.com/Sage/carbon/commit/0e27765e8aedf4c7e6de44ccfd3f6db0b2cb8fdd))
+
+### [114.18.1](https://github.com/Sage/carbon/compare/v114.18.0...v114.18.1) (2023-03-08)
+
+
+### Bug Fixes
+
+* workaround to generate valid `icon-unicodes.d.ts` ([42752d7](https://github.com/Sage/carbon/commit/42752d73bd4c809d6b2e0a7705c773d12a1e59fe))
+
+## [114.18.0](https://github.com/Sage/carbon/compare/v114.17.6...v114.18.0) (2023-03-08)
+
+
+### Features
+
+* **inline-inputs:** add margin interface ([681a284](https://github.com/Sage/carbon/commit/681a2848ec947537eef54a39eb325e5947009922))
+
+
+### Bug Fixes
+
+* **form:** ensure any custom margin-bottom applied to inputs override fieldSpacing ([96a1222](https://github.com/Sage/carbon/commit/96a12222426d9107dde0d911371faf0cfe506978)), closes [#5681](https://github.com/Sage/carbon/issues/5681)
+
 ### [114.17.6](https://github.com/Sage/carbon/compare/v114.17.5...v114.17.6) (2023-03-03)
 
 

@@ -163,6 +163,7 @@ const SelectTextbox = React.forwardRef(
         }
         {...getInputAriaAttributes()}
         {...getTextboxProps()}
+        my={0} // prevents any form spacing being applied
       >
         {!hasTextCursor && renderSelectText()}
       </Textbox>

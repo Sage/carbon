@@ -2792,6 +2792,15 @@ context("Tests for Flat Table component", () => {
       }
     });
 
+    it("should render Flat Table with icon node as children", () => {
+      CypressMountWithProviders(
+        <FlatTableComponent>
+          <Icon type="business" color="white" />
+        </FlatTableComponent>
+      );
+      flatTable().find("span").should("have.attr", "data-component", "icon");
+    });
+
     it("should render Flat Table Header with strings as children", () => {
       CypressMountWithProviders(<FlatTableComponent />);
 
