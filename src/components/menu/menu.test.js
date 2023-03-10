@@ -389,7 +389,9 @@ context("Testing Menu component", () => {
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
       innerMenu(positionOfElement("third"), span).click({ multiple: true });
       cy.focused().tab();
+      cy.focused().should("contain", "Item Submenu Three");
       cy.focused().tab();
+      cy.focused().should("contain", "Item Submenu Four");
     });
 
     it("should verify a submenu can be navigated using keyboard down arrow after an item was clicked", () => {
@@ -398,7 +400,9 @@ context("Testing Menu component", () => {
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
       innerMenu(positionOfElement("third"), span).click({ multiple: true });
       cy.focused().trigger("keydown", keyCode("downarrow"));
+      cy.focused().should("contain", "Item Submenu Three");
       cy.focused().trigger("keydown", keyCode("downarrow"));
+      cy.focused().should("contain", "Item Submenu Four");
     });
 
     it("should verify a submenu can be navigated using keyboard shift + tabbing after an item was clicked", () => {
@@ -407,7 +411,9 @@ context("Testing Menu component", () => {
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
       innerMenu(positionOfElement("fifth"), span).click({ multiple: true });
       cy.focused().tab({ shift: true });
+      cy.focused().should("contain", "Item Submenu Two");
       cy.focused().tab({ shift: true });
+      cy.focused().should("contain", "Item Submenu One");
     });
 
     it("should verify a submenu can be navigated using keyboard up arrow after an item was clicked", () => {
@@ -416,7 +422,9 @@ context("Testing Menu component", () => {
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
       innerMenu(positionOfElement("fifth"), span).click({ multiple: true });
       cy.focused().trigger("keydown", keyCode("uparrow"));
+      cy.focused().should("contain", "Item Submenu Two");
       cy.focused().trigger("keydown", keyCode("uparrow"));
+      cy.focused().should("contain", "Item Submenu One");
     });
 
     it("should verify a the first submenu item is focused using keyboard tabbing after the parent item was clicked", () => {
@@ -424,6 +432,7 @@ context("Testing Menu component", () => {
 
       submenu().eq(positionOfElement("first"), button).click();
       cy.focused().tab();
+      cy.focused().should("contain", "Item Submenu One");
     });
 
     it("should verify a the first submenu item is focused using keyboard down arrow after the parent item was clicked", () => {
@@ -431,6 +440,7 @@ context("Testing Menu component", () => {
 
       submenu().eq(positionOfElement("first"), button).click();
       cy.focused().trigger("keydown", keyCode("downarrow"));
+      cy.focused().should("contain", "Item Submenu One");
     });
 
     it("should verify number and type of elements in submenu", () => {
