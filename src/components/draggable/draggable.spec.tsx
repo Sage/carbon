@@ -1,7 +1,7 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
-import { render } from "react-dom";
+import { Container, render } from "react-dom";
 
 import DraggableContainer from "./draggable-container.component";
 import DraggableItem from "./draggable-item.component";
@@ -15,16 +15,21 @@ import {
   StyledDraggableContainer,
   StyledDraggableItem,
 } from "./draggable-item.style";
+import DropTarget from "./internal/drop-target.component";
 
 describe("Draggable", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   const getOrder = jest.fn();
 
-  const getDraggableItems = (mountNode) =>
-    Array.from(mountNode.querySelectorAll('div[data-element="draggable"]'));
+  const getDraggableItems = (mountNode: Element | null) => {
+    const draggableItems = mountNode?.querySelectorAll(
+      'div[data-element="draggable"]'
+    );
+    return draggableItems ? Array.from(draggableItems) : [];
+  };
 
-  const createBubbledEvent = (type, props = {}) => {
+  const createBubbledEvent = (type: string, props = {}) => {
     const event = new Event(type, { bubbles: true, ...props });
     return event;
   };
@@ -57,7 +62,7 @@ describe("Draggable", () => {
         </DraggableItem>
       </DraggableContainer>
     ),
-    null,
+    undefined,
     (component) => component.find(StyledDraggableContainer)
   );
 
@@ -75,36 +80,17 @@ describe("Draggable", () => {
 
   it("should return an array with id's", () => {
     wrapper.setProps({ getOrder });
-    wrapper.find("DropTarget").at(0).props().getOrder(2);
+    wrapper.find(DropTarget).at(0).props().getOrder(2);
     expect(getOrder).toHaveBeenCalledWith([1, 2], 2);
   });
 
   it("should return an array if getOrder is not passed to the component", () => {
-    wrapper.find("DropTarget").at(0).props().getOrder();
+    wrapper.find(DropTarget)?.at(0)?.props()?.getOrder();
     expect(getOrder).not.toHaveBeenCalledWith();
   });
 
   it("should render correct", () => {
     expect(wrapper.exists()).toBe(true);
-  });
-
-  it("validates the incorrect children prop", () => {
-    const consoleSpy = jest
-      .spyOn(global.console, "error")
-      .mockImplementation(() => {});
-
-    wrapper = mount(
-      <DraggableContainer>
-        <Checkbox name="myCheckbox" id="1" key="1" />
-      </DraggableContainer>
-    );
-
-    // eslint-disable-next-line no-console
-    expect(console.error.mock.calls[0][2]).toBe(
-      "`DraggableContainer` only accepts children of type `DraggableItem`."
-    );
-
-    consoleSpy.mockRestore();
   });
 
   it("accepts empty children", () => {
@@ -138,8 +124,8 @@ describe("Draggable", () => {
     expect(wrapper.find(DraggableItem).length).toBe(2);
   });
 
-  it("should render correct if isDragging enable", () => {
-    wrapper = mount(<StyledDraggableItem isDragging opacity={1} />);
+  it("should render correct styles if isDragging is true", () => {
+    wrapper = mount(<StyledDraggableItem isDragging />);
 
     assertStyleMatch(
       {
@@ -150,7 +136,7 @@ describe("Draggable", () => {
   });
 
   describe("Multiple draggable containers", () => {
-    let mountNode;
+    let mountNode: HTMLElement;
 
     beforeEach(() => {
       const component = (
@@ -190,7 +176,7 @@ describe("Draggable", () => {
     });
 
     it("should drag items within container 1", () => {
-      const container1 = mountNode.querySelector("#container-1");
+      const container1 = mountNode?.querySelector("#container-1");
 
       const draggableItems = getDraggableItems(container1);
       const startingNode = draggableItems[0];
@@ -210,12 +196,12 @@ describe("Draggable", () => {
       });
 
       expect(
-        getDraggableItems(container1).map((cell) => cell.textContent)
+        getDraggableItems(container1).map((cell) => cell?.textContent)
       ).toEqual(["Item 2", "Item 3", "Item 1"]);
     });
 
     it("should drag items within container 2", () => {
-      const container2 = mountNode.querySelector("#container-2");
+      const container2 = mountNode?.querySelector("#container-2");
 
       const draggableItems = getDraggableItems(container2);
       const startingNode = draggableItems[0];
@@ -235,7 +221,7 @@ describe("Draggable", () => {
       });
 
       expect(
-        getDraggableItems(container2).map((cell) => cell.textContent)
+        getDraggableItems(container2).map((cell) => cell?.textContent)
       ).toEqual(["Item 5", "Item 6", "Item 4"]);
     });
 
@@ -258,14 +244,14 @@ describe("Draggable", () => {
       });
 
       expect(
-        getDraggableItems(mountNode).map((cell) => cell.textContent)
+        getDraggableItems(mountNode).map((cell) => cell?.textContent)
       ).toEqual(["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"]);
     });
   });
 });
 
 describe("Draggable Checkbox", () => {
-  let mountNode;
+  let mountNode: Container;
   let getOrder = jest.fn();
 
   beforeEach(() => {
@@ -293,7 +279,7 @@ describe("Draggable Checkbox", () => {
     const getTableCells = () =>
       Array.from(mountNode.querySelectorAll('div[data-element="draggable"]'));
 
-    const createBubbledEvent = (type, props = {}) => {
+    const createBubbledEvent = (type: string, props = {}) => {
       const event = new Event(type, { bubbles: true, ...props });
       return event;
     };
@@ -399,12 +385,24 @@ describe("Draggable Checkbox", () => {
       const tableCells2 = getTableCells();
       const startingNode2 = tableCells2[2];
       const endingNode2 = tableCells2[1];
-      startingNode2.closest(
-        'div[data-element="draggable"]'
-      ).getBoundingClientRect = () => ({
-        top: 20,
-        left: 0,
-      });
+      if (startingNode2) {
+        const draggableElement = startingNode2.closest(
+          'div[data-element="draggable"]'
+        );
+        if (draggableElement) {
+          draggableElement.getBoundingClientRect = () =>
+            ({
+              top: 20,
+              left: 0,
+              bottom: 0,
+              height: 0,
+              right: 0,
+              width: 0,
+              x: 0,
+              y: 0,
+            } as DOMRect);
+        }
+      }
 
       act(() => {
         startingNode2.dispatchEvent(
@@ -424,5 +422,27 @@ describe("Draggable Checkbox", () => {
         "Draggable Label Two",
       ]);
     });
+  });
+});
+
+describe("Invariant", () => {
+  let mockGlobal: jest.SpyInstance;
+
+  beforeEach(() => {
+    mockGlobal = jest
+      .spyOn(global.console, "error")
+      .mockImplementation(() => undefined);
+  });
+
+  afterEach(() => {
+    mockGlobal.mockReset();
+  });
+
+  it("should throw if incorrect children prop is passed", () => {
+    expect(() => {
+      mount(<DraggableContainer>foo</DraggableContainer>);
+    }).toThrow(
+      "`DraggableContainer` only accepts children of type `DraggableItem`."
+    );
   });
 });
