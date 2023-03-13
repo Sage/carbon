@@ -43,3 +43,7 @@ Default.args = {
     "This provides more information about what this group of settings are for.",
   divider: true,
 };
+
+export const SettingsRowComponent = ({ ...props }) => {
+  return <SettingsRow title="title" description="description" {...props} />;
+};
