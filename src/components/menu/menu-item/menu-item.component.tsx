@@ -271,6 +271,7 @@ export const MenuItem = ({
         {...rest}
         inFullscreenView={inFullscreenView}
         id={menuItemId.current}
+        as={as}
       >
         <Submenu
           {...(typeof submenu !== "boolean" && { title: submenu })}
@@ -305,6 +306,7 @@ export const MenuItem = ({
       inFullscreenView={inFullscreenView && !Object.keys(submenuContext).length}
       id={menuItemId.current}
       onClick={updateFocusOnClick}
+      as={as}
     >
       <StyledMenuItemWrapper
         menuType={menuType}

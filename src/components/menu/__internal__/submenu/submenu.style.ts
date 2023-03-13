@@ -108,8 +108,7 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
 
         a:hover,
         button:hover {
-          background-color: ${menuConfigVariants[menuType]
-            .submenuItemBackgroundHover};
+          background-color: transparent;
           color: var(--colorsComponentsMenuYang100);
 
           [data-component="icon"] {

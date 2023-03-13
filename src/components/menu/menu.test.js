@@ -28,7 +28,7 @@ import {
   searchDefaultInput,
   searchCrossIcon,
 } from "../../../cypress/locators/search/index";
-import { getComponent, closeIconButton } from "../../../cypress/locators";
+import { getComponent, closeIconButton, icon } from "../../../cypress/locators";
 import {
   keyCode,
   positionOfElement,
@@ -496,6 +496,29 @@ context("Testing Menu component", () => {
         .children()
         .should("have.css", "background-color", color);
     });
+
+    it.each([
+      ["white", "rgba(0, 0, 0, 0.9)"],
+      ["light", "rgba(0, 0, 0, 0.9)"],
+      ["dark", "rgb(255, 255, 255)"],
+      ["black", "rgb(255, 255, 255)"],
+    ])(
+      "should verify icons have the correct color when menuType is %s",
+      (menuType, color) => {
+        CypressMountWithProviders(
+          <Menu menuType={menuType}>
+            <MenuItem onClick={() => {}} icon="home">
+              Foo
+            </MenuItem>
+          </Menu>
+        );
+
+        pressTABKey(1);
+        cy.wait(50);
+
+        icon().should("have.css", "color", color);
+      }
+    );
 
     it.each([
       ["default", 1],

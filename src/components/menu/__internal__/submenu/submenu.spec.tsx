@@ -1261,8 +1261,7 @@ describe("Submenu component", () => {
           renderWrapper("default");
           assertStyleMatch(
             {
-              backgroundColor:
-                menuConfigVariants[menuType].submenuItemBackgroundHover,
+              backgroundColor: "transparent",
               color: "var(--colorsComponentsMenuYang100)",
             },
             wrapper.find(StyledSubmenu),

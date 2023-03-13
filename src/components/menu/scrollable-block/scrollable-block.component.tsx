@@ -51,6 +51,7 @@ export const ScrollableBlock = ({
           overrideColor
           variant={parentVariant}
           p="2px 16px"
+          as="div"
         >
           {parent}
         </MenuItem>

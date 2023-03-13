@@ -136,7 +136,7 @@ describe("MenuItem", () => {
           verticalAlign: "bottom",
         },
         wrapper.find(StyledMenuItemWrapper),
-        { modifier: "&& button" }
+        { modifier: "&&& button" }
       );
     });
   });
@@ -255,7 +255,7 @@ describe("MenuItem", () => {
               color: "var(--colorsComponentsMenuYang100)",
             },
             wrapper.find(StyledMenuItemWrapper),
-            { modifier: `&& ${element}:${pseudo}` }
+            { modifier: `&&& ${element}:${pseudo}` }
           );
         });
 
@@ -266,7 +266,7 @@ describe("MenuItem", () => {
             },
             wrapper.find(StyledMenuItemWrapper),
             {
-              modifier: `&& ${element}:${pseudo} [data-component="icon"]`,
+              modifier: `&&& ${element}:${pseudo} [data-component="icon"]`,
             }
           );
         });
@@ -300,7 +300,7 @@ describe("MenuItem", () => {
               color: "var(--colorsComponentsMenuYang100)",
             },
             wrapper.find(StyledMenuItemWrapper),
-            { modifier: `&& ${element}:${pseudo}` }
+            { modifier: `&&& ${element}:${pseudo}` }
           );
         });
 
@@ -623,7 +623,7 @@ describe("MenuItem", () => {
             verticalAlign: "bottom",
           },
           wrapper.find(StyledMenuItemWrapper),
-          { modifier: "&& button" }
+          { modifier: "&&& button" }
         );
       });
 
@@ -782,16 +782,37 @@ describe("MenuItem", () => {
     });
   });
 
-  it.each([
-    ["href", "https://carbon.sage.com"],
-    ["target", "_blank"],
-    ["rel", "noopener"],
-  ])(
-    "the %s prop should be passed as an attribute to the underlying HTML anchor element",
-    (prop, value) => {
-      wrapper = mount(<MenuItem {...{ [prop]: value }}>Foo</MenuItem>);
-      const anchor = wrapper.find("a").getDOMNode();
-      expect(anchor.getAttribute(prop)).toBe(value);
-    }
-  );
+  it("the href, target and rel props should be passed as an attribute to the underlying HTML anchor element", () => {
+    const href = "https://carbon.sage.com";
+    const target = "_blank";
+    const rel = "noopener";
+
+    wrapper = mount(
+      <MenuItem href={href} target={target} rel={rel}>
+        Foo
+      </MenuItem>
+    );
+    const anchor = wrapper.find("a").getDOMNode();
+    expect(anchor.getAttribute("href")).toBe(href);
+    expect(anchor.getAttribute("target")).toBe(target);
+    expect(anchor.getAttribute("rel")).toBe(rel);
+  });
+
+  describe("tags on component", () => {
+    it("includes correct component, element and role data tags", () => {
+      wrapper = mount(
+        <MenuItem data-element="bar" data-role="baz">
+          foo
+        </MenuItem>
+      ).find(StyledMenuItem);
+
+      expect(wrapper.getDOMNode().getAttribute("data-component")).toEqual(
+        "menu-item"
+      );
+
+      expect(wrapper.getDOMNode().getAttribute("data-element")).toEqual("bar");
+
+      expect(wrapper.getDOMNode().getAttribute("data-role")).toEqual("baz");
+    });
+  });
 });

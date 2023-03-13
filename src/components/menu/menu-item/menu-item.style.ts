@@ -82,6 +82,18 @@ const StyledMenuItemWrapper = styled.a.attrs({
       max-width: inherit;
 
       && {
+        a:focus,
+        button:focus {
+          box-shadow: inset 0 0 0 var(--borderWidth300)
+            var(--colorsSemanticFocus500);
+          background-color: ${menuConfigVariants[menuType].background};
+          color: ${menuConfigVariants[menuType].color};
+          z-index: 1;
+          position: relative;
+        }
+      }
+
+      &&& {
         a,
         button {
           ${maxWidth &&
@@ -95,23 +107,20 @@ const StyledMenuItemWrapper = styled.a.attrs({
           `}
         }
 
-        a:focus,
-        button:focus {
-          box-shadow: inset 0 0 0 var(--borderWidth300)
-            var(--colorsSemanticFocus500);
-          background-color: ${menuConfigVariants[menuType].background};
-          color: ${menuConfigVariants[menuType].color};
-          z-index: 1;
-          position: relative;
-        }
-
         a:hover,
         button:hover {
-          background-color: var(--colorsComponentsMenuAutumnStandard600);
-          color: var(--colorsComponentsMenuYang100);
-
-          [data-component="icon"] {
+          ${!asDiv &&
+          css`
+            background-color: var(--colorsComponentsMenuAutumnStandard600);
             color: var(--colorsComponentsMenuYang100);
+
+            [data-component="icon"] {
+              color: var(--colorsComponentsMenuYang100);
+            }
+          `}
+
+          ::before {
+            border-top-color: var(--colorsComponentsMenuYang100);
           }
         }
       }
@@ -150,7 +159,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
       text-align: left;
     }
 
-    && {
+    &&& {
       a,
       button,
       [data-component="icon"],
