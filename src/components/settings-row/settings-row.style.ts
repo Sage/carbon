@@ -3,7 +3,11 @@ import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import { StyledHeader, StyledSeparator } from "../heading/heading.style";
 
-export const StyledSettingsRow = styled.div`
+interface DividerProps {
+  hasDivider: boolean;
+}
+
+export const StyledSettingsRow = styled.div<DividerProps>`
   ${margin}
 
   clear: both;

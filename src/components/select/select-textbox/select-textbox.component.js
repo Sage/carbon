@@ -29,6 +29,7 @@ const SelectTextbox = React.forwardRef(
       value,
       disabled,
       isOpen,
+      id,
       readOnly,
       placeholder,
       size = "medium",
@@ -99,6 +100,7 @@ const SelectTextbox = React.forwardRef(
     function getTextboxProps() {
       return {
         disabled,
+        id,
         readOnly,
         required,
         onClick: handleTextboxClick,

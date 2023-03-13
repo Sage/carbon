@@ -15,6 +15,7 @@ import isNavigationKey from "../utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
 import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
+import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 
 let deprecateInputRefWarnTriggered = false;
 
@@ -63,7 +64,6 @@ const FilterableSelect = React.forwardRef(
   ) => {
     const [activeDescendantId, setActiveDescendantId] = useState();
     const selectListId = useRef(guid());
-    const labelId = useRef(label ? guid() : undefined);
     const containerRef = useRef();
     const listboxRef = useRef();
     const isControlled = useRef(value !== undefined);
@@ -78,6 +78,11 @@ const FilterableSelect = React.forwardRef(
     );
     const [highlightedValue, setHighlightedValue] = useState("");
     const [filterText, setFilterText] = useState("");
+    const inputId = useRef(id || guid());
+    const { labelId } = useInputAccessibility({
+      id: inputId.current,
+      label,
+    });
 
     if (!deprecateInputRefWarnTriggered && inputRef) {
       deprecateInputRefWarnTriggered = true;
@@ -497,7 +502,7 @@ const FilterableSelect = React.forwardRef(
 
     function getTextboxProps() {
       return {
-        id,
+        id: inputId.current,
         name,
         label,
         disabled,
@@ -523,7 +528,7 @@ const FilterableSelect = React.forwardRef(
       <FilterableSelectList
         ref={listboxRef}
         id={selectListId.current}
-        labelId={label ? labelId.current : undefined}
+        labelId={labelId}
         anchorElement={textboxRef && textboxRef.parentElement}
         onSelect={onSelectOption}
         onSelectListClose={onSelectListClose}
@@ -567,7 +572,7 @@ const FilterableSelect = React.forwardRef(
         <div ref={containerRef}>
           <SelectTextbox
             activeDescendantId={activeDescendantId}
-            labelId={label ? labelId.current : undefined}
+            labelId={labelId}
             aria-controls={selectListId.current}
             isOpen={isOpen}
             hasTextCursor

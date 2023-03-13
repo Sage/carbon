@@ -17,7 +17,7 @@ export default {
 };
 
 export const Default = () => {
-  const handleUpdate = (items) => {
+  const handleUpdate = (items?: (string | number | undefined)[]) => {
     action("onUpdate")(items);
   };
   return (

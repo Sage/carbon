@@ -68,13 +68,15 @@ describe("Inline Inputs", () => {
         { modifier: `${StyledLabelContainer}` }
       );
     });
+  });
 
-    it("sets the aria-labelledby prop on the inputs", () => {
-      wrapper
-        .find("input")
-        .forEach((input) =>
-          expect(input.prop("aria-labelledby")).toEqual(mockedGuid)
-        );
+  describe("when the labelId prop is set", () => {
+    it("then it should be passed to the Label component", () => {
+      const mockLabelId = "bar";
+      wrapper = render({ label: "foo", labelId: mockLabelId });
+      const label = wrapper.find(Label);
+
+      expect(label.props().labelId).toEqual(mockLabelId);
     });
   });
 
