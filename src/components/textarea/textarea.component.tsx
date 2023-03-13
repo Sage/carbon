@@ -26,6 +26,8 @@ export interface TextareaProps
   extends ValidationProps,
     MarginProps,
     Omit<CommonInputProps, "size"> {
+  /** Prop to specify the aria-labelledby property of the component */
+  "aria-labelledby"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -122,6 +124,7 @@ let deprecateInputRefWarnTriggered = false;
 export const Textarea = React.forwardRef(
   (
     {
+      "aria-labelledby": ariaLabelledBy,
       autoFocus,
       fieldHelp,
       label,
@@ -218,7 +221,6 @@ export const Textarea = React.forwardRef(
       validationIconId,
       fieldHelpId,
       ariaDescribedBy,
-      ariaLabelledBy,
     } = useInputAccessibility({
       id,
       error,

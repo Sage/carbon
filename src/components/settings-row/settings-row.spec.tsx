@@ -1,13 +1,11 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
-
+import { shallow, mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import SettingsRow from ".";
-
 import {
   StyledSettingsRow,
   StyledSettingsRowInput,
 } from "./settings-row.style";
-import Heading from "../heading";
+import Heading, { HeadingType } from "../heading";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
@@ -15,7 +13,9 @@ import {
 } from "../../__spec_helper__/test-utils";
 
 describe("SettingsRow", () => {
-  testStyledSystemMargin((props) => <SettingsRow {...props} />, { m: "0" });
+  testStyledSystemMargin((props) => <SettingsRow {...props} />, {
+    m: "0",
+  });
 
   describe("render", () => {
     const name = "foobar-row";
@@ -23,7 +23,9 @@ describe("SettingsRow", () => {
     const description = <span>Some descriptive text</span>;
     const childId = "my_child";
     const children = <span id={childId} />;
-    let wrapper = shallow(
+    let wrapper: ReactWrapper | ShallowWrapper;
+
+    wrapper = shallow(
       <SettingsRow className={name} title={title}>
         {children}
       </SettingsRow>
@@ -59,7 +61,7 @@ describe("SettingsRow", () => {
     });
 
     describe("when description is provided", () => {
-      let head;
+      let head: ShallowWrapper;
 
       beforeEach(() => {
         wrapper = shallow(
@@ -78,7 +80,7 @@ describe("SettingsRow", () => {
     });
 
     describe("when headingType prop is provided", () => {
-      it.each(["h1", "h2", "h3", "h4", "h5"])(
+      it.each<HeadingType>(["h1", "h2", "h3", "h4", "h5"])(
         "HTML heading element is correct when headingType is %s",
         (headingType) => {
           wrapper = mount(

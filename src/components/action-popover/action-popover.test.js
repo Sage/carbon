@@ -19,6 +19,7 @@ import {
 import { getDataElementByValue, cyRoot } from "../../../cypress/locators/index";
 
 import { buttonDataComponent } from "../../../cypress/locators/button";
+import { alertDialogPreview } from "../../../cypress/locators/dialog";
 
 import { keyCode } from "../../../cypress/support/helper";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -48,6 +49,7 @@ import {
   ActionPopoverComponentInOverflowHiddenContainer,
   ActionPopoverComponentInFlatTable,
   ActionPopoverComponentOpeningAModal,
+  ActionPopoverNestedInDialog,
 } from "./action-popover.stories.tsx";
 
 context("Test for ActionPopover component", () => {
@@ -164,7 +166,7 @@ context("Test for ActionPopover component", () => {
         key: "Shift",
         release: false,
       });
-      cy.focused().trigger("keydown", { key: "Escape" });
+      cy.focused().type("{esc}", { force: true });
       actionPopover().should("not.exist");
     });
 
@@ -177,7 +179,7 @@ context("Test for ActionPopover component", () => {
         key: "Shift",
         release: false,
       });
-      cy.focused().trigger("keydown", { key: "Escape" });
+      cy.focused().type("{esc}", { force: true });
       actionPopover().should("not.exist");
     });
 
@@ -192,7 +194,7 @@ context("Test for ActionPopover component", () => {
         key: "Shift",
         release: false,
       });
-      cy.focused().trigger("keydown", { key: "Escape" });
+      cy.focused().type("{esc}", { force: true });
       actionPopover().should("not.exist");
     });
 
@@ -308,7 +310,7 @@ context("Test for ActionPopover component", () => {
           key: "Shift",
           release: false,
         });
-        cy.focused().trigger("keydown", { key: "Escape" });
+        cy.focused().type("{esc}", { force: true });
         actionPopover().should("not.exist");
       }
     );
@@ -733,6 +735,28 @@ context("Test for ActionPopover component", () => {
 
       actionPopoverButton().eq(0).click();
       cy.checkAccessibility();
+    });
+  });
+
+  describe("when nested inside of a Dialog component", () => {
+    it("should not close the Dialog when ActionPopover is closed by pressing an escape key", () => {
+      CypressMountWithProviders(<ActionPopoverNestedInDialog />);
+
+      actionPopoverButton().eq(0).click();
+      actionPopoverButton()
+        .eq(0)
+        .type("{esc}", { force: true })
+        .then(() => {
+          actionPopover().should("not.exist");
+          alertDialogPreview().should("exist");
+        });
+
+      actionPopoverButton()
+        .eq(0)
+        .type("{esc}", { force: true })
+        .then(() => {
+          alertDialogPreview().should("not.exist");
+        });
     });
   });
 });
