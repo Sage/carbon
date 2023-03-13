@@ -21,6 +21,7 @@ import isExpectedOption from "../utils/is-expected-option";
 import isNavigationKey from "../utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
+import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 
 let deprecateInputRefWarnTriggered = false;
 
@@ -30,6 +31,7 @@ const SimpleSelect = React.forwardRef(
       value,
       defaultValue,
       id,
+      label,
       name,
       disabled,
       readOnly,
@@ -62,7 +64,6 @@ const SimpleSelect = React.forwardRef(
     ref
   ) => {
     const selectListId = useRef(guid());
-    const labelId = useRef(guid());
     const containerRef = useRef();
     const listboxRef = useRef();
     const filterTimer = useRef();
@@ -78,6 +79,11 @@ const SimpleSelect = React.forwardRef(
     const [selectedValue, setSelectedValue] = useState(
       value || defaultValue || ""
     );
+    const inputId = useRef(id || guid());
+    const { labelId } = useInputAccessibility({
+      id: inputId.current,
+      label,
+    });
 
     if (!deprecateInputRefWarnTriggered && inputRef) {
       deprecateInputRefWarnTriggered = true;
@@ -383,7 +389,7 @@ const SimpleSelect = React.forwardRef(
 
     function getTextboxProps() {
       return {
-        id,
+        id: inputId.current,
         name,
         disabled,
         readOnly,
@@ -392,6 +398,8 @@ const SimpleSelect = React.forwardRef(
         formattedValue: textValue,
         onClick: handleTextboxClick,
         iconOnClick: handleDropdownIconClick,
+        label,
+        labelId,
         onMouseDown: handleTextboxMouseDown,
         onFocus: handleTextboxFocus,
         onKeyDown: handleTextboxKeydown,
@@ -406,7 +414,7 @@ const SimpleSelect = React.forwardRef(
       <SelectList
         ref={listboxRef}
         id={selectListId.current}
-        labelId={labelId.current}
+        labelId={labelId}
         anchorElement={textboxRef && textboxRef.parentElement}
         onSelect={onSelectOption}
         onMouseDown={handleListMouseDown}
@@ -446,7 +454,6 @@ const SimpleSelect = React.forwardRef(
           <SelectTextbox
             aria-controls={selectListId.current}
             activeDescendantId={activeDescendantId}
-            labelId={labelId.current}
             isOpen={isOpen}
             textboxRef={textboxRef}
             {...getTextboxProps()}

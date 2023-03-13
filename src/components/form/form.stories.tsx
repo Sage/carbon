@@ -627,9 +627,14 @@ export const WithLabelsInline = () => (
     }
   >
     <Textbox label="Textbox" labelInline labelWidth={30} />
-    <InlineInputs label="Inline Inputs" gutter="none" labelWidth={30}>
-      <Textbox />
-      <Textbox />
+    <InlineInputs
+      label="Inline Inputs"
+      gutter="none"
+      labelWidth={30}
+      labelId="inline-inputs"
+    >
+      <Textbox aria-labelledby="inline-inputs" />
+      <Textbox aria-labelledby="inline-inputs" />
       <Select>
         <Option value="1" text="option 1" key="1" />
         <Option value="2" text="option 2" key="1" />
@@ -640,9 +645,10 @@ export const WithLabelsInline = () => (
       label="Inline Inputs with a gutter"
       gutter="large"
       labelWidth={30}
+      labelId="inline-inputs-second"
     >
-      <Textbox />
-      <Textbox />
+      <Textbox aria-labelledby="inline-inputs-second" />
+      <Textbox aria-labelledby="inline-inputs-second" />
       <Select>
         <Option value="1" text="option 1" key="1" />
         <Option value="2" text="option 2" key="1" />

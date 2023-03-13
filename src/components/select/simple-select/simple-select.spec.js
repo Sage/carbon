@@ -16,8 +16,49 @@ import InputPresentationStyle from "../../../__internal__/input/input-presentati
 import Label from "../../../__internal__/label";
 import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
+import guid from "../../../__internal__/utils/helpers/guid";
+
+const mockedGuid = "mocked-guid";
+jest.mock("../../../__internal__/utils/helpers/guid");
+
+guid.mockReturnValue(mockedGuid);
 
 describe("SimpleSelect", () => {
+  describe("when the id prop is set", () => {
+    const mockId = "foo";
+    const wrapper = renderSelect({ id: mockId, label: "bar" });
+
+    it("then it should be passed to the Textbox component", () => {
+      expect(wrapper.find(Textbox).prop("id")).toBe(mockId);
+    });
+
+    it("then a label id based on that prop should be passed to the SelectList component", () => {
+      expect(wrapper.find(SelectList).prop("labelId")).toBe(`${mockId}-label`);
+    });
+
+    it("then a label id based on that prop should be passed to the Textbox component", () => {
+      expect(wrapper.find(Textbox).prop("labelId")).toBe(`${mockId}-label`);
+    });
+  });
+
+  describe("when the id prop is not set", () => {
+    const wrapper = renderSelect({ id: undefined, label: "bar" });
+
+    it("then a randomly generated id should be passed to the Textbox component", () => {
+      expect(wrapper.find(Textbox).prop("id")).toBe(mockedGuid);
+    });
+
+    it("then a label id based on randomly generated id should be passed to the SelectList component", () => {
+      expect(wrapper.find(SelectList).prop("labelId")).toBe(
+        `${mockedGuid}-label`
+      );
+    });
+
+    it("then a label id based on a randomly generated id should be passed to the Textbox component", () => {
+      expect(wrapper.find(Textbox).prop("labelId")).toBe(`${mockedGuid}-label`);
+    });
+  });
+
   describe("when an HTML element is clicked when the SelectList is open", () => {
     let wrapper;
     let domNode;

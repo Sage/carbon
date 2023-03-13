@@ -27,6 +27,7 @@ import isNavigationKey from "../utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
 import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
+import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 
 let deprecateInputRefWarnTriggered = false;
 
@@ -38,6 +39,7 @@ const MultiSelect = React.forwardRef(
       value,
       defaultValue,
       id,
+      label,
       name,
       disabled,
       readOnly,
@@ -75,7 +77,6 @@ const MultiSelect = React.forwardRef(
     const [activeDescendantId, setActiveDescendantId] = useState();
     const selectListId = useRef(guid());
     const accessibilityLabelId = useRef(guid());
-    const labelId = useRef(guid());
     const containerRef = useRef();
     const listboxRef = useRef();
     const isInputFocused = useRef(false);
@@ -92,6 +93,11 @@ const MultiSelect = React.forwardRef(
     const [highlightedValue, setHighlightedValue] = useState("");
     const [filterText, setFilterText] = useState("");
     const [placeholderOverride, setPlaceholderOverride] = useState();
+    const inputId = useRef(id || guid());
+    const { labelId } = useInputAccessibility({
+      id: inputId.current,
+      label,
+    });
 
     const actualValue = isControlled.current ? value : selectedValue;
 
@@ -497,9 +503,10 @@ const MultiSelect = React.forwardRef(
 
     function getTextboxProps() {
       return {
-        id,
+        id: inputId.current,
         name,
         disabled,
+        label,
         readOnly,
         placeholder: placeholderOverride,
         leftChildren: mapValuesToPills,
@@ -525,7 +532,7 @@ const MultiSelect = React.forwardRef(
       <FilterableSelectList
         ref={listboxRef}
         id={selectListId.current}
-        labelId={labelId.current}
+        labelId={labelId}
         anchorElement={textboxRef && textboxRef.parentElement}
         onSelect={onSelectOption}
         onSelectListClose={onSelectListClose}
@@ -577,7 +584,7 @@ const MultiSelect = React.forwardRef(
             aria-controls={selectListId.current}
             hasTextCursor
             isOpen={isOpen}
-            labelId={labelId.current}
+            labelId={labelId}
             textboxRef={textboxRef}
             {...getTextboxProps()}
           />
