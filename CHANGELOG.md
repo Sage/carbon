@@ -1,3 +1,10 @@
+### [115.0.1](https://github.com/Sage/carbon/compare/v115.0.0...v115.0.1) (2023-03-13)
+
+
+### Bug Fixes
+
+* **action-popover:** resolve issue with Select component closing parent Dialog on escape key press ([e942dbf](https://github.com/Sage/carbon/commit/e942dbf57b3aa77b6b0afe2f158234c2abc9e08c))
+
 ## [115.0.0](https://github.com/Sage/carbon/compare/v114.18.2...v115.0.0) (2023-03-13)
 
 
