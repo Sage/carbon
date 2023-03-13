@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { padding, margin } from "styled-system";
+import { padding, margin, PaddingProps } from "styled-system";
 
 import { baseTheme } from "../../style/themes";
 import Icon from "../icon";
@@ -8,7 +8,11 @@ const StyledDraggableContainer = styled.div`
   ${margin}
 `;
 
-const StyledDraggableItem = styled.div`
+interface StyledDraggableItemProps extends PaddingProps {
+  isDragging?: boolean;
+}
+
+const StyledDraggableItem = styled.div<StyledDraggableItemProps>`
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--colorsUtilityMajor050);

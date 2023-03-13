@@ -102,6 +102,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("fieldset") &&
       !prepareUrl[0].startsWith("form") &&
       !prepareUrl[0].startsWith("drawer") &&
+      !prepareUrl[0].startsWith("group-character") &&
       !prepareUrl[0].startsWith("duelling-picklist") &&
       !prepareUrl[0].endsWith("test")
     ) {
