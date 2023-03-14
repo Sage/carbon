@@ -5,7 +5,7 @@ import Pill from "../pill";
 import Icon from "../icon";
 import Box from "../box";
 
-export const Default = () => {
+export const DefaultStory = () => {
   return (
     <Box p="4px">
       <Tabs align="left" position="top">
