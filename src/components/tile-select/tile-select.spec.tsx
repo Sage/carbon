@@ -1,7 +1,12 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import RadioButtonMapper from "../../__internal__/radio-button-mapper/radio-button-mapper.component";
-import { TileSelect, TileSelectGroup } from ".";
+import {
+  TileSelect,
+  TileSelectProps,
+  TileSelectGroup,
+  TileSelectGroupProps,
+} from ".";
 
 import {
   StyledTileSelectFieldset,
@@ -27,7 +32,6 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import Logger from "../../__internal__/utils/logger";
 
 const radioValues = ["val1", "val2", "val3"];
 
@@ -40,13 +44,17 @@ describe("TileSelect", () => {
     </TileSelectGroup>
   ));
 
-  let wrapper;
+  let wrapper: ReactWrapper;
 
-  const render = (props) => {
+  const render = (
+    props?: TileSelectProps & React.RefAttributes<HTMLInputElement>
+  ) => {
     wrapper = mount(<TileSelect {...props} />);
   };
 
-  const renderWithTitleSelectGroup = (props) => {
+  const renderWithTitleSelectGroup = (
+    props?: Partial<TileSelectGroupProps>
+  ) => {
     wrapper = mount(
       <TileSelectGroup name="tile-select-group" {...props}>
         <TileSelect />
@@ -87,7 +95,9 @@ describe("TileSelect", () => {
       id: "id",
       name: "name",
     });
-    wrapper.find(StyledDeselectWrapper).find(Button).prop("onClick")();
+    wrapper.find(StyledDeselectWrapper).find(Button).prop("onClick")?.(
+      {} as React.MouseEvent<HTMLButtonElement>
+    );
     expect(onChangeMock).toHaveBeenCalledWith({
       target: {
         id: "id",
@@ -284,14 +294,21 @@ describe("TileSelect", () => {
   describe("customActionButton render prop", () => {
     it("clicking it invokes passed onChange callback", () => {
       const onChangeMock = jest.fn();
+
+      const CustomActionButton: TileSelectProps["customActionButton"] = (
+        onClick
+      ) => <Button onClick={onClick}>Foo</Button>;
+
       render({
         onChange: onChangeMock,
         checked: true,
         id: "id",
         name: "name",
-        customActionButton: (onClick) => <Button onClick={onClick}>Foo</Button>,
+        customActionButton: CustomActionButton,
       });
-      wrapper.find(StyledDeselectWrapper).find(Button).prop("onClick")();
+      wrapper.find(StyledDeselectWrapper).find(Button).prop("onClick")?.(
+        {} as React.MouseEvent<HTMLButtonElement>
+      );
 
       expect(wrapper.find(StyledDeselectWrapper).find(Button).text()).toEqual(
         "Foo"
@@ -425,12 +442,21 @@ describe("TileSelect", () => {
     it("renders the node passed in via the accordionContent prop", () => {
       const MyComp = () => <div>foo</div>;
 
+      const AccordionControl: TileSelectProps["accordionControl"] = (
+        controlId,
+        contentId
+      ) => (
+        <Button aria-controls={contentId} id={controlId}>
+          Foo
+        </Button>
+      );
+
       render({
         checked: true,
         id: "id",
         name: "name",
         accordionContent: <MyComp />,
-        accordionControl: (props) => <Button {...props}>Foo</Button>,
+        accordionControl: AccordionControl,
       });
 
       expect(wrapper.find(MyComp).exists()).toBeTruthy();
@@ -456,21 +482,6 @@ describe("TileSelect", () => {
   });
 
   describe("refs", () => {
-    it("should display deprecation warning when the inputRef prop is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
-      const ref = () => {};
-
-      render({ inputRef: ref });
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `inputRef` prop in `TileSelect` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-
-      wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-      loggerSpy.mockRestore();
-    });
-
     it("accepts ref as a ref object", () => {
       const ref = { current: null };
       render({ ref });
@@ -497,9 +508,9 @@ describe("TileSelect", () => {
 });
 
 describe("TileSelectGroup", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
-  const render = (props) => {
+  const render = (props?: Partial<TileSelectGroupProps>) => {
     wrapper = mount(
       <TileSelectGroup
         name="TileSelectGroup"
@@ -571,25 +582,21 @@ describe("TileSelectGroup", () => {
     });
   });
 
-  describe("propTypes", () => {
-    it("validates the incorrect children prop", () => {
+  describe("does not throw when incorrect children are passed", () => {
+    it("does not throw when incorrect children are passed", () => {
       const consoleSpy = jest
         .spyOn(global.console, "error")
-        .mockImplementation(() => {});
+        .mockImplementation();
 
-      mount(
-        <TileSelectGroup name="tile-select-group" legend="Legend">
-          <p>Invalid children</p>
-          <p>Invalid children</p>
-        </TileSelectGroup>
-      );
+      expect(() => {
+        mount(
+          <TileSelectGroup name="TileSelectGroup" legend="Radio Tile Group">
+            string
+          </TileSelectGroup>
+        );
+      }).not.toThrow();
 
-      // eslint-disable-next-line no-console
-      expect(console.error.mock.calls[0][2]).toBe(
-        "`TileSelectGroup` only accepts children of type `TileSelect`."
-      );
-
-      consoleSpy.mockRestore();
+      expect(consoleSpy).not.toHaveBeenCalled();
     });
   });
 });

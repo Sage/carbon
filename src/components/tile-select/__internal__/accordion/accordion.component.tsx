@@ -1,20 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useRef, useState } from "react";
+import { SpaceProps } from "styled-system";
 
 import { StyledContentContainer, StyledContent } from "./accordion.style";
 import useResizeObserver from "../../../../hooks/__internal__/useResizeObserver";
 
-const Accordion = ({ children, expanded, contentId, controlId }) => {
+export interface AccordionProps extends SpaceProps {
+  children: React.ReactNode;
+  expanded?: boolean;
+  contentId?: string;
+  controlId?: string;
+}
+const Accordion = ({
+  children,
+  expanded,
+  contentId,
+  controlId,
+}: AccordionProps) => {
   const [contentHeight, setContentHeight] = useState(0);
-  const contentRef = useRef(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   useResizeObserver(contentRef, () => {
-    setContentHeight(contentRef.current.scrollHeight);
+    // istanbul ignore else
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight);
+    }
   });
-
-  useEffect(() => {
-    setContentHeight(contentRef.current.scrollHeight);
-  }, [contentRef]);
 
   return (
     <StyledContentContainer
@@ -33,13 +43,6 @@ const Accordion = ({ children, expanded, contentId, controlId }) => {
       </StyledContent>
     </StyledContentContainer>
   );
-};
-
-Accordion.propTypes = {
-  children: PropTypes.node.isRequired,
-  expanded: PropTypes.bool,
-  contentId: PropTypes.string,
-  controlId: PropTypes.string,
 };
 
 export default Accordion;

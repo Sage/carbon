@@ -52,8 +52,9 @@ describe("Accordion", () => {
         global.innerWidth = 500;
         global.innerHeight = 500;
 
-        useResizeObserver.mock.calls[
-          useResizeObserver.mock.calls.length - 1
+        const useResizeObserverMock = useResizeObserver as jest.Mock;
+        useResizeObserverMock.mock.calls[
+          useResizeObserverMock.mock.calls.length - 1
         ][1]();
       });
       wrapper.update();
