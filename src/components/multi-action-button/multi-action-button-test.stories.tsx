@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
+import Dialog from "../dialog";
 import MultiActionButton, {
   MultiActionButtonProps,
 } from "./multi-action-button.component";
@@ -12,6 +13,7 @@ import {
 
 export default {
   title: "Multi Action Button/Test",
+  includeStories: "MultiActionButtonStory",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -75,4 +77,29 @@ MultiActionButtonStory.story = {
     subtext: "",
     text: "Example Multi Action Button",
   },
+};
+
+export const MultiActionButtonList = ({ ...props }) => {
+  return (
+    <div>
+      <MultiActionButton text="Multi Action Button" {...props}>
+        <Button>Example Button</Button>
+        <Button>Example Button with long text</Button>
+        <Button>Short</Button>
+      </MultiActionButton>
+    </div>
+  );
+};
+
+export const MultiActionNestedInDialog = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
+      <MultiActionButton text="default text">
+        <Button>Example Button</Button>
+        <Button>Example Button with long text</Button>
+        <Button>Short</Button>
+      </MultiActionButton>
+    </Dialog>
+  );
 };

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import MultiActionButton from "./multi-action-button.component";
-import Button from "../button";
+import React from "react";
+import {
+  MultiActionButtonList,
+  MultiActionNestedInDialog,
+} from "./multi-action-button-test.stories.tsx";
 import { Accordion } from "../accordion";
-import Dialog from "../dialog";
+import * as stories from "./multi-action-button.stories";
 
 import { buttonSubtextPreview } from "../../../cypress/locators/button";
 import { pressTABKey, keyCode } from "../../../cypress/support/helper";
@@ -23,30 +25,6 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const MultiActionButtonList = ({ ...props }) => {
-  return (
-    <div>
-      <MultiActionButton text="Multi Action Button" {...props}>
-        <Button>Example Button</Button>
-        <Button>Example Button with long text</Button>
-        <Button>Short</Button>
-      </MultiActionButton>
-    </div>
-  );
-};
-
-const MultiActionNestedInDialog = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <MultiActionButton text="default text">
-        <Button>Example Button</Button>
-        <Button>Example Button with long text</Button>
-        <Button>Short</Button>
-      </MultiActionButton>
-    </Dialog>
-  );
-};
 
 context("Tests for MultiActionButton component", () => {
   describe("check props for MultiActionButton component", () => {
@@ -551,4 +529,60 @@ describe("should check colors for MultiActionButton component", () => {
       cy.get("@button").should("have.css", "border-color", borderColor);
     }
   );
+
+  describe("check accessibility for MultiActionButton component", () => {
+    it("should pass accessibility tests for MultiActionButton Default story", () => {
+      CypressMountWithProviders(<stories.DefaultStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for MultiActionButton Disabled story", () => {
+      CypressMountWithProviders(<stories.Disabled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for MultiActionButton Sizes story", () => {
+      CypressMountWithProviders(<stories.Sizes />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for MultiActionButton CustomWidth story", () => {
+      CypressMountWithProviders(<stories.CustomWidth />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for MultiActionButton ButtonTypes story", () => {
+      CypressMountWithProviders(<stories.ButtonTypes />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for MultiActionButton ChildButtonTypes story", () => {
+      CypressMountWithProviders(<stories.ChildButtonTypes />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for MultiActionButton Alignment story", () => {
+      CypressMountWithProviders(<stories.Alignment />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for MultiActionButton Subtext story", () => {
+      CypressMountWithProviders(<stories.Subtext />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for MultiActionButton InOverflowHiddenContainer story", () => {
+      CypressMountWithProviders(<stories.InOverflowHiddenContainer />);
+
+      cy.checkAccessibility();
+    });
+  });
 });
