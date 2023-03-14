@@ -1,3 +1,10 @@
+### [115.0.2](https://github.com/Sage/carbon/compare/v115.0.1...v115.0.2) (2023-03-14)
+
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** open menu on click ([3c01e7b](https://github.com/Sage/carbon/commit/3c01e7ba98eec26700f9676843440f928dab576b)), closes [#5615](https://github.com/Sage/carbon/issues/5615)
+
 ### [115.0.1](https://github.com/Sage/carbon/compare/v115.0.0...v115.0.1) (2023-03-13)
 
 
