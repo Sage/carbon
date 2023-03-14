@@ -1,3 +1,17 @@
+## [116.0.0](https://github.com/Sage/carbon/compare/v115.0.2...v116.0.0) (2023-03-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tile-select:** The name prop is now required for
+TileSelect. Additionally, the onChange handler in TileSelect and
+TileSelectGroup components has been updated to properly
+type arguments, including custom events. Also inputRef prop has been removed.
+
+### Code Refactoring
+
+* **tile-select:** convert component to typescript ([382ef95](https://github.com/Sage/carbon/commit/382ef95c38c6805bb97dad33efb70db6780a5528))
+
 ### [115.0.2](https://github.com/Sage/carbon/compare/v115.0.1...v115.0.2) (2023-03-14)
 
 
