@@ -19,6 +19,7 @@ import {
 } from "../flat-table";
 import Confirm from "../confirm";
 import { Accordion } from "../accordion";
+import Dialog from "../dialog";
 
 export const ActionPopoverComponent: ComponentStory<
   typeof ActionPopover
@@ -713,5 +714,24 @@ export const ActionPopoverComponentOpeningAModal: ComponentStory<
         Content
       </Confirm>
     </>
+  );
+};
+
+export const ActionPopoverNestedInDialog: ComponentStory<
+  typeof ActionPopover
+> = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
+      <ActionPopover>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>{" "}
+    </Dialog>
   );
 };

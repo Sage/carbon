@@ -339,7 +339,6 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 
 .c14 .c1 {
   border: 1px solid var(--colorsActionMajorTransparent);
-  color: var(--colorsActionMajor500);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -354,21 +353,13 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   z-index: 1000;
 }
 
-.c14 .c1:focus,
-.c14 .c1:hover {
-  background-color: var(--colorsActionMajor600);
-  color: var(--colorsActionMajorYang100);
-}
-
 .c14 .c1 + .c16 .c1 {
   margin-top: 3px;
 }
 
 <div
-  aria-haspopup="true"
   className="c0"
   data-component="multi-action-button"
-  onClick={[Function]}
   onMouseLeave={[Function]}
 >
   <button
@@ -380,6 +371,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
     data-element="toggle-button"
     disabled={false}
     draggable={false}
+    onClick={[Function]}
     onKeyDown={[Function]}
     onMouseEnter={[Function]}
     onTouchStart={[Function]}

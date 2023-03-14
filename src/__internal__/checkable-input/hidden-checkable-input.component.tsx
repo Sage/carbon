@@ -8,6 +8,8 @@ export interface CommonHiddenCheckableInputProps
     React.InputHTMLAttributes<HTMLInputElement>,
     "value" | "size" | "type"
   > {
+  /** Prop to specify the aria-labelledby attribute of the input */
+  ariaLabelledBy?: string;
   /** If true the Component will be focused when page load */
   autoFocus?: boolean;
   /** Checked state of the input */
@@ -39,6 +41,7 @@ export interface HiddenCheckableInputProps
 const HiddenCheckableInput = React.forwardRef(
   (
     {
+      ariaLabelledBy,
       name,
       checked,
       type,
@@ -50,13 +53,9 @@ const HiddenCheckableInput = React.forwardRef(
     }: HiddenCheckableInputProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
-    const {
-      onBlur,
-      onFocus,
-      onMouseEnter,
-      onMouseLeave,
-      ariaLabelledBy,
-    } = useContext(InputContext);
+    const { onBlur, onFocus, onMouseEnter, onMouseLeave } = useContext(
+      InputContext
+    );
     const {
       onBlur: onBlurGroup,
       onFocus: onFocusGroup,
@@ -90,6 +89,7 @@ const HiddenCheckableInput = React.forwardRef(
 
     return (
       <HiddenCheckableInputStyle
+        aria-labelledby={ariaLabelledBy}
         autoFocus={autoFocus}
         aria-checked={checked}
         checked={checked}
@@ -98,7 +98,6 @@ const HiddenCheckableInput = React.forwardRef(
         type={type}
         value={value}
         {...props}
-        {...(ariaLabelledBy && { "aria-labelledby": ariaLabelledBy })}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onMouseEnter={handleMouseEnter}

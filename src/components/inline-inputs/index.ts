@@ -1,2 +1,2 @@
-export { default, InlineInputsContext } from "./inline-inputs.component";
+export { default } from "./inline-inputs.component";
 export type { InlineInputsProps } from "./inline-inputs.component";

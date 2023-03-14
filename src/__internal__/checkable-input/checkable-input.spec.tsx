@@ -94,18 +94,6 @@ describe("CheckableInput", () => {
           ...(isPresent && { id: "foo" }),
         };
 
-        describe("and label is present", () => {
-          it("passes aria-labelledby", () => {
-            const hiddenCheckableInputStyle = mountInput({
-              ...commonProps,
-            }).find(HiddenCheckableInputStyle);
-
-            expect(hiddenCheckableInputStyle.prop("aria-labelledby")).toBe(
-              `${id}-label`
-            );
-          });
-        });
-
         describe.each(["info", "warning", "error"])(
           "and %s are present",
           (validationType) => {

@@ -197,11 +197,7 @@ export const ActionPopoverItem = ({
 
   const onKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLButtonElement>) => {
-      if (Events.isEscKey(e)) {
-        e.stopPropagation();
-        setOpenPopover(false);
-        focusButton();
-      } else if (Events.isSpaceKey(e)) {
+      if (Events.isSpaceKey(e)) {
         e.preventDefault();
         e.stopPropagation();
       } else if (!disabled) {
@@ -242,16 +238,7 @@ export const ActionPopoverItem = ({
         e.stopPropagation();
       }
     },
-    [
-      disabled,
-      download,
-      focusButton,
-      isHref,
-      isLeftAligned,
-      onClick,
-      setOpenPopover,
-      submenu,
-    ]
+    [disabled, download, isHref, isLeftAligned, onClick, submenu]
   );
 
   const itemSubmenuProps = {

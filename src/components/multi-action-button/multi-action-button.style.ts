@@ -85,7 +85,6 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
 
     ${StyledButton} {
       border: 1px solid var(--colorsActionMajorTransparent);
-      color: var(--colorsActionMajor500);
       display: flex;
       justify-content: ${align};
       margin-left: 0;
@@ -99,12 +98,6 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
           display: -webkit-box;
           justify-content: ${align === "right" ? `flex-end` : `flex-start`};
         }
-      }
-
-      &:focus,
-      &:hover {
-        background-color: var(--colorsActionMajor600);
-        color: var(--colorsActionMajorYang100);
       }
 
       & + & {

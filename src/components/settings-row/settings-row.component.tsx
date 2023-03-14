@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
-import Heading from "../heading";
+import { MarginProps } from "styled-system";
+import Heading, { HeadingType } from "../heading";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
@@ -11,19 +10,30 @@ import {
   StyledSettingsRowInput,
 } from "./settings-row.style";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+export interface SettingsRowProps extends MarginProps {
+  /**  A title for this group of settings. */
+  title?: string;
+  /** Defines the HTML heading element of the `title` within the component. */
+  headingType?: HeadingType;
+  /** Content to be rendered inside the component. */
+  children?: React.ReactNode;
+  /**  A string or JSX object that provides a short description about the group of settings. */
+  description?: React.ReactNode;
+  /** Shows a divider below the component. */
+  divider?: boolean;
+  /**  The CSS classes to apply to the component. */
+  className?: string;
+}
 
-const SettingsRow = ({
+export const SettingsRow = ({
   title,
   headingType = "h3",
-  description,
   children,
-  className,
+  description,
   divider = true,
+  className,
   ...rest
-}) => {
+}: SettingsRowProps) => {
   const heading = () => {
     if (!title) return null;
 
@@ -52,20 +62,6 @@ const SettingsRow = ({
   );
 };
 
-SettingsRow.propTypes = {
-  ...marginPropTypes,
-  /**  This component supports children. */
-  children: PropTypes.node,
-  /**  The CSS classes to apply to the component. */
-  className: PropTypes.string,
-  /**  A title for this group of settings. */
-  title: PropTypes.string,
-  /** Defines the HTML heading element of the `title` within the component. */
-  headingType: PropTypes.oneOf(["h1", "h2", "h3", "h4", "h5"]),
-  /**  A string or JSX object that provides a short description about the group of settings. */
-  description: PropTypes.node,
-  /** Shows a divider below the component. */
-  divider: PropTypes.bool,
-};
+SettingsRow.displayName = "SettingsRow";
 
 export default SettingsRow;

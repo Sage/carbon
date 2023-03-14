@@ -61,13 +61,15 @@ describe("MultiActionButton", () => {
     const additionalButtonsSelector = '[data-element="additional-buttons"]';
     let container: HTMLDivElement | null;
     let mainButton: ReactWrapper;
+    const onClick = jest.fn();
 
     beforeEach(() => {
+      onClick.mockClear();
       container = document.createElement("div");
       container.id = "enzymeContainer";
       document.body.appendChild(container);
       wrapper = mount(
-        <MultiActionButton text="Main Button">
+        <MultiActionButton text="Main Button" onClick={onClick}>
           <Button>First</Button>
           <Button>Second</Button>
         </MultiActionButton>,
@@ -84,6 +86,20 @@ describe("MultiActionButton", () => {
       wrapper.unmount();
 
       container = null;
+    });
+
+    describe("when the main button is clicked", () => {
+      it("the additional buttons are shown", () => {
+        mainButton.simulate("click");
+
+        expect(wrapper.find(Button).at(0).getDOMNode()).toBeVisible();
+      });
+
+      it("the passed onClick handler is called", () => {
+        mainButton.simulate("click");
+
+        expect(onClick).toHaveBeenCalledTimes(1);
+      });
     });
 
     describe("using keyboard to open children container", () => {
@@ -506,7 +522,7 @@ describe("MultiActionButton", () => {
         wrapper.unmount();
       });
 
-      it("the handler should be called on the main button", () => {
+      it("the handler should be called on the clicked button", () => {
         mainButton.simulate("mouseenter");
         const button = wrapper
           .find('[data-element="additional-buttons"]')
@@ -580,7 +596,7 @@ describe("MultiActionButton", () => {
           );
 
           wrapper
-            .find(StyledMultiActionButton)
+            .find('button[data-element="toggle-button"]')
             .getDOMNode()
             .dispatchEvent(nativeInputEvent);
 

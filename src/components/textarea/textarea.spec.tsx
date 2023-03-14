@@ -202,15 +202,6 @@ describe("Textarea", () => {
           ...(isPresent && { id: "foo" }),
         };
 
-        describe("and label is present", () => {
-          it("passes aria-labelledby", () => {
-            wrapper = mount(<Textarea {...commonProps} />);
-            expect(wrapper.find(Input).prop("aria-labelledby")).toBe(
-              `${id}-label`
-            );
-          });
-        });
-
         describe.each(["info", "warning", "error"])(
           "and %s are present",
           (validationType) => {

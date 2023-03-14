@@ -238,28 +238,6 @@ describe("SplitButton", () => {
       );
     });
 
-    it("has the expected style", () => {
-      assertStyleMatch(
-        {
-          backgroundColor: "var(--colorsActionMajorYang100)",
-          border: `1px solid var(--colorsActionMajorTransparent)`,
-        },
-        themedWrapper,
-        { modifier: `${StyledButton}` }
-      );
-    });
-
-    it('matches the expected style for the focused "additional button"', () => {
-      themedWrapper.find("button").simulate("focus");
-      assertStyleMatch(
-        {
-          backgroundColor: "var(--colorsActionMajor600)",
-        },
-        themedWrapper,
-        { modifier: `${StyledButton}:focus` }
-      );
-    });
-
     it("renders Toggle Button left border as expected", () => {
       const mockProps = {
         carbonTheme: theme as Partial<ThemeObject>,
@@ -394,6 +372,41 @@ describe("SplitButton", () => {
 
         expect(
           wrapper.update().find("[data-element='additional-buttons']").exists()
+        ).toBe(false);
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
+      });
+    });
+
+    describe("click dropdown toggle", () => {
+      beforeEach(() => {
+        wrapper = render(
+          {
+            text: "mainButton",
+          },
+          <Button>Second Button</Button>,
+          mount
+        );
+        toggle = wrapper.find(StyledSplitButtonToggle);
+      });
+
+      it("renders additional buttons", () => {
+        toggle.simulate("click");
+
+        expect(
+          wrapper.find("[data-element='additional-buttons']").exists()
+        ).toBe(true);
+      });
+
+      it("when disabled it does not render additional buttons", () => {
+        wrapper = render({ disabled: true }, singleButton, mount);
+        toggle = wrapper.find(StyledSplitButtonToggle);
+        toggle.simulate("click");
+
+        expect(
+          wrapper.find("[data-element='additional-buttons']").exists()
         ).toBe(false);
       });
 

@@ -13,9 +13,9 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/861289-button-split"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 # <h2>Contents</h2>
@@ -73,6 +73,33 @@ import SplitButton from "carbon-react/lib/components/split-button";
         </SplitButton>
       </Box>
     ))}
+  </Story>
+</Canvas>
+
+### Child button types
+
+Buttons used as a content of `SplitButton` can be of any type.
+
+<Canvas>
+  <Story
+    name="child button types"
+    parameters={{ chromatic: { disableSnapshot: true } }}
+  >
+    <SplitButton text="Split Button">
+      <Button>Default button</Button>
+      <Button buttonType="primary" destructive>
+        Primary - destructive
+      </Button>
+      <Button buttonType="secondary">Secondary</Button>
+      <Button buttonType="secondary" destructive>
+        Secondary - destructive
+      </Button>
+      <Button buttonType="tertiary">Tertiary</Button>
+      <Button buttonType="tertiary" destructive>
+        Tertiary - destructive
+      </Button>
+      <Button disabled>Disabled</Button>
+    </SplitButton>
   </Story>
 </Canvas>
 
