@@ -1,6 +1,5 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
-
+import { shallow, mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import Detail from "./detail.component";
 import {
   elementsTagTest,
@@ -18,7 +17,7 @@ import {
 } from "./detail.style";
 
 describe("Detail", () => {
-  let wrapper;
+  let wrapper: ReactWrapper | ShallowWrapper;
 
   testStyledSystemMargin((props) => <Detail {...props}>foo</Detail>);
 
@@ -94,7 +93,7 @@ describe("Detail", () => {
     });
 
     describe("on internal elements", () => {
-      wrapper = shallow(<Detail icon="test" footnote="test" />);
+      wrapper = shallow(<Detail icon="home" footnote="test" />);
 
       elementsTagTest(wrapper, ["icon", "footnote"]);
     });
