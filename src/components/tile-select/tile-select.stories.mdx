@@ -4,12 +4,7 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import { TileSelect, TileSelectGroup } from ".";
-import Pill from "../pill/";
-import Icon from "../icon";
-import Button from "../button";
-import Box from "../box";
-import Image from "../image";
-import Typography from "../typography";
+import * as stories from "./tile-select.stories";
 
 <Meta title="Tile Select" parameters={{ info: { disable: true } }} />
 
@@ -45,68 +40,7 @@ In this mode all input props like `onChange`, `onBlur`, `name` and currently sel
 These props are then internally distributed on each of the `TileSelects` making the whole composed group act like a single form field.
 
 <Canvas>
-  <Story name="default">
-    {() => {
-      const [value, setValue] = useState(null);
-      return (
-        <TileSelectGroup
-          name="Tile Select"
-          value={value}
-          legend="Tile Select"
-          description="Pick one of the available options"
-          onChange={(e) => setValue(e.target.value)}
-        >
-          <TileSelect
-            value="1"
-            id="1"
-            aria-label="1"
-            title="Title"
-            subtitle="Subtitle"
-            description="Short and descriptive description"
-          />
-          <TileSelect
-            value="2"
-            id="2"
-            aria-label="2"
-            title="Title"
-            subtitle="Subtitle"
-            titleAdornment={<Pill>Message</Pill>}
-            description="Short and descriptive description"
-          />
-          <TileSelect
-            value="3"
-            id="3"
-            aria-label="3"
-            disabled
-            title="Title"
-            subtitle="Subtitle"
-            titleAdornment={
-              <Icon
-                type="info"
-                tooltipMessage="Short and non descriptive message"
-                tooltipVisible={false}
-              />
-            }
-            description="Short and descriptive description"
-          />
-          <TileSelect
-            value="4"
-            id="4"
-            aria-label="4"
-            title="Title"
-            subtitle="Subtitle"
-            titleAdornment={
-              <Icon
-                type="info"
-                tooltipMessage="Short and non descriptive message"
-              />
-            }
-            description="Short and descriptive description"
-          />
-        </TileSelectGroup>
-      );
-    }}
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 #### Custom action button
@@ -115,83 +49,10 @@ It is possible to overide the default action button via the `customActionButton`
 access to the `onClick` functionality.
 
 <Canvas>
-  <Story name="with custom action button">
-    {() => {
-      const [value, setValue] = useState(null);
-      const [activated, setActivated] = useState(false);
-      const [removed, setRemoved] = useState(false);
-      return (
-        <TileSelectGroup
-          name="Tile Select"
-          value={value}
-          legend="Tile Select"
-          description="Pick one of the available options"
-          onChange={(e) => setValue(e.target.value)}
-        >
-          <TileSelect
-            value="1"
-            id="1"
-            aria-label="1"
-            title="Title"
-            subtitle="Subtitle"
-            titleAdornment={
-              <Pill pillRole="status" colorVariant="neutral">
-                {activated ? "Active" : "Inactive"}
-              </Pill>
-            }
-            description="Short and descriptive description"
-            customActionButton={
-              activated
-                ? undefined
-                : (onClick) => (
-                    <Button
-                      onClick={() => {
-                        setValue("1");
-                        setActivated(true);
-                      }}
-                      buttonType="tertiary"
-                      type="button"
-                      size="small"
-                    >
-                      Reactivate
-                    </Button>
-                  )
-            }
-          />
-          <TileSelect
-            value="2"
-            id="2"
-            aria-label="2"
-            title="Title"
-            subtitle="Subtitle"
-            titleAdornment={
-              removed ? undefined : (
-                <Pill pillRole="status" colorVariant="neutral">
-                  Active
-                </Pill>
-              )
-            }
-            description="Short and descriptive description"
-            customActionButton={(onClick) => (
-              <Button
-                onClick={() => {
-                  setRemoved(true);
-                  onClick();
-                }}
-                buttonType="tertiary"
-                type="button"
-                size="small"
-                destructive
-                disabled={removed}
-              >
-                Remove
-              </Button>
-            )}
-          />
-        </TileSelectGroup>
-      );
-    }}
-  </Story>
+  <Story
+    name="with custom action button"
+    story={stories.WithCustomActionButton}
+  />
 </Canvas>
 
 #### Action button adornment
@@ -199,85 +60,10 @@ access to the `onClick` functionality.
 It is possible to render an additional adornment next to the action button through the `actionButtonAdornment` prop.
 
 <Canvas>
-  <Story name="with action button adornment">
-    {() => {
-      const [value, setValue] = useState(null);
-      return (
-        <TileSelectGroup
-          name="Tile Select"
-          value={value}
-          legend="Tile Select"
-          description="Pick one of the available options"
-          onChange={(e) => setValue(e.target.value)}
-        >
-          <TileSelect
-            value="1"
-            id="1"
-            aria-label="1"
-            title="Title"
-            subtitle="Subtitle"
-            titleAdornment={
-              <Pill pillRole="status" colorVariant="neutral">
-                Inactive
-              </Pill>
-            }
-            description="Short and descriptive description"
-            customActionButton={(onClick) => (
-              <Button
-                onClick={() => setValue("1")}
-                buttonType="tertiary"
-                type="button"
-                px={1}
-                size="small"
-                disabled
-              >
-                Reactivate
-              </Button>
-            )}
-            actionButtonAdornment={
-              <Icon
-                type="info"
-                tooltipMessage="This tile cannot be reactivated at this time"
-              />
-            }
-          />
-          <TileSelect
-            value="2"
-            id="2"
-            aria-label="2"
-            title="Title"
-            subtitle="Subtitle"
-            titleAdornment={
-              <Icon
-                type="info"
-                tooltipMessage="Short and non descriptive message"
-              />
-            }
-            description="Short and descriptive description"
-            customActionButton={(onClick) => (
-              <Button
-                onClick={onClick}
-                buttonType="tertiary"
-                type="button"
-                px={1}
-                size="small"
-                destructive
-                disabled
-              >
-                Remove
-              </Button>
-            )}
-            actionButtonAdornment={
-              <Icon
-                type="info"
-                tooltipMessage="This tile cannot be removed at this time"
-              />
-            }
-          />
-        </TileSelectGroup>
-      );
-    }}
-  </Story>
+  <Story
+    name="with action button adornment"
+    story={stories.WithActionButtonAdornment}
+  />
 </Canvas>
 
 ### Multi select
@@ -289,80 +75,7 @@ In multi select mode all input props like `onChange`, `onBlur`, `name`, `value` 
 In this mode `TileSelectGroup` serves only a visual purpose - it only renders `legend` and `description` props and applies spacing to each of the `TileSelects`
 
 <Canvas>
-  <Story name="multi Select">
-    {() => {
-      const [value1, setValue1] = useState(false);
-      const [value2, setValue2] = useState(false);
-      const [value3, setValue3] = useState(false);
-      const [value4, setValue4] = useState(false);
-      return (
-        <TileSelectGroup
-          legend="Tile Select"
-          description="Pick any number of available options"
-          multiSelect
-        >
-          <TileSelect
-            value="1"
-            name="multi-1"
-            id="multi-1"
-            aria-label="multi-1"
-            title="Title"
-            subtitle="Subtitle"
-            description="Short and descriptive description"
-            checked={value1}
-            onChange={(e) => setValue1(e.target.checked)}
-          />
-          <TileSelect
-            value="2"
-            name="multi-2"
-            id="multi-2"
-            aria-label="multi-2"
-            subtitle="Subtitle"
-            titleAdornment={<Pill>Message</Pill>}
-            description="Short and descriptive description"
-            checked={value2}
-            onChange={(e) => setValue2(e.target.checked)}
-          />
-          <TileSelect
-            value="3"
-            name="multi-3"
-            id="multi-3"
-            aria-label="multi-3"
-            disabled
-            title="Title"
-            subtitle="Subtitle"
-            titleAdornment={
-              <Icon
-                type="info"
-                tooltipMessage="Short and non descriptive message"
-                tooltipVisible={false}
-              />
-            }
-            description="Short and descriptive description"
-            checked={value3}
-            onChange={(e) => setValue3(e.target.checked)}
-          />
-          <TileSelect
-            value="4"
-            name="multi-4"
-            id="multi-4"
-            aria-label="multi-4"
-            title="Title"
-            subtitle="Subtitle"
-            titleAdornment={
-              <Icon
-                type="info"
-                tooltipMessage="Short and non descriptive message"
-              />
-            }
-            description="Short and descriptive description"
-            checked={value4}
-            onChange={(e) => setValue4(e.target.checked)}
-          />
-        </TileSelectGroup>
-      );
-    }}
-  </Story>
+  <Story name="multi Select" story={stories.MultiSelect} />
 </Canvas>
 
 ### Single tile
@@ -372,28 +85,7 @@ In this mode `TileSelectGroup` serves only a visual purpose - it only renders `l
 Same as in multi select example grouped by `TileSelectGroup`, `onChange`, `onBlur`, `name`, `value` and `checked` are meant to be passed directly on the `TileSelect`.
 
 <Canvas>
-  <Story name="single tile">
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      const handleChange = (e) => {
-        const { value } = e.target;
-        setIsChecked(value === null ? false : true);
-      };
-      return (
-        <TileSelect
-          value="1"
-          id="single-1"
-          aria-label="single-1"
-          name="single"
-          title="Title"
-          subtitle="Subtitle"
-          description="Short and descriptive description"
-          checked={isChecked}
-          onChange={handleChange}
-        />
-      );
-    }}
-  </Story>
+  <Story name="single tile" story={stories.SingleTile} />
 </Canvas>
 
 ### With a footer
@@ -401,42 +93,7 @@ Same as in multi select example grouped by `TileSelectGroup`, `onChange`, `onBlu
 To render a `footer` pass anything renderable to the prop like in the example below.
 
 <Canvas>
-  <Story name="with a footer">
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      const handleChange = (e) => {
-        const { value } = e.target;
-        setIsChecked(value === null ? false : true);
-      };
-      return (
-        <TileSelect
-          value="1"
-          id="single-1"
-          aria-label="single-1"
-          name="single"
-          title="Title Short and descriptive description"
-          subtitle="Subtitle Short and descriptive description"
-          checked={isChecked}
-          onChange={handleChange}
-          description="Short and descriptive description"
-          footer={
-            <Box pt={1} display="flex" alignItems="baseline">
-              Here is some &nbsp;
-              <Typography variant="strong">footer text</Typography>
-              <Button
-                ml={1}
-                buttonType="tertiary"
-                iconPosition="after"
-                iconType="home"
-              >
-                Footer Button
-              </Button>
-            </Box>
-          }
-        />
-      );
-    }}
-  </Story>
+  <Story name="with a footer" story={stories.WithAFooter} />
 </Canvas>
 
 ### With a prefix adornment
@@ -444,36 +101,7 @@ To render a `footer` pass anything renderable to the prop like in the example be
 To render a prefixed adornment in the top left corner of the `TileSelect` you can pass any node in via the `prefixAdornment` prop.
 
 <Canvas>
-  <Story name="with a prefix adornment">
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      const handleChange = (e) => {
-        const { value } = e.target;
-        setIsChecked(value === null ? false : true);
-      };
-      return (
-        <TileSelect
-          value="1"
-          id="single-1"
-          aria-label="single-1"
-          name="single"
-          title="Title"
-          subtitle="Subtitle"
-          checked={isChecked}
-          prefixAdornment={
-            <Image
-              height="40px"
-              width="40px"
-              backgroundImage={`url(${require("../../../.assets/flexible.svg")})`}
-            />
-          }
-          titleAdornment={<Pill>Message</Pill>}
-          onChange={handleChange}
-          description="Short and descriptive description"
-        />
-      );
-    }}
-  </Story>
+  <Story name="with a prefix adornment" story={stories.WithAPrefixAdornment} />
 </Canvas>
 
 ### With additional information
@@ -482,42 +110,10 @@ It is possible to render an additional row of information or content between the
 any node to the `additionalInformation` prop.
 
 <Canvas>
-  <Story name="with additional information">
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      const handleChange = (e) => {
-        const { value } = e.target;
-        setIsChecked(value === null ? false : true);
-      };
-      return (
-        <TileSelect
-          value="1"
-          id="single-1"
-          aria-label="single-1"
-          name="single"
-          title="Title"
-          subtitle="Subtitle"
-          titleAdornment={<Pill>Message</Pill>}
-          description="Short and descriptive description"
-          additionalInformation={
-            <>
-              <Pill fill mr={1} mb="4px">
-                Further information
-              </Pill>
-              <Pill fill mr={1} mb="4px">
-                Further information
-              </Pill>
-              <Pill fill mb={1}>
-                Further information
-              </Pill>
-            </>
-          }
-          checked={isChecked}
-          onChange={handleChange}
-        />
-      );
-    }}
-  </Story>
+  <Story
+    name="with additional information"
+    story={stories.WithAdditionalInformation}
+  />
 </Canvas>
 
 ### With accordion footer
@@ -527,73 +123,7 @@ and a use the `accordionControl` render prop to supply the control for the expan
 `accordionExpanded` prop.
 
 <Canvas>
-  <Story name="with accordion footer">
-    {() => {
-      const [isChecked, setIsChecked] = useState(false);
-      const [expanded, setExpanded] = useState(true);
-      const handleChange = (e) => {
-        const { value } = e.target;
-        setIsChecked(value === null ? false : true);
-      };
-      return (
-        <TileSelect
-          value="1"
-          id="single-1"
-          aria-label="single-1"
-          name="single"
-          title="Title"
-          subtitle="Subtitle"
-          description="Short and descriptive description"
-          checked={isChecked}
-          onChange={handleChange}
-          prefixAdornment={
-            <Image
-              height="40px"
-              width="40px"
-              backgroundImage={`url(${require("../../../.assets/flexible.svg")})`}
-            />
-          }
-          accordionContent={
-            <Box display="flex" flexWrap="wrap">
-              <Box flexGrow="1" pr={1}>
-                <Box
-                  width="100%"
-                  height="100px"
-                  bg="primary"
-                  display="inline-block"
-                ></Box>
-              </Box>
-              <Box flexGrow="1" pl={1}>
-                <Box
-                  width="100%"
-                  height="100px"
-                  bg="primary"
-                  display="inline-block"
-                ></Box>
-              </Box>
-            </Box>
-          }
-          accordionControl={(controlId, contentId) => (
-            <Button
-              buttonType="tertiary"
-              iconPosition="before"
-              iconType="chevron_down"
-              data-element="accordion-button"
-              onClick={() => setExpanded((expandedState) => !expandedState)}
-              px={1}
-              mt={2}
-              aria-controls={contentId}
-              id={controlId}
-            >
-              {expanded ? "Close" : "Open"} accordion
-            </Button>
-          )}
-          accordionExpanded={expanded}
-          setAccordionExpanded={setExpanded}
-        />
-      );
-    }}
-  </Story>
+  <Story name="with accordion footer" story={stories.WithAccordionFooter} />
 </Canvas>
 
 ### With custom spacing
@@ -602,72 +132,7 @@ The `TileSelect` and `TileSelectGroup` components support the custom margin spac
 support being passed either a number between 1 and 8 that is then multiplied by `8px` or any valid CSS string.
 
 <Canvas>
-  <Story name="with custom spacing">
-    {() => {
-      const [value, setValue] = useState(null);
-      return (
-        <TileSelectGroup
-          name="Tile Select"
-          value={value}
-          legend="Tile Select"
-          description="Pick one of the available options"
-          onChange={(e) => setValue(e.target.value)}
-          m={6}
-        >
-          <TileSelect
-            value="1"
-            id="1"
-            aria-label="1"
-            title="Title"
-            subtitle="Subtitle"
-            description="Short and descriptive description"
-          />
-          <TileSelect
-            value="2"
-            id="2"
-            aria-label="2"
-            title="Title"
-            subtitle="Subtitle"
-            titleAdornment={<Pill>Message</Pill>}
-            description="Short and descriptive description"
-            mt={1}
-          />
-          <TileSelect
-            value="3"
-            id="3"
-            aria-label="3"
-            disabled
-            title="Title"
-            subtitle="Subtitle"
-            titleAdornment={
-              <Icon
-                type="info"
-                tooltipMessage="Short and non descriptive message"
-                tooltipVisible={false}
-              />
-            }
-            description="Short and descriptive description"
-            mt={1}
-          />
-          <TileSelect
-            value="4"
-            id="4"
-            aria-label="4"
-            title="Title"
-            subtitle="Subtitle"
-            titleAdornment={
-              <Icon
-                type="info"
-                tooltipMessage="Short and non descriptive message"
-              />
-            }
-            description="Short and descriptive description"
-            mt={1}
-          />
-        </TileSelectGroup>
-      );
-    }}
-  </Story>
+  <Story name="with custom spacing" story={stories.WithCustomSpacing} />
 </Canvas>
 
 ## Props
