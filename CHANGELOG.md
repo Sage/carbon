@@ -1,3 +1,10 @@
+### [116.0.1](https://github.com/Sage/carbon/compare/v116.0.0...v116.0.1) (2023-03-15)
+
+
+### Bug Fixes
+
+* **select:** prevent crash when the value does not match any child ([a184f95](https://github.com/Sage/carbon/commit/a184f95e2c1c6eb1a8be0d7a4d7130ed067ba518)), closes [#5905](https://github.com/Sage/carbon/issues/5905)
+
 ## [116.0.0](https://github.com/Sage/carbon/compare/v115.0.2...v116.0.0) (2023-03-14)
 
 
