@@ -6,8 +6,6 @@ import { PagesWrapperStyle, PagesContent } from "./pages.style";
 import { ThemeObject } from "../../style/themes/base";
 
 export interface PagesProps {
-  /** [legacy] Custom className */
-  className?: string;
   /** The selected tab on page load */
   initialpageIndex?: number | string;
   /** The current page's index */

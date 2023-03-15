@@ -1,3 +1,38 @@
+### [116.0.1](https://github.com/Sage/carbon/compare/v116.0.0...v116.0.1) (2023-03-15)
+
+
+### Bug Fixes
+
+* **select:** prevent crash when the value does not match any child ([a184f95](https://github.com/Sage/carbon/commit/a184f95e2c1c6eb1a8be0d7a4d7130ed067ba518)), closes [#5905](https://github.com/Sage/carbon/issues/5905)
+
+## [116.0.0](https://github.com/Sage/carbon/compare/v115.0.2...v116.0.0) (2023-03-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tile-select:** The name prop is now required for
+TileSelect. Additionally, the onChange handler in TileSelect and
+TileSelectGroup components has been updated to properly
+type arguments, including custom events. Also inputRef prop has been removed.
+
+### Code Refactoring
+
+* **tile-select:** convert component to typescript ([382ef95](https://github.com/Sage/carbon/commit/382ef95c38c6805bb97dad33efb70db6780a5528))
+
+### [115.0.2](https://github.com/Sage/carbon/compare/v115.0.1...v115.0.2) (2023-03-14)
+
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** open menu on click ([3c01e7b](https://github.com/Sage/carbon/commit/3c01e7ba98eec26700f9676843440f928dab576b)), closes [#5615](https://github.com/Sage/carbon/issues/5615)
+
+### [115.0.1](https://github.com/Sage/carbon/compare/v115.0.0...v115.0.1) (2023-03-13)
+
+
+### Bug Fixes
+
+* **action-popover:** resolve issue with Select component closing parent Dialog on escape key press ([e942dbf](https://github.com/Sage/carbon/commit/e942dbf57b3aa77b6b0afe2f158234c2abc9e08c))
+
 ## [115.0.0](https://github.com/Sage/carbon/compare/v114.18.2...v115.0.0) (2023-03-13)
 
 

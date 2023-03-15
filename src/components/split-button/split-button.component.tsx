@@ -155,7 +155,7 @@ export const SplitButton = ({
     onKeyDown: handleToggleButtonKeyDown,
     buttonType,
     size,
-    ...(!disabled && { onMouseEnter: showButtons }),
+    ...(!disabled && { onMouseEnter: showButtons, onClick: showButtons }),
   };
 
   function componentTags() {
@@ -249,7 +249,6 @@ export const SplitButton = ({
 
   return (
     <StyledSplitButton
-      aria-haspopup="true"
       onMouseLeave={hideButtonsIfTriggerNotFocused}
       onClick={handleClick}
       ref={splitButtonNode}

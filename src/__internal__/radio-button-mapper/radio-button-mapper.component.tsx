@@ -17,7 +17,7 @@ export interface RadioButtonMapperProps extends InputEvents {
   /** Specifies the name prop to be applied to each button in the group */
   name: string;
   /** Value of the selected RadioButton */
-  value?: string;
+  value?: string | null;
 }
 
 export interface MappedChildProps {

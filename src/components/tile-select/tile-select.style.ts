@@ -24,7 +24,7 @@ const StyledSubtitle = styled.h4`
   color: var(--colorsActionMinorYin090);
 `;
 
-const StyledAdornment = styled.div`
+const StyledAdornment = styled.div<{ hasAdditionalInformation: boolean }>`
   z-index: 500;
   margin-bottom: ${({ hasAdditionalInformation }) =>
     hasAdditionalInformation ? "4" : "8"}px;
@@ -36,7 +36,7 @@ const StyledDescription = styled.p`
   margin: 0;
 `;
 
-const StyledTileSelect = styled.div`
+const StyledTileSelect = styled.div<{ checked?: boolean; disabled?: boolean }>`
   background: var(--colorsActionMinorYang100);
   padding: 24px;
   ${({ checked }) =>
@@ -58,7 +58,10 @@ const StyledTileSelect = styled.div`
     `}
 `;
 
-const StyledFocusWrapper = styled.div`
+const StyledFocusWrapper = styled.div<{
+  checked?: boolean;
+  hasFocus: boolean;
+}>`
   ${({ checked, hasFocus }) => css`
     position: relative;
     border: 1px solid var(--colorsActionMinor250);
@@ -76,7 +79,10 @@ const StyledFocusWrapper = styled.div`
   `}
 `;
 
-const StyledTileSelectContainer = styled.div`
+const StyledTileSelectContainer = styled.div<{
+  checked?: boolean;
+  disabled?: boolean;
+}>`
   ${margin}
 
   width: 100%;
@@ -100,7 +106,9 @@ const StyledFooterWrapper = styled.div`
   z-index: 200;
 `;
 
-const StyledAccordionFooterWrapper = styled.div`
+const StyledAccordionFooterWrapper = styled.div<{
+  accordionExpanded?: boolean;
+}>`
   width: fit-content;
   position: relative;
   z-index: 200;
@@ -134,7 +142,9 @@ const StyledTitleContainer = styled.div`
   position: relative;
 `;
 
-const StyledDeselectWrapper = styled.div`
+const StyledDeselectWrapper = styled.div<{
+  hasActionAdornment: boolean;
+}>`
   ${({ hasActionAdornment }) => css`
     z-index: 200;
     position: relative;
@@ -156,7 +166,9 @@ const StyledDeselectWrapper = styled.div`
   `}
 `;
 
-const StyledTileSelectFieldset = styled(Fieldset)`
+const StyledTileSelectFieldset = styled(Fieldset)<{
+  multiSelect: boolean;
+}>`
   ${margin}
 
   ${LegendContainerStyle} {

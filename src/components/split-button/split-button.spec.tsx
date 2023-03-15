@@ -380,6 +380,41 @@ describe("SplitButton", () => {
       });
     });
 
+    describe("click dropdown toggle", () => {
+      beforeEach(() => {
+        wrapper = render(
+          {
+            text: "mainButton",
+          },
+          <Button>Second Button</Button>,
+          mount
+        );
+        toggle = wrapper.find(StyledSplitButtonToggle);
+      });
+
+      it("renders additional buttons", () => {
+        toggle.simulate("click");
+
+        expect(
+          wrapper.find("[data-element='additional-buttons']").exists()
+        ).toBe(true);
+      });
+
+      it("when disabled it does not render additional buttons", () => {
+        wrapper = render({ disabled: true }, singleButton, mount);
+        toggle = wrapper.find(StyledSplitButtonToggle);
+        toggle.simulate("click");
+
+        expect(
+          wrapper.find("[data-element='additional-buttons']").exists()
+        ).toBe(false);
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
+      });
+    });
+
     describe("clicking a button", () => {
       const handleMainButton = jest.fn();
       const handleSecondButton = jest.fn();
