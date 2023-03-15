@@ -461,14 +461,11 @@ context("Tests for Textbox component", () => {
 
     it("should render Textbox with labelId prop", () => {
       CypressMountWithProviders(
-        <stories.TextboxComponent
-          id={`${CHARACTERS.STANDARD}_cy`}
-          labelId={CHARACTERS.STANDARD}
-        />
+        <stories.TextboxComponent id={`${CHARACTERS.STANDARD}_cy`} />
       );
 
       getDataElementByValue("label")
-        .should("have.attr", "id", CHARACTERS.STANDARD)
+        .should("have.attr", "id", `${CHARACTERS.STANDARD}_cy-label`)
         .and("have.attr", "for", `${CHARACTERS.STANDARD}_cy`);
     });
 

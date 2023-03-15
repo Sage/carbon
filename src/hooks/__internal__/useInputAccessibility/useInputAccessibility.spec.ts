@@ -14,17 +14,15 @@ describe("useInputAccessibility", () => {
       validationIconId: undefined,
       fieldHelpId: `${id}-field-help`,
       ariaDescribedBy: `${id}-field-help`,
-      ariaLabelledBy: `${id}-label`,
     });
   });
 
-  it("returns aria props without labelId and ariaAlbelledBy when label is not provided", () => {
+  it("returns aria props without labelId when label is not provided", () => {
     expect(useInputAccessibility({ id, fieldHelp })).toMatchObject({
       labelId: undefined,
       validationIconId: undefined,
       fieldHelpId: `${id}-field-help`,
       ariaDescribedBy: `${id}-field-help`,
-      ariaLabelledBy: undefined,
     });
   });
 
@@ -36,7 +34,6 @@ describe("useInputAccessibility", () => {
         validationIconId: `${id}-validation-icon`,
         fieldHelpId: undefined,
         ariaDescribedBy: `${id}-validation-icon`,
-        ariaLabelledBy: undefined,
       });
     }
   );

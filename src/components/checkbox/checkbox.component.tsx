@@ -15,6 +15,8 @@ import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 export interface CheckboxProps extends CommonCheckableInputProps, MarginProps {
   /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
   adaptiveSpacingBreakpoint?: number;
+  /** Prop to specify the aria-labelledby property of the input */
+  "aria-labelledby"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -42,6 +44,7 @@ let deprecateInputRefWarnTriggered = false;
 export const Checkbox = React.forwardRef(
   (
     {
+      "aria-labelledby": ariaLabelledBy,
       id,
       label,
       onChange,
@@ -96,6 +99,7 @@ export const Checkbox = React.forwardRef(
     }
 
     const inputProps = {
+      ariaLabelledBy,
       onClick,
       onChange,
       onBlur,

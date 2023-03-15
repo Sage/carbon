@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { MarginProps } from "styled-system";
 
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
@@ -8,7 +7,6 @@ import createGuid from "../../__internal__/utils/helpers/guid";
 import Button from "../button";
 import Box from "../box";
 import Accordion from "./__internal__/accordion";
-import Logger from "../../__internal__/utils/logger";
 
 import {
   StyledTileSelectContainer,
@@ -26,15 +24,68 @@ import {
 } from "./tile-select.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+const checkPropTypeIsNode = (prop: unknown): boolean =>
+  typeof prop !== "string";
 
-const checkPropTypeIsNode = (prop) => typeof prop !== "string" && { as: "div" };
+export interface TileSelectDeselectEvent {
+  target: {
+    name?: string;
+    id?: string;
+    value: null;
+    checked: false;
+  };
+}
 
-let deprecateInputRefWarnTriggered = false;
+export interface TileSelectProps extends MarginProps {
+  /** title of the TileSelect */
+  title?: React.ReactNode;
+  /** adornment to be rendered next to the title */
+  titleAdornment?: React.ReactNode;
+  /** subtitle of the TileSelect */
+  subtitle?: React.ReactNode;
+  /** description of the TileSelect */
+  description?: React.ReactNode;
+  /** disables the TileSelect input */
+  disabled?: boolean;
+  /** the value that is represented by this TileSelect */
+  value?: string;
+  /** input id */
+  id?: string;
+  /** input name */
+  name?: string;
+  /** Callback triggered when user selects or deselects this tile */
+  onChange?: (
+    ev: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+  ) => void;
+  /** Callback triggered when the user blurs this tile */
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
+  /** Callback triggered when the user focus this tile */
+  onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
+  /** determines if this tile is selected or unselected */
+  checked?: boolean;
+  /** Custom class name passed to the root element of TileSelect */
+  className?: string;
+  /** Type of the TileSelect input */
+  type?: "radio" | "checkbox";
+  /** Render prop that allows overriding the default action button. */
+  customActionButton?: (onClick: () => void) => JSX.Element;
+  /** An additional help info icon rendered next to the action button */
+  actionButtonAdornment?: React.ReactNode;
+  /** footer of the TileSelect */
+  footer?: React.ReactNode;
+  /** Component to render in the top left corner of TileSelect */
+  prefixAdornment?: React.ReactNode;
+  /** Component to render additional information row between title and description */
+  additionalInformation?: React.ReactNode;
+  /** Components to render in the TileSelect Accordion */
+  accordionContent?: React.ReactNode;
+  /** Callback to toggle expanded state of TileSelect Accordion */
+  accordionControl?: (controlId: string, contentId: string) => JSX.Element;
+  /** Flag to control the open state of TileSelect Accordion */
+  accordionExpanded?: boolean;
+}
 
-const TileSelect = React.forwardRef(
+const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
   (
     {
       onChange,
@@ -42,14 +93,14 @@ const TileSelect = React.forwardRef(
       onFocus,
       value,
       name,
-      checked,
+      checked = false,
       className,
       disabled,
       title,
       subtitle,
       description,
       titleAdornment,
-      type,
+      type = "checkbox",
       id,
       customActionButton,
       actionButtonAdornment,
@@ -59,15 +110,14 @@ const TileSelect = React.forwardRef(
       accordionContent,
       accordionControl,
       accordionExpanded,
-      inputRef,
       ...rest
-    },
+    }: TileSelectProps,
     ref
   ) => {
     const l = useLocale();
     const [hasFocus, setHasFocus] = useState(false);
     const handleDeselect = () =>
-      onChange({
+      onChange?.({
         target: {
           ...(name && { name }),
           ...(id && { id }),
@@ -75,13 +125,6 @@ const TileSelect = React.forwardRef(
           checked: false,
         },
       });
-
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `TileSelect` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
 
     const renderActionButton = () => (
       <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
@@ -123,13 +166,11 @@ const TileSelect = React.forwardRef(
             onChange={onChange}
             onBlur={(ev) => {
               setHasFocus(false);
-              /* istanbul ignore else */
-              if (onBlur) onBlur(ev);
+              onBlur?.(ev);
             }}
             onFocus={(ev) => {
               setHasFocus(true);
-              /* istanbul ignore else */
-              if (onFocus) onFocus(ev);
+              onFocus?.(ev);
             }}
             checked={checked}
             name={name}
@@ -138,7 +179,6 @@ const TileSelect = React.forwardRef(
             disabled={disabled}
             aria-checked={checked}
             id={id}
-            inputRef={inputRef}
             ref={ref}
             {...rest}
           />
@@ -149,16 +189,20 @@ const TileSelect = React.forwardRef(
               flexDirection="row-reverse"
             >
               {(customActionButton || checked) && renderActionButton()}
-              <Box flexGrow="1">
+              <Box flexGrow={1}>
                 <StyledTitleContainer>
                   {title && (
-                    <StyledTitle {...checkPropTypeIsNode(title)}>
+                    <StyledTitle
+                      as={checkPropTypeIsNode(title) ? "div" : undefined}
+                    >
                       {title}
                     </StyledTitle>
                   )}
 
                   {subtitle && (
-                    <StyledSubtitle {...checkPropTypeIsNode(subtitle)}>
+                    <StyledSubtitle
+                      as={checkPropTypeIsNode(subtitle) ? "div" : undefined}
+                    >
                       {subtitle}
                     </StyledSubtitle>
                   )}
@@ -172,7 +216,9 @@ const TileSelect = React.forwardRef(
                   )}
                 </StyledTitleContainer>
                 {additionalInformation && <div>{additionalInformation}</div>}
-                <StyledDescription {...checkPropTypeIsNode(description)}>
+                <StyledDescription
+                  as={checkPropTypeIsNode(description) ? "div" : undefined}
+                >
                   {description}
                 </StyledDescription>
                 {footer && <StyledFooterWrapper>{footer}</StyledFooterWrapper>}
@@ -209,62 +255,6 @@ const TileSelect = React.forwardRef(
     );
   }
 );
-
-TileSelect.defaultProps = {
-  checked: false,
-  type: "checkbox",
-};
-
-TileSelect.propTypes = {
-  ...marginPropTypes,
-  /** title of the TileSelect */
-  title: PropTypes.node,
-  /** adornment to be rendered next to the title */
-  titleAdornment: PropTypes.node,
-  /** subtitle of the TileSelect */
-  subtitle: PropTypes.node,
-  /** description of the TileSelect */
-  description: PropTypes.node,
-  /** disables the TileSelect input */
-  disabled: PropTypes.bool,
-  /** the value that is represented by this TileSelect */
-  value: PropTypes.string,
-  /** input id */
-  id: PropTypes.string,
-  /** input name */
-  name: PropTypes.string,
-  /** Callback triggered when user selects or deselects this tile */
-  onChange: PropTypes.func,
-  /** Callback triggered when the user blurs this tile */
-  onBlur: PropTypes.func,
-  /** Callback triggered when the user focuses this tile */
-  onFocus: PropTypes.func,
-  /** determines if this tile is selected or unselected */
-  checked: PropTypes.bool,
-  /** Custom class name passed to the root element of TileSelect */
-  className: PropTypes.string,
-  /** Type of the TileSelect input */
-  type: PropTypes.oneOf(["radio", "checkbox"]),
-  /** Render prop that allows overriding the default action button. `(onClick) => <Button onClick={onClick}>...</Button>` */
-  customActionButton: PropTypes.func,
-  /** An additional help info icon rendered next to the action button */
-  actionButtonAdornment: PropTypes.node,
-  /** footer of the TileSelect */
-  footer: PropTypes.node,
-  /** Component to render in the top left corner of TileSelect */
-  prefixAdornment: PropTypes.node,
-  /** Component to render additional information row between title and description */
-  additionalInformation: PropTypes.node,
-  /** Components to render in the TileSelect Accordion */
-  accordionContent: PropTypes.node,
-  /**
-   * Render prop to support rendering the control to handle the expanded state of the TileSelect Accordion.
-   * `(controlId, contentId) => <Button id={controlId} aria-controls={contentId}>...</Button>`
-   */
-  accordionControl: PropTypes.func,
-  /** Flag to control the open state of TileSelect Accordion */
-  accordionExpanded: PropTypes.bool,
-};
 
 TileSelect.displayName = "TileSelect";
 export default TileSelect;

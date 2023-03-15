@@ -169,6 +169,21 @@ context("Tests for Split Button component", () => {
     });
   });
 
+  describe("clicking the toggle button", () => {
+    it("should open the additional buttons", () => {
+      CypressMountWithProviders(<SplitButtonList />);
+
+      splitToggleButton()
+        .eq(0)
+        .trigger("click")
+        .then(() => {
+          additionalButton(0).should("be.visible");
+          additionalButton(1).should("be.visible");
+          additionalButton(2).should("be.visible");
+        });
+    });
+  });
+
   describe("pressing tab while SplitButton is open", () => {
     it("should move focus to next child button and to second SplitButton when end of list reached", () => {
       CypressMountWithProviders(

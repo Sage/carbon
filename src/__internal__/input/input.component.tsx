@@ -79,6 +79,7 @@ const Input = React.forwardRef<
   (
     {
       align,
+      "aria-labelledby": ariaLabelledBy,
       placeholder,
       disabled,
       readOnly,
@@ -195,7 +196,7 @@ const Input = React.forwardRef<
     return (
       <StyledInput
         {...rest}
-        aria-labelledby={context.ariaLabelledBy}
+        aria-labelledby={ariaLabelledBy}
         align={align}
         placeholder={placeholder}
         disabled={disabled}

@@ -1,5 +1,6 @@
 import React from "react";
-import GroupedCharacter from "./grouped-character.component";
+import { GroupedCharacterComponent } from "./grouped-character-test.stories.tsx";
+import * as stories from "./grouped-character.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
   fieldHelpPreview,
@@ -14,28 +15,6 @@ import {
 } from "../../../cypress/support/component-helper/constants";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
-const GroupedCharacterComponent = ({ onChange, ...props }) => {
-  const [state, setState] = React.useState("");
-
-  const setValue = ({ target }) => {
-    setState(target.value.rawValue);
-    if (onChange) {
-      onChange(target);
-    }
-  };
-
-  return (
-    <GroupedCharacter
-      label="GroupedCharacter"
-      value={state}
-      onChange={setValue}
-      groups={[2, 2, 3]}
-      separator="-"
-      {...props}
-    />
-  );
-};
 
 context("Tests for GroupedCharacter component", () => {
   describe("check props for GroupedCharacter component", () => {
@@ -224,18 +203,17 @@ context("Tests for GroupedCharacter component", () => {
         CypressMountWithProviders(
           <GroupedCharacterComponent onChange={callback} groups={groups} />
         );
-
         commonDataElementInputPreview()
           .type(inputValue, { delay: 0 })
           .blur({ force: true })
           .then(() => {
             // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.called;
             expect(
-              callback.getCalls()[callbackIndex].args[0].value.rawValue
+              callback.getCalls()[callbackIndex].args[0].target.value.rawValue
             ).to.equals(rawValue);
             expect(
-              callback.getCalls()[callbackIndex].args[0].value.formattedValue
+              callback.getCalls()[callbackIndex].args[0].target.value
+                .formattedValue
             ).to.equals(formattedValue);
           });
       }
@@ -253,6 +231,124 @@ context("Tests for GroupedCharacter component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+
+    describe("check accessibility for Groupcharacter component", () => {
+      it("should pass accessibility tests for Groupcharacter Default story", () => {
+        CypressMountWithProviders(<stories.DefaultStory />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter Sizes story", () => {
+        CypressMountWithProviders(<stories.Sizes />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter AutoFocus story", () => {
+        CypressMountWithProviders(<stories.AutoFocus />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter Disabled story", () => {
+        CypressMountWithProviders(<stories.Disabled />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter LabelInline story", () => {
+        CypressMountWithProviders(<stories.LabelInline />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter LabelInputWidth story", () => {
+        CypressMountWithProviders(<stories.LabelInputWidth />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter FieldHelp story", () => {
+        CypressMountWithProviders(<stories.FieldHelp />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter LabelHelp story", () => {
+        CypressMountWithProviders(<stories.LabelHelp />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter Required story", () => {
+        CypressMountWithProviders(<stories.Required />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter LabelAlign story", () => {
+        CypressMountWithProviders(<stories.LabelAlign />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter VariousSeparators story", () => {
+        CypressMountWithProviders(<stories.VariousSeparators />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter VariousGroups story", () => {
+        CypressMountWithProviders(<stories.VariousGroups />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter Validations story", () => {
+        CypressMountWithProviders(<stories.Validations />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter ValidationsStringComponent story", () => {
+        CypressMountWithProviders(<stories.ValidationsStringComponent />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter ValidationsStringLabel story", () => {
+        CypressMountWithProviders(<stories.ValidationsStringLabel />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter ValidationsBoolean story", () => {
+        CypressMountWithProviders(<stories.ValidationsBoolean />);
+
+        cy.checkAccessibility();
+      });
+
+      it("should pass accessibility tests for Groupcharacter ValidationsRedesign story", () => {
+        CypressMountWithProviders(<stories.ValidationsRedesign />);
+
+        cy.checkAccessibility();
+      });
+      // FE-4639
+      describe.skip("should render Groupcharacter component", () => {
+        it("should pass accessibility tests for Groupcharacter ValidationsTooltip story", () => {
+          CypressMountWithProviders(<stories.ValidationsTooltip />);
+
+          cy.checkAccessibility();
+        });
+
+        it("should pass accessibility tests for Groupcharacter ValidationsTooltipLabel story", () => {
+          CypressMountWithProviders(<stories.ValidationsTooltipLabel />);
+
+          cy.checkAccessibility();
+        });
+      });
     });
   });
 });

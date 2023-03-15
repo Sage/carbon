@@ -11,7 +11,6 @@ export interface InputContextProps {
   inputRef?: (input: {
     current: HTMLInputElement | HTMLTextAreaElement | null;
   }) => void;
-  ariaLabelledBy?: string;
 }
 
 const useInputBehaviour = (

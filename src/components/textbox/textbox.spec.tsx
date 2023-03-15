@@ -278,33 +278,12 @@ describe("Textbox", () => {
       });
     });
 
-    describe("label", () => {
-      describe("when no value is passed in", () => {
-        it("does not set the labelId", () => {
-          const wrapper = mount(<Textbox id="foo" />);
+    describe("aria-labelledby", () => {
+      it("should be passed down to the input", () => {
+        const labelId = "foo";
+        const wrapper = mount(<Textbox aria-labelledby={labelId} />);
 
-          expect(wrapper.find(Input).prop("aria-labelledby")).toBe("");
-        });
-      });
-
-      describe("when labelId is not set", () => {
-        it("uses the label to create a labelId value on the input", () => {
-          const wrapper = mount(<Textbox id="foo" label="bar" />);
-
-          expect(wrapper.find(Input).prop("aria-labelledby")).toBe("foo-label");
-        });
-      });
-
-      describe("when labelId is set", () => {
-        it("overrides the labelId value on the input", () => {
-          const wrapper = mount(
-            <Textbox id="foo" label="bar" labelId="override-bar" />
-          );
-
-          expect(wrapper.find(Input).prop("aria-labelledby")).toBe(
-            "override-bar"
-          );
-        });
+        expect(wrapper.find(Input).prop("aria-labelledby")).toBe(labelId);
       });
     });
 
@@ -317,16 +296,6 @@ describe("Textbox", () => {
           label: "bar",
           ...(isPresent && { id: "foo" }),
         };
-
-        describe("and label is present", () => {
-          it("passes aria-labelledby", () => {
-            const wrapper = mount(<Textbox {...commonProps} />);
-
-            expect(wrapper.find(Input).prop("aria-labelledby")).toBe(
-              `${id}-label`
-            );
-          });
-        });
 
         describe.each(["info", "warning", "error"])(
           "and %s are present",
