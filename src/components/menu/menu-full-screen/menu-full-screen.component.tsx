@@ -13,8 +13,11 @@ import IconButton from "../../icon-button";
 import Icon from "../../icon";
 import Portal from "../../portal";
 import MenuDivider from "../menu-divider/menu-divider.component";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags";
 
-export interface MenuFullscreenProps {
+export interface MenuFullscreenProps extends TagProps {
   /** The child elements to render */
   children?: React.ReactNode;
   /** Sets whether the component is open or closed */
@@ -51,13 +54,13 @@ export const MenuFullscreen = ({
       <Portal>
         <FocusTrap wrapperRef={menuWrapperRef} isOpen={isOpen}>
           <StyledMenuFullscreen
-            data-component="menu-fullscreen"
             ref={menuWrapperRef}
             isOpen={isOpen}
             menuType={menuType}
             startPosition={startPosition}
             onKeyDown={handleKeyDown}
             {...rest}
+            {...tagComponent("menu-fullscreen", rest)}
           >
             <StyledMenuFullscreenHeader
               isOpen={isOpen}

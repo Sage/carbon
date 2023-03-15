@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { mount } from "enzyme";
 
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import MenuSegmentTitle from "./menu-segment-title.component";
@@ -23,19 +23,14 @@ describe("Title", () => {
   const render = (menuType: MenuType, variant?: VariantType) => {
     return mount(
       <MenuContext.Provider value={menuContextValues(menuType)}>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle variant={variant}>foo</MenuSegmentTitle>
-        </MenuItem>
+        <ul>
+          <MenuItem submenu="Item One">
+            <MenuSegmentTitle variant={variant}>foo</MenuSegmentTitle>
+          </MenuItem>
+        </ul>
       </MenuContext.Provider>
     );
   };
-
-  it('should render data-component to be "menu-segment-title"', () => {
-    wrapper = shallow(<MenuSegmentTitle>foo</MenuSegmentTitle>);
-    expect(wrapper.find(StyledTitle).prop("data-component")).toBe(
-      "menu-segment-title"
-    );
-  });
 
   it("should get menuType from menu context", () => {
     wrapper = render("light");
@@ -78,4 +73,22 @@ describe("Title", () => {
       });
     }
   );
+
+  describe("tags on component", () => {
+    it("includes correct component, element and role data tags", () => {
+      wrapper = mount(
+        <MenuSegmentTitle data-element="bar" data-role="baz">
+          foo
+        </MenuSegmentTitle>
+      ).find(StyledTitle);
+
+      expect(wrapper.getDOMNode().getAttribute("data-component")).toEqual(
+        "menu-segment-title"
+      );
+
+      expect(wrapper.getDOMNode().getAttribute("data-element")).toEqual("bar");
+
+      expect(wrapper.getDOMNode().getAttribute("data-role")).toEqual("baz");
+    });
+  });
 });

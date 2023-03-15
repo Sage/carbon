@@ -5,8 +5,11 @@ import MenuItem, { VariantType } from "../menu-item";
 import StyledScrollableBlock from "./scrollable-block.style";
 import Box from "../../box";
 import { ScrollVariant } from "../../box/box.component";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags";
 
-export interface ScrollableBlockProps {
+export interface ScrollableBlockProps extends TagProps {
   /** Children elements */
   children: React.ReactNode;
   /** A custom height to be applied to the component. */
@@ -40,7 +43,7 @@ export const ScrollableBlock = ({
 
   return (
     <StyledScrollableBlock
-      data-component="submenu-scrollable-block"
+      {...tagComponent("submenu-scrollable-block", rest)}
       menuType={menuType}
       variant={variant}
       {...rest}

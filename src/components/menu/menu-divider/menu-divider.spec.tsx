@@ -83,4 +83,20 @@ describe("MenuDivider", () => {
       wrapper.find(StyledDivider)
     );
   });
+
+  describe("tags on component", () => {
+    it("includes correct component, element and role data tags", () => {
+      wrapper = mount(<MenuDivider data-element="bar" data-role="baz" />).find(
+        StyledDivider
+      );
+
+      expect(wrapper.getDOMNode().getAttribute("data-component")).toEqual(
+        "menu-divider"
+      );
+
+      expect(wrapper.getDOMNode().getAttribute("data-element")).toEqual("bar");
+
+      expect(wrapper.getDOMNode().getAttribute("data-role")).toEqual("baz");
+    });
+  });
 });

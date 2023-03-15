@@ -17,10 +17,17 @@ import SubmenuContext, {
 import { StyledMenuItem } from "../menu.style";
 import guid from "../../../__internal__/utils/helpers/guid";
 import { IconType } from "../../icon";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags";
 
 export type VariantType = "default" | "alternate";
 
-interface MenuItemBaseProps extends LayoutProps, FlexboxProps, PaddingProps {
+interface MenuItemBaseProps
+  extends TagProps,
+    LayoutProps,
+    FlexboxProps,
+    PaddingProps {
   /** Custom className */
   className?: string;
   /** onClick handler */
@@ -67,6 +74,7 @@ interface MenuItemBaseProps extends LayoutProps, FlexboxProps, PaddingProps {
   "data-component"?: string;
   /** When set the submenu opens by click instead of hover */
   clickToOpen?: boolean;
+  /** Sets the maxWidth of the MenuItem */
   maxWidth?: MaxWidthProps["maxWidth"];
   /**
    * @private @ignore
@@ -262,7 +270,7 @@ export const MenuItem = ({
   if (submenu) {
     return (
       <StyledMenuItem
-        data-component="menu-item"
+        {...tagComponent("menu-item", rest)}
         menuType={menuType}
         display="inline-block"
         title={getTitle(submenu)}
@@ -296,7 +304,7 @@ export const MenuItem = ({
 
   return (
     <StyledMenuItem
-      data-component="menu-item"
+      {...tagComponent("menu-item", rest)}
       menuType={menuType}
       inSubmenu={!!handleSubmenuKeyDown}
       display="inline-block"

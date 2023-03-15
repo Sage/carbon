@@ -2,11 +2,12 @@ import React, { useCallback, useState, useRef } from "react";
 import { LayoutProps, FlexboxProps } from "styled-system";
 
 import { StyledMenuWrapper } from "./menu.style";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import MenuContext, { MenuType } from "./menu.context";
 import { menuKeyboardNavigation } from "./__internal__/keyboard-navigation";
 import { MENU_ITEM_CHILDREN_LOCATOR } from "./__internal__/locators";
 
-export interface MenuProps extends LayoutProps, FlexboxProps {
+export interface MenuProps extends TagProps, LayoutProps, FlexboxProps {
   /** Children elements */
   children: React.ReactNode;
   /** Defines the color scheme of the component */
@@ -55,9 +56,9 @@ export const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
 
   return (
     <StyledMenuWrapper
-      data-component="menu"
       menuType={menuType}
       {...rest}
+      {...tagComponent("menu", rest)}
       ref={ref}
       role="list"
       onKeyDown={handleKeyDown}

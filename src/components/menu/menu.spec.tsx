@@ -297,4 +297,22 @@ describe("Menu", () => {
       expect(wrapper.find(MenuItem).length).toBe(1);
     });
   });
+
+  describe("tags on component", () => {
+    it("includes correct component, element and role data tags", () => {
+      wrapper = mount(
+        <Menu data-element="bar" data-role="baz">
+          <MenuItem>Foo</MenuItem>
+        </Menu>
+      ).find(StyledMenuWrapper);
+
+      expect(wrapper.getDOMNode().getAttribute("data-component")).toEqual(
+        "menu"
+      );
+
+      expect(wrapper.getDOMNode().getAttribute("data-element")).toEqual("bar");
+
+      expect(wrapper.getDOMNode().getAttribute("data-role")).toEqual("baz");
+    });
+  });
 });

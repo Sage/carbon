@@ -32,6 +32,8 @@ const TestMenu = ({
     startPosition={startPosition}
     isOpen={isOpen}
     onClose={onClose}
+    data-element="bar"
+    data-role="baz"
   >
     <MenuItem maxWidth="200px" href="#">
       Menu Item One
@@ -89,13 +91,29 @@ describe("MenuFullscreen", () => {
     wrapper = render({});
   });
 
-  it("should render with correct `data-component`", () => {
-    expect(
-      wrapper
-        .find(StyledMenuFullscreen)
-        .getDOMNode()
-        .getAttribute("data-component")
-    ).toEqual("menu-fullscreen");
+  describe("tags on component", () => {
+    it("includes correct component, element and role data tags", () => {
+      expect(
+        wrapper
+          .find(StyledMenuFullscreen)
+          .getDOMNode()
+          .getAttribute("data-component")
+      ).toEqual("menu-fullscreen");
+
+      expect(
+        wrapper
+          .find(StyledMenuFullscreen)
+          .getDOMNode()
+          .getAttribute("data-element")
+      ).toEqual("bar");
+
+      expect(
+        wrapper
+          .find(StyledMenuFullscreen)
+          .getDOMNode()
+          .getAttribute("data-role")
+      ).toEqual("baz");
+    });
   });
 
   it("should render children correctly", () => {

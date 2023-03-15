@@ -10,6 +10,7 @@ import StyledMenuItemWrapper from "../menu-item/menu-item.style";
 import MenuDivider from "../menu-divider/menu-divider.component";
 import Search from "../../search";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import StyledScrollableBlock from "./scrollable-block.style";
 
 const handleKeyDownFn = jest.fn();
 
@@ -135,5 +136,42 @@ describe("ScrollableBlock", () => {
         );
       }
     );
+  });
+
+  describe("tags on component", () => {
+    it("includes correct component, element and role data tags", () => {
+      wrapper = mount(
+        <ul>
+          <ScrollableBlock data-element="bar" data-role="baz">
+            <MenuItem href="#">Apple</MenuItem>
+            <MenuItem href="#">Banana</MenuItem>
+            <MenuDivider />
+            <MenuItem href="#">Carrot</MenuItem>
+            <MenuItem href="#">Broccoli</MenuItem>
+          </ScrollableBlock>
+        </ul>
+      );
+
+      expect(
+        wrapper
+          .find(StyledScrollableBlock)
+          .getDOMNode()
+          .getAttribute("data-component")
+      ).toEqual("submenu-scrollable-block");
+
+      expect(
+        wrapper
+          .find(StyledScrollableBlock)
+          .getDOMNode()
+          .getAttribute("data-element")
+      ).toEqual("bar");
+
+      expect(
+        wrapper
+          .find(StyledScrollableBlock)
+          .getDOMNode()
+          .getAttribute("data-role")
+      ).toEqual("baz");
+    });
   });
 });

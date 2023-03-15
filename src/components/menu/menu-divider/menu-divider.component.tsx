@@ -2,20 +2,23 @@ import React, { useContext } from "react";
 import StyledDivider from "./menu-divider.style";
 import MenuContext from "../menu.context";
 import { StyledMenuItem } from "../menu.style";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags";
 
-export interface MenuDividerProps {
+export interface MenuDividerProps extends TagProps {
   size?: "default" | "large";
 }
 
-export const MenuDivider = React.forwardRef<HTMLDivElement, MenuDividerProps>(
-  ({ size = "default" }: MenuDividerProps, ref) => {
+const MenuDivider = React.forwardRef<HTMLDivElement, MenuDividerProps>(
+  ({ size = "default", ...rest }: MenuDividerProps, ref) => {
     const menuContext = useContext(MenuContext);
 
     return (
       <StyledMenuItem inSubmenu>
         <StyledDivider
           size={size}
-          data-component="menu-divider"
+          {...tagComponent("menu-divider", rest)}
           menuType={menuContext.menuType}
           ref={ref}
         />
