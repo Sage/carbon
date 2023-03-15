@@ -630,31 +630,26 @@ context("Testing Checkbox component", () => {
       }
     );
 
-    // FE-5382
-    describe.skip("skip", () => {
-      it("should pass accessibility tests for Checkbox component with error message", () => {
-        CypressMountWithProviders(
-          <CheckboxComponent error="Error has occurred" />
-        );
+    it("should pass accessibility tests for Checkbox component with error message", () => {
+      CypressMountWithProviders(
+        <CheckboxComponent error="Error has occurred" />
+      );
 
-        cy.checkAccessibility();
-      });
+      cy.checkAccessibility();
+    });
 
-      it("should pass accessibility tests for Checkbox component with warning message", () => {
-        CypressMountWithProviders(
-          <CheckboxComponent warning="Warning has occurred" />
-        );
+    it("should pass accessibility tests for Checkbox component with warning message", () => {
+      CypressMountWithProviders(
+        <CheckboxComponent warning="Warning has occurred" />
+      );
 
-        cy.checkAccessibility();
-      });
+      cy.checkAccessibility();
+    });
 
-      it("should pass accessibility tests for Checkbox component with info message", () => {
-        CypressMountWithProviders(
-          <CheckboxComponent info="Info has occurred" />
-        );
+    it("should pass accessibility tests for Checkbox component with info message", () => {
+      CypressMountWithProviders(<CheckboxComponent info="Info has occurred" />);
 
-        cy.checkAccessibility();
-      });
+      cy.checkAccessibility();
     });
   });
 
@@ -722,27 +717,24 @@ context("Testing Checkbox component", () => {
       cy.checkAccessibility();
     });
 
-    // FE-5382
-    describe.skip("skip", () => {
-      it.each(["top", "bottom", "left", "right"])(
-        "should pass accessibility tests for CheckboxGroupComponent component with tooltip positioned to the %s",
-        (position) => {
-          CypressMountWithProviders(
-            <CheckboxGroupComponent
-              legend="Checkbox Legend"
-              error="Something is wrong"
-              tooltipPosition={position}
-            />
-          );
+    it.each(["top", "bottom", "left", "right"])(
+      "should pass accessibility tests for CheckboxGroupComponent component with tooltip positioned to the %s",
+      (position) => {
+        CypressMountWithProviders(
+          <CheckboxGroupComponent
+            legend="Checkbox Legend"
+            error="Something is wrong"
+            tooltipPosition={position}
+          />
+        );
 
-          checkboxGroupIcon()
-            .trigger("mouseover")
-            .then(() => {
-              // eslint-disable-next-line no-unused-expressions
-              cy.checkAccessibility();
-            });
-        }
-      );
-    });
+        checkboxGroupIcon()
+          .trigger("mouseover")
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            cy.checkAccessibility();
+          });
+      }
+    );
   });
 });
