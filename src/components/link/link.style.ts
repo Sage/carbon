@@ -142,6 +142,7 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
 
             &:focus {
               background-color: var(--colorsSemanticFocus250);
+              border-radius: var(--borderRadius050);
             }
           `}
 

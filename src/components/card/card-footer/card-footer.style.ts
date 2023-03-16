@@ -32,6 +32,8 @@ const StyledCardFooter = styled.div<StyledCardFooterProps>`
     border-top: var(--colorsUtilityMajor100);
     border-top-width: 1px;
     border-top-style: solid;
+    border-bottom-left-radius: var(--borderRadius100);
+    border-bottom-right-radius: var(--borderRadius100);
     font-size: 14px;
     font-weight: 700;
     margin: ${marginSizes[spacing]};

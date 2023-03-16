@@ -38,6 +38,7 @@ const StyledDescription = styled.p`
 
 const StyledTileSelect = styled.div<{ checked?: boolean; disabled?: boolean }>`
   background: var(--colorsActionMinorYang100);
+  border-radius: var(--borderRadius100);
   padding: 24px;
   ${({ checked }) =>
     checked &&
@@ -65,6 +66,7 @@ const StyledFocusWrapper = styled.div<{
   ${({ checked, hasFocus }) => css`
     position: relative;
     border: 1px solid var(--colorsActionMinor250);
+    border-radius: var(--borderRadius100);
     ${checked &&
     css`
       border-color: var(--colorsActionMajor500);

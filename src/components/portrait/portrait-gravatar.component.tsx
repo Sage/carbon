@@ -22,7 +22,7 @@ const PortraitGravatar = ({
   gravatarEmail,
   size,
   alt,
-  shape = "square",
+  shape = "circle",
   errorCallback,
 }: PortraitGravatarProps) => {
   const gravatarSrc = () => {

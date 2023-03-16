@@ -13,6 +13,21 @@ type StyledButtonToggleGroupProps = ValidationProps &
 
 const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
   display: flex;
+  overflow: hidden;
+
+  ${StyledButtonToggle}:not(:first-of-type):not(:last-of-type) ${StyledButtonToggleLabel} {
+    border-radius: var(--borderRadius000);
+  }
+
+  ${StyledButtonToggle}:first-of-type ${StyledButtonToggleLabel} {
+    border-top-left-radius: var(--borderRadius400);
+    border-bottom-left-radius: var(--borderRadius400);
+  }
+
+  ${StyledButtonToggle}:last-of-type ${StyledButtonToggleLabel} {
+    border-top-right-radius: var(--borderRadius400);
+    border-bottom-right-radius: var(--borderRadius400);
+  }
 
   ${({ fullWidth }) =>
     fullWidth &&

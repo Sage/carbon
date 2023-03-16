@@ -9,6 +9,7 @@ type StyledSplitButtonChildrenContainerProps = {
 };
 
 const StyledSplitButtonChildrenContainer = styled.div<StyledSplitButtonChildrenContainerProps>`
+  border-radius: var(--borderRadius100);
   ${({ theme, align, minWidth }) => css`
     background-color: var(--colorsActionMajorYang100);
     min-width: ${minWidth}px;

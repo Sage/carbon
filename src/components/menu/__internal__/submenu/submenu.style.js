@@ -57,6 +57,8 @@ const StyledSubmenu = styled.ul`
       }
     `}
 
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
     display: block;
     list-style: none;
     margin: 0;

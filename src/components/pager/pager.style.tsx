@@ -37,6 +37,8 @@ const StyledPagerContainer = styled.div<Pick<PagerProps, "variant">>`
     css`
       border-width: 1px 1px 1px 1px;
       border-style: none solid solid solid;
+      border-bottom-left-radius: var(--borderRadius100);
+      border-bottom-right-radius: var(--borderRadius100);
       border-color: var(--colorsUtilityMajor100);
       background-color: ${variant === "alternate"
         ? "var(--colorsUtilityMajor040)"

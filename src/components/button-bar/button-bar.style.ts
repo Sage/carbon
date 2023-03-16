@@ -28,6 +28,17 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
     button {
       margin: 0;
       border: 2px solid var(--colorsActionMajor500);
+      border-radius: var(--borderRadius000);
+
+      :first-of-type {
+        border-top-left-radius: var(--borderRadius400);
+        border-bottom-left-radius: var(--borderRadius400);
+      }
+
+      :last-of-type {
+        border-top-right-radius: var(--borderRadius400);
+        border-bottom-right-radius: var(--borderRadius400);
+      }
 
       &:not(:last-of-type) {
         border-right-color: transparent;
@@ -43,6 +54,18 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
       &:hover {
         background-color: var(--colorsActionMajor600);
         border-color: var(--colorsActionMajor600);
+        border-radius: var(--borderRadius000);
+
+        :first-of-type {
+          border-top-left-radius: var(--borderRadius400);
+          border-bottom-left-radius: var(--borderRadius400);
+        }
+
+        :last-of-type {
+          border-top-right-radius: var(--borderRadius400);
+          border-bottom-right-radius: var(--borderRadius400);
+        }
+
         & + button {
           border-left-color: var(--colorsActionMajor600);
         }

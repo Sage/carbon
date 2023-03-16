@@ -35,6 +35,12 @@ const StyledTitleContent = styled.span`
       justify-content: ${align === "right" ? "flex-end" : "flex-start"};
     `}
 
+    ${position === "top" &&
+    css`
+      border-top-left-radius: var(--borderRadius100);
+      border-top-right-radius: var(--borderRadius100);
+    `}
+
     ${hasHref &&
     css`
       color: var(--colorsActionMinorYin090);
@@ -62,11 +68,16 @@ const StyledTitleContent = styled.span`
       border-top: 1px solid var(--colorsActionMinor100);
       border-left: 1px solid var(--colorsActionMinor100);
       border-right: 1px solid var(--colorsActionMinor100);
+      border-top-left-radius: var(--borderRadius100);
+      border-bottom-left-radius: var(--borderRadius100);
 
       ${position === "left" &&
       css`
         border-bottom: 1px solid var(--colorsActionMinor100);
         ${!alternateStyling && `margin-right: -1px;`}
+        border-top-left-radius: var(--borderRadius100);
+        border-bottom-right-radius: var(--borderRadius000);
+        border-top-right-radius: var(--borderRadius000);
       `}
 
       ${noLeftBorder &&
@@ -105,8 +116,7 @@ const StyledTitleContent = styled.span`
       padding: 10px 16px;
 
       ${borders && `padding-bottom: 9px;`}
-    `}
- 
+    `} 
 
     ${(warning || info) &&
     css`
@@ -253,6 +263,8 @@ const StyledTitleContent = styled.span`
 const StyledTabTitle = styled.button`
   background-color: transparent;
   display: inline-block;
+  border-top-left-radius: var(--borderRadius100);
+  border-top-right-radius: var(--borderRadius100);
   font-weight: bold;
   position: relative;
   border: none;
@@ -262,6 +274,13 @@ const StyledTabTitle = styled.button`
   text-decoration: none;
   outline-offset: 0px;
   margin: 0;
+
+  ${({ position }) => css`
+    ${position === "left" &&
+    css`
+      border-top-right-radius: var(--borderRadius000);
+    `}
+  `}
 
   a:visited {
     color: inherit;

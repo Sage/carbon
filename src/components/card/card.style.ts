@@ -34,6 +34,7 @@ const StyledCard = styled.div<StyledCardProps>`
   }) => css`
     background-color: var(--colorsUtilityYang100);
     border: none;
+    border-radius: var(--borderRadius100);
     box-shadow: var(--${boxShadow});
     color: var(--colorsUtilityYin090);
     display: flex;

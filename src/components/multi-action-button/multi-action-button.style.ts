@@ -77,6 +77,7 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
     white-space: nowrap;
     z-index: ${theme.zIndex.popover};
     box-shadow: var(--boxShadow100);
+    border-radius: var(--borderRadius100);
 
     ${StyledIcon} {
       margin-left: 0;
@@ -91,6 +92,7 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
       min-width: 100%;
       text-align: ${align};
       z-index: ${theme.zIndex.overlay};
+      border-radius: 0px;
 
       /* Styling for Safari. */
       @media not all and (min-resolution: 0.001dpcm) {

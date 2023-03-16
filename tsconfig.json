@@ -22,5 +22,5 @@
     "strict": true,
     "target": "es6"
   },
-  "include": ["./src/**/*.ts*"]
+  "include": ["./src/**/*.ts*", "src/components/button-minor/button-minor.stories.mdx"]
 }

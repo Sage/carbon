@@ -10,7 +10,6 @@ const StyledTab = styled.div`
     isTabSelected &&
     css`
       display: block;
-
       ${position === "left" &&
       css`
         width: 80%;

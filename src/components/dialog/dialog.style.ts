@@ -58,6 +58,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   box-shadow: var(--boxShadow300);
   display: flex;
   flex-direction: column;
+  border-radius: var(--borderRadius200);
   position: fixed;
   top: 50%;
   z-index: ${({ theme }) => theme.zIndex.modal};
@@ -91,6 +92,8 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   ${StyledFormFooter}.sticky {
     ${calculateWidthValue}
     ${(props) => calculateFormSpacingValues(props, false)}
+    border-bottom-right-radius: var(--borderRadius200);
+    border-bottom-left-radius: var(--borderRadius200);
   }
 
   > ${StyledIconButton} {
@@ -115,6 +118,8 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
   background-color: var(--colorsUtilityYang100);
   padding: 23px ${HORIZONTAL_PADDING}px 0;
   border-bottom: 1px solid #ccd6db;
+  border-top-right-radius: var(--borderRadius200);
+  border-top-left-radius: var(--borderRadius200);
   ${({ showCloseIcon }) => showCloseIcon && "padding-right: 85px"};
 
   ${StyledHeaderContent} {

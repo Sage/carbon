@@ -15,65 +15,83 @@ const StyledSelect = styled.div`
     ${StyledInput} {
       cursor: text;
 
-      ${disabled &&
-      css`
-        cursor: not-allowed;
-        color: var(--colorsUtilityYin030);
-        text-shadow: none;
-      `}
+      ${
+        disabled &&
+        css`
+          cursor: not-allowed;
+          color: var(--colorsUtilityYin030);
+          text-shadow: none;
+        `
+      }
 
-      ${readOnly &&
-      css`
-        cursor: ${hasTextCursor ? "text" : "default"};
-        color: var(--colorsActionMinorYin090);
-        text-shadow: none;
-      `}
+      ${
+        readOnly &&
+        css`
+          cursor: ${hasTextCursor ? "text" : "default"};
+          color: var(--colorsActionMinorYin090);
+          text-shadow: none;
+        `
+      }
+    }
+
+    ul[data-element: "select-list"] {
+      border: 1px solid :read-only;
     }
 
     ${InputPresentationStyle} {
       cursor: ${hasTextCursor ? "text" : "pointer"};
       padding-right: 0;
 
-      ${isOpen &&
-      css`
-        z-index: ${theme.zIndex.aboveAll};
-      `}
+      ${
+        isOpen &&
+        css`
+          z-index: ${theme.zIndex.aboveAll};
+        `
+      }
 
-      ${disabled &&
-      css`
-        cursor: not-allowed;
-      `}
+      ${
+        disabled &&
+        css`
+          cursor: not-allowed;
+        `
+      }
 
-      ${readOnly &&
-      css`
-        cursor: ${hasTextCursor ? "text" : "default"};
-      `}
+      ${
+        readOnly &&
+        css`
+          cursor: ${hasTextCursor ? "text" : "default"};
+        `
+      }
     }
 
     ${InputIconToggleStyle} {
       margin-right: 0;
     }
 
-    ${transparent &&
-    css`
-      ${InputPresentationStyle} {
-        background: transparent;
-        border: none;
-      }
+    ${
+      transparent &&
+      css`
+        ${InputPresentationStyle} {
+          background: transparent;
+          border: none;
+        }
 
-      ${InputIconToggleStyle} {
-        margin-left: 0;
-      }
-    `}
+        ${InputIconToggleStyle} {
+          margin-left: 0;
+        }
+      `
+    }
 
-    ${!hasTextCursor &&
-    css`
-      ${StyledInput} {
-        position: absolute;
-        width: auto;
-        opacity: 0;
-      }
-    `}
+    ${
+      !hasTextCursor &&
+      css`
+        ${StyledInput} {
+          position: absolute;
+          width: auto;
+          opacity: 0;
+        }
+      `
+    }
   `}
 `;
 

@@ -55,7 +55,7 @@ export const Profile = ({
           alt={getInitials()}
           initials={getInitials()}
           size={size}
-          shape="square"
+          shape="circle"
           data-element="user-image"
         />
       );

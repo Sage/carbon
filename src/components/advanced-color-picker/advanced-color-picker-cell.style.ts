@@ -15,6 +15,7 @@ const StyledAdvancedColorPickerCell = styled.button.attrs({ type: "button" })`
     color &&
     css`
       background-color: ${color};
+      border-radius: var(--borderRadius050);
     `}
 
   ${({ color }) =>

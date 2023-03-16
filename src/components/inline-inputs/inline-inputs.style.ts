@@ -57,6 +57,24 @@ const StyledContentContainer = styled.div<InlineInputsProps>`
   display: flex;
   flex: ${({ inputWidth }) => (inputWidth ? `0 0 ${inputWidth}%` : 1)};
 
+  ${StyledInlineInput}:not(:first-of-type):not(:last-of-type) ${InputPresentation} {
+    border-radius: var(--borderRadius000);
+  }
+
+  ${StyledInlineInput}:first-of-type ${InputPresentation} {
+    border-top-right-radius: var(--borderRadius000);
+    border-bottom-right-radius: var(--borderRadius000);
+    border-top-left-radius: var(--borderRadius050);
+    border-bottom-left-radius: var(--borderRadius050);
+  }
+
+  ${StyledInlineInput}:last-of-type ${InputPresentation} {
+    border-top-left-radius: var(--borderRadius000);
+    border-bottom-left-radius: var(--borderRadius000);
+    border-top-right-radius: var(--borderRadius050);
+    border-bottom-right-radius: var(--borderRadius050);
+  }
+
   ${({ gutter }) =>
     gutter &&
     css`

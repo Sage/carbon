@@ -23,13 +23,11 @@ const StyledMenuWrapper = styled.ul`
       display: inline-block;
       vertical-align: bottom;
       background-color: ${menuConfigVariants[menuType].background};
-
       ${menuType === "dark" &&
       css`
         color: ${menuConfigVariants[menuType].color};
       `}
     `}
-
     ${StyledDivider} {
       position: relative;
       top: -1px;
@@ -45,15 +43,28 @@ const StyledMenuItem = styled.li`
     ${inSubmenu &&
     css`
       display: list-item;
+
+      :last-of-type {
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        & a,
+        & ${StyledLink} a,
+        & button,
+        & ${StyledLink} button,
+        & > span,
+        & > div,
+        & [data-component="submenu-wrapper"] > ${StyledLink} {
+          border-bottom-left-radius: 6px;
+          border-bottom-right-radius: 6px;
+        }
+      }
     `}
   `}
-
     ${({ inFullscreenView }) =>
     inFullscreenView &&
     css`
       padding-top: 16px;
       padding-bottom: 16px;
-
       a,
       ${StyledLink} a,
       button,

@@ -34,7 +34,6 @@ type StylingForShape = { shape?: PortraitShapes };
 function stylingForShape({ shape }: StylingForShape) {
   let cssString = "overflow: hidden;";
 
-  if (shape === "square") cssString += "border-radius: 0px;";
   if (shape === "circle") cssString += "border-radius: 50%;";
 
   return css`

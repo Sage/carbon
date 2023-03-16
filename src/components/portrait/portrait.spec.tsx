@@ -74,7 +74,7 @@ describe("PortraitComponent", () => {
 
     it("applies expected styling to Portrait with icon", () => {
       const wrapper = mount(
-        <Portrait shape="square" darkBackground={false} iconType="image" />
+        <Portrait shape="circle" darkBackground={false} iconType="image" />
       );
 
       assertStyleMatch(
@@ -100,7 +100,7 @@ describe("PortraitComponent", () => {
 
     it("renders icon when not supplied with Gravatar or src or initials", () => {
       const wrapper = mount(
-        <Portrait size="XXL" shape="square" darkBackground={false} />
+        <Portrait size="XXL" shape="circle" darkBackground={false} />
       );
       expect(wrapper.find(StyledIcon).props()).toEqual(
         expect.objectContaining({ type: "individual", size: "XXL" })
@@ -109,7 +109,7 @@ describe("PortraitComponent", () => {
 
     it("renders specified icon when not supplied with Gravatar, src or initials", () => {
       const wrapper = mount(
-        <Portrait size="XXL" shape="square" darkBackground iconType="image" />
+        <Portrait size="XXL" shape="circle" darkBackground iconType="image" />
       );
       expect(wrapper.find(StyledIcon).props()).toEqual(
         expect.objectContaining({ type: "image", size: "XXL" })
@@ -141,7 +141,7 @@ describe("PortraitComponent", () => {
         const wrapper = shallow(
           <Portrait
             size="XXL"
-            shape="square"
+            shape="circle"
             darkBackground={false}
             onClick={onClickFn}
           />

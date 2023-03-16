@@ -436,7 +436,7 @@ describe("Pill", () => {
                     {
                       fontSize: "12px",
                       padding: "0 32px 0 11px",
-                      borderRadius: "12px",
+                      borderRadius: "var(--borderRadius025)",
                       minHeight: "20px",
                       height: "auto",
                       lineHeight: "20px",
@@ -460,7 +460,7 @@ describe("Pill", () => {
                     {
                       fontSize: "14px",
                       padding: "0 36px 0 15px",
-                      borderRadius: "13px",
+                      borderRadius: "var(--borderRadius025)",
                       minHeight: "24px",
                       height: "auto",
                       lineHeight: "24px",
@@ -484,7 +484,7 @@ describe("Pill", () => {
                     {
                       fontSize: "16px",
                       padding: "0 41px 0 19px",
-                      borderRadius: "15px",
+                      borderRadius: "var(--borderRadius025)",
                       minHeight: "26px",
                       height: "auto",
                       lineHeight: "26px",

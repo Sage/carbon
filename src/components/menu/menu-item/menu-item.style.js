@@ -56,6 +56,8 @@ const StyledMenuItemWrapper = styled.a`
             ${maxWidth &&
             css`
               box-sizing: border-box;
+              border-bottom-left-radius: 6px;
+              border-bottom-right-radius: 6px;
               max-width: inherit;
               text-overflow: ellipsis;
               overflow: hidden;

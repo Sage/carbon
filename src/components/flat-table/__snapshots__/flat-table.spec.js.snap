@@ -146,7 +146,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 .c2 {
   border-collapse: separate;
-  border-radius: 0px;
   border-spacing: 0;
   width: 100%;
 }
@@ -172,6 +171,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  border-radius: var(--borderRadius100);
   box-sizing: border-box;
   box-shadow: inset 0px 0px 0px 1px var(--colorsUtilityMajor100);
 }
@@ -221,10 +221,28 @@ exports[`FlatTable when rendered with proper table data should have expected str
   z-index: 1003;
 }
 
+.c0 thead .c5:first-of-type th:first-child {
+  border-top-left-radius: var(--borderRadius100);
+}
+
+.c0 thead .c5:first-of-type th:last-child {
+  border-top-right-radius: var(--borderRadius100);
+}
+
 .c0 tbody .c7,
 .c0 .c11.isSticky,
 .c0 tbody .c14.isSticky {
   z-index: 1000;
+}
+
+.c0 tbody .c5:last-of-type td:first-child,
+.c0 tbody .c5:last-of-type th:first-child {
+  border-bottom-left-radius: var(--borderRadius100);
+}
+
+.c0 tbody .c5:last-of-type td:last-child,
+.c0 tbody .c5:last-of-type th:last-child {
+  border-bottom-right-radius: var(--borderRadius100);
 }
 
 <div

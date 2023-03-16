@@ -83,7 +83,6 @@ const StyledButton = styled.button<StyledButtonProps>`
     align-items: center;
     cursor: ${disabled ? "not-allowed" : "pointer"};
     display: inline-flex;
-    border-radius: 0;
     ${noWrap ? "white-space: nowrap;" : "flex-flow: wrap;"}
     justify-content: center;
     vertical-align: middle;

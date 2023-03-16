@@ -1982,7 +1982,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  border-radius: 0;
   -webkit-flex-flow: wrap;
   -ms-flex-flow: wrap;
   flex-flow: wrap;
@@ -1999,6 +1998,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   text-decoration: none;
   background: transparent;
   border-color: var(--colorsActionMajor500);
+  border-radius: var(--borderRadius400);
   color: var(--colorsActionMajor500);
   font-size: var(--fontSizes100);
   min-height: 40px;
@@ -2018,6 +2018,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c0:hover {
   background: var(--colorsActionMajor600);
+  border-radius: var(--borderRadius400);
   border-color: var(--colorsActionMajorTransparent);
   color: var(--colorsActionMajorYang100);
 }
@@ -2258,7 +2259,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  border-radius: 0;
   -webkit-flex-flow: wrap;
   -ms-flex-flow: wrap;
   flex-flow: wrap;
@@ -2275,6 +2275,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   text-decoration: none;
   background: transparent;
   border-color: var(--colorsActionMajor500);
+  border-radius: var(--borderRadius400);
   color: var(--colorsActionMajor500);
   font-size: var(--fontSizes100);
   min-height: 40px;
@@ -2294,6 +2295,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c0:hover {
   background: var(--colorsActionMajor600);
+  border-radius: var(--borderRadius400);
   border-color: var(--colorsActionMajorTransparent);
   color: var(--colorsActionMajorYang100);
 }

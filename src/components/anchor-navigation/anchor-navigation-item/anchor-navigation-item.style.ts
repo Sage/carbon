@@ -19,11 +19,20 @@ const StyledNavigationItem = styled.li<StyledNavigationItemProps>`
 
     &:focus {
       outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+      border-top-right-radius: var(--borderRadius100);
+      border-bottom-right-radius: var(--borderRadius100);
     }
 
     &:hover {
-      background-color: ${({ isSelected }) =>
-        !isSelected && "var(--colorsActionMinor100)"};
+       ${({ isSelected }) =>
+         !isSelected &&
+         css`
+           background-color: var(--colorsActionMinor100);
+           border-left-color: var(--colorsActionMajor500);
+           border-top-right-radius: var(--borderRadius100);
+           border-bottom-right-radius: var(--borderRadius100);
+         `}
+        };
     }
 
     ${({ isSelected }) =>
@@ -31,6 +40,8 @@ const StyledNavigationItem = styled.li<StyledNavigationItemProps>`
       css`
         background-color: var(--colorsActionMajorYang100);
         border-left-color: var(--colorsActionMajor500);
+        border-top-right-radius: var(--borderRadius100);
+        border-bottom-right-radius: var(--borderRadius100);
       `}
   }
 `;

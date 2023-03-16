@@ -48,7 +48,6 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  border-radius: 0;
   -webkit-flex-flow: wrap;
   -ms-flex-flow: wrap;
   flex-flow: wrap;
@@ -65,6 +64,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   text-decoration: none;
   background: transparent;
   border-color: var(--colorsActionMajor500);
+  border-radius: var(--borderRadius400);
   color: var(--colorsActionMajor500);
   font-size: var(--fontSizes100);
   min-height: 40px;
@@ -84,6 +84,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 
 .c2:hover {
   background: var(--colorsActionMajor600);
+  border-radius: var(--borderRadius400);
   border-color: var(--colorsActionMajorTransparent);
   color: var(--colorsActionMajorYang100);
 }
@@ -351,6 +352,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   min-width: 100%;
   text-align: left;
   z-index: 1000;
+  border-radius: 0px;
 }
 
 .c14 .c1 + .c16 .c1 {

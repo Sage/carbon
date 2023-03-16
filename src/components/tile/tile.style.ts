@@ -96,6 +96,7 @@ const StyledTile = styled.div<StyledTileProps>`
 
     box-sizing: border-box;
     border: var(--${borderWidth}) solid ${getBorderColor(borderVariant)};
+    border-radius: var(--borderRadius100);
 
     ${variant === "tile" &&
     css`

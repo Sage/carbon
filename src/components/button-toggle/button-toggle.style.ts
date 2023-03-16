@@ -66,19 +66,15 @@ const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
   `}
   font-weight: 700;
   cursor: pointer;
-
   border: 1px solid var(--colorsActionMinor500);
-
   ${StyledIcon} {
     color: var(--colorsActionMinor500);
   }
-
   input:checked ~ && {
     background-color: var(--colorsActionMinor300);
     color: var(--colorsActionMinor600);
     cursor: auto;
   }
-
   input:focus ~ & {
     outline: 3px solid var(--colorsSemanticFocus500);
     z-index: 100;
@@ -88,31 +84,26 @@ const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
     background-color: var(--colorsActionMinor200);
     border-color: var(--colorsActionMinor500);
     color: var(--colorsActionMinor500);
-
     ${StyledIcon} {
       color: var(--colorsActionMinor500);
     }
   }
-
   ${({ buttonIcon, buttonIconSize, size }) =>
     buttonIcon &&
     buttonIconSize === "large" &&
     css`
       height: ${heightLargeIconConfig[size]}px;
       padding: 0 ${paddingLargeIconConfig[size]}px;
-
       ${StyledButtonToggleContentWrapper} {
         flex-direction: column;
       }
     `}
-
   ${({ disabled }) =>
     disabled &&
     css`
       & {
         border-color: var(--colorsActionDisabled500);
         color: var(--colorsActionMinorYin030);
-
         ${StyledIcon} {
           color: var(--colorsActionMinorYin030);
         }
@@ -134,24 +125,20 @@ export interface StyledButtonToggleIconProps {
 
 const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
   ${({ hasContent }) => hasContent && `margin-right: 8px;`}
-
   ${({ buttonIconSize }) =>
     buttonIconSize === "large" &&
     css`
       margin-right: 0;
-
       ${StyledIcon} {
         margin-right: 0;
         margin-bottom: 8px;
         height: ${`${iconFontSizes.largeIcon}px`};
         width: ${`${iconFontSizes.largeIcon}px`};
       }
-
       ${StyledIcon}::before {
         font-size: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
         line-height: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
       }
-
       .carbon-icon__svg--credit-card-slash {
         margin-left: 6px;
       }

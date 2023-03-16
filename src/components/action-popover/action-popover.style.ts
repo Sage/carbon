@@ -13,6 +13,7 @@ const Menu = styled.div`
   padding: var(--spacing100) 0;
   box-shadow: var(--boxShadow100);
   position: absolute;
+  border-radius: var(--borderRadius100);
   background-color: var(--colorsUtilityYang100);
   z-index: ${({ theme }) =>
     `${theme.zIndex.popover}`}; // TODO (tokens): implement elevation tokens - FE-4437

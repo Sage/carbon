@@ -6,6 +6,8 @@ exports[`CardFooter matches expected styling when it contains interactive stylin
   border-top: var(--colorsUtilityMajor100);
   border-top-width: 1px;
   border-top-style: solid;
+  border-bottom-left-radius: var(--borderRadius100);
+  border-bottom-right-radius: var(--borderRadius100);
   font-size: 14px;
   font-weight: 700;
   margin: 0 -32px;
@@ -39,6 +41,8 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
   border-top: var(--colorsUtilityMajor100);
   border-top-width: 1px;
   border-top-style: solid;
+  border-bottom-left-radius: var(--borderRadius100);
+  border-bottom-right-radius: var(--borderRadius100);
   font-size: 14px;
   font-weight: 700;
   margin: 0 -32px;
@@ -111,6 +115,7 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
 .c1 a:focus,
 .c1 button:focus {
   background-color: var(--colorsSemanticFocus250);
+  border-radius: var(--borderRadius050);
 }
 
 .c1 a,

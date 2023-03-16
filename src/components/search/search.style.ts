@@ -59,6 +59,7 @@ const StyledSearch = styled.div<StyledSearchProps>`
       ${(isFocused || searchHasValue) &&
       css`
         border-color: transparent;
+        border-top-right-radius: var(--borderRadius100);
         transition: background 0.2s ease;
         :hover {
           border-color: transparent;
@@ -79,6 +80,7 @@ const StyledSearch = styled.div<StyledSearchProps>`
           cursor: pointer;
         }
       `}
+
 
       ${StyledInput} {
         ::-moz-placeholder {
@@ -110,10 +112,34 @@ const StyledSearch = styled.div<StyledSearchProps>`
         `}
       }
 
+      [role="presentation"] {
+        border-bottom-right-radius: var(--borderRadius000);
+        border-top-right-radius: var(--borderRadius000);
+        border-bottom-left-radius: var(--borderRadius050);
+        border-top-left-radius: var(--borderRadius050);
+      }
+
+      ${showSearchButton &&
+      css`
+        border-bottom-right-radius: var(--borderRadius000);
+        border-top-right-radius: var(--borderRadius000);
+        border-bottom-left-radius: var(--borderRadius050);
+        border-top-left-radius: var(--borderRadius050);
+      `}
+
       ${StyledInputPresentation} {
         background-color: ${searchHasValue || isFocused
           ? "var(--colorsUtilityYang100)"
           : "transparent"};
+
+        ${isFocused &&
+        !searchHasValue &&
+        !showSearchButton &&
+        css`
+          border-top-right-radius: var(--borderRadius050);
+          border-bottom-right-radius: var(--borderRadius050);
+        `}
+
         flex: 1;
         font-size: 14px;
         font-weight: 700;

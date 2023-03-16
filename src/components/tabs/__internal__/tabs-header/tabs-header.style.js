@@ -16,6 +16,11 @@ const StyledTabsHeaderWrapper = styled.div`
       box-sizing: border-box;
       padding: 3px;
 
+      button[data-element="select-tab"] {
+        border-top-left-radius: var(--borderRadius100);
+        border-bottom-left-radius: var(--borderRadius100);
+      }
+
       ${!isInSidebar &&
       css`
         min-width: 20%;
