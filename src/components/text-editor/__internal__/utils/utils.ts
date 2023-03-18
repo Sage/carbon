@@ -1,15 +1,25 @@
-import { EditorState, Modifier } from "draft-js";
+import {
+  EditorState,
+  Modifier,
+  ContentBlock,
+  DraftInlineStyle,
+  ContentState,
+} from "draft-js";
 import decorators from "../decorators";
 
-const ORDERLIST_TYPE = "ordered-list-item";
-const UNORDERLIST_TYPE = "unordered-list-item";
+import {
+  BlockType,
+  InlineStyleType,
+  ORDERED_LIST,
+  UNORDERED_LIST,
+} from "../../types";
 
-export const computeBlockType = (char, type) => {
-  if (char === "." && type !== ORDERLIST_TYPE) {
-    return ORDERLIST_TYPE;
+export const computeBlockType = (char: string, type: string) => {
+  if (char === "." && type !== ORDERED_LIST) {
+    return ORDERED_LIST;
   }
-  if (char === "*" && type !== UNORDERLIST_TYPE) {
-    return UNORDERLIST_TYPE;
+  if (char === "*" && type !== UNORDERED_LIST) {
+    return UNORDERED_LIST;
   }
   return "unstyled";
 };
@@ -17,11 +27,14 @@ export const computeBlockType = (char, type) => {
 /*
 Returns default block-level metadata for various block type. Empty object otherwise.
 */
-const getDefaultBlockData = (blockType, initialData = {}) => {
+const getDefaultBlockData = (
+  blockType: BlockType | "unstyled",
+  initialData = {}
+) => {
   switch (blockType) {
-    case ORDERLIST_TYPE:
+    case ORDERED_LIST:
       return {};
-    case UNORDERLIST_TYPE:
+    case UNORDERED_LIST:
       return {};
     default:
       return initialData;
@@ -31,7 +44,10 @@ const getDefaultBlockData = (blockType, initialData = {}) => {
 /*
 Changes the block type of the current block.
 */
-export const resetBlockType = (value, newType = "unstyled") => {
+export const resetBlockType = (
+  value: EditorState,
+  newType: BlockType | "unstyled" = "unstyled"
+) => {
   const contentState = value.getCurrentContent();
   const selectionState = value.getSelection();
   const key = selectionState.getStartKey();
@@ -45,17 +61,21 @@ export const resetBlockType = (value, newType = "unstyled") => {
   });
 
   const newContentState = contentState.merge({
-    blockMap: blockMap.set(key, newBlock),
+    blockMap: blockMap.set(key, newBlock as ContentBlock),
     selectionAfter: selectionState.merge({
       anchorOffset: 0,
       focusOffset: 0,
     }),
   });
 
-  return EditorState.push(value, newContentState, "change-block-type");
+  return EditorState.push(
+    value,
+    newContentState as ContentState,
+    "change-block-type"
+  );
 };
 
-export function blockStyleFn(block) {
+export function blockStyleFn(block: ContentBlock) {
   switch (block.getType()) {
     case "unordered-list-item":
       return "text-editor-block-unordered";
@@ -69,23 +89,23 @@ export function blockStyleFn(block) {
 /*
   Return mutated editorState with decorators added
 */
-export const getDecoratedValue = (value) =>
+export const getDecoratedValue = (value: EditorState) =>
   EditorState.set(value, { decorator: decorators });
 
 /*
   Get the current Content State
 */
-export const getContent = (value) => value.getCurrentContent();
+export const getContent = (value: EditorState) => value.getCurrentContent();
 
 /*
   Get the current selection State
 */
-export const getSelection = (value) => value.getSelection();
+export const getSelection = (value: EditorState) => value.getSelection();
 
 /*
   Get the current Content and Block information
 */
-export const getContentInfo = (value) => {
+export const getContentInfo = (value: EditorState) => {
   const content = getContent(value);
   const currentBlock = content.getBlockForKey(
     getSelection(value).getStartKey()
@@ -108,7 +128,7 @@ export const getContentInfo = (value) => {
 /*
   Get the current Selection information
 */
-export const getSelectionInfo = (value) => {
+export const getSelectionInfo = (value: EditorState) => {
   const selection = getSelection(value);
   const startKey = selection.getStartKey();
   const endKey = selection.getEndKey();
@@ -127,13 +147,13 @@ export const getSelectionInfo = (value) => {
 /*
   Move cursor to end of Content
 */
-export const moveSelectionToEnd = (value) =>
+export const moveSelectionToEnd = (value: EditorState) =>
   EditorState.forceSelection(value, getContent(value).getSelectionAfter());
 
 /*
   Returns the current Selection length
 */
-export const getSelectedLength = (value) => {
+export const getSelectedLength = (value: EditorState) => {
   const selection = getSelection(value);
 
   let length = 0;
@@ -168,20 +188,24 @@ export const getSelectedLength = (value) => {
   return length;
 };
 
-export function hasBlockStyle(value, type) {
+export function hasBlockStyle(value: EditorState, type: BlockType) {
   const { blockType } = getContentInfo(value);
   return blockType === type;
 }
 
-export function hasInlineStyle(value, style) {
+export function hasInlineStyle(value: EditorState, style: InlineStyleType) {
   return value.getCurrentInlineStyle().has(style);
 }
 
-export function isASCIIChar(str) {
+export function isASCIIChar(str: string) {
   return /^\S+$/.test(str);
 }
 
-export function replaceText(editorState, text, inlineStyle, forceSelection) {
+export function replaceText(
+  editorState: EditorState,
+  text: string,
+  inlineStyle: DraftInlineStyle
+) {
   const contentState = Modifier.replaceText(
     editorState.getCurrentContent(),
     editorState.getSelection(),
@@ -189,10 +213,5 @@ export function replaceText(editorState, text, inlineStyle, forceSelection) {
     inlineStyle
   );
 
-  return EditorState.push(
-    editorState,
-    contentState,
-    "insert-characters",
-    forceSelection
-  );
+  return EditorState.push(editorState, contentState, "insert-characters");
 }

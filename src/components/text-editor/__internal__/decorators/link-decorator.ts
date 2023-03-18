@@ -1,10 +1,17 @@
+import { ContentBlock } from "draft-js";
 import EditorLink from "../editor-link";
 
-function findWithRegex(regex, contentBlock, callback) {
+type StrategyCallback = (start: number, end: number) => void;
+
+function findWithRegex(
+  regex: RegExp,
+  contentBlock: ContentBlock,
+  callback: StrategyCallback
+) {
   const text = contentBlock.getText();
   let matchArr;
   let start = 0;
-  let candidates = [];
+  let candidates: string[][] = [];
 
   text.split(" ").forEach((chars) => {
     candidates = [...candidates, [...chars]];
@@ -20,8 +27,11 @@ function findWithRegex(regex, contentBlock, callback) {
   });
 }
 
-const linkStrategy = (contentBlock, callback) => {
-  const combineRegex = (...regex) =>
+const linkStrategy = (
+  contentBlock: ContentBlock,
+  callback: StrategyCallback
+) => {
+  const combineRegex = (...regex: RegExp[]) =>
     new RegExp(regex.map((r) => r.source).join(""), "g");
   const urlRegex = combineRegex(
     /\b/,

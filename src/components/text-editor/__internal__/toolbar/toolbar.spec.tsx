@@ -1,11 +1,12 @@
+/* eslint-disable jest/no-conditional-expect */
 import React from "react";
 import { act } from "react-test-renderer";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import {
   simulate,
   assertStyleMatch,
 } from "../../../../__spec_helper__/test-utils";
-import Toolbar from "./toolbar.component";
+import Toolbar, { ToolbarProps } from "./toolbar.component";
 import {
   StyledEditorStyleControls,
   StyledEditorActionControls,
@@ -16,28 +17,36 @@ import StyledToolbarButton from "./toolbar-button/toolbar-button.style";
 import ToolbarButton from "./toolbar-button/toolbar-button.component";
 import Tooltip from "../../../tooltip";
 import I18nProvider from "../../../i18n-provider";
+import Locale from "../../../../locales/locale";
 
 const setInlineStyle = jest.fn();
 const setBlockStyle = jest.fn();
 
-const render = (props = {}, renderer = mount, locale) => {
+const render = (props = {}, renderer = mount, locale?: Locale) => {
   const defaultProps = {
     setInlineStyle,
     setBlockStyle,
-    activeControls: {},
+    activeControls: {
+      BOLD: false,
+      ITALIC: false,
+      "unordered-list-item": false,
+      "ordered-list-item": false,
+    },
   };
+
+  const combinedProps: ToolbarProps = { ...defaultProps, ...props };
 
   return renderer(
     <I18nProvider locale={locale}>
-      <Toolbar {...defaultProps} {...props} />
+      <Toolbar {...combinedProps} />
     </I18nProvider>,
     { attachTo: document.getElementById("enzymeContainer") }
   );
 };
 
 describe("Toolbar", () => {
-  let wrapper;
-  let container;
+  let wrapper: ReactWrapper;
+  let container: HTMLDivElement | null;
   describe("styling", () => {
     it("matches the expected for the main container", () => {
       assertStyleMatch(
@@ -184,7 +193,9 @@ describe("Toolbar", () => {
         .find(ToolbarButton)
         .at(index)
         .props()
-        .onMouseDown({ preventDefault: () => {} });
+        .onMouseDown({
+          preventDefault: () => {},
+        } as React.MouseEvent<HTMLButtonElement>);
       if (index < 2) {
         expect(setInlineStyle).toHaveBeenCalledWith(expect.anything(), id);
         expect(setBlockStyle).not.toHaveBeenCalled();
@@ -308,10 +319,10 @@ describe("Toolbar", () => {
       ["italic", 1],
       ["bulletList", 2],
       ["numberList", 3],
-    ])(
+    ] as const)(
       "override the tooltip message text and aria label for the controls",
       (id, index) => {
-        wrapper = render({}, undefined, localeMock);
+        wrapper = render({}, undefined, localeMock as Locale);
 
         const { message } = wrapper.find(Tooltip).at(index).props();
         const { ariaLabel } = wrapper.find(ToolbarButton).at(index).props();

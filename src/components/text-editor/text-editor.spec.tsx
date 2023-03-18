@@ -1,14 +1,22 @@
-import React, { useState } from "react";
-import { Editor, Modifier } from "draft-js";
+/* eslint-disable jest/no-conditional-expect */
+import React, { SyntheticEvent, useState } from "react";
+import {
+  Editor,
+  EditorState,
+  Modifier,
+  ContentBlock,
+  ContentState,
+  EditorProps,
+} from "draft-js";
 import { act } from "react-dom/test-utils";
-import { shallow, mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-  expectConsoleOutput as expectError,
 } from "../../__spec_helper__/test-utils";
 import TextEditor, {
   TextEditorContentState,
+  TextEditorProps,
   TextEditorState,
 } from "./text-editor.component";
 import EditorLink from "./__internal__/editor-link/editor-link.component";
@@ -16,7 +24,9 @@ import {
   StyledEditorOutline,
   StyledEditorContainer,
 } from "./text-editor.style";
-import ToolbarButton from "./__internal__/toolbar/toolbar-button/toolbar-button.component";
+import ToolbarButton, {
+  ToolbarButtonProps,
+} from "./__internal__/toolbar/toolbar-button/toolbar-button.component";
 import Counter from "./__internal__/editor-counter";
 import Toolbar from "./__internal__/toolbar";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -26,14 +36,19 @@ import EditorLinkPreview from "../link-preview";
 import ValidationIcon from "../../__internal__/validations";
 import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
 import IconButton from "../icon-button";
+import { BlockType, InlineStyleType } from "./types";
 
 jest.mock("../../__internal__/utils/helpers/browser-type-check");
-isSafari.mockImplementation(() => false);
+(isSafari as jest.MockedFunction<typeof isSafari>).mockImplementation(
+  () => false
+);
 
 jest.mock("../../__internal__/utils/helpers/guid");
-guid.mockImplementation(() => "guid-12345");
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(
+  () => "guid-12345"
+);
 
-const createContent = (text) => {
+const createContent = (text?: string) => {
   if (text) {
     return TextEditorState.createWithContent(
       TextEditorContentState.createFromText(text)
@@ -42,7 +57,10 @@ const createContent = (text) => {
   return TextEditorState.createEmpty();
 };
 
-const addToEditorState = (text, { editorState }) => {
+const addToEditorState = (
+  text: string,
+  { editorState }: { editorState: EditorState }
+) => {
   const contentState = editorState.getCurrentContent();
   const selection = contentState.getSelectionAfter();
 
@@ -53,7 +71,7 @@ const addToEditorState = (text, { editorState }) => {
   );
 };
 
-const injectContentBlock = (value, blockType) => {
+const injectContentBlock = (value: EditorState, blockType: BlockType) => {
   const contentState = value.getCurrentContent();
   const selectionState = value.getSelection();
   const key = selectionState.getStartKey();
@@ -67,17 +85,21 @@ const injectContentBlock = (value, blockType) => {
   });
 
   const newContentState = contentState.merge({
-    blockMap: blockMap.set(key, newBlock),
+    blockMap: blockMap.set(key, newBlock as ContentBlock),
     selectionAfter: selectionState.merge({
       anchorOffset: blockType.length,
       focusOffset: 0,
     }),
   });
 
-  return TextEditorState.push(value, newContentState, "change-block-type");
+  return TextEditorState.push(
+    value,
+    newContentState as ContentState,
+    "change-block-type"
+  );
 };
 
-const MockComponent = (props) => {
+const MockComponent = (props: Partial<TextEditorProps>) => {
   const [value, setValue] = useState(createContent());
 
   return (
@@ -85,13 +107,13 @@ const MockComponent = (props) => {
       value={value}
       onChange={(val) => setValue(val)}
       labelText="Text Editor Label"
-      labelId="foo"
       {...props}
     />
   );
 };
 
-const render = (props = {}, renderer = mount) =>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const render = (props: Partial<TextEditorProps> = {}, renderer: any = mount) =>
   renderer(<MockComponent {...props} />, {
     attachTo: document.getElementById("enzymeContainer"),
   });
@@ -101,13 +123,12 @@ describe("TextEditor", () => {
     window.scrollTo = jest.fn();
   });
 
-  let wrapper;
+  let wrapper: ReactWrapper;
   describe("Styles", () => {
     testStyledSystemMargin((props) => (
       <TextEditor
         value={createContent()}
         labelText="Text Editor Label"
-        labelId="foo"
         onChange={jest.fn}
         {...props}
       />
@@ -153,7 +174,10 @@ describe("TextEditor", () => {
     it("add gold outline when focused removes outline on blur", () => {
       wrapper = render({ value: createContent("foo") });
       act(() => {
-        wrapper.find(Editor).props().onFocus();
+        wrapper
+          .find(Editor)
+          ?.props()
+          .onFocus?.({} as SyntheticEvent);
       });
       act(() => {
         wrapper.update();
@@ -168,7 +192,10 @@ describe("TextEditor", () => {
       );
 
       act(() => {
-        wrapper.find(Editor).props().onBlur();
+        wrapper
+          .find(Editor)
+          ?.props()
+          .onBlur?.({} as SyntheticEvent);
       });
       act(() => {
         wrapper.update();
@@ -198,16 +225,19 @@ describe("TextEditor", () => {
   });
 
   describe("Modifying the Editor state", () => {
-    let buttons, getEditorParent, getEditor;
+    let buttons: () => ReactWrapper<ToolbarButtonProps>;
+    let getEditorParent: () => ReactWrapper<TextEditorProps>;
+    let getEditor: () => ReactWrapper<EditorProps>;
+    let getEditorState: () => EditorState;
 
-    const hasInlineStyle = (style) =>
+    const hasInlineStyle = (style: InlineStyleType | BlockType) =>
       wrapper
         .find(Editor)
         .props()
         .editorState.getCurrentInlineStyle()
         .has(style);
 
-    const hasBlockStyle = (style) => {
+    const hasBlockStyle = (style: InlineStyleType | BlockType | "unstyled") => {
       const { editorState } = wrapper.find(Editor).props();
       const selection = editorState.getSelection();
       const content = editorState.getCurrentContent();
@@ -217,8 +247,10 @@ describe("TextEditor", () => {
       return blockType === style;
     };
 
-    const fireMouseDown = (props) =>
-      props.onMouseDown({ preventDefault: jest.fn() });
+    const fireMouseDown = (props: ToolbarButtonProps) =>
+      props.onMouseDown({
+        preventDefault: () => {},
+      } as React.MouseEvent<HTMLButtonElement>);
 
     const addOrderedBlockViaKeyboard = () => {
       act(() => {
@@ -230,7 +262,7 @@ describe("TextEditor", () => {
         wrapper.update();
       });
       act(() => {
-        getEditor().props().handleBeforeInput(".");
+        getEditor().props().handleBeforeInput?.(".", getEditorState(), 0);
       });
     };
 
@@ -238,6 +270,7 @@ describe("TextEditor", () => {
       wrapper = render();
       getEditorParent = () => wrapper.find(TextEditor);
       getEditor = () => wrapper.find(Editor);
+      getEditorState = () => getEditor().props().editorState;
     });
 
     describe("Clicking the controls", () => {
@@ -248,33 +281,37 @@ describe("TextEditor", () => {
           ["BOLD", "ITALIC"],
           [0, 1],
         ],
-      ])("%s button toggles the inline formatting", (styles, indexArray) => {
-        buttons = () => wrapper.find(ToolbarButton);
-        indexArray.forEach((i) => {
-          act(() => {
-            fireMouseDown(buttons().at(i).props());
+      ] as const)(
+        "%s button toggles the inline formatting",
+        (styles, indexArray) => {
+          buttons = () => wrapper.find(ToolbarButton);
+          indexArray.forEach((i) => {
+            act(() => {
+              fireMouseDown(buttons().at(i).props());
+            });
+            act(() => {
+              wrapper.update();
+            });
           });
-          act(() => {
-            wrapper.update();
+          styles.forEach((style) => expect(hasInlineStyle(style)).toBeTruthy());
+          indexArray.forEach((i) => {
+            act(() => {
+              fireMouseDown(buttons().at(i).props());
+            });
+            act(() => {
+              wrapper.update();
+            });
           });
-        });
-        styles.forEach((style) => expect(hasInlineStyle(style)).toBeTruthy());
-        indexArray.forEach((i) => {
-          act(() => {
-            fireMouseDown(buttons().at(i).props());
-          });
-          act(() => {
-            wrapper.update();
-          });
-        });
-        styles.forEach((style) => expect(hasInlineStyle(style)).toBeFalsy());
-      });
+          styles.forEach((style) => expect(hasInlineStyle(style)).toBeFalsy());
+        }
+      );
 
       it("persists inline styles even when the editor loses focus and has selection", () => {
         const value = createContent("foo");
-        const selection = value
-          .getSelection()
-          .merge({ anchorOffset: "0", focusOffset: "1" });
+        const selection = value.getSelection().merge({
+          anchorOffset: 1,
+          focusOffset: 1,
+        });
         act(() => {
           wrapper
             .find(TextEditor)
@@ -294,13 +331,19 @@ describe("TextEditor", () => {
           wrapper.update();
         });
         act(() => {
-          wrapper.find(Editor).props().onBlur();
+          wrapper
+            .find(Editor)
+            .props()
+            .onBlur?.({} as SyntheticEvent);
         });
         act(() => {
           wrapper.update();
         });
         act(() => {
-          wrapper.find(Editor).props().onFocus();
+          wrapper
+            .find(Editor)
+            .props()
+            .onFocus?.({} as SyntheticEvent);
         });
         expect(hasInlineStyle("BOLD")).toBeTruthy();
       });
@@ -322,13 +365,19 @@ describe("TextEditor", () => {
           wrapper.update();
         });
         act(() => {
-          wrapper.find(Editor).props().onBlur();
+          wrapper
+            .find(Editor)
+            .props()
+            .onBlur?.({} as SyntheticEvent);
         });
         act(() => {
           wrapper.update();
         });
         act(() => {
-          wrapper.find(Editor).props().onFocus();
+          wrapper
+            .find(Editor)
+            .props()
+            .onFocus?.({} as SyntheticEvent);
         });
         expect(hasInlineStyle("BOLD")).toBeTruthy();
       });
@@ -355,10 +404,38 @@ describe("TextEditor", () => {
         expect(hasInlineStyle("BOLD")).toBeTruthy();
       });
 
+      it("applies styles when a value is typed and highlighted", () => {
+        const value = createContent("foo");
+        const selection = value.getSelection().merge({
+          anchorOffset: 0,
+          focusOffset: 1,
+          hasFocus: true,
+        });
+        act(() => {
+          wrapper.find(TextEditor).props().onChange(value);
+        });
+        act(() => {
+          wrapper
+            .find(TextEditor)
+            .props()
+            .onChange(TextEditorState.forceSelection(value, selection));
+        });
+        act(() => {
+          wrapper.update();
+        });
+        act(() => {
+          fireMouseDown(wrapper.find(ToolbarButton).at(0).props());
+        });
+        act(() => {
+          wrapper.update();
+        });
+        expect(hasInlineStyle("BOLD")).toBeTruthy();
+      });
+
       it.each([
         ["unordered-list-item", 2],
         ["ordered-list-item", 3],
-      ])("%s button toggles the block type", (block, index) => {
+      ] as const)("%s button toggles the block type", (block, index) => {
         const getButton = () => wrapper.find(ToolbarButton).at(index);
         act(() => {
           fireMouseDown(getButton().props());
@@ -380,16 +457,19 @@ describe("TextEditor", () => {
       it.each([
         ["unordered-list-item", "ordered-list-item"],
         ["ordered-list-item", "unordered-list-item"],
-      ])(
+      ] as const)(
         "%s button adds expected block formatting and removes %s",
         (first, second) => {
-          buttons = [
+          const buttonsArray = [
             wrapper.find(ToolbarButton).at(2),
             wrapper.find(ToolbarButton).at(3),
           ];
           const array =
-            first === "ordered-list-item" ? buttons.reverse() : buttons;
-          let activeStyle = "unstyled";
+            first === "ordered-list-item"
+              ? buttonsArray.reverse()
+              : buttonsArray;
+          let activeStyle: BlockType | InlineStyleType | "unstyled" =
+            "unstyled";
 
           array.forEach((button, i) => {
             expect(hasBlockStyle(activeStyle)).toBeTruthy();
@@ -410,7 +490,7 @@ describe("TextEditor", () => {
       it.each([
         ["unordered-list-item", 2],
         ["ordered-list-item", 3],
-      ])(
+      ] as const)(
         "BOLD, ITALIC and %s buttons add the expected formatting to the editor state",
         (block, index) => {
           buttons = () => wrapper.find(ToolbarButton);
@@ -426,7 +506,7 @@ describe("TextEditor", () => {
           act(() => {
             wrapper.update();
           });
-          ["BOLD", "ITALIC"].forEach((style) =>
+          (["BOLD", "ITALIC"] as const).forEach((style) =>
             expect(hasInlineStyle(style)).toBeTruthy()
           );
           expect(hasBlockStyle(block)).toBeTruthy();
@@ -438,16 +518,20 @@ describe("TextEditor", () => {
       it.each([
         ["BOLD", "cmd + b"],
         ["ITALIC", "cmd + i"],
-      ])('%s toggles when "%s" pressed', (style) => {
+      ] as const)('%s toggles when "%s" pressed', (style) => {
         act(() => {
-          getEditor().props().handleKeyCommand(style.toLowerCase());
+          getEditor()
+            .props()
+            .handleKeyCommand?.(style.toLowerCase(), getEditorState(), 0);
         });
         act(() => {
           wrapper.update();
         });
         expect(hasInlineStyle(style)).toBeTruthy();
         act(() => {
-          getEditor().props().handleKeyCommand(style.toLowerCase());
+          getEditor()
+            .props()
+            .handleKeyCommand?.(style.toLowerCase(), getEditorState(), 0);
         });
         act(() => {
           wrapper.update();
@@ -457,7 +541,9 @@ describe("TextEditor", () => {
 
       it("does nothing when an invalid command received", () => {
         act(() => {
-          expect(getEditor().props().handleKeyCommand("foo")).toEqual(false);
+          expect(
+            getEditor().props().handleKeyCommand?.("foo", getEditorState(), 0)
+          ).toEqual("not-handled");
         });
         act(() => {
           wrapper.update();
@@ -477,12 +563,12 @@ describe("TextEditor", () => {
         ["unordered-list-item", "*"],
         ["ordered-list-item", "1."],
         ["unstyled", "@"],
-      ])('%s is rendered when "%s" is inputted', (block, key) => {
+      ] as const)('%s is rendered when "%s" is inputted', (block, key) => {
         if (block === "ordered-list-item") {
           addOrderedBlockViaKeyboard();
         } else {
           act(() => {
-            getEditor().props().handleBeforeInput(key);
+            getEditor().props().handleBeforeInput?.(key, getEditorState(), 0);
           });
         }
         act(() => {
@@ -494,7 +580,7 @@ describe("TextEditor", () => {
       it.each([
         ["unordered-list-item", "*"],
         ["ordered-list-item", "1."],
-      ])(
+      ] as const)(
         '%s is not rendered when "%s" is inputted and there is already content before',
         (block) => {
           if (block === "ordered-list-item") {
@@ -511,7 +597,7 @@ describe("TextEditor", () => {
               wrapper.update();
             });
             act(() => {
-              getEditor().props().handleBeforeInput("*");
+              getEditor().props().handleBeforeInput?.("*", getEditorState(), 0);
             });
             expect(hasBlockStyle(block)).toBeFalsy();
             expect(hasBlockStyle("unstyled")).toBeTruthy();
@@ -522,37 +608,48 @@ describe("TextEditor", () => {
       it.each([
         ["unordered-list-item", "*"],
         ["ordered-list-item", "1."],
-      ])('%s is not rendered when "%s" is inputted consecutively', (block) => {
-        if (block === "ordered-list-item") {
-          addOrderedBlockViaKeyboard();
-          act(() => {
-            wrapper.update();
-          });
-          expect(hasBlockStyle(block)).toBeTruthy();
-          act(() => {
-            getEditorParent()
-              .props()
-              .onChange(addToEditorState("1", getEditor().props()));
-          });
-          act(() => {
-            wrapper.update();
-          });
-          act(() => {
-            expect(getEditor().props().handleBeforeInput(".")).toEqual(false);
-          });
-        } else {
-          act(() => {
-            getEditor().props().handleBeforeInput("*");
-          });
-          act(() => {
-            wrapper.update();
-          });
-          expect(hasBlockStyle(block)).toBeTruthy();
-          act(() => {
-            expect(getEditor().props().handleBeforeInput("*")).toEqual(false);
-          });
+      ] as const)(
+        '%s is not rendered when "%s" is inputted consecutively',
+        (block) => {
+          if (block === "ordered-list-item") {
+            addOrderedBlockViaKeyboard();
+            act(() => {
+              wrapper.update();
+            });
+            expect(hasBlockStyle(block)).toBeTruthy();
+            act(() => {
+              getEditorParent()
+                .props()
+                .onChange(addToEditorState("1", getEditor().props()));
+            });
+            act(() => {
+              wrapper.update();
+            });
+            act(() => {
+              expect(
+                getEditor()
+                  .props()
+                  .handleBeforeInput?.(".", getEditorState(), 0)
+              ).toEqual("not-handled");
+            });
+          } else {
+            act(() => {
+              getEditor().props().handleBeforeInput?.("*", getEditorState(), 0);
+            });
+            act(() => {
+              wrapper.update();
+            });
+            expect(hasBlockStyle(block)).toBeTruthy();
+            act(() => {
+              expect(
+                getEditor()
+                  .props()
+                  .handleBeforeInput?.("*", getEditorState(), 0)
+              ).toEqual("not-handled");
+            });
+          }
         }
-      });
+      );
     });
 
     describe("Double space key press", () => {
@@ -561,17 +658,17 @@ describe("TextEditor", () => {
         const editor = wrapper.find(Editor);
         const { editorState, handleBeforeInput } = editor.props();
         act(() => {
-          handleBeforeInput(" ", editorState, 0);
+          handleBeforeInput?.(" ", editorState, 0);
           wrapper.update();
         });
         act(() => {
-          expect(handleBeforeInput(" ", editorState)).toEqual("handled");
+          expect(handleBeforeInput?.(" ", editorState, 0)).toEqual("handled");
         });
       });
     });
 
     describe("Pressing Tab key", () => {
-      let container;
+      let container: HTMLDivElement | null;
       beforeEach(() => {
         container = document.createElement("div");
         container.id = "enzymeContainer";
@@ -590,7 +687,7 @@ describe("TextEditor", () => {
         wrapper = render();
         const editor = wrapper.find(Editor);
         act(() => {
-          editor.props().keyBindingFn({ key: "Tab" });
+          editor.props().keyBindingFn?.({ key: "Tab" } as React.KeyboardEvent);
         });
         act(() => {
           wrapper.update();
@@ -603,7 +700,7 @@ describe("TextEditor", () => {
     });
 
     describe("Mouse click on Label", () => {
-      let container;
+      let container: HTMLDivElement | null;
       beforeEach(() => {
         container = document.createElement("div");
         container.id = "enzymeContainer";
@@ -620,13 +717,16 @@ describe("TextEditor", () => {
 
       it("set focus to TextEditor component", () => {
         act(() => {
-          wrapper.find(LabelWrapper).props().onClick();
+          wrapper
+            .find(LabelWrapper)
+            .props()
+            .onClick({} as React.MouseEvent<HTMLSpanElement>);
         });
 
         act(() => {
           wrapper.update();
         });
-
+        expect(wrapper.find(Toolbar).props().canFocus).toEqual(false);
         setTimeout(() => expect(wrapper.find(Editor)).toBeFocused());
       });
     });
@@ -636,7 +736,10 @@ describe("TextEditor", () => {
         wrapper = render();
         const editor = wrapper.find(Editor);
         act(() => {
-          editor.props().keyBindingFn({ key: "tab", shiftKey: true });
+          editor.props().keyBindingFn?.({
+            key: "tab",
+            shiftKey: true,
+          } as React.KeyboardEvent);
         });
         act(() => {
           wrapper.update();
@@ -651,12 +754,12 @@ describe("TextEditor", () => {
         ["ordered-list-item", "backspace"],
         ["unordered-list-item", "split-block"],
         ["ordered-list-item", "split-block"],
-      ])("%s deleted when %s pressed", (style, command) => {
+      ] as const)("%s deleted when %s pressed", (style, command) => {
         if (style === "ordered-list-item") {
           addOrderedBlockViaKeyboard();
         } else {
           act(() => {
-            getEditor().props().handleBeforeInput("*");
+            getEditor().props().handleBeforeInput?.("*", getEditorState(), 0);
           });
         }
         act(() => {
@@ -664,7 +767,7 @@ describe("TextEditor", () => {
         });
         expect(hasBlockStyle(style)).toBeTruthy();
         act(() => {
-          getEditor().props().handleKeyCommand(command);
+          getEditor().props().handleKeyCommand?.(command, getEditorState(), 0);
         });
         act(() => {
           wrapper.update();
@@ -677,7 +780,7 @@ describe("TextEditor", () => {
         ["ordered-list-item", "backspace"],
         ["unordered-list-item", "split-block"],
         ["ordered-list-item", "split-block"],
-      ])(
+      ] as const)(
         "%s not deleted when %s pressed and has content in block",
         (style, command) => {
           act(() => {
@@ -692,9 +795,11 @@ describe("TextEditor", () => {
           });
           expect(hasBlockStyle(style)).toBeTruthy();
           act(() => {
-            expect(getEditor().props().handleKeyCommand(command)).toEqual(
-              false
-            );
+            expect(
+              getEditor()
+                .props()
+                .handleKeyCommand?.(command, getEditorState(), 0)
+            ).toEqual("not-handled");
           });
           act(() => {
             wrapper.update();
@@ -703,7 +808,7 @@ describe("TextEditor", () => {
         }
       );
 
-      it.each([["unordered-list-item"], ["ordered-list-item"]])(
+      it.each([["unordered-list-item"], ["ordered-list-item"]] as const)(
         "adds styling to %s control when currentBlock has a a given type",
         (style) => {
           const index = style === "unordered-list-item" ? 2 : 3;
@@ -832,9 +937,11 @@ describe("TextEditor", () => {
         wrapper = render({ characterLimit: 0 });
         const editor = wrapper.find(Editor);
         act(() => {
-          expect(editor.props().handleKeyCommand("split-block")).toEqual(
-            "handled"
-          );
+          expect(
+            editor
+              .props()
+              .handleKeyCommand?.("split-block", getEditorState(), 0)
+          ).toEqual("handled");
         });
       });
 
@@ -842,7 +949,9 @@ describe("TextEditor", () => {
         wrapper = render({ characterLimit: 2 });
         const editor = wrapper.find(Editor);
         act(() => {
-          expect(editor.props().handlePastedText("ab")).toEqual("not-handled");
+          expect(
+            editor.props().handlePastedText?.("ab", undefined, getEditorState())
+          ).toEqual("not-handled");
         });
       });
 
@@ -850,7 +959,11 @@ describe("TextEditor", () => {
         wrapper = render({ characterLimit: 2 });
         const editor = wrapper.find(Editor);
         act(() => {
-          expect(editor.props().handlePastedText("abc")).toEqual("handled");
+          expect(
+            editor
+              .props()
+              .handlePastedText?.("abc", undefined, getEditorState())
+          ).toEqual("handled");
         });
       });
 
@@ -858,7 +971,9 @@ describe("TextEditor", () => {
         wrapper = render({ characterLimit: 1 });
         const editor = wrapper.find(Editor);
         act(() => {
-          expect(editor.props().handleBeforeInput("*")).toEqual(true);
+          expect(
+            editor.props().handleBeforeInput?.("*", getEditorState(), 0)
+          ).toEqual("handled");
         });
       });
 
@@ -866,7 +981,9 @@ describe("TextEditor", () => {
         wrapper = render({ characterLimit: 0 });
         const editor = wrapper.find(Editor);
         act(() => {
-          expect(editor.props().handleBeforeInput("*")).toEqual("handled");
+          expect(
+            editor.props().handleBeforeInput?.("*", getEditorState(), 0)
+          ).toEqual("handled");
         });
       });
     });
@@ -874,7 +991,7 @@ describe("TextEditor", () => {
 
   describe("required", () => {
     it("the isRequired prop is passed to the label", () => {
-      wrapper = render({ label: "required", required: true });
+      wrapper = render({ labelText: "required", required: true });
 
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
@@ -905,7 +1022,10 @@ describe("TextEditor", () => {
     it("applies the correct outline-offset when there is an error and the editor is focused", () => {
       wrapper = render({ error: "error" });
       act(() => {
-        wrapper.find(Editor).props().onFocus();
+        wrapper
+          .find(Editor)
+          .props()
+          .onFocus?.({} as SyntheticEvent);
       });
       act(() => {
         wrapper.update();
@@ -922,27 +1042,32 @@ describe("TextEditor", () => {
   });
 
   describe("custom row prop type", () => {
-    describe("when value is number less than 2", () => {
-      it("throws an error", () => {
-        TextEditor.displayName = "EditorWithRowsLessThan2";
-        const errorMessage =
-          "Warning: Failed prop type: Prop `rows` must be a number value greater than 2 to override the min-height of the `EditorWithRowsLessThan2`";
-
-        const assert = expectError(errorMessage);
-        render({ rows: 1 }, shallow);
-        assert();
-      });
+    let consoleSpy: jest.SpyInstance<
+      void,
+      [message?: unknown, ...optionalParams: unknown[]]
+    >;
+    beforeEach(() => {
+      consoleSpy = jest
+        .spyOn(global.console, "warn")
+        .mockImplementation(() => undefined);
     });
 
-    describe("when value is not a number", () => {
-      it("throws an error", () => {
-        TextEditor.displayName = "EditorWithRowsAsString";
-        const errorMessage =
-          "Warning: Failed prop type: Prop `rows` must be a number value greater than 2 to override the min-height of the `EditorWithRowsAsString`";
+    afterEach(() => {
+      consoleSpy.mockRestore();
+    });
 
-        const assert = expectError(errorMessage);
-        render({ rows: "foo" }, shallow);
-        assert();
+    afterAll(() => {
+      consoleSpy.mockClear();
+    });
+
+    describe("when value is number less than 2", () => {
+      it("throws an error", () => {
+        TextEditor.displayName = "EditorWithRowsError";
+        render({ rows: 1 });
+
+        expect(consoleSpy).toHaveBeenCalledWith(
+          "Prop rows must be a number value that is 2 or greater to override the min-height of the `EditorWithRowsError`"
+        );
       });
     });
   });
@@ -964,7 +1089,8 @@ describe("TextEditor", () => {
         wrapper.update();
       });
       act(() => {
-        wrapper.find(Editor).props().handleKeyCommand("split-block");
+        const { handleKeyCommand, editorState } = wrapper.find(Editor).props();
+        handleKeyCommand?.("split-block", editorState, 0);
       });
 
       expect(onLinkAdded).toHaveBeenCalledWith(url);
@@ -984,7 +1110,9 @@ describe("TextEditor", () => {
         wrapper.update();
       });
       act(() => {
-        wrapper.find(Editor).props().handleBeforeInput(" ");
+        const { handleBeforeInput, editorState } = wrapper.find(Editor).props();
+
+        handleBeforeInput?.(" ", editorState, 0);
       });
 
       expect(onLinkAdded).toHaveBeenCalledWith(url);
@@ -992,20 +1120,26 @@ describe("TextEditor", () => {
 
     it("renders any EditorLinkPreviews passed in via the `previews` prop", () => {
       const previews = [
-        <EditorLinkPreview />,
-        <EditorLinkPreview />,
-        <EditorLinkPreview />,
+        <EditorLinkPreview key="1" />,
+        <EditorLinkPreview key="2" />,
+        <EditorLinkPreview key="3" />,
       ];
       wrapper = render({ onLinkAdded, previews });
       expect(wrapper.find(EditorLinkPreview).length).toEqual(3);
     });
 
+    it("does not render anything that is a number or string", () => {
+      const previews = [123, "foo", 456];
+      wrapper = render({ onLinkAdded, previews });
+      expect(wrapper.find(EditorLinkPreview).length).toEqual(0);
+    });
+
     it("calls the onClose callback if one is passed when the close icon is clicked", () => {
       const onClose = jest.fn();
       const previews = [
-        <EditorLinkPreview onClose={onClose} url="foo" />,
-        <EditorLinkPreview />,
-        <EditorLinkPreview />,
+        <EditorLinkPreview onClose={onClose} url="foo" key="1" />,
+        <EditorLinkPreview key="2" />,
+        <EditorLinkPreview key="3" />,
       ];
       wrapper = render({ onLinkAdded, previews });
       wrapper.find(EditorLinkPreview).find(IconButton).simulate("click");
@@ -1015,6 +1149,6 @@ describe("TextEditor", () => {
 
   afterAll(() => {
     // Clear Mock
-    window.scrollTo.mockRestore();
+    (window.scrollTo as jest.Mock).mockRestore();
   });
 });

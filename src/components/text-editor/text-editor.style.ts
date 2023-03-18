@@ -13,10 +13,13 @@ StyledEditorWrapper.defaultProps = {
   theme: baseTheme,
 };
 
-const StyledEditorContainer = styled.div`
-  border-radius: var(--borderRadius050);
-
+const StyledEditorContainer = styled.div<{
+  hasError?: boolean;
+  rows?: number;
+  hasPreview?: boolean;
+}>`
   ${({ hasError, rows, hasPreview }) => css`
+    border-radius: var(--borderRadius050);
     min-height: ${rows
       ? `${rows * lineHeight}`
       : `${hasPreview ? 125 : 220}`}px;
@@ -63,7 +66,10 @@ const StyledEditorContainer = styled.div`
   `}
 `;
 
-const StyledEditorOutline = styled.div`
+const StyledEditorOutline = styled.div<{
+  isFocused?: boolean;
+  hasError?: boolean;
+}>`
   ${({ isFocused, hasError }) => css`
     border-radius: var(--borderRadius050);
     outline: none;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledCounter = styled.span`
+const StyledCounter = styled.span<{ hasError: boolean }>`
   color: ${({ hasError }) =>
     hasError
       ? "var(--colorsSemanticNegative500)"

@@ -1,9 +1,20 @@
 import React, { useContext, useEffect } from "react";
-import PropTypes from "prop-types";
+import { ContentState } from "draft-js";
 import StyledLink from "./editor-link.style";
 import { EditorContext } from "../../text-editor.component";
 
-const EditorLink = ({ children, contentState, entityKey, ...rest }) => {
+export interface EditorLinkProps {
+  children: React.ReactElement[];
+  contentState?: ContentState;
+  entityKey?: string;
+}
+
+const EditorLink = ({
+  children,
+  contentState,
+  entityKey,
+  ...rest
+}: EditorLinkProps) => {
   const url =
     !!contentState && !!entityKey
       ? contentState.getEntity(entityKey).getData()
@@ -30,7 +41,6 @@ const EditorLink = ({ children, contentState, entityKey, ...rest }) => {
   return (
     <StyledLink
       href={!editMode ? validUrl : undefined}
-      title={validUrl}
       aria-label={!editMode ? validUrl : undefined}
       target="_blank"
       rel="noopener noreferrer"
@@ -39,12 +49,6 @@ const EditorLink = ({ children, contentState, entityKey, ...rest }) => {
       {children}
     </StyledLink>
   );
-};
-
-EditorLink.propTypes = {
-  children: PropTypes.node.isRequired,
-  contentState: PropTypes.object,
-  entityKey: PropTypes.string,
 };
 
 export default EditorLink;
