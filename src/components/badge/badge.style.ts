@@ -1,7 +1,18 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import StyledIcon from "../icon/icon.style";
 import Button from "../button";
 import Icon from "../icon";
+
+const commonStyles = `
+  overflow: hidden;
+  border-radius: 50%;
+  position: absolute;
+  top: -11px;
+  right: -11px;
+  padding: 0;
+  margin-right: 0;
+  background: var(--colorsActionMajorYang100);
+`;
 
 const StyledBadgeWrapper = styled.div`
   position: relative;
@@ -14,43 +25,58 @@ const StyledCounter = styled.div`
   margin-top: -1px;
 `;
 
-const StyledButton = styled(Button)`
-  padding: 0;
-  width: 22px;
-  min-height: 22px;
-  border-radius: 50%;
-  overflow: hidden;
-  text-align: center;
-  position: absolute;
-  top: -11px;
-  right: -11px;
-  margin-right: 0;
-  background: var(--colorsActionMajorYang100);
+const StyledBadge = styled.span.attrs(({ onClick }) => ({
+  as: onClick ? Button : undefined,
+}))`
+  ${commonStyles}
+  cursor: default;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  width: 18px;
+  min-height: 18px;
+  border: solid 2px transparent;
+  border-color: var(--colorsActionMajor500);
+  color: var(--colorsActionMajor500);
 
   ::-moz-focus-inner {
     border: none;
   }
 
-  &:hover,
-  &:focus {
-    background: var(--colorsActionMajor500);
-    border: none;
-    ${StyledCounter} {
-      display: none;
-    }
+  ${({ onClick }) => css`
+    ${onClick &&
+    `
+      ${commonStyles}
+      width: 22px;
+      min-height: 22px;
+      text-align: center;
 
-    ${StyledIcon} {
-      display: block;
-      width: auto;
-      height: auto;
-      margin-right: 0;
-
-      :before {
-        font-size: 16px;
-        color: var(--colorsActionMajorYang100);
+      ::-moz-focus-inner {
+        border: none;
       }
-    }
-  }
+
+      &:hover,
+      &:focus {
+        background: var(--colorsActionMajor500);
+        border: none;
+        ${StyledCounter} {
+          display: none;
+        }
+
+        ${StyledIcon} {
+          display: block;
+          width: auto;
+          height: auto;
+          margin-right: 0;
+
+          :before {
+            font-size: 16px;
+            color: var(--colorsActionMajorYang100);
+          }
+        }
+      }
+    `}
+  `}
 `;
 
 const StyledCrossIcon = styled(Icon)`
@@ -58,4 +84,4 @@ const StyledCrossIcon = styled(Icon)`
   display: none;
 `;
 
-export { StyledBadgeWrapper, StyledButton, StyledCrossIcon, StyledCounter };
+export { StyledBadge, StyledBadgeWrapper, StyledCrossIcon, StyledCounter };
