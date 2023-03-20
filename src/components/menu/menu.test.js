@@ -3,11 +3,8 @@ import Menu from "./menu.component";
 import MenuItem from "./menu-item/menu-item.component";
 import MenuDivider from "./menu-divider/menu-divider.component";
 import MenuSegmentTitle from "./menu-segment-title/menu-segment-title.component";
-import MenuFullscreen from "./menu-full-screen/menu-full-screen.component";
-import ScrollableBlock from "./scrollable-block/scrollable-block.component";
+import * as stories from "./menu-test.stories";
 import Box from "../box";
-import Typography from "../typography";
-import Search from "../search";
 import {
   submenuBlock,
   innerMenu,
@@ -42,232 +39,16 @@ import {
   checkGoldenOutline,
   useJQueryCssValueAndAssert,
 } from "../../../cypress/support/component-helper/common-steps";
-import useMediaQuery from "../../hooks/useMediaQuery";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 const span = "span";
 const div = "div";
 const button = "button";
 
-const MenuComponent = ({ ...props }) => {
-  return (
-    <Box mb={150}>
-      {["white", "light", "dark", "black"].map((menuType) => (
-        <div key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType} display="flex" {...props}>
-            <MenuItem href="#">Menu Item One</MenuItem>
-            <MenuItem href="#">Menu Item Two</MenuItem>
-            <MenuItem submenu="Menu Item Three">
-              <MenuItem href="#">Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <MenuDivider {...props} />
-              <MenuItem icon="settings" href="#">
-                Item Submenu Three
-              </MenuItem>
-              <MenuItem href="#">Item Submenu Four</MenuItem>
-            </MenuItem>
-            <MenuItem submenu="Menu Item Four" onClick={() => {}}>
-              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuSegmentTitle>segment title</MenuSegmentTitle>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-            </MenuItem>
-          </Menu>
-        </div>
-      ))}
-    </Box>
-  );
-};
-
-const MenuComponentScrollable = ({ ...props }) => {
-  return (
-    <Box mb={150}>
-      {["white", "light", "dark", "black"].map((menuType) => (
-        <div key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType}>
-            <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
-            <MenuItem href="#">Menu Item Two</MenuItem>
-            <MenuItem submenu="Menu Item Three">
-              <ScrollableBlock height="200px" {...props}>
-                <MenuItem href="#">Item Submenu One</MenuItem>
-                <MenuItem href="#">Item Submenu Two</MenuItem>
-                <MenuItem href="#">Item Submenu Three</MenuItem>
-                <MenuItem href="#">Item Submenu Four</MenuItem>
-                <MenuItem href="#">Item Submenu Five</MenuItem>
-                <MenuItem href="#">Item Submenu Six</MenuItem>
-                <MenuItem href="#">Item Submenu Seven</MenuItem>
-                <MenuItem href="#">Item Submenu Eight</MenuItem>
-                <MenuItem href="#">Item Submenu Nine</MenuItem>
-                <MenuItem href="#">Item Submenu Ten</MenuItem>
-                <MenuItem href="#">Item Submenu Eleven</MenuItem>
-                <MenuItem href="#">Item Submenu Twelve</MenuItem>
-              </ScrollableBlock>
-            </MenuItem>
-            <MenuItem submenu="Menu Item Four">
-              <MenuItem href="#">Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <ScrollableBlock variant="alternate" height="200px">
-                <MenuItem href="#">Item Submenu Three</MenuItem>
-                <MenuItem href="#">Item Submenu Four</MenuItem>
-                <MenuItem href="#">Item Submenu Five</MenuItem>
-                <MenuItem href="#">Item Submenu Six</MenuItem>
-                <MenuItem href="#">Item Submenu Seven</MenuItem>
-                <MenuItem href="#">Item Submenu Eight</MenuItem>
-                <MenuItem href="#">Item Submenu Nine</MenuItem>
-                <MenuItem href="#">Item Submenu Ten</MenuItem>
-                <MenuItem href="#">Item Submenu Eleven</MenuItem>
-                <MenuItem href="#">Item Submenu Twelve</MenuItem>
-              </ScrollableBlock>
-            </MenuItem>
-          </Menu>
-        </div>
-      ))}
-    </Box>
-  );
-};
-
-const MenuComponentSearch = () => {
-  return (
-    <Box mb={150}>
-      {["dark", "white", "light", "black"].map((menuType) => (
-        <div key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType}>
-            <MenuItem submenu="Menu One">
-              <MenuItem href="#">Item Submenu One</MenuItem>
-              <MenuDivider size="large" />
-              <MenuSegmentTitle>segment title</MenuSegmentTitle>
-              <MenuItem variant="alternate">
-                <Search
-                  placeholder="Dark variant"
-                  variant="dark"
-                  defaultValue=""
-                />
-              </MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <MenuItem href="#">Item Submenu Three</MenuItem>
-            </MenuItem>
-          </Menu>
-        </div>
-      ))}
-    </Box>
-  );
-};
-
-const MenuComponentFullScreen = ({ ...props }) => {
-  const [menuOpen, setMenuOpen] = React.useState({
-    light: false,
-    dark: false,
-    white: false,
-    black: false,
-  });
-  const fullscreenViewBreakPoint = useMediaQuery("(max-width: 1200px)");
-
-  const responsiveMenuItems = (startPosition, menus) => {
-    if (fullscreenViewBreakPoint) {
-      return [
-        <MenuItem
-          onClick={() => setMenuOpen((state) => ({ ...state, [menus]: true }))}
-        >
-          Menu
-        </MenuItem>,
-        <MenuFullscreen
-          startPosition={startPosition}
-          isOpen={menuOpen[menus]}
-          onClose={() => setMenuOpen((state) => ({ ...state, [menus]: false }))}
-          {...props}
-        >
-          <MenuItem href="#">Menu Item One</MenuItem>
-          <MenuItem onClick={() => {}} submenu="Menu Item Two">
-            <MenuItem href="#">Submenu Item One</MenuItem>
-            <MenuItem href="#">Submenu Item Two</MenuItem>
-          </MenuItem>
-          <MenuItem href="#">Menu Item Three</MenuItem>
-          <MenuItem href="#">Menu Item Four</MenuItem>
-          <MenuItem submenu="Menu Item Five">
-            <MenuItem href="#">Submenu Item One</MenuItem>
-            <MenuItem href="#">Submenu Item Two</MenuItem>
-          </MenuItem>
-          <MenuItem href="#">Menu Item Six</MenuItem>
-        </MenuFullscreen>,
-      ];
-    }
-
-    return [
-      <MenuItem href="#">Menu Item One</MenuItem>,
-      <MenuItem submenu="Menu Item Two">
-        <MenuItem href="#">Submenu Item One</MenuItem>
-        <MenuItem href="#">Submenu Item Two</MenuItem>
-      </MenuItem>,
-      <MenuItem href="#">Menu Item Three</MenuItem>,
-      <MenuItem href="#">Menu Item Four</MenuItem>,
-      <MenuItem submenu="Menu Item Five">
-        <MenuItem href="#">Submenu Item One</MenuItem>
-        <MenuItem href="#">Submenu Item Two</MenuItem>
-      </MenuItem>,
-      <MenuItem href="#">Menu Item Six</MenuItem>,
-    ];
-  };
-
-  return [
-    <Box>
-      {["white", "light", "dark", "black"].map((menuType) => (
-        <div key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType} {...props}>
-            {React.Children.map(
-              responsiveMenuItems("left", menuType),
-              (items) => items
-            )}
-          </Menu>
-        </div>
-      ))}
-    </Box>,
-  ];
-};
-
-const MenuComponentItems = ({ ...props }) => {
-  return (
-    <Box mb={150}>
-      <Typography textTransform="capitalize" my={2} />
-      <Menu menuType="white" display="flex">
-        <MenuItem submenu="Menu Item One" submenuDirection="right" {...props}>
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuDivider {...props} />
-          <MenuItem icon="settings" href="#">
-            Item Submenu Three
-          </MenuItem>
-          <MenuItem href="#">Item Submenu Four</MenuItem>
-        </MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem
-          submenu="Menu Item Three"
-          submenuDirection="left"
-          onClick={() => {}}
-        >
-          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuSegmentTitle>segment title</MenuSegmentTitle>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </Box>
-  );
-};
-
 context("Testing Menu component", () => {
   describe("check props for Menu component", () => {
     it("should verify scroll block within a submenu is scrollable", () => {
-      CypressMountWithProviders(<MenuComponentScrollable />);
+      CypressMountWithProviders(<stories.MenuComponentScrollable />);
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
       scrollBlock().scrollTo("bottom");
@@ -275,7 +56,7 @@ context("Testing Menu component", () => {
     });
 
     it("should verify a submenu can be navigated using keyboard tabbing after an item was clicked", () => {
-      CypressMountWithProviders(<MenuComponent />);
+      CypressMountWithProviders(<stories.MenuComponent />);
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
       innerMenu(positionOfElement("third"), span).click({ multiple: true });
@@ -284,7 +65,7 @@ context("Testing Menu component", () => {
     });
 
     it("should verify a submenu can be navigated using keyboard down arrow after an item was clicked", () => {
-      CypressMountWithProviders(<MenuComponent />);
+      CypressMountWithProviders(<stories.MenuComponent />);
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
       innerMenu(positionOfElement("third"), span).click({ multiple: true });
@@ -293,7 +74,7 @@ context("Testing Menu component", () => {
     });
 
     it("should verify a submenu can be navigated using keyboard shift + tabbing after an item was clicked", () => {
-      CypressMountWithProviders(<MenuComponent />);
+      CypressMountWithProviders(<stories.MenuComponent />);
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
       innerMenu(positionOfElement("fifth"), span).click({ multiple: true });
@@ -302,7 +83,7 @@ context("Testing Menu component", () => {
     });
 
     it("should verify a submenu can be navigated using keyboard up arrow after an item was clicked", () => {
-      CypressMountWithProviders(<MenuComponent />);
+      CypressMountWithProviders(<stories.MenuComponent />);
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
       innerMenu(positionOfElement("fifth"), span).click({ multiple: true });
@@ -311,14 +92,14 @@ context("Testing Menu component", () => {
     });
 
     it("should verify a the first submenu item is focused using keyboard tabbing after the parent item was clicked", () => {
-      CypressMountWithProviders(<MenuComponent />);
+      CypressMountWithProviders(<stories.MenuComponent />);
 
       submenu().eq(positionOfElement("first"), button).click();
       cy.focused().tab();
     });
 
     it("should verify a the first submenu item is focused using keyboard down arrow after the parent item was clicked", () => {
-      CypressMountWithProviders(<MenuComponent />);
+      CypressMountWithProviders(<stories.MenuComponent />);
 
       submenu().eq(positionOfElement("first"), button).click();
       cy.focused().trigger("keydown", keyCode("downarrow"));
@@ -327,7 +108,7 @@ context("Testing Menu component", () => {
     it("should verify number and type of elements in submenu", () => {
       const position = ["second", "third", "fifth", "sixth"];
 
-      CypressMountWithProviders(<MenuComponent />);
+      CypressMountWithProviders(<stories.MenuComponent />);
 
       submenu().eq(positionOfElement("first")).trigger("mouseover");
       submenuBlock().children().should("have.length", 5);
@@ -353,7 +134,7 @@ context("Testing Menu component", () => {
     ])(
       "should verify submenu has %s background color",
       (menuType, menuNumber, color) => {
-        CypressMountWithProviders(<MenuComponent />);
+        CypressMountWithProviders(<stories.MenuComponent />);
 
         submenu().eq(positionOfElement(menuNumber)).trigger("mouseover");
         innerMenu(positionOfElement("second"), span).should(
@@ -370,7 +151,7 @@ context("Testing Menu component", () => {
       ["dark", "ninth", "rgb(0, 50, 76)"],
       ["black", "thirteenth", COLOR.BLACK],
     ])("should verify Menu is %s menuType", (menuType, menuNumber, color) => {
-      CypressMountWithProviders(<MenuComponent />);
+      CypressMountWithProviders(<stories.MenuComponent />);
 
       menuItem()
         .eq(positionOfElement(menuNumber))
@@ -382,7 +163,7 @@ context("Testing Menu component", () => {
       ["default", 1],
       ["large", 4],
     ])("should verify Menu Divider size is %s", (divider, size) => {
-      CypressMountWithProviders(<MenuComponent size={divider} />);
+      CypressMountWithProviders(<stories.MenuComponent size={divider} />);
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
       menuDivider().then(($el) => {
@@ -391,7 +172,7 @@ context("Testing Menu component", () => {
     });
 
     it("should verify Menu Segment Title is visible within a submenu", () => {
-      CypressMountWithProviders(<MenuComponent />);
+      CypressMountWithProviders(<stories.MenuComponent />);
 
       submenu().eq(positionOfElement("second"), div).trigger("mouseover");
       segmentTitle()
@@ -401,7 +182,7 @@ context("Testing Menu component", () => {
     });
 
     it("should verify default menu clickToOpen element does not open on hover", () => {
-      CypressMountWithProviders(<MenuComponent clickToOpen />);
+      CypressMountWithProviders(<stories.MenuComponent clickToOpen />);
 
       menuComponent(positionOfElement("fourth")).trigger("mouseover", {
         force: true,
@@ -412,7 +193,7 @@ context("Testing Menu component", () => {
     });
 
     it("should verify default menu clickToOpen element opens on click", () => {
-      CypressMountWithProviders(<MenuComponent clickToOpen />);
+      CypressMountWithProviders(<stories.MenuComponent clickToOpen />);
 
       menuComponent(positionOfElement("fifth")).click();
       submenuItem(positionOfElement("fifth")).should("have.length", 3);
@@ -430,7 +211,7 @@ context("Testing Menu component", () => {
     it.each(["Enter", "Space", "downarrow", "uparrow"])(
       "should verify default menu clickToOpen element opens using %s key",
       (key) => {
-        CypressMountWithProviders(<MenuComponent clickToOpen />);
+        CypressMountWithProviders(<stories.MenuComponent clickToOpen />);
 
         menuComponent(positionOfElement("fifth")).trigger(
           "keydown",
@@ -455,7 +236,7 @@ context("Testing Menu component", () => {
     ])(
       "should verify the Search component is focusable by using the %s key",
       (key, tabs) => {
-        CypressMountWithProviders(<MenuComponentSearch />);
+        CypressMountWithProviders(<stories.MenuComponentSearch />);
 
         pressTABKey(1);
         cy.wait(50);
@@ -469,7 +250,7 @@ context("Testing Menu component", () => {
     );
 
     it("should verify the Search component close icon is focusable when using keyboard to navigate down the list of items", () => {
-      CypressMountWithProviders(<MenuComponentSearch />);
+      CypressMountWithProviders(<stories.MenuComponentSearch />);
 
       pressTABKey(1);
       cy.wait(50);
@@ -484,7 +265,7 @@ context("Testing Menu component", () => {
     });
 
     it("should verify the Search component close icon is focusable when using keyboard to navigate up the list of items", () => {
-      CypressMountWithProviders(<MenuComponentSearch />);
+      CypressMountWithProviders(<stories.MenuComponentSearch />);
 
       pressTABKey(1);
       cy.wait(50);
@@ -505,7 +286,7 @@ context("Testing Menu component", () => {
     });
 
     it("should verify that the Search component is focusable by using the downarrow key when rendered as the parent of a scrollable submenu", () => {
-      CypressMountWithProviders(<MenuComponentSearch />);
+      CypressMountWithProviders(<stories.MenuComponentSearch />);
 
       pressTABKey(3);
       cy.wait(50);
@@ -516,7 +297,7 @@ context("Testing Menu component", () => {
     });
 
     it("should verify scroll Menu search has an alternate background color", () => {
-      CypressMountWithProviders(<MenuComponentSearch />);
+      CypressMountWithProviders(<stories.MenuComponentSearch />);
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
       menuItem()
@@ -586,7 +367,7 @@ context("Testing Menu component", () => {
     ])(
       "should verify Menu width is set by width prop when passed as a %s",
       (type, width, pixels) => {
-        CypressMountWithProviders(<MenuComponent width={width} />);
+        CypressMountWithProviders(<stories.MenuComponent width={width} />);
 
         menu().then(($el) => {
           useJQueryCssValueAndAssert($el, "width", pixels);
@@ -604,7 +385,7 @@ context("Testing Menu component", () => {
     ])(
       "should verify Menu height is set by height prop when passed as %s",
       (type, propValue, pixels) => {
-        CypressMountWithProviders(<MenuComponent height={propValue} />);
+        CypressMountWithProviders(<stories.MenuComponent height={propValue} />);
 
         menu().then(($el) => {
           useJQueryCssValueAndAssert($el, "height", pixels);
@@ -621,7 +402,7 @@ context("Testing Menu component", () => {
       "should verify Menu minimum width is set by minWidth prop when passed as %s",
       (type, minWidth, width, pixels) => {
         CypressMountWithProviders(
-          <MenuComponent minWidth={minWidth} width={width} />
+          <stories.MenuComponent minWidth={minWidth} width={width} />
         );
 
         menu().then(($el) => {
@@ -636,10 +417,10 @@ context("Testing Menu component", () => {
       ["string", "700px", "300px", 300],
       ["string", "700px", "1200px", 700],
     ])(
-      "should verify Menu maximum width is set by minWidth prop when passed as %s",
+      "should verify Menu maximum width is set by maxWidth prop when passed as %s",
       (type, maxWidth, width, pixels) => {
         CypressMountWithProviders(
-          <MenuComponent maxWidth={maxWidth} width={width} />
+          <stories.MenuComponent maxWidth={maxWidth} width={width} />
         );
 
         menu().then(($el) => {
@@ -654,10 +435,10 @@ context("Testing Menu component", () => {
       ["string", "35px", "25px", 35],
       ["string", "35px", "40px", 40],
     ])(
-      "should verify Menu minimum height is set by minWidth prop when passed as %s",
+      "should verify Menu minimum height is set by minHeight prop when passed as %s",
       (type, minHeight, height, pixels) => {
         CypressMountWithProviders(
-          <MenuComponent minHeight={minHeight} height={height} />
+          <stories.MenuComponent minHeight={minHeight} height={height} />
         );
 
         menu().then(($el) => {
@@ -672,10 +453,10 @@ context("Testing Menu component", () => {
       ["string", "35px", "25px", 25],
       ["string", "35px", "40px", 35],
     ])(
-      "should verify Menu maximum height is set by minWidth prop when passed as %s",
+      "should verify Menu maximum height is set by maxHeight prop when passed as %s",
       (type, maxHeight, height, pixels) => {
         CypressMountWithProviders(
-          <MenuComponent maxHeight={maxHeight} height={height} />
+          <stories.MenuComponent maxHeight={maxHeight} height={height} />
         );
 
         menu().then(($el) => {
@@ -687,7 +468,7 @@ context("Testing Menu component", () => {
     it.each([250, 750, 1350])(
       "should verify that using size prop sets both width and height props",
       (size) => {
-        CypressMountWithProviders(<MenuComponent size={size} />);
+        CypressMountWithProviders(<stories.MenuComponent size={size} />);
 
         menu().then(($el) => {
           useJQueryCssValueAndAssert($el, "height", size);
@@ -699,7 +480,7 @@ context("Testing Menu component", () => {
     it.each(["block", "inline-block", "flex", "contents", "list-item", "none"])(
       "should verify Menu display is %s",
       (display) => {
-        CypressMountWithProviders(<MenuComponent display={display} />);
+        CypressMountWithProviders(<stories.MenuComponent display={display} />);
 
         menu()
           .should("have.attr", "display", display)
@@ -717,7 +498,9 @@ context("Testing Menu component", () => {
       "text-top",
       "top",
     ])("should verify Menu alignItmes is %s", (alignment) => {
-      CypressMountWithProviders(<MenuComponent verticalAlign={alignment} />);
+      CypressMountWithProviders(
+        <stories.MenuComponent verticalAlign={alignment} />
+      );
 
       menu().should("have.css", "vertical-align", alignment);
     });
@@ -736,7 +519,9 @@ context("Testing Menu component", () => {
     it.each(["auto", "clip", "hidden", "scroll", "visible"])(
       "should verify Menu overflowX is %s",
       (overflow) => {
-        CypressMountWithProviders(<MenuComponent overflowX={overflow} />);
+        CypressMountWithProviders(
+          <stories.MenuComponent overflowX={overflow} />
+        );
 
         menu().should("have.css", "overflow-x", overflow);
       }
@@ -745,7 +530,9 @@ context("Testing Menu component", () => {
     it.each(["auto", "clip", "hidden", "scroll", "visible"])(
       "should verify Menu overflowY is %s",
       (overflow) => {
-        CypressMountWithProviders(<MenuComponent overflowY={overflow} />);
+        CypressMountWithProviders(
+          <stories.MenuComponent overflowY={overflow} />
+        );
 
         menu().should("have.css", "overflow-y", overflow);
       }
@@ -758,8 +545,10 @@ context("Testing Menu component", () => {
       "center",
       "flex-start",
       "flex-end",
-    ])("should verify Menu alignItmes is %s", (alignment) => {
-      CypressMountWithProviders(<MenuComponent alignItems={alignment} />);
+    ])("should verify Menu alignItems is %s", (alignment) => {
+      CypressMountWithProviders(
+        <stories.MenuComponent alignItems={alignment} />
+      );
 
       menu().should("have.css", "align-items", alignment);
     });
@@ -774,7 +563,9 @@ context("Testing Menu component", () => {
       "space-around",
       "stretch",
     ])("should verify Menu alignContent is %s", (alignment) => {
-      CypressMountWithProviders(<MenuComponent alignContent={alignment} />);
+      CypressMountWithProviders(
+        <stories.MenuComponent alignContent={alignment} />
+      );
 
       menu().should("have.css", "align-content", alignment);
     });
@@ -788,7 +579,9 @@ context("Testing Menu component", () => {
       "normal",
       "stretch",
     ])("should verify Menu justifyItems is %s", (justified) => {
-      CypressMountWithProviders(<MenuComponent justifyItems={justified} />);
+      CypressMountWithProviders(
+        <stories.MenuComponent justifyItems={justified} />
+      );
 
       menu().should("have.css", "justify-items", justified);
     });
@@ -804,7 +597,9 @@ context("Testing Menu component", () => {
       "space-around",
       "stretch",
     ])("should verify Menu justifyContent is %s", (justified) => {
-      CypressMountWithProviders(<MenuComponent justifyContent={justified} />);
+      CypressMountWithProviders(
+        <stories.MenuComponent justifyContent={justified} />
+      );
 
       menu().should("have.css", "justify-content", justified);
     });
@@ -812,7 +607,7 @@ context("Testing Menu component", () => {
     it.each(["nowrap", "wrap", "wrap-reverse"])(
       "should verify Menu flex wrap is %s",
       (wrap) => {
-        CypressMountWithProviders(<MenuComponent flexWrap={wrap} />);
+        CypressMountWithProviders(<stories.MenuComponent flexWrap={wrap} />);
 
         menu().should("have.css", "flex-wrap", wrap);
       }
@@ -821,7 +616,9 @@ context("Testing Menu component", () => {
     it.each(["column", "column-reverse", "row", "row-reverse"])(
       "should verify Menu flex direction is %s",
       (direction) => {
-        CypressMountWithProviders(<MenuComponent flexDirection={direction} />);
+        CypressMountWithProviders(
+          <stories.MenuComponent flexDirection={direction} />
+        );
 
         menu().should("have.css", "flex-direction", direction);
       }
@@ -830,7 +627,7 @@ context("Testing Menu component", () => {
     it.each(["auto", "content", "fit-content", "max-content", "min-content"])(
       "should verify Menu flex is %s",
       (flex) => {
-        CypressMountWithProviders(<MenuComponent flex={flex} />);
+        CypressMountWithProviders(<stories.MenuComponent flex={flex} />);
 
         menu().should("have.css", "flex-basis", flex);
       }
@@ -841,7 +638,9 @@ context("Testing Menu component", () => {
       [50, "50"],
       [100, "100"],
     ])("should verify Menu flex grow is %s", (value, growText) => {
-      CypressMountWithProviders(<MenuComponent flex="auto" flexGrow={value} />);
+      CypressMountWithProviders(
+        <stories.MenuComponent flex="auto" flexGrow={value} />
+      );
 
       menu().should("have.css", "flex-grow", growText);
     });
@@ -852,7 +651,7 @@ context("Testing Menu component", () => {
       [100, "100"],
     ])("should verify Menu flex shrink is %s", (value, shrinkText) => {
       CypressMountWithProviders(
-        <MenuComponent flex="auto" flexShrink={value} />
+        <stories.MenuComponent flex="auto" flexShrink={value} />
       );
 
       menu().should("have.css", "flex-shrink", shrinkText);
@@ -861,7 +660,7 @@ context("Testing Menu component", () => {
     it.each(["auto", "content", "fit-content", "max-content", "min-content"])(
       "should verify Menu flex basis is %s",
       (basis) => {
-        CypressMountWithProviders(<MenuComponent flexBasis={basis} />);
+        CypressMountWithProviders(<stories.MenuComponent flexBasis={basis} />);
 
         menu().should("have.css", "flex-basis", basis);
       }
@@ -878,7 +677,9 @@ context("Testing Menu component", () => {
       "flex-start",
       "flex-end",
     ])("should verify Menu justifySelf is %s", (justify) => {
-      CypressMountWithProviders(<MenuComponent justifySelf={justify} />);
+      CypressMountWithProviders(
+        <stories.MenuComponent justifySelf={justify} />
+      );
 
       menu().should("have.css", "justify-self", justify);
     });
@@ -892,7 +693,7 @@ context("Testing Menu component", () => {
       "flex-start",
       "flex-end",
     ])("should verify Menu alignSelf is %s", (align) => {
-      CypressMountWithProviders(<MenuComponent alignSelf={align} />);
+      CypressMountWithProviders(<stories.MenuComponent alignSelf={align} />);
 
       menu().should("have.css", "align-self", align);
     });
@@ -902,14 +703,14 @@ context("Testing Menu component", () => {
       [50, "50"],
       [100, "100"],
     ])("should verify Menu order is %s", (value, orderText) => {
-      CypressMountWithProviders(<MenuComponent order={value} />);
+      CypressMountWithProviders(<stories.MenuComponent order={value} />);
 
       menu().should("have.css", "order", orderText);
     });
 
     it("should verify Menu Items className is customisable", () => {
       CypressMountWithProviders(
-        <MenuComponentItems className={CHARACTERS.STANDARD} />
+        <stories.MenuComponentItems className={CHARACTERS.STANDARD} />
       );
 
       menuItem()
@@ -924,7 +725,9 @@ context("Testing Menu component", () => {
       ["selected", true, "rgb(230, 235, 237)"],
       ["not selected", false, "rgb(255, 255, 255)"],
     ])("should verify first Menu Item is %s", (state, boolVal, color) => {
-      CypressMountWithProviders(<MenuComponentItems selected={boolVal} />);
+      CypressMountWithProviders(
+        <stories.MenuComponentItems selected={boolVal} />
+      );
 
       submenu().eq(0).children().should("have.css", "background-color", color);
     });
@@ -934,14 +737,14 @@ context("Testing Menu component", () => {
       CHARACTERS.DIACRITICS,
       CHARACTERS.SPECIALCHARACTERS,
     ])("should verify Menu Item text is %s", (text) => {
-      CypressMountWithProviders(<MenuComponentItems submenu={text} />);
+      CypressMountWithProviders(<stories.MenuComponentItems submenu={text} />);
 
       menuItem().eq(0).should("have.text", text);
     });
 
     it("should verify Menu Item target is %s", () => {
       CypressMountWithProviders(
-        <MenuComponentItems target={CHARACTERS.STANDARD} />
+        <stories.MenuComponentItems target={CHARACTERS.STANDARD} />
       );
 
       menuItem()
@@ -959,7 +762,7 @@ context("Testing Menu component", () => {
       "should verify dropdown arrow is displayed on Menu Item",
       (boolVal, padding) => {
         CypressMountWithProviders(
-          <MenuComponentItems showDropdownArrow={boolVal} />
+          <stories.MenuComponentItems showDropdownArrow={boolVal} />
         );
 
         submenu()
@@ -974,14 +777,16 @@ context("Testing Menu component", () => {
       ["default", "rgb(255, 255, 255)"],
       ["alternate", "rgb(217, 224, 228)"],
     ])("should verify Menu Item has %s variant", (variant, color) => {
-      CypressMountWithProviders(<MenuComponentItems variant={variant} />);
+      CypressMountWithProviders(
+        <stories.MenuComponentItems variant={variant} />
+      );
 
       submenu().eq(0).children().should("have.css", "background-color", color);
     });
 
     it("should verify Menu Item ariaLabel is set to cypress_data", () => {
       CypressMountWithProviders(
-        <MenuComponentItems ariaLabel={CHARACTERS.STANDARD} />
+        <stories.MenuComponentItems ariaLabel={CHARACTERS.STANDARD} />
       );
 
       submenu()
@@ -1026,7 +831,9 @@ context("Testing Menu component", () => {
     ])(
       "should verify Menu scroll block height prop can be entered as a number or string",
       (height, pixels) => {
-        CypressMountWithProviders(<MenuComponentScrollable height={height} />);
+        CypressMountWithProviders(
+          <stories.MenuComponentScrollable height={height} />
+        );
 
         submenu().eq(positionOfElement("first"), div).trigger("mouseover");
         scrollBlock().then(($el) => {
@@ -1042,7 +849,7 @@ context("Testing Menu component", () => {
       "should verify Menu scroll block has %s background color using variant prop",
       (variant, color) => {
         CypressMountWithProviders(
-          <MenuComponentScrollable variant={variant} />
+          <stories.MenuComponentScrollable variant={variant} />
         );
 
         submenu().eq(positionOfElement("first"), div).trigger("mouseover");
@@ -1080,7 +887,7 @@ context("Testing Menu component", () => {
     );
 
     it("should verify that inner Menu without link is NOT available with tabbing in Fullscreen Menu", () => {
-      CypressMountWithProviders(<MenuComponentFullScreen />);
+      CypressMountWithProviders(<stories.MenuComponentFullScreen />);
 
       cy.viewport(1200, 800);
       menuItem().eq(positionOfElement("first"), div).click();
@@ -1090,7 +897,7 @@ context("Testing Menu component", () => {
 
     it("should verify Menu Item href prop", () => {
       CypressMountWithProviders(
-        <MenuComponentItems href={CHARACTERS.STANDARD} />
+        <stories.MenuComponentItems href={CHARACTERS.STANDARD} />
       );
 
       submenu()
@@ -1103,7 +910,7 @@ context("Testing Menu component", () => {
     it.each([["noopener"], ["noreferrer"], ["opener"]])(
       "should verify Menu Item with rel prop set to %s",
       (rel) => {
-        CypressMountWithProviders(<MenuComponentItems rel={rel} />);
+        CypressMountWithProviders(<stories.MenuComponentItems rel={rel} />);
 
         submenu().eq(0).children().children().should("have.attr", "rel", rel);
       }
@@ -1111,7 +918,7 @@ context("Testing Menu component", () => {
 
     it("should verify Scrollable Block parent prop", () => {
       CypressMountWithProviders(
-        <MenuComponentScrollable parent={<MenuItem>Parent</MenuItem>} />
+        <stories.MenuComponentScrollable parent={<MenuItem>Parent</MenuItem>} />
       );
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
@@ -1130,7 +937,7 @@ context("Testing Menu component", () => {
       "should verify Scrollable Block parent variant prop",
       (variant, color) => {
         CypressMountWithProviders(
-          <MenuComponentScrollable
+          <stories.MenuComponentScrollable
             parent={<MenuItem>Parent</MenuItem>}
             parentVariant={variant}
           />
@@ -1151,7 +958,7 @@ context("Testing Menu component", () => {
   describe("check props for Menu Fullscreen component", () => {
     beforeEach(() => {
       cy.viewport(1200, 800);
-      CypressMountWithProviders(<MenuComponentFullScreen />);
+      CypressMountWithProviders(<stories.MenuComponentFullScreen />);
       menuItem().eq(positionOfElement("first"), div).click();
     });
 
@@ -1244,7 +1051,9 @@ context("Testing Menu component", () => {
     ])(
       "should verify that Menu Fullscreen is %s when isOpen prop is %s",
       (value, boolVal, state) => {
-        CypressMountWithProviders(<MenuComponentFullScreen isOpen={boolVal} />);
+        CypressMountWithProviders(
+          <stories.MenuComponentFullScreen isOpen={boolVal} />
+        );
 
         getComponent("menu-fullscreen").should(state);
       }
@@ -1257,7 +1066,7 @@ context("Testing Menu component", () => {
       "should verify that Menu Fullscreen start position is %s",
       (side, left, right) => {
         CypressMountWithProviders(
-          <MenuComponentFullScreen startPosition={side} />
+          <stories.MenuComponentFullScreen startPosition={side} />
         );
 
         getComponent("menu-fullscreen").should("have.css", "left", `${left}px`);
@@ -1278,7 +1087,7 @@ context("Testing Menu component", () => {
     });
 
     it("should call onClick callback when a click event is triggered", () => {
-      CypressMountWithProviders(<MenuComponent onClick={callback} />);
+      CypressMountWithProviders(<stories.MenuComponent onClick={callback} />);
 
       menuComponent(positionOfElement("fifth"))
         .click()
@@ -1380,7 +1189,9 @@ context("Testing Menu component", () => {
     });
 
     it("should call onClose callback when Menu Fullscreen is closed", () => {
-      CypressMountWithProviders(<MenuComponentFullScreen onClose={callback} />);
+      CypressMountWithProviders(
+        <stories.MenuComponentFullScreen onClose={callback} />
+      );
 
       cy.viewport(1200, 800);
       menuItem().eq(positionOfElement("first"), div).click();
@@ -1391,6 +1202,133 @@ context("Testing Menu component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe.only("Accessibility tests for Menu component", () => {
+    // it("should pass accessibility tests for Menu default", () => {
+    //   CypressMountWithProviders(<stories.MenuComponent />);
+
+    //   cy.checkAccessibility();
+    // });
+
+    // it("should pass accessibility tests for Menu expanded", () => {
+    //   CypressMountWithProviders(<stories.MenuComponent />);
+
+    //   submenu()
+    //     .eq(positionOfElement("first"), div)
+    //     .trigger("mouseover")
+    //     .then(() => {
+    //       // eslint-disable-next-line no-unused-expressions
+    //       cy.checkAccessibility();
+    //     });
+    // });
+
+    // it.each(["default", "large"])(
+    //   "should pass accessibility tests for Menu when divider size is %s", (divider) => {
+    //   CypressMountWithProviders(<stories.MenuComponent size={divider} />);
+
+    //   submenu()
+    //     .eq(positionOfElement("first"), div)
+    //     .trigger("mouseover")
+    //     .then(() => {
+    //       // eslint-disable-next-line no-unused-expressions
+    //       cy.checkAccessibility();
+    //     });
+    // });
+
+    // it("should pass accessibility tests for Menu when search component is focused", () => {
+    //   CypressMountWithProviders(<stories.MenuComponentSearch />);
+
+    //   pressTABKey(1);
+    //   cy.wait(50);
+    //   cy.focused().trigger("keydown", keyCode("Enter"));
+    //   cy.wait(50);
+    //   pressTABKey(0);
+    //   cy.wait(50);
+    //   cy.focused().trigger("keydown", keyCode("downarrow"))
+    //     .then(() => {
+    //     // eslint-disable-next-line no-unused-expressions
+    //     cy.checkAccessibility();
+    //   });
+    // });
+
+    // it("should pass accessibility tests for Menu when a menu item has a long label", () => {
+    //   CypressMountWithProviders(
+    //     <Box mb={150}>
+    //       <Menu menuType="white">
+    //         <MenuItem submenu="Menu Item One">
+    //           <MenuItem href="#">
+    //             Item Submenu One Is A Very Long Submenu Item Indeed
+    //           </MenuItem>
+    //           <MenuItem variant="alternate" href="#">
+    //             Item Submenu Two
+    //           </MenuItem>
+    //         </MenuItem>
+    //       </Menu>
+    //     </Box>
+    //   );
+
+    //   submenu()
+    //     .eq(positionOfElement("first"))
+    //     .trigger("mouseover")
+    //     .then(() => {
+    //       // eslint-disable-next-line no-unused-expressions
+    //       cy.checkAccessibility();
+    //   });
+    // });
+
+    // it("should pass accessibility tests for Menu when a submenu has a long label", () => {
+    //   CypressMountWithProviders(
+    //     <Box mb={150}>
+    //       <Menu menuType="white">
+    //         <MenuItem submenu="Menu Item One Has A Very Long Menu Title For No Reason Whatsoever">
+    //           <MenuItem href="#">Item Submenu One</MenuItem>
+    //           <MenuItem variant="alternate" href="#">
+    //             Item Submenu Two
+    //           </MenuItem>
+    //         </MenuItem>
+    //       </Menu>
+    //     </Box>
+    //   );
+
+    //   submenu().eq(positionOfElement("first")).trigger("mouseover");
+    //   submenu()
+    //     .eq(positionOfElement("first"))
+    //     .then(() => {
+    //       // eslint-disable-next-line no-unused-expressions
+    //       cy.checkAccessibility();
+    //     });
+    // });
+
+    // it.each(["450px", "675px", "1200px"])(
+    //   "should pass accessibility tests for Menu when width is %s", (width) => {
+    //     CypressMountWithProviders(<stories.MenuComponent width={width} />);
+
+    //     cy.checkAccessibility();
+    //   }
+    // );
+
+    // it.each(["10px", "30px", "50px"])(
+    //   "should pass accessibility tests for Menu when height is s", (propValue) => {
+    //     CypressMountWithProviders(<stories.MenuComponent height={propValue} />);
+
+    //     cy.checkAccessibility();
+    // });
+
+    it.each([
+      "normal",
+      "stretch",
+      "baseline",
+      "center",
+      "flex-start",
+      "flex-end",
+    ])("should verify Menu alignItems is %s", (alignment) => {
+      CypressMountWithProviders(
+        <stories.MenuComponent alignItems={alignment} />
+      );
+
+      menu().should("have.css", "align-items", alignment);
     });
   });
 });
