@@ -1,6 +1,8 @@
 import React from "react";
 import NumeralDate from ".";
 import Box from "../box";
+import { NumeralDateComponent } from "./numeral-date-test.stories";
+import * as stories from "./numeral-date.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
   useJQueryCssValueAndAssert,
@@ -29,23 +31,6 @@ import {
 import { ICON } from "../../../cypress/locators/locators";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
-const NumeralDateComponent = ({ ...props }) => {
-  const [value, setValue] = React.useState({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-
-  return (
-    <NumeralDate
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      label="Default"
-      {...props}
-    />
-  );
-};
 
 const ALLOWED_DATE_FORMATS = [
   ["dd", "mm", "yyyy"],
@@ -482,6 +467,68 @@ context("Tests for NumeralDate component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("check accessibility for NumeralDate component", () => {
+    it("should pass accessibility tests for NumeralDate Default story", () => {
+      CypressMountWithProviders(<stories.Default />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NumeralDate Controlled story", () => {
+      CypressMountWithProviders(<stories.Controlled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NumeralDate AllowedDateFormats story", () => {
+      CypressMountWithProviders(<stories.AllowedDateFormats />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NumeralDate InternalValidationError story", () => {
+      CypressMountWithProviders(<stories.InternalValidationError />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NumeralDate InternalValidationWarning story", () => {
+      CypressMountWithProviders(<stories.InternalValidationWarning />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NumeralDate InlineLabel story", () => {
+      CypressMountWithProviders(<stories.InlineLabel />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NumeralDate EnablingAdaptiveBehaviour story", () => {
+      CypressMountWithProviders(<stories.EnablingAdaptiveBehaviour />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NumeralDate WithLabelHelp story", () => {
+      CypressMountWithProviders(<stories.WithLabelHelp />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NumeralDate WithFieldHelp story", () => {
+      CypressMountWithProviders(<stories.WithFieldHelp />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NumeralDate Size story", () => {
+      CypressMountWithProviders(<stories.Size />);
+
+      cy.checkAccessibility();
     });
   });
 });
