@@ -472,6 +472,34 @@ describe("Checkbox", () => {
       });
     });
 
+    describe("when size=small", () => {
+      let wrapper: ReactWrapper;
+
+      beforeEach(() => {
+        wrapper = renderCheckbox({ size: "small" });
+      });
+
+      it("applies the appropriate input display element styles", () => {
+        const styles = {
+          borderRadius: "var(--borderRadius050)",
+        };
+
+        assertStyleMatch(styles, wrapper, {
+          modifier: `
+                ${StyledCheckableInput}
+              `,
+        });
+
+        assertStyleMatch(styles, wrapper, {
+          modifier: `
+                ${HiddenCheckableInputStyle}
+              `,
+        });
+
+        assertStyleMatch(styles, wrapper, { modifier: "svg" });
+      });
+    });
+
     describe("when reverse is true", () => {
       describe("default", () => {
         const wrapper = renderCheckbox({ reverse: true });
