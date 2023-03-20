@@ -50,7 +50,7 @@ export const ScrollableBlock = ({
           data-component="scrollable-block-parent"
           overrideColor
           variant={parentVariant}
-          // as="div"
+          p="2px 16px"
         >
           {parent}
         </MenuItem>

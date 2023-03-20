@@ -8,6 +8,7 @@ import {
   testStyledSystemLayout,
   testStyledSystemFlexBox,
   assertStyleMatch,
+  testStyledSystemPadding,
 } from "../../../__spec_helper__/test-utils";
 import StyledMenuItemWrapper from "./menu-item.style";
 import Submenu from "../__internal__/submenu/submenu.component";
@@ -79,6 +80,12 @@ describe("MenuItem", () => {
       </MenuContext.Provider>
     );
   };
+
+  testStyledSystemPadding(
+    (props) => <MenuItem {...props}>Foo</MenuItem>,
+    {},
+    (component) => component.find(StyledMenuItemWrapper)
+  );
 
   beforeEach(() => {
     container = document.createElement("div");

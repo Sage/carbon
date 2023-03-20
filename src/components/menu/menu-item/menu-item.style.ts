@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { padding, PaddingProps } from "styled-system";
 import { StyledLink } from "../../link/link.style";
 import StyledIcon from "../../icon/icon.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
@@ -6,22 +7,23 @@ import menuConfigVariants from "../menu.config";
 import { MenuType } from "../menu.context";
 import { MenuWithChildren } from "./menu-item.component";
 import Link from "../../link";
+import { baseTheme } from "../../../style/themes";
 
 interface StyledMenuItemWrapperProps
   extends Pick<
-    MenuWithChildren,
-    | "href"
-    | "variant"
-    | "showDropdownArrow"
-    | "overrideColor"
-    | "clickToOpen"
-    | "maxWidth"
-  > {
+      MenuWithChildren,
+      | "href"
+      | "variant"
+      | "showDropdownArrow"
+      | "overrideColor"
+      | "clickToOpen"
+      | "maxWidth"
+    >,
+    PaddingProps {
   menuType: MenuType;
   selected?: boolean;
   hasSubmenu?: boolean;
   isOpen?: boolean;
-  isSearch?: boolean;
   inFullscreenView?: boolean;
   asPassiveItem?: boolean;
   placeholderTabIndex?: boolean;
@@ -41,7 +43,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
     isOpen,
     variant,
     showDropdownArrow,
-    isSearch,
     href,
     clickToOpen,
     maxWidth,
@@ -51,6 +52,8 @@ const StyledMenuItemWrapper = styled.a.attrs({
     asDiv,
     hasInput,
   }) => css`
+    ${padding}
+
     display: inline-block;
     font-size: 14px;
     font-weight: 700;
@@ -207,8 +210,8 @@ const StyledMenuItemWrapper = styled.a.attrs({
         background-color: ${menuConfigVariants[menuType].submenuItemBackground};
         color: ${menuConfigVariants[menuType].color};
       }
-    `} 
-    
+    `}
+
     ${hasSubmenu &&
     css`
       background-color: ${menuConfigVariants[menuType].submenuBackground};
@@ -294,11 +297,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
       `}
     `}
 
-    ${isSearch &&
-    css`
-      padding: 2px 16px;
-    `}
-
     ${inFullscreenView &&
     css`
       ${
@@ -370,5 +368,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
     `}
   `}
 `;
+
+StyledMenuItemWrapper.defaultProps = { theme: baseTheme };
 
 export default StyledMenuItemWrapper;

@@ -1,7 +1,12 @@
 import React, { useRef, useEffect, useCallback, useContext } from "react";
-import { FlexboxProps, LayoutProps, MaxWidthProps } from "styled-system";
+import {
+  FlexboxProps,
+  LayoutProps,
+  MaxWidthProps,
+  PaddingProps,
+} from "styled-system";
 import invariant from "invariant";
-
+import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import StyledMenuItemWrapper from "./menu-item.style";
 import Events from "../../../__internal__/utils/helpers/events";
 import MenuContext, { MenuContextProps } from "../menu.context";
@@ -15,7 +20,7 @@ import { IconType } from "../../icon";
 
 export type VariantType = "default" | "alternate";
 
-interface MenuItemBaseProps extends LayoutProps, FlexboxProps {
+interface MenuItemBaseProps extends LayoutProps, FlexboxProps, PaddingProps {
   /** Custom className */
   className?: string;
   /** onClick handler */
@@ -62,7 +67,6 @@ interface MenuItemBaseProps extends LayoutProps, FlexboxProps {
   "data-component"?: string;
   /** When set the submenu opens by click instead of hover */
   clickToOpen?: boolean;
-  /** Sets the maxWidth of the MenuItem */
   maxWidth?: MaxWidthProps["maxWidth"];
   /**
    * @private @ignore
@@ -287,6 +291,8 @@ export const MenuItem = ({
     );
   }
 
+  const paddingProps = filterStyledSystemPaddingProps(rest);
+
   return (
     <StyledMenuItem
       data-component="menu-item"
@@ -301,7 +307,6 @@ export const MenuItem = ({
       onClick={updateFocusOnClick}
     >
       <StyledMenuItemWrapper
-        isSearch={hasInput}
         menuType={menuType}
         {...elementProps}
         ariaLabel={ariaLabel}
@@ -309,6 +314,7 @@ export const MenuItem = ({
         inFullscreenView={inFullscreenView}
         asPassiveItem={asPassiveItem}
         placeholderTabIndex={asPassiveItem}
+        {...paddingProps}
         asDiv={hasInput || as === "div"}
         hasInput={hasInput}
       >
