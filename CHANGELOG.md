@@ -1,3 +1,10 @@
+## [116.1.0](https://github.com/Sage/carbon/compare/v116.0.1...v116.1.0) (2023-03-20)
+
+
+### Features
+
+* **badge:** allow component to be display only ([856ecc2](https://github.com/Sage/carbon/commit/856ecc2a1681705051250ac6c27aba4a5f62e585)), closes [#5706](https://github.com/Sage/carbon/issues/5706)
+
 ### [116.0.1](https://github.com/Sage/carbon/compare/v116.0.0...v116.0.1) (2023-03-15)
 
 
