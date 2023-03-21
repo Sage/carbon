@@ -57,6 +57,7 @@ export interface StyledButtonToggleLabelProps {
 const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
   display: inline-block;
   position: relative;
+  margin: 2px;
   box-sizing: border-box;
   max-width: 100%;
   ${({ size }) => css`

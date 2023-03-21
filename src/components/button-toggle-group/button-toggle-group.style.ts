@@ -14,6 +14,7 @@ type StyledButtonToggleGroupProps = ValidationProps &
 const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
   display: flex;
   overflow: hidden;
+  margin: 2px;
 
   ${StyledButtonToggle}:not(:first-of-type):not(:last-of-type) ${StyledButtonToggleLabel} {
     border-radius: var(--borderRadius000);
