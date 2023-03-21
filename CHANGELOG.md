@@ -1,3 +1,10 @@
+### [116.1.2](https://github.com/Sage/carbon/compare/v116.1.1...v116.1.2) (2023-03-21)
+
+
+### Bug Fixes
+
+* **button-toggle:** ensure text wraps correctly ([243badb](https://github.com/Sage/carbon/commit/243badbe6709d7d5cc669dfe951468859436d1c7)), closes [#FE-5682](https://github.com/Sage/carbon/issues/FE-5682)
+
 ### [116.1.1](https://github.com/Sage/carbon/compare/v116.1.0...v116.1.1) (2023-03-21)
 
 
