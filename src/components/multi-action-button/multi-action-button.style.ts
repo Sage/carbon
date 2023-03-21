@@ -92,7 +92,20 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
       min-width: 100%;
       text-align: ${align};
       z-index: ${theme.zIndex.overlay};
-      border-radius: 0px;
+
+      :first-of-type:not(:last-of-type) {
+        border-top-left-radius: var(--borderRadius000);
+        border-top-right-radius: var(--borderRadius000);
+        border-bottom-right-radius: var(--borderRadius000);
+        border-bottom-left-radius: var(--borderRadius000);
+      }
+
+      &:last-of-type {
+        border-top-right-radius: var(--borderRadius000);
+        border-top-left-radius: var(--borderRadius000);
+        border-bottom-left-radius: var(--borderRadius100);
+        border-bottom-right-radius: var(--borderRadius100);
+      }
 
       /* Styling for Safari. */
       @media not all and (min-resolution: 0.001dpcm) {
