@@ -104,6 +104,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("drawer") &&
       !prepareUrl[0].startsWith("group-character") &&
       !prepareUrl[0].startsWith("duelling-picklist") &&
+      !prepareUrl[0].startsWith("menu") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);

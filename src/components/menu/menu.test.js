@@ -605,7 +605,7 @@ context("Testing Menu component", () => {
     });
 
     it.each(["nowrap", "wrap", "wrap-reverse"])(
-      "should verify Menu flex wrap is %s",
+      "should verify Menu flexWrap is %s",
       (wrap) => {
         CypressMountWithProviders(<stories.MenuComponent flexWrap={wrap} />);
 
@@ -614,7 +614,7 @@ context("Testing Menu component", () => {
     );
 
     it.each(["column", "column-reverse", "row", "row-reverse"])(
-      "should verify Menu flex direction is %s",
+      "should verify Menu flexDirection is %s",
       (direction) => {
         CypressMountWithProviders(
           <stories.MenuComponent flexDirection={direction} />
@@ -637,7 +637,7 @@ context("Testing Menu component", () => {
       [10, "10"],
       [50, "50"],
       [100, "100"],
-    ])("should verify Menu flex grow is %s", (value, growText) => {
+    ])("should verify Menu flexGrow is %s", (value, growText) => {
       CypressMountWithProviders(
         <stories.MenuComponent flex="auto" flexGrow={value} />
       );
@@ -649,7 +649,7 @@ context("Testing Menu component", () => {
       [10, "10"],
       [50, "50"],
       [100, "100"],
-    ])("should verify Menu flex shrink is %s", (value, shrinkText) => {
+    ])("should verify Menu flexShrink is %s", (value, shrinkText) => {
       CypressMountWithProviders(
         <stories.MenuComponent flex="auto" flexShrink={value} />
       );
@@ -658,7 +658,7 @@ context("Testing Menu component", () => {
     });
 
     it.each(["auto", "content", "fit-content", "max-content", "min-content"])(
-      "should verify Menu flex basis is %s",
+      "should verify Menu flexBasis is %s",
       (basis) => {
         CypressMountWithProviders(<stories.MenuComponent flexBasis={basis} />);
 
@@ -1205,116 +1205,191 @@ context("Testing Menu component", () => {
     });
   });
 
-  describe.only("Accessibility tests for Menu component", () => {
-    // it("should pass accessibility tests for Menu default", () => {
-    //   CypressMountWithProviders(<stories.MenuComponent />);
+  describe("Accessibility tests for Menu component", () => {
+    it("should pass accessibility tests for Menu default", () => {
+      CypressMountWithProviders(<stories.MenuComponent />);
 
-    //   cy.checkAccessibility();
-    // });
+      cy.checkAccessibility();
+    });
 
-    // it("should pass accessibility tests for Menu expanded", () => {
-    //   CypressMountWithProviders(<stories.MenuComponent />);
+    it("should pass accessibility tests for Menu expanded", () => {
+      CypressMountWithProviders(<stories.MenuComponent />);
 
-    //   submenu()
-    //     .eq(positionOfElement("first"), div)
-    //     .trigger("mouseover")
-    //     .then(() => {
-    //       // eslint-disable-next-line no-unused-expressions
-    //       cy.checkAccessibility();
-    //     });
-    // });
+      submenu()
+        .eq(positionOfElement("first"), div)
+        .trigger("mouseover")
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
 
-    // it.each(["default", "large"])(
-    //   "should pass accessibility tests for Menu when divider size is %s", (divider) => {
-    //   CypressMountWithProviders(<stories.MenuComponent size={divider} />);
+    it.each(["default", "large"])(
+      "should pass accessibility tests for Menu when divider size is %s",
+      (divider) => {
+        CypressMountWithProviders(<stories.MenuComponent size={divider} />);
 
-    //   submenu()
-    //     .eq(positionOfElement("first"), div)
-    //     .trigger("mouseover")
-    //     .then(() => {
-    //       // eslint-disable-next-line no-unused-expressions
-    //       cy.checkAccessibility();
-    //     });
-    // });
+        submenu()
+          .eq(positionOfElement("first"), div)
+          .trigger("mouseover")
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            cy.checkAccessibility();
+          });
+      }
+    );
 
-    // it("should pass accessibility tests for Menu when search component is focused", () => {
-    //   CypressMountWithProviders(<stories.MenuComponentSearch />);
+    it("should pass accessibility tests for Menu when search component is focused", () => {
+      CypressMountWithProviders(<stories.MenuComponentSearch />);
 
-    //   pressTABKey(1);
-    //   cy.wait(50);
-    //   cy.focused().trigger("keydown", keyCode("Enter"));
-    //   cy.wait(50);
-    //   pressTABKey(0);
-    //   cy.wait(50);
-    //   cy.focused().trigger("keydown", keyCode("downarrow"))
-    //     .then(() => {
-    //     // eslint-disable-next-line no-unused-expressions
-    //     cy.checkAccessibility();
-    //   });
-    // });
+      pressTABKey(1);
+      cy.wait(50);
+      cy.focused().trigger("keydown", keyCode("Enter"));
+      cy.wait(50);
+      pressTABKey(0);
+      cy.wait(50);
+      cy.focused()
+        .trigger("keydown", keyCode("downarrow"))
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
 
-    // it("should pass accessibility tests for Menu when a menu item has a long label", () => {
-    //   CypressMountWithProviders(
-    //     <Box mb={150}>
-    //       <Menu menuType="white">
-    //         <MenuItem submenu="Menu Item One">
-    //           <MenuItem href="#">
-    //             Item Submenu One Is A Very Long Submenu Item Indeed
-    //           </MenuItem>
-    //           <MenuItem variant="alternate" href="#">
-    //             Item Submenu Two
-    //           </MenuItem>
-    //         </MenuItem>
-    //       </Menu>
-    //     </Box>
-    //   );
+    it("should pass accessibility tests for Menu when a menu item has a long label", () => {
+      CypressMountWithProviders(
+        <Box mb={150}>
+          <Menu menuType="white">
+            <MenuItem submenu="Menu Item One">
+              <MenuItem href="#">
+                Item Submenu One Is A Very Long Submenu Item Indeed
+              </MenuItem>
+              <MenuItem variant="alternate" href="#">
+                Item Submenu Two
+              </MenuItem>
+            </MenuItem>
+          </Menu>
+        </Box>
+      );
 
-    //   submenu()
-    //     .eq(positionOfElement("first"))
-    //     .trigger("mouseover")
-    //     .then(() => {
-    //       // eslint-disable-next-line no-unused-expressions
-    //       cy.checkAccessibility();
-    //   });
-    // });
+      submenu()
+        .eq(positionOfElement("first"))
+        .trigger("mouseover")
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
 
-    // it("should pass accessibility tests for Menu when a submenu has a long label", () => {
-    //   CypressMountWithProviders(
-    //     <Box mb={150}>
-    //       <Menu menuType="white">
-    //         <MenuItem submenu="Menu Item One Has A Very Long Menu Title For No Reason Whatsoever">
-    //           <MenuItem href="#">Item Submenu One</MenuItem>
-    //           <MenuItem variant="alternate" href="#">
-    //             Item Submenu Two
-    //           </MenuItem>
-    //         </MenuItem>
-    //       </Menu>
-    //     </Box>
-    //   );
+    it("should pass accessibility tests for Menu when a submenu has a long label", () => {
+      CypressMountWithProviders(
+        <Box mb={150}>
+          <Menu menuType="white">
+            <MenuItem submenu="Menu Item One Has A Very Long Menu Title For No Reason Whatsoever">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem variant="alternate" href="#">
+                Item Submenu Two
+              </MenuItem>
+            </MenuItem>
+          </Menu>
+        </Box>
+      );
 
-    //   submenu().eq(positionOfElement("first")).trigger("mouseover");
-    //   submenu()
-    //     .eq(positionOfElement("first"))
-    //     .then(() => {
-    //       // eslint-disable-next-line no-unused-expressions
-    //       cy.checkAccessibility();
-    //     });
-    // });
+      submenu().eq(positionOfElement("first")).trigger("mouseover");
+      submenu()
+        .eq(positionOfElement("first"))
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
 
-    // it.each(["450px", "675px", "1200px"])(
-    //   "should pass accessibility tests for Menu when width is %s", (width) => {
-    //     CypressMountWithProviders(<stories.MenuComponent width={width} />);
+    it.each(["450px", "675px", "1200px"])(
+      "should pass accessibility tests for Menu when width is %s",
+      (width) => {
+        CypressMountWithProviders(<stories.MenuComponent width={width} />);
 
-    //     cy.checkAccessibility();
-    //   }
-    // );
+        cy.checkAccessibility();
+      }
+    );
 
-    // it.each(["10px", "30px", "50px"])(
-    //   "should pass accessibility tests for Menu when height is s", (propValue) => {
-    //     CypressMountWithProviders(<stories.MenuComponent height={propValue} />);
+    it.each(["10px", "30px", "50px"])(
+      "should pass accessibility tests for Menu when height is s",
+      (propValue) => {
+        CypressMountWithProviders(<stories.MenuComponent height={propValue} />);
 
-    //     cy.checkAccessibility();
-    // });
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([250, 750, 1350])(
+      "should pass accessibility tests for Menu when size is %spx",
+      (size) => {
+        CypressMountWithProviders(<stories.MenuComponent size={size} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["block", "inline-block", "flex", "contents", "list-item", "none"])(
+      "should pass accessibility tests for Menu when display is %s",
+      (display) => {
+        CypressMountWithProviders(<stories.MenuComponent display={display} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "baseline",
+      "bottom",
+      "middle",
+      "sub",
+      "super",
+      "text-bottom",
+      "text-top",
+      "top",
+    ])(
+      "should pass accessibility tests for Menu when alignItmes is %s",
+      (alignment) => {
+        CypressMountWithProviders(
+          <stories.MenuComponent verticalAlign={alignment} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["auto", "clip", "hidden", "scroll", "visible"])(
+      "should pass accessibility tests for Menu when overflow is %s",
+      (overflow) => {
+        CypressMountWithProviders(<Menu overflow={overflow} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["auto", "clip", "hidden", "scroll", "visible"])(
+      "should pass accessibility tests for Menu when overflowX is %s",
+      (overflow) => {
+        CypressMountWithProviders(
+          <stories.MenuComponent overflowX={overflow} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["auto", "clip", "hidden", "scroll", "visible"])(
+      "should pass accessibility tests for Menu when overflowY is %s",
+      (overflow) => {
+        CypressMountWithProviders(
+          <stories.MenuComponent overflowY={overflow} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
 
     it.each([
       "normal",
@@ -1323,12 +1398,223 @@ context("Testing Menu component", () => {
       "center",
       "flex-start",
       "flex-end",
-    ])("should verify Menu alignItems is %s", (alignment) => {
-      CypressMountWithProviders(
-        <stories.MenuComponent alignItems={alignment} />
-      );
+    ])(
+      "should pass accessibility tests for Menu when alignItems is %s",
+      (alignment) => {
+        CypressMountWithProviders(
+          <stories.MenuComponent alignItems={alignment} />
+        );
 
-      menu().should("have.css", "align-items", alignment);
-    });
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "normal",
+      "baseline",
+      "center",
+      "flex-start",
+      "flex-end",
+      "space-between",
+      "space-around",
+      "stretch",
+    ])(
+      "should pass accessibility tests for Menu when alignContent is %s",
+      (alignment) => {
+        CypressMountWithProviders(
+          <stories.MenuComponent alignContent={alignment} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "left",
+      "center",
+      "right",
+      "flex-start",
+      "flex-end",
+      "normal",
+      "stretch",
+    ])(
+      "should pass accessibility tests for Menu when justifyItems is %s",
+      (justified) => {
+        CypressMountWithProviders(
+          <stories.MenuComponent justifyItems={justified} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "left",
+      "center",
+      "right",
+      "flex-start",
+      "flex-end",
+      "normal",
+      "space-between",
+      "space-around",
+      "stretch",
+    ])(
+      "should pass accessibility tests for Menu when justifyContent is %s",
+      (justified) => {
+        CypressMountWithProviders(
+          <stories.MenuComponent justifyContent={justified} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["nowrap", "wrap", "wrap-reverse"])(
+      "should pass accessibility tests for Menu when flexWrap is %s",
+      (wrap) => {
+        CypressMountWithProviders(<stories.MenuComponent flexWrap={wrap} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["column", "column-reverse", "row", "row-reverse"])(
+      "should pass accessibility tests for Menu when flexDirection is %s",
+      (direction) => {
+        CypressMountWithProviders(
+          <stories.MenuComponent flexDirection={direction} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["auto", "content", "fit-content", "max-content", "min-content"])(
+      "should pass accessibility tests for Menu when flex is %s",
+      (flex) => {
+        CypressMountWithProviders(<stories.MenuComponent flex={flex} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([10, 50, 100])(
+      "should pass accessibility tests for Menu when flexGrow is %s",
+      (value) => {
+        CypressMountWithProviders(
+          <stories.MenuComponent flex="auto" flexGrow={value} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([10, 50, 100])(
+      "should pass accessibility tests for Menu when flexShrink is %s",
+      (value) => {
+        CypressMountWithProviders(
+          <stories.MenuComponent flex="auto" flexShrink={value} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["auto", "content", "fit-content", "max-content", "min-content"])(
+      "should pass accessibility tests for Menu when flexBasis is %s",
+      (basis) => {
+        CypressMountWithProviders(<stories.MenuComponent flexBasis={basis} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "auto",
+      "baseline",
+      "left",
+      "normal",
+      "right",
+      "stretch",
+      "center",
+      "flex-start",
+      "flex-end",
+    ])(
+      "should pass accessibility tests for Menu when justifySelf is %s",
+      (justify) => {
+        CypressMountWithProviders(
+          <stories.MenuComponent justifySelf={justify} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "auto",
+      "baseline",
+      "normal",
+      "stretch",
+      "center",
+      "flex-start",
+      "flex-end",
+    ])(
+      "should pass accessibility tests for Menu when alignSelf is %s",
+      (align) => {
+        CypressMountWithProviders(<stories.MenuComponent alignSelf={align} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      CHARACTERS.STANDARD,
+      CHARACTERS.DIACRITICS,
+      CHARACTERS.SPECIALCHARACTERS,
+    ])(
+      "should pass accessibility tests for Menu when item text is %s",
+      (text) => {
+        CypressMountWithProviders(
+          <stories.MenuComponentItems submenu={text} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["default", "alternate"])(
+      "should pass accessibility tests for Menu when scroll block has a variant background color",
+      (variant) => {
+        CypressMountWithProviders(
+          <stories.MenuComponentScrollable variant={variant} />
+        );
+
+        submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["default", "alternate"])(
+      "should pass accessibility tests for Menu when Segment Title has a variant background color",
+      (variant) => {
+        CypressMountWithProviders(
+          <Box mb={150}>
+            <Menu menuType="white">
+              <MenuItem submenu="Menu Item One">
+                <MenuItem href="#">
+                  Item Submenu One Is A Very Long Submenu Item Indeed
+                </MenuItem>
+                <MenuSegmentTitle variant={variant}>
+                  Segment Title
+                </MenuSegmentTitle>
+              </MenuItem>
+            </Menu>
+          </Box>
+        );
+
+        submenu().eq(positionOfElement("first")).trigger("mouseover");
+        cy.checkAccessibility();
+      }
+    );
   });
 });
