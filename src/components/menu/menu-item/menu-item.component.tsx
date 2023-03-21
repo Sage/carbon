@@ -138,8 +138,6 @@ export const MenuItem = ({
   const menuItemId = useRef(guid());
   const submenuContext = useContext<SubmenuContextProps>(SubmenuContext);
   const {
-    registerItem: registerSubmenuItem,
-    unregisterItem: unregisterSubmenuItem,
     submenuFocusId,
     updateFocusId: updateSubmenuFocusId,
     handleKeyDown: handleSubmenuKeyDown,
@@ -164,25 +162,16 @@ export const MenuItem = ({
 
   useEffect(() => {
     const id = menuItemId.current;
-    if (registerSubmenuItem) {
-      registerSubmenuItem(id);
-    } else if (registerItem) {
+    if (registerItem) {
       registerItem(id);
     }
 
     return () => {
-      if (unregisterSubmenuItem) {
-        unregisterSubmenuItem(id);
-      } else if (unregisterItem) {
+      if (unregisterItem) {
         unregisterItem(id);
       }
     };
-  }, [
-    registerSubmenuItem,
-    registerItem,
-    unregisterSubmenuItem,
-    unregisterItem,
-  ]);
+  }, [registerItem, unregisterItem]);
 
   useEffect(() => {
     if (!openSubmenuId && focusFromSubmenu === undefined && focusFromMenu) {

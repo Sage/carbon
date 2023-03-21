@@ -107,23 +107,10 @@ const Submenu = React.forwardRef<
     } = menuContext;
     const [submenuOpen, setSubmenuOpen] = useState(false);
     const [submenuFocusId, setSubmenuFocusId] = useState<string | null>(null);
-    const [submenuItemIds, setSubmenuItemIds] = useState<string[]>([]);
+    const [submenuItemIds, setSubmenuItemIds] = useState<(string | null)[]>([]);
     const [characterString, setCharacterString] = useState("");
     const shiftTabPressed = useRef(false);
     const focusFirstMenuItemOnOpen = useRef(false);
-
-    const registerItem = useCallback((id) => {
-      setSubmenuItemIds((prevState) => {
-        return [...prevState, id];
-      });
-    }, []);
-
-    const unregisterItem = useCallback((id) => {
-      setSubmenuItemIds((prevState) => {
-        return prevState.filter((itemId) => itemId !== id);
-      });
-    }, []);
-
     const numberOfChildren = submenuItemIds.length;
 
     const blockIndex = useMemo(() => {
@@ -334,6 +321,22 @@ const Submenu = React.forwardRef<
     );
 
     useEffect(() => {
+      /* istanbul ignore else */
+      if (submenuRef.current && children) {
+        const items = submenuRef.current?.querySelectorAll(
+          ALL_CHILDREN_SELECTOR
+        );
+
+        /* istanbul ignore else */
+        if (items) {
+          setSubmenuItemIds(
+            Array.from(items).map((item) => item.getAttribute("id"))
+          );
+        }
+      }
+    }, [children, submenuOpen]);
+
+    useEffect(() => {
       if (
         focusFirstMenuItemOnOpen.current &&
         submenuOpen &&
@@ -349,6 +352,8 @@ const Submenu = React.forwardRef<
       document.removeEventListener("click", handleClickAway);
       closeSubmenu();
     };
+
+    const handleClickInside = useClickAwayListener(handleClickAway);
 
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
       openSubmenu();
@@ -369,8 +374,6 @@ const Submenu = React.forwardRef<
         }
       }
     }, [characterString, submenuItemIds]);
-
-    const handleClickInside = useClickAwayListener(handleClickAway);
 
     if (inFullscreenView) {
       return (
@@ -405,8 +408,6 @@ const Submenu = React.forwardRef<
               value={{
                 handleKeyDown,
                 blockIndex,
-                registerItem,
-                unregisterItem,
                 updateFocusId: setSubmenuFocusId,
               }}
             >
@@ -460,8 +461,6 @@ const Submenu = React.forwardRef<
                 submenuFocusId,
                 handleKeyDown,
                 blockIndex,
-                registerItem,
-                unregisterItem,
                 updateFocusId: setSubmenuFocusId,
                 shiftTabPressed: shiftTabPressed.current,
               }}

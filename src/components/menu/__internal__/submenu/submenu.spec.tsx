@@ -1586,4 +1586,84 @@ describe("Submenu component", () => {
       expect(mockSubmenuhandleKeyDown).not.toHaveBeenCalled();
     });
   });
+
+  describe("when children items are updated", () => {
+    const MockComponent = ({ show }: { show: boolean }) => (
+      <MenuContext.Provider value={menuContextValues("light")}>
+        <Submenu title="title">
+          <MenuItem href="#">Apple</MenuItem>
+          {show && (
+            <>
+              <MenuItem href="#">Banana</MenuItem>
+              <MenuItem href="#">Carrot</MenuItem>
+            </>
+          )}
+          <MenuItem href="#">Broccoli</MenuItem>
+        </Submenu>
+      </MenuContext.Provider>
+    );
+
+    it("re-queries the menu items so that keyboard navigation order is correct", () => {
+      wrapper = mount(<MockComponent show={false} />, {
+        attachTo: htmlElement,
+      });
+      openSubmenu(wrapper);
+      expect(wrapper.find(StyledMenuItem).length).toBe(2);
+      wrapper.setProps({ show: true });
+      wrapper.update();
+      expect(wrapper.find(StyledSubmenu).find(StyledMenuItem).length).toBe(4);
+
+      expect(
+        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(0).find("a")
+      ).toBeFocused();
+
+      act(() => {
+        wrapper
+          .find(StyledSubmenu)
+          .find(StyledMenuItemWrapper)
+          .at(0)
+          .find(StyledMenuItemWrapper)
+          .props()
+          .onKeyDown(events.arrowDown);
+      });
+
+      wrapper.update();
+
+      expect(
+        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(1).find("a")
+      ).toBeFocused();
+
+      act(() => {
+        wrapper
+          .find(StyledSubmenu)
+          .find(StyledMenuItemWrapper)
+          .at(1)
+          .find(StyledMenuItemWrapper)
+          .props()
+          .onKeyDown(events.arrowDown);
+      });
+
+      wrapper.update();
+
+      expect(
+        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(2).find("a")
+      ).toBeFocused();
+
+      act(() => {
+        wrapper
+          .find(StyledSubmenu)
+          .find(StyledMenuItemWrapper)
+          .at(2)
+          .find(StyledMenuItemWrapper)
+          .props()
+          .onKeyDown(events.arrowDown);
+      });
+
+      wrapper.update();
+
+      expect(
+        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(3).find("a")
+      ).toBeFocused();
+    });
+  });
 });

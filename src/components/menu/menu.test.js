@@ -162,6 +162,32 @@ const MenuComponentSearch = () => {
   );
 };
 
+const MenuWithChildrenUpdating = () => {
+  const [show, setShow] = React.useState(false);
+
+  return (
+    <div
+      onMouseOut={() => {}}
+      onFocus={() => {}}
+      onBlur={() => {}}
+      onMouseOver={() => setTimeout(() => setShow(true), 500)}
+    >
+      <Menu>
+        <MenuItem submenu="Submenu">
+          <MenuItem href="#">Apple</MenuItem>
+          {show && (
+            <>
+              <MenuItem href="#">Banana</MenuItem>
+              <MenuItem href="#">Carrot</MenuItem>
+            </>
+          )}
+          <MenuItem href="#">Broccoli</MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  );
+};
+
 const MenuComponentFullScreen = ({ ...props }) => {
   const [menuOpen, setMenuOpen] = React.useState({
     light: false,
@@ -1539,6 +1565,30 @@ context("Testing Menu component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+
+    it("should have correct keyboard navigation order when children of submenu update", () => {
+      CypressMountWithProviders(<MenuWithChildrenUpdating />);
+
+      submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+      cy.wait(500);
+
+      pressTABKey(1);
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      cy.focused().should("contain", "Apple");
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      cy.focused().should("contain", "Banana");
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      cy.focused().should("contain", "Carrot");
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      cy.focused().should("contain", "Broccoli");
+
+      cy.focused().trigger("keydown", keyCode("uparrow"));
+      cy.focused().should("contain", "Carrot");
+      cy.focused().trigger("keydown", keyCode("uparrow"));
+      cy.focused().should("contain", "Banana");
+      cy.focused().trigger("keydown", keyCode("uparrow"));
+      cy.focused().should("contain", "Apple");
     });
   });
 
