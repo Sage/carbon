@@ -84,16 +84,15 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
       left: 8px;
     }
 
-    ${StyledButton} {
-      border: 1px solid var(--colorsActionMajorTransparent);
-      display: flex;
-      justify-content: ${align};
-      margin-left: 0;
-      min-width: 100%;
-      text-align: ${align};
-      z-index: ${theme.zIndex.overlay};
+    > {
+      &:first-child:not(:last-child) {
+        border-top-left-radius: var(--borderRadius100);
+        border-top-right-radius: var(--borderRadius100);
+        border-bottom-right-radius: var(--borderRadius000);
+        border-bottom-left-radius: var(--borderRadius000);
+      }
 
-      :first-of-type:not(:last-of-type) {
+      &:first-of-type:not(:last-of-type) {
         border-top-left-radius: var(--borderRadius000);
         border-top-right-radius: var(--borderRadius000);
         border-bottom-right-radius: var(--borderRadius000);
@@ -106,6 +105,16 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
         border-bottom-left-radius: var(--borderRadius100);
         border-bottom-right-radius: var(--borderRadius100);
       }
+    }
+
+    ${StyledButton} {
+      border: 1px solid var(--colorsActionMajorTransparent);
+      display: flex;
+      justify-content: ${align};
+      margin-left: 0;
+      min-width: 100%;
+      text-align: ${align};
+      z-index: ${theme.zIndex.overlay};
 
       /* Styling for Safari. */
       @media not all and (min-resolution: 0.001dpcm) {
