@@ -6,6 +6,7 @@ import { GridContainer, GridItem } from ".";
 
 export default {
   title: "Grid/Test",
+  includeStories: ["Default", "Visual"],
   parameters: {
     info: { disable: true },
     chromatic: { viewports: [1500, 1300, 900] },
@@ -292,4 +293,40 @@ Default.story = {
 
 Visual.story = {
   name: "visual",
+};
+
+export const SimpleGridExample = ({ ...itemProps }) => {
+  return (
+    <GridContainer>
+      <GridItem alignSelf="stretch" justifySelf="stretch" {...itemProps}>
+        <Pod>Item 1</Pod>
+      </GridItem>
+    </GridContainer>
+  );
+};
+
+export const GridLayoutExample = () => {
+  return (
+    <GridContainer>
+      <GridItem alignSelf="stretch" justifySelf="stretch">
+        <Pod>Item 1</Pod>
+      </GridItem>
+      <GridItem
+        alignSelf="stretch"
+        justifySelf="stretch"
+        gridColumn="1 / 6"
+        gridRow="2 / 3"
+      >
+        <Pod>Item 2</Pod>
+      </GridItem>
+      <GridItem
+        alignSelf="stretch"
+        justifySelf="stretch"
+        gridColumn="7 / 13"
+        gridRow="4 / 5"
+      >
+        <Pod>Item 3</Pod>
+      </GridItem>
+    </GridContainer>
+  );
 };

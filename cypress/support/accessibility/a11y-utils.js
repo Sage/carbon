@@ -107,6 +107,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("settings-row") &&
       !prepareUrl[0].startsWith("numeral-date") &&
       !prepareUrl[0].startsWith("global-header") &&
+      !prepareUrl[0].startsWith("grid") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);
