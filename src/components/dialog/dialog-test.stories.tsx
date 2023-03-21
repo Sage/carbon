@@ -224,6 +224,7 @@ export const DialogComponentWithTextEditor = ({
   ...props
 }: Partial<DialogProps> & StoryProps) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [value, setValue] = useState(EditorState.createEmpty());
   return (
     <>
       <Dialog
@@ -235,8 +236,8 @@ export const DialogComponentWithTextEditor = ({
         <Textbox label="Textbox1" value="Textbox1" />
         <Textbox label="Textbox2" value="Textbox2" />
         <TextEditor
-          onChange={() => {}}
-          value={EditorState.createEmpty()}
+          onChange={(state) => setValue(state)}
+          value={value}
           labelText="Text Editor Label"
         />
         <Textbox label="Textbox3" value="Textbox3" />

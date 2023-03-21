@@ -225,6 +225,15 @@ context("Testing Vertical Menu component", () => {
           });
         }
       );
+
+      it("should return focus to Vertical Menu Full Screen close button with tabbing", () => {
+        CypressMountWithProviders(<VerticalMenuFullScreenCustom isOpen />);
+
+        verticalMenuItem().should("be.visible");
+        verticalMenuFullScreen().find("div").eq(0).click();
+        verticalMenuFullScreen().tab();
+        closeIconButton().should("be.focused");
+      });
     });
 
     it.each(["25px", "55px", "77px"])(
