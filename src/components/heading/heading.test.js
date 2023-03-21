@@ -105,7 +105,7 @@ context("Testing Heading component", () => {
         CypressMountWithProviders(
           <HeadingComponent help="This is a Title" helpAriaLabel={ariaLabel} />
         );
-        getComponent("help").should("have.attr", "aria-label", ariaLabel);
+        getComponent("help").contains(ariaLabel).should("exist");
       }
     );
 

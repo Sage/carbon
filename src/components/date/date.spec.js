@@ -18,7 +18,7 @@ import I18nProvider from "../i18n-provider";
 import Label from "../../__internal__/label";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import Tooltip from "../tooltip";
-import StyledHelp from "../help/help.style";
+import { VisuallyHidden as HelpVisuallyHidden } from "../help/help.style";
 import ValidationIcon from "../../__internal__/validations";
 import DateRangeContext from "../date-range/date-range.context";
 import {
@@ -866,15 +866,15 @@ describe("Date", () => {
   describe("label help", () => {
     it("passes the expected values to the help component", () => {
       const text = "foo";
-      const { "aria-label": ariaLabel } = render({
+      wrapper = render({
         label: text,
         labelHelp: text,
         helpAriaLabel: text,
-      })
-        .find(StyledHelp)
-        .props();
+      });
 
-      expect(ariaLabel).toEqual(text);
+      const helpVisuallyHiddenText = wrapper.find(HelpVisuallyHidden).text();
+
+      expect(helpVisuallyHiddenText).toContain(text);
     });
   });
 

@@ -4,9 +4,10 @@ import { shallow, mount, ShallowWrapper, ReactWrapper } from "enzyme";
 import Icon from "../icon";
 import Help, { HelpProps } from "./help.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
-import StyledHelp from "./help.style";
+import StyledHelp, { VisuallyHidden } from "./help.style";
 import Tooltip from "../tooltip";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
+import Logger from "../../__internal__/utils/logger";
 
 function renderHelp(props: HelpProps = {}) {
   const { children } = props;
@@ -15,8 +16,46 @@ function renderHelp(props: HelpProps = {}) {
 
 describe("Help", () => {
   let wrapper: ShallowWrapper | ReactWrapper;
+  let loggerSpy: jest.SpyInstance<void, [message: string]>;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
 
   testStyledSystemMargin((props) => <Help {...props} />);
+
+  describe("deprecation warnings", () => {
+    it("should display deprecation warning for tooltipId once", () => {
+      wrapper = shallow(renderHelp({ tooltipId: "foo" }));
+
+      const deprecationMessage =
+        "The `tooltipId` prop of `Help` is now deprecated and will be removed in a future release. " +
+        "It still provides the HTML ID of the tooltip element but is no longer needed for accessibility";
+
+      expect(loggerSpy).toHaveBeenCalledWith(deprecationMessage);
+
+      wrapper.setProps({ tooltipId: "bar" });
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("should display deprecation warning for aria-label once", () => {
+      wrapper = shallow(renderHelp({ ariaLabel: "foo" }));
+
+      const deprecationMessage =
+        "The `ariaLabel` prop of `Help` is now deprecated and will be removed in a future release. Please use the `accessibilityLabel` prop instead.";
+
+      expect(loggerSpy).toHaveBeenCalledWith(deprecationMessage);
+
+      wrapper.setProps({ ariaLabel: "bar" });
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
 
   describe("when custom classes are passed", () => {
     it("adds the custom classes", () => {
@@ -82,16 +121,15 @@ describe("Help", () => {
       wrapper.unmount();
     });
 
-    it("sets the appropriate props when href set", () => {
+    it("sets href attribute when href set", () => {
       const mockHref = "href";
-      wrapper = mount(renderHelp({ href: mockHref, ariaLabel: "foo" }));
+      wrapper = mount(renderHelp({ href: mockHref }));
 
       expect(wrapper.find(StyledHelp).prop("target")).toEqual("_blank");
       expect(wrapper.find(StyledHelp).prop("rel")).toEqual(
         "noopener noreferrer"
       );
       expect(wrapper.find(StyledHelp).prop("role")).toEqual(undefined);
-      expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual("foo");
       wrapper.unmount();
     });
 
@@ -101,6 +139,15 @@ describe("Help", () => {
       tooltip = wrapper.find(Tooltip);
       expect(icon.props().type).toBe("help");
       expect(tooltip.exists()).toBeFalsy();
+    });
+
+    it("renders the accessibility label and tooltiptext in visually hidden text", () => {
+      wrapper = mount(
+        renderHelp({ accessibilityLabel: "foo", children: "tooltip text" })
+      );
+      const hiddenText = wrapper.find(VisuallyHidden).text();
+      expect(hiddenText).toContain("foo");
+      expect(hiddenText).toContain("tooltip text");
     });
   });
 

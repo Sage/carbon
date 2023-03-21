@@ -22,6 +22,7 @@ import {
   radiobuttonGroupIcon,
   radiobuttonRole,
   radiobutton,
+  radiobuttonHelpIcon,
 } from "../../../cypress/locators/radiobutton";
 
 import {
@@ -114,6 +115,21 @@ context("Testing RadioButton component", () => {
       );
 
       radiobuttonInlineFieldHelp().should("have.text", "Inline fieldhelp");
+    });
+
+    it("should render Radiobutton component with helpAriaLabel", () => {
+      CypressMountWithProviders(
+        <RadioButtonComponent
+          label="Label For CheckBox"
+          labelHelp="Label Help"
+          helpAriaLabel="This text provides more information for the label"
+        />
+      );
+
+      radiobuttonIcon().trigger("mouseover");
+      radiobuttonHelpIcon()
+        .contains("This text provides more information for the label")
+        .should("exist");
     });
 
     it.each([

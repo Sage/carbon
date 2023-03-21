@@ -16,7 +16,7 @@ import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import FormField from "../../__internal__/form-field";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import Label from "../../__internal__/label";
-import StyledHelp from "../help/help.style";
+import { VisuallyHidden as HelpVisuallyHidden } from "../help/help.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
@@ -496,18 +496,18 @@ describe("NumeralDate", () => {
     it("should set the aria-label on the Help component", () => {
       const text = "foo";
 
-      const { "aria-label": ariaLabel } = mount(
+      wrapper = mount(
         <NumeralDate
           value={{ dd: "02", mm: "", yyyy: "" }}
           label={text}
           labelHelp={text}
           helpAriaLabel={text}
         />
-      )
-        .find(StyledHelp)
-        .props();
+      );
 
-      expect(ariaLabel).toEqual(text);
+      const helpVisuallyHiddenText = wrapper.find(HelpVisuallyHidden).text();
+
+      expect(helpVisuallyHiddenText).toContain(text);
     });
   });
 

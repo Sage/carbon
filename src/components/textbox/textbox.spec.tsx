@@ -15,7 +15,7 @@ import Label from "../../__internal__/label";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import CharacterCount from "../../__internal__/character-count";
 import Tooltip from "../tooltip";
-import StyledHelp from "../help/help.style";
+import { VisuallyHidden as HelpVisuallyHidden } from "../help/help.style";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import { ErrorBorder, StyledHintText, StyledInputHint } from "./textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
@@ -301,7 +301,9 @@ describe("Textbox", () => {
           />
         );
 
-        expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual(text);
+        const helpVisuallyHiddenText = wrapper.find(HelpVisuallyHidden).text();
+
+        expect(helpVisuallyHiddenText).toContain(text);
       });
     });
 

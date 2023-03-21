@@ -11,7 +11,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import mintTheme from "../../style/themes/mint";
 import RadioButtonStyle from "./radio-button.style";
 import Tooltip from "../tooltip";
-import StyledHelp from "../help/help.style";
+import { VisuallyHidden as HelpVisuallyHidden } from "../help/help.style";
 import Logger from "../../__internal__/utils/logger";
 
 const mockedGuid = "mocked-guid";
@@ -246,18 +246,18 @@ describe("RadioButton", () => {
     it("should set the aria-label on the Help component", () => {
       const text = "foo";
 
-      const { "aria-label": ariaLabel } = mount(
+      const wrapper = mount(
         <RadioButton
           value="foo"
           label={text}
           labelHelp={text}
           helpAriaLabel={text}
         />
-      )
-        .find(StyledHelp)
-        .props();
+      );
 
-      expect(ariaLabel).toEqual(text);
+      const helpVisuallyHiddenText = wrapper.find(HelpVisuallyHidden).text();
+
+      expect(helpVisuallyHiddenText).toContain(text);
     });
   });
 });

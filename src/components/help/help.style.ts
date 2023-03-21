@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
+import visuallyHiddenStyles from "../../style/utils/visually-hidden";
 
 interface StyledHelpProps {
   href?: string;
@@ -46,5 +47,9 @@ const StyledHelp = styled.div<StyledHelpProps>`
 StyledHelp.defaultProps = {
   theme: baseTheme,
 };
+
+export const VisuallyHidden = styled.span`
+  ${visuallyHiddenStyles}
+`;
 
 export default StyledHelp;

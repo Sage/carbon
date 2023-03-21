@@ -429,11 +429,7 @@ context("Tests for NumeralDate component", () => {
         />
       );
 
-      getComponent("help").should(
-        "have.attr",
-        "aria-label",
-        CHARACTERS.STANDARD
-      );
+      getComponent("help").contains(CHARACTERS.STANDARD).should("exist");
     });
   });
 

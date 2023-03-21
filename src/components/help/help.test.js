@@ -194,10 +194,10 @@ context("Tests for Help component", () => {
     );
 
     it.each(testData)(
-      "should check aria-label as %s for Help component",
+      "should check accessibility label as %s for Help component",
       (label) => {
-        CypressMountWithProviders(<HelpComponent ariaLabel={label} />);
-        getComponent("help").should("have.attr", "aria-label", label);
+        CypressMountWithProviders(<HelpComponent accessibilityLabel={label} />);
+        getComponent("help").contains(label).should("exist");
       }
     );
 

@@ -21,7 +21,7 @@ import ButtonToggle from "../button-toggle/button-toggle.component";
 import StyledButtonToggleGroup from "./button-toggle-group.style";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import FormField from "../../__internal__/form-field";
-import StyledHelp from "../help/help.style";
+import { VisuallyHidden as HelpVisuallyHidden } from "../help/help.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
@@ -59,8 +59,9 @@ describe("ButtonToggleGroup", () => {
       helpAriaLabel: text,
     });
 
-    const ariaLabel = wrapper.find(StyledHelp).prop("aria-label");
-    expect(ariaLabel).toEqual(text);
+    const helpVisuallyHiddenText = wrapper.find(HelpVisuallyHidden).text();
+
+    expect(helpVisuallyHiddenText).toContain(text);
   });
 
   it("when inputWidth prop is passed, renders component with correct width", () => {

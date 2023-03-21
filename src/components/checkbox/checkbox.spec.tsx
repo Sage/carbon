@@ -14,7 +14,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import Label from "../../__internal__/label";
 import Tooltip from "../tooltip";
-import StyledHelp from "../help/help.style";
+import { VisuallyHidden as HelpVisuallyHidden } from "../help/help.style";
 import Logger from "../../__internal__/utils/logger";
 import checkableInput from "../../__internal__/checkable-input";
 
@@ -583,9 +583,9 @@ describe("Checkbox", () => {
         { label: "foo", labelHelp: text, helpAriaLabel: text },
         mount
       );
-      const help = wrapper.find(StyledHelp);
+      const helpVisuallyHiddenText = wrapper.find(HelpVisuallyHidden).text();
 
-      expect(help.prop("aria-label")).toEqual(text);
+      expect(helpVisuallyHiddenText).toContain(text);
     });
   });
 

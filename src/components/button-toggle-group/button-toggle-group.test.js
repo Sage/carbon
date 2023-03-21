@@ -245,11 +245,7 @@ context("Testing Button-Toggle-Group component", () => {
         <stories.ButtonToggleGroupComponent helpAriaLabel={testPropValue} />
       );
 
-      buttonToggleGroupHelpIcon().should(
-        "have.attr",
-        "aria-label",
-        testPropValue
-      );
+      buttonToggleGroupHelpIcon().contains(testPropValue).should("exist");
     });
 
     it.each([

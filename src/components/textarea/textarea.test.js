@@ -472,11 +472,7 @@ context("Tests for Textarea component", () => {
         />
       );
 
-      getComponent("help").should(
-        "have.attr",
-        "aria-label",
-        CHARACTERS.STANDARD
-      );
+      getComponent("help").contains(CHARACTERS.STANDARD).should("exist");
     });
 
     it.each(["left", "right"])(

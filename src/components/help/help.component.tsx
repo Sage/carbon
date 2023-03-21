@@ -3,17 +3,21 @@ import { MarginProps } from "styled-system";
 
 import Icon, { IconType } from "../icon";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
-import StyledHelp from "./help.style";
+import StyledHelp, { VisuallyHidden } from "./help.style";
 import Events from "../../__internal__/utils/helpers/events";
 import { TooltipContext } from "../../__internal__/tooltip-provider";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipPositions } from "../tooltip/tooltip.config";
-import guid from "../../__internal__/utils/helpers/guid";
+import Logger from "../../__internal__/utils/logger";
 
 export interface HelpProps extends MarginProps {
   /** Overrides the default 'as' attribute of the Help component */
   as?: keyof JSX.IntrinsicElements;
-  /** Aria label */
+  /** A label to be attached to the component, which is rendered in hidden text that is announced by a screenreader, along with the tooltip text.
+   * Defaults to "help".
+   */
+  accessibilityLabel?: string;
+  /** A synonym for accessibilityLabel (deprecated) */
   ariaLabel?: string;
   /** The message to be displayed within the tooltip */
   children?: React.ReactNode;
@@ -36,7 +40,7 @@ export interface HelpProps extends MarginProps {
    * (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements)
    */
   tooltipFlipOverrides?: TooltipPositions[];
-  /** Id passed to the tooltip container, used for accessibility purposes */
+  /** Id passed to the tooltip container (deprecated) */
   tooltipId?: string;
   /** Position of tooltip relative to target */
   tooltipPosition?: TooltipPositions;
@@ -47,9 +51,13 @@ export interface HelpProps extends MarginProps {
   [key: string]: any;
 }
 
+let tooltipIdDeprecationWarningTriggered = false;
+let ariaLabelDeprecationWarningTriggered = false;
+
 export const Help = ({
   as,
-  ariaLabel = "help",
+  accessibilityLabel,
+  ariaLabel,
   children,
   className,
   href,
@@ -64,10 +72,25 @@ export const Help = ({
   type = "help",
   ...rest
 }: HelpProps): JSX.Element => {
-  const defaultTooltipId = useRef(guid());
   const helpElement = useRef<HTMLDivElement>(null);
   const [isTooltipVisible, updateTooltipVisible] = useState(false);
   const { helpAriaLabel } = useContext(TooltipContext);
+  const labelProp = accessibilityLabel || ariaLabel || "help";
+
+  if (tooltipId && !tooltipIdDeprecationWarningTriggered) {
+    tooltipIdDeprecationWarningTriggered = true;
+    Logger.deprecate(
+      "The `tooltipId` prop of `Help` is now deprecated and will be removed in a future release. " +
+        "It still provides the HTML ID of the tooltip element but is no longer needed for accessibility"
+    );
+  }
+
+  if (ariaLabel && !ariaLabelDeprecationWarningTriggered) {
+    ariaLabelDeprecationWarningTriggered = true;
+    Logger.deprecate(
+      "The `ariaLabel` prop of `Help` is now deprecated and will be removed in a future release. Please use the `accessibilityLabel` prop instead."
+    );
+  }
 
   useEffect(() => {
     function handleKeyPress(ev: KeyboardEvent) {
@@ -94,12 +117,6 @@ export const Help = ({
 
   return (
     <StyledHelp
-      aria-describedby={
-        isFocused || isTooltipVisible
-          ? tooltipId || defaultTooltipId.current
-          : undefined
-      }
-      aria-label={helpAriaLabel || ariaLabel}
       className={className}
       as={tagType}
       href={href}
@@ -119,9 +136,7 @@ export const Help = ({
             target: "_blank",
             rel: "noopener noreferrer",
           }
-        : {
-            role: "button",
-          })}
+        : {})}
       {...filterStyledSystemMarginProps(rest)}
       {...rest}
     >
@@ -135,8 +150,11 @@ export const Help = ({
         tooltipFontColor={tooltipFontColor}
         tooltipFlipOverrides={tooltipFlipOverrides}
         focusable={false}
-        tooltipId={tooltipId || defaultTooltipId.current}
+        tooltipId={tooltipId}
       />
+      <VisuallyHidden>
+        {helpAriaLabel || labelProp}. {children}
+      </VisuallyHidden>
     </StyledHelp>
   );
 };

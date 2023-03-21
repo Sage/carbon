@@ -118,11 +118,9 @@ context("Testing Checkbox component", () => {
     );
 
     checkboxIcon().trigger("mouseover");
-    checkboxHelpIcon().should(
-      "have.attr",
-      "aria-label",
-      "This text provides more information for the label"
-    );
+    checkboxHelpIcon()
+      .contains("This text provides more information for the label")
+      .should("exist");
   });
 
   it.each([

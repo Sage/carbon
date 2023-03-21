@@ -15,7 +15,7 @@ import ValidationIcon from "../../__internal__/validations/validation-icon.compo
 import guid from "../../__internal__/utils/helpers/guid";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import Tooltip from "../tooltip";
-import StyledHelp from "../help/help.style";
+import { VisuallyHidden as HelpVisuallyHidden } from "../help/help.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import {
   ErrorBorder,
@@ -173,9 +173,9 @@ describe("Textarea", () => {
         { label: "foo", labelHelp: text, helpAriaLabel: text },
         mount
       );
-      const help = wrapper.find(StyledHelp);
+      const helpVisuallyHiddenText = wrapper.find(HelpVisuallyHidden).text();
 
-      expect(help.prop("aria-label")).toEqual(text);
+      expect(helpVisuallyHiddenText).toContain(text);
     });
   });
 
@@ -192,7 +192,9 @@ describe("Textarea", () => {
           />
         );
 
-        expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual(text);
+        const helpVisuallyHiddenText = wrapper.find(HelpVisuallyHidden).text();
+
+        expect(helpVisuallyHiddenText).toContain(text);
       });
     });
 

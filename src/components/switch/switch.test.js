@@ -436,11 +436,9 @@ context("Testing Switch component", () => {
       );
 
       switchIcon().trigger("mouseover");
-      switchHelpIcon().should(
-        "have.attr",
-        "aria-label",
-        "This text provides more information for the label"
-      );
+      switchHelpIcon()
+        .contains("This text provides more information for the label")
+        .should("exist");
     });
 
     it.each([

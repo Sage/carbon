@@ -24,7 +24,7 @@ import SwitchStyle from "./switch.style";
 import Label from "../../__internal__/label";
 import I18nProvider, { I18nProviderProps } from "../i18n-provider";
 import Tooltip from "../tooltip";
-import StyledHelp from "../help/help.style";
+import { VisuallyHidden as HelpVisuallyHidden } from "../help/help.style";
 import Logger from "../../__internal__/utils/logger";
 
 const mockedGuid = "guid-12345";
@@ -593,9 +593,10 @@ describe("Switch", () => {
         { label: "foo", labelHelp: text, helpAriaLabel: text },
         mount
       );
-      const help = wrapper.find(StyledHelp);
 
-      expect(help.prop("aria-label")).toEqual(text);
+      const helpVisuallyHiddenText = wrapper.find(HelpVisuallyHidden).text();
+
+      expect(helpVisuallyHiddenText).toContain(text);
     });
   });
 
