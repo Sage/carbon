@@ -1,6 +1,7 @@
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import Badge from ".";
+import Box from "../box";
 import Button from "../button";
 
 <Meta title="Badge" parameters={{ info: { disable: true } }} />
@@ -37,13 +38,13 @@ import Badge from "carbon-react/lib/components/badge";
 
 <Canvas>
   <Story name="default">
-    <div style={{ margin: "40px" }}>
-      <Badge counter={9}>
+    <Box margin="40px">
+      <Badge counter={9} onClick={()=>{}}>
         <Button style={{ marginRight: 0 }} buttonType="tertiary">
           Filter
         </Button>
       </Badge>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -53,13 +54,13 @@ Badge doesn't support more than 2 digits
 
 <Canvas>
   <Story name="with 3 digits">
-    <div style={{ margin: "40px" }}>
-      <Badge counter={130}>
+    <Box margin="40px">
+      <Badge counter={130} onClick={()=>{}}>
         <Button style={{ marginRight: 0 }} buttonType="tertiary">
           Filter
         </Button>
       </Badge>
-    </div>
+    </Box>
   </Story>
 </Canvas>
 
@@ -69,11 +70,28 @@ If the counter is less than 1 badge will not show itself
 
 <Canvas>
   <Story name="with counter 0">
-    <div style={{ margin: "40px" }}>
-      <Badge counter={0}>
+    <Box margin="40px">
+      <Badge counter={0} onClick={()=>{}}>
         <Button buttonType="tertiary">Filter</Button>
       </Badge>
-    </div>
+    </Box>
+  </Story>
+</Canvas>
+
+### Display Only
+
+To acheive a `display only` version of this component, you can simply not pass an `onClick` function to the component. This means that instead of rendering as a `button` element, 
+the component will render as a `span`.
+
+<Canvas>
+  <Story name="display only">
+    <Box margin="40px">
+      <Badge counter={9} aria-label="The counter is currently displaying 9">
+        <Button style={{ marginRight: 0 }} buttonType="tertiary">
+          Filter
+        </Button>
+      </Badge>
+    </Box>
   </Story>
 </Canvas>
 
