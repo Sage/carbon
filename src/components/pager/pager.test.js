@@ -19,6 +19,7 @@ import {
   firstArrow,
   lastArrow,
   currentPageWrapper,
+  currentPageLabelWrapper,
   currentPageInput,
   pagerSummary,
   pageSelectElement,
@@ -254,6 +255,44 @@ context("Test for Pager component", () => {
       );
       firstArrow().should("be.visible");
       previousArrow().should("be.visible");
+    });
+
+    it.each([
+      [false, "not.exist"],
+      [true, "be.visible"],
+    ])(
+      "when interactivePageNumber is %s, standard pager nav number input rendered correctly",
+      (boolVal, assertion) => {
+        CypressMountWithProviders(
+          <PagerComponent currentPage={1} interactivePageNumber={boolVal} />
+        );
+
+        currentPageWrapper().should(assertion);
+      }
+    );
+
+    it.each([
+      [true, "not.exist"],
+      [false, "be.visible"],
+    ])(
+      "when interactivePageNumber is %s, pager nav label is rendered correctly",
+      (boolVal, assertion) => {
+        CypressMountWithProviders(
+          <PagerComponent currentPage={1} interactivePageNumber={boolVal} />
+        );
+
+        currentPageLabelWrapper().should(assertion);
+      }
+    );
+
+    it("when interactivePageNumber is false, pager nav label is rendered with correct styling", () => {
+      CypressMountWithProviders(
+        <PagerComponent currentPage={1} interactivePageNumber={false} />
+      );
+
+      currentPageLabelWrapper()
+        .should("have.css", "padding", "9px 12px")
+        .and("have.css", "margin", "4px 0px");
     });
   });
 

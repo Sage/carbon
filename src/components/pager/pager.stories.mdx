@@ -35,6 +35,15 @@ import Pager from "carbon-react/lib/components/pager";
   <Story story={stories.Default} name="default" />
 </Canvas>
 
+### with interactivePageNumber
+
+When the `interactivePageNumber` prop is `false` the number input which contains the current
+page number is replaced with a non-interactive label which will include the current page, and total page count all in one string.
+
+<Canvas>
+  <Story story={stories.InteractivePageNumber} name="interactivePageNumber" />
+</Canvas>
+
 ### with hideDisabledElements
 
 The example below demonstrates the functionality of the `hideDisabledElements` prop, when `true` all elements that typically would be disabled
