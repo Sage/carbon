@@ -1,12 +1,17 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import PropTypes from "prop-types";
 import BaseTheme from "../../style/themes/base";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import StyledTab from "./tab/tab.style";
+import { TabsProps } from ".";
 
-const StyledTabs = styled.div`
-  ${({ position, inSidebar, headerWidth }) => css`
+export interface StyledTabsProps
+  extends Pick<TabsProps, "headerWidth" | "position"> {
+  isInSidebar?: boolean;
+}
+
+const StyledTabs = styled.div<StyledTabsProps>`
+  ${({ position, isInSidebar, headerWidth }) => css`
     color: var(--colorsActionMinorYin090);
 
     ${position === "left" &&
@@ -22,7 +27,7 @@ const StyledTabs = styled.div`
         }
       `}
 
-      ${!inSidebar &&
+      ${!isInSidebar &&
       css`
         display: flex;
       `}
@@ -35,13 +40,7 @@ const StyledTabs = styled.div`
 `;
 
 StyledTabs.defaultProps = {
-  position: "top",
   theme: BaseTheme,
-};
-
-StyledTabs.propTypes = {
-  position: PropTypes.oneOf(["top", "left"]),
-  hasCustomTarget: PropTypes.bool,
 };
 
 export default StyledTabs;

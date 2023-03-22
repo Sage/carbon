@@ -1,16 +1,15 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React from "react";
+import { Tabs, Tab, TabsProps } from ".";
 
-import { Tabs, Tab } from "./tabs.component";
-
-<Meta
-  title="Tabs/Test"
-  parameters={{
+export default {
+  title: "Tabs/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disableSnapshot: true,
     },
-  }}
-  argTypes={{
+  },
+  argTypes: {
     align: {
       options: ["left", "right"],
       control: {
@@ -41,10 +40,10 @@ import { Tabs, Tab } from "./tabs.component";
         type: "select",
       },
     },
-  }}
-/>
+  },
+};
 
-export const TabsStory = (args) => {
+export const Default = (args: TabsProps) => {
   return (
     <Tabs {...args}>
       <Tab
@@ -110,22 +109,4 @@ export const TabsStory = (args) => {
   );
 };
 
-# Tabs
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      headerWidth: "",
-      align: "left",
-      position: "top",
-      borders: "off",
-      size: "default",
-      variant: "default",
-    }}
-  >
-    {TabsStory.bind({})}
-  </Story>
-</Canvas>
+Default.storyName = "default";

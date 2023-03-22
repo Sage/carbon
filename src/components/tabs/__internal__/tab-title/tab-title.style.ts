@@ -1,10 +1,30 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 
 import StyledIcon from "../../../icon/icon.style";
 import StyledValidationIcon from "../../../../__internal__/validations/validation-icon.style";
+import { TabTitleProps } from ".";
 
-const StyledTitleContent = styled.span`
+interface StyledTitleContentProps
+  extends Pick<
+    TabTitleProps,
+    | "align"
+    | "borders"
+    | "error"
+    | "info"
+    | "isTabSelected"
+    | "noLeftBorder"
+    | "noRightBorder"
+    | "position"
+    | "size"
+    | "warning"
+  > {
+  alternateStyling?: boolean;
+  hasCustomLayout?: boolean;
+  hasHref?: boolean;
+  hasSiblings?: boolean;
+}
+
+const StyledTitleContent = styled.span<StyledTitleContentProps>`
   outline: none;
   display: inline-block;
   line-height: 20px;
@@ -18,8 +38,8 @@ const StyledTitleContent = styled.span`
     size,
     isTabSelected,
     hasSiblings,
-    borders,
-    position,
+    borders = false,
+    position = "top",
     noLeftBorder,
     noRightBorder,
     hasHref,
@@ -250,7 +270,7 @@ const StyledTitleContent = styled.span`
   `}
 `;
 
-const StyledTabTitle = styled.button`
+const tabTitleStyles = css<TabTitleProps>`
   background-color: transparent;
   display: inline-block;
   font-weight: bold;
@@ -269,8 +289,8 @@ const StyledTabTitle = styled.button`
 
   ${({
     size,
-    position,
-    borders,
+    position = "top",
+    borders = false,
     noRightBorder,
     noLeftBorder,
     isTabSelected,
@@ -444,8 +464,27 @@ const StyledTabTitle = styled.button`
   `}
 `;
 
-const StyledLayoutWrapper = styled.div`
-  ${({ hasCustomLayout, titlePosition, hasCustomSibling, position }) => css`
+const StyledTabTitleButton = styled.button`
+  ${tabTitleStyles}
+`;
+
+const StyledTabTitleLink = styled.a`
+  ${tabTitleStyles}
+`;
+
+interface StyledLayoutWrapperProps
+  extends Pick<TabTitleProps, "titlePosition" | "position"> {
+  hasCustomLayout?: boolean;
+  hasCustomSibling?: boolean;
+}
+
+const StyledLayoutWrapper = styled.div<StyledLayoutWrapperProps>`
+  ${({
+    hasCustomLayout,
+    titlePosition = "before",
+    hasCustomSibling,
+    position,
+  }) => css`
     ${hasCustomLayout &&
     css`
       flex-grow: 2;
@@ -483,11 +522,13 @@ const StyledLayoutWrapper = styled.div`
   `}
 `;
 
-const StyledSelectedIndicator = styled.div`
+type StyledSelectedIndicatorProps = Pick<TabTitleProps, "position">;
+
+const StyledSelectedIndicator = styled.div<StyledSelectedIndicatorProps>`
   position: absolute;
   z-index: 1;
 
-  ${({ position }) => css`
+  ${({ position = "top" }) => css`
     ${position === "top" &&
     css`
       bottom: 0px;
@@ -510,57 +551,9 @@ const StyledSelectedIndicator = styled.div`
   `}
 `;
 
-StyledTabTitle.propTypes = {
-  position: PropTypes.oneOf(["top", "left"]),
-  size: PropTypes.oneOf(["default", "large"]),
-  borders: PropTypes.bool,
-};
-
-StyledTabTitle.defaultProps = {
-  position: "top",
-  size: "default",
-  borders: false,
-};
-
-StyledLayoutWrapper.propTypes = {
-  hasCustomLayout: PropTypes.bool,
-  titlePosition: PropTypes.oneOf(["before", "after"]),
-};
-
-StyledLayoutWrapper.defaultProps = {
-  titlePosition: "before",
-};
-
-StyledTitleContent.propTypes = {
-  position: PropTypes.oneOf(["top", "left"]),
-  size: PropTypes.oneOf(["default", "large"]),
-  borders: PropTypes.bool,
-  error: PropTypes.bool,
-  warning: PropTypes.bool,
-  info: PropTypes.bool,
-  noLeftBorder: PropTypes.bool,
-  noRightBorder: PropTypes.bool,
-  hasSiblings: PropTypes.bool,
-};
-
-StyledTitleContent.defaultProps = {
-  position: "top",
-  size: "default",
-  borders: false,
-};
-
-StyledSelectedIndicator.propTypes = {
-  position: PropTypes.oneOf(["top", "left"]),
-  size: PropTypes.oneOf(["default", "large"]),
-};
-
-StyledSelectedIndicator.defaultProps = {
-  position: "top",
-  size: "default",
-};
-
 export {
-  StyledTabTitle,
+  StyledTabTitleButton,
+  StyledTabTitleLink,
   StyledTitleContent,
   StyledLayoutWrapper,
   StyledSelectedIndicator,
