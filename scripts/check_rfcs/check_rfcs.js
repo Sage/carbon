@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* istanbul ignore file */
 const { Octokit } = require("@octokit/rest");
 const dotenv = require("dotenv");
 const chalk = require("chalk");
@@ -32,26 +31,42 @@ const getOpenRfcs = async () => {
   });
 };
 
-const getRfcTitle = (rfc) => rfc.title.split(": ")[1];
+const getTitle = (rfc) => rfc.title.split(": ")[1];
 
 const checkRfcs = async () => {
   if (ci.isCI && process.env.NODE_ENV !== "test") {
     return;
   }
 
-  const openRfcs = await getOpenRfcs();
+  try {
+    const openRfcs = await getOpenRfcs();
 
-  if (openRfcs.length > 0) {
-    console.log("\ncarbon-react currently has open RFCs:");
+    if (!openRfcs.length) return;
 
-    openRfcs.forEach((item) => {
-      const title = getRfcTitle(item);
-      console.log(`- ${title}: ${chalk.cyan(item.html_url)}`);
-    });
-    console.log("\n");
+    const header = chalk.bold.inverse.white(
+      " ".repeat(20),
+      "Open RFCs for carbon-react",
+      " ".repeat(20)
+    );
+
+    const rfcText = openRfcs
+      .map((item) => {
+        const title = getTitle(item);
+        return `- ${chalk.bold(title)}: ${chalk.cyan.italic(item.html_url)}`;
+      })
+      .join("\n\n");
+
+    console.log(`${header}\n\n${rfcText}\n`);
+  } catch (error) {
+    const rfcLink =
+      "https://github.com/Sage/carbon/pulls?q=is%3Aopen+is%3Apr+label%3ARFC";
+    const message = `Failed to retrieve open RFCs for carbon-react. Go to ${chalk.cyan.italic(
+      rfcLink
+    )} to view current RFCs.`;
+    console.log(
+      `${chalk.yellow.inverse(" WARN ")}\n${chalk.yellow(message)}\n`
+    );
   }
 };
-
-checkRfcs();
 
 module.exports = checkRfcs;
