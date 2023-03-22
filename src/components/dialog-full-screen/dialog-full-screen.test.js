@@ -167,6 +167,21 @@ context("Testing DialogFullScreen component", () => {
       getElement("dialog").should("have.attr", "aria-modal").and("eq", "true");
     });
 
+    it("should always place focus on the inner dialog when tabbing with nested dialogs after focus is lost", () => {
+      CypressMountWithProviders(<NestedDialog />);
+
+      openDialogByName(`Open ${mainDialogTitle}`).click();
+
+      openDialogByName(`Open ${nestedDialogTitle}`).click();
+
+      dialogPreview().tab();
+
+      // click on the body in order to lose focus
+      cy.get("body").click().tab();
+
+      closeIconButton().eq(1).should("be.focused");
+    });
+
     it("should render nested dialogs with the aria-modal property only set on the top one, even when the dialogs are wrapped in separate CarbonProviders", () => {
       cy.mount(<MultipleDialogsInDifferentProviders />);
 

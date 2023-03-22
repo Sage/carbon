@@ -354,6 +354,32 @@ describe("SelectList", () => {
     });
   });
 
+  describe("when the options list is empty and a highlightedValue is passed", () => {
+    let wrapper;
+    const renderWrapper = () => {
+      const emptySelect = getLoadingSelectList({
+        highlightedValue: "opt2",
+        isLoading: true,
+      });
+      wrapper = mount(emptySelect);
+    };
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    it("should not crash", () => {
+      expect(renderWrapper).not.toThrow();
+    });
+
+    it("should highlight the correct value if the children are later updated", () => {
+      renderWrapper();
+      wrapper.setProps({ isLoading: false });
+      wrapper.update();
+      expect(wrapper.find(StyledOption).at(1).props().isHighlighted).toBe(true);
+    });
+  });
+
   describe("when the isLoading prop is provided", () => {
     it("then a Loader Component should be rendered", () => {
       const wrapper = renderSelectList({
@@ -1009,4 +1035,32 @@ function getGroupedSelectList(props) {
   };
 
   return <WrapperComponent />;
+}
+
+function getLoadingSelectList(props) {
+  const defaultProps = {
+    onSelect: () => {},
+    onSelectListClose: () => {},
+    isOpen: true,
+  };
+
+  // eslint-disable-next-line react/prop-types
+  const WrapperComponent = ({ isLoading, ...wrapperProps }) => {
+    const mockRef = useRef();
+    const children = isLoading
+      ? []
+      : [
+          <Option value="opt1" text="red" />,
+          <Option value="opt2" text="green" />,
+          <Option value="opt3" text="blue" />,
+        ];
+
+    return (
+      <SelectList ref={mockRef} {...defaultProps} {...wrapperProps}>
+        {children}
+      </SelectList>
+    );
+  };
+
+  return <WrapperComponent {...props} />;
 }

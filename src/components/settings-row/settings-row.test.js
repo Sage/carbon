@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "../link";
-import SettingsRow from "./settings-row.component";
+import { SettingsRowComponent } from "./settings-row-test.stories.tsx";
+import * as stories from "./settings-row.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../../cypress/locators";
 import {
@@ -12,10 +13,6 @@ import { CHARACTERS } from "../../../cypress/support/component-helper/constants"
 import { checkOutlineCss } from "../../../cypress/support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
-const SettingsRowComponent = ({ ...props }) => {
-  return <SettingsRow title="title" description="description" {...props} />;
-};
 
 context("Tests for SettingsRow component", () => {
   describe("should check SettingsRow component properties", () => {
@@ -111,5 +108,18 @@ context("Tests for SettingsRow component", () => {
         settingsRowChildren().should("have.text", children);
       }
     );
+  });
+  describe("check accessibility for SettingsRow component", () => {
+    it("should pass accessibility tests for SettingsRow Default story", () => {
+      CypressMountWithProviders(<stories.Default />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for SettingsRow HeadingType story", () => {
+      CypressMountWithProviders(<stories.HeadingType />);
+
+      cy.checkAccessibility();
+    });
   });
 });

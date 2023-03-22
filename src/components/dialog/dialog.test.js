@@ -229,17 +229,17 @@ context("Testing Dialog component", () => {
       );
       cy.get("body").tab();
       closeIconButton().should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       buttonDataComponent().eq(0).should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       buttonDataComponent().eq(1).should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       getInput(0).should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       getInput(1).should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       getInput(2).should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       closeIconButton().should("be.focused");
     });
 
@@ -247,15 +247,15 @@ context("Testing Dialog component", () => {
       CypressMountWithProviders(<stories.DialogComponentWithTextEditor />);
       cy.get("body").tab();
       closeIconButton().should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       getInput(0).should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       getInput(1).should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       textEditorInput().should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       textEditorToolbar("bold").should("be.focused");
-      cy.get("body").tab();
+      cy.focused().tab();
       getInput(2).should("be.focused");
     });
 
@@ -263,19 +263,18 @@ context("Testing Dialog component", () => {
       CypressMountWithProviders(
         <stories.DialogComponent focusFirstElement={undefined} />
       );
-      cy.get("body").tab();
-      closeIconButton().should("be.focused");
-      cy.get("body").tab({ shift: true });
+      dialogPreview().should("be.focused");
+      cy.focused().tab({ shift: true });
       getInput(2).should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       getInput(1).should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       getInput(0).should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       buttonDataComponent().eq(1).should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       buttonDataComponent().eq(0).should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       closeIconButton().should("be.focused");
     });
 
@@ -283,17 +282,18 @@ context("Testing Dialog component", () => {
       CypressMountWithProviders(<stories.DialogComponentWithTextEditor />);
       cy.get("body").tab();
       closeIconButton().should("be.focused");
-      cy.get("body").tab({ shift: true });
+      // needs to shift and tab twice on the body to gain focus else it loses it to the text editor pane
+      cy.get("body").tab({ shift: true }).tab({ shift: true });
       getInput(2).should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       textEditorToolbar("bold").should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       textEditorInput().should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       getInput(1).should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       getInput(0).should("be.focused");
-      cy.get("body").tab({ shift: true });
+      cy.focused().tab({ shift: true });
       closeIconButton().should("be.focused");
     });
 
@@ -306,6 +306,195 @@ context("Testing Dialog component", () => {
       buttonDataComponent().should("be.focused");
       buttonDataComponent().click();
       toastComponent().should("be.focused");
+    });
+
+    it("focuses Toast close button when tab is pressed after non-focusable content has been selected", () => {
+      CypressMountWithProviders(<stories.DialogComponentWithToast />);
+
+      buttonDataComponent().click();
+      cy.get("body").click().tab();
+      closeIconButton().should("be.focused");
+    });
+  });
+
+  describe("Accessibility tests for Dialog component", () => {
+    it("should pass accessibility tests for Dialog default story", () => {
+      CypressMountWithProviders(<stories.DialogComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([0, 1, 100, 1000])(
+      "should pass accessibility tests for Dialog component with %s as a height parameter",
+      (height) => {
+        CypressMountWithProviders(
+          <stories.DialogComponent height={`${height}px`} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(specialCharacters)(
+      "should pass accessibility tests for Dialog using %s as a title",
+      (title) => {
+        CypressMountWithProviders(<stories.DialogComponent title={title} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(specialCharacters)(
+      "should pass accessibility tests for Dialog using %s as a subtitle",
+      (subtitle) => {
+        CypressMountWithProviders(
+          <stories.DialogComponent title="Sample dialog" subtitle={subtitle} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      SIZE.EXTRASMALL,
+      SIZE.SMALL,
+      SIZE.MEDIUMSMALL,
+      SIZE.MEDIUM,
+      SIZE.MEDIUMLARGE,
+      SIZE.LARGE,
+      SIZE.EXTRALARGE,
+    ])(
+      "should pass accessibility tests for Dialog component with %s as a size",
+      (size) => {
+        CypressMountWithProviders(<stories.DialogComponent size={size} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibility tests for ShowCloseIcon is set to false", () => {
+      CypressMountWithProviders(
+        <stories.DialogComponent showCloseIcon={false} />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Dialog component with DisableClose", () => {
+      CypressMountWithProviders(<stories.DialogComponent disableClose />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Dialog component with help", () => {
+      CypressMountWithProviders(
+        <stories.DialogComponent title="Sample Dialog" help="Some help text" />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Dialog component using focusFirstElement", () => {
+      CypressMountWithProviders(<stories.DialogComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Dialog component disabling autofocus", () => {
+      CypressMountWithProviders(<stories.DialogComponent disableAutoFocus />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Dialog component with Toast", () => {
+      CypressMountWithProviders(<stories.DialogComponentWithToast />);
+
+      buttonDataComponent()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog Editable story", () => {
+      CypressMountWithProviders(<defaultStories.Editable />);
+
+      openPreviewButton()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog WithHelp story", () => {
+      CypressMountWithProviders(<defaultStories.WithHelp />);
+
+      openPreviewButton()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog DynamicContent story", () => {
+      CypressMountWithProviders(<defaultStories.DynamicContent />);
+
+      openPreviewButton()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog FocusingADifferentFirstElement story", () => {
+      CypressMountWithProviders(
+        <defaultStories.FocusingADifferentFirstElement />
+      );
+
+      getComponent("button")
+        .eq(0)
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog OverridingContentPadding story", () => {
+      CypressMountWithProviders(<defaultStories.OverridingContentPadding />);
+
+      openPreviewButton()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog OtherFocusableContainers story", () => {
+      CypressMountWithProviders(<defaultStories.OtherFocusableContainers />);
+
+      openPreviewButton()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Dialog Responsive story", () => {
+      CypressMountWithProviders(<defaultStories.Responsive />);
+
+      openPreviewButton()
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
     });
   });
 

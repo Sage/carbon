@@ -1,3 +1,32 @@
+### [116.1.2](https://github.com/Sage/carbon/compare/v116.1.1...v116.1.2) (2023-03-21)
+
+
+### Bug Fixes
+
+* **button-toggle:** ensure text wraps correctly ([243badb](https://github.com/Sage/carbon/commit/243badbe6709d7d5cc669dfe951468859436d1c7)), closes [#FE-5682](https://github.com/Sage/carbon/issues/FE-5682)
+
+### [116.1.1](https://github.com/Sage/carbon/compare/v116.1.0...v116.1.1) (2023-03-21)
+
+
+### Bug Fixes
+
+* **focus-trap:** ensure focus trap behaviour does not work except in the top modal ([de53a06](https://github.com/Sage/carbon/commit/de53a060c05d1346623ee8fbc17cf99c572358cc)), closes [#5754](https://github.com/Sage/carbon/issues/5754)
+* **focus-trap:** utilise tab guards to avoid calling preventDefault except when necessary ([9fadf91](https://github.com/Sage/carbon/commit/9fadf911a41de72dfa324f8c078ed55492c80791)), closes [#5749](https://github.com/Sage/carbon/issues/5749)
+
+## [116.1.0](https://github.com/Sage/carbon/compare/v116.0.1...v116.1.0) (2023-03-20)
+
+
+### Features
+
+* **badge:** allow component to be display only ([856ecc2](https://github.com/Sage/carbon/commit/856ecc2a1681705051250ac6c27aba4a5f62e585)), closes [#5706](https://github.com/Sage/carbon/issues/5706)
+
+### [116.0.1](https://github.com/Sage/carbon/compare/v116.0.0...v116.0.1) (2023-03-15)
+
+
+### Bug Fixes
+
+* **select:** prevent crash when the value does not match any child ([a184f95](https://github.com/Sage/carbon/commit/a184f95e2c1c6eb1a8be0d7a4d7130ed067ba518)), closes [#5905](https://github.com/Sage/carbon/issues/5905)
+
 ## [116.0.0](https://github.com/Sage/carbon/compare/v115.0.2...v116.0.0) (2023-03-14)
 
 

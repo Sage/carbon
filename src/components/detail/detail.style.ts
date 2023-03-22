@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-
 import { baseTheme } from "../../style/themes";
 import Icon from "../icon";
 
@@ -15,7 +14,7 @@ const StyledDetail = styled.div`
   }
 `;
 
-const StyledDetailContent = styled.div`
+const StyledDetailContent = styled.div<{ hasIcon: boolean }>`
   ${({ hasIcon }) => css`
     display: inline-block;
     line-height: 18px;
@@ -46,7 +45,7 @@ const StyledDetailIcon = styled(Icon)`
   }
 `;
 
-const StyledDetailFootnote = styled.div`
+const StyledDetailFootnote = styled.div<{ hasIcon: boolean }>`
   ${({ hasIcon }) => css`
     color: var(--colorsUtilityYin055);
     font-size: 13px;
