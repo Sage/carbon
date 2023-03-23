@@ -74,6 +74,10 @@ describe("ModalManager", () => {
       ModalManager.clearList();
     });
 
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
     describe("and the param matches a Modal in the list", () => {
       it("should not be the topmost element", () => {
         ModalManager.addModal(mockModal1, cb1);
@@ -91,6 +95,21 @@ describe("ModalManager", () => {
         ModalManager.addModal(mockModal1);
         ModalManager.addModal(mockModal2);
         ModalManager.removeModal(mockModal2);
+      });
+
+      it("does not trigger refocus if the override flag passed to removeModal is set", () => {
+        ModalManager.addModal(mockModal1, cb1);
+        ModalManager.addModal(mockModal2, cb2);
+        ModalManager.removeModal(mockModal2, true);
+        expect(cb1).not.toHaveBeenCalledWith(true);
+      });
+
+      it("triggers refocus if a callback is provided and the override flag is not passed to removeModal", () => {
+        ModalManager.addModal(mockModal1, cb1);
+        ModalManager.addModal(mockModal2, cb2);
+        expect(cb1).not.toHaveBeenCalledWith(true);
+        ModalManager.removeModal(mockModal2);
+        expect(cb1).toHaveBeenCalledWith(true);
       });
 
       it("should no longer be in the global variable window.__CARBON_INTERNALS_MODAL_LIST", () => {

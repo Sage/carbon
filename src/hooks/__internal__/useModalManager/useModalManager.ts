@@ -5,7 +5,8 @@ const useModalManager = (
   open: boolean,
   closeModal: (e: KeyboardEvent) => void,
   modalRef: React.RefObject<HTMLElement>,
-  setTriggerRefocusFlag?: (flag: boolean) => void
+  setTriggerRefocusFlag?: (flag: boolean) => void,
+  overrideTriggerRefocus?: boolean
 ) => {
   const listenerAdded = useRef(false);
   const modalRegistered = useRef(false);
@@ -64,13 +65,16 @@ const useModalManager = (
     [setTriggerRefocusFlag]
   );
 
-  const unregisterModal = useCallback((ref: HTMLElement | null) => {
-    if (modalRegistered.current) {
-      ModalManager.removeModal(ref);
+  const unregisterModal = useCallback(
+    (ref: HTMLElement | null) => {
+      if (modalRegistered.current) {
+        ModalManager.removeModal(ref, overrideTriggerRefocus);
 
-      modalRegistered.current = false;
-    }
-  }, []);
+        modalRegistered.current = false;
+      }
+    },
+    [overrideTriggerRefocus]
+  );
 
   useEffect(() => {
     const ref = modalRef.current;

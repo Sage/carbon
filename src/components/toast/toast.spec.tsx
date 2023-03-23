@@ -56,7 +56,7 @@ describe("Toast", () => {
         wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
         const toast = wrapper.find(ToastWrapper).getDOMNode();
         wrapper.unmount();
-        expect(ModalManager.removeModal).toHaveBeenCalledWith(toast);
+        expect(ModalManager.removeModal).toHaveBeenCalledWith(toast, undefined);
       });
     });
   });
@@ -87,7 +87,7 @@ describe("Toast", () => {
       wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
       const toast = wrapper.find(ToastWrapper).getDOMNode();
       wrapper.setProps({ open: false });
-      expect(ModalManager.removeModal).toHaveBeenCalledWith(toast);
+      expect(ModalManager.removeModal).toHaveBeenCalledWith(toast, undefined);
     });
 
     describe("and escape key is released", () => {

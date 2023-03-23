@@ -341,7 +341,7 @@ const SelectList = React.forwardRef(
       [onSelectListClose]
     );
 
-    useModalManager(isOpen, handleEscapeKey, listRef);
+    useModalManager(isOpen, handleEscapeKey, listRef, undefined, true);
 
     const handleListScroll = useCallback(
       (event) => {
