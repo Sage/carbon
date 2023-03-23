@@ -1,13 +1,21 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import ModalManager from "../../../components/modal/__internal__/modal-manager";
 
-const useModalManager = (
-  open: boolean,
-  closeModal: (e: KeyboardEvent) => void,
-  modalRef: React.RefObject<HTMLElement>,
-  setTriggerRefocusFlag?: (flag: boolean) => void,
-  overrideTriggerRefocus?: boolean
-) => {
+type UseModalManagerArgs = {
+  open: boolean;
+  closeModal: (e: KeyboardEvent) => void;
+  modalRef: React.RefObject<HTMLElement>;
+  setTriggerRefocusFlag?: (flag: boolean) => void;
+  triggerRefocusOnClose?: boolean;
+};
+
+const useModalManager = ({
+  open,
+  closeModal,
+  modalRef,
+  setTriggerRefocusFlag,
+  triggerRefocusOnClose = true,
+}: UseModalManagerArgs) => {
   const listenerAdded = useRef(false);
   const modalRegistered = useRef(false);
 
@@ -68,12 +76,12 @@ const useModalManager = (
   const unregisterModal = useCallback(
     (ref: HTMLElement | null) => {
       if (modalRegistered.current) {
-        ModalManager.removeModal(ref, overrideTriggerRefocus);
+        ModalManager.removeModal(ref, triggerRefocusOnClose);
 
         modalRegistered.current = false;
       }
     },
-    [overrideTriggerRefocus]
+    [triggerRefocusOnClose]
   );
 
   useEffect(() => {

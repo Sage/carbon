@@ -97,14 +97,14 @@ describe("ModalManager", () => {
         ModalManager.removeModal(mockModal2);
       });
 
-      it("does not trigger refocus if the override flag passed to removeModal is set", () => {
+      it("does not trigger refocus if the triggerRefocusOnClose flag passed to removeModal is set to false", () => {
         ModalManager.addModal(mockModal1, cb1);
         ModalManager.addModal(mockModal2, cb2);
-        ModalManager.removeModal(mockModal2, true);
+        ModalManager.removeModal(mockModal2, false);
         expect(cb1).not.toHaveBeenCalledWith(true);
       });
 
-      it("triggers refocus if a callback is provided and the override flag is not passed to removeModal", () => {
+      it("triggers refocus if a callback is provided and the triggerRefocusOnClose flag is not passed to removeModal", () => {
         ModalManager.addModal(mockModal1, cb1);
         ModalManager.addModal(mockModal2, cb2);
         expect(cb1).not.toHaveBeenCalledWith(true);
