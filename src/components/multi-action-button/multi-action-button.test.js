@@ -582,6 +582,9 @@ describe("should check colors for MultiActionButton component", () => {
     it("should pass accessibility tests for MultiActionButton InOverflowHiddenContainer story", () => {
       CypressMountWithProviders(<stories.InOverflowHiddenContainer />);
 
+      accordionDefaultTitle().click();
+      multiActionButton().eq(0).trigger("click");
+
       cy.checkAccessibility();
     });
   });
