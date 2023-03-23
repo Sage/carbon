@@ -1,11 +1,12 @@
 import React from "react";
+import { ComponentStory } from "@storybook/react";
 
 import BatchSelection from ".";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import Button from "../button";
 
-export const Default = () => (
+export const Default: ComponentStory<typeof BatchSelection> = () => (
   <BatchSelection selectedCount={0}>
     <Button size="small" mx={1} buttonType="secondary">
       Select All 38 items
@@ -22,7 +23,7 @@ export const Default = () => (
   </BatchSelection>
 );
 
-export const Dark = () => (
+export const Dark: ComponentStory<typeof BatchSelection> = () => (
   <BatchSelection selectedCount={1} colorTheme="dark">
     <IconButton onClick={() => {}}>
       <Icon type="csv" />
@@ -36,7 +37,7 @@ export const Dark = () => (
   </BatchSelection>
 );
 
-export const Light = () => (
+export const Light: ComponentStory<typeof BatchSelection> = () => (
   <BatchSelection selectedCount={2} colorTheme="light">
     <IconButton onClick={() => {}}>
       <Icon type="csv" />
@@ -50,7 +51,7 @@ export const Light = () => (
   </BatchSelection>
 );
 
-export const White = () => (
+export const White: ComponentStory<typeof BatchSelection> = () => (
   <BatchSelection selectedCount={3} colorTheme="white">
     <IconButton onClick={() => {}}>
       <Icon type="csv" />
@@ -64,7 +65,7 @@ export const White = () => (
   </BatchSelection>
 );
 
-export const Disabled = () => (
+export const Disabled: ComponentStory<typeof BatchSelection> = () => (
   <BatchSelection selectedCount={4} disabled>
     <IconButton onClick={() => {}}>
       <Icon type="csv" />

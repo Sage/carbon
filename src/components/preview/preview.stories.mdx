@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { ArgsTable } from "@storybook/components";
-import Preview from "./preview.component";
+
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import Preview from "./preview.component";
 import Button from "../button";
+
+import * as stories from "./preview.stories"
 
 <Meta title="Preview" parameters={{ info: { disable: true } }} />
 
@@ -28,56 +32,31 @@ import Preview from "carbon-react/lib/components/preview";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    <Preview loading />
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Preview with Lines
 
 <Canvas>
-  <Story name="with Lines">
-    <Preview loading lines={6} />
-  </Story>
+  <Story name="with Lines" story={stories.WithLines} />
 </Canvas>
 
 ### Preview with Children
 
 <Canvas>
-  <Story name="with Children">
-    {() => {
-      const [isLoading, setIsLoading] = useState(true);
-      const handleOnClick = () => {
-        setIsLoading(!isLoading);
-      };
-      return (
-        <>
-          <Preview loading={isLoading} lines={3}>
-            This the where the children are rendered
-          </Preview>
-          <Button mt={2} onClick={handleOnClick}>
-            {isLoading ? "Click to preview children" : "Click to see loading state"}
-          </Button>
-        </>
-      );
-    }}
-  </Story>
+  <Story name="with Children" story={stories.WithChildren} />
 </Canvas>
 
 ### Preview with Custom Width
 
 <Canvas>
-  <Story name="with Width">
-    <Preview loading width={"256px"} />
-  </Story>
+  <Story name="with Width" story={stories.WithWidth} />
 </Canvas>
 
 ### Preview with Custom Height
 
 <Canvas>
-  <Story name="with Height">
-    <Preview loading height={"256px"} />
-  </Story>
+  <Story name="with Height" story={stories.WithHeight} />
 </Canvas>
 
 ## Props
