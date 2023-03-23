@@ -10,7 +10,7 @@ export interface ButtonBarContextProps {
   /** Assigns a size to the buttons: "small" | "medium" | "large" */
   size?: "small" | "medium" | "large";
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
-  buttonType?: "primary" | "secondary" | "primary";
+  buttonType?: "primary" | "secondary" | "tertiary";
 }
 export interface ButtonBarProps extends ButtonBarContextProps, SpaceProps {
   /** Button or IconButton Elements, to be rendered inside the component */

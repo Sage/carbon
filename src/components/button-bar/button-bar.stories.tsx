@@ -3,15 +3,17 @@ import { ComponentStory } from "@storybook/react";
 
 import ButtonBar from ".";
 import Button from "../button";
+import ButtonMinor from "../button-minor";
+
 import Icon from "../icon";
 import IconButton from "../icon-button";
 
 export const buttonBarSizes: ComponentStory<typeof ButtonBar> = () => (
   <>
     <ButtonBar size="small" ml={2} mt={2}>
-      <Button>Small</Button>
-      <Button>Small</Button>
-      <Button>Small</Button>
+      <ButtonMinor>Small</ButtonMinor>
+      <ButtonMinor>Small</ButtonMinor>
+      <ButtonMinor>Small</ButtonMinor>
     </ButtonBar>
     <ButtonBar ml={2} mt={2}>
       <Button>Medium</Button>

@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
 import BaseTheme from "../../style/themes/base";
+import StyledButton from "../button/button.style";
 import StyledIcon from "../icon/icon.style";
 import { ButtonBarProps } from "./button-bar.component";
 
@@ -27,7 +28,6 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
 
     button {
       margin: 0;
-      border: 2px solid var(--colorsActionMajor500);
 
       &:not(:last-of-type) {
         border-right-color: transparent;
@@ -38,20 +38,30 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
       &:focus {
         position: relative;
         z-index: 2;
-        border-right-color: var(--colorsActionMajor500);
       }
       &:hover {
-        background-color: var(--colorsActionMajor600);
-        border-color: var(--colorsActionMajor600);
-        & + button {
-          border-left-color: var(--colorsActionMajor600);
-        }
         & ${StyledIcon} {
           color: white;
         }
       }
       & ${StyledIcon} {
         color: var(--colorsActionMajor500);
+      }
+    }
+
+    [data-component="button"]:hover {
+      background-color: var(--colorsActionMajor600);
+      border-color: var(--colorsActionMajor600);
+      & + ${StyledButton} {
+        border-left-color: var(--colorsActionMajor600);
+      }
+    }
+
+    [data-component="button-minor"]:hover {
+      background-color: var(--colorsActionMinor600);
+      border-color: var(--colorsActionMinor600);
+      & + ${StyledButton} {
+        border-left-color: var(--colorsActionMinor600);
       }
     }
   `}
