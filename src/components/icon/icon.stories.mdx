@@ -2,9 +2,8 @@ import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Icon from "./";
-import Box from "../box";
 
-import { ICONS } from "./icon-config";
+import * as stories from "./icon.stories";
 
 <Meta title="Icon" parameters={{ info: { disable: true } }} />
 
@@ -42,17 +41,13 @@ import Icon from "carbon-react/lib/components/icon";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    <Icon type="add" />
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled">
-    <Icon type="add" disabled />
-  </Story>
+  <Story name="disabled" story={stories.Disabled} />
 </Canvas>
 
 ### With tooltip
@@ -61,77 +56,25 @@ The Icon supports rendering tooltips internally, just pass a node to `tooltipMes
 such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColor` and `tooltipFlipOverrides` are also surfaced.
 
 <Canvas>
-  <Story name="with tooltip" parameters={{ chromatic: { disableSnapshot: true } }}>
-    <div style={{ margin: 60, display: "inline" }}>
-      <Icon
-        mr={8}
-        type="add"
-        tooltipMessage="Hey I'm a default tooltip!"
-        ariaLabel="Icon with tooltip"
-      />
-      <Icon
-        mr={8}
-        type="add"
-        tooltipMessage={
-          <>
-            Hey I'm a <em>custom</em> tooltip!
-          </>
-        }
-        ariaLabel="Icon with tooltip"
-      />
-      <Icon
-        mr={8}
-        type="add"
-        tooltipMessage="Hey I'm a tooltip with a different position!"
-        tooltipPosition="bottom"
-        ariaLabel="Icon with tooltip"
-      />
-      <Icon
-        mr={8}
-        type="add"
-        tooltipMessage="Hey I'm a tooltip with a different color!"
-        tooltipBgColor="lightblue"
-        tooltipFontColor="black"
-        ariaLabel="Icon with tooltip"
-      />
-      <Icon
-        type="add"
-        tooltipMessage="Hey I'm a tooltip with flip behaviour overrides!"
-        tooltipFlipOverrides={["right", "left"]}
-        ariaLabel="Icon with tooltip"
-      />
-    </div>
-  </Story>
+  <Story name="with tooltip" story={stories.WithTooltip} />
 </Canvas>
 
 ### Various fontSizes
 
 <Canvas>
-  <Story name="various fontSizes">
-    {["small", "medium", "large", "extra-large"].map((fontSize) => (
-      <Icon type="add" fontSize={fontSize} key={fontSize} />
-    ))}
-  </Story>
+  <Story name="various fontSizes" story={stories.VariousFontSizes} />
 </Canvas>
 
 ### Various bgShapes
 
 <Canvas>
-  <Story name="various bgShapes">
-    {["circle", "rounded-rect", "square"].map((bgShape) => (
-      <Icon type="add" bgShape={bgShape} bg="#00b000" mr={1} key={bgShape} />
-    ))}
-  </Story>
+  <Story name="various bgShapes" story={stories.VariousBgShapes} />
 </Canvas>
 
 ### Various bgSizes
 
 <Canvas>
-  <Story name="various bgSizes">
-    {["small", "medium", "large", "extra-large"].map((bgSize) => (
-      <Icon type="add" bg="#00b000" bgSize={bgSize} mr={1} key={bgSize} />
-    ))}
-  </Story>
+  <Story name="various bgSizes" story={stories.VariousBgSizes} />
 </Canvas>
 
 ### Custom colors
@@ -142,33 +85,8 @@ See <LinkTo kind="Documentation/Colors" name="page" story="page">Colors</LinkTo>
 <Canvas>
   <Story
     name="custom colors"
-    parameters={{ info: { disable: true }, chromatic: { disableSnapshot: true } }}
-  >
-    <>
-      <Box mb={1}>
-        <Icon type="add" color="--colorsUtilityYin090" />
-        <Icon type="add" color="primary" />
-        <Icon type="add" color="blackOpacity65" />
-        <Icon type="add" color="brilliantGreenShade20" />
-        <Icon type="add" color="red" />
-        <Icon type="add" color="#123456" />
-        <Icon type="add" color="rgb(0, 123, 10)" />
-      </Box>
-      <Box mb={1}>
-        <Icon
-          type="add"
-          color="--colorsUtilityYin090"
-          bg="--colorsSemanticCaution500"
-        />
-        <Icon type="add" color="red" bg="primary" />
-        <Icon type="add" color="white" bg="blackOpacity65" />
-        <Icon type="add" bg="brilliantGreenShade20" />
-        <Icon type="add" bg="red" />
-        <Icon type="add" color="white" bg="#123456" />
-        <Icon type="add" color="white" bg="rgb(0, 123, 10)" />
-      </Box>
-    </>
-  </Story>
+    story={stories.CustomColors}
+  />
 </Canvas>
 
 ## List of icons
@@ -179,19 +97,8 @@ It's **required** that the `type` prop is specified (even if it's `"none"`).
 <Canvas>
   <Story
     name="list of icons"
-    parameters={{ info: { disable: true }, chromatic: { disableSnapshot: true } }}
-  >
-    <Box m={2}>
-      {ICONS.sort().map((type) => {
-        return (
-          <Box m={2} key={`icon-${type}`}>
-            <Icon m={2} type={type} fontSize="large" />
-            {type}
-          </Box>
-        );
-      })}
-    </Box>
-  </Story>
+    story={stories.ListOfIcons}
+  />
 </Canvas>
 
 ## Props

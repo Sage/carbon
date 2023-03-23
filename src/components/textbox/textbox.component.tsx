@@ -49,7 +49,7 @@ export interface CommonTextboxProps
   formattedValue?: string;
   /**
    * Unique identifier for the input.
-   * Label id will be based on it, using following pattern: <id>-label.
+   * Label id will be based on it, using following pattern: [id]-label.
    * Will use a randomly generated GUID if none is provided.
    */
   id?: string;

@@ -1,12 +1,9 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Fieldset from "./";
-import { RadioButton, RadioButtonGroup } from "../radio-button";
-import { Select, Option } from "../select";
-import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import Textbox from "../textbox";
-import { Checkbox } from "../checkbox";
-import Form from "../form";
+
+import * as stories from "./fieldset.stories";
 
 <Meta title="Fieldset" parameters={{ info: { disable: true } }} />
 
@@ -33,57 +30,13 @@ import Fieldset from "carbon-react/lib/components/fieldset";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    <Fieldset legend="Fieldset">
-      <Textbox
-        label="First Name"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-      />
-      <Textbox
-        label="Last Name"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-      />
-      <Textbox label="Address" labelInline labelAlign="right" labelWidth={30} />
-      <Checkbox
-        label="Checkbox"
-        labelAlign="right"
-        labelWidth={30}
-        labelSpacing={2}
-        reverse
-      />
-      <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
-      <Textbox label="Country" labelInline labelAlign="right" labelWidth={30} />
-      <Textbox
-        label="Telephone"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-      />
-    </Fieldset>
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Fieldset in Form
 
 <Canvas>
-  <Story name="in form - default">
-    <Form>
-      <Textbox label="Separate Field" labelInline />
-      <Fieldset>
-        <Textbox label="Fieldset 1 Field 1" labelInline />
-        <Textbox label="Fieldset 1 Field 2" labelInline />
-      </Fieldset>
-      <Fieldset>
-        <Textbox label="Fieldset 2 Field 1" labelInline />
-        <Textbox label="Fieldset 2 Field 2" labelInline />
-      </Fieldset>
-      <Textbox label="Separate Field" labelInline />
-    </Form>
-  </Story>
+  <Story name="in form - basic" story={stories.InFormBasic} />
 </Canvas>
 
 ### `fieldSpacing`
@@ -91,20 +44,7 @@ import Fieldset from "carbon-react/lib/components/fieldset";
 You can manipulate the spacings beetwen `Fieldset` components by passing `fieldSpacing` prop into `Form` component
 
 <Canvas>
-  <Story name="in form - fieldSpacing">
-    <Form fieldSpacing={1}>
-      <Textbox label="Separate Field" labelInline />
-      <Fieldset>
-        <Textbox label="Fieldset 1 Field 1" labelInline />
-        <Textbox label="Fieldset 1 Field 2" labelInline />
-      </Fieldset>
-      <Fieldset>
-        <Textbox label="Fieldset 2 Field 1" labelInline />
-        <Textbox label="Fieldset 2 Field 2" labelInline />
-      </Fieldset>
-      <Textbox label="Separate Field" labelInline />
-    </Form>
-  </Story>
+  <Story name="in form - fieldSpacing" story={stories.InFormFieldSpacing} />
 </Canvas>
 
 ### Validations
@@ -112,120 +52,19 @@ You can manipulate the spacings beetwen `Fieldset` components by passing `fieldS
 #### As a string
 
 <Canvas>
-  <Story name="validations - string - component">
-    <>
-      {["error", "warning", "info"].map((type) => (
-        <Fieldset
-          key={`${type}-string-component`}
-          legend={`Fieldset ${type} on component`}
-        >
-          <Textbox
-            label="Address"
-            labelInline
-            labelAlign="right"
-            {...{ [type]: "Message" }}
-          />
-          <Textbox label="Town/City" labelInline labelAlign="right" />
-          <Select
-            label="Province"
-            labelInline
-            labelAlign="right"
-            {...{ [type]: "Message" }}
-          >
-            <Option key="ab" text="Alberta" value="ab" />
-            <Option key="on" text="Ontario" value="on" />
-            <Option key="qc" text="Quebec" value="qc" />
-          </Select>
-          <Textbox
-            label="ZIP Code"
-            labelInline
-            labelAlign="right"
-            inputWidth={10}
-          />
-        </Fieldset>
-      ))}
-    </>
-  </Story>
+  <Story name="validations - string - component" story={stories.ValidationsStringComponent} />
 </Canvas>
 
 #### As a string, displayed on label
 
 <Canvas>
-  <Story name="validations - string - label">
-    <>
-      {["error", "warning", "info"].map((type) => (
-        <Fieldset
-          key={`${type}-string-label`}
-          legend={`Fieldset ${type} on label`}
-        >
-          <Textbox
-            label="Address"
-            labelInline
-            labelAlign="right"
-            validationOnLabel
-            {...{ [type]: "Message" }}
-          />
-          <Textbox label="Town/City" labelInline labelAlign="right" />
-          <Select
-            label="Province"
-            labelInline
-            labelAlign="right"
-            validationOnLabel
-            {...{ [type]: "Message" }}
-          >
-            <Option key="ab" text="Alberta" value="ab" />
-            <Option key="on" text="Ontario" value="on" />
-            <Option key="qc" text="Quebec" value="qc" />
-          </Select>
-          <Textbox
-            label="ZIP Code"
-            labelInline
-            labelAlign="right"
-            inputWidth={10}
-          />
-        </Fieldset>
-      ))}
-    </>
-  </Story>
+  <Story name="validations - string - label" story={stories.ValidationsStringLabel} />
 </Canvas>
 
 #### As a boolean
 
 <Canvas>
-  <Story name="validations - boolean">
-    <>
-      {["error", "warning", "info"].map((type) => (
-        <Fieldset
-          key={`${type}-boolean`}
-          legend={`Fieldset ${type} as boolean`}
-        >
-          <Textbox
-            label="Address"
-            labelInline
-            labelAlign="right"
-            {...{ [type]: true }}
-          />
-          <Textbox label="Town/City" labelInline labelAlign="right" />
-          <Select
-            label="Province"
-            labelInline
-            labelAlign="right"
-            {...{ [type]: true }}
-          >
-            <Option key="ab" text="Alberta" value="ab" />
-            <Option key="on" text="Ontario" value="on" />
-            <Option key="qc" text="Quebec" value="qc" />
-          </Select>
-          <Textbox
-            label="ZIP Code"
-            labelInline
-            labelAlign="right"
-            inputWidth={10}
-          />
-        </Fieldset>
-      ))}
-    </>
-  </Story>
+  <Story name="validations - boolean" story={stories.ValidationsBoolean} />
 </Canvas>
 
 ## Props
