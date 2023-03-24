@@ -104,6 +104,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("drawer") &&
       !prepareUrl[0].startsWith("group-character") &&
       !prepareUrl[0].startsWith("duelling-picklist") &&
+      !prepareUrl[0].startsWith("multi-action-button") &&
       !prepareUrl[0].startsWith("settings-row") &&
       !prepareUrl[0].startsWith("numeral-date") &&
       !prepareUrl[0].startsWith("global-header") &&
