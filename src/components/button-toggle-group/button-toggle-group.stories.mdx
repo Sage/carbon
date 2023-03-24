@@ -5,7 +5,9 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import ButtonToggle from "../button-toggle";
 import ButtonToggleGroup from "./button-toggle-group.component";
 
-<Meta title="Button Toggle Group" />
+import * as stories from "./button-toggle-group.stories";
+
+<Meta title="Button Toggle Group" parameters={{ info: { disable: true } }} />
 
 # Button Toggle Group
 
@@ -32,75 +34,19 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
 ### Default
 
 <Canvas>
-  <Story name="default" parameters={{ info: { disable: true } }}>
-    <ButtonToggleGroup
-      id="button-toggle-group-default-id"
-      name="button-toggle-group-default"
-      label="Default example"
-      labelHelp="help message"
-      helpAriaLabel="Help"
-      fieldHelp="field help message"
-    >
-      <ButtonToggle value="foo">Foo</ButtonToggle>
-      <ButtonToggle value="bar">Bar</ButtonToggle>
-      <ButtonToggle value="baz">Baz</ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Controlled
 
 <Canvas>
-  <Story name="controlled" parameters={{ info: { disable: true } }}>
-    {(args, { themeName }) => {
-      const [value, setValue] = useState("bar");
-      function onChangeHandler(event) {
-        setValue(event.target.value);
-      }
-      return (
-        <ButtonToggleGroup
-          id={`button-toggle-group-controlled-id-${themeName}`}
-          name={`button-toggle-group-controlled-${themeName}`}
-          label="Controlled example"
-          labelHelp="help message"
-          helpAriaLabel="Help"
-          fieldHelp="field help mesage"
-          onChange={onChangeHandler}
-          value={value}
-        >
-          <ButtonToggle value="foo">Foo</ButtonToggle>
-          <ButtonToggle value="bar">Bar</ButtonToggle>
-          <ButtonToggle value="baz">Baz</ButtonToggle>
-        </ButtonToggleGroup>
-      );
-    }}
-  </Story>
+  <Story name="controlled" story={stories.Controlled} />
 </Canvas>
 
 ### Grouped
 
 <Canvas>
-  <Story name="grouped" parameters={{ info: { disable: true } }}>
-    <ButtonToggleGroup
-      id="button-toggle-group-grouped-id"
-      name="button-toggle-group-grouped"
-      label="Grouped example"
-      labelHelp="help message"
-      helpAriaLabel="Help"
-      fieldHelp="field help mesage"
-      onChange={() => {}}
-    >
-      <ButtonToggle value="foo" grouped>
-        Foo
-      </ButtonToggle>
-      <ButtonToggle value="bar" grouped>
-        Bar
-      </ButtonToggle>
-      <ButtonToggle value="baz" grouped>
-        Baz
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="grouped" story={stories.Grouped} />
 </Canvas>
 
 ### With fullWidth
@@ -108,70 +54,19 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
 When the `fullWidth` prop is `true`, the buttons will expand in size to take up the full width of the container.
 
 <Canvas>
-  <Story name="fullWidth" parameters={{ info: { disable: true } }}>
-    <ButtonToggleGroup
-      id="button-toggle-group-fullWidth-id"
-      name="button-toggle-group-fullWidth"
-      fullWidth
-      label="fullWidth example"
-      labelHelp="help message"
-      helpAriaLabel="Help"
-      fieldHelp="field help mesage"
-      onChange={() => {}}
-    >
-      <ButtonToggle value="foo" grouped>
-        Foo
-      </ButtonToggle>
-      <ButtonToggle value="bar" grouped>
-        Bar
-      </ButtonToggle>
-      <ButtonToggle value="baz" grouped>
-        Baz
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="fullWidth" story={stories.FullWidth} />
 </Canvas>
 
 ### With field help inline
 
 <Canvas>
-  <Story name="fieldhelp inline" parameters={{ info: { disable: true } }}>
-    <ButtonToggleGroup
-      id="button-toggle-group-help-inline-id"
-      name="button-toggle-group-help-inline"
-      label="FieldHelp inline example"
-      labelHelp="help message"
-      helpAriaLabel="Help"
-      fieldHelp="field help mesage"
-      fieldHelpInline
-      onChange={() => {}}
-    >
-      <ButtonToggle value="foo">Foo</ButtonToggle>
-      <ButtonToggle value="bar">Bar</ButtonToggle>
-      <ButtonToggle value="baz">Baz</ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="fieldhelp inline" story={stories.FieldHelp} />
 </Canvas>
 
 ### With label inline
 
 <Canvas>
-  <Story name="label inline" parameters={{ info: { disable: true } }}>
-    <ButtonToggleGroup
-      id="button-toggle-group-label-inline-id"
-      name="button-toggle-group-label-inline"
-      label="Label inline example"
-      labelHelp="help message"
-      helpAriaLabel="Help"
-      fieldHelp="field help mesage"
-      labelInline
-      onChange={() => {}}
-    >
-      <ButtonToggle value="foo">Foo</ButtonToggle>
-      <ButtonToggle value="bar">Bar</ButtonToggle>
-      <ButtonToggle value="baz">Baz</ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="label inline" story={stories.LabelInline} />
 </Canvas>
 
 ## Props

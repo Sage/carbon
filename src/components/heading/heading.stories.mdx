@@ -3,12 +3,8 @@ import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Heading from "./heading.component";
-import Tile from "../tile";
-import Dl from "../definition-list/dl.component";
-import Dt from "../definition-list/dt.component";
-import Dd from "../definition-list/dd.component";
-import Button from "../button/button.component";
-import Pill from "../pill/pill.component";
+
+import * as stories from "./heading.stories";
 
 <Meta title="Heading" parameters={{ info: { disable: true } }} />
 
@@ -37,9 +33,7 @@ import Heading from "carbon-react/lib/components/heading";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    <Heading title="This is a Title" />
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Heading with headingType
@@ -60,93 +54,49 @@ The `headingType` prop sets the HTML heading element which is rendered on the pa
 ### Heading without Divider
 
 <Canvas>
-  <Story name="without Divider">
-    <Heading title="This is a Title" divider={false} />
-  </Story>
+  <Story name="without Divider" story={stories.WithoutDivider} />
 </Canvas>
 
 ### Heading with Subheader
 
 <Canvas>
-  <Story name="with subheader">
-    <Heading title="This is a Title" subheader="This is a subheader" />
-  </Story>
+  <Story name="with subheader" story={stories.WithSubheader} />
 </Canvas>
 
 ### Heading with Pill
 
 <Canvas>
-  <Story name="with pill">
-    <Heading title="This is a Title" pills={<Pill>Pill</Pill>} />
-  </Story>
+  <Story name="with pill" story={stories.WithPill} />
 </Canvas>
 
 ### Heading with multiple Pills
 
 <Canvas>
-  <Story name="with multiple pills">
-    <Heading
-      title="This is a Title"
-      pills={[
-        <Pill mr={2} key="1">
-          Pill 1
-        </Pill>,
-        <Pill mr={2} key="2" size="L">
-          Pill 2
-        </Pill>,
-        <Pill mr={2} key="3" size="XL">
-          Pill 3
-        </Pill>,
-      ]}
-    />
-  </Story>
+  <Story name="with multiple pills" story={stories.WithMultiplePills} />
 </Canvas>
 
 ### Heading with Pill and Subheader
 
 <Canvas>
-  <Story name="with pill and subheader">
-    <Heading
-      title="This is a Title"
-      pills={<Pill>Pill</Pill>}
-      subheader="This is a subheader"
-    />
-  </Story>
+  <Story name="with pill and subheader" story={stories.WithPillAndSubheader} />
 </Canvas>
 
 ### Heading with Subheader and Separator
 
 <Canvas>
-  <Story name="with subheader and separator">
-    <Heading
-      title="This is a Title"
-      subheader="This is a subheader"
-      separator
-    />
-  </Story>
+  <Story name="with subheader and separator" story={stories.WithSubheaderSeperator} />
 </Canvas>
 
 ### Heading with Pill, Subheader and Separator
 
 <Canvas>
-  <Story name="with pill, subheader and separator">
-    <Heading
-      title="This is a Title"
-      subheader="This is a subheader"
-      pills={<Pill>Pill</Pill>}
-      separator
-    />
-  </Story>
+  <Story name="with pill, subheader and separator" story={stories.WithPillSubheaderSeperator} />
 </Canvas>
 
 ### Heading with Subheader and Children
 
 <Canvas>
-  <Story name="with subheader and children">
-    <Heading title="This is a Title" subheader="This is a subheader">
-      This is content beneath a heading
-    </Heading>
-  </Story>
+  <Story name="with subheader and children" story={stories.WithSubheaderChildren} />
 </Canvas>
 
 ### Heading with Children as a Component
@@ -154,91 +104,31 @@ The `headingType` prop sets the HTML heading element which is rendered on the pa
 In this example, the Heading component has the Tile component and the Definition List component rendered inside.
 
 <Canvas>
-  <Story name="with children as component">
-    <Heading title="This is a Title" subheader="This is a subheader">
-      <Tile width="95%">
-        <Dl>
-          <Dt>Drink</Dt>
-          <Dd>Coffee</Dd>
-          <Dt>Brew Method</Dt>
-          <Dd>Stove Top Moka Pot</Dd>
-          <Dt>Brand of Coffee</Dt>
-          <Dd>Magic Coffee Beans</Dd>
-          <Dt>Main and Registered Address</Dt>
-          <Dd mb="4px">Magic Coffee Beans,</Dd>
-          <Dd mb="4px">In The Middle of Our Street,</Dd>
-          <Dd mb="4px">Madness,</Dd>
-          <Dd mb="4px">CO4 3VE</Dd>
-          <Dd>
-            <Button
-              buttonType="tertiary"
-              iconType="link"
-              iconPosition="after"
-              href="https://goo.gl/maps/GMReLoBpbn9mdZVZ7"
-            >
-              View in Google Maps
-            </Button>
-          </Dd>
-        </Dl>
-      </Tile>
-    </Heading>
-  </Story>
+  <Story name="with children as component" story={stories.WithChildrenComponent} />
 </Canvas>
 
 ### Heading with Help
 
 <Canvas>
-  <Story name="with help">
-    <div style={{ margin: "16px" }}>
-      <Heading
-        title="This is a Title"
-        subheader="This is a subheader"
-        help="This should be helpful"
-      />
-    </div>
-  </Story>
+  <Story name="with help" story={stories.WithHelp} />
 </Canvas>
 
 ### Heading with Help and Pill
 
 <Canvas>
-  <Story name="with help and pill">
-    <div style={{ margin: "16px" }}>
-      <Heading
-        title="This is a Title"
-        subheader="This is a subheader"
-        help="This should be helpful"
-        pills={<Pill>Pill</Pill>}
-      />
-    </div>
-  </Story>
+  <Story name="with help and pill" story={stories.WithHelpPill} />
 </Canvas>
 
 ### Heading with Help and Help Link
 
 <Canvas>
-  <Story name="with help link" parameters={{ chromatic: { disableSnapshot: true } }}>
-    <div style={{ margin: "16px" }}>
-      <Heading
-        title="This is a Title"
-        subheader="This is a subheader"
-        help="This should be helpful"
-        helpLink="https://carbon.sage.com"
-      />
-    </div>
-  </Story>
+  <Story name="with help link" story={stories.WithHelpLink} />
 </Canvas>
 
 ### Heading with Back Link
 
 <Canvas>
-  <Story name="with back link">
-    <Heading
-      title="This is a Title"
-      subheader="This is a subheader"
-      backLink="https://carbon.sage.com"
-    />
-  </Story>
+  <Story name="with back link" story={stories.WithBackLink} />
 </Canvas>
 
 ## Props

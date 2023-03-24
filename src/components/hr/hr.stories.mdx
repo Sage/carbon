@@ -1,11 +1,11 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { useState } from "react";
 
-import Hr from ".";
-import Form from "../form";
-import Textbox from "../textbox";
-import Button from "../button";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import Hr from ".";
+
+import * as stories from "./hr.stories";
 
 <Meta title="Hr" component={Hr} parameters={{ info: { disable: true } }} />
 
@@ -34,9 +34,7 @@ import Hr from "carbon-react/lib/components/hr";
 By default the hr is 100% width and has top and bottom margins of 24px.
 
 <Canvas>
-  <Story name="default">
-    <Hr />
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### With different vertical spacing
@@ -44,75 +42,19 @@ By default the hr is 100% width and has top and bottom margins of 24px.
 The `mb` and `mt` props set the vertical spacing. These props are mulitipliers and are therefore multiplied by the base theme spacing which is `8px`. The default for both is `3` and therefore `24px`.
 
 <Canvas>
-  <Story name="different spacing">
-    <Hr mt={7} mb={7} />
-  </Story>
+  <Story name="different spacing" story={stories.DifferentSpacing} />
 </Canvas>
 
 ### Inside a form
 
 <Canvas>
-  <Story name="Inside a form">
-    <Form
-      onSubmit={() => console.log("submit")}
-      leftSideButtons={
-        <Button onClick={() => console.log("cancel")}>Cancel</Button>
-      }
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      stickyFooter={false}
-    >
-      <Textbox label="Textbox" />
-      <Textbox label="Textbox" />
-      <Hr mb={7} mt={7} />
-      <Textbox label="Textbox" />
-    </Form>
-  </Story>
+  <Story name="Inside a form" story={stories.InsideForm} />
 </Canvas>
 
 ### Inside a form with inline labels
 
 <Canvas>
-  <Story name="Inside a form with inline labels">
-    <Form
-      onSubmit={() => console.log("submit")}
-      leftSideButtons={
-        <Button onClick={() => console.log("cancel")}>Cancel</Button>
-      }
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      stickyFooter={false}
-    >
-      <Textbox
-        label="Textbox"
-        labeAlign="right"
-        labelInline
-        labelWidth={10}
-        inputWidth={50}
-      />
-      <Textbox
-        label="Textbox"
-        labeAlign="right"
-        labelInline
-        labelWidth={10}
-        inputWidth={50}
-      />
-      <Hr mb={7} mt={7} ml="10%" mr="40%" />
-      <Textbox
-        label="Textbox"
-        labeAlign="right"
-        labelInline
-        labelWidth={10}
-        inputWidth={50}
-      />
-    </Form>
-  </Story>
+  <Story name="Inside a form with inline labels" story={stories.InsideFormInlineLabels} />
 </Canvas>
 
 ### Enabling the adaptive behaviour
@@ -122,10 +64,8 @@ The left and right margins can be set to 0 below a screen width breakpoint. This
 <Canvas>
   <Story
     name="Enabling adaptive behaviour"
-    parameters={{ chromatic: { disableSnapshot: true } }}
-  >
-    <Hr mb={7} mt={7} ml="10%" mr="40%" adaptiveMxBreakpoint={960} />
-  </Story>
+    story={stories.EnablingAdaptiveBehaviour}
+  />
 </Canvas>
 
 ## Props

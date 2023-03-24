@@ -1,24 +1,21 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { ArgsTable as Props } from "@storybook/addon-docs";
 
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import PopoverContainer, {
   renderOpen,
   renderClose,
 } from "./popover-container.component";
-import { DraggableContainer, DraggableItem } from "../draggable";
-import { Checkbox } from "../checkbox";
-import ButtonToggle from "../button-toggle";
-import { useState } from "react";
-import Button from "../button";
-import Link from "../link";
-import Pill from "../pill";
-import Badge from "../badge";
-import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import isChromatic from "../../../.storybook/isChromatic";
 
-export const defaultOpenState = isChromatic();
+import * as stories from "./popover-container.stories";
 
-<Meta title="Popover Container" />
+<Meta
+  title="Popover Container"
+  parameters={{
+    info: { disable: true },
+  }}
+/>
 
 # Popover Container
 
@@ -39,16 +36,10 @@ import PopoverContainer from "carbon-react/lib/components/popover-container";
 ### Default
 
 <Canvas>
-  <Story name="default" parameters={{ info: { disable: true } }}>
-    <div style={{ height: 100 }}>
-      <PopoverContainer
-        containerAriaLabel="popover-container"
-        openButtonAriaLabel="open"
-      >
-        Contents
-      </PopoverContainer>
-    </div>
-  </Story>
+  <Story
+    name="default"
+    story={stories.Default}
+  />
 </Canvas>
 
 ### With title
@@ -58,25 +49,7 @@ Use the `title` prop to set a title within the `PopoverContainer`.
 **Please note you should supply an `onClose` when controlling the `open` state in order for the `PopoverContainer` to close when clicking outside of the wrapper element**
 
 <Canvas>
-  <Story name="title" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [open, setOpen] = useState(defaultOpenState);
-      const onOpen = () => setOpen(true);
-      const onClose = () => setOpen(false);
-      return (
-        <div style={{ height: 100 }}>
-          <PopoverContainer
-            title="With a title"
-            open={open}
-            onClose={onClose}
-            onOpen={onOpen}
-          >
-            Contents
-          </PopoverContainer>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="title" story={stories.Title} />
 </Canvas>
 
 ### Right Aligned/Open Left
@@ -87,26 +60,7 @@ of the screen.
 **Please note you should supply an `onClose` when controlling the `open` state in order for the `PopoverContainer` to close when clicking outside of the wrapper element**
 
 <Canvas>
-  <Story name="position" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [open, setOpen] = useState(defaultOpenState);
-      const onOpen = () => setOpen(true);
-      const onClose = () => setOpen(false);
-      return (
-        <div style={{ height: 150, float: "right", clear: "right" }}>
-          <PopoverContainer
-            title="Right Aligned"
-            position="left"
-            open={open}
-            onClose={onClose}
-            onOpen={onOpen}
-          >
-            Contents
-          </PopoverContainer>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="position" story={stories.Position} />
 </Canvas>
 
 ### Cover Button
@@ -116,26 +70,7 @@ Use the `shouldCoverButton` prop to hide the open button when the `PopoverContai
 **Please note you should supply an `onClose` when controlling the `open` state in order for the `PopoverContainer` to close when clicking outside of the wrapper element**
 
 <Canvas>
-  <Story name="cover button" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [open, setOpen] = useState(defaultOpenState);
-      const onOpen = () => setOpen(true);
-      const onClose = () => setOpen(false);
-      return (
-        <div style={{ height: 100 }}>
-          <PopoverContainer
-            title="Cover Button"
-            shouldCoverButton
-            open={open}
-            onClose={onClose}
-            onOpen={onOpen}
-          >
-            Contents
-          </PopoverContainer>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="cover button" story={stories.CoverButton} />
 </Canvas>
 
 ### Custom Open/Close Button
@@ -153,58 +88,7 @@ These props use a render prop pattern - https://reactjs.org/docs/render-props.ht
 <Props of={renderClose} />
 
 <Canvas>
-  <Story name="render props" parameters={{ info: { disable: true } }}>
-    <div style={{ height: 250 }}>
-      <PopoverContainer
-        title="Custom Open &amp; Close Button"
-        renderOpenComponent={({
-          tabIndex,
-          isOpen,
-          "data-element": dataElement,
-          onClick,
-          ref,
-          "aria-label": ariaLabel,
-          id,
-          "aria-expanded": ariaExpanded,
-          "aria-haspopup": ariaHasPopup,
-        }) => (
-          <Button
-            iconType={!isOpen ? "filter_new" : "close"}
-            iconPosition="after"
-            tabIndex={tabIndex}
-            data-element={dataElement}
-            aria-label={ariaLabel}
-            aria-haspopup={ariaHasPopup}
-            aria-expanded={ariaExpanded}
-            forwardRef={ref}
-            id={id}
-            onClick={onClick}
-          >
-            Filter
-          </Button>
-        )}
-        renderCloseComponent={({
-          "data-element": dataElement,
-          tabIndex,
-          onClick,
-          ref,
-          "aria-label": ariaLabel,
-        }) => (
-          <Button
-            tabIndex={tabIndex}
-            data-element={dataElement}
-            aria-label={ariaLabel}
-            forwardRef={ref}
-            onClick={onClick}
-          >
-            Close
-          </Button>
-        )}
-      >
-        Content
-      </PopoverContainer>
-    </div>
-  </Story>
+  <Story name="render props" story={stories.RenderProps} />
 </Canvas>
 
 ### Controlled
@@ -214,30 +98,7 @@ You can use the `open`, `onOpen` and `onClose` props to control the open state o
 **Please note you should supply an `onClose` when controlling the `open` state in order for the `PopoverContainer` to close when clicking outside of the wrapper element**
 
 <Canvas>
-  <Story name="controlled" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [open, setOpen] = useState(false);
-      const onOpen = () => setOpen(true);
-      const onClose = () => setOpen(false);
-      return (
-        <div style={{ height: 150 }}>
-          <Button onClick={onOpen}>Open Popover</Button>
-          <Button onClick={onClose} ml={2}>
-            Close Popover
-          </Button>
-          <br />
-          <PopoverContainer
-            title="Controlled"
-            open={open}
-            onOpen={onOpen}
-            onClose={onClose}
-          >
-            Contents
-          </PopoverContainer>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="controlled" story={stories.Controlled} />
 </Canvas>
 
 ### Complex content
@@ -247,43 +108,7 @@ You can easily use many different components to create your own composition.
 **Please note you should supply an `onClose` when controlling the `open` state in order for the `PopoverContainer` to close when clicking outside of the wrapper element**
 
 <Canvas>
-  <Story name="complex" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [open, setOpen] = useState(defaultOpenState);
-      const onOpen = () => setOpen(true);
-      const onClose = () => setOpen(false);
-      return (
-        <div style={{ height: 330 }}>
-          <PopoverContainer
-            title="Popover Container Title"
-            open={open}
-            onOpen={onOpen}
-            onClose={onClose}
-          >
-            <Link>This is example link text</Link>
-            <div style={{ padding: "25px 0 15px 0" }}>
-              <Button>Small</Button>
-              <Button ml={2}>Compact</Button>
-            </div>
-            <DraggableContainer>
-              <DraggableItem key="1" id={1}>
-                <Checkbox name="one" label="Draggable Label One" />
-              </DraggableItem>
-              <DraggableItem key="2" id={2}>
-                <Checkbox name="two" label="Draggable Label Two" />
-              </DraggableItem>
-              <DraggableItem key="3" id={3}>
-                <Checkbox name="three" label="Draggable Label Three" />
-              </DraggableItem>
-              <DraggableItem key="4" id={4}>
-                <Checkbox name="four" label="Draggable Label Four" />
-              </DraggableItem>
-            </DraggableContainer>
-          </PopoverContainer>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="complex" story={stories.Complex} />
 </Canvas>
 
 ### Filter component
@@ -294,114 +119,7 @@ You can do it easly in this way:
 **Please note you should supply an `onClose` when controlling the `open` state in order for the `PopoverContainer` to close when clicking outside of the wrapper element**
 
 <Canvas>
-  <Story name="filter" parameters={{ info: { disable: true } }}>
-    {() => {
-      const initValues = [
-        { value: "Option 1", checked: false },
-        { value: "Option 2", checked: false },
-        { value: "Option 3", checked: false },
-      ];
-      const [open, setOpen] = useState(false);
-      const [options, setOptions] = useState(initValues);
-      const [filters, setFilters] = useState([]);
-      const clearAllOptions = () => {
-        const temps = options;
-        for (let i = 0; i < temps.length; i++) {
-          temps[i].checked = false;
-        }
-        setOptions([...temps]);
-      };
-      const clearFilters = () => setFilters([]);
-      const updateCheckValue = (e) => {
-        const temps = options;
-        const findCorrectIndex = temps.findIndex(
-          (item) => item.value === e.target.value
-        );
-        if (findCorrectIndex !== -1) {
-          temps[findCorrectIndex].checked = !temps[findCorrectIndex].checked;
-          setOptions([...temps]);
-        }
-      };
-      const updateFilters = () =>
-        setFilters(options.filter((filter) => filter.checked === true));
-      const handleBadgeClose = () => {
-        clearAllOptions();
-        clearFilters();
-      };
-      const applyFilters = () => {
-        updateFilters();
-        setOpen(false);
-      };
-      const onOpen = () => {
-        setOpen(true);
-      };
-      const onClose = () => {
-        setOpen(false);
-      };
-      const renderCheckboxes = () => {
-        const checkboxStyle = {
-          marginBottom: "10px",
-        };
-        return options.map((option) => {
-          return (
-            <Checkbox
-              onChange={updateCheckValue}
-              style={checkboxStyle}
-              label={option.value}
-              name={option.value}
-              value={option.value}
-              checked={option.checked}
-              key={option.value}
-            />
-          );
-        });
-      };
-      const renderPills = () => {
-        const pillStyle = {
-          margin: "0 8px",
-        };
-        return filters.map((filter, index) => {
-          return filter.checked ? (
-            <Pill key={index} style={pillStyle}>
-              {filter.value}
-            </Pill>
-          ) : null;
-        });
-      };
-      return (
-        <div style={{ height: 280 }}>
-          <PopoverContainer
-            title="How to create Filter component"
-            open={open}
-            onOpen={onOpen}
-            onClose={onClose}
-            renderOpenComponent={({ isOpen, ref, ...rest }) => (
-              <Badge counter={filters.length} onClick={handleBadgeClose}>
-                <Button
-                  style={{ marginRight: 0 }}
-                  buttonType={isOpen ? "primary" : "darkBackground"}
-                  iconPosition="after"
-                  iconType={!isOpen ? "filter_new" : "close"}
-                  size="small"
-                  forwardRef={ref}
-                  {...rest}
-                >
-                  Filter
-                </Button>
-              </Badge>
-            )}
-            renderCloseComponent={() => {}}
-          >
-            {renderCheckboxes()}
-            <Button onClick={applyFilters} style={{ margin: "20px 0" }}>
-              Apply
-            </Button>
-          </PopoverContainer>
-          {renderPills()}
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="filter" story={stories.Filter} />
 </Canvas>
 
 ## Props

@@ -4,6 +4,8 @@ import Badge from ".";
 import Box from "../box";
 import Button from "../button";
 
+import * as stories from "./badge.stories";
+
 <Meta title="Badge" parameters={{ info: { disable: true } }} />
 
 # Badge
@@ -37,15 +39,7 @@ import Badge from "carbon-react/lib/components/badge";
 ### Default Badge
 
 <Canvas>
-  <Story name="default">
-    <Box margin="40px">
-      <Badge counter={9} onClick={()=>{}}>
-        <Button style={{ marginRight: 0 }} buttonType="tertiary">
-          Filter
-        </Button>
-      </Badge>
-    </Box>
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Badge with counter > 99
@@ -53,15 +47,7 @@ import Badge from "carbon-react/lib/components/badge";
 Badge doesn't support more than 2 digits
 
 <Canvas>
-  <Story name="with 3 digits">
-    <Box margin="40px">
-      <Badge counter={130} onClick={()=>{}}>
-        <Button style={{ marginRight: 0 }} buttonType="tertiary">
-          Filter
-        </Button>
-      </Badge>
-    </Box>
-  </Story>
+  <Story name="with 3 digits" story={stories.WithThreeDigits} />
 </Canvas>
 
 ### Badge with counter 0
@@ -69,13 +55,7 @@ Badge doesn't support more than 2 digits
 If the counter is less than 1 badge will not show itself
 
 <Canvas>
-  <Story name="with counter 0">
-    <Box margin="40px">
-      <Badge counter={0} onClick={()=>{}}>
-        <Button buttonType="tertiary">Filter</Button>
-      </Badge>
-    </Box>
-  </Story>
+  <Story name="with counter 0" story={stories.WithCounterZero} />
 </Canvas>
 
 ### Display Only
@@ -84,15 +64,7 @@ To acheive a `display only` version of this component, you can simply not pass a
 the component will render as a `span`.
 
 <Canvas>
-  <Story name="display only">
-    <Box margin="40px">
-      <Badge counter={9} aria-label="The counter is currently displaying 9">
-        <Button style={{ marginRight: 0 }} buttonType="tertiary">
-          Filter
-        </Button>
-      </Badge>
-    </Box>
-  </Story>
+  <Story name="display only" story={stories.DisplayOnly} />
 </Canvas>
 
 ## Props
