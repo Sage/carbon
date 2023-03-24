@@ -1,3 +1,10 @@
+## [116.2.0](https://github.com/Sage/carbon/compare/v116.1.3...v116.2.0) (2023-03-24)
+
+
+### Features
+
+* **accordion:** allow buttonWidth to accept string values ([34aa10c](https://github.com/Sage/carbon/commit/34aa10c46af31aea3d9d81d081362d18e2127833)), closes [#5897](https://github.com/Sage/carbon/issues/5897)
+
 ### [116.1.3](https://github.com/Sage/carbon/compare/v116.1.2...v116.1.3) (2023-03-23)
 
 
